@@ -48,10 +48,9 @@
             @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
             :data-print-style="`width:${col.printWidth}px`"
           >
-            <div class="cell" v-if="col.render" v-html="col.render(row)" :data-print-style="`width:${col.printWidth}px`"/>
+            <div class="cell" v-if="col.render" v-html="col.render(row)"/>
             <label v-else-if="col.editable">
               <el-input
-                :data-print-style="`width:${col.printWidth}px`"
                 autosize
                 class="textarea"
                 type="textarea"
@@ -61,7 +60,7 @@
                 @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
               />
             </label>
-            <div class="cell" v-else :data-print-style="`width:${col.printWidth}px`">{{row[col.prop]}}</div>
+            <div class="cell" v-else >{{row[col.prop]}}</div>
           </td>
         </tr>
         <slot></slot>
@@ -132,7 +131,7 @@ export default {
           columns.push(col);
         }
       }
-
+      console.log(columns);
       return columns;
     }
   },

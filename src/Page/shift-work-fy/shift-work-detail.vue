@@ -292,7 +292,8 @@ export default {
               width: "80",
               printWidth:"50",
             },
-          ]
+          ],
+          printWidth:"200",
         },
         {
           label: "Situation：状态",
@@ -304,7 +305,8 @@ export default {
               width: "165",
               printWidth:"350",
             }
-          ]
+          ],
+          printWidth:"370",
         },
         {
           label: "Background:背景",
@@ -314,9 +316,10 @@ export default {
               prop: "background",
               editable: true,
               width: "70",
-              printWidth:"40",
+              printWidth:"70",
             }
-          ]
+          ],
+          printWidth:"90",
         },
         {
           label: "Assessment:评估",
@@ -328,7 +331,8 @@ export default {
               width: "110",
               printWidth:"380",
             }
-          ]
+          ],
+          printWidth:"400",
         },
         {
           label: "Recommendation：<br>建议",
@@ -347,7 +351,8 @@ export default {
               width: "40",
               printWidth:"40",
             }
-          ]
+          ],
+          printWidth:"120",
         }
       ],
       fixedTh: false
