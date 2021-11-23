@@ -12,6 +12,9 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 #sheetPagePrint {
+  *{
+    pointer-events: none;
+  }
   overflow: hidden;
 
   .contant {
@@ -332,6 +335,20 @@ export default {
         @media print {
           .body-con{
             height: 35px !important;
+          }
+        }
+        `
+      );
+    }
+    if ( (this.HOSPITAL_ID === "wujing") &&
+      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .body-con{
+            height: 30px !important;
           }
         }
         `

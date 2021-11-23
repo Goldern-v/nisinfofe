@@ -185,7 +185,8 @@ export default [{
       bottom: "1px",
       left: "1px",
       width: "360px",
-      background: "transparent"
+      background: "transparent",
+      fontSize:"12px"
     },
     event: function (e, td) {
       console.log(e.keyCode);

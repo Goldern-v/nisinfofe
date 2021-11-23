@@ -2,34 +2,34 @@
   <div>
     <table class="table fixed-th" v-if="fixedTh">
       <colgroup>
-        <col v-for="col of realColumns" :key="col.label" :width="col.width">
+        <col v-for="col of realColumns" :key="col.label" :width="col.width" :data-print-style="`width:${col.printWidth}px`">
       </colgroup>
       <thead>
         <tr>
-          <th v-for="col of columns" :key="col.label" :colspan="getColSpan(col)">
-            <div class="cell" v-html="col.label" />
+          <th v-for="col of columns" :key="col.label" :colspan="getColSpan(col)" :data-print-style="`width:${col.printWidth}px`">
+            <div class="cell" v-html="col.label" :data-print-style="`width:${col.printWidth}px`"/>
           </th>
         </tr>
         <tr v-if="isMultiCol">
-          <th v-for="col of realColumns" :key="col.label">
-            <div class="cell" v-html="col.label" />
+          <th v-for="col of realColumns" :key="col.label" :data-print-style="`width:${col.printWidth}px`">
+            <div class="cell" v-html="col.label" :data-print-style="`width:${col.printWidth}px`"/>
           </th>
         </tr>
       </thead>
     </table>
     <table class="table" ref="table">
       <colgroup>
-        <col v-for="col of realColumns" :key="col.label" :width="col.width">
+        <col v-for="col of realColumns" :key="col.label" :width="col.width" :data-print-style="`width:${col.printWidth}px`">
       </colgroup>
       <thead>
         <tr>
-          <th v-for="col of columns" :key="col.label" :colspan="getColSpan(col)">
-            <div class="cell" v-html="col.label" />
+          <th v-for="col of columns" :key="col.label" :colspan="getColSpan(col)" :data-print-style="`width:${col.printWidth}px`">
+            <div class="cell" v-html="col.label" :data-print-style="`width:${col.printWidth}px`"/>
           </th>
         </tr>
         <tr v-if="isMultiCol">
-          <th v-for="col of realColumns" :key="col.label">
-            <div class="cell" v-html="col.label" />
+          <th v-for="col of realColumns" :key="col.label" :data-print-style="`width:${col.printWidth}px`">
+            <div class="cell" v-html="col.label" :data-print-style="`width:${col.printWidth}px`"/>
           </th>
         </tr>
       </thead>
@@ -46,6 +46,7 @@
             :style="{'text-align': col.align || 'left'}"
             @dblclick="onDblClick({row, rowIndex, col, colIndex})"
             @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
+            :data-print-style="`width:${col.printWidth}px`"
           >
             <div class="cell" v-if="col.render" v-html="col.render(row)"/>
             <label v-else-if="col.editable">
@@ -59,7 +60,7 @@
                 @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
               />
             </label>
-            <div class="cell" v-else>{{row[col.prop]}}</div>
+            <div class="cell" v-else >{{row[col.prop]}}</div>
           </td>
         </tr>
         <slot></slot>
@@ -130,7 +131,7 @@ export default {
           columns.push(col);
         }
       }
-
+      console.log(columns);
       return columns;
     }
   },

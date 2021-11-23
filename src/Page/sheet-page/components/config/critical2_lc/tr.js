@@ -212,18 +212,18 @@ import {
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "280px",
+      width: "300px",
       background: "transparent",
       fontSize: "12px"
     },
-    // event: function (e, td) {
-    //   console.log(e.keyCode);
-    //   if (e.keyCode == 9) {
-    //     td.value = "    " + td.value;
-    //     e.preventDefault();
-    //   }
-    //   keyf1(e, td);
-    // }
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
     // oninput: next
   },
   {

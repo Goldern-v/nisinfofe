@@ -1127,11 +1127,14 @@ export default {
     },
     // 处理特殊字符转换函数
     htmlEscape(str) {
+      let reg = new RegExp(/&#44;/g)
+      console.log(str);
       return String(str)
         .replace(/&amp;/g, "&")
         .replace(/&quot;/g, '"')
         .replace(/&#39;/g, "'")
         .replace(/&lt;/g, "<")
+        .replace(/&nbsp;/g, " ")
         .replace(/&gt;/g, ">");
     },
     /**
@@ -1215,6 +1218,7 @@ export default {
       for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
         const isContinue = isSpecialLabel && i <= index + 11;
+        // 字符为 ，。；,.：:
         if (
           charCode == "65292" ||
           charCode == "12290" ||
@@ -1222,6 +1226,8 @@ export default {
           charCode == "44" ||
           charCode == "46" ||
           charCode == "65306" ||
+          charCode == "109" ||
+          charCode == "103" ||
           charCode == "58" ||
           isContinue
         ) {
