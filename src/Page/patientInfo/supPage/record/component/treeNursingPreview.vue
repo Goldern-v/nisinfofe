@@ -35,7 +35,7 @@
         </div>
       </div>
       <!-- <div v-if="HOSPITAL_ID=='guizhou'"> -->
-      <div v-if="['guizhou','hengli'].includes(HOSPITAL_ID)">
+      <div v-if="showBloodSugar.includes(HOSPITAL_ID)">
         <div @click="setItemShow('four')" class="title">血糖</div>
         <div v-if="isShowObj.four" @click="showForm('bloodSugar')" class='fromCss'>
           <img src='@/common/images/record/文件.png' class="img"/>
@@ -206,7 +206,8 @@ export default {
         four:false
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
-      nursingPreviewIsShow: true //南医三嘉禾展示去除头部按钮 -true展示  false去除
+      nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
+      showBloodSugar:['guizhou','hengli'] // 是否开放血糖模块
     };
   },
   computed: {
