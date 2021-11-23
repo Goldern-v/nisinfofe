@@ -259,13 +259,15 @@ export default {
               prop: "bedLabel",
               editable: true,
               align: "center",
-              width: "35"
+              width: "35",
+              printWidth:"35",
             },
             {
               label: "姓名",
               prop: "name",
               editable: true,
               width: "53",
+              printWidth:"53",
               // render: row => {
               //   const status = row.patientStatus
               //     ? `(${row.patientStatus})`
@@ -280,13 +282,15 @@ export default {
               prop: "age",
               editable: true,
               align: "center",
-              width: "35"
+              width: "35",
+              printWidth:"35",
             },
             {
               label: "诊断",
               prop: "diagnosis",
               editable: true,
-              width: "80"
+              width: "80",
+              printWidth:"50",
             },
           ]
         },
@@ -297,7 +301,8 @@ export default {
               label: "症状",
               prop: "symptom",
               editable: true,
-              width: "165"
+              width: "165",
+              printWidth:"350",
             }
           ]
         },
@@ -308,7 +313,8 @@ export default {
               label: "既往史，过敏史，<br>特殊病史",
               prop: "background",
               editable: true,
-              width: "70"
+              width: "70",
+              printWidth:"40",
             }
           ]
         },
@@ -319,7 +325,8 @@ export default {
               label: "检验检查，<br>主要问题",
               prop: "checkInspection",
               editable: true,
-              width: "110"
+              width: "110",
+              printWidth:"380",
             }
           ]
         },
@@ -330,13 +337,15 @@ export default {
               label: "治疗、护理",
               prop: "cure",
               editable: true,
-              width: "60"
+              width: "60",
+              printWidth:"60",
             },
             {
               label: "隔离",
               prop: "diet",
               editable: true,
-              width: "40"
+              width: "40",
+              printWidth:"40",
             }
           ]
         }
@@ -884,14 +893,21 @@ export default {
           injectGlobalCss: true,
           scanStyles: false,
           css: `
-        .fixedTh {
-          display: none !important;
-          height: auto;
-        }
-        pre {
-          white-space: pre-wrap;
-        }
-        `
+            @page{
+              margin-top:20mm;
+              margin-bottom:10mm;
+            }
+            @page:first{
+              margin-top:0;
+            }
+            .fixedTh {
+              display: none !important;
+              height: auto;
+            }
+            pre {
+              white-space: pre-wrap;
+            }
+          `
         });
       });
       this.loading = false;
