@@ -572,7 +572,7 @@ switch (trage) {
     validFormFc(vitalSignObj,index){
       console.log(vitalSignObj)
         let val=vitalSignObj.vitalValue
-      if(vitalSignObj.popVisible===true&&val!==""&&['体温','脉搏','心率','呼吸','血压'].includes(vitalSignObj.vitalSigns)){
+      if(vitalSignObj.popVisible===true&&val!==""&&['体温','脉搏','心率','呼吸'].includes(vitalSignObj.vitalSigns)){
      //验证表单
       if (validForm.valid(this.setValid(vitalSignObj.vitalSigns,val))) {
         document.getElementById(index).style.border=""

@@ -1134,6 +1134,7 @@ export default {
         .replace(/&quot;/g, '"')
         .replace(/&#39;/g, "'")
         .replace(/&lt;/g, "<")
+        .replace(/&nbsp;/g, " ")
         .replace(/&gt;/g, ">");
     },
     /**
@@ -1201,7 +1202,6 @@ export default {
       let result = [];
       let text = "";
       // 处理特殊字符 标签
-      console.log(this.doc);
       const doc = this.htmlEscape(this.doc);
       let allDoc = this.setLabelData(doc);
       // 首行缩进效果
