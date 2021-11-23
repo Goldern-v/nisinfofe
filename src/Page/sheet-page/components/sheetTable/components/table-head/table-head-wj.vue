@@ -61,7 +61,7 @@
           />
         </span>
       </div>
-      <div class="info-con" flex="main:justify" >
+      <div class="info-con">
         <span
           @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
         >
@@ -157,7 +157,7 @@
       </span>
       <!-- {{index}} {{relObj}} -->
       </div>
-      <div class="info-con" flex="main:justify">
+      <div class="info-con">
        <span
         @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
       >
