@@ -69,6 +69,7 @@
             @dblclick="onDblClickRow"
             @input-change="onTableInputChange"
             @input-keydown="onTableInputKeydown"
+            :isprint='isprint'
           >
             <tr class="empty-row" v-if="!patients.length">
               <td :colspan="tableData.totalColNum || 12" style="padding: 0">
@@ -306,6 +307,7 @@ export default {
       tableData,
       fixedTh: false,
       headerData: [],
+      isprint: false
     };
   },
   computed: {
@@ -837,7 +839,11 @@ export default {
     async onPrint() {
       this.loading = true;
       this.fixedTh = false;
+      if (this.HOSPITAL_ID === 'lingcheng') {
+        this.isprint = true;
+      }
       this.$nextTick(async () => {
+
         await print(this.$refs.printable, {
           beforePrint: formatter,
           direction: "horizontal",
@@ -848,7 +854,7 @@ export default {
           display: none !important;
         }
         tbody pre {
-           white-space: pre-wrap;
+          white-space: pre-wrap;
         }
         th pre {
           display:inline-block !important;
@@ -861,8 +867,9 @@ export default {
         }
         `,
         });
+        this.loading = false;
+        this.isprint = false;
       });
-      this.loading = false;
     },
     onTableInputChange({ prop, row }) {
       this.modified = true;
@@ -1114,7 +1121,6 @@ export default {
     padding-top: 40px !important;
   }
 }
-
 @page {
   margin: 0 10mm;
 }
