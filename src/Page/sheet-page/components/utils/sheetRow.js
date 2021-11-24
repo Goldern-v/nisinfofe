@@ -31,7 +31,7 @@ export function getRowNum(index) {
     return 15;
   } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc") {
     return 28;
-  } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj") {
+  } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj" || sheetInfo.sheetType == "iabp_fs") {
     return 33;
   } else if (sheetInfo.sheetType == "icu_lc") {
     return 22;
