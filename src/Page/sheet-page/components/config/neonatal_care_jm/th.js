@@ -16,7 +16,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1130px"
+    width: "1200px"
   },
   th: {
     top: [
@@ -242,7 +242,7 @@ export default {
         }
       },
       {
-        name: `血糖<br>mmol/L`,
+        name: `血糖<br/>mmol<br/>/L`,
         colspan: '1',
         rowspan: '3',
         style: {

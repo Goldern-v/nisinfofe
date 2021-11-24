@@ -28,7 +28,7 @@
             <!-- <input class="date" type="text" name="" id="" :value="data['教育时间']"> -->
           </td>
           <!-- 宣教内容 -->
-          <td :class="['contentLeft', {'isPrint': !isPrint}]" @click="healthContent($event, data)">
+          <td :class="['contentLeft', {'isPrint': !beihaiisPrint}]" @click="healthContent($event, data)">
             <span>{{data['宣教内容']}}</span>
           </td>
           <!-- 教育对象 -->
@@ -66,7 +66,7 @@
     <div class="health-table-page">{{`第${index + 1}/${page}页`}}</div>
     <!-- 宣教内容弹窗 -->
     <healthContentModal ref="healthContentModal" :content="content" :name="name" />
-    <lcHealthContentModal ref="lcHealthContentModal" :data="data" :content="content" :name="name" />
+    <!-- <lcHealthContentModal ref="lcHealthContentModal" :data="data" :content="content" :name="name" /> -->
   </div>
 </template>
 
@@ -102,7 +102,7 @@ export default {
       name: "",
       contentData: "",
       isContent: false,
-      isPrint: false,
+      beihaiisPrint: false,
       theadData: [
         [
           { rowspan: 2, text: "教育时间", width: 80 },
@@ -154,7 +154,7 @@ export default {
 
     // 打印
     print() {
-      this.isPrint = true;
+      this.beihaiisPrint = true;
     },
 
     // 初始化默认值
