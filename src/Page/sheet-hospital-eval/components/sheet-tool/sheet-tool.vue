@@ -301,10 +301,6 @@ export default {
       formId: "",
       // sheetModel,
       // sheetInfo,
-      currentFormConfig: {
-        patient: new Object(),
-        formObj: new Object(),
-      },
       selectBlock: {},
       sheetBlockList: [],
       buttonsLeft: [
@@ -327,6 +323,10 @@ export default {
           onClick: (e) => {
             this.formSave();
             console.log("提交", this.user, this.formObj);
+                this.changeSelectBlock(this.selectBlock);
+                this.selectBlock.status = "1";
+                this.$message.success("签名成功");
+        
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
@@ -344,7 +344,7 @@ export default {
             //
             window.openSignModal((password, empNo) => {
               let post = {
-                id: window.formObj.model.id,
+                id: this.formObj.formObj.patientId != '' ? this.formObj.formObj.id : window.formObj.formObj.id,
                 empNo,
                 password,
               };
@@ -716,16 +716,13 @@ export default {
         };
         console.log(window.formObj.model,'window.formObj.model');
 
-        this.currentFormConfig = {
-            formObj: window.formObj.model,
-            isDevMode: false,
-        };
-
 
         this.formObj.model.formCode = this.formCode;
-        if(this.formObj.model.patientId == ''){
+        if(this.formObj.model.patientId !== ''){
+          console.log('this');
           post = Object.assign({}, this.formObj.model, post);
         }else{
+          console.log('window');
           post = Object.assign({}, window.formObj.model, post);
         }
 
@@ -757,8 +754,10 @@ export default {
             // 更新住院单
             // this.reloadForm()
             this.$store.commit("upPatientInfo", window.formObj.model);
-            window.formTool.fillForm();
-            // this.bus.$emit("refresh",false)
+            try {
+              window.formTool.fillForm();
+            } catch (error) {}
+
             //
             // if (showMeasure) {
             //   this.showMeasureDetialBox(res);
@@ -975,7 +974,7 @@ export default {
       formSave: this.formSave,
       formCheckEvalTask: this.formCheckEvalTask,
       // formDelete: this.formDelete,
-      // reloadForm: this.reloadForm
+      reloadForm: this.reloadForm
     };
     window.formTool = tool;
     //
