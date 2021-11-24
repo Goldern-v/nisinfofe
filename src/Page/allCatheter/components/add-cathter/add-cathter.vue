@@ -92,7 +92,7 @@
     }
 </style>
 <script>
-import {getCatheterTemplate} from "../../api/catheter"
+import {getCatheterTemplate} from "@/page/allCatheter/api/catheter"
 export default {
 props: {},
 data() {

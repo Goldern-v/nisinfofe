@@ -138,6 +138,10 @@ export default [
   next: "",
   autoComplete: {
     data: jzlList
+  },
+  change: (e, td) => limitChange(e, td, 10),
+  textarea: {
+    width: 60
   }
 },
 {
@@ -187,7 +191,7 @@ export default [
   next: "ml",
   event: keyf1,
   textarea: {
-    width: 30
+    width: 50
   }
 },
 {

@@ -29,23 +29,14 @@
               @keyup="timeKey($event, staticObj, 'recordHour')"
             />
           </div>
-          <!-- 后端修改后删除 -->
           <div
-            style="margin-left: 10px"
-            v-if="
-              (HOSPITAL_ID === 'huadu' &&
-                sheetInfo.sheetType !== 'body_temperature_Hd') ||
-              HOSPITAL_ID === 'zhongshanqi'
-            "
-          >
-          <!-- <div
             style="margin-left: 10px"
             v-if="
               (HOSPITAL_ID === 'huadu' &&
               sheetInfo.sheetType !== 'body_temperature_Hd') ||
               HOSPITAL_ID === 'zhongshanqi'||HOSPITAL_ID === 'beihairenyi'&&sheetInfo.sheetType!=='infant_bh'
             "
-          > -->
+          >
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
@@ -390,17 +381,7 @@
                 :style="item.isWrap && { 'min-width': '50%' }"
               >
                 <div class="input-cell" flex="cross:center">
-                  <!-- 后端修改后删除 -->
                   <el-checkbox
-                    v-model="vitalSignKeys[item.name].check"
-                    v-if="
-                      (HOSPITAL_ID === 'huadu' &&
-                        sheetInfo.sheetType !== 'body_temperature_Hd' &&
-                        Object.keys(vitalSignKeys).includes(item.name)) ||
-                      (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')
-                    "
-                  ></el-checkbox>
-                  <!-- <el-checkbox
                     v-model="vitalSignKeys[item.name].check"
                     v-if="
                       (HOSPITAL_ID === 'huadu' &&
@@ -408,7 +389,7 @@
                         Object.keys(vitalSignKeys).includes(item.name)) ||
                       (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')||HOSPITAL_ID === 'beihairenyi'&&beihaiList.indexOf(item.name)>-1
                     "
-                  ></el-checkbox> -->
+                  ></el-checkbox>
                   <div class="label" style="min-width: 70px">
                     {{ item.name || key }}：
                   </div>
@@ -877,7 +858,7 @@ export default {
         list: [],
       },
       multiDictList: [],
-      // beihaiList:["体温","脉搏","呼吸","血压","心率"]
+      beihaiList:["体温","脉搏","呼吸","血压","心率"]
     };
   },
   computed: {
@@ -1012,30 +993,29 @@ export default {
           units: obj.unit,
         });
       });
-      // 后端修改后开放
-      // if(this.HOSPITAL_ID==='beihairenyi'&&this.vitalSignKeys["体温"].check&&this.isSyncTemp){
-      //   vitalTemp.push({
-      //      classCode: "A",
-      //      optionType: "",
-      //      selectType: "",
-      //      showType: "0",
-      //      timePointType: "",
-      //      unit: "℃",
-      //      unitVitalCode: "",
-      //      vitalCode: "042",
-      //      vitalSign: "腋表",
-      //      vitalSignType: "",
-      //      vitalType: "1"
-      //    })
-      //  this.vitalSignList.list.push({
-      //     ...vitalSignObj,
-      //     vitalSigns: "腋表",
-      //     vitalSignsValue: this.fixedList['temperature'].value,
-      //     classCode: "A",
-      //     vitalCode: "042",
-      //     units: "℃",
-      //   });
-      // }
+      if(this.HOSPITAL_ID==='beihairenyi'&&this.vitalSignKeys["体温"].check&&this.isSyncTemp){
+        vitalTemp.push({
+           classCode: "A",
+           optionType: "",
+           selectType: "",
+           showType: "0",
+           timePointType: "",
+           unit: "℃",
+           unitVitalCode: "",
+           vitalCode: "042",
+           vitalSign: "腋表",
+           vitalSignType: "",
+           vitalType: "1"
+         })
+       this.vitalSignList.list.push({
+          ...vitalSignObj,
+          vitalSigns: "腋表",
+          vitalSignsValue: this.fixedList['temperature'].value,
+          classCode: "A",
+          vitalCode: "042",
+          units: "℃",
+        });
+      }
     },
     /* 获取字典表，整理某一行的同步信息 */
     getVitalList() {
@@ -1147,11 +1127,14 @@ export default {
     },
     // 处理特殊字符转换函数
     htmlEscape(str) {
+      let reg = new RegExp(/&#44;/g)
+      console.log(str);
       return String(str)
         .replace(/&amp;/g, "&")
         .replace(/&quot;/g, '"')
         .replace(/&#39;/g, "'")
         .replace(/&lt;/g, "<")
+        .replace(/&nbsp;/g, " ")
         .replace(/&gt;/g, ">");
     },
     /**
@@ -1235,6 +1218,7 @@ export default {
       for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
         const isContinue = isSpecialLabel && i <= index + 11;
+        // 字符为 ，。；,.：:
         if (
           charCode == "65292" ||
           charCode == "12290" ||
@@ -1242,6 +1226,8 @@ export default {
           charCode == "44" ||
           charCode == "46" ||
           charCode == "65306" ||
+          charCode == "109" ||
+          charCode == "103" ||
           charCode == "58" ||
           isContinue
         ) {
@@ -1459,13 +1445,9 @@ export default {
         }
       }
       if (
-        // 后端修改后开放
-         (this.HOSPITAL_ID === "huadu" &&
+        (this.HOSPITAL_ID === "huadu" &&
           sheetInfo.sheetType !== "body_temperature_Hd") ||
-        this.HOSPITAL_ID === "zhongshanqi"
-        // (this.HOSPITAL_ID === "huadu" &&
-        //   sheetInfo.sheetType !== "body_temperature_Hd") ||
-        // this.HOSPITAL_ID === "zhongshanqi"||this.HOSPITAL_ID === "beihairenyi"&&this.sheetInfo.sheetType!=='infant_bh'
+        this.HOSPITAL_ID === "zhongshanqi"||this.HOSPITAL_ID === "beihairenyi"&&this.sheetInfo.sheetType!=='infant_bh'
       ) {
         this.isSyncTemp
           ? this.sycnTempChange()
@@ -1553,6 +1535,13 @@ export default {
         }
       },
     },
+    doc(val){
+      if(!val.trim().length)return
+      let reg = new RegExp(/<(?:(?!\bsub\b|\bsup\b|\bp\b|[<>]).)+>/g)
+      if(reg.test(val)){
+        this.doc = val.replace(reg,'')
+      }
+    }
   },
   components: {
     templateSlide,

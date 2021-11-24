@@ -9,13 +9,14 @@ export default function Body(data = [], index) {
   let rowNum = getRowNum(index);
   let bodyModel = [];
   for (let i = 0; i < Math.max(data.length, rowNum); i++) {
-    bodyModel[i] = Tr(data[i]);
+    bodyModel[i] = Tr(data[i],i);
   }
   return bodyModel;
 }
 
-function Tr(data = {}) {
+function Tr(data = {}, i) {
   let schema = switechSheetType(sheetInfo.sheetType);
+  let customColumn = switchNodeTime(sheetInfo.sheetType)
   let mergetTr = [];
   for (let index = 0; index < schema.length; index++) {
     let keys = Object.keys(schema[index]);
@@ -26,6 +27,9 @@ function Tr(data = {}) {
       }
     }
     obj.value = data[schema[index].key] || "";
+    if(obj.key=="nodeTime"){
+      obj.value = customColumn[i] || data[schema[index].key] || "";
+    }
     obj.markObj = matchMark(data.id, schema[index].key);
     mergetTr.push(obj);
   }
@@ -45,6 +49,7 @@ function Tr(data = {}) {
 
 export const nullRow = () => {
   let schema = switechSheetType(sheetInfo.sheetType);
+  let customColumn = switchNodeTime(sheetInfo.sheetType)
   return Tr(schema);
 };
 
@@ -80,6 +85,11 @@ function switechSheetType(type) {
       // 陵城区-病重（病危）
       schema = require("../config/picu_lc/tr.js").default;
     }
+      break;
+    case "critical2_lc": {
+      //  陵城区-病重（病危）患者护理记录（新生儿）
+        schema = require("../config/critical2_lc/tr.js").default;
+      }
       break;
     case "neurology": {
       // 神经内科
@@ -277,6 +287,11 @@ function switechSheetType(type) {
       schema = require("../config/newborn_wx/tr.js").default;
     }
       break;
+      case "eicu_care_wx": {
+        // 威县-重症护理记录单II（EICU）
+        schema = require("../config/eicu_care_wx/tr.js").default;
+      }
+        break;
     case "cpr": {
       // cpr心肺复苏单（心血管内科）
       schema = require("../config/cpr/tr.js").default;
@@ -537,6 +552,11 @@ function switechSheetType(type) {
       schema = require("../config/intervention_cure_lcey/tr").default;
     }
       break;
+    case "cardiology_lcey": {
+      // 聊城二院 - 心内科介入患者观察记录单
+      schema = require("../config/cardiology_lcey/tr").default;
+    }
+      break;
     case "access_lcey": {
       // 聊城二院 - 出入量记录单
       schema = require("../config/access_lcey/tr").default;
@@ -653,6 +673,16 @@ function switechSheetType(type) {
       schema = require("../config/aerate_param_hl/tr").default;
     }
       break;
+    case "ventilation_hl": {
+        // 横沥-ICU机械通气护理单
+        schema = require("../config/ventilation_hl/tr.js").default;
+    }
+    break;
+    case "blood_circulation_hl": {
+      // 横沥 - 手外科术后血运观察表
+      schema = require("../config/blood_circulation_hl/tr.js").default;
+    }
+    break;
     case "icu_sn": {
       // 山南 - ICU护理记录单
       schema = require("../config/icu_sn/tr.js").default;
@@ -818,10 +848,31 @@ function switechSheetType(type) {
       schema = require("../config/prenatal_xg/tr.js").default;
     }
       break;
+    case "cardiology_fs": {
+      // 佛山市一 - 心内科通用护理记录单
+      schema = require("../config/cardiology_fs/tr.js").default;
+    }
+      break;
+    case "iabp_fs": {
+      // 佛山市一 - IABP护理记录单
+      schema = require("../config/iabp_fs/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
       break;
   }
   return schema;
+}
+function switchNodeTime(type){
+  let customColumn;
+  switch (type) {
+    case "cardiology_lcey": {
+      let obj = require("../config/cardiology_lcey/noodTime").default;
+      customColumn = obj.nodeTime
+    }
+    break;
+  }
+  return customColumn
 }

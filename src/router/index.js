@@ -213,6 +213,7 @@ const planList = () => import("@/Page/plan-list/plan-list.vue");
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
 import sheetPage from "@/Page/sheet-page/sheet-page.vue"; // 护理记录单页面
+import BHBaby_sheetPage from "@/Page/sheet-page/BHBabysheet-page.vue"; // 北海新生儿护理记录单页面
 import sheetNursingOrderPage from "@/Page/sheet-nursing-order/sheet-page.vue"; // 护嘱记录单页面
 import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"; // 护嘱记录单页面
 import record from "@/Page/patientInfo/supPage/record/record"; // 评估单
@@ -259,6 +260,14 @@ const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.v
 const healthEducationGuizhou = ()=>import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue");
 
 const healthEducationBerhairenyi = ()=>import("@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation.vue")
+
+// 患者流转列表
+const patientFlowList = () => import("@/Page/patient-flow-list/patientFlowList.vue")
+const patientFlowMsg = () => import("@/Page/patient-flow-msg/patientFlowMsg.vue")
+// 患者流转统计
+const patientFlowStatistics = () => import("@/Page/patient-flow-statistics/patientFlowStatistics.vue")
+
+
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 const router = new Router({
@@ -584,7 +593,7 @@ const router = new Router({
               return badEvent
           }
         })(),
-        
+
         children: [{
           name: "badEventEdit",
           path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
@@ -753,7 +762,15 @@ const router = new Router({
         },
         {
           path: "/catheter",
-          component: catheter,
+          // component: catheter,
+          component: (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'liaocheng':
+                return allCatheter
+              default:
+                return catheter
+            }
+          })(),
           // name: "导管",
           // alias: "导管"
           name: "导尿管",
@@ -848,6 +865,7 @@ const router = new Router({
             case 'huadu':
               return implementationListZhongshanqi
             case 'wujing':
+            case 'foshanrenyi':
               return implementationListWujing
             case 'quzhou':
               return implementationListQuzhou
@@ -921,6 +939,15 @@ const router = new Router({
           name: "sheetPage",
           path: "/sheetPage/:patientId?/:visitId?/:formId?/:inpNo?",
           component: sheetPage
+        }]
+      },
+      {
+        path: "/Baby_sheetPage",
+        component: BHBaby_sheetPage,
+        children: [{
+          name: "Baby_sheetPage",
+          path: "/Baby_sheetPage/:patientId?/:visitId?/:formId?/:inpNo?",
+          component: BHBaby_sheetPage
         }]
       },
       {
@@ -1098,6 +1125,22 @@ const router = new Router({
         component: rationalDoseStatistics,
         name: "合理用药"
       },
+      /**聊城二院-患者流转 */
+      {
+        path: "/patientFlowList",
+        name: "patientFlowList",
+        component: patientFlowList
+      },
+      {
+        path: "/patientFlowMsg",
+        name: "patientFlowMsg",
+        component: patientFlowMsg
+      },
+      // {
+      //   path: "/patientFlowStatistics",
+      //   name: "patientFlowStatistics",
+      //   component: patientFlowStatistics
+      // },
     ]
   },
   {

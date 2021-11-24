@@ -318,12 +318,13 @@ export default {
       }
       setTimeout(() => {
         window.localStorage.healthPrintPage = $(this.$refs.HealthEducation).html();
-        if (process.env.NODE_ENV === "production") {
-          let newWid = window.open();
-          newWid.location.href = "/crNursing/print/health";
-        } else {
-          this.$router.push(`/print/health`);
-        }
+        this.$router.push(`/print/health`);
+        // if (process.env.NODE_ENV === "production") {
+        //   let newWid = window.open();
+        //   newWid.location.href = "/crNursing/print/health";
+        // } else {
+        //   this.$router.push(`/print/health`);
+        // }
       }, 500)
     }
   }

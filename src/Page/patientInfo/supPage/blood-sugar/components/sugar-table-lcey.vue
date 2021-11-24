@@ -297,7 +297,8 @@ export default {
     return {
       msg: "hello vue",
       restaurants: [],
-      isEdit:false
+      isEdit:false,
+      activeEmpNo:""
     };
   },
   computed: {
@@ -382,6 +383,7 @@ if (!this.data) return;
    sign(item){
      window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then(async(res) => {
+          this.activeEmpNo=res.data.data.empNo
           // 保存逻辑
           if(item.expand2===undefined){
             item.expand2=1
@@ -433,20 +435,20 @@ if (!this.data) return;
       item.name = this.patientInfo.name;
       item.bedLabel = this.patientInfo.bedLabel;
       item.wardCode = this.patientInfo.wardCode;
-      (item.nurseEmpNo = this.empNo || ""), //护士工号
-      item.nurse= this.empNo || ""
+      (item.nurseEmpNo = this.activeEmpNo||this.empNo || ""), //护士工号
+      item.nurse= this.activeEmpNo||this.empNo || ""
      await  saveSugarList([item])
       this.load();
       this.isEdit=false
       // 解决报错
       // this.selected = null;
+      this.activeEmpNo=""
       this.$emit("update:selected",null);
       this.$emit("uploadList")
       this.$message.success("保存成功");
         });
       });
     },
-    
      async load() {
       this.pageLoading = true;
       const res = await getSugarListWithPatientId(

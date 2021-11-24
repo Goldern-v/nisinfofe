@@ -1,6 +1,7 @@
 /** 设置护理记录单行数 */
 import sheetInfo from "../config/sheetInfo";
 export function getRowNum(index) {
+  console.log(index, "index", sheetInfo.sheetType);
   if (sheetInfo.sheetType == "neonatology") {
     if (index === 0) {
       return 15;
@@ -47,12 +48,24 @@ export function getRowNum(index) {
     // }
   } else if (sheetInfo.sheetType == "critical_lc") {
     return 20;
+  } else if (sheetInfo.sheetType == "cardiology_lcey") {
+    return 15;
   } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
     return 15;
-  } else if (process.env.HOSPITAL_ID === 'hengli') {
+  } else if (process.env.HOSPITAL_ID === 'hengli'&&sheetInfo.sheetType !== 'oxytocin_hl'&&sheetInfo.sheetType !== 'blood_circulation_hl') {
     /* 横沥所有普通护记都返回20行 */
     return 20;
+  } else if(sheetInfo.sheetType === 'oxytocin_hl'){
+    if (index === 0) {
+      return 20;
+    } else {
+      return 30;
+    }
+  }else if(sheetInfo.sheetType === 'blood_circulation_hl'){
+      return 35
   } else {
     return 17;
   }
+ 
 }
+

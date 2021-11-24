@@ -158,8 +158,8 @@ function onFocusToAutoComplete(e, bind) {
 
         if (data) {
           let preText = ""
-          if(splice=="/"){
-            preText = td.value ? (td.value + '/') : ''
+          if(typeof(splice) == 'string'){
+            preText = td.value ? (td.value + splice) : ''
           }else{
             preText = td.value ? (td.value + ',') : ''
           }

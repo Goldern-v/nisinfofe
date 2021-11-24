@@ -25,7 +25,7 @@
     <autoComplete ref="autoInput"/>
 
     <!-- 模板 -->
-    <templateSlide ref="templateSlide"/>
+    <templateSlide ref="templateSlide"/>  
 
     <!-- 页面信息 -->
     <div v-if="formObj && formObj.model" ref="mainPage" class="cover-page">
@@ -117,7 +117,8 @@ export default {
       // sourceObj: {},
       test: "",
       showMessage: false,
-      showUIEditor: false
+      showUIEditor: false,
+      isRefresh:true
     };
   },
   computed: {},

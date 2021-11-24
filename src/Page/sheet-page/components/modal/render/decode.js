@@ -1,6 +1,6 @@
 export function decoder_title(th) {
   let customTitleListTop = th.th.top.filter(item => {
-    return item.key 
+    return item.key && item.key != 'recordYear'
   });
   let customTitleListMid = th.th.mid.filter(item => {
     return item.key 

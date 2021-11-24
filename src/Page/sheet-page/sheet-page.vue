@@ -25,12 +25,7 @@
 
         <patientList
           :toName="
-            (HOSPITAL_ID === 'huadu' ||
-              HOSPITAL_ID === 'liaocheng' ||
-              HOSPITAL_ID === 'hengli' ||
-              HOSPITAL_ID === 'quzhou' ||
-              HOSPITAL_ID === 'hj' ||
-              HOSPITAL_ID === 'wujing') &&
+            toSingleTempArr.includes(HOSPITAL_ID)&&
             $route.path.includes('singleTemperatureChart')
               ? 'singleTemperatureChart'
               : 'sheetPage'
@@ -80,11 +75,7 @@
           >
             <i class="el-icon-plus"></i>
             {{
-              (HOSPITAL_ID === "huadu" ||
-                HOSPITAL_ID === "liaocheng" ||
-                HOSPITAL_ID === "hj" ||
-                HOSPITAL_ID === "hengli" ||
-                HOSPITAL_ID === "wujing") &&
+              toSingleTempArr.includes(HOSPITAL_ID) &&
               $route.path.includes("singleTemperatureChart")
                 ? "创建体温单"
                 : "创建护理记录单"
@@ -257,6 +248,7 @@ import sheetTable_newborn_care_gzry from "./components/sheetTable-newborn_care_g
 import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
 import sheetTable_picc_custody_jm from "./components/sheetTable-picc_custody_jm/sheetTable";
 import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/sheetTable";
+import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
@@ -315,6 +307,7 @@ export default {
       scrollY: 0,
       bedAndDeptChange: {},
       listData: [],
+      toSingleTempArr:['huadu','liaocheng','hengli','quzhou','hj','wujing'] // 患者列表点击前往体温单录入的医院
     };
   },
   computed: {
@@ -420,6 +413,8 @@ export default {
         return sheetTable_picc_custody_jm;
       } else if (sheetInfo.sheetType == "nicu_custody_jm") {
         return sheetTable_nicu_custody_jm;
+      } else if (sheetInfo.sheetType == "cardiology_lcey") {
+        return sheetTable_cardiology_lcey;
       } else if (sheetInfo.sheetType == "rescue_hl") {
         return sheetTable_emergency_rescue;
       } else if (sheetInfo.sheetType == "oxytocin_hl") {
@@ -1075,6 +1070,7 @@ export default {
     sheetTable_oxytocin_hl,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
+    sheetTable_cardiology_lcey,
   },
 };
 </script>

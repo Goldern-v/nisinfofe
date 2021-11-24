@@ -12,6 +12,9 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 #sheetPagePrint {
+  *{
+    pointer-events: none;
+  }
   overflow: hidden;
 
   .contant {
@@ -241,6 +244,8 @@ export default {
         "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
         "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
         "safemetachysis_jm",//江门妇幼_输血护理记录单
+
+        "cardiology_fs",//佛山市一_心内科通用护理记录单
       ]
     };
   },
@@ -265,8 +270,8 @@ export default {
       });
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
-    // 江门妇幼的护理单打印双数页面会翻转，所以让他双数页面翻转回来
-    if(this.HOSPITAL_ID==="fuyou"){
+    // 江门妇幼的护理单打印双数页面会翻转,横沥ICU机械通气护理单。修复
+    if(this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"){
  printDir("h");
       addCSS(
         window,
@@ -337,6 +342,20 @@ export default {
         `
       );
     }
+    if ( (this.HOSPITAL_ID === "wujing") &&
+      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .body-con{
+            height: 30px !important;
+          }
+        }
+        `
+      );
+    }
     /* 护理记录单行高 */
     // if ((this.HOSPITAL_ID === "huadu") &&
     //   this.lineSpacingArr.includes(this.sheetInfo.sheetType)
@@ -376,6 +395,27 @@ export default {
           }
         `
       );
+    }
+    if (
+      (this.HOSPITAL_ID === "foshanrenyi") &&
+      this.multiSignArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='质控护士签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签名']{
+            display:none !important;
+          }
+          @media print {
+            #sheetPagePrint .contant{
+              margin-top:-20px;!important;
+            }
+          }
+        `
+      )
     }
     if (
       (this.HOSPITAL_ID === "fuyou") &&
@@ -558,6 +598,7 @@ export default {
   computed: {
     sheetModel() {
       let html = window.localStorage.sheetModel;
+      console.log(html);
       var reg = /data-value/g;
       return html.replace(reg, "value");
     }

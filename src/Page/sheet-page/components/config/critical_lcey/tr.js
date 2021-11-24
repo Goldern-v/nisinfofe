@@ -4,7 +4,8 @@ import {
 import {
   event_date,
   event_time,
-  click_date
+  click_date,
+  click_time
 } from "../keyEvent/date";
 export default [{
     key: "recordMonth", //日期
@@ -15,70 +16,43 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
-  },
-  {
-    key: "food", //入量-项目
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "foodSize", //入量-实入量
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "fieldOne", //出量-尿量
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldTwo", //出量-大便
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "fieldThree", //出量-呕吐
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldFour", //出量-引流
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "dischargeSize", //出量-其它
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "totalDischarge", //出量-总出量
-    value: "",
-    event: keyf1,
+    event: event_time,
+    click: click_time
   },
   {
     key: "consciousness", //意识
     value: "",
     event: keyf1,
     autoComplete: {
-      data: ['1', '2', '3', '4', '5', '6', '7', '8']
+      data: ['清醒', '嗜睡', '昏睡', '模糊', '谵妄', '浅昏迷', '昏迷', '深昏迷','冬眠状态','麻醉未醒','镇静状态']
+    },
+    textarea: {
+      width: 40
     },
   },
   {
-    key: "pupilReflect", //瞳孔-左
+    key: "pupilLeft", //左(mm)
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
   },
   {
-    key: "pupilLeft", //瞳孔-右
+    key: "pupilRight", //右(mm)
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
   },
   {
-    key: "pupilRight", //瞳孔-光反射
+    key: "pupilReflect", //光反射
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ['++','+','-']
+    },
   },
   {
     key: "temperature", //体温
@@ -86,52 +60,115 @@ export default [{
     event: keyf1
   },
   {
-    key: "pulse", //心率/脉搏
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "breath", //呼吸 次/min
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "bloodPressure", //血压(mmHg)
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    textarea: {
-      width: 48
-    },
-    style: {
-      'line-height': '30px'
-    }
-  },
-  {
-    key: "spo2", //血氧饱和度%
+    key: "pulse", //   心率/脉搏
     value: "",
     event: keyf1,
   },
   {
-    key: "fieldSix", // 氧疗 升/分
+    key: "breath", //呼吸
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "bloodPressure", //血压
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "spo2", //SPO2
+    value: "",
+    event: keyf1,
+  },
+  {
+    key: "oxygenWay", //氧疗方式
     value: "",
     event: keyf1,
     autoComplete: {
-      data: ['①', '②', '③']
+      data: ['鼻导管', '雾化面罩', '储氧面罩', '高流湿化吸氧', '无创面罩', '文丘里面罩', '呼吸机']
+    },
+    textarea: {
+      width: 45
     },
   },
   {
-    key: "pain", // 疼痛
+    key: "fieldSix", //氧疗L/min
     value: "",
-    event: keyf1,
+    event: keyf1
   },
   {
-    key: "description", //特殊处理及病情观察
+    key: "food", //项目
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 55
+    },
+  },
+  {
+    key: "foodSize", //入量(ml)
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "fieldOne", //尿量
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "fieldTwo", //大便量
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "fieldThree", // 痰液量
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "fieldFour", // 标题1
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "dischargeSize", //标题2
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "accessCustomize", // 标题3
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "discharge", // 出量
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "description", //病情观察及护理措施
     value: "",
     style: {
       textAlign: "left",
@@ -139,7 +176,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "140px",
       background: "transparent"
     },
     event: function (e, td) {

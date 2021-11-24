@@ -307,6 +307,13 @@ export default function Title(
     );
   }
   break;
+  case "eicu_care_wx": {
+    // 威县-重症护理记录单II（EICU)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/eicu_care_wx/th").default)
+    );
+  }
+  break;
   case "cpr": {
     // cpr心肺复苏单（心血管内科）
     Th = JSON.parse(JSON.stringify(require("../config/cpr/th").default));
@@ -323,6 +330,13 @@ export default function Title(
     // 陵城-病重（病危）患者护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/critical_lc/th").default)
+    );
+  }
+  break;
+  case "critical2_lc": {
+    // 陵城-病重（病危）患者护理记录（新生儿）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical2_lc/th").default)
     );
   }
   break;
@@ -655,6 +669,13 @@ export default function Title(
     );
   }
   break;
+  case "cardiology_lcey": {
+    // 聊城二院 - 心内科介入患者观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiology_lcey/th").default)
+    );
+  }
+  break;
   case "intervention_cure_lcey": {
     // 聊城二院 - 介入诊疗护理记录单
     Th = JSON.parse(
@@ -796,6 +817,7 @@ export default function Title(
     );
   }
   break;
+ 
   case "obstetrics_hl": {
     // 横沥 - 护理记录单(产科)
     Th = JSON.parse(
@@ -821,6 +843,20 @@ export default function Title(
     // 横沥 - 儿科机械通气护理单
     Th = JSON.parse(
       JSON.stringify(require("../config/aerate_param_hl/th").default)
+    );
+  }
+  break;
+  case "ventilation_hl": {
+    // 横沥-ICU机械通气护理单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ventilation_hl/th").default)
+    );
+  }
+  break;
+  case "blood_circulation_hl": {
+    // 横沥 - 手外科术后血运观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/blood_circulation_hl/th").default)
     );
   }
   break;
@@ -1052,6 +1088,20 @@ export default function Title(
     // 东莞谢岗 - 产前待产记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/prenatal_xg/th").default)
+    );
+  }
+  break;
+  case "cardiology_fs": {
+    // 佛山市一 - 心内科通用护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiology_fs/th").default)
+    );
+  }
+  break;
+  case "iabp_fs": {
+    // 佛山市一 - IABP护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/iabp_fs/th").default)
     );
   }
   break;

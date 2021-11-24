@@ -791,10 +791,13 @@ export default {
       const deptCode = this.$route.params.code;
       const date = d || this.record.changeShiftDate;
 
-      const selectedKeys = this.patients
+      let selectedKeys = this.patients
         .filter(p => p.patientId && p.visitId)
         .map(p => p.patientId + "//" + p.visitId);
-
+      // console.log(d , this.record.changeShiftDate);
+      if(d){
+        selectedKeys = []
+      }
       this.$refs.patientsModal.open({ deptCode, date, id, selectedKeys });
     },
     onPatientsModalConfirm(patients) {

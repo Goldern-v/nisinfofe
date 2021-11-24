@@ -606,11 +606,10 @@ return false
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
       this.query.entryTime = value.slice(12, 14);
-      // 后端修改开启
       // 北海在记录单那边同步数据,时间直接取点击的
-      // if(this.HOSPITAL_ID==="beihairenyi"){
-      //   this.query.entryTime=value.split("  ")[1]
-      // }
+      if(this.HOSPITAL_ID==="beihairenyi"){
+        this.query.entryTime=value.split("  ")[1]
+      }
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;

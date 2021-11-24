@@ -97,6 +97,20 @@ export default {
       },
       {
         name: `
+        活跃期<br/>开始
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        产程<br/>事件
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
         特殊情况记录
         `,
         style: {

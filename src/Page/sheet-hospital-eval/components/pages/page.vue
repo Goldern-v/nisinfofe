@@ -542,6 +542,7 @@ export default {
       this.loading = false;
     },
     openForm(config) {
+      let isDevMode = config.isDevMode || false;
       let patient = config.patient;
       let formObj = config.formObj;
       this.status = config.patient.status;

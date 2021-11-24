@@ -323,6 +323,10 @@ export default {
           onClick: (e) => {
             this.formSave();
             console.log("提交", this.user, this.formObj);
+                this.changeSelectBlock(this.selectBlock);
+                this.selectBlock.status = "1";
+                this.$message.success("签名成功");
+        
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
@@ -340,7 +344,7 @@ export default {
             //
             window.openSignModal((password, empNo) => {
               let post = {
-                id: this.formObj.model.id,
+                id: this.formObj.formObj.patientId != '' ? this.formObj.formObj.id : window.formObj.formObj.id,
                 empNo,
                 password,
               };
@@ -673,6 +677,12 @@ export default {
         }
       });
     },
+    //  reloadForm() {
+    //    this.currentFormConfig.isDevMode= true
+    //   this.bus.$emit("closeHosptialEvalForm");
+    //   this.bus.$emit("openHosptialEvalForm", this.currentFormConfig);
+    //   this.bus.$emit("setHosptialEvalLoading", false);
+    // },
     formSave({
       showMeasure = true,
       showLoading = true,
@@ -682,7 +692,7 @@ export default {
       if (this.patientInfo && this.patientInfo.hasOwnProperty("patientId")) {
         let msg = message || "保存";
 
-        //
+        
         if (showLoading || message) {
           this.bus.$emit("setHosptialEvalLoading", {
             status: true,
@@ -691,9 +701,9 @@ export default {
         }
 
         //
-        try {
-          window.app.$refs.autoBox.closeAutoBox();
-        } catch (error) {}
+        // try {
+        //   window.app.$refs.autoBox.closeAutoBox();
+        // } catch (error) {}
 
         let post = {
           id: this.formId || "",
@@ -701,15 +711,20 @@ export default {
           visitId: this.patientInfo.visitId,
           formType: "eval",
           formCode: this.formCode,
-          // evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
-          // evalScore: "0",
           sign: false,
-          empNo: this.user.empNo, //"admin",
-          // password: "123456"
+          empNo: this.user.empNo,
         };
-        this.formObj.model.formCode = this.formCode;
+        console.log(window.formObj.model,'window.formObj.model');
 
-        post = Object.assign({}, this.formObj.model, post);
+
+        this.formObj.model.formCode = this.formCode;
+        if(this.formObj.model.patientId !== ''){
+          console.log('this');
+          post = Object.assign({}, this.formObj.model, post);
+        }else{
+          console.log('window');
+          post = Object.assign({}, window.formObj.model, post);
+        }
 
         // post.formCode = this.formCode
 
@@ -737,14 +752,16 @@ export default {
             }
             this.bus.$emit("setHosptialEvalLoading", false);
             // 更新住院单
+            // this.reloadForm()
+            this.$store.commit("upPatientInfo", window.formObj.model);
             try {
               window.formTool.fillForm();
             } catch (error) {}
 
             //
-            if (showMeasure) {
-              this.showMeasureDetialBox(res);
-            }
+            // if (showMeasure) {
+            //   this.showMeasureDetialBox(res);
+            // }
             //
             let {
               data: {
@@ -817,21 +834,17 @@ export default {
         startDate: this.searchData.date,
         endDate: this.endData.date,
       };
-      console.log(postData,"postDatapostDatapostDatapostData");
       vitalsign(postData)
         .then((res) => {
-          console.log(res.data.data.list);
+          // console.log(res.data.data.list);
           this.gridData = res.data.data.list;
-          console.log(window.formObj.model);
+          // console.log(window.formObj.model);
         })
         .catch((err) => {
           console.log("错误事件", err);
         });
     },
     leftTablelist(val) {
-      console.log(val);
-      this.thisRowData = this;
-      this.thisRowData = val;
       this.dialogTableVisible = false;
       window.formObj.model.I100001 = val.axillaryTemperature;
       window.formObj.model.I100002 = val.pulse;
@@ -843,11 +856,8 @@ export default {
         visitId: this.patientInfo.visitId,
         formType: "eval",
         formCode: this.formCode,
-        // evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
-        // evalScore: "0",
         sign: false,
-        empNo: this.user.empNo, //"admin",
-        // password: "123456"
+        empNo: this.user.empNo, 
       };
       this.formObj.model.formCode = this.formCode;
 
@@ -872,16 +882,6 @@ export default {
           try {
             window.formTool.fillForm();
           } catch (error) {}
-          //
-          let {
-            data: {
-              data: { master, diags },
-            },
-          } = res;
-          //
-          if (master.updaterName && master.updateTime) {
-            this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
-          }
         })
         .catch((err) => {
           console.log("保存评估err", err);
@@ -889,6 +889,8 @@ export default {
             status: false,
           });
         });
+    
+      console.log(window.formObj.model,'window.formObj.model')
     },
     getFilterData() {
       this.$emit("getFilterData", this.searchData);
@@ -972,7 +974,7 @@ export default {
       formSave: this.formSave,
       formCheckEvalTask: this.formCheckEvalTask,
       // formDelete: this.formDelete,
-      // reloadForm: this.reloadForm
+      reloadForm: this.reloadForm
     };
     window.formTool = tool;
     //
