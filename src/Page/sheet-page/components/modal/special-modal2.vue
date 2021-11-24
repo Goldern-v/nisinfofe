@@ -1350,6 +1350,13 @@ export default {
             } else {
               text += allDoc[i];
             }
+          }else if (this.sheetInfo.sheetType === "iabp_fs") {
+            if (GetLength(text) > 56) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           } else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
             if (GetLength(text) > 98) {
               result.push(text);
@@ -1535,6 +1542,13 @@ export default {
         }
       },
     },
+    doc(val){
+      if(!val.trim().length)return
+      let reg = new RegExp(/<(?:(?!\bsub\b|\bsup\b|\bp\b|[<>]).)+>/g)
+      if(reg.test(val)){
+        this.doc = val.replace(reg,'')
+      }
+    }
   },
   components: {
     templateSlide,

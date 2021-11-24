@@ -1,6 +1,5 @@
 export default function(win) {
   const root = win.document.body.children[0];
-  console.log(root);
 
   root.setAttribute("style", "width: 1080px;");
 
@@ -52,7 +51,7 @@ export default function(win) {
     const children = Array.from(root.children);
     children.forEach((child, i, children) => {
       const pageNum = document.createElement("div");
-      pageNum.style =
+      pageNum.style = 
         "position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; font-size: 12px; font-family: SimSun";
       pageNum.innerHTML = `第 ${i + 1} / ${children.length} 页`;
       child.style = "position: relative; height: 780px;";

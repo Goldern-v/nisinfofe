@@ -166,6 +166,11 @@
           @click="openChart"
           v-if="HOSPITAL_ID != 'gy'"
         ></whiteButton>
+        <whiteButton
+          v-if="['guizhou'].includes(HOSPITAL_ID)"
+          :text="'血糖登记数'+registNum"
+          @click="()=>{}"
+        ></whiteButton>
       </div>
     </div>
     <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
@@ -315,6 +320,7 @@ export default {
       resBedNol:'',
       resInHosId:'',
       tDeptName: "",
+      registNum:0,//血糖登记次数
     };
   },
   computed: {
@@ -403,6 +409,7 @@ if(this.selected.expand2!==undefined){
         this.resInHosId = res.data.data.inHosId;
       }
       if (this.HOSPITAL_ID == "fuyou") this.tDeptName = res.data.data.deptName;
+      (res.data.data.registNum) && (this.registNum = res.data.data.registNum);//血糖登记次数
       this.pageLoading = false;
 
       this.hisPatSugarList = res.data.data.hisPatSugarList;

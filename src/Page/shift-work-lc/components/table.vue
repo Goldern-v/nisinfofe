@@ -61,9 +61,43 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="!isprint">
         <tr
           v-for="(row, rowIndex) of data"
+          :class="[{selected: row === selectedRow}]"
+          :key="row.id + '' + rowIndex"
+          @click="onClick(rowIndex)"
+        >
+          <td
+            v-for="(col, colIndex) of realColumns"
+            :key="col.prop ? col.label+col.prop : col.label"
+            :style="{'text-align': col.align || 'left'}"
+            @dblclick="onDblClick({row, rowIndex, col, colIndex})"
+            @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
+            :colspan="col.colspan"
+          >
+            <div class="cell" v-if="col.render" v-html="col.render(row)"/>
+            <label v-else-if="col.editable">
+              <el-input
+                autosize
+                class="textarea"
+                type="textarea"
+                v-model="row[col.prop]"
+                :disabled="!editable"
+                @change="onInputChange($event, row[col.prop], col.prop, rowIndex, colIndex)"
+                @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
+                :name="col.prop"
+              />
+            </label>
+            <div class="cell" v-else>{{row[col.prop]}}</div>
+          </td>
+        </tr>
+        <slot></slot>
+      </tbody>
+      <!--陵城 打印 -->
+      <tbody v-else>
+        <tr
+          v-for="(row, rowIndex) of isPrintData"
           :class="[{selected: row === selectedRow}]"
           :key="row.id + '' + rowIndex"
           @click="onClick(rowIndex)"
@@ -142,11 +176,16 @@ export default {
     record: {
       type: Object
     },
+    isprint: {
+      type: Boolean,
+      default: () => false
+    }
   },
   data: () => ({
     selectedRow: null,
     selectedRowIndex: -1,
-    selectedCol: null
+    selectedCol: null,
+    // isPrintData: []
   }),
   computed: {
     isMultiCol() {
@@ -179,7 +218,6 @@ export default {
         }
       })
       newArr.unshift(arr);
-      console.log(newArr);
       return newArr;
     },
     realColumns() {
@@ -201,11 +239,59 @@ export default {
           }
         }
       }
-      // console.log(columns);
       return columns;
+    },
+    isPrintData() {
+      let newData = JSON.parse(JSON.stringify(this.data))
+      let arr = newData.map((item, index) => {
+        return this.beyondPage(newData, item, 430, index)
+      })
+      return arr
     }
   },
   methods: {
+    // 获取字符串中英文字母和数字
+    getLetterNum(str) {
+      let num = 0
+      let letter = str.match(/[0-9a-zA-Z]/g)
+      for (let i in letter) {
+        num++
+      }
+      return num
+    },
+
+    // newData: 遍历数组, data: 数组里的每一个对象， len: 截取字符串 index：数组下标
+    beyondPage(newData, data, len, index) {
+      let str1 = 0
+      let str2 = 0
+      let remark2_str1 = 0
+      let remark2_str2 = 0
+      let remark3_str1 = 0
+      let remark3_str2 = 0
+      if (data.remark1 && data.remark1.length > len) {
+        let letterNum = this.getLetterNum(data.remark1.substring(0, len))
+        str1 = data.remark1.substring(0, len + letterNum)
+        str2 = data.remark1.substring(len + letterNum, data.remark1.length)
+      }
+      if (data.remark2 && data.remark2.length > len) {
+        let letterNum = this.getLetterNum(data.remark1.substring(0, len))
+        remark2_str1 = data.remark2.substring(0, len + letterNum)
+        remark2_str2 = data.remark2.substring(len + letterNum, data.remark2.length)
+      }
+      if (data.remark3 && data.remark3.length > len) {
+        let letterNum = this.getLetterNum(data.remark1.substring(0, len))
+        remark3_str1 = data.remark3.substring(0, len + letterNum)
+        remark3_str2 = data.remark3.substring(len + letterNum, data.remark3.length)
+      }
+
+      Object.assign(data, {...data, remark1: str1 ? str1 : data.remark1, remark2: remark2_str1 ? remark2_str1 : data.remark2, remark3: remark3_str1 ? remark3_str1 : data.remark3})
+      if (str1 || str2 || remark2_str1 || remark2_str2 || remark3_str1 || remark3_str2) {
+        let obj = {}
+        Object.assign(obj, {bedLabel: data.bedLabel, name: data.name, remark1: str2 ? str2 : '', remark2: remark2_str2 ? remark2_str2 : '',  remark3: remark3_str2 ? remark3_str2 : ''})
+        newData.splice(index + 1, 0, obj)
+      }
+      return data
+    },
     getColSpan(col) {
       return (col.columns && col.columns.constructor == Array ? col.columns[0].length : (col.columns && col.columns.length)) || 1;
     },
