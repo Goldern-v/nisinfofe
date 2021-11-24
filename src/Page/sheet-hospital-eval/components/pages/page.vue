@@ -40,6 +40,11 @@ export default {
   components: {
     RenderForm
   },
+  provide () {
+    return {
+      reload: this.reload
+    }
+  },
   data() {
     return {
       bus: BusFactory(this),
@@ -50,7 +55,8 @@ export default {
       isShowLoadingLayout: true,
       message: "请选择左侧患者~",
       status: 0,
-      isNewPage:true
+      isNewPage:true,
+      isRouterAlive:true
     };
   },
   computed: {
@@ -147,6 +153,12 @@ export default {
     };
   },
   methods: {
+    reload () {
+      this.isNewPage = false
+      this.$nextTick(function () {
+        this.isNewPage = true
+      })
+    },
     getFilePath(fileName, path) {
       let urldevForm = `${devFormUrl}/${path}/${fileName}`;
       let urlForm = `${formUrl}/${path}/${fileName}`;

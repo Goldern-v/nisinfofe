@@ -70,7 +70,7 @@
         @change="inputChange($event, obj)"
         @dblclick.native.stop="inputdbClick($event, obj)"
         @click.native.stop="inputClick($event, obj)"
-        @focus="inputFocus($event, obj)"
+        @focus.native="inputFocus($event, obj)"
         @keydown.native="inputKeyDown($event, obj)"
         :readonly="obj.selectOnly"
         :clearable="true"
@@ -551,7 +551,7 @@ export default {
                 // 单选
                 if (!multiplechoice || multiplechoice == false) {
                   // obj[key] = data;
-                  this.inputValue = ""                
+                  // this.inputValue = ""                
                   obj[key] = data.code;
                   this.inputValue = data.name;
                   console.log(obj[key]);

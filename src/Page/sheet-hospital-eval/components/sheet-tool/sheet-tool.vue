@@ -279,6 +279,7 @@ import { getReEvaTask } from "../../api/index";
 import viewSheetModal from "../Render/modal/viewSheetModal";
 export default {
   mixins: [commom],
+  inject:['reload'],
   data() {
     return {
       gridData: [],
@@ -312,6 +313,7 @@ export default {
               this.patientInfo &&
               this.patientInfo.hasOwnProperty("patientId")
             ) {
+              console.log('11111111111111111111111111111');
               this.createNewForm();
             }
             console.log("新建评估", this.patientInfo);
@@ -322,11 +324,7 @@ export default {
           label: "提交",
           onClick: (e) => {
             this.formSave();
-            console.log("提交", this.user, this.formObj);
-                this.changeSelectBlock(this.selectBlock);
-                this.selectBlock.status = "1";
-                this.$message.success("签名成功");
-        
+            console.log("提交", this.user, this.formObj)
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
@@ -344,7 +342,7 @@ export default {
             //
             window.openSignModal((password, empNo) => {
               let post = {
-                id: this.formObj.formObj.patientId != '' ? this.formObj.formObj.id : window.formObj.formObj.id,
+                id: this.formObj.model.patientId != '' ? this.formObj.model.id : window.formObj.model.id,
                 empNo,
                 password,
               };
@@ -753,7 +751,6 @@ export default {
             this.bus.$emit("setHosptialEvalLoading", false);
             // 更新住院单
             // this.reloadForm()
-            this.$store.commit("upPatientInfo", window.formObj.model);
             try {
               window.formTool.fillForm();
             } catch (error) {}
@@ -785,6 +782,8 @@ export default {
               this.$root.$refs.tableOfContent.updateEvalTaskItems([...diags]);
               console.log("评估任务：", [...diags]);
             }
+            // 刷新页面
+            this.getHEvalBlockList();
           })
           .catch((err) => {
             console.log("保存评估err", err);
