@@ -848,6 +848,16 @@ function switechSheetType(type) {
       schema = require("../config/prenatal_xg/tr.js").default;
     }
       break;
+    case "cardiology_fs": {
+      // 佛山市一 - 心内科通用护理记录单
+      schema = require("../config/cardiology_fs/tr.js").default;
+    }
+      break;
+    case "iabp_fs": {
+      // 佛山市一 - IABP护理记录单
+      schema = require("../config/iabp_fs/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
