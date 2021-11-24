@@ -1535,6 +1535,13 @@ export default {
         }
       },
     },
+    doc(val){
+      if(!val.trim().length)return
+      let reg = new RegExp(/<(?:(?!\bsub\b|\bsup\b|\bp\b|[<>]).)+>/g)
+      if(reg.test(val)){
+        this.doc = val.replace(reg,'')
+      }
+    }
   },
   components: {
     templateSlide,
