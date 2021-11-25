@@ -236,7 +236,11 @@ export default {
       this.$refs.stopDiagnosisModal.open();
     },
     savePlanForm() {
-      if (!this.verify()) return;
+      console.log();
+      if(!this.$route.query.patientId){
+        this.$message.warning("请点击选择一名患者");
+        return
+      }
       let obj = {
         patientId: this.$route.query.patientId,
         visitId: this.$route.query.visitId,

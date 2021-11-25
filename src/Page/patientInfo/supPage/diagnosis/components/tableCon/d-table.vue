@@ -27,7 +27,7 @@
                 <p>{{item && item.measureDetail}}</p>
                 <br v-if="index != scope.row.measuresName.length - 1" />
               </div>
-              <div v-if="!scope.row.measuresName.length">{{scope.row.diagMeasures}}</div>
+              <div v-if="!scope.row.measuresName.length" v-html="scope.row.diagMeasures&&scope.row.diagMeasures.replace(/\n/g,'<br><br>')"></div>
             </div>
           </template>
         </el-table-column>
@@ -41,7 +41,7 @@
                 item && item.parameter
                 }}
               </span>
-              <span v-if="!scope.row.targetsName.length">{{scope.row.diagTarget}}</span>
+              <span v-if="!scope.row.targetsName.length" v-html="scope.row.diagTarget&&scope.row.diagTarget.replace(/\n/g,'<br><br>')">{{scope.row.diagTarget}}</span>
             </div>
           </template>
         </el-table-column>
