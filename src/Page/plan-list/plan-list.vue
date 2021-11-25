@@ -133,7 +133,7 @@ export default {
   provide() {
     return {
       openSlideCon: item => {
-        // if(this.HOSPITAL_ID=="guizhou"){
+        // if(["guizhou",'huadu'].includes(this.HOSPITAL_ID)){
           this.$refs.slideConRightGuizhou.open(item)
         // }else{
         //   this.$refs.slideCon.open(item)
