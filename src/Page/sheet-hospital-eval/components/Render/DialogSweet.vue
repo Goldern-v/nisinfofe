@@ -754,7 +754,7 @@ export default {
       this.formDialogObj = JSON.parse(JSON.stringify(this.formBox));
 
       // 15-18分轻度危险；13-14分中度危险；10-12分高度危险；＜9分极度危险
-
+      console.log(this.dialogFormCode,'this.dialogFormCode');
       if (this.dialogFormCode) {
         this.formBox.model.parentId =
           window.formObj.model.formId || window.formObj.model.id;
@@ -865,7 +865,8 @@ export default {
                 this.$root.$refs[this.parentName]
               );
               if (!isDev) {
-                this.saveEvalForm();
+                console.log('12344556754790432745235');
+                // this.saveEvalForm();
                 this.close();
               }
             });

@@ -236,6 +236,7 @@ export default {
       this.$refs.stopDiagnosisModal.open();
     },
     savePlanForm() {
+      if (!this.verify()) return;
       let obj = {
         patientId: this.$route.query.patientId,
         visitId: this.$route.query.visitId,
