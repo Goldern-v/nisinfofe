@@ -32,10 +32,12 @@
   top 18px
   width 20px
 .patient-list-part
-  height 100%
+  height calc( 100% - 41px)
   box-sizing border-box
   padding-top 11px
   position relative
+  z-index 998
+  background-color #fff
   border-right 1px solid #CBD5DD
 .patient-list-contain
   padding 0px 5px 11px
