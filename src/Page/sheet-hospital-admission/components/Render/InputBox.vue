@@ -30,9 +30,9 @@
       v-bind="obj.props"
       @change="inputChange($event, obj)"
       @dblclick.native.stop="inputClick($event, obj)"
-      @click.native.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
+      @click.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
       @focus="inputFocus($event, obj)"
-      @blur.native.stop="inputBlur"
+      @blur.stop="inputBlur"
       @keydown.native="inputKeyDown($event, obj)"
     >
       <!-- <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span> -->
@@ -415,6 +415,53 @@ export default {
     },
     inputBlur(e) {
       console.log("inputBlur", e);
+      console.log(this.formObj.model.I618004 == "否" &&
+          this.formObj.model.I618005 == "否" &&
+          this.formObj.model.I618006 == "否" &&
+          this.formObj.model.I618007 == "否");
+       setTimeout(() => {
+        if (
+          this.formObj.model.I618004 == "否" &&
+          this.formObj.model.I618005 == "否" &&
+          this.formObj.model.I618006 == "否" &&
+          this.formObj.model.I618007 == "否"
+        ) {
+      //
+        if (this.$root.$refs[this.formCode]["evalScore"]) {
+          try {
+            this.formObj.model["evalScore"] = 0;
+            this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(0);
+            let textResult = this.$root.$refs[this.formCode][
+              "evalDesc"
+              ].checkValueRule(0);
+            
+            this.formObj.model["evalDesc"] = "无营养风险";
+            this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
+              "无营养风险"
+            );
+            this.$root.$refs[this.formCode]["evalDesc"].checkValueRule(
+              "无营养风险"
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }else {
+           if (this.$root.$refs[this.formCode]["evalScore"]) {
+          try {
+            this.formObj.model["evalScore"] = ' ';
+            this.$root.$refs[this.formCode]["evalScore"].setCurrentValue('');
+            
+            this.formObj.model["evalDesc"] = "";
+            this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
+              ""
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        }
+        }
+      }, 300);
       // setTimeout(() => {
       //   if(this.$root.$refs.autoInput){
       this.$root.$refs.autoInput.close();
@@ -691,6 +738,7 @@ export default {
       //   this.inputFocus(e, child)
       // }
     },
+    
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;

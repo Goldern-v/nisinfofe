@@ -184,16 +184,6 @@
   ],
   "I001141": [
     {
-      "code": "耳背",
-      "name": "耳背",
-      "pinyin": "eb"
-    },
-    {
-      "code": "耳聋",
-      "name": "耳聋",
-      "pinyin": "el"
-    },
-    {
       "code": "正常",
       "name": "正常",
       "pinyin": "zc"
@@ -3239,6 +3229,11 @@
       "code": "膀胱造瘘",
       "name": "膀胱造瘘",
       "pinyin": "bgzl"
+    },
+    {
+      "code": "肾造瘘",
+      "name": "肾造瘘",
+      "pinyin": "szl"
     },
     {
       "code": "其他",

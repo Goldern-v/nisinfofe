@@ -4691,7 +4691,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "住院须知",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4699,7 +4700,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "物品管理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4707,7 +4709,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "作息",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4715,7 +4718,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "探陪",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4723,7 +4727,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "订餐",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4731,7 +4736,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "介绍主管医生",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4739,7 +4745,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "介绍主管护士",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4747,7 +4754,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "住院押金管理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4755,7 +4763,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "体温计管理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4763,7 +4772,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "社保管理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4771,7 +4781,8 @@
               "name": "I001501",
               "type": "checkbox",
               "title": "其他",
-              "elementStyle": "margin: 0px 0px 0px 0px!important;",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4780,7 +4791,8 @@
               "type": "input",
               "title": "其他",
               "parentName": "I001501",
-              "elementClass": "",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio-long",
               "style": "margin: 0px!important",
               "class": "text-margin-0"
             }
@@ -4839,7 +4851,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助漱口",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4847,7 +4860,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "指导∕协助刷牙",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4855,7 +4869,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "口腔护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4863,7 +4878,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "面部清洁",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4871,7 +4887,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助沐浴",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4879,7 +4896,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "床上擦浴",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4887,7 +4905,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "床上洗头",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4895,7 +4914,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "梳头",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4903,7 +4923,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "会阴清洁/消毒",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4911,7 +4932,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "足部清洁",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4919,7 +4941,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助更衣",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4927,7 +4950,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助进食/水",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4935,7 +4959,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助床上移动",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4943,7 +4968,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "留置尿管护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4951,7 +4977,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "指/趾甲护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4959,7 +4986,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "臀部护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4967,7 +4995,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "协助翻身/有效咳嗽",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -4975,7 +5004,8 @@
               "name": "I001551",
               "type": "checkbox",
               "title": "帮助/协助使用便器",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5041,7 +5071,8 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "排痰护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5049,7 +5080,8 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "高热护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5057,7 +5089,8 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "留置针护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5065,7 +5098,8 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "惊厥护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5073,7 +5107,8 @@
               "name": "I001553",
               "type": "checkbox",
               "title": "尿管护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5139,7 +5174,8 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "安全转运护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5147,7 +5183,8 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "防跌倒/坠床护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5155,7 +5192,8 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "防烫伤护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5163,7 +5201,8 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "防走失护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5171,7 +5210,8 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "安全约束护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5179,7 +5219,8 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "入院护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5187,7 +5228,8 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "出院护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
@@ -5195,7 +5237,8 @@
               "name": "I001555",
               "type": "checkbox",
               "title": "防呛噎护理",
-              "elementClass": "el-radio-long",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
               "style": null,
               "class": null
             },
