@@ -98,13 +98,29 @@
             <div class="midEditHeader">
               护记时间：
               <div class="midEditInput">
+                <template  v-if="HOSPITAL_ID==='liaocheng'">
+                   <!-- <input
+                  placeholder
+                  suffix-icon="el-icon-date"
+                  v-model="rowData.evalDate"
+                > -->
+                 <el-date-picker
+                   @change="changeEvaldate"
+                   v-model="value1"
+                   type="datetime"
+                   placeholder="选择日期时间"
+                    default-time="请选择日期时间"
+                 >
+               </el-date-picker>
+                </template>
                 <input
+                  v-else
                   :disabled="true"
                   placeholder
                   suffix-icon="el-icon-date"
                   :value="rowData.evalDate"
                 >
-                <i class="el-icon-time"></i>
+                <i class="el-icon-time" v-if="HOSPITAL_ID!=='liaocheng'"></i>
               </div>
             </div>
             <div>
@@ -145,7 +161,8 @@ export default {
       tableData: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       rightTime: "",
       rowData: { evalDate: "", syncToRecordDesc: "", creatorName: "" },
-      tableLoading: false
+      tableLoading: false,
+      value1:"",
     };
   },
   computed: {
@@ -157,6 +174,12 @@ export default {
     endData() {}
   },
   methods: {
+    changeEvaldate(){
+      var date = new Date(this.value1)
+      if(this.rowData.evalDate){
+        this.rowData.evalDate=moment(date).format("YYYY-MM-DD HH:mm:ss")
+      }
+    },
     open() {
       this.tableData = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
       this.queryList();
@@ -194,7 +217,14 @@ export default {
       });
     },
     clickTr(rowData, event) {
-      this.rowData = rowData;
+      if(this.HOSPITAL_ID==='liaocheng'){
+        const user=JSON.parse(localStorage.getItem("user"))
+        this.rowData = {...rowData}
+        this.rowData.creatorName=user.empName
+        this.value1=this.rowData.evalDate
+      }else{
+        this.rowData = rowData;
+      }
       let tbodyNode = this.$refs.tbodyRef;
       for (let p of tbodyNode.childNodes) {
         p.classList.remove("addRowClass");
