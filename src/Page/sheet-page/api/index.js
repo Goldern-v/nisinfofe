@@ -239,6 +239,12 @@ export const getOrdersExecuteWx = (obj = {}) => {
   return axios.post(`${apiPath}/record/block/getOrdersExecuteWx/list/${id}`, obj);
 };
 
+// 聊城获取his患者体征
+export const getOrdersExecuteLc = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}/record/block/getOrdersExecuteLc/list/${id}`, obj);
+};
+
 // 贵州获取his患者输血同步
 export const nurseBloodList = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;

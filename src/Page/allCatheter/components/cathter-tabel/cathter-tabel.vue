@@ -56,6 +56,8 @@
                 v-for="(item,index) in config"
                 :key='index'
                 :prop="item.name"
+                resizable
+                min-width="100"
                 align="center"
                 :label="item.title">
             <template slot-scope="scope">

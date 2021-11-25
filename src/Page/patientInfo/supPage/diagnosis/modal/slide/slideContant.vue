@@ -308,6 +308,7 @@ let bindData = {
   checkSecurityAll: false,
   checkDietaryAll: false,
   definition: "",
+  beginTime:"",
   showWordLimit: true,
   textInputMaxLength: 100,
   textInputMaxLength2: 1000
