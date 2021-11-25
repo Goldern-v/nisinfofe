@@ -1350,6 +1350,13 @@ export default {
             } else {
               text += allDoc[i];
             }
+          }else if (this.sheetInfo.sheetType === "iabp_fs") {
+            if (GetLength(text) > 56) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           } else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
             if (GetLength(text) > 98) {
               result.push(text);

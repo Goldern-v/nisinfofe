@@ -59,7 +59,7 @@
         </div>
       </span> -->
     </div>
-    <div class="info-con" flex="main:justify">
+    <div class="info-con">
       <span v-if="sheetInfo.sheetType === 'cardiology_fs'"
         @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
       >
