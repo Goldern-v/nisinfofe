@@ -164,6 +164,9 @@ const implementationListQuzhou = () =>
   import("@/Page/implementation-list/implementation-list-quzhou.vue"); //曲周执行单
 const implementationListFuyou = () =>
   import("@/Page/implementation-list/implementation-list-fuyou.vue"); //江门妇幼执行单
+const implementationListHengli = () =>
+  import("@/Page/implementation-list/implementation-list-hengli.vue"); //横沥执行单
+
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 const bottleLabelByProgram = () => import("@/Page/implementation-list/bottle-sign-print.vue"); //瓶签打印
 
@@ -871,6 +874,8 @@ const router = new Router({
               return implementationListQuzhou
             case 'fuyou':
               return implementationListFuyou
+            case 'hengli':
+              return implementationListHengli
             default:
               return implementationList
           }
