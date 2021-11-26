@@ -933,14 +933,15 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-
-      this.$router.push(`/print/sheetPage`);
     
-      // if (process.env.NODE_ENV === "production") {
-      //   newWid.location.href = "/crNursing/print/sheetPage";
-      // } else {
-      //   this.$router.push(`/print/sheetPage`);
-      // }
+      if(this.HOSPITAL_ID==='liaocheng'){
+          if (process.env.NODE_ENV === "production") {
+            newWid.location.href = "/crNursing/print/sheetPage";
+          } 
+      }else{
+        this.$router.push(`/print/sheetPage`);
+      }
+     
       
     });
     this.bus.$on("openHJModal", () => {
