@@ -48,7 +48,7 @@
           (HOSPITAL_ID != 'guizhou' && !isDeputy&&isShow()|| HOSPITAL_ID == 'guizhou')
         "
       >
-        <div class="text-con">打印预览1111</div>
+        <div class="text-con">打印预览</div>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="toAllPrint">
         <div class="text-con">批量打印</div>
