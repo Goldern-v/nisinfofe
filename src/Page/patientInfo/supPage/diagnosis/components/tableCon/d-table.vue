@@ -72,6 +72,7 @@
                 @click="del(scope.row)"
               >删除</div>
               <div class="tool-btn" @click="edit(scope.row)">查看详情</div>
+              <div v-if="['huadu'].includes(HOSPITAL_ID)" :style="{textAlign:'center'}">{{scope.row.operatorName}}</div>
             </div>
           </template>
         </el-table-column>
@@ -150,7 +151,7 @@ import stopDiagnosisModal from "../../modal/stopDiagnosisModal";
 export default {
   mixins: [common],
   props: ["tableData"],
-  inject: ["openSlideCon"],
+  inject: ["openSlideCon",'openSlideContant'],
   data() {
     return {
       model
@@ -174,6 +175,12 @@ export default {
         name: model.selectedRow.diagName,
         definition: model.selectedRow.definition
       });
+      this.openSlideContant({
+        id: model.selectedRow.id,
+        code: model.selectedRow.diagCode,
+        name: model.selectedRow.diagName,
+        definition: model.selectedRow.definition
+      })
     },
     del(row) {
       // if (!this.verify()) return;
