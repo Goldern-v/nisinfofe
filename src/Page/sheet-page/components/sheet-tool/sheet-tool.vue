@@ -48,7 +48,7 @@
           (HOSPITAL_ID != 'guizhou' && !isDeputy&&isShow()|| HOSPITAL_ID == 'guizhou')
         "
       >
-        <div class="text-con">打印预览</div>
+        <div class="text-con">打印预览1111</div>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="toAllPrint">
         <div class="text-con">批量打印</div>
@@ -460,27 +460,27 @@ export default {
     toPrint() {
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
-        
-        this.bus.$emit("toSheetPrintPage");
-      
-        // if (process.env.NODE_ENV == "production") {
-        //   let newWid;
-        //   if (!$(".sign-text").length) {
-        //     newWid = window.open();
-        //     return this.bus.$emit("toSheetPrintPage", newWid);
-        //   }
-        //   if (
-        //     $(".mark-mark-mark").length == 0 &&
-        //     $(".noSignRow").length == 0 &&
-        //     $(".multiSign").length == 0
-        //   ) {
-        //     newWid = window.open();
-        //   }
-        //   this.bus.$emit("toSheetPrintPage", newWid);
-        // } else {
-        //   this.bus.$emit("toSheetPrintPage");
-        // }
-      
+        if(this.HOSPITAL_ID==='foshanrenyi'){
+          this.bus.$emit("toSheetPrintPage");
+        }else{
+          if (process.env.NODE_ENV == "production") {
+          let newWid;
+          if (!$(".sign-text").length) {
+            newWid = window.open();
+            return this.bus.$emit("toSheetPrintPage", newWid);
+          }
+          if (
+            $(".mark-mark-mark").length == 0 &&
+            $(".noSignRow").length == 0 &&
+            $(".multiSign").length == 0
+          ) {
+            newWid = window.open();
+          }
+          this.bus.$emit("toSheetPrintPage", newWid);
+        } else {
+          this.bus.$emit("toSheetPrintPage");
+        }
+        }
     },
     toAllPrint() {
       let pageIndex = 0;
