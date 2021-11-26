@@ -3,30 +3,32 @@
     <div class="item-box" flex="cross:center main:center" v-if="showToolBar">
       <div class="text-con" @click="addPatient">添加患者</div>
     </div>
-    <addSweetModal ref="addSweetModal" @updataeBaseUser="updataeBaseUser"></addSweetModal>
-
+    <addSweetModal
+      ref="addSweetModal"
+      @updataeBaseUser="updataeBaseUser"
+    ></addSweetModal>
   </div>
 </template>
 
 <script>
 import addSweetModal from "../modal/add-sweet-modal";
 export default {
-    props: {
-        showToolBar: Boolean
-    },
+  props: {
+    showToolBar: Boolean
+  },
 
   components: {
     addSweetModal
-    },
+  },
   data() {
     return {};
   },
   methods: {
-    updataeBaseUser(data){
-          this.$emit("updataeBaseUser",data)
+    addPatient() {
+      this.$refs.addSweetModal.open();
     },
-    addPatient(){
-        this.$refs.addSweetModal.open();
+    updataeBaseUser(data) {
+      this.$emit("updataeBaseUser", data);
     }
   }
 };
@@ -40,7 +42,7 @@ export default {
   z-index: 2;
   position: absolute;
   width: 100%;
-  left: 200px;
+  // left: 200px;
   overflow: visible;
 
   .item-box:first-child {

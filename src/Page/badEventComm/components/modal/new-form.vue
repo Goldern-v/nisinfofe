@@ -155,7 +155,8 @@ export default {
       localStorage["BadEvent-CurrentRow"] = 0;
 
       // 是否独立的一张事件（不用公共部分）
-      let arr = ['badevent_nys_fall','badevent_nys_plan_extubat','badevent_nys_drug_error','badevent_nys_report','badevent_nys_pressure','badevent_nys_dermatitis'];
+      let arr = ['badevent_nys_fall','badevent_nys_plan_extubat','badevent_nys_drug_error','badevent_nys_report','badevent_nys_pressure','badevent_nys_dermatitis',
+      'badevent_fqfy_report','badevent_fqfy_submit_report'];
       let isIndependent = arr.includes(data.badEventCode)?1:0;
       this.$router.push({
         name: "badEventEdit",
