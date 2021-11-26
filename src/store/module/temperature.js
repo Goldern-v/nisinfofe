@@ -5,7 +5,6 @@ export default {
   mutations: {
     changeModel(state, value) {
       state.isPain = value
-      alert(state.isPain)
 
     }
   }
