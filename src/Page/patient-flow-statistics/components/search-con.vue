@@ -54,7 +54,7 @@
 
 <script>
 import moment from "moment";
-import { FLOW_STATUS, FLOW_TYPE } from "../../patient-flow-list/enums";
+import { FLOW_STATUS, FLOW_TYPE, searchKeyByCode } from "../../patient-flow-list/enums";
 import { nursingUnit } from '@/Page/healthEducation-list/api'
 export default {
 	props: {
@@ -67,9 +67,9 @@ export default {
 		return {
 			formData: {
 				isInPaient: 0,
-				flowType: 1,
+				flowType: searchKeyByCode(FLOW_TYPE, 'changeF'),
 				date: [],
-				flowStatus: 1,
+				transferStatus: '',
 				deptValue: '',
 			},
 			deptList: [],

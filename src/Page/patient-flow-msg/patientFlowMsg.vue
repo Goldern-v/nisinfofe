@@ -18,20 +18,20 @@
         </div>
         <p class="name">{{ info.name }}</p>
         <div class="list-box">
-          <p class="list-box__item">患者ID：{{ info.inpNo }}</p>
-          <p class="list-box__item">{{ `${info.sex} ${info.age}` }}</p>
-          <p class="list-box__item">所在科室：{{ info.deptName }}</p>
+          <p class="list-box__item">患者ID：{{ info.patientId }}</p>
+          <p class="list-box__item">{{ `${info.sex} ${info.age }` }}</p>
+          <p class="list-box__item">所在科室：{{ info.transferDept }}</p>
           <p class="list-box__item">床位：{{ info.bedLabel }}</p>
         </div>
       </div>
       <div class="list2-box">
         <p class="list2-box__title">转科信息</p>
-        <p class="list2-box__item">转出科室：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转出时间：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转出责任护士：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转入科室：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转入时间：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转入责任护士：{{ info.a || "--" }}</p>
+        <p class="list2-box__item">转出科室：{{ info.transferFrom || "--" }}</p>
+        <p class="list2-box__item">转出时间：{{ info.outDateTime || "--" }}</p>
+        <p class="list2-box__item">转出责任护士：{{ info.nurseOut || "--" }}</p>
+        <p class="list2-box__item">转入科室：{{ info.transferTo || "--" }}</p>
+        <p class="list2-box__item">转入时间：{{ info.inDateTime || "--" }}</p>
+        <p class="list2-box__item">转入责任护士：{{ info.nurseIn || "--" }}</p>
       </div>
     </div>
     <div class="patient-flow-msg__right">
@@ -128,21 +128,25 @@
 </style>
 <script>
 import commonMixin from '@/common/mixin/common.mixin';
-import { getPatientInfo } from '@/api/common';
+import { getPatientFlowDetail } from '@/api/patient-flow';
+// import { getPatientInfo } from '@/api/common';
 
 export default {
   mixins: [commonMixin],
   props: {},
   data() {
     return {
-      info: {}
+      info: {},
+      itemDataMap: {}
     };
   },
   mounted() {
-    const { patientId = '0001028000', visitId = '2' } = this.$route.query
-    getPatientInfo(patientId, visitId).then(res => {
-      this.info = res.data.data
-      console.log('test-this.info', this.info)
+    const { patientId } = this.$route.query
+    getPatientFlowDetail(patientId).then(res => {
+      if (res.data.code === '200') {
+        this.info = res.data.data && res.data.data.master || {}
+        this.itemDataMap = res.data.data && res.data.data.itemDataMap || {}
+      }
     }).catch(err => console.log(err))
   },
   methods: {
