@@ -31,20 +31,25 @@
           size="small"
           v-model="selectedDeptValue"
           @change="changeDept(selectedDeptValue)"
-          style="width:180px"
+          style="width: 180px"
           clearable
         >
           <ElOption
             v-for="item in allDepartmentsList"
             :key="item.id"
-            :label="item.deptName"
-            :value="item.deptCode"
+            :label="item.name"
+            :value="item.code"
           />
         </ElSelect>
       </div>
       <div class="filterItem">
         <span>事件类型:</span>
-        <ElSelect size="small" v-model="eventType" style="width:120px" clearable>
+        <ElSelect
+          size="small"
+          v-model="eventType"
+          style="width: 120px"
+          clearable
+        >
           <ElOption
             v-for="type of eventTypeOptions"
             :key="type.key"
@@ -55,7 +60,12 @@
       </div>
       <div class="filterItem">
         <span>状态:</span>
-        <ElSelect size="small" v-model="eventStatus" style="width:140px" clearable>
+        <ElSelect
+          size="small"
+          v-model="eventStatus"
+          style="width: 140px"
+          clearable
+        >
           <ElOption
             v-for="type of eventStatusOptions"
             :key="type.name"
@@ -210,7 +220,8 @@ import EventTableGuizhou from "../table/eventTable-guizhou";
 import Button from "../button";
 import pagination from "../pagination.vue";
 import { multiDictInfo } from "@/api/common";
-import { getEventTemplate } from "../../apis/index.js";
+import { getEventTemplate } from "@/Page/badEvent/apis/index.js";
+import { nursingUnit } from "@/api/lesion";
 import BusFactory from "vue-happy-bus";
 
 export default {
@@ -243,7 +254,9 @@ export default {
       selectedDeptValue: "", //选中的科室
       eventStatusOptions: [], //所有事件状态
       templates: [], //事件模板
-      user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
+      user: localStorage.getItem("user")
+        ? JSON.parse(localStorage.getItem("user"))
+        : {}
     };
   },
   mounted() {
@@ -256,24 +269,24 @@ export default {
     }
 
     // 日期默认值
-    if (!this.dateBegin && !sessionStorage.getItem('dateBegin')) {
+    if (!this.dateBegin && !sessionStorage.getItem("dateBegin")) {
       let month = parseInt(new Date().getMonth()) + 1;
       if (month < 10) {
         this.dateBegin = new Date().getFullYear() + "-0" + month + "-01";
       } else {
         this.dateBegin = new Date().getFullYear() + "-" + month + "-01";
       }
-    }else {
-      this.dateBegin = dayjs(new Date(sessionStorage.getItem('dateBegin'))).format("YYYY-MM-DD");
+    } else {
+      this.dateBegin = dayjs(
+        new Date(sessionStorage.getItem("dateBegin"))
+      ).format("YYYY-MM-DD");
     }
 
-
-
-
-    this.dateEnd =  sessionStorage.getItem('dateEnd') ?dayjs(new Date(sessionStorage.getItem('dateEnd'))).format("YYYY-MM-DD")
+    this.dateEnd = sessionStorage.getItem("dateEnd")
+      ? dayjs(new Date(sessionStorage.getItem("dateEnd"))).format("YYYY-MM-DD")
       : dayjs(new Date()).format("YYYY-MM-DD");
 
-    if(this.deptCode){
+    if (this.deptCode) {
       this.filterDepartmentsList();
       this.loadEventData();
     }
@@ -284,18 +297,16 @@ export default {
     // 获取所有事件状态
     this.getEventStatus();
   },
-  created() {
-  },
+  created() {},
   computed: {
-    currentTable(){
-      //return this.HOSPITAL_ID == 'guizhou' ? EventTableGuizhou : EventTable;
-      return this.HOSPITAL_ID ? EventTableGuizhou : EventTable;
+    currentTable() {
+      return EventTable;
     },
     eventTypeOptions() {
-      let arr = this.templates.map(item => {
+      let arr = this.templates.map((item) => {
         return {
           label: item.badEventType,
-          value: item.badEventCode || item.badEventType
+          value: item.badEventCode
         };
       });
       return [{ value: "", label: "全部" }, ...arr];
@@ -311,11 +322,11 @@ export default {
     }
   },
   methods: {
-    filterDepartmentsList(){
-      if(!this.selectedDeptValue){
-        this.selectedDeptValue = this.deptCode == '1003' ? '' : this.deptCode;
+    filterDepartmentsList() {
+      if (!this.selectedDeptValue) {
+        this.selectedDeptValue = this.deptCode == "1003" ? "" : this.deptCode;
       }
-       if (
+      if (
         this.allDepartmentsList &&
         !this.allDepartmentsList.length &&
         sessionStorage.getItem("allDepartmentsList")
@@ -324,13 +335,19 @@ export default {
           sessionStorage.getItem("allDepartmentsList")
         );
         // 护理部权限才可以查看所有科室
-        if(this.user && (this.user.roleManageCode == 'QCR0001' || this.user.roleManageCodeList.find(code => code == 'QCR0001'))){
+        if (
+          this.user &&
+          (this.user.roleManageCode == "QCR0001" ||
+            this.user.roleManageCodeList.find((code) => code == "QCR0001"))
+        ) {
           this.allDepartmentsList = allDepartmentsList;
-        }else {
-          this.allDepartmentsList = [allDepartmentsList.find(item => item.deptCode == this.deptCode)]
+        } else {
+          this.allDepartmentsList = [
+            allDepartmentsList.find((item) => item.deptCode == this.deptCode)
+          ];
         }
         console.log(this.allDepartmentsList);
-      }else {
+      } else {
         // 获取所有护理单元科室列表
         this.getDepartmentsList();
       }
@@ -340,7 +357,7 @@ export default {
     },
     // 选择科室
     changeDept(selectedDeptValue) {
-      if(selectedDeptValue){
+      if (selectedDeptValue) {
         sessionStorage.setItem("selectedDeptValue", selectedDeptValue);
       }
     },
@@ -348,41 +365,24 @@ export default {
     async loadEventData() {
       this.pageLoadng = true;
       let query;
-      //if(this.HOSPITAL_ID == 'guizhou'){
-        query = {
-          wardCode: this.selectedDeptValue,
-          beginDate: this.dateBegin
-            ? dayjs(new Date(this.dateBegin)).format("YYYY-MM-DD")
-            : "",
-          endDate: this.dateEnd
-            ? dayjs(new Date(this.dateEnd)).format("YYYY-MM-DD")
-            : "",
-          formCodes: this.eventType ? [this.eventType] : [],
-          status: this.eventStatus || "",
-          pageIndex: this.page.pageIndex,
-          pageSize: this.page.pageSize
-        };
-      //}
-      // else {
-      //   query = {
-      //     wardCode: this.selectedDeptValue,
-      //     dateBegin: this.dateBegin
-      //       ? dayjs(new Date(this.dateBegin)).format("YYYY-MM-DD")
-      //       : "",
-      //     dateEnd: this.dateEnd
-      //       ? dayjs(new Date(this.dateEnd)).format("YYYY-MM-DD")
-      //       : "",
-      //     patientName: this.patientName,
-      //     eventType: this.eventType,
-      //     eventStatus: this.eventStatus,
-      //     pageIndex: this.page.pageIndex,
-      //     pageSize: this.page.pageSize
-      //   };
-      // }
-
+      query = {
+        wardCode: this.selectedDeptValue,
+        beginDate: this.dateBegin
+          ? dayjs(new Date(this.dateBegin)).format("YYYY-MM-DD")
+          : "",
+        endDate: this.dateEnd
+          ? dayjs(new Date(this.dateEnd)).format("YYYY-MM-DD")
+          : "",
+        // patientName: this.patientName,
+        eventType: this.eventType,
+        formCodes: this.eventType ? [this.eventType] : [],
+        status: this.eventStatus,
+        pageIndex: this.page.pageIndex,
+        pageSize: this.page.pageSize
+      };
       apis
         .getEventList(query)
-        .then(res => {
+        .then((res) => {
           if (res.data && res.data.code == 200) {
             this.tableData = res.data.data.list;
             this.page.totalPage =
@@ -394,7 +394,7 @@ export default {
           });
           this.pageLoadng = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.pageLoadng = false;
           console.log(err);
         });
@@ -403,43 +403,56 @@ export default {
       this.$refs.newBadEventForm.open();
     },
     search(e) {
-      if(!this.selectedDeptValue && !(this.user && (this.user.roleManageCode == 'QCR0001' || this.user.roleManageCodeList.find(code => code == 'QCR0001')))){
+      if (
+        !this.selectedDeptValue &&
+        !(
+          this.user &&
+          (this.user.roleManageCode == "QCR0001" ||
+            this.user.roleManageCodeList.find((code) => code == "QCR0001"))
+        )
+      ) {
         this.$message({
           type: "info",
           message: "请选择科室"
         });
         return;
       }
-      sessionStorage.setItem('dateBegin',this.dateBegin);
-      sessionStorage.setItem('dateEnd',this.dateEnd);
+      sessionStorage.setItem("dateBegin", this.dateBegin);
+      sessionStorage.setItem("dateEnd", this.dateEnd);
       this.loadEventData();
     },
     // 获取所有护理单元
     getDepartmentsList() {
-      apis.getAllNursingUnit("type=2").then(res => {
+      nursingUnit().then((res) => {
         if (res.data && res.data.code == 200) {
-          let allDepartmentsList = res.data.data.map(item => {
-            if(item.deptCode && item.deptCode.trim){
-              item.deptCode = item.deptCode.trim();
-            }
-            return item;
-          });
-          // 护理部权限才可以查看所有科室
-          if(this.user && (this.user.roleManageCode == 'QCR0001' || this.user.roleManageCodeList.find(code => code == 'QCR0001'))){
-            this.allDepartmentsList = allDepartmentsList;
-          }else {
-            this.allDepartmentsList = [allDepartmentsList.find(item => item.deptCode == this.deptCode)]
-          }
-          // 把获取到的科室存起来
-          if (allDepartmentsList && allDepartmentsList.length > 0) {
-            sessionStorage.setItem(
-              "allDepartmentsList",
-              JSON.stringify(allDepartmentsList)
-            );
-          }
-          console.log(this.allDepartmentsList);
+          this.allDepartmentsList = res.data.data.deptList;
         }
       });
+      // apis.getAllNursingUnit("type=2").then((res) => {
+      //   if (res.data && res.data.code == 200) {
+      //     let allDepartmentsList = res.data.data;
+      //     // 护理部权限才可以查看所有科室
+      //     if (
+      //       this.user &&
+      //       (this.user.roleManageCode == "QCR0001" ||
+      //         this.user.roleManageCodeList.find((code) => code == "QCR0001"))
+      //     ) {
+      //       this.allDepartmentsList = allDepartmentsList;
+      //     } else {
+      //       this.allDepartmentsList = [
+      //         allDepartmentsList.find((item) => item.deptCode == this.deptCode)
+      //       ];
+      //     }
+      //     // 把获取到的科室存起来
+      //     if (allDepartmentsList && allDepartmentsList.length > 0) {
+      //       sessionStorage.setItem(
+      //         "allDepartmentsList",
+      //         JSON.stringify(allDepartmentsList)
+      //       );
+      //     }
+      //     console.log(this.allDepartmentsList);
+      //   }
+      // });
     },
     handleSizeChange(newSize) {
       this.page.pageIndex = 1;
@@ -453,15 +466,14 @@ export default {
     // 获取所有事件
     getEventTemplateData() {
       if (this.deptCode) {
-        getEventTemplate(this.deptCode).then(res => {
+        getEventTemplate(this.deptCode).then((res) => {
           this.templates = res.data.data;
         });
       }
     },
     // 获取所有事件状态
     getEventStatus() {
-      // if((this.isDev || window.location.host == '192.168.1.54:9875') && this.HOSPITAL_ID == "guizhou"){
-      if((this.isDev || this.HOSPITAL_ID)){
+      if (this.isDev || this.HOSPITAL_ID) {
         this.eventStatusOptions = [
           { code: "", name: "全部" },
           { code: "0", name: "保存" },
@@ -474,9 +486,14 @@ export default {
         return;
       }
       let list = ["badEvent_status"];
-      multiDictInfo(list).then(res => {
-        let arr = res.data.data.badEvent_status;
-        this.eventStatusOptions = [{ code: "", name: "全部" }, ...arr];
+      //福清妇幼
+      this.HOSPITAL_ID == "fqfybjy" && (list = ["badevent_status_fqfy"]);
+      //badevent_status_fqfy
+      multiDictInfo(list).then((res) => {
+        this.eventStatusOptions = [
+          { code: "", name: "全部" },
+          ...res.data.data.badevent_status_fqfy
+        ];
       });
     }
   }

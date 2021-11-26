@@ -41,40 +41,12 @@
       <div class="viewbar-right" :style="'height: ' + (wih - 60) + 'px'">
         <div class="viewbar-right-top">
           <Button class="btn" @click="goBack">返回</Button>
-          <!-- <Button
-            class="btn"
-            :disabled="badEventPageLoading"
-            @click="onPrint"
-            v-if="HOSPITAL_ID == 'nys'"
-            >打印</Button
-          >
-          <Button
-            class="btn"
-            :disabled="isSaved"
-            @click.stop="save"
-            v-if="departmentBack && HOSPITAL_ID == 'nys'"
-            >保存</Button
-          > -->
           <Button
             class="btn"
             :disabled="badEventLoad || isDisabled"
             @click="saveEdit"
             >编辑</Button
           >
-          <!-- <Button
-            class="btn"
-            :disabled="badEventLoad || isDisabled"
-            @click="deleteEdit"
-            v-if="HOSPITAL_ID != 'guizhou'"
-            >删除</Button
-          >
-          <Button
-            class="btn"
-            :disabled="badEventLoad || isDisabled3"
-            @click="revoke"
-            v-if="HOSPITAL_ID != 'guizhou'"
-            >撤销</Button
-          > -->
           <Button
             class="green-btn btn"
             :disabled="badEventLoad || isDisabled2"
@@ -106,7 +78,7 @@
                 ></div>
                 <div
                   slot="description"
-                  style="color: #333; line-height: 1.5em;font-weight: bold;"
+                  style="color: #333; line-height: 1.5em"
                   v-html="step.description"
                 ></div>
               </el-step>
@@ -404,13 +376,12 @@ export default {
       stateText: "保存", //状态名称
       badEventLoad: true, // 编辑按钮置灰
       isDisabled: true, //编辑/删除
-      isDisabled2: true, // 上报
+      isDisabled2: false, // 上报
       isDisabled3: true, // 撤销
       showPrint: false,
       isSaved: false,
       departmentBack: false,
-      anonymous: true, //是否匿名上报
-      currentNodeCode: "" //当前审核节点
+      anonymous: true //是否匿名上报
     };
   },
   computed: {
@@ -440,6 +411,7 @@ export default {
   },
   methods: {
     showBtn(instance, handlenodeDto) {
+      console.log(instance, handlenodeDto);
       this.badEventLoad = false;
       if (instance) {
         let status = instance.status;
@@ -450,15 +422,18 @@ export default {
           this.$route.params.code == "badevent_nys_pressure";
         this.anonymous = instance.anonymous;
       }
+      // this.updateUI(handlenodeDto);
       // if (this.HOSPITAL_ID == "guizhou") {
-      if (this.HOSPITAL_ID) {
-        this.updateUI(handlenodeDto);
-        return;
-      }
+      //   this.updateUI(handlenodeDto);
+      //   return;
+      // }
       // 获取所有事件状态
-      this.getEventStatus(this.status);
+      // this.getEventStatus(this.status);
 
-      this.getBadEventStream();
+      this.$nextTick(() => {
+        this.updateUI(handlenodeDto);
+      });
+      // this.getBadEventStream();
     },
     async load() {
       if (this.$route.params.name) {
@@ -472,7 +447,8 @@ export default {
           isIndependent: this.$route.params.isIndependent
         };
         // 不良事件报表
-        let formHTMLName = "不良事件病人安全通报单";
+        // let formHTMLName = "不良事件病人安全通报单";
+        let formHTMLName = this.$route.params.name;
         let eventName = this.$route.params.name;
         let eventType = this.$route.params.type;
 
@@ -482,24 +458,24 @@ export default {
           )}`;
         } else {
           const host = window.location.host;
-          // if (
-          //   (this.HOSPITAL_ID == "nys" &&
-          //     (host == "info.cr-health.com:20201" ||
-          //       host == "192.168.1.54:8062")) ||
-          //   this.HOSPITAL_ID == "guizhou"
-          // ) 
-         if(this.HOSPITAL_ID) 
-          {
+          //if((this.HOSPITAL_ID == 'nys' && ( host == 'info.cr-health.com:20201' || host == '192.168.1.54:8062') ) || this.HOSPITAL_ID == 'guizhou'){
+          if (
+            (this.HOSPITAL_ID == "nys" &&
+              (host == "info.cr-health.com:20201" ||
+                host == "192.168.1.54:8062")) ||
+            this.HOSPITAL_ID == "guizhou" ||
+            this.HOSPITAL_ID == "fqfybjy"
+          ) {
             formHTMLName += ".html";
           }
           this.url = `${formUrl}/${formHTMLName}?${qs.stringify(queryObj)}`;
         }
         this.pageLoadingText = formHTMLName + ",正在加载中...";
       }
-      Array.prototype.max = function() {
+      Array.prototype.max = function () {
         return Math.max.apply({}, this);
       };
-      Array.prototype.min = function() {
+      Array.prototype.min = function () {
         return Math.min.apply({}, this);
       };
     },
@@ -527,111 +503,56 @@ export default {
     updateUI(stream) {
       let isFlag = false,
         nextStatusObj;
-        //if (this.HOSPITAL_ID == "guizhou") {
-        this.steps = stream.map((item, index) => {
-          let operatorName = "",
-            operateDate = "",
-            status = "";
-          operatorName = item.handlerName || "未完成";
-          operateDate = item.handleTime
-            ? moment(item.handleTime).format("YYYY-MM-DD HH:mm")
-            : "";
-          if (item.status == 1 && index == stream.length - 1 && !item.noPass) {
-            status = "finish";
-          } else if (item.status == 1 && !item.noPass) {
-            status = "success";
-            this.currentNodeCode = item.nodeCode;
-          } else if (item.status == 0) {
-            status = "wait";
-          } else {
-            status = "error";
-          }
-          if (item.status == 0 && !nextStatusObj) {
-            nextStatusObj = item;
-            this.isDisabled = !nextStatusObj.canUpdate;
-            this.isDisabled2 = !nextStatusObj.canHandle;
-          }
-          return {
-            title: item.operateName || item.operatorName || item.nodeName,
-            auditMind: item.auditMind || "",
-            description: `${operatorName}<br>${operateDate}<br>${item.handleContent}`,
-            status
-          };
-        });
-        //} 
-      // else {
-      //   this.steps = stream.map((item, index) => {
-      //     let operatorName = "",
-      //       operateDate = "",
-      //       status = "";
-      //     if (this.HOSPITAL_ID == "guizhou") {
-      //       operatorName = item.handlerName || "未完成";
-      //       operateDate = item.handleTime
-      //         ? moment(item.handleTime).format("YYYY-MM-DD HH:mm")
-      //         : "";
-      //       if (
-      //         item.status == 1 &&
-      //         index == stream.length - 1 &&
-      //         !item.noPass
-      //       ) {
-      //         status = "finish";
-      //       } else if (item.status == 1 && !item.noPass) {
-      //         status = "success";
-      //       } else if (item.status == 0) {
-      //         status = "wait";
-      //       } else {
-      //         status = "error";
-      //       }
-      //       if (item.status == 0 && !nextStatusObj) {
-      //         nextStatusObj = item;
-      //         this.isDisabled = !nextStatusObj.canUpdate;
-      //         this.isDisabled2 = !nextStatusObj.canHandle;
-      //       }
-      //     } else if (item.instanceId) {
-      //       if (
-      //         item.operatorStatus == "save" ||
-      //         item.operatorStatus == "nurse_submit"
-      //       ) {
-      //         operatorName = this.anonymous
-      //           ? "***" + item.operatorWardName
-      //           : item.operatorName + " " + item.operatorWardName;
-      //       } else {
-      //         operatorName =
-      //           item.operatorName + " (" + item.operatorWardName + ")" || "";
-      //       }
-      //       operateDate = item.operateDate
-      //         ? moment(item.operateDate).format("YYYY-MM-DD HH:mm")
-      //         : "";
-      //       if (item.allow) {
-      //         status = "success";
-      //       } else if (index == stream.length) {
-      //         status = "finish";
-      //       } else {
-      //         status = "error";
-      //       }
-      //     } else {
-      //       if (!isFlag) {
-      //         isFlag = true;
-      //         this.stepStatus = index;
-      //       }
-      //       operatorName = "未完成";
-      //       status = "wait";
-      //     }
-      //     return {
-      //       title: item.operateName || item.operatorName || item.nodeName,
-      //       auditMind: item.auditMind || "",
-      //       description: `${operatorName}<br>${operateDate}`,
-      //       status
-      //     };
-      //   });
+      this.steps = stream.map((item, index) => {
+        let operatorName = "",
+          operateDate = "",
+          status = "";
+        operatorName = item.handlerName || "未完成";
+        operateDate = item.handleTime
+          ? moment(item.handleTime).format("YYYY-MM-DD HH:mm")
+          : "";
+        if (item.status == 1 && index == stream.length - 1 && !item.noPass) {
+          status = "finish";
+        } else if (item.status == 1 && !item.noPass) {
+          status = "success";
+          this.currentNodeCode = item.nodeCode;
+          this.stateText = item.nodeName;
+        } else if (item.status == 0) {
+          status = "wait";
+        } else {
+          status = "error";
+        }
+        // if (item.status == 0 && !nextStatusObj) {
+        //   nextStatusObj = item;
+        //   this.isDisabled = !nextStatusObj.canUpdate;
+        // }
+        if (item.status == 1 && item.nodeCode == "commit") {
+          this.isDisabled = true;
+          this.isDisabled2 = true;
+        } else if (item.status == 0 && item.nodeCode == "commit") {
+          this.isDisabled = false;
+          this.isDisabled2 = false;
+        }
+        return {
+          title: item.operateName || item.operatorName || item.nodeName,
+          auditMind: item.auditMind || "",
+          description: `${operatorName}<br>${operateDate}<br>${item.handleContent}`,
+          status
+        };
+      });
+
+      // if (this.HOSPITAL_ID == "guizhou") {
+      //   this.isDisabled = !currentStatusObj.canUpdate;
+      //   this.isDisabled2 = !currentStatusObj.canUpdate;
+      //   this.isDisabled3 = !currentStatusObj.canUpdate;
       // }
 
-      // 表单里面的护士长审核 && 护理质量管理委员会审核单独添加审核时间(取事件轨迹最后一条数据)
-      // if (this.HOSPITAL_ID == "nys") {
+      // // 表单里面的护士长审核 && 护理质量管理委员会审核单独添加审核时间(取事件轨迹最后一条数据)
+      // if (this.HOSPITAL_ID == "nys" || this.HOSPITAL_ID == "fqfybjy") {
       //   let contentWindow = this.$refs.iframe.contentWindow;
       //   // 护士长审核
       //   let nurseAuditorArr = stream.filter(
-      //     item => item.operatorStatus == "nurse_auditor"
+      //     (item) => item.operatorStatus == "nurse_auditor"
       //   );
       //   if (nurseAuditorArr && nurseAuditorArr.length > 0) {
       //     let index =
@@ -642,9 +563,8 @@ export default {
       //         )
       //       : "";
 
-      //     let parentEle = contentWindow.document.querySelector(
-      //       ".khszshyj_explain"
-      //     );
+      //     let parentEle =
+      //       contentWindow.document.querySelector(".khszshyj_explain");
       //     let childEle = parentEle ? parentEle.querySelector("textarea") : "";
       //     if (childEle && childEle.name == "khszshyj_explain" && operateDate) {
       //       let timeEle = document.createElement("div");
@@ -655,7 +575,7 @@ export default {
       //   }
       //   //  护理质量管理委员会审核
       //   let nusringDepartmentAuditorArr = stream.filter(
-      //     item => item.operatorStatus == "nusring_department_auditor"
+      //     (item) => item.operatorStatus == "nusring_department_auditor"
       //   );
       //   if (
       //     nusringDepartmentAuditorArr &&
@@ -671,9 +591,8 @@ export default {
       //         )
       //       : "";
 
-      //     let parentEle = contentWindow.document.querySelector(
-      //       ".hlzlglwyh_explain"
-      //     );
+      //     let parentEle =
+      //       contentWindow.document.querySelector(".hlzlglwyh_explain");
       //     let childEle = parentEle ? parentEle.querySelector("textarea") : "";
       //     if (childEle && childEle.name == "hlzlglwyh_explain" && operateDate) {
       //       let timeEle = document.createElement("div");
@@ -700,42 +619,8 @@ export default {
       }
     },
     uploadEdit() {
-      //if (this.HOSPITAL_ID == "guizhou") {
-        this.wid.CRForm.controller.aduitForm(
-          this.$router,
-          this.currentNodeCode
-        );
-        return;
-      //}
-      // this.wid.CRForm.controller.aduitForm(
-      //   this.$route.params.status,
-      //   this.$router,
-      //   false
-      // );
-
-      // if (this.wid) {
-      //   this.$confirm(
-      //   `是否要匿名上报?`,
-      //   "提示",
-      //   {
-      //     confirmButtonText: "是",
-      //     cancelButtonText: "否",
-      //     type: "info"
-      //   }
-      // ).then(() => {
-      //   this.wid.CRForm.controller.aduitForm(
-      //     this.$route.params.status,
-      //     this.$router,
-      //     true
-      //   );
-      // }).catch(() => {
-      //   this.wid.CRForm.controller.aduitForm(
-      //     this.$route.params.status,
-      //     this.$router,
-      //     false
-      //   );
-      // });
-      // }
+      const formIframe = this.$refs.iframe.contentWindow;
+      formIframe.uploadBadEventForm(this.$router, this.currentNodeCode);
     },
     // 撤销上报
     revoke() {
@@ -746,7 +631,7 @@ export default {
     // 获取所有事件状态
     getEventStatus(status = "save") {
       let list = ["badEvent_status"];
-      multiDictInfo(list).then(res => {
+      multiDictInfo(list).then((res) => {
         let arr = res.data.data.badEvent_status;
         this.eventStatusOptions = this.eventStatusOptions.concat([
           { code: "", name: "全部" },
@@ -762,6 +647,8 @@ export default {
           this.status != this.eventStatusOptions[1].code &&
           this.eventStatusOptions[2] &&
           this.status != this.eventStatusOptions[2].code;
+        console.log(this.isDisabled);
+        console.log(this.status);
         this.isDisabled2 =
           this.eventStatusOptions[1] &&
           this.status != this.eventStatusOptions[1].code;
@@ -772,7 +659,7 @@ export default {
     },
     // 不良事件轨迹
     getBadEventStream() {
-      getStreamByInstanceId(this.$route.params.id).then(res => {
+      getStreamByInstanceId(this.$route.params.id).then((res) => {
         if (res.data && res.data.code == 200) {
           this.updateUI(res.data.data);
         }
