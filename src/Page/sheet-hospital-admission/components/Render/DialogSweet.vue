@@ -801,6 +801,7 @@ export default {
                     ].checkValueRule(result);
                   }
                   if (this.$root.$refs[this.formCode][this.parentName]) {
+                    log
                     this.$root.$refs[this.formCode][
                       this.parentName
                     ].setCurrentValue(result);
@@ -817,6 +818,7 @@ export default {
                   let desc = this.formBox.model.evalDesc || "";
                   let result = score + "分 " + desc;
                   this.formObj.model[this.parentName] = result;
+
 
                   if (this.$root.$refs[this.formCode][this.parentName]) {
                     console.log("parentName", this.parentName);
@@ -856,6 +858,8 @@ export default {
             //
             try {
               window.formTool.formSave();
+              // window.rundev();
+             this.$root.$refs["sheetPage"].fillForm();
             } catch (err) {
               console.log("formSave", err, window.formTool);
             }

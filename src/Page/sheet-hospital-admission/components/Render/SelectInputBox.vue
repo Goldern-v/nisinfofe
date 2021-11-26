@@ -27,7 +27,7 @@
       v-bind="obj.props"
       @change="inputChange($event, obj)"
       @dblclick.native.stop="inputdbClick($event, obj)"
-      @click.native.stop="inputClick($event, obj)"
+      @click.stop="inputClick($event, obj)"
       @focus="inputFocus($event, obj)"
       @keydown.native="inputKeyDown($event, obj)"
       :readonly="obj.selectOnly "
