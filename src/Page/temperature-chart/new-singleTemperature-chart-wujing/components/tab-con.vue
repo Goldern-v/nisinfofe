@@ -862,7 +862,7 @@ window.openSetTextModalNew(
 }
 .rowbox{
 display: inline-block;
-    padding: 3px 15px;
+    padding: 3px 5px;
 
     .preText {
       display: inline-block;
@@ -880,7 +880,7 @@ display: inline-block;
 }
   .row{
     display: inline-block;
-    padding: 3px 15px;
+    padding: 3px 5px;
 
     .preText {
       display: inline-block;

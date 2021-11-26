@@ -2,7 +2,10 @@
 <template>
   <!-- 不良事件 -->
 
-  <div class="bad-event" :style="'height:'+(wih-60)+'px!important;overflow: hidden;'">
+  <div
+    class="bad-event"
+    :style="'height:' + (wih - 60) + 'px!important;overflow: hidden;'"
+  >
     <Search v-if="!params.id"></Search>
     <router-view v-if="params.id"></router-view>
   </div>
