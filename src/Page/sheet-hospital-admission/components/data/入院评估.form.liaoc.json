@@ -3392,35 +3392,11 @@
       "classes": null,
       "readOnly": null,
       "children": [
-        {
-          "name": "I001819",
-          "type": "select",
-          "title": "孕产史(孕)",
-          "suffixDesc": "",
-          "style": null,
-          "titleStyle": "width:70px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "172px",
-          "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "孕产史(孕)情况",
-                "parentName": "I001820",
-                "type": "dependent"
-              }
-            }
-          ]
-        },
+        
         {
           "name": "I001820",
           "type": "select",
-          "title": "孕产史(产)",
+          "title": "孕产史",
           "suffixDesc": "",
           "style": null,
           "titleStyle": "width:70px!important",
@@ -3435,7 +3411,7 @@
                 "cleanKey": [
                   "无"
                 ],
-                "title": "孕产史(产)情况",
+                "title": "孕产史情况",
                 "parentName": "I001820",
                 "type": "dependent"
               }
