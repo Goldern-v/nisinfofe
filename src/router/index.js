@@ -74,6 +74,9 @@ const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
 const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
 const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
+const shiftWorkFq = () => import("@/Page/shift-work-fq/shift-work.vue");
+const shiftWorkDetailFq = () => import("@/Page/shift-work-fq/shift-work-detail.vue");
+
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
 const ISBARshiftWorkHd = () => import("@/Page/shift-work/shift-work.vue");//花都ISBAR交班志
 
@@ -164,6 +167,9 @@ const implementationListQuzhou = () =>
   import("@/Page/implementation-list/implementation-list-quzhou.vue"); //曲周执行单
 const implementationListFuyou = () =>
   import("@/Page/implementation-list/implementation-list-fuyou.vue"); //江门妇幼执行单
+const implementationListHengli = () =>
+  import("@/Page/implementation-list/implementation-list-hengli.vue"); //横沥执行单
+
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 const bottleLabelByProgram = () => import("@/Page/implementation-list/bottle-sign-print.vue"); //瓶签打印
 
@@ -387,6 +393,8 @@ const router = new Router({
               return indexLiaocheng
             case 'wujing':
               return indexWujing
+            case 'fuqing':
+              return shiftWorkFq
             default:
               return indexXin
           }
@@ -514,6 +522,8 @@ const router = new Router({
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
+            case 'fuqing':
+              return shiftWorkFq
             // case 'guizhou':
             //   return shiftWorkGuizhou
             default:
@@ -537,6 +547,8 @@ const router = new Router({
               //   return shiftWorkDetailGuizhou
               case 'beihairenyi':
                 return shiftWorkDetailBh
+              case 'fuqing':
+                return shiftWorkDetailFq
               default:
                 return shiftWorkDetail
             }
@@ -871,6 +883,8 @@ const router = new Router({
               return implementationListQuzhou
             case 'fuyou':
               return implementationListFuyou
+            case 'hengli':
+              return implementationListHengli
             default:
               return implementationList
           }

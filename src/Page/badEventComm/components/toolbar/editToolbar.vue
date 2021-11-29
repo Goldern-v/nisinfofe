@@ -168,14 +168,14 @@ export default {
     },
     save(e) {
       console.log("save", e);
-      // if (
-      //   this.wid.formObj &&
-      //   this.wid.formObj.model &&
-      //   !this.wid.formObj.model.ward_name && this.HOSPITAL_ID != "guizhou"
-      // ) {
-      //   window.messageBox.show("请选择科室", "error", 3000);
-      //   return;
-      // }
+      if (
+        this.wid.formObj &&
+        this.wid.formObj.model &&
+        !this.wid.formObj.model.ward_name && this.HOSPITAL_ID != "guizhou"
+      ) {
+        window.messageBox.show("请选择科室", "error", 3000);
+        return;
+      }
       // else if(this.$route.params.code == 'badevent_nys_pressure' && this.wid.formObj &&
       //   this.wid.formObj.model &&
       //   !this.wid.formObj.model.happen_time){

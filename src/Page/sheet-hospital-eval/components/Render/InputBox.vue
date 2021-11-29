@@ -672,7 +672,7 @@ export default {
         ) {
           this.formObj.model["evalScore"] = 0;
           //
-          if (this.$root.$refs[this.formCode]["evalScore"]) {
+          if (this.$root.$refs[this.formCode]["evalScore"] && this.formObj.model.I618004) {
             try {
               this.formObj.model["evalScore"] = 0;
               this.setElementValue("evalScore", 0);
@@ -682,7 +682,7 @@ export default {
             }
           }
         } else {
-          if (this.$root.$refs[this.formCode]["evalScore"]) {
+          if (this.$root.$refs[this.formCode]["evalScore"] && this.formObj.model.I618004) {
             try {
               this.formObj.model["evalScore"] = "";
               this.setElementValue("evalScore", "");

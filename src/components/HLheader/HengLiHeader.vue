@@ -271,12 +271,12 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link>
-            <!--<router-link to="/implementationList" tag="span">
+            <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
-            </router-link>-->
-            <el-dropdown
+            </router-link>
+            <!-- <el-dropdown
               menu-align="start"
               :hide-on-click="false"
               :class="{ 'router-link-active': isActiveImplementationPage }"
@@ -305,7 +305,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
  <router-link to="/workloadSatistics" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 工作量统计

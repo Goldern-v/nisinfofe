@@ -432,18 +432,32 @@
                     "readOnly": true,
                     "rule": [
                         {
-                            "min": "1",
-                            "max": "8",
-                            "equal": "无风险",
+                            "min": "-1",
+                            "max": "6",
+                            "equal": "低风险",
                             "style": "color:blue",
-                            "display": "无风险"
+                            "display": "低风险"
                         },
                         {
-                            "min": "8",
+                            "min": "6",
+                            "max": "9",
+                            "equal": "中风险",
+                            "style": "color:blue",
+                            "display": "中风险"
+                        },
+                        {
+                            "min": "9",
+                            "max": "12",
+                            "equal": "高风险",
+                            "style": "color:blue",
+                            "display": "高风险"
+                        },
+                        {
+                            "min": "12",
                             "max": "Infinity",
-                            "equal": "患者有自杀风险",
+                            "equal": "极高风险",
                             "style": "color:red",
-                            "display": "患者有自杀风险"
+                            "display": "极高风险"
                         }
                     ]
                 }
