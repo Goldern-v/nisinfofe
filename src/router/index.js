@@ -592,6 +592,8 @@ const router = new Router({
             case 'yangchunzhongyi':
               //return badEventNew
               return badEventComm
+            case 'liaocheng':
+              return badEventComm
             default:
               return badEvent
           }
@@ -608,6 +610,8 @@ const router = new Router({
               case 'yangchunzhongyi':
                 //return badEventEditPageNew
                 return badEventEditPageComm
+              case 'liaocheng':
+                return badEventEditPageComm
               default:
                 return badEventEditPage
             }
@@ -623,6 +627,8 @@ const router = new Router({
                 return badEventViewPageGz
               case 'yangchunzhongyi':
                 //return badEventViewPageNew
+                return badEventViewPageComm
+              case 'liaocheng':
                 return badEventViewPageComm
               default:
                 return badEventViewPage
