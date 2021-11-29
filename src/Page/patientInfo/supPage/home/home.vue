@@ -29,9 +29,9 @@ import { getPatientInfo } from "@/api/common.js";
           "upCurrentPatientObj",
           JSON.parse(JSON.stringify(this.query))
         );
-        if (this.query.deptCode && this.query.deptName) {
+        if (this.query.wardCode && this.query.deptName) {
           this.$store.commit("upDeptCode", this.query.wardCode);
-          localStorage.selectDeptValue = this.query.deptCode;
+          localStorage.selectDeptValue = this.query.wardCode;
           this.$store.commit("upDeptName", this.query.wardName);
         }
         this.isNewPage = false
