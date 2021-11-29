@@ -2985,7 +2985,7 @@
     ]
   },
   {
-    "title": "孕产史(产)情况",
+    "title": "孕产史情况",
     "type": "formGroupVerticalBox",
     "name": "",
     "showTitle": false,
