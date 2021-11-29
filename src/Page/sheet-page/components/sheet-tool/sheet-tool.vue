@@ -266,7 +266,7 @@
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
-        v-if="HOSPITAL_ID == 'wujing' || HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'"
+        v-if="HOSPITAL_ID == 'wujing' || HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'|| HOSPITAL_ID == 'liaocheng'"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
@@ -460,15 +460,10 @@ export default {
     toPrint() {
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
-
-      if (
-        process.env.HOSPITAL_ID == "fuyou" ||
-        process.env.HOSPITAL_ID == "quzhou" ||
-        process.env.HOSPITAL_ID == "huadu"
-      ) {
-        this.bus.$emit("toSheetPrintPage");
-      } else {
-        if (process.env.NODE_ENV == "production") {
+        if(this.HOSPITAL_ID==='foshanrenyi'){
+          this.bus.$emit("toSheetPrintPage");
+        }else{
+          if (process.env.NODE_ENV == "production") {
           let newWid;
           if (!$(".sign-text").length) {
             newWid = window.open();
@@ -485,7 +480,7 @@ export default {
         } else {
           this.bus.$emit("toSheetPrintPage");
         }
-      }
+        }
     },
     toAllPrint() {
       let pageIndex = 0;

@@ -221,6 +221,7 @@ export default {
         "icu_qz", // 曲周_重症护理记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
         "postpartum_wj", // 武警_产后(产房)观察记录单
+        "iabp_fs", // 佛山市一_IABP护理记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -328,7 +329,7 @@ export default {
       );
     }
     /* 护理记录单行高 */
-    if ( (this.HOSPITAL_ID === "quzhou"||this.HOSPITAL_ID === "wujing") &&
+    if ( (this.HOSPITAL_ID === "quzhou") &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -343,6 +344,20 @@ export default {
       );
     }
     if ( (this.HOSPITAL_ID === "wujing") &&
+      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .body-con{
+            height: 30px !important;
+          }
+        }
+        `
+      );
+    }
+    if ( (this.HOSPITAL_ID === "foshanrenyi") &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(

@@ -131,7 +131,7 @@
       <!-- 单选box -->
       <span v-if="child.type==='radioBox'" style="display: flex" :style="child.style">
         <span
-          :style="{width: child.labelWidth}"
+          :style="child.lableStyle ? child.lableStyle : {width: child.labelWidth}"
           style="text-align: right; padding-right: 10px;box-sizing: border-box"
         >{{child.label}}</span>
         <span>

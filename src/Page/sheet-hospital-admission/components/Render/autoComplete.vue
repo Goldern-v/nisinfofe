@@ -15,7 +15,7 @@
             class
             sytle="width:100%"
             v-for="(item, index) in data"
-            @onblur.native.stop="close(id)"
+            @onblur.stop="close(id)"
             @click="post($event,item)"
             :key="item+index"
             :class="{autoSelected: (index == selectIndex||selectedList.indexOf(item.code)>-1)}"

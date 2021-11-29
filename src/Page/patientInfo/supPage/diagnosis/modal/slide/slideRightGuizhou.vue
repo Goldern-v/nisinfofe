@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="slideConRightGuizhou">
     <div class="no-do-bg" v-show="show" @click="close"></div>
     <transition name="el-zoom-in-left">
       <div v-show="show" class="slide-con">

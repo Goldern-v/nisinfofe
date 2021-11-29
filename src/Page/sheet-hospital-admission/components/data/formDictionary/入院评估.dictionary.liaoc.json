@@ -184,16 +184,6 @@
   ],
   "I001141": [
     {
-      "code": "耳背",
-      "name": "耳背",
-      "pinyin": "eb"
-    },
-    {
-      "code": "耳聋",
-      "name": "耳聋",
-      "pinyin": "el"
-    },
-    {
       "code": "正常",
       "name": "正常",
       "pinyin": "zc"
@@ -765,16 +755,6 @@
       "code": "全瘫",
       "name": "全瘫",
       "pinyin": "qt"
-    },
-    {
-      "code": "正常",
-      "name": "正常",
-      "pinyin": "zc"
-    },
-    {
-      "code": "异常",
-      "name": "异常",
-      "pinyin": "yc"
     }
   ],
   "I102222": [
@@ -3241,6 +3221,11 @@
       "pinyin": "bgzl"
     },
     {
+      "code": "肾造瘘",
+      "name": "肾造瘘",
+      "pinyin": "szl"
+    },
+    {
       "code": "其他",
       "name": "其他",
       "pinyin": "qt"
@@ -3471,6 +3456,11 @@
   ],
   "I001306": [
     {
+      "code": "无",
+      "name": "无",
+      "pinyin": "w"
+    },
+    {
       "code": "拐杖",
       "name": "拐杖",
       "pinyin": "gz"
@@ -3494,11 +3484,6 @@
       "code": "其他",
       "name": "其他",
       "pinyin": "qt"
-    },
-    {
-      "code": "无",
-      "name": "无",
-      "pinyin": "w"
     }
   ],
   "I001351": [

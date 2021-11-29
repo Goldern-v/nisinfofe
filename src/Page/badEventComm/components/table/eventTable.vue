@@ -22,13 +22,13 @@
         align="center"
       ></el-table-column>
 
-      <el-table-column
+      <!-- <el-table-column
         header-align="center"
         align="left"
         label="不良事件编号"
         prop="badEventOrderNo"
         min-width="200px"
-      ></el-table-column>
+      ></el-table-column> -->
 
       <el-table-column
         prop="happenDate"
@@ -38,13 +38,13 @@
         min-width="110px"
       ></el-table-column>
 
-      <el-table-column
+      <!-- <el-table-column
         prop="happenTime"
         header-align="center"
         align="center"
         label="发生时间"
         min-width="75px"
-      ></el-table-column>
+      ></el-table-column> -->
 
       <el-table-column
         header-align="center"
@@ -55,7 +55,7 @@
       ></el-table-column>
 
       <el-table-column
-        prop="affected"
+        prop="patientName"
         header-align="center"
         align="left"
         label="受影响对象"
@@ -63,7 +63,7 @@
       >
         <template slot-scope="scope">
           <div>
-            <span>{{sliceString(scope.row.affected)}}</span>
+            <span>{{ sliceString(scope.row.patientName) }}</span>
           </div>
         </template>
       </el-table-column>
@@ -76,7 +76,7 @@
         min-width="150px"
       ></el-table-column>
 
-      <el-table-column
+      <!-- <el-table-column
         prop="happenPlace"
         header-align="center"
         align="left"
@@ -85,19 +85,19 @@
       >
         <template slot-scope="scope">
           <div>
-            <span>{{sliceString(scope.row.happenPlace)}}</span>
+            <span>{{ sliceString(scope.row.happenPlace) }}</span>
           </div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
-      <el-table-column
+      <!-- <el-table-column
         prop="happenReason"
         header-align="center"
         align="center"
         label="发生原因"
         min-width="130px"
         :show-overflow-tooltip="true"
-      ></el-table-column>
+      ></el-table-column> -->
 
       <el-table-column
         prop="status"
@@ -108,21 +108,29 @@
       >
         <template slot-scope="scope">
           <!-- {{scope.row.status}} -->
-          <div :class="{'nopass-row':scope.row.status==-2}">
-            <span>{{getStatus(scope.row)}}</span>
+          <div :class="{ 'nopass-row': scope.row.status == -2 }">
+            <span>{{ getStatus(scope.row) }}</span>
           </div>
         </template>
       </el-table-column>
 
-      <el-table-column header-align="center" align="center" label="操作" min-width="100px">
+      <el-table-column
+        header-align="center"
+        align="center"
+        label="操作"
+        min-width="100px"
+      >
         <template slot-scope="scope">
           <div class="justify">
-            <el-button type="text" @click="openDetail(scope.row)">查看</el-button>
+            <el-button type="text" @click="openDetail(scope.row)"
+              >查看</el-button
+            >
             <el-button
               v-if="scope.row.status == 0 || scope.row.status == 1"
               type="text"
               @click="delDetail(scope.row)"
-            >删除</el-button>
+              >删除</el-button
+            >
           </div>
         </template>
       </el-table-column>
@@ -191,7 +199,7 @@
 <script>
 import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
-import { del } from "../../apis/index.js";
+import { del } from "../../apis";
 import BusFactory from "vue-happy-bus";
 import qs from "qs";
 export default {
@@ -212,6 +220,7 @@ export default {
     this.setCurrent(this.currentRow);
   },
   created() {
+    console.log(this.eventStatusOptions);
     this.bus.$on("setTableData", this.setTableData);
   },
   methods: {
@@ -236,22 +245,27 @@ export default {
     },
     async openDetail(row) {
       // 是否独立的一张事件（不用公共部分）
-      let arr = ['badevent_nys_fall','badevent_nys_plan_extubat','badevent_nys_drug_error','badevent_nys_report','badevent_nys_pressure','badevent_nys_dermatitis'];
-      let isIndependent = arr.includes(row.badEventCode)?1:0;
+      // let arr = [
+      //   "badevent_nys_fall",
+      //   "badevent_nys_plan_extubat",
+      //   "badevent_nys_drug_error",
+      //   "badevent_nys_report",
+      //   "badevent_nys_pressure",
+      //   "badevent_nys_dermatitis",
+      //   "badevent_fqfy_report",
+      //   "badevent_fqfy_submit_report"
+      // ];
+      // let isIndependent = arr.includes(row.badEventCode) ? 1 : 0;
       this.$router.push({
         name: "badEventView",
         params: {
           id: row.id,
-          name: row.badEventName,
-          code: row.badEventCode,
+          name: row.formName,
+          code: row.formCode,
           type: row.eventType,
           status: row.status,
           operation: "view",
-          isIndependent
-        },
-        query: {
-          badEventOrderNo: row.badEventOrderNo,
-          statusName: this.getStatus(row)
+          isIndependent: 1
         }
       });
     },
@@ -260,9 +274,11 @@ export default {
         ? row.happenPlace.slice(0, 15) + "等场所"
         : "";
       this.$confirm(
-        `是否要删除,${row.name || ""}于${row.happenDate ||
-          ""} ${row.happenTime || ""}在${happenPlace}因${row.happenReason ||
-          ""}发生的${row.eventType || ""}不良事件?`,
+        `是否要删除,${row.name || ""}于${row.happenDate || ""} ${
+          row.happenTime || ""
+        }在${happenPlace}因${row.happenReason || ""}发生的${
+          row.eventType || ""
+        }不良事件?`,
         "提示",
         {
           confirmButtonText: "确认",
@@ -272,7 +288,7 @@ export default {
       )
         .then(() => {
           del(row.id)
-            .then(res => {
+            .then((res) => {
               this.$message({
                 type: "success",
                 message: "删除成功"
