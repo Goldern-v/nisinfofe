@@ -814,7 +814,8 @@ export default {
       this.data.bodyModel.splice(index + 1, 0, newRow);
     },
     toCopyRow(index) {
-      this.data.bodyModel.splice(index, 1, this.sheetInfo.copyRow);
+      let row = JSON.parse(JSON.stringify(this.sheetInfo.copyRow))
+      this.data.bodyModel.splice(index, 1, row);
     },
     delRow(index) {
       let curr_row = this.data.bodyModel[index];

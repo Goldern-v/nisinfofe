@@ -421,6 +421,9 @@ export default {
       for (let key in localStorage) {
         if (key.includes("firtPainFormID") || key.includes("patientInfo")) {
           localStorage.removeItem(key);
+        }else if (key.includes("selectDeptValue")) {
+          localStorage.removeItem(key);
+          this.$store.commit("upDeptCode", '');
         }
       }
       location.reload(true);
