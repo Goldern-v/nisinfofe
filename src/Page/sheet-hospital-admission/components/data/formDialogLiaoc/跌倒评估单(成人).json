@@ -702,9 +702,9 @@
       "readOnly": ""
     },
     {
-      "name": "二低风险预防措施",
+      "name": "低风险预防措施",
       "type": "formGroupVerticalBox",
-      "title": "二低风险预防措施",
+      "title": "低风险预防措施",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -779,9 +779,9 @@
       "readOnly": ""
     },
     {
-      "name": "三高风险预防措施",
+      "name": "高风险预防措施",
       "type": "formGroupVerticalBox",
-      "title": "三高风险预防措施",
+      "title": "高风险预防措施",
       "message": "",
       "require": "false",
       "prefixDesc": "",

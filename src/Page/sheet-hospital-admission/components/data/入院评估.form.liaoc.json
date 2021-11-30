@@ -1716,7 +1716,7 @@
         {
           "name": "I001142",
           "type": "select",
-          "title": "意识状态:呼之",
+          "title": "意识状态",
           "titleStyle": "width:89px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "152px",

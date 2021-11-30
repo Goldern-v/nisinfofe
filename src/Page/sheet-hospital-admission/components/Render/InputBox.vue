@@ -50,6 +50,10 @@
     </el-input>
     <!-- <span>{{obj.suffixDesc}}</span> -->
     <openFormSum @scoreListSum="scoreListsum" @changetableSum='changetablesum' @click="tableScoreSum()" :dialogTable='tableScore'></openFormSum>
+    <faceForm @scoreListFace="scoreListFace" @changetableFace='changetableface' @click="tableScoreFace()" :dialogTableFace='tableScore1'></faceForm>
+    <adultForm @scoreListAdult="scoreListAdult" @changetableAdult='changetableAdult' @click="tableScoreAdult()" :dialogTableAdult='tableScore2'></adultForm>
+    <severForm @scoreListSever="scoreListSever" @changetableSever='changetableSever' @click="tableScoreSever()" :dialogTableSever='tableScore3'></severForm>
+     <childForm @scoreListChild="scoreListChild" @changetableChild='changetableChild' @click="tableScoreChild()" :dialogTableChild='tableScore4'></childForm>
     <span
       class="post-text"
       v-if="obj.postText||obj.suffixDesc"
@@ -64,6 +68,10 @@ import uuid from "node-uuid";
 import { setTimeout } from "timers";
 // import autoComplete from "./autoComplete.vue"
 import openFormSum from './modal/openFormsum/sumForm'
+import faceForm from './modal/faceForm/index'
+import adultForm from './modal/adultForm/index'
+import severForm from './modal/severForm/index'
+import childForm from './modal/childForm/index'
 
 export default {
   name: "InputBox",
@@ -86,6 +94,10 @@ export default {
   components: {
     // autoComplete
     openFormSum,
+    faceForm,
+    adultForm,
+    severForm,
+    childForm,
   },
   data() {
     return {
@@ -93,6 +105,10 @@ export default {
       isShow: true,
       isClone: false,
       tableScore:false,
+      tableScore1:false,
+      tableScore2:false,
+      tableScore3:false,
+      tableScore4:false,
     };
   },
   computed: {
@@ -108,7 +124,17 @@ export default {
       console.log("inputValue:", valueNew, oldvaule);
       if(valueNew == 'NRS(数字疼痛分级法)'){
         this.tableScoreSum();
+      }else if(valueNew == 'WONG_BAKER(面部表情评分法)'){
+        this.tableScoreFace();
+      }else if(valueNew == '成人疼痛行为评估量表'){
+        this.tableScoreAdult();
+      }else if(valueNew == '重症监护患者疼痛观察工具'){
+        this.tableScoreSever();
+      }else if(valueNew == '小儿疼痛行为评估量表'){
+        this.tableScoreSever();
       }
+      
+      
       if (this.model === "normal") {
         this.formObj.model[this.obj.name] = valueNew;
         this.checkValueRule(valueNew);
@@ -263,10 +289,51 @@ export default {
     tableScoreSum(){
       this.tableScore =true;
     },
+    tableScoreFace(){
+      this.tableScore1 =true;
+    },
+    tableScoreAdult(){
+      this.tableScore2 =true;
+    },
+    tableScoreSever(){
+      this.tableScore3 =true;
+    },
+    tableScoreChild(){
+      this.tableScore4 =true;
+    },
     changetablesum(flag){
       this.tableScore = flag
     },
-     scoreListsum(val){
+    changetableface(flag){
+      this.tableScore1 = flag
+    },
+    changetableAdult(flag){
+      this.tableScore2 = flag
+    },
+    changetableSever(flag){
+      this.tableScore3 = flag
+    },
+    changetableChild(flag){
+      this.tableScore4 = flag
+    },
+    scoreListsum(val){
+       this.formObj.model["evalScore"] = val;
+       this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListFace(val){
+       this.formObj.model["evalScore"] = val;
+       this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListAdult(val){
+       this.formObj.model["evalScore"] = val;
+       this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListSever(val){
+       this.formObj.model["evalScore"] = val;
+       this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListChild(val){
+       this.formObj.model["evalScore"] = val;
        this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
     },
     checkValueRule(valueNew) {
