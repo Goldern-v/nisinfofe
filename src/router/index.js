@@ -1145,10 +1145,6 @@ const router = new Router({
         name: "patientFlowStatistics",
         component: patientFlowStatistics
       },
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-hgy
     ]
   },
   {
