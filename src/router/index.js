@@ -1150,11 +1150,11 @@ const router = new Router({
         name: "patientFlowMsg",
         component: patientFlowMsg
       },
-      // {
-      //   path: "/patientFlowStatistics",
-      //   name: "patientFlowStatistics",
-      //   component: patientFlowStatistics
-      // },
+      {
+        path: "/patientFlowStatistics",
+        name: "patientFlowStatistics",
+        component: patientFlowStatistics
+      },
     ]
   },
   {
