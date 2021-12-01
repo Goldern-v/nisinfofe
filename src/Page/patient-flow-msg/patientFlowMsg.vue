@@ -128,7 +128,7 @@
 </style>
 <script>
 import commonMixin from '@/common/mixin/common.mixin';
-import { getPatientFlowDetail } from '@/api/patient-flow';
+import { getPatientFlowDetail, getPic } from '@/api/patient-flow';
 // import { getPatientInfo } from '@/api/common';
 
 export default {
@@ -148,6 +148,9 @@ export default {
         this.itemDataMap = res.data.data && res.data.data.itemDataMap || {}
       }
     }).catch(err => console.log(err))
+    getPic().then(res => {
+      console.log('test-res', res)
+    })
   },
   methods: {
   },

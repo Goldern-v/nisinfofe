@@ -10,3 +10,18 @@ export const patientFlowList = (params) => {
 export const getPatientFlowDetail = (id) => {
   return axios.get(`${apiPath}patientFlow/getById/${id}`)
 }
+export const getPic = () => {
+  return axios.post(`${apiPath}pdaform/getByFormCode?formCode=E0622`)
+}
+/**统计折线图数据 */
+export const getLineData = (params) => {
+  return axios.post(`${apiPath}patientFlow/getTransferNum`, params)
+}
+/**统计柱形图数据 */
+export const getBarData = (params) => {
+  return axios.post(`${apiPath}patientFlow//getTransferByDept`, params)
+}
+/**统计饼图数据 */
+export const getPieData = (params) => {
+  return axios.post(`${apiPath}patientFlow/getProportion`, params)
+}

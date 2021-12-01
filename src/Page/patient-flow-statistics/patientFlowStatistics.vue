@@ -65,6 +65,14 @@ import searchCon from "./components/search-con.vue"
 const allowRoleList = ['QCR0001', 'QCR0003', 'QCR0004', 'SYS0001']
 import commonMixin from '@/common/mixin/common.mixin.js';
 import moment from 'moment';
+import * as api from '@/api/patient-flow';
+import { FLOW_CHART_TYPE, searchItem } from '../patient-flow-list/enums';
+
+let getDataKeyArr = [
+  'getBarData',
+  'getPieData',
+  'getLineData',
+]
 
 const commonTitle = {
   left: 'center',
@@ -80,50 +88,15 @@ export default {
   data() {
     return {
       formData: {},
+      /**
+       * 护长以上权限人员
+       * 开放科室选择下拉框
+       * 显示柱形图
+       */
       isEdit: false,
-      lineData: [
-        [3, 1],
-        [3, 2],
-        [3, 3],
-        [3, 4],
-        [3, 5],
-      ],
-      pieData: [
-        {
-          name: '转科',
-          value: 12,
-        },
-        {
-          name: '分娩',
-          value: 12
-        },
-        {
-          name: '介入',
-          value: 12
-        },
-        {
-          name: '手术',
-          value: 12
-        },
-      ],
-      barData: [
-        [13, 1],
-        [31, 2],
-        [4, 3],
-        [3, 4],
-        [3, 5],
-        [3, 6],
-        [3, 7],
-        [3, 8],
-        [3, 9],
-        [3, 10],
-        [6, 11],
-        [3, 12],
-        [12, 13],
-        [3, 14],
-        [3, 15],
-        [3, 16],
-      ]
+      lineData: [],
+      pieData: [],
+      barData: []
     }
   },
   computed: {
@@ -150,7 +123,7 @@ export default {
           name: '月份',
           type: 'category',
           boundaryGap: false,
-          data: this.lineData.map(v => v[1])
+          data: this.lineData.map(v => v.dates)
         },
         yAxis: {
           name: '人数',
@@ -161,7 +134,7 @@ export default {
           {
             name: 'line',
             type: 'line',
-            data: this.lineData.map(v => v[0]),
+            data: this.lineData.map(v => v.num),
             lineStyle: {
               normal: {
                 width: 2, //连线粗细
@@ -249,7 +222,7 @@ export default {
         xAxis: {
           name: '科室',
           type: 'category',
-          data: this.barData.map(v => v[1])
+          data: this.barData.map(v => v.deptName)
         },
         yAxis: {
           name: '人数',
@@ -278,7 +251,7 @@ export default {
           {
             type: 'bar',
             barWidth: 64,
-            data: this.barData.map(v => v[0]),
+            data: this.barData.map(v => v.num),
             itemStyle: {
               normal: {
                 color: function (params) {
@@ -294,9 +267,49 @@ export default {
   },
   methods: {
     search(data) {
-			console.log('test-搜索', data)
-			this.formData = data
+      const {flag, ...formData} = data;
+      this.formData = formData
+      if (flag === 0) return
+
+      let radix2 = '000' + flag.toString(2)
+      radix2 = radix2.substring(radix2.length - 3, radix2.length)
+      let promiseList = []
+      const { date, type, deptCode } = this.formData
+      let params = {
+        startTime: date && date[0] || '',
+        endTime: date && date[1] || '',
+        type,
+        deptCode
+      }
+      getDataKeyArr.map((v,i) => {
+        if (radix2[i]) {
+          let item =  this.getData(v, params)
+          promiseList.push(item)
+        }
+      })
+      Promise.all(promiseList)
 		},
+    async getData(key, params) {
+      try {
+        if (key === 'getBarData' && !this.isEdit) return Promise.resolve(()=> {})
+        let dataKey = key[3].toLowerCase() + key.substring(4)
+        const res = await api[key](params)
+        if (res.data.code == '200') {
+          if (key === 'getPieData') {
+            this.$data[dataKey] = (res.data.data || []).map(v => {
+              return {
+                name: searchItem(FLOW_CHART_TYPE, v.type, 'key').label || '',
+                value: parseFloat(v.rate)
+              }
+            })
+            return
+          }
+            this.$data[dataKey] = res.data.data || []
+        }
+      } catch (err) {
+        // console.log(err)
+      }
+    },
     getEditStatus() {
       const user = JSON.parse(localStorage.user)
       if (user) {

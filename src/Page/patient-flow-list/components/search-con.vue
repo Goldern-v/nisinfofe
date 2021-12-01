@@ -15,12 +15,12 @@
 		<el-date-picker
 			type="daterange"
 			format="yyyy-MM-dd"
+			value-format="yyyy-MM-dd"
 			placeholder="选择流转时间"
 			size="small"
 			v-model="formData.date"
-			style="width:200px;margin-right:10px;"
-		></el-date-picker>
-
+			@change="onChangeDate"
+			style="width:200px;margin-right:10px;"/>
 		 <span class="label" style="margin-left: 0">流转状态:</span>
 		<ElSelect style="width: 120px;margin-right: 15px;" size="small" v-model="formData.transferStatus">
 			<ElOption v-for="val in flowStatusList" :key="val.key" :label="val.label" :value="val.key" />
@@ -75,12 +75,6 @@ export default {
 		};
 	},
 	watch: {
-		'formData.date': {
-			handler() {
-				this.search()
-			},
-			deep: true
-		},
 		'formData.type': {
 			handler() {
 				this.search()
@@ -101,9 +95,15 @@ export default {
 		search() {
 			this.$emit('search', this.formData)
 		},
+		onChangeDate(val) {
+			this.formData.date = val && val.split(' - ') || ''
+			this.search()
+		}
 	},
 	mounted() {
 		this.formData.date = [moment().startOf('month').format('YYYY-MM-DD'), moment().endOf('month').format('YYYY-MM-DD')]
+
+		this.search()
 	},
 	components: {}
 };

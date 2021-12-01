@@ -20,6 +20,28 @@ export const FLOW_TYPE = [
     code: 'laborF'
   },
 ]
+export const FLOW_CHART_TYPE = [
+  {
+    label: '转科',
+    key: 'transfer',
+    code: 'changeF'
+  },
+  {
+    label: '手术',
+    key: 'operation',
+    code: 'operationF'
+  },
+  {
+    label: '介入',
+    key: 'intervention',
+    code: 'involvedF'
+  },
+  {
+    label: '分娩',
+    key: 'delivery',
+    code: 'laborF'
+  },
+]
 
 export const FLOW_STATUS = [
   {

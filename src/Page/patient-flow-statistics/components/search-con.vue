@@ -4,17 +4,17 @@
 		<div class="search-con__patient-type">
 		</div>
 		<span class="label">科室:</span>
-		<ElSelect size="small" v-model="formData.deptValue" :disabled="!isEdit">
+		<ElSelect size="small" v-model="formData.deptCode" :disabled="!isEdit">
 			<ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
 		</ElSelect>
 
 		<span class="label">流转类型:</span>
-		<ElSelect size="small" v-model="formData.flowType">
+		<ElSelect size="small" v-model="formData.type">
 			<ElOption v-for="val in flowTypeList" :key="val.key" :label="val.label" :value="val.key" />
 		</ElSelect>
 
 		<span class="label">流转状态:</span>
-		<ElSelect size="small" v-model="formData.flowStatus">
+		<ElSelect size="small" v-model="formData.transferStatus">
 			<ElOption v-for="val in flowStatusList" :key="val.key" :label="val.label" :value="val.key" />
 		</ElSelect>
 
@@ -22,11 +22,12 @@
 		<el-date-picker
 			type="daterange"
 			format="yyyy-MM-dd"
+			value-format="yyyy-MM-dd"
 			placeholder="选择流转时间"
 			size="small"
 			v-model="formData.date"
-			style="width:200px;margin-right:10px;"
-		></el-date-picker>
+			@change="onChangeDate"
+			style="width:200px;margin-right:10px;"/>
 		<el-button size="small" type="primary" @click="search">查询</el-button>
 	</div>
 </template>
@@ -66,11 +67,10 @@ export default {
 	data() {
 		return {
 			formData: {
-				isInPaient: 0,
-				flowType: searchKeyByCode(FLOW_TYPE, 'changeF'),
+				type: searchKeyByCode(FLOW_TYPE, 'changeF'),
 				date: [],
 				transferStatus: '',
-				deptValue: '',
+				deptCode: '',
 			},
 			deptList: [],
 			flowTypeList: FLOW_TYPE,
@@ -78,33 +78,46 @@ export default {
 		};
 	},
 	watch: {
-		'formData': {
-			handler(v, o) {
-				if (v.deptValue !== o.deptValue) {
-					// this.formData
-				}
-				this.search()
+		'formData.type': {
+			handler() {
+				this.search(5)
+			},
+			deep: true
+		},
+		'formData.transferStatus': {
+			handler() {
+				this.search(0)
+			},
+			deep: true
+		},
+		'formData.deptCode': {
+			handler() {
+				this.search(3)
 			},
 			deep: true
 		},
 	},
 	methods: {
-		search() {
-			this.$emit('search', this.formData)
+		search(flag=7) {
+			this.$emit('search', {...this.formData, flag})
 		},
 		getDepList() {
 			nursingUnit().then(res => {
         this.deptList = res.data.data.deptList
 				this.deptList = [
 					{
-						code: 'all',
+						code: '',
 						name: '全部'
 					},
 					...this.deptList
 				]
-				this.formData.deptValue = 'all'
+				this.formData.deptCode = ''
 				this.formData.title = '全部'
 			})
+		},
+		onChangeDate(val) {
+			this.formData.date = val && val.split(' - ') || ''
+			this.search()
 		}
 	},
 	mounted() {
