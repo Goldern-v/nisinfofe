@@ -1,19 +1,28 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown >
-       <div class="print-btn tool-btn" >打印</div>
-      <el-dropdown-menu slot="dropdown">
-       <el-dropdown-item> <el-button type="primary"  @click="onPrint()">打印当周</el-button></el-dropdown-item>
-    <el-dropdown-item><el-button type="primary"  @click="printAll()">批量打印</el-button></el-dropdown-item>
-       </el-dropdown-menu>
+      <el-dropdown>
+        <div class="print-btn tool-btn">打印</div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <el-button type="primary" @click="onPrint()"
+              >打印当周</el-button
+            ></el-dropdown-item
+          >
+          <el-dropdown-item
+            ><el-button type="primary" @click="printAll()"
+              >批量打印</el-button
+            ></el-dropdown-item
+          >
+        </el-dropdown-menu>
       </el-dropdown>
-      
-      <div  class="newBorn">
-  <div @click="nomalModel()" class="nomal">默认体温单</div>/
-  <div @click="changeModel()" class="painNomal">疼痛版本</div>
-</div>
-      
+
+      <div class="newBorn">
+        <div @click="nomalModel()" class="nomal">默认体温单</div>
+        /
+        <div @click="changeModel()" class="painNomal">疼痛版本</div>
+      </div>
+
       <div class="pagination">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
@@ -80,100 +89,96 @@ export default {
       pageTotal: 1,
       open: false,
       isSave: false,
-      isPain:false,
-       showTemp:true,//默认选择标准的体温单曲线
+      isPain: false,
+      showTemp: true, //默认选择标准的体温单曲线
       visibled: false,
-      isPrintAll:false,//是否打印所有
+      isPrintAll: false, //是否打印所有
       intranetUrl:
         "http://192.168.0.81:9091/temperature/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
-        // "http://192.168.0.81:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-     printAllUrl: "http://192.168.0.81:9091/temperature/#/printAll" /* 医院正式环境内网 */,
-     withoutPainAll:'http://192.168.0.81:9091/temperature/#/withoutPainAll',
-     painModelUrl: "http://192.168.0.81:9091/temperature/#/" /* 医院正式环境内网，没有疼痛默认版本 */,
+      // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
+      printAllUrl:
+        "http://192.168.0.81:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+      withoutPainAll: "http://192.168.0.81:9091/temperature/#/withoutPainAll",
+      painModelUrl:
+        "http://192.168.0.81:9091/temperature/#/" /* 医院正式环境内网，没有疼痛默认版本 */,
 
       outNetUrl:
         "http://120.24.240.231:15091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
-   onPrint() {
-        this.isPrintAll=false
-         setTimeout(()=>{
-this.$refs.pdfCon.contentWindow.postMessage(
-        { type: "printing" },
-        this.showTemp===true?
-        this.intranetUrl
-        :this.painModelUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-      },1500)
-     
-      
- 
+    onPrint() {
+      this.isPrintAll = false;
+      setTimeout(() => {
+        this.$refs.pdfCon.contentWindow.postMessage(
+          { type: "printing" },
+          this.showTemp === true
+            ? this.intranetUrl
+            : this.painModelUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
-    printAll(){
-      this.isPrintAll=true  //隐藏页码控制区域
-        setTimeout(()=>{
-this.$refs.pdfConAll.contentWindow.postMessage(
-        { type: "printingAll" },
-        this.showTemp===true?
-        this.printAllUrl
-        :this.withoutPainAll /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-      },1500)
+    printAll() {
+      this.isPrintAll = true; //隐藏页码控制区域
+      setTimeout(() => {
+        this.$refs.pdfConAll.contentWindow.postMessage(
+          { type: "printingAll" },
+          this.showTemp === true
+            ? this.printAllUrl
+            : this.withoutPainAll /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
     //切换疼痛体温单
-    changeModel(){
-        this.showTemp=false
-        document.getElementsByClassName('painNomal')[0].style.color='red'
-        document.getElementsByClassName('nomal')[0].style.color='black'
-           this.$store.commit('changeModel',true)
+    changeModel() {
+      this.showTemp = false;
+      document.getElementsByClassName("painNomal")[0].style.color = "red";
+      document.getElementsByClassName("nomal")[0].style.color = "black";
+      this.$store.commit("changeModel", true);
 
-      this.getImg()
-
+      this.getImg();
     },
     // 切换普通体温单
-    nomalModel(){
-      this.showTemp=true
-        document.getElementsByClassName('nomal')[0].style.color='red'
-        document.getElementsByClassName('painNomal')[0].style.color=''
-           this.$store.commit('changeModel',false)
-        
-      this.getImg()
+    nomalModel() {
+      this.showTemp = true;
+      document.getElementsByClassName("nomal")[0].style.color = "red";
+      document.getElementsByClassName("painNomal")[0].style.color = "";
+      this.$store.commit("changeModel", false);
+
+      this.getImg();
     },
-    painModel(){
+    painModel() {
       // this.
     },
-     getImg() {
+    getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
-      this.date=date;
-      this.patientId=patientId;
-      this.visitId=visitId;
+      this.date = date;
+      this.patientId = patientId;
+      this.visitId = visitId;
       /* 单独处理体温单，嵌套iframe */
-      if(this.showTemp){
-const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      const tempAllUrl = `${this.withoutPainAll}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`;/* 内网 */
-      // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
-      this.filePath = "";
-      setTimeout(() => {
-        this.filePath = tempUrl;
-        this.printAllPath=tempAllUrl
-      }, 0);
-      }else{
+      if (this.showTemp) {
+        const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
+        const tempAllUrl = `${this.withoutPainAll}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
+        // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
+        this.filePath = "";
+        setTimeout(() => {
+          this.filePath = tempUrl;
+          this.printAllPath = tempAllUrl;
+        }, 0);
+      } else {
         const tempUrl = `${this.painModelUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`;/* 内网 */
-      // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
-      this.filePath = "";
-      setTimeout(() => {
-        this.filePath = tempUrl;
-        this.printAllPath=tempAllUrl
-      }, 0);
-
+        const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
+        // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
+        this.filePath = "";
+        setTimeout(() => {
+          this.filePath = tempUrl;
+          this.printAllPath = tempAllUrl;
+        }, 0);
       }
-      
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
@@ -236,7 +241,7 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
   },
   watch: {
     patientInfo() {
-      this.isPrintAll=false
+      this.isPrintAll = false;
     },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
@@ -264,7 +269,6 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
-    sessionStorage.setItem('isPain',false)
   },
   computed: {
     patientInfo() {
@@ -344,19 +348,23 @@ button[disabled=disabled] {
     cursor: not-allowed;
   }
 }
-.newBorn{
-position:relative;
-top:2px;
-left:65%;
+
+.newBorn {
+  position: relative;
+  top: 2px;
+  left: 65%;
   display: inline-flex !important;
 }
-.nomal{
-  color:red;
+
+.nomal {
+  color: red;
   margin-right: 5px;
 }
-.painNomal{
-  margin-left: 5px
+
+.painNomal {
+  margin-left: 5px;
 }
+
 .print-btn {
   position: relative;
   left: 5%;
