@@ -957,7 +957,6 @@ export default {
     });
   },
   mounted(){
-    this.addSheetPage()
   },
   watch: {
     deptCode(val) {

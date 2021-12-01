@@ -298,24 +298,28 @@ export default {
         let formHTMLName = this.$route.params.name;
         let eventName = this.$route.params.name;
         let eventType = this.$route.params.type;
-        if (this.isDev) {
-          this.url = `${devFormUrl}/${formHTMLName}.html?${devStr}${qs.stringify(
-            queryObj
-          )}`;
-        } else {
-          const host = window.location.host;
-          // if (
-          //   (this.HOSPITAL_ID == "nys" &&
-          //     (host == "info.cr-health.com:20201" ||
-          //       host == "192.168.1.54:8062")) ||
-          //   this.HOSPITAL_ID == "guizhou" ||
-          //   this.HOSPITAL_ID == "fqfybjy"
-          // ) {
-          //   formHTMLName += ".html";
-          // }
-          formHTMLName += ".html";
-          this.url = `${formUrl}/${formHTMLName}?${devStr}${qs.stringify()}`;
-        }
+        let commonUrl = this.isDev ? devFormUrl : formUrl;
+        this.url = `${commonUrl}/${formHTMLName}.html?${qs.stringify(
+          queryObj
+        )}`;
+        // if (this.isDev) {
+        //   this.url = `${devFormUrl}/${formHTMLName}.html?${devStr}${qs.stringify(
+        //     queryObj
+        //   )}`;
+        // } else {
+        //   const host = window.location.host;
+        //   // if (
+        //   //   (this.HOSPITAL_ID == "nys" &&
+        //   //     (host == "info.cr-health.com:20201" ||
+        //   //       host == "192.168.1.54:8062")) ||
+        //   //   this.HOSPITAL_ID == "guizhou" ||
+        //   //   this.HOSPITAL_ID == "fqfybjy"
+        //   // ) {
+        //   //   formHTMLName += ".html";
+        //   // }
+        //   formHTMLName += ".html";
+        //   this.url = `${formUrl}/${formHTMLName}?${devStr}${qs.stringify(queryObj)}`;
+        // }
         this.pageLoadingText = eventName + "安全通报单,正在加载中...";
 
         console.log("载入url", this.url);
