@@ -444,7 +444,7 @@ export default {
           user.token = res.data.data.authToken;
           window.app.authToken = res.data.data.authToken;
           localStorage["ppp"] = this.password;
-          localStorage["user"] = JSON.stringify(res.data.data.user);
+          localStorage.setItem("user",JSON.stringify(res.data.data.user)) 
           localStorage["adminNurse"] = res.data.data.adminNurse;
           Cookies.remove("NURSING_USER");
           //清除江门妇幼ca
