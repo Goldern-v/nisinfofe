@@ -752,30 +752,30 @@
             {
               "min": "-1",
               "max": "10",
-              "equal": "极度危险",
+              "equal": "极高危",
               "style": "color:red",
-              "display": "极度危险"
+              "display": "极高危"
             },
             {
               "min": "10",
               "max": "13",
-              "equal": "高度危险",
+              "equal": "高危",
               "style": "color:red",
-              "display": "高度危险"
+              "display": "高危"
             },
             {
               "min": "13",
               "max": "16",
-              "equal": "中度危险",
+              "equal": "中危",
               "style": "color:blue",
-              "display": "中度危险"
+              "display": "中危"
             },
             {
               "min": "16",
-              "max": "23",
-              "equal": "轻度危险",
+              "max": "24",
+              "equal": "低危",
               "style": "color:blue",
-              "display": "轻度危险"
+              "display": "低危"
             },
             {
               "min": "24",
