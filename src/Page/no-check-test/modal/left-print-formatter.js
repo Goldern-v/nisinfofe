@@ -46,8 +46,8 @@ export default function (win) {
     let theadH = 33,
         rowH = 33,
         gapH = 20;
-    let theads = root.querySelector('.printable thead').cloneNode(true);
-    let tableNode = root.querySelector('.printable table').cloneNode();
+    let theads = root.querySelector('.printable thead') && root.querySelector('.printable thead').cloneNode(true);
+    let tableNode = root.querySelector('.printable table') && root.querySelector('.printable table').cloneNode();
     tbodys.forEach(function (tb, index) {
         pageBox.appendChild(tables[index]);
         // 计算当前tbody高度
@@ -144,13 +144,13 @@ export default function (win) {
     pageNums.forEach((pageNum, i) => {
         pageNum.innerHTML = `第 ${i + 1} / ${pageNums.length} 页`;
     })
-    console.log(page);
+    // console.log(page);
 
     let sumRows = page.querySelectorAll('tbody tr');
     console.dir(sumRows);
 
     root.appendChild(page);
-    console.log(page);
-    console.log(root);
+    // console.log(page);
+    // console.log(root);
 
 }

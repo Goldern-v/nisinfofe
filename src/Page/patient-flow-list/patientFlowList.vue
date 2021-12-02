@@ -7,7 +7,8 @@
 				:data="tableData"
 				border
 				:height="wih - 142"
-				:columns="columns"></iview-table>
+				:loading="loading"
+				:columns="columns"/>
 			</div>
 		</div>
 </template>
@@ -31,91 +32,100 @@
 import common from "@/common/mixin/common.mixin.js";
 import searchCon from "./components/search-con.vue";
 import commonMixin from '@/common/mixin/common.mixin.js';
-import { FLOW_STATUS, FLOW_TYPE, searchKeyByCode } from "./enums";
+import { FLOW_STATUS, FLOW_TYPE, searchItem, searchKeyByCode } from "./enums";
+import { patientFlowList } from '@/api/patient-flow.js'
 
 export default {
   mixins: [common, commonMixin],
   data() {
 		return {
-			tableData: [
-				{
-					val: 1
-				}
-			],
+			tableData: [],
 			formData: {},
+			loading: false
 		};
 	},
 	computed: {
 		columns() {
-			const isLaborF = this.formData.flowType === searchKeyByCode(FLOW_TYPE, 'laborF')
+			const isLaborF = this.formData.type === searchKeyByCode(FLOW_TYPE, 'laborF')
 			return [
 				{
-					prop: 'val',
+					key: 'index',
 					title: '序号',
-					width: 70
+					width: 70,
+					render: (h, { index }) => {
+						return <span>{index + 1}</span>
+					}
 				},
 				{
-					prop: '',
+					key: 'bedNo',
 					title: '床号',
 					width: 70
 				},
 				{
-					prop: '',
+					key: 'patientId',
 					title: '患者ID',
 					width: 120
 				},
+
 				{
-					prop: '',
+					key: 'name',
 					title: '患者姓名',
 					width: 115
 				},
 				{
-					prop: '',
+					key: 'type',
 					title: '流转类型',
 					width: 110,
+					render: (h, { row }) => {
+						const item = searchItem(FLOW_TYPE, row.type, 'key')
+						return item ? <span style={{color: item.color}}>{item.label}</span> : ''
+					}
 
 				},
 				{
-					prop: '',
+					key: 'transferType',
 					title: '方式',
-					width: 70
+					width: 70,
+					render: (h, { row }) => {
+						return <span>{row.transferType === 'in' ? '转入' : '转出'}</span>
+					}
 				},
 				{
-					prop: '',
+					key: 'transferFromName',
 					title: '转出科室',
 					width: 150
 				},
 				{
-					prop: '',
+					key: 'transferToName',
 					title: '转入科室',
 					width: 150
 				},
 				{
-					prop: '',
+					key: 'outDateTime',
 					title: '转出时间',
 					width: 150
 				},
 				{
-					prop: '',
+					key: 'inDateTime',
 					title: '转入时间',
 					width: 150
 				},
 				{
-					prop: '',
+					key: 'nurseOutName',
 					title: isLaborF ? '病区负责护士' : '转出负责护士',
 					width: 130
 				},
 				{
-					prop: '',
+					key: 'nurseInName',
 					title: isLaborF ? '产房负责护士' : '转入负责护士',
 					width: 130
 				},
 				{
-					prop: '',
+					key: 'transferStatus',
 					title: '流转状态',
 					width: 110,
 					render: (h, { row }) => {
-						const item = FLOW_STATUS.find(v => row.stauts === row.key)
+						const item = searchItem(FLOW_STATUS, row.transferStatus, 'key')
 						if (item) {
 							return (
 								<span style={{color: item.color}}>{item.label}</span>
@@ -125,7 +135,7 @@ export default {
 					}
 				},
 				{
-					prop: 'operate',
+					key: 'operate',
 					title: '操作',
 					width: 95,
 					fixed: 'right',
@@ -140,12 +150,24 @@ export default {
 	},
 	methods: {
 		openMsg(row) {
-			console.log('test-打开详情', row)
-			this.$router.push({ name: 'patientFlowMsg'})
+			const { patientId } = row
+			this.$router.push({ name: 'patientFlowMsg', query: { patientId }
+			})
 		},
-		search(data) {
-			console.log('test-搜索', data)
+		async search(data) {
 			this.formData = data
+			const { date, ...other } = data
+			const params = {
+				...other,
+				startTime: date && date[0] || '',
+				endTime: date && date[1] || ''
+			}
+			this.loading = true
+			const res = await patientFlowList(params)
+			if (res.data && res.data.code === "200") {
+				this.tableData = res.data.data || []
+			}
+			this.loading = false
 		},
 		rowClassName(row, idx) {
       let rowIdx = idx + 1;
