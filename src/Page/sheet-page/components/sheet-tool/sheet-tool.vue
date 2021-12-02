@@ -200,7 +200,7 @@
         class="item-box"
         style="width: 85px"
         flex="cross:center main:center"
-        v-if="!isDeputy&&HOSPITAL_ID=='huadu'"
+        v-if="!isDeputy&&['huadu','beihairenyi'].includes(HOSPITAL_ID)"
       >
         <input
           class="pegeSelect"
@@ -553,6 +553,7 @@ export default {
           this.patientInfo.visitId,
           this.deptCode
         ).then((res) => {
+
           this.sheetBlockList.forEach((item) => {
             try {
               let currObj = res.data.data.list.find((obj) => obj.id == item.id);
@@ -561,7 +562,10 @@ export default {
                
             } catch (error) {}
           });
-        });
+        }
+        );
+        console.log(this.sheetBlockList)
+
       }
     },
     querySearch(queryString, cb) {
@@ -760,7 +764,7 @@ export default {
           let list = res.data.data.list;
           if (
             this.$route.path.includes("singleTemperatureChart") ||
-            this.$route.path.includes("temperature")
+            this.$route.path.includes("temperature")||this.$route.path.includes("Baby_sheetPage")
           ) {
             this.sheetBlockList = list.filter((item) => {
               switch (this.HOSPITAL_ID) {
@@ -770,8 +774,8 @@ export default {
                   return item.recordCode === "body_temperature_jm";
                 case "hj":
                   return item.recordCode === "body_temperature_hj";
-                // case "liaocheng":
-                //   return item.recordCode === "body_temperature_lcey";
+                case "beihairenyi":
+                  return item.recordCode === "infant_bh";
                 // case "hengli":
                 //   return item.recordCode === "body_temperature_hl";
                 case "beihairenyi":
