@@ -289,3 +289,10 @@ export const updateBlockInfo = (obj = {}) => {
     `${apiPath}record/block/updateBlockInfo`, obj
   );
 };
+
+// 同步his的分娩记录单数据
+export const  getDeliveryInfo= ( patientId ) => {
+  return axios.get(
+    `${apiPath}/form/design/getfyinfo/${patientId}`
+  );
+};

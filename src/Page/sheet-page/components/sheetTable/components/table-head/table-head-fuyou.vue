@@ -120,7 +120,7 @@
       >
         分娩日期：
         <div class="bottom-line" style="min-width: 80px">
-          {{ patientInfo.admissionDate | toymd }}
+          {{ patientInfo.deliveryDate ? patientInfo.deliveryDate : "" }}
         </div>
       </span>
       <span v-if="sheetInfo.sheetType === 'gynaecology_jm'">
@@ -139,18 +139,19 @@
       </span>
     </div>
     <bedRecordModal ref="bedRecordModal"></bedRecordModal>
+    <setTextModalFuyou ref="modalName"></setTextModalFuyou>
   </div>
 </template>
 
 <script>
 import moment from "moment";
-import { updateSheetHeadInfo } from "../../../../api/index";
+import { updateSheetHeadInfo,getDeliveryInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
 import bedRecordModal from "../../../modal/bedRecord-modal";
-
+import setTextModalFuyou  from "@/Page/sheet-page/components/sheetTable/components/table-components/set-text-modal-fuyou.vue"
 export default {
   props: {
     patientInfo: Object,
@@ -223,15 +224,15 @@ export default {
       );
     },
     updateDelivery(key, label, autoText) {
-      window.openSetTextModal(
+      this.$refs.modalName.open( 
         (text) => {
           sheetInfo.relObj[`PageIndex_delivery_${this.index}`] = text;
           this.$message.success(`修改分娩方式成功`);
           this.bus.$emit("saveSheetPage", false);
         },
         this.delivery,
-        `修改分娩方式`
-      );
+        `修改分娩方式`);
+
     },
   },
   filters: {
@@ -246,7 +247,7 @@ export default {
       }
     },
   },
-  created() {
+  async created() {
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
@@ -254,12 +255,23 @@ export default {
     if(sheetInfo.sheetType === 'neonatal_care_jm'){
       this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
-      console.log(this.patientInfo);
-
+    // 江门妇幼产后护理记录单获取分娩时间
+    if(sheetInfo.sheetType ==='postpartumnursing_jm'&&this.index===0){
+        const res = await  getDeliveryInfo(this.patientInfo.patientId)
+        if(res.data.data.length!=0){
+           const dateOfBirth=res.data.data[0].DateOfBirth
+           const date=dateOfBirth.split(" ")[0].split("/")
+           const time=dateOfBirth.split(" ")[1].split(":")
+           const deliveryDate=`${date[0]}-${date[1]}-${date[2]} ${time[0]}:${time[1]}`
+           this.$set(this.patientInfo,'deliveryDate',deliveryDate)
+        }
+    }
+     console.log(this.patientInfo);
   },
   watch: {},
   components: {
-    bedRecordModal
+    bedRecordModal,
+    setTextModalFuyou
   },
 };
 </script>

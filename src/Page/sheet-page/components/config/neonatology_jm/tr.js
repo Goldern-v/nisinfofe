@@ -139,6 +139,9 @@ export default [
   value: "",
   event: keyf1,
   name: "大便",
+  autoComplete: {
+    data: ['√']
+  },
   textarea:{
     width:40
   }
@@ -148,6 +151,9 @@ export default [
   value: "",
   event: keyf1,
   name: "小便",
+  autoComplete: {
+    data: ['√']
+  },
   textarea:{
     width:40
   }
@@ -171,6 +177,9 @@ export default [
   key: "fieldSeventeen", //早开奶
   value: "",
   event: keyf1,
+  autoComplete: {
+    data: ['√']
+  },
   textarea:{
     width:40
   }
