@@ -25,8 +25,8 @@
           <div class="bottom-line" style="min-width: 50px">{{ patientInfo.bedLabel }}</div>
         </span>
         <span>
-          住院号/ID号：
-          <div class="bottom-line" style="min-width: 60px">{{ patientInfo.inpNo }}</div>
+          {{['huadu'].includes(HOSPITAL_ID)?'住院号：':'住院号/ID号：'}}
+          <div class="bottom-line" style="min-width: 60px">{{ ['huadu'].includes(HOSPITAL_ID)?patientInfo.patientId:patientInfo.inpNo }}</div>
         </span>
         <span>
           入院日期：
