@@ -14,21 +14,40 @@
       <div class="left-part">
         <patientList
           :data="data.bedList"
+          ref="patientList"
           v-loading="patientListLoading"
           :isSelectPatient="isSelectPatient"
         ></patientList>
       </div>
-      <div
-        class="right-part"
-        v-loading="tableLoading"
-        :class="openLeft ? 'isLeft' : 'isRight'"
-      >
+      <div class="right-part" v-loading="tableLoading">
         <div class="sheetTable-contain">
           <temperatureNew
             class="contain-center"
             :queryTem="patientInfo"
           ></temperatureNew>
-          <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
+          <div
+            class="flag-con"
+            :style="{ top: flagTop }"
+            flex="main:center cross:center"
+            @click="openRight"
+          >
+            <i
+              class="iconfont icon-yincang"
+              v-show="rightSheet"
+              style="margin-left: -1px"
+            ></i>
+            <i
+              class="iconfont icon-xianshi"
+              v-show="!rightSheet"
+              style="margin-left: -2px"
+            ></i>
+          </div>
+          <tabCon
+            v-show="rightSheet"
+            :patientInfo="patientInfo"
+            class="contain-right"
+          >
+          </tabCon>
         </div>
       </div>
     </div>
@@ -87,6 +106,7 @@ import print from "printing";
 import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureNew from "./components/temperatureNew";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-wujing/components/tab-con";
+import Button from "@/Page/badEvent/components/button.vue";
 
 export default {
   mixins: [common],
@@ -97,6 +117,7 @@ export default {
       data: {
         bedList: [],
       },
+
       patientListLoading: true,
       tableLoading: false,
     };
@@ -106,9 +127,16 @@ export default {
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
     },
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+    flagTop() {
+      return `${this.wih * 0.4}px`;
+    },
+
     containHeight() {
       if (this.fullpage) {
         return this.wih - 44 + "px";
@@ -128,6 +156,10 @@ export default {
   },
   mounted() {},
   methods: {
+    //关闭录入界面
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
@@ -145,7 +177,7 @@ export default {
       this.bus.$emit("refreshVitalSignList");
     },
   },
-  components: { patientList, temperatureNew, tabCon },
+  components: { patientList, temperatureNew, tabCon, Button },
   watch: {
     deptCode(val) {
       if (val) {
@@ -155,3 +187,22 @@ export default {
   },
 };
 </script>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.flag-con {
+  width: 10px;
+  height: 73px;
+  position: relative;
+  z-index: 10;
+  background-image: url('../../../common/images/patient/隐藏框.png');
+  cursor: pointer;
+  transform: rotateY(180deg);
+
+  &:hover {
+    color: #5CC6A1;
+  }
+
+  i {
+    font-size: 12px;
+  }
+}
+</style>
