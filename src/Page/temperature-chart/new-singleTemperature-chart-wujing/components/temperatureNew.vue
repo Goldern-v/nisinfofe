@@ -149,9 +149,6 @@ export default {
 
       this.getImg();
     },
-    painModel() {
-      // this.
-    },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;

@@ -411,17 +411,6 @@ export default {
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
-      topContextList: [
-        "",
-        "入院",
-        "转入",
-        "手术",
-        "分娩",
-        "出院",
-        "出生",
-        "手术入院",
-        "死亡",
-      ],
       bottomIndex: [],
       timesOdd: [
         {
@@ -499,7 +488,6 @@ export default {
       } else {
         let inputListLength =
           document.getElementsByClassName("fieldClass").length;
-        console.log(inputListLength);
         if (Number(e.target.id) < inputListLength + 100 - 1) {
           document.getElementById(Number(e.target.id) + 1).focus();
         } else if (Number(e.target.id) === inputListLength + 100 - 1) {
