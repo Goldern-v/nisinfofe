@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="reLoadHeader">
     <router-view></router-view>
     <autoComplete ref="autoComplete"></autoComplete>
     <contextMenu ref="contextMenu"></contextMenu>
@@ -60,7 +60,8 @@ export default {
   data() {
     return {
       showScaleMsg: false, //是否出现缩放窗口提示
-      scaleRate: "" //当前页面缩放比例
+      scaleRate: "", //当前页面缩放比例
+      reLoadHeader:true
     };
   },
   watch: {
@@ -77,6 +78,19 @@ export default {
     }
   },
   created() {
+
+    // start --- 针对花都多窗口切换用户bug的绑定监听事件
+    let _this = this // 改写windo事件的this指向
+    window.addEventListener("storage", function (e) {
+      if(e.key=="user"){
+        this.reLoadHeader = false // 用来控制页面刷新
+        setTimeout(()=>{
+          this.reLoadHeader = true
+        })
+      }
+    }.bind(_this));
+    // end --- 针对花都多窗口切换用户bug的绑定监听事件
+
     window.onresize = () => {
       this.$store.commit("upWih");
     };
