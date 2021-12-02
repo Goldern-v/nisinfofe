@@ -75,6 +75,11 @@ function syncGetNurseBedRecHengli(deptCode){
 function syncGetNurseBedRecJiangMenFY(deptCode){
   return axios.get(`${apiPath}HisJiangMenFYBedRec/syncGetNurseBedRec/${deptCode}`)
 }
+//佛山市一 --更新床位一览卡信息
+function syncGetNurseBedRecJiangMenFSSY(deptCode){
+  return axios.get(`${apiPath}HisFoSanShiYiBedRec/syncGetNurseBedRec/${deptCode}`)
+}
+
 // 威县 --同步医嘱
 function syncGetMedicalAdvice(deptCode) {
   return axios.get(`${apiPath}hisDispenseExecute/syncGetPatientOrdersWithWardCode/${deptCode}`)
