@@ -327,7 +327,15 @@
       class="tempSweetModal"
       @close="closeModal"
     > -->
-    <moveContext :id="654" :titlex="'体温曲线'" class="babyChat">
+    <moveContext
+      :id="'temperatureChart'"
+      :titlex="'体温曲线'"
+      class="babyChat"
+      v-if="
+        this.$route.path.includes('singleTemperatureChart') &&
+        HOSPITAL_ID == 'huadu'
+      "
+    >
       <temperatureHD :queryTem="patientInfo"></temperatureHD>
     </moveContext>
     <!-- </sweet-modal> -->
