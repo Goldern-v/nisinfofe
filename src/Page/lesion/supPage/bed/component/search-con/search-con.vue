@@ -291,7 +291,8 @@ import {
   syncGetNurseBedRecShannan,
   syncGetNurseBedRecQuzhou,
   syncGetNurseBedRecHengli,
-  syncGetNurseBedRecJiangMenFY
+  syncGetNurseBedRecJiangMenFY,
+  syncGetNurseBedRecJiangMenFSSY
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -606,7 +607,16 @@ export default {
     },
     // 同步床位数据
     showSyncBedBtn() {
-      return ["weixian", "lingcheng", "liaocheng", "hengli",'shannan', 'quzhou', 'fuyou'].includes(
+      return [
+        "weixian", 
+        "lingcheng", 
+        "liaocheng", 
+        "hengli",
+        'shannan', 
+        'quzhou', 
+        'fuyou',
+        "foshanrenyi"
+        ].includes(
         this.HOSPITAL_ID
       );
     },
@@ -675,6 +685,9 @@ export default {
           break;
         case "fuyou":
           syncData = syncGetNurseBedRecJiangMenFY;
+          break;
+        case "foshanrenyi":
+          syncData = syncGetNurseBedRecJiangMenFSSY;
           break;
         default:
           syncData = syncGetNurseBedRec;

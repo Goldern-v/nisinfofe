@@ -28,7 +28,29 @@
             class="contain-center"
             :queryTem="patientInfo"
           ></temperatureNew>
-          <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
+          <div
+            class="flag-con"
+            :style="{ top: flagTop }"
+            flex="main:center cross:center"
+            @click="openRight"
+          >
+            <i
+              class="iconfont icon-yincang"
+              v-show="rightSheet"
+              style="margin-left: -1px"
+            ></i>
+            <i
+              class="iconfont icon-xianshi"
+              v-show="!rightSheet"
+              style="margin-left: -2px"
+            ></i>
+          </div>
+          <tabCon
+            class="contain-right"
+            v-show="rightSheet"
+            :patientInfo="patientInfo"
+          >
+          </tabCon>
         </div>
       </div>
     </div>
@@ -47,6 +69,24 @@
       left: 0;
       top: 0px;
       bottom: 0;
+    }
+
+    .flag-con {
+      width: 10px;
+      height: 73px;
+      position: relative;
+      z-index: 10;
+      background-image: url('../../../common/images/patient/隐藏框.png');
+      cursor: pointer;
+      transform: rotateY(180deg);
+
+      &:hover {
+        color: #5CC6A1;
+      }
+
+      i {
+        font-size: 12px;
+      }
     }
 
     .right-part {
@@ -108,6 +148,12 @@ export default {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
+    flagTop() {
+      return `${this.wih * 0.4}px`;
+    },
     containHeight() {
       if (this.fullpage) {
         return this.wih - 44 + "px";
@@ -142,6 +188,10 @@ export default {
       await this.$store.commit("upPatientInfo", item);
       this.bus.$emit("refreshImg");
       this.bus.$emit("refreshVitalSignList");
+    },
+    //关闭录入界面
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
     },
   },
   components: { patientList, temperatureNew, tabCon },

@@ -62,6 +62,23 @@
               :length="item.length"
             ></sheetTable>-->
           </div>
+          <!-- <div
+            class="babyChat"
+            v-show="showBabyChat"
+            @click="moveContext"
+            @mouseup="noMove"
+           > -->
+          <moveContext
+            :id="'temperatureChart'"
+            :titlex="'婴儿记录单'"
+            class="babyChat"
+          >
+            <temperatureBHRY
+              class="contain-center"
+              :queryTem="patientInfo"
+            ></temperatureBHRY>
+          </moveContext>
+          <!-- </div> -->
           <div
             v-show="sheetModel.length == 0"
             class="null-btn"
@@ -69,9 +86,7 @@
             @click="addSheetPage"
           >
             <i class="el-icon-plus"></i>
-            {{
-              "创建婴儿护理记录单"
-            }}
+            {{ "创建婴儿护理记录单" }}
           </div>
         </div>
       </div>
@@ -134,6 +149,17 @@
       transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
     }
   }
+}
+
+.babyChat {
+  position: absolute;
+  right: 0;
+  top: 15px;
+  width: 90%;
+  height: 113%;
+  z-index: 999;
+  box-shadow: -2px 0 7px -1px black; // 左边阴影;
+  background-color: white;
 }
 
 .dept-select-con {
@@ -213,36 +239,38 @@
 <script>
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import doctorEmr from "@/components/doctorEmr";
+import temperatureBHRY from "../../Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/temperatureBHRYNewBorn.vue";
 // import patientList from "@/components/patient-list/patient-list.vue";
 import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
-import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
-import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";
-import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";
-import sheetTablePost_hemodialysis from "./components/sheetTable-hemodialysis/sheetTable";
-import sheetTable_oxytocin from "./components/sheetTable-oxytocin/sheetTable";
-import sheetTableDressing_count from "./components/sheetTable-dressing_count/sheetTable";
-import sheetTableMaternal_newborn_lc from "./components/sheetTable-maternal_newborn_lc/sheetTable";
-import sheetTable_picc_maintenance_hd from "./components/sheetTable-picc_maintenance_hd/sheetTable";
-import sheetTable_intervention_cure_hd from "./components/sheetTable-intervention_cure_hd/sheetTable";
-import sheetTable_hemodialysis_CRRT_hd from "./components/sheetTable-hemodialysis_CRRT_hd/sheetTable";
-import sheetTable_intervention_cure from "./components/sheetTable-intervention_cure/sheetTable";
-import sheetTable_intersurgerycure_qzx from "./components/sheetTable-intersurgerycure_qzx/sheetTable";
-import sheetTable_mild_hypothermia_hd from "./components/sheetTable-mild_hypothermia_hd/sheetTable";
-import sheetTable_neonatology_picc from "./components/sheetTable-neonatology_picc/sheetTable";
-import sheetTable_newborn_qzx from "./components/sheetTable-newborn_qzx/sheetTable";
-// import sheetTable_internal_eval_lcey from "./components/sheetTable-internal_eval_lcey/sheetTable";
-import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
-import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
-import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";
-import sheetTable_waiting_birth_gzry from "./components/sheetTable-waiting_birth_gzry/sheetTable";
-import sheetTable_newborn_care_gzry from "./components/sheetTable-newborn_care_gzry/sheetTable";
-import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
-import sheetTable_picc_custody_jm from "./components/sheetTable-picc_custody_jm/sheetTable";
-import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/sheetTable";
-import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
-import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
-import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
+import moveContext from "../temperature-chart/commonComponents/removableBox.vue";
+// import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
+// import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";
+// import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";
+// import sheetTablePost_hemodialysis from "./components/sheetTable-hemodialysis/sheetTable";
+// import sheetTable_oxytocin from "./components/sheetTable-oxytocin/sheetTable";
+// import sheetTableDressing_count from "./components/sheetTable-dressing_count/sheetTable";
+// import sheetTableMaternal_newborn_lc from "./components/sheetTable-maternal_newborn_lc/sheetTable";
+// import sheetTable_picc_maintenance_hd from "./components/sheetTable-picc_maintenance_hd/sheetTable";
+// import sheetTable_intervention_cure_hd from "./components/sheetTable-intervention_cure_hd/sheetTable";
+// import sheetTable_hemodialysis_CRRT_hd from "./components/sheetTable-hemodialysis_CRRT_hd/sheetTable";
+// import sheetTable_intervention_cure from "./components/sheetTable-intervention_cure/sheetTable";
+// import sheetTable_intersurgerycure_qzx from "./components/sheetTable-intersurgerycure_qzx/sheetTable";
+// import sheetTable_mild_hypothermia_hd from "./components/sheetTable-mild_hypothermia_hd/sheetTable";
+// import sheetTable_neonatology_picc from "./components/sheetTable-neonatology_picc/sheetTable";
+// import sheetTable_newborn_qzx from "./components/sheetTable-newborn_qzx/sheetTable";
+// // import sheetTable_internal_eval_lcey from "./components/sheetTable-internal_eval_lcey/sheetTable";
+// import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
+// import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
+// import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";
+// import sheetTable_waiting_birth_gzry from "./components/sheetTable-waiting_birth_gzry/sheetTable";
+// import sheetTable_newborn_care_gzry from "./components/sheetTable-newborn_care_gzry/sheetTable";
+// import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
+// import sheetTable_picc_custody_jm from "./components/sheetTable-picc_custody_jm/sheetTable";
+// import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/sheetTable";
+// import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
+// import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
+// import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import { typeList } from "@/api/lesion";
@@ -296,6 +324,7 @@ export default {
       scrollTop: 0,
       typeList: [], // 科室类型
       scrollY: 0,
+      queryTem: {},
       bedAndDeptChange: {},
       listData: [],
     };
@@ -310,6 +339,9 @@ export default {
     },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
+    },
+    showBabyChat() {
+      return this.$store.state.temperature.showBabyChat;
     },
     fullpage() {
       return this.$store.state.sheet.fullpage;
@@ -334,14 +366,14 @@ export default {
         }
       };
       let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        item.bodyModel.map((tr,x)=>{
-          if(!tr.hasOwnProperty('isRead')){
-            tr.isRead = this.isRead(tr)
-            tr.map((td,y)=>{
-              td.isDisabed = this.isDisabed(tr,td,x,y,item.bodyModel)
-            })
-          } 
-        })
+        item.bodyModel.map((tr, x) => {
+          if (!tr.hasOwnProperty("isRead")) {
+            tr.isRead = this.isRead(tr);
+            tr.map((td, y) => {
+              td.isDisabed = this.isDisabed(tr, td, x, y, item.bodyModel);
+            });
+          }
+        });
         let obj = {
           index,
           data: item,
@@ -356,75 +388,73 @@ export default {
       return resultModel;
     },
     sheetTable() {
-      if (sheetInfo.sheetType == "neonatology") {
-        return sheetTableNeonatology;
-        //  return sheetTablePost_partum;
-      } else if (sheetInfo.sheetType == "post_partum") {
-        return sheetTablePost_partum;
-      } else if (sheetInfo.sheetType == "blood_purification") {
-        return sheetTablePost_hemodialysis;
-      } else if (sheetInfo.sheetType == "oxytocin") {
-        return sheetTable_oxytocin;
-      } else if (sheetInfo.sheetType == "dressing_count") {
-        return sheetTableDressing_count;
-      } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
-        return sheetTableMaternal_newborn_lc;
-      } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
-        return sheetTable_picc_maintenance_hd;
-      } else if (sheetInfo.sheetType == "intervention_cure_hd") {
-        return sheetTable_intervention_cure_hd;
-      } else if (sheetInfo.sheetType == "hemodialysis_CRRT_hd") {
-        return sheetTable_hemodialysis_CRRT_hd;
-      } else if (sheetInfo.sheetType == "intervention_cure") {
-        return sheetTable_intervention_cure;
-      } else if (sheetInfo.sheetType == "mild_hypothermia_hd") {
-        return sheetTable_mild_hypothermia_hd;
-      } else if (sheetInfo.sheetType == "neonatology_picc") {
-        return sheetTable_neonatology_picc;
-      } else if (sheetInfo.sheetType == "newborn_qzx") {
-        return sheetTable_newborn_qzx;
-      }
-      // else if (sheetInfo.sheetType == "internal_eval_lcey") {
-      //   return sheetTable_internal_eval_lcey;
+      // if (sheetInfo.sheetType == "neonatology") {
+      //   return sheetTableNeonatology;
+      //   //  return sheetTablePost_partum;
+      // } else if (sheetInfo.sheetType == "post_partum") {
+      //   return sheetTablePost_partum;
+      // } else if (sheetInfo.sheetType == "blood_purification") {
+      //   return sheetTablePost_hemodialysis;
+      // } else if (sheetInfo.sheetType == "oxytocin") {
+      //   return sheetTable_oxytocin;
+      // } else if (sheetInfo.sheetType == "dressing_count") {
+      //   return sheetTableDressing_count;
+      // } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
+      //   return sheetTableMaternal_newborn_lc;
+      // } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
+      //   return sheetTable_picc_maintenance_hd;
+      // } else if (sheetInfo.sheetType == "intervention_cure_hd") {
+      //   return sheetTable_intervention_cure_hd;
+      // } else if (sheetInfo.sheetType == "hemodialysis_CRRT_hd") {
+      //   return sheetTable_hemodialysis_CRRT_hd;
+      // } else if (sheetInfo.sheetType == "intervention_cure") {
+      //   return sheetTable_intervention_cure;
+      // } else if (sheetInfo.sheetType == "mild_hypothermia_hd") {
+      //   return sheetTable_mild_hypothermia_hd;
+      // } else if (sheetInfo.sheetType == "neonatology_picc") {
+      //   return sheetTable_neonatology_picc;
+      // } else if (sheetInfo.sheetType == "newborn_qzx") {
+      //   return sheetTable_newborn_qzx;
       // }
-      else if (sheetInfo.sheetType == "surgical_eval2_lcey") {
-        return sheetTable_surgical_eval2_lcey;
-      } else if (sheetInfo.sheetType == "intervention_cure_lcey") {
-        return sheetTable_intervention_cure_lcey;
-      } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
-        return sheetTable_picu_hemodialysis_jm;
-      } else if (sheetInfo.sheetType == "waiting_birth_gzry") {
-        return sheetTable_waiting_birth_gzry;
-      } else if (sheetInfo.sheetType == "newborn_care_gzry") {
-        return sheetTable_newborn_care_gzry;
-      } else if (sheetInfo.sheetType == "catheterplacement_jm") {
-        return sheetTable_catheterplacement_jm;
-      } else if (sheetInfo.sheetType == "picc_custody_jm") {
-        return sheetTable_picc_custody_jm;
-      } else if (sheetInfo.sheetType == "nicu_custody_jm") {
-        return sheetTable_nicu_custody_jm;
-      } else if (sheetInfo.sheetType == "rescue_hl") {
-        return sheetTable_emergency_rescue;
-      } else if (sheetInfo.sheetType == "oxytocin_hl") {
-        return sheetTable_oxytocin_hl;
-      } else if (sheetInfo.sheetType == "dressing_count_hl") {
-        return sheetTable_dressing_count_hl;
-      } else if (sheetInfo.sheetType == "intersurgerycure_qzx") {
-        return sheetTable_intersurgerycure_qzx;
-      } else {
-        return sheetTable;
-      }
+      // // else if (sheetInfo.sheetType == "internal_eval_lcey") {
+      // //   return sheetTable_internal_eval_lcey;
+      // // }
+      // else if (sheetInfo.sheetType == "surgical_eval2_lcey") {
+      //   return sheetTable_surgical_eval2_lcey;
+      // } else if (sheetInfo.sheetType == "intervention_cure_lcey") {
+      //   return sheetTable_intervention_cure_lcey;
+      // } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
+      //   return sheetTable_picu_hemodialysis_jm;
+      // } else if (sheetInfo.sheetType == "waiting_birth_gzry") {
+      //   return sheetTable_waiting_birth_gzry;
+      // } else if (sheetInfo.sheetType == "newborn_care_gzry") {
+      //   return sheetTable_newborn_care_gzry;
+      // } else if (sheetInfo.sheetType == "catheterplacement_jm") {
+      //   return sheetTable_catheterplacement_jm;
+      // } else if (sheetInfo.sheetType == "picc_custody_jm") {
+      //   return sheetTable_picc_custody_jm;
+      // } else if (sheetInfo.sheetType == "nicu_custody_jm") {
+      //   return sheetTable_nicu_custody_jm;
+      // } else if (sheetInfo.sheetType == "rescue_hl") {
+      //   return sheetTable_emergency_rescue;
+      // } else if (sheetInfo.sheetType == "oxytocin_hl") {
+      //   return sheetTable_oxytocin_hl;
+      // } else if (sheetInfo.sheetType == "dressing_count_hl") {
+      //   return sheetTable_dressing_count_hl;
+      // } else if (sheetInfo.sheetType == "intersurgerycure_qzx") {
+      //   return sheetTable_intersurgerycure_qzx;
+      // } else {
+      return sheetTable;
+      // }
     },
   },
   methods: {
-    isFirst(tr,x, y,bodyModel) {
+    isFirst(tr, x, y, bodyModel) {
       let recordDate = tr.find((item) => item.key == "recordDate").value;
       let recordSource = tr.find((item) => item.key == "recordSource").value;
       let flag = false;
       if (recordDate && recordSource) {
-        let dateIndex = bodyModel[0].findIndex(
-          (e) => e.key == "recordDate"
-        );
+        let dateIndex = bodyModel[0].findIndex((e) => e.key == "recordDate");
         let sourceIndex = bodyModel[0].findIndex(
           (e) => e.key == "recordSource"
         );
@@ -438,7 +468,7 @@ export default {
       }
       return flag;
     },
-    isDisabed(tr, td, x,y,bodyModel) {
+    isDisabed(tr, td, x, y, bodyModel) {
       // canModify false可以修改，true禁止修改
       if (
         this.HOSPITAL_ID == "huadu" &&
@@ -467,7 +497,7 @@ export default {
         //td存在才判断
         if (td) {
           flag =
-            !this.isFirst(tr,x, y,bodyModel) &&
+            !this.isFirst(tr, x, y, bodyModel) &&
             (td.key === "recordMonth" || td.key === "recordHour"); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
         }
         return flag;
@@ -508,6 +538,12 @@ export default {
         return false;
       }
     },
+    async isSelectPatient(item) {
+      await this.$store.commit("upPatientInfo", item);
+      this.bus.$emit("refreshImg");
+      this.bus.$emit("refreshVitalSignList");
+    },
+
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
@@ -523,8 +559,7 @@ export default {
     },
     addSheetPage() {
       if (
-        (
-          this.HOSPITAL_ID === "beihairenyi") &&
+        this.HOSPITAL_ID === "beihairenyi" &&
         this.$route.path.includes("Baby_sheetPage")
       ) {
         let recordCode = (() => {
@@ -645,9 +680,6 @@ export default {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
       }
-    },
-    isSelectPatient(item) {
-      this.$store.commit("upPatientInfo", item);
     },
   },
   created() {
@@ -905,7 +937,11 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-      if (process.env.HOSPITAL_ID == "fuyou" || process.env.HOSPITAL_ID == "quzhou" || process.env.HOSPITAL_ID == "huadu" ) {
+      if (
+        process.env.HOSPITAL_ID == "fuyou" ||
+        process.env.HOSPITAL_ID == "quzhou" ||
+        process.env.HOSPITAL_ID == "huadu"
+      ) {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
@@ -956,9 +992,7 @@ export default {
       this.$refs.syncToIsbarModal.open(tr, td, sheetModel);
     });
   },
-  mounted(){
-    this.addSheetPage()
-  },
+  mounted() {},
   watch: {
     deptCode(val) {
       if (val) {
@@ -971,22 +1005,16 @@ export default {
     },
     sheetModel: {
       deep: true,
-      immediate:true,
-      handler(newValue,oldValue) {
-        if(this.HOSPITAL_ID=='guizhou'){
-        }else{
+      immediate: true,
+      handler(newValue, oldValue) {
+        if (this.HOSPITAL_ID == "guizhou") {
+        } else {
           if (this.patientInfo.name) {
             sheetInfo.isSave = false;
           }
         }
       },
     },
-    '$route.path'(){
-      // 针对贵州切换出入量记录单数据不刷新，如果有问题可回撤
-      if(this.HOSPITAL_ID=='guizhou'){
-        this.sheetInfo.selectBlock = {}
-      }
-    }
   },
   beforeRouteLeave: (to, from, next) => {
     if (!sheetInfo.isSave) {
@@ -1017,34 +1045,36 @@ export default {
     setPageModal,
     pizhuModal,
     syncToIsbarModal,
-    sheetTableNeonatology,
-    sheetTablePost_partum,
+    // sheetTableNeonatology,
+    // sheetTablePost_partum,
     evalModel,
-    sheetTablePost_hemodialysis,
-    sheetTable_oxytocin,
-    sheetTableDressing_count,
-    sheetTableMaternal_newborn_lc,
-    sheetTable_picc_maintenance_hd,
-    sheetTable_intervention_cure_hd,
-    sheetTable_hemodialysis_CRRT_hd,
-    sheetTable_intervention_cure,
-    sheetTable_intersurgerycure_qzx,
-    sheetTable_mild_hypothermia_hd,
-    sheetTable_neonatology_picc,
-    sheetTable_newborn_qzx,
-    // sheetTable_internal_eval_lcey,
-    sheetTable_surgical_eval2_lcey,
-    sheetTable_intervention_cure_lcey,
-    sheetTable_picu_hemodialysis_jm,
-    sheetTable_waiting_birth_gzry,
-    sheetTable_newborn_care_gzry,
-    sheetTable_catheterplacement_jm,
-    sheetTable_picc_custody_jm,
-    sheetTable_nicu_custody_jm,
+    // sheetTablePost_hemodialysis,
+    // sheetTable_oxytocin,
+    // sheetTableDressing_count,
+    // sheetTableMaternal_newborn_lc,
+    // sheetTable_picc_maintenance_hd,
+    // sheetTable_intervention_cure_hd,
+    // sheetTable_hemodialysis_CRRT_hd,
+    // sheetTable_intervention_cure,
+    // sheetTable_intersurgerycure_qzx,
+    // sheetTable_mild_hypothermia_hd,
+    // sheetTable_neonatology_picc,
+    // sheetTable_newborn_qzx,
+    // // sheetTable_internal_eval_lcey,
+    // sheetTable_surgical_eval2_lcey,
+    // sheetTable_intervention_cure_lcey,
+    // sheetTable_picu_hemodialysis_jm,
+    // sheetTable_waiting_birth_gzry,
+    // sheetTable_newborn_care_gzry,
+    // sheetTable_catheterplacement_jm,
+    // sheetTable_picc_custody_jm,
+    // sheetTable_nicu_custody_jm,
     doctorEmr,
-    sheetTable_oxytocin_hl,
-    sheetTable_emergency_rescue,
-    sheetTable_dressing_count_hl,
+    temperatureBHRY,
+    moveContext,
+    // sheetTable_oxytocin_hl,
+    // sheetTable_emergency_rescue,
+    // sheetTable_dressing_count_hl,
   },
 };
 </script>
