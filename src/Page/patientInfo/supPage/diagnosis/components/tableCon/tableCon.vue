@@ -34,15 +34,18 @@
         </span>
       </div>
     </div>
-    <DTable :tableData="tableData"></DTable>
+    <component :is="tableComplate" :tableData="tableData"></component>
+    <!-- <DTable :tableData="tableData"></DTable> -->
   </div>
 </template>
 
 <script>
 import DTable from "./d-table";
+import DTableHD from "./d-table-HD";
 import { nursingDiagsPatient } from "../../api/index";
 import { model } from "../../diagnosisViewModel";
 import bus from "vue-happy-bus";
+import hospitalEval from '@/store/module/hospitalEval';
 export default {
   data() {
     return {
@@ -55,6 +58,13 @@ export default {
   computed: {
     patientInfo() {
       return this.$route.query;
+    },
+    tableComplate(){
+      let ID_Component = {
+        "huadu":DTableHD,
+        default:DTable
+      }
+      return ID_Component[this.HOSPITAL_ID]||ID_Component.default
     }
   },
   methods: {
@@ -176,7 +186,8 @@ export default {
     this.bus.$on("printDiagnosis", this.onPrint);
   },
   components: {
-    DTable
+    DTable,
+    DTableHD
   }
 };
 </script>

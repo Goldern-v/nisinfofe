@@ -291,7 +291,7 @@ export default {
 
       
       this.$refs.modalName.open();
-      if (!['foshanrenyi','weixian'].includes(HOSPITAL_ID)) {
+      if (!['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         this.$nextTick(() => {
           if(showDate){
             let dateInput = this.$refs.dateInput.querySelector("input");
@@ -329,7 +329,7 @@ export default {
     },
     post() {
       this.setCloseCallback(null);
-      if (['foshanrenyi','weixian'].includes(HOSPITAL_ID)) {
+      if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         if (this.pw) {
           if (this.password == "") {
             return this.$message({
