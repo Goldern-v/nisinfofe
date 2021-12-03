@@ -51,7 +51,27 @@
               v-model="item.dutyNurse"
               @blur="update"
             >-->
-            <el-autocomplete flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
+            <el-autocomplete v-if="HOSPITAL_ID !== 'liaocheng'" flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
+            <el-select
+              v-else
+              class='hengliSelect'
+              v-model="item.dutyNurses"
+              multiple
+              multiple-limit='2'
+              @visible-change='update'
+              :collapse-tags='true'
+              filterable
+              allow-create
+              >
+              <template>
+                <el-option
+                  v-for="item in nurseList"
+                  :key="item.code"
+                  :label="item.value"
+                  :value="item.value">
+                </el-option>
+              </template>
+            </el-select>
           </div>
         </div>
       </div>
@@ -153,6 +173,7 @@ export default {
       list: [],
       nurseList: [],
       nursePatientList: [], // 科室患者 床位
+      // nurseListLecy: [], // 
       loadingPatient: false,
       nursePatientSelect: [],
       isSave: true,
@@ -194,7 +215,6 @@ export default {
       this.bus.$on("indexGetAllData", this.userDictInfo);
       this.bus.$on('indexGetAllData', this.getAllPatientData)
     } else {
-      
       this.bus.$on("indexGetAllData", this.getData);
     }
   },
@@ -397,6 +417,7 @@ export default {
           !this.list[i].groupCode && (this.list[i].groupCode = i + 1);
           !this.list[i].deptCode && (this.list[i].deptCode = this.deptCode);
           this.list[i].bedSets = this.list[i].bedSets ? this.list[i].bedSets : []
+          this.list[i].dutyNurses = this.list[i].dutyNurses ? this.list[i].dutyNurses : []
           resultList.push(this.list[i]);
         } else {
           resultList.push({
@@ -404,6 +425,7 @@ export default {
             bedSets: [], // 聊城二院 床位可以多选 
             deptCode: this.deptCode,
             dutyNurse: "",
+            dutyNurses: [], // 聊城二院 护士可以多选
             groupCode: i + 1,
           });
         }
