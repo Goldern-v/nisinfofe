@@ -45,7 +45,8 @@
         flex="cross:center main:center"
         @click="toPrint"
         v-if="
-          (HOSPITAL_ID != 'guizhou' && !isDeputy&&isShow()|| HOSPITAL_ID == 'guizhou')
+          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
+          HOSPITAL_ID == 'guizhou'
         "
       >
         <div class="text-con">打印预览</div>
@@ -58,7 +59,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click.stop="toPdfPrint"
-        v-show="isDev&&isShow()"
+        v-show="isDev && isShow()"
       >
         <div class="text-con">批量打印</div>
       </div>
@@ -74,7 +75,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click.stop="createSheet"
-        v-if="!isSingleTem && !isDeputy&&isShow()"
+        v-if="!isSingleTem && !isDeputy && isShow()"
       >
         <div class="text-con">新建记录单</div>
       </div>
@@ -127,6 +128,18 @@
             HOSPITAL_ID === 'liaocheng' ||
             HOSPITAL_ID === 'wujing') &&
           this.$route.path.includes('singleTemperatureChart')
+        "
+      >
+        <div class="text-con">体温曲线</div>
+      </div>
+      <!--北海的婴儿录入体温曲线-->
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="openBabyChat()"
+        v-if="
+          HOSPITAL_ID === 'beihairenyi' &&
+          this.$route.path.includes('Baby_sheetPage')
         "
       >
         <div class="text-con">体温曲线</div>
@@ -200,11 +213,11 @@
         class="item-box"
         style="width: 85px"
         flex="cross:center main:center"
-        v-if="!isDeputy&&HOSPITAL_ID=='huadu'"
+        v-if="!isDeputy && ['huadu', 'beihairenyi'].includes(HOSPITAL_ID)"
       >
         <input
           class="pegeSelect"
-          style="outline:none;border:none;"
+          style="outline: none; border: none"
           placeholder="请输入页码"
           v-model="pageNum"
           @keydown="pageNumKeyDown"
@@ -266,7 +279,12 @@
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
-        v-if="HOSPITAL_ID == 'wujing' || HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'|| HOSPITAL_ID == 'liaocheng'"
+        v-if="
+          HOSPITAL_ID == 'wujing' ||
+          HOSPITAL_ID == 'quzhou' ||
+          HOSPITAL_ID == 'weixian' ||
+          HOSPITAL_ID == 'liaocheng'
+        "
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
@@ -287,7 +305,11 @@
       <div style="width: 5px"></div>
     </div>
     <patientInfo
-      v-if="patientInfo.patientId && !$route.path.includes('temperature')"
+      v-if="
+        patientInfo.patientId &&
+        !$route.path.includes('temperature') &&
+        !$route.path.includes('Baby_sheetPage')
+      "
     ></patientInfo>
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
@@ -299,19 +321,16 @@
       :title="titleName"
     ></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
-    <sweet-modal
+    <!-- <sweet-modal
       ref="sheet"
       title="体温曲线"
       class="tempSweetModal"
       @close="closeModal"
-    >
-      <component
-        v-bind:is="temperatureChart"
-        v-if="visibled"
-        :queryTem="queryTem"
-        class="sheet-con"
-      ></component>
-    </sweet-modal>
+    > -->
+    <moveContext :id="654" :titlex="'体温曲线'" class="babyChat">
+      <temperatureHD :queryTem="patientInfo"></temperatureHD>
+    </moveContext>
+    <!-- </sweet-modal> -->
   </div>
 </template>
 
@@ -341,10 +360,14 @@ import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
+//体温曲线窗口
+import moveContext from "../../../temperature-chart/commonComponents/removableBox.vue";
 import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureWuJing from "../../../patientInfo/supPage/temperature/temperatureWuJing";
 import temperatureDghl from "../../../patientInfo/supPage/temperature/temperatureDghl";
 import { getPatientInfo } from "@/api/common.js";
+import Temperature from "@/Page/patientInfo/supPage/temperature/temperature.vue";
+
 export default {
   mixins: [commom],
   name: "sheetTool",
@@ -360,58 +383,55 @@ export default {
       sheetModel,
       sheetInfo,
       sheetBlockList: [],
-      visibled: false,
       queryTem: {},
       titleName: "",
-      pageNum:'',
-      firstPage:1,
+      pageNum: "",
+      firstPage: 1,
     };
   },
   methods: {
-    pageNumKeyDown(e){
-      if(e.keyCode==13){
-        let startPage = Number(this.pageNum)
-        let endPage = Number(this.pageNum)
-        let tempPage = startPage
-        let currentPageArr = this.selectList.forEach(item=>{
-          if(item.value){
-            let fromPage = item.value.split('-')[0]
-            let toPage = item.value.split('-')[1]
-            console.log(fromPage,startPage);
-            if(fromPage<=startPage){
-              tempPage = fromPage
-              endPage = toPage
+    pageNumKeyDown(e) {
+      if (e.keyCode == 13) {
+        let startPage = Number(this.pageNum);
+        let endPage = Number(this.pageNum);
+        let tempPage = startPage;
+        let currentPageArr = this.selectList.forEach((item) => {
+          if (item.value) {
+            let fromPage = item.value.split("-")[0];
+            let toPage = item.value.split("-")[1];
+            if (fromPage <= startPage) {
+              tempPage = fromPage;
+              endPage = toPage;
             }
           }
-        })
-        let count = startPage - tempPage
-        let scrollTop =  0
-        if(count != 0){
-          scrollTop = (722 * count) + (20 * count)
+        });
+        let count = startPage - tempPage;
+        let scrollTop = 0;
+        if (count != 0) {
+          scrollTop = 722 * count + 20 * count;
         }
-        startPage = tempPage
-        this.pageArea = `${startPage}-${endPage}`
-        setTimeout(()=>{
+        startPage = tempPage;
+        this.pageArea = `${startPage}-${endPage}`;
+        setTimeout(() => {
           $(this.$parent.$refs.scrollCon).animate({
-            scrollTop:scrollTop,
+            scrollTop: scrollTop,
           });
-        })
+        });
       }
     },
     showSetCreatePage() {
       return !this.isDeputy || this.HOSPITAL_ID == "guizhou";
     },
-    closeModal() {
-      this.visibled = false;
-    },
     //是否显示
-    isShow(){
-      if((this.HOSPITAL_ID === "beihairenyi") &&
-        this.$route.path.includes("Baby_sheetPage")){
-          return false 
-        }else{
-          return true
-        }
+    isShow() {
+      if (
+        this.HOSPITAL_ID === "beihairenyi" &&
+        this.$route.path.includes("Baby_sheetPage")
+      ) {
+        return false;
+      } else {
+        return true;
+      }
     },
     /* 出入量统计弹框--花都区分 */
     openStaticModal() {
@@ -429,41 +449,41 @@ export default {
     },
     /* 打开体温曲线页面 */
     openChart() {
-      this.visibled = true;
       this.queryTem = {
         admissionDate: this.sheetInfo.selectBlock.admissionDate,
         patientId: this.sheetInfo.selectBlock.patientId,
         visitId: this.sheetInfo.selectBlock.visitId,
       };
-      this.$nextTick(() => {
-        this.$refs.sheet.open();
-      });
+      this.$store.commit("newDialogVisible", true); //打开体温曲线
     },
-    
+    /* 打开婴儿的体温曲线页面 */
+    openBabyChat() {
+      this.$store.commit("showBabyChat", true);
+      this.$store.commit("newDialogVisible", true);
+    },
+
     emit(todo, value) {
-      
-      console.log(todo,value,this.sheetInfo);
       if (!this.patientInfo.patientId) {
         return this.$message.warning("请选择一名患者");
       }
-      if(this.sheetInfo.sheetType!='body_temperature_Hd'){
+      if (this.sheetInfo.sheetType != "body_temperature_Hd") {
         if (this.readOnly) {
           return this.$message.warning("你无权操作此护记，仅供查阅");
         }
       }
       this.bus.$emit(todo, value);
     },
-    
+
     tofull() {
       this.$store.commit("upSheetPageFullpage", !this.fullpage);
     },
     toPrint() {
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
-        if(this.HOSPITAL_ID==='foshanrenyi'){
-          this.bus.$emit("toSheetPrintPage");
-        }else{
-          if (process.env.NODE_ENV == "production") {
+      if (this.HOSPITAL_ID === "foshanrenyi") {
+        this.bus.$emit("toSheetPrintPage");
+      } else {
+        if (process.env.NODE_ENV == "production") {
           let newWid;
           if (!$(".sign-text").length) {
             newWid = window.open();
@@ -480,7 +500,7 @@ export default {
         } else {
           this.bus.$emit("toSheetPrintPage");
         }
-        }
+      }
     },
     toAllPrint() {
       let pageIndex = 0;
@@ -558,7 +578,6 @@ export default {
               let currObj = res.data.data.list.find((obj) => obj.id == item.id);
               item.pageIndex = currObj.pageIndex;
               item.endPageIndex = currObj.endPageIndex;
-               
             } catch (error) {}
           });
         });
@@ -760,7 +779,8 @@ export default {
           let list = res.data.data.list;
           if (
             this.$route.path.includes("singleTemperatureChart") ||
-            this.$route.path.includes("temperature")
+            this.$route.path.includes("temperature") ||
+            this.$route.path.includes("Baby_sheetPage")
           ) {
             this.sheetBlockList = list.filter((item) => {
               switch (this.HOSPITAL_ID) {
@@ -770,8 +790,8 @@ export default {
                   return item.recordCode === "body_temperature_jm";
                 case "hj":
                   return item.recordCode === "body_temperature_hj";
-                // case "liaocheng":
-                //   return item.recordCode === "body_temperature_lcey";
+                case "beihairenyi":
+                  return item.recordCode === "infant_bh";
                 // case "hengli":
                 //   return item.recordCode === "body_temperature_hl";
                 case "beihairenyi":
@@ -951,6 +971,7 @@ export default {
       },
       set() {},
     },
+
     fullpage() {
       return this.$store.state.sheet.fullpage;
     },
@@ -1122,12 +1143,19 @@ export default {
     this.bus.$emit("sheetToolLoaded");
   },
   watch: {
+    //更换选择患者，更新vuex的患者信息，重新在eventbug队列调用事件
+    patientInfo(val) {
+      if (this.$route.path.includes("singleTemperatureChart")) {
+        this.$store.commit("upPatientInfo", val);
+        this.bus.$emit("refreshImg");
+        this.bus.$emit("refreshVitalSignList");
+      }
+    },
     pageArea() {
       let page = this.pageArea.split("-");
       let startPage = page[0];
       let endPage = page[1];
       if (startPage && endPage) {
-      
         if (
           Number(endPage) - Number(startPage) >= 0 &&
           Number(endPage) - Number(startPage) <= 20
@@ -1137,11 +1165,10 @@ export default {
         }
       }
     },
-    'sheetInfo.startPage'(){
+    "sheetInfo.startPage"() {
       $(this.$parent.$refs.scrollCon).animate({
-                    scrollTop:
-                     0,
-                  });
+        scrollTop: 0,
+      });
     },
     patientId: {
       deep: true,
@@ -1156,22 +1183,23 @@ export default {
         }
       },
     },
+
     $route(to, from) {
       if (to.name != from.name) {
         this.getBlockList();
       }
     },
-    pageNum(value){
-      let temPage = parseInt(Number(value) / 10)
-      let count = parseInt(Number(value) % 10)
-      if(temPage && count){
-        this.firstPage = temPage * 10 + 1
-      }else if (temPage == 0 && Number(value) == 0){
-        this.firstPage = 1
-      }else if(temPage && !count){
-        this.firstPage = (temPage - 1) * 10 + 1
+    pageNum(value) {
+      let temPage = parseInt(Number(value) / 10);
+      let count = parseInt(Number(value) % 10);
+      if (temPage && count) {
+        this.firstPage = temPage * 10 + 1;
+      } else if (temPage == 0 && Number(value) == 0) {
+        this.firstPage = 1;
+      } else if (temPage && !count) {
+        this.firstPage = (temPage - 1) * 10 + 1;
       }
-    }
+    },
   },
   components: {
     setPageModal,
@@ -1180,12 +1208,14 @@ export default {
     tztbModal,
     zxdtbModal,
     rltbModal,
+    moveContext,
     patientInfoModal,
     patientInfo,
     temperatureHD,
     temperatureLCEY,
     temperatureWuJing,
     temperatureDghl,
+    Temperature,
   },
 };
 </script>
@@ -1318,5 +1348,16 @@ export default {
 #is-deputy-btn {
   background: none !important;
   pointer-events: auto !important;
+}
+
+.babyChat {
+  position: absolute;
+  right: 0;
+  top: 15px;
+  width: 85%;
+  height: 100%;
+  z-index: 999;
+  box-shadow: -2px 0 7px -1px black; // 左边阴影;
+  background-color: white;
 }
 </style>

@@ -5,17 +5,17 @@
     :modal-width="modalWidth"
     class="custom-sweet-modal"
   >
-    <nursingDocumentation></nursingDocumentation>
+    <patientDist></patientDist>
     <el-button slot="button" type="primary" @click="retest">确定</el-button>
   </SweetModal>
 </template>
 
 <script>
-import nursingDocumentation from "@/Page/nursing-documentation/nursing-documentation";
+import patientDist from "@/containers/patient-list/patient-list"
 import bus from "vue-happy-bus";
 export default {
   components: {
-    nursingDocumentation
+    patientDist
   },
   data() {
     return {

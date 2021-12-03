@@ -56,7 +56,7 @@ const currentTargetUrl = (() => {
     case "lingcheng":
       return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
       // return "https://info.cr-health.com:20204" // 公司-陵城测试-外网
-      // return "http://192.168.1.54:9867" // 公司-陵城测试-内网
+      // return "http://192.168.1.54:9867" // 公司-陵城测试-内网 admin 123456
       // return "http://192.168.1.54:9866" // 公司-陵城测试-内网
 
     /** 花都 */
@@ -141,8 +141,9 @@ const currentTargetUrl = (() => {
     // 佛山市医
      case 'foshanrenyi':
       // return "http://219.159.198.37:9094"  // 正式地址
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
-    // 佛山杏坛
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://192.168.20.45:8080" // 伟彬本地
+      // 佛山杏坛
     case 'fsxt':
       // return "http://219.159.198.37:9094"  // 正式地址
       return "http://192.168.1.54:9883" // 默认公司本地内网厚街

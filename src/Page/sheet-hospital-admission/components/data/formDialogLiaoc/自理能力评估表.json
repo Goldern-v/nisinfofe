@@ -855,23 +855,23 @@
             {
               "min": "-1",
               "max": "41",
-              "equal": "重度依赖总分",
+              "equal": "重度依赖",
               "style": "color:red",
-              "display": "重度依赖总分"
+              "display": "重度依赖"
             },
             {
               "min": "41",
               "max": "61",
-              "equal": "中度依赖总分",
+              "equal": "中度依赖",
               "style": "color:red",
-              "display": "中度依赖总分"
+              "display": "中度依赖"
             },
             {
               "min": "61",
               "max": "101",
-              "equal": "轻度依赖总分",
+              "equal": "轻度依赖",
               "style": "color:blue",
-              "display": "轻度依赖总分"
+              "display": "轻度依赖"
             }
           ]
         }

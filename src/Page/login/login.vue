@@ -397,7 +397,8 @@ export default {
       showPwdType: true, //显示的登录方式，默认是密码
       loginLoading: false,
       showVerification: false,//展示验证码
-      verificationImg: ""//验证码图片base64
+      verificationImg: "",//验证码图片base64
+      md5HisList:["foshanrenyi"],//需要md5加密医院
     };
   },
   methods: {
@@ -432,7 +433,10 @@ export default {
       //        阻止重新登录
       if (this.ajax === true) return;
       this.ajax = true;
-      login(this.account, this.password, this.verificationCode)
+      let password=this.password;
+      (this.md5HisList.includes(this.HOSPITAL_ID)) && (password=md5(this.password));
+      // login(this.account, this.password, this.verificationCode)
+      login(this.account, password, this.verificationCode)
         .then((res) => {
           // 记住账号
           if (this.remember) {
@@ -444,7 +448,7 @@ export default {
           user.token = res.data.data.authToken;
           window.app.authToken = res.data.data.authToken;
           localStorage["ppp"] = this.password;
-          localStorage["user"] = JSON.stringify(res.data.data.user);
+          localStorage.setItem("user",JSON.stringify(res.data.data.user)) 
           localStorage["adminNurse"] = res.data.data.adminNurse;
           Cookies.remove("NURSING_USER");
           //清除江门妇幼ca
@@ -471,7 +475,7 @@ export default {
           } else {
             this.$store.commit("upRelogin", false);
             this.$router.push("/index");
-            if (this.HOSPITAL_ID == "weixian") {
+            if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
               /** 验证证书 */
               window.openCaSignModal();
             }else if(this.HOSPITAL_ID == "fuyou"){
@@ -485,6 +489,7 @@ export default {
         })
         .catch((res) => {
           this.ajax = false;
+          console.log(res);
           if (res.data.errorCode == 1000) {
             setTimeout(() => {
               this.$router.push("/resetPassword");

@@ -324,10 +324,15 @@ methods: {
                 if(index == 0){
                     element = JSON.parse(JSON.stringify(item))
                     element.itemName = element.itemName + element.dosage + element.dosageUnits
-                    element.dosage = Number(element.dosage)||0
+                    // 剂量单位为ml，才把剂量相加
+                    if(element.dosageUnits=='ml'){
+                       element.dosage = Number(element.dosage)||0
+                    }
                 }else{
                     element.itemName += `+${item.itemName}${item.dosage}${item.dosageUnits}`
-                    element.dosage +=   (Number(item.dosage)||0)
+                    if(item.dosageUnits=='ml'){
+                       element.dosage +=   (Number(item.dosage)||0)
+                    }
                 }
             })
             console.log(element);
