@@ -397,7 +397,8 @@ export default {
       showPwdType: true, //显示的登录方式，默认是密码
       loginLoading: false,
       showVerification: false,//展示验证码
-      verificationImg: ""//验证码图片base64
+      verificationImg: "",//验证码图片base64
+      md5HisList:["foshanrenyi"],//需要md5加密医院
     };
   },
   methods: {
@@ -432,7 +433,10 @@ export default {
       //        阻止重新登录
       if (this.ajax === true) return;
       this.ajax = true;
-      login(this.account, this.password, this.verificationCode)
+      let password=this.password;
+      (this.md5HisList.includes(this.HOSPITAL_ID)) && (password=md5(this.password));
+      // login(this.account, this.password, this.verificationCode)
+      login(this.account, password, this.verificationCode)
         .then((res) => {
           // 记住账号
           if (this.remember) {
