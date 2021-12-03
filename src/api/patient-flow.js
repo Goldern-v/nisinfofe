@@ -1,5 +1,6 @@
 import axios from './axios'
 import {apiPath} from './apiConfig'
+import qs from 'qs'
 
 /**查询患者流转列表 */
 export const patientFlowList = (params) => {
@@ -10,8 +11,9 @@ export const patientFlowList = (params) => {
 export const getPatientFlowDetail = (id) => {
   return axios.get(`${apiPath}patientFlow/getById/${id}`)
 }
-export const getPic = () => {
-  return axios.post(`${apiPath}pdaform/getByFormCode?formCode=E0622`)
+/**获取流转单数据 */
+export const getFlowForm = (params) => {
+  return axios.post(`${apiPath}pdaform/getByFormCode`, qs.stringify(params))
 }
 /**统计折线图数据 */
 export const getLineData = (params) => {

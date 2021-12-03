@@ -150,8 +150,8 @@ export default {
 	},
 	methods: {
 		openMsg(row) {
-			const { patientId } = row
-			this.$router.push({ name: 'patientFlowMsg', query: { patientId }
+			const { masterId, age } = row
+			this.$router.push({ name: 'patientFlowMsg', query: { id: masterId, age }
 			})
 		},
 		async search(data) {

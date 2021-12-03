@@ -20,22 +20,22 @@
         <div class="list-box">
           <p class="list-box__item">患者ID：{{ info.patientId }}</p>
           <p class="list-box__item">{{ `${info.sex} ${info.age }` }}</p>
-          <p class="list-box__item">所在科室：{{ info.transferDept }}</p>
+          <p class="list-box__item">所在科室：{{ info.deptName }}</p>
           <p class="list-box__item">床位：{{ info.bedLabel }}</p>
         </div>
       </div>
       <div class="list2-box">
         <p class="list2-box__title">转科信息</p>
-        <p class="list2-box__item">转出科室：{{ info.transferFrom || "--" }}</p>
+        <p class="list2-box__item">转出科室：{{ getDeptName(info.transferFrom) || "--" }}</p>
         <p class="list2-box__item">转出时间：{{ info.outDateTime || "--" }}</p>
         <p class="list2-box__item">转出责任护士：{{ info.nurseOut || "--" }}</p>
-        <p class="list2-box__item">转入科室：{{ info.transferTo || "--" }}</p>
+        <p class="list2-box__item">转入科室：{{ getDeptName(info.transferTo) || "--" }}</p>
         <p class="list2-box__item">转入时间：{{ info.inDateTime || "--" }}</p>
         <p class="list2-box__item">转入责任护士：{{ info.nurseIn || "--" }}</p>
       </div>
     </div>
     <div class="patient-flow-msg__right">
-      <div class="content"></div>
+      <form-detail :detail="formDetailData" :info="info"></form-detail>
     </div>
   </div>
 </template>
@@ -128,8 +128,10 @@
 </style>
 <script>
 import commonMixin from '@/common/mixin/common.mixin';
-import { getPatientFlowDetail, getPic } from '@/api/patient-flow';
+import { getPatientFlowDetail, getFlowForm } from '@/api/patient-flow';
 // import { getPatientInfo } from '@/api/common';
+import formDetail from './components/form-detail.vue'
+import { nursingUnit } from '@/api/lesion';
 
 export default {
   mixins: [commonMixin],
@@ -137,23 +139,37 @@ export default {
   data() {
     return {
       info: {},
-      itemDataMap: {}
+      itemDataMap: {},
+      formDetailData: {},
+      deptList: []
     };
   },
-  mounted() {
-    const { patientId } = this.$route.query
-    getPatientFlowDetail(patientId).then(res => {
-      if (res.data.code === '200') {
-        this.info = res.data.data && res.data.data.master || {}
-        this.itemDataMap = res.data.data && res.data.data.itemDataMap || {}
-      }
-    }).catch(err => console.log(err))
-    getPic().then(res => {
-      console.log('test-res', res)
-    })
+  async mounted() {
+    try {
+      const { id, age } = this.$route.query
+      const res = await nursingUnit()
+      this.deptList = res.data.data && res.data.data.deptList || []
+
+      const res1 = await getPatientFlowDetail(id)
+      this.info = res1.data.data && res1.data.data.master || {}
+      this.info = { ...this.info, age }
+      this.itemDataMap = res1.data.data && res1.data.data.itemDataMap || {}
+
+      if (!this.info.formCode) return
+      let { patientId, visitId, formCode } = this.info;
+      const res2 = await getFlowForm({ formCode, patientId, visitId })
+      this.formDetailData = res2.data.data || {}
+    } catch (err) {}
   },
   methods: {
+    getDeptName(code) {
+      if (!code) return ''
+      const item = this.deptList.find(v => v.code === code)
+      return item ? item.name : ''
+    }
   },
-  components: {}
+  components: {
+    formDetail
+  }
 };
 </script>
