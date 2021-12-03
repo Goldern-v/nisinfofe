@@ -34,7 +34,7 @@
     </div>
     <!-- <div class="line"></div> -->
     <!-- empNo  admin -->
-    <div class="admin-system-info" v-if="HOSPITAL_ID === 'weixian'">
+    <div class="admin-system-info" v-if="['foshanrenyi','weixian'].includes(HOSPITAL_ID)">
       证书状态:
       <p>
         <label>{{ ca_name || "无证书" }}:</label>

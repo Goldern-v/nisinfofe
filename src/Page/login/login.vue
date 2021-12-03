@@ -471,7 +471,7 @@ export default {
           } else {
             this.$store.commit("upRelogin", false);
             this.$router.push("/index");
-            if (this.HOSPITAL_ID == "weixian") {
+            if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
               /** 验证证书 */
               window.openCaSignModal();
             }else if(this.HOSPITAL_ID == "fuyou"){
@@ -485,6 +485,7 @@ export default {
         })
         .catch((res) => {
           this.ajax = false;
+          console.log(res);
           if (res.data.errorCode == 1000) {
             setTimeout(() => {
               this.$router.push("/resetPassword");
