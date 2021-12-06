@@ -93,6 +93,8 @@
               <el-select
                 v-model="item.description"
                 multiple
+                filterable
+                allow-create
                 placeholder="请选择"
               >
                 <el-option
