@@ -1016,21 +1016,21 @@ export default {
       },
     },
   },
-  beforeRouteLeave: (to, from, next) => {
-    if (!sheetInfo.isSave) {
-      window.app
-        .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-          confirmButtonText: "离开",
-          cancelButtonText: "取消",
-          type: "warning",
-        })
-        .then((res) => {
-          next();
-        });
-    } else {
-      next();
-    }
-  },
+  // beforeRouteLeave: (to, from, next) => {
+  //   if (!sheetInfo.isSave) {
+  //     window.app
+  //       .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
+  //         confirmButtonText: "离开",
+  //         cancelButtonText: "取消",
+  //         type: "warning",
+  //       })
+  //       .then((res) => {
+  //         next();
+  //       });
+  //   } else {
+  //     next();
+  //   }
+  // },
   components: {
     sheetTool,
     patientList,

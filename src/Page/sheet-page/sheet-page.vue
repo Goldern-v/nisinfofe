@@ -25,7 +25,7 @@
 
         <patientList
           :toName="
-            toSingleTempArr.includes(HOSPITAL_ID)&&
+            toSingleTempArr.includes(HOSPITAL_ID) &&
             $route.path.includes('singleTemperatureChart')
               ? 'singleTemperatureChart'
               : 'sheetPage'
@@ -307,7 +307,14 @@ export default {
       scrollY: 0,
       bedAndDeptChange: {},
       listData: [],
-      toSingleTempArr:['huadu','liaocheng','hengli','quzhou','hj','wujing'] // 患者列表点击前往体温单录入的医院
+      toSingleTempArr: [
+        "huadu",
+        "liaocheng",
+        "hengli",
+        "quzhou",
+        "hj",
+        "wujing",
+      ], // 患者列表点击前往体温单录入的医院
     };
   },
   computed: {
@@ -344,14 +351,14 @@ export default {
         }
       };
       let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        item.bodyModel.map((tr,x)=>{
-          if(!tr.hasOwnProperty('isRead')){
-            tr.isRead = this.isRead(tr)
-            tr.map((td,y)=>{
-              td.isDisabed = this.isDisabed(tr,td,x,y,item.bodyModel)
-            })
-          } 
-        })
+        item.bodyModel.map((tr, x) => {
+          if (!tr.hasOwnProperty("isRead")) {
+            tr.isRead = this.isRead(tr);
+            tr.map((td, y) => {
+              td.isDisabed = this.isDisabed(tr, td, x, y, item.bodyModel);
+            });
+          }
+        });
         let obj = {
           index,
           data: item,
@@ -429,14 +436,12 @@ export default {
     },
   },
   methods: {
-    isFirst(tr,x, y,bodyModel) {
+    isFirst(tr, x, y, bodyModel) {
       let recordDate = tr.find((item) => item.key == "recordDate").value;
       let recordSource = tr.find((item) => item.key == "recordSource").value;
       let flag = false;
       if (recordDate && recordSource) {
-        let dateIndex = bodyModel[0].findIndex(
-          (e) => e.key == "recordDate"
-        );
+        let dateIndex = bodyModel[0].findIndex((e) => e.key == "recordDate");
         let sourceIndex = bodyModel[0].findIndex(
           (e) => e.key == "recordSource"
         );
@@ -450,7 +455,7 @@ export default {
       }
       return flag;
     },
-    isDisabed(tr, td, x,y,bodyModel) {
+    isDisabed(tr, td, x, y, bodyModel) {
       // canModify false可以修改，true禁止修改
       if (
         this.HOSPITAL_ID == "huadu" &&
@@ -479,7 +484,7 @@ export default {
         //td存在才判断
         if (td) {
           flag =
-            !this.isFirst(tr,x, y,bodyModel) &&
+            !this.isFirst(tr, x, y, bodyModel) &&
             (td.key === "recordMonth" || td.key === "recordHour"); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
         }
         return flag;
@@ -933,7 +938,12 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-        if (process.env.HOSPITAL_ID == "fuyou" || process.env.HOSPITAL_ID == "quzhou" || process.env.HOSPITAL_ID == "huadu" ||this.HOSPITAL_ID==='foshanrenyi' ) {
+      if (
+        process.env.HOSPITAL_ID == "fuyou" ||
+        process.env.HOSPITAL_ID == "quzhou" ||
+        process.env.HOSPITAL_ID == "huadu" ||
+        this.HOSPITAL_ID === "foshanrenyi"
+      ) {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
@@ -942,7 +952,6 @@ export default {
           this.$router.push(`/print/sheetPage`);
         }
       }
-      
     });
     this.bus.$on("openHJModal", () => {
       this.$refs.HjModal.open();
@@ -997,25 +1006,28 @@ export default {
     },
     sheetModel: {
       deep: true,
-      immediate:true,
-      handler(newValue,oldValue) {
-        if(this.HOSPITAL_ID=='guizhou'){
-        }else{
+      immediate: true,
+      handler(newValue, oldValue) {
+        if (this.HOSPITAL_ID == "guizhou") {
+        } else {
           if (this.patientInfo.name) {
             sheetInfo.isSave = false;
           }
         }
       },
     },
-    '$route.path'(){
+    "$route.path"() {
       // 针对贵州切换出入量记录单数据不刷新，如果有问题可回撤
-      if(this.HOSPITAL_ID=='guizhou'){
-        this.sheetInfo.selectBlock = {}
+      if (this.HOSPITAL_ID == "guizhou") {
+        this.sheetInfo.selectBlock = {};
       }
-    }
+    },
   },
   beforeRouteLeave: (to, from, next) => {
-    if (!sheetInfo.isSave) {
+    if (
+      !sheetInfo.isSave &&
+      !this.$route.path.includes("singleTemperatureChart") //去除体温单切换未保存提示
+    ) {
       window.app
         .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
           confirmButtonText: "离开",
