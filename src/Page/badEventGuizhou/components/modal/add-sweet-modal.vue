@@ -144,6 +144,7 @@ export default {
           if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'][data.sex]){
            wid.app.$root.$refs['B0002006'][data.sex].$parent.checkboxValue=true
           }
+           window.deptData = {wardName:data.wardName,wardCode:data.wardCode}
         },
         ///**烫伤等一批不良事件
         setDataType1(){
@@ -187,6 +188,7 @@ export default {
           if(wid.app.$root.$refs['B0017025'] && wid.app.$root.$refs['B0017025'][data.sex]){
            wid.app.$root.$refs['B0017025'][data.sex].$parent.checkboxValue=true
           }
+          window.deptData = {wardName:data.wardName,wardCode:data.wardCode}
         }
     }
 }

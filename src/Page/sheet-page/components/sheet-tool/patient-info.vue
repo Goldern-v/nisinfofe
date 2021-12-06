@@ -6,7 +6,10 @@
       </div>
     </el-tooltip>
 
-    <patientInfoSlide ref="patientInfoSlide" @onClose="onClose"></patientInfoSlide>
+    <patientInfoSlide
+      ref="patientInfoSlide"
+      @onClose="onClose"
+    ></patientInfoSlide>
   </div>
 </template>
 <style lang="scss" scoped>

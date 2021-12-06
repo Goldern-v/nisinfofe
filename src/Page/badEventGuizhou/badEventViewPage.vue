@@ -543,10 +543,17 @@ export default {
           } else {
             status = "error";
           }
-          if (item.status == 0 && !nextStatusObj) {
-            nextStatusObj = item;
-            this.isDisabled = !nextStatusObj.canUpdate;
-            this.isDisabled2 = !nextStatusObj.canHandle;
+          // if (item.status == 0 && !nextStatusObj) {
+          //   nextStatusObj = item;
+          //   this.isDisabled = !nextStatusObj.canUpdate;
+          //   this.isDisabled2 = !nextStatusObj.canHandle;
+          // }
+          if (item.status == 1 && item.nodeCode == "commit") {
+            this.isDisabled = true;
+            this.isDisabled2 = true;
+          } else if (item.status == 0 && item.nodeCode == "commit") {
+            this.isDisabled = false;
+            this.isDisabled2 = false;
           }
           return {
             title: item.operateName || item.operatorName || item.nodeName,

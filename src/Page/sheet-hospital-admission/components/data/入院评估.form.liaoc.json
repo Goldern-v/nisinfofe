@@ -3540,6 +3540,7 @@
           "type": "input",
           "title": "胎方位",
           "style": null,
+          "multiplechoice":true,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "180px",

@@ -8,15 +8,26 @@ import {
   SignedData,
   DecryptData
 } from "./XTXSAB";
-
+let fnPath  = ``
+switch(process.env.HOSPITAL_ID){
+  case'weixian':
+  fnPath = `dsvs`;
+    break;
+  case'foshanrenyi':
+  fnPath = `dsvsFssy`;
+    break;
+  default:
+    fnPath = `dsvs`;
+    break;
+}
 //  获取服务器证书和随机数签名
 export function getCertAndRandomSign() {
-  return axios.post(`${apiPath}dsvs/getCertAndRandomSign`);
+  return axios.post(`${apiPath}${fnPath}/getCertAndRandomSign`);
 }
 //  验证服务器证书和随机数签名
 export function verifyCertAndUse(cert, signValue, algType, signPic) {
   return axios.post(
-    `${apiPath}dsvs/verifyCertAndUser`,
+    `${apiPath}${fnPath}/verifyCertAndUser`,
     qs.stringify({
       cert,
       signValue,
@@ -28,7 +39,7 @@ export function verifyCertAndUse(cert, signValue, algType, signPic) {
 //  验证服务器证书和随机数签名
 export function saveSignPic(signPic) {
   return axios.post(
-    `${apiPath}dsvs/saveSignPic `,
+    `${apiPath}${fnPath}/saveSignPic `,
     qs.stringify({
       signPic
     })
