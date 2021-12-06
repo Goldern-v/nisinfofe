@@ -327,7 +327,15 @@
       class="tempSweetModal"
       @close="closeModal"
     > -->
-    <moveContext :id="654" :titlex="'体温曲线'" class="babyChat">
+    <moveContext
+      :id="'temperatureChart'"
+      :titlex="'体温曲线'"
+      class="babyChat"
+      v-if="
+        this.$route.path.includes('singleTemperatureChart') &&
+        HOSPITAL_ID == 'huadu'
+      "
+    >
       <temperatureHD :queryTem="patientInfo"></temperatureHD>
     </moveContext>
     <!-- </sweet-modal> -->
@@ -480,7 +488,13 @@ export default {
     toPrint() {
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
-      if (this.HOSPITAL_ID === "foshanrenyi") {
+
+      if (
+        process.env.HOSPITAL_ID == "fuyou" ||
+        process.env.HOSPITAL_ID == "quzhou" ||
+        process.env.HOSPITAL_ID == "huadu" ||
+        process.env.HOSPITAL_ID==='foshanrenyi'
+      ) {
         this.bus.$emit("toSheetPrintPage");
       } else {
         if (process.env.NODE_ENV == "production") {

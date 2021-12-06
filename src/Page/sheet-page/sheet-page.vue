@@ -933,8 +933,7 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-      //  this.$router.push(`/print/sheetPage`);
-        if (process.env.HOSPITAL_ID == "fuyou" || process.env.HOSPITAL_ID == "quzhou" || process.env.HOSPITAL_ID == "huadu" ||this.HOSPITAL_ID==='foshanrenyi') {
+        if (process.env.HOSPITAL_ID == "fuyou" || process.env.HOSPITAL_ID == "quzhou" || process.env.HOSPITAL_ID == "huadu" ||this.HOSPITAL_ID==='foshanrenyi' ) {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
