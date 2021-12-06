@@ -7,14 +7,19 @@ export const patientFlowList = (params) => {
   return axios.post(`${apiPath}patientFlow/getFlowListByPc`, params)
 }
 
-/**查询患者流转详情 */
+/**查询患者流转详情 + 流转单数据 */
 export const getPatientFlowDetail = (id) => {
   return axios.get(`${apiPath}patientFlow/getById/${id}`)
 }
-/**获取流转单数据 */
+/**获取流转单格式 */
 export const getFlowForm = (params) => {
   return axios.post(`${apiPath}pdaform/getByFormCode`, qs.stringify(params))
 }
+/**获取流转单 */
+export const getFormList = (params) => {
+  return axios.post(`${apiPath}form/design/list`, params)
+}
+
 /**统计折线图数据 */
 export const getLineData = (params) => {
   return axios.post(`${apiPath}patientFlow/getTransferNum`, params)
