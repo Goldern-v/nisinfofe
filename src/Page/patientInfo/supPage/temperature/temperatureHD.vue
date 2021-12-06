@@ -233,6 +233,7 @@ export default {
   },
   methods: {
     onPrint() {
+      this.isPrintAll = false; //隐藏页码控制区域
       setTimeout(() => {
         this.$refs.pdfCon.contentWindow.postMessage(
           { type: "printing" },
