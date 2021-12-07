@@ -6,7 +6,8 @@ let lastTime = new Date().getTime(),//最后一次更新时间
     currenTime = new Date().getTime(),//当前时间
     timeOut = 3 * 60 * 1000,//超时时间 默认三分钟
     astrictInterval = null,//定时器对象
-    astrictHisList = ["liaocheng"];//需要启动超时登录的医院列表
+    // astrictHisList = ["liaocheng"];//需要启动超时登录的医院列表
+    astrictHisList = [""];//需要启动超时登录的医院列表
 
 //初始化方法
 export const initAstrict = () => {
