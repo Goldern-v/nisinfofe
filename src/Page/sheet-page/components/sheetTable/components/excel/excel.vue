@@ -107,7 +107,7 @@
               }).value.status
             }`,
           {
-            redTop: (HOSPITAL_ID == 'huadu' && getBorderClass(y)) || redTop(y),
+            redTop: (HOSPITAL_ID == 'huadu' ||HOSPITAL_ID == 'wujing'&& getBorderClass(y)) || redTop(y),
             blackTop: BlackTop(y),
           },
         ]"
@@ -239,6 +239,7 @@
               v-if="td.value"
               :style="!td.value && { opacity: 0 }"
               :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              :class="{xiegangSignImg:sheetInfo.sheetType==='common_xg'}"
               alt
             />
           </div>
@@ -614,7 +615,6 @@ export default {
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
-
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
         "pediatrics_jm", //江门妇幼_儿科护理记录单

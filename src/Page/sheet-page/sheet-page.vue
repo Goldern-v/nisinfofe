@@ -452,6 +452,13 @@ export default {
     },
     isDisabed(tr, td, x,y,bodyModel) {
       // canModify false可以修改，true禁止修改
+      // 签名后不能修改，要取消修改才能修改
+      if(this.sheetInfo.sheetType=="common_xg"){
+        if(td &&
+        this.listData[x]){
+          return !this.listData[x].canModify;
+        }
+      }
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
