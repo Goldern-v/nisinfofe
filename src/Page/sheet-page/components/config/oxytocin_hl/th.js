@@ -22,8 +22,8 @@ export default {
       }, {
         name: `催产素<br/>浓度<br/>（U/500ml）`,
         style: {
-          minWidth: '80px',
-          maxWidth: '80px'
+          minWidth: '70px',
+          maxWidth: '70px'
         },
         colspan: '1',
         rowspan: '3'
@@ -38,8 +38,8 @@ export default {
       }, {
         name: `宫缩<br/>(s/min)`,
         style: {
-          minWidth: '60px',
-          maxWidth: '60px'
+          minWidth: '70px',
+          maxWidth: '70px'
         },
         colspan: '1',
         rowspan: '3'

@@ -31,7 +31,7 @@ export default [{
     event: keyf1,
     name: "催产素浓度",
     textarea: {
-      width: 50
+      width: 70
     }
   }, {
     key: "fieldTwo", //滴数（滴/分）
@@ -50,7 +50,7 @@ export default [{
       data: 宫缩
     },
     textarea: {
-      width: 50
+      width: 70
     }
   }, {
     key: "fieldFour", //胎心
