@@ -22,6 +22,8 @@ import "@/assets/css/tinyreset.css";
 import VueParticles from "vue-particles";
 Vue.use(VueParticles);
 
+import Astrict from "@/utils/loginTimeOut/astrict";
+Vue.use(Astrict);
 // 点击效果
 require("vue-touch-ripple/component.css");
 import VueTouchRipple from "vue-touch-ripple";
