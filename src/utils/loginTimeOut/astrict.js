@@ -61,13 +61,13 @@ const checkTimeOut = () => {
     lastTime = storage.getLocalStorageItem("lastTime");
     switch (process.env.HOSPITAL_ID){
         case "guizhou":
-            timeOut=3 * 60 * 1000;
+            timeOut=10 * 60 * 1000;
             break;
         case "liaocheng":
-            timeOut=3 * 60 * 1000;
+            timeOut=10 * 60 * 1000;
             break;
         default: 
-            timeOut=3 * 60 * 1000;
+            timeOut=10 * 60 * 1000;
             break;
 
     }
@@ -78,7 +78,7 @@ const checkTimeOut = () => {
          //重启
          initMessageBox();
         if (isLogin()) return false;
-        router.push("/login")
+        router.replace("/login")
        
     }
 }
