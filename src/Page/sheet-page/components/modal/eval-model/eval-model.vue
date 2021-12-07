@@ -98,12 +98,7 @@
             <div class="midEditHeader">
               护记时间：
               <div class="midEditInput">
-                <template  v-if="HOSPITAL_ID==='liaocheng'">
-                   <!-- <input
-                  placeholder
-                  suffix-icon="el-icon-date"
-                  v-model="rowData.evalDate"
-                > -->
+                <template  v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='xiegang'">
                  <el-date-picker
                    @change="changeEvaldate"
                    v-model="value1"
@@ -120,7 +115,7 @@
                   suffix-icon="el-icon-date"
                   :value="rowData.evalDate"
                 >
-                <i class="el-icon-time" v-if="HOSPITAL_ID!=='liaocheng'"></i>
+                <i class="el-icon-time" v-if="HOSPITAL_ID!=='liaocheng'&&HOSPITAL_ID!=='xiegang'"></i>
               </div>
             </div>
             <div>
@@ -217,10 +212,12 @@ export default {
       });
     },
     clickTr(rowData, event) {
-      if(this.HOSPITAL_ID==='liaocheng'){
+      if(this.HOSPITAL_ID==='liaocheng'||this.HOSPITAL_ID==='xiegang'){
         const user=JSON.parse(localStorage.getItem("user"))
         this.rowData = {...rowData}
-        this.rowData.creatorName=user.empName
+        if(this.HOSPITAL_ID==='liaocheng'){
+            this.rowData.creatorName=user.empName
+        }
         this.value1=this.rowData.evalDate
       }else{
         this.rowData = rowData;
