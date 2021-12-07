@@ -241,6 +241,7 @@ import { multiDictInfo } from "../../../api/index";
     data.重护护记呕吐物性质=[{code: "草绿色", name: "草绿色"}, {code: "淡黄色", name: "淡黄色"}, {code: "咖啡色", name: "咖啡色"}, {code: "深褐色", name: "深褐色"}, {code: "褐色", name: "褐色"}, {code: "浅褐色", name: "浅褐色"}, {code: "灰白色", name: "灰白色"}, {code: "暗红色", name: "暗红色"}, {code: "鲜红色", name: "鲜红色"}, {code: "其他", name: "其他"}]
     data.重护护记引流量性质=[{code: "淡黄色", name: "淡黄色"}, {code: "淡红色", name: "淡红色"}, {code: "黄白混浊色", name: "黄白混浊色"}, {code: "墨绿色", name: "墨绿色"}, {code: "鲜红色", name: "鲜红色"}, {code: "暗红色", name: "暗红色"}, {code: "黄绿色", name: "黄绿色"}]
     data.重护护记阴道出血性质= [{code: "鲜红色", name: "鲜红色"}, {code: "暗红色", name: "暗红色"}, {code: "淡红色", name: "淡红色"}]
+    data.重护护记大便性质= [{code: "黄软", name: "黄软"}, {code: "柏油样变", name: "柏油样变"}, {code: "血便", name: "血便"}, {code: "稀水样便", name: "稀水样便"}, {code: "米甘样便", name: "米甘样便"}, {code: "白陶士样便", name: "白陶士样便"}]
     data[str]=[{code: "尿液", name: "尿液"}, {code: "呕吐物", name: "呕吐物"}, {code: "引流量", name: "引流量"},{code: "大便", name: "大便"},{code: "阴道出血", name: "阴道出血"},{code: "脱水量", name: "脱水量"}]
     setList(静脉性质, "静脉性质", data);
     setList(饮食性质, "饮食性质", data);

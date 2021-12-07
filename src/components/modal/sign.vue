@@ -347,17 +347,23 @@ export default {
           parent.app.bus.$emit("assessmentRefresh");
         } else {
           verifyCaSign().then(random => {
+            console.log(random.data);
             this.$refs.modalName.close();
+            let {password,empNo} = random.data
+            // let username = this.HOSPITAL_ID=="foshanrenyi"?empNo:this.username
+            let username = this.username
+            // let password = this.HOSPITAL_ID=="foshanrenyi"?password:localStorage.ppp
+            let pwd = localStorage.ppp
             if (this.signDate) {
               return this.callback(
-                localStorage.ppp,
+                pwd,
                 // random,
-                this.username,
+                username,
                 this.signDate,
                 random
               );
             } else {
-              return this.callback(localStorage.ppp, this.username);
+              return this.callback(pwd, username);
             }
           });
         }
