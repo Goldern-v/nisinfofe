@@ -20,6 +20,7 @@ export const saveTitle = data => {
   return axios.post(`${apiPath}record/setting/save`, qs.stringify(data));
 };
 // 护理记录单标题
+//花都体温单自定义标题的接口
 export const showTitle = (patientId, visitId) => {
   return axios.get(`${apiPath}record/setting/list/${sheetInfo.selectBlock.id}`);
 };
