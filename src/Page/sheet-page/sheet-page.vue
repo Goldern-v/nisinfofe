@@ -351,14 +351,6 @@ export default {
         }
       };
       let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        item.bodyModel.map((tr, x) => {
-          if (!tr.hasOwnProperty("isRead")) {
-            tr.isRead = this.isRead(tr);
-            tr.map((td, y) => {
-              td.isDisabed = this.isDisabed(tr, td, x, y, item.bodyModel);
-            });
-          }
-        });
         let obj = {
           index,
           data: item,
@@ -370,6 +362,16 @@ export default {
       let resultModel = mapSheetModel.filter((item) => {
         return showSheetPage(item.index);
       });
+      resultModel.map(item=>{
+        item.data.bodyModel.map((tr,x)=>{
+          if(!tr.hasOwnProperty('isRead')){
+            tr.isRead = this.isRead(tr)
+            tr.map((td,y)=>{
+              td.isDisabed = this.isDisabed(tr,td,x,y,item.data.bodyModel)
+            })
+          } 
+        })
+      })
       return resultModel;
     },
     sheetTable() {
