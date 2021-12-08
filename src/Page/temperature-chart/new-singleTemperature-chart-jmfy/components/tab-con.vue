@@ -202,10 +202,7 @@
             <el-time-picker
               size="mini"
               :readonly="isDisable()"
-              format="HH:mm:ss"
-              value-format="HH:mm:ss"
-              v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
-              type="time"
+              v-model="timeVal"
               placeholder="选择表顶时间"
               style="margin: 3px 0px 0px 55px; width: 125px"
               @change="formatTopExpandDate"
@@ -348,7 +345,15 @@ export default {
       multiDictList: {},
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
+      timeVal: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      ),
       vitalSignList: [], // 固定项目列表
+
       // topContextList: [
       //   "",
       //   "入院",
@@ -400,13 +405,39 @@ export default {
     });
   },
   created() {},
-  computed: {},
+  computed: {
+    // timeVal: {
+    //   get: function () {
+    //     let date = new Date();
+    //     let hhh = new Date(
+    //       date.getFullYear(),
+    //       date.getMonth() + 1,
+    //       date.getDate(),
+    //       date.getHours(),
+    //       date.getMinutes()
+    //     );
+    //     return hhh;
+    //   },
+    //   set: function (val) {
+    //     this.timeVal = val;
+    //   },
+    // },
+  },
   watch: {
     query: {
       handler(newName, oldName) {
         this.getList();
       },
       deep: true,
+    },
+    patientInfo() {
+      this.timeVal = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      );
     },
   },
   methods: {
@@ -557,6 +588,11 @@ export default {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
             this.vitalSignObj[v.vitalCode] = v;
+            if (v.vitalSigns === "表顶注释") {
+              this.timeVal = moment(
+                this.vitalSignObj[v.vitalCode].expand2
+              ).utc()._d;
+            }
           });
         } else {
           this.init();
@@ -776,7 +812,7 @@ export default {
 
   .inputText {
     overflow: scroll;
-    margin-left: 20px;
+    margin-left: 10px;
   }
 
   .rowItem_noShow {
