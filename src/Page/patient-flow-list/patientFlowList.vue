@@ -59,23 +59,23 @@ export default {
 				{
 					key: 'bedNo',
 					title: '床号',
-					width: 70
+					minWidth: 70
 				},
 				{
 					key: 'patientId',
 					title: '患者ID',
-					width: 120
+					minWidth: 120
 				},
 
 				{
 					key: 'name',
 					title: '患者姓名',
-					width: 115
+					minWidth: 115
 				},
 				{
 					key: 'type',
 					title: '流转类型',
-					width: 110,
+					minWidth: 110,
 					render: (h, { row }) => {
 						const item = searchItem(FLOW_TYPE, row.type, 'key')
 						return item ? <span style={{color: item.color}}>{item.label}</span> : ''
@@ -85,7 +85,7 @@ export default {
 				{
 					key: 'transferType',
 					title: '方式',
-					width: 70,
+					minWidth: 70,
 					render: (h, { row }) => {
 						return <span>{row.transferType === 'in' ? '转入' : '转出'}</span>
 					}
@@ -93,37 +93,38 @@ export default {
 				{
 					key: 'transferFromName',
 					title: '转出科室',
-					width: 150
+					minWidth: 190
 				},
 				{
 					key: 'transferToName',
 					title: '转入科室',
-					width: 150
+					minWidth: 190
 				},
 				{
 					key: 'outDateTime',
 					title: '转出时间',
-					width: 150
+					minWidth: 160
 				},
 				{
 					key: 'inDateTime',
 					title: '转入时间',
-					width: 150
+					minWidth: 160
 				},
 				{
 					key: 'nurseOutName',
 					title: isLaborF ? '病区负责护士' : '转出负责护士',
-					width: 130
+					minWidth: 130
 				},
 				{
 					key: 'nurseInName',
 					title: isLaborF ? '产房负责护士' : '转入负责护士',
-					width: 130
+					minWidth: 130,
+
 				},
 				{
 					key: 'transferStatus',
 					title: '流转状态',
-					width: 110,
+					minWidth: 110,
 					render: (h, { row }) => {
 						const item = searchItem(FLOW_STATUS, row.transferStatus, 'key')
 						if (item) {
@@ -137,7 +138,7 @@ export default {
 				{
 					key: 'operate',
 					title: '操作',
-					width: 95,
+					minWidth: 95,
 					fixed: 'right',
 					render: (h, { row }) => {
 						return (
