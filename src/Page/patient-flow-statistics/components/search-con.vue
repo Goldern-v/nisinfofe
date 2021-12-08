@@ -27,7 +27,7 @@
 			size="small"
 			v-model="formData.date"
 			@change="onChangeDate"
-			style="width:200px;margin-right:10px;"/>
+			style="width:210px;margin-right:10px;"/>
 		<el-button size="small" type="primary" @click="search">查询</el-button>
 	</div>
 </template>

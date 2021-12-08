@@ -38,10 +38,6 @@ export default {
       type: Object,
       default: () => ({})
     },
-    id: {
-      type: [String, Number],
-      default: ''
-    }
   },
   data() {
     return {
@@ -58,7 +54,7 @@ export default {
     }
   },
   watch: {
-    id() {
+    'detail.documentName'() {
       this.load()
     }
   },
@@ -67,18 +63,19 @@ export default {
   },
   mounted() {
     this.load()
-
   },
   methods: {
     load() {
       // 初始化iframe 路径，参数
-      if (this.detail.documentName && this.id) {
+      if (this.detail.documentName) {
         this.pageLoading = true
         let { documentName } = this.detail
         let commonUrl = this.isDev ? devFormUrl : formUrl;
         // 表单数据
+        let {formId, id, data} = this.info
         let queryObj = {
-          id: this.id,
+          ...data,
+          id: formId,
           onlyView: this.onlyView,
         }
         this.url = `${commonUrl}/${documentName}.html?${qs.stringify(queryObj)}`

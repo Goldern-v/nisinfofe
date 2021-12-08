@@ -20,7 +20,7 @@
 			size="small"
 			v-model="formData.date"
 			@change="onChangeDate"
-			style="width:200px;margin-right:10px;"/>
+			style="width:210px;margin-right:10px;"/>
 		 <span class="label" style="margin-left: 0">流转状态:</span>
 		<ElSelect style="width: 120px;margin-right: 15px;" size="small" v-model="formData.transferStatus">
 			<ElOption v-for="val in flowStatusList" :key="val.key" :label="val.label" :value="val.key" />
@@ -30,7 +30,7 @@
 			size="small"
 			style="width: 150px;margin-right: 15px;"
 			placeholder="输入患者Id进行搜索"
-			v-model="formData.keyword"
+			v-model="formData.keyWord"
 		></el-input>
 		<el-button size="small" type="primary" @click="search">查询</el-button>
 	</div>
@@ -68,7 +68,7 @@ export default {
 				type: searchKeyByCode(FLOW_TYPE, 'changeF'),
 				date: [],
 				transferStatus: '',
-				keyword: ''
+				keyWord: ''
 			},
 			flowTypeList: FLOW_TYPE,
 			flowStatusList: FLOW_STATUS

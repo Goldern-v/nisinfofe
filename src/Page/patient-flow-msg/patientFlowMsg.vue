@@ -33,7 +33,7 @@
         <p class="list2-box__item">转入时间：{{ info.inDateTime || "--" }}</p>
         <p class="list2-box__item">转入责任护士：{{ info.nurseIn || "--" }}</p>
       </div>
-      <div class="patient-flow-msg__left__tree">
+      <!-- <div class="patient-flow-msg__left__tree">
         <el-tree
         node-key="id"
         :data="formList"
@@ -43,10 +43,10 @@
             <span>{{ node.label }}</span>
           </span>
         </el-tree>
-      </div>
+      </div> -->
     </div>
     <div class="patient-flow-msg__right">
-      <form-detail v-if="currentId" :id="currentId" :detail="formModel"></form-detail>
+      <form-detail :info="info" :detail="formModel"></form-detail>
     </div>
   </div>
 </template>
@@ -161,11 +161,9 @@
 </style>
 <script>
 import commonMixin from '@/common/mixin/common.mixin';
-import { getPatientFlowDetail, getFormList, getFlowForm } from '@/api/patient-flow';
+import { getPatientFlowDetail, getFlowForm } from '@/api/patient-flow';
 import formDetail from './components/form-detail.vue'
 import { nursingUnit } from '@/api/lesion';
-import { children } from 'cheerio/lib/api/traversing';
-import moment from 'moment';
 
 export default {
   mixins: [commonMixin],
@@ -195,16 +193,9 @@ export default {
       if (!this.info.formCode) return
       let { patientId, visitId, formCode } = this.info;
       const res2 = await getFlowForm({ formCode, patientId, visitId })
-      const res3 = await getFormList({ formCode, patientId, visitId })
+      // const res3 = await getFormList({ formCode, patientId, visitId })
 
       this.formModel = res2 && res2.data.data || {}
-      let list = res3 && res3.data.data.list || []
-      this.formList = list.length > 0 && [
-        {label: this.formModel.documentName,
-        children: list.map(v => ({
-          id: v.id,
-          label: moment(v.createTime).format('YYYY-MM-DD')
-        }))}] || []
     } catch (err) {}
   },
   methods: {
