@@ -16,7 +16,7 @@
       ></el-table-column>
 
       <el-table-column
-         prop="patientId"
+         prop="inpNo"
          label="住院号"
          min-width="60"
          align="center"
