@@ -1098,11 +1098,23 @@ export default {
   computed: {
     tableData() {
       return this.patientsInfoData.filter((item) => {
-        return (
-          (item.bedLabel.indexOf(this.searchWord) > -1 ||
-            item.name.indexOf(this.searchWord) > -1) &&
-          item.patientId
-        );
+        if (
+          ["beihairenyi"].includes(this.HOSPITAL_ID)
+          //北海过滤婴儿的患者，批量去批量婴儿护理记录单上录入
+        ) {
+          return (
+            (item.bedLabel.indexOf(this.searchWord) > -1 ||
+              item.name.indexOf(this.searchWord) > -1) &&
+            item.patientId &&
+            item.visitId !== "0"
+          );
+        } else {
+          return (
+            (item.bedLabel.indexOf(this.searchWord) > -1 ||
+              item.name.indexOf(this.searchWord) > -1) &&
+            item.patientId
+          );
+        }
       });
     },
   },

@@ -362,16 +362,16 @@ export default {
       let resultModel = mapSheetModel.filter((item) => {
         return showSheetPage(item.index);
       });
-      resultModel.map(item=>{
-        item.data.bodyModel.map((tr,x)=>{
-          if(!tr.hasOwnProperty('isRead')){
-            tr.isRead = this.isRead(tr)
-            tr.map((td,y)=>{
-              td.isDisabed = this.isDisabed(tr,td,x,y,item.data.bodyModel)
-            })
-          } 
-        })
-      })
+      resultModel.map((item) => {
+        item.data.bodyModel.map((tr, x) => {
+          if (!tr.hasOwnProperty("isRead")) {
+            tr.isRead = this.isRead(tr);
+            tr.map((td, y) => {
+              td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel);
+            });
+          }
+        });
+      });
       return resultModel;
     },
     sheetTable() {
@@ -460,9 +460,8 @@ export default {
     isDisabed(tr, td, x, y, bodyModel) {
       // canModify false可以修改，true禁止修改
       // 签名后不能修改，要取消修改才能修改
-      if(this.sheetInfo.sheetType=="common_xg"){
-        if(td &&
-        this.listData[x]){
+      if (this.sheetInfo.sheetType == "common_xg") {
+        if (td && this.listData[x]) {
           return !this.listData[x].canModify;
         }
       }
@@ -1004,6 +1003,10 @@ export default {
     });
   },
   watch: {
+    patientInfo(val) {
+      this.bus.$emit("refreshImg");
+      this.$store.commit("upPatientInfo", val);
+    },
     deptCode(val) {
       if (val) {
         this.getDate();

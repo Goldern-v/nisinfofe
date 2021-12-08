@@ -243,7 +243,7 @@ import temperatureBHRY from "../../Page/temperature-chart/new-singleTemperature-
 // import patientList from "@/components/patient-list/patient-list.vue";
 import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
-import moveContext from "../temperature-chart/commonComponents/removableBox.vue";
+import moveContext from "../temperature-chart/commonCompen/removableBox.vue";
 // import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
 // import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";
 // import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";

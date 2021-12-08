@@ -369,7 +369,7 @@ import dayjs from "dayjs";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
 //体温曲线窗口
-import moveContext from "../../../temperature-chart/commonComponents/removableBox.vue";
+import moveContext from "../../../temperature-chart/commonCompen/removableBox.vue";
 import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureWuJing from "../../../patientInfo/supPage/temperature/temperatureWuJing";
 import temperatureDghl from "../../../patientInfo/supPage/temperature/temperatureDghl";
@@ -493,7 +493,7 @@ export default {
         process.env.HOSPITAL_ID == "fuyou" ||
         process.env.HOSPITAL_ID == "quzhou" ||
         process.env.HOSPITAL_ID == "huadu" ||
-        process.env.HOSPITAL_ID==='foshanrenyi'
+        process.env.HOSPITAL_ID === "foshanrenyi"
       ) {
         this.bus.$emit("toSheetPrintPage");
       } else {

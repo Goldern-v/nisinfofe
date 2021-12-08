@@ -106,6 +106,7 @@ export default {
     },
   },
   created() {
+    this.getDate();
     // 初始化
     if (this.deptCode) {
       this.getDate();
