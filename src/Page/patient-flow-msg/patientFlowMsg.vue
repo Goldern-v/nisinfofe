@@ -18,24 +18,35 @@
         </div>
         <p class="name">{{ info.name }}</p>
         <div class="list-box">
-          <p class="list-box__item">患者ID：{{ info.inpNo }}</p>
-          <p class="list-box__item">{{ `${info.sex} ${info.age}` }}</p>
+          <p class="list-box__item">患者ID：{{ info.patientId }}</p>
+          <p class="list-box__item">{{ `${info.sex} ${info.age }` }}</p>
           <p class="list-box__item">所在科室：{{ info.deptName }}</p>
           <p class="list-box__item">床位：{{ info.bedLabel }}</p>
         </div>
       </div>
       <div class="list2-box">
         <p class="list2-box__title">转科信息</p>
-        <p class="list2-box__item">转出科室：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转出时间：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转出责任护士：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转入科室：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转入时间：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转入责任护士：{{ info.a || "--" }}</p>
+        <p class="list2-box__item">转出科室：{{ getDeptName(info.transferFrom) || "--" }}</p>
+        <p class="list2-box__item">转出时间：{{ info.outDateTime || "--" }}</p>
+        <p class="list2-box__item">转出责任护士：{{ info.nurseOut || "--" }}</p>
+        <p class="list2-box__item">转入科室：{{ getDeptName(info.transferTo) || "--" }}</p>
+        <p class="list2-box__item">转入时间：{{ info.inDateTime || "--" }}</p>
+        <p class="list2-box__item">转入责任护士：{{ info.nurseIn || "--" }}</p>
       </div>
+      <!-- <div class="patient-flow-msg__left__tree">
+        <el-tree
+        node-key="id"
+        :data="formList"
+        empty-text="暂无表单列表数据"
+        @node-click="opendetail">
+          <span class="custom-tree-node" slot-scope="{ node }">
+            <span>{{ node.label }}</span>
+          </span>
+        </el-tree>
+      </div> -->
     </div>
     <div class="patient-flow-msg__right">
-      <div class="content"></div>
+      <form-detail :info="info" :detail="formModel"></form-detail>
     </div>
   </div>
 </template>
@@ -48,13 +59,13 @@
     height: 100%;
     width: 200px;
     background: #f8f8f8;
+    overflow-y: auto
 
     .user-box {
       overflow: hidden;
       width: 200px;
       height: 267px;
       background-image: url('../../common/images/patient/患者背景.png');
-      box-sizing: cover;
     }
 
     .user-head {
@@ -76,7 +87,6 @@
       font-size: 16px;
       color: #FFFFFF;
       text-align: center;
-      // margin-top: 18px;
     }
     .list-box {
       margin: 18px 10px;
@@ -91,22 +101,46 @@
     }
     .list2-box {
       margin: 14px 10px;
-      flex: 1;
-      overflow-y: auto;
+      color: #687179;
 
       .list2-box__title {
         font-size: 15px;
-        f-font-weight: 500;
+        font-weight: 500;
         margin-bottom: 10px;
-        color: #687179;
+        line-height: 20px;
       }
 
       .list2-box__item {
         margin-bottom: 7px;
         font-size: 13px;
-        color: #687179;
         line-height: 20px;
         word-break: break-all;
+      }
+    }
+    .patient-flow-msg__left__tree {
+      width: 100%;
+      .el-tree {
+        border: none;
+        background: transparent;
+        color: #687179;
+      }
+      /deep/ .el-tree-node__content {
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        .el-tree-node__label {
+          font-size: 13px
+        }
+      }
+      /deep/ .el-tree-node__label {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 15px;
+      }
+      /deep/ .el-tree__empty-block {
+        font-size: 15px;
+        white-space: nowrap;
       }
     }
   }
@@ -121,32 +155,62 @@
       background: #fff;
       padding: 0 20px;
       margin-top: 30px;
-
     }
   }
 }
 </style>
 <script>
 import commonMixin from '@/common/mixin/common.mixin';
-import { getPatientInfo } from '@/api/common';
+import { getPatientFlowDetail, getFlowForm } from '@/api/patient-flow';
+import formDetail from './components/form-detail.vue'
+import { nursingUnit } from '@/api/lesion';
 
 export default {
   mixins: [commonMixin],
   props: {},
   data() {
     return {
-      info: {}
+      info: {},
+      // itemDataMap: {},
+      formList: [],
+      deptList: [],
+      formModel: {},
+      // 具体表单id
+      currentId: ''
     };
   },
-  mounted() {
-    const { patientId = '0001028000', visitId = '2' } = this.$route.query
-    getPatientInfo(patientId, visitId).then(res => {
-      this.info = res.data.data
-      console.log('test-this.info', this.info)
-    }).catch(err => console.log(err))
+  async mounted() {
+    try {
+      const { id, age } = this.$route.query
+      const res = await nursingUnit()
+      this.deptList = res.data.data && res.data.data.deptList || []
+
+      const res1 = await getPatientFlowDetail(id)
+      this.info = res1.data.data && res1.data.data.master || {}
+      this.info = { ...this.info, age }
+      // this.itemDataMap = res1.data.data && res1.data.data.itemDataMap || {}
+
+      if (!this.info.formCode) return
+      let { patientId, visitId, formCode } = this.info;
+      const res2 = await getFlowForm({ formCode, patientId, visitId })
+      // const res3 = await getFormList({ formCode, patientId, visitId })
+
+      this.formModel = res2 && res2.data.data || {}
+    } catch (err) {}
   },
   methods: {
+    getDeptName(code) {
+      if (!code) return ''
+      const item = this.deptList.find(v => v.code === code)
+      return item ? item.name : ''
+    },
+    opendetail(item) {
+      if (item.children) return
+      this.currentId = item.id
+    }
   },
-  components: {}
+  components: {
+    formDetail
+  }
 };
 </script>

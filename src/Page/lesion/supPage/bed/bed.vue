@@ -166,6 +166,7 @@ import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
 import bedItemBhry from "./component/bed-item-bhry/bed-item.vue";
+import bedItemFuyou from "./component/bed-item-fuyou/bed-item.vue"
 import searchCon from "./component/search-con/search-con.vue";
 import printHdModal from "./component/prints/modals.vue"
 import common from "@/common/mixin/common.mixin.js";
@@ -211,7 +212,11 @@ export default {
         return bedItemLcey;
       }else if (this.HOSPITAL_ID == "beihairenyi") {
         return bedItemBhry;
-      }else {
+      }
+      // else if (this.HOSPITAL_ID == "fuyou") {
+      //   return bedItemFuyou;
+      // }
+      else {
         return bedItem;
       }
     }

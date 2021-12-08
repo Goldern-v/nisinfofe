@@ -2,7 +2,7 @@
   <div>
     <sweet-modal
       ref="modal"
-      :modalWidth="600"
+      :modalWidth="650"
       title="编辑床头卡"
       :enable-mobile-fullscreen="false"
       class="modal"
@@ -338,15 +338,13 @@
 
 .bed-card-con {
   margin: 20px;
-  width: 511px;
-  height: 335px;
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
   border: 1px solid #000;
-  height: 370px;
-
+  width: 14.375cm;
+  height: 10.625cm;
   // &.remarkCon
   .qr-code {
     position: absolute;
