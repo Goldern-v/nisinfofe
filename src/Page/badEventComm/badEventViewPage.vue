@@ -516,6 +516,8 @@ export default {
           : "";
         if (item.status == 1 && index == stream.length - 1 && !item.noPass) {
           status = "finish";
+          this.currentNodeCode = item.nodeCode;
+          this.stateText = item.nodeName;
         } else if (item.status == 1 && !item.noPass) {
           status = "success";
           this.currentNodeCode = item.nodeCode;
