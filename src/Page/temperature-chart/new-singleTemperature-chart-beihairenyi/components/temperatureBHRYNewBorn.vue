@@ -90,8 +90,8 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        // "http://192.167.199.191:9091/temperature/#/newBorn" /* 医院正式环境内网 导致跨域 */,
-        "http://localhost:8080/#/newBorn" /* 医院正式环境内网 */,
+        "http://192.167.199.191:9091/temperature/#/newBorn" /* 医院正式环境内网 导致跨域 */,
+      // "http://localhost:8080/#/newBorn" /* 医院正式环境内网 */,
       printAllUrl:
         "http://192.167.199.191:9091/temperature/#/newBornPrintAll" /* 医院正式环境内网 */,
       outNetUrl:
