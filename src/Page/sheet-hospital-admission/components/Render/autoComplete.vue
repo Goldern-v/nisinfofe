@@ -211,6 +211,7 @@ export default {
       if (!this.multiplechoice) {
         this.show = false;
       }
+      this.$forceUpdate();
     },
     getInputElement() {
       return this.parentEl;
