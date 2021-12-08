@@ -369,7 +369,7 @@ import dayjs from "dayjs";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
 //体温曲线窗口
-import moveContext from "../../../temperature-chart/commonCompen/removableBox.vue";
+import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureWuJing from "../../../patientInfo/supPage/temperature/temperatureWuJing";
 import temperatureDghl from "../../../patientInfo/supPage/temperature/temperatureDghl";
