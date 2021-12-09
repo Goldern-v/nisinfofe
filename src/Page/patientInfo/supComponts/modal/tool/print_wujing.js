@@ -116,7 +116,7 @@ function print(source, beforePrint, selfShow) {
     left: 2px;
    }
    body {
-    transform: scale(1.2);
+    transform: scale(1.1) translateY(0.5cm);
     transform-origin: 0 0;
    }
    .huadu-bigname{
