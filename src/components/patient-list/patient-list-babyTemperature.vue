@@ -260,11 +260,22 @@ export default {
     getDate() {
       if (this.deptCode) {
         // console.log("获取病人列表", this.deptCode);
+        //屏蔽成年人体温单录入的婴儿患者，屏蔽婴儿录入的成年人
         this.patientListLoading = true;
         patients(this.deptCode, {}).then((res) => {
-          this.bedList = res.data.data.filter((item) => {
-            return item.patientId;
-          });
+          if (
+            ["beihairenyi"].includes(this.HOSPITAL_ID) &&
+            this.$route.path.includes("Baby_sheetPage")
+          ) {
+            this.bedList = res.data.data.filter((item) => {
+              return item.patientId && item.visitId === "0";
+            });
+          } else {
+            this.bedList = res.data.data.filter((item) => {
+              return item.patientId;
+            });
+          }
+
           this.patientListLoading = false;
           this.fetchData();
         });
@@ -272,16 +283,6 @@ export default {
     },
     selectPatient(patient) {
       this.selectPatientId = patient.patientId;
-      //
-      console.log(
-        "selectPatient",
-        patient,
-        patient.patientId,
-        patient.visitId,
-        patient.formId,
-        this.$route.path,
-        this.$route
-      );
       if (this.callFunction) {
         this.$route.query.patientId = patient.patientId;
         this.$route.query.visitId = patient.visitId;
@@ -291,7 +292,7 @@ export default {
         this.$store.commit("upCurrentPatientObj", patient);
         this.$store.commit("upWardCode", patient.wardCode || "");
         this.$store.commit("upWardName", patient.wardName || "");
-        //
+        this.bus.$emit("refreshImg");
         this.callFunction(patient);
         //
       }
@@ -321,12 +322,6 @@ export default {
       if (p) {
         this.selectPatient(p);
       }
-      console.log(
-        "路由拦截:$route.params",
-        [currentPatient],
-        [p, this.sortList],
-        [this.$route.params]
-      );
     },
   },
   computed: {

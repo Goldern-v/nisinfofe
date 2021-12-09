@@ -84,7 +84,7 @@ import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
-import patientList from "@/components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list-SingleTemperatureChart.vue";
 // import print from "printing";
 // import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureBHRY from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/temperatureBHRY";

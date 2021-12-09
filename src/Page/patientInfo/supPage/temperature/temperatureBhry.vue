@@ -31,7 +31,7 @@
           class="contain-center"
           :queryTem="patientInfo"
         ></temperatureBHRYNewBorn>
-        <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
+        <!-- <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon> -->
       </div>
       <!-- </div> -->
     </div>
