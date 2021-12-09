@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class="search-box" v-if="data.status == 1">
-      <div class="title">入院起始日期</div>
+      <div class="title">入院起始日期7</div>
       <el-date-picker
         v-model="data.admissionDate[0]"
         type="date"
@@ -241,6 +241,10 @@ export default {
       .then(() => {
         this.$parent.getData();
       });
+    //花都入院起始日期 改为提前7天
+     if(['huadu'].includes(this.HOSPITAL_ID)){
+       this.data.admissionDate=[moment().subtract(7, "days"), new Date()]
+     }
   },
   mounted(){
     //江门妇幼、转院、出院中的【起始时间】调整为当天
