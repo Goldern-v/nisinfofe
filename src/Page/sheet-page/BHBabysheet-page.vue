@@ -545,7 +545,6 @@ export default {
     },
 
     getDate() {
-      console.log(this.deptCode);
       if (this.deptCode) {
         this.patientListLoading = true;
         patients(this.deptCode, {}).then((res) => {
@@ -996,7 +995,6 @@ export default {
   mounted() {},
   watch: {
     deptCode(val) {
-      console.log(val);
       if (val) {
         this.getDate();
         this.breforeQuit(() => {
