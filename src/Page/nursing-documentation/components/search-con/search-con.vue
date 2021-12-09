@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class="search-box" v-if="data.status == 1">
-      <div class="title">入院起始日期7</div>
+      <div class="title">入院起始日期</div>
       <el-date-picker
         v-model="data.admissionDate[0]"
         type="date"
