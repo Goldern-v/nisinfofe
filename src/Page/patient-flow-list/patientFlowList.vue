@@ -3,7 +3,7 @@
 			<search-con @search="search"/>
 			<div class="patient-flow-list__content">
 				<iview-table
-				:row-class-name="rowClassName"
+				stripe
 				:data="tableData"
 				border
 				:height="wih - 142"
