@@ -539,13 +539,13 @@ export default {
         return false;
       }
     },
-    async isSelectPatient(item) {
-      await this.$store.commit("upPatientInfo", item);
+    isSelectPatient(item) {
+      this.$store.commit("upPatientInfo", item);
       this.bus.$emit("refreshImg");
-      this.bus.$emit("refreshVitalSignList");
     },
 
     getDate() {
+      console.log(this.deptCode);
       if (this.deptCode) {
         this.patientListLoading = true;
         patients(this.deptCode, {}).then((res) => {
@@ -662,7 +662,7 @@ export default {
       //       next();
       //     });
       // } else {
-      //   next();
+      next();
       // }
     },
     getHomePage(isFirst) {
@@ -996,6 +996,7 @@ export default {
   mounted() {},
   watch: {
     deptCode(val) {
+      console.log(val);
       if (val) {
         this.getDate();
         this.breforeQuit(() => {
