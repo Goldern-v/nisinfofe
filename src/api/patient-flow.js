@@ -9,7 +9,7 @@ export const patientFlowList = (params) => {
 
 /**查询患者流转详情 + 流转单数据 */
 export const getPatientFlowDetail = (id) => {
-  return axios.get(`${apiPath}patientFlow/getById/${id}`)
+  return axios.get(`${apiPath}patientFlow/getPCById/${id}`)
 }
 /**获取流转单格式 */
 export const getFlowForm = (params) => {
@@ -18,6 +18,11 @@ export const getFlowForm = (params) => {
 /**获取流转单 */
 export const getFormList = (params) => {
   return axios.post(`${apiPath}form/design/list`, params)
+}
+
+/**获取统计科室 */
+export const getDeptList = (params) => {
+  return axios.get(`${apiPath}patientFlow/getDeptWithWardcode`)
 }
 
 /**统计折线图数据 */

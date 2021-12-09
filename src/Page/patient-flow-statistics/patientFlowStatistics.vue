@@ -163,7 +163,8 @@ export default {
           ...commonTitle,
         },
         tooltip: {
-          trigger: 'item'
+          trigger: 'item',
+          formatter: "{b} : {c}%",
         },
         legend: {
           show: true,

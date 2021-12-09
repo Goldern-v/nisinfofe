@@ -539,10 +539,9 @@ export default {
         return false;
       }
     },
-    async isSelectPatient(item) {
-      await this.$store.commit("upPatientInfo", item);
+    isSelectPatient(item) {
+      this.$store.commit("upPatientInfo", item);
       this.bus.$emit("refreshImg");
-      this.bus.$emit("refreshVitalSignList");
     },
 
     getDate() {
@@ -662,7 +661,7 @@ export default {
       //       next();
       //     });
       // } else {
-      //   next();
+      next();
       // }
     },
     getHomePage(isFirst) {
