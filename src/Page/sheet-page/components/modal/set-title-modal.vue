@@ -98,6 +98,7 @@ export default {
           })
         );
       } else {
+        let deptCode = this.$store.state.lesion.deptCode
         let {
           data: { data },
         } = await listItem(
@@ -106,7 +107,8 @@ export default {
           ["beihairenyi", "guizhou"].includes(this.HOSPITAL_ID) &&
             this.$route.path.includes("newSingleTemperatureChart")
             ? "bodyTemperature"
-            : sheetInfo.sheetType
+            : sheetInfo.sheetType,
+            deptCode,
         );
         // 调用 callback 返回建议列表的数据
         let autoList = [];

@@ -241,9 +241,10 @@ import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import doctorEmr from "@/components/doctorEmr";
 import temperatureBHRY from "../../Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/temperatureBHRYNewBorn.vue";
 // import patientList from "@/components/patient-list/patient-list.vue";
-import patientList from "@/components/patient-list/patient-list-router-link.vue";
+import patientList from "@/components/patient-list/patient-list-babyTemperature.vue";
+// import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
-import moveContext from "../temperature-chart/commonComponents/removableBox.vue";
+import moveContext from "../temperature-chart/commonCompen/removableBox.vue";
 // import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
 // import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";
 // import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";
@@ -538,10 +539,9 @@ export default {
         return false;
       }
     },
-    async isSelectPatient(item) {
-      await this.$store.commit("upPatientInfo", item);
+    isSelectPatient(item) {
+      this.$store.commit("upPatientInfo", item);
       this.bus.$emit("refreshImg");
-      this.bus.$emit("refreshVitalSignList");
     },
 
     getDate() {
@@ -650,19 +650,19 @@ export default {
       });
     },
     breforeQuit(next) {
-      if (!sheetInfo.isSave) {
-        window.app
-          .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
-            confirmButtonText: "离开",
-            cancelButtonText: "取消",
-            type: "warning",
-          })
-          .then((res) => {
-            next();
-          });
-      } else {
-        next();
-      }
+      // if (!sheetInfo.isSave) {
+      //   window.app
+      //     .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
+      //       confirmButtonText: "离开",
+      //       cancelButtonText: "取消",
+      //       type: "warning",
+      //     })
+      //     .then((res) => {
+      //       next();
+      //     });
+      // } else {
+      next();
+      // }
     },
     getHomePage(isFirst) {
       getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
@@ -1002,6 +1002,10 @@ export default {
           this.getDate();
         });
       }
+    },
+    patientInfo(val) {
+      this.$store.commit("upPatientInfo", val);
+      this.bus.$emit("refreshImg");
     },
     sheetModel: {
       deep: true,

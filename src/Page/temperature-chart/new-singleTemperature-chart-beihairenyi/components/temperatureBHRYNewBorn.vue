@@ -91,7 +91,7 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         "http://192.167.199.191:9091/temperature/#/newBorn" /* 医院正式环境内网 导致跨域 */,
-      // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 */,
+      // "http://localhost:8080/#/newBorn" /* 医院正式环境内网 */,
       printAllUrl:
         "http://192.167.199.191:9091/temperature/#/newBornPrintAll" /* 医院正式环境内网 */,
       outNetUrl:
@@ -127,12 +127,13 @@ export default {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
+      let authTokenNursing = this.authTokenNursing;
       this.date = date;
       this.patientId = patientId;
       this.visitId = visitId;
       /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
+      const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
+      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
       // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
@@ -143,6 +144,7 @@ export default {
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
+
     messageHandle(e) {
       if (e && e.data) {
         switch (e.data.type) {
@@ -203,6 +205,9 @@ export default {
     patientInfo() {
       this.isPrintAll = false;
     },
+    authTokenNursing(val) {
+      this.authTokenNursing = val;
+    },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
@@ -212,6 +217,7 @@ export default {
     },
   },
   mounted() {
+    this.getImg(); //新生儿的体温曲线，打开就默认加载
     this.bus.$on("saveSheetPage", (data) => {
       if (data === "noSaveSign" || data === true) {
         this.isSave = true;
@@ -223,9 +229,11 @@ export default {
     this.bus.$on("refreshImg", () => {
       this.getImg();
     });
+    this.$nextTick(() => {
+      this.postToken();
+    });
   },
   created() {
-    // this.getImg();
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
@@ -233,6 +241,9 @@ export default {
   computed: {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
+    },
+    authTokenNursing() {
+      return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
   },
   beforeDestroy() {

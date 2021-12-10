@@ -363,7 +363,9 @@ export default {
       }
     },
     onToggle() {
-      if (this.$route.path.includes("singleTemperatureChart")) {
+      //nursingPreviewIsShow
+      if (this.$route.path.includes("singleTemperatureChart") 
+      || (this.$route.path.includes("nursingPreview") && this.$route.query && this.$route.query.nursingPreviewIsShow=='1' )) {
         return;
       } else {
         this.visibled = true;

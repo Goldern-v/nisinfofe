@@ -138,9 +138,9 @@ export default {
           (!data.nursingClass || data.nursingClass=='') && (data.nursingClass='无');
           if(wid.app.$root.$refs['B0002005'] && wid.app.$root.$refs['B0002005'][data.nursingClass]){
             // wid.app.$root.$refs['B0002005'][data.nursingClass].$parent.checkboxValue=true
-            wid.app.$root.$refs['B0017005'][data.nursingClass].setCheckboxValue(data.nursingClass)
-            wid.app.$root.$refs['B0017005'][data.nursingClass].model = [data.nursingClass];
-            wid.app.$root.$refs['B0017005'][data.nursingClass].$parent.checkboxValue = [data.nursingClass];
+            wid.app.$root.$refs['B0002005'][data.nursingClass].setCheckboxValue(data.nursingClass)
+            wid.app.$root.$refs['B0002005'][data.nursingClass].model = [data.nursingClass];
+            wid.app.$root.$refs['B0002005'][data.nursingClass].$parent.checkboxValue = [data.nursingClass];
           }
           //性别
           (!data.sex || data.sex=='') && (data.sex='无');

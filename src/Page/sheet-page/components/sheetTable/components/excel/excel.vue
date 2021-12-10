@@ -107,8 +107,8 @@
               }).value.status
             }`,
           {
-            redTop: (HOSPITAL_ID == 'huadu' ||HOSPITAL_ID == 'wujing'&& getBorderClass(y)) || redTop(y),
-            blackTop: BlackTop(y),
+           redTop: (HOSPITAL_ID == 'huadu' && getBorderClass(y)) ||(HOSPITAL_ID == 'wujing' && getBorderClass(y)) ||redTop(y),
+           blackTop: BlackTop(y),
           },
         ]"
         :key="y"
