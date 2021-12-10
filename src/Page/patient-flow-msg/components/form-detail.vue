@@ -34,8 +34,11 @@ export default {
       type: Object,
       default: () => ({})
     },
-    // master
-    info: {
+    master: {
+      type: Object,
+      default: () => ({})
+    },
+    itemDataMap: {
       type: Object,
       default: () => ({})
     },
@@ -54,23 +57,13 @@ export default {
       isLandscape: false,
     }
   },
-  // computed: {
-  //   editParams() {
-  //     // console.log('test-this.wid', this.wid.vm.editParams.I622062)
-  //     if (this.wid && this.wid.vm && this.wid.vm.editParams) return this.wid.vm.editParams
-  //     return ''
-  //   }
-  // },
   watch: {
     'detail.documentName'() {
       this.load()
     },
-    // 'editParams.I622062' (v) {
-    //   console.log('test-v', v)
-    // }
   },
   created() {
-    // this.pageLoading = true;
+    this.pageLoading = true;
   },
   mounted() {
     this.load()
@@ -83,10 +76,10 @@ export default {
         let { documentName } = this.detail
         let commonUrl = this.isDev ? devFormUrl : formUrl;
         // 表单数据
-        let {formId, id, data} = this.info
+        let {formId, id, data} = this.master
         let queryObj = {
-          ...data,
-          id: formId,
+          // ...data,
+          // id: formId,
           onlyView: this.onlyView,
         }
         this.url = `${commonUrl}/${documentName}.html?${qs.stringify(queryObj)}`
@@ -146,16 +139,19 @@ export default {
         E0622: ['I622062', 'I605016'],
         E0604: ['I604098']
       }
-      if (this.wid.vm && Object.keys(codeObj).find(v => v === this.info.formCode) == -1) return
-      // console.log('test-this', this.wid.vm)
-      let _this = this
-      this.wid.vm.getFormData(()=> {}, (res) => {
-        const arr = codeObj[_this.info.formCode]
+      const editParams = { ...this.itemDataMap }
+      const saveParams = { ...this.master, patientName: this.master.name }
+      if (!this.wid.vm) return
+      if (Object.keys(codeObj).find(v => v === this.master.formCode) > -1) {
+        const arr = codeObj[_this.master.formCode]
         arr.map(v => {
-          let item = _this.wid.vm.editParams[v]
-          item && (_this.wid.vm.editParams[v] = item.replace(/\=.+/, ''))
+          let item = editParams[v]
+          item && (editParams[v] = item.replace(/\=.+/, ''))
         })
-      })
+      }
+      this.wid.vm.editParams = editParams
+      this.wid.vm.saveParams = saveParams
+
     }
   }
 }
