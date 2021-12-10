@@ -88,6 +88,7 @@ export default {
            moduleCode:['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':'',
           recordCode: ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType,
           wardCode: this.deptCode,
+          deptCode: this.deptCode,
         };
         dictUpdate(data).then(res => {
           this.$message.success("更新常用语模版成功");
@@ -102,7 +103,8 @@ export default {
           itemName: this.itemName,
            moduleCode:['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':'',
           recordCode: ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType,
-          wardCode: this.deptCode
+          wardCode: this.deptCode,
+          deptCode: this.deptCode,
         };
         dictSave(data).then(res => {
           this.$message.success("保存常用语模版成功");
