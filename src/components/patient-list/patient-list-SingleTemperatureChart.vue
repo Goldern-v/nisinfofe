@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="patient-list-part"
-    :style="{ left: openLeft ? '0' : '-201px' }"
-    v-loading="patientListLoading"
-  >
+  <div class="patient-list-part" :style="{ left: openLeft ? '0' : '-201px' }">
     <div class="search-box">
       <el-input
         placeholder="床号/姓名"
@@ -13,23 +9,14 @@
     </div>
     <div class="left-wapper">
       <div class="patient-list-contain">
-        <!-- path: "/hospitalEval/:patientId?/:visitId?/:formId?" @click="selectPatient(item)"-->
-        <router-link
+        <div
           class="patient-box"
           flex="cross:center"
           v-for="(item, index) in sortList"
           :key="
             item.patientId + item.visitId + item.bedLabel + item.inpNo + index
           "
-          :to="{
-            name: toName,
-            params: {
-              patientId: item.patientId,
-              visitId: item.visitId,
-              formId: item.id,
-              inpNo: item.inpNo,
-            },
-          }"
+          @click="selectPatient(item)"
           :class="{ active: isActive(item) }"
         >
           <img
@@ -59,9 +46,8 @@
               isImg2: img2Show,
             }"
           ></span>
-        </router-link>
+        </div>
       </div>
-
       <div
         class="flag-con"
         :style="{ top: flagTop }"
@@ -108,7 +94,6 @@
     border-radius: 3px;
     margin: 1px 0;
     position: relative;
-    text-decoration: none !important;
 
     .img1 {
       height: 30px;
@@ -232,13 +217,11 @@
 </style>
 <script>
 import common from "@/common/mixin/common.mixin.js";
-import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
 export default {
   props: {
     data: Array,
-    toName: String,
-    callFunction: Function,
+    isSelectPatient: Function,
   },
   mixins: [common],
   data() {
@@ -248,8 +231,6 @@ export default {
       img1Show: true,
       img2Show: false,
       selectPatientId: "",
-      patientListLoading: false,
-      bedList: [],
       imageBoy: require("./images/男婴.png"),
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
@@ -257,50 +238,17 @@ export default {
     };
   },
   methods: {
-    getDate() {
-      if (this.deptCode) {
-        // console.log("获取病人列表", this.deptCode);
-        this.patientListLoading = true;
-        patients(this.deptCode, {}).then((res) => {
-          if (
-            ["beihairenyi"].includes(this.HOSPITAL_ID) &&
-            this.$route.path.includes("Baby_sheetPage")
-          ) {
-            this.bedList = res.data.data.filter((item) => {
-              return item.patientId && item.visitId === "0";
-            });
-          } else if (
-            ["beihairenyi"].includes(this.HOSPITAL_ID) &&
-            this.$route.path.includes("newSingleTemperatureChart")
-          ) {
-            this.bedList = res.data.data.filter((item) => {
-              return item.patientId && item.visitId !== "0";
-            });
-          } else {
-            this.bedList = res.data.data.filter((item) => {
-              return item.patientId;
-            });
-          }
-
-          this.patientListLoading = false;
-          this.fetchData();
-        });
-      }
-    },
-    selectPatient(patient) {
-      this.selectPatientId = patient.patientId;
-      if (this.callFunction) {
-        this.$route.query.patientId = patient.patientId;
-        this.$route.query.visitId = patient.visitId;
-        this.$route.query.inpNo = patient.inpNo;
-        patient.formId = this.$route.params.formId || "";
+    selectPatient(item) {
+      this.selectPatientId = item.patientId;
+      if (this.isSelectPatient) {
+        this.isSelectPatient(item);
+        this.$route.query.patientId = item.patientId;
+        this.$route.query.visitId = item.visitId;
         //
-        this.$store.commit("upCurrentPatientObj", patient);
-        this.$store.commit("upWardCode", patient.wardCode || "");
-        this.$store.commit("upWardName", patient.wardName || "");
-        this.bus.$emit("refreshImg");
-        this.callFunction(patient);
-        //
+        this.$store.commit(
+          "upCurrentPatientObj",
+          JSON.parse(JSON.stringify(item))
+        );
       }
     },
     isActive(item) {
@@ -311,37 +259,14 @@ export default {
     toOpenLeft() {
       this.$store.commit("upOpenSheetLeft", !this.openLeft);
     },
-    findCurrentPatient({ patientId, visitId }) {
-      return this.sortList.find((p) => {
-        return patientId == p.patientId && visitId == p.visitId;
-      });
-    },
-    fetchData() {
-      let currentPatient = this.$store.getters.getCurrentPatient();
-      let patientId =
-        this.$route.params.patientId || currentPatient.patientId || "";
-      let visitId = this.$route.params.visitId || currentPatient.visitId || "";
-      let p = this.findCurrentPatient({
-        patientId,
-        visitId,
-      });
-      if (p) {
-        this.selectPatient(p);
-      }
-      console.log(
-        "路由拦截:$route.params",
-        [currentPatient],
-        [p, this.sortList],
-        [this.$route.params]
-      );
-    },
   },
   computed: {
     list() {
-      return this.bedList.filter((item) => {
+      return this.data.filter((item) => {
         return (
-          item.bedLabel.indexOf(this.searchWord) > -1 ||
-          item.name.indexOf(this.searchWord) > -1
+          (item.bedLabel.indexOf(this.searchWord) > -1 ||
+            item.name.indexOf(this.searchWord) > -1) &&
+          item.visitId !== "0"
         );
       });
     },
@@ -355,12 +280,7 @@ export default {
         // let cacheSign = cacheList[i].name.indexOf("婴");
         let cacheSign;
         if (cacheList[i].name.charAt(cacheList[i].name.length - 1) === "婴") {
-          let parentIndex = cacheList.findIndex((item) => {
-            item.name == cacheList[i].name.substring(0, cacheSign);
-          });
-          if (parentIndex != -1) {
-            cacheSign = cacheList[i].name.indexOf("婴");
-          }
+          cacheSign = cacheList[i].name.indexOf("婴");
         }
         if (cacheSign > -1) {
           cacheList[i].babyName = cacheList[i].name.substring(cacheSign);
@@ -419,9 +339,6 @@ export default {
   },
   watch: {
     deptCode(ndata, odata) {
-      // 清空当前选中病人
-      this.$store.commit("upCurrentPatientObj", new Object());
-
       if (ndata == "051102") {
         this.img1Show = false;
         this.img2Show = true;
@@ -429,16 +346,9 @@ export default {
         this.img1Show = true;
         this.img2Show = false;
       }
-      this.getDate();
-      //
     },
-    "$route.params.patientId": "fetchData",
   },
-  created() {
-    if (this.deptCode) {
-      this.getDate();
-    }
-  },
+  create() {},
   mounted() {
     if (this.deptCode == "051102") {
       this.img1Show = false;

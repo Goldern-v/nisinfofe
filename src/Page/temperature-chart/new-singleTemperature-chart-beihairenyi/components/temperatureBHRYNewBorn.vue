@@ -90,8 +90,8 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        // "http://192.167.199.191:9091/temperature/#/newBorn" /* 医院正式环境内网 导致跨域 */,
-        "http://localhost:8080/#/newBorn" /* 医院正式环境内网 */,
+        "http://192.167.199.191:9091/temperature/#/newBorn" /* 医院正式环境内网 导致跨域 */,
+      // "http://localhost:8080/#/newBorn" /* 医院正式环境内网 */,
       printAllUrl:
         "http://192.167.199.191:9091/temperature/#/newBornPrintAll" /* 医院正式环境内网 */,
       outNetUrl:
@@ -107,7 +107,6 @@ export default {
           this.intranetUrl /* 内网 */
           // this.outNetUrl /* 外网 */
         );
-        this.postToken();
       }, 1500);
     },
     //关闭婴儿版本体温曲线
@@ -147,7 +146,6 @@ export default {
     },
 
     messageHandle(e) {
-      this.postToken(); //把token传到体温曲线上去
       if (e && e.data) {
         switch (e.data.type) {
           case "pageTotal":
@@ -219,6 +217,7 @@ export default {
     },
   },
   mounted() {
+    this.getImg(); //新生儿的体温曲线，打开就默认加载
     this.bus.$on("saveSheetPage", (data) => {
       if (data === "noSaveSign" || data === true) {
         this.isSave = true;
@@ -238,9 +237,6 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
-  },
-  mounted() {
-    this.getImg(); //新生儿的体温曲线，打开就默认加载
   },
   computed: {
     patientInfo() {

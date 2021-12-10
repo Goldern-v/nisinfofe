@@ -12,6 +12,7 @@ import {
 
 let 表底注释 = [];
 let 表顶注释 = [];
+let tableTop=['拒测','不在','外出','不升','请假','右PPD','左PPD','冰敷','退热贴','冷水枕','降温毯','温水浴','辅助呼吸','PDD','停辅助呼吸']
 export default [{
   key: "recordMonth", //日期
   value: "",
@@ -142,7 +143,7 @@ export default [{
   event: keyf1,
   name: "表顶注释",
   autoComplete: {
-    data: 表顶注释
+    data: tableTop
   },
   splice: true,
   style: 'overflow: hidden',

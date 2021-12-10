@@ -4,7 +4,7 @@
       <div class="user-box">
         <div class="user-head">
           <img
-            v-if="info.sex === '女'"
+            v-if="master.sex === '女'"
             src="@/Page/lesion/supPage/bed/component/bed-item-lcey/images/女.png"
             height="72"
             width="72"
@@ -16,37 +16,26 @@
             width="72"
           />
         </div>
-        <p class="name">{{ info.name }}</p>
+        <p class="name">{{ master.name }}</p>
         <div class="list-box">
-          <p class="list-box__item">患者ID：{{ info.patientId }}</p>
-          <p class="list-box__item">{{ `${info.sex} ${info.age }` }}</p>
-          <p class="list-box__item">所在科室：{{ info.deptName }}</p>
-          <p class="list-box__item">床位：{{ info.bedLabel }}</p>
+          <p class="list-box__item">患者ID：{{ master.patientId }}</p>
+          <p class="list-box__item">{{ `${master.sex} ${master.age }` }}</p>
+          <p class="list-box__item">所在科室：{{ master.deptName }}</p>
+          <p class="list-box__item">床位：{{ master.bedLabel }}</p>
         </div>
       </div>
       <div class="list2-box">
         <p class="list2-box__title">转科信息</p>
-        <p class="list2-box__item">转出科室：{{ getDeptName(info.transferFrom) || "--" }}</p>
-        <p class="list2-box__item">转出时间：{{ info.outDateTime || "--" }}</p>
-        <p class="list2-box__item">转出责任护士：{{ info.nurseOut || "--" }}</p>
-        <p class="list2-box__item">转入科室：{{ getDeptName(info.transferTo) || "--" }}</p>
-        <p class="list2-box__item">转入时间：{{ info.inDateTime || "--" }}</p>
-        <p class="list2-box__item">转入责任护士：{{ info.nurseIn || "--" }}</p>
+        <p class="list2-box__item">转出科室：{{ master.transferFromName || "--" }}</p>
+        <p class="list2-box__item">转出时间：{{ master.outDateTime || "--" }}</p>
+        <p class="list2-box__item">转出责任护士：{{ master.nurseOut || "--" }}</p>
+        <p class="list2-box__item">转入科室：{{ master.transferToName || "--" }}</p>
+        <p class="list2-box__item">转入时间：{{ master.inDateTime || "--" }}</p>
+        <p class="list2-box__item">转入责任护士：{{ master.nurseIn || "--" }}</p>
       </div>
-      <!-- <div class="patient-flow-msg__left__tree">
-        <el-tree
-        node-key="id"
-        :data="formList"
-        empty-text="暂无表单列表数据"
-        @node-click="opendetail">
-          <span class="custom-tree-node" slot-scope="{ node }">
-            <span>{{ node.label }}</span>
-          </span>
-        </el-tree>
-      </div> -->
     </div>
     <div class="patient-flow-msg__right">
-      <form-detail :info="info" :detail="formModel"></form-detail>
+      <form-detail ref="formDetail" :master="master" :itemDataMap="itemDataMap" :detail="formModel"></form-detail>
     </div>
   </div>
 </template>
@@ -117,32 +106,6 @@
         word-break: break-all;
       }
     }
-    .patient-flow-msg__left__tree {
-      width: 100%;
-      .el-tree {
-        border: none;
-        background: transparent;
-        color: #687179;
-      }
-      /deep/ .el-tree-node__content {
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        .el-tree-node__label {
-          font-size: 13px
-        }
-      }
-      /deep/ .el-tree-node__label {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        font-size: 15px;
-      }
-      /deep/ .el-tree__empty-block {
-        font-size: 15px;
-        white-space: nowrap;
-      }
-    }
   }
   .patient-flow-msg__right {
     flex: 1;
@@ -163,50 +126,37 @@
 import commonMixin from '@/common/mixin/common.mixin';
 import { getPatientFlowDetail, getFlowForm } from '@/api/patient-flow';
 import formDetail from './components/form-detail.vue'
-import { nursingUnit } from '@/api/lesion';
 
 export default {
   mixins: [commonMixin],
   props: {},
   data() {
     return {
-      info: {},
-      // itemDataMap: {},
-      formList: [],
-      deptList: [],
+      master: {},
       formModel: {},
-      // 具体表单id
-      currentId: ''
+      itemDataMap: {}
     };
   },
   async mounted() {
     try {
       const { id, age } = this.$route.query
-      const res = await nursingUnit()
-      this.deptList = res.data.data && res.data.data.deptList || []
 
       const res1 = await getPatientFlowDetail(id)
-      this.info = res1.data.data && res1.data.data.master || {}
-      this.info = { ...this.info, age }
-      // this.itemDataMap = res1.data.data && res1.data.data.itemDataMap || {}
-
-      if (!this.info.formCode) return
-      let { patientId, visitId, formCode } = this.info;
+      this.master = res1.data.data && res1.data.data.master || {}
+      this.master = { ...this.master, age }
+      this.itemDataMap = res1.data.data && res1.data.data.itemDataMap || {}
+      if (!this.master.formCode) return
+      let { patientId, visitId, formCode } = this.master;
       const res2 = await getFlowForm({ formCode, patientId, visitId })
-      // const res3 = await getFormList({ formCode, patientId, visitId })
 
       this.formModel = res2 && res2.data.data || {}
-    } catch (err) {}
-  },
-  methods: {
-    getDeptName(code) {
-      if (!code) return ''
-      const item = this.deptList.find(v => v.code === code)
-      return item ? item.name : ''
-    },
-    opendetail(item) {
-      if (item.children) return
-      this.currentId = item.id
+    } catch (err) {
+      this.$message({
+        showClose: true,
+        message: '服务器开小差了',
+        type: 'error'
+      })
+      this.$refs.formDetail.pageLoading = false
     }
   },
   components: {

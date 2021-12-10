@@ -34,7 +34,11 @@ export default {
       type: Object,
       default: () => ({})
     },
-    info: {
+    master: {
+      type: Object,
+      default: () => ({})
+    },
+    itemDataMap: {
       type: Object,
       default: () => ({})
     },
@@ -56,10 +60,10 @@ export default {
   watch: {
     'detail.documentName'() {
       this.load()
-    }
+    },
   },
   created() {
-    // this.pageLoading = true;
+    this.pageLoading = true;
   },
   mounted() {
     this.load()
@@ -72,10 +76,10 @@ export default {
         let { documentName } = this.detail
         let commonUrl = this.isDev ? devFormUrl : formUrl;
         // 表单数据
-        let {formId, id, data} = this.info
+        let {formId, id, data} = this.master
         let queryObj = {
-          ...data,
-          id: formId,
+          // ...data,
+          // id: formId,
           onlyView: this.onlyView,
         }
         this.url = `${commonUrl}/${documentName}.html?${qs.stringify(queryObj)}`
@@ -91,20 +95,16 @@ export default {
       window.wid = wid;
       this.wid = wid;
       this.iframeHeight = wid.document.body.scrollHeight * 1.05;
-
+      this.formatData()
       // 预览模式
       if (this.onlyView) {
-        if (this.wid.document.querySelector(".tool-contain")) {
-          this.wid.document.querySelector(".tool-contain").style = "display:none;";
-          if (this.wid.document.querySelector("#app .form")) {
-            this.wid.document.querySelector("#app .form").style =
-              "padding-top:20px;";
-          }
-        }
-        // 隐藏btn
+        // 只显示打印
         if (this.wid.document.querySelector(".top-bar")) {
-          this.wid.document.querySelector(".top-bar").style = "display:none;";
-          this.wid.document.querySelector("body").style = "padding-top:20px;";
+          this.wid.document.querySelector(".top-bar").style = "justify-content:flex-end;";
+          this.wid.document.querySelector(".top-bar .page-bar_left").style = "display:none;";
+          this.wid.document.querySelector(".top-bar .page-bar_right button:nth-child(1)").style = "display:none;";
+          this.wid.document.querySelector(".top-bar .page-bar_right button:nth-child(3)").style = "display:none;";
+          // this.wid.document.querySelector("body").style = "padding-top:20px;";
         }
         // 禁止编辑
         if(this.wid.document.querySelector(".page-wrapper")) {
@@ -134,7 +134,25 @@ export default {
       }
       this.pageLoading = false
     },
+    formatData() {
+      const codeObj = {
+        E0622: ['I622062', 'I605016'],
+        E0604: ['I604098']
+      }
+      const editParams = { ...this.itemDataMap }
+      const saveParams = { ...this.master, patientName: this.master.name }
+      if (!this.wid.vm) return
+      if (Object.keys(codeObj).find(v => v === this.master.formCode) > -1) {
+        const arr = codeObj[_this.master.formCode]
+        arr.map(v => {
+          let item = editParams[v]
+          item && (editParams[v] = item.replace(/\=.+/, ''))
+        })
+      }
+      this.wid.vm.editParams = editParams
+      this.wid.vm.saveParams = saveParams
 
+    }
   }
 }
 </script>

@@ -735,7 +735,11 @@ export default {
           ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 = this.query.entryDate + " " + this.topExpandDate; //表顶用录入日期+选择的时间来显示
+            if (this.topExpandDate !== undefined) {
+              item.expand2 = this.query.entryDate + " " + this.topExpandDate; //表顶用录入日期+选择的时间来显示
+            } else {
+              item.expand2 = this.query.entryDate + " " + this.query.entryTime; //存在用户把时间控件时间删除不选择的情况，表顶用录入日期+选择的时间来显示
+            }
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;

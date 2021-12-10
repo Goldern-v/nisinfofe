@@ -4,8 +4,8 @@
 		<div class="search-con__patient-type">
 		</div>
 		<span class="label">科室:</span>
-		<ElSelect size="small" v-model="formData.deptCode" :disabled="!isEdit">
-			<ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
+		<ElSelect size="small" v-model="formData.deptCode" :disabled="!isEdit" filterable>
+			<ElOption v-for="val in deptList" :key="val.deptCode" :label="val.deptName" :value="val.deptCode" />
 		</ElSelect>
 
 		<span class="label">流转类型:</span>
@@ -56,7 +56,8 @@
 <script>
 import moment from "moment";
 import { FLOW_STATUS, FLOW_TYPE, searchKeyByCode } from "../../patient-flow-list/enums";
-import { nursingUnit } from '@/Page/healthEducation-list/api'
+import { getDeptList } from '@/api/patient-flow';
+
 export default {
 	props: {
 		isEdit: {
@@ -102,15 +103,17 @@ export default {
 			this.$emit('search', {...this.formData, flag})
 		},
 		getDepList() {
-			nursingUnit().then(res => {
-        this.deptList = res.data.data.deptList
-				this.deptList = [
-					{
-						code: '',
-						name: '全部'
-					},
-					...this.deptList
-				]
+			getDeptList().then(res => {
+        this.deptList = res.data.data || []
+				if (this.deptList.length > 0) {
+					this.deptList = [
+						{
+							deptCode: '',
+							deptName: '全部'
+						},
+						...this.deptList
+					]
+				}
 				this.formData.deptCode = ''
 				this.formData.title = '全部'
 			})
