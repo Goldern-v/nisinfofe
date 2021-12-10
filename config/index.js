@@ -142,7 +142,7 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       // return "http://219.159.198.37:9094"  // 正式地址
       // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
-      return "http://192.168.20.45:8080" // 伟彬本地
+      return "http://192.168.20.215:8080" // 伟彬本地
       // 佛山杏坛
     case 'fsxt':
       // return "http://219.159.198.37:9094"  // 正式地址
