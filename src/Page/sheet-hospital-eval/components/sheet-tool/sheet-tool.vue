@@ -756,9 +756,10 @@ export default {
             } catch (error) {}
 
             //
-            // if (showMeasure) {
-            //   this.showMeasureDetialBox(res);
-            // }
+            if (showMeasure) {
+              console.log(res,'gaohaixiong');
+              this.showMeasureDetialBox(res);
+            }
             //
             let {
               data: {
