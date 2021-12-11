@@ -29,13 +29,13 @@ export default {
     let token = this.$route.query.token || this.$route.query.ticket;
     let v_url = this.$route.query.service;
     //新加参数
-    let appcode = "YDHLXT";
-    let appname = "移动护理系统";
+    let appCode = "YDHLXT";
+    let appName = "移动护理系统";
     autoLogin({
       token,
       v_url,
-      appcode,
-      appname,
+      appCode,
+      appName,
     }).then((res) => {
       // 存下token 和用户信息 Auth-Token-Nursing
       let user = res.data.data.user;
