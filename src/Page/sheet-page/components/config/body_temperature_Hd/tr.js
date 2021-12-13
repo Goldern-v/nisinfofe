@@ -13,8 +13,9 @@ import {
 // let 表底注释 = [];
 // let 表顶注释 = [];
 // 医院反应下拉会无反应。bug这边复现不了，可能是发请求拿数据是卡住。所以数据写死
-let 表底注释 = ['入院','手术','分娩','出院','转入','死亡','排胎','出生','手术分娩','手术入院','转出'];
-let 表顶注释=['拒测','不在','外出','不升','请假','右PPD','左PPD','冰敷','退热贴','冷水枕','降温毯','温水浴','辅助呼吸','PDD','停辅助呼吸']
+let 表底注释 = ['拒测','不在','外出','不升','请假','右PPD','左PPD','PPD︵-︶','PPD︵+︶','PPD︵++︶','PPD︵+++︶','冰敷','退热贴','冷水枕','降温毯','温水浴','辅助呼吸','PDD','停辅助呼吸'];
+let 表顶注释= ['入院|','手术','分娩|','出院|','转入|','死亡|','排胎|','出生|','手术分娩|','手术入院|','转出|'];
+
 export default [{
   key: "recordMonth", //日期
   value: "",
@@ -136,7 +137,10 @@ export default [{
   autoComplete: {
     data: 表底注释
   },
-  splice: true,
+  textarea: {
+    width: 36
+  },
+  // splice: true,
   style: 'overflow: hidden',
 },
 {
@@ -147,7 +151,10 @@ export default [{
   autoComplete: {
     data: 表顶注释
   },
-  splice: true,
+  textarea: {
+    width: 36
+  },
+  // splice: true,
   style: 'overflow: hidden',
 },
 // {
