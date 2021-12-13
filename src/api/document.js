@@ -17,8 +17,18 @@ export function patEmrListWithPatInfo(data) {
 }
 
 // 获取转科数据
-export function listNurseAdtHd(data) {
-  return axios.post(`${apiPath}nurseAdtLog/listNurseAdtHd`,data);
+export function listNurseAdtHd(data,HOSPITAL_ID) {
+  if(HOSPITAL_ID && HOSPITAL_ID=='fuyou'){//江门妇幼
+    return axios.post(`${apiPath}nurseAdtLog/listNurseAdtJm`,data);
+  }else {
+    return axios.post(`${apiPath}nurseAdtLog/listNurseAdtHd`,data);
+  }
+  //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
+}
+
+// 获取江门妇幼
+export function listNurseAdtFuYou(data) {
+  return axios.post(`${apiPath}nurseAdtLog/listNurseAdtJm`,data);
   //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
 }
 

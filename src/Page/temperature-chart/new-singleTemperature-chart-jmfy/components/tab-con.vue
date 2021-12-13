@@ -352,6 +352,13 @@ export default {
         new Date().getHours(),
         new Date().getMinutes()
       ),
+      nowTimeVal: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      ),
       vitalSignList: [], // 固定项目列表
 
       // topContextList: [
@@ -405,24 +412,7 @@ export default {
     });
   },
   created() {},
-  computed: {
-    // timeVal: {
-    //   get: function () {
-    //     let date = new Date();
-    //     let hhh = new Date(
-    //       date.getFullYear(),
-    //       date.getMonth() + 1,
-    //       date.getDate(),
-    //       date.getHours(),
-    //       date.getMinutes()
-    //     );
-    //     return hhh;
-    //   },
-    //   set: function (val) {
-    //     this.timeVal = val;
-    //   },
-    // },
-  },
+  computed: {},
   watch: {
     query: {
       handler(newName, oldName) {
@@ -431,6 +421,7 @@ export default {
       deep: true,
     },
     patientInfo() {
+      //切换患者重新获得时间
       this.timeVal = new Date(
         new Date().getFullYear(),
         new Date().getMonth() + 1,
@@ -726,6 +717,7 @@ export default {
     },
     /* 录入体温单 */
     async saveVitalSign(value) {
+      console.log(this.topExpandDate);
       let obj = Object.values(value);
       obj.map((item) => {
         item.recordDate =
@@ -738,7 +730,10 @@ export default {
             if (this.topExpandDate !== undefined) {
               item.expand2 = this.query.entryDate + " " + this.topExpandDate; //表顶用录入日期+选择的时间来显示
             } else {
-              item.expand2 = this.query.entryDate + " " + this.query.entryTime; //存在用户把时间控件时间删除不选择的情况，表顶用录入日期+选择的时间来显示
+              item.expand2 =
+                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+                " " +
+                moment(this.nowTimeVal).format("HH:mm:ss"); //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
             }
             break;
           case "表底注释":
