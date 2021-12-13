@@ -140,7 +140,7 @@ export default [{
   textarea: {
     width: 36
   },
-  splice: true,
+  // splice: true,
   style: 'overflow: hidden',
 },
 {
@@ -154,7 +154,7 @@ export default [{
   textarea: {
     width: 36
   },
-  splice: true,
+  // splice: true,
   style: 'overflow: hidden',
 },
 // {
