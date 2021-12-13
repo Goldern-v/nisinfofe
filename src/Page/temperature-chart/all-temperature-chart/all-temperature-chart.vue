@@ -235,7 +235,11 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.amBp" colClass="bloodPressure" />
+              <custom-input
+                v-model="scope.row.amBp"
+                colClass="bloodPressure"
+                name="bloodPressure"
+              />
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
@@ -1096,30 +1100,38 @@ export default {
     };
   },
   computed: {
-    tableData() {
-      return this.patientsInfoData.filter((item) => {
-        if (
-          ["beihairenyi"].includes(this.HOSPITAL_ID)
-          //北海过滤婴儿的患者，批量去批量婴儿护理记录单上录入
-        ) {
-          return (
-            (item.bedLabel.indexOf(this.searchWord) > -1 ||
-              item.name.indexOf(this.searchWord) > -1) &&
-            item.patientId &&
-            item.visitId !== "0"
-          );
-        } else {
-          return (
-            (item.bedLabel.indexOf(this.searchWord) > -1 ||
-              item.name.indexOf(this.searchWord) > -1) &&
-            item.patientId
-          );
-        }
-      });
+    tableData: {
+      get() {
+        return this.patientsInfoData.filter((item) => {
+          if (
+            ["beihairenyi"].includes(this.HOSPITAL_ID)
+            //北海过滤婴儿的患者，批量去批量婴儿护理记录单上录入
+          ) {
+            return (
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId &&
+              item.visitId !== "0"
+            );
+          } else {
+            return (
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId
+            );
+          }
+        });
+      },
+      set(value) {
+        // this.tableData = value;
+      },
     },
   },
   mounted() {
     this.query.wardCode = this.deptCode;
+  },
+  created() {
+    window.addEventListener("keydown", this.keydownSave, false);
   },
   methods: {
     handlePatientChange() {},
@@ -1133,6 +1145,8 @@ export default {
       if (!this.deptCode) {
         return;
       }
+      this.reset(); //重置数组
+
       let data = Object.assign({}, this.query);
       if (this.HOSPITAL_ID === "guizhou") {
         data.entryDate = data.entryDate
@@ -1149,9 +1163,21 @@ export default {
       getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
         this.pageLoadng = false;
+        // console.log("接口数据", res.data.data);
       });
     },
-
+    reset() {
+      this.patientList = [];
+      this.patientsInfoData = [];
+      this.tableData = [];
+    },
+    keydownSave(e) {
+      if (e.keyCode === 13) {
+        this.saveAllTemperture();
+      } else {
+        return;
+      }
+    },
     saveAllTemperture() {
       this.pageLoadng = true;
       let data = {
@@ -1210,6 +1236,9 @@ export default {
         let obj = {};
         for (let key in data) {
           obj[key] = item[key] || data[key];
+          // if (key === "temperature") {
+          //   // console.log(obj[key]);
+          // }
         }
         return obj;
       });
@@ -1218,10 +1247,10 @@ export default {
         ...this.query,
         list,
       };
+
       tempertureData.entryDate = tempertureData.entryDate
         ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
-
       saveOverAllTemperture(tempertureData).then((res) => {
         if (res.data.code === "200" && res.data.desc === "操作成功") {
           this.$message.success("保存成功");
