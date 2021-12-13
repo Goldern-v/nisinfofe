@@ -13,7 +13,7 @@
             size="small"
             format="yyyy-MM-dd"
             placeholder="开始日期"
-            v-model="query.checkDateStart"
+            v-model="query.startDate"
             clearable
           />
           <span>-</span>
@@ -23,7 +23,7 @@
             size="small"
             format="yyyy-MM-dd"
             placeholder="结束日期"
-            v-model="query.checkDateEnd"
+            v-model="query.endDate"
             clearable
           />
         </span>
@@ -68,8 +68,8 @@
             </template>
           </el-table-column>
           <el-table-column prop="wardName" label="科室" min-width="200px" align="center"></el-table-column>
-          <el-table-column prop="inspectorName" label="总输液袋数" min-width="300px" align="center"></el-table-column>
-          <el-table-column prop="responsibleEmpName" label="总输液量" min-width="300px" align="center"></el-table-column>
+          <el-table-column prop="infusionNow" label="总输液袋数" min-width="300px" align="center"></el-table-column>
+          <el-table-column prop="infusionTotal" label="总输液量" min-width="300px" align="center"></el-table-column>
         </el-table>
       </div>
       <pagination
@@ -86,7 +86,7 @@
 <script>
 import commonMixin from "@/common/mixin/common.mixin";
 import pagination from "@/components/pagination/pagination.vue";
-import { getExecute, detail } from "@/api/infuse";
+import { pdaGetSYStatusCountWithWardcodeAndTimeApi } from "@/api/infuse";
 import dayjs from "dayjs";
 import {nursingUnit} from "@/api/lesion";
 export default {
@@ -100,8 +100,8 @@ export default {
         typeId: "", //类型id
         deptCode: "", //科室代码
         status: "", //状态1:提交未审核，2：已审核
-        checkDateStart: "", //检查日期开始日期（yyyy-MM-dd）
-        checkDateEnd: "", //检查日期结束日期（yyyy-MM-dd
+        startDate: "", //检查日期开始日期（yyyy-MM-dd）
+        endDate: "", //检查日期结束日期（yyyy-MM-dd
         pageIndex: 1, //页码
         pageSize: 20, //每页条数
         pageSize: 20
@@ -208,41 +208,51 @@ export default {
       this.setTableData();
     },
     setTableData() {
-      //   this.pageLoadng = true;
-      //   this.query.deptCode = this.deptCode;
-      //   this.getDate();
-      //   getList(this.query).then(
-      //     res => {
-      //       if (res.data && res.data.code == 200) {
-      //         this.total = res.data.data.totalCount || 0;
-      //         this.data = res.data.data.list;
-      //       }
-      //       this.pageLoadng = false;
-      //     },
-      //     err => {
-      //       this.pageLoadng = false;
-      //     }
-      //   );
+        this.pageLoadng = true;
+        this.query.deptCode = this.deptCode;
+        this.getDate();
+        this.query.wardCode = this.query.deptCode
+        pdaGetSYStatusCountWithWardcodeAndTimeApi(this.query).then(
+          res => {
+            if (res.data && res.data.code == 200) {
+              console.log(this.query.wardCode);
+              let {infusionNow,infusionTotal} = res.data.data.excuteToday
+              let obj = this.$store.state.lesion.deptList.find((item)=>{
+                return item.code == this.query.wardCode
+                })
+                console.log(JSON.stringify(obj));
+              let  wardName = obj.name
+              // let wardNode = this.deptOptionList.find((item)=>{return item.code==this.query.wardCode}).name
+              this.data = [{index:0,wardName,infusionNow,infusionTotal}]
+              // this.total = res.data.data.totalCount || 0;
+              // this.data = res.data.data.list;
+            }
+            this.pageLoadng = false;
+          },
+          err => {
+            this.pageLoadng = false;
+          }
+        );
     },
     // 设置默认日期
     getDate() {
-      if (!this.query.checkDateStart) {
+      if (!this.query.startDate) {
         let month = parseInt(new Date().getMonth()) + 1;
         if (month < 10) {
-          this.query.checkDateStart =
+          this.query.startDate =
             new Date().getFullYear() + "-0" + month + "-01";
         } else {
-          this.query.checkDateStart =
+          this.query.startDate =
             new Date().getFullYear() + "-" + month + "-01";
         }
       }
-      this.query.checkDateEnd = this.query.checkDateEnd
-        ? this.query.checkDateEnd
+      this.query.endDate = this.query.endDate
+        ? this.query.endDate
         : dayjs(new Date()).format("YYYY-MM-DD");
-      this.query.checkDateStart = dayjs(this.query.checkDateStart).format(
+      this.query.startDate = dayjs(this.query.startDate).format(
         "YYYY-MM-DD"
       );
-      this.query.checkDateEnd = dayjs(this.query.checkDateEnd).format(
+      this.query.endDate = dayjs(this.query.endDate).format(
         "YYYY-MM-DD"
       );
     }
