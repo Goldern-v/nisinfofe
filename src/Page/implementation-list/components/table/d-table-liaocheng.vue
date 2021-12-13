@@ -310,6 +310,11 @@
             "
             >修改</el-button
           >
+          <el-button
+            type="text"
+            @click="cancelOrderExecute(item)"
+            >取消</el-button
+          >
           </div>
         </template>
       </u-table-column>
@@ -447,7 +452,7 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
-import { addRecord } from "../../api/index";
+import { addRecord,cancelOrderExecuteApi } from "../../api/index";
 import editModal from "../common/edit-modal";
 import bus from "vue-happy-bus";
 export default {
@@ -520,6 +525,38 @@ export default {
     editModal,
   },
   methods: {
+    // 取消执行
+    cancelOrderExecute(item){
+      
+      let user = JSON.parse(localStorage.getItem('user'))
+      // console.log(user);
+      if(user.job!="护长"){
+        this.$message.error('没有权限！')
+      }else{
+        this.$prompt("请输入取消的原因", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+        })
+          .then(({ value }) => {
+            let { empNo } = user
+            let { barCode } = item
+            let cancelReason = value
+            console.log(cancelReason);
+            cancelOrderExecuteApi({
+              empNO:empNo,
+              barcode:barCode,
+              cancelReason
+            }).then((res)=>{
+              this.$message.success(res.data.desc)
+              this.bus.$emit("loadImplementationList");
+            })
+          })
+          .catch((err) => {
+              this.$message.success(err.data.desc)
+          });
+      }
+      
+    },
     // 补录
     backTracking(item) {
       if (this.HOSPITAL_ID == "lingcheng") {

@@ -105,3 +105,8 @@ export function handleWebGetPrintResult(uuid) {
 export function webExecutePrint(body){
   return axios.post(`${apiPath}procedure/webExecute/webExecutePrint`,body)
 }
+
+// 取消执行单(聊城)
+export function cancelOrderExecuteApi(body){
+  return axios.post(`${apiPath}hisLiaoChengExecute/cancelOrderExecute`,body)
+}
