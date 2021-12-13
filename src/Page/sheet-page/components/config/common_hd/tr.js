@@ -11,11 +11,14 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let 入量名称 = [];
-let 出量名称 = [];
+// let 入量名称 = [];
+// let 出量名称 = [];
+
 let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 let 出量颜色 = ['黄色', '鲜红色', '暗红色', '墨绿色', '浓茶色','淡红色','茶褐色','淡黄色','淡黄浑浊','淡红浑浊','浅茶色','乳白色','淡蓝色'];
-let outputName=['盆腔引流管','肝下引流管','胃管','尿管','膈下引流管','脾窝引流管','腹腔引流管','胸腔引流管','尿量','肠造口','呕吐物','大便','伤口皮下引流球','胃造瘘管','空肠造瘘管','肛管引流管','温氏孔引流管','胸腔闭式引流管']
+// 医院反应下拉会无反应。bug这边复现不了，可能是发请求拿数据是卡住。所以数据写死
+let 入量名称=['饮水','输液','静脉泵入','静注','口服','输血','肌注','鼻饲']
+let 出量名称=['盆腔引流管','肝下引流管','胃管','尿管','膈下引流管','脾窝引流管','腹腔引流管','胸腔引流管','尿量','肠造口','呕吐物','大便','伤口皮下引流球','胃造瘘管','空肠造瘘管','肛管引流管','温氏孔引流管','胸腔闭式引流管']
 
 export default [
   {
@@ -157,7 +160,7 @@ export default [
       width: 62,
     },
     autoComplete: {
-      data: outputName
+      data: 出量名称
     },
     style: {
       textAlign: "left",
@@ -178,7 +181,7 @@ export default [
     key: "dischargeColor", //排出物颜色
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 4),
     name: "出量颜色",
     textarea: {
       width: 25
@@ -384,28 +387,28 @@ export default [
   },
 ];
 
-export function getListData4() {
-  let list = [
-    "花都:通用护理记录单:入量名称",
-    "花都:通用护理记录单:出量名称",
-  ];
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(入量名称, "花都:通用护理记录单:入量名称", data);
-    setList(出量名称, "花都:通用护理记录单:出量名称", data);
-  });
-}
+// export function getListData4() {
+//   let list = [
+//     "花都:通用护理记录单:入量名称",
+//     "花都:通用护理记录单:出量名称",
+//   ];
+//   multiDictInfo(list).then(res => {
+//     let data = res.data.data;
+//     setList(入量名称, "花都:通用护理记录单:入量名称", data);
+//     setList(出量名称, "花都:通用护理记录单:出量名称", data);
+//   });
+// }
 
-getListData4();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}
+// getListData4();
+// /**
+//  *
+//  * @param {*} list 原数组
+//  * @param {*} key 对应的key
+//  * @param {*} data 数据源
+//  */
+// function setList(list, key, data) {
+//   list.splice(0, list.length);
+//   for (let item of data[key]) {
+//     list.push(item.name);
+//   }
+// }

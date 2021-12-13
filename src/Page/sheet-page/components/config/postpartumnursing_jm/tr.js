@@ -198,6 +198,9 @@ export default [
     value: "",
     event: keyf1,
     name: "腹部",
+    autoComplete:{
+      data:["(-)","渗血"]
+    },
     textarea: {
       width: 43
     }
@@ -207,6 +210,9 @@ export default [
     value: "",
     name: "会阴",
     event: keyf1,
+    autoComplete:{
+      data:["(-)"]
+    },
     textarea: {
       width: 43,
       maxLength: 4

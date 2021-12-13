@@ -99,6 +99,36 @@
         <!-- <template slot="append" v-if="obj.options"> -->
         <!-- </template> -->
       </el-input>
+      <openFormSum
+        @scoreListSum="scoreListsum"
+        @changetableSum="changetablesum"
+        @click="tableScoreSum()"
+        :dialogTable="tableScore"
+      ></openFormSum>
+      <faceForm
+        @scoreListFace="scoreListFace"
+        @changetableFace="changetableface"
+        @click="tableScoreFace()"
+        :dialogTableFace="tableScore1"
+      ></faceForm>
+      <adultForm
+        @scoreListAdult="scoreListAdult"
+        @changetableAdult="changetableAdult"
+        @click="tableScoreAdult()"
+        :dialogTableAdult="tableScore2"
+      ></adultForm>
+      <severForm
+        @scoreListSever="scoreListSever"
+        @changetableSever="changetableSever"
+        @click="tableScoreSever()"
+        :dialogTableSever="tableScore3"
+      ></severForm>
+      <childForm
+        @scoreListChild="scoreListChild"
+        @changetableChild="changetableChild"
+        @click="tableScoreChild()"
+        :dialogTableChild="tableScore4"
+      ></childForm>
       <!-- <span>{{obj.suffixDesc}}</span> -->
       <!-- <span class="post-text" v-if="obj.suffixDesc" v-html="obj.suffixDesc"></span> -->
       <span class="post-text" v-if="obj.postText">{{ obj.postText }}</span>
@@ -112,6 +142,11 @@ import uuid from "node-uuid";
 import { setTimeout } from "timers";
 // import autoComplete from "./autoComplete.vue"
 import { checkRule } from "./js/ruleHandler";
+import openFormSum from "./modal/openFormsum/sumForm";
+import faceForm from "./modal/faceForm/index";
+import adultForm from "./modal/adultForm/index";
+import severForm from "./modal/severForm/index";
+import childForm from "./modal/childForm/index";
 
 export default {
   name: "InputBox",
@@ -133,6 +168,11 @@ export default {
   },
   components: {
     // autoComplete
+    openFormSum,
+    faceForm,
+    adultForm,
+    severForm,
+    childForm,
   },
   data() {
     return {
@@ -143,6 +183,11 @@ export default {
       alertImg: require("./image/预警@2x.png"),
       alertActived: false,
       currentRule: {},
+      tableScore:false,
+      tableScore1:false,
+      tableScore2:false,
+      tableScore3:false,
+      tableScore4:false,
     };
   },
   computed: {
@@ -154,8 +199,22 @@ export default {
     },
   },
   watch: {
+    "inputValue"(newVal){
+       if(newVal == 'NRS(数字疼痛分级法)'){
+        this.tableScoreSum();
+      }else if(newVal == 'WONG_BAKER(面部表情评分法)'){
+        this.tableScoreFace();
+      }else if(newVal == '成人疼痛行为评估量表'){
+        this.tableScoreAdult();
+      }else if(newVal == '重症监护患者疼痛观察工具'){
+        this.tableScoreSever();
+      }else if(newVal == '小儿疼痛行为评估量表'){
+        this.tableScoreSever();
+      }
+    },
     "formObj.model.I618004"(newVal) {
       console.log(newVal, "formObj.model.I618004");
+      
     },
     // inputValue(valueNew, oldvaule) {
     //   console.log("watch:inputValue:", [valueNew], [oldvaule]);
@@ -199,6 +258,7 @@ export default {
     // }
   },
   mounted() {
+    
     let refName = this.obj.name + ""; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     let refNameTitle = this.obj.title || this.obj.label;
     //
@@ -307,6 +367,62 @@ export default {
     }
   },
   methods: {
+    // 疼痛评分弹框
+    tableScoreSum(){
+      this.tableScore =true;
+    },
+    tableScoreFace(){
+      this.tableScore1 =true;
+    },
+    tableScoreAdult(){
+      this.tableScore2 =true;
+    },
+    tableScoreSever(){
+      this.tableScore3 =true;
+    },
+    tableScoreChild(){
+      this.tableScore4 =true;
+    },
+    changetablesum(flag){
+      this.tableScore = flag
+    },
+    changetableface(flag){
+      this.tableScore1 = flag
+    },
+    changetableAdult(flag){
+      this.tableScore2 = flag
+    },
+    changetableSever(flag){
+      this.tableScore3 = flag
+    },
+    changetableChild(flag){
+      this.tableScore4 = flag
+    },
+    scoreListsum(val){
+       this.formObj.model["evalScore"] = val;
+        this.setElementValue("evalScore", val);
+      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListFace(val){
+       this.formObj.model["evalScore"] = val;
+        this.setElementValue("evalScore", val);
+      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListAdult(val){
+      this.formObj.model["evalScore"] = val;
+      this.setElementValue("evalScore", val);
+      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListSever(val){
+       this.formObj.model["evalScore"] = val;
+        this.setElementValue("evalScore", val);
+      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListChild(val){
+       this.formObj.model["evalScore"] = val;
+        this.setElementValue("evalScore", val);
+      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
     checkValueRule(valueNew, repeat = null) {
       // let ageLevel = this.$store.getters.getAgeLevel()
       // console.log('checkValueRule',[valueNew,repeat])
@@ -672,7 +788,10 @@ export default {
         ) {
           this.formObj.model["evalScore"] = 0;
           //
-          if (this.$root.$refs[this.formCode]["evalScore"] && this.formObj.model.I618004) {
+          if (
+            this.$root.$refs[this.formCode]["evalScore"] &&
+            this.formObj.model.I618004
+          ) {
             try {
               this.formObj.model["evalScore"] = 0;
               this.setElementValue("evalScore", 0);
@@ -682,7 +801,10 @@ export default {
             }
           }
         } else {
-          if (this.$root.$refs[this.formCode]["evalScore"] && this.formObj.model.I618004) {
+          if (
+            this.$root.$refs[this.formCode]["evalScore"] &&
+            this.formObj.model.I618004
+          ) {
             try {
               this.formObj.model["evalScore"] = "";
               this.setElementValue("evalScore", "");

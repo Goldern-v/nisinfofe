@@ -76,6 +76,7 @@ export default {
   watch: {
     datePickerValue(valueNew, oldvaule) {
       console.log("datePickerValue:", valueNew, oldvaule);
+      
       // let value = valueNew.toString();
       // let index = -1;
       // if (!this.formObj.model[this.obj.name]) {
@@ -118,6 +119,11 @@ export default {
     //   this.obj.name +
     //   this.obj.type.toUpperCase() +
     //   (this.obj.title || this.obj.label);
+    if(this.datePickerValue){
+      this.datePickerValue = this.datePickerValue;
+    }else{
+       this.datePickerValue = moment(new Date()).format("YYYY-MM-DD HH:mm");
+    }
 
     let refName = this.obj.name;
 
