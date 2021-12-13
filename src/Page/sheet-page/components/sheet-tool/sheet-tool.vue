@@ -778,10 +778,10 @@ export default {
         );
         this.$store.commit("upDeptCode", data.data.wardCode);
       }
-      console.log(
-        "条件",
-        this.patientInfo.patientId && this.patientInfo.visitId && this.deptCode
-      );
+      // console.log(
+      //   "条件",
+      //   this.patientInfo.patientId && this.patientInfo.visitId && this.deptCode
+      // );
       if (
         this.patientInfo.patientId &&
         this.patientInfo.visitId &&
@@ -1192,7 +1192,7 @@ export default {
       deep: true,
       handler() {
         if (this.patientInfo.patientId) {
-          console.log(111);
+          // console.log(111);
           this.$parent.breforeQuit(() => {
             this.getBlockList();
             this.bus.$emit("setSheetTableLoading", true);

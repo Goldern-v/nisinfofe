@@ -620,6 +620,7 @@ export default {
         // this.sheetModel = []
         this.$nextTick(() => {
           // this.sheetModel = sheetModel
+          // console.log(titleData);
           initSheetPage(titleData, bodyData, markData);
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
           this.getHomePage(isBottom);
