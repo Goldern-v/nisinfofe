@@ -47,7 +47,7 @@
           type="text"
           placeholder="输入用户名或者工号"
           v-model="username"
-          :readonly="HOSPITAL_ID == 'weixian'"
+          :readonly="['foshanrenyi','weixian'].includes(HOSPITAL_ID)"
         ></el-input>
       </div>
     </span>
@@ -63,7 +63,7 @@
         ></el-input>
       </div>
     </span>
-    <span v-else-if="HOSPITAL_ID != 'weixian' || pw ">
+    <span v-else-if="(!['foshanrenyi','weixian'].includes(HOSPITAL_ID)) || pw ">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -84,7 +84,7 @@
       </p>
     </span>
 
-    <div v-if="HOSPITAL_ID == 'weixian'" style="margin-top: 5px">
+    <div v-if="['foshanrenyi','weixian'].includes(HOSPITAL_ID)" style="margin-top: 5px">
       <span @click="openCaSignModal" class="loginCa" v-if="!ca_isLogin"
         >登录证书</span
       >
@@ -291,7 +291,7 @@ export default {
 
       
       this.$refs.modalName.open();
-      if (this.HOSPITAL_ID != "weixian") {
+      if (!['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         this.$nextTick(() => {
           if(showDate){
             let dateInput = this.$refs.dateInput.querySelector("input");
@@ -329,7 +329,7 @@ export default {
     },
     post() {
       this.setCloseCallback(null);
-      if (this.HOSPITAL_ID == "weixian") {
+      if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         if (this.pw) {
           if (this.password == "") {
             return this.$message({
@@ -346,18 +346,25 @@ export default {
           }
           parent.app.bus.$emit("assessmentRefresh");
         } else {
-          verifyCaSign().then(random => {
+          verifyCaSign().then(res => {
+            console.log(res.random);
             this.$refs.modalName.close();
+            let {password,empNo} = res.data
+            console.log(res);
+            let username = this.HOSPITAL_ID=="foshanrenyi"?empNo:this.username
+            // let username = this.username
+            let pwd = this.HOSPITAL_ID=="foshanrenyi"?password:localStorage.ppp
+            // let pwd = localStorage.ppp
             if (this.signDate) {
               return this.callback(
-                localStorage.ppp,
+                pwd,
                 // random,
-                this.username,
+                username,
                 this.signDate,
-                random
+                res.random,
               );
             } else {
-              return this.callback(localStorage.ppp, this.username);
+              return this.callback(pwd, username);
             }
           });
         }

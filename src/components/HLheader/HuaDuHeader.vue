@@ -111,7 +111,7 @@
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item
-                  :class="{ active: $route.path == '/sheetPage' }"
+                  :class="{ active: $route.path.includes('/sheetPage')}"
                 >
                   <router-link to="/sheetPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -849,7 +849,7 @@ export default {
       if (this.$route.path == "/catheterPage") return true;
     },
     isActiveFormPage() {
-      if (this.$route.path == "/sheetPage") return true;
+      if (this.$route.path.includes("/sheetPage")) return true;
       if (this.$route.path == "/sheetHospitalAdmission") return true;
       if (this.$route.path == "/sheetHospitalEval") return true;
       if (this.$route.path == "/formPage") return true;

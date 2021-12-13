@@ -182,7 +182,6 @@ export default {
       // this.getData();
       // 判断是否借床病人
       // this.options
-      console.log(this.patientInfo, "this.patientInfo");
     },
     close() {
       this.$refs.modal.close();
@@ -230,6 +229,11 @@ export default {
   },
   computed: {
     filterData() {
+      // if (["beihairenyi"].includes(this.HOSPITAL_ID)) {
+      //   return this.templates.filter((item) => {
+      //     return item.recordCode !== "infant_bh";
+      //   });
+      // }
       if (this.$route.name == "singleTemperatureChart") {
         return this.templates.filter((item) => {
           switch (this.HOSPITAL_ID) {
@@ -237,8 +241,6 @@ export default {
               return item.recordCode.indexOf("body_temperature_Hd") == 0;
             case "hj":
               return item.recordCode.indexOf("body_temperature_hj") == 0;
-            // case "liaocheng":
-            //   return item.recordCode.indexOf("body_temperature_lcey") == 0;
             case "wujing":
               return item.recordCode.indexOf("body_temperature_wj") == 0;
             default:
@@ -251,6 +253,7 @@ export default {
           // }
         });
       }
+
       if (this.searchWord) {
         this.selectData = "";
         return this.templates.filter((item) => {

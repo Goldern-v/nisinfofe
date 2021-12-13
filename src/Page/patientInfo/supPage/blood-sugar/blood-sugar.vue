@@ -124,7 +124,8 @@
           </div>
         </div>
         <nullBg v-show="listMap.length == 0"></nullBg>
-        <div class="addBtn" v-show="listMap.length == 0">
+        <!-- <div class="addBtn" v-show="listMap.length == 0"> -->
+        <div class="addBtn" v-show="listMap.length == 0 && !isPreview">
           <whiteButton text="添加血糖记录" @click="onAddTable" />
         </div>
       </div>
@@ -165,6 +166,11 @@
           :text="!isChart ? '查看曲线' : HOSPITAL_ID=='guizhou'?'返回':'查看表格'"
           @click="openChart"
           v-if="HOSPITAL_ID != 'gy'"
+        ></whiteButton>
+        <whiteButton
+          v-if="['guizhou'].includes(HOSPITAL_ID)"
+          :text="'血糖登记数'+registNum"
+          @click="()=>{}"
         ></whiteButton>
       </div>
     </div>
@@ -315,6 +321,7 @@ export default {
       resBedNol:'',
       resInHosId:'',
       tDeptName: "",
+      registNum:0,//血糖登记次数
     };
   },
   computed: {
@@ -324,6 +331,10 @@ export default {
     containHeight() {
       return this.wih - 130 + "px";
     },
+    //是否为预览状态不可编辑
+    isPreview(){
+      return (this.$route.query && this.$route.path.includes("nursingPreview") && this.$route.query.nursingPreviewIsShow=='1');
+    }
   },
   methods: {
   uploadView(){
@@ -403,6 +414,7 @@ if(this.selected.expand2!==undefined){
         this.resInHosId = res.data.data.inHosId;
       }
       if (this.HOSPITAL_ID == "fuyou") this.tDeptName = res.data.data.deptName;
+      (res.data.data.registNum) && (this.registNum = res.data.data.registNum);//血糖登记次数
       this.pageLoading = false;
 
       this.hisPatSugarList = res.data.data.hisPatSugarList;

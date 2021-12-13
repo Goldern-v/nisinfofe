@@ -287,6 +287,11 @@ function switechSheetType(type) {
       schema = require("../config/newborn_wx/tr.js").default;
     }
       break;
+      case "eicu_care_wx": {
+        // 威县-重症护理记录单II（EICU）
+        schema = require("../config/eicu_care_wx/tr.js").default;
+      }
+        break;
     case "cpr": {
       // cpr心肺复苏单（心血管内科）
       schema = require("../config/cpr/tr.js").default;
@@ -841,6 +846,16 @@ function switechSheetType(type) {
     case "prenatal_xg": {
       // 东莞谢岗 - 产前待产记录单
       schema = require("../config/prenatal_xg/tr.js").default;
+    }
+      break;
+    case "cardiology_fs": {
+      // 佛山市一 - 心内科通用护理记录单
+      schema = require("../config/cardiology_fs/tr.js").default;
+    }
+      break;
+    case "iabp_fs": {
+      // 佛山市一 - IABP护理记录单
+      schema = require("../config/iabp_fs/tr.js").default;
     }
       break;
     default: {

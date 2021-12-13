@@ -38,7 +38,8 @@
                 width="60"
                 label="日期">
                 <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.recordMonth" @focus="initDT('date',scope.row)"></el-input>
+                    <MDMasked type="monthAndDate" :value="scope.row.recordMonth" @input="(val)=>{scope.row.recordMonth=val}"/>
+                    <!-- <el-input type="text" v-model="scope.row.recordMonth" @focus="initDT('date',scope.row)"></el-input> -->
                 </template>
             </el-table-column>
             <el-table-column
@@ -47,13 +48,16 @@
                 width="60"
                 label="时间">
              <template slot-scope="scope">
-                    <el-input type="text" v-model="scope.row.recordHour" @focus="initDT('time',scope.row)"></el-input>
+                    <MDMasked type="time" :value="scope.row.recordHour" @input="(val)=>{scope.row.recordHour=val}"/>
+                    <!-- <el-input type="text" v-model="scope.row.recordHour" @focus="initDT('time',scope.row)"></el-input> -->
                 </template>
             </el-table-column>
             <el-table-column 
                 v-for="(item,index) in config"
                 :key='index'
                 :prop="item.name"
+                resizable
+                min-width="100"
                 align="center"
                 :label="item.title">
             <template slot-scope="scope">
@@ -185,6 +189,9 @@
     /deep/ .el-table__row:hover .el-input__inner{
         background-color: #eef6f5;
     }
+    /deep/ .el-table__row:hover input{
+        background-color: #eef6f5;
+    }
     /deep/ td{
         box-sizing: border-box;
     }
@@ -226,6 +233,7 @@
 }
 </style>
 <script>
+import MDMasked from "../timeMasked/MD_Masked.vue"
 import moment from 'moment';
 import {
     getCatheterTable,
@@ -236,9 +244,9 @@ import {
     delAllApi,
     updateInfo,
     extubationApi
-} from '../../api/catheter'
-import delModal from '../del-row-modal/del-row-modal.vue'
-import repModal from '../replace-modal/replace-modal.vue'
+} from '@/page/allCatheter/api/catheter'
+import delModal from '@/page/allCatheter/components/del-row-modal/del-row-modal.vue'
+import repModal from '@/page/allCatheter/components/replace-modal/replace-modal.vue'
 export default {
 props: {
     tabelConfig:{
@@ -400,7 +408,7 @@ methods: {
                 this.$message.success('保存成功')
                 this.refreshCatcherTable(code,type,id,patientId,visitId)
             }).catch(err=>{
-                this.$message.error(err)
+                console.log(err);
             })
         }
     },
@@ -443,7 +451,8 @@ created(){
 },
 components: {
     delModal,
-    repModal
+    repModal,
+    MDMasked,
 },
 computed:{
     intubationDays(){

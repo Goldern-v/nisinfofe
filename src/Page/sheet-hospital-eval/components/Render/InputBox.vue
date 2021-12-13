@@ -1,69 +1,92 @@
 
 <template>
-  <span style="display:inline-flex;">
+  <span style="display: inline-flex">
     <!-- 警报icon -->
     <div
-      v-if="obj.type==='input' && alertMessage"
-      :class="(obj.suffixDesc||obj.postText)?'alert-message-post':'alert-message'"
+      v-if="obj.type === 'input' && alertMessage"
+      :class="
+        obj.suffixDesc || obj.postText ? 'alert-message-post' : 'alert-message'
+      "
     >
-      <el-tooltip class="item" effect="light" :enterable="false" placement="top">
+      <el-tooltip
+        class="item"
+        effect="light"
+        :enterable="false"
+        placement="top"
+      >
         <div class="el-tooltip-content" slot="content">
-          <div v-html="alertMessage||''"></div>
+          <div v-html="alertMessage || ''"></div>
         </div>
         <img
           :src="alertImg"
           :alt="obj.title"
-          :style="obj.tips?'margin-left:28px!important':''"
+          :style="obj.tips ? 'margin-left:28px!important' : ''"
           :name="`${obj.name}_${obj.title}_${obj.label}_img`"
-          @click="alertClick($event,obj)"
+          @click="alertClick($event, obj)"
           width="14"
         />
       </el-tooltip>
     </div>
 
     <span
-      style="margin: 0 0px 0 0;display: inline-flex;align-items: center;"
-      :style="obj.label  && {display: 'flex', alignItems: 'center' }"
+      style="margin: 0 0px 0 0; display: inline-flex; align-items: center"
+      :style="obj.label && { display: 'flex', alignItems: 'center' }"
     >
       <!-- <span style="" :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center' }"> -->
       <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
       <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
       <span
         v-if="obj.label"
-        :style="[obj.spanStyle, {width: obj.labelWidth, textAlign: 'right', paddingRight: obj.paddingRight||'0px', marginBottom:obj.marginBottom}]"
+        :style="[
+          obj.spanStyle,
+          {
+            width: obj.labelWidth,
+            textAlign: 'right',
+            paddingRight: obj.paddingRight || '0px',
+            marginBottom: obj.marginBottom,
+          },
+        ]"
       >
         <span
-          style="font-size: 12px;padding:0px 0px;"
+          style="font-size: 12px; padding: 0px 0px"
           :style="obj.labelStyle"
           :class="obj.labelClass"
-        >{{obj.label}}:</span>
+          >{{ obj.label }}:</span
+        >
       </span>
 
       <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
       <el-input
         v-model="inputValue"
         :id="getUUID()"
-        :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
+        :style="[obj.style, obj.inputWidth && { width: obj.inputWidth }]"
         :ref="obj.name"
         :name="obj.name"
         :title="obj.title || obj.label"
-        v-if="obj.type==='input'"
-        :placeholder="obj.dialog ? '点击评估' : (obj.placeholder?obj.placeholder:'空')"
-        :class="model === 'development' ? 'development-model' : (obj.class||'')"
-        :size="obj.size||''"
-        :type="obj.inputType||'text'"
-        :disabled="obj.disabled?true:false"
-        :readonly="obj.readOnly?obj.readOnly:false"
+        v-if="obj.type === 'input'"
+        :placeholder="
+          obj.dialog ? '点击评估' : obj.placeholder ? obj.placeholder : '空'
+        "
+        :class="model === 'development' ? 'development-model' : obj.class || ''"
+        :size="obj.size || ''"
+        :type="obj.inputType || 'text'"
+        :disabled="obj.disabled ? true : false"
+        :readonly="obj.readOnly ? obj.readOnly : false"
         v-bind="obj.props"
         @change="inputChange($event, obj)"
         @dblclick.native.stop="inputClick($event, obj)"
-        @click.native.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
+        @click.native.stop="
+          inputFocus($event, obj);
+          obj.readOnly && inputClick($event, obj);
+        "
         @focus="inputFocus($event, obj)"
-        @blur.native.stop="inputBlur"
+        @blur.stop="inputBlur"
         @keydown.native="inputKeyDown($event, obj)"
         :clearable="true"
       >
-        <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
+        <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{
+          obj.prefixDesc
+        }}</span>
         <!-- <span slot="append"> -->
         <!-- <i
         slot="append"
@@ -76,9 +99,39 @@
         <!-- <template slot="append" v-if="obj.options"> -->
         <!-- </template> -->
       </el-input>
+      <openFormSum
+        @scoreListSum="scoreListsum"
+        @changetableSum="changetablesum"
+        @click="tableScoreSum()"
+        :dialogTable="tableScore"
+      ></openFormSum>
+      <faceForm
+        @scoreListFace="scoreListFace"
+        @changetableFace="changetableface"
+        @click="tableScoreFace()"
+        :dialogTableFace="tableScore1"
+      ></faceForm>
+      <adultForm
+        @scoreListAdult="scoreListAdult"
+        @changetableAdult="changetableAdult"
+        @click="tableScoreAdult()"
+        :dialogTableAdult="tableScore2"
+      ></adultForm>
+      <severForm
+        @scoreListSever="scoreListSever"
+        @changetableSever="changetableSever"
+        @click="tableScoreSever()"
+        :dialogTableSever="tableScore3"
+      ></severForm>
+      <childForm
+        @scoreListChild="scoreListChild"
+        @changetableChild="changetableChild"
+        @click="tableScoreChild()"
+        :dialogTableChild="tableScore4"
+      ></childForm>
       <!-- <span>{{obj.suffixDesc}}</span> -->
       <!-- <span class="post-text" v-if="obj.suffixDesc" v-html="obj.suffixDesc"></span> -->
-      <span class="post-text" v-if="obj.postText">{{obj.postText}}</span>
+      <span class="post-text" v-if="obj.postText">{{ obj.postText }}</span>
     </span>
   </span>
 </template>
@@ -89,6 +142,11 @@ import uuid from "node-uuid";
 import { setTimeout } from "timers";
 // import autoComplete from "./autoComplete.vue"
 import { checkRule } from "./js/ruleHandler";
+import openFormSum from "./modal/openFormsum/sumForm";
+import faceForm from "./modal/faceForm/index";
+import adultForm from "./modal/adultForm/index";
+import severForm from "./modal/severForm/index";
+import childForm from "./modal/childForm/index";
 
 export default {
   name: "InputBox",
@@ -97,19 +155,24 @@ export default {
     formObj: Object,
     col: {
       type: Number,
-      default: 1
+      default: 1,
     },
     model: {
       type: String,
-      default: "normal"
+      default: "normal",
     },
     property: {
       type: Object,
-      default: () => new Object()
-    }
+      default: () => new Object(),
+    },
   },
   components: {
     // autoComplete
+    openFormSum,
+    faceForm,
+    adultForm,
+    severForm,
+    childForm,
   },
   data() {
     return {
@@ -119,7 +182,12 @@ export default {
       alertMessage: "",
       alertImg: require("./image/预警@2x.png"),
       alertActived: false,
-      currentRule: {}
+      currentRule: {},
+      tableScore:false,
+      tableScore1:false,
+      tableScore2:false,
+      tableScore3:false,
+      tableScore4:false,
     };
   },
   computed: {
@@ -128,9 +196,26 @@ export default {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
       return "E0100";
-    }
+    },
   },
   watch: {
+    "inputValue"(newVal){
+       if(newVal == 'NRS(数字疼痛分级法)'){
+        this.tableScoreSum();
+      }else if(newVal == 'WONG_BAKER(面部表情评分法)'){
+        this.tableScoreFace();
+      }else if(newVal == '成人疼痛行为评估量表'){
+        this.tableScoreAdult();
+      }else if(newVal == '重症监护患者疼痛观察工具'){
+        this.tableScoreSever();
+      }else if(newVal == '小儿疼痛行为评估量表'){
+        this.tableScoreSever();
+      }
+    },
+    "formObj.model.I618004"(newVal) {
+      console.log(newVal, "formObj.model.I618004");
+      
+    },
     // inputValue(valueNew, oldvaule) {
     //   console.log("watch:inputValue:", [valueNew], [oldvaule]);
     //   if (this.model === "normal") {
@@ -173,6 +258,7 @@ export default {
     // }
   },
   mounted() {
+    
     let refName = this.obj.name + ""; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     let refNameTitle = this.obj.title || this.obj.label;
     //
@@ -189,9 +275,8 @@ export default {
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       // this.$root.$refs[refName] = [...this.$root.$refs[refName],this.$refs[refName]];
       //
-      this.$root.$refs[this.formCode][refName][refNameTitle] = this.$refs[
-        refName
-      ];
+      this.$root.$refs[this.formCode][refName][refNameTitle] =
+        this.$refs[refName];
     }
     // if (1
     //   this.obj &&
@@ -260,7 +345,7 @@ export default {
           this.obj.options = options;
         } else {
           this.obj.options = [];
-          options.map(item => {
+          options.map((item) => {
             this.obj.options.push({ name: item, code: item, pinyin: "" });
           });
         }
@@ -282,6 +367,62 @@ export default {
     }
   },
   methods: {
+    // 疼痛评分弹框
+    tableScoreSum(){
+      this.tableScore =true;
+    },
+    tableScoreFace(){
+      this.tableScore1 =true;
+    },
+    tableScoreAdult(){
+      this.tableScore2 =true;
+    },
+    tableScoreSever(){
+      this.tableScore3 =true;
+    },
+    tableScoreChild(){
+      this.tableScore4 =true;
+    },
+    changetablesum(flag){
+      this.tableScore = flag
+    },
+    changetableface(flag){
+      this.tableScore1 = flag
+    },
+    changetableAdult(flag){
+      this.tableScore2 = flag
+    },
+    changetableSever(flag){
+      this.tableScore3 = flag
+    },
+    changetableChild(flag){
+      this.tableScore4 = flag
+    },
+    scoreListsum(val){
+       this.formObj.model["evalScore"] = val;
+        this.setElementValue("evalScore", val);
+      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListFace(val){
+       this.formObj.model["evalScore"] = val;
+        this.setElementValue("evalScore", val);
+      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListAdult(val){
+      this.formObj.model["evalScore"] = val;
+      this.setElementValue("evalScore", val);
+      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListSever(val){
+       this.formObj.model["evalScore"] = val;
+        this.setElementValue("evalScore", val);
+      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListChild(val){
+       this.formObj.model["evalScore"] = val;
+        this.setElementValue("evalScore", val);
+      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
     checkValueRule(valueNew, repeat = null) {
       // let ageLevel = this.$store.getters.getAgeLevel()
       // console.log('checkValueRule',[valueNew,repeat])
@@ -313,7 +454,7 @@ export default {
         //
         agelevel = this.$store.getters.getAgeLevel();
         // 遍历规则
-        this.obj.rule.map(r => {
+        this.obj.rule.map((r) => {
           try {
             let [min, max] = [Number(r.min), Number(r.max)];
             let value = Number(
@@ -404,7 +545,8 @@ export default {
               valueNew &&
               r.min &&
               r.max &&
-              (value >= min && value <= max) &&
+              value >= min &&
+              value <= max &&
               ((r.agelevel &&
                 ((r.agelevel.constructor == String && r.agelevel == agelevel) ||
                   (r.agelevel.constructor == Array &&
@@ -481,7 +623,7 @@ export default {
             } else if (r.scoreMin && r.scoreMax && valueNew) {
               let [scoreMin, scoreMax] = [
                 Number(r.scoreMin),
-                Number(r.scoreMax)
+                Number(r.scoreMax),
               ];
               let score = Number(valueNew.split("分")[0]);
               scoreMin = scoreMin === NaN ? 0 : scoreMin;
@@ -490,7 +632,8 @@ export default {
               if (
                 r.scoreMin &&
                 r.scoreMax &&
-                (score >= scoreMin && score < scoreMax)
+                score >= scoreMin &&
+                score < scoreMax
               ) {
                 this.obj.style = r.style;
               }
@@ -572,7 +715,7 @@ export default {
     updateAlertBox(value) {
       //
       let alertMessageItems = [
-        ...this.$root.$refs.tableOfContent.getAlertMessageItems()
+        ...this.$root.$refs.tableOfContent.getAlertMessageItems(),
       ];
 
       // if(this.$root.$refs['tableOfContent']){
@@ -583,9 +726,11 @@ export default {
         let hasAlertMessage = false;
         let title = this.obj.title || this.obj.label || "";
         let frequency = this.currentRule.frequency || "";
-        let tips = `<span><span style="color:green">${title}</span>:${value ||
-          ""}<span style="color:chocolate">${this.obj.suffixDesc ||
-          ""}</span></span><br><span style="color:red">预警:${
+        let tips = `<span><span style="color:green">${title}</span>:${
+          value || ""
+        }<span style="color:chocolate">${
+          this.obj.suffixDesc || ""
+        }</span></span><br><span style="color:red">预警:${
           this.alertMessage
         }</span>`;
         console.log("this.currentRule", this.currentRule);
@@ -612,8 +757,8 @@ export default {
               title: title,
               obj: this.obj,
               value: value,
-              tips: tips
-            }
+              tips: tips,
+            },
           ];
         }
         this.$root.$refs.tableOfContent.updateAlertMessageItems(
@@ -622,7 +767,7 @@ export default {
       } else {
         // if(this.alertMessage){
         // console.log('规则预警结果：SELECT:getAlertMessageItems:',this.alertActived,this.alertMessage,this.$root.$refs.tableOfContent.getAlertMessageItems())
-        alertMessageItems = alertMessageItems.filter(item => {
+        alertMessageItems = alertMessageItems.filter((item) => {
           return item.name && item.name != this.obj.name;
         });
         this.$root.$refs.tableOfContent.updateAlertMessageItems(
@@ -632,7 +777,45 @@ export default {
       }
     },
     inputBlur(e) {
-      console.log("inputBlur", e);
+      console.log("inputBlur", e, this.formObj.model);
+      console.log(this.formObj.model.I618007 == "否");
+      setTimeout(() => {
+        if (
+          this.formObj.model.I618004 == "否" &&
+          this.formObj.model.I618005 == "否" &&
+          this.formObj.model.I618006 == "否" &&
+          this.formObj.model.I618007 == "否"
+        ) {
+          this.formObj.model["evalScore"] = 0;
+          //
+          if (
+            this.$root.$refs[this.formCode]["evalScore"] &&
+            this.formObj.model.I618004
+          ) {
+            try {
+              this.formObj.model["evalScore"] = 0;
+              this.setElementValue("evalScore", 0);
+              this.setElementValue("evalDesc", "无营养风险");
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        } else {
+          if (
+            this.$root.$refs[this.formCode]["evalScore"] &&
+            this.formObj.model.I618004
+          ) {
+            try {
+              this.formObj.model["evalScore"] = "";
+              this.setElementValue("evalScore", "");
+              this.setElementValue("evalDesc", "");
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        }
+      }, 300);
+
       // setTimeout(() => {
       //   if(this.$root.$refs.autoInput){
       this.$root.$refs.autoInput.close();
@@ -727,11 +910,11 @@ export default {
               top: `${xy.top + delt}px`,
               left: `${xy.left}px`,
               width: `${xy.width}px`,
-              "min-width": "max-content"
+              "min-width": "max-content",
             },
             selectedList: obj[key] ? (obj[key] + "").split(",") : [],
             data: dataList,
-            callback: function(data) {
+            callback: function (data) {
               // console.log('callback',obj,data,e)
               if (obj && data) {
                 // 单选
@@ -752,7 +935,7 @@ export default {
                     values = [...values, data.code];
                   } else if (obj[key] && obj[key].indexOf(data.code) > -1) {
                     // 反选选项
-                    values = values.filter(v => {
+                    values = values.filter((v) => {
                       return v != data.code;
                     });
                   }
@@ -772,7 +955,7 @@ export default {
               // e.target.focus();
               return false;
             },
-            id: key
+            id: key,
           });
         }
       }
@@ -820,7 +1003,7 @@ export default {
         console.log("child.dialog", child.dialog, this.$refs, this.$root.$refs);
         try {
           // this.$root.$refs.dialogBox.$el.draggable = true
-          child.dialog["callback"] = res => {
+          child.dialog["callback"] = (res) => {
             console.log("表单填写结果", res);
           };
           this.$root.$refs.dialogBox.openBox(child.dialog, this.inputValue); //$el draggable
@@ -947,18 +1130,17 @@ export default {
       console.log("alertClick", event, this.obj);
     },
     setElementValue(key, value) {
-      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+      Object.keys(this.$root.$refs[this.formCode][key]).map((elkey) => {
         this.$root.$refs[this.formCode][key][elkey].setCurrentValue(value);
       });
     },
     setElementStyle(key, value) {
-      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+      Object.keys(this.$root.$refs[this.formCode][key]).map((elkey) => {
         Object.keys(this.$root.$refs[this.formCode][key][elkey].$refs).map(
-          ikey => {
+          (ikey) => {
             if (this.$root.$refs[this.formCode][key][elkey].$refs[ikey]) {
-              this.$root.$refs[this.formCode][key][elkey].$refs[
-                ikey
-              ].style = value;
+              this.$root.$refs[this.formCode][key][elkey].$refs[ikey].style =
+                value;
             }
           }
         );
@@ -966,7 +1148,7 @@ export default {
     },
     getElementValue(key) {
       let result = "";
-      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+      Object.keys(this.$root.$refs[this.formCode][key]).map((elkey) => {
         try {
           result = this.$root.$refs[this.formCode][key][elkey].currentValue;
         } catch (error) {}
@@ -975,7 +1157,7 @@ export default {
     },
     getValueRule(key, value, repeat = true) {
       let textResult = "";
-      Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {
+      Object.keys(this.$root.$refs[this.formCode][key]).map((elkey) => {
         try {
           textResult = this.$root.$refs[this.formCode][key][
             elkey
@@ -983,19 +1165,18 @@ export default {
         } catch (error) {}
       });
       return textResult;
-    }
-  }
+    },
+  },
 };
 </script>
 
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-
 .el-checkbox, .el-select, .is-bordered, .el-checkbox--small, .el-input, .el-input--small, .el-input-group, .el-input-group--prepend {
   margin: 5px 0px;
   vertical-align: bottom;
-  // width: 100%;
 
+  // width: 100%;
   &:hover {
     // outline: 1px solid #4baf8d;
     border: none;
@@ -1011,13 +1192,13 @@ export default {
   width: 100%;
   border-radius: 0px;
   color: blue;
-  padding: 0px 8px!important;
-  height: 22px!important;
+  padding: 0px 8px !important;
+  height: 22px !important;
   background: transparent;
   background: white;
   transition: all 0.3s;
 
-  &:.selected{
+  &:.selected {
     background: yellow;
   }
 
@@ -1026,10 +1207,12 @@ export default {
     border: 1px solid #4baf8d;
     // background #dfffdf
   }
-  &:read-only{
+
+  &:read-only {
     cursor: pointer;
   }
-  &:placeholder{
+
+  &:placeholder {
     color: #dbe6e4;
   }
 }
@@ -1050,10 +1233,10 @@ export default {
   color: #486a62;
   background: white;
   border-radius: 0;
-  border: 0px!important;
+  border: 0px !important;
   background: transparent;
   background: white;
-  font-size: 12px!important;
+  font-size: 12px !important;
 }
 
 .el-input__icon {
@@ -1091,6 +1274,7 @@ export default {
   display: inline-block;
   vertical-align: middle;
 }
+
 .post-text {
   // margin -8px -14px -9px -10px
   // padding 8px 14px 9px 3px
@@ -1104,7 +1288,7 @@ export default {
 >>>.el-input:hover {
   .post-text {
     // border-left 1px solid #4baf8d
-    background #eef5f5
+    background: #eef5f5;
   }
 }
 
@@ -1114,14 +1298,16 @@ export default {
 }
 
 >>>.el-input__inner:hover {
-    border: 1px solid #4baf8d;
+  border: 1px solid #4baf8d;
 }
 
 >>>.sweet-modal .sweet-content .sweet-content-content {
-  color:red!important
+  color: red !important;
+
   /deep/.el-input {
     width: auto;
   }
+
   >>>.el-input {
     width: auto;
   }
@@ -1129,29 +1315,27 @@ export default {
 
 .alert-message {
   cursor: pointer;
-  color:red;
-  font-size:12px;
-  position: absolute!important;
-  margin-left: -10px!important;
+  color: red;
+  font-size: 12px;
+  position: absolute !important;
+  margin-left: -10px !important;
   margin-top: 0px;
   z-index: 2;
 }
 
 .alert-message-post {
   cursor: pointer;
-  color:red;
-  font-size:12px;
-  position: absolute!important;
-  margin-left: -10px!important;
+  color: red;
+  font-size: 12px;
+  position: absolute !important;
+  margin-left: -10px !important;
   margin-top: 0px;
   z-index: 2;
 }
 
 >>>.red-border {
-  border-color: red!important;
+  border-color: red !important;
 }
-
-
 </style>
 
 <style lang="scss">

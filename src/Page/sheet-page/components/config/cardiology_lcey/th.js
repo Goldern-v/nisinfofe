@@ -10,6 +10,9 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: "",
+  style: {
+    width: "1300px"
+  },
   th: {
     top: [
       { name: '节点', colspan: "1", rowspan: "3" },
@@ -31,8 +34,8 @@ export default {
       { name: `护士<br/>签名`, colspan: "1", rowspan: "3", style:{minWidth: "50px", maxWidth: "50px"}},
     ],
     mid: [
-      { name: `日期`, colspan: "1", rowspan: "2", style:{minWidth: "50px", maxWidth: "50px"}},
-      { name: `时间`, colspan: "1", rowspan: "2", style:{minWidth: "50px", maxWidth: "50px"}},
+      { name: `日期`, colspan: "1", rowspan: "2", style:{minWidth: "70px", maxWidth: "70px"}},
+      { name: `时间`, colspan: "1", rowspan: "2", style:{minWidth: "70px", maxWidth: "70px"}},
       { name: '数值', colspan: '1', rowspan: '2' },
       { name: '处理', colspan: '1', rowspan: '2' },
       { name: '评分', colspan: '1', rowspan: '2' },

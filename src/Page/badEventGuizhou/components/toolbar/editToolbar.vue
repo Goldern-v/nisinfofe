@@ -182,11 +182,15 @@ export default {
       //     window.messageBox.show("请选择压疮发生时间", "error", 3000);
       //    return;
       // }
-
       if (this.wid) {
         // this.isSaved = true;
         // this.wid.saveForm()
-        this.wid.CRForm.controller.saveForm(this.$router,null,{deptCode:this.deptCode,deptName:this.deptName});
+        let data = window.deptData || {}
+        let deptData = {
+          deptCode:data.wardCode || this.deptCode,
+          deptName:data.wardName || this.deptName
+        }
+        this.wid.CRForm.controller.saveForm(this.$router,null,deptData);
       }
       //this.$router.push({name: 'badEventEdit', params: {id:row.id, name:row.badEventName,operation:'edit'}})
     },

@@ -116,7 +116,7 @@
 }
 </style>
 <script>
-import {createCathter} from '../../api/catheter'
+import {createCathter} from '@/page/allCatheter/api/catheter'
 import moment from 'moment';
 export default {
 props: {
@@ -160,6 +160,7 @@ methods: {
         createCathter({
             code: formCode,
             type: formType,
+            wardCode:this.$store.state.sheet.patientInfo.wardCode,
             deptCode: this.$store.state.sheet.patientInfo.deptCode,
             patientId: this.$store.state.sheet.patientInfo.patientId,
             visitId: this.$store.state.sheet.patientInfo.visitId,

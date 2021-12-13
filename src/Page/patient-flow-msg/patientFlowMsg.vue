@@ -4,7 +4,7 @@
       <div class="user-box">
         <div class="user-head">
           <img
-            v-if="info.sex === '女'"
+            v-if="master.sex === '女'"
             src="@/Page/lesion/supPage/bed/component/bed-item-lcey/images/女.png"
             height="72"
             width="72"
@@ -16,26 +16,26 @@
             width="72"
           />
         </div>
-        <p class="name">{{ info.name }}</p>
+        <p class="name">{{ master.name }}</p>
         <div class="list-box">
-          <p class="list-box__item">患者ID：{{ info.inpNo }}</p>
-          <p class="list-box__item">{{ `${info.sex} ${info.age}` }}</p>
-          <p class="list-box__item">所在科室：{{ info.deptName }}</p>
-          <p class="list-box__item">床位：{{ info.bedLabel }}</p>
+          <p class="list-box__item">患者ID：{{ master.patientId }}</p>
+          <p class="list-box__item">{{ `${master.sex} ${master.age }` }}</p>
+          <p class="list-box__item">所在科室：{{ master.deptName }}</p>
+          <p class="list-box__item">床位：{{ master.bedLabel }}</p>
         </div>
       </div>
       <div class="list2-box">
         <p class="list2-box__title">转科信息</p>
-        <p class="list2-box__item">转出科室：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转出时间：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转出责任护士：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转入科室：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转入时间：{{ info.a || "--" }}</p>
-        <p class="list2-box__item">转入责任护士：{{ info.a || "--" }}</p>
+        <p class="list2-box__item">转出科室：{{ master.transferFromName || "--" }}</p>
+        <p class="list2-box__item">转出时间：{{ master.outDateTime || "--" }}</p>
+        <p class="list2-box__item">转出责任护士：{{ master.nurseOut || "--" }}</p>
+        <p class="list2-box__item">转入科室：{{ master.transferToName || "--" }}</p>
+        <p class="list2-box__item">转入时间：{{ master.inDateTime || "--" }}</p>
+        <p class="list2-box__item">转入责任护士：{{ master.nurseIn || "--" }}</p>
       </div>
     </div>
     <div class="patient-flow-msg__right">
-      <div class="content"></div>
+      <form-detail ref="formDetail" :master="master" :itemDataMap="itemDataMap" :detail="formModel"></form-detail>
     </div>
   </div>
 </template>
@@ -48,13 +48,13 @@
     height: 100%;
     width: 200px;
     background: #f8f8f8;
+    overflow-y: auto
 
     .user-box {
       overflow: hidden;
       width: 200px;
       height: 267px;
       background-image: url('../../common/images/patient/患者背景.png');
-      box-sizing: cover;
     }
 
     .user-head {
@@ -76,7 +76,6 @@
       font-size: 16px;
       color: #FFFFFF;
       text-align: center;
-      // margin-top: 18px;
     }
     .list-box {
       margin: 18px 10px;
@@ -91,20 +90,18 @@
     }
     .list2-box {
       margin: 14px 10px;
-      flex: 1;
-      overflow-y: auto;
+      color: #687179;
 
       .list2-box__title {
         font-size: 15px;
-        f-font-weight: 500;
+        font-weight: 500;
         margin-bottom: 10px;
-        color: #687179;
+        line-height: 20px;
       }
 
       .list2-box__item {
         margin-bottom: 7px;
         font-size: 13px;
-        color: #687179;
         line-height: 20px;
         word-break: break-all;
       }
@@ -121,32 +118,49 @@
       background: #fff;
       padding: 0 20px;
       margin-top: 30px;
-
     }
   }
 }
 </style>
 <script>
 import commonMixin from '@/common/mixin/common.mixin';
-import { getPatientInfo } from '@/api/common';
+import { getPatientFlowDetail, getFlowForm } from '@/api/patient-flow';
+import formDetail from './components/form-detail.vue'
 
 export default {
   mixins: [commonMixin],
   props: {},
   data() {
     return {
-      info: {}
+      master: {},
+      formModel: {},
+      itemDataMap: {}
     };
   },
-  mounted() {
-    const { patientId = '0001028000', visitId = '2' } = this.$route.query
-    getPatientInfo(patientId, visitId).then(res => {
-      this.info = res.data.data
-      console.log('test-this.info', this.info)
-    }).catch(err => console.log(err))
+  async mounted() {
+    try {
+      const { id, age } = this.$route.query
+
+      const res1 = await getPatientFlowDetail(id)
+      this.master = res1.data.data && res1.data.data.master || {}
+      this.master = { ...this.master, age }
+      this.itemDataMap = res1.data.data && res1.data.data.itemDataMap || {}
+      if (!this.master.formCode) return
+      let { patientId, visitId, formCode } = this.master;
+      const res2 = await getFlowForm({ formCode, patientId, visitId })
+
+      this.formModel = res2 && res2.data.data || {}
+    } catch (err) {
+      this.$message({
+        showClose: true,
+        message: '服务器开小差了',
+        type: 'error'
+      })
+      this.$refs.formDetail.pageLoading = false
+    }
   },
-  methods: {
-  },
-  components: {}
+  components: {
+    formDetail
+  }
 };
 </script>

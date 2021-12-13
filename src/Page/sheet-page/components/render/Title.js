@@ -307,6 +307,13 @@ export default function Title(
     );
   }
   break;
+  case "eicu_care_wx": {
+    // 威县-重症护理记录单II（EICU)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/eicu_care_wx/th").default)
+    );
+  }
+  break;
   case "cpr": {
     // cpr心肺复苏单（心血管内科）
     Th = JSON.parse(JSON.stringify(require("../config/cpr/th").default));
@@ -1081,6 +1088,20 @@ export default function Title(
     // 东莞谢岗 - 产前待产记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/prenatal_xg/th").default)
+    );
+  }
+  break;
+  case "cardiology_fs": {
+    // 佛山市一 - 心内科通用护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiology_fs/th").default)
+    );
+  }
+  break;
+  case "iabp_fs": {
+    // 佛山市一 - IABP护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/iabp_fs/th").default)
     );
   }
   break;

@@ -311,9 +311,14 @@ export default {
     },
     /** 只读模式 */
     readOnly() {
-      return !this.userDeptList
-        .map(item => item.code)
-        .includes(this.sheetInfo.selectBlock.deptCode);
+      // return !this.userDeptList
+      //   .map(item => item.code)
+      //   .includes(this.sheetInfo.selectBlock.deptCode);
+      
+      let controlReadOnly = this.sheetInfo.selectBlock.readOnly //后端控制readOnly为true只能查阅，不能修改
+      if (controlReadOnly) {
+        return controlReadOnly
+      }
     }
   },
   filters: {

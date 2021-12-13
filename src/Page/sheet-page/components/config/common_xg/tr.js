@@ -189,6 +189,10 @@ export default [
     name: "健康宣教",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 12),
+    autoComplete: {
+      data: [1,2,3,4,5,6,7,8,9,10,11,12]
+    },
+    splice:true,
     textarea: {
       width: 50
     },

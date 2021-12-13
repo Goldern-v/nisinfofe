@@ -19,12 +19,19 @@
         ></patientList>
       </div> -->
       <!-- <div class="right-part isRight" v-loading="tableLoading"> -->
-      <div class="sheetTable-contain">
+      <div class="sheetTable-contain" v-if="patientInfo.visitId !== '0'">
         <temperatureBHRY
           class="contain-center"
           :queryTem="patientInfo"
         ></temperatureBHRY>
         <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
+      </div>
+      <div class="sheetTable-contain" v-if="patientInfo.visitId === '0'">
+        <temperatureBHRYNewBorn
+          class="contain-center"
+          :queryTem="patientInfo"
+        ></temperatureBHRYNewBorn>
+        <!-- <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon> -->
       </div>
       <!-- </div> -->
     </div>
@@ -67,6 +74,7 @@ import patientList from "@/components/patient-list/patient-list.vue";
 import print from "printing";
 import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureBHRY from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/temperatureBHRY";
+import temperatureBHRYNewBorn from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/temperatureBHRYNewBorn.vue";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/tab-con";
 export default {
   mixins: [common],
@@ -98,6 +106,7 @@ export default {
     },
   },
   created() {
+    this.getDate();
     // 初始化
     if (this.deptCode) {
       this.getDate();
@@ -125,7 +134,7 @@ export default {
       }
     },
   },
-  components: { patientList, temperatureBHRY, tabCon },
+  components: { patientList, temperatureBHRY, tabCon, temperatureBHRYNewBorn },
   watch: {
     deptCode(val) {
       if (val) {

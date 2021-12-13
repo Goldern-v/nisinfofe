@@ -56,13 +56,13 @@ const currentTargetUrl = (() => {
     case "lingcheng":
       return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
       // return "https://info.cr-health.com:20204" // 公司-陵城测试-外网
-      // return "http://192.168.1.54:9867" // 公司-陵城测试-内网
+      // return "http://192.168.1.54:9867" // 公司-陵城测试-内网 admin 123456
       // return "http://192.168.1.54:9866" // 公司-陵城测试-内网
 
     /** 花都 */
     case "huadu":
-      // return "http://120.238.239.27:9094" //花都正式
-      return "https://info.cr-health.com:20206" // 公司-花都测试-外网
+      return "http://120.238.239.27:9094" //花都正式
+      // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
       // return "http://192.168.1.54:9868" //公司-花都测试-内网
 
     /** 贵州医科大正式 */
@@ -89,9 +89,10 @@ const currentTargetUrl = (() => {
 
     /** 东莞横沥 */
     case "hengli":
-      return "http://183.63.206.194:9091" // 东莞横沥正式
+      // return "http://183.63.206.194:9091" // 东莞横沥正式
       // return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
       // return "http://192.168.20.138:8080" // 伟彬本地
+      return "http://192.168.20.250:8080" // 初升本地
 
     /** 南方中西医 */
     case "nanfangzhongxiyi":
@@ -117,8 +118,8 @@ const currentTargetUrl = (() => {
 
     /** 武警广东省总队医院 */
     case "wujing":
-      // return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
-      return "http://192.168.1.54:9866" // 公司-武警广东省总队医院测试-内网
+      return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
+      // return "http://192.168.1.54:9866" // 公司-武警广东省总队医院测试-内网
 
     /** 曲周医院 */
     case 'quzhou':
@@ -127,20 +128,22 @@ const currentTargetUrl = (() => {
 
     case 'xiegang':
       // return "http://192.168.1.54:9882" // 测试地址-内网地址
-      return "http://192.168.20.223:8080" // 初升本地
-
+      // return "http://192.168.20.223:8080" // 初升本地
+      return 'http://183.234.1.124:9092/'  //谢岗正式
 
     // 北海人医
     case 'beihairenyi':
-      return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
+      // return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
+      return "http://192.168.20.45:8080" // 伟彬本地
       // return "http://192.168.1.54:9877" // 公司内网测试环境
       // return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
 
     // 佛山市医
      case 'foshanrenyi':
       // return "http://219.159.198.37:9094"  // 正式地址
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
-    // 佛山杏坛
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://192.168.20.215:8080" // 伟彬本地
+      // 佛山杏坛
     case 'fsxt':
       // return "http://219.159.198.37:9094"  // 正式地址
       return "http://192.168.1.54:9883" // 默认公司本地内网厚街

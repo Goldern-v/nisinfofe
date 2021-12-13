@@ -19,7 +19,7 @@
       </div>
       <div class="text">重置</div>
       </div>-->
-       <div class="item-box" @click="$router.go(-1)">
+       <div class="item-box" @click="$router.go(-1)" v-if="HOSPITAL_ID!=='xiegang'">
         <div
           class="icon"
           flex="cross:center main:center"

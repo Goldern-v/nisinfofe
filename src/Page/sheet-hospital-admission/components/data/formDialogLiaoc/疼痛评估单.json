@@ -232,12 +232,28 @@
         {
           "name": "evalScore",
           "type": "input",
-          "label": "评 分",
-          "inputWidth": "189px",
+          "title": "疼痛评分",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
           "suffixDesc": "",
           "style": null,
           "class": null,
-          "readOnly": false
+          "readOnly": false,
+          "options": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
         },
         {
           "name": "I609017",

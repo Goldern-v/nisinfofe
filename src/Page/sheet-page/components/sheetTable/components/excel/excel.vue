@@ -107,8 +107,8 @@
               }).value.status
             }`,
           {
-            redTop: (HOSPITAL_ID == 'huadu' && getBorderClass(y)) || redTop(y),
-            blackTop: BlackTop(y),
+           redTop: (HOSPITAL_ID == 'huadu' && getBorderClass(y)) ||(HOSPITAL_ID == 'wujing' && getBorderClass(y)) ||redTop(y),
+           blackTop: BlackTop(y),
           },
         ]"
         :key="y"
@@ -239,6 +239,7 @@
               v-if="td.value"
               :style="!td.value && { opacity: 0 }"
               :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
+              :class="{xiegangSignImg:sheetInfo.sheetType==='common_xg'}"
               alt
             />
           </div>
@@ -614,7 +615,6 @@ export default {
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
-
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
         "pediatrics_jm", //江门妇幼_儿科护理记录单
@@ -626,6 +626,8 @@ export default {
         "postpartumnursing_jm", //江门妇幼_产后护理记录单
         "entdepartment_jm", //江门妇幼_耳鼻喉科护理记录单
         "catheterplacement_jm", //江门妇幼_深静脉导管置入术后维护单
+        
+        "cardiology_fs",//佛山市一_心内科通用护理记录单
       ],
       // 底部两个签名的其中一个自定义字段
       doubleSignArr: [],
@@ -680,13 +682,18 @@ export default {
   methods: {
     // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
     getCompleteArr(tr, td) {
-      if (td.parentKey) {
-        let index = tr.findIndex((e) => e.key === td.parentKey); // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
-        let arr = td.autoComplete.data[0][[tr[index].value]] || []; // 获取父级对应的子选项数组
-        return { data: arr.map((item) => item.itemName) };
+      if(this.HOSPITAL_ID=="guizhou"){
+        if (td.parentKey) {
+          let index = tr.findIndex((e) => e.key === td.parentKey); // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
+          let arr = td.autoComplete.data[0][[tr[index].value]] || []; // 获取父级对应的子选项数组
+          return { data: arr.map((item) => item.itemName) };
+        } else {
+          return td.autoComplete;
+        }
       } else {
-        return td.autoComplete;
+        return td.autoComplete
       }
+      
     },
     //时间日期选中事件
     mouseSelect1(e) {
@@ -807,7 +814,8 @@ export default {
       this.data.bodyModel.splice(index + 1, 0, newRow);
     },
     toCopyRow(index) {
-      this.data.bodyModel.splice(index, 1, this.sheetInfo.copyRow);
+      let row = JSON.parse(JSON.stringify(this.sheetInfo.copyRow))
+      this.data.bodyModel.splice(index, 1, row);
     },
     delRow(index) {
       let curr_row = this.data.bodyModel[index];
@@ -1712,6 +1720,13 @@ export default {
     // 出入量下拉、可输入过滤（贵州）
     remoteMethod(query) {
       if (query !== "") {
+        let type = Object.prototype.toString.call(this.defaultOptionList)
+        if(type == "[object Object]"){
+          let copyArr = JSON.parse(JSON.stringify(this.defaultOptionList))
+          this.defaultOptionList = Object.keys(copyArr)
+        }else if(type == "[object Array]"){
+          // console.log(this.defaultOptionList);
+        }
         this.accessOptionList = this.defaultOptionList.filter((item) => {
           return item.includes(query);
         });
@@ -1736,7 +1751,15 @@ export default {
       }
       this.currentKey = td.name;
       let autoCompleteData = [];
-      if (td.parentKey && td.autoComplete.data.length > 0) {
+      let type = Object.prototype.toString.call(td.autoComplete.data)
+      if (td.parentKey && type == "[object Object]") {
+        let key = tr.find((item) => {
+          return item.name == td.parentKey;
+        }).value;
+        let data = td.autoComplete.data;
+        autoCompleteData = data[key]
+      }
+      if (td.parentKey && type == "[object Array]" && td.autoComplete.data.length > 0) {
         let key = tr.find((item) => {
           return item.key == td.parentKey;
         }).value;

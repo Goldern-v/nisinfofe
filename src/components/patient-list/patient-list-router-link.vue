@@ -1,11 +1,15 @@
 <template>
   <div
     class="patient-list-part"
-    :style="{left: openLeft?'0':'-201px'}"
+    :style="{ left: openLeft ? '0' : '-201px' }"
     v-loading="patientListLoading"
   >
     <div class="search-box">
-      <el-input placeholder="床号/姓名" icon="search" v-model="searchWord"></el-input>
+      <el-input
+        placeholder="床号/姓名"
+        icon="search"
+        v-model="searchWord"
+      ></el-input>
     </div>
     <div class="left-wapper">
       <div class="patient-list-contain">
@@ -13,49 +17,73 @@
         <router-link
           class="patient-box"
           flex="cross:center"
-          v-for="(item,index) in sortList"
-          :key="item.patientId+item.visitId+item.bedLabel+item.inpNo+index"
-          :to="{name: toName, params: {patientId: item.patientId, visitId: item.visitId, formId: item.id, inpNo: item.inpNo}}"
-          :class="{active: isActive(item)}"
+          v-for="(item, index) in sortList"
+          :key="
+            item.patientId + item.visitId + item.bedLabel + item.inpNo + index
+          "
+          :to="{
+            name: toName,
+            params: {
+              patientId: item.patientId,
+              visitId: item.visitId,
+              formId: item.id,
+              inpNo: item.inpNo,
+            },
+          }"
+          :class="{ active: isActive(item) }"
         >
           <img
-            :src="item.bedLabel.includes('_')?imageBoy:imageMan"
+            :src="item.bedLabel.includes('_') ? imageBoy : imageMan"
             alt
-            :class="{img1:img1Show,img2:img2Show}"
+            :class="{ img1: img1Show, img2: img2Show }"
             v-if="item.sex == '男'"
           />
           <img
-            :src="item.bedLabel.includes('_')?imageGirl:imageWomen"
+            :src="item.bedLabel.includes('_') ? imageGirl : imageWomen"
             alt
-            :class="{img1:img1Show,img2:img2Show}"
+            :class="{ img1: img1Show, img2: img2Show }"
             v-else
           />
-          <div class="name" flex-box="1">{{item.name}}</div>
-          <div class="bed">{{item.bedLabel}} 床</div>
+          <div class="name" flex-box="1">{{ item.name }}</div>
+          <div class="bed">{{ item.bedLabel }} 床</div>
 
           <span
             class="point-box"
             v-if="$route.path == '/formPage'"
-            v-show="item.formLowestStatus !== '' && item.formLowestStatus != '2'"
-            :class="{red: item.formLowestStatus == 0, green: item.formLowestStatus == 1,isImg2: img2Show}"
+            v-show="
+              item.formLowestStatus !== '' && item.formLowestStatus != '2'
+            "
+            :class="{
+              red: item.formLowestStatus == 0,
+              green: item.formLowestStatus == 1,
+              isImg2: img2Show,
+            }"
           ></span>
         </router-link>
       </div>
 
       <div
         class="flag-con"
-        :style="{top: flagTop}"
+        :style="{ top: flagTop }"
         flex="main:center cross:center"
         @click="toOpenLeft"
       >
-        <i class="iconfont icon-yincang" v-show="openLeft" style="margin-left: -1px"></i>
-        <i class="iconfont icon-xianshi" v-show="!openLeft" style="margin-left: -2px"></i>
+        <i
+          class="iconfont icon-yincang"
+          v-show="openLeft"
+          style="margin-left: -1px"
+        ></i>
+        <i
+          class="iconfont icon-xianshi"
+          v-show="!openLeft"
+          style="margin-left: -2px"
+        ></i>
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-  .patient-list-part {
+.patient-list-part {
   height: auto;
   box-sizing: border-box;
   padding-top: 45px;
@@ -80,8 +108,7 @@
     border-radius: 3px;
     margin: 1px 0;
     position: relative;
-
-    text-decoration: none!important;
+    text-decoration: none !important;
 
     .img1 {
       height: 30px;
@@ -211,7 +238,7 @@ export default {
   props: {
     data: Array,
     toName: String,
-    callFunction: Function
+    callFunction: Function,
   },
   mixins: [common],
   data() {
@@ -226,7 +253,7 @@ export default {
       imageBoy: require("./images/男婴.png"),
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
-      imageWomen: require("./images/女.png")
+      imageWomen: require("./images/女.png"),
     };
   },
   methods: {
@@ -234,8 +261,8 @@ export default {
       if (this.deptCode) {
         // console.log("获取病人列表", this.deptCode);
         this.patientListLoading = true;
-        patients(this.deptCode, {}).then(res => {
-          this.bedList = res.data.data.filter(item => {
+        patients(this.deptCode, {}).then((res) => {
+          this.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
           this.patientListLoading = false;
@@ -278,7 +305,7 @@ export default {
       this.$store.commit("upOpenSheetLeft", !this.openLeft);
     },
     findCurrentPatient({ patientId, visitId }) {
-      return this.sortList.find(p => {
+      return this.sortList.find((p) => {
         return patientId == p.patientId && visitId == p.visitId;
       });
     },
@@ -289,7 +316,7 @@ export default {
       let visitId = this.$route.params.visitId || currentPatient.visitId || "";
       let p = this.findCurrentPatient({
         patientId,
-        visitId
+        visitId,
       });
       if (p) {
         this.selectPatient(p);
@@ -300,11 +327,11 @@ export default {
         [p, this.sortList],
         [this.$route.params]
       );
-    }
+    },
   },
   computed: {
     list() {
-      return this.bedList.filter(item => {
+      return this.bedList.filter((item) => {
         return (
           item.bedLabel.indexOf(this.searchWord) > -1 ||
           item.name.indexOf(this.searchWord) > -1
@@ -321,13 +348,18 @@ export default {
         // let cacheSign = cacheList[i].name.indexOf("婴");
         let cacheSign;
         if (cacheList[i].name.charAt(cacheList[i].name.length - 1) === "婴") {
-          cacheSign = cacheList[i].name.indexOf("婴");
+          let parentIndex = cacheList.findIndex((item) => {
+            item.name == cacheList[i].name.substring(0, cacheSign);
+          });
+          if (parentIndex != -1) {
+            cacheSign = cacheList[i].name.indexOf("婴");
+          }
         }
         if (cacheSign > -1) {
           cacheList[i].babyName = cacheList[i].name.substring(cacheSign);
           cacheList[i].name = cacheList[i].name.substring(0, cacheSign);
-          if(cacheList[i].bedLabel.split('_').length>1){
-            cacheList[i].bedLabel = cacheList[i].bedLabel.split('_')[0];
+          if (cacheList[i].bedLabel.split("_").length > 1) {
+            cacheList[i].bedLabel = cacheList[i].bedLabel.split("_")[0];
           }
         }
         cacheList[i].cacheNum = i;
@@ -376,7 +408,7 @@ export default {
     },
     flagTop() {
       return `${this.wih * 0.4}px`;
-    }
+    },
   },
   watch: {
     deptCode(ndata, odata) {
@@ -393,7 +425,7 @@ export default {
       this.getDate();
       //
     },
-    "$route.params.patientId": "fetchData"
+    "$route.params.patientId": "fetchData",
   },
   created() {
     if (this.deptCode) {
@@ -406,6 +438,6 @@ export default {
       this.img2Show = true;
     }
   },
-  components: {}
+  components: {},
 };
 </script>

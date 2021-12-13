@@ -8,15 +8,26 @@ import {
   SignedData,
   DecryptData
 } from "./XTXSAB";
-
+let fnPath  = ``
+switch(process.env.HOSPITAL_ID){
+  case'weixian':
+  fnPath = `dsvs`;
+    break;
+  case'foshanrenyi':
+  fnPath = `dsvsFssy`;
+    break;
+  default:
+    fnPath = `dsvs`;
+    break;
+}
 //  获取服务器证书和随机数签名
 export function getCertAndRandomSign() {
-  return axios.post(`${apiPath}dsvs/getCertAndRandomSign`);
+  return axios.post(`${apiPath}${fnPath}/getCertAndRandomSign`);
 }
 //  验证服务器证书和随机数签名
 export function verifyCertAndUse(cert, signValue, algType, signPic) {
   return axios.post(
-    `${apiPath}dsvs/verifyCertAndUser`,
+    `${apiPath}${fnPath}/verifyCertAndUser`,
     qs.stringify({
       cert,
       signValue,
@@ -28,7 +39,7 @@ export function verifyCertAndUse(cert, signValue, algType, signPic) {
 //  验证服务器证书和随机数签名
 export function saveSignPic(signPic) {
   return axios.post(
-    `${apiPath}dsvs/saveSignPic `,
+    `${apiPath}${fnPath}/saveSignPic `,
     qs.stringify({
       signPic
     })
@@ -42,20 +53,19 @@ export function verifyCaSign() {
       let strUserCertID = usrInfo.retVal
         .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
         .replace("&&&", "");
-      console.log(strUserCertID, "strUserCertID");
+      // console.log(strUserCertID, "strUserCertID");
       GetSignCert(strUserCertID, function(certObj) {
         let cert = certObj.retVal;
-        console.log(cert, "cert");
+        // console.log(cert, "cert");
         getCertAndRandomSign().then(res => {
           let random = res.data.data.random;
-          console.log(`strUserCertID-${strUserCertID}`, `random-${random}`);
+          // console.log(`strUserCertID-${strUserCertID}`, `random-${random}`);
           SignedData(strUserCertID, random, retValObj => {
-            console.log(retValObj, "retValObj");
+            // console.log(retValObj, "retValObj");
             let signValue = retValObj.retVal;
             $_$WebSocketObj.GetPic(strUserCertID, function(str) {
-              verifyCertAndUse(cert, signValue, "SM2-256", str.retVal).then(
-                res => {
-                  resolve(random);
+              verifyCertAndUse(cert, signValue, "SM2-256", str.retVal).then(res => {
+                  resolve({random,data:res.data.data});
                   // DecryptData(random, res.data.data, retValObj => {
                   //   let password = retValObj.retVal;
                   //   resolve();
