@@ -146,8 +146,9 @@ const currentTargetUrl = (() => {
       return "http://192.168.20.215:8080" // 伟彬本地
       // 佛山杏坛
     case 'fsxt':
-      // return "http://219.159.198.37:9094"  // 正式地址
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
+      return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@24nr
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
     case 'yangchunzhongyi':  //阳春
       return "http://192.168.1.54:9866" // 默认公司本地内网厚街
     case 'whyx':  //武汉亚心

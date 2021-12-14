@@ -308,7 +308,8 @@
       v-if="
         patientInfo.patientId &&
         !$route.path.includes('temperature') &&
-        !$route.path.includes('Baby_sheetPage')
+        !$route.path.includes('Baby_sheetPage') &&
+        HOSPITAL_ID != 'huadu'
       "
     ></patientInfo>
     <newFormModal ref="newFormModal"></newFormModal>

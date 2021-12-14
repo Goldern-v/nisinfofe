@@ -1344,7 +1344,10 @@ export default {
       this.tableData = [];
     },
     keydownSave(e) {
-      if (e.keyCode === 13) {
+      if (
+        e.keyCode === 13 &&
+        this.$route.path.includes("allTemperatureChart")
+      ) {
         this.saveAllTemperture();
       } else {
         return;
