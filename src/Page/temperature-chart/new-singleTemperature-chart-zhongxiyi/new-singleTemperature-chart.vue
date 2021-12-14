@@ -28,7 +28,29 @@
             class="contain-center"
             :queryTem="patientInfo"
           ></temperatureBHRY>
-          <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
+          <div
+            class="flag-con"
+            :style="{ top: flagTop }"
+            flex="main:center cross:center"
+            @click="openRight"
+          >
+            <i
+              class="iconfont icon-yincang"
+              v-show="rightSheet"
+              style="margin-left: -1px"
+            ></i>
+            <i
+              class="iconfont icon-xianshi"
+              v-show="!rightSheet"
+              style="margin-left: -2px"
+            ></i>
+          </div>
+          <tabCon
+            class="contain-right"
+            :patientInfo="patientInfo"
+            v-show="rightSheet"
+          >
+          </tabCon>
         </div>
       </div>
     </div>
@@ -77,6 +99,24 @@
     }
   }
 }
+
+.flag-con {
+  width: 10px;
+  height: 73px;
+  position: relative;
+  z-index: 10;
+  background-image: url('../../../common/images/patient/隐藏框.png');
+  cursor: pointer;
+  transform: rotateY(180deg);
+
+  &:hover {
+    color: #5CC6A1;
+  }
+
+  i {
+    font-size: 12px;
+  }
+}
 </style>
 
 <script>
@@ -110,6 +150,13 @@ export default {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
+    flagTop() {
+      return `${this.wih * 0.4}px`;
+    },
     containHeight() {
       if (this.fullpage) {
         return this.wih - 44 + "px";
@@ -129,6 +176,10 @@ export default {
   },
   mounted() {},
   methods: {
+    //关闭录入界面
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
