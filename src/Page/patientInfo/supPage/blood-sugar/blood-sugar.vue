@@ -124,7 +124,8 @@
           </div>
         </div>
         <nullBg v-show="listMap.length == 0"></nullBg>
-        <div class="addBtn" v-show="listMap.length == 0">
+        <!-- <div class="addBtn" v-show="listMap.length == 0"> -->
+        <div class="addBtn" v-show="listMap.length == 0 && !isPreview">
           <whiteButton text="添加血糖记录" @click="onAddTable" />
         </div>
       </div>
@@ -330,6 +331,10 @@ export default {
     containHeight() {
       return this.wih - 130 + "px";
     },
+    //是否为预览状态不可编辑
+    isPreview(){
+      return (this.$route.query && this.$route.path.includes("nursingPreview") && this.$route.query.nursingPreviewIsShow=='1');
+    }
   },
   methods: {
   uploadView(){

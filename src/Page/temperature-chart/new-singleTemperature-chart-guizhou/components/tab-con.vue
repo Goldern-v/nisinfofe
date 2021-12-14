@@ -19,13 +19,13 @@
           class="date-picker"
           type="date"
           size="mini"
-          style="display:inline-block"
+          style="display: inline-block"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
           clearable
         />
-        <div class="times" @keydown.stop="(e)=>show(e)">
+        <div class="times" @keydown.stop="(e) => show(e)">
           <!-- <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
@@ -34,13 +34,13 @@
               :label="item.value"
             ></el-radio>
           </el-radio-group> -->
-         
-       <!-- <el-select v-model="query.entryTime" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)"
+
+          <!-- <el-select v-model="query.entryTime" filterable allow-create default-first-option  size="mini" @focus="inputClicl($event)"
             placeholder="选择时间" @change="changeValue($event)">
             <el-option v-for="item in timesOdd" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
         </el-select> -->
-        <el-time-select
+          <el-time-select
             v-model="dateInp"
             value-format="HH:mm"
             format="HH:mm"
@@ -50,11 +50,12 @@
             :picker-options="{
               start: '02:00',
               step: '04:00',
-              end: '22:00'
+              end: '22:00',
             }"
             class="new-time-select"
-          placeholder="选择时间">
-        </el-time-select>
+            placeholder="选择时间"
+          >
+          </el-time-select>
         </div>
       </div>
     </div>
@@ -74,7 +75,9 @@
             style="margin: 0px"
             v-for="(dateTime, tabIndex) in tabsData"
             :key="tabIndex"
-            @contextmenu.stop.prevent="(e)=>rightMouseDown(e,dateTime, tabIndex)"
+            @contextmenu.stop.prevent="
+              (e) => rightMouseDown(e, dateTime, tabIndex)
+            "
             @click="changeQuery(dateTime)"
           >
             {{ dateTime }}
@@ -99,7 +102,16 @@
             v-for="(j, index, i) in multiDictList"
             :key="index"
           >
-            <span :class="index==='过敏药物'?'allergyPreText':index==='病人事件'?'hisEventPreText':'preText'">{{ index }}</span>
+            <span
+              :class="
+                index === '过敏药物'
+                  ? 'allergyPreText'
+                  : index === '病人事件'
+                  ? 'hisEventPreText'
+                  : 'preText'
+              "
+              >{{ index }}</span
+            >
             <el-tooltip
               placement="top"
               popper-class="custom-temp-dict-select"
@@ -112,30 +124,45 @@
               :visible-arrow="false"
               :manual="true"
               :value="vitalSignObj[j].popVisible"
-             >
-             <div v-if="index==='过敏药物'" class="allergyDiv">
-               <div style="display:inline-block;">
-                 <input
-                 :id="i+1"
-              @keydown.enter="changeNext"
-                  size="mini"
-                  :title="vitalSignObj[j].vitalValue"
-                  @input="handlePopRefresh(vitalSignObj[j])"
-                  @focus="() => (vitalSignObj[j].popVisible = true)"
-                  @blur="() => (vitalSignObj[j].popVisible = false)"
-                  v-model="vitalSignObj[j].vitalValue">
+            >
+              <div v-if="index === '过敏药物'" class="allergyDiv">
+                <div style="display: inline-block">
+                  <input
+                    :id="i + 1"
+                    @keydown.enter="changeNext"
+                    size="mini"
+                    style="width: 70px"
+                    :title="vitalSignObj[j].vitalValue"
+                    @input="handlePopRefresh(vitalSignObj[j])"
+                    @focus="() => (vitalSignObj[j].popVisible = true)"
+                    @blur="() => (vitalSignObj[j].popVisible = false)"
+                    v-model="vitalSignObj[j].vitalValue"
+                  />
                   <!-- <el-select slot="append"  v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
                   placeholder="结果" @change="changeValue($event)" style="width:78px" >
                   <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                   </el-select> -->
-              
-             </div>
-             <el-select slot="append"  v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
-                 placeholder="结果" @change="changeValue($event)" style="width:78px" >
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-             </el-select>
+                </div>
+                <el-select
+                  slot="append"
+                  v-model="vitalSignObj[j].selectValue"
+                  filterable
+                  allow-create
+                  default-first-option
+                  size="mini"
+                  placeholder="结果"
+                  @change="changeValue($event)"
+                  style="width: 78px"
+                >
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
               </div>
               <!-- <div v-if="index==='病人事件'" class="allergyDiv">
                 <div style="display:inline-block;">
@@ -161,9 +188,9 @@
                  @change="formatTopExpandDate">
                 </el-date-picker>
               </div> -->
-              <input 
-              :id="i+1"
-              @keydown.enter="changeNext"
+              <input
+                :id="i + 1"
+                @keydown.enter="changeNext"
                 type="text"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
@@ -171,7 +198,7 @@
                 @blur="() => (vitalSignObj[j].popVisible = false)"
                 v-model="vitalSignObj[j].vitalValue"
               />
-               <template v-slot:content>
+              <template v-slot:content>
                 <div
                   class="container"
                   @click.prevent="
@@ -212,11 +239,13 @@
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
               <span>自定义项目：</span>
             </div>
-            <div class="row" v-for="(i, index,j) in fieldList" :key="index">
+            <div class="row" v-for="(i, index, j) in fieldList" :key="index">
               <span
                 class="preText"
                 style="color: blue"
-                @click="updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn,index)"
+                @click="
+                  updateTextInfo(i.vitalCode, i.fieldCn, i.fieldCn, index)
+                "
                 >{{ i.fieldCn }}</span
               >
               <!-- <el-tooltip
@@ -228,11 +257,11 @@
                 :manual="true"
                 :value="vitalSignObj[i.vitalCode].popVisible"
               > -->
-              
+
               <input
-              class="fieldClass"
-              :id="j+100"
-              @keydown.enter="changeNext"
+                class="fieldClass"
+                :id="j + 100"
+                @keydown.enter="changeNext"
                 type="text"
                 :title="vitalSignObj[i.vitalCode].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
@@ -307,7 +336,7 @@
 import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
-import $ from 'jquery'
+import $ from "jquery";
 // import "../../sheet/jquery-editable-select.min.js";
 
 import {
@@ -339,7 +368,6 @@ export default {
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
     Object.keys(initTimeArea).forEach((time) => {
-      
       // console.log(time)
       let [start, end] = initTimeArea[time];
 
@@ -352,33 +380,34 @@ export default {
 
     return {
       mockData,
-      dateInp:moment().format('HH:mm'),
+      dateInp: moment().format("HH:mm"),
       recordList,
       bus: bus(this),
       editableTabsValue: "2",
-      selectValue:'',
-      options: [{
-                    value: '阴性',
-                    label: '阴性'
-                }, {
-                    value: '阳性',
-                    label: '阳性'
-                }, ],
+      selectValue: "",
+      options: [
+        {
+          value: "阴性",
+          label: "阴性",
+        },
+        {
+          value: "阳性",
+          label: "阳性",
+        },
+      ],
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: moment().format('HH:mm')+':00',//录入时间
+        entryTime: moment().format("HH:mm") + ":00", //录入时间
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
       multiDictList: {},
-      timeValue:'',
+      timeValue: "",
       tabsData: [], // 日期列表
-       value:'',
+      value: "",
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
-      nurseEventsCheck: [
-       
-      ],
+      nurseEventsCheck: [],
       topContextList: [
         "",
         "入院",
@@ -414,53 +443,59 @@ export default {
   },
   methods: {
     // 下拉选项触发查询
-    changeVal(newVal,oldVal){
-      if(newVal&&newVal.split(':').length==2){
-        this.query.entryTime = newVal+":00"
-        this.dateInp = this.query.entryTime
+    changeVal(newVal, oldVal) {
+      if (newVal && newVal.split(":").length == 2) {
+        this.query.entryTime = newVal + ":00";
+        this.dateInp = this.query.entryTime;
       }
     },
-    changeNext(e){
-      if(e.target.className==='el-tooltip'){
-  let inputListLength=document.getElementsByClassName('rowbox').length
-      if(Number(e.target.id)<inputListLength-1){
-        document.getElementById(Number(e.target.id)+1).focus()
-      }else if(Number(e.target.id)===inputListLength){
-        document.getElementById('100').focus()
-      }
-      }else{
-    let inputListLength=document.getElementsByClassName('fieldClass').length 
-    if(Number(e.target.id)<inputListLength+100-1){
-        document.getElementById(Number(e.target.id)+1).focus()
-      }else if(Number(e.target.id)===inputListLength+100-1){
-                document.getElementById('1').focus()
-
-      }
+    changeNext(e) {
+      if (e.target.className === "el-tooltip") {
+        let inputListLength = document.getElementsByClassName("rowbox").length;
+        if (Number(e.target.id) < inputListLength - 1) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (Number(e.target.id) === inputListLength) {
+          document.getElementById("100").focus();
+        }
+      } else {
+        let inputListLength =
+          document.getElementsByClassName("fieldClass").length;
+        if (Number(e.target.id) < inputListLength + 100 - 1) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (Number(e.target.id) === inputListLength + 100 - 1) {
+          document.getElementById("1").focus();
+        }
       }
     },
     //时间组件失去焦点
-    changeDate(val){
-      let numberVal=val.$el.children[1].value;
+    changeDate(val) {
+      let numberVal = val.$el.children[1].value;
       // if(!moment(numberVal,"HH:mm",true).isValid()) {
       //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
       //     return false;
       // }
-      if((numberVal.indexOf(":")==-1 && numberVal.length==4) || (numberVal.indexOf(":")!=-1 && numberVal.length==5)){
-        let time = numberVal.indexOf(":")==-1?`${numberVal.substring(0,2)}:${numberVal.substring(2,4)}`:`${numberVal.substring(0,2)}:${numberVal.substring(3,5)}`;
-        console.log('time',time);
+      if (
+        (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
+        (numberVal.indexOf(":") != -1 && numberVal.length == 5)
+      ) {
+        let time =
+          numberVal.indexOf(":") == -1
+            ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
+            : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
+        console.log("time", time);
         // if(!moment(numberVal,"HH:mm",true).isValid()) {
         //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
         //   return false;
         // }
-        let [hours,min] = time.split(':')
-        if(0<=hours && hours<=24 && 0<=min && min<=59){
-          this.query.entryTime = time+":00"
-          this.dateInp=this.query.entryTime
-        }else {
-          this.$message.error("请输入正确时间数值，例如23:25, 2325")
+        let [hours, min] = time.split(":");
+        if (0 <= hours && hours <= 24 && 0 <= min && min <= 59) {
+          this.query.entryTime = time + ":00";
+          this.dateInp = this.query.entryTime;
+        } else {
+          this.$message.error("请输入正确时间数值，例如23:25, 2325");
         }
-      }else{
-       this.query.entryTime=val.$el.children[1].value
+      } else {
+        this.query.entryTime = val.$el.children[1].value;
       }
     },
 
@@ -470,10 +505,10 @@ export default {
       /* 根据字典项构造一个对象(键为生命体征的中文名，值为对应的对象)：{"体温":{}} */
       for (let key in this.multiDictList) {
         obj[this.multiDictList[key]] = {
-          selectValue:"",
+          selectValue: "",
           createDateTime: "",
           patientId: this.patientInfo.patientId,
-          visitId: Number(this.patientInfo.visitId) ,
+          visitId: Number(this.patientInfo.visitId),
           recordDate: "",
           vitalSigns: key,
           wardCode: this.patientInfo.wardCode,
@@ -494,72 +529,69 @@ export default {
       }
       this.vitalSignObj = { ...obj };
     },
-     getHours() {
+    getHours() {
       let date = new Date();
       let b = date.getHours();
       return b;
     },
-    
-//  addEnterListener() {
-// //  if (window.__completeEnterBind__) return;
-//  window.addEventListener("keydown", this.enterCallback());
-// // window.addEventListener("keydown",this.test())
-// //  window.__completeEnterBind__ = true;
-//  },
-//  removeEnterListener() {
-//  window.removeEventListener("keydown", this.enterCallback());
-//  window.__completeEnterBind__ = false;
-//  },
-//  enterCallback(e) {
-//  function findFormItem(el) {
-//  const parent = el.parentElement;
-//  if (!parent) return document.body;
-//  if (
-//   parent.className.includes("rowItem_noShow") &&
-//   parent.className.includes("row")
-//  ) {
-//   return parent;
-//  }
-//  return findFormItem(parent);
-//  }
-//  function findInput(container) {
-//  let nextEl = container.nextElementSibling;
-//  if (!nextEl) return;
-//  let input = nextEl.querySelector("input");
-//  while (input.id === "el-select") {
-//   nextEl = nextEl.nextElementSibling;
-//   if (!nextEl) return;
-//   input = nextEl.querySelector("input");
-//  }
-//  if (input.className.includes("el-tooltip")) return input;
-//  }
-//  if (e.keyCode === 13) {
-//  const container = findFormItem(document.activeElement);
-//  indInput(container) && findInput(container).focus();
-//  }
-//  },
 
+    //  addEnterListener() {
+    // //  if (window.__completeEnterBind__) return;
+    //  window.addEventListener("keydown", this.enterCallback());
+    // // window.addEventListener("keydown",this.test())
+    // //  window.__completeEnterBind__ = true;
+    //  },
+    //  removeEnterListener() {
+    //  window.removeEventListener("keydown", this.enterCallback());
+    //  window.__completeEnterBind__ = false;
+    //  },
+    //  enterCallback(e) {
+    //  function findFormItem(el) {
+    //  const parent = el.parentElement;
+    //  if (!parent) return document.body;
+    //  if (
+    //   parent.className.includes("rowItem_noShow") &&
+    //   parent.className.includes("row")
+    //  ) {
+    //   return parent;
+    //  }
+    //  return findFormItem(parent);
+    //  }
+    //  function findInput(container) {
+    //  let nextEl = container.nextElementSibling;
+    //  if (!nextEl) return;
+    //  let input = nextEl.querySelector("input");
+    //  while (input.id === "el-select") {
+    //   nextEl = nextEl.nextElementSibling;
+    //   if (!nextEl) return;
+    //   input = nextEl.querySelector("input");
+    //  }
+    //  if (input.className.includes("el-tooltip")) return input;
+    //  }
+    //  if (e.keyCode === 13) {
+    //  const container = findFormItem(document.activeElement);
+    //  indInput(container) && findInput(container).focus();
+    //  }
+    //  },
 
- 
-//     nextInput(e){ 
+    //     nextInput(e){
 
-// console.log(e)
+    // console.log(e)
 
-// let acticeDom=document.activeElement
-// let nextEl = acticeDom.nextElementSibling;
-// console.log(acticeDom)
-// console.log(nextEl)
-// // let idom=$('.inputText')
-// // let inputList=idom.querySelectorAll('.el-tooltip')
-// // let currentIndex=0;
-// // for(let i=0;i<inputList.length;i++){
-// // if(e.target===inputList[i]) currentIndex=i
+    // let acticeDom=document.activeElement
+    // let nextEl = acticeDom.nextElementSibling;
+    // console.log(acticeDom)
+    // console.log(nextEl)
+    // // let idom=$('.inputText')
+    // // let inputList=idom.querySelectorAll('.el-tooltip')
+    // // let currentIndex=0;
+    // // for(let i=0;i<inputList.length;i++){
+    // // if(e.target===inputList[i]) currentIndex=i
 
-// // }
+    // // }
 
+    //     },
 
-//     },
-    
     async getList() {
       /* 初始化 */
       this.tabsData = [];
@@ -586,7 +618,7 @@ export default {
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
-      await this.getViSigs()
+      await this.getViSigs();
       /* 获取固定列表的接口 */
       await getfieldList({
         patientId: this.patientInfo.patientId,
@@ -605,7 +637,7 @@ export default {
       this.query.entryDate = val;
     },
 
-     getHours() {
+    getHours() {
       let date = new Date();
       let b = date.getHours();
       return b;
@@ -618,10 +650,10 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 17)+':00';
+      this.query.entryTime = value.slice(12, 17) + ":00";
       //this.query.entryTime = value.slice(12, 20);
       //赋值初始值
-      this.dateInp = value.slice(12, 17)+':00';
+      this.dateInp = value.slice(12, 17) + ":00";
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -672,9 +704,8 @@ export default {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
             options: item.selectType ? item.selectType.split(",") : [],
-            
           };
-// console.log('options',Object.values(this.totalDictInfo)||[])
+          // console.log('options',Object.values(this.totalDictInfo)||[])
           if (item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
@@ -692,13 +723,13 @@ export default {
         this.init();
       });
     },
-    show(e){
-      if(e.keyCode==13){
-        this.changeDate(this.$refs.timeSelect)
+    show(e) {
+      if (e.keyCode == 13) {
+        this.changeDate(this.$refs.timeSelect);
       }
     },
-    rightMouseDown(e,dateTime, tabIndex){
-      this.removeRecord(dateTime, tabIndex)
+    rightMouseDown(e, dateTime, tabIndex) {
+      this.removeRecord(dateTime, tabIndex);
     },
     /* 删除记录 */
     async removeRecord(targetName, index) {
@@ -730,9 +761,9 @@ export default {
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
-    updateTextInfo(key, label, autotext,index) {
-      let checkValue = Object.values(this.fieldList)||[]
-     let  checkValueStr=checkValue.map(item=>item.fieldCn)
+    updateTextInfo(key, label, autotext, index) {
+      let checkValue = Object.values(this.fieldList) || [];
+      let checkValueStr = checkValue.map((item) => item.fieldCn);
       window.openSetTextModalNew(
         (text) => {
           let data = {
@@ -742,19 +773,17 @@ export default {
             vitalCode: key,
             fieldCn: text,
           };
-          if(
-            checkValueStr.includes(text)
-          ){
- this.$message.error(`修改${label}失败!已存在${text}项目`);
-          }else{
-          savefieldTitle(data).then((res) => {
-             this.fieldList[index].fieldCn=text;
-            this.$message.success(`修改${label}成功`);
-          });
+          if (checkValueStr.includes(text)) {
+            this.$message.error(`修改${label}失败!已存在${text}项目`);
+          } else {
+            savefieldTitle(data).then((res) => {
+              this.fieldList[index].fieldCn = text;
+              this.$message.success(`修改${label}成功`);
+            });
           }
           // this.getList();
         },
-        
+
         autotext,
         `修改${label}`
       );
@@ -764,21 +793,22 @@ export default {
       let obj = Object.values(value);
       obj.map((item) => {
         item.recordDate =
-          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD")+"  "+
-          this.query.entryTime ;
+          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+          "  " +
+          this.query.entryTime;
         switch (item.vitalSigns) {
           case "表顶注释":
             item.expand2 = this.topExpandDate;
             break;
-            case "病人事件":
-              item.expand1=item.vitalValue
-              item.expand2==='Invalid date'?
-                item.expand2='':
-            item.expand2 = this.topExpandDate;
+          case "病人事件":
+            item.expand1 = item.vitalValue;
+            item.expand2 === "Invalid date"
+              ? (item.expand2 = "")
+              : (item.expand2 = this.topExpandDate);
             break;
-            case "过敏药物":
-              item.expand1= item.vitalValue
-             item.expand2=item.selectValue
+          case "过敏药物":
+            item.expand1 = item.vitalValue;
+            item.expand2 = item.selectValue;
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
@@ -827,20 +857,22 @@ export default {
       flex-direction: column;
     }
   }
-.times {
-  display:inline-block;
-  width:100px;
-  .new-time-select{
-    height: 22px;
-    width: 105px;
-    >>>.el-input__inner{
-    height: 22px !important;
-    width:105px;
-    
+
+  .times {
+    display: inline-block;
+    width: 100px;
+
+    .new-time-select {
+      height: 22px;
+      width: 105px;
+
+      >>>.el-input__inner {
+        height: 22px !important;
+        width: 105px;
+      }
+    }
   }
-  
-}
-}
+
   .row-bottom {
     .showRecord {
       display: flex;
@@ -859,7 +891,8 @@ export default {
           &.active {
             color: rgb(68, 158, 127);
           }
-          &:hover{
+
+          &:hover {
             color: rgb(68, 158, 127);
           }
         }
@@ -870,60 +903,72 @@ export default {
   .rowItem_noShow {
     display: none;
   }
-.row{
-display: inline-block;
-    padding: 3px 15px;
+
+  .row {
+    display: inline-block;
+    padding: 3px 5px;
+
     .preText {
       display: inline-block;
       width: 50px;
     }
 
     input {
-      width: 60px;
+      width: 45px;
       font-size: 12px;
     }
 
     .el-select {
       width: 85px;
     }
-}
+  }
+
   .rowbox {
     display: inline-block;
-    padding: 3px 15px;
+    padding: 3px 5px;
 
     .preText {
       display: inline-block;
-      width: 70px;
+      width: 50px;
     }
-    .allergyPreText,.hisEventPreText{
+
+    .allergyPreText, .hisEventPreText {
       display: inline-block;
       width: 70px;
       position: relative;
+
       // top: -20px;
+      input {
+        width: 70px;
+      }
     }
-    .allergyPreText{
+
+    .allergyPreText {
       top: -20px;
     }
-    .datePickerHisEvent{
+
+    .datePickerHisEvent {
       left: -75px;
       position: relative;
       width: 143px;
-      display:none;
+      display: none;
     }
-    .allergyDiv{
-        display: inline-block;
-        width: 68px;
-        >>>.el-input__inner{
+
+    .allergyDiv {
+      display: inline-block;
+      width: 68px;
+
+      >>>.el-input__inner {
         height: 20px !important;
         outline: none;
         padding: 0;
         padding: 1px 2px;
-        border:1px solid rgb(118, 118, 118);
+        border: 1px solid rgb(118, 118, 118);
       }
     }
 
     input {
-      width: 60px;
+      width: 45px;
       font-size: 12px;
     }
 
@@ -939,8 +984,9 @@ display: inline-block;
     width: 100px;
   }
 }
->>> .el-picker-panel.time-select{
-  width:105px;
+
+>>> .el-picker-panel.time-select {
+  width: 105px;
 }
 </style>
 
@@ -970,5 +1016,4 @@ display: inline-block;
     }
   }
 }
-
 </style>

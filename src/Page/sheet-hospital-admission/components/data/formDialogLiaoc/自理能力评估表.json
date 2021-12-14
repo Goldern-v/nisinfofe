@@ -868,10 +868,17 @@
             },
             {
               "min": "61",
-              "max": "101",
+              "max": "99",
               "equal": "轻度依赖",
               "style": "color:blue",
               "display": "轻度依赖"
+            },
+            {
+              "min": "99", 
+              "max": "101",
+              "equal": "无需依赖",
+              "style": "color:blue",
+              "display": "无需依赖"
             }
           ]
         }

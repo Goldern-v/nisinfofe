@@ -2963,14 +2963,28 @@
           "inputWidth": "160px",
           "class": null,
           "options": [
-            "营养风险筛查评估"
+            "营养风险筛查（成人）",
+            "营养风险筛查（儿童）"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "营养风险筛查评估",
-                "title": "营养风险筛查评估",
-                "default": "营养风险筛查评估",
+                "openKey": "营养风险筛查（成人）",
+                "cleanKey": "无",
+                "title": "营养风险筛查（成人）",
+                "default": "营养风险筛查（成人）",
+                "name": "S0618",
+                "type": "independent",
+                "parentName": "S0618",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "营养风险筛查（儿童）",
+                "cleanKey": "无",
+                "title": "营养风险筛查（儿童）",
+                "default": "营养风险筛查（儿童）",
                 "name": "S0618",
                 "type": "independent",
                 "parentName": "S0618",

@@ -64,3 +64,6 @@ export const getWarningValue = (wardCode) => {
     return axios.post(`${apiPath}warningValue/getByWardCode`, {wardCode});
 };
 
+export const pdaGetSYStatusCountWithWardcodeAndTimeApi = (body) => {
+    return axios.post(`${apiPath}procedure/pdaExecute/pdaGetSYStatusCountWithWardcodeAndTime`, body);
+}
