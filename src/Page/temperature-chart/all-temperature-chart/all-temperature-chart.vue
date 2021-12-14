@@ -184,9 +184,15 @@
           >
             <template slot-scope="scope">
               <!-- <el-input v-model="scope.row.temperature"></el-input> -->
-              <custom-input
+              <input
                 v-model="scope.row.temperature"
-                colClass="temperature"
+                :class="className"
+                class="temperature"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
               />
             </template>
           </el-table-column>
@@ -197,7 +203,16 @@
             min-width="80"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.pulse" colClass="pulse" />
+              <input
+                v-model="scope.row.pulse"
+                class="pulse"
+                :class="className"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
               <!-- <el-input v-model="scope.row.pulse"></el-input> -->
             </template>
           </el-table-column>
@@ -208,7 +223,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.breath" colClass="breath" />
+              <input
+                v-model="scope.row.breath"
+                :class="className"
+                class="breath"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.breath" class="breath" /> -->
               <!-- <el-input v-model="scope.row.breath"></el-input> -->
             </template>
           </el-table-column>
@@ -220,10 +245,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.bloodPressure"
-                colClass="bloodPressure"
+                :class="className"
+                class="bloodPressure"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
@@ -235,11 +267,20 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.amBp"
-                colClass="bloodPressure"
-                name="bloodPressure"
+                :class="className"
+                class="amBp"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input
+                v-model="scope.row.amBp"
+                class="bloodPressure"
+              /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
@@ -251,7 +292,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.pmBp" colClass="bloodPressure" />
+              <input
+                v-model="scope.row.pmBp"
+                :class="className"
+                class="pmBp"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.pmBp" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
@@ -262,7 +313,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.stoolNum" colClass="stoolNum" />
+              <input
+                v-model="scope.row.stoolNum"
+                :class="className"
+                class="stoolNum"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.stoolNum" class="stoolNum" /> -->
               <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
             </template>
           </el-table-column>
@@ -274,10 +335,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.heartRate"
-                colClass="heartRate"
+                :class="className"
+                class="heartRate"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.heartRate" class="heartRate" /> -->
               <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
@@ -289,10 +357,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.heartRate"
-                colClass="heartRate"
+                :class="className"
+                class="heartRate"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.heartRate" class="heartRate" /> -->
               <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
@@ -304,10 +379,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.fieldThree"
-                colClass="fieldThree"
+                :class="className"
+                class="fieldThree"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.fieldThree" class="fieldThree" /> -->
               <!-- <el-input v-model="scope.row.fieldThree"></el-input> -->
             </template>
           </el-table-column>
@@ -319,10 +401,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.drainage"
-                colClass="fieldThree"
+                :class="className"
+                class="drainage"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.drainage" class="fieldThree" /> -->
               <!-- <el-input v-model="scope.row.fieldThree"></el-input> -->
             </template>
           </el-table-column>
@@ -334,7 +423,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.foodSize" colClass="foodSize" />
+              <input
+                v-model="scope.row.foodSize"
+                :class="className"
+                class="foodSize"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.foodSize" class="foodSize" /> -->
               <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
             </template>
           </el-table-column>
@@ -346,7 +445,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.foodSize" colClass="foodSize" />
+              <input
+                v-model="scope.row.foodSize"
+                :class="className"
+                class="foodSize"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.foodSize" class="foodSize" /> -->
               <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
             </template>
           </el-table-column>
@@ -358,10 +467,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.dischargeSize"
-                colClass="dischargeSize"
+                :class="className"
+                class="dischargeSize"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.dischargeSize" class="dischargeSize" /> -->
               <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
             </template>
           </el-table-column>
@@ -373,10 +489,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.dischargeSize"
-                colClass="dischargeSize"
+                :class="className"
+                class="dischargeSize"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.dischargeSize" class="dischargeSize" /> -->
               <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
             </template>
           </el-table-column>
@@ -388,7 +511,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.height" colClass="curWeight" />
+              <input
+                v-model="scope.row.height"
+                :class="className"
+                class="height"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.height" class="curWeight" /> -->
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
@@ -399,10 +532,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.curWeight"
-                colClass="curWeight"
+                :class="className"
+                class="curWeight"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.curWeight" class="curWeight" /> -->
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
@@ -414,9 +554,9 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.nursingEvent"
-                colClass="curWeight"
+                class="curWeight"
               />
               <el-input v-model="scope.row.curWeight"></el-input> 2021-09-25
             </template>
@@ -428,7 +568,7 @@
             align="center"
           > -->
           <!-- <template slot-scope="scope"> -->
-          <!-- <custom-input v-model="scope.row.height" colClass="height" /> -->
+          <!-- <input v-model="scope.row.height" class="height" /> -->
           <!-- <el-input v-model="scope.row.height"></el-input> -->
           <!-- </template> -->
           <!-- </el-table-column> -->
@@ -440,10 +580,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.painScore"
-                colClass="painScore"
+                :class="className"
+                class="painScore"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.painScore" class="painScore" /> -->
               <!-- <el-input v-model="scope.row.painScore"></el-input> -->
             </template>
           </el-table-column>
@@ -612,6 +759,25 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.all-temperature-chart-input {
+  width: 100%;
+  padding: 2px 5px;
+  margin: 0;
+  line-height: 20px;
+  border: 1px solid #ccc;
+  border-color: #ccc;
+  border-radius: 2px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s;
+  font-size: 14px;
+
+  &:focus {
+    border-color: #4bb08d;
+    background-color: #9adcc5;
+  }
+}
+
 .all-temperature-chart {
   position: relative;
 
@@ -778,6 +944,7 @@ import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
 import CustomInput from "./components/CustomInput.vue";
+import { validForm } from "../validForm/validForm";
 
 export default {
   mixins: [common],
@@ -787,6 +954,8 @@ export default {
       isSelectedPatient: "",
       patientList: [],
       isSelectedNurs: "",
+      handleKeyCode: [37, 38, 39, 40],
+      colClass: "",
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now() - 8.64e6;
@@ -1100,6 +1269,9 @@ export default {
     };
   },
   computed: {
+    className() {
+      return ["all-temperature-chart-input"].join(" ");
+    },
     tableData: {
       get() {
         return this.patientsInfoData.filter((item) => {
@@ -1247,7 +1419,6 @@ export default {
         ...this.query,
         list,
       };
-
       tempertureData.entryDate = tempertureData.entryDate
         ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
@@ -1260,6 +1431,179 @@ export default {
         this.getData();
       });
     },
+    handleKeyDown(e) {
+      if (this.handleKeyCode.includes(e.keyCode)) {
+        this.colClass = e.target.className;
+        let rowIndex = e.path[3].rowIndex;
+        if (e.keyCode === 37) {
+          //处理左按键
+          if (e.target.selectionStart === 0) {
+            // 如果光标在开头，跳转前一个输入框
+            let inputEls = document.getElementsByClassName(
+              "all-temperature-chart-input"
+            );
+            let currentIdx = 0;
+            for (var i = 0; i < inputEls.length; ++i) {
+              if (e.target === inputEls[i]) currentIdx = i;
+            }
+            let prevIdx = currentIdx - 1;
+            inputEls[prevIdx] && inputEls[prevIdx].focus();
+          }
+        } else if (e.keyCode === 39) {
+          //处理右按键
+          if (e.target.selectionEnd === e.target.value.length) {
+            // 如果光标在末尾，跳转后一个输入框
+            let inputEls = document.getElementsByClassName(
+              "all-temperature-chart-input"
+            );
+            let currentIdx = 0;
+            for (var i = 0; i < inputEls.length; ++i) {
+              if (e.target === inputEls[i]) currentIdx = i;
+            }
+            let nextIdx = currentIdx + 1;
+            inputEls[nextIdx] && inputEls[nextIdx].focus();
+          }
+        } else {
+          //处理上下按键，跳转相同类名的输入框
+          let inputEls = document.getElementsByClassName(e.target.className);
+          let currentIdx = 0;
+
+          for (var i = 0; i < inputEls.length; ++i) {
+            if (e.target === inputEls[i]) currentIdx = i;
+          }
+          if (e.keyCode === 38) {
+            currentIdx--;
+          } else {
+            currentIdx++;
+          }
+          inputEls[currentIdx] && inputEls[currentIdx].focus();
+        }
+      }
+    },
+    toRow(e) {
+      let rowIndex = e.path[3].rowIndex;
+      var trs = e.path[4].getElementsByTagName("tr");
+      for (let i = 0; i < trs.length; i++) {
+        if (rowIndex === i) {
+          trs[i].style.backgroundColor = "green";
+        } else {
+          trs[i].style.backgroundColor = "";
+        }
+      }
+    },
+    handleKeyUp(e) {
+      let rowIndex = e.path[3].rowIndex;
+      var trs = e.path[4].getElementsByTagName("tr");
+      for (let i = 0; i < trs.length; i++) {
+        if (rowIndex === i) {
+          trs[i].style.backgroundColor = "green";
+        } else {
+          trs[i].style.backgroundColor = "";
+        }
+      }
+    },
+    // setValid(trage, val) {
+    //   switch (trage) {
+    //     case "temperature":
+    //       let o = {
+    //         体温: {
+    //           value: val,
+    //           reg: [30, 50],
+    //           errorMsg: "体温请填入30~50之间的数值",
+    //         },
+    //       };
+    //       return o;
+    //     case "heartRate":
+    //       let h = {
+    //         心率: {
+    //           value: val,
+    //           reg: [0, 300],
+    //           errorMsg: "体温请填入0~300之间的数值",
+    //         },
+    //       };
+    //       return h;
+    //     case "bloodPressure":
+    //       let x = {
+    //         血压: {
+    //           value: val,
+    //           reg: [0, 300],
+    //           errorMsg: "体温请填入0~300之间的数值",
+    //         },
+    //       };
+    //       return x;
+    //     case "pulse":
+    //       let y = {
+    //         脉搏: {
+    //           value: val,
+    //           reg: [0, 300],
+    //           errorMsg: "体温请填入0~300之间的数值",
+    //         },
+    //       };
+    //       return y;
+    //     case "breath":
+    //       let g = {
+    //         呼吸: {
+    //           value: val,
+    //           reg: [0, 120],
+    //           errorMsg: "体温请填入0~120之间的数值或者R/r",
+    //         },
+    //       };
+    //       return g;
+    //     default:
+    //       break;
+    //   }
+    // },
+    //validForm验证表单
+    // validFormFc(e) {
+    //   if (["liaocheng"].includes(this.HOSPITAL_ID)) {
+    //     let checkItem = e.path[0].classList[1];
+    //     let val = e.target.value;
+    //     let checksStr = [
+    //       "breath",
+    //       "pulse",
+    //       "bloodPressure",
+    //       "heartRate",
+    //       "temperature",
+    //     ];
+    //     var trs = e.path[3];
+    //     if (checksStr.includes(checkItem) && val !== "") {
+    //       if (validForm.valid(this.setValid(checkItem, val))) {
+    //         // console.log(trs.getElementsByClassName(checkItem)[0].style)
+    //         trs.getElementsByClassName(checkItem)[0].style.border = "";
+    //       } else {
+    //         trs.getElementsByClassName(checkItem)[0].style.border =
+    //           "thick solid red";
+    //       }
+    //     } else {
+    //       trs.getElementsByClassName(checkItem)[0].style.border = "";
+    //     }
+    //   }
+
+    //   let val = vitalSignObj.vitalValue;
+    //   if (
+    //     vitalSignObj.popVisible === true &&
+    //     val !== "" &&
+    //     ["体温", "脉搏", "心率", "呼吸", "血压"].includes(
+    //       vitalSignObj.vitalSigns
+    //     )
+    //   ) {
+    //     //验证表单
+    //     if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
+    //       document.getElementById(index).style.border = "";
+    //       vitalSignObj.isCorrect = true;
+    //     } else {
+    //       document.getElementById(index).style.border = "thick solid red";
+    //       vitalSignObj.isCorrect = false;
+    //       // this.$message({
+    //       //   message: this.setValid(vitalSignObj.vitalSigns)[vitalSignObj.vitalSigns].errorMsg,
+    //       //   type: 'warning'
+    //       // });
+    //     }
+    //   } else {
+    //     document.getElementById(index).style.border = "";
+    //     vitalSignObj.isCorrect = true;
+    //   }
+    // },
     async onPrint() {
       this.pageLoadng = true;
       this.$nextTick(async () => {
@@ -1284,7 +1628,105 @@ export default {
       });
       this.pageLoadng = false;
     },
+    setValid(trage, val) {
+      switch (trage) {
+        case "temperature":
+          let o = {
+            体温: {
+              value: val,
+              reg: [30, 50],
+              errorMsg: "体温请填入30~50之间的数值",
+            },
+          };
+          return o;
+        case "heartRate":
+          let h = {
+            心率: {
+              value: val,
+              reg: [0, 300],
+              errorMsg: "体温请填入0~300之间的数值",
+            },
+          };
+          return h;
+        case "bloodPressure":
+          let x = {
+            血压: {
+              value: val,
+              reg: [0, 300],
+              errorMsg: "体温请填入0~300之间的数值",
+            },
+          };
+          return x;
+        case "pulse":
+          let y = {
+            脉搏: {
+              value: val,
+              reg: [0, 300],
+              errorMsg: "体温请填入0~300之间的数值",
+            },
+          };
+          return y;
+        case "breath":
+          let g = {
+            呼吸: {
+              value: val,
+              reg: [0, 120],
+              errorMsg: "体温请填入0~120之间的数值或者R/r",
+            },
+          };
+          return g;
+        default:
+          break;
+      }
+    },
+    //validForm验证表单
+    validFormFc(e) {
+      if (["liaocheng"].includes(this.HOSPITAL_ID)) {
+        let checkItem = e.path[0].classList[0];
+        let val = e.target.value;
+        let checksStr = [
+          "breath",
+          "pulse",
+          "bloodPressure",
+          "heartRate",
+          "temperature",
+        ];
+        var trs = e.path[3];
+        if (checksStr.includes(checkItem) && val !== "") {
+          if (validForm.valid(this.setValid(checkItem, val))) {
+            // console.log(trs.getElementsByClassName(checkItem)[0].style)
+            trs.getElementsByClassName(checkItem)[0].style.border = "";
+          } else {
+            trs.getElementsByClassName(checkItem)[0].style.border =
+              "thick solid red";
+          }
+        } else {
+          trs.getElementsByClassName(checkItem)[0].style.border = "";
+        }
+      }
+
+      //     let val=vitalSignObj.vitalValue
+      //   if(vitalSignObj.popVisible===true&&val!==""&&['体温','脉搏','心率','呼吸','血压'].includes(vitalSignObj.vitalSigns)){
+      //  //验证表单
+      //   if (validForm.valid(this.setValid(vitalSignObj.vitalSigns,val))) {
+      //     document.getElementById(index).style.border=""
+      //   vitalSignObj.isCorrect=true
+      //   }else{
+      //     document.getElementById(index).style.border="thick solid red"
+      //     vitalSignObj.isCorrect=false
+      //     // this.$message({
+      //     //   message: this.setValid(vitalSignObj.vitalSigns)[vitalSignObj.vitalSigns].errorMsg,
+      //     //   type: 'warning'
+      //     // });
+
+      //   }
+      //   }else{
+      //      document.getElementById(index).style.border=""
+      //      vitalSignObj.isCorrect=true
+      //   }
+    },
   },
+
   components: {
     CustomInput,
   },
