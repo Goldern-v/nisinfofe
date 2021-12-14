@@ -239,7 +239,7 @@ export default [
     key: "preFieldEight", //胎儿娩出时间
     value: "",
     event: event_time,
-    click: click_time,
+    // click: click_time,
     name: "胎儿娩出时间",
     textarea: {
       width: 60,

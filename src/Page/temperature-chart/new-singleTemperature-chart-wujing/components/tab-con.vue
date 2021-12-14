@@ -244,7 +244,16 @@
               >
               </el-option>
             </el-select>
-            <el-date-picker
+            <el-time-picker
+              size="mini"
+              :readonly="isDisable()"
+              v-model="timeVal"
+              placeholder="选择表顶时间"
+              style="margin: 3px 0px 0px 55px; width: 125px"
+              @change="formatTopExpandDate"
+            >
+            </el-time-picker>
+            <!-- <el-date-picker
               size="mini"
               :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
@@ -255,8 +264,9 @@
               style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatTopExpandDate"
             >
-            </el-date-picker>
+            </el-date-picker> -->
           </div>
+          <!--目前武警是没有用的中间注释的--->
           <div class="row" v-if="multiDictList['中间注释']">
             <span class="preText">中间注释</span>
             <el-select
@@ -306,7 +316,7 @@
               >
               </el-option>
             </el-select>
-            <el-date-picker
+            <!-- <el-date-picker
               size="mini"
               :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
@@ -316,8 +326,8 @@
               placeholder="选择日期时间"
               style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatBtmExpandDate"
-            >
-            </el-date-picker>
+            > -->
+            <!-- </el-date-picker> -->
           </div>
           <div>
             <el-button
@@ -412,6 +422,20 @@ export default {
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
       bottomIndex: [],
+      timeVal: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      ),
+      nowTimeVal: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      ),
       timesOdd: [
         {
           id: 0,
@@ -646,10 +670,12 @@ export default {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
-            this.vitalSignObj[v.vitalCode] = {
-              ...v,
-              popVisible: false,
-            };
+            this.vitalSignObj[v.vitalCode] = v;
+            if (v.vitalSigns === "表顶注释") {
+              this.timeVal = moment(
+                this.vitalSignObj[v.vitalCode].expand2 //组件只能传国际标准时间，这里把后端传回的时间转为标准时间
+              ).utc()._d;
+            }
           });
         } else {
           this.init();
@@ -765,7 +791,14 @@ export default {
           ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 = this.topExpandDate;
+            if (this.topExpandDate !== undefined) {
+              item.expand2 = this.query.entryDate + " " + this.topExpandDate; //表顶用录入日期+选择的时间来显示
+            } else {
+              item.expand2 =
+                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+                " " +
+                moment(this.nowTimeVal).format("HH:mm:ss"); //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
+            }
             break;
           case "中间注释":
             item.expand2 = this.centerExpandDate;
@@ -853,7 +886,7 @@ export default {
   }
 
   .fieldClass {
-    width: 60px;
+    width: 58px;
     font-size: 12px;
   }
 
@@ -867,7 +900,7 @@ export default {
     }
 
     input {
-      width: 48px;
+      width: 45px;
       font-size: 12px;
     }
 
@@ -886,7 +919,7 @@ export default {
     }
 
     input {
-      width: 48px;
+      width: 45px;
       font-size: 12px;
     }
 
