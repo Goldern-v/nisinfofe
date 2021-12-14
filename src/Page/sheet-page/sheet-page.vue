@@ -1038,8 +1038,9 @@ export default {
   },
   beforeRouteLeave: (to, from, next) => {
     if (
-      !sheetInfo.isSave &&
-      !this.$route.path.includes("singleTemperatureChart") //去除体温单切换未保存提示
+      !sheetInfo.isSave
+      //  &&
+      // !this.$route.path.includes("singleTemperatureChart") //去除体温单切换未保存提示
     ) {
       window.app
         .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
