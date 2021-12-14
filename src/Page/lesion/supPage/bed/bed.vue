@@ -206,7 +206,6 @@ export default {
         ["liaocheng",
         "shannan",
         "quzhou",
-        "nanfangzhongxiyi",
         "foshanrenyi",
         "fsxt"
         ].includes(this.HOSPITAL_ID)) {
