@@ -55,6 +55,7 @@
           class="sheet-con"
         ></single-temperature-chart>
       </sweet-modal>
+      <doctorEmr v-if="HOSPITAL_ID === 'huadu'"/>
     </div>
   </div>
 </template>
@@ -204,6 +205,8 @@ import {
 import moment from "moment";
 import bus from "vue-happy-bus";
 import singleTemperatureChart from "./singleTemperatureChart";
+import doctorEmr from "@/components/doctorEmr";
+
 export default {
   props: {
     queryTem: Object,
@@ -423,6 +426,7 @@ export default {
   },
   components: {
     nullBg,
+    doctorEmr,
     singleTemperatureChart,
   },
 };
