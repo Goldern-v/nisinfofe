@@ -260,7 +260,7 @@ export default {
         name: "badEventView",
         params: {
           id: row.id,
-          name: row.formName,
+          name: row.formName.replace(/\.html$/, ''),
           code: row.formCode,
           type: row.eventType,
           status: row.status,
