@@ -19,7 +19,7 @@
           src="../../../../common/images/record/文件夹.png"
           alt
           class="has-file"
-          v-if="item.config.hasCreatedDvc"
+          v-if="item.config && item.config.hasCreatedDvc"
         >
       </div>
     </div>
@@ -32,7 +32,9 @@
   top 18px
   width 20px
 .patient-list-part
-  height calc( 100% - 41px)
+  // height calc( 100% - 41px)
+  flex: 1;
+  overflow: auto;
   box-sizing border-box
   padding-top 11px
   position relative
@@ -68,8 +70,8 @@
       .name
         color #333333
 .search-box
-  position absolute
-  top -35px
+  position fixed
+  top 66px
   left 15px
   width 168px
   >>>&.el-input
