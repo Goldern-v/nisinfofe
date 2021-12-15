@@ -380,6 +380,12 @@ import Temperature from "@/Page/patientInfo/supPage/temperature/temperature.vue"
 export default {
   mixins: [commom],
   name: "sheetTool",
+  props: {
+    isNursingPreview: {//是否为调阅界面体温单调起的护记
+      type:Boolean,
+      default:false
+    }
+  },
   data() {
     return {
       bus: bus(this),
@@ -799,7 +805,8 @@ export default {
           if (
             this.$route.path.includes("singleTemperatureChart") ||
             this.$route.path.includes("temperature") ||
-            this.$route.path.includes("Baby_sheetPage")
+            this.$route.path.includes("Baby_sheetPage") ||
+            (this.$route.path.includes("nursingPreview") && this.isNursingPreview)
           ) {
             this.sheetBlockList = list.filter((item) => {
               switch (this.HOSPITAL_ID) {
