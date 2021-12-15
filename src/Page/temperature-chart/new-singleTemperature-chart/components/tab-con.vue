@@ -575,7 +575,6 @@ export default {
     },
     //validForm验证表单
     validFormFc(vitalSignObj, index) {
-      console.log(vitalSignObj);
       let val = vitalSignObj.vitalValue;
       if (
         vitalSignObj.popVisible === true &&
@@ -633,8 +632,6 @@ export default {
             //同步出入院插入一条表顶，会生成一个录入记录，这里用录入记录只存在一条表顶，录入时间=生成记录时间去除
             this.tabsData.push(item.recordDate);
           }
-
-          console.log(this.tabsData);
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
@@ -701,6 +698,7 @@ export default {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
+            console.log("vvvvv", v);
             this.vitalSignObj[v.vitalCode] = {
               ...v,
               popVisible: false,
@@ -831,7 +829,6 @@ export default {
       let flasg = [];
       for (let key in this.multiDictList) {
         flasg.push(this.vitalSignObj[this.multiDictList[key]].isCorrect);
-        console.log(flasg);
         if (flasg.includes(false)) {
           this.isCorrect = false;
         } else {

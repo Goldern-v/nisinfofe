@@ -954,7 +954,7 @@ export default {
       isSelectedPatient: "",
       patientList: [],
       isSelectedNurs: "",
-      handleKeyCode: [37, 38, 39, 40],
+      handleKeyCode: [37, 38, 39, 40, 13],
       colClass: "",
       pickerOptions: {
         disabledDate(time) {
@@ -1346,7 +1346,8 @@ export default {
     keydownSave(e) {
       if (
         e.keyCode === 13 &&
-        this.$route.path.includes("allTemperatureChart")
+        this.$route.path.includes("allTemperatureChart") &&
+        !["guizhou"].includes(this.HOSPITAL_ID)
       ) {
         this.saveAllTemperture();
       } else {
@@ -1476,7 +1477,11 @@ export default {
           }
           if (e.keyCode === 38) {
             currentIdx--;
-          } else {
+          } else if (
+            e.keyCode === 40 ||
+            (e.keyCode === 13 && ["guizhou"].includes(this.HOSPITAL_ID))
+            //当贵州的时候，回车不调用保存事件，执行跳转到下一个患者的聚集性事件
+          ) {
             currentIdx++;
           }
           inputEls[currentIdx] && inputEls[currentIdx].focus();
