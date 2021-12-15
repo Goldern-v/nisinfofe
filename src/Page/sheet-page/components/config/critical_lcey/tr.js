@@ -27,7 +27,7 @@ export default [{
       data: ['清醒', '嗜睡', '昏睡', '模糊', '谵妄', '浅昏迷', '昏迷', '深昏迷','冬眠状态','麻醉未醒','镇静状态']
     },
     textarea: {
-      width: 54
+      width: 40
     },
   },
   {
@@ -35,7 +35,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 30
+      width: 32
     },
   },
   {
@@ -43,7 +43,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 30
+      width: 32
     },
   },
   {
@@ -57,42 +57,27 @@ export default [{
   {
     key: "temperature", //体温
     value: "",
-    event: keyf1,
-    textarea: {
-      width: 32
-    },
+    event: keyf1
   },
   {
     key: "pulse", //   心率/脉搏
     value: "",
     event: keyf1,
-    textarea: {
-      width: 45
-    },
   },
   {
     key: "breath", //呼吸
     value: "",
-    event: keyf1,
-    textarea: {
-      width: 45
-    },
+    event: keyf1
   },
   {
     key: "bloodPressure", //血压
     value: "",
     event: keyf1,
-    textarea: {
-      width: 65
-    },
   },
   {
     key: "spo2", //SPO2
     value: "",
     event: keyf1,
-    textarea: {
-      width: 45
-    },
   },
   {
     key: "oxygenWay", //氧疗方式
@@ -102,31 +87,76 @@ export default [{
       data: ['鼻导管', '雾化面罩', '储氧面罩', '高流湿化吸氧', '无创面罩', '文丘里面罩', '呼吸机']
     },
     textarea: {
-      width: 60
+      width: 45
     },
   },
   {
     key: "fieldSix", //氧疗L/min
     value: "",
-    event: keyf1,
-    textarea: {
-      width: 40
-    },
+    event: keyf1
   },
   {
-    key: "food", //入量
+    key: "food", //项目
     value: "",
     event: keyf1,
     textarea: {
-      width: 80
+      width: 55
     },
   },
   {
-    key: "foodSize", // 量(ml)
+    key: "foodSize", //入量(ml)
     value: "",
     event: keyf1,
     textarea: {
-      width: 45
+      width: 32
+    },
+  },
+  {
+    key: "fieldOne", //尿量
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "fieldTwo", //大便量
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "fieldThree", // 痰液量
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "fieldFour", // 标题1
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "dischargeSize", //标题2
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "accessCustomize", // 标题3
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 32
     },
   },
   {
@@ -134,23 +164,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 80
-    },
-  },
-  {
-    key: "dischargeSize", // 量(ml)
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "accessCustomize", // 自定义标题
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 60
+      width: 32
     },
   },
   {
@@ -162,7 +176,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "240px",
+      width: "140px",
       background: "transparent"
     },
     event: function (e, td) {
