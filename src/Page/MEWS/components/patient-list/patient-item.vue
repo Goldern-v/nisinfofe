@@ -5,9 +5,16 @@
     :key="item.patientId"
     v-show="isShow"
     @click="selectPatient"
-    :class="{active: active}"
+    :class="{active: active,follow:type=='follow'}"
   >
-    <span class="block" :style="{background: frameData.iconTextRgb}"></span>
+    <!-- <span class="block" :style="{background: frameData.iconTextRgb}"></span> -->
+    <img
+      :src="item.bedLabel.includes('_')?imageBoy:imageMan"
+      alt
+      class="img"
+      v-if="item.sex == '男'"
+    />
+    <img  :src="item.bedLabel.includes('_')?imageGirl:imageWomen" alt class="img" v-else />
     <div class="name" flex-box="1">
       {{item.name}}
       <span
@@ -16,6 +23,8 @@
       ></span>
     </div>
     <div class="bed">{{item.bedLabel}} 床</div>
+     <span class="block" :style="{background: frameData.iconTextRgb}"></span>
+     <img v-if="type=='follow'" src="../../../../common/images/card/like.png" height="18" width="18" style="margin-left: 3px;" />
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -45,7 +54,6 @@
   &:hover {
     background: #F7F7FA;
   }
-
   &.active {
     background: #F1F1F5;
     font-weight: bold;
@@ -54,8 +62,16 @@
       color: #333333;
     }
   }
-}
 
+}
+.follow {
+  &.active{
+    background: #fff !important;
+  }
+  &:hover {
+    background: #fff !important;
+  }
+}
 .red-tip {
   display: inline-block;
   width: 13px;
@@ -73,14 +89,15 @@
   display: inline-block;
   border-radius: 2px;
   background: transparent;
-  margin-right: 15px;
+  // margin-right: 15px;
+  margin-left: 5px;
 }
 </style>
 <script>
 import WebSocketService from "@/plugin/webSocket";
 import currDataObj from "../store/index";
 export default {
-  props: ["item", "index"],
+  props: ["item", "index","type"],
   data() {
     return {
       frameData: {},
@@ -89,6 +106,10 @@ export default {
       subscribeId: "",
       firstFlag: true,
       isShow: true,
+      imageBoy: require("./images/男婴.png"),
+      imageGirl: require("./images/女婴.png"),
+      imageMan: require("./images/男.png"),
+      imageWomen: require("./images/女.png")
     };
   },
   created() {
@@ -131,7 +152,7 @@ export default {
       Object.assign(currDataObj, this.frameData);
       this.isTip = false;
       if (!WebSocketService.isInMd5List(this.frameData.md5)) {
-        WebSocketService.addMd5List(this.frameData.md5);
+        // WebSocketService.addMd5List(this.frameData.md5);
       }
     },
   },

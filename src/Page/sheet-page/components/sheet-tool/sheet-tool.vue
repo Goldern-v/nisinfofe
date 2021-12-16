@@ -308,7 +308,8 @@
       v-if="
         patientInfo.patientId &&
         !$route.path.includes('temperature') &&
-        !$route.path.includes('Baby_sheetPage')
+        !$route.path.includes('Baby_sheetPage') &&
+        HOSPITAL_ID != 'huadu'
       "
     ></patientInfo>
     <newFormModal ref="newFormModal"></newFormModal>
@@ -379,6 +380,12 @@ import Temperature from "@/Page/patientInfo/supPage/temperature/temperature.vue"
 export default {
   mixins: [commom],
   name: "sheetTool",
+  props: {
+    isNursingPreview: {//是否为调阅界面体温单调起的护记
+      type:Boolean,
+      default:false
+    }
+  },
   data() {
     return {
       bus: bus(this),
@@ -778,10 +785,10 @@ export default {
         );
         this.$store.commit("upDeptCode", data.data.wardCode);
       }
-      console.log(
-        "条件",
-        this.patientInfo.patientId && this.patientInfo.visitId && this.deptCode
-      );
+      // console.log(
+      //   "条件",
+      //   this.patientInfo.patientId && this.patientInfo.visitId && this.deptCode
+      // );
       if (
         this.patientInfo.patientId &&
         this.patientInfo.visitId &&
@@ -798,7 +805,8 @@ export default {
           if (
             this.$route.path.includes("singleTemperatureChart") ||
             this.$route.path.includes("temperature") ||
-            this.$route.path.includes("Baby_sheetPage")
+            this.$route.path.includes("Baby_sheetPage") ||
+            (this.$route.path.includes("nursingPreview") && this.isNursingPreview)
           ) {
             this.sheetBlockList = list.filter((item) => {
               switch (this.HOSPITAL_ID) {
@@ -1192,7 +1200,7 @@ export default {
       deep: true,
       handler() {
         if (this.patientInfo.patientId) {
-          console.log(111);
+          // console.log(111);
           this.$parent.breforeQuit(() => {
             this.getBlockList();
             this.bus.$emit("setSheetTableLoading", true);

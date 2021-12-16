@@ -14,7 +14,7 @@
         </el-button>
       </div>
       <div class="column-right">
-        <span style="padding-left: 5px">日期：</span>
+        <span>日期：</span>
         <ElDatePicker
           class="date-picker"
           type="date"
@@ -26,14 +26,30 @@
           clearable
         />
         <div class="times">
-          <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
+          <!-- <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
               v-for="item in timesOdd"
               :key="item.id"
               :label="item.value"
             ></el-radio>
-          </el-radio-group>
+          </el-radio-group> -->
+          <el-time-select
+            v-model="dateInp"
+            value-format="HH:mm"
+            format="HH:mm"
+            ref="timeSelect"
+            @blur="changeDate"
+            @change="changeVal"
+            :picker-options="{
+              start: '02:00',
+              step: '04:00',
+              end: '22:00',
+            }"
+            class="new-time-select"
+            placeholder="选择时间"
+          >
+          </el-time-select>
         </div>
       </div>
     </div>
@@ -244,7 +260,16 @@
               >
               </el-option>
             </el-select>
-            <el-date-picker
+            <!-- <el-time-picker
+              size="mini"
+              :readonly="isDisable()"
+              v-model="timeVal"
+              placeholder="选择表顶时间"
+              style="margin: 3px 0px 0px 55px; width: 125px"
+              @change="formatTopExpandDate"
+            >
+            </el-time-picker> -->
+            <!-- <el-date-picker
               size="mini"
               :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
@@ -255,8 +280,9 @@
               style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatTopExpandDate"
             >
-            </el-date-picker>
+            </el-date-picker> -->
           </div>
+          <!--目前武警是没有用的中间注释的--->
           <div class="row" v-if="multiDictList['中间注释']">
             <span class="preText">中间注释</span>
             <el-select
@@ -306,7 +332,7 @@
               >
               </el-option>
             </el-select>
-            <el-date-picker
+            <!-- <el-date-picker
               size="mini"
               :readonly="isDisable()"
               format="yyyy-MM-dd HH:mm:ss"
@@ -316,8 +342,8 @@
               placeholder="选择日期时间"
               style="margin: 3px 0px 0px 55px; width: 170px"
               @change="formatBtmExpandDate"
-            >
-            </el-date-picker>
+            > -->
+            <!-- </el-date-picker> -->
           </div>
           <div>
             <el-button
@@ -362,7 +388,7 @@ export default {
       ["24"]: ["21:00", "23:59"],
     };
 
-    let entryTime = "02";
+    let entryTime = "02:00:00";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
@@ -383,27 +409,7 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: (() => {
-          if (this.getHours() >= 0 && this.getHours() <= 4) {
-            return "02";
-          }
-          if (this.getHours() > 4 && this.getHours() <= 8) {
-            return "06";
-          }
-          if (this.getHours() > 8 && this.getHours() <= 12) {
-            return "10";
-          }
-          if (this.getHours() > 12 && this.getHours() <= 16) {
-            return "14";
-          }
-          if (this.getHours() > 16 && this.getHours() <= 20) {
-            return "18";
-          }
-          if (this.getHours() > 20 && this.getHours() <= 23) {
-            return "22";
-          }
-          //录入时间
-        })(), //录入时间
+        entryTime: moment().format("HH:mm:ss"), //录入时间
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
@@ -412,32 +418,7 @@ export default {
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
       bottomIndex: [],
-      timesOdd: [
-        {
-          id: 0,
-          value: "02",
-        },
-        {
-          id: 1,
-          value: "06",
-        },
-        {
-          id: 2,
-          value: "10",
-        },
-        {
-          id: 3,
-          value: "14",
-        },
-        {
-          id: 4,
-          value: "18",
-        },
-        {
-          id: 5,
-          value: "22",
-        },
-      ],
+      dateInp: moment().format("HH:mm"),
       bottomContextList: [""],
       topExpandDate: "",
       bottomExpandDate: "",
@@ -589,7 +570,44 @@ export default {
         });
       });
     },
-
+    //时间组件失去焦点
+    changeDate(val) {
+      let numberVal = val.$el.children[1].value;
+      // if(!moment(numberVal,"HH:mm",true).isValid()) {
+      //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
+      //     return false;
+      // }
+      if (
+        (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
+        (numberVal.indexOf(":") != -1 && numberVal.length == 5)
+      ) {
+        let time =
+          numberVal.indexOf(":") == -1
+            ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
+            : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
+        console.log("time", time);
+        // if(!moment(numberVal,"HH:mm",true).isValid()) {
+        //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
+        //   return false;
+        // }
+        let [hours, min] = time.split(":");
+        if (0 <= hours && hours <= 24 && 0 <= min && min <= 59) {
+          this.query.entryTime = time + ":00";
+          this.dateInp = this.query.entryTime;
+        } else {
+          this.$message.error("请输入正确时间数值，例如23:25, 2325");
+        }
+      } else {
+        this.query.entryTime = val.$el.children[1].value;
+      }
+    },
+    // 下拉选项触发查询
+    changeVal(newVal, oldVal) {
+      if (newVal && newVal.split(":").length == 2) {
+        this.query.entryTime = newVal + ":00";
+        this.dateInp = this.query.entryTime;
+      }
+    },
     /* 日期搜索功能 */
     selectTemRec(val) {
       this.query.entryDate = val;
@@ -639,7 +657,7 @@ export default {
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime,
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
@@ -757,22 +775,20 @@ export default {
     /* 录入体温单 */
     async saveVitalSign(value) {
       let obj = Object.values(value);
+      let recordDate =
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime;
       obj.map((item) => {
-        item.recordDate =
-          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-          "  " +
-          this.query.entryTime +
-          ":00:00";
+        item.recordDate = recordDate;
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 = this.topExpandDate;
+            item.expand2 =
+              moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+              " " +
+              this.query.entryTime;
             break;
-          case "中间注释":
-            item.expand2 = this.centerExpandDate;
-            break;
-          case "表底注释":
-            item.expand2 = this.bottomExpandDate;
-            break;
+
           default:
             break;
         }
@@ -790,15 +806,16 @@ export default {
       this.getList();
       this.bus.$emit("refreshImg");
     },
-    formatTopExpandDate(val) {
-      this.topExpandDate = val;
-    },
-    formatBtmExpandDate(val) {
-      this.bottomExpandDate = val;
-    },
-    formatCenterExpandDate(val) {
-      this.centerExpandDate = val;
-    },
+
+    // formatTopExpandDate(val) {
+    //   this.topExpandDate = val;
+    // },
+    // formatBtmExpandDate(val) {
+    //   this.bottomExpandDate = val;
+    // },
+    // formatCenterExpandDate(val) {
+    //   this.centerExpandDate = val;
+    // },
     //设置体温单是否可编辑
   },
   components: { nullBg },
@@ -813,11 +830,17 @@ export default {
   display: flex;
   flex-direction: column;
 
+  .column-right {
+    display: inline-block;
+    margin-left: -25px;
+    height: 50px;
+  }
+
   .row-top {
     display: flex;
 
     .column-left {
-      margin: 0px 45px 0px 30px;
+      margin: 10px 45px 0px 15px;
       display: flex;
       flex-direction: column;
     }
@@ -848,12 +871,29 @@ export default {
     }
   }
 
+  .times {
+    display: inline-block;
+    width: 100px;
+
+    .new-time-select {
+      height: 22px;
+      width: 100px;
+      display: inline-block;
+
+      >>>.el-input__inner {
+        height: 22px !important;
+        display: inline-block;
+        width: 100px;
+      }
+    }
+  }
+
   .rowItem_noShow {
     display: none;
   }
 
   .fieldClass {
-    width: 60px;
+    width: 58px;
     font-size: 12px;
   }
 
@@ -867,7 +907,7 @@ export default {
     }
 
     input {
-      width: 48px;
+      width: 45px;
       font-size: 12px;
     }
 
@@ -886,7 +926,7 @@ export default {
     }
 
     input {
-      width: 48px;
+      width: 45px;
       font-size: 12px;
     }
 

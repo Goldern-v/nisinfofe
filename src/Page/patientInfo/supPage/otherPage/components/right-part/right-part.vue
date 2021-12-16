@@ -37,15 +37,37 @@ export default {
     //   this.fileUrl = fileUrl;
     //   this.show = false;
     // });
-    let vid=window.app.$store.state.patient.currentPatient.inpNo
-    if(this.HOSPITAL_ID == 'huadu' && vid){
+    // window.addEventListener("message", (data)=>{
+    //   console.log(data);
+    // }, false);
+    let vid=window.app.$store.state.patient.currentPatient.inpNo;
+    const currentPatient=window.app.$store.state.patient.currentPatient;//patientId
+    //console.log(window.app.$store.state.patient.currentPatient)
+    if(this.HOSPITAL_ID && vid){
       this.show = false;
-      this.fileUrl = `http://172.16.8.41:5402/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+      //const personInfoUrl="http://172.16.8.41:5402";
+      switch(this.HOSPITAL_ID){
+        case "huadu":
+          //this.fileUrl = `/newCrNursing/personInfoUrl/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+          //this.fileUrl = `http://172.16.8.41:5402/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+          this.fileUrl = `http://172.16.8.135:9092/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+          break;
+        case "fuyou":
+          this.fileUrl = `http://192.168.19.198:8282/templates/medicalRecord/medicalRecordViewPreview.html?embedded-view=true&req_no=${currentPatient.patientId}&type=2`;
+          break; 
+        default:
+          break; 
+      }
     }
   },
   computed: {
     wih() {
       return this.$store.state.common.wih;
+
+
+
+
+      
     },
     height() {
       return this.wih - 146 + "px";
@@ -57,7 +79,7 @@ export default {
       setTimeout(() => {
         wid.document.getElementById("toolbar").style.display = "none";
       }, 2000);
-    }
+    },
   }
 };
 </script>

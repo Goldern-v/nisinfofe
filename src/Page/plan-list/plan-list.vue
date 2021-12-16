@@ -61,10 +61,11 @@
 
     .left-part {
       width: 199px;
-      position: absolute;
+      position: fixed;
       left: 0;
       top: 0;
       bottom: 0;
+      padding-top: 60px;
     }
 
     .right-part {

@@ -17,7 +17,7 @@ function offset(ele) {
   return {
     left: left,
     top: top,
-    width:width,
+    width: width,
   };
 }
 
@@ -48,7 +48,7 @@ function getCursortPosition(textDom) {
 }
 
 function leftTopBottomRight(e, bind) {
-  let {x, y, z, td} = bind;
+  let { x, y, z, td } = bind;
   if (e.keyCode == 13) {
     if (window.isShowAutoComplete()) {
       e.preventDefault();
@@ -85,7 +85,7 @@ function leftTopBottomRight(e, bind) {
     //   .querySelectorAll('[dataKey="description"] textarea').length - 1]
     //   .getAttribute("position")
     //   .split(",")[0];
-      
+
     // }else{
     //   maxX = document
     //   .querySelectorAll('[dataKey="description"] input')[document
@@ -107,7 +107,7 @@ function leftTopBottomRight(e, bind) {
 }
 
 function onFocusToAutoComplete(e, bind) {
-  let {autoComplete, x, y, z, td, tr, splice} = bind;
+  let { autoComplete, x, y, z, td, tr, splice } = bind;
   let scrollTop = document.querySelector(".sheetTable-contain").scrollTop;
   let scrollLeft = document.querySelector(".sheetTable-contain").scrollLeft;
   let xy = offset(e.target);
@@ -130,18 +130,18 @@ function onFocusToAutoComplete(e, bind) {
   if (isRead) return;
 
   setTimeout(() => {
-    console.log(xy.left - scrollLeft - window.scrollX,xy.left,scrollLeft,window.scrollX);
+    // console.log(xy.left - scrollLeft - window.scrollX,xy.left,scrollLeft,window.scrollX);
     window.openAutoComplete({
       style: {
         top: `${xy.top - scrollTop - window.scrollY + 30}px`,
         left: `${xy.left - scrollLeft - window.scrollX}px`,
-        addWidth:`${xy.width}px`
+        addWidth: `${xy.width}px`
       },
       data: autoComplete.data,
       callback: function (data) {
         // 威县下拉选项后一个选项依赖于前一个td的选择
         // 选择出量名称的时候和上次不一样 则清除出量性质
-        if (process.env.HOSPITAL_ID == 'weixian'||process.env.HOSPITAL_ID=='guizhou') {
+        if (process.env.HOSPITAL_ID == 'weixian' || process.env.HOSPITAL_ID == 'guizhou') {
           if (td.value && td.value != data && td.childKey) {
             tr.map(item => {
               if (item.parentKey && item.parentKey == td.name) {
@@ -158,9 +158,9 @@ function onFocusToAutoComplete(e, bind) {
 
         if (data) {
           let preText = ""
-          if(typeof(splice) == 'string'){
+          if (typeof (splice) == 'string') {
             preText = td.value ? (td.value + splice) : ''
-          }else{
+          } else {
             preText = td.value ? (td.value + ',') : ''
           }
           td.value = (splice ? preText : '') + data
@@ -175,20 +175,20 @@ function onFocusToAutoComplete(e, bind) {
 }
 
 function onBlurToAutoComplete(e, bind) {
-  let {x, y, z} = bind;
+  let { x, y, z } = bind;
   setTimeout(() => {
     window.closeAutoComplete(`${x}${y}${z}`);
   }, 400);
 }
 // 红顶函数
-function redTop(index){
-  let typeArr = ['icu_qz','intersurgerycure_qzx','newborn_intensive_qz'] // 特殊处理的表单type(body里可以查看表单名称对应的type)
+function redTop(index) {
+  let typeArr = ['icu_qz', 'intersurgerycure_qzx', 'newborn_intensive_qz'] // 特殊处理的表单type(body里可以查看表单名称对应的type)
   let hospitalArr = ['quzhou'] // 特殊处理的医院(这个要是不知道看哪里就提桶吧)
   let topArr = ['血<br/>氧<br/>饱<br/>和<br/>度'] // 特殊处理的top表头(去看对应的th)
-   // 特殊处理的mid表头,会有转义字符,很恶心,记得log一下看看
-  let midArr = [`\n        呕<br/>吐\n        `,`\n        SPO<sub>2</sub><br/>(%)\n        `]
+  // 特殊处理的mid表头,会有转义字符,很恶心,记得log一下看看
+  let midArr = [`\n        呕<br/>吐\n        `, `\n        SPO<sub>2</sub><br/>(%)\n        `]
   // 两个变量，代表特殊处理的字段是top还是mid
-  let isTop = false,isMid = false;
+  let isTop = false, isMid = false;
   // 一张表只支持一个特殊处理，多的自己去想
   let obj = {}
   // 特殊处理的单元格下标
@@ -196,46 +196,46 @@ function redTop(index){
   // 最终返回的标志
   let flag = false
   // 判断是否是特殊处理的表单及医院
-  if(typeArr.includes(this.sheetInfo.sheetType)&& hospitalArr.includes(this.HOSPITAL_ID)){
+  if (typeArr.includes(this.sheetInfo.sheetType) && hospitalArr.includes(this.HOSPITAL_ID)) {
     // 判断是否需要特殊处理的top单元格
-    topArr.map(item=>{
-      this.data.titleModel.th.top.map((e,i)=>{
-        if(e.name==item){
+    topArr.map(item => {
+      this.data.titleModel.th.top.map((e, i) => {
+        if (e.name == item) {
           obj = e // 是的话存起来
           isTop = true // 并且打开top标识
           targetIndex = i
         }
       })
     })
-    midArr.map(item=>{
-      this.data.titleModel.th.mid.map((e,i)=>{
-        if(e.name==item){
+    midArr.map(item => {
+      this.data.titleModel.th.mid.map((e, i) => {
+        if (e.name == item) {
           obj = e
           isMid = true
           targetIndex = i
         }
       })
     })
-    if(isTop){
+    if (isTop) {
       let targetVal = this.data.bodyModel[index][targetIndex].value || ""
-      flag = targetVal =='总结'
+      flag = targetVal == '总结'
     }
-    if(isMid){
+    if (isMid) {
       let targetVal = this.data.bodyModel[index][targetIndex + 2].value || ""
-      flag = targetVal =='总结'
+      flag = targetVal == '总结'
     }
     return flag
   }
 }
 // 黑顶函数
-function BlackTop(index){
-  let typeArr = ['icu_qz','intersurgerycure_qzx','newborn_intensive_qz'] // 特殊处理的表单type(body里可以查看表单名称对应的type)
+function BlackTop(index) {
+  let typeArr = ['icu_qz', 'intersurgerycure_qzx', 'newborn_intensive_qz'] // 特殊处理的表单type(body里可以查看表单名称对应的type)
   let hospitalArr = ['quzhou'] // 特殊处理的医院(这个要是不知道看哪里就提桶吧)
   let topArr = ['血<br/>氧<br/>饱<br/>和<br/>度'] // 特殊处理的top表头(去看对应的th)
-   // 特殊处理的mid表头,会有转义字符,很恶心,记得log一下看看
-  let midArr = [`\n        呕<br/>吐\n        `,`\n        SPO<sub>2</sub><br/>(%)\n        `]
+  // 特殊处理的mid表头,会有转义字符,很恶心,记得log一下看看
+  let midArr = [`\n        呕<br/>吐\n        `, `\n        SPO<sub>2</sub><br/>(%)\n        `]
   // 两个变量，代表特殊处理的字段是top还是mid
-  let isTop = false,isMid = false;
+  let isTop = false, isMid = false;
   // 一张表只支持一个特殊处理，多的自己去想
   let obj = {}
   // 特殊处理的单元格下标
@@ -243,34 +243,34 @@ function BlackTop(index){
   // 最终返回的标志
   let flag = false
   // 判断是否是特殊处理的表单及医院
-  if(typeArr.includes(this.sheetInfo.sheetType)&& hospitalArr.includes(this.HOSPITAL_ID)){
+  if (typeArr.includes(this.sheetInfo.sheetType) && hospitalArr.includes(this.HOSPITAL_ID)) {
     // 判断是否需要特殊处理的top单元格
-    topArr.map(item=>{
-      this.data.titleModel.th.top.map((e,i)=>{
-        if(e.name==item){
+    topArr.map(item => {
+      this.data.titleModel.th.top.map((e, i) => {
+        if (e.name == item) {
           obj = e // 是的话存起来
           isTop = true // 并且打开top标识
           targetIndex = i
         }
       })
     })
-    midArr.map(item=>{
-      this.data.titleModel.th.mid.map((e,i)=>{
-        if(e.name==item){
+    midArr.map(item => {
+      this.data.titleModel.th.mid.map((e, i) => {
+        if (e.name == item) {
           obj = e
           isMid = true
           targetIndex = i
         }
       })
     })
-    if(isTop){
+    if (isTop) {
       let targetVal = this.data.bodyModel[index][targetIndex].value || ""
-      flag = targetVal =='小结'
+      flag = targetVal == '小结'
     }
-    if(isMid){
+    if (isMid) {
       console.log(targetIndex);
       let targetVal = this.data.bodyModel[index][targetIndex + 2].value || ""
-      flag = targetVal =='小结'
+      flag = targetVal == '小结'
     }
     return flag
   }

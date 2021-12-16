@@ -518,7 +518,7 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -541,7 +541,7 @@ const router = new Router({
                 return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
-              case 'liaocheng' || 'zhongshanqi':
+              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
@@ -603,6 +603,8 @@ const router = new Router({
               return badEventComm
             case 'liaocheng':
               return badEventComm
+            case 'foshanrenyi':
+              return badEventComm
             default:
               return badEvent
           }
@@ -621,6 +623,8 @@ const router = new Router({
                 return badEventEditPageComm
               case 'liaocheng':
                 return badEventEditPageComm
+              case 'foshanrenyi':
+                return badEventEditPageComm
               default:
                 return badEventEditPage
             }
@@ -638,6 +642,8 @@ const router = new Router({
                 //return badEventViewPageNew
                 return badEventViewPageComm
               case 'liaocheng':
+                return badEventViewPageComm
+              case 'foshanrenyi':
                 return badEventViewPageComm
               default:
                 return badEventViewPage

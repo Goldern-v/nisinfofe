@@ -620,6 +620,7 @@ export default {
         // this.sheetModel = []
         this.$nextTick(() => {
           // this.sheetModel = sheetModel
+          // console.log(titleData);
           initSheetPage(titleData, bodyData, markData);
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
           this.getHomePage(isBottom);
@@ -656,7 +657,10 @@ export default {
       });
     },
     breforeQuit(next) {
-      if (!sheetInfo.isSave) {
+      if (
+        !sheetInfo.isSave &&
+        !this.$route.path.includes("singleTemperatureChart")
+      ) {
         window.app
           .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
             confirmButtonText: "离开",
@@ -1038,7 +1042,7 @@ export default {
   beforeRouteLeave: (to, from, next) => {
     if (
       !sheetInfo.isSave &&
-      !this.$route.path.includes("singleTemperatureChart") //去除体温单切换未保存提示
+      !from.fullPath.includes("singleTemperatureChart") //去除体温单切换未保存提示
     ) {
       window.app
         .$confirm("评估单还未保存，离开将会丢失数据", "提示", {

@@ -24,7 +24,29 @@
           class="contain-center"
           :queryTem="patientInfo"
         ></temperatureNew>
-        <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
+        <div
+          class="flag-con"
+          :style="{ top: flagTop }"
+          flex="main:center cross:center"
+          @click="openRight"
+        >
+          <i
+            class="iconfont icon-yincang"
+            v-show="rightSheet"
+            style="margin-left: -1px"
+          ></i>
+          <i
+            class="iconfont icon-xianshi"
+            v-show="!rightSheet"
+            style="margin-left: -2px"
+          ></i>
+        </div>
+        <tabCon
+          class="contain-right"
+          v-show="rightSheet"
+          :patientInfo="patientInfo"
+        >
+        </tabCon>
       </div>
       <!-- </div> -->
     </div>
@@ -44,6 +66,24 @@
 
       .contain-center {
         flex: 7;
+      }
+
+      .flag-con {
+        width: 10px;
+        height: 73px;
+        position: relative;
+        z-index: 10;
+        background-image: url('../../../../common/images/patient/隐藏框.png');
+        cursor: pointer;
+        transform: rotateY(180deg);
+
+        &:hover {
+          color: #5CC6A1;
+        }
+
+        i {
+          font-size: 12px;
+        }
       }
 
       .contain-right {
@@ -86,6 +126,12 @@ export default {
     patientInfo() {
       return this.$route.query;
     },
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
+    flagTop() {
+      return `${this.wih * 0.4}px`;
+    },
     containHeight() {
       if (this.fullpage) {
         return this.wih - 44 + "px";
@@ -111,6 +157,9 @@ export default {
     });
   },
   methods: {
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     async getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
