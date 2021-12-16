@@ -52,6 +52,7 @@
       >
         <single-temperature-chart
           v-if="visibled"
+          :isNursingPreview="isNursingPreview"
           class="sheet-con"
         ></single-temperature-chart>
       </sweet-modal>
@@ -232,6 +233,7 @@ export default {
       // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
       printAllUrl:
         "http://120.238.239.27:9091/temperature/#/printAll" /* 医院正式环境批量打印内网 */,
+      isNursingPreview:false,//是否为调阅界面体温单调起的护记
     };
   },
   methods: {
@@ -367,14 +369,17 @@ export default {
     },
     onToggle() {
       //nursingPreviewIsShow
-      if (this.$route.path.includes("singleTemperatureChart") 
-      || (this.$route.path.includes("nursingPreview") && this.$route.query && this.$route.query.nursingPreviewIsShow=='1' )) {
+      // if (this.$route.path.includes("singleTemperatureChart") 
+      // || (this.$route.path.includes("nursingPreview") && this.$route.query && this.$route.query.nursingPreviewIsShow=='1' )) {
+      if (this.$route.path.includes("singleTemperatureChart")) {
         return;
       } else {
         this.visibled = true;
         this.$nextTick(() => {
           this.$refs.sheet.open();
         });
+        //是否为调阅文书页面
+        this.isNursingPreview=this.$route.path.includes("nursingPreview");
       }
     },
     closeModal() {

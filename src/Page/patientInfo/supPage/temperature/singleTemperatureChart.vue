@@ -7,7 +7,7 @@
   >
     <div class="head-con" flex>
       <div class="tool-con" flex-box="1">
-        <sheetTool2 ref="sheetTool" v-if="sheetTool2Visible"></sheetTool2>
+        <sheetTool2 ref="sheetTool" v-if="sheetTool2Visible" :isNursingPreview="isNursingPreview"></sheetTool2>
       </div>
     </div>
     <div
@@ -203,6 +203,12 @@ import { blockSave, getNurseExchageInfo } from "@/Page/sheet-page/api/index";
 export default {
   mixins: [common],
   name: "singleTemperatureChart",
+  props: {
+    isNursingPreview: {//是否为调阅界面体温单调起的护记
+      type:Boolean,
+      default:false
+    }
+  },
   data() {
     return {
       data: {

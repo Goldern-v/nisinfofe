@@ -11,9 +11,9 @@
        </el-dropdown-menu>
       </el-dropdown> -->
       <el-button-group>
-    <el-button type="primary"  @click="onPrint()" >打印当周</el-button>
-    <el-button type="primary"  @click="printAll()">批量打印</el-button>
-    </el-button-group> 
+        <el-button type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button type="primary" @click="printAll()">批量打印</el-button>
+      </el-button-group>
       <div class="pagination" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
@@ -78,59 +78,58 @@ export default {
       contentHeight: { height: "" },
       currentPage: 1,
       pageTotal: 1,
-      patientId:"",
-      visitId:"",
-      printAllPath:"",
+      patientId: "",
+      visitId: "",
+      printAllPath: "",
       open: false,
       isSave: false,
-      isPrintAll:false,//是否打印所有
+      isPrintAll: false, //是否打印所有
       visibled: false,
       intranetUrl:
-      "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-      printAllUrl: "http://172.17.5.41:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+        // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      printAllUrl:
+        "http://172.17.5.41:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       outNetUrl:
         "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
     onPrint() {
-        this.isPrintAll=false
-         setTimeout(()=>{
-this.$refs.pdfCon.contentWindow.postMessage(
-        { type: "printing" },
-        this.intranetUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-      },1500)
-     
-      
- 
+      this.isPrintAll = false;
+      setTimeout(() => {
+        this.$refs.pdfCon.contentWindow.postMessage(
+          { type: "printing" },
+          this.intranetUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
-    printAll(){
-      this.isPrintAll=true  //隐藏页码控制区域
-        setTimeout(()=>{
-this.$refs.pdfConAll.contentWindow.postMessage(
-        { type: "printingAll" },
-        this.printAllUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-      },1500)
+    printAll() {
+      this.isPrintAll = true; //隐藏页码控制区域
+      setTimeout(() => {
+        this.$refs.pdfConAll.contentWindow.postMessage(
+          { type: "printingAll" },
+          this.printAllUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
-      this.date=date;
-      this.patientId=patientId;
-      this.visitId=visitId;
+      this.date = date;
+      this.patientId = patientId;
+      this.visitId = visitId;
       /* 单独处理体温单，嵌套iframe */
       const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`;/* 内网 */
+      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
       // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
-        this.printAllPath=tempAllUrl
+        this.printAllPath = tempAllUrl;
       }, 0);
     },
     getHeight() {
@@ -197,7 +196,7 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     //   this.getImg();
     // },
     patientInfo() {
-      this.isPrintAll=false
+      this.isPrintAll = false;
     },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
@@ -258,7 +257,6 @@ this.$refs.pdfConAll.contentWindow.postMessage(
       height: 100%;
     }
   }
-  
 }
 
 .pagination {

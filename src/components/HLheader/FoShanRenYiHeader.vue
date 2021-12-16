@@ -48,12 +48,12 @@
               </el-row>
             </router-link>
 
-            <!-- <router-link to="/MEWS" tag="span">
+            <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulirenwu"></i> MEWS
                 <span class="red-tip" v-if="isTip"></span>
               </el-row>
-            </router-link> -->
+            </router-link>
 
             <router-link to="/bed" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -157,11 +157,11 @@
               </el-row>
             </router-link>-->
 
-            <!-- <router-link to="/infuse" tag="span">
+            <router-link to="/infuse" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-zhihuishuye"></i> 智慧输液
               </el-row>
-            </router-link>-->
+            </router-link>
             <!-- <router-link to="/wardReport" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 病房日报
@@ -219,11 +219,11 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <!-- <router-link to="/shiftWork" tag="span">
+            <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
-            </router-link> -->
+            </router-link>
 
             <!-- <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -268,7 +268,7 @@
             </router-link>
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
-            </router-link>-->
+            </router-link> -->
 
             <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
               <el-row class="nav-item" type="flex" align="middle">
@@ -302,11 +302,13 @@
                 <i class="iconfont icon-hulijiludan"></i>其他
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <!-- <el-dropdown-item>
+                <el-dropdown-item>
                   <router-link to="/badEvent" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">不良事件</el-row>
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="badEvent"></i>不良事件
+                    </el-row>
                   </router-link>
-                </el-dropdown-item>-->
+                </el-dropdown-item>
                 <el-dropdown-item
                   :class="{ active: $route.path == '/nursingDocumentation' }"
                 >
@@ -435,7 +437,16 @@
                       <i class="badEvent"></i>不良事件
                     </el-row>
                   </router-link>
-                </el-dropdown-item>-->
+                </el-dropdown-item> -->
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/noCheckTest' }"
+                >
+                  <router-link to="/noCheckTest" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="noCheckTest"></i>未做检查/检验
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/nursingRules'}">
                   <router-link to="/nursingRules" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">

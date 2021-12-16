@@ -40,17 +40,20 @@ export default {
     // window.addEventListener("message", (data)=>{
     //   console.log(data);
     // }, false);
-    let vid=window.app.$store.state.patient.currentPatient.inpNo
+    let vid=window.app.$store.state.patient.currentPatient.inpNo;
+    const currentPatient=window.app.$store.state.patient.currentPatient;//patientId
+    //console.log(window.app.$store.state.patient.currentPatient)
     if(this.HOSPITAL_ID && vid){
       this.show = false;
       //const personInfoUrl="http://172.16.8.41:5402";
       switch(this.HOSPITAL_ID){
         case "huadu":
-          this.fileUrl = `/personInfoUrl/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
-           //this.fileUrl = `http://172.16.8.41:5402/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+          //this.fileUrl = `/newCrNursing/personInfoUrl/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+          //this.fileUrl = `http://172.16.8.41:5402/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+          this.fileUrl = `http://172.16.8.135:9092/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
           break;
         case "fuyou":
-          this.fileUrl = `http://192.168.19.198:8282/templates/medicalRecord/medicalRecordViewPreview.html?embedded-view=true&req_no=${vid}&type=2`;
+          this.fileUrl = `http://192.168.19.198:8282/templates/medicalRecord/medicalRecordViewPreview.html?embedded-view=true&req_no=${currentPatient.patientId}&type=2`;
           break; 
         default:
           break; 
