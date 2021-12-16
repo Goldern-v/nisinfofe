@@ -40,7 +40,7 @@
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
-          :class="HOSPITAL_ID === 'liaocheng' ? 'lcIframe' : ''"
+          class="lcIframe"
         ></iframe>
       </div>
       <div class="tem-con" :style="contentHeight" v-show="isPrintAll">
@@ -51,7 +51,7 @@
           :src="printAllPath"
           frameborder="0"
           ref="pdfConAll"
-          :class="HOSPITAL_ID === 'liaocheng' ? 'lcIframe' : ''"
+          class="cIframe"
         ></iframe>
       </div>
     </div>
@@ -86,7 +86,7 @@ export default {
       isPrintAll: false, //是否打印所有
       visibled: false,
       intranetUrl:
-        // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.3.193:8081/#/" /* 医院正式环境内网 导致跨域 */,
         "http://192.0.0.9:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.0.0.9:9091/temperature/#/printAll" /* 医院正式环境内网 */,
