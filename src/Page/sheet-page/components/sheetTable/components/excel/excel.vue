@@ -446,7 +446,6 @@
             sheetInfo.sheetType == 'common_hd' ||
             sheetInfo.sheetType == 'neurosurgery_hd' ||
             sheetInfo.sheetType == 'stress_injury_hd' ||
-            sheetInfo.sheetType == 'critical_lc' ||
             sheetInfo.sheetType == 'common_sn' ||
             sheetInfo.sheetType == 'maternity_sn'
           "
@@ -466,6 +465,7 @@
           v-else-if="
             sheetInfo.sheetType == 'obstetrics_hl' ||
             sheetInfo.sheetType == 'gynecology_hl' ||
+            sheetInfo.sheetType == 'critical_lc' ||
             sheetInfo.sheetType == 'neonatology_hl'
           "
           >质控护士：</span
