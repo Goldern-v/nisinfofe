@@ -291,7 +291,7 @@
         ref="printCon2"
         v-show="printMode == 'v'"
       >
-        <div class="bed-card-vert-con">
+        <div class="bed-card-vert-con newVert-con">
           <div
               flex="cross:center"
               class="input-item"
@@ -302,7 +302,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 32px;"
+                style="font-size: 30px;"
                 flex-box="3"
                 disabled
                 class="bottom-line"
@@ -313,7 +313,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 32px;"
+                style="font-size: 28px;"
                 flex-box="1"
                 disabled
                 class="bottom-line"
@@ -324,7 +324,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 32px;text-align:center;"
+                style="font-size: 27px;text-align:center;"
                 flex-box="2"
                 disabled
                 class="bottom-line"
@@ -336,7 +336,7 @@
               <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
               <input
                 type="text"
-                style="width: 75px;font-size: 30px;"
+                style="width: 75px;font-size: 28px;"
                 flex-box="1"
                 disabled
                 class="bottom-line"
@@ -347,7 +347,7 @@
                 type="text"
                 flex-box="4"
                 disabled
-                style="width: 0px;font-size: 30px; padding-left: 2px;"
+                style="width: 0px;font-size: 27px; padding-left: 2px;"
                 nowidth
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
@@ -460,6 +460,11 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+//床头卡打印宽高方法 w为打印宽度（厘米为单位），h为打印高度（厘米为单位）
+vertCon(w=10.6,h=5.8){
+  width:((500/10.6)*w)px;
+  height:((250/5.8)*h)px;
+}
 .modal {
   >>>.sweet-content {
     background: #dfdfdf;
@@ -519,6 +524,12 @@
   //     // height: 70px !important;
   //   }
   // }
+  }
+  .newVert-con{
+    // width: 452.83px;
+    // height: 237.1px;
+    //引入样式方法vertCon
+    vertCon(9.6,5.5);
   }
 }
 
