@@ -771,7 +771,7 @@ const router = new Router({
                 return temperatureQuZhou
               case 'hengli':
                 return temperatureDghl
-              case 'FSXT':
+              case 'fsxt':
                 return temperatureFSXT
               default:
                 return temperature
