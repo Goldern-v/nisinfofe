@@ -373,9 +373,9 @@ export default {
     },
     /** 只读模式 */
     readOnly() {
-      let controlReadOnly = this.sheetInfo.selectBlock.readOnly //后端控制readOnly为true只能查阅，不能修改
+      let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
       if (controlReadOnly) {
-        return controlReadOnly
+        return true
       }
       
       // return !this.userDeptList
