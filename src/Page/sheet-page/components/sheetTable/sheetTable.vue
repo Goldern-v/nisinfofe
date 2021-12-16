@@ -180,9 +180,11 @@ export default {
       }
       if (sheetInfo.sheetType === "obstetrics") return false;
 
-      let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
-      if (controlReadOnly) {
-        return true
+      if(this.HOSPITAL_ID == "fuyou"){
+        let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+        if (controlReadOnly) {
+          return true
+        }
       }
       // return !this.userDeptList
       //   .map(item => item.code)
