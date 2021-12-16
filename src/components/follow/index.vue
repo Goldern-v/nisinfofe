@@ -59,11 +59,13 @@ export default {
   },
   methods: {
     isActive(item) {
-      return item.patientId == (this.selectPatientId || this.$route.query.patientId);
+      // return item.patientId == (this.selectPatientId || this.$route.query.patientId);
+      return item.patientId == this.$store.state.sheet.patientInfo.patientId;
     },
     selectPatient(item) {
         this.selectPatientId = item.patientId;
         this.$emit('selectPatient',item)
+        this.$store.commit("upPatientInfo", item);
     },
     openFollow() {
       if (this.isShowFollow) {
