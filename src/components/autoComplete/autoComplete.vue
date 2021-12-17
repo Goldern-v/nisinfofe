@@ -51,6 +51,7 @@
   position absolute;
   top 0;
   left 0;
+  z-index:99999;
 }
 .autoSelected {
   background: #EEF6F5 !important;

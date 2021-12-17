@@ -17,11 +17,24 @@
       <div class="e-resize" v-eResize="{ target: 'dragNode2' }"></div>
       <div class="s-resize" v-sResize="{ target: 'dragNode2' }"></div>
     </div>
+
+    <el-tooltip class="item" effect="dark" content="患者资料" placement="left">
+      <div class="fixed-icon" :class="{ open: open }" @click="onToggle">
+        <img src="./images/患者资料@2x.png" alt />
+      </div>
+    </el-tooltip>
+
     <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left" :enterable="true">
       <div @click="onload" class="doctor-emr-icon">
         <img src="./img.png" alt/>
       </div>
     </el-tooltip>
+
+    <patientInfoSlide
+      ref="patientInfoSlide"
+      @onClose="onClose"
+    ></patientInfoSlide>
+
     <!-- <div
          v-show="!show"
          @click="show = true"
@@ -35,7 +48,7 @@
 
 <script>
 // import {getDoctorEmr} from "../../../../../doctorEmr/api";
-
+import patientInfoSlide from "./modal/patient-info-slide";
 export default {
   directives: {
     // 添加窗口移动指令
@@ -216,6 +229,7 @@ export default {
       pageLoading: false,
       show: false,
       patientId: "",
+      open: false,
       visitId: "",
     };
   },
@@ -227,6 +241,12 @@ export default {
         return this.$route.params;
       }
     },
+    patientInfo() {
+      return this.$store.state.sheet.patientInfo;
+    },
+  },
+  components: {
+    patientInfoSlide,
   },
   watch: {
     routeQuery() {
@@ -234,6 +254,22 @@ export default {
     },
   },
   methods: {
+    onToggle() {
+      this.open = !this.open;
+      if (!this.patientInfo.patientId) {
+        this.$store.commit("upPatientInfo", this.$route.query);
+      }
+      if (this.open) {
+        this.$route.query.patientId = this.patientInfo.patientId;
+        this.$route.query.visitId = this.patientInfo.visitId;
+        this.$refs.patientInfoSlide.open();
+      } else {
+        this.$refs.patientInfoSlide.close();
+      }
+    },
+    onClose() {
+      this.open = false;
+    },
     close() {
       this.show = false;
     },
@@ -302,6 +338,27 @@ export default {
     iframe {
       width: 100%;
       height: calc(100% - 20px);
+    }
+  }
+
+  .fixed-icon {
+    position: fixed;
+    top: 140px;
+    right: 0;
+    width: 50px;
+    height: 42px;
+    z-index: 999;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: -3px 3px 5px 0px rgba(0, 0, 0, 0.05);
+    border-radius: 100px 0 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 18px;
+      height: 18px;
     }
   }
 

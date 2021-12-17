@@ -107,8 +107,11 @@
               }).value.status
             }`,
           {
-           redTop: (HOSPITAL_ID == 'huadu' && getBorderClass(y)) ||(HOSPITAL_ID == 'wujing' && getBorderClass(y)) ||redTop(y),
-           blackTop: BlackTop(y),
+            redTop:
+              (HOSPITAL_ID == 'huadu' && getBorderClass(y)) ||
+              (HOSPITAL_ID == 'wujing' && getBorderClass(y)) ||
+              redTop(y),
+            blackTop: BlackTop(y),
           },
         ]"
         :key="y"
@@ -239,7 +242,7 @@
               v-if="td.value"
               :style="!td.value && { opacity: 0 }"
               :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
-              :class="{xiegangSignImg:sheetInfo.sheetType==='common_xg'}"
+              :class="{ xiegangSignImg: sheetInfo.sheetType === 'common_xg' }"
               alt
             />
           </div>
@@ -270,7 +273,7 @@
             :class="{
               towLine: isOverText(td),
               maxHeight56: sheetInfo.sheetType == 'additional_count_hd',
-              maxHeight40:  sheetInfo.sheetType == 'cardiology_lcey',
+              maxHeight40: sheetInfo.sheetType == 'cardiology_lcey',
             }"
             :readonly="tr.isRead"
             :disabled="td.isDisabed"
@@ -322,10 +325,16 @@
                 })
             "
             @blur="
-              !HOSPITAL_ID === 'huadu' && !td.splice &&
+              !HOSPITAL_ID === 'huadu' &&
+                !td.splice &&
                 onBlur($event, { x, y, z: index })
             "
-            @click="sheetInfo.sheetType == 'antenatalwaiting_jm'&&!tr.isRead && td.click && td.click($event, td)"
+            @click="
+              sheetInfo.sheetType == 'antenatalwaiting_jm' &&
+                !tr.isRead &&
+                td.click &&
+                td.click($event, td)
+            "
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <div
@@ -420,9 +429,15 @@
         </span>
       </span>
       第 {{ index + sheetStartPage }} 页
-      <span class="sh-name" 
-      v-if="auditArr.includes(sheetInfo.sheetType)" 
-      :class="{'sh-time': sheetInfo.sheetType==='internal_eval_lcey'|| sheetInfo.sheetType==='critical_lcey'}">
+      <span
+        class="sh-name"
+        v-if="auditArr.includes(sheetInfo.sheetType)"
+        :class="{
+          'sh-time':
+            sheetInfo.sheetType === 'internal_eval_lcey' ||
+            sheetInfo.sheetType === 'critical_lcey',
+        }"
+      >
         <span
           v-if="
             sheetInfo.sheetType == 'com_lc' ||
@@ -431,7 +446,6 @@
             sheetInfo.sheetType == 'common_hd' ||
             sheetInfo.sheetType == 'neurosurgery_hd' ||
             sheetInfo.sheetType == 'stress_injury_hd' ||
-            sheetInfo.sheetType == 'critical_lc' ||
             sheetInfo.sheetType == 'common_sn' ||
             sheetInfo.sheetType == 'maternity_sn'
           "
@@ -451,6 +465,7 @@
           v-else-if="
             sheetInfo.sheetType == 'obstetrics_hl' ||
             sheetInfo.sheetType == 'gynecology_hl' ||
+            sheetInfo.sheetType == 'critical_lc' ||
             sheetInfo.sheetType == 'neonatology_hl'
           "
           >质控护士：</span
@@ -551,7 +566,7 @@ import decode from "../../../../components/render/decode.js";
 import moment from "moment";
 import { getUser } from "@/api/common.js";
 import bottomRemark from "./remark";
-console.dir(sheetInfo);
+// console.dir(sheetInfo);
 export default {
   props: {
     data: Object,
@@ -626,8 +641,8 @@ export default {
         "postpartumnursing_jm", //江门妇幼_产后护理记录单
         "entdepartment_jm", //江门妇幼_耳鼻喉科护理记录单
         "catheterplacement_jm", //江门妇幼_深静脉导管置入术后维护单
-        
-        "cardiology_fs",//佛山市一_心内科通用护理记录单
+
+        "cardiology_fs", //佛山市一_心内科通用护理记录单
       ],
       // 底部两个签名的其中一个自定义字段
       doubleSignArr: [],
@@ -682,7 +697,7 @@ export default {
   methods: {
     // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
     getCompleteArr(tr, td) {
-      if(this.HOSPITAL_ID=="guizhou"){
+      if (this.HOSPITAL_ID == "guizhou") {
         if (td.parentKey) {
           let index = tr.findIndex((e) => e.key === td.parentKey); // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
           let arr = td.autoComplete.data[0][[tr[index].value]] || []; // 获取父级对应的子选项数组
@@ -691,9 +706,8 @@ export default {
           return td.autoComplete;
         }
       } else {
-        return td.autoComplete
+        return td.autoComplete;
       }
-      
     },
     //时间日期选中事件
     mouseSelect1(e) {
@@ -814,7 +828,7 @@ export default {
       this.data.bodyModel.splice(index + 1, 0, newRow);
     },
     toCopyRow(index) {
-      let row = JSON.parse(JSON.stringify(this.sheetInfo.copyRow))
+      let row = JSON.parse(JSON.stringify(this.sheetInfo.copyRow));
       this.data.bodyModel.splice(index, 1, row);
     },
     delRow(index) {
@@ -1641,11 +1655,12 @@ export default {
     openAduitModal() {
       window.openSignModal((password, empNo) => {
         getUser(password, empNo).then((res) => {
-          let { empNo, empName} = res.data.data;
+          let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
           // 审核时间为当前点击时间戳
-          sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] = moment().format("YYYY-MM-DD HH:mm:ss");
+          sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =
+            moment().format("YYYY-MM-DD HH:mm:ss");
           sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
           this.$notify.success({
             title: "提示",
@@ -1664,7 +1679,7 @@ export default {
           if (this.auditorNo == empNo || this.HOSPITAL_ID === "huadu") {
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = "";
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = "";
-            sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] = ""
+            sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] = "";
             sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
             this.$notify.success({
               title: "提示",
@@ -1720,11 +1735,11 @@ export default {
     // 出入量下拉、可输入过滤（贵州）
     remoteMethod(query) {
       if (query !== "") {
-        let type = Object.prototype.toString.call(this.defaultOptionList)
-        if(type == "[object Object]"){
-          let copyArr = JSON.parse(JSON.stringify(this.defaultOptionList))
-          this.defaultOptionList = Object.keys(copyArr)
-        }else if(type == "[object Array]"){
+        let type = Object.prototype.toString.call(this.defaultOptionList);
+        if (type == "[object Object]") {
+          let copyArr = JSON.parse(JSON.stringify(this.defaultOptionList));
+          this.defaultOptionList = Object.keys(copyArr);
+        } else if (type == "[object Array]") {
           // console.log(this.defaultOptionList);
         }
         this.accessOptionList = this.defaultOptionList.filter((item) => {
@@ -1751,15 +1766,19 @@ export default {
       }
       this.currentKey = td.name;
       let autoCompleteData = [];
-      let type = Object.prototype.toString.call(td.autoComplete.data)
+      let type = Object.prototype.toString.call(td.autoComplete.data);
       if (td.parentKey && type == "[object Object]") {
         let key = tr.find((item) => {
           return item.name == td.parentKey;
         }).value;
         let data = td.autoComplete.data;
-        autoCompleteData = data[key]
+        autoCompleteData = data[key];
       }
-      if (td.parentKey && type == "[object Array]" && td.autoComplete.data.length > 0) {
+      if (
+        td.parentKey &&
+        type == "[object Array]" &&
+        td.autoComplete.data.length > 0
+      ) {
         let key = tr.find((item) => {
           return item.key == td.parentKey;
         }).value;

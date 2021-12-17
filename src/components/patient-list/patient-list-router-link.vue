@@ -12,6 +12,26 @@
       ></el-input>
     </div>
     <div class="left-wapper">
+      <follow-list
+        :data="sortList"
+        @selectPatient="selectPatient"
+        v-if="HOSPITAL_ID == 'liaocheng'"
+      >
+        <template slot-scope="{ scope }">
+          <span
+            class="point-box"
+            v-if="$route.path == '/formPage'"
+            v-show="
+              scope.formLowestStatus !== '' && scope.formLowestStatus != '2'
+            "
+            :class="{
+              red: scope.formLowestStatus == 0,
+              green: scope.formLowestStatus == 1,
+              isImg2: img2Show,
+            }"
+          ></span>
+        </template>
+      </follow-list>
       <div class="patient-list-contain">
         <!-- path: "/hospitalEval/:patientId?/:visitId?/:formId?" @click="selectPatient(item)"-->
         <router-link
@@ -84,7 +104,8 @@
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .patient-list-part {
-  height: auto;
+  // height: auto;
+  height: 100%;
   box-sizing: border-box;
   padding-top: 45px;
   position: relative;
@@ -190,7 +211,10 @@
 
 .left-wapper {
   position: relative;
-  height: calc(100vh - 114px);
+  // height: calc(100vh - 114px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .point-box {
@@ -234,6 +258,7 @@
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
+import FollowList from "../follow/index";
 export default {
   props: {
     data: Array,
@@ -332,10 +357,10 @@ export default {
   computed: {
     list() {
       return this.bedList.filter((item) => {
-        return (
-          item.bedLabel.indexOf(this.searchWord) > -1 ||
-          item.name.indexOf(this.searchWord) > -1
-        );
+        // return (
+        //   item.bedLabel.indexOf(this.searchWord) > -1 ||
+        //   item.name.indexOf(this.searchWord) > -1
+        // );
       });
     },
     //排序对应婴儿数据
@@ -438,6 +463,8 @@ export default {
       this.img2Show = true;
     }
   },
-  components: {},
+  components: {
+    FollowList,
+  },
 };
 </script>

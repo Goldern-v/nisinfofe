@@ -206,25 +206,25 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist: {},
-      executeType: "",
-      allType: [
-        {
-          id: "",
-          name: "全部",
-        },
-        {
-          id: "输液",
-          name: "输液类",
-        },
-        {
-          id: "雾化",
-          name: "雾化类",
-        },
-        {
-          id: "口服",
-          name: "长期医嘱的口服药",
-        },
-      ],
+      executeType: this.HOSPITAL_ID==='liaocheng'?"输液":"",
+      // allType: [
+      //   {
+      //     id: "",
+      //     name: "全部",
+      //   },
+      //   {
+      //     id: "输液",
+      //     name: "输液类",
+      //   },
+      //   {
+      //     id: "雾化",
+      //     name: "雾化类",
+      //   },
+      //   {
+      //     id: "口服",
+      //     name: "长期医嘱的口服药",
+      //   },
+      // ],
     };
   },
   methods: {
@@ -345,7 +345,7 @@ export default {
           visitId: this.patientInfo.visitId || this.formlist.visitId,
           startDate,
           endDate,
-          type: this.executeType,
+          executeType: this.executeType,
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
@@ -376,6 +376,48 @@ export default {
         return this.formlist;
       }
     },
+    allType(){
+      if(this.HOSPITAL_ID==='liaocheng'){
+        return [
+        {
+          id: "",
+          name: "全部",
+        },
+        {
+          id: "输液",
+          name: "输液类",
+        },
+        {
+          id: "注射",
+          name: "注射类",
+        },
+        {
+          id: "口服",
+          name: "口服药",
+        }
+        ]
+      }else{
+        return [
+        {
+          id: "",
+          name: "全部",
+        },
+        {
+          id: "输液",
+          name: "输液类",
+        },
+        {
+          id: "雾化",
+          name: "雾化类",
+        },
+        {
+          id: "口服",
+          name: "长期医嘱的口服药",
+        },
+       ]
+      }
+     
+    }
   },
   components: {
     whiteButton,
