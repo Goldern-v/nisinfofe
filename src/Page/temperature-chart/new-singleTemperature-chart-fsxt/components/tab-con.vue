@@ -10,7 +10,7 @@
           size="mini"
           @click="syncInAndOutHospital((type = '1'))"
         >
-          同步出院杏坛
+          同步出院
         </el-button>
       </div>
       <div class="column-right">

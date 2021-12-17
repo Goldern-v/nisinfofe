@@ -840,7 +840,7 @@ export default {
     display: flex;
 
     .column-left {
-      margin: 10px 45px 0px 15px;
+      margin: 10px 45px 0px 0px;
       display: flex;
       flex-direction: column;
     }
@@ -899,7 +899,7 @@ export default {
 
   .rowbox {
     display: inline-block;
-    padding: 3px 5px;
+    padding: 3px 3px;
 
     .preText {
       display: inline-block;
@@ -918,7 +918,7 @@ export default {
 
   .row {
     display: inline-block;
-    padding: 3px 5px;
+    padding: 3px 3px;
 
     .preText {
       display: inline-block;
