@@ -13,7 +13,13 @@ function orders(patientId, visitId) {
 }
 // 是否有查询功能医嘱列表（北海）
 function newOrders(patientId, visitId, orderText) {
-  return axios.get(`${apiPath}patient/orders/${patientId}/${visitId}/${orderText}`)
+  // return axios.get(`${apiPath}patient/orders/${patientId}/${visitId}/${orderText}`)
+  return axios.post(`${apiPath}patient/orders`,{
+    patientId,
+    visitId,
+    orderText
+  })
+  
 }
 // 检查申请列表
 function examList(patientId, visitId) {
