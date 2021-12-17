@@ -287,6 +287,9 @@ export default {
       },
       {
         vitalSign: "睡前",
+      },
+      {
+        vitalSign: "随机",
       }
     ],
   }),
