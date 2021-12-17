@@ -194,6 +194,8 @@ const newSingleTemperatureChartWujing = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-wujing/new-singleTemperature-chart.vue");//武警新版体温单单人录入
 const newSingleTemperatureChartZhongXiYi = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-zhongxiyi/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
+const newSingleTemperatureChartFSXT = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-fsxt/new-singleTemperature-chart.vue");//佛山杏坛新版体温单单人录入
 const newSingleTemperatureChartFSSY = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-fssy/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
 const showPatientDetails = () =>
@@ -237,6 +239,7 @@ import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperatu
 import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperatureBhry";
 import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureFSSY from "@/Page/patientInfo/supPage/temperature/temperatureFSSY";
+import temperatureFSXT from "@/Page/patientInfo/supPage/temperature/temperatureFSXT";
 import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJmfy";
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperatureQuZhou";
@@ -359,6 +362,8 @@ const router = new Router({
             return temperatureFSSY
           case 'wujing':
             return temperatureWuJing
+          case 'fsxt':
+            return temperatureFSXT
           default:
             return temperature
         }
@@ -766,6 +771,8 @@ const router = new Router({
                 return temperatureQuZhou
               case 'hengli':
                 return temperatureDghl
+              case 'fsxt':
+                return temperatureFSXT
               default:
                 return temperature
             }
@@ -1115,6 +1122,8 @@ const router = new Router({
               return newSingleTemperatureChartFSSY
             case 'nanfangzhongxiyi':
               return newSingleTemperatureChartZhongXiYi
+            case 'fsxt':
+              return newSingleTemperatureChartFSXT
             default:
               return newSingleTemperatureChart
           }

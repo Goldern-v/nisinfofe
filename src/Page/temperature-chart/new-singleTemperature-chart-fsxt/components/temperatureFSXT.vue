@@ -1,23 +1,20 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown>
-        <div class="print-btn tool-btn">打印</div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <el-button type="primary" @click="onPrint()"
-              >打印当周</el-button
-            ></el-dropdown-item
-          >
-          <el-dropdown-item
-            ><el-button type="primary" @click="printAll()"
-              >批量打印</el-button
-            ></el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
+      <!-- <div class="print-btn tool-btn" @click="onPrint()">打印</div> -->
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div class="pagination">
+      <!-- <el-dropdown >
+       <div class="print-btn tool-btn" >打印</div>
+      <el-dropdown-menu slot="dropdown">
+       <el-dropdown-item> <el-button type="primary"  @click="onPrint()">打印当周</el-button></el-dropdown-item>
+    <el-dropdown-item><el-button type="primary"  @click="printAll()">批量打印</el-button></el-dropdown-item>
+       </el-dropdown-menu>
+      </el-dropdown> -->
+      <el-button-group>
+        <el-button type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button type="primary" @click="printAll()">批量打印</el-button>
+      </el-button-group>
+      <div class="pagination" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
         </button>
@@ -54,7 +51,7 @@
           :src="printAllPath"
           frameborder="0"
           ref="pdfConAll"
-          class="lcIframe"
+          class="cIframe"
         ></iframe>
       </div>
     </div>
@@ -81,20 +78,20 @@ export default {
       contentHeight: { height: "" },
       currentPage: 1,
       pageTotal: 1,
-      open: false,
       patientId: "",
       visitId: "",
-      isSave: false,
-      isPrintAll: false,
-      visibled: false,
       printAllPath: "",
+      open: false,
+      isSave: false,
+      isPrintAll: false, //是否打印所有
+      visibled: false,
       intranetUrl:
-        "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-      // "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.3.193:8081/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://192.0.0.9:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://192.168.103.17:9091/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
+        "http://192.0.0.9:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       outNetUrl:
-        "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
+        "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
@@ -195,6 +192,9 @@ export default {
     },
   },
   watch: {
+    // date() {
+    //   this.getImg();
+    // },
     patientInfo() {
       this.isPrintAll = false;
     },
@@ -253,7 +253,7 @@ export default {
 
     .lcIframe {
       transform: scale(0.95);
-      width: 120%;
+      width: 100%;
       height: 100%;
     }
   }

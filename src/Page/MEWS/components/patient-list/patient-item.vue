@@ -144,15 +144,17 @@ export default {
   },
   computed: {
     active() {
-      return this.item.patientId === this.currDataObj.patientId;
+      // return this.item.patientId === this.currDataObj.patientId;
+      return this.item.patientId === this.$store.state.sheet.patientInfo.patientId;
     },
   },
   methods: {
     selectPatient() {
       Object.assign(currDataObj, this.frameData);
       this.isTip = false;
+      this.$store.commit("upPatientInfo", this.item);
       if (!WebSocketService.isInMd5List(this.frameData.md5)) {
-        // WebSocketService.addMd5List(this.frameData.md5);
+        WebSocketService.addMd5List(this.frameData.md5);
       }
     },
   },
