@@ -5,54 +5,56 @@
         <div
           v-for="(item, key) in whiteBoardDtos"
           :key="key"
-          v-if="!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (item.boardConfigures && item.boardConfigures.length == 0)))"
         >
-          <lineBox :dataKey="`${item.name}`" :keyStyle="keyStyle" v-if="item.customItem">
-            <span slot="value-con">
-              <div class="save-con">
-                <el-input
-                  type="textarea"
-                  class="customItem-input"
-                  autosize
-                  placeholder="请输入内容"
-                  v-model="item.configureValue"
-                ></el-input>
-                <el-button
-                  @click="updateBoardConfigure(item.name,item.configureValue, item)"
-                  size="mini"
-                  type="primary"
-                  :disabled="_whiteBoardDtos[key].configureValue == item.configureValue"
-                >保存</el-button>
-              </div>
-            </span>
-          </lineBox>
-          <lineBox
-            :dataKey="`${item.name}（${filterList(item).length}）`"
-            :keyStyle="keyStyle"
-            v-else-if="showRow(key)"
-          >
-            <span slot="value-con">
-              <span
-                v-for="(option, index) in item.boardConfigures"
-                :key="index"
-                :style="[item.verticalShow && {display: 'block'}, item.name === '借他科床' && moment(option.admissionDateTime).format('YYYY-MM-DD') ===moment().format('YYYY-MM-DD') && {color: 'red'}]"
-                @click="openInfoModal(option, item.name)"
-                class="item-con"
-                v-show="showOrderType(option, item)"
-              >
-                <span>
-                  <span v-show="item.bedLabelShow">{{HOSPITAL_ID !== 'guizhou' ? option.bedLabel + '床' : (item.name === '今日换床' ? option.oldbedLabel + '床' + '转至' + option.bedLabel + '床' : option.bedLabel + '床')}}</span>
-                  <span v-show="item.nameShow">{{option.name}}</span>
-                </span>
-                <!-- <span v-if="item.diagnosisShow">({{option.expand}})</span> -->
-                <!-- <span v-if="item.addExpand && option[item.addExpand]">({{option[item.addExpand]}})</span> -->
-                <span v-if="option.addExpand">({{option.addExpand}})</span>
-                <span
-                  v-if="!item.verticalShow"
-                >{{((index == (item.boardConfigures.length - 1)) ? '' : '、' )}}</span>
+         <!-- v-if="!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (item.boardConfigures && item.boardConfigures.length == 0)))" -->
+          <template  v-if="!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (!['nanfangzhongxiyi'].includes(HOSPITAL_ID) && item.boardConfigures && item.boardConfigures.length == 0)))">
+            <lineBox :dataKey="`${item.name}`" :keyStyle="keyStyle" v-if="item.customItem">
+              <span slot="value-con">
+                <div class="save-con">
+                  <el-input
+                    type="textarea"
+                    class="customItem-input"
+                    autosize
+                    placeholder="请输入内容"
+                    v-model="item.configureValue"
+                  ></el-input>
+                  <el-button
+                    @click="updateBoardConfigure(item.name,item.configureValue, item)"
+                    size="mini"
+                    type="primary"
+                    :disabled="_whiteBoardDtos[key].configureValue == item.configureValue"
+                  >保存</el-button>
+                </div>
               </span>
-            </span>
-          </lineBox>
+            </lineBox>
+            <lineBox
+              :dataKey="`${item.name}（${filterList(item).length}）`"
+              :keyStyle="keyStyle"
+              v-else-if="showRow(key)"
+            >
+              <span slot="value-con">
+                <span
+                  v-for="(option, index) in item.boardConfigures"
+                  :key="index"
+                  :style="[item.verticalShow && {display: 'block'}, item.name === '借他科床' && moment(option.admissionDateTime).format('YYYY-MM-DD') ===moment().format('YYYY-MM-DD') && {color: 'red'}]"
+                  @click="openInfoModal(option, item.name)"
+                  class="item-con"
+                  v-show="showOrderType(option, item)"
+                >
+                  <span>
+                    <span v-show="item.bedLabelShow">{{HOSPITAL_ID !== 'guizhou' ? option.bedLabel + '床' : (item.name === '今日换床' ? option.oldbedLabel + '床' + '转至' + option.bedLabel + '床' : option.bedLabel + '床')}}</span>
+                    <span v-show="item.nameShow">{{option.name}}</span>
+                  </span>
+                  <!-- <span v-if="item.diagnosisShow">({{option.expand}})</span> -->
+                  <!-- <span v-if="item.addExpand && option[item.addExpand]">({{option[item.addExpand]}})</span> -->
+                  <span v-if="option.addExpand">({{option.addExpand}})</span>
+                  <span
+                    v-if="!item.verticalShow"
+                  >{{((index == (item.boardConfigures.length - 1)) ? '' : '、' )}}</span>
+                </span>
+              </span>
+            </lineBox>
+          </template>
         </div>
         <nullText v-if="whiteBoardDtos.length == 0" style="margin: 100px 0"></nullText>
         <!-- <lineBoxNull :keyStyle="keyStyle" :num="list.allName && (list.allName.split(',').length - list.configure.split(',').length)"></lineBoxNull> -->
@@ -172,6 +174,7 @@ export default {
         }
         this.boardConfigures = res.data.data[0].boardConfigures;
         this.pageLoading = false;
+        console.log(this.whiteBoardDtos)
       });
     },
     showRow(key) {
