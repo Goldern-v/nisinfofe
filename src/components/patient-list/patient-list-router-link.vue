@@ -12,13 +12,9 @@
       ></el-input>
     </div>
     <div class="left-wapper">
-      <follow-list
-        :data="sortList"
-        @selectPatient="selectPatient"
-        v-if="HOSPITAL_ID == 'liaocheng'"
-      >
-        <template slot-scope="{ scope }">
-          <span
+     <follow-list :data="sortList" @selectPatient="selectPatient" v-if="HOSPITAL_ID=='liaocheng'">
+       <template  slot-scope="{ scope }">
+         <span
             class="point-box"
             v-if="$route.path == '/formPage'"
             v-show="
@@ -30,8 +26,8 @@
               isImg2: img2Show,
             }"
           ></span>
-        </template>
-      </follow-list>
+       </template>
+     </follow-list>
       <div class="patient-list-contain">
         <!-- path: "/hospitalEval/:patientId?/:visitId?/:formId?" @click="selectPatient(item)"-->
         <router-link
@@ -357,10 +353,10 @@ export default {
   computed: {
     list() {
       return this.bedList.filter((item) => {
-        // return (
-        //   item.bedLabel.indexOf(this.searchWord) > -1 ||
-        //   item.name.indexOf(this.searchWord) > -1
-        // );
+        return (
+          item.bedLabel.indexOf(this.searchWord) > -1 ||
+          item.name.indexOf(this.searchWord) > -1
+        );
       });
     },
     //排序对应婴儿数据
@@ -464,7 +460,7 @@ export default {
     }
   },
   components: {
-    FollowList,
-  },
+    FollowList
+  }
 };
 </script>
