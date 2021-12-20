@@ -7,7 +7,7 @@
           :key="key"
         >
          <!-- v-if="!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (item.boardConfigures && item.boardConfigures.length == 0)))" -->
-          <template  v-if="!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (!['nanfangzhongxiyi'].includes(HOSPITAL_ID) && item.boardConfigures && item.boardConfigures.length == 0)))">
+          <template  v-if="!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (!otherHisList.includes(HOSPITAL_ID) && item.boardConfigures && item.boardConfigures.length == 0)))">
             <lineBox :dataKey="`${item.name}`" :keyStyle="keyStyle" v-if="item.customItem">
               <span slot="value-con">
                 <div class="save-con">
@@ -132,7 +132,8 @@ export default {
         width: "160px",
         boxSizing: "border-box",
         paddingLeft: "20px"
-      }
+      },
+      otherHisList:["nanfangzhongxiyi"],//不需要过滤患者为空的类型医院
     };
   },
   created() {
