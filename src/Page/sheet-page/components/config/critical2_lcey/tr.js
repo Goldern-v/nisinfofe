@@ -1,5 +1,6 @@
 import {
-  keyf1
+  keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -18,102 +19,118 @@ export default [{
     event: event_time
   },
   {
-    key: "food", //入量-项目
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "foodSize", //入量-实入量
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "fieldOne", //出量-尿量
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldTwo", //出量-大便
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "fieldThree", //出量-呕吐
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "fieldFour", //出量-引流
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "dischargeSize", //出量-其它
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "totalDischarge", //出量-总出量
-    value: "",
-    event: keyf1,
-  },
-  {
     key: "consciousness", //意识
     value: "",
+    name: "意识",
     event: keyf1,
-    autoComplete: {
-      data: ['1', '2', '3', '4', '5', '6', '7', '8']
-    },
-  },
-  {
-    key: "temperature", //体温
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "pulse", //心率/脉搏
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "breath", //呼吸 次/min
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "bloodPressure", //血压(mmHg)
-    value: "",
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 48
+      width: 58
     },
-    style: {
-      'line-height': '30px'
-    }
-  },
-  {
-    key: "spo2", //血氧饱和度%
-    value: "",
-    event: keyf1,
-  },
-  {
-    key: "fieldSix", // 氧疗 升/分
-    value: "",
-    event: keyf1,
     autoComplete: {
-      data: ['①', '②', '③']
+      data: ['清醒', '模糊', '嗜睡', '昏睡', '谵妄', '浅昏迷', '昏迷', '深昏迷', '麻醉未醒', '冬眠状态']
     },
   },
   {
-    key: "pain", // 疼痛
+    key: "temperature", //T（体温）
+    value: "",
+    name: "T",
+    next:"℃",
+    event: keyf1,
+  },
+  {
+    key: "pulse", // PR/HR
+    value: "",
+    name: "PR/HR",
+    next:"次/分",
+    event: keyf1
+  },
+  {
+    key: "breath", //R
+    value: "",
+    name: "R",
+    next:"次/分",
+    event: keyf1,
+  },
+  {
+    key: "bloodPressure", //BP
+    value: "",
+    name: "BP",
+    next:"mmHg",
+    event: keyf1
+  },
+  {
+    key: "spo2", //spo2
+    value: "",
+    name: "SPO2",
+    next:"%",
+    event: keyf1,
+  },
+  {
+    key: "therapy", //氧疗方式
     value: "",
     event: keyf1,
+    name: "氧疗方式",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 80
+    },
+    autoComplete: {
+      data: ['鼻导管', '面罩', '储氧面罩', 'HFNC', '无创辅助通气', '气管插管给氧', '气管切开给氧', '文丘里面罩']
+    },
+  },
+  {
+    key: "oxygen", //氧疗L/min
+    value: "",
+    name: "氧疗L/min",
+    event: keyf1,
+    textarea: {
+      width: 40
+    },
+  },
+  {
+    key: "food", //入量
+    value: "",
+    event: keyf1,
+    name: "入量",
+    textarea: {
+      width: 88
+    },
+  },
+  {
+    key: "foodSize", //量(ml)
+    value: "",
+    event: keyf1,
+    name: "入量(量)",
+    next:"ml",
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "discharge", //出量
+    value: "",
+    event: keyf1,
+    name: "出量",
+    change: (e, td) => limitChange(e, td, 7),
+    autoComplete: {
+      data: ['尿', '大便', '痰液', '呕吐物', '引流量', '其他']
+    },
+  },
+  {
+    key: "dischargeSize", //量(ml)
+    value: "",
+    event: keyf1,
+    name: "出量(量)",
+    next:"ml",
+    textarea: {
+      width: 32
+    },
+  },
+  {
+    key: "customTitle", //自定义
+    value: "",
+    event: keyf1
   },
   {
     key: "description", //特殊处理及病情观察
@@ -124,7 +141,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "240px",
       background: "transparent"
     },
     event: function (e, td) {
