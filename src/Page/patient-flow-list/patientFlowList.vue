@@ -148,6 +148,14 @@ export default {
 				},
 			]
 		},
+		deptCode() {
+			return this.$store.state.lesion.deptCode || this.$route.query.wardCode
+		}
+	},
+	watch: {
+		deptCode(v) {
+			this.search(this.formData)
+		}
 	},
 	methods: {
 		openMsg(row) {
@@ -161,7 +169,8 @@ export default {
 			const params = {
 				...other,
 				startTime: date && date[0] || '',
-				endTime: date && date[1] || ''
+				endTime: date && date[1] || '',
+				deptCode: this.deptCode
 			}
 			this.loading = true
 			const res = await patientFlowList(params)
