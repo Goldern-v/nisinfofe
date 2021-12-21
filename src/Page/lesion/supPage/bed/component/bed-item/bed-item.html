@@ -130,7 +130,8 @@
 
         <div flex="" class="table-line">
           <div class="key">体&nbsp;重：</div>
-          <div class="value" style="width: 50px;">{{ data.weight && data.weight!='' ? data.weight:'' }}</div>
+          <!-- <div class="value" style="width: 50px;">{{ data.weight && data.weight!='' ? data.weight:'' }}</div> -->
+          <div class="value" style="width: 50px;">{{ data.weight | filterWeight }}</div>
           <div class="key">身&nbsp;高：</div>
           <div class="value">{{ data.height }}</div>
         </div>

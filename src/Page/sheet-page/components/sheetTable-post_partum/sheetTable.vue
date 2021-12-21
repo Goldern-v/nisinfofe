@@ -276,11 +276,11 @@ export default {
         if (controlReadOnly) {
           return true
         }
+      }else {
+        return !this.userDeptList
+        .map(item => item.code)
+        .includes(this.sheetInfo.selectBlock.deptCode);
       }
-      
-      // return !this.userDeptList
-      //   .map(item => item.code)
-      //   .includes(this.sheetInfo.selectBlock.deptCode);
     }
   },
   filters: {
