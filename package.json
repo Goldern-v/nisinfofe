@@ -29,6 +29,7 @@
     "dev:hj": "npm run dev --houjie",
     "dev:yangchunzhongyi": "npm run dev --yangchunzhongyi",
     "dev:whyx": "npm run dev --whyx",
+    "dev:whfk": "npm run dev --whfk",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "build:": "npm run build",
@@ -56,6 +57,7 @@
     "buildNew:fsxt": "npm run buildNew: fsxt",
     "buildNew:yangchunzhongyi": "npm run buildNew: yangchunzhongyi",
     "buildNew:whyx": "npm run buildNew: whyx",
+    "buildNew:whfk": "npm run buildNew: whfk",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"

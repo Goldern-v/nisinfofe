@@ -28,34 +28,34 @@ export default [{
       data: ['清醒', '嗜睡', '昏睡', '模糊', '谵妄', '浅昏迷', '昏迷', '深昏迷','冬眠状态','麻醉未醒','镇静状态']
     },
     textarea: {
-      width: 40
+      width: 54
     },
   },
   {
     key: "pupilLeft", //左(mm)
     value: "",
     event: keyf1,
-    name:"左",
+    name:"瞳孔左",
     next:"mm",
     textarea: {
-      width: 32
+      width: 30
     },
   },
   {
     key: "pupilRight", //右(mm)
     value: "",
     event: keyf1,
-    name:"右",
+    name:"瞳孔右",
     next:"mm",
     textarea: {
-      width: 32
+      width: 30
     },
   },
   {
     key: "pupilReflect", //光反射
     value: "",
-    name:"光反射",
     event: keyf1,
+    name:"光反射",
     autoComplete: {
       data: ['++','+','-']
     },
@@ -63,134 +63,121 @@ export default [{
   {
     key: "temperature", //体温
     value: "",
-    name:"体温",
-    next:"(°C)",
-    event: keyf1
+    event: keyf1,
+    name:"T",
+    next:" ℃",
+    textarea: {
+      width: 32
+    },
   },
   {
     key: "pulse", //   心率/脉搏
     value: "",
-    name:"心率/脉搏",
-    next:"（次/分）",
     event: keyf1,
-  },
-  {
-    key: "breath", //呼吸
-    value: "",
-    name:"呼吸",
-    next:"（次/分）",
-    event: keyf1
-  },
-  {
-    key: "bloodPressure", //血压
-    value: "",
-    name:"血压",
-    next:"mmHg",
-    event: keyf1,
-  },
-  {
-    key: "spo2", //SPO2
-    value: "",
-    name:"SPO2",
-    next:"mm%",
-    event: keyf1,
-  },
-  {
-    key: "oxygenWay", //氧疗方式
-    value: "",
-    name:"氧疗方式",
-    event: keyf1,
-    autoComplete: {
-      data: ['鼻导管', '雾化面罩', '储氧面罩', '高流湿化吸氧', '无创面罩', '文丘里面罩', '呼吸机']
-    },
+    name:"PR/HR",
+    next:"次/分",
     textarea: {
       width: 45
     },
   },
   {
+    key: "breath", //呼吸
+    value: "",
+    event: keyf1,
+    name:"R",
+    next:"次/分",
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "bloodPressure", //血压
+    value: "",
+    event: keyf1,
+    name:"BP",
+    next:"mmHg",
+    textarea: {
+      width: 65
+    },
+  },
+  {
+    key: "spo2", //SPO2
+    value: "",
+    event: keyf1,
+    name:"SPO2",
+    next:"%",
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "oxygenWay", //氧疗方式
+    value: "",
+    event: keyf1,
+    name:"氧疗方式",
+    autoComplete: {
+      data: ['鼻导管', '雾化面罩', '储氧面罩', '高流湿化吸氧', '无创面罩', '文丘里面罩', '呼吸机']
+    },
+    textarea: {
+      width: 60
+    },
+  },
+  {
     key: "fieldSix", //氧疗L/min
+    value: "",
+    event: keyf1,
     name:"氧疗L/min",
-    value: "",
-    event: keyf1
-  },
-  {
-    key: "food", //项目
-    value: "",
-    name:"项目",
-    event: keyf1,
     textarea: {
-      width: 55
+      width: 40
     },
   },
   {
-    key: "foodSize", //入量(ml)
+    key: "food", //入量
     value: "",
+    event: keyf1,
     name:"入量",
+    textarea: {
+      width: 80
+    },
+  },
+  {
+    key: "foodSize", // 量(ml)
+    value: "",
+    event: keyf1,
+    name:"入量（量）",
     next:"(ml)",
-    event: keyf1,
     textarea: {
-      width: 32
+      width: 45
     },
   },
   {
-    key: "fieldOne", //尿量
-    value: "",
-    name:"尿量",
-    event: keyf1,
-    textarea: {
-      width: 32
-    },
-  },
-  {
-    key: "fieldTwo", //大便量
-    value: "",
-    name:"大便量",
-    event: keyf1,
-    textarea: {
-      width: 32
-    },
-  },
-  {
-    key: "fieldThree", // 痰液量
-    value: "",
-    name:"痰液量",
-    event: keyf1,
-    textarea: {
-      width: 32
-    },
-  },
-  {
-    key: "fieldFour", // 标题1
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 32
-    },
-  },
-  {
-    key: "discharge", //标题2
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 32
-    },
-  },
-  {
-    key: "accessCustomize", // 标题3
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 32
-    },
-  },
-  {
-    key: "dischargeSize", // 出量
+    key: "discharge", // 出量
     value: "",
     event: keyf1,
     name:"出量",
+    autoComplete: {
+      data: ['尿', '大便', '痰液', '呕吐物', '引流量', '其他']
+    },
+    textarea: {
+      width: 80
+    },
+  },
+  {
+    key: "dischargeSize", // 量(ml)
+    value: "",
+    event: keyf1,
+    name:"出量（量）",
     next:"(ml)",
     textarea: {
-      width: 32
+      width: 45
+    },
+  },
+  {
+    key: "customTitle", // 自定义标题
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 60
     },
   },
   {
@@ -202,7 +189,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "140px",
+      width: "240px",
       background: "transparent"
     },
     event: function (e, td) {

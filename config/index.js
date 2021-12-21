@@ -54,10 +54,10 @@ const currentTargetUrl = (() => {
 
     /** 陵城正式 */
     case "lingcheng":
-      return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
+      // return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
       // return "https://info.cr-health.com:20204" // 公司-陵城测试-外网
       // return "http://192.168.1.54:9867" // 公司-陵城测试-内网 admin 123456
-      // return "http://192.168.1.54:9866" // 公司-陵城测试-内网
+      return "http://192.168.1.54:9866" // 公司-陵城测试-内网
 
     /** 花都 */
     case "huadu":
@@ -97,9 +97,9 @@ const currentTargetUrl = (() => {
 
     /** 南方中西医 */
     case "nanfangzhongxiyi":
-      // return "http://183.63.206.194:9091" // 南方中西医正式
+      return "http://218.107.37.134:9091" // 南方中西医正式
       // return "http://192.168.1.54:9876" // 公司-南方中西医测试-内网
-      return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
+      //return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
 
     /** 贵州省人民医院 */
     case "guizhou":
@@ -153,6 +153,9 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9866" // 默认公司本地内网厚街
     case 'whyx':  //武汉亚心
       return "http://192.168.1.54:9866" // 武汉亚心
+    case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
+      return "http://192.168.1.54:9875" // 武汉肺科
+      
 
     /** 默认公司本地内网厚街测试环境 */
     default:

@@ -50,6 +50,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
+        z-index:99999;
         transform: translate(-50%,-50%);
         background-color: #fff;
         .btns{

@@ -210,6 +210,9 @@ export default [
   name: "大便",
   next: "g/性状",
   event: keyf1,
+  autoComplete: {
+    data: ["/胎粪","/黄便","/黄绿","/墨绿"]
+  },
   textarea: {
     width: 40
   }

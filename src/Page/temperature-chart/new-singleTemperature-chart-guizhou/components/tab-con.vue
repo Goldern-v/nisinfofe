@@ -67,23 +67,24 @@
             :class="
               [
                 'recordList',
-                dateTime.match(`${query.entryDate}  ${query.entryTime}`)
+                item.recordDate.match(`${query.entryDate}  ${query.entryTime}`)
                   ? 'active'
                   : '',
               ].join(' ')
             "
             style="margin: 0px"
-            v-for="(dateTime, tabIndex) in tabsData"
+            v-for="(item, tabIndex) in tabsData"
             :key="tabIndex"
             @contextmenu.stop.prevent="
-              (e) => rightMouseDown(e, dateTime, tabIndex)
+              (e) => rightMouseDown(e, item.recordDate, tabIndex)
             "
-            @click="changeQuery(dateTime)"
+            @click="changeQuery(item.recordDate)"
           >
-            {{ dateTime }}
+            {{ item.recordDate }}
+            {{ item.recordPerson }}
             <i
               style="font-size: 10px"
-              @click="removeRecord(dateTime, tabIndex)"
+              @click="removeRecord(item.recordDate, tabIndex)"
               class="el-icon-close"
             ></i>
           </div>
@@ -482,7 +483,6 @@ export default {
           numberVal.indexOf(":") == -1
             ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
             : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
-        console.log("time", time);
         // if(!moment(numberVal,"HH:mm",true).isValid()) {
         //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
         //   return false;
@@ -614,7 +614,10 @@ export default {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
           /* 时间数组 */
-          this.tabsData.push(item.recordDate);
+          this.tabsData.push({
+            recordDate: item.recordDate,
+            recordPerson: item.vitalSignList[0].nurseName,
+          });
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
@@ -882,7 +885,7 @@ export default {
         overflow: auto;
 
         .recordList {
-          width: 150px;
+          width: 160px;
           height: 30px;
           line-height: 30px;
           border: 1px solid #eee;
