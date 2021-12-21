@@ -5,11 +5,12 @@ export default {
     width: "1200px"
   },
   th: {
-    top: [{
+    top: [
+      {
         name: '日期',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
         colspan: '1',
         rowspan: '3'
@@ -17,22 +18,29 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
         colspan: '1',
         rowspan: '3'
       },
       {
-        name: `
-       意识
-        `,
-        colspan: '1',
-        rowspan: '3',
+        name: '意识',
         style: {
-          minWidth: "58px",
-          maxWidth: "58px"
+          minWidth: '54px',
+          maxWidth: '54px',
         },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: '瞳孔',
+        style: {
+          minWidth: '90px',
+          maxWidth: '90px',
+        },
+        colspan: '3',
+        rowspan: '1'
       },
       {
         name: `
@@ -41,8 +49,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: "42px",
-          maxWidth: "42px"
+          minWidth: '32px',
+          maxWidth: '32px',
         },
       },
       {
@@ -52,8 +60,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: "42px",
-          maxWidth: "42px"
+          minWidth: '45px',
+          maxWidth: '45px',
         },
       },
       {
@@ -63,8 +71,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: "42px",
-          maxWidth: "42px"
+          minWidth: '45px',
+          maxWidth: '45px',
         },
       },
       {
@@ -74,8 +82,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: "42px",
-          maxWidth: "42px"
+          minWidth: '65px',
+          maxWidth: '65px',
         },
       },
       {
@@ -85,8 +93,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: "42px",
-          maxWidth: "42px"
+          minWidth: '45px',
+          maxWidth: '45px',
         },
       },
       {
@@ -96,8 +104,7 @@ export default {
         colspan: '2',
         rowspan: '1',
         style: {
-          minWidth: "120px",
-          maxWidth: "120px"
+          minWidth: '100px',
         },
       },
       {
@@ -107,46 +114,81 @@ export default {
         colspan: '4',
         rowspan: '1',
         style: {
-          minWidth: "240px",
-          maxWidth: "240px"
+          minWidth: '250px',
+          maxWidth: '250px',
         },
       },
       {
-        name: `自定义1`,
-        canSet:true,
-        key:"customTitle",
+        name: `自定义`,
         colspan: '1',
         rowspan: '3',
-        style: {
-          minWidth: "60px",
-          maxWidth: "60px"
-        },
+        key:"customTitle",
+        canSet:true
       },
       {
         name: `
-        特殊处理及病情观察
+        病情观察及护理措施
         `,
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '240px'
+          minWidth: '240px'
         },
       },
       {
         name: `
         签名
         `,
-        style: {},
+        // style: {
+        //   width: '50px'
+        // },
         colspan: '1',
         rowspan: '3'
       }
     ],
     mid: [{
         name: `
+        左<br/>(mm)
+        `,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '35px',
+          maxWidth: '35px'
+        },
+      },
+      {
+        name: `
+        右<br/>(mm)
+        `,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '35px',
+          maxWidth: '35px'
+        },
+      },
+      {
+        name: `
+        光<br/>反<br/>射
+        `,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '20px',
+          maxWidth: '20px'
+        },
+      },
+      {
+        name: `
         ℃
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '45px',
+          maxWidth: '45px'
+        },
       },
       {
         name: `
@@ -154,6 +196,10 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '45px',
+          maxWidth: '45px'
+        },
       },
       {
         name: `
@@ -161,6 +207,10 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '45px',
+          maxWidth: '45px'
+        },
       },
       {
         name: `
@@ -168,6 +218,10 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '45px',
+          maxWidth: '45px'
+        },
       },
       {
         name: `
@@ -175,6 +229,10 @@ export default {
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: '45px',
+          maxWidth: '45px'
+        },
       },
       {
         name: `
@@ -183,8 +241,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: "80px",
-          maxWidth: "80px"
+          minWidth: '60px',
+          maxWidth: '60px'
         },
       },
       {
@@ -194,8 +252,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: '40px',
+          maxWidth: '40px'
         },
       },
       {
@@ -205,8 +263,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: "88px",
-          maxWidth: "88px"
+          minWidth: '80px',
+          maxWidth: '80px'
         },
       },
       {
@@ -216,8 +274,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
+          minWidth: '45px',
+          maxWidth: '45px'
         },
       },
       {
@@ -227,8 +285,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: "88px",
-          maxWidth: "88px"
+          minWidth: '80px',
+          maxWidth: '80px'
         },
       },
       {
@@ -238,11 +296,12 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: "32px",
-          maxWidth: "32px"
+          minWidth: '45px',
+          maxWidth: '45px'
         },
-      }
+      },
     ],
-    bottom: []
+    bottom: [
+    ]
   }
 }

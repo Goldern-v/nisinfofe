@@ -14,6 +14,7 @@
           :default-time="['12:00:00', '08:00:00']">
         </el-date-picker> -->
         <el-date-picker
+          :disabled="workClassList.length>0?true:false"
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择入院起始时间"
@@ -23,6 +24,7 @@
         ></el-date-picker>
         &nbsp;--&nbsp;
         <el-date-picker
+          :disabled="workClassList.length>0?true:false"
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择终止时间"
@@ -103,6 +105,15 @@
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
+     <div class="head-con">
+        <span class="label" style="margin-left:488px;padding-right:5px">班次:</span>
+        <el-row class="select-btn-list" type="flex" align="middle">
+        <el-checkbox-group v-model="workClassList">
+          <el-checkbox label="白班"></el-checkbox>
+          <el-checkbox label="夜班"></el-checkbox>
+         </el-checkbox-group>
+        </el-row>
+       </div>
       <dTable
         :tableData="tableData"
         :currentType="type"
@@ -268,7 +279,7 @@ export default {
       },
        orderTimeStr: [moment().format("YYYY-MM-DD")+' 07:30:00',moment().format("YYYY-MM-DD")+' 17:30:00'],
       startDate: moment().format("YYYY-MM-DD")+' 07:30:00',
-      endDate: moment().format("YYYY-MM-DD")+' 17:30:00',
+      endDate: moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00',
       repeatIndicator: "",
       type: "",
       status: "",
@@ -352,7 +363,8 @@ export default {
           name: "标本",
           value: "标本"
         }
-      ]
+      ],
+      workClassList:["白班","夜班"]
     };
   },
   methods: {
@@ -498,6 +510,26 @@ export default {
     },
     status() {
       this.search();
+    },
+    workClassList:{
+      deep:true,
+      handler(newVal){
+        if(newVal.length==2){
+          // 白班夜班,当前日期的07:30:00~第二天日期的07:30:00
+          this.startDate=moment().format("YYYY-MM-DD")+' 07:30:00'
+          this.endDate=moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00'
+        }else if(newVal.length==1){
+          if(newVal[0]=="白班"){
+            // 白班，当前日期的07:30:00~当前日期的17:30:00
+            this.startDate=moment().format("YYYY-MM-DD")+' 07:30:00'
+            this.endDate=moment().format("YYYY-MM-DD")+' 17:30:00'
+          }else{
+            // 夜班,当前日期的17：30：00到第二天日期的07：30：00
+            this.startDate=moment().format("YYYY-MM-DD")+' 17:30:00'
+            this.endDate=moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00'
+          }
+        }
+      }
     }
   },
   components: {

@@ -662,6 +662,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_new_lcey": {
+    // 聊城二院 - 病重（病危）患者护理记录单（带瞳孔）(新)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_new_lcey/th").default)
+    );
+  }
+  break;
   case "peri_intervention_lcey": {
     // 聊城二院 - 围介入期护理观察记录单
     Th = JSON.parse(
