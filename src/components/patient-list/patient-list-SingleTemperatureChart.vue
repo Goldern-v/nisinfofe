@@ -296,6 +296,7 @@ export default {
         let filter1Array = [];
         let sortFliter = [];
         let cacheData = [];
+
         if (!cacheList[i].babyName) {
           sortFliter.push(cacheList[i]);
         }

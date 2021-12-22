@@ -717,7 +717,6 @@ export default {
     },
     /* 录入体温单 */
     async saveVitalSign(value) {
-      console.log(this.topExpandDate);
       let obj = Object.values(value);
       obj.map((item) => {
         item.recordDate =

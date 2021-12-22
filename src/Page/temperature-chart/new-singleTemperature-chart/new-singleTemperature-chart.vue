@@ -28,7 +28,29 @@
             class="contain-center"
             :queryTem="patientInfo"
           ></temperatureLCEY>
-          <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
+          <div
+            class="flag-con"
+            :style="{ top: flagTop }"
+            flex="main:center cross:center"
+            @click="openRight"
+          >
+            <i
+              class="iconfont icon-yincang"
+              v-show="rightSheet"
+              style="margin-left: -1px"
+            ></i>
+            <i
+              class="iconfont icon-xianshi"
+              v-show="!rightSheet"
+              style="margin-left: -2px"
+            ></i>
+          </div>
+          <tabCon
+            class="contain-right"
+            :patientInfo="patientInfo"
+            v-show="rightSheet"
+          >
+          </tabCon>
         </div>
       </div>
     </div>
@@ -37,39 +59,61 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .new-singleTemperature-chart {
   position: relative;
+
   .body-con {
-      position: relative;
+    position: relative;
 
-      .left-part {
-        width: 199px;
-        position: absolute;
-        left: 0;
-        top: 0px;
-        bottom: 0;
-      }
+    .left-part {
+      width: 199px;
+      position: absolute;
+      left: 0;
+      top: 0px;
+      bottom: 0;
+    }
 
-      .right-part {
-        margin-left: 199px;
+    .right-part {
+      margin-left: 199px;
+      height: 100%;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+
+      .sheetTable-contain {
+        display: flex;
+        flex-direction: row;
         height: 100%;
-        overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
-        .sheetTable-contain{
-          display :flex
-          flex-direction :row
-          height :100%;
-          .contain-center{
-            flex:7
-          }
-          .contain-right{
-            flex:3
-            border-left:1px solid #eee
-            height :100%;
-            padding: 10px;
-            // margin-top:10px;
-          }
+
+        .contain-center {
+          flex: 7;
+        }
+
+        .contain-right {
+          flex: 3;
+          border-left: 1px solid #eee;
+          height: 100%;
+          padding: 10px;
+          // margin-top:10px;
         }
       }
     }
+  }
+}
+
+.flag-con {
+  width: 10px;
+  height: 73px;
+  position: relative;
+  z-index: 10;
+  background-image: url('../../../common/images/patient/隐藏框.png');
+  cursor: pointer;
+  transform: rotateY(180deg);
+
+  &:hover {
+    color: #5CC6A1;
+  }
+
+  i {
+    font-size: 12px;
+  }
 }
 </style>
 
@@ -90,10 +134,10 @@ export default {
     return {
       bus: bus(this),
       data: {
-        bedList: []
+        bedList: [],
       },
       patientListLoading: true,
-      tableLoading: false
+      tableLoading: false,
     };
   },
   computed: {
@@ -104,6 +148,12 @@ export default {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
+    flagTop() {
+      return `${this.wih * 0.4}px`;
+    },
     containHeight() {
       if (this.fullpage) {
         return this.wih - 44 + "px";
@@ -113,7 +163,7 @@ export default {
     },
     fullpage() {
       return this.$store.state.sheet.fullpage;
-    }
+    },
   },
   created() {
     // 初始化
@@ -123,11 +173,15 @@ export default {
   },
   mounted() {},
   methods: {
+    //关闭录入界面
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        patients(this.deptCode, {}).then(res => {
-          this.data.bedList = res.data.data.filter(item => {
+        patients(this.deptCode, {}).then((res) => {
+          this.data.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
           this.patientListLoading = false;
@@ -138,7 +192,7 @@ export default {
       await this.$store.commit("upPatientInfo", item);
       this.bus.$emit("refreshImg");
       this.bus.$emit("refreshVitalSignList");
-    }
+    },
   },
   components: { patientList, temperatureLCEY, tabCon },
   watch: {
@@ -146,7 +200,7 @@ export default {
       if (val) {
         this.getDate();
       }
-    }
-  }
+    },
+  },
 };
 </script>

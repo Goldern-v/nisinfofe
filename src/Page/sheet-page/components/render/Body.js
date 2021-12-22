@@ -542,6 +542,12 @@ function switechSheetType(type) {
       schema = require("../config/critical_lcey/tr").default;
     }
       break;
+      // 暂时先用
+    case "critical_new_lcey": {
+      // 聊城二院 - 病重（病危）患者护理记录单（带瞳孔）(新)
+      schema = require("../config/critical_new_lcey/tr").default;
+     }
+      break;
     case "peri_intervention_lcey": {
       // 聊城二院 - 围介入期护理观察记录单
       schema = require("../config/peri_intervention_lcey/tr").default;

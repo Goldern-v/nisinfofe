@@ -585,7 +585,6 @@ export default {
           numberVal.indexOf(":") == -1
             ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
             : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
-        console.log("time", time);
         // if(!moment(numberVal,"HH:mm",true).isValid()) {
         //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
         //   return false;
@@ -636,7 +635,7 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 14);
+      this.query.entryTime = value.slice(12, 20);
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -795,7 +794,7 @@ export default {
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime,
         vitalSignList: obj,
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
@@ -840,7 +839,7 @@ export default {
     display: flex;
 
     .column-left {
-      margin: 10px 45px 0px 15px;
+      margin: 10px 45px 0px 0px;
       display: flex;
       flex-direction: column;
     }
@@ -899,7 +898,7 @@ export default {
 
   .rowbox {
     display: inline-block;
-    padding: 3px 5px;
+    padding: 3px 3px;
 
     .preText {
       display: inline-block;
@@ -918,7 +917,7 @@ export default {
 
   .row {
     display: inline-block;
-    padding: 3px 5px;
+    padding: 3px 3px;
 
     .preText {
       display: inline-block;

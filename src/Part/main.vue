@@ -26,6 +26,7 @@ import FoShanRenYiHeader from "@/components/HLheader/FoShanRenYiHeader.vue"; // 
 import FSXTHeader from "@/components/HLheader/FSXTHeader.vue"; // 南方医科大学顺德医院附属杏坛医院
 import NanFangZhongXiYiHeader from "@/components/HLheader/NanFangZhongXiYiHeader"; // 南方医科大学中西医结合医院
 import YangchunzhongyiHeader from "@/components/HLheader/YangchunzhongyiHeader"; // 南方医科大学中西医结合医院
+import WuhanfeikeHeader from "@/components/HLheader/WuhanfeikeHeader"; // 武汉肺科
 export default {
   data() {
     return {
@@ -55,7 +56,8 @@ export default {
         南方医科大学中西医结合医院: "NanFangZhongXiYiHeader",
         佛山市第一人民医院:"FoShanRenYiHeader",
         南方医科大学顺德医院附属杏坛医院: 'FSXTHeader',
-        阳春中医院: 'YangchunzhongyiHeader'
+        阳春中医院: 'YangchunzhongyiHeader',
+        武汉市肺科医院: 'WuhanfeikeHeader',
       };
       return hisList[HisName] || "HLheader";
     },
@@ -80,6 +82,7 @@ export default {
     NanFangZhongXiYiHeader,
     FSXTHeader,
     YangchunzhongyiHeader,
+    WuhanfeikeHeader,
   },
 };
 </script>

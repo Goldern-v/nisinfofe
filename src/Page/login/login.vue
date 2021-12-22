@@ -587,6 +587,8 @@ export default {
           return require("../../common/images/logo_nanfangzhongxiyi.png");
         case "xiegang":
           return require("../../common/images/logo_xiegang.png");
+        case "whfk":
+          return require("../../common/images/logo_whfk.png");
         default:
           return require("../../common/images/logo.png");
       }

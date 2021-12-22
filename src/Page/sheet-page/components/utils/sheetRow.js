@@ -52,20 +52,20 @@ export function getRowNum(index) {
     return 15;
   } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
     return 15;
-  } else if (process.env.HOSPITAL_ID === 'hengli'&&sheetInfo.sheetType !== 'oxytocin_hl'&&sheetInfo.sheetType !== 'blood_circulation_hl') {
+  } else if (process.env.HOSPITAL_ID === 'hengli' && sheetInfo.sheetType !== 'oxytocin_hl' && sheetInfo.sheetType !== 'blood_circulation_hl') {
     /* 横沥所有普通护记都返回20行 */
     return 20;
-  } else if(sheetInfo.sheetType === 'oxytocin_hl'){
+  } else if (sheetInfo.sheetType === 'oxytocin_hl') {
     if (index === 0) {
       return 20;
     } else {
       return 30;
     }
-  }else if(sheetInfo.sheetType === 'blood_circulation_hl'){
-      return 35
+  } else if (sheetInfo.sheetType === 'blood_circulation_hl') {
+    return 35
   } else {
     return 17;
   }
- 
+
 }
 

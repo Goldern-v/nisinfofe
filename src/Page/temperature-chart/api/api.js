@@ -14,7 +14,7 @@ const getRecordType = (HOSPITAL_ID) => {
   switch (HOSPITAL_ID) {
     case 'huadu':
       return 'body_temperature_Hd'
-    case ' wujing':
+    case 'wujing':
       return 'body_temperature_wj'
     case 'zhongshanqi':
       return 'body_temperature_zsqy'
@@ -28,9 +28,9 @@ const getRecordType = (HOSPITAL_ID) => {
       return 'body_temperature_hl'
     case 'quzhou':
       return 'body_temperature_qz'
-      case 'beihairenyi':
+    case 'beihairenyi':
       return 'bodyTemperatureLocal'
-      case 'nanfangzhongxiyi':
+    case 'nanfangzhongxiyi':
       return 'body_temperature_nfzxy'
     default:
       return 'bodyTemperatureLocal'
@@ -51,7 +51,7 @@ export function saveOverAllTemperture(params) {
 }
 //获取当天的录入记录
 export const getNowDateTimeList = (data) => {
-  return axios.post(`${apiPath}vitalSign/list`,data);
+  return axios.post(`${apiPath}vitalSign/list`, data);
 };
 
 //聊城二院出入院同步
