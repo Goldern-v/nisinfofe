@@ -8,7 +8,6 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped></style>
 <script>
 import HLheader from "@/components/HLheader/HLheader"; // 东莞市厚街医院
-import FuqingHeader from "@/components/HLheader/FuqingHeader"; // 福清妇幼医院
 import WeiXianHeader from "@/components/HLheader/WeiXianHeader"; // 威县人民医院
 import LingChengHeader from "@/components/HLheader/LingChengHeader"; // 威县人民医院
 import HuaDuHeader from "@/components/HLheader/HuaDuHeader"; // 广州市花都区人民医院
@@ -20,6 +19,7 @@ import HengLiHeader from "@/components/HLheader/HengLiHeader"; // 东莞市横�
 import XieGangHeader from "@/components/HLheader/XieGangHeader"; // 东莞市谢岗医院
 import ShanNanHeader from "@/components/HLheader/ShanNanHeader"; // 山南市人民医院
 import BeiHaiRenYiHeader from "@/components/HLheader/BeiHaiRenYiHeader"; // 北海人医
+import FQFYHeader from "@/components/HLheader/FQFYHeader"; // 福清妇幼
 import GuiZhouShengRenMingHeader from "@/components/HLheader/GuiZhouShengRenMing"; // 贵州省人民
 import QuZhouXianHeader from "@/components/HLheader/QuZhouXianHeader.vue"; // 曲周县医院
 import FoShanRenYiHeader from "@/components/HLheader/FoShanRenYiHeader.vue"; // 佛山市第一人民医院
@@ -40,7 +40,6 @@ export default {
         威县人民医院: "WeiXianHeader",
         东莞市厚街医院: "HLheader",
         德州市陵城区人民医院: "LingChengHeader",
-        福清妇幼保健院:"FuqingHeader",
         广州市花都区人民医院: "HuaDuHeader",
         武警广东省总队医院: "WuJingHeader",
         江门市妇幼保健院: "FuYouHLheader",
@@ -50,6 +49,7 @@ export default {
         东莞市谢岗医院: "XieGangHeader",
         山南市人民医院: "ShanNanHeader",
         北海市人民医院: "BeiHaiRenYiHeader",
+        福清妇幼保健院: "FQFYHeader",
         贵州省人民医院: "GuiZhouShengRenMingHeader",
         曲周县医院: "QuZhouXianHeader",
         南方医科大学中西医结合医院: "NanFangZhongXiYiHeader",
@@ -64,7 +64,6 @@ export default {
     HLheader,
     WeiXianHeader,
     LingChengHeader,
-    FuqingHeader,
     HuaDuHeader,
     WuJingHeader,
     FuYouHLheader,
@@ -74,6 +73,7 @@ export default {
     XieGangHeader,
     ShanNanHeader,
     BeiHaiRenYiHeader,
+    FQFYHeader,
     GuiZhouShengRenMingHeader,
     QuZhouXianHeader,
     FoShanRenYiHeader,
