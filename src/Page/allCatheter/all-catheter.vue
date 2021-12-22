@@ -272,7 +272,8 @@ export default {
       if (this.deptCode) {
         this.patientListLoading = true;
         patients(this.deptCode, {
-          showDvc: true
+          showDvc: true,
+          showFollew:true
         }).then(res => {
           this.data.bedList = res.data.data.filter(item => {
             return item.patientId;
