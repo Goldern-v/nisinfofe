@@ -189,6 +189,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告
               </el-row>
             </router-link>
+            <router-link to="/nursingRounds" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+                >护理巡视
+              </el-row>
+            </router-link>
             <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-baiban"></i> 白板
