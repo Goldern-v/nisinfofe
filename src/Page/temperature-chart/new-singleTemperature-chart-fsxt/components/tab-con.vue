@@ -727,7 +727,7 @@ export default {
         switch (item.vitalSigns) {
           case "表顶注释":
             if (this.topExpandDate !== undefined) {
-              item.expand2 = this.query.entryDate + " " + this.topExpandDate; //表顶用录入日期+选择的时间来显示
+              item.expand2 = moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") + " " + this.topExpandDate; //表顶用录入日期+选择的时间来显示
             } else {
               item.expand2 =
                 moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
