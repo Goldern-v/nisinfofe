@@ -1,7 +1,7 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-      <div class="column-left">
+      <!-- <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
           同步入院
         </el-button>
@@ -12,10 +12,10 @@
         >
           同步出院
         </el-button>
-      </div>
+      </div>-->
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
-        <ElDatePicker
+        <el-date-picker
           class="date-picker"
           type="date"
           size="mini"
@@ -284,7 +284,7 @@ export default {
       ["24"]: ["21:00", "23:59"],
     };
 
-    let entryTime = "04";
+    let entryTime = "03";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
@@ -319,22 +319,22 @@ export default {
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
-          if (this.getHours() >= 0 && this.getHours() <= 4) {
-            return "04";
+          if (this.getHours() >= 0 && this.getHours() <= 3) {
+            return "03";
           }
-          if (this.getHours() > 4 && this.getHours() <= 8) {
-            return "08";
+          if (this.getHours() > 3 && this.getHours() <= 7) {
+            return "07";
           }
-          if (this.getHours() > 8 && this.getHours() <= 12) {
-            return "12";
+          if (this.getHours() > 7 && this.getHours() <= 11) {
+            return "11";
           }
-          if (this.getHours() > 12 && this.getHours() <= 16) {
-            return "16";
+          if (this.getHours() > 11 && this.getHours() <= 15) {
+            return "15";
           }
-          if (this.getHours() > 16 && this.getHours() <= 20) {
-            return "20";
+          if (this.getHours() > 15 && this.getHours() <= 19) {
+            return "19";
           }
-          if (this.getHours() > 20 && this.getHours() <= 23) {
+          if (this.getHours() > 19 && this.getHours() <= 23) {
             return "23";
           }
           //录入时间
@@ -376,23 +376,23 @@ export default {
       timesOdd: [
         {
           id: 0,
-          value: "04",
+          value: "03",
         },
         {
           id: 1,
-          value: "08",
+          value: "07",
         },
         {
           id: 2,
-          value: "12",
+          value: "11",
         },
         {
           id: 3,
-          value: "16",
+          value: "15",
         },
         {
           id: 4,
-          value: "20",
+          value: "19",
         },
         {
           id: 5,
@@ -734,7 +734,6 @@ export default {
                 " " +
                 moment(this.nowTimeVal).format("HH:mm:ss"); //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
             }
-            console.log('item.expand2',item.expand2,'选择时间后',this.topExpandDate,'保存事件',moment(this.nowTimeVal).format("HH:mm:ss"));
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;

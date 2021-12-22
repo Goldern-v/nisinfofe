@@ -187,25 +187,7 @@
               <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
             </template>
           </el-table-column>
-          <el-table-column
-            prop="urinate"
-            label="小便次数"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.urinate"
-                :class="className"
-                class="urinate"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
+
           <el-table-column
             prop="heartRate"
             label="心率"
@@ -710,9 +692,9 @@ import { getPatientsInfo, saveOverAllTemperture } from "../api/api";
 import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
-import {_debounce} from '../save-formatter'
-// import CustomInput from "../all-temperature-chart-BHRY/components/CustomInput.vue";
-// import { validForm } from "../validForm/validForm";
+// import CustomInput from "./components/CustomInput.vue";
+import { validForm } from "../validForm/validForm";
+import { debounce} from '../save-formatter'
 
 export default {
   mixins: [common],
@@ -870,20 +852,20 @@ export default {
       this.tableData = [];
     },
     keydownSave(e) {
-      if (
+          if (
         e.keyCode === 13 
       ) {
-        _debounce(this.saveAllTemperture,1000)()
-        
-      } else {
-        return;
-      }
+        // console.log( debounce(this.saveAllTemperture,1500));
+        // debounce(this.saveAllTemperture,500)
+        this.saveAllTemperture()
+      } 
+      
     },
     saveAllTemperture() {
       this.pageLoadng = true;
       let data = {
         blockId: "",
-        urinate:"",//小便次数
+        // urinate,//小便次数
         heigh: "",
         patientId: "",
         visitId: "",
@@ -927,6 +909,9 @@ export default {
         let obj = {};
         for (let key in data) {
           obj[key] = item[key] || data[key];
+          // if (key === "temperature") {
+          //   // console.log(obj[key]);
+          // }
         }
         return obj;
       });
