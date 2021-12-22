@@ -525,7 +525,7 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -550,7 +550,7 @@ const router = new Router({
                 return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
-              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi':
+              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
