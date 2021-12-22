@@ -284,7 +284,7 @@ export default {
       ["24"]: ["21:00", "23:59"],
     };
 
-    let entryTime = "03";
+    let entryTime = "04";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
@@ -734,6 +734,7 @@ export default {
                 " " +
                 moment(this.nowTimeVal).format("HH:mm:ss"); //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
             }
+            console.log('item.expand2',item.expand2,'选择时间后',this.topExpandDate,'保存事件',moment(this.nowTimeVal).format("HH:mm:ss"));
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
