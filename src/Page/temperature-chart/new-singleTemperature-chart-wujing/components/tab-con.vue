@@ -585,7 +585,6 @@ export default {
           numberVal.indexOf(":") == -1
             ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
             : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
-        console.log("time", time);
         // if(!moment(numberVal,"HH:mm",true).isValid()) {
         //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
         //   return false;
@@ -636,7 +635,7 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 14);
+      this.query.entryTime = value.slice(12, 20);
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;

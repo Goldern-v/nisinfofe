@@ -180,7 +180,7 @@ export default {
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        patients(this.deptCode, {}).then((res) => {
+        patients(this.deptCode, {showFollew:true}).then((res) => {
           this.data.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
