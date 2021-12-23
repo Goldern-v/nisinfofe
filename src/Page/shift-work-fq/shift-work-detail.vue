@@ -6,7 +6,7 @@
       <ElSelect size="small" :value="$route.params.code" @input="onCodeChange">
         <ElOption v-for="d of depts" :key="d.deptCode" :label="d.deptName" :value="d.deptCode" />
       </ElSelect>
-      <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()">添加患者</Button>
+      <!-- <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()">添加患者</Button> -->
       <Button
         :disabled="isEmpty || allSigned || !$refs.table || !$refs.table.selectedRow"
         @click="onRowRemove"
@@ -56,7 +56,7 @@
             @input-keydown="onTableInputKeydown"
           >
             <tr class="empty-row" v-if="!patients.length">
-              <td colspan="7" style="padding: 0">
+              <td colspan="9" style="padding: 0">
                 <Placeholder
                   black
                   size="small"
@@ -69,7 +69,7 @@
               </td>
             </tr>
             <tr class="normal-row">
-              <td colspan="7" class="special-case-title" data-print-style="border-bottom: none;">
+              <td colspan="9" class="special-case-title" data-print-style="border-bottom: none;">
                 <span class="row-title">特殊情况交接：</span>
                 <span
                   class="row-action"
@@ -81,7 +81,7 @@
             </tr>
             <tr class="normal-row">
               <td
-                colspan="7"
+                colspan="9"
                 style="padding: 0;"
                 data-print-style="border-top: none;"
                 @contextmenu.stop.prevent="onContextMenu($event, record.specialSituation)"
@@ -272,20 +272,28 @@ export default {
               prop: "bedLabel",
               editable: true,
               align: "center",
-              width: "35"
+              width: "17"
             },
             {
-              label: "姓名、性别、年龄",
+              label: "姓名",
               prop: "name",
-              width: "53",
-              render: row => {
-                const status = row.patientStatus
-                  ? `(${row.patientStatus})`
-                  : "";
-                return [row.name + status, row.sex, row.age]
-                  .filter(Boolean)
-                  .join("，<br>");
-              }
+              align: "center",
+              width: "35",
+              editable: true,
+            },
+            {
+              label: "性别",
+              prop: "sex",
+              width: "17",
+              align: "center",
+              editable: true,
+            },
+            {
+              label: "年龄",
+              prop: "age",
+              align: "center",
+              width: "35",
+              editable: true,
             }
           ]
         },
