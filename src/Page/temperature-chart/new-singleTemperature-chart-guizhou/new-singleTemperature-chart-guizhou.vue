@@ -146,7 +146,8 @@ export default {
     },
      flagTop() {
       return `${this.wih * 0.4}px`;
-    }, rightSheet() {
+    }, 
+    rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
     containHeight() {
