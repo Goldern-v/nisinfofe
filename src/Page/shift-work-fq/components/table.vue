@@ -66,7 +66,6 @@ export default {
   model: {
     prop: "data",
     event: "input"
-    
   },
   props: {
     fixedTh: Boolean,
