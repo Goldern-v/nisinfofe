@@ -26,8 +26,8 @@ export default {
       {
         name: "余液",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         colspan: "1",
         rowspan: "3"
@@ -43,8 +43,8 @@ export default {
       {
         name: "平衡",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         colspan: "1",
         rowspan: "3"
@@ -56,6 +56,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: '55px',
+          maxWidth: '55px',
+        },
       },
       {
         name: `
@@ -63,6 +67,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: '55px',
+          maxWidth: '55px',
+        },
       },
       {
         name: `
@@ -70,6 +78,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: '155px',
+          maxWidth: '155px',
+        },
       },
       {
         name: `
@@ -78,8 +90,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -88,6 +100,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: '75px',
+          maxWidth: '75px',
+        },
       },
       {
         name: `
@@ -96,8 +112,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -107,8 +123,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -118,8 +134,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -129,8 +145,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -140,8 +156,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -151,8 +167,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -162,8 +178,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         canSet: true,
         key: "customTitle1",
@@ -175,8 +191,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         canSet: true,
         key: "customTitle2",
@@ -188,8 +204,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         canSet: true,
         key: "customTitle3",
@@ -201,8 +217,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '45px',
-          maxWidth: '45px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       }
     ],
