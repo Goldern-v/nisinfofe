@@ -90,9 +90,9 @@ export default {
       visibled: false,
       intranetUrl:
         // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
-        "http://183.234.1.124:9092/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://10.45.0.176:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://183.234.1.124:9092/temperature/#/printAll" /* 医院正式环境内网 */,
+        "http://10.45.0.176:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       outNetUrl:
         "http://218.14.180.38:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };

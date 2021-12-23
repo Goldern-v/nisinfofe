@@ -353,7 +353,7 @@ const router = new Router({
         switch (process.env.HOSPITAL_ID) {
           case 'huadu':
             return temperatureHD
-          case 'liaocheng':
+          case 'liaocheng' || 'whfk' || 'whyx':
             return temperatureLCEY
           case 'guizhou':
             return temperatureGuizhou
@@ -407,7 +407,7 @@ const router = new Router({
               return indexHd
             case 'fqfybjy':
               return shiftWorkFq;
-            case 'liaocheng':
+            case 'liaocheng' || 'whfk' || 'whyx':
               return indexLiaocheng
             case 'wujing':
               return indexWujing
@@ -534,7 +534,7 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -559,7 +559,7 @@ const router = new Router({
                 return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
-              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk':
+              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
