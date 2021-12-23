@@ -203,7 +203,7 @@ export default {
     getLIstData() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        patients(this.deptCode, {}).then(res => {
+        patients(this.deptCode, {showFollew:true}).then(res => {
           this.data = res.data.data.filter(item => {
             return item.patientId;
           });

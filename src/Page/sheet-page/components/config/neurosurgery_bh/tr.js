@@ -271,7 +271,7 @@ export default [{
     },
   },
   {
-    key: "strengthRightOn", //特殊监测icp
+    key: "icp", //特殊监测icp
     value: "",
     name: "ICP",
     event: keyf1,
@@ -281,7 +281,7 @@ export default [{
     },
   },
   {
-    key: "strengthRightDown", //特殊监测cvp
+    key: "cvp", //特殊监测cvp
     value: "",
     name: "CVP",
     event: keyf1,

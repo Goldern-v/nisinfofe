@@ -12,7 +12,7 @@
         @click="onRowRemove"
       >删除行</Button>
       <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button>
-      <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
+      <Button :disabled="isEmpty" @click="beforePrint">打印预览</Button>
       <div class="empty"></div>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
@@ -61,6 +61,7 @@
             </div>
           </div>
           <ExcelTable
+            v-if="!isPrint"
             ref="table"
             class="table"
             :fixedTh="fixedTh"
@@ -69,6 +70,34 @@
             :editable="!allSigned"
             :get-context-menu="getContextMenu"
             v-model="patients"
+            @dblclick="onDblClickRow"
+            @input-change="onTableInputChange"
+            @input-keydown="onTableInputKeydown"
+          >
+            <tr class="empty-row" v-if="!patients.length">
+              <td colspan="9" style="padding: 0">
+                <Placeholder
+                  black
+                  size="small"
+                  data-print-style="display: none;"
+                  :show-add="!allSigned"
+                  @click="onPatientModalShow()"
+                >
+                  <i class="el-icon-plus"></i> 添加患者记录
+                </Placeholder>
+              </td>
+            </tr>
+          </ExcelTable>
+          <ExcelTable
+            v-else
+            ref="table"
+            class="table"
+            :fixedTh="fixedTh"
+            data-print-style="height: auto;"
+            :columns="columns"
+            :editable="!allSigned"
+            :get-context-menu="getContextMenu"
+            v-model="printList"
             @dblclick="onDblClickRow"
             @input-change="onTableInputChange"
             @input-keydown="onTableInputKeydown"
@@ -168,11 +197,19 @@
     />
     <SpecialCasePanel ref="specialCasePanel" @apply-template="onSpecialCasePanelApply" />
     <SignModal ref="signModal" />
+    <SelectPatientModal 
+      v-if="isSelectPatient" 
+      :dialogVisible="isSelectPatient" 
+      @setIsSelectPatient="setIsSelectPatient" 
+      :treeData="patients"
+      @setPrintList="setPrintList"
+    />
   </div>
 </template>
 
 <script>
 import common from "@/common/mixin/common.mixin";
+import SelectPatientModal from "@/Page/shift-work-fy/components/selectPatientModal.vue"
 import FallibleImage from "@/components/FallibleImage/FallibleImage.vue";
 import { pick } from "lodash";
 import print from "printing";
@@ -244,6 +281,7 @@ export default {
   },
   data() {
     return {
+      isSelectPatient:false,
       loading: false,
       modified: false,
       depts: [],
@@ -355,7 +393,9 @@ export default {
           printWidth:"120",
         }
       ],
-      fixedTh: false
+      fixedTh: false,
+      printList:[],
+      isPrint:false
     };
   },
   computed: {
@@ -407,6 +447,15 @@ export default {
     });
   },
   methods: {
+    setPrintList(payload){
+      this.isPrint = true
+      this.printList = payload
+      this.isSelectPatient = false
+      this.$nextTick(async ()=>{
+        await this.onPrint()
+        this.isPrint = false
+      })
+    },
     async loadDepts() {
       const parentCode = this.deptCode;
       const res1 = await apis.listDepartment(parentCode);
@@ -888,6 +937,12 @@ export default {
         this.reloadSideList();
       });
     },
+    setIsSelectPatient(flag){
+      this.isSelectPatient = flag
+    },
+    beforePrint(){
+      this.setIsSelectPatient(true)
+    },
     async onPrint() {
       this.loading = true;
       this.fixedTh = false;
@@ -989,6 +1044,7 @@ export default {
   },
   components: {
     FallibleImage,
+    SelectPatientModal,
     Button,
     ExcelTable,
     Placeholder,

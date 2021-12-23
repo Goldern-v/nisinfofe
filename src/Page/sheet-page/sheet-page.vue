@@ -481,7 +481,7 @@ export default {
       }
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
-        this.HOSPITAL_ID == "huadu" &&
+        (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "fuyou") &&
         tr.find((item) => item.key == "status").value === "1"
       ) {
         let flag =
