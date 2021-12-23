@@ -128,26 +128,29 @@ export default {
     },
     post() {
       if (this.date[1]) {
-        let date = this.date;
-        let startTime = this.date[0];
-        let endTime = this.date[1];
-        let recordCode = sheetInfo.sheetType;
-        outputSum(
-          this.$parent.patientInfo.patientId,
-          this.$parent.patientInfo.visitId,
-          recordCode,
-          startTime,
-          endTime,
-          this.description
-        ).then(res => {
-          this.bus.$emit("refreshSheetPage");
-          this.$message({
-            showClose: true,
-            message: "计算成功",
-            type: "success"
+        this.bus.$emit("saveSheetPage");
+        setTimeout(() => {
+          let date = this.date;
+          let startTime = this.date[0];
+          let endTime = this.date[1];
+          let recordCode = sheetInfo.sheetType;
+          outputSum(
+            this.$parent.patientInfo.patientId,
+            this.$parent.patientInfo.visitId,
+            recordCode,
+            startTime,
+            endTime,
+            this.description
+          ).then(res => {
+            this.bus.$emit("refreshSheetPage");
+            this.$message({
+              showClose: true,
+              message: "计算成功",
+              type: "success"
+            });
+            this.close();
           });
-          this.close();
-        });
+        }, 500);
       } else {
         this.$message({
           showClose: true,
