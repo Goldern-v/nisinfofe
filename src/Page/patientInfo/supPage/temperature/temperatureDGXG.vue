@@ -20,28 +20,33 @@
       </div> -->
       <!-- <div class="right-part isRight" v-loading="tableLoading"> -->
       <div class="sheetTable-contain">
-        <temperatureGuizhou
+        <temperatureNew
           class="contain-center"
           :queryTem="patientInfo"
-        ></temperatureGuizhou>
+        ></temperatureNew>
         <div
-            class="flag-con"
-            :style="{ top: flagTop }"
-            flex="main:center cross:center"
-            @click="openRight"
-           >
-            <i
-              class="iconfont icon-yincang"
-              v-show="rightSheet"
-              style="margin-left: -1px"
-            ></i>
-            <i
-              class="iconfont icon-xianshi"
-              v-show="!rightSheet"
-              style="margin-left: -2px"
-            ></i>
-          </div>
-        <tabCon class="contain-right" :patientInfo="patientInfo"  v-show="rightSheet"> </tabCon>
+          class="flag-con"
+          :style="{ top: flagTop }"
+          flex="main:center cross:center"
+          @click="openRight"
+        >
+          <i
+            class="iconfont icon-yincang"
+            v-show="rightSheet"
+            style="margin-left: -1px"
+          ></i>
+          <i
+            class="iconfont icon-xianshi"
+            v-show="!rightSheet"
+            style="margin-left: -2px"
+          ></i>
+        </div>
+        <tabCon
+          class="contain-right"
+          v-show="rightSheet"
+          :patientInfo="patientInfo"
+        >
+        </tabCon>
       </div>
       <!-- </div> -->
     </div>
@@ -50,23 +55,6 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .new-singleTemperature-chart {
   position: relative;
-.flag-con {
-      width: 10px;
-      height: 73px;
-      position: relative;
-      z-index: 10;
-      background-image: url('../../../../common/images/patient/隐藏框.png');
-      cursor: pointer;
-      transform: rotateY(180deg);
-
-      &:hover {
-        color: #5CC6A1;
-      }
-
-      i {
-        font-size: 12px;
-      }
-    }
 
   .body-con {
     position: relative;
@@ -80,13 +68,30 @@
         flex: 7;
       }
 
+      .flag-con {
+        width: 10px;
+        height: 73px;
+        position: relative;
+        z-index: 10;
+        background-image: url('../../../../common/images/patient/隐藏框.png');
+        cursor: pointer;
+        transform: rotateY(180deg);
+
+        &:hover {
+          color: #5CC6A1;
+        }
+
+        i {
+          font-size: 12px;
+        }
+      }
+
       .contain-right {
         flex: 3;
         border-left: 1px solid #eee;
         height: 100%;
         padding: 10px;
         // margin-top:10px;
-        overflow-y: auto;
       }
     }
   }
@@ -101,8 +106,8 @@ import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
 import print from "printing";
 import formatter from "@/Page/temperature-chart/print-formatter";
-import temperatureGuizhou from "@/Page/temperature-chart/new-singleTemperature-chart-guizhou/components/temperatureGuizhou";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-guizhou/components/tab-con";
+import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart-xiegang/components/temperatureNew";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-xiegang/components/tab-con";
 export default {
   mixins: [common],
   props: {},
@@ -111,6 +116,7 @@ export default {
       bus: bus(this),
       data: {
         bedList: [],
+        isSave: false,
       },
       patientListLoading: true,
       tableLoading: false,
@@ -119,10 +125,11 @@ export default {
   computed: {
     patientInfo() {
       return this.$route.query;
-    }, 
+    },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
-    }, flagTop() {
+    },
+    flagTop() {
       return `${this.wih * 0.4}px`;
     },
     containHeight() {
@@ -142,8 +149,17 @@ export default {
       this.getDate();
     }
   },
-  mounted() {},
+  mounted() {
+    this.bus.$on("saveSheetPage", (data) => {
+      if (data === "noSaveSign" || data === true) {
+        this.isSave = true;
+      }
+    });
+  },
   methods: {
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     async getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
@@ -157,12 +173,8 @@ export default {
         this.bus.$emit("refreshVitalSignList");
       }
     },
-     //关闭录入界面
-    openRight() {
-      this.$store.commit("showRightPart", !this.rightSheet);
-    },
   },
-  components: { patientList, temperatureGuizhou, tabCon },
+  components: { patientList, temperatureNew, tabCon },
   watch: {
     deptCode(val) {
       if (val) {

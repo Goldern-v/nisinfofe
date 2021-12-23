@@ -16,7 +16,7 @@ export const getNurseExchangeInfoByTime = (data) => {
 };
 //批量打印的转科转床记录
 export const getNurseExchangeInfoBatch = (data) => {
-  return axios.post(`${apiPath}/nurseLog/getNurseExchangeInfoBatch`, data);
+  return axios.post(`${apiPath}nurseLog/getNurseExchangeInfoBatch`, data);
 };
 
 // 护记体征信息同步到体温单

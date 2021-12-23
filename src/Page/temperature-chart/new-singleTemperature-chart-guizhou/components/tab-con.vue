@@ -14,7 +14,7 @@
         </el-button>
       </div> -->
       <div class="column-right">
-        <span style="padding-left: 5px">日期：</span>
+        <span style="padding-left: 15px">日期：</span>
         <ElDatePicker
           class="date-picker"
           type="date"
@@ -62,7 +62,7 @@
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div style="flex: 4">
+        <div style="flex: 3">
           <div
             :class="
               [
@@ -89,7 +89,7 @@
             ></i>
           </div>
         </div>
-        <div style="flex: 7" class="inputText">
+        <div style="flex:7" class="inputText">
           <div
             :class="
               !(
@@ -132,7 +132,7 @@
                     :id="i + 1"
                     @keydown.enter="changeNext"
                     size="mini"
-                    style="width: 70px"
+                    style="width: 60px"
                     :title="vitalSignObj[j].vitalValue"
                     @input="handlePopRefresh(vitalSignObj[j])"
                     @focus="() => (vitalSignObj[j].popVisible = true)"
@@ -153,8 +153,7 @@
                   default-first-option
                   size="mini"
                   placeholder="结果"
-                  @change="changeValue($event)"
-                  style="width: 78px"
+                  style="width: 70px;margin-top:3px;display:inline-block"
                 >
                   <el-option
                     v-for="item in options"
@@ -163,8 +162,10 @@
                     :value="item.value"
                   >
                   </el-option>
+                  
                 </el-select>
               </div>
+              
               <!-- <div v-if="index==='病人事件'" class="allergyDiv">
                 <div style="display:inline-block;">
                   <input 
@@ -880,6 +881,7 @@ export default {
     .showRecord {
       display: flex;
       height: 100%;
+      margin-top:10px;
 
       >div {
         overflow: auto;
@@ -925,24 +927,23 @@ export default {
       width: 85px;
     }
   }
-
   .rowbox {
     display: inline-block;
-    padding: 3px 5px;
+    padding: 3px 2px;
 
     .preText {
       display: inline-block;
-      width: 50px;
+      width: 60px;
     }
 
     .allergyPreText, .hisEventPreText {
       display: inline-block;
-      width: 70px;
+      width: 60px;
       position: relative;
 
       // top: -20px;
       input {
-        width: 70px;
+        width: 50px;
       }
     }
 
@@ -961,7 +962,7 @@ export default {
       display: inline-block;
       width: 68px;
 
-      >>>.el-input__inner {
+      .el-input__inner {
         height: 20px !important;
         outline: none;
         padding: 0;

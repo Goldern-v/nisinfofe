@@ -244,10 +244,10 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   :class="{
-                    active: $route.path.includes('singleTemperatureChart')
+                    active: $route.path.includes('newSingleTemperatureChart')
                   }"
                 >
-                  <router-link to="/singleTemperatureChart" tag="span">
+                  <router-link to="/newSingleTemperatureChart" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="singleTemperatureChart"></i>单人录入体温单
                     </el-row>

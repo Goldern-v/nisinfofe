@@ -131,7 +131,6 @@
           :class="[
             td.markObj &&
               `mark-mark-mark mark-cell-status-${td.markObj.status}`,
-            HOSPITAL_ID == 'lingcheng' &&
               td.value &&
               td.statBottomLine &&
               `stat-bottom-line`,
