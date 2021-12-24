@@ -38,9 +38,16 @@ export default function Title(
   }
   break;
   case "Record_Children_Serious_Lc": {
-    // 陵城区-病重（病危）
+    // 陵城区-儿童重症医学科护理记录单【PICU】
     Th = JSON.parse(
       JSON.stringify(require("../config/picu_lc/th.js").default)
+    );
+  }
+  break;
+  case "record_children_serious2_lc": {
+    // 陵城区-儿童重症医学科护理记录单【PICU】（新）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/record_children_serious2_lc/th.js").default)
     );
   }
   break;

@@ -219,9 +219,9 @@ export default {
     isPatients(){
       return this.$route?this.$route.path=="/nursingDocumentation":false
     },
-      hospitalTransfer(){
-        return ['huadu','fuyou'].includes(this.HOSPITAL_ID)
-      }
+    hospitalTransfer(){
+      return ['huadu','fuyou','beihairenyi'].includes(this.HOSPITAL_ID)
+    }
   },
   watch: {
     deptCode() {}

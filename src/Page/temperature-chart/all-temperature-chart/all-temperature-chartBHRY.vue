@@ -920,7 +920,8 @@ export default {
         curWeight: "",
         recordSource: 2,
         heartRate: "",
-        stoolNum: "",
+        stoolNum:"",
+        fieldThree:"",
         height: "",
       };
       let list = this.tableData.map((item) => {
