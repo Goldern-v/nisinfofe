@@ -392,6 +392,7 @@
     <slot
       name="bottomCon"
       v-if="
+        sheetInfo.sheetType === 'record_children_serious2_lc' ||
         sheetInfo.sheetType === 'neonatology_picc' ||
         sheetInfo.sheetType === 'internal_eval_lcey' ||
         sheetInfo.sheetType === 'intervention_cure_lcey' ||
