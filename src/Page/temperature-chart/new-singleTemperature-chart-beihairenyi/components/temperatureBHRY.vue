@@ -18,7 +18,7 @@
       </el-dropdown>
 
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div class="pagination" v-show="!isPrintAll">
+      <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
         </button>
@@ -234,6 +234,9 @@ export default {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);
@@ -249,7 +252,7 @@ export default {
   margin: 15px 20px 0;
 
   .tem-con {
-    width: 100%;
+    width: 102%;
     height: 100%;
     position: relative;
     left: 0px;
@@ -267,10 +270,15 @@ export default {
 .pagination {
   display: inline;
   position: relative;
-  left: 20%;
+  left: 25%;
   font-weight: normal;
 }
-
+.paginationRight{
+ display: inline;
+  position: relative;
+  left: 35%;
+  font-weight: normal;
+}
 .page {
   margin: 0 10px;
 }
