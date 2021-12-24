@@ -36,7 +36,7 @@
           尾周
         </button>
       </div>
-      <div class="tem-con" :style="contentHeight" v-show="!isPrintAll">
+      <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -47,7 +47,7 @@
           class="lcIframe"
         ></iframe>
       </div>
-      <div class="tem-con" :style="contentHeight" v-show="isPrintAll">
+      <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
