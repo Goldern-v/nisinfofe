@@ -32,6 +32,13 @@
           v-model="endDate"
           style="width:180px"
         ></el-date-picker>
+        <span class="label">班次:</span>
+        <el-row class="select-btn-list" type="flex" align="middle">
+        <el-checkbox-group v-model="workClassList">
+          <el-checkbox label="白班"></el-checkbox>
+          <el-checkbox label="夜班"></el-checkbox>
+         </el-checkbox-group>
+        </el-row>
         <span class="label">长/临:</span>
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="repeatIndicator">
@@ -87,33 +94,25 @@
         <div style="flex: 1"></div>
         <el-input
           size="small"
-          style="width: 150px;margin-right: 15px;"
+          style="width: 100px;margin-right: 15px;"
           placeholder="输入病人姓名进行搜索"
           v-model="patientName"
         ></el-input>
         <el-input
           size="small"
-          style="width: 150px;margin-right: 15px;"
+          style="width: 75px;margin-right: 15px;"
           placeholder="输入床号进行搜索"
           v-model="bedLabel"
         ></el-input>
         <el-input
           size="small"
-          style="width: 150px;margin-right: 15px;"
+          style="width: 75px;margin-right: 15px;"
           placeholder="输入途径进行搜索"
           v-model="administration"
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
-     <div class="head-con">
-        <span class="label" style="margin-left:488px;padding-right:5px">班次:</span>
-        <el-row class="select-btn-list" type="flex" align="middle">
-        <el-checkbox-group v-model="workClassList">
-          <el-checkbox label="白班"></el-checkbox>
-          <el-checkbox label="夜班"></el-checkbox>
-         </el-checkbox-group>
-        </el-row>
-       </div>
+    
       <dTable
         :tableData="tableData"
         :currentType="type"
