@@ -146,9 +146,9 @@ export default {
   },
   methods: {
     openBedRecordModal(){
-      if (this.readOnly) {
-        return this.$message.warning("你无权操作此护记，仅供查阅");
-      }
+      // if (this.readOnly) {
+      //   return this.$message.warning("你无权操作此护记，仅供查阅");
+      // }
       this.$refs.bedRecordModal.open();
     },
     updateBirthDay() {
@@ -244,6 +244,8 @@ export default {
     }
   },
   created() {
+    console.log(this.readOnly);
+    console.log(this.sheetInfo);
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
