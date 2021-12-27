@@ -32,7 +32,7 @@
           尾周
         </button>
       </div>
-      <div class="tem-con" :style="contentHeight" v-show="!isPrintAll">
+      <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -43,7 +43,7 @@
           :class="HOSPITAL_ID === 'liaocheng' ? 'lcIframe' : ''"
         ></iframe>
       </div>
-      <div class="tem-con" :style="contentHeight" v-show="isPrintAll">
+      <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -86,8 +86,8 @@ export default {
       isPrintAll: false, //是否打印所有
       visibled: false,
       intranetUrl:
-        // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
-        "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://172.17.5.41:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       outNetUrl:
@@ -244,7 +244,7 @@ export default {
   margin: 15px 20px 0;
 
   .tem-con {
-    width: 100%;
+    width: 102%;
     height: 100%;
     position: relative;
     left: 0px;

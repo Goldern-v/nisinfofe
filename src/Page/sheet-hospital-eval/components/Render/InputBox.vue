@@ -626,6 +626,7 @@ export default {
                 Number(r.scoreMax),
               ];
               let score = Number(valueNew.split("分")[0]);
+              console.log(score,'score')
               scoreMin = scoreMin === NaN ? 0 : scoreMin;
               scoreMax = scoreMax === NaN ? 0 : scoreMax;
               score = score === NaN ? 0 : score;

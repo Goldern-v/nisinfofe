@@ -698,7 +698,6 @@ export default {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
-            console.log("vvvvv", v);
             this.vitalSignObj[v.vitalCode] = {
               ...v,
               popVisible: false,

@@ -206,9 +206,9 @@ export default {
     searchConData(){
       return this.$refs.searchCon?this.$refs.searchCon.data:null
     },
-      hospitalTransfer(){
-        return ['huadu','fuyou'].includes(this.HOSPITAL_ID)
-      }
+    hospitalTransfer(){
+      return ['huadu','fuyou','beihairenyi'].includes(this.HOSPITAL_ID)
+    }
   },
   components: {
     searchCon,

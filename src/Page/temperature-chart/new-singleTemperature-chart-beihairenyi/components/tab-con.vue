@@ -106,7 +106,7 @@
               <input
                 :id="i + 1"
                 @keydown.enter="changeNext"
-                type="text"
+                :type="['腋表','脉搏','心率','呼吸','口表','肛表','物理降温'].includes(index)?'number':'text'"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
                 @click="() => (vitalSignObj[j].popVisible = true)"
@@ -239,14 +239,14 @@
             <el-select
               :disabled="isDisable()"
               size="mini"
-              v-model="vitalSignObj[multiDictList['中间注释']].expand1"
+              v-model="vitalSignObj[multiDictList['中间注释']].vitalValue"
             >
-              <el-option
-                v-for="(item, bottomIndex) in getFilterSelections(
+             <el-option
+                v-for="(item, Index) in getFilterSelections(
                   totalDictInfo['中间注释'].options,
                   vitalSignObj[multiDictList['中间注释']].vitalValue
                 )"
-                :key="bottomIndex"
+                :key="Index"
                 :label="item"
                 :value="item"
               >
@@ -778,7 +778,10 @@ export default {
             item.expand2 = this.topExpandDate;
             break;
           case "中间注释":
-            item.expand2 = this.centerExpandDate;
+            item.expand2 =moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+          " " +
+          this.query.entryTime +
+          ":00:00";
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
@@ -832,7 +835,13 @@ export default {
       flex-direction: column;
     }
   }
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
   .row-bottom {
     .showRecord {
       display: flex;
