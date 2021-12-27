@@ -20,12 +20,12 @@
         <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
         <div class="title">{{ patientInfo.recordName }}</div>
         <div class="info-con" flex="main:justify">
-          <span>
-            床号：{{ patientInfo.bedLabel }}
-          </span>
           <!-- <span>
-            姓名： {{ patientInfo.patientName }}
+            床号：{{ patientInfo.bedLabel }}
           </span> -->
+          <span>
+            姓名： {{ patientInfo.patientName }}
+          </span>
           <span>
             床号：
             <span :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
