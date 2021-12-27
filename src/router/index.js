@@ -618,15 +618,10 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
               return badEventGz
-            case 'yangchunzhongyi':
-              //return badEventNew
-              return badEventComm
-            case 'liaocheng':
-              return badEventComm
-            case 'foshanrenyi':
-              return badEventComm
-            default:
+            case 'hj':
               return badEvent
+            default:
+                return badEventComm
           }
         })(),
 
@@ -638,15 +633,10 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'guizhou':
                 return badEventEditPageGz
-              case 'yangchunzhongyi':
-                //return badEventEditPageNew
-                return badEventEditPageComm
-              case 'liaocheng':
-                return badEventEditPageComm
-              case 'foshanrenyi':
-                return badEventEditPageComm
-              default:
+              case 'hj':
                 return badEventEditPage
+              default:
+                return badEventEditPageComm
             }
           })(),
         },
@@ -658,15 +648,10 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'guizhou':
                 return badEventViewPageGz
-              case 'yangchunzhongyi':
-                //return badEventViewPageNew
-                return badEventViewPageComm
-              case 'liaocheng':
-                return badEventViewPageComm
-              case 'foshanrenyi':
-                return badEventViewPageComm
-              default:
+              case 'hj':
                 return badEventViewPage
+              default :
+              return badEventViewPageComm
             }
           })(),
         }
