@@ -245,6 +245,16 @@
           "style": null,
           "class": null,
           "readOnly": null
+        },
+        {
+          "name": "I616001",
+          "type": "radio",
+          "title": "肿胀无法睁眼(C分)",
+          "code": "C分",
+          "score": "C分",
+          "style": null,
+          "class": null,
+          "readOnly": null
         }
       ]
     },
@@ -322,6 +332,16 @@
           "style": null,
           "class": null,
           "readOnly": null
+        },
+        {
+          "name": "I616002",
+          "type": "radio",
+          "title": "人工气道(T分)",
+          "code": "T分",
+          "score": "T分",
+          "style": null,
+          "class": null,
+          "readOnly": null
         }
       ]
     },
@@ -350,6 +370,16 @@
       "classes": null,
       "readOnly": null,
       "children": [
+        {
+          "name": "I616003",
+          "type": "radio",
+          "title": "人工气道(D分)",
+          "code": "D分",
+          "score": "D分",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
         {
           "name": "I616003",
           "type": "radio",
@@ -456,46 +486,22 @@
           "readOnly": true
         },
         {
-          "name": "evalDesc",
+          "name": "I385031",
           "type": "input",
           "title": "结果程度",
           "titleStyle": "width:90px!important;margin:0;",
           "hiddenTips": true,
-          "code": "",
-          "placeholder": "结果程度",
+          "code": "I385031",
           "style": "width:80px",
           "inputWidth": "136px",
           "class": null,
-          "readOnly": true,
-          "rule": [
-            {
-              "min": "15",
-              "max": "20",
-              "equal": "清醒",
-              "style": "color:blue",
-              "display": "清醒"
-            },
-            {
-              "min": "14",
-              "max": "15",
-              "equal": "嗜睡",
-              "style": "color:red",
-              "display": "嗜睡"
-            },
-            {
-              "min": "8",
-              "max": "14",
-              "equal": "意识模糊",
-              "style": "color:red",
-              "display": "意识模糊"
-            },
-            {
-              "min": "-1",
-              "max": "8",
-              "equal": "昏迷",
-              "style": "color:red",
-              "display": "昏迷"
-            }
+          "readOnly": false,
+          "options": [
+            "正常",
+            "轻度昏迷",
+            "中度意识昏迷",
+            "昏迷",
+            "深昏迷"
           ]
         }
       ]
