@@ -82,8 +82,13 @@ function switechSheetType(type) {
     }
       break;
     case "Record_Children_Serious_Lc": {
-      // 陵城区-病重（病危）
+      // 陵城区-儿童重症医学科护理记录单【PICU】
       schema = require("../config/picu_lc/tr.js").default;
+    }
+      break;
+    case "record_children_serious2_lc": {
+      // 陵城区-儿童重症医学科护理记录单【PICU】新
+      schema = require("../config/record_children_serious2_lc/tr.js").default;
     }
       break;
     case "critical2_lc": {

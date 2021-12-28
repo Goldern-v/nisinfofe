@@ -1,10 +1,7 @@
-/*
-江门妇幼-PICU血液透析护理记录单
- */
 <template>
   <div>
     <div
-      class="contant sheetTable-picu_hemodialysis_jm"
+      class="contant sheetTable-record_children_serious2_lc"
       :style="data.titleModel.style"
       :class="{ readOnly }"
     >
@@ -20,134 +17,25 @@
         <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
         <div class="title">{{ patientInfo.recordName }}</div>
         <div class="info-con" flex="main:justify">
-          <!-- <span>
-            床号：{{ patientInfo.bedLabel }}
-          </span> -->
           <span>
-            姓名： {{ patientInfo.patientName }}
-          </span>
-          <span>
-            床号：
-            <span :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-              {{ patientInfo.bedLabel }}
-            </span>
-          </span>
-          <span>
-            住院号：{{ patientInfo.patientId }}
-          </span>
-          <span>
-            年龄：{{ patientInfo.age }}
+            病人姓名： {{ patientInfo.patientName }}
           </span>
           <span>
             性别：{{ patientInfo.sex }}
           </span>
           <span>
-            体重： {{ patientInfo.weight }}
+            年龄：{{ patientInfo.age }}
           </span>
           <span>
-            入院日期：{{ patientInfo.admissionDate | toymd }}
+            科室：{{ patientInfo.deptName }}
+          </span>
+          <span>
+            床号：{{ patientInfo.bedLabel }}
+          </span>
+          <span>
+            住院号/ID号：{{ patientInfo.patientId }}
           </span>
         </div>
-        <table>
-          <colgroup>
-            <col v-for="i in 19" :key="i" width="5%"/>
-          </colgroup>
-          <tbody>
-            <tr>
-              <td colspan="4">
-                <div class="boxTitle">取血通路：</div>
-                <input
-                  type="textarea"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.qxtl"
-                  :data-value="sheetInfo.relObj.qxtl"
-                />
-              </td>
-              <td colspan="3">机械型号：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.jxxh"
-                  :data-value="sheetInfo.relObj.jxxh"
-                />
-              </td>
-              <td colspan="3">导管型号：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.dgxh"
-                  :data-value="sheetInfo.relObj.dgxh"
-                />
-              </td>
-              <td colspan="4">血液抗凝：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.xykn"
-                  :data-value="sheetInfo.relObj.xykn"
-                />
-              </td>
-              <td colspan="5">血滤器/批号：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.xlq"
-                  :data-value="sheetInfo.relObj.xlq"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td colspan="3">治疗 CVVHDF：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.cvvhdf"
-                  :data-value="sheetInfo.relObj.cvvhdf"
-                />
-              </td>
-              <td colspan="3">CVVHD：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.cvvhd"
-                  :data-value="sheetInfo.relObj.cvvhd"
-                />
-              </td>
-              <td colspan="3">TPE：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.tpe"
-                  :data-value="sheetInfo.relObj.tpe"
-                />
-              </td>
-              <td colspan="3">HP：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.hp"
-                  :data-value="sheetInfo.relObj.hp"
-                />
-              </td>
-              <td colspan="4">其他：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.qt"
-                  :data-value="sheetInfo.relObj.qt"
-                />
-              </td>
-              <td colspan="3">治疗次数：
-                <input
-                  type="text"
-                  class="bottomInput"
-                  v-model="sheetInfo.relObj.zlcs"
-                  :data-value="sheetInfo.relObj.zlcs"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
         <excel
           :data="data"
           :index="index"
@@ -155,28 +43,29 @@
           :scrollY="scrollY"
           :hasFiexHeader="true"
           :isInPatientDetails="isInPatientDetails"
-        ><div slot="bottomCon">
-          <div  class="footer-data">
-            <div class="bottom-line" style="flex: 1">
-              <span>24小时总累积出入量：</span>
-              <input
-                class="bottomInput"
-                type="text"
-                v-model="sheetInfo.relObj.ywgms"
-                :data-value="sheetInfo.relObj.ywgms"
-              />
-            </div>
-            <div class="bottom-line" style="flex: 1" >
-              <span>抗凝剂配制浓度：</span>
-              <input
-                class="bottomInput"
-                type="text"
-                v-model="sheetInfo.relObj.dgmsy"
-                :data-value="sheetInfo.relObj.dgmsy"
-              />
-            </div>
+        >
+          <div slot="bottomCon" class="bottomTable">
+            <table>
+              <colgroup>
+                <col width="59px" />
+                <col width="1341px" />
+              </colgroup>
+              <tbody>
+                <tr>
+                  <td style="text-align: center;vertical-align: middle;">
+                    医<br />嘱<br />内<br />容
+                  </td>
+                  <td class="textarea">
+                    <textarea
+                      v-model="sheetInfo.relObj['advice10'+ index]"
+                      :data-value="sheetInfo.relObj['advice10'+ index]"
+                    ></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="padding-top: 20px;"></div>
           </div>
-        </div>
         </excel>
       </div>
     </div>
@@ -184,7 +73,7 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.sheetTable-picu_hemodialysis_jm {
+.sheetTable-record_children_serious2_lc {
   & {
     border-radius: 2px;
     // position: relative;
@@ -349,6 +238,36 @@
 
   .table-footer {
     margin-top: 10px !important;
+  }
+  
+  .bottomTable{
+    width: 100%;
+    font-size:12px;
+    margin-top: -16px;
+    table {
+      width: 100%;
+    }
+    td{
+      border: 1px solid #000 !important;
+      height
+      p{
+        line-height :20px;
+      }
+      &.textarea {
+        height: 150px;
+      }
+      textarea  {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        resize: none;
+        box-sizing: border-box;
+        line-height: 18px;
+        padding: 5px;
+        overflow: hidden;
+      }
+    }
   }
 }
 </style>

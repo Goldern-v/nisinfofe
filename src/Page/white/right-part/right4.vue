@@ -121,6 +121,8 @@ export default {
       switch(this.HOSPITAL_ID){
         case "wujing":
           return "A班："
+        case "nanfangzhongxiyi":
+          return "A班："
         default:
           return "P班："
       }
@@ -131,6 +133,8 @@ export default {
         case "hengli":
           return "PN班："
         case "wujing":
+          return "P班："
+        case "nanfangzhongxiyi":
           return "P班："
         default:
           return "P全班："

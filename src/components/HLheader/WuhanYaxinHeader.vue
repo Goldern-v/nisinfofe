@@ -287,11 +287,11 @@
                 >不良事件
               </el-row>
             </router-link>
-            <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
+            <router-link to="/allCatheter" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-dongtairizhi"></i> 导管
+                <i class="iconfont icon-allCatheter"></i> 导管
               </el-row>
-            </router-link>-->
+            </router-link>
             <!-- <el-dropdown menu-align="start" :class="{'router-link-active': isActiveFormPage}">
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>

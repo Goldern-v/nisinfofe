@@ -57,7 +57,9 @@ const currentTargetUrl = (() => {
       // return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
       // return "https://info.cr-health.com:20204" // 公司-陵城测试-外网
       // return "http://192.168.1.54:9867" // 公司-陵城测试-内网 admin 123456
-      return "http://192.168.1.54:9866" // 公司-陵城测试-内网
+      // return "http://192.168.1.54:9866" // 公司-陵城测试-内网
+      return "http://192.168.20.63:8080" // 初升本地
+      
 
     /** 花都 */
     case "huadu":
@@ -74,7 +76,8 @@ const currentTargetUrl = (() => {
       // return "http://120.224.211.7:9094" //聊城正式
       // return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
       // return "http://192.168.1.54:9871" //公司-聊城测试-内网
-      return "http://192.168.2.122:8080" // 初升本地
+      // return "http://192.168.2.122:8080" // 初升本地
+      return "http://192.168.20.45:8080"  //伟彬本地
 
 
     /** 江门妇幼 */

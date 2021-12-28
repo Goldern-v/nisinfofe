@@ -89,10 +89,12 @@ import qs from 'qs'
             obj[i] = item[i]
           }
         }
-        let newWid = window.open(`/crNursing/sheetPage`)
-        newWid.onload = function() {
-          setTimeout(() => { newWid.app.$store.commit('upPatientInfo', obj)}, 500)
-        }
+        // let newWid = window.open(`/crNursing/sheetPage`)
+        let newWid = window.open(`/crNursing/sheetPage/${obj.patientId}/${obj.visitId}/${obj.inpNo}`)
+        // newWid.onload = function() {
+        //   console.log("newWid.onload");
+        //   setTimeout(() => { newWid.app.$store.commit('upPatientInfo', obj)}, 5000)
+        // }
         this.close()
       }
     },

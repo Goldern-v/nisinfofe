@@ -204,10 +204,27 @@ export default {
       //
       //
       let score = 0;
+      let sumdata = 0;
+      let str = ''
       // 计算总分
       if (this.formObj.selectedItems) {
         this.formObj.selectedItems.map(item => {
-          score += ~~item.score;
+          console.log(typeof item.score == 'undefined')
+          if(typeof item.score == 'undefined') item.score = ''
+          if(this.formObj.formSetting.formInfo.formCode == 'E0616'){
+            let cur = Number(item.score)
+            if(Object.is(cur, NaN)){
+              console.log(item.score)
+              if(typeof item.score == 'undefined') item.score = ''
+              str += `+${item.score}`
+            }else{
+              sumdata += cur
+            }
+           score = sumdata + str
+           console.log(score,'dddddddddddddddddddddddddddddddddddddddddddddddd')
+          }else{
+            score += ~~item.score;
+          }
         });
       }
       //
