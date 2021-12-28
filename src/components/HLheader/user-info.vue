@@ -56,7 +56,7 @@
         <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
-    <div v-if="HOSPITAL_ID === 'liaocheng'">
+    <div v-if="['liaocheng','foshanrenyi'].includes(HOSPITAL_ID)">
       <div class="boxShadow" @click="onPrint">
         <div class="qrcode" ref="qrcodeContainer"></div>
       </div>
@@ -263,6 +263,7 @@ import caSignModal from "@/components/modal/ca-sign";
 import { $_$WebSocketObj, SignedData, Logout } from "@/api/XTXSAB.js";
 import { setInterval } from "timers";
 import fuyouCaSignModal from "@/components/modal/fuyou-ca-sign";
+import md5 from "md5";
 let timer = null;
 export default {
   mixins: [common],
@@ -476,11 +477,14 @@ export default {
     //二维码
     qrcode() {
       //非聊城不执行
-      if(!['liaocheng'].includes(this.HOSPITAL_ID )) return false;
+      if(!['liaocheng','foshanrenyi'].includes(this.HOSPITAL_ID )) return false;
+      let titleObject = this.userName + " " + this.passWord;
+      ['foshanrenyi'].includes(this.HOSPITAL_ID ) && (titleObject=JSON.stringify({ user: this.userName,password:this.passWord}));  
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
-        text: this.userName + " " + this.passWord , // 二维码的内容
+        //text: this.userName + " " + this.passWord , // 二维码的内容
+        text: titleObject , // 二维码的内容
         colorDark: '#000',// 二维码的颜色
         colorLight: '#fff',
         correctLevel: QRCode.CorrectLevel.H
