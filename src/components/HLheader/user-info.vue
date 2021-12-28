@@ -479,7 +479,8 @@ export default {
       //非聊城不执行
       if(!['liaocheng','foshanrenyi'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi'].includes(this.HOSPITAL_ID ) && (titleObject=this.userName + " " + md5(this.passWord));  
+      ['foshanrenyi'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))); 
+      //console.log(this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))) 
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
@@ -490,6 +491,11 @@ export default {
         correctLevel: QRCode.CorrectLevel.H
       })
       qrcode._el.title = "点击打印二维码";
+    },
+    getBase(str){
+      //加密encodeURIcomponent
+      const jiaMi = encodeURIComponent(str);
+      return btoa(jiaMi);
     },
     //获取local里的用户名和密码
     loadComments() {
