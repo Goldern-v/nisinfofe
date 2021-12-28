@@ -479,7 +479,7 @@ export default {
       //非聊城不执行
       if(!['liaocheng','foshanrenyi'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi'].includes(this.HOSPITAL_ID ) && (titleObject=JSON.stringify({ user: this.userName,password:this.passWord}));  
+      ['foshanrenyi'].includes(this.HOSPITAL_ID ) && (titleObject=this.userName + " " + md5(this.passWord));  
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
