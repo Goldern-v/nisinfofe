@@ -57,10 +57,7 @@
             class="green-btn btn"
             :disabled="badEventLoad || isDisabled2"
             @click="uploadEdit"
-            >
-            {{
-             HOSPITAL_ID=='liaocheng'?"提交" : "上报"
-            }}</Button
+            >上报</Button
           >
         </div>
         <div class="track-area">
@@ -571,17 +568,17 @@ export default {
       }
     },
     lcAuditDetails(auditDetails) {
-      this.isDisabled = Number(this.master.status)>=1;
-      this.isDisabled2 = Number(this.master.status)>=1;
+      this.isDisabled = auditDetails.sbstatus == "已上报";
+      this.isDisabled2 = auditDetails.sbstatus == "已上报";
       this.steps = [
         {
           title: "保存",
           status: "success"
         },
-        {
-          title:"提交",
-          status:Number(this.master.status)>=1 ? "success" :"wait"
-        },
+        // {
+        //   title:"提交",
+        //   status:Number(this.master.status)>=1 ? "success" :"wait"
+        // },
         {
           title: "上报",
           description: auditDetails.sbr,
