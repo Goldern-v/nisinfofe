@@ -887,7 +887,7 @@ export default {
         overflow: auto;
 
         .recordList {
-          width: 160px;
+          width: 200px;
           height: 30px;
           line-height: 30px;
           border: 1px solid #eee;

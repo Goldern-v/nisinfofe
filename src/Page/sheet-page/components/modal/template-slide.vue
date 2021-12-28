@@ -18,7 +18,7 @@
           <div class="search-con" flex>
             <div class="select-box" :style="{width: selectWidth + 'px'}">
               <el-select v-model="selectedType" filterable placeholder="请选择">
-                <el-option v-for="item in typeList" :key="item" :label="item" :value="item"></el-option>
+                <el-option v-for="(item,key) in typeList" :key="key" :label="item" :value="item"></el-option>
               </el-select>
             </div>
             <input
