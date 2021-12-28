@@ -18,6 +18,11 @@ export function userDictInfo(deptCode) {
   return axios.get(`${apiPath}user/userDictInfo/${deptCode}`);
 }
 
+// 获取本科室所有患者列表
+export function getAllPatient(deptCode) {
+  return axios.get(`${apiPath}whiteboardManage/getAllPatient/${deptCode}`);
+}
+
 // 获取字典项
 export const listItem = (code, recordCode) => {
   return axios.post(

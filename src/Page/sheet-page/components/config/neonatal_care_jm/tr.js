@@ -138,6 +138,10 @@ export default [
   next: "",
   autoComplete: {
     data: jzlList
+  },
+  change: (e, td) => limitChange(e, td, 10),
+  textarea: {
+    width: 60
   }
 },
 {
@@ -187,7 +191,7 @@ export default [
   next: "ml",
   event: keyf1,
   textarea: {
-    width: 30
+    width: 50
   }
 },
 {
@@ -206,6 +210,9 @@ export default [
   name: "大便",
   next: "g/性状",
   event: keyf1,
+  autoComplete: {
+    data: ["/胎粪","/黄便","/黄绿","/墨绿"]
+  },
   textarea: {
     width: 40
   }

@@ -12,7 +12,7 @@
               align="middle"
               v-if="HOSPITAL_ID == 'wujing'"
             >
-              <img src="../../common/images/logo_hj.png" />
+              <img src="../../common/images/logo_wujing.png" />
               <span>
                 武警广东省总队医院
                 <br />智慧护理信息系统
@@ -1065,9 +1065,18 @@ export default {
       }
     },
     changeDept(value) {
-      let deptName = this.deptList.filter(item => {
+      // let deptName = this.deptList.filter((item) => {
+      //   return item.code == value;
+      // })[0].name;
+      let deptName="";
+      let deptItem = this.deptList.filter((item) => {
         return item.code == value;
-      })[0].name;
+      });
+      if(deptItem && deptItem.length>0){
+        deptName=deptItem[0].name
+      }else {
+        return false;
+      }
       this.$store.commit("upDeptCode", value);
       localStorage.selectDeptValue = value;
       this.$store.commit("upDeptName", deptName);

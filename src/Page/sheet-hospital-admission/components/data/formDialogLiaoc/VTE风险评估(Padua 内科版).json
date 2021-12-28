@@ -192,7 +192,7 @@
     },
     {
       "type": "formGroupVerticalBox",
-      "title": "评估内容",
+      "title": "评估内容：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -321,7 +321,19 @@
           "class": null,
           "html": null,
           "readOnly": null
+        },
+        {
+          "name": "I612026",
+          "type": "checkbox",
+          "title": "已确诊VIE（5分）",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
         }
+
       ]
     },
     {

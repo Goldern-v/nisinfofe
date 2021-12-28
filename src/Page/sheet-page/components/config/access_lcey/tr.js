@@ -3,6 +3,7 @@ import {
 } from "../../../api/index";
 import {
   keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -13,7 +14,13 @@ import {
 let 入量名称 = [];
 let 出量名称 = [];
 let 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
-export default [{
+export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -23,151 +30,133 @@ export default [{
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
+    // click: click_time
   },
   {
-    key: "fieldOne", //液体
+    key: "vein", //静脉
     value: "",
     event: keyf1,
-    name: "液体",
-    textarea: {
-      width: 30
-    },
+    name: "静脉",
   },
   {
-    key: "fieldTwo", //血制品
+    key: "intravenousVolume", //入量
     value: "",
     event: keyf1,
-    name: "血制品",
-    textarea: {
-      width: 30
-    },
+    name: "入量",
+    statBottomLine: true
   },
   {
-    key: "fieldThree", //饮食
+    key: "gastrointestinal", //胃肠
     value: "",
     event: keyf1,
-    name: "饮食",
-    textarea: {
-      width: 30
-    },
+    name: "胃肠",
   },
   {
-    key: "fieldFour", //口服药
+    key: "intake", //入量
     value: "",
     event: keyf1,
-    name: "口服药",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "fieldSix", //肠内营养
-    value: "",
-    event: keyf1,
-    name: "肠内营养",
-    textarea: {
-      width: 48
-    },
+    name: "入量",
+    statBottomLine: true
   },
   {
     key: "totalInput", //总入量
     value: "",
     event: keyf1,
     name: "总入量",
-    textarea: {
-      width: 30
-    },
+    statBottomLine: true,
   },
   {
-    key: "fieldSeven", //余液
+    key: "liquid", //余液
     value: "",
     event: keyf1,
     name: "余液",
-    textarea: {
-      width: 62,
-    },
+    statBottomLine: true
   },
   {
-    key: "fieldEight", //尿量
+    key: "urine", //尿量
     value: "",
     event: keyf1,
     name: "尿量",
-    textarea: {
-      width: 62,
-    },
+    statBottomLine: true
   },
   {
-    key: "fieldNine", //大便量
+    key: "stool", //大便量
     value: "",
     event: keyf1,
     name: "大便量",
-    textarea: {
-      width: 30
-    },
+    statBottomLine: true
   },
   {
-    key: "fieldTen", //呕吐量
+    key: "vomiting", //呕吐量
     value: "",
     event: keyf1,
     name: "呕吐量",
-    textarea: {
-      width: 62,
-    },
+    statBottomLine: true
   },
   {
-    key: "fieldEleven", //痰液量
+    key: "sputum", //痰液量
     value: "",
     event: keyf1,
     name: "痰液量",
-    textarea: {
-      width: 62,
-    },
+    statBottomLine: true
   },
   {
-    key: "fieldTwelve", //汗液量
-    value: "",
-    event: keyf1,
-    name: "汗液量",
-    textarea: {
-      width: 62,
-    },
-  },
-  {
-    key: "fieldThirteen", //标题1
+    key: "customTitle1", //标题1
     value: "",
     event: keyf1,
     name: "标题1",
-    textarea: {
-      width: 62,
-    },
+    statBottomLine: true
   },
   {
-    key: "fieldFourteen", //标题2
+    key: "customTitle2", //标题2
     value: "",
     event: keyf1,
     name: "标题2",
-    textarea: {
-      width: 62,
-    },
+    statBottomLine: true
+  },
+  {
+    key: "customTitle3", //标题3
+    value: "",
+    event: keyf1,
+    name: "标题3",
+    statBottomLine: true
   },
   {
     key: "totalOutput", //总出量
     value: "",
     event: keyf1,
-    name: "总出量",
-    textarea: {
-      width: 62,
-    },
+    name: "出量",
+    statBottomLine: true
   },
   {
     key: "balance", //平衡
     value: "",
     event: keyf1,
     name: "平衡",
-    textarea: {
-      width: 62,
+    statBottomLine: true
+  },
+  {
+    hidden: true,
+    key: "description", //特殊情况记录
+    value: "",
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      // width: "180px",
+      background: "transparent",
     },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+    // oninput: next
   },
   {
     hidden: true,
@@ -215,7 +204,7 @@ export default [{
     value: ""
   },
   {
-    hidden: false,
+    hidden: true,
     key: "signerNo",
     value: ""
   },

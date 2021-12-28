@@ -253,7 +253,7 @@ export default {
     }
   },
   methods: {
-    createListHj(){
+    createListHj(index){
        return {
             label: "输血安全护理记录单",
             index: index + 1,
@@ -295,7 +295,30 @@ export default {
             })
           };
     },
-    nodeClick(data, node) {
+    async nodeClick(data, node) {
+      
+      if(!this.$store.state.admittingSave.admittingSave){
+         const comfirm =  await this.$confirm('入院评估单还未保存，是否需要离开页面?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '退出成功!'
+          });
+           this.$store.state.admittingSave.admittingSave = true
+           return true
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          }); 
+          return false
+        });
+        console.log(comfirm,'ddd');
+        if(!comfirm)return
+      }
       console.log(
         "nodeClick",
         {data, node},
@@ -655,7 +678,7 @@ export default {
           let list_3 = []
           switch(this.HOSPITAL_ID){
             case 'hj':
-              list_3 = this.createListHj();
+              list_3 = this.createListHj(index);
               break;
             case 'huadu':
               list_3 = this.createListHd();

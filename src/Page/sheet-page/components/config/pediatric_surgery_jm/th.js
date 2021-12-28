@@ -148,8 +148,8 @@ export default {
         护<br/>理<br/>指<br/>导
         `,
       style: {
-        minWidth: '38px',
-        maxWidth: '38px',
+        minWidth: '28px',
+        maxWidth: '28px',
         whiteSpace: 'nowrap'
       },
       colspan: '1',
@@ -160,8 +160,8 @@ export default {
         健<br/>康<br/>教<br/>育
         `,
       style: {
-        minWidth: '38px',
-        maxWidth: '38px',
+        minWidth: '28px',
+        maxWidth: '28px',
         whiteSpace: 'nowrap'
       },
       colspan: '1',
@@ -238,8 +238,8 @@ export default {
         签名
         `,
       style: {
-        minWidth: '60px',
-        maxWidth: '60px',
+        minWidth: '70px',
+        maxWidth: '70px',
       },
       colspan: '1',
       rowspan: '3'

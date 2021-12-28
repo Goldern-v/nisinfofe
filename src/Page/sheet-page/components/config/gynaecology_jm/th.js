@@ -9,7 +9,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1200px"
+    width: "1210px"
   },
   th: {
     top: [{
@@ -171,8 +171,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: '150px',
-          maxWidth: '150px',
+          minWidth: '155px',
+          maxWidth: '155px',
         },
       },
       {

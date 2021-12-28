@@ -25,12 +25,7 @@
 
         <patientList
           :toName="
-            (HOSPITAL_ID === 'huadu' ||
-              HOSPITAL_ID === 'liaocheng' ||
-              HOSPITAL_ID === 'hengli' ||
-              HOSPITAL_ID === 'quzhou' ||
-              HOSPITAL_ID === 'hj' ||
-              HOSPITAL_ID === 'wujing') &&
+            toSingleTempArr.includes(HOSPITAL_ID) &&
             $route.path.includes('singleTemperatureChart')
               ? 'singleTemperatureChart'
               : 'sheetPage'
@@ -80,11 +75,7 @@
           >
             <i class="el-icon-plus"></i>
             {{
-              (HOSPITAL_ID === "huadu" ||
-                HOSPITAL_ID === "liaocheng" ||
-                HOSPITAL_ID === "hj" ||
-                HOSPITAL_ID === "hengli" ||
-                HOSPITAL_ID === "wujing") &&
+              toSingleTempArr.includes(HOSPITAL_ID) &&
               $route.path.includes("singleTemperatureChart")
                 ? "创建体温单"
                 : "创建护理记录单"
@@ -252,11 +243,13 @@ import sheetTable_newborn_qzx from "./components/sheetTable-newborn_qzx/sheetTab
 import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
 import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
 import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";
+import sheetTable_record_children_serious2_lc from "./components/sheetTable-record_children_serious2_lc/sheetTable";
 import sheetTable_waiting_birth_gzry from "./components/sheetTable-waiting_birth_gzry/sheetTable";
 import sheetTable_newborn_care_gzry from "./components/sheetTable-newborn_care_gzry/sheetTable";
 import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
 import sheetTable_picc_custody_jm from "./components/sheetTable-picc_custody_jm/sheetTable";
 import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/sheetTable";
+import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
@@ -315,6 +308,14 @@ export default {
       scrollY: 0,
       bedAndDeptChange: {},
       listData: [],
+      toSingleTempArr: [
+        "huadu",
+        "liaocheng",
+        "hengli",
+        "quzhou",
+        "hj",
+        "wujing",
+      ], // 患者列表点击前往体温单录入的医院
     };
   },
   computed: {
@@ -351,14 +352,6 @@ export default {
         }
       };
       let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        item.bodyModel.map((tr,x)=>{
-          if(!tr.hasOwnProperty('isRead')){
-            tr.isRead = this.isRead(tr)
-            tr.map((td,y)=>{
-              td.isDisabed = this.isDisabed(tr,td,x,y,item.bodyModel)
-            })
-          } 
-        })
         let obj = {
           index,
           data: item,
@@ -369,6 +362,16 @@ export default {
 
       let resultModel = mapSheetModel.filter((item) => {
         return showSheetPage(item.index);
+      });
+      resultModel.map((item) => {
+        item.data.bodyModel.map((tr, x) => {
+          if (!tr.hasOwnProperty("isRead")) {
+            tr.isRead = this.isRead(tr);
+            tr.map((td, y) => {
+              td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel);
+            });
+          }
+        });
       });
       return resultModel;
     },
@@ -386,6 +389,8 @@ export default {
         return sheetTableDressing_count;
       } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
         return sheetTableMaternal_newborn_lc;
+      } else if (sheetInfo.sheetType == "record_children_serious2_lc") {
+        return sheetTable_record_children_serious2_lc;
       } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
         return sheetTable_picc_maintenance_hd;
       } else if (sheetInfo.sheetType == "intervention_cure_hd") {
@@ -420,6 +425,8 @@ export default {
         return sheetTable_picc_custody_jm;
       } else if (sheetInfo.sheetType == "nicu_custody_jm") {
         return sheetTable_nicu_custody_jm;
+      } else if (sheetInfo.sheetType == "cardiology_lcey") {
+        return sheetTable_cardiology_lcey;
       } else if (sheetInfo.sheetType == "rescue_hl") {
         return sheetTable_emergency_rescue;
       } else if (sheetInfo.sheetType == "oxytocin_hl") {
@@ -434,14 +441,12 @@ export default {
     },
   },
   methods: {
-    isFirst(tr,x, y,bodyModel) {
+    isFirst(tr, x, y, bodyModel) {
       let recordDate = tr.find((item) => item.key == "recordDate").value;
       let recordSource = tr.find((item) => item.key == "recordSource").value;
       let flag = false;
       if (recordDate && recordSource) {
-        let dateIndex = bodyModel[0].findIndex(
-          (e) => e.key == "recordDate"
-        );
+        let dateIndex = bodyModel[0].findIndex((e) => e.key == "recordDate");
         let sourceIndex = bodyModel[0].findIndex(
           (e) => e.key == "recordSource"
         );
@@ -455,8 +460,14 @@ export default {
       }
       return flag;
     },
-    isDisabed(tr, td, x,y,bodyModel) {
+    isDisabed(tr, td, x, y, bodyModel) {
       // canModify false可以修改，true禁止修改
+      // 签名后不能修改，要取消修改才能修改
+      if (this.sheetInfo.sheetType == "common_xg") {
+        if (td && this.listData[x]) {
+          return !this.listData[x].canModify;
+        }
+      }
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
@@ -473,7 +484,7 @@ export default {
       }
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
-        this.HOSPITAL_ID == "huadu" &&
+        (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "fuyou") &&
         tr.find((item) => item.key == "status").value === "1"
       ) {
         let flag =
@@ -484,7 +495,7 @@ export default {
         //td存在才判断
         if (td) {
           flag =
-            !this.isFirst(tr,x, y,bodyModel) &&
+            !this.isFirst(tr, x, y, bodyModel) &&
             (td.key === "recordMonth" || td.key === "recordHour"); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
         }
         return flag;
@@ -612,6 +623,7 @@ export default {
         // this.sheetModel = []
         this.$nextTick(() => {
           // this.sheetModel = sheetModel
+          // console.log(titleData);
           initSheetPage(titleData, bodyData, markData);
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
           this.getHomePage(isBottom);
@@ -648,8 +660,10 @@ export default {
       });
     },
     breforeQuit(next) {
-      console.log(this.$store.state);
-      if (!sheetInfo.isSave) {
+      if (
+        !sheetInfo.isSave &&
+        !this.$route.path.includes("singleTemperatureChart")
+      ) {
         window.app
           .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
             confirmButtonText: "离开",
@@ -939,7 +953,12 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-      if (process.env.HOSPITAL_ID == "fuyou" || process.env.HOSPITAL_ID == "quzhou" || process.env.HOSPITAL_ID == "huadu" ) {
+      if (
+        process.env.HOSPITAL_ID == "fuyou" ||
+        process.env.HOSPITAL_ID == "quzhou" ||
+        process.env.HOSPITAL_ID == "huadu" ||
+        this.HOSPITAL_ID === "foshanrenyi"
+      ) {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
@@ -991,6 +1010,10 @@ export default {
     });
   },
   watch: {
+    patientInfo(val) {
+      this.bus.$emit("refreshImg");
+      this.$store.commit("upPatientInfo", val);
+    },
     deptCode(val) {
       if (val) {
         this.getDate();
@@ -1002,25 +1025,28 @@ export default {
     },
     sheetModel: {
       deep: true,
-      immediate:true,
-      handler(newValue,oldValue) {
-        if(this.HOSPITAL_ID=='guizhou'){
-        }else{
+      immediate: true,
+      handler(newValue, oldValue) {
+        if (this.HOSPITAL_ID == "guizhou") {
+        } else {
           if (this.patientInfo.name) {
             sheetInfo.isSave = false;
           }
         }
       },
     },
-    '$route.path'(){
+    "$route.path"() {
       // 针对贵州切换出入量记录单数据不刷新，如果有问题可回撤
-      if(this.HOSPITAL_ID=='guizhou'){
-        this.sheetInfo.selectBlock = {}
+      if (this.HOSPITAL_ID == "guizhou") {
+        this.sheetInfo.selectBlock = {};
       }
-    }
+    },
   },
   beforeRouteLeave: (to, from, next) => {
-    if (!sheetInfo.isSave) {
+    if (
+      !sheetInfo.isSave &&
+      !from.fullPath.includes("singleTemperatureChart") //去除体温单切换未保存提示
+    ) {
       window.app
         .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
           confirmButtonText: "离开",
@@ -1076,6 +1102,7 @@ export default {
     sheetTable_oxytocin_hl,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
+    sheetTable_cardiology_lcey,
   },
 };
 </script>

@@ -10,9 +10,9 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: "",
-  // style: {
-  //     width: "1200px"
-  //   },
+  style: {
+      width: "1200px"
+    },
   th: {
     top: [
       {
@@ -118,6 +118,39 @@ export default {
         },
         canSet: true,
         key: "customItem2",
+      },
+      {
+        name: `标题3`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "45px",
+          maxWidth: "45px"
+        },
+        canSet: true,
+        key: "customItem3",
+      },
+      {
+        name: `标题4`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "45px",
+          maxWidth: "45px"
+        },
+        canSet: true,
+        key: "customItem4",
+      },
+      {
+        name: `标题5`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "45px",
+          maxWidth: "45px"
+        },
+        canSet: true,
+        key: "customItem5",
       },
       {
         name: `

@@ -9,6 +9,11 @@ module.exports = {
     HOSPITAL_NAME: '"东莞市厚街医院"',
     HOSPITAL_NAME_SPACE: '"东 莞 市 厚 街 医 院"'
   },
+  "fqfybjy":{
+    HOSPITAL_ID: '"fqfybjy"',
+    HOSPITAL_NAME:'"福清妇幼保健院"',
+    HOSPITAL_NAME_SPACE: '"福 清 妇 幼 保 健 院"'
+  },
   "guiyi": {
     HOSPITAL_ID: '"gy"',
     HOSPITAL_NAME: '"贵州医科大学附属医院"',
@@ -130,12 +135,21 @@ module.exports = {
     HOSPITAL_NAME_SPACE: '"佛 山 市 第 一 人 民 医 院"',
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
     ABOUT_INFO: '"关于宸瑞普惠"',
-    title: '"智慧护理信息系统"'
+    title: '"智慧护理信息系统"',
+    ENABLE_BLUETOOTH_SIGN: "true"
   },
   fsxt: {
     HOSPITAL_ID: '"fsxt"',
     HOSPITAL_NAME: '"南方医科大学顺德医院附属杏坛医院"',
     HOSPITAL_NAME_SPACE: '"南 方 医 科 大 学 顺 德 医 院 附 属 杏 坛 医 院"',
+    COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"'
+  },
+  whyx: {
+    HOSPITAL_ID: '"whyx"',
+    HOSPITAL_NAME: '"武汉亚心医院"',
+    HOSPITAL_NAME_SPACE: '"武 汉 亚 心 医 院"',
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
     ABOUT_INFO: '"关于宸瑞普惠"',
     title: '"智慧护理信息系统"'

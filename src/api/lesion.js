@@ -3,7 +3,7 @@ import axios from './axios'
 import {
   apiPath
 } from './apiConfig'
-
+const HOSPITAL_ID = process.env.HOSPITAL_ID
 // 护理单元
 function nursingUnit() {
   return axios.get(`${apiPath}user/nursingUnit`)
@@ -27,6 +27,7 @@ function patients(deptCode, config, HisName = process.env.HOSPITAL_NAME) {
   };
   // let url = hisList[HisName] || `patList/${deptCode}`
   let url = hisList[HisName] || `patListWithNewForm/${deptCode}`
+
   if (config) {
     return axios.post(`${apiPath}bed/patList/config/${deptCode}`, config)
   } else {
@@ -75,6 +76,11 @@ function syncGetNurseBedRecHengli(deptCode){
 function syncGetNurseBedRecJiangMenFY(deptCode){
   return axios.get(`${apiPath}HisJiangMenFYBedRec/syncGetNurseBedRec/${deptCode}`)
 }
+//佛山市一 --更新床位一览卡信息
+function syncGetNurseBedRecJiangMenFSSY(deptCode){
+  return axios.get(`${apiPath}HisFoSanShiYiBedRec/syncGetNurseBedRec/${deptCode}`)
+}
+
 // 威县 --同步医嘱
 function syncGetMedicalAdvice(deptCode) {
   return axios.get(`${apiPath}hisDispenseExecute/syncGetPatientOrdersWithWardCode/${deptCode}`)

@@ -144,6 +144,7 @@ import tableHeadFuyou from "./components/table-head/table-head-fuyou";
 import tableHeadXieGang from "./components/table-head/table-head-xiegang";
 import tableHeadNanFangZhongXiYi from "./components/table-head/table-head-nanfangzhongxiyi";
 import tableHeadBeiHaiRenYi from "./components/table-head/table-head-beihairenyi";
+import tableHeadFoShanRenYi from "./components/table-head/table-head-foshanrenyi";
 import tableHeadHengLi from "./components/table-head/table-head-hengli";
 import tableHeadShanNan from "./components/table-head/table-head-shannan";
 import tableHeadQz from "./components/table-head/table-head-qz";
@@ -166,6 +167,7 @@ export default {
   },
   computed: {
     patientInfo() {
+      console.log(this.sheetInfo.masterInfo);
       return this.sheetInfo.selectBlock || {};
     },
     /** 只读模式 */
@@ -177,15 +179,23 @@ export default {
         return false;
       }
       if (sheetInfo.sheetType === "obstetrics") return false;
-      return !this.userDeptList
+
+      if(this.HOSPITAL_ID == "fuyou"){
+        let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+        if (controlReadOnly) {
+          return true
+        }
+      } else {
+        return !this.userDeptList
         .map(item => item.code)
         .includes(this.sheetInfo.selectBlock.deptCode);
+      }
     },
     tableHead() {
       /** 产科 */
       if (sheetInfo.sheetType === "prenatal") {
         return tableHeadPrenata;
-      } else if (sheetInfo.sheetType === "special") {
+      } else if (sheetInfo.sheetType === "special") { 
         return tableHeadTbhldLc;
       } else if (this.HOSPITAL_ID == "weixian") {
         return tableHeadWx;
@@ -203,6 +213,8 @@ export default {
         return tableHeadNanFangZhongXiYi;
       } else if (this.HOSPITAL_ID == "beihairenyi") {
         return tableHeadBeiHaiRenYi;
+      } else if (this.HOSPITAL_ID == "foshanrenyi") {
+        return tableHeadFoShanRenYi;
       } else if (this.HOSPITAL_ID == "hengli") {
         return tableHeadHengLi;
       } else if (this.HOSPITAL_ID == "guizhou") {

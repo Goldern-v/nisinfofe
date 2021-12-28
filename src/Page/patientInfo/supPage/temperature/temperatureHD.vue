@@ -1,12 +1,11 @@
 <template>
   <div>
     <div class="contain">
-     <el-button-group>
-    <el-button type="primary"  @click="onPrint()" >打印当周</el-button>
-    <el-button type="primary"  @click="printAll()">批量打印</el-button>
-    </el-button-group> 
-   
-    
+      <el-button-group>
+        <el-button type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button type="primary" @click="printAll()">批量打印</el-button>
+      </el-button-group>
+
       <!-- <div class="print-btn tool-btn" @click="onToggle()">录入</div> -->
       <div class="pagination" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="toPre">上一页</button>
@@ -31,7 +30,7 @@
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
-         :class="HOSPITAL_ID === 'huadu' ? 'hdIframe' : ''"
+          :class="HOSPITAL_ID === 'huadu' ? 'hdIframe' : ''"
         ></iframe>
       </div>
       <div class="tem-con" :style="contentHeight" v-show="isPrintAll">
@@ -53,9 +52,11 @@
       >
         <single-temperature-chart
           v-if="visibled"
+          :isNursingPreview="isNursingPreview"
           class="sheet-con"
         ></single-temperature-chart>
       </sweet-modal>
+      <doctorEmr v-if="HOSPITAL_ID === 'huadu'" />
     </div>
   </div>
 </template>
@@ -76,14 +77,15 @@
       height: 100%;
     }
   }
-.dropDownBox{
-width: 100px;
-height: 50px
-position: absolute;
-left: 100px;
-background-color red;
 
-}
+  .dropDownBox {
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    left: 100px;
+    background-color: red;
+  }
+
   .modal-con {
     /deep/ .isFixed {
       top: 90px !important;
@@ -145,7 +147,7 @@ background-color red;
 .pagination {
   display: inline;
   position: relative;
-  left: 35%;
+  left: 27%;
   font-weight: normal;
 }
 
@@ -200,10 +202,13 @@ import nullBg from "../../../../components/null/null-bg";
 import {
   getNurseExchangeInfo,
   getNurseExchangeInfoByTime,
+  getNurseExchangeInfoBatch,
 } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
 import singleTemperatureChart from "./singleTemperatureChart";
+import doctorEmr from "@/components/doctorEmr";
+
 export default {
   props: {
     queryTem: Object,
@@ -218,56 +223,64 @@ export default {
       pageTotal: 1,
       toCurrentPage: 1,
       open: false,
-      isPrintAll:false,//是否批量打印
-      printAllPath:"",
-      patientId:"",
-      visitId:"",
+      isPrintAll: false, //是否批量打印
+      printAllPath: "",
+      patientId: "",
+      visitId: "",
       isSave: false,
       visibled: false,
       intranetUrl:
         "http://120.238.239.27:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-      // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
-     printAllUrl: "http://120.238.239.27:9091/temperature/#/printAll" /* 医院正式环境批量打印内网 */,
+      printAllUrl:
+      "http://120.238.239.27:9091/temperature/#/printAll" /* 医院正式环境批量打印内网 */,
+      isNursingPreview: false, //是否为调阅界面体温单调起的护记
     };
   },
   methods: {
-   onPrint() {        setTimeout(()=>{
-this.$refs.pdfCon.contentWindow.postMessage(
-        { type: "printing" },
-        this.intranetUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-      },1500)
+    onPrint() {
+      this.isPrintAll = false; //隐藏页码控制区域
+      setTimeout(() => {
+        this.$refs.pdfCon.contentWindow.postMessage(
+          { type: "printing" },
+          this.intranetUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
-    printAll(){
-      this.isPrintAll=true  //隐藏页码控制区域
-        setTimeout(()=>{
-this.$refs.pdfConAll.contentWindow.postMessage(
-        { type: "printingAll" },
-        this.printAllUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-      },1500)
+    printAll() {
+      this.isPrintAll = true; //隐藏页码控制区域
+      setTimeout(() => {
+        this.$refs.pdfConAll.contentWindow.postMessage(
+          { type: "printingAll" },
+          this.printAllUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
-      
     getImg() {
       let date = this.$route.query.admissionDate
         ? new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd")
         : new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.$route.query.patientId || this.queryTem.patientId;
       let visitId = this.$route.query.visitId || this.queryTem.visitId;
-      this.date=date;
-      this.patientId=patientId;
-      this.visitId=visitId;
-     /* 单独处理体温单，嵌套iframe */
+      this.date = date;
+      this.patientId = patientId;
+      this.visitId = visitId;
+      /* 单独处理体温单，嵌套iframe */
       const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`;/* 内网 */
+      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
       // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
-        this.printAllPath=tempAllUrl
+        this.printAllPath = tempAllUrl;
       }, 0);
+    },
+    //发布监听事件
+    getData() {
+      this.bus.$on("refreshImg", () => {
+        this.getImg();
+      });
     },
     toPage() {
       if (
@@ -313,7 +326,7 @@ this.$refs.pdfConAll.contentWindow.postMessage(
             break;
           case "pageTotal":
             this.pageTotal = e.data.value;
-             this.currentPage = e.data.value;
+            this.currentPage = e.data.value;
             break;
           case "getNurseExchangeInfo":
             // const params = {
@@ -348,12 +361,34 @@ this.$refs.pdfConAll.contentWindow.postMessage(
               );
             });
             break;
+          case "getNurseExchangeInfoAll":
+            const paramsAll = {
+              patientId: this.$route.query.patientId,
+              startLogDateTime: e.data.value.startLogDateTime,
+              endLogDateTime: e.data.value.endLogDateTime,
+              visitId: this.$route.query.visitId,
+            };
+            getNurseExchangeInfoBatch(paramsAll).then((res) => {
+              let value = res.data.data.exchangeInfos
+              if(value.length!==0){
+              this.$refs.pdfConAll.contentWindow.postMessage(
+                { type: "nurseExchangeInfoAll", value },
+                "*"
+              );
+              }
+
+              
+            });
+            break;
           default:
             break;
         }
       }
     },
     onToggle() {
+      //nursingPreviewIsShow
+      // if (this.$route.path.includes("singleTemperatureChart")
+      // || (this.$route.path.includes("nursingPreview") && this.$route.query && this.$route.query.nursingPreviewIsShow=='1' )) {
       if (this.$route.path.includes("singleTemperatureChart")) {
         return;
       } else {
@@ -361,6 +396,8 @@ this.$refs.pdfConAll.contentWindow.postMessage(
         this.$nextTick(() => {
           this.$refs.sheet.open();
         });
+        //是否为调阅文书页面
+        this.isNursingPreview = this.$route.path.includes("nursingPreview");
       }
     },
     closeModal() {
@@ -376,12 +413,12 @@ this.$refs.pdfConAll.contentWindow.postMessage(
   },
   watch: {
     patientInfo() {
-      this.isPrintAll=false
+      this.isPrintAll = false;
     },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
-          this.intranetUrl
+        this.intranetUrl
       );
       this.toCurrentPage = value;
     },
@@ -402,6 +439,7 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+    this.getData();
   },
   computed: {
     patientInfo() {
@@ -413,6 +451,7 @@ this.$refs.pdfConAll.contentWindow.postMessage(
   },
   components: {
     nullBg,
+    doctorEmr,
     singleTemperatureChart,
   },
 };

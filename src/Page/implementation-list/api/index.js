@@ -34,7 +34,7 @@ export function getExecuteWithWardcode(obj) {
       `${apiPath}${hospitalExecute}/getWardExeacute`,
       obj
     );
-  }else if(HOSPITAL_ID == "wujing"){
+  }else if(["wujing","foshanrenyi","hengli"].includes(HOSPITAL_ID)){
     // 新版执行单（武警）
     return axios.post(
       `${apiPath}procedure/webExecute/webGetWardExecute`,
@@ -104,4 +104,9 @@ export function handleWebGetPrintResult(uuid) {
 
 export function webExecutePrint(body){
   return axios.post(`${apiPath}procedure/webExecute/webExecutePrint`,body)
+}
+
+// 取消执行单(聊城)
+export function cancelOrderExecuteApi(body){
+  return axios.post(`${apiPath}hisLiaoChengExecute/cancelOrderExecute`,body)
 }

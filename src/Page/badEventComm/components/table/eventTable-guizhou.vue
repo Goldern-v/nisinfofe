@@ -146,7 +146,7 @@
 <script>
 import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
-import { del } from "../../apis/index.js";
+import { del } from "@/Page/badEvent/apis/index.js";
 import BusFactory from "vue-happy-bus";
 import qs from "qs";
 export default {
@@ -189,7 +189,7 @@ export default {
         name: "badEventView",
         params: {
           id: row.id,
-          name: row.badEventName || row.chainName,
+          name: (row.badEventName || row.chainName).replace(/\.html$/, ''),
           code: row.badEventCode || row.chainCode,
           type: row.eventType || row.chainName,
           status: row.status,

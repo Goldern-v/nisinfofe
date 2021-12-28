@@ -44,6 +44,7 @@ export function initSheetPage(titleData, bodyData, markData) {
   cleanData();
   let titleList = [];
   let bodyList = [];
+  sheetInfo.masterInfo = bodyData;// 主表信息
   try {
     titleList = titleData.list;
     bodyList = bodyData.list.map((item, index, arr) => {

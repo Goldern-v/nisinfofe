@@ -2985,7 +2985,7 @@
     ]
   },
   {
-    "title": "孕产史(产)情况",
+    "title": "孕产史情况",
     "type": "formGroupVerticalBox",
     "name": "",
     "showTitle": false,
@@ -3137,7 +3137,6 @@
         "label": "颜色",
         "labelWidth": "100px",
         "value": "",
-        "suffixDesc": "ml",
         "style": null,
         "class": null,
         "html": null,

@@ -4,15 +4,13 @@
       <colgroup>
         <col width="40" v-for="(item, index, key) of columns[0]" :key="key" />
       </colgroup>
-      <thead></thead>
       <tbody>
         <tr v-for="(column,index) in columns" :key="index">
           <td class="text-center" v-for="(item,itemIndex) in column" :key="itemIndex" :colspan="item.colspan || 1" :style="{'text-align': item.align || 'left'}">
-            <div v-if="!item.editable">{{item.label}}</div>
+            <div v-if="!item.editable">{{item.label||data.changeShiftTimes[item.prop]}}</div>
             <div v-else>
               <label>
                 <el-input
-                  v-show="!isPrintShiftWork"
                   autosize
                   class="textarea"
                   type="textarea"
@@ -33,7 +31,6 @@
                     )
                   "
                 />
-                <div v-show="isPrintShiftWork" style="line-height:30px;">{{data.changeShiftTimes[item.prop]}}</div>
               </label>
             </div>
 
@@ -333,9 +330,9 @@ export default {
             // },
           },
           {
-            label: "患者总数",
+            label: "",
             prop: "allTotal",
-            editable: true,
+            editable: false,
             align: "left",
             width: "40",
             // rowspan: 2,
@@ -351,9 +348,9 @@ export default {
             width: "40"
           },
           {
-            label: "新入院患者",
+            label: "",
             prop: "patientNew",
-            editable: true,
+            editable: false,
             align: "left",
             width: "40"
           }
@@ -367,9 +364,9 @@ export default {
             width: "40"
           },
           {
-            label: "出院患者",
+            label: "",
             prop: "patientOut",
-            editable: true,
+            editable: false,
             align: "left",
             width: "40"
           },
@@ -381,9 +378,9 @@ export default {
             width: "40"
           },
           {
-            label: "一级护理",
+            label: "",
             prop: "patientYi",
-            editable: true,
+            editable: false,
             align: "left",
             width: "40"
           }
@@ -397,9 +394,9 @@ export default {
             width: "40"
           },
           {
-            label: "病危患者",
+            label: "",
             prop: "patientBw",
-            editable: true,
+            editable: false,
             align: "left",
             width: "40"
           },
@@ -411,9 +408,9 @@ export default {
             width: "40"
           },
           {
-            label: "转出患者",
+            label: "",
             prop: "patientTransferOut",
-            editable: true,
+            editable: false,
             align: "left",
             width: "40"
           }
@@ -427,9 +424,9 @@ export default {
             width: "40"
           },
           {
-            label: "ICU转入",
+            label: "",
             prop: "patientTransferIn",
-            editable: true,
+            editable: false,
             align: "left",
             width: "40"
           },
@@ -441,9 +438,9 @@ export default {
             width: "40"
           },
           {
-            label: "死亡患者",
+            label: "",
             prop: "patientDead",
-            editable: true,
+            editable: false,
             align: "left",
             width: "40"
           }
@@ -457,9 +454,9 @@ export default {
             width: "40"
           },
           {
-            label: "输血患者",
+            label: "",
             prop: "patientTransfusion",
-            editable: true,
+            editable: false,
             align: "left",
             width: "40"
           },
@@ -471,9 +468,9 @@ export default {
             width: "40"
           },
           {
-            label: "危急值患者",
+            label: "",
             prop: "patientCritical",
-            editable: true,
+            editable: false,
             align: "left",
             width: "40"
           }

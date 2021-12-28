@@ -47,7 +47,7 @@ export default [{
     next: "℃",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 27
+      width: 30
     },
   },
   {
@@ -58,7 +58,7 @@ export default [{
     next: "次/分",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -69,7 +69,7 @@ export default [{
     next: "次/分",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -271,7 +271,7 @@ export default [{
     },
   },
   {
-    key: "strengthRightOn", //特殊监测icp
+    key: "icp", //特殊监测icp
     value: "",
     name: "ICP",
     event: keyf1,
@@ -281,7 +281,7 @@ export default [{
     },
   },
   {
-    key: "strengthRightDown", //特殊监测cvp
+    key: "cvp", //特殊监测cvp
     value: "",
     name: "CVP",
     event: keyf1,
@@ -295,9 +295,9 @@ export default [{
     value: "",
     name: "入量名称",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 20),
     textarea: {
-      width: 65
+      width: 125
     },
   },
   {
@@ -366,9 +366,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "管道护理",
-    change: (e, td) => limitChange(e, td, 14),
+    change: (e, td) => limitChange(e, td, 26),
     textarea: {
-      width: 90
+      width: 160
     },
     splice: true,
     autoComplete: {

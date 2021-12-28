@@ -271,12 +271,12 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link>
-            <!--<router-link to="/implementationList" tag="span">
+            <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
-            </router-link>-->
-            <el-dropdown
+            </router-link>
+            <!-- <el-dropdown
               menu-align="start"
               :hide-on-click="false"
               :class="{ 'router-link-active': isActiveImplementationPage }"
@@ -305,7 +305,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
  <router-link to="/workloadSatistics" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 工作量统计
@@ -1099,9 +1099,18 @@ export default {
       }
     },
     changeDept(value) {
-      let deptName = this.deptList.filter(item => {
+      // let deptName = this.deptList.filter((item) => {
+      //   return item.code == value;
+      // })[0].name;
+      let deptName="";
+      let deptItem = this.deptList.filter((item) => {
         return item.code == value;
-      })[0].name;
+      });
+      if(deptItem && deptItem.length>0){
+        deptName=deptItem[0].name
+      }else {
+        return false;
+      }
       this.$store.commit("upDeptCode", value);
       localStorage.selectDeptValue = value;
       this.$store.commit("upDeptName", deptName);

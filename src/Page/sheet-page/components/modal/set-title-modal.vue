@@ -1,13 +1,20 @@
 <template>
   <div>
     <!-- 签名确认 -->
+    <!-- 花都体温单自定义标题模板 -->
     <sweet-modal ref="modalName" size="small" title="设置标题" @close="onClose">
       <p for class="name-title" flex="main:justify">
         <span>设置自定义标题</span>
         <span
-          style="color: #284FC2;cursor: pointer; font-size: 12px;font-weight:400"
+          style="
+            color: #284fc2;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 400;
+          "
           @click="openTitleTemplateSilde"
-        >+模板</span>
+          >+模板</span
+        >
       </p>
       <div action @keyup.13="post" ref="titleInput">
         <!-- <el-input size="small" type="text" placeholder="输入标题名称" v-model="title"></el-input> -->
@@ -20,7 +27,9 @@
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post">确认</el-button>
+        <el-button class="modal-btn" type="primary" @click="post"
+          >确认</el-button
+        >
       </div>
     </sweet-modal>
     <titleTemplateSlide ref="titleTemplateSlide"></titleTemplateSlide>
@@ -39,6 +48,7 @@
 import { listItem } from "../../api/recordDesc";
 import sheetInfo from "../config/sheetInfo/index.js";
 import titleTemplateSlide from "../modal/title-template-slide";
+import { showTitle } from "@/api/sheet.js";
 import bus from "vue-happy-bus";
 export default {
   data() {
@@ -46,7 +56,7 @@ export default {
       bus: bus(this),
       title: "",
       callback: "",
-      cellObj: null
+      cellObj: null,
     };
   },
   methods: {
@@ -64,6 +74,13 @@ export default {
     post() {
       this.close();
       this.callback(this.title);
+      if (
+        ["huadu"].includes(this.HOSPITAL_ID) &&
+        this.$route.path.includes("singleTemperatureChart")
+      ) {
+        this.bus.$emit("saveSheetPage", "refreshSheetPage");
+        //体温单保存自定义标题刷新
+      }
     },
     close() {
       this.$refs.modalName.close();
@@ -74,32 +91,39 @@ export default {
     async querySearch(queryString, cb) {
       if (this.cellObj && this.cellObj.titleList) {
         cb(
-          this.cellObj.titleList.map(item => {
+          this.cellObj.titleList.map((item) => {
             return {
-              value: item
+              value: item,
             };
           })
         );
       } else {
+        let deptCode = this.$store.state.lesion.deptCode
         let {
-          data: { data }
-        } = await listItem("自定义标题", 
-        //北海体温单调用护理记录单模板
-        ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType);
+          data: { data },
+        } = await listItem(
+          "自定义标题",
+          //北海体温单调用护理记录单模板
+          ["beihairenyi", "guizhou"].includes(this.HOSPITAL_ID) &&
+            this.$route.path.includes("newSingleTemperatureChart")
+            ? "bodyTemperature"
+            : sheetInfo.sheetType,
+            deptCode,
+        );
         // 调用 callback 返回建议列表的数据
         let autoList = [];
         if (!queryString) {
-          autoList = data.map(item => {
+          autoList = data.map((item) => {
             return {
-              value: item.name
+              value: item.name,
             };
           });
         } else {
           autoList = data
-            .filter(item => item.name.indexOf(queryString) > -1)
-            .map(item => {
+            .filter((item) => item.name.indexOf(queryString) > -1)
+            .map((item) => {
               return {
-                value: item.name
+                value: item.name,
               };
             });
         }
@@ -108,15 +132,15 @@ export default {
     },
     openTitleTemplateSilde() {
       this.$refs.titleTemplateSlide.open();
-    }
+    },
   },
   created() {
-    this.bus.$on("addTitleTemplate", name => {
+    this.bus.$on("addTitleTemplate", (name) => {
       this.title = name;
     });
   },
   components: {
-    titleTemplateSlide
-  }
+    titleTemplateSlide,
+  },
 };
 </script>

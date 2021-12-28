@@ -12,7 +12,7 @@
         @click="onRowRemove"
       >删除行</Button>
       <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button>
-      <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
+      <Button :disabled="isEmpty" @click="beforePrint">打印预览</Button>
       <div class="empty"></div>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
@@ -61,6 +61,7 @@
             </div>
           </div>
           <ExcelTable
+            v-if="!isPrint"
             ref="table"
             class="table"
             :fixedTh="fixedTh"
@@ -69,6 +70,34 @@
             :editable="!allSigned"
             :get-context-menu="getContextMenu"
             v-model="patients"
+            @dblclick="onDblClickRow"
+            @input-change="onTableInputChange"
+            @input-keydown="onTableInputKeydown"
+          >
+            <tr class="empty-row" v-if="!patients.length">
+              <td colspan="9" style="padding: 0">
+                <Placeholder
+                  black
+                  size="small"
+                  data-print-style="display: none;"
+                  :show-add="!allSigned"
+                  @click="onPatientModalShow()"
+                >
+                  <i class="el-icon-plus"></i> 添加患者记录
+                </Placeholder>
+              </td>
+            </tr>
+          </ExcelTable>
+          <ExcelTable
+            v-else
+            ref="table"
+            class="table"
+            :fixedTh="fixedTh"
+            data-print-style="height: auto;"
+            :columns="columns"
+            :editable="!allSigned"
+            :get-context-menu="getContextMenu"
+            v-model="printList"
             @dblclick="onDblClickRow"
             @input-change="onTableInputChange"
             @input-keydown="onTableInputKeydown"
@@ -168,11 +197,19 @@
     />
     <SpecialCasePanel ref="specialCasePanel" @apply-template="onSpecialCasePanelApply" />
     <SignModal ref="signModal" />
+    <SelectPatientModal 
+      v-if="isSelectPatient" 
+      :dialogVisible="isSelectPatient" 
+      @setIsSelectPatient="setIsSelectPatient" 
+      :treeData="patients"
+      @setPrintList="setPrintList"
+    />
   </div>
 </template>
 
 <script>
 import common from "@/common/mixin/common.mixin";
+import SelectPatientModal from "@/Page/shift-work-fy/components/selectPatientModal.vue"
 import FallibleImage from "@/components/FallibleImage/FallibleImage.vue";
 import { pick } from "lodash";
 import print from "printing";
@@ -244,6 +281,7 @@ export default {
   },
   data() {
     return {
+      isSelectPatient:false,
       loading: false,
       modified: false,
       depts: [],
@@ -259,13 +297,15 @@ export default {
               prop: "bedLabel",
               editable: true,
               align: "center",
-              width: "35"
+              width: "35",
+              printWidth:"35",
             },
             {
               label: "姓名",
               prop: "name",
               editable: true,
               width: "53",
+              printWidth:"53",
               // render: row => {
               //   const status = row.patientStatus
               //     ? `(${row.patientStatus})`
@@ -280,15 +320,18 @@ export default {
               prop: "age",
               editable: true,
               align: "center",
-              width: "35"
+              width: "35",
+              printWidth:"35",
             },
             {
               label: "诊断",
               prop: "diagnosis",
               editable: true,
-              width: "80"
+              width: "80",
+              printWidth:"50",
             },
-          ]
+          ],
+          printWidth:"200",
         },
         {
           label: "Situation：状态",
@@ -297,9 +340,11 @@ export default {
               label: "症状",
               prop: "symptom",
               editable: true,
-              width: "165"
+              width: "165",
+              printWidth:"350",
             }
-          ]
+          ],
+          printWidth:"370",
         },
         {
           label: "Background:背景",
@@ -308,9 +353,11 @@ export default {
               label: "既往史，过敏史，<br>特殊病史",
               prop: "background",
               editable: true,
-              width: "70"
+              width: "70",
+              printWidth:"70",
             }
-          ]
+          ],
+          printWidth:"90",
         },
         {
           label: "Assessment:评估",
@@ -319,9 +366,11 @@ export default {
               label: "检验检查，<br>主要问题",
               prop: "checkInspection",
               editable: true,
-              width: "110"
+              width: "110",
+              printWidth:"380",
             }
-          ]
+          ],
+          printWidth:"400",
         },
         {
           label: "Recommendation：<br>建议",
@@ -330,18 +379,23 @@ export default {
               label: "治疗、护理",
               prop: "cure",
               editable: true,
-              width: "60"
+              width: "60",
+              printWidth:"60",
             },
             {
               label: "隔离",
               prop: "diet",
               editable: true,
-              width: "40"
+              width: "40",
+              printWidth:"40",
             }
-          ]
+          ],
+          printWidth:"120",
         }
       ],
-      fixedTh: false
+      fixedTh: false,
+      printList:[],
+      isPrint:false
     };
   },
   computed: {
@@ -393,6 +447,15 @@ export default {
     });
   },
   methods: {
+    setPrintList(payload){
+      this.isPrint = true
+      this.printList = payload
+      this.isSelectPatient = false
+      this.$nextTick(async ()=>{
+        await this.onPrint()
+        this.isPrint = false
+      })
+    },
     async loadDepts() {
       const parentCode = this.deptCode;
       const res1 = await apis.listDepartment(parentCode);
@@ -874,6 +937,12 @@ export default {
         this.reloadSideList();
       });
     },
+    setIsSelectPatient(flag){
+      this.isSelectPatient = flag
+    },
+    beforePrint(){
+      this.setIsSelectPatient(true)
+    },
     async onPrint() {
       this.loading = true;
       this.fixedTh = false;
@@ -884,14 +953,21 @@ export default {
           injectGlobalCss: true,
           scanStyles: false,
           css: `
-        .fixedTh {
-          display: none !important;
-          height: auto;
-        }
-        pre {
-          white-space: pre-wrap;
-        }
-        `
+            @page{
+              margin-top:20mm;
+              margin-bottom:10mm;
+            }
+            @page:first{
+              margin-top:0;
+            }
+            .fixedTh {
+              display: none !important;
+              height: auto;
+            }
+            pre {
+              white-space: pre-wrap;
+            }
+          `
         });
       });
       this.loading = false;
@@ -968,6 +1044,7 @@ export default {
   },
   components: {
     FallibleImage,
+    SelectPatientModal,
     Button,
     ExcelTable,
     Placeholder,

@@ -33,8 +33,8 @@
             style="margin-left: 10px"
             v-if="
               (HOSPITAL_ID === 'huadu' &&
-                sheetInfo.sheetType !== 'body_temperature_Hd') ||
-              HOSPITAL_ID === 'zhongshanqi'
+              sheetInfo.sheetType !== 'body_temperature_Hd') ||
+              HOSPITAL_ID === 'zhongshanqi'||HOSPITAL_ID === 'beihairenyi'&&sheetInfo.sheetType!=='infant_bh'
             "
           >
             <el-switch v-model="isSyncTemp"></el-switch>
@@ -208,7 +208,7 @@
                 <div flex-box="1"></div>
               </div>
             </div>
-            <div v-if="HOSPITAL_ID == 'liaocheng'">
+            <div v-if="HOSPITAL_ID == 'liaocheng'&&(sheetInfo.sheetType!='critical2_lcey'&&sheetInfo.sheetType!='critical_lcey'&&sheetInfo.sheetType!='critical_new_lcey')">
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">体温：</div>
@@ -387,7 +387,7 @@
                       (HOSPITAL_ID === 'huadu' &&
                         sheetInfo.sheetType !== 'body_temperature_Hd' &&
                         Object.keys(vitalSignKeys).includes(item.name)) ||
-                      (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')
+                      (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')||HOSPITAL_ID === 'beihairenyi'&&beihaiList.indexOf(item.name)>-1
                     "
                   ></el-checkbox>
                   <div class="label" style="min-width: 70px">
@@ -858,6 +858,7 @@ export default {
         list: [],
       },
       multiDictList: [],
+      beihaiList:["体温","脉搏","呼吸","血压","心率"]
     };
   },
   computed: {
@@ -992,6 +993,29 @@ export default {
           units: obj.unit,
         });
       });
+      if(this.HOSPITAL_ID==='beihairenyi'&&this.vitalSignKeys["体温"].check&&this.isSyncTemp){
+        vitalTemp.push({
+           classCode: "A",
+           optionType: "",
+           selectType: "",
+           showType: "0",
+           timePointType: "",
+           unit: "℃",
+           unitVitalCode: "",
+           vitalCode: "042",
+           vitalSign: "腋表",
+           vitalSignType: "",
+           vitalType: "1"
+         })
+       this.vitalSignList.list.push({
+          ...vitalSignObj,
+          vitalSigns: "腋表",
+          vitalSignsValue: this.fixedList['temperature'].value,
+          classCode: "A",
+          vitalCode: "042",
+          units: "℃",
+        });
+      }
     },
     /* 获取字典表，整理某一行的同步信息 */
     getVitalList() {
@@ -1103,11 +1127,14 @@ export default {
     },
     // 处理特殊字符转换函数
     htmlEscape(str) {
+      let reg = new RegExp(/&#44;/g)
+      console.log(str);
       return String(str)
         .replace(/&amp;/g, "&")
         .replace(/&quot;/g, '"')
         .replace(/&#39;/g, "'")
         .replace(/&lt;/g, "<")
+        .replace(/&nbsp;/g, " ")
         .replace(/&gt;/g, ">");
     },
     /**
@@ -1191,6 +1218,7 @@ export default {
       for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
         const isContinue = isSpecialLabel && i <= index + 11;
+        // 字符为 ，。；,.：:
         if (
           charCode == "65292" ||
           charCode == "12290" ||
@@ -1198,6 +1226,8 @@ export default {
           charCode == "44" ||
           charCode == "46" ||
           charCode == "65306" ||
+          charCode == "109" ||
+          charCode == "103" ||
           charCode == "58" ||
           isContinue
         ) {
@@ -1320,6 +1350,13 @@ export default {
             } else {
               text += allDoc[i];
             }
+          }else if (this.sheetInfo.sheetType === "iabp_fs") {
+            if (GetLength(text) > 56) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           } else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
             if (GetLength(text) > 98) {
               result.push(text);
@@ -1417,7 +1454,7 @@ export default {
       if (
         (this.HOSPITAL_ID === "huadu" &&
           sheetInfo.sheetType !== "body_temperature_Hd") ||
-        this.HOSPITAL_ID === "zhongshanqi"
+        this.HOSPITAL_ID === "zhongshanqi"||this.HOSPITAL_ID === "beihairenyi"&&this.sheetInfo.sheetType!=='infant_bh'
       ) {
         this.isSyncTemp
           ? this.sycnTempChange()
@@ -1505,6 +1542,13 @@ export default {
         }
       },
     },
+    doc(val){
+      if(!val.trim().length)return
+      let reg = new RegExp(/<(?:(?!\bsub\b|\bsup\b|\bp\b|[<>]).)+>/g)
+      if(reg.test(val)){
+        this.doc = val.replace(reg,'')
+      }
+    }
   },
   components: {
     templateSlide,

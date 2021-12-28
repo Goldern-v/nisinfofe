@@ -801,6 +801,7 @@ export default {
                     ].checkValueRule(result);
                   }
                   if (this.$root.$refs[this.formCode][this.parentName]) {
+                    log
                     this.$root.$refs[this.formCode][
                       this.parentName
                     ].setCurrentValue(result);
@@ -815,8 +816,19 @@ export default {
                 } else {
                   let score = this.formBox.model.evalScore;
                   let desc = this.formBox.model.evalDesc || "";
-                  let result = score + "分 " + desc;
-                  this.formObj.model[this.parentName] = result;
+                  if(this.formBox.model.formCode == 'E0616'){
+                     if(score.indexOf('分') != -1){
+                       let result = score + " " + this.formBox.model["I385031"];
+                       this.formObj.model[this.parentName] = result;
+                     }else{
+                       let result = score + "分 " + this.formBox.model["I385031"];
+                       this.formObj.model[this.parentName] = result;
+                     }
+                  }else{
+                    let result = score + "分 " + desc;
+                    this.formObj.model[this.parentName] = result;
+                  }
+
 
                   if (this.$root.$refs[this.formCode][this.parentName]) {
                     console.log("parentName", this.parentName);
@@ -856,6 +868,8 @@ export default {
             //
             try {
               window.formTool.formSave();
+              // window.rundev();
+             this.$root.$refs["sheetPage"].fillForm();
             } catch (err) {
               console.log("formSave", err, window.formTool);
             }

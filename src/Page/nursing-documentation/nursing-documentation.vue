@@ -77,7 +77,7 @@ import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
 import changeMaJorTable from  "./components/table/change-major-table"
 import pagination from "./components/common/pagination";
-import { patEmrList,patEmrListZSQm,listNurseAdtHd } from "@/api/document";
+import { patEmrList,patEmrListZSQm,listNurseAdtHd,listNurseAdtFuYou } from "@/api/document";
 import { del } from '@/api/record';
 export default {
   data() {
@@ -178,7 +178,7 @@ export default {
         obj.diagnosis = data.diagnosis;
         patEmrListApi = patEmrListZSQ;
       }
-      //花都转院查询
+      //花都转院查询（江门妇幼为新增）
       if(data.status == 3 && this.hospitalTransfer){
         let newObj=JSON.parse(JSON.stringify(obj));
         delete newObj.admissionDateBegin;
@@ -187,7 +187,7 @@ export default {
         delete newObj.dischargeDateEnd;
         newObj.pageSize=newObj.pageNum;
         // console.log(obj)
-        listNurseAdtHd(newObj).then(res => {
+        listNurseAdtHd(newObj,this.HOSPITAL_ID).then(res => {
         this.tableData = res.data.data.list;
         this.page.total = res.data.data.totalCount ? parseInt(res.data.data.totalCount): 0;
         this.pageLoadng = false;
@@ -206,9 +206,9 @@ export default {
     searchConData(){
       return this.$refs.searchCon?this.$refs.searchCon.data:null
     },
-      hospitalTransfer(){
-        return ['huadu','fuyou'].includes(this.HOSPITAL_ID)
-      }
+    hospitalTransfer(){
+      return ['huadu','fuyou','beihairenyi'].includes(this.HOSPITAL_ID)
+    }
   },
   components: {
     searchCon,

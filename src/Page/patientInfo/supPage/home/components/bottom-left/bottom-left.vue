@@ -147,9 +147,23 @@ export default {
         }
         
       }
-      if (beginTime < curTime && !expectedEndTime) {
-        return "未完成";
+      //聊城状态只有复评的才会显示
+      if(["liaocheng"].includes(this.HOSPITAL_ID)){
+        //状态只有复评的才会显示
+        if(!expectedEndTime){
+          return "";
+        }
+        if (beginTime < curTime && expectedEndTime) {
+          return "未完成";
+        }
+      }else {
+        if (beginTime < curTime && !expectedEndTime) {
+          return "未完成";
+        }
       }
+      // if (beginTime < curTime && !expectedEndTime) {
+      //   return "未完成";
+      // }
       if (beginTime < curTime && expectedEndTime > curTime) {
         return (
           "剩余" +

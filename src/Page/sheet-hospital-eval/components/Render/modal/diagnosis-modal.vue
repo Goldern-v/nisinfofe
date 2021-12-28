@@ -8,7 +8,7 @@
         <el-checkbox v-if="HOSPITAL_NAME !== '聊城市第二人民医院'" label="三测单" v-model="tongbuzhi"></el-checkbox>
         <el-checkbox label="ISBAR交班志" disabled v-model="tongbuzhi"></el-checkbox>
 
-        <el-checkbox label="签名此住院评估单" v-model="signEval" style="margin-left: 50px;"></el-checkbox>
+        <!-- <el-checkbox label="签名此住院评估单" v-model="signEval" style="margin-left: 50px;"></el-checkbox> -->
         <div style="height: 20px"></div>
         <div class="part-2">
           <div class="title">根据本次评估内容分析，患者可能有以下{{diagnosisList.length}}个护理问题，请您确认：</div>
@@ -94,7 +94,7 @@ export default {
           obj: null
         });
       });
-      this.signEval = true;
+      this.signEval = false;
       this.$refs.modal.open();
     },
     close() {

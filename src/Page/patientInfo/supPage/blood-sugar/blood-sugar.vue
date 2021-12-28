@@ -57,6 +57,17 @@
             <span v-else>住院号：{{ patientInfo.inpNo }}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
+          <p flex="main:justify" class="info" v-else-if="isPreviewUserInfo">
+            <span>病人姓名：{{ sugarUserInfo.name }}</span>
+            <span>性别：{{ sugarUserInfo.gender }}</span>
+            <span >年龄：{{sugarUserInfo.age }}</span>
+            <span>科室：{{ sugarUserInfo.deptName }}</span>
+            <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
+            <span>床号：{{sugarUserInfo.bedNo }}</span>
+            <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
+            <span>住院号：{{sugarUserInfo.inHosId }}</span>
+            <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
+          </p>
           <p flex="main:justify" class="info" v-else>
             <span>病人姓名：{{ patientInfo.name }}</span>
             <span>性别：{{ patientInfo.sex }}</span>
@@ -124,7 +135,8 @@
           </div>
         </div>
         <nullBg v-show="listMap.length == 0"></nullBg>
-        <div class="addBtn" v-show="listMap.length == 0">
+        <!-- <div class="addBtn" v-show="listMap.length == 0"> -->
+        <div class="addBtn" v-show="listMap.length == 0 && !isPreview">
           <whiteButton text="添加血糖记录" @click="onAddTable" />
         </div>
       </div>
@@ -165,6 +177,11 @@
           :text="!isChart ? '查看曲线' : HOSPITAL_ID=='guizhou'?'返回':'查看表格'"
           @click="openChart"
           v-if="HOSPITAL_ID != 'gy'"
+        ></whiteButton>
+        <whiteButton
+          v-if="['guizhou'].includes(HOSPITAL_ID)"
+          :text="'血糖登记数'+registNum"
+          @click="()=>{}"
         ></whiteButton>
       </div>
     </div>
@@ -315,6 +332,9 @@ export default {
       resBedNol:'',
       resInHosId:'',
       tDeptName: "",
+      registNum:0,//血糖登记次数
+      hisUserTitLeList:['huadu'],//表头用户信息通过获取用户信息接口获取的医院
+      sugarUserInfo:{},//患者基础信息
     };
   },
   computed: {
@@ -324,6 +344,14 @@ export default {
     containHeight() {
       return this.wih - 130 + "px";
     },
+    //是否为预览状态不可编辑
+    isPreview(){
+      return (this.$route.query && this.$route.path.includes("nursingPreview") && this.$route.query.nursingPreviewIsShow=='1');
+    },
+    //是否为表头用户信息通过获取用户信息接口获取的医院且为调阅接口
+    isPreviewUserInfo(){
+      return this.hisUserTitLeList.includes(this.HOSPITAL_ID) && this.$route.path.includes("nursingPreview");
+    }
   },
   methods: {
   uploadView(){
@@ -395,6 +423,8 @@ if(this.selected.expand2!==undefined){
         this.patientInfo.visitId
       );
       this.resAge = res.data.data.age;
+      ////表头用户信息通过获取用户信息接口获取的医院
+      (this.hisUserTitLeList.includes(this.HOSPITAL_ID)) && (this.sugarUserInfo = res.data.data);
       if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
         this.resName = res.data.data.name;
         this.resGender = res.data.data.gender;
@@ -403,6 +433,7 @@ if(this.selected.expand2!==undefined){
         this.resInHosId = res.data.data.inHosId;
       }
       if (this.HOSPITAL_ID == "fuyou") this.tDeptName = res.data.data.deptName;
+      (res.data.data.registNum) && (this.registNum = res.data.data.registNum);//血糖登记次数
       this.pageLoading = false;
 
       this.hisPatSugarList = res.data.data.hisPatSugarList;

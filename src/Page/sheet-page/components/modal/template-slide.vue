@@ -10,10 +10,15 @@
           </span>
         </div>
         <div>
+          <div class="search-con" flex v-if="HOSPITAL_ID==='liaocheng'">
+            <span style="font-size:14px;line-height:20px">模板分类：</span>
+            <el-radio v-model="templateType" label="dept">科室</el-radio>
+            <el-radio v-model="templateType" label="common">公共</el-radio>
+          </div>
           <div class="search-con" flex>
             <div class="select-box" :style="{width: selectWidth + 'px'}">
               <el-select v-model="selectedType" filterable placeholder="请选择">
-                <el-option v-for="item in typeList" :key="item" :label="item" :value="item"></el-option>
+                <el-option v-for="(item,key) in typeList" :key="key" :label="item" :value="item"></el-option>
               </el-select>
             </div>
             <input
@@ -199,7 +204,7 @@
 <script>
 import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./components/template-item.vue";
-import { typeList, list } from "@/Page/sheet-page/api/recordDesc.js";
+import { typeList, list ,typeListByDept} from "@/Page/sheet-page/api/recordDesc.js";
 import addTemplateModal from "./add-template-modal.vue";
 import bus from "vue-happy-bus";
 export default {
@@ -349,7 +354,8 @@ export default {
         "FiO2",
         "ug/kg/h",
         "%"
-      ]
+      ],
+      templateType:"dept"
     };
   },
   computed: {
@@ -379,8 +385,27 @@ export default {
     changeTab(tab) {
       this.selectedTab = tab;
     },
-    getData() {
-      typeList(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
+     getData() {
+      //特殊情况,开启分类权限医院名
+      const isDeptList=["liaocheng"]
+      if(isDeptList.includes(this.HOSPITAL_ID)){
+       typeListByDept(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
+        this.typeList = res.data.data[this.templateType];
+        this.typeList.push("特殊符号");
+        if (this.selectedType == "特殊符号") {
+          return;
+        }
+        if (this.selectedType) {
+          const wordCode=this.templateType==="dept"? localStorage.wardCode:""
+          list(this.selectedType,wordCode,this.HOSPITAL_ID).then(res => {
+            this.listMap = res.data.data.list;
+          });
+        } else {
+          this.selectedType = this.typeList[0];
+        }
+      });
+      }else{
+        typeList(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
         this.typeList = res.data.data.list;
         this.typeList.push("特殊符号");
         if (this.selectedType == "特殊符号") {
@@ -395,6 +420,7 @@ export default {
           this.selectedType = this.typeList[0];
         }
       });
+     }
     },
     openAddModal() {
       this.$refs.addTemplateModal.open();
@@ -415,10 +441,15 @@ export default {
         return;
       }
       if (this.selectedType) {
-        list(this.selectedType,localStorage.wardCode,this.HOSPITAL_ID).then(res => {
+        const wardCode=this.templateType==="dept"? localStorage.wardCode:""
+        list(this.selectedType,wardCode,this.HOSPITAL_ID).then(res => {
           this.listMap = res.data.data.list;
         });
       }
+    },
+    templateType(){
+     this.selectedType=""
+     this.getData()
     }
   },
   components: {

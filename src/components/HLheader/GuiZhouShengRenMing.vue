@@ -1049,7 +1049,7 @@ export default {
       //解决刷新右上角科室名称显示数字问题localStorage.selectDeptValue是科室编码
       //deptValue是护理单元编码<科室编码
       this.deptValue =
-       
+        localStorage.selectDeptValue ||
         this.$store.state.lesion.deptCode ||
         res.data.data.defaultDept ||
         res.data.data.deptList[0].code;

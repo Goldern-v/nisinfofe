@@ -19,12 +19,16 @@ import HengLiHeader from "@/components/HLheader/HengLiHeader"; // 东莞市横�
 import XieGangHeader from "@/components/HLheader/XieGangHeader"; // 东莞市谢岗医院
 import ShanNanHeader from "@/components/HLheader/ShanNanHeader"; // 山南市人民医院
 import BeiHaiRenYiHeader from "@/components/HLheader/BeiHaiRenYiHeader"; // 北海人医
+import FQFYHeader from "@/components/HLheader/FQFYHeader"; // 福清妇幼
 import GuiZhouShengRenMingHeader from "@/components/HLheader/GuiZhouShengRenMing"; // 贵州省人民
 import QuZhouXianHeader from "@/components/HLheader/QuZhouXianHeader.vue"; // 曲周县医院
 import FoShanRenYiHeader from "@/components/HLheader/FoShanRenYiHeader.vue"; // 佛山市第一人民医院
 import FSXTHeader from "@/components/HLheader/FSXTHeader.vue"; // 南方医科大学顺德医院附属杏坛医院
 import NanFangZhongXiYiHeader from "@/components/HLheader/NanFangZhongXiYiHeader"; // 南方医科大学中西医结合医院
 import YangchunzhongyiHeader from "@/components/HLheader/YangchunzhongyiHeader"; // 南方医科大学中西医结合医院
+import WuhanfeikeHeader from "@/components/HLheader/WuhanfeikeHeader"; // 武汉肺科
+import WuhanYaxinHeader from "@/components/HLheader/WuhanYaxinHeader"; // 武汉亚心
+
 export default {
   data() {
     return {
@@ -48,12 +52,15 @@ export default {
         东莞市谢岗医院: "XieGangHeader",
         山南市人民医院: "ShanNanHeader",
         北海市人民医院: "BeiHaiRenYiHeader",
+        福清妇幼保健院: "FQFYHeader",
         贵州省人民医院: "GuiZhouShengRenMingHeader",
         曲周县医院: "QuZhouXianHeader",
         南方医科大学中西医结合医院: "NanFangZhongXiYiHeader",
         佛山市第一人民医院:"FoShanRenYiHeader",
         南方医科大学顺德医院附属杏坛医院: 'FSXTHeader',
-        阳春中医院: 'YangchunzhongyiHeader'
+        阳春中医院: 'YangchunzhongyiHeader',
+        武汉市肺科医院: 'WuhanfeikeHeader',
+        武汉亚心医院:'WuhanYaxinHeader',
       };
       return hisList[HisName] || "HLheader";
     },
@@ -71,12 +78,15 @@ export default {
     XieGangHeader,
     ShanNanHeader,
     BeiHaiRenYiHeader,
+    FQFYHeader,
     GuiZhouShengRenMingHeader,
     QuZhouXianHeader,
     FoShanRenYiHeader,
     NanFangZhongXiYiHeader,
     FSXTHeader,
     YangchunzhongyiHeader,
+    WuhanfeikeHeader,
+    WuhanYaxinHeader,
   },
 };
 </script>

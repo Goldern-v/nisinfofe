@@ -1,56 +1,97 @@
 <template>
-  <div class="patient-list-part" :style="{left: openLeft?'0':'-201px'}">
+  <div class="patient-list-part" :style="{ left: openLeft ? '0' : '-201px' }">
     <div class="search-box">
-      <el-input placeholder="床号/姓名" icon="search" v-model="searchWord"></el-input>
+      <el-input
+        placeholder="床号/姓名"
+        icon="search"
+        v-model="searchWord"
+      ></el-input>
     </div>
     <div class="left-wapper">
+      <follow-list
+        :data="sortList"
+        @selectPatient="selectPatient"
+        v-if="HOSPITAL_ID == 'liaocheng'"
+      >
+        <template slot-scope="{ scope }">
+          <span
+            class="point-box"
+            v-if="$route.path == '/formPage'"
+            v-show="
+              scope.formLowestStatus !== '' && scope.formLowestStatus != '2'
+            "
+            :class="{
+              red: scope.formLowestStatus == 0,
+              green: scope.formLowestStatus == 1,
+              isImg2: img2Show,
+            }"
+          ></span>
+        </template>
+      </follow-list>
       <div class="patient-list-contain">
         <div
           class="patient-box"
           flex="cross:center"
-          v-for="(item,index) in sortList"
-          :key="item.patientId+item.visitId+item.bedLabel+item.inpNo+index"
+          v-for="(item, index) in sortList"
+          :key="
+            item.patientId + item.visitId + item.bedLabel + item.inpNo + index
+          "
           @click="selectPatient(item)"
-          :class="{active: isActive(item)}"
+          :class="{ active: isActive(item) }"
         >
           <img
-            :src="item.bedLabel.includes('_')?imageBoy:imageMan"
+            :src="item.bedLabel.includes('_') ? imageBoy : imageMan"
             alt
-            :class="{img1:img1Show,img2:img2Show}"
+            :class="{ img1: img1Show, img2: img2Show }"
             v-if="item.sex == '男'"
           />
           <img
-            :src="item.bedLabel.includes('_')?imageGirl:imageWomen"
+            :src="item.bedLabel.includes('_') ? imageGirl : imageWomen"
             alt
-            :class="{img1:img1Show,img2:img2Show}"
+            :class="{ img1: img1Show, img2: img2Show }"
             v-else
           />
-          <div class="name" flex-box="1">{{item.name}}</div>
-          <div class="bed">{{item.bedLabel}} 床</div>
+          <div class="name" flex-box="1">{{ item.name }}</div>
+          <div class="bed">{{ item.bedLabel }} 床</div>
 
           <span
             class="point-box"
             v-if="$route.path == '/formPage'"
-            v-show="item.formLowestStatus !== '' && item.formLowestStatus != '2'"
-            :class="{red: item.formLowestStatus == 0, green: item.formLowestStatus == 1,isImg2: img2Show}"
+            v-show="
+              item.formLowestStatus !== '' && item.formLowestStatus != '2'
+            "
+            :class="{
+              red: item.formLowestStatus == 0,
+              green: item.formLowestStatus == 1,
+              isImg2: img2Show,
+            }"
           ></span>
         </div>
       </div>
       <div
         class="flag-con"
-        :style="{top: flagTop}"
+        :style="{ top: flagTop }"
         flex="main:center cross:center"
         @click="toOpenLeft"
       >
-        <i class="iconfont icon-yincang" v-show="openLeft" style="margin-left: -1px"></i>
-        <i class="iconfont icon-xianshi" v-show="!openLeft" style="margin-left: -2px"></i>
+        <i
+          class="iconfont icon-yincang"
+          v-show="openLeft"
+          style="margin-left: -1px"
+        ></i>
+        <i
+          class="iconfont icon-xianshi"
+          v-show="!openLeft"
+          style="margin-left: -2px"
+        ></i>
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .patient-list-part {
-  height: auto;
+  // height: auto;
+  height: 100%;
   box-sizing: border-box;
   padding-top: 45px;
   position: relative;
@@ -155,7 +196,10 @@
 
 .left-wapper {
   position: relative;
-  height: calc(100vh - 114px);
+  // height: calc(100vh - 114px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .point-box {
@@ -198,10 +242,11 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
+import FollowList from "../follow/index";
 export default {
   props: {
     data: Array,
-    isSelectPatient: Function
+    isSelectPatient: Function,
   },
   mixins: [common],
   data() {
@@ -214,7 +259,7 @@ export default {
       imageBoy: require("./images/男婴.png"),
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
-      imageWomen: require("./images/女.png")
+      imageWomen: require("./images/女.png"),
     };
   },
   methods: {
@@ -238,11 +283,11 @@ export default {
     },
     toOpenLeft() {
       this.$store.commit("upOpenSheetLeft", !this.openLeft);
-    }
+    },
   },
   computed: {
     list() {
-      return this.data.filter(item => {
+      return this.data.filter((item) => {
         return (
           item.bedLabel.indexOf(this.searchWord) > -1 ||
           item.name.indexOf(this.searchWord) > -1
@@ -264,20 +309,26 @@ export default {
         if (cacheSign > -1) {
           cacheList[i].babyName = cacheList[i].name.substring(cacheSign);
           cacheList[i].name = cacheList[i].name.substring(0, cacheSign);
-          if(cacheList[i].bedLabel.split('_').length>1){
-            cacheList[i].bedLabel = cacheList[i].bedLabel.split('_')[0];
+          if (cacheList[i].bedLabel.split("_").length > 1) {
+            cacheList[i].bedLabel = cacheList[i].bedLabel.split("_")[0];
           }
         }
         cacheList[i].cacheNum = i;
       }
+
       let sortData = [];
       for (let i = 0; i < cacheList.length; i++) {
         let filter1Array = [];
         let sortFliter = [];
         let cacheData = [];
-        if (!cacheList[i].babyName) {
+        if (["wujing"].includes(this.HOSPITAL_ID)) {
           sortFliter.push(cacheList[i]);
+        } else {
+          if (!cacheList[i].babyName) {
+            sortFliter.push(cacheList[i]);
+          }
         }
+
         for (let j = 0; j < cacheList.length; j++) {
           if (
             !cacheList[i].babyName &&
@@ -303,7 +354,6 @@ export default {
           JSON.parse(JSON.stringify(putSortList))
         );
       } catch (error) {}
-
       return putSortList;
     },
     openLeft() {
@@ -314,7 +364,7 @@ export default {
     },
     flagTop() {
       return `${this.wih * 0.4}px`;
-    }
+    },
   },
   watch: {
     deptCode(ndata, odata) {
@@ -325,7 +375,7 @@ export default {
         this.img1Show = true;
         this.img2Show = false;
       }
-    }
+    },
   },
   create() {},
   mounted() {
@@ -334,6 +384,8 @@ export default {
       this.img2Show = true;
     }
   },
-  components: {}
+  components: {
+    FollowList,
+  },
 };
 </script>

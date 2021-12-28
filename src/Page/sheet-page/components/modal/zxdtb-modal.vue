@@ -2,20 +2,31 @@
   <div>
     <sweet-modal ref="modal" :modalWidth="720" :title="title">
       <div flex="cross:center">
-        <span v-if="HOSPITAL_ID == 'guizhou'" class="label">输血日期：</span>
-        <span v-if="HOSPITAL_ID != 'guizhou'" class="label">执行单日期：</span>
-        <masked-input
-          type="text"
-          class="mask-input"
-          :showMask="false"
-          v-model="searchDate"
-          :mask="
-            () => [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]
-          "
-          :guide="true"
-          placeholderChar=" "
-        ></masked-input>
-        <div v-if="HOSPITAL_ID == 'quzhou'">
+        <div v-if="HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'"  >
+          <span class="label">执行单日期：</span>
+          <el-date-picker
+            v-model="longDate"
+            type="daterange"
+            size="small"
+            placeholder="选择日期范围">
+          </el-date-picker>
+        </div>
+        <div v-else>
+          <span v-if="HOSPITAL_ID == 'guizhou'" class="label">输血日期：</span>
+          <span v-if="HOSPITAL_ID != 'guizhou'" class="label">执行单日期：</span>
+          <masked-input
+            type="text"
+            class="mask-input"
+            :showMask="false"
+            v-model="searchDate"
+            :mask="
+              () => [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]
+            "
+            :guide="true"
+            placeholderChar=" "
+          ></masked-input>
+        </div>
+        <div v-if="HOSPITAL_ID == 'quzhou'||HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'" style="margin-left: 20px">
           <span class="label">类型：</span>
           <el-select
             v-model="executeType"
@@ -84,7 +95,7 @@
             align="center"
           ></el-table-column>
           <!-- <el-table-column v-if="HOSPITAL_ID == 'quzhou'" prop="desc" label="描述" min-width="110px" align="center"></el-table-column> -->
-          <template v-if="HOSPITAL_ID == 'quzhou'">
+          <template v-if="HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'|| HOSPITAL_ID == 'liaocheng'">
             <el-table-column
               prop="orderText"
               label="医嘱内容"
@@ -170,6 +181,8 @@ import {
   saveVitalSign,
   ordersExecuteList,
   nurseBloodList,
+  getOrdersExecuteWx,
+  getOrdersExecuteLc,
 } from "../../api/index";
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
@@ -188,29 +201,30 @@ export default {
     return {
       sheetInfo,
       searchDate: "",
+      longDate: [moment(), moment()],
       tableData: [],
       multipleSelection: [],
       bus: bus(this),
       formlist: {},
-      executeType: "",
-      allType: [
-        {
-          id: "",
-          name: "全部",
-        },
-        {
-          id: "输液",
-          name: "输液类",
-        },
-        {
-          id: "雾化",
-          name: "雾化类",
-        },
-        {
-          id: "口服",
-          name: "长期医嘱的口服药",
-        },
-      ],
+      executeType: this.HOSPITAL_ID==='liaocheng'?"输液":"",
+      // allType: [
+      //   {
+      //     id: "",
+      //     name: "全部",
+      //   },
+      //   {
+      //     id: "输液",
+      //     name: "输液类",
+      //   },
+      //   {
+      //     id: "雾化",
+      //     name: "雾化类",
+      //   },
+      //   {
+      //     id: "口服",
+      //     name: "长期医嘱的口服药",
+      //   },
+      // ],
     };
   },
   methods: {
@@ -233,7 +247,9 @@ export default {
         this.multipleSelection.length != 0 &&
         (this.HOSPITAL_ID == "fuyou" ||
           this.HOSPITAL_ID == "wujing" ||
-          this.HOSPITAL_ID == "quzhou")
+          this.HOSPITAL_ID == "quzhou" ||
+          this.HOSPITAL_ID == "weixian" ||
+          this.HOSPITAL_ID == "liaocheng")
       ) {
         this.multipleSelection.map((item, index) => {
           if (item.pulse) {
@@ -309,6 +325,30 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
+      } else if (this.HOSPITAL_ID == "weixian") {
+        let startDate = this.longDate[0] ? moment(this.longDate[0]).format('YYYY-MM-DD') : ''
+        let endDate = this.longDate[1] ? moment(this.longDate[1]).format('YYYY-MM-DD') : ''
+        getOrdersExecuteWx({
+          patientId: this.patientInfo.patientId || this.formlist.patientId,
+          visitId: this.patientInfo.visitId || this.formlist.visitId,
+          startDate,
+          endDate,
+          type: this.executeType,
+        }).then((res) => {
+          this.tableData = res.data.data.list;
+        });
+      } else if (this.HOSPITAL_ID == "liaocheng") {
+        let startDate = this.longDate[0] ? moment(this.longDate[0]).format('YYYY-MM-DD') : ''
+        let endDate = this.longDate[1] ? moment(this.longDate[1]).format('YYYY-MM-DD') : ''
+        getOrdersExecuteLc({
+          patientId: this.patientInfo.patientId || this.formlist.patientId,
+          visitId: this.patientInfo.visitId || this.formlist.visitId,
+          startDate,
+          endDate,
+          executeType: this.executeType,
+        }).then((res) => {
+          this.tableData = res.data.data.list;
+        });
       } else {
         getVitalSign(
           this.patientInfo.patientId || this.formlist.patientId,
@@ -336,6 +376,48 @@ export default {
         return this.formlist;
       }
     },
+    allType(){
+      if(this.HOSPITAL_ID==='liaocheng'){
+        return [
+        {
+          id: "",
+          name: "全部",
+        },
+        {
+          id: "输液",
+          name: "输液类",
+        },
+        {
+          id: "注射",
+          name: "注射类",
+        },
+        {
+          id: "口服",
+          name: "口服药",
+        }
+        ]
+      }else{
+        return [
+        {
+          id: "",
+          name: "全部",
+        },
+        {
+          id: "输液",
+          name: "输液类",
+        },
+        {
+          id: "雾化",
+          name: "雾化类",
+        },
+        {
+          id: "口服",
+          name: "长期医嘱的口服药",
+        },
+       ]
+      }
+     
+    }
   },
   components: {
     whiteButton,

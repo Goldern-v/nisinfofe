@@ -54,11 +54,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
               </el-row>
             </router-link>
-            <router-link to="/archive" tag="span">
+            <!-- <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
               </el-row>
-            </router-link>
+            </router-link> -->
             <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-baiban"></i> 白板
@@ -83,12 +83,12 @@
               </el-row>
             </router-link>
 
-            <router-link to="/MEWS" tag="span">
+            <!-- <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulirenwu"></i> MEWS
                 <span class="red-tip" v-if="isTip"></span>
               </el-row>
-            </router-link>
+            </router-link> -->
 
             <router-link to="/bed" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -222,7 +222,7 @@
               </el-row>
             </router-link>-->
 
-            <router-link to="/formPage" tag="span">
+            <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理评估单
               </el-row>
@@ -232,7 +232,7 @@
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理记录单
               </el-row>
-            </router-link>
+            </router-link> -->
 
             <router-link to="/singleTemperatureChart" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -265,11 +265,11 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown> -->
-            <router-link to="/shiftWork" tag="span">
+            <!-- <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
-            </router-link>
+            </router-link> -->
             <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
@@ -1023,9 +1023,18 @@ export default {
       }
     },
     changeDept(value) {
-      let deptName = this.deptList.filter((item) => {
+      // let deptName = this.deptList.filter((item) => {
+      //   return item.code == value;
+      // })[0].name;
+      let deptName="";
+      let deptItem = this.deptList.filter((item) => {
         return item.code == value;
-      })[0].name;
+      });
+      if(deptItem && deptItem.length>0){
+        deptName=deptItem[0].name
+      }else {
+        return false;
+      }
       this.$store.commit("upDeptCode", value);
       localStorage.selectDeptValue = value;
       this.$store.commit("upDeptName", deptName);

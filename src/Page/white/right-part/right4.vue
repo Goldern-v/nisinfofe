@@ -44,12 +44,14 @@
       </div>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else>
         <div flex="cross:center">
-          <div class="label">P班：</div>
+          <!-- <div class="label">P班：</div> -->
+          <div class="label">{{ geClassP()}}</div>
           <input flex-box="1" v-model="data.classP" @blur="update">
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
-          <div class="label">{{ HOSPITAL_ID !== 'hengli' ? 'P全班：' : 'PN班：' }}</div>
+          <!-- <div class="label">{{ HOSPITAL_ID !== 'hengli' ? 'P全班：' : 'PN班：' }}</div> -->
+          <div class="label">{{ getClassAllP() }}</div>
           <input flex-box="1" v-model="data.classAllP" @blur="update">
         </div>
         <div style="height: 15px"></div>
@@ -113,6 +115,30 @@ export default {
         this.list = res.data.data.nurseDept;
         this.pageLoading = false;
       });
+    },
+    //获取班次名称
+    geClassP(){
+      switch(this.HOSPITAL_ID){
+        case "wujing":
+          return "A班："
+        case "nanfangzhongxiyi":
+          return "A班："
+        default:
+          return "P班："
+      }
+    },
+    getClassAllP(){
+      // <div class="label">{{ HOSPITAL_ID !== 'hengli' ? 'P全班：' : 'PN班：' }}</div>
+      switch(this.HOSPITAL_ID){
+        case "hengli":
+          return "PN班："
+        case "wujing":
+          return "P班："
+        case "nanfangzhongxiyi":
+          return "P班："
+        default:
+          return "P全班："
+      }
     }
   },
   components: {

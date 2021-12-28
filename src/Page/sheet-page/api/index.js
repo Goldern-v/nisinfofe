@@ -14,6 +14,10 @@ export const getNurseExchangeInfo = (patientId, visitId) => {
 export const getNurseExchangeInfoByTime = (data) => {
   return axios.post(`${apiPath}nurseLog/getNurseExchangeInfo`, data);
 };
+//批量打印的转科转床记录
+export const getNurseExchangeInfoBatch = (data) => {
+  return axios.post(`${apiPath}nurseLog/getNurseExchangeInfoBatch`, data);
+};
 
 // 护记体征信息同步到体温单
 export const saveBatch = (data) => {
@@ -233,6 +237,18 @@ export const ordersExecuteList = (obj = {}) => {
   return axios.post(`${apiPath}record/block/ordersExecute/list/${id}`, obj);
 };
 
+// 威县获取his患者体征
+export const getOrdersExecuteWx = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}/record/block/getOrdersExecuteWx/list/${id}`, obj);
+};
+
+// 聊城获取his患者体征
+export const getOrdersExecuteLc = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}/record/block/getOrdersExecuteLc/list/${id}`, obj);
+};
+
 // 贵州获取his患者输血同步
 export const nurseBloodList = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;
@@ -241,7 +257,7 @@ export const nurseBloodList = (obj = {}) => {
 
 // 保存his患者体征
 export const saveVitalSign = (data,hospitalId) => {
-  if(hospitalId=='wujing'||hospitalId=='quzhou'||hospitalId=='guizhou'){
+  if(hospitalId=='wujing'||hospitalId=='quzhou'||hospitalId=='liaocheng'||hospitalId=='guizhou'||hospitalId=='weixian'){
     return axios.post(
       `${apiPath}record/block/ordersExecute/save`,
       data
@@ -275,5 +291,12 @@ export const bedExchangeModifyLog = (patientId, visitId, blockId) => {
 export const updateBlockInfo = (obj = {}) => {
   return axios.post(
     `${apiPath}record/block/updateBlockInfo`, obj
+  );
+};
+
+// 同步his的分娩记录单数据
+export const  getDeliveryInfo= ( patientId ) => {
+  return axios.get(
+    `${apiPath}/form/design/getfyinfo/${patientId}`
   );
 };

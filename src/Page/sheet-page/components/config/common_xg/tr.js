@@ -189,8 +189,12 @@ export default [
     name: "健康宣教",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 12),
+    autoComplete: {
+      data: [1,2,3,4,5,6,7,8,9,10,11,12]
+    },
+    splice:true,
     textarea: {
-      width: 75
+      width: 50
     },
   },
   {
@@ -214,6 +218,33 @@ export default [
   },
   {
     key: "customItem2", //标题2
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "customItem3", //标题3
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "customItem4", //标题4
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "customItem5", //标题5
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),

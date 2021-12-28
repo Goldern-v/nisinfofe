@@ -233,7 +233,7 @@
       </p>
     </div>
     <!-- 陵 城 病重（病危）患者护理记录单 -->
-    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'">
+    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'">
       <table>
         <colgroup>
           <col width="46px" />
@@ -253,7 +253,7 @@
           </tr>
         </tbody>
       </table>
-      <div style="padding-top: 10px;">
+      <div style="padding-top: 10px;" v-if="sheetInfo.sheetType == 'critical_lc'">
         <p>注：瞳孔对光反应：灵敏（+）、迟钝（S）、消失（-）表示。</p>
       </div>
     </div>
@@ -313,6 +313,10 @@
       健康宣教内容：1.入院宣教；2.辅助检查目的及注意事项；3.吸氧目的及注意事项；4.心电监护目的及注意事项；5.术前宣教；6.术后宣教；7.饮食指导；
       8.防跌倒；9.出院宣教；<br/>10.用药指导；11.输血注意事项；12.特殊感染隔离注意事项；13.产褥期宣教；14.自数胎动的方法；15.分娩知识宣教；
       16.减痛技巧指导；17.指导用力。
+    </div>
+    <!-- 聊城二院 心内科介入患者观察记录单 -->
+    <div v-if="sheetInfo.sheetType == 'cardiology_lcey'">
+      体温处理措施：①适量增加饮水量；②温水擦浴；③冰块冷敷；④遵医嘱药物治疗；⑤减少盖被
     </div>
     <!-- 北海 婴儿记录表-->
     <div v-if="sheetInfo.sheetType == 'infant_bh'">

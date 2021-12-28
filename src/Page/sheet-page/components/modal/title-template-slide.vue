@@ -175,11 +175,15 @@ export default {
       this.selectedTab = tab;
     },
     async getData() {
+      let deptCode = this.$store.state.lesion.deptCode
       let {
         data: { data }
-      } = await listItem("自定义标题", 
+      } = await listItem(
+        "自定义标题", 
         //北海体温单调用护理记录单模板
-        ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType);
+        ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType,
+        deptCode,
+      );
       this.listMap = data;
     },
     openAddModal() {

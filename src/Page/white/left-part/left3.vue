@@ -22,15 +22,57 @@
             <span style="width: 60px; text-align: center" v-if="deptCode == '042302' && index==2 && HOSPITAL_ID=='hj'">A：</span>
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==3 && HOSPITAL_ID=='hj'">A2：</span>
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==4 && HOSPITAL_ID=='hj'">A3：</span>
-            <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || HOSPITAL_ID=='huadu' ? index+1 : index}}：</span>
-            <input flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
+            <!-- <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || HOSPITAL_ID=='huadu' || HOSPITAL_ID=='liaocheng' ? index+1 : index}}：</span> -->
+            <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi'].includes(HOSPITAL_ID)? index+1 : index}}：</span>
+            <input v-if="HOSPITAL_ID !== 'liaocheng'" flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
+            <!-- 聊城二院 床位 添加 下拉选项 -->
+            <el-select
+              v-else
+              class='hengliSelect'
+              flex-box="1" style="margin-right: 20px"
+              v-model="item.bedSets"
+              multiple
+              @visible-change='updateLC'
+              @remove-tag="removeTagLC"
+              :collapse-tags='true'
+              filterable
+              allow-create>
+              <template>
+                <el-option
+                  v-for="item in nursePatientList"
+                  :key="item"
+                  :label="item"
+                  :value="item">
+                </el-option>
+              </template>
+            </el-select>
             <!-- <input
               flex-box="1"
               style="width: 0;margin-right: 10px"
               v-model="item.dutyNurse"
               @blur="update"
             >-->
-            <el-autocomplete flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
+            <el-autocomplete v-if="HOSPITAL_ID !== 'liaocheng'" flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
+            <el-select
+              v-else
+              class='hengliSelect'
+              v-model="item.dutyNurses"
+              multiple
+              multiple-limit='2'
+              @visible-change='update'
+              :collapse-tags='true'
+              filterable
+              allow-create
+              >
+              <template>
+                <el-option
+                  v-for="item in nurseList"
+                  :key="item.code"
+                  :label="item.value"
+                  :value="item.value">
+                </el-option>
+              </template>
+            </el-select>
           </div>
         </div>
       </div>
@@ -118,8 +160,8 @@ input {
 
 <script>
 import boxBase from "../base/box-base.vue";
-import { userDictInfo } from "@/api/common";
-import { viewListByDeptCode, updateByDeptCodeAndGroupCode, deletePatientGroupById, saveOrUpdateHL } from "../api";
+import { userDictInfo, getAllPatient } from "@/api/common";
+import { viewListByDeptCode, viewListByDeptCodeLC, updateByDeptCodeAndGroupCode,updateByDeptCodeAndGroupCodeLC, deletePatientGroupById, saveOrUpdateHL } from "../api";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 import left3Modal from '../modal/letf3-modal.vue'
@@ -131,6 +173,10 @@ export default {
       pageLoading: false,
       list: [],
       nurseList: [],
+      nursePatientList: [], // 科室患者 床位
+      // nurseListLecy: [], // 
+      loadingPatient: false,
+      nursePatientSelect: [],
       isSave: true,
       options: [
         {
@@ -168,6 +214,7 @@ export default {
       // this.userDictInfo()
       this.bus.$on("indexGetAllData", this.getViewListByDeptCode);
       this.bus.$on("indexGetAllData", this.userDictInfo);
+      this.bus.$on('indexGetAllData', this.getAllPatientData)
     } else {
       this.bus.$on("indexGetAllData", this.getData);
     }
@@ -184,8 +231,16 @@ export default {
         }));
       });
     },
+    getAllPatientData() {
+      getAllPatient(this.deptCode).then((res) => {
+        if(res.data.code === '200') {
+          this.nursePatientList = res.data.data
+        }
+      });
+    },
     getViewListByDeptCode() {
-      viewListByDeptCode(this.deptCode).then((res) => {
+      let http = this.HOSPITAL_ID === 'liaocheng' ? viewListByDeptCodeLC : viewListByDeptCode
+      http(this.deptCode).then((res) => {
         if (res.data.code === '200') {
           if (res.data.data.length > 0) {
             this.hengliOptions = JSON.parse(JSON.stringify(res.data.data));
@@ -247,7 +302,8 @@ export default {
         this.renderItem(4),
       ];
       this.pageLoading = true;
-      viewListByDeptCode(this.deptCode).then((res) => {
+      let http = this.HOSPITAL_ID === 'liaocheng' ? viewListByDeptCodeLC : viewListByDeptCode
+      http(this.deptCode).then((res) => {
         // this.list = this.mergeData(groupdList, res.data.data);
         this.list = res.data.data;
         this.value = this.list.length > 4 ? this.list.length : 4;
@@ -263,6 +319,7 @@ export default {
           code: item.code,
         }));
       });
+      this.getAllPatientData()
     },
     visibleChange(val) {
       let form = {
@@ -317,17 +374,28 @@ export default {
         this.$message.warning("如果要隐藏本条分组，需要清空床位和责任护士")
       }
     },
+    // 聊城二院 床位号多选问题
+    updateLC(val) {
+      if (!val) {
+        this.update()
+      }
+    },
+    removeTagLC() {
+      this.update()
+    },
     update(val) {
       // if (this.isSave) return;
       let data = {};
       data.deptCode = this.deptCode;
-      data.patientGroups = this.controlStatus ? this.hengliOptions  : this.computedList 
-      updateByDeptCodeAndGroupCode(data).then((res) => {
-        if (this.controlStatus)
-          this.getViewListByDeptCode()
-        else this.getData();
+      data.patientGroups = this.controlStatus ? this.hengliOptions  : this.computedList
+      let url = this.HOSPITAL_ID === 'liaocheng' ? updateByDeptCodeAndGroupCodeLC : updateByDeptCodeAndGroupCode
+      url(data).then((res) => {
+        if (res.data.code === '200') {
+          if (this.controlStatus)
+            this.getViewListByDeptCode()
+          else this.getData();
+        }
         // this.$message.success('更新病人分组信息成功')
-        
       });
     },
     querySearch(queryString, cb) {
@@ -349,12 +417,16 @@ export default {
         if (this.list[i]) {
           !this.list[i].groupCode && (this.list[i].groupCode = i + 1);
           !this.list[i].deptCode && (this.list[i].deptCode = this.deptCode);
+          this.list[i].bedSets = this.list[i].bedSets ? this.list[i].bedSets : []
+          this.list[i].dutyNurses = this.list[i].dutyNurses ? this.list[i].dutyNurses : []
           resultList.push(this.list[i]);
         } else {
           resultList.push({
-            bedSet: "",
+            bedSet: '',
+            bedSets: [], // 聊城二院 床位可以多选 
             deptCode: this.deptCode,
             dutyNurse: "",
+            dutyNurses: [], // 聊城二院 护士可以多选
             groupCode: i + 1,
           });
         }

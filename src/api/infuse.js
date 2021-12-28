@@ -6,7 +6,7 @@ import { apiPath } from './apiConfig'
 export const getExecute = (wardCode,hospitalId) => {
     switch(hospitalId){
         case 'hengli':
-            return axios.get(`${apiPath}board/getExecute/${wardCode}`)
+            // return axios.get(`${apiPath}board/getExecute/${wardCode}`)
         case 'wujing':
             return axios.post(`${apiPath}procedure/pdaExecute/pdaGetSYStatusWithWardcode`, {wardCode});
         default :
@@ -24,7 +24,7 @@ export const detail = (barCode) => {
 export const detailHl = (params,hospitalId) => {
     switch(hospitalId){
         case "hengli":
-            return axios.post(`${apiPath}execute/detail`,params)
+            // return axios.post(`${apiPath}execute/detail`,params)
         case "wujing":
             return axios.post(`${apiPath}procedure/pdaExecute/detail`,params)
         default:
@@ -64,3 +64,6 @@ export const getWarningValue = (wardCode) => {
     return axios.post(`${apiPath}warningValue/getByWardCode`, {wardCode});
 };
 
+export const pdaGetSYStatusCountWithWardcodeAndTimeApi = (body) => {
+    return axios.post(`${apiPath}procedure/pdaExecute/pdaGetSYStatusCountWithWardcodeAndTime`, body);
+}

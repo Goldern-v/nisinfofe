@@ -48,12 +48,12 @@
               </el-row>
             </router-link>
 
-            <!-- <router-link to="/MEWS" tag="span">
+            <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulirenwu"></i> MEWS
                 <span class="red-tip" v-if="isTip"></span>
               </el-row>
-            </router-link> -->
+            </router-link>
 
             <router-link to="/bed" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -157,11 +157,11 @@
               </el-row>
             </router-link>-->
 
-            <!-- <router-link to="/infuse" tag="span">
+            <router-link to="/infuse" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-zhihuishuye"></i> 智慧输液
               </el-row>
-            </router-link>-->
+            </router-link>
             <!-- <router-link to="/wardReport" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 病房日报
@@ -219,17 +219,48 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <!-- <router-link to="/shiftWork" tag="span">
+            <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
-            </router-link> -->
+            </router-link>
 
-            <router-link to="/implementationList" tag="span">
+            <!-- <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
-            </router-link>
+            </router-link> -->
+            <el-dropdown
+              menu-align="start"
+              :hide-on-click="false"
+              :class="{ 'router-link-active': isActivePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>执行单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                 <el-dropdown-item
+                  :class="{ active: $route.path == '/implementationList' }"
+                >
+                  <router-link to="/implementationList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="catheterPage"></i>执行单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <!-- <el-dropdown-item
+                  :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
+                >
+                  <router-link to="/bottleLabelByProgram" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="wardReport"></i>执行瓶签打印
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item> -->
+
+              </el-dropdown-menu>
+            </el-dropdown>
             <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理巡视
@@ -237,7 +268,7 @@
             </router-link>
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
-            </router-link>-->
+            </router-link> -->
 
             <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
               <el-row class="nav-item" type="flex" align="middle">
@@ -271,11 +302,13 @@
                 <i class="iconfont icon-hulijiludan"></i>其他
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <!-- <el-dropdown-item>
+                <el-dropdown-item>
                   <router-link to="/badEvent" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">不良事件</el-row>
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="badEvent"></i>不良事件
+                    </el-row>
                   </router-link>
-                </el-dropdown-item>-->
+                </el-dropdown-item>
                 <el-dropdown-item
                   :class="{ active: $route.path == '/nursingDocumentation' }"
                 >
@@ -404,7 +437,16 @@
                       <i class="badEvent"></i>不良事件
                     </el-row>
                   </router-link>
-                </el-dropdown-item>-->
+                </el-dropdown-item> -->
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/noCheckTest' }"
+                >
+                  <router-link to="/noCheckTest" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="noCheckTest"></i>未做检查/检验
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/nursingRules'}">
                   <router-link to="/nursingRules" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -899,9 +941,18 @@ export default {
       this.$refs.setPassword.open();
     },
     changeDept(value) {
-      let deptName = this.deptList.filter((item) => {
+      // let deptName = this.deptList.filter((item) => {
+      //   return item.code == value;
+      // })[0].name;
+      let deptName="";
+      let deptItem = this.deptList.filter((item) => {
         return item.code == value;
-      })[0].name;
+      });
+      if(deptItem && deptItem.length>0){
+        deptName=deptItem[0].name
+      }else {
+        return false;
+      }
       this.$store.commit("upDeptCode", value);
       localStorage.selectDeptValue = value;
       this.$store.commit("upDeptName", deptName);

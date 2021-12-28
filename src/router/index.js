@@ -46,7 +46,7 @@ const workloadSatisticsZSQ = () =>
   import("../Page/workloadSatisticsLc/workloadSatistics-zhongshanqi.vue"); // 中山七工作量统计
 const workloadSatisticsFuYou = () =>
   import("@/Page/workloadSatisticsLc/workloadSatistics-fuyou.vue"); // 江门妇幼工作量统计
-  const workloadSatisticsDghl = () =>
+const workloadSatisticsDghl = () =>
   import("@/Page/workloadSatisticsLc/workloadSatistics-Dghl.vue"); // 东莞横沥工作量统计
 const NotFoundComponent = () =>
   import("../components/NotFound/NotFoundComponent.vue"); // 异常路径
@@ -74,6 +74,11 @@ const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
 const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
 const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
+const shiftWorkFq = () => import("@/Page/shift-work-fq/shift-work.vue");
+const shiftWorkDetailFq = () => import("@/Page/shift-work-fq/shift-work-detail.vue");
+const shiftWorkWujing = () => import("@/Page/shift-work-wujing/shift-work.vue");
+const shiftWorkDetailWujing = () => import("@/Page/shift-work-wujing/shift-work-detail.vue");
+
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
 const ISBARshiftWorkHd = () => import("@/Page/shift-work/shift-work.vue");//花都ISBAR交班志
 
@@ -164,6 +169,9 @@ const implementationListQuzhou = () =>
   import("@/Page/implementation-list/implementation-list-quzhou.vue"); //曲周执行单
 const implementationListFuyou = () =>
   import("@/Page/implementation-list/implementation-list-fuyou.vue"); //江门妇幼执行单
+const implementationListHengli = () =>
+  import("@/Page/implementation-list/implementation-list-hengli.vue"); //横沥执行单
+
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 const bottleLabelByProgram = () => import("@/Page/implementation-list/bottle-sign-print.vue"); //瓶签打印
 
@@ -171,25 +179,33 @@ const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const patientList = () => import("@/Page/patientList/index"); //执行单
 const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); //护理巡视
 const allTemperatureChart = () =>
-  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chart.vue"); //批量录入体温单
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chart.vue"); //所以版本的批量录入体温单
+const allTemperatureChartBHRY = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartBHRY.vue"); //北海人医批量录入体温单
+const allTemperatureChartDGXG = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartDGXG.vue"); //东莞谢岗批量录入体温单
 const newSingleTemperatureChart = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //聊城二院-新版体温单录入页面
 const newSingleTemperatureChartGuizhou = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-guizhou/new-singleTemperature-chart-guizhou.vue"); //贵州省人民医院-新版体温单录入页面
 const newSingleTemperatureChartJmfy = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-jmfy/new-singleTemperature-chart.vue"); //江门妇幼医院-新版体温单录入页面
-  const newSingleTemperatureChartBhry = () =>
+const newSingleTemperatureChartBhry = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/new-singleTemperature-chart.vue");//北海人民医院-新版体温单录入页面
-  const newSingleTemperatureChartQuzhou = () =>
+const newSingleTemperatureChartQuzhou = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-quzhou/new-singleTemperature-chart.vue");//曲周医院-新版体温单录入页面
 const newSingleTemperatureChartDghl = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue");
-  const newSingleTemperatureChartWujing = () =>
+const newSingleTemperatureChartWujing = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-wujing/new-singleTemperature-chart.vue");//武警新版体温单单人录入
-  const newSingleTemperatureChartZhongXiYi = () =>
+const newSingleTemperatureChartZhongXiYi = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-zhongxiyi/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
-  const newSingleTemperatureChartFSSY = () =>
+const newSingleTemperatureChartFSXT = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-fsxt/new-singleTemperature-chart.vue");//佛山杏坛新版体温单单人录入
+const newSingleTemperatureChartFSSY = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-fssy/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
+const newSingleTemperatureChartDGXG = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-xiegang/new-singleTemperature-chart.vue");//谢岗新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -217,6 +233,7 @@ import sheetNursingOrderPage from "@/Page/sheet-nursing-order/sheet-page.vue"; /
 import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"; // 护嘱记录单页面
 import record from "@/Page/patientInfo/supPage/record/record"; // 评估单
 import home from "@/Page/patientInfo/supPage/home/home";
+import BHBaby_sheetPage from "@/Page/sheet-page/BHBabysheet-page.vue"; // 北海新生儿护理记录单页面
 import patientInfo from "@/Page/patientInfo/patientInfo"; //患者首页
 import information from "@/Page/patientInfo/supPage/information/information";
 import advice from "@/Page/patientInfo/supPage/advice/advice";
@@ -230,11 +247,13 @@ import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperatu
 import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperatureBhry";
 import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureFSSY from "@/Page/patientInfo/supPage/temperature/temperatureFSSY";
+import temperatureFSXT from "@/Page/patientInfo/supPage/temperature/temperatureFSXT";
 import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJmfy";
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperatureQuZhou";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
 import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperatureNFZXY";
+import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperatureDGXG";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
@@ -256,9 +275,17 @@ import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
 
 // 健康教育
-const healthEducationGuizhou = ()=>import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue");
+const healthEducationGuizhou = () => import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue");
 
-const healthEducationBerhairenyi = ()=>import("@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation.vue")
+const healthEducationBerhairenyi = () => import("@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation.vue")
+
+// 患者流转列表
+const patientFlowList = () => import("@/Page/patient-flow-list/patientFlowList.vue")
+const patientFlowMsg = () => import("@/Page/patient-flow-msg/patientFlowMsg.vue")
+// 患者流转统计
+const patientFlowStatistics = () => import("@/Page/patient-flow-statistics/patientFlowStatistics.vue")
+
+
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 const router = new Router({
@@ -326,17 +353,17 @@ const router = new Router({
         switch (process.env.HOSPITAL_ID) {
           case 'huadu':
             return temperatureHD
-          case 'liaocheng':
+          case 'liaocheng' || 'whfk' || 'whyx':
             return temperatureLCEY
           case 'guizhou':
             return temperatureGuizhou
-            case 'beihairenyi':
-              return temperatureBhry
+          case 'beihairenyi':
+            return temperatureBhry
           case 'fuyou':
             return temperatureJmfy
           case 'hengli':
             return temperatureDghl
-            case 'quzhou':
+          case 'quzhou':
             return temperatureQuZhou
           case 'nanfangzhongxiyi':
             return temperatureNFZXY
@@ -344,6 +371,10 @@ const router = new Router({
             return temperatureFSSY
           case 'wujing':
             return temperatureWuJing
+          case 'xiegang':
+            return temperatureDGXG
+          case 'fsxt':
+            return temperatureFSXT
           default:
             return temperature
         }
@@ -374,7 +405,9 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'huadu':
               return indexHd
-            case 'liaocheng':
+            case 'fqfybjy':
+              return shiftWorkFq;
+            case 'liaocheng' || 'whfk' || 'whyx':
               return indexLiaocheng
             case 'wujing':
               return indexWujing
@@ -501,10 +534,14 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
+            case 'fqfybjy':
+              return shiftWorkFq
+            case 'wujing':
+              return shiftWorkWujing
             // case 'guizhou':
             //   return shiftWorkGuizhou
             default:
@@ -522,12 +559,16 @@ const router = new Router({
                 return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
-              case 'liaocheng' || 'zhongshanqi':
+              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
               case 'beihairenyi':
                 return shiftWorkDetailBh
+              case 'fqfybjy':
+                return shiftWorkDetailFq
+              case 'wujing':
+                return shiftWorkDetailWujing
               default:
                 return shiftWorkDetail
             }
@@ -540,7 +581,7 @@ const router = new Router({
         component: (() => {
           switch (HOSPITAL_ID) {
             case 'huadu':
-              return   shiftWorkHd
+              return shiftWorkHd
             default:
               return shiftWorkGuizhou
           }
@@ -577,14 +618,13 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
               return badEventGz
-            case 'yangchunzhongyi':
-              //return badEventNew
-              return badEventComm
-            default:
+            case 'hj':
               return badEvent
+            default:
+                return badEventComm
           }
         })(),
-        
+
         children: [{
           name: "badEventEdit",
           path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
@@ -593,11 +633,10 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'guizhou':
                 return badEventEditPageGz
-              case 'yangchunzhongyi':
-                //return badEventEditPageNew
-                return badEventEditPageComm
-              default:
+              case 'hj':
                 return badEventEditPage
+              default:
+                return badEventEditPageComm
             }
           })(),
         },
@@ -609,11 +648,10 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'guizhou':
                 return badEventViewPageGz
-              case 'yangchunzhongyi':
-                //return badEventViewPageNew
-                return badEventViewPageComm
-              default:
+              case 'hj':
                 return badEventViewPage
+              default :
+              return badEventViewPageComm
             }
           })(),
         }
@@ -710,6 +748,7 @@ const router = new Router({
         // },
         {
           path: "/temperature",
+          //床位一览卡进入体温单
           // component: process.env.HOSPITAL_ID !== "huadu" ? temperature : temperatureLCEY,
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
@@ -719,7 +758,7 @@ const router = new Router({
                 return temperatureLCEY
               case 'guizhou':
                 return temperatureGuizhou
-                case 'beihairenyi':
+              case 'beihairenyi':
                 return temperatureBhry
               case 'wujing':
                 return temperatureWuJing
@@ -729,10 +768,14 @@ const router = new Router({
                 return temperatureFSSY
               case 'nanfangzhongxiyi':
                 return temperatureNFZXY
-                case 'quzhou':
+              case 'quzhou':
                 return temperatureQuZhou
-                case 'hengli':
+              case 'hengli':
                 return temperatureDghl
+              case 'fsxt':
+                return temperatureFSXT
+              case 'xiegang':
+                return temperatureDGXG
               default:
                 return temperature
             }
@@ -753,7 +796,15 @@ const router = new Router({
         },
         {
           path: "/catheter",
-          component: catheter,
+          // component: catheter,
+          component: (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'liaocheng' || 'whyx':
+                return allCatheter
+              default:
+                return catheter
+            }
+          })(),
           // name: "导管",
           // alias: "导管"
           name: "导尿管",
@@ -769,16 +820,16 @@ const router = new Router({
           path: "/bloodSugar",
           // component: process.env.HOSPITAL_NAME == "威县人民医院" ?
           //   bloodSugarWeiXian : bloodSugar,
-         component: (() => {
-          switch (process.env.HOSPITAL_ID) {
-            case 'weixian':
-              return bloodSugarWeiXian
-            case 'beihairenyi':
+          component: (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'weixian':
+                return bloodSugarWeiXian
+              case 'beihairenyi':
                 return bloodSugarBeiHaiRenYi
-            default:
-              return  bloodSugar
-          }
-        })(),
+              default:
+                return bloodSugar
+            }
+          })(),
           name: "血糖",
           alias: "血糖"
         },
@@ -790,7 +841,7 @@ const router = new Router({
               case 'guizhou':
                 return healthEducationGuizhou
               case 'beihairenyi':
-                  return healthEducationBerhairenyi
+                return healthEducationBerhairenyi
               default:
                 return healthEducation
             }
@@ -823,13 +874,13 @@ const router = new Router({
         component: (() => {
           switch (HOSPITAL_ID) {
             case 'lingcheng':
-                return workloadSatisticsLc
-                case 'hengli':
-                return workloadSatisticsDghl
+              return workloadSatisticsLc
+            case 'hengli':
+              return workloadSatisticsDghl
             case 'fuyou':
-                return workloadSatisticsFuYou
+              return workloadSatisticsFuYou
             default:
-                return workloadSatisticsZSQ
+              return workloadSatisticsZSQ
           }
         })(),
         name: "工作量统计"
@@ -848,11 +899,14 @@ const router = new Router({
             case 'huadu':
               return implementationListZhongshanqi
             case 'wujing':
+            case 'foshanrenyi':
               return implementationListWujing
             case 'quzhou':
               return implementationListQuzhou
             case 'fuyou':
               return implementationListFuyou
+            case 'hengli':
+              return implementationListHengli
             default:
               return implementationList
           }
@@ -921,6 +975,15 @@ const router = new Router({
           name: "sheetPage",
           path: "/sheetPage/:patientId?/:visitId?/:formId?/:inpNo?",
           component: sheetPage
+        }]
+      },
+      {
+        path: "/Baby_sheetPage",
+        component: BHBaby_sheetPage,
+        children: [{
+          name: "Baby_sheetPage",
+          path: "/Baby_sheetPage/:patientId?/:visitId?/:formId?/:inpNo?",
+          component: BHBaby_sheetPage
         }]
       },
       {
@@ -1039,7 +1102,16 @@ const router = new Router({
       },
       {
         path: "/allTemperatureChart",
-        component: allTemperatureChart,
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'beihairenyi':
+              return allTemperatureChartBHRY
+            case 'xiegang':
+              return allTemperatureChartDGXG
+            default:
+              return allTemperatureChart
+          }
+        })(),
         name: "批量录入体温单"
       },
       {
@@ -1048,13 +1120,13 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
               return newSingleTemperatureChartGuizhou
-              case 'beihairenyi':
+            case 'beihairenyi':
               return newSingleTemperatureChartBhry
-              case 'quzhou':
+            case 'quzhou':
               return newSingleTemperatureChartQuzhou
-              case 'wujing':
-                return newSingleTemperatureChartWujing
-              case 'hengli':
+            case 'wujing':
+              return newSingleTemperatureChartWujing
+            case 'hengli':
               return newSingleTemperatureChartDghl
             case 'fuyou':
               return newSingleTemperatureChartJmfy
@@ -1062,6 +1134,10 @@ const router = new Router({
               return newSingleTemperatureChartFSSY
             case 'nanfangzhongxiyi':
               return newSingleTemperatureChartZhongXiYi
+            case 'fsxt':
+              return newSingleTemperatureChartFSXT
+            case 'xiegang':
+              return newSingleTemperatureChartDGXG
             default:
               return newSingleTemperatureChart
           }
@@ -1097,6 +1173,22 @@ const router = new Router({
         path: "/rationalDoseStatistics",
         component: rationalDoseStatistics,
         name: "合理用药"
+      },
+      /**聊城二院-患者流转 */
+      {
+        path: "/patientFlowList",
+        name: "patientFlowList",
+        component: patientFlowList
+      },
+      {
+        path: "/patientFlowMsg",
+        name: "patientFlowMsg",
+        component: patientFlowMsg
+      },
+      {
+        path: "/patientFlowStatistics",
+        name: "patientFlowStatistics",
+        component: patientFlowStatistics
       },
     ]
   },

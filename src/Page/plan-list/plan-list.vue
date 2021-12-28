@@ -61,10 +61,11 @@
 
     .left-part {
       width: 199px;
-      position: absolute;
+      position: fixed;
       left: 0;
       top: 0;
       bottom: 0;
+      padding-top: 60px;
     }
 
     .right-part {
@@ -133,7 +134,7 @@ export default {
   provide() {
     return {
       openSlideCon: item => {
-        // if(this.HOSPITAL_ID=="guizhou"){
+        // if(["guizhou",'huadu'].includes(this.HOSPITAL_ID)){
           this.$refs.slideConRightGuizhou.open(item)
         // }else{
         //   this.$refs.slideCon.open(item)

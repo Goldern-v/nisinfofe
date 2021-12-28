@@ -1,12 +1,20 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown >
-       <div class="print-btn tool-btn" >打印</div>
-      <el-dropdown-menu slot="dropdown">
-       <el-dropdown-item> <el-button type="primary"  @click="onPrint()">打印当周</el-button></el-dropdown-item>
-    <el-dropdown-item><el-button type="primary"  @click="printAll()">批量打印</el-button></el-dropdown-item>
-       </el-dropdown-menu>
+      <el-dropdown>
+        <div class="print-btn tool-btn">打印</div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <el-button type="primary" @click="onPrint()"
+              >打印当周</el-button
+            ></el-dropdown-item
+          >
+          <el-dropdown-item
+            ><el-button type="primary" @click="printAll()"
+              >批量打印</el-button
+            ></el-dropdown-item
+          >
+        </el-dropdown-menu>
       </el-dropdown>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
       <div class="pagination">
@@ -27,7 +35,7 @@
           尾周
         </button>
       </div>
-      <div class="tem-con" :style="contentHeight" v-show="!isPrintAll">
+      <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -38,7 +46,7 @@
           class="lcIframe"
         ></iframe>
       </div>
-      <div class="tem-con" :style="contentHeight" v-show="isPrintAll">
+      <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -74,59 +82,57 @@ export default {
       currentPage: 1,
       pageTotal: 1,
       open: false,
-      patientId:"",
-      visitId:"",
+      patientId: "",
+      visitId: "",
       isSave: false,
-      isPrintAll:false,
+      isPrintAll: false,
       visibled: false,
-      printAllPath:"",
+      printAllPath: "",
       intranetUrl:
         "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-        // "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-      printAllUrl:"http://192.168.103.17:9091/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
+      // "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      printAllUrl:
+        "http://192.168.103.17:9091/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
       outNetUrl:
         "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
     onPrint() {
-        this.isPrintAll=false
-         setTimeout(()=>{
-this.$refs.pdfCon.contentWindow.postMessage(
-        { type: "printing" },
-        this.intranetUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-      },1500)
-     
-      
- 
+      this.isPrintAll = false;
+      setTimeout(() => {
+        this.$refs.pdfCon.contentWindow.postMessage(
+          { type: "printing" },
+          this.intranetUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
-    printAll(){
-      this.isPrintAll=true  //隐藏页码控制区域
-        setTimeout(()=>{
-this.$refs.pdfConAll.contentWindow.postMessage(
-        { type: "printingAll" },
-        this.printAllUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-      },1500)
+    printAll() {
+      this.isPrintAll = true; //隐藏页码控制区域
+      setTimeout(() => {
+        this.$refs.pdfConAll.contentWindow.postMessage(
+          { type: "printingAll" },
+          this.printAllUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
-      this.date=date;
-      this.patientId=patientId;
-      this.visitId=visitId;
+      this.date = date;
+      this.patientId = patientId;
+      this.visitId = visitId;
       /* 单独处理体温单，嵌套iframe */
       const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`;/* 内网 */
+      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
       // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
-        this.printAllPath=tempAllUrl
+        this.printAllPath = tempAllUrl;
       }, 0);
     },
     getHeight() {
@@ -189,8 +195,8 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     },
   },
   watch: {
-     patientInfo() {
-      this.isPrintAll=false
+    patientInfo() {
+      this.isPrintAll = false;
     },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
@@ -247,7 +253,7 @@ this.$refs.pdfConAll.contentWindow.postMessage(
 
     .lcIframe {
       transform: scale(0.95);
-      width: 100%;
+      width: 120%;
       height: 100%;
     }
   }

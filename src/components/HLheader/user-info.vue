@@ -34,7 +34,7 @@
     </div>
     <!-- <div class="line"></div> -->
     <!-- empNo  admin -->
-    <div class="admin-system-info" v-if="HOSPITAL_ID === 'weixian'">
+    <div class="admin-system-info" v-if="['foshanrenyi','weixian'].includes(HOSPITAL_ID)">
       证书状态:
       <p>
         <label>{{ ca_name || "无证书" }}:</label>
@@ -421,9 +421,14 @@ export default {
       for (let key in localStorage) {
         if (key.includes("firtPainFormID") || key.includes("patientInfo")) {
           localStorage.removeItem(key);
+        }else if (key.includes("selectDeptValue")) {
+          localStorage.removeItem(key);
+          this.$store.commit("upDeptCode", '');
         }
       }
       location.reload(true);
+      // localStorage.clear()
+      // location.href = '/crNursing/login'
     },
     openCaSignModal() {
       this.$refs.caSignModal.open(() => this.getCaStatus());

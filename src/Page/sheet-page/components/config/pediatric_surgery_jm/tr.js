@@ -5,7 +5,8 @@ import {
   multiDictInfo
 } from "../../../api/index";
 import {
-  keyf1
+  keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -172,8 +173,9 @@ export default [
   next: "",
   event: keyf1,
   textarea: {
-    width: 32
-  }
+    width: 52
+  },
+  change: (e, td) => limitChange(e, td, 8),
 },
 {
   key: "fieldNature", //  出量性质
@@ -182,8 +184,9 @@ export default [
   next: "",
   event: keyf1,
   textarea: {
-    width: 32
-  }
+    width: 52
+  },
+  change: (e, td) => limitChange(e, td, 8),
 },
 {
   key: "fieldTen", //  伤口敷料
@@ -193,7 +196,7 @@ export default [
   event: keyf1,
   splice: true,
   textarea: {
-    width: 48
+    width: 38
   },
   autoComplete: {
     data: ['干洁', '渗血', '陈旧性血迹']
@@ -208,7 +211,7 @@ export default [
   event: keyf1,
   splice: true,
   textarea: {
-    width: 48
+    width: 38
   },
   autoComplete: {
     data: ['1', '2', '3', '4', '5', '6', '7']
@@ -222,7 +225,7 @@ export default [
   event: keyf1,
   splice: true,
   textarea: {
-    width: 48
+    width: 38
   },
   autoComplete: {
     data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
@@ -278,7 +281,7 @@ export default [
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "180px",
+    width: "160px",
     background: "transparent"
   },
   event: function (e, td) {

@@ -219,9 +219,9 @@ export default {
     isPatients(){
       return this.$route?this.$route.path=="/nursingDocumentation":false
     },
-      hospitalTransfer(){
-        return ['huadu','fuyou'].includes(this.HOSPITAL_ID)
-      }
+    hospitalTransfer(){
+      return ['huadu','fuyou','beihairenyi'].includes(this.HOSPITAL_ID)
+    }
   },
   watch: {
     deptCode() {}
@@ -241,6 +241,10 @@ export default {
       .then(() => {
         this.$parent.getData();
       });
+    //花都入院起始日期 改为提前7天
+     if(['huadu'].includes(this.HOSPITAL_ID)){
+       this.data.admissionDate=[moment().subtract(7, "days"), new Date()]
+     }
   },
   mounted(){
     //江门妇幼、转院、出院中的【起始时间】调整为当天

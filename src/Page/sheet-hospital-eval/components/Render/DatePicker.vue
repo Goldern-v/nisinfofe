@@ -116,8 +116,13 @@ export default {
     // let refName =
     //   this.obj.name +
     //   this.obj.type.toUpperCase() +
-    //   (this.obj.title || this.obj.label);
-
+    // //   (this.obj.title || this.obj.label);
+    // console.log(this.datePickerValue,'this.datePickerValue')
+    if(this.datePickerValue){
+      this.datePickerValue = this.datePickerValue;
+    }else{
+       this.datePickerValue = moment(new Date()).format("YYYY-MM-DD HH:mm");
+    }
     let refName = this.obj.name;
     let refNameTitle = this.obj.title || this.obj.label;
 

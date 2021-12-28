@@ -19,12 +19,36 @@
         ></patientList>
       </div> -->
       <!-- <div class="right-part isRight" v-loading="tableLoading"> -->
-      <div class="sheetTable-contain">
+      <div class="sheetTable-contain" v-if="patientInfo.visitId !== '0'">
         <temperatureBHRY
           class="contain-center"
           :queryTem="patientInfo"
         ></temperatureBHRY>
-        <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
+        <div
+            class="flag-con"
+            :style="{ top: flagTop }"
+            flex="main:center cross:center"
+            @click="openRight"
+           >
+            <i
+              class="iconfont icon-yincang"
+              v-show="rightSheet"
+              style="margin-left: -1px"
+            ></i>
+            <i
+              class="iconfont icon-xianshi"
+              v-show="!rightSheet"
+              style="margin-left: -2px"
+            ></i>
+          </div>
+        <tabCon class="contain-right" :patientInfo="patientInfo" v-show="rightSheet"> </tabCon>
+      </div>
+      <div class="sheetTable-contain" v-if="patientInfo.visitId === '0'">
+        <temperatureBHRYNewBorn
+          class="contain-center"
+          :queryTem="patientInfo"
+        ></temperatureBHRYNewBorn>
+        <!-- <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon> -->
       </div>
       <!-- </div> -->
     </div>
@@ -33,7 +57,23 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .new-singleTemperature-chart {
   position: relative;
+.flag-con {
+      width: 10px;
+      height: 73px;
+      position: relative;
+      z-index: 10;
+      background-image: url('../../../../common/images/patient/隐藏框.png');
+      cursor: pointer;
+      transform: rotateY(180deg);
 
+      &:hover {
+        color: #5CC6A1;
+      }
+
+      i {
+        font-size: 12px;
+      }
+    }
   .body-con {
     position: relative;
 
@@ -67,6 +107,7 @@ import patientList from "@/components/patient-list/patient-list.vue";
 import print from "printing";
 import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureBHRY from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/temperatureBHRY";
+import temperatureBHRYNewBorn from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/temperatureBHRYNewBorn.vue";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/tab-con";
 export default {
   mixins: [common],
@@ -86,6 +127,12 @@ export default {
     patientInfo() {
       return this.$route.query;
     },
+     flagTop() {
+      return `${this.wih * 0.4}px`;
+    }, 
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
     containHeight() {
       if (this.fullpage) {
         return this.wih - 44 + "px";
@@ -98,6 +145,7 @@ export default {
     },
   },
   created() {
+    this.getDate();
     // 初始化
     if (this.deptCode) {
       this.getDate();
@@ -124,8 +172,11 @@ export default {
         this.bus.$emit("refreshVitalSignList");
       }
     },
+     openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
   },
-  components: { patientList, temperatureBHRY, tabCon },
+  components: { patientList, temperatureBHRY, tabCon, temperatureBHRYNewBorn },
   watch: {
     deptCode(val) {
       if (val) {

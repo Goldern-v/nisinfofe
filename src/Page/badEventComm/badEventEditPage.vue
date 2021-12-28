@@ -1,19 +1,17 @@
 
 <template>
   <div class="editbar">
-    <!-- 病人列表 -->
-    <!-- <div class="editbar-left">
-            <patientList v-if="showPatientList" :data="bedList" v-loading="patientListLoading"></patientList>
-    </div>-->
-
-    <!-- <div class="editbar-right" :style="showPatientList?'margin-left:200px':'margin-left:0px'"> -->
-    <!-- 不良事件 报告单   data-print-class="printing"-->
-    <!-- HOSPITAL_ID != 'hj' && $route.params.isIndependent==1（是否带外框） 目前厚街、南医三、贵州有不良事件 -->
-    <HeadToolBar :showToolBar="!pageLoading" v-if="HOSPITAL_ID != 'hj'"  @updataeBaseUser="updataeBaseUser"></HeadToolBar>
-    <EditToolbar :showLeft="true" :showRight="true"></EditToolbar>
-    <div class="bad-event-container" :style="'height:'+(wih-100)+'px!important;'">
+    <HeadToolBar
+      :showToolBar="!pageLoading"
+      @updataeBaseUser="updataeBaseUser"
+      v-if="HOSPITAL_ID != 'fqfybjy'"
+    ></HeadToolBar>
+    <div
+      class="bad-event-container"
+      :style="'height:' + (wih - 100 + 40) + 'px!important;'"
+    >
       <div class="bad-event-edit">
-        <NullBg v-if="iframeHeight===0" text="该页面没有找到～" />
+        <NullBg v-if="iframeHeight === 0" text="该页面没有找到～" />
         <div
           v-else
           class="bad-event-paper"
@@ -25,7 +23,7 @@
             frameborder="0"
             class="badEvent-iframe"
             :src="url"
-            :style="`min-height:${wih-100}px`"
+            :style="`min-height:${wih - 100 + 40}px`"
             @load="onloadPage"
             ref="iframe"
           ></iframe>
@@ -165,7 +163,7 @@ export default {
       return {
         status: "close",
         // 显示消息
-        show: function(info, type = "info", duration = 0, callback = null) {
+        show: function (info, type = "info", duration = 0, callback = null) {
           if (mesg) {
             this.close();
           }
@@ -186,14 +184,14 @@ export default {
           this.status = "show";
         },
         // 关闭消息
-        close: function() {
+        close: function () {
           console.log("关闭消息框");
           if (mesg) {
             mesg.close();
             this.status = "close";
           }
         },
-        getStatus: function() {
+        getStatus: function () {
           console.log("消息框状态", this.status);
           return this.status || "close";
         }
@@ -231,11 +229,11 @@ export default {
   },
   methods: {
     //更新表单iframe的用户基本数据值
-    updataeBaseUser(data){
-      this.$nextTick(()=>{
-        const formIframe=this.$refs.iframe.contentWindow;
-        formIframe.updateBaseUser(data)
-      })
+    updataeBaseUser(data) {
+      this.$nextTick(() => {
+        const formIframe = this.$refs.iframe.contentWindow;
+        formIframe.updateBaseUser(data);
+      });
     },
     async load() {
       console.log(
@@ -296,23 +294,32 @@ export default {
         }
         // isDev=1&
         // 不良事件报表
-        let formHTMLName = "不良事件病人安全通报单";
+        // let formHTMLName = "不良事件病人安全通报单";
+        let formHTMLName = this.$route.params.name;
         let eventName = this.$route.params.name;
         let eventType = this.$route.params.type;
-        if (this.isDev) {
-          this.url = `${devFormUrl}/${formHTMLName}.html?${devStr}${qs.stringify(
-            queryObj
-          )}`;
-        } else {
-          const host = window.location.host;
-          // if((this.HOSPITAL_ID == 'nys' && ( host == 'info.cr-health.com:20201' || host == '192.168.1.54:8062') ) || this.HOSPITAL_ID == 'guizhou'){
-          if(this.HOSPITAL_ID){
-            formHTMLName += '.html';
-          }
-          this.url = `${formUrl}/${formHTMLName}?${devStr}${qs.stringify(
-            queryObj
-          )}`;
-        }
+        let commonUrl = this.isDev ? devFormUrl : formUrl;
+        this.url = `${commonUrl}/${formHTMLName}.html?${qs.stringify(
+          queryObj
+        )}`;
+        // if (this.isDev) {
+        //   this.url = `${devFormUrl}/${formHTMLName}.html?${devStr}${qs.stringify(
+        //     queryObj
+        //   )}`;
+        // } else {
+        //   const host = window.location.host;
+        //   // if (
+        //   //   (this.HOSPITAL_ID == "nys" &&
+        //   //     (host == "info.cr-health.com:20201" ||
+        //   //       host == "192.168.1.54:8062")) ||
+        //   //   this.HOSPITAL_ID == "guizhou" ||
+        //   //   this.HOSPITAL_ID == "fqfybjy"
+        //   // ) {
+        //   //   formHTMLName += ".html";
+        //   // }
+        //   formHTMLName += ".html";
+        //   this.url = `${formUrl}/${formHTMLName}?${devStr}${qs.stringify(queryObj)}`;
+        // }
         this.pageLoadingText = eventName + "安全通报单,正在加载中...";
 
         console.log("载入url", this.url);
@@ -372,7 +379,7 @@ export default {
       console.log("病人patient:", patient);
       const res = await commonData
         .loadPatient(patient.patientId, patient.visitId)
-        .catch(error => {
+        .catch((error) => {
           console.log("loadPatient-error", error, res);
           this.loadError("网络异常，请求超时。请刷新页面。", 5);
         });
@@ -405,7 +412,7 @@ export default {
           "info",
           30000
         );
-        const patRes = await patients(this.deptCode).catch(error => {
+        const patRes = await patients(this.deptCode).catch((error) => {
           window.messageBox.show("加载HIS数据失败", "error", 3000);
         });
         // this.patientList = patRes.data.data
@@ -417,7 +424,7 @@ export default {
         this.patientListLoading = false;
         // load patient with bedLabel
         if (this.bedLabel) {
-          let p = this.bedList.filter(n => {
+          let p = this.bedList.filter((n) => {
             return n.bedLabel === this.bedLabel;
           });
           if (p.length > 0) {
@@ -433,7 +440,7 @@ export default {
         this.patientListLoading = false;
         this.bedList = JSON.parse(localStorage["patientList" + this.deptCode]);
         if (this.bedLabel) {
-          let p = this.bedList.filter(n => {
+          let p = this.bedList.filter((n) => {
             return n.bedLabel === this.bedLabel;
           });
           if (p.length > 0) {

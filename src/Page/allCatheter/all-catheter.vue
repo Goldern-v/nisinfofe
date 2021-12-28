@@ -1,19 +1,31 @@
 <template>
   <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存">
-    <div class="head-con" flex>
-      <div class="dept-select-con"></div>
-    </div>
-    <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
-      <div class="left-part">
-        <patientList :data="data.bedList" v-loading="patientListLoading" @onChangePatient="onChangePatient_self"></patientList>
-        
+    <div class="body-con" id="sheet_body_con" :style="{height: containHeight,overflow:'hidden'}">
+      <div class="left-part" v-if="isAllCathterPage" >
+        <div class="head-con" flex>
+          <div class="dept-select-con"></div>
+        </div>
+        <follow-list :data="data.bedList" @selectPatient="onChangePatient_self" v-if="HOSPITAL_ID=='liaocheng'">
+          <template  slot-scope="{ scope }">
+            <div class="cathter-icon" v-if="scope.catheterIcon">
+              {{ scope.catheterIcon }}
+            </div>
+            <img
+              src="../../common/images/record/文件夹.png"
+              alt
+              class="has-file"
+              v-if="scope.config&&scope.config.hasCreatedDvc"
+            />
+          </template>
+        </follow-list>
+        <patientList :data="data.bedList"  v-loading="patientListLoading" @onChangePatient="onChangePatient_self"></patientList>
       </div>
-      <div class="right-part" v-loading="tableLoading">
+      <div class="right-part" v-loading="tableLoading" :class="{noAllpage:!isAllCathterPage}">
         <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
-        <div class="sheetTable-contain" ref="scrollCon">
-          <cathterTabel @onChangePatient_self='onChangePatient_self' :title="tableInfo.formTitle" @changeShowTable='changeShowTable' :tabelConfig='tabelConfig' :tableInfo='tableInfo' v-if="showTable" @updateTableConfig='updateTableConfig'/>
+        <div class="sheetTable-contain" :style="{width:`calc(100% - ${isAllCathterPage?'280px':'81px'} )`,marginLeft:`${isAllCathterPage?'280px':'81px'}`}" ref="scrollCon">
+          <cathterTabel @onChangePatient_self='onChangePatient_self' :title="tableInfo.formTitle" @changeShowTable='changeShowTable' :tabelConfig='tabelConfig' :tableInfo='tableInfo' v-if="showTable&&!isMorePage" @updateTableConfig='updateTableConfig'/>
           <div
-            v-else
+            v-if="!showTable&&!isMorePage"
             class="null-btn"
             flex="cross:center main:center"
             @click="addCathter"
@@ -21,6 +33,7 @@
             <i class="el-icon-plus"></i>
             添加导管
           </div>
+          <cathterTabel :ref="`cathterTabel_${index}`" @saveTableFn='saveTableFn' @onChangePatient_self='onChangePatient_self' :title="tableInfo.formTitle" @changeShowTable='changeShowTable' :tabelConfig='tableList' :tableInfo='tableInfo' v-if="showTable&&isMorePage" @updateTableConfig='updateTableConfig' v-for="(tableList,index) in tabelConfig" :key="index" :pageNum="(index + 1)"/>
         </div>
       </div>
     </div>
@@ -60,6 +73,8 @@
       left: 0;
       top: 0;
       bottom: 0;
+      display: flex;
+      flex-direction: column
     }
 
     .right-part {
@@ -94,12 +109,11 @@
 
 .sheetTable-contain {
   height: 100%;
-  width:calc( 100% - 280px)
   background: #DFDFDF;
   overflow: auto;
-  padding: 15px 5px 15px;
+  padding: 5px 5px 15px;
   box-sizing: border-box;
-  margin: 0 0 20px 280px;
+  margin: 0 0 20px 0;
   position: relative;
 }
 
@@ -129,117 +143,137 @@
   }
 }
 </style>
-
+<style lang="stylus">
+.noAllpage{
+  .fix-table{
+    top:51px!important;
+  }
+}
+.cathter-icon {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  line-height: 20px;
+  text-align: center;
+  color: #21a0ff;
+  margin-left: 5px;
+}
+.has-file {
+  position: absolute;
+  left: 28px;
+  top: 18px;
+  width 20px;
+}
+</style>
 <script>
-import patientList from "./components/patient-list/patient-list.vue";
-import catheterList from "./components/catheter-list/catheter-list.vue";
-import addCathter from './components/add-cathter/add-cathter.vue'
-import newCathter from './components/add-cathter/new-cathter.vue'
-import cathterTabel from './components/cathter-tabel/cathter-tabel.vue'
+import patientList from "@/page/allCatheter/components/patient-list/patient-list.vue";
+import catheterList from "@/page/allCatheter/components/catheter-list/catheter-list.vue";
+import addCathter from '@/page/allCatheter/components/add-cathter/add-cathter.vue'
+import newCathter from '@/page/allCatheter/components/add-cathter/new-cathter.vue'
+import cathterTabel from '@/page/allCatheter/components/cathter-tabel/cathter-tabel.vue'
 import common from "@/common/mixin/common.mixin.js";
-import sheetModel, {
-  addSheetPage,
-  delSheetPage,
-  initSheetPage,
-  cleanData
-} from "./sheet.js";
 import { patients } from "@/api/lesion";
-import decode from "./components/render/decode.js";
-import {
-  saveBody,
-  showBody,
-  showTitle,
-  delPage,
-  markList,
-  saveRelObj
-} from "./api/sheet.js";
-import sheetInfo from "./components/config/sheetInfo/index.js";
+import sheetInfo from "@/page/allCatheter/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
-import delPageModal from "./components/modal/del-page.vue";
-import $ from "jquery";
-import HjModal from "./components/modal/hj-modal.vue";
-import signModal from "@/components/modal/sign.vue";
-import specialModal from "./components/modal/special-modal.vue";
-import setPageModal from "./components/modal/setPage-modal.vue";
-import pizhuModal from "./components/modal/pizhu-modal.vue";
-import setDiagsModal from "./components/modal/set-diags.vue";
-import {getCatheterList} from './api/catheter'
-import { set } from 'js-cookie';
+import {getCatheterList,saveCatheter,getCatheterTable} from '@/page/allCatheter/api/catheter'
+import FollowList from '@/components/follow/index.vue'
 export default {
   mixins: [common],
   data() {
     return {
       data: {
-        bedList: []
+        bedList: [] // 患者列表存放数组
       },
-      patientListLoading: false,
-      pageLoading: false,
-      tableLoading: false,
-      bus: bus(this),
-      sheetModel,
-      sheetInfo,
-      scrollTop: 0,
-      cathterArr:[],
-      isAddCathter:false,
-      isCreateCathter:false,
-      newCathterType:'',
-      tabelConfig:[],
-      tableInfo:{},
-      showTable:false,
-      hasPatient:false
+      patientListLoading: false, // 患者列表刷新动画
+      pageLoading: false, // 页面刷新动画
+      tableLoading: false, // 表格刷新动画
+      bus: bus(this), // 事件总线
+      sheetInfo, // 表单信息
+      scrollTop: 0, // 顶部滚动距离
+      cathterArr:[], // 导管列表存放数组
+      isAddCathter:false, // 添加导管弹框
+      isCreateCathter:false, // 新增导管详情弹框
+      newCathterType:'', // 新增导管类型
+      tabelConfig:[], // 表体数据
+      tableInfo:{}, // 导管信息
+      showTable:false, // 是否显示表体，用于组件销毁
+      hasPatient:false, // 当前是否选中患者
+      isMorePage:false // 当前导管是否多页
     };
   },
   computed: {
-    containHeight() {
-      if (this.fullpage) {
-        return this.wih - 44 + "px";
-      } else {
-        return this.wih - 104 + "px";
-      }
+    // 判断路由是否主页导管（与患者详情页的导管作区分）
+    isAllCathterPage(){
+      return this.$route.path.includes('allCatheter')
     },
+    // 计算内容高度
+    containHeight() {
+      // if (this.fullpage) {
+        if(this.isAllCathterPage){
+          return this.wih - 62 + "px";
+        }else{
+          return this.wih - 112 + "px";
+        }
+      // } else {
+        // return this.wih - 104 + "px";
+      // }
+    },
+    // 当前选中的患者信息
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
     fullpage() {
       return this.$store.state.sheet.fullpage;
     },
-    filterSheetModel() {
-      // 根据页码处理后的页面
-      let showSheetPage = i => {
-        let startPage = this.sheetInfo.startPage;
-        let endPage = this.sheetInfo.endPage;
-        let index = i + this.sheetInfo.sheetStartPage;
-        if (startPage && endPage) {
-          if (index >= Number(startPage) && index <= Number(endPage)) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      };
-      let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        let obj = {
-          index,
-          data: item,
-          length: arr.length
-        };
-        return obj;
-      });
-
-      let resultModel = mapSheetModel.filter(item => {
-        return showSheetPage(item.index);
-      });
-      return resultModel;
-    }
   },
   methods: {
+    // 更新导管数据
+    refreshCatcherTable(code,type,id,patientId,visitId){
+        getCatheterTable({
+                code,
+                type,
+                id,
+                patientId,
+                visitId
+            },code).then(res=>{
+                // console.log(res);
+                this.updateTableConfig(res.data.data)
+            })
+    },
+    // 保存导管信息
+    saveTableFn(){
+      let {code,type,id,patientId,visitId} = this.tableInfo
+      let saveParams = []
+      // 如果是多页,将多页数据合并后再请求保存
+      if(this.isMorePage){
+        let arr = []
+        this.tabelConfig.map((item,index)=>{
+          arr = [...arr,...this.$refs[`cathterTabel_${index}`][0]['_data'].tabelData]
+        })
+        saveParams = arr
+      }else{
+        saveParams = this.tabelConfig
+      }
+      saveCatheter({
+          code,type,id,
+          list:saveParams
+      },code).then(res=>{
+          this.$message.success('保存成功')
+          this.refreshCatcherTable(code,type,id,patientId,visitId)
+          this.getDate()
+      }).catch(err=>{
+          this.$message.error(err)
+      })
+    },
+    // 获取患者列表数据及部分初始化
     getDate() {
+      this.isMorePage = false
       if (this.deptCode) {
         this.patientListLoading = true;
         patients(this.deptCode, {
-          showDvc: true
+          showDvc: true,
+          showFollew:true
         }).then(res => {
           this.data.bedList = res.data.data.filter(item => {
             return item.patientId;
@@ -249,74 +283,7 @@ export default {
         });
       }
     },
-    addSheetPage() {
-      this.bus.$emit("openNewSheetModal");
-    },
-    // getSheetData(isBottom) {
-    //   if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
-    //     cleanData();
-    //     setTimeout(() => {
-    //       sheetInfo.isSave = true;
-    //     }, 400);
-    //     return;
-    //   }
-    //   this.tableLoading = true;
-    //   $(".red-border").removeClass("red-border");
-    //   return Promise.all([
-    //     showBody(this.patientInfo.patientId, this.patientInfo.visitId),
-    //     markList(this.patientInfo.patientId, this.patientInfo.visitId)
-    //   ]).then(res => {
-    //     let bodyData = res[0].data.data;
-    //     let markData = res[1].data.data.list || [];
-    //     this.sheetInfo.relObjs = bodyData.relObjs
-    //     if(this.sheetInfo.relObjs.length == 0){
-    //       this.sheetInfo.relObjs.push({
-    //         pageNo:'1',
-    //         relObj:{}
-    //       })
-    //     }
-    //     this.$nextTick(() => {
-    //       // this.sheetModel = sheetModel
-    //       initSheetPage([], bodyData, markData);
-    //       this.getHomePage(isBottom);
-
-    //       this.tableLoading = false;
-    //       setTimeout(() => {
-    //         this.sheetInfo.isSave = true;
-    //       }, 200);
-    //     });
-    //   });
-    // },
-    // breforeQuit(next) {
-    //   if (!sheetInfo.isSave) {
-    //     window.app
-    //       .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-    //         confirmButtonText: "离开",
-    //         cancelButtonText: "取消",
-    //         type: "warning"
-    //       })
-    //       .then(res => {
-    //         next();
-    //       });
-    //   } else {
-    //     next();
-    //   }
-    // },
-    // getHomePage(isFirst) {
-      // getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
-      //   res => {
-      //     this.sheetInfo.sheetStartPage =
-      //       (res.data.data && res.data.data.indexNo) || 1;
-      //     this.sheetInfo.sheetMaxPage =
-      //       (res.data.data && res.data.data.maxIndexNo) || 1;
-      //     isFirst && this.bus.$emit("initSheetPageSize");
-      //   }
-      // );
-    //   this.sheetInfo.sheetStartPage = 1;
-    //   this.sheetInfo.sheetMaxPage = 1;
-    //   isFirst && this.bus.$emit("initSheetPageSize");
-    // },
-    onChangePatient_self(info){
+    onChangePatient_self(info){ // 更改当前选中患者,更新导管列表
       this.showTable = false
       this.hasPatient = true
       this.cathterArr = []
@@ -330,6 +297,7 @@ export default {
         this.cathterArr = res.data.data.list
       })
     },
+    // 添加导管按钮事件
     addCathter(){
       if(!this.hasPatient){
         this.$message.error('请先选择一名患者！');
@@ -337,212 +305,66 @@ export default {
       }
       this.isAddCathter = true
     },
+    // 关闭添加导管弹窗事件
     closeCathter(){
       this.isAddCathter = false
     },
+    // 关闭新增导管详情弹窗页面
     closeCreate(){
       this.isCreateCathter = false
       this.isAddCathter = false
     },
+    // 添加导管详情弹窗
     createCathter(type){
       this.newCathterType = type
       this.isCreateCathter = true
     },
+    // 更新表体信息
     updateTableConfig(res){
+      this.isMorePage = false
       this.showTable = false
       this.tableInfo = {...this.tableInfo,...res}
-      this.tabelConfig = this.tableInfo.list
+      this.tabelConfig = [...this.tableInfo.list]
+      console.log(this.tabelConfig);
       setTimeout(()=>{
         this.showTable = true
       })
     },
+    // 切换表格显示
     changeShowTable(flag){
       this.showTable = flag
     }
   },
   created() {
-    // // 初始化
-    // cleanData();
+    // 初始化
     if (this.deptCode) {
       this.getDate();
     }
-    // this.bus.$on("addSheetPage", () => {
-    //   addSheetPage(() => {
-    //     this.$nextTick(() => {
-    //       this.bus.$emit("initSheetPageSize");
-    //       this.$nextTick(() => {
-    //         $(this.$refs.scrollCon).animate({
-    //           scrollTop:
-    //             this.$refs.scrollCon.scrollHeight -
-    //             this.$refs.scrollCon.offsetHeight -
-    //             400
-    //         });
-    //       });
-    //     });
-    //   });
-    // });
-    // this.bus.$on("delSheetPage", () => {
-    //   this.$refs.delPageModal.open(async checkList => {
-    //     for (let item of checkList.sort((a, b) => {
-    //       return b - a;
-    //     })) {
-    //       await delPage(
-    //         this.patientInfo.patientId,
-    //         this.patientInfo.visitId,
-    //         item - 1
-    //       );
-    //       delSheetPage(item - 1);
-    //     }
-    //     this.$notify.success({
-    //       title: "提示",
-    //       message: "删除成功"
-    //     });
-    //   });
-    // });
-    // this.bus.$on("saveSheetPage", (isInitSheetPageSize = true) => {
-    //   this.pageLoading = true;
-    //   this.scrollTop = this.$refs.scrollCon.scrollTop;
-    //   saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())
-    //     .then(res => {
-    //       this.$notify.success({
-    //         title: "提示",
-    //         message: "保存成功"
-    //       });
-    //       this.bus.$emit("refrehDeepPatientList");
-    //       this.getSheetData().then(res => {
-    //         isInitSheetPageSize &&
-    //           setTimeout(() => {
-    //             this.bus.$emit("initSheetPageSize");
-    //           }, 100);
-    //         this.$nextTick(() => {
-    //           this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //         });
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 100);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 200);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 400);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 400);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 500);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 600);
-    //         setTimeout(() => {
-    //           if (this.$refs.scrollCon.scrollTop == 0) {
-    //             this.$refs.scrollCon.scrollTop = this.scrollTop;
-    //           }
-    //           $(".red-border").removeClass("red-border");
-    //         }, 1000);
-    //       });
-    //       this.pageLoading = false;
-    //     })
-    //     .catch(() => {
-    //       this.pageLoading = false;
-    //     });
-    //   saveRelObj(sheetInfo.selectBlock.id , sheetInfo.relObjs)
-    //   .then(res => {
-    //     this.$notify.success({
-    //       title: "提示",
-    //       message: "保存成功"
-    //     });
-    //   });        
-    // });
-    // this.bus.$on("refreshSheetPage", isFirst => {
-    //   this.getSheetData(isFirst);
-    // });
-    // this.bus.$on("toSheetPrintPage", newWid => {
-    //   // 判断是否存在标记
-    //   if ($(".mark-mark-mark").length) {
-    //     $(this.$refs.scrollCon).animate({
-    //       scrollTop:
-    //         $(".mark-mark-mark")
-    //           .eq(0)
-    //           .offset().top +
-    //         this.$refs.scrollCon.scrollTop -
-    //         150
-    //     });
-    //     return this.$message.warning("打印前必须去除所有标记");
-    //   }
-    //   // 判断是否存在未签名
-    //   if ($(".noSignRow").length) {
-    //     $(this.$refs.scrollCon).animate({
-    //       scrollTop:
-    //         $(".noSignRow")
-    //           .eq(0)
-    //           .addClass("red-border")
-    //           .offset().top +
-    //         this.$refs.scrollCon.scrollTop -
-    //         150
-    //     });
-    //     return this.$message.warning("存在未签名的记录，请全部签名后再打印");
-    //   }
-    //   if ($(".multiSign").length) {
-    //     $(this.$refs.scrollCon).animate({
-    //       scrollTop:
-    //         $(".multiSign")
-    //           .eq(0)
-    //           .addClass("red-border")
-    //           .offset().top +
-    //         this.$refs.scrollCon.scrollTop -
-    //         150
-    //     });
-    //     return this.$message.warning("记录存在多个签名，或者忘记填写时间");
-    //   }
-
-    //   window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
-    //   if (process.env.NODE_ENV === "production") {
-    //     newWid.location.href = "/crNursing/print/sheetPage";
-    //   } else {
-    //     this.$router.push(`/print/sheetPage`);
-    //   }
-    // });
-    // this.bus.$on("openHJModal", () => {
-    //   this.$refs.HjModal.open();
-    // });
-    // this.bus.$on("openSetPageModal", () => {
-    //   this.$refs.setPageModal.open();
-    // });
-    // this.bus.$on("openPizhuModal", (tr, td) => {
-    //   this.$refs.pizhuModal.open(tr, td);
-    // });
-    // this.bus.$on("openSetDiagsModal", obj => {
-    //   this.$refs.setDiagsModal.open(obj);
-    // });
-    // this.bus.$on("refrehSheetStartPage", () => {
-    //   this.getHomePage();
-    // });
-    // this.bus.$on("refrehDeepPatientList", this.getDate);
   },
   watch: {
-    // 点击左侧树形患者时切换列表
     patientInfo(val){
       
+    },
+    tabelConfig(list,oldList){
+      if(list.length>=17){
+        let arr = []
+        // let ids = [] // 打印id用
+        this.isMorePage = true
+        for(let i = 0;i<list.length;i+=17){
+          if(list.length-i>=17){
+            let ele = JSON.parse(JSON.stringify(list.slice(i,i+17)))
+            arr.push(ele)
+            // ids.push(ele.map(item=>item.id))
+          }else{
+            let ele = JSON.parse(JSON.stringify(list.slice(i,list.length + 1)))
+            arr.push(ele)
+            // ids.push(ele.map(item=>item.id))
+          }
+        }
+        (list.length%17==0)&&(arr.push([]))
+        // console.log(ids);
+        this.tabelConfig = [...arr]
+      }
     },
     deptCode(val) {
       if (val) {
@@ -555,43 +377,24 @@ export default {
         // });
       }
     },
-    sheetModel: {
-      deep: true,
-      handler() {
-        if (this.patientInfo.name) {
-          sheetInfo.isSave = false;
-        }
-      }
+  },
+  mounted(){
+    // 对患者详情页的导管做默认渲染
+    let patientInfo = this.$route.query
+    let isObj = Object.prototype.toString.call(patientInfo)=='[object Object]'
+    let hasProp = JSON.stringify(patientInfo) != "{}"
+    if(isObj&&hasProp){
+      this.$store.commit("upPatientInfo" , patientInfo);
+      this.onChangePatient_self(patientInfo)
     }
   },
-  // beforeRouteLeave: (to, from, next) => {
-  //   if (!sheetInfo.isSave) {
-  //     window.app
-  //       .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-  //         confirmButtonText: "离开",
-  //         cancelButtonText: "取消",
-  //         type: "warning"
-  //       })
-  //       .then(res => {
-  //         next();
-  //       });
-  //   } else {
-  //     next();
-  //   }
-  // },
   components: {
     patientList,
     catheterList,
     addCathter,
     newCathter,
     cathterTabel,
-    delPageModal,
-    HjModal,
-    signModal,
-    specialModal,
-    setPageModal,
-    pizhuModal,
-    setDiagsModal
+    FollowList
   }
 };
 </script>

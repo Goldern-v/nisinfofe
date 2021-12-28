@@ -30,9 +30,9 @@
       v-bind="obj.props"
       @change="inputChange($event, obj)"
       @dblclick.native.stop="inputClick($event, obj)"
-      @click.native.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
+      @click.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
       @focus="inputFocus($event, obj)"
-      @blur.native.stop="inputBlur"
+      @blur.stop="inputBlur"
       @keydown.native="inputKeyDown($event, obj)"
     >
       <!-- <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span> -->
@@ -49,6 +49,11 @@
       <!-- </template> -->
     </el-input>
     <!-- <span>{{obj.suffixDesc}}</span> -->
+    <openFormSum @scoreListSum="scoreListsum" @changetableSum='changetablesum' @click="tableScoreSum()" :dialogTable='tableScore'></openFormSum>
+    <faceForm @scoreListFace="scoreListFace" @changetableFace='changetableface' @click="tableScoreFace()" :dialogTableFace='tableScore1'></faceForm>
+    <adultForm @scoreListAdult="scoreListAdult" @changetableAdult='changetableAdult' @click="tableScoreAdult()" :dialogTableAdult='tableScore2'></adultForm>
+    <severForm @scoreListSever="scoreListSever" @changetableSever='changetableSever' @click="tableScoreSever()" :dialogTableSever='tableScore3'></severForm>
+     <childForm @scoreListChild="scoreListChild" @changetableChild='changetableChild' @click="tableScoreChild()" :dialogTableChild='tableScore4'></childForm>
     <span
       class="post-text"
       v-if="obj.postText||obj.suffixDesc"
@@ -62,6 +67,11 @@ import vue from "vue";
 import uuid from "node-uuid";
 import { setTimeout } from "timers";
 // import autoComplete from "./autoComplete.vue"
+import openFormSum from './modal/openFormsum/sumForm'
+import faceForm from './modal/faceForm/index'
+import adultForm from './modal/adultForm/index'
+import severForm from './modal/severForm/index'
+import childForm from './modal/childForm/index'
 
 export default {
   name: "InputBox",
@@ -83,12 +93,22 @@ export default {
   },
   components: {
     // autoComplete
+    openFormSum,
+    faceForm,
+    adultForm,
+    severForm,
+    childForm,
   },
   data() {
     return {
       inputValue: "",
       isShow: true,
-      isClone: false
+      isClone: false,
+      tableScore:false,
+      tableScore1:false,
+      tableScore2:false,
+      tableScore3:false,
+      tableScore4:false,
     };
   },
   computed: {
@@ -102,6 +122,19 @@ export default {
   watch: {
     inputValue(valueNew, oldvaule) {
       console.log("inputValue:", valueNew, oldvaule);
+      if(valueNew == 'NRS(数字疼痛分级法)'){
+        this.tableScoreSum();
+      }else if(valueNew == 'WONG_BAKER(面部表情评分法)'){
+        this.tableScoreFace();
+      }else if(valueNew == '成人疼痛行为评估量表'){
+        this.tableScoreAdult();
+      }else if(valueNew == '重症监护患者疼痛观察工具'){
+        this.tableScoreSever();
+      }else if(valueNew == '小儿疼痛行为评估量表'){
+        this.tableScoreSever();
+      }
+      
+      
       if (this.model === "normal") {
         this.formObj.model[this.obj.name] = valueNew;
         this.checkValueRule(valueNew);
@@ -252,6 +285,57 @@ export default {
     }
   },
   methods: {
+    // 疼痛评分弹框
+    tableScoreSum(){
+      this.tableScore =true;
+    },
+    tableScoreFace(){
+      this.tableScore1 =true;
+    },
+    tableScoreAdult(){
+      this.tableScore2 =true;
+    },
+    tableScoreSever(){
+      this.tableScore3 =true;
+    },
+    tableScoreChild(){
+      this.tableScore4 =true;
+    },
+    changetablesum(flag){
+      this.tableScore = flag
+    },
+    changetableface(flag){
+      this.tableScore1 = flag
+    },
+    changetableAdult(flag){
+      this.tableScore2 = flag
+    },
+    changetableSever(flag){
+      this.tableScore3 = flag
+    },
+    changetableChild(flag){
+      this.tableScore4 = flag
+    },
+    scoreListsum(val){
+       this.formObj.model["evalScore"] = val;
+       this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListFace(val){
+       this.formObj.model["evalScore"] = val;
+       this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListAdult(val){
+       this.formObj.model["evalScore"] = val;
+       this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListSever(val){
+       this.formObj.model["evalScore"] = val;
+       this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
+    scoreListChild(val){
+       this.formObj.model["evalScore"] = val;
+       this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
+    },
     checkValueRule(valueNew) {
       let textResult = valueNew;
       this.obj.style = "";
@@ -415,6 +499,50 @@ export default {
     },
     inputBlur(e) {
       console.log("inputBlur", e);
+      console.log(this.formObj.model);
+       setTimeout(() => {
+        if (
+          this.formObj.model.I618004 == "否" &&
+          this.formObj.model.I618005 == "否" &&
+          this.formObj.model.I618006 == "否" &&
+          this.formObj.model.I618007 == "否"
+        ) {
+      //
+        if (this.$root.$refs[this.formCode]["evalScore"] && this.formObj.model.I618004) {
+          try {
+            this.formObj.model["evalScore"] = 0;
+            this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(0);
+            let textResult = this.$root.$refs[this.formCode][
+              "evalDesc"
+              ].checkValueRule(0);
+            
+            this.formObj.model["evalDesc"] = "无营养风险";
+            this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
+              "无营养风险"
+            );
+            this.$root.$refs[this.formCode]["evalDesc"].checkValueRule(
+              "无营养风险"
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }else {
+           if (this.$root.$refs[this.formCode]["evalScore"]&& this.formObj.model.I618004) {
+          try {
+            this.formObj.model["evalScore"] = ' ';
+            this.$root.$refs[this.formCode]["evalScore"].setCurrentValue('');
+            
+            this.formObj.model["evalDesc"] = "";
+            this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
+              ""
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        }
+        }
+      }, 300);
       // setTimeout(() => {
       //   if(this.$root.$refs.autoInput){
       this.$root.$refs.autoInput.close();
@@ -691,6 +819,7 @@ export default {
       //   this.inputFocus(e, child)
       // }
     },
+    
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;

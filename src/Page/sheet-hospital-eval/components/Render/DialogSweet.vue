@@ -754,7 +754,7 @@ export default {
       this.formDialogObj = JSON.parse(JSON.stringify(this.formBox));
 
       // 15-18分轻度危险；13-14分中度危险；10-12分高度危险；＜9分极度危险
-
+      console.log(this.dialogFormCode,'this.dialogFormCode');
       if (this.dialogFormCode) {
         this.formBox.model.parentId =
           window.formObj.model.formId || window.formObj.model.id;
@@ -842,12 +842,30 @@ export default {
                   //
                   let desc = evalDesc || this.formBox.model.evalDesc || "";
                   //
-                  let result = syncToRecordDesc || score + "分 " + desc || "";
-                  result = result.replace(/null/g, "");
-                  result = result.replace(/undefined/g, "");
-                  this.setElementValue(this.parentName, result + "");
-                  this.formObj.model[this.parentName] = result || "";
-                  this.getValueRule(this.parentName, result);
+                  console.log(this.formBox.model["I385031"])
+                   if(this.formBox.model.formCode == 'E0616'){
+                     console.log(score.indexOf('分') != -1)
+                     let result = ''
+                     if(score.indexOf('分') != -1){
+                       result = syncToRecordDesc || score + " " + this.formBox.model["I385031"] || "";
+                     } else{
+                       result = syncToRecordDesc || score + "分 " + this.formBox.model["I385031"] || "";
+                     }
+                    
+                      result = result.replace(/null/g, "");
+                      result = result.replace(/undefined/g, "");
+                      this.setElementValue(this.parentName, result + "");
+                      this.formObj.model[this.parentName] = result || "";
+                      this.getValueRule(this.parentName, result);
+                  }else{
+                    let result = syncToRecordDesc || score + "分 " + desc || "";
+                    result = result.replace(/null/g, "");
+                    result = result.replace(/undefined/g, "");
+                    this.setElementValue(this.parentName, result + "");
+                    this.formObj.model[this.parentName] = result || "";
+                    this.getValueRule(this.parentName, result);
+                  }
+                 
                   // console.log('评估结果：',result,this.parentName,this.formObj.model[this.parentName])
                 }
               }
@@ -865,7 +883,8 @@ export default {
                 this.$root.$refs[this.parentName]
               );
               if (!isDev) {
-                this.saveEvalForm();
+                console.log('12344556754790432745235');
+                // this.saveEvalForm();
                 this.close();
               }
             });

@@ -244,10 +244,10 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   :class="{
-                    active: $route.path.includes('singleTemperatureChart')
+                    active: $route.path.includes('newSingleTemperatureChart')
                   }"
                 >
-                  <router-link to="/singleTemperatureChart" tag="span">
+                  <router-link to="/newSingleTemperatureChart" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="singleTemperatureChart"></i>单人录入体温单
                     </el-row>
@@ -1080,9 +1080,18 @@ export default {
       }
     },
     changeDept(value) {
-      let deptName = this.deptList.filter(item => {
+      // let deptName = this.deptList.filter((item) => {
+      //   return item.code == value;
+      // })[0].name;
+      let deptName="";
+      let deptItem = this.deptList.filter((item) => {
         return item.code == value;
-      })[0].name;
+      });
+      if(deptItem && deptItem.length>0){
+        deptName=deptItem[0].name
+      }else {
+        return false;
+      }
       this.$store.commit("upDeptCode", value);
       localStorage.selectDeptValue = value;
       this.$store.commit("upDeptName", deptName);

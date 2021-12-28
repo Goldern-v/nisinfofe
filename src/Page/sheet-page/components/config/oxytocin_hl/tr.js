@@ -9,7 +9,6 @@ import {
   event_time,
   click_date
 } from "../keyEvent/date";
-import { size } from "lodash";
 let 宫缩 = [];
 let 宫缩强度 = [];
 let 胎方位 = [];
@@ -32,7 +31,7 @@ export default [{
     event: keyf1,
     name: "催产素浓度",
     textarea: {
-      width: 50
+      width: 70
     }
   }, {
     key: "fieldTwo", //滴数（滴/分）
@@ -51,7 +50,7 @@ export default [{
       data: 宫缩
     },
     textarea: {
-      width: 50
+      width: 70
     }
   }, {
     key: "fieldFour", //胎心
@@ -109,7 +108,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "260px",
+      width: "230px",
       background: "transparent"
     },
     event: function (e, td) {

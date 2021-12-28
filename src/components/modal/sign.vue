@@ -39,7 +39,7 @@
         <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
       </div>
     </span>
-    <span v-show="showUserName">
+    <span v-show="showUserName&&!pw">
       <p for class="name-title">输入用户名或者工号</p>
       <div action class="sign-input" ref="userInput">
         <el-input
@@ -47,7 +47,7 @@
           type="text"
           placeholder="输入用户名或者工号"
           v-model="username"
-          :readonly="HOSPITAL_ID == 'weixian'"
+          :readonly="['foshanrenyi','weixian'].includes(HOSPITAL_ID)"
         ></el-input>
       </div>
     </span>
@@ -63,7 +63,7 @@
         ></el-input>
       </div>
     </span>
-    <span v-else-if="HOSPITAL_ID != 'weixian' || pw">
+    <span v-else-if="(!['foshanrenyi','weixian'].includes(HOSPITAL_ID)) || pw ">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -74,7 +74,6 @@
         ></el-input>
       </div>
     </span>
-
     <span v-else>
       <p for class="name-title">
         验证方式
@@ -85,7 +84,7 @@
       </p>
     </span>
 
-    <div v-if="HOSPITAL_ID == 'weixian'" style="margin-top: 5px">
+    <div v-if="['foshanrenyi','weixian'].includes(HOSPITAL_ID)" style="margin-top: 5px">
       <span @click="openCaSignModal" class="loginCa" v-if="!ca_isLogin"
         >登录证书</span
       >
@@ -227,7 +226,8 @@ export default {
       formData:null,//签名表单传过来的数据
       fuyouCaData:null,
       isCaSign:false,
-      signType:0
+      signType:0,
+      isDoctor:false
     };
   },
   methods: {
@@ -242,15 +242,22 @@ export default {
       let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
     return !!flag
     },
-    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type) {//formData为表单数据
-    this.isCaSign = false;
+    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure) {//formData为表单数据
+    console.log(doctorTure)
+    if(doctorTure){
+      this.isDoctor = doctorTure
+      this.isCaSign = false;
+    }else{
+      this.isDoctor =false;
+      this.isCaSign = false;
+    }
     if(type){
       let signType = {sign:'1',audit:'2'};
       this.signType = signType[type];
     };
      (formData) && (this.formData=formData);//设置表单数据
       this.initFuyouCaData()
-      console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
+      // console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
       if(isHengliNursingForm && title!=='删除验证'){
         if(title==='签名确认' && this.HOSPITAL_ID == 'hengli'){
@@ -284,7 +291,7 @@ export default {
 
       
       this.$refs.modalName.open();
-      if (this.HOSPITAL_ID != "weixian") {
+      if (!['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         this.$nextTick(() => {
           if(showDate){
             let dateInput = this.$refs.dateInput.querySelector("input");
@@ -313,6 +320,7 @@ export default {
       return null;
     },
     close() {
+      this.isDoctor =false
       this.$refs.modalName.close();
     },
     setCloseCallback(closeCallback) {
@@ -321,7 +329,7 @@ export default {
     },
     post() {
       this.setCloseCallback(null);
-      if (this.HOSPITAL_ID == "weixian") {
+      if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         if (this.pw) {
           if (this.password == "") {
             return this.$message({
@@ -338,18 +346,25 @@ export default {
           }
           parent.app.bus.$emit("assessmentRefresh");
         } else {
-          verifyCaSign().then(random => {
+          verifyCaSign().then(res => {
+            console.log(res.random);
             this.$refs.modalName.close();
+            let {password,empNo} = res.data
+            console.log(res);
+            let username = this.HOSPITAL_ID=="foshanrenyi"?empNo:this.username
+            // let username = this.username
+            let pwd = this.HOSPITAL_ID=="foshanrenyi"?password:localStorage.ppp
+            // let pwd = localStorage.ppp
             if (this.signDate) {
               return this.callback(
-                localStorage.ppp,
+                pwd,
                 // random,
-                this.username,
+                username,
                 this.signDate,
-                random
+                res.random,
               );
             } else {
-              return this.callback(localStorage.ppp, this.username);
+              return this.callback(pwd, username);
             }
           });
         }
@@ -366,6 +381,10 @@ export default {
         if(this.aduitDate != '' && this.HOSPITAL_ID == 'hengli'){
           return this.callback(this.password, this.username,this.signDate='', this.aduitDate);
         } 
+        if(this.isDoctor){
+          console.log(!this.isDoctor);
+          return this.callback(this.password,this.username);
+        }
         if (this.signDate) {
           return this.callback(this.password, this.username, this.signDate);
         }else {
@@ -399,7 +418,7 @@ export default {
           message:res.data.desc
         })
         this.close()
-        return this.callback(localStorage.ppp, this.username);
+        return this.callback(localStorage.ppp, this.username,"",'isCaSign');
       }).catch(error=>{
         // this.$message({
         //   type:'warning',
@@ -429,6 +448,7 @@ export default {
   },
   beforeDestroy() {
     this.fuyouCaData = null
+    this.isDoctor = false
   },
   components: {}
 };
