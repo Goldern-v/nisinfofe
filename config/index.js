@@ -171,7 +171,8 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9866" // 武汉亚心
     case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
       return "http://192.168.1.54:9875" // 武汉肺科
-      
+    case 'sdlj':  //顺德龙江  
+      return "http://192.168.1.54:9871" // 顺德龙江 
 
     /** 默认公司本地内网厚街测试环境 */
     default:
