@@ -69,6 +69,7 @@
 import moment from "moment";
 import QRCode from "qrcodejs2"
 import print from "../tool/printQrCode";
+import md5 from "md5";
 export default {
   data() {
     return {
@@ -131,12 +132,15 @@ export default {
     },
     //二维码
     qrcode() {
+      let titleObject = this.userName + " " + this.passWord;
+      ['foshanrenyi'].includes(this.HOSPITAL_ID ) && (titleObject=JSON.stringify({ user: this.userName,password: this.passWord}));  
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         // width: this.cmpx,// 二维码的宽
         // height: this.cmpx,// 二维码的高
         width: 120,// 二维码的宽
         height: 120,// 二维码的高
-        text: this.userName + " " + this.passWord , // 二维码的内容
+        // text: this.userName + " " + this.passWord , // 二维码的内容
+        text:titleObject,
         colorDark: '#000',// 二维码的颜色
         colorLight: '#fff',
         correctLevel: QRCode.CorrectLevel.H
