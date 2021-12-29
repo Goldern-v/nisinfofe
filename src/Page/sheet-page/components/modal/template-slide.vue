@@ -10,10 +10,11 @@
           </span>
         </div>
         <div>
-          <div class="search-con" flex v-if="HOSPITAL_ID==='liaocheng'">
-            <span style="font-size:14px;line-height:20px">模板分类：</span>
+          <div class="search-con" style="line-height:32px" flex v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='wujing'">
+            <span style="font-size:14px;">模板分类：</span>
             <el-radio v-model="templateType" label="dept">科室</el-radio>
-            <el-radio v-model="templateType" label="common">公共</el-radio>
+            <el-radio v-model="templateType" label="common" style="margin-right:10px">公共</el-radio>
+            <el-button  @click="delActiveType" :disabled="canDelete" size="mini" >删除当前分类<i class="el-icon-delete"></i></el-button>
           </div>
           <div class="search-con" flex>
             <div class="select-box" :style="{width: selectWidth + 'px'}">
@@ -204,7 +205,7 @@
 <script>
 import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./components/template-item.vue";
-import { typeList, list ,typeListByDept} from "@/Page/sheet-page/api/recordDesc.js";
+import { typeList, list ,typeListByDept,delByType} from "@/Page/sheet-page/api/recordDesc.js";
 import addTemplateModal from "./add-template-modal.vue";
 import bus from "vue-happy-bus";
 export default {
@@ -368,6 +369,13 @@ export default {
         );
       });
       return filterData;
+    },
+    canDelete(){
+      let flag=false
+      if(this.selectedType==="特殊符号"||this.selectedType==="全部"){
+        flag=true
+      }
+      return flag
     }
   },
   methods: {
@@ -387,9 +395,9 @@ export default {
     },
      getData() {
       //特殊情况,开启分类权限医院名
-      const isDeptList=["liaocheng"]
+      const isDeptList=["liaocheng","wujing"]
       if(isDeptList.includes(this.HOSPITAL_ID)){
-       typeListByDept(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
+      typeListByDept(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
         this.typeList = res.data.data[this.templateType];
         this.typeList.push("特殊符号");
         if (this.selectedType == "特殊符号") {
@@ -427,6 +435,29 @@ export default {
     },
     addTemplateAtDoc(item) {
       this.bus.$emit("addTemplateAtDoc", item);
+    },
+    delActiveType(){
+      this.$confirm(`此操作将永久删除${this.selectedType}该分类, 是否继续?`, {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          title:"提示"
+        }).then(() => {
+          const wardCode=this.templateType==="dept"? localStorage.wardCode:""
+          const user=JSON.parse(localStorage.getItem("user"))
+          delByType(this.selectedType,wardCode,user.empNo).then(res=>{
+          this.initialize()
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+       })
+        })
+    },
+    initialize(){
+       this.selectedType=""
+       this.typeList=[]
+       this.getData()
     }
   },
   created() {
@@ -448,8 +479,7 @@ export default {
       }
     },
     templateType(){
-     this.selectedType=""
-     this.getData()
+     this.initialize()
     }
   },
   components: {

@@ -84,9 +84,9 @@ const currentTargetUrl = (() => {
 
     /** 江门妇幼 */
     case "fuyou":
-      // return "http://218.14.180.38:9094" // 江门妇幼正式
+      return "http://218.14.180.38:9094" // 江门妇幼正式
       // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
-      return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
+      // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
       // return "http://192.168.20.223:8080" // 初升本地
 
     /** 中山七 */
@@ -171,7 +171,8 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9866" // 武汉亚心
     case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
       return "http://192.168.1.54:9875" // 武汉肺科
-      
+    case 'sdlj':  //顺德龙江  
+      return "http://192.168.1.54:9871" // 顺德龙江 
 
     /** 默认公司本地内网厚街测试环境 */
     default:

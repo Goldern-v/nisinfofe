@@ -671,6 +671,7 @@ export default {
         sex:B0023004,//性别
         name:B0023003,//姓名
         age:B0023005,
+        area:""//院区
       };
        this.isReported = true;
       // window.openSignModal((password, empNo) => {

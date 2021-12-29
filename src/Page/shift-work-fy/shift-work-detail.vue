@@ -62,6 +62,7 @@
           </div>
           <ExcelTable
             v-if="!isPrint"
+            :isPrint="isPrint"
             ref="table"
             class="table"
             :fixedTh="fixedTh"
@@ -90,6 +91,7 @@
           </ExcelTable>
           <ExcelTable
             v-else
+            :isPrint="isPrint"
             ref="table"
             class="table"
             :fixedTh="fixedTh"
@@ -204,6 +206,7 @@
       :treeData="patients"
       @setPrintList="setPrintList"
     />
+    <div id="print-table-content" style="display:none"></div>
   </div>
 </template>
 
@@ -947,8 +950,45 @@ export default {
       this.loading = true;
       this.fixedTh = false;
       this.$nextTick(async () => {
+        let printNode = this.$refs.printable.cloneNode(true)
+        // let printTableContent = document.getElementById("print-table-content")
+        // printTableContent.appendChild(printNode)
+        let tableConent = printNode.querySelectorAll('tbody')[0]
+        tableConent.innerHTML = ''
+        let trs = this.$refs.printable.querySelectorAll('tbody')[0].querySelectorAll('tr')
+        let pageHeight = 0;
+        Array.prototype.forEach.call(trs,(tr,trIdx)=>{
+          if(pageHeight + tr.offsetHeight>580){
+            let childrens = [tr.cloneNode(true),tr.cloneNode(true)]
+            // let rowsNum = Math.ceil((pageHeight + tr.offsetHeight) / 700)
+            let rowsNum = 2
+            let tds = tr.querySelectorAll('td')
+            let tdStr = Array.prototype.map.call(tds,(td)=>td.innerText)
+            let tdStrClone = [JSON.parse(JSON.stringify(tdStr)),JSON.parse(JSON.stringify(tdStr))]
+            let tdStrLength = tdStr.map(str=>str.length)
+            let maxLength = Math.ceil(Math.max(...tdStrLength) / 2)
+            tdStr.map((str,index)=>{
+              if(tdStrLength[index]>maxLength){
+                tdStrClone[0][index] = str.slice(0,maxLength)
+                tdStrClone[1][index] = str.slice(maxLength,tdStrLength[index])
+                childrens[0].querySelectorAll('td')[index].innerText = tdStrClone[0][index]
+                childrens[1].querySelectorAll('td')[index].innerText = tdStrClone[1][index]
+              }else{
+                childrens[1].querySelectorAll('td')[index].innerText = ''
+              }
+            })
+            childrens[0].id = 'no-border-bottom'
+            tableConent.appendChild(childrens[0])
+            childrens[1].id = 'no-border-top'
+            tableConent.appendChild(childrens[1])
+            pageHeight = tr.offsetHeight % 600
+          }else{
+            tableConent.appendChild(tr.cloneNode(true))
+            pageHeight += tr.offsetHeight
+          }
+        })
         await print(this.$refs.printable, {
-          beforePrint: formatter,
+          beforePrint: (win)=>formatter(win,printNode),
           direction: "horizontal",
           injectGlobalCss: true,
           scanStyles: false,
@@ -958,7 +998,7 @@ export default {
               margin-bottom:10mm;
             }
             @page:first{
-              margin-top:0;
+              margin-top:20mm;
             }
             .fixedTh {
               display: none !important;
@@ -966,6 +1006,12 @@ export default {
             }
             pre {
               white-space: pre-wrap;
+            }
+            #no-border-top td{
+              border-top:none!important;
+            }
+            #no-border-bottom td{
+              border-bottom:none!important;
             }
           `
         });
