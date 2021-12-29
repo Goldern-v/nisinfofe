@@ -175,6 +175,7 @@
       </div>
     </div>
     <div class="search-btn" flex="cross:center main:center" @click="search" v-touch-ripple>检索</div>
+    <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='2'&&['hengli'].includes(HOSPITAL_ID)" @click="synchronize" v-touch-ripple>同步</div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -247,10 +248,25 @@
     background: #5CC6A1;
   }
 }
+.search-btn2 {
+  height: 34px;
+  background: #4BB08D;
+  border-radius: 2px;
+  font-size: 12px;
+  margin: 10px 0 0 0
+  color: #FFFFFF;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background: #5CC6A1;
+  }
+}
 </style>
 <script>
-import { nursingUnit } from "@/api/lesion";
-import { nursingUnitAll } from "@/api/common";
+import { nursingUnit} from "@/api/lesion";
+import { synchronizeHengLi } from "@/api/document";
+import { nursingUnitAll} from "@/api/common";
 import moment from "moment";
 export default {
   data() {
@@ -322,6 +338,11 @@ export default {
     search() {
       this.$parent.page.pageIndex = 1;
       this.$parent.getData();
+    },
+    synchronize(){
+ this.$parent.page.pageIndex = 1;
+          synchronizeHengLi();
+
     }
   },
   components: {}
