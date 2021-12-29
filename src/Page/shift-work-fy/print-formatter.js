@@ -1,5 +1,4 @@
 export default function(win,printNode) {
-  console.log(win.document.body.children);
   const root = win.document.body.children[0];
 
   root.setAttribute("style", "width: 1080px;");
@@ -37,9 +36,9 @@ export default function(win,printNode) {
         ? row[0].offsetHeight + row[1].offsetHeight
         : row.offsetHeight;
 
-    if (!page || page.offsetHeight + h > 700) {
+    if (!page || page.offsetHeight + h > 580) {
       if (page && row === rest) {
-        while (page.offsetHeight + 30 < 700) {
+        while (page.offsetHeight + 30 < 580) {
           newTableBody.appendChild(emptyRow.cloneNode(true));
         }
       }
@@ -77,7 +76,7 @@ export default function(win,printNode) {
       if (shouldFillRows) {
         const target = newTableBody.children[newTableBody.children.length - 2];
 
-        while (page.offsetHeight + 30 < 700) {
+        while (page.offsetHeight + 30 < 580) {
           newTableBody.insertBefore(emptyRow.cloneNode(true), target);
         }
       }
@@ -99,17 +98,17 @@ export default function(win,printNode) {
     children.forEach((child, i, children) => {
       const pageNum = document.createElement("div");
       pageNum.style =
-        "position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; font-size: 12px; font-family: SimSun";
+        "position: relative; bottom: -20mm; left: 0; width: 100%; text-align: center; font-size: 12px; font-family: SimSun";
       pageNum.innerHTML = `第 ${i + 1} / ${children.length} 页`;
       child.style = "position: relative; height: 780px;";
       child.appendChild(pageNum);
+      child.style = "page-break-after: always;";
+      // if (i > 0) {
+      //   const divider = document.createElement("div");
+      //   divider.style = "page-break-after: always;";
 
-      if (i > 0) {
-        const divider = document.createElement("div");
-        divider.style = "page-break-after: always;";
-
-        root.insertBefore(divider, child);
-      }
+      //   root.insertBefore(divider, child);
+      // }
     });
   }
 }
