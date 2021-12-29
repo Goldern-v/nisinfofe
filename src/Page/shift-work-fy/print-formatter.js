@@ -1,13 +1,13 @@
-export default function(win) {
+export default function(win,printNode) {
+  console.log(win.document.body.children);
   const root = win.document.body.children[0];
-  console.log(root);
 
   root.setAttribute("style", "width: 1080px;");
 
-  const header = root.querySelector(".head");
-  const footer = root.querySelector(".foot");
+  const header = printNode.querySelector(".head");
+  const footer = printNode.querySelector(".foot");
 
-  const table = root.querySelector("table");
+  const table = printNode.querySelector("table");
   const tbody = table.children[2];
   const trs = tbody.querySelectorAll("tr");
 

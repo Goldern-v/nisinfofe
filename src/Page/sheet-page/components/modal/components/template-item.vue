@@ -98,7 +98,7 @@ export default {
         type: "warning"
       }).then(() => {
       //特殊情况,删除开启权限验证的医院名字。
-      const isDeptList=["liaocheng"]
+      const isDeptList=["liaocheng","wujing"]
       if(isDeptList.includes(this.HOSPITAL_ID)){
           const user=JSON.parse(localStorage.getItem("user"))
           delByEmpNo(this.data.id,user.empNo).then(res => {

@@ -590,7 +590,7 @@ export default {
         case "whfk":
           return require("../../common/images/logo_whfk.png");
         case "wujing":
-          return require("../../common/images/logo_wujing.jpg");
+          return require("../../common/images/logo_wujing.png");
         default:
           return require("../../common/images/logo.png");
       }

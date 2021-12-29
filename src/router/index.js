@@ -799,7 +799,7 @@ const router = new Router({
           // component: catheter,
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
-              case 'liaocheng':
+              case 'liaocheng' || 'whyx':
                 return allCatheter
               default:
                 return catheter
