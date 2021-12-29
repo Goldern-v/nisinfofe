@@ -1097,6 +1097,7 @@ export default {
             if (index >= startPage && index <= endPage) {
               this.pageArea = this.selectList[i].value || "";
               let todo = () => {
+                if(!this.patientInfo.blockId) return
                 $(this.$parent.$refs.scrollCon).animate({
                   scrollTop:
                     $(`[recordId='${this.patientInfo.recordId}']`)
