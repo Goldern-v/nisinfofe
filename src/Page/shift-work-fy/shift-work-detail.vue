@@ -958,7 +958,7 @@ export default {
         let trs = this.$refs.printable.querySelectorAll('tbody')[0].querySelectorAll('tr')
         let pageHeight = 0;
         Array.prototype.forEach.call(trs,(tr,trIdx)=>{
-          if(pageHeight + tr.offsetHeight>700){
+          if(pageHeight + tr.offsetHeight>580){
             let childrens = [tr.cloneNode(true),tr.cloneNode(true)]
             // let rowsNum = Math.ceil((pageHeight + tr.offsetHeight) / 700)
             let rowsNum = 2
@@ -981,7 +981,7 @@ export default {
             tableConent.appendChild(childrens[0])
             childrens[1].id = 'no-border-top'
             tableConent.appendChild(childrens[1])
-            pageHeight = tr.offsetHeight % 700
+            pageHeight = tr.offsetHeight % 600
           }else{
             tableConent.appendChild(tr.cloneNode(true))
             pageHeight += tr.offsetHeight
@@ -998,7 +998,7 @@ export default {
               margin-bottom:10mm;
             }
             @page:first{
-              margin-top:0;
+              margin-top:20mm;
             }
             .fixedTh {
               display: none !important;
