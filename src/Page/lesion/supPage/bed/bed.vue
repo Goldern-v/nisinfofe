@@ -207,7 +207,8 @@ export default {
         "shannan",
         "quzhou",
         "foshanrenyi",
-        "fsxt"
+        "fsxt",
+        "whyx"
         ].includes(this.HOSPITAL_ID)) {
         return bedItemLcey;
       }else if (this.HOSPITAL_ID == "beihairenyi") {

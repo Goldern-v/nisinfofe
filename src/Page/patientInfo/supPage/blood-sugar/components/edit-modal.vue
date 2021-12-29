@@ -91,9 +91,9 @@
         >
           <ElOption
             v-for="item in BeiHaiTypeList"
-            :key="item.vitalSign"
-            :label="item.vitalSign"
-            :value="item.vitalSign"
+            :key="item.itemName"
+            :label="item.itemName"
+            :value="item.itemName"
           />
         </ElSelect>
         <ElSelect
@@ -160,6 +160,7 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import * as apis from "../api";
+import {getSugarItemDict} from '../api/index'
 import patientInfoVue from "../../../patientInfo.vue";
 const defaultForm = {};
 
@@ -266,32 +267,7 @@ export default {
         vitalSign: "睡前",
       },
     ],
-    BeiHaiTypeList: [
-      {
-        vitalSign: "早餐前",
-      },
-      {
-        vitalSign: "早餐后",
-      },
-      {
-        vitalSign: "午餐前",
-      },
-      {
-        vitalSign: "午餐后",
-      },
-      {
-        vitalSign: "晚餐前",
-      },
-      {
-        vitalSign: "晚餐后",
-      },
-      {
-        vitalSign: "睡前",
-      },
-      {
-        vitalSign: "随机",
-      }
-    ],
+    BeiHaiTypeList: [],//用接口返回的字典
   }),
   props: {
     sugarItem: Array,
@@ -446,10 +422,17 @@ export default {
       });
     }
     if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu" && this.HOSPITAL_ID != "beihairenyi") {
+      
       this.typeList = this.sugarItem;
     }
     if (this.HOSPITAL_ID === "quzhou") {
       this.quzhouTypeList = this.sugarItem;
+    }
+    if(this.HOSPITAL_ID == "beihairenyi"){
+      //北海血糖项目字典接口
+       getSugarItemDict().then(res=>{
+      this.BeiHaiTypeList=res.data.data
+    })
     }
     // 花都项目可编辑
     if (this.HOSPITAL_ID == "huadu") {

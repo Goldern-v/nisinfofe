@@ -249,9 +249,9 @@
         {
           "name": "I616001",
           "type": "radio",
-          "title": "肿胀无法睁眼(C分)",
-          "code": "C分",
-          "score": "C分",
+          "title": "肿胀无法睁眼(C)",
+          "code": "C",
+          "score": "C",
           "style": null,
           "class": null,
           "readOnly": null
@@ -336,9 +336,19 @@
         {
           "name": "I616002",
           "type": "radio",
-          "title": "人工气道(T分)",
-          "code": "T分",
-          "score": "T分",
+          "title": "人工气道(T)",
+          "code": "T",
+          "score": "T",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I616002",
+          "type": "radio",
+          "title": "人工气道(D)",
+          "code": "D",
+          "score": "D",
           "style": null,
           "class": null,
           "readOnly": null
@@ -370,16 +380,7 @@
       "classes": null,
       "readOnly": null,
       "children": [
-        {
-          "name": "I616003",
-          "type": "radio",
-          "title": "人工气道(D分)",
-          "code": "D分",
-          "score": "D分",
-          "style": null,
-          "class": null,
-          "readOnly": null
-        },
+        
         {
           "name": "I616003",
           "type": "radio",
