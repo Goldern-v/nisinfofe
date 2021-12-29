@@ -42,7 +42,8 @@
         </div>
       </div>
     </div>
-    <div class="search-box" v-if="data.status == 1">
+    <div v-if="!['beihairenyi'].includes(HOSPITAL_ID)">
+<div class="search-box" v-if="data.status == 1">
       <div class="title">入院起始日期</div>
       <el-date-picker
         v-model="data.admissionDate[0]"
@@ -96,6 +97,65 @@
         placeholder="选择出院结束时间"
       ></el-date-picker>
     </div>
+    </div>
+    <!--北海医院的选择部分，要求精确到时分跟其他医院区分开--->
+    <div v-if="['beihairenyi'].includes(HOSPITAL_ID)">
+<div class="search-box" v-if="data.status == 1">
+      <div class="title">入院起始日期</div>
+      <el-date-picker
+        v-model="data.admissionDate[0]"
+        type="datetime"
+        format="yyyy-MM-dd HH:mm"
+        placeholder="选择入院起始时间"
+      ></el-date-picker>
+    </div>
+    <div class="search-box" v-if="data.status == 1">
+      <div class="title">入院结束日期</div>
+      <el-date-picker
+        v-model="data.admissionDate[1]"
+        type="datetime"
+        format="yyyy-MM-dd HH:mm"
+        placeholder="选择入院结束时间"
+      ></el-date-picker>
+    </div>
+    <div class="search-box" v-if="data.status == 2">
+      <div class="title">出院起始时间</div>
+      <el-date-picker
+        v-model="data.dischargeDate[0]"
+        type="datetime"
+        format="yyyy-MM-dd HH:mm"
+        placeholder="选择出院起始时间"
+      ></el-date-picker>
+    </div>
+    <div class="search-box" v-if="data.status == 2">
+      <div class="title">出院结束时间</div>
+      <el-date-picker
+        v-model="data.dischargeDate[1]"
+        type="datetime"
+        format="yyyy-MM-dd HH:mm"
+        placeholder="选择出院结束时间"
+      ></el-date-picker>
+    </div>
+    <div class="search-box" v-if="data.status == 3 && isPatients">
+      <div class="title">转科起始日期</div>
+      <el-date-picker
+        v-model="data.dateTime[0]"
+        type="datetime"
+        format="yyyy-MM-dd HH:mm"
+        placeholder="选择出院起始时间"
+      ></el-date-picker>
+    </div>
+    <div class="search-box" v-if="data.status == 3 && isPatients">
+      <div class="title">转科结束时间</div>
+      <el-date-picker
+        v-model="data.dateTime[1]"
+        type="datetime"
+        format="yyyy-MM-dd HH:mm"
+        placeholder="选择出院结束时间"
+      ></el-date-picker>
+    </div>
+    </div>
+    
     <div class="search-box">
       <div class="title">病人信息</div>
       <div class="input-con">
@@ -247,6 +307,7 @@ export default {
      }
   },
   mounted(){
+    console.log(this.data)
     //江门妇幼、转院、出院中的【起始时间】调整为当天
       if(['fuyou'].includes(this.HOSPITAL_ID))
       {

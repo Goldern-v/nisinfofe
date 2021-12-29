@@ -995,10 +995,9 @@ export default {
           css: `
             @page{
               margin-top:20mm;
-              margin-bottom:10mm;
             }
             @page:first{
-              margin-top:20mm;
+              margin-top:0;
             }
             .fixedTh {
               display: none !important;
@@ -1012,6 +1011,9 @@ export default {
             }
             #no-border-bottom td{
               border-bottom:none!important;
+            }
+            table{
+              border-bottom:1px solid #000;
             }
           `
         });

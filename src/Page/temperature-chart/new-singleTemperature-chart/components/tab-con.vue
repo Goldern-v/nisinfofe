@@ -632,6 +632,8 @@ export default {
             //同步出入院插入一条表顶，会生成一个录入记录，这里用录入记录只存在一条表顶，录入时间=生成记录时间去除
             this.tabsData.push(item.recordDate);
           }
+          
+
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
@@ -670,6 +672,7 @@ export default {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
       this.query.entryTime = value.slice(12, 14);
+      
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
