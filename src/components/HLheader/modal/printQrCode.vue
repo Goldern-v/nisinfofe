@@ -133,7 +133,7 @@ export default {
     //二维码
     qrcode() {
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi'].includes(this.HOSPITAL_ID ) && (titleObject=JSON.stringify({ user: this.userName,password: this.passWord}));  
+      ['foshanrenyi'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));  
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         // width: this.cmpx,// 二维码的宽
         // height: this.cmpx,// 二维码的高
@@ -146,6 +146,11 @@ export default {
         correctLevel: QRCode.CorrectLevel.H
       })
       qrcode._el.title = "";
+    },
+    getBase(str){
+      //加密encodeURIcomponent
+      const jiaMi = encodeURIComponent(str);
+      return btoa(jiaMi);
     },
     //获取local里的用户名和密码
     loadComments() {
