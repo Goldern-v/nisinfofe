@@ -212,16 +212,9 @@ export default {
           console.log(typeof item.score == 'undefined')
           if(typeof item.score == 'undefined') item.score = ''
           if(this.formObj.formSetting.formInfo.formCode == 'E0616'){
-            let cur = Number(item.score)
-            if(Object.is(cur, NaN)){
-              console.log(item.score)
-              if(typeof item.score == 'undefined') item.score = ''
-              str += `+${item.score}`
-            }else{
-              sumdata += cur
-            }
-           score = sumdata + str
-           console.log(score,'dddddddddddddddddddddddddddddddddddddddddddddddd')
+              score =  (this.formObj.model["I616001"]?this.formObj.model["I616001"]:"_")+"+"+(this.formObj.model["I616002"]?this.formObj.model["I616002"]:"_")+"+"+(this.formObj.model["I616003"]?this.formObj.model["I616003"]:"_")
+       
+          return score
           }else{
             score += ~~item.score;
           }

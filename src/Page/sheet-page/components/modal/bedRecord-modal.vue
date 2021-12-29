@@ -104,7 +104,7 @@ export default {
       secondBedRecord:"",
       thirdBedRecord:"",
       bedLabel:"",
-      bedModalWidth:"450",
+      bedModalWidth:450,
     };
   },
   methods: {
@@ -196,9 +196,9 @@ export default {
   },
   created() {
     if(this.HOSPITAL_ID == 'huadu'){
-      this.bedModalWidth = "450"
+      this.bedModalWidth = 450
     }else{
-      this.bedModalWidth = "550"
+      this.bedModalWidth = 550
     }
     
   },

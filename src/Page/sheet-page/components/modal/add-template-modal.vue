@@ -93,7 +93,8 @@ export default {
         },
         theme: "snow"
       },
-      templateType:"dept"
+      templateType:"dept",
+      isPosting:false
     };
   },
   computed: {
@@ -128,15 +129,21 @@ export default {
       if(isDeptList.includes(this.HOSPITAL_ID)){
         const user=JSON.parse(localStorage.getItem("user"))
         const wardCode=this.templateType==='dept'?localStorage.wardCode:""
-        saveOrUpdateByEmpNo(this.groupName, this.title, this.content, this.id ,wardCode,user.empNo).then(
+        if(!this.isPosting){
+          this.isPosting=true
+          saveOrUpdateByEmpNo(this.groupName, this.title, this.content, this.id ,wardCode,user.empNo).then(
           res => {
             if (this.id) {
               this.$message.success("更新常用语模版成功");
             } else {
              this.$message.success("保存常用语模版成功");
             }
-        }
-      );
+            setTimeout(()=>{
+              this.isPosting=false
+            },500)
+         }
+        );
+       }
       }else{
         saveOrUpdate(this.groupName, this.title, this.content, this.id ,localStorage.wardCode,this.HOSPITAL_ID).then(
         res => {
