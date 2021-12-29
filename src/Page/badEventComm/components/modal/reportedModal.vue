@@ -18,6 +18,12 @@
           <el-radio label="false">否</el-radio>
         </el-radio-group>
       </el-form-item>
+       <el-form-item label-width="110px" label="院区" prop="area">
+        <el-radio-group v-model="data.area">
+          <el-radio label="本部">本部</el-radio>
+          <el-radio label="华美">华美</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="报告人类型" prop="reporterType">
         <el-select v-model="data.reporterType" placeholder="请选择报告人类型">
           <el-option label="临床医生" value="临床医生"></el-option>
@@ -123,6 +129,9 @@ export default {
       rules: {
         isAnonymity: [
           { required: true, message: "请选择是否匿名上报", trigger: "change" }
+        ],
+        area: [
+          { required: true, message: "请选择院区", trigger: "change" }
         ],
         reporterType: [
           { required: true, message: "请选择报告人类型", trigger: "change" }

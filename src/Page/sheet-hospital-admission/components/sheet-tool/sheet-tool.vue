@@ -1506,7 +1506,7 @@ export default {
               // createForm()
               break;
             case "C": //Ctrl+C
-              console.log("复制", text);
+              // console.log("复制", text);
               break;
             default:
               break;

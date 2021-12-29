@@ -623,6 +623,7 @@ export default {
       // return `${item.wardName} ${dayjs(item.createTime).format('MM-DD')} 至 ${item.completeTime ? dayjs(item.completeTime).format('MM-DD') : '至今'}`
     },
     showMeasureDetialBox(res) {
+      console.log('res',res);
       let {
         data: {
           data: { diags: diags },
@@ -632,7 +633,7 @@ export default {
       let diagsArray = (diags || []).map((d) => {
         return d;
       });
-
+      console.log('diagsArray',diagsArray);
       this.$root.$refs.diagnosisModal.open(diagsArray);
     },
     formCheckEvalTask(diags = null) {
@@ -757,7 +758,6 @@ export default {
 
             //
             if (showMeasure) {
-              console.log(res,'gaohaixiong');
               this.showMeasureDetialBox(res);
             }
             //

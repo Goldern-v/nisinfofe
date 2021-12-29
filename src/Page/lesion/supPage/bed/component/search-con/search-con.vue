@@ -595,6 +595,9 @@ export default {
         this.HOSPITAL_ID == "zhongshanqi" ||
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "beihairenyi" ||
+        this.HOSPITAL_ID == "fuyou" || 
+        this.HOSPITAL_ID == "huadu" ||
+        this.HOSPITAL_ID == "foshanrenyi" ||
         this.HOSPITAL_ID == "fuyou" ||
         this.HOSPITAL_ID == "huadu" || 
         this.HOSPITAL_ID == "whyx"
