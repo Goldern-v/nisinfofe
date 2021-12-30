@@ -1119,6 +1119,13 @@ export default function Title(
     );
   }
   break;
+  case "orthopaedicgeneral_fs": {
+    // 佛山市一 - 护理记录单(骨科通用护理单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopaedicgeneral_fs/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
