@@ -366,7 +366,7 @@ export default {
       resultModel.map((item) => {
         item.data.bodyModel.map((tr, x) => {
           if (!tr.hasOwnProperty("isRead")) {
-            tr.isRead = this.isRead(tr);
+            tr.isRead = this.isRead(tr,x);
             tr.map((td, y) => {
               td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel);
             });
@@ -484,7 +484,7 @@ export default {
       }
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
-        (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "fuyou") &&
+        (this.HOSPITAL_ID == "huadu") &&
         tr.find((item) => item.key == "status").value === "1"
       ) {
         let flag =
@@ -517,11 +517,14 @@ export default {
         return false;
       }
     },
-    isRead(tr) {
+    isRead(tr,x) {
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd"
       ) {
+        return false;
+      }
+      if(this.listData[x].canModify){
         return false;
       }
       let status = tr.find((item) => item.key == "status").value;

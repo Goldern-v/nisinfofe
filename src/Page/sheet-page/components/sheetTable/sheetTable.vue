@@ -167,7 +167,6 @@ export default {
   },
   computed: {
     patientInfo() {
-      console.log(this.sheetInfo.masterInfo);
       return this.sheetInfo.selectBlock || {};
     },
     /** 只读模式 */
