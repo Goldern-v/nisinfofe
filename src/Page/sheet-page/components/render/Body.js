@@ -869,6 +869,11 @@ function switechSheetType(type) {
       schema = require("../config/iabp_fs/tr.js").default;
     }
       break;
+    case "orthopaedicgeneral_fs": {
+      // 佛山市一 - 护理记录单(骨科通用护理单)
+      schema = require("../config/orthopaedicgeneral_fs/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

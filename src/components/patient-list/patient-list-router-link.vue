@@ -340,6 +340,9 @@ export default {
         visitId,
       });
       if (p) {
+        if(currentPatient){
+          p = {...currentPatient,...p}
+        }
         this.selectPatient(p);
       }
       console.log(

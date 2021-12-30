@@ -26,6 +26,11 @@ export function listNurseAdtHd(data,HOSPITAL_ID) {
   //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
 }
 
+//横沥同步出院患者
+export function synchronizeHengLi() {
+  return axios.get(`${apiPath}HisHengLiDischarge/syncDischargePat`);
+  //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
+}
 // 获取江门妇幼
 export function listNurseAdtFuYou(data) {
   return axios.post(`${apiPath}nurseAdtLog/listNurseAdtJm`,data);
