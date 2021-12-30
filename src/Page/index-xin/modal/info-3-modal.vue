@@ -91,6 +91,7 @@ import qs from 'qs'
         }
         this.$router.push(`/sheetPage/${obj.patientId}/${obj.visitId}/${obj.inpNo}`)
         setTimeout(() => { this.$store.commit('upPatientInfo', obj)}, 500)
+        setTimeout(() => { this.$store.commit('upCurrentPatientObj', obj)}, 500)
         this.close()
       }
     },
