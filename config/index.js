@@ -135,10 +135,9 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9879" // 内网测试
 
     case 'xiegang':
-      return "http://192.168.1.54:9882" // 测试地址-内网地址
+      return "http://183.234.1.124:9093" // 谢岗正式
+      // return "http://192.168.1.54:9882" // 测试地址-内网地址
       // return "http://192.168.20.223:8080" // 初升本地
-      // return 'http://183.234.1.124:9092/'  //谢岗正式
-
     // 北海人医
     case 'beihairenyi':
       // return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
