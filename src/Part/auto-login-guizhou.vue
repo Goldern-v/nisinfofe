@@ -30,7 +30,7 @@ export default {
     let v_url = this.$route.query.service;
     //新加参数
     let appCode = "YDHLXT";
-    let appName = "移动护理系统";
+    let appName = "护理信息系统";
     autoLogin({
       token,
       v_url,
