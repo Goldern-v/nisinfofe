@@ -341,7 +341,7 @@ export default {
       });
       if (p) {
         if(currentPatient){
-          p = {...p,...currentPatient}
+          p = {...currentPatient,...p}
         }
         this.selectPatient(p);
       }
