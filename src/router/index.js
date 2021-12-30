@@ -115,6 +115,9 @@ const sheetHospitalAdmission = () =>
 const sheetHospitalAdmissionPage = () =>
   import("@/Page/sheet-hospital-admission/components/pages/page.vue"); // 入院评估
 
+const admissionHisView = () =>
+  import("@/Page/admissionHisView/admissionHisView.vue"); // 入院评估预览界面
+  
 const formPage = () => import("@/Page/form-page/form-page"); //  护理文书
 const evalFormPage = () => import("@/Page/eval-form-page/form-page");
 const MEWS = () => import("@/Page/MEWS/MEWS.vue");
@@ -390,6 +393,11 @@ const router = new Router({
   {
     path: "/nursingPreview",
     component: nursingPreview
+  },
+  {
+    path:"/admissionHisView/:patientId?/:visitId?/:formId?",
+      name: "admissionHisView",
+      component:admissionHisView
   },
   {
     path: "/main",
