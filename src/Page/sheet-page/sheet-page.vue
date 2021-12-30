@@ -524,7 +524,7 @@ export default {
       ) {
         return false;
       }
-      if(this.listData[x].canModify){
+      if(this.listData && this.listData[x] && this.listData[x].canModify){
         return false;
       }
       let status = tr.find((item) => item.key == "status").value;
