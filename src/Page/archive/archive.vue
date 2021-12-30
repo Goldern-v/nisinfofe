@@ -30,7 +30,7 @@
           size="small"
           placeholder="全部"
           @change="selectedStatus"
-        >
+         >
           <el-option value>全部</el-option>
           <el-option
             :key="item.id"
@@ -39,7 +39,14 @@
             >{{ item.name }}</el-option
           >
         </el-select>
-
+        <!--北海的查询条件-->
+        
+          <template v-if="['beihairenyi'].includes(this.HOSPITAL_ID)">
+ <span class="type-label">姓名:</span>
+        <el-input v-model="query.patientName" placeholder="请输入患者姓名"   size="small" style="width:190px"/>
+        <span class="type-label">住院号:</span>
+        <el-input v-model="query.inpNo" placeholder="请输入患者住院号"   size="small" style="width:190px"/>
+          </template>
         <button @click.stop="search">查询</button>
       </div>
       <div
@@ -297,7 +304,9 @@ export default {
         dischargeDateBegin: "", //出院开始时间
         dischargeDateEnd: "", //出院结束时间
         wardCode: "", //科室代码
-        showStatus: "" //状态查找：-2=归档失败,-1=生成pdf失败,0=待生成pdf,1=待归档,2=已归档
+        showStatus: "", //状态查找：-2=归档失败,-1=生成pdf失败,0=待生成pdf,1=待归档,2=已归档
+        patientName:"",//患者姓名
+        inpNo:""//住院号
       },
       total: 0,
       patientArchiveList: [], //科室患者归档列表
