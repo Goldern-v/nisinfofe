@@ -28,6 +28,7 @@ import NanFangZhongXiYiHeader from "@/components/HLheader/NanFangZhongXiYiHeader
 import YangchunzhongyiHeader from "@/components/HLheader/YangchunzhongyiHeader"; // 南方医科大学中西医结合医院
 import WuhanfeikeHeader from "@/components/HLheader/WuhanfeikeHeader"; // 武汉肺科
 import WuhanYaxinHeader from "@/components/HLheader/WuhanYaxinHeader"; // 武汉亚心
+import SdljHeader from "@/components/HLheader/SdljHeader";//顺德龙江
 
 export default {
   data() {
@@ -61,6 +62,7 @@ export default {
         阳春中医院: 'YangchunzhongyiHeader',
         武汉市肺科医院: 'WuhanfeikeHeader',
         武汉亚心医院:'WuhanYaxinHeader',
+        佛山市顺德区龙江医院:'SdljHeader',
       };
       return hisList[HisName] || "HLheader";
     },
@@ -87,6 +89,7 @@ export default {
     YangchunzhongyiHeader,
     WuhanfeikeHeader,
     WuhanYaxinHeader,
+    SdljHeader,
   },
 };
 </script>
