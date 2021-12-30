@@ -266,7 +266,6 @@ export default {
            this.$set(this.patientInfo,'deliveryDate',deliveryDate)
         }
     }
-     console.log(this.patientInfo);
   },
   watch: {},
   components: {

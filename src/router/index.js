@@ -542,7 +542,7 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -567,7 +567,7 @@ const router = new Router({
                 return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
-              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx':
+              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
@@ -807,7 +807,7 @@ const router = new Router({
           // component: catheter,
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
-              case 'liaocheng' || 'whyx':
+              case 'liaocheng' || 'whyx' || 'sdlj':
                 return allCatheter
               default:
                 return catheter
