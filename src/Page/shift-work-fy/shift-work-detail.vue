@@ -981,7 +981,7 @@ export default {
             tableConent.appendChild(childrens[0])
             childrens[1].id = 'no-border-top'
             tableConent.appendChild(childrens[1])
-            pageHeight = tr.offsetHeight % 600
+            pageHeight = tr.offsetHeight % 580
           }else{
             tableConent.appendChild(tr.cloneNode(true))
             pageHeight += tr.offsetHeight
@@ -993,9 +993,6 @@ export default {
           injectGlobalCss: true,
           scanStyles: false,
           css: `
-            @page{
-              margin-top:20mm;
-            }
             @page:first{
               margin-top:0;
             }
