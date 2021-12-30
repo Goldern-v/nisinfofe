@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="content">
-      <div class="left-part">
+      <div class="left-part" id="left">
         <tree ref="tree" :filterObj="filterObj"></tree>
       </div>
-      <div class="right-part">
+      <div :class="[HOSPITAL_ID=='wujing' ?'right-part-wujing' : 'right-part']" id="right" style="z-index:1">
         <rightPart :filterObj="filterObj"></rightPart>
       </div>
     </div>
@@ -22,8 +22,13 @@
     background: #FFFFFF;
     border: 1px solid #CBD5DD;
     border-radius: 2px 2px 0 2px;
+    transition: all 0.4s cubic-bezier(0.55, 0, 0.07, 1.04) 0s;
   .right-part
     margin-left 260px
+  #right
+    transition: all 0.4s cubic-bezier(0.55, 0, 0.07, 1.04) 0s;
+  .right-part-wujing
+    margin-left 275px
 </style>
 
 <script>
