@@ -1,0 +1,47 @@
+<template>
+    <div style="height:100vh">
+        <sheetHospitalAdmission />
+    </div>
+</template>
+<style lang='scss' scoped></style>
+<script>
+import sheetHospitalAdmission from "@/Page/sheet-hospital-admission/sheet-hospital-admission.vue"
+import { login } from "@/api/login";
+import Cookies from "js-cookie";
+export default {
+props: {},
+data() {
+return {};
+},
+methods: {
+},
+created(){
+},
+components: {
+    sheetHospitalAdmission
+},
+beforeRouteEnter(to,from,next){
+    if(!from.path.includes('admissionHisView')){
+        let {pwd,userName} = to.query
+        login(userName,pwd).then(res=>{
+            console.log(res.data);
+            if(res.status==200&&res.data.code==200){
+                let user = res.data.data.user;
+                user.token = res.data.data.authToken;
+                window.app.authToken = res.data.data.authToken;
+                localStorage["ppp"] = pwd;
+                localStorage.setItem("user",JSON.stringify(res.data.data.user))
+                Cookies.set(
+                    "NURSING_USER",
+                    `${res.data.data.user.id}##${res.data.data.authToken}`,
+                    {
+                    path: "/",
+                    }
+                );
+                next()
+            }
+        })
+    }
+}
+};
+</script>
