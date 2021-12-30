@@ -346,8 +346,9 @@ import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
 import {
-  getVitalSignListBy10,
+  getNowDateTimeList,
   getmultiDict,
+  getVitalSignListByDate,
   getfieldList,
   savefieldTitle,
   autoVitalSigns,
@@ -470,7 +471,9 @@ export default {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
+
   },
+
   created() {},
   computed: {},
   watch: {
@@ -484,7 +487,6 @@ export default {
   methods: {
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
-        console.log(document.getElementsByClassName("rowbox").length);
         let inputListLength = document.getElementsByClassName("rowbox").length;
         if (Number(e.target.id) < inputListLength) {
           document.getElementById(Number(e.target.id) + 1).focus();
@@ -553,6 +555,7 @@ export default {
         };
       }
       this.vitalSignObj = { ...obj };
+      
     },
     async getList() {
       /* 初始化 */
@@ -571,9 +574,11 @@ export default {
       };
       await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
-      await getVitalSignListBy10({
+      await getVitalSignListByDate({
         visitId: data.visitId,
         patientId: data.patientId,
+         wardCode: this.patientInfo.wardCode,
+        recordDate: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
       }).then((res) => {
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
@@ -624,9 +629,11 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 14);
+      
       // 北海在记录单那边同步数据,时间直接取点击的
-      if (this.HOSPITAL_ID === "beihairenyi") {
+      if (this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes('temperature')) {
+       this.query.entryTime = temp.slice(12, 14); 
+      }else{
         this.query.entryTime = value.split("  ")[1];
       }
     },
@@ -653,14 +660,18 @@ export default {
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
+
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
-            this.vitalSignObj[v.vitalCode] = {
+             this.vitalSignObj[v.vitalCode] = {
               ...v,
               popVisible: false,
             };
+
           });
+            
+
         } else {
           this.init();
         }

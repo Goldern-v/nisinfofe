@@ -487,14 +487,13 @@ export default {
         if(['liaocheng'].includes(this.HOSPITAL_ID)) {
           this.eventStatusOptions = [
             {code:"",name:"全部"},
-            {code:"0",name:"待提交"},
-            {code:"1",name:"待上报"},
-            {code:"2",name:"待质控科分派"},
-            {code:"3",name:"待职能部门审核"},
-            {code:"4",name:"待职能部门结案"},
+            {code:"0",name:"待上报"},
+            {code:"1",name:"待质控科分派"},
+            {code:"2",name:"待职能部门审核"},
+            {code:"3",name:"待职能部门结案"},
             // {code:"4",name:"质控科审核"},
-            {code:"5",name:"待质控科结案"},
-            {code:"6",name:"完成"},
+            {code:"4",name:"待质控科结案"},
+            {code:"5",name:"完成"},
           ]
         }
         return;

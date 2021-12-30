@@ -78,5 +78,8 @@ export function getUser(password, empNo) {
   return axios.post(`${apiPath}user/getUser`, {password, empNo})
  }
 
-
-
+// 删除一级标题
+ export function delByType(groupName,wardCode,empNo) {
+  let recordCode = sheetInfo.sheetType
+  return axios.post(`${apiPath}record/desc/deleteListByType`, {recordCode,groupName,wardCode,empNo})
+ }

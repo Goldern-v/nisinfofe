@@ -22,20 +22,31 @@ export default {
   data() {
     return {
       id: "",
+      patientId:"",
+      visitId:"",
+      inpNo:"",
       onOkCallBack: null
     };
   },
   computed: {
     url() {
       let path = this.isDev
-        ? "http://localhost:4889/sheet-print.html"
-        : "crNursing/sheet-print";
-      return `${path}?id=${this.id}&showType=lastTowPage&appToken=51e827c9-d80e-40a1-a95a-1edc257596e7&token=${this.authToken}`;
+        ? "http://localhost:4892/crNursing/sheetPage"
+        : "crNursing/sheetPage";
+      if(this.hospitalName=="聊城市第二人民医院"){
+        return `${path}/${this.patientId}/${this.visitId}/${this.inpNo}`;
+      }else{
+        return `${path}?id=${this.id}&showType=lastTowPage&appToken=51e827c9-d80e-40a1-a95a-1edc257596e7&token=${this.authToken}`;
+      }
     }
   },
   methods: {
     open(patientObj, onOkCallBack) {
+      console.log(this.hospitalName=="聊城市第二人民医院",'this')
       console.log(patientObj, "patientObj");
+      this.patientId = patientObj.patientId;
+      this.visitId = patientObj.visitId;
+      this.inpNo = patientObj.inpNo;
       blockList(
         patientObj.patientId,
         patientObj.visitId,
