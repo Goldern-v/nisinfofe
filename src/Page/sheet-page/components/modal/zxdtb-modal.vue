@@ -361,7 +361,7 @@ export default {
         ).then((res) => {
           if(this.identicalGroupSelect.includes(this.HOSPITAL_ID)){
             let responeList = JSON.parse(JSON.stringify(res.data.data.list))
-            responeList.push({"blockId":83941,"entityId":null,"patientId":"61505022","visitId":"1","desc":"","food":"静脉注射药物名称\b静脉注射","foodSize":"12","barcode":"222","empNo":"","empName":"","recordDate":"2021-09-12 12:12","dosage":"","administration":"","orderText":""})
+            // responeList.push({"blockId":83941,"entityId":null,"patientId":"61505022","visitId":"1","desc":"","food":"静脉注射药物名称\b静脉注射","foodSize":"12","barcode":"222","empNo":"","empName":"","recordDate":"2021-09-12 12:12","dosage":"","administration":"","orderText":""})
             if(responeList.length){
               responeList.map(item=>{
                 let targetObj = responeList.find(e=>item.barcode==e.barcode)
