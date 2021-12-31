@@ -9,7 +9,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1220px"
+    width: "1260px"
   },
   th: {
     top: [{
@@ -58,6 +58,13 @@ export default {
       {
         name: `
         血压<br/>（mmHg）
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        血糖<br/>(mol/L)
         `,
         colspan: "1",
         rowspan: "3"
