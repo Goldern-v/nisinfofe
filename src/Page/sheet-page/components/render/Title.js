@@ -1126,6 +1126,13 @@ export default function Title(
     );
   }
   break;
+  case "cervicalspondylosis_fs": {
+    // 佛山市一 - 护理记录单(颈椎病保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cervicalspondylosis_fs/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
