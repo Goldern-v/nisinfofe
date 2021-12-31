@@ -5,7 +5,7 @@ var fs = require("fs");
 var chalk = require("chalk");
 const username = require('./username.js');
 
-var _origin = JSON.parse(process.env.npm_config_argv).original;
+var _origin = process.env.npm_config_argv ? JSON.parse(process.env.npm_config_argv).original : '';
 var _builderUserName = _origin[3] || ""; // 打包者署名
 var _gitUserName = "" // 打包者git用户名
 

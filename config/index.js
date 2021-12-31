@@ -4,7 +4,7 @@ var chalk = require("chalk");
 var envAll = require("./env.all");
 var merge = require("webpack-merge");
 // crNursing  argv
-var _origin = JSON.parse(process.env.npm_config_argv).original;
+var _origin = process.env.npm_config_argv ? JSON.parse(process.env.npm_config_argv).original : '';
 const _hospitalName = _origin[2];
 
 let prodEnv;
@@ -77,10 +77,11 @@ const currentTargetUrl = (() => {
 
     /** 江门妇幼 */
     case "fuyou":
-      return "http://218.14.180.38:9094" // 江门妇幼正式
+      // return "http://218.14.180.38:9094" // 江门妇幼正式
       // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
       // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
-      // return "http://192.168.20.223:8080" // 初升本地
+      return "http://192.168.20.82:8080" // 本地
+
 
     /** 中山七 */
     case "zhongshanqi":
