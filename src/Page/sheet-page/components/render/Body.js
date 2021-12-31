@@ -874,6 +874,11 @@ function switechSheetType(type) {
       schema = require("../config/orthopaedicgeneral_fs/tr.js").default;
     }
       break;
+      case "cervicalspondylosis_fs": {
+        // 佛山市一 - 护理记录单(颈椎病保守治疗)
+        schema = require("../config/cervicalspondylosis_fs/tr.js").default;
+      }
+        break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
