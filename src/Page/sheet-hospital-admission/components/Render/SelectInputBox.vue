@@ -99,7 +99,7 @@ export default {
     inputValue(valueNew, oldvaule) {
       // console.log("inputValue:", valueNew, oldvaule);
       this.formObj.model[this.obj.name] = valueNew;
-      window.formObj.model[this.obj.name] = valueNew;
+      // window.formObj.model[this.obj.name] = valueNew;
       this.checkValueRule(valueNew);
       // console.log("obj:", this.obj, this.$refs);
       this.isShowDownList = false;
@@ -151,6 +151,9 @@ export default {
     ) {
       this.obj["options"] = [{ name: "未测量", code: "未测量", pinyin: "wcl" }];
     }
+  },
+  beforeDestroy(){
+    this.inputValue = null
   },
   methods: {
     checkValueRule(valueNew, isClick, itemClick = null) {
@@ -404,12 +407,17 @@ export default {
                 // 单选
                 if (!multiplechoice || multiplechoice == false) {
                   // obj[key] = data;
-                  obj[key] = data.code;
-                  this.inputValue = data.name;
-                  this.checkValueRule(data.name, true);
-                  // if (target.hasOwnProperty("$rightNode")) {
-                  //   target.$rightNode.focus();
-                  // }
+                  console.log(this.inputValue);
+                    this.inputValue = null;
+                    this.$nextTick(()=>{
+                      obj[key] = data.code;
+                      this.inputValue = data.name;
+                      this.checkValueRule(data.name, true);
+                    // if (target.hasOwnProperty("$rightNode")) {
+                      //   target.$rightNode.focus();
+                    // }
+                      this.$forceUpdate() 
+                    })
                 }
                 // 多选
                 if (multiplechoice === true) {

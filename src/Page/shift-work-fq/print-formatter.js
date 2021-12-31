@@ -1,6 +1,5 @@
 export default function(win) {
   const root = win.document.body.children[0];
-  console.log(root);
 
   root.setAttribute("style", "width: 1080px;");
 
@@ -15,7 +14,7 @@ export default function(win) {
   let rest = Array.prototype.slice.call(trs, -2); // 特殊情况（两行）
 
   const emptyRow = document.createElement("tr");
-  emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(7);
+  emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(9);
   emptyRow.style.height = "30px";
 
   // 移除空行

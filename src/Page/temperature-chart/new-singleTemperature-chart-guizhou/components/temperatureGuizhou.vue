@@ -2,10 +2,14 @@
   <div>
     <div class="contain">
       <div class="print-btn tool-btn" @click="onPrint()">打印</div>
-       <div class="newBorn tool-btn" @click="changeNewBorn()">切换</div>
-
+       <!-- <div class="newBorn tool-btn" @click="changeNewBorn()">切换</div> -->
+<div class="newBorn">
+        <div @click="nomalModel()" class="nomal">默认体温单</div>
+        /
+        <div @click="changeModel()" class="newBornNomal">新生儿版本</div>
+      </div>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div class="pagination">
+      <div :class="rightSheet===true?'pagination':'paginationRight'" >
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
         </button>
@@ -98,6 +102,24 @@ export default {
       }
       this.getImg()
 
+    },
+    //切换疼痛体温单
+    changeModel() {
+      this.showTemp = false;
+      document.getElementsByClassName("newBornNomal")[0].style.color = "red";
+      document.getElementsByClassName("nomal")[0].style.color = "black";
+      this.$store.commit("changeModel", true);
+
+      this.getImg();
+    },
+    // 切换普通体温单
+    nomalModel() {
+      this.showTemp = true;
+      document.getElementsByClassName("nomal")[0].style.color = "red";
+      document.getElementsByClassName("newBornNomal")[0].style.color = "";
+      this.$store.commit("changeModel", false);
+
+      this.getImg();
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -217,6 +239,9 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);
@@ -231,8 +256,23 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
 .contain {
   margin: 15px 20px 0;
 
+.newBorn {
+  position: relative;
+  top: 2px;
+  left:60%
+  display: inline-flex !important;
+}
+
+.nomal {
+  color: red;
+  margin-right: 5px;
+}
+
+.newBornNomal {
+  margin-left: 5px;
+}
   .tem-con {
-    width: 100%;
+    width: 102%;
     height: 100%;
     position: relative;
     left: 0px;
@@ -247,10 +287,17 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
   }
 }
 
+
 .pagination {
   display: inline;
   position: relative;
-  left: 20%;
+  left: -5%;
+  font-weight: normal;
+}
+.paginationRight {
+  display: inline;
+  position: relative;
+  left: 10%;
   font-weight: normal;
 }
 

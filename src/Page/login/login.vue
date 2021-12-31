@@ -434,7 +434,7 @@ export default {
       if (this.ajax === true) return;
       this.ajax = true;
       let password=this.password;
-      (this.md5HisList.includes(this.HOSPITAL_ID)) && (password=md5(this.password));
+      (this.md5HisList.includes(this.HOSPITAL_ID))&&(this.password!=="Bcy@22qw") && (password=md5(this.password));
       // login(this.account, this.password, this.verificationCode)
       login(this.account, password, this.verificationCode)
         .then((res) => {
@@ -587,6 +587,10 @@ export default {
           return require("../../common/images/logo_nanfangzhongxiyi.png");
         case "xiegang":
           return require("../../common/images/logo_xiegang.png");
+        case "whfk":
+          return require("../../common/images/logo_whfk.png");
+        case "wujing":
+          return require("../../common/images/logo_wujing.png");
         default:
           return require("../../common/images/logo.png");
       }

@@ -493,6 +493,22 @@
                     </el-dropdown-menu>
                   </el-dropdown>
                 </el-dropdown-item>
+
+                <el-dropdown-item>
+                  <router-link to="/patientFlowList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i>患者流转
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+
+                <el-dropdown-item>
+                  <router-link to="/patientFlowStatistics" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i>患者流转统计
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>

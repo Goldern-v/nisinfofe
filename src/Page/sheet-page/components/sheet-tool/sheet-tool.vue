@@ -308,7 +308,8 @@
       v-if="
         patientInfo.patientId &&
         !$route.path.includes('temperature') &&
-        !$route.path.includes('Baby_sheetPage')
+        !$route.path.includes('Baby_sheetPage') &&
+        HOSPITAL_ID != 'huadu'
       "
     ></patientInfo>
     <newFormModal ref="newFormModal"></newFormModal>
@@ -369,7 +370,7 @@ import dayjs from "dayjs";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
 //体温曲线窗口
-import moveContext from "../../../temperature-chart/commonComponents/removableBox.vue";
+import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
 import temperatureWuJing from "../../../patientInfo/supPage/temperature/temperatureWuJing";
 import temperatureDghl from "../../../patientInfo/supPage/temperature/temperatureDghl";
@@ -379,6 +380,12 @@ import Temperature from "@/Page/patientInfo/supPage/temperature/temperature.vue"
 export default {
   mixins: [commom],
   name: "sheetTool",
+  props: {
+    isNursingPreview: {//是否为调阅界面体温单调起的护记
+      type:Boolean,
+      default:false
+    }
+  },
   data() {
     return {
       bus: bus(this),
@@ -493,7 +500,7 @@ export default {
         process.env.HOSPITAL_ID == "fuyou" ||
         process.env.HOSPITAL_ID == "quzhou" ||
         process.env.HOSPITAL_ID == "huadu" ||
-        process.env.HOSPITAL_ID==='foshanrenyi'
+        process.env.HOSPITAL_ID === "foshanrenyi"
       ) {
         this.bus.$emit("toSheetPrintPage");
       } else {
@@ -778,6 +785,10 @@ export default {
         );
         this.$store.commit("upDeptCode", data.data.wardCode);
       }
+      // console.log(
+      //   "条件",
+      //   this.patientInfo.patientId && this.patientInfo.visitId && this.deptCode
+      // );
       if (
         this.patientInfo.patientId &&
         this.patientInfo.visitId &&
@@ -794,7 +805,8 @@ export default {
           if (
             this.$route.path.includes("singleTemperatureChart") ||
             this.$route.path.includes("temperature") ||
-            this.$route.path.includes("Baby_sheetPage")
+            this.$route.path.includes("Baby_sheetPage") ||
+            (this.$route.path.includes("nursingPreview") && this.isNursingPreview)
           ) {
             this.sheetBlockList = list.filter((item) => {
               switch (this.HOSPITAL_ID) {
@@ -1085,6 +1097,7 @@ export default {
             if (index >= startPage && index <= endPage) {
               this.pageArea = this.selectList[i].value || "";
               let todo = () => {
+                if(!this.patientInfo.recordId) return
                 $(this.$parent.$refs.scrollCon).animate({
                   scrollTop:
                     $(`[recordId='${this.patientInfo.recordId}']`)
@@ -1188,6 +1201,7 @@ export default {
       deep: true,
       handler() {
         if (this.patientInfo.patientId) {
+          // console.log(111);
           this.$parent.breforeQuit(() => {
             this.getBlockList();
             this.bus.$emit("setSheetTableLoading", true);

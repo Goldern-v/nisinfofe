@@ -52,9 +52,11 @@
       >
         <single-temperature-chart
           v-if="visibled"
+          :isNursingPreview="isNursingPreview"
           class="sheet-con"
         ></single-temperature-chart>
       </sweet-modal>
+      <doctorEmr v-if="HOSPITAL_ID === 'huadu'" />
     </div>
   </div>
 </template>
@@ -200,10 +202,13 @@ import nullBg from "../../../../components/null/null-bg";
 import {
   getNurseExchangeInfo,
   getNurseExchangeInfoByTime,
+  getNurseExchangeInfoBatch,
 } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
 import singleTemperatureChart from "./singleTemperatureChart";
+import doctorEmr from "@/components/doctorEmr";
+
 export default {
   props: {
     queryTem: Object,
@@ -226,9 +231,9 @@ export default {
       visibled: false,
       intranetUrl:
         "http://120.238.239.27:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-      // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
       printAllUrl:
-        "http://120.238.239.27:9091/temperature/#/printAll" /* 医院正式环境批量打印内网 */,
+      "http://120.238.239.27:9091/temperature/#/printAll" /* 医院正式环境批量打印内网 */,
+      isNursingPreview: false, //是否为调阅界面体温单调起的护记
     };
   },
   methods: {
@@ -252,7 +257,6 @@ export default {
         );
       }, 1500);
     },
-
     getImg() {
       let date = this.$route.query.admissionDate
         ? new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd")
@@ -357,12 +361,34 @@ export default {
               );
             });
             break;
+          case "getNurseExchangeInfoAll":
+            const paramsAll = {
+              patientId: this.$route.query.patientId,
+              startLogDateTime: e.data.value.startLogDateTime,
+              endLogDateTime: e.data.value.endLogDateTime,
+              visitId: this.$route.query.visitId,
+            };
+            getNurseExchangeInfoBatch(paramsAll).then((res) => {
+              let value = res.data.data.exchangeInfos
+              if(value.length!==0){
+              this.$refs.pdfConAll.contentWindow.postMessage(
+                { type: "nurseExchangeInfoAll", value },
+                "*"
+              );
+              }
+
+              
+            });
+            break;
           default:
             break;
         }
       }
     },
     onToggle() {
+      //nursingPreviewIsShow
+      // if (this.$route.path.includes("singleTemperatureChart")
+      // || (this.$route.path.includes("nursingPreview") && this.$route.query && this.$route.query.nursingPreviewIsShow=='1' )) {
       if (this.$route.path.includes("singleTemperatureChart")) {
         return;
       } else {
@@ -370,6 +396,8 @@ export default {
         this.$nextTick(() => {
           this.$refs.sheet.open();
         });
+        //是否为调阅文书页面
+        this.isNursingPreview = this.$route.path.includes("nursingPreview");
       }
     },
     closeModal() {
@@ -423,6 +451,7 @@ export default {
   },
   components: {
     nullBg,
+    doctorEmr,
     singleTemperatureChart,
   },
 };

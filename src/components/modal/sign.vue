@@ -346,10 +346,11 @@ export default {
           }
           parent.app.bus.$emit("assessmentRefresh");
         } else {
-          verifyCaSign().then(random => {
-            console.log(random.data);
+          verifyCaSign().then(res => {
+            console.log(res.random);
             this.$refs.modalName.close();
-            let {password,empNo} = random.data
+            let {password,empNo} = res.data
+            console.log(res);
             let username = this.HOSPITAL_ID=="foshanrenyi"?empNo:this.username
             // let username = this.username
             let pwd = this.HOSPITAL_ID=="foshanrenyi"?password:localStorage.ppp
@@ -360,7 +361,7 @@ export default {
                 // random,
                 username,
                 this.signDate,
-                random
+                res.random,
               );
             } else {
               return this.callback(pwd, username);

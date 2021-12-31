@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1000px"
+    width: "1200px"
   },
   th: {
     top: [{
@@ -25,24 +25,102 @@ export default {
       },
       {
         name: `
-        入量（ml）
+       意识
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: "58px",
+          maxWidth: "58px"
+        },
+      },
+      {
+        name: `
+        T
+        `,
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: "42px",
+          maxWidth: "42px"
+        },
+      },
+      {
+        name: `
+        PR/HR
+        `,
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: "42px",
+          maxWidth: "42px"
+        },
+      },
+      {
+        name: `
+        R
+        `,
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: "42px",
+          maxWidth: "42px"
+        },
+      },
+      {
+        name: `
+        BP
+        `,
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: "42px",
+          maxWidth: "42px"
+        },
+      },
+      {
+        name: `
+        SPO2
+        `,
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: "42px",
+          maxWidth: "42px"
+        },
+      },
+      {
+        name: `
+        氧疗
         `,
         colspan: '2',
         rowspan: '1',
+        style: {
+          minWidth: "120px",
+          maxWidth: "120px"
+        },
       },
       {
         name: `
-        出量（ml）
+        出入量
         `,
-        colspan: '6',
+        colspan: '4',
         rowspan: '1',
+        style: {
+          minWidth: "240px",
+          maxWidth: "240px"
+        },
       },
       {
-        name: `
-        病情记录
-        `,
-        colspan: '8',
-        rowspan: '1',
+        name: `自定义1`,
+        canSet:true,
+        key:"customTitle",
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: "60px",
+          maxWidth: "60px"
+        },
       },
       {
         name: `
@@ -51,7 +129,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          width: '150px'
+          width: '240px'
         },
       },
       {
@@ -65,125 +143,105 @@ export default {
     ],
     mid: [{
         name: `
-        项目
+        ℃
         `,
         colspan: '1',
         rowspan: '2',
       },
       {
         name: `
-        实入量
+        次/分
         `,
         colspan: '1',
         rowspan: '2',
       },
       {
         name: `
-        尿量
+        次/分
         `,
         colspan: '1',
         rowspan: '2',
       },
       {
         name: `
-        大便
+        mmHg
         `,
         colspan: '1',
         rowspan: '2',
       },
       {
         name: `
-        呕吐
+        %
         `,
         colspan: '1',
         rowspan: '2',
       },
       {
         name: `
-        引流
-        `,
-        colspan: '1',
-        rowspan: '2',
-      },
-      {
-        name: `
-        其它
-        `,
-        colspan: '1',
-        rowspan: '2',
-      },
-      {
-        name: `
-        总出量
-        `,
-        colspan: '1',
-        rowspan: '2',
-      },
-      {
-        name: `
-        意识
-        `,
-        colspan: '1',
-        rowspan: '2',
-      },
-      {
-        name: `
-        体温<br>℃
-        `,
-        colspan: '1',
-        rowspan: '2',
-      },
-      {
-        name: `
-        心率<br>/脉搏<br/>次/分
+        方式
         `,
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '40px'
-        }
+          minWidth: "80px",
+          maxWidth: "80px"
+        },
       },
       {
         name: `
-        呼吸<br/>次/分
+        L/min
         `,
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '40px'
-        }
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
         name: `
-        血压<br/>(mmHg)
+        入量
         `,
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '50px'
-        }
+          minWidth: "88px",
+          maxWidth: "88px"
+        },
       },
       {
         name: `
-        血氧饱和度%
+        量<br/>(ml)
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        },
       },
       {
         name: `
-        氧疗<br>升/分
+        出量
         `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          minWidth: "88px",
+          maxWidth: "88px"
+        },
       },
       {
         name: `
-        疼痛
+        量<br/>(ml)
         `,
         colspan: '1',
         rowspan: '2',
-      },
+        style: {
+          minWidth: "32px",
+          maxWidth: "32px"
+        },
+      }
     ],
     bottom: []
   }

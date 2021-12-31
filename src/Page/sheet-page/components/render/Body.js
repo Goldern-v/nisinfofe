@@ -82,8 +82,13 @@ function switechSheetType(type) {
     }
       break;
     case "Record_Children_Serious_Lc": {
-      // 陵城区-病重（病危）
+      // 陵城区-儿童重症医学科护理记录单【PICU】
       schema = require("../config/picu_lc/tr.js").default;
+    }
+      break;
+    case "record_children_serious2_lc": {
+      // 陵城区-儿童重症医学科护理记录单【PICU】新
+      schema = require("../config/record_children_serious2_lc/tr.js").default;
     }
       break;
     case "critical2_lc": {
@@ -542,6 +547,12 @@ function switechSheetType(type) {
       schema = require("../config/critical_lcey/tr").default;
     }
       break;
+      // 暂时先用
+    case "critical_new_lcey": {
+      // 聊城二院 - 病重（病危）患者护理记录单（带瞳孔）(新)
+      schema = require("../config/critical_new_lcey/tr").default;
+     }
+      break;
     case "peri_intervention_lcey": {
       // 聊城二院 - 围介入期护理观察记录单
       schema = require("../config/peri_intervention_lcey/tr").default;
@@ -858,6 +869,16 @@ function switechSheetType(type) {
       schema = require("../config/iabp_fs/tr.js").default;
     }
       break;
+    case "orthopaedicgeneral_fs": {
+      // 佛山市一 - 护理记录单(骨科通用护理单)
+      schema = require("../config/orthopaedicgeneral_fs/tr.js").default;
+    }
+      break;
+      case "cervicalspondylosis_fs": {
+        // 佛山市一 - 护理记录单(颈椎病保守治疗)
+        schema = require("../config/cervicalspondylosis_fs/tr.js").default;
+      }
+        break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

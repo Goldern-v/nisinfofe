@@ -551,7 +551,7 @@ export default {
                 // 单选
                 if (!multiplechoice || multiplechoice == false) {
                   // obj[key] = data;
-                  // this.inputValue = ""                
+                  this.inputValue = ""                
                   obj[key] = data.code;
                   this.inputValue = data.name;
                   console.log(obj[key]);

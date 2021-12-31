@@ -122,7 +122,6 @@ export default {
           columns.push(col);
         }
       }
-
       return columns;
     }
   },

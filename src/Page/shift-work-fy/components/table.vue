@@ -48,8 +48,8 @@
             @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
             :data-print-style="`width:${col.printWidth}px`"
           >
-            <div class="cell" v-if="col.render" v-html="col.render(row)"/>
-            <label v-else-if="col.editable">
+            <div class="cell" v-if="col.render&&!isPrint" v-html="col.render(row)"/>
+            <label v-else-if="col.editable&&!isPrint">
               <el-input
                 autosize
                 class="textarea"
@@ -77,6 +77,7 @@ export default {
     event: "input"
   },
   props: {
+    isPrint:Boolean,
     fixedTh: Boolean,
     /**
      * {

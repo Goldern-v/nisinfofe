@@ -53,20 +53,19 @@ export function verifyCaSign() {
       let strUserCertID = usrInfo.retVal
         .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
         .replace("&&&", "");
-      console.log(strUserCertID, "strUserCertID");
+      // console.log(strUserCertID, "strUserCertID");
       GetSignCert(strUserCertID, function(certObj) {
         let cert = certObj.retVal;
-        console.log(cert, "cert");
+        // console.log(cert, "cert");
         getCertAndRandomSign().then(res => {
           let random = res.data.data.random;
-          console.log(`strUserCertID-${strUserCertID}`, `random-${random}`);
+          // console.log(`strUserCertID-${strUserCertID}`, `random-${random}`);
           SignedData(strUserCertID, random, retValObj => {
-            console.log(retValObj, "retValObj");
+            // console.log(retValObj, "retValObj");
             let signValue = retValObj.retVal;
             $_$WebSocketObj.GetPic(strUserCertID, function(str) {
-              verifyCertAndUse(cert, signValue, "SM2-256", str.retVal).then(
-                res => {
-                  resolve(random);
+              verifyCertAndUse(cert, signValue, "SM2-256", str.retVal).then(res => {
+                  resolve({random,data:res.data.data});
                   // DecryptData(random, res.data.data, retValObj => {
                   //   let password = retValObj.retVal;
                   //   resolve();

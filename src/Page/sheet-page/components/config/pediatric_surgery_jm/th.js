@@ -238,8 +238,8 @@ export default {
         签名
         `,
       style: {
-        minWidth: '90px',
-        maxWidth: '90px',
+        minWidth: '70px',
+        maxWidth: '70px',
       },
       colspan: '1',
       rowspan: '3'

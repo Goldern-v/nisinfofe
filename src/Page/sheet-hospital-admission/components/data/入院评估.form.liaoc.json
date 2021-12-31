@@ -781,7 +781,7 @@
           "name": "I100005",
           "type": "input",
           "labelTitle": "BP",
-          "suffixDesc": "mmHG",
+          "suffixDesc": "mmHg",
           "titleStyle": "width:30px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "65px",
@@ -2963,14 +2963,28 @@
           "inputWidth": "160px",
           "class": null,
           "options": [
-            "营养风险筛查评估"
+            "营养风险筛查（成人）",
+            "营养风险筛查（儿童）"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "营养风险筛查评估",
-                "title": "营养风险筛查评估",
-                "default": "营养风险筛查评估",
+                "openKey": "营养风险筛查（成人）",
+                "cleanKey": "无",
+                "title": "营养风险筛查（成人）",
+                "default": "营养风险筛查（成人）",
+                "name": "S0618",
+                "type": "independent",
+                "parentName": "S0618",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "营养风险筛查（儿童）",
+                "cleanKey": "无",
+                "title": "营养风险筛查（儿童）",
+                "default": "营养风险筛查（儿童）",
                 "name": "S0618",
                 "type": "independent",
                 "parentName": "S0618",
@@ -3499,6 +3513,7 @@
           "class": null,
           "readOnly": null
         },
+        {},
         {
           "name": "",
           "type": "formGroupHR",
@@ -4093,30 +4108,7 @@
           "class": null,
           "readOnly": null
         },
-        {
-          "name": "I001478",
-          "type": "select",
-          "title": "四肢活动",
-          "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "活动",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "四肢活动情况",
-                "parentName": "I001479",
-                "type": "dependent"
-              }
-            }
-          ]
-        },
+        
         {
           "name": "I001483",
           "type": "select",

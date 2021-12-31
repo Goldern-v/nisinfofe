@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
-      <div class="left-part">
+      <div class="left-part" v-show="!$route.path.includes('admissionHisView')">
         <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
         <patientList toName="sheetHospitalAdmissionPage" :callFunction="isSelectPatient"/>
       </div>
@@ -134,7 +134,13 @@ export default {
     };
   },
   computed: {
+    isAdmissionHisView(){
+      return this.$route.path.includes('admissionHisView')
+    },
     containHeight() {
+      if(this.isAdmissionHisView){
+        return '100vh'
+      }
       return this.wih - 105 + "px";
       // if (this.fullpage) {
       //   return this.wih - 14 + "px";
@@ -156,10 +162,10 @@ export default {
       return this.$store.state.sheet.patientInfo;
     },
     fullpage() {
-      return this.$store.state.sheet.fullpage;
+      return this.$store.state.sheet.fullpage||this.isAdmissionHisView;
     },
     openLeft() {
-      return this.$store.state.sheet.openSheetLeft;
+      return this.$store.state.sheet.openSheetLeft&&!this.isAdmissionHisView;
     }
   },
   methods: {
@@ -172,6 +178,11 @@ export default {
     }
   },
   created() {
+    if(this.isAdmissionHisView){
+      // console.log('this.$route',this.$route);
+      // console.log('this.data.bedList',this.data.bedList);
+      return
+    }
     this.$store.commit("upPatientInfo", {});
   },
   mounted() {

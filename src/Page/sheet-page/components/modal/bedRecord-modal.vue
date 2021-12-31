@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="450" title="转床记录">
+    <sweet-modal ref="modal" :modalWidth="bedModalWidth" title="转床记录">
       <div flex="cross:center">
         <span class="label">床号：</span>
         <div class="box">{{firstBedRecord}}</div><i class="el-icon-d-arrow-right p-20"></i>
@@ -29,7 +29,9 @@
             </template>
           </el-table-column>
           <!-- <el-table-column prop="logDateTime" label="时间" min-width="110px" align="center"></el-table-column> -->
-          <el-table-column prop="bedLabelNew" label="床号" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="HOSPITAL_ID == 'huadu'" prop="bedLabelNew" label="床号" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="HOSPITAL_ID != 'huadu'" prop="bedLabelOld" label="旧床号" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="HOSPITAL_ID != 'huadu'" prop="bedLabelNew" label="新床号" min-width="110px" align="center"></el-table-column>
          
         </el-table>
       </div>
@@ -101,7 +103,8 @@ export default {
       firstBedRecord:"",
       secondBedRecord:"",
       thirdBedRecord:"",
-      bedLabel:""
+      bedLabel:"",
+      bedModalWidth:450,
     };
   },
   methods: {
@@ -147,9 +150,15 @@ export default {
             this.$refs.bedRecord.toggleRowSelection(item,item.selected)
           })  
         })
-        this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
-        this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
-        this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
+        if(this.HOSPITAL_ID == 'huadu'){
+          this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
+          this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
+          this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
+        }else{
+          this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelOld : ""
+          this.secondBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
+          this.thirdBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
+        }
         if(this.multipleSelection[2]) {
           this.bedLabel = this.firstBedRecord+"->"+this.secondBedRecord+"->"+this.thirdBedRecord
         }else if(this.multipleSelection[1]) {
@@ -164,9 +173,16 @@ export default {
       this.multipleSelection = val.sort((a,b)=>{
         return a.index - b.index
       });
-      this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
-      this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
-      this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
+      if(this.HOSPITAL_ID == 'huadu'){
+        this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
+        this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
+        this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
+      }else{
+        this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelOld : ""
+        this.secondBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
+        this.thirdBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
+      }
+      
       if(this.multipleSelection[2]) {
         this.bedLabel = this.firstBedRecord+"->"+this.secondBedRecord+"->"+this.thirdBedRecord
       }else if(this.multipleSelection[1]) {
@@ -190,6 +206,14 @@ export default {
   },
   components: {
     whiteButton
-  }
+  },
+  created() {
+    if(this.HOSPITAL_ID == 'huadu'){
+      this.bedModalWidth = 450
+    }else{
+      this.bedModalWidth = 550
+    }
+    
+  },
 };
 </script>

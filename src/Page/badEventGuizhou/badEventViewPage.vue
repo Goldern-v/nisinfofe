@@ -56,6 +56,7 @@
             >保存</Button
           >
           <Button
+          v-if="HOSPITAL_ID == 'guizhou' ? itemDataMap.B0002061 != '2' :true"
             class="btn"
             :disabled="badEventLoad || isDisabled"
             @click="saveEdit"
@@ -79,12 +80,13 @@
             class="green-btn btn"
             :disabled="badEventLoad || isDisabled2"
             @click="uploadEdit"
+            v-if="HOSPITAL_ID == 'guizhou' ? itemDataMap.B0002061 != '2' :true"
             >上报</Button
           >
         </div>
         <div class="track-area">
           <div class="viewbar-right-title">事件轨迹：</div>
-          <div class="trackEvents">
+          <div class="trackEvents" v-if="HOSPITAL_ID == 'guizhou' ? itemDataMap.B0002061 != '2' :true">
             <el-steps
               class="viewbar-right-steps"
               :active="stepStatus"
@@ -111,6 +113,9 @@
                 ></div>
               </el-step>
             </el-steps>
+          </div>
+          <div class="trackEvents" v-else>
+            <p>非护理不良事件</p>
           </div>
         </div>
       </div>
@@ -145,6 +150,7 @@
     overflow: hidden;
     padding: 42px 0 41px 20px;
     display: flex;
+    justify-content:end;
     width: 360px;
     position: absolute;
     top: 0;
@@ -191,6 +197,10 @@
     height: 100%;
     height: calc(100% - 50px);
     overflow: auto;
+    p {
+      padding-left: 20px;
+      color:red;
+    }
   }
 
   .viewbar-right-steps {
@@ -410,7 +420,8 @@ export default {
       isSaved: false,
       departmentBack: false,
       anonymous: true, //是否匿名上报
-      currentNodeCode: "" //当前审核节点
+      currentNodeCode: "", //当前审核节点
+      itemDataMap:{} //表单数据
     };
   },
   computed: {
@@ -439,7 +450,9 @@ export default {
     }
   },
   methods: {
-    showBtn(instance, handlenodeDto) {
+    showBtn(instance, handlenodeDto,itemDataMap) {
+      console.log('itemDataMap',itemDataMap)
+      this.itemDataMap=itemDataMap
       this.badEventLoad = false;
       if (instance) {
         let status = instance.status;
@@ -775,6 +788,7 @@ export default {
     },
     // 不良事件轨迹
     getBadEventStream() {
+      console.log(12313213)
       getStreamByInstanceId(this.$route.params.id).then(res => {
         if (res.data && res.data.code == 200) {
           this.updateUI(res.data.data);

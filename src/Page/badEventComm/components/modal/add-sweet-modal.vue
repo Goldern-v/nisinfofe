@@ -46,7 +46,10 @@ export default {
         name: data.name,
         sex: data.sex,
         bedNo: data.bedNo || data.bedLabel,
-        inpNo: data.inpNo
+        inpNo: data.inpNo,
+        age:data.age,
+        admissionDate:data.admissionDate,
+        ...data
       };
       this.$emit("updataeBaseUser", itemDataMap);
       this.close();

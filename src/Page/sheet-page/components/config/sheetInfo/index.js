@@ -8,6 +8,7 @@ export default {
   downControl: false,
   selectRow: [],
   selectBlock: {},
+  masterInfo: {},
   copyRow: "",
   clickRow: null, //威县点击后行持续高亮
   model: "", //填写模型  print  edit

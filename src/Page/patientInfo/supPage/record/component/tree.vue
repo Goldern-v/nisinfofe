@@ -1,47 +1,76 @@
 <template>
-  <div>
-    <el-row class="header" type="flex" justify="space-between" align="middle">
-      <span
-        v-if="HOSPITAL_ID == 'beihairenyi'"
-        class="title"
-        style="cursor:pointer"
-        @click="refreshTree()"
-        @dblclick="refreshTree(true)"
-      >护理评估单</span>
-      <span
-        v-else
-        class="title"
-        style="cursor:pointer"
-        @click="refreshTree()"
-        @dblclick="refreshTree(true)"
-      >护理文书</span>
-      <el-button type="text" class="new-btn" @click="newRecordOpen">
-        <i class="el-icon-plus"></i>创建
-      </el-button>
-    </el-row>
-    <div class="body" :style="{height: height}">
-      <el-tree
-        v-loading="treeLoading"
-        v-if="ifTree"
-        class="record-tree"
-        :data="regions"
-        highlight-current
-        :render-content="renderContent"
-        @node-click="nodeClick"
-        node-key="index"
-        :default-expanded-keys="expandList"
-        @node-expand="node_expand"
-        @node-collapse="node_collapse"
-      ></el-tree>
-      <div style="height: 20px"></div>
+  <div class="form-list-part">
+    <div
+      :style="isShow ? 'display:block' : 'display:none'"
+      style="transition: width 2s"
+    >
+      <el-row class="header" type="flex" justify="space-between" align="middle">
+        <span
+          v-if="HOSPITAL_ID == 'beihairenyi'"
+          class="title"
+          style="cursor: pointer"
+          @click="refreshTree()"
+          @dblclick="refreshTree(true)"
+          >护理评估单</span
+        >
+        <span
+          v-else
+          class="title"
+          style="cursor: pointer"
+          @click="refreshTree()"
+          @dblclick="refreshTree(true)"
+          >护理文书</span
+        >
+        <el-button type="text" class="new-btn" @click="newRecordOpen">
+          <i class="el-icon-plus"></i>创建
+        </el-button>
+      </el-row>
+      <div class="body" :style="{ height: height }">
+        <el-tree
+          v-loading="treeLoading"
+          v-if="ifTree"
+          class="record-tree"
+          :data="regions"
+          highlight-current
+          :render-content="renderContent"
+          @node-click="nodeClick"
+          node-key="index"
+          :default-expanded-keys="expandList"
+          @node-expand="node_expand"
+          @node-collapse="node_collapse"
+        ></el-tree>
+        <div style="height: 20px"></div>
+      </div>
+      <!-- 弹出框 -->
+      <newForm ref="newForm"></newForm>
     </div>
-    <!-- 弹出框 -->
-    <newForm ref="newForm"></newForm>
+
+    <div
+      v-if="hisLeftList.includes(HOSPITAL_ID)"
+      @click="showBtn"
+      :class="[isActive ? 'active' : 'button']"
+      :style="{ top: flagTop }"
+    >
+      <i
+        class="iconfont icon-yincang"
+        v-show="!isActive"
+        style="margin-left: -2px"
+      ></i>
+      <i
+        class="iconfont icon-xianshi"
+        v-show="isActive"
+        style="margin-left: -2px"
+      ></i>
+    </div>
   </div>
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.header {
+.form-list-part {
+  position: relative;
+  // transition: all 2s;
+
+  .header {
   height: 37px;
   background: #F7FAFA;
   padding: 0 13px;
@@ -65,6 +94,50 @@
 
 .body {
   overflow: auto;
+}
+
+.button {
+    // transition: width 2s;
+    // transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+    // transform: translate(100px,100px);
+    position: absolute;
+    top: 100px;
+    right: -11px;
+    z-index: 2;
+    cursor: pointer;
+    height: 73px;
+    width: 10px;
+    background-image: url('../../../../../common/images/patient/隐藏框.png');
+
+    &:hover {
+      color: #5CC6A1;
+    }
+
+    .iconfont {
+      font-size: 12px;
+      position: absolute;
+      top: 30px;
+    }
+  }
+
+  .active {
+    position: absolute;
+    top: 416px;
+    cursor: pointer;
+    height: 73px;
+    width: 10px;
+    background-image: url('../../../../../common/images/patient/隐藏框.png');
+
+    &:hover {
+      color: #5CC6A1;
+    }
+
+    .iconfont {
+      font-size: 12px;
+      position: absolute;
+      top: 30px;
+    }
+  }
 }
 </style>
 
@@ -137,7 +210,7 @@
     background-color: #fff;
     overflow: hidden;
     text-align: center;
-    line-height 30px;
+    line-height: 30px;
     border: 1px solid #eee;
     box-shadow: 0 2px 4px 0 #eee;
   }
@@ -187,7 +260,7 @@ import {
   groupListHuadu,
   getInstanceByPatientInfo,
   listRecord,
-  getBlockByPV
+  getBlockByPV,
 } from "@/api/patientInfo";
 import moment from "moment";
 import commonData from "@/api/commonData"; //入院HIS数据等
@@ -199,7 +272,7 @@ import { hadTransferToWard } from "../api/index.js";
 
 export default {
   props: {
-    filterObj: Object
+    filterObj: Object,
   },
   mixins: [commonMixin],
   data() {
@@ -211,11 +284,17 @@ export default {
       expandListCopy: [],
       ifTree: true,
       formTransfusionSafety: [],
+      isShow: true, //护理文书菜单列是否展示
+      isActive: false, //是否点击收起图标
+      hisLeftList:['wujing'],//是否要开放左侧收缩功能医院
     };
   },
   computed: {
     wih() {
       return this.$store.state.common.wih;
+    },
+    flagTop() {
+      return `${(this.wih + 85) * 0.4}px`;
     },
     height() {
       if (this.$route.path == "/formPage" || this.filterObj) {
@@ -223,7 +302,7 @@ export default {
       } else {
         return `${this.wih - 180}px`;
       }
-    }
+    },
   },
   watch: {
     "$route.params"() {
@@ -250,55 +329,103 @@ export default {
         "--regions",
         this.regions
       );
-    }
+    },
   },
   methods: {
-    createListHj(index){
-       return {
-            label: "输血安全护理记录单",
-            index: index + 1,
-            formCode: "form_transfusion_safety",
-            nooForm: 2,
-            pageUrl: "输血安全护理记录单.html",
-            children: this.formTransfusionSafety.map(option => {
-              return {
-                status: option.status,
-                label: `${option.creatDate}
+    showBtn() {
+      this.isShow = !this.isShow;
+      this.isActive = !this.isActive;
+      // this.regions = []
+      if (this.isShow) {
+        var show = document.getElementById("right");
+        show.style.marginLeft = "275px";
+      } else {
+        var unshow = document.getElementById("right");
+        unshow.style.marginLeft = "20px";
+      }
+
+      if (this.isActive) {
+        var actives = document.getElementById("left");
+        actives.style.width = "0";
+      } else {
+        var unactive = document.getElementById("left");
+        unactive.style.width = "260px";
+      }
+    },
+    createListHj(index) {
+      return {
+        label: "输血安全护理记录单",
+        index: index + 1,
+        formCode: "form_transfusion_safety",
+        nooForm: 2,
+        pageUrl: "输血安全护理记录单.html",
+        children: this.formTransfusionSafety.map((option) => {
+          return {
+            status: option.status,
+            label: `${option.creatDate}
                   ${option.wardAlias}
                   ${option.countSize ? option.countSize + "条" : ""}
                   ${option.evalScore ? option.evalScore + "分" : ""}
                   ${
-                  option.pusherName ? option.pusherName : option.creatorName
-                }`,
-                // ${option.status == 0 ? "T" : option.status}`,
-                form_id: option.id,
-                formName: "输血安全护理记录单"
-              };
-            })
+                    option.pusherName ? option.pusherName : option.creatorName
+                  }`,
+            // ${option.status == 0 ? "T" : option.status}`,
+            form_id: option.id,
+            formName: "输血安全护理记录单",
           };
+        }),
+      };
     },
-    createListHd(){
-       return {
-            label: "输血安全护理记录单",
-            formCode: "E0314",
-            nooForm: 2,
-            pageUrl: "输血安全护理记录单.html",
-            children: this.formTransfusionSafety.map(option => {
-              return {
-                status: option.status,
-                label: `${option.evalDate.substring(0,16)}
+    createListHd() {
+      return {
+        label: "输血安全护理记录单",
+        formCode: "E0314",
+        nooForm: 2,
+        pageUrl: "输血安全护理记录单.html",
+        children: this.formTransfusionSafety.map((option) => {
+          return {
+            status: option.status,
+            label: `${option.evalDate.substring(0, 16)}
                   ${option.signerNo}`,
-                // ${option.status == 0 ? "T" : option.status}`,
-                form_id: option.entityId,
-                formName: "输血安全护理记录单"
-              };
-            })
+            // ${option.status == 0 ? "T" : option.status}`,
+            form_id: option.entityId,
+            formName: "输血安全护理记录单",
           };
+        }),
+      };
     },
-    nodeClick(data, node) {
+    async nodeClick(data, node) {
+      if (!this.$store.state.admittingSave.admittingSave) {
+        const comfirm = await this.$confirm(
+          "入院评估单还未保存，是否需要离开页面?",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }
+        )
+          .then(() => {
+            this.$message({
+              type: "success",
+              message: "退出成功!",
+            });
+            this.$store.state.admittingSave.admittingSave = true;
+            return true;
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消",
+            });
+            return false;
+          });
+        console.log(comfirm, "ddd");
+        if (!comfirm) return;
+      }
       console.log(
         "nodeClick",
-        {data, node},
+        { data, node },
         node.parent,
         node.data.formName,
         data.pageTitle
@@ -337,7 +464,7 @@ export default {
               pageUrl: node.parent.data.pageUrl,
               pageItem: data.pageTitle,
               status: data.status,
-              missionId: data.missionId
+              missionId: data.missionId,
             })
           );
         } else {
@@ -348,22 +475,22 @@ export default {
           Object.assign({}, getFormConfig(node.data.formName), {
             pageUrl: node.data.pageUrl,
             nooForm: node.data.nooForm,
-            islink: node.data.islink
+            islink: node.data.islink,
           })
         );
       }
     },
-    renderContent(h, {node, data, store}) {
+    renderContent(h, { node, data, store }) {
       // let fileicon = fileicon
       // let filebox = filebox
       // // 如果存在保存
       // console.log("111",node.childNodes,node.level)
       let hasSave =
-        node.childNodes.filter(item => {
+        node.childNodes.filter((item) => {
           return item.data.status == "0";
         }).length > 0;
       let hasSign =
-        node.childNodes.filter(item => {
+        node.childNodes.filter((item) => {
           return item.data.status == "1";
         }).length > 0;
 
@@ -372,22 +499,28 @@ export default {
       let icon;
       let box;
 
-      let formNoSign = node.data.formTreeRemindType == '0'; // 无签名
-      let formSign = node.data.formTreeRemindType == '1'; // 责任（多人签名）
-      let formAudit = node.data.formTreeRemindType == '2'; // 责任 + 审核
+      let formNoSign = node.data.formTreeRemindType == "0"; // 无签名
+      let formSign = node.data.formTreeRemindType == "1"; // 责任（多人签名）
+      let formAudit = node.data.formTreeRemindType == "2"; // 责任 + 审核
 
       // 花都特殊处理
-      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "zhongshanqi") {
+      if (
+        this.HOSPITAL_ID == "huadu" ||
+        this.HOSPITAL_ID == "liaocheng" ||
+        this.HOSPITAL_ID == "zhongshanqi"
+      ) {
         // 文件夹
         // 责任 + 审核的情况
-        if (formAudit) {// 责任 + 审核的情况
-          if (this.HOSPITAL_ID == "zhongshanqi") { // 中山七颜色处理
+        if (formAudit) {
+          // 责任 + 审核的情况
+          if (this.HOSPITAL_ID == "zhongshanqi") {
+            // 中山七颜色处理
             if (hasSave) {
               box = fileboxYellow;
-            }// 未签名
+            } // 未签名
             else if (hasSign) {
               box = fileboxRed;
-            }// 责任 + 审核的情况 责任签名
+            } // 责任 + 审核的情况 责任签名
             else if (fileHasSave) {
               icon = fileiconYellow;
             } // 未签名
@@ -401,13 +534,13 @@ export default {
           } else {
             if (hasSave) {
               box = fileboxRed;
-            }// 未签名
+            } // 未签名
             else if (hasSign) {
               box = fileboxGreen;
-            }// 责任 + 审核的情况 责任签名
+            } // 责任 + 审核的情况 责任签名
             else if (fileHasSave) {
               icon = fileiconRed;
-            }// 未签名
+            } // 未签名
             else if (fileHasSign) {
               icon = fileiconGreen;
             } //责任签名
@@ -419,13 +552,14 @@ export default {
         }
         // 责任（多人签名）的情况
         else if (formSign) {
-          if (this.HOSPITAL_ID == "zhongshanqi") { // 责任（多人签名）的情况 未签名
+          if (this.HOSPITAL_ID == "zhongshanqi") {
+            // 责任（多人签名）的情况 未签名
             if (hasSave) {
               box = fileboxYellow;
-            }// 未签名
+            } // 未签名
             else if (hasSign) {
               box = fileboxGreen;
-            }// // 责任（多人签名）的情况 责任签名
+            } // // 责任（多人签名）的情况 责任签名
             else if (fileHasSave) {
               icon = fileiconYellow;
             } else if (fileHasSign) {
@@ -433,14 +567,14 @@ export default {
             } else {
               box = fileboxGreen;
               icon = fileiconGreen;
-            }// // 责任（多人签名）的情况 责任签名
+            } // // 责任（多人签名）的情况 责任签名
           } else {
             if (hasSave) {
               box = fileboxRed;
-            }// 未签名
+            } // 未签名
             else if (hasSign) {
               box = filebox;
-            }// 责任（多人签名）的情况 责任签名
+            } // 责任（多人签名）的情况 责任签名
             else if (fileHasSave) {
               icon = fileiconRed;
             } else if (fileHasSign) {
@@ -450,7 +584,8 @@ export default {
               icon = fileicon;
             }
           }
-        } else { // 没有签名的情况
+        } else {
+          // 没有签名的情况
           box = filebox;
           icon = fileicon;
         }
@@ -472,39 +607,34 @@ export default {
           icon = fileicon;
         }
       }
-      let viewDom = h()
+      let viewDom = h();
       if (this.HOSPITAL_ID === "liaocheng" || this.HOSPITAL_ID === "quzhou") {
         viewDom = h(
-          'div',
-          {class: {'view': true}, on: {click: (e) => this.handleViewClick(e, node, data)}},
-          [
-            h('i', {class: {'el-icon-view': true}}),
-          ],
-        )
+          "div",
+          {
+            class: { view: true },
+            on: { click: (e) => this.handleViewClick(e, node, data) },
+          },
+          [h("i", { class: { "el-icon-view": true } })]
+        );
       }
       if (node.level !== 2) {
-        return h('span',
-          {class: {'tree-box-node': true}},
-          [
-            h('img', {attrs: {src: box}}),
-            h('span', {}, node.label),
-            viewDom
-          ]
-        )
+        return h("span", { class: { "tree-box-node": true } }, [
+          h("img", { attrs: { src: box } }),
+          h("span", {}, node.label),
+          viewDom,
+        ]);
       } else {
-        return h('span',
-          {class: {'tree-node': true}},
-          [
-            h('img', {attrs: {src: icon}}),
-            h('span', {}, node.label)
-          ]
-        )
+        return h("span", { class: { "tree-node": true } }, [
+          h("img", { attrs: { src: icon } }),
+          h("span", {}, node.label),
+        ]);
       }
     },
     handleViewClick(e, node) {
-      e.stopPropagation()
+      e.stopPropagation();
       if (node && node.childNodes && node.childNodes.length > 0) {
-        node = node.childNodes[0]
+        node = node.childNodes[0];
       }
       this.bus.$emit(
         "openAssessmentBox",
@@ -516,24 +646,26 @@ export default {
           listPrint: node.parent.data.listPrint,
           nooForm: node.parent.data.nooForm,
           pageUrl: node.parent.data.pageUrl,
-          isPrintPreview: true
+          isPrintPreview: true,
         })
       );
     },
-    handlePrintClick(e,node,data){
-      console.log(e,node,data);
-
+    handlePrintClick(e, node, data) {
+      console.log(e, node, data);
     },
     getBlockByPV() {
       if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "houjie") {
         getBlockByPV(
           this.$route.query.patientId,
           this.$route.query.visitId
-        ).then(res => {
+        ).then((res) => {
           this.formTransfusionSafety = res.data.data || [];
         });
-      }else if(this.HOSPITAL_ID == "huadu"){
-        groupListHuadu(this.$route.query.patientId, this.$route.query.visitId).then(res => {
+      } else if (this.HOSPITAL_ID == "huadu") {
+        groupListHuadu(
+          this.$route.query.patientId,
+          this.$route.query.visitId
+        ).then((res) => {
           this.formTransfusionSafety = res.data.data || [];
         });
       }
@@ -546,15 +678,15 @@ export default {
         //   this.$route.query.patientId,
         //   this.$route.query.visitId
         // ),
-        this.getBlockByPV()
+        this.getBlockByPV(),
       ])
-        .then(res => {
+        .then((res) => {
           console.log("Promise.all", res);
           let index = 0;
           //
           window.app.$store.commit("cleanFormLastId");
           //
-          let list_1 = res[0].data.data.map(item => {
+          let list_1 = res[0].data.data.map((item) => {
             index += 1;
             return {
               label: item.formName,
@@ -566,58 +698,59 @@ export default {
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
               formTreeRemindType: item.formTreeRemindType,
-              children: item.formInstanceDtoList && item.formInstanceDtoList.map((option, i) => {
-                //
-                // item.formCode
-                // this.$store.state.form.upFormLastId
-                // window.app.$store.commit('upFormLastId', data)
-                if (item.formInstanceDtoList.length - 1 == i) {
-                  window.app.$store.commit("upFormLastId", {
-                    formName: item.formName,
-                    formCode: item.formCode,
-                    id: option.id,
-                    patientId: this.$route.query.patientId,
-                    visitId: this.$route.query.visitId,
-                    evalDate: option.evalDate
-                  });
-                }
-                // formName: "疼痛护理单"
-                // 查找第一张填写的疼痛评估单
-                if (item.formName && item.formName === "疼痛护理单") {
-                  // console.log("===疼痛护理单",i,option,item.formInstanceDtoList.length)
+              children:
+                item.formInstanceDtoList &&
+                item.formInstanceDtoList.map((option, i) => {
+                  //
+                  // item.formCode
+                  // this.$store.state.form.upFormLastId
+                  // window.app.$store.commit('upFormLastId', data)
                   if (item.formInstanceDtoList.length - 1 == i) {
-                    // console.log("--疼痛护理单",i,option,item.formInstanceDtoList.length)
-                    // /crNursing/api/eval/detail/{id}
-                    localStorage[
-                    "firtPainFormID" + this.$route.query.patientId
-                      ] = option.id;
+                    window.app.$store.commit("upFormLastId", {
+                      formName: item.formName,
+                      formCode: item.formCode,
+                      id: option.id,
+                      patientId: this.$route.query.patientId,
+                      visitId: this.$route.query.visitId,
+                      evalDate: option.evalDate,
+                    });
                   }
-                }
-                return {
-                  status: option.status,
-                  evalScore: option.evalScore || "",
-                  label: `${option.evalDate}
+                  // formName: "疼痛护理单"
+                  // 查找第一张填写的疼痛评估单
+                  if (item.formName && item.formName === "疼痛护理单") {
+                    // console.log("===疼痛护理单",i,option,item.formInstanceDtoList.length)
+                    if (item.formInstanceDtoList.length - 1 == i) {
+                      // console.log("--疼痛护理单",i,option,item.formInstanceDtoList.length)
+                      // /crNursing/api/eval/detail/{id}
+                      localStorage[
+                        "firtPainFormID" + this.$route.query.patientId
+                      ] = option.id;
+                    }
+                  }
+                  return {
+                    status: option.status,
+                    evalScore: option.evalScore || "",
+                    label: `${option.evalDate}
                   ${option.countSize ? option.countSize + "条" : ""}
                   ${option.evalScore ? option.evalScore + "分" : ""}
                   ${option.pusherName ? option.pusherName : option.creatorName}
                   ${option.status == 0 ? "T" : option.status}`,
-                  form_id: option.id,
-                  formName: item.formName,
-                  formTreeRemindType: item.formTreeRemindType
-
-                };
-              })
+                    form_id: option.id,
+                    formName: item.formName,
+                    formTreeRemindType: item.formTreeRemindType,
+                  };
+                }),
             };
           });
           //
           // upFormTree
-          if (list_1) {   
+          if (list_1) {
             window.app.$store.commit("upFormTree", [...list_1]);
           }
           //
-          let list_2 = info => {
+          let list_2 = (info) => {
             index += 1;
-            info = info.filter(opt => opt.status != "-1");
+            info = info.filter((opt) => opt.status != "-1");
             // console.log("健康教育单info", info);
             return {
               label: "健康教育单",
@@ -628,7 +761,7 @@ export default {
               // listPrint: item.listPrint,
               nooForm: 1,
               pageUrl: "健康教育单.html",
-              children: info.map(option => {
+              children: info.map((option) => {
                 // console.log(option, "健康教育单option");
                 return {
                   status: option.status,
@@ -642,9 +775,9 @@ export default {
                   form_id: option.id,
                   formName: "健康教育单",
                   pageTitle: option.title,
-                  missionId: option.missionId
+                  missionId: option.missionId,
                 };
-              })
+              }),
             };
           };
 
@@ -652,12 +785,12 @@ export default {
           // if (res[1].data.data.length > 0) {
           //   list_1.push(list_2(res[1].data.data));
           // }
-          let list_3 = []
-          switch(this.HOSPITAL_ID){
-            case 'hj':
+          let list_3 = [];
+          switch (this.HOSPITAL_ID) {
+            case "hj":
               list_3 = this.createListHj(index);
               break;
-            case 'huadu':
+            case "huadu":
               list_3 = this.createListHd();
               break;
             default:
@@ -665,7 +798,7 @@ export default {
           }
 
           list_1 = list_1.filter(
-            item => item.formCode != "form_transfusion_safety"
+            (item) => item.formCode != "form_transfusion_safety"
           );
           if (this.formTransfusionSafety.length) {
             list_1.push(list_3);
@@ -673,7 +806,7 @@ export default {
 
           if (this.filterObj) {
             this.regions = list_1.filter(
-              item => item.label == this.filterObj.label
+              (item) => item.label == this.filterObj.label
             );
           } else {
             this.regions = list_1;
@@ -695,7 +828,7 @@ export default {
           }
           // console.log(list_1, "list_1list_1list_1");
         })
-        .then(res => {
+        .then((res) => {
           this.treeLoading = false;
         });
     },
@@ -743,7 +876,7 @@ export default {
       // let query = this.$route.query;
       commonData
         .loadPatient(query.patientId, query.visitId)
-        .then(res => {
+        .then((res) => {
           try {
             // console.log("-入院病人资料:", res, res.data.data);
             if (res && res.data && res.data.data["admissionDateTime"]) {
@@ -766,7 +899,7 @@ export default {
 
           return res;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log("入院病人资料err:", err);
           if (callback && err) {
             callback(err);
@@ -777,20 +910,22 @@ export default {
     isTransferToWard() {
       let patientId = this.$route.query.patientId;
       let visitId = this.$route.query.visitId;
-      hadTransferToWard(patientId, visitId, '610102').then(res => {
+      hadTransferToWard(patientId, visitId, "610102").then((res) => {
         if (res.data.data) {
-          let index = this.regions.length ? ++this.regions[this.regions.length - 1].index : 1;
+          let index = this.regions.length
+            ? ++this.regions[this.regions.length - 1].index
+            : 1;
           let obj = {
             label: "ICU护理记录单",
             index,
             pageUrl: `http://10.35.0.82/op.html?patientid=${patientId}&visitId=${visitId}`,
             nooForm: 2,
-            islink: true
+            islink: true,
           };
           this.regions.push(obj);
         }
-      })
-    }
+      });
+    },
   },
   created() {
     if (!(this.$route.query.patientId && this.$route.query.visitId)) return;
@@ -803,7 +938,7 @@ export default {
     this.bus.$on("updateTreeData", this.updateTreeData);
     this.bus.$on("refreshTree", this.refreshTree);
     this.bus.$on("updateTree", this.updateTree);
-    this.bus.$on("getTreeRaw", callback => {
+    this.bus.$on("getTreeRaw", (callback) => {
       if (callback) {
         callback(this.regions);
       }
@@ -814,7 +949,7 @@ export default {
   components: {
     SweetModal,
     SweetModalTab,
-    newForm
-  }
+    newForm,
+  },
 };
 </script>

@@ -36,5 +36,20 @@ export function getAllNursingUnit(data) {
 export function getStreamByInstanceId(instanceId) {
   return axios.get(`${apiPath}badEvent/getStreamByInstanceId/${instanceId}`)
 }
+// 检查用户名密码
+export function checkUser({empNo, password}) {
+  return axios.post(`${apiPath}form/checkUser`, {
+    empNo,
+    password
+  });
+}
 
-export default { save, del, getEvent, getEventList, getEventTemplate, getAllNursingUnit, getStreamByInstanceId }
+//聊城上报不良事件
+export function reportForLc(data) {
+  return axios.post(`${apiPath}form/badEventMaster/master/reportForLc`,data)
+}
+//获取第三方不良事件相关数据
+export function getAuditDetail(id) {
+  return axios.post(`${apiPath}form/badEventMaster/master/getAuditDetail`,{formId:id})
+}
+export default { save, del, getEvent, getEventList, getEventTemplate, getAllNursingUnit, getStreamByInstanceId, checkUser, reportForLc, getAuditDetail}

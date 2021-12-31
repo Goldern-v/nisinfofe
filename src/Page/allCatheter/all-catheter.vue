@@ -1,12 +1,24 @@
 <template>
   <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存">
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight,overflow:'hidden'}">
-      <div class="left-part" v-if="isAllCathterPage">
+      <div class="left-part" v-if="isAllCathterPage" >
         <div class="head-con" flex>
           <div class="dept-select-con"></div>
         </div>
-        <patientList :data="data.bedList" v-loading="patientListLoading" @onChangePatient="onChangePatient_self"></patientList>
-        
+        <follow-list :data="data.bedList" @selectPatient="onChangePatient_self" v-if="HOSPITAL_ID=='liaocheng'">
+          <template  slot-scope="{ scope }">
+            <div class="cathter-icon" v-if="scope.catheterIcon">
+              {{ scope.catheterIcon }}
+            </div>
+            <img
+              src="../../common/images/record/文件夹.png"
+              alt
+              class="has-file"
+              v-if="scope.config&&scope.config.hasCreatedDvc"
+            />
+          </template>
+        </follow-list>
+        <patientList :data="data.bedList"  v-loading="patientListLoading" @onChangePatient="onChangePatient_self"></patientList>
       </div>
       <div class="right-part" v-loading="tableLoading" :class="{noAllpage:!isAllCathterPage}">
         <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
@@ -61,6 +73,8 @@
       left: 0;
       top: 0;
       bottom: 0;
+      display: flex;
+      flex-direction: column
     }
 
     .right-part {
@@ -135,6 +149,22 @@
     top:51px!important;
   }
 }
+.cathter-icon {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  line-height: 20px;
+  text-align: center;
+  color: #21a0ff;
+  margin-left: 5px;
+}
+.has-file {
+  position: absolute;
+  left: 28px;
+  top: 18px;
+  width 20px;
+}
 </style>
 <script>
 import patientList from "@/page/allCatheter/components/patient-list/patient-list.vue";
@@ -147,6 +177,7 @@ import { patients } from "@/api/lesion";
 import sheetInfo from "@/page/allCatheter/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
 import {getCatheterList,saveCatheter,getCatheterTable} from '@/page/allCatheter/api/catheter'
+import FollowList from '@/components/follow/index.vue'
 export default {
   mixins: [common],
   data() {
@@ -241,7 +272,8 @@ export default {
       if (this.deptCode) {
         this.patientListLoading = true;
         patients(this.deptCode, {
-          showDvc: true
+          showDvc: true,
+          showFollew:true
         }).then(res => {
           this.data.bedList = res.data.data.filter(item => {
             return item.patientId;
@@ -362,6 +394,7 @@ export default {
     addCathter,
     newCathter,
     cathterTabel,
+    FollowList
   }
 };
 </script>

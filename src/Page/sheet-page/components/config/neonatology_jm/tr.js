@@ -23,7 +23,7 @@ export default [
   key: "recordHour", //时间
   value: "",
   event: event_time,
-  click: click_time
+  // click: click_time
 },
 {
   key: "temperature", //体温

@@ -1506,7 +1506,7 @@ export default {
               // createForm()
               break;
             case "C": //Ctrl+C
-              console.log("复制", text);
+              // console.log("复制", text);
               break;
             default:
               break;
@@ -1682,7 +1682,8 @@ export default {
       this.bus.$emit("closeHosptialAdmissionForm");
       this.bus.$emit("setHosptialAdmissionLoading", false);
       this.bus.$emit("setHosptialAdmissionPageMessage", "请选择左侧患者~");
-      this.$router.push({ name: "sheetHospitalAdmissionPage" });
+      let route = {name:this.$route.name}
+      this.$router.push(route);
     },
   },
   components: {

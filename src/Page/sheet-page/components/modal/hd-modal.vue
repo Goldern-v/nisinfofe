@@ -203,7 +203,8 @@ export default {
           this.resultList,
           this.resultList2
         ).then((res) => {
-          this.bus.$emit("refreshSheetPage");
+          // this.bus.$emit("refreshSheetPage");
+          this.bus.$emit("saveSheetPage", true);
           this.$message({
             showClose: true,
             message: "保存成功",

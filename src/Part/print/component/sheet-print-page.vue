@@ -247,6 +247,8 @@ export default {
         "safemetachysis_jm",//江门妇幼_输血护理记录单
 
         "cardiology_fs",//佛山市一_心内科通用护理记录单
+        "orthopaedicgeneral_fs",//佛山市一_护理记录单(骨科通用护理单)
+        "cervicalspondylosis_fs",//佛山市一_护理记录单(颈椎病保守治疗)
       ]
     };
   },
@@ -273,17 +275,17 @@ export default {
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
     // 江门妇幼的护理单打印双数页面会翻转,横沥ICU机械通气护理单。修复
     if(this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"){
- printDir("h");
-      addCSS(
-        window,
-        `
-    @media print {
-       .iframe > div:nth-of-type(2n) {
-         transform: rotate(0deg) !important;
-       }
-    }
-    `
-      );
+      printDir("h");
+            addCSS(
+              window,
+              `
+          @media print {
+            .iframe > div:nth-of-type(2n) {
+              transform: rotate(0deg) !important;
+            }
+          }
+          `
+            );
     }
     $("#app").css({
       minWidth: sheetTableWidth + "px"
@@ -419,6 +421,9 @@ export default {
         window,
         `
           #sheetPagePrint#sheetPagePrint th[dataname='质控护士签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='质控护士']{
             display:none !important;
           }
           #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签名']{

@@ -15,9 +15,9 @@ class WebSocketService {
   // md5队列 每一个订阅数据的唯一标识
   md5List = JSON.parse(sessionStorage.mewsMd5List || null) || []
 
-  socket = new SockJS("/crNursing/message", null, { timeout: 10000 })
-  //本地开发测试
-  // socket = new SockJS("http://120.197.141.41:9091/crNursing/message")
+  socket = new SockJS("/crNursing/message", null, { timeout: 3000 })
+  //本地开发测试http://120.197.141.41:9091
+  // socket = new SockJS("http://120.224.211.7:9094/crNursing/message", null, { timeout: 1000 })
   stompClient = Stomp.over(this.socket)
   headers = {
     login: "mylogin",
@@ -34,7 +34,9 @@ class WebSocketService {
         this.handleSubscribeList()
         console.log('连接成功~~~~~')
       },
-      err => { }
+      err => {
+        console.log('test-err', err)
+       }
     );
   }
 

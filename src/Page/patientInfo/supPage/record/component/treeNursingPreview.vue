@@ -207,7 +207,7 @@ export default {
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
-      showBloodSugar:['guizhou','hengli'] // 是否开放血糖模块
+      showBloodSugar:['guizhou','hengli','huadu'] // 是否开放血糖模块
     };
   },
   computed: {

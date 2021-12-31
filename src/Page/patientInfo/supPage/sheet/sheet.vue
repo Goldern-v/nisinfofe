@@ -187,6 +187,7 @@ import sheetTable_internal_eval_lcey from "@/Page/sheet-page/components/sheetTab
 import sheetTable_surgical_eval2_lcey from "@/Page/sheet-page/components/sheetTable-surgical_eval2_lcey/sheetTable";
 import sheetTable_intervention_cure_lcey from "@/Page/sheet-page/components/sheetTable-intervention_cure_lcey/sheetTable";
 import sheetTable_picu_hemodialysis_jm from "@/Page/sheet-page/components/sheetTable-picu_hemodialysis_jm/sheetTable";
+import sheetTable_record_children_serious2_lc from "@/Page/sheet-page/components/sheetTable-record_children_serious2_lc/sheetTable";
 import sheetTable_waiting_birth_gzry from "@/Page/sheet-page/components/sheetTable-waiting_birth_gzry/sheetTable";
 import sheetTable_newborn_care_gzry from "@/Page/sheet-page/components/sheetTable-newborn_care_gzry/sheetTable";
 import sheetTable_catheterplacement_jm from "@/Page/sheet-page/components/sheetTable-catheterplacement_jm/sheetTable";
@@ -299,7 +300,7 @@ export default {
       resultModel.map(item=>{
         item.data.bodyModel.map((tr,x)=>{
           if(!tr.hasOwnProperty('isRead')){
-            tr.isRead = this.isRead(tr)
+            tr.isRead = this.isRead(tr,x)
             tr.map((td,y)=>{
               td.isDisabed = this.isDisabed(tr,td,x,y,item.data.bodyModel)
             })
@@ -321,6 +322,8 @@ export default {
         return sheetTableDressing_count;
       } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
         return sheetTableMaternal_newborn_lc;
+      } else if (sheetInfo.sheetType == "record_children_serious2_lc") {
+        return sheetTable_record_children_serious2_lc;
       } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
         return sheetTable_picc_maintenance_hd;
       } else if (sheetInfo.sheetType == "intervention_cure_hd") {
@@ -526,7 +529,7 @@ export default {
       }
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
-        this.HOSPITAL_ID == "huadu" &&
+        (this.HOSPITAL_ID == "huadu") &&
         tr.find((item) => item.key == "status").value === "1"
       ) {
         let flag =
@@ -559,11 +562,14 @@ export default {
         return false;
       }
     },
-    isRead(tr) {
+    isRead(tr,x) {
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd"
       ) {
+        return false;
+      }
+      if(this.listData && this.listData[x] && this.listData[x].canModify){
         return false;
       }
       let status = tr.find((item) => item.key == "status").value;

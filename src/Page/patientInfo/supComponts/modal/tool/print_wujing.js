@@ -1,10 +1,10 @@
 function printDir(dir, wid = window) {
   let dirTetx = "";
-  if (dir == "h") {
-    dirTetx = "landscape";
-  } else {
+  // if (dir == "h") {
+    // dirTetx = "landscape";
+  // } else {
     dirTetx = "portrait";
-  }
+  // }
   try {
     var child = document.getElementById("printStyle");
     child.parentNode.removeChild(child);
@@ -79,7 +79,7 @@ function print(source, beforePrint, selfShow) {
 
   const iframeDocument = iframe.contentDocument;
   const iframeWindow = iframe.contentWindow;
-  printDir("", iframeWindow);
+  printDir("h", iframeWindow);
   addCSS(
     iframeWindow,
     `
@@ -116,7 +116,7 @@ function print(source, beforePrint, selfShow) {
     left: 2px;
    }
    body {
-    transform: scale(0.8);
+    transform: scale(1.1) translateY(0.5cm);
     transform-origin: 0 0;
    }
    .huadu-bigname{

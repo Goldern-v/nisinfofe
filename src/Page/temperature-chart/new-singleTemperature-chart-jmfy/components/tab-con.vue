@@ -202,10 +202,7 @@
             <el-time-picker
               size="mini"
               :readonly="isDisable()"
-              format="HH:mm:ss"
-              value-format="HH:mm:ss"
-              v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
-              type="time"
+              v-model="timeVal"
               placeholder="选择表顶时间"
               style="margin: 3px 0px 0px 55px; width: 125px"
               @change="formatTopExpandDate"
@@ -348,7 +345,22 @@ export default {
       multiDictList: {},
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
+      timeVal: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      ),
+      nowTimeVal: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      ),
       vitalSignList: [], // 固定项目列表
+
       // topContextList: [
       //   "",
       //   "入院",
@@ -407,6 +419,16 @@ export default {
         this.getList();
       },
       deep: true,
+    },
+    patientInfo() {
+      //切换患者重新获得时间
+      this.timeVal = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      );
     },
   },
   methods: {
@@ -557,6 +579,11 @@ export default {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
             this.vitalSignObj[v.vitalCode] = v;
+            if (v.vitalSigns === "表顶注释") {
+              this.timeVal = moment(
+                this.vitalSignObj[v.vitalCode].expand2
+              ).utc()._d;
+            }
           });
         } else {
           this.init();
@@ -699,7 +726,14 @@ export default {
           ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 = this.query.entryDate + " " + this.topExpandDate; //表顶用录入日期+选择的时间来显示
+            if (this.topExpandDate !== undefined) {
+              item.expand2 = moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") + " " + this.topExpandDate; //表顶用录入日期+选择的时间来显示
+            } else {
+              item.expand2 =
+                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+                " " +
+                moment(this.nowTimeVal).format("HH:mm:ss"); //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
+            }
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
@@ -776,7 +810,7 @@ export default {
 
   .inputText {
     overflow: scroll;
-    margin-left: 20px;
+    margin-left: 10px;
   }
 
   .rowItem_noShow {

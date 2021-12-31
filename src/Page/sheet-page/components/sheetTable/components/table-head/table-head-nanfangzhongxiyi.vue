@@ -46,7 +46,7 @@
       <span>
         入院日期：
         <div class="bottom-line" style="min-width: 80px">
-          {{ patientInfo.admissionDate | toymd }}
+          {{ patientInfo.admissionDate | toyHm }}
         </div>
       </span>
       </div>
@@ -244,6 +244,9 @@ export default {
     toymd(val) {
       return moment(val).format("YYYY-MM-DD");
     },
+    toyHm(val){
+      return moment(val).format("YYYY-MM-DD HH:mm");
+    }
   },
   created() {
     if (!sheetInfo.relObj.age) {

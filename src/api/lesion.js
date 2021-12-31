@@ -3,7 +3,7 @@ import axios from './axios'
 import {
   apiPath
 } from './apiConfig'
-
+const HOSPITAL_ID = process.env.HOSPITAL_ID
 // 护理单元
 function nursingUnit() {
   return axios.get(`${apiPath}user/nursingUnit`)
@@ -27,6 +27,7 @@ function patients(deptCode, config, HisName = process.env.HOSPITAL_NAME) {
   };
   // let url = hisList[HisName] || `patList/${deptCode}`
   let url = hisList[HisName] || `patListWithNewForm/${deptCode}`
+
   if (config) {
     return axios.post(`${apiPath}bed/patList/config/${deptCode}`, config)
   } else {

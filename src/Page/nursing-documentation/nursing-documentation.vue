@@ -77,7 +77,7 @@ import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
 import changeMaJorTable from  "./components/table/change-major-table"
 import pagination from "./components/common/pagination";
-import { patEmrList,patEmrListZSQm,listNurseAdtHd } from "@/api/document";
+import { patEmrList,patEmrListZSQm,listNurseAdtHd,listNurseAdtFuYou } from "@/api/document";
 import { del } from '@/api/record';
 export default {
   data() {
@@ -123,7 +123,8 @@ export default {
       if (data.bedLabel) {
         obj.bedLabel = data.bedLabel;
       }
-      if (data.admissionDate[0]) {
+      if(!['beihairenyi'].includes(this.HOSPITAL_ID)){
+          if (data.admissionDate[0]) {
         obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(
           "yyyy-MM-dd"
         );
@@ -143,6 +144,30 @@ export default {
           "yyyy-MM-dd"
         );
       }
+      }else{
+           if (data.admissionDate[0]) {
+        obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(
+          "yyyy-MM-dd hh:mm"
+        );
+      }
+      if (data.admissionDate[1]) {
+        obj.admissionDateEnd = new Date(data.admissionDate[1]).Format(
+          "yyyy-MM-dd hh:mm"
+        );
+      }
+      if (data.dischargeDate[0]) {
+        obj.dischargeDateBegin = new Date(data.dischargeDate[0]).Format(
+          "yyyy-MM-dd hh:mm"
+        );
+      }
+      if (data.dischargeDate[1]) {
+        obj.dischargeDateEnd = new Date(data.dischargeDate[1]).Format(
+          "yyyy-MM-dd hh:mm"
+        );
+      }
+      }
+      
+     
       if (data.status == 1) {
         obj.dischargeDateBegin = "";
         obj.dischargeDateEnd = "";
@@ -178,7 +203,7 @@ export default {
         obj.diagnosis = data.diagnosis;
         patEmrListApi = patEmrListZSQ;
       }
-      //花都转院查询
+      //花都转院查询（江门妇幼为新增）
       if(data.status == 3 && this.hospitalTransfer){
         let newObj=JSON.parse(JSON.stringify(obj));
         delete newObj.admissionDateBegin;
@@ -187,7 +212,7 @@ export default {
         delete newObj.dischargeDateEnd;
         newObj.pageSize=newObj.pageNum;
         // console.log(obj)
-        listNurseAdtHd(newObj).then(res => {
+        listNurseAdtHd(newObj,this.HOSPITAL_ID).then(res => {
         this.tableData = res.data.data.list;
         this.page.total = res.data.data.totalCount ? parseInt(res.data.data.totalCount): 0;
         this.pageLoadng = false;
@@ -206,9 +231,9 @@ export default {
     searchConData(){
       return this.$refs.searchCon?this.$refs.searchCon.data:null
     },
-      hospitalTransfer(){
-        return ['huadu','fuyou'].includes(this.HOSPITAL_ID)
-      }
+    hospitalTransfer(){
+      return ['huadu','fuyou','beihairenyi'].includes(this.HOSPITAL_ID)
+    }
   },
   components: {
     searchCon,

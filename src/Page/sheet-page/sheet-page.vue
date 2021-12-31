@@ -243,6 +243,7 @@ import sheetTable_newborn_qzx from "./components/sheetTable-newborn_qzx/sheetTab
 import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
 import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
 import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";
+import sheetTable_record_children_serious2_lc from "./components/sheetTable-record_children_serious2_lc/sheetTable";
 import sheetTable_waiting_birth_gzry from "./components/sheetTable-waiting_birth_gzry/sheetTable";
 import sheetTable_newborn_care_gzry from "./components/sheetTable-newborn_care_gzry/sheetTable";
 import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
@@ -362,16 +363,16 @@ export default {
       let resultModel = mapSheetModel.filter((item) => {
         return showSheetPage(item.index);
       });
-      resultModel.map(item=>{
-        item.data.bodyModel.map((tr,x)=>{
-          if(!tr.hasOwnProperty('isRead')){
-            tr.isRead = this.isRead(tr)
-            tr.map((td,y)=>{
-              td.isDisabed = this.isDisabed(tr,td,x,y,item.data.bodyModel)
-            })
-          } 
-        })
-      })
+      resultModel.map((item) => {
+        item.data.bodyModel.map((tr, x) => {
+          if (!tr.hasOwnProperty("isRead")) {
+            tr.isRead = this.isRead(tr,x);
+            tr.map((td, y) => {
+              td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel);
+            });
+          }
+        });
+      });
       return resultModel;
     },
     sheetTable() {
@@ -388,6 +389,8 @@ export default {
         return sheetTableDressing_count;
       } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
         return sheetTableMaternal_newborn_lc;
+      } else if (sheetInfo.sheetType == "record_children_serious2_lc") {
+        return sheetTable_record_children_serious2_lc;
       } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
         return sheetTable_picc_maintenance_hd;
       } else if (sheetInfo.sheetType == "intervention_cure_hd") {
@@ -460,9 +463,8 @@ export default {
     isDisabed(tr, td, x, y, bodyModel) {
       // canModify false可以修改，true禁止修改
       // 签名后不能修改，要取消修改才能修改
-      if(this.sheetInfo.sheetType=="common_xg"){
-        if(td &&
-        this.listData[x]){
+      if (this.sheetInfo.sheetType == "common_xg") {
+        if (td && this.listData[x]) {
           return !this.listData[x].canModify;
         }
       }
@@ -482,7 +484,7 @@ export default {
       }
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
-        this.HOSPITAL_ID == "huadu" &&
+        (this.HOSPITAL_ID == "huadu") &&
         tr.find((item) => item.key == "status").value === "1"
       ) {
         let flag =
@@ -515,11 +517,14 @@ export default {
         return false;
       }
     },
-    isRead(tr) {
+    isRead(tr,x) {
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd"
       ) {
+        return false;
+      }
+      if(this.listData && this.listData[x] && this.listData[x].canModify){
         return false;
       }
       let status = tr.find((item) => item.key == "status").value;
@@ -621,6 +626,7 @@ export default {
         // this.sheetModel = []
         this.$nextTick(() => {
           // this.sheetModel = sheetModel
+          // console.log(titleData);
           initSheetPage(titleData, bodyData, markData);
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
           this.getHomePage(isBottom);
@@ -657,7 +663,10 @@ export default {
       });
     },
     breforeQuit(next) {
-      if (!sheetInfo.isSave) {
+      if (
+        !sheetInfo.isSave &&
+        !this.$route.path.includes("singleTemperatureChart")
+      ) {
         window.app
           .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
             confirmButtonText: "离开",
@@ -1004,6 +1013,10 @@ export default {
     });
   },
   watch: {
+    patientInfo(val) {
+      this.bus.$emit("refreshImg");
+      this.$store.commit("upPatientInfo", val);
+    },
     deptCode(val) {
       if (val) {
         this.getDate();
@@ -1035,7 +1048,7 @@ export default {
   beforeRouteLeave: (to, from, next) => {
     if (
       !sheetInfo.isSave &&
-      !this.$route.path.includes("singleTemperatureChart") //去除体温单切换未保存提示
+      !from.fullPath.includes("singleTemperatureChart") //去除体温单切换未保存提示
     ) {
       window.app
         .$confirm("评估单还未保存，离开将会丢失数据", "提示", {

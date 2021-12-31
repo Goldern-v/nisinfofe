@@ -189,6 +189,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告
               </el-row>
             </router-link>
+            <router-link to="/nursingRounds" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+                >护理巡视
+              </el-row>
+            </router-link>
             <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-baiban"></i> 白板
@@ -331,11 +336,13 @@
                 <i class="iconfont icon-hulijiludan"></i>其他
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <!-- <el-dropdown-item>
+                <el-dropdown-item>
                   <router-link to="/badEvent" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">不良事件</el-row>
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="badEvent"></i>不良事件
+                    </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
                 <el-dropdown-item
                   :class="{ active: $route.path == '/nursingDocumentation' }"
                 >
@@ -461,6 +468,13 @@
                   <router-link to="/patientFlowList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>患者流转
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <router-link to="/patientFlowStatistics" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i>患者流转统计
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
