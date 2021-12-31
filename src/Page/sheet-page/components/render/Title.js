@@ -1133,6 +1133,13 @@ export default function Title(
     );
   }
   break;
+  case "surgerycervicalspondylosis_fs": {
+    // 佛山市一 - 护理记录单(颈椎病手术治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/surgerycervicalspondylosis_fs/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

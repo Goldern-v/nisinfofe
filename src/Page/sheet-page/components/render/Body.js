@@ -879,6 +879,11 @@ function switechSheetType(type) {
         schema = require("../config/cervicalspondylosis_fs/tr.js").default;
       }
         break;
+      case "surgerycervicalspondylosis_fs": {
+        // 佛山市一 - 护理记录单(颈椎病手术治疗)
+        schema = require("../config/surgerycervicalspondylosis_fs/tr.js").default;
+      }
+        break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
