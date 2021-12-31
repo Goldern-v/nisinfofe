@@ -13,6 +13,7 @@
       >删除行</Button>
       <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button>
       <Button :disabled="isEmpty" @click="beforePrint">打印预览</Button>
+      <Button @click="onCopy">复制</Button>
       <div class="empty"></div>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
@@ -502,7 +503,6 @@ export default {
           );
         }
       } catch (error) {
-        console.log(error);
         this.$router.replace({ name: "shiftWorks" });
       }
       this.loading = false;
@@ -1016,6 +1016,49 @@ export default {
         });
       });
       this.loading = false;
+    },
+    async onCopy() {
+      // let isData = false;
+      // this.patients.forEach(item => {
+      //   for (const key in item) {
+      //     if (item[key]) isData = true;
+      //   }
+      // })
+      if (!(this.allSigned || !this.modified)) {
+        this.$confirm('有未保存数据，是否覆盖?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async() => {
+          let { data } = await apis.copyShift(this.record.id)
+          if (data.code === '200') {
+            this.load()
+            this.$message({
+              type: 'success',
+              message: '复制成功!'
+            });
+          } else {
+            this.$message({
+              type: 'error',
+              message: `${data.desc}!`
+            });
+          }
+        })
+      } else {
+        let { data } = await apis.copyShift(this.record.id)
+        if (data.code === '200') {
+          this.load()
+          this.$message({
+            type: 'success',
+            message: '复制成功!'
+          });
+        } else {
+          this.$message({
+            type: 'error',
+            message: `${data.desc}!`
+          });
+        }
+      }
     },
     onTableInputChange({ prop, row }) {
       this.modified = true;

@@ -32,6 +32,11 @@ export function createShiftRecord(
   });
 }
 
+// 复制交班志
+export function copyShift(id) {
+  return axios.get(`${apiPath}changeShiftPatientListJm/copyChangeShiftPatient/${id}`);
+}
+
 // 更新交班志
 // 交班志保存入参：
 // {
