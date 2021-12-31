@@ -1,6 +1,6 @@
 
 /** 
-  佛山市一 - 护理记录单(颈椎病手术治疗)
+  佛山市一 - 护理记录单(颈椎病保守治疗)
 */
 
 /**
@@ -45,7 +45,7 @@ export default [
   { key: 'food', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'armValue4', event: keyf1, value: '', next: '', name: '自定义值4', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'armValue5', event: keyf1, value: '', next: '', name: '自定义值5', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'armValue6', event: keyf1, value: '', next: '', name: '自定义值6', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
