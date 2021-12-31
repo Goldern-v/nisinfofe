@@ -1133,6 +1133,27 @@ export default function Title(
     );
   }
   break;
+  case "surgerycervicalspondylosis_fs": {
+    // 佛山市一 - 护理记录单(颈椎病手术治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/surgerycervicalspondylosis_fs/th").default)
+    );
+  }
+  break;
+  case "cervicalvertebrafracture_fs": {
+    // 佛山市一 - 护理记录单(颈椎骨折手术治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cervicalvertebrafracture_fs/th").default)
+    );
+  }
+  break;
+  case "burndepartment_fs": {
+    // 佛山市一 - 护理记录单(烧伤科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/burndepartment_fs/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
