@@ -36,9 +36,9 @@ export default function(win,printNode) {
         ? row[0].offsetHeight + row[1].offsetHeight
         : row.offsetHeight;
 
-    if (!page || page.offsetHeight + h > 580) {
+    if (!page || page.offsetHeight + h > 620) {
       if (page && row === rest) {
-        while (page.offsetHeight + 30 < 580) {
+        while (page.offsetHeight + 30 < 620) {
           newTableBody.appendChild(emptyRow.cloneNode(true));
         }
       }
@@ -76,7 +76,7 @@ export default function(win,printNode) {
       if (shouldFillRows) {
         const target = newTableBody.children[newTableBody.children.length - 2];
 
-        while (page.offsetHeight + 30 < 580) {
+        while (page.offsetHeight + 30 < 620) {
           newTableBody.insertBefore(emptyRow.cloneNode(true), target);
         }
       }

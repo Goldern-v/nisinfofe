@@ -67,6 +67,7 @@ import nullBg from "../../../../components/null/null-bg";
 import {
   getNurseExchangeInfo,
   getNurseExchangeInfoByTime,
+  getNurseExchangeInfoBatch
 } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -94,6 +95,7 @@ export default {
       // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 */,
       printAllUrl:
         "http://192.167.199.191:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+        // "http://192.168.3.192:8080/#/printAll" /* 医院正式环境内网 */,
       outNetUrl:
         "http://http://219.159.198.37:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
@@ -151,21 +153,6 @@ export default {
             this.currentPage = e.data.value;
             break;
           case "getNurseExchangeInfo" /* 转科转床接口，聊城二院取消，花都保留 */:
-            // const params = {
-            //   patientId: this.$route.query.patientId,
-            //   visitId: this.$route.query.visitId
-            // };
-            // // 发请求
-            // getNurseExchangeInfo(params.patientId, params.visitId).then(res => {
-            //   const value = {
-            //     adtLog: res.data.data.adtLog,
-            //     bedExchangeLog: res.data.data.bedExchangeLog
-            //   };
-            //   this.$refs.pdfCon.contentWindow.postMessage(
-            //     { type: "nurseExchangeInfo", value },
-            //     "*"
-            //   );
-            // });
             const params = {
               patientId: this.$route.query.patientId,
               startLogDateTime: e.data.value.startLogDateTime,
@@ -181,6 +168,25 @@ export default {
                 { type: "nurseExchangeInfo", value },
                 "*"
               );
+            });
+            break;
+            case "getNurseExchangeInfoAll":
+            const paramsAll = {
+              patientId: this.$route.query.patientId,
+              startLogDateTime: e.data.value.startLogDateTime,
+              endLogDateTime: e.data.value.endLogDateTime,
+              visitId: this.$route.query.visitId,
+            };
+            getNurseExchangeInfoBatch(paramsAll).then((res) => {
+              let value = res.data.data.exchangeInfos
+              if(value.length!==0){
+              this.$refs.pdfConAll.contentWindow.postMessage(
+                { type: "nurseExchangeInfoAll", value },
+                "*"
+              );
+              }
+
+              
             });
             break;
           default:
