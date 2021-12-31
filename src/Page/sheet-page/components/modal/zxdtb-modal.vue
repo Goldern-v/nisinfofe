@@ -50,10 +50,12 @@
       </div>
       <div class="table-con">
         <el-table
+          ref="zxdtb-table"
           :data="tableData"
           border
           height="350"
           @selection-change="handleSelectionChange"
+          @select="handleSelect"
         >
           <el-table-column
             type="selection"
@@ -67,7 +69,7 @@
             align="center"
           >
             <template slot-scope="scope">
-              <span>{{ scope.row.recordDate.split(" ")[0] }}</span>
+              <span v-if="(!identicalGroupSelect.includes(HOSPITAL_ID))||scope.row.isFirst">{{ scope.row.recordDate.split(" ")[0] }}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -77,7 +79,7 @@
             align="center"
           >
             <template slot-scope="scope">
-              <span>{{ scope.row.recordDate.split(" ")[1] }}</span>
+              <span v-if="(!identicalGroupSelect.includes(HOSPITAL_ID))||scope.row.isFirst">{{ scope.row.recordDate.split(" ")[1] }}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -207,6 +209,7 @@ export default {
       bus: bus(this),
       formlist: {},
       executeType: this.HOSPITAL_ID==='liaocheng'?"输液":"",
+      identicalGroupSelect:['wujing']
       // allType: [
       //   {
       //     id: "",
@@ -230,7 +233,6 @@ export default {
   methods: {
     open(baseParams) {
       this.formlist = baseParams;
-      // console.log(this.formlist);
       if (!this.patientInfo.patientId && !baseParams.patientId) {
         return this.$message.warning("请选择一名患者");
       }
@@ -357,17 +359,40 @@ export default {
           this.blockId,
           this.HOSPITAL_ID
         ).then((res) => {
-          this.tableData = res.data.data.list;
+          if(this.identicalGroupSelect.includes(this.HOSPITAL_ID)){
+            let responeList = JSON.parse(JSON.stringify(res.data.data.list))
+            // responeList.push({"blockId":83941,"entityId":null,"patientId":"61505022","visitId":"1","desc":"","food":"静脉注射药物名称\b静脉注射","foodSize":"12","barcode":"222","empNo":"","empName":"","recordDate":"2021-09-12 12:12","dosage":"","administration":"","orderText":""})
+            if(responeList.length){
+              responeList.map(item=>{
+                let targetObj = responeList.find(e=>item.barcode==e.barcode)
+                if(item===targetObj){
+                  item.isFirst = true
+                }
+              })
+            }
+            this.tableData = responeList;
+          }else{
+            this.tableData = res.data.data.list;
+          }
         });
       }
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
+    // 同组选中
+    handleSelect(selection, row){
+      if(!this.identicalGroupSelect.includes(this.HOSPITAL_ID))return
+      let isAdd = selection.includes(row)
+      this.tableData.filter(item=>{
+        return item.barcode===row.barcode
+      }).map(item=>{
+      this.$refs['zxdtb-table'].toggleRowSelection(item,isAdd)
+      })
+    }
   },
   computed: {
     patientInfo() {
-      console.log(this.formlist);
       if (this.sheetInfo.selectBlock) {
         return this.sheetInfo.selectBlock;
       }

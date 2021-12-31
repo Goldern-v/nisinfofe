@@ -1172,6 +1172,77 @@ export default {
       }
       return flag;
     },
+    // 除第一行以外到结束行之内其他单元格不能录入内容（威县），出入量统计行除外
+    isDisabed(tr, td, index) {
+      // canModify false可以修改，true禁止修改
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd" &&
+        td &&
+        this.listData[index]
+      ) {
+        return !this.listData[index].canModify;
+      }
+      if (td && td.key == "recordYear") {
+        if (!tr.find((item) => item.key == "recordMonth").value) {
+          td.value = "";
+        }
+        return true;
+      }
+      // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        tr.find((item) => item.key == "status").value === "1"
+      ) {
+        let flag =
+          tr.find((item) => item.key == "status").value === "1" && // 是否已签名
+          this.listData &&
+          this.listData[index] &&
+          !this.listData[index].canModify; // 是否有权限
+        //td存在才判断
+        if (td) {
+          flag =
+            !this.isFirst(tr, index) &&
+            (td.key === "recordMonth" || td.key === "recordHour"); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+        }
+        return flag;
+      }
+      if (
+        this.HOSPITAL_ID != "weixian" ||
+        (td && td.key == "description") ||
+        tr.find((item) => item.key == "recordSource").value == 5
+      ) {
+        return false;
+      }
+      if (
+        tr.find((item) => item.key == "description").value &&
+        !tr.find((item) => item.key == "recordHour").value &&
+        !tr.find((item) => item.key == "recordMonth").value
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isRead(tr) {
+      if (
+        this.HOSPITAL_ID == "huadu" &&
+        sheetInfo.sheetType === "body_temperature_Hd"
+      ) {
+        return false;
+      }
+      let status = tr.find((item) => item.key == "status").value;
+      let empNo = tr.find((item) => item.key == "empNo").value;
+      if (status == 1) {
+        if (empNo == this.empNo || this.isAuditor) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    },
     checkMaxLength(value, length) {
       const regC = /[^ -~]+/g;
       const regE = /\D+/g;
@@ -1195,7 +1266,7 @@ export default {
         console.log(error);
         return false;
       }
-    },
+    }, 
     // 右键菜单
     openContextMenu(e, index, row, cell) {
       $(e.target).parents("tr").addClass("selectedRow");

@@ -1,17 +1,17 @@
 
 /*
-  佛山市一 - 护理记录单(骨科通用护理单)
+  佛山市一 - 护理记录单(颈椎病手术治疗)
 */
 
 /**
  * @description: 开发注意事项:
     1、自定义表头 canSet: true, key: "armValue4"
-    
+    2、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
 */
 
 export default {
     // 科室的名称
-    deptType: "", 
+    deptType: "",
     // style: {
     //   width: "1300px"
     // },
