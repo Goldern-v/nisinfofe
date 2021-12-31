@@ -884,6 +884,16 @@ function switechSheetType(type) {
         schema = require("../config/surgerycervicalspondylosis_fs/tr.js").default;
       }
         break;
+      case "cervicalvertebrafracture_fs": {
+        // 佛山市一 - 护理记录单(颈椎骨折手术治疗)
+        schema = require("../config/cervicalvertebrafracture_fs/tr.js").default;
+      }
+        break;
+      case "burndepartment_fs": {
+        // 佛山市一 - 护理记录单(烧伤科)
+        schema = require("../config/burndepartment_fs/tr.js").default;
+      }
+        break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
