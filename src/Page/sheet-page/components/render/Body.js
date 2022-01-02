@@ -919,6 +919,16 @@ function switechSheetType(type) {
         schema = require("../config/upperdisorders_fs/tr.js").default;
       }
           break;
+      case "upperfractures_fs": {
+        // 佛山市一 - 护理记录单(上肢骨折术后)
+        schema = require("../config/upperfractures_fs/tr.js").default;
+      }
+          break;
+      case "lowerdisorders_fs": {
+        // 佛山市一 - 护理记录单(下肢疾患保守治疗)
+         schema = require("../config/lowerdisorders_fs/tr.js").default;
+      }
+          break;
       case "lowerfracture_fs": {
             // 佛山市一 - 护理记录单(下肢骨折术后)
          schema = require("../config/lowerfracture_fs/tr.js").default;

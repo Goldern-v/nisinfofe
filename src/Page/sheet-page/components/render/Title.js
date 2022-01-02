@@ -1189,10 +1189,24 @@ export default function Title(
     );
   }
   break;
-  case "lowerfracture_fs": {
-    // 佛山市一 - 护理记录单(上肢疾患保守治疗)
+  case "upperfractures_fs": {
+    // 佛山市一 - -护理记录单(上肢骨折术后)
     Th = JSON.parse(
-      JSON.stringify(require("../config/lowerfracture_fs/th").default)
+      JSON.stringify(require("../config/upperfractures_fs/th").default)
+    );
+  }
+  break;
+  case "lowerdisorders_fs": {
+    // 佛山市一 - -护理记录单(下肢疾患保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/lowerdisorders_fs/th").default)
+    );
+  }
+  break;
+  case "lowerfracture_fs": {
+    // 佛山市一 - 护理记录单(下肢骨折术后)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/lowerfracture_fs/th.js").default)
     );
   }
   break;
