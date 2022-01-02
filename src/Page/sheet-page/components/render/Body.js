@@ -894,6 +894,16 @@ function switechSheetType(type) {
         schema = require("../config/burndepartment_fs/tr.js").default;
       }
         break;
+      case "articulatio_fs": {
+          // 佛山市一 - 护理记录单(髋关节置换术后)
+          schema = require("../config/articulatio_fs/tr.js").default;
+      }
+        break;
+      case "genus_fs": {
+          // 佛山市一 - 护理记录单(髋关节置换术后)
+          schema = require("../config/genus_fs/tr.js").default;
+      }
+        break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
