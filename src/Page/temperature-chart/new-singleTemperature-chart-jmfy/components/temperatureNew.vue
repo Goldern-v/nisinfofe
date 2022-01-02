@@ -66,6 +66,7 @@ import nullBg from "../../../../components/null/null-bg";
 import {
   getNurseExchangeInfo,
   getNurseExchangeInfoByTime,
+  getNurseExchangeInfoBatch
 } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -91,8 +92,8 @@ export default {
       intranetUrl:
         // "http://192.168.3.193:8081" /* 医院正式环境内网 导致跨域 */,
         "http://192.168.19.162:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-      // "http://192.168.19.162:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
+        // "http://192.168.3.192:8081/#/printAll" /* 医院正式环境内网 */,
         "http://192.168.19.162:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       outNetUrl:
         "http://218.14.180.38:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
@@ -177,6 +178,25 @@ export default {
                 { type: "nurseExchangeInfo", value },
                 "*"
               );
+            });
+            break;
+             case "getNurseExchangeInfoAll":
+            const paramsAll = {
+              patientId: this.$route.query.patientId,
+              startLogDateTime: e.data.value.startLogDateTime,
+              endLogDateTime: e.data.value.endLogDateTime,
+              visitId: this.$route.query.visitId,
+            };
+            getNurseExchangeInfoBatch(paramsAll).then((res) => {
+              let value = res.data.data.exchangeInfos
+              if(value.length!==0){
+              this.$refs.pdfConAll.contentWindow.postMessage(
+                { type: "nurseExchangeInfoAll", value },
+                "*"
+              );
+              }
+
+              
             });
             break;
           default:
