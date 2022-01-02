@@ -1182,6 +1182,20 @@ export default function Title(
     );
   }
   break;
+  case "upperdisorders_fs": {
+    // 佛山市一 - 护理记录单(上肢疾患保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/upperdisorders_fs/th").default)
+    );
+  }
+  break;
+  case "lowerfracture_fs": {
+    // 佛山市一 - 护理记录单(上肢疾患保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/lowerfracture_fs/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

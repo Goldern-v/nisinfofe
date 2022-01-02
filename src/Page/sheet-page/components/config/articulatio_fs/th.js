@@ -8,7 +8,11 @@
     1、自定义表头 canSet: true, key: "armValue4"
     
 */
+import moment from "moment";
 
+function currYear() {
+  return moment().format('YYYY')
+}
 export default {
   // 科室的名称
   deptType: "", 
@@ -18,8 +22,7 @@ export default {
   th: {
       top: 
           [
-              { "name": "日期", "colspan": "1", "rowspan": "3"}, 
-              { "name": "时间", "colspan": "1", "rowspan": "3"}, 
+              { "name": '',"colspan": "2","rowspan": "1", "key":'recordYear'},
               { "name": "生命体征", "colspan": "5", "rowspan": "1"}, 
               { "name": "入量", "colspan": "2", "rowspan": "1"}, 
               { "name": "出量", "colspan": "2", "rowspan": "1"}, 
@@ -41,6 +44,8 @@ export default {
       , 
       mid:  
           [
+              {"name": "日期", "colspan": "1", "rowspan": "2"}, 
+              {"name": "时间", "colspan": "1", "rowspan": "2"}, 
               {"name": "体温<br/>℃", "colspan": "1", "rowspan": "2"}, 
               {"name": "脉搏<br/>次/<br/>分", "colspan": "1", "rowspan": "2"}, 
               {"name": "呼吸<br/>次/<br/>分", "colspan": "1", "rowspan": "2"}, 

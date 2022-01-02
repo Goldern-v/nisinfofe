@@ -900,7 +900,7 @@ function switechSheetType(type) {
       }
         break;
       case "genus_fs": {
-          // 佛山市一 - 护理记录单(genus_fs)
+          // 佛山市一 - 护理记录单(膝关节置换术)
           schema = require("../config/genus_fs/tr.js").default;
         }
       break;
@@ -912,6 +912,16 @@ function switechSheetType(type) {
       case "generalnursing_fs": {
         // 佛山市一 - 护理记录单(通用护理记录单)
         schema = require("../config/generalnursing_fs/tr.js").default;
+      }
+        break;
+      case "upperdisorders_fs": {
+        // 佛山市一 - 护理记录单(上肢疾患保守治疗)
+        schema = require("../config/upperdisorders_fs/tr.js").default;
+      }
+          break;
+      case "lowerfracture_fs": {
+            // 佛山市一 - 护理记录单(下肢骨折术后)
+         schema = require("../config/lowerfracture_fs/tr.js").default;
       }
         break;
     default: {
