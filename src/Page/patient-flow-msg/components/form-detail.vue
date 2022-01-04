@@ -76,7 +76,7 @@ export default {
         let { documentName } = this.detail
         let commonUrl = this.isDev ? devFormUrl : formUrl;
         // 表单数据
-        let {formId, id, data} = this.master
+        // let {formId, id, data} = this.master
         let queryObj = {
           // ...data,
           // id: formId,
@@ -141,6 +141,9 @@ export default {
       }
       const editParams = { ...this.itemDataMap }
       const saveParams = { ...this.master, patientName: this.master.name }
+      if (this.detail.formCode == 'J0010') {
+        saveParams.evalDate = this.master.createDateTime
+      }
       if (!this.wid.vm) return
       if (Object.keys(codeObj).find(v => v === this.master.formCode) > -1) {
         const arr = codeObj[_this.master.formCode]
