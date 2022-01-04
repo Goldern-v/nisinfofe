@@ -939,9 +939,34 @@ function switechSheetType(type) {
       schema = require("../config/lowerfracture_fs/tr.js").default;
     }
       break;
+    case "kneedisease_fs": {
+      // 佛山市一 - 护理记录单(膝关节疾患)
+      schema = require("../config/kneedisease_fs/tr.js").default;
+    }
+      break;
     case "kneearthroscopy_fs": {
-        // 佛山市一 - 护理记录单(膝关节镜术护理记录单)
+      // 佛山市一 - 护理记录单(膝关节镜术护理记录单)
       schema = require("../config/kneearthroscopy_fs/tr.js").default;
+    }
+      break;
+    case "thoracicdisease_fs": {
+      // 佛山市一 - 护理记录单(胸椎疾病保守治疗)
+      schema = require("../config/thoracicdisease_fs/tr.js").default;
+    }
+      break;
+    case "thoracicvertebrae_fs": {
+      // 佛山市一 - 护理记录单(胸椎疾病手术治疗)
+      schema = require("../config/thoracicvertebrae_fs/tr.js").default;
+    }
+      break;
+    case "lumbardisease_fs": {
+      // 佛山市一 - 护理记录单(腰椎疾病保守治疗)
+      schema = require("../config/lumbardisease_fs/tr.js").default;
+    }
+      break;
+    case "operationlumbar_fs": {
+      // 佛山市一 - 护理记录单(腰椎疾病手术治疗)
+      schema = require("../config/operationlumbar_fs/tr.js").default;
     }
       break;
     default: {
