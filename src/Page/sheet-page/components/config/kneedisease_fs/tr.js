@@ -31,30 +31,38 @@ import {
   click_time
 } from "../keyEvent/date";
 
+let autoComplete1 = ['无','I°','II°','III°']
+let autoComplete2 = ['正常','受限']
+let autoComplete3 = []
+let autoComplete4 = ['高','正常']
+let autoComplete5 = ['√','无']
+let autoComplete6 = ['无','正常','麻木','减弱','消失','受限','不能']
+let autoComplete7 = []
+
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
-  { key: "recordHour", event: event_time, click: click_time, value: ''},
-  { key: 'temperature', event: keyf1, value: '', next: '', name: '体温', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'pulse', event: keyf1, value: '', next: '', name: '脉搏/心率', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'breath', event: keyf1, value: '', next: '', name: '呼吸', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: '', name: '血压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'spo2', event: keyf1, value: '', next: '', name: 'SPO2', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: "recordHour", event: event_time, value: ''},
+  { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'swellingKne', event: keyf1, value: '', next: '', name: '患膝关节肿胀', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'kneeFlexion', event: keyf1, value: '', next: '', name: '患膝关节屈曲', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'kneePainScore', event: keyf1, value: '', next: '', name: '患膝疼痛评分(分)', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'skinTemperature', event: keyf1, value: '', next: '', name: '患膝关节皮温', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'bedImplement', event: keyf1, value: '', next: '', name: '床边备便器', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'fallPrevention', event: keyf1, value: '', next: '', name: '防跌倒教育与评估', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'cllBell', event: keyf1, value: '', next: '', name: '呼叫铃置可及处', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'quadricepsStrength', event: keyf1, value: '', next: '', name: '股四头肌肌力训练', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'kneeRangeMotion', event: keyf1, value: '', next: '', name: '膝关节活动度训练', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'limbDorsalis', event: keyf1, value: '', next: '', name: '患肢足背动脉搏动', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'swellingKne', event: keyf1, value: '', next: '', name: '患膝关节肿胀', autoComplete: { data: autoComplete1 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'kneeFlexion', event: keyf1, value: '', next: '', name: '患膝关节屈曲', autoComplete: { data: autoComplete2 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'kneePainScore', event: keyf1, value: '', next: '分', name: '患膝疼痛评分', autoComplete: { data: autoComplete3 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'skinTemperature', event: keyf1, value: '', next: '', name: '患膝关节皮温', autoComplete: { data: autoComplete4 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'bedImplement', event: keyf1, value: '', next: '', name: '床边备便器', autoComplete: { data: autoComplete5 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'fallPrevention', event: keyf1, value: '', next: '', name: '防跌倒教育与评估', autoComplete: { data: autoComplete5 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'cllBell', event: keyf1, value: '', next: '', name: '呼叫铃置可及处', autoComplete: { data: autoComplete5 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'quadricepsStrength', event: keyf1, value: '', next: '', name: '股四头肌肌力训练', autoComplete: { data: autoComplete5 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'kneeRangeMotion', event: keyf1, value: '', next: '', name: '膝关节活动度训练', autoComplete: { data: autoComplete6 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'limbDorsalis', event: keyf1, value: '', next: '', name: '患肢足背动脉搏动', autoComplete: { data: autoComplete7 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "description", //特殊情况记录
     value: "",

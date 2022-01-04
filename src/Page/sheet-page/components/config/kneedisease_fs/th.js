@@ -12,9 +12,9 @@
 export default {
     // 科室的名称
     deptType: "",
-    // style: {
-    //   width: "1300px"
-    // },
+    style: {
+      width: "1200px"
+    },
     th: {
         top: 
             [
@@ -23,17 +23,17 @@ export default {
                 {"name":"生命体征","colspan":"5","rowspan":"1"},
                 {"name":"入量","colspan":"2","rowspan":"1"},
                 {"name":"出量","colspan":"2","rowspan":"1"},
-                {"name":"患膝关节肿胀","colspan":"1","rowspan":"3"},
-                {"name":"患膝关节屈曲","colspan":"1","rowspan":"3"},
-                {"name":"患膝疼痛评分(分)","colspan":"1","rowspan":"3"},
-                {"name":"患膝关节皮温","colspan":"1","rowspan":"3"},
-                {"name":"床边备便器","colspan":"1","rowspan":"3"},
-                {"name":"防跌倒教育与评估","colspan":"1","rowspan":"3"},
-                {"name":"呼叫铃置可及处","colspan":"1","rowspan":"3"},
-                {"name":"股四头肌肌力训练","colspan":"1","rowspan":"3"},
-                {"name":"膝关节活动度训练","colspan":"1","rowspan":"3"},
-                {"name":"患肢足背动脉搏动","colspan":"1","rowspan":"3"},
-                { "name": "标题1", "colspan": "1", "rowspan": "3", canSet: true, key: "armValue"}, 
+                {"name":"患膝<br/>关节<br/>肿胀","colspan":"1","rowspan":"3"},
+                {"name":"患膝<br/>关节<br/>屈曲","colspan":"1","rowspan":"3"},
+                {"name":"患膝<br/>疼痛<br/>评分<br/>(分)","colspan":"1","rowspan":"3"},
+                {"name":"患膝<br/>关节<br/>皮温","colspan":"1","rowspan":"3"},
+                {"name":"床边<br/>备便<br/>器","colspan":"1","rowspan":"3"},
+                {"name":"防跌<br/>倒教<br/>育与<br/>评估","colspan":"1","rowspan":"3"},
+                {"name":"呼叫<br/>铃置<br/>可及<br/>处","colspan":"1","rowspan":"3"},
+                {"name":"股四<br/>头肌<br/>肌力<br/>训练","colspan":"1","rowspan":"3"},
+                {"name":"膝关<br/>节活<br/>动度<br/>训练","colspan":"1","rowspan":"3"},
+                {"name":"患肢<br/>足背<br/>动脉<br/>搏动","colspan":"1","rowspan":"3"},
+                { "name":"标题1", "colspan": "1", "rowspan": "3", canSet: true, key: "armValue"}, 
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士签名","colspan":"1","rowspan":"3"},
                 {"name":"质控护士","colspan":"1","rowspan":"3"}
@@ -46,6 +46,8 @@ export default {
                 {"name":"呼吸<br/>次/<br/>分","colspan":"1","rowspan":"2"},
                 {"name":"血压<br/>mmHg","colspan":"1","rowspan":"2"},
                 {"name":"SPO2<br/>(%)","colspan":"1","rowspan":"2"},
+                {"name":"内容","colspan":"1","rowspan":"2"},
+                {"name":"量ml","colspan":"1","rowspan":"2"},
                 {"name":"内容","colspan":"1","rowspan":"2"},
                 {"name":"量ml","colspan":"1","rowspan":"2"}
             ]
