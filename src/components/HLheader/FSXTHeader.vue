@@ -48,12 +48,12 @@
               </el-row>
             </router-link>
 
-            <!-- <router-link to="/MEWS" tag="span">
+            <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulirenwu"></i> MEWS
                 <span class="red-tip" v-if="isTip"></span>
               </el-row>
-            </router-link> -->
+            </router-link>
 
             <router-link to="/bed" tag="span">
               <el-row class="nav-item" type="flex" align="middle">

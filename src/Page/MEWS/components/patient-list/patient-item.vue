@@ -7,14 +7,14 @@
     @click="selectPatient"
     :class="{active: active,follow:type=='follow'}"
   >
-    <!-- <span class="block" :style="{background: frameData.iconTextRgb}"></span> -->
-    <img
+    <span class="block" :style="{background: frameData.iconTextRgb}"></span>
+    <!-- <img
       :src="item.bedLabel.includes('_')?imageBoy:imageMan"
       alt
       class="img"
       v-if="item.sex == '男'"
     />
-    <img  :src="item.bedLabel.includes('_')?imageGirl:imageWomen" alt class="img" v-else />
+    <img  :src="item.bedLabel.includes('_')?imageGirl:imageWomen" alt class="img" v-else /> -->
     <div class="name" flex-box="1">
       {{item.name}}
       <span
@@ -23,7 +23,7 @@
       ></span>
     </div>
     <div class="bed">{{item.bedLabel}} 床</div>
-     <span class="block" :style="{background: frameData.iconTextRgb}"></span>
+     <!-- <span class="block" :style="{background: frameData.iconTextRgb}"></span> -->
      <img v-if="type=='follow'" src="../../../../common/images/card/like.png" height="18" width="18" style="margin-left: 3px;" />
   </div>
 </template>
