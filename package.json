@@ -39,6 +39,7 @@
     "analyz": "npm run build --analyz",
     "buildNew": "node build-new/build.js",
     "buildNew:": "npm run buildNew",
+    "buildNew:hj": "npm run buildNew: houjie",
     "buildNew:weixian": "npm run buildNew: weixian",
     "buildNew:lingcheng": "npm run buildNew: lingcheng",
     "buildNew:huadu": "npm run buildNew: huadu",
