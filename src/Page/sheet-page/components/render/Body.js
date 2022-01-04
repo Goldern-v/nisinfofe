@@ -13,6 +13,8 @@ export default function Body(data = [], index) {
   }
   return bodyModel;
 }
+import moment from "moment";
+const nowYear=moment().year()
 
 function Tr(data = {}, i) {
   let schema = switechSheetType(sheetInfo.sheetType);
@@ -42,7 +44,7 @@ function Tr(data = {}, i) {
   mergetTr.push({
     hidden: true,
     key: "yearBreak",
-    value: data.yearBreak
+    value: data.yearBreak==nowYear?`${data.yearBreak}-`:data.yearBreak
   });
   return mergetTr;
 }
