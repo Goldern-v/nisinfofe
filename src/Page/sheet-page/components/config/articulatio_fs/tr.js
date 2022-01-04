@@ -1,6 +1,6 @@
 
 /** 
-  佛山市一 - 护理记录单(颈椎病手术治疗)
+  佛山市一 - 护理记录单(髋关节置换术后)
 */
 
 /**
@@ -35,25 +35,26 @@ export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, click: click_time, value: ''},
-  { key: 'temperature', event: keyf1, value: '', next: '', name: '体温', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pulse', event: keyf1, value: '', next: '', name: '脉搏/心率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'breath', event: keyf1, value: '', next: '', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: '', name: '血压', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue1', event: keyf1, value: '', next: '', name: '自定义值1', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue2', event: keyf1, value: '', next: '', name: '自定义值2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue3', event: keyf1, value: '', next: '', name: '自定义值3', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏/心率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue4', event: keyf1, value: '', next: '', name: '自定义值4', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue5', event: keyf1, value: '', next: '', name: '自定义值5', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue6', event: keyf1, value: '', next: '', name: '自定义值6', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue7', event: keyf1, value: '', next: '', name: '自定义值7', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue8', event: keyf1, value: '', next: '', name: '自定义值8', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue9', event: keyf1, value: '', next: '', name: '自定义值9', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue10', event: keyf1, value: '', next: '', name: '自定义值10', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue11', event: keyf1, value: '', next: '', name: '自定义值11', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'hipPain', event: keyf1, value: '', next: '', name: '患髋疼痛评分', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["无"]}},
+  { key: 'limbSwelling', event: keyf1, value: '', next: '', name: '患肢肿胀', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["无","I°","II°","III°"]} },
+  { key: 'walkingAid', event: keyf1, value: '', next: '', name: '助行器行走', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]} },
+  { key: 'cllBell', event: keyf1, value: '', next: '', name: '呼叫铃置可及处', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]}},
+  { key: 'tumble', event: keyf1, value: '', next: '', name: '防跌倒评估护理', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]}},
+  { key: 'guidedEeducation', event: keyf1, value: '', next: '', name: '引导式教育训练', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]}},
+  { key: 'limbOutreach', event: keyf1, value: '', next: '', name: '患肢外展中立位', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'woundApplication', event: keyf1, value: '', next: '', name: '伤口外敷料', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["干洁","渗血","渗液"]}},
+  { key: 'dislocation', event: keyf1, value: '', next: '', name: '防脱位教育', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]} },
+  { key: 'ankleQuadriceps', event: keyf1, value: '', next: '', name: '踝泵及股四头肌训练', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]}},
+  { key: 'armValue', event: keyf1, value: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   {
     key: "description", //特殊情况记录
     value: "",
