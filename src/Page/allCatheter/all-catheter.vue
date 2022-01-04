@@ -5,7 +5,7 @@
         <div class="head-con" flex>
           <div class="dept-select-con"></div>
         </div>
-        <follow-list :data="data.bedList" @selectPatient="onChangePatient_self" v-if="HOSPITAL_ID=='liaocheng'">
+        <follow-list :data="data.bedList" @selectPatient="onChangePatient_self" v-if="hasFollowList">
           <template  slot-scope="{ scope }">
             <div class="cathter-icon" v-if="scope.catheterIcon">
               {{ scope.catheterIcon }}
@@ -225,6 +225,9 @@ export default {
     },
     fullpage() {
       return this.$store.state.sheet.fullpage;
+    },
+    hasFollowList(){
+      return process.env.hasFollow
     },
   },
   methods: {

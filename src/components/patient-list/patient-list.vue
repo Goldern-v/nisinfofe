@@ -11,7 +11,7 @@
       <follow-list
         :data="sortList"
         @selectPatient="selectPatient"
-        v-if="HOSPITAL_ID == 'liaocheng'"
+        v-if="hasFollowList"
       >
         <template slot-scope="{ scope }">
           <span
@@ -364,6 +364,9 @@ export default {
     },
     flagTop() {
       return `${this.wih * 0.4}px`;
+    },
+    hasFollowList(){
+      return process.env.hasFollow
     },
   },
   watch: {
