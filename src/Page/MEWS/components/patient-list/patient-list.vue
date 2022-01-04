@@ -6,7 +6,7 @@
               v-model="searchWord">
     </el-input>
     <div class="left-wapper">
-        <div class="follow" v-if="HOSPITAL_ID =='liaocheng'">
+        <div class="follow" v-if="hasFollowList">
           <div class="follow-name" @click="openFollow">
             <span
               class="arrow"
@@ -241,7 +241,10 @@ export default {
     },
     flagTop() {
       return `${this.wih * 0.4}px`;
-    }
+    },
+    hasFollowList(){
+      return process.env.hasFollow
+    },
   },
   created() {
     this.getLIstData();
