@@ -54,7 +54,7 @@ export default [
   { key: 'limbSkintemperature', event: keyf1, value: '', next: '', name: '患肢各趾皮温', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete:{data:["暖","凉","高","正常"]} },
   { key: 'cllBell', event: keyf1, value: '', next: '', name: '呼叫铃置可及处', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]} },
   { key: 'gripBallTraining', event: keyf1, value: '', next: '', name: '握力球训练', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6)},
-  { key: '', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'armValue', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   {
     key: "description", //特殊情况记录
     value: "",
