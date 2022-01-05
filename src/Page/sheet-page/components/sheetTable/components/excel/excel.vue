@@ -1266,7 +1266,7 @@ export default {
         console.log(error);
         return false;
       }
-    },
+    }, 
     // 右键菜单
     openContextMenu(e, index, row, cell) {
       $(e.target).parents("tr").addClass("selectedRow");

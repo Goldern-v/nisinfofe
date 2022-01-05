@@ -166,27 +166,7 @@
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
-          <el-table-column
-            prop="stoolNum"
-            label="大便次数"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.stoolNum"
-                :class="className"
-                class="stoolNum"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.stoolNum" class="stoolNum" /> -->
-              <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
-            </template>
-          </el-table-column>
+          
           <el-table-column
             prop="urinate"
             label="小便次数"
@@ -204,6 +184,27 @@
                 v-on:input="validFormFc"
                 @click="toRow"
               />
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="80"
+            align="center"
+           >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.stoolNum"
+                :class="className"
+                class="stoolNum"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.stoolNum" class="stoolNum" /> -->
+              <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column

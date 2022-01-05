@@ -12,7 +12,7 @@
       ></el-input>
     </div>
     <div class="left-wapper">
-     <follow-list :data="sortList" @selectPatient="selectPatient" v-if="HOSPITAL_ID=='liaocheng'">
+     <follow-list :data="sortList" @selectPatient="selectPatient" v-if="hasFollowList">
        <template  slot-scope="{ scope }">
          <span
             class="point-box"
@@ -340,6 +340,9 @@ export default {
         visitId,
       });
       if (p) {
+        if(currentPatient){
+          p = {...currentPatient,...p}
+        }
         this.selectPatient(p);
       }
       console.log(
@@ -429,6 +432,9 @@ export default {
     },
     flagTop() {
       return `${this.wih * 0.4}px`;
+    },
+    hasFollowList(){
+      return process.env.hasFollow
     },
   },
   watch: {

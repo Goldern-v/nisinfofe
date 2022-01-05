@@ -31,7 +31,7 @@
             />
             <whiteButton text icon="icon-search"></whiteButton>
           </div>
-          <div class="list-con" v-if="selectedType=='特殊符号'">
+          <div class="list-con" v-if="selectedType=='特殊符号'" :style="listconHeight">
             <ul class="specific_symbol">
               <li
                 v-for="item in specificSymbol"
@@ -40,7 +40,7 @@
               >{{item}}</li>
             </ul>
           </div>
-          <div class="list-con" v-else>
+          <div class="list-con" v-else :style="listconHeight">
             <div v-for="(item, key) in filterData" :key="key">
               <templateItem :data="item" :key="item.id"></templateItem>
             </div>
@@ -116,7 +116,6 @@
 
 .search-con {
   margin: 10px 20px;
-
   .search-input {
     background: #FFFFFF;
     border: 1px solid #C2CBD2;
@@ -133,7 +132,6 @@
 .list-con {
   height: calc(100vh - 145px);
   overflow: auto;
-
   .specific_symbol {
     padding-left: 20px;
 
@@ -376,6 +374,13 @@ export default {
         flag=true
       }
       return flag
+    },
+    listconHeight(){
+      let str=""
+      if(this.HOSPITAL_ID==='liaocheng' || this.HOSPITAL_ID==='wujing'){
+         str='height: calc(100vh - 191px)'
+      }
+      return str
     }
   },
   methods: {

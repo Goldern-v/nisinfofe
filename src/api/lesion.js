@@ -106,4 +106,5 @@ export {
   syncGetNurseBedRecQuzhou,
   syncGetNurseBedRecHengli,
   syncGetNurseBedRecJiangMenFY,
+  syncGetNurseBedRecJiangMenFSSY
 }

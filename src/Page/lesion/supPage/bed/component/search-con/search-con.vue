@@ -592,15 +592,11 @@ export default {
         },
       ];
       if (
-        this.HOSPITAL_ID == "zhongshanqi" ||
-        this.HOSPITAL_ID == "liaocheng" ||
-        this.HOSPITAL_ID == "beihairenyi" ||
-        this.HOSPITAL_ID == "fuyou" || 
-        this.HOSPITAL_ID == "huadu" ||
-        this.HOSPITAL_ID == "foshanrenyi" ||
-        this.HOSPITAL_ID == "fuyou" ||
-        this.HOSPITAL_ID == "huadu" || 
-        this.HOSPITAL_ID == "whyx"
+          [
+            "zhongshanqi", "liaocheng",  "beihairenyi",
+            "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
+            "huadu",  "whyx", "fsxt", "sdlj",
+          ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
           name: "我的关注",
@@ -640,7 +636,8 @@ export default {
         'shannan', 
         'quzhou', 
         'fuyou',
-        "foshanrenyi"
+        "foshanrenyi",
+        "fsxt"
         ].includes(
         this.HOSPITAL_ID
       );

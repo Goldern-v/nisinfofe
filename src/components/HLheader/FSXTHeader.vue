@@ -48,12 +48,12 @@
               </el-row>
             </router-link>
 
-            <!-- <router-link to="/MEWS" tag="span">
+            <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulirenwu"></i> MEWS
                 <span class="red-tip" v-if="isTip"></span>
               </el-row>
-            </router-link> -->
+            </router-link>
 
             <router-link to="/bed" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -224,20 +224,49 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link> -->
-
-            <router-link to="/implementationList" tag="span">
+            <el-dropdown
+              menu-align="start"
+              :hide-on-click="false"
+              :class="{ 'router-link-active': isImplementationList }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>执行单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
+                >
+                  <router-link to="/bottleLabelByProgram" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="wardReport"></i>执行瓶签打印
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/implementationList' }"
+                >
+                  <router-link to="/implementationList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="catheterPage"></i>执行记录
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            <!-- <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
-            </router-link>
+            </router-link> -->
             <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理巡视
               </el-row>
             </router-link>
-            <!-- <router-link to="/badEvent" tag="span">
+            <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
-            </router-link>-->
+            </router-link>
 
             <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
               <el-row class="nav-item" type="flex" align="middle">
@@ -843,6 +872,9 @@ export default {
       if (this.$route.path == "/workloadSatistics") return true;
       if (this.$route.path == "/rationalDoseStatistics") return true;
       if (this.$route.path == "/nursingGradeStatistics") return true;
+    },
+    isImplementationList(){
+      if(this.$route.path.indexOf("/implementationList") > -1||this.$route.path.indexOf("/bottleLabelByProgram") > -1) return true
     },
     isActiveFormPage() {
       // if (this.$route.path == "/sheetPage") return true;

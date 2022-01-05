@@ -26,7 +26,7 @@
           clearable
         />
         <div class="times">
-          <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
+          <el-radio-group v-model="query.entryTime" @click="changeEntryTime">
             <el-radio
               size="mini"
               v-for="item in timesOdd"
@@ -45,7 +45,7 @@
             :class="
               [
                 'recordList',
-                dateTime.match(`${query.entryDate}  ${query.entryTime}`)
+                dateTime.match(`${query.entryDate}  ${query.recordStr}`)
                   ? 'active'
                   : '',
               ].join(' ')
@@ -356,6 +356,27 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
+      recordStr:(() => {
+          if (this.getHours() >= 0 && this.getHours() <= 5) {
+            return "03:00:00";
+          }
+          if (this.getHours() > 5 && this.getHours() <= 9) {
+            return "07:00:00";
+          }
+          if (this.getHours() > 9 && this.getHours() <= 13) {
+            return "11:00:00";
+          }
+          if (this.getHours() > 13 && this.getHours() <= 17) {
+            return "15:00:00";
+          }
+          if (this.getHours() > 17 && this.getHours() <= 21) {
+            return "19:00:00";
+          }
+          if (this.getHours() > 21 && this.getHours() <= 23) {
+            return "23:00:00";
+          }
+          //录入时间
+        })(), //录入时间,//记录时间，用来保存录入记录的时间
         entryTime: (() => {
           if (this.getHours() >= 0 && this.getHours() <= 5) {
             return "03";
@@ -385,19 +406,7 @@ export default {
       isCorrect: false,
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
-      // vitalSignList: [], // 固定项目列表
-      // topContextList: [
-      //   "",
-      //   "入院",
-      //   "转入",
-      //   "手术",
-      //   "分娩",
-      //   "出院",
-      //   "出生",
-      //   "手术入院",
-      //   "死亡",
-      // ],
-      // bottomContextList: ["", "不升"],
+      nomalTimeStr:['03:00:00','07:00:00','11:00:00','15:00:00','19:00:00','23:00:00'],//存在出入院记录不是模糊时间点（03，07，09）这种，所以做一个标准时间去判断
       timesOdd: [
         {
           id: 0,
@@ -468,36 +477,38 @@ export default {
     modifiValue(e) {
       let val = e.target.value;
     },
+formatTimeVal(x){
+ let val =Number(x)
+ let time;
+             if(val>0&&val<=5){
+                time='03'
+             }
+             if(val>5&&val<=9){
+              time= '07'
+             }
+             if(val>9&&val<=13){
+               time='11'
+             }
+            
+             if( val>13&&val<=17){
+               time='15'
 
+             }
+             if( val>17&&val<=21){
+               time='19'
+             }
+             if(val>21&&val<=23){
+               time='23'
+
+             }
+               return time
+      },
     init() {
       let obj = {};
       if (!this.multiDictList) return;
       /* 根据字典项构造一个对象(键为生命体征的中文名，值为对应的对象)：{"体温":{}} */
       for (let key in this.multiDictList) {
         obj[this.multiDictList[key]] = {
-          // bedLabel: "",
-          // classCode: "",
-          // createDateTime: "",
-          // expand1: "",
-          // expand2: "",
-          // expand3: "",
-          // // id: {
-          // //   patientId: "",
-          // //   recordDate: "",
-          // //   visitId: "",
-          // //   vitalSigns: "",
-          // //   wardCode: ""
-          // // },
-          // nurse: "",
-          // patientId: this.patientInfo.patientId,
-          // recordDate: "",
-          // source: "",
-          // units: "",
-          // visitId: this.patientInfo.visitId,
-          // vitalCode: this.multiDictList[key],
-          // vitalSigns: key,
-          // vitalValue: "",
-          // wardCode: this.patientInfo.wardCode
           createDateTime: "",
           patientId: this.patientInfo.patientId,
           visitId: this.patientInfo.visitId,
@@ -624,13 +635,17 @@ export default {
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
+            this.tabsData.push(item.recordDate);
+            //记录数组去重
+            this.tabsData=[...new Set(this.tabsData)]
           if (
-            item.vitalSignList[0].id.recordDate !==
+            item.vitalSignList[0].id.recordDate ===
               item.vitalSignList[0].expand2 &&
-            item.vitalSignList[0].vitalSign !== "表顶注释"
+            item.vitalSignList[0].vitalSign === "表顶注释"
           ) {
             //同步出入院插入一条表顶，会生成一个录入记录，这里用录入记录只存在一条表顶，录入时间=生成记录时间去除
-            this.tabsData.push(item.recordDate);
+            //返回的表顶值，先做数据切割然后才能对应option值
+             item.vitalSignList[0].vitalValue=item.vitalSignList[0].expand1
           }
         });
       });
@@ -664,12 +679,15 @@ export default {
     /* 选择固定时间点 */
     changeEntryTime(val) {
       this.query.entryTime = val;
+      this.query.recordStr=val+':00:00'
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
       let temp = value;
+      this.query.recordStr=temp.slice(12, 20);
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 14);
+      this.query.entryTime = temp.slice(12, 14);
+      
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -691,7 +709,7 @@ export default {
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.nomalTimeStr.includes(this.query.recordStr)?this.query.entryTime + ":00:00":this.query.recordStr,
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
@@ -820,7 +838,7 @@ export default {
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.nomalTimeStr.includes(this.query.recordStr)?this.query.entryTime + ":00:00":this.query.recordStr,
         vitalSignList: obj,
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,

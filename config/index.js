@@ -4,7 +4,7 @@ var chalk = require("chalk");
 var envAll = require("./env.all");
 var merge = require("webpack-merge");
 // crNursing  argv
-var _origin = JSON.parse(process.env.npm_config_argv).original;
+var _origin = process.env.npm_config_argv ? JSON.parse(process.env.npm_config_argv).original : '';
 const _hospitalName = _origin[2];
 
 let prodEnv;
@@ -83,10 +83,11 @@ const currentTargetUrl = (() => {
 
     /** 江门妇幼 */
     case "fuyou":
-      return "http://218.14.180.38:9094" // 江门妇幼正式
+      // return "http://218.14.180.38:9094" // 江门妇幼正式
       // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
       // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
-      // return "http://192.168.20.223:8080" // 初升本地
+      return "http://192.168.20.82:8080" // 本地
+
 
     /** 中山七 */
     case "zhongshanqi":
@@ -96,10 +97,10 @@ const currentTargetUrl = (() => {
     /** 东莞横沥 */
     case "hengli":
       // return "http://183.63.206.194:9091" // 东莞横沥正式
-      // return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
+      return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
       // return "http://192.168.20.138:8080" // 伟彬本地
       // return "http://192.168.20.250:8080" // 初升本地
-      return "http://192.168.20.93:8062"
+      // return "http://192.168.20.93:8062"
 
     /** 南方中西医 */
     case "nanfangzhongxiyi":
@@ -125,8 +126,8 @@ const currentTargetUrl = (() => {
 
     /** 武警广东省总队医院 */
     case "wujing":
-      return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
-      // return "http://192.168.1.54:9866" // 公司-武警广东省总队医院测试-内网
+      // return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
+      return "http://192.168.1.54:9866" // 公司-武警广东省总队医院测试-内网
 
     /** 曲周医院 */
     case 'quzhou':
@@ -134,10 +135,9 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9879" // 内网测试
 
     case 'xiegang':
+      return "http://183.234.1.124:9093" // 谢岗正式
       // return "http://192.168.1.54:9882" // 测试地址-内网地址
       // return "http://192.168.20.223:8080" // 初升本地
-      return 'http://183.234.1.124:9092/'  //谢岗正式
-
     // 北海人医
     case 'beihairenyi':
       // return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
@@ -147,8 +147,9 @@ const currentTargetUrl = (() => {
 
     // 佛山市医
      case 'foshanrenyi':
-      return "http://219.159.198.37:9094"  // 正式地址
-      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://219.159.198.37:9094"  // 正式地址
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+
     // 佛山杏坛
       // return "http://219.159.198.37:9094"  // 正式地址
       // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
@@ -171,7 +172,7 @@ const currentTargetUrl = (() => {
     case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
       return "http://192.168.1.54:9875" // 武汉肺科
     case 'sdlj':  //顺德龙江  
-      return "http://192.168.1.54:9871" // 顺德龙江 
+      return "http://192.168.1.54:9871" // 顺德龙江 内防访问地址192.168.1.54:9887
 
     /** 默认公司本地内网厚街测试环境 */
     default:

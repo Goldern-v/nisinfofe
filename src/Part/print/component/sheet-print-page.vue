@@ -246,7 +246,6 @@ export default {
         "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
         "safemetachysis_jm",//江门妇幼_输血护理记录单
 
-        "cardiology_fs",//佛山市一_心内科通用护理记录单
       ]
     };
   },
@@ -411,14 +410,14 @@ export default {
         `
       );
     }
-    if (
-      (this.HOSPITAL_ID === "foshanrenyi") &&
-      this.multiSignArr.includes(this.sheetInfo.sheetType)
-    ) {
+    if (this.HOSPITAL_ID === "foshanrenyi") {
       addCSS(
         window,
         `
           #sheetPagePrint#sheetPagePrint th[dataname='质控护士签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='质控护士']{
             display:none !important;
           }
           #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签名']{

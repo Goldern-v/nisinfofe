@@ -123,7 +123,8 @@ export default {
       if (data.bedLabel) {
         obj.bedLabel = data.bedLabel;
       }
-      if (data.admissionDate[0]) {
+      if(!['beihairenyi'].includes(this.HOSPITAL_ID)){
+          if (data.admissionDate[0]) {
         obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(
           "yyyy-MM-dd"
         );
@@ -143,6 +144,30 @@ export default {
           "yyyy-MM-dd"
         );
       }
+      }else{
+           if (data.admissionDate[0]) {
+        obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(
+          "yyyy-MM-dd hh:mm"
+        );
+      }
+      if (data.admissionDate[1]) {
+        obj.admissionDateEnd = new Date(data.admissionDate[1]).Format(
+          "yyyy-MM-dd hh:mm"
+        );
+      }
+      if (data.dischargeDate[0]) {
+        obj.dischargeDateBegin = new Date(data.dischargeDate[0]).Format(
+          "yyyy-MM-dd hh:mm"
+        );
+      }
+      if (data.dischargeDate[1]) {
+        obj.dischargeDateEnd = new Date(data.dischargeDate[1]).Format(
+          "yyyy-MM-dd hh:mm"
+        );
+      }
+      }
+      
+     
       if (data.status == 1) {
         obj.dischargeDateBegin = "";
         obj.dischargeDateEnd = "";

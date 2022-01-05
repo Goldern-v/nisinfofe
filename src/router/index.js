@@ -115,6 +115,9 @@ const sheetHospitalAdmission = () =>
 const sheetHospitalAdmissionPage = () =>
   import("@/Page/sheet-hospital-admission/components/pages/page.vue"); // 入院评估
 
+const admissionHisView = () =>
+  import("@/Page/admissionHisView/admissionHisView.vue"); // 入院评估预览界面
+  
 const formPage = () => import("@/Page/form-page/form-page"); //  护理文书
 const evalFormPage = () => import("@/Page/eval-form-page/form-page");
 const MEWS = () => import("@/Page/MEWS/MEWS.vue");
@@ -392,6 +395,11 @@ const router = new Router({
     component: nursingPreview
   },
   {
+    path:"/admissionHisView/:patientId?/:visitId?/:formId?",
+      name: "admissionHisView",
+      component:admissionHisView
+  },
+  {
     path: "/main",
     component: main,
     children: [
@@ -534,7 +542,7 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -559,7 +567,7 @@ const router = new Router({
                 return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
-              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx':
+              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
@@ -799,7 +807,7 @@ const router = new Router({
           // component: catheter,
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
-              case 'liaocheng' || 'whyx':
+              case 'liaocheng' || 'whyx' || 'sdlj':
                 return allCatheter
               default:
                 return catheter
@@ -900,6 +908,7 @@ const router = new Router({
               return implementationListZhongshanqi
             case 'wujing':
             case 'foshanrenyi':
+            case 'fsxt':
               return implementationListWujing
             case 'quzhou':
               return implementationListQuzhou

@@ -4,7 +4,7 @@ var chalk = require("chalk");
 var envAll = require("./env.all");
 var merge = require("webpack-merge");
 // crNursing  argv
-var _origin = JSON.parse(process.env.npm_config_argv).original;
+var _origin = process.env.npm_config_argv ? JSON.parse(process.env.npm_config_argv).original : '';
 const _hospitalName = _origin[2];
 
 let prodEnv;

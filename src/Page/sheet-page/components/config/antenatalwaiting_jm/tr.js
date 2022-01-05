@@ -93,6 +93,16 @@ export default [
     }
   },
   {
+    key: "bloodSugar", //血糖
+    value: "",
+    event: keyf1,
+    name: "血糖",
+    next:"mol/L",
+    textarea: {
+      width: 32
+    }
+  },
+  {
     key: "preInputOne", //胎方位
     value: "",
     event: keyf1,

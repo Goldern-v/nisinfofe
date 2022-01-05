@@ -150,9 +150,15 @@ export default {
             this.$refs.bedRecord.toggleRowSelection(item,item.selected)
           })  
         })
-        this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
-        this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
-        this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
+        if(this.HOSPITAL_ID == 'huadu'){
+          this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
+          this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
+          this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
+        }else{
+          this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelOld : ""
+          this.secondBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
+          this.thirdBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
+        }
         if(this.multipleSelection[2]) {
           this.bedLabel = this.firstBedRecord+"->"+this.secondBedRecord+"->"+this.thirdBedRecord
         }else if(this.multipleSelection[1]) {
@@ -167,9 +173,16 @@ export default {
       this.multipleSelection = val.sort((a,b)=>{
         return a.index - b.index
       });
-      this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
-      this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
-      this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
+      if(this.HOSPITAL_ID == 'huadu'){
+        this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
+        this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
+        this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
+      }else{
+        this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelOld : ""
+        this.secondBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
+        this.thirdBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
+      }
+      
       if(this.multipleSelection[2]) {
         this.bedLabel = this.firstBedRecord+"->"+this.secondBedRecord+"->"+this.thirdBedRecord
       }else if(this.multipleSelection[1]) {

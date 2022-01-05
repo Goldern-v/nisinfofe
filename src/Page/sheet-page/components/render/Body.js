@@ -13,6 +13,8 @@ export default function Body(data = [], index) {
   }
   return bodyModel;
 }
+import moment from "moment";
+const nowYear=moment().year()
 
 function Tr(data = {}, i) {
   let schema = switechSheetType(sheetInfo.sheetType);
@@ -42,7 +44,7 @@ function Tr(data = {}, i) {
   mergetTr.push({
     hidden: true,
     key: "yearBreak",
-    value: data.yearBreak
+    value: data.yearBreak==nowYear?`${data.yearBreak}-`:data.yearBreak
   });
   return mergetTr;
 }
@@ -867,6 +869,131 @@ function switechSheetType(type) {
     case "iabp_fs": {
       // 佛山市一 - IABP护理记录单
       schema = require("../config/iabp_fs/tr.js").default;
+    }
+      break;
+    case "orthopaedic_fs": {
+      // 佛山市一 - 护理记录单(骨科通用护理单)
+      schema = require("../config/orthopaedic_fs/tr.js").default;
+    }
+      break;
+    case "cervicalspine_fs": {
+      // 佛山市一 - 护理记录单(颈椎病保守治疗)
+      schema = require("../config/cervicalspine_fs/tr.js").default;
+    }
+      break;
+    case "cervicalspondylosis_fs": {
+      // 佛山市一 - 护理记录单(颈椎病手术治疗)
+      schema = require("../config/cervicalspondylosis_fs/tr.js").default;
+    }
+      break;
+    case "cervicalfracture_fs": {
+      // 佛山市一 - 护理记录单(颈椎骨折手术治疗)
+      schema = require("../config/cervicalfracture_fs/tr.js").default;
+    }
+      break;
+    case "burndepartment_fs": {
+      // 佛山市一 - 护理记录单(烧伤科)
+      schema = require("../config/burndepartment_fs/tr.js").default;
+    }
+      break;
+    case "articulatio_fs": {
+      // 佛山市一 - 护理记录单(髋关节置换术后)
+      schema = require("../config/articulatio_fs/tr.js").default;
+    }
+      break;
+    case "genus_fs": {
+      // 佛山市一 - 护理记录单(膝关节置换术)
+      schema = require("../config/genus_fs/tr.js").default;
+    }
+      break;
+    case "handsfeet_fs": {
+      // 佛山市一 - 护理记录单(手足科)
+      schema = require("../config/handsfeet_fs/tr.js").default;
+    }
+      break;      
+    case "generalnursing_fs": {
+      // 佛山市一 - 护理记录单(通用护理记录单)
+      schema = require("../config/generalnursing_fs/tr.js").default;
+    }
+      break;
+      case "upperdisorders_fs": {
+        // 佛山市一 - 护理记录单(上肢疾患保守治疗)
+        schema = require("../config/upperdisorders_fs/tr.js").default;
+      }
+          break;
+      case "upperfractures_fs": {
+        // 佛山市一 - 护理记录单(上肢骨折术后)
+        schema = require("../config/upperfractures_fs/tr.js").default;
+      }
+          break;
+      case "lowerdisorders_fs": {
+         // 佛山市一 - 护理记录单(下肢疾患保守治疗)
+         schema = require("../config/lowerdisorders_fs/tr.js").default;
+      }
+          break;
+      case "lowerfracture_fs": {
+         // 佛山市一 - 护理记录单(下肢骨折术后)
+         schema = require("../config/lowerfracture_fs/tr.js").default;
+      }
+        break;
+      case "resection_fs": {
+          // 佛山市一 - 护理记录单(肿物切除术)
+         schema = require("../config/resection_fs/tr.js").default;
+      }
+      break;
+      case "upperremoved_fs": {
+         // 佛山市一 - 护理记录单(上肢内固定物拆除)
+         schema = require("../config/upperremoved_fs/tr.js").default;
+      }
+      break;
+      case "lowerremoved_fs": {
+         // 佛山市一 - 护理记录单(下肢内固定物拆除)
+         schema = require("../config/lowerremoved_fs/tr.js").default;
+      }
+      break;
+      case "osteoporotic_fs": {
+        // 佛山市一 - 护理记录单(骨质疏松保守与手术治疗)
+        schema = require("../config/osteoporotic_fs/tr.js").default;
+      }
+      break;
+      case "hipdisorders_fs": {
+        // 佛山市一 - 护理记录单(髋部疾患保守治疗)
+        schema = require("../config/hipdisorders_fs/tr.js").default;
+      }
+      break;
+      case "criticallyill_fs": {
+        // 佛山市一 - 护理记录单(危重患者护理记录单)
+        schema = require("../config/criticallyill_fs/tr.js").default;
+      }
+      break;
+    case "kneedisease_fs": {
+      // 佛山市一 - 护理记录单(膝关节疾患)
+      schema = require("../config/kneedisease_fs/tr.js").default;
+    }
+      break;
+    case "kneearthroscopy_fs": {
+      // 佛山市一 - 护理记录单(膝关节镜术护理记录单)
+      schema = require("../config/kneearthroscopy_fs/tr.js").default;
+    }
+      break;
+    case "thoracicdisease_fs": {
+      // 佛山市一 - 护理记录单(胸椎疾病保守治疗)
+      schema = require("../config/thoracicdisease_fs/tr.js").default;
+    }
+      break;
+    case "thoracicvertebrae_fs": {
+      // 佛山市一 - 护理记录单(胸椎疾病手术治疗)
+      schema = require("../config/thoracicvertebrae_fs/tr.js").default;
+    }
+      break;
+    case "lumbardisease_fs": {
+      // 佛山市一 - 护理记录单(腰椎疾病保守治疗)
+      schema = require("../config/lumbardisease_fs/tr.js").default;
+    }
+      break;
+    case "operationlumbar_fs": {
+      // 佛山市一 - 护理记录单(腰椎疾病手术治疗)
+      schema = require("../config/operationlumbar_fs/tr.js").default;
     }
       break;
     default: {

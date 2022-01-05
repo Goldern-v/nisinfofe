@@ -39,7 +39,7 @@
         <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
       </div>
     </span>
-    <span v-show="showUserName&&!pw">
+    <span>
       <p for class="name-title">输入用户名或者工号</p>
       <div action class="sign-input" ref="userInput">
         <el-input
@@ -68,9 +68,10 @@
       <div ref="passwordInput">
         <el-input
           size="small"
-          type="password"
+          type="text"
           :placeholder="placeholder"
           v-model="password"
+          class="passwordInput"
         ></el-input>
       </div>
     </span>
@@ -136,6 +137,9 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.passwordInput {
+  -webkit-text-security: disc;
+}
 .name-title {
   font-size: 14px;
   margin: 5px 0 10px;
