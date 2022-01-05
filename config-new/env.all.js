@@ -74,7 +74,8 @@ module.exports = {
     HOSPITAL_NAME_SPACE: '"聊 城 市 第 二 人 民 医 院"',
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
     ABOUT_INFO: '"关于宸瑞普惠"',
-    title: '"智慧护理信息系统"'
+    title: '"智慧护理信息系统"',
+    hasFollow:true
   },
   "guizhou": {
     HOSPITAL_ID: '"guizhou"',
@@ -144,7 +145,8 @@ module.exports = {
     HOSPITAL_NAME_SPACE: '"南 方 医 科 大 学 顺 德 医 院 附 属 杏 坛 医 院"',
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
     ABOUT_INFO: '"关于宸瑞普惠"',
-    title: '"智慧护理信息系统"'
+    title: '"智慧护理信息系统"',
+    hasFollow:true
   },
   whyx: {
     HOSPITAL_ID: '"whyx"',
