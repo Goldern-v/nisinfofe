@@ -174,6 +174,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.obj,'this.obj',this.$root.$refs[this.formCode][this.obj.name])
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     if (!this.$root.$refs[this.formCode]) {
       this.$root.$refs[this.formCode] = new Array();
@@ -237,6 +238,9 @@ export default {
     // }
   },
   created() {
+    if(this.obj.name == "I385031" && (this.formObj.model.I385031 == '' || this.formObj.model.I385031 == null)){
+      this.formObj.model.I385031 = '_'
+    }
     let refName = this.obj.name + "";
     // console.log(
     //   "created:refName",
@@ -384,15 +388,27 @@ export default {
                   this.formObj.model[r.weight] ||
                   0;
               }
-              let result = weight / Math.pow(height / 100, 2).toFixed(2);
-              result = isNaN(Number(result)) || !isFinite(result) ? 0 : result;
+              let result = '';
+              console.log(isNaN(Number(weight)) && isNaN(Number(weight)))
+              if(isNaN(Number(weight)) && isNaN(Number(weight)) ){
+                console.log(this.formObj.model[r.result])
+                result = this.formObj.model[r.result]
+                this.$root.$refs[this.formCode][r.result].setCurrentValue(
+                result
+                );
+                this.formObj.model[r.result] = result
+                }else{
+                result = weight / Math.pow(height / 100, 2).toFixed(2);
+                result = isNaN(Number(result)) || !isFinite(result) ? 0 : result;
+                this.$root.$refs[this.formCode][r.result].setCurrentValue(
+                result ? result.toFixed(2) : ""
+                );
+                this.formObj.model[r.result] = result ? result.toFixed(2) : "";
+              }
               // if(this.obj.name==='I100011'){
               //   console.log('!!!!计算BMI',this.obj.title,this.obj,r,height,weight,result)
               // }
-              this.$root.$refs[this.formCode][r.result].setCurrentValue(
-                result ? result.toFixed(2) : ""
-              );
-              this.formObj.model[r.result] = result ? result.toFixed(2) : "";
+              
             }
           }
 
