@@ -1,6 +1,6 @@
 
 /** 
-  佛山市一 - 护理记录单(上肢疾患保守治疗)
+  佛山市一 - 护理记录单(肿物切除术)
 */
 
 /**
@@ -44,17 +44,17 @@ export default [
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'hipPain', event: keyf1, value: '', next: '', name: '患髋疼痛评分', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'limbSwelling', event: keyf1, value: '', next: '', name: '患肢肿胀', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["无","I°","II°","III°"]} },
-  { key: 'woundApplication', event: keyf1, value: '', next: '', name: '伤口外敷料', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),  autoComplete:{data:["干洁","渗血","渗液"]}  },
-  { key: 'limbRaised', event: keyf1, value: '', next: '', name: '患肢抬高', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete:{data:["暖","凉","高","正常"]}},
-  { key: 'limbFeeling', event: keyf1, value: '', next: '', name: '患肢各趾感觉', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["麻木","正常","无"]}},
-  { key: 'limbActivity', event: keyf1, value: '', next: '', name: '患肢各趾活动', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["受限","自如","不能"]}},
-  { key: 'limbNailbed', event: keyf1, value: '', next: '', name: '患肢各趾甲床', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete:{data:["红润","瘀紫","苍白"]}},
-  { key: 'limbSkintemperature', event: keyf1, value: '', next: '', name: '患肢各趾皮温', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete:{data:["暖","凉","高","正常"]} },
-  { key: 'cllBell', event: keyf1, value: '', next: '', name: '呼叫铃置可及处', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]} },
-  { key: 'gripBallTraining', event: keyf1, value: '', next: '', name: '握力球训练', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6)},
-  { key: '', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'massTenderness', event: keyf1, value: '', next: '', name: '肿物压痛', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]} },
+  { key: 'massCharacter', event: keyf1, value: '', next: '', name: '肿物质地', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["软","实"]}},
+  { key: 'limbSkintemperature', event: keyf1, value: '', next: '', name: '防跌倒教育评估', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]}  },
+  { key: 'limbNailbed', event: keyf1, value: '', next: '', name: '肿物周围红肿', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]} },
+  { key: 'limbPain', event: keyf1, value: '', next: '', name: '呼叫铃置可及处', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]}  },
+  { key: 'woundApplication', event: keyf1, value: '', next: '', name: '伤口外敷料', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),  autoComplete:{data:["干洁","渗血","渗液"]} },
+  { key: 'plasterCast', event: keyf1, value: '', next: '', name: '伤口疼痛评分', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'woundApplication', event: keyf1, value: '', next: '', name: '伤口引流管', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete:{data:["通畅","阻塞","√","无","有"]} },
+  { key: 'cllBell', event: keyf1, value: '', next: '', name: '伤口引流液颜色', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["暗红","淡红","鲜红"]} },
+  { key: '', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },//自定义
+  { key: '', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },//自定义
   {
     key: "description", //特殊情况记录
     value: "",

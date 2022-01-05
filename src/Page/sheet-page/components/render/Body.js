@@ -925,15 +925,30 @@ function switechSheetType(type) {
       }
           break;
       case "lowerdisorders_fs": {
-        // 佛山市一 - 护理记录单(下肢疾患保守治疗)
+         // 佛山市一 - 护理记录单(下肢疾患保守治疗)
          schema = require("../config/lowerdisorders_fs/tr.js").default;
       }
           break;
       case "lowerfracture_fs": {
-            // 佛山市一 - 护理记录单(下肢骨折术后)
+         // 佛山市一 - 护理记录单(下肢骨折术后)
          schema = require("../config/lowerfracture_fs/tr.js").default;
       }
         break;
+      case "resection_fs": {
+          // 佛山市一 - 护理记录单(肿物切除术)
+         schema = require("../config/resection_fs/tr.js").default;
+      }
+      break;
+      case "upperremoved_fs": {
+         // 佛山市一 - 护理记录单(上肢内固定物拆除)
+         schema = require("../config/upperremoved_fs/tr.js").default;
+      }
+      break;
+      case "lowerremoved_fs": {
+         // 佛山市一 - 护理记录单(下肢内固定物拆除)
+         schema = require("../config/lowerremoved_fs/tr.js").default;
+      }
+  break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
