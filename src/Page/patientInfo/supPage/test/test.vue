@@ -32,7 +32,9 @@
         </div>
       </div>
       <div class="right-part">
-        <testForm v-show="rightData.testNo" ref="testForm"></testForm>
+        <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm>
+        <!--右边的检验报告单部分，花都的testFormHD组件，因为事件与其他医院不一样-->
+        <testFormHD v-if="rightData.testNo&&['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testFormHD>
       </div>
     </div>
   </div>
@@ -123,6 +125,7 @@
 
 <script>
   import testForm from './component/testForm'
+  import testFormHD from './component/testFormhd'
   import {
     testList
   } from '@/api/patientInfo'
@@ -175,7 +178,8 @@
       }
     },
     components: {
-      testForm
+      testForm,
+      testFormHD
     }
   }
 </script>
