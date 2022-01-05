@@ -1217,6 +1217,27 @@ export default function Title(
     );
   }
   break;
+  case "resection_fs": {
+    // 佛山市一 - 护理记录单(肿物切除术)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/resection_fs/th.js").default)
+    );
+  }
+  break;
+  case "upperremoved_fs": {
+    // 佛山市一 - 护理记录单(上肢内固定物拆除)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/upperremoved_fs/th.js").default)
+    );
+  }
+  break;
+  case "lowerremoved_fs": {
+    // 佛山市一 - 护理记录单(下肢内固定物拆除)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/lowerremoved_fs/th.js").default)
+      );
+    }
+  break;
   case "kneearthroscopy_fs": {
     // 佛山市一 - 护理记录单(膝关节镜术护理记录单)
     Th = JSON.parse(
