@@ -167,6 +167,25 @@
             </template>
           </el-table-column>
           
+           <el-table-column
+            prop="physicalCooling"
+            label="物理降温"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.physicalCooling"
+                :class="className"
+                class="physicalCooling"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
           <el-table-column
             prop="urinate"
             label="小便次数"
@@ -186,6 +205,7 @@
               />
             </template>
           </el-table-column>
+         
           <el-table-column
             prop="stoolNum"
             label="大便次数"
@@ -902,6 +922,7 @@ export default {
         food: "",
         foodSize: "",
         id: "",
+        physicalCooling:"",
         monthHour: "",
         multiSign: "",
         pulse: "",
