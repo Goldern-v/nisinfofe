@@ -301,19 +301,6 @@ export default {
     return {
       mockData,
       recordList,
-      // selectValue:[
-      //   {lable:'☆',value:'☆'},
-      //   {lable:'※',value:'※'},
-      //   {lable:'0 /E',value:'0 /E'},
-      //   {lable:'2 /E',value:'2 /E'},
-      //   {lable:'1 0/E',value:'1 0/E'},
-      //   {lable:'1 1/E',value:'1 1/E'},
-      //   {lable:'1 2/E',value:'1 2/E'},
-      //   {lable:'2 0/E',value:'2 0/E'},
-      //   {lable:'2 1/E',value:'2 1/E'},
-      //   {lable:'2 2/E',value:'2 2/E'},
-      //   {lable:'2/2E',value:'2/2E'}
-      //   ],
       bus: bus(this),
       editableTabsValue: "2",
       query: {
@@ -360,19 +347,6 @@ export default {
         new Date().getMinutes()
       ),
       vitalSignList: [], // 固定项目列表
-
-      // topContextList: [
-      //   "",
-      //   "入院",
-      //   "转入",
-      //   "手术",
-      //   "分娩",
-      //   "出院",
-      //   "出生",
-      //   "手术入院",
-      //   "死亡",
-      //   "转出"
-      // ],
       timesOdd: [
         {
           id: 0,
