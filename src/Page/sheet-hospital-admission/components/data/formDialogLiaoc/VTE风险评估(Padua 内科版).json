@@ -325,7 +325,7 @@
         {
           "name": "I612026",
           "type": "checkbox",
-          "title": "已确诊VIE（5分）",
+          "title": "自动列入高风险：已确诊VTE、入住ICU（5分）",
           "code": "5",
           "score": 5,
           "style": null,

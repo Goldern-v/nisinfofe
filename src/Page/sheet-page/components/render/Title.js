@@ -1182,13 +1182,7 @@ export default function Title(
     );
   }
   break;
-  case "thoracicdisease_fs": {
-    // 佛山市一 - 护理记录单(胸椎疾病保守治疗)
-    Th = JSON.parse(
-      JSON.stringify(require("../config/thoracicdisease_fs/th").default)
-    );
-  }
-  break;
+ 
   case "upperdisorders_fs": {
     // 佛山市一 - 护理记录单(上肢疾患保守治疗)
     Th = JSON.parse(
@@ -1217,12 +1211,47 @@ export default function Title(
     );
   }
   break;
-  case "kneearthroscopy_fs": {
-    // 佛山市一 - 护理记录单(膝关节镜术护理记录单)
+  case "resection_fs": {
+    // 佛山市一 - 护理记录单(肿物切除术)
     Th = JSON.parse(
-      JSON.stringify(require("../config/kneearthroscopy_fs/th.js").default)
+      JSON.stringify(require("../config/resection_fs/th.js").default)
     );
   }
+  break;
+  case "upperremoved_fs": {
+    // 佛山市一 - 护理记录单(上肢内固定物拆除)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/upperremoved_fs/th.js").default)
+    );
+  }
+  break;
+  case "lowerremoved_fs": {
+    // 佛山市一 - 护理记录单(下肢内固定物拆除)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/lowerremoved_fs/th.js").default)
+      );
+    }
+  break;
+  case "osteoporotic_fs": {
+    // 佛山市一 - 护理记录单(骨质疏松保守与手术治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/osteoporotic_fs/th.js").default)
+      );
+    }
+  break;
+  case "hipdisorders_fs": {
+    // 佛山市一 - 护理记录单(髋部疾患保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/hipdisorders_fs/th.js").default)
+      );
+    }
+  break;
+  case "criticallyill_fs": {
+    // 佛山市一 - 护理记录单(危重患者护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/criticallyill_fs/th.js").default)
+      );
+    }
   break;
   case "kneedisease_fs": {
     // 佛山市一 - 护理记录单(膝关节疾患)
@@ -1231,10 +1260,17 @@ export default function Title(
     );
   }
   break;
+  case "kneearthroscopy_fs": {
+    // 佛山市一 - 护理记录单(膝关节镜术护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/kneearthroscopy_fs/th.js").default)
+    );
+  }
+  break;
   case "thoracicdisease_fs": {
     // 佛山市一 - 护理记录单(胸椎疾病保守治疗)
     Th = JSON.parse(
-      JSON.stringify(require("../config/thoracicdisease_fs/th.js").default)
+      JSON.stringify(require("../config/thoracicdisease_fs/th").default)
     );
   }
   break;

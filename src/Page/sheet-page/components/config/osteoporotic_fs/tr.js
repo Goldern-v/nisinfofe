@@ -1,6 +1,6 @@
 
 /** 
-  佛山市一 - 护理记录单(膝关节置换术)
+  佛山市一 - 护理记录单(骨质疏松保守与手术治疗)
 */
 
 /**
@@ -44,17 +44,17 @@ export default [
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'kneePain', event: keyf1, value: '', next: '', name: '患膝疼痛评分', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["无"]}},
-  { key: 'limbSwelling', event: keyf1, value: '', next: '', name: '患肢肿胀', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["无","I°","II°","III°"]} },
-  { key: 'woundApplication', event: keyf1, value: '', next: '', name: '伤口外敷料', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),  autoComplete:{data:["干洁","渗血","渗液"]}  },
-  { key: 'limbTemperature', event: keyf1, value: '', next: '', name: '患肢皮温', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]}},
-  { key: 'limbFeeling', event: keyf1, value: '', next: '', name: '患肢各趾感觉', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["麻木","正常","无"]}},
-  { key: 'limbActivity', event: keyf1, value: '', next: '', name: '患肢各趾活动', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["受限","自如","不能"]}},
-  { key: 'limbNailbed', event: keyf1, value: '', next: '', name: '患肢各趾甲床', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete:{data:["红润","瘀紫","苍白"]}},
-  { key: 'limbSkintemperature', event: keyf1, value: '', next: '', name: '患肢各趾皮温', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete:{data:["暖","凉","高","正常"]} },
-  { key: 'riskCompress', event: keyf1, value: '', next: '', name: '患肢冰敷', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["对","无","有"]} },
-  { key: 'independentDend', event: keyf1, value: '', next: '°', name: '自主屈膝', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6)},
-  { key: 'walkingAid', event: keyf1, value: '',next: '米',name: '助行器行走',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'painScore', event: keyf1, value: '', next: '', name: '疼痛部位评分', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'numbnessBoth', event: keyf1, value: '', next: '', name: '双下肢麻木感', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无"]}},
+  { key: 'absoluteBed', event: keyf1, value: '', next: '', name: '绝对卧床休息', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无"]}},
+  { key: 'lowerMovement', event: keyf1, value: '', next: '', name: '双下肢活动', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete:{data:["正常","受限","不能"]}},
+  { key: 'highCalcium', event: keyf1, value: '', next: '', name: '高钙饮食指导', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无"]}},
+  { key: 'shaftTurn', event: keyf1, value: '', next: '', name: '轴式翻身', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无"]}},
+  { key: 'bedImplement', event: keyf1, value: '', next: '', name: '床边备便器', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无"]}},
+  { key: 'cllBell', event: keyf1, value: '', next: '', name: '呼叫铃置可及处', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无"]} },
+  { key: 'fallPrevention', event: keyf1, value: '', next: '', name: '防跌倒教育与评估', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无"]} },
+  { key: 'walkAroundWaist', event: keyf1, value: '', next: '', name: '佩戴腰围步行', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'externalDressing', event: keyf1, value: '', next: '', name: '穿刺点外敷料', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete:{data:["干洁","渗血"]} },
   {
     key: "description", //特殊情况记录
     value: "",

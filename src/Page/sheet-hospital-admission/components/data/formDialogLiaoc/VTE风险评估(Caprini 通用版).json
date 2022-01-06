@@ -683,6 +683,17 @@
           "class": null,
           "html": null,
           "readOnly": null
+        },
+        {
+          "name": "I625065",
+          "type": "checkbox",
+          "title": "38.自动列入高风险：已确诊VTE、入住ICU",
+          "code": "5",
+          "score": 5,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
         }
       ]
     },

@@ -5,10 +5,10 @@
         <div class="title-con" flex>
           <span style="width: 60px; text-align: center">{{ controlStatus ? '组名':'组号'}}</span>
           <span flex-box="1" style="width: 0;margin-right: 20px">床位</span>
-          <span flex-box="1" style="width: 0;margin-right: 10px">责任护士</span>
+          <span flex-box="1" style="width: 0;margin-right: 10px">管床护士</span>
         </div>
         <div v-if="controlStatus">
-          <div v-for="(item, index) in hengliOptions" :key="item.id">
+          <div v-for="(item) in hengliOptions" :key="item.id">
             <div class="list-con"  flex="cross:center" v-if="item.isShow === '1'">
               <span style="width: 60px; text-align: center">{{ item.groupName }}</span>
               <input flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">

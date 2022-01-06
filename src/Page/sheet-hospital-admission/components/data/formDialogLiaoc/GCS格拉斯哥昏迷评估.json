@@ -495,14 +495,14 @@
           "code": "I385031",
           "style": "width:80px",
           "inputWidth": "136px",
+          "placeholder":"_",
           "class": null,
           "readOnly": false,
           "options": [
-            "正常",
-            "轻度昏迷",
-            "中度意识昏迷",
-            "昏迷",
-            "深昏迷"
+            "意识清醒",
+            "轻度意识障碍",
+            "中度意识障碍",
+            "昏迷"
           ]
         }
       ]
