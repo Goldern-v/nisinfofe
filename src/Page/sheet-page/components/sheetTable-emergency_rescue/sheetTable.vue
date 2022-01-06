@@ -186,7 +186,7 @@ export default {
   computed: {
     patientInfo() {
       // return this.sheet.patientInfo
-      return this.sheetInfo.selectBlock || {};
+      return this.sheetInfo.masterInfo || {};
     },
     sheetPageIndex() {
       return this.sheet.sheetPageIndex;

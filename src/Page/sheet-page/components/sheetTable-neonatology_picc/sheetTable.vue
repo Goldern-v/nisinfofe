@@ -142,7 +142,7 @@ export default {
   computed: {
     patientInfo() {
       // return this.sheet.patientInfo
-      return this.sheetInfo.selectBlock || {};
+      return this.sheetInfo.masterInfo || {};
     },
     sheetStartPage() {
       return this.sheetInfo.sheetStartPage;
