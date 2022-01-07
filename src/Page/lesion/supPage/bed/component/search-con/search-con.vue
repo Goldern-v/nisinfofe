@@ -637,7 +637,8 @@ export default {
         'quzhou', 
         'fuyou',
         "foshanrenyi",
-        "fsxt"
+        "fsxt",
+        "whfk"
         ].includes(
         this.HOSPITAL_ID
       );
