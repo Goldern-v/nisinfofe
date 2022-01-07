@@ -344,6 +344,8 @@ export default {
             //     "*"
             //   );
             // });
+            console.log('路由',this.$route.query);
+            console.log('路由',this.$route.query);
             const params = {
               patientId: this.$route.query.patientId,
               startLogDateTime: e.data.value.startLogDateTime,
@@ -368,7 +370,8 @@ export default {
               endLogDateTime: e.data.value.endLogDateTime,
               visitId: this.$route.query.visitId,
             };
-            getNurseExchangeInfoBatch(paramsAll).then((res) => {
+            if(this.isPrintAll){
+              getNurseExchangeInfoBatch(paramsAll).then((res) => {
               let value = res.data.data.exchangeInfos
               if(value.length!==0){
               this.$refs.pdfConAll.contentWindow.postMessage(
@@ -379,6 +382,8 @@ export default {
 
               
             });
+            }
+            
             break;
           default:
             break;
@@ -430,16 +435,20 @@ export default {
         this.isSave = true;
       }
     });
+    if(this.patientInfo.patientId){
+      console.log('222222',this.patientInfo);
+      this.getImg()
+    }
     this.bus.$on("sheetToolLoaded", () => {
       this.bus.$emit("getBlockList");
     });
   },
   created() {
-    this.getImg();
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
     this.getData();
+    
   },
   computed: {
     patientInfo() {

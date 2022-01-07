@@ -46,15 +46,15 @@ export default [
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'massTenderness', event: keyf1, value: '', next: '', name: '肿物压痛', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]} },
   { key: 'massCharacter', event: keyf1, value: '', next: '', name: '肿物质地', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["软","实"]}},
-  { key: 'limbSkintemperature', event: keyf1, value: '', next: '', name: '防跌倒教育评估', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]}  },
-  { key: 'limbNailbed', event: keyf1, value: '', next: '', name: '肿物周围红肿', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]} },
-  { key: 'limbPain', event: keyf1, value: '', next: '', name: '呼叫铃置可及处', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]}  },
+  { key: 'tumble', event: keyf1, value: '', next: '', name: '防跌倒教育评估', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]}  },
+  { key: 'redSwollen', event: keyf1, value: '', next: '', name: '肿物周围红肿', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]} },
+  { key: 'cllBell', event: keyf1, value: '', next: '', name: '呼叫铃置可及处', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]}  },
   { key: 'woundApplication', event: keyf1, value: '', next: '', name: '伤口外敷料', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),  autoComplete:{data:["干洁","渗血","渗液"]} },
-  { key: 'plasterCast', event: keyf1, value: '', next: '', name: '伤口疼痛评分', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'woundApplication', event: keyf1, value: '', next: '', name: '伤口引流管', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete:{data:["通畅","阻塞","√","无","有"]} },
-  { key: 'cllBell', event: keyf1, value: '', next: '', name: '伤口引流液颜色', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["暗红","淡红","鲜红"]} },
-  { key: '', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },//自定义
-  { key: '', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },//自定义
+  { key: 'woundScore', event: keyf1, value: '', next: '', name: '伤口疼痛评分', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'woundDrainage', event: keyf1, value: '', next: '', name: '伤口引流管', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete:{data:["通畅","阻塞","√","无","有"]} },
+  { key: 'drainageColor', event: keyf1, value: '', next: '', name: '伤口引流液颜色', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["暗红","淡红","鲜红"]} },
+  { key: 'armValue', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },//自定义
+  { key: 'armValue2', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },//自定义
   {
     key: "description", //特殊情况记录
     value: "",

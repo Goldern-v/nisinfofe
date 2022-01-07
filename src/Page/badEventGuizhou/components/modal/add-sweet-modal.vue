@@ -119,9 +119,9 @@ export default {
             wid.app.$root.$refs['B0002003'].setCurrentValue(data.name);
           }
           //性别
-          // if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'].setCurrentValue){
-          //   wid.app.$root.$refs['B0002006'].setCurrentValue(data.sex);
-          // }
+          if(wid.app.$root.$refs['B0017025'] && wid.app.$root.$refs['B0017025'].setCurrentValue){
+            wid.app.$root.$refs['B0017025'].setCurrentValue(data.sex);
+          }
           //年龄
           if(wid.app.$root.$refs['B0002004'] && wid.app.$root.$refs['B0002004'].setCurrentValue){
             wid.app.$root.$refs['B0002004'].setCurrentValue(data.age);
@@ -166,8 +166,8 @@ export default {
             wid.app.$root.$refs['B0017003'].setCurrentValue(data.name);
           }
           //性别
-          // if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'].setCurrentValue){
-          //   wid.app.$root.$refs['B0002006'].setCurrentValue(data.sex);
+          // if(wid.app.$root.$refs['B0017025'] && wid.app.$root.$refs['B0017025'].setCurrentValue){
+          //   wid.app.$root.$refs['B0017025'].setCurrentValue(data.sex);
           // }
           //年龄
           if(wid.app.$root.$refs['B0017004'] && wid.app.$root.$refs['B0017004'].setCurrentValue){
@@ -193,7 +193,9 @@ export default {
           //性别
           (!data.sex || data.sex=='') && (data.sex='无');
           if(wid.app.$root.$refs['B0017025'] && wid.app.$root.$refs['B0017025'][data.sex]){
-           wid.app.$root.$refs['B0017025'][data.sex].$parent.checkboxValue=true
+           wid.app.$root.$refs['B0017025'][data.sex].$parent.checkboxValue=true;
+           wid.app.$root.$refs['B0017025'][data.sex].setCheckboxValue(data.sex)
+          wid.app.$root.$refs['B0017025'][data.sex].model = [data.sex];
           }
           window.deptData = {wardName:data.wardName,wardCode:data.wardCode}
         }

@@ -297,7 +297,7 @@ export default {
   },
   computed: {
     patientInfo() {
-      return this.sheetInfo.selectBlock || {};
+      return this.sheetInfo.masterInfo || {};
     },
     /** 只读模式 */
     readOnly() {

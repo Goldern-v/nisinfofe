@@ -44,7 +44,7 @@ export default [
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'hipPain', event: keyf1, value: '', next: '', name: '患髋疼痛评分', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["无"]}},
+  { key: 'hipPain', event: keyf1, value: '', next: '', name: '患髋疼痛评分', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'limbSwelling', event: keyf1, value: '', next: '', name: '患肢肿胀', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["无","I°","II°","III°"]} },
   { key: 'walkingAid', event: keyf1, value: '', next: '', name: '助行器行走', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]} },
   { key: 'cllBell', event: keyf1, value: '', next: '', name: '呼叫铃置可及处', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["√","无","有"]}},

@@ -29,7 +29,7 @@ export default {
             { "name": "入量", "colspan": "2", "rowspan": "1"}, 
             { "name": "出量", "colspan": "2", "rowspan": "1"}, 
             { "name": "患髋<br/>疼痛<br/>评分(分)", "colspan": "1", "rowspan": "3"}, 
-            { "name": "患肢<br/>肿胀<br/>(°)", "colspan": "1", "rowspan": "3"}, 
+            { "name": "患肢<br/>肿胀<br/>°", "colspan": "1", "rowspan": "3"}, 
             { "name": "石膏<br/>固定", "colspan": "1", "rowspan": "3"}, 
             { "name": "患肢<br/>抬高", "colspan": "1", "rowspan": "3"}, 
             { "name": "患肢<br/>各趾<br/>感觉", "colspan": "1", "rowspan": "3"}, 
