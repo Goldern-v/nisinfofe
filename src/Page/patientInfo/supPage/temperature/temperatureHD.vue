@@ -230,6 +230,7 @@ export default {
       isSave: false,
       visibled: false,
       intranetUrl:
+        // "http://192.168.3.192:8081/#/" /* 医院正式环境内网 导致跨域 */,
         "http://172.25.1.105:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
       "http://172.25.1.105:9091/temperature/#/printAll" /* 医院正式环境批量打印内网 */,
@@ -436,8 +437,11 @@ export default {
       }
     });
     if(this.patientInfo.patientId){
-      console.log('222222',this.patientInfo);
       this.getImg()
+    }else if(this.$route.path.includes('temperature')){
+      //如果在患者信息页面直接获取体温单计算页面
+        this.getImg()
+      
     }
     this.bus.$on("sheetToolLoaded", () => {
       this.bus.$emit("getBlockList");
