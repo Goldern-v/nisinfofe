@@ -27,7 +27,7 @@ export default {
               { "name": "入量", "colspan": "2", "rowspan": "1"}, 
               { "name": "出量", "colspan": "2", "rowspan": "1"}, 
               { "name": "患髋<br/>疼痛<br/>评分(分)", "colspan": "1", "rowspan": "3"}, 
-              { "name": "患肢<br/>肿胀", "colspan": "1", "rowspan": "3"}, 
+              { "name": "患肢<br/>肿胀<br/>°", "colspan": "1", "rowspan": "3"}, 
               { "name": "助行器<br/>行走(米)", "colspan": "1", "rowspan": "3"}, 
               { "name": "呼叫铃<br/>置可<br/>及处", "colspan": "1", "rowspan": "3"}, 
               { "name": "防跌倒<br/>评估护理", "colspan": "1", "rowspan": "3"}, 

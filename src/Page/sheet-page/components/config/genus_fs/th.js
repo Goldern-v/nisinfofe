@@ -1,4 +1,3 @@
-
 /*
   佛山市一 - 护理记录单(膝关节置换术)
 */
@@ -27,7 +26,7 @@ export default {
             { "name": "入量", "colspan": "2", "rowspan": "1"}, 
             { "name": "出量", "colspan": "2", "rowspan": "1"}, 
             { "name": "患膝<br/>疼痛<br/>评分(分)", "colspan": "1", "rowspan": "3"}, 
-            { "name": "患肢<br/>肿胀", "colspan": "1", "rowspan": "3"}, 
+            { "name": "患肢<br/>肿胀<br/>°", "colspan": "1", "rowspan": "3"}, 
             { "name": "伤口<br/>外敷料", "colspan": "1", "rowspan": "3"}, 
             { "name": "患肢<br/>皮温", "colspan": "1", "rowspan": "3"}, 
             { "name": "患肢<br/>各趾<br/>感觉", "colspan": "1", "rowspan": "3"}, 
