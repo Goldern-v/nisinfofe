@@ -9,6 +9,11 @@ module.exports = {
     HOSPITAL_NAME: '"东莞市厚街医院"',
     HOSPITAL_NAME_SPACE: '"东 莞 市 厚 街 医 院"'
   },
+  "dongguanhoujie": {
+    HOSPITAL_ID: '"hj"',
+    HOSPITAL_NAME: '"东莞市厚街医院"',
+    HOSPITAL_NAME_SPACE: '"东 莞 市 厚 街 医 院"'
+  },
   "fqfybjy":{
     HOSPITAL_ID: '"fqfybjy"',
     HOSPITAL_NAME:'"福清妇幼保健院"',
