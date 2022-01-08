@@ -139,7 +139,7 @@
                         vitalSignObj[j].vitalValue
                       )"
                       @click.prevent="
-                        () => (vitalSignObj[j].vitalValue = option)
+                        () => (vitalSignObj[j].vitalValue = vitalSignObj[j].vitalValue+option)
                       "
                     >
                       {{ option }}
@@ -233,7 +233,37 @@
               />
             </div>
           </div>
-
+        <div class="row" v-if="multiDictList['表顶注释']">
+            <span class="preText">表顶注释</span>
+            <el-select
+              :disabled="isDisable()"
+              size="mini"
+              v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
+            >
+              <el-option
+                v-for="(item, topIndex) in getFilterSelections(
+                  totalDictInfo['表顶注释'].options,
+                  vitalSignObj[multiDictList['表顶注释']].vitalValue
+                )"
+                :key="topIndex"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+            <el-date-picker
+              size="mini"
+              :readonly="isDisable()"
+              format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
+              type="datetime"
+              placeholder="选择日期时间"
+              style="margin: 3px 0px 0px 55px; width: 170px"
+              @change="formatTopExpandDate"
+            >
+            </el-date-picker>
+          </div>
           <div class="row" v-if="multiDictList['中间注释']">
             <span class="preText">中间注释</span>
             <el-select
@@ -296,37 +326,7 @@
             >
             </el-date-picker> -->
           </div>
-          <div class="row" v-if="multiDictList['表顶注释']">
-            <span class="preText">表顶注释</span>
-            <el-select
-              :disabled="isDisable()"
-              size="mini"
-              v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
-            >
-              <el-option
-                v-for="(item, topIndex) in getFilterSelections(
-                  totalDictInfo['表顶注释'].options,
-                  vitalSignObj[multiDictList['表顶注释']].vitalValue
-                )"
-                :key="topIndex"
-                :label="item"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-            <el-date-picker
-              size="mini"
-              :readonly="isDisable()"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              style="margin: 3px 0px 0px 55px; width: 170px"
-              @change="formatTopExpandDate"
-            >
-            </el-date-picker>
-          </div>
+          
           <div>
             <el-button
               :disabled="isDisable()"

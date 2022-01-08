@@ -14,6 +14,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
+import { size } from "lodash";
 let 入量名称 = [];
 let 出量名称 = [];
 let 意识 = ['(-)', '(+)', '(++)', '(+++)', '(△)', '(√)',];
@@ -216,7 +217,7 @@ export default [
       background: "transparent",
     },
     textarea: {
-      width: 410
+      width: 430
     },
     event: function (e, td) {
       console.log(e.keyCode);

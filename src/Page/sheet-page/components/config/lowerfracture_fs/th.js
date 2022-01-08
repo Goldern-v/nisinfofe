@@ -38,7 +38,7 @@ export default {
             { "name": "伤口<br/>外敷料", "colspan": "1", "rowspan": "3"}, 
             { "name": "呼叫铃<br/>置可<br/>及处", "colspan": "1", "rowspan": "3"}, 
             { "name": "床边<br/>备便器", "colspan": "1", "rowspan": "3"}, 
-            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:""}, 
+            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue"}, 
             { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3"}, 
             { "name": "质控护士", "colspan": "1", "rowspan": "3"}

@@ -699,6 +699,7 @@ export default {
     },
     isSelectPatient(item) {
       this.$store.commit("upPatientInfo", item);
+       this.bus.$emit("refreshImg");
     },
   },
   created() {

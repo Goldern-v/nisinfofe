@@ -230,6 +230,7 @@ export default {
       isSave: false,
       visibled: false,
       intranetUrl:
+        // "http://192.168.3.192:8081/#/" /* 医院正式环境内网 导致跨域 */,
         "http://172.25.1.105:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
       "http://172.25.1.105:9091/temperature/#/printAll" /* 医院正式环境批量打印内网 */,
@@ -344,6 +345,8 @@ export default {
             //     "*"
             //   );
             // });
+            console.log('路由',this.$route.query);
+            console.log('路由',this.$route.query);
             const params = {
               patientId: this.$route.query.patientId,
               startLogDateTime: e.data.value.startLogDateTime,
@@ -368,7 +371,8 @@ export default {
               endLogDateTime: e.data.value.endLogDateTime,
               visitId: this.$route.query.visitId,
             };
-            getNurseExchangeInfoBatch(paramsAll).then((res) => {
+            if(this.isPrintAll){
+              getNurseExchangeInfoBatch(paramsAll).then((res) => {
               let value = res.data.data.exchangeInfos
               if(value.length!==0){
               this.$refs.pdfConAll.contentWindow.postMessage(
@@ -379,6 +383,8 @@ export default {
 
               
             });
+            }
+            
             break;
           default:
             break;
@@ -430,16 +436,23 @@ export default {
         this.isSave = true;
       }
     });
+    if(this.patientInfo.patientId){
+      this.getImg()
+    }else if(this.$route.path.includes('temperature')){
+      //如果在患者信息页面直接获取体温单计算页面
+        this.getImg()
+      
+    }
     this.bus.$on("sheetToolLoaded", () => {
       this.bus.$emit("getBlockList");
     });
   },
   created() {
-    this.getImg();
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
     this.getData();
+    
   },
   computed: {
     patientInfo() {

@@ -27,7 +27,7 @@ export default {
               { "name": "入量", "colspan": "2", "rowspan": "1"}, 
               { "name": "出量", "colspan": "2", "rowspan": "1"}, 
               { "name": "患髋<br/>疼痛<br/>评分(分)", "colspan": "1", "rowspan": "3"}, 
-              { "name": "患肢<br/>肿胀", "colspan": "1", "rowspan": "3"}, 
+              { "name": "患肢<br/>肿胀<br/>°", "colspan": "1", "rowspan": "3"}, 
               { "name": "助行器<br/>行走(米)", "colspan": "1", "rowspan": "3"}, 
               { "name": "呼叫铃<br/>置可<br/>及处", "colspan": "1", "rowspan": "3"}, 
               { "name": "防跌倒<br/>评估护理", "colspan": "1", "rowspan": "3"}, 
@@ -36,7 +36,7 @@ export default {
               { "name": "伤口<br/>外敷料", "colspan": "1", "rowspan": "3"}, 
               { "name": "防脱位<br/>教育", "colspan": "1", "rowspan": "3"}, 
               { "name": "踝泵<br/>及股<br/>四头肌<br/>训练", "colspan": "1", "rowspan": "3"}, 
-              { "name": "", "colspan": "1", "rowspan": "3", canSet: true, key: "armValue "}, 
+              { "name": "", "colspan": "1", "rowspan": "3", canSet: true, key: "armValue"}, 
               { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
               { "name": "护士签名", "colspan": "1", "rowspan": "3"}, 
               { "name": "质控护士", "colspan": "1", "rowspan": "3"}

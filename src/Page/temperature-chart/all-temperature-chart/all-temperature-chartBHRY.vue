@@ -37,7 +37,7 @@
         ></el-input>
       </div>
 
-      <el-button @click="saveAllTemperture">保存</el-button>
+      <el-button @click="debounceSave">保存</el-button>
       <el-button @click="onPrint">打印</el-button>
     </div>
     <div class="table-content">
@@ -167,6 +167,25 @@
             </template>
           </el-table-column>
           
+           <el-table-column
+            prop="physicalCooling"
+            label="物理降温"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.physicalCooling"
+                :class="className"
+                class="physicalCooling"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
           <el-table-column
             prop="urinate"
             label="小便次数"
@@ -186,6 +205,7 @@
               />
             </template>
           </el-table-column>
+         
           <el-table-column
             prop="stoolNum"
             label="大便次数"
@@ -830,11 +850,10 @@ export default {
     this.query.wardCode = this.deptCode;
   },
   created() {
-    window.addEventListener("keydown", this.keydownSave, false);
   },
   methods: {
-    handlePatientChange() {},
-    selectedNurs() {},
+    //保存防抖函数
+     debounceSave: _debounce('saveAllTemperture', 500),
     getHours() {
       let date = new Date();
       let b = date.getHours();
@@ -870,16 +889,6 @@ export default {
       this.patientsInfoData = [];
       this.tableData = [];
     },
-    keydownSave(e) {
-      if (
-        e.keyCode === 13 
-      ) {
-        _debounce(this.saveAllTemperture,1000)()
-        
-      } else {
-        return;
-      }
-    },
     saveAllTemperture() {
       this.pageLoadng = true;
       let data = {
@@ -902,6 +911,7 @@ export default {
         food: "",
         foodSize: "",
         id: "",
+        physicalCooling:"",
         monthHour: "",
         multiSign: "",
         pulse: "",
@@ -953,6 +963,10 @@ export default {
       if (this.handleKeyCode.includes(e.keyCode)) {
         this.colClass = e.target.className;
         let rowIndex = e.path[3].rowIndex;
+        //回车保存
+        if(e.keyCode===13){
+          this.debounceSave()
+        }
         if (e.keyCode === 37) {
           //处理左按键
           if (e.target.selectionStart === 0) {
@@ -992,8 +1006,7 @@ export default {
           if (e.keyCode === 38) {
             currentIdx--;
           } else if (
-            e.keyCode === 40 ||
-            (e.keyCode === 13 && ["guizhou"].includes(this.HOSPITAL_ID))
+            e.keyCode === 40 
             //当贵州的时候，回车不调用保存事件，执行跳转到下一个患者的聚集性事件
           ) {
             currentIdx++;
