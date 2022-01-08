@@ -37,6 +37,9 @@ export default [
     value: "",
     event: keyf1,
     name: "静脉",
+    textarea: {
+      width: 150
+    },
   },
   {
     key: "intravenousVolume", //入量

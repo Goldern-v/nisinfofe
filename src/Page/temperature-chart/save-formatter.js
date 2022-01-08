@@ -6,14 +6,15 @@ export function _debounce(fn, delay) {
   let timer;
   return function () {
       let th = this;
-      let args = arguments;
       if (timer) {
           clearTimeout(timer);
       }
       timer = setTimeout(function () {
-          timer = null;
-          fn.apply(th, args);
+        timer = null;
+          //根据函数名执行函数
+        th[fn]();
       }, delayTime);
+      
   };
 }
 // 节流
@@ -23,17 +24,18 @@ export function _throttle(fn, interval) {
   let intervalTime = interval || 200;
   return function () {
       let th = this;
-      let args = arguments;
       let now = +new Date();
       if (last && now - last < interval) {
           clearTimeout(timer);
           timer = setTimeout(function () {
               last = now;
-              fn.apply(th, args);
+              //根据函数名执行函数
+        th[fn]();
           }, intervalTime);
       } else {
           last = now;
-          fn.apply(th, args);
+          //根据函数名执行函数
+        th[fn]();
       }
   }
 }

@@ -244,8 +244,6 @@ export default {
     }
   },
   created() {
-    console.log(this.readOnly);
-    console.log(this.sheetInfo);
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
