@@ -27,6 +27,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
+            v-show="Number(scope.row.rowType)== 1"
           >{{scope.row.orderNo}}</span>
         </template>
       </el-table-column>
@@ -34,6 +35,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
+            v-show="Number(scope.row.rowType)== 1"
           >{{scope.row.startDate}}</span>
         </template>
       </el-table-column>
@@ -44,6 +46,7 @@
       </el-table-column>
       <el-table-column label="剂量" min-width="70px" prop="dosage" align="center">
         <template slot-scope="scope">
+          <span :class="[type(scope.row.orderStatusName),'special']">{{scope.row.specialSymbols}}</span>
           <span
             :class="type(scope.row.orderStatusName)"
           >{{scope.row.dosage}}{{scope.row.dosageUnits}}</span>
@@ -87,6 +90,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
+            v-show="Number(scope.row.rowType)== 1"
           >{{scope.row.doctor}}</span>
         </template>
       </el-table-column>
@@ -94,6 +98,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
+            v-show="Number(scope.row.rowType)== 1"
           >{{scope.row.nurse}}</span>
         </template>
       </el-table-column>
@@ -101,6 +106,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
+            v-show="Number(scope.row.rowType)== 1"
           >{{scope.row.orderStatusName}}</span>
         </template>
       </el-table-column>
@@ -108,6 +114,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
+            v-show="Number(scope.row.rowType)== 1"
           >{{scope.row.stopDate}}</span>
         </template>
       </el-table-column>
@@ -115,6 +122,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
+            v-show="Number(scope.row.rowType)== 1"
           >{{scope.row.stopDoctor}}</span>
         </template>
       </el-table-column>
@@ -122,6 +130,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
+            v-show="Number(scope.row.rowType)== 1"
           >{{scope.row.stopNurse}}</span>
         </template>
       </el-table-column>
@@ -153,6 +162,15 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 >>>.el-table__header .cell {
   text-align: center;
+}
+.special{
+  position absolute;
+  top:50%;
+  left:0;
+  transform: translate(-50%,-50%)
+}
+td{
+  position relative
 }
 </style>
 
