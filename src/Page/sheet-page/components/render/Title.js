@@ -321,6 +321,20 @@ export default function Title(
     );
   }
   break;
+  case "caseamount_wx": {
+    // 威县-新生儿科重症监护出入量记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/caseamount_wx/th.js").default)
+    );
+  }
+  break;
+  case "newbornintensive_wx": {
+    // 威县-新生儿科重症监护记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/newbornintensive_wx/th.js").default)
+    );
+  }
+  break;
   case "cpr": {
     // cpr心肺复苏单（心血管内科）
     Th = JSON.parse(JSON.stringify(require("../config/cpr/th").default));

@@ -294,11 +294,21 @@ function switechSheetType(type) {
       schema = require("../config/newborn_wx/tr.js").default;
     }
       break;
-      case "eicu_care_wx": {
-        // 威县-重症护理记录单II（EICU）
-        schema = require("../config/eicu_care_wx/tr.js").default;
+    case "eicu_care_wx": {
+      // 威县-重症护理记录单II（EICU）
+      schema = require("../config/eicu_care_wx/tr.js").default;
+    }
+      break;
+    case "caseamount_wx": {
+        // 威县-新生儿科重症监护出入量记录单
+        schema = require("../config/caseamount_wx/tr.js").default;
       }
-        break;
+      break;
+    case "newbornintensive_wx": {
+        // 威县-新生儿科重症监护记录单
+        schema = require("../config/newbornintensive_wx/tr.js").default;
+    }
+      break;
     case "cpr": {
       // cpr心肺复苏单（心血管内科）
       schema = require("../config/cpr/tr.js").default;
