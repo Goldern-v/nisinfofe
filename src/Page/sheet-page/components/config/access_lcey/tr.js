@@ -45,7 +45,7 @@ export default [
     key: "intravenousVolume", //入量
     value: "",
     event: keyf1,
-    name: "入量",
+    name: "静脉入量",
     statBottomLine: true
   },
   {
@@ -58,14 +58,13 @@ export default [
     key: "intake", //入量
     value: "",
     event: keyf1,
-    name: "入量",
+    name: "胃肠入量",
     statBottomLine: true
   },
   {
     key: "totalInput", //总入量
     value: "",
     event: keyf1,
-    name: "总入量",
     statBottomLine: true,
   },
   {
@@ -128,14 +127,12 @@ export default [
     key: "totalOutput", //总出量
     value: "",
     event: keyf1,
-    name: "出量",
     statBottomLine: true
   },
   {
     key: "balance", //平衡
     value: "",
     event: keyf1,
-    name: "平衡",
     statBottomLine: true
   },
   {
