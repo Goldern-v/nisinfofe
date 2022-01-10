@@ -119,7 +119,7 @@
         class="ml-1000"
       >
         分娩日期：
-        <div class="bottom-line" style="min-width: 80px">
+        <div class="bottom-line" style="min-width: 95px">
           {{ patientInfo.deliveryDate ? patientInfo.deliveryDate : "" }}
         </div>
       </span>
@@ -256,7 +256,7 @@ export default {
       this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
     // 江门妇幼产后护理记录单获取分娩时间
-    if(sheetInfo.sheetType ==='postpartumnursing_jm'&&this.index===0){
+    if(sheetInfo.sheetType ==='postpartumnursing_jm'&&(this.index===0||!this.patientInfo.deliveryDate)){
         const res = await  getDeliveryInfo(this.patientInfo.patientId)
         if(res.data.data.length!=0){
            const dateOfBirth=res.data.data[0].DateOfBirth
