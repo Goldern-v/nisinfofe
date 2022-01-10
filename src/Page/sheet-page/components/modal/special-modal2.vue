@@ -208,7 +208,7 @@
                 <div flex-box="1"></div>
               </div>
             </div>
-            <div v-if="HOSPITAL_ID == 'liaocheng'&&(sheetInfo.sheetType!='critical2_lcey'&&sheetInfo.sheetType!='critical_lcey'&&sheetInfo.sheetType!='critical_new_lcey')">
+            <div v-if="HOSPITAL_ID == 'liaocheng'&&(sheetInfo.sheetType!='critical2_lcey'&&sheetInfo.sheetType!='critical_lcey'&&sheetInfo.sheetType!='critical_new_lcey'&&sheetInfo.sheetType!='access_lcey')">
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">体温：</div>
