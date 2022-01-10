@@ -199,6 +199,10 @@ export default {
         this.$message.warning("记录时间不得为空！")
         return 
       }
+      if(!this.callBackResult){
+        this.$message.warning("插入结果不能为空！")
+        return 
+      }
       let [month,hours] = this.recordDate.split(" ")
       this.month.value = month
       this.hours.value = hours
