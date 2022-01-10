@@ -107,11 +107,10 @@
       </span>
       <span
         v-if="sheetInfo.sheetType === 'postpartumnursing_jm'"
-        @click="updateDelivery('delivery', '分娩方式', patientInfo.delivery)"
       >
         分娩方式：
         <div class="bottom-line" style="min-width: 80px">
-          {{ delivery }}
+          {{ patientInfo.delivery? patientInfo.delivery : ""}}
         </div>
       </span>
       <span
@@ -223,17 +222,6 @@ export default {
         `修改入院诊断`
       );
     },
-    updateDelivery(key, label, autoText) {
-      this.$refs.modalName.open( 
-        (text) => {
-          sheetInfo.relObj[`PageIndex_delivery_${this.index}`] = text;
-          this.$message.success(`修改分娩方式成功`);
-          this.bus.$emit("saveSheetPage", false);
-        },
-        this.delivery,
-        `修改分娩方式`);
-
-    },
   },
   filters: {
     toymd(val) {
@@ -264,6 +252,7 @@ export default {
            const time=dateOfBirth.split(" ")[1].split(":")
            const deliveryDate=`${date[0]}-${date[1]}-${date[2]} ${time[0]}:${time[1]}`
            this.$set(this.patientInfo,'deliveryDate',deliveryDate)
+           this.$set(this.patientInfo,'delivery',res.data.data[0].TaiErMianChuFangShi)
         }
     }
   },
