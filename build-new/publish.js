@@ -26,7 +26,7 @@ let sshUpload = (
     贵州省人民医院: "guizhourenyi",
     中山大学附属第七医院: "zhongshanqiyuan",
     东莞市横沥医院: "dongguanhengli",
-    南方中西医: "nanfangzhongxiyi",
+    南方医科大学中西医结合医院: "nanfangzhongxiyi",
     东莞市谢岗医院: "xiegang",
     山南市人民医院: "shannanrenyi",
     阳春中医院: "yczy",
@@ -34,6 +34,7 @@ let sshUpload = (
     武汉亚心医院:"wuhanyaxin",
     武汉市肺科医院:"wuhanfeike",
     佛山市顺德区龙江医院:"shundelongjiang",
+    南方医科大学顺德医院附属杏坛医院: "fsxt"
   };
   let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {

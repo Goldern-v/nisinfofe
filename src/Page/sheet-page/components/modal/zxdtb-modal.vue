@@ -263,6 +263,17 @@ export default {
           }
         });
       }
+      if(this.sheetInfo.sheetType === 'access_lcey'){
+        let filterList = JSON.parse(JSON.stringify(temArr)) 
+        filterList.map((item,index)=>{
+          filterList[index].orderText = item.orderText + item.dosage
+          if(item.dosage.includes("g")){
+            filterList[index].dosage = ""
+          }
+        })
+        temArr = filterList
+      }
+      
       saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
         this.$message.success("保存成功");
         this.close();
