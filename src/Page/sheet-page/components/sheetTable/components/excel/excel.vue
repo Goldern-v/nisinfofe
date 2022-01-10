@@ -1483,7 +1483,7 @@ export default {
         };
         data.push(obj);
       }
-      if(this.sheetInfo.sheetType=="nursingrecords_zxy"){
+      if(this.sheetInfo.sheetType=="nursingrecords_zxy"&&cell.key=="description"){
         let obj = {
           name: "导入检验项目结果",
           iconClass: "sync-decription",
