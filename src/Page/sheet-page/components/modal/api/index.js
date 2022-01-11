@@ -14,3 +14,11 @@ export const saveAllWithRecordDate = (params) => {
     // return axios.post(`${apiPath}record/access_gzry/saveAllWithRecordDate`,params);
     return axios.post(`${apiPath}record/access_gzry/saveAll`,params);
 };
+
+export const getExamTestByPV = (patientId,visitId) => {
+  return axios.get(`${apiPath}record/block/getExamTestByPV/${patientId}/${visitId}`);
+}
+
+export const getExamTestResult = (testNo)=>{
+  return axios.get(`${apiPath}record/block/getExamTestResult/${testNo}`)
+}

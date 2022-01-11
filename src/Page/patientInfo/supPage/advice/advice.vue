@@ -203,6 +203,8 @@ export default {
       data2Res:[],
       orderText:"",//模糊查询值
       searchHisList:["beihairenyi"],//有模糊查询方法医院
+      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi'], // 需要添加rowType(同一医嘱内第几条记录)的医院
+      specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi'] // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
     };
   },
   computed: {
@@ -237,12 +239,7 @@ export default {
         });
       }
       // console.log(data);
-      if ([
-            'liaocheng',
-            'fuyou',
-            'hengli',
-            'guizhou',
-          ].includes(this.HOSPITAL_ID)) {
+      if (this.duplicateRemoval.includes(this.HOSPITAL_ID)) {
         data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
@@ -257,21 +254,15 @@ export default {
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
-              if(this.HOSPITAL_ID=='fuyou' || this.HOSPITAL_ID == "guizhou"){
-                item.specialSymbols ="┓"
-              }
+              this.specialSymbolsHos.includes(this.HOSPITAL_ID) && (item.specialSymbols ="┓")
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
-              if(this.HOSPITAL_ID=='fuyou' || this.HOSPITAL_ID == "guizhou"){
-                item.specialSymbols ="┛"
-              }
+              this.specialSymbolsHos.includes(this.HOSPITAL_ID) && (item.specialSymbols ="┛")
             } else {
               /** 中间条 */
               item.rowType = 2;
-              if(this.HOSPITAL_ID=='fuyou' || this.HOSPITAL_ID == "guizhou"){
-                item.specialSymbols ="┃"
-              }
+              this.specialSymbolsHos.includes(this.HOSPITAL_ID) && (item.specialSymbols ="┃")
             }
           } else {
             item.rowType = 1;

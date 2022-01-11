@@ -611,8 +611,7 @@ export default {
   },
   computed: {
     sheetModel() {
-      let html = window.localStorage.sheetModel;
-      console.log(html);
+      let html =window.localStorage.sheetModel;
       var reg = /data-value/g;
       return html.replace(reg, "value");
     }

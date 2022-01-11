@@ -96,6 +96,7 @@
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
     <syncToIsbarModal ref="syncToIsbarModal"></syncToIsbarModal>
+    <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <!-- 电子病例弹窗 -->
     <doctorEmr v-if="HOSPITAL_ID === 'huadu'" />
   </div>
@@ -286,6 +287,7 @@ import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue
 import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
 import syncToIsbarModal from "@/Page/sheet-page/components/modal/sync-toIsbar-modal.vue";
+import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
@@ -1012,6 +1014,13 @@ export default {
     this.bus.$on("syncDecription", (tr, td) => {
       this.$refs.syncToIsbarModal.open(tr, td, sheetModel);
     });
+    this.bus.$on("syncImportExam", (tr, td) => {
+      this.$refs.syncExamTestModal.open(tr, td, sheetModel);
+    });
+    this.bus.$on("ImportExamCallBack", (str) => {
+      // console.log(this.sheetModel[0].bodyModel[0][18].value);
+      this.bus.$emit('saveSheetPage','noSaveSign')
+    });
   },
   watch: {
     patientInfo(val) {
@@ -1078,6 +1087,7 @@ export default {
     setPageModal,
     pizhuModal,
     syncToIsbarModal,
+    syncExamTestModal,
     sheetTableNeonatology,
     sheetTablePost_partum,
     evalModel,

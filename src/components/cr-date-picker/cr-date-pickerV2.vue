@@ -79,6 +79,9 @@ export default {
         time: {
           format: "YYYY-MM-DD",
         },
+        gtime:{
+          format:"MM-DD HH:mm"
+        }
       },
     };
   },

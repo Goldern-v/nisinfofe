@@ -1,6 +1,7 @@
 <template>
   <div :class="{ hj: HOSPITAL_ID == 'hj' }">
-    <leftPartHengli
+    <component :is="witchLeft" v-if="inited"/>
+    <!-- <leftPartHengli
       v-if="inited && HOSPITAL_ID=='hengli'"
       @handleInpatientSave="handleInpatientSave"
     ></leftPartHengli>
@@ -15,7 +16,7 @@
     <leftPart
       v-else-if="inited"
       @handleInpatientSave="handleInpatientSave"
-    ></leftPart>
+    ></leftPart> -->
     <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
       <!-- <topPart></topPart> -->
       <component :is="switchCompt()" v-if="inited" />
@@ -70,6 +71,7 @@ import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import leftPartHengli from "@/Page/patientInfo/supComponts/leftPart_Hengli";
 import leftPartFuyou from "@/Page/patientInfo/supComponts/leftPart_Fuyou";
 import leftPartHuadu from "@/Page/patientInfo/supComponts/leftPart_Huadu";
+import leftPartFSXT from "@/Page/patientInfo/supComponts/leftPart_FSXT";
 import { getPatientInfo } from "@/api/common.js";
 
 export default {
@@ -83,6 +85,16 @@ export default {
     };
   },
   computed: {
+    witchLeft(){
+      let HOSPITAL_ID_Obj = {
+        hengli:'leftPartHengli',
+        huadu:'leftPartHuadu',
+        fuyou:'leftPartFuyou',
+        fsxt:'leftPartFSXT',
+        default:'leftPart'
+      }
+      return HOSPITAL_ID_Obj[this.HOSPITAL_ID] || HOSPITAL_ID_Obj.default
+    },
     openLeft() {
       return this.$store.state.common.openLeft;
     },
@@ -184,6 +196,7 @@ export default {
     leftPartFuyou,
     leftPartHuadu,
     topPartYC,
+    leftPartFSXT
   },
 };
 </script>

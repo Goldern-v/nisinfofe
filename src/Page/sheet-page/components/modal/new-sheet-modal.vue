@@ -51,6 +51,12 @@
               item.recordName
             }}</span>
           </el-row>
+          <!-- 开发环境区分用，做了判断的，正式不会有的 -->
+          <el-row v-if="node_env=='development'">
+            <p title="开发环境区分用，做了判断的，正式不会有的">
+              {{item.recordCode}}
+            </p>
+          </el-row>
         </div>
       </div>
       <div slot="button" @click="newRecordClose">
@@ -228,6 +234,9 @@ export default {
     },
   },
   computed: {
+    node_env(){
+      return process.env.NODE_ENV
+    },
     filterData() {
       // if (["beihairenyi"].includes(this.HOSPITAL_ID)) {
       //   return this.templates.filter((item) => {
