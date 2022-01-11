@@ -345,8 +345,6 @@ export default {
             //     "*"
             //   );
             // });
-            console.log('路由',this.$route.query);
-            console.log('路由',this.$route.query);
             const params = {
               patientId: this.$route.query.patientId,
               startLogDateTime: e.data.value.startLogDateTime,
@@ -371,7 +369,6 @@ export default {
               endLogDateTime: e.data.value.endLogDateTime,
               visitId: this.$route.query.visitId,
             };
-            if(this.isPrintAll){
               getNurseExchangeInfoBatch(paramsAll).then((res) => {
               let value = res.data.data.exchangeInfos
               if(value.length!==0){
@@ -381,10 +378,8 @@ export default {
               );
               }
 
-              
+
             });
-            }
-            
             break;
           default:
             break;
@@ -441,7 +436,7 @@ export default {
     }else if(this.$route.path.includes('temperature')){
       //如果在患者信息页面直接获取体温单计算页面
         this.getImg()
-      
+
     }
     this.bus.$on("sheetToolLoaded", () => {
       this.bus.$emit("getBlockList");
@@ -452,7 +447,7 @@ export default {
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
     this.getData();
-    
+
   },
   computed: {
     patientInfo() {
