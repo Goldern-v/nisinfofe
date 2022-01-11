@@ -163,7 +163,7 @@
                         vitalSignObj[j].vitalValue
                       )"
                       @click.prevent="
-                        () => (vitalSignObj[j].vitalValue = option)
+                        () => (vitalSignObj[j].vitalValue = vitalSignObj[j].vitalValue+option)
                       "
                     >
                       {{ option }}
