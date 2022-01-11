@@ -91,8 +91,12 @@ return {
         '床上洗头',
         '温水擦浴',
         '指导患者出院前打胰岛素', 
+        '脐部护理',
+        '洗浴',
+        '防坠床',
+        '翻身拍背',
     ],
-    frequencyOptions:['qd','bid','tid','q4h','q6h','q8h','q12h','q3d','qw','biw']
+    frequencyOptions:['qd','bid','tid','q2h','q4h','q6h','q8h','q12h','q3d','qw','biw']
 };
 },
 methods:{
