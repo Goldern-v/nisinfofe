@@ -17,7 +17,8 @@
             align='center'
             width="55">
             <template slot-scope="scope">
-              <input type="checkbox" :checked="currentRow.testNo===scope.row.testNo" style="pointer-events:none">
+              <!-- <input type="checkbox" :checked="currentRow.testNo===scope.row.testNo" style="pointer-events:none"> -->
+              <el-checkbox :value="currentRow.testNo===scope.row.testNo"  style="pointer-events:none"></el-checkbox>
             </template>
           </el-table-column>
           <el-table-column
@@ -36,6 +37,7 @@
           height="200"
           v-loading="resTableLoading"
           :data="testResultArr"
+          ref="multipleTable"
           border
           @select="handleSelectionChange"
           @select-all="handleSelectionChangeAll"
@@ -57,8 +59,10 @@
           </el-table-column>
         </el-table>
       </div>
+      结果展示：
       <div class="callback-result">{{callBackResult}}</div>
       <div slot="button">
+        <el-button class="modal-btn" @click="toggleSelection">仅选中异常项</el-button>
         <el-button class="modal-btn" @click="newRecordClose">关闭</el-button>
         <el-button class="modal-btn" type="primary" @click="syncDecriptionTolsbar">插入</el-button>
       </div>
@@ -83,7 +87,7 @@
 .callback-result{
   width: 100%;
   height: 200px;
-  border: 1px solid #000;
+  border: 1px solid #dfece8;
 }
 >>>.el-table__body-wrapper{
   overflow-x:hidden; 
@@ -239,11 +243,29 @@ export default {
       let str = ''
       Object.keys(this.callbackArr).map((item,index)=>{
         let currentDate = this.tableData.find(tableItem=>tableItem.testNo === item).resultDateTime.split(" ")[0]
-        this.callbackArr[item].map(i=>str += `[${currentDate}] ${i.reportItemName} ${i.result} ${i.units};`)
+        this.callbackArr[item].map((e,i)=>{
+          if(!i){
+            str += `[${currentDate}] `
+          }
+          str += `${e.reportItemName} ${e.result}${e.units?' '+e.units:''};`
+        })
         }
       )
       this.callBackResult = str
-    }
+    },
+    toggleSelection() {
+        let rows = this.testResultArr.filter(item=>item.abnormalIndicator)
+        if(!rows.length){
+          this.$message.warning("此检验项目无异常结果！")
+          return
+        }
+        rows.forEach(row => {
+          this.$refs.multipleTable.toggleRowSelection(row);
+        });
+        this.callbackArr = []
+        this.callbackArr[rows[0].testNo] = rows
+        this.generateResult()
+      },
   },
   created() {
   },
