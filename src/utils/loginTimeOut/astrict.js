@@ -4,10 +4,10 @@ import { MessageBox, Message, Notification } from "element-ui";
 
 let lastTime = new Date().getTime(),//最后一次更新时间
     currenTime = new Date().getTime(),//当前时间
-    timeOut = 3 * 60 * 1000,//超时时间 默认三分钟
+    timeOut = 10 * 60 * 1000,//超时时间 默认十分钟分钟
     astrictInterval = null,//定时器对象
     // astrictHisList = ["liaocheng"];//需要启动超时登录的医院列表
-    astrictHisList = [""];//需要启动超时登录的医院列表
+    astrictHisList = ["weixian"];//需要启动超时登录的医院列表
 
 //初始化方法
 export const initAstrict = () => {
@@ -21,6 +21,17 @@ export const initAstrict = () => {
 //清除astrictInterval
 export const clearAstrictInterval = () =>{
     window.clearInterval(astrictInterval);
+    //storage.getLocalStorageItem("")
+    if(localStorage["rememberAccount"]){
+        // let rememberAccount = JSON.parse(JSON.stringify(localStorage["rememberAccount"]));
+        let rememberAccount = localStorage["rememberAccount"];
+        window.localStorage.clear();
+        window.sessionStorage.clear();
+        setTimeout(()=>{
+            localStorage["rememberAccount"]=rememberAccount;
+        },500);
+    }
+    
 }
 
 //是否为登录界面
@@ -67,8 +78,10 @@ const checkTimeOut = () => {
         case "liaocheng":
             timeOut=10 * 60 * 1000;
             break;
-        default: 
+        case "weixian":
             timeOut=10 * 60 * 1000;
+            break;
+        default: 
             break;
 
     }
@@ -76,10 +89,10 @@ const checkTimeOut = () => {
         //storage.removeLocalStorageItem("lastTime");
         // console.log(router.currentRouter)
         // console.log(router)
-         //重启
-         initMessageBox();
+        //重启
+        initMessageBox();
         if (isLogin()) return false;
-        router.replace("/login")
+        router.replace("/login");
        
     }
 }

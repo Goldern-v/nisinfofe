@@ -163,7 +163,7 @@
                         vitalSignObj[j].vitalValue
                       )"
                       @click.prevent="
-                        () => (vitalSignObj[j].vitalValue = option)
+                        () => (vitalSignObj[j].vitalValue = vitalSignObj[j].vitalValue+option)
                       "
                     >
                       {{ option }}
@@ -728,10 +728,9 @@ export default {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
-            if(v.vitalSigns==='过敏药物'){
+            if(v.vitalSigns==='过敏药物'&&v.vitalValue!==""){
               v.selectValue=v.expand2
               v.vitalValue=v.expand1.split(" ")[0]
-              // items
             }
             this.vitalSignObj[v.vitalCode] = {
               ...v,
@@ -857,8 +856,15 @@ export default {
               : (item.expand2 = this.topExpandDate);
             break;
           case "过敏药物":
-            item.expand1 = item.vitalValue;
-            item.expand2 = item.selectValue===""?"阴性":item.selectValue;
+            if(item.vitalValue!==""){
+               item.expand1 = item.vitalValue;
+            item.expand2 = item.selectValue;
+            }else{
+              item.expand1 = "";
+            item.expand2 = "";
+            item.selectValue=""
+            }
+
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
