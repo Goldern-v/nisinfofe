@@ -189,6 +189,7 @@ export default {
       this.$refs.newRecord.close();
     },
     handleCurrentChange(val){
+      if(!val)return
       this.currentRow = val
       // 更改项目内容,以当前选中项的textNo为入参发送请求,获取对应的项目结果
       this.resTableLoading = true
