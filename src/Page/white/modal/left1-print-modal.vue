@@ -275,28 +275,47 @@ export default {
   watch:{
     printData(val){
       // console.log("printData",val);
-      if(val.length > 0){
-        this.dataArr = []
-        let e = []
-        val.map((item,index)=>{
-          if(index % 29 != 0 && index != val.length-1){
-            e.push(item)
-          }else if(index!=0 && index != val.length-1){
-            this.dataArr.push([...e])
-            e = [item]
-          }else if(index==0 && index == val.length-1){
-            // e = [item]
-            e.push(item)
-            this.dataArr.push([...e])
-          }else if(index==0){
-            e = [item]
-          }else if(index == val.length-1){
-            e.push(item)
-            this.dataArr.push([...e])
+      this.$nextTick(()=>{
+        let arr = []
+        let table = document.getElementsByClassName('showTableContent')[0]
+        let trs = [...table.getElementsByTagName("tr")]
+        let originHeight = 0
+        trs.map((tr,trIndex)=>{
+          if(!trIndex){
+            arr.push([])
+          }
+          if(originHeight + tr.offsetHeight >= page_height){
+            arr.push([val[trIndex]])
+            originHeight = 0
+          }else{
+            arr[arr.length-1].push(val[trIndex])
+            originHeight += tr.offsetHeight
           }
         })
-        // console.log(this.dataArr, 999);
-      }
+        this.dataArr = arr
+      })
+      // if(val.length > 0){
+      //   this.dataArr = []
+      //   let e = []
+      //   val.map((item,index)=>{
+      //     if(index % 29 != 0 && index != val.length-1){
+      //       e.push(item)
+      //     }else if(index!=0 && index != val.length-1){
+      //       this.dataArr.push([...e])
+      //       e = [item]
+      //     }else if(index==0 && index == val.length-1){
+      //       // e = [item]
+      //       e.push(item)
+      //       this.dataArr.push([...e])
+      //     }else if(index==0){
+      //       e = [item]
+      //     }else if(index == val.length-1){
+      //       e.push(item)
+      //       this.dataArr.push([...e])
+      //     }
+      //   })
+      //   // console.log(this.dataArr, 999);
+      // }
     }
   },
   components: {
