@@ -718,7 +718,11 @@ export default {
     },
     //花都护记年份
     recordYear() {
-      return this.data.bodyModel[0][0].value.split("-")[0];
+      let year=this.data.bodyModel[0][0].value.split("-")[0]
+      if(this.HOSPITAL_ID==='fuyou'&&year){
+        year=`${year}年`
+      }
+      return year;
     },
     show(td) {
       console.log(td);
