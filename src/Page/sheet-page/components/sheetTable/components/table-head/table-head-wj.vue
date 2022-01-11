@@ -1,5 +1,5 @@
 <template>
-  <div class="header-con">
+  <div :class="['header-con',sheetInfo.sheetType === 'common_wj'?'wujing-big-title':'']">
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <div v-if="sheetInfo.sheetType === 'waiting_birth_wj'">
@@ -273,6 +273,11 @@ export default {
         box-sizing: border-box;
       }
     }
+  }
+}
+.wujing-big-title{
+  .title,.his-name{
+    font-size: 29px;
   }
 }
 .bottom-line-input {
