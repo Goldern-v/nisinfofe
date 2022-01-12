@@ -724,6 +724,10 @@ export default {
       if(this.HOSPITAL_ID==='fuyou'&&year){
         year=`${year}年`
       }
+      if(['wujing'].includes(this.HOSPITAL_ID)){
+        let value = this.data.bodyModel[0].find(item=>item.key==="recordYear").value
+        year = value || ''
+      }
       return year;
     },
     show(td) {

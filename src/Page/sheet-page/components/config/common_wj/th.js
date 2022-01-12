@@ -7,22 +7,11 @@ export default {
   th: {
     top: [
       {
-        name: '日期',
-        style: {
-          minWidth: '37px',
-          maxWidth: '37px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: '时间',
-        style: {
-          minWidth: '37px',
-          maxWidth: '37px',
-        },
-        colspan: '1',
-        rowspan: '3'
+        name: '',
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+        key:'recordYear'
       },
       {
         name: `
@@ -215,6 +204,24 @@ export default {
       }
     ],
     mid: [
+      {
+        name: '日期',
+        style: {
+          minWidth: '37px',
+          maxWidth: '37px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '37px',
+          maxWidth: '37px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
       {
         name: `
         内容
