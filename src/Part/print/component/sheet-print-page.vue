@@ -356,6 +356,18 @@ export default {
         `
       );
     }
+    if(this.sheetInfo.sheetType=="common_wj"){
+      addCSS(
+        window,
+        `
+        @media print {
+          @page{
+            margin:0 0 0 2cm;
+          }
+        }
+        `
+      );
+    }
     if ( (this.HOSPITAL_ID === "foshanrenyi") &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {

@@ -88,6 +88,9 @@ export default [
     name: "意识",
     textarea: {
       width: 50
+    },
+    autoComplete: {
+      data:["清醒","嗜睡","昏睡","浅昏迷","深昏迷","谵妄"]
     }
   },
   {

@@ -35,6 +35,7 @@
       </tr>
       <tr
         class="head-con"
+        :id="[sheetInfo.sheetType == 'common_wj'?'bigFonstSize':'']"
         v-for="(th, index) in data.titleModel.th"
         :key="index"
       >
@@ -45,7 +46,7 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          :class="{ canSet: item.canSet }"
+          :class="{ canSet: item.canSet}"
           @click="item.canSet && setTitle(item)"
         >
           <span v-if="item.key == 'recordYear' && HOSPITAL_ID == 'huadu'">{{
@@ -63,6 +64,7 @@
     >
       <tr
         class="head-con"
+        :id="[sheetInfo.sheetType == 'common_wj'?'bigFonstSize':'']"
         v-for="(th, index) in data.titleModel.th"
         :key="index"
       >
@@ -718,7 +720,11 @@ export default {
     },
     //花都护记年份
     recordYear() {
-      return this.data.bodyModel[0][0].value.split("-")[0];
+      let year=this.data.bodyModel[0][0].value.split("-")[0]
+      if(this.HOSPITAL_ID==='fuyou'&&year){
+        year=`${year}年`
+      }
+      return year;
     },
     show(td) {
       console.log(td);
