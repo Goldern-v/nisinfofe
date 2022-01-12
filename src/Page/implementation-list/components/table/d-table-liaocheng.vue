@@ -530,7 +530,7 @@ export default {
       
       let user = JSON.parse(localStorage.getItem('user'))
       // console.log(user);
-      if(user.job!="护长"){
+      if(!["护长",'护士长'].includes(user.job)){
         this.$message.error('没有权限！')
       }else{
         this.$prompt("请输入取消的原因", "提示", {
