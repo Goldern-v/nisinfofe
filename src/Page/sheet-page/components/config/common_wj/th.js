@@ -1,7 +1,7 @@
 export default {
   // 科室的名称
   style:{
-    width:"1200px"
+    width:'1150px'
   },
   deptType: '',
   th: {
@@ -34,7 +34,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '55px',
+          minWidth: '53px',
+          maxWidth: '53px',
         }
       },
       {
@@ -46,7 +47,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '55px',
+          minWidth: '53px',
+          maxWidth: '53px',
         }
       },
       {
@@ -54,8 +56,8 @@ export default {
         呼吸<br/>(mmHg)
         `,
         style: {
-          minWidth: '53px',
-          maxWidth: '53px',
+          minWidth: '47px',
+          maxWidth: '47px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -66,8 +68,8 @@ export default {
         血压<br/>(mmHg)
         `,
         style: {
-          minWidth: '53px',
-          maxWidth: '53px',
+          minWidth: '47px',
+          maxWidth: '47px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -188,8 +190,8 @@ export default {
         病情观察 护理措施
         `,
         style: {
-          minWidth: '154px',
-          maxWidth: '154px',
+          minWidth: '170px',
+          maxWidth: '170px',
         },
         colspan: '1',
         rowspan: '3'
@@ -198,7 +200,9 @@ export default {
         name: `
         护士签名
         `,
-        style: {},
+        style: {
+          minWidth:'60px'
+        },
         colspan: '1',
         rowspan: '3'
       }
