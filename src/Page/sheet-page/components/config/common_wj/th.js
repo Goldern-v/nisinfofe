@@ -1,25 +1,17 @@
 export default {
   // 科室的名称
+  style:{
+    width:'1150px'
+  },
   deptType: '',
   th: {
     top: [
       {
-        name: '日期',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: '时间',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-        colspan: '1',
-        rowspan: '3'
+        name: '',
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+        key:'recordYear'
       },
       {
         name: `
@@ -30,7 +22,7 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '34px',
+          minWidth: '35px',
         }
       },
       {
@@ -42,7 +34,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '53px',
+          maxWidth: '53px',
         }
       },
       {
@@ -54,7 +47,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '38px',
+          minWidth: '53px',
+          maxWidth: '53px',
         }
       },
       {
@@ -62,8 +56,8 @@ export default {
         呼吸<br/>(mmHg)
         `,
         style: {
-          minWidth: '52px',
-          maxWidth: '52px',
+          minWidth: '47px',
+          maxWidth: '47px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -74,8 +68,8 @@ export default {
         血压<br/>(mmHg)
         `,
         style: {
-          minWidth: '52px',
-          maxWidth: '52px',
+          minWidth: '47px',
+          maxWidth: '47px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -86,8 +80,8 @@ export default {
         意识
         `,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '51px',
+          maxWidth: '51px'
         },
         colspan: '1',
         rowspan: '3'
@@ -97,8 +91,8 @@ export default {
         瞳孔<br/>(mm)
         `,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '71px',
+          maxWidth: '71px'
         },
         colspan: '1',
         rowspan: '3'
@@ -127,8 +121,8 @@ export default {
         canSet: true,
         key: 'fieldOne',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '51px',
+          maxWidth: '51px',
         }
       },
       {
@@ -139,8 +133,8 @@ export default {
         canSet: true,
         key: 'fieldTwo',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '51px',
+          maxWidth: '51px',
         }
       },
       {
@@ -151,8 +145,8 @@ export default {
         canSet: true,
         key: 'fieldThree',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '38px',
+          maxWidth: '38px',
         }
       },
       {
@@ -163,8 +157,8 @@ export default {
         canSet: true,
         key: 'fieldFour',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '38px',
+          maxWidth: '38px',
         }
       },
       {
@@ -175,8 +169,8 @@ export default {
         canSet: true,
         key: 'fieldFive',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '38px',
+          maxWidth: '38px',
         }
       },
       {
@@ -187,8 +181,8 @@ export default {
         canSet: true,
         key: 'fieldSix',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '38px',
+          maxWidth: '38px',
         }
       },
       {
@@ -196,8 +190,8 @@ export default {
         病情观察 护理措施
         `,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '170px',
+          maxWidth: '170px',
         },
         colspan: '1',
         rowspan: '3'
@@ -206,19 +200,39 @@ export default {
         name: `
         护士签名
         `,
-        style: {},
+        style: {
+          minWidth:'60px'
+        },
         colspan: '1',
         rowspan: '3'
       }
     ],
     mid: [
       {
+        name: '日期',
+        style: {
+          minWidth: '37px',
+          maxWidth: '37px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '37px',
+          maxWidth: '37px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
         name: `
         内容
         `,
         style: {
-          minWidth: '68px',
-          maxWidth: '68px'
+          minWidth: '69px',
+          maxWidth: '69px'
         },
         colspan: '1',
         rowspan: '2'
@@ -230,8 +244,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '37px',
+          maxWidth: '37px',
         },
       },
       {
@@ -239,8 +253,8 @@ export default {
         内容
         `,
         style: {
-          minWidth: '68px',
-          maxWidth: '68px'
+          minWidth: '69px',
+          maxWidth: '69px'
         },
         colspan: '1',
         rowspan: '2'
@@ -252,8 +266,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '37px',
+          maxWidth: '37px',
         },
       }
     ],

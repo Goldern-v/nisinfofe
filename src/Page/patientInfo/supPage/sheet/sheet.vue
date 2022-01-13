@@ -54,6 +54,7 @@
     <specialModal ref="specialModal"></specialModal>
     <specialModal2 ref="specialModal2"></specialModal2>
     <pizhuModal ref="pizhuModal"></pizhuModal>
+    <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <evalModel ref="evalModel"></evalModel>
     <!-- 电子病例弹窗 -->
     <doctorEmr
@@ -233,6 +234,7 @@ import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
 import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBottom";
 import { patients } from "@/api/lesion";
+import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
 
 export default {
   mixins: [common],
@@ -884,6 +886,13 @@ export default {
         });
       });
     });
+    this.bus.$on("syncImportExam", (tr, td) => {
+      this.$refs.syncExamTestModal.open(tr, td, sheetModel);
+    });
+    this.bus.$on("ImportExamCallBack", (str) => {
+      // console.log(this.sheetModel[0].bodyModel[0][18].value);
+      this.bus.$emit('saveSheetPage','noSaveSign')
+    });
   },
   watch: {
     deptCode(val) {
@@ -926,6 +935,7 @@ export default {
     GuizhouModal,
     signModal,
     specialModal,
+    syncExamTestModal,
     specialModal2,
     setPageModal,
     pizhuModal,

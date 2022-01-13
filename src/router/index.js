@@ -80,9 +80,15 @@ const shiftWorkWujing = () => import("@/Page/shift-work-wujing/shift-work.vue");
 const shiftWorkDetailWujing = () => import("@/Page/shift-work-wujing/shift-work-detail.vue");
 
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
+const shiftWorkNFZXY = () => import("@/Page/shift-work-nfzxy/shift-work.vue");//贵州交班志
+
 const ISBARshiftWorkHd = () => import("@/Page/shift-work/shift-work.vue");//花都ISBAR交班志
 
+const morningShiftWork = ()=>import("@/Page/shift-work-morning-nfzxy/shift-work.vue")
+const morningShiftWorkDetail = ()=>import("@/Page/shift-work-morning-nfzxy/shift-work-detail.vue")
+
 const shiftWorkDetailGuizhou = () => import("@/Page/shift-work-gz/shift-work-detail.vue");
+const shiftWorkDetailNFZXY = () => import("@/Page/shift-work-nfzxy/shift-work-detail.vue");
 const ISBARshiftWorkDetailHd = () => import("@/Page/shift-work/shift-work-detail.vue");
 
 const singleRounds = () => import("@/Page/single-rounds/single-rounds.vue");
@@ -550,6 +556,8 @@ const router = new Router({
               return shiftWorkFq
             case 'wujing':
               return shiftWorkWujing
+            case 'nanfangzhongxiyi':
+              return shiftWorkNFZXY
             // case 'guizhou':
             //   return shiftWorkGuizhou
             default:
@@ -571,6 +579,8 @@ const router = new Router({
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
+              case 'nanfangzhongxiyi':
+                return shiftWorkDetailNFZXY
               case 'beihairenyi':
                 return shiftWorkDetailBh
               case 'fqfybjy':
@@ -605,6 +615,16 @@ const router = new Router({
                 return shiftWorkDetailGuizhou
             }
           })(),
+        }]
+      },
+      {
+        path: "/morningShiftWork",
+        name: "morningShiftWork",
+        component: morningShiftWork,
+        children: [{
+          name: "morningShiftWork",
+          path: "/morningShiftWork/:code?/:id?",
+          component:  morningShiftWorkDetail
         }]
       },
       {

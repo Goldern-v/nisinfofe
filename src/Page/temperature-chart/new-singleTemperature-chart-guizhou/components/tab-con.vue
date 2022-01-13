@@ -90,7 +90,9 @@
           </div>
         </div>
         <div style="flex:7" class="inputText">
-          <div
+          <table>
+            <tr>
+                <div
             :class="
               !(
                 index.includes('自定义') ||
@@ -103,11 +105,10 @@
             v-for="(j, index, i) in multiDictList"
             :key="index"
           >
+          <div v-if="index!=='过敏药物'">
             <span
               :class="
-                index === '过敏药物'
-                  ? 'allergyPreText'
-                  : index === '病人事件'
+              index === '病人事件'
                   ? 'hisEventPreText'
                   : 'preText'
               "
@@ -125,71 +126,7 @@
               :visible-arrow="false"
               :manual="true"
               :value="vitalSignObj[j].popVisible"
-            >
-              <div v-if="index === '过敏药物'" class="allergyDiv">
-                <div style="display: inline-block">
-                  <input
-                    :id="i + 1"
-                    @keydown.enter="changeNext"
-                    size="mini"
-                    style="width: 60px"
-                    :title="vitalSignObj[j].vitalValue"
-                    @input="handlePopRefresh(vitalSignObj[j])"
-                    @focus="() => (vitalSignObj[j].popVisible = true)"
-                    @blur="() => (vitalSignObj[j].popVisible = false)"
-                    v-model="vitalSignObj[j].vitalValue"
-                  />
-                  <!-- <el-select slot="append"  v-model="vitalSignObj[j].selectValue" filterable allow-create default-first-option  size="mini"
-                  placeholder="结果" @change="changeValue($event)" style="width:78px" >
-                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                  </el-select> -->
-                </div>
-                <el-select
-                  slot="append"
-                  v-model="vitalSignObj[j].selectValue"
-                  filterable
-                  allow-create
-                  default-first-option
-                  size="mini"
-                  placeholder="结果"
-                  style="width: 70px;margin-top:3px;display:inline-block"
-                >
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  >
-                  </el-option>
-                  
-                </el-select>
-              </div>
-              
-              <!-- <div v-if="index==='病人事件'" class="allergyDiv">
-                <div style="display:inline-block;">
-                  <input 
-                  id="i+1"
-                type="text"
-                :title="vitalSignObj[j].vitalValue"
-                @input="handlePopRefresh(vitalSignObj[j])"
-                @click="() => (vitalSignObj[j].popVisible = true)"
-                @blur="() => (vitalSignObj[j].popVisible = false)"
-                v-model="vitalSignObj[j].vitalValue"
-                
-                 />
-                </div>
-                <el-date-picker
-                class="datePickerHisEvent"
-                 size="mini"
-                 format="yyyy-MM-dd HH:mm:ss"
-                 value-format="yyyy-MM-dd HH:mm:ss"
-                 v-model="vitalSignObj[j].expand2"
-                 type="datetime"
-                 placeholder="选择日期时间"
-                 @change="formatTopExpandDate">
-                </el-date-picker>
-              </div> -->
+             >
               <input
                 :id="i + 1"
                 @keydown.enter="changeNext"
@@ -226,7 +163,7 @@
                         vitalSignObj[j].vitalValue
                       )"
                       @click.prevent="
-                        () => (vitalSignObj[j].vitalValue = option)
+                        () => (vitalSignObj[j].vitalValue = vitalSignObj[j].vitalValue+option)
                       "
                     >
                       {{ option }}
@@ -237,6 +174,110 @@
               </template>
             </el-tooltip>
           </div>
+          </div>
+            </tr>
+            <tr>
+                 <div
+            v-for="(j, index, i) in multiDictList"
+            :key="index"
+          >
+          <div v-if="index==='过敏药物'" >
+            <span
+              class="allergyPreText
+              "
+              >{{ index }}</span
+            >
+          <div  class="allergyDiv" style="display:inline-block">
+                <div style="display: inline-block">
+                   <el-tooltip
+                    placement="top"
+              popper-class="custom-temp-dict-select"
+              :disabled="
+                !(
+                  totalDictInfo[index].options &&
+                  totalDictInfo[index].options.length > 0
+                )
+              "
+              :visible-arrow="false"
+              :manual="true"
+              :value="vitalSignObj[j].popVisible"
+              style="display: inline-block"
+             >
+               <input
+                    :id="i + 1"
+                    @keydown.enter="changeNext"
+                    size="mini"
+                    style="width: 70px;font-size:12px;"
+                    :title="vitalSignObj[j].vitalValue"
+                    @input="handlePopRefresh(vitalSignObj[j])"
+                    @focus="() => (vitalSignObj[j].popVisible = true)"
+                    @blur="() => (vitalSignObj[j].popVisible = false)"
+                    v-model="vitalSignObj[j].vitalValue"
+                  />
+              <template v-slot:content>
+                <div
+                  class="container"
+                  @click.prevent="
+                    () => {
+                      vitalSignObj[j].popVisible = false;
+                    }
+                  "
+                >
+                  <template
+                    v-if="
+                      totalDictInfo[index].options &&
+                      getFilterSelections(
+                        totalDictInfo[index].options,
+                        vitalSignObj[j].vitalValue
+                      ).length > 0
+                    "
+                  >
+                    <div
+                      :key="selectionDictIdx"
+                      class="selection-dict-item"
+                      v-for="(option, selectionDictIdx) in getFilterSelections(
+                        totalDictInfo[index].options,
+                        vitalSignObj[j].vitalValue
+                      )"
+                      @click.prevent="
+                        () => (vitalSignObj[j].vitalValue = option)
+                      "
+                    >
+                      {{ option }}
+                    </div>
+                  </template>
+                  <div v-else class="null-item">无匹配数据</div>
+                </div>
+              </template>
+            </el-tooltip>
+                </div>
+                <el-select
+                  slot="append"
+                  v-model="vitalSignObj[j].selectValue"
+                  filterable
+                  allow-create
+                  default-first-option
+                  size="mini"
+                  placeholder="结果"
+                  style="width: 78px"
+                >
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
+              </div>
+
+          </div>
+          </div>
+            </tr>
+          </table>
+
+
+
           <div class="fieldList">
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
               <span>自定义项目：</span>
@@ -370,7 +411,6 @@ export default {
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
     Object.keys(initTimeArea).forEach((time) => {
-      // console.log(time)
       let [start, end] = initTimeArea[time];
 
       let startSecond = start.split(":")[0] * 60 + start.split(":")[1] * 1;
@@ -619,6 +659,8 @@ export default {
             recordDate: item.recordDate,
             recordPerson: item.vitalSignList[0].nurseName,
           });
+
+
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
@@ -686,10 +728,15 @@ export default {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
+            if(v.vitalSigns==='过敏药物'&&v.vitalValue!==""){
+              v.selectValue=v.expand2
+              v.vitalValue=v.expand1.split(" ")[0]
+            }
             this.vitalSignObj[v.vitalCode] = {
               ...v,
               popVisible: false,
             };
+
           });
         } else {
           this.init();
@@ -700,7 +747,6 @@ export default {
     async getVitalList() {
       let wardCode = this.patientInfo.wardCode;
       await getmultiDict(wardCode).then((res) => {
-        // console.log('sss',res)
         let data = [];
         let obj = [];
         res.data.data.map((item, index) => {
@@ -709,7 +755,6 @@ export default {
             ...item,
             options: item.selectType ? item.selectType.split(",") : [],
           };
-          // console.log('options',Object.values(this.totalDictInfo)||[])
           if (item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
@@ -811,8 +856,15 @@ export default {
               : (item.expand2 = this.topExpandDate);
             break;
           case "过敏药物":
-            item.expand1 = item.vitalValue;
+            if(item.vitalValue!==""){
+               item.expand1 = item.vitalValue;
             item.expand2 = item.selectValue;
+            }else{
+              item.expand1 = "";
+            item.expand2 = "";
+            item.selectValue=""
+            }
+
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
@@ -945,10 +997,6 @@ export default {
       input {
         width: 50px;
       }
-    }
-
-    .allergyPreText {
-      top: -20px;
     }
 
     .datePickerHisEvent {

@@ -58,7 +58,7 @@
           <div class="list2-li">科室：{{ info.deptName }}</div>
           <div class="list2-li">
             入院：{{
-            ['huadu','liaocheng'].includes(HOSPITAL_ID)
+            ['huadu','liaocheng', 'wujing'].includes(HOSPITAL_ID)
                 ? info.admissionWardDateTime
                 : info.admissionDate
             }}(第{{ info.inpDay }}天)
@@ -408,7 +408,7 @@ export default {
     window.document.title = `${this.info.bedLabel}-${this.info.name}`;
   },
   mounted() {
-    this.getArchiveStatus(); 
+    this.getArchiveStatus();
   },
   components: {
     bedModal,

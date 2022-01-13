@@ -703,21 +703,7 @@ export default {
     },
     isOpen() {
       this.$refs.modal.open();
-      let qr_png_value = "";
-      switch (this.HOSPITAL_ID) {
-        case "liaocheng":
-          qr_png_value = this.query.patientId + "|" + this.query.visitId;
-          break;
-        case "shannan":
-          qr_png_value = this.query.inpNo;
-          break;
-        case "hengli":
-          qr_png_value = this.query.expand1;
-          break;
-        default:
-          qr_png_value = this.query.patientId;
-          break;
-      }
+      let qr_png_value = `1002|${this.query.patientId}`;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";

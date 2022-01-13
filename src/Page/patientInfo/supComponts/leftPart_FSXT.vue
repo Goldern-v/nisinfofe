@@ -346,9 +346,9 @@ export default {
         wujing:'bedModalWujing',
         weixian:'bedModalWx',
         lingcheng:'bedModalLc',
-        liaocheng:'bedModalLiaocheng',
-        fsxt:'bedModalFSXT',
-        huadu:'bedModalHd',
+        liaocheng:'bedModalLiaocheng', // 只有床头卡，腕带是借花都的
+        fsxt:'bedModalFSXT', // 只有床头卡，腕带是借花都的
+        huadu:'bedModalHd', // 双床头卡，成人/儿童双腕带
         zhongshanqi:'bedModalZsq',
         beihairenyi:'bedModalBh',
         quzhou:'bedModalQz',
@@ -362,7 +362,7 @@ export default {
     },
     // 腕带打印
     openWristPrint(printMode) {
-      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID=='fsxt') {
+      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID=='fsxt') { // 借花都的腕带
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);

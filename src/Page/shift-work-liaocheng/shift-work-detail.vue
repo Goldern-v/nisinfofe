@@ -237,7 +237,8 @@
                   压疮高危：<b><input type="text" v-model="shiftWithWardcodes.patientPressure" /></b>人，
                 </span>
                 <span>
-                  跌倒/坠床高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人，
+                  <!-- 跌倒/坠床高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人， -->
+                  跌倒高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人，
                 </span>
                 <span>
                   VTE高危：<b><input type="text" v-model="shiftWithWardcodes.patientVte" /></b>人

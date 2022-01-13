@@ -735,7 +735,15 @@ export default {
     open(printMode = "h") {
       this.init();
       this.printMode = printMode;
-      let qr_png_value = this.query.patientId + "|" + this.query.visitId;
+      let qr_png_value;
+      switch(this.HOSPITAL_ID){
+        case 'fsxt':
+          qr_png_value = `1001|${this.query.patientId}|${this.query.visitId}|${this.query.name}`;
+          break
+        default:
+          qr_png_value = this.query.patientId + "|" + this.query.visitId;
+          break
+      }
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {

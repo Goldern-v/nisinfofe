@@ -73,7 +73,7 @@ export default [
       data: ruList
     },
     textarea: {
-      width: 68
+      width: 69
     }
   },
   {
@@ -89,7 +89,7 @@ export default [
       data: chuList
     },
     textarea: {
-      width: 40
+      width: 70
     }
   },
   {
@@ -102,7 +102,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 48
+      width: 51
     }
   },
   {
@@ -110,7 +110,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 48
+      width: 51
     }
   },
   {
@@ -118,7 +118,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 38
     }
   },
   {
@@ -126,7 +126,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 38
     }
   },
   {
@@ -134,7 +134,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 38
     }
   },
   {
@@ -142,7 +142,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 38
     }
   },
   {
@@ -154,7 +154,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "170px",
       background: "transparent"
     },
     event: function(e, td) {

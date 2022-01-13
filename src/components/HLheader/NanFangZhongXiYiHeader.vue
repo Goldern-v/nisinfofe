@@ -265,6 +265,32 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
+            <!-- <el-dropdown
+              menu-align="start"
+              :class="{'router-link-active': isActiveShiftWork}"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-jiaobanzhi"></i>交班志
+              </el-row>
+
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item :class="{active: $route.path.includes('shiftWork')}">
+                  <router-link to="/shiftWork" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      交班志
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path.includes('morningShiftWork')}">
+                  <router-link to="/morningShiftWork" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      晨会交班记录
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown> -->
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
@@ -980,6 +1006,13 @@ export default {
         path.includes("allTemperatureChart")
       );
     },
+    isActiveShiftWork(){
+      let path = this.$route.path;
+      return (
+        path.includes("morningShiftWork") ||
+        path.includes("shiftWork")
+      );
+    }
   },
   methods: {
     handleCommand(command) {

@@ -17,7 +17,22 @@
         </el-button-group>
       </div>
       <p for class="name-title">请选择日期区间：</p>
-      <div flex="cross:center main:center" style="margin:0 15px 20px">
+      <div flex="cross:center main:center" style="margin:0 15px 20px" v-if="HOSPITAL_ID==='fuyou'">
+      <el-date-picker
+      v-model="date[0]"
+      type="datetime"
+      format="yyyy-MM-dd HH:mm"
+      placeholder="选择开始日期">
+      </el-date-picker>
+      <span style="padding: 0 15px; width: 30px">至</span>
+      <el-date-picker
+      v-model="date[1]"
+      type="datetime"
+      format="yyyy-MM-dd HH:mm"
+      placeholder="选择结束日期">
+      </el-date-picker>
+      </div>
+      <div flex="cross:center main:center" style="margin:0 15px 20px" v-else>
         <cr-date-picker
           v-model="date[0]"
           type="datetime"
@@ -133,6 +148,11 @@ export default {
           let date = this.date;
           let startTime = this.date[0];
           let endTime = this.date[1];
+          if(this.HOSPITAL_ID==="fuyou"){
+          // el-date-picker的value-format不生效
+           startTime=moment(startTime).format("YYYY-MM-DD HH:mm")
+           endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
+           }
           let recordCode = sheetInfo.sheetType;
           outputSum(
             this.$parent.patientInfo.patientId,
@@ -162,6 +182,11 @@ export default {
       let date = this.date;
       let startTime = this.date[0];
       let endTime = this.date[1];
+      if(this.HOSPITAL_ID==="fuyou"){
+        // el-date-picker的value-format不生效
+        startTime=moment(startTime).format("YYYY-MM-DD HH:mm")
+        endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
+      }
       putGroupCount(
         this.$parent.patientInfo.patientId,
         this.$parent.patientInfo.visitId,
