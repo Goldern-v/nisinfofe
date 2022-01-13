@@ -196,6 +196,7 @@ export default {
     },
     newRecordClose() {
       this.currentRow = {}
+      this.type='sheet'
       this.$refs.newRecord.close();
     },
     handleCurrentChange(val){
