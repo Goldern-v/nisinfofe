@@ -6,12 +6,12 @@
       <ElSelect size="small" :value="$route.params.code" @input="onCodeChange">
         <ElOption v-for="d of depts" :key="d.deptCode" :label="d.deptName" :value="d.deptCode" />
       </ElSelect>
-      <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()">添加患者</Button>
-      <Button
+      <!-- <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()">添加患者</Button> -->
+      <!-- <Button
         :disabled="isEmpty || allSigned || !$refs.table || !$refs.table.selectedRow"
         @click="onRowRemove"
-      >删除行</Button>
-      <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button>
+      >删除行</Button> -->
+      <Button  @click="onSave(true)">保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
@@ -23,162 +23,57 @@
         icon="el-icon-plus"
         @click="onCreateModalOpen($route.params.code)"
       >创建交班志</Placeholder>
+      
       <div class="paper" v-else>
         <div ref="printable" data-print-style="height: auto;">
           <div class="head shift-paper">
             <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
-            <h1 class="title">{{deptName}}</h1>
-            <h2 class="sub-title">ISBAR交班记录卡</h2>
+            <h1 class="title">晨会交班记录</h1>
+            <!-- <h1 class="title">{{deptName}}</h1> -->
+            <!-- <h2 class="sub-title">ISBAR交班记录卡</h2> -->
             <div class="details">
+              <span>科室：{{deptName}}</span>
+              <span>{{record.changeShiftDate | formatYMD}}</span>
               <span>
-                病区情况：原有：
-                <b>{{record.patientTotal || 0}}</b>人，
+                护士签名：
+                <button
+                  v-if="record.autographName"
+                  @click="onDelSignModalOpen"
+                >{{record.autographName}}</button>
+                <button v-else class="print-hidden" :disabled="isEmpty" @click="onSignModalOpen">点击签名</button>
               </span>
-              <span>
-                新收：
-                <b>{{record.inHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转入：
-                <b>{{record.transInTotal || 0}}</b>人，
-              </span>
-              <span>
-                出院：
-                <b>{{record.outHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转出：
-                <b>{{record.transOutTotal || 0}}</b>人，
-              </span>
-              <span>
-                现有：
-                <b>{{record.nowHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                病危：
-                <b>{{record.dangerTotal || 0}}</b>人，
-              </span>
-              <span>
-                病重：
-                <b>{{record.seriousTotal || 0}}</b>人，
-              </span>
-              <span v-if="HOSPITAL_ID != 'xiegang'">
-                手术：
-                <b>{{record.operationTotal || 0}}</b>人
-              </span>
-              <span>
-                交班日期：
-                <b>{{record.changeShiftDate}}</b>
-              </span>
-            </div>
-
-            <div
-              class="details"
-              style="margin-top: 10px"
-              v-if="record.deptCode && (record.deptCode.indexOf('051102_03') > -1 || record.deptCode.indexOf('051102_04') > -1) "
-            >
-              <span>
-                <!-- 051102 051102_03 051102_04 051102_02 -->
-                <span style="color: transparent">空</span>新生儿：原有：
-                <b>{{record.babyPatintTotal || 0}}</b>人，
-              </span>
-              <span>
-                新收：
-                <b>{{record.babyInHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转入：
-                <b>{{record.babyTransInTotal || 0}}</b>人，
-              </span>
-              <span>
-                出院：
-                <b>{{record.babyOutHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转出：
-                <b>{{record.babyTransOutTotal || 0}}</b>人，
-              </span>
-              <span>
-                现有：
-                <b>{{record.babyNowHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                病危：
-                <b>{{record.babyDangerTotal || 0}}</b>人，
-              </span>
-              <span>
-                病重：
-                <b>{{record.babySeriousTotal || 0}}</b>人，
-              </span>
-              <span>
-                手术：
-                <b>{{record.babyOperationTotal || 0}}</b>人
-              </span>
-              <span style="color: transparent">交班日期： 2019-05-15</span>
             </div>
           </div>
-          <ExcelTable
-            ref="table"
-            class="table"
-            :fixedTh="fixedTh"
-            data-print-style="height: auto;"
-            :columns="columns"
-            :editable="!allSigned"
-            :get-context-menu="getContextMenu"
-            v-model="patients"
-            @dblclick="onDblClickRow"
-            @input-change="onTableInputChange"
-            @input-keydown="onTableInputKeydown"
-          >
-            <tr class="empty-row" v-if="!patients.length">
-              <td colspan="7" style="padding: 0">
-                <Placeholder
-                  black
-                  size="small"
-                  data-print-style="display: none;"
-                  :show-add="!allSigned"
-                  @click="onPatientModalShow()"
-                >
-                  <i class="el-icon-plus"></i> 添加患者记录
-                </Placeholder>
-              </td>
-            </tr>
-            <tr class="normal-row">
-              <td colspan="7" class="special-case-title" data-print-style="border-bottom: none;">
-                <span class="row-title">特殊情况交接：（包括特殊复查的各种结果：如MR、CT、检验异常值等以及当班未完成治疗护理、病房安全等）</span>
-                <span
-                  class="row-action"
-                  v-if="!allSigned"
-                  @click="onSpecialCasePanelOpen"
-                  data-print-style="display: none;"
-                >特殊情况模板</span>
-              </td>
-            </tr>
-            <tr class="normal-row">
-              <td
-                colspan="7"
-                style="padding: 0;"
-                data-print-style="border-top: none;"
-                @contextmenu.stop.prevent="onContextMenu($event, record.specialSituation)"
-              >
-                <label>
-                  <el-input
-                    autosize
-                    type="textarea"
-                    class="special-case"
-                    :disabled="allSigned"
-                    v-model="record.specialSituation"
-                    @input="modified = true"
-                  />
-                </label>
-              </td>
-            </tr>
-          </ExcelTable>
-          <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
+          <div class="table">
+            <div class="table-top">
+
+            </div>
+            <div class="table-content">
+              <div class="content-goup"  v-for="(type,typeIndex) in typeConfig" :key="typeIndex">
+                <div class="content-title">{{type}}</div>
+                <div class="content-content">
+                  <div class="content-line" @contextmenu.prevent="(e)=>openContextMenu(e,line,type)" v-for="(line,lineIndex) in shiftWorkData" :key="lineIndex" v-if="line.patientType===type">
+                    <el-input
+                      autosize
+                      :class="['textarea']"
+                      v-model="line.content"
+                      type="textarea"
+                      @input="changeShiftValue"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="content-goup">
+                <div class="content-line">
+                  <span style="padding:4px;">护士交班完毕请值班医生交班！</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
             <div data-print-style="width: auto">
               <span>A班签名：</span>
               <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameA">{{record.autographNameA}}</template> -->
                 <button
                   v-if="record.autographNameA"
                   @click="onDelSignModalOpen('A', record.autographEmpNoA)"
@@ -197,7 +92,6 @@
             <div data-print-style="width: auto" v-if="HOSPITAL_ID != 'weixian'">
               <span>P班签名：</span>
               <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
                 <button
                   v-if="record.autographNameP"
                   @click="onDelSignModalOpen('P',record.autographEmpNoP)"
@@ -235,27 +129,16 @@
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
-    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm" />
-    <PatientModal
-      ref="patientModal"
-      :date="record ? record.changeShiftDate : ''"
-      @confirm="onPatientModalConfirm"
-      @panel-open="onPatientPanelOpen"
-      @panel-close="onPatientPanelClose"
-      @tab-change="onPatientModalTabChange"
-    />
-    <PatientPanel
-      ref="patientPanel"
-      @tab-change="onPatientPanelTabChange"
-      @apply-template="onPatientPanelApply"
-    />
+    <div id="monring-print" class="paper" style="display:none;">
+      
+    </div>
     <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
-    <SpecialCasePanel ref="specialCasePanel" @apply-template="onSpecialCasePanelApply" />
     <SignModal ref="signModal" />
+    <patientsModals ref="monringPatients" @selectCallBack="selectCallBack"/>
   </div>
 </template>
 
@@ -268,15 +151,10 @@ import print from "printing";
 import * as apis from "./apis";
 import formatter from "./print-formatter";
 import Button from "./components/button";
-import ExcelTable from "./components/table";
 import Placeholder from "./components/placeholder";
-import PatientModal from "./components/patient-modal";
-import PatientsModal from "./components/patients-modal";
-import PatientPanel from "./components/patient-panel";
-import SpecialCaseModal from "./components/special-case-modal";
-import SpecialCasePanel from "./components/special-case-panel";
 import SignModal from "./components/sign-modal";
 import $ from "jquery";
+import patientsModals from './components/patients-modal.vue'
 import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
 const defaultPatient = {
   name: "",
@@ -314,7 +192,6 @@ export default {
         type: "warning"
       });
     }
-    this.$refs.specialCasePanel.close();
     next();
   },
   async beforeRouteUpdate(to, from, next) {
@@ -325,7 +202,7 @@ export default {
         type: "warning"
       });
 
-      this.$refs.table.selectRow(-1);
+      // this.$refs.table.selectRow(-1);
     }
 
     next();
@@ -334,88 +211,19 @@ export default {
     return {
       loading: false,
       modified: false,
+      selectedRow:-1,
+      selectedType:'',
       depts: [],
       record: {},
       patients: [],
-      copiedRow: null,
-      columns: [
-        {
-          label: "I（介绍）",
-          columns: [
-            {
-              label: "床号",
-              prop: "bedLabel",
-              editable: true,
-              align: "center",
-              width: this.HOSPITAL_ID=="hengli"?"45":"35"
-            },
-            {
-              label: "姓名、性别、年龄",
-              prop: "name",
-              width: "53",
-              render: row => {
-                const status = row.patientStatus
-                  ? `(${row.patientStatus})`
-                  : "";
-                return [row.name + status, row.sex, row.age]
-                  .filter(Boolean)
-                  .join("，<br>");
-              }
-            }
-          ]
-        },
-        {
-          label: "S（现状）",
-          columns: [
-            {
-              label: "主要诊断",
-              prop: "diagnosis",
-              editable: true,
-              width: "80"
-            },
-            {
-              label: "主诉及现存主要问题",
-              prop: "mainComplaint",
-              editable: true,
-              width: "90"
-            }
-          ]
-        },
-        {
-          label: "B（背景）",
-          columns: [
-            {
-              label: "既往病史、治疗经过、护理评估情况、治疗效果跟踪",
-              prop: "background",
-              editable: true,
-              width: "180"
-            }
-          ]
-        },
-        {
-          label: "A（评估）",
-          columns: [
-            {
-              label: "交班前最后一次护理评估情况",
-              prop: "assessmentSituation",
-              editable: true,
-              width: "110"
-            }
-          ]
-        },
-        {
-          label: "R（建议）",
-          columns: [
-            {
-              label: "交给下一班需注意的",
-              prop: "proposal",
-              editable: true,
-              width: "100"
-            }
-          ]
-        }
-      ],
-      fixedTh: false
+      // fixedTh: false,
+      typeConfig:['入院','预手术','手术','手术并病重','病重','原有病人病情交班','外出未归患者'],
+      shiftWorkData:[
+          {id:1,content:'17号床，张王李，84岁',type:'ruyuan'},
+          {id:2,content:'21号床，赵钱孙，45岁',type:'yushoushu'},
+          {id:3,content:'22号床，赵周吴，43岁',type:'yushoushu'},
+          {id:4,content:'24号床，赵周吴，46岁',type:'shoushubingbingzhong'},
+        ]
     };
   },
   computed: {
@@ -428,16 +236,6 @@ export default {
     isEmpty() {
       return !this.$route.params.id || !this.record;
     },
-    allSigned() {
-      const record = this.record;
-      if(this.HOSPITAL_ID == 'weixian') return !!( record && record.autographNameA && record.autographNameN);
-      return !!(
-        record &&
-        record.autographNameA &&
-        record.autographNameP &&
-        record.autographNameN
-      );
-    }
   },
   watch: {
     deptCode(value, oldValue) {
@@ -452,22 +250,65 @@ export default {
       if (value !== oldValue) {
         window.onbeforeunload = value ? () => true : null;
       }
+    },
+    'shiftWorkData.length'(val,oldVal){
+      if(val!=oldVal){
+        this.shiftWorkData.forEach((item,i)=>{item.sortValue=i})
+      }
     }
   },
   mounted() {
     if (this.deptCode) {
       this.loadDepts();
     }
-    let dom = this.$refs.container;
-    $(dom).scroll(e => {
-      if ($(dom).scrollTop() >= 117) {
-        this.fixedTh = true;
-      } else {
-        this.fixedTh = false;
-      }
-    });
+    // let dom = this.$refs.container;
+    // $(dom).scroll(e => {
+    //   if ($(dom).scrollTop() >= 117) {
+    //     this.fixedTh = true;
+    //   } else {
+    //     this.fixedTh = false;
+    //   }
+    // });
   },
   methods: {
+    removeRow(id){
+      this.loading = true
+      apis.removeShiftRecordRow(id).then(res=>{
+        this.load()
+      })
+    },
+    selectCallBack(patients){
+      let arr = patients.map((item,index)=>{
+        let {bedLabel,patientId,visitId,name,age} = item
+        let content = `${bedLabel}床，${name}，${age}，`
+        // this.shiftWorkData[this.selectedRow].patientId = patientId
+        // this.shiftWorkData[this.selectedRow].visitId = visitId
+        // this.shiftWorkData[this.selectedRow].content = content
+        return {patientId,visitId,content,patientType:this.selectedType}
+      })
+      this.shiftWorkData[this.selectedRow]&&this.shiftWorkData[this.selectedRow].id&&(arr[0].id=this.shiftWorkData[this.selectedRow].id)
+      this.shiftWorkData.splice(this.selectedRow,1,...arr)
+      this.loading = true
+      this.onSave(true)
+    },
+    initShiftWorkData(val){
+      let obj = {}
+      this.typeConfig.map(item=>{
+        obj[item] = 0
+      })
+      val.map(item=>{
+        obj[item.patientType]++
+      })
+      Object.keys(obj).map(key=>{
+        if(obj[key]==0){
+          val.push({id:'',content:'',patientType:key})
+        }
+      })
+      return val
+    },
+    changeShiftValue(){
+      this.modified = true
+    },
     async loadDepts() {
       const parentCode = this.deptCode;
       const res1 = await apis.listDepartment(parentCode);
@@ -479,7 +320,6 @@ export default {
 
       const code = depts[0] && depts[0].deptCode;
       const params = this.$route.params;
-
       if (!params.code) {
         this.$router.push({ path: `/morningShiftWork/${code}` });
       }
@@ -497,301 +337,42 @@ export default {
         const {
           data: { data }
         } = await apis.getShiftRecord(id);
-        const { changeShiftTime: record, changeShiftPatients: patients } = data;
-        record.specialCase = record.specialCase || "";
+        const { changeShiftMorning: record, changeShiftContents: patients } = data;
+        // record.specialCase = record.specialCase || "";
         this.record = record;
-        this.patients = patients;
+        // this.patients = patients;
+        this.shiftWorkData = this.initShiftWorkData(patients)
         this.modified = false;
 
-        if (patients.length < 11) {
-          this.patients = this.patients.concat(
-            Array.from({ length: 11 - patients.length }).map(() => ({
-              ...defaultPatient
-            }))
-          );
-        }
+        // if (patients.length < 11) {
+        //   this.patients = this.patients.concat(
+        //     Array.from({ length: 11 - patients.length }).map(() => ({
+        //       ...defaultPatient
+        //     }))
+        //   );
+        // }
       } catch (error) {
+        // console.log(error);
         this.$router.replace({ name: "morningShiftWork" });
       }
       this.loading = false;
-      console.log(this.patients);
-    },
-    getContextMenu() {
-      const { selectedRow, selectedCol } = this.$refs.table;
-      const parseDisabled =
-        selectedCol.prop === "bedLabel" || selectedCol.prop === "name";
-
-      const copyContent =
-        (selectedCol.prop && selectedRow[selectedCol.prop]) || "";
-      const pasteContent = sessionStorage.getItem("shift-work-copy-content");
-      const { selectionStart, selectionEnd } = window.event.srcElement;
-
-      const copyRow = selectedRow
-        ? JSON.stringify(
-            pick(selectedRow, [
-              "bedLabel",
-              "name",
-              "age",
-              "patientStatus",
-              "diagnosis",
-              "mainComplaint",
-              "background",
-              "assessmentSituation",
-              "proposal"
-            ])
-          )
-        : "";
-      const pasteRow = sessionStorage.getItem("shift-work-copy-row");
-
-      let menus = [
-        {
-          name: "复制格",
-          icon: "fuzhizhenghang",
-          disable: !copyContent,
-          click: () => {
-            sessionStorage.setItem("shift-work-copy-content", copyContent);
-          }
-        },
-        {
-          name: "复制行",
-          icon: "fuzhizhenghang",
-          disable: !copyRow,
-          click: () => {
-            sessionStorage.setItem("shift-work-copy-row", copyRow);
-          }
-        }
-      ];
-
-      if (!this.allSigned) {
-        const others = [
-          {
-            name: "粘贴内容",
-            icon: "niantiezhenghang",
-            disable: !pasteContent || parseDisabled,
-            click: () => {
-              const { selectedRow, selectedCol } = this.$refs.table;
-              const original = selectedRow[selectedCol.prop] || "";
-              const prefix = original.substring(0, selectionStart);
-              const suffix = original.substring(selectionEnd);
-
-              selectedRow[selectedCol.prop] = prefix + pasteContent + suffix;
-              this.onSave();
-            }
-          },
-          {
-            name: "粘贴行",
-            icon: "niantiezhenghang",
-            disable: !pasteRow,
-            click: async () => {
-              const data = JSON.parse(pasteRow);
-              const isExisted = this.patients.find(
-                p =>
-                  p.name &&
-                  p.patientId === data.patientId &&
-                  p.visitId === data.visitId
-              );
-
-              if (isExisted && isExisted !== selectedRow) {
-                return this.$message.error("已存在该患者");
-              }
-
-              const date = this.record.changeShiftDate;
-              const params = this.$route.params;
-              const {
-                data: { data: remoteDate }
-              } = await apis.getPatient(params.code, data.bedLabel, date);
-
-              if (!remoteDate) {
-                return this.$message.error("找不到该患者");
-              }
-
-              data["name"] = remoteDate["name"];
-              data["age"] = remoteDate["age"];
-              data["patientStatus"] = remoteDate["patientStatus"];
-
-
-              if(this.HOSPITAL_ID != "hj"){
-                selectedRow["bedLabel"] = data["bedLabel"];
-                selectedRow["name"] = data["name"];
-                selectedRow["age"] = data["age"];
-                selectedRow["patientStatus"] = data["patientStatus"];
-                selectedRow["diagnosis"] = data["diagnosis"];
-              }
-              selectedRow["mainComplaint"] = data["mainComplaint"];
-              selectedRow["background"] = data["background"];
-              selectedRow["assessmentSituation"] = data["assessmentSituation"];
-              selectedRow["proposal"] = data["proposal"];
-
-              await this.onSave();
-            }
-          },
-          {
-            name: "向上移动行",
-            icon: "charuxinhang",
-            click: async () => {
-              // this.modified = true
-              this.$refs.table.moveRowUp();
-              await this.onSave();
-            }
-          },
-          {
-            name: "向下移动行",
-            icon: "xiangxiacharuyihang",
-            click: async () => {
-              // this.modified = true
-              this.$refs.table.moveRowDown();
-              await this.onSave();
-            }
-          },
-          {
-            name: "向上插入新行",
-            icon: "charuxinhang",
-            click: () => {
-              this.modified = true;
-              this.$refs.table.addRowBefore({ ...defaultPatient });
-            }
-          },
-          {
-            name: "向下插入新行",
-            icon: "xiangxiacharuyihang",
-            click: () => {
-              this.modified = true;
-              this.$refs.table.addRowAfter({ ...defaultPatient });
-            }
-          },
-          {
-            name: "删除行",
-            icon: "shanchuzhenghang",
-            click: async () => {
-              await this.$confirm("你确定删除该行？", "提示", {
-                confirmButtonText: "删除",
-                cancelButtonText: "取消",
-                type: "warning"
-              });
-              // this.modified = true
-              const selectedRow = this.$refs.table.selectedRow;
-              if (selectedRow && selectedRow.id) {
-                await apis.removeShiftRecordRow(selectedRow.id);
-              }
-              this.$refs.table.removeRow();
-            }
-          }
-        ];
-
-        const addOthers=[//新增操作类型
-          {
-            name: "移动至首行",
-            icon: "xiangxiacharuyihang",
-            click: async () => {
-              // this.modified = true
-              this.$refs.table.moveRowFirst();
-              await this.onSave();
-            }
-          },
-          {
-            name: "移动至末行",
-            icon: "charuxinhang",
-            click: async () => {
-              // this.modified = true
-              this.$refs.table.moveRowLast();
-              await this.onSave();
-            }
-          }
-        ];
-        //谢岗添加新增操作类型
-        (['xiegang'].includes(this.HOSPITAL_ID)) && (others.splice(2,0,...addOthers));
-        (selectedCol.prop=="background") && others.push({
-            name: "导入检验项目结果",
-            icon: "baocun",
-            click: () => {
-              console.log(selectedCol);
-              if(!selectedRow.patientId||!selectedRow.visitId){
-                this.$message.warning("请先填入患者！")
-                return 
-              }
-              this.$refs.syncExamTestModal.open(selectedRow, selectedCol,null,'shiftWork');
-            }
-          },)
-        menus = menus.concat(others);
-      }
-
-      return menus;
-    },
-    onContextMenu(e, copyContent) {
-      const pasteContent = sessionStorage.getItem("shift-work-copy-content");
-      const { selectionStart, selectionEnd } = window.event.srcElement;
-
-      const data = [
-        {
-          name: "复制格",
-          icon: "fuzhizhenghang",
-          disable: !copyContent,
-          click: () => {
-            sessionStorage.setItem("shift-work-copy-content", copyContent);
-          }
-        }
-      ];
-
-      if (!this.allSigned) {
-        data.push({
-          name: "粘贴内容",
-          icon: "niantiezhenghang",
-          disable: !pasteContent,
-          click: () => {
-            const original = this.record.specialSituation || "";
-            const prefix = original.substring(0, selectionStart);
-            const suffix = original.substring(selectionEnd);
-
-            this.record.specialSituation = prefix + pasteContent + suffix;
-            this.onSave();
-          }
-        });
-      }
-
-      const style = {
-        top: `${Math.min(
-          e.clientY - 15,
-          window.innerHeight - data.length * 36 - 12
-        )}px`,
-        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`
-      };
-
-      window.openContextMenu({ data, style });
     },
     toHTML(source) {
       return (source || "").replace(/\n/g, "<br>");
     },
-    async onRowRemove() {
-      await this.$confirm("你确定删除该行？", "提示", {
-        confirmButtonText: "删除",
-        cancelButtonText: "取消",
-        type: "warning"
-      });
-      // this.modified = true
-      const selectedRow = this.$refs.table.selectedRow;
-      if (selectedRow && selectedRow.id) {
-        await apis.removeShiftRecordRow(selectedRow.id);
-      }
-      this.$refs.table.removeRow();
-    },
-    onDblClickRow({ row, rowIndex, col }) {
-      // if (this.allSigned) {
-      //   return
-      // }
-
-      const tabMap = {
-        background: "2",
-        assessmentSituation: "3",
-        proposal: "4"
-      };
-      const tab = tabMap[col.prop] || "1";
-      this.$refs.patientModal.open(
-        tab,
-        { ...row },
-        col.prop,
-        !!this.record.autographNameN
-      );
-    },
+    // async onRowRemove() {
+    //   await this.$confirm("你确定删除该行？", "提示", {
+    //     confirmButtonText: "删除",
+    //     cancelButtonText: "取消",
+    //     type: "warning"
+    //   });
+    //   // this.modified = true
+    //   const selectedRow = this.$refs.table.selectedRow;
+    //   if (selectedRow && selectedRow.id) {
+    //     await apis.removeShiftRecordRow(selectedRow.id);
+    //   }
+    //   this.$refs.table.removeRow();
+    // },
     onPatientsModalShow(d) {
       const id = this.$route.params.id;
       const deptCode = this.$route.params.code;
@@ -801,81 +382,20 @@ export default {
         .filter(p => p.patientId && p.visitId)
         .map(p => p.patientId + "//" + p.visitId);
 
-      this.$refs.patientsModal.open({ deptCode, date, id, selectedKeys });
-    },
-    onPatientsModalConfirm(patients) {
-      for (let p of patients) {
-        let obj = {...p};
-        obj["mainComplaint"] = obj.complaint || "";
-        obj["proposal"] = obj.advice || "";
-        obj["assessmentSituation"] = obj.evaluate || "";
-        this.$refs.table.addRow(obj);
-      }
-      this.modified = true;
-      this.$refs.patientsModal.close();
-    },
-    onPatientModalShow() {
-      this.$refs.table.selectRow(-1);
-      this.$refs.patientModal.open();
-    },
-    onPatientModalConfirm(data) {
-      const selectedRow = this.$refs.table.selectedRow;
-      const isExisted = this.patients.find(
-        p =>
-          p.name && p.patientId === data.patientId && p.visitId === data.visitId
-      );
-
-      if (isExisted && isExisted !== selectedRow) {
-        return this.$message.error("已存在该患者");
-      }
-
-      if (selectedRow) {
-        this.$refs.table.updateRow(data);
-      } else {
-        this.$refs.table.addRow(data);
-      }
-      this.onSave(true);
-      this.$refs.patientModal.close();
-      // this.modified = true
-    },
-    onPatientModalTabChange(tab) {
-      if (this.$refs.patientPanel) {
-        this.$refs.patientPanel.changeTab(tab);
-      }
-    },
-    onPatientPanelOpen() {
-      this.$refs.patientPanel.open();
-    },
-    onPatientPanelClose() {
-      this.$refs.patientPanel.close();
-    },
-    onPatientPanelTabChange(tab) {
-      this.$refs.patientModal.changeTab(tab);
-    },
-    onPatientPanelApply({ tab, item }) {
-      this.$refs.patientModal.applyTemplate(tab, item);
-    },
-    onSpecialCasePanelOpen() {
-      this.$refs.specialCasePanel.open();
-    },
-    onSpecialCasePanelClose() {
-      this.$refs.specialCasePanel.close();
-    },
-    onSpecialCasePanelApply(item) {
-      this.record.specialSituation =
-        (this.record.specialSituation || "") + item.content;
-      this.modified = true;
+      // this.$refs.patientsModal.open({ deptCode, date, id, selectedKeys });
     },
     async onSave(tip) {
+      if(this.shiftWorkData.some(item=>item.content&&!item.patientId)){
+        this.$message.error("存在记录未选择相应患者！")
+        return
+      }
       const deptCode = this.deptCode;
-      const changeShiftTime = this.record;
-      const changeShiftPatients = this.patients
-        .filter(p => p.name || p.id)
-        .map((p, i) => ({ ...p, sortValue: i + 1 }));
+      const changeShiftMorning = this.record;
+      const changeShiftContents = this.shiftWorkData.filter(item=>item.patientId).map((p, i) => ({ ...p, sortValue: i + 1 }));
 
       await apis.updateShiftRecord({
-        changeShiftTime,
-        changeShiftPatients,
+        changeShiftMorning,
+        changeShiftContents,
         deptCode
       });
 
@@ -884,71 +404,26 @@ export default {
         this.$message.success("保存成功");
       }
     },
-    onSignModalOpen(type) {
+    onSignModalOpen() {
       if (this.modified) {
         return this.$message.warning("请先保存后再签名");
       }
 
-      // if (type === "P" && !this.record.autographNameA) {
-      //   return this.$message.warning("需要A班先签名");
-      // }
-
-      // if (type === "N" && !this.record.autographNameP) {
-      //   return this.$message.warning("需要P班先签名");
-      // }
-
-      // this.$refs.signModal.open({
-      //   callback: async ({ username, password }) => {
-      //     await apis.signShiftRecord(this.record.id, type, username, password);
-
-      //     this.load();
-      //     this.$refs.signModal.close();
-      //     this.$message.success("签名成功");
-
-      //     if (type === "N") {
-      //       this.reloadSideList();
-      //     }
-      //   }
-      // });
-
       window.openSignModal(async (password, username) => {
-        await apis.signShiftRecord(this.record.id, type, username, password);
+        await apis.signShiftRecord(this.record.id, username, password);
 
         this.load();
         this.$refs.signModal.close();
         this.$message.success("签名成功");
-
-        if (type === "N") {
-          this.reloadSideList();
-        }
       });
     },
-    onDelSignModalOpen(type, sourceEmpNo) {
-      // this.$refs.signModal.open({
-      //   title: "取消签名确认",
-      //   callback: async ({ username, password }) => {
-      //     await apis.delSignShiftRecord(
-      //       this.record.id,
-      //       username,
-      //       password,
-      //       type,
-      //       sourceEmpNo
-      //     );
-
-      //     this.load();
-      //     this.$refs.signModal.close();
-      //     this.$message.success("已取消签名");
-      //     this.reloadSideList();
-      //   }
-      // });
-
+    onDelSignModalOpen() {
       window.openSignModal(async (password, username) => {
         await apis.delSignShiftRecord(
           this.record.id,
           username,
           password,
-          type,
-          sourceEmpNo
+          this.record.autographEmpNo
         );
 
         this.load();
@@ -958,21 +433,6 @@ export default {
       });
     },
     async onRemove() {
-      // this.$refs.signModal.open({
-      //   callback: async ({ username, password }) => {
-      //     await apis.removeShiftRecord(this.record.id, username, password);
-
-      //     const code = this.$route.params.code;
-
-      //     this.$message.success("删除成功");
-      //     this.$refs.signModal.close();
-      //     this.modified = false;
-      //     this.record = null;
-      //     this.patients = [];
-      //     this.$router.push({ path: `/shiftWork/${code}` });
-      //     this.reloadSideList();
-      //   }
-      // });
       window.openSignModal(async (password, username) => {
         await apis.removeShiftRecord(this.record.id, username, password);
 
@@ -982,18 +442,29 @@ export default {
         this.$refs.signModal.close();
         this.modified = false;
         this.record = null;
-        this.patients = [];
+        this.shiftWorkData = [];
         this.$router.push({ path: `/morningShiftWork/${code}` });
         this.reloadSideList();
       });
     },
+    GetLength(str) {
+      var realLength = 0,
+        len = str.length,
+        charCode = -1;
+      for (var i = 0; i < len; i++) {
+        charCode = str.charCodeAt(i);
+        if (charCode >= 0 && charCode <= 128) realLength += 1;
+        else realLength += 2;
+      }
+      return realLength;
+    },
     async onPrint() {
       this.loading = true;
-      this.fixedTh = false;
+      // this.fixedTh = false;
       this.$nextTick(async () => {
         await print(this.$refs.printable, {
-          beforePrint: formatter,
-          direction: "horizontal",
+          // beforePrint: formatter,
+          // direction: "horizontal",
           injectGlobalCss: true,
           scanStyles: false,
           css: `
@@ -1003,92 +474,134 @@ export default {
         }
         pre {
           white-space: pre-wrap;
+          break-inside:auto;
+        }
+        *{
+          background:none!important;
         }
         `
         });
+        // let page = this.$refs.printable
+        // let header = page.getElementsByClassName('head')[0].cloneNode(true)
+        // let textAreas = [...page.getElementsByTagName('textarea')]
+        // textAreas.map(ele=>{
+        //   let text = ""
+        //   let strArr = ele.value.split("")
+        //   strArr.map(e=>{
+        //   let strNum = this.GetLength(text + e)
+        //   if(strNum > 84){
+            
+        //   }
+        //   })
+        //   // let strNum = this.GetLength(ele.value)
+        //   // if(strNum > 84){
+        //   //   let rowNum = Math.ceil(strNum / 84)
+        //   //   for(let i = 0;i<rowNum;i++){
+        //   //     let pre = document.createElement('pre')
+        //   //   }
+        //   // }
+        // })
+        // let printArea = document.getElementById("monring-print")
+        // printArea.append(header)
+        // printArea.style.display = "block"
+        // await print(printArea, {
+        //   // beforePrint: formatter,
+        //   // direction: "horizontal",
+        //   injectGlobalCss: true,
+        //   scanStyles: false,
+        //   css: `
+        // .fixedTh {
+        //   display: none !important;
+        //   height: auto;
+        // }
+        // pre {
+        //   white-space: pre-wrap;
+        //   break-inside:auto;
+        // }
+        // *{
+        //   background:none!important;
+        // }
+        // `
+        // });
+        // printArea.style.display = "none"
+        // printArea.innerHTML = ''
       });
       this.loading = false;
     },
-    onTableInputChange({ prop, row }) {
-      this.modified = true;
-
-      if (prop == "bedLabel") {
-        this.patients[row].name = "";
-        this.patients[row].age = "";
-        this.patients[row].sex = "";
-        this.patients[row].diagnosis = "";
-        this.patients[row].patientStatus = "";
-      }
-    },
-    async onTableInputKeydown({ event, value, prop, row }) {
-      if (event.keyCode === 13 && prop === "bedLabel") {
-        event.preventDefault();
-
-        if (value) {
-          const date = this.record.changeShiftDate;
-          const params = this.$route.params;
-          const {
-            data: { data }
-          } = await apis.getPatient(params.code, value, date);
-
-          if (data) {
-            const isExisted = this.patients.find(
-              p =>
-                p.name &&
-                p.patientId === data.patientId &&
-                p.visitId === data.visitId
-            );
-            if (isExisted) return this.$message.error("已存在该患者");
-
-            this.patients[row].name = data.name;
-            this.patients[row].age = data.age;
-            this.patients[row].sex = data.sex;
-            this.patients[row].diagnosis = data.diagnosis;
-            this.patients[row].mainComplaint = data.complaint || "";
-            this.patients[row].patientStatus = data.patientStatus;
-            this.patients[row].patientId = data.patientId || "";
-            this.patients[row].visitId = data.visitId || "";
-            this.patients[row].proposal = data.advice || "";
-            this.patients[row].assessmentSituation = data.evaluate || "";
-
-            if (data.background !== "," && data.background !== "，") {
-              this.patients[row].background += data.background;
-            }
-          } else {
-            return this.$message.error("找不到该患者");
+    openContextMenu(e,rowObj,type){
+      this.selectedType = type
+      this.selectedRow = rowObj.sortValue
+      let data = [
+        // {
+        //   name: "复制格",
+        //   icon: "fuzhizhenghang",
+        //   disable: false,
+        //   click: () => {
+        //   }
+        // },
+        {
+          name: "向上插入新行",
+          icon: "charuxinhang",
+          click: () => {
+            this.modified = true;
+            // this.$refs.table.addRowBefore({ ...defaultPatient });
+            this.shiftWorkData.splice(this.selectedRow,0,{content:'',patientType:this.selectedType})
           }
-        }
-      }
+        },
+        {
+          name: "删除当前行",
+          icon: "shanchuzhenghang",
+          disable: !rowObj.id,
+          click: () => {
+            // this.modified = true;
+            // this.$refs.table.addRowBefore({ ...defaultPatient });
+            // this.shiftWorkData.splice(this.selectedRow,1)
+            this.removeRow(rowObj.id)
+          }
+        },
+        {
+          name: "向下插入新行",
+          icon: "xiangxiacharuyihang",
+          click: () => {
+            this.modified = true;
+            this.shiftWorkData.splice(this.selectedRow,1,this.shiftWorkData[this.selectedRow],{content:'',patientType:this.selectedType})
+          }
+        },
+        {
+          name: "选择患者",
+          icon: "yonghuming",
+          click: () => {
+            this.modified = true;
+            // console.log(this.$route.params);
+            this.$refs.monringPatients.open(this.$route.params.code,this.record.changeShiftDate,this.$route.params.id,[])
+            // this.$refs.table.addRowAfter({ ...defaultPatient });
+          }
+        },
+        ]
+      if(!data.length)return
+      const style = {
+        top: `${Math.min(
+          e.clientY - 15,
+          window.innerHeight - data.length * 36 - 12
+        )}px`,
+        left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`
+      };
 
-      if (arrowKeyValues[event.keyCode] !== undefined) {
-        const val = arrowKeyValues[event.keyCode];
-        const target = event.target;
-
-        const textareas = Array.prototype.slice.call(
-          this.$refs.table.$refs.table.querySelectorAll("textarea"),
-          0,
-          -1
-        );
-
-        const index = textareas.indexOf(target);
-        const toIndex = index + val;
-
-        if (index < 0 || !textareas[toIndex]) return;
-
-        textareas[toIndex].focus();
-      }
+      window.openContextMenu({ data, style });
+    }
+  },
+  filters:{
+    formatYMD(val){
+      if(!val){return ''}
+      let [Y,M,D] = val.split("-")
+      return `${Y}年${M}月${D}日`
     }
   },
   components: {
     FallibleImage,
+    patientsModals,
     Button,
-    ExcelTable,
     Placeholder,
-    PatientModal,
-    PatientsModal,
-    PatientPanel,
-    SpecialCaseModal,
-    SpecialCasePanel,
     SignModal,
     syncExamTestModal
   }
@@ -1132,8 +645,8 @@ export default {
 
 .paper {
   margin: 0 auto 20px;
-  padding: 20px;
-  width: 1080px;
+  padding: 20px 50px;
+  width: 790px;
   min-height: 700px;
   border-radius: 2px;
   background: #fff;
@@ -1169,6 +682,7 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
+  text-align center;
 
   >span {
     flex: 1;
@@ -1178,9 +692,41 @@ export default {
 
 .table {
   margin-top: 5px;
-
+  border: 1px solid #000;
+  .content-title{
+    padding 4px;
+  }
   >>>pre {
     white-space: pre-wrap;
+  }
+  .noSet >>> textarea{
+    cursor:default;
+  }
+  >>>textarea, >>>pre{
+    display block
+    // padding 8px 4px
+    padding 4px;
+    margin 0
+    width 100%
+    min-height 15px
+    box-sizing border-box
+    border none !important
+    outline none !important
+    resize none
+    background none !important
+    color black !important
+    overflow-y hidden
+    text-align inherit
+    font-size: 16px;
+    &:hover{
+      background #ccc !important;
+    }
+  }
+  .content-line{
+    margin: 0 0 10px;
+    &:first-child{
+      margin-top:10px;
+    }
   }
 }
 
@@ -1237,7 +783,7 @@ export default {
     width: 52px;
     max-height: 25px;
   }
-
+}
   button {
     padding: 0;
     border: none;
@@ -1246,17 +792,19 @@ export default {
     color: rgb(40, 79, 194);
     cursor: pointer;
   }
-}
 </style>
 <style lang="stylus">
 @media print {
-  .shift-paper {
-    padding-top: 40px !important;
+  // .shift-paper {
+  //   padding-top: 40px !important;
+  // }
+  @page {
+    margin:40px 20mm;
+  }
+  .print-hidden{
+    display:none;
   }
 }
 
-@page {
-  margin: 0 10mm;
-}
 </style>
 

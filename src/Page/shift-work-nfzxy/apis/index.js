@@ -69,33 +69,22 @@ export function removeShiftRecordRow(rowId) {
 
 // 删除交班志
 export function removeShiftRecord(id, empNo, password) {
-  return axios.get(
-    `${apiPath}changeShiftTime/delById/${id}/${empNo}/${password}`
+  return axios.post(
+    `${apiPath}changeShiftTime/delById`,{id, empNo, password}
   );
 }
 
 // 更新交班签名
 export function signShiftRecord(id, autographNameType, empNo, password) {
-  if(HOSPITAL_ID === "weixian"){
-    return axios.post(
-      `${apiPath}changeShiftTime/updateAutographName`,{
-        id,
-        autographNameType,
-        empNo,
-        password,
-      }
-    )
-  }
-  return axios.get(
-    `${apiPath}changeShiftTime/updateAutographName/${id}/${autographNameType}/${empNo}/${password}`
+  return axios.post(
+    `${apiPath}changeShiftTime/updateAutographName`,{id, autographNameType, empNo, password}
   );
 }
 
 // 取消交班签名
-export function delSignShiftRecord(id, empNo, password, type, sourceEmpNo) {
-  return axios.get(
-    `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${type}/${sourceEmpNo}
-    `
+export function delSignShiftRecord(id, empNo, password, sign, sourceEmpNo) {
+  return axios.post(
+    `${apiPath}changeShiftTime/updateAutographNamePost`,{id, empNo, password, sign, sourceEmpNo}
   );
 }
 
