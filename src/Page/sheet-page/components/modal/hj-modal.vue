@@ -28,7 +28,7 @@
       <el-date-picker
       v-model="date[1]"
       type="datetime"
-      format="yyyy-MM-dd HH:mm:ss"
+      format="yyyy-MM-dd HH:mm"
       placeholder="选择结束日期">
       </el-date-picker>
       </div>
@@ -43,7 +43,7 @@
         <cr-date-picker
           v-model="date[1]"
           type="datetime"
-           format="yyyy-MM-dd HH:mm"
+          format="yyyy-MM-dd HH:mm"
           placeholder="选择结束日期"
         ></cr-date-picker>
       </div>
@@ -148,6 +148,11 @@ export default {
           let date = this.date;
           let startTime = this.date[0];
           let endTime = this.date[1];
+          if(this.HOSPITAL_ID==="fuyou"){
+          // el-date-picker的value-format不生效
+           startTime=moment(startTime).format("YYYY-MM-DD HH:mm")
+           endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
+           }
           let recordCode = sheetInfo.sheetType;
           outputSum(
             this.$parent.patientInfo.patientId,
