@@ -12,101 +12,471 @@ import { multiDictInfo } from "../../../api/index";
     click_date,
     click_time
   } from "../keyEvent/date";
-  let 静脉性质=[]
-  let 饮食性质=[]
-  let 出量名称={}
-  let 出量性质=出量名称
-  export default [  { hidden: true, key: 'recordDate', value: '' },
-  { key: "recordMonth", event: event_date, click: click_date, value: ''},
-  { key: "recordHour", event: event_time,  value: ''},
-    {
-      key: "veinNature", // 静脉性质
+
+  export default [  
+  { 
+    hidden: true, 
+    key: 'recordDate', 
+    value: '' 
+    },
+  { 
+   key: "recordMonth", 
+   event: event_date, 
+   click: click_date, 
+   value: ''
+  },
+  { 
+   key: "recordHour", 
+   event: event_time, 
+   value: ''
+  },
+     {
+      key: "temperature2", // 温度
       value: "",
       event: keyf1,
-      name: "静脉性质",
-      change: (e, td) => limitChange(e, td, 12),
+      name: "温度",
+      next:"°C",
+      change: (e, td) => limitChange(e, td, 4),
       textarea: {
-        width: 90
+      width: 32
       }
-    },
-    {
-      key: "veinQuantity", //veinQuantity 静脉量
+     },
+     {
+      key: "humidity", // 湿度
       value: "",
       event: keyf1,
-      name: "静脉量",
-      next:"ml",
-      change: (e, td) => limitChange(e, td, 12),
+      name: "湿度",
+      next:"%",
+      change: (e, td) => limitChange(e, td, 4),
       textarea: {
-        width: 90
-      },
-    },
-    {
-      key: "dietNature", // 饮食性质
-      value: "",
-      event: keyf1,
-      name: "饮食性质",
-      change: (e, td) => limitChange(e, td, 12),
-      textarea: {
-        width: 90
+      width: 32
       }
-    },
-    {
-      key: "dietQuantity", //饮食量
+     },
+     {
+      key: "temperature", // 体温
       value: "",
       event: keyf1,
-      name: "饮食量",
-      next:"ml",
-      change: (e, td) => limitChange(e, td, 12),
+      name: "体温",
+      next:"°C",
+      change: (e, td) => limitChange(e, td, 4),
       textarea: {
-        width: 90
-      },
-    },
-    {
-      key: "urineNature", // 尿液性质
-      value: "",
-      event: keyf1,
-      name: "尿液性质",
-      textarea: {
-        width: 90
-      },
-      change: (e, td) => limitChange(e, td, 12)
-    },
-    {
-      key: "urineQuantity", //尿液量
-      value: "",
-      event: keyf1,
-      name: "饮食量",
-      next:"ml",
-      change: (e, td) => limitChange(e, td, 12),
-      textarea: {
-        width: 90
+      width: 32
       }
-    },
-    {
-      key: "excrementNature", //大便性质
+     },
+     {
+      key: "pulse", // 心率HR
       value: "",
       event: keyf1,
-      name: "大便性质",
-      change: (e, td) => limitChange(e, td, 12),
+      name: "心率",
+      next:"次／分",
+      change: (e, td) => limitChange(e, td, 4),
       textarea: {
-        width: 90
-      },
+      width: 32
+      }
+     },
+     {
+      key: "bloodPressure", // 血氧
+      value: "",
+      event: keyf1,
+      name: "血氧",
+      next:"%",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "breath", // 呼吸次／分
+      value: "",
+      event: keyf1,
+      name: "呼吸",
+      next:"次／分",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "tube", // 胃管cm
+      value: "",
+      event: keyf1,
+      name: "胃管",
+      next:"cm",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "airOfficerIntubation", // 气管插管cm
+      value: "",
+      event: keyf1,
+      name: "气管插管",
+      next:"cm",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "stuffyNose", // 鼻塞cpap
+      value: "",
+      event: keyf1,
+      name: "鼻塞cpap",
+      next:"cpap",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "airOfficerIntubation2", // 气管插管
+      value: "",
+      event: keyf1,
+      name: "气管插管",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "nasalCatheter", // 鼻导管吸氧
+      value: "",
+      event: keyf1,
+      name: "鼻导管吸氧",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "boxOxygen", // 箱内吸氧
+      value: "",
+      event: keyf1,
+      name: "箱内吸氧",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "blue", // 蓝光
+      value: "",
+      event: keyf1,
+      name: "蓝光",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "excessiveIntestinal", // 灌肠
+      value: "",
+      event: keyf1,
+      name: "灌肠",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "medicineSleep", // 药眠
+      value: "",
+      event: keyf1,
+      name: "药眠",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "primaryCare", // 基础护理
+      value: "",
+      event: keyf1,
+      name: "基础护理",
+      // change: (e, td) => limitChange(e, td, 6),
       autoComplete: {
-        data: ["黑色胎便", "墨绿色胎便", "黄绿色稀便", "黄色奶瓣样便", "绿色奶瓣样便", "黄色稀便","黄色水便","黄色软便","果冻样便","鲜血便","咖啡色样便","陶土色样便"]
-      }
-    },
-    {
-      key: "excrementQuantity", //大便量
+        data: ['1','2','3','4','5']
+      },
+      splice:true,
+      textarea: {
+        width: 32
+      },
+     },
+     {
+      key: "skinColor", // 全身皮肤颜色
       value: "",
       event: keyf1,
-      name: "尿液量",
-      next:"ml",
-      change: (e, td) => limitChange(e, td, 12),
+      name: "全身皮肤颜色",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4','5','6','7']
+      },
+      splice:true,
       textarea: {
-        width: 90
+      width: 32
       }
-    },
+     },
+     {
+      key: "skinConditions", // 全身皮肤状况
+      value: "",
+      event: keyf1,
+      name: "全身皮肤状况",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4','5','6','7','8','9','10','11','12']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "atomization", // 雾化吸入
+      value: "",
+      event: keyf1,
+      name: "雾化吸入",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "takeBack", // 拍背吸痰
+      value: "",
+      event: keyf1,
+      name: "拍背吸痰",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "jaundice", // 经皮黄疸mg/dl
+      value: "",
+      event: keyf1,
+      name: "经皮黄疸",
+      next:"mg/dl",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "bloodSugar", //  血糖mmol/l
+      value: "",
+      event: keyf1,
+      name: "血糖",
+      next:"mmol/l",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "infusion", // 检查输液部位
+      value: "",
+      event: keyf1,
+      name: "检查输液部位",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "fontanelle", // 前囟
+      value: "",
+      event: keyf1,
+      name: "前囟",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "muscleTension", // 肌张力
+      value: "",
+      event: keyf1,
+      name: "肌张力",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "suckingForce", // 吸吮力
+      value: "",
+      event: keyf1,
+      name: "吸吮力",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4','5','6']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "lungAuscultation", //  肺部听诊
+      value: "",
+      event: keyf1,
+      name: " 肺部听诊",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4','5','6','7']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "bowelSounds", // 肠鸣音次∕分
+      value: "",
+      event: keyf1,
+      name: "肠鸣音",
+      next:"次∕分",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "crying", // 哭声
+      value: "",
+      event: keyf1,
+      name: "哭声",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4','5','6']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "threeConcave", // 三凹征
+      value: "",
+      event: keyf1,
+      name: "三凹征",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "abdomen", // 腹部
+      event: keyf1,
+      name: "腹部",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4','5']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "consciousness", // 意识状态
+      event: keyf1,
+      name: "意识状态",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4','5','6','7']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "sputumNature", // 痰液性质
+      event: keyf1,
+      name: "痰液性质",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4','5','6','7']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "sputumQuantity", // 痰液量
+      event: keyf1,
+      name: "痰液量",
+      next:"ml",
+      change: (e, td) => limitChange(e, td, 4),
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "vomitingNature", // 呕吐性质
+      event: keyf1,
+      name: "呕吐性质",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4','5','6','7','8','9','10']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "vomitingQuantity", // 呕吐量
+      event: keyf1,
+      name: "呕吐量",
+      next:"ml",
+      change: (e, td) => limitChange(e, td, 4),
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "drainageNature", // 呕胃内引流性质
+      event: keyf1,
+      name: "胃内引流性质",
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['1','2','3','4','5','6','7','8']
+      },
+      splice:true,
+      textarea: {
+      width: 32
+      }
+     },
+     {
+      key: "drainageQuantity", // 胃内引流量
+      event: keyf1,
+      name: "胃内引流量",
+      next:"ml",
+      change: (e, td) => limitChange(e, td, 4),
+      textarea: {
+      width: 32
+      }
+     },
     {
+      hidden: true,
       key: "description", //特殊情况记录
       value: "",
       style: {
@@ -204,83 +574,3 @@ import { multiDictInfo } from "../../../api/index";
     },
   ];
   
-  let filterKey2 = '重症护理护记' + ':';
-  export function getListData4() {
-    // let list = [
-    //   "静脉性质",
-    //   "饮食性质",
-    //   "出量名称",
-    //   "重护护记尿液性质",
-    //   "重护护记呕吐物性质",
-    //   "重护护记引流量性质",
-    //   "重护护记大便性质",
-    //   "重护护记阴道出血性质",
-    //   "重护护记脱水量性质",
-    //   '威县人医:重症护理记录单:静脉性质下拉选项',
-    // ];
-    // list = list.map(key => {
-    //   return key.includes('出量名称') ? filterKey2 + key : key;
-    // });
-    let data={}
-    let str='重症护理护记:出量名称'
-    data.静脉性质=[{code: "5%葡萄糖", name: "5%葡萄糖"}, {code: "10%葡萄糖", name: "10%葡萄糖"}, {code: "生理盐水", name: "生理盐水"},{code: "甘露醇", name: "甘露醇"},{code: "白蛋白", name: "白蛋白"},{code: "血液制品", name: "血液制品"},{code: "其他", name: "其他"}]
-    data.饮食性质=[{code: "水", name: "水"}, {code: "流质", name: "流质"}, {code: "冷流", name: "冷流"},{code: "半流质", name: "半流质"},{code: "普食", name: "普食"},{code: "鼻饲", name: "鼻饲"},{code: "禁食", name: "禁食"},{code: "低脂低盐饮食", name: "低脂低盐饮食"},{code: "糖尿病饮食", name: "糖尿病饮食"}]
-    data.重护护记尿液性质= [{code: "淡黄", name: "淡黄"}, {code: "浓茶色", name: "浓茶色"}, {code: "血尿", name: "血尿"}, {code: "混浊", name: "混浊"}, {code: "其他", name: "其他"}]
-    data.重护护记呕吐物性质=[{code: "草绿色", name: "草绿色"}, {code: "淡黄色", name: "淡黄色"}, {code: "咖啡色", name: "咖啡色"}, {code: "深褐色", name: "深褐色"}, {code: "褐色", name: "褐色"}, {code: "浅褐色", name: "浅褐色"}, {code: "灰白色", name: "灰白色"}, {code: "暗红色", name: "暗红色"}, {code: "鲜红色", name: "鲜红色"}, {code: "其他", name: "其他"}]
-    data.重护护记引流量性质=[{code: "淡黄色", name: "淡黄色"}, {code: "淡红色", name: "淡红色"}, {code: "黄白混浊色", name: "黄白混浊色"}, {code: "墨绿色", name: "墨绿色"}, {code: "鲜红色", name: "鲜红色"}, {code: "暗红色", name: "暗红色"}, {code: "黄绿色", name: "黄绿色"}]
-    data.重护护记阴道出血性质= [{code: "鲜红色", name: "鲜红色"}, {code: "暗红色", name: "暗红色"}, {code: "淡红色", name: "淡红色"}]
-    data.重护护记大便性质= [{code: "黄软", name: "黄软"}, {code: "柏油样变", name: "柏油样变"}, {code: "血便", name: "血便"}, {code: "稀水样便", name: "稀水样便"}, {code: "米甘样便", name: "米甘样便"}, {code: "白陶士样便", name: "白陶士样便"}]
-    data[str]=[{code: "尿液", name: "尿液"}, {code: "呕吐物", name: "呕吐物"}, {code: "引流量", name: "引流量"},{code: "大便", name: "大便"},{code: "阴道出血", name: "阴道出血"},{code: "脱水量", name: "脱水量"}]
-    setList(静脉性质, "静脉性质", data);
-    setList(饮食性质, "饮食性质", data);
-    setList(出量名称, "出量名称", data,true);
-//     multiDictInfo(list).then(res => {
-//       console.log(243,res)
-//       let data = res.data.data;
-//       console.log(241,data)
-//      let str='重症护理护记:出量名称'
-// data.静脉性质=[{code: "5%葡萄糖", name: "5%葡萄糖"}, {code: "10%葡萄糖", name: "10%葡萄糖"}, {code: "生理盐水", name: "生理盐水"},{code: "甘露醇", name: "甘露醇"},{code: "白蛋白", name: "白蛋白"},{code: "血液制品", name: "血液制品"},{code: "其他", name: "其他"}]
-// data.饮食性质=[{code: "水", name: "水"}, {code: "流质", name: "流质"}, {code: "冷流", name: "冷流"},{code: "半流质", name: "半流质"},{code: "普食", name: "普食"},{code: "鼻饲", name: "鼻饲"},{code: "禁食", name: "禁食"},{code: "低脂低盐饮食", name: "低脂低盐饮食"},{code: "糖尿病饮食", name: "糖尿病饮食"}]
-// data.重护护记尿液性质= [{code: "淡黄", name: "淡黄"}, {code: "浓茶色", name: "浓茶色"}, {code: "血尿", name: "血尿"}, {code: "混浊", name: "混浊"}, {code: "其他", name: "其他"}]
-// data.重护护记呕吐物性质=[{code: "草绿色", name: "草绿色"}, {code: "淡黄色", name: "淡黄色"}, {code: "咖啡色", name: "咖啡色"}, {code: "深褐色", name: "深褐色"}, {code: "褐色", name: "褐色"}, {code: "浅褐色", name: "浅褐色"}, {code: "灰白色", name: "灰白色"}, {code: "暗红色", name: "暗红色"}, {code: "鲜红色", name: "鲜红色"}, {code: "其他", name: "其他"}]
-// data.重护护记引流量性质=[{code: "淡黄色", name: "淡黄色"}, {code: "淡红色", name: "淡红色"}, {code: "黄白混浊色", name: "黄白混浊色"}, {code: "墨绿色", name: "墨绿色"}, {code: "鲜红色", name: "鲜红色"}, {code: "暗红色", name: "暗红色"}, {code: "黄绿色", name: "黄绿色"}]
-// data.重护护记阴道出血性质= [{code: "鲜红色", name: "鲜红色"}, {code: "暗红色", name: "暗红色"}, {code: "淡红色", name: "淡红色"}]
-// data[str]=[{code: "尿液", name: "尿液"}, {code: "呕吐物", name: "呕吐物"}, {code: "引流量", name: "引流量"},{code: "大便", name: "大便"},{code: "阴道出血", name: "阴道出血"},{code: "脱水量", name: "脱水量"}]
-// console.log(241,data)
-//       setList(静脉性质, "静脉性质", data);
-//       console.log(251,静脉性质)
-//       setList(饮食性质, "饮食性质", data);
-//       setList(出量名称, "出量名称", data,true);
-//       console.log(253,出量名称)
-    // });
-  }
-  getListData4();
-
-  /**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- * @param {*} isChildOptions2 是否有子下拉选项（依赖于前一个td选择）
- */
- function setList(list, key, data, isChildOptions2) {
-  key = key.includes('出量名称') ?  filterKey2 + key : key;
-  if (isChildOptions2) {
-    for (let item of data[key]) {
-      let arr = data[ '重护护记' + item.name + '性质'];
-      if (arr && arr.constructor == Array) {
-        arr = arr.map(function (child, index) {
-          return child.name;
-        })
-        list[item.name] = arr;
-      } else {
-        list[item.name] = '';
-      }
-    }
-  } else {
-    list.splice(0, list.length);
-    for (let item of data[key]) {
-      list.push(item.name);
-    }
-  }
-}

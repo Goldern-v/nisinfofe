@@ -139,9 +139,9 @@ function onFocusToAutoComplete(e, bind) {
       },
       data: autoComplete.data,
       callback: function (data) {
-        // 威县下拉选项后一个选项依赖于前一个td的选择
+        // 威县下拉选项后一个选项依赖于前一个td的选择(威县这个功能已经废除，如果使用了下拉就用不了多选)（如果想要这个功能可参考 威县-重症护理记录单II（EICU））
         // 选择出量名称的时候和上次不一样 则清除出量性质
-        if (process.env.HOSPITAL_ID == 'weixian' || process.env.HOSPITAL_ID == 'guizhou') {
+        if ( process.env.HOSPITAL_ID == 'guizhou') {
           if (td.value && td.value != data && td.childKey) {
             tr.map(item => {
               if (item.parentKey && item.parentKey == td.name) {
