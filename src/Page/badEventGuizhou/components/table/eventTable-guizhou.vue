@@ -74,7 +74,7 @@
           <div class="justify">
             <el-button type="text" @click="openDetail(scope.row)">查看</el-button>
             <el-button
-              v-if="scope.row.status == 0 || scope.row.status == 1"
+              v-if="showDel || scope.row.status == 0 || scope.row.status == 1"
               type="text"
               @click="delDetail(scope.row)"
             >删除</el-button>
@@ -162,6 +162,12 @@ export default {
       bus: BusFactory(this),
       currentRow: localStorage["BadEvent-CurrentRow"] || -1
     };
+  },
+  computed: {
+    showDel() {
+      let userStore = JSON.parse(localStorage.user)
+      return userStore && (userStore.roleManageCode == 'QCR0001' || userStore.roleManageCodeList.find(code => code == 'QCR0001'))
+    }
   },
   mounted() {
     this.setCurrent(this.currentRow);
