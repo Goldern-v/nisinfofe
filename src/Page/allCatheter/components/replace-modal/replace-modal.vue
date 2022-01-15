@@ -1,6 +1,6 @@
 <template>
     <div class="del-modal">
-        <div class="bg" @click="cancel"></div>
+        <div class="cathter-replace-bg" @click="cancel"></div>
         <div class="contont">
             <div class="contont-title">修改更换时间</div>
             <div class="username">
@@ -28,7 +28,7 @@
     width: 100%;
     height: 100%;
     z-index: 999;
-    .bg{
+    .cathter-replace-bg{
         position: absolute;
         top: 0;
         left: 0;
