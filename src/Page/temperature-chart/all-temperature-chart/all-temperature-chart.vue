@@ -68,7 +68,7 @@
       <div
         class="times"
         v-if="
-          ['quzhou', 'wujing', 'nanfangzhongxiyi', 'foshanshiyi'].includes(
+          ['quzhou', 'wujing', 'nanfangzhongxiyi', 'foshanrenyi'].includes(
             HOSPITAL_ID
           )
         "
