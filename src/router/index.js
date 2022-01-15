@@ -827,7 +827,7 @@ const router = new Router({
           // component: catheter,
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
-              case 'liaocheng' || 'whyx' || 'sdlj':
+              case 'liaocheng' || 'whyx' || 'sdlj' || 'foshanrenyi':
                 return allCatheter
               default:
                 return catheter
