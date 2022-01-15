@@ -205,7 +205,7 @@ module.exports = {
   },
   dev: {
     env: devEnv,
-    port: 5001,
+    port: 4892,
     autoOpenBrowser: true,
     assetsSubDirectory: "static",
     assetsPublicPath: "/",

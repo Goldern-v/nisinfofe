@@ -814,11 +814,8 @@ export default {
       this.$nextTick(() => {
         this.post();
         if (this.printMode == "wrist") {
-          printing(this.$refs.printCon3, {
-            direction: "vertical",
-            injectGlobalCss: true,
-            scanStyles: false,
-            css: `
+          let styleSheet = {
+            default:`
           .bed-card-warpper {
             box-shadow: none !important;
             transform: rotate(90deg) translateY(-120%) translateX(25%);
@@ -829,7 +826,25 @@ export default {
           @page {
             margin: 0;
           }
-          `
+          `,
+            fsxt:`
+            .bed-card-warpper {
+              box-shadow: none !important;
+              transform: rotate(90deg) translateY(-130%) translateX(15%);
+              transform-origin: 0 0;
+            }
+            .bed-card-vert-con {
+            }
+            @page {
+              margin: 0;
+            }
+            `
+          }
+          printing(this.$refs.printCon3, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: styleSheet[this.HOSPITAL_ID] || styleSheet.default
           });
         }else if (this.printMode == "wrist-children") {
           printing(this.$refs.printCon4, {
