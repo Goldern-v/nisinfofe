@@ -200,16 +200,13 @@ export default {
       return this.wih - 93 + "px";
     },
     currentBedItem() {
+      // 床位一览卡版本
       if (this.HOSPITAL_ID == "huadu") {
         return bedItemHd;
       } else if (
-        ["liaocheng",
-        "shannan",
-        "quzhou",
-        "foshanrenyi",
-        "fsxt",
-        "whyx",
-        "sdlj"
+        [
+          "liaocheng","whfk","shannan","quzhou",
+          "foshanrenyi","fsxt","whyx","sdlj",
         ].includes(this.HOSPITAL_ID)) {
         return bedItemLcey;
       }else if (this.HOSPITAL_ID == "beihairenyi") {

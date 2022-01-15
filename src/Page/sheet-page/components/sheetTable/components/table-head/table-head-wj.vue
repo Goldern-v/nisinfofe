@@ -110,7 +110,7 @@
       </span>
     </div>
     <div v-else>
-      <div class="info-con" flex="main:justify">
+      <div class="info-con" :class="{'big-header':sheetInfo.sheetType=='common_wj'}" flex="main:justify">
       <span
         @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
       >
@@ -157,7 +157,7 @@
       </span>
       <!-- {{index}} {{relObj}} -->
       </div>
-      <div class="info-con">
+      <div class="info-con" :class="{'big-header':sheetInfo.sheetType=='common_wj'}">
        <span
         @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
       >
@@ -279,6 +279,9 @@ export default {
   .title,.his-name{
     font-size: 29px;
   }
+}
+.big-header span{
+  font-size: 15px!important;
 }
 .bottom-line-input {
   display: inline-block;

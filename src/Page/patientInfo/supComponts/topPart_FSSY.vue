@@ -33,11 +33,6 @@
         <div class="nav-item" v-else>护理文书</div>
       </router-link>
       <router-link
-        v-if="
-          HOSPITAL_ID == 'hj' ||
-            HOSPITAL_ID == 'fuyou' ||
-            HOSPITAL_ID == 'liaocheng'
-        "
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }

@@ -1,7 +1,7 @@
 <template>
   <div class="modal-con" id="yztb-modal">
     <sweet-modal ref="newRecord" title="导入检验项目结果" class="modal-record padding-0">
-      <div class="time-box">
+      <div class="time-box" v-if="type=='sheet'">
         记录日期：<timePicker @input="(value)=>{this.recordDate = value}" :value="recordDate" type="gtime" :maskedStyles="{height:'30px',lineHeight:'30px',textAlign:'center'}"/>
       </div>
       <div flex="cross:center" class="group">
@@ -148,7 +148,8 @@ export default {
           prop:"units",
           cn:"单位"
         },
-      ]
+      ],
+      type:'sheet'
     };
   },
   computed: {
@@ -157,27 +158,36 @@ export default {
     },
   },
   methods: {
-    open(tr, td, sheetModel) {
-      // this.recordDate = tr.find(item=>{item.recordDate})
-      let date = tr.find(item=>item.key==='recordDate')
-      this.month = tr.find(item=>item.key==='recordMonth')
-      this.hours = tr.find(item=>item.key==='recordHour')
-      if(date.value){
-        let [year,hours] = date.value.split(" ")
-        let month = year.substring(5,10)
-        this.recordDate = `${month} ${hours}`
+    open(tr, td, sheetModel,type) {
+      let patientId;
+      let visitId;
+      if(type=="shiftWork"){
+        this.type = type
+        patientId = tr.patientId
+        visitId = tr.visitId
+        this.currentCell = tr
       }else{
-        this.recordDate = ''
+        let date = tr.find(item=>item.key==='recordDate')
+        this.month = tr.find(item=>item.key==='recordMonth')
+        this.hours = tr.find(item=>item.key==='recordHour')
+        if(date.value){
+          let [year,hours] = date.value.split(" ")
+          let month = year.substring(5,10)
+          this.recordDate = `${month} ${hours}`
+        }else{
+          this.recordDate = ''
+        }
+        patientId = this.patientInfo.patientId
+        visitId = this.patientInfo.visitId
+        this.currentCell = td
       }
       this.currentRow = {}
-      this.currentCell = td
       this.tableData = []
       this.testResultArr = []
       this.resTableLoading=false
       this.tableLoading = true
       this.callBackResult = ''
-      let patientId = this.patientInfo.patientId
-      let visitId = this.patientInfo.visitId
+      this.callbackArr = {}
       getExamTestByPV(patientId,visitId).then((res)=>{
           this.tableData = res.data.data
           this.tableLoading = false
@@ -186,6 +196,7 @@ export default {
     },
     newRecordClose() {
       this.currentRow = {}
+      this.type='sheet'
       this.$refs.newRecord.close();
     },
     handleCurrentChange(val){
@@ -200,7 +211,8 @@ export default {
 
     },
     syncDecriptionTolsbar() {
-      if(!this.recordDate){
+      console.log(this.callBackResult);
+      if(this.type=='sheet'&&!this.recordDate){
         this.$message.warning("记录时间不得为空！")
         return 
       }
@@ -208,11 +220,16 @@ export default {
         this.$message.warning("插入结果不能为空！")
         return 
       }
-      let [month,hours] = this.recordDate.split(" ")
-      this.month.value = month
-      this.hours.value = hours
-      this.currentCell.value += this.callBackResult
-      this.bus.$emit('ImportExamCallBack')
+      console.log(this.type);
+      if(this.type=='sheet'){
+        let [month,hours] = this.recordDate.split(" ")
+        this.month.value = month
+        this.hours.value = hours
+        this.currentCell.value += this.callBackResult
+        this.bus.$emit('ImportExamCallBack')
+      }else{
+        this.currentCell.background += this.callBackResult
+      }
       this.newRecordClose()
     },
     handleSelectionChange(selection, row){

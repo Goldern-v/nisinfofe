@@ -1,28 +1,17 @@
 export default {
   // 科室的名称
   style:{
-    width:"1200px"
+    width:'1200px'
   },
   deptType: '',
   th: {
     top: [
       {
-        name: '日期',
-        style: {
-          minWidth: '37px',
-          maxWidth: '37px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: '时间',
-        style: {
-          minWidth: '37px',
-          maxWidth: '37px',
-        },
-        colspan: '1',
-        rowspan: '3'
+        name: '',
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+        key:'recordYear'
       },
       {
         name: `
@@ -45,7 +34,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '55px',
+          minWidth: '53px',
+          maxWidth: '53px',
         }
       },
       {
@@ -57,7 +47,8 @@ export default {
         rowspan: '3',
         style: {
           whiteSpace: 'nowrap',
-          minWidth: '55px',
+          minWidth: '53px',
+          maxWidth: '53px',
         }
       },
       {
@@ -65,8 +56,8 @@ export default {
         呼吸<br/>(mmHg)
         `,
         style: {
-          minWidth: '53px',
-          maxWidth: '53px',
+          minWidth: '47px',
+          maxWidth: '47px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -77,8 +68,8 @@ export default {
         血压<br/>(mmHg)
         `,
         style: {
-          minWidth: '53px',
-          maxWidth: '53px',
+          minWidth: '47px',
+          maxWidth: '47px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',
@@ -199,8 +190,8 @@ export default {
         病情观察 护理措施
         `,
         style: {
-          minWidth: '154px',
-          maxWidth: '154px',
+          minWidth: '170px',
+          maxWidth: '170px',
         },
         colspan: '1',
         rowspan: '3'
@@ -209,19 +200,39 @@ export default {
         name: `
         护士签名
         `,
-        style: {},
+        style: {
+          minWidth:'60px'
+        },
         colspan: '1',
         rowspan: '3'
       }
     ],
     mid: [
       {
+        name: '日期',
+        style: {
+          minWidth: '37px',
+          maxWidth: '37px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '37px',
+          maxWidth: '37px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
         name: `
         内容
         `,
         style: {
-          minWidth: '69px',
-          maxWidth: '69px'
+          minWidth: '119px',
+          maxWidth: '119px'
         },
         colspan: '1',
         rowspan: '2'
