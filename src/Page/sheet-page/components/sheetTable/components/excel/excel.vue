@@ -489,7 +489,7 @@
         <span class="sh-name-box">
           <div
             class="sign-null-box"
-            @click="text11(1,2)"
+            @click="openAduitModal"
             v-if="!auditorNo"
           ></div>
           <div class="sign-in-box" v-else @click="cancelAduitModal">
