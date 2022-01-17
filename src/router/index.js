@@ -299,6 +299,8 @@ const patientFlowMsg = () => import("@/Page/patient-flow-msg/patientFlowMsg.vue"
 // 患者流转统计
 const patientFlowStatistics = () => import("@/Page/patient-flow-statistics/patientFlowStatistics.vue")
 
+// 统计查询
+const statisticalQuery = () => import("@/Page/statistical-query/index.vue")
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -1231,6 +1233,12 @@ const router = new Router({
         path: "/patientFlowStatistics",
         name: "patientFlowStatistics",
         component: patientFlowStatistics
+      },
+      // 聊城二院-统计查询
+      {
+        path: "/statisticalQuery",
+        name: "statisticalQuery",
+        component: statisticalQuery
       },
     ]
   },

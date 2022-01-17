@@ -57,7 +57,7 @@ export default {
                   this.setDataType0();
                   break;
             }
-    
+
           // console.log(this.selectedPatientData);
           // let data = this.selectedPatientData[0];
           // //inp_no 住院号
