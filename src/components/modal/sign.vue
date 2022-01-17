@@ -34,7 +34,7 @@
           type="datetime"
           align="center"
           format="yyyy-MM-dd HH:mm"
-          placeholder="输入签名时间"
+          placeholder="输入审核时间"
         ></el-date-picker>
         <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
       </div>
@@ -181,6 +181,7 @@ import dayjs from "dayjs";
 import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
 import { getCaSignJmfy } from "@/api/ca-sign_fuyou.js";
+import moment from "moment";
 export default {
   props: {
     title: {
@@ -231,7 +232,9 @@ export default {
       fuyouCaData:null,
       isCaSign:false,
       signType:0,
-      isDoctor:false
+      isDoctor:false,
+      aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey'],
+      activeSheetType:""
     };
   },
   methods: {
@@ -246,7 +249,7 @@ export default {
       let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
     return !!flag
     },
-    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure) {//formData为表单数据
+    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType) {//formData为表单数据
     console.log(doctorTure)
     if(doctorTure){
       this.isDoctor = doctorTure
@@ -259,6 +262,13 @@ export default {
       let signType = {sign:'1',audit:'2'};
       this.signType = signType[type];
     };
+    if(sheetType){
+      if(this.aduitDateSheet.includes(sheetType)){
+        this.showAduit=true
+        this.activeSheetType=sheetType
+        this.aduitDate=moment().format('yyyy-MM-DD HH:mm')
+      }
+    }
      (formData) && (this.formData=formData);//设置表单数据
       this.initFuyouCaData()
       // console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
@@ -325,6 +335,8 @@ export default {
     },
     close() {
       this.isDoctor =false
+      this.showAduit=false
+      this.activeSheetType=""
       this.$refs.modalName.close();
     },
     setCloseCallback(closeCallback) {
@@ -389,13 +401,17 @@ export default {
           console.log(!this.isDoctor);
           return this.callback(this.password,this.username);
         }
+        // 执行这个逻辑
+        if(this.aduitDate!=''&&this.aduitDateSheet.includes(this.activeSheetType)){
+            this.showAduit=false 
+            this.activeSheetType=""
+            return this.callback(this.password, this.username, this.aduitDate);
+        }
         if (this.signDate) {
           return this.callback(this.password, this.username, this.signDate);
         }else {
             return this.callback(this.password, this.username);
         }
-
-      
       }
     },
     openCaSignModal() {

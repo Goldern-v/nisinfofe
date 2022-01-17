@@ -1,15 +1,24 @@
 <template>
   <div>
     <div class="contain">
-      <div class="print-btn tool-btn" @click="onPrint()">打印</div>
-       <!-- <div class="newBorn tool-btn" @click="changeNewBorn()">切换</div> -->
-<div class="newBorn">
-        <div @click="nomalModel()" class="nomal">默认体温单</div>
-        /
-        <div @click="changeModel()" class="newBornNomal">新生儿版本</div>
-      </div>
+      <el-dropdown>
+        <div class="print-btn tool-btn">打印</div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <el-button type="primary" @click="onPrint()"
+              >打印当周</el-button
+            ></el-dropdown-item
+          >
+          <el-dropdown-item
+            ><el-button type="primary" @click="printAll()"
+              >批量打印</el-button
+            ></el-dropdown-item
+          >
+        </el-dropdown-menu>
+      </el-dropdown>
+
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div :class="rightSheet===true?'pagination':'paginationRight'" >
+      <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
         </button>
@@ -27,8 +36,7 @@
           尾周
         </button>
       </div>
-
-      <div class="tem-con" :style="contentHeight">
+      <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -39,17 +47,17 @@
           class="lcIframe"
         ></iframe>
       </div>
-      <!-- <div class="tem-con" :style="contentHeight" v-show="!showTemp">
+      <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
           v-if="filePath"
-          :src="filePath"
+          :src="printAllPath"
           frameborder="0"
-          ref="pdfCon"
+          ref="pdfConAll"
           class="lcIframe"
         ></iframe>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -59,6 +67,7 @@ import nullBg from "../../../../components/null/null-bg";
 import {
   getNurseExchangeInfo,
   getNurseExchangeInfoByTime,
+  getNurseExchangeInfoBatch
 } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -74,76 +83,65 @@ export default {
       contentHeight: { height: "" },
       currentPage: 1,
       pageTotal: 1,
-      showTemp:true,//默认选择标准的体温单曲线
+      printAllPath: "",
+      patientId: "",
+      visitId: "",
       open: false,
       isSave: false,
       visibled: false,
+      isPrintAll: false, //是否打印所有
       intranetUrl:
-        "http://192.168.8.158:8588/temperature/#/", /* 医院正式环境内网 导致跨域 */
-      // "http://10.10.10.75:9091/temperature/#/" /* 医院正式环境内网 */,
-      newBornUrl:"http://192.168.8.158:8588/temperaturenew/#/",
+        "http://192.168.2.131:9091/temperature/#/" /* 医院正式环境内网 导致跨域,
+      "http://192.168.1.75:8080/#/" /* 医院正式环境内网 */,
+      printAllUrl:
+        "http://192.168.2.131:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+        // "http://192.168.3.192:8080/#/printAll" /* 医院正式环境内网 */,
       outNetUrl:
-        "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
+        "http://http://219.159.198.37:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
     onPrint() {
-      this.$refs.pdfCon.contentWindow.postMessage(
-        { type: "printing" },
-        this.intranetUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
+      this.isPrintAll = false;
+      setTimeout(() => {
+        this.$refs.pdfCon.contentWindow.postMessage(
+          { type: "printing" },
+          this.intranetUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
-    changeNewBorn(){
-      if(this.showTemp===true){
-        this.showTemp=false
-      }else{
-        this.showTemp=true
-      }
-      this.getImg()
-
-    },
-    //切换疼痛体温单
-    changeModel() {
-      this.showTemp = false;
-      document.getElementsByClassName("newBornNomal")[0].style.color = "red";
-      document.getElementsByClassName("nomal")[0].style.color = "black";
-      this.$store.commit("changeModel", true);
-
-      this.getImg();
-    },
-    // 切换普通体温单
-    nomalModel() {
-      this.showTemp = true;
-      document.getElementsByClassName("nomal")[0].style.color = "red";
-      document.getElementsByClassName("newBornNomal")[0].style.color = "";
-      this.$store.commit("changeModel", false);
-
-      this.getImg();
+    //关闭婴儿版本体温曲线
+    // closeChat() {
+    //   this.$store.commit("showBabyChat", false);
+    // },
+    printAll() {
+      this.isPrintAll = true; //隐藏页码控制区域
+      setTimeout(() => {
+        this.$refs.pdfConAll.contentWindow.postMessage(
+          { type: "printingAll" },
+          this.printAllUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
-
+      let authTokenNursing = this.authTokenNursing;
+      this.date = date;
+      this.patientId = patientId;
+      this.visitId = visitId;
       /* 单独处理体温单，嵌套iframe */
-      // const tempUrl = `${this.intranetUrl}?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;/* 内网 */
-      if(this.showTemp===false){
-      const tempUrl = `${this.newBornUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      this.filePath = "";
-      setTimeout(() => {
-        this.filePath = tempUrl;
-      }, 0);
-      }//显示新生儿体温曲线的时候切换url路径
-      else{
-const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      this.filePath = "";
-      setTimeout(() => {
-        this.filePath = tempUrl;
-      }, 0);
-
-     }
+      const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
+      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
       // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
+      this.filePath = "";
+      setTimeout(() => {
+        this.filePath = tempUrl;
+        this.printAllPath = tempAllUrl;
+      }, 0);
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
@@ -155,24 +153,43 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-          case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
-          const params = {
-            patientId: this.$route.query.patientId,
-            startLogDateTime: e.data.value.startLogDateTime,
-            endLogDateTime: e.data.value.endLogDateTime,
-            visitId: this.$route.query.visitId
-          };
-          getNurseExchangeInfoByTime(params).then(res => {
-            const value = {
-              adtLog: res.data.data.adtLog,
-              bedExchangeLog: res.data.data.bedExchangeLog
+          // case "getNurseExchangeInfo" /* 转科转床接口，聊城二院取消，花都保留 */:
+          //   const params = {
+          //     patientId: this.$route.query.patientId,
+          //     startLogDateTime: e.data.value.startLogDateTime,
+          //     endLogDateTime: e.data.value.endLogDateTime,
+          //     visitId: this.$route.query.visitId,
+          //   };
+          //   getNurseExchangeInfoByTime(params).then((res) => {
+          //     const value = {
+          //       adtLog: res.data.data.adtLog,
+          //       bedExchangeLog: res.data.data.bedExchangeLog,
+          //     };
+          //     this.$refs.pdfCon.contentWindow.postMessage(
+          //       { type: "nurseExchangeInfo", value },
+          //       "*"
+          //     );
+          //   });
+          //   break;
+            case "getNurseExchangeInfoAll":
+            const paramsAll = {
+              patientId: this.$route.query.patientId,
+              startLogDateTime: e.data.value.startLogDateTime,
+              endLogDateTime: e.data.value.endLogDateTime,
+              visitId: this.$route.query.visitId,
             };
-            this.$refs.pdfCon.contentWindow.postMessage(
-              { type: "nurseExchangeInfo", value },
-              "*"
-            );
-          });
-          break;
+            getNurseExchangeInfoBatch(paramsAll).then((res) => {
+              let value = res.data.data.exchangeInfos
+              if(value.length!==0){
+              this.$refs.pdfConAll.contentWindow.postMessage(
+                { type: "nurseExchangeInfoAll", value },
+                "*"
+              );
+              }
+
+
+            });
+            break;
           default:
             break;
         }
@@ -190,12 +207,16 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
     },
   },
   watch: {
+    patientInfo() {
+      this.isPrintAll = false;
+    },
+    authTokenNursing(val) {
+      this.authTokenNursing = val;
+    },
     currentPage(value) {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
-        this.showTemp===true?
-        this.intranetUrl
-        :this.newBornUrl /* 内网 */
+        this.intranetUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
     },
@@ -226,6 +247,9 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
     rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
+    authTokenNursing() {
+      return JSON.parse(localStorage.getItem("user")).token; //获取登录token
+    },
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);
@@ -240,21 +264,6 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
 .contain {
   margin: 15px 20px 0;
 
-.newBorn {
-  position: relative;
-  top: 2px;
-  left:60%
-  display: inline-flex !important;
-}
-
-.nomal {
-  color: red;
-  margin-right: 5px;
-}
-
-.newBornNomal {
-  margin-left: 5px;
-}
   .tem-con {
     width: 102%;
     height: 100%;
@@ -271,20 +280,18 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
   }
 }
 
-
 .pagination {
   display: inline;
   position: relative;
-  left: -5%;
+  left: 25%;
   font-weight: normal;
 }
-.paginationRight {
-  display: inline;
+.paginationRight{
+ display: inline;
   position: relative;
-  left: 10%;
+  left: 35%;
   font-weight: normal;
 }
-
 .page {
   margin: 0 10px;
 }
@@ -322,12 +329,7 @@ button[disabled=disabled] {
     cursor: not-allowed;
   }
 }
-.newBorn{
-position:relative;
-top:2px;
-left:75%;
-  display: inline-flex !important;
-}
+
 .print-btn {
   position: relative;
   left: 5%;
