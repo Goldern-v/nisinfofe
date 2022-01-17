@@ -27,7 +27,7 @@
           尾周
         </button>
       </div>
-     
+
       <div class="tem-con" :style="contentHeight">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
@@ -141,10 +141,9 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
       setTimeout(() => {
         this.filePath = tempUrl;
       }, 0);
-     
+
      }
       // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
-      
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
@@ -157,21 +156,6 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
             this.currentPage = e.data.value;
             break;
           case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
-          // const params = {
-          //   patientId: this.$route.query.patientId,
-          //   visitId: this.$route.query.visitId
-          // };
-          // // 发请求
-          // getNurseExchangeInfo(params.patientId, params.visitId).then(res => {
-          //   const value = {
-          //     adtLog: res.data.data.adtLog,
-          //     bedExchangeLog: res.data.data.bedExchangeLog
-          //   };
-          //   this.$refs.pdfCon.contentWindow.postMessage(
-          //     { type: "nurseExchangeInfo", value },
-          //     "*"
-          //   );
-          // });
           const params = {
             patientId: this.$route.query.patientId,
             startLogDateTime: e.data.value.startLogDateTime,
