@@ -20,7 +20,7 @@ export function getRowNum(index) {
   } else if (sheetInfo.sheetType == "blood_purification") {
     return 11;
   } else if (sheetInfo.sheetType == "nicu_custody_hd") {
-    return 20;
+    return 23;
   } else if (sheetInfo.sheetType == "oxytocin") {
     if (index === 0) {
       return 17;

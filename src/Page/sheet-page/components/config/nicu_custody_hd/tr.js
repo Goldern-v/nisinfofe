@@ -9,16 +9,21 @@ import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
 // };
-let NBPList = [];
-let xzpList = ["悬浮红细胞","洗涤红细胞","血浆","冷沉淀"];
-let twList = ["左","右","平","俯"];
-let kfyList = ["母乳","配方奶","早产奶","奶","口服药"];
-let pfhlList = ["油浴","沐浴","床上浴"];
-let xylList = ["差","一般","好"];
-let fyList = ['好','差','一般'];
-let ksList = ['好','稍弱','弱','嘶哑'];
-let jzlList = ['稍低','低下','正常'];
-let xtList = ['气道中','气道少','气道多','口腔少','口腔中','口腔多'];
+
+let 反应 = ['好','一般','差']
+let 哭声 = ['大','一般','弱']
+let 肤色 = ['红润','苍白','苍黄']
+let 肌张力 = ['正常','稍高','稍低','高','低']
+let 吸吮力 = ['好','一般','弱']
+let 体位 = ['左侧','右侧','平卧','俯卧']
+let 瞳孔 = ['1.5','2.0','2.5','3.0','3.5','4.0','4.5','5.0','+','±','-']
+let 静脉 = ['输液','洗涤红细胞','悬浮红细胞','血浆','冷沉淀','PICC封管液']
+let 进食 = ['配方奶鼻饲','配方奶自吮','母乳鼻饲','母乳自吮','口服药']
+let 用氧方式 = ['鼻导管','头罩','温箱内','NCPAP(CPAP)','机械通气/CMV','机械通气/SIMV','机械通气/PRVC','机械通气/HFO']
+let 插管型号 = ['2.5','3.0','3.5','4.0']
+let 气道 = ['WL','WT','YL','YWL','YT','YWT']
+let 基础护理 = ['①','②','③','④','⑤']
+
 
 export default [
   {
@@ -86,9 +91,6 @@ export default [
     textarea: {
       width: 35
     },
-    autoComplete: {
-      data: NBPList
-    },
   },
   {
     key: "abp", //ABP
@@ -99,9 +101,6 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 35
-    },
-    autoComplete: {
-      data: NBPList
     },
   },
   {
@@ -147,7 +146,7 @@ export default [
       width: 35
     },
     autoComplete: {
-      data: fyList
+      data: 反应
     },
   },
   {
@@ -160,7 +159,7 @@ export default [
       width: 35
     },
     autoComplete: {
-      data: ksList
+      data: 哭声
     },
   },
   {
@@ -171,6 +170,9 @@ export default [
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 35
+    },
+    autoComplete: {
+      data: 肤色
     },
   },
   {
@@ -183,7 +185,7 @@ export default [
       width: 35
     },
     autoComplete: {
-      data: jzlList
+      data: 肌张力
     },
   },
   {
@@ -195,6 +197,9 @@ export default [
     textarea: {
       width: 35
     },
+    autoComplete: {
+      data: 吸吮力
+    },
   },
   {
     key: "position", //体位
@@ -204,6 +209,9 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 35
+    },
+    autoComplete: {
+      data: 体位
     },
   },
   {
@@ -216,8 +224,9 @@ export default [
     textarea: {
       width: 40
     },
+    splice:'/',
     autoComplete: {
-      data: xylList
+      data: 瞳孔
     },
   },
   {
@@ -230,8 +239,9 @@ export default [
     textarea: {
       width: 40
     },
+    splice:'/',
     autoComplete: {
-      data: kfyList
+      data: 瞳孔
     },
   },
   {
@@ -240,9 +250,12 @@ export default [
     name: "静脉",
     next: "ml",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
+    },
+    autoComplete: {
+      data: 静脉
     },
   },
   {
@@ -250,9 +263,12 @@ export default [
     value: "",
     name: "进食",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
+    },
+    autoComplete: {
+      data: 进食
     },
   },
   {
@@ -264,9 +280,6 @@ export default [
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 35
-    },
-    autoComplete: {
-      data: xzpList
     },
   },
   {
@@ -327,9 +340,12 @@ export default [
     value: "",
     name: "方式",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 35
+      width: 55
+    },
+    autoComplete: {
+      data: 用氧方式
     },
   },
   {
@@ -365,7 +381,7 @@ export default [
       width: 35
     },
     autoComplete: {
-      data: xtList
+      data: 插管型号
     },
   },
   {
@@ -378,9 +394,6 @@ export default [
     textarea: {
       width: 35
     },
-    autoComplete: {
-      data: twList
-    },
   },
   {
     key: "atomization", //雾化
@@ -391,9 +404,6 @@ export default [
     textarea: {
       width: 35
     },
-    autoComplete: {
-      data: pfhlList
-    },
   },
   {
     key: "airway", //气道
@@ -403,6 +413,9 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 45
+    },
+    autoComplete: {
+      data: 气道
     },
   },
   {
@@ -423,6 +436,9 @@ export default [
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 35
+    },
+    autoComplete: {
+      data: 基础护理
     },
   },
   {

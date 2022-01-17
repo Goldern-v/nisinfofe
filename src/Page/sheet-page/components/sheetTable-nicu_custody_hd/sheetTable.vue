@@ -333,19 +333,21 @@
     text-align: center;
     .tableHeader {
       width: 100%;
-      height: 250px;
+      height: 180px;
       display: flex;
       align-items: center;
       justify-content: space-evenly;
       font-size: 13px;
       .tableHeaderLeft {
         width: 250px;
-        height: 230px;
+        height: 100%;
         border: 1px solid #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
         .info-item {
           width: 90%;
           display: flex;
-          margin-top: 20px;
           margin-left: 20px;
           .info-item-msg{
             width: 65%;
@@ -356,7 +358,7 @@
       }
       .tableHeaderRight1 {
         width: 450px;
-        height: 230px;
+        height: 100%;
         border: 1px solid #000;
         display: flex;
         justify-content: space-evenly;
@@ -384,7 +386,7 @@
       }
       .tableHeaderRight2 {
         width: 200px;
-        height: 230px;
+        height: 100%;
         border: 1px solid #000;
         .box2{
           width: 95%;
@@ -599,7 +601,7 @@ export default {
     }
   },
   created() {
-    changeThis(this)
+    
   },
   update() {},
   mounted() {
