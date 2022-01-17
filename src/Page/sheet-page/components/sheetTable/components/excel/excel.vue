@@ -479,7 +479,8 @@
         <span
           v-else-if="
             sheetInfo.sheetType == 'internal_eval_lcey' ||
-            sheetInfo.sheetType == 'critical_lcey'
+            sheetInfo.sheetType == 'critical_lcey'||
+            sheetInfo.sheetType == 'critical_new_lcey'
           "
           ><strong>护士长审核：</strong></span
         >
@@ -487,7 +488,7 @@
         <span class="sh-name-box">
           <div
             class="sign-null-box"
-            @click="openAduitModal"
+            @click="text11(1,2)"
             v-if="!auditorNo"
           ></div>
           <div class="sign-in-box" v-else @click="cancelAduitModal">
@@ -505,7 +506,8 @@
         <template
           v-if="
             sheetInfo.sheetType == 'internal_eval_lcey' ||
-            sheetInfo.sheetType == 'critical_lcey'
+            sheetInfo.sheetType == 'critical_lcey'||
+            sheetInfo.sheetType == 'critical_new_lcey'
           "
         >
           <span> <strong>审核时间：</strong> </span>
@@ -622,6 +624,7 @@ export default {
         "waiting_birth_wj",
         "internal_eval_lcey", //一般或者护理记录单
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
+        "critical_new_lcey",
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -1673,14 +1676,17 @@ export default {
     },
     /** 审核整页 */
     openAduitModal() {
-      window.openSignModal((password, empNo) => {
+      window.openSignModal((password, empNo,auditDate=moment().format("YYYY-MM-DD HH:mm:ss")) => {
         getUser(password, empNo).then((res) => {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          // 审核时间为当前点击时间戳
-          sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =
-            moment().format("YYYY-MM-DD HH:mm:ss");
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey']
+          if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
+            // 审核时间签名时选择的时间
+            sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =
+            moment(auditDate).format("YYYY-MM-DD HH:mm");
+          }
           sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
           this.$notify.success({
             title: "提示",
@@ -1689,7 +1695,7 @@ export default {
           });
           this.bus.$emit("saveSheetPage", false);
         });
-      }, "审核签名确认");
+      }, "审核签名确认","","","","","","",this.sheetInfo.sheetType);
     },
     /** 取消审核整页 */
     cancelAduitModal() {
