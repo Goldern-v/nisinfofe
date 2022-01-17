@@ -375,6 +375,7 @@ export default {
           }
         });
       });
+
       return resultModel;
     },
     sheetTable() {
@@ -615,6 +616,26 @@ export default {
       ]).then((res) => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
+        if(this.HOSPITAL_ID=='wujing'){
+          let barcodeArr = {} 
+          bodyData.list.map((tr,index)=>{
+            if(tr.expand){
+              barcodeArr[tr.expand] = barcodeArr[tr.expand] ? (barcodeArr[tr.expand] + 1) : 1
+              if(barcodeArr[tr.expand] == 1 && ((bodyData.list[index + 1] && bodyData.list[index + 1].expand != tr.expand)||(!bodyData.list[index + 1]))){
+                tr.barCodeIdentification = 'identification-only-one'
+              }
+              else if(barcodeArr[tr.expand] == 1){
+                tr.barCodeIdentification = 'identification-first'
+                tr.identificationUsage = '静脉'
+              }else if((bodyData.list[index + 1] && bodyData.list[index + 1].expand != tr.expand)||(!bodyData.list[index + 1])){
+                tr.barCodeIdentification = 'identification-last'
+              }else{
+                tr.barCodeIdentification = 'identification-middle'
+              }
+            }
+          })
+        }
+        // console.log(bodyData);
         let markData = res[2].data.data.list || [];
         this.listData = bodyData.list;
         /* 显示转科转床的信息 */

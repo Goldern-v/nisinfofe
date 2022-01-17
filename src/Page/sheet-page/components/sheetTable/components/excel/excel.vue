@@ -387,6 +387,12 @@
             @click="!tr.isRead && td.click && td.click($event, td)"
             v-else
           />
+          <!-- <div 
+            v-if="HOSPITAL_ID=='wujing' && td.key=='food' && tr.barCodeIdentification"
+            :class="[HOSPITAL_ID=='wujing' && td.key=='food' && tr.barCodeIdentification]"
+            >
+              {{tr.identificationUsage}}
+            </div> -->
         </td>
         <span v-show="false" v-else>{{ td.key }}: {{ td.value }}</span>
       </tr>
