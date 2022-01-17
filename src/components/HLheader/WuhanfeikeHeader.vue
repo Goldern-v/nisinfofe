@@ -141,7 +141,7 @@
                 <i class="nursingAssessment"></i> 护理记录单
               </el-row>
             </router-link>
-            
+
             <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理评估单
@@ -250,7 +250,7 @@
                 <i class="iconfont icon-hulijiludan"></i> 护理记录
               </el-row>
             </router-link>-->
-            
+
             <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 护理评估

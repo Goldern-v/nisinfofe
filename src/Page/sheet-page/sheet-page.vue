@@ -249,6 +249,7 @@ import sheetTable_waiting_birth_gzry from "./components/sheetTable-waiting_birth
 import sheetTable_newborn_care_gzry from "./components/sheetTable-newborn_care_gzry/sheetTable";
 import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
 import sheetTable_picc_custody_jm from "./components/sheetTable-picc_custody_jm/sheetTable";
+import sheetTable_nicu_custody_hd from "./components/sheetTable-nicu_custody_hd/sheetTable";
 import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/sheetTable";
 import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
@@ -425,6 +426,8 @@ export default {
         return sheetTable_catheterplacement_jm;
       } else if (sheetInfo.sheetType == "picc_custody_jm") {
         return sheetTable_picc_custody_jm;
+      } else if (sheetInfo.sheetType == "nicu_custody_hd") {
+        return sheetTable_nicu_custody_hd;
       } else if (sheetInfo.sheetType == "nicu_custody_jm") {
         return sheetTable_nicu_custody_jm;
       } else if (sheetInfo.sheetType == "cardiology_lcey") {
@@ -1111,6 +1114,7 @@ export default {
     sheetTable_newborn_care_gzry,
     sheetTable_catheterplacement_jm,
     sheetTable_picc_custody_jm,
+    sheetTable_nicu_custody_hd,
     sheetTable_nicu_custody_jm,
     doctorEmr,
     sheetTable_oxytocin_hl,

@@ -64,6 +64,7 @@ import topPartGuiZhou from "@/Page/patientInfo/supComponts/topPart_GuiZhou"; // 
 import topPartQuZhou from "@/Page/patientInfo/supComponts/topPart_QuZhou.vue"; // 曲周县医院
 import topPartNFZXY from "@/Page/patientInfo/supComponts/topPart_NFZXY.vue"; // 南方中西医院医院
 import topPartXiegang from "@/Page/patientInfo/supComponts/topPart_Xiegang.vue"; // 谢岗医院
+import topPartWHFK from "@/Page/patientInfo/supComponts/topPart_WHFK.vue"; // 谢岗医院
 import topPartJmfy from "@/Page/patientInfo/supComponts/topPart_Jmfy.vue";
 import topPartFSSY from "@/Page/patientInfo/supComponts/topPart_FSSY.vue";//佛山市一
 import topPartYC from "@/Page/patientInfo/supComponts/topPart_YC.vue";//阳春中医
@@ -150,6 +151,7 @@ export default {
         东莞市谢岗医院: "topPartXiegang",
         佛山市第一人民医院:"topPartFSSY",
         阳春中医院:"topPartYC",
+        武汉市肺科医院:"topPartWHFK",
       };
       return hisList[HisName] || "topPart";
     },
@@ -196,7 +198,8 @@ export default {
     leftPartFuyou,
     leftPartHuadu,
     topPartYC,
-    leftPartFSXT
+    leftPartFSXT,
+    topPartWHFK
   },
 };
 </script>

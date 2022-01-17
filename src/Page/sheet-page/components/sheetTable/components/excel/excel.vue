@@ -99,6 +99,7 @@
               tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
+            redBottom:['wujing'].includes(HOSPITAL_ID)&&redBottom(tr,y) // 待性能优化
           },
           tr.find((item) => {
             return item.key == 'markObj';
@@ -700,6 +701,13 @@ export default {
     },
   },
   methods: {
+    redBottom(tr,y){
+      return tr.find((item) => {
+                return item.key == 'recordSource';
+              }).value == '5' && this.data.bodyModel[y+1] && this.data.bodyModel[y+1].find((item) => {
+                return item.key == 'recordSource';
+              }).value != '5'
+    },
     // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
     getCompleteArr(tr, td) {
       if (this.HOSPITAL_ID == "guizhou") {

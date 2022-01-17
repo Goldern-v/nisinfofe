@@ -123,7 +123,7 @@ const sheetHospitalAdmissionPage = () =>
 
 const admissionHisView = () =>
   import("@/Page/admissionHisView/admissionHisView.vue"); // 入院评估预览界面
-  
+
 const formPage = () => import("@/Page/form-page/form-page"); //  护理文书
 const evalFormPage = () => import("@/Page/eval-form-page/form-page");
 const MEWS = () => import("@/Page/MEWS/MEWS.vue");
@@ -193,6 +193,8 @@ const allTemperatureChartBHRY = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartBHRY.vue"); //北海人医批量录入体温单
 const allTemperatureChartDGXG = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartDGXG.vue"); //东莞谢岗批量录入体温单
+const allTemperatureChartWHFK = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHFK.vue"); //东莞谢岗批量录入体温单
 const newSingleTemperatureChart = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //聊城二院-新版体温单录入页面
 const newSingleTemperatureChartGuizhou = () =>
@@ -215,6 +217,8 @@ const newSingleTemperatureChartFSSY = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-fssy/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
 const newSingleTemperatureChartDGXG = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-xiegang/new-singleTemperature-chart.vue");//谢岗新版体温单单人录入
+const newSingleTemperatureChartWHFK = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-whfk/new-singleTemperature-chart.vue");//武汉肺科新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -263,6 +267,7 @@ import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperatur
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
 import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperatureNFZXY";
 import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperatureDGXG";
+import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperatureWHFK";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
@@ -362,7 +367,7 @@ const router = new Router({
         switch (process.env.HOSPITAL_ID) {
           case 'huadu':
             return temperatureHD
-          case 'liaocheng' || 'whfk' || 'whyx':
+          case 'liaocheng'  || 'whyx':
             return temperatureLCEY
           case 'guizhou':
             return temperatureGuizhou
@@ -382,6 +387,8 @@ const router = new Router({
             return temperatureWuJing
           case 'xiegang':
             return temperatureDGXG
+          case 'whfk':
+            return temperatureWHFK
           case 'fsxt':
             return temperatureFSXT
           default:
@@ -804,6 +811,8 @@ const router = new Router({
                 return temperatureFSXT
               case 'xiegang':
                 return temperatureDGXG
+              case 'whfk':
+                return temperatureWHFK
               default:
                 return temperature
             }
@@ -827,7 +836,7 @@ const router = new Router({
           // component: catheter,
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
-              case 'liaocheng' || 'whyx' || 'sdlj':
+              case 'liaocheng' || 'whyx' || 'sdlj' || 'foshanrenyi':
                 return allCatheter
               default:
                 return catheter
@@ -1137,6 +1146,8 @@ const router = new Router({
               return allTemperatureChartBHRY
             case 'xiegang':
               return allTemperatureChartDGXG
+            case 'whfk':
+              return allTemperatureChartWHFK
             default:
               return allTemperatureChart
           }
@@ -1167,6 +1178,8 @@ const router = new Router({
               return newSingleTemperatureChartFSXT
             case 'xiegang':
               return newSingleTemperatureChartDGXG
+            case 'whfk':
+              return newSingleTemperatureChartWHFK
             default:
               return newSingleTemperatureChart
           }
