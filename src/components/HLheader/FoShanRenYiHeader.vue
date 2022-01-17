@@ -266,6 +266,11 @@
                 >护理巡视
               </el-row>
             </router-link>
+            <router-link to="/allCatheter" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 导管
+              </el-row>
+            </router-link>
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
             </router-link> -->
@@ -344,7 +349,7 @@
                   </router-link>
                 </el-dropdown-item>-->
 
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
                 >
                   <router-link to="/wardReport" tag="span">
@@ -352,9 +357,9 @@
                       <i class="wardReport"></i>病房日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
 
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{
                     active: $route.path.indexOf('/inpatientReport') > -1,
                   }"
@@ -364,7 +369,7 @@
                       <i class="inpatientReport"></i>住院日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/bedRecord') > -1 }"
                 >

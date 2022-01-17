@@ -14,7 +14,7 @@
         />
       </span>
       <!-- <div class="times" v-if="HOSPITAL_ID === 'quzhou'||HOSPITAL_ID === 'wujing'"> -->
-      
+
       <div
         class="times"
       >
@@ -95,7 +95,7 @@
                 v-model="scope.row.temperature"
                 :class="className"
                 class="temperature"
-                type="text"
+                type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
@@ -114,7 +114,7 @@
                 v-model="scope.row.pulse"
                 class="pulse"
                 :class="className"
-                type="text"
+                type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
@@ -134,7 +134,7 @@
                 v-model="scope.row.breath"
                 :class="className"
                 class="breath"
-                type="text"
+                type="number"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
                 @keydown="handleKeyDown"
@@ -166,7 +166,7 @@
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
-          
+
            <el-table-column
             prop="physicalCooling"
             label="物理降温"
@@ -197,7 +197,7 @@
                 v-model="scope.row.urinate"
                 :class="className"
                 class="urinate"
-                type="text"
+                type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
@@ -205,7 +205,7 @@
               />
             </template>
           </el-table-column>
-         
+
           <el-table-column
             prop="stoolNum"
             label="大便次数"
@@ -238,7 +238,7 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
-                type="text"
+                type="number"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
                 @keydown="handleKeyDown"
@@ -248,7 +248,7 @@
               <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
-          
+
           <el-table-column
             prop="fieldThree"
             label="尿量"
@@ -291,7 +291,7 @@
               <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
             </template>
           </el-table-column>
-          
+
           <el-table-column
             prop="dischargeSize"
             label="出量"
@@ -547,6 +547,10 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+}
 .all-temperature-chart-input {
   width: 100%;
   padding: 2px 5px;
@@ -602,6 +606,7 @@
       >>>&.el-input {
         margin-bottom: 5px;
       }
+
 
       >>>.el-input__inner {
         height: 30px;
@@ -756,7 +761,7 @@ export default {
         entryDate:moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
-            
+
             case "beihairenyi":
               if (this.getHours() >= 0 && this.getHours() <= 3) {
                 return "03";
@@ -781,7 +786,7 @@ export default {
           }
         })(), //录入时间
       },
-      
+
       timesOdd: [
         {
           id: 0,
@@ -808,8 +813,8 @@ export default {
           value: "23",
         },
       ],
-      
-      
+
+
       patientsInfoData: [],
       searchWord: "",
       pageLoadng: true,
@@ -1006,7 +1011,7 @@ export default {
           if (e.keyCode === 38) {
             currentIdx--;
           } else if (
-            e.keyCode === 40 
+            e.keyCode === 40
             //当贵州的时候，回车不调用保存事件，执行跳转到下一个患者的聚集性事件
           ) {
             currentIdx++;

@@ -4,112 +4,19 @@
       <span class="filterItem date">
         <span class="type-label">日期:</span>
         <ElDatePicker
-          v-if="!['guizhou', 'fuyou'].includes(HOSPITAL_ID)"
           class="date-picker"
           type="date"
           size="small"
           format="yyyy-MM-dd"
-          placeholder="开始日期"
-          v-model="query.entryDate"
-          clearable
-        />
-        <ElDatePicker
-          v-if="HOSPITAL_ID === 'guizhou'"
-          class="date-picker"
-          type="date"
-          size="small"
-          format="yyyy-MM-dd"
-          placeholder="开始日期"
-          v-model="query.entryDate"
-          clearable
-        />
-        <!--江门妇幼的时间选择做限制，不能大于将来时间-->
-        <ElDatePicker
-          v-if="HOSPITAL_ID === 'fuyou'"
-          class="date-picker"
-          type="date"
-          size="small"
-          format="yyyy-MM-dd"
-          :picker-options="pickerOptions"
           placeholder="开始日期"
           v-model="query.entryDate"
           clearable
         />
       </span>
-      <div class="times" v-if="['huadu', 'fuyou'].includes(HOSPITAL_ID)">
-        <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
-          <input
-            type="radio"
-            name="time"
-            v-model="query.entryTime"
-            :id="`time${item.id}`"
-            :value="item.value"
-          />
-          {{ item.value }}
-        </label>
-      </div>
-      <div class="times" v-if="HOSPITAL_ID === 'hengli'">
-        <label
-          :for="`time${item.id}`"
-          v-for="item in timeshengli"
-          :key="item.id"
-        >
-          <input
-            type="radio"
-            name="time"
-            v-model="query.entryTime"
-            :id="`time${item.id}`"
-            :value="item.value"
-          />
-          {{ item.value }}
-        </label>
-      </div>
       <!-- <div class="times" v-if="HOSPITAL_ID === 'quzhou'||HOSPITAL_ID === 'wujing'"> -->
+
       <div
         class="times"
-        v-if="
-          ['quzhou', 'wujing', 'nanfangzhongxiyi', 'foshanrenyi'].includes(
-            HOSPITAL_ID
-          )
-        "
-      >
-        <label
-          :for="`time${item.id}`"
-          v-for="item in timesquZhou"
-          :key="item.id"
-        >
-          <input
-            type="radio"
-            name="time"
-            v-model="query.entryTime"
-            :id="`time${item.id}`"
-            :value="item.value"
-          />
-          {{ item.value }}
-        </label>
-      </div>
-      <div
-        class="times"
-        v-if="HOSPITAL_ID === 'zhongshanqi' || HOSPITAL_ID === 'guizhou'"
-      >
-        <label
-          :for="`time${item.id}`"
-          v-for="item in timesEven2"
-          :key="item.id"
-        >
-          <input
-            type="radio"
-            name="time"
-            v-model="query.entryTime"
-            :id="`time${item.id}`"
-            :value="item.value"
-          />
-          {{ item.value }}
-        </label>
-      </div>
-      <div
-        class="times"
-        v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'beihairenyi'"
       >
         <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id">
           <input
@@ -130,7 +37,7 @@
         ></el-input>
       </div>
 
-      <el-button @click="saveAllTemperture">保存</el-button>
+      <el-button @click="debounceSave">保存</el-button>
       <el-button @click="onPrint">打印</el-button>
     </div>
     <div class="table-content">
@@ -188,7 +95,7 @@
                 v-model="scope.row.temperature"
                 :class="className"
                 class="temperature"
-                type="text"
+                type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
@@ -207,7 +114,7 @@
                 v-model="scope.row.pulse"
                 class="pulse"
                 :class="className"
-                type="text"
+                type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
@@ -227,7 +134,7 @@
                 v-model="scope.row.breath"
                 :class="className"
                 class="breath"
-                type="text"
+                type="number"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
                 @keydown="handleKeyDown"
@@ -238,12 +145,11 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID !== 'quzhou'"
             prop="bloodPressure"
             label="血压"
             min-width="100"
             align="center"
-          >
+           >
             <template slot-scope="scope">
               <input
                 v-model="scope.row.bloodPressure"
@@ -259,59 +165,52 @@
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
-          <el-table-column
-            v-if="HOSPITAL_ID === 'quzhou'"
-            prop="amBp"
-            label="上午血压"
-            min-width="100"
+
+           <el-table-column
+            prop="physicalCooling"
+            label="物理降温"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
               <input
-                v-model="scope.row.amBp"
+                v-model="scope.row.physicalCooling"
                 :class="className"
-                class="amBp"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input
-                v-model="scope.row.amBp"
-                class="bloodPressure"
-              /> -->
-              <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
-            </template>
-          </el-table-column>
-          <el-table-column
-            v-if="HOSPITAL_ID === 'quzhou'"
-            prop="pmBp"
-            label="下午血压"
-            min-width="100"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.pmBp"
-                :class="className"
-                class="pmBp"
+                class="physicalCooling"
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.pmBp" class="bloodPressure" /> -->
-              <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
+          <el-table-column
+            prop="urinate"
+            label="小便次数"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.urinate"
+                :class="className"
+                class="urinate"
+                type="number"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+
           <el-table-column
             prop="stoolNum"
             label="大便次数"
             min-width="80"
             align="center"
-          >
+           >
             <template slot-scope="scope">
               <input
                 v-model="scope.row.stoolNum"
@@ -328,7 +227,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID !== 'quzhou'"
             prop="heartRate"
             label="心率"
             min-width="80"
@@ -339,7 +237,7 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
-                type="text"
+                type="number"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
                 @keydown="handleKeyDown"
@@ -349,30 +247,8 @@
               <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
+
           <el-table-column
-            v-if="HOSPITAL_ID === 'quzhou'"
-            prop="heartRate"
-            label="短绌心率"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.heartRate"
-                :class="className"
-                class="heartRate"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.heartRate" class="heartRate" /> -->
-              <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
-            </template>
-          </el-table-column>
-          <el-table-column
-            v-if="HOSPITAL_ID !== 'quzhou'"
             prop="fieldThree"
             label="尿量"
             min-width="80"
@@ -394,29 +270,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID === 'quzhou'"
-            prop="drainage"
-            label="引流量"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.drainage"
-                :class="className"
-                class="drainage"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.drainage" class="fieldThree" /> -->
-              <!-- <el-input v-model="scope.row.fieldThree"></el-input> -->
-            </template>
-          </el-table-column>
-          <el-table-column
-            v-if="HOSPITAL_ID !== 'quzhou'"
             prop="foodSize"
             label="入量"
             min-width="80"
@@ -437,30 +290,8 @@
               <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
             </template>
           </el-table-column>
+
           <el-table-column
-            v-if="HOSPITAL_ID === 'quzhou'"
-            prop="foodSize"
-            label="总入量"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.foodSize"
-                :class="className"
-                class="foodSize"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.foodSize" class="foodSize" /> -->
-              <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
-            </template>
-          </el-table-column>
-          <el-table-column
-            v-if="HOSPITAL_ID !== 'quzhou'"
             prop="dischargeSize"
             label="出量"
             min-width="80"
@@ -479,50 +310,6 @@
               />
               <!-- <input v-model="scope.row.dischargeSize" class="dischargeSize" /> -->
               <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
-            </template>
-          </el-table-column>
-          <el-table-column
-            v-if="HOSPITAL_ID === 'quzhou'"
-            prop="dischargeSize"
-            label="总出量"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.dischargeSize"
-                :class="className"
-                class="dischargeSize"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.dischargeSize" class="dischargeSize" /> -->
-              <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
-            </template>
-          </el-table-column>
-          <el-table-column
-            v-if="HOSPITAL_ID === 'quzhou'"
-            prop="height"
-            label="身高"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.height"
-                :class="className"
-                class="height"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.height" class="curWeight" /> -->
-              <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -742,23 +529,27 @@
               <el-input v-model="scope.row.stoolNum"></el-input>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
             prop="painScore"
             label="疼痛"
             min-width="60"
             align="center"
-          >
+           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.painScore"></el-input>
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+}
 .all-temperature-chart-input {
   width: 100%;
   padding: 2px 5px;
@@ -814,6 +605,7 @@
       >>>&.el-input {
         margin-bottom: 5px;
       }
+
 
       >>>.el-input__inner {
         height: 30px;
@@ -943,8 +735,9 @@ import { getPatientsInfo, saveOverAllTemperture } from "../api/api";
 import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
-import CustomInput from "./components/CustomInput.vue";
-import { validForm } from "../validForm/validForm";
+import {_debounce} from '../save-formatter'
+// import CustomInput from "../all-temperature-chart-BHRY/components/CustomInput.vue";
+// import { validForm } from "../validForm/validForm";
 
 export default {
   mixins: [common],
@@ -956,184 +749,44 @@ export default {
       isSelectedNurs: "",
       handleKeyCode: [37, 38, 39, 40, 13],
       colClass: "",
-      pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() > Date.now() - 8.64e6;
-        },
-      },
+      // pickerOptions: {
+      //   disabledDate(time) {
+      //     return time.getTime() > Date.now() - 8.64e6;
+      //   },
+      // },
       nursingList: [],
       query: {
         wardCode: "", //科室编码
-        entryDate:
-          this.HOSPITAL_ID === "guizhou"
-            ? moment(new Date()).format("YYYY-MM-DD")
-            : moment(new Date()).format("YYYY-MM-DD"), //录入日期
+        entryDate:moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
-            case "huadu":
-              if (this.getHours() >= 1 && this.getHours() <= 4) {
-                return "04";
-              }
-              if (this.getHours() > 4 && this.getHours() <= 8) {
-                return "08";
-              }
-              if (this.getHours() > 8 && this.getHours() <= 12) {
-                return "12";
-              }
-              if (this.getHours() > 12 && this.getHours() <= 16) {
-                return "16";
-              }
-              if (this.getHours() > 16 && this.getHours() <= 20) {
-                return "20";
-              }
-              if (
-                (this.getHours() > 20 && this.getHours() <= 23) ||
-                this.getHours() === 0
-              ) {
-                return "23";
-              }
-            case "beihairenyi":
-              if (this.getHours() >= 0 && this.getHours() <= 3) {
-                return "03";
-              }
-              if (this.getHours() > 3 && this.getHours() <= 7) {
-                return "07";
-              }
-              if (this.getHours() > 7 && this.getHours() <= 11) {
-                return "11";
-              }
-              if (this.getHours() > 11 && this.getHours() <= 15) {
-                return "15";
-              }
-              if (this.getHours() > 15 && this.getHours() <= 19) {
-                return "19";
-              }
-              if (this.getHours() > 19 && this.getHours() <= 23) {
-                return "23";
-              }
-            case "fuyou":
-              if (this.getHours() >= 1 && this.getHours() <= 4) {
-                return "04";
-              }
-              if (this.getHours() > 4 && this.getHours() <= 8) {
-                return "08";
-              }
-              if (this.getHours() > 8 && this.getHours() <= 12) {
-                return "12";
-              }
-              if (this.getHours() > 12 && this.getHours() <= 16) {
-                return "16";
-              }
-              if (this.getHours() > 16 && this.getHours() <= 20) {
-                return "20";
-              }
-              if (
-                (this.getHours() > 20 && this.getHours() <= 23) ||
-                this.getHours() === 0
-              ) {
-                return "23";
-              }
-            case "quzhou":
+
+            case "whfk":
               if (this.getHours() >= 0 && this.getHours() <= 4) {
-                return "02";
+                return "04";
               }
               if (this.getHours() > 4 && this.getHours() <= 8) {
-                return "06";
+                return "08";
               }
               if (this.getHours() > 8 && this.getHours() <= 12) {
-                return "10";
+                return "12";
               }
               if (this.getHours() > 12 && this.getHours() <= 16) {
-                return "14";
+                return "16";
               }
               if (this.getHours() > 16 && this.getHours() <= 20) {
-                return "18";
+                return "20";
               }
               if (this.getHours() > 20 && this.getHours() <= 23) {
-                return "22";
-              }
-            case "hengli":
-              if (this.getHours() >= 0 && this.getHours() <= 3) {
-                return "03";
-              }
-              if (this.getHours() > 3 && this.getHours() <= 7) {
-                return "07";
-              }
-              if (this.getHours() > 7 && this.getHours() <= 11) {
-                return "11";
-              }
-              if (this.getHours() > 11 && this.getHours() <= 15) {
-                return "15";
-              }
-              if (this.getHours() > 15 && this.getHours() <= 19) {
-                return "19";
-              }
-              if (this.getHours() > 19 && this.getHours() <= 23) {
                 return "23";
               }
-            case "guizhou":
-              if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
-              }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
-              }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
-              }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
-              }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
-              }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
-              }
-            case "wujing":
-              if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
-              }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
-              }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
-              }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
-              }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
-              }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
-              }
-            case "nanfangzhongxiyi":
-              if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
-              }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
-              }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
-              }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
-              }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
-              }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
-              }
             default:
-              return "07";
+              return "08";
           }
         })(), //录入时间
       },
-      timesEven: [
+
+      timesOdd: [
         {
           id: 0,
           value: "04",
@@ -1159,110 +812,8 @@ export default {
           value: "23",
         },
       ],
-      timesEven2: [
-        {
-          id: 0,
-          value: "02",
-        },
-        {
-          id: 1,
-          value: "06",
-        },
-        {
-          id: 2,
-          value: "10",
-        },
-        {
-          id: 3,
-          value: "14",
-        },
-        {
-          id: 4,
-          value: "18",
-        },
-        {
-          id: 5,
-          value: "22",
-        },
-      ],
-      timesquZhou: [
-        {
-          id: 0,
-          value: "02",
-        },
-        {
-          id: 1,
-          value: "06",
-        },
-        {
-          id: 2,
-          value: "10",
-        },
-        {
-          id: 3,
-          value: "14",
-        },
-        {
-          id: 4,
-          value: "18",
-        },
-        {
-          id: 5,
-          value: "22",
-        },
-      ],
-      timeshengli: [
-        {
-          id: 0,
-          value: "03",
-        },
-        {
-          id: 1,
-          value: "07",
-        },
-        {
-          id: 2,
-          value: "11",
-        },
-        {
-          id: 3,
-          value: "15",
-        },
-        {
-          id: 4,
-          value: "19",
-        },
-        {
-          id: 5,
-          value: "23",
-        },
-      ],
-      timesOdd: [
-        {
-          id: 0,
-          value: "03",
-        },
-        {
-          id: 1,
-          value: "07",
-        },
-        {
-          id: 2,
-          value: "11",
-        },
-        {
-          id: 3,
-          value: "15",
-        },
-        {
-          id: 4,
-          value: "19",
-        },
-        {
-          id: 5,
-          value: "23",
-        },
-      ],
+
+
       patientsInfoData: [],
       searchWord: "",
       pageLoadng: true,
@@ -1303,11 +854,10 @@ export default {
     this.query.wardCode = this.deptCode;
   },
   created() {
-    window.addEventListener("keydown", this.keydownSave, false);
   },
   methods: {
-    handlePatientChange() {},
-    selectedNurs() {},
+    //保存防抖函数
+     debounceSave: _debounce('saveAllTemperture', 500),
     getHours() {
       let date = new Date();
       let b = date.getHours();
@@ -1343,24 +893,11 @@ export default {
       this.patientsInfoData = [];
       this.tableData = [];
     },
-    keydownSave(e) {
-      if (
-        e.keyCode === 13 &&
-        this.$route.path.includes("allTemperatureChart") &&
-        !["guizhou"].includes(this.HOSPITAL_ID)
-      ) {
-        this.saveAllTemperture();
-      } else {
-        return;
-      }
-    },
     saveAllTemperture() {
       this.pageLoadng = true;
       let data = {
         blockId: "",
-        amBp: "", //上午血压
-        pmBp: "", //下午血压
-        drainage: "", //引流量
+        urinate:"",//小便次数
         heigh: "",
         patientId: "",
         visitId: "",
@@ -1375,15 +912,10 @@ export default {
         discharge: "",
         dischargeSize: "",
         empNo: "",
-        fieldFive: "",
-        fieldFour: "",
-        fieldOne: "",
-        fieldSix: "",
-        fieldThree: "",
-        fieldTwo: "",
         food: "",
         foodSize: "",
         id: "",
+        physicalCooling:"",
         monthHour: "",
         multiSign: "",
         pulse: "",
@@ -1403,18 +935,14 @@ export default {
         curWeight: "",
         recordSource: 2,
         heartRate: "",
-        painScore: "",
-        stoolNum: "",
-        nursingEvent: "",
+        stoolNum:"",
+        fieldThree:"",
         height: "",
       };
       let list = this.tableData.map((item) => {
         let obj = {};
         for (let key in data) {
           obj[key] = item[key] || data[key];
-          // if (key === "temperature") {
-          //   // console.log(obj[key]);
-          // }
         }
         return obj;
       });
@@ -1439,6 +967,10 @@ export default {
       if (this.handleKeyCode.includes(e.keyCode)) {
         this.colClass = e.target.className;
         let rowIndex = e.path[3].rowIndex;
+        //回车保存
+        if(e.keyCode===13){
+          this.debounceSave()
+        }
         if (e.keyCode === 37) {
           //处理左按键
           if (e.target.selectionStart === 0) {
@@ -1478,8 +1010,7 @@ export default {
           if (e.keyCode === 38) {
             currentIdx--;
           } else if (
-            e.keyCode === 40 ||
-            (e.keyCode === 13 && ["guizhou"].includes(this.HOSPITAL_ID))
+            e.keyCode === 40
             //当贵州的时候，回车不调用保存事件，执行跳转到下一个患者的聚集性事件
           ) {
             currentIdx++;
@@ -1736,7 +1267,7 @@ export default {
   },
 
   components: {
-    CustomInput,
+    // CustomInput,
   },
   watch: {
     deptCode(val) {

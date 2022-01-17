@@ -265,7 +265,7 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <!-- <el-dropdown
+            <el-dropdown
               menu-align="start"
               :class="{'router-link-active': isActiveShiftWork}"
             >
@@ -290,12 +290,12 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown> -->
-            <router-link to="/shiftWork" tag="span">
+            </el-dropdown>
+            <!-- <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
-            </router-link>
+            </router-link> -->
             <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单

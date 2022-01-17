@@ -1,6 +1,5 @@
 import axios from "@/api/axios";
 import { apiPath } from "@/api/apiConfig";
-import qs from "qs";
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 
 // 查询病区科室
@@ -69,9 +68,15 @@ export function removeShiftRecordRow(rowId) {
 
 // 删除交班志
 export function removeShiftRecord(id, empNo, password) {
-  return axios.get(
-    `${apiPath}changeShiftTime/delById/${id}/${empNo}/${password}`
-  );
+  if(HOSPITAL_ID==='guizhou'){
+    return axios.post(
+      `${apiPath}changeShiftTime/delById`, {id, empNo, password}
+    );
+  }else{
+    return axios.get(
+      `${apiPath}changeShiftTime/delById/${id}/${empNo}/${password}`
+    );
+  }
 }
 
 // 更新交班签名
@@ -86,6 +91,13 @@ export function signShiftRecord(id, autographNameType, empNo, password) {
       }
     )
   }
+  if(HOSPITAL_ID==='guizhou'){
+    return axios.post(
+      `${apiPath}changeShiftTime/updateAutographName`, {
+        id, empNo, password
+      }
+    );
+  }
   return axios.get(
     `${apiPath}changeShiftTime/updateAutographName/${id}/${autographNameType}/${empNo}/${password}`
   );
@@ -93,6 +105,11 @@ export function signShiftRecord(id, autographNameType, empNo, password) {
 
 // 取消交班签名
 export function delSignShiftRecord(id, empNo, password, type, sourceEmpNo) {
+  if(HOSPITAL_ID==='guizhou'){
+    return axios.post(
+      `${apiPath}changeShiftTime/updateAutographNamePost/`,{id,empNo,password,type,sourceEmpNo}
+    );
+  }
   return axios.get(
     `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${type}/${sourceEmpNo}
     `

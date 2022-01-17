@@ -11,13 +11,13 @@ export function listDepartment(parentCode) {
 // 查询交班志列表
 export function listShiftRecord(deptCode, startDate, endDate) {
   return axios.get(
-    `${apiPath}changeShiftTime/list/${deptCode}/${startDate}/${endDate}`
+    `${apiPath}changeShiftMorning/list/${deptCode}/${startDate}/${endDate}`
   );
 }
 
 // 查询交班志
 export function getShiftRecord(id) {
-  return axios.get(`${apiPath}changeShiftTime/getById/${id}`);
+  return axios.get(`${apiPath}changeShiftMorning/getById/${id}`);
 }
 
 // 创建交班志
@@ -26,7 +26,7 @@ export function createShiftRecord(
   changeShiftDate,
   copyChangeShift = false
 ) {
-  return axios.post(`${apiPath}changeShiftTime/save`, {
+  return axios.post(`${apiPath}changeShiftMorning/save`, {
     deptCode,
     changeShiftDate,
     copyChangeShift
@@ -59,43 +59,39 @@ export function createShiftRecord(
 // assessmentSituation 交班前最后一次护理评估情况
 // proposal 交给下一班需注意
 export function updateShiftRecord(data) {
-  return axios.post(`${apiPath}changeShiftPatientList/saveOrUpdate`, data);
+  return axios.post(`${apiPath}ChangeShiftContent/saveOrUpdate`, data);
 }
 
 // 删除交班志行
 export function removeShiftRecordRow(rowId) {
-  return axios.get(`${apiPath}changeShiftPatientList/delete/${rowId}`);
+  return axios.get(`${apiPath}ChangeShiftContent/delete/${rowId}`);
 }
 
 // 删除交班志
 export function removeShiftRecord(id, empNo, password) {
-  return axios.get(
-    `${apiPath}changeShiftTime/delById/${id}/${empNo}/${password}`
+  return axios.post(
+    `${apiPath}changeShiftMorning/delById`,{id, empNo, password}
   );
 }
 
 // 更新交班签名
-export function signShiftRecord(id, autographNameType, empNo, password) {
-  if(HOSPITAL_ID === "weixian"){
-    return axios.post(
-      `${apiPath}changeShiftTime/updateAutographName`,{
-        id,
-        autographNameType,
-        empNo,
-        password,
-      }
-    )
-  }
-  return axios.get(
-    `${apiPath}changeShiftTime/updateAutographName/${id}/${autographNameType}/${empNo}/${password}`
+// export function signShiftRecord(id, autographNameType, empNo, password) {
+//   return axios.get(
+//     `${apiPath}changeShiftMorning/updateAutographName/${id}/${autographNameType}/${empNo}/${password}`
+//   );
+// }
+
+// 更新交班签名
+export function signShiftRecord(id, empNo, password) {
+  return axios.post(
+    `${apiPath}changeShiftMorning/updateAutographName`,{id,empNo,password}
   );
 }
 
 // 取消交班签名
-export function delSignShiftRecord(id, empNo, password, type, sourceEmpNo) {
-  return axios.get(
-    `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${type}/${sourceEmpNo}
-    `
+export function delSignShiftRecord(id, empNo, password,sourceEmpNo) {
+  return axios.post(
+    `${apiPath}changeShiftMorning/cancelAutographName`,{id,empNo,password,sourceEmpNo}
   );
 }
 
