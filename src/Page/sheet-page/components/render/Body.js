@@ -413,6 +413,11 @@ function switechSheetType(type) {
       schema = require("../config/additional_count2_hd/tr.js").default;
     }
       break;
+    case "nicu_custody_hd": {
+      // 花都-NICU监护单
+      schema = require("../config/nicu_custody_hd/tr.js").default;
+    }
+      break;
     case "intervention_cure": {
       // 厚街-介入治疗术护理记录单
       schema = require("../config/intervention_cure/tr.js").default;
