@@ -182,6 +182,7 @@ import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
 import { getCaSignJmfy } from "@/api/ca-sign_fuyou.js";
 import moment from "moment";
+import md5 from "md5";
 export default {
   props: {
     title: {
