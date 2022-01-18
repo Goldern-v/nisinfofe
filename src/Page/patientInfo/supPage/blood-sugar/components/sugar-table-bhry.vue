@@ -77,7 +77,7 @@
         >
           <div class="cell">
             {{
-              item.riValue && item.riValue !== "0" ? item.riValue + " ü" : ""
+              item.riValue && item.riValue !== "0" ? item.riValue + " U" : ""
             }}
           </div>
         </td>

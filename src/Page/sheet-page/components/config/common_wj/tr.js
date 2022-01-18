@@ -73,7 +73,7 @@ export default [
       data: ruList
     },
     textarea: {
-      width: 119
+      width: 120
     }
   },
   {

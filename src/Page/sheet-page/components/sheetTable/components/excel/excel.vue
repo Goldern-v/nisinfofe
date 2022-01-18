@@ -139,11 +139,16 @@
               `stat-bottom-line`,
           ]"
           :style="
-            HOSPITAL_ID == 'guizhou' &&
+            (HOSPITAL_ID == 'guizhou' &&
             sheetInfo.sheetType == 'access_gzry' && {
               boxSizing: 'border-box!important',
               width: td.style ? td.style.width : '',
-            }
+            }) ||
+            (HOSPITAL_ID=='wujing' &&
+            td.key=='food' &&
+            {
+              textAlign:'left'
+            })
           "
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="
@@ -387,12 +392,12 @@
             @click="!tr.isRead && td.click && td.click($event, td)"
             v-else
           />
-          <!-- <div 
+          <div 
             v-if="HOSPITAL_ID=='wujing' && td.key=='food' && tr.barCodeIdentification"
             :class="[HOSPITAL_ID=='wujing' && td.key=='food' && tr.barCodeIdentification]"
             >
               {{tr.identificationUsage}}
-            </div> -->
+            </div>
         </td>
         <span v-show="false" v-else>{{ td.key }}: {{ td.value }}</span>
       </tr>
