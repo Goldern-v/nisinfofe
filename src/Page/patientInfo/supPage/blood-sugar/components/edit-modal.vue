@@ -126,7 +126,7 @@
         "
       >
         <ElInput v-model="form.riValue" />
-        <span class="unit">(ü)</span>
+        <span class="unit">{{HOSPITAL_ID == 'beihairenyi' ? '(U)' : 'ü'}}</span>
       </ElFormItem>
       <ElFormItem
         label="备注："

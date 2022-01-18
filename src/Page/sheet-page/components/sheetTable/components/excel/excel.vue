@@ -139,11 +139,16 @@
               `stat-bottom-line`,
           ]"
           :style="
-            HOSPITAL_ID == 'guizhou' &&
+            (HOSPITAL_ID == 'guizhou' &&
             sheetInfo.sheetType == 'access_gzry' && {
               boxSizing: 'border-box!important',
               width: td.style ? td.style.width : '',
-            }
+            }) ||
+            (HOSPITAL_ID=='wujing' &&
+            td.key=='food' &&
+            {
+              textAlign:'left'
+            })
           "
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="
@@ -387,6 +392,12 @@
             @click="!tr.isRead && td.click && td.click($event, td)"
             v-else
           />
+          <div 
+            v-if="HOSPITAL_ID=='wujing' && td.key=='food' && tr.barCodeIdentification"
+            :class="[HOSPITAL_ID=='wujing' && td.key=='food' && tr.barCodeIdentification]"
+            >
+              {{tr.identificationUsage}}
+            </div>
         </td>
         <span v-show="false" v-else>{{ td.key }}: {{ td.value }}</span>
       </tr>
@@ -489,7 +500,7 @@
         <span class="sh-name-box">
           <div
             class="sign-null-box"
-            @click="text11(1,2)"
+            @click="openAduitModal"
             v-if="!auditorNo"
           ></div>
           <div class="sign-in-box" v-else @click="cancelAduitModal">

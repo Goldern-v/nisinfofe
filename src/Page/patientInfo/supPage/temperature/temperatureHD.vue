@@ -22,7 +22,7 @@
           下一页
         </button>
       </div>
-      <div class="tem-con" :style="contentHeight" v-show="!isPrintAll">
+      <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -33,7 +33,7 @@
           :class="HOSPITAL_ID === 'huadu' ? 'hdIframe' : ''"
         ></iframe>
       </div>
-      <div class="tem-con" :style="contentHeight" v-show="isPrintAll">
+      <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -230,8 +230,8 @@ export default {
       isSave: false,
       visibled: false,
       intranetUrl:
-        // "http://192.168.3.192:8081/#/" /* 医院正式环境内网 导致跨域 */,
         "http://172.25.1.105:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://172.25.1.105:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
       "http://172.25.1.105:9091/temperature/#/printAll" /* 医院正式环境批量打印内网 */,
       isNursingPreview: false, //是否为调阅界面体温单调起的护记
@@ -264,12 +264,13 @@ export default {
         : new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.$route.query.patientId || this.queryTem.patientId;
       let visitId = this.$route.query.visitId || this.queryTem.visitId;
+      let authTokenNursing = this.authTokenNursing;
       this.date = date;
       this.patientId = patientId;
       this.visitId = visitId;
       /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
+      const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
+      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
       // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
@@ -310,12 +311,6 @@ export default {
       this.currentPage--;
       this.toCurrentPage = this.currentPage;
     },
-    // typeIn() {
-    //   const { patientId, visitId } = this.$route.query;
-    //   this.$router.push(
-    //     `/singleTemperatureChart/${this.$route.query.patientId}/${this.$route.query.visitId}`
-    //   );
-    // },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 130 + "px";
     },
@@ -328,58 +323,6 @@ export default {
           case "pageTotal":
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
-            break;
-          case "getNurseExchangeInfo":
-            // const params = {
-            //   patientId: this.$route.query.patientId,
-            //   visitId: this.$route.query.visitId
-            // };
-            // // 发请求
-            // getNurseExchangeInfo(params.patientId, params.visitId).then(res => {
-            //   const value = {
-            //     adtLog: res.data.data.adtLog,
-            //     bedExchangeLog: res.data.data.bedExchangeLog
-            //   };
-            //   this.$refs.pdfCon.contentWindow.postMessage(
-            //     { type: "nurseExchangeInfo", value },
-            //     "*"
-            //   );
-            // });
-            const params = {
-              patientId: this.$route.query.patientId,
-              startLogDateTime: e.data.value.startLogDateTime,
-              endLogDateTime: e.data.value.endLogDateTime,
-              visitId: this.$route.query.visitId,
-            };
-            getNurseExchangeInfoByTime(params).then((res) => {
-              const value = {
-                adtLog: res.data.data.adtLog,
-                bedExchangeLog: res.data.data.bedExchangeLog,
-              };
-              this.$refs.pdfCon.contentWindow.postMessage(
-                { type: "nurseExchangeInfo", value },
-                "*"
-              );
-            });
-            break;
-          case "getNurseExchangeInfoAll":
-            const paramsAll = {
-              patientId: this.$route.query.patientId,
-              startLogDateTime: e.data.value.startLogDateTime,
-              endLogDateTime: e.data.value.endLogDateTime,
-              visitId: this.$route.query.visitId,
-            };
-              getNurseExchangeInfoBatch(paramsAll).then((res) => {
-              let value = res.data.data.exchangeInfos
-              if(value.length!==0){
-              this.$refs.pdfConAll.contentWindow.postMessage(
-                { type: "nurseExchangeInfoAll", value },
-                "*"
-              );
-              }
-
-
-            });
             break;
           default:
             break;
@@ -423,6 +366,9 @@ export default {
       );
       this.toCurrentPage = value;
     },
+    authTokenNursing(val) {
+      this.authTokenNursing = val;
+    },
   },
   mounted() {
     this.toCurrentPage = this.currentPage;
@@ -453,6 +399,10 @@ export default {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+ authTokenNursing() {
+      return JSON.parse(localStorage.getItem("user")).token; //获取登录token
+    },
+
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);

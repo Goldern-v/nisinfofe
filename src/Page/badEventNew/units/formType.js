@@ -100,11 +100,16 @@ export const formTypeList=[//不良事件类型
         childType:"走失不良事件",//具体表单内容类型
         funType:"type1",//类型
     },
+    {//20220115新表单
+        type:"自杀单模板",//父表单，头部与尾部内容类型
+        childType:"自杀不良事件",//具体表单内容类型
+        funType:"type1",//类型
+    },
 ]
 
 /**
  * 获取不良事件类型
- * @param {*} queryInfo 
+ * @param {*} queryInfo
  */
 
  const getBadEventType = (models,itemDataMap,router,type,deptData)=>{

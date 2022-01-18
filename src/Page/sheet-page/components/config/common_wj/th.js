@@ -1,7 +1,7 @@
 export default {
   // 科室的名称
   style:{
-    width:'1200px'
+    width:'1250px'
   },
   deptType: '',
   th: {
@@ -190,8 +190,8 @@ export default {
         病情观察 护理措施
         `,
         style: {
-          minWidth: '170px',
-          maxWidth: '170px',
+          minWidth: '180px',
+          maxWidth: '180px',
         },
         colspan: '1',
         rowspan: '3'
@@ -231,8 +231,8 @@ export default {
         内容
         `,
         style: {
-          minWidth: '119px',
-          maxWidth: '119px'
+          minWidth: '159px',
+          maxWidth: '159px'
         },
         colspan: '1',
         rowspan: '2'
