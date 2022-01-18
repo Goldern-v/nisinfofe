@@ -625,11 +625,11 @@ export default {
             if(tr.expand){
               barcodeArr[tr.expand] = barcodeArr[tr.expand] ? (barcodeArr[tr.expand] + 1) : 1
               if(barcodeArr[tr.expand] == 1 && ((bodyData.list[index + 1] && bodyData.list[index + 1].expand != tr.expand)||(!bodyData.list[index + 1]))){
-                tr.barCodeIdentification = 'identification-only-one'
+                // 只有一行药品时不显示分组符号
               }
               else if(barcodeArr[tr.expand] == 1){
                 tr.barCodeIdentification = 'identification-first'
-                tr.identificationUsage = '静脉'
+                tr.identificationUsage = tr.expand2
               }else if((bodyData.list[index + 1] && bodyData.list[index + 1].expand != tr.expand)||(!bodyData.list[index + 1])){
                 tr.barCodeIdentification = 'identification-last'
               }else{
