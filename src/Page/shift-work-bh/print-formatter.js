@@ -26,9 +26,8 @@ export default function(win) {
   if (patients.length === 0) {
     patients.push(emptyRow.cloneNode(true));
   }
-
+  let pageNo = 0
   let page, newTable, newTableBody, row;
-
   while ((row = patients.shift() || rest)) {
     const h =
       row === rest
@@ -36,6 +35,7 @@ export default function(win) {
         : row.offsetHeight;
 
     if (!page || page.offsetHeight + h > 700) {
+      pageNo++;
       if (page && row === rest) {
         while (page.offsetHeight + 30 < 700) {
           newTableBody.appendChild(emptyRow.cloneNode(true));
@@ -51,7 +51,13 @@ export default function(win) {
       }
 
       page = document.createElement("div");
-      page.appendChild(header.cloneNode(true));
+      if(pageNo==1){
+        page.appendChild(header.cloneNode(true));
+      }else{
+        let cloneHeader = header.cloneNode(true)
+        cloneHeader.removeChild(cloneHeader.children[3])
+        page.appendChild(cloneHeader)
+      }
       page.appendChild(newTable);
       page.appendChild(footer.cloneNode(true));
 
