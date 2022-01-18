@@ -355,10 +355,11 @@ export default {
             });
           }
           this.$refs.modalName.close();
+          let requestPW = this.HOSPITAL_ID=='foshanrenyi'?md5(this.password) : this.password
           if (this.signDate) {
-            return this.callback(this.password, this.username, this.signDate);
+            return this.callback(requestPW, this.username, this.signDate);
           } else {
-            return this.callback(this.password, this.username);
+            return this.callback(requestPW, this.username);
           }
           parent.app.bus.$emit("assessmentRefresh");
         } else {
