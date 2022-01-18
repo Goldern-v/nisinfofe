@@ -53,11 +53,7 @@ export default {
         `,
         style: {},
         colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "80px",
-          maxWidth: "80px"
-        },
+        rowspan: "3"
       },
       // {
       //   name: `
