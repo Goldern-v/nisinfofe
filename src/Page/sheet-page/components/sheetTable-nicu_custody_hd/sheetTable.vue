@@ -577,9 +577,6 @@ export default {
   },
   methods: {
     openBedRecordModal(){
-      if (this.readOnly) {
-        return this.$message.warning("你无权操作此护记，仅供查阅");
-      }
       this.$refs.bedRecordModal.open();
     },
     timePicker(e,item){

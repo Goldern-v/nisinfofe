@@ -389,6 +389,9 @@ export default {
   data() {
     return {
       bus: bus(this),
+      readOnlyList: [
+        "fuyou","huadu"
+      ],
       tool: "",
       showCurve: false,
       creator: "",
@@ -1018,12 +1021,15 @@ export default {
     },
     /** 只读模式 */
     readOnly() {
-      try {
+      if(this.readOnlyList.includes(this.HOSPITAL_ID)){
+        let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+        if (controlReadOnly) {
+          return true
+        }
+      } else {
         return !this.userDeptList
-          .map((item) => item.code)
-          .includes(this.sheetInfo.selectBlock.deptCode);
-      } catch (error) {
-        return false;
+        .map(item => item.code)
+        .includes(this.sheetInfo.selectBlock.deptCode);
       }
     },
     /* 监听路由是否是单个体温单 */
