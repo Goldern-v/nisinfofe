@@ -283,12 +283,12 @@ export default {
         dischargeDate: [moment().subtract(30, "days"), new Date()],
         dateTime: [moment().subtract(30, "days"), new Date()],
         diagnosis: "",//病种
-        hasSynchronize:['hengli'],
-        synchronizeMethods:{
-          'hengli':synchronizeHengLi,
-          'fuyou':synchronizeFuyou
-        }
         // hospitalTransfer:['huadu','fuyou']//转科医院名字
+      },
+      hasSynchronize:['hengli'],
+      synchronizeMethods:{
+        'hengli':synchronizeHengLi,
+        'fuyou':synchronizeFuyou
       }
     };
   },
