@@ -68,13 +68,6 @@ export default [
     statBottomLine: true,
   },
   {
-    key: "liquid", //余液
-    value: "",
-    event: keyf1,
-    name: "余液",
-    statBottomLine: true
-  },
-  {
     key: "urine", //尿量
     value: "",
     event: keyf1,
