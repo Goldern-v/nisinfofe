@@ -6,9 +6,13 @@ import moment from "moment";
 function currYear() {
   return moment().format('YYYY')
 }
+
 export default {
   // 科室的名称
   deptType: "",
+  style: {
+    width: "1200px"
+  },
   th: {
     top: [{
         name: `
