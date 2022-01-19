@@ -24,15 +24,6 @@ export default {
         rowspan: "1"
       },
       {
-        name: "余液",
-        style: {
-          minWidth: '25px',
-          maxWidth: '25px',
-        },
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
         name: "出量(ml)",
         style: {
           width: "30px"
@@ -112,8 +103,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '25px',
-          maxWidth: '25px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
       },
       {
@@ -123,8 +114,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: '25px',
-          maxWidth: '25px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
       },
       {
