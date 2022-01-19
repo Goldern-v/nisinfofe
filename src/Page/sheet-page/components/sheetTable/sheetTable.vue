@@ -162,7 +162,11 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
+      //开启后端控制readOnly的医院
+      readOnlyList: [
+        "fuyou","huadu"
+      ]
     };
   },
   computed: {
@@ -179,7 +183,7 @@ export default {
       }
       if (sheetInfo.sheetType === "obstetrics") return false;
 
-      if(this.HOSPITAL_ID == "fuyou"){
+      if(this.readOnlyList.includes(this.HOSPITAL_ID)){
         let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
         if (controlReadOnly) {
           return true

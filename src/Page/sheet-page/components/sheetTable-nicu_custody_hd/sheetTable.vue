@@ -577,9 +577,6 @@ export default {
   },
   methods: {
     openBedRecordModal(){
-      if (this.readOnly) {
-        return this.$message.warning("你无权操作此护记，仅供查阅");
-      }
       this.$refs.bedRecordModal.open();
     },
     timePicker(e,item){
@@ -595,15 +592,9 @@ export default {
     },
     /** 只读模式 */
     readOnly() {
-      if(this.HOSPITAL_ID == "fuyou"){
-        let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
-        if (controlReadOnly) {
-          return true
-        }
-      }else {
-        return !this.userDeptList
-        .map(item => item.code)
-        .includes(this.sheetInfo.selectBlock.deptCode);
+      let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+      if (controlReadOnly) {
+        return true
       }
     },
   },

@@ -13,7 +13,8 @@
             HOSPITAL_ID != 'hj' &&
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng' &&
-            HOSPITAL_ID != 'guizhou'
+            HOSPITAL_ID != 'guizhou' &&
+            HOSPITAL_ID != 'foshanrenyi'
           "
           v-model="formType"
           placeholder="选择类型"
@@ -32,11 +33,35 @@
             HOSPITAL_ID != 'hj' &&
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng' &&
-            HOSPITAL_ID != 'guizhou'
+            HOSPITAL_ID != 'guizhou' &&
+            HOSPITAL_ID != 'foshanrenyi'
           "
           class="text-con"
           :placeholder="
             '搜索' + options.find((item) => item.value == formType).label
+          "
+          icon="search"
+          v-model="searchWord"
+        ></el-input>
+        <el-select
+          v-if="HOSPITAL_ID == 'foshanrenyi'"
+          v-model="formType"
+          placeholder="选择类型"
+          class="type-select"
+          :disabled="formTypeReadOnly"
+        >
+          <el-option
+            v-for="item in foshanrenyiOptions"
+            :key="item.value || item.label"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <el-input
+          v-if="HOSPITAL_ID == 'foshanrenyi'"
+          class="text-con"
+          :placeholder="
+            '搜索' + foshanrenyiOptions.find((item) => item.value == formType).label
           "
           icon="search"
           v-model="searchWord"
@@ -426,6 +451,24 @@ export default {
         {
           value: "handover",
           label: "交接记录单",
+        },
+        {
+          value: "authorization",
+          label: "知情同意书",
+        },
+      ],
+      foshanrenyiOptions: [
+        {
+          value: "1",
+          label: "护理评估",
+        },
+        {
+          value: "monitor",
+          label: "监测记录",
+        },
+        {
+          value: "report",
+          label: "报告类",
         },
         {
           value: "authorization",
