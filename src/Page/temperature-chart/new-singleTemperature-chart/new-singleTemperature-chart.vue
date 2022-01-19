@@ -180,7 +180,8 @@ export default {
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        patients(this.deptCode, {showFollew:true}).then((res) => {
+        let config = process.env.hasFollow ? {showFollew:true} : null
+        patients(this.deptCode,config).then((res) => {
           this.data.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
