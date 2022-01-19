@@ -9,7 +9,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1100px"
+    width: "1250px"
   },
   th: {
     top: [{
@@ -61,6 +61,20 @@ export default {
         `,
         colspan: "1",
         rowspan: "3"
+      },
+      {
+        name: `
+        入量
+        `,
+        colspan: "2",
+        rowspan: "1"
+      },
+      {
+        name: `
+        出量
+        `,
+        colspan: "2",
+        rowspan: "1"
       },
       {
         name: `
@@ -214,6 +228,42 @@ export default {
         },
         colspan: '1',
         rowspan: '2'
+      },
+      {
+        name: "名<br/>称",
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
+      },
+      {
+        name: "量<br/>(ml)",
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
+      },
+      {
+        name: "名<br/>称",
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
+      },
+      {
+        name: "量<br/>(ml)",
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
       },
       {
         name: "强<br/>度",
