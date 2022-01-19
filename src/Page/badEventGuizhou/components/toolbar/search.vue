@@ -37,8 +37,8 @@
           <ElOption
             v-for="item in allDepartmentsList"
             :key="item.id"
-            :label="item.deptName"
-            :value="item.deptCode"
+            :label="item.name"
+            :value="item.code"
           />
         </ElSelect>
       </div>
@@ -212,7 +212,7 @@ import pagination from "../pagination.vue";
 import { multiDictInfo } from "@/api/common";
 import { getEventTemplate } from "../../apis/index.js";
 import BusFactory from "vue-happy-bus";
-
+import { nursingUnit } from "@/api/lesion";
 export default {
   mixins: [common],
   components: {
@@ -414,30 +414,36 @@ export default {
     },
     // 获取所有护理单元
     getDepartmentsList() {
-      apis.getAllNursingUnit("type=2").then(res => {
+      nursingUnit().then((res) => {
         if (res.data && res.data.code == 200) {
-          let allDepartmentsList = res.data.data.map(item => {
-            if(item.deptCode && item.deptCode.trim){
-              item.deptCode = item.deptCode.trim();
-            }
-            return item;
-          });
-          // 护理部权限才可以查看所有科室
-          if(this.user && (this.user.roleManageCode == 'QCR0001' || this.user.roleManageCodeList.find(code => code == 'QCR0001'))){
-            this.allDepartmentsList = allDepartmentsList;
-          }else {
-            this.allDepartmentsList = [allDepartmentsList.find(item => item.deptCode == this.deptCode)]
-          }
-          // 把获取到的科室存起来
-          if (allDepartmentsList && allDepartmentsList.length > 0) {
-            sessionStorage.setItem(
-              "allDepartmentsList",
-              JSON.stringify(allDepartmentsList)
-            );
-          }
-          console.log(this.allDepartmentsList);
+          this.allDepartmentsList = res.data.data.deptList;
+          sessionStorage.setItem("deptList",JSON.stringify(this.allDepartmentsList))
         }
       });
+      // apis.getAllNursingUnit("type=2").then(res => {
+      //   if (res.data && res.data.code == 200) {
+      //     let allDepartmentsList = res.data.data.map(item => {
+      //       if(item.deptCode && item.deptCode.trim){
+      //         item.deptCode = item.deptCode.trim();
+      //       }
+      //       return item;
+      //     });
+      //     // 护理部权限才可以查看所有科室
+      //     if(this.user && (this.user.roleManageCode == 'QCR0001' || this.user.roleManageCodeList.find(code => code == 'QCR0001'))){
+      //       this.allDepartmentsList = allDepartmentsList;
+      //     }else {
+      //       this.allDepartmentsList = [allDepartmentsList.find(item => item.deptCode == this.deptCode)]
+      //     }
+      //     // 把获取到的科室存起来
+      //     if (allDepartmentsList && allDepartmentsList.length > 0) {
+      //       sessionStorage.setItem(
+      //         "allDepartmentsList",
+      //         JSON.stringify(allDepartmentsList)
+      //       );
+      //     }
+      //     console.log(this.allDepartmentsList);
+      //   }
+      // });
     },
     handleSizeChange(newSize) {
       this.page.pageIndex = 1;

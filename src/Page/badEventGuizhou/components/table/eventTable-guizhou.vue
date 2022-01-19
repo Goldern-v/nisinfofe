@@ -33,11 +33,10 @@
       <el-table-column
         header-align="center"
         align="center"
-        label="科室"
-        prop="wardName"
+        label="发生科室"
+        prop="happenedDeptName"
         min-width="140px"
       ></el-table-column>
-
       <el-table-column
         prop="patientName"
         header-align="center"
