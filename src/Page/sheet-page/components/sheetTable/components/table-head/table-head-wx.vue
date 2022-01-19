@@ -46,6 +46,7 @@
       </span>
       <span
         @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
+        v-if="sheetInfo.sheetType !== 'caseamount_wx'"
       >
         诊断：
         <div
@@ -77,7 +78,12 @@
           {{ patientInfo.inpNo }}
         </div>
       </span>
-      <span>入科时间：{{ patientInfo.admissionDate | toymd }}</span>
+      <span  v-if="sheetInfo.sheetType !== 'newbornintensive_wx'">
+        入科时间：
+         <div class="bottom-line" style="min-width: 80px">
+           {{ patientInfo.admissionDate | toymd }}
+        </div>
+      </span>
       <!-- {{index}} {{relObj}} -->
     </div>
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
