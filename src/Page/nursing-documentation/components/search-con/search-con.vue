@@ -175,7 +175,7 @@
       </div>
     </div>
     <div class="search-btn" flex="cross:center main:center" @click="search" v-touch-ripple>检索</div>
-    <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='2'&&['hengli'].includes(HOSPITAL_ID)" @click="synchronize" v-touch-ripple>同步</div>
+    <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='2'&&hasSynchronize.includes(HOSPITAL_ID)" @click="synchronize" v-touch-ripple>同步</div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -265,7 +265,7 @@
 </style>
 <script>
 import { nursingUnit} from "@/api/lesion";
-import { synchronizeHengLi } from "@/api/document";
+import { synchronizeHengLi,synchronizeFuyou } from "@/api/document";
 import { nursingUnitAll} from "@/api/common";
 import moment from "moment";
 export default {
@@ -283,6 +283,11 @@ export default {
         dischargeDate: [moment().subtract(30, "days"), new Date()],
         dateTime: [moment().subtract(30, "days"), new Date()],
         diagnosis: "",//病种
+        hasSynchronize:['hengli','fuyou'],
+        synchronizeMethods:{
+          'hengli':synchronizeHengLi,
+          'fuyou':synchronizeFuyou
+        }
         // hospitalTransfer:['huadu','fuyou']//转科医院名字
       }
     };
@@ -340,9 +345,8 @@ export default {
       this.$parent.getData();
     },
     synchronize(){
- this.$parent.page.pageIndex = 1;
-          synchronizeHengLi();
-
+      this.$parent.page.pageIndex = 1;
+      synchronizeMethods[this.HOSPITAL_ID]();
     }
   },
   components: {}

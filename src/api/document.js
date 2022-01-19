@@ -31,6 +31,12 @@ export function synchronizeHengLi() {
   return axios.get(`${apiPath}HisHengLiDischarge/syncDischargePat`);
   //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
 }
+
+export function synchronizeFuyou() {
+  return axios.get(`${apiPath}FuYouDischarge/syncDischargePat`);
+  //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
+}
+
 // 获取江门妇幼
 export function listNurseAdtFuYou(data) {
   return axios.post(`${apiPath}nurseAdtLog/listNurseAdtJm`,data);
