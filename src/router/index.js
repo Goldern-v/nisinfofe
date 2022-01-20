@@ -1245,96 +1245,96 @@ const router = new Router({
         component: patientFlowStatistics
       },
       // 聊城二院-统计查询
-      // {
-      //   path: "/statisticalQuery",
-      //   name: "statisticalQuery",
-      //   component: statisticalQuery,
-      //   redirect: {
-      //     name: "statisticalOperation"
-      //   },
-      //   children: [
-      //     {
-      //       path: "statisticalOperation",
-      //       name: "statisticalOperation",
-      //       meta: {
-      //         title: '手术统计'
-      //       },
-      //       component: statisticalOperation,
-      //     },
-      //     {
-      //       path: "statisticalPulseHeartRate",
-      //       name: "statisticalPulseHeartRate",
-      //       meta: {
-      //         title: '脉搏心率统计'
-      //       },
-      //       component: statisticalPulseHeartRate,
-      //     },
-      //     {
-      //       path: "statisticalPressure",
-      //       name: "statisticalPressure",
-      //       meta: {
-      //         title: '压力性损伤统计'
-      //       },
-      //       component: statisticalPressure,
-      //     },
-      //     {
-      //       path: "statisticalBloodPressure",
-      //       name: "statisticalBloodPressure",
-      //       meta: {
-      //         title: '血压统计'
-      //       },
-      //       component: statisticalBloodPressure,
-      //     },
-      //     {
-      //       path: "statisticalTemperature",
-      //       name: "statisticalTemperature",
-      //       meta: {
-      //         title: '体温统计'
-      //       },
-      //       component: statisticalTemperature,
-      //     },
-      //     {
-      //       path: "statisticalNursingLv",
-      //       name: "statisticalNursingLv",
-      //       meta: {
-      //         title: '护理等级统计'
-      //       },
-      //       component: statisticalNursingLv,
-      //     },
-      //     {
-      //       path: "statisticalWorkload",
-      //       name: "statisticalWorkload",
-      //       meta: {
-      //         title: '工作量统计'
-      //       },
-      //       component: statisticalWorkload,
-      //     },
-      //     {
-      //       path: "statisticalBreath",
-      //       name: "statisticalBreath",
-      //       meta: {
-      //         title: '呼吸统计'
-      //       },
-      //       component: statisticalBreath,
-      //     },
-      //     {
-      //       path: "statisticalExitAdmission",
-      //       name: "statisticalExitAdmission",
-      //       meta: {
-      //         title: '出入院统计'
-      //       },
-      //       component: statisticalExitAdmission,
-      //     },
-      //     {
-      //       path: "statisticalVTE",
-      //       name: "statisticalVTE",
-      //       meta: {
-      //         title: 'VTE评分统计'
-      //       },
-      //       component: statisticalVTE,
-      //     },
-      //   ]
-      // },
+      {
+        path: "/statisticalQuery",
+        name: "statisticalQuery",
+        component: statisticalQuery,
+        redirect: {
+          name: "statisticalOperation"
+        },
+        children: [
+          {
+            path: "statisticalOperation",
+            name: "statisticalOperation",
+            meta: {
+              title: '手术统计'
+            },
+            component: statisticalOperation,
+          },
+          {
+            path: "statisticalPulseHeartRate",
+            name: "statisticalPulseHeartRate",
+            meta: {
+              title: '脉搏心率统计'
+            },
+            component: statisticalPulseHeartRate,
+          },
+          {
+            path: "statisticalPressure",
+            name: "statisticalPressure",
+            meta: {
+              title: '压力性损伤统计'
+            },
+            component: statisticalPressure,
+          },
+          {
+            path: "statisticalBloodPressure",
+            name: "statisticalBloodPressure",
+            meta: {
+              title: '血压统计'
+            },
+            component: statisticalBloodPressure,
+          },
+          {
+            path: "statisticalTemperature",
+            name: "statisticalTemperature",
+            meta: {
+              title: '体温统计'
+            },
+            component: statisticalTemperature,
+          },
+          {
+            path: "statisticalNursingLv",
+            name: "statisticalNursingLv",
+            meta: {
+              title: '护理等级统计'
+            },
+            component: statisticalNursingLv,
+          },
+          {
+            path: "statisticalWorkload",
+            name: "statisticalWorkload",
+            meta: {
+              title: '工作量统计'
+            },
+            component: statisticalWorkload,
+          },
+          {
+            path: "statisticalBreath",
+            name: "statisticalBreath",
+            meta: {
+              title: '呼吸统计'
+            },
+            component: statisticalBreath,
+          },
+          {
+            path: "statisticalExitAdmission",
+            name: "statisticalExitAdmission",
+            meta: {
+              title: '出入院统计'
+            },
+            component: statisticalExitAdmission,
+          },
+          {
+            path: "statisticalVTE",
+            name: "statisticalVTE",
+            meta: {
+              title: 'VTE评分统计'
+            },
+            component: statisticalVTE,
+          },
+        ]
+      },
     ]
   },
   {
