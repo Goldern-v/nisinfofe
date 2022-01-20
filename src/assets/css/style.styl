@@ -1,12 +1,13 @@
 /** 全局的css 必须在这里引入不然打包会忽略 */
-*{
+// 不能覆盖icon的font-family
+*:not(.ivu-icon,.iconfont){
   // font-family: 'SimSun',"Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif !important;
   font-family: simsun, "Times New Roman", Georgia, Serif !important
   word-wrap:break-word
   word-break:break-all
 }
 body
-  background #f2f2f2
+  background #f2f2f2 !important
 
 *::-webkit-scrollbar {
     width: 7px;

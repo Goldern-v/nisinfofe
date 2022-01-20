@@ -92,21 +92,18 @@ export default {
 				},
         {
 					key: 'index6',
-					title: '手术时间',
+					title: '入院时间',
           align: 'center',
-					minWidth: 70,
+					minWidth: 110,
 				},
         {
 					key: 'index7',
-					title: '麻醉方式',
+					title: '出院时间',
           align: 'center',
-					minWidth: 70,
-				},
-        {
-					key: 'index8',
-					title: '手术名称',
-          align: 'center',
-					minWidth: 100,
+					minWidth: 110,
+          render: (h, { columns }) => {
+            return <span>{ columns || '-' }</span>
+          }
 				},
       ],
     };

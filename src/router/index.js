@@ -301,6 +301,16 @@ const patientFlowStatistics = () => import("@/Page/patient-flow-statistics/patie
 
 // 统计查询
 const statisticalQuery = () => import("@/Page/statistical-query/index.vue")
+const statisticalOperation = () => import("@/Page/statistical-query/statistical-operation/index.vue")
+const statisticalPulseHeartRate = () => import("@/Page/statistical-query/statistical-pulseHeartRate/index.vue")
+const statisticalPressure = () => import("@/Page/statistical-query/statistical-pressure/index.vue")
+const statisticalBloodPressure = () => import("@/Page/statistical-query/statistical-bloodPressure/index.vue")
+const statisticalTemperature = () => import("@/Page/statistical-query/statistical-temperature/index.vue")
+const statisticalNursingLv = () => import("@/Page/statistical-query/statistical-nursingLv/index.vue")
+const statisticalWorkload = () => import("@/Page/statistical-query/statistical-workload/index.vue")
+const statisticalBreath = () => import("@/Page/statistical-query/statistical-breath/index.vue")
+const statisticalExitAdmission = () => import("@/Page/statistical-query/statistical-exitAdmission/index.vue")
+const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -1238,7 +1248,92 @@ const router = new Router({
       {
         path: "/statisticalQuery",
         name: "statisticalQuery",
-        component: statisticalQuery
+        component: statisticalQuery,
+        redirect: {
+          name: "statisticalOperation"
+        },
+        children: [
+          {
+            path: "statisticalOperation",
+            name: "statisticalOperation",
+            meta: {
+              title: '手术统计'
+            },
+            component: statisticalOperation,
+          },
+          {
+            path: "statisticalPulseHeartRate",
+            name: "statisticalPulseHeartRate",
+            meta: {
+              title: '脉搏心率统计'
+            },
+            component: statisticalPulseHeartRate,
+          },
+          {
+            path: "statisticalPressure",
+            name: "statisticalPressure",
+            meta: {
+              title: '压力性损伤统计'
+            },
+            component: statisticalPressure,
+          },
+          {
+            path: "statisticalBloodPressure",
+            name: "statisticalBloodPressure",
+            meta: {
+              title: '血压统计'
+            },
+            component: statisticalBloodPressure,
+          },
+          {
+            path: "statisticalTemperature",
+            name: "statisticalTemperature",
+            meta: {
+              title: '体温统计'
+            },
+            component: statisticalTemperature,
+          },
+          {
+            path: "statisticalNursingLv",
+            name: "statisticalNursingLv",
+            meta: {
+              title: '护理等级统计'
+            },
+            component: statisticalNursingLv,
+          },
+          {
+            path: "statisticalWorkload",
+            name: "statisticalWorkload",
+            meta: {
+              title: '工作量统计'
+            },
+            component: statisticalWorkload,
+          },
+          {
+            path: "statisticalBreath",
+            name: "statisticalBreath",
+            meta: {
+              title: '呼吸统计'
+            },
+            component: statisticalBreath,
+          },
+          {
+            path: "statisticalExitAdmission",
+            name: "statisticalExitAdmission",
+            meta: {
+              title: '出入院统计'
+            },
+            component: statisticalExitAdmission,
+          },
+          {
+            path: "statisticalVTE",
+            name: "statisticalVTE",
+            meta: {
+              title: 'VTE评分统计'
+            },
+            component: statisticalVTE,
+          },
+        ]
       },
     ]
   },

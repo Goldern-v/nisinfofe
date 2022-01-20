@@ -1,9 +1,9 @@
 <template>
    <div class="side-bar">
-     <div class="side-bar__item" :class="{'side-bar__item--act':actIndex == v}" v-for="(v, i) in 10" :key="i" @click="handleSelect(v)">
+     <div class="side-bar__item" :class="{'side-bar__item--act':actIndex == v.name}" v-for="(v, i) in bars" :key="i" @click="handleSelect(v)">
       <span class="side-bar__item__arrow"></span>
       <span class="side-bar__item__text">
-        {{v}}
+        {{v.meta.title}}
       </span>
      </div>
    </div>
@@ -13,20 +13,52 @@
 export default {
   data() {
     return {
-      actIndex: 1
+      actIndex: '',
+      bars: []
     }
   },
+  watch: {
+    '$route.name': {
+      handler(v) {
+        this.actIndex = v
+      },
+    },
+  },
+  mounted() {
+    this.actIndex = this.$route.name
+    let details = ['/main', '/statisticalQuery']
+    this.bars = this.getBars(this.$router.options.routes, details)
+  },
   methods: {
-    handleSelect(i) {
-      console.log('test-i', i)
-      this.actIndex = i
+    handleSelect(v) {
+      this.actIndex = v.name
+      this.$router.push({ name : v.name})
+    },
+    getBars(routes, arr) {
+      let obj = []
+      let fn = (routes, arr) => routes.find((val) => {
+        let [i1, ...other] = arr
+        if (val.path === i1) {
+          if (i1 && other.length === 0) {
+            obj = val.children.map(v => {
+              const { component, ...other} = v
+              return other
+            })
+            return true
+          }
+          return fn(val.children, other)
+        }
+        return false
+      },[])
+      fn(routes, arr)
+      return obj
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-$theme-color: #4bb08d;
+@import '../index.scss';
 .side-bar {
   width: 200px;
   height: 100%;
@@ -43,6 +75,7 @@ $theme-color: #4bb08d;
     }
     .side-bar__item__text {
       flex: 1;
+      font-size: 14px;
     }
     &.side-bar__item--act {
       color: $theme-color;
