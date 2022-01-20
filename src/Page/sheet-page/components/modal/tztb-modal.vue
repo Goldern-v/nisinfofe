@@ -111,7 +111,7 @@ export default {
     },
     post() {
       let temArr = this.multipleSelection
-      if(this.multipleSelection.length!=0 &&(this.HOSPITAL_ID=='fuyou'||this.HOSPITAL_ID=='wujing')){
+      if(this.multipleSelection.length!=0 &&(this.HOSPITAL_ID=='fuyou')){
          this.multipleSelection.map((item,index)=>{
           if(item.pulse){
             let strArr = item.pulse.split("/")

@@ -282,7 +282,8 @@ export default {
       if (this.deptCode) {
         // console.log("获取病人列表", this.deptCode);
         this.patientListLoading = true;
-        patients(this.deptCode, {showFollew:true}).then((res) => {
+        let config = process.env.hasFollow ? {showFollew:true} : null
+        patients(this.deptCode,config).then((res) => {
           this.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });

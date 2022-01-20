@@ -45,7 +45,7 @@
             </div>
           </div>
           <div>
-            <div class="his-name">广州市花都区妇幼保健院（胡忠医院）</div>
+            <div class="his-name">广州市花都区人民医院</div>
             <div class="title">NICU监护单</div>
           </div> 
           <div class="tableHeaderRight1">
@@ -54,7 +54,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 50px;"
+                  style="width: 70px;"
                   v-model="sheetInfo.relObj['wg1' + index]"
                   :data-value="sheetInfo.relObj['wg1' + index]"
                 />号胃管
@@ -63,7 +63,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 50px;"
+                  style="width: 70px;"
                   v-model="sheetInfo.relObj['wg2' + index]"
                   :data-value="sheetInfo.relObj['wg2' + index]"
                 />号尿管
@@ -74,7 +74,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 75px;"
+                  style="width: 96px;"
                   v-model="sheetInfo.relObj['g1' + index]"
                   :data-value="sheetInfo.relObj['g1' + index]"
                 />管
@@ -83,7 +83,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 75px;"
+                  style="width: 96px;"
                   v-model="sheetInfo.relObj['g2' + index]"
                   :data-value="sheetInfo.relObj['g2' + index]"
                 />管
@@ -96,6 +96,7 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
+                  @click="(e)=>timePicker(e,'zgrq1' + index)"
                   v-model="sheetInfo.relObj['zgrq1' + index]"
                   :data-value="sheetInfo.relObj['zgrq1' + index]"
                 />
@@ -106,6 +107,7 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
+                  @click="(e)=>timePicker(e,'zgrq2' + index)"
                   v-model="sheetInfo.relObj['zgrq2' + index]"
                   :data-value="sheetInfo.relObj['zgrq2' + index]"
                 />
@@ -116,6 +118,7 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
+                  @click="(e)=>timePicker(e,'zgrq3' + index)"
                   v-model="sheetInfo.relObj['zgrq3' + index]"
                   :data-value="sheetInfo.relObj['zgrq3' + index]"
                 />
@@ -126,6 +129,7 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
+                  @click="(e)=>timePicker(e,'zgrq4' + index)"
                   v-model="sheetInfo.relObj['zgrq4' + index]"
                   :data-value="sheetInfo.relObj['zgrq4' + index]"
                 />
@@ -136,6 +140,7 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
+                  @click="(e)=>timePicker(e,'zgrq5' + index)"
                   v-model="sheetInfo.relObj['zgrq5' + index]"
                   :data-value="sheetInfo.relObj['zgrq5' + index]"
                 />
@@ -146,6 +151,7 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
+                  @click="(e)=>timePicker(e,'zgrq6' + index)"
                   v-model="sheetInfo.relObj['zgrq6' + index]"
                   :data-value="sheetInfo.relObj['zgrq6' + index]"
                 />
@@ -157,7 +163,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 30px;"
+                  style="width: 50px;"
                   v-model="sheetInfo.relObj['crsd' + index]"
                   :data-value="sheetInfo.relObj['crsd' + index]"
                 />cm
@@ -167,7 +173,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 30px;"
+                  style="width: 50px;"
                   v-model="sheetInfo.relObj['snzs' + index]"
                   :data-value="sheetInfo.relObj['snzs' + index]"
                 />ml
@@ -177,7 +183,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 30px;"
+                  style="width: 50px;"
                   v-model="sheetInfo.relObj['wlcd1' + index]"
                   :data-value="sheetInfo.relObj['wlcd1' + index]"
                 />cm
@@ -187,7 +193,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 30px;"
+                  style="width: 50px;"
                   v-model="sheetInfo.relObj['wlcd2' + index]"
                   :data-value="sheetInfo.relObj['wlcd2' + index]"
                 />cm
@@ -197,7 +203,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 30px;"
+                  style="width: 50px;"
                   v-model="sheetInfo.relObj['crsd1' + index]"
                   :data-value="sheetInfo.relObj['crsd1' + index]"
                 />cm
@@ -207,7 +213,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 30px;"
+                  style="width: 50px;"
                   v-model="sheetInfo.relObj['crsd2' + index]"
                   :data-value="sheetInfo.relObj['crsd2' + index]"
                 />cm
@@ -221,7 +227,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 170px;"
+                  style="width: 200px;"
                   v-model="sheetInfo.relObj['wxfzqy' + index]"
                   :data-value="sheetInfo.relObj['wxfzqy' + index]"
                 />
@@ -233,7 +239,7 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 100px;"
+                  style="width: 120px;"
                   v-model="sheetInfo.relObj['wxxh' + index]"
                   :data-value="sheetInfo.relObj['wxxh' + index]"
                 />
@@ -339,7 +345,7 @@
       justify-content: space-evenly;
       font-size: 13px;
       .tableHeaderLeft {
-        width: 250px;
+        width: 300px;
         height: 100%;
         border: 1px solid #000;
         display: flex;
@@ -357,7 +363,7 @@
         }
       }
       .tableHeaderRight1 {
-        width: 450px;
+        width: 500px;
         height: 100%;
         border: 1px solid #000;
         display: flex;
@@ -385,7 +391,7 @@
         }
       }
       .tableHeaderRight2 {
-        width: 200px;
+        width: 250px;
         height: 100%;
         border: 1px solid #000;
         .box2{
@@ -571,11 +577,14 @@ export default {
   },
   methods: {
     openBedRecordModal(){
-      if (this.readOnly) {
-        return this.$message.warning("你无权操作此护记，仅供查阅");
-      }
       this.$refs.bedRecordModal.open();
     },
+    timePicker(e,item){
+      if (this.sheetInfo.relObj[item]) return
+      e.currentTarget.value = moment().format("YYYY-MM-DD")
+      this.sheetInfo.relObj[item] = moment().format("YYYY-MM-DD")
+      console.log(this.sheetInfo.relObj);
+    }
   },
   computed: {
     patientInfo() {
@@ -583,15 +592,9 @@ export default {
     },
     /** 只读模式 */
     readOnly() {
-      if(this.HOSPITAL_ID == "fuyou"){
-        let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
-        if (controlReadOnly) {
-          return true
-        }
-      }else {
-        return !this.userDeptList
-        .map(item => item.code)
-        .includes(this.sheetInfo.selectBlock.deptCode);
+      let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+      if (controlReadOnly) {
+        return true
       }
     },
   },

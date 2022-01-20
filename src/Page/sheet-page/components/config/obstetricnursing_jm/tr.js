@@ -2,7 +2,8 @@
 江门妇幼-产科护理记录单
 */
 import {
-  keyf1
+  keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   multiDictInfo
@@ -88,6 +89,48 @@ export default [
     name: "意识",
     textarea: {
       width: 50
+    }
+  },
+  {
+    key: "food", //入量名称
+    value: "",
+    event: keyf1,
+    name: "入量名称",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 40
+    }
+  },
+  {
+    key: "foodSize", //入量量
+    value: "",
+    event: keyf1,
+    name: "入量量",
+    change: (e, td) => limitChange(e, td, 6),
+    next:"ml",
+    textarea: {
+      width: 40
+    }
+  },
+  {
+    key: "discharge", //出量名称
+    value: "",
+    event: keyf1,
+    name: "出量名称",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 40
+    }
+  },
+  {
+    key: "dischargeSize", //出量量
+    value: "",
+    event: keyf1,
+    name: "出量量",
+    next:"ml",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 40
     }
   },
   {

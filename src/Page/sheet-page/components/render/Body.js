@@ -32,6 +32,10 @@ function Tr(data = {}, i) {
     if(obj.key=="nodeTime"){
       obj.value = customColumn[i] || data[schema[index].key] || "";
     }
+    if(process.env.HOSPITAL_ID == 'wujing'){
+      mergetTr.barCodeIdentification = data.barCodeIdentification
+      mergetTr.identificationUsage = data.identificationUsage
+    }
     obj.markObj = matchMark(data.id, schema[index].key);
     mergetTr.push(obj);
   }
