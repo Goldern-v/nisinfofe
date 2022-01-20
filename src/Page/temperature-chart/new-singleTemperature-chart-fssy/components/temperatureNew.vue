@@ -17,7 +17,7 @@
         </el-dropdown-menu>
       </el-dropdown>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div class="pagination">
+      <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
         </button>
@@ -89,8 +89,8 @@ export default {
       visibled: false,
       printAllPath: "",
       intranetUrl:
+        // "http://192.168.1.75:8081/#/" /* 医院正式环境内网 导致跨域 */,
         "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-      // "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.103.17:9091/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
       outNetUrl:
@@ -226,6 +226,9 @@ export default {
     this.getHeight();
   },
   computed: {
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
@@ -244,7 +247,7 @@ export default {
   margin: 15px 20px 0;
 
   .tem-con {
-    width: 100%;
+    width: 102%;
     height: 100%;
     position: relative;
     left: 0px;
@@ -253,7 +256,7 @@ export default {
 
     .lcIframe {
       transform: scale(0.95);
-      width: 120%;
+      width: 100%;
       height: 100%;
     }
   }
@@ -262,7 +265,13 @@ export default {
 .pagination {
   display: inline;
   position: relative;
-  left: 20%;
+  left: 25%;
+  font-weight: normal;
+}
+.paginationRight{
+ display: inline;
+  position: relative;
+  left: 35%;
   font-weight: normal;
 }
 

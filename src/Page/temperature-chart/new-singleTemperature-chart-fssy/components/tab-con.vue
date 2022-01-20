@@ -367,7 +367,7 @@ export default {
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: moment().format('HH:mm')+':00',//录入时间
-      
+
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
@@ -419,7 +419,7 @@ export default {
         document.getElementById('100').focus()
       }
       }else{
-    let inputListLength=document.getElementsByClassName('fieldClass').length 
+    let inputListLength=document.getElementsByClassName('fieldClass').length
     if(Number(e.target.id)<inputListLength+100-1){
         document.getElementById(Number(e.target.id)+1).focus()
       }else if(Number(e.target.id)===inputListLength+100-1){
@@ -661,6 +661,16 @@ export default {
         this.changeDate(this.$refs.timeSelect)
       }
     },
+    isDisable() {
+      if (
+        this.$route.path.includes("newSingleTemperatureChart") ||
+        this.$route.path.includes("temperature")
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
      //右键删除记录
     rightMouseDown(e,dateTime, tabIndex){
       this.removeRecord(dateTime, tabIndex)
@@ -694,35 +704,36 @@ export default {
         await this.bus.$emit("refreshImg");
       });
     },
-     /* 修改自定义标题，弹出弹窗并保存 */
-    updateTextInfo(key, label, autotext,index) {
-      let checkValue = Object.values(this.fieldList)||[]
-     let  checkValueStr=checkValue.map(item=>item.fieldCn)
-      window.openSetTextModal(
-        (text) => {
-          let data = {
-            patientId: this.patientInfo.patientId,
-            visitId: this.patientInfo.visitId,
-            wardCode: this.patientInfo.wardCode,
-            vitalCode: key,
-            fieldCn: text,
-          };
-          if(
-            checkValueStr.includes(text)
-          ){
- this.$message.error(`修改${label}失败!已存在${text}项目`);
-          }else{
-          savefieldTitle(data).then((res) => {
-             this.fieldList[index].fieldCn=text;
-            this.$message.success(`修改${label}成功`);
-          });
-          }
-          // this.getList();
-        },
-        
-        autotext,
-        `修改${label}`
-      );
+    /* 修改自定义标题，弹出弹窗并保存 */
+    updateTextInfo(key, label, autotext, index) {
+      let checkValue = Object.values(this.fieldList) || [];
+      let checkValueStr = checkValue.map((item) => item.fieldCn);
+      if (!this.isDisable()) {
+        //护理文书不允许修改
+        window.openSetTextModalNew(
+          (text) => {
+            let data = {
+              patientId: this.patientInfo.patientId,
+              visitId: this.patientInfo.visitId,
+              wardCode: this.patientInfo.wardCode,
+              vitalCode: key,
+              fieldCn: text,
+            };
+            if (checkValueStr.includes(text)) {
+              this.$message.error(`修改${label}失败!已存在${text}项目`);
+            } else {
+              savefieldTitle(data).then((res) => {
+                this.fieldList[index].fieldCn = text;
+                this.$message.success(`修改${label}成功`);
+              });
+            }
+            // this.getList();
+          },
+
+          autotext,
+          `修改${label}`
+        );
+      }
     },
     /* 录入体温单 */
     async saveVitalSign(value) {
@@ -795,9 +806,9 @@ export default {
     >>>.el-input__inner{
     height: 22px !important;
     width:105px;
-    
+
   }
-  
+
 }
 }
   .row-bottom {
