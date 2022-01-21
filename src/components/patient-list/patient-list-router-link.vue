@@ -253,6 +253,7 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
+import {getPatientInfo} from "@/api/common"
 import bus from "vue-happy-bus";
 import FollowList from "../follow/index";
 export default {
@@ -331,7 +332,7 @@ export default {
         return patientId == p.patientId && visitId == p.visitId;
       });
     },
-    fetchData() {
+    async fetchData() {
       let currentPatient = this.$store.getters.getCurrentPatient();
       let patientId =
         this.$route.params.patientId || currentPatient.patientId || "";
@@ -340,6 +341,12 @@ export default {
         patientId,
         visitId,
       });
+      if(!p&&this.isAdmissionHisView){
+        patientId = this.$route.params.patientId
+        visitId = this.$route.params.visitId
+        let res = await getPatientInfo(patientId,visitId)
+        p = res.data.data
+      }
       if (p) {
         if(currentPatient){
           p = {...currentPatient,...p}
@@ -355,6 +362,9 @@ export default {
     },
   },
   computed: {
+    isAdmissionHisView(){
+      return this.$route.path.includes('admissionHisView')
+    },
     list() {
       return this.bedList.filter((item) => {
         return (
