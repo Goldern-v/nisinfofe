@@ -138,6 +138,7 @@ import {
 Vue.component("IviewTable", IviewTable);
 // Vue.component('IviewSelect', IviewSelect);
 import "./common/css/iview-table.css";
+import 'view-design/dist/styles/iview.css'
 // import './common/css/iview-select.css';
 //组件
 import VueContextMenu from "vue-contextmenu";

@@ -1,3 +1,10 @@
+/**
+ *
+ * @param {arr} arr 原数组
+ * @param {string} value 需要选择的值
+ * @param {string} key 数组中对应值的属性名
+ * @returns
+ */
 export const searchItem = (arr, value, key) => {
   return arr.find(v => v[key] == value)
 }

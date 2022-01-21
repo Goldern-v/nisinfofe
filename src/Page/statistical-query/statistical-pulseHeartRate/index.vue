@@ -1,24 +1,40 @@
 <template>
-<div class="statistical-operation">
+<div class="statistical-pulseHeartRate">
   <search-con
     :formData="formData"
     :deptList="deptList"
-    datetype="datetime"
     @handleExport="handleExport"
-    @handleQuery="handleQuery"/>
-  <div class="statistical-operation__content default-content" v-loading="loading">
+    @handleQuery="handleQuery">
+    <template>
+      <div class="search-con__ctx__item">
+        脉搏：
+        <input-num-range :value="[formData.c, formData.d]" @change="(e) => handleIptNum(e,['c', 'd'])"/>
+        次/分
+      </div>
+      <div class="search-con__ctx__item">
+        心率：
+        <input-num-range :value="[formData.a, formData.b]" @change="(e) => handleIptNum(e,['a', 'b'])"/>
+        次/分
+      </div>
+      <div class="search-con__ctx__item main-color">
+        <i class="icon iconfont">&#xe6bc;</i>注：脉搏/心率查询时的范围包含所输入的区间值
+      </div>
+    </template>
+  </search-con>
+  <div class="statistical-pulseHeartRate__content default-content" v-loading="loading">
     <iview-table
       stripe
       :data="tableData"
       border
-      :height="wih - 132"
+      :height="wih - 172"
       :columns="columns"/>
   </div>
 </div>
 </template>
 <style lang='scss' scoped>
-.statistical-operation {
-  .statistical-operation__content {
+@import '../index.scss';
+.statistical-pulseHeartRate {
+  .statistical-pulseHeartRate__content {
     >>>.ivu-table {
       width: 100%;
       box-sizing: border-box;
@@ -37,6 +53,7 @@
 <script>
 import commonMixin from '@/common/mixin/common.mixin';
 import SearchCon from '../components/search-con.vue'
+import InputNumRange from '../components/input-num-range.vue'
 import indexMixins from '../mixins/index.mixins'
 
 export default {
@@ -44,6 +61,17 @@ export default {
   props: {},
   data() {
     return {
+      formData: {
+        beginTime: '',
+        endTime: '',
+        type: '',
+        status: '',
+        point: '',
+        a: 0,
+        b: 0,
+        c: 0,
+        d: 0,
+      },
       columns: [
         {
 					key: 'index',
@@ -86,36 +114,39 @@ export default {
 				},
         {
 					key: 'index5',
-					title: '入院诊断',
+					title: '日期',
           align: 'center',
 					minWidth: 110,
 				},
         {
 					key: 'index6',
-					title: '手术时间',
+					title: '时间点',
           align: 'center',
 					minWidth: 70,
 				},
         {
 					key: 'index7',
-					title: '麻醉方式',
+					title: '脉搏（次/分）',
           align: 'center',
-					minWidth: 70,
+					minWidth: 100,
 				},
         {
 					key: 'index8',
-					title: '手术名称',
+					title: '心率（次/分）',
           align: 'center',
 					minWidth: 100,
+					render: (h, { column }) => {
+						return <span>{column || column == 0 ? column : '-'}</span>
+					}
 				},
       ],
     };
   },
   methods: {
-
   },
   components: {
-    SearchCon
+    SearchCon,
+    InputNumRange,
   }
 };
 </script>

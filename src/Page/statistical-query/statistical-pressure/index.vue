@@ -1,12 +1,19 @@
 <template>
-<div class="statistical-operation">
+<div class="statistical-pressure">
   <search-con
     :formData="formData"
     :deptList="deptList"
     datetype="datetime"
     @handleExport="handleExport"
-    @handleQuery="handleQuery"/>
-  <div class="statistical-operation__content default-content" v-loading="loading">
+    @handleQuery="handleQuery">
+    <template>
+      <div class="search-con__ctx__item">
+        压力性损伤评分：
+        <input-num-range :value="[formData.c, formData.d]" @change="(e) => handleIptNum(e,['c', 'd'])"/>
+      </div>
+    </template>
+  </search-con>
+  <div class="statistical-pressure__content default-content" v-loading="loading">
     <iview-table
       stripe
       :data="tableData"
@@ -17,8 +24,8 @@
 </div>
 </template>
 <style lang='scss' scoped>
-.statistical-operation {
-  .statistical-operation__content {
+.statistical-pressure {
+  .statistical-pressure__content {
     >>>.ivu-table {
       width: 100%;
       box-sizing: border-box;
@@ -37,6 +44,7 @@
 <script>
 import commonMixin from '@/common/mixin/common.mixin';
 import SearchCon from '../components/search-con.vue'
+import InputNumRange from '../components/input-num-range.vue'
 import indexMixins from '../mixins/index.mixins'
 
 export default {
@@ -44,6 +52,14 @@ export default {
   props: {},
   data() {
     return {
+      formData: {
+        beginTime: '',
+        endTime: '',
+        type: '',
+        status: '',
+        c: 0,
+        d: 0,
+      },
       columns: [
         {
 					key: 'index',
@@ -55,11 +71,17 @@ export default {
 					}
 				},
         {
-					key: 'index0',
-					title: '病区',
+          key: 'index-0',
+					title: '评估时间',
           align: 'center',
-					minWidth: 70,
+					minWidth: 100,
 				},
+        {
+          key: 'index0',
+          title: '病区',
+          align: 'center',
+          minWidth: 70,
+        },
         {
 					key: 'index1',
 					title: '患者姓名',
@@ -86,36 +108,24 @@ export default {
 				},
         {
 					key: 'index5',
-					title: '入院诊断',
+					title: '护理级别',
           align: 'center',
-					minWidth: 110,
+					minWidth: 100,
 				},
         {
 					key: 'index6',
-					title: '手术时间',
+					title: '压力性损伤评分',
           align: 'center',
-					minWidth: 70,
-				},
-        {
-					key: 'index7',
-					title: '麻醉方式',
-          align: 'center',
-					minWidth: 70,
-				},
-        {
-					key: 'index8',
-					title: '手术名称',
-          align: 'center',
-					minWidth: 100,
+					minWidth: 120,
 				},
       ],
     };
   },
   methods: {
-
   },
   components: {
-    SearchCon
+    SearchCon,
+    InputNumRange
   }
 };
 </script>

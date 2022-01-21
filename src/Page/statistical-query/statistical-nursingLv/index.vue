@@ -5,7 +5,14 @@
     :deptList="deptList"
     datetype="datetime"
     @handleExport="handleExport"
-    @handleQuery="handleQuery"/>
+    @handleQuery="handleQuery">
+    <div class="search-con__ctx__item" v-if="formData.type != undefined">
+        护理等级：
+        <ElSelect style="width: 120px;" size="small" :value="formData.type" @input="handleQuery({lv: $event})" filterable>
+          <ElOption v-for="val in nursingLvs" :key="val.key" :label="val.label" :value="val.key" />
+      </ElSelect>
+      </div>
+  </search-con>
   <div class="statistical-operation__content default-content" v-loading="loading">
     <iview-table
       stripe
@@ -38,12 +45,20 @@
 import commonMixin from '@/common/mixin/common.mixin';
 import SearchCon from '../components/search-con.vue'
 import indexMixins from '../mixins/index.mixins'
+import { NURSING_LEVEL } from '../enums';
 
 export default {
   mixins: [commonMixin, indexMixins],
   props: {},
   data() {
     return {
+      formData: {
+        beginTime: '',
+        endTime: '',
+        type: '',
+        status: '',
+        lv: ''
+      },
       columns: [
         {
 					key: 'index',
@@ -88,27 +103,22 @@ export default {
 					key: 'index5',
 					title: '入院诊断',
           align: 'center',
-					minWidth: 110,
+					minWidth: 100,
 				},
         {
 					key: 'index6',
-					title: '手术时间',
+					title: '护理级别',
           align: 'center',
-					minWidth: 70,
+					minWidth: 100,
 				},
         {
 					key: 'index7',
-					title: '麻醉方式',
-          align: 'center',
-					minWidth: 70,
-				},
-        {
-					key: 'index8',
-					title: '手术名称',
+					title: '病危/病重',
           align: 'center',
 					minWidth: 100,
 				},
       ],
+      nursingLvs: NURSING_LEVEL
     };
   },
   methods: {
