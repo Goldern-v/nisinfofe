@@ -109,7 +109,7 @@ import { multiDictInfo } from "../../../api/index";
       parentKey: "出量名称"
     },
     {
-      key: "dischargeSize", //dischargeSize 出量
+      key: "outQuantity", //dischargeSize 出量
       value: "",
       event: keyf1,
       name: "出量",
