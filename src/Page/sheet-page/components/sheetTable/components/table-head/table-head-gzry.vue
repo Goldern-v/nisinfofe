@@ -221,7 +221,7 @@ export default {
   border-left: 0;
   border-right: 0;
   outline: none;
-  height: 12px;
+  height: 24px;
 }
 .ml-1000 {
   margin-left: 1000px;
