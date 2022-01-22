@@ -11,7 +11,7 @@
           <!-- <tool></tool> -->
         </div>
       </div>
-      <div class="left-part">
+      <div class="left-part" style="flex:1">
         <patientList
           :data="data.bedList"
           v-loading="patientListLoading"
