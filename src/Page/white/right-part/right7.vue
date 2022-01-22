@@ -45,9 +45,9 @@
         line-height 30px
         border: none;
       .day
-        width 50px
+        width 60px
         height 30px
-        font-size 16px
+        font-size 14px
         text-align center
         color #4bb08d
         line-height 30px
