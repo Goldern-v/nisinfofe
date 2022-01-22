@@ -168,6 +168,13 @@ export default {
         this.selectWidth = 101;
       }, 300);
     },
+     getRecordCode(){
+      if(['beihairenyi','guizhou','wujing','liaocheng'].includes(this.HOSPITAL_ID)&&(this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes('temperature'))){
+        return true
+      }else{
+        return false
+      }
+    },
     close() {
       this.show = false;
     },
@@ -179,9 +186,9 @@ export default {
       let {
         data: { data }
       } = await listItem(
-        "自定义标题", 
+        "自定义标题",
         //北海体温单调用护理记录单模板
-        ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType,
+        this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
         deptCode,
       );
       this.listMap = data;
