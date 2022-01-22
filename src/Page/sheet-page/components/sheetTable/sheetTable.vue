@@ -117,7 +117,7 @@
     width: 30px;
     border-bottom: 1px solid #000;
     padding: 2px 0 2px 2px;
-    height: 12px;
+    height: 24px;
     position: relative;
     outline: none;
     text-align: center;
