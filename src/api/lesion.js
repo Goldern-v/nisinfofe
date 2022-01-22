@@ -80,6 +80,10 @@ function syncGetNurseBedRecJiangMenFY(deptCode){
 function syncGetNurseBedRecJiangMenFSSY(deptCode){
   return axios.get(`${apiPath}HisFoSanShiYiBedRec/syncGetNurseBedRec/${deptCode}`)
 }
+//北海 --更新床位一览卡信息
+function syncGetNurseBedRecBeiHaiExecute(deptCode){
+  return axios.get(`${apiPath}HisBeiHaiExecute/syncGetNurseBedRec/${deptCode}`)
+}
 
 // 威县 --同步医嘱
 function syncGetMedicalAdvice(deptCode) {
@@ -106,5 +110,6 @@ export {
   syncGetNurseBedRecQuzhou,
   syncGetNurseBedRecHengli,
   syncGetNurseBedRecJiangMenFY,
-  syncGetNurseBedRecJiangMenFSSY
+  syncGetNurseBedRecJiangMenFSSY,
+  syncGetNurseBedRecBeiHaiExecute,
 }
