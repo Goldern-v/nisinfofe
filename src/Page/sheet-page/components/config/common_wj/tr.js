@@ -254,7 +254,6 @@ export function getListData4() {
     for (let item of res.data.data) {
       chuList.push(item.name);
     }
-    chuList.push("阴道出血")
   });
   let list = ["意识"];
   multiDictInfo(list).then(res => {
