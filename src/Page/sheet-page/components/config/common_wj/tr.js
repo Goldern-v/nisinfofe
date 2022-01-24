@@ -63,7 +63,17 @@ export default [
   {
     key: "pupil", // 瞳孔
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: [
+        '2.5+/2.5+',
+        '2.5-/2.5-',
+        '2.5±/2.5±'
+      ]
+    },
+    textarea: {
+      width: 70
+    }
   },
   {
     key: "food", //入
@@ -254,7 +264,6 @@ export function getListData4() {
     for (let item of res.data.data) {
       chuList.push(item.name);
     }
-    chuList.push("阴道出血")
   });
   let list = ["意识"];
   multiDictInfo(list).then(res => {

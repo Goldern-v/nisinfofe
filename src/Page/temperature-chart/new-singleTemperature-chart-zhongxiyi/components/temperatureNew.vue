@@ -9,7 +9,7 @@
        </el-dropdown-menu>
       </el-dropdown>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div class="pagination">
+        <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
         </button>
@@ -82,7 +82,7 @@ export default {
       printAllPath:"",
       intranetUrl:
         "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-        // "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:"http://10.158.210.28:9093/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
       outNetUrl:
         "http://218.107.37.134:9093/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
@@ -98,9 +98,9 @@ this.$refs.pdfCon.contentWindow.postMessage(
         // this.outNetUrl /* 外网 */
       );
       },1500)
-     
-      
- 
+
+
+
     },
     printAll(){
       this.isPrintAll=true  //隐藏页码控制区域
@@ -238,7 +238,7 @@ this.$refs.pdfConAll.contentWindow.postMessage(
   margin: 15px 20px 0;
 
   .tem-con {
-    width: 100%;
+    width: 102%;
     height: 100%;
     position: relative;
     left: 0px;
@@ -256,7 +256,13 @@ this.$refs.pdfConAll.contentWindow.postMessage(
 .pagination {
   display: inline;
   position: relative;
-  left: 20%;
+  left: 25%;
+  font-weight: normal;
+}
+.paginationRight{
+ display: inline;
+  position: relative;
+  left: 35%;
   font-weight: normal;
 }
 

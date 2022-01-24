@@ -63,10 +63,10 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
-import {
-  getNurseExchangeInfo,
-  getNurseExchangeInfoByTime,
-} from "../../../sheet-page/api/index";
+// import {
+//   getNurseExchangeInfo,
+//   getNurseExchangeInfoByTime,
+// } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
@@ -89,7 +89,7 @@ export default {
       visibled: false,
       printAllPath: "",
       intranetUrl:
-        // "http://192.168.1.75:8081/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
         "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.103.17:9091/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
@@ -122,12 +122,13 @@ export default {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
+      let authTokenNursing = this.authTokenNursing;
       this.date = date;
       this.patientId = patientId;
       this.visitId = visitId;
       /* 单独处理体温单，嵌套iframe */
-      const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
+      const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
+      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
       // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
@@ -232,6 +233,9 @@ export default {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+     authTokenNursing() {
+      return JSON.parse(localStorage.getItem("user")).token; //获取登录token
+    },
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);
@@ -247,7 +251,7 @@ export default {
   margin: 15px 20px 0;
 
   .tem-con {
-    width: 102%;
+    width: 101%;
     height: 100%;
     position: relative;
     left: 0px;
