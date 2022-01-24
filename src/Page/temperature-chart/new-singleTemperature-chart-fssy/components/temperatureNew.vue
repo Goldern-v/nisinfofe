@@ -251,7 +251,7 @@ export default {
   margin: 15px 20px 0;
 
   .tem-con {
-    width: 102%;
+    width: 101%;
     height: 100%;
     position: relative;
     left: 0px;

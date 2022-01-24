@@ -37,7 +37,7 @@
           <div class="health-education-head">
           <!-- <div class="hospital" v-if='HOSPITAL_ID == "lingcheng"'>德 州 市 陵 城 区 人 民 医 院</div> -->
           <div class="hospital">{{HOSPITAL_NAME_SPACE}}</div>
-          <div class="title">住院患者健康教育评估及实施记录单</div>
+          <div class="title">住院患者健康教育评估及实施记录单111</div>
           <div class="info">
                 <span>病人姓名：{{patientInfo.name}}</span>
                 <span>性别：{{patientInfo.sex}}</span>
@@ -374,7 +374,7 @@ export default {
       .healthEducation {
         margin: 60px auto;
         background: #ffffff;
-        width: 660px;
+        width: 700px;
         padding: 20px;
         box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.5);
         position: relative;
