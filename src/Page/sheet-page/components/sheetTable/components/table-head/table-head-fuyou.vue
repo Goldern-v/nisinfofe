@@ -116,7 +116,7 @@
       <span
         v-if="sheetInfo.sheetType === 'postpartumnursing_jm'||sheetInfo.sheetType === 'neonatology_jm'"
       >
-        分娩日期：
+        {{sheetInfo.sheetType == 'postpartumnursing_jm'?'分娩日期':'出生日期'}}：
         <div class="bottom-line" style="min-width: 95px">
           {{ patientInfo.relObj.deliveryDate ? patientInfo.relObj.deliveryDate : "" }}
         </div>
