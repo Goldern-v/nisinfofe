@@ -63,7 +63,17 @@ export default [
   {
     key: "pupil", // 瞳孔
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: [
+        '2.5+/2.5+',
+        '2.5-/2.5-',
+        '2.5±/2.5±'
+      ]
+    },
+    textarea: {
+      width: 70
+    }
   },
   {
     key: "food", //入

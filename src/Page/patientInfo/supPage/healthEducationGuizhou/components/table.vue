@@ -298,7 +298,7 @@ export default {
     line-height: 50px;
   }
   .education-table {
-    width: 660px;
+    width: 620px;
     color: #000;
     border-collapse: collapse;
     thead {
