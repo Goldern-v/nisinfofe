@@ -23,15 +23,21 @@
         <div @click="changeModel()" class="painNomal">疼痛版本</div>
       </div>
 
-      <div class="pagination">
-        <button :disabled="currentPage === 1" @click="currentPage = 1">
+      <div :class="rightSheet===true?'pagination':'paginationRight'">
+        <button :disabled="currentPage === 1" @click="toPre">
           首周
         </button>
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
-        <span class="page">第{{ currentPage }}页/共{{ pageTotal }}页</span>
-        <button :disabled="currentPage === pageTotal" @click="currentPage++">
+        <span class="page">第<input
+            type="number"
+            min="1"
+            v-model.number="toCurrentPage"
+            class="pageInput"
+            @keyup.enter="toPage()"
+          />页/共{{ pageTotal }}页</span>
+        <button :disabled="currentPage === pageTotal"  @click="toNext">
           下一周
         </button>
         <button
@@ -86,6 +92,7 @@ export default {
       filePath: "",
       contentHeight: { height: "" },
       currentPage: 1,
+      toCurrentPage: 1,
       pageTotal: 1,
       open: false,
       isSave: false,
@@ -130,6 +137,33 @@ export default {
           // this.outNetUrl /* 外网 */
         );
       }, 1500);
+    },
+    toNext() {
+      if (this.currentPage === this.pageTotal) return;
+      this.currentPage++;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPre() {
+      if (this.currentPage === 1) return;
+      this.currentPage--;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPage() {
+      if (
+        this.toCurrentPage === "" ||
+        this.toCurrentPage <= 0 ||
+        typeof this.toCurrentPage != "number"
+      ) {
+        this.currentPage = 1;
+        this.toCurrentPage = 1;
+      } else {
+        if (this.toCurrentPage >= this.pageTotal) {
+          this.currentPage = this.pageTotal;
+          this.toCurrentPage = this.pageTotal;
+        }
+      }
+
+      this.currentPage = this.toCurrentPage;
     },
     //切换疼痛体温单
     changeModel() {
@@ -271,6 +305,9 @@ export default {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);
@@ -286,7 +323,7 @@ export default {
   margin: 15px 20px 0;
 
   .tem-con {
-    width: 102%;
+    width: 101%;
     height: 100%;
     position: relative;
     left: 0px;
@@ -300,14 +337,23 @@ export default {
     }
   }
 }
+.pageInput {
+  width: 50px;
+  border: 0px;
+}
 
 .pagination {
   display: inline;
   position: relative;
-  left: -5%;
+  left: 10%;
   font-weight: normal;
 }
-
+.paginationRight{
+ display: inline;
+  position: relative;
+  left: 25%;
+  font-weight: normal;
+}
 .page {
   margin: 0 10px;
 }

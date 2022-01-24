@@ -123,7 +123,7 @@ export default {
     };
   },
   computed: {
-    patientInfo() {
+     patientInfo() {
       return this.$route.query;
     },
     rightSheet() {
