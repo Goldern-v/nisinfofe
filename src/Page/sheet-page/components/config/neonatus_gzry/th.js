@@ -1,7 +1,7 @@
 export default {
-  style: {
-    width: '1250px'
-  },
+  // style: {
+  //   width: '1300px'
+  // },
   // 科室的名称
   deptType: '',
   th: {
