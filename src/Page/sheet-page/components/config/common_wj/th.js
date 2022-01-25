@@ -53,7 +53,7 @@ export default {
       },
       {
         name: `
-        呼吸<br/>mmHg
+        呼吸<br/>次/分
         `,
         colspan: '1',
         rowspan: '3'
