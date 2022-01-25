@@ -95,6 +95,7 @@
                 v-model="scope.row.temperature"
                 :class="className"
                 class="temperature"
+                @mousewheel="(e)=>{e.preventDefault()}"
                 type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
@@ -115,6 +116,7 @@
                 class="pulse"
                 :class="className"
                 type="number"
+                @mousewheel="(e)=>{e.preventDefault()}"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
@@ -135,6 +137,7 @@
                 :class="className"
                 class="breath"
                 type="number"
+                @mousewheel="(e)=>{e.preventDefault()}"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
                 @keydown="handleKeyDown"
@@ -198,6 +201,7 @@
                 :class="className"
                 class="urinate"
                 type="number"
+                @mousewheel="(e)=>{e.preventDefault()}"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
@@ -239,6 +243,7 @@
                 :class="className"
                 class="heartRate"
                 type="number"
+                @mousewheel="(e)=>{e.preventDefault()}"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
                 @keydown="handleKeyDown"
@@ -886,7 +891,6 @@ export default {
       getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
         this.pageLoadng = false;
-        // console.log("接口数据", res.data.data);
       });
     },
     reset() {
@@ -974,8 +978,7 @@ export default {
         }
         if (e.keyCode === 37) {
           //处理左按键
-          if (e.target.selectionStart === 0) {
-            // 如果光标在开头，跳转前一个输入框
+
             let inputEls = document.getElementsByClassName(
               "all-temperature-chart-input"
             );
@@ -985,10 +988,10 @@ export default {
             }
             let prevIdx = currentIdx - 1;
             inputEls[prevIdx] && inputEls[prevIdx].focus();
-          }
         } else if (e.keyCode === 39) {
           //处理右按键
-          if (e.target.selectionEnd === e.target.value.length) {
+
+          // if (e.target.selectionEnd === e.target.value.length) {
             // 如果光标在末尾，跳转后一个输入框
             let inputEls = document.getElementsByClassName(
               "all-temperature-chart-input"
@@ -999,7 +1002,7 @@ export default {
             }
             let nextIdx = currentIdx + 1;
             inputEls[nextIdx] && inputEls[nextIdx].focus();
-          }
+          // }
         } else {
           //处理上下按键，跳转相同类名的输入框
           let inputEls = document.getElementsByClassName(e.target.className);
@@ -1009,11 +1012,12 @@ export default {
             if (e.target === inputEls[i]) currentIdx = i;
           }
           if (e.keyCode === 38) {
+      e.preventDefault();
             currentIdx--;
           } else if (
             e.keyCode === 40
-            //当贵州的时候，回车不调用保存事件，执行跳转到下一个患者的聚集性事件
           ) {
+      e.preventDefault();
             currentIdx++;
           }
           inputEls[currentIdx] && inputEls[currentIdx].focus();
@@ -1234,7 +1238,6 @@ export default {
         var trs = e.path[3];
         if (checksStr.includes(checkItem) && val !== "") {
           if (validForm.valid(this.setValid(checkItem, val))) {
-            // console.log(trs.getElementsByClassName(checkItem)[0].style)
             trs.getElementsByClassName(checkItem)[0].style.border = "";
           } else {
             trs.getElementsByClassName(checkItem)[0].style.border =
