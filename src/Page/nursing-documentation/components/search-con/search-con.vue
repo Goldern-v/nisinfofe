@@ -285,11 +285,7 @@ export default {
         diagnosis: "",//病种
         // hospitalTransfer:['huadu','fuyou']//转科医院名字
       },
-      hasSynchronize:['hengli'],
-      synchronizeMethods:{
-        'hengli':synchronizeHengLi,
-        'fuyou':synchronizeFuyou
-      }
+      hasSynchronize:['hengli','fuyou'],
     };
   },
   computed: {
@@ -346,7 +342,7 @@ export default {
     },
     synchronize(){
       this.$parent.page.pageIndex = 1;
-      synchronizeMethods[this.HOSPITAL_ID]();
+      synchronizeHengLi()
     }
   },
   components: {}

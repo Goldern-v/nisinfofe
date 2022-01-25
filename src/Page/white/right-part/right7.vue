@@ -47,7 +47,7 @@
       .day
         width 70px
         height 30px
-        font-size 16px
+        font-size 14px
         text-align right
         color #4bb08d
         line-height 30px

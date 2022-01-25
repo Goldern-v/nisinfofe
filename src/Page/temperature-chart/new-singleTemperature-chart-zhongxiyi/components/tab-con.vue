@@ -478,10 +478,10 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 17) + ":00";
+      this.query.entryTime = value.slice(12, 20);
       //this.query.entryTime = value.slice(12, 20);
       //赋值初始值
-      this.dateInp = value.slice(12, 17) + ":00";
+      this.dateInp = value.slice(12, 20);
     },
     init() {
       let obj = {};
@@ -563,8 +563,18 @@ export default {
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
+
           /* 时间数组 */
           this.tabsData.push(item.recordDate);
+          if (
+            item.vitalSignList[0].recordDate ===
+              item.vitalSignList[0].expand2 &&
+            item.vitalSignList[0].vitalSign === "表顶注释"
+          ) {
+            //同步出入院插入一条表顶，会生成一个录入记录，这里用录入记录只存在一条表顶，录入时间=生成记录时间去除
+            //返回的表顶值，先做数据切割然后才能对应option值
+            item.vitalSignList[0].vitalValue = item.vitalSignList[0].expand1;
+          }
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
@@ -706,12 +716,16 @@ export default {
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
       });
+      if(type==='0'){
+        this.query.entryDate=this.patientInfo.admissionDate.slice(0,10)
+        this.dateInp=this.patientInfo.admissionDate.slice(11,20)
+      }
     },
     /* 修改自定义标题，弹出弹窗并保存 */
     updateTextInfo(key, label, autotext, index) {
       let checkValue = Object.values(this.fieldList) || [];
       let checkValueStr = checkValue.map((item) => item.fieldCn);
-      window.openSetTextModal(
+      window.openSetTextModalNew(
         (text) => {
           let data = {
             patientId: this.patientInfo.patientId,
@@ -720,8 +734,11 @@ export default {
             vitalCode: key,
             fieldCn: text,
           };
+           let voildStr=text.trim();
           if (checkValueStr.includes(text)) {
             this.$message.error(`修改${label}失败!已存在${text}项目`);
+          }else if(voildStr == null || voildStr == '' || voildStr == undefined ){
+             this.$message.error(`修改${label}失败!请输入自定义内容`);
           } else {
             savefieldTitle(data).then((res) => {
               this.fieldList[index].fieldCn = text;

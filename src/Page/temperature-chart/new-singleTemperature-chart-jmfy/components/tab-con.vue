@@ -155,7 +155,7 @@
           </div>
           <div class="fieldList">
             <div style="margin: 10px 0px; font-weight: bold; font-size: 14px">
-              <span>自定义项目：</span>
+              <!-- <span>自定义项目：</span> -->
             </div>
             <div class="row" v-for="(i, index) in fieldList" :key="index">
               <span

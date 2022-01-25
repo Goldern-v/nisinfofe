@@ -89,3 +89,8 @@ export function getPlanFormListByPV(patientId, visitId) {
 export function savePlanForm(obj) {
   return axios.post(`${apiPath}/planForm/save`, obj);
 }
+
+// 贵州护理诊断签名接口
+export const planListGuiZhou = (params,id)=>{
+  return axios.get(`${apiPath}nursingDiags/sign/${id}`, {params});
+}

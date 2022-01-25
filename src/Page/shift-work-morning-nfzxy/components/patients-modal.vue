@@ -19,7 +19,7 @@
     <div class="footer" slot="button">
         <ElButton @click="close">取消</ElButton>
         <ElButton type="primary" @click="selectPatient">保存</ElButton>
-        <strong style="display:block;flex:1;text-align:left;color:red">*请双击对应患者进行填写</strong>
+        <!-- <strong style="display:block;flex:1;text-align:left;color:red">*请双击对应患者进行填写</strong> -->
     </div>
   </SweetModal>
 </template>

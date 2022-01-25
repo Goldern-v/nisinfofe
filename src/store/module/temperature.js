@@ -3,7 +3,8 @@ export default {
     isPain: false,
     rightPart: true,
     showBabyChat: false,
-    dialogVisible: false
+    dialogVisible: false,
+    patientInfo: {},
   },
   mutations: {
     //改变体温单的显示版本，false默认不带疼痛版本，true疼痛版本
@@ -25,6 +26,10 @@ export default {
     newDialogVisible(state, value) {
       state.dialogVisible = value
 
-    }
+    },
+    //存储患者信息
+    updatePatientInfo(state, val) {
+      state.patientInfo = val
+    },
   }
 }

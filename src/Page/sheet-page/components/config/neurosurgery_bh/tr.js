@@ -79,7 +79,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 45
     },
   },
   {
@@ -89,7 +89,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 45
     },
   },
   {
@@ -308,7 +308,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -318,7 +318,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65
+      width: 45
     },
     autoComplete: {
       data: 出量名称
@@ -332,7 +332,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -366,9 +366,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "管道护理",
-    change: (e, td) => limitChange(e, td, 26),
+    change: (e, td) => limitChange(e, td, 24),
     textarea: {
-      width: 160
+      width: 150
     },
     splice: true,
     autoComplete: {

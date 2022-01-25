@@ -42,6 +42,7 @@
 <script>
 import DTable from "./d-table";
 import DTableHD from "./d-table-HD";
+import DTableGZ from "./d-table-GZ";
 import { nursingDiagsPatient } from "../../api/index";
 import { model } from "../../diagnosisViewModel";
 import bus from "vue-happy-bus";
@@ -62,6 +63,7 @@ export default {
     tableComplate(){
       let ID_Component = {
         "huadu":DTableHD,
+        "guizhou":DTableGZ,
         default:DTable
       }
       return ID_Component[this.HOSPITAL_ID]||ID_Component.default
@@ -187,7 +189,8 @@ export default {
   },
   components: {
     DTable,
-    DTableHD
+    DTableHD,
+    DTableGZ
   }
 };
 </script>
