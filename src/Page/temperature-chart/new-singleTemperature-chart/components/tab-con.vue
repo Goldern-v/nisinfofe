@@ -356,7 +356,7 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-      recordStr:(() => {
+        recordStr: (() => {
           if (this.getHours() >= 0 && this.getHours() <= 5) {
             return "03:00:00";
           }
@@ -406,7 +406,14 @@ export default {
       isCorrect: false,
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
-      nomalTimeStr:['03:00:00','07:00:00','11:00:00','15:00:00','19:00:00','23:00:00'],//存在出入院记录不是模糊时间点（03，07，09）这种，所以做一个标准时间去判断
+      nomalTimeStr: [
+        "03:00:00",
+        "07:00:00",
+        "11:00:00",
+        "15:00:00",
+        "19:00:00",
+        "23:00:00",
+      ], //存在出入院记录不是模糊时间点（03，07，09）这种，所以做一个标准时间去判断
       timesOdd: [
         {
           id: 0,
@@ -477,32 +484,30 @@ export default {
     modifiValue(e) {
       let val = e.target.value;
     },
-formatTimeVal(x){
- let val =Number(x)
- let time;
-             if(val>0&&val<=5){
-                time='03'
-             }
-             if(val>5&&val<=9){
-              time= '07'
-             }
-             if(val>9&&val<=13){
-               time='11'
-             }
-            
-             if( val>13&&val<=17){
-               time='15'
+    formatTimeVal(x) {
+      let val = Number(x);
+      let time;
+      if (val > 0 && val <= 5) {
+        time = "03";
+      }
+      if (val > 5 && val <= 9) {
+        time = "07";
+      }
+      if (val > 9 && val <= 13) {
+        time = "11";
+      }
 
-             }
-             if( val>17&&val<=21){
-               time='19'
-             }
-             if(val>21&&val<=23){
-               time='23'
-
-             }
-               return time
-      },
+      if (val > 13 && val <= 17) {
+        time = "15";
+      }
+      if (val > 17 && val <= 21) {
+        time = "19";
+      }
+      if (val > 21 && val <= 23) {
+        time = "23";
+      }
+      return time;
+    },
     init() {
       let obj = {};
       if (!this.multiDictList) return;
@@ -635,9 +640,9 @@ formatTimeVal(x){
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
-            this.tabsData.push(item.recordDate);
-            //记录数组去重
-            this.tabsData=[...new Set(this.tabsData)]
+          this.tabsData.push(item.recordDate);
+          //记录数组去重
+          this.tabsData = [...new Set(this.tabsData)];
           if (
             item.vitalSignList[0].id.recordDate ===
               item.vitalSignList[0].expand2 &&
@@ -645,7 +650,7 @@ formatTimeVal(x){
           ) {
             //同步出入院插入一条表顶，会生成一个录入记录，这里用录入记录只存在一条表顶，录入时间=生成记录时间去除
             //返回的表顶值，先做数据切割然后才能对应option值
-             item.vitalSignList[0].vitalValue=item.vitalSignList[0].expand1
+            item.vitalSignList[0].vitalValue = item.vitalSignList[0].expand1;
           }
         });
       });
@@ -679,15 +684,14 @@ formatTimeVal(x){
     /* 选择固定时间点 */
     changeEntryTime(val) {
       this.query.entryTime = val;
-      this.query.recordStr=val+':00:00'
+      this.query.recordStr = val + ":00:00";
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
       let temp = value;
-      this.query.recordStr=temp.slice(12, 20);
+      this.query.recordStr = temp.slice(12, 20);
       this.query.entryDate = temp.slice(0, 10);
       this.query.entryTime = temp.slice(12, 14);
-      
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -709,7 +713,9 @@ formatTimeVal(x){
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        timeStr: this.nomalTimeStr.includes(this.query.recordStr)?this.query.entryTime + ":00:00":this.query.recordStr,
+        timeStr: this.nomalTimeStr.includes(this.query.recordStr)
+          ? this.query.entryTime + ":00:00"
+          : this.query.recordStr,
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
@@ -793,7 +799,7 @@ formatTimeVal(x){
     updateTextInfo(key, label, autotext, index) {
       let checkValue = Object.values(this.fieldList) || [];
       let checkValueStr = checkValue.map((item) => item.fieldCn);
-      window.openSetTextModal(
+      window.openSetTextModalNew(
         (text) => {
           let data = {
             patientId: this.patientInfo.patientId,
@@ -802,9 +808,12 @@ formatTimeVal(x){
             vitalCode: key,
             fieldCn: text,
           };
+      let voildStr=text.trim();
           if (checkValueStr.includes(text)) {
             this.$message.error(`修改${label}失败!已存在${text}项目`);
-          } else {
+          } else if(voildStr == null || voildStr == '' || voildStr == undefined ){
+             this.$message.error(`修改${label}失败!请输入自定义内容`);
+          }else {
             savefieldTitle(data).then((res) => {
               this.fieldList[index].fieldCn = text;
               this.$message.success(`修改${label}成功`);
@@ -812,7 +821,6 @@ formatTimeVal(x){
           }
           // this.getList();
         },
-
         autotext,
         `修改${label}`
       );
@@ -838,7 +846,9 @@ formatTimeVal(x){
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
-        timeStr: this.nomalTimeStr.includes(this.query.recordStr)?this.query.entryTime + ":00:00":this.query.recordStr,
+        timeStr: this.nomalTimeStr.includes(this.query.recordStr)
+          ? this.query.entryTime + ":00:00"
+          : this.query.recordStr,
         vitalSignList: obj,
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,

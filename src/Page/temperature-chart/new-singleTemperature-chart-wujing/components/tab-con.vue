@@ -737,9 +737,12 @@ export default {
               vitalCode: key,
               fieldCn: text,
             };
+             let voildStr=text.trim();
             if (checkValueStr.includes(text)) {
               this.$message.error(`修改${label}失败!已存在${text}项目`);
-            } else {
+            } else if(voildStr == null || voildStr == '' || voildStr == undefined ){
+             this.$message.error(`修改${label}失败!请输入自定义内容`);
+          }else {
               savefieldTitle(data).then((res) => {
                 this.fieldList[index].fieldCn = text;
                 this.$message.success(`修改${label}成功`);
@@ -747,7 +750,6 @@ export default {
             }
             // this.getList();
           },
-
           autotext,
           `修改${label}`
         );

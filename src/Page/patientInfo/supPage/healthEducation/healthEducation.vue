@@ -374,7 +374,7 @@ export default {
       .healthEducation {
         margin: 60px auto;
         background: #ffffff;
-        width: 660px;
+        width: 700px;
         padding: 20px;
         box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.5);
         position: relative;

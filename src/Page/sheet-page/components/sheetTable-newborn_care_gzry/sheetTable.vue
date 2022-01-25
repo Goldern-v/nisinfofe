@@ -50,6 +50,7 @@
             出生胎龄：
             <input
               class="bottom-line-input"
+              :style="{width:'80px'}"
               :data-value="sheetInfo.relObj.gestationalAge"
               v-model="sheetInfo.relObj.gestationalAge"
             />
@@ -144,7 +145,7 @@
     width: 50px;
     border-bottom: 1px solid #000;
     padding: 2px 0 2px 2px;
-    height: 12px;
+    height: 24px;
     position: relative;
     outline: none;
     text-align: center;
