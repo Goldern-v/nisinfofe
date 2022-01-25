@@ -45,14 +45,15 @@
         line-height 30px
         border: none;
       .day
-        width 50px
+        width 70px
         height 30px
         font-size 16px
-        text-align center
+        text-align right
         color #4bb08d
         line-height 30px
         font-weight bold
         padding-right 35px
+        white-space: nowrap
       .date
         position absolute
         top 0
