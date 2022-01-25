@@ -112,26 +112,26 @@ export default {
         }
       }
       // 隐藏手术单的一部分
-      if(this.detail.formCode === 'E0607') {
-        this.$nextTick(() => {
-          let css = `.page:first-child .page_table-wrapper table tr:nth-child(-n+24):nth-child(n+5) td:nth-child(3) {
-            display: none;
-          }`;
-          var style = document.createElement("style");
-          style.type = "text/css";
-          try {
-            style.appendChild(document.createTextNode(css));
-          } catch (ex) {
-            style.styleSheet.cssText = css; //针对IE
-          }
-          var head = wid.document.querySelector("head");
-          head.appendChild(style);
-          this.wid.document.querySelector('.page:first-child .page_table-wrapper table colgroup col:nth-child(3)').width = '31.5%'
-          this.wid.document.querySelector('.page:first-child .page_table-wrapper table colgroup col:nth-child(2)').width = '31.5%'
-          this.wid.document.querySelector('.page:first-child .page_table-wrapper table colgroup col:nth-child(4)').width = '31.5%'
-          // this.onFormLoaded();
-        });
-      }
+      // if(this.detail.formCode === 'E0607') {
+      //   this.$nextTick(() => {
+      //     let css = `.page:first-child .page_table-wrapper table tr:nth-child(-n+24):nth-child(n+5) td:nth-child(3) {
+      //       display: none;
+      //     }`;
+      //     var style = document.createElement("style");
+      //     style.type = "text/css";
+      //     try {
+      //       style.appendChild(document.createTextNode(css));
+      //     } catch (ex) {
+      //       style.styleSheet.cssText = css; //针对IE
+      //     }
+      //     var head = wid.document.querySelector("head");
+      //     head.appendChild(style);
+      //     this.wid.document.querySelector('.page:first-child .page_table-wrapper table colgroup col:nth-child(3)').width = '31.5%'
+      //     this.wid.document.querySelector('.page:first-child .page_table-wrapper table colgroup col:nth-child(2)').width = '31.5%'
+      //     this.wid.document.querySelector('.page:first-child .page_table-wrapper table colgroup col:nth-child(4)').width = '31.5%'
+      //     // this.onFormLoaded();
+      //   });
+      // }
       this.pageLoading = false
     },
     formatData() {
