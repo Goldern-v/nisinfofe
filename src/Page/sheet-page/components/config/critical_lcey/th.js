@@ -93,7 +93,7 @@ export default {
       },
       {
         name: `
-        养疗
+        氧疗
         `,
         colspan: '2',
         rowspan: '1',
