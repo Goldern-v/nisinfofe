@@ -82,7 +82,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 30
+      width: 60
     }
   },
   {
