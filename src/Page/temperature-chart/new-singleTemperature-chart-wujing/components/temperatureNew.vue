@@ -275,6 +275,7 @@ export default {
       this.isPrintAll = false;
     },
     currentPage(value) {
+      this.toCurrentPage=value
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */

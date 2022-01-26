@@ -15,19 +15,25 @@
         <el-button type="primary" @click="printAll()">批量打印</el-button>
       </el-button-group>
       <div class="pagination" v-show="!isPrintAll">
-        <button :disabled="currentPage === 1" @click="currentPage = 1">
+        <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
           首周
         </button>
-        <button :disabled="currentPage === 1" @click="currentPage--">
+        <button :disabled="currentPage === 1" @click="toPre">
           上一周
         </button>
-        <span class="page">第{{ currentPage }}页/共{{ pageTotal }}页</span>
-        <button :disabled="currentPage === pageTotal" @click="currentPage++">
+        <span class="page">第<input
+            type="number"
+            min="1"
+            v-model.number="toCurrentPage"
+            class="pageInput"
+            @keyup.enter="toPage()"
+          />页/共{{ pageTotal }}页</span>
+        <button :disabled="currentPage === pageTotal" @click="toNext">
           下一周
         </button>
         <button
           :disabled="currentPage === pageTotal"
-          @click="currentPage = pageTotal"
+          @click="currentPage = pageTotal;toCurrentPage=pageTotal"
         >
           尾周
         </button>
@@ -80,13 +86,14 @@ export default {
       pageTotal: 1,
       patientId: "",
       visitId: "",
+      toCurrentPage: 1,
       printAllPath: "",
       open: false,
       isSave: false,
       isPrintAll: false, //是否打印所有
       visibled: false,
       intranetUrl:
-        // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.75:8081/#/" /* 医院正式环境内网 导致跨域 */,
         "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://172.17.5.41:9091/temperature/#/printAll" /* 医院正式环境内网 */,
@@ -114,6 +121,33 @@ export default {
           // this.outNetUrl /* 外网 */
         );
       }, 1500);
+    },
+    toPage() {
+      if (
+        this.toCurrentPage === "" ||
+        this.toCurrentPage <= 0 ||
+        typeof this.toCurrentPage != "number"
+      ) {
+        this.currentPage = 1;
+        this.toCurrentPage = 1;
+      } else {
+        if (this.toCurrentPage >= this.pageTotal) {
+          this.currentPage = this.pageTotal;
+          this.toCurrentPage = this.pageTotal;
+        }
+      }
+
+      this.currentPage = this.toCurrentPage;
+    },
+    toNext() {
+      if (this.currentPage === this.pageTotal) return;
+      this.currentPage++;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPre() {
+      if (this.currentPage === 1) return;
+      this.currentPage--;
+      this.toCurrentPage = this.currentPage;
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -192,13 +226,11 @@ export default {
     },
   },
   watch: {
-    // date() {
-    //   this.getImg();
-    // },
     patientInfo() {
       this.isPrintAll = false;
     },
     currentPage(value) {
+      this.toCurrentPage=value
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
@@ -303,7 +335,10 @@ button[disabled=disabled] {
     cursor: not-allowed;
   }
 }
-
+.pageInput {
+  width: 50px;
+  border: 0px;
+}
 .print-btn {
   position: relative;
   left: 5%;
