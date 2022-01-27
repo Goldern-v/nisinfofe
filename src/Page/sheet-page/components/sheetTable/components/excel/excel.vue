@@ -515,7 +515,12 @@
           </div>
         </span>
         <!-- &nbsp;&nbsp;&nbsp; -->
-        <div style="width:50px" v-if="!auditorTime"></div>
+        <div 
+            v-if="
+            sheetInfo.sheetType == 'internal_eval_lcey' ||
+            sheetInfo.sheetType == 'critical_lcey'||
+            sheetInfo.sheetType == 'critical_new_lcey'"
+            :style="{marginRight:auditorTime?'':'50px'}"></div>
         <div
          v-if="
             sheetInfo.sheetType == 'internal_eval_lcey' ||
