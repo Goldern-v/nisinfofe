@@ -16,7 +16,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1200px"
+    width: "1230px"
   },
   th: {
     top: [
@@ -106,8 +106,8 @@ export default {
         血压<br/>mmHg
         `,
         style: {
-          minWidth: '30px',
-          maxWidth: '30px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
         colspan: '1',
         rowspan: '3'

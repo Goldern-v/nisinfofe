@@ -514,25 +514,19 @@
             </div>
           </div>
         </span>
-        <!-- &nbsp;&nbsp;&nbsp; -->
-        <div 
-            v-if="
+        &nbsp;&nbsp;&nbsp;
+        <template
+          v-if="
             sheetInfo.sheetType == 'internal_eval_lcey' ||
             sheetInfo.sheetType == 'critical_lcey'||
-            sheetInfo.sheetType == 'critical_new_lcey'"
-            :style="{marginRight:auditorTime?'':'50px'}"></div>
-        <div
-         v-if="
-            sheetInfo.sheetType == 'internal_eval_lcey' ||
-            sheetInfo.sheetType == 'critical_lcey'||
-            sheetInfo.sheetType == 'critical_new_lcey'"
-         :style="{marginRight:auditorTime?'':'100px'}"
-          >
+            sheetInfo.sheetType == 'critical_new_lcey'
+          "
+        >
           <span> <strong>审核时间：</strong> </span>
           <span>{{ auditorTime }}</span>
-        </div>
-        <!-- &nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+        </template>
+        &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </span>
       <!-- / {{Math.max(sheetMaxPage,(length + sheetStartPage - 1))}}  -->
       <!-- <span class="sh-name">审核人：
