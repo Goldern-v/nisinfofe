@@ -514,19 +514,22 @@
             </div>
           </div>
         </span>
-        &nbsp;&nbsp;&nbsp;
-        <template
-          v-if="
+        <!-- &nbsp;&nbsp;&nbsp; -->
+        <div 
+          style="margin-right:50px">
+        </div>
+        <div
+         v-if="
             sheetInfo.sheetType == 'internal_eval_lcey' ||
             sheetInfo.sheetType == 'critical_lcey'||
-            sheetInfo.sheetType == 'critical_new_lcey'
-          "
-        >
+            sheetInfo.sheetType == 'critical_new_lcey'"
+            style="margin-right:50px"
+          >
           <span> <strong>审核时间：</strong> </span>
           <span>{{ auditorTime }}</span>
-        </template>
-        &nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <!-- &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
       </span>
       <!-- / {{Math.max(sheetMaxPage,(length + sheetStartPage - 1))}}  -->
       <!-- <span class="sh-name">审核人：
