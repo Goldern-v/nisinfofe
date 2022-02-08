@@ -619,6 +619,7 @@ export default {
       ]).then((res) => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
+        this.$store.commit('upMasterInfo',bodyData)
         if(this.HOSPITAL_ID=='wujing'){
           let barcodeArr = {} 
           bodyData.list.map((tr,index)=>{

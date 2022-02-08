@@ -1047,6 +1047,9 @@ export default {
       } else {
         isRead = false;
       }
+      if(this.HOSPITAL_ID=='fuyou'){
+        isRead = this.$store.state.form_masterInfo.masterInfo.readOnly
+      }
       this.isRead = isRead;
       this.table = config.table;
       this.customTitle = decoder_title(config.thead);
