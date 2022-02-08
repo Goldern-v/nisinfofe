@@ -165,7 +165,7 @@ export default {
       },
       {
         name: `
-        量<br/>(ml)
+        量<br/>
         `,
         colspan: "1",
         rowspan: "2"

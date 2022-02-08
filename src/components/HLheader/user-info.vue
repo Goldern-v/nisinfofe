@@ -524,10 +524,11 @@ export default {
     );
     clearInterval(timer);
     if (process.env.ENABLE_BLUETOOTH_SIGN) {
+      let outTimes = this.HOSPITAL_ID == 'foshanrenyi' ? 1000 : 5000 // 佛山市一要求缩短证书检测时间
       this.getCaStatus();
       let timer = setInterval(() => {
         this.getCaStatus();
-      }, 5000);
+      }, outTimes);
     }
   },
   mounted() {

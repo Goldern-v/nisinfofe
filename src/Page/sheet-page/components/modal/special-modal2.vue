@@ -1047,6 +1047,7 @@ export default {
       } else {
         isRead = false;
       }
+      // 江门上线需求,对部分工号开放特殊情况修改权限,由后端处理主表信息中的readOnly字段
       if(this.HOSPITAL_ID=='fuyou'){
         isRead = this.$store.state.form_masterInfo.masterInfo.readOnly
       }
