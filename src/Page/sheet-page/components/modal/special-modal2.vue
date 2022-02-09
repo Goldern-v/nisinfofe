@@ -514,12 +514,13 @@
                 >+模板</span
               >
             </div>
-            <!-- 陵城特殊情况特殊记录富文本 -->
+            <!-- 陵城特殊情况特殊记录富文本（上下标） -->
+            <!-- 武警护理记录单特殊特殊情况富文本（加粗）  -->
             <div
               class="edit_container"
               v-if="
                 sheetInfo.selectBlock.openRichText &&
-                HOSPITAL_ID === 'lingcheng'
+                (HOSPITAL_ID === 'lingcheng'||sheetInfo.sheetType === 'common_wj')
               "
             >
               <quill-editor
@@ -547,7 +548,7 @@
           type="primary"
           @click="
             sheetInfo.selectBlock.openRichText &&
-            (HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'hengli')
+            (HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'hengli'|| sheetInfo.sheetType === 'common_wj')
               ? postRichText()
               : post()
           "
@@ -841,7 +842,7 @@ export default {
         placeholder: "请编辑内容",
         modules: {
           toolbar: [
-            [{ script: "sub" }, { script: "super" }], // 上下标
+             this.HOSPITAL_ID==='wujing'?['bold']:[{ script: "sub" }, { script: "super" }], // 武警加粗/陵城上下标（别一起开，逻辑会有问题）
           ],
         },
         theme: "snow",
@@ -1149,9 +1150,13 @@ export default {
       let val = data.replace(regP, "");
       const subArray = val.match(/<sub>(.*?)<\/sub>/g);
       const supArray = val.match(/<sup>(.*?)<\/sup>/g);
-      if ((subArray && subArray.length) || (supArray && supArray.length)) {
+      // 加粗
+      const strongArray=val.match(/<strong>(.*?)<\/strong>/g);
+      if ((subArray && subArray.length) || (supArray && supArray.length) || (strongArray && strongArray.length)) {
         var subReg = /(<\/?sub.*?>)/gi;
         var supReg = /(<\/?sup.*?>)/gi;
+        // 加粗
+        var strongReg=/(<\/?strong.*?>)/gi;
         subArray &&
           subArray.map((item) => {
             const wipeLabel = item.replace(subReg, "");
@@ -1168,29 +1173,45 @@ export default {
             itemArray.map((item) => (str += "<sup>" + item + "</sup>"));
             val = val.replace(new RegExp(item, "g"), str);
           });
+          // 加粗
+        strongArray &&
+          strongArray.map((item) => {
+            const wipeLabel = item.replace(strongReg, "");
+            const itemArray = wipeLabel.split("");
+            let str = "";
+            itemArray.map((item) => (str += "<strong>" + item + "</strong>"));
+            val = val.replace(new RegExp(item, "g"), str);
+          });
       }
       return val;
     },
     // 保存（富文本）
     postRichText() {
+      // okLength保存的时候，一条数据给后端传的字数长度
       let okLength = ""
       if(this.HOSPITAL_ID=='lingcheng'||this.HOSPITAL_ID=='hengli'){
         okLength = 46
-      }else {
+      } else if(this.sheetInfo.sheetType === 'common_wj'){
+        okLength = 24
+       }else {
         okLength = 23
       }
+      
       var GetLength = function (str) {
         // 过滤上下标签替换
         const subReg = /(<\/?sub.*?>)/gi;
         const supReg = /(<\/?sup.*?>)/gi;
+        // 过滤加粗标签替换
+        const strongReg = /(<\/?strong.*?>)/gi;
         let wipeSubStr = str.replace(subReg, "");
         let wipeSupStr = wipeSubStr.replace(supReg, "");
+        let wipeStrongStr= wipeSupStr.replace(strongReg,"")
         // 计算文本内容真实长度
         var realLength = 0,
-          len = wipeSupStr.length,
+          len = wipeStrongStr.length,
           charCode = -1;
         for (var i = 0; i < len; i++) {
-          charCode = wipeSupStr.charCodeAt(i);
+          charCode = wipeStrongStr.charCodeAt(i);
           if (charCode == 94) realLength += 0;
           else if (charCode >= 0 && charCode <= 128 && charCode != 32)
             realLength += 1;
@@ -1202,8 +1223,8 @@ export default {
       let result = [];
       let text = "";
       // 处理特殊字符 标签
-      const doc = this.htmlEscape(this.doc);
-      let allDoc = this.setLabelData(doc);
+      const doc = this.htmlEscape(this.doc);//特殊字符
+      let allDoc = this.setLabelData(doc);//标签
       // 首行缩进效果
       if (
         this.HOSPITAL_ID != "weixian" &&
@@ -1217,7 +1238,12 @@ export default {
       let index = 0;
       for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
-        const isContinue = isSpecialLabel && i <= index + 11;
+        // 陵城是sub和sup标签<sup></sup>    <sub></sub>就是11
+        let isContinue=isSpecialLabel && i <= index + 11
+        if(this.sheetInfo.sheetType === 'common_wj'){
+          // 武警是加粗<strong></strong>就是17。
+          isContinue=isSpecialLabel && i <= index + 17
+        }
         // 字符为 ，。；,.：:
         if (
           charCode == "65292" ||
@@ -1232,7 +1258,7 @@ export default {
           isContinue
         ) {
           text += allDoc[i];
-        } else {
+        }else {
           if (GetLength(text) > okLength) {
             text = text.replace(/\s/g, "&nbsp;");
             result.push(text);
@@ -1552,7 +1578,7 @@ export default {
     },
     doc(val){
       if(!val.trim().length)return
-      let reg = new RegExp(/<(?:(?!\bsub\b|\bsup\b|\bp\b|[<>]).)+>/g)
+      let reg = new RegExp(/<(?:(?!\bstrong\b|\bsub\b|\bsup\b|\bp\b|[<>]).)+>/g)
       if(reg.test(val)){
         this.doc = val.replace(reg,'')
       }

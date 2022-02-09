@@ -249,7 +249,7 @@
               v-if="td.value"
               :style="!td.value && { opacity: 0 }"
               :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
-              :class="{ xiegangSignImg: sheetInfo.sheetType === 'common_xg' }"
+              :class="{ xiegangSignImg: sheetInfo.sheetType === 'common_xg' || HOSPITAL_ID==='wujing'}"
               alt
             />
           </div>
@@ -344,10 +344,11 @@
             "
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
+          <!-- 武警 护理记录单特殊情况单独处理，可以加粗 -->
           <div
             v-else-if="
               td.key === 'description' &&
-              HOSPITAL_ID === 'lingcheng' &&
+             (HOSPITAL_ID === 'lingcheng' || sheetInfo.sheetType === 'common_wj') &&
               sheetInfo.selectBlock.openRichText
             "
             v-html="td.value"
