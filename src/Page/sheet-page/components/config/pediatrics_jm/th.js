@@ -9,7 +9,7 @@ function currYear() {
 }
 export default {
   style: {
-    width: '1200px'
+    width: '1240px'
   },
   deptType: '',
   th: {
@@ -54,7 +54,7 @@ export default {
       },
       {
         name: `
-        心率<br/>(次/分)
+        心率<br/>次/分
         `,
         style: {},
         colspan: '1',
@@ -67,7 +67,7 @@ export default {
       },
       {
         name: `
-        呼吸<br/>(次/分)
+        呼吸<br/>次/分
         `,
         style: {},
         colspan: '1',
@@ -80,11 +80,11 @@ export default {
       },
       {
         name: `
-        血压<br/>(mm<br/>Hg)
+        血压<br/>mmHg
         `,
         style: {
-          minWidth: '30px',
-          maxWidth: '30px',
+          minWidth: '60px',
+          maxWidth: '60px',
           whiteSpace: 'nowrap'
         },
         colspan: '1',

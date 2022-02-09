@@ -63,7 +63,7 @@ export default [
     keyf1(e, td);
   },
   textarea: {
-    width: 30
+    width: 60
   }
 },
 {

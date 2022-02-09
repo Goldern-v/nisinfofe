@@ -80,7 +80,7 @@ export default [{
     next: "mmHg",
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 60
     },
   },
   {

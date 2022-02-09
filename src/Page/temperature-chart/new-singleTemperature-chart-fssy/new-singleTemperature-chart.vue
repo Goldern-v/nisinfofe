@@ -24,10 +24,10 @@
         :class="openLeft ? 'isLeft' : 'isRight'"
       >
         <div class="sheetTable-contain">
-          <temperatureBHRY
+          <temperatureFSSY
             class="contain-center"
             :queryTem="patientInfo"
-          ></temperatureBHRY>
+          ></temperatureFSSY>
           <div
             class="flag-con"
             :style="{ top: flagTop }"
@@ -121,7 +121,7 @@ import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
 // import print from "printing";
 // import formatter from "@/Page/temperature-chart/print-formatter";
-import temperatureBHRY from "@/Page/temperature-chart/new-singleTemperature-chart-fssy/components/temperatureNew";
+import temperatureFSSY from "@/Page/temperature-chart/new-singleTemperature-chart-fssy/components/temperatureNew";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-fssy/components/tab-con";
 export default {
   mixins: [common],
@@ -189,7 +189,7 @@ export default {
       this.bus.$emit("refreshVitalSignList");
     },
   },
-  components: { patientList, temperatureBHRY, tabCon },
+  components: { patientList, temperatureFSSY, tabCon },
   watch: {
     deptCode(val) {
       if (val) {

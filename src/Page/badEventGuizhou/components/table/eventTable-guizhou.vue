@@ -194,7 +194,7 @@ export default {
         name: "badEventView",
         params: {
           id: row.id,
-          name: (row.badEventName || row.chainName).replace(/\.html$/, ''),
+          name: row.eventType,
           code: row.badEventCode || row.chainCode,
           type: row.eventType || row.chainName,
           status: row.status,

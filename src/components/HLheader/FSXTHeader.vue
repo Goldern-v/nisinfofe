@@ -219,11 +219,44 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <!-- <router-link to="/shiftWork" tag="span">
+            <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
-            </router-link> -->
+            </router-link>
+            <!-- <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveShiftWork }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-jiaobanzhi"></i>交班志
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{
+                    active:
+                      $route.path.includes('/shiftWork2') &&
+                      !$route.path.includes('/shiftWork')
+                  }"
+                >
+                  <router-link to="/shiftWork2" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                      >交班志
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path.includes('/shiftWork')&&!$route.path.includes('/shiftWork2') }"
+                >
+                  <router-link to="/shiftWork" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                      >ISBAR交班记录卡
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown> -->
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
