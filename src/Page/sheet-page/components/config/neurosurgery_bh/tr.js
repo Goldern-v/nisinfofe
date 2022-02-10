@@ -109,9 +109,9 @@ export default [{
     name: "吸氧",
     next: "L/min",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 30
+      width: 50
     },
   },
   {
@@ -366,9 +366,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "管道护理",
-    change: (e, td) => limitChange(e, td, 24),
+    change: (e, td) => limitChange(e, td, 22),
     textarea: {
-      width: 150
+      width: 140
     },
     splice: true,
     autoComplete: {

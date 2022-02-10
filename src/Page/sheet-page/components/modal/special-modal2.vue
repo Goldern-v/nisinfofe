@@ -1368,6 +1368,7 @@ export default {
               this.sheetInfo.sheetType === "icu_qz" ||
               this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
               this.sheetInfo.sheetType === "common_gzry") {
+            // 特殊情况长度截取，前端控制部分
             if (GetLength(text) > 46) {
               result.push(text);
               text = allDoc[i];
