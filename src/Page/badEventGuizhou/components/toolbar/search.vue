@@ -500,26 +500,27 @@ export default {
     },
     // 获取所有事件状态
     getEventStatus() {
-      if (
-        (this.isDev || window.location.host == "192.168.1.54:9875") &&
-        this.HOSPITAL_ID == "guizhou"
-      ) {
+      // if (
+      //   (this.isDev || window.location.host == "192.168.1.54:9875") &&
+      //   this.HOSPITAL_ID == "guizhou"
+      // ) {
         this.eventStatusOptions = [
           { code: "", name: "全部" },
-          { code: "0", name: "保存" },
-          { code: "1", name: "科室上报" },
-          { code: "2", name: "片区护士长审核" },
-          { code: "3", name: "护理部给出意见" },
-          { code: "4", name: "科室整改" },
-          { code: "5", name: "护理部确认" }
+          { code: "0", name: "已暂存" },
+          { code: "1", name: "已填写提交" },
+          { code: "2", name: "片区护士长已处理" },
+          { code: "3", name: "护理部已处理" },
+          { code: "4", name: "病区已整改" },
+          { code: "5", name: "片区护士长已填写巡查意见" },
+          { code: "6", name: "护理部已确认" }
         ];
-        return;
-      }
-      let list = ["badEvent_status"];
-      multiDictInfo(list).then((res) => {
-        let arr = res.data.data.badEvent_status;
-        this.eventStatusOptions = [{ code: "", name: "全部" }, ...arr];
-      });
+        // return;
+      // }
+      // let list = ["badEvent_status"];
+      // multiDictInfo(list).then((res) => {
+      //   let arr = res.data.data.badEvent_status;
+      //   this.eventStatusOptions = [{ code: "", name: "全部" }, ...arr];
+      // });
     }
   }
 };

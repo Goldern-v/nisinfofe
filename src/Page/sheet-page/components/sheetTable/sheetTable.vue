@@ -166,7 +166,7 @@ export default {
       sheetInfo,
       //开启后端控制readOnly的医院
       readOnlyList: [
-        "fuyou","huadu"
+        "fuyou"
       ]
     };
   },
@@ -177,8 +177,7 @@ export default {
     /** 只读模式 */
     readOnly() {
       if (
-        this.HOSPITAL_ID == "huadu" &&
-        sheetInfo.sheetType === "body_temperature_Hd"
+        this.HOSPITAL_ID == "huadu" 
       ) {
         return false;
       }
