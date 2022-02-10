@@ -338,6 +338,7 @@ export default {
     },
     search() {
       this.$parent.page.pageIndex = 1;
+      this.$parent.fatherStatus = this.data.status;
       this.$parent.getData();
     },
     synchronize(){
