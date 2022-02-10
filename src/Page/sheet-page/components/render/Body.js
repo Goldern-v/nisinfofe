@@ -1015,6 +1015,11 @@ function switechSheetType(type) {
       schema = require("../config/operationlumbar_fs/tr.js").default;
     }
       break;
+    case "nonsurgicalcare_fk": {
+      // 武汉肺科 - 非手术科室护理记录单
+      schema = require("../config/nonsurgicalcare_fk/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

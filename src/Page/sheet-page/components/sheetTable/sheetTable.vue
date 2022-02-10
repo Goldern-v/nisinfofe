@@ -148,6 +148,7 @@ import tableHeadFoShanRenYi from "./components/table-head/table-head-foshanrenyi
 import tableHeadHengLi from "./components/table-head/table-head-hengli";
 import tableHeadShanNan from "./components/table-head/table-head-shannan";
 import tableHeadQz from "./components/table-head/table-head-qz";
+import tableHeadWhFk from "./components/table-head/table-head-whfk"
 export default {
   props: {
     data: Object,
@@ -226,6 +227,8 @@ export default {
         return tableHeadShanNan;
       } else if (this.HOSPITAL_ID == "quzhou") {
         return tableHeadQz;
+      } else if (this.HOSPITAL_ID == "whfk") {
+        return tableHeadWhFk;
       } else {
         return tableHead;
       }
