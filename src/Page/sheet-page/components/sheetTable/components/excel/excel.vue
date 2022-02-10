@@ -781,7 +781,7 @@ export default {
       const currentTr =
         this.data.bodyModel[index].find((td) => td.key === "recordSource")
           .value === "5";
-      return lastTr && currentTr;
+      return (index == 0 || lastTr) && currentTr;
     },
     redTop, // tool.js引进来的啦
     BlackTop, // 这个也是tool.js引进来的啦
