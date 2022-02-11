@@ -1016,12 +1016,12 @@ function switechSheetType(type) {
     }
       break;
     case "cardiovascular_xt": {
-      // 佛山杏坛 - 护理记录单（心血管呼吸专科）
+      // 佛山杏坛 - 护理记录单（心血管呼吸专科）（未测试）
       schema = require("../config/cardiovascular_xt/tr.js").default;
     }
       break;
     case "criticaldisease_xt": {
-      // 佛山杏坛 - 危重症护理记录单
+      // 佛山杏坛 - 危重症护理记录单（未测试）
       schema = require("../config/criticaldisease_xt/tr.js").default;
     }
       break;
