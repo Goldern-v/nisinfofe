@@ -65,6 +65,10 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType === 'blood_circulation_hl') {
     return 35
+  } else if (sheetInfo.sheetType === 'criticaldisease_xt' || sheetInfo.sheetType === 'cardiovascular_xt') {
+    return 20
+  } else if (sheetInfo.sheetType === 'access_fk') {
+    return 28
   } else {
     return 17;
   }

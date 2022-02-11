@@ -36,7 +36,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="setPage"
-        style="width: 90px"
+        style="width: 110px"
       >
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
