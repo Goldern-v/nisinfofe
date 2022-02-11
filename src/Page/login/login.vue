@@ -221,12 +221,16 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .logo-con {
   height: 63px;
-  width: 63px;
+  // width: 63px;
   margin: 24px auto 19px;
 
   img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
+    -webkit-object-fit: contain;
+    -moz-object-fit: contain;
+    -ms-object-fit: contain;
   }
 }
 
