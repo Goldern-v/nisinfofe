@@ -717,14 +717,12 @@ export default {
 
 
         this.formObj.model.formCode = this.formCode;
-        if(this.formObj.model.patientId !== ''){
-          console.log('this');
-          post = Object.assign({}, this.formObj.model, post);
-        }else{
-          console.log('window');
-          post = Object.assign({}, window.formObj.model, post);
-        }
-
+        // if(this.formObj.model.patientId !== ''){ // 不知道这个条件是区分啥的
+        //   post = Object.assign({}, this.formObj.model, post);
+        // }else{
+        //   post = Object.assign({}, window.formObj.model, post);
+        // }
+        post = Object.assign({}, this.formObj.model, window.formObj.model, post);
         // post.formCode = this.formCode
 
         let postData = new Object();

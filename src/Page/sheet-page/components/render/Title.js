@@ -1320,6 +1320,20 @@ export default function Title(
     // 佛山市一 - -护理记录单(新生儿科通用)
     Th = JSON.parse(
       JSON.stringify(require("../config/general_fs/th").default)
+      );
+    }
+  break;
+  case "cardiovascular_xt": {
+    // 佛山杏坛 - 护理记录单(心血管呼吸专科)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiovascular_xt/th.js").default)
+    );
+  }
+  break;
+  case "criticaldisease_xt": {
+    // 佛山杏坛 - 危重症护理记录单（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/criticaldisease_xt/th.js").default)
     );
   }
   break;

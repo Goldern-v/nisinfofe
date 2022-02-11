@@ -333,22 +333,45 @@
       瞳孔：对光反应灵敏(+),对光反应迟钝(±),对光反应消失(-);基础护理:①口腔护理,②脐部护理,③臀部护理,④沐溶,⑤床上擦浴。
     </div>
     <!-- 威县  新生儿科重症监护记录单 -->
-     <div v-if="sheetInfo.sheetType == 'newbornintensive_wx'">
-       <strong>一.基础护理:</strong>1. 皮肤护理 2.口腔护理 3.脐部护理 4.臀部护理 5眼部护理 <strong>二.皮肤颜色:</strong>1.正常 2.青紫 3.黄染 4.发花 5.灰暗 6.潮红 7.苍白 
-       <strong>三.皮肤状况:</strong>1.正常 2.干燥 3.皮疹 4.疱疹 5.破损 6.瘀斑 7.压红 8.出血点 9.潮红 10.渗出 11.水肿 12.血肿 <strong>四.前囟:</strong>1.正常 2.饱满 3.凹陷  
-       <strong>五.肌张力</strong>1.正常 2.高 3.低 4.无 <strong>六.吸吮力:</strong>1.Ⅰ2.Ⅱ3.Ⅲ4.鼻饲5.无6.禁食 <strong>七.肺部听诊:</strong>1.正常呼吸音 2.呼吸音粗 3.湿性啰音 4.干性啰音 5痰鸣音 6.哮鸣音7.无  
-       <storng>八.哭声:</storng>1.响亮2.弱 3.沙哑 4.嘶哑5.呻吟6.无 <strong>九.三凹征:</strong>1.无 2.弱阳性3.阳性 <strong>十.腹部:</strong>1.正常 2.膨隆3.轻度腹胀4..中度腹胀 5..重度腹胀  
-       <strong>十一.意识状态:</strong>1.清 2.嗜睡 3.昏迷 4.深昏迷5.烦躁 6.药眠 7.无 <strong>十二.痰液:</strong>1.白色黏痰 2.白色泡沫样痰3.淡黄色粘痰 4黄色黏痰 5黄绿色黏痰 6.粉红色泡沫样痰7.绿色痰液  
-       <strong>十三．呕吐物颜色性质:</strong>1.灰白色 2.黄色 3.草绿色 4.咖啡色 5.暗红色 6.鲜红色.7.奶液8.絮状物9.黏液10血性黏液　　
-       <strong>十四.胃内引流:</strong>1.黄色粘液 2.白色粘液 3.咖啡色粘液 4.粉红色粘液 5.草绿色粘液 6絮状物7.鲜血8.黄绿色黏液   
-       <strong>十五．身体部位:</strong>a.面部 b.耳后 c.颈部 d.上肢 e.下肢 f.臀部 g.腹部 h.胸部 i.腋窝 j.脐部 k.眼周 l.口周 m.腹股沟 n.周身 o.头部 P.会阴q.足底 
-     </div>
-     <!-- 武汉肺科 非手术科室护理记录单,-->
-     <div v-if="sheetInfo.sheetType == 'nonsurgicalcare_fk'">
-         说明：1、观察内容无异常时，用“N”来表示，异常时如实描述。2、常用护理措施代码：⑴口腔护理 ⑵会阴护理 ⑶清洁面部 ⑷温水擦浴 ⑸气管切开护理 ⑹吸痰 ⑺预防压疮护理 ⑻雾化吸入 ⑼更换引流装置 
-         ⑽保护性约束 ⑾AV置管护理 ⑿膀胱冲洗 ⒀间断夹闭导管 ⒁气管内滴药。3、意识代码：A清楚 B嗜睡 C模糊 D昏睡 E昏迷 F镇静状态
-     </div>
-    <div>
+    <div v-if="sheetInfo.sheetType == 'newbornintensive_wx'">
+      <strong>一.基础护理:</strong>1. 皮肤护理 2.口腔护理 3.脐部护理 4.臀部护理 5眼部护理 <strong>二.皮肤颜色:</strong>1.正常 2.青紫 3.黄染 4.发花 5.灰暗 6.潮红 7.苍白 
+      <strong>三.皮肤状况:</strong>1.正常 2.干燥 3.皮疹 4.疱疹 5.破损 6.瘀斑 7.压红 8.出血点 9.潮红 10.渗出 11.水肿 12.血肿 <strong>四.前囟:</strong>1.正常 2.饱满 3.凹陷  
+      <strong>五.肌张力</strong>1.正常 2.高 3.低 4.无 <strong>六.吸吮力:</strong>1.Ⅰ2.Ⅱ3.Ⅲ4.鼻饲5.无6.禁食 <strong>七.肺部听诊:</strong>1.正常呼吸音 2.呼吸音粗 3.湿性啰音 4.干性啰音 5痰鸣音 6.哮鸣音7.无  
+      <storng>八.哭声:</storng>1.响亮2.弱 3.沙哑 4.嘶哑5.呻吟6.无 <strong>九.三凹征:</strong>1.无 2.弱阳性3.阳性 <strong>十.腹部:</strong>1.正常 2.膨隆3.轻度腹胀4..中度腹胀 5..重度腹胀  
+      <strong>十一.意识状态:</strong>1.清 2.嗜睡 3.昏迷 4.深昏迷5.烦躁 6.药眠 7.无 <strong>十二.痰液:</strong>1.白色黏痰 2.白色泡沫样痰3.淡黄色粘痰 4黄色黏痰 5黄绿色黏痰 6.粉红色泡沫样痰7.绿色痰液  
+      <strong>十三．呕吐物颜色性质:</strong>1.灰白色 2.黄色 3.草绿色 4.咖啡色 5.暗红色 6.鲜红色.7.奶液8.絮状物9.黏液10血性黏液　　
+      <strong>十四.胃内引流:</strong>1.黄色粘液 2.白色粘液 3.咖啡色粘液 4.粉红色粘液 5.草绿色粘液 6絮状物7.鲜血8.黄绿色黏液   
+      <strong>十五．身体部位:</strong>a.面部 b.耳后 c.颈部 d.上肢 e.下肢 f.臀部 g.腹部 h.胸部 i.腋窝 j.脐部 k.眼周 l.口周 m.腹股沟 n.周身 o.头部 P.会阴q.足底 
+    </div>
+    <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
+    <div v-if="sheetInfo.sheetType == 'criticaldisease_xt'">
+      说明：意识：清醒√；嗜睡+；意识模糊△；浅昏迷++；深昏迷++。<br/>
+      瞳孔反应：灵敏√；迟钝+；消失-。
+    </div>
+    <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
+    <div v-if="sheetInfo.sheetType == 'cardiovascular_xt'">
+      注：意识：清醒√；嗜睡－；模糊Δ；昏睡±；浅昏迷＋；中昏迷＋＋；深昏迷＋＋＋；A谵妄；B药眠。
+      瞳孔对光反射：灵敏＋；迟钝±；消失－。管道：A固定通畅；B夹管；C阻塞；D拔除。
+      体位：A自由体位；B半坐卧；C端坐位。D其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.twQt" :data-value="sheetInfo.relObj.twQt"/>。<br/>
+      气促：A持续；B减轻；C活动后；D缓解。  
+      咳痰：A白色稀痰；B白色粘痰；C黄白色稀痰；D黄白色粘痰；E无； F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ktQt" :data-value="sheetInfo.relObj.ktQt"/>。
+      口唇/面色/肢端颜色：A发绀；B微绀；C红润；D苍白；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ysQt" :data-value="sheetInfo.relObj.ysQt"/>。 
+      咳嗽/心悸/胸闷//眩晕/头晕/恶心/乏力/<input class="bottomInput" type="text" v-model="sheetInfo.relObj.bt1" :data-value="sheetInfo.relObj.bt1"/>/<input class="bottomInput" type="text" v-model="sheetInfo.relObj.bt2" :data-value="sheetInfo.relObj.bt2"/>/<input class="bottomInput" type="text" v-model="sheetInfo.relObj.bt3" :data-value="sheetInfo.relObj.bt3"/>/<input class="bottomInput" type="text" v-model="sheetInfo.relObj.bt4" :data-value="sheetInfo.relObj.bt4"/>：A持续；B减轻；C间；D缓解；E无。
+      疼痛程度：0无痛，I轻度；II中度；III重度。 
+      吞咽困难/饮水呛咳：A有；B间；C无。
+      呕吐：A胃内容物；B咖啡渣样物；C暗红色血液；D鲜血；E无；  F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.otQt" :data-value="sheetInfo.relObj.otQt"/>。
+      水肿部位：A <input class="bottomInput" type="text" v-model="sheetInfo.relObj.bwA" :data-value="sheetInfo.relObj.bwA"/>；B <input class="bottomInput" type="text" v-model="sheetInfo.relObj.bwB" :data-value="sheetInfo.relObj.bwB"/>；C <input class="bottomInput" type="text" v-model="sheetInfo.relObj.bwC" :data-value="sheetInfo.relObj.bwC"/>D <input class="bottomInput" type="text" v-model="sheetInfo.relObj.bwD" :data-value="sheetInfo.relObj.bwD"/>；E <input class="bottomInput" type="text" v-model="sheetInfo.relObj.bwE" :data-value="sheetInfo.relObj.bwE"/>；
+      水肿程度：轻度+；中度++；重度+++；消退－。
+      水肿护理：A抬高患肢15CM；B保护水肿皮肤；C停抬高患肢15cm，D其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlQt" :data-value="sheetInfo.relObj.hlQt"/>。
+      护理措施：A绝对卧床休息；B卧床休息；C适时翻身；D防压疮护理；E压疮护理；F指导有效咳嗽；G呼吸肌功能锻炼；H肢体功能训练；I言语功能训练；J膀胱功能训练；K保暖；L腹部环形按摩；M指导保持皮肤清洁；P指导使用降糖药的注意事项；Q告知低血糖的症状及处理措施；R<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsR" :data-value="sheetInfo.relObj.csR"/>使用约束带，约束处皮肤完整，肢端血运良好；T指导办理出院手续，已作出院饮食服药活动随访宣教；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQT" :data-value="sheetInfo.relObj.csQT"/>。
+      饮食指导：A禁食； B低盐低脂饮食；C糖尿病饮食；D流质饮食；E半流质饮食；F低嘌呤饮食； G粗纤维饮食；H其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.zdQt" :data-value="sheetInfo.relObj.zdQt"/> 。
+      护理安全：A留陪人； B防跌倒；C防坠床；D防药物外渗；E防失禁性皮炎；F防拔管；G防误吸；H防窒息；I防烫伤；J防走失；K其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.aqQt" :data-value="sheetInfo.relObj.aqQt"/>。<br/>
+      启用相关护理表格：A住院患者跌倒/坠床危险因素评估护理单；B基本生活活动能力量表；C吞咽功能障碍评定记录单；D糖尿病足护理单；E压疮风险护理单；F压疮伤口护理单；H危重症患者转运护理单；I 输血安全护理单；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.bgQt" :data-value="sheetInfo.relObj.bgQt"/>。
+    </div>
+    <!-- 武汉肺科 非手术科室护理记录单,-->
+    <div v-if="sheetInfo.sheetType == 'nonsurgicalcare_fk'">
+        说明：1、观察内容无异常时，用“N”来表示，异常时如实描述。2、常用护理措施代码：⑴口腔护理 ⑵会阴护理 ⑶清洁面部 ⑷温水擦浴 ⑸气管切开护理 ⑹吸痰 ⑺预防压疮护理 ⑻雾化吸入 ⑼更换引流装置 
+        ⑽保护性约束 ⑾AV置管护理 ⑿膀胱冲洗 ⒀间断夹闭导管 ⒁气管内滴药。3、意识代码：A清楚 B嗜睡 C模糊 D昏睡 E昏迷 F镇静状态
     </div>
   </div>
 </template>
@@ -380,6 +403,14 @@ export default {
       margin-top: -5px
       text-align :left;
       line-height :20px;
+  }
+  .bottomInput {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #000;
+    font-size: 13px;
+    width: 100px;
+    text-align: left;
   }
   .bottomTable{
     width: 100%;

@@ -1020,6 +1020,16 @@ function switechSheetType(type) {
       schema = require("../config/general_fs/tr.js").default;
     }
         break;
+    case "cardiovascular_xt": {
+      // 佛山杏坛 - 护理记录单（心血管呼吸专科）（未测试）
+      schema = require("../config/cardiovascular_xt/tr.js").default;
+    }
+      break;
+    case "criticaldisease_xt": {
+      // 佛山杏坛 - 危重症护理记录单（未测试）
+      schema = require("../config/criticaldisease_xt/tr.js").default;
+    }
+      break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;
