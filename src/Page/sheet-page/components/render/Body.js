@@ -1015,6 +1015,11 @@ function switechSheetType(type) {
       schema = require("../config/operationlumbar_fs/tr.js").default;
     }
       break;
+    case "general_fs": {
+      // 佛山市一 - 护理记录单(新生儿科通用)
+      schema = require("../config/general_fs/tr.js").default;
+    }
+        break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;
