@@ -342,7 +342,8 @@ export default {
             //
             window.openSignModal((password, empNo) => {
               let post = {
-                id: this.formObj.model.patientId != '' ? this.formObj.model.id : window.formObj.model.id,
+                // id: this.formObj.model.patientId != '' ? this.formObj.model.id : window.formObj.model.id,
+                id: this.formObj.model.id || window.formObj.model.id,
                 empNo,
                 password,
               };
