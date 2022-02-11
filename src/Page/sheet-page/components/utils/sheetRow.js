@@ -65,7 +65,9 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType === 'blood_circulation_hl') {
     return 35
-  } else {
+  } else if (sheetInfo.sheetType === 'access_fk') {
+    return 28
+  }else {
     return 17;
   }
 

@@ -1020,6 +1020,11 @@ function switechSheetType(type) {
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;
     }
       break;
+    case "access_fk": {
+        // 武汉肺科 - 出入液量记录单
+      schema = require("../config/access_fk/tr.js").default;
+    }
+      break;  
     default: {
       schema = require("../config/default/tr.js").default;
     }

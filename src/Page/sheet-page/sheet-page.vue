@@ -293,6 +293,7 @@ import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
 import { blockSave, getNurseExchageInfo } from "./api/index";
+import TableRadioVue from './components/sheetTable/components/table-components/TableRadio.vue';
 export default {
   mixins: [common],
   data() {
@@ -472,6 +473,14 @@ export default {
       if (this.sheetInfo.sheetType == "common_xg") {
         if (td && this.listData[x]) {
           return !this.listData[x].canModify;
+        }
+      }
+      if (this.HOSPITAL_ID=='whfk') {
+        if (td && this.listData[x]) {
+          // 是否签名,签名了就不能编辑。需要取消签名
+          if(tr.find((item) => item.key == "status").value === "1"){
+           return true
+          }
         }
       }
       if (
