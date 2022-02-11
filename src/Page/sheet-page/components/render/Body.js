@@ -1025,6 +1025,16 @@ function switechSheetType(type) {
       schema = require("../config/危重症护理记录单/tr.js").default;
     }
       break;
+    case "nonsurgicalcare_fk": {
+      // 武汉肺科 - 非手术科室护理记录单
+      schema = require("../config/nonsurgicalcare_fk/tr.js").default;
+    }
+      break;
+    case "access_fk": {
+        // 武汉肺科 - 出入液量记录单
+      schema = require("../config/access_fk/tr.js").default;
+    }
+      break;  
     default: {
       schema = require("../config/default/tr.js").default;
     }

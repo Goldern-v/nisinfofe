@@ -67,6 +67,8 @@ export function getRowNum(index) {
     return 35
   } else if (sheetInfo.sheetType === '护理记录单（心血管呼吸专科）' || sheetInfo.sheetType === '危重症护理记录单') {
     return 20
+  } else if (sheetInfo.sheetType === 'access_fk') {
+    return 28
   } else {
     return 17;
   }

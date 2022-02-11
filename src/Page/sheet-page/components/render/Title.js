@@ -1330,6 +1330,20 @@ export default function Title(
     );
   }
   break;
+  case "nonsurgicalcare_fk": {
+    // 武汉肺科 - 非手术科室护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nonsurgicalcare_fk/th.js").default)
+    );
+  }
+  break;
+  case "access_fk": {
+    // 武汉肺科 - 出入液量记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/access_fk/th.js").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

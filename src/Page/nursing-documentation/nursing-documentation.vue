@@ -2,7 +2,8 @@
   div
     .main-contain
       changeMaJorTable(v-if="hospitalTransfer && isChangeMajor" :tableData="tableData" :pageLoadng="pageLoadng")
-      dTable(v-else :tableData="tableData" :pageLoadng="pageLoadng")
+      wjDisTable(v-else-if="isNewDischarged" :tableData="tableData" :pageLoadng="pageLoadng")
+      dTable( v-else :tableData="tableData" :pageLoadng="pageLoadng")
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
@@ -75,7 +76,8 @@
 <script>
 import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
-import changeMaJorTable from  "./components/table/change-major-table"
+import changeMaJorTable from  "./components/table/change-major-table";
+import wjDisTable from  "./components/table/wj-dis-table";
 import pagination from "./components/common/pagination";
 import { patEmrList,patEmrListZSQm,listNurseAdtHd,listNurseAdtFuYou } from "@/api/document";
 import { del } from '@/api/record';
@@ -91,6 +93,7 @@ export default {
         total: 0
       },
       isChangeMajor:false,//是否显示转科
+      fatherStatus:1,//状态
         // hospitalTransfer:['huadu','fuyou']//转科医院名字
     };
   },
@@ -233,13 +236,18 @@ export default {
     },
     hospitalTransfer(){
       return ['huadu','fuyou','beihairenyi'].includes(this.HOSPITAL_ID)
+    },
+    //是否为新出院数据
+    isNewDischarged(){
+      return ['wujing'].includes(this.HOSPITAL_ID) &&  this.fatherStatus == 2;
     }
   },
   components: {
     searchCon,
     dTable,
     pagination,
-    changeMaJorTable
+    changeMaJorTable,
+    wjDisTable,
   },
 };
 </script>

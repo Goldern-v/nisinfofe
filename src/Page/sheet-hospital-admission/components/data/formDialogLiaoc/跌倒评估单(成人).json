@@ -350,13 +350,13 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I305004",
+      "keys": "I305008",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I305004",
+          "name": "I305008",
           "type": "radio",
           "title": "否（0分）",
           "code": "0",
@@ -366,7 +366,7 @@
           "readOnly": null
         },
         {
-          "name": "I305004",
+          "name": "I305008",
           "type": "radio",
           "title": "是（20分）",
           "code": "20",
