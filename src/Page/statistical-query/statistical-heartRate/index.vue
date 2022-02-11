@@ -6,18 +6,18 @@
     @handleExport="handleExport"
     @handleQuery="handleQuery">
     <template>
-      <div class="search-con__ctx__item">
+      <!-- <div class="search-con__ctx__item">
         脉搏：
         <input-num-range :value="[formData.c, formData.d]" @change="(e) => handleIptNum(e,['c', 'd'])"/>
         次/分
-      </div>
-      <!-- <div class="search-con__ctx__item">
+      </div> -->
+      <div class="search-con__ctx__item">
         心率：
         <input-num-range :value="[formData.a, formData.b]" @change="(e) => handleIptNum(e,['a', 'b'])"/>
         次/分
-      </div> -->
+      </div>
       <div class="search-con__ctx__item main-color">
-        <i class="icon iconfont">&#xe6bc;</i>注：脉搏查询时的范围包含所输入的区间值
+        <i class="icon iconfont">&#xe6bc;</i>注：心率查询时的范围包含所输入的区间值
       </div>
     </template>
   </search-con>
@@ -124,21 +124,21 @@ export default {
           align: 'center',
 					minWidth: 70,
 				},
-        {
-					key: 'index7',
-					title: '脉搏（次/分）',
-          align: 'center',
-					minWidth: 100,
-				},
         // {
-				// 	key: 'index8',
-				// 	title: '心率（次/分）',
+				// 	key: 'index7',
+				// 	title: '脉搏（次/分）',
         //   align: 'center',
 				// 	minWidth: 100,
-				// 	render: (h, { column }) => {
-				// 		return <span>{column || column == 0 ? column : '-'}</span>
-				// 	}
 				// },
+        {
+					key: 'index8',
+					title: '心率（次/分）',
+          align: 'center',
+					minWidth: 100,
+					render: (h, { column }) => {
+						return <span>{column || column == 0 ? column : '-'}</span>
+					}
+				},
       ],
     };
   },
