@@ -1015,14 +1015,14 @@ function switechSheetType(type) {
       schema = require("../config/operationlumbar_fs/tr.js").default;
     }
       break;
-    case "护理记录单（心血管呼吸专科）": {
+    case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）
-      schema = require("../config/护理记录单(心血管呼吸专科)/tr.js").default;
+      schema = require("../config/cardiovascular_xt/tr.js").default;
     }
       break;
-    case "危重症护理记录单": {
+    case "criticaldisease_xt": {
       // 佛山杏坛 - 危重症护理记录单
-      schema = require("../config/危重症护理记录单/tr.js").default;
+      schema = require("../config/criticaldisease_xt/tr.js").default;
     }
       break;
     case "nonsurgicalcare_fk": {

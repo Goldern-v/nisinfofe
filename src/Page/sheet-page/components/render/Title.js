@@ -1316,17 +1316,17 @@ export default function Title(
     );
   }
   break;
-  case "护理记录单(心血管呼吸专科)": {
+  case "cardiovascular_xt": {
     // 佛山杏坛 - 护理记录单(心血管呼吸专科)
     Th = JSON.parse(
-      JSON.stringify(require("../config/护理记录单(心血管呼吸专科)/th.js").default)
+      JSON.stringify(require("../config/cardiovascular_xt/th.js").default)
     );
   }
   break;
-  case "危重症护理记录单": {
+  case "criticaldisease_xt": {
     // 佛山杏坛 - 危重症护理记录单
     Th = JSON.parse(
-      JSON.stringify(require("../config/危重症护理记录单/th.js").default)
+      JSON.stringify(require("../config/criticaldisease_xt/th.js").default)
     );
   }
   break;

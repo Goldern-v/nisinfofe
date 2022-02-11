@@ -481,7 +481,9 @@
             sheetInfo.sheetType == 'obstetrics_hl' ||
             sheetInfo.sheetType == 'gynecology_hl' ||
             sheetInfo.sheetType == 'critical_lc' ||
-            sheetInfo.sheetType == 'neonatology_hl'
+            sheetInfo.sheetType == 'neonatology_hl' ||
+            sheetInfo.sheetType == 'cardiovascular_xt' ||
+            sheetInfo.sheetType == 'criticaldisease_xt'
           "
           >质控护士：</span
         >
@@ -641,6 +643,8 @@ export default {
         "internal_eval_lcey", //一般或者护理记录单
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
         "critical_new_lcey",
+        "cardiovascular_xt",
+        "criticaldisease_xt",
       ],
       // 需要双签名的记录单code
       multiSignArr: [

@@ -344,12 +344,12 @@
       <strong>十五．身体部位:</strong>a.面部 b.耳后 c.颈部 d.上肢 e.下肢 f.臀部 g.腹部 h.胸部 i.腋窝 j.脐部 k.眼周 l.口周 m.腹股沟 n.周身 o.头部 P.会阴q.足底 
     </div>
     <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
-    <div v-if="sheetInfo.sheetType == '危重症护理记录单'">
+    <div v-if="sheetInfo.sheetType == 'criticaldisease_xt'">
       说明：意识：清醒√；嗜睡+；意识模糊△；浅昏迷++；深昏迷++。<br/>
       瞳孔反应：灵敏√；迟钝+；消失-。
     </div>
     <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
-    <div v-if="sheetInfo.sheetType == '护理记录单（心血管呼吸专科）'">
+    <div v-if="sheetInfo.sheetType == 'cardiovascular_xt'">
       注：意识：清醒√；嗜睡－；模糊Δ；昏睡±；浅昏迷＋；中昏迷＋＋；深昏迷＋＋＋；A谵妄；B药眠。
       瞳孔对光反射：灵敏＋；迟钝±；消失－。管道：A固定通畅；B夹管；C阻塞；D拔除。
       体位：A自由体位；B半坐卧；C端坐位。D其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.twQt" :data-value="sheetInfo.relObj.twQt"/>。<br/>

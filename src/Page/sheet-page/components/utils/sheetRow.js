@@ -65,7 +65,7 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType === 'blood_circulation_hl') {
     return 35
-  } else if (sheetInfo.sheetType === '护理记录单（心血管呼吸专科）' || sheetInfo.sheetType === '危重症护理记录单') {
+  } else if (sheetInfo.sheetType === 'criticaldisease_xt' || sheetInfo.sheetType === 'cardiovascular_xt') {
     return 20
   } else if (sheetInfo.sheetType === 'access_fk') {
     return 28
