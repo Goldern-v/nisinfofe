@@ -490,6 +490,9 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
+        <span v-else-if="sheetInfo.sheetType == 'icu_cpr_xg'"
+          >参加CPR人员签名：</span
+        >
         <!-- 聊城护士长审核 -->
         <span
           v-else-if="
@@ -645,6 +648,7 @@ export default {
         "critical_new_lcey",
         "cardiovascular_xt",
         "criticaldisease_xt",
+        "icu_cpr_xg",
       ],
       // 需要双签名的记录单code
       multiSignArr: [

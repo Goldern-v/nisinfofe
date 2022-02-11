@@ -880,6 +880,16 @@ function switechSheetType(type) {
       schema = require("../config/prenatal_xg/tr.js").default;
     }
       break;
+    case "icu_cpr_xg": {
+      // 东莞谢岗 - ICU心肺复苏单
+      schema = require("../config/icu_cpr_xg/tr.js").default;
+    }
+      break;
+    case "peritoneal_xg": {
+      // 东莞谢岗 - 腹膜透析记录单
+      schema = require("../config/peritoneal_xg/tr.js").default;
+    }
+      break;
     case "cardiology_fs": {
       // 佛山市一 - 心内科通用护理记录单
       schema = require("../config/cardiology_fs/tr.js").default;
@@ -935,55 +945,55 @@ function switechSheetType(type) {
       schema = require("../config/generalnursing_fs/tr.js").default;
     }
       break;
-      case "upperdisorders_fs": {
-        // 佛山市一 - 护理记录单(上肢疾患保守治疗)
-        schema = require("../config/upperdisorders_fs/tr.js").default;
-      }
-          break;
-      case "upperfractures_fs": {
-        // 佛山市一 - 护理记录单(上肢骨折术后)
-        schema = require("../config/upperfractures_fs/tr.js").default;
-      }
-          break;
-      case "lowerdisorders_fs": {
-         // 佛山市一 - 护理记录单(下肢疾患保守治疗)
-         schema = require("../config/lowerdisorders_fs/tr.js").default;
-      }
-          break;
-      case "lowerfracture_fs": {
-         // 佛山市一 - 护理记录单(下肢骨折术后)
-         schema = require("../config/lowerfracture_fs/tr.js").default;
-      }
-        break;
-      case "resection_fs": {
-          // 佛山市一 - 护理记录单(肿物切除术)
-         schema = require("../config/resection_fs/tr.js").default;
-      }
+    case "upperdisorders_fs": {
+      // 佛山市一 - 护理记录单(上肢疾患保守治疗)
+      schema = require("../config/upperdisorders_fs/tr.js").default;
+    }
       break;
-      case "upperremoved_fs": {
-         // 佛山市一 - 护理记录单(上肢内固定物拆除)
-         schema = require("../config/upperremoved_fs/tr.js").default;
-      }
+    case "upperfractures_fs": {
+      // 佛山市一 - 护理记录单(上肢骨折术后)
+      schema = require("../config/upperfractures_fs/tr.js").default;
+    }
       break;
-      case "lowerremoved_fs": {
-         // 佛山市一 - 护理记录单(下肢内固定物拆除)
-         schema = require("../config/lowerremoved_fs/tr.js").default;
-      }
+    case "lowerdisorders_fs": {
+      // 佛山市一 - 护理记录单(下肢疾患保守治疗)
+      schema = require("../config/lowerdisorders_fs/tr.js").default;
+    }
       break;
-      case "osteoporotic_fs": {
-        // 佛山市一 - 护理记录单(骨质疏松保守与手术治疗)
-        schema = require("../config/osteoporotic_fs/tr.js").default;
-      }
+    case "lowerfracture_fs": {
+      // 佛山市一 - 护理记录单(下肢骨折术后)
+      schema = require("../config/lowerfracture_fs/tr.js").default;
+    }
       break;
-      case "hipdisorders_fs": {
-        // 佛山市一 - 护理记录单(髋部疾患保守治疗)
-        schema = require("../config/hipdisorders_fs/tr.js").default;
-      }
+    case "resection_fs": {
+      // 佛山市一 - 护理记录单(肿物切除术)
+      schema = require("../config/resection_fs/tr.js").default;
+    }
       break;
-      case "criticallyill_fs": {
-        // 佛山市一 - 护理记录单(危重患者护理记录单)
-        schema = require("../config/criticallyill_fs/tr.js").default;
-      }
+    case "upperremoved_fs": {
+      // 佛山市一 - 护理记录单(上肢内固定物拆除)
+      schema = require("../config/upperremoved_fs/tr.js").default;
+    }
+      break;
+    case "lowerremoved_fs": {
+      // 佛山市一 - 护理记录单(下肢内固定物拆除)
+      schema = require("../config/lowerremoved_fs/tr.js").default;
+    }
+      break;
+    case "osteoporotic_fs": {
+      // 佛山市一 - 护理记录单(骨质疏松保守与手术治疗)
+      schema = require("../config/osteoporotic_fs/tr.js").default;
+    }
+      break;
+    case "hipdisorders_fs": {
+      // 佛山市一 - 护理记录单(髋部疾患保守治疗)
+      schema = require("../config/hipdisorders_fs/tr.js").default;
+    }
+      break;
+    case "criticallyill_fs": {
+      // 佛山市一 - 护理记录单(危重患者护理记录单)
+      schema = require("../config/criticallyill_fs/tr.js").default;
+    }
       break;
     case "kneedisease_fs": {
       // 佛山市一 - 护理记录单(膝关节疾患)

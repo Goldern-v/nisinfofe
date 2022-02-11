@@ -1126,6 +1126,20 @@ export default function Title(
     );
   }
   break;
+  case "icu_cpr_xg": {
+    // 东莞谢岗 - ICU心肺复苏单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_cpr_xg/th").default)
+    );
+  }
+  break;
+  case "peritoneal_xg": {
+    // 东莞谢岗 - 腹膜透析记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/peritoneal_xg/th").default)
+    );
+  }
+  break;
   case "cardiology_fs": {
     // 佛山市一 - 心内科通用护理记录单
     Th = JSON.parse(
