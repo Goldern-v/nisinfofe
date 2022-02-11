@@ -308,7 +308,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 30
+      width: 25
     },
   },
   {
@@ -332,7 +332,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 30
+      width: 25
     },
   },
   {
@@ -340,9 +340,9 @@ export default [{
     value: "",
     name: "出量颜色",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 40
     },
     autoComplete: {
       data: 颜色

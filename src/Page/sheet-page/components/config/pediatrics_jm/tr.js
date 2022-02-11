@@ -34,7 +34,10 @@ export default [
   name: "体温",
   next: "℃",
   value: "",
-  event: keyf1
+  event: keyf1,
+  textarea: {
+    width: 40
+  }
 },
 {
   key: "pulse", //心率
