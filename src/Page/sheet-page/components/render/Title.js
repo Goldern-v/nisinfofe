@@ -1316,6 +1316,13 @@ export default function Title(
     );
   }
   break;
+  case "general_fs": {
+    // 佛山市一 - -护理记录单(新生儿科通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general_fs/th").default)
+      );
+    }
+  break;
   case "cardiovascular_xt": {
     // 佛山杏坛 - 护理记录单(心血管呼吸专科)（未测试）
     Th = JSON.parse(
