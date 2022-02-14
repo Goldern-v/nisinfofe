@@ -1050,6 +1050,11 @@ function switechSheetType(type) {
       schema = require("../config/eyegeneral_fs/tr.js").default;
     }
       break;
+    case "pupilgeneral_fs": {
+      // 佛山市一 - 护理记录单(儿科二区带瞳孔通用)
+      schema = require("../config/pupilgeneral_fs/tr.js").default;
+    }
+      break;
     case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）（未测试）
       schema = require("../config/cardiovascular_xt/tr.js").default;
