@@ -172,7 +172,7 @@
 }
 
 .color-tingzhi {
-  color: #E72C2C;
+  color: #000;
 }
 
 .color-xinkai {
