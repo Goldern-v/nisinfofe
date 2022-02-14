@@ -1,7 +1,6 @@
 
 /** 
-  佛山市一 - 护理记录单(儿科二区带瞳孔通用)
-*/
+  佛山市一 - 护理记录单(儿科通用)
 
 /**
  * @description: 开发注意事项:
@@ -36,30 +35,26 @@ import {
     { key: "recordMonth", event: event_date, click: click_date, value: ''},
     { key: "recordHour", event: event_time,  value: ''},
     // 生命体征
-    { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'armValue', event: keyf1, value: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'consciousness', event: keyf1, value: '',name: '意识', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete: { data: ["清醒√","嗜睡+","昏睡","浅昏迷++","深昏迷+++","模糊","谵妄","植物状态","睁眼昏迷"] }},
-    // 瞳孔
-    { key: 'leftDiameter', event: keyf1, value: '',name: '瞳孔直径左',next:"mm", textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'rightDiameter', event: keyf1, value: '',name: '瞳孔直径右',next:"mm", textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'reflectionLeft', event: keyf1, value: '',name: '对光反射左', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6),autoComplete: { data: ["灵敏√","迟钝+","消失++"] }},
-    { key: 'reflectionRight', event: keyf1, value: '',name: '对光反射右', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6),autoComplete: { data: ["灵敏√","迟钝+","消失++"] } },
-    { key: 'pupilShape', event: keyf1, value: '',name: '瞳孔形状', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6),autoComplete: { data: ["不规则","术后改变"] }},
+    { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+    { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 6) },
+    { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+    { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+    // 观察项目
+    { key: 'bloodSugar', event: keyf1, value: '',name: '血糖', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 8) },
+    { key: 'armValue', event: keyf1, value: '',name: '血糖', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+    { key: 'armValue2', event: keyf1, value: '',name: '血糖', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+    { key: 'armValue3', event: keyf1, value: '',name: '血糖', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
     // 出入量
-    { key: 'food', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6)},
+    { key: 'food', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete: { data: ["奶/口服药ml","输液ml","静脉营养ml","血制品ml"] }},
     { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量量', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+    { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete: { data: ["小便m","大便ml","引流量ml","呕吐ml"] } },
     { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量量', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
-    // 基础护理
+    // 专科项目
     { key: 'remainingParts', event: keyf1, value: '', name: '留置针部位', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-    { key: 'limbs', event: keyf1, value: '', name: '肢体',textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete: { data: ["关节僵硬","挛缩","足下垂","肿胀","肩痛","肩关节半脱位"] }},
-    { key: 'armValue2', event: keyf1, value: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'armValue3', event: keyf1, value: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'armValue4', event: keyf1, value: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'armValue5', event: keyf1, value: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+    { key: 'armValue4', event: keyf1, value: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+    { key: 'armValue5', event: keyf1, value: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+    { key: 'armValue6', event: keyf1, value: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+    { key: 'armValue7', event: keyf1, value: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
     {
       key: "description", //特殊情况记录
       value: "",
