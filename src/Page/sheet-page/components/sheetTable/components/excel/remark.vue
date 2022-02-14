@@ -314,6 +314,11 @@
       8.防跌倒；9.出院宣教；<br/>10.用药指导；11.输血注意事项；12.特殊感染隔离注意事项；13.产褥期宣教；14.自数胎动的方法；15.分娩知识宣教；
       16.减痛技巧指导；17.指导用力。
     </div>
+    <!-- 催产素静脉点滴观察单 -->
+    <div v-if="sheetInfo.sheetType == 'oxytocin_xg'" style="display:flex;justify-content: space-between;padding: 0 50px;">
+      <div>催产素使用总量：<input class="bottomInput" type="text" style="width:100px;" v-model="sheetInfo.relObj.ccssyzl" :data-value="sheetInfo.relObj.ccssyzl"/>（总数）</div>
+      <div>分娩方式：<input class="bottomInput" type="text" style="width:200px;" v-model="sheetInfo.relObj.fmfs" :data-value="sheetInfo.relObj.fmfs"/></div>
+    </div>
     <!-- 聊城二院 心内科介入患者观察记录单 -->
     <div v-if="sheetInfo.sheetType == 'cardiology_lcey'">
       体温处理措施：①适量增加饮水量；②温水擦浴；③冰块冷敷；④遵医嘱药物治疗；⑤减少盖被
@@ -374,7 +379,7 @@
         ⑽保护性约束 ⑾AV置管护理 ⑿膀胱冲洗 ⒀间断夹闭导管 ⒁气管内滴药。3、意识代码：A清楚 B嗜睡 C模糊 D昏睡 E昏迷 F镇静状态
     </div>
     <!-- 佛山市一  护理记录单(眼科通用)-->
-    <div>
+    <div v-if="sheetInfo.sheetType == 'eyegeneral_fs'">
       注：1、空格栏书写内容为：①专科护理措施②专科评估内容③专科观察内容 ④健康教育内容 ⑤检验危机值，请按各科具体指进行书写<br/>
           2、如专科有神志：清醒√  嗜睡＋ 浅昏迷++、瞳孔观察一瞳孔对光反应：灵敏 迟钝 消失。<br/>
           3、护理措施：吸痰、雾化吸入、口腔护理、床上浴、更换尿袋、会阴冲洗、床上洗头、膀胱冲洗、胃管冲洗、十二指肠冲洗
