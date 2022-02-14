@@ -495,7 +495,7 @@ export default function Title(
   }
   break;
   case "common_wj": {
-    // 省总队医院-护理记录单
+    // 武警-护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/common_wj/th").default)
     );

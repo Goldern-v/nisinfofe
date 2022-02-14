@@ -909,6 +909,33 @@ export default {
     this.bus.$on("refreshSheetPage", (isFirst) => {
       this.getSheetData(isFirst);
     });
+    //保存前做签名校验
+    this.bus.$on("toSheetSaveNoSign", (newWid) => {
+      if ($(".sign-text").length) {
+        // 判断是否存在未签名
+        if ($(".noSignRow").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".noSignRow").eq(0).addClass("red-border").offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150,
+          });
+          return this.$message.warning("存在未签名的记录，请全部签名后再保存");
+        }
+
+        if ($(".isNoSign") && $(".isNoSign").length) {
+          $(".signTd").eq(0).addClass("red-border");
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".isNoSign").eq(0).offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150,
+          });
+          return this.$message.warning("存在未签名的记录，请全部签名后再保存");
+        }
+      }
+      this.bus.$emit('saveSheetPage', 'noSaveSign')
+    });
     this.bus.$on("toSheetPrintPage", (newWid) => {
       if ($(".sign-text").length) {
         // 判断是否存在标记
