@@ -26,10 +26,11 @@ export default {
          [
             { "name": '',"colspan": "2","rowspan": "1", "key":'recordYear'},
             { "name": "生命体征", "colspan": "6", "rowspan": "1"}, 
-            { "name": "瞳孔", "colspan": "4", "rowspan": "1"}, 
+            { "name": "瞳孔", "colspan": "5", "rowspan": "1"}, 
             { "name": "入量", "colspan": "2", "rowspan": "1"}, 
             { "name": "出量", "colspan": "2", "rowspan": "1"}, 
             { "name": "留置针<br/>部位", "colspan": "1", "rowspan": "3"},
+            { "name": "肢体", "colspan": "1", "rowspan": "3"},
             { "name": "", "colspan": "1", "rowspan": "3","canSet":true,"key":"armValue2"},
             { "name": "", "colspan": "1", "rowspan": "3","canSet":true,"key":"armValue3"},
             { "name": "", "colspan": "1", "rowspan": "3","canSet":true,"key":"armValue4"},
@@ -53,6 +54,7 @@ export default {
                 // 瞳孔
                 {"name": "直径<br/>mm", "colspan": "2", "rowspan": "1"}, 
                 {"name": "对光<br/>反射", "colspan": "2", "rowspan": "1"}, 
+                {"name": "瞳孔<br/>形状", "colspan": "1", "rowspan": "2"}, 
                 // 入量
                 {"name": "内容", "colspan": "1", "rowspan": "2"}, 
                 {"name": "量<br/>ml", "colspan": "1", "rowspan": "2"}, 
