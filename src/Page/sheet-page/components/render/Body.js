@@ -890,6 +890,21 @@ function switechSheetType(type) {
       schema = require("../config/peritoneal_xg/tr.js").default;
     }
       break;
+    case "contraction_inhibitor_xg": {
+      // 东莞谢岗 - 宫缩抑制剂静脉滴注观察记录单
+      schema = require("../config/contraction_inhibitor_xg/tr.js").default;
+    }
+      break;
+    case "magnesium_sulphate_xg": {
+      // 东莞谢岗 - 硫酸镁注射液静脉滴注观察记录单
+      schema = require("../config/magnesium_sulphate_xg/tr.js").default;
+    }
+      break;
+    case "oxytocin_xg": {
+      // 东莞谢岗 - 催产素静脉点滴观察单
+      schema = require("../config/oxytocin_xg/tr.js").default;
+    }
+      break;
     case "cardiology_fs": {
       // 佛山市一 - 心内科通用护理记录单
       schema = require("../config/cardiology_fs/tr.js").default;
@@ -1049,7 +1064,12 @@ function switechSheetType(type) {
         // 武汉肺科 - 出入液量记录单
       schema = require("../config/access_fk/tr.js").default;
     }
-      break;  
+      break; 
+    case "test_common": {
+      // 护理记录单（测试用）
+    schema = require("../config/icu_cpr_xg/tr.js").default;
+  }
+    break;  
     default: {
       schema = require("../config/default/tr.js").default;
     }

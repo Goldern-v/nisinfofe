@@ -1140,6 +1140,27 @@ export default function Title(
     );
   }
   break;
+  case "contraction_inhibitor_xg": {
+    // 东莞谢岗 - 宫缩抑制剂静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/contraction_inhibitor_xg/th").default)
+    );
+  }
+  break;
+  case "magnesium_sulphate_xg": {
+    // 东莞谢岗 - 硫酸镁注射液静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/magnesium_sulphate_xg/th").default)
+    );
+  }
+  break;
+  case "oxytocin_xg": {
+    // 东莞谢岗 - 催产素静脉点滴观察单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_xg/th").default)
+    );
+  }
+  break;
   case "cardiology_fs": {
     // 佛山市一 - 心内科通用护理记录单
     Th = JSON.parse(
@@ -1362,6 +1383,13 @@ export default function Title(
     // 武汉肺科 - 出入液量记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/access_fk/th.js").default)
+    );
+  }
+  break;
+  case "test_common": {
+    // 护理记录单（测试用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_cpr_xg/th.js").default)
     );
   }
   break;
