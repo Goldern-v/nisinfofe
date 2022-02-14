@@ -1372,6 +1372,13 @@ export default function Title(
       );
     }
   break;
+  case "areageneral_fs": {
+    // 佛山市一 - -护理记录单(儿科二区通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/areageneral_fs/th").default)
+      );
+    }
+  break;
   case "pediatric_fs": {
     // 佛山市一 - -护理记录单(儿科通用)
     Th = JSON.parse(
