@@ -424,7 +424,7 @@ function switechSheetType(type) {
     }
       break;
     case "common_wj": {
-      // 武警广东省总队医院-护理记录单
+      // 武警-护理记录单
       schema = require("../config/common_wj/tr.js").default;
     }
       break;
