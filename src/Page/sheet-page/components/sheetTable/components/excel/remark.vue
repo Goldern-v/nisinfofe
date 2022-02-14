@@ -314,6 +314,11 @@
       8.防跌倒；9.出院宣教；<br/>10.用药指导；11.输血注意事项；12.特殊感染隔离注意事项；13.产褥期宣教；14.自数胎动的方法；15.分娩知识宣教；
       16.减痛技巧指导；17.指导用力。
     </div>
+    <!-- 催产素静脉点滴观察单 -->
+    <div v-if="sheetInfo.sheetType == 'oxytocin_xg'" style="display:flex;justify-content: space-between;padding: 0 50px;">
+      <div>催产素使用总量：<input class="bottomInput" type="text" style="width:100px;" v-model="sheetInfo.relObj.ccssyzl" :data-value="sheetInfo.relObj.ccssyzl"/>（总数）</div>
+      <div>分娩方式：<input class="bottomInput" type="text" style="width:200px;" v-model="sheetInfo.relObj.fmfs" :data-value="sheetInfo.relObj.fmfs"/></div>
+    </div>
     <!-- 聊城二院 心内科介入患者观察记录单 -->
     <div v-if="sheetInfo.sheetType == 'cardiology_lcey'">
       体温处理措施：①适量增加饮水量；②温水擦浴；③冰块冷敷；④遵医嘱药物治疗；⑤减少盖被
