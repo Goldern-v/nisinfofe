@@ -100,6 +100,16 @@ export default {
       // },
       {
         name: `
+        护理类型
+        `,
+        style: {
+          minWidth: "100px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
         病情、护理措施及效果
         `,
         style: {
