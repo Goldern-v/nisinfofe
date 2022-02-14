@@ -1,6 +1,6 @@
 
 /** 
-  东莞谢岗 - ICU心肺复苏单
+  东莞谢岗 - 催产素静脉点滴观察单
 */
 
 /**
@@ -34,23 +34,14 @@ import {
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
-  { key: "recordHour", event: event_time, value: ''},
-  { key: 'cardiac_respiratory', event: event_time, value: '', next: '', name: '心脏呼吸骤停时间', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'start_crp', event: event_time, value: '', next: '', name: '开始CRP时间', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'doctorarrival', event: event_time, value: '', next: '', name: '医生到达时间', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'defibrillation', event: keyf1, value: '', next: '焦耳', name: '除颤', textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 10) },
-  { key: 'epinephrine', event: keyf1, value: '', next: '', name: '肾上腺素', textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 10) },
-  { key: 'atropine', event: keyf1, value: '', next: '', name: '阿托品', textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 10) },
-  { key: 'othermedicine', event: keyf1, value: '', next: '', name: '其他药物', textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 10) },
-  { key: 'consciousness', event: keyf1, value: '', next: '', name: '神志', textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 10) },
-  { key: 'pupilLeft', event: keyf1, value: '', next: 'mm', name: '瞳孔左', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'pupilRight', event: keyf1, value: '', next: 'mm', name: '瞳孔右', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'rhythm', event: keyf1, value: '', next: '', name: '心律', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'pulse', event: keyf1, value: '', next: '次/min', name: '脉搏', textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 10) },
-  { key: 'breath', event: keyf1, value: '', next: '次/min', name: '呼吸', textarea: { width: 75 }, change: (e, td) => limitChange(e, td, 12) },
-  { key: 'sao2', event: keyf1, value: '', next: '%', name: 'SaO2', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'stopcpr', event: event_time, value: '', next: '', name: '停止CPR时间', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: "recordHour", event: event_time, click: click_time, value: ''},
+  { key: 'oxytocinConcentration', event: keyf1, value: '', next: 'U/500ml', name: '催产素浓度', textarea: { width: 90 }, change: (e, td) => limitChange(e, td, 14) },
+  { key: 'drops', event: keyf1, value: '', next: '滴/分', name: '滴数', textarea: { width: 90 }, change: (e, td) => limitChange(e, td, 14) },
+  { key: 'contractions1', event: keyf1, value: '', next: 's/min', name: '宫缩', textarea: { width: 90 }, change: (e, td) => limitChange(e, td, 14) },
+  { key: 'fetalHeart1', event: keyf1, value: '', next: '次/min', name: '胎心', textarea: { width: 90 }, change: (e, td) => limitChange(e, td, 14) },
+  { key: 'uterinedilation', event: keyf1, value: '', next: 'cm', name: '宫口扩张', textarea: { width: 90 }, change: (e, td) => limitChange(e, td, 14) },
+  { key: 'reveal1', event: keyf1, value: '', next: 'cm', name: '先露高低', textarea: { width: 90 }, change: (e, td) => limitChange(e, td, 14) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 90 }, change: (e, td) => limitChange(e, td, 14) },
   {
     key: "description", //特殊情况记录
     value: "",
