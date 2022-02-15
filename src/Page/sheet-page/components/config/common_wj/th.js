@@ -180,8 +180,8 @@ export default {
         病情观察 护理措施
         `,
         style: {
-          minWidth: '150px',
-          maxWidth: '150px',
+          minWidth: '175px',
+          maxWidth: '175px',
         },
         colspan: '1',
         rowspan: '3'

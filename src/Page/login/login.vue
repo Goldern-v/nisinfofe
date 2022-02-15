@@ -595,6 +595,8 @@ export default {
           return require("../../common/images/logo_whfk.png");
         case "wujing":
           return require("../../common/images/logo_wujing.png");
+        case "liaocheng":
+          return require("../../common/images/logoBack.png")
         default:
           return require("../../common/images/logo.png");
       }
