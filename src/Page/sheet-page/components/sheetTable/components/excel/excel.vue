@@ -86,6 +86,7 @@
         class="body-con"
         @dblclick="openEditModal(tr, data, $event)"
         v-for="(tr, y) in data.bodyModel"
+        :id ="`row_${y}`"
         :class="[
           {
             inPreview:
