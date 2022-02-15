@@ -1042,6 +1042,13 @@ export default function Title(
     );
   }
   break;
+  case "diabetes_bh": {
+    // 北海市 - 糖尿病治疗观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/diabetes_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
