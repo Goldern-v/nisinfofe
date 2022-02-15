@@ -1035,6 +1035,13 @@ export default function Title(
     );
   }
   break;
+  case "neurology_bh": {
+    // 北海市 - 神经内科危重护理单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurology_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
