@@ -911,31 +911,46 @@ export default {
     });
     //保存前做签名校验
     this.bus.$on("toSheetSaveNoSign", (newWid) => {
-      if ($(".sign-text").length) {
-        // 判断是否存在未签名
-        if ($(".noSignRow").length) {
-          $(this.$refs.scrollCon).animate({
-            scrollTop:
-              $(".noSignRow").eq(0).addClass("red-border").offset().top +
-              this.$refs.scrollCon.scrollTop -
-              150,
-          });
-          return this.$message.warning("存在未签名的记录，请全部签名后再保存");
+      console.log(this.sheetModel[0].bodyModel);
+      let flag = true //控制保存开关
+      let yearList = [] //所有日期时间数组
+      let sameDay = "" // 同一天
+      this.sheetModel[0].bodyModel.map((row,rowIdx)=>{
+        //处理所有日期时间数组
+        if(row.find((item) => item.key == 'recordMonth').value != ""){
+          sameDay = row.find((item) => item.key == 'recordMonth').value
         }
+        if(row.find((item) => item.key == 'status').value != ''&& (row.find((item) => item.key == 'recordMonth').value || row.find((item) => item.key == 'recordHour').value) ){
+          if(row.find((item) => item.key == 'recordMonth').value === ""){
+            yearList.push(`${sameDay} ${row.find((item) => item.key == 'recordHour').value}`)
+          }else{
+            yearList.push(`${row.find((item) => item.key == 'recordMonth').value} ${row.find((item) => item.key == 'recordHour').value}`)
+          }
+        }
+        //通过是否填写了时间来判定该行是否为有数据的一行
+        let isChange = row.find((item) => item.key == 'recordHour').value
+        if(isChange){
+          //未签名状态status.value的值为空或0
+          let noSignRow = row.find((item) => item.key == 'status').value === '0' || row.find((item) => item.key == 'status').value === ''
+          if(noSignRow){
+            let year = row.find((item) => item.key == 'recordMonth').value
+            let time = row.find((item) => item.key == 'recordHour').value
+            //如果是同一天的同一个时间不需要签名
+            if(yearList.includes(`${year} ${time}`)){
 
-        if ($(".isNoSign") && $(".isNoSign").length) {
-          $(".signTd").eq(0).addClass("red-border");
-          $(this.$refs.scrollCon).animate({
-            scrollTop:
-              $(".isNoSign").eq(0).offset().top +
-              this.$refs.scrollCon.scrollTop -
-              150,
-          });
-          return this.$message.warning("存在未签名的记录，请全部签名后再保存");
+            }else{
+              $(`#row_${rowIdx}`).eq(0).addClass("red-border")
+              flag = false
+              return this.$message.warning("存在未签名的记录，请全部签名后再保存");
+            }
+          }
         }
+      })
+      if(flag){
+        this.bus.$emit('saveSheetPage', 'noSaveSign')
       }
-      this.bus.$emit('saveSheetPage', 'noSaveSign')
     });
+
     this.bus.$on("toSheetPrintPage", (newWid) => {
       if ($(".sign-text").length) {
         // 判断是否存在标记
