@@ -244,7 +244,7 @@ export default {
       this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
     // 江门妇幼产后护理记录单获取分娩时间分娩方式并且存到病人信息里
-    if((sheetInfo.sheetType ==='postpartumnursing_jm'||sheetInfo.sheetType ==='neonatology_jm')&&(!this.patientInfo.relObj.delivery||!this.patientInfo.relObj.deliveryDate)){
+    if((sheetInfo.sheetType ==='postpartumnursing_jm'||sheetInfo.sheetType ==='neonatology_jm')){
         let paintID=this.patientInfo.patientId
         // 判断病人是否婴儿
         if(paintID.includes("_")){
@@ -257,6 +257,7 @@ export default {
            const time=dateOfBirth.split(" ")[1].split(":")
            const deliveryDate=`${date[0]}-${date[1]}-${date[2]} ${time[0]}:${time[1]}`
            const delivery=res.data.data[0].TaiErMianChuFangShi||""
+           if(this.patientInfo.relObj.delivery!=delivery||this.patientInfo.relObj.deliveryDate!=deliveryDate){
             await saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,
@@ -266,9 +267,10 @@ export default {
                 'delivery':delivery
               }
             }
-          )
-          this.$set(this.patientInfo.relObj,'deliveryDate',deliveryDate)
-          this.$set(this.patientInfo.relObj,'delivery',delivery)
+            )
+            this.$set(this.patientInfo.relObj,'deliveryDate',deliveryDate)
+            this.$set(this.patientInfo.relObj,'delivery',delivery)
+           }
         }
        
     }
