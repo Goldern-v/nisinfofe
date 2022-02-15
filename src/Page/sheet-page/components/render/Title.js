@@ -1049,6 +1049,13 @@ export default function Title(
     );
   }
   break;
+  case "revivemonitoring_bh": {
+    // 北海市 - 心胸外科术后复苏监测记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/revivemonitoring_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
