@@ -810,11 +810,21 @@ function switechSheetType(type) {
       schema = require("../config/access_bh/tr.js").default;
     }
       break;
-      case "infant_bh": {
-        // 北海市 - 婴儿记录表
-        schema = require("../config/infant_bh/tr.js").default;
-      }
-        break;
+    case "infant_bh": {
+      // 北海市 - 婴儿记录表
+      schema = require("../config/infant_bh/tr.js").default;
+    }
+      break;
+    case "neurology_bh": {
+      // 北海市 - 神经内科危重护理单
+      schema = require("../config/neurology_bh/tr.js").default;
+    }
+      break;
+    case "diabetes_bh": {
+      // 北海市 - 糖尿病治疗观察表
+      schema = require("../config/diabetes_bh/tr.js").default;
+    }
+      break;
     case "nursingrecords_zxy": {
       // 南方中西医 - 护理记录单
       schema = require("../config/nursingrecords_zxy/tr.js").default;

@@ -357,7 +357,6 @@ export default {
           }
           this.$refs.modalName.close();
           let requestPW = (this.HOSPITAL_ID=='foshanrenyi'&&this.password!='Bcy@22qw')?md5(this.password) : this.password
-          console.log(360,requestPW)
           if (this.signDate) {
             return this.callback(requestPW, this.username, this.signDate);
           } else {
