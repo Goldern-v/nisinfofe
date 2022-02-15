@@ -830,6 +830,11 @@ function switechSheetType(type) {
       schema = require("../config/revivemonitoring_bh/tr.js").default;
     }
       break;
+    case "orthopaedic_bh": {
+      // 北海市 - 骨科危重患者护理记录
+      schema = require("../config/orthopaedic_bh/tr.js").default;
+    }
+      break;
     case "nursingrecords_zxy": {
       // 南方中西医 - 护理记录单
       schema = require("../config/nursingrecords_zxy/tr.js").default;

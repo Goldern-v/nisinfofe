@@ -1056,6 +1056,13 @@ export default function Title(
     );
   }
   break;
+  case "orthopaedic_bh": {
+    // 北海市 - 骨科危重患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopaedic_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
