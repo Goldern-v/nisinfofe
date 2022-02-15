@@ -760,25 +760,24 @@ export default {
         entryDate:moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
-
             case "whfk":
               if (this.getHours() >= 0 && this.getHours() <= 4) {
-                return "04";
+                return "02";
               }
               if (this.getHours() > 4 && this.getHours() <= 8) {
-                return "08";
+                return "06";
               }
               if (this.getHours() > 8 && this.getHours() <= 12) {
-                return "12";
+                return "10";
               }
               if (this.getHours() > 12 && this.getHours() <= 16) {
-                return "16";
+                return "14";
               }
               if (this.getHours() > 16 && this.getHours() <= 20) {
-                return "20";
+                return "18";
               }
               if (this.getHours() > 20 && this.getHours() <= 23) {
-                return "23";
+                return "22";
               }
             default:
               return "08";
@@ -789,27 +788,27 @@ export default {
       timesOdd: [
         {
           id: 0,
-          value: "04",
+          value: "02",
         },
         {
           id: 1,
-          value: "08",
+          value: "06",
         },
         {
           id: 2,
-          value: "12",
+          value: "10",
         },
         {
           id: 3,
-          value: "16",
+          value: "14",
         },
         {
           id: 4,
-          value: "20",
+          value: "18",
         },
         {
           id: 5,
-          value: "23",
+          value: "22",
         },
       ],
 
