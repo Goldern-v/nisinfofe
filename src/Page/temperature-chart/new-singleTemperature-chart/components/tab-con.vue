@@ -661,6 +661,10 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         wardCode: this.patientInfo.wardCode,
+         recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime
       }).then((res) => {
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
@@ -807,6 +811,10 @@ export default {
             wardCode: this.patientInfo.wardCode,
             vitalCode: key,
             fieldCn: text,
+             recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime
           };
       let voildStr=text.trim();
           if (checkValueStr.includes(text)) {
