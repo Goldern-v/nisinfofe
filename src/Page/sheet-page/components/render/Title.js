@@ -1063,6 +1063,13 @@ export default function Title(
     );
   }
   break;
+  case "surgery_bh": {
+    // 北海市 - 普外危重患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/surgery_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
