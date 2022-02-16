@@ -135,7 +135,6 @@
     }
 
     span {
-      margin-right: 4px;
       font-size: 14px;
       color: #000;
     }
