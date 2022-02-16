@@ -1070,6 +1070,20 @@ export default function Title(
     );
   }
   break;
+  case "transplant_bh": {
+    // 北海市 - 肢体与组织移植血液循环观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/transplant_bh/th").default)
+    );
+  }
+  break;
+  case "ophthalmology_bh": {
+    // 北海市 - 眼科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ophthalmology_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
