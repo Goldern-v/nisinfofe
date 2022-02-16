@@ -1063,6 +1063,34 @@ export default function Title(
     );
   }
   break;
+  case "surgery_bh": {
+    // 北海市 - 普外危重患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/surgery_bh/th").default)
+    );
+  }
+  break;
+  case "transplant_bh": {
+    // 北海市 - 肢体与组织移植血液循环观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/transplant_bh/th").default)
+    );
+  }
+  break;
+  case "ophthalmology_bh": {
+    // 北海市 - 眼科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ophthalmology_bh/th").default)
+    );
+  }
+  break;
+  case "labor_bh": {
+    // 北海市 - 产程观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
