@@ -35,35 +35,55 @@ export default {
         体<br/>温<br/>(℃)
         `,
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '25px',
+          maxWidth: '25px',
+        },
       },
       {
         name: `
         心<br/>率<br/>(次/<br/>分)
         `,
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '25px',
+          maxWidth: '25px',
+        },
       },
       {
         name: `
         呼<br/>吸<br/>(次/<br/>分)
         `,
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '25px',
+          maxWidth: '25px',
+        },
       },
       {
         name: `
         NBP<br/>mmHg
         `,
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '25px',
+          maxWidth: '25px',
+        },
       },
       {
         name: `
         ABP<br/>mmHg
         `,
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '25px',
+          maxWidth: '25px',
+        },
       },
       {
         name: `
@@ -206,7 +226,11 @@ export default {
         微<br/>量<br/>血<br/>糖<br/>(mmol/L)
         `,
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: "25px",
+          maxWidth: "25px"
+        },
       },
       {
         name: ``,
