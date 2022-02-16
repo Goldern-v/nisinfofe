@@ -329,7 +329,7 @@ import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
 import {
-  getVitalSignListBy10,
+  getVitalSignListByDate,
   getmultiDict,
   getfieldList,
   savefieldTitle,
@@ -556,9 +556,11 @@ export default {
       };
       await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
-      await getVitalSignListBy10({
+      await getVitalSignListByDate({
         visitId: data.visitId,
         patientId: data.patientId,
+         wardCode: this.patientInfo.wardCode,
+        recordDate: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
       }).then((res) => {
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
