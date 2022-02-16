@@ -850,6 +850,11 @@ function switechSheetType(type) {
       schema = require("../config/ophthalmology_bh/tr.js").default;
     }
     break;
+    case "labor_bh": {
+      // 北海市 - 产程观察记录
+      schema = require("../config/labor_bh/tr.js").default;
+    }
+      break;
     case "nursingrecords_zxy": {
       // 南方中西医 - 护理记录单
       schema = require("../config/nursingrecords_zxy/tr.js").default;
