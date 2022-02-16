@@ -1091,6 +1091,13 @@ export default function Title(
     );
   }
   break;
+  case "emergency_bh": {
+    // 北海市 - 急诊CRRT治疗记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/emergency_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(

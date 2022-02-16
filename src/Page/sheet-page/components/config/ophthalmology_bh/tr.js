@@ -51,7 +51,6 @@ import {
     { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'eyelid', event: keyf1, value: '', next: '', name: '眼脸肿胀',textarea: { width: 35}, change: (e, td) => limitChange(e, td, 4) ,autoComplete: { data: ['√','无'] } },
     { key: 'congestion', event: keyf1, value: '', next: '', name: '结膜充血',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) ,autoComplete: { data: ['√','无'] }},
-    { key: 'secreta', event: keyf1, value: '', next: '', name: '眼分泌物',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) ,autoComplete: { data: ['√','无'] }},
     { key: 'armValue', event: keyf1, value: '', next: '', name: '',textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6)  },
     { key: 'armValue2', event: keyf1, value: '', next: '', name: '',textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
     {

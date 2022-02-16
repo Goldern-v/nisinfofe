@@ -18,7 +18,7 @@ export default {
     // 科室的名称
     deptType: "", 
     style: {
-      width: "1230px"
+      width: "1200px"
     },
     th: {
         top: 
@@ -36,7 +36,6 @@ export default {
             { "name": "吸氧<br/>L/<br/>min", "colspan": "1", "rowspan": "3"}, 
             { "name": "眼脸<br/>肿胀", "colspan": "1", "rowspan": "3"}, 
             { "name": "结膜<br/>充血", "colspan": "1", "rowspan": "3"}, 
-            { "name": "眼分<br/>泌物", "colspan": "1", "rowspan": "3"}, 
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue"}, 
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue2"}, 
             { "name": "病情记录", "colspan": "1", "rowspan": "3", style: { minWidth: "180px",  maxWidth: "180px"}, }, 
