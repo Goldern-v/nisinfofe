@@ -1,6 +1,6 @@
 
 /** 
-  北海人医 -急诊科重症监护室(EICU)CRRT 治疗记录单
+  北海人医 -心胸外科心电监护观察记录
 */
 
 /**
@@ -35,22 +35,22 @@ import {
     { hidden: true, key: 'recordDate', value: '' },
     { key: "recordMonth", event: event_date, click: click_date, value: ''},
     { key: "recordHour", event: event_time, click: click_time ,value: ''},
-    { key: 'inputVoltage', event: keyf1, value: '', next: 'mmHg', name: '输入压',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
-    { key: 'filterPressure', event: keyf1, value: '', next: 'mmHg', name: '过滤压',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
-    { key: 'backPressure', event: keyf1, value: '', next: 'mmHg', name: '回输压',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
-    { key: 'pressureDrop', event: keyf1, value: '', next: 'mmHg', name: '压力下降',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
-    { key: 'transmembrane', event: keyf1, value: '', next: 'mmHg', name: '跨膜压',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
-    { key: 'dehydration', event: keyf1, value: '', next: 'ml/h', name: '病人脱水量',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
-    { key: 'totalDehydration', event: keyf1, value: '', next: 'mL', name: '总病人脱水量',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
-    { key: 'treatment', event: keyf1, value: '', next: 'h', name: '治疗时间',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
-    { key: 'bloodFlow', event: keyf1, value: '', next: 'ml/min', name: '血流',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
-    { key: 'displacement', event: keyf1, value: '', next: 'ml/h', name: '置换液',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
+    { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 14) },
+    { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 14) },
+    { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 14) },
+    { key: 'sphygmus', event: keyf1, value: '', next: '次/分', name: '脉搏',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 14) },
+    { key: 'respiratoryRate', event: keyf1, value: '', next: '次/分', name: '呼吸频率',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 14) },
+    { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 14) },
+    { key: 'cvp', event: keyf1, value: '', next: 'cmH₂O', name: 'cvp',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 14) },
+    { key: 'abp', event: keyf1, value: '', next: 'mmHg', name: 'abp',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 14) },
+    { key: 'co2', event: keyf1, value: '', next: 'mmHg', name: 'co2',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 14) },
     {
       key: "description", //特殊情况记录
       value: "",
       style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "240px", background: "transparent" },
       textarea: { width: 240 },
-      event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
+      event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) },
+      hidden:true
     },
     { key: "sign", value: "" },//单签
     // { key: "sign2", value: "" },//双签

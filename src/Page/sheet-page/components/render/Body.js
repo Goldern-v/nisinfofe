@@ -875,6 +875,11 @@ function switechSheetType(type) {
       schema = require("../config/seriously_bh/tr.js").default;
     }
       break;
+    case "monitoring_bh": {
+      // 北海市 - 心胸外科心电监护观察记录
+      schema = require("../config/monitoring_bh/tr.js").default;
+    }
+      break;
     case "nursingrecords_zxy": {
       // 南方中西医 - 护理记录单
       schema = require("../config/nursingrecords_zxy/tr.js").default;
