@@ -205,7 +205,7 @@
         {
           "name": "I625001",
           "type": "checkbox",
-          "title": "1.年龄41~60岁",
+          "title": "1.年龄41-60岁",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -216,7 +216,7 @@
         {
           "name": "I625002",
           "type": "checkbox",
-          "title": "2.卧床的患者",
+          "title": "2.计划小手术",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -227,7 +227,7 @@
         {
           "name": "I625003",
           "type": "checkbox",
-          "title": "3.BMI>25㎏/m2",
+          "title": "3.BMI＞25 kg/m2",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -238,7 +238,7 @@
         {
           "name": "I625040",
           "type": "checkbox",
-          "title": "4.小手术",
+          "title": "4.腿肿胀",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -249,7 +249,7 @@
         {
           "name": "I625010",
           "type": "checkbox",
-          "title": "5.腿肿胀",
+          "title": "5.静脉曲张",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -260,7 +260,7 @@
         {
           "name": "I625041",
           "type": "checkbox",
-          "title": "6.静脉曲张",
+          "title": "6.妊娠或产后",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -271,7 +271,7 @@
         {
           "name": "I625042",
           "type": "checkbox",
-          "title": "7.肺功能异常",
+          "title": "7.有不明原因或者习惯性流产史",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -282,7 +282,7 @@
         {
           "name": "I625043",
           "type": "checkbox",
-          "title": "8.炎性肠病史",
+          "title": "8.口服避孕药或激素替代疗法",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -293,7 +293,7 @@
         {
           "name": "I625044",
           "type": "checkbox",
-          "title": "9.急性心肌梗死",
+          "title": "9.脓毒症（＜1个月）",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -304,7 +304,7 @@
         {
           "name": "I625045",
           "type": "checkbox",
-          "title": "10.脓毒症(＜1个月)",
+          "title": "10.严重肺病，包括肺炎（＜1个月）",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -315,7 +315,7 @@
         {
           "name": "I625012",
           "type": "checkbox",
-          "title": "11.充血性心力衰竭(＜1个月)",
+          "title": "11.肺功能异常",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -326,7 +326,7 @@
         {
           "name": "I625047",
           "type": "checkbox",
-          "title": "12.严重肺部疾病,含肺炎(＜1个月)",
+          "title": "12.急性心肌梗死",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -337,7 +337,7 @@
         {
           "name": "I625014",
           "type": "checkbox",
-          "title": "13.妊娠期间或产后(＜1个月)",
+          "title": "13.充血性心力衰竭（＜1个月）",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -348,7 +348,7 @@
         {
           "name": "I625048",
           "type": "checkbox",
-          "title": "14.有不明原因或者习惯性流产史",
+          "title": "14.炎性肠病史",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -359,7 +359,7 @@
         {
           "name": "I625014",
           "type": "checkbox",
-          "title": "15.口服避孕药或激素替代疗法",
+          "title": "15.卧床的患者",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -395,7 +395,7 @@
         {
           "name": "I625018",
           "type": "checkbox",
-          "title": "16.年龄61~74岁",
+          "title": "16.年龄61-74岁",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -406,7 +406,7 @@
         {
           "name": "I625050",
           "type": "checkbox",
-          "title": "17.卧床不起(>72h)",
+          "title": "17.关节镜手术",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -417,7 +417,7 @@
         {
           "name": "I625024",
           "type": "checkbox",
-          "title": "18.关节镜手术(>45min)",
+          "title": "18.大型开放手术（＞45 min）",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -428,7 +428,7 @@
         {
           "name": "I625023",
           "type": "checkbox",
-          "title": "19.大型开放手术(>45min)",
+          "title": "19.腹腔镜手术（＞45 min）",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -439,7 +439,7 @@
         {
           "name": "I625021",
           "type": "checkbox",
-          "title": "20.腹腔镜手术(>45min)",
+          "title": "20.恶性肿瘤",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -450,7 +450,7 @@
         {
           "name": "I625041",
           "type": "checkbox",
-          "title": "21.恶性肿瘤",
+          "title": "21.卧床不起（>72 h）",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -530,7 +530,7 @@
         {
           "name": "I625027",
           "type": "checkbox",
-          "title": "26.VTE家族史",
+          "title": "18.VTE家族史",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -541,7 +541,7 @@
         {
           "name": "I625052",
           "type": "checkbox",
-          "title": "27.凝血因子VLeiden突变",
+          "title": "27.凝血因子V Leiden突变",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -596,7 +596,7 @@
         {
           "name": "I625028",
           "type": "checkbox",
-          "title": "32.肝素诱发血小板减少症",
+          "title": "32.肝素诱发的血小板减少症",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -607,7 +607,7 @@
         {
           "name": "I625029",
           "type": "checkbox",
-          "title": "33.其他先天或获得性血栓形成倾向",
+          "title": "33.其他先天性或获得性血栓形成倾向",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -643,7 +643,7 @@
         {
           "name": "I625035",
           "type": "checkbox",
-          "title": "34.卒中(＜1个月)",
+          "title": "34.卒中（＜1个月）",
           "code": "5",
           "score": 5,
           "style": "width:170px;height:30px",
@@ -676,7 +676,7 @@
         {
           "name": "I625036",
           "type": "checkbox",
-          "title": "37.急性脊髓损伤(＜1个月)",
+          "title": "37.急性脊髓损伤（＜1个月）",
           "code": "5",
           "score": 5,
           "style": "width:170px;height:30px",
@@ -687,18 +687,7 @@
         {
           "name": "I625065",
           "type": "checkbox",
-          "title": "已确诊VTE",
-          "code": "5",
-          "score": 5,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I625066",
-          "type": "checkbox",
-          "title": "入住ICU",
+          "title": "38.自动列入高风险：已确诊VTE、入住ICU",
           "code": "5",
           "score": 5,
           "style": "width:170px;height:30px",
@@ -755,7 +744,7 @@
           "readOnly": null
         },
         {
-          "name": "M625002",
+          "name": "M625003",
           "type": "checkbox",
           "title": "活动指导：指导患者进行踝泵运动及膝关节屈伸运动，无法自主活动给予被动运动",
           "code": "√",
@@ -764,16 +753,16 @@
           "readOnly": null
         },
         {
-          "name": "M625003",
+          "name": "M625002",
           "type": "checkbox",
-          "title": "用药指导：抗凝治疗期间，嘱患者观察皮肤、黏膜、消化道、泌尿道、牙龈及全身有无出血发生，如有出血倾向，应立即告知医务人员，避免碰撞及跌倒，用软毛刷刷牙，避免进食坚硬、刺激食物等",
+          "title": "用药指导：抗凝治疗期间，嘱患者观察皮肤、黏膜、消化道、泌尿道、牙龈及全身有无出血发生硬，如有出血倾向，应立即告知医务人员，避免碰撞及跌倒，用软毛刷刷牙，避免进食坚刺激食物等",
           "code": "√",
           "style": "",
           "class": null,
           "readOnly": null
         },
         {
-          "name": "M625004",
+          "name": "M625005",
           "type": "checkbox",
           "title": "出院指导：告知患者出院后定期门诊复查，遵医嘱按时服药。保持良好情绪，减轻心理压力，若出现下肢肿胀、疼痛或出血等现象，请尽快就医",
           "code": "√",
@@ -820,7 +809,7 @@
         {
           "name": "M625007",
           "type": "checkbox",
-          "title": "抬高患肢：抬高下肢20～30°(略高于心脏水平)，禁止腘窝及小腿下单独垫枕",
+          "title": "抬高患肢：抬高下肢20～30°（略高于心脏水平），禁止腘窝及小腿下单独垫枕",
           "code": "√",
           "style": null,
           "class": null,
@@ -847,7 +836,7 @@
         {
           "name": "M625010",
           "type": "checkbox",
-          "title": "早期活动，尽早下床(被动活动/踝泵运动)",
+          "title": "早期活动，尽早下床（被动活动/踝泵运动)",
           "code": "√",
           "style": null,
           "class": null,
@@ -892,7 +881,7 @@
         {
           "name": "M625012",
           "type": "checkbox",
-          "title": "使用间歇性充气加压装置",
+          "title": "间歇充气加压装置",
           "code": "√",
           "style": null,
           "class": null,
