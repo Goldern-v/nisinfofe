@@ -21,6 +21,7 @@
     <setTextModalNew ref="setTextModalNew"></setTextModalNew>
     <caSignModal ref="caSignModal"></caSignModal>
     <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
+    <hjCaSignModal ref="hjCaSignModal"></hjCaSignModal>
     <!-- 测试 -->
     
     <!-- 锁屏界面 -->
@@ -52,6 +53,7 @@ import common from "@/common/mixin/common.mixin";
 import detectZoom from "@/plugin/tool/detectZoom.js";
 import ScreenLockView from "@/components/screenLockView/ScreenLockView";
 import fuyouCaSignModal from "@/components/modal/fuyou-ca-sign";
+import hjCaSignModal from "@/components/modal/hj-ca-sign";
 
 
 export default {
@@ -125,6 +127,7 @@ export default {
       newFormBox: this.$refs.newFormBox,
       caSignModal: this.$refs.caSignModal,
       fuyouCaSignModal: this.$refs.fuyouCaSignModal,
+      hjCaSignModal: this.$refs.hjCaSignModal,
       selectDiagnosis: this.$refs.selectDiagnosis,
       formBox: this.$refs.moadl,
       formBoxEdu: this.$refs.formBoxEdu,
@@ -224,8 +227,14 @@ export default {
     window.openFuyouCaSignModal = (isStart) => {
       return this.$refs.fuyouCaSignModal.open(()=>{},isStart);
     };
+    window.openHjCaSignModal = (isStart) => {
+      return this.$refs.hjCaSignModal.open(()=>{},isStart);
+    };
     window.closeFuyouCaSignModal = () => {
       this.$refs.fuyouCaSignModal.close();
+    };
+    window.closeHjCaSignModal = () => {
+      this.$refs.hjCaSignModal.close();
     };
     //fuyouCaSignModal
     /** 关闭前提示 */
@@ -381,7 +390,8 @@ export default {
     setTextModalNew,
     caSignModal,
     ScreenLockView,
-    fuyouCaSignModal
+    fuyouCaSignModal,
+    hjCaSignModal
   }
 };
 </script>

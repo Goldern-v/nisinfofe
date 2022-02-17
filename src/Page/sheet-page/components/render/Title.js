@@ -495,7 +495,7 @@ export default function Title(
   }
   break;
   case "common_wj": {
-    // 省总队医院-护理记录单
+    // 武警-护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/common_wj/th").default)
     );
@@ -1035,6 +1035,83 @@ export default function Title(
     );
   }
   break;
+  case "neurology_bh": {
+    // 北海市 - 神经内科危重护理单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurology_bh/th").default)
+    );
+  }
+  break;
+  case "diabetes_bh": {
+    // 北海市 - 糖尿病治疗观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/diabetes_bh/th").default)
+    );
+  }
+  break;
+  case "revivemonitoring_bh": {
+    // 北海市 - 心胸外科术后复苏监测记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/revivemonitoring_bh/th").default)
+    );
+  }
+  break;
+  case "orthopaedic_bh": {
+    // 北海市 - 骨科危重患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopaedic_bh/th").default)
+    );
+  }
+  break;
+  case "surgery_bh": {
+    // 北海市 - 普外危重患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/surgery_bh/th").default)
+    );
+  }
+  break;
+  case "transplant_bh": {
+    // 北海市 - 肢体与组织移植血液循环观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/transplant_bh/th").default)
+    );
+  }
+  break;
+  case "ophthalmology_bh": {
+    // 北海市 - 眼科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ophthalmology_bh/th").default)
+    );
+  }
+  break;
+  case "labor_bh": {
+    // 北海市 - 产程观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_bh/th").default)
+    );
+  }
+  break;
+  case "emergency_bh": {
+    // 北海市 - 急诊CRRT治疗记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/emergency_bh/th").default)
+    );
+  }
+  break;
+  case "observation_bh": {
+    // 北海市 - 急诊ICU病情观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/observation_bh/th").default)
+    );
+  }
+  break;
+  case "department_bh": {
+    // 北海市 - 急诊科重症监护室(EICU)CRRT 治疗记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/department_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
@@ -1137,6 +1214,27 @@ export default function Title(
     // 东莞谢岗 - 腹膜透析记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/peritoneal_xg/th").default)
+    );
+  }
+  break;
+  case "contraction_inhibitor_xg": {
+    // 东莞谢岗 - 宫缩抑制剂静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/contraction_inhibitor_xg/th").default)
+    );
+  }
+  break;
+  case "magnesium_sulphate_xg": {
+    // 东莞谢岗 - 硫酸镁注射液静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/magnesium_sulphate_xg/th").default)
+    );
+  }
+  break;
+  case "oxytocin_xg": {
+    // 东莞谢岗 - 催产素静脉点滴观察单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_xg/th").default)
     );
   }
   break;
@@ -1337,6 +1435,34 @@ export default function Title(
       );
     }
   break;
+  case "eyegeneral_fs": {
+    // 佛山市一 - -护理记录单(眼科通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/eyegeneral_fs/th").default)
+      );
+    }
+  break;
+  case "pupilgeneral_fs": {
+    // 佛山市一 - -护理记录单(儿科二区带瞳孔通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pupilgeneral_fs/th").default)
+      );
+    }
+  break;
+  case "areageneral_fs": {
+    // 佛山市一 - -护理记录单(儿科二区通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/areageneral_fs/th").default)
+      );
+    }
+  break;
+  case "pediatric_fs": {
+    // 佛山市一 - -护理记录单(儿科通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric_fs/th").default)
+      );
+    }
+  break;
   case "cardiovascular_xt": {
     // 佛山杏坛 - 护理记录单(心血管呼吸专科)（未测试）
     Th = JSON.parse(
@@ -1362,6 +1488,13 @@ export default function Title(
     // 武汉肺科 - 出入液量记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/access_fk/th.js").default)
+    );
+  }
+  break;
+  case "test_common": {
+    // 护理记录单（测试用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_cpr_xg/th.js").default)
     );
   }
   break;

@@ -1,7 +1,7 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-      <div class="column-left">
+      <!-- <div class="column-left">
         <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
           同步入院
         </el-button>
@@ -12,7 +12,7 @@
         >
           同步出院
         </el-button>
-      </div>
+      </div> -->
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
@@ -251,18 +251,15 @@
               >
               </el-option>
             </el-select>
-            <el-date-picker
+            <el-time-picker
               size="mini"
               :readonly="isDisable()"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              v-model="vitalSignObj[multiDictList['表顶注释']].expand2"
-              type="datetime"
-              placeholder="选择日期时间"
-              style="margin: 3px 0px 0px 55px; width: 170px"
+              v-model="timeVal"
+              placeholder="选择表顶时间"
+              style="margin: 3px 0px 0px 55px; width: 125px"
               @change="formatTopExpandDate"
             >
-            </el-date-picker>
+            </el-time-picker>
           </div>
           <div class="row" v-if="multiDictList['中间注释']">
             <span class="preText">中间注释</span>
@@ -346,7 +343,6 @@ import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
 import {
-  getNowDateTimeList,
   getmultiDict,
   getVitalSignListByDate,
   getfieldList,
@@ -354,7 +350,6 @@ import {
   autoVitalSigns,
   saveAll,
   deleteRecord,
-  getLastList,
   getViSigsByReDate,
 } from "../../api/api";
 import { mockData, recordList, selectionMultiDict } from "../data/data";
@@ -390,26 +385,40 @@ export default {
       recordList,
       bus: bus(this),
       editableTabsValue: "2",
+      timeVal: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      ),
+      nowTimeVal: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      ),
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
-          if (this.getHours() >= 0 && this.getHours() <= 3) {
-            return "03";
+          if (this.getHours() >= 0 && this.getHours() <= 4) {
+            return "02";
           }
-          if (this.getHours() > 3 && this.getHours() <= 7) {
-            return "07";
+          if (this.getHours() > 4 && this.getHours() <= 8) {
+            return "06";
           }
-          if (this.getHours() > 7 && this.getHours() <= 11) {
-            return "11";
+          if (this.getHours() > 8 && this.getHours() <= 12) {
+            return "10";
           }
-          if (this.getHours() > 11 && this.getHours() <= 15) {
-            return "15";
+          if (this.getHours() > 12 && this.getHours() <= 16) {
+            return "14";
           }
-          if (this.getHours() > 15 && this.getHours() <= 19) {
-            return "19";
+          if (this.getHours() > 16 && this.getHours() <= 20) {
+            return "18";
           }
-          if (this.getHours() > 19 && this.getHours() <= 23) {
-            return "23";
+          if (this.getHours() > 20 && this.getHours() <= 23) {
+            return "22";
           }
           //录入时间
         })(), //录入时间
@@ -435,27 +444,27 @@ export default {
       timesOdd: [
         {
           id: 0,
-          value: "04",
+          value: "02",
         },
         {
           id: 1,
-          value: "08",
+          value: "06",
         },
         {
           id: 2,
-          value: "12",
+          value: "10",
         },
         {
           id: 3,
-          value: "16",
+          value: "14",
         },
         {
           id: 4,
-          value: "20",
+          value: "18",
         },
         {
           id: 5,
-          value: "23",
+          value: "22",
         },
       ],
       bottomContextList: [""],
@@ -482,6 +491,16 @@ export default {
         this.getList();
       },
       deep: true,
+    },
+    patientInfo() {
+      //切换患者重新获得时间
+      this.timeVal = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      );
     },
   },
   methods: {
@@ -510,29 +529,7 @@ export default {
       /* 根据字典项构造一个对象(键为生命体征的中文名，值为对应的对象)：{"体温":{}} */
       for (let key in this.multiDictList) {
         obj[this.multiDictList[key]] = {
-          // bedLabel: "",
-          // classCode: "",
-          // createDateTime: "",
-          // expand1: "",
-          // expand2: "",
-          // expand3: "",
-          // // id: {
-          // //   patientId: "",
-          // //   recordDate: "",
-          // //   visitId: "",
-          // //   vitalSigns: "",
-          // //   wardCode: ""
-          // // },
-          // nurse: "",
-          // patientId: this.patientInfo.patientId,
-          // recordDate: "",
-          // source: "",
-          // units: "",
-          // visitId: this.patientInfo.visitId,
-          // vitalCode: this.multiDictList[key],
-          // vitalSigns: key,
-          // vitalValue: "",
-          // wardCode: this.patientInfo.wardCode
+
           createDateTime: "",
           patientId: this.patientInfo.patientId,
           visitId: this.patientInfo.visitId,
@@ -594,6 +591,10 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         wardCode: this.patientInfo.wardCode,
+         recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime
       }).then((res) => {
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
@@ -660,18 +661,16 @@ export default {
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
-
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
-             this.vitalSignObj[v.vitalCode] = {
-              ...v,
-              popVisible: false,
-            };
-
+            this.vitalSignObj[v.vitalCode] = v;
+            if (v.vitalSigns === "表顶注释") {
+              this.timeVal = moment(
+                this.vitalSignObj[v.vitalCode].expand2
+              ).utc()._d;
+            }
           });
-
-
         } else {
           this.init();
         }
@@ -758,6 +757,10 @@ export default {
               wardCode: this.patientInfo.wardCode,
               vitalCode: key,
               fieldCn: text,
+               recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime
             };
             if (checkValueStr.includes(text)) {
               this.$message.error(`修改${label}失败!已存在${text}项目`);
@@ -786,13 +789,14 @@ export default {
           ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 = this.topExpandDate;
-            break;
-          case "中间注释":
-            item.expand2 =moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-          " " +
-          this.query.entryTime +
-          ":00:00";
+            if (this.topExpandDate !== undefined) {
+              item.expand2 = moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") + " " + this.topExpandDate; //表顶用录入日期+选择的时间来显示
+            } else {
+              item.expand2 =
+                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+                " " +
+                moment(this.nowTimeVal).format("HH:mm:ss"); //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
+            }
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
@@ -846,6 +850,9 @@ export default {
       flex-direction: column;
     }
   }
+  .times{
+    margin-top:15px
+  }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -878,6 +885,9 @@ input[type="number"]{
 
   .rowItem_noShow {
     display: none;
+  }
+  .column-right {
+    margin-left:25px;
   }
 
   .rowbox {

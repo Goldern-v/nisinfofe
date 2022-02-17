@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1000px"
+    width: "1100px"
   },
   th: {
     top: [{
@@ -98,6 +98,16 @@ export default {
       //   colspan: "1",
       //   rowspan: "3"
       // },
+      {
+        name: `
+        护理类型
+        `,
+        style: {
+          minWidth: "100px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
       {
         name: `
         病情、护理措施及效果

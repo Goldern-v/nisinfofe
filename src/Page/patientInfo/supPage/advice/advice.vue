@@ -188,6 +188,7 @@ import adviceTableLiaocheng from "./component/adviceTable_liaocheng";
 import adviceTableFy from "./component/adviceTable_fuyou";
 import adviceTableXiegang from "./component/adviceTable_xiegang.vue";
 import adviceTableBeihairenyi from "./component/adviceTable_beihairenyi.vue";
+import adviceTableWHFK from "./component/adviceTable_whfk.vue";
 import { orders, newOrders } from "@/api/patientInfo";
 import {getProcedureData} from '@/api/common'
 import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
@@ -203,7 +204,7 @@ export default {
       data2Res:[],
       orderText:"",//模糊查询值
       searchHisList:["beihairenyi"],//有模糊查询方法医院
-      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi'], // 需要添加rowType(同一医嘱内第几条记录)的医院
+      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk'], // 需要添加rowType(同一医嘱内第几条记录)的医院
       specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi'] // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
     };
   },
@@ -284,6 +285,7 @@ export default {
         guizhou:"adviceTableGuizhou",
         xiegang:"adviceTableXiegang",
         beihairenyi:"adviceTableBeihairenyi",
+        whfk:'adviceTableWHFK',
         default:"adviceTable",
       }
       if(idToCom[HOSPITAL_ID]){
@@ -401,6 +403,7 @@ export default {
     adviceTableLiaocheng,
     adviceTableXiegang,
     adviceTableBeihairenyi,
+    adviceTableWHFK,
     adviceTableFy
   },
 };

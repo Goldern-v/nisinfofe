@@ -121,6 +121,10 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        }
       },
       {
         name: `标题1`,

@@ -1233,6 +1233,7 @@ export default {
       if (
         this.HOSPITAL_ID != "weixian" &&
         this.HOSPITAL_ID != "huadu" &&
+        this.sheetInfo.sheetType != "common_wj" &&
         this.sheetInfo.sheetType != "special"
       ) {
         allDoc = "  " + allDoc;
@@ -1433,6 +1434,13 @@ export default {
             }
           }else if (this.sheetInfo.sheetType === "common_wj"||this.sheetInfo.sheetType === "nonsurgicalcare_fk") {
             if (GetLength(text) > 27) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "areageneral_fs"||this.sheetInfo.sheetType === "pediatric_fs"||this.sheetInfo.sheetType === "pupilgeneral_fs") {
+            if (GetLength(text) > 36) {
               result.push(text);
               text = allDoc[i];
             } else {

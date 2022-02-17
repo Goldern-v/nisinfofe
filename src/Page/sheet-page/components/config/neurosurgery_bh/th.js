@@ -83,7 +83,7 @@ export default {
       },
       {
         name: `
-        GlasGon
+        GCS
         `,
         style: {},
         colspan: "3",

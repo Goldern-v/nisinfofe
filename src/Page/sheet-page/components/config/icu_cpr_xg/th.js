@@ -12,9 +12,9 @@
 export default {
     // 科室的名称
     deptType: "",
-    // style: {
-    //   width: "1300px"
-    // },
+    style: {
+      width: "1200px"
+    },
     th: {
         top: 
             [
@@ -32,7 +32,7 @@ export default {
                 {"name":"生命体征记录","colspan":"5","rowspan":"1"},
                 {"name":"停止<br/>CPR<br/>时间","colspan":"1","rowspan":"3"},
                 {"name":"抢救特殊记录","colspan": "1","rowspan":"3",style:{ minWidth:"150px", maxWidth:"150px"}, }, 
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3"}
+                {"name":"护士<br/>签名","colspan":"1","rowspan":"3",style:{ minWidth:"70px", maxWidth:"70px"},}
             ]
         ,
         mid: 
