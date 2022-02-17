@@ -41,12 +41,28 @@ export function saveSignPic(signPic) {
 
 //数字医信OAuth登陆-认证请求接口
 export const getAuthorize=(data)=>{
-  return axios.get(`${apiPath}caSignJmfy/authorizeCaJmfy`)
+  console.log(process.env.HOSPITAL_ID);
+  switch(process.env.HOSPITAL_ID){
+    case 'hj':
+      return axios.post(`/hj_ca/api/v1.0/getAccessToken`,{
+        appid:'891124536567752',
+        appkey:'WSHJTJO602GHU4FWHPDE31FQEZG6E5KR'
+      })
+    default:
+      return axios.get(`${apiPath}caSignJmfy/authorizeCaJmfy`)
+  }
 }
 
 //数字医信 OAuth登陆-获取用户信息
 export const getTrustUserInfo=(data)=>{
-  return axios.get(`${apiPath}caSignJmfy/tokeninfoCaJmfy/${data.requestId}`)
+  switch(process.env.HOSPITAL_ID){
+    case 'hj':
+      return axios.post(`/hj_ca/api/v1.0/auth/getOauthStatus?accessToken=${data.accessToken}`,{
+        transactionId:data.transactionId,
+      })
+    default:
+      return axios.get(`${apiPath}caSignJmfy/tokeninfoCaJmfy/${data.requestId}`)
+  }
 }
 
 
@@ -64,5 +80,7 @@ export function getCaSignJmfy(data) {
   return axios.post(`${apiPath}caSignJmfy/pushCaSign`,data);
 }
 
-
+export function getQrCode(accessToken){
+  return axios.post(`/hj_ca/api/v1.0/auth/oauth?accessToken=${accessToken}`,{oauthMethod:'3'})
+}
 

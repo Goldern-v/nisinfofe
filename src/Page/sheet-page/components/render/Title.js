@@ -1105,6 +1105,13 @@ export default function Title(
     );
   }
   break;
+  case "department_bh": {
+    // 北海市 - 急诊科重症监护室(EICU)CRRT 治疗记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/department_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(

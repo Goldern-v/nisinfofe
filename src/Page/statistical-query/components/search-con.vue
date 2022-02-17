@@ -25,9 +25,9 @@
           :picker-options="pickerOptions"
           @input="handleQuery({endTime: $event})"/>
       </div>
-      <div class="search-con__ctx__item" v-if="formData.type != undefined">
+      <div class="search-con__ctx__item" v-if="formData.wardCode != undefined">
         病区：
-        <ElSelect style="width: 120px;" size="small" :value="formData.type" @input="handleQuery({type: $event})" filterable>
+        <ElSelect style="width: 120px;" size="small" :value="formData.wardCode" @input="handleQuery({wardCode: $event})" filterable>
           <ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
       </ElSelect>
       </div>
@@ -37,13 +37,13 @@
           <ElOption v-for="val in patientStatus" :key="val.key" :label="val.label" :value="val.key" />
         </ElSelect>
       </div>
-      <div class="search-con__ctx__item" v-if="formData.point != undefined">
+      <div class="search-con__ctx__item" v-if="formData.timing != undefined">
         时间点：
-        <ElSelect style="width: 120px;" size="small" :value="formData.point" @input="handleQuery({point: $event})">
+        <ElSelect style="width: 120px;" size="small" :value="formData.timing" @input="handleQuery({timing: $event})">
           <ElOption v-for="val in timePoint" :key="val.key" :label="val.label" :value="val.key" />
         </ElSelect>
       </div>
-      <slot :formData="formData" :deptList="deptList" :handleQuery="handleQuery"/>
+      <slot :formData="formData" :handleQuery="handleQuery"/>
     </div>
     <div class="search-con__btn">
       <el-button type="primary" @click="handleQuery">查询</el-button>
@@ -82,20 +82,24 @@
 <script>
 import moment from 'moment';
 import { PATIENT_STATUS, TIME_POINT } from "../enums";
+import { nursingUnit } from "@/api/lesion"
 export default {
   props: {
     formData: {
       type: Object,
       default: () => ({}),
     },
-    deptList: {
-      type: Array,
-      default: () => ([]),
-    },
+    // deptList: {
+    //   type: Array,
+    //   default: () => ([]),
+    // },
     datetype: {
       type: String,
       default: 'date'
-
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {
@@ -126,6 +130,7 @@ export default {
           }
         }]
       },
+      deptList: [],
     };
   },
   computed: {
@@ -165,12 +170,13 @@ export default {
     handleExport () {
       this.$emit('handleExport')
     },
-    defaultData() {
+    async defaultData() {
       let obj = {}
-      this.formData.beginTime !== undefined && (obj.beginTime = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss'))
       // 当天0点的时间格式
-      this.formData.endTime !== undefined && (obj.endTime = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss'))
+      this.formData.beginTime !== undefined && (obj.beginTime = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss'))
       // 当天23点59分59秒的时间格式
+      this.formData.endTime !== undefined && (obj.endTime = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss'))
+      await this.getDepList()
       this.$emit('handleQuery', obj)
     },
     pickerOptClick(flag) {
@@ -201,7 +207,28 @@ export default {
           return obj
         default:
           return obj
-
+      }
+    },
+    async getDepList() {
+      try {
+        this.$emit('update:loading', true)
+        const res = await nursingUnit()
+        this.deptList = res.data.data.deptList || []
+        console.log('test-res', res)
+          if (this.deptList.length > 0) {
+            this.deptList = [
+              {
+                code: '',
+                name: '全院'
+              },
+              ...this.deptList
+            ]
+          } else {
+            this.deptList = []
+          }
+        this.$emit('update:loading', false)
+      } catch (e) {
+        this.$emit('update:loading', false)
       }
     }
   },
