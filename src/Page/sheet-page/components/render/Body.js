@@ -860,6 +860,11 @@ function switechSheetType(type) {
       schema = require("../config/emergency_bh/tr.js").default;
     }
       break;
+    case "observation_bh": {
+      // 北海市 - 急诊ICU病情观察表
+      schema = require("../config/observation_bh/tr.js").default;
+    }
+        break;
     case "nursingrecords_zxy": {
       // 南方中西医 - 护理记录单
       schema = require("../config/nursingrecords_zxy/tr.js").default;
