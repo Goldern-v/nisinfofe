@@ -22,6 +22,7 @@
        <div class="item-box" @click="$router.go(-1)" v-if="HOSPITAL_ID!=='xiegang'">
         <div
           class="icon"
+          style="font-size: 18px;"
           flex="cross:center main:center"
         >返回</div>
       </div>
