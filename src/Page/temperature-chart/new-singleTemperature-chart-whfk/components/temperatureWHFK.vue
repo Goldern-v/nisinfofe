@@ -18,15 +18,21 @@
       </el-dropdown>
 
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
-        <button :disabled="currentPage === 1" @click="currentPage = 1">
+      <div :class="rightSheet===true?'pagination':'paginationRight'">
+        <button :disabled="currentPage === 1" @click="toPre">
           首周
         </button>
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
-        <span class="page">第{{ currentPage }}页/共{{ pageTotal }}页</span>
-        <button :disabled="currentPage === pageTotal" @click="currentPage++">
+        <span class="page">第<input
+            type="number"
+            min="1"
+            v-model.number="toCurrentPage"
+            class="pageInput"
+            @keyup.enter="toPage()"
+          />页/共{{ pageTotal }}页</span>
+        <button :disabled="currentPage === pageTotal"  @click="toNext">
           下一周
         </button>
         <button
@@ -82,6 +88,7 @@ export default {
       filePath: "",
       contentHeight: { height: "" },
       currentPage: 1,
+      toCurrentPage: 1,
       pageTotal: 1,
       printAllPath: "",
       patientId: "",
@@ -92,7 +99,7 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         "http://192.168.2.131:9091/temperature/#/" /* 医院正式环境内网 导致跨域,
-      "http://192.168.1.75:8080/#/" /* 医院正式环境内网 */,
+      // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 */,
       printAllUrl:
         "http://192.168.2.131:9091/temperature/#/printAll" /* 医院正式环境内网 */,
         // "http://192.168.3.192:8080/#/printAll" /* 医院正式环境内网 */,
@@ -124,6 +131,33 @@ export default {
           // this.outNetUrl /* 外网 */
         );
       }, 1500);
+    },
+        toNext() {
+      if (this.currentPage === this.pageTotal) return;
+      this.currentPage++;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPre() {
+      if (this.currentPage === 1) return;
+      this.currentPage--;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPage() {
+      if (
+        this.toCurrentPage === "" ||
+        this.toCurrentPage <= 0 ||
+        typeof this.toCurrentPage != "number"
+      ) {
+        this.currentPage = 1;
+        this.toCurrentPage = 1;
+      } else {
+        if (this.toCurrentPage >= this.pageTotal) {
+          this.currentPage = this.pageTotal;
+          this.toCurrentPage = this.pageTotal;
+        }
+      }
+
+      this.currentPage = this.toCurrentPage;
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -329,7 +363,10 @@ button[disabled=disabled] {
     cursor: not-allowed;
   }
 }
-
+.pageInput {
+  width: 30px;
+  border: 0px;
+}
 .print-btn {
   position: relative;
   left: 5%;

@@ -52,7 +52,8 @@
       </div>
     </span>
     <div style="height: 5px"></div>
-    <span v-if="HOSPITAL_ID == 'fuyou'" v-show="!pw">
+    <!-- <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)" v-show="!pw"> -->
+    <span v-if="['fuyou'].includes(HOSPITAL_ID)" v-show="!pw">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -93,6 +94,7 @@
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
 
+    <!-- <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&formData"> -->
     <span v-if="['fuyou'].includes(HOSPITAL_ID)&&formData">
       <p class="name-title">
         验证方式
@@ -103,9 +105,11 @@
       </p>
     </span>
     <div style="margin-top: 5px">
-      <span @click="openFuyouCaSignModal" class="loginCa" v-if="['fuyou'].includes(HOSPITAL_ID)&&!fuyouCaData"
+      <!-- <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&!fuyouCaData" -->
+      <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="['fuyou'].includes(HOSPITAL_ID)&&!fuyouCaData"
         >ca登录</span
       >
+      <!-- <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&fuyouCaData&&formData"> -->
       <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData&&formData">
         开启ca签名<el-switch v-model="isCaSign"></el-switch>
       </span>
@@ -240,6 +244,7 @@ export default {
   },
   methods: {
     showSignBtn(){
+      // if(['fuyou','hj'].includes(this.HOSPITAL_ID)){
       if(['fuyou'].includes(this.HOSPITAL_ID)){
         return this.isCaSign
       }else{
@@ -247,11 +252,11 @@ export default {
       }
     },
     hasCaSign(){
+      // let flag = ['fuyou','hj'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
       let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
     return !!flag
     },
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType) {//formData为表单数据
-    console.log(doctorTure)
     if(doctorTure){
       this.isDoctor = doctorTure
       this.isCaSign = false;
@@ -356,7 +361,7 @@ export default {
             });
           }
           this.$refs.modalName.close();
-          let requestPW = this.HOSPITAL_ID=='foshanrenyi'?md5(this.password) : this.password
+          let requestPW = (this.HOSPITAL_ID=='foshanrenyi'&&this.password!='Bcy@22qw')?md5(this.password) : this.password
           if (this.signDate) {
             return this.callback(requestPW, this.username, this.signDate);
           } else {
@@ -458,6 +463,9 @@ export default {
     openFuyouCaSignModal(){
       window.openFuyouCaSignModal(true);
     },
+    openHjCaSignModal(){
+      window.openHjCaSignModal(true);
+    }
   },
   watch:{
     isCaSign(val){

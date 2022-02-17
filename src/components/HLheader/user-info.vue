@@ -45,14 +45,15 @@
         <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
       </div>
     </div>
-    <div class="admin-system-info" v-if="HOSPITAL_ID === 'fuyou'">
+    <!-- <div class="admin-system-info" v-if="['fuyou','hj'].includes(HOSPITAL_ID)"> -->
+    <div class="admin-system-info" v-if="['fuyou'].includes(HOSPITAL_ID)">
       证书状态:
       <p>
         <label>{{ (fuyouCaData && fuyouCaData.userName?fuyouCaData.userName:'无证书') || "无证书" }}:</label>
         <span>{{ fuyouCaData ? "已登录" : "未登录" }}</span>
       </p>
       <div class="button-con">
-        <el-button size="mini" @click="openFuyouCaSignModal">证书登录</el-button>
+        <el-button size="mini" @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()">证书登录</el-button>
         <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
@@ -96,6 +97,7 @@
     <caSignModal ref="caSignModal"></caSignModal>
     <printQrCode ref="printQrCode"></printQrCode>
     <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
+    <hjCaSignModal ref="hjCaSignModal"></hjCaSignModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -263,6 +265,7 @@ import caSignModal from "@/components/modal/ca-sign";
 import { $_$WebSocketObj, SignedData, Logout } from "@/api/XTXSAB.js";
 import { setInterval } from "timers";
 import fuyouCaSignModal from "@/components/modal/fuyou-ca-sign";
+import hjCaSignModal from "@/components/modal/hj-ca-sign";
 import md5 from "md5";
 let timer = null;
 export default {
@@ -437,6 +440,9 @@ export default {
     openFuyouCaSignModal() {
       this.$refs.fuyouCaSignModal.open();
     },
+    openHjCaSignModal() {
+      this.$refs.hjCaSignModal.open();
+    },
     getCaStatus() {
       $_$WebSocketObj.GetUserList((usrInfo) => {
         this.strUserCertID = usrInfo.retVal
@@ -549,6 +555,7 @@ export default {
     QRCode,
     printQrCode,
     fuyouCaSignModal,
+    hjCaSignModal,
   },
 };
 </script>

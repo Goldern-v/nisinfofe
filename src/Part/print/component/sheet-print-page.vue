@@ -292,12 +292,12 @@ export default {
       addCSS(
         window,
         `
-    @media print {
-       .iframe > div:nth-of-type(2n) {
-         height: ${sheetTableWidth * 0.755}px !important;
-       }
-    }
-    `
+        @media print {
+          .iframe > div:nth-of-type(2n) {
+            height: ${sheetTableWidth * 0.755}px !important;
+          }
+        }
+        `
       );
     } else {
       printDir("v");
@@ -362,7 +362,7 @@ export default {
         `
         @media print {
           @page{
-            margin:0 0 0 2cm;
+            margin:-55px 0 0;
           }
         }
         `

@@ -76,11 +76,12 @@ const currentTargetUrl = (() => {
 
     /** 聊城 */
     case "liaocheng":
-      // return "http://120.224.211.7:9094" //聊城正式
+      return "http://120.224.211.7:9094" //聊城正式
       // return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
-      return "http://192.168.1.54:9871" //公司-聊城测试-内网
+      // return "http://192.168.1.54:9871" //公司-聊城测试-内网
       // return "http://192.168.2.122:8080" // 初升本地
-      // return "http://192.168.20.45:8080"  //伟彬本地
+      return "http://192.168.20.83:8080"  //伟彬本地
+
 
 
     /** 江门妇幼 */
@@ -129,8 +130,9 @@ const currentTargetUrl = (() => {
     /** 武警广东省总队医院 */
     case "wujing":
       // return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
-      return "http://192.168.1.54:9866" // 公司-武警广东省总队医院测试-内网
+      return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.20.187:8080" // 杨鑫本地
+      // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式
 
     /** 曲周医院 */
     case 'quzhou':
@@ -139,9 +141,9 @@ const currentTargetUrl = (() => {
 
     case 'xiegang':
       // return "http://183.234.1.124:9093" // 谢岗正式
-      // return "http://192.168.1.54:9882" // 测试地址-内网地址
+      return "http://192.168.1.54:9882" // 测试地址-内网地址
       // return "http://192.168.20.223:8080" // 初升本地
-      return "http://192.168.20.147:8080" // 树鹏本地
+      // return "http://192.168.20.147:8080" // 树鹏本地
     // 北海人医
     case 'beihairenyi':
       // return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
@@ -298,6 +300,15 @@ module.exports = {
         pathRewrite: {
           // crNursing 东莞厚街护理系统 路径
           "^/stylesheets": "/stylesheets" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+        }
+      },
+      "/hj_ca": {
+        target: "https://yxq-dghj.linksign.cn", //东莞厚街
+        secure:true,
+        changeOrigin: true,
+        pathRewrite: {
+          // crNursing 东莞厚街护理系统 路径
+          "^/hj_ca": "" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
         }
       }
       // "/crNursing/printServer": {
