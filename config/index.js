@@ -300,6 +300,15 @@ module.exports = {
           // crNursing 东莞厚街护理系统 路径
           "^/stylesheets": "/stylesheets" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
         }
+      },
+      "/hj_ca": {
+        target: "https://yxq-dghj.linksign.cn", //东莞厚街
+        secure:true,
+        changeOrigin: true,
+        pathRewrite: {
+          // crNursing 东莞厚街护理系统 路径
+          "^/hj_ca": "" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+        }
       }
       // "/crNursing/printServer": {
       //   target: "http://10.35.9.115:8085",
