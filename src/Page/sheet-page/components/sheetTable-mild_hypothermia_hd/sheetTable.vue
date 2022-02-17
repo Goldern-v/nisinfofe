@@ -135,7 +135,6 @@
     }
 
     span {
-      margin-right: 4px;
       font-size: 14px;
       color: #000;
     }
@@ -322,9 +321,10 @@ export default {
     },
     /** 只读模式 */
     readOnly() {
-      let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
-      if (controlReadOnly) {
-        return true
+      if (
+        this.HOSPITAL_ID == "huadu" 
+      ) {
+        return false;
       } 
     }
   },

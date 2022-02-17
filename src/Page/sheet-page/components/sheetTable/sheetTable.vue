@@ -141,6 +141,7 @@ import tableHeadTbhldLc from "./components/table-head/table-head-tbhld-lc";
 import tableHeadWj from "./components/table-head/table-head-wj";
 import tableHeadHd from "./components/table-head/table-head-hd";
 import tableHeadFuyou from "./components/table-head/table-head-fuyou";
+import tableHeadFoSanXingTan from "./components/table-head/table-head-foshanxingtan.vue";
 import tableHeadXieGang from "./components/table-head/table-head-xiegang";
 import tableHeadNanFangZhongXiYi from "./components/table-head/table-head-nanfangzhongxiyi";
 import tableHeadBeiHaiRenYi from "./components/table-head/table-head-beihairenyi";
@@ -148,6 +149,7 @@ import tableHeadFoShanRenYi from "./components/table-head/table-head-foshanrenyi
 import tableHeadHengLi from "./components/table-head/table-head-hengli";
 import tableHeadShanNan from "./components/table-head/table-head-shannan";
 import tableHeadQz from "./components/table-head/table-head-qz";
+import tableHeadWhFk from "./components/table-head/table-head-whfk"
 export default {
   props: {
     data: Object,
@@ -165,7 +167,7 @@ export default {
       sheetInfo,
       //开启后端控制readOnly的医院
       readOnlyList: [
-        "fuyou","huadu"
+        "fuyou"
       ]
     };
   },
@@ -176,8 +178,7 @@ export default {
     /** 只读模式 */
     readOnly() {
       if (
-        this.HOSPITAL_ID == "huadu" &&
-        sheetInfo.sheetType === "body_temperature_Hd"
+        this.HOSPITAL_ID == "huadu" 
       ) {
         return false;
       }
@@ -226,6 +227,10 @@ export default {
         return tableHeadShanNan;
       } else if (this.HOSPITAL_ID == "quzhou") {
         return tableHeadQz;
+      } else if (this.HOSPITAL_ID == "fsxt") {
+        return tableHeadFoSanXingTan;
+      } else if (this.HOSPITAL_ID == "whfk") {
+        return tableHeadWhFk;
       } else {
         return tableHead;
       }

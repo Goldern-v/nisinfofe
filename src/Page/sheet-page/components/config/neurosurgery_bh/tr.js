@@ -79,7 +79,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 45
     },
   },
   {
@@ -89,7 +89,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 45
     },
   },
   {
@@ -109,9 +109,9 @@ export default [{
     name: "吸氧",
     next: "L/min",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 30
+      width: 50
     },
   },
   {
@@ -318,7 +318,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65
+      width: 45
     },
     autoComplete: {
       data: 出量名称
@@ -340,9 +340,9 @@ export default [{
     value: "",
     name: "出量颜色",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 40
     },
     autoComplete: {
       data: 颜色
@@ -366,9 +366,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "管道护理",
-    change: (e, td) => limitChange(e, td, 26),
+    change: (e, td) => limitChange(e, td, 22),
     textarea: {
-      width: 160
+      width: 140
     },
     splice: true,
     autoComplete: {

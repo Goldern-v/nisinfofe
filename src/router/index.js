@@ -302,6 +302,7 @@ const patientFlowStatistics = () => import("@/Page/patient-flow-statistics/patie
 // 统计查询
 const statisticalQuery = () => import("@/Page/statistical-query/index.vue")
 const statisticalOperation = () => import("@/Page/statistical-query/statistical-operation/index.vue")
+const statisticalHeartRate = () => import("@/Page/statistical-query/statistical-heartRate/index.vue")
 const statisticalPulseHeartRate = () => import("@/Page/statistical-query/statistical-pulseHeartRate/index.vue")
 const statisticalPressure = () => import("@/Page/statistical-query/statistical-pressure/index.vue")
 const statisticalBloodPressure = () => import("@/Page/statistical-query/statistical-bloodPressure/index.vue")
@@ -1265,9 +1266,17 @@ const router = new Router({
             path: "statisticalPulseHeartRate",
             name: "statisticalPulseHeartRate",
             meta: {
-              title: '脉搏心率统计'
+              title: '脉搏统计'
             },
             component: statisticalPulseHeartRate,
+          },
+          {
+            path: "statisticalHeartRate",
+            name: "statisticalHeartRate",
+            meta: {
+              title: '心率统计'
+            },
+            component: statisticalHeartRate,
           },
           {
             path: "statisticalPressure",

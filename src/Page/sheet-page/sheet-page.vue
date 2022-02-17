@@ -293,6 +293,7 @@ import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
 import { blockSave, getNurseExchageInfo } from "./api/index";
+import TableRadioVue from './components/sheetTable/components/table-components/TableRadio.vue';
 export default {
   mixins: [common],
   data() {
@@ -474,6 +475,14 @@ export default {
           return !this.listData[x].canModify;
         }
       }
+      if (this.HOSPITAL_ID=='whfk') {
+        if (td && this.listData[x]) {
+          // 是否签名,签名了就不能编辑。需要取消签名
+          if(tr.find((item) => item.key == "status").value === "1"){
+           return true
+          }
+        }
+      }
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
@@ -619,6 +628,7 @@ export default {
       ]).then((res) => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
+        this.$store.commit('upMasterInfo',bodyData)
         if(this.HOSPITAL_ID=='wujing'){
           let barcodeArr = {} 
           bodyData.list.map((tr,index)=>{
@@ -899,6 +909,48 @@ export default {
     this.bus.$on("refreshSheetPage", (isFirst) => {
       this.getSheetData(isFirst);
     });
+    //保存前做签名校验
+    this.bus.$on("toSheetSaveNoSign", (newWid) => {
+      console.log(this.sheetModel[0].bodyModel);
+      let flag = true //控制保存开关
+      let yearList = [] //所有日期时间数组
+      let sameDay = "" // 同一天
+      this.sheetModel[0].bodyModel.map((row,rowIdx)=>{
+        //处理所有日期时间数组
+        if(row.find((item) => item.key == 'recordMonth').value != ""){
+          sameDay = row.find((item) => item.key == 'recordMonth').value
+        }
+        if(row.find((item) => item.key == 'status').value != ''&& (row.find((item) => item.key == 'recordMonth').value || row.find((item) => item.key == 'recordHour').value) ){
+          if(row.find((item) => item.key == 'recordMonth').value === ""){
+            yearList.push(`${sameDay} ${row.find((item) => item.key == 'recordHour').value}`)
+          }else{
+            yearList.push(`${row.find((item) => item.key == 'recordMonth').value} ${row.find((item) => item.key == 'recordHour').value}`)
+          }
+        }
+        //通过是否填写了时间来判定该行是否为有数据的一行
+        let isChange = row.find((item) => item.key == 'recordHour').value
+        if(isChange){
+          //未签名状态status.value的值为空或0
+          let noSignRow = row.find((item) => item.key == 'status').value === '0' || row.find((item) => item.key == 'status').value === ''
+          if(noSignRow){
+            let year = row.find((item) => item.key == 'recordMonth').value
+            let time = row.find((item) => item.key == 'recordHour').value
+            //如果是同一天的同一个时间不需要签名
+            if(yearList.includes(`${year} ${time}`)){
+
+            }else{
+              $(`#row_${rowIdx}`).eq(0).addClass("red-border")
+              flag = false
+              return this.$message.warning("存在未签名的记录，请全部签名后再保存");
+            }
+          }
+        }
+      })
+      if(flag){
+        this.bus.$emit('saveSheetPage', 'noSaveSign')
+      }
+    });
+
     this.bus.$on("toSheetPrintPage", (newWid) => {
       if ($(".sign-text").length) {
         // 判断是否存在标记

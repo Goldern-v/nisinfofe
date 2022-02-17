@@ -27,7 +27,7 @@
             {{data.sex}} | {{data.age}} | {{data.patientId}} | {{data.chargeType
             || '--'}}
           </div>
-          <div style="border-bottom: 1px dashed #E4E8EB; margin-bottom: 10px"></div>
+          <div style="border-bottom: 1px dashed #E4E8EB; margin-bottom: 8px"></div>
           <div class="aside" :style="inToday(data.admissionDate) && {color:'red'}">
             入院：{{`${FormatData(data.admissionDate)}（第${data.inpDay}天）`}}
           </div>

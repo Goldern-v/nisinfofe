@@ -405,6 +405,27 @@ export default {
       ]).then(res => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
+
+        if(this.HOSPITAL_ID=='wujing'){
+          let barcodeArr = {} 
+          bodyData.list.map((tr,index)=>{
+            if(tr.expand){
+              barcodeArr[tr.expand] = barcodeArr[tr.expand] ? (barcodeArr[tr.expand] + 1) : 1
+              if(barcodeArr[tr.expand] == 1 && ((bodyData.list[index + 1] && bodyData.list[index + 1].expand != tr.expand)||(!bodyData.list[index + 1]))){
+                // 只有一行药品时不显示分组符号
+              }
+              else if(barcodeArr[tr.expand] == 1){
+                tr.barCodeIdentification = 'identification-first'
+                tr.identificationUsage = tr.expand2
+              }else if((bodyData.list[index + 1] && bodyData.list[index + 1].expand != tr.expand)||(!bodyData.list[index + 1])){
+                tr.barCodeIdentification = 'identification-last'
+              }else{
+                tr.barCodeIdentification = 'identification-middle'
+              }
+            }
+          })
+        }
+
         let markData = res[2].data.data.list || [];
         this.listData = bodyData.list;
 

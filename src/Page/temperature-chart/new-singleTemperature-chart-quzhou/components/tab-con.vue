@@ -395,6 +395,10 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         wardCode: this.patientInfo.wardCode,
+         recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime
       }).then((res) => {
         res.data.data.list.map((item) => {
           this.fieldList[item.vitalCode] = item;
@@ -510,6 +514,10 @@ export default {
             wardCode: this.patientInfo.wardCode,
             vitalCode: key,
             fieldCn: text,
+             recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime
           };
           savefieldTitle(data).then((res) => {
              this.fieldList[index].fieldCn=text;

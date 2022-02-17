@@ -350,13 +350,13 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I305004",
+      "keys": "I305008",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I305004",
+          "name": "I305008",
           "type": "radio",
           "title": "否（0分）",
           "code": "0",
@@ -366,7 +366,7 @@
           "readOnly": null
         },
         {
-          "name": "I305004",
+          "name": "I305008",
           "type": "radio",
           "title": "是（20分）",
           "code": "20",
@@ -474,9 +474,9 @@
         {
           "name": "I305006",
           "type": "radio",
-          "title": "高估自己能力、忘记自己受限制（15分）",
-          "code": "15",
-          "score": 15,
+          "title": "高估自己能力、忘记自己受限制（20分）",
+          "code": "20",
+          "score": 20,
           "style": null,
           "class": null,
           "readOnly": null

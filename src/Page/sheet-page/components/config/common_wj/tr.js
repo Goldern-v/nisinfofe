@@ -39,7 +39,10 @@ export default [
   {
     key: "breath", //呼吸
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 52
+    }
   },
   {
     key: "bloodPressure", //血压
@@ -50,6 +53,9 @@ export default [
         e.preventDefault();
       }
       keyf1(e, td);
+    },
+    textarea: {
+      width: 52
     }
   },
   {

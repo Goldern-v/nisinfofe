@@ -138,7 +138,7 @@ import {
 Vue.component("IviewTable", IviewTable);
 // Vue.component('IviewSelect', IviewSelect);
 import "./common/css/iview-table.css";
-import 'view-design/dist/styles/iview.css'
+// import 'view-design/dist/styles/iview.css' //有影响到床位一览卡、患者详情页的样式
 // import './common/css/iview-select.css';
 //组件
 import VueContextMenu from "vue-contextmenu";

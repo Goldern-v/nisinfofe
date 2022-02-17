@@ -1,7 +1,7 @@
 export default {
   // 科室的名称
   style:{
-    width:'1250px'
+    width:'1290px'
   },
   deptType: '',
   th: {
@@ -53,25 +53,15 @@ export default {
       },
       {
         name: `
-        呼吸<br/>(mmHg)
+        呼吸<br/>次/分
         `,
-        style: {
-          minWidth: '47px',
-          maxWidth: '47px',
-          whiteSpace: 'nowrap'
-        },
         colspan: '1',
         rowspan: '3'
       },
       {
         name: `
-        血压<br/>(mmHg)
+        血压<br/>mmHg
         `,
-        style: {
-          minWidth: '47px',
-          maxWidth: '47px',
-          whiteSpace: 'nowrap'
-        },
         colspan: '1',
         rowspan: '3'
       },
@@ -190,8 +180,8 @@ export default {
         病情观察 护理措施
         `,
         style: {
-          minWidth: '180px',
-          maxWidth: '180px',
+          minWidth: '175px',
+          maxWidth: '175px',
         },
         colspan: '1',
         rowspan: '3'

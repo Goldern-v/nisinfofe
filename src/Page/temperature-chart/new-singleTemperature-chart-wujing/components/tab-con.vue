@@ -148,7 +148,7 @@
                         vitalSignObj[j].vitalValue
                       )"
                       @click.prevent="
-                        () => (vitalSignObj[j].vitalValue = option)
+                        () => (vitalSignObj[j].vitalValue = vitalSignObj[j].vitalValue+option)
                       "
                     >
                       {{ option }}
@@ -364,7 +364,6 @@ import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
 import {
-  getVitalSignListBy10,
   getVitalSignListByDate,
   getmultiDict,
   getfieldList,
@@ -543,6 +542,10 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         wardCode: this.patientInfo.wardCode,
+         recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime
       }).then((res) => {
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
@@ -736,6 +739,10 @@ export default {
               wardCode: this.patientInfo.wardCode,
               vitalCode: key,
               fieldCn: text,
+               recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime
             };
              let voildStr=text.trim();
             if (checkValueStr.includes(text)) {

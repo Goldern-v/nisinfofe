@@ -86,6 +86,7 @@
         class="body-con"
         @dblclick="openEditModal(tr, data, $event)"
         v-for="(tr, y) in data.bodyModel"
+        :id ="`row_${y}`"
         :class="[
           {
             inPreview:
@@ -249,7 +250,7 @@
               v-if="td.value"
               :style="!td.value && { opacity: 0 }"
               :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
-              :class="{ xiegangSignImg: sheetInfo.sheetType === 'common_xg' }"
+              :class="{ xiegangSignImg: sheetInfo.sheetType === 'common_xg' || HOSPITAL_ID==='wujing'}"
               alt
             />
           </div>
@@ -344,10 +345,11 @@
             "
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
+          <!-- 武警 护理记录单特殊情况单独处理，可以加粗 -->
           <div
             v-else-if="
               td.key === 'description' &&
-              HOSPITAL_ID === 'lingcheng' &&
+             (HOSPITAL_ID === 'lingcheng' || sheetInfo.sheetType === 'common_wj') &&
               sheetInfo.selectBlock.openRichText
             "
             v-html="td.value"
@@ -480,12 +482,17 @@
             sheetInfo.sheetType == 'obstetrics_hl' ||
             sheetInfo.sheetType == 'gynecology_hl' ||
             sheetInfo.sheetType == 'critical_lc' ||
-            sheetInfo.sheetType == 'neonatology_hl'
+            sheetInfo.sheetType == 'neonatology_hl' ||
+            sheetInfo.sheetType == 'cardiovascular_xt' ||
+            sheetInfo.sheetType == 'criticaldisease_xt'
           "
           >质控护士：</span
         >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
+        >
+        <span v-else-if="sheetInfo.sheetType == 'icu_cpr_xg'"
+          >参加CPR人员签名：</span
         >
         <!-- 聊城护士长审核 -->
         <span
@@ -514,19 +521,22 @@
             </div>
           </div>
         </span>
-        &nbsp;&nbsp;&nbsp;
-        <template
-          v-if="
+        <!-- &nbsp;&nbsp;&nbsp; -->
+        <div 
+          style="margin-right:50px">
+        </div>
+        <div
+         v-if="
             sheetInfo.sheetType == 'internal_eval_lcey' ||
             sheetInfo.sheetType == 'critical_lcey'||
-            sheetInfo.sheetType == 'critical_new_lcey'
-          "
-        >
+            sheetInfo.sheetType == 'critical_new_lcey'"
+            style="margin-right:50px"
+          >
           <span> <strong>审核时间：</strong> </span>
           <span>{{ auditorTime }}</span>
-        </template>
-        &nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <!-- &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
       </span>
       <!-- / {{Math.max(sheetMaxPage,(length + sheetStartPage - 1))}}  -->
       <!-- <span class="sh-name">审核人：
@@ -637,6 +647,9 @@ export default {
         "internal_eval_lcey", //一般或者护理记录单
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
         "critical_new_lcey",
+        "cardiovascular_xt",
+        "criticaldisease_xt",
+        "icu_cpr_xg",
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -777,7 +790,7 @@ export default {
       const currentTr =
         this.data.bodyModel[index].find((td) => td.key === "recordSource")
           .value === "5";
-      return lastTr && currentTr;
+      return (index == 0 || lastTr) && currentTr;
     },
     redTop, // tool.js引进来的啦
     BlackTop, // 这个也是tool.js引进来的啦

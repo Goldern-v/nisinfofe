@@ -424,7 +424,7 @@ function switechSheetType(type) {
     }
       break;
     case "common_wj": {
-      // 武警广东省总队医院-护理记录单
+      // 武警-护理记录单
       schema = require("../config/common_wj/tr.js").default;
     }
       break;
@@ -810,11 +810,66 @@ function switechSheetType(type) {
       schema = require("../config/access_bh/tr.js").default;
     }
       break;
-      case "infant_bh": {
-        // 北海市 - 婴儿记录表
-        schema = require("../config/infant_bh/tr.js").default;
-      }
-        break;
+    case "infant_bh": {
+      // 北海市 - 婴儿记录表
+      schema = require("../config/infant_bh/tr.js").default;
+    }
+      break;
+    case "neurology_bh": {
+      // 北海市 - 神经内科危重护理单
+      schema = require("../config/neurology_bh/tr.js").default;
+    }
+      break;
+    case "diabetes_bh": {
+      // 北海市 - 糖尿病治疗观察表
+      schema = require("../config/diabetes_bh/tr.js").default;
+    }
+      break;
+    case "revivemonitoring_bh": {
+      // 北海市 - 心胸外科术后复苏监测记录表
+      schema = require("../config/revivemonitoring_bh/tr.js").default;
+    }
+      break;
+    case "orthopaedic_bh": {
+      // 北海市 - 骨科危重患者护理记录
+      schema = require("../config/orthopaedic_bh/tr.js").default;
+    }
+      break;
+    case "surgery_bh": {
+      // 北海市 - 普外危重患者护理记录
+      schema = require("../config/surgery_bh/tr.js").default;
+    }
+      break;
+    case "transplant_bh": {
+      // 北海市 - 肢体与组织移植血液循环观察记录单
+      schema = require("../config/transplant_bh/tr.js").default;
+    }
+      break;
+    case "ophthalmology_bh": {
+      // 北海市 - 眼科护理记录单
+      schema = require("../config/ophthalmology_bh/tr.js").default;
+    }
+    break;
+    case "labor_bh": {
+      // 北海市 - 产程观察记录
+      schema = require("../config/labor_bh/tr.js").default;
+    }
+      break;
+    case "emergency_bh": {
+      // 北海市 - 急诊CRRT治疗记录单
+      schema = require("../config/emergency_bh/tr.js").default;
+    }
+      break;
+    case "observation_bh": {
+      // 北海市 - 急诊ICU病情观察表
+      schema = require("../config/observation_bh/tr.js").default;
+    }
+      break;
+    case "department_bh": {
+      // 北海市 - 急诊科重症监护室(EICU)CRRT 治疗记录单
+      schema = require("../config/department_bh/tr.js").default;
+    }
+      break;
     case "nursingrecords_zxy": {
       // 南方中西医 - 护理记录单
       schema = require("../config/nursingrecords_zxy/tr.js").default;
@@ -880,6 +935,31 @@ function switechSheetType(type) {
       schema = require("../config/prenatal_xg/tr.js").default;
     }
       break;
+    case "icu_cpr_xg": {
+      // 东莞谢岗 - ICU心肺复苏单
+      schema = require("../config/icu_cpr_xg/tr.js").default;
+    }
+      break;
+    case "peritoneal_xg": {
+      // 东莞谢岗 - 腹膜透析记录单
+      schema = require("../config/peritoneal_xg/tr.js").default;
+    }
+      break;
+    case "contraction_inhibitor_xg": {
+      // 东莞谢岗 - 宫缩抑制剂静脉滴注观察记录单
+      schema = require("../config/contraction_inhibitor_xg/tr.js").default;
+    }
+      break;
+    case "magnesium_sulphate_xg": {
+      // 东莞谢岗 - 硫酸镁注射液静脉滴注观察记录单
+      schema = require("../config/magnesium_sulphate_xg/tr.js").default;
+    }
+      break;
+    case "oxytocin_xg": {
+      // 东莞谢岗 - 催产素静脉点滴观察单
+      schema = require("../config/oxytocin_xg/tr.js").default;
+    }
+      break;
     case "cardiology_fs": {
       // 佛山市一 - 心内科通用护理记录单
       schema = require("../config/cardiology_fs/tr.js").default;
@@ -935,55 +1015,55 @@ function switechSheetType(type) {
       schema = require("../config/generalnursing_fs/tr.js").default;
     }
       break;
-      case "upperdisorders_fs": {
-        // 佛山市一 - 护理记录单(上肢疾患保守治疗)
-        schema = require("../config/upperdisorders_fs/tr.js").default;
-      }
-          break;
-      case "upperfractures_fs": {
-        // 佛山市一 - 护理记录单(上肢骨折术后)
-        schema = require("../config/upperfractures_fs/tr.js").default;
-      }
-          break;
-      case "lowerdisorders_fs": {
-         // 佛山市一 - 护理记录单(下肢疾患保守治疗)
-         schema = require("../config/lowerdisorders_fs/tr.js").default;
-      }
-          break;
-      case "lowerfracture_fs": {
-         // 佛山市一 - 护理记录单(下肢骨折术后)
-         schema = require("../config/lowerfracture_fs/tr.js").default;
-      }
-        break;
-      case "resection_fs": {
-          // 佛山市一 - 护理记录单(肿物切除术)
-         schema = require("../config/resection_fs/tr.js").default;
-      }
+    case "upperdisorders_fs": {
+      // 佛山市一 - 护理记录单(上肢疾患保守治疗)
+      schema = require("../config/upperdisorders_fs/tr.js").default;
+    }
       break;
-      case "upperremoved_fs": {
-         // 佛山市一 - 护理记录单(上肢内固定物拆除)
-         schema = require("../config/upperremoved_fs/tr.js").default;
-      }
+    case "upperfractures_fs": {
+      // 佛山市一 - 护理记录单(上肢骨折术后)
+      schema = require("../config/upperfractures_fs/tr.js").default;
+    }
       break;
-      case "lowerremoved_fs": {
-         // 佛山市一 - 护理记录单(下肢内固定物拆除)
-         schema = require("../config/lowerremoved_fs/tr.js").default;
-      }
+    case "lowerdisorders_fs": {
+      // 佛山市一 - 护理记录单(下肢疾患保守治疗)
+      schema = require("../config/lowerdisorders_fs/tr.js").default;
+    }
       break;
-      case "osteoporotic_fs": {
-        // 佛山市一 - 护理记录单(骨质疏松保守与手术治疗)
-        schema = require("../config/osteoporotic_fs/tr.js").default;
-      }
+    case "lowerfracture_fs": {
+      // 佛山市一 - 护理记录单(下肢骨折术后)
+      schema = require("../config/lowerfracture_fs/tr.js").default;
+    }
       break;
-      case "hipdisorders_fs": {
-        // 佛山市一 - 护理记录单(髋部疾患保守治疗)
-        schema = require("../config/hipdisorders_fs/tr.js").default;
-      }
+    case "resection_fs": {
+      // 佛山市一 - 护理记录单(肿物切除术)
+      schema = require("../config/resection_fs/tr.js").default;
+    }
       break;
-      case "criticallyill_fs": {
-        // 佛山市一 - 护理记录单(危重患者护理记录单)
-        schema = require("../config/criticallyill_fs/tr.js").default;
-      }
+    case "upperremoved_fs": {
+      // 佛山市一 - 护理记录单(上肢内固定物拆除)
+      schema = require("../config/upperremoved_fs/tr.js").default;
+    }
+      break;
+    case "lowerremoved_fs": {
+      // 佛山市一 - 护理记录单(下肢内固定物拆除)
+      schema = require("../config/lowerremoved_fs/tr.js").default;
+    }
+      break;
+    case "osteoporotic_fs": {
+      // 佛山市一 - 护理记录单(骨质疏松保守与手术治疗)
+      schema = require("../config/osteoporotic_fs/tr.js").default;
+    }
+      break;
+    case "hipdisorders_fs": {
+      // 佛山市一 - 护理记录单(髋部疾患保守治疗)
+      schema = require("../config/hipdisorders_fs/tr.js").default;
+    }
+      break;
+    case "criticallyill_fs": {
+      // 佛山市一 - 护理记录单(危重患者护理记录单)
+      schema = require("../config/criticallyill_fs/tr.js").default;
+    }
       break;
     case "kneedisease_fs": {
       // 佛山市一 - 护理记录单(膝关节疾患)
@@ -1015,6 +1095,56 @@ function switechSheetType(type) {
       schema = require("../config/operationlumbar_fs/tr.js").default;
     }
       break;
+    case "general_fs": {
+      // 佛山市一 - 护理记录单(新生儿科通用)
+      schema = require("../config/general_fs/tr.js").default;
+    }
+        break;
+    case "eyegeneral_fs": {
+      // 佛山市一 - 护理记录单(眼科通用)
+      schema = require("../config/eyegeneral_fs/tr.js").default;
+    }
+      break;
+    case "pupilgeneral_fs": {
+      // 佛山市一 - 护理记录单(儿科二区带瞳孔通用)
+      schema = require("../config/pupilgeneral_fs/tr.js").default;
+    }
+      break;
+    case "pediatric_fs": {
+      // 佛山市一 - 护理记录单(儿科通用)
+      schema = require("../config/pediatric_fs/tr.js").default;
+    }
+      break;
+    case "areageneral_fs": {
+        // 佛山市一 - 护理记录单(儿科二区通用)
+      schema = require("../config/areageneral_fs/tr.js").default;
+    }
+      break;
+    case "cardiovascular_xt": {
+      // 佛山杏坛 - 护理记录单（心血管呼吸专科）（未测试）
+      schema = require("../config/cardiovascular_xt/tr.js").default;
+    }
+      break;
+    case "criticaldisease_xt": {
+      // 佛山杏坛 - 危重症护理记录单（未测试）
+      schema = require("../config/criticaldisease_xt/tr.js").default;
+    }
+      break;
+    case "nonsurgicalcare_fk": {
+      // 武汉肺科 - 非手术科室护理记录单
+      schema = require("../config/nonsurgicalcare_fk/tr.js").default;
+    }
+      break;
+    case "access_fk": {
+        // 武汉肺科 - 出入液量记录单
+      schema = require("../config/access_fk/tr.js").default;
+    }
+      break; 
+    case "test_common": {
+      // 护理记录单（测试用）
+    schema = require("../config/icu_cpr_xg/tr.js").default;
+  }
+    break;  
     default: {
       schema = require("../config/default/tr.js").default;
     }

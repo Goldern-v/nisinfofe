@@ -326,7 +326,7 @@
             >
             </el-date-picker> -->
           </div>
-          
+
           <div>
             <el-button
               :disabled="isDisable()"
@@ -555,7 +555,7 @@ export default {
         };
       }
       this.vitalSignObj = { ...obj };
-      
+
     },
     async getList() {
       /* 初始化 */
@@ -594,6 +594,10 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         wardCode: this.patientInfo.wardCode,
+         recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime
       }).then((res) => {
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
@@ -629,10 +633,10 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      
+
       // 北海在记录单那边同步数据,时间直接取点击的
       if (this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes('temperature')) {
-       this.query.entryTime = temp.slice(12, 14); 
+       this.query.entryTime = temp.slice(12, 14);
       }else{
         this.query.entryTime = value.split("  ")[1];
       }
@@ -668,10 +672,7 @@ export default {
               ...v,
               popVisible: false,
             };
-
           });
-            
-
         } else {
           this.init();
         }
@@ -758,6 +759,10 @@ export default {
               wardCode: this.patientInfo.wardCode,
               vitalCode: key,
               fieldCn: text,
+               recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime
             };
             if (checkValueStr.includes(text)) {
               this.$message.error(`修改${label}失败!已存在${text}项目`);

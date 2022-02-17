@@ -19,7 +19,7 @@
       <div
         class="item-box"
         flex="cross:center main:center"
-        @click="emit('saveSheetPage', 'noSaveSign')"
+        @click="toSave"
       >
         <div class="text-con" flex="cross:center">保存</div>
       </div>
@@ -36,7 +36,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="setPage"
-        style="width: 90px"
+        style="width: 110px"
       >
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
@@ -494,6 +494,13 @@ export default {
 
     tofull() {
       this.$store.commit("upSheetPageFullpage", !this.fullpage);
+    },
+    toSave() {
+      if (process.env.HOSPITAL_ID == "nanfangzhongxiyi") {
+        this.bus.$emit('toSheetSaveNoSign')
+      }else{
+        this.bus.$emit('saveSheetPage', 'noSaveSign')
+      }
     },
     toPrint() {
       if (!this.sheetInfo.selectBlock.id)
