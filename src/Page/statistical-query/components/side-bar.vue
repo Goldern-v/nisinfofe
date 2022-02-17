@@ -14,7 +14,74 @@ export default {
   data() {
     return {
       actIndex: '',
-      bars: []
+      bars: [
+        {
+          name: "statisticalOperation",
+          meta: {
+            title: '手术统计'
+          },
+        },
+        {
+          name: "statisticalPulseHeartRate",
+          meta: {
+            title: '脉搏统计'
+          },
+        },
+        {
+          name: "statisticalHeartRate",
+          meta: {
+            title: '心率统计'
+          },
+        },
+        {
+          name: "statisticalPressure",
+          meta: {
+            title: '压力性损伤统计'
+          },
+        },
+        {
+          name: "statisticalBloodPressure",
+          meta: {
+            title: '血压统计'
+          },
+        },
+        {
+          name: "statisticalTemperature",
+          meta: {
+            title: '体温统计'
+          },
+        },
+        {
+          name: "statisticalNursingLv",
+          meta: {
+            title: '护理等级统计'
+          },
+        },
+        // {
+        //   name: "statisticalWorkload",
+        //   meta: {
+        //     title: '工作量统计'
+        //   },
+        // },
+        {
+          name: "statisticalBreath",
+          meta: {
+            title: '呼吸统计'
+          },
+        },
+        {
+          name: "statisticalExitAdmission",
+          meta: {
+            title: '出入院统计'
+          },
+        },
+        {
+          name: "statisticalVTE",
+          meta: {
+            title: 'VTE评分统计'
+          },
+        },
+      ]
     }
   },
   watch: {
@@ -26,8 +93,8 @@ export default {
   },
   mounted() {
     this.actIndex = this.$route.name
-    let details = ['/main', '/statisticalQuery']
-    this.bars = this.getBars(this.$router.options.routes, details)
+    // let details = ['/main', '/statisticalQuery']
+    // this.bars = this.getBars(this.$router.options.routes, details)
   },
   methods: {
     handleSelect(v) {

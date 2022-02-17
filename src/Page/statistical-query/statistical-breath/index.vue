@@ -1,27 +1,33 @@
 <template>
 <div class="statistical-temperature">
   <search-con
+    :loading.sync="loading"
     :formData="formData"
-    :deptList="deptList"
     @handleExport="handleExport"
     @handleQuery="handleQuery">
     <template>
       <div class="search-con__ctx__item">
         呼吸：
-        <input-num-range :value="[formData.a, formData.b]" @change="(e) => handleIptNum(e,['a', 'b'])"/>
+        <input-num-range :value="[formData.breatheMin, formData.breatheMax]" @change="(e) => handleIptNum(e,['breatheMin', 'breatheMax'])"/>
       </div>
       <div class="search-con__ctx__item main-color">
         <i class="icon iconfont">&#xe6bc;</i>注：呼吸查询时的范围包含所输入的区间值
       </div>
     </template>
   </search-con>
-  <div class="statistical-temperature__content default-content" v-loading="loading">
+  <div class="statistical-temperature__content default-content" v-loading.sync="loading">
     <iview-table
       stripe
       :data="tableData"
       border
-      :height="wih - 172"
+      :height="wih - 222"
       :columns="columns"/>
+    <pagination
+      :pageIndex="pageIndex"
+      :size="pageNum"
+      :total="total"
+      @sizeChange="handleSizeChange"
+      @currentChange="handleCurrentChange" />
   </div>
 </div>
 </template>
@@ -49,6 +55,7 @@ import commonMixin from '@/common/mixin/common.mixin';
 import SearchCon from '../components/search-con.vue'
 import InputNumRange from '../components/input-num-range.vue'
 import indexMixins from '../mixins/index.mixins'
+import Pagination from '@/components/pagination/pagination.vue'
 
 export default {
   mixins: [commonMixin, indexMixins],
@@ -58,11 +65,11 @@ export default {
       formData: {
         beginTime: '',
         endTime: '',
-        type: '',
-        status: '',
-        point: '',
-        a: 0,
-        b: 0,
+        wardCode: '',
+        status: 0,
+        timing: '',
+        breatheMin: 0,
+        breatheMax: 0,
       },
       columns: [
         {
@@ -71,53 +78,56 @@ export default {
           align: 'center',
 					minWidth: 70,
 					render: (h, { index }) => {
-						return <span>{index + 1}</span>
+						return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
 					}
 				},
         {
-					key: 'index0',
+					key: 'wardName',
 					title: '病区',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index1',
+					key: 'name',
 					title: '患者姓名',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index2',
+					key: 'sex',
 					title: '性别',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index3',
+					key: 'age',
 					title: '年龄',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index4',
+					key: 'inpNo',
 					title: '病案号',
           align: 'center',
 					minWidth: 100,
 				},
         {
-					key: 'index5',
+					key: 'recordDate',
 					title: '日期',
           align: 'center',
 					minWidth: 110,
+          render: (h, { row }) => {
+            return <span>{row.recordDate.split(' ')[0]}</span>
+          }
 				},
         {
-					key: 'index6',
+					key: 'timing',
 					title: '时间点',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index8',
+					key: 'breathe',
 					title: '呼吸（次/分）',
           align: 'center',
 					minWidth: 100,
@@ -131,6 +141,7 @@ export default {
   components: {
     SearchCon,
     InputNumRange,
+    Pagination,
   }
 };
 </script>

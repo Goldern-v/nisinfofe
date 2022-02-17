@@ -1,8 +1,9 @@
 <template>
 <div class="statistical-workload">
   <search-con
+    :loading.sync="loading"
     :formData="formData"
-    :deptList="deptList"
+
     @handleExport="handleExport"
     @handleQuery="handleQuery">
     <template>
@@ -19,7 +20,7 @@
     </template>
     </search-con>
   <select-bar :val1="type1" :val2="type2" @change="handleChangeSelect"/>
-  <div class="statistical-workload__content default-content" v-loading="loading">
+  <div class="statistical-workload__content default-content" v-loading.sync="loading">
     <iview-table
       v-if="!isChart"
       stripe
@@ -27,6 +28,13 @@
       border
       :height="wih - 178"
       :columns="columns"/>
+    <pagination
+      v-if="!isChart"
+      :pageIndex="pageIndex"
+      :size="pageNum"
+      :total="total"
+      @sizeChange="handleSizeChange"
+      @currentChange="handleCurrentChange" />
     <chart
       v-else
       :options="options"
@@ -70,6 +78,7 @@ import { searchItem, searchKeyByCode } from '@/utils/enums.js';
 import { RANK, WORKLOAD_BAR1, WORKLOAD_BAR2 } from '../enums';
 import indexMixins from '../mixins/index.mixins'
 
+import Pagination from '@/components/pagination/pagination.vue'
 export default {
   mixins: [commonMixin, indexMixins],
   props: {},
@@ -106,13 +115,13 @@ export default {
           align: 'center',
           width: 70,
           render: (h, { index }) => {
-            return <span>{index + 1}</span>
+            return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
           }
         }
       let obj = {
         dept: [
           {
-            key: 'i0',
+            key: 'wardName',
             title: '病区',
             align: 'center',
             width: 70,
@@ -274,7 +283,7 @@ export default {
 
     },
     options() {
-      let curItem = this.deptList.find(v => v.code === this.formData.type)
+      let curItem = this.deptList.find(v => v.code === this.formData.wardCode)
       return {
         title: {
           text: (curItem ? curItem.name : '') + '工作量统计',
@@ -353,7 +362,8 @@ export default {
   },
   components: {
     SearchCon,
-    SelectBar
+    SelectBar,
+    Pagination,
   }
 };
 </script>

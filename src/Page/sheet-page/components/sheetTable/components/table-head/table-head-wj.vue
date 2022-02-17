@@ -164,13 +164,13 @@
         诊断：
         <div
           class="bottom-line"
-          style="min-width: 1193px;max-width: 1193px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          style="min-width: 1080px;max-width: 1080px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >
           {{ processedDiagnosis[0] }}
         </div>
         <div
           class="bottom-line"
-          style="margin-left:53px;min-width: 1193px;max-width: 1193px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          style="margin-left:53px;min-width: 1080px;max-width: 1080px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >
           {{ processedDiagnosis[1] }}
         </div>
@@ -294,6 +294,7 @@ export default {
 <style lang='scss' scoped>
 .header-con {
   .info-con {
+    margin: 0 0;
     > span {
       height: 23px;
       line-height: 23px;

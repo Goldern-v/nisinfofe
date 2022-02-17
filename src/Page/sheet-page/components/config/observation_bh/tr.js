@@ -48,7 +48,7 @@ import {
     { key: 'outputCharacter', event: keyf1, value: '', next: '', name: '出量性状', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8)},
     { key: 'skinCondition', event: keyf1, value: '', next: '', name: '皮肤情况', textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16),autoComplete: { data: ['完整','苍白','黄疸','潮红','紫绀','干燥','出血点','压力性损伤','破损','水肿','皮疹','疤痕','淤青'] },splice:true},
     { key: 'pipeline', event: keyf1, value: '', next: '', name: '管路情况', textarea: { width: 150 }, change: (e, td) => limitChange(e, td, 24),autoComplete: { data: ['无','导尿管','胃管','深静脉导管','浅静脉留置针','胸腔引流管','气切','气管插管','气切套管','脑室引流管','硬膜下引流管','硬膜外引流管'] },splice:true},
-    { key: 'tongqi', event: keyf1, value: '', next: '', name: '通气模式', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 12),autoComplete: { data: ['鼻导管吸氧(L/min)','面罩吸氧(L/min)','机械辅助呼吸'] }},
+    { key: 'ventilation', event: keyf1, value: '', next: '', name: '通气模式', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 12),autoComplete: { data: ['鼻导管吸氧(L/min)','面罩吸氧(L/min)','机械辅助呼吸'] }},
     {
       key: "description", //特殊情况记录
       value: "",

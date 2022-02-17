@@ -1,18 +1,24 @@
 <template>
 <div class="statistical-operation">
   <search-con
+    :loading.sync="loading"
     :formData="formData"
-    :deptList="deptList"
     datetype="datetime"
     @handleExport="handleExport"
     @handleQuery="handleQuery"/>
-  <div class="statistical-operation__content default-content" v-loading="loading">
+  <div class="statistical-operation__content default-content" v-loading.sync="loading">
     <iview-table
       stripe
       :data="tableData"
       border
-      :height="wih - 132"
+      :height="wih - 182"
       :columns="columns"/>
+    <pagination
+      :pageIndex="pageIndex"
+      :size="pageNum"
+      :total="total"
+      @sizeChange="handleSizeChange"
+      @currentChange="handleCurrentChange" />
   </div>
 </div>
 </template>
@@ -38,6 +44,7 @@
 import commonMixin from '@/common/mixin/common.mixin';
 import SearchCon from '../components/search-con.vue'
 import indexMixins from '../mixins/index.mixins'
+import Pagination from '@/components/pagination/pagination.vue'
 
 export default {
   mixins: [commonMixin, indexMixins],
@@ -51,58 +58,58 @@ export default {
           align: 'center',
 					minWidth: 70,
 					render: (h, { index }) => {
-						return <span>{index + 1}</span>
+						return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
 					}
 				},
         {
-					key: 'index0',
+					key: 'wardName',
 					title: '病区',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index1',
+					key: 'name',
 					title: '患者姓名',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index2',
+					key: 'sex',
 					title: '性别',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index3',
+					key: 'age',
 					title: '年龄',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index4',
+					key: 'inpNo',
 					title: '病案号',
           align: 'center',
 					minWidth: 100,
 				},
         {
-					key: 'index5',
+					key: 'diagnosis',
 					title: '入院诊断',
           align: 'center',
 					minWidth: 110,
 				},
         {
-					key: 'index6',
+					key: 'admissionDate',
 					title: '入院时间',
           align: 'center',
 					minWidth: 110,
 				},
         {
-					key: 'index7',
+					key: 'dischargeDate',
 					title: '出院时间',
           align: 'center',
 					minWidth: 110,
-          render: (h, { columns }) => {
-            return <span>{ columns || '-' }</span>
+          render: (h, { row }) => {
+            return <span>{ row.dischargeDate || '-' }</span>
           }
 				},
       ],
@@ -112,7 +119,8 @@ export default {
 
   },
   components: {
-    SearchCon
+    SearchCon,
+    Pagination,
   }
 };
 </script>

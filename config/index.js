@@ -80,7 +80,8 @@ const currentTargetUrl = (() => {
       // return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
       // return "http://192.168.1.54:9871" //公司-聊城测试-内网
       // return "http://192.168.2.122:8080" // 初升本地
-      // return "http://192.168.20.45:8080"  //伟彬本地
+      return "http://192.168.20.83:8080"  //伟彬本地
+
 
 
     /** 江门妇幼 */
@@ -129,9 +130,9 @@ const currentTargetUrl = (() => {
     /** 武警广东省总队医院 */
     case "wujing":
       // return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
-      // return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
+      return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.20.187:8080" // 杨鑫本地
-      return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式
+      // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式
 
     /** 曲周医院 */
     case 'quzhou':

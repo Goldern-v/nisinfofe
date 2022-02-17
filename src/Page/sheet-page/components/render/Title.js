@@ -1105,10 +1105,24 @@ export default function Title(
     );
   }
   break;
+  case "seriously_bh": {
+    // 北海市 - 心胸外科病重（危）患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/seriously_bh/th").default)
+    );
+  }
+  break;
   case "department_bh": {
     // 北海市 - 急诊科重症监护室(EICU)CRRT 治疗记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/department_bh/th").default)
+    );
+  }
+  break;
+  case "monitoring_bh": {
+    // 北海市 - 心胸外科心电监护观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/monitoring_bh/th").default)
     );
   }
   break;
