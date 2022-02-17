@@ -1,7 +1,7 @@
 export default {
   // 科室的名称
   style:{
-    width:'1290px'
+    width:'1150px'
   },
   deptType: '',
   th: {
@@ -17,46 +17,45 @@ export default {
         name: `
         体温<br/>(℃)
         `,
-        style: {},
         colspan: '1',
         rowspan: '3',
         style: {
-          whiteSpace: 'nowrap',
           minWidth: '35px',
+          maxWidth: '35px',
         }
       },
       {
         name: `
-        脉搏<br/>(次/分)
+        脉搏<br/>次/分
         `,
-        style: {},
+        style: {
+          minWidth: '35px',
+          maxWidth: '35px',
+        },
         colspan: '1',
         rowspan: '3',
-        style: {
-          whiteSpace: 'nowrap',
-          minWidth: '53px',
-          maxWidth: '53px',
-        }
       },
       {
         name: `
-        心率<br/>(次/分)
+        心率<br/>次/分
         `,
-        style: {},
+        style: {
+          minWidth: '35px',
+          maxWidth: '35px',
+        },
         colspan: '1',
         rowspan: '3',
-        style: {
-          whiteSpace: 'nowrap',
-          minWidth: '53px',
-          maxWidth: '53px',
-        }
       },
       {
         name: `
         呼吸<br/>次/分
         `,
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3',
+        style: {
+          minWidth: '35px',
+          maxWidth: '35px',
+        },
       },
       {
         name: `
@@ -70,19 +69,19 @@ export default {
         意识
         `,
         style: {
-          minWidth: '51px',
-          maxWidth: '51px'
+          minWidth: '45px',
+          maxWidth: '45px'
         },
         colspan: '1',
         rowspan: '3'
       },
       {
         name: `
-        瞳孔<br/>(mm)
+        瞳孔<br/>mm
         `,
         style: {
-          minWidth: '71px',
-          maxWidth: '71px'
+          minWidth: '35px',
+          maxWidth: '35px'
         },
         colspan: '1',
         rowspan: '3'
@@ -188,10 +187,10 @@ export default {
       },
       {
         name: `
-        护士签名
+        护士<br/>签名
         `,
         style: {
-          minWidth:'60px'
+          minWidth:'50px'
         },
         colspan: '1',
         rowspan: '3'
@@ -221,8 +220,8 @@ export default {
         内容
         `,
         style: {
-          minWidth: '159px',
-          maxWidth: '159px'
+          minWidth: '120px',
+          maxWidth: '120px'
         },
         colspan: '1',
         rowspan: '2'
@@ -243,8 +242,8 @@ export default {
         内容
         `,
         style: {
-          minWidth: '69px',
-          maxWidth: '69px'
+          minWidth: '70px',
+          maxWidth: '70px'
         },
         colspan: '1',
         rowspan: '2'

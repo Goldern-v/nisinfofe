@@ -482,9 +482,12 @@ export default {
             if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
               /** 验证证书 */
               window.openCaSignModal();
-            }else if(this.HOSPITAL_ID == "fuyou"){
+            }else if(["fuyou"].includes(this.HOSPITAL_ID)){
               window.openFuyouCaSignModal();
             }
+            // else if(['hj'].includes(this.HOSPITAL_ID)){
+            //   window.openHjCaSignModal();
+            // }
           }
           // 清除科室记录
           this.$store.commit("upDeptCode", "");
