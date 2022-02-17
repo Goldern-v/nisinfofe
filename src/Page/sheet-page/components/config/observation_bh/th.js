@@ -1,6 +1,6 @@
 
 /*
-    北海人医 - 眼科护理记录单
+    北海人医 - 急诊ICU病情观察表
 
 /**
  * @description: 开发注意事项:
@@ -18,34 +18,32 @@ export default {
     // 科室的名称
     deptType: "", 
     style: {
-      width: "1200px"
+      width: "1220px"
     },
     th: {
         top: 
          [
             { "name": '',"colspan": "2","rowspan": "1", "key":'recordYear'},
-            { "name": "体温", "colspan": "1", "rowspan": "3"}, 
-            { "name": "脉搏", "colspan": "1", "rowspan": "3"}, 
-            { "name": "呼吸", "colspan": "1", "rowspan": "3"}, 
-            { "name": "血压", "colspan": "1", "rowspan": "3"}, 
-            { "name": "意识", "colspan": "1", "rowspan": "3"}, 
+            { "name": "病情观察、护理<br/>措施及效果", "colspan": "2", "rowspan": "1"}, 
+            { "name": "GCS评分", "colspan": "3", "rowspan": "1"}, 
             { "name": "入量", "colspan": "2", "rowspan": "1"}, 
             { "name": "出量", "colspan": "4", "rowspan": "1"}, 
-            { "name": "管道", "colspan": "1", "rowspan": "3"}, 
-            { "name": "血氧<br/>饱和<br/>度%", "colspan": "1", "rowspan": "3"}, 
-            { "name": "吸氧<br/>L/<br/>min", "colspan": "1", "rowspan": "3"}, 
-            { "name": "眼脸<br/>肿胀", "colspan": "1", "rowspan": "3"}, 
-            { "name": "结膜<br/>充血", "colspan": "1", "rowspan": "3"}, 
-            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue"}, 
-            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue2"}, 
-            { "name": "病情记录", "colspan": "1", "rowspan": "3", style: { minWidth: "180px",  maxWidth: "180px"}, }, 
-            { "name": "护士签名", "colspan": "1", "rowspan": "3"}
+            { "name": "皮肤情况", "colspan": "1", "rowspan": "3"}, 
+            { "name": "管路情况", "colspan": "1", "rowspan": "3"}, 
+            { "name": "通气模式", "colspan": "1", "rowspan": "3"}, 
+            { "name": "病情记录", "colspan": "1", "rowspan": "3",style: { minWidth: "180px",  maxWidth: "180px"} }, 
+            { "name": "护士签名", "colspan": "1", "rowspan": "3",style: { minWidth: "80px",  maxWidth: "80px"}}
          ]
         , 
         mid:  
             [   
                 {"name": "日期", "colspan": "1", "rowspan": "2"}, 
                 {"name": "时间", "colspan": "1", "rowspan": "2"}, 
+                {"name": "意识", "colspan": "1", "rowspan": "2"},
+                {"name": "瞳孔", "colspan": "1", "rowspan": "2"},
+                {"name": "E", "colspan": "1", "rowspan": "2"},
+                {"name": "V", "colspan": "1", "rowspan": "2"},
+                {"name": "M", "colspan": "1", "rowspan": "2"},
                 {"name": "名称", "colspan": "1", "rowspan": "2"},
                 {"name": "量<br/>ml", "colspan": "1", "rowspan": "2"},  
                 {"name": "名称", "colspan": "1", "rowspan": "2"},

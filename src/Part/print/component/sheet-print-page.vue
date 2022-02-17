@@ -362,7 +362,7 @@ export default {
         `
         @media print {
           @page{
-            margin:0 0 0 2cm;
+            margin:0 0;
           }
         }
         `

@@ -1091,6 +1091,27 @@ export default function Title(
     );
   }
   break;
+  case "emergency_bh": {
+    // 北海市 - 急诊CRRT治疗记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/emergency_bh/th").default)
+    );
+  }
+  break;
+  case "observation_bh": {
+    // 北海市 - 急诊ICU病情观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/observation_bh/th").default)
+    );
+  }
+  break;
+  case "department_bh": {
+    // 北海市 - 急诊科重症监护室(EICU)CRRT 治疗记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/department_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
