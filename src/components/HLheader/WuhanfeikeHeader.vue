@@ -777,6 +777,13 @@
     &.cognitiveStatistic {
       background-image: url('../../common/images/index/出生医学证明.png');
     }
+    &.singleTemperatureChart {
+      background-image: url('../../common/images/index/单人录入体温单.png');
+    }
+
+    &.allTemperatureChart {
+      background-image: url('../../common/images/index/批量录入体温单.png');
+    }
   }
 }
 
