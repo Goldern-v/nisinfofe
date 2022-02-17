@@ -1,25 +1,31 @@
 <template>
 <div class="statistical-operation">
   <search-con
+    :loading.sync="loading"
     :formData="formData"
-    :deptList="deptList"
     datetype="datetime"
     @handleExport="handleExport"
     @handleQuery="handleQuery">
-    <div class="search-con__ctx__item" v-if="formData.type != undefined">
+    <div class="search-con__ctx__item" v-if="formData.nursingClass != undefined">
         护理等级：
-        <ElSelect style="width: 120px;" size="small" :value="formData.type" @input="handleQuery({lv: $event})" filterable>
+        <ElSelect style="width: 120px;" size="small" :value="formData.nursingClass" @input="handleQuery({nursingClass: $event})" filterable>
           <ElOption v-for="val in nursingLvs" :key="val.key" :label="val.label" :value="val.key" />
       </ElSelect>
       </div>
   </search-con>
-  <div class="statistical-operation__content default-content" v-loading="loading">
+  <div class="statistical-operation__content default-content" v-loading.sync="loading">
     <iview-table
       stripe
       :data="tableData"
       border
-      :height="wih - 132"
+      :height="wih - 182"
       :columns="columns"/>
+    <pagination
+      :pageIndex="pageIndex"
+      :size="pageNum"
+      :total="total"
+      @sizeChange="handleSizeChange"
+      @currentChange="handleCurrentChange" />
   </div>
 </div>
 </template>
@@ -46,6 +52,7 @@ import commonMixin from '@/common/mixin/common.mixin';
 import SearchCon from '../components/search-con.vue'
 import indexMixins from '../mixins/index.mixins'
 import { NURSING_LEVEL } from '../enums';
+import Pagination from '@/components/pagination/pagination.vue'
 
 export default {
   mixins: [commonMixin, indexMixins],
@@ -55,9 +62,9 @@ export default {
       formData: {
         beginTime: '',
         endTime: '',
-        type: '',
-        status: '',
-        lv: ''
+        wardCode: '',
+        status: 0,
+        nursingClass: '',
       },
       columns: [
         {
@@ -66,53 +73,53 @@ export default {
           align: 'center',
 					minWidth: 70,
 					render: (h, { index }) => {
-						return <span>{index + 1}</span>
+						return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
 					}
 				},
         {
-					key: 'index0',
+					key: 'wardName',
 					title: '病区',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index1',
+					key: 'name',
 					title: '患者姓名',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index2',
+					key: 'sex',
 					title: '性别',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index3',
+					key: 'age',
 					title: '年龄',
           align: 'center',
 					minWidth: 70,
 				},
         {
-					key: 'index4',
+					key: 'inpNo',
 					title: '病案号',
           align: 'center',
 					minWidth: 100,
 				},
         {
-					key: 'index5',
+					key: 'diagnosis',
 					title: '入院诊断',
           align: 'center',
 					minWidth: 100,
 				},
         {
-					key: 'index6',
+					key: 'nursingClass',
 					title: '护理级别',
           align: 'center',
 					minWidth: 100,
 				},
         {
-					key: 'index7',
+					key: 'condition',
 					title: '病危/病重',
           align: 'center',
 					minWidth: 100,
@@ -125,7 +132,8 @@ export default {
 
   },
   components: {
-    SearchCon
+    SearchCon,
+    Pagination,
   }
 };
 </script>

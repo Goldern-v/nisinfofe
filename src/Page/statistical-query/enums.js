@@ -7,17 +7,17 @@
 export const PATIENT_STATUS = [
   {
     label: '全部',
-    key: '',
+    key: 0,
     code: 'all'
   },
   {
     label: '在院',
-    key: 'in',
+    key: 1,
     code: 'in'
   },
   {
     label: '出院',
-    key: 'out',
+    key: 2,
     code: 'out'
   },
 ]
@@ -29,12 +29,12 @@ export const TIME_POINT = [
   },
   {
     label: '03',
-    key: '3',
+    key: '03',
     code: '03'
   },
   {
     label: '07',
-    key: '7',
+    key: '07',
     code: '07'
   },
   {

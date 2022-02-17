@@ -1,4 +1,5 @@
 import { nursingUnit } from "@/api/lesion"
+import { query } from '../apis/index'
 
 export default {
   data() {
@@ -6,32 +7,17 @@ export default {
       formData: {
         beginTime: '',
         endTime: '',
-        type: '',
-        status: '',
+        wardCode: '',
+        status: 0,
       },
+      pageIndex: 1,
+      pageNum: 20,
+      total: 0,
       loading: false,
       tableData: [],
       deptList: []
     }
   },
-  // async mounted() {
-  //   try {
-  //     const res = await nursingUnit()
-  //     this.deptList = res.data.data.deptList || []
-  //     console.log('test-res', res)
-	// 			if (this.deptList.length > 0) {
-	// 				this.deptList = [
-	// 					{
-	// 						code: '',
-	// 						name: '全院'
-	// 					},
-	// 					...this.deptList
-	// 				]
-	// 			}
-  //   } catch (err) {
-  //     console.log('test-err', err)
-  //   }
-  // },
   methods: {
     handleExport() {
 
@@ -40,12 +26,27 @@ export default {
       this.formData = { ...this.formData, ...obj}
       this.getData()
     },
-    getData() {
-      console.log('test-this.$data', this.$data)
-      this.loading = true;
-      setTimeout(() => {
+    async getData() {
+      try {
+        this.loading = true;
+        let routeName = this.$route.name
+        let formData = {
+          ...this.formData,
+          beginTime: this.formData.beginTime.split(' ')[0],
+          endTime: this.formData.endTime.split(' ')[0],
+          pageIndex: this.pageIndex,
+          pageNum: this.pageNum,
+        }
+        const res = await query(formData, routeName)
+        let {list:list = [], totalCount: totalCount = 0 } = res.data.data
+        this.tableData = list
+        this.total = totalCount
+
+        console.log('test-ers', res)
         this.loading = false
-      }, 1000)
+      } catch (e) {
+        this.loading = false
+      }
     },
     // inputNumRange
     handleIptNum(arr = [], key= []) {
@@ -54,6 +55,17 @@ export default {
         obj[v] = arr[i]
       })
       this.formData = { ...this.formData, ...obj}
-    }
+    },
+    // 修改条数
+    handleSizeChange(size) {
+      this.pageNum = size
+    },
+    // 修改页数
+    handleCurrentChange(newPage) {
+      this.pageIndex = newPage;
+      this.getData();
+    },
+
   }
 }
+
