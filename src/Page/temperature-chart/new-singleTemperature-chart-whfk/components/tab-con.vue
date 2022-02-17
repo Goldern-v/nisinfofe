@@ -850,6 +850,9 @@ export default {
       flex-direction: column;
     }
   }
+  .times{
+    margin-top:15px
+  }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
