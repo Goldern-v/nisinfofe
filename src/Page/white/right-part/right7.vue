@@ -1,6 +1,6 @@
 <template>
   <div style="padding-bottom: 20px;">
-    <boxBase title="安全日志指标" :icon="require('../images/留言板.png')">
+    <boxBase :title="whiteRightTitle.includes(HOSPITAL_ID) ? '护理安全日志' : '安全日志指标'" :icon="require('../images/留言板.png')">
       <div class="body-con"
            v-loading="pageLoading"
            slot="body-con">
@@ -96,7 +96,8 @@ export default {
         },
       ],
       listData: {},
-      allDate: {}
+      allDate: {},
+      whiteRightTitle:['liaocheng']
     }
   },
   created() {
