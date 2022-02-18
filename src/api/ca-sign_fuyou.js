@@ -44,10 +44,7 @@ export const getAuthorize=(data)=>{
   console.log(process.env.HOSPITAL_ID);
   switch(process.env.HOSPITAL_ID){
     case 'hj':
-      return axios.post(`/hj_ca/api/v1.0/getAccessToken`,{
-        appid:'891124536567752',
-        appkey:'WSHJTJO602GHU4FWHPDE31FQEZG6E5KR'
-      })
+      return axios.get(`${apiPath}caSignHoujie/getAccessToken`)
     default:
       return axios.get(`${apiPath}caSignJmfy/authorizeCaJmfy`)
   }
@@ -57,7 +54,7 @@ export const getAuthorize=(data)=>{
 export const getTrustUserInfo=(data)=>{
   switch(process.env.HOSPITAL_ID){
     case 'hj':
-      return axios.post(`/hj_ca/api/v1.0/auth/getOauthStatus?accessToken=${data.accessToken}`,{
+      return axios.get(`/caSignHoujie/auth/oauth/${data.accessToken}`,{
         transactionId:data.transactionId,
       })
     default:
@@ -81,6 +78,6 @@ export function getCaSignJmfy(data) {
 }
 
 export function getQrCode(accessToken){
-  return axios.post(`/hj_ca/api/v1.0/auth/oauth?accessToken=${accessToken}`,{oauthMethod:'3'})
+  return axios.get(`${apiPath}caSignHoujie/auth/oauth/${accessToken}`,{oauthMethod:'3'})
 }
 
