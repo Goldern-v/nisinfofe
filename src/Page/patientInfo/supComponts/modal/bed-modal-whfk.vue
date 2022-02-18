@@ -55,6 +55,23 @@
                 :value="query.age"
               />
             </div> -->
+            <div flex="cross:center" class="input-item" style="height:100px;">
+              <div flex-box="1">
+                <img
+                style="width:80px;"
+                :src="qrCode"
+                />
+                <div
+                  class="qr-code-num"
+                >
+                  {{ qrCodeNum }}
+                </div>
+              </div>
+              <div flex-box="1">
+                <p>住院病人</p>
+                <p>床头卡</p>
+              </div>
+            </div>
             <div flex="cross:center" class="input-item">
               <span class="label" flex-box="1">住院号:</span>
               <input
@@ -96,7 +113,6 @@
             <div
               flex="cross:center"
               class="input-item"
-              style="height: 43px"
             >
               <span class="label" flex-box="1">姓&nbsp;&nbsp;名:</span>
               <input
@@ -192,22 +208,20 @@
                 />
               </div>
             </div> -->
-            <div flex="cross:center" class="input-item" style="height:75px">
-              <span class="label">护理级别:</span>
-              <div nowidth flex-box="1" style="display:flex;flex-direction:column;justify-content:space-between;height:70px">
+            <div flex="cross:center" class="input-item">
+              <span class="label" style="font-size:16px;">护理级别:</span>
+              <div nowidth flex-box="1" style="display:flex;justify-content:space-between;">
                 <img
                   class="dj-box"
                   :src="require('./images/特.png')"
                 />
                 <img
                   class="dj-box"
-                  :src="require('./images/二.png')"
+                  :src="require('./images/一.png')"
                 />
-              </div>
-              <div nowidth flex-box="1" style="display:flex;flex-direction:column;justify-content:space-between;height:70px">
                 <img
                   class="dj-box"
-                  :src="require('./images/一.png')"
+                  :src="require('./images/二.png')"
                 />
                 <img
                   class="dj-box"
@@ -358,7 +372,7 @@
 
   .qr-code-num {
     position: absolute;
-    top: 92px;
+    top: 75px;
     left: 0px;
     width: 96px;
     text-align: center;
@@ -458,7 +472,6 @@ input[type='checkbox']:checked:after {
   width: 28px;
   height: 28px;
   // cursor: pointer;
-  margin-right: 12px;
 
   &.active {
     color: #fff;
@@ -618,6 +631,17 @@ export default {
     }
   },
   methods: {
+    createdQrValue(patientId){
+      let length = patientId.length
+      let val = ""
+      if(length){
+        for(let i = 0;i<(8-length);i++){
+          val+='0'
+        }
+        val+=patientId
+        return `90${val}0`
+      }
+    },
     init() {
       this.formData = {
         diet: "",
@@ -699,20 +723,7 @@ export default {
     isOpen() {
       this.$refs.modal.open();
       let qr_png_value = "";
-      switch (this.HOSPITAL_ID) {
-        case "liaocheng":
-          qr_png_value = this.query.patientId + "|" + this.query.visitId;
-          break;
-        case "shannan":
-          qr_png_value = this.query.inpNo;
-          break;
-        case "hengli":
-          qr_png_value = this.query.expand1;
-          break;
-        default:
-          qr_png_value = this.query.patientId;
-          break;
-      }
+      qr_png_value = this.createdQrValue(this.query.patientId)
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";

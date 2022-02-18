@@ -664,7 +664,7 @@ export default {
          recordDate:
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
-        this.query.entryTime
+        this.query.entryTime + ":00:00"
       }).then((res) => {
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
@@ -814,7 +814,7 @@ export default {
              recordDate:
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
-        this.query.entryTime
+        this.query.entryTime + ":00:00"
           };
       let voildStr=text.trim();
           if (checkValueStr.includes(text)) {

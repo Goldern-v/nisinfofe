@@ -453,6 +453,9 @@ export default {
     },
     /* 出入量统计弹框--花都区分 */
     openStaticModal() {
+      if (!this.patientInfo.patientId) {
+        return this.$message.info("请选择一名患者");
+      }
       switch (process.env.HOSPITAL_ID) {
         case "huadu":
           this.bus.$emit("openHDModal");
@@ -482,7 +485,7 @@ export default {
 
     emit(todo, value) {
       if (!this.patientInfo.patientId) {
-        return this.$message.warning("请选择一名患者");
+        return this.$message.info("请选择一名患者");
       }
       if (this.sheetInfo.sheetType != "body_temperature_Hd") {
         if (this.readOnly) {
@@ -557,7 +560,7 @@ export default {
     },
     setPage() {
       if (!this.patientInfo.patientId) {
-        return this.$message.warning("请选择一名患者");
+        return this.$message.info("请选择一名患者");
       }
       if (!this.sheetInfo.selectBlock.id) {
         return this.$message.warning("还没有选择护理记录单");
@@ -873,7 +876,7 @@ export default {
     },
     createSheet() {
       if (!this.patientInfo.patientId) {
-        return this.$message.warning("请选择一名患者");
+        return this.$message.info("请选择一名患者");
       }
       this.$refs.newFormModal.open();
     },

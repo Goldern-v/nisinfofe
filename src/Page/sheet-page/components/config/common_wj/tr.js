@@ -40,9 +40,6 @@ export default [
     key: "breath", //呼吸
     value: "",
     event: keyf1,
-    textarea: {
-      width: 52
-    }
   },
   {
     key: "bloodPressure", //血压
@@ -55,7 +52,7 @@ export default [
       keyf1(e, td);
     },
     textarea: {
-      width: 52
+      width: 45
     }
   },
   {
@@ -64,6 +61,9 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ysList
+    },
+    textarea: {
+      width: 45
     }
   },
   {
@@ -78,7 +78,7 @@ export default [
       ]
     },
     textarea: {
-      width: 70
+      width: 30
     }
   },
   {
