@@ -51,6 +51,12 @@ export default {
   props: {},
   data() {
     return {
+      formData: {
+        beginTime: '',
+        endTime: '',
+        wardCode: '',
+        status: 0,
+      },
       columns: [
         {
 					key: 'index',
@@ -86,7 +92,7 @@ export default {
 					minWidth: 70,
 				},
         {
-					key: 'inpNo',
+					key: 'patientId',
 					title: '病案号',
           align: 'center',
 					minWidth: 100,
