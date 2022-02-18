@@ -1150,10 +1150,25 @@ function switechSheetType(type) {
       schema = require("../config/access_fk/tr.js").default;
     }
       break; 
+    case "neonate_sdlj": {
+      // 顺德龙江 - 新生儿护理记录单
+      schema = require("../config/neonate_sdlj/tr.js").default;
+    }
+    break; 
+    case "craniocerebral_sdlj": {
+      // 顺德龙江 - 护理记录单（颅脑外科）
+      schema = require("../config/craniocerebral_sdlj/tr.js").default;
+    }
+    break; 
+    case "ordinary_sdlj": {
+      // 顺德龙江 - 护理普通记录单
+      schema = require("../config/ordinary_sdlj/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
-    schema = require("../config/icu_cpr_xg/tr.js").default;
-  }
+      schema = require("../config/icu_cpr_xg/tr.js").default;
+    }
     break;  
     default: {
       schema = require("../config/default/tr.js").default;
