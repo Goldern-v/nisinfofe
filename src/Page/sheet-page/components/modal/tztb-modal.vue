@@ -100,7 +100,7 @@ export default {
       this.formlist = baseParams
       console.log(this.formlist);
       if (!this.patientInfo.patientId && !baseParams.patientId) {
-        return this.$message.warning("请选择一名患者");
+        return this.$message.info("请选择一名患者");
       }
       this.searchDate = moment().format("YYYY-MM-DD");
       this.getData();
