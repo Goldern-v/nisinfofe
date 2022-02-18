@@ -17,6 +17,7 @@ import "@/assets/vue-event-calendar/style.css";
 
 import "@/assets/css/flex.css";
 import "@/assets/font/iconfont.css";
+process.env.HOSPITAL_ID == 'huadu'?(require("@/assets/css/styleHd.styl")):(require("@/assets/css/styleChrome.styl"))
 import "@/assets/css/style.styl";
 import "@/assets/css/tinyreset.css";
 import VueParticles from "vue-particles";
