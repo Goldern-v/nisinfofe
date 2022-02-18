@@ -1160,10 +1160,15 @@ function switechSheetType(type) {
       schema = require("../config/craniocerebral_sdlj/tr.js").default;
     }
     break; 
+    case "ordinary_sdlj": {
+      // 顺德龙江 - 护理普通记录单
+      schema = require("../config/ordinary_sdlj/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
-    schema = require("../config/icu_cpr_xg/tr.js").default;
-  }
+      schema = require("../config/icu_cpr_xg/tr.js").default;
+    }
     break;  
     default: {
       schema = require("../config/default/tr.js").default;
