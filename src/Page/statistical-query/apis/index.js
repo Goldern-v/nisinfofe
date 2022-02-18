@@ -54,7 +54,7 @@ export function query(params, key = 'statisticalOperation') {
 
 export function exportExc(params) {
   return axios.post(
-    `${apiPath}exportExcel`,
+    `${apiPath}statisticalQuery/export`,
     params,
     {
       responseType: "blob"
