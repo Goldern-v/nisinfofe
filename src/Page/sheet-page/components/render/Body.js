@@ -1165,6 +1165,11 @@ function switechSheetType(type) {
       schema = require("../config/ordinary_sdlj/tr.js").default;
     }
     break; 
+    case "intravenous_sdlj": {
+      // 顺德龙江 - 硫酸镁、安宝静脉点滴观察记录表
+      schema = require("../config/intravenous_sdlj/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/icu_cpr_xg/tr.js").default;
