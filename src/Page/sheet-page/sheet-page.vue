@@ -569,7 +569,7 @@ export default {
     },
     addSheetPage() {
       if (!this.patientInfo.patientId) {
-        return this.$message.warning("请选择一名患者");
+        return this.$message.info("请选择一名患者");
       }
       if (
         (this.HOSPITAL_ID === "huadu" ||
