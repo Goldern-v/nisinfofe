@@ -195,13 +195,12 @@ export default {
     //获取授权二维码
     getAuthorizeApi() {
       getAuthorize().then(res=>{
-        console.log(res)
-        if(res.data.status=='0'){
-          this.accessToken = res.data.data.accessToken
+        if(res.data.code==200){
+          this.accessToken = res.data.data.data.accessToken
           getQrCode(this.accessToken).then(res=>{
-            if(res.data.status=='0'){
-              this.ewmBaseData = res.data.data.oauthMPCode
-              this.requestId=res.data.data.transactionId;
+            if(res.data.code==200){
+              this.ewmBaseData = res.data.data.data.oauthMPCode
+              this.requestId=res.data.data.data.transactionId;
               this.authoState='1'
               this.startSetIntervalItem();
               //启动轮询
@@ -209,7 +208,7 @@ export default {
             }else{
               this.$message({
                 type: "error",
-                message: res.data.message
+                message: res.data.errorCode
               });
             }
           })

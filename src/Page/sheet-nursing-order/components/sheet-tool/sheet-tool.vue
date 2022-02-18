@@ -495,45 +495,54 @@ export default {
     delSheet() {
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护嘱单");
-      this.$confirm("此操作将永久删除该护嘱单, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        if(this.HOSPITAL_ID !='huadu'){
-          window.openSignModal((password, empNo) => {
-            blockDelete({
-              id: this.sheetInfo.selectBlock.id,
-              password: password,
-              empNo: empNo,
-            }).then((res) => {
-              // console.log("删除成功", res, this.sheetInfo.selectBlock.id);
-
-              // this.sheetInfo.selectBlock.id = null
-              // 清空之前选中护理单
-              resetSheetInfoData(this.sheetInfo); //
-              // this.bus.$emit('refreshNursingOrderSheetPage', true)
-              // 刷新
-              // this.createSheet()
-              this.bus.$emit("addNewNursingOrderSheetPage", "删除成功!");
-              this.getNOBlockList(false);
-              // this.$message({
-              //   type: 'success',
-              //   message: '删除成功!'
-              // });
-            });
-          });
-        }else{
+      console.log(this.sheetModal);
+      if(this.HOSPITAL_ID =='huadu' && this.sheetModal[0] && this.sheetModal[0].bodyModel[0][0].value){
+        window.openSignModal((password, empNo) => {
           blockDelete({
             id: this.sheetInfo.selectBlock.id,
+            password: password,
+            empNo: empNo,
           }).then((res) => {
-            resetSheetInfoData(this.sheetInfo);
+            // 清空之前选中护理单
+            resetSheetInfoData(this.sheetInfo); //
             // this.bus.$emit("addNewNursingOrderSheetPage", "删除成功!");
+            this.$message.success('删除成功!')
             this.getNOBlockList(false);
-          })
-        }
-        
-      });
+          });
+        });
+      }else{
+        this.$confirm("此操作将永久删除该护嘱单, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }).then(() => {
+          if(this.HOSPITAL_ID !='huadu'){
+            window.openSignModal((password, empNo) => {
+              blockDelete({
+                id: this.sheetInfo.selectBlock.id,
+                password: password,
+                empNo: empNo,
+              }).then((res) => {
+                // 清空之前选中护理单
+                resetSheetInfoData(this.sheetInfo); //
+                this.bus.$emit("addNewNursingOrderSheetPage", "删除成功!");
+                this.getNOBlockList(false);
+              });
+            });
+          }else{
+            blockDelete({
+              id: this.sheetInfo.selectBlock.id,
+            }).then((res) => {
+              resetSheetInfoData(this.sheetInfo);
+              // this.bus.$emit("addNewNursingOrderSheetPage", "删除成功!");
+              this.$message.success('删除成功!')
+              this.getNOBlockList(false);
+            })
+          }
+          
+        });
+      }
+      
 
       // this.$parent.$parent.$refs.signModal.open((password, empNo) => {
       //             delRow({list:[{id:id}], password:password, empNo:empNo}).then(res => {
