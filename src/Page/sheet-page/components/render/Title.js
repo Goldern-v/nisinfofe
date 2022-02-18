@@ -1505,6 +1505,13 @@ export default function Title(
     );
   }
   break;
+  case "neonate_sdlj": {
+    // 顺德龙江 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonate_sdlj/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
