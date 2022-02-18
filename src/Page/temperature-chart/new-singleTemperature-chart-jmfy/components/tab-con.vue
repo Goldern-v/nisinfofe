@@ -503,7 +503,7 @@ export default {
          recordDate:
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
-        this.query.entryTime
+        this.query.entryTime + ":00:00"
       }).then((res) => {
         res.data.data.list.map((item) => {
           this.fieldList[item.vitalCode] = item;
@@ -679,7 +679,7 @@ export default {
                recordDate:
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
-        this.query.entryTime
+        this.query.entryTime + ":00:00"
             };
             if (checkValueStr.includes(text)) {
               this.$message.error(`修改${label}失败!已存在${text}项目`);
