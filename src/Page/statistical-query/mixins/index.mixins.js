@@ -1,5 +1,5 @@
 import { nursingUnit } from "@/api/lesion"
-import { query } from '../apis/index'
+import { query, exportExc } from '../apis/index'
 
 export default {
   data() {
@@ -8,7 +8,7 @@ export default {
         beginTime: '',
         endTime: '',
         wardCode: '',
-        status: 0,
+        // status: 0,
       },
       pageIndex: 1,
       pageNum: 20,
@@ -19,8 +19,38 @@ export default {
     }
   },
   methods: {
-    handleExport() {
+    async handleExport() {
+      if (this.loading) return
+      if (!this.tableData || this.tableData.length === 0) {
+        this.$message.warning('没有数据可导出')
+        return
+      }
+      try {
+        exportExc({
+          list: this.tableData,
+          themeName: this.$route.meta.title
+        }).then(res => {
 
+          let fileName = res.headers["content-disposition"]
+          ? decodeURIComponent(
+            res.headers["content-disposition"].replace("attachment;filename=", "")
+          ) : this.$route.meta.title + '.xls';
+          let blob = new Blob([res.data], {
+            type: res.data.type
+          });
+          let a = document.createElement('a')
+          let href = window.URL.createObjectURL(blob) // 创建链接对象
+          a.href = href
+          a.download = fileName // 自定义文件名
+          document.body.appendChild(a)
+          a.click()
+          window.URL.revokeObjectURL(href)
+          document.body.removeChild(a) // 移除a元素
+        })
+
+      } catch (e) {
+
+      }
     },
     handleQuery(obj = {}) {
       this.formData = { ...this.formData, ...obj}
@@ -38,9 +68,9 @@ export default {
           pageNum: this.pageNum,
         }
         const res = await query(formData, routeName)
-        let {list:list = [], totalCount: totalCount = 0 } = res.data.data
-        this.tableData = list
-        this.total = totalCount
+        let {list, totalCount } = res.data.data
+        this.tableData = list || []
+        this.total = totalCount || 0
 
         console.log('test-ers', res)
         this.loading = false

@@ -1306,7 +1306,7 @@ const router = new Router({
             path: "statisticalNursingLv",
             name: "statisticalNursingLv",
             meta: {
-              title: '护理等级统计'
+              title: '护理级别统计'
             },
             component: statisticalNursingLv,
           },

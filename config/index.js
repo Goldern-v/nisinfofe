@@ -44,7 +44,8 @@ const currentTargetUrl = (() => {
       // return "http://120.197.141.41:9091" //厚街正式
       // return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
-    return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+    // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+      return "http://192.168.20.83:8080" // 彬哥本地
 
     /** 威县 */
     case "weixian":
@@ -64,11 +65,11 @@ const currentTargetUrl = (() => {
 
     /** 花都 */
     case "huadu":
-      return "http://120.238.239.27:9094" //花都正式
+      // return "http://120.238.239.27:9094" //花都正式
       // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
       // return "http://192.168.20.93:8080" // 初升本地
       // return "http://192.168.20.82:8080" // 大双本地
-      // return "http://192.168.1.54:9868" //公司-花都测试-内网
+      return "http://192.168.1.54:9868" //公司-花都测试-内网
 
     /** 贵州医科大正式 */
     case "gy":
@@ -302,15 +303,15 @@ module.exports = {
           "^/stylesheets": "/stylesheets" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
         }
       },
-      "/hj_ca": {
-        target: "https://yxq-dghj.linksign.cn", //东莞厚街
-        secure:true,
-        changeOrigin: true,
-        pathRewrite: {
-          // crNursing 东莞厚街护理系统 路径
-          "^/hj_ca": "" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
-        }
-      }
+      // "/hj_ca": {
+      //   target: "https://yxq-dghj.linksign.cn", //东莞厚街CA本地对接代理
+      //   secure:true,
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     // crNursing 东莞厚街护理系统 路径
+      //     "^/hj_ca": "" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+      //   }
+      // }
       // "/crNursing/printServer": {
       //   target: "http://10.35.9.115:8085",
       //   ws: true,

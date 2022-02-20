@@ -222,6 +222,7 @@ export default {
         "neonatology_hd", // 花都_新生儿科护理记录单
         "postpartum_wj", // 武警_产后(产房)观察记录单
         "iabp_fs", // 佛山市一_IABP护理记录单
+        "intravenous_sdlj", // 顺德龙江_硫酸镁、安宝静脉点滴观察记录表
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -329,6 +330,20 @@ export default {
     }
     /* 护理记录单行高 */
     if ( (this.HOSPITAL_ID === "quzhou") &&
+      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .body-con{
+            height: 35px !important;
+          }
+        }
+        `
+      );
+    }
+    if ( (this.HOSPITAL_ID === "sdlj") &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(

@@ -1439,8 +1439,22 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "areageneral_fs"||this.sheetInfo.sheetType === "pediatric_fs"||this.sheetInfo.sheetType === "pupilgeneral_fs") {
+          }else if (this.sheetInfo.sheetType === "areageneral_fs"||this.sheetInfo.sheetType === "pediatric_fs"||this.sheetInfo.sheetType === "pupilgeneral_fs"||this.sheetInfo.sheetType === "labor_bh"||this.sheetInfo.sheetType === "department_bh") {
             if (GetLength(text) > 36) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "diabetes_bh"||this.sheetInfo.sheetType === "ophthalmology_bh"||this.sheetInfo.sheetType === "observation_bh") {
+            if (GetLength(text) > 26) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "revivemonitoring_bh") {
+            if (GetLength(text) > 42) {
               result.push(text);
               text = allDoc[i];
             } else {

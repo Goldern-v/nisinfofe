@@ -1119,6 +1119,13 @@ export default function Title(
     );
   }
   break;
+  case "monitoring_bh": {
+    // 北海市 - 心胸外科心电监护观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/monitoring_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
@@ -1495,6 +1502,34 @@ export default function Title(
     // 武汉肺科 - 出入液量记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/access_fk/th.js").default)
+    );
+  }
+  break;
+  case "neonate_sdlj": {
+    // 顺德龙江 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonate_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "craniocerebral_sdlj": {
+    // 顺德龙江 - 护理记录单（颅脑外科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/craniocerebral_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "ordinary_sdlj": {
+    // 顺德龙江 - 护理普通记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ordinary_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "intravenous_sdlj": {
+    // 顺德龙江 - 硫酸镁、安宝静脉点滴观察记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intravenous_sdlj/th.js").default)
     );
   }
   break;
