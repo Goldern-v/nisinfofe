@@ -143,6 +143,7 @@
           class="bottom-line"
           style="
             min-width: 800px;
+            height: 11px;
             text-overflow: ellipsis;
             white-space: nowrap;
           "
@@ -176,6 +177,7 @@ export default {
       sheetInfo,
       diagnosisList: [
         "intravenous_sdlj", //硫酸镁、安宝静脉点滴观察记录表
+        "prenatal_sdlj", //产前待产记录单
       ]
     };
   },
