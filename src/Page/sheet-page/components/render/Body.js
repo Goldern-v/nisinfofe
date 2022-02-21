@@ -1185,6 +1185,11 @@ function switechSheetType(type) {
       schema = require("../config/dreathe_sdlj/tr.js").default;
     }
     break; 
+    case "urology_sdlj": {
+      // 顺德龙江 - 护理记录单（泌尿外科）
+      schema = require("../config/urology_sdlj/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/icu_cpr_xg/tr.js").default;
