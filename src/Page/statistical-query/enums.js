@@ -127,22 +127,22 @@ export const NURSING_LEVEL = [
   },
   {
     label: '特级',
-    key: 'lv0',
+    key: 0,
     code: 'lv0',
   },
   {
     label: '一级',
-    key: 'lv1',
+    key: 1,
     code: 'lv1',
   },
   {
     label: '二级',
-    key: 'lv2',
+    key: 2,
     code: 'lv2',
   },
   {
     label: '三级',
-    key: 'lv3',
+    key: 3,
     code: 'lv3',
   },
 ]
