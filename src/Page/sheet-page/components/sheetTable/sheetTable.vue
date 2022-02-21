@@ -139,6 +139,7 @@ import tableHeadGzry from "./components/table-head/table-head-gzry";
 import tableHeadLc from "./components/table-head/table-head-lc";
 import tableHeadTbhldLc from "./components/table-head/table-head-tbhld-lc";
 import tableHeadWj from "./components/table-head/table-head-wj";
+import tableHeadSdlj from "./components/table-head/table-head-sdlj";
 import tableHeadHd from "./components/table-head/table-head-hd";
 import tableHeadFuyou from "./components/table-head/table-head-fuyou";
 import tableHeadFoSanXingTan from "./components/table-head/table-head-foshanxingtan.vue";
@@ -231,6 +232,8 @@ export default {
         return tableHeadFoSanXingTan;
       } else if (this.HOSPITAL_ID == "whfk") {
         return tableHeadWhFk;
+      } else if (this.HOSPITAL_ID == "sdlj") {
+        return tableHeadSdlj;
       } else {
         return tableHead;
       }

@@ -885,6 +885,7 @@ export default {
       let data = {
         blockId: "",
         urinate:"",//小便次数
+        arterialPressure:"",//有创动脉收缩压
         heigh: "",
         patientId: "",
         visitId: "",

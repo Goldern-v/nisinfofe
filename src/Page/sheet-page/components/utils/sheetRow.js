@@ -69,6 +69,8 @@ export function getRowNum(index) {
     return 20
   } else if (sheetInfo.sheetType === 'access_fk') {
     return 28
+  } else if (sheetInfo.sheetType === 'intravenous_sdlj') {
+    return 33
   } else {
     return 17;
   }

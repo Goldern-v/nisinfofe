@@ -1519,6 +1519,34 @@ export default function Title(
     );
   }
   break;
+  case "ordinary_sdlj": {
+    // 顺德龙江 - 护理普通记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ordinary_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "intravenous_sdlj": {
+    // 顺德龙江 - 硫酸镁、安宝静脉点滴观察记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intravenous_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "nursing_sdlj": {
+    // 顺德龙江 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "prenatal_sdlj": {
+    // 顺德龙江 - 产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_sdlj/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
