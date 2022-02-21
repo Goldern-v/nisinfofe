@@ -1190,6 +1190,11 @@ function switechSheetType(type) {
       schema = require("../config/urology_sdlj/tr.js").default;
     }
     break; 
+    case "mechanical_sdlj": {
+      // 顺德龙江 - 机械通气监护记录单（儿科）
+      schema = require("../config/mechanical_sdlj/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/icu_cpr_xg/tr.js").default;

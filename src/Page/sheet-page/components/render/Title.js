@@ -1561,6 +1561,13 @@ export default function Title(
     );
   }
   break;
+  case "mechanical_sdlj": {
+    // 顺德龙江 - 机械通气监护记录单（儿科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/mechanical_sdlj/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(

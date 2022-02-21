@@ -117,7 +117,7 @@
         </div>
       </span>
 
-      <span>
+      <span v-if="sheetInfo.sheetType!='mechanical_sdlj'">
         科室：
         <div class="bottom-line" style="min-width: 100px">
           {{ patientInfo.deptName }}
@@ -133,6 +133,12 @@
         住院号：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.inpNo }}
+        </div>
+      </span>
+      <span v-if="admissionDateList.includes(sheetInfo.sheetType)">
+        入院日期：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.admissionDate | toymd}}
         </div>
       </span>
     </div>
@@ -175,9 +181,20 @@ export default {
     return {
       bus: bus(this),
       sheetInfo,
+      //不需要诊断的表单
       diagnosisList: [
         "intravenous_sdlj", //硫酸镁、安宝静脉点滴观察记录表
         "prenatal_sdlj", //产前待产记录单
+        "mechanical_sdlj",//机械通气监护记录单（儿科）
+      ],
+      //需要入院日期的表单
+      admissionDateList: [
+        "nursing_sdlj", //产科护理记录单
+        "orthopaedic_sdlj",//护理记录单（骨科）
+        "urology_sdlj",//护理记录单（泌尿外科）
+        "dreathe_sdlj",//呼吸专科护理记录单
+        "craniocerebral_sdlj",//护理记录单（颅脑外科）
+        "neonate_sdlj",//新生儿护理记录单
       ]
     };
   },
