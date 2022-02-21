@@ -1526,6 +1526,13 @@ export default function Title(
     );
   }
   break;
+  case "intravenous_sdlj": {
+    // 顺德龙江 - 硫酸镁、安宝静脉点滴观察记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intravenous_sdlj/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
