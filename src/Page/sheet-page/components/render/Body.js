@@ -1175,6 +1175,11 @@ function switechSheetType(type) {
       schema = require("../config/nursing_sdlj/tr.js").default;
     }
     break; 
+    case "prenatal_sdlj": {
+      // 顺德龙江 - 产前待产记录单
+      schema = require("../config/prenatal_sdlj/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/icu_cpr_xg/tr.js").default;
