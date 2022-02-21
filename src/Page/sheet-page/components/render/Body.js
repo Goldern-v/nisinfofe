@@ -1170,6 +1170,11 @@ function switechSheetType(type) {
       schema = require("../config/intravenous_sdlj/tr.js").default;
     }
     break; 
+    case "nursing_sdlj": {
+      // 顺德龙江 - 产科护理记录单
+      schema = require("../config/nursing_sdlj/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/icu_cpr_xg/tr.js").default;

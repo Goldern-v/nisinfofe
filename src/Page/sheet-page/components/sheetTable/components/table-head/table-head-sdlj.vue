@@ -48,7 +48,7 @@
         </div>
       </span>
     </div>
-    <div class="info-con" flex="main:justify">
+    <div class="info-con" flex="main:justify" v-if="!diagnosisList.includes(sheetInfo.sheetType)">
       <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
         诊断：
         <div
@@ -86,6 +86,9 @@ export default {
     return {
       bus: bus(this),
       sheetInfo,
+      diagnosisList: [
+        "intravenous_sdlj", //硫酸镁、安宝静脉点滴观察记录表
+      ]
     };
   },
   mounted() {},

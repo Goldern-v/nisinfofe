@@ -1533,6 +1533,13 @@ export default function Title(
     );
   }
   break;
+  case "nursing_sdlj": {
+    // 顺德龙江 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_sdlj/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
