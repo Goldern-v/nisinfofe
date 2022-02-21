@@ -60,7 +60,7 @@ export default [
   { key: 'perineum', event: keyf1, value: '', next: '', name: '会阴抹洗', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'bladder', event: keyf1, value: '', next: '', name: '膀胱冲洗', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'urological', event: keyf1, value: '', next: '', name: '泌尿功能锻炼', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'education', event: keyf1, value: '', next: '', name: '健康教育',splice: '/', autoComplete: { data: ['A','B','C','D','E','F','G','H','I'] }, textarea: { width: 75 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'education', event: keyf1, value: '', next: '', name: '健康教育', splice: '/', autoComplete: { data: ['A','B','C','D','E','F','G','H','I'] }, textarea: { width: 75 }, change: (e, td) => limitChange(e, td, 12) },
   { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue3', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
