@@ -51,7 +51,7 @@ import {
     { key: 'afterLunch', event: keyf1, value: '',  name: '血糖午餐后',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
     { key: 'beforeDinner', event: keyf1, value: '',  name: '血糖晚餐前',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
     { key: 'afterSupper', event: keyf1, value: '',  name: '血糖晚餐后',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'beforeSleep', event: keyf1, value: '',  name: '睡前',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+    { key: 'beforeSleep', event: keyf1, value: '',  name: '血糖睡前',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
     { key: 'orderDoctor', event: keyf1, value: '',  name: '开单医生',textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 8) },
     {
       key: "description", //特殊情况记录
