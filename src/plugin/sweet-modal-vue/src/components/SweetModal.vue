@@ -406,8 +406,10 @@ export default {
         if (this.blocking) {
           if (this.pulseOnBlock) this.bounce();
         } else {
-          if(this.HOSPITAL_ID!=='guizhou'){
-            //贵州人医不通过点击弹窗外的区域来关闭，只通过关闭、取消、保存按钮关闭。 
+          // 不能点击弹窗外的区域来关闭，只通过关闭、取消、保存按钮关闭。 
+          // 医院名单
+          const blackList=['guizhou','wujing']
+          if(!blackList.includes(this.HOSPITAL_ID)){
             this.close();
           }
         }
