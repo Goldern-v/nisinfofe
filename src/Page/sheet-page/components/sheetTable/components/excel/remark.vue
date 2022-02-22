@@ -344,16 +344,23 @@
       <strong>一.基础护理:</strong>1. 皮肤护理 2.口腔护理 3.脐部护理 4.臀部护理 5眼部护理 <strong>二.皮肤颜色:</strong>1.正常 2.青紫 3.黄染 4.发花 5.灰暗 6.潮红 7.苍白 
       <strong>三.皮肤状况:</strong>1.正常 2.干燥 3.皮疹 4.疱疹 5.破损 6.瘀斑 7.压红 8.出血点 9.潮红 10.渗出 11.水肿 12.血肿 <strong>四.前囟:</strong>1.正常 2.饱满 3.凹陷  
       <strong>五.肌张力</strong>1.正常 2.高 3.低 4.无 <strong>六.吸吮力:</strong>1.Ⅰ2.Ⅱ3.Ⅲ4.鼻饲5.无6.禁食 <strong>七.肺部听诊:</strong>1.正常呼吸音 2.呼吸音粗 3.湿性啰音 4.干性啰音 5痰鸣音 6.哮鸣音7.无  
-      <storng>八.哭声:</storng>1.响亮2.弱 3.沙哑 4.嘶哑5.呻吟6.无 <strong>九.三凹征:</strong>1.无 2.弱阳性3.阳性 <strong>十.腹部:</strong>1.正常 2.膨隆3.轻度腹胀4..中度腹胀 5..重度腹胀  
+      <strong>八.哭声:</strong>1.响亮2.弱 3.沙哑 4.嘶哑5.呻吟6.无 <strong>九.三凹征:</strong>1.无 2.弱阳性3.阳性 <strong>十.腹部:</strong>1.正常 2.膨隆3.轻度腹胀4..中度腹胀 5..重度腹胀  
       <strong>十一.意识状态:</strong>1.清 2.嗜睡 3.昏迷 4.深昏迷5.烦躁 6.药眠 7.无 <strong>十二.痰液:</strong>1.白色黏痰 2.白色泡沫样痰3.淡黄色粘痰 4黄色黏痰 5黄绿色黏痰 6.粉红色泡沫样痰7.绿色痰液  
       <strong>十三．呕吐物颜色性质:</strong>1.灰白色 2.黄色 3.草绿色 4.咖啡色 5.暗红色 6.鲜红色.7.奶液8.絮状物9.黏液10血性黏液　　
       <strong>十四.胃内引流:</strong>1.黄色粘液 2.白色粘液 3.咖啡色粘液 4.粉红色粘液 5.草绿色粘液 6絮状物7.鲜血8.黄绿色黏液   
       <strong>十五．身体部位:</strong>a.面部 b.耳后 c.颈部 d.上肢 e.下肢 f.臀部 g.腹部 h.胸部 i.腋窝 j.脐部 k.眼周 l.口周 m.腹股沟 n.周身 o.头部 P.会阴q.足底 
     </div>
-    <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
+    <!-- 佛山杏坛 危重症护理记录单 -->
     <div v-if="sheetInfo.sheetType == 'criticaldisease_xt'">
       说明：意识：清醒√；嗜睡+；意识模糊△；浅昏迷++；深昏迷++。<br/>
       瞳孔反应：灵敏√；迟钝+；消失-。
+    </div>
+     <!-- 佛山杏坛 护理记录单(产前待产记录) -->
+    <div v-if="sheetInfo.sheetType == 'test_common'">
+      注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；谵妄。&nbsp;<strong>胎心音</strong>：双胎以上用“/”间隔。&nbsp;<strong>胎位</strong>：LOA，ROA，LSA，RSA等。&nbsp;<strong>宫缩</strong>：未临产前：无、偶有、敏感、不规则、弱；临产后：弱、中、强。<br/>
+      <strong>宫颈</strong>：未开、容一指及宫颈扩张阿拉伯数字。&nbsp;<strong>胎膜</strong>：已、未。&nbsp;<strong>衔接</strong>：已、未、部分。&nbsp;<strong>羊水性状</strong>：清、Ⅰº浑浊、Ⅱº浑浊、Ⅲº浑浊、血性。&nbsp;<strong>管道</strong>：固定通畅 √，阻塞X。<br/>
+      <strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒，防坠床；D挂标识、防药物外渗；E挂标识、防脱管；F防烫伤；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。&nbsp;&nbsp;
+      <strong>护理措施</strong>：A饮食指导；B心理支持；C指导室内活动；D绝对卧床休息；<br/>E左侧卧位；F头低足高卧位；G指导产妇深呼吸；H指导产妇屏气；I按摩腰骶部；J母乳喂养指导；K会阴护理；L指导排尿M留陪人；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。 
     </div>
     <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
     <div v-if="sheetInfo.sheetType == 'cardiovascular_xt'">

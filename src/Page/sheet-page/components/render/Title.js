@@ -1576,16 +1576,23 @@ export default function Title(
   }
   break;
   case "pentagram2_xt": {
-    // 佛山杏坛 - 护理记录单（眼耳鼻咽喉科）
+    // 佛山杏坛 - 护理记录单（眼耳鼻咽喉科）（未测试）
     Th = JSON.parse(
       JSON.stringify(require("../config/pentagram2_xt/th.js").default)
+    );
+  }
+  break;
+  case "prenataldelivery2_xt": {
+    // 佛山杏坛 - 护理记录单(产前待产记录)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenataldelivery2_xt/th.js").default)
     );
   }
   break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
-      JSON.stringify(require("../config/pentagram2_xt/th.js").default)
+      JSON.stringify(require("../config/prenataldelivery2_xt/th.js").default)
     );
   }
   break;

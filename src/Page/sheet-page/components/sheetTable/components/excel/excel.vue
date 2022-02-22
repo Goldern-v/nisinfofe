@@ -485,6 +485,7 @@
             sheetInfo.sheetType == 'neonatology_hl' ||
             sheetInfo.sheetType == 'cardiovascular_xt' ||
             sheetInfo.sheetType == 'criticaldisease_xt' ||
+            sheetInfo.sheetType == 'prenataldelivery2_xt' ||
             sheetInfo.sheetType == 'pentagram2_xt'
           "
           >质控护士：</span
