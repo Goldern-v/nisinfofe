@@ -78,7 +78,7 @@ export default {
         {
           name: "statisticalVTE",
           meta: {
-            title: 'VTE评分统计'
+            title: 'VTE统计'
           },
         },
       ]

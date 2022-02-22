@@ -14,6 +14,7 @@
       border: none;
       height: 22px;
       padding: 0px;
+      text-align: center;
     }
   }
 }

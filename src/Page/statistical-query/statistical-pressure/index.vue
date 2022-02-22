@@ -1,6 +1,7 @@
 <template>
 <div class="statistical-pressure">
   <search-con
+    :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
     datetype="datetime"

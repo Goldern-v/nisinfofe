@@ -1,6 +1,7 @@
 <template>
 <div class="statistical-temperature">
   <search-con
+    :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
 
