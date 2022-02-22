@@ -3,7 +3,7 @@
   <sweet-modal
     ref="modal"
     size="small"
-    title="证书登录111"
+    title="证书登录"
     :overlay-theme="overlayTheme"
     style="z-index: 10002"
     @close="clearIntervalItem"
@@ -197,6 +197,7 @@ export default {
       getAuthorize().then(res=>{
         if(res.data.code==200){
           this.accessToken = res.data.data.data.accessToken
+          sessionStorage.setItem('accessToken',this.accessToken)
           getQrCode(this.accessToken).then(res=>{
             if(res.data.code==200){
               this.ewmBaseData = res.data.data.data.oauthMPCode
@@ -278,13 +279,13 @@ export default {
     getTrustUserInfoApi(){
       getTrustUserInfo({transactionId:this.requestId,accessToken:this.accessToken}).then(res=>{
           //授权成功
-          if(res.data && res.data && res.data.data.oauthStatus=='1'){
+          if(res.data && res.data.data && res.data.data.data && res.data.data.data.oauthStatus=='1'){
             this.$message({
               type: "success",
               message: '授权成功！'
             });
             //local保存
-            let {data} = res.data
+            let {data} = res.data.data
             window.localStorage.setItem("fuyouCaData",JSON.stringify(data));
             this.bus.$emit("updateFuyouCaData")
             //清除轮询定时器

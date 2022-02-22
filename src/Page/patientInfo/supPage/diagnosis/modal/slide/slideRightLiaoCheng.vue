@@ -27,12 +27,18 @@
               type="datetime"
               placeholder="选择开始时间"
             ></el-date-picker>
+            <el-button type="primary" v-if="!isEdit" @click="isEdit = true" style="position:absolute;right:0">编辑11</el-button>
+            <span v-else class="edit-btns">
+              <el-button @click="isEdit = false">取消编辑</el-button>
+              <el-button type="primary">保存</el-button>
+            </span>
           </div>
           <div class="do-box">
             <div class="label">
               <span>【护理措施】</span>
               <span class="checkAll-con">
                 <el-checkbox
+                  v-if="!isEdit"
                   :indeterminate="isMeasuresIndeterminate"
                   v-model="checkMeasuresAll"
                   @change="handleMeasuresCheckAllChange"
@@ -49,9 +55,20 @@
             >
               <div class="m-10" v-for="item in measures" :key="item.id">
                 <el-checkbox
+                  v-if="!isEdit"
                   :label="item.serialNo"
                   :disabled="status === '2'"
                 >{{item.measureDetail}}</el-checkbox>
+                <div style="display:flex" v-else>
+                  <div class="delete-box" style="width:15px;">
+                    <div class="red-circle">
+                      <div class="white-line"></div>
+                    </div>
+                  </div>
+                  <div style="flex:1">
+                    {{item.measureDetail}}
+                  </div>
+                </div>
               </div>
             </el-checkbox-group>
           </div>
@@ -182,9 +199,41 @@
     background-color: #eef1f6;
     border-color: #d1dbe5;
 .date-con
+  display: flex
   font-size 14px
   color #333;
   margin 10px 0 -10px
+  position relative;
+.delete-box{
+  position: relative;
+  padding: 0 5px 0 0;
+}
+.red-circle{
+  cursor: pointer;
+  width:15px;
+  height:15px;
+  border-radius:100%;
+  background:#d81e06;
+  position: absolute;
+  top:50%;
+  transform: translateY(-50%)
+  .white-line{
+    height: 3px
+    width: 11px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%)
+    background #fff
+  }
+}
+.edit-btns{
+  margin-left: 20px;
+  flex: 1;
+  width: 150px;
+  display: flex
+  justify-content: space-between
+}
 </style>
 
 <script>
@@ -208,7 +257,8 @@ let bindData = {
   checkMeasuresAll: false,
   isTargetIndeterminate: false,
   checkTargetAll: false,
-  definition: ""
+  definition: "",
+  isEdit:false
 };
 let bindDataClone = { ...bindData };
 export default {

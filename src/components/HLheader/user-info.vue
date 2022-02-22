@@ -45,8 +45,8 @@
         <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
       </div>
     </div>
-    <!-- <div class="admin-system-info" v-if="['fuyou','hj'].includes(HOSPITAL_ID)"> -->
-    <div class="admin-system-info" v-if="['fuyou'].includes(HOSPITAL_ID)">
+    <div class="admin-system-info" v-if="['fuyou','hj'].includes(HOSPITAL_ID)">
+    <!-- <div class="admin-system-info" v-if="['fuyou'].includes(HOSPITAL_ID)"> -->
       证书状态:
       <p>
         <label>{{ (fuyouCaData && fuyouCaData.userName?fuyouCaData.userName:'无证书') || "无证书" }}:</label>
