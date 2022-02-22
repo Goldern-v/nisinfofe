@@ -54,6 +54,7 @@ export default {
     },
     handleQuery(obj = {}) {
       this.formData = { ...this.formData, ...obj}
+      console.log('test-obj', obj)
       this.getData()
     },
     async getData() {

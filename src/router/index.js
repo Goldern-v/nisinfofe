@@ -1338,7 +1338,7 @@ const router = new Router({
             path: "statisticalVTE",
             name: "statisticalVTE",
             meta: {
-              title: 'VTE评分统计'
+              title: 'VTE统计'
             },
             component: statisticalVTE,
           },
