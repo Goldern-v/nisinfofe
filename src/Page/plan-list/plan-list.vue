@@ -136,11 +136,11 @@ export default {
   provide() {
     return {
       openSlideCon: item => {
-        if(['liaocheng'].includes(this.HOSPITAL_ID)){
-          this.$refs.slideConRightLiaoCheng.open(item)
-        }else{
+        // if(['liaocheng'].includes(this.HOSPITAL_ID)){
+        //   this.$refs.slideConRightLiaoCheng.open(item)
+        // }else{
           this.$refs.slideConRightGuizhou.open(item)
-        }
+        // }
       },
       // openSlideConRight: item => this.$refs.slideConRight.open(item),
       openSlideContant: item => this.$refs.slideContant.open(item)

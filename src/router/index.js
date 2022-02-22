@@ -33,6 +33,7 @@ const bed = () => import("@/Page/lesion/supPage/bed/bed"); // 厚街
 const login = () => import("@/Page/login/login");
 const templateShow = () => import("@/Page/templateShow/templateShow"); //文书模板展示
 const resetPassword = () => import("@/Page/resetPassword/resetPassword");
+const newResetPassword = () => import("@/Page/resetPassword/newResetPassword");
 const indexXin = () => import("@/Page/index-xin/Nurse.vue");
 const indexHd = () => import("@/Page/index-xin/Nurse-hd.vue");
 const indexWujing = () => import("@/Page/index-xin/Nurse-wujing.vue");
@@ -343,7 +344,15 @@ const router = new Router({
   },
   {
     path: "/resetPassword",
-    component: resetPassword,
+    component: (() => {
+      switch (HOSPITAL_ID) {
+        case 'whfk':
+          // 新版修改密码
+          return newResetPassword
+        default:
+          return resetPassword
+      }
+    })(),
     alias: "重置密码"
   },
   // 医生查看患者表单详情
@@ -1338,7 +1347,7 @@ const router = new Router({
             path: "statisticalVTE",
             name: "statisticalVTE",
             meta: {
-              title: 'VTE评分统计'
+              title: 'VTE统计'
             },
             component: statisticalVTE,
           },

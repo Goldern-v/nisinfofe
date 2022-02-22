@@ -484,10 +484,9 @@ export default {
               window.openCaSignModal();
             }else if(["fuyou"].includes(this.HOSPITAL_ID)){
               window.openFuyouCaSignModal();
+            }else if(['hj'].includes(this.HOSPITAL_ID)){
+              window.openHjCaSignModal();
             }
-            // else if(['hj'].includes(this.HOSPITAL_ID)){
-            //   window.openHjCaSignModal();
-            // }
           }
           // 清除科室记录
           this.$store.commit("upDeptCode", "");

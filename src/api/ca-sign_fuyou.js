@@ -54,7 +54,8 @@ export const getAuthorize=(data)=>{
 export const getTrustUserInfo=(data)=>{
   switch(process.env.HOSPITAL_ID){
     case 'hj':
-      return axios.get(`/caSignHoujie/auth/oauth/${data.accessToken}`,{
+      return axios.post(`${apiPath}caSignHoujie/auth/getOauthStatus`,{
+        accessToken:data.accessToken,
         transactionId:data.transactionId,
       })
     default:
@@ -74,10 +75,22 @@ export const getTrustUserInfo=(data)=>{
 // "formId":"139339", -- 表单ID
 // "selfSign":false -- 是否开启自动签名
 export function getCaSignJmfy(data) {
-  return axios.post(`${apiPath}caSignJmfy/pushCaSign`,data);
+  switch(process.env.HOSPITAL_ID){
+    case 'hj':
+      console.log(data);
+      return axios.post(`${apiPath}caSignHoujie/sign/signdata`,data)
+    default:
+      return axios.post(`${apiPath}caSignJmfy/pushCaSign`,data);
+  }
 }
 
 export function getQrCode(accessToken){
   return axios.get(`${apiPath}caSignHoujie/auth/oauth/${accessToken}`,{oauthMethod:'3'})
 }
 
+export function verifyData(accessToken,fileCode){
+  return axios.post(`${apiPath}caSignHoujie/sign/verifyData`,{
+    accessToken,
+    fileCode
+})
+}

@@ -23,7 +23,7 @@ axios.interceptors.request.use((config) => {
     }
 
     // 遍历白名单
-    const whiteList = ['login', 'autoLogin', 'ssoLogin', 'logout', 'changePasswordByEmpNo', 'sysPasswordSet/findList', 'identityCheck']
+    const whiteList = ['login', 'autoLogin', 'ssoLogin', 'logout', 'changePasswordByEmpNo', 'sysPasswordSet/findList', 'identityCheck', 'getPasswordRule','updatePassword']
 
     for (let i = 0; i < whiteList.length; i++) {
         let whiteUrlPath = whiteList[i]

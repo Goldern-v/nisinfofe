@@ -71,7 +71,10 @@
       white-space: nowrap;
     }
     .el-date-editor.el-input {
-      width: 160px;
+      width: 130px;
+      &.el-date-editor--datetime {
+        width: 170px;
+      }
     }
   }
   /deep/ .el-date-editor--datetime .el-input__inner{

@@ -10,6 +10,7 @@
 <script>
 import commonMixin from '@/common/mixin/common.mixin'
 import SideBar from './components/side-bar.vue'
+
 export default {
   mixins: [commonMixin],
   computed: {
