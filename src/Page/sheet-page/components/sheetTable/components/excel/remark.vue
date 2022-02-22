@@ -355,12 +355,19 @@
       说明：意识：清醒√；嗜睡+；意识模糊△；浅昏迷++；深昏迷++。<br/>
       瞳孔反应：灵敏√；迟钝+；消失-。
     </div>
-     <!-- 佛山杏坛 护理记录单(产前待产记录) -->
-    <div v-if="sheetInfo.sheetType == 'test_common'">
+    <!-- 佛山杏坛 护理记录单(产前待产记录) -->
+    <div v-if="sheetInfo.sheetType == 'prenataldelivery2_xt'">
       注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；谵妄。&nbsp;<strong>胎心音</strong>：双胎以上用“/”间隔。&nbsp;<strong>胎位</strong>：LOA，ROA，LSA，RSA等。&nbsp;<strong>宫缩</strong>：未临产前：无、偶有、敏感、不规则、弱；临产后：弱、中、强。<br/>
       <strong>宫颈</strong>：未开、容一指及宫颈扩张阿拉伯数字。&nbsp;<strong>胎膜</strong>：已、未。&nbsp;<strong>衔接</strong>：已、未、部分。&nbsp;<strong>羊水性状</strong>：清、Ⅰº浑浊、Ⅱº浑浊、Ⅲº浑浊、血性。&nbsp;<strong>管道</strong>：固定通畅 √，阻塞X。<br/>
       <strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒，防坠床；D挂标识、防药物外渗；E挂标识、防脱管；F防烫伤；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。&nbsp;&nbsp;
       <strong>护理措施</strong>：A饮食指导；B心理支持；C指导室内活动；D绝对卧床休息；<br/>E左侧卧位；F头低足高卧位；G指导产妇深呼吸；H指导产妇屏气；I按摩腰骶部；J母乳喂养指导；K会阴护理；L指导排尿M留陪人；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。 
+    </div>
+    <!-- 佛山杏坛 护理记录单(产后) -->
+    <div v-if="sheetInfo.sheetType == 'postpartum2_xt'">
+      注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；谵妄。&nbsp;<strong>疼痛程度</strong>：0无痛；I轻度；II中度；III重度。&nbsp;<strong>泌乳情况</strong>：少、中、多；&nbsp;<strong>伤口敷料</strong>：A干洁；B渗液；C渗血。<br/><strong>伤口</strong>：正常√，异常：红肿、渗液、
+      渗血、水肿。&nbsp;<strong>预防尿潴留</strong>：A指导多饮水、早排尿；B指导排尿时听流水声；C温水冲洗会阴；D热敷按摩膀胱区；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.yfQt" :data-value="sheetInfo.relObj.yfQt"/>。&nbsp;<strong>尿液颜色</strong>：A淡黄；B深黄；C棕红；D酱油色；E乳白色；其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.nyysQt" :data-value="sheetInfo.relObj.nyysQt"/>。
+      &nbsp;<strong>饮食指导</strong>：A术后饮食；B产后饮食；C催乳饮食；D其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ysQt" :data-value="sheetInfo.relObj.ysQt"/>。&nbsp;<strong>母乳喂养指导</strong>：A知识宣教；B早接触、早吸吮；C正确哺乳姿势；D挤奶技巧；E郛房热敷及按摩；<br/>F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.zsxjQt" :data-value="sheetInfo.relObj.zsxjQt"/>。&nbsp;<strong>管道</strong>：固定通畅 √，阻塞X。
+      &nbsp;<strong>护理措施</strong>: A协助翻身；B指导床上翻身活动；C指导下床活动；D去枕平卧：E指导患者口腔护理；F膀胱功能训练；G指导会阴护理；H指导更换新生儿尿布；I指导新生儿脐部护理；J留置针护理；K出院指导；L其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。&nbsp;<strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒，防坠床；D挂标识、防药物外渗；E挂标识、防脱管；F防烫伤；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。 
     </div>
     <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
     <div v-if="sheetInfo.sheetType == 'cardiovascular_xt'">

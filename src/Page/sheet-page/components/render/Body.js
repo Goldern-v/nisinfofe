@@ -1210,9 +1210,14 @@ function switechSheetType(type) {
       schema = require("../config/prenataldelivery2_xt/tr.js").default;
     }
       break;
+    case "postpartum2_xt": {
+      // 佛山杏坛 - 护理记录单(产后)（未测试）
+      schema = require("../config/postpartum2_xt/tr.js").default;
+    }
+      break;
     case "test_common": {
       // 护理记录单（测试用）
-      schema = require("../config/prenataldelivery2_xt/tr.js").default;
+      schema = require("../config/postpartum2_xt/tr.js").default;
     }
     break;  
     default: {
