@@ -487,6 +487,7 @@
             sheetInfo.sheetType == 'criticaldisease_xt' ||
             sheetInfo.sheetType == 'prenataldelivery2_xt' ||
             sheetInfo.sheetType == 'postpartum2_xt' ||
+            sheetInfo.sheetType == 'gynaecology2_xt' ||
             sheetInfo.sheetType == 'pentagram2_xt'
           "
           >质控护士：</span
@@ -655,6 +656,7 @@ export default {
         'prenataldelivery2_xt',
         'postpartum2_xt',
         'pentagram2_xt',
+        'gynaecology2_xt',
         "icu_cpr_xg",
       ],
       // 需要双签名的记录单code

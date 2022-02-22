@@ -369,6 +369,14 @@
       &nbsp;<strong>饮食指导</strong>：A术后饮食；B产后饮食；C催乳饮食；D其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ysQt" :data-value="sheetInfo.relObj.ysQt"/>。&nbsp;<strong>母乳喂养指导</strong>：A知识宣教；B早接触、早吸吮；C正确哺乳姿势；D挤奶技巧；E郛房热敷及按摩；<br/>F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.zsxjQt" :data-value="sheetInfo.relObj.zsxjQt"/>。&nbsp;<strong>管道</strong>：固定通畅 √，阻塞X。
       &nbsp;<strong>护理措施</strong>: A协助翻身；B指导床上翻身活动；C指导下床活动；D去枕平卧：E指导患者口腔护理；F膀胱功能训练；G指导会阴护理；H指导更换新生儿尿布；I指导新生儿脐部护理；J留置针护理；K出院指导；L其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。&nbsp;<strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒，防坠床；D挂标识、防药物外渗；E挂标识、防脱管；F防烫伤；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。 
     </div>
+    <!-- 佛山杏坛 护理记录单(妇科专科) -->
+    <div v-if="sheetInfo.sheetType == 'gynaecology2_xt'">
+      注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；谵妄。&nbsp;<strong>腹痛部位</strong>：A上腹部□左□右；B中上腹；C脐周；D下腹部；E全腹；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ftbwQt" :data-value="sheetInfo.relObj.ftbwQt"/>。&nbsp;<strong>疼痛程度</strong>：0无痛；I轻度；II中度；III重度。<br/>
+      <strong>阴道分泌物</strong>：A正常；B黄色脓性；C稀薄泡沫状；D豆腐渣样；E血性；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.twQt" :data-value="sheetInfo.relObj.twQt"/>。&nbsp;<strong>尿液颜色</strong>：A淡黄；B深黄；C棕红；D酱油色；E乳白色；其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.nyysQt" :data-value="sheetInfo.relObj.nyysQt"/>。&nbsp;<strong>伤口敷料</strong>：A干洁；B渗液；C渗血。<br/>
+      <strong>伤口</strong>：正常√，异常：红肿、渗液、渗血、水肿。管道：固定通畅 √，阻塞X。&nbsp;<strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒，防坠床；D挂标识、防药物外渗；E挂标识、防脱管；F防烫伤；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。<br/>
+      <strong>护理措施</strong>: A协助翻身；B指导床上翻身活动；C指导下床活动；D去枕平卧：E指导患者口腔护理；F膀胱功能训练；G指导会阴护理；H指导用药注意事项；I留置针护理；J饮食指导；K出院指导；其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。<br/>
+      <strong>阴道出血颜色</strong>：A鲜红；B暗红；C淡红；D咖啡；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.cxysQt" :data-value="sheetInfo.relObj.cxysQt"/>。 
+    </div>
     <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
     <div v-if="sheetInfo.sheetType == 'cardiovascular_xt'">
       注：意识：清醒√；嗜睡－；模糊Δ；昏睡±；浅昏迷＋；中昏迷＋＋；深昏迷＋＋＋；A谵妄；B药眠。
