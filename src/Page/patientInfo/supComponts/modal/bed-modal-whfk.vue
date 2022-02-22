@@ -55,10 +55,10 @@
                 :value="query.age"
               />
             </div> -->
-            <div flex="cross:center" class="input-item" style="height:100px;">
+            <div flex="cross:center" class="input-item" style="height:110px;">
               <div flex-box="1">
                 <img
-                style="width:80px;"
+                style="width:90px;"
                 :src="qrCode"
                 />
                 <div
@@ -73,7 +73,7 @@
               </div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label" flex-box="1">住院号:</span>
+              <span class="label" style="display:inline-block;width:80px;">住院号:</span>
               <input
                 type="text"
                 nowidth
@@ -88,7 +88,7 @@
               />
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label" flex-box="1">床&nbsp;&nbsp;号:</span>
+              <span class="label" style="display:inline-block;width:80px;">床&nbsp;&nbsp;号:</span>
               <input
                 type="text"
                 nowidth
@@ -114,7 +114,7 @@
               flex="cross:center"
               class="input-item"
             >
-              <span class="label" flex-box="1">姓&nbsp;&nbsp;名:</span>
+              <span class="label" style="display:inline-block;width:80px;">姓&nbsp;&nbsp;名:</span>
               <input
                 type="text"
                 nowidth
@@ -372,7 +372,7 @@
 
   .qr-code-num {
     position: absolute;
-    top: 75px;
+    top: 85px;
     left: 0px;
     width: 96px;
     text-align: center;
@@ -415,7 +415,7 @@
 
 .input-item {
   height: 40px;
-  padding-right: 12px;
+  // padding-right: 12px;
   font-size: 22px;
   font-weight: bold;
   position: relative;
@@ -570,6 +570,9 @@ label {
   label {
     font-size: 17px;
   }
+}
+.label{
+  font-size:20px;
 }
 </style>
 
