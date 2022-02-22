@@ -171,7 +171,8 @@ export default {
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        patients(this.deptCode, {}).then((res) => {
+        //这里有两个获取患者信息接口，传空就用新的排序
+        patients(this.deptCode, null).then((res) => {
           this.data.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });

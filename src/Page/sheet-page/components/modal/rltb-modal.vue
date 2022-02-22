@@ -349,7 +349,8 @@ methods: {
                     recordHour,
                     food,
                     foodSize,
-                    foodChannel
+                    foodChannel,
+                    expand3:element.orderNo?element.orderNo:null,//新增字段为expand3,护记saveall接口把对应的orderNo接到这个字段
                 })
         })
         // console.log(this.blockId,list); // 对入参有疑问可以解开

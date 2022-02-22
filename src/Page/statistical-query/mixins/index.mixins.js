@@ -8,7 +8,7 @@ export default {
         beginTime: '',
         endTime: '',
         wardCode: '',
-        status: 0,
+        // status: 0,
       },
       pageIndex: 1,
       pageNum: 20,
@@ -21,7 +21,7 @@ export default {
   methods: {
     async handleExport() {
       if (this.loading) return
-      if (this.tableData.length === 0) {
+      if (!this.tableData || this.tableData.length === 0) {
         this.$message.warning('没有数据可导出')
         return
       }
@@ -68,9 +68,9 @@ export default {
           pageNum: this.pageNum,
         }
         const res = await query(formData, routeName)
-        let {list:list = [], totalCount: totalCount = 0 } = res.data.data
-        this.tableData = list
-        this.total = totalCount
+        let {list, totalCount } = res.data.data
+        this.tableData = list || []
+        this.total = totalCount || 0
 
         console.log('test-ers', res)
         this.loading = false

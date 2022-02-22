@@ -5,7 +5,6 @@
 /**
  * @description: 开发注意事项:
     1、自定义表头 canSet: true, key: "armValue4"
-    
 */
 
 import moment from "moment";
@@ -18,7 +17,7 @@ export default {
     // 科室的名称
     deptType: "", 
     style: {
-      width: "1000px"
+      width: "1100px"
     },
     th: {
         top: 

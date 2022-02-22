@@ -63,7 +63,7 @@ export default {
         beginTime: '',
         endTime: '',
         wardCode: '',
-        status: 0,
+        // status: 0,
         nursingClass: '',
       },
       columns: [
@@ -101,7 +101,7 @@ export default {
 					minWidth: 70,
 				},
         {
-					key: 'inpNo',
+					key: 'patientId',
 					title: '病案号',
           align: 'center',
 					minWidth: 100,

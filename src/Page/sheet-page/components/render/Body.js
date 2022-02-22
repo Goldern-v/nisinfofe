@@ -1150,10 +1150,60 @@ function switechSheetType(type) {
       schema = require("../config/access_fk/tr.js").default;
     }
       break; 
+    case "neonate_sdlj": {
+      // 顺德龙江 - 新生儿护理记录单
+      schema = require("../config/neonate_sdlj/tr.js").default;
+    }
+    break; 
+    case "craniocerebral_sdlj": {
+      // 顺德龙江 - 护理记录单（颅脑外科）
+      schema = require("../config/craniocerebral_sdlj/tr.js").default;
+    }
+    break; 
+    case "ordinary_sdlj": {
+      // 顺德龙江 - 护理普通记录单
+      schema = require("../config/ordinary_sdlj/tr.js").default;
+    }
+    break; 
+    case "intravenous_sdlj": {
+      // 顺德龙江 - 硫酸镁、安宝静脉点滴观察记录表
+      schema = require("../config/intravenous_sdlj/tr.js").default;
+    }
+    break; 
+    case "nursing_sdlj": {
+      // 顺德龙江 - 产科护理记录单
+      schema = require("../config/nursing_sdlj/tr.js").default;
+    }
+    break; 
+    case "prenatal_sdlj": {
+      // 顺德龙江 - 产前待产记录单
+      schema = require("../config/prenatal_sdlj/tr.js").default;
+    }
+    break; 
+    case "dreathe_sdlj": {
+      // 顺德龙江 - 呼吸专科护理记录单
+      schema = require("../config/dreathe_sdlj/tr.js").default;
+    }
+    break; 
+    case "urology_sdlj": {
+      // 顺德龙江 - 护理记录单（泌尿外科）
+      schema = require("../config/urology_sdlj/tr.js").default;
+    }
+    break; 
+    case "mechanical_sdlj": {
+      // 顺德龙江 - 机械通气监护记录单（儿科）
+      schema = require("../config/mechanical_sdlj/tr.js").default;
+    }
+    break; 
+    case "orthopaedic_sdlj": {
+      // 顺德龙江 - 护理记录单（骨科）
+      schema = require("../config/orthopaedic_sdlj/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
-    schema = require("../config/icu_cpr_xg/tr.js").default;
-  }
+      schema = require("../config/icu_cpr_xg/tr.js").default;
+    }
     break;  
     default: {
       schema = require("../config/default/tr.js").default;

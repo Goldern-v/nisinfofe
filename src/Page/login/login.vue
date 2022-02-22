@@ -599,6 +599,8 @@ export default {
           return require("../../common/images/logo_wujing.png");
         case "liaocheng":
           return require("../../common/images/logoBack.png")
+        case "foshanrenyi":
+          return require("../../common/images/foshan_logo.png")
         default:
           return require("../../common/images/logo.png");
       }
@@ -611,7 +613,8 @@ export default {
         this.HOSPITAL_ID == "guizhou" ||
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "lingcheng" ||
-        this.HOSPITAL_ID == "wujing"
+        this.HOSPITAL_ID == "wujing"||
+        this.HOSPITAL_ID == "foshanrenyi"
       ) {
         logoName = "智慧护理信息系统";
       } else if (this.HOSPITAL_ID == "quzhou") {

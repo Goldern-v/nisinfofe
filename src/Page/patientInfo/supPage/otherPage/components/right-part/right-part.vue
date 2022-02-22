@@ -17,6 +17,7 @@
 <script>
 import bus from "vue-happy-bus";
 import nullBg from "@/components/null/null-bg";
+import { getPatient360View } from './../../api';
 export default {
   data() {
     return {
@@ -55,6 +56,9 @@ export default {
         case "fuyou":
           this.fileUrl = `http://192.168.19.198:8282/templates/medicalRecord/medicalRecordViewPreview.html?embedded-view=true&req_no=${currentPatient.patientId}&type=2`;
           break; 
+        case "liaocheng":
+          this.getUrl();
+          break; 
         default:
           break; 
       }
@@ -80,6 +84,19 @@ export default {
         wid.document.getElementById("toolbar").style.display = "none";
       }, 2000);
     },
+    //获取url
+    getUrl(){
+      const currentPatient=window.app.$store.state.patient.currentPatient;//patientId
+      getPatient360View(currentPatient.patientId).then(res=>{
+        try {
+          this.fileUrl=res.data.data.url;
+        } catch (error) {
+          console.log(error)
+        }
+      }).catch(error=>{
+        console.log(error)
+      })
+    }
   }
 };
 </script>

@@ -54,7 +54,7 @@ export default {
         {
           name: "statisticalNursingLv",
           meta: {
-            title: '护理等级统计'
+            title: '护理级别统计'
           },
         },
         // {
