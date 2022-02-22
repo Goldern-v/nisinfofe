@@ -1,6 +1,7 @@
 <template>
 <div class="statistical-pulseHeartRate">
   <search-con
+    :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
     @handleExport="handleExport"

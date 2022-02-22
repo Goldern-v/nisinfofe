@@ -46,7 +46,7 @@
       <slot :formData="formData" :handleQuery="handleQuery"/>
     </div>
     <div class="search-con__btn">
-      <el-button type="primary" @click="handleQuery">查询</el-button>
+      <el-button type="primary" @click="() => handleQuery()">查询</el-button>
       <el-button @click="handleExport">导出</el-button>
     </div>
   </div>
@@ -92,10 +92,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    // deptList: {
-    //   type: Array,
-    //   default: () => ([]),
-    // },
+    deptList: {
+      type: Array,
+      default: () => ([]),
+    },
     datetype: {
       type: String,
       default: 'date'
@@ -133,7 +133,7 @@ export default {
           }
         }]
       },
-      deptList: [],
+      // deptList: [],
     };
   },
   computed: {
@@ -145,7 +145,7 @@ export default {
     }
   },
   mounted() {
-    this.defaultData()
+    // this.defaultData()
   },
   methods: {
     handleQuery(obj = {}) {

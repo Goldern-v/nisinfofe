@@ -1,5 +1,6 @@
 import { nursingUnit } from "@/api/lesion"
 import { query, exportExc } from '../apis/index'
+import moment from 'moment'
 
 export default {
   data() {
@@ -18,7 +19,36 @@ export default {
       deptList: []
     }
   },
+  async mounted() {
+    this.formData.beginTime = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')
+      // 当天23点59分59秒的时间格式
+    this.formData.endTime = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')
+    await this.getDepList()
+    this.handleQuery()
+  },
   methods: {
+    async getDepList() {
+      try {
+        if (this.deptList.length > 0) return
+        this.$emit('update:loading', true)
+        const res = await nursingUnit()
+        this.deptList = res.data.data.deptList || []
+          if (this.deptList.length > 0) {
+            this.deptList = [
+              {
+                code: '',
+                name: '全院'
+              },
+              ...this.deptList
+            ]
+          } else {
+            this.deptList = []
+          }
+        this.$emit('update:loading', false)
+      } catch (e) {
+        this.$emit('update:loading', false)
+      }
+    },
     async handleExport() {
       if (this.loading) return
       if (!this.tableData || this.tableData.length === 0) {
