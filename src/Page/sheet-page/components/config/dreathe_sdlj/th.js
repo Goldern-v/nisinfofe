@@ -14,12 +14,13 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1260px"
+      width: "1275px"
     },
     th: {
         top: 
             [
-                {"name":"","colspan":"2","rowspan":"1","key":"recordYear"},
+                {"name":"日期","colspan":"1","rowspan":"3"},
+                {"name":"时间","colspan":"1","rowspan":"3"},
                 {"name":"生命体征","colspan":"6","rowspan":"1"},
                 {"name":"护理观察","colspan":"8","rowspan":"1"},
                 {"name":"护理措施","colspan":"12","rowspan":"1"},
@@ -30,8 +31,6 @@ export default {
         ,
         mid: 
             [
-                {"name":"日期","colspan":"1","rowspan":"2"},
-                {"name":"时间","colspan":"1","rowspan":"2"},
                 {"name":"T<br/>℃","colspan":"1","rowspan":"2"},
                 {"name":"P/HR<br/>次/<br/>min","colspan":"1","rowspan":"2"},
                 {"name":"R<br/>次/<br/>min","colspan":"1","rowspan":"2"},
