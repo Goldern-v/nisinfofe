@@ -56,7 +56,7 @@
               />
             </div> -->
             <div flex="cross:center" class="input-item" style="height:110px;">
-              <div flex-box="1">
+              <div style="width:115px;height:110px;text-align:left;">
                 <img
                 style="width:90px;"
                 :src="qrCode"
@@ -372,9 +372,9 @@
 
   .qr-code-num {
     position: absolute;
-    top: 85px;
+    top: 90px;
     left: 0px;
-    width: 96px;
+    width: 100px;
     text-align: center;
     z-index: 2;
     font-size: 16px;
