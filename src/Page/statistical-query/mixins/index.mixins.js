@@ -21,8 +21,11 @@ export default {
   },
   async mounted() {
     this.formData.beginTime = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')
-      // 当天23点59分59秒的时间格式
+    // 当天23点59分59秒的时间格式
     this.formData.endTime = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')
+    if (this.$route.name !== 'statisticalNursingLv') {
+      this.formData.status = 1
+    }
     await this.getDepList()
     this.handleQuery()
   },
@@ -30,7 +33,7 @@ export default {
     async getDepList() {
       try {
         if (this.deptList.length > 0) return
-        this.$emit('update:loading', true)
+        this.loading = true
         const res = await nursingUnit()
         this.deptList = res.data.data.deptList || []
           if (this.deptList.length > 0) {
@@ -41,12 +44,11 @@ export default {
               },
               ...this.deptList
             ]
-          } else {
-            this.deptList = []
+            this.formData.wardCode = res.data.data.defaultDept || ''
           }
-        this.$emit('update:loading', false)
+        this.loading = false
       } catch (e) {
-        this.$emit('update:loading', false)
+        this.loading = false
       }
     },
     async handleExport() {
