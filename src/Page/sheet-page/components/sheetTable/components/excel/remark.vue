@@ -325,6 +325,11 @@
     <div v-if="sheetInfo.sheetType == 'cardiology_lcey'">
       体温处理措施：①适量增加饮水量；②温水擦浴；③冰块冷敷；④遵医嘱药物治疗；⑤减少盖被
     </div>
+    <!-- 聊城二院  产妇产后观察记录单-->
+    <div v-if="sheetInfo.sheetType == 'maternal_lcey'">
+       护理措施:①指导产妇按摩子宫 ②告知知产妇自觉头量、心悸、阴道流血量多时告知助产士 ③指导并协助母要皮肤早接触、早吸吮 ④告知产妇母乳喂养及母婴三早的好处及重要性<br/>
+       <span style="margin-left:59px">⑤保暖侧卧⑥皮肤早接触、早吸吮、早开奶</span>
+    </div>
     <!-- 北海 婴儿记录表-->
     <div v-if="sheetInfo.sheetType == 'infant_bh'">
        日:早10时--晚20时
