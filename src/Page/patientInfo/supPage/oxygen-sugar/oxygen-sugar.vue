@@ -288,8 +288,17 @@ export default {
     },
     // 保存数据
     async saveActiveSugar() {
-      const res = await save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode)
-      console.log(res,"resss")
+      this.saveParams.list=[
+       this.selected,
+      ]
+      try{
+        console.log(this.saveParams,'ddddddddddddddddddddd')
+        const res = await save(this.saveParams,this.baseParams.formType,this.baseParams.formCode)
+        console.log(res,"resss")
+      }catch(err){
+
+      }
+      
       // const user = JSON.parse(localStorage.getItem("user"));
       // let item = {
       //   patientId: this.patientInfo.patientId,
@@ -352,6 +361,8 @@ export default {
       console.log('this.patientInfo',this.patientInfo)
       const listRes = await getPatientForm(this.patientInfo.patientId, this.patientInfo.visitId)
       if(listRes.data.code >= '200' && listRes.data.data != null){
+        console.log('id',listRes.data.data)
+        
         this.baseParams.id = listRes.data.data.id
       }
       if(this.baseParams.id){
@@ -366,6 +377,7 @@ export default {
         (a, b) =>
           new Date(a.recordDate).getTime() - new Date(b.recordDate).getTime()
       );
+      console.log(list)
       let listMap = [];
 
       for (let i = 0; i < list.length; i += 54) {
@@ -374,8 +386,10 @@ export default {
         obj.right = list.slice(i + 27, i + 54);
         listMap.push(obj);
       }
-      console.log(listMap,"listMaplistMap")
-      this.listMap = listMap;
+      if(this.listMap.length == 0){
+        this.listMap.push({ left: [], right: [] });
+        this.listMap = listMap;
+      }
       }else{
         this.listMap = [];
       }
@@ -401,17 +415,6 @@ export default {
       // if (this.HOSPITAL_ID == "fuyou") this.tDeptName = res.data.data.deptName;
       // res.data.data.registNum && (this.registNum = res.data.data.registNum); //血糖登记次数
       this.pageLoading = false;
-
-      // getPvHomePage(
-      //   this.$route.query.patientId,
-      //   this.$route.query.visitId
-      // ).then((res) => {
-      //   if (res.data.data) {
-      //     this.startPage = res.data.data.indexNo;
-      //   } else {
-      //     this.startPage = 1;
-      //   }
-      // });
     },
     toPrint() {
       window.localStorage.oxygenModel = $(this.$refs.Contain).html();
@@ -433,7 +436,7 @@ export default {
       try{
         this.patientInfo.id =""
         const res = await save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode)
-        this.saveParams = res.data;
+        this.saveParams = res.data.data;
       } catch(err){
         console.log(err)
       }
@@ -524,44 +527,13 @@ export default {
       this.getFormHead();
       this.$message.success("保存成功");
     },
-    openSetPageModal(length) {
-      this.$refs.setPageModal.open(length);
-    },
-    // 通过字典获取项目下拉内容
-    getSugarItemDict() {
-      getSugarItemDict().then((res) => {
-        let data = res.data.data;
-        this.typeList = data.map((item) => {
-          return {
-            vitalSign: item.itemName,
-          };
-        });
-      });
-    },
-    onScroll(e) {
-      if (e.deltaY < 0 && this.$refs.Contain.style.top.split("px")[0] <= 20) {
-        this.$refs.Contain.style.top =
-          Number(this.$refs.Contain.style.top.split("px")[0]) + 20 + "px";
-      }
-    },
   },
   created() {
     if (this.$route.query.patientId) {
       this.load();
     }
-    if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
-      this.getSugarItemDict();
-    }
-    if (this.HOSPITAL_ID == "lingcheng") {
-      this.getFormHead();
-    }
   },
   watch: {
-    "patientInfo.patientId"(nVal, oVal) {
-      if (this.HOSPITAL_ID == "lingcheng") {
-        this.getFormHead();
-      }
-    },
     startPage() {
       let contont = this.$refs.Contain.children
         ? this.$refs.Contain.children[0]

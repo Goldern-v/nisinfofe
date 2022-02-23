@@ -28,6 +28,7 @@
         :class="{ selected: selected === item }"
         :key="index+'item.sugarValue'"
         @click="onSelect(item)"
+        @blur="handleBlur(item)"
       >
         <td>
           <div class="cell">
@@ -37,7 +38,7 @@
         </td>
         <td>
           <div class="cell">
-            <input type="text" v-model="item.timeStr">
+            <input type="text" v-model="item.timeStr" @input="inputTime(item,'timeStr',':')">
           </div>
         </td>
         <td>
@@ -172,12 +173,8 @@ export default {
       if (!this.data) return;
       let renderData = [];
       let firstDate = "";
+      console.log('this.data',this.data)
       for (let i = 0; i < this.data.length; i++) {
-        if(this.HOSPITAL_ID == 'lingcheng'){
-          this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
-        }else{
-          this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");
-        }
         let obj = this.data[i];
         let date = this.data[i].md.split(" ")[0];
         let time = this.data[i].md.split(" ")[1];
@@ -197,6 +194,13 @@ export default {
       return renderData;
     },
   },
+  watch:{
+    renderData:{
+      handler(newvla){
+        console.log(newvla)
+      }
+    }
+  },
   filters: {
     formatDate(val) {
       return new Date(val).Format("MM-dd");
@@ -206,8 +210,33 @@ export default {
     },
   },
   methods: {
+    inputTime(rowItem, code, char) {
+      if (rowItem[code] && rowItem[code].length>=5) {
+        rowItem[code] = rowItem[code].substring(0, 5)
+      } else if (
+        rowItem[code].length == 2 && 
+        rowItem[code].split('')[2] !== char
+      ){
+        let valueArr = rowItem[code].split('')
+        valueArr.splice(2, 0, char)
+        rowItem[code] = valueArr.join('')
+        console.log(rowItem[code])
+        this.$set(rowItem, code, valueArr.join(''))
+      } else {
+        this.lastValue = rowItem[code]
+      }
+    },
     onSelect(item) {
       this.$emit("update:selected", item);
+      if(!item.dateStr){
+        item.dateStr = new Date().Format("MM-dd");
+      }
+      if(!item.timeStr){
+        item.timeStr = new Date().Format("hh:mm");
+      }
+    },
+    handleBlur(item){
+      console.log(item,'item')
     },
     onDblClick(item) {
       this.$emit("dblclick", item);

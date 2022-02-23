@@ -1235,6 +1235,11 @@ function switechSheetType(type) {
       schema = require("../config/pediatric3_xt/tr.js").default;
     }
       break
+    case "paediatrician2_xt": {
+      // 佛山杏坛 - 护理记录单(儿科)（未测试）
+      schema = require("../config/paediatrician2_xt/tr.js").default;
+    }
+      break
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/pediatric3_xt/tr.js").default;
