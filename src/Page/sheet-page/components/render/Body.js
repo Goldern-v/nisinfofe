@@ -594,6 +594,11 @@ function switechSheetType(type) {
       schema = require("../config/access_lcey/tr").default;
     }
       break;
+    case "maternal_lcey": {
+      // 聊城二院 - 产妇产后观察记录单
+      schema = require("../config/maternal_lcey/tr").default;
+    }
+      break; 
     case "body_temperature_wj": {
       // 武警总队 - 体温单
       schema = require("../config/body_temperature_wj/tr").default;

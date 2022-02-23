@@ -9,7 +9,7 @@
       >
         <span class="text" v-show="!img">求真像</span>
       </div>
-      <div class="user-text" flex-box="1">
+      <div class="user-text">
         <div class="name">
           {{ user.empName }}
           <span class="year">（{{ user.sex }}岁）</span>
@@ -17,7 +17,7 @@
         <div class="work">{{ user.title }}</div>
         <div class="dept">{{ user.deptName }}</div>
       </div>
-      <div style="margin-right: -8px" @click="$emit('quit')">
+      <div style="margin-right: -8px;width: 120px;" @click="$emit('quit')">
         <whiteButton text="注销登录"></whiteButton>
       </div>
     </div>
@@ -89,8 +89,10 @@
       <p><label>IP代理地址:</label><span>{{proxyIP}}</span></p>-->
     </div>
     <div class="footer-con" flex="cross:center">
-      <span @click="$emit('setPassword')">修改密码</span
-      >&nbsp;&nbsp;|&nbsp;&nbsp; <span>个人档案</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+      <span v-if="HOSPITAL_ID !=='whfk'">
+        <span @click="$emit('setPassword')">修改密码</span>&nbsp;&nbsp;|&nbsp;&nbsp; 
+      </span>
+      <span>个人档案</span>&nbsp;&nbsp;|&nbsp;&nbsp;
       <span @click="clear">清除缓存</span>
     </div>
     <uploadImgModal ref="uploadImgModal"></uploadImgModal>
@@ -122,6 +124,7 @@
   }
 
   .user-text {
+    flex: 1;
     .name {
       font-size: 14px;
       color: #333333;

@@ -13,9 +13,9 @@
 export default {
     // 科室的名称
     deptType: "",
-    // style: {
-    //   width: "1300px"
-    // },
+    style: {
+      width: "1150px"
+    },
     th: {
         top: 
             [
@@ -37,7 +37,7 @@ export default {
                 {"name":"留置<br/>尿管","colspan":"1","rowspan":"3"},
                 {"name":"尿色","colspan":"1","rowspan":"3"},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue","style":{"minWidth":"45px","maxWidth":"45px"}},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue","style":{"minWidth":"45px","maxWidth":"45px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue2","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
             ]

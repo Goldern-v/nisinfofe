@@ -84,7 +84,6 @@ export default {
     },
     handleQuery(obj = {}) {
       this.formData = { ...this.formData, ...obj}
-      console.log('test-obj', obj)
       this.getData()
     },
     async getData() {
@@ -103,7 +102,6 @@ export default {
         this.tableData = list || []
         this.total = totalCount || 0
 
-        console.log('test-ers', res)
         this.loading = false
       } catch (e) {
         this.loading = false

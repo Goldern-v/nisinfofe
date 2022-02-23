@@ -1446,7 +1446,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "diabetes_bh"||this.sheetInfo.sheetType === "ophthalmology_bh"||this.sheetInfo.sheetType === "observation_bh") {
+          }else if (this.sheetInfo.sheetType === "diabetes_bh"||this.sheetInfo.sheetType === "ophthalmology_bh"||this.sheetInfo.sheetType === "observation_bh"||this.sheetInfo.sheetType === "maternal_lcey") {
             if (GetLength(text) > 26) {
               result.push(text);
               text = allDoc[i];
@@ -1542,7 +1542,7 @@ export default {
     },
     f1Key(e, obj, key) {
       if (e.keyCode == 192) {
-        obj[key] += "✓";
+        obj[key] += "√";
         e.preventDefault();
       }
     },
@@ -1598,7 +1598,7 @@ export default {
       handler() {
         for (let i = 0; i < this.customTitle.length; i++) {
           if (this.check[i]) {
-            this.staticObj[this.customTitle[i].key] = "✓";
+            this.staticObj[this.customTitle[i].key] = "√";
           }
         }
       },

@@ -39,7 +39,7 @@ export default [
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: ['√','+','++','+++'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: ['√','+','++','+++','药眠'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'outputContent', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 10) },
   { key: 'outputAmount', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'outputContent2', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 10) },
