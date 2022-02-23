@@ -1201,13 +1201,33 @@ function switechSheetType(type) {
     }
       break;
     case "pentagram2_xt": {
-      // 佛山杏坛 - 护理记录单（眼耳鼻咽喉科）
+      // 佛山杏坛 - 护理记录单（眼耳鼻咽喉科）（未测试）
       schema = require("../config/pentagram2_xt/tr.js").default;
     }
       break;
+    case "prenataldelivery2_xt": {
+      // 佛山杏坛 - 护理记录单(产前待产记录)（未测试）
+      schema = require("../config/prenataldelivery2_xt/tr.js").default;
+    }
+      break;
+    case "postpartum2_xt": {
+      // 佛山杏坛 - 护理记录单(产后)（未测试）
+      schema = require("../config/postpartum2_xt/tr.js").default;
+    }
+      break;
+    case "gynaecology2_xt": {
+      // 佛山杏坛 - 护理记录单(妇科专科)（未测试）
+      schema = require("../config/gynaecology2_xt/tr.js").default;
+    }
+      break
+    case "pediatric3_xt": {
+      // 佛山杏坛 - 护理记录单(产科新生儿科)（未测试）
+      schema = require("../config/pediatric3_xt/tr.js").default;
+    }
+      break
     case "test_common": {
       // 护理记录单（测试用）
-      schema = require("../config/pentagram2_xt/tr.js").default;
+      schema = require("../config/pediatric3_xt/tr.js").default;
     }
     break;  
     default: {

@@ -1,20 +1,19 @@
 
 <template>
-  <div class="contain">
+  <div class="containter">
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part">
-        <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
         <patientList toName="oxygenPage" :callFunction="isSelectPatient" />
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
-        <record :filterObj="filterObj"></record>
+        <component :is="switchCompt()" ref="oxygenSugar" />
       </div>
     </div>
   </div>
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.contain
+.containter
   margin 0
   border 1px solid #CBD5DD
   border-radius 2px
@@ -39,7 +38,7 @@
     .right-part
       margin-left 199px
       height 100%
-      overflow hidden
+      overflow auto
       transition: all .4s cubic-bezier(.55, 0, .1, 1)
 </style>
 
@@ -49,16 +48,11 @@ import patientList from "@/components/patient-list/patient-list-router-link.vue"
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
-import record from "@/Page/patientInfo/supPage/record/record";
+import oxygenSugar from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 肺科医院
 export default {
   mixins: [common],
   data() {
     return {
-      filterObj: {
-        label: "血氧饱和度测定登记表",
-        formType: "monitor",
-        formName: "血氧饱和度测定登记表"
-      },
       data: {
         bedList: []
       },
@@ -81,13 +75,20 @@ export default {
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        patients(this.deptCode).then(res => {
+        patients(this.deptCode, {}).then(res => {
           this.data.bedList = res.data.data.filter(item => {
             return item.patientId;
           });
           this.patientListLoading = false;
         });
       }
+    },
+    // 依据医院名字，标题组件切换
+    switchCompt(HisName = process.env.HOSPITAL_NAME) {
+      let hisList = {
+        武汉市肺科医院: "oxygenSugar",
+      };
+      return hisList[HisName] || "oxygenSugar";
     },
     isSelectPatient(item) {
       this.$router.replace(
@@ -96,8 +97,7 @@ export default {
           query: item
         },
         () => {
-          this.bus.$emit("refreshTree", true);
-          this.bus.$emit("closeAssessment");
+          this.$refs.oxygenSugar.load();
         }
       );
     }
@@ -113,7 +113,6 @@ export default {
   },
   watch: {
     deptCode(val, oldValue) {
-      console.log(oldValue, val, "oldValue");
       if (oldValue && val) {
         this.$router.replace({
           path: "/oxygenPage",
@@ -127,7 +126,7 @@ export default {
   },
   components: {
     patientList,
-    record
+    oxygenSugar,
   }
 };
 </script>
