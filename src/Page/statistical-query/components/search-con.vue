@@ -27,7 +27,7 @@
       </div>
       <div class="search-con__ctx__item" v-if="formData.wardCode != undefined">
         病区：
-        <ElSelect style="width: 120px;" size="small" :value="formData.wardCode" @input="handleQuery({wardCode: $event})" filterable>
+        <ElSelect style="width: 150px;" size="small" :value="formData.wardCode" @input="handleQuery({wardCode: $event})" filterable>
           <ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
       </ElSelect>
       </div>
@@ -63,6 +63,7 @@
     display: flex;
     flex-wrap: wrap;
     .search-con__ctx__item {
+      line-height: 30px;
       font-size: 12px;
       padding-right: 10px;
       padding-bottom: 10px;
@@ -179,7 +180,7 @@ export default {
       this.formData.beginTime !== undefined && (obj.beginTime = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss'))
       // 当天23点59分59秒的时间格式
       this.formData.endTime !== undefined && (obj.endTime = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss'))
-      await this.getDepList()
+      // await this.getDepList()
       this.$emit('handleQuery', obj)
     },
     pickerOptClick(flag) {
@@ -212,28 +213,27 @@ export default {
           return obj
       }
     },
-    async getDepList() {
-      try {
-        this.$emit('update:loading', true)
-        const res = await nursingUnit()
-        this.deptList = res.data.data.deptList || []
-        console.log('test-res', res)
-          if (this.deptList.length > 0) {
-            this.deptList = [
-              {
-                code: '',
-                name: '全院'
-              },
-              ...this.deptList
-            ]
-          } else {
-            this.deptList = []
-          }
-        this.$emit('update:loading', false)
-      } catch (e) {
-        this.$emit('update:loading', false)
-      }
-    }
+    // async getDepList() {
+    //   try {
+    //     this.$emit('update:loading', true)
+    //     const res = await nursingUnit()
+    //     this.deptList = res.data.data.deptList || []
+    //       if (this.deptList.length > 0) {
+    //         this.deptList = [
+    //           {
+    //             code: '',
+    //             name: '全院'
+    //           },
+    //           ...this.deptList
+    //         ]
+    //       } else {
+    //         this.deptList = []
+    //       }
+    //     this.$emit('update:loading', false)
+    //   } catch (e) {
+    //     this.$emit('update:loading', false)
+    //   }
+    // }
   },
   components: {}
 };
