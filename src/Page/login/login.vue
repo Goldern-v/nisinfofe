@@ -331,7 +331,7 @@ a {
     font-size: 20px;
     letter-spacing: 1px;
     // font-family '微软雅黑' !important
-    left: 146px;
+    left: 130px;
   }
 
   .sys-name {

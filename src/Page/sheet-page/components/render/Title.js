@@ -725,6 +725,13 @@ export default function Title(
     );
   }
   break;
+  case "maternal_lcey": {
+    // 聊城二院 - 产妇产后观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/maternal_lcey/th").default)
+    );
+  }
+  break;
   case "common_zsqy": {
     // 中山七院-护理记录单
     Th = JSON.parse(
@@ -1603,10 +1610,17 @@ export default function Title(
     );
   }
   break;
+  case "pediatric3_xt": {
+    // 佛山杏坛 - 护理记录单(产科新生儿科)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric3_xt/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
-      JSON.stringify(require("../config/postpartum2_xt/th.js").default)
+      JSON.stringify(require("../config/pediatric3_xt/th.js").default)
     );
   }
   break;

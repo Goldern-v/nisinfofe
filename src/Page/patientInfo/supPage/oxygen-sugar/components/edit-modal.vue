@@ -16,118 +16,13 @@
           value-format="HH:mm"
         />
       </ElFormItem>
-      <ElFormItem v-if="HOSPITAL_ID == 'liaocheng'" label="类型：" required>
-        <ElSelect
-          v-if="HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'quzhou'"
-          v-model="form.sugarItem"
-        >
-          <ElOption
-            v-for="item in typeList"
-            :key="item.vitalSign"
-            :label="item.vitalSign"
-            :value="item.vitalSign"
-          />
-        </ElSelect>
-        <ElSelect
-          v-if="HOSPITAL_ID === 'huadu'"
-          v-model="form.sugarItem"
-          filterable
-          allow-create
-          @change="setNewItem($event)"
-        >
-          <ElOption
-            v-for="item in huaduTypeList"
-            :key="item.vitalSign"
-            :label="item.vitalSign"
-            :value="item.vitalSign"
-          />
-        </ElSelect>
-        <ElSelect
-          v-if="HOSPITAL_ID === 'quzhou'"
-          v-model="form.sugarItem"
-          filterable
-          allow-create
-        >
-          <ElOption
-            v-for="item in quzhouTypeList"
-            :key="item.vitalSign"
-            :label="item.vitalSign"
-            :value="item.vitalSign"
-          />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem v-else label="项目：" required>
-        <ElSelect
-          v-if="HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'quzhou' && HOSPITAL_ID != 'beihairenyi'"
-          v-model="form.sugarItem"
-        >
-          <ElOption
-            v-for="item in typeList"
-            :key="item.vitalSign"
-            :label="item.vitalSign"
-            :value="item.vitalSign"
-          />
-        </ElSelect>
-        <ElSelect
-          v-if="HOSPITAL_ID === 'huadu'"
-          v-model="form.sugarItem"
-          filterable
-          allow-create
-          @change="setNewItem($event)"
-        >
-          <ElOption
-            v-for="item in huaduTypeList"
-            :key="item.vitalSign"
-            :label="item.vitalSign"
-            :value="item.vitalSign"
-          />
-        </ElSelect>
-        <!-- 北海 -->
-         <ElSelect
-          v-if="HOSPITAL_ID === 'beihairenyi'"
-          v-model="form.sugarItem"
-          filterable
-          allow-create
-        >
-          <ElOption
-            v-for="item in BeiHaiTypeList"
-            :key="item.itemName"
-            :label="item.itemName"
-            :value="item.itemName"
-          />
-        </ElSelect>
-        <ElSelect
-          v-if="HOSPITAL_ID === 'quzhou'"
-          v-model="form.sugarItem"
-          filterable
-          allow-create
-        >
-          <ElOption
-            v-for="item in quzhouTypeList"
-            :key="item.vitalSign"
-            :label="item.vitalSign"
-            :value="item.vitalSign"
-          />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem label="血糖值：" required>
+      <ElFormItem label="血氧值：" required>
         <ElInput v-model="form.sugarValue" />
-        <span class="unit">(mmol/L)</span>
+        <span class="unit">%</span>
       </ElFormItem>
-      <ElFormItem
-        label="RI剂量："
-        required
-        v-if="
-          HOSPITAL_ID != 'gy' &&
-          HOSPITAL_ID != 'huadu' &&
-          HOSPITAL_ID != 'liaocheng' &&
-          HOSPITAL_ID != 'hengli' &&
-          HOSPITAL_ID != 'guizhou'&&
-          HOSPITAL_ID != 'whfk'
-        "
-      >
-        <ElInput v-model="form.riValue" />
-        <span class="unit">{{HOSPITAL_ID == 'beihairenyi' ? '(U)' : 'ü'}}</span>
+      <ElFormItem  label="心率：" required>
+        <ElInput v-model="form.sugarItem" />
+        <span class="unit">次/分</span>
       </ElFormItem>
       <ElFormItem
         label="备注："
@@ -141,12 +36,12 @@
   v-model="form.expand3">
 </el-input>
       </ElFormItem>
-      <ElFormItem label="血酮值：" required v-if="HOSPITAL_ID == 'liaocheng'">
+      <!-- <ElFormItem label="血酮值：" required v-if="HOSPITAL_ID == 'liaocheng'">
         <ElInput v-model="form.riValue" />
         <span class="unit">(mmol/L)</span>
-      </ElFormItem>
+      </ElFormItem> -->
       <ElFormItem
-        :label="HOSPITAL_ID == 'liaocheng' ? '测量者：' : '执行人：'"
+        :label="HOSPITAL_ID == 'liaocheng' ? '测量者：' : '签名：'"
         required
       >
         <span>{{ curEmpName }}</span>

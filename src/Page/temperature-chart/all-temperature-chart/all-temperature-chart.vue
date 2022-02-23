@@ -141,7 +141,16 @@
           border
           v-loading="pageLoadng"
           cell-mouse-enter
+          :row-style="rowStyle"
         >
+          <el-table-column
+            v-if="levelColorHis.includes(HOSPITAL_ID)"
+            prop="nursingClass"
+            label="护理等级"
+            min-width="90"
+            align="center"
+          >
+          </el-table-column>
           <el-table-column
             prop="bedLabel"
             label="床号"
@@ -945,12 +954,15 @@ import print from "printing";
 import formatter from "../print-formatter";
 import CustomInput from "./components/CustomInput.vue";
 import { validForm } from "../validForm/validForm";
+import { listItem } from "@/api/common.js";
 
 export default {
   mixins: [common],
   props: {},
   data() {
     return {
+      levelColor:null,//等级颜色
+      levelColorHis:["wujing"],//显示护理等级及颜色医院his列表
       isSelectedPatient: "",
       patientList: [],
       isSelectedNurs: "",
@@ -1325,6 +1337,30 @@ export default {
     window.addEventListener("keydown", this.keydownSave, false);
   },
   methods: {
+    //行样式
+    rowStyle(row){
+      if(!this.levelColorHis.includes(this.HOSPITAL_ID)){
+        return {}
+      }
+      switch(this.HOSPITAL_ID){
+        case "wujing":
+          return {
+            backgroundColor:this.getBaColor(row)
+          };
+        default:
+          return {
+            backgroundColor:this.getBaColor(row)
+          }; 
+      }
+    },
+    //获取对应护理等级背景颜色
+    getBaColor(row){
+      if(this.levelColor && row && row.nursingClass){
+        return this.levelColor.find(item=>item.code==row.nursingClass)?this.levelColor.find(item=>item.code==row.nursingClass).name:null
+      }else {
+        return "";
+      }
+    },
     handlePatientChange() {},
     selectedNurs() {},
     getHours() {
@@ -1351,10 +1387,16 @@ export default {
         this.pageLoadng = true;
       }
 
-      getPatientsInfo(data).then((res) => {
+      getPatientsInfo(data).then(async (res) => {
         this.patientsInfoData = res.data.data;
         this.pageLoadng = false;
         // console.log("接口数据", res.data.data);
+        try {
+          const {data:{data:levelColor}} = await listItem("nursing_level");
+          this.levelColor=levelColor;
+        } catch (error) {
+          console.log(error)
+        }
       });
     },
     reset() {

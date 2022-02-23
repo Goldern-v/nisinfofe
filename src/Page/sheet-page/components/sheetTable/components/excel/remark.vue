@@ -325,6 +325,11 @@
     <div v-if="sheetInfo.sheetType == 'cardiology_lcey'">
       体温处理措施：①适量增加饮水量；②温水擦浴；③冰块冷敷；④遵医嘱药物治疗；⑤减少盖被
     </div>
+    <!-- 聊城二院  产妇产后观察记录单-->
+    <div v-if="sheetInfo.sheetType == 'maternal_lcey'">
+       护理措施:①指导产妇按摩子宫 ②告知知产妇自觉头量、心悸、阴道流血量多时告知助产士 ③指导并协助母要皮肤早接触、早吸吮 ④告知产妇母乳喂养及母婴三早的好处及重要性<br/>
+       <span style="margin-left:59px">⑤保暖侧卧⑥皮肤早接触、早吸吮、早开奶</span>
+    </div>
     <!-- 北海 婴儿记录表-->
     <div v-if="sheetInfo.sheetType == 'infant_bh'">
        日:早10时--晚20时
@@ -377,6 +382,12 @@
       <strong>护理措施</strong>: A协助翻身；B指导床上翻身活动；C指导下床活动；D去枕平卧：E指导患者口腔护理；F膀胱功能训练；G指导会阴护理；H指导用药注意事项；I留置针护理；J饮食指导；K出院指导；其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。<br/>
       <strong>阴道出血颜色</strong>：A鲜红；B暗红；C淡红；D咖啡；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.cxysQt" :data-value="sheetInfo.relObj.cxysQt"/>。 
     </div>
+    <!-- 佛山杏坛 护理记录单(产科新生儿科) -->
+    <div v-if="sheetInfo.sheetType == 'pediatric3_xt'">
+      注：<strong>皮肤颜色</strong>：R-红润、F-潮红、X-黄染、C-青紫、P-苍白。&nbsp;<strong>皮肤弹性</strong>：G-好、S-一般、D-差；&nbsp;<strong>皮疹位置</strong>：H-头面部、N-颈部、U-上肢、L-下肢、O-腋下、T-胸腹、B-背部、S-阴囊、C-肛周、W-全身；<br/>
+      <strong>性质程度</strong>：S-散在、M-多发、I-密集，P-表面脓点皮肤未破损、B-表面破损、U表面溃疡； &nbsp;<strong>产瘤、头部血肿位置</strong>：L-左、R-右，T-头顶、F-顶额部；<br/>
+      <strong>护理措施</strong>：A预防窒息；B预防坠床；C预防烫伤；D指导外用药；E指导口药服用；F喂养护理；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。&nbsp;<strong>呕吐物性质</strong>：A白色；B黄色；C绿色；D咖啡E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.otwQt" :data-value="sheetInfo.relObj.otwQt"/>。 
+    </div>
     <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
     <div v-if="sheetInfo.sheetType == 'cardiovascular_xt'">
       注：意识：清醒√；嗜睡－；模糊Δ；昏睡±；浅昏迷＋；中昏迷＋＋；深昏迷＋＋＋；A谵妄；B药眠。
@@ -422,8 +433,7 @@
     </div>
     <!-- 顺德龙江 - 护理记录单（颅脑外科）-->
     <div v-if="sheetInfo.sheetType == 'craniocerebral_sdlj'">
-      备注：意识：清√，嗜睡+，浅昏迷++，深昏迷+++，药眠。<br/>
-      瞳孔对光反射判断：灵敏√，迟钝+，消失－。        
+      备注：意识：清√，嗜睡+，浅昏迷++，深昏迷+++，药眠。&nbsp; &nbsp;瞳孔对光反射判断：灵敏√，迟钝+，消失－。        
     </div>
     <!-- 顺德龙江 - 护理记录单（泌尿外科）-->
     <div v-if="sheetInfo.sheetType == 'urology_sdlj'">
@@ -431,7 +441,7 @@
     </div>
     <!-- 顺德龙江 - 呼吸专科护理记录单-->
     <div v-if="sheetInfo.sheetType == 'dreathe_sdlj'">
-      说明: 1、护理记录单大部份项目可打“√”，表中无涉及的内容或表达不清的问题请在特殊记录栏内用文字说明。&nbsp; &nbsp;2、有呼吸困难者,在相应空格中描述轻度、中度、重度。<br/>                                    
+      说明: 1、护理记录单大部分项目可打“√”，表中无涉及的内容或表达不清的问题请在特殊记录栏内用文字说明。&nbsp; &nbsp;2、有呼吸困难者,在相应空格中描述轻度、中度、重度。<br/>                                    
       3、痰液的性质用符号表示:白色稀痰WL/黄白稠痰YWT/黄色稠痰YT/血性痰B。&nbsp; &nbsp;4、痰量：小量+/中量++/大量+++。<br/>                                    
       5、有胸痛者，在特殊记录栏内用文字说明胸痛的部位、性质、程度、持续时间并记录加重、缓解的因素，如“呼吸、咳嗽时加剧”等。<br/>                                                             
       6、健康教育：用相应的字母表示。A：检查宣教 B：用药指导 C：饮食指导 D：用氧安全 E：疾病知识 F：康复指导 G：腹式呼吸 H：缩唇呼吸 I：其他。        

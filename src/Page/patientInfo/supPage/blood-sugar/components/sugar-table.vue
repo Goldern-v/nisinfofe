@@ -3,7 +3,7 @@
     <table>
       <tr>
         <th
-          v-if="HOSPITAL_ID != 'guizhou'"
+          v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'"
           style="width: 2%; min-width: 20px"
         >
           序号
@@ -31,7 +31,8 @@
             HOSPITAL_ID != 'liaocheng'&&
             HOSPITAL_ID != 'hengli'&&
             HOSPITAL_ID != 'fuyou'&&
-            HOSPITAL_ID != 'guizhou'
+            HOSPITAL_ID != 'guizhou'&&
+            HOSPITAL_ID != 'whfk'
           "
         >
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
@@ -54,7 +55,7 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td v-if="HOSPITAL_ID != 'guizhou'">
+        <td v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'">
           {{index + baseIndex + 1}}
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
@@ -91,7 +92,8 @@
             HOSPITAL_ID != 'liaocheng'&&
             HOSPITAL_ID != 'hengli'&&
             HOSPITAL_ID != 'fuyou'&&
-            HOSPITAL_ID != 'guizhou'
+            HOSPITAL_ID != 'guizhou'&&
+            HOSPITAL_ID != 'whfk'
           "
         >
           <div class="cell">
@@ -121,6 +123,14 @@
         </td>
         <td v-else>
           <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
+          <div class="cell noPrint" v-else-if="HOSPITAL_ID == 'whfk'" style="display:block">
+            <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+              style="width:70%;height: 90%;"
+            />
+          </div>
           <div class="cell noPrint" v-else>{{ item.nurse }}</div>
           <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->

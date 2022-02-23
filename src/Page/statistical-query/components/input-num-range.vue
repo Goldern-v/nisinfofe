@@ -53,14 +53,14 @@ export default {
     },
     editVal: {
       handler(v) {
-        let [i0, i1] = v
-        if (i0>i1) {
-          this.$message({
-            message: '起始数值不能大于结束数值',
-            type: 'warning'
-          })
-          return
-        }
+        // let [i0, i1] = v
+        // if (i0>i1) {
+        //   this.$message({
+        //     message: '起始数值不能大于结束数值',
+        //     type: 'warning'
+        //   })
+        //   return
+        // }
         this.$emit('change', v)
       }
     }

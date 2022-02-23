@@ -71,6 +71,7 @@
         <sheetPrintPage v-if="$route.params.type == 'sheetPage'" :qoSelect="qoSelect"></sheetPrintPage>
         <sheetPrintNursingOrder v-if="$route.params.type == 'sheetNursingOrder'"></sheetPrintNursingOrder>
         <sugar v-if="$route.params.type == 'sugar'"></sugar>
+        <oxygen v-if="$route.params.type == 'oxygen'"></oxygen>
         <health v-if="$route.params.type == 'health'"></health>
         <lcHealth v-if="$route.params.type == 'lcHealth'"></lcHealth>
         <growthPrintPage v-if="$route.params.type == 'growth'"></growthPrintPage>
@@ -197,6 +198,7 @@ import notice from "./component/notice";
 import sheetPrintPage from "./component/sheet-print-page";
 import sheetPrintNursingOrder from "./component/sheet-print-nursing-order";
 import sugar from "./component/sugar-print-page.vue";
+import oxygen from "./component/oxygen-print-page.vue";
 import health from "./component/health-print-page";
 import lcHealth from "./component/lcHealth-print-page";
 import growthPrintPage from "./component/growth-print-page.vue";
@@ -258,6 +260,7 @@ export default {
     sheetPrintNursingOrder,
     notice,
     sugar,
+    oxygen,
     growthPrintPage,
     health,
     lcHealth,
