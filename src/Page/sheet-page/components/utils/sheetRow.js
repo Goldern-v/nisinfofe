@@ -71,7 +71,9 @@ export function getRowNum(index) {
     return 28
   } else if (sheetInfo.sheetType === 'intravenous_sdlj'||sheetInfo.sheetType === 'mechanical_sdlj') {
     return 33
-  } else {
+  } else if (sheetInfo.sheetType === 'magnesium_lcey') {
+    return 24
+  }else {
     return 17;
   }
 
