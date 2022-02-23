@@ -9,7 +9,10 @@
         <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
           <!-- <img class="his-logo"
           src="../../../../common/images/his-logo/厚街医徽.png" />-->
-          <div class="title">{{ HOSPITAL_NAME_SPACE }}</div>
+          <div class="title" v-if="HOSPITAL_ID == 'whfk'">
+             <img class="title-img" src="./image/logo.png" alt="logo" />
+          </div>
+          <div class="title" v-else>{{ HOSPITAL_NAME_SPACE }}</div>
           <div
             class="sup-title"
             v-if="HOSPITAL_NAME === '广州市花都区人民医院'"
@@ -30,6 +33,9 @@
           </div>
           <div class="sup-title" v-else-if="HOSPITAL_ID == 'liaocheng'">
             血糖酮体记录表
+          </div>
+          <div class="sup-title" v-else-if="HOSPITAL_ID == 'whfk'">
+            血糖监测单
           </div>
           
           <div class="sup-title" v-else>微量血糖测定登记表</div>
@@ -209,9 +215,14 @@
     font-weight: bold;
   }
 
+  .title-img {
+    width: 100%;
+    height: 100%;
+  }
+
   .sup-title {
     font-size: 21px;
-    padding: 10px 0 0px;
+    padding: 1px 0 0px;
     text-align: center;
     font-weight: bold;
   }

@@ -10,7 +10,7 @@
     <template>
       <div class="search-con__ctx__item">
         体温：
-        <input-num-range :props="{step: 0.1, min: 20}" :value="[formData.tempMin, formData.tempMax]" @change="(e) => handleIptNum(e,['tempMin', 'tempMax'])"/>
+        <input-num-range :props="{step: 0.1}" :value="[formData.tempMin, formData.tempMax]" @change="(e) => handleIptNum(e,['tempMin', 'tempMax'])"/>
       </div>
       <div class="search-con__ctx__item main-color">
         <i class="icon iconfont">&#xe6bc;</i>注：体温查询时的范围包含所输入的区间值

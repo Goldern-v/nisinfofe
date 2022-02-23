@@ -1610,10 +1610,17 @@ export default function Title(
     );
   }
   break;
+  case "pediatric3_xt": {
+    // 佛山杏坛 - 护理记录单(产科新生儿科)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric3_xt/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
-      JSON.stringify(require("../config/postpartum2_xt/th.js").default)
+      JSON.stringify(require("../config/pediatric3_xt/th.js").default)
     );
   }
   break;
