@@ -78,7 +78,7 @@ export default {
 					key: 'index',
 					title: '序号',
           align: 'center',
-					minWidth: 70,
+					width: 70,
 					render: (h, { index }) => {
 						return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
 					}
@@ -87,7 +87,7 @@ export default {
 					key: 'wardName',
 					title: '病区',
           align: 'center',
-					minWidth: 70,
+					minWidth: 100,
 				},
         {
 					key: 'name',
@@ -99,13 +99,13 @@ export default {
 					key: 'sex',
 					title: '性别',
           align: 'center',
-					minWidth: 70,
+					width: 70,
 				},
         {
 					key: 'age',
 					title: '年龄',
           align: 'center',
-					minWidth: 70,
+					width: 70,
 				},
         {
 					key: 'patientId',

@@ -15,10 +15,46 @@ export default {
     return {
       actIndex: '',
       bars: [
+        // {
+        //   name: "statisticalWorkload",
+        //   meta: {
+        //     title: '工作量统计'
+        //   },
+        // },
+        {
+          name: "statisticalExitAdmission",
+          meta: {
+            title: '出入院统计'
+          },
+        },
         {
           name: "statisticalOperation",
           meta: {
             title: '手术统计'
+          },
+        },
+        {
+          name: "statisticalNursingLv",
+          meta: {
+            title: '护理级别统计'
+          },
+        },
+        {
+          name: "statisticalVTE",
+          meta: {
+            title: 'VTE统计'
+          },
+        },
+        {
+          name: "statisticalPressure",
+          meta: {
+            title: '压力性损伤统计'
+          },
+        },
+        {
+          name: "statisticalTemperature",
+          meta: {
+            title: '体温统计'
           },
         },
         {
@@ -34,9 +70,9 @@ export default {
           },
         },
         {
-          name: "statisticalPressure",
+          name: "statisticalBreath",
           meta: {
-            title: '压力性损伤统计'
+            title: '呼吸统计'
           },
         },
         {
@@ -45,49 +81,15 @@ export default {
             title: '血压统计'
           },
         },
-        {
-          name: "statisticalTemperature",
-          meta: {
-            title: '体温统计'
-          },
-        },
-        {
-          name: "statisticalNursingLv",
-          meta: {
-            title: '护理级别统计'
-          },
-        },
-        // {
-        //   name: "statisticalWorkload",
-        //   meta: {
-        //     title: '工作量统计'
-        //   },
-        // },
-        {
-          name: "statisticalBreath",
-          meta: {
-            title: '呼吸统计'
-          },
-        },
-        {
-          name: "statisticalExitAdmission",
-          meta: {
-            title: '出入院统计'
-          },
-        },
-        {
-          name: "statisticalVTE",
-          meta: {
-            title: 'VTE统计'
-          },
-        },
       ]
     }
   },
   watch: {
     '$route.name': {
       handler(v) {
-        this.actIndex = v
+        if (this.actIndex != v) {
+          this.actIndex = v
+        }
       },
     },
   },
