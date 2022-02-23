@@ -131,7 +131,7 @@ export default {
       }else if(valueNew == '重症监护患者疼痛观察工具'){
         this.tableScoreSever();
       }else if(valueNew == '小儿疼痛行为评估量表'){
-        this.tableScoreSever();
+        this.tableScoreChild();
       }
       
       

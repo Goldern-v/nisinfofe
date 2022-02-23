@@ -123,6 +123,14 @@
         </td>
         <td v-else>
           <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
+          <div class="cell noPrint" v-else-if="HOSPITAL_ID == 'whfk'" style="display:block">
+            <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+              style="width:70%;height: 90%;"
+            />
+          </div>
           <div class="cell noPrint" v-else>{{ item.nurse }}</div>
           <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->
