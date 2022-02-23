@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown>
+      <!-- <el-dropdown>
         <div class="print-btn tool-btn">打印</div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
@@ -15,8 +15,11 @@
             ></el-dropdown-item
           >
         </el-dropdown-menu>
-      </el-dropdown>
-
+      </el-dropdown> -->
+     <el-button-group>
+        <el-button type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button type="primary" @click="printAll()">批量打印</el-button>
+      </el-button-group>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
       <div :class="rightSheet===true?'pagination':'paginationRight'">
         <button :disabled="currentPage === 1" @click="toPre">

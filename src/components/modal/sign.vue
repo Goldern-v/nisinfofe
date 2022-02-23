@@ -52,8 +52,8 @@
       </div>
     </span>
     <div style="height: 5px"></div>
-    <!-- <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)" v-show="!pw"> -->
-    <span v-if="['fuyou'].includes(HOSPITAL_ID)" v-show="!pw">
+    <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)" v-show="!pw">
+    <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)" v-show="!pw"> -->
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -94,8 +94,8 @@
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
 
-    <!-- <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&formData"> -->
-    <span v-if="['fuyou'].includes(HOSPITAL_ID)&&formData">
+    <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&formData">
+    <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)&&formData"> -->
       <p class="name-title">
         验证方式
         <span :style="{ color: fuyouCaData && fuyouCaData.userName ? 'green' : 'red' }">
@@ -105,12 +105,11 @@
       </p>
     </span>
     <div style="margin-top: 5px">
-      <!-- <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&!fuyouCaData" -->
-      <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="['fuyou'].includes(HOSPITAL_ID)&&!fuyouCaData"
+      <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&!fuyouCaData"
         >ca登录</span
       >
-      <!-- <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&fuyouCaData&&formData"> -->
-      <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData&&formData">
+      <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&fuyouCaData&&formData">
+      <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData&&formData"> -->
         开启ca签名<el-switch v-model="isCaSign"></el-switch>
       </span>
       
@@ -184,7 +183,7 @@
 import dayjs from "dayjs";
 import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
-import { getCaSignJmfy } from "@/api/ca-sign_fuyou.js";
+import { getCaSignJmfy,verifyData } from "@/api/ca-sign_fuyou.js";
 import moment from "moment";
 import md5 from "md5";
 export default {
@@ -244,19 +243,20 @@ export default {
   },
   methods: {
     showSignBtn(){
-      // if(['fuyou','hj'].includes(this.HOSPITAL_ID)){
-      if(['fuyou'].includes(this.HOSPITAL_ID)){
+      if(['fuyou','hj'].includes(this.HOSPITAL_ID)){
+      // if(['fuyou'].includes(this.HOSPITAL_ID)){
         return this.isCaSign
       }else{
         return false
       }
     },
     hasCaSign(){
-      // let flag = ['fuyou','hj'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
-      let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
+      let flag = ['fuyou','hj'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
+      // let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
     return !!flag
     },
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType) {//formData为表单数据
+    console.log(formData);
     if(doctorTure){
       this.isDoctor = doctorTure
       this.isCaSign = false;
@@ -428,7 +428,7 @@ export default {
     //江门妇幼ca签名
     caPost(){
       if(!this.formData) return false
-      const parmas={
+      let parmas={
         signType:this.signType,
         patientName:this.formData.patientName,//-- 患者名称
         patientSex:this.formData.sex,// -- 患者性别
@@ -439,7 +439,27 @@ export default {
         templateId:"hash", //-- 模板id
         formId:`${this.formData.id}`,// -- 表单ID
       };
-      getCaSignJmfy(parmas).then(res=>{
+      if(this.HOSPITAL_ID=='hj'){
+        console.log(this.formData);
+        parmas = {
+            "accessToken":sessionStorage.getItem('accessToken'),
+            "userId":this.fuyouCaData.userId, 
+            formId:`${this.formData.id}`,
+            "transactionId":this.fuyouCaData.transactionId,
+            "authKey":this.fuyouCaData.authKEY, 
+            "fileName":`${this.formData.name}_${this.formData.code}`
+        }
+      }
+      console.log(parmas);
+      getCaSignJmfy(parmas).then(async res=>{
+        if(this.HOSPITAL_ID=='hj'){
+          let fileCode = res.data.data.data.fileCode
+          let hjRes = await verifyData(sessionStorage.getItem('accessToken'),fileCode)
+          if(hjRes.data.code!=200) return this.$message({
+            type:'error',
+            message:hjRes.data.desc
+          })
+        }
         this.$message({
           type:'success',
           message:res.data.desc

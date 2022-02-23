@@ -331,7 +331,7 @@ a {
     font-size: 20px;
     letter-spacing: 1px;
     // font-family '微软雅黑' !important
-    left: 146px;
+    left: 130px;
   }
 
   .sys-name {
@@ -484,10 +484,9 @@ export default {
               window.openCaSignModal();
             }else if(["fuyou"].includes(this.HOSPITAL_ID)){
               window.openFuyouCaSignModal();
+            }else if(['hj'].includes(this.HOSPITAL_ID)){
+              window.openHjCaSignModal();
             }
-            // else if(['hj'].includes(this.HOSPITAL_ID)){
-            //   window.openHjCaSignModal();
-            // }
           }
           // 清除科室记录
           this.$store.commit("upDeptCode", "");

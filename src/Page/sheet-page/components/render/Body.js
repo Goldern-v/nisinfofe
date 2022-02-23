@@ -1130,16 +1130,6 @@ function switechSheetType(type) {
       schema = require("../config/areageneral_fs/tr.js").default;
     }
       break;
-    case "cardiovascular_xt": {
-      // 佛山杏坛 - 护理记录单（心血管呼吸专科）（未测试）
-      schema = require("../config/cardiovascular_xt/tr.js").default;
-    }
-      break;
-    case "criticaldisease_xt": {
-      // 佛山杏坛 - 危重症护理记录单（未测试）
-      schema = require("../config/criticaldisease_xt/tr.js").default;
-    }
-      break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;
@@ -1170,9 +1160,74 @@ function switechSheetType(type) {
       schema = require("../config/intravenous_sdlj/tr.js").default;
     }
     break; 
+    case "nursing_sdlj": {
+      // 顺德龙江 - 产科护理记录单
+      schema = require("../config/nursing_sdlj/tr.js").default;
+    }
+    break; 
+    case "prenatal_sdlj": {
+      // 顺德龙江 - 产前待产记录单
+      schema = require("../config/prenatal_sdlj/tr.js").default;
+    }
+    break; 
+    case "dreathe_sdlj": {
+      // 顺德龙江 - 呼吸专科护理记录单
+      schema = require("../config/dreathe_sdlj/tr.js").default;
+    }
+    break; 
+    case "urology_sdlj": {
+      // 顺德龙江 - 护理记录单（泌尿外科）
+      schema = require("../config/urology_sdlj/tr.js").default;
+    }
+    break; 
+    case "mechanical_sdlj": {
+      // 顺德龙江 - 机械通气监护记录单（儿科）
+      schema = require("../config/mechanical_sdlj/tr.js").default;
+    }
+    break; 
+    case "orthopaedic_sdlj": {
+      // 顺德龙江 - 护理记录单（骨科）
+      schema = require("../config/orthopaedic_sdlj/tr.js").default;
+    }
+    break; 
+    case "cardiovascular_xt": {
+      // 佛山杏坛 - 护理记录单（心血管呼吸专科）（未测试）
+      schema = require("../config/cardiovascular_xt/tr.js").default;
+    }
+      break;
+    case "criticaldisease_xt": {
+      // 佛山杏坛 - 危重症护理记录单（未测试）
+      schema = require("../config/criticaldisease_xt/tr.js").default;
+    }
+      break;
+    case "pentagram2_xt": {
+      // 佛山杏坛 - 护理记录单（眼耳鼻咽喉科）（未测试）
+      schema = require("../config/pentagram2_xt/tr.js").default;
+    }
+      break;
+    case "prenataldelivery2_xt": {
+      // 佛山杏坛 - 护理记录单(产前待产记录)（未测试）
+      schema = require("../config/prenataldelivery2_xt/tr.js").default;
+    }
+      break;
+    case "postpartum2_xt": {
+      // 佛山杏坛 - 护理记录单(产后)（未测试）
+      schema = require("../config/postpartum2_xt/tr.js").default;
+    }
+      break;
+    case "gynaecology2_xt": {
+      // 佛山杏坛 - 护理记录单(妇科专科)（未测试）
+      schema = require("../config/gynaecology2_xt/tr.js").default;
+    }
+      break
+    case "pediatric3_xt": {
+      // 佛山杏坛 - 护理记录单(产科新生儿科)（未测试）
+      schema = require("../config/pediatric3_xt/tr.js").default;
+    }
+      break
     case "test_common": {
       // 护理记录单（测试用）
-      schema = require("../config/icu_cpr_xg/tr.js").default;
+      schema = require("../config/pediatric3_xt/tr.js").default;
     }
     break;  
     default: {

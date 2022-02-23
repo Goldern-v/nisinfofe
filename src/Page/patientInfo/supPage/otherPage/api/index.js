@@ -11,5 +11,5 @@ export function getTest(patientId, visitId) {
 
 // 获取患者360视图链接
 export function getPatient360View(patientId) {
-  return axios.get(`${apiPath}getPatient360View/${patientId}`);
+  return axios.get(`${apiPath}patient/getPatient360View/${patientId}`);
 }

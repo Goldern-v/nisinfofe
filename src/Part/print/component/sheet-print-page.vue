@@ -223,6 +223,7 @@ export default {
         "postpartum_wj", // 武警_产后(产房)观察记录单
         "iabp_fs", // 佛山市一_IABP护理记录单
         "intravenous_sdlj", // 顺德龙江_硫酸镁、安宝静脉点滴观察记录表
+        "mechanical_sdlj", // 机械通气监护记录单（儿科）
       ],
       // 需要双签名的记录单code
       multiSignArr: [

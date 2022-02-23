@@ -1,6 +1,7 @@
 <template>
 <div class="statistical-workload">
   <search-con
+    :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
 

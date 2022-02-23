@@ -1477,20 +1477,6 @@ export default function Title(
       );
     }
   break;
-  case "cardiovascular_xt": {
-    // 佛山杏坛 - 护理记录单(心血管呼吸专科)（未测试）
-    Th = JSON.parse(
-      JSON.stringify(require("../config/cardiovascular_xt/th.js").default)
-    );
-  }
-  break;
-  case "criticaldisease_xt": {
-    // 佛山杏坛 - 危重症护理记录单（未测试）
-    Th = JSON.parse(
-      JSON.stringify(require("../config/criticaldisease_xt/th.js").default)
-    );
-  }
-  break;
   case "nonsurgicalcare_fk": {
     // 武汉肺科 - 非手术科室护理记录单
     Th = JSON.parse(
@@ -1533,10 +1519,101 @@ export default function Title(
     );
   }
   break;
+  case "nursing_sdlj": {
+    // 顺德龙江 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "prenatal_sdlj": {
+    // 顺德龙江 - 产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "dreathe_sdlj": {
+    // 顺德龙江 - 呼吸专科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/dreathe_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "urology_sdlj": {
+    // 顺德龙江 - 护理记录单（泌尿外科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/urology_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "mechanical_sdlj": {
+    // 顺德龙江 - 机械通气监护记录单（儿科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/mechanical_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "orthopaedic_sdlj": {
+    // 顺德龙江 - 护理记录单（骨科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopaedic_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "cardiovascular_xt": {
+    // 佛山杏坛 - 护理记录单(心血管呼吸专科)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiovascular_xt/th.js").default)
+    );
+  }
+  break;
+  case "criticaldisease_xt": {
+    // 佛山杏坛 - 危重症护理记录单（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/criticaldisease_xt/th.js").default)
+    );
+  }
+  break;
+  case "pentagram2_xt": {
+    // 佛山杏坛 - 护理记录单（眼耳鼻咽喉科）（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pentagram2_xt/th.js").default)
+    );
+  }
+  break;
+  case "prenataldelivery2_xt": {
+    // 佛山杏坛 - 护理记录单(产前待产记录)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenataldelivery2_xt/th.js").default)
+    );
+  }
+  break;
+  case "postpartum2_xt": {
+    // 佛山杏坛 - 护理记录单(产后)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum2_xt/th.js").default)
+    );
+  }
+  break;
+  case "gynaecology2_xt": {
+    // 佛山杏坛 - 护理记录单(妇科专科)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/gynaecology2_xt/th.js").default)
+    );
+  }
+  break;
+  case "pediatric3_xt": {
+    // 佛山杏坛 - 护理记录单(产科新生儿科)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric3_xt/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
-      JSON.stringify(require("../config/icu_cpr_xg/th.js").default)
+      JSON.stringify(require("../config/pediatric3_xt/th.js").default)
     );
   }
   break;

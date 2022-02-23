@@ -47,7 +47,7 @@
           {{ patientInfo.inpNo }}
         </div>
       </span>
-       <span>
+      <span>
         入院日期：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.admissionDate | toymd}}

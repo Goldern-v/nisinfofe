@@ -1,6 +1,7 @@
 <template>
 <div class="statistical-bloodPressure">
   <search-con
+    :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
     @handleExport="handleExport"

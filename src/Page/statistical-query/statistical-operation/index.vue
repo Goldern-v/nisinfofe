@@ -1,6 +1,7 @@
 <template>
 <div class="statistical-operation">
   <search-con
+    :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
     datetype="datetime"

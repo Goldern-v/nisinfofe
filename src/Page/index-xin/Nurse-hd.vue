@@ -299,7 +299,7 @@ export default {
       let time = moment().format("L");
       let data = Cookie.get("NURSING_USER") || "";
       if (!data) {
-        window.location.href = "/login";
+        window.location.href = "/crNursing/login";
       }
       try {
         let user = window.localStorage.getItem("user");
