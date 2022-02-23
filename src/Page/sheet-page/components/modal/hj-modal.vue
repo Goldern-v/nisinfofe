@@ -134,8 +134,10 @@ export default {
         .subtract(1, "days")
         .format("YYYY-MM-DD");
       let t = moment().format("YYYY-MM-DD");
-      let yt = y + " 07:00";
-      let tt = t + " 07:00";
+      // let yt = y + " 07:00";
+      // let tt = t + " 07:00";
+      let yt = ["wujing"].includes(this.HOSPITAL_ID) ? y + " 08:00" : y + " 07:00";
+      let tt = ["wujing"].includes(this.HOSPITAL_ID) ? t + " 07:59" : t + " 07:00" ;
       this.date = [yt, tt];
     },
     close() {
