@@ -46,7 +46,7 @@
         </span>
       </div>
     </template>
-      <template v-else-if="sheetInfo.sheetType=='maternal_lcey'">
+      <template v-else-if="sheetInfo.sheetType=='maternal_lcey'||sheetInfo.sheetType=='cardiac_lcey'">
       <div class="info-con" flex="main:justify">
       <span>
         科别：
@@ -68,7 +68,8 @@
         病案号：
         <div class="bottom-line" style="min-width: 75px">{{patientInfo.inpNo}}</div>
       </span>
-      <span
+      <template v-if="sheetInfo.sheetType=='maternal_lcey'">
+         <span
           @click="updateRelObj('Parity', '胎次',Parity)"
         >
          胎次：
@@ -80,6 +81,7 @@
          分娩时间：
         <div class="bottom-line" style="min-width: 100px">{{ deliveryTime }}</div>
         </span>
+      </template>
       </div>
     </template>
     <template v-else>
@@ -232,10 +234,7 @@ export default {
     }
   },
   destroyed() {},
-  components: { crDatePicker },
-  created(){
-    console.log(189,this.patientInfo)
-  }
+  components: { crDatePicker }
 };
 </script>
 
