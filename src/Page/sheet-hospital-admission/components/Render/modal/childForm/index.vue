@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-dialog title="成人疼痛行为评估量表" :visible.sync="dialogVisible">
+    <el-dialog title="儿童疼痛行为评估量表" :visible.sync="dialogVisible" :modal="false">
       <!-- 第一页 -->
       <div class="page">
-        <table>
+        <table class="table-face">
           <colgroup>
             <col width="100px" />
-            <col width="400px" />
+            <col width="200px" />
             <col width="80px" />
             <col />
           </colgroup>
@@ -194,307 +194,117 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-wrapper {
-  .page {
+.page {
+  margin: 0 0 15px;
+  color: #000;
+  background: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  table {
     width: 100%;
-    height: 500px;
-    margin: 0 0 15px;
-    padding: 20px 50px;
-    color: #000;
-    background: #fff;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    border-collapse: collapse;
+    text-align: center;
 
-    .item-base {
-      display: flex;
-      align-items: center;
-      line-height: 26px;
-    }
+    tr {
+      td {
+        border: 1px solid #000;
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        line-height: 24px;
 
-    .page_table-wrapper {
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: center;
-
-        tr {
-          td {
-            border: 1px solid #000;
-            margin: 0;
-            padding: 0;
-            font-size: 14px;
-            line-height: 24px;
-
-            &.svg-td {
-              position: relative;
-
-              span {
-                position: absolute;
-              }
-
-              svg {
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                left: 0;
-                top: 0;
-
-                line {
-                  stroke: #000;
-                  stroke-width: 1;
-                }
-              }
-            }
-
-            .option-title {
-              margin-left: 5px;
-            }
-
-            .option-wrapper {
-              display: flex;
-              flex-wrap: wrap;
-
-              & > div {
-                margin-left: 5px;
-              }
-
-              .option-item__select {
-                color: blue;
-                cursor: pointer;
-              }
-            }
-          }
-        }
-
-        .option-item {
-          color: blue;
-          cursor: pointer;
-        }
-      }
-    }
-    .table-face {
-      tr {
-        td {
-          border: 1px solid #000;
-          margin: 0;
-          padding: 0 2px;
-          font-size: 14px;
-          line-height: 28px;
-          height: 28px;
-          text-align: left;
-        }
-      }
-    }
-
-    .score-item {
-      text-align: center;
-      line-height: 12px;
-      position: relative;
-      cursor: pointer;
-      &.active {
-        &::after {
-          content: "√";
-          width: 20px;
-          font-weight: bold;
-          position: absolute;
-          top: 4px;
-          color: blue;
-          left: 50%;
-          transform: translateX(-50%);
-        }
-      }
-    }
-    div.face-area {
-      width: max-content;
-      margin: 0 auto;
-      display: flex;
-      .face-item {
-        flex: 1;
-        cursor: pointer;
-        text-align: center;
-        img {
-          width: 50px;
-        }
-        .desc-item {
-          width: 80px;
-        }
-      }
-    }
-    div.scored-area {
-      width: max-content;
-      margin: 0 auto;
-      margin-top: 5px;
-      display: flex;
-      .scored-item {
-        position: relative;
-        width: 40px;
-        padding-bottom: 20px;
-        cursor: pointer;
-        .line {
-          height: 12px;
-          width: 100%;
+        &.svg-td {
           position: relative;
-          &::after {
-            content: "";
-            border-top: 1px solid #000;
-            width: 100%;
+
+          span {
             position: absolute;
-            right: 0;
-            top: 50%;
           }
-          &::before {
-            content: "";
-            border-left: 1px solid #000;
+
+          svg {
+            width: 100%;
             height: 100%;
             position: absolute;
-            right: 50%;
+            left: 0;
             top: 0;
-          }
-        }
 
-        &:first-of-type {
-          .line {
-            &::after {
-              width: 50%;
+            line {
+              stroke: #000;
+              stroke-width: 1;
             }
           }
         }
-        &:last-of-type {
-          .line {
-            &::after {
-              width: 50%;
-              right: auto;
-              left: 0;
-            }
+
+        .option-title {
+          margin-left: 5px;
+        }
+
+        .option-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+
+          & > div {
+            margin-left: 5px;
+          }
+
+          .option-item__select {
+            color: blue;
+            cursor: pointer;
           }
         }
-        .desc-item {
-          width: max-content;
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-        }
-      }
-    }
-    .img-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid #000;
-      padding: 5px;
-
-      .item-wrapper {
-        text-align: center;
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-
-        img {
-          width: 50px;
-          cursor: pointer;
-        }
       }
     }
 
-    .number-wrapper {
-      display: flex;
-      justify-content: space-between;
-      border: 1px solid #000;
-      padding: 5px;
-
-      .item-wrapper {
-        text-align: center;
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        cursor: pointer;
-        position: relative;
-
-        &:hover {
-          background: #e8ffdd;
-        }
-
-        &:before {
-          position: absolute;
-          top: 7px;
-          width: 100%;
-          height: 2px;
-          background: #000;
-          content: "";
-        }
-
-        & > div {
-          width: 15px;
-          height: 15px;
-          background: #000;
-          border-radius: 50%;
-          margin-bottom: 5px;
-        }
-      }
-    }
-    .colse {
-      margin: 0 auto;
-      width: 160px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .sign-con {
-      height: 24px !important;
-      line-height: 24px !important;
-      display: inline-block;
-      box-sizing: border-box;
-      width: 120px;
-      text-align: center;
+    .option-item {
+      color: blue;
       cursor: pointer;
-      position: relative;
-      color: blue;
-
-      img {
-        height: 24px;
-      }
-
-      &:hover {
-        background: rgb(228, 241, 240);
-
-        &::after {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 0;
-          border: 1px dashed #ddd;
-          box-sizing: border-box;
-          width: 100%;
-          height: 100%;
-        }
-      }
     }
+  }
 
-    input {
-      width: 60px;
-      padding: 2px 3px;
-      box-sizing: border-box;
-      margin: 0;
-      border: 0;
-      outline: none;
-      color: blue;
-      text-align: center;
+  .table-face {
+    tr {
+      td {
+        border: 1px solid #000;
+        margin: 0;
+        padding: 0 2px;
+        font-size: 14px;
+        line-height: 28px;
+        height: 28px;
+        text-align: left;
+        position: relative;
+        input {
+          position: absolute;
+          width: 58px;
+          height: 40px;
+          top: 40%;
+          padding: 2px 3px;
+          box-sizing: border-box;
+          margin: 0;
+          border: 0;
+          outline: none;
+          color: blue;
+          text-align: center;
 
-      &.align-center {
-        text-align: center;
-      }
+          &.align-center {
+            text-align: center;
+          }
 
-      &.select {
-        font-weight: bold;
-        cursor: pointer;
+          &.select {
+            font-weight: bold;
+            cursor: pointer;
+          }
+        }
       }
     }
   }
+}
+.colse {
+  margin: 0 auto;
+  width: 160px;
+  display: flex;
+  justify-content: space-between;
+}
+/deep/ .el-dialog--small {
+  width: 70%;
 }
 </style>
