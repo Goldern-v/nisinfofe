@@ -314,8 +314,8 @@ export default {
         this.$store.commit("upCurrentPatientObj", patient);
         this.$store.commit("upWardCode", patient.wardCode || "");
         this.$store.commit("upWardName", patient.wardName || "");
-        //
-        this.callFunction(patient);
+        //patient 参数 true是否要滚动到最后一页
+        this.callFunction(patient,true);
         //
       }
     },

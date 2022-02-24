@@ -235,6 +235,9 @@ import common from "@/common/mixin/common.mixin.js";
 
 export default {
   mixins: [common],
+  props: {
+    setScrollTop: Function,
+  },
   data() {
     return {
       pageLoading: false,
@@ -273,7 +276,7 @@ export default {
       );
       this.formAge = res.data.data.itemMap.age;
     },
-    async load() {
+    async load(isScrollTop=false) {
       this.pageLoading = true;
       const res = await getSugarListWithPatientId(
         this.patientInfo.patientId,
@@ -315,6 +318,9 @@ export default {
         } else {
           this.startPage = 1;
         }
+        (isScrollTop) && (this.setScrollTop());
+        //this.$emit("setScrollTop")
+        //this.setScrollTop()
       });
     },
     toPrint() {
