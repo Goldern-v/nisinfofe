@@ -599,6 +599,21 @@ function switechSheetType(type) {
       schema = require("../config/maternal_lcey/tr").default;
     }
       break; 
+    case "magnesium_lcey": {
+      // 聊城二院 - 硫酸镁静滴观察记录单
+      schema = require("../config/magnesium_lcey/tr").default;
+    }
+      break;
+    case "cardiac_lcey": {
+      // 聊城二院 - 胎心记录单
+      schema = require("../config/cardiac_lcey/tr").default;
+    }
+      break;  
+    case "labor_lcey": {
+      // 聊城二院 - 产程记录单
+      schema = require("../config/labor_lcey/tr").default;
+    }
+      break;  
     case "body_temperature_wj": {
       // 武警总队 - 体温单
       schema = require("../config/body_temperature_wj/tr").default;
@@ -1228,6 +1243,11 @@ function switechSheetType(type) {
     case "pediatric3_xt": {
       // 佛山杏坛 - 护理记录单(产科新生儿科)（未测试）
       schema = require("../config/pediatric3_xt/tr.js").default;
+    }
+      break
+    case "paediatrician2_xt": {
+      // 佛山杏坛 - 护理记录单(儿科)（未测试）
+      schema = require("../config/paediatrician2_xt/tr.js").default;
     }
       break
     case "test_common": {

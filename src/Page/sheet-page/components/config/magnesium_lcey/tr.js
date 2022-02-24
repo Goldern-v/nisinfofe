@@ -1,4 +1,4 @@
-// 产妇产后观察记录单
+// 硫酸镁静滴观察记录单
 import {
     keyf1
   } from "../keyEvent/f1.js";
@@ -17,34 +17,63 @@ import {
     {
       key: "recordHour", //时间
       value: "",
-      event: event_time
+      event: event_time,
     },
     {
-      key: "bloodPressure", // 血压
+      key: "concentration", // 浓度
       value: "",
       event: keyf1,
-      name:"血压",
-      next:"mmHg",
+      name:"浓度",
+      next:"%",
       textarea: {
         width: 60
       },
     },
     {
-      key: "pulse", // 脉搏
+      key: "drips", // 滴速
       value: "",
       event: keyf1,
-      name:"脉搏",
-      next:"次/分",
+      name:"滴速",
+      next:"滴/分",
       textarea: {
         width: 60
       },
     },
     {
-      key: "vaginal", // 阴道出血量
+      key: "tendon", // 膝腱反射
       value: "",
       event: keyf1,
-      name:"阴道出血量",
-      next:"ml",
+      name:"膝腱反射",
+      next:"",
+      autoComplete: {
+            data: ['正常', '减弱','消失']
+      },
+      textarea: {
+        width: 60
+      },
+    },
+    {
+      key: "muscleTension", // 肌张力
+      value: "",
+      event: keyf1,
+      name:"肌张力",
+      next:"",
+      autoComplete: {
+            data: ['正常', '减弱','高']
+      },
+      textarea: {
+        width: 60
+      },
+    },
+    {
+      key: "symptom", // 自觉症状
+      value: "",
+      event: keyf1,
+      name:"自觉症状",
+      next:"",
+      autoComplete: {
+            data: ['有', '无']
+      },
       textarea: {
         width: 60
       },
@@ -56,33 +85,7 @@ import {
       name:"宫缩",
       next:"",
       autoComplete: {
-            data: ['硬', '软']
-      },
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "fundus", // 宫底高度
-      value: "",
-      event: keyf1,
-      name:"宫底高度",
-      next:"",
-      autoComplete: {
-            data: ['平脐', '脐下一横指','脐下两横指','脐上两横指','脐上一横指']
-      },
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "bladder", // 膀胱充盈情况
-      value: "",
-      event: keyf1,
-      name:"膀胱充盈情况",
-      next:"",
-      autoComplete: {
-            data: ['是', '否']
+            data: ['无', '不规律','规律']
       },
       textarea: {
         width: 60
@@ -99,86 +102,21 @@ import {
       },
     },
     {
-      key: "heart", // 心率
+      key: "urine", // 尿量
       value: "",
       event: keyf1,
-      name:"心率",
+      name:"尿量",
+      next:"ml/h",
+      textarea: {
+        width: 60
+      },
+    },
+    {
+      key: "cardiac", // 胎心
+      value: "",
+      event: keyf1,
+      name:"胎心",
       next:"次/分",
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "bloodSugar", // 血糖
-      value: "",
-      event: keyf1,
-      name:"血糖",
-      next:"mmol/L",
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "face", // 面色
-      value: "",
-      event: keyf1,
-      name:"面色",
-      next:"",
-      autoComplete: {
-        data: ['红润', '青紫','苍白','黄染']
-      },
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "sucking", // 吸吮反射
-      value: "",
-      event: keyf1,
-      name:"吸吮反射",
-      next:"",
-      autoComplete: {
-        data: ['强', '弱','未吸吮']
-      },
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "belly", // 脐部
-      value: "",
-      event: keyf1,
-      name:"脐部",
-      next:"",
-      autoComplete: {
-        data: ['无渗血', '水肿','干燥']
-      },
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "excrement", // 大便次数
-      value: "",
-      event: keyf1,
-      name:"大便次数",
-      next:"",
-      autoComplete: {
-        data: ['0', '1','2','3','4','5','6']
-      },
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "urinate", // 大便次数
-      value: "",
-      event: keyf1,
-      name:"大便次数",
-      next:"",
-      autoComplete: {
-        data: ['0', '1','2','3','4','5','6']
-      },
       textarea: {
         width: 60
       },
@@ -186,6 +124,7 @@ import {
     {
       key: "description", //护理措施
       value: "",
+      hidden:true,
       style: {
         textAlign: "left",
         position: "absolute",
