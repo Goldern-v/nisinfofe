@@ -1645,6 +1645,13 @@ export default function Title(
     );
   }
   break;
+  case "neonatalspecialty2_xt": {
+    // 佛山杏坛 - 护理记录单(新生儿专科)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatalspecialty2_xt/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
