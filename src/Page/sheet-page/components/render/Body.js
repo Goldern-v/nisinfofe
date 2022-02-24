@@ -1260,6 +1260,11 @@ function switechSheetType(type) {
       schema = require("../config/gastroenterology_xt/tr.js").default;
     }
       break
+    case "care3_xt": {
+      // 佛山杏坛 - 护理记录单(内三科通用单)（未测试）
+      schema = require("../config/care3_xt/tr.js").default;
+    }
+      break
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/pediatric3_xt/tr.js").default;
