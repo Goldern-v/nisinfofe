@@ -746,6 +746,13 @@ export default function Title(
     );
   }
   break;
+  case "labor_lcey": {
+    // 聊城二院 - 产程记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_lcey/th").default)
+    );
+  }
+  break;
   case "common_zsqy": {
     // 中山七院-护理记录单
     Th = JSON.parse(

@@ -2,7 +2,7 @@
   <div :class="['header-con',sheetInfo.sheetType === 'common_wj'?'wujing-big-title':'']">
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
-    <template v-if="sheetInfo.sheetType=='magnesium_lcey'">
+    <template v-if="sheetInfo.sheetType=='magnesium_lcey'||sheetInfo.sheetType=='labor_lcey'">
       <div class="info-con" flex="main:justify">
       <span>
         科别：
@@ -28,8 +28,22 @@
         病案号：
         <div class="bottom-line" style="min-width: 75px">{{patientInfo.inpNo}}</div>
       </span>
+       <span
+          @click="updateRelObj('Parity', '胎次',Parity)"
+        >
+         胎次：
+        <div class="bottom-line" style="min-width: 45px">{{ Parity }}</div>
+        </span>
+        <span
+          @click="updateRelObj('gestationalWeek', '孕周',gestationalWeek)"
+        >
+          孕周：
+          <div class="bottom-line" style="min-width: 75px">
+            {{ gestationalWeek }}
+          </div>
+        </span>
       </div>
-      <div class="info-con" flex="main:justify" >
+      <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType=='magnesium_lcey'">
         <span
           @click="updateRelObj('Parity', '胎次',Parity)"
         >
@@ -45,6 +59,20 @@
           </div>
         </span>
       </div>
+       <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType=='labor_lcey'">
+        <span
+          @click="updateRelObj('Complication', '合并症',Complication)"
+        >
+         合并症：
+        <div class="bottom-line" style="min-width: 300px">{{ Complication }}</div>
+        </span>
+        <span
+          @click="updateRelObj('Syndrome', '并发症',Syndrome)"
+        >
+         并发症：
+        <div class="bottom-line" style="min-width: 300px">{{ Syndrome }}</div>
+        </span>
+        </div>
     </template>
       <template v-else-if="sheetInfo.sheetType=='maternal_lcey'||sheetInfo.sheetType=='cardiac_lcey'">
       <div class="info-con" flex="main:justify">
@@ -179,6 +207,12 @@ export default {
     },
     deliveryTime(){
        return   this.patientInfo.relObj.deliveryTime? this.patientInfo.relObj.deliveryTime:""
+    },
+    Complication(){
+      return   this.patientInfo.relObj.Complication? this.patientInfo.relObj.Complication:""
+    },
+    Syndrome(){
+      return   this.patientInfo.relObj.Syndrome? this.patientInfo.relObj.Syndrome:""
     }
   },
   methods: {
@@ -239,10 +273,16 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-input.bottom-line {
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  outline: none;
-}
+.info-con {
+    > span {
+      height: 23px;
+      line-height: 23px;
+      > div {
+        height: 23px;
+        vertical-align: bottom;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+    }
+  }
 </style>
