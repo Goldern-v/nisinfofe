@@ -1652,6 +1652,13 @@ export default function Title(
     );
   }
   break;
+  case "gastroenterology_xt": {
+    // 佛山杏坛 - 护理记录单(消化专科)（未测试）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/gastroenterology_xt/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
