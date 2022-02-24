@@ -251,6 +251,7 @@ export default {
       this.authTokenNursing = val;
     },
     currentPage(value) {
+      this.totoCurrentPage=value
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */

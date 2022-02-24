@@ -255,6 +255,7 @@ const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&S
   },
   watch: {
     currentPage(value) {
+      this.toCurrentPage=value
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.showTemp===true?
