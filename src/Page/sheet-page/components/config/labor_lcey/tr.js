@@ -1,4 +1,4 @@
-// 产妇产后观察记录单
+// 产程记录单
 import {
     keyf1
   } from "../keyEvent/f1.js";
@@ -26,27 +26,7 @@ import {
       name:"血压",
       next:"mmHg",
       textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "pulse", // 脉搏
-      value: "",
-      event: keyf1,
-      name:"脉搏",
-      next:"次/分",
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "vaginal", // 阴道出血量
-      value: "",
-      event: keyf1,
-      name:"阴道出血量",
-      next:"ml",
-      textarea: {
-        width: 60
+        width: 80
       },
     },
     {
@@ -56,131 +36,105 @@ import {
       name:"宫缩",
       next:"",
       autoComplete: {
-            data: ['硬', '软']
+        data: ['规律', '20-30s|3-4min','20-30s|5-6min', '20-30s|7-8min','不规律']
       },
       textarea: {
-        width: 60
+        width: 100
       },
     },
     {
-      key: "fundus", // 宫底高度
+      key: "position", // 胎位
       value: "",
       event: keyf1,
-      name:"宫底高度",
+      name:"胎位",
       next:"",
       autoComplete: {
-            data: ['平脐', '脐下一横指','脐下两横指','脐上两横指','脐上一横指']
+        data: ['枕左前', '枕右前','枕左横', '枕右横','枕左后','枕左后']
       },
       textarea: {
-        width: 60
+        width: 70
       },
     },
     {
-      key: "bladder", // 膀胱充盈情况
+      key: "cardiac", // 胎心
       value: "",
       event: keyf1,
-      name:"膀胱充盈情况",
+      name:"胎心",
+      next:"",
+      textarea: {
+        width: 70
+      },
+    },
+    {
+      key: "presentation", // 先露
+      value: "",
+      event: keyf1,
+      name:"先露",
       next:"",
       autoComplete: {
-            data: ['是', '否']
+        data: ['头', '臀','肩']
       },
       textarea: {
-        width: 60
+        width: 70
       },
     },
     {
-      key: "breath", // 呼吸
+      key: "seat", // 先露位置
       value: "",
       event: keyf1,
-      name:"呼吸",
-      next:"次/分",
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "heart", // 心率
-      value: "",
-      event: keyf1,
-      name:"心率",
-      next:"次/分",
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "bloodSugar", // 血糖
-      value: "",
-      event: keyf1,
-      name:"血糖",
-      next:"mmol/L",
-      textarea: {
-        width: 60
-      },
-    },
-    {
-      key: "face", // 面色
-      value: "",
-      event: keyf1,
-      name:"面色",
+      name:"先露位置",
       next:"",
       autoComplete: {
-        data: ['红润', '青紫','苍白','黄染']
+        data: ['浮', '-3','-2','-1','0', '1','2','3',]
       },
       textarea: {
-        width: 60
+        width: 70
       },
     },
     {
-      key: "sucking", // 吸吮反射
+      key: "hardness", // 宫颈硬度
       value: "",
       event: keyf1,
-      name:"吸吮反射",
+      name:"宫颈硬度",
       next:"",
       autoComplete: {
-        data: ['强', '弱','未吸吮']
+        data: ['软', '中','硬']
       },
       textarea: {
-        width: 60
+        width: 70
       },
     },
     {
-      key: "belly", // 脐部
+      key: "dilation", // 宫颈扩张
       value: "",
       event: keyf1,
-      name:"脐部",
+      name:"宫颈扩张",
       next:"",
-      autoComplete: {
-        data: ['无渗血', '水肿','干燥']
-      },
       textarea: {
-        width: 60
+        width: 70
       },
     },
     {
-      key: "excrement", // 大便次数
+      key: "membranes", // 胎膜
       value: "",
       event: keyf1,
-      name:"大便次数",
+      name:"胎膜",
       next:"",
       autoComplete: {
-        data: ['0', '1','2','3','4','5','6']
+        data: ['未破', '已破']
       },
       textarea: {
-        width: 60
+        width: 70
       },
     },
     {
-      key: "urinate", // 大便次数
+      key: "vagina", // 检查阴道
       value: "",
       event: keyf1,
-      name:"大便次数",
+      name:"检查阴道",
       next:"",
-      autoComplete: {
-        data: ['0', '1','2','3','4','5','6']
-      },
       textarea: {
-        width: 60
+        width: 70
       },
     },
     {
@@ -192,7 +146,7 @@ import {
         top: "1px",
         bottom: "1px",
         left: "1px",
-        width: "180px",
+        width: "240px",
         background: "transparent"
       },
       event: function (e, td) {

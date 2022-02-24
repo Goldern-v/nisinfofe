@@ -599,6 +599,21 @@ function switechSheetType(type) {
       schema = require("../config/maternal_lcey/tr").default;
     }
       break; 
+    case "magnesium_lcey": {
+      // 聊城二院 - 硫酸镁静滴观察记录单
+      schema = require("../config/magnesium_lcey/tr").default;
+    }
+      break;
+    case "cardiac_lcey": {
+      // 聊城二院 - 胎心记录单
+      schema = require("../config/cardiac_lcey/tr").default;
+    }
+      break;  
+    case "labor_lcey": {
+      // 聊城二院 - 产程记录单
+      schema = require("../config/labor_lcey/tr").default;
+    }
+      break;  
     case "body_temperature_wj": {
       // 武警总队 - 体温单
       schema = require("../config/body_temperature_wj/tr").default;

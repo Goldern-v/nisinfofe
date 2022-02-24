@@ -53,14 +53,14 @@ export default {
     },
     async handleExport() {
       if (this.loading) return
-      if (!this.tableData || this.tableData.length === 0) {
-        this.$message.warning('没有数据可导出')
-        return
-      }
+
       try {
+        this.loading = true
         exportExc({
-          list: this.tableData,
-          themeName: this.$route.meta.title
+          ...this.formData,
+          themeName: this.$route.meta.title,
+          beginTime: this.formData.beginTime.split(' ')[0],
+          endTime: this.formData.endTime.split(' ')[0],
         }).then(res => {
 
           let fileName = res.headers["content-disposition"]
@@ -78,10 +78,10 @@ export default {
           a.click()
           window.URL.revokeObjectURL(href)
           document.body.removeChild(a) // 移除a元素
+          this.loading = false
         })
-
       } catch (e) {
-
+        this.loading = false
       }
     },
     handleQuery(obj = {}) {
@@ -91,15 +91,15 @@ export default {
     async getData() {
       try {
         this.loading = true;
-        let routeName = this.$route.name
         let formData = {
           ...this.formData,
+          themeName: this.$route.meta.title,
           beginTime: this.formData.beginTime.split(' ')[0],
           endTime: this.formData.endTime.split(' ')[0],
           pageIndex: this.pageIndex,
           pageNum: this.pageNum,
         }
-        const res = await query(formData, routeName)
+        const res = await query(formData)
         let {list, totalCount } = res.data.data
         this.tableData = list || []
         this.total = totalCount || 0

@@ -1260,7 +1260,7 @@ const router = new Router({
         name: "statisticalQuery",
         component: statisticalQuery,
         redirect: {
-          name: "statisticalOperation"
+          name: "statisticalExitAdmission"
         },
         children: [
           {
