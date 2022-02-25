@@ -21,8 +21,11 @@ export default {
   },
   async mounted() {
     this.formData.beginTime = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')
-      // 当天23点59分59秒的时间格式
+    // 当天23点59分59秒的时间格式
     this.formData.endTime = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')
+    if (this.$route.name !== 'statisticalNursingLv') {
+      this.formData.status = 1
+    }
     await this.getDepList()
     this.handleQuery()
   },
@@ -30,7 +33,7 @@ export default {
     async getDepList() {
       try {
         if (this.deptList.length > 0) return
-        this.$emit('update:loading', true)
+        this.loading = true
         const res = await nursingUnit()
         this.deptList = res.data.data.deptList || []
           if (this.deptList.length > 0) {
@@ -41,24 +44,23 @@ export default {
               },
               ...this.deptList
             ]
-          } else {
-            this.deptList = []
+            this.formData.wardCode = res.data.data.defaultDept || ''
           }
-        this.$emit('update:loading', false)
+        this.loading = false
       } catch (e) {
-        this.$emit('update:loading', false)
+        this.loading = false
       }
     },
     async handleExport() {
       if (this.loading) return
-      if (!this.tableData || this.tableData.length === 0) {
-        this.$message.warning('没有数据可导出')
-        return
-      }
+
       try {
+        this.loading = true
         exportExc({
-          list: this.tableData,
-          themeName: this.$route.meta.title
+          ...this.formData,
+          themeName: this.$route.meta.title,
+          beginTime: this.formData.beginTime.split(' ')[0],
+          endTime: this.formData.endTime.split(' ')[0],
         }).then(res => {
 
           let fileName = res.headers["content-disposition"]
@@ -76,10 +78,10 @@ export default {
           a.click()
           window.URL.revokeObjectURL(href)
           document.body.removeChild(a) // 移除a元素
+          this.loading = false
         })
-
       } catch (e) {
-
+        this.loading = false
       }
     },
     handleQuery(obj = {}) {
@@ -89,15 +91,15 @@ export default {
     async getData() {
       try {
         this.loading = true;
-        let routeName = this.$route.name
         let formData = {
           ...this.formData,
+          themeName: this.$route.meta.title,
           beginTime: this.formData.beginTime.split(' ')[0],
           endTime: this.formData.endTime.split(' ')[0],
           pageIndex: this.pageIndex,
           pageNum: this.pageNum,
         }
-        const res = await query(formData, routeName)
+        const res = await query(formData)
         let {list, totalCount } = res.data.data
         this.tableData = list || []
         this.total = totalCount || 0

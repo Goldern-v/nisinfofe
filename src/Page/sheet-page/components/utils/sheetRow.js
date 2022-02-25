@@ -67,11 +67,13 @@ export function getRowNum(index) {
     return 35
   } else if (sheetInfo.sheetType === 'criticaldisease_xt' || sheetInfo.sheetType === 'cardiovascular_xt') {
     return 20
-  } else if (sheetInfo.sheetType === 'access_fk') {
+  } else if (sheetInfo.sheetType === 'access_fk'||sheetInfo.sheetType === 'cardiac_lcey') {
     return 28
   } else if (sheetInfo.sheetType === 'intravenous_sdlj'||sheetInfo.sheetType === 'mechanical_sdlj') {
     return 33
-  } else {
+  } else if (sheetInfo.sheetType === 'magnesium_lcey') {
+    return 24
+  }else {
     return 17;
   }
 

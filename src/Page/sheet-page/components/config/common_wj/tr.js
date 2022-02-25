@@ -63,7 +63,7 @@ export default [
       data: ysList
     },
     textarea: {
-      width: 45
+      width: 35
     }
   },
   {

@@ -220,6 +220,8 @@ const newSingleTemperatureChartDGXG = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-xiegang/new-singleTemperature-chart.vue");//谢岗新版体温单单人录入
 const newSingleTemperatureChartWHFK = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-whfk/new-singleTemperature-chart.vue");//武汉肺科新版体温单单人录入
+  const newSingleTemperatureChartHD = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-huadu/new-singleTemperature-chart.vue");//花都新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -1202,6 +1204,8 @@ const router = new Router({
               return newSingleTemperatureChartDGXG
             case 'whfk':
               return newSingleTemperatureChartWHFK
+              case 'huadu':
+                return newSingleTemperatureChartHD
             default:
               return newSingleTemperatureChart
           }
@@ -1260,7 +1264,7 @@ const router = new Router({
         name: "statisticalQuery",
         component: statisticalQuery,
         redirect: {
-          name: "statisticalOperation"
+          name: "statisticalExitAdmission"
         },
         children: [
           {

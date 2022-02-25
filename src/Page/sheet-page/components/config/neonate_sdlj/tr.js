@@ -35,7 +35,7 @@ export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, value: ''},
-  { key: '', event: keyf1, value: '', next: '℃', name: '箱温', textarea: { width: 27 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'temperature2', event: keyf1, value: '', next: '℃', name: '箱温', textarea: { width: 27 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 27 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },

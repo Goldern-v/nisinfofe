@@ -6,9 +6,9 @@
         <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
         <patientList toName="sugarPage" :callFunction="isSelectPatient" />
       </div>
-      <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
+      <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}" ref="rightPart">
         <!-- <bloodSugar ref="bloodSugar"></bloodSugar> -->
-        <component :is="switchCompt()" ref="bloodSugar" />
+        <component :is="switchCompt()" ref="bloodSugar" :setScrollTop="setScrollTop"  />
       </div>
     </div>
   </div>
@@ -76,6 +76,17 @@ export default {
     }
   },
   methods: {
+    //设置滚动
+    setScrollTop(){
+      console.log("滚动")
+      if(["beihairenyi"].includes(this.HOSPITAL_ID)){
+        this.$nextTick(()=>{
+          const rightPart = this.$refs.rightPart;
+            console.log(rightPart.querySelectorAll(".sugr-page").length)
+            rightPart.scrollTop = rightPart.scrollHeight - 1050;
+        })
+      }
+    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
@@ -96,14 +107,14 @@ export default {
       };
       return hisList[HisName] || "bloodSugar";
     },
-    isSelectPatient(item) {
+    isSelectPatient(item,isScrollTop=false) {
       this.$router.replace(
         {
           path: "/sugarPage",
           query: item
         },
         () => {
-          this.$refs.bloodSugar.load();
+            this.$refs.bloodSugar.load(isScrollTop);
         }
       );
     }

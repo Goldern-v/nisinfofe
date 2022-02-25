@@ -52,7 +52,7 @@ export default [
   { key: 'healthyBody', event: keyf1, value: '', next: '', name: '健肢长度', textarea: { width: 27 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'position', event: keyf1, value: '', next: '', name: '体位', splice: '/', autoComplete: { data: ['A','B','C','D'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'color', event: keyf1, value: '', next: '', name: '颜色',splice: '/', autoComplete: { data: ['A','B','C','D','E','F','G'] },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: '', event: keyf1, value: '', next: '', name: '皮温', splice: '/', autoComplete: { data: ['A','B','C','D','E'] },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'temperature2', event: keyf1, value: '', next: '', name: '皮温', splice: '/', autoComplete: { data: ['A','B','C','D','E'] },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'swelling', event: keyf1, value: '', next: '', name: '肿胀', splice: '/', autoComplete: { data: ['A','B','C','D'] },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'feeling', event: keyf1, value: '', next: '', name: '感觉', splice: '/', autoComplete: { data: ['A','B','C','D'] },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'activity', event: keyf1, value: '', next: '', name: '活动', splice: '/', autoComplete: { data: ['A','B','C','D','E'] },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },

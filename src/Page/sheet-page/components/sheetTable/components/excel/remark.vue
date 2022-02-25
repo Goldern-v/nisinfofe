@@ -330,6 +330,14 @@
        护理措施:①指导产妇按摩子宫 ②告知知产妇自觉头量、心悸、阴道流血量多时告知助产士 ③指导并协助母要皮肤早接触、早吸吮 ④告知产妇母乳喂养及母婴三早的好处及重要性<br/>
        <span style="margin-left:59px">⑤保暖侧卧⑥皮肤早接触、早吸吮、早开奶</span>
     </div>
+    <!-- 聊城二院 硫酸镁静滴观察记录单 -->
+    <div v-if="sheetInfo.sheetType == 'magnesium_lcey'">
+       1.镁离子早期中毒表现：<br/>
+       恶心、面部潮红、有发热感、说话语音模糊，肌肉软弱无力等；膝反射消失；呼吸＜12次/分；呼吸频率减慢和深度减弱；血压偏低。<br/>
+       如果出现上述症状，应减慢或停止静滴，并通知医生。中毒现象首先表现为膝反射消失(叩击髌骨下股四头肌肌腱，相应下肢出现反射为正常），随着血镁浓度增加可出现全身肌张力减退及呼吸抑制，严重者心跳可突然停止;每次用药前应检查膝反射，定时测血压和脉搏。<br/> 
+       2.监测尿排出量：如尿排出量在1小时小于17毫升,24小时小于400毫升时， 提示尿排泄功能受抑制，镁离子易积蓄中毒，应减慢或者停止静滴，并通知医生。<br/>
+       3.每小时观察并记录。
+    </div>
     <!-- 北海 婴儿记录表-->
     <div v-if="sheetInfo.sheetType == 'infant_bh'">
        日:早10时--晚20时
@@ -387,6 +395,42 @@
       注：<strong>皮肤颜色</strong>：R-红润、F-潮红、X-黄染、C-青紫、P-苍白。&nbsp;<strong>皮肤弹性</strong>：G-好、S-一般、D-差；&nbsp;<strong>皮疹位置</strong>：H-头面部、N-颈部、U-上肢、L-下肢、O-腋下、T-胸腹、B-背部、S-阴囊、C-肛周、W-全身；<br/>
       <strong>性质程度</strong>：S-散在、M-多发、I-密集，P-表面脓点皮肤未破损、B-表面破损、U表面溃疡； &nbsp;<strong>产瘤、头部血肿位置</strong>：L-左、R-右，T-头顶、F-顶额部；<br/>
       <strong>护理措施</strong>：A预防窒息；B预防坠床；C预防烫伤；D指导外用药；E指导口药服用；F喂养护理；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。&nbsp;<strong>呕吐物性质</strong>：A白色；B黄色；C绿色；D咖啡E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.otwQt" :data-value="sheetInfo.relObj.otwQt"/>。 
+    </div>
+    <!-- 佛山杏坛 护理记录单(儿科) -->
+    <div v-if="sheetInfo.sheetType == 'paediatrician2_xt'">
+      注：<strong>精神状态</strong>：A萎靡；B疲乏；C烦躁不安、D易惊；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.jsztQt" :data-value="sheetInfo.relObj.jsztQt"/>。<strong>上呼吸道症状</strong>：A鼻塞；B流涕；C喷嚏；D咽痛；E声音嘶哑；F其他；<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hxdzzQt" :data-value="sheetInfo.relObj.hxdzzQt"/>。<strong>气促/呼吸困难</strong>：0无，I轻度，II中度，III重度，A其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.qcQt" :data-value="sheetInfo.relObj.qcQt"/>。
+      <strong>留置针位置</strong>：A右手B左手C右足D左足E其它：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.lzzwzQt" :data-value="sheetInfo.relObj.lzzwzQt"/>。&nbsp;<strong>咳嗽</strong>：A剧咳；B间咳；C犬吠样咳；D、阵发性连声咳；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ksQt" :data-value="sheetInfo.relObj.ksQt"/>。
+      &nbsp;<strong>痰液性质</strong>：WL白色稀痰，YWT黄白稀痰，YT黄色稠痰，A其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.tyxzQt" :data-value="sheetInfo.relObj.tyxzQt"/>。<br/><strong>痰量</strong>：+小量（每天＜10ml）；++中量（每天10~100 ml）；+++大量(每天＞100ml)。&nbsp;<strong>呕吐</strong>：A喷射状；B非喷射状。
+      &nbsp;<strong>皮肤颜色</strong>：A红润、B潮红、C黄染、D发绀、E青紫、F苍白、G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.pfysQt" :data-value="sheetInfo.relObj.pfysQt"/>。<br/><strong>脱水貌</strong>：0无，I轻度，II中度，III重度，A其他；<input class="bottomInput" type="text" v-model="sheetInfo.relObj.tsmQt" :data-value="sheetInfo.relObj.tsmQt"/>。&nbsp;<strong>喘息</strong>：A无；B阵发性；C持续性。&nbsp;<strong>疼痛程度</strong>：0无痛；I轻度；II中度；III重度。
+      &nbsp;<strong>留置针情况</strong>:A固定通畅、B堵塞、C脱落、D肿胀、E出血、F拔针。<br/><strong>皮疹位置</strong>：A口腔；B手掌；C足底；D膝部；E肛周；F全身；H躯干；I颜面；J双下肢；k其它：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.lzzQt" :data-value="sheetInfo.relObj.lzzQt"/>。&nbsp;<strong>性质</strong>：A斑丘疹；B丘疹；C疱疹；D脓疮疹；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.xzQt" :data-value="sheetInfo.relObj.xzQt"/>。
+      &nbsp;<strong>程度</strong>：S-散在、M-多发、I-密集；吸氧方式：N-鼻导管、<br/>F-面罩、H-头罩。&nbsp;<strong>护理安全</strong>：A留陪人；B防坠床；C防药物外渗；D防红臀；E防拔管；F防误吸；G防窒息；H防烫伤；I其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。
+      &nbsp;<strong>护理措施</strong>：A保持呼吸道通畅；B发热护理；C冰袋降温；D口服药服用指导；E添加辅食指导；F母乳喂养指导；G活动指导；H饮食指导：H1禁食；H2流质饮食；H3半流饮食；H4其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。I指导臀部护理；J留置针护理；K指导拍背排痰；L口腔护理；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQtN" :data-value="sheetInfo.relObj.hlcsQtN"/>。
+      &nbsp;<strong>大便性状颜色</strong>：A黄色稀便； B洗肉水样稀便；<br/>C黄色蛋花样便；D米泔样稀水便；E脓血便；F黄色烂便；G其它：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.dbQt" :data-value="sheetInfo.relObj.dbQt"/>。              
+    </div>
+    <!-- 佛山杏坛 护理记录单(新生儿专科) -->
+    <div v-if="sheetInfo.sheetType == 'neonatalspecialty2_xt'">
+      注：<strong>反应</strong>：G-好、I-激惹、D-差；&nbsp;<strong>哭声</strong>：D-大、S-一般、F-微弱；&nbsp;<strong>吸吮力</strong>：G-好、S-一般、D-差；&nbsp;<strong>喂养</strong>：种类D-母乳、M-代乳；方式S-自吮、N-鼻饲、M-口饲；&nbsp;<strong>咳嗽</strong>：D-干咳、C-咳痰、A-咳喘、B-犬吠样咳；&nbsp;<strong>呕吐</strong>：J-喷射、T-非喷射；<br/>
+      <strong>脐部情况</strong>：D-干洁、S-渗液、E-渗血；&nbsp;<strong>皮肤颜色</strong>：R-红润、F-潮红、X-黄染、C-青紫、P-苍白。皮肤弹性：G-好、S-一般、D-差；&nbsp;<strong>皮疹位置</strong>：H-头面部、N-颈部、U-上肢、L-下肢、O-腋下、T-胸腹、B-背部、S-阴囊、C-肛周、W-全身；<br/>
+      <strong>性质</strong>：A斑丘疹；B丘疹；C疱疹；D脓疮疹；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.xzQt" :data-value="sheetInfo.relObj.xzQt"/>。&nbsp;<strong>程度</strong>：S-散在、M-多发、I-密集，P-表面脓点皮肤未破损、B-表面破损、U表面溃疡；&nbsp;<strong>痰液性质</strong>：WL-白色稀痰、YWT-黄白稀痰、YT-黄色稠痰、 B-血性痰 ；<br/>
+      <strong>痰量</strong>：小量+、中量++、大量+++；&nbsp;<strong>产瘤、头部血肿位置</strong>：L-左、R-右，T-头顶、F-顶额部；&nbsp;<strong>吸氧方式</strong>：N-鼻导管、F-面罩、W-箱内、M-机械通气、H-头罩。&nbsp;<strong>护理安全</strong>：A留陪人；B防坠床；C防药物外渗；D防红臀；E防拔管；F防误吸；<br/>G防窒息；H防烫伤；I其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。       
+    </div>
+    <!-- 佛山杏坛 护理记录单(消化专科) -->
+    <div v-if="sheetInfo.sheetType == 'gastroenterology_xt'">
+      注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；A谵妄；B药眠。&nbsp;<strong>瞳孔对光反射</strong>：灵敏√；迟钝+；消失－。&nbsp;<strong>恶心</strong>：A持续性；B间；C无。&nbsp;<strong>反酸</strong>：A间；B缓解。&nbsp;<strong>嗳气</strong>：A间；B缓解。&nbsp;<strong>呕吐</strong>：A胃内容物；B咖啡渣样物；C暗红色血液；D鲜血；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.otQt" :data-value="sheetInfo.relObj.otQt"/>。
+      <strong>管道</strong>：通畅 √，阻塞X。&nbsp;<strong>腹痛部位</strong>：A上腹部□左□右B中上腹；C脐周；D下腹部□左□右；E全腹；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ftbwQt" :data-value="sheetInfo.relObj.ftbwQt"/>。<strong>腹痛程度</strong>：0无痛；I轻度；II中度；III重度。<strong>咳嗽</strong>：A剧咳；B间咳;C缓解。&nbsp;&nbsp;<strong>咳痰</strong>：A白色粘痰；B黄色粘痰；C黄白色粘痰；D白色稀痰；E:无；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ktQt" :data-value="sheetInfo.relObj.ktQt"/>。
+      &nbsp;<strong>头晕</strong>：A持续性；B间；C活动后；D无。&nbsp;&nbsp;<strong>头痛</strong>：A轻度；B中度；C重度；D 无。<br/><strong>气促</strong>：A持续性；B减轻；C活动后；D无。&nbsp;<strong>胸闷</strong>：A持续性；B间；C无。&nbsp;<strong>水肿部位</strong>：A上肢：左、右、双；B下肢：左、右、双；C阴囊；D全身； <strong>水肿程度</strong>：消退0；轻度+；中度++；重度+++。  
+      &nbsp;<strong>水肿护理</strong>：A抬高15cm；B保护水肿皮肤；C其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.szhlQt" :data-value="sheetInfo.relObj.szhlQt"/>。
+      <strong>尿液颜色</strong>：A淡黄色；B深黄色；C浓茶色；D酱油色；E乳白色；F洗肉水色；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.nyysQt" :data-value="sheetInfo.relObj.nyysQt"/>。&nbsp;<strong>护理措施</strong>：A卧床休息；B心理支持；C协助翻身；D指导活动；E饮食指导（E1禁食；E2低盐低脂饮食；E3糖尿病饮食；E4流质饮食；E5半流质饮食；E6低嘌呤饮食；E7优质蛋白饮食；E8其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。）；F局部热疗G指导有效咳嗽；H膀胱功能训练；I指导皮肤清洁；J肢体功能锻炼；K其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQtK" :data-value="sheetInfo.relObj.hlcsQtK"/>。<br/>
+      <strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒；D防坠床；E防药物外渗；F防失禁性皮炎；G防拔管；H防误吸；I防窒息；J防烫伤；K防走失；L其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。
+      &nbsp;<strong>启用相关护理表格</strong>：A住院患者跌倒/坠床危险因素评估护理单；B基本生活活动能力量表；C吞咽功能障碍评定记录单；D糖尿病足护理记录单；E压疮风险护理单；F压疮伤口护理单；H危重症患者转运护理单；I输血安全护理单；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.qybgQt" :data-value="sheetInfo.relObj.qybgQt"/>。
+    </div>
+    <!-- 佛山杏坛 护理记录单(内三科通用单) -->
+    <div v-if="sheetInfo.sheetType == 'care3_xt'">
+      注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；A谵妄；B药眠：C其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ysQt" :data-value="sheetInfo.relObj.ysQt"/>。&nbsp;<strong>瞳孔对光反射</strong>：灵敏＋；迟钝±；消失－。疼痛：0无，I轻度，II中度，III重度。&nbsp;<strong>伤口敷料</strong>：A干洁；B渗液；<br/>C渗血；D其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.skflQt" :data-value="sheetInfo.relObj.skflQt"/>。
+      <strong>管道</strong>：固定通畅 √，阻塞X。<strong>引流液颜色</strong>：A淡黄；B深黄；C棕红；D酱油；E乳白；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ylyQt" :data-value="sheetInfo.relObj.ylyQt"/>。<strong>深静脉</strong>：留置位置：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.lzwz" :data-value="sheetInfo.relObj.lzwz"/>。
+      <strong>穿刺口情况</strong>：正常√；红肿+；渗液++；渗血+++；X其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.cckQt" :data-value="sheetInfo.relObj.cckQt"/>。<strong>是否留管</strong>：Y是；N否。<strong>护理措施</strong>：A绝对卧床休息；B卧床休息；C去枕平卧；D协助翻身；E指导下床活动；F指导(主动/被动)运动；G饮食指导（G1禁饮食;G2低盐低脂饮食;G3糖尿病饮食;G4流质饮食;G5半流质饮食;G6低嘌呤饮食;G7粗纤维饮食;G8少渣半流饮食；G9 普食；G10其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。）；H嘱其更换体位时动作宜慢；I1指导有效咳嗽：I2、指导有效咳痰；I3指导呼吸肌功能锻炼；J肢体功能训练；K膀胱功能训练；L预防足下垂；N指导皮肤清洁；M心理支持；O（O1压疮护理,O2防压疮护理,）; P适时翻身; Q用药指导；R低血糖反应的告知；T禁烟酒；U其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.UQt" :data-value="sheetInfo.relObj.UQt"/>。
+      <strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒；D防坠床；E防药物外渗；F防失禁性皮炎；G防拔管；H防误吸；I防窒息；J防烫伤；K防走失;L其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。<strong>咳嗽</strong>：A剧咳；B间咳；C 缓解；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ksQt" :data-value="sheetInfo.relObj.ksQt"/>。<strong>痰液性质</strong>：A白色（1稀痰；2粘痰）;B黄白色（1稀痰；2粘痰）;C铁锈色（1稀痰；2粘痰）;D黄色（1稀痰；2粘痰）；E无;F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.tyxzQt" :data-value="sheetInfo.relObj.tyxzQt"/>。
+      <strong>气促</strong>：A持续性，B减轻，C活动后，D缓解。<strong>乏力</strong>： A持续性 B减轻 C缓解 <strong>麻木</strong>：A持续性 B间 C缓解<strong>(头/眩)晕</strong>：A持续性 B间 C缓解 D无 肿胀： 0无；I轻度；II中度；III重度。<strong>皮肤温度</strong>：A温暖；B偏高；C凉；D冰冷。<strong>皮肤颜色</strong>：A红润；B潮红；C黄染；D青紫；E苍白。<strong>多饮/多食/多尿</strong>：A持续性 B减轻 C缓解。
     </div>
     <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
     <div v-if="sheetInfo.sheetType == 'cardiovascular_xt'">
