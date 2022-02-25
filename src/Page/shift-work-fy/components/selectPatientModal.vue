@@ -9,7 +9,7 @@
             <span>
                 <el-tree
                     :data="renderList"
-                    :props="props"
+                    :props="isbedLabel.includes(HOSPITAL_ID) ? props1 : props"
                     node-key="patientId"
                     show-checkbox
                     ref="selectPatientTree"
@@ -48,11 +48,22 @@ props: {
 },
 data() {
 return {
+    // 交班志打印预览只显示病人姓名
     props: {
           label: 'name',
           children: ''
         },
-    selectPatient:[]
+    // 交班志打印预览显示病人姓名和床号
+    props1: {
+          label: function(data, node) {
+            var list = [data.name,'-',data.bedLabel]
+            return list
+          },
+          children: ''
+        },
+        
+    selectPatient:[],
+    isbedLabel:['fuyou'],
 };
 },
 methods: {
