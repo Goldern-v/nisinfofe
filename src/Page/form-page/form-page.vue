@@ -134,7 +134,6 @@ export default {
     },
   },
   beforeRouteUpdate(to, from, next) {
-    console.log(this.$store.state.admittingSave.admittingSave,'ddddddddddddddddddd')
     if(!this.$store.state.admittingSave.admittingSave){
       return this.$confirm('入院评估单还未保存，是否需要离开页面?', '提示', {
           confirmButtonText: '确定',
@@ -165,7 +164,6 @@ export default {
     }
   },
   beforeRouteLeave(to,from,next){
-     console.log(this.$store.state.admittingSave.admittingSave,'gggggggggg')
      if(!this.$store.state.admittingSave.admittingSave){
       return this.$confirm('入院评估单还未保存，是否需要离开页面?', '提示', {
           confirmButtonText: '确定',

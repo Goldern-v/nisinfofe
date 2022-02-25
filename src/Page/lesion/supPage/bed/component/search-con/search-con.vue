@@ -596,7 +596,7 @@ export default {
           [
             "zhongshanqi", "liaocheng",  "beihairenyi",
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
-            "huadu",  "whyx", "fsxt", "sdlj",
+            "huadu",  "whyx", "fsxt", "sdlj","whfk"
           ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {

@@ -333,7 +333,12 @@ export default {
       });
     },
     async fetchData() {
-      let currentPatient = this.$store.getters.getCurrentPatient();
+      let currentPatient = ''
+      if(this.HOSPITAL_ID == 'whfk'){
+        currentPatient = ''
+      }else{
+        currentPatient = this.$store.getters.getCurrentPatient();
+      }
       let patientId =
         this.$route.params.patientId || currentPatient.patientId || "";
       let visitId = this.$route.params.visitId || currentPatient.visitId || "";
