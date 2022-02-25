@@ -432,6 +432,15 @@
       <strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒；D防坠床；E防药物外渗；F防失禁性皮炎；G防拔管；H防误吸；I防窒息；J防烫伤；K防走失;L其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。<strong>咳嗽</strong>：A剧咳；B间咳；C 缓解；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ksQt" :data-value="sheetInfo.relObj.ksQt"/>。<strong>痰液性质</strong>：A白色（1稀痰；2粘痰）;B黄白色（1稀痰；2粘痰）;C铁锈色（1稀痰；2粘痰）;D黄色（1稀痰；2粘痰）；E无;F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.tyxzQt" :data-value="sheetInfo.relObj.tyxzQt"/>。
       <strong>气促</strong>：A持续性，B减轻，C活动后，D缓解。<strong>乏力</strong>： A持续性 B减轻 C缓解 <strong>麻木</strong>：A持续性 B间 C缓解<strong>(头/眩)晕</strong>：A持续性 B间 C缓解 D无 肿胀： 0无；I轻度；II中度；III重度。<strong>皮肤温度</strong>：A温暖；B偏高；C凉；D冰冷。<strong>皮肤颜色</strong>：A红润；B潮红；C黄染；D青紫；E苍白。<strong>多饮/多食/多尿</strong>：A持续性 B减轻 C缓解。
     </div>
+    <!-- 佛山杏坛 外一护理记录单 -->
+    <div v-if="sheetInfo.sheetType == 'care2_xt'">
+      注：<strong>意识</strong>：①清醒；②嗜睡；③模糊；④浅昏迷；⑤深昏迷；⑥谵妄。&nbsp;<strong>瞳孔对光反射</strong>：灵敏√；迟钝＋；消失－。&nbsp;<strong>疼痛/肿胀</strong>：○无;I轻度;II中度;III重度。&nbsp;<strong>伤口敷料</strong>：①干洁；②渗液；③渗血；④无。<br/>
+      <strong>呕心物/引流液/尿液颜色</strong>：A淡黄；B深黄；C淡红色；D鲜红色；E暗红色；F褐色；G草绿色；H墨绿色；I白色；J其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.jQt" :data-value="sheetInfo.relObj.jQt"/>。&nbsp;<strong>留置尿管/留置胃管/留置镇痛泵/深静脉置管/伤口引流管</strong>：①固定通畅；<br/>②夹管；③堵塞；④脱管；⑤拔管；<strong>穿刺口情况</strong>：①正常；②红肿；③渗液；④渗血。
+      <strong>护理措施</strong>：A绝对卧床休息；B卧床休息；C半坐位；D抬高患肢；E指导下床活动；F协助翻身；G指导有效咳嗽；H肢体功能训练；I膀胱功能训练；J预防足下垂；K指导皮肤清洁；L心理支持；M去枕平卧；N:口腔护理；O:压疮护理；P q2h翻身拍背；R其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.rQt" :data-value="sheetInfo.relObj.rQt"/>。
+      <strong>饮食指导</strong>：①禁饮食；②流质饮食；③半流质饮食；④普食；⑤低盐饮食；⑥低脂饮食；⑦糖尿病饮食；⑧软食；⑨冷流质；⑩低嘌呤饮食；
+      <strong>护理安全</strong>：①留陪人；②防跌倒；③防坠床；④防脱管；⑤防烫伤；⑥防压疮；⑦防走失；⑧防窒息；⑨防误吸；⑩防拔管；防药物外渗；防失禁性皮炎; 住院期间禁烟酒。
+      <strong>启用相关护理表格</strong>：①基本生活活动能力量表；②住院患跌倒/坠床危险因素评估护理单；③糖尿病足护理单；④压疮风险护理单；⑤输血安全护理单；⑥危重症患者转运护理单；⑦压疮伤口护理单; ⑧吞咽功能障碍评定记录表；⑨格拉斯哥评分；⑩深静脉血栓观察护理单。&nbsp;<strong>皮肤颜色</strong>：①正常；②暗红；③青紫；④淤黑；⑤苍白；⑥黄染；⑦潮红。
+    </div>
     <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
     <div v-if="sheetInfo.sheetType == 'cardiovascular_xt'">
       注：意识：清醒√；嗜睡－；模糊Δ；昏睡±；浅昏迷＋；中昏迷＋＋；深昏迷＋＋＋；A谵妄；B药眠。

@@ -41,7 +41,7 @@ export default [
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodSugar', event: keyf1, value: '', next: 'mmol/L', name: '血糖', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'limbToeNailbed', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pupilSizeLeft', event: keyf1, value: '', next: '', name: '瞳孔大小左', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pupilSizeRight', event: keyf1, value: '', next: '', name: '瞳孔大小右', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pupilReflectionLeft', event: keyf1, value: '', next: '', name: '瞳孔反射左', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -62,7 +62,7 @@ export default [
   { key: 'restraintSkin', event: keyf1, value: '', next: '', name: '约束带处皮肤', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'adrenaline', event: keyf1, value: '', next: '', name: '肾上腺素', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'dopamine', event: keyf1, value: '', next: '', name: '多巴胺', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue', event: keyf1, value: '', next: '', name: '自定义1', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "description", //特殊情况记录
     value: "",
