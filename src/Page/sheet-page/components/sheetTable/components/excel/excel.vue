@@ -493,6 +493,7 @@
             sheetInfo.sheetType == 'neonatalspecialty2_xt' ||
             sheetInfo.sheetType == 'gastroenterology_xt' ||
             sheetInfo.sheetType == 'care3_xt' ||
+            sheetInfo.sheetType == 'care2_xt' ||
             sheetInfo.sheetType == 'pentagram2_xt'
           "
           >质控护士：</span
@@ -667,6 +668,7 @@ export default {
         'neonatalspecialty2_xt',
         'gastroenterology_xt',
         'care3_xt',
+        'care2_xt',
         "icu_cpr_xg",
       ],
       // 需要双签名的记录单code
