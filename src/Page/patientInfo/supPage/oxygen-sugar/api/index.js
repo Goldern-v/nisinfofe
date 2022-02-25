@@ -15,6 +15,11 @@ export const getPatientForm = (patientId, visitId) => {
   return axios.get(`${apiPath}others/sugar_oxygen/getPatientForm/${patientId}/${visitId}`)
 }
 
+//批量删除单条记录
+export const deleteRecord = (params, formType, formCode) => {
+  return axios.post(`${apiPath}${formType}/${formCode}/deleteRecord`, params);
+}
+
 /**删除表单 */
 export const deleteForm = (params = {
   id: '',
