@@ -1270,6 +1270,31 @@ function switechSheetType(type) {
       schema = require("../config/care2_xt/tr.js").default;
     }
       break
+    case "general2_xt": {
+      // 佛山杏坛 - 护理记录单
+      schema = require("../config/general2_xt/tr.js").default;
+    }
+      break
+    case "fracture_xt": {
+      // 佛山杏坛 - 护理记录单（骨折）
+      schema = require("../config/fracture_xt/tr.js").default;
+    }
+    break; 
+    case "spine_xt": {
+      // 佛山杏坛 - 护理记录单（脊柱）
+      schema = require("../config/spine_xt/tr.js").default;
+    }
+    break; 
+    case "craniocerebral_xt": {
+      // 佛山杏坛 - 护理记录单（颅脑）
+      schema = require("../config/craniocerebral_xt/tr.js").default;
+    }
+    break; 
+    case "general_xt": {
+      // 佛山杏坛 - 护理记录单（通用）
+      schema = require("../config/general_xt/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/pediatric3_xt/tr.js").default;
