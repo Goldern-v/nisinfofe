@@ -15,15 +15,15 @@
             >
               <el-button type="primary" slot="append" v-touch-ripple @click="searchBybtn">搜索</el-button>
             </el-autocomplete>
-              <div style="width:20px;" v-if="isImportModuleDevSuccess && hasImport.includes(HOSPITAL_ID)"></div>
-              <div class="import-btn">
-                <el-button 
-                  type="primary" 
-                  v-if="isImportModuleDevSuccess && hasImport.includes(HOSPITAL_ID)" 
-                  v-touch-ripple 
-                  @click="openImportModal"
-                >导入</el-button>
-              </div>
+            <div style="width:20px;" v-if="isImportModuleDevSuccess && hasImport.includes(HOSPITAL_ID)"></div>
+            <div class="import-btn">
+              <el-button 
+                type="primary" 
+                v-if="isImportModuleDevSuccess && hasImport.includes(HOSPITAL_ID)" 
+                v-touch-ripple 
+                @click="openImportModal"
+              >导入</el-button>
+            </div>
           </div>
           <div class="cache-con">
             <span>历史记录：</span>
@@ -63,19 +63,21 @@
         <div class="confirm-split-line"></div>
         <div class="confirm-text"  @click.stop="">
           说明：上传前请先
-          <span style="color:#04a580">下载模板</span>
+          <a style="color:#04a580" href="../../../../../assets/xlsx/importTest.xlsx" download="模板文档.xlsx">下载模板</a>
           ，按照模板要求将内容填完后，再点击立即上传按钮进行导入
         </div>
         <div class="confirm-btns">
           <el-upload
             ref="upload"
             class="upload-demo"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="`${apiPath}nursingDiags/importExcel/${wardCode}`"
+            :headers="importHeaders"
             multiple
             :show-file-list="false"
             :before-upload='beforeUpload'
             :on-exceed="handleExceed"
             :on-success="upLoadSuccess"
+            name="upfile"
             :file-list="fileList"
             >
             <el-button type="primary">立即上传</el-button>
@@ -181,6 +183,7 @@
 </style>
 
 <script>
+import { apiPath } from "@/api/apiConfig";
 import { nursingDiagsSearch } from "../api/index";
 import diagnosisList from "./list/diagnosisList.vue";
 export default {
@@ -198,7 +201,8 @@ export default {
       hasImport:['liaocheng'],
       isConfirm:false,
       fileList:[],
-      isImportModuleDevSuccess:false
+      isImportModuleDevSuccess:false,
+      apiPath,
     };
   },
   mounted() {},
@@ -289,11 +293,24 @@ export default {
       });
     },
     upLoadSuccess(response, file, fileList){
+      if(response.code!=200)return this.$message.error(response.desc)
       this.$message.success('成功导入诊断知识')
     },
   },
   components: {
     diagnosisList
+  },
+  computed:{
+    wardCode(){
+      let code = localStorage.getItem('wardCode')
+      return code
+    },
+    importHeaders(){
+      let headers = {}
+      headers['App-Token-Nursing'] = '51e827c9-d80e-40a1-a95a-1edc257596e7'
+      headers['Auth-Token-Nursing'] = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).token
+      return headers
+    }
   }
 };
 </script>

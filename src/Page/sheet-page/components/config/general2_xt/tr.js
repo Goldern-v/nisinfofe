@@ -31,32 +31,36 @@ import {
   click_time
 } from "../keyEvent/date";
 
+let ysList = ['①','②','③','④','⑤','⑥','⑦','⑧']
+let tyList = ['+','±','-','①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩']
+let csList = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩']
+
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, value: ''},
-  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: ysList }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'bloodOxygen', event: keyf1, value: '', next: '%', name: '血氧饱和度', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'bloodOxygen', event: keyf1, value: '', next: '%', name: '血氧饱和度', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'colorTraits', event: keyf1, value: '', next: '', name: '颜色性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'nursingSafety', event: keyf1, value: '', next: '', name: '护理安全', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'nursingMeasures', event: keyf1, value: '', next: '', name: '护理措施', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'dietaryGuidance', event: keyf1, value: '', next: '', name: '饮食指导', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue3', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue4', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue5', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue6', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue7', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue8', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'colorTraits', event: keyf1, value: '', next: '', name: '颜色性状', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'nursingSafety', event: keyf1, value: '', next: '', name: '护理安全', splice: '/', autoComplete: { data: csList }, textarea: { width: 90 }, change: (e, td) => limitChange(e, td, 14) },
+  { key: 'nursingMeasures', event: keyf1, value: '', next: '', name: '护理措施', splice: '/', autoComplete: { data: csList }, textarea: { width: 90 }, change: (e, td) => limitChange(e, td, 14) },
+  { key: 'dietaryGuidance', event: keyf1, value: '', next: '', name: '饮食指导', splice: '/', autoComplete: { data: csList }, textarea: { width: 90 }, change: (e, td) => limitChange(e, td, 14) },
+  { key: 'armValue', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue2', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue3', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue4', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue5', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue6', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue7', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue8', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "description", //特殊情况记录
     value: "",

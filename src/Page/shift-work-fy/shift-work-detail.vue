@@ -527,6 +527,8 @@ export default {
               "diagnosis",
               "symptom",
               "background",
+              "cure",
+              "diet",
               "checkInspection",
               "proposal"
             ])
@@ -609,7 +611,8 @@ export default {
               selectedRow["background"] = data["background"];
               selectedRow["checkInspection"] = data["checkInspection"];
               selectedRow["proposal"] = data["proposal"];
-
+              selectedRow["cure"] = data["cure"]
+              selectedRow["diet"] = data["diet"]
               await this.onSave();
             }
           },
@@ -824,6 +827,7 @@ export default {
       const changeShiftTime = this.record;
       const changeShiftPatients = this.patients
         .filter(p => p.name || p.id)
+        .sort((item1,item2)=>item1.bedLabel - item2.bedLabel)
         .map((p, i) => ({ ...p, sortValue: i + 1 }));
 
       await apis.updateShiftRecord({
