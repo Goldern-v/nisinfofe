@@ -451,6 +451,10 @@
       <strong>牵引</strong>：①有效②无效；<strong>颜色性状</strong>：①血性质；②淡红色液；③暗红色液；④黄色液；⑤淡黄色液；⑥深黄色液；⑦澄清；<strong>留置尿管/留置镇痛泵/留置胃管/深静脉管/伤口引流管</strong>：①固定通畅②堵塞③脱出④拔管；<strong>腹部情况</strong>：①平软②膨隆 ③腹肌紧张；<strong>疼痛评分</strong>：用数字式0-10代替文字来表示疼痛程度。<br/>
       <strong>呕吐</strong>：①一般；②喷射性；③无。<strong>肌张力</strong>：①高；②低；③正常。<strong>肌力</strong>：①0级；②1级；③2级；④3级；⑤4级；⑥5级。体位：①平卧；②半坐卧。
     </div>
+    <!-- 佛山杏坛 护理记录单（颅脑） -->
+    <div v-if="sheetInfo.sheetType == 'craniocerebral_xt'">
+      注： <strong>意识</strong>：清醒√  嗜睡+  浅昏迷++  深昏迷+++；&nbsp;<strong>瞳孔对光反射</strong>：灵敏+  迟钝±  消失－  
+    </div>
     <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
     <div v-if="sheetInfo.sheetType == 'cardiovascular_xt'">
       注：意识：清醒√；嗜睡－；模糊Δ；昏睡±；浅昏迷＋；中昏迷＋＋；深昏迷＋＋＋；A谵妄；B药眠。

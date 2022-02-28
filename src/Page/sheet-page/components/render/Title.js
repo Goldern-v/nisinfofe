@@ -1694,6 +1694,13 @@ export default function Title(
     );
   }
   break;
+  case "craniocerebral_xt": {
+    // 佛山杏坛 - 护理记录单（颅脑）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/craniocerebral_xt/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(

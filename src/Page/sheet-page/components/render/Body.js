@@ -1285,6 +1285,11 @@ function switechSheetType(type) {
       schema = require("../config/spine_xt/tr.js").default;
     }
     break; 
+    case "craniocerebral_xt": {
+      // 佛山杏坛 - 护理记录单（颅脑）
+      schema = require("../config/craniocerebral_xt/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/pediatric3_xt/tr.js").default;
