@@ -1554,6 +1554,16 @@ export default {
         };
         data.push(obj)
       }
+      if(this.sheetInfo.sheetType=="nursingrecords_zxy"&&cell.key=="food"){
+        let obj = {
+          name: "入量",
+          iconClass: "sync-decription",
+          click: () => {
+            this.bus.$emit("syncImportAmountExam", row, cell);
+          },
+        };
+        data.push(obj)
+      }
       e.preventDefault();
       window.openContextMenu({ style, data });
     },
