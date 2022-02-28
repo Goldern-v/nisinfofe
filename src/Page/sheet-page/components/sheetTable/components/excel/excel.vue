@@ -49,7 +49,7 @@
           :class="{ canSet: item.canSet}"
           @click="item.canSet && setTitle(item)"
         >
-          <span v-if="item.key == 'recordYear' && HOSPITAL_ID == 'huadu'">{{
+          <span v-if="item.key == 'recordYear'">{{
             recordYear()
           }}</span>
           <span v-else v-html="item.name"></span>
@@ -755,7 +755,7 @@ export default {
     //花都护记年份
     recordYear() {
       let year=this.data.bodyModel[0][0].value.split("-")[0]
-      if(this.HOSPITAL_ID==='fuyou'&&year){
+      if((this.HOSPITAL_ID==='fuyou'||this.HOSPITAL_ID==='whfk')&&year){
         year=`${year}年`
       }
       if(['wujing'].includes(this.HOSPITAL_ID)){
