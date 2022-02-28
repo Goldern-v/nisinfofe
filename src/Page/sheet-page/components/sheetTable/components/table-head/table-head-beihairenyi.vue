@@ -28,6 +28,44 @@
       </span>
       </div>
     </template>
+    <template v-else-if="isNewSheet">
+       <div class="info-con" flex="main:justify">
+        <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
+        姓名：
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
+      </span>
+      <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
+        性别：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
+      </span>
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
+        年龄：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
+      </span>
+      <span>
+        科室：
+        <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+      </span>
+      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+        床号：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+      </span>
+      <span>
+        住院号：
+        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+      </span>
+      <span v-if="sheetInfo.sheetType!='department_bh'&&sheetInfo.sheetType!='monitoring_bh'">
+        入院时间：
+        <div class="bottom-line" style="min-width: 100px">
+          {{ patientInfo.admissionDate | toymd}}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType!='neurology_bh'&&sheetInfo.sheetType!='diabetes_bh'&&sheetInfo.sheetType!='seriously_bh'&&sheetInfo.sheetType!='department_bh'&&sheetInfo.sheetType!='monitoring_bh'">
+        诊断：
+        <div class="bottom-line" style="min-width: 80px">{{patientInfo.diagnosis}}</div>
+      </span>
+      </div>
+    </template>
     <template v-else>
        <div class="info-con" flex="main:justify">
       <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
@@ -54,7 +92,7 @@
         住院号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
-      <span>
+      <span >
         诊断：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.diagnosis}}</div>
       </span>
@@ -85,10 +123,11 @@ export default {
   },
   data() {
     return {
-      sheetInfo
+      sheetInfo,
       // relObj: {
       //   wxNo: ""
       // }
+      newSheetType:['neurology_bh','diabetes_bh','revivemonitoring_bh','orthopaedic_bh','surgery_bh','transplant_bh','ophthalmology_bh','labor_bh','emergency_bh','observation_bh','department_bh','seriously_bh','monitoring_bh']
     };
   },
   computed: {
@@ -136,6 +175,9 @@ export default {
           return sheetInfo.relObj.age || this.patientInfo.age;
         }
       }
+    },
+    isNewSheet(){
+      return this.newSheetType.includes(this.sheetInfo.sheetType)
     }
   },
   methods: {

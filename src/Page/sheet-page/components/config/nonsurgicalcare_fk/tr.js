@@ -96,7 +96,7 @@ export default [
       width: 50
     },
     autoComplete: {
-      data: ['N']
+      data: ['A','B','C','D','E','F']
     }
   },
   {
@@ -269,7 +269,7 @@ export default [
       width: 40
     },
     autoComplete: {
-      data: ['N']
+      data: ['N','破溃']
     }
   },
   {
@@ -280,6 +280,9 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 40
+    },
+    autoComplete: {
+      data: ['左','右','平']
     }
   },
   {
