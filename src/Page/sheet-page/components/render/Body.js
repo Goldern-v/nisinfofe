@@ -1256,12 +1256,12 @@ function switechSheetType(type) {
     }
       break
     case "gastroenterology_xt": {
-      // 佛山杏坛 - 护理记录单(消化专科)（未测试）
+      // 佛山杏坛 - 护理记录单(消化专科)
       schema = require("../config/gastroenterology_xt/tr.js").default;
     }
       break
     case "care3_xt": {
-      // 佛山杏坛 - 护理记录单(内三科通用单)（未测试）
+      // 佛山杏坛 - 护理记录单(内三科通用单)
       schema = require("../config/care3_xt/tr.js").default;
     }
       break
