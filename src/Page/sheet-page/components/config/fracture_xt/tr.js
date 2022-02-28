@@ -31,6 +31,11 @@ import {
   click_time
 } from "../keyEvent/date";
 
+let tyList = ['＋','±','－','正常','异常','干洁','渗液','渗血','温暖','偏高','凉','冰冷','暗红','青紫','淤黑','苍白','浅灰色','花斑状','轻度麻木','麻木','过敏','减退','消失','无','轻度','中度','重度','好转','乏力','结痂','愈合','拆除','有效','无效','通畅','脱落','堵塞','拔管','清醒','昏睡','嗜睡','浅昏迷','深昏迷','意识浑浊','瞻望状态','停止','绝对卧床休息','半坐卧位','卧床休息','减轻','缓解','白色粘痰','白色稀痰','黄色粘痰','黄色稀痰','黄色','淡黄色','深黄色','淡红色','浓茶色','血红色','暗红色']
+let 患肢皮温 = ['温暖','偏高','凉','冰冷']
+let 患肢颜色 = ['正常','暗红','青紫','淤黑','苍白','浅灰色','花斑状']
+let 患肢感觉 = ['正常','轻度麻木','麻木','过敏','减退','消失']
+let 患肢肿胀 = ['无','轻度','中度','重度']
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -46,18 +51,18 @@ export default [
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'colorTraits', event: keyf1, value: '', next: '', name: '颜色性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'swelling', event: keyf1, value: '', next: '', name: '肿胀', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'peelwin', event: keyf1, value: '', next: '', name: '皮温', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'color', event: keyf1, value: '', next: '', name: '颜色', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'feel', event: keyf1, value: '', next: '', name: '感觉', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'swelling', event: keyf1, value: '', next: '', name: '肿胀', autoComplete: { data: 患肢肿胀 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'peelwin', event: keyf1, value: '', next: '', name: '皮温', autoComplete: { data: 患肢皮温 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'color', event: keyf1, value: '', next: '', name: '颜色', autoComplete: { data: 患肢颜色 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'feel', event: keyf1, value: '', next: '', name: '感觉', autoComplete: { data: 患肢感觉 }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'raiseLimb', event: keyf1, value: '', next: '', name: '抬高患肢15cm', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue3', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue4', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue5', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue6', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue7', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue2', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue3', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue4', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue5', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue6', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue7', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "description", //特殊情况记录
     value: "",
