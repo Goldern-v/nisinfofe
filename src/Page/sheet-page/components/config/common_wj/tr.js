@@ -198,6 +198,16 @@ export default [
   },
   {
     hidden: true,
+    key: "expand",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "expand2",
+    value: ""
+  },
+  {
+    hidden: true,
     key: "signerName",
     value: ""
   },

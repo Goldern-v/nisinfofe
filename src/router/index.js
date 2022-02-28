@@ -195,7 +195,9 @@ const allTemperatureChartBHRY = () =>
 const allTemperatureChartDGXG = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartDGXG.vue"); //东莞谢岗批量录入体温单
 const allTemperatureChartWHFK = () =>
-  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHFK.vue"); //东莞谢岗批量录入体温单
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHFK.vue"); //武汉肺科批量录入体温单
+const allTemperatureChartNFZXY = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartNFZXY.vue"); //武汉肺科批量录入体温单
 const newSingleTemperatureChart = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //聊城二院-新版体温单录入页面
 const newSingleTemperatureChartGuizhou = () =>
@@ -1172,6 +1174,8 @@ const router = new Router({
               return allTemperatureChartDGXG
             case 'whfk':
               return allTemperatureChartWHFK
+            case 'nanfangzhongxiyi':
+              return allTemperatureChartNFZXY
             default:
               return allTemperatureChart
           }

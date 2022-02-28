@@ -3,7 +3,7 @@ var prodEnv = require("./prod.env");
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  HOSPITAL_ID: '"liaocheng"',
-  HOSPITAL_NAME: '"聊城市第二人民医院"',
-  HOSPITAL_NAME_SPACE: '"聊 城 市 第 二 人 民 医 院"',
+  HOSPITAL_ID: '"nanfangzhongxiyi"',
+  HOSPITAL_NAME: '"南方医科大学中西医结合医院"',
+  HOSPITAL_NAME_SPACE: '"南 方 医 科 大 学 中 西 医 结 合 医 院"',
 });
