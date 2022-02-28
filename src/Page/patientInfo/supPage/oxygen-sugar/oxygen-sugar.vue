@@ -101,7 +101,7 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 .blood-sugar-con {
   .sugr-page {
-    margin: 20px auto;
+    margin: 10px auto;
     background: #ffffff;
     width: 700px;
     padding: 20px;
@@ -157,6 +157,9 @@
     left: 21px;
     top: 21px;
     height: 44px;
+  }
+  .table-warpper{
+    margin-bottom:10px;
   }
 
   .page-con {
@@ -453,26 +456,30 @@ export default {
     async onRemove() {
       console.log(this.selected)
       if(this.selected){
-        await this.$confirm(
-        "确定要删除该血糖记录吗？删除后将无法恢复！",
-        "提示",
-        {
-          confirmButtonText: "确定删除",
-          cancelButtonText: "点错了",
-          type: "warning",
-        }
-      );
-        this.saveParams.list=[this.selected]
-        const res =  await deleteRecord(this.saveParams, this.baseParams.formType, this.fkOxygenCode);
-        if(res.data.code == '200'){
-          this.$message.success("删除成功");
-          this.load();
-          this.selected = null;
+        if(this.selected.id){
+          await this.$confirm(
+          "确定要删除该血糖记录吗？删除后将无法恢复！",
+          "提示",
+          {
+            confirmButtonText: "确定删除",
+            cancelButtonText: "点错了",
+            type: "warning",
+          }
+        );
+          this.saveParams.list=[this.selected]
+          const res =  await deleteRecord(this.saveParams, this.baseParams.formType, this.fkOxygenCode);
+          if(res.data.code == '200'){
+            this.$message.success("删除成功");
+            this.load();
+            this.selected = null;
+          }else{
+            this.$message.success(res.data.desc);
+          }
         }else{
-          this.$message.success(res.data.desc);
+          this.$message.warning("请选择保存之后行数据！");
         }
       }else{
-         this.$message.warning("请选择想要的删除的行！");
+         this.$message.warning("请选择想要的删除的行数据！");
       }
       //批量删除单条记录
         // export const deleteRecord = (params, formType, formCode) => {
