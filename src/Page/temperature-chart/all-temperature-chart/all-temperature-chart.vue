@@ -141,7 +141,6 @@
           border
           v-loading="pageLoadng"
           cell-mouse-enter
-          :row-style="rowStyle"
         >
           <el-table-column
             v-if="levelColorHis.includes(HOSPITAL_ID)"
@@ -150,6 +149,9 @@
             min-width="90"
             align="center"
           >
+            <template slot-scope="scope">
+              <div :style="rowStyle(scope.row)">{{ scope.row.nursingClass }}</div>
+            </template>
           </el-table-column>
           <el-table-column
             prop="bedLabel"
@@ -1345,11 +1347,13 @@ export default {
       switch(this.HOSPITAL_ID){
         case "wujing":
           return {
-            backgroundColor:this.getBaColor(row)
+            backgroundColor:this.getBaColor(row),
+            color:"white",
           };
         default:
           return {
-            backgroundColor:this.getBaColor(row)
+            backgroundColor:this.getBaColor(row),
+            color:"white",
           }; 
       }
     },

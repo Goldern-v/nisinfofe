@@ -44,7 +44,7 @@ export default [
   { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'vaginalBleeding', event: keyf1, value: '', next: 'ml', name: '阴道出血', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'urineOutput', event: keyf1, value: '', next: 'ml', name: '尿量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'urine', event: keyf1, value: '', next: 'ml', name: '尿量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'lactation', event: keyf1, value: '', next: '', name: '泌乳情况', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'uterineFloor', event: keyf1, value: '', next: '', name: '宫底高度', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'contractionsSoft', event: keyf1, value: '', next: '', name: '软', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },

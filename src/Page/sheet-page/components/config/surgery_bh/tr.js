@@ -37,7 +37,7 @@ import {
     { key: "recordHour", event: event_time,  value: ''},
     { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) ,autoComplete: { data: ['清','模糊','嗜睡','昏睡','浅昏迷','昏迷','深昏迷','谵妄','麻醉未醒','镇静状态'] }},
     { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+    { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压',textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'outputName', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8)},

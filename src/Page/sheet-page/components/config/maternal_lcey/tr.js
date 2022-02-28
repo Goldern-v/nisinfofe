@@ -17,21 +17,8 @@ import {
     {
       key: "recordHour", //时间
       value: "",
-      event: event_time,
-      click: click_time
+      event: event_time
     },
-    // {
-    //   key: "consciousness", //意识
-    //   value: "",
-    //   event: keyf1,
-    //   name:"意识",
-    //   autoComplete: {
-    //     data: ['清醒', '嗜睡', '昏睡', '模糊', '谵妄', '浅昏迷', '昏迷', '深昏迷','冬眠状态','麻醉未醒','镇静状态']
-    //   },
-    //   textarea: {
-    //     width: 54
-    //   },
-    // },
     {
       key: "bloodPressure", // 血压
       value: "",

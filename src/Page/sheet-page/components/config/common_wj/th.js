@@ -69,8 +69,8 @@ export default {
         意识
         `,
         style: {
-          minWidth: '45px',
-          maxWidth: '45px'
+          minWidth: '35px',
+          maxWidth: '35px'
         },
         colspan: '1',
         rowspan: '3'
@@ -220,21 +220,21 @@ export default {
         内容
         `,
         style: {
-          minWidth: '120px',
-          maxWidth: '120px'
+          minWidth: '159px',
+          maxWidth: '159px'
         },
         colspan: '1',
         rowspan: '2'
       },
       {
         name: `
-        量<br/>(ml)
+        量<br/>ml
         `,
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -250,13 +250,13 @@ export default {
       },
       {
         name: `
-        量<br/>(ml)
+        量<br/>ml
         `,
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       }
     ],
