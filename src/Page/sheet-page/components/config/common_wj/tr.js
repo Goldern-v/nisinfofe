@@ -208,6 +208,11 @@ export default [
   },
   {
     hidden: true,
+    key: "expand3",
+    value: ""
+  },
+  {
+    hidden: true,
     key: "signerName",
     value: ""
   },
