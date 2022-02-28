@@ -1673,6 +1673,41 @@ export default function Title(
     );
   }
   break;
+  case "general2_xt": {
+    // 佛山杏坛 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general2_xt/th.js").default)
+    );
+  }
+  break;
+  case "fracture_xt": {
+    // 佛山杏坛 - 护理记录单（骨折）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/fracture_xt/th.js").default)
+    );
+  }
+  break;
+  case "spine_xt": {
+    // 佛山杏坛 - 护理记录单（脊柱）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/spine_xt/th.js").default)
+    );
+  }
+  break;
+  case "craniocerebral_xt": {
+    // 佛山杏坛 - 护理记录单（颅脑）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/craniocerebral_xt/th.js").default)
+    );
+  }
+  break;
+  case "general_xt": {
+    // 佛山杏坛 - 护理记录单（通用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general_xt/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
