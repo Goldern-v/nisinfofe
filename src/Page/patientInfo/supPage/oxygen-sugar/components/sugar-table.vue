@@ -24,34 +24,34 @@
           :key="index+'item.sugarValue'"
           @click="onSelect(item,renderData)"
         >
-          <td>
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
             <div class="cell noPrint">
               <!-- {{ item.date }} -->
-              <input type="text" v-model="item.dateStr">
+              <input type="text" v-model="item.dateStr" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " />
+            </div>
+            <div :class="['cell','inPrint']">
+              {{item.dateStr}}
+            </div>
+          </td>
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
+            <div class="cell noPrint">
+              <input type="text" v-model="item.timeStr" @input="inputTime(item,'timeStr',':')" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " />
             </div>
             <div :class="['cell','inPrint']">
               {{item.timeStr}}
             </div>
           </td>
-          <td>
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
             <div class="cell noPrint">
-              <input type="text" v-model="item.timeStr" @input="inputTime(item,'timeStr',':')">
-            </div>
-            <div :class="['cell','inPrint']">
-              {{item.timeStr}}
-            </div>
-          </td>
-          <td>
-            <div class="cell noPrint">
-              <input type="text" v-model="item.sugarOxygen"> 
+              <input type="text" v-model="item.sugarOxygen" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " /> 
             </div>
              <div :class="['cell','inPrint']">
               {{item.sugarOxygen}}
             </div>
           </td>
-          <td>
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
             <div class="cell noPrint">
-              <input type="text" v-model="item.heartRate">
+              <input type="text" v-model="item.heartRate" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " />
             </div>
              <div :class="['cell','inPrint']">
               {{item.heartRate}}
@@ -241,7 +241,7 @@ export default {
       this.$emit("renderData",item, renderData);
       this.$emit("update:selected",item);
       if(!item.dateStr){
-        item.dateStr = new Date().Format("MM-dd");
+        item.dateStr = new Date().Format("yyyy-MM-dd");
       }
       if(!item.timeStr){
         item.timeStr = new Date().Format("hh:mm");
