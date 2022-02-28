@@ -1,6 +1,6 @@
 
 /*
-  佛山杏坛 - 护理记录单（骨折）
+  佛山杏坛 - 护理记录单（脊柱）
 */
 
 /**
@@ -28,8 +28,7 @@ export default {
                 {"name":"血<br/>氧<br/>饱<br/>和<br/>度<br/>%","colspan":"1","rowspan":"3"},
                 {"name":"入量","colspan":"2","rowspan":"1"},
                 {"name":"出量","colspan":"3","rowspan":"1"},
-                {"name":"患肢情况","colspan":"4","rowspan":"1"},
-                {"name":"抬高<br/>患肢<br/>15cm","colspan":"1","rowspan":"3"},
+                {"name":"肢体情况","colspan":"3","rowspan":"1"},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue2","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue3","style":{"minWidth":"35px","maxWidth":"35px"}},
@@ -37,6 +36,8 @@ export default {
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue5","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue6","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue7","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue8","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue9","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"60px"}}
             ]
@@ -50,10 +51,9 @@ export default {
                 {"name":"内容","colspan":"1","rowspan":"2"},
                 {"name":"量<br/>ml","colspan":"1","rowspan":"2"},
                 {"name":"颜色<br/>性状","colspan":"1","rowspan":"2"},
-                {"name":"肿胀","colspan":"1","rowspan":"2"},
-                {"name":"皮温","colspan":"1","rowspan":"2"},
-                {"name":"颜色","colspan":"1","rowspan":"2"},
-                {"name":"感觉","colspan":"1","rowspan":"2"}
+                {"name":"运动","colspan":"1","rowspan":"2"},
+                {"name":"感觉","colspan":"1","rowspan":"2"},
+                {"name":"疼痛","colspan":"1","rowspan":"2"},
             ]
         ,
         bottom: 
