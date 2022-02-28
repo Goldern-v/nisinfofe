@@ -78,8 +78,8 @@ const currentTargetUrl = (() => {
     /** 聊城 */
     case "liaocheng":
       // return "http://120.224.211.7:9094" //聊城正式
-      return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
-      // return "http://192.168.1.54:9871" //公司-聊城测试-内网
+      // return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
+      return "http://192.168.1.54:9871" //公司-聊城测试-内网
       // return "http://192.168.2.122:8080" // 初升本地
       // return "http://192.168.20.83:8080"  //伟彬本地
 
@@ -154,8 +154,9 @@ const currentTargetUrl = (() => {
 
     // 佛山市医
      case 'foshanrenyi':
+      return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://219.159.198.37:9094"  // 正式地址
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
 
     // 佛山杏坛
       // return "http://219.159.198.37:9094"  // 正式地址
