@@ -447,7 +447,7 @@
       第 {{ index + sheetStartPage }} 页
       <span
         class="sh-name"
-        v-if="auditArr.includes(sheetInfo.sheetType)"
+        v-if="auditArr.includes(sheetInfo.sheetType) || HOSPITAL_ID == 'fsxt'"
         :class="{
           'sh-time':
             sheetInfo.sheetType === 'internal_eval_lcey' ||
@@ -483,18 +483,7 @@
             sheetInfo.sheetType == 'gynecology_hl' ||
             sheetInfo.sheetType == 'critical_lc' ||
             sheetInfo.sheetType == 'neonatology_hl' ||
-            sheetInfo.sheetType == 'cardiovascular_xt' ||
-            sheetInfo.sheetType == 'criticaldisease_xt' ||
-            sheetInfo.sheetType == 'prenataldelivery2_xt' ||
-            sheetInfo.sheetType == 'postpartum2_xt' ||
-            sheetInfo.sheetType == 'gynaecology2_xt' ||
-            sheetInfo.sheetType == 'pediatric3_xt' ||
-            sheetInfo.sheetType == 'paediatrician2_xt' ||
-            sheetInfo.sheetType == 'neonatalspecialty2_xt' ||
-            sheetInfo.sheetType == 'gastroenterology_xt' ||
-            sheetInfo.sheetType == 'care3_xt' ||
-            sheetInfo.sheetType == 'care2_xt' ||
-            sheetInfo.sheetType == 'pentagram2_xt'
+            HOSPITAL_ID == 'fsxt'
           "
           >质控护士：</span
         >
@@ -657,18 +646,6 @@ export default {
         "internal_eval_lcey", //一般或者护理记录单
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
         "critical_new_lcey",
-        "cardiovascular_xt",
-        "criticaldisease_xt",
-        'prenataldelivery2_xt',
-        'postpartum2_xt',
-        'pentagram2_xt',
-        'gynaecology2_xt',
-        'pediatric3_xt',
-        'paediatrician2_xt',
-        'neonatalspecialty2_xt',
-        'gastroenterology_xt',
-        'care3_xt',
-        'care2_xt',
         "icu_cpr_xg",
       ],
       // 需要双签名的记录单code
