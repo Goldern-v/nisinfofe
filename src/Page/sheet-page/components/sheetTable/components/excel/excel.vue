@@ -311,7 +311,7 @@
               remoteMethod($event.currentTarget.value);
               td.autoComplete &&
                 onFocus($event, {
-                  autoComplete: { data: accessOptionData[td.name] },
+                  autoComplete: { data: td.name ? accessOptionData[td.name] : accessOptionData.armValue },
                   x,
                   y,
                   z: index,
@@ -683,6 +683,8 @@ export default {
         出量名称: [],
         出量方式: [],
         性质: [],
+        armValue: [],//自定义表头使用
+
       },
       currentKey: "", //点击下拉当前的key
     };
@@ -1812,6 +1814,8 @@ export default {
       }
       if (this.currentKey) {
         this.accessOptionData[this.currentKey] = [...this.accessOptionList];
+      }else{
+        this.accessOptionData.armValue = [...this.accessOptionList];
       }
     },
     // 获取出入量下拉、可输入过滤数据（贵州）
