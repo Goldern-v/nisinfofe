@@ -19,7 +19,7 @@
         </div>
         <div class="contain">
           <div class="date-con">
-            <span>开始时间：</span>
+            <span style="line-height:2">开始时间：</span>
             <el-date-picker
               format="yyyy-MM-dd HH:mm"
               size="small"
