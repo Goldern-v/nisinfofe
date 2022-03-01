@@ -485,7 +485,7 @@ export default {
                   child.title.indexOf("VTE") === -1 &&
                   !cleanKeyCheck()
                 ) {
-                  html += `<span>::<span style='${obj.style}'>${this.formObj
+                  html += `<span><span style='${obj.style}'>${this.formObj
                     .model[d.dialog.parentName] || ""}${obj.postText ||
                     obj.suffixDesc ||
                     ""}</span></span>`;
