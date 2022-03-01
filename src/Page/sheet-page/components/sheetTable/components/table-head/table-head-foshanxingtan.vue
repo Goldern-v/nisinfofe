@@ -47,18 +47,21 @@
           {{ patientInfo.inpNo }}
         </div>
       </span>
-      <span>
+      <span v-if="!admissionDateList.includes(sheetInfo.sheetType)">
         入院日期：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.admissionDate | toymd}}
         </div>
       </span>
+    </div>
+    <div class="info-con" flex="main:justify" v-if="!diagnosisList.includes(sheetInfo.sheetType)">
       <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
         诊断：
         <div
           class="bottom-line"
           style="
-            min-width: 100px;
+            width: 1000px;
+            height: 11px;
             text-overflow: ellipsis;
             white-space: nowrap;
           "
@@ -90,6 +93,17 @@ export default {
     return {
       bus: bus(this),
       sheetInfo,
+      //不需要入院日期的表单
+      admissionDateList: [
+        "fracture_xt", 
+        "spine_xt",
+        "craniocerebral_xt",
+        "general_xt",
+      ],
+      //不需要诊断的表单
+      diagnosisList: [
+        
+      ],
     };
   },
   mounted() {},

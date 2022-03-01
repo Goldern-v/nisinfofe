@@ -31,28 +31,29 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let tyList = ['正常','异常','干洁','渗液','渗血','温暖','偏高','凉','冰冷','暗红','青紫','淤黑','苍白','浅灰色','花斑状','轻度麻木','麻木','过敏','减退','消失','无','轻度','中度','重度','好转','乏力','结痂','愈合','拆除','有效','无效','通畅','脱落','堵塞','拔管','清醒','昏睡','嗜睡','浅昏迷','深昏迷','意识浑浊','瞻望状态','停止','绝对卧床休息','半坐卧位','卧床休息','减轻','缓解','白色粘痰','白色稀痰','黄色粘痰','黄色稀痰','黄色','淡黄色','深黄色','淡红色','浓茶色','血红色','暗红色']
 let tkfsList = ['＋','±','－']
+let tyList = ['正常','异常','干洁','渗液','渗血','温暖','偏高','凉','冰冷','暗红','青紫','淤黑','苍白','浅灰色','花斑状','轻度麻木','麻木','过敏','减退','消失','无','轻度','中度','重度','好转','乏力','结痂','愈合','拆除','有效','无效','通畅','脱落','堵塞','拔管','停止','绝对卧床休息','半坐卧位','卧床休息','减轻','缓解','白色粘痰','白色稀痰','黄色粘痰','黄色稀痰','黄色','淡黄色','深黄色','淡红色','浓茶色','血红色','暗红色']
+let ysList = ['清醒','昏睡','嗜睡','浅昏迷','深昏迷','意识浑浊','瞻望状态']
 
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, value: ''},
-  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: ysList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodOxygen', event: keyf1, value: '', next: '%', name: '血氧饱和度', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'colorTraits', event: keyf1, value: '', next: '', name: '颜色性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pupilSizeLeft', event: keyf1, value: '', next: '', name: '瞳孔大小左', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pupilSizeRight', event: keyf1, value: '', next: '', name: '瞳孔大小右', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pupilReflectionLeft', event: keyf1, value: '', next: '', name: '瞳孔反射左', autoComplete: { data: tkfsList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pupilReflectionRight', event: keyf1, value: '', next: '', name: '瞳孔反射右', autoComplete: { data: tkfsList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pupilSizeLeft', event: keyf1, value: '', next: '', name: '瞳孔大小左', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pupilSizeRight', event: keyf1, value: '', next: '', name: '瞳孔大小右', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pupilReflectionLeft', event: keyf1, value: '', next: '', name: '瞳孔反射左', autoComplete: { data: tkfsList }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pupilReflectionRight', event: keyf1, value: '', next: '', name: '瞳孔反射右', autoComplete: { data: tkfsList }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue2', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue3', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },

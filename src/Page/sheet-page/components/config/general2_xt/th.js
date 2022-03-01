@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1250px"
+      width: "1300px"
     },
     th: {
         top: 
@@ -28,9 +28,9 @@ export default {
                 {"name":"血<br/>氧<br/>饱<br/>和<br/>度<br/>%","colspan":"1","rowspan":"3"},
                 {"name":"入量","colspan":"2","rowspan":"1"},
                 {"name":"出量","colspan":"3","rowspan":"1"},
-                {"name":"护<br/>理<br/>安<br/>全","colspan":"1","rowspan":"3"},
-                {"name":"护<br/>理<br/>措<br/>施","colspan":"1","rowspan":"3"},
-                {"name":"饮<br/>食<br/>指<br/>导","colspan":"1","rowspan":"3"},
+                {"name":"护理安全","colspan":"1","rowspan":"3"},
+                {"name":"护理措施","colspan":"1","rowspan":"3"},
+                {"name":"饮食指导","colspan":"1","rowspan":"3"},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue2","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue3","style":{"minWidth":"35px","maxWidth":"35px"}},

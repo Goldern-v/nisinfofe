@@ -79,7 +79,7 @@ import dTable from "./components/table/d-table";
 import changeMaJorTable from  "./components/table/change-major-table";
 import wjDisTable from  "./components/table/wj-dis-table";
 import pagination from "./components/common/pagination";
-import { patEmrList,patEmrListZSQm,listNurseAdtHd,listNurseAdtFuYou } from "@/api/document";
+import { patEmrList,patEmrListZSQm,listNurseAdtHd,listNurseAdtFuYou, handleExport } from "@/api/document";
 import { del } from '@/api/record';
 export default {
   data() {
@@ -105,7 +105,7 @@ export default {
       this.page.pageIndex = newPage;
       this.getData();
     },
-    getData() {
+    handleParams() {
       let data = this.$refs.searchCon.data;
       let obj = {};
       if (data.deptValue) {
@@ -148,29 +148,29 @@ export default {
         );
       }
       }else{
-           if (data.admissionDate[0]) {
-        obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(
-          "yyyy-MM-dd hh:mm"
-        );
+        if (data.admissionDate[0]) {
+          obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(
+            "yyyy-MM-dd hh:mm"
+          );
+        }
+        if (data.admissionDate[1]) {
+          obj.admissionDateEnd = new Date(data.admissionDate[1]).Format(
+            "yyyy-MM-dd hh:mm"
+          );
+        }
+        if (data.dischargeDate[0]) {
+          obj.dischargeDateBegin = new Date(data.dischargeDate[0]).Format(
+            "yyyy-MM-dd hh:mm"
+          );
+        }
+        if (data.dischargeDate[1]) {
+          obj.dischargeDateEnd = new Date(data.dischargeDate[1]).Format(
+            "yyyy-MM-dd hh:mm"
+          );
+        }
       }
-      if (data.admissionDate[1]) {
-        obj.admissionDateEnd = new Date(data.admissionDate[1]).Format(
-          "yyyy-MM-dd hh:mm"
-        );
-      }
-      if (data.dischargeDate[0]) {
-        obj.dischargeDateBegin = new Date(data.dischargeDate[0]).Format(
-          "yyyy-MM-dd hh:mm"
-        );
-      }
-      if (data.dischargeDate[1]) {
-        obj.dischargeDateEnd = new Date(data.dischargeDate[1]).Format(
-          "yyyy-MM-dd hh:mm"
-        );
-      }
-      }
-      
-     
+
+
       if (data.status == 1) {
         obj.dischargeDateBegin = "";
         obj.dischargeDateEnd = "";
@@ -196,6 +196,12 @@ export default {
         obj.dischargeDateBegin = "";
         obj.dischargeDateEnd = "";
       }
+      return obj
+    },
+    getData() {
+      let data = this.$refs.searchCon.data;
+
+      let obj = this.handleParams()
 
       obj.pageIndex = this.page.pageIndex;
       obj.pageNum = this.page.pageNum;
@@ -216,18 +222,43 @@ export default {
         newObj.pageSize=newObj.pageNum;
         // console.log(obj)
         listNurseAdtHd(newObj,this.HOSPITAL_ID).then(res => {
-        this.tableData = res.data.data.list;
-        this.page.total = res.data.data.totalCount ? parseInt(res.data.data.totalCount): 0;
-        this.pageLoadng = false;
-      });
+          this.tableData = res.data.data.list;
+          this.page.total = res.data.data.totalCount ? parseInt(res.data.data.totalCount): 0;
+          this.pageLoadng = false;
+        });
       }else{
-       patEmrListApi(obj).then(res => {
-        this.tableData = res.data.data.list;
-        this.page.total = res.data.data.page ? parseInt(res.data.data.page)*this.page.pageNum : 0;
-        this.pageLoadng = false;
-      });
+        patEmrListApi(obj).then(res => {
+          this.tableData = res.data.data.list;
+          this.page.total = res.data.data.page ? parseInt(res.data.data.page)*this.page.pageNum : 0;
+          this.pageLoadng = false;
+        });
       }
 
+    },
+    async handleExport() {
+      let params = this.handleParams()
+      try {
+        this.pageLoadng = true;
+        let res = await handleExport(params)
+        let fileName = res.headers["content-disposition"]
+          ? decodeURIComponent(
+            res.headers["content-disposition"].replace("attachment;filename=", "")
+          ) : '统计.xls';
+        let blob = new Blob([res.data], {
+          type: res.data.type
+        });
+        let a = document.createElement('a')
+        let href = window.URL.createObjectURL(blob) // 创建链接对象
+        a.href = href
+        a.download = fileName // 自定义文件名
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(href)
+        document.body.removeChild(a) // 移除a元素
+        this.pageLoadng = false;
+      } catch(e) {
+        this.pageLoadng = false;
+      }
     }
   },
   computed:{

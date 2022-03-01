@@ -8,13 +8,13 @@
         <div class="close-btn" @click="close">
           <i class="el-icon-close"></i>
         </div>
-        <div class="save-btn" @click="save" v-if="status === '0'">
-          <div v-touch-ripple>保存</div>
+        <div class="save-btn" @click="save" v-if="!isEdit && status === '0'">
+          <div v-touch-ripple>添加</div>
         </div>
-        <div class="save-btn" @click="save" v-if="status === '1'">
+        <div class="save-btn" @click="save" v-if="!isEdit && status === '1'">
           <div v-touch-ripple>更新</div>
         </div>
-        <div class="save-btn disabled" v-if="status === '2'">
+        <div class="save-btn disabled" v-if="!isEdit && status === '2'">
           <div>已停止</div>
         </div>
         <div class="contain">
@@ -27,10 +27,10 @@
               type="datetime"
               placeholder="选择开始时间"
             ></el-date-picker>
-            <el-button type="primary" v-if="!isEdit" @click="isEdit = true" style="position:absolute;right:0">编辑11</el-button>
+            <el-button type="primary" v-if="!isEdit" @click="isEdit = true" style="position:absolute;right:0">编辑</el-button>
             <span v-else class="edit-btns">
-              <el-button @click="isEdit = false">取消编辑</el-button>
-              <el-button type="primary">保存</el-button>
+              <el-button @click="cancelEdit">取消编辑</el-button>
+              <el-button type="primary" @click="saveTemplete" :disabled="!measureId.length&&!targetsId.length">保存</el-button>
             </span>
           </div>
           <div class="do-box">
@@ -53,13 +53,13 @@
               @change="handleMeasuresCheckedChange"
               :disabled="status === '2'"
             >
-              <div class="m-10" v-for="item in measures" :key="item.id">
+              <div class="m-10" v-for="(item,index) in measures" :key="item.id">
                 <el-checkbox
                   v-if="!isEdit"
                   :label="item.serialNo"
                   :disabled="status === '2'"
                 >{{item.measureDetail}}</el-checkbox>
-                <div style="display:flex" v-else>
+                <div style="display:flex" v-else @click="delTempleteRow(item,index,'measureId')">
                   <div class="delete-box" style="width:15px;">
                     <div class="red-circle">
                       <div class="white-line"></div>
@@ -77,6 +77,7 @@
               <span>【预期目标】</span>
               <span class="checkAll-con">
                 <el-checkbox
+                  v-if="!isEdit"
                   :indeterminate="isTargetIndeterminate"
                   v-model="checkTargetAll"
                   @change="handleTargetCheckAllChange"
@@ -86,8 +87,18 @@
             </div>
 
             <el-checkbox-group v-model="resultTargetList" @change="handleTargetCheckedChange">
-              <div class="m-10" v-for="item in targetList" :key="item.id">
-                <el-checkbox :label="item.serialNo" :disabled="status === '2'">{{item.parameter}}</el-checkbox>
+              <div class="m-10" v-for="(item,index) in targetList" :key="item.id">
+                <el-checkbox v-if="!isEdit" :label="item.serialNo" :disabled="status === '2'">{{item.parameter}}</el-checkbox>
+                <div style="display:flex" v-else @click="delTempleteRow(item,index,'targetsId')">
+                  <div class="delete-box" style="width:15px;">
+                    <div class="red-circle">
+                      <div class="white-line"></div>
+                    </div>
+                  </div>
+                  <div style="flex:1">
+                    {{item.parameter}}
+                  </div>
+                </div>
               </div>
             </el-checkbox-group>
           </div>
@@ -240,6 +251,7 @@
 import {
   measure,
   nursingDiagsView,
+  deleteMeasureTargetsApi
 } from "../../api/index.js";
 import moment from "moment";
 import { model } from "../../diagnosisViewModel";
@@ -258,7 +270,9 @@ let bindData = {
   isTargetIndeterminate: false,
   checkTargetAll: false,
   definition: "",
-  isEdit:false
+  isEdit:false,
+  measureId:[],
+  targetsId:[]
 };
 let bindDataClone = { ...bindData };
 export default {
@@ -301,6 +315,7 @@ export default {
       }).map(e=>e.parameter).join("")
 
       this.$store.commit("upMeasureGuizhou",{measure,target})
+      this.$message.success('添加成功')
     },
     /** 全选措施 */
     handleMeasuresCheckAllChange(event) {
@@ -331,6 +346,40 @@ export default {
       this.isTargetIndeterminate =
         checkedCount > 0 &&
         checkedCount < this.targetList.map(item => item.serialNo).length;
+    },
+    delTempleteRow(item,index,type){
+      this[type].push(item.id)
+      if(type == 'measureId'){
+        this.measures.splice(index,1)
+      }else{
+        this.targetList.splice(index,1)
+      }
+    },
+    cancelEdit(){
+      this.measureId = []
+      this.targetsId = []
+      this.isEdit = false;
+      this.open(this.data)
+    },
+    saveTemplete(){
+      this.$confirm('确定要对此诊断计划知识进行修改吗', '确认后，删除的内容将不可恢复', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+        }).then(res=>{
+          deleteMeasureTargetsApi({
+            diagId:this.data.code,
+            measureId:this.measureId,
+            targetsId:this.targetsId
+          }).then(delRes=>{
+            if(delRes.data.code!=200) return this.$message.error(delRes.data.desc)
+            this.$message.success('保存成功')
+            this.isEdit = true
+            this.open(this.data)
+          })
+        }).catch(err=>{
+          this.$message.warning('您已取消保存！')
+        })
     }
   },
   components: {}
