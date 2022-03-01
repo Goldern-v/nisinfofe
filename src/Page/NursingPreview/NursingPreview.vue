@@ -85,6 +85,7 @@ import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJ
 import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
 import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperatureBhry";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
+import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperatureWHFK";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
@@ -128,6 +129,8 @@ export default {
           return temperatureWuJing;
         case "beihairenyi":
           return temperatureBhry;
+        case "whfk":
+          return temperatureWHFK;
         default:
           return temperature;
       }
@@ -159,7 +162,8 @@ export default {
     temperatureJmfy,
     temperatureDghl,
     temperatureWuJing,
-    temperatureBhry
+    temperatureBhry,
+    temperatureWHFK
   }
 };
 </script>

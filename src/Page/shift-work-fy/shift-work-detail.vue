@@ -527,6 +527,8 @@ export default {
               "diagnosis",
               "symptom",
               "background",
+              "cure",
+              "diet",
               "checkInspection",
               "proposal"
             ])
@@ -609,7 +611,8 @@ export default {
               selectedRow["background"] = data["background"];
               selectedRow["checkInspection"] = data["checkInspection"];
               selectedRow["proposal"] = data["proposal"];
-
+              selectedRow["cure"] = data["cure"]
+              selectedRow["diet"] = data["diet"]
               await this.onSave();
             }
           },
@@ -820,10 +823,27 @@ export default {
       this.modified = true;
     },
     async onSave(tip) {
+      // 妇幼要求带C的床位排在最后
+      function sortCallBack(item1,item2){
+        let a = item1.bedLabel
+        let b = item2.bedLabel
+        if(!a.includes('C') && !b.includes('C')){
+            return Number(a) - Number(b)
+        }else if(a.includes('C') && b.includes('C')){
+            let v1 = Number(a.split('C')[1])
+            let v2 = Number(b.split('C')[1])
+            return v1 - v2
+        }else if(a.includes('C')){
+            return 1
+        }else if(b.includes('C')){
+            return -1
+        }
+      }
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
       const changeShiftPatients = this.patients
         .filter(p => p.name || p.id)
+        .sort(sortCallBack)
         .map((p, i) => ({ ...p, sortValue: i + 1 }));
 
       await apis.updateShiftRecord({

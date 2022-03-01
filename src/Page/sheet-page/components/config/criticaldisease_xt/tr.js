@@ -31,27 +31,31 @@ import {
   click_time
 } from "../keyEvent/date";
 
+let ysList = ['√','Δ','+','++','+++']
+let dgfyList = ['√','+','-']
+let tyList = ['○','I','II','III','+','++','+++','-','A','B','C','D','E','F','G','H']
+
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, value: ''},
-  { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodSugar', event: keyf1, value: '', next: 'mmol/L', name: '血糖', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'limbToeNailbed', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pupilSizeLeft', event: keyf1, value: '', next: '', name: '瞳孔大小左', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pupilSizeRight', event: keyf1, value: '', next: '', name: '瞳孔大小右', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pupilReflectionLeft', event: keyf1, value: '', next: '', name: '瞳孔反射左', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pupilReflectionRight', event: keyf1, value: '', next: '', name: '瞳孔反射右', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'food', event: keyf1, value: '', next: '', name: '入量项目', textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 10) },
-  { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: ysList }, textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pupilSizeLeft', event: keyf1, value: '', next: '', name: '瞳孔大小左', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pupilSizeRight', event: keyf1, value: '', next: '', name: '瞳孔大小右', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pupilReflectionLeft', event: keyf1, value: '', next: '', name: '瞳孔反射左', autoComplete: { data: dgfyList }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pupilReflectionRight', event: keyf1, value: '', next: '', name: '瞳孔反射右', autoComplete: { data: dgfyList }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'food', event: keyf1, value: '', next: '', name: '入量项目', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量项目', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'sputumSuction', event: keyf1, value: '', next: '', name: '吸痰', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'trachea', event: keyf1, value: '', next: 'cm', name: '置管刻度', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'sputumSuction', event: keyf1, value: '', next: '', name: '吸痰', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'trachea', event: keyf1, value: '', next: 'cm', name: '置管刻度', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breathingPattern', event: keyf1, value: '', next: '', name: '呼吸模式', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'fio2', event: keyf1, value: '', next: '%', name: 'FiO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'frequency', event: keyf1, value: '', next: '', name: '频率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -62,7 +66,7 @@ export default [
   { key: 'restraintSkin', event: keyf1, value: '', next: '', name: '约束带处皮肤', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'adrenaline', event: keyf1, value: '', next: '', name: '肾上腺素', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'dopamine', event: keyf1, value: '', next: '', name: '多巴胺', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue', event: keyf1, value: '', next: '', name: '自定义1', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "description", //特殊情况记录
     value: "",

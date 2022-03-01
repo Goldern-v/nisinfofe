@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1300px"
+      width: "1350px"
     },
     th: {
         top: 
@@ -32,9 +32,9 @@ export default {
                 {"name":"深静脉管","colspan":"4","rowspan":"1"},
                 {"name":"尿管","colspan":"2","rowspan":"1"},
                 {"name":"胃管","colspan":"3","rowspan":"1"},
-                {"name":"多<br/>饮","colspan":"1","rowspan":"3","canSet":true,"key":"armValue10","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"多<br/>食","colspan":"1","rowspan":"3","canSet":true,"key":"armValue11","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"多<br/>尿","colspan":"1","rowspan":"3","canSet":true,"key":"armValue12","style":{"minWidth":"20px","maxWidth":"20px"}},
+                {"name":"多饮","colspan":"1","rowspan":"3","canSet":true,"key":"armValue10","style":{"minWidth":"20px","maxWidth":"20px"}},
+                {"name":"多食","colspan":"1","rowspan":"3","canSet":true,"key":"armValue11","style":{"minWidth":"20px","maxWidth":"20px"}},
+                {"name":"多尿","colspan":"1","rowspan":"3","canSet":true,"key":"armValue12","style":{"minWidth":"20px","maxWidth":"20px"}},
                 {"name":"头<br/>晕","colspan":"1","rowspan":"3"},
                 {"name":"头<br/>痛","colspan":"1","rowspan":"3"},
                 {"name":"饮水呛咳","colspan":"1","rowspan":"3","canSet":true,"key":"armValue13","style":{"minWidth":"20px","maxWidth":"20px"}},
@@ -68,7 +68,7 @@ export default {
                 {"name":"固定通畅","colspan":"1","rowspan":"2","canSet":true,"key":"armValue","style":{"minWidth":"20px","maxWidth":"20px"}},
                 {"name":"刻度 cm","colspan":"1","rowspan":"2","canSet":true,"key":"armValue2","style":{"minWidth":"20px","maxWidth":"20px"}},
                 {"name":"穿刺口情况","colspan":"1","rowspan":"2","canSet":true,"key":"armValue3","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"是否留管","colspan":"1","rowspan":"2","canSet":true,"key":"armValue44","style":{"minWidth":"20px","maxWidth":"20px"}},
+                {"name":"是否留管","colspan":"1","rowspan":"2","canSet":true,"key":"armValue4","style":{"minWidth":"20px","maxWidth":"20px"}},
                 {"name":"固定通畅","colspan":"1","rowspan":"2","canSet":true,"key":"armValue5","style":{"minWidth":"20px","maxWidth":"20px"}},
                 {"name":"尿液颜色","colspan":"1","rowspan":"2","canSet":true,"key":"armValue6","style":{"minWidth":"20px","maxWidth":"20px"}},
                 {"name":"固定通畅","colspan":"1","rowspan":"2","canSet":true,"key":"armValue7","style":{"minWidth":"20px","maxWidth":"20px"}},

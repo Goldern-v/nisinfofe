@@ -42,7 +42,7 @@ import {
     { key: 'capillaries', event: keyf1, value: '', next: '', name: '毛细血管反应',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16) ,autoComplete: { data: ['好','迟钝','差'] }},
     { key: 'activity', event: keyf1, value: '', next: '', name: '活动',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16) ,autoComplete: { data: ['自如','受限','障碍'] }},
     { key: 'feeling', event: keyf1, value: '', next: '', name: '感觉',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16) ,autoComplete: { data: ['有','无'] }},
-    { key: 'sphygmus', event: keyf1, value: '', next: '', name: '脉搏',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16) },
+    { key: 'pulse', event: keyf1, value: '', next: '', name: '脉搏',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16) },
     {
       key: "description", //特殊情况记录
       value: "",

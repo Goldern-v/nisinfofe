@@ -84,7 +84,6 @@
       }
     }
     .right-part {
-      margin-left: 199px;
       height: 100%;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
@@ -102,12 +101,13 @@
           flex: 3;
           border-left: 1px solid #eee;
           height: 100%;
-          padding: 10px;
           // margin-top:10px;
-          overflow-y: auto;
         }
       }
     }
+    .isLeft {
+      margin-left: 199px;
+      }
   }
 }
 </style>
