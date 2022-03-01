@@ -1,22 +1,10 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown>
-        <div class="print-btn tool-btn">打印</div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <el-button type="primary" @click="onPrint()"
-              >打印当周</el-button
-            ></el-dropdown-item
-          >
-          <el-dropdown-item
-            ><el-button type="primary" @click="printAll()"
-              >批量打印</el-button
-            ></el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
-
+      <el-button-group>
+        <el-button type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button type="primary" @click="printAll()">批量打印</el-button>
+      </el-button-group>
       <div class="newBorn">
         <div @click="nomalModel()" class="nomal">默认体温单</div>
         /
@@ -24,7 +12,7 @@
       </div>
 
       <div :class="rightSheet===true?'pagination':'paginationRight'">
-        <button :disabled="currentPage === 1" @click="toPre">
+               <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
           首周
         </button>
         <button :disabled="currentPage === 1" @click="currentPage--">
@@ -101,8 +89,8 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        "http://192.168.0.81:9091/temperature/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
-      // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.0.81:9091/temperature/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
+      "http://192.168.1.75:8080/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.0.81:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       withoutPainAll: "http://192.168.0.81:9091/temperature/#/withoutPainAll",
@@ -214,6 +202,9 @@ export default {
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     messageHandle(e) {
       if (e && e.data) {
         switch (e.data.type) {
@@ -221,39 +212,9 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-          // case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
-          // const params = {
-          //   patientId: this.$route.query.patientId,
-          //   visitId: this.$route.query.visitId
-          // };
-          // // 发请求
-          // getNurseExchangeInfo(params.patientId, params.visitId).then(res => {
-          //   const value = {
-          //     adtLog: res.data.data.adtLog,
-          //     bedExchangeLog: res.data.data.bedExchangeLog
-          //   };
-          //   this.$refs.pdfCon.contentWindow.postMessage(
-          //     { type: "nurseExchangeInfo", value },
-          //     "*"
-          //   );
-          // });
-          // const params = {
-          //   patientId: this.$route.query.patientId,
-          //   startLogDateTime: e.data.value.startLogDateTime,
-          //   endLogDateTime: e.data.value.endLogDateTime,
-          //   visitId: this.$route.query.visitId
-          // };
-          // getNurseExchangeInfoByTime(params).then(res => {
-          //   const value = {
-          //     adtLog: res.data.data.adtLog,
-          //     bedExchangeLog: res.data.data.bedExchangeLog
-          //   };
-          //   this.$refs.pdfCon.contentWindow.postMessage(
-          //     { type: "nurseExchangeInfo", value },
-          //     "*"
-          //   );
-          // });
-          // break;
+              case "dblclick":/* 双击查阅体温单子 */
+          this.openRight();
+          break;
           default:
             break;
         }
@@ -321,7 +282,7 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contain {
-  margin: 15px 20px 0;
+  margin: 10px 10px 0 10px;
 
   .tem-con {
     width: 101%;
@@ -346,13 +307,13 @@ export default {
 .pagination {
   display: inline;
   position: relative;
-  left: 10%;
+  left: -10%;
   font-weight: normal;
 }
 .paginationRight{
  display: inline;
   position: relative;
-  left: 25%;
+  left: 10%;
   font-weight: normal;
 }
 .page {
@@ -396,7 +357,7 @@ button[disabled=disabled] {
 .newBorn {
   position: relative;
   top: 2px;
-  left: 65%;
+  left: 55%;
   display: inline-flex !important;
 }
 
