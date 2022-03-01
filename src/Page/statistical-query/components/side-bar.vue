@@ -1,7 +1,7 @@
 <template>
    <div class="side-bar">
      <div class="side-bar__item" :class="{'side-bar__item--act':actIndex == v.name}" v-for="(v, i) in bars" :key="i" @click="handleSelect(v)">
-      <span class="side-bar__item__arrow"></span>
+      <img :src="v.meta.img" alt="">
       <span class="side-bar__item__text">
         {{v.meta.title}}
       </span>
@@ -18,67 +18,78 @@ export default {
         // {
         //   name: "statisticalWorkload",
         //   meta: {
-        //     title: '工作量统计'
+        //     title: '工作量统计',
+        //     img: require("../images/exit-adm.png"),
         //   },
         // },
         {
           name: "statisticalExitAdmission",
           meta: {
-            title: '出入院统计'
+            title: '出入院统计',
+            img: require("../images/exit-adm.png"),
           },
         },
         {
           name: "statisticalOperation",
           meta: {
-            title: '手术统计'
+            title: '手术统计',
+            img: require("../images/operate.png"),
           },
         },
         {
           name: "statisticalNursingLv",
           meta: {
-            title: '护理级别统计'
+            title: '护理级别统计',
+            img: require("../images/lv.png"),
           },
         },
         {
           name: "statisticalVTE",
           meta: {
-            title: 'VTE统计'
+            title: 'VTE统计',
+            img: require("../images/VTE.png"),
           },
         },
         {
           name: "statisticalPressure",
           meta: {
-            title: '压力性损伤统计'
+            title: '压力性损伤统计',
+            img: require("../images/pressure.png"),
           },
         },
         {
           name: "statisticalTemperature",
           meta: {
-            title: '体温统计'
+            title: '体温统计',
+            img: require("../images/exit-adm.png"),
           },
         },
         {
           name: "statisticalPulseHeartRate",
           meta: {
-            title: '脉搏统计'
+            title: '脉搏统计',
+            img: require("../images/pulse.png"),
           },
         },
         {
           name: "statisticalHeartRate",
           meta: {
-            title: '心率统计'
+            title: '心率统计',
+            img: require("../images/heart-rate.png"),
           },
         },
         {
           name: "statisticalBreath",
           meta: {
-            title: '呼吸统计'
+            title: '呼吸统计',
+            img: require("../images/breath.png"),
           },
         },
         {
           name: "statisticalBloodPressure",
           meta: {
-            title: '血压统计'
+            title: '血压统计',
+            img: require("../images/blood-pressure.png"),
           },
         },
       ]
@@ -135,12 +146,14 @@ export default {
   .side-bar__item {
     position: relative;
     display: flex;
-    border-right: 4px solid  $theme-color;
-    height: 36px;
+    height: 44px;
     align-items: center;
     cursor: pointer;
-    .side-bar__item__arrow {
-      width: 70px;
+    img {
+      width: 18px;
+      height: 18px;
+      object-fit: cover;
+      margin: 0 6px 0px 30px;
     }
     .side-bar__item__text {
       flex: 1;
@@ -148,16 +161,15 @@ export default {
     }
     &.side-bar__item--act {
       color: $theme-color;
-      &::after {
-        /* position: absolute; */
+      background: $theme-bg;;
+      border-right: 4px solid  $theme-color;
+      /* &::after {
         content: '';
-        /* right: 4px; */
-        /* top: 50%; */
         border-top: 4px solid transparent;
         border-bottom: 4px solid transparent;
         border-left: 0px solid transparent;
         border-right: 6px solid $theme-color;
-      }
+      } */
     }
   }
 }
