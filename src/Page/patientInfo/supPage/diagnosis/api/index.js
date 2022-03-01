@@ -104,3 +104,11 @@ export const importExcelApi = (body,wardCode)=>{
 export const deleteMeasureTargetsApi = (body)=>{
   return axios.post(`${apiPath}nursingDiags/deleteMeasureTargets`, body);
 }
+
+// 聊城文本模板下载接口
+export const getTemplateApi = ()=>{
+  return axios.get(`${apiPath}nursingDiags/getTemplate`,
+  {
+    responseType: "blob"
+  });
+}
