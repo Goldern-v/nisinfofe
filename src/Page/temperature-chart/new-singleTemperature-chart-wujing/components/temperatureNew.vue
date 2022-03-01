@@ -89,8 +89,8 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        // "http://192.168.0.81:9091/temperature/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
-      "http://192.168.1.75:8080/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
+        "http://192.168.0.81:9091/temperature/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
+      // "http://192.168.1.75:8080/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.0.81:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       withoutPainAll: "http://192.168.0.81:9091/temperature/#/withoutPainAll",
