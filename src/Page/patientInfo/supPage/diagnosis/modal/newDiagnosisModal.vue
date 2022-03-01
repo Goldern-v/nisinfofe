@@ -63,7 +63,7 @@
         <div class="confirm-split-line"></div>
         <div class="confirm-text"  @click.stop="">
           说明：上传前请先
-          <a style="color:#04a580" href="../../../../../assets/xlsx/importTest.xlsx" download="模板文档.xlsx">下载模板</a>
+          <span style="color:#04a580" @click="downloadTemplete">下载模板</span>
           ，按照模板要求将内容填完后，再点击立即上传按钮进行导入
         </div>
         <div class="confirm-btns">
@@ -184,7 +184,7 @@
 
 <script>
 import { apiPath } from "@/api/apiConfig";
-import { nursingDiagsSearch } from "../api/index";
+import { nursingDiagsSearch,getTemplateApi } from "../api/index";
 import diagnosisList from "./list/diagnosisList.vue";
 export default {
   data() {
@@ -201,7 +201,7 @@ export default {
       hasImport:['liaocheng'],
       isConfirm:false,
       fileList:[],
-      isImportModuleDevSuccess:false,
+      isImportModuleDevSuccess:true,
       apiPath,
     };
   },
@@ -296,6 +296,22 @@ export default {
       if(response.code!=200)return this.$message.error(response.desc)
       this.$message.success('成功导入诊断知识')
     },
+    downloadTemplete(){
+      getTemplateApi().then(res=>{
+          let blob = new Blob([res.data], {
+            type: res.data.type // 'application/vnd.ms-excel;charset=utf-8'
+          });
+
+          let a = document.createElement("a");
+          let href = window.URL.createObjectURL(blob); // 创建链接对象
+          a.href = href;
+          a.download = '模板文件.xlsx'; // 自定义文件名
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(href);
+          document.body.removeChild(a); // 移除a元素
+      })
+    }
   },
   components: {
     diagnosisList

@@ -155,7 +155,7 @@
       ></el-date-picker>
     </div>
     </div>
-    
+
     <div class="search-box">
       <div class="title">病人信息</div>
       <div class="input-con">
@@ -176,6 +176,8 @@
     </div>
     <div class="search-btn" flex="cross:center main:center" @click="search" v-touch-ripple>检索</div>
     <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='2'&&hasSynchronize.includes(HOSPITAL_ID)" @click="synchronize" v-touch-ripple>同步</div>
+    <div class="search-btn2" flex="cross:center main:center" v-if="['wujing'].includes(HOSPITAL_ID)" @click="handleExport" v-touch-ripple>导出</div>
+
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -344,6 +346,9 @@ export default {
     synchronize(){
       this.$parent.page.pageIndex = 1;
       synchronizeHengLi()
+    },
+    handleExport() {
+      this.$parent.handleExport()
     }
   },
   components: {}
