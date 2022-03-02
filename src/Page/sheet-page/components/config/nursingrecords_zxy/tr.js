@@ -105,9 +105,9 @@ export default [
     value: "",
     event: keyf1,
     name: "入量名称",
-    change: (e, td) => limitChange(e, td, 20),
+    change: (e, td) => limitChange(e, td, 40),
     textarea: {
-      width: 95,
+      width: 135,
     },
     autoComplete: {
       data: 入量名称
@@ -121,7 +121,7 @@ export default [
     name: "入量",
     next: "ml",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -145,7 +145,7 @@ export default [
     name: "出量",
     next: "ml",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -217,7 +217,7 @@ export default [
       background: "transparent",
     },
     textarea: {
-      width: 430
+      width: 380
     },
     event: function (e, td) {
       console.log(e.keyCode);
