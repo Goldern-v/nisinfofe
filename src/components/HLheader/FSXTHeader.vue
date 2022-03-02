@@ -60,6 +60,11 @@
                 <i class="iconfont icon-chuangweiyilanqia"></i> 床位一览卡
               </el-row>
             </router-link>
+            <router-link to="/allCatheter" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 导管
+              </el-row>
+            </router-link>
             <!-- <router-link to="/sheetHospitalAdmission" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulijiludan"></i> 入院评估
