@@ -69,7 +69,16 @@
             align="center"
           >
             <template slot-scope="scope">
-              <span v-if="(!identicalGroupSelect.includes(HOSPITAL_ID))||scope.row.isFirst">{{ scope.row.recordDate.split(" ")[0] }}</span>
+              <span v-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{ scope.row.recordDate.split(" ")[0] }}</span>
+              <masked-input 
+                v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst" 
+                class="mask-input"
+                :style="{width:'100%',border:'none',background:'transparentify',textAlign:'center'}"
+                :value="scope.row.recordDate.split(' ')[0]" 
+                @input="(value)=>changeRecordDate(scope.row,'Month',value)"
+                type="text"
+                :mask="() =>[/\d/, /\d/,/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]"
+              />
             </template>
           </el-table-column>
           <el-table-column
@@ -79,7 +88,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <span v-if="(!identicalGroupSelect.includes(HOSPITAL_ID))||scope.row.isFirst">{{ scope.row.recordDate.split(" ")[1] }}</span>
+              <span v-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{ scope.row.recordDate.split(" ")[1] }}</span>
+              <!-- <el-input v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst" :value="scope.row.recordDate.split(' ')[1]" @input="(value)=>changeRecordDate(scope.row,'Hour',value)"></el-input> -->
+              <masked-input 
+                v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst" 
+                class="mask-input"
+                :style="{width:'100px',border:'none',background:'transparentify'}"
+                :value="scope.row.recordDate.split(' ')[1]" 
+                @input="(value)=>changeRecordDate(scope.row,'Hour',value)"
+                type="text"
+                :mask="() =>[/\d/, /\d/, ':', /\d/, /\d/]"
+              />
             </template>
           </el-table-column>
           <el-table-column
@@ -273,7 +292,13 @@ export default {
         })
         temArr = filterList
       }
-      
+      if(this.identicalGroupSelect.includes(this.HOSPITAL_ID)){
+        let firstTime = ''
+        temArr.map(item=>{
+          item.isFirst && (firstTime = item.recordDate)
+          !item.isFirst && (item.recordDate = firstTime)
+        })
+      }
       saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
         this.$message.success("保存成功");
         this.close();
@@ -400,6 +425,12 @@ export default {
       }).map(item=>{
       this.$refs['zxdtb-table'].toggleRowSelection(item,isAdd)
       })
+    },
+    changeRecordDate(row,type,newVal){
+      let [month,hours] = row.recordDate.split(' ')
+      type=='Hour' && (hours = newVal)
+      type=='Month' && (month = newVal)
+      row.recordDate = `${month} ${hours}`
     }
   },
   computed: {
