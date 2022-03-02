@@ -8,18 +8,18 @@
         <div class="close-btn" @click="close">
           <i class="el-icon-close"></i>
         </div>
-        <div class="save-btn" @click="save" v-if="status === '0'">
+        <div class="save-btn" @click="save" v-if="!isEdit && status === '0'">
           <div v-touch-ripple>添加</div>
         </div>
-        <div class="save-btn" @click="save" v-if="status === '1'">
+        <div class="save-btn" @click="save" v-if="!isEdit && status === '1'">
           <div v-touch-ripple>更新</div>
         </div>
-        <div class="save-btn disabled" v-if="status === '2'">
+        <div class="save-btn disabled" v-if="!isEdit && status === '2'">
           <div>已停止</div>
         </div>
         <div class="contain">
           <div class="date-con">
-            <span>开始时间：</span>
+            <span style="line-height:2">开始时间：</span>
             <el-date-picker
               format="yyyy-MM-dd HH:mm"
               size="small"
