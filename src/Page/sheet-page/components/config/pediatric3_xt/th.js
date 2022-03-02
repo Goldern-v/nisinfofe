@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1360px"
+      width: "1290px"
     },
     th: {
         top: 
@@ -32,7 +32,7 @@ export default {
                 {"name":"喂养","colspan":"5","rowspan":"1"},
                 {"name":"呕<br/>吐","colspan":"1","rowspan":"3"},
                 {"name":"性<br/>质","colspan":"1","rowspan":"3"},
-                {"name":"脐部<br/>情况","colspan":"3","rowspan":"1"},
+                {"name":"脐部情况","colspan":"3","rowspan":"1"},
                 {"name":"皮<br/>肤<br/>颜<br/>色","colspan":"1","rowspan":"3"},
                 {"name":"皮<br/>肤<br/>弹<br/>性","colspan":"1","rowspan":"3"},
                 {"name":"皮<br/>疹<br/>位<br/>置","colspan":"1","rowspan":"3"},
