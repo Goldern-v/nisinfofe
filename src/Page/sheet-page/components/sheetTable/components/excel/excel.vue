@@ -182,7 +182,7 @@
           ></div>
           <div
             v-else-if="
-              (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou') &&
+              (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'||HOSPITAL_ID === 'liaocheng') &&
               td.key == 'sign2'
             "
             class="sign-text"
@@ -241,7 +241,10 @@
                   sheetInfo.sheetType === 'postpartumnursing_jm' ||
                   sheetInfo.sheetType === 'entdepartment_jm' ||
                   sheetInfo.sheetType === 'catheterplacement_jm' ||
-                  sheetInfo.sheetType === 'obstetricnursing_jm') &&
+                  sheetInfo.sheetType === 'obstetricnursing_jm' ||
+                  sheetInfo.sheetType === 'internal_eval_lcey' ||
+                  sheetInfo.sheetType === 'critical_new_lcey'||
+                  sheetInfo.sheetType === 'critical_lcey')&&
                 tr.find((item) => item.key == 'signerNo2').value
               "
               >/</span
@@ -451,8 +454,10 @@
         :class="{
           'sh-time':
             sheetInfo.sheetType === 'internal_eval_lcey' ||
-            sheetInfo.sheetType === 'critical_lcey',
+            sheetInfo.sheetType === 'critical_lcey'||
+            sheetInfo.sheetType === 'critical_new_lcey',
         }"
+
       >
         <span
           v-if="
@@ -670,6 +675,9 @@ export default {
         "catheterplacement_jm", //江门妇幼_深静脉导管置入术后维护单
 
         "cardiology_fs", //佛山市一_心内科通用护理记录单
+        "internal_eval_lcey",//聊城_一般患者护理记录单
+        "critical_new_lcey",//聊城_病重（危）患者护理记录单(带瞳孔）
+        "critical_lcey",//聊城_病重（病危）患者护理记录单（带瞳孔）
       ],
       // 底部两个签名的其中一个自定义字段
       doubleSignArr: [],
@@ -971,7 +979,7 @@ export default {
               multiSign: this.multiSign || false,
               // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
               signType:
-                this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"
+                this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
                   ? this.signType
                   : "",
             };
@@ -1056,7 +1064,7 @@ export default {
             multiSign: this.multiSign,
             // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
             signType:
-              this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"
+              this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
                 ? this.signType
                 : "",
           }).then((res) => {

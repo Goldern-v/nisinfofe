@@ -1611,7 +1611,7 @@ export default function Title(
   }
   break;
   case "prenataldelivery2_xt": {
-    // 佛山杏坛 - 护理记录单(产前待产记录)（未测试）
+    // 佛山杏坛 - 护理记录单(产前待产记录)
     Th = JSON.parse(
       JSON.stringify(require("../config/prenataldelivery2_xt/th.js").default)
     );
@@ -1625,28 +1625,28 @@ export default function Title(
   }
   break;
   case "gynaecology2_xt": {
-    // 佛山杏坛 - 护理记录单(妇科专科)（未测试）
+    // 佛山杏坛 - 护理记录单(妇科专科)
     Th = JSON.parse(
       JSON.stringify(require("../config/gynaecology2_xt/th.js").default)
     );
   }
   break;
   case "pediatric3_xt": {
-    // 佛山杏坛 - 护理记录单(产科新生儿科)（未测试）
+    // 佛山杏坛 - 护理记录单(产科新生儿科)
     Th = JSON.parse(
       JSON.stringify(require("../config/pediatric3_xt/th.js").default)
     );
   }
   break;
   case "paediatrician2_xt": {
-    // 佛山杏坛 - 护理记录单(儿科)（未测试）
+    // 佛山杏坛 - 护理记录单(儿科)
     Th = JSON.parse(
       JSON.stringify(require("../config/paediatrician2_xt/th.js").default)
     );
   }
   break;
   case "neonatalspecialty2_xt": {
-    // 佛山杏坛 - 护理记录单(新生儿专科)（未测试）
+    // 佛山杏坛 - 护理记录单(新生儿专科)
     Th = JSON.parse(
       JSON.stringify(require("../config/neonatalspecialty2_xt/th.js").default)
     );

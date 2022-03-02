@@ -1226,7 +1226,7 @@ function switechSheetType(type) {
     }
       break;
     case "prenataldelivery2_xt": {
-      // 佛山杏坛 - 护理记录单(产前待产记录)（未测试）
+      // 佛山杏坛 - 护理记录单(产前待产记录) 
       schema = require("../config/prenataldelivery2_xt/tr.js").default;
     }
       break;
@@ -1236,22 +1236,22 @@ function switechSheetType(type) {
     }
       break;
     case "gynaecology2_xt": {
-      // 佛山杏坛 - 护理记录单(妇科专科)（未测试）
+      // 佛山杏坛 - 护理记录单(妇科专科)
       schema = require("../config/gynaecology2_xt/tr.js").default;
     }
       break
     case "pediatric3_xt": {
-      // 佛山杏坛 - 护理记录单(产科新生儿科)（未测试）
+      // 佛山杏坛 - 护理记录单(产科新生儿科)
       schema = require("../config/pediatric3_xt/tr.js").default;
     }
       break
     case "paediatrician2_xt": {
-      // 佛山杏坛 - 护理记录单(儿科)（未测试）
+      // 佛山杏坛 - 护理记录单(儿科)
       schema = require("../config/paediatrician2_xt/tr.js").default;
     }
       break
     case "neonatalspecialty2_xt": {
-      // 佛山杏坛 - 护理记录单(新生儿专科)（未测试）
+      // 佛山杏坛 - 护理记录单(新生儿专科)
       schema = require("../config/neonatalspecialty2_xt/tr.js").default;
     }
       break

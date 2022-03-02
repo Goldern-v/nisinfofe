@@ -15,15 +15,6 @@
             >
               <el-button type="primary" slot="append" v-touch-ripple @click="searchBybtn">搜索</el-button>
             </el-autocomplete>
-            <div style="width:20px;" v-if="isImportModuleDevSuccess && hasImport.includes(HOSPITAL_ID)"></div>
-            <div class="import-btn">
-              <el-button 
-                type="primary" 
-                v-if="isImportModuleDevSuccess && hasImport.includes(HOSPITAL_ID)" 
-                v-touch-ripple 
-                @click="openImportModal"
-              >导入</el-button>
-            </div>
           </div>
           <div class="cache-con">
             <span>历史记录：</span>
@@ -52,6 +43,15 @@
           layout="prev, pager, next, jumper"
           :total="totalCount"
         ></el-pagination>
+        <div style="flex:1;"></div>
+        <div class="import-btn">
+          <el-button 
+            type="primary" 
+            v-if="isImportModuleDevSuccess && hasImport.includes(HOSPITAL_ID)" 
+            v-touch-ripple 
+            @click="openImportModal"
+          >导入</el-button>
+        </div>
       </div>
     </sweet-modal>
     <div v-if="isConfirm" class="confirm-box" @click.stop="isConfirm = false">
@@ -110,6 +110,7 @@
   color: #999999;
   margin 8px 0 0
 .page-con
+  display:flex;
   text-align left
   margin 18px 0 5px
 .list-con
@@ -134,7 +135,7 @@
 }
 .confirm-box{
   position: fixed;
-  z-index:1001; 
+  z-index:100021; 
   top:0;
   left: 0;
   width: 100vw;
@@ -270,7 +271,6 @@ export default {
       // );
     },
     openImportModal(){
-      this.close()
       this.isConfirm = true
     },
     handleExceed(files, fileList) {
