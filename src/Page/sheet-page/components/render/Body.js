@@ -1226,7 +1226,7 @@ function switechSheetType(type) {
     }
       break;
     case "prenataldelivery2_xt": {
-      // 佛山杏坛 - 护理记录单(产前待产记录)（未测试）
+      // 佛山杏坛 - 护理记录单(产前待产记录) 
       schema = require("../config/prenataldelivery2_xt/tr.js").default;
     }
       break;
