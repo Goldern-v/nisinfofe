@@ -314,8 +314,8 @@ export default {
         this.$store.commit("upCurrentPatientObj", patient);
         this.$store.commit("upWardCode", patient.wardCode || "");
         this.$store.commit("upWardName", patient.wardName || "");
-        //
-        this.callFunction(patient);
+        //patient 参数 true是否要滚动到最后一页
+        this.callFunction(patient,true);
         //
       }
     },
@@ -333,7 +333,12 @@ export default {
       });
     },
     async fetchData() {
-      let currentPatient = this.$store.getters.getCurrentPatient();
+      let currentPatient = ''
+      if(this.HOSPITAL_ID == 'whfk'){
+        currentPatient = ''
+      }else{
+        currentPatient = this.$store.getters.getCurrentPatient();
+      }
       let patientId =
         this.$route.params.patientId || currentPatient.patientId || "";
       let visitId = this.$route.params.visitId || currentPatient.visitId || "";

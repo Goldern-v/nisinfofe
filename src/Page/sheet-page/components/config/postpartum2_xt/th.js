@@ -37,7 +37,7 @@ export default {
                 {"name":"会<br/>阴<br/>伤<br/>口<br/>疼<br/>痛","colspan":"1","rowspan":"3"},
                 {"name":"排<br/>气","colspan":"1","rowspan":"3"},
                 {"name":"排<br/>尿","colspan":"1","rowspan":"3"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue","style":{"minWidth":"25px","maxWidth":"25px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue1","style":{"minWidth":"25px","maxWidth":"25px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue2","style":{"minWidth":"25px","maxWidth":"25px"}},
                 {"name":"压<br/>沙<br/>袋","colspan":"1","rowspan":"3"},
                 {"name":"预<br/>防<br/>尿<br/>潴<br/>留","colspan":"1","rowspan":"3"},

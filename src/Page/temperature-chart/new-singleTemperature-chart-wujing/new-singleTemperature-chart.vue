@@ -19,7 +19,7 @@
           :isSelectPatient="isSelectPatient"
         ></patientList>
       </div>
-      <div class="right-part" v-loading="tableLoading">
+      <div class="right-part" v-loading="tableLoading"  :class="openLeft ? 'isLeft' : 'isRight'">
         <div class="sheetTable-contain">
           <temperatureNew
             class="contain-center"
@@ -69,7 +69,6 @@
     }
 
     .right-part {
-      margin-left: 199px;
       height: 100%;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
@@ -87,12 +86,15 @@
           flex: 3;
           border-left: 1px solid #eee;
           height: 100%;
-          padding: 10px;
           // margin-top:10px;
         }
       }
     }
   }
+  .isLeft {
+      margin-left: 199px;
+      }
+
 }
 </style>
 

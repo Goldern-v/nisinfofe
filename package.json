@@ -5,7 +5,7 @@
   "author": "lzj",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js",
+    "dev": "node build/dev-server.js --max_old_space_size=8192",
     "dev:": "npm run dev",
     "dev:wuhang": "npm run dev --wuhang",
     "dev:huadu": "npm run dev --huadu",

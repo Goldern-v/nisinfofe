@@ -275,7 +275,7 @@ export default {
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
     // 江门妇幼的护理单打印双数页面会翻转,横沥ICU机械通气护理单。修复
-    if(this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"||this.HOSPITAL_ID==="wujing"){
+    if(this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"||this.HOSPITAL_ID==="wujing"||this.HOSPITAL_ID==="fsxt"){
       printDir("h");
             addCSS(
               window,
@@ -381,6 +381,18 @@ export default {
         @media print {
           @page{
             margin:-55px 0 0;
+          }
+        }
+        `
+      );
+    }
+    if(this.sheetInfo.sheetType=="cardiovascular_xt"){
+      addCSS(
+        window,
+        `
+        @media print {
+          @page{
+            margin-top: -30px;
           }
         }
         `

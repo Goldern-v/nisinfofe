@@ -35,7 +35,7 @@ import {
     { hidden: true, key: 'recordDate', value: '' },
     { key: "recordMonth", event: event_date, click: click_date, value: ''},
     { key: "recordHour", event: event_time,  value: ''},
-    { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
+    { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
     { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
     { key: 'abp', event: keyf1, value: '', name: 'ABP',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },
     { key: 'cvp', event: keyf1, value: '', name: 'CVP',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 10) },

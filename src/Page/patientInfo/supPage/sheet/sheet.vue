@@ -914,7 +914,7 @@ export default {
       this.$refs.syncExamTestModal.open(tr, td, sheetModel);
     });
     this.bus.$on("ImportExamCallBack", (str) => {
-      // console.log(this.sheetModel[0].bodyModel[0][18].value);
+      // console.log(this.sheetModel[0].bodyModel[0][18].value, 88881);
       this.bus.$emit('saveSheetPage','noSaveSign')
     });
   },

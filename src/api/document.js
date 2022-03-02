@@ -43,4 +43,16 @@ export function listNurseAdtFuYou(data) {
   //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
 }
 
-
+/**
+ * 武警导出
+ * @param {} params
+ * @returns
+ */
+export function handleExport(params) {
+  return axios.post(
+    `${apiPath}patient/exportPatList`,
+    params,
+    {
+      responseType: "blob"
+    })
+}

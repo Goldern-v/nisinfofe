@@ -97,6 +97,7 @@
     <evalModel ref="evalModel"></evalModel>
     <syncToIsbarModal ref="syncToIsbarModal"></syncToIsbarModal>
     <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
+    <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
     <!-- 电子病例弹窗 -->
     <doctorEmr v-if="HOSPITAL_ID === 'huadu'" />
   </div>
@@ -289,6 +290,7 @@ import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
 import syncToIsbarModal from "@/Page/sheet-page/components/modal/sync-toIsbar-modal.vue";
 import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
+import syncExamAmountModal from "@/Page/sheet-page/components/modal/async-exam-amount-modal";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
@@ -1096,8 +1098,11 @@ export default {
     this.bus.$on("syncImportExam", (tr, td) => {
       this.$refs.syncExamTestModal.open(tr, td, sheetModel);
     });
+    this.bus.$on("syncImportAmountExam", (tr, td) => {
+      this.$refs.syncExamAmountModal.open(tr, td, sheetModel);
+    });
     this.bus.$on("ImportExamCallBack", (str) => {
-      // console.log(this.sheetModel[0].bodyModel[0][18].value);
+      console.log(this.sheetModel[0].bodyModel[0][18].value);
       this.bus.$emit('saveSheetPage','noSaveSign')
     });
   },
@@ -1167,6 +1172,7 @@ export default {
     pizhuModal,
     syncToIsbarModal,
     syncExamTestModal,
+    syncExamAmountModal,
     sheetTableNeonatology,
     sheetTablePost_partum,
     evalModel,

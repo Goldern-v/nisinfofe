@@ -1590,21 +1590,21 @@ export default function Title(
   }
   break;
   case "cardiovascular_xt": {
-    // 佛山杏坛 - 护理记录单(心血管呼吸专科)（未测试）
+    // 佛山杏坛 - 护理记录单(心血管呼吸专科)
     Th = JSON.parse(
       JSON.stringify(require("../config/cardiovascular_xt/th.js").default)
     );
   }
   break;
   case "criticaldisease_xt": {
-    // 佛山杏坛 - 危重症护理记录单（未测试）
+    // 佛山杏坛 - 危重症护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/criticaldisease_xt/th.js").default)
     );
   }
   break;
   case "pentagram2_xt": {
-    // 佛山杏坛 - 护理记录单（眼耳鼻咽喉科）（未测试）
+    // 佛山杏坛 - 护理记录单（眼耳鼻咽喉科）
     Th = JSON.parse(
       JSON.stringify(require("../config/pentagram2_xt/th.js").default)
     );
@@ -1618,30 +1618,93 @@ export default function Title(
   }
   break;
   case "postpartum2_xt": {
-    // 佛山杏坛 - 护理记录单(产后)（未测试）
+    // 佛山杏坛 - 护理记录单(产后)
     Th = JSON.parse(
       JSON.stringify(require("../config/postpartum2_xt/th.js").default)
     );
   }
   break;
   case "gynaecology2_xt": {
-    // 佛山杏坛 - 护理记录单(妇科专科)（未测试）
+    // 佛山杏坛 - 护理记录单(妇科专科)
     Th = JSON.parse(
       JSON.stringify(require("../config/gynaecology2_xt/th.js").default)
     );
   }
   break;
   case "pediatric3_xt": {
-    // 佛山杏坛 - 护理记录单(产科新生儿科)（未测试）
+    // 佛山杏坛 - 护理记录单(产科新生儿科)
     Th = JSON.parse(
       JSON.stringify(require("../config/pediatric3_xt/th.js").default)
     );
   }
   break;
   case "paediatrician2_xt": {
-    // 佛山杏坛 - 护理记录单(儿科)（未测试）
+    // 佛山杏坛 - 护理记录单(儿科)
     Th = JSON.parse(
       JSON.stringify(require("../config/paediatrician2_xt/th.js").default)
+    );
+  }
+  break;
+  case "neonatalspecialty2_xt": {
+    // 佛山杏坛 - 护理记录单(新生儿专科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatalspecialty2_xt/th.js").default)
+    );
+  }
+  break;
+  case "gastroenterology_xt": {
+    // 佛山杏坛 - 护理记录单(消化专科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/gastroenterology_xt/th.js").default)
+    );
+  }
+  break;
+  case "care3_xt": {
+    // 佛山杏坛 - 护理记录单(内三科通用单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/care3_xt/th.js").default)
+    );
+  }
+  break;
+  case "care2_xt": {
+    // 佛山杏坛 - 外一护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/care2_xt/th.js").default)
+    );
+  }
+  break;
+  case "general2_xt": {
+    // 佛山杏坛 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general2_xt/th.js").default)
+    );
+  }
+  break;
+  case "fracture_xt": {
+    // 佛山杏坛 - 护理记录单（骨折）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/fracture_xt/th.js").default)
+    );
+  }
+  break;
+  case "spine_xt": {
+    // 佛山杏坛 - 护理记录单（脊柱）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/spine_xt/th.js").default)
+    );
+  }
+  break;
+  case "craniocerebral_xt": {
+    // 佛山杏坛 - 护理记录单（颅脑）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/craniocerebral_xt/th.js").default)
+    );
+  }
+  break;
+  case "general_xt": {
+    // 佛山杏坛 - 护理记录单（通用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general_xt/th.js").default)
     );
   }
   break;

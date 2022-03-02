@@ -31,6 +31,9 @@ import {
   click_time
 } from "../keyEvent/date";
 
+let ysList = ['√','+','±','++','+++','谵妄']
+let tyList = ['○','I','II','III','√','×','+','++','+++','A','B','C','D','E','F','G','H','I']
+
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -39,33 +42,33 @@ export default [
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'Spo2', event: keyf1, value: '', next: '%', name: 'SpO2', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SpO2', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: ysList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量项目', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'fetalPosition', event: keyf1, value: '', next: '', name: '胎位', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'fetalPosition', event: keyf1, value: '', next: '', name: '胎位', autoComplete: { data: ['LOA','ROA','LSA','RSA'] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'fetalHeart', event: keyf1, value: '', next: '', name: '胎心音', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'fetalMovements', event: keyf1, value: '', next: '次/分', name: '数胎动', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'cohesion', event: keyf1, value: '', next: '', name: '衔接', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'not', event: keyf1, value: '', next: '', name: '无', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'cohesion', event: keyf1, value: '', next: '', name: '衔接', autoComplete: { data: ['已','未','部分'] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'mei', event: keyf1, value: '', next: '', name: '无', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'persistent', event: keyf1, value: '', next: '秒/分', name: '持续', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'intermission', event: keyf1, value: '', next: '秒/分', name: '间歇', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'strength', event: keyf1, value: '', next: '', name: '强度', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'cervicalDilation', event: keyf1, value: '', next: 'cm', name: '宫颈扩张', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'strength', event: keyf1, value: '', next: '', name: '强度', autoComplete: { data: ['无','偶有','敏感','不规则','弱','中','强'] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'cervicalDilation', event: keyf1, value: '', next: 'cm', name: '宫颈扩张', autoComplete: { data: ['未开','容一指'] }, textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'showHigh', event: keyf1, value: '', next: 'cm', name: '先露高低', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'caul', event: keyf1, value: '', next: '', name: '胎膜', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'amnioticTraits', event: keyf1, value: '', next: '', name: '羊水性状', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'caul', event: keyf1, value: '', next: '', name: '胎膜', autoComplete: { data: ['已','未'] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'amnioticTraits', event: keyf1, value: '', next: '', name: '羊水性状', autoComplete: { data: ['清','Ⅰ°','Ⅱ°','Ⅲ°','血性'] }, textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'innerCervical', event: keyf1, value: '', next: '', name: '宫颈内口探查', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygenInhalation', event: keyf1, value: '', next: '升/分', name: '吸氧', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'heartMonitoring', event: keyf1, value: '', next: '', name: '胎心监护', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'microcomputerBlood', event: keyf1, value: '', next: 'mmol/L', name: '微机血糖', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'kneeReflex', event: keyf1, value: '', next: '', name: '膝反射', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'nursingSafety', event: keyf1, value: '', next: '', name: '护理安全', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'nursingMeasures', event: keyf1, value: '', next: '', name: '护理措施', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'reportDoctor', event: keyf1, value: '', next: '', name: '报告医生', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'nursingSafety', event: keyf1, value: '', next: '', name: '护理安全', autoComplete: { data: ['A','B','C','D','E','F','G'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'nursingMeasures', event: keyf1, value: '', next: '', name: '护理措施', autoComplete: { data: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'reportDoctor', event: keyf1, value: '', next: '', name: '报告医生', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'continueObserve', event: keyf1, value: '', next: '', name: '遵医嘱继续观察', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "description", //特殊情况记录

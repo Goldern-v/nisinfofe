@@ -2,11 +2,6 @@
   <div flex-box="1" class="table-box blood-sugar-table">
     <table>
       <tr>
-       <!--  <th
-          style="width: 2%; min-width: 20px"
-        >
-          序号
-        </th> -->
         <th style="width: 24%;">日期</th>
         <th
           style="width: 19%;"
@@ -23,46 +18,63 @@
         </th>
         <th style="width: 19%">{{ '签名' }}</th>
       </tr>
-      <tr
-        v-for="(item,index) in renderData"
-        :class="{ selected: selected === item }"
-        :key="index+'item.sugarValue'"
-        @click="onSelect(item)"
-        @blur="handleBlur(item)"
-      >
-        <td>
-          <div class="cell">
-            <!-- {{ item.date }} -->
-            <input type="text" v-model="item.dateStr">
-          </div>
-        </td>
-        <td>
-          <div class="cell">
-            <input type="text" v-model="item.timeStr" @input="inputTime(item,'timeStr',':')">
-          </div>
-        </td>
-        <td>
-          <div class="cell">
-            <input type="text" v-model="item.sugarOxygen">
-          </div>
-        </td>
-        <td>
-          <div class="cell">
-            <input type="text" v-model="item.heartRate">
-          </div>
-        </td>
-        <td>
-          <div class="cell noPrint"  @click="openSignModal">{{ item.signerNo }}</div>
-          <div :class="['cell','inPrint']">
-            <!-- {{item.nurseEmpNo}} -->
-            <img
-              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
-              :alt="item.nurse"
-              v-if="item.nurseEmpNo"
-            />
-          </div>
-        </td>
-      </tr>
+        <tr
+          v-for="(item,index) in renderData"
+          :class="{ selected: selected === item }"
+          :key="index+'item.sugarValue'"
+          @click="onSelect(item,renderData)"
+        >
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
+            <div class="cell noPrint">
+              <!-- {{ item.date }} -->
+              <input type="text" v-model="item.dateStr" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " />
+            </div>
+            <div :class="['cell','inPrint']">
+              {{item.dateStr}}
+            </div>
+          </td>
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
+            <div class="cell noPrint">
+              <input type="text" v-model="item.timeStr" @input="inputTime(item,'timeStr',':')" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " />
+            </div>
+            <div :class="['cell','inPrint']">
+              {{item.timeStr}}
+            </div>
+          </td>
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
+            <div class="cell noPrint">
+              <input type="text" v-model="item.sugarOxygen" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " /> 
+            </div>
+             <div :class="['cell','inPrint']">
+              {{item.sugarOxygen}}
+            </div>
+          </td>
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
+            <div class="cell noPrint">
+              <input type="text" v-model="item.heartRate" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " />
+            </div>
+             <div :class="['cell','inPrint']">
+              {{item.heartRate}}
+            </div>
+          </td>
+          <td>
+            <div class="cell noPrint"  @click="openSignModal(item)">
+              <img
+                :src="`/crNursing/api/file/signImage/${item.signerNo}?${token}`"
+                :alt="item.signerNo"
+                v-if="item.signerNo"
+              /></div>
+            <div :class="['cell','inPrint']">
+              <!-- {{item.nurseEmpNo}} -->
+              <img
+                :src="`/crNursing/api/file/signImage/${item.signerNo}?${token}`"
+                :alt="item.signerNo"
+                v-if="item.signerNo"
+              />
+            </div>
+          </td>
+        </tr>
+    
     </table>
   </div>
 </template>
@@ -92,6 +104,9 @@
         background: #FFF8B1;
       }
     }
+    .saveRed{
+        border:1px solid red;
+    }
 
     td {
       height: 29px;
@@ -114,8 +129,10 @@
         }
       }
 
+      
+
       img {
-        width: 60%;
+        width: 65%;
         height: 100%;
         //object-fit: cover;
         object-fit: contain !important;
@@ -156,11 +173,15 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import * as apis from "../api";
+import { length } from 'sockjs-client/lib/transport-list';
 export default {
   props: {
     data: Array,
     selected: Object,
     baseIndex:Number,
+    patientInfo:Object,
+    saveParams:Object,
+    isToPrint:Boolean,
   },
   mixins: [common],
   data() {
@@ -173,33 +194,22 @@ export default {
       if (!this.data) return;
       let renderData = [];
       let firstDate = "";
-      console.log('this.data',this.data)
-      for (let i = 0; i < this.data.length; i++) {
-        let obj = this.data[i];
-        let date = this.data[i].md.split(" ")[0];
-        let time = this.data[i].md.split(" ")[1];
-        if (firstDate != date) {
-          obj.date = date;
-        } else {
-          obj.date = "";
+      // console.log(this.data,"this.data")
+      if(this.data.length == 0){
+        while (renderData.length <= 26) {
+          renderData.push( {dateStr:'',timeStr:'',sugarOxygen:'',heartRate:'',signerNo :'',patientId:this.patientInfo.patientId,visitId:this.patientInfo.visitId});
         }
-        firstDate = date;
-        obj.time = time;
-        renderData.push(obj);
+      }else{
+        // console.log(this.data,"this.data")
+        renderData=Array.from({length: 27}, () => {
+            return {dateStr:'',timeStr:'',sugarOxygen:'',heartRate:'',signerNo :'',patientId:this.patientInfo.patientId,visitId:this.patientInfo.visitId}
+          })
+        this.data.map((item,index)=>{
+          renderData[index] = item
+        })
       }
-      while (renderData.length <= 26) {
-        renderData.push({});
-      }
-      console.log(renderData);
       return renderData;
     },
-  },
-  watch:{
-    renderData:{
-      handler(newvla){
-        console.log(newvla)
-      }
-    }
   },
   filters: {
     formatDate(val) {
@@ -226,28 +236,66 @@ export default {
         this.lastValue = rowItem[code]
       }
     },
-    onSelect(item) {
-      this.$emit("update:selected", item);
+    onSelect(item,renderData) {
+      console.log(renderData)
+      this.$emit("renderData",item, renderData);
+      this.$emit("update:selected",item);
       if(!item.dateStr){
-        item.dateStr = new Date().Format("MM-dd");
+        item.dateStr = new Date().Format("yyyy-MM-dd");
       }
       if(!item.timeStr){
         item.timeStr = new Date().Format("hh:mm");
       }
     },
-    handleBlur(item){
-      console.log(item,'item')
-    },
     onDblClick(item) {
       this.$emit("dblclick", item);
     },
-    openSignModal() {
-      window.openSignModal((password, empNo) => {
-        apis.getUser(password, empNo).then((res) => {
-          this.curEmpName = res.data.data.empName;
-          this.curEmpNo = res.data.data.empNo;
-        });
-      });
+    openSignModal(itemRow) {
+      if(!itemRow.signerNo){
+          window.openSignModal((password, empNo) => {
+            this.saveParams.empNo = empNo;
+            this.saveParams.password = password;
+            this.saveParams.list = [itemRow];
+            let fkformCode = 'sugar_oxygen'
+            itemRow.signerNo
+              apis.rowSign(this.saveParams,'others',fkformCode).then((res) => {
+                // console.log(res)
+                if(res.data.code == 200 && res.data.data != null){
+                  itemRow = res.data.data[0]
+                  this.$message({
+                    message: '签名成功',
+                    type: 'success'
+                  })
+                  this.$emit('refresh')
+                }
+              });
+          });
+          }else{
+            console.log(window.app.$refs,'window')
+            /**行数据取消签名 */
+            // export const cancelRowSign = (params, formType, formCode) => {
+            //   return axios.post(`${apiPath}${formType}/${formCode}/cancelSign`, params)
+            // }
+             window.openSignModal((password, empNo) => {
+            this.saveParams.empNo = empNo;
+            this.saveParams.password = password;
+            this.saveParams.list = [itemRow];
+            let fkformCode = 'sugar_oxygen'
+            itemRow.signerNo
+              apis.cancelRowSign(this.saveParams,'others',fkformCode).then((res) => {
+                // console.log(res)
+                if(res.data.code == 200 && res.data.data != null){
+                  itemRow = res.data.data[0]
+                  this.$message({
+                    message: '取消签名成功',
+                    type: 'success'
+                  })
+                  this.$emit('refresh')
+                }
+              });
+          },'取消签名');
+           
+          }
     },
   },
   components: {},

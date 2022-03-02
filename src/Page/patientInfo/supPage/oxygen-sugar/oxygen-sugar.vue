@@ -42,7 +42,11 @@
             <sugarTable
               :data="item.left"
               :selected.sync="selected"
-              @dblclick="hisDisabled() && onEdit()"
+              :patientInfo.sync="patientInfo"
+              :saveParams.sync="saveParams"
+              :isToPrint="isToPrint"
+              @renderData="handleSelectedleft"
+              @refresh="load()"
               :baseIndex="0"
             ></sugarTable>
             <div
@@ -55,7 +59,11 @@
             <sugarTable
               :data="item.right"
               :selected.sync="selected"
-              @dblclick="hisDisabled() && onEdit()"
+              :patientInfo.sync="patientInfo"
+              :saveParams.sync="saveParams"
+              :isToPrint="isToPrint"
+              @renderData="handleSelectedright"
+              @refresh="load()"
               :baseIndex="27"
             ></sugarTable>
           </div>
@@ -77,19 +85,23 @@
     >
       <div class="tool-fix" flex="dir:top">
         <whiteButton text="保存" @click="saveActiveSugar()"></whiteButton>
-        <whiteButton text="打印预览" @click="toPrint"></whiteButton>
+        <whiteButton
+          text="删除"
+          @click="hisDisabled()&&onRemove()"
+        ></whiteButton>
+        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"></whiteButton>
       </div>
     </div>
-    <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
+    <!-- <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
     <editAge ref="editAge" @confirm="onSaveAge" />
-    <setPageModal ref="setPageModal" />
+    <setPageModal ref="setPageModal" /> -->
   </div>
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 .blood-sugar-con {
   .sugr-page {
-    margin: 20px auto;
+    margin: 10px auto;
     background: #ffffff;
     width: 700px;
     padding: 20px;
@@ -145,6 +157,9 @@
     left: 21px;
     top: 21px;
     height: 44px;
+  }
+  .table-warpper{
+    margin-bottom:10px;
   }
 
   .page-con {
@@ -205,13 +220,12 @@ import {
   getForm, //获取表单数据
   save, // 保存表单数据
   getPatientForm, //获取患者存在表单id
+  rowSign,//行签名,
+  deleteRecord, //删除本行
 } from "./api/index.js";
 import whiteButton from "@/components/button/white-button.vue";
 import sugarChart from "./components/sugar-chart.vue";
 import nullBg from "@/components/null/null-bg.vue";
-import editModal from "./components/edit-modal.vue";
-import editAge from "./components/edit-age.vue";
-import setPageModal from "./components/setPage-modal.vue";
 import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin.js";
@@ -256,6 +270,9 @@ export default {
       fkOxygenCode:'sugar_oxygen', //肺科血氧单的formCode
       saveParams:{},
       relObj:{},
+      leftData:[],
+      rightData:[],
+      isToPrint:false,
     };
   },
   computed: {
@@ -286,70 +303,57 @@ export default {
       this.load();
       this.getSugarItemDict();
     },
+    handleSelectedleft(item,data){
+      // console.log(item,data,'this.selected')
+      this.leftData = data
+    },
+    handleSelectedright(item,data){
+      // console.log(item,data,'this.selected')
+      this.rightData = data
+    },
     // 保存数据
     async saveActiveSugar() {
-      this.saveParams.list=[
-       this.selected,
-      ]
-      try{
-        console.log(this.saveParams,'ddddddddddddddddddddd')
-        const res = await save(this.saveParams,this.baseParams.formType,this.baseParams.formCode)
-        console.log(res,"resss")
-      }catch(err){
-
+      const listRes = await getPatientForm(this.patientInfo.patientId, this.patientInfo.visitId)
+      if(listRes.data.code >= '200' && listRes.data.data != null){
+        this.patientInfo.id = listRes.data.data.id
       }
-      
-      // const user = JSON.parse(localStorage.getItem("user"));
-      // let item = {
-      //   patientId: this.patientInfo.patientId,
-      //   visitId: this.patientInfo.visitId,
-      //   name: this.patientInfo.name,
-      //   bedLabel: this.patientInfobedLabel,
-      //   recordDate: this.selected.recordDate,
-      //   sugarItem: this.selected.sugarItem,
-      //   sugarValue: this.selected.sugarValue,
-      //   riValue: this.selected.riValue,
-      //   oldRecordDate: "",
-      //   nurseEmpNo: user.empNo,
-      //   nurse: user.empNo,
-      //   expand1: "",
-      //   expand2: 1,
-      //   wardCode: this.patientInfo.wardCode,
-      //   time: this.selected.time,
-      //   date: this.selected.date || "",
-      // };
-      // const DateArr = item.recordDate.split(" ");
-      // const timeArr = DateArr[1].split(":");
-      // const firstTime = `${timeArr[0]}:${timeArr[1]}`;
-
-      // if (this.selected.expand2 !== undefined) {
-      //   item.expand2 = 2;
-      //   item.oldRecordDate = item.recordDate;
-      //   const fulltime = `${DateArr[0]} ${item.time}:00`;
-      //   await removeSugar(item);
-      //   item.recordDate = fulltime;
-      // }
-      // // 判断时间
-      // if (firstTime !== item.time) {
-      //   item.recordDate = `${DateArr[0]} ${item.time}:00`;
-      // }
-      // // 判断日期
-      // const formatArr = DateArr[0].split("-");
-      // const firstDate = `${formatArr[1]}-${formatArr[2]}`;
-      // if (item.date && firstDate !== item.date) {
-      //   item.recordDate = `${formatArr[0]}-${item.date} ${item.time}:00`;
-      // }
-
-      // await saveSugarList([item]);
-      this.$message.success("保存成功");
-      this.load();
-      // this.getSugarItemDict();
+      let saveList =[...this.leftData,...this.rightData]
+      let isSave = false ;
+      saveList.map(item=>{
+        if(item.dateStr && item.timeStr){
+          console.log(item.sugarOxygen,'ddddddddddddddddddddd')
+          if(!item.sugarOxygen){
+              isSave = true;
+             return 
+          }
+        }
+      });
+      if(!isSave){
+        this.patientInfo.list= saveList
+        try{
+        save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode).then((res)=>{
+          // console.log(res,"resss")
+          if(res.data.code == '200'){
+            this.$message.success("保存成功");
+            this.load();
+          }else{
+            this.$message.success(res.data.desc);
+          }
+        })
+        }catch(err){
+          console.log(err,"resss")
+        } 
+      }else{
+         this.$message.warning("血氧为必填项，请填写！");
+      }
+     
     },
     // 打印预览
     hisDisabled() {
       return !this.$route.path.includes("nursingPreview");
     },
     async getFormHead() {
+      console.log()
       const res = await getFormHeadData(
         this.patientInfo.patientId,
         this.patientInfo.visitId
@@ -358,66 +362,58 @@ export default {
     },
     async load() {
       this.pageLoading = true;
-      console.log('this.patientInfo',this.patientInfo)
       const listRes = await getPatientForm(this.patientInfo.patientId, this.patientInfo.visitId)
       if(listRes.data.code >= '200' && listRes.data.data != null){
-        console.log('id',listRes.data.data)
-        
         this.baseParams.id = listRes.data.data.id
+      }else{
+        this.baseParams.id = ''
       }
       if(this.baseParams.id){
         if(this.HOSPITAL_ID == 'whfk'){
           this.baseParams.formCode = this.fkOxygenCode
         }
         const resList = await getForm(this.baseParams.id, this.baseParams.formType, this.baseParams.formCode)
-        console.log(resList)
+        this.baseParams.id ='',
         this.hisPatSugarList = resList.data.data.list;
-      /** 时间排序 */
-      let list = resList.data.data.list.sort(
-        (a, b) =>
-          new Date(a.recordDate).getTime() - new Date(b.recordDate).getTime()
-      );
-      console.log(list)
-      let listMap = [];
-
-      for (let i = 0; i < list.length; i += 54) {
-        let obj = {};
-        obj.left = list.slice(i, i + 27);
-        obj.right = list.slice(i + 27, i + 54);
-        listMap.push(obj);
-      }
-      if(this.listMap.length == 0){
-        this.listMap.push({ left: [], right: [] });
+        this.saveParams = resList.data.data
+        /** 时间排序 */
+        let list = resList.data.data.list
+        let listMap = [];
+        for (let i = 0; i < list.length; i += 54) {
+          let obj = {};
+          obj.left = list.slice(i, i + 27);
+          obj.right = list.slice(i + 27, i + 54);
+          listMap.push(obj);
+        }
+        
+        // console.log(listMap)
         this.listMap = listMap;
-      }
+        if(list.length % 54 == 0){
+          this.listMap.push(
+            { 
+              left: [], 
+              right: [] 
+            }
+          )
+        }
+        if(this.listMap.length == 0){
+          this.listMap.push(
+            { 
+              left: [], 
+              right: [] 
+            }
+            );
+        }
       }else{
         this.listMap = [];
       }
-
-      // const res = await getSugarListWithPatientId(
-      //   this.patientInfo.patientId,
-      //   this.patientInfo.visitId
-      // );
-      // this.resAge = res.data.data.age;
-      // ////表头用户信息通过获取用户信息接口获取的医院
-      // this.hisUserTitLeList.includes(this.HOSPITAL_ID) &&
-      //   (this.sugarUserInfo = res.data.data);
-      // if (
-      //   this.HOSPITAL_ID == "guizhou" &&
-      //   this.$route.path.includes("nursingPreview")
-      // ) {
-      //   this.resName = res.data.data.name;
-      //   this.resGender = res.data.data.gender;
-      //   this.resDeptName = res.data.data.deptName;
-      //   this.resBedNol = res.data.data.bedNo;
-      //   this.resInHosId = res.data.data.inHosId;
-      // }
-      // if (this.HOSPITAL_ID == "fuyou") this.tDeptName = res.data.data.deptName;
-      // res.data.data.registNum && (this.registNum = res.data.data.registNum); //血糖登记次数
       this.pageLoading = false;
     },
     toPrint() {
+      this.isToPrint=true;
+      // console.log(this.isToPrint)
       window.localStorage.oxygenModel = $(this.$refs.Contain).html();
+      // this.isToPrint=false;
       if (process.env.NODE_ENV === "production") {
         let newWid = window.open();
         newWid.location.href = "/crNursing/print/oxygen";
@@ -449,83 +445,53 @@ export default {
     onAdd() {
       this.$refs.editModal.open("添加血糖记录");
     },
-    onEdit() {
-      this.$refs.editModal.open("编辑血糖记录", this.selected);
-    },
+    // onEdit() {
+    //   this.$refs.editModal.open("编辑血糖记录", this.selected);
+    // },
     onEditAge() {
       this.$refs.editAge.open("编辑年龄", {
         age: this.formAge || this.patientInfo.age,
       });
     },
     async onRemove() {
-      await this.$confirm(
-        "确定要删除该血糖记录吗？删除后将无法恢复！",
-        "提示",
-        {
-          confirmButtonText: "确定删除",
-          cancelButtonText: "点错了",
-          type: "warning",
+      console.log(this.selected)
+      if(this.selected){
+        if(this.selected.id){
+          await this.$confirm(
+          "确定要删除该血糖记录吗？删除后将无法恢复！",
+          "提示",
+          {
+            confirmButtonText: "确定删除",
+            cancelButtonText: "点错了",
+            type: "warning",
+          }
+        );
+          this.saveParams.list=[this.selected]
+          const res =  await deleteRecord(this.saveParams, this.baseParams.formType, this.fkOxygenCode);
+          if(res.data.code == '200'){
+            this.$message.success("删除成功");
+            this.load();
+            this.selected = null;
+          }else{
+            this.$message.success(res.data.desc);
+          }
+        }else{
+          this.$message.warning("请选择保存之后行数据！");
         }
-      );
-
-      let item = {
-        patientId: this.patientInfo.patientId,
-        visitId: this.patientInfo.visitId,
-        recordDate: this.selected.recordDate,
-        sugarItem: this.selected.sugarItem,
-        sugarValue: this.selected.sugarValue,
-        recordId: this.selected.recordId || "",
-      };
-
-      if (this.HOSPITAL_ID == "fuyou") {
-        item = {
-          ...item,
-          riValue: this.selected.riValue || "",
-          oldRecordDate: this.selected.oldRecordDate || "",
-          nurseEmpNo: this.empNo || "", //护士工号
-          nurse: this.empName || "", //护士姓名
-          wardCode: this.patientInfo.wardCode || "",
-        };
+      }else{
+         this.$message.warning("请选择想要的删除的行数据！");
       }
-
-      await removeSugar(item);
-      this.load();
-      this.selected = null;
+      //批量删除单条记录
+        // export const deleteRecord = (params, formType, formCode) => {
+        //   return axios.post(`${apiPath}${formType}/${formCode}/deleteRecord`, params);
+        // }
+      
     },
-    async onSave(item) {
-      item.recordDate =
-        moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
-      item.patientId = this.patientInfo.patientId;
-      item.visitId = this.patientInfo.visitId;
-      item.name = this.patientInfo.name;
-      item.bedLabel = this.patientInfo.bedLabel;
-      item.wardCode = this.patientInfo.wardCode;
-      (item.nurseEmpNo = this.empNo || ""), //护士工号
-        console.log(item, "xiaog");
-      await saveSugarList([item]);
-      this.load();
-      this.$refs.editModal.close();
-      this.selected = null;
-      this.$message.success("保存成功");
-    },
-    async onSaveAge(item) {
-      item.patientId = this.patientInfo.patientId;
-      item.visitId = this.patientInfo.visitId;
-      console.log("item", item.age);
-      let itemValue = item.age;
-      let itemMap = [
-        {
-          itemCode: "age",
-          itemValue: itemValue,
-        },
-      ];
-      await getEditAge(item.patientId, item.visitId, itemMap).then((res) => {
-        console.log("年龄接口返回res===", res);
-      });
-      this.load();
-      this.$refs.editAge.close();
-      this.getFormHead();
-      this.$message.success("保存成功");
+    onScroll(e) {
+      if (e.deltaY < 0 && this.$refs.Contain.style.top.split("px")[0] <= 20) {
+        this.$refs.Contain.style.top =
+          Number(this.$refs.Contain.style.top.split("px")[0]) + 20 + "px";
+      }
     },
   },
   created() {
@@ -551,9 +517,6 @@ export default {
     whiteButton,
     sugarChart,
     nullBg,
-    editModal,
-    setPageModal,
-    editAge,
   },
 };
 </script>
