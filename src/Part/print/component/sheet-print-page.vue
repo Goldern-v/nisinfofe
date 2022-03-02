@@ -247,7 +247,9 @@ export default {
         "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
         "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
         "safemetachysis_jm",//江门妇幼_输血护理记录单
-
+        "internal_eval_lcey",//聊城_一般患者护理记录单
+        "critical_new_lcey",//聊城_病重（危）患者护理记录单(带瞳孔）
+        "critical_lcey",//聊城_病重（病危）患者护理记录单（带瞳孔）
       ]
     };
   },
@@ -435,6 +437,26 @@ export default {
               margin-top:-20px;!important;
             }
           }
+        `
+      );
+    }
+     if (
+      (this.HOSPITAL_ID === "liaocheng") &&
+      this.multiSignArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='医师签名']{
+            display:none !important;
+          }
+           #sheetPagePrint th[dataname="护士签名"] {
+              min-width: 100px !important;
+              max-width: 100px !important;
+            }
+           img{
+              transform: scale(0.8);
+            }
         `
       );
     }
