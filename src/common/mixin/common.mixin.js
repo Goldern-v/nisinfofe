@@ -72,7 +72,12 @@ export default {
         if ($params.token) {
           token = $params.token;
         } else {
-          token = Cookies.get("NURSING_USER").split("##")[1];
+          let newToken = "";
+          try {//获取localStorage本地存储token
+            newToken = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user")).token ? JSON.parse(localStorage.getItem("user")).token:"";
+          } catch (error) {}
+          token = Cookies.get("NURSING_USER") && Cookies.get("NURSING_USER").split("##")[1] ? Cookies.get("NURSING_USER").split("##")[1] : newToken;
+          //token = Cookies.get("NURSING_USER").split("##")[1]; 
         }
       } catch (error) {
         token = $params.token;

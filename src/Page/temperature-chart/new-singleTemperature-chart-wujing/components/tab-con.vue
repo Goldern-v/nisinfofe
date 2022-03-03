@@ -166,7 +166,7 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-              <div class="context-box" v-if="otherMultiDictList.length">
+              <div class="context-box" v-if="otherMultiDictList!={}">
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
                     <span class="title"> 其他信息 </span>
@@ -596,6 +596,7 @@ export default {
         wardCode: this.patientInfo.wardCode,
         recordDate: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
       }).then((res) => {
+          this.tabsData=[]
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -941,7 +942,7 @@ export default {
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
-          text-align: center;
+          text-align: left;
           font-size: 12px;
 
           &.active {
