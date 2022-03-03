@@ -92,6 +92,7 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist:{},
+      splitPulseHospital:['nanfangzhongxiyi'] // 脉搏/心率的值仅有一个的时候不显示斜杠
     };
   },
   methods: {
@@ -135,11 +136,27 @@ export default {
         this.patientInfo.visitId || this.formlist.visitId,
         this.searchDate
       ).then(res => {
-        this.tableData = res.data.data.list;
+        let tableList = res.data.data.list
+        this.splitPulseHospital.includes(this.HOSPITAL_ID) && tableList.map(item=>{
+          item.pulse = this.getShowPluse(item.pulse)
+        })
+        this.tableData = tableList;
       });
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
+    },
+    getShowPluse(pulse){
+      if(!pulse.includes('/')){
+        return pulse
+      }else{
+        let [relPulse,heartRate] = pulse.split('/')
+        if(relPulse && heartRate){
+          return pulse
+        }else{
+          return relPulse || heartRate || ""
+        }
+      }
     }
   },
   computed: {
