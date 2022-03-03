@@ -137,7 +137,7 @@ export default {
       },
       {
         name: `
-        护士签名
+        签名
         `,
         colspan: '1',
         rowspan: '3'
