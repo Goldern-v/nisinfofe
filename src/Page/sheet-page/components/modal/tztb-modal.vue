@@ -34,11 +34,7 @@
             </template>
           </el-table-column>
           <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
-          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="HOSPITAL_ID !='guizhou'">
-            <template slot-scope="scope">
-              {{splitPulseHospital.includes(HOSPITAL_ID)?getShowPluse(scope.row.pulse):scope.row.pulse}}
-            </template>
-          </el-table-column>
+          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="HOSPITAL_ID !='guizhou'"></el-table-column>
           <el-table-column prop="pulse" label="脉搏(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou'"></el-table-column>
           <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou'"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
@@ -140,7 +136,11 @@ export default {
         this.patientInfo.visitId || this.formlist.visitId,
         this.searchDate
       ).then(res => {
-        this.tableData = res.data.data.list;
+        let tableList = res.data.data.list
+        this.splitPulseHospital.includes(this.HOSPITAL_ID) && tableList.map(item=>{
+          item.pulse = this.getShowPluse(item.pulse)
+        })
+        this.tableData = tableList;
       });
     },
     handleSelectionChange(val) {
