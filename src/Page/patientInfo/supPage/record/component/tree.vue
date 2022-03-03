@@ -625,10 +625,26 @@ export default {
           viewDom,
         ]);
       } else {
-        return h("span", { class: { "tree-node": true } }, [
-          h("img", { attrs: { src: icon } }),
-          h("span", {}, node.label),
-        ]);
+        if(this.HOSPITAL_ID == 'foshanrenyi'){
+          // console.log(this.regions ,node.parent.childNodes,data,'dddddddddddddddddddd');
+          let pageIndex = node.parent.childNodes.map((item,index)=>{
+            if(item.id == data.$treeNodeId){
+              return index-node.parent.childNodes.length
+            }
+          })
+          let pages = String(pageIndex.find(item=>item !== undefined)).split('')[1]
+          // console.log(String(pages).split('')[1]);
+          return h("span", { class: { "tree-node": true } }, [
+            h("img", { attrs: { src: icon } }),
+            h("span", {}, `第${pages}页`),
+            h("span", {}, node.label),
+          ]);
+        }else{
+          return h("span", { class: { "tree-node": true } }, [
+            h("img", { attrs: { src: icon } }),
+            h("span", {}, node.label),
+          ]);
+        }
       }
     },
     handleViewClick(e, node) {
@@ -859,6 +875,7 @@ export default {
       this.bus.$emit("activeAllButons");
     },
     updateTree() {
+      console.log(this.expandListCopy,'dddddddddddddddddddddddddd');
       this.expandList = this.expandListCopy || [];
       this.getTreeData();
       this.ifTree = false;
