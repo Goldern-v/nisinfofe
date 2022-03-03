@@ -25,6 +25,7 @@ import QuZhouXianHeader from "@/components/HLheader/QuZhouXianHeader.vue"; // �
 import FoShanRenYiHeader from "@/components/HLheader/FoShanRenYiHeader.vue"; // 佛山市第一人民医院
 import FSXTHeader from "@/components/HLheader/FSXTHeader.vue"; // 南方医科大学顺德医院附属杏坛医院
 import NanFangZhongXiYiHeader from "@/components/HLheader/NanFangZhongXiYiHeader"; // 南方医科大学中西医结合医院
+import LYXRMHeader from "@/components/HLheader/LYXRMHeader"; // 临邑县人民医院
 import YangchunzhongyiHeader from "@/components/HLheader/YangchunzhongyiHeader"; // 南方医科大学中西医结合医院
 import WuhanfeikeHeader from "@/components/HLheader/WuhanfeikeHeader"; // 武汉肺科
 import WuhanYaxinHeader from "@/components/HLheader/WuhanYaxinHeader"; // 武汉亚心
@@ -57,6 +58,7 @@ export default {
         贵州省人民医院: "GuiZhouShengRenMingHeader",
         曲周县医院: "QuZhouXianHeader",
         南方医科大学中西医结合医院: "NanFangZhongXiYiHeader",
+        临邑县人民医院:'LYXRMHeader',
         佛山市第一人民医院:"FoShanRenYiHeader",
         南方医科大学顺德医院附属杏坛医院: 'FSXTHeader',
         阳春中医院: 'YangchunzhongyiHeader',
@@ -85,6 +87,7 @@ export default {
     QuZhouXianHeader,
     FoShanRenYiHeader,
     NanFangZhongXiYiHeader,
+    LYXRMHeader,
     FSXTHeader,
     YangchunzhongyiHeader,
     WuhanfeikeHeader,

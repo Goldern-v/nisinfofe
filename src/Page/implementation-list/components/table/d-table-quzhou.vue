@@ -231,12 +231,12 @@
             v-if="scope.row.executeFlag == 0"
             >补录</el-button
           >
-          <!-- <el-button
+          <el-button
             type="text"
             @click="editTime(scope.row)"
             v-if="isEdit && scope.row.executeFlag == 4"
             >修改</el-button
-          > -->
+          >
         </template>
       </u-table-column>
     </u-table>
