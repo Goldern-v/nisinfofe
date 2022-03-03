@@ -1321,7 +1321,7 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
-      if(!this.staticObj.recordMonth || !this.staticObj.recordHour){
+      if(!this.staticObj.recordHour){
         return this.$message.warning('记录时间不得为空！')
       }
       // 计算字节长度
