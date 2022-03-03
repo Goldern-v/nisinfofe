@@ -108,7 +108,7 @@ export default {
       },
       {
         name: `
-        护士签名
+        签名
         `,
         style: {
           minWidth: '55px',
