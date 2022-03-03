@@ -55,7 +55,7 @@
           disabled: !!model.blockList.find(item => item.wardCode == deptCode)
         }"
       >
-        <div class="text-con" flex="cross:center" @click="savePlanForm">创建新的护理计划单</div>
+        <div class="text-con" flex="cross:center" @click="savePlanForm">创建{{HOSPITAL_ID!=='liaocheng'?'新的':''}}护理计划单</div>
       </div>
 
       <el-select
