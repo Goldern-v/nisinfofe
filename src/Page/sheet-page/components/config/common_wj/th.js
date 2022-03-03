@@ -110,8 +110,8 @@ export default {
         canSet: true,
         key: 'fieldOne',
         style: {
-          minWidth: '51px',
-          maxWidth: '51px',
+          minWidth: '38px',
+          maxWidth: '38px',
         }
       },
       {
@@ -122,8 +122,8 @@ export default {
         canSet: true,
         key: 'fieldTwo',
         style: {
-          minWidth: '51px',
-          maxWidth: '51px',
+          minWidth: '38px',
+          maxWidth: '38px',
         }
       },
       {
@@ -150,37 +150,37 @@ export default {
           maxWidth: '38px',
         }
       },
-      {
-        name: `标题5`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        canSet: true,
-        key: 'fieldFive',
-        style: {
-          minWidth: '38px',
-          maxWidth: '38px',
-        }
-      },
-      {
-        name: `标题6`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        canSet: true,
-        key: 'fieldSix',
-        style: {
-          minWidth: '38px',
-          maxWidth: '38px',
-        }
-      },
+      // {
+      //   name: `标题5`,
+      //   style: {},
+      //   colspan: '1',
+      //   rowspan: '3',
+      //   canSet: true,
+      //   key: 'fieldFive',
+      //   style: {
+      //     minWidth: '38px',
+      //     maxWidth: '38px',
+      //   }
+      // },
+      // {
+      //   name: `标题6`,
+      //   style: {},
+      //   colspan: '1',
+      //   rowspan: '3',
+      //   canSet: true,
+      //   key: 'fieldSix',
+      //   style: {
+      //     minWidth: '38px',
+      //     maxWidth: '38px',
+      //   }
+      // },
       {
         name: `
         病情观察 护理措施
         `,
         style: {
-          minWidth: '175px',
-          maxWidth: '175px',
+          minWidth: '270px',
+          maxWidth: '270px',
         },
         colspan: '1',
         rowspan: '3'

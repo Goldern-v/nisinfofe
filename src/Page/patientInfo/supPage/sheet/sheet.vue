@@ -863,7 +863,11 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-      if (process.env.HOSPITAL_ID == "fuyou"|| process.env.HOSPITAL_ID == "quzhou" || process.env.HOSPITAL_ID == "huadu") {
+      if (process.env.HOSPITAL_ID == "fuyou"|| 
+          process.env.HOSPITAL_ID == "quzhou" || 
+          process.env.HOSPITAL_ID == "huadu"||
+          process.env.HOSPITAL_ID == "xiegang"||
+          process.env.HOSPITAL_ID == "liaocheng") {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
