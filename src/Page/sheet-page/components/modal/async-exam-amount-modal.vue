@@ -348,7 +348,7 @@ methods: {
       let strMl = ''
       if (row.dosageUnits === 'ml') {
         strMl = `${row.dosage}`
-        str = `${row.orderText};`
+        str = `${row.orderText}`
       } else {
         strMl = ``
         str = `${row.orderText}${row.dosage}${row.dosageUnits}`
