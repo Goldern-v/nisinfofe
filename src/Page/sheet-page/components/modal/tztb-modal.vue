@@ -34,7 +34,11 @@
             </template>
           </el-table-column>
           <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
-          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="HOSPITAL_ID !='guizhou'"></el-table-column>
+          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="HOSPITAL_ID !='guizhou'">
+            <template slot-scope="scope">
+              {{splitPulseHospital.includes(HOSPITAL_ID)?getShowPluse(scope.row.pulse):scope.row.pulse}}
+            </template>
+          </el-table-column>
           <el-table-column prop="pulse" label="脉搏(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou'"></el-table-column>
           <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou'"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
@@ -92,6 +96,7 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist:{},
+      splitPulseHospital:['nanfangzhongxiyi'] // 脉搏/心率的值仅有一个的时候不显示斜杠
     };
   },
   methods: {
@@ -140,6 +145,18 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
+    },
+    getShowPluse(pulse){
+      if(!pulse.includes('/')){
+        return pulse
+      }else{
+        let [relPulse,heartRate] = pulse.split('/')
+        if(relPulse && heartRate){
+          return pulse
+        }else{
+          return relPulse || heartRate || ""
+        }
+      }
     }
   },
   computed: {
