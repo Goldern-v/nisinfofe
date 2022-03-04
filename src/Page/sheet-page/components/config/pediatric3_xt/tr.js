@@ -73,7 +73,7 @@ export default [
   { key: 'navelNursing', event: keyf1, value: '', next: '', name: '脐部护理', textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'transdermalBilirubin', event: keyf1, value: '', next: '', name: '经皮胆红素测定额', textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'chest', event: keyf1, value: '', next: '', name: '经皮胆红素测定胸', textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue', event: keyf1, value: '', next: '', name: '', autoComplete: { data: ['A','B','C','D','E'] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'nursingMeasures', event: keyf1, value: '', next: '', name: '护理措施', autoComplete: { data: ['A','B','C','D','E','F','G'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'reportDoctor', event: keyf1, value: '', next: '', name: '报告医生', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'continueObserve', event: keyf1, value: '', next: '', name: '遵医嘱继续观察', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },

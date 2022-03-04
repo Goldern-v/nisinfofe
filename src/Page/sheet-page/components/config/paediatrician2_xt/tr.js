@@ -41,7 +41,7 @@ let tyxzList = ['WL','YWT','YT','A']
 let tlList = ['+','++','+++']
 let hlcsList = ['A','B','C','D','E','F','G','H1','H2','H3','H4','I','J','K','L','N']
 let hlaqList = ['A','B','C','D','E','F','G','H','I']
-let tyList = ['○','I','II','III','√','×','+','++','+++','A','B','C','D','E','F','G','H','I']
+let tyList = ['○','I','II','III','√','×','+','++','+++','A','B','C','D','E','F','G','H','I','K']
 
 export default [
   { hidden: true, key: 'recordDate', value: '' },

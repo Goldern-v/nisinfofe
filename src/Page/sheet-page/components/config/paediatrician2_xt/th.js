@@ -60,7 +60,7 @@ export default {
                 {"name":"留<br/>置<br/>针<br/>情<br/>况","colspan":"1","rowspan":"3"},
                 {"name":"冲<br/>管<br/>护<br/>理","colspan":"1","rowspan":"3"},
                 {"name":"吸氧方式","colspan":"1","rowspan":"3","canSet":true,"key":"armValue24","style":{"minWidth":"18px","maxWidth":"18px"}},
-                {"name":"氧流量","colspan":"1","rowspan":"3","canSet":true,"key":"armValue25","style":{"minWidth":"18px","maxWidth":"18px"}},
+                {"name":"氧流量L/min","colspan":"1","rowspan":"3","canSet":true,"key":"armValue25","style":{"minWidth":"18px","maxWidth":"18px"}},
                 {"name":"心电监护","colspan":"1","rowspan":"3","canSet":true,"key":"armValue26","style":{"minWidth":"18px","maxWidth":"18px"}},
                 {"name":"更换脱氧探头位置","colspan":"1","rowspan":"3","canSet":true,"key":"armValue27","style":{"minWidth":"18px","maxWidth":"18px"}},
                 {"name":"护<br/>理<br/>措<br/>施","colspan":"1","rowspan":"3"},
