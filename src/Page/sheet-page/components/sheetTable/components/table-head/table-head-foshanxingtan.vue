@@ -36,7 +36,7 @@
       </span>
       <span>
         出生日期：
-        <div class="bottom-line" style="min-width: 150px">
+        <div @click="updateBirthDay" class="bottom-line" style="min-width: 150px">
           {{ patientInfo.birthday | YMDHM }}
         </div>
       </span>
