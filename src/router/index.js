@@ -954,7 +954,6 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'lingcheng':
               return implementationListLingcheng
-            case 'lyxrm':
             case 'liaocheng':
               return implementationListLiaocheng
             case 'shannan':
@@ -963,6 +962,7 @@ const router = new Router({
             case 'huadu':
               return implementationListZhongshanqi
             case 'wujing':
+            case 'lyxrm':
             case 'foshanrenyi':
             case 'fsxt':
               return implementationListWujing
