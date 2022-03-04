@@ -22,7 +22,7 @@
               align="middle"
               v-else
             >
-              <img src="../../common/images/logo-white-60.png" />
+              <img src="../../common/images/lyxrm_logo.png" />
               <span>{{
                 HOSPITAL_ID == "hj"
                   ? "百辰源智慧护理信息系统"
@@ -626,8 +626,7 @@
   margin-right: 11px;
 
   img {
-    width: 30px;
-    height: 30px;
+    width: 50px;
   }
 
   span {

@@ -454,7 +454,7 @@ const router = new Router({
               return indexHd
             case 'fqfybjy':
               return shiftWorkFq;
-            case 'liaocheng' || 'whfk' || 'whyx':
+            case 'liaocheng' || 'whfk' || 'whyx' || 'lyxrm':
               return indexLiaocheng
             case 'wujing':
               return indexWujing
@@ -581,7 +581,7 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -608,7 +608,7 @@ const router = new Router({
                 return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
-              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj':
+              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
@@ -862,7 +862,7 @@ const router = new Router({
           // component: catheter,
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
-              case 'liaocheng' || 'whyx' || 'sdlj' || 'foshanrenyi':
+              case 'liaocheng' || 'whyx' || 'sdlj' || 'foshanrenyi' || 'lyxrm':
                 return allCatheter
               default:
                 return catheter
@@ -954,6 +954,7 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'lingcheng':
               return implementationListLingcheng
+            case 'lyxrm':
             case 'liaocheng':
               return implementationListLiaocheng
             case 'shannan':
