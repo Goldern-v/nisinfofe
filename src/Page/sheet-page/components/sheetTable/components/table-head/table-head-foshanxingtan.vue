@@ -3,7 +3,7 @@
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
-     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType=='pediatric3_xt'">
+     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType=='pediatric3_xt'||sheetInfo.sheetType=='prenataldelivery2_xt'">
       <!-- <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
@@ -34,13 +34,41 @@
           {{ patientInfo.inpNo }}
         </div>
       </span>
-      <span>
+      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        孕产史：孕
+        <input
+          style="width: 50px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['yc_' + index]"
+          v-model="sheetInfo.relObj['yc_' + index]"
+        />产
+      </span>
+      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        孕
+        <input
+          style="width: 50px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['yz_' + index]"
+          v-model="sheetInfo.relObj['yz_' + index]"
+        />
+        周
+      </span>
+      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        过敏史：
+        <input
+          style="width: 200px"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['gms_' + index]"
+          v-model="sheetInfo.relObj['gms_' + index]"
+        />
+      </span>
+      <span v-if="sheetInfo.sheetType=='pediatric3_xt'">
         出生日期：
         <div @click="updateBirthDay" class="bottom-line" style="min-width: 150px">
           {{ patientInfo.birthday | YMDHM }}
         </div>
       </span>
-      <div class="boxLine">
+      <div class="boxLine"  v-if="sheetInfo.sheetType=='pediatric3_xt'">
         分娩方式：
         <input
           type="checkbox"
@@ -167,7 +195,8 @@ export default {
       ],
       //不需要诊断的表单
       diagnosisList: [
-        'pediatric3_xt'
+        'pediatric3_xt',
+        'prenataldelivery2_xt'
       ],
     };
   },
