@@ -148,7 +148,7 @@ const currentTargetUrl = (() => {
       // return "http://192.168.20.147:8080" // 树鹏本地
     // 北海人医
     case 'beihairenyi':
-      // return "http://219.159.198.37:9094"  // 正式地址 admin Bcy@24nr
+      // return "http://219.159.198.37:9094"  // 正式地址 admin 123456
       // return "http://192.168.20.45:8080" // 伟彬本地
       return "http://192.168.1.54:9877" // 公司内网测试环境
       // return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
@@ -186,6 +186,10 @@ const currentTargetUrl = (() => {
     case 'sdlj':  //顺德龙江
       return "http://192.168.1.54:9871" // 顺德龙江 内防访问地址192.168.1.54:9887
 
+    // 临邑县人民
+    case 'lyxrm':
+      return "http://192.168.1.54:9890" // 内网测试
+      
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"

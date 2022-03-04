@@ -22,7 +22,7 @@
               align="middle"
               v-else
             >
-              <img src="../../common/images/logo-white-60.png" />
+              <img src="../../common/images/lyxrm_logo.png" />
               <span>{{
                 HOSPITAL_ID == "hj"
                   ? "百辰源智慧护理信息系统"
@@ -52,7 +52,7 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
             </router-link>
-            <el-dropdown
+            <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveAssessPage }"
             >
@@ -69,8 +69,8 @@
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="sheetHospitalAdmission"></i>入院评估
                     </el-row>
-                  </router-link> </el-dropdown-item
-                ><el-dropdown-item
+                  </router-link> </el-dropdown-item>
+                <el-dropdown-item
                   :class="{
                     active: $route.path == '/sheetHospitalEval'
                   }"
@@ -79,8 +79,8 @@
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="sheetHospitalEval"></i>住院评估
                     </el-row>
-                  </router-link> </el-dropdown-item
-                ><el-dropdown-item
+                  </router-link> </el-dropdown-item>
+                  <el-dropdown-item
                   :class="{
                     active: $route.path == '/MEWS'
                   }"
@@ -92,7 +92,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveRecordPage }"
@@ -112,6 +112,16 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path == '/sheetHospitalAdmission'
+                  }"
+                >
+                  <router-link to="/sheetHospitalAdmission" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="sheetHospitalAdmission"></i>入院评估
+                    </el-row>
+                  </router-link> </el-dropdown-item>
                 <el-dropdown-item
                   :class="{ active: $route.path == '/healthEdu' }"
                 >
@@ -626,8 +636,7 @@
   margin-right: 11px;
 
   img {
-    width: 30px;
-    height: 30px;
+    width: 50px;
   }
 
   span {
