@@ -42,7 +42,7 @@ import {
     { key: 'nibp', event: keyf1, value: '', name: 'NIBP', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'ibp', event: keyf1, value: '', name: 'IBP', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'oxygenSaturation', event: keyf1, value: '', next: '%', name: '血氧饱和度', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'oxygen', event: keyf1, value: '',next: 'L/min',name: '吸氧', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12),autoComplete: { data: ['无','小容量面罩','储氧面罩','面罩接湿化吸氧','气管切开接湿化吸氧','气管插管接湿化吸氧','气管插管接呼吸机辅助','气管切开接呼吸机辅助','文丘里','面罩接T管','无创通气'] },splice:true },
+    { key: 'oxygen', event: keyf1, value: '',next: 'L/min',name: '吸氧', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12),autoComplete: { data: ['无','鼻导管吸氧','小容量面罩','储氧面罩','面罩接湿化吸氧','气管切开接湿化吸氧','气管插管接湿化吸氧','气管插管接呼吸机辅助','气管切开接呼吸机辅助','文丘里','面罩接T管','无创通气'] },splice:true },
     { key: 'ventilator', event: keyf1, value: '',name: '呼吸机模式', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) ,autoComplete: { data: ['适应性通气','IPPV','SIMV','CPAPASB','BIPAP' ,'PIV','P-A/C','PC-SIMV','PSV','belevel','APRV','VCV','V-A/L','VC-SIML','其他'] }},
     { key: 'consciousness', event: keyf1, value: '',name: '意识', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4),autoComplete: { data: ['清','模糊','嗜睡','昏睡','浅昏迷','中昏迷','深昏迷','谵妄','麻醉未醒','镇静状态'] } },
     { key: 'leftDiameter', event: keyf1, value: '',next:"mm",name: '直径左', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },

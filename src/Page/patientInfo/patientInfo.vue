@@ -58,6 +58,7 @@ import topPartLingCheng from "@/Page/patientInfo/supComponts/topPart_LingCheng";
 import topPartHuaDu from "@/Page/patientInfo/supComponts/topPart_HuaDu"; // 广州市花都区人民医院
 import topPartWuJing from "@/Page/patientInfo/supComponts/topPart_WuJing"; // 武警广东省总队医院
 import topPartLiaoCheng from "@/Page/patientInfo/supComponts/topPart_LiaoCheng"; // 聊城市第二人民医院
+import topPartLYXRM from "@/Page/patientInfo/supComponts/topPart_LYXRM"; // 临邑县人民医院
 import topPartShanNan from "@/Page/patientInfo/supComponts/topPart_ShanNan"; // 山南市人民医院
 import topPartZhongShanQi from "@/Page/patientInfo/supComponts/topPart_ZhongShanQi"; // 武警广东省总队医院
 import topPartGuiZhou from "@/Page/patientInfo/supComponts/topPart_GuiZhou"; // 贵州省人民医院
@@ -153,6 +154,7 @@ export default {
         佛山市第一人民医院:"topPartFSSY",
         阳春中医院:"topPartYC",
         武汉市肺科医院:"topPartWHFK",
+        临邑县人民医院:"topPartLYXRM"
       };
       return hisList[HisName] || "topPart";
     },
@@ -186,6 +188,7 @@ export default {
     topPartHuaDu,
     topPartWuJing,
     topPartLiaoCheng,
+    topPartLYXRM,
     topPartZhongShanQi,
     topPartShanNan,
     topPartFSSY,

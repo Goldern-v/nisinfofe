@@ -47,12 +47,12 @@
           <div slot="bottomCon" class="bottomTable">
             <table>
               <colgroup>
-                <col width="59px" />
-                <col width="1341px" />
+                <col width="50px" />
+                <col width="1246px" />
               </colgroup>
               <tbody>
                 <tr>
-                  <td style="text-align: center;vertical-align: middle;">
+                  <td style="text-align: center;vertical-align: middle;border-right:1px soild black">
                     医<br />嘱<br />内<br />容
                   </td>
                   <td class="textarea">
@@ -266,6 +266,8 @@
         line-height: 18px;
         padding: 5px;
         overflow: hidden;
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000
       }
     }
   }

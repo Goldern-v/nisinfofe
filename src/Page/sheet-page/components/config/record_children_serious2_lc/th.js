@@ -2,14 +2,14 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1400px"
+    width: "1300px"
   },
   th: {
     top: [{
       name: '日期',
       style: {
-        minWidth: '50px',
-        maxWidth: '50px',
+        minWidth: '40px',
+        maxWidth: '40px',
       },
       colspan: '1',
       rowspan: '3'
@@ -17,8 +17,8 @@ export default {
     {
       name: '时间',
       style: {
-        minWidth: '50px',
-        maxWidth: '50px',
+        minWidth: '40px',
+        maxWidth: '40px',
       },
       colspan: '1',
       rowspan: '3'
@@ -63,8 +63,8 @@ export default {
         特殊情况记录
         `,
       style: {
-        minWidth: '295px',
-        maxWidth: '295px',
+        minWidth: '305px',
+        maxWidth: '305px',
       },
       colspan: '1',
       rowspan: '3'
@@ -86,8 +86,8 @@ export default {
         体温<br/>℃
         `,
       style: {
-        minWidth: '40px',
-        maxWidth: '40px',
+        minWidth: '30px',
+        maxWidth: '30px',
       },
       colspan: '1',
       rowspan: '2',
@@ -97,8 +97,8 @@ export default {
         脉搏<br/>次/分
         `,
       style: {
-        minWidth: '40px',
-        maxWidth: '40px',
+        minWidth: '30px',
+        maxWidth: '30px',
       },
       colspan: '1',
       rowspan: '2'
@@ -108,8 +108,8 @@ export default {
         呼吸<br/>次/分
         `,
       style: {
-        minWidth: '40px',
-        maxWidth: '40px',
+        minWidth: '30px',
+        maxWidth: '30px',
       },
       colspan: '1',
       rowspan: '2'
@@ -130,8 +130,8 @@ export default {
         氧饱<br/>和度<br/>%
         `,
       style: {
-        minWidth: '45px',
-        maxWidth: '45px'
+        minWidth: '30px',
+        maxWidth: '30px'
       },
       colspan: '1',
       rowspan: '2'
