@@ -483,6 +483,14 @@ export default {
       },
       deep: true,
     },
+    vitalSignObj:{
+      handler(newVal){
+        if(!newVal[this.multiDictList['表顶注释']].expand2){
+          newVal[this.multiDictList['表顶注释']].expand2= this.patientInfo.admissionDate 
+        }
+      }
+    },
+     deep: true,
   },
   methods: {
     changeNext(e) {

@@ -34,7 +34,8 @@ import {
 let ysList = ['√','-','Δ','+','±','++','+++','A','B']
 let dgfyList = ['√','+','-']
 let hlcsList = ['A','B','C','D','E','F','G','H','I','J','K','L','M','P','Q','R','T','N']
-let hlaqList = ['A','B','C','D','E','F','G','H','I','J']
+let hlaqList = ['A','B','C','D','E','F','G','H','I','J','K']
+let bgList = ['A','B','C','D','E','F','H','I','N']
 let yszdList = ['A','B','C','D','E','F','G','H']
 let twList = ['A','B','C','D','E']
 let qcList = ['A','B','C','D']
@@ -87,7 +88,7 @@ export default [
   { key: 'nursingMeasures', event: keyf1, value: '', next: '', name: '护理措施', autoComplete: { data: hlcsList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'dietaryGuidelines', event: keyf1, value: '', next: '', name: '饮食指导', autoComplete: { data: yszdList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'nursingSafety', event: keyf1, value: '', next: '', name: '护理安全', autoComplete: { data: hlaqList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'nursingForm', event: keyf1, value: '', next: '', name: '启用相关护理表格', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'nursingForm', event: keyf1, value: '', next: '', name: '启用相关护理表格', autoComplete: { data: bgList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'report', event: keyf1, value: '', next: '', name: '报告医生', autoComplete: { data: bgysList }, textarea: { width: 53 }, change: (e, td) => limitChange(e, td, 6) },
   {
     key: "description", //特殊情况记录
