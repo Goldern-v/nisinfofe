@@ -3,7 +3,7 @@
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
-     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType=='pediatric3_xt'||sheetInfo.sheetType=='prenataldelivery2_xt'">
+     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType=='pediatric3_xt'||sheetInfo.sheetType=='prenataldelivery2_xt'||sheetInfo.sheetType=='postpartum2_xt'">
       <!-- <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
@@ -16,7 +16,19 @@
           {{ patientInfo.patientName }}
         </div>
       </span>
-      <span>
+      <span v-if="sheetInfo.sheetType!='pediatric3_xt'">
+        年龄：
+        <div class="bottom-line" style="min-width: 30px">
+          {{ patientInfo.age }}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType!='pediatric3_xt'">
+        科室：
+        <div class="bottom-line" style="min-width: 100px">
+          {{ patientInfo.deptName }}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType=='pediatric3_xt'">
         性别：
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.sex }}
@@ -37,7 +49,7 @@
       <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
         孕产史：孕
         <input
-          style="width: 50px;font-size:13px;text-align: center;"
+          style="width: 30px;font-size:13px;text-align: center;"
           class="bottom-line"
           :data-value="sheetInfo.relObj['yc_' + index]"
           v-model="sheetInfo.relObj['yc_' + index]"
@@ -46,7 +58,7 @@
       <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
         孕
         <input
-          style="width: 50px;font-size:13px;text-align: center;"
+          style="width: 30px;font-size:13px;text-align: center;"
           class="bottom-line"
           :data-value="sheetInfo.relObj['yz_' + index]"
           v-model="sheetInfo.relObj['yz_' + index]"
@@ -56,7 +68,7 @@
       <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
         过敏史：
         <input
-          style="width: 200px"
+          style="width: 250px;font-size:13px;"
           class="bottom-line"
           :data-value="sheetInfo.relObj['gms_' + index]"
           v-model="sheetInfo.relObj['gms_' + index]"
@@ -64,34 +76,40 @@
       </span>
       <span v-if="sheetInfo.sheetType=='pediatric3_xt'">
         出生日期：
-        <div @click="updateBirthDay" class="bottom-line" style="min-width: 150px">
+        <div @click="updateBirthDay" class="bottom-line" style="min-width: 150px;height: 12px;">
           {{ patientInfo.birthday | YMDHM }}
         </div>
       </span>
-      <div class="boxLine"  v-if="sheetInfo.sheetType=='pediatric3_xt'">
+      <span v-if="sheetInfo.sheetType=='postpartum2_xt'">
+        分娩时间：
+        <div @click="updateChildbirth('childbirth', '分娩日期', patientInfo.childbirth)" class="bottom-line" style="min-width: 150px;height: 12px;">
+          {{ childbirth | YMDHM }}
+        </div>
+      </span>
+      <div class="boxLine"  v-if="sheetInfo.sheetType=='pediatric3_xt'||sheetInfo.sheetType=='postpartum2_xt'">
         分娩方式：
         <input
           type="checkbox"
           value="sc"
-          :ischecked="sheetInfo.relObj['sc' + index]"
+          :ischecked="sheetInfo.relObj['sc']"
           v-model="checkedsc"
         />顺产
         <input
           type="checkbox"
           value="pgc"
-          :ischecked="sheetInfo.relObj['pgc' + index]"
+          :ischecked="sheetInfo.relObj['pgc']"
           v-model="checkedpfc"
         />剖宫产
         <input
           type="checkbox"
           value="fyc"
-          :ischecked="sheetInfo.relObj['fyc' + index]"
+          :ischecked="sheetInfo.relObj['fyc']"
           v-model="checkedfyc"
         />负压产
         <input
           type="checkbox"
           value="qc"
-          :ischecked="sheetInfo.relObj['qc' + index]"
+          :ischecked="sheetInfo.relObj['qc']"
           v-model="checkedqc"
         />钳产
       </div>
@@ -192,11 +210,13 @@ export default {
         "spine_xt",
         "craniocerebral_xt",
         "general_xt",
+        'gynaecology2_xt'
       ],
       //不需要诊断的表单
       diagnosisList: [
         'pediatric3_xt',
-        'prenataldelivery2_xt'
+        'prenataldelivery2_xt',
+        'postpartum2_xt'
       ],
     };
   },
@@ -205,34 +225,34 @@ export default {
     ...{
       'checkedsc':{
         get(){
-          return this.sheetInfo.relObj[`sc${this.index}`] === 'true'
+          return this.sheetInfo.relObj[`sc`] === 'true'
         },
         set(nVal){
-          this.sheetInfo.relObj[`sc${this.index}`] = nVal ? "true" : "false"
+          this.sheetInfo.relObj[`sc`] = nVal ? "true" : "false"
         }
       },
       'checkedpgc':{
         get(){
-          return this.sheetInfo.relObj[`pgc${this.index}`] === 'true'
+          return this.sheetInfo.relObj[`pgc`] === 'true'
         },
         set(nVal){
-          this.sheetInfo.relObj[`pgc${this.index}`] = nVal ? "true" : "false"
+          this.sheetInfo.relObj[`pgc`] = nVal ? "true" : "false"
         }
       },
       'checkedfyc':{
         get(){
-          return this.sheetInfo.relObj[`fyc${this.index}`] === 'true'
+          return this.sheetInfo.relObj[`fyc`] === 'true'
         },
         set(nVal){
-          this.sheetInfo.relObj[`fyc${this.index}`] = nVal ? "true" : "false"
+          this.sheetInfo.relObj[`fyc`] = nVal ? "true" : "false"
         }
       },
       'checkedqc':{
         get(){
-          return this.sheetInfo.relObj[`qc${this.index}`] === 'true'
+          return this.sheetInfo.relObj[`qc`] === 'true'
         },
         set(nVal){
-          this.sheetInfo.relObj[`qc${this.index}`] = nVal ? "true" : "false"
+          this.sheetInfo.relObj[`qc`] = nVal ? "true" : "false"
         }
       },
   },
@@ -255,6 +275,25 @@ export default {
         this.patientInfo.diagnosis
       );
     },
+    childbirth() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_childbirth_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_childbirth_${realIndex}`] ||
+        this.patientInfo.childbirth
+      );
+    },
   },
   methods: {
     openBedRecordModal(){
@@ -273,6 +312,17 @@ export default {
         },
         this.patientInfo.birthday,
         "修改出生日期"
+      );
+    },
+    updateChildbirth() {
+      window.openSetAuditDateModal(
+        (text) => {
+          sheetInfo.relObj[`PageIndex_childbirth_${this.index}`] = text;
+          this.$message.success(`修改分娩时间`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.childbirth,
+        `修改分娩时间`
       );
     },
     updateDiagnosis(key, label, autoText) {
