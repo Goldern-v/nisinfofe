@@ -485,12 +485,15 @@ export default {
     },
     vitalSignObj:{
       handler(newVal){
-        if(!newVal[this.multiDictList['表顶注释']].expand2){
-          newVal[this.multiDictList['表顶注释']].expand2= this.patientInfo.admissionDate 
+        if(newVal[this.multiDictList['表顶注释']].expand1 == '入院|'){
+          newVal[this.multiDictList['表顶注释']].expand2 = this.patientInfo.admissionDate;
         }
-      }
+      },
+      deep:true,
+      immediate:true,
     },
-     deep: true,
+    
+    
   },
   methods: {
     changeNext(e) {

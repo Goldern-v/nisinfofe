@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1420px"
+    width: "1350px"
   },
   th: {
     top: [{
@@ -51,10 +51,6 @@ export default {
       name: `
         基础护理
         `,
-      style: {
-        minWidth: '55px',
-        maxWidth: '55px',
-      },
       colspan: '5',
       rowspan: '1',
     },
@@ -83,11 +79,11 @@ export default {
     ],
     mid: [{
       name: `
-        体温℃
+        体温<br/>℃
         `,
       style: {
-        minWidth: '40px',
-        maxWidth: '40px',
+        minWidth: '30px',
+        maxWidth: '30px',
       },
       colspan: '1',
       rowspan: '2',
@@ -97,8 +93,8 @@ export default {
         脉搏<br/>次/分
         `,
       style: {
-        minWidth: '40px',
-        maxWidth: '40px',
+        minWidth: '36px',
+        maxWidth: '36px',
       },
       colspan: '1',
       rowspan: '2'
@@ -108,30 +104,30 @@ export default {
         呼吸<br/>次/分
         `,
       style: {
+        minWidth: '36px',
+        maxWidth: '36px',
+      },
+      colspan: '1',
+      rowspan: '2'
+    },
+    {
+      name: `
+        血压<br/>mmHg
+        `,
+      style: {
+        minWidth: '50px',
+        maxWidth: '50px',
+      },
+      colspan: '1',
+      rowspan: '2'
+    },
+    {
+      name: `
+        氧饱和<br/>度%
+        `,
+      style: {
         minWidth: '40px',
-        maxWidth: '40px',
-      },
-      colspan: '1',
-      rowspan: '2'
-    },
-    {
-      name: `
-        血压mmHg
-        `,
-      style: {
-        minWidth: '55px',
-        maxWidth: '55px',
-      },
-      colspan: '1',
-      rowspan: '2'
-    },
-    {
-      name: `
-        氧饱和度%
-        `,
-      style: {
-        minWidth: '45px',
-        maxWidth: '45px'
+        maxWidth: '40px'
       },
       colspan: '1',
       rowspan: '2'
@@ -149,7 +145,7 @@ export default {
     },
 
     {
-      name: `尿量ml`,
+      name: `尿量<br/>ml`,
       style: {
         minWidth: '45px',
         maxWidth: '45px',
@@ -158,7 +154,7 @@ export default {
       rowspan: '2'
     },
     {
-      name: `呕吐ml`,
+      name: `呕吐<br/>ml`,
       style: {
         minWidth: '45px',
         maxWidth: '45px',
@@ -167,7 +163,7 @@ export default {
       rowspan: '2'
     },
     {
-      name: `大便ml`,
+      name: `大便<br/>ml`,
       style: {
         minWidth: '45px',
         maxWidth: '45px',
@@ -176,7 +172,7 @@ export default {
       rowspan: '2'
     },
     {
-      name: `其他引流量ml`,
+      name: `其他引<br/>流量ml`,
       style: {
         minWidth: '50px',
         maxWidth: '50px'
@@ -194,7 +190,7 @@ export default {
       rowspan: '2'
     },
     {
-      name: `口服ml`,
+      name: `口服<br/>ml`,
       style: {
         minWidth: '40px',
         maxWidth: '40px',
@@ -203,7 +199,7 @@ export default {
       rowspan: '2'
     },
     {
-      name: `静脉ml`,
+      name: `静脉<br/>ml`,
       style: {
         minWidth: '40px',
         maxWidth: '40px',
@@ -212,7 +208,7 @@ export default {
       rowspan: '2'
     },
     {
-      name: `肌肉注释ml`,
+      name: `肌肉注<br/>释ml`,
       style: {
         minWidth: '40px',
         maxWidth: '40px',
@@ -221,7 +217,7 @@ export default {
       rowspan: '2'
     },
     {
-      name: `灌肠ml`,
+      name: `灌肠<br/>ml`,
       style: {
         minWidth: '40px',
         maxWidth: '40px',

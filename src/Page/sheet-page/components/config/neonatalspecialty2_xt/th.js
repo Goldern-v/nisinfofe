@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1360px"
+      width: "1370px"
     },
     th: {
         top: 
@@ -44,9 +44,9 @@ export default {
                 {"name":"痰液性质","colspan":"1","rowspan":"3","canSet":true,"key":"armValue7","style":{"minWidth":"18px","maxWidth":"18px"}},
                 {"name":"痰液量","colspan":"1","rowspan":"3","canSet":true,"key":"armValue8","style":{"minWidth":"18px","maxWidth":"18px"}},
                 {"name":"产瘤位置","colspan":"1","rowspan":"3","canSet":true,"key":"armValue9","style":{"minWidth":"18px","maxWidth":"18px"}},
-                {"name":"大小 cm3","colspan":"1","rowspan":"3","canSet":true,"key":"armValue10","style":{"minWidth":"18px","maxWidth":"18px"}},
+                {"name":"大小 cm³","colspan":"1","rowspan":"3","canSet":true,"key":"armValue10","style":{"minWidth":"25px","maxWidth":"25px"}},
                 {"name":"头部血肿位置","colspan":"1","rowspan":"3","canSet":true,"key":"armValue11","style":{"minWidth":"18px","maxWidth":"18px"}},
-                {"name":"大小 cm3","colspan":"1","rowspan":"3","canSet":true,"key":"armValue12","style":{"minWidth":"18px","maxWidth":"18px"}},
+                {"name":"大小 cm³","colspan":"1","rowspan":"3","canSet":true,"key":"armValue12","style":{"minWidth":"25px","maxWidth":"25px"}},
                 {"name":"吸<br/>氧<br/>方<br/>式","colspan":"1","rowspan":"3"},
                 {"name":"氧<br/>流<br/>量<br/>L<br/>/<br/>min","colspan":"1","rowspan":"3"},
                 {"name":"氧<br/>浓<br/>度<br/>%","colspan":"1","rowspan":"3"},
