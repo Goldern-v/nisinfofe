@@ -88,6 +88,7 @@ import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatur
 import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperatureWHFK";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
+import bloodOxygen  from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
 import { getPatientInfo } from "@/api/common.js";
 import bus from "vue-happy-bus";
@@ -155,6 +156,7 @@ export default {
     rightPart,
     sheet,
     bloodSugar,
+    bloodOxygen,
     temperature,
     temperatureHD,
     temperatureLCEY,

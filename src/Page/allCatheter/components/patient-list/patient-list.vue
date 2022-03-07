@@ -115,12 +115,11 @@ export default {
   },
   computed: {
     list() {
-      return this.data.filter(item => {
-        return (
-          item.bedLabel.indexOf(this.searchWord) > -1 ||
-          item.name.indexOf(this.searchWord) > -1
-        );
-      });
+      let renderList = this.data.filter(item => item.bedLabel.indexOf(this.searchWord) > -1 ||item.name.indexOf(this.searchWord) > -1 )
+      return this.HOSPITAL_ID=='whfk'?renderList
+      .sort((item1,item2)=> item1.bedLabel - item2.bedLabel)
+      :
+      renderList
     }
   },
   created() {

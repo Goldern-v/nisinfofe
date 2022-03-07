@@ -37,7 +37,7 @@
           <div class="sup-title" v-else-if="HOSPITAL_ID == 'whfk'">
             血糖监测单
           </div>
-          
+
           <div class="sup-title" v-else>微量血糖测定登记表</div>
           <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div>
           <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
@@ -50,17 +50,17 @@
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
             <span  style="width:70px" v-if="HOSPITAL_ID == 'liaocheng'">床号：{{ patientInfo.bedLabel }}</span>
             <span  style="width:100px" v-else>床号：{{ patientInfo.bedLabel }}</span>
-            <span>病人姓名：{{ patientInfo.name }}</span>
-            <span>性别：{{ patientInfo.sex }}</span>
+            <span>病人姓名：{{ patientInfo.name  || tableHeaderInfo.name }}</span>
+            <span>性别：{{ patientInfo.sex  || tableHeaderInfo.sex }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
               >年龄：{{ formAge ? formAge : patientInfo.age }}</span
             >
             <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <span v-if="HOSPITAL_ID == 'liaocheng'"
-              >病案号：{{ patientInfo.inpNo }}</span
+              >病案号：{{ patientInfo.inpNo  }}</span
             >
-            <span v-else>住院号：{{ patientInfo.inpNo }}</span>
+            <span v-else>住院号：{{ patientInfo.inpNo || tableHeaderInfo.inpNo }}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <p flex="main:justify" class="info" v-else-if="isPreviewUserInfo">
@@ -75,8 +75,8 @@
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <p flex="main:justify" class="info" v-else>
-            <span>病人姓名：{{ patientInfo.name }}</span>
-            <span>性别：{{ patientInfo.sex }}</span>
+            <span>病人姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
+            <span>性别：{{ patientInfo.sex || tableHeaderInfo.sex }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
               >年龄：{{ formAge ? formAge : patientInfo.age }}</span
             >
@@ -143,7 +143,7 @@
         <nullBg v-show="listMap.length == 0"></nullBg>
         <!-- <div class="addBtn" v-show="listMap.length == 0"> -->
         <div class="addBtn" v-show="listMap.length == 0 && !isPreview">
-          <whiteButton text="添加血糖记录" @click="onAddTable" />
+          <whiteButton text="添加血糖记录" @click="onAddTable" :disabled="isPreview"/>
         </div>
       </div>
     </div>
@@ -156,29 +156,30 @@
     </div>
     <div class="tool-con" v-show="listMap.length" :class="[HOSPITAL_ID=='guizhou'?'guizhou-btn':'']">
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID!=='liaocheng'"></whiteButton>
-        <whiteButton text="添加记录" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID==='liaocheng'"></whiteButton>
-        <whiteButton 
-        text="保存" 
-        @click="saveActiveSugar()" 
+        <whiteButton text="添加" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID!=='liaocheng'" :disabled="isPreview"></whiteButton>
+        <whiteButton text="添加记录" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID==='liaocheng'" :disabled="isPreview"></whiteButton>
+        <whiteButton
+        text="保存"
+        @click="saveActiveSugar()"
         v-if="HOSPITAL_ID==='liaocheng'"
          :disabled="!selected || !selected.recordDate"></whiteButton>
         <whiteButton
           text="修改"
           @click="hisDisabled()&&onEdit()"
-          :disabled="!selected || !selected.recordDate"
+          :disabled="!selected || !selected.recordDate||isPreview"
           v-if="HOSPITAL_ID != 'lingcheng'"
         ></whiteButton>
         <whiteButton
           text="删除"
           @click="hisDisabled()&&onRemove()"
-          :disabled="!selected || !selected.recordDate"
+          :disabled="!selected || !selected.recordDate||isPreview"
         ></whiteButton>
         <whiteButton
           :text="`设置起始页(${startPage})`"
           @click="hisDisabled()&&openSetPageModal(listMap.length)"
+          :disabled="isPreview"
         ></whiteButton>
-        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"></whiteButton>
+        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()" :disabled="isPreview"></whiteButton>
         <whiteButton
           :text="!isChart ? '查看曲线' : HOSPITAL_ID=='guizhou'?'返回':'查看表格'"
           @click="openChart"
@@ -332,6 +333,7 @@ export default {
       listMap: [],
       hisPatSugarList: [],
       isChart: false,
+      tableHeaderInfo:{},
       selected: null,
       startPage: 1,
       typeList: [],
@@ -410,12 +412,12 @@ if(this.selected.expand2!==undefined){
         if(item.date&&firstDate!==item.date){
           item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
         }
-      
+
       await saveSugarList([item])
       this.$message.success("保存成功");
       this.load()
       this.getSugarItemDict();
-    
+
     },
     hisDisabled(){
       return  !this.$route.path.includes('nursingPreview')
@@ -433,6 +435,7 @@ if(this.selected.expand2!==undefined){
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
+      this.tableHeaderInfo=res.data.data
       this.resAge = res.data.data.age;
       ////表头用户信息通过获取用户信息接口获取的医院
       (this.hisUserTitLeList.includes(this.HOSPITAL_ID)) && (this.sugarUserInfo = res.data.data);
