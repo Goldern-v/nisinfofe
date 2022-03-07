@@ -77,7 +77,7 @@ export default [{
     },
   },
   {
-    key: "breatheFrequency", //呼吸频率
+    key: "breath", //呼吸频率
     value: "",
     event: keyf1,
     name: "呼吸频率",
