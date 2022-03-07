@@ -76,7 +76,12 @@ export function addRecord(obj) {
 
 // 更新实际执行时间/结束输液时间（陵城）
 export function updateExecuteTime(obj) {
-  return axios.post(`${apiPath}${hospitalExecute}/getorderexecuteUpdate`, obj);
+  switch(HOSPITAL_ID){
+    case 'quzhou':
+      return axios.post(`${apiPath}hisLiaoChengExecute/getorderexecuteUpdate`, obj);
+    default :
+      return axios.post(`${apiPath}${hospitalExecute}/getorderexecuteUpdate`, obj);
+  }
 }
 
 

@@ -83,6 +83,15 @@ module.exports = {
     title: '"智慧护理信息系统"',
     hasFollow:true
   },
+  lyxrm: {
+    HOSPITAL_ID: '"lyxrm"',
+    HOSPITAL_NAME: '"临邑县人民医院"',
+    HOSPITAL_NAME_SPACE: '"临 邑 县 人 民 医 院"',
+    COMPANY_NAME: '"百辰源（北京）科技有限公司"',
+    ABOUT_INFO: '"关于百辰源"',
+    title: '"智慧护理信息系统"',
+    hasFollow:true
+  },
   guizhou: {
     HOSPITAL_ID: '"guizhou"',
     HOSPITAL_NAME: '"贵州省人民医院"',

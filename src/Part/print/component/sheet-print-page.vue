@@ -247,7 +247,9 @@ export default {
         "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
         "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
         "safemetachysis_jm",//江门妇幼_输血护理记录单
-
+        "internal_eval_lcey",//聊城_一般患者护理记录单
+        "critical_new_lcey",//聊城_病重（危）患者护理记录单(带瞳孔）
+        "critical_lcey",//聊城_病重（病危）患者护理记录单（带瞳孔）
       ]
     };
   },
@@ -273,7 +275,7 @@ export default {
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
     // 江门妇幼的护理单打印双数页面会翻转,横沥ICU机械通气护理单。修复
-    if(this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"||this.HOSPITAL_ID==="wujing"){
+    if(this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"||this.HOSPITAL_ID==="wujing"||this.HOSPITAL_ID==="fsxt"){
       printDir("h");
             addCSS(
               window,
@@ -384,6 +386,18 @@ export default {
         `
       );
     }
+    if(this.sheetInfo.sheetType=="cardiovascular_xt"){
+      addCSS(
+        window,
+        `
+        @media print {
+          @page{
+            margin-top: -30px;
+          }
+        }
+        `
+      );
+    }
     if ( (this.HOSPITAL_ID === "foshanrenyi") &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
@@ -435,6 +449,26 @@ export default {
               margin-top:-20px;!important;
             }
           }
+        `
+      );
+    }
+     if (
+      (this.HOSPITAL_ID === "liaocheng") &&
+      this.multiSignArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='医师签名']{
+            display:none !important;
+          }
+           #sheetPagePrint th[dataname="护士签名"] {
+              min-width: 100px !important;
+              max-width: 100px !important;
+            }
+           img{
+              transform: scale(0.8);
+            }
         `
       );
     }

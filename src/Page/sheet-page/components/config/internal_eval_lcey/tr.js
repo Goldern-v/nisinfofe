@@ -103,7 +103,14 @@ export default [{
     key: "sign",
     value: "",
     style: {
-      minWidth: '52px'
+      minWidth: '55px'
+    }
+  },
+  {
+    key: "sign2",
+    value: "",
+    style: {
+      minWidth: '55px'
     }
   },
   // {
@@ -118,6 +125,11 @@ export default [{
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -157,6 +169,11 @@ export default [{
   },
   {
     hidden: true,
+    key: "signerNo2",
+    value: ""
+  },
+  {
+    hidden: false,
     key: "auditorNo",
     value: ""
   },

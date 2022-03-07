@@ -1321,6 +1321,9 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
+      if(!this.staticObj.recordHour){
+        return this.$message.warning('记录时间不得为空！')
+      }
       // 计算字节长度
       var GetLength = function (str) {
         var realLength = 0,

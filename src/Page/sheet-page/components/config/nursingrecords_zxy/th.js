@@ -135,8 +135,8 @@ export default {
         病情观察、病情主诉、治疗、护理措施、效果
         `,
         style: {
-          minWidth: "430px",
-          maxWidth: "430px"
+          minWidth: "380px",
+          maxWidth: "380px"
         },
         colspan: "1",
         rowspan: "3"
@@ -174,8 +174,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "65px",
-          maxWidth: "65px"
+          minWidth: "105px",
+          maxWidth: "105px"
         },
         
       },

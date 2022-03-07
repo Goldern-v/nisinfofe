@@ -42,6 +42,13 @@
           <span class="name">血糖</span>
         </div>
       </div>
+      <div v-if="showBloodOxygen.includes(HOSPITAL_ID)">
+        <div @click="setItemShow('five')" class="title">血氧</div>
+        <div v-if="isShowObj.five" @click="showForm('bloodOxygen')" class='fromCss'>
+          <img src='@/common/images/record/文件.png' class="img"/>
+          <span class="name">血氧</span>
+        </div>
+      </div>
     </div>
     <!-- 弹出框 -->
     <newForm ref="newForm"></newForm>
@@ -203,11 +210,13 @@ export default {
         one: false,
         two: false,
         three: false,
-        four:false
+        four:false,
+        five:false
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
-      showBloodSugar:['guizhou','hengli','huadu'] // 是否开放血糖模块
+      showBloodSugar:['guizhou','hengli','huadu','whfk'], // 是否开放血糖模块
+      showBloodOxygen:['whfk'] // 是否开放血糖模块
     };
   },
   computed: {
@@ -384,6 +393,7 @@ export default {
     },
     // 开关控制
     setItemShow(type) {
+      console.log(type,this.isShowObj)
       this.isShowObj[type] = !this.isShowObj[type]
     }
   },

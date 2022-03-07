@@ -273,6 +273,19 @@
           "readOnly": null
         },
         {
+          "name": "evalScore",
+          "type": "input",
+          "title": "压力性损伤评分",
+          "titleStyle": "width:120px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": false
+        },
+        {
           "name": "I627004",
           "type": "input",
           "label": "分期（期）",
@@ -441,40 +454,25 @@
     {
       "name": "警示标识",
       "type": "formGroupVerticalBox",
-      "level": "1",
       "title": "警示标识",
+      "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
       "children": [
         {
-          "name": "",
-          "type": "select",
-          "title": "",
-          "style": "",
-          "class": "",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "M627001",
-              "type": "input",
-              "label": "评估高危或极高危患者在床边放置或显示“防压力性损伤”警示标识",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "labelClass": "",
-              "inputWidth": "100px",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            }
-          ]
+          "name": "M627001",
+          "type": "radio",
+          "title": "评估高危或极高危患者在床边放置或显示“防压力性损伤”警示标识",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
         }
       ]
     },
@@ -493,100 +491,65 @@
     {
       "name": "体位变换和早期活动(禁忌者除外)",
       "type": "formGroupVerticalBox",
-      "level": "1",
       "title": "体位变换和早期活动(禁忌者除外)",
+      "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": "",
+      "keys": "M627002",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
       "children": [
         {
-          "name": "",
-          "type": "select",
-          "title": "",
-          "style": "",
-          "class": "",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "M627002",
-              "type": "input",
-              "label": "侧卧时尽量30°侧卧位，避免长时间90°侧卧位",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            },
-            {
-              "name": "M627003",
-              "type": "input",
-              "label": "避免长时间抬高床头超过30°必须超过30°时，在臀部下方垫支撑物",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            },
-            {
-              "name": "M627004",
-              "type": "input",
-              "label": "充分抬高足跟在小腿下垫与小腿等长的软枕或垫子",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            },
-            {
-              "name": "M627005",
-              "type": "input",
-              "label": "限制患者坐在没有支撑面的椅子上的时间每次最长不超过2小时",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            },
-            {
-              "name": "M627006",
-              "type": "input",
-              "label": "若患者骶尾部或坐骨已发生压力性损伤限制每天坐位少于3次，每次少于1小时",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            }
-          ]
+          "name": "M627002",
+          "type": "radio",
+          "title": "侧卧时尽量30°侧卧位，避免长时间90°侧卧位",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M627003",
+          "type": "radio",
+          "title": "避免长时间抬高床头超过30°必须超过30°时，在臀部下方垫支撑物",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M627004",
+          "type": "radio",
+          "title": "充分抬高足跟在小腿下垫与小腿等长的软枕或垫子",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M627005",
+          "type": "radio",
+          "title": "限制患者坐在没有支撑面的椅子上的时间每次最长不超过2小时",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M627006",
+          "type": "radio",
+          "title": "若患者骶尾部或坐骨已发生压力性损伤限制每天坐位少于3次，每次少于1小时",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
         }
       ]
     },
@@ -605,40 +568,25 @@
     {
       "name": "支撑面",
       "type": "formGroupVerticalBox",
-      "level": "1",
       "title": "支撑面",
+      "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
       "children": [
         {
-          "name": "",
-          "type": "select",
-          "title": "",
-          "style": "",
-          "class": "",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "M627007",
-              "type": "input",
-              "label": "使用持续低压床垫或减压坐垫",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            }
-          ]
+          "name": "M627007",
+          "type": "radio",
+          "title": "使用持续低压床垫或减压坐垫",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
         }
       ]
     },
@@ -657,100 +605,65 @@
     {
       "name": "预防性皮肤护理",
       "type": "formGroupVerticalBox",
-      "level": "2",
       "title": "预防性皮肤护理",
+      "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
       "children": [
         {
-          "name": "",
-          "type": "select",
-          "title": "",
-          "style": "",
-          "class": "",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "M627008",
-              "type": "input",
-              "label": "保持皮肤清洁，大小便失禁后，立即清洁皮肤",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            },
-            {
-              "name": "M627009",
-              "type": "input",
-              "label": "避免使用碱性肥皂和清洁产品使用屏障产品不让皮肤过于湿润",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            },
-            {
-              "name": "M627010",
-              "type": "input",
-              "label": "避免剧烈摩擦有压力性损伤风险的皮肤",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            },
-            {
-              "name": "M627011",
-              "type": "input",
-              "label": "对有压力性损伤风险的皮肤使用摩擦系数低的纺织品",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            },
-            {
-              "name": "M627012",
-              "type": "input",
-              "label": "对有压力性损伤风险的患者使用多层硅酮泡沫敷料进行局部皮肤保护",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            }
-          ]
+          "name": "M627008",
+          "type": "radio",
+          "title": "保持皮肤清洁，大小便失禁后，立即清洁皮肤",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M627009",
+          "type": "radio",
+          "title": "避免使用碱性肥皂和清洁产品使用屏障产品不让皮肤过于湿润",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M627010",
+          "type": "radio",
+          "title": "避免剧烈摩擦有压力性损伤风险的皮肤",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M627011",
+          "type": "radio",
+          "title": "对有压力性损伤风险的皮肤使用摩擦系数低的纺织品",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M627012",
+          "type": "radio",
+          "title": "对有压力性损伤风险的患者使用多层硅酮泡沫敷料进行局部皮肤保护",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
         }
       ]
     },
@@ -769,57 +682,49 @@
     {
       "name": "营养评估及治疗",
       "type": "formGroupVerticalBox",
-      "level": "2",
       "title": "营养评估及治疗",
+      "message": "",
       "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M627013",
+          "type": "radio",
+          "title": "对有压力性损伤风险的患者进行营养评估",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M627014",
+          "type": "radio",
+          "title": "针对营养不良或有营养不良风险的患者制定并实施个性化营养护理计划",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
       "style": "",
       "classes": "",
-      "readOnly": "",
-      "children": [
-        {
-          "name": "",
-          "type": "select",
-          "title": "",
-          "style": "",
-          "class": "",
-          "readOnly": null,
-          "children": [
-            {
-              "name": "M627013",
-              "type": "input",
-              "label": "对有压力性损伤风险的患者进行营养评估",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            },
-            {
-              "name": "M627014",
-              "type": "input",
-              "label": "针对营养不良或有营养不良风险的患者制定并实施个性化营养护理计划",
-              "elementStyle": "margin:10px",
-              "labelStyle": "color:black",
-              "inputWidth": "100px",
-              "labelClass": "",
-              "readOnly": null,
-              "options": [
-                "√",
-                "×",
-                "/"
-              ]
-            }
-          ]
-        }
-      ]
+      "readOnly": ""
     }
   ],
   "dialogs": [],

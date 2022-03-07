@@ -145,34 +145,34 @@ export default {
     },
     post() {
       if (this.date[1]) {
-        this.bus.$emit("saveSheetPage");
-        setTimeout(() => {
-          let date = this.date;
-          let startTime = this.date[0];
-          let endTime = this.date[1];
-          if(this.HOSPITAL_ID==="fuyou"){
-          // el-date-picker的value-format不生效
-           startTime=moment(startTime).format("YYYY-MM-DD HH:mm")
-           endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
-           }
-          let recordCode = sheetInfo.sheetType;
-          outputSum(
-            this.$parent.patientInfo.patientId,
-            this.$parent.patientInfo.visitId,
-            recordCode,
-            startTime,
-            endTime,
-            this.description
-          ).then(res => {
-            this.bus.$emit("refreshSheetPage");
-            this.$message({
-              showClose: true,
-              message: "计算成功",
-              type: "success"
-            });
-            this.close();
+        // this.bus.$emit("saveSheetPage");
+        // setTimeout(() => {
+        let date = this.date;
+        let startTime = this.date[0];
+        let endTime = this.date[1];
+        if(this.HOSPITAL_ID==="fuyou"){
+        // el-date-picker的value-format不生效
+          startTime=moment(startTime).format("YYYY-MM-DD HH:mm")
+          endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
+          }
+        let recordCode = sheetInfo.sheetType;
+        outputSum(
+          this.$parent.patientInfo.patientId,
+          this.$parent.patientInfo.visitId,
+          recordCode,
+          startTime,
+          endTime,
+          this.description
+        ).then(res => {
+          this.bus.$emit("refreshSheetPage");
+          this.$message({
+            showClose: true,
+            message: "计算成功",
+            type: "success"
           });
-        }, 500);
+          this.close();
+        });
+        // }, 500);
       } else {
         this.$message({
           showClose: true,

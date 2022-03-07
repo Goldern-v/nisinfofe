@@ -84,7 +84,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 45
+      width: 35
     },
   },
   {
@@ -97,7 +97,7 @@ export default [
       data: 意识
     },
     textarea: {
-      width: 40
+      width: 30
     },
   },
   {
@@ -105,9 +105,9 @@ export default [
     value: "",
     event: keyf1,
     name: "入量名称",
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 40),
     textarea: {
-      width: 65,
+      width: 135,
     },
     autoComplete: {
       data: 入量名称
@@ -217,7 +217,7 @@ export default [
       background: "transparent",
     },
     textarea: {
-      width: 430
+      width: 380
     },
     event: function (e, td) {
       console.log(e.keyCode);

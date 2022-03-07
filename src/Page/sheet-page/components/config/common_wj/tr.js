@@ -118,7 +118,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 51
+      width: 38
     }
   },
   {
@@ -126,7 +126,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 51
+      width: 38
     }
   },
   {
@@ -145,22 +145,22 @@ export default [
       width: 38
     }
   },
-  {
-    key: "fieldFive", //标题5
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 38
-    }
-  },
-  {
-    key: "fieldSix", //标题6
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 38
-    }
-  },
+  // {
+  //   key: "fieldFive", //标题5
+  //   value: "",
+  //   event: keyf1,
+  //   textarea: {
+  //     width: 38
+  //   }
+  // },
+  // {
+  //   key: "fieldSix", //标题6
+  //   value: "",
+  //   event: keyf1,
+  //   textarea: {
+  //     width: 38
+  //   }
+  // },
   {
     key: "description", //特殊情况记录
     value: "",
@@ -170,7 +170,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "275px",
       background: "transparent"
     },
     event: function(e, td) {
@@ -194,6 +194,21 @@ export default [
   {
     hidden: true,
     key: "id",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "expand",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "expand2",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "expand3",
     value: ""
   },
   {

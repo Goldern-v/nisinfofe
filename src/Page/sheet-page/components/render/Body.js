@@ -1226,7 +1226,7 @@ function switechSheetType(type) {
     }
       break;
     case "prenataldelivery2_xt": {
-      // 佛山杏坛 - 护理记录单(产前待产记录)（未测试）
+      // 佛山杏坛 - 护理记录单(产前待产记录) 
       schema = require("../config/prenataldelivery2_xt/tr.js").default;
     }
       break;
@@ -1236,32 +1236,32 @@ function switechSheetType(type) {
     }
       break;
     case "gynaecology2_xt": {
-      // 佛山杏坛 - 护理记录单(妇科专科)（未测试）
+      // 佛山杏坛 - 护理记录单(妇科专科)
       schema = require("../config/gynaecology2_xt/tr.js").default;
     }
       break
     case "pediatric3_xt": {
-      // 佛山杏坛 - 护理记录单(产科新生儿科)（未测试）
+      // 佛山杏坛 - 护理记录单(产科新生儿科)
       schema = require("../config/pediatric3_xt/tr.js").default;
     }
       break
     case "paediatrician2_xt": {
-      // 佛山杏坛 - 护理记录单(儿科)（未测试）
+      // 佛山杏坛 - 护理记录单(儿科)
       schema = require("../config/paediatrician2_xt/tr.js").default;
     }
       break
     case "neonatalspecialty2_xt": {
-      // 佛山杏坛 - 护理记录单(新生儿专科)（未测试）
+      // 佛山杏坛 - 护理记录单(新生儿专科)
       schema = require("../config/neonatalspecialty2_xt/tr.js").default;
     }
       break
     case "gastroenterology_xt": {
-      // 佛山杏坛 - 护理记录单(消化专科)（未测试）
+      // 佛山杏坛 - 护理记录单(消化专科)
       schema = require("../config/gastroenterology_xt/tr.js").default;
     }
       break
     case "care3_xt": {
-      // 佛山杏坛 - 护理记录单(内三科通用单)（未测试）
+      // 佛山杏坛 - 护理记录单(内三科通用单)
       schema = require("../config/care3_xt/tr.js").default;
     }
       break
@@ -1270,6 +1270,31 @@ function switechSheetType(type) {
       schema = require("../config/care2_xt/tr.js").default;
     }
       break
+    case "general2_xt": {
+      // 佛山杏坛 - 护理记录单
+      schema = require("../config/general2_xt/tr.js").default;
+    }
+      break
+    case "fracture_xt": {
+      // 佛山杏坛 - 护理记录单（骨折）
+      schema = require("../config/fracture_xt/tr.js").default;
+    }
+    break; 
+    case "spine_xt": {
+      // 佛山杏坛 - 护理记录单（脊柱）
+      schema = require("../config/spine_xt/tr.js").default;
+    }
+    break; 
+    case "craniocerebral_xt": {
+      // 佛山杏坛 - 护理记录单（颅脑）
+      schema = require("../config/craniocerebral_xt/tr.js").default;
+    }
+    break; 
+    case "general_xt": {
+      // 佛山杏坛 - 护理记录单（通用）
+      schema = require("../config/general_xt/tr.js").default;
+    }
+    break; 
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/pediatric3_xt/tr.js").default;

@@ -1,5 +1,5 @@
 <template>
-  <div :class="['header-con',sheetInfo.sheetType === 'common_wj'?'wujing-big-title':'']">
+  <div class="header-con">
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <template v-if="sheetInfo.sheetType=='magnesium_lcey'||sheetInfo.sheetType=='labor_lcey'">
@@ -28,7 +28,8 @@
         病案号：
         <div class="bottom-line" style="min-width: 75px">{{patientInfo.inpNo}}</div>
       </span>
-       <span
+      <template v-if="sheetInfo.sheetType=='labor_lcey'">
+        <span
           @click="updateRelObj('Parity', '胎次',Parity)"
         >
          胎次：
@@ -42,6 +43,7 @@
             {{ gestationalWeek }}
           </div>
         </span>
+      </template>
       </div>
       <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType=='magnesium_lcey'">
         <span
@@ -268,7 +270,10 @@ export default {
     }
   },
   destroyed() {},
-  components: { crDatePicker }
+  components: { crDatePicker },
+  created(){
+    console.log(27,this.patientInfo.deptName)
+  }
 };
 </script>
 

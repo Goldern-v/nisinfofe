@@ -1,6 +1,10 @@
 <template>
   <div class="header-con">
-    <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
+   
+    <div class="his-name titleFK">
+       <img src="@/common/images/logo_whfk.png" style="width:55px;height:55px">
+       <h3> {{HOSPITAL_NAME_SPACE}}</h3>
+    </div>
     <div class="title">{{patientInfo.recordName}}</div>
     <!-- {{sheetInfo.relObj}} -->
     <div class="info-con" flex="main:justify">
@@ -214,5 +218,10 @@ input.bottom-line {
   border-left: 0;
   border-right: 0;
   outline: none;
+}
+.titleFK{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

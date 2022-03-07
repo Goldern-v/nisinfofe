@@ -1,21 +1,6 @@
 <template>
   <div>
     <div class="contain">
-      <!-- <el-dropdown>
-        <div class="print-btn tool-btn">打印</div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <el-button type="primary" @click="onPrint()"
-              >打印当周</el-button
-            ></el-dropdown-item
-          >
-          <el-dropdown-item
-            ><el-button type="primary" @click="printAll()"
-              >批量打印</el-button
-            ></el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown> -->
      <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
@@ -183,6 +168,9 @@ export default {
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     messageHandle(e) {
       if (e && e.data) {
         switch (e.data.type) {
@@ -190,24 +178,9 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-          // case "getNurseExchangeInfo" /* 转科转床接口，聊城二院取消，花都保留 */:
-          //   const params = {
-          //     patientId: this.$route.query.patientId,
-          //     startLogDateTime: e.data.value.startLogDateTime,
-          //     endLogDateTime: e.data.value.endLogDateTime,
-          //     visitId: this.$route.query.visitId,
-          //   };
-          //   getNurseExchangeInfoByTime(params).then((res) => {
-          //     const value = {
-          //       adtLog: res.data.data.adtLog,
-          //       bedExchangeLog: res.data.data.bedExchangeLog,
-          //     };
-          //     this.$refs.pdfCon.contentWindow.postMessage(
-          //       { type: "nurseExchangeInfo", value },
-          //       "*"
-          //     );
-          //   });
-          //   break;
+             case "dblclick":/* 双击查阅体温单子 */
+          this.openRight();
+          break;
             case "getNurseExchangeInfoAll":
             const paramsAll = {
               patientId: this.$route.query.patientId,
@@ -300,10 +273,10 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contain {
-  margin: 15px 20px 0;
+  margin: 10px 10px 0 10px;
 
   .tem-con {
-    width: 102%;
+    width: 101%;
     height: 100%;
     position: relative;
     left: 0px;

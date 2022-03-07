@@ -863,7 +863,11 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-      if (process.env.HOSPITAL_ID == "fuyou"|| process.env.HOSPITAL_ID == "quzhou" || process.env.HOSPITAL_ID == "huadu") {
+      if (process.env.HOSPITAL_ID == "fuyou"|| 
+          process.env.HOSPITAL_ID == "quzhou" || 
+          process.env.HOSPITAL_ID == "huadu"||
+          process.env.HOSPITAL_ID == "xiegang"||
+          process.env.HOSPITAL_ID == "liaocheng") {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
@@ -914,7 +918,7 @@ export default {
       this.$refs.syncExamTestModal.open(tr, td, sheetModel);
     });
     this.bus.$on("ImportExamCallBack", (str) => {
-      // console.log(this.sheetModel[0].bodyModel[0][18].value);
+      // console.log(this.sheetModel[0].bodyModel[0][18].value, 88881);
       this.bus.$emit('saveSheetPage','noSaveSign')
     });
   },

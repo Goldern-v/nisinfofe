@@ -68,8 +68,8 @@ export default {
     setTimeout(() => {
       this.visible = true;
     }, 300);
-
-    if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "liaocheng") {
+    // 血糖曲线图打点有问题（项目名称有误）的话改这里
+    if (["lingcheng","liaocheng","foshanrenyi"].includes(this.HOSPITAL_ID)) { // 通过接口请求项目类型的医院
       this.types = this.sugarItem.map(item => {
         return item.vitalSign;
       });

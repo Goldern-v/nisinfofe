@@ -21,7 +21,7 @@
       <div
         class="right-part"
         v-loading="tableLoading"
-        :class="openLeft ? 'isLeft' : 'isRight'"
+       :class="openLeft ? 'isLeft' : 'isRight'"
       >
         <div class="sheetTable-contain">
           <temperatureGuizhou
@@ -33,7 +33,7 @@
             :style="{ top: flagTop }"
             flex="main:center cross:center"
             @click="openRight"
-           >
+          >
             <i
               class="iconfont icon-yincang"
               v-show="rightSheet"
@@ -45,7 +45,12 @@
               style="margin-left: -2px"
             ></i>
           </div>
-          <tabCon class="contain-right" :patientInfo="patientInfo"  v-show="rightSheet"> </tabCon>
+          <tabCon
+            class="contain-right"
+            :patientInfo="patientInfo"
+            v-show="rightSheet"
+          >
+          </tabCon>
         </div>
       </div>
     </div>
@@ -55,7 +60,6 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .new-singleTemperature-chart {
   position: relative;
-
   .body-con {
     position: relative;
 
@@ -68,7 +72,6 @@
     }
 
     .right-part {
-      margin-left: 199px;
       height: 100%;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
@@ -81,34 +84,35 @@
         .contain-center {
           flex: 7;
         }
-.flag-con {
-      width: 10px;
-      height: 73px;
-      position: relative;
-      z-index: 10;
-      background-image: url('../../../common/images/patient/隐藏框.png');
-      cursor: pointer;
-      transform: rotateY(180deg);
 
-      &:hover {
-        color: #5CC6A1;
-      }
+        .flag-con {
+          width: 10px;
+          height: 73px;
+          position: relative;
+          z-index: 10;
+          background-image: url('../../../common/images/patient/隐藏框.png');
+          cursor: pointer;
+          transform: rotateY(180deg);
 
-      i {
-        font-size: 12px;
-      }
-    }
+          &:hover {
+            color: #5CC6A1;
+          }
+
+          i {
+            font-size: 12px;
+          }
+        }
 
         .contain-right {
           flex: 3;
           border-left: 1px solid #eee;
           height: 100%;
-          padding: 10px;
-          // margin-top:10px;
-          overflow-y: auto;
         }
       }
     }
+   .isLeft {
+      margin-left: 199px;
+      }
   }
 }
 </style>
@@ -144,9 +148,9 @@ export default {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
-     flagTop() {
+    flagTop() {
       return `${this.wih * 0.4}px`;
-    }, 
+    },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
@@ -180,7 +184,7 @@ export default {
         });
       }
     },
-     //关闭录入界面
+    //关闭录入界面
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
     },

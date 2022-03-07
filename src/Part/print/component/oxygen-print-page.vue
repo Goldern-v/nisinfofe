@@ -13,7 +13,7 @@
   .sugr-page
     margin 0
     page-break-after always
-    min-height 1000px
+    min-height 1020px
     // background red
   .noPrint
     display none

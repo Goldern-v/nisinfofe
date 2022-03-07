@@ -32,11 +32,11 @@
                 <i class="iconfont icon-shouye"></i> 首页
               </el-row>
             </router-link>
-            <!-- <router-link to="/archive" tag="span">
+            <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
               </el-row>
-            </router-link> -->
+            </router-link>
             <!-- <router-link to="/scheduling" tag="span" v-show="deptCode == '031202'">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
