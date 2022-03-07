@@ -299,7 +299,7 @@ export default {
       return this.$route?this.$route.path=="/nursingDocumentation":false
     },
     hospitalTransfer(){
-      return ['huadu','fuyou','beihairenyi'].includes(this.HOSPITAL_ID)
+      return ['huadu','fuyou','beihairenyi', 'sdlj'].includes(this.HOSPITAL_ID)
     }
   },
   watch: {
@@ -330,8 +330,10 @@ export default {
     //江门妇幼、转院、出院中的【起始时间】调整为当天
       if(['fuyou'].includes(this.HOSPITAL_ID))
       {
-         this.data.dischargeDate=[new Date(), new Date()];
-         this.data.dateTime= [new Date(), new Date()];
+        this.data.dischargeDate=[new Date(), new Date()];
+        this.data.dateTime= [new Date(), new Date()];
+      } else if(['sdlj'].includes(this.HOSPITAL_ID)) {
+        this.data.dischargeDate = [new Date(), new Date()]
       }
   },
   methods: {
