@@ -103,32 +103,32 @@ export default {
       }
     },
     //UrlDecode解码
-    UrlDecode(zipStr){ 
-      var uzipStr = ''; 
+    UrlDecode(zipStr){
+      var uzipStr = '';
       for (var i = 0; i < zipStr.length; i += 1) {
-        var chr = zipStr.charAt(i); 
-        if (chr === '+') { 
+        var chr = zipStr.charAt(i);
+        if (chr === '+') {
           uzipStr += ' ';
-        } else if (chr === '%') { 
-          var asc = zipStr.substring(i + 1, i + 3); 
+        } else if (chr === '%') {
+          var asc = zipStr.substring(i + 1, i + 3);
           if (parseInt('0x' + asc) > 0x7f) {
-            uzipStr += decodeURI('%' + asc.toString() + zipStr.substring(i+3, i+9).toString()); 
+            uzipStr += decodeURI('%' + asc.toString() + zipStr.substring(i+3, i+9).toString());
             i += 8;
-          }else{ 
-            uzipStr += this.AsciiToString(parseInt('0x' + asc)); 
+          }else{
+            uzipStr += this.AsciiToString(parseInt('0x' + asc));
             i += 2;
-          } 
-        }else{ 
-          uzipStr += chr; 
-        } 
-      } 
-      return uzipStr; 
+          }
+        }else{
+          uzipStr += chr;
+        }
+      }
+      return uzipStr;
     },
-    StringToAscii(str){ 
-      return str.charCodeAt(0).toString(16); 
+    StringToAscii(str){
+      return str.charCodeAt(0).toString(16);
     },
-    AsciiToString(asccode){ 
-      return String.fromCharCode(asccode); 
+    AsciiToString(asccode){
+      return String.fromCharCode(asccode);
     },
 
     // 医生查看病人评估单&记录单（陵城） 查看病人病历、检查、检验（厚街合理用药）
@@ -363,7 +363,7 @@ export default {
            } catch (error) {
              parmas.error=error
              this.errorMsg = error;
-           } 
+           }
         }
       }).catch(error=>{
         console.log(error)

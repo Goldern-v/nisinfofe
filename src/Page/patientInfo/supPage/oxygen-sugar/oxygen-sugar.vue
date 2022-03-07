@@ -18,11 +18,11 @@
           <div class="sup-title">血氧记录单</div>
           <p flex="main:justify" class="info" v-if="isPreviewUserInfo">
             <span>科别：{{ sugarUserInfo.deptName }}</span>
-            <span>床号：{{ sugarUserInfo.bedNo }}</span>
+            <span>床号：{{ sugarUserInfo.bedNo || sugarUserInfo.bedLabel }}</span>
             <span>姓名：{{ sugarUserInfo.name }}</span>
-            <span>性别：{{ sugarUserInfo.gender }}</span>
+            <span>性别：{{ sugarUserInfo.gender || sugarUserInfo.sex }}</span>
             <span>年龄：{{ sugarUserInfo.age }}</span>
-            <span>住院号：{{ sugarUserInfo.inHosId }}</span>
+            <span>住院号：{{ sugarUserInfo.inHosId || sugarUserInfo.patientId}}</span>
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
@@ -74,7 +74,7 @@
         <nullBg v-show="listMap.length == 0"></nullBg>
         <!-- <div class="addBtn" v-show="listMap.length == 0"> -->
         <div class="addBtn" v-show="listMap.length == 0 && !isPreview">
-          <whiteButton text="添加血氧记录" @click="onAddTable" />
+          <whiteButton text="添加血氧记录" @click="onAddTable" :disabled="isPreview"/>
         </div>
       </div>
     </div>
@@ -84,12 +84,14 @@
       :class="[HOSPITAL_ID == 'guizhou' ? 'guizhou-btn' : '']"
     >
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="保存" @click="saveActiveSugar()"></whiteButton>
+        <whiteButton text="保存" @click="saveActiveSugar()" :disabled="isPreview"></whiteButton>
         <whiteButton
           text="删除"
           @click="hisDisabled()&&onRemove()"
+          :disabled="isPreview"
         ></whiteButton>
-        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"></whiteButton>
+        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"
+        :disabled="isDisable"></whiteButton>
       </div>
     </div>
     <!-- <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
@@ -324,7 +326,7 @@ export default {
           console.log(item.sugarOxygen,'ddddddddddddddddddddd')
           if(!item.sugarOxygen){
               isSave = true;
-             return 
+             return
           }
         }
       });
@@ -342,11 +344,11 @@ export default {
         })
         }catch(err){
           console.log(err,"resss")
-        } 
+        }
       }else{
          this.$message.warning("血氧为必填项，请填写！");
       }
-     
+
     },
     // 打印预览
     hisDisabled() {
@@ -376,6 +378,7 @@ export default {
         this.baseParams.id ='',
         this.hisPatSugarList = resList.data.data.list;
         this.saveParams = resList.data.data
+        this.sugarUserInfo= resList.data.data
         /** 时间排序 */
         let list = resList.data.data.list
         let listMap = [];
@@ -385,22 +388,22 @@ export default {
           obj.right = list.slice(i + 27, i + 54);
           listMap.push(obj);
         }
-        
+
         // console.log(listMap)
         this.listMap = listMap;
         if(list.length % 54 == 0){
           this.listMap.push(
-            { 
-              left: [], 
-              right: [] 
+            {
+              left: [],
+              right: []
             }
           )
         }
         if(this.listMap.length == 0){
           this.listMap.push(
-            { 
-              left: [], 
-              right: [] 
+            {
+              left: [],
+              right: []
             }
             );
         }
@@ -485,7 +488,7 @@ export default {
         // export const deleteRecord = (params, formType, formCode) => {
         //   return axios.post(`${apiPath}${formType}/${formCode}/deleteRecord`, params);
         // }
-      
+
     },
     onScroll(e) {
       if (e.deltaY < 0 && this.$refs.Contain.style.top.split("px")[0] <= 20) {
