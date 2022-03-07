@@ -51,11 +51,11 @@
             <span  style="width:70px" v-if="HOSPITAL_ID == 'liaocheng'">床号：{{ patientInfo.bedLabel }}</span>
             <span  style="width:100px" v-else>床号：{{ patientInfo.bedLabel }}</span>
             <span>病人姓名：{{ patientInfo.name  || tableHeaderInfo.name }}</span>
-            <span>性别：{{ patientInfo.sex  || tableHeaderInfo.sex }}</span>
+            <span>性别：{{ patientInfo.sex  || tableHeaderInfo.gender }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
-              >年龄：{{ formAge ? formAge : patientInfo.age }}</span
+              >年龄111：{{ formAge ? formAge : patientInfo.age }}</span
             >
-            <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
+            <span v-else>年龄333：{{ resAge ? resAge : patientInfo.age }}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <span v-if="HOSPITAL_ID == 'liaocheng'"
               >病案号：{{ patientInfo.inpNo  }}</span
@@ -64,7 +64,7 @@
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <p flex="main:justify" class="info" v-else-if="isPreviewUserInfo">
-            <span>病人姓名：{{ sugarUserInfo.name }}</span>
+            <span>病人姓名：{{ sugarUserInfo.name || tableHeaderInfo.name}}</span>
             <span>性别：{{ sugarUserInfo.gender }}</span>
             <span >年龄：{{sugarUserInfo.age }}</span>
             <span>科室：{{ sugarUserInfo.deptName }}</span>
@@ -74,25 +74,26 @@
             <span>住院号：{{sugarUserInfo.inHosId }}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
+          <!-- 表头信息-->
           <p flex="main:justify" class="info" v-else>
             <span>病人姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
-            <span>性别：{{ patientInfo.sex || tableHeaderInfo.sex }}</span>
+            <span>性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
               >年龄：{{ formAge ? formAge : patientInfo.age }}</span
             >
-            <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
+            <span v-else>年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
             <span v-else-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
             <span v-else
-              >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
+              >科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span
             >
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
-            <span>床号：{{ resBedNol || patientInfo.bedLabel }}</span>
+            <span>床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <span v-if="HOSPITAL_ID == 'liaocheng'"
               >病案号：{{ patientInfo.inpNo }}</span
             >
-            <span v-else>住院号：{{ resInHosId || patientInfo.inpNo }}</span>
+            <span v-else>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
@@ -313,7 +314,7 @@ import {
   getPvHomePage,
   getSugarItemDict,
   getEditAge,
-  getFormHeadData,
+  getFormHeadData
 } from "./api/index.js";
 import whiteButton from "@/components/button/white-button.vue";
 import sugarChart from "./components/sugar-chart.vue";
@@ -436,6 +437,7 @@ if(this.selected.expand2!==undefined){
         this.patientInfo.visitId
       );
       this.tableHeaderInfo=res.data.data
+      this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel
       this.resAge = res.data.data.age;
       ////表头用户信息通过获取用户信息接口获取的医院
       (this.hisUserTitLeList.includes(this.HOSPITAL_ID)) && (this.sugarUserInfo = res.data.data);
