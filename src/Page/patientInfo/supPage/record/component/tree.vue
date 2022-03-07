@@ -827,7 +827,7 @@ export default {
           } else {
             this.regions = list_1;
           }
-          console.log(this.regions);
+          // console.log(this.regions);
 
           // if (
           //   this.HOSPITAL_ID == "hj" &&
@@ -875,7 +875,6 @@ export default {
       this.bus.$emit("activeAllButons");
     },
     updateTree() {
-      console.log(this.expandListCopy,'dddddddddddddddddddddddddd');
       this.expandList = this.expandListCopy || [];
       this.getTreeData();
       this.ifTree = false;
