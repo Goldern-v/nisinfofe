@@ -229,7 +229,7 @@
               </el-dropdown-menu>
             </el-dropdown>
 
-            <router-link to="/catheterPage" tag="span">
+            <router-link to="/allCatheter" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 导管
               </el-row>

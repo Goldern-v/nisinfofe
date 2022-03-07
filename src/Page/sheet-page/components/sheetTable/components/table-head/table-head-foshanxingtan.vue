@@ -3,7 +3,100 @@
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
-    <div class="info-con" flex="main:justify">
+     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType=='pediatric3_xt'||sheetInfo.sheetType=='prenataldelivery2_xt'">
+      <!-- <span>
+        床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span> -->
+      <span>
+        姓名：
+        <div class="bottom-line" style="min-width: 30px">
+          {{ patientInfo.patientName }}
+        </div>
+      </span>
+      <span>
+        性别：
+        <div class="bottom-line" style="min-width: 30px">
+          {{ patientInfo.sex }}
+        </div>
+      </span>
+      <span>
+        床号：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <span>
+        住院号：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.inpNo }}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        孕产史：孕
+        <input
+          style="width: 50px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['yc_' + index]"
+          v-model="sheetInfo.relObj['yc_' + index]"
+        />产
+      </span>
+      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        孕
+        <input
+          style="width: 50px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['yz_' + index]"
+          v-model="sheetInfo.relObj['yz_' + index]"
+        />
+        周
+      </span>
+      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        过敏史：
+        <input
+          style="width: 200px"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['gms_' + index]"
+          v-model="sheetInfo.relObj['gms_' + index]"
+        />
+      </span>
+      <span v-if="sheetInfo.sheetType=='pediatric3_xt'">
+        出生日期：
+        <div @click="updateBirthDay" class="bottom-line" style="min-width: 150px">
+          {{ patientInfo.birthday | YMDHM }}
+        </div>
+      </span>
+      <div class="boxLine"  v-if="sheetInfo.sheetType=='pediatric3_xt'">
+        分娩方式：
+        <input
+          type="checkbox"
+          value="sc"
+          :ischecked="sheetInfo.relObj['sc' + index]"
+          v-model="checkedsc"
+        />顺产
+        <input
+          type="checkbox"
+          value="pgc"
+          :ischecked="sheetInfo.relObj['pgc' + index]"
+          v-model="checkedpfc"
+        />剖宫产
+        <input
+          type="checkbox"
+          value="fyc"
+          :ischecked="sheetInfo.relObj['fyc' + index]"
+          v-model="checkedfyc"
+        />负压产
+        <input
+          type="checkbox"
+          value="qc"
+          :ischecked="sheetInfo.relObj['qc' + index]"
+          v-model="checkedqc"
+        />钳产
+      </div>
+      </div>
+    <div class="info-con" flex="main:justify" v-else>
       <!-- <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
@@ -102,12 +195,47 @@ export default {
       ],
       //不需要诊断的表单
       diagnosisList: [
-        
+        'pediatric3_xt',
+        'prenataldelivery2_xt'
       ],
     };
   },
   mounted() {},
   computed: {
+    ...{
+      'checkedsc':{
+        get(){
+          return this.sheetInfo.relObj[`sc${this.index}`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`sc${this.index}`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedpgc':{
+        get(){
+          return this.sheetInfo.relObj[`pgc${this.index}`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`pgc${this.index}`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedfyc':{
+        get(){
+          return this.sheetInfo.relObj[`fyc${this.index}`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`fyc${this.index}`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedqc':{
+        get(){
+          return this.sheetInfo.relObj[`qc${this.index}`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`qc${this.index}`] = nVal ? "true" : "false"
+        }
+      },
+  },
     diagnosis() {
       /** 最接近的index */
       let realIndex = 0;
@@ -135,6 +263,18 @@ export default {
       }
       this.$refs.bedRecordModal.open();
     },
+    updateBirthDay() {
+      window.openSetAuditDateModal(
+        date => {
+          updateSheetHeadInfo({ birthday: date }).then(res => {
+            this.patientInfo.birthday = res.data.data.birthday;
+            this.$message.success("修改出生日期成功");
+          });
+        },
+        this.patientInfo.birthday,
+        "修改出生日期"
+      );
+    },
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
         (text) => {
@@ -153,6 +293,11 @@ export default {
         return moment(val).format("YYYY年MM月DD日");
       }
     },
+    YMDHM(val) {
+      if(val){
+        return moment(val).format("YYYY年MM月DD日HH时mm分");
+      }
+    }
   },
   watch: {},
   components: {
@@ -175,5 +320,48 @@ input.bottom-line {
 .info-con_new{
   display: flex;
   justify-content: center;
+}
+.boxLine {
+  height: 18px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size:14px;
+}
+input[type='checkbox'] {
+  -webkit-appearance: none;
+  vertical-align: text-top;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #000;
+  border-radius: 0px;
+  outline: none;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+input[type='checkbox']:checked {
+  font-size: 10;
+  position: relative;
+}
+
+input[type='checkbox']:checked:before {
+  content: '';
+  width: 8px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 7px;
+  left: -2px;
+  border-top: 2px solid blue;
+}
+
+input[type='checkbox']:checked:after {
+  content: '';
+  width: 14px;
+  transform: rotate(-50deg) translateY(-50%) translateX(50%);
+  position: absolute;
+  border-top: 2px solid blue;
+  top: 10px;
+  left: -2px;
 }
 </style>

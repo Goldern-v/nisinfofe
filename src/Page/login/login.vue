@@ -601,6 +601,8 @@ export default {
           return require("../../common/images/logoBack.png")
         case "foshanrenyi":
           return require("../../common/images/foshan_logo.png")
+        case "lyxrm":
+          return require("../../common/images/lyxrm_logo.png")
         default:
           return require("../../common/images/logo.png");
       }
