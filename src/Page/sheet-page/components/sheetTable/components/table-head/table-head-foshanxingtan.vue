@@ -49,29 +49,39 @@
       <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
         孕产史：孕
         <input
-          style="width: 30px;font-size:13px;text-align: center;"
+          style="width: 20px;font-size:13px;text-align: center;"
           class="bottom-line"
-          :data-value="sheetInfo.relObj['yc_' + index]"
-          v-model="sheetInfo.relObj['yc_' + index]"
+          :data-value="sheetInfo.relObj['pregnantTimes']"
+          v-model="sheetInfo.relObj['pregnantTimes']"
         />产
-      </span>
-      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['parity']"
+          v-model="sheetInfo.relObj['parity']"
+        />
         孕
         <input
-          style="width: 30px;font-size:13px;text-align: center;"
+          style="width: 20px;font-size:13px;text-align: center;"
           class="bottom-line"
-          :data-value="sheetInfo.relObj['yz_' + index]"
-          v-model="sheetInfo.relObj['yz_' + index]"
+          :data-value="sheetInfo.relObj['pregnantWeeks']"
+          v-model="sheetInfo.relObj['pregnantWeeks']"
         />
         周
       </span>
       <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        产程开始时间：
+        <div @click="updateLaborTime('laborTime', '产程开始时间', patientInfo.laborTime)" class="bottom-line" style="min-width: 150px;height: 12px;">
+          {{ laborTime | YMDHM }}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
         过敏史：
         <input
-          style="width: 250px;font-size:13px;"
+          style="width: 150px;font-size:13px;"
           class="bottom-line"
-          :data-value="sheetInfo.relObj['gms_' + index]"
-          v-model="sheetInfo.relObj['gms_' + index]"
+          :data-value="sheetInfo.relObj['gms']"
+          v-model="sheetInfo.relObj['gms']"
         />
       </span>
       <span v-if="sheetInfo.sheetType=='pediatric3_xt'">
@@ -294,6 +304,25 @@ export default {
         this.patientInfo.childbirth
       );
     },
+    laborTime() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("laborTime");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`laborTime`] ||
+        this.patientInfo.laborTime
+      );
+    },
   },
   methods: {
     openBedRecordModal(){
@@ -318,11 +347,22 @@ export default {
       window.openSetAuditDateModal(
         (text) => {
           sheetInfo.relObj[`PageIndex_childbirth_${this.index}`] = text;
-          this.$message.success(`修改分娩时间`);
+          this.$message.success(`修改分娩时间成功`);
           this.bus.$emit("saveSheetPage", false);
         },
         this.childbirth,
         `修改分娩时间`
+      );
+    },
+    updateLaborTime() {
+      window.openSetAuditDateModal(
+        (text) => {
+          sheetInfo.relObj[`laborTime`] = text;
+          this.$message.success(`修改产程开始时间成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.laborTime,
+        `修改产程开始时间`
       );
     },
     updateDiagnosis(key, label, autoText) {

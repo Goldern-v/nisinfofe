@@ -175,6 +175,8 @@ const implementationListZhongshanqi = () =>
   import("@/Page/implementation-list/implementation-list-zhongshanqi.vue"); //中山七执行单
 const implementationListWujing = () =>
   import("@/Page/implementation-list/implementation-list-wujing.vue"); //武警执行单
+const implementationListFSSY = () =>
+  import("@/Page/implementation-list/implementation-list-FSSY.vue"); //武警执行单
 const implementationListQuzhou = () =>
   import("@/Page/implementation-list/implementation-list-quzhou.vue"); //曲周执行单
 const implementationListFuyou = () =>
@@ -963,9 +965,10 @@ const router = new Router({
               return implementationListZhongshanqi
             case 'wujing':
             case 'lyxrm':
-            case 'foshanrenyi':
             case 'fsxt':
               return implementationListWujing
+            case 'foshanrenyi':
+              return implementationListFSSY
             case 'quzhou':
               return implementationListQuzhou
             case 'fuyou':
