@@ -437,7 +437,10 @@ if(this.selected.expand2!==undefined){
         this.patientInfo.visitId
       );
       this.tableHeaderInfo=res.data.data
-      this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel
+      console.log(res.data.data)
+      if(res.data.data.hisPatSugarList.length != 0){
+        this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel
+      }
       this.resAge = res.data.data.age;
       ////表头用户信息通过获取用户信息接口获取的医院
       (this.hisUserTitLeList.includes(this.HOSPITAL_ID)) && (this.sugarUserInfo = res.data.data);

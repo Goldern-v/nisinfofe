@@ -276,6 +276,7 @@ import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature
 import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperatureDGXG";
 import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperatureWHFK";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
+import oxygenSugar from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar.vue"; // 厚街
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
@@ -897,6 +898,14 @@ const router = new Router({
           })(),
           name: "血糖",
           alias: "血糖"
+        },
+        {
+          path: "/oxygenSugar",
+          // component: process.env.HOSPITAL_NAME == "威县人民医院" ?
+          //   bloodSugarWeiXian : bloodSugar,
+          component: oxygenSugar,
+          name: "血氧",
+          alias: "血氧"
         },
         {
           path: "/healthEducation",

@@ -128,7 +128,7 @@
       </router-link>
        <router-link
         :to="{
-          path: '/oxygenPage',
+          path: '/oxygenSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
