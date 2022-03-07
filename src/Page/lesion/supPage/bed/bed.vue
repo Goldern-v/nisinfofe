@@ -207,6 +207,7 @@ export default {
         [
           "liaocheng","whfk","shannan","quzhou",
           "foshanrenyi","fsxt","whyx","sdlj",
+          'lyxrm'
         ].includes(this.HOSPITAL_ID)) {
         return bedItemLcey;
       }else if (this.HOSPITAL_ID == "beihairenyi") {
