@@ -327,7 +327,7 @@
                   </router-link>
                 </el-dropdown-item> -->
 
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
                 >
                   <router-link to="/wardReport" tag="span">
@@ -335,9 +335,9 @@
                       <i class="wardReport"></i>病房日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
 
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{
                     active: $route.path.indexOf('/inpatientReport') > -1,
                   }"
@@ -347,7 +347,40 @@
                       <i class="inpatientReport"></i>住院日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
+
+                 <el-dropdown-item>
+                   <router-link to="/cognitiveStatistic" tag="span">
+                            <el-row
+                              class="menu-item"
+                              type="flex"
+                              align="middle"
+                            >
+                              <i class="cognitiveStatistic"></i
+                              >统计查询
+                            </el-row>
+                          </router-link>
+                  <!-- <el-dropdown
+                    class="menuSecond-item"
+                    :class="{ 'router-link-active': isActiveStatisticPage }"
+                  >
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i>统计查询
+                    </el-row>
+                    <el-dropdown-menu slot="dropdown">
+                      <template>
+                        <el-dropdown-item
+                          :class="{
+                            active: $route.path == '/cognitiveStatistic',
+                          }"
+                        >
+                          
+                        </el-dropdown-item>
+                      </template>
+                    </el-dropdown-menu>
+                  </el-dropdown> -->
+                </el-dropdown-item>
+                
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
                   <router-link to="/badEvent" tag="span" >
 

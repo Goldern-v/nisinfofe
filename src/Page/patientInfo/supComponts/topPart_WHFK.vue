@@ -22,102 +22,7 @@
       >
         <div class="nav-item">首页</div>
       </router-link>
-      <router-link
-        :to="{
-          path: '/record',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">护理文书</div>
-      </router-link>
-      <router-link
-        v-if="
-          HOSPITAL_ID == 'hj' ||
-            HOSPITAL_ID == 'fuyou' ||
-            HOSPITAL_ID == 'liaocheng'
-        "
-        :to="{
-          path: '/doctorEmr',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">病历</div>
-      </router-link>
-      <!-- <router-link
-        :to="{
-          path: '/sheetNursingOrder',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">护嘱单</div>
-      </router-link> -->
-      <router-link
-        :to="{
-          path: '/sheet',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">护理记录单</div>
-      </router-link>
-      <router-link
-        :to="{
-          path: '/hospitalEval',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">住院日常评估</div>
-      </router-link>
-      <!-- <router-link
-        :to="{
-          path: '/catheter',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">导管</div>
-      </router-link> -->
-      <router-link
-        :to="{
-          path: '/diagnosis',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">护理诊断计划</div>
-      </router-link>
-      <router-link
-        :to="{
-          path: '/bloodSugar',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">血糖</div>
-      </router-link>
-      <router-link
-        :to="{
-          path: '/healthEducation',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">健康教育单</div>
-      </router-link>
-      <router-link
-        :to="{
-          path: '/cost',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">费用信息</div>
-      </router-link>
-      <router-link
+       <router-link
         :to="{
           path: '/information',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -125,6 +30,15 @@
         tag="span"
       >
         <div class="nav-item">基本信息</div>
+      </router-link>
+       <router-link
+        :to="{
+          path: '/cost',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">费用信息</div>
       </router-link>
       <router-link
         :to="{
@@ -153,15 +67,6 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
-      <!-- <router-link to="/dev" tag="span">
-        <div class="nav-item">手术</div>
-      </router-link>-->
-      <!-- <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
-        <div class="nav-item">会诊</div>
-      </router-link>-->
-      <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
-        <div class="nav-item">护理记录单</div>
-      </router-link>-->
       <router-link
         :to="{
           path: '/temperature',
@@ -171,6 +76,111 @@
       >
         <div class="nav-item">体温单</div>
       </router-link>
+      <router-link
+        :to="{
+          path: '/record',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">护理文书</div>
+      </router-link>
+      <!-- <router-link
+        v-if="
+          HOSPITAL_ID == 'hj' ||
+            HOSPITAL_ID == 'fuyou' ||
+            HOSPITAL_ID == 'liaocheng'
+        "
+        :to="{
+          path: '/doctorEmr',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">病历</div>
+      </router-link> -->
+      <!-- <router-link
+        :to="{
+          path: '/sheetNursingOrder',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">护嘱单</div>
+      </router-link> -->
+      <router-link
+        :to="{
+          path: '/sheet',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">护理记录单</div>
+      </router-link>
+       <router-link
+        :to="{
+          path: '/bloodSugar',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">血糖</div>
+      </router-link>
+       <router-link
+        :to="{
+          path: '/oxygenPage',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">血氧</div>
+      </router-link>
+      <router-link
+        :to="{
+          path: '/healthEducation',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">健康教育单</div>
+      </router-link>
+      <!-- <router-link
+        :to="{
+          path: '/hospitalEval',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">住院日常评估</div>
+      </router-link> -->
+      <!-- <router-link
+        :to="{
+          path: '/catheter',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">导管</div>
+      </router-link> -->
+      <router-link
+        :to="{
+          path: '/diagnosis',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">护理诊断计划</div>
+      </router-link>
+      <!-- <router-link to="/dev" tag="span">
+        <div class="nav-item">手术</div>
+      </router-link>-->
+      <!-- <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
+        <div class="nav-item">会诊</div>
+      </router-link>-->
+      <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
+        <div class="nav-item">护理记录单</div>
+      </router-link>-->
+      
       <router-link
         :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
