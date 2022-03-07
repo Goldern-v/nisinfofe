@@ -29,7 +29,7 @@
           </p>
           <p flex="main:justify" class="info" v-else>
             <span
-              >科别：{{ patientInfo.wardName || patientInfo.deptName || sugarUserInfo.bedLabel}}</span
+              >科别：{{ patientInfo.deptName || sugarUserInfo.deptName || patientInfo.wardName }}</span
             >
             <span>床号：{{ resBedNol || patientInfo.bedLabel || sugarUserInfo.bedLabel}}</span>
             <span>姓名：{{ patientInfo.name ||sugarUserInfo.name}}</span>
