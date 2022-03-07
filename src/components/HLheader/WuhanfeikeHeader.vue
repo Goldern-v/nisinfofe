@@ -148,15 +148,30 @@
               </el-row>
             </router-link>
 
-            <el-dropdown
+              <router-link to="/sugarPage" tag="span">
+                    <el-row class="nav-item" type="flex" align="middle">
+                      <i class="bloodSugar"></i> 血糖
+                    </el-row>
+                  </router-link>
+                  <router-link to="/oxygenPage" tag="span">
+                    <el-row class="nav-item" type="flex" align="middle">
+                      <i class="healthEducation"></i> 血氧
+                    </el-row>
+                  </router-link>
+                   <router-link to="/healthEdu" tag="span">
+                    <el-row class="nav-item" type="flex" align="middle">
+                      <i class="healthEducation"></i>健康教育单
+                    </el-row>
+                  </router-link>
+            <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveFormPage }"
-            >
+             >
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulijiludan"></i> 护理文书
               </el-row>
 
-              <el-dropdown-menu slot="dropdown">
+              <el-dropdown-menu slot="dropdown"> -->
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/sheetHospitalAdmission' }"
                 >
@@ -189,17 +204,17 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>-->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/sugarPage' }"
-                >
+                 >
                   <router-link to="/sugarPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="bloodSugar"></i> 血糖
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
 
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/oxygenPage' }"
                 >
                   <router-link to="/oxygenPage" tag="span">
@@ -207,8 +222,8 @@
                       <i class="healthEducation"></i> 血氧
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item
+                </el-dropdown-item> -->
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/healthEdu' }"
                 >
                   <router-link to="/healthEdu" tag="span">
@@ -216,7 +231,7 @@
                       <i class="healthEducation"></i>健康教育单
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/handlingPage' }"
                 >
@@ -226,10 +241,10 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-              </el-dropdown-menu>
-            </el-dropdown>
+              <!-- </el-dropdown-menu>
+            </el-dropdown> -->
 
-            <router-link to="/allCatheter" tag="span">
+            <router-link to="/catheterPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 导管
               </el-row>
