@@ -1,5 +1,5 @@
 <template>
-  <div class="right-con" :style="contentHeight">
+  <div class="right-con" >
     <div class="row-top">
       <div class="column-right">
         <ElDatePicker
@@ -948,6 +948,7 @@ export default {
         border-radius: 0px 7px 7px 0px;
         margin: 5px 3px 0px 0px;
         float: left;
+        overflow: hidden;
       }
 
       >div {
