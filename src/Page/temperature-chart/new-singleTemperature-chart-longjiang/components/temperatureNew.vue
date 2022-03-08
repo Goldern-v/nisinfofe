@@ -85,12 +85,9 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         // "http://192.168.0.81:9091/temperature/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
-      "http://127.0.0.1:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      "http://192.168.100.183:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://127.0.0.1:9091/temperature/#/printAll" /* 医院正式环境内网 */,
-
-      outNetUrl:
-        "http://120.24.240.231:15091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
+        "http://192.168.100.183:9091/temperature/#/printAll" /* 医院正式环境内网 */,
     };
   },
   methods: {
