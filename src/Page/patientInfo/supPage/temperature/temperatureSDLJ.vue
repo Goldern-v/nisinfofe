@@ -6,10 +6,10 @@
       :style="{ height: containHeight}"
     >
       <div class="sheetTable-contain" v-if="patientInfo.visitId !== '0'">
-        <temperatureLY
+        <temperatureSDLJ
           class="contain-center"
           :queryTem="patientInfo"
-        ></temperatureLY>
+        ></temperatureSDLJ>
         <div
             class="flag-con"
             :style="{ top: flagTop }"
@@ -79,8 +79,8 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
-import temperatureLY from "@/Page/temperature-chart/new-singleTemperature-chart-linyi/components/temperatureNew";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-linyi/components/tab-con";
+import temperatureSDLJ from "@/Page/temperature-chart/new-singleTemperature-chart-longjiang/components/temperatureNew";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-longjiang/components/tab-con";
 export default {
   mixins: [common],
   props: {},
@@ -136,7 +136,7 @@ export default {
       this.$store.commit("showRightPart", !this.rightSheet);
     },
   },
-  components: { temperatureLY, tabCon },
+  components: { temperatureSDLJ, tabCon },
   watch: {
     deptCode(val) {
       if (val) {
