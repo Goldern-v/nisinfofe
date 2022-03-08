@@ -19,7 +19,7 @@
       </div>
       <div class="text">重置</div>
       </div>-->
-       <div class="item-box" @click="$router.go(-1)" v-if="HOSPITAL_ID!=='xiegang'&&HOSPITAL_ID!=='whfk'">
+       <div class="item-box" @click="goBack" v-if="HOSPITAL_ID!=='xiegang'&&HOSPITAL_ID!=='whfk'">
         <div
           class="icon"
           style="font-size: 18px;"
@@ -236,6 +236,17 @@ export default {
     },
     resert() {
       this.scaleNum = 1;
+    },
+    goBack(){
+    if(this.HOSPITAL_ID=='liaocheng'){
+      // 不打开窗口打印返回（下拉会没有和表头不能修改）。刷新页面
+      location.replace(this.$store.state.sheet.preRouter)
+      setTimeout(()=>{
+        this.$store.commit('upPreRouter',"")
+      },1000)
+    }else{
+      this.$router.go(-1)
+    }
     }
   },
   created() {
