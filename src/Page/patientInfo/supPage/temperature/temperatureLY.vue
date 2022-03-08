@@ -3,13 +3,13 @@
     <div
       class="body-con"
       id="sheet_body_con"
-      :style="{ height: containHeight }"
+      :style="{ height: containHeight}"
     >
-      <div class="sheetTable-contain">
-        <temperatureNew
+      <div class="sheetTable-contain" v-if="patientInfo.visitId !== '0'">
+        <temperatureLY
           class="contain-center"
           :queryTem="patientInfo"
-        ></temperatureNew>
+        ></temperatureLY>
         <div
             class="flag-con"
             :style="{ top: flagTop }"
@@ -29,17 +29,33 @@
           </div>
         <tabCon class="contain-right" :patientInfo="patientInfo" v-show="rightSheet"> </tabCon>
       </div>
-      <!-- </div> -->
+
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .new-singleTemperature-chart {
   position: relative;
+.flag-con {
+      width: 10px;
+      height: 73px;
+      position: relative;
+      z-index: 10;
+      background-image: url('../../../../common/images/patient/隐藏框.png');
+      cursor: pointer;
+      transform: rotateY(180deg);
 
-  .body-con {
+      &:hover {
+        color: #5CC6A1;
+      }
+
+      i {
+        font-size: 12px;
+      }
+    }
+  >>>.body-con {
     position: relative;
-
+    overflow hidden;
     .sheetTable-contain {
       display: flex;
       flex-direction: row;
@@ -53,36 +69,18 @@
         flex: 3;
         border-left: 1px solid #eee;
         height: 100%;
-        padding: 10px;
-        // margin-top:10px;
+        overflow hidden;
       }
     }
   }
-  .flag-con {
-  width: 10px;
-  height: 73px;
-  position: relative;
-  z-index: 10;
-  background-image: url('../../../../common/images/patient/隐藏框.png');
-  cursor: pointer;
-  transform: rotateY(180deg);
-
-  &:hover {
-    color: #5CC6A1;
-  }
-
-  i {
-    font-size: 12px;
-  }
-}
 }
 </style>
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
-import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart-fssy/components/temperatureNew";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-fssy/components/tab-con";
+import temperatureLY from "@/Page/temperature-chart/new-singleTemperature-chart-linyi/components/temperatureNew";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-linyi/components/tab-con";
 export default {
   mixins: [common],
   props: {},
@@ -93,14 +91,13 @@ export default {
         bedList: [],
         isSave: false,
       },
-      patientListLoading: true,
-      tableLoading: false,
     };
   },
   computed: {
     patientInfo() {
       return this.$route.query;
-    },flagTop() {
+    },
+     flagTop() {
       return `${this.wih * 0.4}px`;
     },
     rightSheet() {
@@ -126,34 +123,24 @@ export default {
         this.isSave = true;
       }
     });
-     // 初始化
-    if (this.deptCode) {
-      this.getDate();
+     if (this.deptCode) {
+      this.getData();
     }
   },
   methods: {
+    getData() {
+        this.bus.$emit("refreshImg");
+        this.bus.$emit("refreshVitalSignList");
+    },
      openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
     },
-    async getDate() {
-      if (this.deptCode) {
-        // this.patientListLoading = true;
-        // await patients(this.deptCode, {}).then((res) => {
-        //   this.data.bedList = res.data.data.filter((item) => {
-        //     return item.patientId;
-        //   });
-        //   this.patientListLoading = false;
-        // });
-        this.bus.$emit("refreshImg");
-        this.bus.$emit("refreshVitalSignList");
-      }
-    },
   },
-  components: { temperatureNew, tabCon },
+  components: { temperatureLY, tabCon },
   watch: {
     deptCode(val) {
       if (val) {
-        this.getDate();
+        this.getData();
       }
     },
   },

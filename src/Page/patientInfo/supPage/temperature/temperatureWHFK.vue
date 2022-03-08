@@ -3,22 +3,8 @@
     <div
       class="body-con"
       id="sheet_body_con"
-      :style="{ height: containHeight }"
+      :style="{ height: containHeight}"
     >
-      <!-- <div class="head-con" flex>
-        <div class="dept-select-con" v-show="openLeft"></div>
-        <div class="tool-con" flex-box="1">
-          <tool></tool>
-        </div>
-      </div> -->
-      <!-- <div class="left-part">
-        <patientList
-          :data="data.bedList"
-          v-loading="patientListLoading"
-          :isSelectPatient="isSelectPatient"
-        ></patientList>
-      </div> -->
-      <!-- <div class="right-part isRight" v-loading="tableLoading"> -->
       <div class="sheetTable-contain" v-if="patientInfo.visitId !== '0'">
         <temperatureWHFK
           class="contain-center"
@@ -67,9 +53,9 @@
         font-size: 12px;
       }
     }
-  .body-con {
+  >>>.body-con {
     position: relative;
-
+    overflow hidden;
     .sheetTable-contain {
       display: flex;
       flex-direction: row;
@@ -83,8 +69,7 @@
         flex: 3;
         border-left: 1px solid #eee;
         height: 100%;
-        padding: 10px;
-        // margin-top:10px;
+        overflow hidden;
       }
     }
   }
@@ -93,12 +78,7 @@
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
-import moment from "moment";
 import bus from "vue-happy-bus";
-import { patients } from "@/api/lesion";
-import patientList from "@/components/patient-list/patient-list.vue";
-import print from "printing";
-import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureWHFK from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/temperatureWHFK";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/tab-con";
 export default {
@@ -111,8 +91,6 @@ export default {
         bedList: [],
         isSave: false,
       },
-      patientListLoading: true,
-      tableLoading: false,
     };
   },
   computed: {
@@ -129,7 +107,7 @@ export default {
       if (this.fullpage) {
         return this.wih - 44 + "px";
       } else {
-        return this.wih - 74 + "px";
+        return this.wih - 114 + "px";
       }
     },
     fullpage() {
@@ -137,11 +115,7 @@ export default {
     },
   },
   created() {
-    this.getDate();
-    // 初始化
-    if (this.deptCode) {
-      this.getDate();
-    }
+
   },
   mounted() {
     this.bus.$on("saveSheetPage", (data) => {
@@ -149,30 +123,24 @@ export default {
         this.isSave = true;
       }
     });
+     if (this.deptCode) {
+      this.getData();
+    }
   },
   methods: {
-    async getDate() {
-      if (this.deptCode) {
-        this.patientListLoading = true;
-        await patients(this.deptCode, {}).then((res) => {
-          this.data.bedList = res.data.data.filter((item) => {
-            return item.patientId;
-          });
-          this.patientListLoading = false;
-        });
+    getData() {
         this.bus.$emit("refreshImg");
         this.bus.$emit("refreshVitalSignList");
-      }
     },
      openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
     },
   },
-  components: { patientList, temperatureWHFK, tabCon },
+  components: { temperatureWHFK, tabCon },
   watch: {
     deptCode(val) {
       if (val) {
-        this.getDate();
+        this.getData();
       }
     },
   },
