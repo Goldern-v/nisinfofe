@@ -33,7 +33,7 @@ export default {
             { "name": "", "colspan": "1", "rowspan": "3","canSet":true,"key":"armValue4"},
             { "name": "", "colspan": "1", "rowspan": "3","canSet":true,"key":"armValue5"},
             { "name": "", "colspan": "1", "rowspan": "3","canSet":true,"key":"armValue6"},
-            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "240px",  maxWidth: "180px"}, }, 
+            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "240px",  maxWidth: "240px"}, }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3"}
          ]
         , 
