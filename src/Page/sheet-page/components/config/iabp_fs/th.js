@@ -11,7 +11,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: '900px'
+    width: '910px'
   },
   th: {
     top: [
@@ -22,7 +22,7 @@ export default {
       { name: 'PDP<br/>mmHg', colspan: '1', rowspan: '3' },
       { name: 'EDP<br/>mmHg', colspan: '1', rowspan: '3' },
       { name: 'MAP<br/>mmHg', colspan: '1', rowspan: '3' },
-      { name: '病情及处理记录摘要', colspan: '1', rowspan: '3', style: { minWidth: "353px", maxWidth: "353px"} },
+      { name: '病情及处理记录摘要', colspan: '1', rowspan: '3', style: { minWidth: "363px", maxWidth: "363px"} },
       { name: '记录者', colspan: '1', rowspan: '3', style:{minWidth: "60px", maxWidth: "60px"} }
     ],
     mid: [
