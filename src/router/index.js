@@ -175,6 +175,8 @@ const implementationListZhongshanqi = () =>
   import("@/Page/implementation-list/implementation-list-zhongshanqi.vue"); //中山七执行单
 const implementationListWujing = () =>
   import("@/Page/implementation-list/implementation-list-wujing.vue"); //武警执行单
+const implementationListFSSY = () =>
+  import("@/Page/implementation-list/implementation-list-FSSY.vue"); //武警执行单
 const implementationListQuzhou = () =>
   import("@/Page/implementation-list/implementation-list-quzhou.vue"); //曲周执行单
 const implementationListFuyou = () =>
@@ -274,6 +276,7 @@ import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature
 import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperatureDGXG";
 import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperatureWHFK";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
+import oxygenSugar from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar.vue"; // 厚街
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
@@ -897,6 +900,14 @@ const router = new Router({
           alias: "血糖"
         },
         {
+          path: "/oxygenSugar",
+          // component: process.env.HOSPITAL_NAME == "威县人民医院" ?
+          //   bloodSugarWeiXian : bloodSugar,
+          component: oxygenSugar,
+          name: "血氧",
+          alias: "血氧"
+        },
+        {
           path: "/healthEducation",
           //component: healthEducation,
           component: (() => {
@@ -963,9 +974,10 @@ const router = new Router({
               return implementationListZhongshanqi
             case 'wujing':
             case 'lyxrm':
-            case 'foshanrenyi':
             case 'fsxt':
               return implementationListWujing
+            case 'foshanrenyi':
+              return implementationListFSSY
             case 'quzhou':
               return implementationListQuzhou
             case 'fuyou':

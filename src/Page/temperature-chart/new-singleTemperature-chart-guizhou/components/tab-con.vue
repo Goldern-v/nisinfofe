@@ -641,12 +641,11 @@ export default {
         wardCode: this.patientInfo.wardCode,
         recordDate: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
       }).then((res) => {
+          this.tabsData = [];
         res.data.data.map((item, index) => {
-
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
           /* 时间数组 */
-          this.tabsData = [];
           this.tabsData.push({
             recordDate: item.recordDate,
             recordPerson: item.vitalSignList[0].nurseName,

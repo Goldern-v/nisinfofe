@@ -29,13 +29,13 @@
           </p>
           <p flex="main:justify" class="info" v-else>
             <span
-              >科别：{{ patientInfo.wardName || patientInfo.deptName }}</span
+              >科别：{{ patientInfo.deptName || sugarUserInfo.deptName || patientInfo.wardName }}</span
             >
-            <span>床号：{{ resBedNol || patientInfo.bedLabel }}</span>
-            <span>姓名：{{ patientInfo.name }}</span>
-            <span>性别：{{ patientInfo.sex }}</span>
-            <span>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
-            <span>住院号：{{ resInHosId || patientInfo.inpNo }}</span>
+            <span>床号：{{ resBedNol || patientInfo.bedLabel || sugarUserInfo.bedLabel}}</span>
+            <span>姓名：{{ patientInfo.name ||sugarUserInfo.name}}</span>
+            <span>性别：{{ patientInfo.sex || sugarUserInfo.sex}}</span>
+            <span>年龄：{{ resAge ? resAge : patientInfo.age ||sugarUserInfo.age}}</span>
+            <span>住院号：{{ resInHosId || patientInfo.inpNo ||sugarUserInfo.patientId}}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
@@ -91,7 +91,7 @@
           :disabled="isPreview"
         ></whiteButton>
         <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"
-        :disabled="isDisable"></whiteButton>
+        ></whiteButton>
       </div>
     </div>
     <!-- <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
@@ -323,7 +323,6 @@ export default {
       let isSave = false ;
       saveList.map(item=>{
         if(item.dateStr && item.timeStr){
-          console.log(item.sugarOxygen,'ddddddddddddddddddddd')
           if(!item.sugarOxygen){
               isSave = true;
              return
@@ -379,6 +378,7 @@ export default {
         this.hisPatSugarList = resList.data.data.list;
         this.saveParams = resList.data.data
         this.sugarUserInfo= resList.data.data
+        console.log(this.sugarUserInfo,'=======>sugar ')
         /** 时间排序 */
         let list = resList.data.data.list
         let listMap = [];
