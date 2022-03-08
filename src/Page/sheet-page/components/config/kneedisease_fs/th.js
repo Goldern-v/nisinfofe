@@ -6,14 +6,14 @@
 /**
  * @description: 开发注意事项:
     1、自定义表头 canSet: true, key: "armValue4"
-    2、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+    2、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "163px",  maxWidth: "163px"}, }, 
 */
 
 export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1200px"
+      width: "1210px"
     },
     th: {
         top: 
@@ -34,7 +34,7 @@ export default {
                 {"name":"膝关<br/>节活<br/>动度<br/>训练","colspan":"1","rowspan":"3"},
                 {"name":"患肢<br/>足背<br/>动脉<br/>搏动","colspan":"1","rowspan":"3"},
                 { "name":"标题1", "colspan": "1", "rowspan": "3", canSet: true, key: "armValue"}, 
-                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
+                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"163px","maxWidth":"163px"}},
                 {"name":"护士签名","colspan":"1","rowspan":"3"},
                 {"name":"质控护士","colspan":"1","rowspan":"3"}
             ]

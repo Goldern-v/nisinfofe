@@ -62,11 +62,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      width: "163px",
       background: "transparent",
     },
     textarea: {
-      width: 150
+      width: 163
     },
     event: function (e, td) {
       console.log(e.keyCode);

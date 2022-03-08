@@ -16,7 +16,7 @@ export default {
     // 科室的名称
     deptType: "", 
     style: {
-      width: "1200px"
+      width: "1210px"
     },
     th: {
         top: 
@@ -36,7 +36,7 @@ export default {
             { "name": "患肢<br/>冰敷", "colspan": "1", "rowspan": "3"}, 
             { "name": "自主<br/>屈膝<br/>(°)", "colspan": "1", "rowspan": "3"}, 
             { "name": "助行器<br/>行走(米)", "colspan": "1", "rowspan": "3"},
-            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "163px",  maxWidth: "163px"}, }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3"}, 
             { "name": "质控护士", "colspan": "1", "rowspan": "3"}
          ]
