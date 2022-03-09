@@ -47,35 +47,6 @@
         </div>
       </span>
       <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
-        孕产史：孕
-        <input
-          style="width: 20px;font-size:13px;text-align: center;"
-          class="bottom-line"
-          :data-value="sheetInfo.relObj['pregnantTimes']"
-          v-model="sheetInfo.relObj['pregnantTimes']"
-        />产
-        <input
-          style="width: 20px;font-size:13px;text-align: center;"
-          class="bottom-line"
-          :data-value="sheetInfo.relObj['parity']"
-          v-model="sheetInfo.relObj['parity']"
-        />
-        孕
-        <input
-          style="width: 20px;font-size:13px;text-align: center;"
-          class="bottom-line"
-          :data-value="sheetInfo.relObj['pregnantWeeks']"
-          v-model="sheetInfo.relObj['pregnantWeeks']"
-        />
-        周
-      </span>
-      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
-        产程开始时间：
-        <div @click="updateLaborTime('laborTime', '产程开始时间', patientInfo.laborTime)" class="bottom-line" style="min-width: 150px;height: 12px;">
-          {{ laborTime | YMDHM }}
-        </div>
-      </span>
-      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
         过敏史：
         <input
           style="width: 150px;font-size:13px;"
@@ -172,6 +143,43 @@
         入院日期：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.admissionDate | toymd}}
+        </div>
+      </span>
+    </div>
+    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        孕产史：孕
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['pregnantTimes']"
+          v-model="sheetInfo.relObj['pregnantTimes']"
+        />产
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['parity']"
+          v-model="sheetInfo.relObj['parity']"
+        />
+        孕
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['pregnantWeeks']"
+          v-model="sheetInfo.relObj['pregnantWeeks']"
+        />
+        周
+      </span>
+      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        产程开始时间：
+        <div @click="updateLaborTime('laborTime', '产程开始时间', patientInfo.laborTime)" class="bottom-line" style="min-width: 150px;height: 12px;">
+          {{ laborTime | YMDHM }}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
+        胎儿娩出时间：
+        <div @click="updateDeliveryTime('deliveryTime', '胎儿娩出时间', patientInfo.deliveryTime)" class="bottom-line" style="min-width: 150px;height: 12px;">
+          {{ deliveryTime | YMDHM }}
         </div>
       </span>
     </div>
@@ -323,6 +331,25 @@ export default {
         this.patientInfo.laborTime
       );
     },
+    deliveryTime() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("deliveryTime");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`deliveryTime`] ||
+        this.patientInfo.deliveryTime
+      );
+    },
   },
   methods: {
     openBedRecordModal(){
@@ -363,6 +390,17 @@ export default {
         },
         this.laborTime,
         `修改产程开始时间`
+      );
+    },
+    updateDeliveryTime() {
+      window.openSetAuditDateModal(
+        (text) => {
+          sheetInfo.relObj[`deliveryTime`] = text;
+          this.$message.success(`修改胎儿娩出时间成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.deliveryTime,
+        `修改胎儿娩出时间`
       );
     },
     updateDiagnosis(key, label, autoText) {
