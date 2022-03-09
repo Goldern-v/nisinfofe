@@ -145,7 +145,9 @@ export default {
           //性别
           (!data.sex || data.sex=='') && (data.sex='无');
           if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'][data.sex]){
-           wid.app.$root.$refs['B0002006'][data.sex].$parent.checkboxValue=true
+           wid.app.$root.$refs['B0002006'][data.sex].$parent.checkboxValue=true;
+           wid.app.$root.$refs['B0002006'][data.sex].setCheckboxValue(data.sex)
+          wid.app.$root.$refs['B0002006'][data.sex].model = [data.sex];
           }
            window.deptData = {wardName:data.wardName,wardCode:data.wardCode}
         },
