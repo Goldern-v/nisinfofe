@@ -339,6 +339,28 @@
             </template>
           </el-table-column>
           <el-table-column
+            v-if="HOSPITAL_ID === 'liaocheng'"
+            prop="painScore"
+            label="疼痛"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.painScore"
+                :class="className"
+                class="painScore"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.painScore" class="painScore" /> -->
+              <!-- <el-input v-model="scope.row.painScore"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
             v-if="HOSPITAL_ID !== 'quzhou'"
             prop="heartRate"
             label="心率"
@@ -515,7 +537,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID === 'quzhou'"
+            v-if="HOSPITAL_ID === 'quzhou' || HOSPITAL_ID === 'liaocheng'"
             prop="height"
             label="身高"
             min-width="80"
@@ -584,7 +606,7 @@
           <!-- </template> -->
           <!-- </el-table-column> -->
           <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
+            v-if="HOSPITAL_ID === 'guizhou'"
             prop="painScore"
             label="疼痛"
             min-width="60"
