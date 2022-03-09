@@ -287,7 +287,7 @@ export default {
         diagnosis: "",//病种
         // hospitalTransfer:['huadu','fuyou']//转科医院名字
       },
-      hasSynchronize:['hengli','fuyou'],
+      hasSynchronize:['hengli','fuyou', 'beihairenyi'],
     };
   },
   computed: {
