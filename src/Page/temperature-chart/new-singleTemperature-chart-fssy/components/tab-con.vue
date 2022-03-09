@@ -588,7 +588,6 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
-      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getVitalSignListByDate({
         visitId: data.visitId,
@@ -628,10 +627,6 @@ export default {
     //时间组件失去焦点
     changeDate(val) {
       let numberVal = val.$el.children[1].value;
-      // if(!moment(numberVal,"HH:mm",true).isValid()) {
-      //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
-      //     return false;
-      // }
       if (
         (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
         (numberVal.indexOf(":") != -1 && numberVal.length == 5)
@@ -845,7 +840,6 @@ export default {
                 this.$message.success(`修改${label}成功`);
               });
             }
-            // this.getList();
           },
           autotext,
           `修改${label}`
