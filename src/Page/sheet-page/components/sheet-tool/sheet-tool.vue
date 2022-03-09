@@ -223,6 +223,17 @@
           @keydown="pageNumKeyDown"
         />
       </div>
+      <div
+        class="item-box"
+        style="width: 30px"
+        flex="cross:center main:center"
+        @click="openEMR"
+        v-if='HOSPITAL_ID == "beihairenyi"'
+      >
+        <div class="text-con">
+          电子病历
+        </div>
+      </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="tofull">
             <div class="text-con">
               <span v-if="fullpage">关闭全屏</span>
@@ -408,6 +419,14 @@ export default {
     };
   },
   methods: {
+    openEMR() {
+      // patient_id  患者id  visit_id  住院次数
+      if (!this.patientInfo.patientId) {
+        return this.$message.info("请选择一名患者");
+      }
+      let url = `http://192.168.37.203:8086?hospital_no=498784278&patient_id=${this.patientInfo.patientId}&visit_id=${this.patientInfo.visitId}&FILE_VISIT_TYPE=2` 
+      window.open(url, '_blank');
+    },
     pageNumKeyDown(e) {
       if (e.keyCode == 13) {
         let startPage = Number(this.pageNum);
