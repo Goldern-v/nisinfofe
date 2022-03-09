@@ -19,7 +19,7 @@ export default {
     // 科室的名称
     deptType: "", 
     style: {
-      width: "1250px"
+      width: "1260px"
     },
     th: {
         top: 
@@ -30,7 +30,7 @@ export default {
             { "name": "入量", "colspan": "2", "rowspan": "1"}, 
             { "name": "出量", "colspan": "2", "rowspan": "1"}, 
             { "name": "专科护理", "colspan": "5", "rowspan": "1"},
-            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "240px",  maxWidth: "240px"}, }, 
+            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "250px",  maxWidth: "250px"}, }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3"}
          ]
         , 

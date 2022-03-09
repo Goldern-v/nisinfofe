@@ -1,36 +1,31 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown>
-        <div class="print-btn tool-btn">打印</div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <el-button type="primary" @click="onPrint()"
-              >打印当周</el-button
-            ></el-dropdown-item
-          >
-          <el-dropdown-item
-            ><el-button type="primary" @click="printAll()"
-              >批量打印</el-button
-            ></el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
+      <el-button-group>
+        <el-button type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button type="primary" @click="printAll()">批量打印</el-button>
+      </el-button-group>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
       <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
-        <button :disabled="currentPage === 1" @click="currentPage = 1">
+        <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
           首周
         </button>
-        <button :disabled="currentPage === 1" @click="currentPage--">
+        <button :disabled="currentPage === 1" @click="toPre">
           上一周
         </button>
-        <span class="page">第{{ currentPage }}页/共{{ pageTotal }}页</span>
-        <button :disabled="currentPage === pageTotal" @click="currentPage++">
+        <span class="page">第<input
+            type="number"
+            min="1"
+            v-model.number="toCurrentPage"
+            class="pageInput"
+            @keyup.enter="toPage()"
+          />页/共{{ pageTotal }}页</span>
+        <button :disabled="currentPage === pageTotal" @click="toNext">
           下一周
         </button>
         <button
           :disabled="currentPage === pageTotal"
-          @click="currentPage = pageTotal"
+          @click="currentPage = pageTotal;toCurrentPage=pageTotal"
         >
           尾周
         </button>
@@ -85,10 +80,11 @@ export default {
       patientId: "",
       visitId: "",
       isSave: false,
+      toCurrentPage:1,
       isPrintAll: false,
       visibled: false,
       printAllPath: "",
-      intranetUrl:
+     intranetUrl:
         // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
         "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
@@ -118,6 +114,33 @@ export default {
         );
       }, 1500);
     },
+     toPage() {
+      if (
+        this.toCurrentPage === "" ||
+        this.toCurrentPage <= 0 ||
+        typeof this.toCurrentPage != "number"
+      ) {
+        this.currentPage = 1;
+        this.toCurrentPage = 1;
+      } else {
+        if (this.toCurrentPage >= this.pageTotal) {
+          this.currentPage = this.pageTotal;
+          this.toCurrentPage = this.pageTotal;
+        }
+      }
+
+      this.currentPage = this.toCurrentPage;
+    },
+    toNext() {
+      if (this.currentPage === this.pageTotal) return;
+      this.currentPage++;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPre() {
+      if (this.currentPage === 1) return;
+      this.currentPage--;
+      this.toCurrentPage = this.currentPage;
+    },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
@@ -139,6 +162,9 @@ export default {
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
+     openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     messageHandle(e) {
       if (e && e.data) {
         switch (e.data.type) {
@@ -146,39 +172,9 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-          // case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
-          // const params = {
-          //   patientId: this.$route.query.patientId,
-          //   visitId: this.$route.query.visitId
-          // };
-          // // 发请求
-          // getNurseExchangeInfo(params.patientId, params.visitId).then(res => {
-          //   const value = {
-          //     adtLog: res.data.data.adtLog,
-          //     bedExchangeLog: res.data.data.bedExchangeLog
-          //   };
-          //   this.$refs.pdfCon.contentWindow.postMessage(
-          //     { type: "nurseExchangeInfo", value },
-          //     "*"
-          //   );
-          // });
-          // const params = {
-          //   patientId: this.$route.query.patientId,
-          //   startLogDateTime: e.data.value.startLogDateTime,
-          //   endLogDateTime: e.data.value.endLogDateTime,
-          //   visitId: this.$route.query.visitId
-          // };
-          // getNurseExchangeInfoByTime(params).then(res => {
-          //   const value = {
-          //     adtLog: res.data.data.adtLog,
-          //     bedExchangeLog: res.data.data.bedExchangeLog
-          //   };
-          //   this.$refs.pdfCon.contentWindow.postMessage(
-          //     { type: "nurseExchangeInfo", value },
-          //     "*"
-          //   );
-          // });
-          // break;
+          case "dblclick":/* 双击查阅体温单子 */
+          this.openRight();
+          break;
           default:
             break;
         }
@@ -200,6 +196,7 @@ export default {
       this.isPrintAll = false;
     },
     currentPage(value) {
+      this.toCurrentPage=value
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
@@ -248,7 +245,7 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contain {
-  margin: 15px 20px 0;
+  margin: 10px 10px 0;
 
   .tem-con {
     width: 101%;
@@ -269,13 +266,13 @@ export default {
 .pagination {
   display: inline;
   position: relative;
-  left: 25%;
+  left: 20%;
   font-weight: normal;
 }
 .paginationRight{
  display: inline;
   position: relative;
-  left: 35%;
+  left: 30%;
   font-weight: normal;
 }
 
@@ -316,7 +313,10 @@ button[disabled=disabled] {
     cursor: not-allowed;
   }
 }
-
+.pageInput {
+  width: 30px;
+  border: 0px;
+}
 .print-btn {
   position: relative;
   left: 5%;

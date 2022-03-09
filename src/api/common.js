@@ -66,7 +66,7 @@ export function dictUpdate(data) {
  * "wardCode":"4002"
  */
 export function dictDelete(data) {
-  return axios.post(`${apiPath}/dict/delete`, data);
+  return axios.post(`${apiPath}dict/delete`, data);
 }
 
 //病人信息

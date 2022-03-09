@@ -100,7 +100,7 @@
         .contain-right {
           flex: 3;
           border-left: 1px solid #eee;
-          height: 100%;
+          overflow: hidden;
           // margin-top:10px;
         }
       }

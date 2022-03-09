@@ -10,9 +10,9 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: "",
-  // style: {
-  //   width: "1300px"
-  // },
+  style: {
+    width: "1150px"
+  },
   th: {
     top: [
       { name: '', colspan: "2", rowspan: "1", key:'recordYear'},
@@ -27,7 +27,7 @@ export default {
       { name: '右上<br/>肢皮<br/>温', colspan: '1', rowspan: '3' },
       { name: '标题1', colspan: '1', rowspan: '3', canSet: true, key: 'armValue1' },
       { name: '标题2', colspan: '1', rowspan: '3', canSet: true, key: 'armValue2'  },
-      { name: '特殊情况记录', colspan: '1', rowspan: '3', style: { minWidth: "150px", maxWidth: "150px"} },
+      { name: '特殊情况记录', colspan: '1', rowspan: '3', style: { minWidth: "163px", maxWidth: "163px"} },
       { name: '护士签名', colspan: '1', rowspan: '3', style:{minWidth: "80px", maxWidth: "80px"} },
       { name: '质控护士签名', colspan: '1', rowspan: '3', style:{minWidth: "50px", maxWidth: "50px"} },
     ],

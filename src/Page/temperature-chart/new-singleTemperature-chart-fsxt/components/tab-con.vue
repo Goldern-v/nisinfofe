@@ -509,9 +509,9 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
-      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getNowDateTimeList(data).then((res) => {
+        this.tabsData = [];
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;

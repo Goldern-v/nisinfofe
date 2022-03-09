@@ -119,9 +119,9 @@ export default {
             wid.app.$root.$refs['B0002003'].setCurrentValue(data.name);
           }
           //性别
-          if(wid.app.$root.$refs['B0017025'] && wid.app.$root.$refs['B0017025'].setCurrentValue){
-            wid.app.$root.$refs['B0017025'].setCurrentValue(data.sex);
-          }
+          // if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'].setCurrentValue){
+          //   wid.app.$root.$refs['B0002006'].setCurrentValue(data.sex);
+          // }
           //年龄
           if(wid.app.$root.$refs['B0002004'] && wid.app.$root.$refs['B0002004'].setCurrentValue){
             wid.app.$root.$refs['B0002004'].setCurrentValue(data.age);
@@ -145,7 +145,9 @@ export default {
           //性别
           (!data.sex || data.sex=='') && (data.sex='无');
           if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'][data.sex]){
-           wid.app.$root.$refs['B0002006'][data.sex].$parent.checkboxValue=true
+           wid.app.$root.$refs['B0002006'][data.sex].$parent.checkboxValue=true;
+           wid.app.$root.$refs['B0002006'][data.sex].setCheckboxValue(data.sex)
+          wid.app.$root.$refs['B0002006'][data.sex].model = [data.sex];
           }
            window.deptData = {wardName:data.wardName,wardCode:data.wardCode}
         },
@@ -170,8 +172,8 @@ export default {
           //   wid.app.$root.$refs['B0017025'].setCurrentValue(data.sex);
           // }
           //年龄
-          if(wid.app.$root.$refs['B0017004'] && wid.app.$root.$refs['B0017004'].setCurrentValue){
-            wid.app.$root.$refs['B0017004'].setCurrentValue(data.age);
+          if(wid.app.$root.$refs['B0002004'] && wid.app.$root.$refs['B0002004'].setCurrentValue){
+            wid.app.$root.$refs['B0002004'].setCurrentValue(data.age);
           }
           //诊断
           if(wid.app.$root.$refs['B0017008'] && wid.app.$root.$refs['B0017008'].setCurrentValue){
@@ -183,19 +185,19 @@ export default {
           }
           //护理级别
           (!data.nursingClass || data.nursingClass=='') && (data.nursingClass='无');
-          if(wid.app.$root.$refs['B0017005'] && wid.app.$root.$refs['B0017005'][data.nursingClass]){
+          if(wid.app.$root.$refs['B0002005'] && wid.app.$root.$refs['B0002005'][data.nursingClass]){
             // wid.app.$root.$refs['B0017005'][data.nursingClass].$parent.checkboxValue=true
             //  wid.app.$root.$refs['B0017005'].checkValueRule(data.nursingClass);
-            wid.app.$root.$refs['B0017005'][data.nursingClass].setCheckboxValue(data.nursingClass)
-            wid.app.$root.$refs['B0017005'][data.nursingClass].model = [data.nursingClass];
-            wid.app.$root.$refs['B0017005'][data.nursingClass].$parent.checkboxValue = [data.nursingClass];
+            wid.app.$root.$refs['B0002005'][data.nursingClass].setCheckboxValue(data.nursingClass)
+            wid.app.$root.$refs['B0002005'][data.nursingClass].model = [data.nursingClass];
+            wid.app.$root.$refs['B0002005'][data.nursingClass].$parent.checkboxValue = [data.nursingClass];
           }
           //性别
           (!data.sex || data.sex=='') && (data.sex='无');
-          if(wid.app.$root.$refs['B0017025'] && wid.app.$root.$refs['B0017025'][data.sex]){
-           wid.app.$root.$refs['B0017025'][data.sex].$parent.checkboxValue=true;
-           wid.app.$root.$refs['B0017025'][data.sex].setCheckboxValue(data.sex)
-          wid.app.$root.$refs['B0017025'][data.sex].model = [data.sex];
+          if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'][data.sex]){
+           wid.app.$root.$refs['B0002006'][data.sex].$parent.checkboxValue=true;
+           wid.app.$root.$refs['B0002006'][data.sex].setCheckboxValue(data.sex)
+          wid.app.$root.$refs['B0002006'][data.sex].model = [data.sex];
           }
           window.deptData = {wardName:data.wardName,wardCode:data.wardCode}
         }
