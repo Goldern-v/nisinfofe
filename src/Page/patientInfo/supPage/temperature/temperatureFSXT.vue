@@ -77,7 +77,6 @@
         flex: 3;
         border-left: 1px solid #eee;
         height: 100%;
-        padding: 10px;
         // margin-top:10px;
       }
     }
@@ -118,7 +117,7 @@ export default {
       if (this.fullpage) {
         return this.wih - 44 + "px";
       } else {
-        return this.wih - 114 + "px";
+        return this.wih - 74 + "px";
       }
     },
     fullpage() {
