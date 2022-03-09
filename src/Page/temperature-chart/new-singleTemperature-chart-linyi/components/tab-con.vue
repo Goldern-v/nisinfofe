@@ -78,8 +78,7 @@
                     index.includes('自定义') ||
                     index.includes('注释') ||
                     index.includes('体温复测') ||
-                    index.includes('术后天数')||
-                    (index.includes('疼痛') && !isPain)
+                    index.includes('术后天数')
                       ? 'rowItem_noShow'
                       : (i - 1) % 2 === 0
                       ? 'rowBoxRight'
@@ -176,8 +175,7 @@
                     :class="
                       index.includes('自定义') ||
                       index.includes('注释') ||
-                      index.includes('体温复测')||
-                       (index.includes('疼痛') && !isPain)
+                      index.includes('体温复测')
                         ? 'rowItem_noShow'
                         : (i - 1) % 2 === 0
                         ? 'rowBoxRight'
@@ -492,9 +490,7 @@ export default {
     this.getHeight();
   },
   computed: {
-    isPain() {
-      return this.$store.state.temperature.isPain;
-    },
+
   },
   watch: {
     query: {
@@ -589,7 +585,6 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
-      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getVitalSignListByDate({
         visitId: data.visitId,
@@ -943,7 +938,7 @@ export default {
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
-          text-align: left;
+          text-align: center;
           font-size: 12px;
 
           &.active {
