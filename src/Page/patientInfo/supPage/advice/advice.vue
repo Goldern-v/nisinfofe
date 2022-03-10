@@ -189,6 +189,7 @@ import adviceTableFy from "./component/adviceTable_fuyou";
 import adviceTableXiegang from "./component/adviceTable_xiegang.vue";
 import adviceTableBeihairenyi from "./component/adviceTable_beihairenyi.vue";
 import adviceTableWHFK from "./component/adviceTable_whfk.vue";
+import adviceTableSDLJ from "./component/adviceTable_sdlj.vue";
 import { orders, newOrders } from "@/api/patientInfo";
 import {getProcedureData} from '@/api/common'
 import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
@@ -286,6 +287,7 @@ export default {
         xiegang:"adviceTableXiegang",
         beihairenyi:"adviceTableBeihairenyi",
         whfk:'adviceTableWHFK',
+        sdlj:"adviceTableSDLJ",
         default:"adviceTable",
       }
       if(idToCom[HOSPITAL_ID]){
@@ -404,7 +406,8 @@ export default {
     adviceTableXiegang,
     adviceTableBeihairenyi,
     adviceTableWHFK,
-    adviceTableFy
+    adviceTableFy,
+    adviceTableSDLJ
   },
 };
 </script>
