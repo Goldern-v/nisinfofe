@@ -222,7 +222,7 @@ export default {
       let arr = []
       let text = ''
       strArr.map(str=>{
-        if(this.GetLength(text + str)>158){
+        if(this.GetLength(text + str)>142){
           arr.push(text)
           text = str
         }else{
