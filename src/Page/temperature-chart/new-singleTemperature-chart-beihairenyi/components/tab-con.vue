@@ -583,6 +583,7 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
+      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getVitalSignListByDate({
         visitId: data.visitId,
