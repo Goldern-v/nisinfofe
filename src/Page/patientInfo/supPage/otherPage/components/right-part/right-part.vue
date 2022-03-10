@@ -56,6 +56,7 @@ export default {
         case "fuyou":
           this.fileUrl = `http://192.168.19.198:8282/templates/medicalRecord/medicalRecordViewPreview.html?embedded-view=true&req_no=${currentPatient.patientId}&type=2`;
           break; 
+        case "lyxrm":
         case "liaocheng":
           this.getUrl();
           break; 
@@ -67,11 +68,6 @@ export default {
   computed: {
     wih() {
       return this.$store.state.common.wih;
-
-
-
-
-      
     },
     height() {
       return this.wih - 146 + "px";

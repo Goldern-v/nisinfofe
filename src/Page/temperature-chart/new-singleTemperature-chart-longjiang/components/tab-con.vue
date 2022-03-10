@@ -84,7 +84,7 @@
                       ? 'rowBoxRight'
                       : 'rowBox'
                   "
-                  v-for="(j, index, i) in baseMultiDictList"
+                  v-for="(j, index, i) in multiDictList"
                   :key="index"
                 >
                   <div class="rowItemText">
@@ -399,7 +399,7 @@
               @click="saveVitalSign(vitalSignObj)"
               >保存</el-button
             >
-            <div class="clear" style="height: 30px"></div>
+            <div class="clear" style="height: 130px"></div>
             <!--占位符-->
           </div>
         </div>
@@ -751,7 +751,7 @@ export default {
             default:
               break;
           }
-          if (item.vitalSign.includes("自定义")) {
+          if (item.signType==='custom'||item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
               patientId: this.patientInfo.patientId,
@@ -960,7 +960,7 @@ export default {
       margin: 5px 0px 0px 3px;
       overflow: scroll;
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: scroll;
 
       .title {
         color: black;
