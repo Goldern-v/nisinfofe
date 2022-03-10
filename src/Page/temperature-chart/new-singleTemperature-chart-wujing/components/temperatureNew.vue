@@ -11,21 +11,29 @@
         <div @click="changeModel()" class="painNomal">疼痛版本</div>
       </div>
 
-      <div :class="rightSheet===true?'pagination':'paginationRight'">
-               <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
+      <div :class="rightSheet === true ? 'pagination' : 'paginationRight'">
+        <button
+          :disabled="currentPage === 1"
+          @click="
+            currentPage = 1;
+            toCurrentPage = 1;
+          "
+        >
           首周
         </button>
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
-        <span class="page">第<input
+        <span class="page"
+          >第<input
             type="number"
             min="1"
             v-model.number="toCurrentPage"
             class="pageInput"
             @keyup.enter="toPage()"
-          />页/共{{ pageTotal }}页</span>
-        <button :disabled="currentPage === pageTotal"  @click="toNext">
+          />页/共{{ pageTotal }}页</span
+        >
+        <button :disabled="currentPage === pageTotal" @click="toNext">
           下一周
         </button>
         <button
@@ -173,6 +181,7 @@ export default {
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
+      console.log(this.queryTem);
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
       this.date = date;
@@ -212,9 +221,9 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-              case "dblclick":/* 双击查阅体温单子 */
-          this.openRight();
-          break;
+          case "dblclick" /* 双击查阅体温单子 */:
+            this.openRight();
+            break;
           default:
             break;
         }
@@ -236,7 +245,7 @@ export default {
       this.isPrintAll = false;
     },
     currentPage(value) {
-      this.toCurrentPage=value
+      this.toCurrentPage = value;
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
@@ -299,6 +308,7 @@ export default {
     }
   }
 }
+
 .pageInput {
   width: 50px;
   border: 0px;
@@ -310,12 +320,14 @@ export default {
   left: -10%;
   font-weight: normal;
 }
-.paginationRight{
- display: inline;
+
+.paginationRight {
+  display: inline;
   position: relative;
   left: 10%;
   font-weight: normal;
 }
+
 .page {
   margin: 0 10px;
 }
