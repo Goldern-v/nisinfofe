@@ -98,7 +98,7 @@ export default {
   methods: {
     handleOpen(payload) {
       this.$refs.modal.open();
-
+      payload.query.patientName = payload.query.patientName ? payload.query.patientName : payload.query.name
       if (!payload.noFetch) {
         //使用iframe引入表单地址
         var baseURL = this.isDev ? devFormUrl : formUrl;
@@ -123,7 +123,7 @@ export default {
       //覆写成功回调
       if (payload.callback)
         this.successCallback = (data) => payload.callback(data);
-        
+
     },
     toClose() {
       this.$refs.modal.close();
