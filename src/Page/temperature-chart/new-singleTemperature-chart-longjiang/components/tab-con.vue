@@ -84,7 +84,7 @@
                       ? 'rowBoxRight'
                       : 'rowBox'
                   "
-                  v-for="(j, index, i) in multiDictList"
+                  v-for="(j, index, i) in baseMultiDictList"
                   :key="index"
                 >
                   <div class="rowItemText">
@@ -421,7 +421,6 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -450,8 +449,6 @@ export default {
     });
 
     return {
-      mockData,
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       query: {
@@ -475,7 +472,6 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
-      selectionMultiDict: selectionMultiDict,
     };
   },
   async mounted() {
@@ -483,7 +479,6 @@ export default {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
-    console.log(Object.keys(this.otherMultiDictList).length)
   },
   created() {
     window.addEventListener("resize", this.getHeight);
