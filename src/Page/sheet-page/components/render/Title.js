@@ -1589,6 +1589,13 @@ export default function Title(
     );
   }
   break;
+  case "pediatrics_sdlj": {
+    // 顺德龙江 - 护理记录单（儿科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatrics_sdlj/th.js").default)
+    );
+  }
+  break;
   case "cardiovascular_xt": {
     // 佛山杏坛 - 护理记录单(心血管呼吸专科)
     Th = JSON.parse(
@@ -1711,7 +1718,7 @@ export default function Title(
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
-      JSON.stringify(require("../config/pediatric3_xt/th.js").default)
+      JSON.stringify(require("../config/general_xt/th.js").default)
     );
   }
   break;
