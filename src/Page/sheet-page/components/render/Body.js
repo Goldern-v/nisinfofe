@@ -1210,6 +1210,11 @@ function switechSheetType(type) {
       schema = require("../config/orthopaedic_sdlj/tr.js").default;
     }
     break; 
+    case "pediatrics_sdlj": {
+      // 顺德龙江 - 护理记录单（儿科）
+      schema = require("../config/pediatrics_sdlj/tr.js").default;
+    }
+    break; 
     case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）
       schema = require("../config/cardiovascular_xt/tr.js").default;
@@ -1297,7 +1302,7 @@ function switechSheetType(type) {
     break; 
     case "test_common": {
       // 护理记录单（测试用）
-      schema = require("../config/pediatric3_xt/tr.js").default;
+      schema = require("../config/general_xt/tr.js").default;
     }
     break;  
     default: {
