@@ -17,7 +17,8 @@ import {
 import { size } from "lodash";
 let 入量名称 = [];
 let 出量名称 = [];
-let 意识 = ['(-)', '(+)', '(++)', '(+++)', '(△)', '(√)',];
+// let 意识 = ['(-)', '(+)', '(++)', '(+++)', '(△)', '(√)',];
+let ysList = [];
 
 export default [
   {
@@ -45,7 +46,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 27
+      width: 45
     },
   },
   {
@@ -56,7 +57,7 @@ export default [
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -67,7 +68,7 @@ export default [
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -84,7 +85,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 35
+      width: 55
     },
   },
   {
@@ -94,7 +95,7 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
     name: "意识",
     autoComplete: {
-      data: 意识
+      data: ysList
     },
     textarea: {
       width: 30
@@ -308,4 +309,29 @@ export default [
     value: true,
   },
 ];
+
+export function getListData() {
+  let list = [
+    "南方中西医:护理记录单:意识",
+  ];
+
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(ysList, list[0], data);
+  });
+}
+
+getListData();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}
 
