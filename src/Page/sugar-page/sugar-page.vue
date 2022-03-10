@@ -53,6 +53,8 @@ import bus from "vue-happy-bus";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar"; // 厚街医院
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian"; // 威县医院
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry"; // 北海人医
+import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj";
+
 export default {
   mixins: [common],
   data() {
@@ -104,6 +106,7 @@ export default {
         威县人民医院: "bloodSugarWeiXian",
         东莞市厚街医院: "bloodSugar",
         北海市人民医院:'bloodSugarBhry',
+        佛山市顺德区龙江医院: 'bloodSugarSdlj'
       };
       return hisList[HisName] || "bloodSugar";
     },
@@ -114,7 +117,7 @@ export default {
           query: item
         },
         () => {
-            this.$refs.bloodSugar.load(isScrollTop);
+          this.$refs.bloodSugar.load(isScrollTop);
         }
       );
     }
@@ -145,7 +148,8 @@ export default {
     patientList,
     bloodSugar,
     bloodSugarWeiXian,
-    bloodSugarBhry
+    bloodSugarBhry,
+    bloodSugarSdlj
   }
 };
 </script>
