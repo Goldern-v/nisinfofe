@@ -331,6 +331,7 @@
       ref="zxdtbModal"
       :blockId="blockId"
       :title="titleName"
+      :modalWidth="modalWidth"
     ></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
     <!-- <sweet-modal
@@ -414,6 +415,7 @@ export default {
       sheetBlockList: [],
       queryTem: {},
       titleName: "",
+      modalWidth: 720,
       pageNum: "",
       firstPage: 1,
     };
@@ -975,6 +977,9 @@ export default {
     openZxdtbModal() {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      if (this.HOSPITAL_ID == "wujing") {
+        this.modalWidth = 850;
       }
       if (this.HOSPITAL_ID == "guizhou") {
         this.titleName = "输血同步";
