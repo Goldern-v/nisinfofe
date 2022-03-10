@@ -20,7 +20,7 @@
       <tr>
         <th rowspan="3">日期</th>
         <th colspan="9">血糖(mmol/L)</th>
-        <th colspan="4">胰岛素用量</th>
+        <th colspan="4">胰岛素用量(u)</th>
       </tr>
       <tr>
         <th colspan="3">餐前</th>
