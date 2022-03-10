@@ -51,46 +51,13 @@
         <td v-for="(items, idx) in tdArr" :key="idx + 'td'">
           <div class="cell noPrint">
             <!-- {{ item.date }} -->
-            <input type="text" v-model="item[tdArr[idx]]" v-if="tdArr[idx] === 'timeStr'" @input="inputTime(item,'timeStr',':')" />
+            <input type="text" v-model="item[tdArr[idx]]" v-if="tdArr[idx] === 'time'" @input="inputTime(item,'time',':')" />
             <input type="text" v-model="item[tdArr[idx]]" v-else />
           </div>
           <div :class="['cell','inPrint']">
             {{item[tdArr[idx]]}}
           </div>
         </td>
-        <!-- <td>
-          <div class="cell noPrint">
-            <input type="text" v-model="item.timeStr" @input="inputTime(item,'timeStr',':')" />
-          </div>
-          <div :class="['cell','inPrint']">
-            {{item.timeStr}}
-          </div>
-        </td> -->
-
-        <!-- <td>
-          <div class="cell noPrint">
-            <input type="text" v-model="item.sugarOxygen" /> 
-          </div>
-            <div :class="['cell','inPrint']">
-            {{item.sugarOxygen}}
-          </div>
-        </td>
-        <td>
-          <div class="cell noPrint">
-            <input type="text" v-model="item.heartRate" />
-          </div>
-            <div :class="['cell','inPrint']">
-            {{item.heartRate}}
-          </div>
-        </td>
-        <td>
-          <div class="cell noPrint">
-            <input type="text" v-model="item.heartRate"/>
-          </div>
-            <div :class="['cell','inPrint']">
-            {{item.heartRate}}
-          </div>
-        </td> -->
       </tr>
     
     </table>
@@ -204,8 +171,7 @@ export default {
   mixins: [common],
   data() {
     return {
-      // msg: "hello vue",
-      tdArr: ['dateStr', '1', '2', '3', '4', '5', '6', '7', 'timeStr', '9', '10', '11', '12', '13']
+      tdArr: ['dateStr', 'dinnerEarly', 'dinnerCentre', 'dinnerLate', 'afterEarly', 'afterCentre', 'afterLate', 'beforeSleep', 'time', 'numerical', 'insulinEarly', 'insulinCentre', 'insulinLate', 'insulinSleep']
     };
   },
   computed: {
@@ -215,14 +181,14 @@ export default {
       let firstDate = "";
       // console.log(this.data,"this.data")
       if(this.data.length == 0){
-        while (renderData.length <= 14) {
-          renderData.push( {dateStr:'',timeStr:'',sugarOxygen:'',heartRate:'',signerNo :'',patientId:this.patientInfo.patientId,visitId:this.patientInfo.visitId});
+        while (renderData.length <= 13) {
+          renderData.push( {dateStr:'',time:'',dinnerEarly:'',dinnerCentre:'',dinnerLate :'',afterEarly: '', afterCentre: '', afterLate: '', beforeSleep: '', time: '', numerical: '', insulinEarly: '', insulinCentre: '', insulinLate: '', insulinSleep: '', patientId:this.patientInfo.patientId,visitId:this.patientInfo.visitId});
         }
       }else{
         // console.log(this.data,"this.data")
-        renderData=Array.from({length: 15}, () => {
-            return {dateStr:'',timeStr:'',sugarOxygen:'',heartRate:'',signerNo :'',patientId:this.patientInfo.patientId,visitId:this.patientInfo.visitId}
-          })
+        renderData=Array.from({length: 14}, () => {
+          return {dateStr:'',time:'',dinnerEarly:'',dinnerCentre:'',dinnerLate :'',afterEarly: '', afterCentre: '', afterLate: '', beforeSleep: '', time: '', numerical: '', insulinEarly: '', insulinCentre: '', insulinLate: '', insulinSleep: '', patientId:this.patientInfo.patientId,visitId:this.patientInfo.visitId}
+        })
         this.data.map((item,index)=>{
           renderData[index] = item
         })
@@ -240,7 +206,6 @@ export default {
   },
   methods: {
     inputTime(rowItem, code, char) {
-      console.log(rowItem, code, char, 9998)
       if (rowItem[code] && rowItem[code].length>=5) {
         rowItem[code] = rowItem[code].substring(0, 5)
       } else if (
@@ -250,73 +215,21 @@ export default {
         let valueArr = rowItem[code].split('')
         valueArr.splice(2, 0, char)
         rowItem[code] = valueArr.join('')
-        console.log(rowItem[code])
         this.$set(rowItem, code, valueArr.join(''))
       } else {
         this.lastValue = rowItem[code]
       }
     },
     onSelect(item,renderData) {
-      console.log(renderData)
       this.$emit("renderData",item, renderData);
       this.$emit("update:selected",item);
       if(!item.dateStr){
-        console.log(item,1121)
+        // console.log(item,1121)
         item.dateStr = new Date().Format("yyyy-MM-dd");
       }
-      if(!item.timeStr){
-        item.timeStr = new Date().Format("hh:mm");
+      if(!item.time){
+        item.time = new Date().Format("hh:mm");
       }
-    },
-    onDblClick(item) {
-      this.$emit("dblclick", item);
-    },
-    openSignModal(itemRow) {
-      if(!itemRow.signerNo){
-          window.openSignModal((password, empNo) => {
-            this.saveParams.empNo = empNo;
-            this.saveParams.password = password;
-            this.saveParams.list = [itemRow];
-            let fkformCode = 'sugar_oxygen'
-            itemRow.signerNo
-              apis.rowSign(this.saveParams,'others',fkformCode).then((res) => {
-                // console.log(res)
-                if(res.data.code == 200 && res.data.data != null){
-                  itemRow = res.data.data[0]
-                  this.$message({
-                    message: '签名成功',
-                    type: 'success'
-                  })
-                  this.$emit('refresh')
-                }
-              });
-          });
-          }else{
-            console.log(window.app.$refs,'window')
-            /**行数据取消签名 */
-            // export const cancelRowSign = (params, formType, formCode) => {
-            //   return axios.post(`${apiPath}${formType}/${formCode}/cancelSign`, params)
-            // }
-             window.openSignModal((password, empNo) => {
-            this.saveParams.empNo = empNo;
-            this.saveParams.password = password;
-            this.saveParams.list = [itemRow];
-            let fkformCode = 'sugar_oxygen'
-            itemRow.signerNo
-              apis.cancelRowSign(this.saveParams,'others',fkformCode).then((res) => {
-                // console.log(res)
-                if(res.data.code == 200 && res.data.data != null){
-                  itemRow = res.data.data[0]
-                  this.$message({
-                    message: '取消签名成功',
-                    type: 'success'
-                  })
-                  this.$emit('refresh')
-                }
-              });
-          },'取消签名');
-           
-          }
     },
   },
   components: {},

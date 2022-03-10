@@ -328,11 +328,12 @@ export default {
         onlyView: false,
         isPrint: false,
       },/**父界面返回的表单基础数据 */
-      fkOxygenCode:'sugar_oxygen', //肺科血氧单的formCode
+      fkOxygenCode: 'blood_sugar', // 顺德龙江血糖fromCode
       saveParams:{},
       relObj:{},
-      leftData:[],
-      rightData:[],
+      // leftData:[],
+      // rightData:[],
+      tableData: [],
       isToPrint:false,
     };
   },
@@ -369,11 +370,7 @@ export default {
     },
     handleSelectedleft(item,data){
       // console.log(item,data,'this.selected')
-      this.leftData = data
-    },
-    handleSelectedright(item,data){
-      // console.log(item,data,'this.selected')
-      this.rightData = data
+      this.tableData = data
     },
     // 保存数据
     async saveActiveSugar() {
@@ -381,17 +378,19 @@ export default {
       if(listRes.data.code >= '200' && listRes.data.data != null){
         this.patientInfo.id = listRes.data.data.id
       }
-      let saveList =[...this.leftData,...this.rightData]
+      let saveList =[...this.tableData]
       let isSave = false ;
       saveList.map(item=>{
-        if(item.dateStr && item.timeStr){
-          if(!item.sugarOxygen){
-              isSave = true;
-             return
-          }
+        if(item.dateStr && item.time){
+          // if(!item.sugarOxygen){
+          //     isSave = true;
+          //    return
+          // }
+          isSave = true;
+            return
         }
       });
-      if(!isSave){
+      if(isSave){
         this.patientInfo.list= saveList
         try{
         save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode).then((res)=>{
@@ -407,7 +406,7 @@ export default {
           console.log(err,"resss")
         }
       }else{
-         this.$message.warning("血氧为必填项，请填写！");
+         this.$message.warning("请填写血糖监测记录表！");
       }
 
     },
@@ -435,43 +434,40 @@ export default {
         // todo 要对接口  不然会报404 
 
         // if(this.HOSPITAL_ID == 'whfk'){
-        //   this.baseParams.formCode = this.fkOxygenCode
+          this.baseParams.formCode = this.fkOxygenCode
         // }
         
-        // const resList = await getForm(this.baseParams.id, this.baseParams.formType, this.baseParams.formCode)
-        // this.baseParams.id ='',
-        // this.hisPatSugarList = resList.data.data.list;
-        // this.saveParams = resList.data.data
-        // this.sugarUserInfo= resList.data.data
-        // console.log(this.sugarUserInfo,'=======>sugar ')
-        // /** 时间排序 */
-        // let list = resList.data.data.list
-        // let listMap = [];
-        // for (let i = 0; i < list.length; i += 54) {
-        //   let obj = {};
-        //   obj.left = list.slice(i, i + 27);
-        //   obj.right = list.slice(i + 27, i + 54);
-        //   listMap.push(obj);
-        // }
+        const resList = await getForm(this.baseParams.id, this.baseParams.formType, this.baseParams.formCode)
+        this.baseParams.id ='',
+        this.hisPatSugarList = resList.data.data.list;
+        this.saveParams = resList.data.data
+        this.sugarUserInfo= resList.data.data
+        console.log(this.sugarUserInfo,'=======>sugar ')
+        /** 时间排序 */
+        let list = resList.data.data.list
+        let listMap = [];
+        for (let i = 0; i < list.length; i += 14) {
+          let obj = {};
+          obj.left = list.slice(i, i + 14);
+          // obj.right = list.slice(i + 27, i + 54);
+          listMap.push(obj);
+        }
 
-        // // console.log(listMap)
-        // this.listMap = listMap;
-        // if(list.length % 54 == 0){
-        //   this.listMap.push(
-        //     {
-        //       left: [],
-        //       right: []
-        //     }
-        //   )
-        // }
-        // if(this.listMap.length == 0){
-        //   this.listMap.push(
-        //     {
-        //       left: [],
-        //       right: []
-        //     }
-        //     );
-        // }
+        this.listMap = listMap;
+        if(list.length % 14 == 0){
+          this.listMap.push(
+            {
+              left: [],
+            }
+          )
+        }
+        if(this.listMap.length == 0){
+          this.listMap.push(
+            {
+              left: [],
+            }
+            );
+        }
       }else{
         this.listMap = [];
       }
@@ -484,9 +480,9 @@ export default {
       // this.isToPrint=false;
       if (process.env.NODE_ENV === "production") {
         let newWid = window.open();
-        newWid.location.href = "/crNursing/print/oxygen";
+        newWid.location.href = "/crNursing/print/bloodSugar";
       } else {
-        this.$router.push(`/print/oxygen`);
+        this.$router.push(`/print/bloodSugar`);
       }
     },
     openChart() {
@@ -494,9 +490,7 @@ export default {
       this.isChart = !this.isChart;
     },
     async onAddTable() {
-      if(this.HOSPITAL_ID == 'whfk'){
-        this.baseParams.formCode = this.fkOxygenCode
-        }
+      this.baseParams.formCode = this.fkOxygenCode
       try{
         this.patientInfo.id =""
         const res = await save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode)
@@ -510,9 +504,9 @@ export default {
         this.$message.warning("请先选择一名患者");
       }
     },
-    onAdd() {
-      this.$refs.editModal.open("添加血糖记录");
-    },
+    // onAdd() {
+    //   this.$refs.editModal.open("添加血糖记录");
+    // },
     // onEdit() {
     //   this.$refs.editModal.open("编辑血糖记录", this.selected);
     // },
