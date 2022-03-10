@@ -2100,7 +2100,7 @@
           "name": "I100106",
           "type": "input",
           "title": "排便次数",
-          "suffixDesc": "次/天",
+          "suffixDesc": "次",
           "style": null,
           "titleStyle": "width:61px!important",
           "inputStyle": "width:270px!important",

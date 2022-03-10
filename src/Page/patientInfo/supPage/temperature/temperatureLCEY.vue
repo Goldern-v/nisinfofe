@@ -5,20 +5,6 @@
       id="sheet_body_con"
       :style="{ height: containHeight }"
     >
-      <!-- <div class="head-con" flex>
-        <div class="dept-select-con" v-show="openLeft"></div>
-        <div class="tool-con" flex-box="1">
-          <tool></tool>
-        </div>
-      </div> -->
-      <!-- <div class="left-part">
-        <patientList
-          :data="data.bedList"
-          v-loading="patientListLoading"
-          :isSelectPatient="isSelectPatient"
-        ></patientList>
-      </div> -->
-      <!-- <div class="right-part isRight" v-loading="tableLoading"> -->
       <div class="sheetTable-contain">
         <temperatureLCEY
           class="contain-center"
@@ -100,12 +86,7 @@
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
-import moment from "moment";
 import bus from "vue-happy-bus";
-import { patients } from "@/api/lesion";
-import patientList from "@/components/patient-list/patient-list.vue";
-import print from "printing";
-import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureLCEY from "@/Page/temperature-chart/new-singleTemperature-chart/components/temperatureLCEY";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart/components/tab-con";
 export default {
@@ -129,7 +110,7 @@ export default {
       if (this.fullpage) {
         return this.wih - 44 + "px";
       } else {
-        return this.wih - 74 + "px";
+        return this.wih - 114 + "px";
       }
     },
     rightSheet() {
@@ -143,12 +124,14 @@ export default {
     },
   },
   created() {
-    // 初始化
+
+  },
+  mounted() {
+     // 初始化
     if (this.deptCode) {
       this.getDate();
     }
   },
-  mounted() {},
   methods: {
     //关闭录入界面
     openRight() {
@@ -156,19 +139,19 @@ export default {
     },
     async getDate() {
       if (this.deptCode) {
-        this.patientListLoading = true;
-        await patients(this.deptCode, {}).then((res) => {
-          this.data.bedList = res.data.data.filter((item) => {
-            return item.patientId;
-          });
-          this.patientListLoading = false;
-        });
+        // this.patientListLoading = true;
+        // await patients(this.deptCode, {}).then((res) => {
+        //   this.data.bedList = res.data.data.filter((item) => {
+        //     return item.patientId;
+        //   });
+        //   this.patientListLoading = false;
+        // });
         this.bus.$emit("refreshImg");
         this.bus.$emit("refreshVitalSignList");
       }
     },
   },
-  components: { patientList, temperatureLCEY, tabCon },
+  components: {  temperatureLCEY, tabCon },
   watch: {
     deptCode(val) {
       if (val) {

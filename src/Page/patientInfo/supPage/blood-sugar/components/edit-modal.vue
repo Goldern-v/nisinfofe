@@ -348,7 +348,8 @@ export default {
         };
         this.oldRecordDate = "";
       }
-      if (this.HOSPITAL_ID == "beihairenyi"||this.HOSPITAL_ID == "liaocheng") {
+      // if (this.HOSPITAL_ID == "beihairenyi"||this.HOSPITAL_ID == "liaocheng") {
+      if (["beihairenyi","liaocheng","guizhou"].includes(this.HOSPITAL_ID)) {
         this.form.sugarValue = this.form.sugarValue || '';
         this.form.riValue = this.form.riValue || '';
       }

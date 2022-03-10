@@ -19,7 +19,7 @@ export default {
     // 科室的名称
     deptType: "", 
     style: {
-      width: "1200px"
+      width: "1210px"
     },
     th: {
         top: 
@@ -39,7 +39,7 @@ export default {
             { "name": "防跌<br/>倒教<br/>育与<br/>评估", "colspan": "1", "rowspan": "3"}, 
             { "name": "佩戴<br/>腰围<br/>步行<br/>（米）", "colspan": "1", "rowspan": "3"}, 
             { "name": "穿刺<br/>点外<br/>敷料", "colspan": "1", "rowspan": "3"}, 
-            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "163px",  maxWidth: "163px"}, }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3"}, 
             { "name": "质控护士", "colspan": "1", "rowspan": "3"}
          ]

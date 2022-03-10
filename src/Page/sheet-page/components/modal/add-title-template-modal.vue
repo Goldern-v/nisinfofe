@@ -71,7 +71,7 @@ export default {
       }
     },
     getRecordCode(){
-      if(['beihairenyi','guizhou','wujing','liaocheng'].includes(this.HOSPITAL_ID)&&(this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes('temperature'))){
+      if((this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes('temperature'))){
         return true
       }else{
         return false

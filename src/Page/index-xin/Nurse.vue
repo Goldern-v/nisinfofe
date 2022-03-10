@@ -21,6 +21,13 @@
               <th colspan="4">
                 <img src="./img/体征任务.png" />
                 <span>体征任务（{{ body.content.length }}）</span>
+                <!-- 江门妇幼-待联调 -->
+                <div style="float: right" v-if="false">
+                  <el-radio-group v-model="radio" size='small'>
+                    <el-radio-button label="未完成"></el-radio-button>
+                    <el-radio-button label="已完成"></el-radio-button>
+                  </el-radio-group>
+                </div>
               </th>
             </tr>
             <tr>
@@ -208,6 +215,7 @@ export default {
   },
   data() {
     return {
+      radio: '未完成',
       body: {
         //左侧 体症任务信息
         number: 0,

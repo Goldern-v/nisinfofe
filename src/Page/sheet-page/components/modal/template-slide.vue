@@ -467,6 +467,12 @@ export default {
   },
   created() {
     this.bus.$on("refreshTemplate", this.getData);
+    if(this.HOSPITAL_ID==='whfk'){
+      const arr=['cmH₂O','ml/h','EPAP','IPAP','IU','U']
+      for (let index = 0; index < arr.length; index++) {
+       this.specificSymbol.unshift(arr[index])
+      }
+    }
   },
   mounted() {
     //  this.show = false
