@@ -317,11 +317,11 @@
               </el-dropdown-menu>
             </el-dropdown> -->
 
-            <!-- <router-link to="/implementationList" tag="span">
+            <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
-            </router-link> -->
+            </router-link>
 
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
