@@ -26,7 +26,7 @@
           clearable
         />
         <div class="times">
-          <el-radio-group v-model="query.entryTime" @click="changeEntryTime">
+          <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
               v-for="item in timesOdd"
@@ -45,7 +45,7 @@
             :class="
               [
                 'recordList',
-                dateTime.match(`${query.entryDate}  ${query.recordStr}`)
+                dateTime.match(`${formatDate(query.entryDate)}  ${query.entryTime+':00:00'}`)
                   ? 'active'
                   : '',
               ].join(' ')
@@ -356,27 +356,6 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        recordStr: (() => {
-          if (this.getHours() >= 0 && this.getHours() <= 5) {
-            return "03:00:00";
-          }
-          if (this.getHours() > 5 && this.getHours() <= 9) {
-            return "07:00:00";
-          }
-          if (this.getHours() > 9 && this.getHours() <= 13) {
-            return "11:00:00";
-          }
-          if (this.getHours() > 13 && this.getHours() <= 17) {
-            return "15:00:00";
-          }
-          if (this.getHours() > 17 && this.getHours() <= 21) {
-            return "19:00:00";
-          }
-          if (this.getHours() > 21 && this.getHours() <= 23) {
-            return "23:00:00";
-          }
-          //录入时间
-        })(), //录入时间,//记录时间，用来保存录入记录的时间
         entryTime: (() => {
           if (this.getHours() >= 0 && this.getHours() <= 5) {
             return "03";
@@ -397,7 +376,9 @@ export default {
             return "23";
           }
           //录入时间
-        })(), //录入时间
+        })(),
+        recordStr:entryTime+':00:00', //录入时间,//记录时间，用来保存录入记录的时间
+
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
@@ -452,7 +433,6 @@ export default {
       this.getList();
     });
   },
-  created() {},
   computed: {},
   watch: {
     query: {
@@ -463,6 +443,13 @@ export default {
     },
   },
   methods: {
+    changeEntryTime(value){
+      this.query.entryTime = value;
+      this.query.recordStr = value + ":00:00";
+    },
+    formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
+    },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
         let inputListLength = document.getElementsByClassName("rowbox").length;
@@ -483,30 +470,6 @@ export default {
     },
     modifiValue(e) {
       let val = e.target.value;
-    },
-    formatTimeVal(x) {
-      let val = Number(x);
-      let time;
-      if (val > 0 && val <= 5) {
-        time = "03";
-      }
-      if (val > 5 && val <= 9) {
-        time = "07";
-      }
-      if (val > 9 && val <= 13) {
-        time = "11";
-      }
-
-      if (val > 13 && val <= 17) {
-        time = "15";
-      }
-      if (val > 17 && val <= 21) {
-        time = "19";
-      }
-      if (val > 21 && val <= 23) {
-        time = "23";
-      }
-      return time;
     },
     init() {
       let obj = {};
@@ -686,11 +649,7 @@ export default {
       let b = date.getHours();
       return b;
     },
-    /* 选择固定时间点 */
-    changeEntryTime(val) {
-      this.query.entryTime = val;
-      this.query.recordStr = val + ":00:00";
-    },
+
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
       let temp = value;
