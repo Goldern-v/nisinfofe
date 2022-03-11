@@ -180,6 +180,16 @@
             "
             v-html="showSign(tr)"
           ></div>
+          <masked-input
+            v-else-if="['huadu'].includes(HOSPITAL_ID) && td.key == 'recordHour'"
+            type="text"
+            class="mask-input"
+            :showMask="false"
+            v-model="td.value"
+            :mask="() => [ /\d/, /\d/, ':', /\d/, /\d/]"
+            :guide="true"
+            placeholderChar=" "
+          ></masked-input>
           <div
             v-else-if="
               (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'||HOSPITAL_ID === 'liaocheng') &&
@@ -1361,6 +1371,7 @@ export default {
                 }
                 return Object.assign({}, item, obj);
               });
+              console.log(this.sheetInfo.copyRow);
           },
         },
         {
