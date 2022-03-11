@@ -504,6 +504,10 @@
     <div v-if="sheetInfo.sheetType == 'urology_sdlj'">
       备注：①意识：清√，嗜睡+，浅昏迷++，深昏迷+++，药眠。        
     </div>
+    <!-- 顺德龙江 - 儿科护理记录单-->
+    <div v-if="sheetInfo.sheetType == 'pediatrics_sdlj'">
+      说明：<strong>意识判断</strong>：①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏睡 ⑥谵妄&nbsp;<strong>瞳孔</strong>：大小用阿拉伯数字表示，单位mm，&nbsp;<strong>对光反射</strong>：灵敏（+）迟钝（±）消失（-）&nbsp;<strong>气道护理</strong>：①雾化吸入  ②气道吸痰 ③口鼻腔吸痰        
+    </div>
     <!-- 顺德龙江 - 呼吸专科护理记录单-->
     <div v-if="sheetInfo.sheetType == 'dreathe_sdlj'">
       说明: 1、护理记录单大部分项目可打“√”，表中无涉及的内容或表达不清的问题请在特殊记录栏内用文字说明。&nbsp; &nbsp;2、有呼吸困难者,在相应空格中描述轻度、中度、重度。<br/>                                    
