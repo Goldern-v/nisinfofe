@@ -42,7 +42,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${query.entryDate}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${dateInp}`
                   )
                     ? 'active'
                     : '',
@@ -458,7 +458,7 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: moment().format("HH:mm:ss"), //录入时间
+        entryTime: moment().format("HH:mm")+':00', //录入时间
       },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
@@ -509,6 +509,9 @@ export default {
   methods: {
     handleChange(val) {
       // console.log(val);
+    },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";

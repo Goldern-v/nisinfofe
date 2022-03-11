@@ -61,7 +61,7 @@
             :class="
               [
                 'recordList',
-                dateTime.match(`${query.entryDate}  ${query.entryTime}`)
+                dateTime.match(`${formatDate(query.entryDate)}  ${dateInp}`)
                   ? 'active'
                   : '',
               ].join(' ')
@@ -611,6 +611,9 @@ export default {
     /* 选择固定时间点 */
     changeEntryTime(val) {
       this.query.entryTime = val;
+    },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     // /* 联动修改查询的日期和时间 */
     // changeQuery(value) {

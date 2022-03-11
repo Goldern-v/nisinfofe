@@ -34,7 +34,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${query.entryDate}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${query.entryTime}`
                   )
                     ? 'active'
                     : '',
@@ -573,6 +573,9 @@ export default {
     },
     handleChange(val) {
       // console.log(val);
+    },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";

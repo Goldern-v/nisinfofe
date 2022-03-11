@@ -42,7 +42,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${query.entryDate}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${dateInp}`
                   )
                     ? 'active'
                     : '',
@@ -453,7 +453,7 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: moment().format("HH:mm:ss"), //录入时间
+        entryTime: moment().format("HH:mm")+':00', //录入时间
       },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
@@ -677,6 +677,9 @@ export default {
     /* 选择固定时间点 */
     changeEntryTime(val) {
       this.query.entryTime = val;
+    },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {

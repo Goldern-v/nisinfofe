@@ -42,7 +42,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${query.entryDate}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${dateInp}`
                   )
                     ? 'active'
                     : '',
@@ -692,6 +692,9 @@ export default {
     /* 选择固定时间点 */
     changeEntryTime(val) {
       this.query.entryTime = val;
+    },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
