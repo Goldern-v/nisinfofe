@@ -42,7 +42,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${query.entryDate}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${dateInp}`
                   )
                     ? 'active'
                     : '',
@@ -84,7 +84,7 @@
                       ? 'rowBoxRight'
                       : 'rowBox'
                   "
-                  v-for="(j, index, i) in multiDictList"
+                  v-for="(j, index, i) in baseMultiDictList"
                   :key="index"
                 >
                   <div class="rowItemText">
@@ -421,7 +421,6 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -450,13 +449,11 @@ export default {
     });
 
     return {
-      mockData,
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: moment().format("HH:mm:ss"), //录入时间
+        entryTime: moment().format("HH:mm")+':00', //录入时间
       },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
@@ -475,7 +472,6 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
-      selectionMultiDict: selectionMultiDict,
     };
   },
   async mounted() {
@@ -483,7 +479,6 @@ export default {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
-    console.log(Object.keys(this.otherMultiDictList).length)
   },
   created() {
     window.addEventListener("resize", this.getHeight);
@@ -584,6 +579,7 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
+      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getVitalSignListByDate({
         visitId: data.visitId,
@@ -681,6 +677,9 @@ export default {
     /* 选择固定时间点 */
     changeEntryTime(val) {
       this.query.entryTime = val;
+    },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {

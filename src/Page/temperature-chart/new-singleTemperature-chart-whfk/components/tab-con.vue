@@ -34,7 +34,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${query.entryDate}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${query.entryTime}`
                   )
                     ? 'active'
                     : '',
@@ -560,6 +560,9 @@ export default {
     },
   },
   methods: {
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
+    },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
         let inputListLength = document.getElementsByClassName("rowbox").length;
@@ -629,6 +632,7 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
+      await this.getVitalList();
        /* 获取患者某个时间点的体征信息 */
       await getVitalSignListByDate({
         visitId: data.visitId,

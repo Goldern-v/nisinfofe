@@ -45,7 +45,7 @@
             :class="
               [
                 'recordList',
-                dateTime.match(`${query.entryDate}  ${query.entryTime}`)
+                dateTime.match(`${formatDate(query.entryDate)}  ${query.entryTime}`)
                   ? 'active'
                   : '',
               ].join(' ')
@@ -406,6 +406,9 @@ export default {
     },
   },
   methods: {
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
+    },
     init() {
       let obj = {};
       if (!this.multiDictList) return;
@@ -483,6 +486,7 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
+      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getNowDateTimeList(data).then((res) => {
         this.tabsData = [];
