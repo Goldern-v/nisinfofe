@@ -213,6 +213,12 @@
                       "
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
+                         @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
                         @click="() => (vitalSignObj[j].popVisible = true)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
                         v-model="vitalSignObj[j].vitalValue"
@@ -277,6 +283,7 @@
                         type="text"
                         :id="100+otherDicListLength-1"
                         @keydown.enter="changeNext"
+
                         :title="vitalSignObj['guomingyaowu'].vitalValue"
                         @input="handlePopRefresh(vitalSignObj['guomingyaowu'])"
                         @click="

@@ -208,6 +208,12 @@
                             ? 'number'
                             : 'text'
                         "
+                         @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
                         @click="() => (vitalSignObj[j].popVisible = true)"
