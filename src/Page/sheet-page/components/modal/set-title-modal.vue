@@ -76,7 +76,7 @@ export default {
       this.callback(this.title);
       if (
         ["huadu"].includes(this.HOSPITAL_ID) &&
-        this.$route.path.includes("singleTemperatureChart")
+        (this.$route.path.includes("singleTemperatureChart")||this.$route.path.includes("temperature"))
       ) {
         this.bus.$emit("saveSheetPage", "refreshSheetPage");
         //体温单保存自定义标题刷新
@@ -104,8 +104,7 @@ export default {
         } = await listItem(
           "自定义标题",
           //北海体温单调用护理记录单模板
-          ["beihairenyi", "guizhou"].includes(this.HOSPITAL_ID) &&
-            this.$route.path.includes("newSingleTemperatureChart")
+            this.$route.path.includes("newSingleTemperatureChart")||this.$route.path.includes("temperature")
             ? "bodyTemperature"
             : sheetInfo.sheetType,
             deptCode,

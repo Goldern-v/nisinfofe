@@ -302,10 +302,10 @@ this.$refs.pdfConAll.contentWindow.postMessage(
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contain {
-  margin: 15px 20px 0;
+  margin: 15px 10px 0;
 
   .tem-con {
-    width: 102%;
+    width: 101%;
     height: 100%;
     position: relative;
     left: 0px;
