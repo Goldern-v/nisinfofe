@@ -208,6 +208,12 @@
                             : 'text'
                         "
                         :title="vitalSignObj[j].vitalValue"
+                         @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
                         @input="handlePopRefresh(vitalSignObj[j])"
                         @click="() => (vitalSignObj[j].popVisible = true)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
@@ -293,6 +299,12 @@
                       @keydown.enter="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
+                       @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
                       @click="
                         () => (vitalSignObj[i.vitalCode].popVisible = true)
                       "

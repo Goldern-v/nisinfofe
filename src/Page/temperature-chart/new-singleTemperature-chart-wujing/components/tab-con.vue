@@ -487,7 +487,7 @@ export default {
     });
   },
   created() {
-    window.addEventListener("resize", this.getHeight);
+    window.addEventListener("resize", this.getHeight());
     this.getHeight();
   },
   computed: {
@@ -501,9 +501,6 @@ export default {
         this.getList();
       },
       deep: true,
-    },
-    rightSheet(value) {
-      alert(value);
     },
   },
   methods: {
