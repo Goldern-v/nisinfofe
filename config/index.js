@@ -191,7 +191,7 @@ const currentTargetUrl = (() => {
     // 临邑县人民
     case 'lyxrm':
       return "http://192.168.1.54:9890" // 内网测试
-      
+
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"
