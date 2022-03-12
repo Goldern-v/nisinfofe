@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="720" :title="title">
+    <sweet-modal ref="modal" :modalWidth="modalWidth" :title="title">
       <div flex="cross:center">
         <div v-if="HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'"  >
           <span class="label">执行单日期：</span>
@@ -38,6 +38,38 @@
               :label="typeItem.name"
               :value="typeItem.id"
               v-for="typeItem in allType"
+              :key="typeItem.id"
+            ></el-option>
+          </el-select>
+        </div>
+        <div v-if="HOSPITAL_ID == 'wujing'" style="margin-left: 20px">
+          <span class="label">医嘱分类：</span>
+          <el-select
+            v-model="executeType"
+            placeholder="请选择"
+            size="small"
+            style="width: 100px"
+          >
+            <el-option
+              :label="typeItem.name"
+              :value="typeItem.id"
+              v-for="typeItem in allType"
+              :key="typeItem.id"
+            ></el-option>
+          </el-select>
+        </div>
+        <div v-if="HOSPITAL_ID == 'wujing'" style="margin-left: 20px">
+          <span class="label">医嘱类型：</span>
+          <el-select
+            v-model="repeatIndicator"
+            placeholder="请选择"
+            size="small"
+            style="width: 100px"
+          >
+            <el-option
+              :label="typeItem.name"
+              :value="typeItem.id"
+              v-for="typeItem in repeatIndicatorList"
               :key="typeItem.id"
             ></el-option>
           </el-select>
@@ -217,6 +249,10 @@ export default {
       type: String,
       value: "",
     },
+    modalWidth: {
+      type: Number,
+      value: 0,
+    },
   },
   data() {
     return {
@@ -228,25 +264,22 @@ export default {
       bus: bus(this),
       formlist: {},
       executeType: this.HOSPITAL_ID==='liaocheng'?"输液":"",
-      identicalGroupSelect:['wujing']
-      // allType: [
-      //   {
-      //     id: "",
-      //     name: "全部",
-      //   },
-      //   {
-      //     id: "输液",
-      //     name: "输液类",
-      //   },
-      //   {
-      //     id: "雾化",
-      //     name: "雾化类",
-      //   },
-      //   {
-      //     id: "口服",
-      //     name: "长期医嘱的口服药",
-      //   },
-      // ],
+      repeatIndicator: "9",
+      identicalGroupSelect:['wujing'],
+      repeatIndicatorList: [
+        {
+          id: "9",
+          name: "全部",
+        },
+        {
+          id: "1",
+          name: "长期",
+        },
+        {
+          id: "0",
+          name: "临时",
+        },
+      ],
     };
   },
   methods: {
@@ -392,6 +425,8 @@ export default {
           this.patientInfo.patientId || this.formlist.patientId,
           this.patientInfo.visitId || this.formlist.visitId,
           this.searchDate,
+          this.executeType,
+          this.repeatIndicator,
           this.blockId,
           this.HOSPITAL_ID
         ).then((res) => {
@@ -463,6 +498,57 @@ export default {
           name: "口服药",
         }
         ]
+      }else if(this.HOSPITAL_ID==='wujing'){
+        return [
+        {
+          id: "",
+          name: "全部",
+        },
+        {
+          id: "输液",
+          name: "输液",
+        },
+        {
+          id: "注射",
+          name: "注射",
+        },
+        {
+          id: "口服",
+          name: "口服",
+        },
+        {
+          id: "雾化",
+          name: "雾化",
+        },
+        {
+          id: "皮试",
+          name: "皮试",
+        },
+        {
+          id: "治疗",
+          name: "治疗",
+        },
+        {
+          id: "理疗",
+          name: "理疗",
+        },
+        {
+          id: "护理",
+          name: "护理",
+        },
+        {
+          id: "外用",
+          name: "外用",
+        },
+        {
+          id: "化验",
+          name: "化验",
+        },
+        {
+          id: "其他",
+          name: "其他",
+        },
+        ]
       }else{
         return [
         {
@@ -481,7 +567,7 @@ export default {
           id: "口服",
           name: "长期医嘱的口服药",
         },
-       ]
+        ]
       }
      
     }

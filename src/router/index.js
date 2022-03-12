@@ -988,7 +988,6 @@ const router = new Router({
             case 'shannan':
               return implementationListShannan
             case 'zhongshanqi':
-            case 'huadu':
               return implementationListZhongshanqi
             case 'wujing':
             case 'lyxrm':
@@ -997,6 +996,7 @@ const router = new Router({
             case 'foshanrenyi':
               return implementationListFSSY
             case 'quzhou':
+            case 'huadu':
               return implementationListQuzhou
             case 'fuyou':
               return implementationListFuyou

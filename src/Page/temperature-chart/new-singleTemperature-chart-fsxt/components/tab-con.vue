@@ -1,12 +1,12 @@
 <template>
-  <div class="right-con" >
+  <div class="right-con">
     <div class="row-top">
       <div class="column-right">
         <ElDatePicker
           class="date-picker"
           type="date"
           size="mini"
-          style="width: 110px;height:28px;"
+          style="width: 110px; height: 28px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -34,7 +34,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${query.entryDate}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${query.entryTime}`
                   )
                     ? 'active'
                     : '',
@@ -153,7 +153,10 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-              <div class="context-box" v-if="Object.keys(this.otherMultiDictList).length">
+              <div
+                class="context-box"
+                v-if="Object.keys(this.otherMultiDictList).length"
+              >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
                     <span class="title"> 其他信息 </span>
@@ -190,24 +193,24 @@
                       :value="vitalSignObj[j].popVisible"
                     >
                       <input
-                      :id="i + 100"
-                      @keydown.enter="changeNext"
-                      :type="
-                        totalDictInfo[index].inputType === '2'
-                          ? 'number'
-                          : 'text'
-                      "
-                      :title="vitalSignObj[j].vitalValue"
-                      @mousewheel="
-                        (e) => {
-                          e.preventDefault();
-                        }
-                      "
-                      @input="handlePopRefresh(vitalSignObj[j])"
-                      @click="() => (vitalSignObj[j].popVisible = true)"
-                      @blur="() => (vitalSignObj[j].popVisible = false)"
-                      v-model="vitalSignObj[j].vitalValue"
-                    />
+                        :id="i + 100"
+                        @keydown.enter="changeNext"
+                        :type="
+                          totalDictInfo[index].inputType === '2'
+                            ? 'number'
+                            : 'text'
+                        "
+                        :title="vitalSignObj[j].vitalValue"
+                        @mousewheel="
+                          (e) => {
+                            e.preventDefault();
+                          }
+                        "
+                        @input="handlePopRefresh(vitalSignObj[j])"
+                        @click="() => (vitalSignObj[j].popVisible = true)"
+                        @blur="() => (vitalSignObj[j].popVisible = false)"
+                        v-model="vitalSignObj[j].vitalValue"
+                      />
                       <template v-slot:content>
                         <div
                           class="container"
@@ -282,20 +285,24 @@
                     </div>
 
                     <input
-                        :id="i + 100"
-                        @keydown.enter="changeNext"
-                        :type="
+                      :id="i + 100"
+                      @keydown.enter="changeNext"
+                      :type="
                         totalDictInfo[index].inputType === '2'
                           ? 'number'
                           : 'text'
                       "
-                        :title="vitalSignObj[j].vitalValue"
-                        @input="handlePopRefresh(vitalSignObj[j])"
-                         @mousewheel="(e) => { e.preventDefault(); }"
-                        @click="() => (vitalSignObj[j].popVisible = true)"
-                        @blur="() => (vitalSignObj[j].popVisible = false)"
-                        v-model="vitalSignObj[j].vitalValue"
-                      />
+                      :title="vitalSignObj[j].vitalValue"
+                      @input="handlePopRefresh(vitalSignObj[j])"
+                      @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                        }
+                      "
+                      @click="() => (vitalSignObj[j].popVisible = true)"
+                      @blur="() => (vitalSignObj[j].popVisible = false)"
+                      v-model="vitalSignObj[j].vitalValue"
+                    />
                   </div>
                 </div>
                 <div class="bottom-box clear"></div>
@@ -539,30 +546,36 @@ export default {
     },
   },
   methods: {
-   changeNext(e) {
+    changeNext(e) {
       if (e.target.className === "el-tooltip") {
-       let baseLength=document.getElementsByClassName("pathological").length
-       let otherLength=document.getElementsByClassName("otherPathological").length
-       this.otherDicListLength=otherLength;
+        let baseLength = document.getElementsByClassName("pathological").length;
+        let otherLength =
+          document.getElementsByClassName("otherPathological").length;
+        this.otherDicListLength = otherLength;
         let inputListLength = baseLength + otherLength;
-     console.log(Number(e.target.id),otherLength+100-1)
+        console.log(Number(e.target.id), otherLength + 100 - 1);
 
-        if (Number(e.target.id) < baseLength ) {
+        if (Number(e.target.id) < baseLength) {
           document.getElementById(Number(e.target.id) + 1).focus();
         } else if (Number(e.target.id) === baseLength) {
           document.getElementById("100").focus();
-        }else if(Number(e.target.id) > baseLength&&Number(e.target.id) < otherLength+100-1){
-            document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (
+          Number(e.target.id) > baseLength &&
+          Number(e.target.id) < otherLength + 100 - 1
+        ) {
+          document.getElementById(Number(e.target.id) + 1).focus();
         }
-        }
-        if(Number(e.target.id) ===107){
-          console.log('sss')
-            document.getElementById("1").focus();
-        }
-
+      }
+      if (Number(e.target.id) === 107) {
+        console.log("sss");
+        document.getElementById("1").focus();
+      }
     },
     handleChange(val) {
       // console.log(val);
+    },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
@@ -611,7 +624,8 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
-       /* 获取患者某个时间点的体征信息 */
+      await this.getVitalList();
+      /* 获取患者某个时间点的体征信息 */
       await getVitalSignListByDate({
         visitId: data.visitId,
         patientId: data.patientId,
@@ -914,7 +928,7 @@ export default {
   }
 
   .column-right {
-    margin-top:5px;
+    margin-top: 5px;
     display: inline-block;
     height: 50px;
     overflow: auto;
@@ -963,7 +977,7 @@ export default {
     .null-bg {
       background-color: #fff;
       height: 1000px;
-      margin-top:5px;
+      margin-top: 5px;
     }
 
     .inputter-region {
@@ -994,8 +1008,8 @@ export default {
   .date-picker {
     >>>.el-input__inner {
       border-radius: 6px;
-      margin-left:5px;
-      height:28px;
+      margin-left: 5px;
+      height: 28px;
     }
   }
 
