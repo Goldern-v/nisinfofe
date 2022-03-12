@@ -1,13 +1,10 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown >
-       <div class="print-btn tool-btn" >打印</div>
-      <el-dropdown-menu slot="dropdown">
-       <el-dropdown-item> <el-button type="primary"  @click="onPrint()">打印当周</el-button></el-dropdown-item>
-    <el-dropdown-item><el-button type="primary"  @click="printAll()">批量打印</el-button></el-dropdown-item>
-       </el-dropdown-menu>
-      </el-dropdown>
+      <el-button-group>
+        <el-button type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button type="primary" @click="printAll()">批量打印</el-button>
+      </el-button-group>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
         <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
         <button :disabled="currentPage === 1" @click="currentPage = 1">
@@ -16,7 +13,15 @@
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
-        <span class="page">第{{ currentPage }}页/共{{ pageTotal }}页</span>
+       <span class="page"
+          >第<input
+            type="number"
+            min="1"
+            v-model.number="toCurrentPage"
+            class="pageInput"
+            @keyup.enter="toPage()"
+          />页/共{{ pageTotal }}页</span
+        >
         <button :disabled="currentPage === pageTotal" @click="currentPage++">
           下一周
         </button>
@@ -26,7 +31,12 @@
         >
           尾周
         </button>
+      <el-button-group :style="rightButton()">
+        <el-button type="primary" @click="syncInAndOutHospital((type = '0'))">同步入院</el-button>
+        <el-button type="primary" @click="syncInAndOutHospital((type = '1'))">同步出院</el-button>
+      </el-button-group>
       </div>
+
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
@@ -59,6 +69,9 @@ import {
   getNurseExchangeInfo,
   getNurseExchangeInfoByTime,
 } from "../../../sheet-page/api/index";
+import {
+  autoVitalSigns,
+} from "../../api/api";
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
@@ -75,6 +88,7 @@ export default {
       pageTotal: 1,
       open: false,
       patientId:"",
+      toCurrentPage :1,
       visitId:"",
       isSave: false,
       isPrintAll:false,
@@ -82,7 +96,7 @@ export default {
       printAllPath:"",
       intranetUrl:
         "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-        // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://localhost:8081/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:"http://10.158.210.28:9093/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
       outNetUrl:
         "http://218.107.37.134:9093/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
@@ -102,6 +116,28 @@ this.$refs.pdfCon.contentWindow.postMessage(
 
 
     },
+        toPre() {
+      if (this.currentPage === 1) return;
+      this.currentPage--;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPage() {
+      if (
+        this.toCurrentPage === "" ||
+        this.toCurrentPage <= 0 ||
+        typeof this.toCurrentPage != "number"
+      ) {
+        this.currentPage = 1;
+        this.toCurrentPage = 1;
+      } else {
+        if (this.toCurrentPage >= this.pageTotal) {
+          this.currentPage = this.pageTotal;
+          this.toCurrentPage = this.pageTotal;
+        }
+      }
+
+      this.currentPage = this.toCurrentPage;
+    },
     printAll(){
       this.isPrintAll=true  //隐藏页码控制区域
         setTimeout(()=>{
@@ -111,6 +147,27 @@ this.$refs.pdfConAll.contentWindow.postMessage(
         // this.outNetUrl /* 外网 */
       );
       },1500)
+    },
+    rightButton(){
+      return {
+         "position": "relative",
+        "left":this.rightSheet===false?"20%":"8%",
+      }
+    },
+        /* 同步入院、同步出院 */
+    syncInAndOutHospital(type) {
+      autoVitalSigns({
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        type: type,
+      }).then(async (res) => {
+        this.$message.success("同步成功");
+        await this.bus.$emit("refreshImg");
+      });
+      if(type==='0'){
+        this.query.entryDate=this.patientInfo.admissionDate.slice(0,10)
+        this.dateInp=this.patientInfo.admissionDate.slice(11,20)
+      }
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -132,12 +189,18 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     messageHandle(e) {
       if (e && e.data) {
         switch (e.data.type) {
           case "pageTotal":
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
+            break;
+             case "dblclick" /* 双击查阅体温单子 */:
+            this.openRight();
             break;
           // case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
           // const params = {
@@ -193,6 +256,7 @@ this.$refs.pdfConAll.contentWindow.postMessage(
       this.isPrintAll=false
     },
     currentPage(value) {
+      this.toCurrentPage = value;
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
@@ -223,6 +287,9 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);
@@ -252,17 +319,20 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     }
   }
 }
-
+.pageInput {
+  width: 30px;
+  border: 0px;
+}
 .pagination {
   display: inline;
   position: relative;
-  left: 25%;
+  left: 12%;
   font-weight: normal;
 }
 .paginationRight{
  display: inline;
   position: relative;
-  left: 35%;
+  left: 25%;
   font-weight: normal;
 }
 
