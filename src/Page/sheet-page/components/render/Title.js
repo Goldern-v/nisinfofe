@@ -1715,6 +1715,20 @@ export default function Title(
     );
   }
   break;
+  case "emergency_treat_yx": {
+    // 武汉亚心 - 急诊留观记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/emergency_treat_yx/th").default)
+    );
+  }
+  break;
+  case "neonatology_yx": {
+    // 武汉亚心 - 新生儿科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_yx/th").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(

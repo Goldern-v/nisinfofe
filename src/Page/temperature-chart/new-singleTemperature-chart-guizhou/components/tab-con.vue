@@ -448,7 +448,6 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -476,9 +475,7 @@ export default {
     });
 
     return {
-      mockData,
       dateInp: moment().format("HH:mm"),
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       selectValue: "",
@@ -513,7 +510,6 @@ export default {
       contentHeight: { height: "" }, //页面高度
       bottomExpandDate: "",
       totalDictInfo: {},
-      selectionMultiDict: selectionMultiDict,
     };
   },
   async mounted() {

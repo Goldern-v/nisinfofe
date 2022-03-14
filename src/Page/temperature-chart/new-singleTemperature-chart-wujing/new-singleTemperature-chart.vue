@@ -104,8 +104,6 @@ import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
-import print from "printing";
-import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureNew from "./components/temperatureNew";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-wujing/components/tab-con";
 import Button from "@/Page/badEvent/components/button.vue";
@@ -143,7 +141,7 @@ export default {
       if (this.fullpage) {
         return this.wih - 44 + "px";
       } else {
-        return this.wih - 74 + "px";
+        return this.wih - 64 + "px";
       }
     },
     fullpage() {

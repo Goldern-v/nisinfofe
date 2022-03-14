@@ -1,203 +1,161 @@
 <template>
-  <div>
-    <div class="contain">
-      <div flex="corss:center main:center" style="margin: 20px 0 18px">
-        <div class="tool-btn" @click="pageIndex = 0">第一页</div>
-        <div class="tool-btn" :class="{disable: pageIndex == 0}" @click="sub">上一页</div>
-        <div class="page-num">{{pageIndex + 1}}/{{pageList.length }}</div>
-        <div class="tool-btn" :class="{disable: pageIndex == pageList.length - 1}" @click="add">下一页</div>
-        <div class="tool-btn" @click="pageIndex = pageList.length - 1">最后一页</div>
+  <div class="new-singleTemperature-chart">
+    <div
+      class="body-con"
+      id="sheet_body_con"
+      :style="{ height: containHeight }"
+    >
+      <div class="sheetTable-contain">
+        <temperatureNew
+          class="contain-center"
+          :queryTem="patientInfo"
+        ></temperatureNew>
+        <div
+          class="flag-con"
+          :style="{ top: flagTop }"
+          flex="main:center cross:center"
+          @click="openRight"
+        >
+          <i
+            class="iconfont icon-yincang"
+            v-show="rightSheet"
+            style="margin-left: -1px"
+          ></i>
+          <i
+            class="iconfont icon-xianshi"
+            v-show="!rightSheet"
+            style="margin-left: -2px"
+          ></i>
+        </div>
+        <tabCon
+          class="contain-right"
+          :patientInfo="patientInfo"
+          v-show="rightSheet"
+        >
+        </tabCon>
       </div>
-      <div class="tem-con" v-loading="pageList.length > 0 && !filePath">
-        <null-bg v-show="!filePath"></null-bg>
-        <img v-if="filePath && HOSPITAL_ID == 'gy'" :src="filePath" alt />
-        <iframe
-          v-if="filePath && HOSPITAL_ID != 'gy'"
-          :src="filePath"
-          frameborder="0"
-          @load="onload"
-          ref="pdfCon"
-          :style="{height: pdfHeight + 'px'}"
-          v-loading="true"
-        ></iframe>
-      </div>
-      <div flex="corss:center main:center" style="margin: 20px 0 18px">
-        <div class="tool-btn" @click="pageIndex = 0">第一页</div>
-        <div class="tool-btn" :class="{disable: pageIndex == 0}" @click="sub">上一页</div>
-        <div class="page-num">{{pageIndex + 1}}/{{pageList.length }}</div>
-        <div class="tool-btn" :class="{disable: pageIndex == pageList.length - 1}" @click="add">下一页</div>
-        <div class="tool-btn" @click="pageIndex = pageList.length - 1">最后一页</div>
-      </div>
-      <div class="date-select-box" flex="cross:center">
-        <span style="width: 100px">体温单日期：</span>
-        <el-date-picker
-          v-model="date"
-          type="date"
-          placeholder="选择日期"
-          :picker-options="pickerOptions"
-        ></el-date-picker>
-      </div>
-      <!-- <div class="print-btn tool-btn">打印</div> -->
+      <!-- </div> -->
     </div>
   </div>
 </template>
-
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.contain {
-  margin: 20px 20px 0;
+.new-singleTemperature-chart {
   position: relative;
 
-  .tem-con {
-    margin: 0 auto;
-    width: 640px;
-    padding: 10px;
-    min-height: 700px;
-    background: #fff;
+  .body-con {
+    position: relative;
 
-    iframe, img {
-      width: 100%;
+    .sheetTable-contain {
+      display: flex;
+      flex-direction: row;
       height: 100%;
-    }
-  }
 
-  .date-select-box {
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 12px;
-    white-space: nowrap;
-    color: #687179;
-    width: 220px;
+      .contain-center {
+        flex: 7;
+      }
 
-    >>>.el-input {
-      // width 135px
-      position: relative;
-    }
-
-    >>>.el-input__inner {
-      height: 30px;
-      width: 100px;
-      width: 135px;
-      border: 1px solid #C2CBD2;
-      border-radius: 4px;
-      margin-left: 5px;
+      .contain-right {
+        flex: 3;
+        border-left: 1px solid #eee;
+        height: 100%;
+        // margin-top:10px;
+      }
     }
   }
 }
 
-.tool-btn {
-  width: 82px;
-  height: 32px;
-  background: #FFFFFF;
-  border: 1px solid #C2CBD2;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.65);
-  margin: 0 5px;
+.flag-con {
+  width: 10px;
+  height: 73px;
+  position: relative;
+  z-index: 10;
+  background-image: url('../../../../common/images/patient/隐藏框.png');
+  cursor: pointer;
+  transform: rotateY(180deg);
 
   &:hover {
-    color: #4BB08D;
-    border-color: #4BB08D;
-    cursor: pointer;
+    color: #5CC6A1;
   }
 
-  &.disable {
-    color: #b5b5b5;
-    border-color: #b5b5b5;
-    cursor: not-allowed;
+  i {
+    font-size: 12px;
   }
-}
-
-.page-num {
-  font-size: 17px;
-  color: rgba(0, 0, 0, 0.65);
-  line-height: 34px;
-  margin: 0 10px;
-}
-
-.print-btn {
-  position: fixed;
-  right: 20px;
-  top: 70px;
 }
 </style>
 
 <script>
-import { getTemperatue } from "@/api/temperature";
-import nullBg from "../../../../components/null/null-bg";
-import moment from "moment";
-import axios from 'axios'
+import common from "@/common/mixin/common.mixin.js";
+import bus from "vue-happy-bus";
+import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/temperatureWHFK";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/tab-con";
 export default {
+  mixins: [common],
+  props: {},
   data() {
     return {
-      date: "",
-      pageLoading: false,
-      pickerOptions: {},
-      filePath: "",
-      pdfHeight: 1000,
-      pageList: [],
-      pageIndex: null
+      bus: bus(this),
+      data: {
+        bedList: [],
+        isSave: false,
+      },
+      patientListLoading: true,
+      tableLoading: false,
     };
   },
-  methods: {
-    getImg() {
-      let date = new Date(this.date).Format("yyyy-MM-dd");
-      getTemperatue(
-        this.$route.query.patientId,
-        this.$route.query.visitId,
-        date
-      ).then(res => {
-        if(this.HOSPITAL_ID == "zhongshanqi" && res.data.data && res.data.data.filePath){
-          let filePath = res.data.data.filePath;
-          let requestUrl = `http://admin:Zsqy@2021@${res.data.data.filePath.split('http://')[1]}`;
-    　　　 axios.get(requestUrl).then((result)=>{
-            this.filePath = filePath;
-          })
-        }else {
-          this.filePath =
-            this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "shannan"
-              ? res.data.data.expand
-              : res.data.data.filePath;
-          }
-      });
+  computed: {
+     patientInfo() {
+      return this.$route.query;
     },
-    onload() {
-      // let wid = this.$refs.pdfCon.contentWindow
-      // this.pdfHeight = wid.body.scrollHeight
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
     },
-    add() {
-      if (this.pageIndex < this.pageList.length - 1) {
-        this.pageIndex++;
+    flagTop() {
+      return `${this.wih * 0.4}px`;
+    },
+    containHeight() {
+      if (this.fullpage) {
+        return this.wih - 44 + "px";
+      } else {
+        return this.wih - 114 + "px";
       }
     },
-    sub() {
-      if (this.pageIndex > 0) {
-        this.pageIndex--;
-      }
-    }
+    fullpage() {
+      return this.$store.state.sheet.fullpage;
+    },
   },
-  watch: {
-    date() {
-      this.getImg();
-    },
-    pageIndex() {
-      this.date = this.pageList[this.pageIndex];
-    }
+  created() {
+
   },
   mounted() {
-    let admissionDate = this.$route.query.admissionDate;
-    let currDate = moment(admissionDate).add(0, "d");
-    while (currDate.isBefore(moment(), "d") || currDate.isSame(moment(), "d")) {
-      this.pageList.push(moment(currDate).format("YYYY-MM-DD"));
-      currDate = moment(currDate).add(7, "d");
+    this.bus.$on("saveSheetPage", (data) => {
+      if (data === "noSaveSign" || data === true) {
+        this.isSave = true;
+      }
+    });
+       // 初始化
+    if (this.deptCode) {
+      this.getDate();
     }
-    this.pageIndex = 0;
   },
-  components: {
-    nullBg
-  }
+  methods: {
+    async getDate() {
+      if (this.deptCode) {
+        this.bus.$emit("refreshImg");
+        this.bus.$emit("refreshVitalSignList");
+      }
+    },
+    //关闭录入界面
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
+  },
+  components: { temperatureNew, tabCon },
+  watch: {
+    deptCode(val) {
+      if (val) {
+        this.getDate();
+      }
+    },
+  },
 };
 </script>
