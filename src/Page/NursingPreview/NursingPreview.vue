@@ -78,16 +78,16 @@
 <script>
 import treeNursingPreview from "@/Page/patientInfo/supPage/record/component/treeNursingPreview.vue"; //树
 import temperature from "@/Page/patientInfo/supPage/temperature/temperature"; //体温单
-import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperatureHD";
-import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
-import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperatureGuizhou";
-import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJmfy";
-import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
-import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperatureBhry";
-import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
-import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperatureWHFK";
-import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperatureLY";
-import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperatureSDLJ";
+import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperature-huadu";
+import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperature-liaocheng";
+import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperature-guizhou";
+import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperature-fuyou";
+import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperature-hengli";
+import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperature-beihairenyi";
+import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperature-wujing";
+import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-whfk";
+import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-liaocheng";
+import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import bloodOxygen  from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧

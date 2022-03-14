@@ -118,8 +118,6 @@ import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list-SingleTemperatureChart.vue";
-// import print from "printing";
-// import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureBHRY from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/temperatureBHRY";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/tab-con";
 export default {
@@ -142,7 +140,7 @@ export default {
     },
      flagTop() {
       return `${this.wih * 0.4}px`;
-    }, 
+    },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
