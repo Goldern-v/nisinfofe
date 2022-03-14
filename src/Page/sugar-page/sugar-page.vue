@@ -8,7 +8,7 @@
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}" ref="rightPart">
         <!-- <bloodSugar ref="bloodSugar"></bloodSugar> -->
-        <component :is="switchCompt()" ref="bloodSugar" :setScrollTop="setScrollTop"  />
+        <component :is="switchCompt()" ref="bloodSugar" :setScrollTop="setScrollTop"/>
       </div>
     </div>
   </div>
@@ -63,7 +63,8 @@ export default {
         bedList: []
       },
       patientListLoading: false,
-      bus: bus(this)
+      bus: bus(this),
+      isAdult: '1'
     };
   },
   computed: {
@@ -106,11 +107,15 @@ export default {
         威县人民医院: "bloodSugarWeiXian",
         东莞市厚街医院: "bloodSugar",
         北海市人民医院:'bloodSugarBhry',
-        佛山市顺德区龙江医院: 'bloodSugarSdlj'
+        佛山市顺德区龙江医院: this.isAdult === '1' ? 'bloodSugarSdlj' : 'bloodSugar'
       };
       return hisList[HisName] || "bloodSugar";
     },
     isSelectPatient(item,isScrollTop=false) {
+      console.log('item', item);
+      let age = (item.age.substring(0, item.age.length - 1))
+      if (+age < 30) this.isAdult = '0'
+      else this.isAdult = '1'
       this.$router.replace(
         {
           path: "/sugarPage",
@@ -127,6 +132,7 @@ export default {
     // 初始化
     if (this.deptCode) {
       this.getDate();
+      console.log('oppppp', this.patientInfo);
     }
 
     this.bus.$on("refreshFormPagePatientList", this.getDate);
