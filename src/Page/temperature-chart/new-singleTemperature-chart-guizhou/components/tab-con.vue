@@ -6,7 +6,7 @@
           class="date-picker"
           type="date"
           size="small"
-          style="width: 190px"
+          style="width: 130px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -29,6 +29,15 @@
             placeholder="选择时间"
           >
           </el-time-select>
+        </div>
+        <div class="save-btn-top" v-if="patientInfo.patientId">
+          <el-button
+            :disabled="isDisable()"
+            type="primary"
+            class="save-btn"
+            @click="saveVitalSign(vitalSignObj)"
+            >保存</el-button
+          >
         </div>
       </div>
     </div>
@@ -213,6 +222,12 @@
                       "
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
+                         @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
                         @click="() => (vitalSignObj[j].popVisible = true)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
                         v-model="vitalSignObj[j].vitalValue"
@@ -277,6 +292,7 @@
                         type="text"
                         :id="100+otherDicListLength-1"
                         @keydown.enter="changeNext"
+
                         :title="vitalSignObj['guomingyaowu'].vitalValue"
                         @input="handlePopRefresh(vitalSignObj['guomingyaowu'])"
                         @click="
@@ -940,16 +956,18 @@ export default {
   .column-right {
     display: inline-block;
     height: 50px;
-    margin-left: 25px;
-    overflow: auto;
+    margin-left: 15px;
+    overflow-y: auto;
+    width:100%;
   }
 
   .row-top {
     background-color: #fff;
     height: 47px;
+    width:100%;
 
     .column-left {
-      margin: 10px 45px 0px 0px;
+      margin: 10px  auto;
       flex-direction: column;
     }
   }
@@ -1102,7 +1120,10 @@ export default {
     margin-top: 10px;
     width: 100px;
   }
-
+  .save-btn-top {
+    width: 50px;
+    display: inline-block;
+  }
   .inputter-region::-webkit-scrollbar {
     display: none;
   }

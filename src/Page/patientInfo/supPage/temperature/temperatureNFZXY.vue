@@ -58,7 +58,6 @@
         flex: 3;
         border-left: 1px solid #eee;
         height: 100%;
-        padding: 10px;
         // margin-top:10px;
       }
     }
