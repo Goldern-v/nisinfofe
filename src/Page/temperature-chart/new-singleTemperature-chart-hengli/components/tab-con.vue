@@ -1,18 +1,6 @@
 <template>
   <div class="right-con">
     <div class="row-top">
-     <!-- <div class="column-left">
-        <el-button size="mini" @click="syncInAndOutHospital((type = '0'))">
-          同步入院
-        </el-button>
-        <el-button
-          style="margin: 10px 0px"
-          size="mini"
-          @click="syncInAndOutHospital((type = '1'))"
-        >
-          同步出院
-        </el-button>
-      </div>-->
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
@@ -41,7 +29,7 @@
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
         <div style="flex: 4">
-          <el-button
+          <div
             :class="
               [
                 'recordList',
@@ -53,6 +41,7 @@
             style="margin: 0px"
             v-for="(dateTime, tabIndex) in tabsData"
             :key="tabIndex"
+            @contextmenu.stop.prevent="(e)=>rightMouseDown(e,dateTime, tabIndex)"
             @click="changeQuery(dateTime)"
           >
             {{ dateTime }}
@@ -61,7 +50,7 @@
               @click="removeRecord(dateTime, tabIndex)"
               class="el-icon-close"
             ></i>
-          </el-button>
+          </div>
         </div>
         <div style="flex: 7">
           <div
@@ -191,15 +180,15 @@ export default {
   data() {
     // 初始化筛选时间
     let initTimeArea = {
-      ["02"]: ["00:00", "02:59"],
-      ["06"]: ["03:00", "06:59"],
-      ["10"]: ["07:00", "10:59"],
-      ["14"]: ["11:00", "14:59"],
-      ["18"]: ["15:00", "18:59"],
-      ["22"]: ["19:00", "23:59"],
+      ["03"]: ["00:00", "04:59"],
+      ["07"]: ["05:00", "08:59"],
+      ["11"]: ["09:00", "12:59"],
+      ["15"]: ["13:00", "16:59"],
+      ["19"]: ["17:00", "20:59"],
+      ["23"]: ["21:00", "23:59"],
     };
 
-    let entryTime = "02";
+    let entryTime = "03";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
@@ -219,23 +208,23 @@ export default {
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (()=>{
-          if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
+          if (this.getHours() >= 0 && this.getHours() <= 3) {
+                return "03";
               }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
+              if (this.getHours() > 3 && this.getHours() <= 7) {
+                return "07";
               }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
+              if (this.getHours() > 7 && this.getHours() <= 11) {
+                return "11";
               }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
+              if (this.getHours() > 11 && this.getHours() <= 15) {
+                return "15";
               }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
+              if (this.getHours() > 15 && this.getHours() <= 19) {
+                return "19";
               }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
+              if (this.getHours() > 19 && this.getHours() <= 23) {
+                return "23";
               }
          //录入时间
         })() //录入时间
@@ -260,27 +249,27 @@ export default {
       timesOdd: [
         {
           id: 0,
-          value: "02",
+          value: "03",
         },
         {
           id: 1,
-          value: "06",
+          value: "07",
         },
         {
           id: 2,
-          value: "10",
+          value: "11",
         },
         {
           id: 3,
-          value: "14",
+          value: "15",
         },
         {
           id: 4,
-          value: "18",
+          value: "19",
         },
         {
           id: 5,
-          value: "22",
+          value: "23",
         },
       ],
       bottomContextList: ["", "不升"],
@@ -372,12 +361,12 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
+      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getVitalSignListBy10({
         visitId: data.visitId,
         patientId: data.patientId,
       }).then((res) => {
-        this.tabsData = [];
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -472,6 +461,10 @@ export default {
         this.init();
       });
     },
+     //右键删除记录
+    rightMouseDown(e,dateTime, tabIndex){
+      this.removeRecord(dateTime, tabIndex)
+    },
     /* 删除记录 */
     async removeRecord(targetName, index) {
       await this.$confirm("是否确删除该记录?", "提示", {
@@ -514,7 +507,7 @@ export default {
              recordDate:
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
-        this.query.entryTime + ":00:00"
+        this.query.entryTime + ":00:00",
           };
           savefieldTitle(data).then((res) => {
              this.fieldList[index].fieldCn=text;

@@ -11,28 +11,23 @@
           :queryTem="patientInfo"
         ></temperatureNew>
         <div
-          class="flag-con"
-          :style="{ top: flagTop }"
-          flex="main:center cross:center"
-          @click="openRight"
-        >
-          <i
-            class="iconfont icon-yincang"
-            v-show="rightSheet"
-            style="margin-left: -1px"
-          ></i>
-          <i
-            class="iconfont icon-xianshi"
-            v-show="!rightSheet"
-            style="margin-left: -2px"
-          ></i>
-        </div>
-        <tabCon
-          class="contain-right"
-          :patientInfo="patientInfo"
-          v-show="rightSheet"
-        >
-        </tabCon>
+            class="flag-con"
+            :style="{ top: flagTop }"
+            flex="main:center cross:center"
+            @click="openRight"
+           >
+            <i
+              class="iconfont icon-yincang"
+              v-show="rightSheet"
+              style="margin-left: -1px"
+            ></i>
+            <i
+              class="iconfont icon-xianshi"
+              v-show="!rightSheet"
+              style="margin-left: -2px"
+            ></i>
+          </div>
+        <tabCon class="contain-right" :patientInfo="patientInfo" v-show="rightSheet"> </tabCon>
       </div>
       <!-- </div> -->
     </div>
@@ -62,9 +57,7 @@
       }
     }
   }
-}
-
-.flag-con {
+  .flag-con {
   width: 10px;
   height: 73px;
   position: relative;
@@ -81,13 +74,14 @@
     font-size: 12px;
   }
 }
+}
 </style>
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
-import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/temperatureWHFK";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/tab-con";
+import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart-foshanrenyi/components/temperatureNew";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-foshanrenyi/components/tab-con";
 export default {
   mixins: [common],
   props: {},
@@ -103,14 +97,13 @@ export default {
     };
   },
   computed: {
-     patientInfo() {
+    patientInfo() {
       return this.$route.query;
+    },flagTop() {
+      return `${this.wih * 0.4}px`;
     },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
-    },
-    flagTop() {
-      return `${this.wih * 0.4}px`;
     },
     containHeight() {
       if (this.fullpage) {
@@ -132,21 +125,27 @@ export default {
         this.isSave = true;
       }
     });
-       // 初始化
+     // 初始化
     if (this.deptCode) {
       this.getDate();
     }
   },
   methods: {
+     openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     async getDate() {
       if (this.deptCode) {
+        // this.patientListLoading = true;
+        // await patients(this.deptCode, {}).then((res) => {
+        //   this.data.bedList = res.data.data.filter((item) => {
+        //     return item.patientId;
+        //   });
+        //   this.patientListLoading = false;
+        // });
         this.bus.$emit("refreshImg");
         this.bus.$emit("refreshVitalSignList");
       }
-    },
-    //关闭录入界面
-    openRight() {
-      this.$store.commit("showRightPart", !this.rightSheet);
     },
   },
   components: { temperatureNew, tabCon },

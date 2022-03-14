@@ -1,28 +1,16 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown>
-        <div class="print-btn tool-btn">打印</div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <el-button type="primary" @click="onPrint()"
-              >打印当周</el-button
-            ></el-dropdown-item
-          >
-          <el-dropdown-item
-            ><el-button type="primary" @click="printAll()"
-              >批量打印</el-button
-            ></el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
-
+     <el-button-group>
+        <el-button type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button type="primary" @click="printAll()">批量打印</el-button>
+      </el-button-group>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
-        <button :disabled="currentPage === 1" @click="currentPage = 1">
+      <div :class="rightSheet===true?'pagination':'paginationRight'">
+        <button :disabled="currentPage === 1" @click="toPre">
           首周
         </button>
-        <button :disabled="currentPage === 1" @click="toPre">
+        <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
         <span class="page">第<input
@@ -32,7 +20,7 @@
             class="pageInput"
             @keyup.enter="toPage()"
           />页/共{{ pageTotal }}页</span>
-        <button :disabled="currentPage === pageTotal" @click="toNext">
+        <button :disabled="currentPage === pageTotal"  @click="toNext">
           下一周
         </button>
         <button
@@ -70,6 +58,9 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
+import {
+  getNurseExchangeInfoBatch
+} from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
@@ -83,21 +74,21 @@ export default {
       filePath: "",
       contentHeight: { height: "" },
       currentPage: 1,
+      toCurrentPage: 1,
       pageTotal: 1,
       printAllPath: "",
       patientId: "",
       visitId: "",
-      toCurrentPage: 1,
       open: false,
       isSave: false,
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        "http://192.167.199.191:9091/temperature/#/" /* 医院正式环境内网 导致跨域,
-      "http://192.168.1.75:8081/#/" /* 医院正式环境内网 */,
+        "http://192.168.2.131:9091/temperature/#/" /* 医院正式环境内网 导致跨域,
+      // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 */,
       printAllUrl:
-        "http://192.167.199.191:9091/temperature/#/printAll" /* 医院正式环境内网 */,
-        // "http://192.168.1.75:8080/#/printAll" /* 医院正式环境内网 */,
+        "http://192.168.2.131:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+        // "http://192.168.3.192:8080/#/printAll" /* 医院正式环境内网 */,
       outNetUrl:
         "http://http://219.159.198.37:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
@@ -127,6 +118,16 @@ export default {
         );
       }, 1500);
     },
+        toNext() {
+      if (this.currentPage === this.pageTotal) return;
+      this.currentPage++;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPre() {
+      if (this.currentPage === 1) return;
+      this.currentPage--;
+      this.toCurrentPage = this.currentPage;
+    },
     toPage() {
       if (
         this.toCurrentPage === "" ||
@@ -143,16 +144,6 @@ export default {
       }
 
       this.currentPage = this.toCurrentPage;
-    },
-    toNext() {
-      if (this.currentPage === this.pageTotal) return;
-      this.currentPage++;
-      this.toCurrentPage = this.currentPage;
-    },
-    toPre() {
-      if (this.currentPage === 1) return;
-      this.currentPage--;
-      this.toCurrentPage = this.currentPage;
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -173,7 +164,10 @@ export default {
       }, 0);
     },
     getHeight() {
-      this.contentHeight.height = window.innerHeight - 110 + "px";
+      this.contentHeight.height = window.innerHeight-50+ "px";
+    },
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
     },
     messageHandle(e) {
       if (e && e.data) {
@@ -181,6 +175,28 @@ export default {
           case "pageTotal":
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
+            break;
+             case "dblclick":/* 双击查阅体温单子 */
+          this.openRight();
+          break;
+            case "getNurseExchangeInfoAll":
+            const paramsAll = {
+              patientId: this.$route.query.patientId,
+              startLogDateTime: e.data.value.startLogDateTime,
+              endLogDateTime: e.data.value.endLogDateTime,
+              visitId: this.$route.query.visitId,
+            };
+            getNurseExchangeInfoBatch(paramsAll).then((res) => {
+              let value = res.data.data.exchangeInfos
+              if(value.length!==0){
+              this.$refs.pdfConAll.contentWindow.postMessage(
+                { type: "nurseExchangeInfoAll", value },
+                "*"
+              );
+              }
+
+
+            });
             break;
           default:
             break;
@@ -206,7 +222,7 @@ export default {
       this.authTokenNursing = val;
     },
     currentPage(value) {
-      this.toCurrentPage=value
+      this.totoCurrentPage=value
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
@@ -255,10 +271,10 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contain {
-  margin: 15px 20px 0;
+  margin: 10px 10px 0 10px;
 
   .tem-con {
-    width: 102%;
+    width: 101%;
     height: 100%;
     position: relative;
     left: 0px;
@@ -322,15 +338,14 @@ button[disabled=disabled] {
     cursor: not-allowed;
   }
 }
-
+.pageInput {
+  width: 30px;
+  border: 0px;
+}
 .print-btn {
   position: relative;
   left: 5%;
   top: 0;
   display: inline-flex !important;
-}
-.pageInput {
-  width: 50px;
-  border: 0px;
 }
 </style>

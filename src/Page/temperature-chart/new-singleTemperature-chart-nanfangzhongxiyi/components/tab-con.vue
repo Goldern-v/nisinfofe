@@ -6,7 +6,7 @@
           class="date-picker"
           type="date"
           size="small"
-          style="width: 190px"
+          style="width: 130px; margin-left: 2%"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -29,6 +29,15 @@
             placeholder="选择时间"
           >
           </el-time-select>
+        </div>
+        <div class="save-btn-top" v-if="patientInfo.patientId">
+          <el-button
+            :disabled="isDisable()"
+            type="primary"
+            class="save-btn"
+            @click="saveVitalSign(vitalSignObj)"
+            >保存</el-button
+          >
         </div>
       </div>
     </div>
@@ -78,8 +87,7 @@
                     index.includes('自定义') ||
                     index.includes('注释') ||
                     index.includes('体温复测') ||
-                    index.includes('术后天数')||
-                    (index.includes('疼痛') && !isPain)
+                    index.includes('术后天数')
                       ? 'rowItem_noShow'
                       : (i - 1) % 2 === 0
                       ? 'rowBoxRight'
@@ -87,6 +95,7 @@
                   "
                   v-for="(j, index, i) in baseMultiDictList"
                   :key="index"
+                  class="pathological"
                 >
                   <div class="rowItemText">
                     <span>{{ index }}</span>
@@ -116,6 +125,7 @@
                       @mousewheel="
                         (e) => {
                           e.preventDefault();
+                          e.stopPropagation();
                         }
                       "
                       @input="handlePopRefresh(vitalSignObj[j])"
@@ -166,7 +176,10 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-              <div class="context-box" v-if="Object.keys(this.otherMultiDictList).length">
+              <div
+                class="context-box"
+                v-if="Object.keys(this.otherMultiDictList).length"
+              >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
                     <span class="title"> 其他信息 </span>
@@ -176,8 +189,7 @@
                     :class="
                       index.includes('自定义') ||
                       index.includes('注释') ||
-                      index.includes('体温复测')||
-                       (index.includes('疼痛') && !isPain)
+                      index.includes('体温复测')
                         ? 'rowItem_noShow'
                         : (i - 1) % 2 === 0
                         ? 'rowBoxRight'
@@ -185,6 +197,7 @@
                     "
                     v-for="(j, index, i) in otherMultiDictList"
                     :key="index"
+                    class="otherPathological"
                   >
                     <div class="rowItemText">
                       <span>{{ index }}</span>
@@ -203,12 +216,18 @@
                       :value="vitalSignObj[j].popVisible"
                     >
                       <input
-                        :id="i + 1"
+                        :id="i + 100"
                         @keydown.enter="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
                             ? 'number'
                             : 'text'
+                        "
+                        @mousewheel="
+                          (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                          }
                         "
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
@@ -260,54 +279,6 @@
                   <div class="bottom-box clear"></div>
                 </el-collapse-item>
               </div>
-            </div>
-            <div class="context-box">
-              <el-collapse-item name="fieldList" v-if="fieldList">
-                <template slot="title">
-                  <span class="title"> 自定义项目 </span>
-                  <i class="header-icon el-icon-info"></i>
-                </template>
-                <div class="fieldList">
-                  <div
-                    :class="(h - 1) % 2 === 0 ? 'rowBoxRight' : 'rowBox'"
-                    v-for="(i, index, h) in fieldList"
-                    :key="index"
-                  >
-                    <div>
-                      <span
-                        class="preText"
-                        style="color: blue"
-                        @click="
-                          updateTextInfo(
-                            i.vitalCode,
-                            i.fieldCn,
-                            i.fieldCn,
-                            index
-                          )
-                        "
-                        >{{ i.fieldCn }}</span
-                      >
-                    </div>
-
-                    <input
-                      :id="h + 100"
-                      type="text"
-                      class="fieldClass"
-                      @keydown.enter="changeNext"
-                      :title="vitalSignObj[i.vitalCode].vitalValue"
-                      @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
-                      @click="
-                        () => (vitalSignObj[i.vitalCode].popVisible = true)
-                      "
-                      @blur="
-                        () => (vitalSignObj[i.vitalCode].popVisible = false)
-                      "
-                      v-model="vitalSignObj[i.vitalCode].vitalValue"
-                    />
-                  </div>
-                </div>
-                <div class="bottom-box clear"></div>
-              </el-collapse-item>
             </div>
             <div class="context-box">
               <el-collapse-item name="notes">
@@ -392,6 +363,60 @@
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
             </div>
+            <div class="context-box">
+              <el-collapse-item name="fieldList" v-if="fieldList">
+                <template slot="title">
+                  <span class="title"> 自定义项目 </span>
+                  <i class="header-icon el-icon-info"></i>
+                </template>
+                <div class="fieldList">
+                  <div
+                    :class="(h - 1) % 2 === 0 ? 'rowBoxRight' : 'rowBox'"
+                    v-for="(i, index, h) in fieldList"
+                    :key="index"
+                  >
+                    <div>
+                      <span
+                        class="preText"
+                        style="color: blue"
+                        @click="
+                          updateTextInfo(
+                            i.vitalCode,
+                            i.fieldCn,
+                            i.fieldCn,
+                            index
+                          )
+                        "
+                        >{{ i.fieldCn }}</span
+                      >
+                    </div>
+
+                    <input
+                      :id="h + 1000"
+                      type="text"
+                      class="fieldClass"
+                      @keydown.enter="changeNext"
+                      :title="vitalSignObj[i.vitalCode].vitalValue"
+                      @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
+                      @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
+                      @click="
+                        () => (vitalSignObj[i.vitalCode].popVisible = true)
+                      "
+                      @blur="
+                        () => (vitalSignObj[i.vitalCode].popVisible = false)
+                      "
+                      v-model="vitalSignObj[i.vitalCode].vitalValue"
+                    />
+                  </div>
+                </div>
+                <div class="bottom-box clear"></div>
+              </el-collapse-item>
+            </div>
           </el-collapse>
           <div class="save">
             <el-button
@@ -401,7 +426,7 @@
               @click="saveVitalSign(vitalSignObj)"
               >保存</el-button
             >
-            <div class="clear" style="height: 30px"></div>
+            <div class="clear" style="height: 130px"></div>
             <!--占位符-->
           </div>
         </div>
@@ -455,10 +480,10 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: moment().format("HH:mm")+':00', //录入时间
+        entryTime: moment().format("HH:mm") + ":00", //录入时间
       },
       recordDate: "",
-      activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
+      activeNames: ["biometric", "otherBiometric", "notes"],
       fieldList: {}, // 自定义项目列表
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
@@ -503,11 +528,11 @@ export default {
     handleChange(val) {
       // console.log(val);
     },
-       formatDate(date){
-      return  moment(new Date(date)).format("YYYY-MM-DD")
+    formatDate(date) {
+      return moment(new Date(date)).format("YYYY-MM-DD");
     },
     getHeight() {
-      this.contentHeight.height = window.innerHeight - 110 + "px";
+      this.contentHeight.height = window.innerHeight - 64 + "px";
     },
     show(e) {
       if (e.keyCode == 13) {
@@ -516,25 +541,28 @@ export default {
     },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
-        let inputListLength = document.getElementsByClassName("rowBox").length;
-        if (Number(e.target.id) < inputListLength) {
-          switch (Number(e.target.id)) {
-            case 6:
-              document.getElementById("12").focus();
-            case 12:
-              document.getElementById("16").focus();
-            default:
-              document.getElementById(Number(e.target.id) + 1).focus();
-          }
-        } else if (Number(e.target.id) === inputListLength) {
+        let baseLength = document.getElementsByClassName("pathological").length;
+        let otherLength =
+          document.getElementsByClassName("otherPathological").length;
+        this.otherDicListLength = otherLength;
+        if (Number(e.target.id) < baseLength) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (Number(e.target.id) === baseLength) {
           document.getElementById("100").focus();
+        } else if (
+          Number(e.target.id) > baseLength &&
+          Number(e.target.id) < otherLength + 100 - 1
+        ) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (Number(e.target.id) === 100 + otherLength - 1) {
+          document.getElementById("1000").focus();
         }
       } else {
         let inputListLength =
           document.getElementsByClassName("fieldClass").length;
-        if (Number(e.target.id) < inputListLength + 100 - 1) {
+        if (Number(e.target.id) < inputListLength + 1000 - 1) {
           document.getElementById(Number(e.target.id) + 1).focus();
-        } else if (Number(e.target.id) === inputListLength + 100 - 1) {
+        } else if (Number(e.target.id) === inputListLength + 1000 - 1) {
           document.getElementById("1").focus();
         }
       }
@@ -592,7 +620,7 @@ export default {
         wardCode: this.patientInfo.wardCode,
         recordDate: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
       }).then((res) => {
-          this.tabsData=[]
+        this.tabsData = [];
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -900,8 +928,9 @@ export default {
 
   .column-right {
     display: inline-block;
-    margin-left: 25px;
     height: 50px;
+    width: 100%;
+    display: inline-block;
     overflow: auto;
   }
 
@@ -934,7 +963,7 @@ export default {
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
-          text-align: left;
+          text-align: center;
           font-size: 12px;
 
           &.active {
@@ -1057,6 +1086,11 @@ export default {
     left: 30%;
     margin-top: 10px;
     width: 100px;
+  }
+
+  .save-btn-top {
+    width: 50px;
+    display: inline-block;
   }
 
   .inputter-region::-webkit-scrollbar {

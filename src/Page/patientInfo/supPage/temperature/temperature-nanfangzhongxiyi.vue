@@ -86,8 +86,8 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
-import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/temperatureWHFK";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/tab-con";
+import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart-nanfangzhongxiyi/components/temperatureNew";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-nanfangzhongxiyi/components/tab-con";
 export default {
   mixins: [common],
   props: {},
@@ -103,9 +103,10 @@ export default {
     };
   },
   computed: {
-     patientInfo() {
+    patientInfo() {
       return this.$route.query;
     },
+
     rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
@@ -132,24 +133,31 @@ export default {
         this.isSave = true;
       }
     });
-       // 初始化
+     // 初始化
     if (this.deptCode) {
       this.getDate();
     }
   },
   methods: {
-    async getDate() {
-      if (this.deptCode) {
-        this.bus.$emit("refreshImg");
-        this.bus.$emit("refreshVitalSignList");
-      }
-    },
     //关闭录入界面
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
     },
+    async getDate() {
+      if (this.deptCode) {
+        // this.patientListLoading = true;
+        // await patients(this.deptCode, {}).then((res) => {
+        //   this.data.bedList = res.data.data.filter((item) => {
+        //     return item.patientId;
+        //   });
+        //   this.patientListLoading = false;
+        // });
+        this.bus.$emit("refreshImg");
+        this.bus.$emit("refreshVitalSignList");
+      }
+    },
   },
-  components: { temperatureNew, tabCon },
+  components: {temperatureNew, tabCon },
   watch: {
     deptCode(val) {
       if (val) {

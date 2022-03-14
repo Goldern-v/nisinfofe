@@ -21,9 +21,9 @@
             @blur="changeDate"
             @change="changeVal"
             :picker-options="{
-              start: '02:00',
+              start: '03:00',
               step: '04:00',
-              end: '22:00',
+              end: '23:00',
             }"
             class="new-time-select"
             placeholder="选择时间"
@@ -35,7 +35,7 @@
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div class="record-list" :style="{ width: `${37}%` }">
+        <div class="record-list" :style="{ width: `${35}%` }">
           <div class="record-item">
             <div
               :class="
@@ -78,8 +78,7 @@
                     index.includes('自定义') ||
                     index.includes('注释') ||
                     index.includes('体温复测') ||
-                    index.includes('术后天数')||
-                    (index.includes('疼痛') && !isPain)
+                    index.includes('术后天数')
                       ? 'rowItem_noShow'
                       : (i - 1) % 2 === 0
                       ? 'rowBoxRight'
@@ -176,8 +175,7 @@
                     :class="
                       index.includes('自定义') ||
                       index.includes('注释') ||
-                      index.includes('体温复测')||
-                       (index.includes('疼痛') && !isPain)
+                      index.includes('体温复测')
                         ? 'rowItem_noShow'
                         : (i - 1) % 2 === 0
                         ? 'rowBoxRight'
@@ -212,6 +210,12 @@
                         "
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
+                         @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
                         @click="() => (vitalSignObj[j].popVisible = true)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
                         v-model="vitalSignObj[j].vitalValue"
@@ -481,15 +485,14 @@ export default {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
+    console.log(Object.keys(this.otherMultiDictList).length)
   },
   created() {
-    window.addEventListener("resize", this.getHeight());
+    window.addEventListener("resize", this.getHeight);
     this.getHeight();
   },
   computed: {
-    isPain() {
-      return this.$store.state.temperature.isPain;
-    },
+
   },
   watch: {
     query: {
@@ -498,14 +501,15 @@ export default {
       },
       deep: true,
     },
+    rightSheet(value) {
+      alert(value);
+    },
   },
   methods: {
     handleChange(val) {
       // console.log(val);
     },
-       formatDate(date){
-      return  moment(new Date(date)).format("YYYY-MM-DD")
-    },
+
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
@@ -513,6 +517,9 @@ export default {
       if (e.keyCode == 13) {
         this.changeDate(this.$refs.timeSelect);
       }
+    },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
@@ -678,6 +685,10 @@ export default {
       let date = new Date();
       let b = date.getHours();
       return b;
+    },
+    /* 选择固定时间点 */
+    changeEntryTime(val) {
+      this.query.entryTime = val;
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
@@ -934,7 +945,7 @@ export default {
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
-          text-align: left;
+          text-align: center;
           font-size: 12px;
 
           &.active {
@@ -951,7 +962,7 @@ export default {
     }
 
     .inputter-region {
-      width: 60%;
+      width: 63%;
       float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;

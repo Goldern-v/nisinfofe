@@ -6,10 +6,10 @@
       :style="{ height: containHeight }"
     >
       <div class="sheetTable-contain">
-        <temperatureNew
+        <temperatureLCEY
           class="contain-center"
           :queryTem="patientInfo"
-        ></temperatureNew>
+        ></temperatureLCEY>
         <div
           class="flag-con"
           :style="{ top: flagTop }"
@@ -58,6 +58,7 @@
         flex: 3;
         border-left: 1px solid #eee;
         height: 100%;
+
         // margin-top:10px;
       }
     }
@@ -86,8 +87,8 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
-import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/temperatureWHFK";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/tab-con";
+import temperatureLCEY from "@/Page/temperature-chart/new-singleTemperature-chart-liaocheng/components/temperatureLCEY";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-liaocheng/components/tab-con";
 export default {
   mixins: [common],
   props: {},
@@ -96,21 +97,14 @@ export default {
       bus: bus(this),
       data: {
         bedList: [],
-        isSave: false,
       },
       patientListLoading: true,
       tableLoading: false,
     };
   },
   computed: {
-     patientInfo() {
+    patientInfo() {
       return this.$route.query;
-    },
-    rightSheet() {
-      return this.$store.state.temperature.rightPart;
-    },
-    flagTop() {
-      return `${this.wih * 0.4}px`;
     },
     containHeight() {
       if (this.fullpage) {
@@ -118,6 +112,12 @@ export default {
       } else {
         return this.wih - 114 + "px";
       }
+    },
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
+    },
+    flagTop() {
+      return `${this.wih * 0.4}px`;
     },
     fullpage() {
       return this.$store.state.sheet.fullpage;
@@ -127,29 +127,31 @@ export default {
 
   },
   mounted() {
-    this.bus.$on("saveSheetPage", (data) => {
-      if (data === "noSaveSign" || data === true) {
-        this.isSave = true;
-      }
-    });
-       // 初始化
+     // 初始化
     if (this.deptCode) {
       this.getDate();
     }
   },
   methods: {
-    async getDate() {
-      if (this.deptCode) {
-        this.bus.$emit("refreshImg");
-        this.bus.$emit("refreshVitalSignList");
-      }
-    },
     //关闭录入界面
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
     },
+    async getDate() {
+      if (this.deptCode) {
+        // this.patientListLoading = true;
+        // await patients(this.deptCode, {}).then((res) => {
+        //   this.data.bedList = res.data.data.filter((item) => {
+        //     return item.patientId;
+        //   });
+        //   this.patientListLoading = false;
+        // });
+        this.bus.$emit("refreshImg");
+        this.bus.$emit("refreshVitalSignList");
+      }
+    },
   },
-  components: { temperatureNew, tabCon },
+  components: {  temperatureLCEY, tabCon },
   watch: {
     deptCode(val) {
       if (val) {

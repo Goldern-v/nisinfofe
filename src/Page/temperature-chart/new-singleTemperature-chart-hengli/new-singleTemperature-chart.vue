@@ -24,34 +24,16 @@
         :class="openLeft ? 'isLeft' : 'isRight'"
       >
         <div class="sheetTable-contain">
-          <temperatureWHFK
+          <temperatureNew
             class="contain-center"
             :queryTem="patientInfo"
-          ></temperatureWHFK>
-          <div
-            class="flag-con"
-            :style="{ top: flagTop }"
-            flex="main:center cross:center"
-            @click="openRight"
-           >
-            <i
-              class="iconfont icon-yincang"
-              v-show="rightSheet"
-              style="margin-left: -1px"
-            ></i>
-            <i
-              class="iconfont icon-xianshi"
-              v-show="!rightSheet"
-              style="margin-left: -2px"
-            ></i>
-          </div>
-          <tabCon class="contain-right" :patientInfo="patientInfo" v-show="rightSheet"> </tabCon>
+          ></temperatureNew>
+          <tabCon class="contain-right" :patientInfo="patientInfo"> </tabCon>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .new-singleTemperature-chart {
   position: relative;
@@ -66,24 +48,9 @@
       top: 0px;
       bottom: 0;
     }
-.flag-con {
-      width: 10px;
-      height: 73px;
-      position: relative;
-      z-index: 10;
-      background-image: url('../../../common/images/patient/隐藏框.png');
-      cursor: pointer;
-      transform: rotateY(180deg);
 
-      &:hover {
-        color: #5CC6A1;
-      }
-
-      i {
-        font-size: 12px;
-      }
-    }
     .right-part {
+      margin-left: 199px;
       height: 100%;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
@@ -100,14 +67,12 @@
         .contain-right {
           flex: 3;
           border-left: 1px solid #eee;
-          overflow: hidden;
+          height: 100%;
+          padding: 10px;
           // margin-top:10px;
         }
       }
     }
-    .isLeft {
-      margin-left: 199px;
-      }
   }
 }
 </style>
@@ -118,8 +83,11 @@ import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
-import temperatureWHFK from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/temperatureWHFK";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/tab-con";
+import print from "printing";
+import formatter from "@/Page/temperature-chart/print-formatter";
+import temperatureNew from "./components/temperatureNew";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-hengli/components/tab-con";
+
 export default {
   mixins: [common],
   props: {},
@@ -137,12 +105,6 @@ export default {
     // 接收左侧患者栏子组件传来的是否左靠的值
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
-    },
-     flagTop() {
-      return `${this.wih * 0.4}px`;
-    },
-    rightSheet() {
-      return this.$store.state.temperature.rightPart;
     },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
@@ -169,8 +131,7 @@ export default {
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        //这里有两个获取患者信息接口，传空就用新的排序
-        patients(this.deptCode, null).then((res) => {
+        patients(this.deptCode, {}).then((res) => {
           this.data.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
@@ -178,16 +139,13 @@ export default {
         });
       }
     },
-     openRight() {
-      this.$store.commit("showRightPart", !this.rightSheet);
-    },
     async isSelectPatient(item) {
       await this.$store.commit("upPatientInfo", item);
       this.bus.$emit("refreshImg");
       this.bus.$emit("refreshVitalSignList");
     },
   },
-  components: { patientList, temperatureWHFK, tabCon },
+  components: { patientList, temperatureNew, tabCon },
   watch: {
     deptCode(val) {
       if (val) {

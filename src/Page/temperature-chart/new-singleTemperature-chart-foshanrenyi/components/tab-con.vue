@@ -35,7 +35,7 @@
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div class="record-list" :style="{ width: `${37}%` }">
+        <div class="record-list" :style="{ width: `${35}%` }">
           <div class="record-item">
             <div
               :class="
@@ -77,9 +77,7 @@
                   :class="
                     index.includes('自定义') ||
                     index.includes('注释') ||
-                    index.includes('体温复测') ||
-                    index.includes('术后天数')||
-                    (index.includes('疼痛') && !isPain)
+                    index.includes('体温复测')
                       ? 'rowItem_noShow'
                       : (i - 1) % 2 === 0
                       ? 'rowBoxRight'
@@ -176,8 +174,7 @@
                     :class="
                       index.includes('自定义') ||
                       index.includes('注释') ||
-                      index.includes('体温复测')||
-                       (index.includes('疼痛') && !isPain)
+                      index.includes('体温复测')
                         ? 'rowItem_noShow'
                         : (i - 1) % 2 === 0
                         ? 'rowBoxRight'
@@ -211,6 +208,12 @@
                             : 'text'
                         "
                         :title="vitalSignObj[j].vitalValue"
+                         @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
                         @input="handlePopRefresh(vitalSignObj[j])"
                         @click="() => (vitalSignObj[j].popVisible = true)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
@@ -261,8 +264,8 @@
                 </el-collapse-item>
               </div>
             </div>
-            <div class="context-box">
-              <el-collapse-item name="fieldList" v-if="fieldList">
+            <div class="context-box" v-if="fieldList!=={}">
+              <el-collapse-item name="fieldList" >
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
                   <i class="header-icon el-icon-info"></i>
@@ -296,6 +299,12 @@
                       @keydown.enter="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
+                       @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
                       @click="
                         () => (vitalSignObj[i.vitalCode].popVisible = true)
                       "
@@ -451,6 +460,7 @@ export default {
     });
 
     return {
+      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       query: {
@@ -483,7 +493,7 @@ export default {
     });
   },
   created() {
-    window.addEventListener("resize", this.getHeight());
+    window.addEventListener("resize", this.getHeight);
     this.getHeight();
   },
   computed: {
@@ -497,6 +507,9 @@ export default {
         this.getList();
       },
       deep: true,
+    },
+    rightSheet(value) {
+      alert(value);
     },
   },
   methods: {
@@ -592,7 +605,7 @@ export default {
         wardCode: this.patientInfo.wardCode,
         recordDate: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
       }).then((res) => {
-          this.tabsData=[]
+           this.tabsData = [];
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -601,7 +614,6 @@ export default {
             recordDate: item.recordDate,
             recordPerson: item.vitalSignList[0].nurseName,
           });
-          this.tabsData = [...new Set(this.tabsData)];
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
@@ -625,10 +637,6 @@ export default {
     //时间组件失去焦点
     changeDate(val) {
       let numberVal = val.$el.children[1].value;
-      // if(!moment(numberVal,"HH:mm",true).isValid()) {
-      //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
-      //     return false;
-      // }
       if (
         (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
         (numberVal.indexOf(":") != -1 && numberVal.length == 5)
@@ -678,6 +686,10 @@ export default {
       let date = new Date();
       let b = date.getHours();
       return b;
+    },
+    /* 选择固定时间点 */
+    changeEntryTime(val) {
+      this.query.entryTime = val;
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
@@ -758,6 +770,7 @@ export default {
               classCode: item.classCode,
             };
             this.fieldList = { ...obj };
+
           }
         });
         this.multiDictList = { ...data };
@@ -837,7 +850,6 @@ export default {
                 this.$message.success(`修改${label}成功`);
               });
             }
-            // this.getList();
           },
           autotext,
           `修改${label}`
@@ -878,6 +890,17 @@ export default {
       this.getList();
       this.bus.$emit("refreshImg");
     },
+
+    // formatTopExpandDate(val) {
+    //   this.topExpandDate = val;
+    // },
+    // formatBtmExpandDate(val) {
+    //   this.bottomExpandDate = val;
+    // },
+    // formatCenterExpandDate(val) {
+    //   this.centerExpandDate = val;
+    // },
+    //设置体温单是否可编辑
   },
   components: { nullBg },
 };
@@ -934,7 +957,7 @@ export default {
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
-          text-align: left;
+          text-align: center;
           font-size: 12px;
 
           &.active {
@@ -951,7 +974,7 @@ export default {
     }
 
     .inputter-region {
-      width: 60%;
+      width: 63%;
       float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;
