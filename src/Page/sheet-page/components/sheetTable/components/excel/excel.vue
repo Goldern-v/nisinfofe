@@ -1576,7 +1576,7 @@ export default {
       this.isOpenEditModal = true;
       setTimeout(() => {
         this.isOpenEditModal = false;
-        }, 1000);
+      }, 1000);
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       // console.log(tr,data);
       // if (
@@ -1599,7 +1599,7 @@ export default {
       } else {
         tab = "2";
       }
-
+      //佛山市一不要双击时间出弹框
       if (this.HOSPITAL_ID == "foshanrenyi" && key == "recordHour") {
         return
       }
