@@ -846,6 +846,8 @@ const router = new Router({
                 return temperatureFSSY
               case 'nanfangzhongxiyi':
                 return temperatureNFZXY
+              case 'whyx':
+                return temperatureNFZXY
               case 'quzhou':
                 return temperatureQuZhou
               case 'hengli':
@@ -988,7 +990,6 @@ const router = new Router({
             case 'shannan':
               return implementationListShannan
             case 'zhongshanqi':
-            case 'huadu':
               return implementationListZhongshanqi
             case 'wujing':
             case 'lyxrm':
@@ -997,6 +998,7 @@ const router = new Router({
             case 'foshanrenyi':
               return implementationListFSSY
             case 'quzhou':
+            case 'huadu':
               return implementationListQuzhou
             case 'fuyou':
               return implementationListFuyou
@@ -1211,6 +1213,8 @@ const router = new Router({
               return allTemperatureChartLYXRM
             case 'sdlj':
               return allTemperatureChartSDLJ
+            case 'whyx':
+              return allTemperatureChartWHFK
             default:
               return allTemperatureChart
           }
@@ -1236,6 +1240,9 @@ const router = new Router({
             case 'foshanrenyi':
               return newSingleTemperatureChartFSSY
             case 'nanfangzhongxiyi':
+              return newSingleTemperatureChartZhongXiYi
+              //武汉亚心共用南方中西的录入界面，高度契合
+            case 'whyx':
               return newSingleTemperatureChartZhongXiYi
             case 'fsxt':
               return newSingleTemperatureChartFSXT

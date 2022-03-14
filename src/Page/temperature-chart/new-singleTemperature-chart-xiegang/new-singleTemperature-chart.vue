@@ -14,15 +14,12 @@
       <div class="left-part">
         <patientList
           :data="data.bedList"
+          ref="patientList"
           v-loading="patientListLoading"
           :isSelectPatient="isSelectPatient"
         ></patientList>
       </div>
-      <div
-        class="right-part"
-        v-loading="tableLoading"
-        :class="openLeft ? 'isLeft' : 'isRight'"
-      >
+      <div class="right-part" v-loading="tableLoading"  :class="openLeft ? 'isLeft' : 'isRight'">
         <div class="sheetTable-contain">
           <temperatureNew
             class="contain-center"
@@ -46,9 +43,9 @@
             ></i>
           </div>
           <tabCon
-            class="contain-right"
             v-show="rightSheet"
             :patientInfo="patientInfo"
+            class="contain-right"
           >
           </tabCon>
         </div>
@@ -71,26 +68,7 @@
       bottom: 0;
     }
 
-    .flag-con {
-      width: 10px;
-      height: 73px;
-      position: relative;
-      z-index: 10;
-      background-image: url('../../../common/images/patient/隐藏框.png');
-      cursor: pointer;
-      transform: rotateY(180deg);
-
-      &:hover {
-        color: #5CC6A1;
-      }
-
-      i {
-        font-size: 12px;
-      }
-    }
-
     .right-part {
-      margin-left: 199px;
       height: 100%;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
@@ -108,12 +86,15 @@
           flex: 3;
           border-left: 1px solid #eee;
           height: 100%;
-          padding: 10px;
           // margin-top:10px;
         }
       }
     }
   }
+  .isLeft {
+      margin-left: 199px;
+      }
+
 }
 </style>
 
@@ -123,10 +104,10 @@ import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
-import print from "printing";
-import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureNew from "./components/temperatureNew";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-xiegang/components/tab-con";
+import Button from "@/Page/badEvent/components/button.vue";
+
 export default {
   mixins: [common],
   props: {},
@@ -136,6 +117,7 @@ export default {
       data: {
         bedList: [],
       },
+
       patientListLoading: true,
       tableLoading: false,
     };
@@ -145,15 +127,16 @@ export default {
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
     },
-    patientInfo() {
-      return this.$store.state.sheet.patientInfo;
-    },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
+    },
+    patientInfo() {
+      return this.$store.state.sheet.patientInfo;
     },
     flagTop() {
       return `${this.wih * 0.4}px`;
     },
+
     containHeight() {
       if (this.fullpage) {
         return this.wih - 44 + "px";
@@ -173,6 +156,10 @@ export default {
   },
   mounted() {},
   methods: {
+    //关闭录入界面
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
@@ -189,12 +176,8 @@ export default {
       this.bus.$emit("refreshImg");
       this.bus.$emit("refreshVitalSignList");
     },
-    //关闭录入界面
-    openRight() {
-      this.$store.commit("showRightPart", !this.rightSheet);
-    },
   },
-  components: { patientList, temperatureNew, tabCon },
+  components: { patientList, temperatureNew, tabCon, Button },
   watch: {
     deptCode(val) {
       if (val) {
@@ -204,3 +187,22 @@ export default {
   },
 };
 </script>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.flag-con {
+  width: 10px;
+  height: 73px;
+  position: relative;
+  z-index: 10;
+  background-image: url('../../../common/images/patient/隐藏框.png');
+  cursor: pointer;
+  transform: rotateY(180deg);
+
+  &:hover {
+    color: #5CC6A1;
+  }
+
+  i {
+    font-size: 12px;
+  }
+}
+</style>

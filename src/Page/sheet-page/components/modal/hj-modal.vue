@@ -196,7 +196,12 @@ export default {
         endTime
       ).then(res => {
         if (res.data.data.desc) {
-          this.description = this.description + res.data.data.desc;
+          if(this.HOSPITAL_ID==="wujing"){
+            let str = res.data.data.desc.replace(/出量/g,"总出量");
+            this.description = this.description + str;
+          }else{
+            this.description = this.description + res.data.data.desc;
+          }
         } else {
           this.$message.warning("分类合计为空");
         }

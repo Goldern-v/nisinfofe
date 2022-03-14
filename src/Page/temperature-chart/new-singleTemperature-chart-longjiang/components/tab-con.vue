@@ -42,7 +42,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${query.entryDate}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${dateInp}`
                   )
                     ? 'active'
                     : '',
@@ -208,6 +208,12 @@
                             ? 'number'
                             : 'text'
                         "
+                         @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
                         @click="() => (vitalSignObj[j].popVisible = true)"
@@ -399,7 +405,7 @@
               @click="saveVitalSign(vitalSignObj)"
               >保存</el-button
             >
-            <div class="clear" style="height: 30px"></div>
+            <div class="clear" style="height: 130px"></div>
             <!--占位符-->
           </div>
         </div>
@@ -421,7 +427,6 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -450,13 +455,11 @@ export default {
     });
 
     return {
-      mockData,
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: moment().format("HH:mm:ss"), //录入时间
+        entryTime: moment().format("HH:mm")+':00', //录入时间
       },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
@@ -475,7 +478,6 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
-      selectionMultiDict: selectionMultiDict,
     };
   },
   async mounted() {
@@ -483,7 +485,6 @@ export default {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
-    console.log(Object.keys(this.otherMultiDictList).length)
   },
   created() {
     window.addEventListener("resize", this.getHeight);
@@ -584,6 +585,7 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
+      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getVitalSignListByDate({
         visitId: data.visitId,
@@ -682,6 +684,9 @@ export default {
     changeEntryTime(val) {
       this.query.entryTime = val;
     },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
+    },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
       let temp = value;
@@ -751,7 +756,7 @@ export default {
             default:
               break;
           }
-          if (item.vitalSign.includes("自定义")) {
+          if (item.signType==='custom'||item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
               patientId: this.patientInfo.patientId,
@@ -960,7 +965,7 @@ export default {
       margin: 5px 0px 0px 3px;
       overflow: scroll;
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: scroll;
 
       .title {
         color: black;
