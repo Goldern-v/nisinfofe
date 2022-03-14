@@ -33,7 +33,7 @@ import {
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: 'recordMonth', event: event_date, click: click_date, value: '', next: ''},
-  { key: 'recordHour', event: event_time, value: '', next: ''},
+  { key: 'recordHour', event: event_time, click: click_time, value: '', next: ''},
   { key: 'assistRatio', event: keyf1, value: '', next: '', name: 'ASSISTRATIO', textarea: { width: 75 }, change: (e, td) => limitChange(e, td, 12) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'psp', event: keyf1, value: '', next: 'mmHg', name: 'PSP', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 8) },
