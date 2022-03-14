@@ -27,6 +27,12 @@
           </div>
           <div
             class="sup-title"
+            v-else-if="HOSPITAL_NAME === '佛山市顺德区龙江医院'"
+          >
+            血 糖 监 测 记 录 表
+          </div>
+          <div
+            class="sup-title"
             v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院'"
           >
             血糖测量记录单

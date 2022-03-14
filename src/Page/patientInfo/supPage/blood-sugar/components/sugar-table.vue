@@ -31,6 +31,7 @@
             HOSPITAL_ID != 'liaocheng'&&
             HOSPITAL_ID != 'hengli'&&
             HOSPITAL_ID != 'fuyou'&&
+            HOSPITAL_ID != 'sdlj'&&
             HOSPITAL_ID != 'guizhou'&&
             HOSPITAL_ID != 'whfk'
           "
@@ -92,6 +93,7 @@
             HOSPITAL_ID != 'liaocheng'&&
             HOSPITAL_ID != 'hengli'&&
             HOSPITAL_ID != 'fuyou'&&
+            HOSPITAL_ID != 'sdlj'&&
             HOSPITAL_ID != 'guizhou'&&
             HOSPITAL_ID != 'whfk'
           "
@@ -211,7 +213,7 @@
 
   .inPrint {
     display: none;
- 
+
     &.lc {
       height: 29px;
     }

@@ -44,11 +44,11 @@
           <div class="text-con" flex="cross:center">打印预览</div>
         </div>
       </div>
-    
+
     </div>
     <div style='height: 40px; width:100%'></div>
     <div ref="Contain" @mousewheel="(e) => onScroll(e)">
-      <div v-show="!isChart" class="blood-sugar-con">
+      <div v-show="!isChart" class="blood-sugar-con1">
         <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
           <!-- <img class="his-logo"
           src="../../../../common/images/his-logo/厚街医徽.png" />-->
@@ -120,7 +120,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
     <editAge ref="editAge" @confirm="onSaveAge" />
     <setPageModal ref="setPageModal" /> -->
@@ -128,7 +128,7 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-.blood-sugar-con {
+.blood-sugar-con1 {
   .sugr-page {
     margin: 10px auto;
     background: #ffffff;
@@ -431,12 +431,12 @@ export default {
         this.baseParams.id = ''
       }
       if(this.baseParams.id){
-        // todo 要对接口  不然会报404 
+        // todo 要对接口  不然会报404
 
         // if(this.HOSPITAL_ID == 'whfk'){
           this.baseParams.formCode = this.fkOxygenCode
         // }
-        
+
         const resList = await getForm(this.baseParams.id, this.baseParams.formType, this.baseParams.formCode)
         this.baseParams.id ='',
         this.hisPatSugarList = resList.data.data.list;

@@ -24,16 +24,16 @@
         :class="openLeft ? 'isLeft' : 'isRight'"
       >
         <div class="sheetTable-contain">
-          <temperatureLCEY
+          <temperatureNew
             class="contain-center"
             :queryTem="patientInfo"
-          ></temperatureLCEY>
+          ></temperatureNew>
           <div
             class="flag-con"
             :style="{ top: flagTop }"
             flex="main:center cross:center"
             @click="openRight"
-          >
+           >
             <i
               class="iconfont icon-yincang"
               v-show="rightSheet"
@@ -45,17 +45,13 @@
               style="margin-left: -2px"
             ></i>
           </div>
-          <tabCon
-            class="contain-right"
-            :patientInfo="patientInfo"
-            v-show="rightSheet"
-          >
-          </tabCon>
+          <tabCon class="contain-right" :patientInfo="patientInfo" v-show="rightSheet"> </tabCon>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .new-singleTemperature-chart {
   position: relative;
@@ -70,9 +66,24 @@
       top: 0px;
       bottom: 0;
     }
+.flag-con {
+      width: 10px;
+      height: 73px;
+      position: relative;
+      z-index: 10;
+      background-image: url('../../../common/images/patient/隐藏框.png');
+      cursor: pointer;
+      transform: rotateY(180deg);
 
+      &:hover {
+        color: #5CC6A1;
+      }
+
+      i {
+        font-size: 12px;
+      }
+    }
     .right-part {
-      margin-left: 199px;
       height: 100%;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
@@ -89,30 +100,14 @@
         .contain-right {
           flex: 3;
           border-left: 1px solid #eee;
-          height: 100%;
-          padding: 10px;
+          overflow: hidden;
           // margin-top:10px;
         }
       }
     }
-  }
-}
-
-.flag-con {
-  width: 10px;
-  height: 73px;
-  position: relative;
-  z-index: 10;
-  background-image: url('../../../common/images/patient/隐藏框.png');
-  cursor: pointer;
-  transform: rotateY(180deg);
-
-  &:hover {
-    color: #5CC6A1;
-  }
-
-  i {
-    font-size: 12px;
+    .isLeft {
+      margin-left: 199px;
+      }
   }
 }
 </style>
@@ -123,10 +118,8 @@ import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
-import print from "printing";
-import formatter from "@/Page/temperature-chart/print-formatter";
-import temperatureLCEY from "@/Page/temperature-chart/new-singleTemperature-chart/components/temperatureLCEY";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart/components/tab-con";
+import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart/components/temperatureNew";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/tab-con";
 export default {
   mixins: [common],
   props: {},
@@ -145,14 +138,14 @@ export default {
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
     },
-    patientInfo() {
-      return this.$store.state.sheet.patientInfo;
+     flagTop() {
+      return `${this.wih * 0.4}px`;
     },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
-    flagTop() {
-      return `${this.wih * 0.4}px`;
+    patientInfo() {
+      return this.$store.state.sheet.patientInfo;
     },
     containHeight() {
       if (this.fullpage) {
@@ -173,15 +166,11 @@ export default {
   },
   mounted() {},
   methods: {
-    //关闭录入界面
-    openRight() {
-      this.$store.commit("showRightPart", !this.rightSheet);
-    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        let config = process.env.hasFollow ? {showFollew:true} : null
-        patients(this.deptCode,config).then((res) => {
+        //这里有两个获取患者信息接口，传空就用新的排序
+        patients(this.deptCode, null).then((res) => {
           this.data.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
@@ -189,13 +178,16 @@ export default {
         });
       }
     },
+     openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     async isSelectPatient(item) {
       await this.$store.commit("upPatientInfo", item);
       this.bus.$emit("refreshImg");
       this.bus.$emit("refreshVitalSignList");
     },
   },
-  components: { patientList, temperatureLCEY, tabCon },
+  components: { patientList, temperatureNew, tabCon },
   watch: {
     deptCode(val) {
       if (val) {
