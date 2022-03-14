@@ -72,6 +72,7 @@
         <sheetPrintNursingOrder v-if="$route.params.type == 'sheetNursingOrder'"></sheetPrintNursingOrder>
         <sugar v-if="$route.params.type == 'sugar'"></sugar>
         <oxygen v-if="$route.params.type == 'oxygen'"></oxygen>
+        <bloodSugar v-if="$route.params.type == 'bloodSugar'"></bloodSugar>
         <health v-if="$route.params.type == 'health'"></health>
         <lcHealth v-if="$route.params.type == 'lcHealth'"></lcHealth>
         <growthPrintPage v-if="$route.params.type == 'growth'"></growthPrintPage>
@@ -199,6 +200,7 @@ import sheetPrintPage from "./component/sheet-print-page";
 import sheetPrintNursingOrder from "./component/sheet-print-nursing-order";
 import sugar from "./component/sugar-print-page.vue";
 import oxygen from "./component/oxygen-print-page.vue";
+import bloodSugar from "./component/bloodSugar-print-page.vue"
 import health from "./component/health-print-page";
 import lcHealth from "./component/lcHealth-print-page";
 import growthPrintPage from "./component/growth-print-page.vue";
@@ -216,7 +218,9 @@ export default {
     };
   },
   methods: {
+    
     print() {
+      console.log(this.$route.query, 888)
       if (!this.canPrint) return;
       if (this.$route.params.type == "assessment") {
         this.bus.$emit("printAssessment");
@@ -272,6 +276,7 @@ export default {
     notice,
     sugar,
     oxygen,
+    bloodSugar,
     growthPrintPage,
     health,
     lcHealth,

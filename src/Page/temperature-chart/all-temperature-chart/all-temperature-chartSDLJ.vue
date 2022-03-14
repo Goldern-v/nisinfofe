@@ -855,8 +855,7 @@ export default {
                 : (item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
                   item.patientId &&
-                  moment().subtract(3, "days").format("YYYY-MM-DD") ===
-                    item.admissionDate.slice(0, 10);
+                 moment(item.admissionDate.slice(0, 10)).isAfter(moment().subtract(4, "days").format("YYYY-MM-DD"))
             })
       },
       set(value) {

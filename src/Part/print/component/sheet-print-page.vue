@@ -509,7 +509,7 @@ export default {
         `
       );
     }
-    if (this.HOSPITAL_ID == "weixian") {
+    if (this.HOSPITAL_ID == "weixian"||this.HOSPITAL_ID == "whyx") {
       addCSS(
         window,
         `
@@ -519,7 +519,7 @@ export default {
           ((sheetTableWidth * 25.4) / 96) * 0.68
         )}mm;
         }
-
+        
         @media print {
         #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
          height: auto !important;

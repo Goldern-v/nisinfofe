@@ -336,7 +336,7 @@
               <!-- <span :style="`width: ${hasRemark ? 85 : 100}px`"></span> -->
               <input
                 type="text"
-                style="width: 75px;font-size: 28px;"
+                style="width: 55px;font-size: 28px;"
                 flex-box="1"
                 disabled
                 class="bottom-line"
