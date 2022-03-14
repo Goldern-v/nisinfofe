@@ -28,7 +28,7 @@ export default {
                 {"name":"血<br/>氧<br/>饱<br/>和<br/>度<br/>%","colspan":"1","rowspan":"3"},
                 {"name":"入量","colspan":"2","rowspan":"1"},
                 {"name":"出量","colspan":"3","rowspan":"1"},
-                {"name":"肢体情况","colspan":"3","rowspan":"1"},
+                {"name":"肢体情况","colspan":"3","rowspan":"1","canSet":true,"key":"armValue10","style":{"minWidth":"99px","maxWidth":"99px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue2","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue3","style":{"minWidth":"35px","maxWidth":"35px"}},
