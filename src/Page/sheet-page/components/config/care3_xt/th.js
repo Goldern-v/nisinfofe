@@ -5,9 +5,9 @@
 
 /**
  * @description: 开发注意事项:
-    1、自定义表头 canSet: true, key: "armValue4"            
+    1、自定义表头 canSet: true, key: "armValue4"
     2、表格头部年份显示 {"name":'',"style":{},"colspan":"2","rowspan":"1","key":'recordYear'},
-    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, },
 */
 
 export default {
@@ -17,7 +17,7 @@ export default {
       width: "1350px"
     },
     th: {
-        top: 
+        top:
             [
                 {"name":"","colspan":"2","rowspan":"1","key":"recordYear"},
                 {"name":"体温<br/>℃","colspan":"1","rowspan":"3"},
@@ -54,7 +54,7 @@ export default {
                 {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
             ]
         ,
-        mid: 
+        mid:
             [
                 {"name":"日期","colspan":"1","rowspan":"2"},
                 {"name":"时间","colspan":"1","rowspan":"2"},
@@ -76,7 +76,7 @@ export default {
                 {"name":"置入长度 cm","colspan":"1","rowspan":"2","canSet":true,"key":"armValue9","style":{"minWidth":"20px","maxWidth":"20px"}},
             ]
         ,
-        bottom: 
+        bottom:
             [
                 {"name":"左","colspan":"1","rowspan":"1"},
                 {"name":"右","colspan":"1","rowspan":"1"},
@@ -85,4 +85,4 @@ export default {
             ]
         ,
     }
-}  
+}
