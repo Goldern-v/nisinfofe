@@ -460,7 +460,6 @@ export default {
     });
 
     return {
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       query: {
