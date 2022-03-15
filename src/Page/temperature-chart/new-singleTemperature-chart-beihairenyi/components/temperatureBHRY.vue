@@ -94,12 +94,10 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         "http://192.167.199.191:9091/temperature/#/" /* 医院正式环境内网 导致跨域,
-      "http://192.168.1.75:8081/#/" /* 医院正式环境内网 */,
+      // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 */,
       printAllUrl:
         "http://192.167.199.191:9091/temperature/#/printAll" /* 医院正式环境内网 */,
         // "http://192.168.1.75:8080/#/printAll" /* 医院正式环境内网 */,
-      outNetUrl:
-        "http://http://219.159.198.37:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
@@ -182,6 +180,9 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
+              case "dblclick":/* 双击查阅体温单子 */
+          this.openRight();
+          break;
           default:
             break;
         }
@@ -255,10 +256,10 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contain {
-  margin: 15px 20px 0;
+  margin: 10px 10px 0;
 
   .tem-con {
-    width: 102%;
+    width: 101%;
     height: 100%;
     position: relative;
     left: 0px;
