@@ -74,6 +74,25 @@
               </div>
             </el-checkbox-group>
           </div>
+          <div class="do-box">
+            <div class="label">
+              <span>【问题因素】</span>
+              <span class="checkAll-con">
+                <el-checkbox
+                  :indeterminate="isFactorIndeterminate"
+                  v-model="checkFactorAll"
+                  @change="handleFactorCheckAllChange"
+                  :disabled="status === '2'"
+                >全选</el-checkbox>
+              </span>
+            </div>
+
+            <el-checkbox-group v-model="resultFactorList" @change="handleFactorCheckedChange">
+              <div class="m-10" v-for="item in factorList" :key="item.id">
+                <el-checkbox :label="item.serialNo" :disabled="status === '2'">{{item.factor}}</el-checkbox>
+              </div>
+            </el-checkbox-group>
+          </div>
         </div>
       </div>
     </transition>
@@ -199,15 +218,19 @@ let bindData = {
   show: false,
   measures: [],
   targetList: [],
+  factorList: [],
   target: "",
   resultMeasuresList: [],
   resultTargetList: [],
+  resultFactorList: [],
   beginTime: "",
   status: "0", // 0-未保存 1-正在进行 2-已停止 3-已删除
   isMeasuresIndeterminate: false,
   checkMeasuresAll: false,
   isTargetIndeterminate: false,
+  isFactorIndeterminate: false,
   checkTargetAll: false,
+  checkFactorAll: false,
   definition: ""
 };
 let bindDataClone = { ...bindData };
@@ -224,6 +247,7 @@ export default {
       measure(item.code).then(res => {
         this.measures = res.data.data.measures;
         this.targetList = res.data.data.targetList;
+        this.factorList = res.data.data.factorList;
         this.definition = res.data.data.definition;
       });
       if (item.id) {
@@ -234,6 +258,9 @@ export default {
             .split("_")
             .map(item => Number(item));
           this.resultTargetList = res.data.data.object.diagTarget
+            .split("_")
+            .map(item => Number(item));
+          this.resultFactorList = res.data.data.object.diagFactor
             .split("_")
             .map(item => Number(item));
         });
@@ -249,8 +276,11 @@ export default {
       let target = this.targetList.filter(item=>{
         return this.resultTargetList.includes(item.serialNo)
       }).map(e=>e.parameter).join("")
+      let factor = this.factorList.filter(item=>{
+        return this.resultFactorList.includes(item.serialNo)
+      }).map(e=>e.factor).join("")
 
-      this.$store.commit("upMeasureGuizhou",{measure,target})
+      this.$store.commit("upMeasureGuizhou",{measure,target,factor})
     },
     /** 全选措施 */
     handleMeasuresCheckAllChange(event) {
@@ -281,6 +311,21 @@ export default {
       this.isTargetIndeterminate =
         checkedCount > 0 &&
         checkedCount < this.targetList.map(item => item.serialNo).length;
+    },
+    /** 全选目标 */
+    handleFactorCheckAllChange(event) {
+      this.resultFactorList = event.factor.checked
+        ? this.measures.map(item => item.serialNo)
+        : [];
+      this.isFactorIndeterminate = false;
+    },
+    handleFactorCheckedChange(value) {
+      let checkedCount = value.length;
+      this.checkFactorAll =
+        checkedCount === this.factorList.map(item => item.serialNo).length;
+      this.isFactorIndeterminate =
+        checkedCount > 0 &&
+        checkedCount < this.factorList.map(item => item.serialNo).length;
     }
   },
   components: {}

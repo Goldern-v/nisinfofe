@@ -73,6 +73,27 @@
               >
             </div>
           </div>
+          <div class="do-box">
+            <div class="label">
+              <span>【问题因素】</span>
+            </div>
+            <div class="input-group">
+              <el-input
+                :value="factorStr"
+                placeholder="请输入内容"
+                type="textarea"
+                resize="none"
+                :autosize="{ minRows: 3, maxRows: 4 }"
+                :maxlength="textInputMaxLength2"
+                :show-word-limit="showWordLimit"
+                @dblclick.native="openSlideRight()"
+                @input="(newValue)=>changemeasureStr(newValue,'factor')"
+              ></el-input>
+              <span class="input-count"
+                >{{ factorStr.length }}/{{ textInputMaxLength2 }}</span
+              >
+            </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -297,7 +318,9 @@ let bindData = {
   show: false,
   measures: [],
   targetList: [],
+  factorList: [],
   target: "",
+  factor:"",
   status: "0", // 0-未保存 1-正在进行 2-已停止 3-已删除
   isTypeIndeterminate: false,
   isTracheaIndeterminate: false,
@@ -322,7 +345,8 @@ export default {
   computed: {
     ...mapState({
       measureStr: state => (state.formGuizhou.measureGuizhou ? state.formGuizhou.measureGuizhou : ""),
-      targetStr: state => (state.formGuizhou.targetGuizhou ? state.formGuizhou.targetGuizhou : "")
+      targetStr: state => (state.formGuizhou.targetGuizhou ? state.formGuizhou.targetGuizhou : ""),
+      factorStr: state => (state.formGuizhou.factorStrGuizhou ? state.formGuizhou.factorStrGuizhou : "")
     })
   },
   methods: {
@@ -335,6 +359,7 @@ export default {
         console.log(res);
         this.measures = res.data.data.measures;
         this.targetList = res.data.data.targetList;
+        this.factorList = res.data.data.factorList;
         this.definition = res.data.data.definition;
         if (item.id) {
           nursingDiagsView(item.id).then(res => {
@@ -365,6 +390,7 @@ export default {
           name: this.data.name,
           measureStr: this.measureStr,
           targetStr: this.targetStr,
+          factorStr: this.factorStr,
           wardCode: model.selectedBlock.wardCode,
           beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm")
         };
@@ -402,19 +428,28 @@ export default {
     changeStr() {
       this.$store.commit("upMeasureGuizhou", {
         measure: this.measureStr,
-        target: this.targetStr
+        target: this.targetStr,
+        factor: this.factorStr
       });
     },
     changemeasureStr(e,type){
         if(type=="target"){
             this.$store.commit("upMeasureGuizhou", {
                 measure: this.measureStr,
-                target:e
+                target:e,
+                factor: this.factorStr,
+            });
+        }else if(type == 'factor'){
+           this.$store.commit("upMeasureGuizhou", {
+                measure: this.measureStr,
+                target: this.targetStr,
+                factor: e,
             });
         }else{
             this.$store.commit("upMeasureGuizhou", {
                 measure: e,
-                target:this.targetStr
+                target:this.targetStr,
+                factor:this.factorStr
             });
         }
     }
