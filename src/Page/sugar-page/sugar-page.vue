@@ -8,9 +8,11 @@
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}" ref="rightPart">
         <!-- <bloodSugar ref="bloodSugar"></bloodSugar> -->
-        <component :is="switchCompt()" ref="bloodSugar" :setScrollTop="setScrollTop"/>
+        <component v-if="!isAdult" :is="switchCompt()" ref="bloodSugar" @onCreate='onCreate' :setScrollTop="setScrollTop"/>
+        <sugarBtn v-else ref="sugarBtn" @onAddTableModal='onAddTableModal'>1111</sugarBtn>
       </div>
     </div>
+    <bloodSugarModal ref="bloodSugarModal" @onCreate='onCreate'></bloodSugarModal>
   </div>
 </template>
 
@@ -54,6 +56,9 @@ import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar"; // 
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian"; // 威县医院
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry"; // 北海人医
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj";
+import sugarBtn from "@/Page/patientInfo/supPage/blood-sugar-sdlj/components/sugar-btn.vue";
+import bloodSugarModal from "@/Page/patientInfo/supComponts/modal/blood-sugar-modal.vue"
+import tr from '../sheet-page/components/config/tbhld_lc/tr';
 
 export default {
   mixins: [common],
@@ -64,7 +69,8 @@ export default {
       },
       patientListLoading: false,
       bus: bus(this),
-      isAdult: '1'
+      isAdult: false,
+      status: {}
     };
   },
   computed: {
@@ -79,6 +85,14 @@ export default {
     }
   },
   methods: {
+    onAddTableModal() {
+      this.$refs.bloodSugarModal.open()
+    },
+    onCreate(data) {
+      console.log(data, 9990)
+      this.status = data || {}
+      this.isAdult = false
+    },
     //设置滚动
     setScrollTop(){
       console.log("滚动")
@@ -103,28 +117,39 @@ export default {
     },
     // 依据医院名字，标题组件切换
     switchCompt(HisName = process.env.HOSPITAL_NAME) {
+      console.log(this.status.type, 765)
       let hisList = {
         威县人民医院: "bloodSugarWeiXian",
         东莞市厚街医院: "bloodSugar",
         北海市人民医院:'bloodSugarBhry',
-        佛山市顺德区龙江医院: this.isAdult === '1' ? 'bloodSugarSdlj' : 'bloodSugar'
+        佛山市顺德区龙江医院: (this.status.type === '成人' ? 'bloodSugarSdlj' : 'bloodSugar')
       };
+      console.log(hisList,222)
       return hisList[HisName] || "bloodSugar";
     },
     isSelectPatient(item,isScrollTop=false) {
       console.log('item', item);
       let age = (item.age.substring(0, item.age.length - 1))
-      if (+age < 30) this.isAdult = '0'
-      else this.isAdult = '1'
-      this.$router.replace(
-        {
-          path: "/sugarPage",
-          query: item
-        },
-        () => {
-          this.$refs.bloodSugar.load(isScrollTop);
-        }
-      );
+      // if (+age < 30) this.isAdult = '0'
+      // else this.isAdult = '1'
+      // if (this.isAdult) {
+      //   this.isAdult = 0
+      // }
+      console.log(this.isAdult, 666)
+      if (age >= 0) {
+        this.isAdult = true
+      } else {
+        // todo  判断是否是成人 还是创建儿童
+          this.$router.replace(
+          {
+            path: "/sugarPage",
+            query: item
+          },
+          () => {
+            this.$refs.bloodSugar.load(isScrollTop);
+          }
+        );
+      }
     }
   },
   created() {
@@ -155,7 +180,9 @@ export default {
     bloodSugar,
     bloodSugarWeiXian,
     bloodSugarBhry,
-    bloodSugarSdlj
+    bloodSugarSdlj,
+    sugarBtn,
+    bloodSugarModal
   }
 };
 </script>

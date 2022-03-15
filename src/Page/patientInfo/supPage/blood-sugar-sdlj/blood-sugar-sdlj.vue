@@ -120,7 +120,7 @@
         </div>
       </div>
     </div>
-
+    <bloodSugarModal ref="bloodSugarModal" @onCreate='onCreate'></bloodSugarModal>
     <!-- <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
     <editAge ref="editAge" @confirm="onSaveAge" />
     <setPageModal ref="setPageModal" /> -->
@@ -290,6 +290,7 @@ import nullBg from "@/components/null/null-bg.vue";
 import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin.js";
+import bloodSugarModal from "../../supComponts/modal/blood-sugar-modal.vue"
 
 export default {
   mixins: [common],
@@ -364,6 +365,10 @@ export default {
     console.log(111111111)
   },
   methods: {
+    onCreate(data) {
+      console.log(data, 99991)
+      this.$emit("onCreate", data)
+    },
     uploadView() {
       this.load();
       this.getSugarItemDict();
@@ -406,7 +411,7 @@ export default {
           console.log(err,"resss")
         }
       }else{
-         this.$message.warning("请填写血糖监测记录表！");
+         this.$message.warning("请填写血糖监测记录！");
       }
 
     },
@@ -490,19 +495,21 @@ export default {
       this.isChart = !this.isChart;
     },
     async onAddTable() {
-      this.baseParams.formCode = this.fkOxygenCode
-      try{
-        this.patientInfo.id =""
-        const res = await save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode)
-        this.saveParams = res.data.data;
-      } catch(err){
-        console.log(err)
-      }
-      if (this.$route.query.patientId) {
-        this.listMap.push({ left: [], right: [] });
-      } else {
-        this.$message.warning("请先选择一名患者");
-      }
+      // this.baseParams.formCode = this.fkOxygenCode
+      // try{
+      //   this.patientInfo.id =""
+      //   const res = await save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode)
+      //   this.saveParams = res.data.data;
+      // } catch(err){
+      //   console.log(err)
+      // }
+      // if (this.$route.query.patientId) {
+      //   this.listMap.push({ left: [], right: [] });
+      // } else {
+      //   this.$message.warning("请先选择一名患者");
+      // }
+
+      this.$refs.bloodSugarModal.open()
     },
     // onAdd() {
     //   this.$refs.editModal.open("添加血糖记录");
@@ -579,6 +586,7 @@ export default {
     whiteButton,
     sugarChart,
     nullBg,
+    bloodSugarModal
   },
 };
 </script>
