@@ -38,7 +38,7 @@ let tyttList = ['0', 'Ⅰ', 'Ⅱ', 'Ⅲ']
 let hlcsList = ['A','B','C','D','E','F','G1','G2','G3','G4','G5','G6','G7','G8','G9','G10','H','I','J','K','L','M','N','O1','O2','P','Q','R','T','U']
 let hlaqList = ['A','B','C','D','E','F','G','H','I','J','K','L']
 let tyList = ['○','I','II','III','√','×','+','++','+++','A','B','C','D','E','F','X']
-let lgList = ['Y', 'N', 'z']
+let lgList = ['Y', 'N']
 
 
 export default [
