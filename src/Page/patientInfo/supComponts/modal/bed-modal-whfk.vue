@@ -327,6 +327,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .modal {
+  transform: scale(1.5)
   >>>.sweet-content {
     background: #dfdfdf;
     padding-bottom: 20px;

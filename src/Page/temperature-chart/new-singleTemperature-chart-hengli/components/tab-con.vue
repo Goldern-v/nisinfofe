@@ -280,11 +280,13 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
-    this.bus.$on("refreshVitalSignList", () => {
+
+  },
+  created() {
+     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
   },
-  created() {},
   computed: {},
   watch: {
     query: {

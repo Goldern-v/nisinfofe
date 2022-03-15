@@ -188,6 +188,7 @@
             v-model="td.value"
             :mask="() => [ /\d/, /\d/, ':', /\d/, /\d/]"
             :guide="true"
+            :data-value="td.value"
             placeholderChar=" "
           ></masked-input>
           <div
