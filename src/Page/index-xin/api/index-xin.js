@@ -12,11 +12,19 @@ function nurseTast(deptCode, dateStr) {
 }
 
 //体症任务
-function bodyTast(deptCode, dateStr) {
-  return axios.post(
-    `${apiPath}task/vitalTask`,
-    qs.stringify({ deptCode, dateStr })
-  );
+function bodyTast(deptCode, dateStr, status = '未完成') {
+  if (status === '未完成') {
+    return axios.post(
+      `${apiPath}task/vitalTask`,
+      qs.stringify({ deptCode, dateStr })
+    );
+  }else {
+    return axios.post(
+      `${apiPath}task/finishVitalTask`,
+      qs.stringify({ deptCode, dateStr })
+    );
+  }
+  
 }
 //体症任务
 function recordJob(deptCode) {
