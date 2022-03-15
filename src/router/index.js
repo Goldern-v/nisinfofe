@@ -1002,6 +1002,7 @@ const router = new Router({
               return implementationListZhongshanqi
             case 'wujing':
             case 'lyxrm':
+            case 'sdlj':
             case 'fsxt':
               return implementationListWujing
             case 'foshanrenyi':
