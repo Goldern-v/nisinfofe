@@ -291,11 +291,13 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+
+  },
+  created() {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
   },
-  created() {},
   computed: {},
   watch: {
     query: {
