@@ -2,7 +2,7 @@
   <div class="containter" v-loading="tableLoading" ref="printable">
     <div class="header-con">
       <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
-      <div class="title">{{HOSPITAL_ID=="liaocheng"?"护理计划":"护理诊断计划"}}</div>
+      <div class="title">{{HOSPITAL_ID=="liaocheng" || HOSPITAL_ID=="guizhou"?"护理计划":"护理诊断计划"}}</div>
       <div class="info-con" flex="main:justify">
         <span>
           姓名：
@@ -31,6 +31,11 @@
         <span>
           入院日期：
           {{ patientInfo.admissionDate }}
+        </span>
+      </div>
+      <div v-if="HOSPITAL_ID == 'guizhou'" class="info-con" flex="main:justify">
+        <span>
+          诊断：{{ patientInfo.diagnosis}}
         </span>
       </div>
     </div>

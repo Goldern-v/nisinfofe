@@ -19,6 +19,7 @@
         </el-table-column>
 
         <el-table-column prop="diagName" label="护理问题" width="205" header-align="center"></el-table-column>
+        <el-table-column prop="diagFactor" label="问题因素" width="180" header-align="center"></el-table-column>
         <!-- <el-table-column prop="diagMeasures" label="护理措施计划" min-width="150px" header-align="center" >
         </el-table-column> -->
         <el-table-column label="护理措施计划" width="305" header-align="center">
@@ -47,7 +48,15 @@
           </template>
         </el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="95" align="center"></el-table-column>
-        <el-table-column prop="endTime" label="停止时间" width="95" align="center"></el-table-column>
+        <el-table-column label="护士签名" width="90" header-align="center" align="center">
+          <template slot-scope="scope">
+            <div v-if="!scope.row.creatorName" class="tool-btn" @click="onSignOrCancel(scope.row)">
+              点击签名
+            </div>
+            <div v-else  @click="onSignOrCancel(scope.row)">{{scope.row.creatorName}}</div>
+          </template>
+        </el-table-column>
+        
         <el-table-column
           prop="evalType"
           label="护理评价"
@@ -56,7 +65,15 @@
           align="center"
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" width="325" header-align="center"></el-table-column>
-
+        <el-table-column prop="endTime" label="停止时间" width="95" align="center"></el-table-column>
+         <el-table-column label="护士签名" width="90" header-align="center" align="center">
+          <template slot-scope="scope">
+            <div v-if="!scope.row.signerName" class="tool-btn" @click="onSignOrCancel(scope.row)">
+              点击签名
+            </div>
+            <div v-else  @click="onSignOrCancel(scope.row)">{{scope.row.signerName}}</div>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="95" header-align="center">
           <template slot-scope="scope">
             <div class="tool-con">
@@ -77,15 +94,8 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="护士签名" width="90" header-align="center" align="center">
-          <template slot-scope="scope">
-            <div v-if="!scope.row.signerName" class="tool-btn" @click="onSignOrCancel(scope.row)">
-              点击签名
-            </div>
-            <div v-else  @click="onSignOrCancel(scope.row)">{{scope.row.signerName}}</div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="signTime" label="签名时间" width="95" align="center"></el-table-column>
+       
+        <!-- <el-table-column prop="signTime" label="签名时间" width="95" align="center"></el-table-column> -->
         <!--
       <el-table-column
         prop="creatorName"
