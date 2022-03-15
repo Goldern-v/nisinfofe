@@ -8,7 +8,8 @@
         @click="openNewDiagnosis"
         :class="{ disabled: !model.selectedBlockId }"
       >
-        <div class="text-con" flex="cross:center">添加新诊断</div>
+        <div class="text-con" flex="cross:center" v-if="HOSPITAL_ID =='guizhou'">添加护理计划</div>
+        <div class="text-con" flex="cross:center" v-else>添加新诊断</div>
       </div>
       <div
         class="item-box"

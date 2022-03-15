@@ -5,6 +5,7 @@
       <span style="color: #999" v-if="data.executing">已添加</span>
     </div>
     <div class="aside">{{data.definition}}</div>
+    <div class="aside">{{data.symptom}}</div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>

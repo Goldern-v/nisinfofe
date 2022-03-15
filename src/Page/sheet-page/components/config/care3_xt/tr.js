@@ -1,5 +1,5 @@
 
-/** 
+/**
   佛山杏坛 - 护理记录单（内三科通用单）
 */
 
@@ -33,11 +33,12 @@ import {
 
 let ysList = ['√','+','±','++','+++','A','B','C']
 let dgfyList = ['√','+','-']
-let tyttList = ['A','B','C','D']
+// let tyttList = ['A','B','C','D']`
+let tyttList = ['0', 'Ⅰ', 'Ⅱ', 'Ⅲ']
 let hlcsList = ['A','B','C','D','E','F','G1','G2','G3','G4','G5','G6','G7','G8','G9','G10','H','I','J','K','L','M','N','O1','O2','P','Q','R','T','U']
 let hlaqList = ['A','B','C','D','E','F','G','H','I','J','K','L']
 let tyList = ['○','I','II','III','√','×','+','++','+++','A','B','C','D','E','F','X']
-
+let lgList = ['Y', 'N']
 
 
 export default [
@@ -62,7 +63,7 @@ export default [
   { key: 'armValue', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'armValue2', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'armValue3', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue4', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'armValue4', event: keyf1, value: '', next: '', name: '', autoComplete: { data: lgList }, textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'armValue5', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'armValue6', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'armValue7', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
@@ -111,5 +112,5 @@ export default [
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''}
-  
+
 ]

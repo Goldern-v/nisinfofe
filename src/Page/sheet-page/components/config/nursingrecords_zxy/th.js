@@ -10,9 +10,9 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: "",
-  style: {
-      width: "1350px"
-    },
+  // style: {
+  //     width: "1220px"
+  //   },
   th: {
     top: [{
         name: '',
@@ -135,8 +135,8 @@ export default {
         病情观察、病情主诉、治疗、护理措施、效果
         `,
         style: {
-          minWidth: "380px",
-          maxWidth: "380px"
+          minWidth: "230px",
+          maxWidth: "230px"
         },
         colspan: "1",
         rowspan: "3"

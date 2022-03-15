@@ -8,7 +8,7 @@
               <el-button type="primary" slot="append" v-touch-ripple @click="search">搜索</el-button>
             </el-input>-->
             <el-autocomplete
-              placeholder="请输入诊断关键词"
+              :placeholder="HOSPITAL_ID == 'guizhou' ? '请输入护理问题关键词' : '请输入诊断关键词' "
               v-model="searchWord"
               class="diagnosis-search"
               :fetch-suggestions="querySearch"

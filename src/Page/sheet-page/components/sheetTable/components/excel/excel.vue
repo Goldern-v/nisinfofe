@@ -180,6 +180,17 @@
             "
             v-html="showSign(tr)"
           ></div>
+          <masked-input
+            v-else-if="['huadu'].includes(HOSPITAL_ID) && td.key == 'recordHour'"
+            type="text"
+            class="mask-input"
+            :showMask="false"
+            v-model="td.value"
+            :mask="() => [ /\d/, /\d/, ':', /\d/, /\d/]"
+            :guide="true"
+            :data-value="td.value"
+            placeholderChar=" "
+          ></masked-input>
           <div
             v-else-if="
               (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'||HOSPITAL_ID === 'liaocheng') &&
@@ -683,6 +694,7 @@ export default {
       doubleSignArr: [],
       accessOptionList: [], //下拉列表数据（贵州人医）
       defaultOptionList: [], //默认下拉列表数据
+      isOpenEditModal: false, //是否双击打开编辑框
       accessOptionData: {
         //所有下拉列表数据
         入量名称: [],
@@ -810,10 +822,12 @@ export default {
     onFocus(e, bind) {
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
-        // setTimeout(function () {
-        //   onFocusToAutoComplete(e, bind); //下拉框延迟
-        // }, 300);
-        onFocusToAutoComplete(e, bind);
+        setTimeout(() => {
+          if(!this.isOpenEditModal){
+            onFocusToAutoComplete(e, bind); //下拉框延迟
+          }
+        }, 300);
+        // onFocusToAutoComplete(e, bind);
       }
     },
     onBlur(e, bind) {
@@ -1361,6 +1375,7 @@ export default {
                 }
                 return Object.assign({}, item, obj);
               });
+              console.log(this.sheetInfo.copyRow);
           },
         },
         {
@@ -1559,6 +1574,10 @@ export default {
       window.openContextMenu({ style, data });
     },
     openEditModal(tr, data, e) {
+      this.isOpenEditModal = true;
+      setTimeout(() => {
+        this.isOpenEditModal = false;
+      }, 1000);
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       // console.log(tr,data);
       // if (
@@ -1581,7 +1600,10 @@ export default {
       } else {
         tab = "2";
       }
-
+      //佛山市一不要双击时间出弹框
+      if (this.HOSPITAL_ID == "foshanrenyi" && key == "recordHour") {
+        return
+      }
       // 双击打开编辑框,（除第1条外）默认显示特殊记录tab栏
       if (this.HOSPITAL_ID == "weixian") {
         if (this.isDisabed(tr)) {

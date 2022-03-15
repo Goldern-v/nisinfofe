@@ -6,7 +6,7 @@
           class="date-picker"
           type="date"
           size="small"
-          style="width: 190px"
+          style="width: 130px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -30,6 +30,15 @@
           >
           </el-time-select>
         </div>
+        <div class="save-btn-top" v-if="patientInfo.patientId">
+          <el-button
+            :disabled="isDisable()"
+            type="primary"
+            class="save-btn"
+            @click="saveVitalSign(vitalSignObj)"
+            >保存</el-button
+          >
+        </div>
       </div>
     </div>
     <div class="row-bottom">
@@ -42,7 +51,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${query.entryDate}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${dateInp}`
                   )
                     ? 'active'
                     : '',
@@ -213,6 +222,12 @@
                       "
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
+                         @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
                         @click="() => (vitalSignObj[j].popVisible = true)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
                         v-model="vitalSignObj[j].vitalValue"
@@ -277,6 +292,7 @@
                         type="text"
                         :id="100+otherDicListLength-1"
                         @keydown.enter="changeNext"
+
                         :title="vitalSignObj['guomingyaowu'].vitalValue"
                         @input="handlePopRefresh(vitalSignObj['guomingyaowu'])"
                         @click="
@@ -432,7 +448,6 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -460,9 +475,7 @@ export default {
     });
 
     return {
-      mockData,
       dateInp: moment().format("HH:mm"),
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       selectValue: "",
@@ -497,14 +510,11 @@ export default {
       contentHeight: { height: "" }, //页面高度
       bottomExpandDate: "",
       totalDictInfo: {},
-      selectionMultiDict: selectionMultiDict,
     };
   },
   async mounted() {
     await this.getVitalList();
-    this.bus.$on("refreshVitalSignList", () => {
-      this.getList();
-    });
+
   },
   computed: {
   },
@@ -519,6 +529,9 @@ export default {
   created() {
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
+     this.bus.$on("refreshVitalSignList", () => {
+      this.getList();
+    });
   },
   methods: {
     // 下拉选项触发查询
@@ -633,6 +646,7 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
+      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getVitalSignListByDate({
         visitId: data.visitId,
@@ -691,6 +705,9 @@ export default {
     /* 选择固定时间点 */
     changeEntryTime(val) {
       this.query.entryTime = val;
+    },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
@@ -936,16 +953,18 @@ export default {
   .column-right {
     display: inline-block;
     height: 50px;
-    margin-left: 25px;
-    overflow: auto;
+    margin-left: 15px;
+    overflow-y: auto;
+    width:100%;
   }
 
   .row-top {
     background-color: #fff;
     height: 47px;
+    width:100%;
 
     .column-left {
-      margin: 10px 45px 0px 0px;
+      margin: 10px  auto;
       flex-direction: column;
     }
   }
@@ -1098,7 +1117,10 @@ export default {
     margin-top: 10px;
     width: 100px;
   }
-
+  .save-btn-top {
+    width: 50px;
+    display: inline-block;
+  }
   .inputter-region::-webkit-scrollbar {
     display: none;
   }

@@ -123,6 +123,7 @@
           HOSPITAL_ID != 'liaocheng' &&
           HOSPITAL_ID != 'hengli' &&
           HOSPITAL_ID != 'guizhou'&&
+          HOSPITAL_ID != 'sdlj'&&
           HOSPITAL_ID != 'whfk'
         "
       >
@@ -424,7 +425,7 @@ export default {
       });
     }
     if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu" && this.HOSPITAL_ID != "beihairenyi") {
-      
+
       this.typeList = this.sugarItem;
     }
     if (this.HOSPITAL_ID === "quzhou") {

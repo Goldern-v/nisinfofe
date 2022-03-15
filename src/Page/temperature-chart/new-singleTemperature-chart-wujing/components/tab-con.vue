@@ -35,14 +35,14 @@
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div class="record-list" :style="{ width: `${35}%` }">
+        <div class="record-list" :style="{ width: `${37}%` }">
           <div class="record-item">
             <div
               :class="
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${query.entryDate}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${dateInp}`
                   )
                     ? 'active'
                     : '',
@@ -423,7 +423,6 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -452,13 +451,11 @@ export default {
     });
 
     return {
-      mockData,
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: moment().format("HH:mm:ss"), //录入时间
+        entryTime: moment().format("HH:mm")+':00', //录入时间
       },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
@@ -477,18 +474,18 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
-      selectionMultiDict: selectionMultiDict,
     };
   },
   async mounted() {
     await this.getVitalList();
-    this.bus.$on("refreshVitalSignList", () => {
-      this.getList();
-    });
+
   },
   created() {
-    window.addEventListener("resize", this.getHeight);
+    window.addEventListener("resize", this.getHeight());
     this.getHeight();
+     this.bus.$on("refreshVitalSignList", () => {
+      this.getList();
+    });
   },
   computed: {
     isPain() {
@@ -502,13 +499,13 @@ export default {
       },
       deep: true,
     },
-    rightSheet(value) {
-      alert(value);
-    },
   },
   methods: {
     handleChange(val) {
       // console.log(val);
+    },
+       formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
@@ -682,10 +679,6 @@ export default {
       let date = new Date();
       let b = date.getHours();
       return b;
-    },
-    /* 选择固定时间点 */
-    changeEntryTime(val) {
-      this.query.entryTime = val;
     },
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
@@ -959,7 +952,7 @@ export default {
     }
 
     .inputter-region {
-      width: 63%;
+      width: 60%;
       float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;
