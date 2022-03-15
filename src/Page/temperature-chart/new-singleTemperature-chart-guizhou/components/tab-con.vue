@@ -514,9 +514,7 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
-    this.bus.$on("refreshVitalSignList", () => {
-      this.getList();
-    });
+
   },
   computed: {
   },
@@ -531,6 +529,9 @@ export default {
   created() {
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
+     this.bus.$on("refreshVitalSignList", () => {
+      this.getList();
+    });
   },
   methods: {
     // 下拉选项触发查询

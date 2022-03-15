@@ -482,14 +482,14 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
-    this.bus.$on("refreshVitalSignList", () => {
-      this.getList();
-    });
-    console.log(Object.keys(this.otherMultiDictList).length)
+
   },
   created() {
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
+     this.bus.$on("refreshVitalSignList", () => {
+      this.getList();
+    });
   },
   computed: {
 
