@@ -36,7 +36,7 @@
           <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="HOSPITAL_ID !='guizhou'"></el-table-column>
           <el-table-column prop="pulse" label="脉搏(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou'"></el-table-column>
-          <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou'"></el-table-column>
+          <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou' || HOSPITAL_ID  == 'foshanrenyi'"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="bloodPressure" label="血压(mmHg)" min-width="110px" align="center"></el-table-column>
         </el-table>
@@ -96,7 +96,7 @@ export default {
     };
   },
   methods: {
-    open(baseParams) {  
+    open(baseParams) {
       console.log(baseParams,"gaohaix");
       this.formlist = baseParams
       console.log(this.formlist);
@@ -169,7 +169,7 @@ export default {
       if(this.formlist != undefined){
         return this.formlist;
       }
-        
+
     }
   },
   components: {
