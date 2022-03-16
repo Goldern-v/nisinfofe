@@ -187,16 +187,31 @@
             align="center"
           >
             <template slot-scope="scope">
-              <input
-                v-model="scope.row.stoolNum"
-                :class="className"
-                class="stoolNum"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @click="toRow"
-              />
+              <el-popover placement="right" width="100px" trigger="focus">
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in gridData"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.stoolNum = option.value;
+                    }
+                  "
+                >
+                  {{ option.value }}
+                </div>
+                <input
+                  slot="reference"
+                  v-model="scope.row.stoolNum"
+                  :class="className"
+                  class="stoolNum"
+                  type="text"
+                  @keydown="handleKeyDown"
+                  @keyup="handleKeyUp"
+                  v-on:input="validFormFc"
+                  @click="toRow"
+                />
+              </el-popover>
             </template>
           </el-table-column>
           <el-table-column
@@ -318,12 +333,12 @@
             </template>
           </el-table-column>
 
-          <el-table-column
+          <!-- <el-table-column
             prop="painScore"
             label="疼痛评分"
             min-width="70"
             align="center"
-          >
+           >
             <template slot-scope="scope">
               <input
                 v-model="scope.row.painScore"
@@ -336,7 +351,7 @@
                 @click="toRow"
               />
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -511,6 +526,17 @@
   }
 }
 
+.selection-dict-item {
+  height: 24px;
+  line-height: 24px;
+  padding: 0 5px;
+
+  &:hover {
+    background: rgb(111, 192, 164) !important;
+    color: #fff !important;
+  }
+}
+
 .all-temperature-chart {
   position: relative;
 
@@ -674,6 +700,24 @@
   margin: 0 10mm;
 }
 </style>
+<style lang="scss">
+.custom-temp-dict-select {
+  background: #fff !important;
+  color: #000 !important;
+  border: 1px solid #ddd;
+  .container {
+    min-width: 100px;
+    min-height: 26px;
+    max-height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .null-item {
+    line-height: 24px;
+    text-align: center;
+  }
+}
+</style>
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
@@ -691,6 +735,29 @@ export default {
   props: {},
   data() {
     return {
+      gridData: [
+        {
+          value: "1",
+        },
+        {
+          value: "E",
+        },
+        {
+          value: "1/E",
+        },
+        {
+          value: "0/E",
+        },
+        {
+          value: "1/2E",
+        },
+        {
+          value: "*",
+        },
+        {
+          value: "☆",
+        },
+      ],
       levelColor: null, //等级颜色
       levelColorHis: ["wujing"], //显示护理等级及颜色医院his列表
       isSelectedPatient: "",
@@ -774,23 +841,12 @@ export default {
     tableData: {
       get() {
         return this.patientsInfoData.filter((item) => {
-          if (
-            ["beihairenyi"].includes(this.HOSPITAL_ID)
-            //北海过滤婴儿的患者，批量去批量婴儿护理记录单上录入
-          ) {
-            return (
-              (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId &&
-              item.visitId !== "0"
-            );
-          } else {
-            return (
-              (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId
-            );
-          }
+          item.popVisible = false;
+          return (
+            (item.bedLabel.indexOf(this.searchWord) > -1 ||
+              item.name.indexOf(this.searchWord) > -1) &&
+            item.patientId
+          );
         });
       },
       set(value) {
@@ -942,9 +998,6 @@ export default {
         let obj = {};
         for (let key in data) {
           obj[key] = item[key] || data[key];
-          // if (key === "temperature") {
-          //   // console.log(obj[key]);
-          // }
         }
         return obj;
       });
@@ -1019,8 +1072,14 @@ export default {
       }
     },
     toRow(e) {
-      let rowIndex = e.path[3].rowIndex;
-      var trs = e.path[4].getElementsByTagName("tr");
+      let rowIndex = e.target.className.includes("stoolNum")
+        ? e.path[4].rowIndex
+        : e.path[3].rowIndex;
+      let tableElement = e.target.className.includes("stoolNum")
+        ? e.path[5]
+        : e.path[4];
+      var trs = tableElement.getElementsByClassName("el-table__row");
+
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
           trs[i].style.backgroundColor = "green";
@@ -1030,8 +1089,13 @@ export default {
       }
     },
     handleKeyUp(e) {
-      let rowIndex = e.path[3].rowIndex;
-      var trs = e.path[4].getElementsByTagName("tr");
+      let rowIndex = e.target.className.includes("stoolNum")
+        ? e.path[4].rowIndex
+        : e.path[3].rowIndex;
+      let tableElement = e.target.className.includes("stoolNum")
+        ? e.path[5]
+        : e.path[4];
+      var trs = tableElement.getElementsByClassName("el-table__row");
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
           trs[i].style.backgroundColor = "green";
