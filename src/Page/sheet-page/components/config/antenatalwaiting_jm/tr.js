@@ -110,7 +110,10 @@ export default [
     name: "胎方位",
     textarea: {
       width: 40
-    }
+    }, 
+    autoComplete: {
+      data: ['LOA','LOT','ROA','ROT','LST','RST','LSCA','RSCA']
+    },
   },
   {
     key: "preInputTwo", //胎心音
@@ -276,6 +279,22 @@ export default [
     textarea: {
       width: 30,
       maxLength: 4
+    },
+  },
+  {
+    key: "armValue", //自定义1
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 40,
+    },
+  },
+  {
+    key: "armValue2", //自定义12
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 40,
     },
   },
   {
