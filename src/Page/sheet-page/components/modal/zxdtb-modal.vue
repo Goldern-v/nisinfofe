@@ -125,7 +125,7 @@
               <masked-input 
                 v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst" 
                 class="mask-input"
-                :style="{width:'100px',border:'none',background:'transparentify'}"
+                :style="{width:'100%',border:'none',background:'transparentify',textAlign:'center'}"
                 :value="scope.row.recordDate.split(' ')[1]" 
                 @input="(value)=>changeRecordDate(scope.row,'Hour',value)"
                 type="text"
