@@ -132,9 +132,9 @@ const currentTargetUrl = (() => {
     /** 武警广东省总队医院 */
     case "wujing":
       // return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
-      // return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
+      return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.20.187:8080" // 杨鑫本地
-      return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式
+      // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式
 
     /** 曲周医院 */
     case 'quzhou':
