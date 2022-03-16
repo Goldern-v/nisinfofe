@@ -16,7 +16,7 @@
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
-          class="date-picker"
+          id="date-picker"
           type="date"
           size="mini"
           style="width: 110px"
@@ -640,6 +640,16 @@ export default {
     left: 30%;
     margin-top: 10px;
     width: 100px;
+  }
+    #date-picker {
+    >>>input {
+      pointer-events: auto !important;
+    }
+     >>>.el-input__inner {
+      border-radius: 6px;
+      margin-left:5px;
+      height:28px;
+    }
   }
 }
 </style>
