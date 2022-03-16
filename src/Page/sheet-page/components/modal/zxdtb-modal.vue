@@ -264,11 +264,11 @@ export default {
       bus: bus(this),
       formlist: {},
       executeType: this.HOSPITAL_ID==='liaocheng'?"输液":"",
-      repeatIndicator: "9",
+      repeatIndicator: "",
       identicalGroupSelect:['wujing'],
       repeatIndicatorList: [
         {
-          id: "9",
+          id: "",
           name: "全部",
         },
         {
