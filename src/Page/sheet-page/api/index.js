@@ -214,15 +214,15 @@ export const updateSheetHeadInfo = (obj = {}) => {
 };
 
 // 获取his患者体征
-export const getVitalSign = (patientId, visitId, recordDate,itemType,repeatIndIcator,id,hospitalId) => {
+export const getVitalSign = (patientId, visitId, recordDate,itemType,repeatIndicator,id,hospitalId) => {
   if(hospitalId=="wujing"){
     return axios.post(
       `${apiPath}record/block/nurseExecute/list/${id}`,{
         patientId,
         visitId,
         executeDateTime: recordDate,
-        itemType: itemType,
-        repeatIndIcator: repeatIndIcator,
+        executeType: itemType,
+        repeatIndicator: repeatIndicator,
       }
     );
   }

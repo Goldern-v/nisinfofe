@@ -460,7 +460,6 @@ export default {
     });
 
     return {
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       query: {
@@ -488,13 +487,14 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
-    this.bus.$on("refreshVitalSignList", () => {
-      this.getList();
-    });
+
   },
   created() {
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
+     this.bus.$on("refreshVitalSignList", () => {
+      this.getList();
+    });
   },
   computed: {
     isPain() {
@@ -509,7 +509,6 @@ export default {
       deep: true,
     },
     rightSheet(value) {
-      alert(value);
     },
   },
   methods: {

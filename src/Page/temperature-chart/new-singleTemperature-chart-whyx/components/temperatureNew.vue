@@ -1,28 +1,21 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown>
-        <div class="print-btn tool-btn">打印</div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <el-button type="primary" @click="onPrint()"
-              >打印当周</el-button
-            ></el-dropdown-item
-          >
-          <el-dropdown-item
-            ><el-button type="primary" @click="printAll()"
-              >批量打印</el-button
-            ></el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
+      <el-button-group>
+        <el-button type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button type="primary" @click="printAll()">批量打印</el-button>
+      </el-button-group>
+      <!-- <div class="newBorn">
+        <div @click="nomalModel()" class="nomal">默认体温单</div>
+        /
+        <div @click="changeModel()" class="painNomal">疼痛版本</div>
+      </div> -->
 
-      <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
-        <button :disabled="currentPage === 1" @click="currentPage = 1">
+      <div :class="rightSheet===true?'pagination':'paginationRight'">
+               <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
           首周
         </button>
-        <button :disabled="currentPage === 1" @click="toPre">
+        <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
         <span class="page">第<input
@@ -32,7 +25,7 @@
             class="pageInput"
             @keyup.enter="toPage()"
           />页/共{{ pageTotal }}页</span>
-        <button :disabled="currentPage === pageTotal" @click="toNext">
+        <button :disabled="currentPage === pageTotal"  @click="toNext">
           下一周
         </button>
         <button
@@ -70,7 +63,6 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
-import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
   props: {
@@ -83,21 +75,19 @@ export default {
       filePath: "",
       contentHeight: { height: "" },
       currentPage: 1,
-      pageTotal: 1,
-      printAllPath: "",
-      patientId: "",
-      visitId: "",
       toCurrentPage: 1,
+      pageTotal: 1,
       open: false,
       isSave: false,
+      isPain: false,
+      showTemp: true, //默认选择标准的体温单曲线
       visibled: false,
       isPrintAll: false, //是否打印所有
-      intranetUrl:
-        "http://192.167.199.191:9091/temperature/#/" /* 医院正式环境内网 导致跨域,
-      // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 */,
+       intranetUrl:
+        // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://220.202.32.51:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://192.167.199.191:9091/temperature/#/printAll" /* 医院正式环境内网 */,
-        // "http://192.168.1.75:8080/#/printAll" /* 医院正式环境内网 */,
+        "http://220.202.32.51:9091/temperature/#/printAll" /* 医院正式环境内网 */,
     };
   },
   methods: {
@@ -105,25 +95,32 @@ export default {
       this.isPrintAll = false;
       setTimeout(() => {
         this.$refs.pdfCon.contentWindow.postMessage(
-          { type: "printing" },
-          this.intranetUrl /* 内网 */
+          { type: "printing" },this.intranetUrl
           // this.outNetUrl /* 外网 */
         );
       }, 1500);
     },
-    //关闭婴儿版本体温曲线
-    // closeChat() {
-    //   this.$store.commit("showBabyChat", false);
-    // },
     printAll() {
       this.isPrintAll = true; //隐藏页码控制区域
       setTimeout(() => {
         this.$refs.pdfConAll.contentWindow.postMessage(
           { type: "printingAll" },
-          this.printAllUrl /* 内网 */
+          this.showTemp === true
+            ? this.printAllUrl
+            : this.withoutPainAll /* 内网 */
           // this.outNetUrl /* 外网 */
         );
       }, 1500);
+    },
+    toNext() {
+      if (this.currentPage === this.pageTotal) return;
+      this.currentPage++;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPre() {
+      if (this.currentPage === 1) return;
+      this.currentPage--;
+      this.toCurrentPage = this.currentPage;
     },
     toPage() {
       if (
@@ -142,17 +139,25 @@ export default {
 
       this.currentPage = this.toCurrentPage;
     },
-    toNext() {
-      if (this.currentPage === this.pageTotal) return;
-      this.currentPage++;
-      this.toCurrentPage = this.currentPage;
+    //切换疼痛体温单
+    changeModel() {
+      this.showTemp = false;
+      document.getElementsByClassName("painNomal")[0].style.color = "red";
+      document.getElementsByClassName("nomal")[0].style.color = "black";
+      this.$store.commit("changeModel", true);
+
+      this.getImg();
     },
-    toPre() {
-      if (this.currentPage === 1) return;
-      this.currentPage--;
-      this.toCurrentPage = this.currentPage;
+    // 切换普通体温单
+    nomalModel() {
+      this.showTemp = true;
+      document.getElementsByClassName("nomal")[0].style.color = "red";
+      document.getElementsByClassName("painNomal")[0].style.color = "";
+      this.$store.commit("changeModel", false);
+
+      this.getImg();
     },
-    getImg() {
+     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
@@ -172,6 +177,9 @@ export default {
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
+    },
+    openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
     },
     messageHandle(e) {
       if (e && e.data) {
@@ -202,9 +210,6 @@ export default {
   watch: {
     patientInfo() {
       this.isPrintAll = false;
-    },
-    authTokenNursing(val) {
-      this.authTokenNursing = val;
     },
     currentPage(value) {
       this.toCurrentPage=value
@@ -241,7 +246,7 @@ export default {
     rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
-    authTokenNursing() {
+         authTokenNursing() {
       return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
   },
@@ -256,7 +261,7 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contain {
-  margin: 10px 10px 0;
+  margin: 10px 10px 0 10px;
 
   .tem-con {
     width: 101%;
@@ -273,17 +278,21 @@ export default {
     }
   }
 }
+.pageInput {
+  width: 50px;
+  border: 0px;
+}
 
 .pagination {
   display: inline;
   position: relative;
-  left: 25%;
+  left: 13%;
   font-weight: normal;
 }
 .paginationRight{
  display: inline;
   position: relative;
-  left: 35%;
+  left: 23%;
   font-weight: normal;
 }
 .page {
@@ -324,14 +333,26 @@ button[disabled=disabled] {
   }
 }
 
+.newBorn {
+  position: relative;
+  top: 2px;
+  left: 55%;
+  display: inline-flex !important;
+}
+
+.nomal {
+  color: red;
+  margin-right: 5px;
+}
+
+.painNomal {
+  margin-left: 5px;
+}
+
 .print-btn {
   position: relative;
   left: 5%;
   top: 0;
   display: inline-flex !important;
-}
-.pageInput {
-  width: 50px;
-  border: 0px;
 }
 </style>

@@ -143,15 +143,8 @@ export default {
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
     },
-    async getDate() {
+    getDate() {
       if (this.deptCode) {
-        // this.patientListLoading = true;
-        // await patients(this.deptCode, {}).then((res) => {
-        //   this.data.bedList = res.data.data.filter((item) => {
-        //     return item.patientId;
-        //   });
-        //   this.patientListLoading = false;
-        // });
         this.bus.$emit("refreshImg");
         this.bus.$emit("refreshVitalSignList");
       }
