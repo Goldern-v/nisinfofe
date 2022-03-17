@@ -50,10 +50,10 @@
         <el-table-column prop="beginTime" label="开始时间" width="95" align="center"></el-table-column>
         <el-table-column label="护士签名" width="90" header-align="center" align="center">
           <template slot-scope="scope">
-            <div v-if="!scope.row.creatorName" class="tool-btn" @click="onSignOrCancel(scope.row)">
+            <!-- <div v-if="!scope.row.creatorName" class="tool-btn" @click="onSignOrCancel(scope.row)">
               点击签名
-            </div>
-            <div v-else  @click="onSignOrCancel(scope.row)">{{scope.row.creatorName}}</div>
+            </div> -->
+            <div @click="onSignOrCancel(scope.row)">{{scope.row.creatorName}}</div>
           </template>
         </el-table-column>
         
@@ -68,10 +68,10 @@
         <el-table-column prop="endTime" label="停止时间" width="95" align="center"></el-table-column>
          <el-table-column label="护士签名" width="90" header-align="center" align="center">
           <template slot-scope="scope">
-            <div v-if="!scope.row.signerName" class="tool-btn" @click="onSignOrCancel(scope.row)">
+            <!-- <div v-if="!scope.row.signerName" class="tool-btn" @click="onSignOrCancel(scope.row)">
               点击签名
-            </div>
-            <div v-else  @click="onSignOrCancel(scope.row)">{{scope.row.signerName}}</div>
+            </div> -->
+            <div  @click="onSignOrCancel(scope.row)">{{scope.row.operatorName}}</div>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="95" header-align="center">

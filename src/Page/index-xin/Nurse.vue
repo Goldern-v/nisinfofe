@@ -21,9 +21,8 @@
               <th colspan="4">
                 <img src="./img/体征任务.png" />
                 <span>体征任务（{{ body.content.length }}）</span>
-                <!-- 江门妇幼-待联调 -->
-                <div style="float: right" v-if="false">
-                  <el-radio-group v-model="radio" size='small'>
+                <div style="float: right" v-if="HOSPITAL_ID === 'fuyou'">
+                  <el-radio-group @change='radioChange' v-model="radioStatus" size='small'>
                     <el-radio-button label="未完成"></el-radio-button>
                     <el-radio-button label="已完成"></el-radio-button>
                   </el-radio-group>
@@ -215,7 +214,7 @@ export default {
   },
   data() {
     return {
-      radio: '未完成',
+      radioStatus: '未完成',
       body: {
         //左侧 体症任务信息
         number: 0,
@@ -263,6 +262,11 @@ export default {
     };
   },
   methods: {
+    // 
+    radioChange(value) {
+      this.radioStatus = value;
+      this.initBodyTast()
+    },
     onlyme(isme) {
       //右侧是否显示我自己的备注按钮事件
       console.log(isme);
@@ -281,6 +285,17 @@ export default {
       this.centerDialogVisible = false;
       this.$router.push("/sheetPage");
     },
+    // 体征任务
+    initBodyTast() {
+      let time = moment().format("L");
+      this.page1Loading = true;
+      bodyTast(this.deptCode, time, this.radioStatus) // 获取数据--体症任务
+        .then(rep => {
+          let data = rep.data.data;
+          this.$set(this.body, "content", data);
+          this.page1Loading = false;
+        });
+    },
     init() {
       if (!this.deptCode) return;
       let time = moment().format("L");
@@ -293,15 +308,16 @@ export default {
         this.user.name = JSON.parse(user).empName;
       } catch (error) {}
 
-      this.page1Loading = true;
+      // this.page1Loading = true;
       this.page2Loading = true;
       this.page3Loading = true;
-      bodyTast(this.deptCode, time) // 获取数据--体症任务
-        .then(rep => {
-          let data = rep.data.data;
-          this.$set(this.body, "content", data);
-          this.page1Loading = false;
-        });
+      // bodyTast(this.deptCode, time, this.radioStatus) // 获取数据--体症任务
+      //   .then(rep => {
+      //     let data = rep.data.data;
+      //     this.$set(this.body, "content", data);
+      //     this.page1Loading = false;
+      //   });
+      this.initBodyTast() // 获取数据--体症任务
       nurseTast(this.deptCode, time) //获取数据---评估任务
         .then(rep => {
           let data = rep.data.data;

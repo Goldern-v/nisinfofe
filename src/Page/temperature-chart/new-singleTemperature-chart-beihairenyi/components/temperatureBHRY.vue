@@ -1,37 +1,29 @@
 <template>
   <div>
     <div class="contain">
-      <el-dropdown>
-        <div class="print-btn tool-btn">打印</div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <el-button type="primary" @click="onPrint()"
-              >打印当周</el-button
-            ></el-dropdown-item
-          >
-          <el-dropdown-item
-            ><el-button type="primary" @click="printAll()"
-              >批量打印</el-button
-            ></el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
+         <el-button-group>
+        <el-button type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button type="primary" @click="printAll()">批量打印</el-button>
+      </el-button-group>
 
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
+      <div
+        :class="rightSheet === true ? 'pagination' : 'paginationRight'"
+        v-show="!isPrintAll"
+      >
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
         </button>
-        <button :disabled="currentPage === 1" @click="toPre">
-          上一周
-        </button>
-        <span class="page">第<input
+        <button :disabled="currentPage === 1" @click="toPre">上一周</button>
+        <span class="page"
+          >第<input
             type="number"
             min="1"
             v-model.number="toCurrentPage"
             class="pageInput"
             @keyup.enter="toPage()"
-          />页/共{{ pageTotal }}页</span>
+          />页/共{{ pageTotal }}页</span
+        >
         <button :disabled="currentPage === pageTotal" @click="toNext">
           下一周
         </button>
@@ -41,6 +33,14 @@
         >
           尾周
         </button>
+        <el-button-group :style="rightButton()">
+          <el-button type="primary" @click="syncInAndOutHospital((type = '0'))"
+            >同步入院</el-button
+          >
+          <el-button type="primary" @click="syncInAndOutHospital((type = '1'))"
+            >同步出院</el-button
+          >
+        </el-button-group>
       </div>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
@@ -70,6 +70,9 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
+import {
+  autoVitalSigns,
+} from "../../api/api";
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
@@ -94,12 +97,10 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         "http://192.167.199.191:9091/temperature/#/" /* 医院正式环境内网 导致跨域,
-      "http://192.168.1.75:8081/#/" /* 医院正式环境内网 */,
+      // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 */,
       printAllUrl:
         "http://192.167.199.191:9091/temperature/#/printAll" /* 医院正式环境内网 */,
-        // "http://192.168.1.75:8080/#/printAll" /* 医院正式环境内网 */,
-      outNetUrl:
-        "http://http://219.159.198.37:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
+      // "http://192.168.1.75:8080/#/printAll" /* 医院正式环境内网 */,
     };
   },
   methods: {
@@ -154,6 +155,27 @@ export default {
       this.currentPage--;
       this.toCurrentPage = this.currentPage;
     },
+    /* 同步入院、同步出院 */
+    syncInAndOutHospital(type) {
+      autoVitalSigns({
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        type: type,
+      }).then(async (res) => {
+        this.$message.success("同步成功");
+        await this.bus.$emit("refreshImg");
+      });
+      if (type === "0") {
+        this.query.entryDate = this.patientInfo.admissionDate.slice(0, 10);
+        this.dateInp = this.patientInfo.admissionDate.slice(11, 20);
+      }
+    },
+    rightButton() {
+      return {
+        position: "relative",
+        left: this.rightSheet === false ? "24%" : "14%",
+      };
+    },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
@@ -182,6 +204,9 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
+          case "dblclick" /* 双击查阅体温单子 */:
+            this.openRight();
+            break;
           default:
             break;
         }
@@ -206,7 +231,7 @@ export default {
       this.authTokenNursing = val;
     },
     currentPage(value) {
-      this.toCurrentPage=value
+      this.toCurrentPage = value;
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
@@ -255,10 +280,10 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .contain {
-  margin: 15px 20px 0;
+  margin: 10px 10px 0;
 
   .tem-con {
-    width: 102%;
+    width: 101%;
     height: 100%;
     position: relative;
     left: 0px;
@@ -276,15 +301,17 @@ export default {
 .pagination {
   display: inline;
   position: relative;
+  left: 15%;
+  font-weight: normal;
+}
+
+.paginationRight {
+  display: inline;
+  position: relative;
   left: 25%;
   font-weight: normal;
 }
-.paginationRight{
- display: inline;
-  position: relative;
-  left: 35%;
-  font-weight: normal;
-}
+
 .page {
   margin: 0 10px;
 }
@@ -329,6 +356,7 @@ button[disabled=disabled] {
   top: 0;
   display: inline-flex !important;
 }
+
 .pageInput {
   width: 50px;
   border: 0px;

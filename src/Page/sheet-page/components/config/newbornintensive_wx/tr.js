@@ -196,7 +196,7 @@ import { multiDictInfo } from "../../../api/index";
       name: "基础护理",
       // change: (e, td) => limitChange(e, td, 6),
       autoComplete: {
-        data: ['1','2','3','4','5']
+        data: ['√','1','2','3','4','5']
       },
       splice:true,
       textarea: {
@@ -210,7 +210,7 @@ import { multiDictInfo } from "../../../api/index";
       name: "全身皮肤颜色",
       change: (e, td) => limitChange(e, td, 4),
       autoComplete: {
-        data: ['1','2','3','4','5','6','7']
+        data: ['√','1','2','3','4','5','6','7']
       },
       splice:true,
       textarea: {
@@ -224,7 +224,7 @@ import { multiDictInfo } from "../../../api/index";
       name: "全身皮肤状况",
       change: (e, td) => limitChange(e, td, 4),
       autoComplete: {
-        data: ['1','2','3','4','5','6','7','8','9','10','11','12']
+        data: ['√','1','2','3','4','5','6','7','8','9','10','11','12']
       },
       splice:true,
       textarea: {
@@ -332,7 +332,7 @@ import { multiDictInfo } from "../../../api/index";
       name: " 肺部听诊",
       change: (e, td) => limitChange(e, td, 4),
       autoComplete: {
-        data: ['1','2','3','4','5','6','7']
+        data: ['√','1','2','3','4','5','6','7']
       },
       splice:true,
       textarea: {

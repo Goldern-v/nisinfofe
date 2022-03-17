@@ -1,6 +1,76 @@
 <template>
   <div>
     <div class="tool-contain" flex="cross:center">
+    <template  v-if="HOSPITAL_ID == 'whfk'">
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="createSheet"
+        v-if="!isSingleTem && !isDeputy && isShow()"
+      >
+        <div class="text-con">新建记录单</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="openStaticModal"
+        v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
+      >
+        <div class="text-con">出入量统计</div>
+      </div>
+      <div
+        v-if="showSetCreatePage()"
+        class="item-box"
+        flex="cross:center main:center"
+        @click="setPage"
+        style="width: 110px"
+      >
+        <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="toPrint"
+        v-if="
+          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
+          HOSPITAL_ID == 'guizhou'
+        "
+      >
+        <div class="text-con">打印预览</div>
+      </div>
+      <div
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="toPdfPrint"
+        v-show="isDev && isShow()"
+      >
+        <div class="text-con">批量打印</div>
+      </div>
+      <div
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="delSheet"
+      >
+        <div class="text-con">删除整单</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="emit('addSheetPage')"
+      >
+        <div class="text-con">添加新页</div>
+      </div>
+       <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="toSave"
+      >
+        <div class="text-con" flex="cross:center">保存</div>
+      </div>
+    </template>
+    <template v-else>
       <div
         class="item-box"
         flex="cross:center main:center"
@@ -79,6 +149,7 @@
       >
         <div class="text-con">新建记录单</div>
       </div>
+    </template>
       <div
         class="item-box"
         flex="cross:center main:center"
