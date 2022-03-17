@@ -297,6 +297,8 @@ import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEd
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
+const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-form/index.vue")
+
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
@@ -954,7 +956,14 @@ const router = new Router({
           component: implementationPersonLiaocheng,
           name: "执行单",
           alias: "执行单"
-        }
+        },
+        {
+          path: "/patientFlowForm",
+          component: patientFlowForm,
+          name: "患者流转单",
+          alias: "患者流转单"
+        },
+
         ]
       },
       {
@@ -994,6 +1003,7 @@ const router = new Router({
             case 'wujing':
             case 'lyxrm':
             case 'fsxt':
+            case 'whfk':
               return implementationListWujing
             case 'foshanrenyi':
               return implementationListFSSY
