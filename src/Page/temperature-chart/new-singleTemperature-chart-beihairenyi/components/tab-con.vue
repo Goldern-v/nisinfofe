@@ -357,7 +357,6 @@ import {
   getLastList,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -456,13 +455,15 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
-    this.bus.$on("refreshVitalSignList", () => {
-      this.getList();
-    });
+
 
   },
 
-  created() {},
+  created() {
+     this.bus.$on("refreshVitalSignList", () => {
+      this.getList();
+    });
+  },
   computed: {},
   watch: {
     query: {

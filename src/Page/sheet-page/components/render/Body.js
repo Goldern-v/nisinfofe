@@ -1300,6 +1300,16 @@ function switechSheetType(type) {
       schema = require("../config/general_xt/tr.js").default;
     }
     break; 
+    case "emergency_treat_yx": {
+      // 武汉亚心 - 急诊留观记录单
+      schema = require("../config/emergency_treat_yx/tr.js").default;
+    }
+    break;
+    case "neonatology_yx": {
+      // 武汉亚心 - 新生儿科护理记录单
+      schema = require("../config/neonatology_yx/tr.js").default;
+    }
+    break;
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/general_xt/tr.js").default;

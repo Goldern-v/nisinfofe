@@ -118,8 +118,6 @@ import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
-// import print from "printing";
-// import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureWHFK from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/temperatureWHFK";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-whfk/components/tab-con";
 export default {

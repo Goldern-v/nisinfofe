@@ -46,7 +46,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 45
+      width: 30
     },
   },
   {
@@ -57,7 +57,7 @@ export default [
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 45
+      width: 40
     },
   },
   {
@@ -68,7 +68,7 @@ export default [
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 45
+      width: 40
     },
   },
   {
@@ -85,7 +85,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 55
+      width: 42
     },
   },
   {
@@ -214,11 +214,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "410px",
+      width: "230px",
       background: "transparent",
     },
     textarea: {
-      width: 380
+      width: 230
     },
     event: function (e, td) {
       console.log(e.keyCode);

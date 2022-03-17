@@ -221,7 +221,7 @@ export const getVitalSign = (patientId, visitId, recordDate,itemType,repeatIndIc
         patientId,
         visitId,
         executeDateTime: recordDate,
-        itemType: itemType,
+        executeType: itemType,
         repeatIndIcator: repeatIndIcator,
       }
     );
