@@ -61,7 +61,7 @@
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
               >年龄111：{{ formAge ? formAge : patientInfo.age }}</span
             >
-            <span v-else>年龄333：{{ resAge ? resAge : patientInfo.age }}</span>
+            <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <span v-if="HOSPITAL_ID == 'liaocheng'"
               >病案号：{{ patientInfo.inpNo  }}</span
