@@ -2,15 +2,15 @@
   <div class="right-con" >
     <div class="row-top">
       <div class="column-right">
-        <ElDatePicker
+        <el-date-picker
           class="date-picker"
+          id="date-picker"
           type="date"
           size="mini"
           style="width: 130px;height:28px;"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
-          clearable
         />
         <div class="times">
           <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
@@ -1027,8 +1027,11 @@ export default {
     }
   }
 
-  .date-picker {
-    >>>.el-input__inner {
+  #date-picker {
+    >>>input {
+      pointer-events: auto !important;
+    }
+     >>>.el-input__inner {
       border-radius: 6px;
       margin-left:5px;
       height:28px;

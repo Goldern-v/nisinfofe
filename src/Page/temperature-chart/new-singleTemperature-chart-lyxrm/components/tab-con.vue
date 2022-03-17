@@ -3,7 +3,7 @@
     <div class="row-top">
       <div class="column-right">
         <el-date-picker
-          class="date-picker"
+          id="date-picker"
           type="date"
           size="small"
           style="width: 190px"
@@ -986,9 +986,14 @@ export default {
     }
   }
 
-  .date-picker {
-    >>>.el-input__inner {
+  #date-picker {
+    >>>input {
+      pointer-events: auto !important;
+    }
+     >>>.el-input__inner {
       border-radius: 6px;
+      margin-left:5px;
+      height:28px;
     }
   }
 
