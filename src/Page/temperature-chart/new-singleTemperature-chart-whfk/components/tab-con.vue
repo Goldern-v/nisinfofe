@@ -3,10 +3,10 @@
     <div class="row-top">
       <div class="column-right">
         <ElDatePicker
-          class="date-picker"
+          id="date-picker"
           type="date"
           size="mini"
-          style="width: 110px;height:28px;"
+          style="width: 130px;height:28px;"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -419,7 +419,6 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -448,8 +447,6 @@ export default {
     });
 
     return {
-      mockData,
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       timeVal: new Date(
@@ -532,19 +529,19 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
-      selectionMultiDict: selectionMultiDict,
     };
   },
   async mounted() {
     await this.getVitalList();
-    this.bus.$on("refreshVitalSignList", () => {
-      this.getList();
-    });
+
   },
 
   created() {
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
+     this.bus.$on("refreshVitalSignList", () => {
+      this.getList();
+    });
   },
   computed: {},
   watch: {
@@ -1007,8 +1004,11 @@ export default {
     }
   }
 
-  .date-picker {
-    >>>.el-input__inner {
+  #date-picker {
+    >>>input {
+      pointer-events: auto !important;
+    }
+     >>>.el-input__inner {
       border-radius: 6px;
       margin-left:5px;
       height:28px;

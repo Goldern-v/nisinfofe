@@ -173,8 +173,12 @@ const implementationListShannan = () =>
   import("@/Page/implementation-list/implementation-list-shannan.vue"); //山南执行单
 const implementationListZhongshanqi = () =>
   import("@/Page/implementation-list/implementation-list-zhongshanqi.vue"); //中山七执行单
+const implementationListHuadu = () =>
+  import("@/Page/implementation-list/implementation-list-huadu.vue"); //花都执行单
 const implementationListWujing = () =>
   import("@/Page/implementation-list/implementation-list-wujing.vue"); //武警执行单
+const implementationListLyxrm= ()=>
+import("@/Page/implementation-list/implementation-list-lyxrm.vue")//临邑执行单
 const implementationListFSSY = () =>
   import("@/Page/implementation-list/implementation-list-FSSY.vue"); //武警执行单
 const implementationListQuzhou = () =>
@@ -204,36 +208,40 @@ const allTemperatureChartLYXRM = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartLY.vue"); //临邑量录入体温单
 const allTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartSDLJ.vue"); //顺德龙江量录入体温单
+const allTemperatureChartWHYX = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHYX.vue"); //武汉亚心量录入体温单
 const newSingleTemperatureChart = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //聊城二院-新版体温单录入页面
+  import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //新版体温单录入页面
+const newSingleTemperatureChartLiaoCheng = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-liaocheng/new-singleTemperature-chart.vue"); //聊城二院-新版体温单录入页面
 const newSingleTemperatureChartGuizhou = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-guizhou/new-singleTemperature-chart-guizhou.vue"); //贵州省人民医院-新版体温单录入页面
+  import("@/Page/temperature-chart/new-singleTemperature-chart-guizhou/new-singleTemperature-chart.vue"); //贵州省人民医院-新版体温单录入页面
 const newSingleTemperatureChartJmfy = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-jmfy/new-singleTemperature-chart.vue"); //江门妇幼医院-新版体温单录入页面
+  import("@/Page/temperature-chart/new-singleTemperature-chart-fuyou/new-singleTemperature-chart.vue"); //江门妇幼医院-新版体温单录入页面
 const newSingleTemperatureChartBhry = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/new-singleTemperature-chart.vue");//北海人民医院-新版体温单录入页面
 const newSingleTemperatureChartQuzhou = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-quzhou/new-singleTemperature-chart.vue");//曲周医院-新版体温单录入页面
 const newSingleTemperatureChartDghl = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-dghl/new-singleTemperature-chart.vue");
+  import("@/Page/temperature-chart/new-singleTemperature-chart-hengli/new-singleTemperature-chart.vue");
 const newSingleTemperatureChartWujing = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-wujing/new-singleTemperature-chart.vue");//武警新版体温单单人录入
 const newSingleTemperatureChartZhongXiYi = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-zhongxiyi/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
+  import("@/Page/temperature-chart/new-singleTemperature-chart-nanfangzhongxiyi/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
 const newSingleTemperatureChartFSXT = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-fsxt/new-singleTemperature-chart.vue");//佛山杏坛新版体温单单人录入
 const newSingleTemperatureChartFSSY = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-fssy/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
+  import("@/Page/temperature-chart/new-singleTemperature-chart-foshanrenyi/new-singleTemperature-chart.vue");//南方中西医新版体温单单人录入
 const newSingleTemperatureChartDGXG = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-xiegang/new-singleTemperature-chart.vue");//谢岗新版体温单单人录入
 const newSingleTemperatureChartWHFK = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-whfk/new-singleTemperature-chart.vue");//武汉肺科新版体温单单人录入
 const newSingleTemperatureChartLYXRM = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-linyi/new-singleTemperature-chart.vue");//临邑新版体温单单人录入
+  import("@/Page/temperature-chart/new-singleTemperature-chart-lyxrm/new-singleTemperature-chart.vue");//临邑新版体温单单人录入
 const newSingleTemperatureChartSDLJ = () =>
-  import("@/Page/temperature-chart/new-singleTemperature-chart-longjiang/new-singleTemperature-chart.vue");//顺德龙江新版体温单单人录入
-  // const newSingleTemperatureChartHD = () =>
-  // import("@/Page/temperature-chart/new-singleTemperature-chart-huadu/new-singleTemperature-chart.vue");//花都新版体温单单人录入
+  import("@/Page/temperature-chart/new-singleTemperature-chart-sdlj/new-singleTemperature-chart.vue");//顺德龙江新版体温单单人录入
+  const newSingleTemperatureChartWHYX = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-whyx/new-singleTemperature-chart.vue");//武汉亚心新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -269,22 +277,23 @@ import inspect from "@/Page/patientInfo/supPage/inspect/inspect";
 import test from "@/Page/patientInfo/supPage/test/test";
 import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr"; //病历
 import cost from "@/Page/patientInfo/supPage/cost/cost";
-// import temperature from "@/Page/patientInfo/supPage/temperature/temperature";//旧版本体温单，弃用
-import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperatureHD";
-import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperatureGuizhou";
-import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperatureBhry";
-import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperatureLCEY";
-import temperatureFSSY from "@/Page/patientInfo/supPage/temperature/temperatureFSSY";
-import temperatureFSXT from "@/Page/patientInfo/supPage/temperature/temperatureFSXT";
-import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperatureJmfy";
-import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperatureDghl";
-import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperatureQuZhou";
-import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperatureWuJing";
-import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperatureNFZXY";
-import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperatureDGXG";
-import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperatureWHFK";
-import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperatureLY";
-import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperatureSDLJ";
+import temperature from "@/Page/patientInfo/supPage/temperature/temperature";//默认版本体温单，床位一览卡进入
+import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperature-huadu";
+import temperatureGuizhou from "@/Page/patientInfo/supPage/temperature/temperature-guizhou";
+import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperature-beihairenyi";
+import temperatureLCEY from "@/Page/patientInfo/supPage/temperature/temperature-liaocheng";
+import temperatureFSSY from "@/Page/patientInfo/supPage/temperature/temperature-foshanrenyi";
+import temperatureFSXT from "@/Page/patientInfo/supPage/temperature/temperature-fsxt";
+import temperatureJmfy from "@/Page/patientInfo/supPage/temperature/temperature-fuyou";
+import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperature-hengli";
+import temperatureQuZhou from "@/Page/patientInfo/supPage/temperature/temperature-quzhou";
+import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperature-wujing";
+import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature-nanfangzhongxiyi";
+import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperature-xiegang";
+import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-whfk";
+import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
+import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
+import temperatureWHYX from "@/Page/patientInfo/supPage/temperature/temperature-whyx";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import oxygenSugar from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar.vue"; // 厚街
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
@@ -436,8 +445,10 @@ const router = new Router({
             return temperatureSDLJ
           case 'fsxt':
             return temperatureFSXT
+          case 'whyx':
+            return temperatureWHYX
           default:
-            return temperatureWHFK
+            return temperature
         }
       })(),
       name: "体温单"
@@ -864,8 +875,10 @@ const router = new Router({
                 return temperatureSDLJ
               case 'whfk':
                 return temperatureWHFK
+              case 'whyx':
+                return temperatureWHYX
               default:
-                return temperatureWHFK
+                return temperature
             }
           })(),
           name: "体温单",
@@ -1000,16 +1013,19 @@ const router = new Router({
               return implementationListShannan
             case 'zhongshanqi':
               return implementationListZhongshanqi
-            case 'wujing':
             case 'lyxrm':
+              return implementationListLyxrm
+            case 'wujing':
+            case 'sdlj':
             case 'fsxt':
             case 'whfk':
               return implementationListWujing
             case 'foshanrenyi':
               return implementationListFSSY
             case 'quzhou':
-            case 'huadu':
               return implementationListQuzhou
+            case 'huadu':
+              return implementationListHuadu
             case 'fuyou':
               return implementationListFuyou
             case 'hengli':
@@ -1224,7 +1240,7 @@ const router = new Router({
             case 'sdlj':
               return allTemperatureChartSDLJ
             case 'whyx':
-              return allTemperatureChartWHFK
+              return allTemperatureChartWHYX
             default:
               return allTemperatureChart
           }
@@ -1251,9 +1267,6 @@ const router = new Router({
               return newSingleTemperatureChartFSSY
             case 'nanfangzhongxiyi':
               return newSingleTemperatureChartZhongXiYi
-              //武汉亚心共用南方中西的录入界面，高度契合
-            case 'whyx':
-              return newSingleTemperatureChartZhongXiYi
             case 'fsxt':
               return newSingleTemperatureChartFSXT
             case 'xiegang':
@@ -1264,8 +1277,10 @@ const router = new Router({
               return newSingleTemperatureChartLYXRM
             case 'sdlj':
               return newSingleTemperatureChartSDLJ
-              // case 'huadu':
-              //   return newSingleTemperatureChartHD
+              case 'whyx':
+                return newSingleTemperatureChartWHYX
+              case 'liaocheng':
+                return newSingleTemperatureChartLiaoCheng
             default:
               return newSingleTemperatureChart
           }

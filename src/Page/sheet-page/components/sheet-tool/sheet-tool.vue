@@ -1,6 +1,76 @@
 <template>
   <div>
     <div class="tool-contain" flex="cross:center">
+    <template  v-if="HOSPITAL_ID == 'whfk'">
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="createSheet"
+        v-if="!isSingleTem && !isDeputy && isShow()"
+      >
+        <div class="text-con">新建记录单</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="openStaticModal"
+        v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
+      >
+        <div class="text-con">出入量统计</div>
+      </div>
+      <div
+        v-if="showSetCreatePage()"
+        class="item-box"
+        flex="cross:center main:center"
+        @click="setPage"
+        style="width: 110px"
+      >
+        <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="toPrint"
+        v-if="
+          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
+          HOSPITAL_ID == 'guizhou'
+        "
+      >
+        <div class="text-con">打印预览</div>
+      </div>
+      <div
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="toPdfPrint"
+        v-show="isDev && isShow()"
+      >
+        <div class="text-con">批量打印</div>
+      </div>
+      <div
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="delSheet"
+      >
+        <div class="text-con">删除整单</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="emit('addSheetPage')"
+      >
+        <div class="text-con">添加新页</div>
+      </div>
+       <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="toSave"
+      >
+        <div class="text-con" flex="cross:center">保存</div>
+      </div>
+    </template>
+    <template v-else>
       <div
         class="item-box"
         flex="cross:center main:center"
@@ -79,6 +149,7 @@
       >
         <div class="text-con">新建记录单</div>
       </div>
+    </template>
       <div
         class="item-box"
         flex="cross:center main:center"
@@ -380,14 +451,10 @@ import patientInfoModal from "./modal/patient-info-modal";
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
-import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
+import temperatureHD from "../../../patientInfo/supPage/temperature/temperature-huadu";
 //体温曲线窗口
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
-import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
-import temperatureWuJing from "../../../patientInfo/supPage/temperature/temperatureWuJing";
-import temperatureDghl from "../../../patientInfo/supPage/temperature/temperatureDghl";
 import { getPatientInfo } from "@/api/common.js";
-import Temperature from "@/Page/patientInfo/supPage/temperature/temperature.vue";
 
 export default {
   mixins: [commom],
@@ -426,7 +493,7 @@ export default {
       if (!this.patientInfo.patientId) {
         return this.$message.info("请选择一名患者");
       }
-      let url = `http://192.168.37.203:8086?hospital_no=498784278&patient_id=${this.patientInfo.patientId}&visit_id=${this.patientInfo.visitId}&FILE_VISIT_TYPE=2` 
+      let url = `http://192.168.37.203:8086?hospital_no=498784278&patient_id=${this.patientInfo.patientId}&visit_id=${this.patientInfo.visitId}&FILE_VISIT_TYPE=2`
       window.open(url, '_blank');
     },
     pageNumKeyDown(e) {
@@ -531,7 +598,7 @@ export default {
       // 不打开窗口，打印完返回会有Bug（下拉不显示和表头不能修改）,只能重新加载页面
       if(this.HOSPITAL_ID=='liaocheng'){
          this.$store.commit('upPreRouter',location.href)
-      } 
+      }
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
       if (
@@ -1098,14 +1165,6 @@ export default {
         case "huadu":
           return temperatureHD;
           break;
-        case "liaocheng":
-          return temperatureLCEY;
-          break;
-        case "wujing":
-          return temperatureWuJing;
-          // case "hengli":
-          //   return temperatureDghl;
-          break;
         default:
           break;
       }
@@ -1285,10 +1344,6 @@ export default {
     patientInfoModal,
     patientInfo,
     temperatureHD,
-    temperatureLCEY,
-    temperatureWuJing,
-    temperatureDghl,
-    Temperature,
   },
 };
 </script>

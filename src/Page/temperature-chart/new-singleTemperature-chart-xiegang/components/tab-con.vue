@@ -3,7 +3,7 @@
     <div class="row-top">
       <div class="column-right">
         <el-date-picker
-          class="date-picker"
+          id="date-picker"
           type="date"
           size="small"
           style="width: 130px; margin-left: 2%"
@@ -448,7 +448,6 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList, selectionMultiDict } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -477,8 +476,6 @@ export default {
     });
 
     return {
-      mockData,
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       query: {
@@ -502,18 +499,18 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
-      selectionMultiDict: selectionMultiDict,
     };
   },
   async mounted() {
     await this.getVitalList();
-    this.bus.$on("refreshVitalSignList", () => {
-      this.getList();
-    });
+
   },
   created() {
     window.addEventListener("resize", this.getHeight());
     this.getHeight();
+     this.bus.$on("refreshVitalSignList", () => {
+      this.getList();
+    });
   },
   computed: {
     isPain() {
@@ -1006,10 +1003,14 @@ export default {
       }
     }
   }
-
-  .date-picker {
-    >>>.el-input__inner {
+  #date-picker {
+    >>>input {
+      pointer-events: auto !important;
+    }
+     >>>.el-input__inner {
       border-radius: 6px;
+      margin-left:5px;
+      height:28px;
     }
   }
 

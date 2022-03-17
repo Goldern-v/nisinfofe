@@ -16,7 +16,7 @@
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
-          class="date-picker"
+          id="date-picker"
           type="date"
           size="mini"
           style="width: 110px"
@@ -186,7 +186,6 @@ import {
   getLastList,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -215,8 +214,6 @@ export default {
     });
 
     return {
-      mockData,
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       query: {
@@ -294,11 +291,13 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+
+  },
+  created() {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
   },
-  created() {},
   computed: {},
   watch: {
     query: {
@@ -641,6 +640,16 @@ export default {
     left: 30%;
     margin-top: 10px;
     width: 100px;
+  }
+    #date-picker {
+    >>>input {
+      pointer-events: auto !important;
+    }
+     >>>.el-input__inner {
+      border-radius: 6px;
+      margin-left:5px;
+      height:28px;
+    }
   }
 }
 </style>

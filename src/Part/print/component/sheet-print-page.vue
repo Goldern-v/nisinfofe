@@ -274,8 +274,8 @@ export default {
       });
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
-    // 江门妇幼的护理单打印双数页面会翻转,横沥ICU机械通气护理单。修复
-    if(this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"||this.HOSPITAL_ID==="wujing"||this.HOSPITAL_ID==="fsxt"){
+    // 江门妇幼的护理单打印双数页面会翻转,横沥ICU机械通气护理单,武汉肺科。修复
+    if(this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"||this.HOSPITAL_ID==="wujing"||this.HOSPITAL_ID==="fsxt"||this.HOSPITAL_ID==="whfk"){
       printDir("h");
             addCSS(
               window,
@@ -509,7 +509,7 @@ export default {
         `
       );
     }
-    if (this.HOSPITAL_ID == "weixian") {
+    if (this.HOSPITAL_ID == "weixian"||this.HOSPITAL_ID == "whyx") {
       addCSS(
         window,
         `
@@ -519,7 +519,7 @@ export default {
           ((sheetTableWidth * 25.4) / 96) * 0.68
         )}mm;
         }
-
+        
         @media print {
         #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
          height: auto !important;

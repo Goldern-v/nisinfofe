@@ -33,7 +33,7 @@
             :style="{ top: flagTop }"
             flex="main:center cross:center"
             @click="openRight"
-           >
+          >
             <i
               class="iconfont icon-yincang"
               v-show="rightSheet"
@@ -45,7 +45,12 @@
               style="margin-left: -2px"
             ></i>
           </div>
-          <tabCon class="contain-right" :patientInfo="patientInfo" v-show="rightSheet"> </tabCon>
+          <tabCon
+            class="contain-right"
+            :patientInfo="patientInfo"
+            v-show="rightSheet"
+          >
+          </tabCon>
         </div>
       </div>
     </div>
@@ -66,7 +71,8 @@
       top: 0px;
       bottom: 0;
     }
-.flag-con {
+
+    .flag-con {
       width: 10px;
       height: 73px;
       position: relative;
@@ -83,8 +89,8 @@
         font-size: 12px;
       }
     }
+
     .right-part {
-      margin-left: 199px;
       height: 100%;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
@@ -101,12 +107,14 @@
         .contain-right {
           flex: 3;
           border-left: 1px solid #eee;
-          height: 100%;
-          padding: 10px;
+          overflow: hidden;
           // margin-top:10px;
-          overflow-y: auto;
         }
       }
+    }
+
+    .isLeft {
+      margin-left: 199px;
     }
   }
 }
@@ -117,9 +125,7 @@ import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
-import patientList from "@/components/patient-list/patient-list-SingleTemperatureChart.vue";
-// import print from "printing";
-// import formatter from "@/Page/temperature-chart/print-formatter";
+import patientList from "@/components/patient-list/patient-list.vue";
 import temperatureBHRY from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/temperatureBHRY";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-beihairenyi/components/tab-con";
 export default {
@@ -140,9 +146,9 @@ export default {
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
     },
-     flagTop() {
+    flagTop() {
       return `${this.wih * 0.4}px`;
-    }, 
+    },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
@@ -153,7 +159,7 @@ export default {
       if (this.fullpage) {
         return this.wih - 44 + "px";
       } else {
-        return this.wih - 74 + "px";
+        return this.wih - 64 + "px";
       }
     },
     fullpage() {
@@ -171,7 +177,8 @@ export default {
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
-        patients(this.deptCode, {}).then((res) => {
+        //这里有两个获取患者信息接口，传空就用新的排序
+        patients(this.deptCode, null).then((res) => {
           this.data.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
@@ -179,7 +186,7 @@ export default {
         });
       }
     },
-     openRight() {
+    openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
     },
     async isSelectPatient(item) {

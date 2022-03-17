@@ -133,7 +133,7 @@
 
       img {
         width: 65%;
-        height: 100%;
+        height: 90%;
         //object-fit: cover;
         object-fit: contain !important;
         -webkit-object-fit: contain!important;
