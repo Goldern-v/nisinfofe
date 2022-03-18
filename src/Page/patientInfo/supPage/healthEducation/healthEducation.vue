@@ -1,5 +1,5 @@
 <template>
-<div class="ealth-education">
+<div class="health-education">
   <div class="health-education-list">
     <div class="treeTitle">健康教育单</div>
     <baseTree :configList="configList" class="baseTree"></baseTree>
@@ -331,7 +331,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-  .ealth-education {
+  .health-education {
     display: flex;
     .health-education-list {
       width: 20%;

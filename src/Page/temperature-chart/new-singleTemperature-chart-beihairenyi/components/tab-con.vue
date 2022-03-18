@@ -663,6 +663,15 @@ export default {
             recordDate: item.recordDate,
             recordPerson: item.vitalSignList[0].nurseName,
           });
+          if (
+            item.vitalSignList[0].id.recordDate ===
+              item.vitalSignList[0].expand2 &&
+            item.vitalSignList[0].vitalSign === "表顶注释"
+          ) {
+            //同步出入院插入一条表顶，会生成一个录入记录，这里用录入记录只存在一条表顶，录入时间=生成记录时间去除
+            //返回的表顶值，先做数据切割然后才能对应option值
+            item.vitalSignList[0].vitalValue = item.vitalSignList[0].expand1;
+          }
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
