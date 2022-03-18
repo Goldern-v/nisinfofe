@@ -96,6 +96,7 @@ export default {
           recordCode:
         //北海体温单调用护理记录单模板
         this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
+        moduleCode:this.getRecordCode()?'bodyTemperature':"",
           wardCode: this.deptCode
         };
         dictDelete(data).then(res => {

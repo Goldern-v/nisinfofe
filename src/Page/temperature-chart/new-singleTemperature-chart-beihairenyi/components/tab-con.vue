@@ -2,15 +2,15 @@
   <div class="right-con" >
     <div class="row-top">
       <div class="column-right">
-        <ElDatePicker
+        <el-date-picker
           class="date-picker"
+          id="date-picker"
           type="date"
           size="mini"
           style="width: 130px;height:28px;"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
-          clearable
         />
         <div class="times">
           <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
@@ -663,6 +663,15 @@ export default {
             recordDate: item.recordDate,
             recordPerson: item.vitalSignList[0].nurseName,
           });
+          if (
+            item.vitalSignList[0].id.recordDate ===
+              item.vitalSignList[0].expand2 &&
+            item.vitalSignList[0].vitalSign === "表顶注释"
+          ) {
+            //同步出入院插入一条表顶，会生成一个录入记录，这里用录入记录只存在一条表顶，录入时间=生成记录时间去除
+            //返回的表顶值，先做数据切割然后才能对应option值
+            item.vitalSignList[0].vitalValue = item.vitalSignList[0].expand1;
+          }
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
@@ -1027,8 +1036,11 @@ export default {
     }
   }
 
-  .date-picker {
-    >>>.el-input__inner {
+  #date-picker {
+    >>>input {
+      pointer-events: auto !important;
+    }
+     >>>.el-input__inner {
       border-radius: 6px;
       margin-left:5px;
       height:28px;
