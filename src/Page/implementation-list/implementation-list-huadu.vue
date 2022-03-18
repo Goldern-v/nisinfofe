@@ -63,18 +63,6 @@
           ></el-option>
         </el-select>
         <div style="flex: 1"></div>
-         <el-input
-          size="small"
-          style="width: 150px;margin-right: 15px;"
-          placeholder="输入医嘱内容查询"
-          v-model="instructions"
-        ></el-input>
-        <el-input
-          size="small"
-          style="width: 150px;margin-right: 15px;"
-          placeholder="输入病人姓名进行搜索"
-          v-model="patientName"
-        ></el-input>
         <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
@@ -84,8 +72,14 @@
         <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
-          placeholder="输入途径进行搜索"
-          v-model="administration"
+          placeholder="输入住院号进行搜索"
+          v-model="inpNo"
+        ></el-input>
+        <el-input
+          size="small"
+          style="width: 150px;margin-right: 15px;"
+          placeholder="输入病人姓名进行搜索"
+          v-model="patientName"
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
@@ -258,6 +252,7 @@ export default {
       status: "",
       bedLabel: "",
       patientName: "",
+      inpNo: "",
       instructions:"",//医嘱内容
       administration: "", //途径
       transfusionStatus: [
@@ -353,6 +348,7 @@ export default {
         executeType: this.type, //--类型:注射 ,输液, 口服 ,雾化, 皮试 ,标本, 输血,
         bedLabel: this.bedLabel, //--床号
         patientName: this.patientName, //--患者姓名
+        inpNo: this.inpNo,//住院号
         repeatIndicator: this.repeatIndicator, //--医嘱类型:长期 ,临时
         executeStatus: this.status //状态:默认空查询全部  null未执行  1是执行中  2暂停 3 停止~~~~  4已执行
       };
@@ -362,18 +358,16 @@ export default {
           let prevRowId =
             array[index - 1] &&
             array[index - 1].patientId +
-              array[index - 1].barcode +
-              array[index - 1].executeDateTime;
+              array[index - 1].barcode;
           let nextRowId =
             array[index + 1] &&
             array[index + 1].patientId +
-              array[index + 1].barcode +
-              array[index + 1].executeDateTime;
+              array[index + 1].barcode ;
+
           let currentRowId =
             array[index] &&
             array[index].patientId +
-              array[index].barcode +
-              array[index].executeDateTime;
+              array[index].barcode ;
 
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
