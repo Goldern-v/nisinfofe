@@ -79,6 +79,8 @@ const shiftWorkFq = () => import("@/Page/shift-work-fq/shift-work.vue");
 const shiftWorkDetailFq = () => import("@/Page/shift-work-fq/shift-work-detail.vue");
 const shiftWorkWujing = () => import("@/Page/shift-work-wujing/shift-work.vue");
 const shiftWorkDetailWujing = () => import("@/Page/shift-work-wujing/shift-work-detail.vue");
+const shiftWorkWhfk = () => import("@/Page/shift-work-whfk/shift-work.vue");
+const shiftWorkDetailWhfk = () => import("@/Page/shift-work-whfk/shift-work-detail.vue");
 
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
 const shiftWorkNFZXY = () => import("@/Page/shift-work-nfzxy/shift-work.vue");//贵州交班志
@@ -627,6 +629,8 @@ const router = new Router({
               return shiftWorkFq
             case 'wujing':
               return shiftWorkWujing
+            case 'whfk':
+              return shiftWorkWhfk
             case 'nanfangzhongxiyi':
               return shiftWorkNFZXY
             // case 'guizhou':
@@ -658,6 +662,8 @@ const router = new Router({
                 return shiftWorkDetailFq
               case 'wujing':
                 return shiftWorkDetailWujing
+              case 'whfk':
+                return shiftWorkDetailWhfk
               default:
                 return shiftWorkDetail
             }

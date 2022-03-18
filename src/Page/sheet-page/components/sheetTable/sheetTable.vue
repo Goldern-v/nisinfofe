@@ -152,6 +152,7 @@ import tableHeadShanNan from "./components/table-head/table-head-shannan";
 import tableHeadQz from "./components/table-head/table-head-qz";
 import tableHeadWhFk from "./components/table-head/table-head-whfk"
 import tableHeadLcey from "./components/table-head/table-head-lcey"
+import tableHeadWhYx from "./components/table-head/table-head-whyx.vue"
 export default {
   props: {
     data: Object,
@@ -237,7 +238,9 @@ export default {
         return tableHeadSdlj;
       }else if (this.HOSPITAL_ID == "liaocheng") {
         return tableHeadLcey;
-      } else {
+      } else if (this.HOSPITAL_ID == "whyx") {
+        return tableHeadWhYx;
+      }else {
         return tableHead;
       }
     }
