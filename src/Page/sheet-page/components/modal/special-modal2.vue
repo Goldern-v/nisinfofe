@@ -859,7 +859,8 @@ export default {
         list: [],
       },
       multiDictList: [],
-      beihaiList:["体温","脉搏","呼吸","血压","心率"]
+      beihaiList:["体温","脉搏","呼吸","血压","心率"],
+      isSaving:false,//给弹窗保存做节流
     };
   },
   computed: {
@@ -1321,6 +1322,10 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
+      if(this.isSaving){
+        return
+      }
+      this.isSaving=true
       if(!this.staticObj.recordHour){
         return this.$message.warning('记录时间不得为空！')
       }
@@ -1534,6 +1539,9 @@ export default {
         this.bus.$emit("saveSheetPage", this.isLast);
       }
       this.close();
+      setTimeout(()=>{
+        this.isSaving=false
+      },1000)
     },
     openTemplateSlider() {
       // this.$message.warning('正在开发中')
