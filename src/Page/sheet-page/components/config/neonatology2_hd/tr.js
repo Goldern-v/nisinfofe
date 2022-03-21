@@ -126,6 +126,7 @@ export default [
     key: "fieldSix", // 喂养自吮
     value: "",
     event: keyf1,
+    name: "自吮",
     autoComplete: {
       data:click
     },
@@ -138,6 +139,7 @@ export default [
     key: "fieldSeven", //喂养母乳
     value: "",
     event: keyf1,
+    name: "母乳",
     autoComplete: {
       data:click
     },
@@ -150,6 +152,7 @@ export default [
     key: "fieldEight", // 喂养人工
     value: "",
     event: keyf1,
+    name: "人工",
     autoComplete: {
       data:click
     },
