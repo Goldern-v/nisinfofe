@@ -1538,10 +1538,10 @@ export default {
       } else {
         this.bus.$emit("saveSheetPage", this.isLast);
       }
+      this.close();
       setTimeout(()=>{
         this.isSaving=false
       },1000)
-      this.close();
     },
     openTemplateSlider() {
       // this.$message.warning('正在开发中')
