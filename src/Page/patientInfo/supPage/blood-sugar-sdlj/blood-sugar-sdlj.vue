@@ -113,17 +113,8 @@
             第 {{ index + 1 }} / {{ listMap.length }} 页
           </div>
         </div>
-        <nullBg v-show="listMap.length == 0"></nullBg>
-        <!-- <div class="addBtn" v-show="listMap.length == 0"> -->
-        <div class="addBtn" v-show="listMap.length == 0 && !isPreview">
-          <whiteButton text="添加血氧记录" @click="onAddTable" :disabled="isPreview"/>
-        </div>
       </div>
     </div>
-    <bloodSugarModal ref="bloodSugarModal" @onCreate='onCreate'></bloodSugarModal>
-    <!-- <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
-    <editAge ref="editAge" @confirm="onSaveAge" />
-    <setPageModal ref="setPageModal" /> -->
   </div>
 </template>
 
@@ -271,12 +262,6 @@
 <script>
 import sugarTable from "./components/sugar-table.vue";
 import {
-  getSugarListWithPatientId,
-  saveSugarList,
-  removeSugar,
-  getPvHomePage,
-  getSugarItemDict,
-  getEditAge,
   getFormHeadData,
   getForm, //获取表单数据
   save, // 保存表单数据
@@ -290,7 +275,6 @@ import nullBg from "@/components/null/null-bg.vue";
 import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin.js";
-import bloodSugarModal from "../../supComponts/modal/blood-sugar-modal.vue"
 
 export default {
   mixins: [common],
@@ -362,19 +346,13 @@ export default {
     },
   },
   created() {
-    console.log(111111111)
   },
   methods: {
-    onCreate(data) {
-      console.log(data, 99991)
-      this.$emit("onCreate", data)
-    },
     uploadView() {
       this.load();
       this.getSugarItemDict();
     },
     handleSelectedleft(item,data){
-      // console.log(item,data,'this.selected')
       this.tableData = data
     },
     // 保存数据
@@ -420,7 +398,6 @@ export default {
       return !this.$route.path.includes("nursingPreview");
     },
     async getFormHead() {
-      console.log()
       const res = await getFormHeadData(
         this.patientInfo.patientId,
         this.patientInfo.visitId
@@ -495,21 +472,19 @@ export default {
       this.isChart = !this.isChart;
     },
     async onAddTable() {
-      // this.baseParams.formCode = this.fkOxygenCode
-      // try{
-      //   this.patientInfo.id =""
-      //   const res = await save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode)
-      //   this.saveParams = res.data.data;
-      // } catch(err){
-      //   console.log(err)
-      // }
-      // if (this.$route.query.patientId) {
-      //   this.listMap.push({ left: [], right: [] });
-      // } else {
-      //   this.$message.warning("请先选择一名患者");
-      // }
-
-      this.$refs.bloodSugarModal.open()
+      this.baseParams.formCode = this.fkOxygenCode
+      try{
+        this.patientInfo.id =""
+        const res = await save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode)
+        this.saveParams = res.data.data;
+      } catch(err){
+        console.log(err)
+      }
+      if (this.$route.query.patientId) {
+        this.listMap.push({ left: [] });
+      } else {
+        this.$message.warning("请先选择一名患者");
+      }
     },
     // onAdd() {
     //   this.$refs.editModal.open("添加血糖记录");
@@ -563,9 +538,12 @@ export default {
       }
     },
   },
-  created() {
+  async created() {
     if (this.$route.query.patientId) {
-      this.load();
+      await this.load();
+    }
+    if (this.listMap.length == 0 && !this.isPreview) {
+      this.onAddTable()
     }
   },
   watch: {
@@ -586,7 +564,6 @@ export default {
     whiteButton,
     sugarChart,
     nullBg,
-    bloodSugarModal
   },
 };
 </script>

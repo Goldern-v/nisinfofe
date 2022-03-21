@@ -108,6 +108,7 @@
 <script>
 import commonMixin from "@/common/mixin/common.mixin";
 import bus from "vue-happy-bus";
+
 export default {
   mixins: [commonMixin],
   data() {

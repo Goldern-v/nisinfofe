@@ -8,8 +8,13 @@
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}" ref="rightPart">
         <!-- <bloodSugar ref="bloodSugar"></bloodSugar> -->
-        <component v-if="!isAdult" :is="switchCompt()" ref="bloodSugar" @onCreate='onCreate' :setScrollTop="setScrollTop"/>
-        <sugarBtn v-else ref="sugarBtn" @onAddTableModal='onAddTableModal'>1111</sugarBtn>
+        <div v-if="HOSPITAL_ID === 'sdlj'">
+          <component v-if="!isAdult" :is="el" ref="bloodSugar" :setScrollTop="setScrollTop"/>
+          <sugarBtn v-else ref="sugarBtn" @onAddTableModal='onAddTableModal'></sugarBtn>
+        </div>
+        <div v-else>
+          <component :is="switchCompt()" ref="bloodSugar" :setScrollTop="setScrollTop"/>
+        </div>
       </div>
     </div>
     <bloodSugarModal ref="bloodSugarModal" @onCreate='onCreate'></bloodSugarModal>
@@ -59,6 +64,7 @@ import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-su
 import sugarBtn from "@/Page/patientInfo/supPage/blood-sugar-sdlj/components/sugar-btn.vue";
 import bloodSugarModal from "@/Page/patientInfo/supComponts/modal/blood-sugar-modal.vue"
 import tr from '../sheet-page/components/config/tbhld_lc/tr';
+import { getPatientForm } from "@/Page/patientInfo/supPage/blood-sugar-sdlj/api/index.js"; //获取患者存在表单id
 
 export default {
   mixins: [common],
@@ -69,8 +75,8 @@ export default {
       },
       patientListLoading: false,
       bus: bus(this),
-      isAdult: false,
-      status: {}
+      isAdult: true,
+      el: 'bloodSugar'
     };
   },
   computed: {
@@ -82,16 +88,18 @@ export default {
     },
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
-    }
+    },
   },
   methods: {
     onAddTableModal() {
       this.$refs.bloodSugarModal.open()
     },
     onCreate(data) {
-      console.log(data, 9990)
-      this.status = data || {}
       this.isAdult = false
+      if (data.type == "成人") 
+        this.el = 'bloodSugarSdlj' 
+      else 
+        this.el = 'bloodSugar'
     },
     //设置滚动
     setScrollTop(){
@@ -117,38 +125,44 @@ export default {
     },
     // 依据医院名字，标题组件切换
     switchCompt(HisName = process.env.HOSPITAL_NAME) {
-      console.log(this.status.type, 765)
       let hisList = {
         威县人民医院: "bloodSugarWeiXian",
         东莞市厚街医院: "bloodSugar",
         北海市人民医院:'bloodSugarBhry',
-        佛山市顺德区龙江医院: (this.status.type === '成人' ? 'bloodSugarSdlj' : 'bloodSugar')
+        // 佛山市顺德区龙江医院: 'bloodSugarSdlj'
       };
-      console.log(hisList,222)
       return hisList[HisName] || "bloodSugar";
     },
-    isSelectPatient(item,isScrollTop=false) {
-      console.log('item', item);
-      let age = (item.age.substring(0, item.age.length - 1))
-      // if (+age < 30) this.isAdult = '0'
-      // else this.isAdult = '1'
-      // if (this.isAdult) {
-      //   this.isAdult = 0
-      // }
-      console.log(this.isAdult, 666)
-      if (age >= 0) {
-        this.isAdult = true
-      } else {
-        // todo  判断是否是成人 还是创建儿童
-          this.$router.replace(
-          {
+    async isSelectPatient(item,isScrollTop=false) {
+      if (this.HOSPITAL_ID === 'sdlj') {
+        const { data } = await getPatientForm(item.patientId, item.visitId)
+        // data数据为空的情况下是 这个患者没有创建血糖单子
+        if (!data.data) {
+          this.isAdult = true
+        } else {
+          // 判断是否是成人 还是创建儿童
+          this.isAdult = false
+          if (data.data.hisPatSugarList) { // 接口儿童单子特有的字段 hisPatSugarList
+            // '儿童'
+            this.el = 'bloodSugar'
+          } else {
+            // '成人'
+            this.el = 'bloodSugarSdlj' 
+          }
+          this.$router.replace({
             path: "/sugarPage",
             query: item
-          },
-          () => {
-            this.$refs.bloodSugar.load(isScrollTop);
-          }
-        );
+          }, () => {
+            this.$refs.bloodSugar && this.$refs.bloodSugar.load(isScrollTop);
+          });
+        }
+      } else {
+        this.$router.replace({
+          path: "/sugarPage",
+          query: item
+        }, () => {
+          this.$refs.bloodSugar.load(isScrollTop);
+        });
       }
     }
   },
@@ -173,7 +187,7 @@ export default {
         this.bus.$emit("closeAssessment");
       }
       this.getDate();
-    }
+    },
   },
   components: {
     patientList,
