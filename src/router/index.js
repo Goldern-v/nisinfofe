@@ -145,6 +145,7 @@ const flatManagement = () => import("@/Page/flat-management/flat-management"); /
 const puerperantSituation = () =>
   import("@/Page/puerperantSituation/puerperantSituation"); //产科分娩登记表
 const archive = () => import("@/Page/archive/archive.vue"); //归档
+const archiveFSSY = () => import("@/Page/archive/archiveFSSY.vue"); //归档
 const familyBigScreen = () =>
   import("@/Page/family-big-screen/family-big-screen.vue"); //家属大屏
 const videoListSetting = () =>
@@ -497,7 +498,14 @@ const router = new Router({
       },
       {
         path: "/archive",
-        component: archive,
+        component: (() => {
+          switch(HOSPITAL_ID) {
+            case 'foshanrenyi':
+              return archiveFSSY
+            default:
+              return archive
+          }
+        })(),
         alias: "归档"
       },
       {

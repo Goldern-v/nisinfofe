@@ -135,7 +135,7 @@
         </div>
       </span>
     </div>
-    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
+    <bedRecordModal v-if="!this.$route.path.includes('print')" ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 
@@ -244,6 +244,7 @@ export default {
     },
   },
   created() {
+    console.log();
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
@@ -252,7 +253,6 @@ export default {
       this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
       console.log(this.patientInfo);
-
   },
   watch: {},
   components: {
