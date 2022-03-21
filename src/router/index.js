@@ -79,6 +79,8 @@ const shiftWorkFq = () => import("@/Page/shift-work-fq/shift-work.vue");
 const shiftWorkDetailFq = () => import("@/Page/shift-work-fq/shift-work-detail.vue");
 const shiftWorkWujing = () => import("@/Page/shift-work-wujing/shift-work.vue");
 const shiftWorkDetailWujing = () => import("@/Page/shift-work-wujing/shift-work-detail.vue");
+const shiftWorkWhfk = () => import("@/Page/shift-work-whfk/shift-work.vue");
+const shiftWorkDetailWhfk = () => import("@/Page/shift-work-whfk/shift-work-detail.vue");
 
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
 const shiftWorkNFZXY = () => import("@/Page/shift-work-nfzxy/shift-work.vue");//贵州交班志
@@ -143,6 +145,7 @@ const flatManagement = () => import("@/Page/flat-management/flat-management"); /
 const puerperantSituation = () =>
   import("@/Page/puerperantSituation/puerperantSituation"); //产科分娩登记表
 const archive = () => import("@/Page/archive/archive.vue"); //归档
+const archiveFSSY = () => import("@/Page/archive/archiveFSSY.vue"); //归档
 const familyBigScreen = () =>
   import("@/Page/family-big-screen/family-big-screen.vue"); //家属大屏
 const videoListSetting = () =>
@@ -306,6 +309,8 @@ import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEd
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
+const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-form/index.vue")
+
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
@@ -493,7 +498,14 @@ const router = new Router({
       },
       {
         path: "/archive",
-        component: archive,
+        component: (() => {
+          switch(HOSPITAL_ID) {
+            case 'foshanrenyi':
+              return archiveFSSY
+            default:
+              return archive
+          }
+        })(),
         alias: "归档"
       },
       {
@@ -617,6 +629,8 @@ const router = new Router({
               return shiftWorkFq
             case 'wujing':
               return shiftWorkWujing
+            case 'whfk':
+              return shiftWorkWhfk
             case 'nanfangzhongxiyi':
               return shiftWorkNFZXY
             // case 'guizhou':
@@ -648,6 +662,8 @@ const router = new Router({
                 return shiftWorkDetailFq
               case 'wujing':
                 return shiftWorkDetailWujing
+              case 'whfk':
+                return shiftWorkDetailWhfk
               default:
                 return shiftWorkDetail
             }
@@ -967,7 +983,14 @@ const router = new Router({
           component: implementationPersonLiaocheng,
           name: "执行单",
           alias: "执行单"
-        }
+        },
+        {
+          path: "/patientFlowForm",
+          component: patientFlowForm,
+          name: "患者流转单",
+          alias: "患者流转单"
+        },
+
         ]
       },
       {
@@ -1009,6 +1032,7 @@ const router = new Router({
             case 'wujing':
             case 'sdlj':
             case 'fsxt':
+            case 'whfk':
               return implementationListWujing
             case 'foshanrenyi':
               return implementationListFSSY

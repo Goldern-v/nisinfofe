@@ -19,36 +19,6 @@
         align="center"
       ></el-table-column>
       <el-table-column
-        label="住院号"
-        min-width="80px"
-        align="center"
-      >
-        <template slot-scope="scope">
-          <div>
-            {{
-              scope.row.rowType == 1 || !scope.row.rowType
-                ? scope.row.patientId
-                : ""
-            }}
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="住院次数"
-        min-width="80px"
-        align="center"
-      >
-        <template slot-scope="scope">
-          <div>
-            {{
-              scope.row.rowType == 1 || !scope.row.rowType
-                ? scope.row.visitId
-                : ""
-            }}
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column
         prop="bedLabel"
         label="床号"
         min-width="50px"
@@ -81,17 +51,32 @@
         </template>
       </el-table-column>
       <el-table-column
+        label="住院号"
+        min-width="65px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <div>
+            {{
+              scope.row.rowType == 1 || !scope.row.rowType
+                ? scope.row.patientId
+                : ""
+            }}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column
         prop="repeatIndicator"
         label="医嘱类型"
         min-width="80px"
         align="center"
       >
-        <template slot-scope="scope">{{getRepeatIndicatorType(scope.row.repeatIndicator)}}</template>
+        <!-- <template slot-scope="scope">{{getRepeatIndicatorType(scope.row.repeatIndicator)}}</template> -->
       </el-table-column>
       <el-table-column
         prop="executeDateTime"
         label="计划执行时间"
-        min-width="120px"
+        min-width="60px"
         align="center"
       >
         <template slot-scope="scope">
@@ -107,6 +92,7 @@
         <template slot-scope="scope">
           <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">
             {{ scope.row.itemName || scope.row.orderText }}
+            <!-- {{ scope.row.barCode + '  ' + scope.row.rowType}} -->
           </div>
         </template>
       </el-table-column>
@@ -114,7 +100,7 @@
       <el-table-column
         prop="dosage"
         label="剂量"
-        min-width="80px"
+        min-width="70px"
         align="center"
       >
         <template slot-scope="scope">
@@ -135,7 +121,7 @@
       <el-table-column
         label="频次"
         prop="frequency"
-        min-width="50px"
+        min-width="60px"
         align="center"
       ></el-table-column>
 
@@ -148,7 +134,7 @@
       <el-table-column
         prop="executeFlag"
         label="执行状态"
-        min-width="90px"
+        min-width="70px"
         align="center"
       >
         <template slot-scope="scope">
@@ -162,43 +148,80 @@
           <span v-if="scope.row.type == 1">(补)</span>
         </template>
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="operationStatus"
-        label="备药（试管备管）-收药-时间-执行人"
+        label="备药备管"
         min-width="250px"
         align="center"
       >
         <template slot-scope="scope">
           <div v-if="scope.row.operationStatus==11||scope.row.operationStatus==15||scope.row.operationStatus==16">执行人时间和名字</div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
+        label="备药备管"
+        min-width="135px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span v-html="timeAndNameFormat2(scope.row,'bai')"></span>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column
         prop="operationStatus"
-        label="备药核对时间-备药核对执行人"
+        label="备药备管核对"
         min-width="200px"
         align="center"
       >
         <template slot-scope="scope">
           <div v-if="scope.row.operationStatus==12">执行人时间和名字</div>
         </template>
-      </el-table-column><el-table-column
+      </el-table-column> -->
+      <el-table-column
+        label="备药备管核对"
+        min-width="135px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span v-html="timeAndNameFormat2(scope.row,'beiHe')"></span>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column
         prop="operationStatus"
-        label="加药时间-加药执行人"
+        label="加药"
         min-width="200px"
         align="center"
       >
         <template slot-scope="scope">
           <div v-if="scope.row.operationStatus==13">执行人时间和名字</div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
+        label="加药"
+        min-width="135px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span v-html="timeAndNameFormat2(scope.row,'pei')"></span>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column
         prop="operationStatus"
-        label="加药核对时间-加药核对执行人"
+        label="加药核对"
         min-width="200px"
         align="center"
       >
         <template slot-scope="scope">
           <div v-if="scope.row.operationStatus==14">执行人时间和名字</div>
+        </template>
+      </el-table-column> -->
+      <el-table-column
+        label="加药核对"
+        min-width="135px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span v-html="timeAndNameFormat2(scope.row,'he')"></span>
         </template>
       </el-table-column>
       <!-- <el-table-column
@@ -210,21 +233,39 @@
 
       <!-- <el-table-column prop="startDateTime" label="开始输液时间" min-width="80px" align="center"></el-table-column> -->
       <el-table-column
-        label="开始执行时间-执行人"
-        min-width="200px"
+        label="输液开始"
+         min-width="135px"
         align="center"
       >
         <template slot-scope="scope">
-          <span>{{ timeAndNameFormat(scope.row,'start') }}</span>
+          <span v-html="timeAndNameFormat(scope.row,'start')"></span>
         </template>
       </el-table-column>
       <el-table-column
-        label="执行结束时间-执行人"
+        label="执行完成"
+         min-width="135px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span v-html="timeAndNameFormat(scope.row,'end')"></span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="取消"
+        min-width="135px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span v-html="timeAndNameFormat(scope.row,'stop')"></span>
+        </template>
+      </el-table-column>
+       <el-table-column
+        label="原因"
         min-width="200px"
         align="center"
       >
         <template slot-scope="scope">
-          <span>{{ timeAndNameFormat(scope.row,'end') }}</span>
+          <span v-html="timeAndNameFormat(scope.row,'stopReason')"></span>
         </template>
       </el-table-column>
       <el-table-column label="操作" min-width="100px" align="center">
@@ -474,7 +515,10 @@ export default {
   components: {},
   methods: {
     timeAndNameFormat(row,type){
-      return row[`${type}DateTime`] && row[`${type}Nurse`] ? `${row[`${type}DateTime`]}-${row[`${type}Nurse`]}` : ''
+      return row[`${type}DateTime`] && row[`${type}Nurse`] ? `${row[`${type}DateTime`]}<br>${row[`${type}Nurse`]}` : ''
+    },
+    timeAndNameFormat2(row,type){
+      return row[`${type}Time`] && row[`${type}Nurse`] ? `${row[`${type}Time`]}<br>${row[`${type}Nurse`]}` : ''
     },
     getRepeatIndicatorType(type){
       return repeatIndicatorType[type] || ''

@@ -337,6 +337,8 @@ export default {
           if(res.data.code == '200'){
             this.$message.success("保存成功");
             this.load();
+            this.leftData ={}
+            this.rightData ={}
           }else{
             this.$message.success(res.data.desc);
           }
@@ -354,7 +356,6 @@ export default {
       return !this.$route.path.includes("nursingPreview");
     },
     async getFormHead() {
-      console.log()
       const res = await getFormHeadData(
         this.patientInfo.patientId,
         this.patientInfo.visitId
@@ -378,7 +379,6 @@ export default {
         this.hisPatSugarList = resList.data.data.list;
         this.saveParams = resList.data.data
         this.sugarUserInfo= resList.data.data
-        console.log(this.sugarUserInfo,'=======>sugar ')
         /** 时间排序 */
         let list = resList.data.data.list
         let listMap = [];
@@ -461,7 +461,7 @@ export default {
       if(this.selected){
         if(this.selected.id){
           await this.$confirm(
-          "确定要删除该血糖记录吗？删除后将无法恢复！",
+          "确定要删除该血氧记录吗？删除后将无法恢复！",
           "提示",
           {
             confirmButtonText: "确定删除",

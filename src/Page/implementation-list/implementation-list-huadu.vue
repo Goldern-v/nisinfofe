@@ -63,18 +63,6 @@
           ></el-option>
         </el-select>
         <div style="flex: 1"></div>
-         <el-input
-          size="small"
-          style="width: 150px;margin-right: 15px;"
-          placeholder="输入医嘱内容查询"
-          v-model="instructions"
-        ></el-input>
-        <el-input
-          size="small"
-          style="width: 150px;margin-right: 15px;"
-          placeholder="输入病人姓名进行搜索"
-          v-model="patientName"
-        ></el-input>
         <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
@@ -84,8 +72,14 @@
         <el-input
           size="small"
           style="width: 150px;margin-right: 15px;"
-          placeholder="输入途径进行搜索"
-          v-model="administration"
+          placeholder="输入住院号进行搜索"
+          v-model="patientId"
+        ></el-input>
+        <el-input
+          size="small"
+          style="width: 150px;margin-right: 15px;"
+          placeholder="输入病人姓名进行搜索"
+          v-model="patientName"
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
@@ -258,6 +252,7 @@ export default {
       status: "",
       bedLabel: "",
       patientName: "",
+      patientId: "",
       instructions:"",//医嘱内容
       administration: "", //途径
       transfusionStatus: [
@@ -353,6 +348,7 @@ export default {
         executeType: this.type, //--类型:注射 ,输液, 口服 ,雾化, 皮试 ,标本, 输血,
         bedLabel: this.bedLabel, //--床号
         patientName: this.patientName, //--患者姓名
+        patientId: this.patientId,//住院号
         repeatIndicator: this.repeatIndicator, //--医嘱类型:长期 ,临时
         executeStatus: this.status //状态:默认空查询全部  null未执行  1是执行中  2暂停 3 停止~~~~  4已执行
       };
@@ -360,42 +356,43 @@ export default {
       getExecuteWithWardcode(obj).then(res => {
         this.tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
-            array[index - 1] &&
-            array[index - 1].patientId +
-              array[index - 1].barcode +
-              array[index - 1].executeDateTime;
+            array[index - 1] && +
+              array[index - 1].patientId +
+              array[index - 1].barCode;
           let nextRowId =
-            array[index + 1] &&
+            array[index + 1] && +
             array[index + 1].patientId +
-              array[index + 1].barcode +
-              array[index + 1].executeDateTime;
+              array[index + 1].barCode ;
+
           let currentRowId =
             array[index] &&
             array[index].patientId +
-              array[index].barcode +
-              array[index].executeDateTime;
-
+              array[index].barCode ;
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
+            let data = { ...item, rowType: '' }
             if (currentRowId != prevRowId) {
               /** 第一条 */
-              item.rowType = 1;
-              children.push(item);
-              item.children = children;
+              data.rowType = 1;
+              children.push(data);
+              data.children = children;
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
-              item.rowType = 3;
-              children.push(item);
+              data.rowType = 3;
+              children.push(data);
               children = [];
             } else {
               /** 中间条 */
-              item.rowType = 2;
-              children.push(item);
+              data.rowType = 2;
+              children.push(data);
             }
+            console.log(data, index);
+            return data
           }
           return item;
         });
         // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
+        console.log(this.tableData);
         this.pageLoadng = false;
       });
     },
