@@ -24,7 +24,7 @@
 }
 </style>
 <script>
-import { recallAudit } from '../api';
+import { recallApply } from '../api';
 export default {
 props: {
   item: {
@@ -49,11 +49,11 @@ methods: {
     this.resultText = ''
     this.$refs.modal.open()
   },
-  async recallAudit() {
+  async recallApply() {
     try {
       const { patientId, visitId } = this.item
       this.$emit('update:loading', true)
-      const res = await recallAudit({
+      const res = await recallApply({
         patientId,
         visitId,
         handleContent: this.resultText
@@ -69,7 +69,7 @@ methods: {
     }
   },
   async handleSubmit() {
-    await this.recallAudit()
+    await this.recallApply()
   }
 },
 components: {}
