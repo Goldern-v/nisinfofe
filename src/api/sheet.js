@@ -95,3 +95,8 @@ export const syncToIsbar = (obj) => {
 export const syncVisitWithDatePad = (patientId, visitId, startDate, endDate) => {
   return axios.get(`${apiPath}nursingVisit/getNursingVisitWithDatePad/${patientId}/${visitId}/${startDate}/${endDate}`);
 };
+
+// 护记批量删除选中行
+export const delSelectRow = (params) => {
+  return axios.post(`${apiPath}record/${sheetInfo.sheetType}/deleteMultiRecord`, params);
+}
