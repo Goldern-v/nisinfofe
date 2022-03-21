@@ -104,6 +104,11 @@ export default {
     };
   },
   methods: {
+    syncInAndOutHospital(type){
+      console.log(type,'type')
+      this.bus.$emit('syncInAndOutHospital',type)
+
+    },
     onPrint() {
       this.isPrintAll = false;
       setTimeout(() => {
@@ -155,21 +160,7 @@ export default {
       this.currentPage--;
       this.toCurrentPage = this.currentPage;
     },
-    /* 同步入院、同步出院 */
-    syncInAndOutHospital(type) {
-      autoVitalSigns({
-        patientId: this.patientInfo.patientId,
-        visitId: this.patientInfo.visitId,
-        type: type,
-      }).then(async (res) => {
-        this.$message.success("同步成功");
-        await this.bus.$emit("refreshImg");
-      });
-      if (type === "0") {
-        this.query.entryDate = this.patientInfo.admissionDate.slice(0, 10);
-        this.dateInp = this.patientInfo.admissionDate.slice(11, 20);
-      }
-    },
+
     rightButton() {
       return {
         position: "relative",
