@@ -303,6 +303,7 @@ export default {
         ? this.measures.map(item => item.serialNo)
         : [];
       this.isTargetIndeterminate = false;
+      console.log( this.measures)
     },
     handleTargetCheckedChange(value) {
       let checkedCount = value.length;
@@ -314,9 +315,11 @@ export default {
     },
     /** 全选目标 */
     handleFactorCheckAllChange(event) {
-      this.resultFactorList = event.factor.checked
-        ? this.measures.map(item => item.serialNo)
+      this.resultFactorList = event.target.checked
+        ? this.factorList.map(item => item.serialNo)
         : [];
+
+      console.log( this.factorList)
       this.isFactorIndeterminate = false;
     },
     handleFactorCheckedChange(value) {

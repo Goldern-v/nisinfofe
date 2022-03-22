@@ -36,7 +36,7 @@
           clearable
         />
       </span>
-      <div class="times" v-if="['huadu', 'fuyou'].includes(HOSPITAL_ID)">
+      <div class="times" v-if="['huadu', 'fuyou','fsxt'].includes(HOSPITAL_ID)">
         <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
           <input
             type="radio"
@@ -1376,7 +1376,7 @@ export default {
           return {
             backgroundColor:this.getBaColor(row),
             color:"white",
-          }; 
+          };
       }
     },
     //获取对应护理等级背景颜色

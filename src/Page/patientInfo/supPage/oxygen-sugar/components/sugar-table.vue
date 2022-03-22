@@ -60,6 +60,7 @@
           <td>
             <div class="cell noPrint"  @click="openSignModal(item)">
               <img
+                style="width: 65%; height: 80%;"
                 :src="`/crNursing/api/file/signImage/${item.signerNo}?${token}`"
                 :alt="item.signerNo"
                 v-if="item.signerNo"
@@ -67,6 +68,7 @@
             <div :class="['cell','inPrint']">
               <!-- {{item.nurseEmpNo}} -->
               <img
+                style="width: 65%; height: 80%;"
                 :src="`/crNursing/api/file/signImage/${item.signerNo}?${token}`"
                 :alt="item.signerNo"
                 v-if="item.signerNo"
@@ -133,7 +135,7 @@
 
       img {
         width: 65%;
-        height: 90%;
+        height: 80%;
         //object-fit: cover;
         object-fit: contain !important;
         -webkit-object-fit: contain!important;
@@ -154,6 +156,10 @@
 
   .inPrint {
     display: none;
+    img{
+      width: 65%;
+      height: 80%;
+    }
  
     &.lc {
       height: 29px;

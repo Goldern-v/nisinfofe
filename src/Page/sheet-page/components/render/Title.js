@@ -1596,6 +1596,13 @@ export default function Title(
     );
   }
   break;
+  case "microsurgical_sdlj": {
+    // 顺德龙江 - 护理记录单（显微外科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/microsurgical_sdlj/th.js").default)
+    );
+  }
+  break;
   case "cardiovascular_xt": {
     // 佛山杏坛 - 护理记录单(心血管呼吸专科)
     Th = JSON.parse(

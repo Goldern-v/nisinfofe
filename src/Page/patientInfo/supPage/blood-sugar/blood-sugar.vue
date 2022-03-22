@@ -59,7 +59,7 @@
             <span>病人姓名：{{ patientInfo.name  || tableHeaderInfo.name }}</span>
             <span>性别：{{ patientInfo.sex  || tableHeaderInfo.gender }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
-              >年龄111：{{ formAge ? formAge : patientInfo.age }}</span
+              >年龄：{{ formAge ? formAge : patientInfo.age }}</span
             >
             <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
@@ -489,12 +489,16 @@ if(this.selected.expand2!==undefined){
       });
     },
     toPrint() {
-      window.localStorage.sugarModel = $(this.$refs.Contain).html();
-      if (process.env.NODE_ENV === "production") {
-        let newWid = window.open();
-        newWid.location.href = "/crNursing/print/sugar";
-      } else {
+      if (this.HOSPITAL_ID === 'sdlj') {
         this.$router.push(`/print/sugar`);
+      } else {
+        window.localStorage.sugarModel = $(this.$refs.Contain).html();
+        if (process.env.NODE_ENV === "production") {
+          let newWid = window.open();
+          newWid.location.href = "/crNursing/print/sugar";
+        } else {
+          this.$router.push(`/print/sugar`);
+        }
       }
     },
     openChart() {
