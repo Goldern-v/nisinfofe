@@ -444,18 +444,6 @@ export default {
     };
 
     let entryTime = "02";
-    let currentSecond =
-      new Date().getHours() * 60 + new Date().getMinutes() * 1;
-
-    Object.keys(initTimeArea).forEach((time) => {
-      let [start, end] = initTimeArea[time];
-
-      let startSecond = start.split(":")[0] * 60 + start.split(":")[1] * 1;
-
-      let endSecond = end.split(":")[0] * 60 + end.split(":")[1] * 1;
-      if (currentSecond >= startSecond && currentSecond <= endSecond)
-        entryTime = time;
-    });
 
     return {
       bus: bus(this),
@@ -497,10 +485,40 @@ export default {
           }
           //录入时间
         })(), //录入时间
+         recordStr:(() => {
+          if (this.getHours() >= 0 && this.getHours() <= 3) {
+            return "03:00:00";
+          }
+          if (this.getHours() > 3 && this.getHours() <= 7) {
+            return "07:00:00";
+          }
+          if (this.getHours() > 7 && this.getHours() <= 11) {
+            return "11:00:00";
+          }
+          if (this.getHours() > 11 && this.getHours() <= 15) {
+            return "15:00:00";
+          }
+          if (this.getHours() > 15 && this.getHours() <= 19) {
+            return "19:00:00";
+          }
+          if (this.getHours() > 19 && this.getHours() <= 23) {
+            return "23:00:00";
+          }
+          //录入时间
+        })(), //录入时间, //录入时间,//记录时间，用来保存录入记录的时间
+
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
       activeNames: ["biometric", "otherBiometric"],
+      nomalTimeStr: [
+        "03:00:00",
+        "07:00:00",
+        "11:00:00",
+        "15:00:00",
+        "19:00:00",
+        "23:00:00",
+      ], //存在出入院记录不是模糊时间点（03，07，09）这种，所以做一个标准时间去判断
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
       otherMultiDictList: {}, //其他体征信息
@@ -544,6 +562,9 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+    this.bus.$on("syncInAndOutHospital", (type) => {
+      this.syncInAndOutHospital(type)
+    });
 
   },
 
@@ -558,7 +579,10 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
+        if(this.query.entryTime&&this.query.entryDate){
         this.getList();
+
+        }
       },
       deep: true,
     },
@@ -595,6 +619,18 @@ export default {
           document.getElementById("1").focus();
         }
       }
+    },
+     /* 同步入院、同步出院 */
+    syncInAndOutHospital(type) {
+      autoVitalSigns({
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        type: type,
+      }).then(async (res) => {
+        this.getList();
+        this.$message.success("同步成功");
+        await this.bus.$emit("refreshImg");
+      });
     },
     handleChange(val) {
       // console.log(val);
@@ -663,15 +699,6 @@ export default {
             recordDate: item.recordDate,
             recordPerson: item.vitalSignList[0].nurseName,
           });
-          if (
-            item.vitalSignList[0].id.recordDate ===
-              item.vitalSignList[0].expand2 &&
-            item.vitalSignList[0].vitalSign === "表顶注释"
-          ) {
-            //同步出入院插入一条表顶，会生成一个录入记录，这里用录入记录只存在一条表顶，录入时间=生成记录时间去除
-            //返回的表顶值，先做数据切割然后才能对应option值
-            item.vitalSignList[0].vitalValue = item.vitalSignList[0].expand1;
-          }
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
@@ -717,20 +744,14 @@ export default {
     changeEntryTime(val) {
       this.query.entryTime = val;
     },
+
     /* 联动修改查询的日期和时间 */
     changeQuery(value) {
+      console.log(value,this.query)
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-
-      // 北海在记录单那边同步数据,时间直接取点击的
-      if (
-        this.$route.path.includes("newSingleTemperatureChart") ||
-        this.$route.path.includes("temperature")
-      ) {
-        this.query.entryTime = temp.slice(12, 14);
-      } else {
-        this.query.entryTime = value.split("  ")[1];
-      }
+       this.query.recordStr = temp.slice(12, 20);
+       this.query.entryTime = temp.slice(12, 14);
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -751,7 +772,9 @@ export default {
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.nomalTimeStr.includes(this.query.recordStr)?
+         this.query.entryTime + ":00:00"
+          : this.query.recordStr,
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
@@ -763,6 +786,14 @@ export default {
               this.timeVal = moment(
                 this.vitalSignObj[v.vitalCode].expand2
               ).utc()._d;
+              if(v.expand1==='入院'){
+              this.vitalSignObj[v.vitalCode].expand1='入院|'
+
+              }
+              if(v.expand1==='出院'){
+              this.vitalSignObj[v.vitalCode].expand1='出院|'
+
+              }
             }
           });
         } else {
@@ -781,7 +812,6 @@ export default {
         res.data.data.filter(item=>{
               return item.wardCode==="*"
         })
-        console.log(res.data.data)
         res.data.data.map((item, index) => {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
@@ -849,6 +879,7 @@ export default {
         visitId: this.patientInfo.visitId,
         type: type,
       }).then(async (res) => {
+        this.getList();
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
       });
@@ -900,7 +931,9 @@ export default {
           ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 = this.topExpandDate;
+            item.expand2 = item.expand2 =moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+          " " +
+          this.topExpandDate;
             break;
           case "中间注释":
             item.expand2 =moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
@@ -917,7 +950,9 @@ export default {
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
-        timeStr: this.query.entryTime + ":00:00",
+         timeStr: this.nomalTimeStr.includes(this.query.recordStr)
+          ? this.query.entryTime + ":00:00"
+          : this.query.recordStr,
         vitalSignList: obj,
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,

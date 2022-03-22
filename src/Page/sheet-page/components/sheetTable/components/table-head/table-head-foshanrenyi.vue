@@ -135,7 +135,7 @@
         </div>
       </span>
     </div>
-    <bedRecordModal v-if="!this.$route.path.includes('print')" ref="bedRecordModal"></bedRecordModal>
+    <bedRecordModal v-if="!$route.path.includes('print')" ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 

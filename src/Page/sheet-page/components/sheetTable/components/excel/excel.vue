@@ -182,6 +182,7 @@
           ></div>
           <masked-input
             v-else-if="['huadu'].includes(HOSPITAL_ID) && td.key == 'recordHour'"
+            :position="`${x},${y},${index}`"
             type="text"
             class="mask-input"
             :showMask="false"
@@ -190,6 +191,7 @@
             :guide="true"
             :data-value="td.value"
             placeholderChar=" "
+            @keydown="onKeyDown($event, { x, y, z: index, td });"
           ></masked-input>
           <div
             v-else-if="
@@ -575,6 +577,7 @@ import {
   sign,
   cancelSign,
   delRow,
+  delSelectRow,
   markSave,
   markDelete,
 } from "@/api/sheet.js";
@@ -1549,6 +1552,37 @@ export default {
           },
         };
         data.push(obj);
+      }else if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+        data.splice(5,0,
+        {
+          name: "批量删除选中行",
+          icon: "shanchuzhenghang",
+          disable: !this.sheetInfo.selectRow.length,
+          click:()=>{
+            let ids = this.sheetInfo.selectRow.map(row=>{
+              return row.find((item) => {
+                return item.key == "id";
+              }).value;
+            })
+            let hasRoot = this.sheetInfo.selectRow.every(row=>{
+              let empNo = row.find((item) => {
+                return item.key == "empNo";
+              }).value
+              return empNo ? empNo == this.empNo : true;
+            })
+            if(!hasRoot) return this.$message.warning("所选记录有非本人记录！");
+            this.$parent.$parent.$refs.signModal.open((password, empNo) => {
+              delSelectRow({password,empNo,ids}).then(res=>{
+                this.$notify.success({
+                  title: "提示",
+                  message: "删除成功",
+                  duration: 1000,
+                });
+                this.bus.$emit("saveSheetPage", true);
+              })
+            })
+          }
+        },)
       }
       if(this.sheetInfo.sheetType=="nursingrecords_zxy"&&cell.key=="description"){
         let obj = {

@@ -113,17 +113,8 @@
             第 {{ index + 1 }} / {{ listMap.length }} 页
           </div>
         </div>
-        <nullBg v-show="listMap.length == 0"></nullBg>
-        <!-- <div class="addBtn" v-show="listMap.length == 0"> -->
-        <div class="addBtn" v-show="listMap.length == 0 && !isPreview">
-          <whiteButton text="添加血氧记录" @click="onAddTable" :disabled="isPreview"/>
-        </div>
       </div>
     </div>
-
-    <!-- <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
-    <editAge ref="editAge" @confirm="onSaveAge" />
-    <setPageModal ref="setPageModal" /> -->
   </div>
 </template>
 
@@ -271,12 +262,6 @@
 <script>
 import sugarTable from "./components/sugar-table.vue";
 import {
-  getSugarListWithPatientId,
-  saveSugarList,
-  removeSugar,
-  getPvHomePage,
-  getSugarItemDict,
-  getEditAge,
   getFormHeadData,
   getForm, //获取表单数据
   save, // 保存表单数据
@@ -361,7 +346,6 @@ export default {
     },
   },
   created() {
-    console.log(111111111)
   },
   methods: {
     uploadView() {
@@ -369,7 +353,6 @@ export default {
       this.getSugarItemDict();
     },
     handleSelectedleft(item,data){
-      // console.log(item,data,'this.selected')
       this.tableData = data
     },
     // 保存数据
@@ -406,7 +389,7 @@ export default {
           console.log(err,"resss")
         }
       }else{
-         this.$message.warning("请填写血糖监测记录表！");
+         this.$message.warning("请填写血糖监测记录！");
       }
 
     },
@@ -415,7 +398,6 @@ export default {
       return !this.$route.path.includes("nursingPreview");
     },
     async getFormHead() {
-      console.log()
       const res = await getFormHeadData(
         this.patientInfo.patientId,
         this.patientInfo.visitId
@@ -478,12 +460,12 @@ export default {
       // console.log(this.isToPrint)
       window.localStorage.oxygenModel = $(this.$refs.Contain).html();
       // this.isToPrint=false;
-      if (process.env.NODE_ENV === "production") {
-        let newWid = window.open();
-        newWid.location.href = "/crNursing/print/bloodSugar";
-      } else {
+      // if (process.env.NODE_ENV === "production") {
+      //   let newWid = window.open();
+      //   newWid.location.href = "/crNursing/print/bloodSugar";
+      // } else {
         this.$router.push(`/print/bloodSugar`);
-      }
+      // }
     },
     openChart() {
       // this.$refs.sugarChartModal.open()
@@ -499,7 +481,7 @@ export default {
         console.log(err)
       }
       if (this.$route.query.patientId) {
-        this.listMap.push({ left: [], right: [] });
+        this.listMap.push({ left: [] });
       } else {
         this.$message.warning("请先选择一名患者");
       }
@@ -556,9 +538,12 @@ export default {
       }
     },
   },
-  created() {
+  async created() {
     if (this.$route.query.patientId) {
-      this.load();
+      await this.load();
+    }
+    if (this.listMap.length == 0 && !this.isPreview) {
+      this.onAddTable()
     }
   },
   watch: {

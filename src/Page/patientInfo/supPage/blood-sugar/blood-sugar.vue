@@ -59,7 +59,7 @@
             <span>病人姓名：{{ patientInfo.name  || tableHeaderInfo.name }}</span>
             <span>性别：{{ patientInfo.sex  || tableHeaderInfo.gender }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
-              >年龄111：{{ formAge ? formAge : patientInfo.age }}</span
+              >年龄：{{ formAge ? formAge : patientInfo.age }}</span
             >
             <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
@@ -443,7 +443,7 @@ if(this.selected.expand2!==undefined){
         this.patientInfo.visitId
       );
       this.tableHeaderInfo=res.data.data
-      console.log(res.data.data)
+      console.log(res.data.data, 88888)
       if(res.data.data.hisPatSugarList.length != 0){
         this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel
       }
@@ -489,12 +489,16 @@ if(this.selected.expand2!==undefined){
       });
     },
     toPrint() {
-      window.localStorage.sugarModel = $(this.$refs.Contain).html();
-      if (process.env.NODE_ENV === "production") {
-        let newWid = window.open();
-        newWid.location.href = "/crNursing/print/sugar";
-      } else {
+      if (this.HOSPITAL_ID === 'sdlj') {
         this.$router.push(`/print/sugar`);
+      } else {
+        window.localStorage.sugarModel = $(this.$refs.Contain).html();
+        if (process.env.NODE_ENV === "production") {
+          let newWid = window.open();
+          newWid.location.href = "/crNursing/print/sugar";
+        } else {
+          this.$router.push(`/print/sugar`);
+        }
       }
     },
     openChart() {
@@ -610,9 +614,14 @@ if(this.selected.expand2!==undefined){
       }
     },
   },
-  created() {
+  async created() {
     if (this.$route.query.patientId) {
-      this.load();
+      await this.load();
+    }
+    
+    // 为了处理顺德龙江选择儿童单子立马创建表单问题
+    if (this.HOSPITAL_ID === "sdlj" && this.listMap.length == 0 && !this.isPreview) {
+      this.onAddTable()
     }
     if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
       this.getSugarItemDict();

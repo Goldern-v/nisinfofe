@@ -52,7 +52,7 @@
       </el-table-column>
       <el-table-column
         label="住院号"
-        min-width="70px"
+        min-width="65px"
         align="center"
       >
         <template slot-scope="scope">
@@ -71,7 +71,7 @@
         min-width="80px"
         align="center"
       >
-        <template slot-scope="scope">{{getRepeatIndicatorType(scope.row.repeatIndicator)}}</template>
+        <!-- <template slot-scope="scope">{{getRepeatIndicatorType(scope.row.repeatIndicator)}}</template> -->
       </el-table-column>
       <el-table-column
         prop="executeDateTime"
@@ -92,6 +92,7 @@
         <template slot-scope="scope">
           <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`">
             {{ scope.row.itemName || scope.row.orderText }}
+            <!-- {{ scope.row.barCode + '  ' + scope.row.rowType}} -->
           </div>
         </template>
       </el-table-column>
@@ -99,7 +100,7 @@
       <el-table-column
         prop="dosage"
         label="剂量"
-        min-width="95px"
+        min-width="70px"
         align="center"
       >
         <template slot-scope="scope">
@@ -120,7 +121,7 @@
       <el-table-column
         label="频次"
         prop="frequency"
-        min-width="65px"
+        min-width="60px"
         align="center"
       ></el-table-column>
 
@@ -133,7 +134,7 @@
       <el-table-column
         prop="executeFlag"
         label="执行状态"
-        min-width="90px"
+        min-width="70px"
         align="center"
       >
         <template slot-scope="scope">
@@ -159,7 +160,7 @@
       </el-table-column> -->
       <el-table-column
         label="备药备管"
-        min-width="150px"
+        min-width="135px"
         align="center"
       >
         <template slot-scope="scope">
@@ -178,7 +179,7 @@
       </el-table-column> -->
       <el-table-column
         label="备药备管核对"
-        min-width="150px"
+        min-width="135px"
         align="center"
       >
         <template slot-scope="scope">
@@ -197,7 +198,7 @@
       </el-table-column> -->
       <el-table-column
         label="加药"
-        min-width="150px"
+        min-width="135px"
         align="center"
       >
         <template slot-scope="scope">
@@ -216,7 +217,7 @@
       </el-table-column> -->
       <el-table-column
         label="加药核对"
-        min-width="150px"
+        min-width="135px"
         align="center"
       >
         <template slot-scope="scope">
@@ -233,7 +234,7 @@
       <!-- <el-table-column prop="startDateTime" label="开始输液时间" min-width="80px" align="center"></el-table-column> -->
       <el-table-column
         label="输液开始"
-         min-width="150px"
+         min-width="135px"
         align="center"
       >
         <template slot-scope="scope">
@@ -242,7 +243,7 @@
       </el-table-column>
       <el-table-column
         label="执行完成"
-         min-width="150px"
+         min-width="135px"
         align="center"
       >
         <template slot-scope="scope">
@@ -251,7 +252,7 @@
       </el-table-column>
       <el-table-column
         label="取消"
-        min-width="150px"
+        min-width="135px"
         align="center"
       >
         <template slot-scope="scope">

@@ -107,25 +107,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="physicalCooling"
-            label="降温处理"
-            min-width="70"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.physicalCooling"
-                :class="className"
-                class="physicalCooling"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column
             prop="pulse"
             label="脉搏"
             align="center"
@@ -148,32 +129,6 @@
                 @click="toRow"
               />
               <!-- <el-input v-model="scope.row.pulse"></el-input> -->
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="heartRate"
-            label="心率"
-            min-width="70"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.heartRate"
-                :class="className"
-                class="heartRate"
-                type="number"
-                @mousewheel="
-                  (e) => {
-                    e.preventDefault();
-                  }
-                "
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.heartRate" class="heartRate" /> -->
-              <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -200,6 +155,27 @@
               />
               <!-- <input v-model="scope.row.breath" class="breath" /> -->
               <!-- <el-input v-model="scope.row.breath"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.stoolNum"
+                :class="className"
+                class="stoolNum"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.stoolNum" class="stoolNum" /> -->
+              <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -242,6 +218,52 @@
               />
             </template>
           </el-table-column>
+          <el-table-column
+            prop="physicalCooling"
+            label="降温处理"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.physicalCooling"
+                :class="className"
+                class="physicalCooling"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+
+          <el-table-column
+            prop="heartRate"
+            label="心率"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.heartRate"
+                :class="className"
+                class="heartRate"
+                type="number"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.heartRate" class="heartRate" /> -->
+              <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
+            </template>
+          </el-table-column>
 
           <!-- <el-table-column
             prop="urinate"
@@ -264,27 +286,6 @@
             </template>
           </el-table-column> -->
 
-          <el-table-column
-            prop="stoolNum"
-            label="大便次数"
-            min-width="70"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.stoolNum"
-                :class="className"
-                class="stoolNum"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.stoolNum" class="stoolNum" /> -->
-              <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
-            </template>
-          </el-table-column>
           <!-- <el-table-column
             prop="fieldThree"
             label="尿量"
@@ -851,12 +852,14 @@ export default {
                 ? ((item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
                     item.patientId &&
-                    item.patientCondition === "病危"||
-                  item.patientCondition === "病重")
+                    item.patientCondition === "病危") ||
+                  item.patientCondition === "病重"
                 : (item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
                   item.patientId &&
-    moment(item.admissionDate.slice(0, 10)).isAfter(moment().subtract(4, "days").format("YYYY-MM-DD"))
+                  moment(item.admissionDate.slice(0, 10)).isAfter(
+                    moment().subtract(4, "days").format("YYYY-MM-DD")
+                  );
             })
           : this.heightTemperature.filter((item) => {
               return (
@@ -893,10 +896,10 @@ export default {
         ? moment(data.entryDate).format("YYYY/MM/DD ")
         : moment(new Date()).format("YYYY/MM/DD");
       this.pageLoadng = true;
-     await getPatientsInfo(data).then((res) => {
+      await getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
       });
-       data.abnormalTemperature = 1;
+      data.abnormalTemperature = 1;
       getPatientsInfo(data).then((res) => {
         this.heightTemperature = res.data.data;
         this.pageLoadng = false;
