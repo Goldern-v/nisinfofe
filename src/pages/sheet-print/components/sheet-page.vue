@@ -180,7 +180,7 @@ export default {
               if (document.querySelector('th[dataname="审核签名"]')) {
                 $(".contant").width(Math.max($(".contant").width()));
               }
-              if(['foshanrenyi'].includes(this.HOSPITAL_ID)&&document.querySelector('th[dataname="审核签名"]')){
+              if(['foshanrenyi'].includes(this.HOSPITAL_ID)&&document.querySelector('th[dataname="质控护士"]')){
                 $(".contant").width(Math.max($(".contant").width()));
               }
               console.log('findAndEach');
