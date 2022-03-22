@@ -1214,6 +1214,11 @@ function switechSheetType(type) {
       // 顺德龙江 - 护理记录单（儿科）
       schema = require("../config/pediatrics_sdlj/tr.js").default;
     }
+    break;
+    case "microsurgical_sdlj": {
+      // 顺德龙江 - 护理记录单（显微外科）
+      schema = require("../config/microsurgical_sdlj/tr.js").default;
+    }
     break; 
     case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）
