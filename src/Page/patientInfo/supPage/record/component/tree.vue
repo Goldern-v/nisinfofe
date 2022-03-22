@@ -33,6 +33,7 @@
           :data="regions"
           highlight-current
           :render-content="renderContent"
+          :default-expand-all="HOSPITAL_ID=='whfk'"
           @node-click="nodeClick"
           node-key="index"
           :default-expanded-keys="expandList"

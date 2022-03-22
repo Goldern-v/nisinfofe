@@ -1159,6 +1159,11 @@ function switechSheetType(type) {
         // 武汉肺科 - 出入液量记录单
       schema = require("../config/access_fk/tr.js").default;
     }
+      break;
+    case "operating_fk": {
+        // 武汉肺科 - 手术科室记录单
+      schema = require("../config/operating_fk/tr.js").default;
+    }
       break; 
     case "neonate_sdlj": {
       // 顺德龙江 - 新生儿护理记录单
