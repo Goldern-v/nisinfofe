@@ -523,6 +523,14 @@
       ⑽护理措施：A=防足下垂；B=患肢保暖；C=受压处皮肤垫软垫;D=翻身、拍背，指导深呼吸及有效咳嗽等预防并发症； E=针眼护理；F=防压疮；&nbsp;⑾伤口敷料：A=干洁；B=少量渗血/渗液；C=中量渗血/渗液；
       ⑿指引功能锻炼：A=踝泵运动；B=股四头肌等长收缩运动；C=直腿抬高运动；D=抬臂运动；E=膝关节屈曲运动；F=坐位训练；G=站立训练；H=扶拐行走训练；I=扶助；行架行走训练；J未固定关节运动；&nbsp;⒀石膏：A=过紧；B=过松；C=合适；&nbsp;⒁牵引：A=过紧；B=过松；C=合适        
     </div>
+     <!-- 顺德龙江 - 护理记录单（显微外科））-->
+    <div v-if="sheetInfo.sheetType == 'microsurgical_sdlj'">
+      <p> <span style="margin-right:150px">书写说明：①伤口疼痛：0级（无痛）、Ⅰ级（轻度）、Ⅱ级（中度）、Ⅲ级（重度）</span><span>②伤口敷料：A、干洁　B、少量渗血/渗液　C、中量渗血/渗液　D、大量渗血/渗液</span></p>
+      <p style="margin-left:65px"><span style="margin-right:331px">③石膏固定：A、正常　B、过紧　C、过松</span>④皮瓣固定带：A、正常　B、过紧　C、过松</p>
+      <p style="margin-left:65px">⑤功能锻炼：A、踝泵运动　B、股四头肌等长收缩运动 C、直腿抬高运动　D、抬臂运动　E、患指关节主动运动　F、患指关节被动运动　G、肩、肘、腕关节锻炼</p>
+      <p style="margin-left:65px"><span style="margin-right:211px">⑥颜色：A、红润   B、苍白  C、微紫  D、暗红  E、紫绀  F、花斑</span>⑦皮温：A、正常　B、偏低　 C、偏高</p>
+      <p style="margin-left:65px"><span style="margin-right:330px">⑧肿胀：A、无   B、Ⅰ度  C、Ⅱ度  D、Ⅲ度</span>⑨感觉：A、无　　B、麻痹　 C、消失</p>
+    </div>
     <!--武汉亚心 -  新生儿科护理记录单-->
     <div v-if="sheetInfo.sheetType == 'neonatology_yx'">
        备注：N表示正常 管道名称：A-留置针、B-深静脉置管、C-尿管、D-胃管、E-心包纵隔管、F-右胸腔管、G-心包引流管、H-左胸腔管、I-动脉置管、J-气管插管、O-PICCO管、P-腹腔引流管、Q-脑积液引流管、R-PICC管<br/>
