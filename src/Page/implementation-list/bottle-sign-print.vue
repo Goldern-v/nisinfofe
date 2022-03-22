@@ -36,6 +36,11 @@
           </el-select>
           <span class="label">床号:</span>
           <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
+          <span class="label" v-if="hasNewPrintHos.includes(HOSPITAL_ID)">瓶签大小:</span>
+          <el-select v-if="hasNewPrintHos.includes(HOSPITAL_ID)" v-model="newModalSize" placeholder="请选择" size="small" style="width:150px;margin-right: 10px;">
+            <el-option label="6*8" :value="'6*8'"></el-option>
+            <el-option label="3*5" :value="'3*5'"></el-option>
+          </el-select>
           <span class="label">重打标志:</span>
           <el-select v-model="query.reprintFlag" placeholder="请选择" size="small" style="width:150px;margin-right: 10px;">
             <el-option label="是" :value="1"></el-option>
@@ -50,15 +55,16 @@
       </div>
       <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
       <modal v-if="isShowModal" :src="src" @changeModal="changeModal"/>
-      <!-- <div class="pagination-con" flex="main:justify cross:center">
+      <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
           :size="page.pageNum"
           :total="page.total"
           @sizeChange="handleSizeChange"
+          :disableSize='true'
           @currentChange="handleCurrentChange"
         ></pagination>
-      </div> -->
+      </div>
       <div class="print-modal" v-show="showPintModal" @click="closePrint">
         <div class="init" v-show="!showProgress">
           <img src="./images/print.png" alt="">
@@ -72,7 +78,11 @@
           </p>
         </div> -->
       </div>
-
+      <div class="new-print-box" id="new-print-box" ref="new_print_modal">
+        <div v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
+          <NewPrintModal :newModalSize="newModalSize" :itemObj='itemBottleCard' />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -154,13 +164,18 @@
     }
   }
 }
+.new-print-box{
+  // display: none;
+}
 </style>
 <script>
 import modal from "./modal/modal.vue"
 import dTable from "./components/table/bottle-sign-print-table";
-// import pagination from "./components/common/pagination";
+import pagination from "./components/common/pagination";
+import NewPrintModal from "./components/common/newPrintModal"
+import printing from 'printing'
 import { patEmrList } from "@/api/document";
-import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint } from "./api/index";
+import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 export default {
@@ -173,7 +188,7 @@ export default {
       page: {
         pageIndex: 1,
         // pageNum: 20,
-        pageNum: 100,
+        pageNum: 20,
         total: 0
       },
       startDate: moment().format("YYYY-MM-DD"),
@@ -199,6 +214,10 @@ export default {
       printStatusReq: null,
       printStatusMsg: '',
       showCancelPrint: false,
+      pagedTable:[],
+      printObj:[],
+      newModalSize:'6*8',
+      hasNewPrintHos:['sdlj','fsxt',]
     };
   },
   beforeDestroy(){
@@ -213,7 +232,10 @@ export default {
     },
     handleCurrentChange(newPage) {
       this.page.pageIndex = newPage;
-      this.onLoad();
+      if(!this.hasNewPrintHos.includes(this.HOSPITAL_ID))return this.onLoad();
+      if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
+        this.$refs.plTable.$children[0].reloadData(this.pagedTable[newPage - 1]||[]);
+      }
     },
 
     onLoad() {
@@ -256,11 +278,44 @@ export default {
           }
           return item;
         });
-        // 设置表格数据
-        if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
-          this.$refs.plTable.$children[0].reloadData(tableData);
+        if(this.hasNewPrintHos.includes(this.HOSPITAL_ID)){
+          let pageIndex = 0
+          let pageNum = 0
+          let pagedTable = []
+          let pagetotal = 0
+          // 前端分页处理,卑微前端找不到后端配合出接口,后续如果有出可以优化下
+          pagetotal = tableData.reduce((total,currentItem,currentIndex)=>{
+            if(pageIndex<20){ // 不超过20条时纳入本页
+              pageIndex++ // 自增防止死循环
+              pagedTable[pageNum] =  pagedTable[pageNum] || [] // 对当前页的数据进行数组初始化
+              pagedTable[pageNum].push(currentItem) // 将当前项放入本页
+              // 这是对同组药品进行归纳(判断条码号),防止被截断,也是导致条目数可能错乱的主要原因
+            }else if(currentItem.barcode === pagedTable[pageNum][pagedTable[pageNum].length-1].barcode){
+              pagedTable[pageNum] =  pagedTable[pageNum] || []
+              pagedTable[pageNum].push(currentItem)
+            }else{
+              pageIndex=0
+              pageNum++
+              pagedTable[pageNum] =  pagedTable[pageNum] || []
+              pagedTable[pageNum].push(currentItem)
+            }
+            // 计算总条目数(判断barcode是否是第一次出现)
+            return tableData.findIndex(item=>item.barcode === currentItem.barcode) === currentIndex ? ++total : total
+          },0)
+          this.pagedTable = pagedTable
+          // 设置表格数据
+          if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
+            this.$refs.plTable.$children[0].reloadData(this.pagedTable[0]||[]); // 默认取第一页的数据
+          }
+          // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum; // 原计算总条数的方式
+          this.$set(this.page,'total',pagetotal)
+        }else{
+          this.$set(this.page,'pageNum',tableData.length)
+          this.$set(this.page,'total',tableData.length)
+          if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
+            this.$refs.plTable.$children[0].reloadData(tableData); // 默认取第一页的数据
+          }
         }
-        this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
         this.pageLoadng = false;
       });
     },
@@ -273,6 +328,7 @@ export default {
       this.selectedData = this.$refs.plTable.selectedData;
       if((this.selectedData||[]).length<=0)
       return this.$message('未选择勾选打印条目')
+      if(this.hasNewPrintHos.includes(this.HOSPITAL_ID))return this.newOnPrint()
       this.isShowModal = false
       this.src = ``;
       this.printNum = 0;
@@ -304,6 +360,39 @@ export default {
       // this.showCancelPrint = false;
 
       // this.printResult(this.selectedData.length);
+    },
+    newOnPrint(){
+      let barcode = this.selectedData.map(item=>item.barcode).join('|')
+      let printObj = {}
+      getPrintListContent({barCode:barcode}).then(res=>{
+        let barcodes = barcode.split('|')
+        res.data.data.map(item=>{
+          printObj[item.barCode] = printObj[item.barCode] || []
+          printObj[item.barCode].push(item)
+        })
+        let sortArr = []
+        barcodes.map(item=>{
+          sortArr.push(printObj[item])
+        })
+        this.printObj = sortArr
+        document.getElementById('new-print-box').style.display = 'block'
+        this.$nextTick(()=>{
+          printing(this.$refs.new_print_modal,{
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+              @page{
+                margin:2mm 0 0 2mm;
+              }
+              body{
+                ${this.newModalSize=='6*8'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
+              }
+            `
+          }).then(()=>{
+            document.getElementById('new-print-box').style.display = 'none'
+          })
+        })
+      })
     },
     cleanPrintStatusRoundTime(){
       if(this.printStatusTimmer){
@@ -397,8 +486,9 @@ export default {
   },
   components: {
     dTable,
-    modal
-    // pagination
+    modal,
+    pagination,
+    NewPrintModal
   }
 };
 </script>
