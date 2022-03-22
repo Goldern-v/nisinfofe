@@ -115,3 +115,8 @@ export function webExecutePrint(body){
 export function cancelOrderExecuteApi(body){
   return axios.post(`${apiPath}hisLiaoChengExecute/cancelOrderExecute`,body)
 }
+
+
+export function getPrintListContent(body){
+  return axios.post(`${apiPath}procedure/webExecute/webGetExecuteWithBarcodeList`,body)
+}

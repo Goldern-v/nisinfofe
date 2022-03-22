@@ -180,6 +180,9 @@ export default {
               if (document.querySelector('th[dataname="审核签名"]')) {
                 $(".contant").width(Math.max($(".contant").width()));
               }
+              if(['foshanrenyi'].includes(this.HOSPITAL_ID)&&document.querySelector('th[dataname="审核签名"]')){
+                $(".contant").width(Math.max($(".contant").width()));
+              }
               console.log('findAndEach');
               /** 添加上标下标 */
               try{

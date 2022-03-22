@@ -460,12 +460,12 @@ export default {
       // console.log(this.isToPrint)
       window.localStorage.oxygenModel = $(this.$refs.Contain).html();
       // this.isToPrint=false;
-      if (process.env.NODE_ENV === "production") {
-        let newWid = window.open();
-        newWid.location.href = "/crNursing/print/bloodSugar";
-      } else {
+      // if (process.env.NODE_ENV === "production") {
+      //   let newWid = window.open();
+      //   newWid.location.href = "/crNursing/print/bloodSugar";
+      // } else {
         this.$router.push(`/print/bloodSugar`);
-      }
+      // }
     },
     openChart() {
       // this.$refs.sugarChartModal.open()

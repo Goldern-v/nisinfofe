@@ -489,12 +489,16 @@ if(this.selected.expand2!==undefined){
       });
     },
     toPrint() {
-      window.localStorage.sugarModel = $(this.$refs.Contain).html();
-      if (process.env.NODE_ENV === "production") {
-        let newWid = window.open();
-        newWid.location.href = "/crNursing/print/sugar";
-      } else {
+      if (this.HOSPITAL_ID === 'sdlj') {
         this.$router.push(`/print/sugar`);
+      } else {
+        window.localStorage.sugarModel = $(this.$refs.Contain).html();
+        if (process.env.NODE_ENV === "production") {
+          let newWid = window.open();
+          newWid.location.href = "/crNursing/print/sugar";
+        } else {
+          this.$router.push(`/print/sugar`);
+        }
       }
     },
     openChart() {
