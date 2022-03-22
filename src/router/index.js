@@ -500,6 +500,7 @@ const router = new Router({
         path: "/archive",
         component: (() => {
           switch(HOSPITAL_ID) {
+            case 'lyxrm':
             case 'foshanrenyi':
               return archiveFSSY
             default:

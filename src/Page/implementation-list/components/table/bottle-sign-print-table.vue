@@ -3,7 +3,7 @@
     <u-table
       style="width: 100%"
       border
-      :height="wih - 123"
+      :height="wih - 173"
       v-loading="pageLoadng"
       :row-class-name="rowcb"
       use-virtual

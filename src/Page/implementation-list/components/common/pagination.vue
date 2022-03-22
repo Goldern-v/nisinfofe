@@ -3,7 +3,7 @@
     <div class="left-part">
       <span>每页</span>
       <span class="page-size">
-        <el-input type="text" :value="size" size="small" @blur="reSize" />
+        <el-input :disabled='disableSize' type="text" :value="size" size="small" @blur="reSize" />
       </span>
       <span>条,共{{totalPage}}页</span>
     </div>
@@ -59,6 +59,10 @@ export default {
     pageIndex: {
       default: 1,
       type: Number
+    },
+    disableSize:{
+      type:Boolean,
+      default:false
     }
   },
   data() {
