@@ -68,6 +68,9 @@ export default {
     hasVteDanger: Array,
     isMultiDrugResistant:Array,
     isDangerInThrombus:Array,
+    isAdl:Array,
+    isPain:Array,
+    tubingShedding:Array,
   },
   data() {
     return {};
@@ -111,7 +114,9 @@ export default {
         {
           key: "MEWS预警",
           length: this.MEWS.length
-        }
+        },
+        
+        
       ];
       if (
         this.HOSPITAL_ID == "lingcheng" ||
@@ -136,6 +141,16 @@ export default {
       //     length: this.isMultiDrugResistant.length
       //   });
       // }
+      if(this.HOSPITAL_ID == "whfk"){
+        arr = arr.filter((item)=> {
+          return (item.key !='MEWS预警'&& item.key != "预出院")
+        })
+        arr.push(
+          {key: "ADL",length: this.isPain.length},
+          {key: "疼痛",length: this.isAdl.length},
+          {key: "管道脱落风险",length: this.tubingShedding.length},
+        );
+      }
       if(this.HOSPITAL_ID == "beihairenyi"){
         // console.log("多重耐药患者:",this.isMultiDrugResistant);
         arr.splice(1,1,

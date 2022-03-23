@@ -217,7 +217,7 @@ export default {
       pagedTable:[],
       printObj:[],
       newModalSize:'6*8',
-      hasNewPrintHos:['sdlj','fsxt',]
+      hasNewPrintHos:['sdlj','fsxt','whfk','lyxrm']
     };
   },
   beforeDestroy(){
@@ -390,6 +390,7 @@ export default {
             `
           }).then(()=>{
             document.getElementById('new-print-box').style.display = 'none'
+            this.onLoad()
           })
         })
       })
