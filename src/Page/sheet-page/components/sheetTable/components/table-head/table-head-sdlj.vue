@@ -195,6 +195,7 @@ export default {
         "dreathe_sdlj",//呼吸专科护理记录单
         "craniocerebral_sdlj",//护理记录单（颅脑外科）
         "neonate_sdlj",//新生儿护理记录单
+        "microsurgical_sdlj",//护理记录单（显微外科）
       ]
     };
   },
