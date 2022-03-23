@@ -489,7 +489,7 @@ export default {
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
-      activeNames: ["biometric", "otherBiometric"],
+      activeNames: ["biometric", "otherBiometric",'notes'],
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
       otherMultiDictList: {}, //其他体征信息

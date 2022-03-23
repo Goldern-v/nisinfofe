@@ -135,7 +135,7 @@
         </div>
       </span>
     </div>
-    <bedRecordModal v-if="!$route.path.includes('print')" ref="bedRecordModal"></bedRecordModal>
+    <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 
@@ -162,6 +162,9 @@ export default {
   },
   mounted() {},
   computed: {
+    routePath(){
+      return window.location.href
+    },
     diagnosis() {
       /** 最接近的index */
       let realIndex = 0;
