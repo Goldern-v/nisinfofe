@@ -36,7 +36,10 @@
           clearable
         />
       </span>
-      <div class="times" v-if="['huadu', 'fuyou','fsxt'].includes(HOSPITAL_ID)">
+      <div
+        class="times"
+        v-if="['huadu', 'fuyou', 'fsxt'].includes(HOSPITAL_ID)"
+      >
         <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
           <input
             type="radio"
@@ -150,7 +153,9 @@
             align="center"
           >
             <template slot-scope="scope">
-              <div :style="rowStyle(scope.row)">{{ scope.row.nursingClass }}</div>
+              <div :style="rowStyle(scope.row)">
+                {{ scope.row.nursingClass }}
+              </div>
             </template>
           </el-table-column>
           <el-table-column
@@ -317,32 +322,101 @@
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
-          <el-table-column
+           <el-table-column
+           v-if="HOSPITAL_ID !== 'guizhou'"
             prop="stoolNum"
             label="大便次数"
             min-width="80"
             align="center"
           >
             <template slot-scope="scope">
-              <input
-                v-model="scope.row.stoolNum"
-                :class="className"
-                class="stoolNum"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.stoolNum" class="stoolNum" /> -->
-              <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="
+                  !(
+                    shitOption &&
+                    shitOption.length > 0
+                  )
+                "
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in shitOption"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.stoolNum = option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
+                <input
+                  slot="reference"
+                  v-model="scope.row.stoolNum"
+                  :class="className"
+                  class="stoolNum"
+                  type="text"
+                  @keydown="handleKeyDown"
+                  @keyup="handleKeyUp"
+                  v-on:input="validFormFc"
+                  @click="toRow"
+                />
+              </el-popover>
+            </template>
+          </el-table-column>
+           <el-table-column
+           v-if="HOSPITAL_ID === 'guizhou'"
+            prop="stoolNum"
+            label="大便"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="
+                  !(
+                    totalDictInfo['大便'].options &&
+                    totalDictInfo['大便'].options.length > 0
+                  )
+                "
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in totalDictInfo['大便'].options"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.stoolNum = option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
+                <input
+                  slot="reference"
+                  v-model="scope.row.stoolNum"
+                  :class="className"
+                  class="stoolNum"
+                  type="text"
+                  @keydown="handleKeyDown"
+                  @keyup="handleKeyUp"
+                  v-on:input="validFormFc"
+                  @click="toRow"
+                />
+              </el-popover>
             </template>
           </el-table-column>
           <el-table-column
             v-if="HOSPITAL_ID === 'liaocheng'"
             prop="painScore"
             label="疼痛"
-            min-width="60"
+            min-width="70"
             align="center"
           >
             <template slot-scope="scope">
@@ -579,32 +653,7 @@
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            v-if="HOSPITAL_ID === 'guizhou'||HOSPITAL_ID === 'quzhou'"
-            prop="nursingEvent"
-            label="护理事件"
-            min-width="100"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.nursingEvent"
-                class="curWeight"
-              />
-              <el-input v-model="scope.row.curWeight"></el-input> 2021-09-25
-            </template>
-          </el-table-column> -->
-          <!-- <el-table-column
-            prop="height"
-            label="身高"
-            min-width="60"
-            align="center"
-          > -->
-          <!-- <template slot-scope="scope"> -->
-          <!-- <input v-model="scope.row.height" class="height" /> -->
-          <!-- <el-input v-model="scope.row.height"></el-input> -->
-          <!-- </template> -->
-          <!-- </el-table-column> -->
+
           <el-table-column
             v-if="HOSPITAL_ID === 'guizhou'"
             prop="painScore"
@@ -623,8 +672,53 @@
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.painScore" class="painScore" /> -->
-              <!-- <el-input v-model="scope.row.painScore"></el-input> -->
+
+            </template>
+          </el-table-column>
+           <el-table-column
+            v-if="HOSPITAL_ID === 'guizhou'"
+            prop="nursingEvent"
+            label="病人事件"
+            min-width="100"
+            align="center"
+          >
+
+            <template slot-scope="scope">
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="
+                  !(
+                    totalDictInfo['病人事件'].options &&
+                    totalDictInfo['病人事件'].options.length > 0
+                  )
+                "
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in totalDictInfo['病人事件'].options"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.nursingEvent = option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
+                <input
+                  slot="reference"
+                  v-model="scope.row.nursingEvent"
+                  :class="className"
+                  class="nursingEvent"
+                  type="text"
+                  @keyup="handleKeyUp"
+                  v-on:input="validFormFc"
+                  @keydown="handleKeyDown"
+                  @click="toRow"
+                />
+              </el-popover>
             </template>
           </el-table-column>
         </el-table>
@@ -811,6 +905,17 @@
   }
 }
 
+.selection-dict-item {
+  height: 24px;
+  line-height: 24px;
+  padding: 0 5px;
+
+  &:hover {
+    background: rgb(111, 192, 164) !important;
+    color: #fff !important;
+  }
+}
+
 .all-temperature-chart {
   position: relative;
 
@@ -972,7 +1077,11 @@
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
-import { getPatientsInfo, saveOverAllTemperture } from "../api/api";
+import {
+  getPatientsInfo,
+  saveOverAllTemperture,
+  getmultiDict,
+} from "../api/api";
 import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
@@ -985,13 +1094,15 @@ export default {
   props: {},
   data() {
     return {
-      levelColor:null,//等级颜色
-      levelColorHis:["wujing"],//显示护理等级及颜色医院his列表
+      levelColor: null, //等级颜色
+      levelColorHis: ["wujing"], //显示护理等级及颜色医院his列表
       isSelectedPatient: "",
       patientList: [],
       isSelectedNurs: "",
       handleKeyCode: [37, 38, 39, 40, 13],
       colClass: "",
+      totalDictInfo: {},
+      shitOption:['灌肠','失禁','人工肛门','腹泻','※','☆','E','1/E','2/E','0/E','1 2/E','*/E','☆/E','3/2E'],
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now() - 8.64e6;
@@ -1356,34 +1467,45 @@ export default {
   },
   mounted() {
     this.query.wardCode = this.deptCode;
+    getmultiDict(this.query.wardCode).then((res) => {
+      res.data.data.map((item, index) => {
+        data[item.vitalSign] = item.vitalCode;
+        this.totalDictInfo[item.vitalSign] = {
+          ...item,
+          options: item.selectType ? item.selectType.split(",") : [],
+        };
+      });
+    });
   },
   created() {
     window.addEventListener("keydown", this.keydownSave, false);
   },
   methods: {
     //行样式
-    rowStyle(row){
-      if(!this.levelColorHis.includes(this.HOSPITAL_ID)){
-        return {}
+    rowStyle(row) {
+      if (!this.levelColorHis.includes(this.HOSPITAL_ID)) {
+        return {};
       }
-      switch(this.HOSPITAL_ID){
+      switch (this.HOSPITAL_ID) {
         case "wujing":
           return {
-            backgroundColor:this.getBaColor(row),
-            color:"white",
+            backgroundColor: this.getBaColor(row),
+            color: "white",
           };
         default:
           return {
-            backgroundColor:this.getBaColor(row),
-            color:"white",
+            backgroundColor: this.getBaColor(row),
+            color: "white",
           };
       }
     },
     //获取对应护理等级背景颜色
-    getBaColor(row){
-      if(this.levelColor && row && row.nursingClass){
-        return this.levelColor.find(item=>item.code==row.nursingClass)?this.levelColor.find(item=>item.code==row.nursingClass).name:null
-      }else {
+    getBaColor(row) {
+      if (this.levelColor && row && row.nursingClass) {
+        return this.levelColor.find((item) => item.code == row.nursingClass)
+          ? this.levelColor.find((item) => item.code == row.nursingClass).name
+          : null;
+      } else {
         return "";
       }
     },
@@ -1418,10 +1540,12 @@ export default {
         this.pageLoadng = false;
         // console.log("接口数据", res.data.data);
         try {
-          const {data:{data:levelColor}} = await listItem("nursing_level");
-          this.levelColor=levelColor;
+          const {
+            data: { data: levelColor },
+          } = await listItem("nursing_level");
+          this.levelColor = levelColor;
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
       });
     },
@@ -1499,9 +1623,6 @@ export default {
         let obj = {};
         for (let key in data) {
           obj[key] = item[key] || data[key];
-          // if (key === "temperature") {
-          //   // console.log(obj[key]);
-          // }
         }
         return obj;
       });
@@ -1576,8 +1697,14 @@ export default {
       }
     },
     toRow(e) {
-      let rowIndex = e.path[3].rowIndex;
-      var trs = e.path[4].getElementsByTagName("tr");
+      let rowIndex =e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
+        ? e.path[4].rowIndex
+        : e.path[3].rowIndex;
+      let tableElement = e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
+        ? e.path[5]
+        : e.path[4];
+      var trs = tableElement.getElementsByClassName("el-table__row");
+
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
           trs[i].style.backgroundColor = "green";
@@ -1587,8 +1714,13 @@ export default {
       }
     },
     handleKeyUp(e) {
-      let rowIndex = e.path[3].rowIndex;
-      var trs = e.path[4].getElementsByTagName("tr");
+      let rowIndex = e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
+        ? e.path[4].rowIndex
+        : e.path[3].rowIndex;
+      let tableElement = e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
+        ? e.path[5]
+        : e.path[4];
+      var trs = tableElement.getElementsByClassName("el-table__row");
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
           trs[i].style.backgroundColor = "green";
