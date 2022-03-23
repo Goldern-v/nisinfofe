@@ -29,8 +29,8 @@
         <p class="name">{{ info.name }}</p>
         <p class="age">{{ info.sex }} | {{ info.age }}</p>
         <div class="list-box" v-if="this.HOSPITAL_ID == 'huadu'">
-          <div class="list-li">ID：{{ info.inpNo }}</div>
-          <div class="list-li">住院号：{{ info.patientId }}</div>
+          <div class="list-li">ID：{{ info.patientId }}</div>
+          <div class="list-li">住院号：{{ info.inpNo }}</div>
           <div class="list-li">住院次数：{{ info.visitId }}</div>
         </div>
         <div class="list-box" v-else>

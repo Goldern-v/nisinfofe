@@ -62,8 +62,8 @@
           <span>诊断：
             <input 
               class="bottom-line-input full-width"
-              :data-value="sheetInfo.relObj.zd"
-              v-model="sheetInfo.relObj.zd"
+              :data-value="sheetInfo.relObj[`${index}_zd`]"
+              v-model="sheetInfo.relObj[`${index}_zd`]"
             />
           </span>
           <span>护理等级：
@@ -369,9 +369,15 @@ export default {
   created() {},
   update() {},
   mounted() {
-    // 初始化诊断如果没有值取后端返回的默认诊断
-    this.sheetInfo.relObj.zd = 
-    this.sheetInfo.relObj.zd ? this.sheetInfo.relObj.zd : this.patientInfo.diagnosis;
+    if(this.index==0){
+      // 初始化(第一页)诊断如果没有值取后端返回的默认诊断
+      this.sheetInfo.relObj[`${this.index}_zd`]=
+      this.sheetInfo.relObj[`${this.index}_zd`] ? this.sheetInfo.relObj[`${this.index}_zd`]: this.patientInfo.diagnosis;
+    }else{
+      // 第二页开始，创建的时候就是取上一页的诊断,以后就每一页单独维护自己的诊断
+      this.sheetInfo.relObj[`${this.index}_zd`]=
+      this.sheetInfo.relObj[`${this.index}_zd`] ? this.sheetInfo.relObj[`${this.index}_zd`]: this.sheetInfo.relObj[`${this.index-1}_zd`];
+    }
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
