@@ -136,6 +136,12 @@ export default {
       //     length: this.isMultiDrugResistant.length
       //   });
       // }
+      if(this.HOSPITAL_ID == "whfk"){
+        arr = arr.filter((item)=> {
+          return (item.key !='MEWS预警'&& item.key != "预出院")
+        })
+        
+      }
       if(this.HOSPITAL_ID == "beihairenyi"){
         // console.log("多重耐药患者:",this.isMultiDrugResistant);
         arr.splice(1,1,

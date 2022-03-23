@@ -1519,6 +1519,13 @@ export default function Title(
     );
   }
   break;
+  case "operating_fk": {
+    // 武汉肺科 - 手术科室记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/operating_fk/th.js").default)
+    );
+  }
+  break;
   case "neonate_sdlj": {
     // 顺德龙江 - 新生儿护理记录单
     Th = JSON.parse(
@@ -1593,6 +1600,13 @@ export default function Title(
     // 顺德龙江 - 护理记录单（儿科）
     Th = JSON.parse(
       JSON.stringify(require("../config/pediatrics_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "microsurgical_sdlj": {
+    // 顺德龙江 - 护理记录单（显微外科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/microsurgical_sdlj/th.js").default)
     );
   }
   break;

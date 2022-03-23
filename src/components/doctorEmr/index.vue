@@ -256,12 +256,17 @@ export default {
   methods: {
     onToggle() {
       this.open = !this.open;
+      console.log('patientInfo', this.patientInfo);
+
       if (!this.patientInfo.patientId) {
         this.$store.commit("upPatientInfo", this.$route.query);
       }
       if (this.open) {
         this.$route.query.patientId = this.patientInfo.patientId;
         this.$route.query.visitId = this.patientInfo.visitId;
+        this.$route.query.age = this.patientInfo.age;
+        this.$route.query.name = this.patientInfo.name;
+        this.$route.query.sex = this.patientInfo.sex;
         this.$refs.patientInfoSlide.open();
       } else {
         this.$refs.patientInfoSlide.close();

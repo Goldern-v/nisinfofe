@@ -164,7 +164,8 @@ export const getWhiteLogIndicators = deptCode => {
 // 	"ylxssDate":"院内压力性损伤日期",
 // 	"ddzcDate":"跌倒坠床日期",
 // 	"glhtDate":"管理滑脱日期",
-// 	"aqyyDate":"安全用药日期"
+// 	"aqyyDate":"安全用药日期",
+//  "totalDate":"总天数日期"
 // }
 export const saveWhiteLogIndicators = (data) => {
   return axios.post(`${apiPath}whiteboardManage/whiteLogIndicators/saveOrUpdate`,data);
