@@ -509,7 +509,7 @@ export default {
       this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate=dateTime.slice(0,10)
         this.query.entryTime=dateTime.slice(11,18)+':00'
-        this.dateInp=dateTime.slice(11,20)
+        this.dateInp=dateTime.slice(11,16)
     });
 
   },
@@ -550,6 +550,7 @@ export default {
         await this.bus.$emit("refreshImg");
          this.getList();
       });
+
       if(type==='0'){
         this.query.entryDate=this.patientInfo.admissionDate.slice(0,10)
         this.dateInp=this.patientInfo.admissionDate.slice(11,20)
