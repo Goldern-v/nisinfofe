@@ -10,7 +10,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1305px"
   },
   th: {
     top: [ 
@@ -109,7 +109,7 @@ export default {
         colspan: "4",
         rowspan: "1",
       },
-      { "name": "其他", "colspan": "1", "rowspan": "3",style: { minWidth: "150px",  maxWidth: "180px"} }, 
+      { "name": "其他", "colspan": "1", "rowspan": "3",style: { minWidth: "155px",  maxWidth: "155px"} }, 
       {
         name: `
         签名

@@ -119,6 +119,9 @@
         :hasVteDanger="hasVteDanger"
         :isMultiDrugResistant="isMultiDrugResistant"
         :isDangerInThrombus="isDangerInThrombus"
+        :isPain="isPain"
+        :isAdl="isAdl"
+        :tubingShedding="tubingShedding"
       ></footerBar>
     </div>
   </div>
@@ -655,7 +658,19 @@ export default {
     // 血栓高危
     isDangerInThrombus(){
       return this.bedList.filter((item)=> item.isDangerInThrombus)
-    }
+    },
+    //疼痛
+    isPain(){
+      return this.bedList.filter((item)=> item.isPain == "1")
+    },
+    //生理自理能力
+    isAdl(){
+      return this.bedList.filter((item)=> item.isAdl == "1")
+    },
+     //管道脱落
+    tubingShedding(){
+      return this.bedList.filter((item)=> item.tubingShedding == "1")
+    },
   },
   methods: {
     async getDate() {
@@ -765,6 +780,7 @@ export default {
       this.getDate();
     },
     selectName(val) {
+      console.log(val)
       switch (val) {
         case "":
         case "全部床位":
@@ -927,6 +943,21 @@ export default {
         case "共入床位":
           {
             this.$parent.bedList = this.shareIn;
+          }
+          break;
+        case "ADL":
+          {
+            this.$parent.bedList = this.isPain;
+          }
+          break;
+        case "疼痛":
+          {
+            this.$parent.bedList = this.isAdl;
+          }
+          break;
+        case "管道脱落风险":
+          {
+            this.$parent.bedList = this.tubingShedding;
           }
           break;
         default: {
