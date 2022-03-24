@@ -173,6 +173,7 @@
     },
     methods: {
       toRight(data) {
+        console.log('data', data)
         this.rightData = data
         this.$refs.testForm.open(data)
       }

@@ -264,9 +264,8 @@ export default {
       if (this.open) {
         this.$route.query.patientId = this.patientInfo.patientId;
         this.$route.query.visitId = this.patientInfo.visitId;
-        this.$route.query.age = this.patientInfo.age;
-        this.$route.query.name = this.patientInfo.name;
-        this.$route.query.sex = this.patientInfo.sex;
+        console.log(this.$route.query.name,'22222');
+
         this.$refs.patientInfoSlide.open();
       } else {
         this.$refs.patientInfoSlide.close();

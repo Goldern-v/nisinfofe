@@ -6,9 +6,9 @@
         <div class="name">{{ data.subject }}报告单</div>
         <el-row class="info-class" type="flex" justify="space-between">
           <span>申请单号：{{ data.testNo }}</span>
-          <span>姓名：{{ $route.query.name }}</span>
-          <span>性别：{{ $route.query.sex }}</span>
-          <span>年龄：{{ $route.query.age }}</span>
+          <span>姓名：{{ routeQuery.name }}</span>
+          <span>性别：{{ routeQuery.sex }}</span>
+          <span>年龄：{{ routeQuery.age }}</span>
           <span v-if="HOSPITAL_ID=='fuyou'">住院号：{{ $route.query.inpNo }}</span>
           <span v-else>病人ID：{{ data.patientId }}</span>
         </el-row>
@@ -226,6 +226,16 @@ export default {
     },
     height1() {
       return this.wih - 310;
+    },
+    routeQuery() {
+      if(this.$route.query.name){
+        return this.$route.query
+      }else if(this.$route.params.name){
+        return this.$route.params;
+      }else{
+        console.log('333', this.$store.state.sheet.patientInfo);
+        return this.$store.state.sheet.patientInfo
+      }
     },
   },
   methods: {
