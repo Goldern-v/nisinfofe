@@ -45,7 +45,7 @@
         <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
       </div>
     </div>
-    <div class="admin-system-info" v-if="['fuyou','hj','guizhou'].includes(HOSPITAL_ID)">
+    <div class="admin-system-info" v-if="hasQrCaSignHos.includes(HOSPITAL_ID)">
     <!-- <div class="admin-system-info" v-if="['fuyou'].includes(HOSPITAL_ID)"> -->
       证书状态:
       <p>
@@ -288,6 +288,8 @@ export default {
       passWord: "",
       fuyouCaData:null,//江门妇幼ca签名认证数据
       isUpdateFuyouCaData:true,
+      hasQrCaSignHos:['fuyou','hj'],
+      // hasQrCaSignHos:['fuyou','hj','guizhou']
     };
   },
   props: {
