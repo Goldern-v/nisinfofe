@@ -19,7 +19,7 @@
             <td class="key">性别</td>
             <td class="value">{{ data.sex }}</td>
             <td class="key">年龄</td>
-            <td class="value">{{ $route.query.age }}</td>
+            <td class="value">{{ routeQuery.age }}</td>
           </tr>
           <tr>
             <td class="key">科室</td>
@@ -74,7 +74,7 @@
             <td class="key">性别</td>
             <td class="value">{{ data.sex }}</td>
             <td class="key">年龄</td>
-            <td class="value">{{ $route.query.age }}</td>
+            <td class="value">{{ routeQuery.age }}</td>
           </tr>
           <tr>
             <td class="key">科室</td>
@@ -239,6 +239,15 @@ export default {
     },
     height() {
       return `${this.wih - 150}px`;
+    },
+    routeQuery() {
+      if(this.$route.query.name){
+        return this.$route.query
+      }else if(this.$route.params.name){
+        return this.$route.params;
+      }else{
+        return this.$store.state.sheet.patientInfo
+      }
     },
   },
   filters: {
