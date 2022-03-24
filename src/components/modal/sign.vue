@@ -239,7 +239,10 @@ export default {
       isDoctor:false,
       aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey'],
       activeSheetType:"",
-      hasQrCaSignHos:['fuyou','hj','guizhou']
+      hasQrCaSignHos:['fuyou','hj'],
+      // hasQrCaSignHos:['fuyou','hj','guizhou'],
+      caSignHasNoSignType:['hj'],
+      // caSignHasNoSignType:['hj','guizhou']
     };
   },
   methods: {
@@ -439,7 +442,7 @@ export default {
         templateId:"hash", //-- 模板id
         formId:`${this.formData.id}`,// -- 表单ID
       };
-      if(['hj','guizhou'].includes(this.HOSPITAL_ID)){
+      if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){
         console.log(this.formData);
         parmas = {
             "accessToken":sessionStorage.getItem('accessToken'),
@@ -453,7 +456,7 @@ export default {
       console.log(parmas);
       getCaSignJmfy(parmas).then(async res=>{
         let aduitDate = 'isCaSign'
-        if(['hj','guizhou'].includes(this.HOSPITAL_ID)){
+        if(caSignHasNoSignType.includes(this.HOSPITAL_ID)){
           let fileCode = res.data.data.data.fileCode
           aduitDate = ''
           let hjRes = await verifyData(sessionStorage.getItem('accessToken'),fileCode)
