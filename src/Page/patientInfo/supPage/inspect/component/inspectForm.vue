@@ -241,9 +241,9 @@ export default {
       return `${this.wih - 150}px`;
     },
     routeQuery() {
-      if(this.$route.query.name){
+      if(this.$route.query.age){
         return this.$route.query
-      }else if(this.$route.params.name){
+      }else if(this.$route.params.age){
         return this.$route.params;
       }else{
         return this.$store.state.sheet.patientInfo
@@ -266,9 +266,10 @@ export default {
       // this.$refs.imgModal.open(examNo, name)
     },
     open(data) {
-      console.log(data);
+      console.log(data, this.$route.query.name);
       if (data) {
         this.data = data;
+        this.data.name = this.$route.query.name || this.$store.state.sheet.patientInfo.name
         this.loading = true;
         this.data1 = {};
         this.showImg = false;

@@ -266,7 +266,7 @@ export default {
       return this.$refs.searchCon?this.$refs.searchCon.data:null
     },
     hospitalTransfer(){
-      return ['huadu','fuyou','beihairenyi'].includes(this.HOSPITAL_ID)
+      return ['huadu','fuyou','beihairenyi', 'sdlj', 'nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
     },
     //是否为新出院数据
     isNewDischarged(){

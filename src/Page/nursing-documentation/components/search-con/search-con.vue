@@ -299,7 +299,7 @@ export default {
       return this.$route?this.$route.path=="/nursingDocumentation":false
     },
     hospitalTransfer(){
-      return ['huadu','fuyou','beihairenyi', 'sdlj'].includes(this.HOSPITAL_ID)
+      return ['huadu','fuyou','beihairenyi', 'sdlj', 'nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
     }
   },
   watch: {
