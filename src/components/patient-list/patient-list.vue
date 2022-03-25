@@ -260,6 +260,7 @@ export default {
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
       imageWomen: require("./images/女.png"),
+      noClearnCurrentPatient:['guizhou'] // 不需要清空当前选中患者的医院
     };
   },
   methods: {
@@ -275,6 +276,45 @@ export default {
           JSON.parse(JSON.stringify(item))
         );
       }
+    },
+    findCurrentPatient({ patientId, visitId }) {
+      return this.sortList.find((p) => {
+        return patientId == p.patientId && visitId == p.visitId;
+      });
+    },
+    async fetchData() {
+      let currentPatient = ''
+      if(this.HOSPITAL_ID == 'whfk'){
+        currentPatient = ''
+      }else{
+        currentPatient = this.$store.getters.getCurrentPatient();
+      }
+      let patientId =
+        this.$route.params.patientId || currentPatient.patientId || "";
+      let visitId = this.$route.params.visitId || currentPatient.visitId || "";
+      let p = this.findCurrentPatient({
+        patientId,
+        visitId,
+      });
+      if(!p&&this.isAdmissionHisView){
+        patientId = this.$route.params.patientId
+        visitId = this.$route.params.visitId
+        let res = await getPatientInfo(patientId,visitId)
+        p = res.data.data
+      }
+      if (p) {
+        if(currentPatient){
+          p = {...currentPatient,...p}
+        }
+        this.selectPatient(p);
+        console.log(this.selectPatientId);
+      }
+      console.log(
+        "路由拦截:$route.params",
+        [currentPatient],
+        [p, this.sortList],
+        [this.$route.params]
+      );
     },
     isActive(item) {
       return (
@@ -379,6 +419,9 @@ export default {
         this.img2Show = false;
       }
     },
+    data(){
+      if(this.noClearnCurrentPatient.includes(this.HOSPITAL_ID))this.fetchData()
+    }
   },
   create() {},
   mounted() {

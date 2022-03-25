@@ -276,6 +276,7 @@ export default {
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
       imageWomen: require("./images/女.png"),
+      noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
     };
   },
   methods: {
@@ -456,7 +457,7 @@ export default {
   watch: {
     deptCode(ndata, odata) {
       // 清空当前选中病人
-      this.$store.commit("upCurrentPatientObj", new Object());
+      if(!this.noClearnCurrentPatient.includes(this.HOSPITAL_ID))this.$store.commit("upCurrentPatientObj", new Object());
 
       if (ndata == "051102") {
         this.img1Show = false;
