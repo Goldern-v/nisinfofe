@@ -97,7 +97,7 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         "http://192.167.199.191:9091/temperature/#/" /* 医院正式环境内网 导致跨域,
-      // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 */,
+      "http://localhost:8081/#/" /* 医院正式环境内网 */,
       printAllUrl:
         "http://192.167.199.191:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       // "http://192.168.1.75:8080/#/printAll" /* 医院正式环境内网 */,
@@ -105,9 +105,12 @@ export default {
   },
   methods: {
     syncInAndOutHospital(type){
-      console.log(type,'type')
       this.bus.$emit('syncInAndOutHospital',type)
 
+    },
+        //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime){
+      this.bus.$emit('getDataFromPage',dateTime)
     },
     onPrint() {
       this.isPrintAll = false;
@@ -164,7 +167,7 @@ export default {
     rightButton() {
       return {
         position: "relative",
-        left: this.rightSheet === false ? "24%" : "14%",
+        left: this.rightSheet === false ? "20%" : "8%",
       };
     },
     getImg() {
@@ -197,6 +200,9 @@ export default {
             break;
           case "dblclick" /* 双击查阅体温单子 */:
             this.openRight();
+            break;
+             case "clickDateTime":
+            this.getDataFromPage(e.data.value)
             break;
           default:
             break;
