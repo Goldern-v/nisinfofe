@@ -174,12 +174,21 @@
                 </td>
                 <td>{{ item.bedLabel + "床 " + item.patientName }}</td>
                 <td>{{ item.content }}</td>
-                <td>
+                <td v-if="HOSPITAL_ID !== 'nanfangzhongxiyi'">
                   <span v-if="item.type == '1'" style="color: red">未签名</span>
                   <span
                     v-else-if="item.type == '2' && item.status == '1'"
                     style="color: red"
                     >未审核</span
+                  >
+                  <span v-else>{{ item.signerName }}</span>
+                </td>
+                <td v-if="HOSPITAL_ID === 'nanfangzhongxiyi'">
+                  <span v-if="item.type == '1'" style="color: red">未签名({{item.signerName}})</span>
+                  <span
+                    v-else-if="item.type == '2' && item.status == '1'"
+                    style="color: red"
+                    >{{item.signerName}}未审核</span
                   >
                   <span v-else>{{ item.signerName }}</span>
                 </td>
@@ -262,7 +271,7 @@ export default {
     };
   },
   methods: {
-    // 
+    //
     radioChange(value) {
       this.radioStatus = value;
       this.initBodyTast()
@@ -358,6 +367,7 @@ export default {
   },
   computed: {
     filterPostil() {
+      console.log(this.postil.content)
       if (this.postil.isshow) {
         return this.postil.content.filter(item => {
           return item.signerNo == this.userInfo.empNo;

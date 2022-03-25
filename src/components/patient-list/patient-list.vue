@@ -66,6 +66,9 @@
               isImg2: img2Show,
             }"
           ></span>
+          <div class="angle" v-if="nursingClassList.includes(HOSPITAL_ID)&&item.nursingClass">
+            <img :src="require(`./images/${item.nursingClass}.png`)" alt/>
+          </div>
         </div>
       </div>
       <div
@@ -102,7 +105,7 @@
 }
 
 .patient-list-contain {
-  padding: 0px 13px 11px;
+  padding: 0px 3px 11px 13px;
   height: 100%;
   box-sizing: border-box;
   overflow: auto;
@@ -115,7 +118,15 @@
     border-radius: 3px;
     margin: 1px 0;
     position: relative;
-
+    .angle {
+      position: absolute;
+      top: 0px;
+      right:0px;
+      img{
+        height: 15px;
+        width: 15px;
+      }
+    }
     .img1 {
       height: 30px;
       width: 30px;
@@ -136,6 +147,7 @@
     }
 
     .bed {
+      margin-right: 5px;
       color: #333333;
     }
 
@@ -256,6 +268,8 @@ export default {
       img1Show: true,
       img2Show: false,
       selectPatientId: "",
+      //需要患者列表中增加护理等级显示的医院
+      nursingClassList: ['guizhou'],
       imageBoy: require("./images/男婴.png"),
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
@@ -423,7 +437,8 @@ export default {
       if(this.noClearnCurrentPatient.includes(this.HOSPITAL_ID))this.fetchData()
     }
   },
-  create() {},
+  create() {
+  },
   mounted() {
     if (this.deptCode == "051102") {
       this.img1Show = false;

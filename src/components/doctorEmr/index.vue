@@ -256,7 +256,7 @@ export default {
   methods: {
     onToggle() {
       this.open = !this.open;
-      console.log('patientInfo', this.patientInfo);
+      console.log('patientInfo', this.patientInfo, this.$route.query);
 
       if (!this.patientInfo.patientId) {
         this.$store.commit("upPatientInfo", this.$route.query);

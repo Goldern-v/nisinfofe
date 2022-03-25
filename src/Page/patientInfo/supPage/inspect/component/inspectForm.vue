@@ -9,9 +9,11 @@
             <td class="key">检查号</td>
             <td class="value">{{ data1.examNo ? data1.examNo : "" }}</td>
             <td class="key">病人ID</td>
-            <td class="value">{{ data.patientId }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ $route.query.inpNo }}</td>
+            <td class="value" v-else>{{ data.patientId }}</td>
             <td class="key">住院号</td>
-            <td class="value">{{ $route.query.inpNo }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ data.patientId }}</td>
+            <td class="value" v-else>{{ $route.query.inpNo }}</td>
           </tr>
           <tr>
             <td class="key">姓名</td>
@@ -64,9 +66,11 @@
             <td class="key">检查号</td>
             <td class="value">{{ data.examNo ? data.examNo : "" }}</td>
             <td class="key">病人ID</td>
-            <td class="value">{{ data.patientId }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ $route.query.inpNo }}</td>
+            <td class="value" v-else>{{ data.patientId }}</td>
             <td class="key">住院号</td>
-            <td class="value">{{ $route.query.inpNo }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ data.patientId }}</td>
+            <td class="value" v-else>{{ $route.query.inpNo }}</td>
           </tr>
           <tr>
             <td class="key">姓名</td>
@@ -241,9 +245,9 @@ export default {
       return `${this.wih - 150}px`;
     },
     routeQuery() {
-      if(this.$route.query.name){
+      if(this.$route.query.age){
         return this.$route.query
-      }else if(this.$route.params.name){
+      }else if(this.$route.params.age){
         return this.$route.params;
       }else{
         return this.$store.state.sheet.patientInfo
@@ -266,9 +270,10 @@ export default {
       // this.$refs.imgModal.open(examNo, name)
     },
     open(data) {
-      console.log(data);
+      console.log(data, this.$route.query.name);
       if (data) {
         this.data = data;
+        this.data.name = this.$route.query.name || this.$store.state.sheet.patientInfo.name
         this.loading = true;
         this.data1 = {};
         this.showImg = false;

@@ -23,8 +23,11 @@
       ></span>
     </div>
     <div class="bed">{{item.bedLabel}} 床</div>
-     <!-- <span class="block" :style="{background: frameData.iconTextRgb}"></span> -->
-     <img v-if="type=='follow'" src="../../../../common/images/card/like.png" height="18" width="18" style="margin-left: 3px;" />
+    <!-- <span class="block" :style="{background: frameData.iconTextRgb}"></span> -->
+    <img v-if="type=='follow'" src="../../../../common/images/card/like.png" height="18" width="18" style="margin-left: 3px;" />
+    <div class="angle" v-if="nursingClassList.includes(HOSPITAL_ID)&&item.nursingClass">
+      <img :src="require(`./images/${item.nursingClass}.png`)" alt/>
+    </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -34,6 +37,16 @@
   border-radius: 3px;
   margin: 1px 0;
   white-space: nowrap;
+  position relative;
+  .angle {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    img{
+      height: 15px;
+      width: 15px;
+    }
+  }
 
   .img {
     height: 30px;
@@ -48,6 +61,7 @@
   }
 
   .bed {
+    margin-right: 5px;
     color: #333333;
   }
 
@@ -106,6 +120,8 @@ export default {
       subscribeId: "",
       firstFlag: true,
       isShow: true,
+      //需要患者列表中增加护理等级显示的医院
+      nursingClassList: ['guizhou'],
       imageBoy: require("./images/男婴.png"),
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
