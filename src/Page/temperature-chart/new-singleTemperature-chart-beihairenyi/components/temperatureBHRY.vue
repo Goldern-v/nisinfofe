@@ -112,6 +112,10 @@ export default {
     getDataFromPage(dateTime){
       this.bus.$emit('getDataFromPage',dateTime)
     },
+
+     openRight() {
+      this.$store.commit("showRightPart", !this.rightSheet);
+    },
     onPrint() {
       this.isPrintAll = false;
       setTimeout(() => {
@@ -167,7 +171,7 @@ export default {
     rightButton() {
       return {
         position: "relative",
-        left: this.rightSheet === false ? "20%" : "8%",
+        left: this.rightSheet === false ? "18%" : "4%",
       };
     },
     getImg() {
@@ -298,7 +302,7 @@ export default {
 .pagination {
   display: inline;
   position: relative;
-  left: 15%;
+  left: 13%;
   font-weight: normal;
 }
 
