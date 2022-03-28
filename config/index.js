@@ -160,7 +160,7 @@ const currentTargetUrl = (() => {
       // return "http://219.159.198.37:9094"  // 正式地址
       return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
-      
+
     // 福清妇幼保健院
     case 'fqfybjy':
       return 'http://110.90.211.113:9091/' // 正式
