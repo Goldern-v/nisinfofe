@@ -361,7 +361,7 @@
                     </el-option>
                   </el-select>
                 </div>
-                <!-- <div class="rowBoxRight" v-if="multiDictList['表顶注释']">
+                <div class="rowBoxRight" v-if="multiDictList['表顶注释']">
                    <span class="preText">表顶时间</span>
                      <el-time-picker
                     size="mini"
@@ -372,9 +372,9 @@
                     @change="formatTopExpandDate"
                   >
                   </el-time-picker>
-                </div> -->
+                </div>
                 <!--目前武警是没有用的中间注释的--->
-                <div class="rowBoxRight" v-if="multiDictList['中间注释']">
+                <div class="rowBox" v-if="multiDictList['中间注释']">
                   <span class="preText">中间注释</span>
                   <el-select
                     :disabled="isDisable()"
@@ -394,7 +394,7 @@
                   </el-select>
                 </div>
                 <div
-                  class="rowBox"
+                  class="rowBoxRight"
                   style="height: 67px"
                   v-if="multiDictList['表底注释']"
                 >
