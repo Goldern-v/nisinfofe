@@ -356,16 +356,16 @@ export default {
       getExecuteWithWardcode(obj).then(res => {
         this.tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
-            array[index - 1] && +
+            array[index - 1] && 
               array[index - 1].patientId +
               array[index - 1].barCode;
           let nextRowId =
-            array[index + 1] && +
+            array[index + 1] && 
             array[index + 1].patientId +
               array[index + 1].barCode ;
 
           let currentRowId =
-            array[index] &&
+            array[index] && 
             array[index].patientId +
               array[index].barCode ;
           /** 判断是此记录是多条记录 */
@@ -386,13 +386,12 @@ export default {
               data.rowType = 2;
               children.push(data);
             }
-            console.log(data, index);
             return data
           }
           return item;
         });
         // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
-        console.log(this.tableData);
+
         this.pageLoadng = false;
       });
     },
