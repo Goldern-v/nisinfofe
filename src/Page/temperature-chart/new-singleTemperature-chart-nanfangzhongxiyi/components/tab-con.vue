@@ -498,6 +498,7 @@ export default {
       topExpandDate: "",
       bottomExpandDate: "",
       centerExpandDate: "",
+      timeStrFormat:"",
       totalDictInfo: {},
     };
   },
@@ -708,13 +709,6 @@ export default {
         this.query.entryTime = val.$el.children[1].value;
       }
     },
-    // 下拉选项触发查询
-    changeVal(newVal, oldVal) {
-      if (newVal && newVal.split(":").length == 2) {
-        this.query.entryTime = newVal + ":00";
-        this.dateInp = newVal;
-      }
-    },
     /* 日期搜索功能 */
     selectTemRec(val) {
       this.query.entryDate = val;
@@ -742,7 +736,23 @@ export default {
       this.query.entryTime = value.slice(12, 20);
       //this.query.entryTime = value.slice(12, 20);
       //赋值初始值
+      this.timeStrFormat = temp.slice(18, 20);
       this.dateInp = value.slice(12, 17);
+    },
+        // 下拉选项触发查询
+    async changeVal(newVal, oldVal) {
+      //操作时间
+      await this.formatTimeFun(newVal);
+      this.timeStrFormat = "";
+    },
+    formatTimeFun(newVal) {
+      if (newVal.split(":").length == 2) {
+        if (this.timeStrFormat === "00" || this.timeStrFormat === "") {
+          this.query.entryTime = newVal + ":00";
+        } else {
+          this.query.entryTime = newVal + `:${this.timeStrFormat}`;
+        }
+      }
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;

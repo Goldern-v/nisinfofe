@@ -443,7 +443,6 @@ if(this.selected.expand2!==undefined){
         this.patientInfo.visitId
       );
       this.tableHeaderInfo=res.data.data
-      console.log(res.data.data, 88888)
       if(res.data.data.hisPatSugarList.length != 0){
         this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel
       }
@@ -490,6 +489,7 @@ if(this.selected.expand2!==undefined){
     },
     toPrint() {
       if (this.HOSPITAL_ID === 'sdlj') {
+        window.localStorage.sugarModel = $(this.$refs.Contain).html();
         this.$router.push(`/print/sugar`);
       } else {
         window.localStorage.sugarModel = $(this.$refs.Contain).html();
@@ -555,8 +555,11 @@ if(this.selected.expand2!==undefined){
       }
 
       await removeSugar(item);
-      this.load();
+      await this.load();
       this.selected = null;
+      if (this.HOSPITAL_ID === "sdlj" && this.listMap.length === 0) {
+        this.$emit('removeSugar')
+      }
     },
     async onSave(item) {
       item.recordDate =
