@@ -312,7 +312,9 @@ import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval
 import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
 const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-form/index.vue")
-
+const medicalCheck = () => import("@/Page/patientInfo/supPage/medical-check/index.vue")
+// 患者个人护理巡视
+const patientNursingRound = () => import("@/Page/patientInfo/supPage/patient-nursing-rounds/nursing-rounds.vue")
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
@@ -993,7 +995,20 @@ const router = new Router({
           name: "患者流转单",
           alias: "患者流转单"
         },
-
+        // 谢岗
+        {
+          path: "/medicalCheck",
+          component: medicalCheck,
+          name: "病历查看",
+          alias: "病历查看"
+        },
+          // 陵城床位一览卡护理巡视
+          {
+            path: "/patientNursingRound",
+            component: patientNursingRound,
+            name: "护理巡视",
+            alias: "护理巡视"
+          }
         ]
       },
       {

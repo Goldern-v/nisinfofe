@@ -139,6 +139,7 @@ import {
       next:"",
       event: keyf1,
       change: (e, td) => limitChange(e, td,4),
+      autoComplete: { data: ['存在','不存在'] },
       textarea: {
         width: 32
       },
@@ -150,6 +151,7 @@ import {
       next:"",
       event: keyf1,
       change: (e, td) => limitChange(e, td,4),
+      autoComplete: { data: ['存在','不存在'] },
       textarea: {
         width: 32
       },

@@ -62,10 +62,14 @@
           <span>诊断：
             <input 
               class="bottom-line-input full-width"
-              :data-value="sheetInfo.relObj.zd"
-              v-model="sheetInfo.relObj.zd"
+              :data-value="sheetInfo.relObj[`${index}_zd`]"
+               v-model="sheetInfo.relObj[`${index}_zd`]"
             />
           </span>
+          <!-- 
+              :data-value="sheetInfo.relObj.zd"
+              v-model="sheetInfo.relObj.zd"
+           -->
           <span>护理等级：
             <span class="boxRadio">
               <label>
@@ -370,8 +374,52 @@ export default {
   update() {},
   mounted() {
     // 初始化诊断如果没有值取后端返回的默认诊断
-    this.sheetInfo.relObj.zd = 
-    this.sheetInfo.relObj.zd ? this.sheetInfo.relObj.zd : this.patientInfo.diagnosis;
+    // this.sheetInfo.relObj.zd = 
+    // this.sheetInfo.relObj.zd ? this.sheetInfo.relObj.zd : this.patientInfo.diagnosis;
+    
+    if(this.index==0){
+      // 初始化(第一页)诊断如果没有值取后端返回的默认诊断
+      let beforeZd=this.sheetInfo.relObj.zd?this.sheetInfo.relObj.zd: this.patientInfo.diagnosis
+      this.sheetInfo.relObj[`${this.index}_zd`]=
+      this.sheetInfo.relObj[`${this.index}_zd`] ? this.sheetInfo.relObj[`${this.index}_zd`]: beforeZd;
+    }else{
+      let  beforeZd=""
+      if(this.patientInfo.diagnosis){
+        beforeZd=this.patientInfo.diagnosis
+      }
+      if(this.sheetInfo.relObj.zd){
+        beforeZd=this.sheetInfo.relObj.zd
+      }
+      if(!!this.sheetInfo.relObj[`${this.index-1}_zd`]){
+        beforeZd=this.sheetInfo.relObj[`${this.index-1}_zd`]
+      }
+      console.log(402,beforeZd)
+      this.sheetInfo.relObj[`${this.index}_zd`]=
+      this.sheetInfo.relObj[`${this.index}_zd`] ? this.sheetInfo.relObj[`${this.index}_zd`]:beforeZd
+    }
+  },
+  watch:{
+    // 切换页数1~10,2~20就侦听index变化
+    index(newval,oldval){
+       if(newval==0){
+         let beforeZd=this.sheetInfo.relObj.zd?this.sheetInfo.relObj.zd: this.patientInfo.diagnosis
+         this.sheetInfo.relObj[`${newval}_zd`]=
+         this.sheetInfo.relObj[`${newval}_zd`] ? this.sheetInfo.relObj[`${newval}_zd`]:beforeZd
+       }else{
+        let beforeZd=""
+        if(this.patientInfo.diagnosis){
+           beforeZd=this.patientInfo.diagnosis
+        }
+        if(this.sheetInfo.relObj.zd){
+           beforeZd=this.sheetInfo.relObj.zd
+        }
+        if(!!this.sheetInfo.relObj[`${newval-1}_zd`]){
+           beforeZd=this.sheetInfo.relObj[`${newval-1}_zd`]
+        }
+         this.sheetInfo.relObj[`${newval}_zd`]=
+         this.sheetInfo.relObj[`${newval}_zd`] ?this.sheetInfo.relObj[`${newval}_zd`]: beforeZd
+       }
+    } 
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
