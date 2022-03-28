@@ -10,7 +10,7 @@
           <span>性别：{{ routeQuery.sex }}</span>
           <span>年龄：{{ routeQuery.age }}</span>
           <span v-if="HOSPITAL_ID=='fuyou'">住院号：{{ $route.query.inpNo }}</span>
-          <span v-else>病人ID：{{ data.patientId }}</span>
+          <span v-else>病人ID：{{ HOSPITAL_ID=='huadu' ? $route.query.inpNo : data.patientId }}</span>
         </el-row>
         <el-row class="info-class" type="flex" justify="space-between">
           <span>标本：{{ data.specimen }}</span>

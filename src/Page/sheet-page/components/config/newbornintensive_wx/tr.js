@@ -125,6 +125,9 @@ import { multiDictInfo } from "../../../api/index";
       name: "鼻塞cpap",
       next:"cpap",
       change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['√']
+      },
       textarea: {
       width: 32
       }
@@ -135,6 +138,9 @@ import { multiDictInfo } from "../../../api/index";
       event: keyf1,
       name: "气管插管",
       change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['√']
+      },
       textarea: {
       width: 32
       }
@@ -145,6 +151,9 @@ import { multiDictInfo } from "../../../api/index";
       event: keyf1,
       name: "鼻导管吸氧",
       change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['√']
+      },
       textarea: {
       width: 32
       }
@@ -155,6 +164,9 @@ import { multiDictInfo } from "../../../api/index";
       event: keyf1,
       name: "箱内吸氧",
       change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['√']
+      },
       textarea: {
       width: 32
       }
@@ -165,6 +177,9 @@ import { multiDictInfo } from "../../../api/index";
       event: keyf1,
       name: "蓝光",
       change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['√']
+      },
       textarea: {
       width: 32
       }
@@ -175,6 +190,9 @@ import { multiDictInfo } from "../../../api/index";
       event: keyf1,
       name: "灌肠",
       change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['√']
+      },
       textarea: {
       width: 32
       }
@@ -185,6 +203,9 @@ import { multiDictInfo } from "../../../api/index";
       event: keyf1,
       name: "药眠",
       change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['√']
+      },
       textarea: {
       width: 32
       }
@@ -237,6 +258,9 @@ import { multiDictInfo } from "../../../api/index";
       event: keyf1,
       name: "雾化吸入",
       change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['√']
+      },
       textarea: {
       width: 32
       }
@@ -247,6 +271,9 @@ import { multiDictInfo } from "../../../api/index";
       event: keyf1,
       name: "拍背吸痰",
       change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['√']
+      },
       textarea: {
       width: 32
       }
@@ -279,6 +306,9 @@ import { multiDictInfo } from "../../../api/index";
       event: keyf1,
       name: "检查输液部位",
       change: (e, td) => limitChange(e, td, 4),
+      autoComplete: {
+        data: ['√']
+      },
       textarea: {
       width: 32
       }

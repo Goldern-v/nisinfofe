@@ -9,7 +9,7 @@
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}" ref="rightPart">
         <!-- <bloodSugar ref="bloodSugar"></bloodSugar> -->
         <div v-if="HOSPITAL_ID === 'sdlj'">
-          <component v-if="!isAdult" :is="el" ref="bloodSugar" :setScrollTop="setScrollTop"/>
+          <component v-if="!isAdult" :is="el" ref="bloodSugar" @removeSugar='removeSugar' :setScrollTop="setScrollTop"/>
           <sugarBtn v-else ref="sugarBtn" @onAddTableModal='onAddTableModal'></sugarBtn>
         </div>
         <div v-else>
@@ -91,6 +91,10 @@ export default {
     },
   },
   methods: {
+    removeSugar() {
+      console.log('删除')
+      this.isAdult = true
+    },
     onAddTableModal() {
       this.$refs.bloodSugarModal.open()
     },

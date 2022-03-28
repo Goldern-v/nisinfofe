@@ -9,9 +9,11 @@
             <td class="key">检查号</td>
             <td class="value">{{ data1.examNo ? data1.examNo : "" }}</td>
             <td class="key">病人ID</td>
-            <td class="value">{{ data.patientId }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ $route.query.inpNo }}</td>
+            <td class="value" v-else>{{ data.patientId }}</td>
             <td class="key">住院号</td>
-            <td class="value">{{ $route.query.inpNo }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ data.patientId }}</td>
+            <td class="value" v-else>{{ $route.query.inpNo }}</td>
           </tr>
           <tr>
             <td class="key">姓名</td>
@@ -64,9 +66,11 @@
             <td class="key">检查号</td>
             <td class="value">{{ data.examNo ? data.examNo : "" }}</td>
             <td class="key">病人ID</td>
-            <td class="value">{{ data.patientId }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ $route.query.inpNo }}</td>
+            <td class="value" v-else>{{ data.patientId }}</td>
             <td class="key">住院号</td>
-            <td class="value">{{ $route.query.inpNo }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ data.patientId }}</td>
+            <td class="value" v-else>{{ $route.query.inpNo }}</td>
           </tr>
           <tr>
             <td class="key">姓名</td>

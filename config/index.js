@@ -116,9 +116,9 @@ const currentTargetUrl = (() => {
     /** 贵州省人民医院 */
     case "guizhou":
       // return "http://183.63.206.194:9091" // 贵州省人民医院
-      // return "http://192.168.1.54:9875" // 公司-贵州省人民医院-内网
+      return "http://192.168.1.54:9875" // 公司-贵州省人民医院-内网
       // return "http://192.168.20.250:8080" // 彬哥本地
-      return "http://192.168.20.83:8080" // 彬哥本地
+      // return "http://192.168.20.83:8080" // 彬哥本地
       // return "https://info.cr-health.com:20203" // 公司-贵州省人民医院-外网
       // return "http://192.168.8.204:9091" // 贵州正式
       // return "http://10.207.40.24:9091" // 贵州测试
@@ -160,7 +160,7 @@ const currentTargetUrl = (() => {
       // return "http://219.159.198.37:9094"  // 正式地址
       return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
-      
+
     // 福清妇幼保健院
     case 'fqfybjy':
       return 'http://110.90.211.113:9091/' // 正式

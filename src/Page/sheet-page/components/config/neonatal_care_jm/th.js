@@ -81,7 +81,7 @@ export default {
       },
       {
         name: `
-        心率<br/>次/<br>min
+        心率<br/>次/<br>分
         `,
         style: {},
         colspan: '1',
@@ -92,7 +92,7 @@ export default {
       },
       {
         name: `
-        呼吸<br/>次/<br>min
+        呼吸<br/>次/<br>分
         `,
         style: {},
         colspan: '1',
