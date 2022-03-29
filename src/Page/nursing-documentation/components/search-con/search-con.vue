@@ -338,7 +338,9 @@ export default {
   },
   methods: {
     changeDept(value) {
-      this.$store.commit("upDeptCode", value);
+      // if(!['huadu'].includes(this.HOSPITAL_ID)) {
+      //   this.$store.commit("upDeptCode", value);
+      // }
     },
     search() {
       this.$parent.page.pageIndex = 1;

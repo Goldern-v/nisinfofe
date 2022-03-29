@@ -541,6 +541,23 @@ export default {
     },
     isDisabed(tr, td, x, y, bodyModel) {
       // canModify false可以修改，true禁止修改
+      // 签名后不能修改，要取消修改才能修改
+      if (this.sheetInfo.sheetType == "common_xg") {
+        if (td && this.listData[x]) {
+          return !this.listData[x].canModify;
+        }
+      }
+      if (this.HOSPITAL_ID=='whfk') {
+        if (td && this.listData[x]) {
+          // 是否签名,签名了就不能编辑。需要取消签名
+          if(tr.find((item) => item.key == "status").value === "1"){
+           return true
+          }
+        }
+      }
+      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[x] && (this.listData[x].status==2)&& (!this.listData[x].canModify)){
+        return true
+      }
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
@@ -599,6 +616,12 @@ export default {
       }
       if(this.listData && this.listData[x] && this.listData[x].canModify){
         return false;
+      }
+      // 这里主要是给弹窗做判断isread
+      // 判断状态
+      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[x] && (this.listData[x].status==2)&& (!this.listData[x].canModify)){
+        // 当审核完，status=2&&canModify=false
+        return true
       }
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;

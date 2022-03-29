@@ -79,11 +79,11 @@ export default {
     list() {
       let arr = [
         {
-          key: "跌倒高风险",
+          key: this.HOSPITAL_ID=="whfk"?"跌倒风险":"跌倒高风险",
           length: this.dangerInMorse.length
         },
         {
-          key: "压疮高风险",
+          key: this.HOSPITAL_ID=="whfk"?"压疮风险":"压疮高风险",
           length: this.dangerInYachuang.length
         },
         {
@@ -143,13 +143,12 @@ export default {
       // }
       if(this.HOSPITAL_ID == "whfk"){
         arr = arr.filter((item)=> {
-          return (item.key !='MEWS预警'&& item.key != "预出院")
+          return (item.key !='MEWS预警'&& item.key != "预出院"&& item.key != "已有压疮")
         })
-        arr.push(
-          {key: "ADL",length: this.isPain.length},
+        arr.splice(2,0, {key: "ADL",length: this.isPain.length},
           {key: "疼痛",length: this.isAdl.length},
-          {key: "管道脱落风险",length: this.tubingShedding.length},
-        );
+          {key: "管道脱落风险",length: this.tubingShedding.length},)
+        
       }
       if(this.HOSPITAL_ID == "beihairenyi"){
         // console.log("多重耐药患者:",this.isMultiDrugResistant);

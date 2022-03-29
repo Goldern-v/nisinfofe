@@ -174,6 +174,10 @@ export default {
 
       this.getImg();
     },
+      //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime){
+      this.bus.$emit('getDataFromPage',dateTime)
+    },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       console.log(this.queryTem);
@@ -218,6 +222,9 @@ export default {
             break;
           case "dblclick" /* 双击查阅体温单子 */:
             this.openRight();
+            break;
+             case "clickDateTime":
+            this.getDataFromPage(e.data.value)
             break;
           default:
             break;
@@ -312,7 +319,7 @@ export default {
 .pagination {
   display: inline;
   position: relative;
-  left: -10%;
+  left: -5%;
   font-weight: normal;
 }
 
