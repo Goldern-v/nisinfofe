@@ -1053,6 +1053,16 @@ export default {
       if(this.HOSPITAL_ID=='fuyou'){
         isRead = this.$store.state.form_masterInfo.masterInfo.readOnly
       }
+      // 佛山人医  完全根据canModify来控制
+      if(this.HOSPITAL_ID=='foshanrenyi'){
+        // status  三种状态  1签名（普通） 2审核
+        if(status>=1){
+           // 审核   isRead  sheet-page.vue这个文件的的isRead方法决定
+           isRead=tr.isRead
+        }else{
+          isRead = false;
+        }
+      }
       this.isRead = isRead;
       this.table = config.table;
       this.customTitle = decoder_title(config.thead);
