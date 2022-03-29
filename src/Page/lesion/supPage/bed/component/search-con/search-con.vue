@@ -865,11 +865,13 @@ export default {
           }
           break;
         case "跌倒高风险":
+        case "跌倒风险":
           {
             this.$parent.bedList = this.dangerInMorse;
           }
           break;
         case "压疮高风险":
+        case "压疮风险":
           {
             this.$parent.bedList = this.dangerInYachuang;
           }

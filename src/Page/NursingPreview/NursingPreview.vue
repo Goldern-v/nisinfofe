@@ -86,8 +86,8 @@ import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperature-beihairenyi";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperature-wujing";
 import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-whfk";
-import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-liaocheng";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
+import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import bloodOxygen  from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
@@ -138,6 +138,8 @@ export default {
           return temperatureLYXRM;
         case "sdlj":
           return temperatureSDLJ;
+        case "lyxrm":
+          return temperatureLYXRM;
         default:
           return temperature;
       }

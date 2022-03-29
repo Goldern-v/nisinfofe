@@ -635,7 +635,7 @@ export default {
         let bodyData = res[1].data.data;
         this.$store.commit('upMasterInfo',bodyData)
         if(this.HOSPITAL_ID=='wujing'){
-          let barcodeArr = {} 
+          let barcodeArr = {}
           bodyData.list.map((tr,index)=>{
             if(tr.expand){
               barcodeArr[tr.expand] = barcodeArr[tr.expand] ? (barcodeArr[tr.expand] + 1) : 1
@@ -1141,6 +1141,14 @@ export default {
         this.sheetInfo.selectBlock = {};
       }
     },
+    // 切换主页后在点击其他用户不会更新
+    'sheetInfo.sheetType': {
+      handler(val, prev) {
+        if (val != prev) {
+          this.bus.$emit('refreshSheetPage', true)
+        }
+      }
+    }
   },
   beforeRouteLeave: (to, from, next) => {
     if (

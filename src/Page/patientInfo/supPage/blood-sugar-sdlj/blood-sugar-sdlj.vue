@@ -514,8 +514,12 @@ export default {
           const res =  await deleteRecord(this.saveParams, this.baseParams.formType, this.fkOxygenCode);
           if(res.data.code == '200'){
             this.$message.success("删除成功");
-            this.load();
+            await this.load();
             this.selected = null;
+            // if (this.HOSPITAL_ID === "sdlj" && this.listMap && this.listMap[0].left.length === 0) {
+            //   console.log(12334)
+            //   this.$emit('removeSugar')
+            // }
           }else{
             this.$message.success(res.data.desc);
           }
