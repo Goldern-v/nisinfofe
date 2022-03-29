@@ -14,7 +14,7 @@
             <label class="label">日期：</label>
             <input
               type="text"
-              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu'"
+              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'wujing'"
               :placeholder="autoDate"
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
@@ -24,7 +24,7 @@
             <label class="label">时间：</label>
             <input
               type="text"
-              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu'"
+              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'wujing'"
               v-model="staticObj.recordHour"
               @keyup="timeKey($event, staticObj, 'recordHour')"
             />
@@ -1192,6 +1192,9 @@ export default {
     },
     // 保存（富文本）
     postRichText() {
+      if(!this.staticObj.recordHour){
+        return this.$message.warning('记录时间不得为空！')
+      }
       // okLength保存的时候，一条数据给后端传的字数长度
       let okLength = ""
       if(this.HOSPITAL_ID=='lingcheng'||this.HOSPITAL_ID=='hengli'){
