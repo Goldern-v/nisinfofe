@@ -539,6 +539,25 @@ export default {
         `
       );
     }
+    if (this.HOSPITAL_ID === "sdlj") {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='上级<br/>签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='上级签名']{
+            display:none !important;
+          }
+         
+          @media print {
+            #sheetPagePrint .contant{
+              margin-top:-20px;!important;
+            }
+          }
+        `
+      )
+    }
 
     // 陵城打印
     if (this.HOSPITAL_ID == "lingcheng") {

@@ -20,7 +20,17 @@
             <el-option label="临时" :value="0"></el-option>
           </el-select>
           <span class="label">医嘱分类:</span>
-          <el-select v-model="query.itemType" placeholder="请选择" size="small" style="width:150px">
+          <el-select v-model="query.itemType" placeholder="请选择" size="small" style="width:150px" v-if="HOSPITAL_ID=='whfk'">
+            <el-option label="全部" value=""></el-option>
+            <el-option label="输液" value="输液"></el-option>
+            <el-option label="注射" value="注射"></el-option>
+            <el-option label="口服" value="口服"></el-option>
+            <el-option label="雾化" value="雾化"></el-option>
+            <el-option label="皮试" value="皮试"></el-option>
+            <el-option label="治疗" value="治疗"></el-option>
+            <el-option label="标本" value="标本"></el-option>
+          </el-select>
+          <el-select v-model="query.itemType" placeholder="请选择" size="small" style="width:150px" v-else>
             <!-- <el-option label="全部" value="全部"></el-option> -->
             <el-option label="输液" value="输液"></el-option>
             <el-option label="注射" value="注射"></el-option>
@@ -201,7 +211,7 @@ export default {
       isShowModal:false,
       query: {
         wardCode:"",
-        itemType:"输液",//医嘱类别，输液、雾化
+        itemType:this.HOSPITAL_ID=='whfk'?'全部':"输液",//医嘱类别，输液、雾化
         executeDate:moment().format("YYYY-MM-DD"),//执行日期
         bedLabel:'',//床位号，如果查全部传*"
         repeatIndicator:9,//医嘱类型，长期传1，临时传0，全部传9
@@ -217,7 +227,7 @@ export default {
       pagedTable:[],
       printObj:[],
       newModalSize:'6*8',
-      hasNewPrintHos:['sdlj','fsxt',]
+      hasNewPrintHos:['sdlj','fsxt','whfk','lyxrm']
     };
   },
   beforeDestroy(){
@@ -390,6 +400,7 @@ export default {
             `
           }).then(()=>{
             document.getElementById('new-print-box').style.display = 'none'
+            this.onLoad()
           })
         })
       })

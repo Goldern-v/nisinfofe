@@ -9,9 +9,11 @@
             <td class="key">检查号</td>
             <td class="value">{{ data1.examNo ? data1.examNo : "" }}</td>
             <td class="key">病人ID</td>
-            <td class="value">{{ data.patientId }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ $route.query.inpNo }}</td>
+            <td class="value" v-else>{{ data.patientId }}</td>
             <td class="key">住院号</td>
-            <td class="value">{{ $route.query.inpNo }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ data.patientId }}</td>
+            <td class="value" v-else>{{ $route.query.inpNo }}</td>
           </tr>
           <tr>
             <td class="key">姓名</td>
@@ -19,7 +21,7 @@
             <td class="key">性别</td>
             <td class="value">{{ data.sex }}</td>
             <td class="key">年龄</td>
-            <td class="value">{{ $route.query.age }}</td>
+            <td class="value">{{ routeQuery.age }}</td>
           </tr>
           <tr>
             <td class="key">科室</td>
@@ -64,9 +66,11 @@
             <td class="key">检查号</td>
             <td class="value">{{ data.examNo ? data.examNo : "" }}</td>
             <td class="key">病人ID</td>
-            <td class="value">{{ data.patientId }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ $route.query.inpNo }}</td>
+            <td class="value" v-else>{{ data.patientId }}</td>
             <td class="key">住院号</td>
-            <td class="value">{{ $route.query.inpNo }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ data.patientId }}</td>
+            <td class="value" v-else>{{ $route.query.inpNo }}</td>
           </tr>
           <tr>
             <td class="key">姓名</td>
@@ -74,7 +78,7 @@
             <td class="key">性别</td>
             <td class="value">{{ data.sex }}</td>
             <td class="key">年龄</td>
-            <td class="value">{{ $route.query.age }}</td>
+            <td class="value">{{ routeQuery.age }}</td>
           </tr>
           <tr>
             <td class="key">科室</td>
@@ -240,6 +244,15 @@ export default {
     height() {
       return `${this.wih - 150}px`;
     },
+    routeQuery() {
+      if(this.$route.query.age){
+        return this.$route.query
+      }else if(this.$route.params.age){
+        return this.$route.params;
+      }else{
+        return this.$store.state.sheet.patientInfo
+      }
+    },
   },
   filters: {
     dataForm(value) {
@@ -257,9 +270,10 @@ export default {
       // this.$refs.imgModal.open(examNo, name)
     },
     open(data) {
-      console.log(data);
+      console.log(data, this.$route.query.name);
       if (data) {
         this.data = data;
+        this.data.name = this.$route.query.name || this.$store.state.sheet.patientInfo.name
         this.loading = true;
         this.data1 = {};
         this.showImg = false;

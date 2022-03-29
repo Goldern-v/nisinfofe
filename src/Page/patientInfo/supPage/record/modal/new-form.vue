@@ -14,7 +14,8 @@
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng' &&
             HOSPITAL_ID != 'guizhou' &&
-            HOSPITAL_ID != 'foshanrenyi'
+            HOSPITAL_ID != 'foshanrenyi' &&
+            HOSPITAL_ID != 'fsxt'
           "
           v-model="formType"
           placeholder="选择类型"
@@ -34,7 +35,8 @@
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng' &&
             HOSPITAL_ID != 'guizhou' &&
-            HOSPITAL_ID != 'foshanrenyi'
+            HOSPITAL_ID != 'foshanrenyi' &&
+            HOSPITAL_ID != 'fsxt'
           "
           class="text-con"
           :placeholder="
@@ -44,7 +46,7 @@
           v-model="searchWord"
         ></el-input>
         <el-select
-          v-if="HOSPITAL_ID == 'foshanrenyi'"
+          v-if="HOSPITAL_ID == 'foshanrenyi' || HOSPITAL_ID == 'fsxt'"
           v-model="formType"
           placeholder="选择类型"
           class="type-select"
@@ -58,7 +60,7 @@
           ></el-option>
         </el-select>
         <el-input
-          v-if="HOSPITAL_ID == 'foshanrenyi'"
+          v-if="HOSPITAL_ID == 'foshanrenyi' || HOSPITAL_ID == 'fsxt'"
           class="text-con"
           :placeholder="
             '搜索' + foshanrenyiOptions.find((item) => item.value == formType).label

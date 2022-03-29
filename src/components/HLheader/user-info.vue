@@ -45,7 +45,7 @@
         <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
       </div>
     </div>
-    <div class="admin-system-info" v-if="['fuyou','hj'].includes(HOSPITAL_ID)">
+    <div class="admin-system-info" v-if="hasQrCaSignHos.includes(HOSPITAL_ID)">
     <!-- <div class="admin-system-info" v-if="['fuyou'].includes(HOSPITAL_ID)"> -->
       证书状态:
       <p>
@@ -283,11 +283,13 @@ export default {
       ca_name: "",
       ca_isLogin: "",
       strUserCertID: "",
-      showScaleTip: false,
+      showScaleTip:['huadu'].includes(this.HOSPITAL_ID),
       userName: "",
       passWord: "",
       fuyouCaData:null,//江门妇幼ca签名认证数据
       isUpdateFuyouCaData:true,
+      hasQrCaSignHos:['fuyou','hj'],
+      // hasQrCaSignHos:['fuyou','hj','guizhou']
     };
   },
   props: {
@@ -544,7 +546,8 @@ export default {
   mounted() {
     this.getUserImg();
     this.getSignImg();
-    this.showScaleTip = localStorage.getItem("noShowScaleTip") ? true : false;
+    let noShowScaleTip = localStorage.getItem("noShowScaleTip")
+    noShowScaleTip && (this.showScaleTip = true)
     this.$nextTick(() => {
       this.qrcode()
     });

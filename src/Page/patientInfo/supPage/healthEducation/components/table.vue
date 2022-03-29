@@ -232,6 +232,7 @@ export default {
 <style scoped lang='scss'>
 .health-education {
   font-size: 12px;
+  display: block;
   position: relative;
   * {
     box-sizing: border-box;
@@ -244,7 +245,7 @@ export default {
     line-height: 50px;
   }
   .education-table {
-    width: 660px;
+    width: 100%;
     color: #000;
     border-collapse: collapse;
     thead {
@@ -259,7 +260,7 @@ export default {
     th,
     td {
       position: relative;
-      padding: 5px;
+      padding: 1px;
       text-align: center;
       border: 1px solid #222;
       height: 25px;

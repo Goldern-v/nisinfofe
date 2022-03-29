@@ -14,14 +14,24 @@ export default async function () {
     recentHtml = await getHtml()
     if (recentHtml != currentHtml) {
       try {
-        window.app.$notify.info({
-          title: '更新提示',
-          message: '发现新的版本了，点击立即更新',
-          duration: 0,
-          onClick() {
-            location.reload(true)
-          }
-        });
+        if (['huadu'].includes(process.env.HOSPITAL_ID)) {
+          window.app.$alert('发现新的版本了，点击立即更新', '更新提示', {
+            confirmButtonText: '确定',
+            type:"info",
+            callback: action => {
+              location.reload(true)
+            }
+          });
+        } else {
+          window.app.$notify.info({
+            title: '更新提示',
+            message: '发现新的版本了，点击立即更新',
+            duration: 0,
+            onClick() {
+              location.reload(true)
+            }
+          });
+        }
       }
       catch (e) { }
       currentHtml = recentHtml

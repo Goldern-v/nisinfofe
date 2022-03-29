@@ -96,7 +96,7 @@ export default {
       printAllPath:"",
       intranetUrl:
         "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-        // "http://localhost:8081/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://localhost:8080/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:"http://10.158.210.28:9093/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
       outNetUrl:
         "http://218.107.37.134:9093/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
@@ -154,20 +154,13 @@ this.$refs.pdfConAll.contentWindow.postMessage(
         "left":this.rightSheet===false?"20%":"8%",
       }
     },
-        /* 同步入院、同步出院 */
-    syncInAndOutHospital(type) {
-      autoVitalSigns({
-        patientId: this.patientInfo.patientId,
-        visitId: this.patientInfo.visitId,
-        type: type,
-      }).then(async (res) => {
-        this.$message.success("同步成功");
-        await this.bus.$emit("refreshImg");
-      });
-      if(type==='0'){
-        this.query.entryDate=this.patientInfo.admissionDate.slice(0,10)
-        this.dateInp=this.patientInfo.admissionDate.slice(11,20)
-      }
+    syncInAndOutHospital(type){
+      this.bus.$emit('syncInAndOutHospital',type)
+
+    },
+    //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime){
+      this.bus.$emit('getDataFromPage',dateTime)
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -198,6 +191,9 @@ this.$refs.pdfConAll.contentWindow.postMessage(
           case "pageTotal":
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
+            break;
+          case "clickDateTime":
+            this.getDataFromPage(e.data.value)
             break;
              case "dblclick" /* 双击查阅体温单子 */:
             this.openRight();

@@ -1207,7 +1207,7 @@ export default {
       if(this.HOSPITAL_ID=='lingcheng'||this.HOSPITAL_ID=='hengli'){
         okLength = 46
       } else if(this.sheetInfo.sheetType === 'common_wj'){
-        okLength = 24
+        okLength = 40
        }else {
         okLength = 23
       }

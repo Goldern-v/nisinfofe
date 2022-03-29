@@ -1,6 +1,5 @@
 // import Vue from 'vue'
 // import { Message } from 'element-ui';
-import { forEach } from 'lodash';
 // 全局注册
 // Vue.use(Message)
 
