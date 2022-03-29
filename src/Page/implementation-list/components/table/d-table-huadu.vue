@@ -260,20 +260,20 @@
         </template>
       </el-table-column>
        <el-table-column
+        prop="stopReason"
         label="原因"
         min-width="200px"
         align="center"
       >
-        <template slot-scope="scope">
+        <!-- <template slot-scope="scope">
           <span v-html="timeAndNameFormat(scope.row,'stopReason')"></span>
-        </template>
+        </template> -->
       </el-table-column>
       <el-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
           <el-button
             type="text"
             @click="backTracking(scope.row)"
-            v-if="scope.row.executeFlag === '' && currentType != '输液'"
             >补录</el-button
           >
         </template>
@@ -495,7 +495,7 @@ export default {
         },
         {
           id: 5,
-          name: "异常取消输液"
+          name: "取消执行"
         },
         {
           id: 6,
