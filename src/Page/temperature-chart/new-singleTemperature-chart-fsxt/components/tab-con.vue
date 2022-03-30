@@ -155,7 +155,7 @@
               </el-collapse-item>
               <div
                 class="context-box"
-                v-if="Object.keys(this.otherMultiDictList).length"
+                v-if="Object.keys(otherMultiDictList).length"
               >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
@@ -257,7 +257,7 @@
               </div>
             </div>
             <div class="context-box">
-              <el-collapse-item name="fieldList" v-if="fieldList.length">
+              <el-collapse-item name="fieldList" v-if="Object.keys(fieldList).length">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
                   <i class="header-icon el-icon-info"></i>
