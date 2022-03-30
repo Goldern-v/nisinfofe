@@ -118,7 +118,6 @@
   }
 
   .header-con {
-    text-align: center;
 
     .his-name {
       font-size: 18px;
