@@ -9,15 +9,21 @@
       @row-dblclick="openDetail"
     >
       <el-table-column
-        label="序号"
+        label=" "
         min-width="50px"
         type="index"
       ></el-table-column>
 
       <el-table-column
-        prop="patientId"
-        label="ID"
+        prop="wardName"
+        label="护理单元"
         min-width="150px"
+      ></el-table-column>
+
+      <el-table-column
+        prop="bedLabel"
+        label="床号"
+        :min-width="HOSPITAL_ID=='fuyou'?'60px':'80px'"
       ></el-table-column>
 
       <el-table-column
@@ -26,7 +32,47 @@
         min-width="80px"
       ></el-table-column>
 
-			<el-table-column
+      <el-table-column
+        :label="['fuyou'].includes(HOSPITAL_ID)?'责任医生':'管床医生'"
+        prop="doctorInCharge"
+        min-width="90px"
+        v-if="!['liaocheng', 'guizhou'].includes(HOSPITAL_ID)"
+      ></el-table-column>
+
+      <el-table-column
+        prop="sex"
+        label="性别"
+        :min-width="HOSPITAL_ID=='fuyou'?'35px':'70px'"
+      ></el-table-column>
+
+      <el-table-column
+        prop="patientId"
+        label="病人ID"
+        min-width="120px"
+        v-if="!['fuyou'].includes(HOSPITAL_ID)"
+      ></el-table-column>
+
+      <el-table-column
+        label="住院号"
+        prop="inpNo"
+        min-width="95px"
+      ></el-table-column>
+
+      <el-table-column
+        prop="visitId"
+        label="住院标识"
+        min-width="95px"
+        v-if="HOSPITAL_ID == 'gy'"
+      ></el-table-column>
+
+      <el-table-column
+        prop="visitId"
+        label="次数"
+        :min-width="HOSPITAL_ID=='fuyou'?'35px':'70px'"
+        v-else
+      ></el-table-column>
+
+      <el-table-column
         prop="admissionDate"
         label="入院日期"
         min-width="120px"
@@ -38,53 +84,19 @@
         min-width="120px"
       ></el-table-column>
 
-			<el-table-column
-        label="出院诊断"
-        prop="diagnosis"
-        min-width="90px"
+      <el-table-column
+        prop="status"
+        label="状态"
+        :min-width="HOSPITAL_ID=='fuyou'?'70px':'80px'"
       ></el-table-column>
 
       <el-table-column
-        label="主管医生"
+        label="主管医师"
         prop="doctorInCharge"
         min-width="90px"
+        v-if="HOSPITAL_ID == 'liaocheng'"
       ></el-table-column>
 
-      <el-table-column
-        label="手术名称"
-        prop="operName"
-        min-width="90px"
-      ></el-table-column>
-
-			<el-table-column
-        label="手术时间"
-        prop="scheduleDateTime"
-        min-width="90px"
-      ></el-table-column>
-
-			<el-table-column
-        label="电话号码"
-        prop="phone"
-        min-width="90px"
-      ></el-table-column>
-
-			<el-table-column
-        label="单位地址"
-        prop="companyAddress"
-        min-width="90px"
-      ></el-table-column>
-
-			<el-table-column
-        label="联系人"
-        prop="contactName"
-        min-width="90px"
-      ></el-table-column>
-
-			<el-table-column
-        label="联系电话"
-        prop="contactPhone"
-        min-width="90px"
-      ></el-table-column>
       <el-table-column label="操作" min-width="80px">
         <template slot-scope="scope">
           <el-button type="text" @click="openDetail(scope.row)">查看</el-button>
