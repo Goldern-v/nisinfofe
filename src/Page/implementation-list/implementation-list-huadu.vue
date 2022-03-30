@@ -104,7 +104,12 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .main-contain {
   margin: 10px 10px 0px 10px;
-
+  
+  /deep/ *::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+    background-color: #eaeaea;
+  }
   .pagination-con {
     height: 41px;
     position: relative;
@@ -323,6 +328,10 @@ export default {
         {
           name: "治疗（理疗）",
           value: "治疗（理疗）"
+        },
+        {
+          name: "检查",
+          value: "检查"
         },
         {
           name: "标本",

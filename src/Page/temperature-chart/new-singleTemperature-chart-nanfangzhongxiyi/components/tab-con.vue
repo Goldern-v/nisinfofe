@@ -116,6 +116,7 @@
                     <input
                       :id="i + 1"
                       @keydown.enter="changeNext"
+                      v-on:input="validFormFc(vitalSignObj[j], i + 1)"
                       :type="
                         totalDictInfo[index].inputType === '2'
                           ? 'number'
@@ -178,7 +179,7 @@
               </el-collapse-item>
               <div
                 class="context-box"
-                v-if="Object.keys(this.otherMultiDictList).length"
+                v-if="Object.keys(otherMultiDictList).length"
               >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
@@ -218,6 +219,7 @@
                       <input
                         :id="i + 100"
                         @keydown.enter="changeNext"
+                         v-on:input="validFormFc(vitalSignObj[j], i + 100)"
                         :type="
                           totalDictInfo[index].inputType === '2'
                             ? 'number'
@@ -364,7 +366,7 @@
               </el-collapse-item>
             </div>
             <div class="context-box">
-              <el-collapse-item name="fieldList" v-if="fieldList">
+              <el-collapse-item name="fieldList" v-if="Object.keys(fieldList).length">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
                   <i class="header-icon el-icon-info"></i>
@@ -448,6 +450,7 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
+import { validForm } from "../../validForm/validForm";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -492,12 +495,14 @@ export default {
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
       bottomIndex: [],
+      saveFlag:true,
       dateInp: moment().format("HH:mm"),
       bottomContextList: [""],
       contentHeight: { height: "" }, //页面高度
       topExpandDate: "",
       bottomExpandDate: "",
       centerExpandDate: "",
+      timeStrFormat:"",
       totalDictInfo: {},
     };
   },
@@ -538,6 +543,69 @@ export default {
   methods: {
     handleChange(val) {
       // console.log(val);
+    },
+        setValid(trage, val) {
+      switch (trage) {
+        case "体温":
+        case "肛温":
+        case "口温":
+        case "物理降温":
+          let o = {
+            体温: {
+              value: val,
+              reg: [34, 42],
+              errorMsg: "体温请填入30~42之间的数值",
+            },
+          };
+          return o;
+        case "心率":
+          let h = {
+            心率: {
+              value: val,
+              reg: [20, 180],
+            },
+          };
+          return h;
+        case "脉搏":
+          let y = {
+            脉搏: {
+              value: val,
+              reg: [20, 180],
+            },
+          };
+          return y;
+        case "疼痛评分":
+        case "疼痛干预":
+          let g = {
+            疼痛评分: {
+              value: val,
+              reg: [0, 10],
+            },
+          };
+          return g;
+        default:
+          break;
+      }
+    },
+        validFormFc(vitalSignObj, index) {
+      let val = vitalSignObj.vitalValue;
+      if (
+        vitalSignObj.popVisible === true &&
+        val !== "" &&
+        ["体温", "脉搏", "心率", "口温",'肛温','疼痛评分','疼痛干预','物理降温'].includes(vitalSignObj.vitalSigns)
+      ) {
+        //验证表单
+        if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
+          document.getElementById(index).style.border = "";
+          vitalSignObj.isCorrect = true;
+        } else {
+          document.getElementById(index).style.border = "1px solid red";
+          vitalSignObj.isCorrect = false;
+        }
+      } else {
+        document.getElementById(index).style.border = "";
+        vitalSignObj.isCorrect = true;
+      }
     },
         /* 同步入院、同步出院 */
     syncInAndOutHospital(type) {
@@ -677,6 +745,10 @@ export default {
             this.fieldList[item.vitalCode] = item;
         });
       });
+       let input = document.getElementsByTagName("input");
+      for (let i = 0; i < input.length; i++) {
+        input[i].style.border = "";
+      }
     },
     //时间组件失去焦点
     changeDate(val) {
@@ -708,13 +780,6 @@ export default {
         this.query.entryTime = val.$el.children[1].value;
       }
     },
-    // 下拉选项触发查询
-    changeVal(newVal, oldVal) {
-      if (newVal && newVal.split(":").length == 2) {
-        this.query.entryTime = newVal + ":00";
-        this.dateInp = newVal;
-      }
-    },
     /* 日期搜索功能 */
     selectTemRec(val) {
       this.query.entryDate = val;
@@ -742,7 +807,23 @@ export default {
       this.query.entryTime = value.slice(12, 20);
       //this.query.entryTime = value.slice(12, 20);
       //赋值初始值
+      this.timeStrFormat = temp.slice(18, 20);
       this.dateInp = value.slice(12, 17);
+    },
+        // 下拉选项触发查询
+    async changeVal(newVal, oldVal) {
+      //操作时间
+      await this.formatTimeFun(newVal);
+      this.timeStrFormat = "";
+    },
+    formatTimeFun(newVal) {
+      if (newVal.split(":").length == 2) {
+        if (this.timeStrFormat === "00" || this.timeStrFormat === "") {
+          this.query.entryTime = newVal + ":00";
+        } else {
+          this.query.entryTime = newVal + `:${this.timeStrFormat}`;
+        }
+      }
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -896,7 +977,8 @@ export default {
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
         this.query.entryTime;
-      obj.map((item) => {
+        let saveFlagArr=[]
+     await obj.map((item) => {
         item.recordDate = recordDate;
         switch (item.vitalSigns) {
           case "表顶注释":
@@ -909,6 +991,12 @@ export default {
           default:
             break;
         }
+        if(item.vitalValue !== "" &&
+        ["体温", "脉搏", "心率", "口温",'肛温','疼痛评分','疼痛干预','物理降温'].includes(item.vitalSigns)){
+            if(!validForm.valid(this.setValid(item.vitalSigns, item.vitalValue))){
+            saveFlagArr.push(false)
+            }
+        }
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
@@ -917,11 +1005,16 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
       };
-      await saveAll(data).then((res) => {
+      if(saveFlagArr.includes(false)){
+        this.$message.error("存在数值错误,请耐心检查!");
+      }else{
+        await saveAll(data).then((res) => {
         this.$message.success("保存成功");
       });
-      this.getList();
+       this.getList();
       this.bus.$emit("refreshImg");
+      }
+
     },
   },
   components: { nullBg },
@@ -997,7 +1090,7 @@ export default {
     }
 
     .inputter-region {
-      width: 60%;
+      width: 61%;
       float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;

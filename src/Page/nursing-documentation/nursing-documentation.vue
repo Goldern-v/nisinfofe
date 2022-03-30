@@ -3,6 +3,7 @@
     .main-contain
       changeMaJorTable(v-if="hospitalTransfer && isChangeMajor" :tableData="tableData" :pageLoadng="pageLoadng")
       wjDisTable(v-else-if="isNewDischarged" :tableData="tableData" :pageLoadng="pageLoadng")
+      wjDTable(v-else-if="isNewDcharged" :tableData="tableData" :pageLoadng="pageLoadng")
       dTable( v-else :tableData="tableData" :pageLoadng="pageLoadng")
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
@@ -77,6 +78,7 @@
 import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
 import changeMaJorTable from  "./components/table/change-major-table";
+import wjDTable from "./components/table/wj-d-table";
 import wjDisTable from  "./components/table/wj-dis-table";
 import pagination from "./components/common/pagination";
 import { patEmrList,patEmrListZSQm,listNurseAdtHd,listNurseAdtFuYou, handleExport } from "@/api/document";
@@ -271,6 +273,10 @@ export default {
     //是否为新出院数据
     isNewDischarged(){
       return ['wujing'].includes(this.HOSPITAL_ID) &&  this.fatherStatus == 2;
+    },
+    //是否为新在院数据
+    isNewDcharged(){
+      return ['wujing'].includes(this.HOSPITAL_ID) &&  this.fatherStatus == 1;
     }
   },
   components: {
@@ -279,6 +285,7 @@ export default {
     pagination,
     changeMaJorTable,
     wjDisTable,
+    wjDTable,
   },
 };
 </script>

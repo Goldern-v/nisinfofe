@@ -79,11 +79,11 @@ export default {
     list() {
       let arr = [
         {
-          key: "跌倒高风险",
+          key: this.HOSPITAL_ID=="whfk"?"跌倒风险":"跌倒高风险",
           length: this.dangerInMorse.length
         },
         {
-          key: "压疮高风险",
+          key: this.HOSPITAL_ID=="whfk"?"压疮风险":"压疮高风险",
           length: this.dangerInYachuang.length
         },
         {

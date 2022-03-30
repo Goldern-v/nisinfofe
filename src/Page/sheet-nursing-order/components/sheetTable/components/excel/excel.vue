@@ -175,7 +175,24 @@
               alt
             />
           </div>
-          <input :readonly="isRead(tr)" v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>{!isRead(tr)&&openOrderModal(e,td,tr,x,y,'护嘱内容',910)}" style="height:32px;text-align:left;" v-model="td.value" :data-value='td.value'>
+          <!-- <input :readonly="isRead(tr)" v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>{!isRead(tr)&&openOrderModal(e,td,tr,x,y,'护嘱内容',910)}" style="height:32px;text-align:left;" v-model="td.value" :data-value='td.value'> -->
+          <div  v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" style="height:32px;text-align:left;"  :data-value='td.value' class="orderContent">
+            <el-select
+                placeholder=""
+                v-model="td.value"
+                filterable
+                :disabled="isRead(tr)"
+                @change="changeOrderContent(td.value)"
+            >
+                <el-option
+                v-for="(item,index) in contentOptions"
+                :key="index"
+                :label="item"
+                :value="item"
+                ></el-option>
+            </el-select>
+          </div>
+
           <input :readonly="isRead(tr)" v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>{!isRead(tr)&&openOrderModal(e,td,tr,x,y,'频次',1090)}" v-model="td.value" style="height:32px;" :data-value='td.value'>
           <input
             type="text"
@@ -273,6 +290,70 @@ export default {
       modalTop:'0px',
       modalLeft:'0px',
       currentColumn:{},
+      contentOptions:[
+        '协助更衣',
+        '指/趾甲护理',
+        '面部清洁和梳头',
+        '鼻饲',
+        '协助进食',
+        '糖尿病饮食宣教',
+        '口腔护理',
+        '吞咽评估',
+        '吞咽冰刺激训练',
+        '言语训练',
+        '会阴护理',
+        '留置尿管护理',
+        '足部护理',
+        '压疮预防及护理',
+        '肛周皮肤护理',
+        '协助/指导患者翻身及有效咳嗽',
+        "抬高床头15-30°",
+        '抬高床头30°以上',
+        '协助床上移动',
+        '指导/协助被动肢体功能锻炼',
+        '指导主动肢体功能锻炼',
+        '指导坐轮椅',
+        '指导使用助行器',
+        '协助上下楼梯',
+        '防跌倒',
+        '床上使用便器',
+        '床边放大便椅',
+        '床上擦浴',
+        '床上洗头',
+        '温水擦浴',
+        '餐前打胰岛素', 
+        '脐部护理',
+        '洗浴',
+        '防坠床',
+        '翻身拍背',
+        "肢体气压治疗",
+        '母乳喂养知识宣教',
+        '观察产程进展',
+        '落实减痛措施',
+        '指导分娩技巧',
+        '观察胎心情况',
+        '观察宫缩情况',
+        '指导自数胎动',
+        '观察膀胱排空及羊水情况',
+        '保持会阴清洁',
+        '禁止下床',
+        '指导床上活动',
+        '指导卧位',
+        '观察阴道流血情况',
+        '观察宫腔止血球囊引流情况',
+        '保持管道通畅及防管道脱落',
+        '协助翻身',
+        '指导挤奶技巧',
+        '指导肢体功能锻炼促进产后康复',
+        '观察伤口出血/渗血情况',
+        '检查伤口敷料情况',
+        '剪指甲/更换病人服',
+        '控制入量',
+        '观察会阴情况',
+        '观察下肢血运情况',
+        '腹部按摩',
+        '右下肢制动',
+    ],
     };
   },
   computed: {
