@@ -3,7 +3,7 @@
     <u-table
       style="width: 100%"
       border
-      :height="wih - 123"
+      :height="wih - 173"
       v-loading="pageLoadng"
       :row-class-name="rowcb"
       use-virtual
@@ -50,7 +50,7 @@
 
       <u-table-column label="频次" prop="frequency" min-width="80px" align="center"></u-table-column>
 
-      <u-table-column label="执行时间说明" prop="performSchedule" min-width="100px" align="center"></u-table-column>
+      <u-table-column label="预计执行时间" prop="executeDateTime" min-width="140px" align="center"></u-table-column>
 
       <u-table-column label="医生说明" prop="freqDetail" min-width="200px" align="center"></u-table-column>
 
@@ -67,13 +67,13 @@
       </u-table-column>
       <u-table-column prop="orderNo" label="医嘱号" min-width="70px" align="center"></u-table-column>
 
-      <u-table-column prop="startDateTime" label="开嘱时间" min-width="160px" align="center">
+      <u-table-column prop="startDateTime" label="开嘱时间" min-width="140px" align="center">
         <template slot-scope="scope">
           <span :title="scope.row.startDateTime | ymdhms">{{scope.row.startDateTime | ymdhms}}</span>
         </template>
       </u-table-column>
 
-      <u-table-column prop="stopDateTime" label="停嘱时间" min-width="160px" align="center">
+      <u-table-column prop="stopDateTime" label="停嘱时间" min-width="140px" align="center">
         <template slot-scope="scope">
           <span :title="scope.row.stopDateTime | ymdhms">{{scope.row.stopDateTime | ymdhms}}</span>
         </template>

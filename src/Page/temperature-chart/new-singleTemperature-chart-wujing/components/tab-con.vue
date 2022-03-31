@@ -6,7 +6,7 @@
           class="date-picker"
           type="date"
           size="small"
-          style="width: 190px"
+          style="width: 140px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -35,7 +35,7 @@
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div class="record-list" :style="{ width: `${37}%` }">
+        <div class="record-list" :style="{ width: `${40}%` }">
           <div class="record-item">
             <div
               :class="
@@ -57,7 +57,7 @@
               @click="changeQuery(item.recordDate)"
             >
               {{ item.recordDate.slice(5, 17) }}
-              {{ item.recordPerson }}
+             {{ item.recordPerson===""?'同步录入':item.recordPerson }}
               <i
                 @click="removeRecord(item.recordDate, tabIndex)"
                 class="el-icon-delete"
@@ -166,7 +166,7 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-              <div class="context-box" v-if="Object.keys(this.otherMultiDictList).length">
+              <div class="context-box" v-if="Object.keys(otherMultiDictList).length">
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
                     <span class="title"> 其他信息 </span>
@@ -262,7 +262,7 @@
               </div>
             </div>
             <div class="context-box">
-              <el-collapse-item name="fieldList" v-if="fieldList">
+              <el-collapse-item name="fieldList" v-if="Object.keys(fieldList).length">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
                   <i class="header-icon el-icon-info"></i>
@@ -478,6 +478,11 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+    this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate = dateTime.slice(0, 10);
+      this.query.entryTime = dateTime.slice(11, 16) + ":00";
+      this.dateInp = dateTime.slice(11, 16);
+    });
 
   },
   created() {
@@ -495,7 +500,9 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
+          if(this.query.entryTime&&this.query.entryDate){
         this.getList();
+          }
       },
       deep: true,
     },
@@ -935,7 +942,7 @@ export default {
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
-          text-align: left;
+          text-align: center;
           font-size: 12px;
 
           &.active {
@@ -952,7 +959,7 @@ export default {
     }
 
     .inputter-region {
-      width: 60%;
+      width: 58%;
       float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;

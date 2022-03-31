@@ -1,42 +1,44 @@
 <template>
   <div class="patient-list-part" v-loading="patientListLoading">
     <el-input placeholder="床号/姓名"
-              icon="search"
-              class="search-box"
-              v-model="searchWord">
+      icon="search"
+      class="search-box"
+      v-model="searchWord">
     </el-input>
     <div class="left-wapper">
-        <div class="follow" v-if="hasFollowList">
-          <div class="follow-name" @click="openFollow">
-            <span
-              class="arrow"
-              :class="isShowFollow ? 'follow-arrow-open' : 'follow-arrow-close'"
-            ></span>
-            我的关注
+      <div class="follow" v-if="hasFollowList">
+        <div class="follow-name" @click="openFollow">
+          <span
+            class="arrow"
+            :class="isShowFollow ? 'follow-arrow-open' : 'follow-arrow-close'"
+          ></span>
+          我的关注
+        </div>
+        <transition name="fold-height">
+          <div v-show="isShowFollow" class="follow-list">
+            <template v-if="followList.length">
+            <patientItem v-for="(item, index) in followList" :key="item.name" :item="item" :index="index" :type="'follow'"></patientItem>
+            </template>
+            <div class="empty" v-else>暂无关注数据</div>
           </div>
-          <transition name="fold-height">
-            <div v-show="isShowFollow" class="follow-list">
-              <template v-if="followList.length">
-              <patientItem v-for="(item, index) in followList" :key="item.name" :item="item" :index="index" :type="'follow'"></patientItem>
-              </template>
-              <div class="empty" v-else>暂无关注数据</div>
-            </div>
-          </transition>
+        </transition>
       </div>
       <!-- @selectPatient="selectPatient" -->
-    <div class="patient-list-contain">
-     <patientItem v-for="(item, index) in list" :key="item.name" :item="item" :index="index"></patientItem>
-    </div>
-    <div class="flag-con"
-           :style="{top: flagTop}"
-           flex="main:center cross:center"
-           @click="toOpenLeft">
+      <div class="patient-list-contain">
+        <patientItem v-for="(item, index) in list" :key="item.name" :item="item" :index="index"></patientItem>
+      </div>
+      <div class="flag-con"
+        :style="{top: flagTop}"
+        flex="main:center cross:center"
+        @click="toOpenLeft">
         <i class="iconfont icon-yincang"
-           v-show="openLeft"
-           style="margin-left: -1px"></i>
+          v-show="openLeft"
+          style="margin-left: -1px">
+        </i>
         <i class="iconfont icon-xianshi"
-           v-show="!openLeft"
-           style="margin-left: -2px"></i>
+          v-show="!openLeft"
+          style="margin-left: -2px">
+        </i>
       </div>
     </div>
   </div>
@@ -49,7 +51,7 @@
   position relative
   border-right 1px solid #CBD5DD
 .patient-list-contain
-  padding 0px 13px 11px
+  padding 0px 3px 11px 13px
   height 100%
   box-sizing border-box
   overflow auto

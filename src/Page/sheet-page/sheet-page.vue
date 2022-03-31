@@ -485,6 +485,10 @@ export default {
           }
         }
       }
+      // 如果审核完，canModify=false才禁用
+      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[x] && (this.listData[x].status==2)&& (!this.listData[x].canModify)){
+        return true
+      }
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
@@ -544,6 +548,13 @@ export default {
       if(this.listData && this.listData[x] && this.listData[x].canModify){
         return false;
       }
+      // 当审核完，就出现问题，下拉还是会出现。 用this.isDisabed解决
+      // 这里主要是给弹窗做判断isRead
+      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[x] && (this.listData[x].status==2)&& (!this.listData[x].canModify)){
+        // 当审核完，status=2&&canModify=false,
+        return true
+      }
+
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;
       if (status == 1) {
@@ -635,7 +646,7 @@ export default {
         let bodyData = res[1].data.data;
         this.$store.commit('upMasterInfo',bodyData)
         if(this.HOSPITAL_ID=='wujing'){
-          let barcodeArr = {} 
+          let barcodeArr = {}
           bodyData.list.map((tr,index)=>{
             if(tr.expand){
               barcodeArr[tr.expand] = barcodeArr[tr.expand] ? (barcodeArr[tr.expand] + 1) : 1
@@ -1141,6 +1152,14 @@ export default {
         this.sheetInfo.selectBlock = {};
       }
     },
+    // 切换主页后在点击其他用户不会更新
+    'sheetInfo.sheetType': {
+      handler(val, prev) {
+        if (val != prev) {
+          this.bus.$emit('refreshSheetPage', true)
+        }
+      }
+    }
   },
   beforeRouteLeave: (to, from, next) => {
     if (

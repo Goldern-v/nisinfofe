@@ -168,6 +168,8 @@ const healthEducationList = () =>
 
 const implementationList = () =>
   import("@/Page/implementation-list/implementation-list.vue"); //执行单
+const adviceList = ()=>
+  import("@/Page/adviceList/adviceList.vue"); //贵州执行单(患者列表形式)
 const implementationListLingcheng = () =>
   import("@/Page/implementation-list/implementation-list-lingcheng.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
@@ -180,10 +182,14 @@ const implementationListHuadu = () =>
   import("@/Page/implementation-list/implementation-list-huadu.vue"); //花都执行单
 const implementationListWujing = () =>
   import("@/Page/implementation-list/implementation-list-wujing.vue"); //武警执行单
+const implementationListWhfk = () =>
+  import("@/Page/implementation-list/implementation-list-whfk.vue"); //肺科执行单
 const implementationListLyxrm= ()=>
 import("@/Page/implementation-list/implementation-list-lyxrm.vue")//临邑执行单
 const implementationListFSSY = () =>
   import("@/Page/implementation-list/implementation-list-FSSY.vue"); //武警执行单
+const implementationListFsxt = ()=>
+  import('@/Page/implementation-list/implementation-list-fsxt.vue') //佛山杏坛执行单
 const implementationListQuzhou = () =>
   import("@/Page/implementation-list/implementation-list-quzhou.vue"); //曲周执行单
 const implementationListFuyou = () =>
@@ -276,6 +282,7 @@ import BHBaby_sheetPage from "@/Page/sheet-page/BHBabysheet-page.vue"; // 北海
 import patientInfo from "@/Page/patientInfo/patientInfo"; //患者首页
 import information from "@/Page/patientInfo/supPage/information/information";
 import advice from "@/Page/patientInfo/supPage/advice/advice";
+import adviceGuizhou from "@/Page/patientInfo/supPage/advice_guizhou/advice";
 import inspect from "@/Page/patientInfo/supPage/inspect/inspect";
 import test from "@/Page/patientInfo/supPage/test/test";
 import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr"; //病历
@@ -310,7 +317,9 @@ import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval
 import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
 const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-form/index.vue")
-
+const medicalCheck = () => import("@/Page/patientInfo/supPage/medical-check/index.vue")
+// 患者个人护理巡视
+const patientNursingRound = () => import("@/Page/patientInfo/supPage/patient-nursing-rounds/nursing-rounds.vue")
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
@@ -500,6 +509,7 @@ const router = new Router({
         path: "/archive",
         component: (() => {
           switch(HOSPITAL_ID) {
+            case 'lyxrm':
             case 'foshanrenyi':
               return archiveFSSY
             default:
@@ -990,7 +1000,20 @@ const router = new Router({
           name: "患者流转单",
           alias: "患者流转单"
         },
-
+        // 谢岗
+        {
+          path: "/medicalCheck",
+          component: medicalCheck,
+          name: "病历查看",
+          alias: "病历查看"
+        },
+          // 陵城床位一览卡护理巡视
+          {
+            path: "/patientNursingRound",
+            component: patientNursingRound,
+            name: "护理巡视",
+            alias: "护理巡视"
+          }
         ]
       },
       {
@@ -1031,9 +1054,10 @@ const router = new Router({
               return implementationListLyxrm
             case 'wujing':
             case 'sdlj':
-            case 'fsxt':
             case 'whfk':
               return implementationListWujing
+            case 'fsxt':
+              return implementationListFsxt
             case 'foshanrenyi':
               return implementationListFSSY
             case 'quzhou':
@@ -1044,11 +1068,20 @@ const router = new Router({
               return implementationListFuyou
             case 'hengli':
               return implementationListHengli
+            case 'guizhou':
+              return adviceList
             default:
               return implementationList
           }
         })(),
-        name: "执行单"
+        name: "执行单",
+        children:['guizhou'].includes(HOSPITAL_ID)?[
+          {
+            path: "/advice",
+            name: "adviceItem",
+            component: adviceGuizhou
+          },
+        ]:[]
       },
       {
         path: "/bottleLabel",

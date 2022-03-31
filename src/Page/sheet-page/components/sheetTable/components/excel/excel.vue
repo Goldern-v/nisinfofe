@@ -231,7 +231,10 @@
               }?${token}`"
               alt
             />
-            <span v-if="tr.find((item) => item.key == 'auditorNo').value"
+            <span v-if="tr.find((item) => item.key == 'auditorNo').value && (sheetInfo.sheetType === 'neonate_sdlj' || sheetInfo.sheetType === 'pediatrics_sdlj')"
+              >、</span
+            >
+            <span v-else-if="tr.find((item) => item.key == 'auditorNo').value"
               >/</span
             >
             <!-- <span v-else-if="tr.find(item => item.key == 'signerNo2') && tr.find(item => item.key == 'signerNo2').value">/</span> -->
@@ -1408,10 +1411,29 @@ export default {
               return item.key == "id";
             }).value;
             let isRead = this.isRead(row);
-            if (id) {
-              if (isRead) {
-                this.$parent.$parent.$refs.signModal.open((password, empNo) => {
-                  delRow(id, password, empNo).then((res) => {
+            // 佛山人医签名修改与删除比较严格。
+            if(this.HOSPITAL_ID == "foshanrenyi"){
+              // 根据之前判断的isRead
+              isRead=row.isRead
+            }
+            if(this.HOSPITAL_ID == "foshanrenyi"){
+              // 佛山人医根据canModify
+               if (id) {
+                  if (isRead) {
+                    //isRead=true.直接弹窗不让他删除
+                    this.$message({
+                     message: '您没有权限删除整行',
+                     type: 'error',
+                     duration: 2000,
+                     });
+                  }else{
+                    //isRead=false,有权限输出。提示直接是否删除。不用输密码
+                   this.$confirm("你确定删除该行数据吗", "提示", {
+                    confirmButtonText: "删除",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                   }).then((res) => {
+                   delRow(id, "", "").then((res) => {
                     this.delRow(index);
                     this.$notify.success({
                       title: "提示",
@@ -1419,15 +1441,45 @@ export default {
                       duration: 1000,
                     });
                     this.bus.$emit("saveSheetPage", true);
-                  });
+                   });
+                   });
+                  }
+               }else{
+                  this.$confirm("你确定删除该行数据吗", "提示", {
+                   confirmButtonText: "删除",
+                   cancelButtonText: "取消",
+                   type: "warning",
+                  }).then((res) => {
+                   this.delRow(index);
+                   this.$notify.success({
+                   title: "提示",
+                   message: "删除成功",
+                   duration: 1000,
+                 });
+                 this.bus.$emit("saveSheetPage", true);
                 });
-              } else {
-                this.$confirm("你确定删除该行数据吗", "提示", {
-                  confirmButtonText: "删除",
-                  cancelButtonText: "取消",
-                  type: "warning",
-                }).then((res) => {
-                  delRow(id, "", "").then((res) => {
+               }
+            }else{
+              if (id) {
+                if (isRead) {
+                     this.$parent.$parent.$refs.signModal.open((password, empNo) => {
+                     delRow(id, password, empNo).then((res) => {
+                       this.delRow(index);
+                       this.$notify.success({
+                       title: "提示",
+                       message: "删除成功",
+                       duration: 1000,
+                     });
+                    this.bus.$emit("saveSheetPage", true);
+                   });
+                  });
+                 } else {
+                  this.$confirm("你确定删除该行数据吗", "提示", {
+                   confirmButtonText: "删除",
+                   cancelButtonText: "取消",
+                   type: "warning",
+                  }).then((res) => {
+                   delRow(id, "", "").then((res) => {
                     this.delRow(index);
                     this.$notify.success({
                       title: "提示",
@@ -1435,23 +1487,24 @@ export default {
                       duration: 1000,
                     });
                     this.bus.$emit("saveSheetPage", true);
-                  });
+                   });
+                 });
+                }
+              } else {
+                 this.$confirm("你确定删除该行数据吗", "提示", {
+                   confirmButtonText: "删除",
+                   cancelButtonText: "取消",
+                   type: "warning",
+                 }).then((res) => {
+                 this.delRow(index);
+                 this.$notify.success({
+                   title: "提示",
+                   message: "删除成功",
+                   duration: 1000,
+                 });
+                 this.bus.$emit("saveSheetPage", true);
                 });
               }
-            } else {
-              this.$confirm("你确定删除该行数据吗", "提示", {
-                confirmButtonText: "删除",
-                cancelButtonText: "取消",
-                type: "warning",
-              }).then((res) => {
-                this.delRow(index);
-                this.$notify.success({
-                  title: "提示",
-                  message: "删除成功",
-                  duration: 1000,
-                });
-                this.bus.$emit("saveSheetPage", true);
-              });
             }
           },
         },

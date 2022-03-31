@@ -4,32 +4,85 @@
       <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
+        <el-button type="primary" @click="openDetailChat()">曲线详情</el-button>
       </el-button-group>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
-        <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
+      <div
+        :class="rightSheet === true ? 'pagination' : 'paginationRight'"
+        v-show="!isPrintAll"
+      >
+        <button
+          :disabled="currentPage === 1"
+          @click="
+            currentPage = 1;
+            toCurrentPage = 1;
+
+          "
+        >
           首周
         </button>
-        <button :disabled="currentPage === 1" @click="toPre">
-          上一周
-        </button>
-        <span class="page">第<input
+        <button :disabled="currentPage === 1" @click="toPre">上一周</button>
+        <span class="page"
+          >第<input
             type="number"
             min="1"
             v-model.number="toCurrentPage"
             class="pageInput"
             @keyup.enter="toPage()"
-          />页/共{{ pageTotal }}页</span>
+          />页/共{{ pageTotal }}页</span
+        >
         <button :disabled="currentPage === pageTotal" @click="toNext">
           下一周
         </button>
         <button
           :disabled="currentPage === pageTotal"
-          @click="currentPage = pageTotal;toCurrentPage=pageTotal"
+          @click="
+            currentPage = pageTotal;
+            toCurrentPage = pageTotal;
+          "
         >
           尾周
         </button>
       </div>
+      <moveContext
+        :id="'detailChatBox'"
+        :titlex="'曲详情线'"
+        class="detailChatBox"
+      >
+        <div class="button-context">
+          <el-button
+            type="primary"
+            @click="changeDetailChatUrl((type = 1))"
+            class="detail-button"
+            >体温</el-button
+          >
+          <el-button
+            type="primary"
+            @click="changeDetailChatUrl((type = 2))"
+            class="detail-button"
+            >脉搏</el-button
+          >
+          <el-button
+            type="primary"
+            @click="changeDetailChatUrl((type = 3))"
+            class="detail-button"
+            >心率</el-button
+          >
+        </div>
+        <div >
+          <null-bg v-show="!filePath" :image-size=100></null-bg>
+
+           <iframe
+          id="detailChat"
+          v-if="detailChatFlag&&filePath"
+          :src="detailChatUrl"
+          frameborder="0"
+          ref="detailChat"
+          class="detailChat"
+        ></iframe>
+        </div>
+
+      </moveContext>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
@@ -58,6 +111,8 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
+import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
+
 // import {
 //   getNurseExchangeInfo,
 //   getNurseExchangeInfoByTime,
@@ -79,14 +134,16 @@ export default {
       open: false,
       patientId: "",
       visitId: "",
+      showVitalSign: 1,
       isSave: false,
-      toCurrentPage:1,
+      detailChatFlag: true,
+      toCurrentPage: 1,
       isPrintAll: false,
       visibled: false,
       printAllPath: "",
-     intranetUrl:
+      intranetUrl:
         // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
-        "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.103.17:9091/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
       outNetUrl:
@@ -114,7 +171,30 @@ export default {
         );
       }, 1500);
     },
-     toPage() {
+            //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime){
+      this.bus.$emit('getDataFromPage',dateTime)
+    },
+    async openDetailChat() {
+    await this.$store.commit("newDialogVisible", true);
+    let value=this.currentPage
+    if(this.$refs.detailChat.contentWindow&&this.filePath){
+       this.$refs.detailChat.contentWindow.postMessage(
+        { type: "currentPage",value },
+        this.detailChatUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    }
+
+    },
+    changeDetailChatUrl(type) {
+      this.detailChatFlag = false;
+      this.showVitalSign = type;
+      setTimeout(() => {
+        this.detailChatFlag = true;
+      }, 0);
+    },
+    toPage() {
       if (
         this.toCurrentPage === "" ||
         this.toCurrentPage <= 0 ||
@@ -130,16 +210,19 @@ export default {
       }
 
       this.currentPage = this.toCurrentPage;
+
     },
     toNext() {
       if (this.currentPage === this.pageTotal) return;
       this.currentPage++;
       this.toCurrentPage = this.currentPage;
+
     },
     toPre() {
       if (this.currentPage === 1) return;
       this.currentPage--;
       this.toCurrentPage = this.currentPage;
+
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -152,7 +235,6 @@ export default {
       /* 单独处理体温单，嵌套iframe */
       const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
       const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
-      // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
@@ -162,7 +244,7 @@ export default {
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
-     openRight() {
+    openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
     },
     messageHandle(e) {
@@ -172,9 +254,12 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-          case "dblclick":/* 双击查阅体温单子 */
-          this.openRight();
-          break;
+          case "dblclick" /* 双击查阅体温单子 */:
+            this.openRight();
+            break;
+              case "clickDateTime":
+            this.getDataFromPage(e.data.value)
+            break;
           default:
             break;
         }
@@ -196,12 +281,20 @@ export default {
       this.isPrintAll = false;
     },
     currentPage(value) {
-      this.toCurrentPage=value
+      this.toCurrentPage = value;
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
+      );
+      if(this.$refs.detailChat.contentWindow){
+             let value=this.currentPage
+    this.$refs.detailChat.contentWindow.postMessage(
+        { type: "currentPage",value },
+        this.detailChatUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
+      }
+
     },
   },
   mounted() {
@@ -224,13 +317,17 @@ export default {
     this.getHeight();
   },
   computed: {
+    detailChatUrl() {
+      let path = "http://192.168.103.17:9091/temperature/#/detailed";
+      return `${path}?showVitalSign=${this.showVitalSign}`; /* 外网 */
+    },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
-     authTokenNursing() {
+    authTokenNursing() {
       return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
   },
@@ -239,11 +336,43 @@ export default {
   },
   components: {
     nullBg,
+    moveContext,
   },
 };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.detailChatBox {
+  position: absolute;
+  right: 10%;
+  top: 15px;
+  width: 1000px;
+  height: 400px;
+  z-index: 999;
+  box-shadow: -2px 0 7px -1px black; // 左边阴影;
+  background: #fff;
+}
+
+.detailChat {
+  width: 100%;
+  height: 400px;
+}
+
+.button-context {
+  height: 50px;
+  background: rgb(240, 240, 241);
+
+  button {
+    position: relative;
+    top: 10px;
+  }
+}
+
+.detail-button {
+  margin-left: 25px;
+  width: 100px;
+}
+
 .contain {
   margin: 10px 10px 0;
 
@@ -266,13 +395,14 @@ export default {
 .pagination {
   display: inline;
   position: relative;
-  left: 20%;
+  left: 8%;
   font-weight: normal;
 }
-.paginationRight{
- display: inline;
+
+.paginationRight {
+  display: inline;
   position: relative;
-  left: 30%;
+  left: 20%;
   font-weight: normal;
 }
 
@@ -313,10 +443,12 @@ button[disabled=disabled] {
     cursor: not-allowed;
   }
 }
+
 .pageInput {
   width: 30px;
   border: 0px;
 }
+
 .print-btn {
   position: relative;
   left: 5%;

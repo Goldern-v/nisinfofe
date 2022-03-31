@@ -177,7 +177,7 @@ export default {
                     $(item).html("");
                   }
                 });
-              if (document.querySelector('th[dataname="审核签名"]')) {
+              if (document.querySelector('th[dataname="审核签名"]')||document.querySelector('th[dataname="质控护士"]')) {
                 $(".contant").width(Math.max($(".contant").width()));
               }
               console.log('findAndEach');

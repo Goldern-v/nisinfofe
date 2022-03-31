@@ -603,6 +603,8 @@ export default {
           return require("../../common/images/foshan_logo.png")
         case "lyxrm":
           return require("../../common/images/lyxrm_logo.png")
+        case "fsxt":
+          return require("../../common/images/fsxt_logo.png")  
         default:
           return require("../../common/images/logo.png");
       }
@@ -616,7 +618,8 @@ export default {
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "lingcheng" ||
         this.HOSPITAL_ID == "wujing"||
-        this.HOSPITAL_ID == "foshanrenyi"
+        this.HOSPITAL_ID == "foshanrenyi" ||
+        this.HOSPITAL_ID == "fsxt"
       ) {
         logoName = "智慧护理信息系统";
       } else if (this.HOSPITAL_ID == "quzhou") {

@@ -44,6 +44,7 @@ export const getAuthorize=(data)=>{
   console.log(process.env.HOSPITAL_ID);
   switch(process.env.HOSPITAL_ID){
     case 'hj':
+    case 'guizhou':
       return axios.get(`${apiPath}caSignHoujie/getAccessToken`)
     default:
       return axios.get(`${apiPath}caSignJmfy/authorizeCaJmfy`)
@@ -54,6 +55,7 @@ export const getAuthorize=(data)=>{
 export const getTrustUserInfo=(data)=>{
   switch(process.env.HOSPITAL_ID){
     case 'hj':
+    case 'guizhou':
       return axios.post(`${apiPath}caSignHoujie/auth/getOauthStatus`,{
         accessToken:data.accessToken,
         transactionId:data.transactionId,
@@ -77,6 +79,7 @@ export const getTrustUserInfo=(data)=>{
 export function getCaSignJmfy(data) {
   switch(process.env.HOSPITAL_ID){
     case 'hj':
+    case 'guizhou':
       console.log(data);
       return axios.post(`${apiPath}caSignHoujie/sign/signdata`,data)
     default:

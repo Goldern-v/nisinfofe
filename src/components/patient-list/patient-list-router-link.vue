@@ -75,6 +75,9 @@
               isImg2: img2Show,
             }"
           ></span>
+          <div class="angle" v-if="nursingClassList.includes(HOSPITAL_ID)&&item.nursingClass">
+            <img :src="require(`./images/${item.nursingClass}.png`)" alt/>
+          </div>
         </router-link>
       </div>
 
@@ -112,7 +115,7 @@
 }
 
 .patient-list-contain {
-  padding: 0px 13px 11px;
+  padding: 0px 3px 11px 13px;
   height: 100%;
   box-sizing: border-box;
   overflow: auto;
@@ -126,6 +129,16 @@
     margin: 1px 0;
     position: relative;
     text-decoration: none !important;
+
+    .angle {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      img{
+        height: 15px;
+        width: 15px;
+      }
+    }
 
     .img1 {
       height: 30px;
@@ -147,6 +160,7 @@
     }
 
     .bed {
+      margin-right: 5px;
       color: #333333;
     }
 
@@ -272,10 +286,13 @@ export default {
       selectPatientId: "",
       patientListLoading: false,
       bedList: [],
+      //需要患者列表中增加护理等级显示的医院
+      nursingClassList: ['guizhou'],
       imageBoy: require("./images/男婴.png"),
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
       imageWomen: require("./images/女.png"),
+      noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
     };
   },
   methods: {
@@ -456,7 +473,7 @@ export default {
   watch: {
     deptCode(ndata, odata) {
       // 清空当前选中病人
-      this.$store.commit("upCurrentPatientObj", new Object());
+      if(!this.noClearnCurrentPatient.includes(this.HOSPITAL_ID))this.$store.commit("upCurrentPatientObj", new Object());
 
       if (ndata == "051102") {
         this.img1Show = false;

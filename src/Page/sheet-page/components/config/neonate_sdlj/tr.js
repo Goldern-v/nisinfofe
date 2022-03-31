@@ -34,7 +34,7 @@ import {
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
-  { key: "recordHour", event: event_time, value: ''},
+  { key: "recordHour", event: event_time, click: click_time, value: ''},
   { key: 'temperature2', event: keyf1, value: '', next: '℃', name: '箱温', textarea: { width: 27 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 27 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -44,13 +44,13 @@ export default [
   { key: 'outputAmount', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'outputCustom2', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'outputAmount2', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'complexion', event: keyf1, value: '', next: '', name: '肤色', autoComplete: { data: ['①','②','③','④','⑤','⑥']}, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'complexion', event: keyf1, value: '', next: '', name: '肤色', autoComplete: { data: ['①','②','③','④','⑤','⑥']}, textarea: { width: 25 }, splice: '/', change: (e, td) => limitChange(e, td, 2) },
   { key: 'reaction', event: keyf1, value: '', next: '', name: '反应', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'crying', event: keyf1, value: '', next: '', name: '哭声', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'remaining', event: keyf1, value: '', next: '', name: '留置针', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'situation', event: keyf1, value: '', next: '', name: '脐部情况', autoComplete: { data: ['①','②','③','④'] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'situation', event: keyf1, value: '', next: '', name: '脐部情况', autoComplete: { data: ['①','②','③','④'] }, textarea: { width: 25 }, splice: '/', change: (e, td) => limitChange(e, td, 2) },
   { key: 'periderm', event: keyf1, value: '', next: '', name: '肛周皮肤', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'phototherapy', event: keyf1, value: '', next: '', name: '光疗情况', autoComplete: { data: ['①','②','③','④','⑤'] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'phototherapy', event: keyf1, value: '', next: '', name: '光疗情况', autoComplete: { data: ['①','②','③','④','⑤'] }, textarea: { width: 25 }, splice: '/', change: (e, td) => limitChange(e, td, 2) },
   { key: 'feedingWay', event: keyf1, value: '', next: '', name: '喂养方式', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'feedingSpecies', event: keyf1, value: '', next: '', name: '喂养种类', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygenWay', event: keyf1, value: '', next: '', name: '吸氧方式', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -71,7 +71,7 @@ export default [
   },
   { key: "sign", value: "" },//单签
   // { key: "sign2", value: "" },//双签
-  //{ key: "audit", value: "" },//审核签名
+  { key: "audit", value: "" },//审核签名
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
   { hidden:true, key:'signerName2', value:''},

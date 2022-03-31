@@ -478,6 +478,12 @@
         说明：1、观察内容无异常时，用“N”来表示，异常时如实描述。2、常用护理措施代码：⑴口腔护理 ⑵会阴护理 ⑶清洁面部 ⑷温水擦浴 ⑸气管切开护理 ⑹吸痰 ⑺预防压疮护理 ⑻雾化吸入 ⑼更换引流装置 
         ⑽保护性约束 ⑾AV置管护理 ⑿膀胱冲洗 ⒀间断夹闭导管 ⒁气管内滴药。3、意识代码：A清楚 B嗜睡 C模糊 D昏睡 E昏迷 F镇静状态
     </div>
+    <!-- 武汉肺科 手术科室记录单,-->
+    <div v-if="sheetInfo.sheetType == 'operating_fk'">
+        说明：1、观察内容无异常时，用“N”来表示，异常时如实描述。<br/>
+        2、常用护理措施代码：⑴口腔护理 ⑵会阴护理 ⑶清洁面部 ⑷温水擦浴 ⑸气管切开护理 ⑹吸痰 ⑺预防压疮护理 ⑻雾化吸入 ⑼更换引流装置 ⑽保护性约束 ⑾AV置管护理 ⑿膀胱冲洗 ⒀间断夹闭导管 ⒁气管内滴药。<br/>
+        3、意识代码：A清楚 B嗜睡 C模糊 D昏睡 E昏迷 F镇静状态
+    </div>
     <!-- 佛山市一  护理记录单(眼科通用)-->
     <div v-if="sheetInfo.sheetType == 'eyegeneral_fs'">
       注：1、空格栏书写内容为：①专科护理措施②专科评估内容③专科观察内容 ④健康教育内容 ⑤检验危机值，请按各科具体指进行书写<br/>
@@ -491,10 +497,10 @@
     </div>
     <!-- 顺德龙江 - 新生儿护理记录单-->
     <div v-if="sheetInfo.sheetType == 'neonate_sdlj'">
-      说明：意识判断:①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏迷 ⑥谵妄；&nbsp; &nbsp;气道护理： ①雾化吸入 ②气道吸痰 ③口鼻腔吸痰；&nbsp; &nbsp;病情： ①告病重 ②告病危；<br/>
-      清洁护理： ①沐浴  ②床上擦浴 ③口腔护理 ④臀部护理 ⑤更衣；&nbsp; &nbsp;专科护理： ①脐部护理 ②胃管护理  ③灌肠；&nbsp; &nbsp;脐部情况： ①干净 ②渗血 ③红肿 ④脓性分泌物；<br/>
-      光疗情况： ①安睡 ②哭闹烦燥 ③尖叫 ④体温异常 ⑤皮疹；&nbsp; &nbsp;光疗护理： ①戴眼罩 ②保护外阴 ③戴手套脚套；<br/>
-      瞳孔判断： 单位㎜；&nbsp; &nbsp;对光反射：灵敏(+) 迟钝(±) 消失(-)；&nbsp; &nbsp;肤色： ①红润 ②黄染 ③苍白 ④苍灰 ⑤干燥 ⑥紫绀；<br/>         
+      说明：意识判断：①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏迷 ⑥谵妄；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;气道护理：①雾化吸入 ②气道吸痰 ③口鼻腔吸痰；&nbsp;&nbsp;&nbsp;病&nbsp;&nbsp;情：①告病重 ②告病危；<br/>
+      &nbsp;&nbsp;&nbsp;清洁护理：①沐浴  ②床上擦浴 ③口腔护理 ④臀部护理 ⑤更衣；&nbsp; &nbsp;专科护理：①脐部护理 ②胃管护理  ③灌肠；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;脐部情况：①干净 ②渗血 ③红肿 ④脓性分泌物；<br/>
+      &nbsp;&nbsp;&nbsp;光疗情况：①安睡 ②哭闹烦燥 ③尖叫 ④体温异常 ⑤皮疹；&nbsp; &nbsp;&nbsp;&nbsp;光疗护理：①戴眼罩 ②保护外阴 ③戴手套脚套；<br/>
+      &nbsp;&nbsp;&nbsp;瞳孔判断：单位㎜；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对光反射：灵敏(+) 迟钝(±) 消失(-)；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肤&nbsp;&nbsp;色：①红润 ②黄染 ③苍白 ④苍灰 ⑤干燥 ⑥紫绀；<br/>         
     </div>
     <!-- 顺德龙江 - 护理记录单（颅脑外科）-->
     <div v-if="sheetInfo.sheetType == 'craniocerebral_sdlj'">
@@ -506,7 +512,12 @@
     </div>
     <!-- 顺德龙江 - 儿科护理记录单-->
     <div v-if="sheetInfo.sheetType == 'pediatrics_sdlj'">
-      说明：<strong>意识判断</strong>：①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏睡 ⑥谵妄&nbsp;<strong>瞳孔</strong>：大小用阿拉伯数字表示，单位mm，&nbsp;<strong>对光反射</strong>：灵敏（+）迟钝（±）消失（-）&nbsp;<strong>气道护理</strong>：①雾化吸入  ②气道吸痰 ③口鼻腔吸痰        
+      说明：<strong>意识判断</strong>：①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏睡 ⑥谵妄&nbsp;&nbsp;&nbsp;&nbsp;<strong>瞳&nbsp;&nbsp;孔</strong>：大小用阿拉伯数字表示，单位mm，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>对光反射</strong>：灵敏（+） 迟钝（±） 消失（-）<br/>
+      &nbsp;&nbsp;&nbsp;<strong>吸氧方式</strong>：①鼻导管 ②面罩 ③CPAP ④有创通气&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>清洁护理</strong>：①沐浴 ②床上擦浴 ③口腔护理 ④臀部护理 ⑤更衣&nbsp; <strong>气道护理</strong>：①雾化吸入  ②气道吸痰 ③口鼻腔吸痰<br/>
+      &nbsp;&nbsp;&nbsp;<strong>物理降温</strong>：①温水浴 ②冰敷 ③酒精擦浴 ④退热贴&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>饮食护理</strong>：①全流 ②半流 ③普食 ④少量多餐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>咳&nbsp;&nbsp;嗽</strong>：①刺激性干咳 ②咳嗽时闻及痰音 ③犬吠样咳<br/>
+      &nbsp;&nbsp;&nbsp;<strong>小&nbsp;&nbsp;便</strong>：①正常 ②尿路刺激症 ③洗肉水样 ④酱油样 ⑤血尿
+      &nbsp;<strong>大&nbsp;&nbsp;便</strong>：①成形黄软 ②蛋花汤样 ③果冻样 ④柏油样 ⑤豆腐渣样&nbsp;<br/>
+      &nbsp;&nbsp;&nbsp;<strong>痰液性状</strong>：①粘液性 ②白色泡沫 ③脓性 ④血性 ⑤分层痰 ⑥乳白糊状 ⑦其它  
     </div>
     <!-- 顺德龙江 - 呼吸专科护理记录单-->
     <div v-if="sheetInfo.sheetType == 'dreathe_sdlj'">

@@ -89,9 +89,13 @@ export function updateExecuteTime(obj) {
 // 网页端：医嘱查询，执行单打印用
 export function getPrintExecuteWithWardcode(obj) {
   return axios.post(
-      `${apiPath}procedure/webExecute/webGetOrdersPrint`,
-      obj
+    `${apiPath}procedure/webExecute/webGetOrdersExecutePrint`,
+    obj
   );
+  // return axios.post(
+  //     `${apiPath}procedure/webExecute/webGetOrdersPrint`,
+  //     obj
+  // );
 }
 // 执行执行单（批量）
 export function handleWebExecuteBatch(arr) {
@@ -114,4 +118,16 @@ export function webExecutePrint(body){
 // 取消执行单(聊城)
 export function cancelOrderExecuteApi(body){
   return axios.post(`${apiPath}hisLiaoChengExecute/cancelOrderExecute`,body)
+}
+
+
+export function getPrintListContent(body){
+  return axios.post(`${apiPath}procedure/webExecute/webGetExecuteWithBarcodeList`,body)
+}
+
+export function webSplitOrder(obj) {
+  return axios.post(
+    `${apiPath}procedure/webExecute/webSplitOrder`,
+    obj
+  );
 }

@@ -18,9 +18,9 @@ export function saveOrUpdate(groupName, title, content, id ,wardCode) {
 }
 
 //保存常用短语(需要验证权限)
-export function saveOrUpdateByEmpNo(groupName, title, content, id ,wardCode,empNo) {
+export function saveOrUpdateByEmpNo(groupName, title, content, id ,wardCode,empNo,changeEmpNo) {
    let recordCode = sheetInfo.sheetType
-   return axios.post(`${apiPath}record/desc/saveOrUpdateByDept/${empNo}`, {recordCode, groupName, title, content, id, wardCode})
+   return axios.post(`${apiPath}record/desc/saveOrUpdateByDept/${empNo}`, {recordCode, groupName, title, content, id, wardCode,'empNo':changeEmpNo})
  }
 
 //  删除
