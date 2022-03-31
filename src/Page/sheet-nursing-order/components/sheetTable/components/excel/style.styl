@@ -1,6 +1,9 @@
 .orderContent 
-  /deep/ .el-input__icon 
-    display none
+  /deep/ .el-icon-caret-top::before,.el-icon-caret-top::after {
+    content ''
+    color #4bb08d
+  }
+
   /deep/ .el-input__inner
     border none;
     background transparent;

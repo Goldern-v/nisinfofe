@@ -643,7 +643,8 @@ export default {
         "foshanrenyi",
         "fsxt",
         "whfk",
-        "beihairenyi"
+        "beihairenyi",
+        "lyxrm"
         ].includes(
         this.HOSPITAL_ID
       );

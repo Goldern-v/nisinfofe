@@ -175,14 +175,15 @@
               alt
             />
           </div>
-          <!-- <input :readonly="isRead(tr)" v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>{!isRead(tr)&&openOrderModal(e,td,tr,x,y,'护嘱内容',910)}" style="height:32px;text-align:left;" v-model="td.value" :data-value='td.value'> -->
-          <div  v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" style="height:32px;text-align:left;"  :data-value='td.value' class="orderContent">
+          <input :readonly="isRead(tr)" v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" @click="(e)=>{!isRead(tr)&&openOrderModal(e,td,tr,x,y,'护嘱内容',910)}" style="height:32px;text-align:left;" v-model="td.value" :data-value='td.value'>
+          <!-- <div  v-else-if="HOSPITAL_ID=='huadu'&&td.key=='orderContent'" style="height:32px;text-align:left;"  :data-value='td.value' class="orderContent">
             <el-select
                 placeholder=""
                 v-model="td.value"
                 filterable
                 :disabled="isRead(tr)"
                 @change="changeOrderContent(td.value)"
+                clearable
             >
                 <el-option
                 v-for="(item,index) in contentOptions"
@@ -191,7 +192,7 @@
                 :value="item"
                 ></el-option>
             </el-select>
-          </div>
+          </div> -->
 
           <input :readonly="isRead(tr)" v-else-if="HOSPITAL_ID=='huadu'&&td.key=='frequency'" @click="(e)=>{!isRead(tr)&&openOrderModal(e,td,tr,x,y,'频次',1090)}" v-model="td.value" style="height:32px;" :data-value='td.value'>
           <input
