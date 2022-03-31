@@ -22,7 +22,7 @@
     left:-0%;
     .selectbox{
         width: 300px;
-        height: 300px;
+        height: 410px;
         background-color: #fff;
         position: absolute;
         border: 1px solid #ddd;
@@ -30,11 +30,11 @@
         overflow: auto;
         .optionbox{
             border-bottom: 1px solid #ddd;
-            height: 25px;
-            line-height: 25px;
+            height: 30px;
+            line-height: 30px;
             text-indent: 10px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
         &:hover{
             background-color: #50c595;
             color: #fff;
