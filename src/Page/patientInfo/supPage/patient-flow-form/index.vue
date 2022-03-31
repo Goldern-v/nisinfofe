@@ -2,13 +2,16 @@
 <div class="patient-flow-form">
   <div class="patient-flow-form__side">
     <div class="side__title">患者流转单</div>
-    <baseTree :configList="configList" class="side__tree"></baseTree>
+    <base-tree :configList="configList" class="side__tree"></base-tree>
   </div>
   <div class="patient-flow-form__content" v-loading="pageLoading">
     <!-- 无推送内容 -->
-    <div v-if="1" style="height:100%">
+    <div v-if="currentId" style="height:100%">
+      <form-detail ref="formDetail" :master="master" :itemDataMap="itemDataMap" :detail="formModel"></form-detail>
     </div>
-    <div v-else></div>
+    <div v-else>
+      <null-bg/>
+    </div>
   </div>
 </div>
 </template>
@@ -51,13 +54,20 @@
 <script>
 import baseTree from "@/components/baseTree/baseTree";
 import { getPatientFlowList } from './api/index'
+import NullBg from "@/components/null/null-bg.vue"; // 页面初始化背景
+import formDetail from '../../../patient-flow-msg/components/form-detail.vue'
+import { getPatientFlowDetail, getFlowForm } from '@/api/patient-flow';
 
 export default {
 props: {},
 data() {
   return {
     pageLoading: false,
-    configList: []
+    configList: [],
+    currentId: '',
+    master: {},
+    formModel: {},
+    itemDataMap: {},
   };
 },
 computed: {
@@ -78,12 +88,63 @@ methods: {
       const res = await getPatientFlowList({
         patientId, visitId
       })
-      this.configList = res.data.data.operation || []
+
+      let configObj = {
+        transfer: '转科流转',
+        operation: '手术流转',
+        intervention: '介入流转',
+        delivery: '分娩流转',
+      }
+      let arr = []
+      Object.keys(configObj).map((v, i) => {
+        if (res.data.data[v]) {
+          arr.push({
+            label: configObj[v],
+            children: res.data.data[v].map(v1 => ({
+              label: `${configObj[v]} ${v1.createDateTime}`,
+              onClick: () => {
+                this.changeForm(v1.id)
+              }
+            }))
+          })
+        }
+      })
+      this.configList = arr
     } catch (e) {}
+  },
+  changeForm(id) {
+    this.currentId = id
+    this.getFormDetail(id)
+  },
+  async getFormDetail(id) {
+    try {
+      this.master = {}
+      this.itemDataMap = {}
+      this.formModel = {}
+      const res1 = await getPatientFlowDetail(id)
+      this.master = res1.data.data && res1.data.data.master || {}
+      // this.master = { ...this.master, age }
+      this.itemDataMap = res1.data.data && res1.data.data.itemDataMap || {}
+      if (!this.master.formCode) return
+      let { patientId, visitId, formCode } = this.master;
+      const res2 = await getFlowForm({ formCode, patientId, visitId })
+
+      this.formModel = res2 && res2.data.data || {}
+      this.$refs.formDetail.load()
+    } catch (err) {
+      this.$message({
+        showClose: true,
+        message: '服务器开小差了',
+        type: 'error'
+      })
+      this.$refs.formDetail.pageLoading = false
+    }
   }
 },
 components: {
   baseTree,
+  NullBg,
+  formDetail,
 }
 };
 </script>

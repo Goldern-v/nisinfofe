@@ -336,7 +336,6 @@
     left: -2px;
   }
   .header-con {
-    text-align: center;
     .tableHeader {
       width: 100%;
       height: 180px;

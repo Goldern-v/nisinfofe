@@ -14,7 +14,7 @@
             <label class="label">日期：</label>
             <input
               type="text"
-              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu'"
+              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'wujing'"
               :placeholder="autoDate"
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
@@ -24,7 +24,7 @@
             <label class="label">时间：</label>
             <input
               type="text"
-              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu'"
+              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'wujing'"
               v-model="staticObj.recordHour"
               @keyup="timeKey($event, staticObj, 'recordHour')"
             />
@@ -1053,6 +1053,16 @@ export default {
       if(this.HOSPITAL_ID=='fuyou'){
         isRead = this.$store.state.form_masterInfo.masterInfo.readOnly
       }
+      // 佛山人医  完全根据canModify来控制
+      if(this.HOSPITAL_ID=='foshanrenyi'){
+        // status  三种状态  1签名（普通） 2审核
+        if(status>=1){
+           // 审核   isRead  sheet-page.vue这个文件的的isRead方法决定
+           isRead=tr.isRead
+        }else{
+          isRead = false;
+        }
+      }
       this.isRead = isRead;
       this.table = config.table;
       this.customTitle = decoder_title(config.thead);
@@ -1192,6 +1202,9 @@ export default {
     },
     // 保存（富文本）
     postRichText() {
+      if(!this.staticObj.recordHour){
+        return this.$message.warning('记录时间不得为空！')
+      }
       // okLength保存的时候，一条数据给后端传的字数长度
       let okLength = ""
       if(this.HOSPITAL_ID=='lingcheng'||this.HOSPITAL_ID=='hengli'){
