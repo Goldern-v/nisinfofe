@@ -2,7 +2,8 @@
   <div class="patient-info-slide">
     <div class="no-do-bg" v-show="show" @click="close"></div>
     <transition name="el-zoom-in-left">
-      <div class="slide-con" v-show="show">
+      <!-- 护理记录单页面用原本样式。不是护理记录单页面就往上移30px -->
+      <div :class="{'slide-con':true,'otherSlide-con':faultNurseRecordList}" v-show="show">
         <div class="head-con" flex="cross:center main:justify">
           <span class="title">患者资料</span>
           <!-- <span class="close-btn" @click="close">
@@ -85,6 +86,10 @@
   background: #fff;
 }
 
+.otherSlide-con{
+   top: 71px;
+}
+
 .head-con {
   height: 38px;
   background: #F7FAFA;
@@ -158,6 +163,13 @@ import testModal from "./test-modal";
 import adviceModal from "./advice-modal";
 import doctorEmrModal from "./doctor-emr-modal";
 export default {
+  props:{
+    // 解决不是护理记录单样式问题。
+    faultNurseRecordList:{
+      type:Boolean,
+      default:false
+    }
+  },
   data() {
     return {
       bus: bus(this),
@@ -180,7 +192,6 @@ export default {
       this.$refs[name].open();
     }
   },
-  created() {},
   mounted() {},
   watch: {},
   components: {
