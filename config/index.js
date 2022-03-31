@@ -53,7 +53,8 @@ const currentTargetUrl = (() => {
       // return "http://wxzf.hbwxrmyy.com:9093" //威县正式 admin  ad123456
       return "http://192.168.1.54:9865" // 公司-威县测试-内网
 
-    /** 陵城正式 */
+    /** 陵城正式 */+
+    0
     case "lingcheng":
       // return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
       // return "https://info.cr-health.com:20204" // 公司-陵城测试-外网
@@ -65,11 +66,11 @@ const currentTargetUrl = (() => {
 
     /** 花都 */
     case "huadu":
-      // return "http://120.238.239.27:9094" //花都正式
+      return "http://120.238.239.27:9094" //花都正式
       // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
       // return "http://192.168.20.93:8080" // 初升本地
       // return "http://192.168.20.82:8080" // 大双本地
-      return "http://192.168.1.54:9868" //公司-花都测试-内网
+      // return "http://192.168.1.54:9868" //公司-花都测试-内网
 
     /** 贵州医科大正式 */
     case "gy":
@@ -162,7 +163,7 @@ const currentTargetUrl = (() => {
 
     // 佛山杏坛
     case 'fsxt':
-      // return "http://219.159.198.37:9094"  // 正式地址
+      return "http://219.159.198.37:9094"  // 正式地址
       // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       return "http://192.168.1.54:9886" // 测试
       // return "http://192.168.20.215:8080" // 伟彬本地
