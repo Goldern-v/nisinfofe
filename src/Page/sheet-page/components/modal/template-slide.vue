@@ -10,7 +10,7 @@
           </span>
         </div>
         <div>
-          <div class="search-con" style="line-height:32px" flex v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='wujing'">
+          <div class="search-con" style="line-height:32px" flex v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='wujing'||HOSPITAL_ID==='huadu'">
             <span style="font-size:14px;">模板分类：</span>
             <el-radio v-model="templateType" label="dept">科室</el-radio>
             <el-radio v-model="templateType" label="common" style="margin-right:10px">公共</el-radio>
@@ -18,7 +18,7 @@
           </div>
           <div class="search-con" flex>
             <div class="select-box" :style="{width: selectWidth + 'px'}">
-              <el-select v-model="selectedType" filterable placeholder="请选择">
+              <el-select v-model="selectedType" filterable placeholder="请选择" :popper-append-to-body="false"  >
                 <el-option v-for="(item,key) in typeList" :key="key" :label="item" :value="item"></el-option>
               </el-select>
             </div>
@@ -377,7 +377,7 @@ export default {
     },
     listconHeight(){
       let str=""
-      if(this.HOSPITAL_ID==='liaocheng' || this.HOSPITAL_ID==='wujing'){
+      if(this.HOSPITAL_ID==='liaocheng' || this.HOSPITAL_ID==='wujing'||this.HOSPITAL_ID==='huadu'){
          str='height: calc(100vh - 191px)'
       }
       return str
@@ -400,7 +400,7 @@ export default {
     },
      getData() {
       //特殊情况,开启分类权限医院名
-      const isDeptList=["liaocheng","wujing"]
+      const isDeptList=["liaocheng","wujing","huadu"]
       if(isDeptList.includes(this.HOSPITAL_ID)){
       typeListByDept(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
         this.typeList = res.data.data[this.templateType];
@@ -408,6 +408,7 @@ export default {
         if (this.selectedType == "特殊符号") {
           return;
         }
+        this.selectedType=this.typeList[0]
         if (this.selectedType) {
           const wordCode=this.templateType==="dept"? localStorage.wardCode:""
           list(this.selectedType,wordCode,this.HOSPITAL_ID).then(res => {
@@ -466,7 +467,10 @@ export default {
     }
   },
   created() {
-    this.bus.$on("refreshTemplate", this.getData);
+    this.bus.$on("refreshTemplate", ()=>{
+      this.typeList=[]
+      this.getData()
+      });
     if(this.HOSPITAL_ID==='whfk'){
       const arr=['cmH₂O','ml/h','EPAP','IPAP','IU','U']
       for (let index = 0; index < arr.length; index++) {
