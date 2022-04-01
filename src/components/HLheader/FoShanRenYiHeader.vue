@@ -597,10 +597,13 @@
 .nav-item {
   height: 60px;
   padding: 0 15px;
-  font-size: 14px;
-  color: #687179;
+  font-size: 16px;
+  color: #000;
+  font-weight: 700;
   letter-spacing: 0;
   cursor: pointer;
+  border-left: 1px solid #f0f4f7;
+  border-right: 1px solid #f0f4f7;
 
   i {
     margin-right: 5px;
@@ -613,11 +616,12 @@
   &:hover {
     background: #f8f8fa;
   }
+  
 }
 
 .router-link-active {
   .nav-item {
-    background: #F8F8FA;
+    background: #d8d8e1;
     border-left: 1px solid #EAEEF1;
     border-right: 1px solid #EAEEF1;
     border-top: 4px solid #4BB08D;
