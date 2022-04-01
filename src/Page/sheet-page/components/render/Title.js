@@ -1743,6 +1743,20 @@ export default function Title(
     );
   }
   break;
+  case "icu_yx": {
+    // 武汉亚心 - ICU护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_yx/th").default)
+    );
+  }
+  break;
+  case "common_yx": {
+    // 武汉亚心 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/common_yx/th").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
