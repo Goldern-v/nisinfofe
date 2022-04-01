@@ -175,7 +175,7 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-              <div class="context-box" v-if="Object.keys(this.otherMultiDictList).length">
+              <div class="context-box" v-if="Object.keys(otherMultiDictList).length">
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
                     <span class="title"> 其他信息 </span>
@@ -981,7 +981,11 @@ export default {
         border-radius: 0px 7px 7px 0px;
         margin: 5px 3px 0px 0px;
         float: left;
+         overflow: auto;
       }
+            .record-list::-webkit-scrollbar{
+    display: none;
+}
 
       >div {
         .recordList {

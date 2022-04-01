@@ -6,7 +6,7 @@
           class="date-picker"
           type="date"
           size="small"
-          style="width: 190px"
+          style="width: 130px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -30,12 +30,21 @@
           >
           </el-time-select>
         </div>
+        <div class="save-btn-top" v-if="patientInfo.patientId">
+          <el-button
+            :disabled="isDisable()"
+            type="primary"
+            class="save-btn"
+            @click="saveVitalSign(vitalSignObj)"
+            >保存</el-button
+          >
+        </div>
       </div>
     </div>
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div class="record-list" :style="{ width: `${37}%` }">
+        <div class="record-list" :style="{ width: `${40}%` }">
           <div class="record-item">
             <div
               :class="
@@ -57,7 +66,7 @@
               @click="changeQuery(item.recordDate)"
             >
               {{ item.recordDate.slice(5, 17) }}
-              {{ item.recordPerson }}
+             {{ item.recordPerson===""?'同步':item.recordPerson }}
               <i
                 @click="removeRecord(item.recordDate, tabIndex)"
                 class="el-icon-delete"
@@ -119,6 +128,7 @@
                         }
                       "
                       @input="handlePopRefresh(vitalSignObj[j])"
+                      v-on:input="validFormFc(vitalSignObj[j], i + 1)"
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
@@ -166,7 +176,7 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-              <div class="context-box" v-if="Object.keys(this.otherMultiDictList).length">
+              <div class="context-box" v-if="Object.keys(otherMultiDictList).length">
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
                     <span class="title"> 其他信息 </span>
@@ -203,7 +213,7 @@
                       :value="vitalSignObj[j].popVisible"
                     >
                       <input
-                        :id="i + 1"
+                        :id="i + 100"
                         @keydown.enter="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
@@ -214,6 +224,7 @@
                         @input="handlePopRefresh(vitalSignObj[j])"
                         @click="() => (vitalSignObj[j].popVisible = true)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
+                        v-on:input="validFormFc(vitalSignObj[j], i + 100)"
                         v-model="vitalSignObj[j].vitalValue"
                       />
                       <template v-slot:content>
@@ -262,7 +273,7 @@
               </div>
             </div>
             <div class="context-box">
-              <el-collapse-item name="fieldList" v-if="fieldList">
+              <el-collapse-item name="fieldList" v-if="Object.keys(fieldList).length">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
                   <i class="header-icon el-icon-info"></i>
@@ -413,6 +424,7 @@
 import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
+import { validForm } from "../../validForm/validForm";
 import {
   getVitalSignListByDate,
   getmultiDict,
@@ -478,6 +490,11 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+    this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate = dateTime.slice(0, 10);
+      this.query.entryTime = dateTime.slice(11, 16) + ":00";
+      this.dateInp = dateTime.slice(11, 16);
+    });
 
   },
   created() {
@@ -495,7 +512,9 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
+          if(this.query.entryTime&&this.query.entryDate){
         this.getList();
+          }
       },
       deep: true,
     },
@@ -503,6 +522,64 @@ export default {
   methods: {
     handleChange(val) {
       // console.log(val);
+    },
+    setValid(trage, val) {
+      console.log(trage)
+      switch (trage) {
+        case "腋温":
+        case "肛温":
+        case "口温":
+        case "物理降温":
+          let o = {
+            体温: {
+              value: val,
+              reg: [34, 42],
+              errorMsg: "体温请填入30~42之间的数值",
+            },
+          };
+          return o;
+        case "脉搏":
+          case "心率":
+          let y = {
+            脉搏: {
+              value: val,
+              reg: [20, 180],
+            },
+          };
+          return y;
+        case "疼痛":
+        case "疼痛干预":
+          let g = {
+            疼痛评分: {
+              value: val,
+              reg: [0, 10],
+            },
+          };
+          return g;
+        default:
+          break;
+      }
+    },
+     validFormFc(vitalSignObj, index) {
+      let val = vitalSignObj.vitalValue;
+      if (
+        val !== "" &&
+        ["腋温", "脉搏", "心率", "口温",'肛温','疼痛','疼痛干预','物理降温'].includes(vitalSignObj.vitalSigns)
+      ) {
+       console.log(vitalSignObj, index)
+
+        //验证表单
+        if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
+          document.getElementById(index).style.border = "";
+          vitalSignObj.isCorrect = true;
+        } else {
+          document.getElementById(index).style.border = "1px solid red";
+          vitalSignObj.isCorrect = false;
+        }
+      } else {
+        document.getElementById(index).style.border = "";
+        vitalSignObj.isCorrect = true;
+      }
     },
        formatDate(date){
       return  moment(new Date(date)).format("YYYY-MM-DD")
@@ -622,6 +699,10 @@ export default {
             this.fieldList[item.vitalCode] = item;
         });
       });
+      let input = document.getElementsByTagName("input");
+      for (let i = 0; i < input.length; i++) {
+        input[i].style.border = "";
+      }
     },
     //时间组件失去焦点
     changeDate(val) {
@@ -852,6 +933,7 @@ export default {
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
         this.query.entryTime;
+        let saveFlagArr=[]
       obj.map((item) => {
         item.recordDate = recordDate;
         switch (item.vitalSigns) {
@@ -865,6 +947,12 @@ export default {
           default:
             break;
         }
+         if(item.vitalValue !== "" &&
+        ["腋温", "脉搏", "心率", "口温",'肛温','疼痛','疼痛干预','物理降温'].includes(item.vitalSigns)){
+            if(!validForm.valid(this.setValid(item.vitalSigns, item.vitalValue))){
+            saveFlagArr.push(false)
+            }
+        }
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
@@ -873,11 +961,20 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
       };
-      await saveAll(data).then((res) => {
+       if(saveFlagArr.includes(false)){
+        this.$message.error("存在数值错误,请耐心检查!");
+      }else{
+        await saveAll(data).then((res) => {
         this.$message.success("保存成功");
       });
-      this.getList();
+       this.getList();
       this.bus.$emit("refreshImg");
+      }
+      // await saveAll(data).then((res) => {
+      //   this.$message.success("保存成功");
+      // });
+      // this.getList();
+      // this.bus.$emit("refreshImg");
     },
   },
   components: { nullBg },
@@ -901,14 +998,16 @@ export default {
 
   .column-right {
     display: inline-block;
-    margin-left: 25px;
+    margin-left: 10px;
     height: 50px;
+      width: 100%;
     overflow: auto;
   }
 
   .row-top {
     background-color: #fff;
     height: 47px;
+    width:100%;
 
     .column-left {
       margin: 10px 45px 0px 0px;
@@ -916,26 +1015,32 @@ export default {
     }
   }
 
+      .save-btn-top {
+    width: 50px;
+    display: inline-block;
+  }
   .row-bottom {
     height: 100%;
-
     .showRecord {
       height: 100%;
-
       .record-list {
         height: 100%;
         background-color: #fff;
         border-radius: 0px 7px 7px 0px;
         margin: 5px 3px 0px 0px;
         float: left;
+        overflow: auto;
       }
+      .record-list::-webkit-scrollbar{
+    display: none;
+}
 
       >div {
         .recordList {
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
-          text-align: left;
+          text-align: center;
           font-size: 12px;
 
           &.active {
@@ -952,7 +1057,7 @@ export default {
     }
 
     .inputter-region {
-      width: 60%;
+      width: 58%;
       float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;

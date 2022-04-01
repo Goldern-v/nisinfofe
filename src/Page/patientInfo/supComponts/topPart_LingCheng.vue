@@ -98,6 +98,12 @@
       >
         <div class="nav-item">体温单</div>
       </router-link>
+      <router-link
+        :to="{path:'/patientNursingRound', query: {patientId:query.patientId, visitId: query.visitId}}"
+        tag="span"
+      >
+        <div class="nav-item">护理巡视</div>
+      </router-link>
     </div>
     <div style="height: 50px"></div>
   </div>

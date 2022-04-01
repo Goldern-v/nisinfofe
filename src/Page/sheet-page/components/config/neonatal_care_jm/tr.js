@@ -70,7 +70,7 @@ export default [
 {
   key: "breath", //呼吸 次/min
   value: "",
-  name: "心率",
+  name: "呼吸",
   next: "次/分",
   event: keyf1,
 },

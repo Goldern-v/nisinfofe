@@ -200,6 +200,11 @@
                 >不良事件
               </el-row>
             </router-link>
+            <!-- <router-link to="/nursingRounds" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+                >护理巡视
+              </el-row>
+            </router-link> -->
             <!-- <el-dropdown
               menu-align="start"
               :class="{

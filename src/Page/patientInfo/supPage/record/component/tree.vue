@@ -33,6 +33,7 @@
           :data="regions"
           highlight-current
           :render-content="renderContent"
+          :default-expand-all="HOSPITAL_ID == 'whfk'"
           @node-click="nodeClick"
           node-key="index"
           :default-expanded-keys="expandList"
@@ -68,35 +69,35 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .form-list-part {
   position: relative;
+
   // transition: all 2s;
-
   .header {
-  height: 37px;
-  background: #F7FAFA;
-  padding: 0 13px;
-  border-bottom: 1px solid #EAEEF1;
+    height: 37px;
+    background: #F7FAFA;
+    padding: 0 13px;
+    border-bottom: 1px solid #EAEEF1;
 
-  .title {
-    font-size: 13px;
-    color: #333333;
-    font-weight: bold;
-  }
+    .title {
+      font-size: 13px;
+      color: #333333;
+      font-weight: bold;
+    }
 
-  .new-btn {
-    color: #687179;
-    font-size: 12px;
+    .new-btn {
+      color: #687179;
+      font-size: 12px;
 
-    i {
-      margin-right: 2px;
+      i {
+        margin-right: 2px;
+      }
     }
   }
-}
 
-.body {
-  overflow: auto;
-}
+  .body {
+    overflow: auto;
+  }
 
-.button {
+  .button {
     // transition: width 2s;
     // transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
     // transform: translate(100px,100px);
@@ -286,7 +287,7 @@ export default {
       formTransfusionSafety: [],
       isShow: true, //护理文书菜单列是否展示
       isActive: false, //是否点击收起图标
-      hisLeftList:['wujing'],//是否要开放左侧收缩功能医院
+      hisLeftList: ["wujing"], //是否要开放左侧收缩功能医院
     };
   },
   computed: {
@@ -481,6 +482,7 @@ export default {
       }
     },
     renderContent(h, { node, data, store }) {
+      // console.log(1111111,h, { node, data, store });
       // let fileicon = fileicon
       // let filebox = filebox
       // // 如果存在保存
@@ -502,12 +504,13 @@ export default {
       let formNoSign = node.data.formTreeRemindType == "0"; // 无签名
       let formSign = node.data.formTreeRemindType == "1"; // 责任（多人签名）
       let formAudit = node.data.formTreeRemindType == "2"; // 责任 + 审核
-
+      console.log('(this.HOSPITAL_ID', this.HOSPITAL_ID);
       // 花都特殊处理
       if (
         this.HOSPITAL_ID == "huadu" ||
         this.HOSPITAL_ID == "liaocheng" ||
-        this.HOSPITAL_ID == "zhongshanqi"
+        this.HOSPITAL_ID == "zhongshanqi" ||
+        this.HOSPITAL_ID == "foshanrenyi"
       ) {
         // 文件夹
         // 责任 + 审核的情况
@@ -625,21 +628,23 @@ export default {
           viewDom,
         ]);
       } else {
-        if(this.HOSPITAL_ID == 'foshanrenyi'){
+        if (this.HOSPITAL_ID == "foshanrenyi") {
           // console.log(this.regions ,node.parent.childNodes,data,'dddddddddddddddddddd');
-          let pageIndex = node.parent.childNodes.map((item,index)=>{
-            if(item.id == data.$treeNodeId){
-              return index-node.parent.childNodes.length
+          let pageIndex = node.parent.childNodes.map((item, index) => {
+            if (item.id == data.$treeNodeId) {
+              return index - node.parent.childNodes.length;
             }
-          })
-          let pages = String(pageIndex.find(item=>item !== undefined)).split('')[1]
+          });
+          let pages = String(
+            pageIndex.find((item) => item !== undefined)
+          ).split("")[1];
           // console.log(String(pages).split('')[1]);
           return h("span", { class: { "tree-node": true } }, [
             h("img", { attrs: { src: icon } }),
             h("span", {}, `第${pages}页`),
             h("span", {}, node.label),
           ]);
-        }else{
+        } else {
           return h("span", { class: { "tree-node": true } }, [
             h("img", { attrs: { src: icon } }),
             h("span", {}, node.label),

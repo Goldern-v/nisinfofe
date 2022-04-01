@@ -125,7 +125,7 @@
         </td>
         <td v-else>
           <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
-          <div class="cell noPrint" v-else-if="HOSPITAL_ID == 'whfk'" style="display:block">
+          <div class="cell noPrint" v-else-if="HOSPITAL_ID == 'whfk'">
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
               :alt="item.nurse"
@@ -142,7 +142,7 @@
               v-if="item.expand1"
             />
           </div>
-          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'']" v-else>
+          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'']" v-else>
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
@@ -224,6 +224,10 @@
   }
   .guizhou-img img{
     width: 55px !important;
+    height: 25px !important;
+  }
+  .whfk-img img{
+    width: 45px !important;
     height: 25px !important;
   }
 }

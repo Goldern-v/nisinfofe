@@ -100,27 +100,7 @@
                       <i class="sheetHospitalAdmission"></i>入院评估
                     </el-row>
                   </router-link> </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{
-                    active: $route.path == '/sheetHospitalEval'
-                  }"
-                >
-                  <router-link to="/sheetHospitalEval" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalEval"></i>住院评估
-                    </el-row>
-                  </router-link> </el-dropdown-item>
-                  <el-dropdown-item
-                  :class="{
-                    active: $route.path == '/MEWS'
-                  }"
-                >
-                  <router-link to="/MEWS" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalEval"></i> MEWS
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
+               
               </el-dropdown-menu>
             </el-dropdown> -->
             <el-dropdown
@@ -242,6 +222,11 @@
             <router-link to="/allCatheter" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-allCatheter"></i> 导管
+              </el-row>
+            </router-link>
+            <router-link to="/MEWS" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> MEWS
               </el-row>
             </router-link>
             <router-link to="/statisticalQuery" tag="span">

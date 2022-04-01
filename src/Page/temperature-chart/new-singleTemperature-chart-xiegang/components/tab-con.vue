@@ -178,7 +178,7 @@
               </el-collapse-item>
               <div
                 class="context-box"
-                v-if="Object.keys(this.otherMultiDictList).length"
+                v-if="Object.keys(otherMultiDictList).length"
               >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
@@ -281,7 +281,7 @@
               </div>
             </div>
             <div class="context-box">
-              <el-collapse-item name="notes">
+              <el-collapse-item name="notes" >
                 <template slot="title">
                   <span class="title"> 注释 </span>
                   <i class="header-icon el-icon-info"></i>
@@ -364,7 +364,7 @@
               </el-collapse-item>
             </div>
             <div class="context-box">
-              <el-collapse-item name="fieldList" v-if="fieldList">
+              <el-collapse-item name="fieldList" v-if="Object.keys(fieldList).length">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
                   <i class="header-icon el-icon-info"></i>
@@ -956,7 +956,11 @@ export default {
         border-radius: 0px 7px 7px 0px;
         margin: 5px 3px 0px 0px;
         float: left;
+         overflow: auto;
       }
+     .record-list::-webkit-scrollbar{
+    display: none;
+}
 
       >div {
         .recordList {

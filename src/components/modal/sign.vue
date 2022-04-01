@@ -52,7 +52,7 @@
       </div>
     </span>
     <div style="height: 5px"></div>
-    <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)" v-show="!pw">
+    <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)" v-show="!pw">
     <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)" v-show="!pw"> -->
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
@@ -94,7 +94,7 @@
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
 
-    <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&formData">
+    <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&formData">
     <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)&&formData"> -->
       <p class="name-title">
         验证方式
@@ -105,10 +105,10 @@
       </p>
     </span>
     <div style="margin-top: 5px">
-      <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&!fuyouCaData"
+      <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&!fuyouCaData"
         >ca登录</span
       >
-      <span v-if="['fuyou','hj'].includes(HOSPITAL_ID)&&fuyouCaData&&formData">
+      <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&fuyouCaData&&formData">
       <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData&&formData"> -->
         开启ca签名<el-switch v-model="isCaSign"></el-switch>
       </span>
@@ -238,12 +238,16 @@ export default {
       signType:0,
       isDoctor:false,
       aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey'],
-      activeSheetType:""
+      activeSheetType:"",
+      hasQrCaSignHos:['fuyou','hj'],
+      // hasQrCaSignHos:['fuyou','hj','guizhou'],
+      caSignHasNoSignType:['hj'],
+      // caSignHasNoSignType:['hj','guizhou']
     };
   },
   methods: {
     showSignBtn(){
-      if(['fuyou','hj'].includes(this.HOSPITAL_ID)){
+      if(this.hasQrCaSignHos.includes(this.HOSPITAL_ID)){
       // if(['fuyou'].includes(this.HOSPITAL_ID)){
         return this.isCaSign
       }else{
@@ -251,12 +255,11 @@ export default {
       }
     },
     hasCaSign(){
-      let flag = ['fuyou','hj'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
+      let flag = this.hasQrCaSignHos.includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
       // let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
     return !!flag
     },
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType) {//formData为表单数据
-    console.log(formData);
     if(doctorTure){
       this.isDoctor = doctorTure
       this.isCaSign = false;
@@ -336,7 +339,7 @@ export default {
             });
         });
       }
-
+      console.log(this.formData);
       return null;
     },
     close() {
@@ -439,7 +442,7 @@ export default {
         templateId:"hash", //-- 模板id
         formId:`${this.formData.id}`,// -- 表单ID
       };
-      if(this.HOSPITAL_ID=='hj'){
+      if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){
         console.log(this.formData);
         parmas = {
             "accessToken":sessionStorage.getItem('accessToken'),
@@ -452,8 +455,10 @@ export default {
       }
       console.log(parmas);
       getCaSignJmfy(parmas).then(async res=>{
-        if(this.HOSPITAL_ID=='hj'){
+        let aduitDate = 'isCaSign'
+        if(caSignHasNoSignType.includes(this.HOSPITAL_ID)){
           let fileCode = res.data.data.data.fileCode
+          aduitDate = ''
           let hjRes = await verifyData(sessionStorage.getItem('accessToken'),fileCode)
           if(hjRes.data.code!=200) return this.$message({
             type:'error',
@@ -465,7 +470,7 @@ export default {
           message:res.data.desc
         })
         this.close()
-        return this.callback(localStorage.ppp, this.username,"",'isCaSign');
+        return this.callback(localStorage.ppp, this.username,"",aduitDate);
       }).catch(error=>{
         // this.$message({
         //   type:'warning',

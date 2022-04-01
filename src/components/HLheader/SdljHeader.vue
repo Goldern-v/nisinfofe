@@ -1026,18 +1026,22 @@ export default {
       return path.includes("singleRounds") || path.includes("allRounds");
     },
     isActiveFormPage() {
-      // if (this.$route.path == "/sheetPage") return true;
-      if (this.$route.path == "/sheetHospitalAdmission") return true;
-      if (this.$route.path == "/sheetHospitalEval") return true;
-      // if (this.$route.path == "/formPage") return true;
-      if (this.$route.path == "/sugarPage") return true;
-      if (this.$route.path == "/oxygenPage") return true;
-      if (this.$route.path == "/healthEdu") return true;
-      if (this.$route.path == "/handlingPage") return true;
-      return false;
-      // if (this.$route.path == "/sugarPage") return true;
-      // return false;
+      return [
+        "/sheetHospitalAdmission",
+        "/sheetHospitalEval",
+        "/sugarPage",
+        "/oxygenPage",
+        "/healthEdu",
+        "/handlingPage"
+      ].includes(this.$route.path)
     },
+    isImplementationList(){
+      return[
+        "/bottleLabelByProgram",
+        "/implementationList"
+      ].includes(this.$route.path)
+      
+    }
   },
   methods: {
     handleCommand(command) {

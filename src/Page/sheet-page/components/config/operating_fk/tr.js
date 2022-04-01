@@ -139,6 +139,7 @@ import {
       next:"",
       event: keyf1,
       change: (e, td) => limitChange(e, td,4),
+      autoComplete: { data: ['存在','不存在'] },
       textarea: {
         width: 32
       },
@@ -150,6 +151,7 @@ import {
       next:"",
       event: keyf1,
       change: (e, td) => limitChange(e, td,4),
+      autoComplete: { data: ['存在','不存在'] },
       textarea: {
         width: 32
       },
@@ -169,7 +171,7 @@ import {
     {
       key: "cvc", //CVC
       value: "",
-      name: "留置针",
+      name: "CVC",
       next:"",
       event: keyf1,
       autoComplete: { data: ['带入','穿刺','置入','N','拔管'] },
@@ -181,7 +183,7 @@ import {
     {
       key: "picc", //PICC
       value: "",
-      name: "留置针",
+      name: "PICC",
       next:"",
       event: keyf1,
       autoComplete: { data: ['带入','穿刺','置入','N','拔管'] },
@@ -339,8 +341,8 @@ import {
     {
       key: "description", //特殊情况记录
       value: "",
-      style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "150px", background: "transparent" },
-      textarea: { width: 150 },
+      style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "155px", background: "transparent" },
+      textarea: { width: 155 },
       event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
     },
     { key: "sign", value: "" },//单签

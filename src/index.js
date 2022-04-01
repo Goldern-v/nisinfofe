@@ -157,7 +157,7 @@ Vue.prototype.HOSPITAL_NAME_SPACE = process.env.HOSPITAL_NAME_SPACE;
 Vue.prototype.COMPANY_NAME = process.env.COMPANY_NAME;
 Vue.prototype.ABOUT_INFO = process.env.ABOUT_INFO;
 let versionInfo = require("./version.json");
-
+localStorage.setItem('最近打包人员', JSON.stringify(versionInfo["最近打包人员"]))
 global.system = {
   软件名称: versionInfo["软件名称"],
   版本号: versionInfo["版本号"], //devTools.getLastPackagedDate(),

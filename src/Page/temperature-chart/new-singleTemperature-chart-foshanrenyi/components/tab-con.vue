@@ -487,6 +487,11 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate = dateTime.slice(0, 10);
+      this.query.entryTime = dateTime.slice(11, 16) + ":00";
+      this.dateInp = dateTime.slice(11, 16);
+    });
 
   },
   created() {
@@ -504,7 +509,9 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
+         if(this.query.entryTime&&this.query.entryDate){
         this.getList();
+         }
       },
       deep: true,
     },
@@ -949,8 +956,11 @@ export default {
         border-radius: 0px 7px 7px 0px;
         margin: 5px 3px 0px 0px;
         float: left;
+        overflow: auto;
       }
-
+      .record-list::-webkit-scrollbar{
+    display: none;
+        }
       >div {
         .recordList {
           line-height: 30px;
