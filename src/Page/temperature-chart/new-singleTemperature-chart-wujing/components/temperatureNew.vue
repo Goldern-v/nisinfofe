@@ -312,14 +312,14 @@ export default {
 }
 
 .pageInput {
-  width: 50px;
+  width: 30px;
   border: 0px;
 }
 
 .pagination {
   display: inline;
   position: relative;
-  left: -5%;
+  left: -10%;
   font-weight: normal;
 }
 
@@ -371,7 +371,7 @@ button[disabled=disabled] {
 .newBorn {
   position: relative;
   top: 2px;
-  left: 55%;
+  left: 57%;
   display: inline-flex !important;
 }
 
