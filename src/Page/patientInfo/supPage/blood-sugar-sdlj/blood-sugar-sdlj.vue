@@ -516,10 +516,9 @@ export default {
             this.$message.success("删除成功");
             await this.load();
             this.selected = null;
-            // if (this.HOSPITAL_ID === "sdlj" && this.listMap && this.listMap[0].left.length === 0) {
-            //   console.log(12334)
-            //   this.$emit('removeSugar')
-            // }
+            if (this.HOSPITAL_ID === "sdlj" && this.listMap.length === 0) {
+              this.$emit('removeSugar')
+            }
           }else{
             this.$message.success(res.data.desc);
           }
