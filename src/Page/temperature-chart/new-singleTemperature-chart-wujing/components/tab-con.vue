@@ -6,7 +6,7 @@
           class="date-picker"
           type="date"
           size="small"
-          style="width: 140px"
+          style="width: 110px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -29,6 +29,15 @@
             placeholder="选择时间"
           >
           </el-time-select>
+        </div>
+        <div class="save-btn-top" v-if="patientInfo.patientId">
+          <el-button
+            :disabled="isDisable()"
+            type="primary"
+            class="save-btn"
+            @click="saveVitalSign(vitalSignObj)"
+            >保存</el-button
+          >
         </div>
       </div>
     </div>
@@ -908,14 +917,16 @@ export default {
 
   .column-right {
     display: inline-block;
-    margin-left: 25px;
+    margin-left: 15px;
     height: 50px;
+      width: 100%;
     overflow: auto;
   }
 
   .row-top {
     background-color: #fff;
     height: 47px;
+    width:100%;
 
     .column-left {
       margin: 10px 45px 0px 0px;
@@ -923,6 +934,10 @@ export default {
     }
   }
 
+      .save-btn-top {
+    width: 50px;
+    display: inline-block;
+  }
   .row-bottom {
     height: 100%;
 
