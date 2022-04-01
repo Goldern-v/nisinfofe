@@ -54,7 +54,8 @@
         <div>
           <!-- 患者资料 -->
           <patientInfo
-              v-if="this.$route.query.patientId && HOSPITAL_ID == 'lingcheng'"
+              :notNurseRecordList="true"
+              v-if="this.$route.query.patientId && (HOSPITAL_ID == 'lingcheng'||HOSPITAL_ID == 'lyxrm')"
           ></patientInfo>
         </div>
       </div>
