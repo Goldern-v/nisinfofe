@@ -7,6 +7,7 @@
     </el-tooltip>
 
     <patientInfoSlide
+      :faultNurseRecordList="notNurseRecordList"
       ref="patientInfoSlide"
       @onClose="onClose"
     ></patientInfoSlide>
@@ -40,7 +41,13 @@
 <script>
 import patientInfoSlide from "./modal/patient-info-slide";
 export default {
-  props: {},
+  props: {
+    // 解决不是护理记录单样式问题。
+    notNurseRecordList:{
+      type:Boolean,
+      default:false
+    }
+  },
   data() {
     return {
       open: false,
