@@ -215,7 +215,7 @@ export default {
       isShowModal:false,
       query: {
         wardCode:"",
-        itemType:process.env.HOSPITAL_ID=='whfk'?'全部':"输液",//医嘱类别，输液、雾化
+        itemType:process.env.HOSPITAL_ID=='whfk'?"输液":'全部',//医嘱类别，输液、雾化
         executeDate:moment().format("YYYY-MM-DD"),//执行日期
         bedLabel:'',//床位号，如果查全部传*"
         repeatIndicator:9,//医嘱类型，长期传1，临时传0，全部传9
