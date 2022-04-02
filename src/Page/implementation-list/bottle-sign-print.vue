@@ -231,7 +231,7 @@ export default {
       pagedTable:[],
       printObj:[],
       newModalSize:'6*8',
-      hasNewPrintHos:['sdlj','fsxt','whfk','lyxrm'],
+      hasNewPrintHos:['sdlj','fsxt','whfk','lyxrm','wujing'],
       typeOptions:{
         'whfk':[
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"标本"},],

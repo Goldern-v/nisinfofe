@@ -93,7 +93,7 @@ export default {
       isPrintAll: false, //是否打印所有
       visibled: false,
       intranetUrl:
-        // "http://192.168.1.75:8081/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
         "http://172.17.5.41:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://172.17.5.41:9091/temperature/#/printAll" /* 医院正式环境内网 */,
@@ -149,6 +149,10 @@ export default {
       this.currentPage--;
       this.toCurrentPage = this.currentPage;
     },
+          //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime){
+      this.bus.$emit('getDataFromPage',dateTime)
+    },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
@@ -175,6 +179,9 @@ export default {
           case "pageTotal":
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
+            break;
+             case "clickDateTime":
+            this.getDataFromPage(e.data.value)
             break;
           // case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
           // const params = {

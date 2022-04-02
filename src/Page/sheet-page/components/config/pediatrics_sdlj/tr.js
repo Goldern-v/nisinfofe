@@ -34,7 +34,7 @@ import {
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
-  { key: "recordHour", event: event_time, value: ''},
+  { key: "recordHour", event: event_time, click: click_time, value: ''},
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -48,9 +48,9 @@ export default [
   { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量名称', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'skin', event: keyf1, value: '', next: '', name: '清洁护理', autoComplete: { data: ['①', '②', '③', '④', '⑤'] },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'skin', event: keyf1, value: '', next: '', name: '清洁护理', autoComplete: { data: ['①', '②', '③', '④', '⑤'] },textarea: { width: 50 }, splice: '/', change: (e, td) => limitChange(e, td, 6) },
   // { key: 'plumbing', event: keyf1, value: '', next: '', name: '管道护理', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'tracheal', event: keyf1, value: '', next: '', name: '气道护理', autoComplete: { data: ['①', '②', '③'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'tracheal', event: keyf1, value: '', next: '', name: '气道护理', autoComplete: { data: ['①', '②', '③'] }, textarea: { width: 50 }, splice: '/', change: (e, td) => limitChange(e, td, 6) },
   { key: 'sputum', event: keyf1, value: '', next: '', name: '物理降温', autoComplete: { data: ['①', '②', '③', '④'] },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'careOther', event: keyf1, value: '', next: '', name: '饮食护理',autoComplete: { data: ['①', '②', '③', '④'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'customItem1', event: keyf1, value: '', next: '', name: '大便', textarea: { width: 35 }, autoComplete: { data: ['①', '②', '③', '④', '⑤'] }, change: (e, td) => limitChange(e, td, 4) },
@@ -58,7 +58,7 @@ export default [
   { key: 'customItem3', event: keyf1, value: '', next: '', name: '咳嗽', textarea: { width: 35 }, autoComplete: { data: ['①', '②', '③'] }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'customItem4', event: keyf1, value: '', next: '', name: '痰液性质', textarea: { width: 35 }, autoComplete: { data: ['①', '②', '③', '④', '⑤', '⑥', '⑦'] }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'customItem5', event: keyf1, value: '', next: '', name: '自定义值5', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'customItem6', event: keyf1, value: '', next: '', name: '自定义值6', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  // { key: 'customItem6', event: keyf1, value: '', next: '', name: '自定义值6', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "description", //特殊情况记录
     value: "",
