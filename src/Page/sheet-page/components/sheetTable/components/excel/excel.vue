@@ -1037,7 +1037,7 @@ export default {
               });
               this.bus.$emit("saveSheetPage", true);
             });
-          },'',null,false,'',['guizhou'].includes(this.HOSPITAL_ID)?{}:null);
+          },'',null,false,'',['guizhou','foshanrenyi'].includes(this.HOSPITAL_ID)?{}:null);
         };
         let reverseList = [...decode().list].reverse();
         /** 最后的时间 */
@@ -1090,7 +1090,7 @@ export default {
           }).then((res) => {
             this.bus.$emit("saveSheetPage", true);
           });
-        },'',null,false,'',['guizhou'].includes(this.HOSPITAL_ID)?{}:null);
+        },'',null,false,'',['guizhou','foshanrenyi'].includes(this.HOSPITAL_ID)?{}:null);
       }
     },
     toAudit(trArr, index, bodyModel, showAudit, e) {
@@ -1156,7 +1156,7 @@ export default {
               this.bus.$emit("saveSheetPage", true);
             }
           );
-        },['guizhou'].includes(this.HOSPITAL_ID)?{}:null);
+        },['guizhou','foshanrenyi'].includes(this.HOSPITAL_ID)?{}:null);
       } else {
         // 删除签名
         this.$refs.delsignModal.open((password, empNo) => {
@@ -1171,7 +1171,7 @@ export default {
           }).then((res) => {
             this.bus.$emit("saveSheetPage", true);
           });
-        },'',null,false,'',['guizhou'].includes(this.HOSPITAL_ID)?{}:null);
+        },'',null,false,'',['guizhou','foshanrenyi'].includes(this.HOSPITAL_ID)?{}:null);
       }
     },
     // 展示签名状态
