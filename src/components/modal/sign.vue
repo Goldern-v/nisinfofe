@@ -105,7 +105,7 @@
       </p>
     </span>
     <div style="margin-top: 5px">
-      <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&!fuyouCaData"
+      <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&!fuyouCaData&&formData"
         >ca登录</span
       >
       <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&fuyouCaData&&formData">
@@ -239,10 +239,10 @@ export default {
       isDoctor:false,
       aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey'],
       activeSheetType:"",
-      hasQrCaSignHos:['fuyou','hj'],
-      // hasQrCaSignHos:['fuyou','hj','guizhou'],
-      caSignHasNoSignType:['hj'],
-      // caSignHasNoSignType:['hj','guizhou']
+      // hasQrCaSignHos:['fuyou','hj'],
+      hasQrCaSignHos:['fuyou','hj','guizhou'],
+      // caSignHasNoSignType:['hj'],
+      caSignHasNoSignType:['hj','guizhou']
     };
   },
   methods: {
@@ -346,6 +346,7 @@ export default {
       this.isDoctor =false
       this.showAduit=false
       this.activeSheetType=""
+      this.formData = null
       this.$refs.modalName.close();
     },
     setCloseCallback(closeCallback) {
@@ -453,24 +454,27 @@ export default {
             "fileName":`${this.formData.name}_${this.formData.code}`
         }
       }
-      console.log(parmas);
       getCaSignJmfy(parmas).then(async res=>{
         let aduitDate = 'isCaSign'
-        if(caSignHasNoSignType.includes(this.HOSPITAL_ID)){
+        let pwd = ''
+        let username = ''
+        if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){
           let fileCode = res.data.data.data.fileCode
           aduitDate = ''
-          let hjRes = await verifyData(sessionStorage.getItem('accessToken'),fileCode)
+          let hjRes = await verifyData(sessionStorage.getItem('accessToken'),fileCode,parmas.userId)
           if(hjRes.data.code!=200) return this.$message({
             type:'error',
             message:hjRes.data.desc
           })
+          pwd = hjRes.data.data.password
+          username = hjRes.data.data.empNo
         }
         this.$message({
           type:'success',
           message:res.data.desc
         })
         this.close()
-        return this.callback(localStorage.ppp, this.username,"",aduitDate);
+        return this.callback(pwd || localStorage.ppp, username || this.username,"",aduitDate);
       }).catch(error=>{
         // this.$message({
         //   type:'warning',

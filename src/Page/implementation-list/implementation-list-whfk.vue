@@ -5,33 +5,31 @@
         <h3>批量执行单</h3>
         <div>
           <span class="label" style="margin-left: 0">执行日期:</span>
-          <!-- <el-date-picker
-          :disabled="workClassList.length>0?true:false"
+          <el-date-picker
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择入院起始时间"
           size="small"
-          v-model="startDate"
+          v-model="query.startDate"
           style="width:180px"
         ></el-date-picker>
         &nbsp;--&nbsp;
         <el-date-picker
-          :disabled="workClassList.length>0?true:false"
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择终止时间"
           size="small"
-          v-model="endDate"
+          v-model="query.endDate"
           style="width:180px"
-        ></el-date-picker> -->
-          <el-date-picker
+        ></el-date-picker>
+          <!-- <el-date-picker
             type="date"
             format="yyyy-MM-dd"
             placeholder="选择入院起始时间"
             size="small"
             v-model="query.executeDate"
             style="width: 150px"
-          ></el-date-picker>
+          ></el-date-picker> -->
           <!-- <span class="label">长/临:</span>
           <el-row class="select-btn-list" type="flex" align="middle">
             <el-radio-group v-model="repeatIndicator">
@@ -187,7 +185,7 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table-wujing";
+import dTable from "./components/table/d-table-whfk";
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode, handleWebExecuteBatch } from "./api/index";
@@ -212,7 +210,9 @@ export default {
       test: "",
       query: {
         wardCode: "",
-        itemType: "全部", //医嘱类别，输液、雾化
+        itemType: "输液", //医嘱类别，输液、雾化
+        startDate: moment().format("YYYY-MM-DD HH:mm:ss"), //执行开始日期
+        endDate: moment().format("YYYY-MM-DD HH:mm:ss"), //执行结束日期
         executeDate: moment().format("YYYY-MM-DD"), //执行日期
         bedLabel: "", //床位号，如果查全部传*"
         repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
@@ -237,6 +237,9 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       this.query.wardCode = this.deptCode;
+      this.query.executeDate = this.query.executeDate
+        ? moment(this.query.executeDate).format("YYYY-MM-DD")
+        : moment().format("YYYY-MM-DD");
       this.query.executeDate = this.query.executeDate
         ? moment(this.query.executeDate).format("YYYY-MM-DD")
         : moment().format("YYYY-MM-DD");
