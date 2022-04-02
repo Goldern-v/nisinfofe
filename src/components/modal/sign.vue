@@ -346,6 +346,7 @@ export default {
       this.isDoctor =false
       this.showAduit=false
       this.activeSheetType=""
+      this.formData = null
       this.$refs.modalName.close();
     },
     setCloseCallback(closeCallback) {
