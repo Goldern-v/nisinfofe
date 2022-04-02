@@ -956,8 +956,11 @@ export default {
         border-radius: 0px 7px 7px 0px;
         margin: 5px 3px 0px 0px;
         float: left;
-        overflow: hidden;
+        overflow: auto;
       }
+      .record-list::-webkit-scrollbar{
+    display: none;
+          }
 
       >div {
         .recordList {

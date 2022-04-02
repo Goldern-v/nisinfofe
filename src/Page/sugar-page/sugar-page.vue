@@ -92,7 +92,6 @@ export default {
   },
   methods: {
     removeSugar() {
-      console.log('删除')
       this.isAdult = true
     },
     onAddTableModal() {
@@ -175,7 +174,7 @@ export default {
     // 初始化
     if (this.deptCode) {
       this.getDate();
-      console.log('oppppp', this.patientInfo);
+      // console.log('oppppp', this.patientInfo);
     }
 
     this.bus.$on("refreshFormPagePatientList", this.getDate);

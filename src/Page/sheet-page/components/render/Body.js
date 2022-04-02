@@ -1320,6 +1320,16 @@ function switechSheetType(type) {
       schema = require("../config/neonatology_yx/tr.js").default;
     }
     break;
+    case "icu_yx": {
+      // 武汉亚心 - ICU护理记录单
+      schema = require("../config/icu_yx/tr.js").default;
+    }
+    break;
+    case "common_yx": {
+      // 武汉亚心 - 护理记录单
+      schema = require("../config/common_yx/tr.js").default;
+    }
+    break;
     case "test_common": {
       // 护理记录单（测试用）
       schema = require("../config/general_xt/tr.js").default;

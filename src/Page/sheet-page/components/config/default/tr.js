@@ -1,7 +1,7 @@
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
 import { keyf1 } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import { event_date, event_time, click_date, click_time } from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
@@ -19,25 +19,35 @@ export default [
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    click: click_time
+
   },
   {
     key: "temperature", //体温
+    name: "体温",
+    next: "℃",
     value: "",
     event: keyf1
   },
   {
     key: "pulse", //脉搏
+    name: "脉搏",
+    next: "次/分",
     value: "",
     event: keyf1
   },
   {
     key: "breath", //呼吸
+    name: "呼吸",
+    next: "次/分",
     value: "",
     event: keyf1
   },
   {
     key: "bloodPressure", //血压
+    name: "血压",
+    next: "mmHg",
     value: "",
     event: function(e, td) {
       if (e.keyCode == 32) {
@@ -49,6 +59,7 @@ export default [
   },
   {
     key: "consciousness", //意识
+    name: "意识",
     value: "",
     event: keyf1,
     autoComplete: {
@@ -57,16 +68,21 @@ export default [
   },
   {
     key: "pupilSizeLeft", // 大小左
+    name: "大小左",
+    next: "mm",
     value: "",
     event: keyf1
   },
   {
     key: "pupilSizeRight", // 大小右
+    name: "大小右",
+    next: "mm",
     value: "",
     event: keyf1
   },
   {
     key: "pupilReflexLeft", // 反射左
+    name: "反射左",
     value: "",
     event: keyf1,
     autoComplete: {
@@ -75,6 +91,7 @@ export default [
   },
   {
     key: "pupilReflexRight", // 反射右
+    name: "反射右",
     value: "",
     event: keyf1,
     autoComplete: {
@@ -83,6 +100,7 @@ export default [
   },
   {
     key: "food", //入
+    name: "入量名称",
     value: "",
     event: keyf1,
     autoComplete: {
@@ -94,11 +112,14 @@ export default [
   },
   {
     key: "foodSize", //入量
+    name: "入量",
+    next: "ml",
     value: "",
     event: keyf1
   },
   {
     key: "discharge", //出
+    name: "出量名称",
     value: "",
     event: keyf1,
     autoComplete: {
@@ -110,6 +131,8 @@ export default [
   },
   {
     key: "dischargeSize", //出量
+    name: "出量",
+    next: "ml",
     value: "",
     event: keyf1
   },

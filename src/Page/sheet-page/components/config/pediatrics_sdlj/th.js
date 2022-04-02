@@ -35,7 +35,7 @@ export default {
                 {"name":"咳嗽","colspan":"1","rowspan":"2"},
                 {"name":"痰液<br/>性状","colspan":"1","rowspan":"2"},
                 {"name":"","colspan":"1","rowspan":"2","canSet":true,"key":"customItem5","style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"","colspan":"1","rowspan":"2","canSet":true,"key":"customItem6","style":{"minWidth":"35px","maxWidth":"35px"}},
+                // {"name":"","colspan":"1","rowspan":"2","canSet":true,"key":"customItem6","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"2","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士签名","colspan":"1","rowspan":"2","style":{"minWidth":"60px","maxWidth":"60px"}},
                 {"name":"上级签名","colspan":"1","rowspan":"2","style":{"minWidth":"60px","maxWidth":"60px"}}
