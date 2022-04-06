@@ -5,9 +5,9 @@
 
 /**
  * @description: 开发注意事项:
-    1、自定义表头 canSet: true, key: "armValue4"            
+    1、自定义表头 canSet: true, key: "armValue4"
     2、表格头部年份显示 {"name":'',"style":{},"colspan":"2","rowspan":"1","key":'recordYear'},
-    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, },
 */
 
 export default {
@@ -17,7 +17,7 @@ export default {
       width: "1320px"
     },
     th: {
-        top: 
+        top:
             [
                 {"name":"","colspan":"2","rowspan":"1","key":"recordYear"},
                 {"name":"体温<br/>℃","colspan":"1","rowspan":"3"},
@@ -52,11 +52,12 @@ export default {
                 {"name":"护<br/>理<br/>安<br/>全","colspan":"1","rowspan":"3"},
                 {"name":"报<br/>告<br/>医<br/>生","colspan":"1","rowspan":"3"},
                 {"name":"遵<br/>医<br/>嘱<br/>继<br/>续<br/>观<br/>察","colspan":"1","rowspan":"3"},
-                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
+                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"140px","maxWidth":"140px"}},
+                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"40px","maxWidth":"40px"}},
+                {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"40px","maxWidth":"40px"}}
             ]
         ,
-        mid: 
+        mid:
             [
                 {"name":"日期","colspan":"1","rowspan":"2"},
                 {"name":"时间","colspan":"1","rowspan":"2"},
@@ -68,8 +69,8 @@ export default {
                 {"name":"软","colspan":"1","rowspan":"2"}
             ]
         ,
-        bottom: 
+        bottom:
             []
         ,
     }
-}  
+}

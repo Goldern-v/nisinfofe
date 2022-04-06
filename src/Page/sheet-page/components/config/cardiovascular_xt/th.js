@@ -6,7 +6,7 @@
 /**
  * @description: 开发注意事项:
     1、自定义表头 canSet: true, key: "armValue4"
-    2、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+    2、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, },
 */
 
 export default {
@@ -16,7 +16,7 @@ export default {
       width: "1450px"
     },
     th: {
-        top: 
+        top:
             [
                 {"name":"日期","colspan":"1","rowspan":"3"},
                 {"name":"时间","colspan":"1","rowspan":"3"},
@@ -59,11 +59,12 @@ export default {
                 {"name":"护<br/>理<br/>安<br/>全","colspan":"1","rowspan":"3"},
                 {"name":"启用<br/>相关<br/>护理<br/>表格","colspan":"1","rowspan":"3"},
                 {"name":"报<br/>告医<br/>生","colspan":"1","rowspan":"3"},
-                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
+                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"140px","maxWidth":"140px"}},
+                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
             ]
         ,
-        mid: 
+        mid:
             [
                 {"name":"大小<br/>mm","colspan":"2","rowspan":"1"},
                 {"name":"反射","colspan":"2","rowspan":"1"},
@@ -73,7 +74,7 @@ export default {
                 {"name":"量<br/>ml","colspan":"1","rowspan":"2"}
             ]
         ,
-        bottom: 
+        bottom:
             [
                 {"name":"左","colspan":"1","rowspan":"1"},
                 {"name":"右","colspan":"1","rowspan":"1"},
@@ -82,4 +83,4 @@ export default {
             ]
         ,
     }
-}  
+}

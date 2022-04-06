@@ -41,6 +41,7 @@
 import $ from 'jquery'
 import bus from 'vue-happy-bus'
 import { printDir } from '../control/common-print.js'
+import { addCSS } from "@/utils/css";
 export default {
   data() {
     return {
@@ -65,6 +66,19 @@ export default {
       minWidth: '700px'
     })
     printDir('v')
+    if((this.HOSPITAL_ID === "whfk")){
+      addCSS(
+        window,
+        `
+        @media print{
+          #app
+             .sugr-page{
+                margin: 10px 0 0 !important
+            }
+        }
+        `
+      );
+    }
   },
   methods: {
 
