@@ -81,7 +81,7 @@
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <!-- 表头信息-->
-          <p flex="main:justify" class="info" v-else>
+          <p flex="main:justify" class="info" :style="{'marginTop':Toppx}" v-else>
             <span>病人姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
             <span>性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
@@ -105,13 +105,21 @@
           <div class="table-warpper" flex="cross:stretch">
             <!-- 【左边】聊城二院血糖表格单独管理 -->
             <sugarTableLcey
-            v-if="HOSPITAL_ID == 'liaocheng'"
-            :data="item.left"
+              v-if="HOSPITAL_ID == 'liaocheng'"
+              :data="item.left"
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='0'
               @uploadList="uploadView"
             ></sugarTableLcey>
+            <sugarTableWhfk
+              v-else-if="HOSPITAL_ID == 'whfk'"
+              :data="item.left"
+              :selected.sync="selected"
+              @dblclick="hisDisabled()&&onEdit()"
+              :baseIndex='0'
+              @uploadList="uploadView"
+            ></sugarTableWhfk>
             <sugarTable
             v-else
               :data="item.left"
@@ -135,6 +143,14 @@
               :baseIndex='27'
                @uploadList="uploadView"
             ></sugarTableLcey>
+            <sugarTableWhfk
+              v-else-if="HOSPITAL_ID == 'whfk'"
+              :data="item.right"
+              :selected.sync="selected"
+              @dblclick="hisDisabled()&&onEdit()"
+              :baseIndex='27'
+              @uploadList="uploadView"
+            ></sugarTableWhfk>
             <sugarTable
             v-else
               :data="item.right"
@@ -168,7 +184,7 @@
         <whiteButton
         text="保存"
         @click="saveActiveSugar()"
-        v-if="HOSPITAL_ID==='liaocheng'"
+        v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='whfk'"
          :disabled="!selected || !selected.recordDate"></whiteButton>
         <whiteButton
           text="修改"
@@ -313,6 +329,7 @@
 <script>
 import sugarTable from "./components/sugar-table.vue";
 import sugarTableLcey from "./components/sugar-table-lcey.vue";
+import sugarTableWhfk from "./components/sugar-table-whfk.vue"
 import {
   getSugarListWithPatientId,
   saveSugarList,
@@ -371,6 +388,12 @@ export default {
     //是否为表头用户信息通过获取用户信息接口获取的医院且为调阅接口
     isPreviewUserInfo(){
       return this.hisUserTitLeList.includes(this.HOSPITAL_ID) && this.$route.path.includes("nursingPreview");
+    },
+    Toppx(){
+      if(this.HOSPITAL_ID==='whfk'){
+        return '16px'
+      }
+      return '30px'
     }
   },
   methods: {
@@ -416,8 +439,9 @@ if(this.selected.expand2!==undefined){
         // 判断日期
         const formatArr=DateArr[0].split("-")
         const firstDate=`${formatArr[1]}-${formatArr[2]}`
-        if(item.date&&firstDate!==item.date){
-          item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
+        if(item.date&&firstDate!==item.date&&this.HOSPITAL_ID==='liaocheng'){
+            //聊城显示时间是没有年份的。 
+            item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
         }
 
       await saveSugarList([item])
@@ -653,8 +677,8 @@ if(this.selected.expand2!==undefined){
   },
   components: {
     sugarTable,
-    // 聊城二院血糖表格
     sugarTableLcey,
+    sugarTableWhfk,
     whiteButton,
     sugarChart,
     nullBg,

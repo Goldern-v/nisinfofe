@@ -6,22 +6,22 @@
         <div>
           <span class="label" style="margin-left: 0">执行日期:</span>
           <el-date-picker
-          type="datetime"
-          format="yyyy-MM-dd HH:mm:ss"
-          placeholder="选择入院起始时间"
-          size="small"
-          v-model="query.startDate"
-          style="width:180px"
-        ></el-date-picker>
-        &nbsp;--&nbsp;
-        <el-date-picker
-          type="datetime"
-          format="yyyy-MM-dd HH:mm:ss"
-          placeholder="选择终止时间"
-          size="small"
-          v-model="query.endDate"
-          style="width:180px"
-        ></el-date-picker>
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择入院起始时间"
+            size="small"
+            v-model="startDate"
+            style="width:180px"
+          ></el-date-picker>
+          --
+          <el-date-picker
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择终止时间"
+            size="small"
+            v-model="endDate"
+            style="width:180px"
+          ></el-date-picker>
           <!-- <el-date-picker
             type="date"
             format="yyyy-MM-dd"
@@ -203,7 +203,8 @@ export default {
         pageNum: 100,
         total: 0,
       },
-      startDate: moment().format("YYYY-MM-DD"),
+      startDate: moment().format("YYYY-MM-DD")+' 07:30:00',
+      endDate: moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00',
       type: "",
       status: "",
       bedLabel: "",
@@ -211,8 +212,6 @@ export default {
       query: {
         wardCode: "",
         itemType: "输液", //医嘱类别，输液、雾化
-        startDate: moment().format("YYYY-MM-DD HH:mm:ss"), //执行开始日期
-        endDate: moment().format("YYYY-MM-DD HH:mm:ss"), //执行结束日期
         executeDate: moment().format("YYYY-MM-DD"), //执行日期
         bedLabel: "", //床位号，如果查全部传*"
         repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
@@ -237,6 +236,8 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       this.query.wardCode = this.deptCode;
+      this.query.startDate = moment(this.startDate).format('YYYY-MM-DD HH:mm:ss')
+      this.query.endDate = moment(this.endDate).format('YYYY-MM-DD HH:mm:ss')
       this.query.executeDate = this.query.executeDate
         ? moment(this.query.executeDate).format("YYYY-MM-DD")
         : moment().format("YYYY-MM-DD");
@@ -356,6 +357,9 @@ export default {
       this.search();
     },
     startDate() {
+      this.search();
+    },
+    endDate() {
       this.search();
     },
     type() {
