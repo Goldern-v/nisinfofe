@@ -215,7 +215,7 @@ export default {
       isShowModal:false,
       query: {
         wardCode:"",
-        itemType:process.env.HOSPITAL_ID=='whfk'?'全部':"输液",//医嘱类别，输液、雾化
+        itemType:"输液",//医嘱类别，输液、雾化
         executeDate:moment().format("YYYY-MM-DD"),//执行日期
         bedLabel:'',//床位号，如果查全部传*"
         repeatIndicator:9,//医嘱类型，长期传1，临时传0，全部传9
@@ -234,7 +234,7 @@ export default {
       hasNewPrintHos:['sdlj','fsxt','whfk','lyxrm','wujing'],
       typeOptions:{
         'whfk':[
-          {label:"全部"},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"标本"},],
+          {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"标本"},],
         default:[
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},]
       }
@@ -414,7 +414,7 @@ export default {
             scanStyles: false,
             css: `
               @page{
-                margin:2mm 0 0 2mm;
+                margin: 0 0;
               }
               body{
                 ${this.newModalSize=='6*8'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}

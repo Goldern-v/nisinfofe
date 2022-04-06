@@ -85,6 +85,11 @@ function syncGetNurseBedRecBeiHaiExecute(deptCode){
   return axios.get(`${apiPath}HisBeiHaiExecute/syncGetNurseBedRec/${deptCode}`)
 }
 
+//顺德龙江 --更新床位一览卡信息
+function syncGetNurseBedRecSDLJExecute(deptCode){
+  return axios.get(`${apiPath}HisLinYiBedRec/syncGetNurseBedRec/${deptCode}`)
+}
+
 // 威县 --同步医嘱
 function syncGetMedicalAdvice(deptCode) {
   return axios.get(`${apiPath}hisDispenseExecute/syncGetPatientOrdersWithWardCode/${deptCode}`)
@@ -111,5 +116,6 @@ export {
   syncGetNurseBedRecHengli,
   syncGetNurseBedRecJiangMenFY,
   syncGetNurseBedRecJiangMenFSSY,
+  syncGetNurseBedRecSDLJExecute,
   syncGetNurseBedRecBeiHaiExecute,
 }

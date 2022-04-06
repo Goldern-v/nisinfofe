@@ -340,12 +340,13 @@ export default {
     },
 
     openSignModal() {
+      console.log(this.itemData.id);
       window.openSignModal((password, empNo) => {
         getUser(password, empNo).then((res) => {
           this.curEmpName = res.data.data.empName;
           this.curEmpNo = res.data.data.empNo;
         });
-      });
+      },'执行人切换',null,false,'',{id:this.blockId,code:"form_edu",name:'健康宣教'});
     },
 
     // 关闭弹框
