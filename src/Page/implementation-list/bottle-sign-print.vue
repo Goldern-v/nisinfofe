@@ -332,8 +332,9 @@ export default {
               pagedTable[pageNum].push(currentItem)
             }
             // 计算总条目数(判断barcode是否是第一次出现)
-            return tableData.findIndex(item=>item.barcode === currentItem.barcode) === currentIndex ? ++total : total
+            return tableData.findIndex(item=>`${item.barcode}_${item.executeDateTime}` === `${currentItem.barcode}_${currentItem.executeDateTime}`) === currentIndex ? ++total : total
           },0)
+          pagetotal = this.page.pageNum * pagedTable.length
           this.pagedTable = pagedTable
           // 设置表格数据
           if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){

@@ -84,7 +84,7 @@
 </template>
 <style lang='scss' scoped>
 .new-print-modal{
-    page-break-after:always;
+    // page-break-after:always;
     >>> * {
         font-size: 12px;
     }
