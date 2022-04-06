@@ -511,7 +511,6 @@ export default {
       this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate=dateTime.slice(0,10)
         this.query.entryTime=dateTime.slice(11,13)
-        console.log(dateTime.slice(11,13))
     });
   },
 
@@ -627,10 +626,13 @@ export default {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
           /* 时间数组 */
-          this.tabsData.push({
+          if(item.recordDate.slice(12, 17)!=='00:00'){
+             this.tabsData.push({
             recordDate: item.recordDate,
             recordPerson: item.vitalSignList[0].nurseName,
           });
+          }
+
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
@@ -713,16 +715,24 @@ export default {
         timeStr: this.query.entryTime + ":00:00",
         wardCode: this.patientInfo.wardCode,
       };
-      getViSigsByReDate(data).then((res) => {
+       getViSigsByReDate(data).then((res) => {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
+             Object.values(this.totalDictInfo).map((x)=>{
+              if(v.vitalSigns===x.vitalSign&&x.vitalCode!==""){
+                  v.vitalCode=x.vitalCode
+              }
+
+            })
+
             this.vitalSignObj[v.vitalCode] = v;
             if (v.vitalSigns === "表顶注释") {
               this.timeVal = moment(
                 this.vitalSignObj[v.vitalCode].expand2
               ).utc()._d;
             }
+
           });
         } else {
           this.init();
