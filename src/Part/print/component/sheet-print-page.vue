@@ -452,6 +452,26 @@ export default {
         `
       );
     }
+    if (
+      (this.HOSPITAL_ID === "fsxt")
+    ) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='审核签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='审核<br/>签名']{
+            display:none !important;
+          }
+          @media print {
+            #sheetPagePrint .contant{
+              margin-top:-20px;!important;
+            }
+          }
+        `
+      );
+    }
      if (
       (this.HOSPITAL_ID === "liaocheng") &&
       this.multiSignArr.includes(this.sheetInfo.sheetType)
@@ -519,7 +539,7 @@ export default {
           ((sheetTableWidth * 25.4) / 96) * 0.68
         )}mm;
         }
-        
+
         @media print {
         #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
          height: auto !important;
@@ -549,7 +569,7 @@ export default {
           #sheetPagePrint#sheetPagePrint th[dataname='上级签名']{
             display:none !important;
           }
-         
+
           @media print {
             #sheetPagePrint .contant{
               margin-top:-20px;!important;

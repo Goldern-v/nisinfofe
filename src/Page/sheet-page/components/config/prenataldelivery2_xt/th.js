@@ -5,9 +5,9 @@
 
 /**
  * @description: 开发注意事项:
-    1、自定义表头 canSet: true, key: "armValue4"            
+    1、自定义表头 canSet: true, key: "armValue4"
     2、表格头部年份显示 {"name":'',"style":{},"colspan":"2","rowspan":"1","key":'recordYear'},
-    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, },
 */
 
 export default {
@@ -17,7 +17,7 @@ export default {
       width: "1300px"
     },
     th: {
-        top: 
+        top:
             [
                 {"name":"","colspan":"2","rowspan":"1","key":"recordYear"},
                 {"name":"体温<br/>℃","colspan":"1","rowspan":"3"},
@@ -48,13 +48,14 @@ export default {
                 {"name":"报<br/>告<br/>医<br/>生","colspan":"1","rowspan":"3"},
                 {"name":"遵<br/>医<br/>嘱<br/>继<br/>续<br/>观<br/>察","colspan":"1","rowspan":"3"},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
+                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
             ]
         ,
-        mid: 
+        mid:
             [
-                {"name":"日期","colspan":"1","rowspan":"2"},
-                {"name":"时间","colspan":"1","rowspan":"2"},
+                {"name":"日期","colspan":"1","rowspan":"2", "style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"时间","colspan":"1","rowspan":"2", "style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"内容","colspan":"1","rowspan":"2"},
                 {"name":"量<br/>ml","colspan":"1","rowspan":"2"},
                 {"name":"项目","colspan":"1","rowspan":"2"},
@@ -65,8 +66,8 @@ export default {
                 {"name":"强<br/>度","colspan":"1","rowspan":"2"}
             ]
         ,
-        bottom: 
+        bottom:
             []
         ,
     }
-}  
+}

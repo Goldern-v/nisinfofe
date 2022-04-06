@@ -1054,8 +1054,9 @@ const router = new Router({
               return implementationListLyxrm
             case 'wujing':
             case 'sdlj':
-            case 'whfk':
               return implementationListWujing
+            case 'whfk':
+              return implementationListWhfk
             case 'fsxt':
               return implementationListFsxt
             case 'foshanrenyi':

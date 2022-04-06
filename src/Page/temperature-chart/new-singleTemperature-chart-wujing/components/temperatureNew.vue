@@ -180,7 +180,6 @@ export default {
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
-      console.log(this.queryTem);
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
       this.date = date;

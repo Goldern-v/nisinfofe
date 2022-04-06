@@ -497,10 +497,12 @@
     </div>
     <!-- 顺德龙江 - 新生儿护理记录单-->
     <div v-if="sheetInfo.sheetType == 'neonate_sdlj'">
-      说明：意识判断：①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏迷 ⑥谵妄；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;气道护理：①雾化吸入 ②气道吸痰 ③口鼻腔吸痰；&nbsp;&nbsp;&nbsp;病&nbsp;&nbsp;情：①告病重 ②告病危；<br/>
-      &nbsp;&nbsp;&nbsp;清洁护理：①沐浴  ②床上擦浴 ③口腔护理 ④臀部护理 ⑤更衣；&nbsp; &nbsp;专科护理：①脐部护理 ②胃管护理  ③灌肠；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;脐部情况：①干净 ②渗血 ③红肿 ④脓性分泌物；<br/>
-      &nbsp;&nbsp;&nbsp;光疗情况：①安睡 ②哭闹烦燥 ③尖叫 ④体温异常 ⑤皮疹；&nbsp; &nbsp;&nbsp;&nbsp;光疗护理：①戴眼罩 ②保护外阴 ③戴手套脚套；<br/>
-      &nbsp;&nbsp;&nbsp;瞳孔判断：单位㎜；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对光反射：灵敏(+) 迟钝(±) 消失(-)；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肤&nbsp;&nbsp;色：①红润 ②黄染 ③苍白 ④苍灰 ⑤干燥 ⑥紫绀；<br/>         
+      说明：意识判断：①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏迷 ⑥谵妄；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;气道护理：①雾化吸入 ②气道吸痰 ③口鼻腔吸痰；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;病&nbsp;&nbsp;情：①告病重 ②告病危；<br/>
+      &nbsp;&nbsp;&nbsp;清洁护理：①沐浴  ②床上擦浴 ③口腔护理 ④臀部护理 ⑤更衣；&nbsp; &nbsp;专科护理：①脐部护理 ②胃管护理  ③灌肠；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;脐部情况：①干净 ②渗血 ③红肿 ④脓性分泌物；<br/>
+      &nbsp;&nbsp;&nbsp;光疗情况：①安睡 ②哭闹烦燥 ③尖叫 ④体温异常 ⑤皮疹；&nbsp; &nbsp;&nbsp;&nbsp;光疗护理：①戴眼罩，保护外阴，戴手套脚套；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;对光反射：灵敏(+) 迟钝(±) 消失(-)；<br/>
+      &nbsp;&nbsp;&nbsp;瞳孔判断：单位㎜；&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肤&nbsp;&nbsp;色：①红润 ②黄染 ③苍白 ④苍灰 ⑤干燥 ⑥紫绀；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;哭&nbsp;&nbsp;声：①响 ②弱 ③呻吟；<br/>  
+      &nbsp;&nbsp;&nbsp;留 置 针：①正常 ②拔除 ③重置；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肛周皮肤：①正常 ②皮疹 ③潮红 ④破溃、脱皮 ⑤糜烂；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;喂养方式：①自吮 ②饲奶；<br/>
+      &nbsp;&nbsp;&nbsp;吸氧方式：① 鼻导管 ② 面罩 ③ CPAP ④ 有创通气       
     </div>
     <!-- 顺德龙江 - 护理记录单（颅脑外科）-->
     <div v-if="sheetInfo.sheetType == 'craniocerebral_sdlj'">
@@ -546,6 +548,17 @@
     <div v-if="sheetInfo.sheetType == 'neonatology_yx'">
        备注：N表示正常 管道名称：A-留置针、B-深静脉置管、C-尿管、D-胃管、E-心包纵隔管、F-右胸腔管、G-心包引流管、H-左胸腔管、I-动脉置管、J-气管插管、O-PICCO管、P-腹腔引流管、Q-脑积液引流管、R-PICC管<br/>
        护理措施代码：01-晨间护理、02-晚间护理、03-口腔护理、04-尿道口护理、05-跌倒高危护理、06-管道高危护理、07-预防压疮护理、08-动静脉置管护理、09-肢体按摩、10-物理降温、11-肺部体疗、12-冷热湿敷、13-臀部护理、<br/>14-挤捏引流管、15-脐部护理、16-眼部护理
+    </div>
+    <!--武汉亚心 -  护理记录单-->
+    <div v-if="sheetInfo.sheetType == 'common_yx'">
+      <p>
+       备注：N表示正常 管道名称：A-留置针、B-深静脉置管、C-尿管、D-胃管、E-心包纵隔管、F-右胸腔管、G-心包引流管、H-左胸腔管、I-动脉置管、J-气管插管、K-气管切开管、L-血滤管、M-主动脉球囊反搏管、N-漂浮导管、<br/>
+       <span style="margin-left:38px">O-PICCO管、P-腹腔引流管、Q-脑积液引流管、R-PICC管</span>
+      </p>
+      <p>
+       护理措施代码：01-晨间护理、02-晚间护理、03-口腔护理、04-尿道口护理、05-跌倒高危护理、06-管道高危护理、07-预防压疮护理、08-动静脉置管护理、09-肢体按摩、10-物理降温、11-肺部体疗、12-冷热湿敷、<br/>
+       <span style="margin-left:38px">13-臀部护理、14-挤捏引流管、15-保护性约束、16-气垫床充放气、17-预防下肢血栓护理、18-气切护理、19-人工协助排便</span>
+      </p>
     </div>
   </div>
 </template>

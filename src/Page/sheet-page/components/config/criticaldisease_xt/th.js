@@ -6,7 +6,7 @@
 /**
  * @description: 开发注意事项:
     1、自定义表头 canSet: true, key: "armValue4"
-    2、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+    2、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, },
 */
 
 export default {
@@ -16,7 +16,7 @@ export default {
       width: "1250px"
     },
     th: {
-        top: 
+        top:
             [
                 {"name":"","colspan":"2","rowspan":"1","key":'recordYear'},
                 {"name":"T<br/>℃","colspan":"1","rowspan":"3"},
@@ -38,14 +38,15 @@ export default {
                 {"name":"肾上<br/>腺素","colspan":"1","rowspan":"3"},
                 {"name":"多巴<br/>胺","colspan":"1","rowspan":"3"},
                 {"name":"","colspan":"1","rowspan":"3", canSet: true, key: "armValue1","style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
+                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"140px","maxWidth":"140px"}},
+                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
             ]
         ,
-        mid: 
-            [ 
-                {"name":"日期","colspan":"1","rowspan":"2"},
-                {"name":"时间","colspan":"1","rowspan":"2"},
+        mid:
+            [
+                {"name":"日期","colspan":"1","rowspan":"2", "style": {"minWidth": "35px"}},
+                {"name":"时间","colspan":"1","rowspan":"2", "style": {"minWidth": "35px"}},
                 {"name":"大小<br/>mm","colspan":"2","rowspan":"1"},
                 {"name":"反射","colspan":"2","rowspan":"1"},
                 {"name":"项目","colspan":"1","rowspan":"2"},
@@ -57,10 +58,10 @@ export default {
                 {"name":"频<br/>率","colspan":"1","rowspan":"2"},
                 {"name":"PS<br/>CmH2O","colspan":"1","rowspan":"2"},
                 {"name":"PEEP<br/>CmH2O","colspan":"1","rowspan":"2"},
-                
+
             ]
         ,
-        bottom: 
+        bottom:
             [
                 {"name":"左","colspan":"1","rowspan":"1"},
                 {"name":"右","colspan":"1","rowspan":"1"},
@@ -69,4 +70,4 @@ export default {
             ]
         ,
     }
-}  
+}
