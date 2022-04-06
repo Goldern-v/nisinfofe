@@ -297,6 +297,7 @@ import {
   syncGetNurseBedRecJiangMenFY,
   syncGetNurseBedRecJiangMenFSSY,
   syncGetNurseBedRecBeiHaiExecute,
+  syncGetNurseBedRecSDLJExecute,
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -644,7 +645,8 @@ export default {
         "fsxt",
         "whfk",
         "beihairenyi",
-        "lyxrm"
+        "lyxrm",
+        "sdlj"
         ].includes(
         this.HOSPITAL_ID
       );
@@ -732,6 +734,9 @@ export default {
           break;
         case "beihairenyi":
           syncData = syncGetNurseBedRecBeiHaiExecute;
+          break;
+        case "sdlj":
+          syncData = syncGetNurseBedRecSDLJExecute;
           break;
         default:
           syncData = syncGetNurseBedRec;
