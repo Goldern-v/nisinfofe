@@ -414,7 +414,7 @@ export default {
             scanStyles: false,
             css: `
               @page{
-                margin:0.5mm 0 0 0.5mm;
+                margin: 0 0;
               }
               body{
                 ${this.newModalSize=='6*8'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
