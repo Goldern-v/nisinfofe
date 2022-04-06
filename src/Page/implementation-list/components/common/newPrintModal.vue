@@ -147,8 +147,7 @@
         }
     }
     .new-modal-bottom{
-        height:30%;
-        background-color: yellow;
+        // background-color: yellow;
         border-right: 1px solid #000;
         display: flex;
         flex-direction:column;
