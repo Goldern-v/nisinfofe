@@ -1,6 +1,6 @@
 <template>
-    <div :style="{width:`${newModalSize.split('*')[1]=='8'?'8':'10'}cm`,height:`6cm`}">
-        <div v-if="newModalSize=='6*8'" class="new-print-modal" style="width:8cm,height:6cm">
+    <div :style="{width:`${newModalSize.split('*')[1]=='8'?'8':'10'}cm`,height:`5.7cm`}">
+        <div v-if="newModalSize=='6*8'" class="new-print-modal" style="width:8cm,height:5.7cm">
             <div class="new-modal-top">
                 <div class="new-modal-top-left">
                     <div class="new-modal-top-left-first">
@@ -84,13 +84,13 @@
 </template>
 <style lang='scss' scoped>
 .new-print-modal{
-    // page-break-after:always;
+    page-break-after:always;
     >>> * {
         font-size: 12px;
     }
     .new-modal-top{
         display: flex;
-        height: 70%;
+        height: 65%;
         .new-modal-top-left{
             border: 1px solid #000;
             box-sizing: border-box;
