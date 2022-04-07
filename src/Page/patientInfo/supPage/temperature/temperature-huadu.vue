@@ -225,7 +225,7 @@ export default {
       visibled: false,
       intranetUrl:
         "http://172.25.1.105:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-        // "http://172.25.1.105:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
       "http://172.25.1.105:9091/temperature/#/printAll" /* 医院正式环境批量打印内网 */,
       isNursingPreview: false, //是否为调阅界面体温单调起的护记
@@ -253,9 +253,10 @@ export default {
       }, 1500);
     },
     getImg() {
-      let date = this.$route.query.admissionDate
+      let date = this.$route.query.admissionDate||this.$route.query.admissionDate==='undefined'
         ? new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd")
         : new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
+        // console.log(this.queryTem,this.$route.query,'this.queryTemthis.queryTemthis.queryTem')
       let patientId = this.$route.query.patientId || this.queryTem.patientId;
       let visitId = this.$route.query.visitId || this.queryTem.visitId;
       let authTokenNursing = this.authTokenNursing;

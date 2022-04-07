@@ -6,6 +6,13 @@
  *--------------------------------------------------------------------------*/
 
 /* globals var */
+let name_obj = {}
+let setFunc_name_obj = (name)=>{
+    if(!name_obj[name]){
+        console.log(`<----调用接口为:${name}---->`);
+        name_obj[name] = 1
+    }
+}
 var $_$softCertListID = ""; // Soft CertListID, Set by SetUserCertList
 var $_$hardCertListID = ""; // USBKeyCertListID, Set by SetUserCertList
 var $_$allCertListID = "";  // All CertListID, Set by SetUserCertList
@@ -1138,6 +1145,7 @@ function CreateWebSocketObject() {
     };
 
     o.sendMessage = function (sendMsg) {
+        setFunc_name_obj(sendMsg.xtx_func_name)
         if (o.ws_obj.readyState == WebSocket.OPEN) {
             o.ws_obj.send(JSON.stringify(sendMsg));
         } else {

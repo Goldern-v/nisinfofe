@@ -91,9 +91,10 @@ export function getQrCode(accessToken){
   return axios.get(`${apiPath}caSignHoujie/auth/oauth/${accessToken}`,{oauthMethod:'3'})
 }
 
-export function verifyData(accessToken,fileCode){
+export function verifyData(accessToken,fileCode,empNo){
   return axios.post(`${apiPath}caSignHoujie/sign/verifyData`,{
     accessToken,
-    fileCode
+    fileCode,
+    empNo
 })
 }

@@ -28,6 +28,12 @@
           {{ patientInfo.sex }}
         </div>
       </span>
+       <span v-if="sheetInfo.sheetType=='common_yx'||sheetInfo.sheetType=='icu_yx'">
+        年龄：
+        <div class="bottom-line" style="min-width: 30px">
+          {{ patientInfo.age }}
+        </div>
+      </span>
       <span>
         出生日期：
         <div @click="updateBirthDay" class="bottom-line" style="min-width: 120px;height: 12px;">

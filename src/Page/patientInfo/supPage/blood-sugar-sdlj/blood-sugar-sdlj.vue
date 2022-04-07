@@ -275,6 +275,8 @@ import nullBg from "@/components/null/null-bg.vue";
 import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin.js";
+import { del } from '@/Page/catheter-page/api/recordDesc';
+import tr from '@/Page/sheet-page/components/config/tbhld_lc/tr';
 
 export default {
   mixins: [common],
@@ -365,18 +367,15 @@ export default {
       let isSave = false ;
       saveList.map(item=>{
         if(item.dateStr && item.time){
-          // if(!item.sugarOxygen){
-          //     isSave = true;
-          //    return
-          // }
           isSave = true;
-            return
         }
       });
+      if (this.selected) isSave = true;
+      else isSave = false;
       if(isSave){
         this.patientInfo.list= saveList
         try{
-        save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode).then((res)=>{
+        save(this.patientInfo,this.baseParams.formType,'blood_sugar').then((res)=>{
           // console.log(res,"resss")
           if(res.data.code == '200'){
             this.$message.success("保存成功");
@@ -389,7 +388,7 @@ export default {
           console.log(err,"resss")
         }
       }else{
-         this.$message.warning("请填写血糖监测记录！");
+        this.$message.warning("请填写血糖监测记录！");
       }
 
     },
@@ -421,9 +420,11 @@ export default {
 
         const resList = await getForm(this.baseParams.id, this.baseParams.formType, this.baseParams.formCode)
         this.baseParams.id ='',
+        this.selected = null
         this.hisPatSugarList = resList.data.data.list;
         this.saveParams = resList.data.data
         this.sugarUserInfo= resList.data.data
+
         console.log(this.sugarUserInfo,'=======>sugar ')
         /** 时间排序 */
         let list = resList.data.data.list
@@ -472,14 +473,16 @@ export default {
       this.isChart = !this.isChart;
     },
     async onAddTable() {
-      this.baseParams.formCode = this.fkOxygenCode
-      try{
-        this.patientInfo.id =""
-        const res = await save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode)
-        this.saveParams = res.data.data;
-      } catch(err){
-        console.log(err)
-      }
+      // this.baseParams.formCode = this.fkOxygenCode
+      // try{
+      //   this.patientInfo.id =""
+      //   console.log(this.patientInfo, 888)
+      //   delete this.patientInfo.list
+      //   const res = await save(this.patientInfo,this.baseParams.formType,this.baseParams.formCode)
+      //   this.saveParams = res.data.data;
+      // } catch(err){
+      //   console.log(err)
+      // }
       if (this.$route.query.patientId) {
         this.listMap.push({ left: [] });
       } else {
@@ -498,7 +501,6 @@ export default {
       });
     },
     async onRemove() {
-      console.log(this.selected)
       if(this.selected){
         if(this.selected.id){
           await this.$confirm(
@@ -516,10 +518,9 @@ export default {
             this.$message.success("删除成功");
             await this.load();
             this.selected = null;
-            // if (this.HOSPITAL_ID === "sdlj" && this.listMap && this.listMap[0].left.length === 0) {
-            //   console.log(12334)
-            //   this.$emit('removeSugar')
-            // }
+            if (this.HOSPITAL_ID === "sdlj" && this.listMap.length === 0) {
+              this.$emit('removeSugar')
+            }
           }else{
             this.$message.success(res.data.desc);
           }

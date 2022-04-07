@@ -364,7 +364,7 @@ export default {
           this.curEmpName = res.data.data.empName;
           this.curEmpNo = res.data.data.empNo;
         });
-      });
+      },'执行人切换',null,false,'',{id:`${this.patientInfo.patientId}_${new Date(this.form.recordDate || new Date())}`,code:"form_sugar",name:'微量血糖测定登记表'});
     },
     onClose() {
       this.close();

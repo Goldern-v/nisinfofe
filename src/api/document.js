@@ -20,7 +20,9 @@ export function patEmrListWithPatInfo(data) {
 export function listNurseAdtHd(data,HOSPITAL_ID) {
   if(HOSPITAL_ID && HOSPITAL_ID=='fuyou'){//江门妇幼
     return axios.post(`${apiPath}nurseAdtLog/listNurseAdtJm`,data);
-  }else {
+  } else if(HOSPITAL_ID && HOSPITAL_ID == 'nanfangzhongxiyi') {
+    return axios.post(`${apiPath}nurseAdtLog/listNurseAdtNFZXY`,data);
+  } else {
     return axios.post(`${apiPath}nurseAdtLog/listNurseAdtHd`,data);
   }
   //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);

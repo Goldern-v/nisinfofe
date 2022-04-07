@@ -88,7 +88,7 @@
       <div class="key">住院号：</div>
       <div class="value">{{ data.inpNo }}</div>
     </div>
-    <div flex="" class="table-line" v-else-if="HOSPITAL_ID == 'huadu'">
+    <div flex="" class="table-line" v-else-if="HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'foshanrenyi'">
       <div class="key">床号：</div>
       <div class="value" style="width: 70px;">{{ data.bedLabel }}</div>
       <div class="key">住院号：</div>
@@ -117,6 +117,12 @@
       <div class="value" style="width: 70px;">{{ data.age }}</div>
       <div class="key">ID 号：</div>
       <div class="value">{{ data.patientId }}</div>
+    </div>
+    <div flex="" class="table-line" v-else-if="HOSPITAL_ID == 'foshanrenyi'">
+      <div class="key">年龄：</div>
+      <div class="value" style="width: 70px;">{{ data.age }}</div>
+      <div class="key">记账号：</div>
+      <div class="value">{{ data.inpNo }}</div>
     </div>
     <div flex="" class="table-line" v-else>
       <div class="key">年龄：</div>

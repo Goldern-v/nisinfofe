@@ -178,7 +178,6 @@
     outline: none;
   }
   .header-con {
-    text-align: center;
     .bottom-line {
       border-top: 0;
       border-left: 0;
