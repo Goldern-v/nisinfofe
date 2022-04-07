@@ -214,7 +214,7 @@ export default [
     autoComplete: {
       data: 出量颜色
     },
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 25
     },
