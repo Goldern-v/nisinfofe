@@ -91,7 +91,7 @@
         </div> -->
       </div>
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
-        <div v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
+        <div style="height:5.7cm" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
           <NewPrintModal :newModalSize="newModalSize" :itemObj='itemBottleCard' />
         </div>
       </div>
@@ -410,7 +410,7 @@ export default {
         this.printObj = sortArr
         document.getElementById('new-print-box').style.display = 'block'
         this.$nextTick(()=>{
-          printing(this.$refs.new_print_modal,{
+          printing.preview(this.$refs.new_print_modal,{
             injectGlobalCss: true,
             scanStyles: false,
             css: `
