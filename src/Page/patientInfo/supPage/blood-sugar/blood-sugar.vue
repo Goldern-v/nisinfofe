@@ -119,6 +119,7 @@
               @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='0'
               @uploadList="uploadView"
+              :sugarItem.sync="typeList"
             ></sugarTableWhfk>
             <sugarTable
             v-else
@@ -150,6 +151,7 @@
               @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='27'
               @uploadList="uploadView"
+              :sugarItem.sync="typeList"
             ></sugarTableWhfk>
             <sugarTable
             v-else
