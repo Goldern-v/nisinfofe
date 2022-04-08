@@ -70,33 +70,13 @@
         <td >
           <div class="cell liaocheng-img" @click="sign(item)">
             <!-- 这里改。-->
-            <!-- <img
+            <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
               :alt="item.nurse"
               v-if="item.nurseEmpNo"
-            /> -->
-            {{item.nurseEmpNo}}
+            />
           </div>
         </td>
-        <!-- <td v-else>
-          <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
-          <div class="cell noPrint" v-else>{{ item.nurse }}</div>
-          <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
-            <img
-              :src="`/crNursing/api/file/signImage/${item.expand1}?${token}`"
-              :alt="item.nurse"
-              v-if="item.expand1"
-
-            />
-          </div>
-          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'']" v-else>
-            <img
-              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
-              :alt="item.nurse"
-              v-if="item.nurseEmpNo"
-            />
-          </div>
-        </td> -->
       </tr>
     </table>
   </div>
@@ -227,6 +207,7 @@ export default {
     data: Array,
     selected: Object,
     baseIndex:Number,
+    sugarItem: Array,//下拉选项
   },
   mixins: [common],
   data() {
@@ -437,8 +418,8 @@ if (!this.data) return;
     },
     createFilter(queryString) {
         return (restaurant) => {
-          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-          // return restaurant
+          // return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+          return restaurant
         };
       },
     handleSelect(item){
@@ -465,25 +446,29 @@ this.isEdit=true
   }
     },
     loadAll() {
-        return [
-          { "value": "空腹" },
-          { "value": "早餐后2H" }, 
-          { "value": "午餐后2H" },
-          { "value": "晚餐后2H" },
-          { "value": "复测" },
-          { "value": "随机" },
-          { "value": "中餐前" },
-          { "value": "午餐前" },
-          { "value": "睡前" },
-          { "value": "微机血糖" },
-          { "value": "晚餐前" },
-          { "value": "测试" },
-        ];
-      },
+        // return [
+        //   { "value": "3Am" },
+        //   { "value": "早餐前" }, 
+        //   { "value": "早餐后" },
+        //   { "value": "午餐前" },
+        //   { "value": "午餐后" },
+        //   { "value": "晚餐前" },
+        //   { "value": "晚餐后" },
+        //   { "value": "10Pm" },
+        // ];
+     return this.sugarItem.map((item)=>{
+        return {'value':item.vitalSign}
+      })
+    },
   },
   components: {},
   mounted(){
       this.restaurants = this.loadAll();
+  },
+  watch:{
+    sugarItem(newVal, oldVal) {
+       this.restaurants = this.loadAll();
+    }
   }
 };
 </script>
