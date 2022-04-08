@@ -267,8 +267,9 @@ export default {
     searchConData(){
       return this.$refs.searchCon?this.$refs.searchCon.data:null
     },
+    // 具备转科查询的医院（查询条件包括病人ID等）
     hospitalTransfer(){
-      return ['huadu','fuyou','beihairenyi', 'sdlj', 'nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
+      return ['huadu','fuyou','beihairenyi', 'sdlj', 'nanfangzhongxiyi','foshanrenyi'].includes(this.HOSPITAL_ID)
     },
     //是否为新出院数据
     isNewDischarged(){
