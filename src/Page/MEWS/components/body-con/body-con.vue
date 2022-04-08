@@ -13,7 +13,8 @@
           >( {{ scoreList }} )</span
         >
         <div flex-box="1"></div>
-        <el-button @click="openChartModal">MEWS评分曲线</el-button>
+        <el-button @click="openChartModal(type=1)">MEWS评分规则</el-button>
+        <el-button @click="openChartModal(type=2)">MEWS评分曲线</el-button>
       </div>
       <div class="body-con" flex="main:justify cross:stretch">
         <baseBox flex-box="3" title="程序化监护方案">
@@ -32,6 +33,7 @@
       </div>
     </span>
     <chartModal ref="chartModal"></chartModal>
+    <mews-ruler ref="mewsruler"></mews-ruler>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -74,6 +76,7 @@ import leftBoxItem from "./left-box-item.vue";
 import rightBoxItem from "./right-box-item.vue";
 import currDataObj from "../store/index";
 import chartModal from "../../modal/chart-modal";
+import mewsRuler from "../../modal/MewsRuler.vue";
 export default {
   data() {
     return {
@@ -92,15 +95,20 @@ export default {
     }
   },
   methods: {
-    openChartModal() {
+    openChartModal(type) {
+      if(type==2){
       this.$refs.chartModal.open();
+      }else{
+       this.$refs.mewsruler.open();
+      }
     }
   },
   components: {
     baseBox,
     leftBoxItem,
     rightBoxItem,
-    chartModal
+    chartModal,
+    mewsRuler
   }
 };
 </script>
