@@ -284,7 +284,7 @@
         class="item-box"
         style="width: 85px"
         flex="cross:center main:center"
-        v-if="!isDeputy && ['huadu', 'beihairenyi'].includes(HOSPITAL_ID)"
+        v-if="!isDeputy && ['huadu','wujing', 'beihairenyi'].includes(HOSPITAL_ID)"
       >
         <input
           class="pegeSelect"
@@ -365,7 +365,8 @@
           HOSPITAL_ID == 'wujing' ||
           HOSPITAL_ID == 'quzhou' ||
           HOSPITAL_ID == 'weixian' ||
-          HOSPITAL_ID == 'liaocheng'
+          HOSPITAL_ID == 'liaocheng'||
+          HOSPITAL_ID == 'foshanrenyi'
         "
       >
         <div class="text-con">
@@ -1286,10 +1287,14 @@ export default {
       let page = this.pageArea.split("-");
       let startPage = page[0];
       let endPage = page[1];
+      let maxPage = {
+        'wujing':30,
+        'default':20
+      }
       if (startPage && endPage) {
         if (
           Number(endPage) - Number(startPage) >= 0 &&
-          Number(endPage) - Number(startPage) <= 20
+          Number(endPage) - Number(startPage) <= maxPage[this.HOSPITAL_ID] || maxPage.default
         ) {
           this.sheetInfo.startPage = startPage;
           this.sheetInfo.endPage = endPage;

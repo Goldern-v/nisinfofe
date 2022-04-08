@@ -410,7 +410,7 @@ export default {
         this.printObj = sortArr
         document.getElementById('new-print-box').style.display = 'block'
         this.$nextTick(()=>{
-          printing.preview(this.$refs.new_print_modal,{
+          printing(this.$refs.new_print_modal,{
             injectGlobalCss: true,
             scanStyles: false,
             css: `
