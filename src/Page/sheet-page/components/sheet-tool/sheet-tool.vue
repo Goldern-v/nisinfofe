@@ -284,7 +284,7 @@
         class="item-box"
         style="width: 85px"
         flex="cross:center main:center"
-        v-if="!isDeputy && ['huadu', 'beihairenyi'].includes(HOSPITAL_ID)"
+        v-if="!isDeputy && ['huadu','wujing', 'beihairenyi'].includes(HOSPITAL_ID)"
       >
         <input
           class="pegeSelect"
@@ -450,7 +450,7 @@ import zxdtbModal from "../modal/zxdtb-modal.vue";
 import rltbModal from "../modal/rltb-modal.vue";
 import patientInfoModal from "./modal/patient-info-modal";
 import dayjs from "dayjs";
-// import lodopPrint from "./lodop/lodopPrint";
+import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperature-huadu";
 //体温曲线窗口
@@ -1287,10 +1287,14 @@ export default {
       let page = this.pageArea.split("-");
       let startPage = page[0];
       let endPage = page[1];
+      let maxPage = {
+        'wujing':30,
+        'default':20
+      }
       if (startPage && endPage) {
         if (
           Number(endPage) - Number(startPage) >= 0 &&
-          Number(endPage) - Number(startPage) <= 20
+          Number(endPage) - Number(startPage) <= maxPage[this.HOSPITAL_ID] || maxPage.default
         ) {
           this.sheetInfo.startPage = startPage;
           this.sheetInfo.endPage = endPage;
