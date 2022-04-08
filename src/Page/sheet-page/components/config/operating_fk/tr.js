@@ -241,9 +241,9 @@ import {
       },
     },
     {
-      key: "subcutaneous", //左颈皮下
+      key: "subcutaneous", //自定义
       value: "",
-      name: "左颈皮下",
+      name: "",
       next:"",
       event: keyf1,
       autoComplete: { data: ['带入','置入','N','夹管','拔管'] },
