@@ -450,7 +450,7 @@ import zxdtbModal from "../modal/zxdtb-modal.vue";
 import rltbModal from "../modal/rltb-modal.vue";
 import patientInfoModal from "./modal/patient-info-modal";
 import dayjs from "dayjs";
-import lodopPrint from "./lodop/lodopPrint";
+// import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperature-huadu";
 //体温曲线窗口
