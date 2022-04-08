@@ -158,13 +158,6 @@
       >
         <div class="nav-item">导管</div>
       </router-link> -->
-     
-     
-      
-     
-     
-     
-    
       <!-- <router-link to="/dev" tag="span">
         <div class="nav-item">手术</div>
       </router-link>-->
