@@ -90,6 +90,11 @@ function syncGetNurseBedRecSDLJExecute(deptCode){
   return axios.get(`${apiPath}HisLinYiBedRec/syncGetNurseBedRec/${deptCode}`)
 }
 
+//东莞谢岗 --更新床位一览卡信息
+function syncGetNurseBedRecDGXGExecute(deptCode){
+  return axios.get(`${apiPath}HisLinYiBedRec/syncGetNurseBedRec/${deptCode}`)
+}
+
 // 威县 --同步医嘱
 function syncGetMedicalAdvice(deptCode) {
   return axios.get(`${apiPath}hisDispenseExecute/syncGetPatientOrdersWithWardCode/${deptCode}`)
@@ -117,5 +122,6 @@ export {
   syncGetNurseBedRecJiangMenFY,
   syncGetNurseBedRecJiangMenFSSY,
   syncGetNurseBedRecSDLJExecute,
+  syncGetNurseBedRecDGXGExecute,
   syncGetNurseBedRecBeiHaiExecute,
 }

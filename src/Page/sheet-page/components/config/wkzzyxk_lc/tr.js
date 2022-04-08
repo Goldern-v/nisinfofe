@@ -123,6 +123,9 @@ export default [{
     value: "",
     event: keyf1,
     name: '入量:入量',
+    textarea: {
+      width: 35
+    },
     statBottomLine: true
   },
   {
@@ -142,6 +145,9 @@ export default [{
     value: "",
     event: keyf1,
     name: '出量:出量',
+    textarea: {
+      width: 35
+    },
     statBottomLine: true
   },
   {
@@ -149,7 +155,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 45
     }
   },
   {
@@ -157,7 +163,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 45
     }
   },
   {
@@ -165,7 +171,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 45
     }
   },
   {
@@ -177,7 +183,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "360px",
+      width: "300px",
       background: "transparent"
     },
     event: function (e, td) {
