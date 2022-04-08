@@ -82,6 +82,7 @@
       >
         同步床位数据
       </button>
+      <span v-if="showSyncBedBtn && node_env">(测试环境别点，<br/>会清空患者！！！)</span>
       <button
         class="login-btn"
         :class="{ noactive: showProgress }"
@@ -316,6 +317,9 @@ export default {
     };
   },
   computed: {
+    node_env(){
+      return process.env.NODE_ENV
+    },
     isChangeke() {
       return this.deptCode.includes("051102");
     },
