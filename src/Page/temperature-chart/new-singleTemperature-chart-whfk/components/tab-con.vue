@@ -6,7 +6,7 @@
           id="date-picker"
           type="date"
           size="mini"
-          style="width: 130px;height:28px;"
+          style="width: 120px;height:28px;"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -533,6 +533,10 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+     this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate=dateTime.slice(0,10)
+        this.query.entryTime=dateTime.slice(11,13)
+    });
 
   },
 
@@ -547,7 +551,9 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
+      if (this.query.entryTime && this.query.entryDate) {
         this.getList();
+        }
       },
       deep: true,
     },
