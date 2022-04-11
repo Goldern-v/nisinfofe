@@ -514,6 +514,12 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+     this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate = dateTime.slice(0, 10);
+      this.query.entryTime = dateTime.slice(11, 16) + ":00";
+      this.dateInp = dateTime.slice(11, 16);
+    });
+
 
   },
   computed: {
@@ -521,7 +527,9 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
+        if (this.query.entryTime && this.query.entryDate) {
         this.getList();
+        }
       },
       deep: true,
     },
