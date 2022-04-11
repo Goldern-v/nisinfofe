@@ -264,6 +264,8 @@ export default {
             this.saveParams.list = [itemRow];
             let fkformCode = 'sugar_oxygen'
             itemRow.signerNo
+            console.log(itemRow.sugarOxygen);
+            if(itemRow.sugarOxygen){
               apis.rowSign(this.saveParams,'others',fkformCode).then((res) => {
                 // console.log(res)
                 if(res.data.code == 200 && res.data.data != null){
@@ -275,6 +277,12 @@ export default {
                   this.$emit('refresh')
                 }
               });
+            }else{
+               this.$message({
+                    message: '血氧未填写数据',
+                    type: 'warning'
+                  })
+            }
           });
           }else{
             console.log(window.app.$refs,'window')

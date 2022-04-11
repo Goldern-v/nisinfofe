@@ -33,7 +33,7 @@
           :data="regions"
           highlight-current
           :render-content="renderContent"
-          :default-expand-all="HOSPITAL_ID == 'whfk'"
+          :default-expand-all="HOSPITAL_ID == 'whfk' && !isPersonage"
           @node-click="nodeClick"
           node-key="index"
           :default-expanded-keys="expandList"
@@ -287,6 +287,7 @@ export default {
       formTransfusionSafety: [],
       isShow: true, //护理文书菜单列是否展示
       isActive: false, //是否点击收起图标
+      isPersonage: false, //是否为个人详情打开
       hisLeftList: ["wujing"], //是否要开放左侧收缩功能医院
     };
   },
@@ -504,7 +505,7 @@ export default {
       let formNoSign = node.data.formTreeRemindType == "0"; // 无签名
       let formSign = node.data.formTreeRemindType == "1"; // 责任（多人签名）
       let formAudit = node.data.formTreeRemindType == "2"; // 责任 + 审核
-      console.log('(this.HOSPITAL_ID', this.HOSPITAL_ID);
+      // console.log('(this.HOSPITAL_ID', this.HOSPITAL_ID);
       // 花都特殊处理
       if (
         this.HOSPITAL_ID == "huadu" ||
@@ -629,7 +630,7 @@ export default {
         ]);
       } else {
         if (this.HOSPITAL_ID == "foshanrenyi") {
-          // console.log(this.regions ,node.parent.childNodes,data,'dddddddddddddddddddd');
+          
           let pageIndex = node.parent.childNodes.map((item, index) => {
             if (item.id == data.$treeNodeId) {
               return index - node.parent.childNodes.length;
@@ -755,7 +756,7 @@ export default {
                   ${option.countSize ? option.countSize + "条" : ""}
                   ${option.evalScore ? option.evalScore + "分" : ""}
                   ${option.pusherName ? option.pusherName : option.creatorName}
-                  ${option.status == 0 ? "T" : option.status}`,
+                  ${this.HOSPITAL_ID == 'whfk' ? '' : option.status == 0 ? "T" : option.status}`,
                     form_id: option.id,
                     formName: item.formName,
                     formTreeRemindType: item.formTreeRemindType,
@@ -949,6 +950,10 @@ export default {
     },
   },
   created() {
+    console.log(this.$route.name);
+    if(!this.$route.name){
+      this.isPersonage = true;
+    }
     if (!(this.$route.query.patientId && this.$route.query.visitId)) return;
     this.refreshTree(true);
     this.toLoadPatientDetial();
