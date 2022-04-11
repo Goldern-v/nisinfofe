@@ -46,9 +46,10 @@
 }
 
 .NursingPreview {
+  overflow hidden;
   .right-part {
     >>> #sheet_body_con {
-      height: calc(100vh - 64px) !important;
+      height: calc(100vh - 0px) !important;
     }
     >>> .sheetTable-contain {
         input {
@@ -90,6 +91,7 @@ import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
+import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue"; //血糖
 import bloodOxygen  from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
 import { getPatientInfo } from "@/api/common.js";
@@ -98,23 +100,31 @@ export default {
   data() {
     return {
       bus: bus(this),
-      otherComponent: null
+      otherComponent: null,
     };
   },
   created() {
     // 获取患者信息
     this.getPatientInfo();
-
     this.$store.commit("closeFullPageRecord");
     this.bus.$on("openOtherForm", data => {
       this.otherComponent =
-        data.component == "temperature" ? this.getTemplate() : data.component;
+        data.component == "temperature" ? this.getTemplate() : data.component == "bloodSugar" ? this.getBloodSugar() : data.component;
     });
     this.bus.$on("openAssessmentBox", data => {
       this.otherComponent = null;
     });
   },
   methods: {
+    // 获取各医院的血糖单
+    getBloodSugar() {
+      switch (process.env.HOSPITAL_ID) {
+        case "beihairenyi":
+          return bloodSugarBhry;
+        default:
+          return bloodSugar;
+      }
+    },
     // 获取各医院的体温单
     getTemplate() {
       switch (process.env.HOSPITAL_ID) {
@@ -164,6 +174,7 @@ export default {
     rightPart,
     sheet,
     bloodSugar,
+    bloodSugarBhry,
     bloodOxygen,
     temperature,
     temperatureHD,

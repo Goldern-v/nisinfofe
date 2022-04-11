@@ -50,6 +50,14 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((res) => {
     // if (typeof res.data === 'string') res.data = JSON.parse(res.data)
     var data = res.data
+    // by谢岗
+    // const {config} = res
+    // const whiteList = ['service1.asmx']
+    // console.log('test-res', res)
+    // if (whiteList.findIndex(v => config.url.indexOf(v)> -1)> -1) {
+    //     return res
+    // }
+
     if (window.location.href.includes('nursingDoc') || window.location.href.includes('showPatientDetails')) {
         if (res.data.code == '301') {
             localStorage.clear();

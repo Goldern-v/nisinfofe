@@ -253,9 +253,9 @@ export default {
       }, 1500);
     },
     getImg() {
-      let date = this.$route.query.admissionDate||this.$route.query.admissionDate==='undefined'
-        ? new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd")
-        : new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
+      let date = !this.$route.query.admissionDate||this.$route.query.admissionDate==='undefined'
+        ? new Date(this.patientInfo.admissionDate).Format("yyyy-MM-dd")
+        : new Date(this.$route.query.admissionDate).Format("yyyy-MM-dd")
         // console.log(this.queryTem,this.$route.query,'this.queryTemthis.queryTemthis.queryTem')
       let patientId = this.$route.query.patientId || this.queryTem.patientId;
       let visitId = this.$route.query.visitId || this.queryTem.visitId;

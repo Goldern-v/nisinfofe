@@ -245,7 +245,7 @@ export default {
       const md5_key = 'tongji123456';
       const hash = md5(patientId+visitId+md5_key);
       window.open(
-        `http://10.207.40.43:8080/cpoe-ui-server/diseaseDocView.do?patient_id=${patientId}&visit_id=${visitId}&hash=${hash}`
+        `openChrome:http://10.207.40.43:8080/cpoe-ui-server/diseaseDocView.do?patient_id=${patientId}&visit_id=${visitId}&hash=${hash}`
       );
     }
   },

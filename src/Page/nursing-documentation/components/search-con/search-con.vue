@@ -298,8 +298,9 @@ export default {
     isPatients(){
       return this.$route?this.$route.path=="/nursingDocumentation":false
     },
+    // 具备转科查询的医院（查询条件包括病人ID等）
     hospitalTransfer(){
-      return ['huadu','fuyou','beihairenyi', 'sdlj', 'nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
+      return ['huadu','fuyou','beihairenyi', 'sdlj', 'nanfangzhongxiyi','foshanrenyi'].includes(this.HOSPITAL_ID)
     }
   },
   watch: {

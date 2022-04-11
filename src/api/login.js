@@ -37,4 +37,9 @@ function checkUser(empNo, password) {
   return axios.post(`${apiPath}form/checkUser`, { "empNo": empNo, "password": password })
 }
 
+// his登录 by谢岗
+// function hisLogin(params) {
+//   return axios.post(`http://10.45.0.24:8066/service1.asmx/账户校验`,params, {'Content-Type': 'application/x-www-form-urlencoded'})
+// }
+
 export { login, logout, autoLogin, checkUser }

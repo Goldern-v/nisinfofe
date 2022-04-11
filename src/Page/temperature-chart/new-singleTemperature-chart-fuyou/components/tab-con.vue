@@ -6,7 +6,7 @@
           id="date-picker"
           type="date"
           size="mini"
-          style="width: 130px;height:28px;"
+          style="width:110px;height:28px;"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -525,7 +525,9 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
+        if (this.query.entryTime && this.query.entryDate) {
         this.getList();
+        }
       },
       deep: true,
     },
@@ -929,7 +931,6 @@ export default {
 
   .column-right {
     margin-top:5px;
-    display: inline-block;
     height: 50px;
     overflow: auto;
   }
@@ -1024,7 +1025,7 @@ export default {
     margin: 10px 0px 0px 3px;
 
     .el-radio {
-      margin-left: 5px !important;
+      margin-left: 1px !important;
     }
 
     .new-time-select {

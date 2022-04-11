@@ -231,10 +231,12 @@ export default {
       },
       {
         name: 
-        `左颈肤下`,
+        ``,
         style: {},
         colspan: "1",
         rowspan: "2",
+        key:"subcutaneous",
+        canSet:true
       },
       {
         name: 

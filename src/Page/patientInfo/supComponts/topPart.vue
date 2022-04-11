@@ -42,6 +42,12 @@
       >
         <div class="nav-item">病历</div>
       </router-link>
+      <!-- <span v-if="['hj'].includes(HOSPITAL_ID)">
+        <a 
+          class="nav-item no-under-link"
+          :href="`openIE:http://10.35.0.135:9080/htweb/ShowInpatientInfo.jsp?ipid=${query.patientId}~${query.visitId}`"
+        >病历(新)</a>
+      </span> -->
       <router-link
         :to="{
           path: '/sheetNursingOrder',
@@ -230,6 +236,9 @@
     border-bottom: 0;
     border-radius: 4px 4px 0 0;
   }
+}
+.no-under-link{
+  text-decoration: none;
 }
 </style>
 <script>

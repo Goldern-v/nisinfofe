@@ -82,6 +82,7 @@
       >
         同步床位数据
       </button>
+      <span v-if="showSyncBedBtn && node_env=='development'">(测试环境别点，<br/>会清空患者！！！)</span>
       <button
         class="login-btn"
         :class="{ noactive: showProgress }"
@@ -298,6 +299,7 @@ import {
   syncGetNurseBedRecJiangMenFSSY,
   syncGetNurseBedRecBeiHaiExecute,
   syncGetNurseBedRecSDLJExecute,
+  syncGetNurseBedRecDGXGExecute,
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -315,6 +317,9 @@ export default {
     };
   },
   computed: {
+    node_env(){
+      return process.env.NODE_ENV
+    },
     isChangeke() {
       return this.deptCode.includes("051102");
     },
@@ -646,7 +651,8 @@ export default {
         "whfk",
         "beihairenyi",
         "lyxrm",
-        "sdlj"
+        "sdlj",
+        "xiegang"
         ].includes(
         this.HOSPITAL_ID
       );
@@ -737,6 +743,9 @@ export default {
           break;
         case "sdlj":
           syncData = syncGetNurseBedRecSDLJExecute;
+          break;
+        case "xiegang":
+          syncData = syncGetNurseBedRecDGXGExecute;
           break;
         default:
           syncData = syncGetNurseBedRec;

@@ -32,25 +32,7 @@
         <div class="nav-item" v-if="HOSPITAL_ID == 'beihairenyi'">护理评估单</div>
         <div class="nav-item" v-else>护理文书</div>
       </router-link>
-      <router-link
-        :to="{
-          path: '/doctorEmr',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">病历</div>
-      </router-link>
-      <router-link
-        :to="{
-          path: '/sheetNursingOrder',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">护嘱单</div>
-      </router-link>
-      <router-link
+       <router-link
         :to="{
           path: '/sheet',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -59,25 +41,25 @@
       >
         <div class="nav-item">护理记录单</div>
       </router-link>
-      <router-link
+       <router-link
         :to="{
-          path: '/hospitalEval',
+          path: '/temperature',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
-        <div class="nav-item">住院日常评估</div>
+        <div class="nav-item">体温单</div>
       </router-link>
-      <!-- <router-link
+       <router-link
         :to="{
-          path: '/catheter',
+          path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
-        <div class="nav-item">导管</div>
-      </router-link> -->
-      <router-link
+        <div class="nav-item">血糖</div>
+      </router-link>
+       <router-link
         :to="{
           path: '/diagnosis',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -88,15 +70,6 @@
       </router-link>
       <router-link
         :to="{
-          path: '/bloodSugar',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">血糖</div>
-      </router-link>
-      <router-link
-        :to="{
           path: '/healthEducation',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
@@ -104,7 +77,43 @@
       >
         <div class="nav-item">健康教育单</div>
       </router-link>
+       <router-link
+        :to="{
+          path: '/advice',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">医嘱</div>
+      </router-link>
       <router-link
+        :to="{
+          path: '/doctorEmr',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">病历</div>
+      </router-link>
+       <router-link
+        :to="{
+          path: '/inspect',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">检查</div>
+      </router-link>
+        <router-link
+        :to="{
+          path: '/test',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">检验</div>
+      </router-link>
+       <router-link
         :to="{
           path: '/cost',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -124,31 +133,31 @@
       </router-link>
       <router-link
         :to="{
-          path: '/advice',
+          path: '/sheetNursingOrder',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
-        <div class="nav-item">医嘱</div>
+        <div class="nav-item">护嘱单</div>
       </router-link>
-      <router-link
+      <!-- <router-link
         :to="{
-          path: '/inspect',
+          path: '/hospitalEval',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
-        <div class="nav-item">检查</div>
-      </router-link>
-      <router-link
+        <div class="nav-item">住院日常评估</div>
+      </router-link> -->
+      <!-- <router-link
         :to="{
-          path: '/test',
+          path: '/catheter',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
       >
-        <div class="nav-item">检验</div>
-      </router-link>
+        <div class="nav-item">导管</div>
+      </router-link> -->
       <!-- <router-link to="/dev" tag="span">
         <div class="nav-item">手术</div>
       </router-link>-->
@@ -158,15 +167,7 @@
       <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>-->
-      <router-link
-        :to="{
-          path: '/temperature',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">体温单</div>
-      </router-link>
+     
     </div>
     <div style="height: 50px"></div>
   </div>
@@ -214,8 +215,8 @@
   height: 37px;
   line-height: 37px;
   padding: 0 10px;
-  font-size: 13px;
-  color: #687179;
+  font-size: 16px;
+  color: #000;
   letter-spacing: 0.26px;
   float: left;
   cursor: pointer;

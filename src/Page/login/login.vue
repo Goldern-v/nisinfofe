@@ -440,6 +440,27 @@ export default {
       let password=this.password;
       (this.md5HisList.includes(this.HOSPITAL_ID))&&(this.password!=="Bcy@22qw") && (password=md5(this.password));
       // login(this.account, this.password, this.verificationCode)
+      // login前先执行his校验 by谢岗
+      // if (this.HOSPITAL_ID == 'xiegang') {
+      //   try {
+      //     console.log('testOnly-1')
+      //     const res = await hisLogin({
+      //       Empl_Code: this.account,
+      //       PassWord: password,
+      //       Client: '移动护理电脑端'
+      //     })
+      //     if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
+      //       this.$message.error("请重新登录");
+      //       this.ajax = false
+      //       return
+      //     }
+      //   } catch (e) {
+      //     this.$message.error("请重新登录");
+      //     this.ajax = false
+      //     return
+      //   }
+      // }
+
       login(this.account, password, this.verificationCode)
         .then((res) => {
           // 记住账号
@@ -452,7 +473,7 @@ export default {
           user.token = res.data.data.authToken;
           window.app.authToken = res.data.data.authToken;
           localStorage["ppp"] = this.password;
-          localStorage.setItem("user",JSON.stringify(res.data.data.user)) 
+          localStorage.setItem("user",JSON.stringify(res.data.data.user))
           localStorage["adminNurse"] = res.data.data.adminNurse;
           Cookies.remove("NURSING_USER");
           //清除江门妇幼ca
@@ -604,7 +625,7 @@ export default {
         case "lyxrm":
           return require("../../common/images/lyxrm_logo.png")
         case "fsxt":
-          return require("../../common/images/fsxt_logo.png")  
+          return require("../../common/images/fsxt_logo.png")
         default:
           return require("../../common/images/logo.png");
       }
