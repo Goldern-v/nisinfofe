@@ -565,6 +565,8 @@ export default {
         visitId: this.sheetInfo.selectBlock.visitId,
       };
       this.$store.commit("newDialogVisible", true); //打开体温曲线
+      this.bus.$emit("refreshImg"); //打开体温曲线
+
     },
     /* 打开婴儿的体温曲线页面 */
     openBabyChat() {

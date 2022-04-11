@@ -209,7 +209,7 @@ export default {
       isShowObj: {
         one: false,
         two: false,
-        three: false,
+        three: true,//默认显示体温单模块
         four:false,
         five:false
       }, // 一级菜单开关 (默认关闭)
@@ -241,13 +241,12 @@ export default {
   methods: {
     // 控制右边表单
     showForm (type) {
-      console.log(this.$route.query);
       this.bus.$emit("openOtherForm", { component: type });
+      this.bus.$emit("refreshImg");
     },
     nodeClick(data, node) {
       this.$refs.templateSide.close()
 
-      console.log(data, "data");
       if (data.component) {
         return this.bus.$emit("openOtherForm", data);
       }
@@ -393,7 +392,6 @@ export default {
     },
     // 开关控制
     setItemShow(type) {
-      console.log(type,this.isShowObj)
       this.isShowObj[type] = !this.isShowObj[type]
     }
   },
@@ -401,11 +399,14 @@ export default {
     if (!(this.$route.query.patientId && this.$route.query.visitId)) return;
     this.getTreeData(true);
   },
-  mounted() {
+  async mounted() {
     let isOk = this.$route.query.nursingPreviewIsShow;
     if (isOk && isOk == "1") {
       this.nursingPreviewIsShow = false
     }
+   await this.bus.$emit("openOtherForm", { component: 'temperature'});//默认打开体温单界面
+    this.bus.$emit("refreshImg");
+
 
     //回应子界面打开自定义模板弹窗
     this.bus.$on("templateSideOpen", (payload)=>{

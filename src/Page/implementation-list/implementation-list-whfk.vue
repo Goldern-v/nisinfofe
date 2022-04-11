@@ -11,16 +11,15 @@
             placeholder="选择入院起始时间"
             size="small"
             v-model="startDate"
-            style="width:180px"
+            style="width: 180px"
           ></el-date-picker>
-          --
           <el-date-picker
             type="datetime"
             format="yyyy-MM-dd HH:mm:ss"
             placeholder="选择终止时间"
             size="small"
             v-model="endDate"
-            style="width:180px"
+            style="width: 180px"
           ></el-date-picker>
           <!-- <el-date-picker
             type="date"
@@ -124,20 +123,21 @@
         ></pagination>
       </div> -->
       <el-dialog title="执行时间" :visible.sync="isExecutionTime">
-  <el-form :model="form">
-    <el-form-item label="执行时间">
-      <el-date-picker
-      v-model="form.date"
-      type="datetime"
-      placeholder="选择执行时间">
-    </el-date-picker>
-    </el-form-item>
-  </el-form>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="isExecutionTime = false">取 消</el-button>
-    <el-button type="primary" @click="confirm">确 定</el-button>
-  </div>
-</el-dialog>
+        <el-form :model="form">
+          <el-form-item label="执行时间">
+            <el-date-picker
+              v-model="form.date"
+              type="datetime"
+              placeholder="选择执行时间"
+            >
+            </el-date-picker>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="isExecutionTime = false">取 消</el-button>
+          <el-button type="primary" @click="confirm">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -203,8 +203,10 @@ export default {
         pageNum: 100,
         total: 0,
       },
-      startDate: moment().format("YYYY-MM-DD")+' 07:30:00',
-      endDate: moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00',
+      startDate: moment().format("YYYY-MM-DD") + " 07:30:00",
+      endDate:
+        moment(moment().toDate().getTime() + 86400000).format("YYYY-MM-DD") +
+        " 07:30:00",
       type: "",
       status: "",
       bedLabel: "",
@@ -217,10 +219,10 @@ export default {
         repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
         executeFlag: "全部", //0未执行，2已执行
       },
-      isExecutionTime:false,
-      form:{
-        date:moment().format("YYYY-MM-DD HH:mm:ss"),
-      }
+      isExecutionTime: false,
+      form: {
+        date: moment().format("YYYY-MM-DD HH:mm:ss"),
+      },
     };
   },
   methods: {
@@ -236,8 +238,10 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       this.query.wardCode = this.deptCode;
-      this.query.startDate = moment(this.startDate).format('YYYY-MM-DD HH:mm:ss')
-      this.query.endDate = moment(this.endDate).format('YYYY-MM-DD HH:mm:ss')
+      this.query.startDate = moment(this.startDate).format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
+      this.query.endDate = moment(this.endDate).format("YYYY-MM-DD HH:mm:ss");
       this.query.executeDate = this.query.executeDate
         ? moment(this.query.executeDate).format("YYYY-MM-DD")
         : moment().format("YYYY-MM-DD");
@@ -245,7 +249,6 @@ export default {
         ? moment(this.query.executeDate).format("YYYY-MM-DD")
         : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : "*";
-
       getExecuteWithWardcode(this.query).then((res) => {
         let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
@@ -263,7 +266,6 @@ export default {
             array[index].patientId +
               array[index].barCode +
               array[index].executeDateTime;
-
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
             if (currentRowId != prevRowId) {
@@ -287,7 +289,7 @@ export default {
         ) {
           this.$refs.plTable.$children[0].reloadData(tableData);
         }
-        this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
+        this.page.total = Number(res.data.pageCount) * this.page.pageNum;
         this.pageLoadng = false;
       });
     },
@@ -306,23 +308,23 @@ export default {
       }
     },
     confirm() {
-      this.handleExecuteBatch()
-      this.isExecutionTime=false;
+      this.handleExecuteBatch();
+      this.isExecutionTime = false;
     },
     middleware() {
       let selectedData = this.$refs.plTable.selectedData;
       if (selectedData.length <= 0) return;
-      if(['wujing'].includes(this.HOSPITAL_ID)) {
-        this.isExecutionTime = true
-      }else {
-        this.handleExecuteBatch()
+      if (["wujing"].includes(this.HOSPITAL_ID)) {
+        this.isExecutionTime = true;
+      } else {
+        this.handleExecuteBatch();
       }
     },
     // 批量处理执行单
     handleExecuteBatch() {
       let selectedData = this.$refs.plTable.selectedData,
         data = [];
-      this.isExecutionTime = true
+      this.isExecutionTime = true;
       if (selectedData.length <= 0) return;
 
       selectedData.map((item) => {
@@ -334,14 +336,14 @@ export default {
           executeNurse: this.empNo, // 执行护士工号
           verifyNurse: this.empNo, // 核对护士工号
         };
-        if(['wujing'].includes(this.HOSPITAL_ID)){
-          obj.startDate = moment(this.form.date).format("YYYY-MM-DD HH:mm:ss")
+        if (["wujing"].includes(this.HOSPITAL_ID)) {
+          obj.startDate = moment(this.form.date).format("YYYY-MM-DD HH:mm:ss");
         }
         // 相同barcode只需要发送一条记录
-        let isHas = data.every(e=>{
-          return e.barcode != obj.barcode
-        })
-        isHas?data.push(obj):''
+        let isHas = data.every((e) => {
+          return e.barcode != obj.barcode;
+        });
+        isHas ? data.push(obj) : "";
       });
       handleWebExecuteBatch({ lists: data }).then((res) => {
         this.$message.success(res.data.desc);
@@ -349,9 +351,7 @@ export default {
       });
     },
   },
-  created() {
-    this.onLoad();
-  },
+  created() {},
   watch: {
     deptCode() {
       this.search();
