@@ -81,6 +81,7 @@
           >
             <el-option label="全部" value="全部"></el-option>
             <el-option label="已执行" :value="2"></el-option>
+            <el-option label="执行中" :value="1"></el-option>
             <el-option label="未执行" :value="0"></el-option>
           </el-select>
           <el-button size="small" type="primary" @click="search"
@@ -205,7 +206,7 @@ import dTable from "./components/table/d-table-fsxt";
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode, handleWebExecuteBatch } from "./api/index";
-import dTablePrint from "./components/table/d-table-zhongshanqi-print";
+import dTablePrint from "./components/table/d-table-fsxt-print";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import print from "printing";
@@ -386,7 +387,7 @@ export default {
     
     async onPrint() {
       this.$nextTick(async () => {
-        await print(this.$refs.printable, {
+        await print.preview(this.$refs.printable, {
           beforePrint: formatter,
           injectGlobalCss: true,
           scanStyles: false,

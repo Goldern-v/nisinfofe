@@ -61,11 +61,13 @@ export const TIME_POINT = [
 export const WORKLOAD_BAR1 = [
   {
     label: '按病区统计',
+    themeName: '病区工作量统计',
     key: 'dept',
     code: 'dept',
   },
   {
     label: '按护士统计',
+    themeName: '护士工作量统计',
     key: 'nurse',
     code: 'nurse',
   },

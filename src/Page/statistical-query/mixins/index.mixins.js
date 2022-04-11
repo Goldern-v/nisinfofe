@@ -1,6 +1,8 @@
 import { nursingUnit } from "@/api/lesion"
 import { query, exportExc } from '../apis/index'
 import moment from 'moment'
+import { WORKLOAD_BAR1 } from "../enums"
+import { searchItem } from "@/utils/enums"
 
 export default {
   data() {
@@ -27,7 +29,11 @@ export default {
       this.formData.status = 1
     }
     await this.getDepList()
-    this.handleQuery()
+    if (this.$route.meta.title === '工作量统计') {
+      this.handleQuery({ themeName: searchItem(WORKLOAD_BAR1, 'dept', 'code')['themeName']|| ''})
+    } else {
+      this.handleQuery()
+    }
   },
   methods: {
     async getDepList() {
@@ -57,8 +63,8 @@ export default {
       try {
         this.loading = true
         exportExc({
-          ...this.formData,
           themeName: this.$route.meta.title,
+          ...this.formData,
           beginTime: this.formData.beginTime.split(' ')[0],
           endTime: this.formData.endTime.split(' ')[0],
         }).then(res => {
@@ -92,8 +98,8 @@ export default {
       try {
         this.loading = true;
         let formData = {
-          ...this.formData,
           themeName: this.$route.meta.title,
+          ...this.formData,
           beginTime: this.formData.beginTime.split(' ')[0],
           endTime: this.formData.endTime.split(' ')[0],
           pageIndex: this.pageIndex,

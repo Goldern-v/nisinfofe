@@ -617,8 +617,8 @@ export default {
       });
     },
 
-    getHeight() {
-      this.contentHeight.height = window.innerHeight - 110 + "px";
+ getHeight() {
+      this.contentHeight.height = window.innerHeight - (this.$route.path.includes('nursingPreview')?40:100) + "px";
     },
     init() {
       let obj = {};
