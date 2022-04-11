@@ -79,28 +79,28 @@
             :class="{
               yzx: scope.row.executeFlag == 2
               }"
-           :title="scope.row.executeFlag == 2 ? '已执行' : '未执行'">{{ scope.row.executeFlag == 2 ? '已执行' : '未执行' }}</span>
+           :title="getExecuteFlag(scope.row.executeFlag)">{{ getExecuteFlag(scope.row.executeFlag) }}</span>
         </template>
       </u-table-column>
-      <u-table-column prop="realExecuteDateTime" label="摆药护士" min-width="160px" align="center">
-        <template slot-scope="scope">
+      <u-table-column prop="beiNurse" label="摆药护士" min-width="80px" align="center">
+        <!-- <template slot-scope="scope">
           <span :title="scope.row.realExecuteDateTime | ymdhms">{{scope.row.realExecuteDateTime | ymdhms}}</span>
-        </template>
+        </template> -->
       </u-table-column>
-      <u-table-column prop="realExecuteDateTime" label="摆药护士核对" min-width="160px" align="center">
-        <template slot-scope="scope">
+      <u-table-column prop="beiHeNurse" label="摆药护士核对" min-width="90px" align="center">
+        <!-- <template slot-scope="scope">
           <span :title="scope.row.realExecuteDateTime | ymdhms">{{scope.row.realExecuteDateTime | ymdhms}}</span>
-        </template>
+        </template> -->
       </u-table-column>
-      <u-table-column prop="realExecuteDateTime" label="配药护士" min-width="160px" align="center">
-        <template slot-scope="scope">
+      <u-table-column prop="dispenseNurse" label="配药护士" min-width="80px" align="center">
+        <!-- <template slot-scope="scope">
           <span :title="scope.row.realExecuteDateTime | ymdhms">{{scope.row.realExecuteDateTime | ymdhms}}</span>
-        </template>
+        </template> -->
       </u-table-column>
-      <u-table-column prop="realExecuteDateTime" label="配药护士核对" min-width="160px" align="center">
-        <template slot-scope="scope">
+      <u-table-column prop="dispenseVerifyNurse" label="配药护士核对" min-width="90px" align="center">
+        <!-- <template slot-scope="scope">
           <span :title="scope.row.realExecuteDateTime | ymdhms">{{scope.row.realExecuteDateTime | ymdhms}}</span>
-        </template>
+        </template> -->
       </u-table-column>
       <u-table-column prop="realExecuteDateTime" label="执行时间" min-width="160px" align="center">
         <template slot-scope="scope">
@@ -108,10 +108,7 @@
         </template>
        </u-table-column>
 
-      <u-table-column prop="executeNurseName" title="executeNurseName" label="执行护士" min-width="80px" align="center">
-      <template slot-scope="scope">
-          <span :title="scope.row.executeNurseName | ymdhms">{{scope.row.executeNurseName | ymdhms}}</span>
-        </template>
+      <u-table-column prop="executeEndNurseName" title="executeEndNurseName" label="执行护士" min-width="80px" align="center">
       </u-table-column>
 
       <u-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center">
@@ -296,6 +293,10 @@ export default {
     },
     handleSelectionChange(selection){
       this.selectedData = selection;
+    },
+    getExecuteFlag(flag){
+      let arr = ['未执行','执行中','已执行']
+      return arr[flag] || '未执行'
     }
   },
   filters: {

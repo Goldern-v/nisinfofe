@@ -4,15 +4,17 @@
             <div class="new-modal-top">
                 <div class="new-modal-top-left">
                     <div class="new-modal-top-left-first">
-                        <div style="text-indent:5px">{{currentBottle.bedLabel}}</div>
                         <div>{{currentBottle.name}}</div>
-                        <div class="patientId-box">
-                            <div>住院号</div>
-                            <div>{{currentBottle.patientId}}</div>
-                        </div>
+                        <div>{{currentBottle.bedLabel}}</div>
                     </div>
                     <div class="new-modal-top-left-second">
-                        <div  style="text-indent:5px">{{currentBottle.executeDate}}</div>
+                        <div style="text-indent:5px">{{currentBottle.deptName}}</div>
+                        <div>{{currentBottle.patientId || ''}}</div>
+                        <div>{{currentBottle.sex || ''}}</div>
+                        <div>{{currentBottle.age ? currentBottle.age + '岁' : ''}}</div>
+                    </div>
+                    <div class="new-modal-top-left-second">
+                        <div style="text-indent:5px">执行日期:{{currentBottle.executeDate.substr(0,15)}}</div>
                         <div style="min-width:50px;">{{currentBottle.repeatIndicator | repeatIndicatorFilter}}</div>
                     </div>
                     <div class="new-modal-top-left-third">
@@ -33,24 +35,24 @@
                 </div>
             </div>
             <div class="new-modal-bottom">
-                <div class="new-modal-bottom-first">
+                <!-- <div class="new-modal-bottom-first">
                     <div style="width:20%">配液者</div>
                     <div style="width:20%"></div>
                     <div style="width:20%">配液时间</div>
                     <div style="flex: 1"></div>
-                </div>
+                </div> -->
                 <div class="new-modal-bottom-second">
-                    <div style="width:20%">校对者</div>
-                    <div style="width:20%"></div>
+                    <!-- <div style="width:20%">校对者</div>
+                    <div style="width:20%"></div> -->
                     <div style="width:20%">频次途径</div>
                     <div style="flex: 1">{{currentBottle.frequency}}</div>
                 </div>
-                <div class="new-modal-bottom-third">
+                <!-- <div class="new-modal-bottom-third">
                     <div style="width:20%">执行者</div>
                     <div style="width:20%"></div>
                     <div style="width:20%">医生说明</div>
                     <div style="flex: 1"></div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div v-else class="new-print-modal" style="height:6cm;width:10cm;display:flex">
@@ -97,21 +99,16 @@
             flex: 2;
             .new-modal-top-left-first{
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 box-sizing: border-box;
-                height: 36px;
+                height: 28px;
                 // background-color: #000;
                 border-bottom: 1px solid #000;
                 &>div{
                     text-align: center;
-                    line-height: 36px;
+                    line-height: 28px;
                     font-size: 18px;
                     font-weight: 700;
-                }
-                .patientId-box{
-                    font-size:14px;
-                    line-height: 18px;
-                    text-align: center;
                 }
             }
             .new-modal-top-left-second{
@@ -124,22 +121,24 @@
             }
             .new-modal-top-left-third{
                 line-height: 16px;
+                height: 113px;
+                overflow: hidden;
             }
         }
         .new-modal-top-right{
-            width: 56px;
+            width: 68px;
             // background-color: red;
             border-bottom: 1px solid #000;
             border-right: 1px solid #000;
             border-top: 1px solid #000;
             .new-modal-top-right-top{
                 box-sizing: border-box;
-                padding: 1px;
-                img{
-                    width: 54px;
-                }
                 border-bottom: 1px solid #000;
-                box-sizing: border-box;
+                img{
+                    width: 66px;
+                    width: 66px;
+                    object-fit: cover;
+                }
             }
             .new-modal-top-right-bottom{
                 line-height: 16px;
@@ -216,6 +215,11 @@
 import {cloneDeep} from 'lodash'
 import moment from 'moment'
 var qr = require("qr-image");
+const DRUG_TYPES = {
+    1: '普通',
+    2: '高危',
+    3: '自备',
+}
 export default {
 props: {
     itemObj:{type:Array,default:()=>[]},
@@ -239,7 +243,7 @@ computed: {
         let dosageDosageUnits = []
 
         this.itemObj.map((item)=>{
-            orderText.push(item.orderText)
+            orderText.push(item.orderText + (DRUG_TYPES[item.drugType] || ''))
             let content = `${item.dosage || ''}${item.dosageUnits||''}`
             dosageDosageUnits.push(content)
         })
