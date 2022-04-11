@@ -351,7 +351,9 @@ export default {
       });
     },
   },
-  created() {},
+  created() {
+    this.onLoad()
+  },
   watch: {
     deptCode() {
       this.search();
