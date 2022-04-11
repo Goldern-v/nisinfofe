@@ -563,7 +563,42 @@ export default {
           name: "其他",
         },
         ]
-      }else{
+      }else if(this.HOSPITAL_ID==='foshanrenyi'){
+        return [
+           {
+          id: "",
+          name: "全部",
+        },
+         {
+          id: "输液",
+          name: "输液",
+        },
+         {
+          id: "注射",
+          name: "注射",
+        },
+         {
+          id: "口服",
+          name: "口服",
+        },
+         {
+          id: "皮试",
+          name: "皮试",
+        },
+         {
+          id: "治疗",
+          name: "治疗",
+        },
+         {
+          id: "检验",
+          name: "检验",
+        },
+        {
+          id: "输血",
+          name: "输血",
+        },
+        ]
+      } else{
         return [
         {
           id: "",
