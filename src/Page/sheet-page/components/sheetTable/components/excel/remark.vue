@@ -514,7 +514,7 @@
     </div>
     <!-- 顺德龙江 - 儿科护理记录单-->
     <div v-if="sheetInfo.sheetType == 'pediatrics_sdlj'">
-      说明：<strong>意识判断</strong>：①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏睡 ⑥谵妄&nbsp;&nbsp;&nbsp;&nbsp;<strong>瞳&nbsp;&nbsp;孔</strong>：大小用阿拉伯数字表示，单位mm，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>对光反射</strong>：灵敏（+） 迟钝（±） 消失（-）<br/>
+      说明：<strong>意识判断</strong>：①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏迷 ⑥谵妄&nbsp;&nbsp;&nbsp;&nbsp;<strong>瞳&nbsp;&nbsp;孔</strong>：大小用阿拉伯数字表示，单位mm，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>对光反射</strong>：灵敏（+） 迟钝（±） 消失（-）<br/>
       &nbsp;&nbsp;&nbsp;<strong>吸氧方式</strong>：①鼻导管 ②面罩 ③CPAP ④有创通气&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>清洁护理</strong>：①沐浴 ②床上擦浴 ③口腔护理 ④臀部护理 ⑤更衣&nbsp; <strong>气道护理</strong>：①雾化吸入  ②气道吸痰 ③口鼻腔吸痰<br/>
       &nbsp;&nbsp;&nbsp;<strong>物理降温</strong>：①温水浴 ②冰敷 ③酒精擦浴 ④退热贴&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>饮食护理</strong>：①全流 ②半流 ③普食 ④少量多餐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>咳&nbsp;&nbsp;嗽</strong>：①刺激性干咳 ②咳嗽时闻及痰音 ③犬吠样咳<br/>
       &nbsp;&nbsp;&nbsp;<strong>小&nbsp;&nbsp;便</strong>：①正常 ②尿路刺激症 ③洗肉水样 ④酱油样 ⑤血尿

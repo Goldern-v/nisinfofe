@@ -39,7 +39,7 @@ export default [
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: [{name: '①清醒',value: '①'},{name: '②嗜睡',value: '②'},{name: '③昏睡',value: '③'},{name: '④模糊',value: '④'},{name: '⑤昏睡',value: '⑤'},{name: '⑥谵妄',value: '⑥'}] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: [{name: '①清醒',value: '①'},{name: '②嗜睡',value: '②'},{name: '③昏睡',value: '③'},{name: '④模糊',value: '④'},{name: '⑤昏迷',value: '⑤'},{name: '⑥谵妄',value: '⑥'}] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pupilSizeLeft', event: keyf1, value: '', next: '', name: '吸氧方式', autoComplete: { data: [{name: '①鼻导管',value: '①'},{name: '②面罩',value: '②'},{name: '③CPAP',value: '③'},{name: '④有创通气',value: '④'}] }, textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'pupilSizeRight', event: keyf1, value: '', next: '', name: '吸氧自定义值', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
   // { key: 'pupilReflexLeft', event: keyf1, value: '', next: '', name: '瞳孔反射左', autoComplete: { data: ['+', '±', '-'] }, textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 2) },
