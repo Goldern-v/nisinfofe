@@ -4,7 +4,8 @@
       <div class="head-con">
         <h3>瓶签打印</h3>
         <div>
-          <span class="label">执行日期:</span>
+          <span class="label">执行开始时间</span>
+          <!-- <span class="label">执行日期:</span> -->
           <el-date-picker
             type="datetime"
             format="yyyy-MM-dd HH:mm:ss"
@@ -13,7 +14,8 @@
             v-model="startDate"
             style="width:180px"
           ></el-date-picker>
-          --
+          <!-- -- -->
+          <span class="label">执行结束时间</span>
           <el-date-picker
             type="datetime"
             format="yyyy-MM-dd HH:mm:ss"
@@ -38,8 +40,8 @@
           </el-select>
           <span class="label">医嘱分类:</span>
           <el-select v-model="query.itemType" placeholder="请选择" size="small" style="width:80px">
-            <el-option 
-              v-for="(optionItem,optionIndex) in typeOptions[HOSPITAL_ID] || typeOptions.default" 
+            <el-option
+              v-for="(optionItem,optionIndex) in typeOptions[HOSPITAL_ID] || typeOptions.default"
               :key="optionIndex"
               :label="optionItem.label"
               :value=" optionItem.value || optionItem.label"
@@ -204,8 +206,8 @@ export default {
         total: 0
       },
       // startDate: moment().format("YYYY-MM-DD"),
-      startDate: moment().format("YYYY-MM-DD")+' 07:30:00',
-      endDate: moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00',
+      startDate: moment().format("YYYY-MM-DD")+' 07:00:00',
+      endDate: moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
       repeatIndicator: "",
       type: "",
       status: "",

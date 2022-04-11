@@ -15,13 +15,13 @@ export default {
     return {
       actIndex: '',
       bars: [
-        // {
-        //   name: "statisticalWorkload",
-        //   meta: {
-        //     title: '工作量统计',
-        //     img: require("../images/exit-adm.png"),
-        //   },
-        // },
+        {
+          name: "statisticalWorkload",
+          meta: {
+            title: '工作量统计',
+            img: require("../images/workload.png"),
+          },
+        },
         {
           name: "statisticalExitAdmission",
           meta: {
@@ -61,7 +61,7 @@ export default {
           name: "statisticalTemperature",
           meta: {
             title: '体温统计',
-            img: require("../images/exit-adm.png"),
+            img: require("../images/temp.png"),
           },
         },
         {
