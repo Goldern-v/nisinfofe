@@ -140,6 +140,10 @@ export default {
 
       this.currentPage = this.toCurrentPage;
     },
+           //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime){
+      this.bus.$emit('getDataFromPage',dateTime)
+    },
      getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
@@ -174,6 +178,9 @@ export default {
               case "dblclick":/* 双击查阅体温单子 */
           this.openRight();
           break;
+            case "clickDateTime":
+            this.getDataFromPage(e.data.value)
+            break;
           default:
             break;
         }

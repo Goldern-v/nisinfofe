@@ -488,10 +488,13 @@ export default {
       // let filebox = filebox
       // // 如果存在保存
       // console.log("111",node.childNodes,node.level)
+      //未签名
       let hasSave =
         node.childNodes.filter((item) => {
           return item.data.status == "0";
         }).length > 0;
+
+      //已签名
       let hasSign =
         node.childNodes.filter((item) => {
           return item.data.status == "1";

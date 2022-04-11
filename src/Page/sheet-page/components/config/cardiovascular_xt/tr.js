@@ -6,7 +6,7 @@
 /**
  * @description: 开发注意事项:
     1、textarea: { width:30 }, change: (e, td) => limitChange(e, td, 4) 的意思是宽度设置30，字数限制4个。
-    2、autoComplete: { data: [] } 为下拉框内容，根据需要添加。
+    2、（1）autoComplete: { data: [] } 为下拉框显示序号，根据需要添加。（2）autoComplete: { data: [{name:'',value:''}] } 为下拉框显示序号+内容，根据需要添加。
     3、splice: '' 为下拉框多选功能，搭配autoComplete使用, (''内容可自定义,splice: '/'为用“/”分隔)。
     4、name、next 为双击弹窗的内容，name为标题，next是单位。
     5、自定义项目，在th里要写 canSet: true , key: '' , key值为th对应tr的key值。

@@ -6,7 +6,7 @@
 /**
  * @description: 开发注意事项:
     1、textarea: { width:45 }, change: (e, td) => limitChange(e, td, 6) 的意思是宽度设置45，字数限制6个。
-    2、autoComplete: { data: [] } 为下拉框内容，根据需要添加。
+    2、（1）autoComplete: { data: [] } 为下拉框显示序号，根据需要添加。（2）autoComplete: { data: [{name:'',value:''}] } 为下拉框显示序号+内容，根据需要添加。
     3、splice: '' 为下拉框多选功能，搭配autoComplete使用, (''内容可自定义,splice: '/'为用“/”分隔)。
     4、name、next 为双击弹窗的内容，name为标题，next是单位。
     5、自定义项目，在th里要写 canSet: true , key: '' , key值为th对应tr的key值。
@@ -44,22 +44,22 @@ export default [
   { key: 'outputAmount', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'outputCustom2', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'outputAmount2', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'complexion', event: keyf1, value: '', next: '', name: '肤色', autoComplete: { data: ['①','②','③','④','⑤','⑥']}, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'complexion', event: keyf1, value: '', next: '', name: '肤色', autoComplete: { data: [{name: '①红润',value: '①'},{name: '②黄染',value: '②'},{name: '③苍白',value: '③'},{name: '④苍灰',value: '④'},{name: '⑤干燥',value: '⑤'},{name: '⑥紫绀',value: '⑥'}]}, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'reaction', event: keyf1, value: '', next: '', name: '反应', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'crying', event: keyf1, value: '', next: '', name: '哭声', autoComplete: { data: ['①','②','③'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'remaining', event: keyf1, value: '', next: '', name: '留置针',autoComplete: { data: ['①','②','③'] },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'situation', event: keyf1, value: '', next: '', name: '脐部情况', autoComplete: { data: ['①','②','③','④'] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'periderm', event: keyf1, value: '', next: '', name: '肛周皮肤', autoComplete: { data: ['①','②','③','④','⑤'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'phototherapy', event: keyf1, value: '', next: '', name: '光疗情况', autoComplete: { data: ['①','②','③','④','⑤'] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'feedingWay', event: keyf1, value: '', next: '', name: '喂养方式', autoComplete: { data: ['①','②'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'crying', event: keyf1, value: '', next: '', name: '哭声', autoComplete: { data: [{name: '①响',value: '①'},{name: '②弱',value: '②'},{name: '③呻吟',value: '③'},] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'remaining', event: keyf1, value: '', next: '', name: '留置针',autoComplete: { data: [{name: '①正常',value: '①'},{name: '②拔除',value: '②'},{name: '③重置',value: '③'},] },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'situation', event: keyf1, value: '', next: '', name: '脐部情况', autoComplete: { data: [{name: '①干净',value: '①'},{name: '②渗血',value: '②'},{name: '③红肿',value: '③'},{name: '④脓性分泌物',value: '④'},] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'periderm', event: keyf1, value: '', next: '', name: '肛周皮肤', autoComplete: { data: [{name: '①正常',value: '①'},{name: '②皮疹',value: '②'},{name: '③潮红',value: '③'},{name: '④破溃、脱皮',value: '④'},{name: '⑤糜烂',value: '⑤'},] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'phototherapy', event: keyf1, value: '', next: '', name: '光疗情况', autoComplete: { data: [{name: '①安睡',value: '①'},{name: '②哭闹烦燥',value: '②'},{name: '③尖叫',value: '③'},{name: '④体温异常',value: '④'},{name: '⑤皮疹',value: '⑤'},] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'feedingWay', event: keyf1, value: '', next: '', name: '喂养方式', autoComplete: { data: [{name: '①自吮',value: '①'},{name: '②饲奶',value: '②'},] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'feedingSpecies', event: keyf1, value: '', next: '', name: '喂养种类', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'oxygenWay', event: keyf1, value: '', next: '', name: '吸氧方式', autoComplete: { data: ['①','②','③','④'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'oxygenWay', event: keyf1, value: '', next: '', name: '吸氧方式', autoComplete: { data: [{name: '①鼻导管',value: '①'},{name: '②面罩',value: '②'},{name: '③CPAP',value: '③'},{name: '④有创通气',value: '④'},] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygenFlow', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'cleanCare', event: keyf1, value: '', next: '', name: '清洁护理', splice: '/', autoComplete: { data: ['①','②','③','④','⑤'] }, textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'glhlCare', event: keyf1, value: '', next: '', name: '光疗护理', autoComplete: { data: ['①'] }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'airwayCare', event: keyf1, value: '', next: '', name: '气道护理', splice: '/', autoComplete: { data: ['①','②','③'] }, textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'nurse', event: keyf1, value: '', next: '', name: '专科护理', autoComplete: { data: ['①','②','③'] }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'illness', event: keyf1, value: '', next: '', name: '病情', autoComplete: { data: ['①','②'] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'cleanCare', event: keyf1, value: '', next: '', name: '清洁护理', splice: '/', autoComplete: { data: [{name: '①沐浴',value: '①'},{name: '②床上擦浴',value: '②'},{name: '③口腔护理',value: '③'},{name: '④臀部护理',value: '④'},{name: '⑤更衣',value: '⑤'},] }, textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'glhlCare', event: keyf1, value: '', next: '', name: '光疗护理', autoComplete: { data: [{name: '①戴眼罩，保护外阴，戴手套脚套',value: '①'},] }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'airwayCare', event: keyf1, value: '', next: '', name: '气道护理', splice: '/', autoComplete: { data: [{name: '①雾化吸入',value: '①'},{name: '②气道吸痰',value: '②'},{name: '③口鼻腔吸痰',value: '③'},] }, textarea: { width: 65 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'nurse', event: keyf1, value: '', next: '', name: '专科护理', autoComplete: { data: [{name: '①脐部护理',value: '①'},{name: '②胃管护理',value: '②'},{name: '③灌肠',value: '③'},] }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'illness', event: keyf1, value: '', next: '', name: '病情', autoComplete: { data: [{name: '①告病重',value: '①'},{name: '②告病危',value: '②'},] }, textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   // { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   {

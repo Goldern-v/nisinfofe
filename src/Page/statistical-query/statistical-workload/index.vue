@@ -4,9 +4,8 @@
     :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
-
-    @handleExport="handleExport"
-    @handleQuery="handleQuery">
+    @handleExport="(obj) => handleExport({...obj,themeName: searchItem(workload_bar1, type1, 'code')['themeName']|| ''})"
+    @handleQuery="(obj) => handleQuery({...obj,themeName: searchItem(workload_bar1, type1, 'code')['themeName']|| ''})">
     <template>
       <div class="search-con__ctx__item" v-show="isNurse">
         层级：
@@ -29,13 +28,13 @@
       border
       :height="wih - 178"
       :columns="columns"/>
-    <pagination
+    <!-- <pagination
       v-if="!isChart"
       :pageIndex="pageIndex"
       :size="pageNum"
       :total="total"
       @sizeChange="handleSizeChange"
-      @currentChange="handleCurrentChange" />
+      @currentChange="handleCurrentChange" /> -->
     <chart
       v-else
       :options="options"
@@ -93,12 +92,143 @@ export default {
       type1: searchKeyByCode(WORKLOAD_BAR1, 'dept'),
       // 表格/图表
       type2: searchKeyByCode(WORKLOAD_BAR2, 'table'),
-      // 图表数据
-      chartData: Array.from(new Array(19), (j, k) => ({
-        name: `项目计划${k}`,
-        val: k+1
-      })),
-      rankList: RANK
+      rankList: RANK,
+      workload_bar1: WORKLOAD_BAR1,
+      otherColumns: [
+        {
+					key: 'transfusion',
+					title: '静脉输液',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'replaceFluid',
+					title: '更换液体',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'skinTest',
+					title: '皮试',
+          align: 'center',
+					width: 90,
+          sortable: true
+				},
+        {
+					key: 'injection',
+					title: '注射',
+          align: 'center',
+					width: 90,
+          sortable: true
+				},
+        {
+					key: 'atomization',
+					title: '雾化',
+          align: 'center',
+					width: 90,
+          sortable: true
+				},
+        {
+					key: 'specimen',
+					title: '标本',
+          align: 'center',
+					width: 90,
+          sortable: true
+				},
+        {
+					key: 'intensiveCare',
+					title: '重症监护',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'inDanger',
+					title: '病危（重）',
+          align: 'center',
+					width: 130,
+          sortable: true
+				},
+        {
+					key: 'nursingClass0',
+					title: '特级护理',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'nursingClass1',
+					title: '一级护理',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'nursingClass2',
+					title: '二级护理',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'nursingClass3',
+					title: '三级护理',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'cure',
+					title: '治疗',
+          align: 'center',
+					width: 90,
+          sortable: true
+				},
+        {
+					key: 'nursingRecord',
+					title: '护理记录',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'admissionAssess',
+					title: '入院评估',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'inHospitalAssess',
+					title: '住院评估',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'riskAssess',
+					title: '风险评估',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'healthEducation',
+					title: '健康宣教',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'nursingVisit',
+					title: '护理巡视',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+      ]
     };
   },
   computed: {
@@ -119,168 +249,35 @@ export default {
             return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
           }
         }
+
       let obj = {
         dept: [
           {
             key: 'wardName',
             title: '病区',
             align: 'center',
-            width: 70,
+            width: 150,
           }
         ],
         nurse: [
           {
-            key: 'it0',
+            key: 'empName',
             title: '护士',
             align: 'center',
             width: 70,
           },
           {
-            key: 'it2',
+            key: 'hierarchy',
             title: '层级',
             align: 'center',
             width: 70,
           },
         ]
       }
-      let other = [
-        {
-					key: 'i1',
-					title: '静脉输液',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i2',
-					title: '更换液体',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i3',
-					title: '皮试',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'i4',
-					title: '注射',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'i5',
-					title: '雾化',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'i6',
-					title: '标本',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'i7',
-					title: '重症监护',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i8',
-					title: '病危（重）',
-          align: 'center',
-					width: 130,
-          sortable: true
-				},
-        {
-					key: 'i9',
-					title: '特级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i10',
-					title: '一级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i11',
-					title: '二级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i12',
-					title: '三级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i13',
-					title: '治疗',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'i14',
-					title: '护理记录',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i15',
-					title: '入院评估',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i16',
-					title: '住院评估',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i17',
-					title: '风险评估',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i18',
-					title: '健康宣教',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'i19',
-					title: '护理巡视',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-      ]
+
       let curItem = searchItem(WORKLOAD_BAR1, this.type1, 'key')
 
-      return [firstItem, ...(curItem ? obj[curItem.code] || [] : []), ...other]
+      return [firstItem, ...(curItem ? obj[curItem.code] || [] : []), ...this.otherColumns]
 
     },
     options() {
@@ -312,7 +309,7 @@ export default {
         xAxis: {
           name: '',
           type: 'category',
-          data: this.chartData.map(v => v.name),
+          data: this.chartData.map(v => v.title),
           axisLabel: {
             rotate: 30,
           }
@@ -332,8 +329,7 @@ export default {
                 color: 'rgb(113, 186, 149)',
                 label: {
                   show: true,
-                  distance: -20,
-                  color: '#fff',
+                  color: '#000',
                   position: 'top',
                 },
               }
@@ -341,14 +337,26 @@ export default {
           },
         ]
       }
+    },
+    // 图表数据
+    chartData() {
+      let arr = [ ...this.otherColumns]
+      if (this.tableData.length > 0) {
+        this.tableData.map(item => {
+          arr.map(v => {
+            v.val = Number(item[v.key]) + (v.val | 0)
+          })
+        })
+        return arr
+      }
+      return []
     }
   },
   watch: {
     type1(v) {
-      this.getData()
+      this.handleQuery({themeName: searchItem(WORKLOAD_BAR1, v, 'code')['themeName']|| ''})
     },
     type2(v) {
-      this.getData()
     },
   },
   mounted() {
@@ -360,6 +368,7 @@ export default {
       this.type1 = v1
       this.type2 = v2
     },
+    searchItem,
   },
   components: {
     SearchCon,

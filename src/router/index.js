@@ -1387,7 +1387,8 @@ const router = new Router({
         name: "statisticalQuery",
         component: statisticalQuery,
         redirect: {
-          name: "statisticalExitAdmission"
+          // name: "statisticalExitAdmission"
+          name: "statisticalWorkload"
         },
         children: [
           {

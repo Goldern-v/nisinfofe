@@ -502,7 +502,7 @@
       &nbsp;&nbsp;&nbsp;光疗情况：①安睡 ②哭闹烦燥 ③尖叫 ④体温异常 ⑤皮疹；&nbsp; &nbsp;&nbsp;&nbsp;光疗护理：①戴眼罩，保护外阴，戴手套脚套；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;对光反射：灵敏(+) 迟钝(±) 消失(-)；<br/>
       &nbsp;&nbsp;&nbsp;瞳孔判断：单位㎜；&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肤&nbsp;&nbsp;色：①红润 ②黄染 ③苍白 ④苍灰 ⑤干燥 ⑥紫绀；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;哭&nbsp;&nbsp;声：①响 ②弱 ③呻吟；<br/>  
       &nbsp;&nbsp;&nbsp;留 置 针：①正常 ②拔除 ③重置；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肛周皮肤：①正常 ②皮疹 ③潮红 ④破溃、脱皮 ⑤糜烂；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;喂养方式：①自吮 ②饲奶；<br/>
-      &nbsp;&nbsp;&nbsp;吸氧方式：① 鼻导管 ② 面罩 ③ CPAP ④ 有创通气       
+      &nbsp;&nbsp;&nbsp;吸氧方式：①鼻导管 ②面罩 ③CPAP ④有创通气       
     </div>
     <!-- 顺德龙江 - 护理记录单（颅脑外科）-->
     <div v-if="sheetInfo.sheetType == 'craniocerebral_sdlj'">
@@ -514,7 +514,7 @@
     </div>
     <!-- 顺德龙江 - 儿科护理记录单-->
     <div v-if="sheetInfo.sheetType == 'pediatrics_sdlj'">
-      说明：<strong>意识判断</strong>：①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏睡 ⑥谵妄&nbsp;&nbsp;&nbsp;&nbsp;<strong>瞳&nbsp;&nbsp;孔</strong>：大小用阿拉伯数字表示，单位mm，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>对光反射</strong>：灵敏（+） 迟钝（±） 消失（-）<br/>
+      说明：<strong>意识判断</strong>：①清醒 ②嗜睡 ③昏睡 ④模糊 ⑤昏迷 ⑥谵妄&nbsp;&nbsp;&nbsp;&nbsp;<strong>瞳&nbsp;&nbsp;孔</strong>：大小用阿拉伯数字表示，单位mm，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>对光反射</strong>：灵敏（+） 迟钝（±） 消失（-）<br/>
       &nbsp;&nbsp;&nbsp;<strong>吸氧方式</strong>：①鼻导管 ②面罩 ③CPAP ④有创通气&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>清洁护理</strong>：①沐浴 ②床上擦浴 ③口腔护理 ④臀部护理 ⑤更衣&nbsp; <strong>气道护理</strong>：①雾化吸入  ②气道吸痰 ③口鼻腔吸痰<br/>
       &nbsp;&nbsp;&nbsp;<strong>物理降温</strong>：①温水浴 ②冰敷 ③酒精擦浴 ④退热贴&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>饮食护理</strong>：①全流 ②半流 ③普食 ④少量多餐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>咳&nbsp;&nbsp;嗽</strong>：①刺激性干咳 ②咳嗽时闻及痰音 ③犬吠样咳<br/>
       &nbsp;&nbsp;&nbsp;<strong>小&nbsp;&nbsp;便</strong>：①正常 ②尿路刺激症 ③洗肉水样 ④酱油样 ⑤血尿
