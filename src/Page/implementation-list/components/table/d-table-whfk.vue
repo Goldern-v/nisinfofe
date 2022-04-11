@@ -11,7 +11,7 @@
       :row-height="rowHeight"
       ref="retest"
       @selection-change="handleSelectionChange"
-    >
+     >
       <u-table-column type="selection" width="55"></u-table-column>
       <u-table-column prop="executeDateTime" label="计划执行时间" min-width="140px" align="center" >
         <template slot-scope="scope" :title="(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm">
@@ -79,7 +79,7 @@
             :class="{
               yzx: scope.row.executeFlag == 2
               }"
-           :title="scope.row.executeFlag == 2 ? '已执行' : '未执行'">{{ scope.row.executeFlag == 2 ? '已执行' : '未执行' }}</span>
+           :title="forMatExecuteFlag(scope.row.executeFlag)">{{ forMatExecuteFlag(scope.row.executeFlag) }}</span>
         </template>
       </u-table-column>
 
@@ -91,7 +91,7 @@
 
       <u-table-column prop="executeNurseName" title="executeNurseName" label="执行护士" min-width="80px" align="center">
       <template slot-scope="scope">
-          <span :title="scope.row.executeNurseName | ymdhms">{{scope.row.executeNurseName | ymdhms}}</span>
+          <span :title="scope.row.executeNurseName | ymdhms">{{scope.row.executeNurseName}}</span>
         </template>
       </u-table-column>
 
@@ -125,7 +125,7 @@
       </u-table-column>
       <u-table-column prop="stopDateTime" label="结束输液护士" min-width="160px" align="center">
         <template slot-scope="scope">
-          <span :title="scope.row.endInfusionNurse | ymdhms">{{scope.row.endInfusionNurse | ymdhms}}</span>
+          <span :title="scope.row.endInfusionNurse | ymdhms">{{scope.row.endInfusionNurse}}</span>
         </template>
       </u-table-column>
        <u-table-column label="操作" min-width="100px" align="center">
@@ -144,7 +144,7 @@
           <el-button
             type="text"
             @click="editTime(item)"
-            
+
             v-if="
               isEdit &&
               ((item.executeFlag > 0) ||
@@ -312,6 +312,28 @@ export default {
     };
   },
   methods: {
+      forMatExecuteFlag(flag){
+       switch (Number(flag)) {
+            case 0:
+              return '未执行'
+            case 1:
+              return '执行中'
+            case 2:
+              return '已完成'
+            case 3:
+              return '暂停'
+            case 4:
+              return '继续'
+            case 5:
+              return '取消'
+            case 6:
+              return '巡视'
+            case 7:
+              return '送出'
+              default:
+              return ''
+          }
+    },
     rowcb(obj){
       // 如果该条执行单是一组多条的 或者该执行单是已完成的隐藏当前多选框
       if(obj.row.rowType > 1 || obj.row.executeFlag == 2){
@@ -323,9 +345,8 @@ export default {
     },
      // 取消执行
     cancelOrderExecute(item){
-      
+
       let user = JSON.parse(localStorage.getItem('user'))
-      // console.log(user);
       if(!["护长",'护士长'].includes(user.job)){
         this.$message.error('没有权限！')
       }else{
@@ -337,7 +358,6 @@ export default {
             let { empNo } = user
             let { barCode } = item
             let cancelReason = value
-            console.log(cancelReason);
             cancelOrderExecuteApi({
               empNO:empNo,
               barcode:barCode,
@@ -351,7 +371,7 @@ export default {
               this.$message.success(err.data.desc)
           });
       }
-      
+
     },
     // 补录
     backTracking(item) {
@@ -379,6 +399,7 @@ export default {
     editTime(data) {
       this.$refs.editModal.open(data);
     },
+
   },
   filters: {
     ymdhm(val) {

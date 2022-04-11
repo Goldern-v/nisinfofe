@@ -525,7 +525,9 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
+        if (this.query.entryTime && this.query.entryDate) {
         this.getList();
+        }
       },
       deep: true,
     },
