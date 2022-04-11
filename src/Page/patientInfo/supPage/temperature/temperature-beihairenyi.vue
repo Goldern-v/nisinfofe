@@ -43,6 +43,7 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .new-singleTemperature-chart {
   position: relative;
+  overflow hidden;
 .flag-con {
       width: 10px;
       height: 73px;

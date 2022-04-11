@@ -242,7 +242,7 @@ export default {
       }, 0);
     },
     getHeight() {
-      this.contentHeight.height = window.innerHeight - 110 + "px";
+      this.contentHeight.height = window.innerHeight - (this.$route.path.includes('nursingPreview')?40:100) + "px";
     },
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);

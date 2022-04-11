@@ -97,7 +97,7 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         "http://192.167.199.191:9091/temperature/#/" /* 医院正式环境内网 导致跨域,
-      "http://localhost:8081/#/" /* 医院正式环境内网 */,
+      "http://192.168.1.75:8080/#/" /* 医院正式环境内网 */,
       printAllUrl:
         "http://192.167.199.191:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       // "http://192.168.1.75:8080/#/printAll" /* 医院正式环境内网 */,
@@ -193,7 +193,7 @@ export default {
       }, 0);
     },
     getHeight() {
-      this.contentHeight.height = window.innerHeight - 110 + "px";
+      this.contentHeight.height = window.innerHeight - (this.$route.path.includes('nursingPreview')?40:100) + "px";
     },
     messageHandle(e) {
       if (e && e.data) {

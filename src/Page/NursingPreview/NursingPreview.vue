@@ -46,9 +46,10 @@
 }
 
 .NursingPreview {
+  overflow hidden;
   .right-part {
     >>> #sheet_body_con {
-      height: calc(100vh - 64px) !important;
+      height: calc(100vh - 0px) !important;
     }
     >>> .sheetTable-contain {
         input {
@@ -99,13 +100,12 @@ export default {
   data() {
     return {
       bus: bus(this),
-      otherComponent: null
+      otherComponent: null,
     };
   },
   created() {
     // 获取患者信息
     this.getPatientInfo();
-
     this.$store.commit("closeFullPageRecord");
     this.bus.$on("openOtherForm", data => {
       this.otherComponent =
