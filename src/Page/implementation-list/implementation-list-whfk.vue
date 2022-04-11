@@ -250,7 +250,7 @@ export default {
         : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : "*";
       getExecuteWithWardcode(this.query).then((res) => {
-        let tableData = res.res.data.map((item, index, array) => {
+        let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
             array[index - 1].patientId +
