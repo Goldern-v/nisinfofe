@@ -355,7 +355,6 @@
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
-  border: 1px solid #000;
 
   // &.remarkCon
   .qr-code {
