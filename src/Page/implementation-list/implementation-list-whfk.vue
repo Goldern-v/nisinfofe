@@ -104,12 +104,12 @@
             :disabled="status == '已执行'"
             >全选</el-button
           >
-          <el-button
+          <!-- <el-button
             size="small"
             @click="middleware"
             :disabled="status == '已执行'"
             >执行</el-button
-          >
+          > -->
         </div>
       </div>
       <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>

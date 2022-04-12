@@ -409,6 +409,12 @@ export default {
       return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : "";
     }
   },
+ mounted() {
+    this.isEdit =
+      JSON.parse(localStorage.user)
+        ? true
+        : false;
+  },
   components: {}
 };
 </script>
