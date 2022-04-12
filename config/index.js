@@ -174,8 +174,8 @@ const currentTargetUrl = (() => {
     case 'yangchunzhongyi':  //阳春
       return "http://192.168.1.54:9866" // 默认公司本地内网厚街
     case 'whyx':  //武汉亚心
-      // return "http://192.168.1.54:9866" // 武汉亚心
-      return "http://202.103.135.130:4514"
+      return "http://192.168.1.54:9866" // 武汉亚心
+      
     case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
       return "http://192.168.1.54:9884" // 武汉肺科
       // return "http://192.168.3.227:8080" // 初升本地
