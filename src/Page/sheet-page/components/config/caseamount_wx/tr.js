@@ -24,6 +24,9 @@ import { multiDictInfo } from "../../../api/index";
       value: "",
       event: keyf1,
       name: "静脉性质",
+      autoComplete: {
+      data: ["5%葡萄糖","10%葡萄糖","生理盐水","甘露醇","白蛋白","血液制品","其他"]
+    },
       change: (e, td) => limitChange(e, td, 12),
       textarea: {
         width: 90
@@ -66,6 +69,9 @@ import { multiDictInfo } from "../../../api/index";
       value: "",
       event: keyf1,
       name: "尿液性质",
+      autoComplete: {
+        data: ["淡黄色", "深黄色", "血尿", "酱油色", "混浊色",]
+      },
       textarea: {
         width: 90
       },

@@ -1467,7 +1467,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "areageneral_fs"||this.sheetInfo.sheetType === "pediatric_fs"||this.sheetInfo.sheetType === "pupilgeneral_fs"||this.sheetInfo.sheetType === "labor_bh"||this.sheetInfo.sheetType === "department_bh"||this.sheetInfo.sheetType === "cardiac_lcey"||this.sheetInfo.sheetType === "labor_lcey") {
+          }else if (this.sheetInfo.sheetType === "areageneral_fs"||this.sheetInfo.sheetType === "pediatric_fs"||this.sheetInfo.sheetType === "pupilgeneral_fs"||this.sheetInfo.sheetType === "labor_bh"||this.sheetInfo.sheetType === "department_bh"||this.sheetInfo.sheetType === "cardiac_lcey"||this.sheetInfo.sheetType === "labor_lcey"||this.sheetInfo.sheetType === "caseamount_wx") {
             if (GetLength(text) > 36) {
               result.push(text);
               text = allDoc[i];
