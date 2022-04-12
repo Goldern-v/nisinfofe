@@ -53,8 +53,7 @@ const currentTargetUrl = (() => {
       // return "http://wxzf.hbwxrmyy.com:9093" //威县正式 admin  ad123456
       return "http://192.168.1.54:9865" // 公司-威县测试-内网
 
-    /** 陵城正式 */+
-    0
+    /** 陵城正式 */
     case "lingcheng":
       // return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
       // return "https://info.cr-health.com:20204" // 公司-陵城测试-外网
