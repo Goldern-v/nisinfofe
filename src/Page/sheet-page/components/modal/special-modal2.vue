@@ -1481,7 +1481,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "revivemonitoring_bh") {
+          }else if (this.sheetInfo.sheetType === "revivemonitoring_bh"||this.sheetInfo.sheetType === "emergency_treat_yx") {
             if (GetLength(text) > 42) {
               result.push(text);
               text = allDoc[i];

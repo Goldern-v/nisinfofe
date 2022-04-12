@@ -529,7 +529,7 @@ export default {
         `
       );
     }
-    if (this.HOSPITAL_ID == "weixian"||this.HOSPITAL_ID == "whyx") {
+    if (this.HOSPITAL_ID == "weixian") {
       addCSS(
         window,
         `
@@ -592,6 +592,19 @@ export default {
        }
         `
       );
+      //亚心打印
+      if (
+      (this.HOSPITAL_ID === "whyx") 
+      ) {
+      addCSS(
+        window,
+        `
+           img{
+              transform: scale(0.8);
+            }
+        `
+      );
+    }
       if (sheetInfo.sheetType == "Record_Children_Serious_Lc") {
         addCSS(
           window,
