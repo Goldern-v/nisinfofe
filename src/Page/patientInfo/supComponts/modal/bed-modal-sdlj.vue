@@ -191,12 +191,6 @@
   border: 0;
   padding: 0;
 }
-.input-item-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 10px;
-}
-
 .qr-code-item {
   height: 40px;
   padding-right: 12px;
@@ -235,6 +229,13 @@
       }
     }
   }
+}
+
+.input-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  width: auto
 }
 
 input[type='checkbox'] {
