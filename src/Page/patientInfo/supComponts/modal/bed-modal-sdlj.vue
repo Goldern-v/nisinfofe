@@ -38,7 +38,7 @@
                   style="font-size: 26px;width:200px"
                   flex-box="1"
                   class="bottom-line"
-                  v-model="qrCodeNum"
+                  v-model="query.patientId"
                 />
               </div>
               <div class="bedNum">{{query.bedLabel + '床'}}</div>
@@ -536,6 +536,9 @@ export default {
           break;
         case "hengli":
           qr_png_value = this.query.expand1;
+          break;
+        case "sdlj":
+          qr_png_value = "ZY" + this.query.patientId;
           break;
         default:
           qr_png_value = this.query.patientId;
