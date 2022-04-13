@@ -514,7 +514,8 @@ export default {
         this.HOSPITAL_ID == "huadu" ||
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "zhongshanqi" ||
-        this.HOSPITAL_ID == "foshanrenyi"
+        this.HOSPITAL_ID == "foshanrenyi" ||
+        this.HOSPITAL_ID == "weixian"
       ) {
         // 文件夹
         // 责任 + 审核的情况
@@ -598,17 +599,17 @@ export default {
         }
       } else {
         // 文件夹
-        if (hasSave && this.HOSPITAL_ID !== "weixian") {
+        if (hasSave) {
           box = fileboxRed;
-        } else if (hasSign && this.HOSPITAL_ID !== "weixian") {
+        } else if (hasSign) {
           box = fileboxGreen;
         } else {
           box = filebox;
         }
         // 内容
-        if (fileHasSave && this.HOSPITAL_ID !== "weixian") {
+        if (fileHasSave) {
           icon = fileiconRed;
-        } else if (fileHasSign && this.HOSPITAL_ID !== "weixian") {
+        } else if (fileHasSign) {
           icon = fileiconGreen;
         } else {
           icon = fileicon;

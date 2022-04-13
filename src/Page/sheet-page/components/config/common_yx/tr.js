@@ -57,7 +57,7 @@ import {
     { key: 'lying', event: keyf1, value: '', next: '', name: '卧位',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'compressedSkin', event: keyf1, value: '', next: '', name: '受压皮肤',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'inputReserve', event: keyf1, value: '', next: 'ml', name: '入量项目(备用量)',textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'practicalAmount', event: keyf1, value: '', next: 'ml', name: '入量量',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
+    { key: 'practicalAmount', event: keyf1, value: '', next: 'ml', name: '入量实用量',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'outputItem', event: keyf1, value: '', next: '', name: '出量项目',textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
     { key: 'outputQuantity', event: keyf1, value: '', next: 'ml', name: '量',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'measures', event: keyf1, value: '', next: '', name: '护理措施',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 14), autoComplete: { data: ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19'] },splice:true},
