@@ -35,8 +35,8 @@ export default {
             { "name": "心电监护", "colspan": "1", "rowspan": "3"}, 
             { "name": "吸氧方式<br/>(L/min)", "colspan": "1", "rowspan": "3"}, 
             { "name": "跌倒评估", "colspan": "1", "rowspan": "3"}, 
-            { "name": "护记观察及签名", "colspan": "1", "rowspan": "3", style: { minWidth: "280px",  maxWidth: "240px"}, }, 
-            { "name": "签名", "colspan": "1", "rowspan": "3",style: { minWidth: "80px",  maxWidth: "80px"},}
+            { "name": "护理观察及记录", "colspan": "1", "rowspan": "3", style: { minWidth: "280px",  maxWidth: "240px"}, }, 
+            { "name": "签名 ", "colspan": "1", "rowspan": "3",style: { minWidth: "60px",  maxWidth: "60px"},}
          ]
         , 
         mid:  

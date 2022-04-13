@@ -404,6 +404,24 @@ export default {
       this.getSugarItemDict();
   },
   async  saveActiveSugar(){
+    if(this.HOSPITAL_ID==='whfk'){
+      if(!this.selected.sugarItem){
+        this.$message({
+          message: '请填写项目再保存',
+          type: 'error',
+          duration:"1500"
+        })
+        return
+      }
+      if(!this.selected.sugarValue){
+        this.$message({
+          message: '请填写血糖值再保存',
+          type: 'error',
+          duration:"1500"
+        })
+        return
+      }
+    }
     const user=JSON.parse(localStorage.getItem("user"))
        let item = {
         patientId: this.patientInfo.patientId,

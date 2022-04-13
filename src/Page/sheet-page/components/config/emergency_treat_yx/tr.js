@@ -69,6 +69,5 @@
     { hidden:true, key:'auditorName', value:''},
     { hidden:true, key:'empNo', value:''},
     { hidden:true, key:'multiSign', value:''}
-    
   ]
   
