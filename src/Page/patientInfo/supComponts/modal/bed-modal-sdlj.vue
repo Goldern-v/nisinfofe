@@ -15,7 +15,7 @@
         >
           
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
-            <div flex="cross:center" class="qr-code-item" style="height:140px;">
+            <div flex="cross:center" class="qr-code-item" style="height:150px;">
               <p class="name">{{query.name}}</p>
               <img
                 class="qr-code"
@@ -29,13 +29,13 @@
               <div>{{wardName}}</div>
 
             </div>
-            <div flex="cross:center" class="input-item" style="width:auto">
+            <div flex="cross:center" class="input-item" style="width:auto;height:50px">
               <div style="display:flex">
-                <span class="label" style="width:100px">住院号:</span>
+                <span class="label">住院号:</span>
                 <input
                   type="text"
                   nowidth
-                  style="font-size: 26px;width:250px"
+                  style="font-size: 26px;width:200px"
                   flex-box="1"
                   class="bottom-line"
                   v-model="qrCodeNum"
@@ -106,11 +106,11 @@
   margin: 20px;
   width: 511px;
   height: 335px;
-  padding: 5px 8px;
+  // padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
-  border: 1px solid #000;
+  // border: 1px solid #000;
   height: 370px;
 
   .bed-card-con-top{
@@ -118,18 +118,19 @@
   }
   // &.remarkCon
   .name{
-    height:140px;
-    line-height: 140px;
-    width: 350px;
+    line-height: 160px;
+    height: 160px;
+    width: 360px;
     text-align: center;
-    font-size: 70px;
+    font-size: 90px;
+    z-index: 10;
   }
   .qr-code {
     position: absolute;
-    top: -10px;
-    right: -15px;
-    height: 150px;
-    width: 150px;
+    top: -25px;
+    right: -25px;
+    height: 200px;
+    width: 200px;
 
     &.hasRemark {
       width: 96px;
@@ -173,10 +174,10 @@
   top: 0;
   right: 10px;
   min-width: 100px;
-  font-size: 40px;
+  font-size: 50px;
   text-align: right;
-  height: 40px;
-  line-height: 40px;
+  height: 50px;
+  line-height: 50px;
 }
 
 .remark {
@@ -217,9 +218,9 @@
 
 .input-item {
   height: 40px;
-  width: 360px;
+  width: 390px;
   padding-right: 12px;
-  font-size: 22px;
+  font-size: 30px;
   font-weight: bold;
   position: relative;
   margin-left: 10px;
@@ -339,7 +340,7 @@ input[type='checkbox']:checked:after {
   margin-right: 2px;
   line-height: 32px;
   white-space: nowrap;
-  width: 100px;
+  width: 130px;
   text-align: right;
 }
 
