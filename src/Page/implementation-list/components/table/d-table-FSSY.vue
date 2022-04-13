@@ -78,9 +78,13 @@
         <template slot-scope="scope">
           <span
             :class="{
-              yzx: scope.row.executeFlag == 2
-              }"
-           :title="scope.row.executeFlag == 2 ? '已执行' : '未执行'">{{ scope.row.executeFlag == 2 ? '已执行' : '未执行' }}</span>
+              yzx: scope.row.executeFlag == 2,
+              zxz: scope.row.executeFlag == 1,
+              wzx: scope.row.executeFlag == 0
+            }"
+           :title="scope.row.executeFlag == 2 ? '已执行' : (scope.row.executeFlag == 1 ? '执行中' :'未执行')">
+           {{ scope.row.executeFlag == 2 ? '已执行' : (scope.row.executeFlag == 1 ? '执行中' :'未执行') }}
+          </span>
         </template>
       </u-table-column>
 
@@ -156,11 +160,14 @@
       white-space: normal !important;
 
       .yzx {
-        color: red;
+        color: green;
       }
 
       .zxz {
         color: blue;
+      }
+      .wzx {
+        color: red;
       }
     }
 
