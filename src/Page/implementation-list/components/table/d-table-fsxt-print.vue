@@ -129,16 +129,20 @@
         label="长/临"
         min-width="70px"
         align="center"
-      ></el-table-column>
+      >
+        <template slot-scope="scope">
+          <span :title="scope.row.repeatIndicator == 1 ? '长期' : '临时'">{{scope.row.repeatIndicator == 1 ? '长期' : '临时'}}</span>
+        </template>
+      </el-table-column>
       <el-table-column
-        prop="orderTest"
+        prop="orderText"
         label="医生嘱托"
         min-width="70px"
         align="center"
       >
-      <template slot-scope="scope">
+      <!-- <template slot-scope="scope">
         <span>{{getExecuteFlag(scope.row.executeFlag)}}</span>
-      </template>
+      </template> -->
       </el-table-column>
       <el-table-column
         prop="dispenseNurse"

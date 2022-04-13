@@ -387,7 +387,7 @@ export default {
     
     async onPrint() {
       this.$nextTick(async () => {
-        await print.preview(this.$refs.printable, {
+        await print(this.$refs.printable, {
           beforePrint: formatter,
           injectGlobalCss: true,
           scanStyles: false,
