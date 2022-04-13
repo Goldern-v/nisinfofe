@@ -91,7 +91,7 @@
 
       <u-table-column prop="executeNurseName" title="executeNurseName" label="执行护士" min-width="80px" align="center">
       <template slot-scope="scope">
-          <span :title="scope.row.executeNurseName | ymdhms">{{scope.row.executeNurseName}}</span>
+          <span :title="scope.row.executeEndNurseName">{{scope.row.executeEndNurseName}}</span>
         </template>
       </u-table-column>
 
@@ -125,7 +125,7 @@
       </u-table-column>
       <u-table-column prop="stopDateTime" label="结束输液护士" min-width="160px" align="center">
         <template slot-scope="scope">
-          <span :title="scope.row.endInfusionNurse | ymdhms">{{scope.row.endInfusionNurse}}</span>
+          <span :title="scope.row.endInfusionNurse">{{scope.row.endInfusionNurse}}</span>
         </template>
       </u-table-column>
        <u-table-column label="操作" min-width="100px" align="center">
@@ -408,6 +408,12 @@ export default {
     ymdhms(val) {
       return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : "";
     }
+  },
+ mounted() {
+    this.isEdit =
+      JSON.parse(localStorage.user)
+        ? true
+        : false;
   },
   components: {}
 };
