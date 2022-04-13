@@ -162,6 +162,7 @@
     <bedModalZsq ref="bedModalZsq"></bedModalZsq>
     <bedModalBh ref="bedModalBh"></bedModalBh>
     <bedModalQz ref="bedModalQz"></bedModalQz>
+    <bedModalSDLJ ref="bedModalSDLJ"></bedModalSDLJ>
     <bedModalWhfk ref="bedModalWhfk"></bedModalWhfk>
     <printModal ref="printModal"></printModal>
     <archiveModal
@@ -303,6 +304,7 @@
 <script>
 import bedModal from "./modal/bed-modal.vue";
 import bedModalWujing from "./modal/bed-modal_wujing.vue";
+import bedModalSDLJ from "./modal/bed-modal-sdlj.vue";
 import bedModalWx from "./modal/bed-modal_wx.vue";
 import bedModalLc from "./modal/bed-modal_lc.vue";
 import bedModalLiaocheng from "./modal/bed-modal_liaocheng.vue";
@@ -346,8 +348,10 @@ export default {
     },
     // 床头卡打印
     openBedPrint(printMode) {
+      
       let hospital_left = {
         wujing:'bedModalWujing',
+        sdlj:'bedModalSDLJ',
         weixian:'bedModalWx',
         lingcheng:'bedModalLc',
         liaocheng:'bedModalLiaocheng',
@@ -424,6 +428,7 @@ export default {
     bedModalWx,
     bedModalWujing,
     bedModalLc,
+    bedModalSDLJ,
     bedModalLiaocheng,
     // bedModalNfzxy,
     archiveModal,
