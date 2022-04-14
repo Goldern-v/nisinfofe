@@ -206,8 +206,8 @@ export default {
         total: 0
       },
       // startDate: moment().format("YYYY-MM-DD"),
-      startDate: moment().format("YYYY-MM-DD")+' 07:00:00',
-      endDate: moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
+      startDate: process.env.HOSPITAL_ID=='whfk'? moment().format("YYYY-MM-DD")+' 00:00:00':moment().format("YYYY-MM-DD")+' 07:00:00',
+      endDate: process.env.HOSPITAL_ID=='whfk'?  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00' :  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
       repeatIndicator: "",
       type: "",
       status: "",
@@ -397,10 +397,11 @@ export default {
       // this.printResult(this.selectedData.length);
     },
     newOnPrint(){
-      let barcode = this.selectedData.map(item=>item.barcode).join('|')
+      let barCode = this.$_.uniqBy(this.selectedData.map(item=>item.barcode)).join('|')
+      // let barcode = this.selectedData.map(item=>item.barcode).join('|')
       let printObj = {}
-      getPrintListContent({barCode:barcode}).then(res=>{
-        let barcodes = barcode.split('|')
+      getPrintListContent({barCode}).then(res=>{
+        let barcodes = barCode.split('|')
         res.data.data.map(item=>{
           printObj[item.barCode] = printObj[item.barCode] || []
           printObj[item.barCode].push(item)

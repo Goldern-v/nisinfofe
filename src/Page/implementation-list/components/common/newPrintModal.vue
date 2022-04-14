@@ -14,27 +14,27 @@
                         <div>{{currentBottle.age ? currentBottle.age + '岁' : ''}}</div>
                     </div>
                     <div class="new-modal-top-left-second">
-                        <div style="text-indent:5px">执行日期:{{currentBottle.executeDate.substr(0,15)}}</div>
+                        <div style="text-indent:5px">执行日期:{{currentBottle.executeDate.substr(0,16)}}</div>
                         <div style="min-width:50px;">{{currentBottle.repeatIndicator | repeatIndicatorFilter}}</div>
-                    </div>
-                    <div class="new-modal-top-left-third">
-                        <div v-for="(item,index) in currentBottle.orderText" :key="index"  style="text-indent:5px">
-                            {{item}}
-                        </div>
                     </div>
                 </div>
                 <div class="new-modal-top-right">
                     <div class="new-modal-top-right-top">
                         <img :src="currentBottle.qcSrc || ''">
                     </div>
-                    <div class="new-modal-top-right-bottom">
+                    <!-- <div class="new-modal-top-right-bottom">
                         <div style="text-indent:5px" v-for="(item,index) in currentBottle.dosageDosageUnits" :key="index">
                             {{item}}
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="new-modal-bottom">
+                    <div class="new-modal-bottom-first">
+                        <div v-for="(item,index) in currentBottle.orderText" :key="index"  style="text-indent:5px">
+                            {{item}}
+                        </div>
+                    </div>
                 <!-- <div class="new-modal-bottom-first">
                     <div style="width:20%">配液者</div>
                     <div style="width:20%"></div>
@@ -92,11 +92,17 @@
     }
     .new-modal-top{
         display: flex;
-        height: 65%;
+        /* height: 65%; */
+        font-weight: 600;
+        div {
+            font-size: 13px;
+        }
         .new-modal-top-left{
             border: 1px solid #000;
+            border-bottom: none;
             box-sizing: border-box;
-            flex: 2;
+            /* flex: 2; */
+            width: calc(100% - 60px);
             .new-modal-top-left-first{
                 display: flex;
                 justify-content: center;
@@ -107,8 +113,11 @@
                 &>div{
                     text-align: center;
                     line-height: 28px;
-                    font-size: 18px;
-                    font-weight: 700;
+                    font-size: 21px;
+                    font-weight: 900;
+                }
+                div +div {
+                   margin-left: 8px;
                 }
             }
             .new-modal-top-left-second{
@@ -118,25 +127,26 @@
                 justify-content: space-between;
                 border-bottom: 1px solid #000;
                 box-sizing: border-box;
+                white-space: nowrap;
+                &:last-child {
+                    border-bottom: 0;
+                }
             }
-            .new-modal-top-left-third{
-                line-height: 16px;
-                height: 113px;
-                overflow: hidden;
-            }
+
         }
         .new-modal-top-right{
-            width: 68px;
+            width: 62px;
             // background-color: red;
-            border-bottom: 1px solid #000;
+            /* border-bottom: 1px solid #000; */
             border-right: 1px solid #000;
             border-top: 1px solid #000;
             .new-modal-top-right-top{
                 box-sizing: border-box;
-                border-bottom: 1px solid #000;
+                /* border-bottom: 1px solid #000; */
+                overflow: hidden;
                 img{
-                    width: 66px;
-                    width: 66px;
+                    width: 100%;
+                    height: 64px;
                     object-fit: cover;
                 }
             }
@@ -147,19 +157,26 @@
     }
     .new-modal-bottom{
         // background-color: yellow;
-        border-right: 1px solid #000;
+        border: 1px solid #000;
         display: flex;
         flex-direction:column;
-        .new-modal-bottom-first,
+        font-weight: 600;
+        width: 100%;
+        height: calc(100% - 68px);
+        box-sizing: border-box;
+        .new-modal-bottom-first {
+            line-height: 16px;
+            overflow: hidden;
+            height: calc(100% - 22px);
+        }
         .new-modal-bottom-second,
         .new-modal-bottom-third{
             width: 100%;
             display: flex;
             line-height: 21px;
-            div{
-                border-left: 1px solid #000;
-                border-bottom: 1px solid #000;
-                box-sizing: border-box;
+            border-top: 1px solid #000;
+            div:first-child {
+                border-right: 1px solid #000;
             }
             div:nth-of-type(2n+1){
                 text-align: center;
