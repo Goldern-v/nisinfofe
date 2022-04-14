@@ -112,8 +112,18 @@
           header-align="center"
           align="center"
           label="住院号"
-          prop="inpNo"
+          prop="patientId"
           min-width="160px"
+          v-if="HOSPITAL_ID=='huadu'"
+        ></el-table-column>
+
+        <el-table-column
+          header-align="center"
+          align="center"
+          label="住院号"
+          prop=inpNo
+          min-width="160px"
+          v-else
         ></el-table-column>
 
         <el-table-column
