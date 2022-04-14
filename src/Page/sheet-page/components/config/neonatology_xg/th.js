@@ -10,9 +10,9 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: "",
-  // style: {
-  //     width: "1200px"
-  //   },
+  style: {
+      width: "1180px"
+    },
   th: {
     top: [
       {
