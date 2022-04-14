@@ -57,11 +57,11 @@ import {
     { key: 'catheterColour', event: keyf1, value: '', next: '', name: '颜色',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'catheterTraits', event: keyf1, value: '', next: '', name: '性状',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'drugItem', event: keyf1, value: '', next: '', name: '药物项目',textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'drugQuantity', event: keyf1, value: '', next: '', name: '量ml',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
+    { key: 'drugQuantity', event: keyf1, value: '', next: '', name: '药物量ml',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'dietItems', event: keyf1, value: '', next: '', name: '饮食项目',textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'dietQuantity', event: keyf1, value: '', next: '', name: '量ml',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
+    { key: 'dietQuantity', event: keyf1, value: '', next: '', name: '饮食量ml',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'outputItem', event: keyf1, value: '', next: '', name: '出量项目',textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'outputQuantity', event: keyf1, value: '', next: '', name: '量ml',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
+    { key: 'outputQuantity', event: keyf1, value: '', next: '', name: '出量ml',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'measures', event: keyf1, value: '', next: '', name: '护理措施',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 8),autoComplete: { data: ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16'] },splice:true },
     {
       key: "description", //特殊情况记录

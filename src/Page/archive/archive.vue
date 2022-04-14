@@ -112,8 +112,18 @@
           header-align="center"
           align="center"
           label="住院号"
-          prop="inpNo"
+          prop="patientId"
           min-width="160px"
+          v-if="HOSPITAL_ID=='huadu'"
+        ></el-table-column>
+
+        <el-table-column
+          header-align="center"
+          align="center"
+          label="住院号"
+          prop=inpNo
+          min-width="160px"
+          v-else
         ></el-table-column>
 
         <el-table-column
@@ -557,9 +567,11 @@ export default {
   },
   mounted() {
     this.tablesHeight();
-    if (!this.query.dischargeDateBegin) {
+    if(!this.query.dischargeDateBegin && this.HOSPITAL_ID == 'beihairenyi') {
+      this.query.dischargeDateBegin = this.getDateStr(-7);
+    } else if (!this.query.dischargeDateBegin) {
       this.query.dischargeDateBegin = this.getDateStr(-2);
-    }
+    } 
     this.query.dischargeDateEnd = this.query.dischargeDateEnd
       ? this.query.dischargeDateEnd
       : moment().format("YYYY-MM-DD");
