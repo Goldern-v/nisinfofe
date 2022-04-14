@@ -397,10 +397,11 @@ export default {
       // this.printResult(this.selectedData.length);
     },
     newOnPrint(){
-      let barcode = this.selectedData.map(item=>item.barcode).join('|')
+      let barCode = this.$_.uniqBy(this.selectedData.map(item=>item.barcode)).join('|')
+      // let barcode = this.selectedData.map(item=>item.barcode).join('|')
       let printObj = {}
-      getPrintListContent({barCode:barcode}).then(res=>{
-        let barcodes = barcode.split('|')
+      getPrintListContent({barCode}).then(res=>{
+        let barcodes = barCode.split('|')
         res.data.data.map(item=>{
           printObj[item.barCode] = printObj[item.barCode] || []
           printObj[item.barCode].push(item)
