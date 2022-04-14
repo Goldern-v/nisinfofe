@@ -129,7 +129,7 @@ function print(source, beforePrint, selfShow) {
   iframeDocument.body.appendChild(clonedEl);
   iframeDocument.body.style.width = "6cm";
   iframeDocument.body.style.height = "8cm";
-  iframeDocument.body.style.paddingLeft = "10px";
+  iframeDocument.body.style.paddingLeft = "-10px";
   // iframeDocument.body.style.height = "3200px";
   // iframeDocument.body.style.width = "3200px";
   const images = iframeDocument.querySelectorAll("img[src]");
