@@ -6,6 +6,18 @@
       <p for class="name-title" flex="main:justify">
         <span>设置自定义标题</span>
         <span
+          v-if="HOSPITAL_ID == 'foshanrenyi'"
+          style="
+            color: #284fc2;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 400;
+          "
+          @click="openTitleTemplateSildeFS"
+          >+模板</span
+        >
+        <span
+          v-else
           style="
             color: #284fc2;
             cursor: pointer;
@@ -24,6 +36,14 @@
           :fetch-suggestions="querySearch"
           placeholder="输入标题名称"
         ></el-autocomplete>
+        <el-select v-model="sonValue" placeholder="请选择" style="width: 100%;margin-top:20px;">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -33,6 +53,7 @@
       </div>
     </sweet-modal>
     <titleTemplateSlide ref="titleTemplateSlide"></titleTemplateSlide>
+    <titleTemplateSlideFS ref="titleTemplateSlideFS"></titleTemplateSlideFS>
   </div>
 </template>
 
@@ -48,6 +69,7 @@
 import { listItem } from "../../api/recordDesc";
 import sheetInfo from "../config/sheetInfo/index.js";
 import titleTemplateSlide from "../modal/title-template-slide";
+import titleTemplateSlideFS from "../modal/title-template-slide-fssy";
 import { showTitle } from "@/api/sheet.js";
 import bus from "vue-happy-bus";
 export default {
@@ -57,6 +79,8 @@ export default {
       title: "",
       callback: "",
       cellObj: null,
+      options:[], //子自定义下拉选择
+      sonValue:[], //子自定义内容
     };
   },
   methods: {
@@ -87,6 +111,7 @@ export default {
     },
     onClose() {
       this.$refs.titleTemplateSlide.close();
+      this.$refs.titleTemplateSlideFS.close();
     },
     async querySearch(queryString, cb) {
       if (this.cellObj && this.cellObj.titleList) {
@@ -132,6 +157,9 @@ export default {
     openTitleTemplateSilde() {
       this.$refs.titleTemplateSlide.open();
     },
+    openTitleTemplateSildeFS() {
+      this.$refs.titleTemplateSlideFS.open();
+    },
   },
   created() {
     this.bus.$on("addTitleTemplate", (name) => {
@@ -140,6 +168,7 @@ export default {
   },
   components: {
     titleTemplateSlide,
+    titleTemplateSlideFS,
   },
 };
 </script>
