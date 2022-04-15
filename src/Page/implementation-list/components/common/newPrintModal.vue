@@ -1,11 +1,11 @@
 <template>
-    <div :style="{width:`${newModalSize.split('*')[1]=='8'?'8':'10'}cm`,height:`5.7cm`}">
+    <div :style="{width:`${newModalSize.split('*')[1]=='8'?'8':'10'}cm`,height:`${newModalSize=='6*8' ? '5.9' : '5.7'}cm`}">
         <div v-if="newModalSize=='6*8'" class="new-print-modal" style="width:8cm,height:5.7cm">
             <div class="new-modal-top">
                 <div class="new-modal-top-left">
                     <div class="new-modal-top-left-first">
                         <div>{{currentBottle.name}}</div>
-                        <div>{{currentBottle.bedLabel}}</div>
+                        <div>{{currentBottle.bedLabel ? currentBottle.bedLabel + '床' : ''}}</div>
                     </div>
                     <div class="new-modal-top-left-second">
                         <div style="text-indent:5px">{{currentBottle.deptName}}</div>
@@ -98,8 +98,7 @@
             font-size: 13px;
         }
         .new-modal-top-left{
-            border: 1px solid #000;
-            border-bottom: none;
+            border-right: 1px solid #000;
             box-sizing: border-box;
             /* flex: 2; */
             width: calc(100% - 60px);
@@ -107,13 +106,13 @@
                 display: flex;
                 justify-content: center;
                 box-sizing: border-box;
-                height: 28px;
+                height: 30px;
                 // background-color: #000;
                 border-bottom: 1px solid #000;
                 &>div{
                     text-align: center;
-                    line-height: 28px;
-                    font-size: 21px;
+                    line-height: 29px;
+                    font-size: 25px;
                     font-weight: 900;
                 }
                 div +div {
@@ -138,8 +137,8 @@
             width: 62px;
             // background-color: red;
             /* border-bottom: 1px solid #000; */
-            border-right: 1px solid #000;
-            border-top: 1px solid #000;
+            /* border-right: 1px solid #000; */
+            /* border-top: 1px solid #000; */
             .new-modal-top-right-top{
                 box-sizing: border-box;
                 /* border-bottom: 1px solid #000; */
@@ -157,14 +156,18 @@
     }
     .new-modal-bottom{
         // background-color: yellow;
-        border: 1px solid #000;
+        border-top: 1px solid #000;
         display: flex;
         flex-direction:column;
-        font-weight: 600;
+        font-weight: 700;
         width: 100%;
         height: calc(100% - 68px);
         box-sizing: border-box;
         .new-modal-bottom-first {
+            div {
+                line-height: 18px;
+                font-size: 15px;
+            }
             line-height: 16px;
             overflow: hidden;
             height: calc(100% - 22px);
