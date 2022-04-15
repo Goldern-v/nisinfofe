@@ -156,10 +156,10 @@ const currentTargetUrl = (() => {
 
     // 佛山市医
      case 'foshanrenyi':
-      return "https://cr.fsyyy.com:9094"  // 正式外网地址
+      // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://219.159.198.37:9094"  // 正式地址
       // return "https://cr.fsyyy.com:9094"  // 正式地址
-      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
 
     // 福清妇幼保健院
     case 'fqfybjy':

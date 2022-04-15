@@ -59,7 +59,7 @@
           </el-row> -->
           <span class="label">医嘱分类:</span>
           <el-select
-            v-model="query.executeType"
+            v-model="query.itemType"
             placeholder="请选择"
             size="small"
             style="width: 150px"
@@ -213,7 +213,7 @@ export default {
       test: "",
       query: {
         wardCode: "",
-        executeType: "输液", //医嘱类别，输液、雾化
+        itemType: "输液", //医嘱类别，输液、雾化
         // itemType: "输液", //医嘱类别，输液、雾化
         executeDate: moment().format("YYYY-MM-DD"), //执行日期
         bedLabel: "", //床位号，如果查全部传*"
