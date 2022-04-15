@@ -269,7 +269,7 @@
               v-if="td.value"
               :style="!td.value && { opacity: 0 }"
               :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
-              :class="{ xiegangSignImg: sheetInfo.sheetType === 'common_xg' || HOSPITAL_ID==='wujing'}"
+              :class="{ xiegangSignImg: sheetInfo.sheetType === 'common_xg'||sheetInfo.sheetType === 'neonatology_xg' || HOSPITAL_ID==='wujing'}"
               alt
             />
           </div>
