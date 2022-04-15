@@ -192,7 +192,7 @@
     }
   }
   strong{
-    text-shadow:0.15pt 0px 0px black,0.25pt 0px 0px black,0.35pt 0px 0px black,-0.25pt 0px 0px black,0px 0.25pt 0px black,0px -0.25pt 0px black;
+    font-family: '黑体' !important;
   }
 }
 

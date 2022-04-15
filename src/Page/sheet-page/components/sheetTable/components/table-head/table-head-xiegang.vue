@@ -22,7 +22,7 @@
           {{ patientInfo.age }}
         </div>
       </span>
-      <span>
+      <span v-if="sheetInfo.sheetType!='neonatology_xg'"> 
         科室：
         <div class="bottom-line" style="min-width: 120px">
           {{ patientInfo.deptName }}

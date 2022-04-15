@@ -14,9 +14,6 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let 入量名称 = ['补液', '食物', '水', '奶', '其他'];
-let 对光反射 = ['+/+', ' +/-', '+/±', '-/+', '-/-', '-/±', '±/+', '±/-', '±/±'];
-let 出量名称 = ['阴道出血', '术中出血', '便', '心包', '引流量', '痰', '呕吐物', '其他', '腹腔', '胸液', '胃管', '胆管', '尿', '腋下引流量', '胸壁引流量', '切口引流量', '腹腔引流管', '甲状腺窝引流管', '颈前引流管', '盆腔引流管', '切口引流管', '文氏引流管', '胆囊床引流管', '胆囊窝引流管', '胆总管', 'T管', '无形逝水量'];
 
 
 export default [
@@ -45,7 +42,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 27
+      width: 35
     },
   },
   {
@@ -84,7 +81,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 40
+      width: 50
     },
   },
   {
@@ -119,7 +116,7 @@ export default [
       width: 35
     },
     autoComplete: {
-      data: 对光反射
+      data: ['+/+','+/-','+/±','-/+','-/-','-/±','±/+']
     },
   },
   {
@@ -127,13 +124,10 @@ export default [
     value: "",
     event: keyf1,
     name: "入量名称",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 55,
-    },
-    autoComplete: {
-      data: 入量名称
-    },
+      width: 65,
+    }
   },
   {
     key: "foodSize", //入量（单位ml）
@@ -151,12 +145,9 @@ export default [
     value: "",
     event: keyf1,
     name: "出量名称",
-    change: (e, td) => limitChange(e, td, 8),
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 55,
-    },
-    autoComplete: {
-      data: 出量名称
+      width: 65,
     }
   },
   {
@@ -176,6 +167,9 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     name: "喂养方式",
+    autoComplete: {
+      data: ['自吮','鼻饲','口饲']
+    },
     textarea: {
       width: 35
     },
@@ -186,6 +180,9 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     name: "喂养种类",
+    autoComplete: {
+      data: ['母乳','奶','水','糖水','禁食']
+    },
     textarea: {
       width: 35
     },
@@ -196,6 +193,9 @@ export default [
     name: "反应",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
+    autoComplete: {
+      data: ['好','激惹','差']
+    },
     textarea: {
       width: 35
     },
@@ -206,6 +206,9 @@ export default [
     name: "哭声",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
+    autoComplete: {
+      data: ['响','微弱']
+    },
     textarea: {
       width: 35
     },
@@ -216,6 +219,9 @@ export default [
     name: "吸吮力",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
+    autoComplete: {
+      data: ['好','一般','差']
+    },
     textarea: {
       width: 35
     },
@@ -226,6 +232,9 @@ export default [
     name: "皮肤颜色",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
+    autoComplete: {
+      data: ['红润','潮红','黄染','青紫','苍白','正常','微绀']
+    },
     textarea: {
       width: 35
     },
@@ -236,6 +245,9 @@ export default [
     name: "脐部情况",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
+    autoComplete: {
+      data: ['脱痂','未脱痂','干洁','渗液','渗血','脐瘘','脐疝']
+    },
     textarea: {
       width: 40
     },
@@ -246,6 +258,9 @@ export default [
     name: "吸氧方式",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
+    autoComplete: {
+      data: ['鼻导管','头罩','箱内','机械通气','鼻塞CPAP']
+    },
     textarea: {
       width: 35
     },
