@@ -13,7 +13,7 @@
             font-size: 12px;
             font-weight: 400;
           "
-          @click="openTitleTemplateSilde"
+          @click="openTitleTemplateSildeFS"
           >+模板</span
         >
         <span
@@ -36,14 +36,16 @@
           :fetch-suggestions="querySearch"
           placeholder="输入标题名称"
         ></el-autocomplete>
-        <el-select v-model="sonValue" placeholder="请选择" style="width: 100%;margin-top:20px;">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+        <template  v-if="HOSPITAL_ID == 'foshanrenyi'">
+          <el-select v-model="sonValue" placeholder="请选择" style="width: 100%;margin-top:20px;">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </template>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
