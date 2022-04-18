@@ -46,7 +46,7 @@ export default [
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 27 }, change: (e, td) => limitChange(e, td, 3) },
   { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'bloodSugar', event: keyf1, value: '', next: '', name: 'SpO2/血糖', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'probePosition', event: keyf1, value: '', next: '', name: '更换探头位置', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'testValue', event: keyf1, value: '', next: '', name: '皮测值', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },

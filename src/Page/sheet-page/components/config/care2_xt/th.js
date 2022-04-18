@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1300px"
+      width: "1385px"
     },
     th: {
         top:
@@ -47,9 +47,9 @@ export default {
                 {"name":"饮<br/>食<br/>指<br/>导","colspan":"1","rowspan":"3"},
                 {"name":"护<br/>理<br/>安<br/>全","colspan":"1","rowspan":"3"},
                 {"name":"报<br/>告<br/>医<br/>生","colspan":"1","rowspan":"3"},
-                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"100px","maxWidth":"100px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"40px","maxWidth":"40px"}},
-                {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"40px","maxWidth":"40px"}}
+                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
+                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
             ]
         ,
         mid:
