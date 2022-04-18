@@ -43,7 +43,7 @@ export default [
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 27 }, change: (e, td) => limitChange(e, td, 3) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'bloodSugar', event: keyf1, value: '', next: '', name: 'SpO2/血糖', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: ysList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pupilSizeLeft', event: keyf1, value: '', next: '', name: '瞳孔大小左', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
@@ -79,7 +79,7 @@ export default [
   },
   { key: "sign", value: "" },//单签
   // { key: "sign2", value: "" },//双签
-  //{ key: "audit", value: "" },//审核签名
+  { key: "audit", value: "" },//审核签名
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
   { hidden:true, key:'signerName2', value:''},
@@ -91,7 +91,7 @@ export default [
   { hidden:true, key:'monthHour', value:''},
   { hidden:false, key:'signerNo', value:''},//单签
   { hidden:true, key:'signerNo2', value:''},//双签
-  { hidden:true, key:'auditorNo', value:''},//审核签名
+  { hidden:false, key:'auditorNo', value:''},//审核签名
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''}

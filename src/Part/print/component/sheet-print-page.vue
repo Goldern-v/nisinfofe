@@ -467,6 +467,12 @@ export default {
           #sheetPagePrint#sheetPagePrint th[dataname='审核<br/>签名']{
             display:none !important;
           }
+          #sheetPagePrint#sheetPagePrint th[dataname='护士<br/>签名']{
+            width:100px
+          }
+          img{
+            transform: scale(0.7);
+          }
           @media print {
             #sheetPagePrint .contant{
               margin-top:-20px;!important;
