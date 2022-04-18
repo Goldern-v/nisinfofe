@@ -19,16 +19,20 @@
               <p for class="title" style="margin-right: 10px">标题：</p>
               <el-input type="text" v-model="itemName"></el-input>
             </div>
-            <div class="tab-list-item">
+            <div class="tab-list-item" v-for="(contentItem,contentIndex) in contentList" :key="contentIndex">
                 <p for class="title" style="margin-right: 10px">内容：</p>
-                <el-input type="text" v-model="itemName"></el-input>
+                <el-input type="text" v-model="contentItem.itemName">
+                </el-input>
+                <el-tooltip content="删除" placement="bottom" effect="dark">
+                  <i class="iconfont icon-shanchuzhenghang" @click.stop="toDel(contentIndex)"></i>
+                </el-tooltip>
             </div>
           </el-tab-pane>
         </el-tabs>
        
       </div>
-      <div slot="button" :style="[isaddList ? 'display:flex; justify-content:space-between;':'']">
-        <el-button class="modal-btn"  type="text" @click="close" v-show="isaddList">+添加可选项</el-button>
+      <div slot="button" :style="isaddList ? 'display:flex; justify-content:space-between' : '' ">
+        <el-button class="modal-btn"  type="text" @click="addContent" v-show="isaddList">+添加可选项</el-button>
         <div>
           <el-button class="modal-btn" @click="close">取消</el-button>
           <el-button class="modal-btn" type="primary" @click="post">保存</el-button>
@@ -75,6 +79,7 @@ export default {
       itemName: "",
       isEditItem: null,
       isaddList: false,
+      contentList:[],
     };
   },
   computed: {
@@ -170,10 +175,23 @@ export default {
           : this.typeList
       );
     },
+    // 新增内容
+    addContent(){
+      this.contentList.push({itemName:''})
+    },
+    // 删除内容
+    toDel(isIndex){
+      this.contentList = this.contentList.filter((item,index) => isIndex != index)
+      // this.contentList.map((item,index)=>{
+      //   if(isIndex == index){
+      //     this.contentList
+      //   }
+      // })
+    },
     getData() {}
   },
   created() {
-    this.bus.$on("openAddTitleTemplateModal", item => {
+    this.bus.$on("openAddTitleTemplateModalFS", item => {
       this.open(item);
     });
   },

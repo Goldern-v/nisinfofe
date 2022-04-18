@@ -72,36 +72,36 @@
           <span :title="scope.row.freqDetail">{{scope.row.freqDetail}}</span>
         </template>
       </u-table-column>
+      <u-table-column label="摆药人" prop="beiNurse" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
-        <u-table-column label="摆药人" prop="beiNurse" min-width="200px" align="center" v-if="scope.row.executeType == '输液'">
-            <span :title="scope.row.beiNurse">{{scope.row.beiNurse}}</span>
-        </u-table-column>
+          <span :title="scope.row.beiNurse">{{scope.row.beiNurse}}</span>
         </template>
+      </u-table-column>
+      <u-table-column label="摆药时间" prop="beiTime" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
-        <u-table-column label="摆药时间" prop="beiTime" min-width="200px" align="center"  v-if="scope.row.executeType== '输液'">
-            <span :title="scope.row.beiTime">{{scope.row.beiTime}}</span>
-        </u-table-column>
-      </template>
+          <span :title="scope.row.beiTime">{{scope.row.beiTime}}</span>
+        </template>
+      </u-table-column>
+      <u-table-column label="配药人" prop="dispenseNurse" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
-        <u-table-column label="配药人" prop="dispenseNurse" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
-            <span :title="scope.row.dispenseNurse">{{scope.row.dispenseNurse}}</span>
-        </u-table-column>
-      </template>
+          <span :title="scope.row.dispenseNurse">{{scope.row.dispenseNurse}}</span>
+        </template>
+      </u-table-column>
+      <u-table-column label="配药时间" prop="dispenseDateTime" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
-        <u-table-column label="配药时间" prop="dispenseDateTime" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
-            <span :title="scope.row.dispenseDateTime">{{scope.row.dispenseDateTime}}</span>
-        </u-table-column>
-      </template>
+          <span :title="scope.row.dispenseDateTime">{{scope.row.dispenseDateTime}}</span>
+        </template>
+      </u-table-column>
+      <u-table-column label="核对人" prop="dispenseVerifyNurse" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
-        <u-table-column label="核对人" prop="dispenseVerifyNurse" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
-            <span :title="scope.row.dispenseVerifyNurse">{{scope.row.dispenseVerifyNurse}}</span>
-        </u-table-column>
-      </template>
+          <span :title="scope.row.dispenseVerifyNurse">{{scope.row.dispenseVerifyNurse}}</span>
+        </template>
+      </u-table-column>
+      <u-table-column label="核对时间" prop="dispenseVerifyDateTime" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
-        <u-table-column label="核对时间" prop="dispenseVerifyDateTime" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
-            <span :title="scope.row.dispenseVerifyDateTime">{{scope.row.dispenseVerifyDateTime}}</span>
-        </u-table-column>
-      </template>
+          <span :title="scope.row.dispenseVerifyDateTime">{{scope.row.dispenseVerifyDateTime}}</span>
+        </template>
+      </u-table-column>
 
       <u-table-column prop="executeFlag" label="状态" min-width="80px" align="center">
         <template slot-scope="scope">
@@ -161,30 +161,28 @@
        <u-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
           <div
-            v-for="(item, index) in scope.row.child"
-            :key="index"
-            v-show="item.executeDateTime"
+            v-show="scope.row.executeDateTime"
           >
           <el-button
             type="text"
-            @click="backTracking(item)"
-            v-if="isEdit && item.executeDateTime && item.executeFlag!=4"
+            @click="backTracking(scope.row)"
+            v-if="isEdit && scope.row.executeDateTime && scope.row.executeFlag!=4"
             >补录</el-button
           >
           <el-button
             type="text"
-            @click="editTime(item)"
+            @click="editTime(scope.row)"
 
             v-if="
               isEdit &&
-              ((item.executeFlag > 0) ||
-                item.executeFlag == 4)
+              ((scope.row.executeFlag > 0) ||
+                scope.row.executeFlag == 4)
             "
             >修改</el-button
           >
           <el-button
             type="text"
-            @click="cancelOrderExecute(item)"
+            @click="cancelOrderExecute(scope.row)"
             >取消</el-button
           >
           </div>
@@ -331,7 +329,8 @@ import { addRecord,cancelOrderExecuteApi } from "../../api/index";
 import editModal from "../common/edit-modal";
 export default {
   props: {
-    pageLoadng: Boolean
+    pageLoadng: Boolean,
+    currentType: String
   },
   mixins: [commonMixin],
   data() {

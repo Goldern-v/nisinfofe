@@ -112,7 +112,7 @@
           > -->
         </div>
       </div>
-      <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
+      <dTable :pageLoadng="pageLoadng" :currentType="query.itemType" ref="plTable"></dTable>
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
