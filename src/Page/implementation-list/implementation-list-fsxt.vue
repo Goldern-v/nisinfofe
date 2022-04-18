@@ -133,7 +133,13 @@
           <h2>执行单</h2>
           <div class="filterItem date">
             <span class="type-label">日期:</span>
-            <span>{{ startDate | ymdhm }}</span>
+            <span>{{ query.executeDate | ymdhm }}</span>
+            <span style="display:inline-block;width:20px"></span>
+            <span class="type-label">病房名称:</span>
+            <span>{{ '暂无字段' }}</span>
+            <span style="display:inline-block;width:20px"></span>
+            <span class="type-label">打印日期:</span>
+            <span>{{ nowDate }}</span>
           </div>
         </div>
         <dTablePrint
@@ -260,7 +266,8 @@ export default {
         {label: '护理'},
         {label: '手术'},
         {label: '其他'},
-      ]
+      ],
+      nowDate:moment().format('YYYY-MM-DD')
     };
   },
   methods: {
@@ -430,7 +437,7 @@ export default {
     deptCode() {
       this.search();
     },
-    startDate() {
+    'query.executeDate'() {
       this.search();
     },
     type() {

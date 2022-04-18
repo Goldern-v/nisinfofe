@@ -45,7 +45,7 @@
           尾周
         </button>
       </div>
-      <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
+      <div class="tem-con" :style="contentHeight" v-if="!isPrintAll&&filePath">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -53,17 +53,6 @@
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
-          class="lcIframe"
-        ></iframe>
-      </div>
-      <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
-        <null-bg v-show="!filePath"></null-bg>
-        <iframe
-          id="printID"
-          v-if="filePath"
-          :src="printAllPath"
-          frameborder="0"
-          ref="pdfConAll"
           class="lcIframe"
         ></iframe>
       </div>
@@ -99,7 +88,7 @@ export default {
       visibled: false,
       printAllPath: "",
       intranetUrl:
-        // "http://192.168.1.75:8081/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://localhost:8080/#/" /* 医院正式环境内网 导致跨域 */,
         "http://192.168.8.158:8588/temperature/#/" /* 医院正式环境内网 */,
       newBornUrl: "http://192.168.8.158:8588/temperaturenew/#/",
       printAllUrl:

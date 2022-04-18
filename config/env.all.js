@@ -1,3 +1,11 @@
+/*
+  特殊配置项介绍：
+  ENABLE_BLUETOOTH_SIGN:实际上是U盾形式ca的配置
+  hasGroupHos:需要根据白板分组进行显示
+  hasFollow:根据我的关注进行显示
+  npm_config_report:需要生成报告的医院
+*/
+
 module.exports = {
   "": {
     HOSPITAL_ID: '"hj"',
@@ -72,7 +80,8 @@ module.exports = {
   fuyou: {
     HOSPITAL_ID: '"fuyou"',
     HOSPITAL_NAME: '"江门市妇幼保健院"',
-    HOSPITAL_NAME_SPACE: '"江 门 市 妇 幼 保 健 院"'
+    HOSPITAL_NAME_SPACE: '"江 门 市 妇 幼 保 健 院"',
+    hasGroupHos:true, // 需要根据白板分组进行显示
   },
   liaocheng: {
     HOSPITAL_ID: '"liaocheng"',
@@ -81,7 +90,7 @@ module.exports = {
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
     ABOUT_INFO: '"关于宸瑞普惠"',
     title: '"智慧护理信息系统"',
-    hasFollow:true
+    hasFollow:true // 需要根据我的关注进行显示
   },
   lyxrm: {
     HOSPITAL_ID: '"lyxrm"',
