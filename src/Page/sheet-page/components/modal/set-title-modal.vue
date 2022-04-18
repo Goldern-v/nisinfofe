@@ -13,7 +13,7 @@
             font-size: 12px;
             font-weight: 400;
           "
-          @click="openTitleTemplateSildeFS"
+          @click="openTitleTemplateSilde"
           >+模板</span
         >
         <span
