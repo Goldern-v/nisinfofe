@@ -501,7 +501,7 @@
       &nbsp;&nbsp;&nbsp;清洁护理：①沐浴  ②床上擦浴 ③口腔护理 ④臀部护理 ⑤更衣；&nbsp; &nbsp;专科护理：①脐部护理 ②胃管护理  ③灌肠；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;脐部情况：①干净 ②渗血 ③红肿 ④脓性分泌物；<br/>
       &nbsp;&nbsp;&nbsp;光疗情况：①安睡 ②哭闹烦燥 ③尖叫 ④体温异常 ⑤皮疹；&nbsp; &nbsp;&nbsp;&nbsp;光疗护理：①戴眼罩，保护外阴，戴手套脚套；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;对光反射：灵敏(+) 迟钝(±) 消失(-)；<br/>
       &nbsp;&nbsp;&nbsp;瞳孔判断：单位㎜；&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肤&nbsp;&nbsp;色：①红润 ②黄染 ③苍白 ④苍灰 ⑤干燥 ⑥紫绀；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;哭&nbsp;&nbsp;声：①响 ②弱 ③呻吟；<br/>  
-      &nbsp;&nbsp;&nbsp;留 置 针：①正常 ②拔除 ③重置；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肛周皮肤：①正常 ②皮疹 ③潮红 ④破溃、脱皮 ⑤糜烂；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;喂养方式：①自吮 ②饲奶；<br/>
+      &nbsp;&nbsp;&nbsp;留 置 针：①正常 ②拔除 ③重置 ④封管；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 肛周皮肤：①正常 ②皮疹 ③潮红 ④破溃、脱皮 ⑤糜烂；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;喂养方式：①自吮 ②饲奶 ③禁食；<br/>
       &nbsp;&nbsp;&nbsp;吸氧方式：①鼻导管 ②面罩 ③CPAP ④有创通气       
     </div>
     <!-- 顺德龙江 - 护理记录单（颅脑外科）-->

@@ -166,10 +166,11 @@ export default {
       }
     },
     addTemplateAtDoc() {
-      this.bus.$emit("addTitleTemplate", this.data.name);
+      this.bus.$emit("addTitleTemplateFS", this.data.name);
     },
-    toEdit() {
-      this.bus.$emit("openAddTitleTemplateModal", this.data);
+    toEdit( event ) {
+      event.preventDefault();
+      this.bus.$emit("openAddTitleTemplateModalFS", this.data);
     },
     getRecordCode() {
       if (
