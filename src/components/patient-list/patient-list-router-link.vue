@@ -28,6 +28,10 @@
           ></span>
        </template>
      </follow-list>
+      <el-button-group v-if="hasGroupHos">
+        <el-button :type="isGroup?'primary':''" @click="isGroup = true">默认管床</el-button>
+        <el-button :type="!isGroup?'primary':''" @click="isGroup = false">全部床位</el-button>
+      </el-button-group>
       <div class="patient-list-contain">
         <!-- path: "/hospitalEval/:patientId?/:visitId?/:formId?" @click="selectPatient(item)"-->
         <router-link
@@ -263,6 +267,10 @@
     left: 14px;
   }
 }
+.el-button-group{
+  display: flex;
+  justify-content: space-between;
+}
 </style>
 <script>
 import common from "@/common/mixin/common.mixin.js";
@@ -286,6 +294,7 @@ export default {
       selectPatientId: "",
       patientListLoading: false,
       bedList: [],
+      baseBedList: [],
       //需要患者列表中增加护理等级显示的医院
       nursingClassList: ['guizhou'],
       imageBoy: require("./images/男婴.png"),
@@ -293,6 +302,7 @@ export default {
       imageMan: require("./images/男.png"),
       imageWomen: require("./images/女.png"),
       noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
+      isGroup:false // 是否选中管床
     };
   },
   methods: {
@@ -302,9 +312,17 @@ export default {
         this.patientListLoading = true;
         let config = process.env.hasFollow ? {showFollew:true} : null
         patients(this.deptCode,config).then((res) => {
-          this.bedList = res.data.data.filter((item) => {
-            return item.patientId;
-          });
+          let {data:{data}} = res
+          let bedData = data.filter(item=>item.patientId)
+          // if(process.env.hasGroupHos){
+          //   let isGroup = bedData.every(item=>item.focus == false) // 如果未进行分组，默认显示全部
+          //   this.bedList = isGroup?bedData:bedData.filter(item=>item.focus);
+          // }else{
+          //   this.bedList = bedData;
+          // }
+          this.baseBedList = bedData
+          this.bedList = bedData;
+          this.hasGroupHos && this.groupBedList.length && (this.isGroup = true)
           this.patientListLoading = false;
           this.fetchData();
         });
@@ -469,6 +487,12 @@ export default {
     hasFollowList(){
       return process.env.hasFollow
     },
+    hasGroupHos(){
+      return process.env.hasGroupHos
+    },
+    groupBedList(){
+      return this.baseBedList.filter(item=>item.focus)
+    }
   },
   watch: {
     deptCode(ndata, odata) {
@@ -486,6 +510,9 @@ export default {
       //
     },
     "$route.params.patientId": "fetchData",
+    isGroup(val){
+      this.bedList = val?this.groupBedList:this.baseBedList
+    }
   },
   created() {
     if (this.deptCode) {

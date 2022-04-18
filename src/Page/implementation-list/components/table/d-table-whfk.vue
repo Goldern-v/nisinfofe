@@ -72,36 +72,36 @@
           <span :title="scope.row.freqDetail">{{scope.row.freqDetail}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="摆药人" prop="beiNurse" min-width="200px" align="center" v-if="selectedData.executeType">
       <template slot-scope="scope">
-          <span :title="scope.row.beiNurse">{{scope.row.beiNurse}}</span>
+        <u-table-column label="摆药人" prop="beiNurse" min-width="200px" align="center" v-if="scope.row.executeType == '输液'">
+            <span :title="scope.row.beiNurse">{{scope.row.beiNurse}}</span>
+        </u-table-column>
         </template>
-      </u-table-column>
-      <u-table-column label="摆药时间" prop="beiTime" min-width="200px" align="center"  v-if="selectedData.executeType">
       <template slot-scope="scope">
-          <span :title="scope.row.beiTime">{{scope.row.beiTime}}</span>
-        </template>
-      </u-table-column>
-      <u-table-column label="配药人" prop="dispenseNurse" min-width="200px" align="center"  v-if="selectedData.executeType">
+        <u-table-column label="摆药时间" prop="beiTime" min-width="200px" align="center"  v-if="scope.row.executeType== '输液'">
+            <span :title="scope.row.beiTime">{{scope.row.beiTime}}</span>
+        </u-table-column>
+      </template>
       <template slot-scope="scope">
-          <span :title="scope.row.dispenseNurse">{{scope.row.dispenseNurse}}</span>
-        </template>
-      </u-table-column>
-      <u-table-column label="配药时间" prop="dispenseDateTime" min-width="200px" align="center"  v-if="selectedData.executeType">
+        <u-table-column label="配药人" prop="dispenseNurse" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
+            <span :title="scope.row.dispenseNurse">{{scope.row.dispenseNurse}}</span>
+        </u-table-column>
+      </template>
       <template slot-scope="scope">
-          <span :title="scope.row.dispenseDateTime">{{scope.row.dispenseDateTime}}</span>
-        </template>
-      </u-table-column>
-      <u-table-column label="核对人" prop="dispenseVerifyNurse" min-width="200px" align="center"  v-if="selectedData.executeType">
+        <u-table-column label="配药时间" prop="dispenseDateTime" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
+            <span :title="scope.row.dispenseDateTime">{{scope.row.dispenseDateTime}}</span>
+        </u-table-column>
+      </template>
       <template slot-scope="scope">
-          <span :title="scope.row.dispenseVerifyNurse">{{scope.row.dispenseVerifyNurse}}</span>
-        </template>
-      </u-table-column>
-      <u-table-column label="核对时间" prop="dispenseVerifyDateTime" min-width="200px" align="center"  v-if="selectedData.executeType">
+        <u-table-column label="核对人" prop="dispenseVerifyNurse" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
+            <span :title="scope.row.dispenseVerifyNurse">{{scope.row.dispenseVerifyNurse}}</span>
+        </u-table-column>
+      </template>
       <template slot-scope="scope">
-          <span :title="scope.row.dispenseVerifyDateTime">{{scope.row.dispenseVerifyDateTime}}</span>
-        </template>
-      </u-table-column>
+        <u-table-column label="核对时间" prop="dispenseVerifyDateTime" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
+            <span :title="scope.row.dispenseVerifyDateTime">{{scope.row.dispenseVerifyDateTime}}</span>
+        </u-table-column>
+      </template>
 
       <u-table-column prop="executeFlag" label="状态" min-width="80px" align="center">
         <template slot-scope="scope">

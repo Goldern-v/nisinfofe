@@ -7,18 +7,32 @@
       :enable-mobile-fullscreen="false"
     >
       <div  style="margin-bottom: 20px">
-        <el-tabs  type="card" stretch>
+        <el-tabs  type="card" @tab-click="handleClick">
           <el-tab-pane label="纯标题模板" style="display: flex;">
-            <p for class="title" style="margin-right: 10px">标题：</p>
-            <el-input type="text" v-model="itemName"></el-input>
+             <div class="tab-list-item">
+              <p for class="title" style="margin-right: 10px">标题：</p>
+              <el-input type="text" v-model="itemName"></el-input>
+            </div>
           </el-tab-pane>
-          <el-tab-pane label="含选项标题模板">配置管理</el-tab-pane>
+          <el-tab-pane label="含选项标题模板">
+            <div class="tab-list-item">
+              <p for class="title" style="margin-right: 10px">标题：</p>
+              <el-input type="text" v-model="itemName"></el-input>
+            </div>
+            <div class="tab-list-item">
+                <p for class="title" style="margin-right: 10px">内容：</p>
+                <el-input type="text" v-model="itemName"></el-input>
+            </div>
+          </el-tab-pane>
         </el-tabs>
        
       </div>
-      <div slot="button">
-        <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post">保存</el-button>
+      <div slot="button" :style="[isaddList ? 'display:flex; justify-content:space-between;':'']">
+        <el-button class="modal-btn"  type="text" @click="close" v-show="isaddList">+添加可选项</el-button>
+        <div>
+          <el-button class="modal-btn" @click="close">取消</el-button>
+          <el-button class="modal-btn" type="primary" @click="post">保存</el-button>
+        </div>
       </div>
     </sweet-modal>
   </div>
@@ -32,6 +46,12 @@
   height 100px
 >>>.el-tab-pane
   display: flex;
+  flex-wrap: wrap;
+  .tab-list-item
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom:10px;
 >>>.el-tabs__item.is-active 
     color: #fff;
     background: rgb(4 165 128);
@@ -53,7 +73,8 @@ export default {
       dictName: "",
       itemCode: "",
       itemName: "",
-      isEditItem: null
+      isEditItem: null,
+      isaddList: false,
     };
   },
   computed: {
@@ -66,6 +87,15 @@ export default {
     }
   },
   methods: {
+    handleClick(tab, event) {
+      console.log(tab.index == '1');
+      if(tab.index == '1'){
+        this.isaddList = true
+      }else{
+        this.isaddList = false
+      }
+        console.log(tab, event);
+    },
     open(item) {
       this.$refs.modal.open();
       this.getData();

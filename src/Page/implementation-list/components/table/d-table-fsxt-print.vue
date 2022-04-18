@@ -49,11 +49,11 @@
 
       <el-table-column
         label="姓名"
-        prop="patientName"
+        prop="name"
         min-width="60px"
         align="center"
       >
-        <template slot-scope="scope">
+        <!-- <template slot-scope="scope">
           <div>
             {{
               scope.row.rowType == 1 || !scope.row.rowType
@@ -61,7 +61,7 @@
                 : ""
             }}
           </div>
-        </template>
+        </template> -->
       </el-table-column>
 
       <el-table-column label="医嘱内容" prop="itemName" min-width="150px">

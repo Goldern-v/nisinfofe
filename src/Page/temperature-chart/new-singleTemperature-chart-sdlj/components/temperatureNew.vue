@@ -11,21 +11,29 @@
         <div @click="changeModel()" class="painNomal">疼痛版本</div>
       </div> -->
 
-      <div :class="rightSheet===true?'pagination':'paginationRight'">
-               <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
+      <div :class="rightSheet === true ? 'pagination' : 'paginationRight'">
+        <button
+          :disabled="currentPage === 1"
+          @click="
+            currentPage = 1;
+            toCurrentPage = 1;
+          "
+        >
           首周
         </button>
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
-        <span class="page">第<input
+        <span class="page"
+          >第<input
             type="number"
             min="1"
             v-model.number="toCurrentPage"
             class="pageInput"
             @keyup.enter="toPage()"
-          />页/共{{ pageTotal }}页</span>
-        <button :disabled="currentPage === pageTotal"  @click="toNext">
+          />页/共{{ pageTotal }}页</span
+        >
+        <button :disabled="currentPage === pageTotal" @click="toNext">
           下一周
         </button>
         <button
@@ -84,7 +92,7 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        // "http://192.168.0.81:9091/temperature/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
       "http://192.168.168.82:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.168.82:9091/temperature/#/printAll" /* 医院正式环境内网 */,
@@ -95,7 +103,8 @@ export default {
       this.isPrintAll = false;
       setTimeout(() => {
         this.$refs.pdfCon.contentWindow.postMessage(
-          { type: "printing" },this.intranetUrl
+          { type: "printing" },
+          this.intranetUrl
           // this.outNetUrl /* 外网 */
         );
       }, 1500);
@@ -139,25 +148,11 @@ export default {
 
       this.currentPage = this.toCurrentPage;
     },
-    //切换疼痛体温单
-    changeModel() {
-      this.showTemp = false;
-      document.getElementsByClassName("painNomal")[0].style.color = "red";
-      document.getElementsByClassName("nomal")[0].style.color = "black";
-      this.$store.commit("changeModel", true);
-
-      this.getImg();
+    //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime) {
+      this.bus.$emit("getDataFromPage", dateTime);
     },
-    // 切换普通体温单
-    nomalModel() {
-      this.showTemp = true;
-      document.getElementsByClassName("nomal")[0].style.color = "red";
-      document.getElementsByClassName("painNomal")[0].style.color = "";
-      this.$store.commit("changeModel", false);
-
-      this.getImg();
-    },
-     getImg() {
+    getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
@@ -188,9 +183,12 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-              case "dblclick":/* 双击查阅体温单子 */
-          this.openRight();
-          break;
+          case "dblclick" /* 双击查阅体温单子 */:
+            this.openRight();
+            break;
+          case "clickDateTime":
+            this.getDataFromPage(e.data.value);
+            break;
           default:
             break;
         }
@@ -212,7 +210,7 @@ export default {
       this.isPrintAll = false;
     },
     currentPage(value) {
-      this.toCurrentPage=value
+      this.toCurrentPage = value;
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
@@ -246,7 +244,7 @@ export default {
     rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
-         authTokenNursing() {
+    authTokenNursing() {
       return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
   },
@@ -278,6 +276,7 @@ export default {
     }
   }
 }
+
 .pageInput {
   width: 50px;
   border: 0px;
@@ -289,12 +288,14 @@ export default {
   left: 13%;
   font-weight: normal;
 }
-.paginationRight{
- display: inline;
+
+.paginationRight {
+  display: inline;
   position: relative;
   left: 23%;
   font-weight: normal;
 }
+
 .page {
   margin: 0 10px;
 }

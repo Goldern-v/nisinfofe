@@ -314,6 +314,7 @@ export default {
       startTimer: "",
       endTimer: "",
       showProgress: false,
+      // hasGroupHos:['fuyou'] // 需要根据白板进行分组显示的医院
     };
   },
   computed: {
@@ -486,6 +487,9 @@ export default {
     qfhz() {
       return this.bedList.filter((item) => item.totalCosts > item.prepayments);
     },
+    mrgc(){
+      return this.bedList.filter(item=>item.focus);
+    },
     list() {
       let list = [
         {
@@ -634,6 +638,11 @@ export default {
             type: "bed",
           });
       }
+      process.env.hasGroupHos && list.splice(1,0,{
+        name: "默认管床",
+        num: this.mrgc.length,
+        type: "bed",
+      })
       return list;
     },
     // 同步床位数据
@@ -697,9 +706,14 @@ export default {
             ).name;
             return item;
           });
+          let isGroup = this.bedList.every(item=>item.focus == false) // 如果未进行分组，默认显示全部
+          if(process.env.hasGroupHos && !isGroup){ // 判断该医院是否需要按照分组进行显示
+            this.selectName = "默认管床";
+          }else{
+            this.selectName = "全部床位";
+          }
           this.$parent.bedList = this.bedList;
           this.$parent.loading = false;
-          this.selectName = "全部床位";
         });
       }
     },
@@ -975,6 +989,11 @@ export default {
         case "管道脱落风险":
           {
             this.$parent.bedList = this.tubingShedding;
+          }
+          break;
+        case "默认管床":
+          {
+            this.$parent.bedList = this.mrgc;
           }
           break;
         default: {

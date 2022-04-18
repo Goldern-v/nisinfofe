@@ -180,7 +180,7 @@ export default {
       pBtnShow:false,
       pmodalShow:false,
       searchWord: "",
-      bedList: [],
+      bedList: [], // 在子组件search-con中通过$parent赋值,就很傻比
       loading: false,
       tableData: [],//医嘱提醒id
       timeId: "",

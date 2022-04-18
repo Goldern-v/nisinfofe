@@ -71,7 +71,8 @@ module.exports = {
   "fuyou": {
     HOSPITAL_ID: '"fuyou"',
     HOSPITAL_NAME: '"江门市妇幼保健院"',
-    HOSPITAL_NAME_SPACE: '"江 门 市 妇 幼 保 健 院"'
+    HOSPITAL_NAME_SPACE: '"江 门 市 妇 幼 保 健 院"',
+    hasGroupHos:true, // 需要根据白板分组进行显示
   },
   "liaocheng": {
     HOSPITAL_ID: '"liaocheng"',
