@@ -191,6 +191,9 @@
       border-color: #000;
     }
   }
+  strong{
+    font-family: '黑体' !important;
+  }
 }
 
 @page {

@@ -72,6 +72,36 @@
           <span :title="scope.row.freqDetail">{{scope.row.freqDetail}}</span>
         </template>
       </u-table-column>
+      <template slot-scope="scope">
+        <u-table-column label="摆药人" prop="beiNurse" min-width="200px" align="center" v-if="scope.row.executeType == '输液'">
+            <span :title="scope.row.beiNurse">{{scope.row.beiNurse}}</span>
+        </u-table-column>
+        </template>
+      <template slot-scope="scope">
+        <u-table-column label="摆药时间" prop="beiTime" min-width="200px" align="center"  v-if="scope.row.executeType== '输液'">
+            <span :title="scope.row.beiTime">{{scope.row.beiTime}}</span>
+        </u-table-column>
+      </template>
+      <template slot-scope="scope">
+        <u-table-column label="配药人" prop="dispenseNurse" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
+            <span :title="scope.row.dispenseNurse">{{scope.row.dispenseNurse}}</span>
+        </u-table-column>
+      </template>
+      <template slot-scope="scope">
+        <u-table-column label="配药时间" prop="dispenseDateTime" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
+            <span :title="scope.row.dispenseDateTime">{{scope.row.dispenseDateTime}}</span>
+        </u-table-column>
+      </template>
+      <template slot-scope="scope">
+        <u-table-column label="核对人" prop="dispenseVerifyNurse" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
+            <span :title="scope.row.dispenseVerifyNurse">{{scope.row.dispenseVerifyNurse}}</span>
+        </u-table-column>
+      </template>
+      <template slot-scope="scope">
+        <u-table-column label="核对时间" prop="dispenseVerifyDateTime" min-width="200px" align="center" v-if="scope.row.executeType== '输液'">
+            <span :title="scope.row.dispenseVerifyDateTime">{{scope.row.dispenseVerifyDateTime}}</span>
+        </u-table-column>
+      </template>
 
       <u-table-column prop="executeFlag" label="状态" min-width="80px" align="center">
         <template slot-scope="scope">
@@ -125,7 +155,7 @@
       </u-table-column>
       <u-table-column prop="stopDateTime" label="结束输液护士" min-width="160px" align="center">
         <template slot-scope="scope">
-          <span :title="scope.row.endInfusionNurse">{{scope.row.endInfusionNurse}}</span>
+          <span :title="scope.row.executeEndNurseName">{{scope.row.executeEndNurseName}}</span>
         </template>
       </u-table-column>
        <u-table-column label="操作" min-width="100px" align="center">
@@ -414,6 +444,8 @@ export default {
       JSON.parse(localStorage.user)
         ? true
         : false;
+
+    console.log(this.selectedData,'ddddddddddddd');
   },
   components: {}
 };
