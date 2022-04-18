@@ -122,6 +122,7 @@ export default {
         case "wujing":
           return "A班："
         case "nanfangzhongxiyi":
+        case "yangchunzhongyi":
           return "A班："
         case "fsxt":
           return "A班："
@@ -137,6 +138,7 @@ export default {
         case "wujing":
           return "P班："
         case "nanfangzhongxiyi":
+        case "yangchunzhongyi":
           return "P班："
         case "fsxt":
           return "P班："
