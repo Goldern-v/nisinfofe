@@ -495,6 +495,20 @@ export default {
         `
       );
     }
+     if (
+      (this.HOSPITAL_ID === "sdlj") &&
+      this.sheetInfo.sheetType == "neonate_sdlj"
+    ) {
+      addCSS(
+        window,
+        `
+           #sheetPagePrint th[dataname="护士<br/>签名"] {
+              min-width: 100px !important;
+              max-width: 100px !important;
+            }
+        `
+      );
+    }
     if (this.HOSPITAL_ID === "foshanrenyi") {
       addCSS(
         window,
