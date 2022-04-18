@@ -119,10 +119,11 @@
   // &.remarkCon
   .name{
     line-height: 160px;
+    white-space: nowrap;
     height: 160px;
     width: 360px;
     text-align: center;
-    font-size: 90px;
+    font-size: 88px;
     z-index: 10;
   }
   .qr-code {
