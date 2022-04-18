@@ -40,7 +40,7 @@
           >
         </el-select>
         <!--北海的查询条件-->
-        
+
           <template v-if="['beihairenyi'].includes(this.HOSPITAL_ID)">
  <span class="type-label">姓名:</span>
         <el-input v-model="query.patientName" placeholder="请输入患者姓名"   size="small" style="width:190px"/>
@@ -355,7 +355,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        let patientId = this.HOSPITAL_ID=='huadu'?item.inpNo:item.patientId
+        let patientId = item.patientId
         let visitId = item.visitId
         uploadFileArchive(patientId, visitId).then(rep => {
           this.$message({
@@ -571,7 +571,7 @@ export default {
       this.query.dischargeDateBegin = this.getDateStr(-7);
     } else if (!this.query.dischargeDateBegin) {
       this.query.dischargeDateBegin = this.getDateStr(-2);
-    } 
+    }
     this.query.dischargeDateEnd = this.query.dischargeDateEnd
       ? this.query.dischargeDateEnd
       : moment().format("YYYY-MM-DD");
