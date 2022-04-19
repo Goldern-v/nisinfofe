@@ -875,21 +875,24 @@ export default {
     },
     setTitle(item) {
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
-        (title) => {
+        (title,sonData) => {
           let data = {
             patientId: this.patientInfo.patientId,
             visitId: this.patientInfo.visitId,
             pageIndex: this.index,
             fieldEn: item.key,
             fieldCn: title,
+            fieldId: sonData,
             recordCode: sheetInfo.sheetType,
           };
           saveTitle(data).then((res) => {
             item.name = title;
+            item.foshansiyiSonData = sonData
           });
         },
         item.name,
-        item
+        item,
+        item.foshansiyiSonData,
       );
     },
     addNullRow(index, row) {
