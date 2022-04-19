@@ -102,7 +102,6 @@
                 type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
             </template>
@@ -126,7 +125,6 @@
                 "
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
               <!-- <el-input v-model="scope.row.pulse"></el-input> -->
@@ -150,7 +148,6 @@
                   }
                 "
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -159,20 +156,45 @@
           <el-table-column
             prop="stoolNum"
             label="大便次数"
-            min-width="70"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
-              <input
-                v-model="scope.row.stoolNum"
-                :class="className"
-                class="stoolNum"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @click="toRow"
-              />
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="
+                  !(
+                    totalDictInfo['大便次数'].options &&
+                    totalDictInfo['大便次数'].options.length > 0
+                  )
+                "
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in totalDictInfo['大便次数'].options"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.stoolNum = option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
+                <input
+                  slot="reference"
+                  v-model="scope.row.stoolNum"
+                  :class="className"
+                  class="stoolNum"
+                  type="text"
+                  @keydown="handleKeyDown"
+                  @keyup="handleKeyUp"
+                  v-on:input="validFormFc"
+                  @click="toRow"
+                />
+              </el-popover>
             </template>
           </el-table-column>
           <el-table-column
@@ -189,7 +211,6 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
             </template>
@@ -207,7 +228,6 @@
                 class="curWeight"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -227,7 +247,6 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
             </template>
@@ -251,7 +270,6 @@
                   }
                 "
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -275,7 +293,6 @@
                 @mousewheel="(e)=>{e.preventDefault()}"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
             </template>
@@ -294,7 +311,6 @@
                 class="fieldThree"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -313,7 +329,6 @@
                 class="foodSize"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -335,7 +350,6 @@
                 class="dischargeSize"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -356,7 +370,6 @@
                 class="fieldThree"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -375,7 +388,6 @@
                 class="arterialPressure"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -568,7 +580,16 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     background-color: #9adcc5;
   }
 }
+.selection-dict-item {
+      height: 24px;
+      line-height: 24px;
+      padding: 0 5px;
 
+      &:hover {
+        background: rgb(111, 192, 164) !important;
+        color: #fff !important;
+      }
+    }
 .el-table th > .cell {
   color: red;
   padding: 0;
@@ -664,6 +685,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     left: 0;
     width: 1040px;
   }
+
 }
 </style>
 <style lang="stylus">
@@ -684,6 +706,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
         background: #fff;
       }
     }
+
+
 
     .el-table {
       border: none !important;
@@ -746,7 +770,11 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
-import { getPatientsInfo, saveOverAllTemperture } from "../api/api";
+import {
+  getPatientsInfo,
+  saveOverAllTemperture,
+  getmultiDict,
+} from "../api/api";
 import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
@@ -768,6 +796,7 @@ export default {
         "术后三天",
         "转科三天",
       ],
+      totalDictInfo: {},
       colClass: "",
       nursingList: [],
       query: {
@@ -848,7 +877,7 @@ export default {
               item.patientId
             );
           });
-        }else{
+        } else {
           data = this.patientsInfoData.filter((item) => {
             return (
               (item.bedLabel.indexOf(this.searchWord) > -1 ||
@@ -857,58 +886,58 @@ export default {
             );
           });
           if (this.admitted.includes("危重患者")) {
-          data = data.filter((item) => {
-            return (
-              ((item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
+            data = data.filter((item) => {
+              return (
+                ((item.bedLabel.indexOf(this.searchWord) > -1 ||
+                  item.name.indexOf(this.searchWord) > -1) &&
+                  item.patientId &&
+                  item.patientCondition === "病危") ||
+                item.patientCondition === "病重"
+              );
+            });
+          }
+          if (this.admitted.includes("三天超37.5")) {
+            data = data.filter((item) => {
+              return (
+                (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                  item.name.indexOf(this.searchWord) > -1) &&
                 item.patientId &&
-                item.patientCondition === "病危") ||
-              item.patientCondition === "病重"
-            );
-          });
-        }
-        if (this.admitted.includes("三天超37.5")) {
-          data = data.filter((item) => {
-            return (
-              (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId &&
-              item.temperatureFlag == 1
-            );
-          });
-        }
-        if (this.admitted.includes("入院四天")) {
-          data = data.filter((item) => {
-            return (
-              (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId &&
-              moment(item.admissionDate.slice(0, 10)).isAfter(
-                moment().subtract(4, "days").format("YYYY-MM-DD")
-              )
-            );
-          });
-        }
-        if (this.admitted.includes("术后三天")) {
-          data = data.filter((item) => {
-            return (
-              (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId &&
-              item.operationFlag == 1
-            );
-          });
-        }
-         if (this.admitted.includes("转科三天")) {
-          data = data.filter((item) => {
-            return (
-              (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId &&
-              item.transferFlag == 1
-            );
-          });
-        }
+                item.temperatureFlag == 1
+              );
+            });
+          }
+          if (this.admitted.includes("入院四天")) {
+            data = data.filter((item) => {
+              return (
+                (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                  item.name.indexOf(this.searchWord) > -1) &&
+                item.patientId &&
+                moment(item.admissionDate.slice(0, 10)).isAfter(
+                  moment().subtract(4, "days").format("YYYY-MM-DD")
+                )
+              );
+            });
+          }
+          if (this.admitted.includes("术后三天")) {
+            data = data.filter((item) => {
+              return (
+                (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                  item.name.indexOf(this.searchWord) > -1) &&
+                item.patientId &&
+                item.operationFlag == 1
+              );
+            });
+          }
+          if (this.admitted.includes("转科三天")) {
+            data = data.filter((item) => {
+              return (
+                (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                  item.name.indexOf(this.searchWord) > -1) &&
+                item.patientId &&
+                item.transferFlag == 1
+              );
+            });
+          }
         }
         return data;
         //       return this.admitted.includes("所有患者")
@@ -936,6 +965,15 @@ export default {
   },
   mounted() {
     this.query.wardCode = this.deptCode;
+    getmultiDict(this.query.wardCode).then((res) => {
+      res.data.data.map((item, index) => {
+        data[item.vitalSign] = item.vitalCode;
+        this.totalDictInfo[item.vitalSign] = {
+          ...item,
+          options: item.selectType ? item.selectType.split(",") : [],
+        };
+      });
+    });
   },
   created() {},
   methods: {
@@ -1141,82 +1179,6 @@ export default {
         });
       });
       this.pageLoadng = false;
-    },
-    setValid(trage, val) {
-      switch (trage) {
-        case "temperature":
-          let o = {
-            体温: {
-              value: val,
-              reg: [30, 50],
-              errorMsg: "体温请填入30~50之间的数值",
-            },
-          };
-          return o;
-        case "heartRate":
-          let h = {
-            心率: {
-              value: val,
-              reg: [0, 300],
-              errorMsg: "体温请填入0~300之间的数值",
-            },
-          };
-          return h;
-        case "bloodPressure":
-          let x = {
-            血压: {
-              value: val,
-              reg: [0, 300],
-              errorMsg: "体温请填入0~300之间的数值",
-            },
-          };
-          return x;
-        case "pulse":
-          let y = {
-            脉搏: {
-              value: val,
-              reg: [0, 300],
-              errorMsg: "体温请填入0~300之间的数值",
-            },
-          };
-          return y;
-        case "breath":
-          let g = {
-            呼吸: {
-              value: val,
-              reg: [0, 120],
-              errorMsg: "体温请填入0~120之间的数值或者R/r",
-            },
-          };
-          return g;
-        default:
-          break;
-      }
-    },
-    //validForm验证表单
-    validFormFc(e) {
-      if (["liaocheng"].includes(this.HOSPITAL_ID)) {
-        let checkItem = e.path[0].classList[0];
-        let val = e.target.value;
-        let checksStr = [
-          "breath",
-          "pulse",
-          "bloodPressure",
-          "heartRate",
-          "temperature",
-        ];
-        var trs = e.path[3];
-        if (checksStr.includes(checkItem) && val !== "") {
-          if (validForm.valid(this.setValid(checkItem, val))) {
-            trs.getElementsByClassName(checkItem)[0].style.border = "";
-          } else {
-            trs.getElementsByClassName(checkItem)[0].style.border =
-              "thick solid red";
-          }
-        } else {
-          trs.getElementsByClassName(checkItem)[0].style.border = "";
-        }
-      }
     },
   },
 
