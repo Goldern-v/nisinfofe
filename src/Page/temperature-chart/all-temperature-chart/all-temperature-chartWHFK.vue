@@ -33,12 +33,14 @@
         ></el-input>
       </div>
       <div style="margin: 0px 10px 0px 10px">
-        <el-radio-group v-model="admitted" size="small">
-          <el-radio-button label="所有患者"></el-radio-button>
-          <el-radio-button label="危重患者"></el-radio-button>
-          <el-radio-button label="三天超37.5"></el-radio-button>
-          <el-radio-button label="入院四天"></el-radio-button>
-        </el-radio-group>
+        <el-checkbox-group v-model="admitted" size="small">
+          <el-checkbox-button
+            v-for="option in checkOptions"
+            :label="option"
+            :key="option"
+            >{{ option }}</el-checkbox-button
+          >
+        </el-checkbox-group>
       </div>
       <el-button @click="debounceSave">保存</el-button>
       <el-button @click="onPrint">打印</el-button>
@@ -93,7 +95,6 @@
             align="center"
           >
             <template slot-scope="scope">
-              <!-- <el-input v-model="scope.row.temperature"></el-input> -->
               <input
                 v-model="scope.row.temperature"
                 :class="className"
@@ -153,8 +154,6 @@
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.breath" class="breath" /> -->
-              <!-- <el-input v-model="scope.row.breath"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -174,8 +173,6 @@
                 v-on:input="validFormFc"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.stoolNum" class="stoolNum" /> -->
-              <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -195,8 +192,6 @@
                 v-on:input="validFormFc"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
-              <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -766,12 +761,14 @@ export default {
       heightTemperature: [],
       isSelectedNurs: "",
       handleKeyCode: [37, 38, 39, 40, 13],
+      checkOptions: [
+        "危重患者",
+        "三天超37.5",
+        "入院四天",
+        "术后三天",
+        "转科三天",
+      ],
       colClass: "",
-      // pickerOptions: {
-      //   disabledDate(time) {
-      //     return time.getTime() > Date.now() - 8.64e6;
-      //   },
-      // },
       nursingList: [],
       query: {
         wardCode: "", //科室编码
@@ -832,7 +829,7 @@ export default {
 
       patientsInfoData: [],
       searchWord: "",
-      admitted: "所有患者",
+      admitted: [],
       pageLoadng: false,
     };
   },
@@ -842,32 +839,95 @@ export default {
     },
     tableData: {
       get() {
-        return this.admitted !== "三天超37.5"
-          ? this.patientsInfoData.filter((item) => {
-              return this.admitted === "所有患者"
-                ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                    item.name.indexOf(this.searchWord) > -1) &&
-                    item.patientId
-                : this.admitted === "危重患者"
-                ? ((item.bedLabel.indexOf(this.searchWord) > -1 ||
-                    item.name.indexOf(this.searchWord) > -1) &&
-                    item.patientId &&
-                    item.patientCondition === "病危") ||
-                  item.patientCondition === "病重"
-                : (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                    item.name.indexOf(this.searchWord) > -1) &&
-                  item.patientId &&
-                  moment(item.admissionDate.slice(0, 10)).isAfter(
-                    moment().subtract(4, "days").format("YYYY-MM-DD")
-                  );
-            })
-          : this.heightTemperature.filter((item) => {
-              return (
-                (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                  item.name.indexOf(this.searchWord) > -1) &&
-                item.patientId
-              );
-            });
+        let data = [];
+        if (this.admitted.length == 0) {
+          data = this.patientsInfoData.filter((item) => {
+            return (
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId
+            );
+          });
+        }else{
+          data = this.patientsInfoData.filter((item) => {
+            return (
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId
+            );
+          });
+          if (this.admitted.includes("危重患者")) {
+          data = data.filter((item) => {
+            return (
+              ((item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+                item.patientId &&
+                item.patientCondition === "病危") ||
+              item.patientCondition === "病重"
+            );
+          });
+        }
+        if (this.admitted.includes("三天超37.5")) {
+          data = data.filter((item) => {
+            return (
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId &&
+              item.temperatureFlag == 1
+            );
+          });
+        }
+        if (this.admitted.includes("入院四天")) {
+          data = data.filter((item) => {
+            return (
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId &&
+              moment(item.admissionDate.slice(0, 10)).isAfter(
+                moment().subtract(4, "days").format("YYYY-MM-DD")
+              )
+            );
+          });
+        }
+        if (this.admitted.includes("术后三天")) {
+          data = data.filter((item) => {
+            return (
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId &&
+              item.operationFlag == 1
+            );
+          });
+        }
+         if (this.admitted.includes("转科三天")) {
+          data = data.filter((item) => {
+            return (
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId &&
+              item.transferFlag == 1
+            );
+          });
+        }
+        }
+        return data;
+        //       return this.admitted.includes("所有患者")
+        //         ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
+        //             item.name.indexOf(this.searchWord) > -1) &&
+        //             item.patientId
+        //         : this.admitted === "危重患者"
+        //         ? ((item.bedLabel.indexOf(this.searchWord) > -1 ||
+        //             item.name.indexOf(this.searchWord) > -1) &&
+        //             item.patientId &&
+        //             item.patientCondition === "病危") ||
+        //           item.patientCondition === "病重"
+        //         : (item.bedLabel.indexOf(this.searchWord) > -1 ||
+        //             item.name.indexOf(this.searchWord) > -1) &&
+        //           item.patientId &&
+        //           moment(item.admissionDate.slice(0, 10)).isAfter(
+        //             moment().subtract(4, "days").format("YYYY-MM-DD")
+        //           );
+        //     })
       },
       set(value) {
         // this.tableData = value;
@@ -898,10 +958,9 @@ export default {
       this.pageLoadng = true;
       await getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
-      });
-      data.abnormalTemperature = 1;
-      getPatientsInfo(data).then((res) => {
-        this.heightTemperature = res.data.data;
+        // this.patientsInfoData.forEach((x,i)=>{
+        //   i<5?x.temperatureFlag=1:i>=5&&i<10?x.operationFlag=1:i>=10&&i<20?x.transferFlag=1:x.patientCondition='病危'
+        // })
         this.pageLoadng = false;
       });
     },
