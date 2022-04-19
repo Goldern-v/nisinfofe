@@ -556,7 +556,7 @@ export default {
       handler(newName, oldName) {
       if (this.query.entryTime && this.query.entryDate) {
         this.getList();
-        // this.bus.$emit('dateChangePage',this.query.entryDate)
+        this.bus.$emit('dateChangePage',this.query.entryDate)
         }
       },
       deep: true,
