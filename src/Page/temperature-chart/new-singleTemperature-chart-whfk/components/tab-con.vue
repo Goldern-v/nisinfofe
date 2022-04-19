@@ -105,6 +105,7 @@
                         }
                       "
                       @input="handlePopRefresh(vitalSignObj[j])"
+                      v-on:input="validFormFc(vitalSignObj[j], i + 1)"
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
@@ -409,6 +410,7 @@
 import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
+import { validForm } from "../../validForm/validForm";
 import {
   getmultiDict,
   getVitalSignListByDate,
@@ -490,6 +492,7 @@ export default {
       recordDate: "",
       fieldList: {}, // 自定义项目列表
       activeNames: ["biometric", "otherBiometric",'notes'],
+       checkItem:["体温", "脉搏", "心率", "口温",'肛温','物理降温'],
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
       otherMultiDictList: {}, //其他体征信息
@@ -553,6 +556,7 @@ export default {
       handler(newName, oldName) {
       if (this.query.entryTime && this.query.entryDate) {
         this.getList();
+        this.bus.$emit('dateChangePage',this.query.entryDate)
         }
       },
       deep: true,
@@ -678,6 +682,10 @@ export default {
             this.fieldList[item.vitalCode] = item;
         });
       });
+      let input = document.getElementsByTagName("input");
+      for (let i = 0; i < input.length; i++) {
+        input[i].style.border = "";
+      }
     },
     /* 日期搜索功能 */
     selectTemRec(val) {
@@ -716,6 +724,62 @@ export default {
         this.query.entryTime = temp.slice(12, 14);
       } else {
         this.query.entryTime = value.split("  ")[1];
+      }
+    },
+        setValid(trage, val) {
+      switch (trage) {
+        case "体温":
+        case "肛温":
+        case "口温":
+        case "物理降温":
+          let o = {
+            体温: {
+              value: val,
+              reg: [34, 42],
+              errorMsg: "体温请填入30~42之间的数值",
+            },
+          };
+          return o;
+        case "脉搏":
+          case "心率":
+          let y = {
+            脉搏: {
+              value: val,
+              reg: [20, 180],
+            },
+          };
+          return y;
+        case "疼痛强度":
+        case "疼痛干预":
+          let g = {
+            疼痛评分: {
+              value: val,
+              reg: [0, 10],
+            },
+          };
+          return g;
+        default:
+          break;
+      }
+    },
+     validFormFc(vitalSignObj, index) {
+      let val = vitalSignObj.vitalValue;
+      if (
+        val !== "" &&
+        this.checkItem.includes(vitalSignObj.vitalSigns)
+      ) {
+
+        //验证表单
+        if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
+          document.getElementById(index).style.border = "";
+          vitalSignObj.isCorrect = true;
+        } else {
+          document.getElementById(index).style.border = "1px solid red";
+          vitalSignObj.isCorrect = false;
+        }
+      } else {
+        document.getElementById(index).style.border = "";
+        vitalSignObj.isCorrect = true;
       }
     },
     getFilterSelections(orgin, filterStr) {
@@ -862,6 +926,7 @@ export default {
     /* 录入体温单 */
     async saveVitalSign(value) {
       let obj = Object.values(value);
+       let saveFlagArr=[]
       obj.map((item) => {
         item.recordDate =
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
@@ -888,6 +953,12 @@ export default {
           default:
             break;
         }
+                 if(item.vitalValue !== "" &&
+        this.checkItem.includes(item.vitalSigns)){
+            if(!validForm.valid(this.setValid(item.vitalSigns, item.vitalValue))){
+            saveFlagArr.push(false)
+            }
+        }
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
@@ -896,11 +967,18 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
       };
-      await saveAll(data).then((res) => {
+                  if(saveFlagArr.includes(false)){
+        this.$message.error("存在数值错误,请耐心检查!");
+      }else{
+        await saveAll(data).then((res) => {
         this.$message.success("保存成功");
       });
-      this.getList();
+       this.getList();
       this.bus.$emit("refreshImg");
+       this.bus.$emit('dateChangePage',this.query.entryDate)
+
+      }
+
     },
     formatTopExpandDate(val) {
       this.topExpandDate = val;

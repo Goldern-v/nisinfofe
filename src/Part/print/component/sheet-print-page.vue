@@ -192,7 +192,7 @@
     }
   }
   strong{
-    text-shadow:0.15pt 0px 0px black,0.25pt 0px 0px black,0.35pt 0px 0px black,-0.25pt 0px 0px black,0px 0.25pt 0px black,0px -0.25pt 0px black;
+    font-family: '黑体' !important;
   }
 }
 
@@ -467,6 +467,12 @@ export default {
           #sheetPagePrint#sheetPagePrint th[dataname='审核<br/>签名']{
             display:none !important;
           }
+          #sheetPagePrint#sheetPagePrint th[dataname='护士<br/>签名']{
+            width:100px
+          }
+          img{
+            transform: scale(0.7);
+          }
           @media print {
             #sheetPagePrint .contant{
               margin-top:-20px;!important;
@@ -491,6 +497,20 @@ export default {
             }
            img{
               transform: scale(0.8);
+            }
+        `
+      );
+    }
+     if (
+      (this.HOSPITAL_ID === "sdlj") &&
+      this.sheetInfo.sheetType == "neonate_sdlj"
+    ) {
+      addCSS(
+        window,
+        `
+           #sheetPagePrint th[dataname="护士<br/>签名"] {
+              min-width: 100px !important;
+              max-width: 100px !important;
             }
         `
       );

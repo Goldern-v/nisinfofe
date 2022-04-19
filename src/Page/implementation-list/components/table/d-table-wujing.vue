@@ -90,9 +90,6 @@
        </u-table-column>
 
       <u-table-column prop="executeNurseName" title="executeNurseName" label="执行护士" min-width="80px" align="center">
-      <template slot-scope="scope">
-          <span :title="scope.row.executeNurseName | ymdhms">{{scope.row.executeNurseName | ymdhms}}</span>
-        </template>
       </u-table-column>
 
       <u-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center">

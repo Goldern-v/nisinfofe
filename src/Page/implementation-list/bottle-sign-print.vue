@@ -61,7 +61,8 @@
           </el-select>
           <el-button size="small" type="primary" @click="search">查询</el-button>
           <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
-          <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印</el-button>
+          <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
+          <el-button size="small" v-if="['sdlj'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
           <el-button size="small" @click="creatImplement">生成执行</el-button>
           <!-- <a href="VMS://abcdefg" @click="onPrint" >1</a> -->
           <el-button size="small" @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
@@ -184,7 +185,7 @@
 </style>
 <script>
 import modal from "./modal/modal.vue"
-import dTable from "./components/table/bottle-sign-print-table";
+import dTable from "./components/table/bottle-sign-print-table.vue";
 import pagination from "./components/common/pagination";
 import NewPrintModal from "./components/common/newPrintModal"
 import printing from 'printing'
@@ -206,8 +207,8 @@ export default {
         total: 0
       },
       // startDate: moment().format("YYYY-MM-DD"),
-      startDate: moment().format("YYYY-MM-DD")+' 07:00:00',
-      endDate: moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
+      startDate: process.env.HOSPITAL_ID=='whfk'? moment().format("YYYY-MM-DD")+' 00:00:00':moment().format("YYYY-MM-DD")+' 07:00:00',
+      endDate: process.env.HOSPITAL_ID=='whfk'?  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00' :  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
       repeatIndicator: "",
       type: "",
       status: "",
@@ -397,10 +398,11 @@ export default {
       // this.printResult(this.selectedData.length);
     },
     newOnPrint(){
-      let barcode = this.selectedData.map(item=>item.barcode).join('|')
+      let barCode = this.$_.uniqBy(this.selectedData.map(item=>item.barcode)).join('|')
+      // let barcode = this.selectedData.map(item=>item.barcode).join('|')
       let printObj = {}
-      getPrintListContent({barCode:barcode}).then(res=>{
-        let barcodes = barcode.split('|')
+      getPrintListContent({barCode}).then(res=>{
+        let barcodes = barCode.split('|')
         res.data.data.map(item=>{
           printObj[item.barCode] = printObj[item.barCode] || []
           printObj[item.barCode].push(item)
@@ -429,6 +431,11 @@ export default {
           })
         })
       })
+    },
+    // 打印全部
+    onPrintAll() {
+      this.selectedData = this.$_.flattenDeep(this.pagedTable)
+      this.newOnPrint()
     },
     cleanPrintStatusRoundTime(){
       if(this.printStatusTimmer){

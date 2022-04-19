@@ -112,7 +112,7 @@
           > -->
         </div>
       </div>
-      <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
+      <dTable :pageLoadng="pageLoadng" :currentType="query.itemType" ref="plTable"></dTable>
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -203,10 +203,10 @@ export default {
         pageNum: 100,
         total: 0,
       },
-      startDate: moment().format("YYYY-MM-DD") + " 07:30:00",
+      startDate:  moment().format("YYYY-MM-DD") + " 00:00:00",
       endDate:
         moment(moment().toDate().getTime() + 86400000).format("YYYY-MM-DD") +
-        " 07:30:00",
+        " 00:00:00",
       type: "",
       status: "",
       bedLabel: "",
@@ -214,6 +214,7 @@ export default {
       query: {
         wardCode: "",
         itemType: "输液", //医嘱类别，输液、雾化
+        // itemType: "输液", //医嘱类别，输液、雾化
         executeDate: moment().format("YYYY-MM-DD"), //执行日期
         bedLabel: "", //床位号，如果查全部传*"
         repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9

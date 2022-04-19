@@ -451,8 +451,8 @@
       <strong>牵引</strong>：①有效②无效；<strong>颜色性状</strong>：①血性质；②淡红色液；③暗红色液；④黄色液；⑤淡黄色液；⑥深黄色液；⑦澄清；<strong>留置尿管/留置镇痛泵/留置胃管/深静脉管/伤口引流管</strong>：①固定通畅②堵塞③脱出④拔管；<strong>腹部情况</strong>：①平软②膨隆 ③腹肌紧张；<strong>疼痛评分</strong>：用数字式0-10代替文字来表示疼痛程度。<strong>呕吐</strong>：①一般；②喷射性；③无。<br/>
       <strong>肌张力</strong>：①高；②低；③正常。<strong>肌力</strong>：①0级；②1级；③2级；④3级；⑤4级；⑥5级。体位：①平卧；②半坐卧。
     </div>
-    <!-- 佛山杏坛 护理记录单（颅脑） -->
-    <div v-if="sheetInfo.sheetType == 'craniocerebral_xt'">
+    <!-- 佛山杏坛 护理记录单（颅脑）护理记录单（骨折）护理记录单（通用）护理记录单（脊柱） -->
+    <div v-if="sheetInfo.sheetType == 'craniocerebral_xt'||sheetInfo.sheetType == 'fracture_xt'||sheetInfo.sheetType == 'general_xt'||sheetInfo.sheetType == 'spine_xt'">
       注： <strong>意识</strong>：清醒√  嗜睡+  浅昏迷++  深昏迷+++；&nbsp;<strong>瞳孔对光反射</strong>：灵敏+  迟钝±  消失－  
     </div>
     <!-- 佛山杏坛 护理记录单(心血管呼吸专科) -->
@@ -501,7 +501,7 @@
       &nbsp;&nbsp;&nbsp;清洁护理：①沐浴  ②床上擦浴 ③口腔护理 ④臀部护理 ⑤更衣；&nbsp; &nbsp;专科护理：①脐部护理 ②胃管护理  ③灌肠；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;脐部情况：①干净 ②渗血 ③红肿 ④脓性分泌物；<br/>
       &nbsp;&nbsp;&nbsp;光疗情况：①安睡 ②哭闹烦燥 ③尖叫 ④体温异常 ⑤皮疹；&nbsp; &nbsp;&nbsp;&nbsp;光疗护理：①戴眼罩，保护外阴，戴手套脚套；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;对光反射：灵敏(+) 迟钝(±) 消失(-)；<br/>
       &nbsp;&nbsp;&nbsp;瞳孔判断：单位㎜；&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肤&nbsp;&nbsp;色：①红润 ②黄染 ③苍白 ④苍灰 ⑤干燥 ⑥紫绀；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;哭&nbsp;&nbsp;声：①响 ②弱 ③呻吟；<br/>  
-      &nbsp;&nbsp;&nbsp;留 置 针：①正常 ②拔除 ③重置；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肛周皮肤：①正常 ②皮疹 ③潮红 ④破溃、脱皮 ⑤糜烂；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;喂养方式：①自吮 ②饲奶；<br/>
+      &nbsp;&nbsp;&nbsp;留 置 针：①正常 ②拔除 ③重置 ④封管；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 肛周皮肤：①正常 ②皮疹 ③潮红 ④破溃、脱皮 ⑤糜烂；&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;喂养方式：①自吮 ②饲奶 ③禁食；<br/>
       &nbsp;&nbsp;&nbsp;吸氧方式：①鼻导管 ②面罩 ③CPAP ④有创通气       
     </div>
     <!-- 顺德龙江 - 护理记录单（颅脑外科）-->

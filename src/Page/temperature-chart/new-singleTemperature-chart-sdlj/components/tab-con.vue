@@ -6,7 +6,7 @@
           id="date-picker"
           type="date"
           size="small"
-          style="width: 190px"
+          style="width: 115px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -30,12 +30,21 @@
           >
           </el-time-select>
         </div>
+        <div class="save-btn-top" v-if="patientInfo.patientId">
+          <el-button
+            :disabled="isDisable()"
+            type="primary"
+            class="save-btn"
+            @click="saveVitalSign(vitalSignObj)"
+            >保存</el-button
+          >
+        </div>
       </div>
     </div>
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div class="record-list" :style="{ width: `${35}%` }">
+        <div class="record-list" :style="{ width: `${40}%` }">
           <div class="record-item">
             <div
               :class="
@@ -118,6 +127,7 @@
                         }
                       "
                       @input="handlePopRefresh(vitalSignObj[j])"
+                       v-on:input="validFormFc(vitalSignObj[j], i + 1)"
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
@@ -201,7 +211,7 @@
                       :value="vitalSignObj[j].popVisible"
                     >
                       <input
-                        :id="i + 1"
+                        :id="i + 100"
                         @keydown.enter="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
@@ -217,6 +227,7 @@
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
                         @click="() => (vitalSignObj[j].popVisible = true)"
+                         v-on:input="validFormFc(vitalSignObj[j], i + 100)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
                         v-model="vitalSignObj[j].vitalValue"
                       />
@@ -427,6 +438,7 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
+import { validForm } from "../../validForm/validForm";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -463,6 +475,7 @@ export default {
       },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
+      checkItem:["体温", "脉搏", "心率", "口温",'肛温','疼痛强度','疼痛干预','物理降温'],
       fieldList: {}, // 自定义项目列表
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
@@ -480,9 +493,13 @@ export default {
       totalDictInfo: {},
     };
   },
-  async mounted() {
+async mounted() {
     await this.getVitalList();
-
+         this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate = dateTime.slice(0, 10);
+      this.query.entryTime = dateTime.slice(11, 16) + ":00";
+      this.dateInp = dateTime.slice(11, 16);
+    });
   },
   created() {
     window.addEventListener("resize", this.getHeight);
@@ -623,6 +640,10 @@ export default {
             this.fieldList[item.vitalCode] = item;
         });
       });
+       let input = document.getElementsByTagName("input");
+      for (let i = 0; i < input.length; i++) {
+        input[i].style.border = "";
+      }
     },
     //时间组件失去焦点
     changeDate(val) {
@@ -659,6 +680,63 @@ export default {
       if (newVal && newVal.split(":").length == 2) {
         this.query.entryTime = newVal + ":00";
         this.dateInp = newVal;
+      }
+    },
+    setValid(trage, val) {
+      switch (trage) {
+        case "体温":
+        case "肛温":
+        case "口温":
+        case "物理降温":
+          let o = {
+            体温: {
+              value: val,
+              reg: [34, 42],
+              errorMsg: "体温请填入30~42之间的数值",
+            },
+          };
+          return o;
+        case "脉搏":
+          case "心率":
+          let y = {
+            脉搏: {
+              value: val,
+              reg: [20, 180],
+            },
+          };
+          return y;
+        case "疼痛强度":
+        case "疼痛干预":
+          let g = {
+            疼痛评分: {
+              value: val,
+              reg: [0, 10],
+            },
+          };
+          return g;
+        default:
+          break;
+      }
+    },
+     validFormFc(vitalSignObj, index) {
+      let val = vitalSignObj.vitalValue;
+      if (
+        val !== "" &&
+        this.checkItem.includes(vitalSignObj.vitalSigns)
+      ) {
+       console.log(vitalSignObj, index)
+
+        //验证表单
+        if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
+          document.getElementById(index).style.border = "";
+          vitalSignObj.isCorrect = true;
+        } else {
+          document.getElementById(index).style.border = "1px solid red";
+          vitalSignObj.isCorrect = false;
+        }
+      } else {
+        document.getElementById(index).style.border = "";
+        vitalSignObj.isCorrect = true;
       }
     },
     /* 日期搜索功能 */
@@ -860,6 +938,7 @@ export default {
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
         this.query.entryTime;
+        let saveFlagArr=[]
       obj.map((item) => {
         item.recordDate = recordDate;
         switch (item.vitalSigns) {
@@ -873,6 +952,12 @@ export default {
           default:
             break;
         }
+         if(item.vitalValue !== "" &&
+        this.checkItem.includes(item.vitalSigns)){
+            if(!validForm.valid(this.setValid(item.vitalSigns, item.vitalValue))){
+            saveFlagArr.push(false)
+            }
+        }
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
@@ -881,11 +966,15 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
       };
-      await saveAll(data).then((res) => {
+            if(saveFlagArr.includes(false)){
+        this.$message.error("存在数值错误,请耐心检查!");
+      }else{
+        await saveAll(data).then((res) => {
         this.$message.success("保存成功");
       });
-      this.getList();
+       this.getList();
       this.bus.$emit("refreshImg");
+      }
     },
   },
   components: { nullBg },
@@ -909,8 +998,9 @@ export default {
 
   .column-right {
     display: inline-block;
-    margin-left: 25px;
     height: 50px;
+    width: 100%;
+    display: inline-block;
     overflow: auto;
   }
 
@@ -947,7 +1037,7 @@ export default {
           line-height: 30px;
           border: 1px solid #eee;
           padding: 0 6px;
-          text-align: left;
+          text-align: center;
           font-size: 12px;
 
           &.active {
@@ -964,7 +1054,7 @@ export default {
     }
 
     .inputter-region {
-      width: 63%;
+      width: 58%;
       float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;
@@ -1043,7 +1133,10 @@ export default {
     position: relative !important;
     left: 80% !important;
   }
-
+  .save-btn-top {
+    width: 50px;
+    display: inline-block;
+  }
   .el-collapse {
     border: none !important;
   }
