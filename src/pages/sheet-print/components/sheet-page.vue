@@ -51,6 +51,31 @@ export default {
       data: {
         bedList: []
       },
+      multiSignArr: [
+        "common_hd", // 花都_通用护理记录单
+        "neurosurgery_hd", // 花都_神经外科护理记录单
+        "prenatal_hd", // 花都_产前记录单
+        "neonatology2_hd", // 花都_新生儿护理记录单
+        "postpartum_hd", // 花都_产后记录单
+        "wait_delivery_hd", // 花都_候产记录单
+        "neonatology_hd", // 花都_新生儿科护理记录单
+
+        "neonatal_care_jm", //江门妇幼_新生儿监护单
+        "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
+        "pediatrics_jm", //江门妇幼_儿科护理记录单
+        "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
+        "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
+        "obstetricnursing_jm", //江门妇幼_产科护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
+        "postpartumnursing_jm",//江门妇幼_产后护理记录单
+        "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
+        "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
+        "safemetachysis_jm",//江门妇幼_输血护理记录单
+        "internal_eval_lcey",//聊城_一般患者护理记录单
+        "critical_new_lcey",//聊城_病重（危）患者护理记录单(带瞳孔）
+        "critical_lcey",//聊城_病重（病危）患者护理记录单（带瞳孔）
+      ],
       bus: bus(this),
       sheetModel,
       sheetInfo
@@ -239,30 +264,51 @@ export default {
                 addCSS(
                   window,
                   `
-        @page{
-          margin: 0 5mm;
-          size: ${Math.round((sheetTableWidth * 25.4) / 96)}mm ${Math.round(
-                    ((sheetTableWidth * 25.4) / 96) * 0.68
-                  )}mm;
-        }
+                    @page{
+                      margin: 0 5mm;
+                      size: ${Math.round((sheetTableWidth * 25.4) / 96)}mm ${Math.round(
+                                ((sheetTableWidth * 25.4) / 96) * 0.68
+                              )}mm;
+                    }
 
-        @media print {
-        #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
-         height: auto !important;
-         }
-        #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
-            transform: rotate(0deg) !important;
-       }
-       }
-       #sheetPagePrint#sheetPagePrint th[dataname='护士签名'] {
-         width: 60px !important;
-       }
-       .sign-img img {
-         width: 40px !important;
-       }
-        `
+                    @media print {
+                      #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
+                        height: auto !important;
+                      }
+                      #sheetPagePrint#sheetPagePrint .iframe > div:nth-of-type(2n) {
+                        transform: rotate(0deg) !important;
+                      }
+                    }
+                  #sheetPagePrint#sheetPagePrint th[dataname='护士签名'] {
+                    width: 60px !important;
+                  }
+                  .sign-img img {
+                    width: 40px !important;
+                  }
+                `
                 );
               }
+              if (
+                  (this.HOSPITAL_ID === "huadu") &&
+                  this.multiSignArr.includes(this.sheetInfo.sheetType)
+                ) {
+                  addCSS(
+                    window,
+                    `
+                      #sheetPagePrint#sheetPagePrint th[dataname='质控护士签名']{
+                        display:none !important;
+                      }
+                      #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签名']{
+                        display:none !important;
+                      }
+                      @media print {
+                        #sheetPagePrint .contant{
+                          margin-top:-20px;!important;
+                        }
+                      }
+                    `
+                  );
+                }
 
               if (!this.isDev) $('[style="display: none;"]').remove();
               if (!this.isDev) $(".no-print").remove();
