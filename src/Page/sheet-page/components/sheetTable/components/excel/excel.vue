@@ -786,7 +786,7 @@ export default {
     //花都护记年份
     recordYear() {
       let year=this.data.bodyModel[0][0].value.split("-")[0]
-      if((this.HOSPITAL_ID==='fuyou'||this.HOSPITAL_ID==='whfk')&&year){
+      if((this.HOSPITAL_ID==='fuyou'||this.HOSPITAL_ID==='whfk'||this.HOSPITAL_ID==='fsxt')&&year){
         year=`${year}年`
       }
       if(['wujing'].includes(this.HOSPITAL_ID)){

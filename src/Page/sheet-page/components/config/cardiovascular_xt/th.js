@@ -18,8 +18,8 @@ export default {
     th: {
         top:
             [
-                {"name":"日期","colspan":"1","rowspan":"3"},
-                {"name":"时间","colspan":"1","rowspan":"3"},
+                {"name":"日期","colspan":"1","rowspan":"3","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"时间","colspan":"1","rowspan":"3","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"体<br/>温<br/>℃","colspan":"1","rowspan":"3"},
                 {"name":"HR/P<br/>次/<br/>分","colspan":"1","rowspan":"3"},
                 {"name":"呼<br/>吸<br/>次/<br/>分","colspan":"1","rowspan":"3"},
@@ -59,9 +59,9 @@ export default {
                 {"name":"护<br/>理<br/>安<br/>全","colspan":"1","rowspan":"3"},
                 {"name":"启用<br/>相关<br/>护理<br/>表格","colspan":"1","rowspan":"3"},
                 {"name":"报<br/>告医<br/>生","colspan":"1","rowspan":"3"},
-                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"140px","maxWidth":"140px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
-                {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
+                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
+                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"45px","maxWidth":"45px"}},
+                {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"45px","maxWidth":"45px"}}
             ]
         ,
         mid:
