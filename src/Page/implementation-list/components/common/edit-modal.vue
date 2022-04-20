@@ -104,7 +104,7 @@ export default {
           : this.afterEndExecuteTime //需要修改后的实际结束时间
       };
       updateExecuteTime(data).then(res => {
-        this.$message.success(res.data.data.ErrorMsg);
+        this.$message.success('修改成功！');
         this.bus.$emit("loadImplementationList");
         this.close();
       });

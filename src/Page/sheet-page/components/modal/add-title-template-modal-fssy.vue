@@ -7,21 +7,21 @@
       :enable-mobile-fullscreen="false"
     >
       <div  style="margin-bottom: 20px">
-        <el-tabs  type="card" @tab-click="handleClick">
-          <el-tab-pane label="纯标题模板" style="display: flex;">
+        <el-tabs  type="card" @tab-click="handleClick" v-model="activeName">
+          <el-tab-pane label="纯标题模板" style="display: flex;" name="first">
              <div class="tab-list-item">
               <p for class="title" style="margin-right: 10px">标题：</p>
-              <el-input type="text" v-model="itemName"></el-input>
+              <el-input type="text" v-model="titleName"></el-input>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="含选项标题模板">
+          <el-tab-pane label="含选项标题模板"  name="second">
             <div class="tab-list-item">
               <p for class="title" style="margin-right: 10px">标题：</p>
               <el-input type="text" v-model="itemName"></el-input>
             </div>
             <div class="tab-list-item" v-for="(contentItem,contentIndex) in contentList" :key="contentIndex">
                 <p for class="title" style="margin-right: 10px">内容：</p>
-                <el-input type="text" v-model="contentItem.itemName">
+                <el-input type="text" v-model="contentItem.title">
                 </el-input>
                 <el-tooltip content="删除" placement="bottom" effect="dark">
                   <i class="iconfont icon-shanchuzhenghang" @click.stop="toDel(contentIndex)"></i>
@@ -65,6 +65,7 @@
 
 <script>
 import { dictSave, dictUpdate } from "@/api/common";
+import { titleTempalateSaveOrUpdate } from "./api/index";
 import bus from "vue-happy-bus";
 import sheetInfo from "../config/sheetInfo/index";
 import commom from "@/common/mixin/common.mixin";
@@ -77,9 +78,11 @@ export default {
       dictName: "",
       itemCode: "",
       itemName: "",
+      titleName: "",
       isEditItem: null,
       isaddList: false,
       contentList:[],
+      activeName:'first'
     };
   },
   computed: {
@@ -93,28 +96,39 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-      console.log(tab.index == '1');
+      // console.log(tab.index == '1');
       if(tab.index == '1'){
         this.isaddList = true
       }else{
         this.isaddList = false
       }
-        console.log(tab, event);
     },
     open(item) {
       this.$refs.modal.open();
-      this.getData();
+      console.log(item);
       if (item) {
-        this.dictCode = item.dictCode;
-        this.dictName = item.dictName;
-        this.itemCode = item.code;
-        this.itemName = item.name;
-        this.isEditItem = item;
+        if(item.children){
+          this.itemName = item.groupName;
+          this.contentList = item.children;
+          this.isEditItem = item;
+          this.activeName = 'second';
+          this.titleName = '';
+          this.isaddList = true;
+        }else{
+          this.titleName = item.groupName;
+          this.isEditItem = item;
+          this.activeName = 'first';
+          this.itemName = '';
+          this.contentList = [];
+          this.isaddList = false;
+        }
       } else {
         this.dictCode = "";
         this.dictName = "";
         this.itemCode = "";
         this.itemName = "";
+        this.titleName = "";
+        this.contentList = [];
         this.isEditItem = null;
       }
     },
@@ -132,36 +146,53 @@ export default {
     //体温单路由+医院名字（贵州+北海），
     //recorCode/moduleCode传体温单code值，护理记录单传护理记录单coe值，没有就传空，
       if (this.isEditItem) {
-
+        console.log(this.contentList);
+        this.contentList.map(item =>{
+          if(!item.wardCode){
+            item.recordCode = this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType;
+            item.wardCode = this.deptCode;
+            item.groupName = this.itemName;
+          }
+        })
         let data = {
-          dictCode: "自定义标题",
-          dictName: "自定义标题",
-          itemCode: this.isEditItem.code,
-          itemName: this.isEditItem.name,
-          newItemCode: this.itemCode || this.itemName,
-          newItemName: this.itemName,
-           moduleCode:this.getRecordCode()?'bodyTemperature':'',
-          recordCode: this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
-          wardCode: this.deptCode,
-          deptCode: this.deptCode,
+          list: this.contentList
         };
-        dictUpdate(data).then(res => {
+        // let data = {
+        //   itemCode: this.isEditItem.code,
+        //   itemName: this.isEditItem.name,
+        //   newItemCode: this.itemCode || this.itemName,
+        //   newItemName: this.itemName,
+        //   recordCode: this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
+        //   wardCode: this.deptCode,
+        //   deptCode: this.deptCode,
+        // };
+        titleTempalateSaveOrUpdate(data).then(res => {
           this.$message.success("更新常用语模版成功");
           this.close();
           this.bus.$emit("refreshTitleTemplate");
         });
       } else {
+         console.log(this.contentList);
+        if(this.contentList.length != 0){
+          this.contentList.map((item,index) =>{
+            item.recordCode = this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType;
+            item.wardCode = this.deptCode;
+            item.groupName = this.itemName;
+          })
+        }else{
+          if(this.titleName){
+            this.contentList.push({
+              recordCode:this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
+              wardCode:this.deptCode,
+              title:this.titleName,
+              groupName:'纯标题模板'
+            })
+          }
+        }
         let data = {
-          dictCode: "自定义标题",
-          dictName: "自定义标题",
-          itemCode: this.itemCode || this.itemName,
-          itemName: this.itemName,
-         moduleCode:this.getRecordCode()?'bodyTemperature':'',
-          recordCode: this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
-          wardCode: this.deptCode,
-          deptCode: this.deptCode,
+          list: this.contentList
         };
-        dictSave(data).then(res => {
+        titleTempalateSaveOrUpdate(data).then(res => {
           this.$message.success("保存常用语模版成功");
           this.close();
           this.bus.$emit("refreshTitleTemplate");
@@ -188,13 +219,13 @@ export default {
       //   }
       // })
     },
-    getData() {}
+    // getData() {}
   },
-  created() {
-    this.bus.$on("openAddTitleTemplateModalFS", item => {
-      this.open(item);
-    });
-  },
+  // created() {
+  //   this.bus.$on("openAddTitleTemplateModalFS", item => {
+  //     this.open(item);
+  //   });
+  // },
   components: {}
 };
 </script>
