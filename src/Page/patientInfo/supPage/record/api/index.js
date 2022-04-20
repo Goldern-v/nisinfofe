@@ -18,3 +18,14 @@ export function templatesAll(type,deptCode) {
 export function hadTransferToWard(patientId,visitId,wardCode) {
   return axios.get(`${apiPath}patient/hadTransferToWard/${patientId}/${visitId}/${wardCode}`,)
 }
+
+// 批量审核签名
+export const handleBatchAudit = (
+  params = {
+    ids: [],
+    password: "",
+    empNo: "",
+  }
+) => {
+  return axios.post(`${apiPath}form/design/toBatchAudit`, params)
+}
