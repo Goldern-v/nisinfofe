@@ -29,6 +29,7 @@ let sshUpload = (
     南方医科大学中西医结合医院: "nanfangzhongxiyi",
     临邑县人民医院:"linyi",
     东莞市谢岗医院: "xiegang",
+    北海市人民医院:"beihairenyi",
     山南市人民医院: "shannanrenyi",
     阳春中医院: "yczy",
     佛山市第一人民医院: "foshanshiyi",

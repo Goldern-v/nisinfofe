@@ -6,8 +6,8 @@
 
       <el-tree
         :data="datalist"
-        @node-click="handleNodeClick"
         :render-content="renderContent"
+        @node-click="addTemplateAtDoc"
       >
       </el-tree>
       <!-- <div class="tool-box" flex="cross:center">
@@ -20,6 +20,7 @@
       </div> -->
     </div>
     <!-- <div class="line"></div> -->
+    <addTitletemplateModalFssy ref="addTitletemplateModalFssyss"></addTitletemplateModalFssy>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -98,50 +99,48 @@ import data from "../../../sheet";
 import { dictDelete } from "@/api/common";
 import sheetInfo from "../../config/sheetInfo";
 import common from "@/common/mixin/common.mixin";
+import {titleTempalateList,deleteId,deleteGroup} from "../api/index"
+import addTitletemplateModalFssy from '../add-title-template-modal-fssy.vue';
 export default {
   mixins: [common],
   props: {
-    data: Object,
+    listdata: Array,
   },
   data() {
     return {
       bus: bus(this),
       msg: "hello vue",
-      datalist: [
-        {
-          id: 1,
-          label: "一级 1",
-          children: [
-            {
-              id: 4,
-              label: "二级 1-1",
-            },
-          ],
-        },
-      ],
+      datalist: [],
     };
   },
-  computed: {},
+  watch:{
+    listdata(newValue){
+      // console.log(newValue);
+      this.datalist = newValue
+    }
+  },
+  mounted(){
+    this.datalist = this.listdata
+    // console.log(this.listdata,'gaohaixiong');
+  },
   methods: {
-    handleNodeClick(data) {
-      console.log(data);
-    },
     renderContent(h, { node, data, store }) {
-      console.log(node,data,'ddddddddddd');
       if(node.level == 1){
         return (
           <span
             class="custom-tree-node"
           >
-            <span>{node.label}</span>
+            <span>{data.groupName}</span>
             <span style="margin-left:10px">
               <el-tooltip content="编辑" placement="bottom" effect="dark" class="tooltipcls">
-                <i class="iconfont icon-hulijiludan" on-click={this.toEdit}></i>
+                <i class="iconfont icon-hulijiludan" on-click={()=>{this.toEdit(event,data)}}></i>
               </el-tooltip>
               <el-tooltip content="删除" placement="bottom" effect="dark">
                 <i
                   class="iconfont icon-shanchuzhenghang"
-                  on-click={this.toDel}
+                  on-click={()=>{
+                    this.toDel(data)
+                  }}
                 ></i>
               </el-tooltip>
             </span>
@@ -152,12 +151,14 @@ export default {
           <span
             class="custom-tree-node"
           >
-            <span>{node.label}</span>
+            <span>{data.title}</span>
             <span style="margin-left:10px">
               <el-tooltip content="删除" placement="bottom" effect="dark">
                 <i
                   class="iconfont icon-shanchuzhenghang"
-                  on-click={this.toDel}
+                  on-click={()=>{
+                    this.toDelectId(data)
+                  }}
                 ></i>
               </el-tooltip>
             </span>
@@ -165,12 +166,14 @@ export default {
         );
       }
     },
-    addTemplateAtDoc() {
-      this.bus.$emit("addTitleTemplateFS", this.data.name);
+    addTemplateAtDoc(data) {
+      console.log(data);
+      this.bus.$emit("addTitleTemplateFS", data);
     },
-    toEdit( event ) {
-      event.preventDefault();
-      this.bus.$emit("openAddTitleTemplateModalFS", this.data);
+    toEdit(event,data) {
+      console.log(event,data);
+      // this.bus.$emit("openAddTitleTemplateModalFS", data);
+      this.$refs.addTitletemplateModalFssyss.open(data)
     },
     getRecordCode() {
       if (
@@ -182,23 +185,37 @@ export default {
         return false;
       }
     },
-    toDel() {
+    toDel(data) {
+      console.log(data);
+      this.$confirm("此操作将永久删除该含选项标题版, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        let obj = {
+          groupName: data.groupName,
+          recordCode:
+            //北海体温单调用护理记录单模板
+            this.getRecordCode() ? "bodyTemperature" : sheetInfo.sheetType,
+          wardCode: this.deptCode,
+        };
+        deleteGroup(obj).then((res) => {
+          this.$message({
+            type: "success",
+            message: "删除成功!",
+          });
+          this.bus.$emit("refreshTitleTemplate");
+        });
+      });
+    },
+    toDelectId(data) {
       this.$confirm("此操作将永久删除该自定义标题版, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        let data = {
-          dictCode: "自定义标题",
-          itemCode: this.data.name,
-          deptCode: this.deptCode,
-          recordCode:
-            //北海体温单调用护理记录单模板
-            this.getRecordCode() ? "bodyTemperature" : sheetInfo.sheetType,
-          moduleCode: this.getRecordCode() ? "bodyTemperature" : "",
-          wardCode: this.deptCode,
-        };
-        dictDelete(data).then((res) => {
+        let id = data.id
+        deleteId(id).then((res) => {
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -208,6 +225,8 @@ export default {
       });
     },
   },
-  components: {},
+  components: {
+    addTitletemplateModalFssy,
+  },
 };
 </script>
