@@ -6,7 +6,7 @@
           id="date-picker"
           type="date"
           size="small"
-          style="width: 190px"
+          style="width: 120px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -84,7 +84,7 @@
                       ? 'rowBoxRight'
                       : 'rowBox'
                   "
-                  v-for="(j, index, i) in baseMultiDictList"
+                  v-for="(j, index, i) in multiDictList"
                   :key="index"
                 >
                   <div class="rowItemText">
@@ -118,6 +118,7 @@
                         }
                       "
                       @input="handlePopRefresh(vitalSignObj[j])"
+                      v-on:input="validFormFc(vitalSignObj[j], i + 1)"
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
@@ -165,7 +166,10 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-              <div class="context-box" v-if="Object.keys(otherMultiDictList).length">
+              <div
+                class="context-box"
+                v-if="Object.keys(otherMultiDictList).length"
+              >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
                     <span class="title"> 其他信息 </span>
@@ -201,7 +205,7 @@
                       :value="vitalSignObj[j].popVisible"
                     >
                       <input
-                        :id="i + 1"
+                        :id="i + 100"
                         @keydown.enter="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
@@ -210,12 +214,13 @@
                         "
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
-                         @mousewheel="
-                        (e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                        }
-                      "
+                        v-on:input="validFormFc(vitalSignObj[j], i + 100)"
+                        @mousewheel="
+                          (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                          }
+                        "
                         @click="() => (vitalSignObj[j].popVisible = true)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
                         v-model="vitalSignObj[j].vitalValue"
@@ -266,7 +271,10 @@
               </div>
             </div>
             <div class="context-box">
-              <el-collapse-item name="fieldList" v-if="Object.keys(fieldList).length">
+              <el-collapse-item
+                name="fieldList"
+                v-if="Object.keys(fieldList).length"
+              >
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
                   <i class="header-icon el-icon-info"></i>
@@ -417,6 +425,7 @@
 import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
+import { validForm } from "../../validForm/validForm";
 import {
   getVitalSignListByDate,
   getmultiDict,
@@ -459,10 +468,20 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: moment().format("HH:mm")+':00', //录入时间
+        entryTime: moment().format("HH:mm") + ":00", //录入时间
       },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
+      checkItem: [
+        "体温",
+        "脉搏",
+        "心率",
+        "口温",
+        "肛温",
+        "物理降温",
+        "疼痛",
+        "疼痛干预",
+      ],
       fieldList: {}, // 自定义项目列表
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
@@ -482,22 +501,25 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
-
+    this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate = dateTime.slice(0, 10);
+      this.query.entryTime = dateTime.slice(11, 16) + ":00";
+      this.dateInp = dateTime.slice(11, 16);
+    });
   },
   created() {
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
-     this.bus.$on("refreshVitalSignList", () => {
+    this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
   },
-  computed: {
-
-  },
+  computed: {},
   watch: {
     query: {
       handler(newName, oldName) {
         this.getList();
+        this.bus.$emit("dateChangePage", this.query.entryDate);
       },
       deep: true,
     },
@@ -518,8 +540,8 @@ export default {
         this.changeDate(this.$refs.timeSelect);
       }
     },
-       formatDate(date){
-      return  moment(new Date(date)).format("YYYY-MM-DD")
+    formatDate(date) {
+      return moment(new Date(date)).format("YYYY-MM-DD");
     },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
@@ -599,7 +621,7 @@ export default {
         wardCode: this.patientInfo.wardCode,
         recordDate: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
       }).then((res) => {
-          this.tabsData=[]
+        this.tabsData = [];
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -628,6 +650,10 @@ export default {
             this.fieldList[item.vitalCode] = item;
         });
       });
+      let input = document.getElementsByTagName("input");
+      for (let i = 0; i < input.length; i++) {
+        input[i].style.border = "";
+      }
     },
     //时间组件失去焦点
     changeDate(val) {
@@ -669,6 +695,62 @@ export default {
     /* 日期搜索功能 */
     selectTemRec(val) {
       this.query.entryDate = val;
+    },
+            setValid(trage, val) {
+      switch (trage) {
+        case "体温":
+        case "肛温":
+        case "口温":
+        case "物理降温":
+          let o = {
+            体温: {
+              value: val,
+              reg: [35, 42],
+              errorMsg: "体温请填入30~42之间的数值",
+            },
+          };
+          return o;
+        case "脉搏":
+          case "心率":
+          let y = {
+            脉搏: {
+              value: val,
+              reg: [40, 180],
+            },
+          };
+          return y;
+        case "疼痛强度":
+        case "疼痛干预":
+          let g = {
+            疼痛评分: {
+              value: val,
+              reg: [0, 10],
+            },
+          };
+          return g;
+        default:
+          break;
+      }
+    },
+     validFormFc(vitalSignObj, index) {
+      let val = vitalSignObj.vitalValue;
+      if (
+        val !== "" &&
+        this.checkItem.includes(vitalSignObj.vitalSigns)
+      ) {
+
+        //验证表单
+        if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
+          document.getElementById(index).style.border = "";
+          vitalSignObj.isCorrect = true;
+        } else {
+          document.getElementById(index).style.border = "1px solid red";
+          vitalSignObj.isCorrect = false;
+        }
+      } else {
+        document.getElementById(index).style.border = "";
+        vitalSignObj.isCorrect = true;
+      }
     },
     isDisable() {
       if (
@@ -862,6 +944,7 @@ export default {
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
         this.query.entryTime;
+      let saveFlagArr = [];
       obj.map((item) => {
         item.recordDate = recordDate;
         switch (item.vitalSigns) {
@@ -875,6 +958,16 @@ export default {
           default:
             break;
         }
+        if (
+          item.vitalValue !== "" &&
+          this.checkItem.includes(item.vitalSigns)
+        ) {
+          if (
+            !validForm.valid(this.setValid(item.vitalSigns, item.vitalValue))
+          ) {
+            saveFlagArr.push(false);
+          }
+        }
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
@@ -883,11 +976,16 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
       };
-      await saveAll(data).then((res) => {
-        this.$message.success("保存成功");
-      });
-      this.getList();
-      this.bus.$emit("refreshImg");
+      if (saveFlagArr.includes(false)) {
+        this.$message.error("存在数值错误,请耐心检查!");
+      } else {
+        await saveAll(data).then((res) => {
+          this.$message.success("保存成功");
+        });
+        this.getList();
+        this.bus.$emit("refreshImg");
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }
     },
   },
   components: { nullBg },
@@ -911,7 +1009,7 @@ export default {
 
   .column-right {
     display: inline-block;
-    margin-left: 25px;
+    margin-left: 15px;
     height: 50px;
     overflow: auto;
   }
@@ -938,11 +1036,12 @@ export default {
         border-radius: 0px 7px 7px 0px;
         margin: 5px 3px 0px 0px;
         float: left;
-         overflow: auto;
+        overflow: auto;
       }
-            .record-list::-webkit-scrollbar{
-    display: none;
-}
+
+      .record-list::-webkit-scrollbar {
+        display: none;
+      }
 
       >div {
         .recordList {
@@ -994,10 +1093,11 @@ export default {
     >>>input {
       pointer-events: auto !important;
     }
-     >>>.el-input__inner {
+
+    >>>.el-input__inner {
       border-radius: 6px;
-      margin-left:5px;
-      height:28px;
+      margin-left: 5px;
+      height: 28px;
     }
   }
 
@@ -1029,7 +1129,7 @@ export default {
     float: left;
 
     input {
-      width: 100%;
+      width: 98%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1056,7 +1156,7 @@ export default {
     margin-left: 10%;
 
     input {
-      width: 100%;
+      width: 98%;
       font-size: 16px;
       border: none;
       outline: 0px;
