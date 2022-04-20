@@ -134,10 +134,8 @@ import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./components/title-template-item-fssy.vue";
 import addTemplateModal from "./add-title-template-modal-fssy.vue";
 import bus from "vue-happy-bus";
-import { listItem } from "../../api/recordDesc";
 import {titleTempalateList} from "./api/index"
 import sheetInfo from "../config/sheetInfo/index.js";
-import { children } from 'cheerio/lib/api/traversing';
 export default {
   data() {
     return {
