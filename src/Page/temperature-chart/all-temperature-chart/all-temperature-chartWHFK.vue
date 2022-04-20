@@ -911,7 +911,6 @@ export default {
                 return item.patientId && item.operationFlag == 1;
               })
             );
-            console.log(data, "完成术后三天");
           }
           if (this.admitted.includes("转科三天")) {
             data = data.concat(
@@ -971,15 +970,6 @@ export default {
       this.pageLoadng = true;
       await getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
-        this.patientsInfoData.forEach((x, i) => {
-          i < 10
-            ? (x.temperatureFlag = 1)
-            : i >= 10 && i < 20
-            ? (x.operationFlag = 1)
-            : i >= 20 && i < 30
-            ? (x.transferFlag = 1)
-            : (x.patientCondition = "病危");
-        });
         this.pageLoadng = false;
       });
     },
