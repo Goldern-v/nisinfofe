@@ -97,8 +97,12 @@
                     <input
                       :id="i + 1"
                       @keydown.enter="changeNext"
-                      type="text"
                       :title="vitalSignObj[j].vitalValue"
+                      :type="
+                        totalDictInfo[index].inputType === '2'
+                          ? 'number'
+                          : 'text'
+                      "
                       @mousewheel="
                         (e) => {
                           e.preventDefault();
@@ -191,7 +195,11 @@
                       <input
                         :id="i + 1"
                         @keydown.enter="changeNext"
-                        type="text"
+                        :type="
+                        totalDictInfo[index].inputType === '2'
+                          ? 'number'
+                          : 'text'
+                      "
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
                          @mousewheel="
