@@ -922,15 +922,14 @@ export default {
         }
         //取合并的区间，但是能满足条件的患者合并起来可能会重复，所以排序去掉重复的
         data.sort((a, b) => a.bedLabel - b.bedLabel);
-        return new Set(
-          data.filter((item) => {
+        return Array.from(new Set(data.filter((item) => {
             return (
               item.patientId &&
               (item.bedLabel.indexOf(this.searchWord) > -1 ||
                 item.name.indexOf(this.searchWord) > -1)
             );
-          })
-        );
+          })))
+
       },
       set(value) {
         // this.tableData = value;

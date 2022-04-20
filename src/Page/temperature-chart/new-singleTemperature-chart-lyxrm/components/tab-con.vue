@@ -84,7 +84,7 @@
                       ? 'rowBoxRight'
                       : 'rowBox'
                   "
-                  v-for="(j, index, i) in multiDictList"
+                  v-for="(j, index, i) in baseMultiDictList"
                   :key="index"
                 >
                   <div class="rowItemText">

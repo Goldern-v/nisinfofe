@@ -961,7 +961,7 @@ export default {
           default:
             break;
         }
-                 if(item.vitalValue !== "" &&
+         if(item.vitalValue !== "" &&
         this.checkItem.includes(item.vitalSigns)){
             if(!validForm.valid(this.setValid(item.vitalSigns, item.vitalValue))){
             saveFlagArr.push(false)
@@ -975,7 +975,7 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
       };
-                  if(saveFlagArr.includes(false)){
+         if(saveFlagArr.includes(false)){
         this.$message.error("存在数值错误,请耐心检查!");
       }else{
         await saveAll(data).then((res) => {
@@ -1141,7 +1141,7 @@ export default {
     float: left;
 
     input {
-      width: 100%;
+      width: 96%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1168,7 +1168,7 @@ export default {
     margin-left: 10%;
 
     input {
-      width: 100%;
+      width: 96%;
       font-size: 16px;
       border: none;
       outline: 0px;
