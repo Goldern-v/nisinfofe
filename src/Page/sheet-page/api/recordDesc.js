@@ -4,7 +4,6 @@ import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo'
 import qs from 'qs'
 // 获取字典项
 export const listItem = (code, recordCode, deptCode) => {
-  console.log(deptCode);
   return axios.post(`${apiPath}dept/dictInfo`, qs.stringify({code, recordCode, deptCode }))
 }
 
