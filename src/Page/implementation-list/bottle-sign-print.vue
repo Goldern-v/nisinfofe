@@ -95,7 +95,7 @@
       </div>
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <div style="height:5.7cm" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
-          <NewPrintModal :newModalSize="newModalSize" :itemObj='itemBottleCard' />
+          <component :is="newPrintCom" :newModalSize="newModalSize" :itemObj='itemBottleCard' />
         </div>
       </div>
     </div>
@@ -188,6 +188,7 @@ import modal from "./modal/modal.vue"
 import dTable from "./components/table/bottle-sign-print-table.vue";
 import pagination from "./components/common/pagination";
 import NewPrintModal from "./components/common/newPrintModal"
+import NewPrintModalSdlj from "./components/common/newPrintModalSdlj"
 import printing from 'printing'
 import { patEmrList } from "@/api/document";
 import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder } from "./api/index";
@@ -510,6 +511,16 @@ export default {
   created() {
     this.onLoad();
   },
+  computed: {
+    newPrintCom() {
+      switch(this.HOSPITAL_ID) {
+        case 'sdlj':
+          return 'NewPrintModalSdlj'
+        default:
+          return 'NewPrintModal'
+      }
+    }
+  },
   watch: {
     deptCode() {
       this.search();
@@ -531,7 +542,8 @@ export default {
     dTable,
     modal,
     pagination,
-    NewPrintModal
+    NewPrintModal,
+    NewPrintModalSdlj,
   }
 };
 </script>
