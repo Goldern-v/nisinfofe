@@ -141,7 +141,7 @@ export default {
 
       this.currentPage = this.toCurrentPage;
     },
-           //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    //将体温单上的时间传过来，再监听到录入组件，获取录入记录
     getDataFromPage(dateTime){
       this.bus.$emit('getDataFromPage',dateTime)
     },

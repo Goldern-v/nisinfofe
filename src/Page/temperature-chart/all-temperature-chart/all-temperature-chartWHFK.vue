@@ -191,7 +191,6 @@
                   type="text"
                   @keydown="handleKeyDown"
                   @keyup="handleKeyUp"
-                  v-on:input="validFormFc"
                   @click="toRow"
                 />
               </el-popover>
@@ -580,16 +579,18 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     background-color: #9adcc5;
   }
 }
-.selection-dict-item {
-      height: 24px;
-      line-height: 24px;
-      padding: 0 5px;
 
-      &:hover {
-        background: rgb(111, 192, 164) !important;
-        color: #fff !important;
-      }
-    }
+.selection-dict-item {
+  height: 24px;
+  line-height: 24px;
+  padding: 0 5px;
+
+  &:hover {
+    background: rgb(111, 192, 164) !important;
+    color: #fff !important;
+  }
+}
+
 .el-table th > .cell {
   color: red;
   padding: 0;
@@ -685,7 +686,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     left: 0;
     width: 1040px;
   }
-
 }
 </style>
 <style lang="stylus">
@@ -706,8 +706,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
         background: #fff;
       }
     }
-
-
 
     .el-table {
       border: none !important;
@@ -878,85 +876,60 @@ export default {
             );
           });
         } else {
-          data = this.patientsInfoData.filter((item) => {
-            return (
-              (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId
-            );
-          });
           if (this.admitted.includes("危重患者")) {
-            data = data.filter((item) => {
-              return (
-                ((item.bedLabel.indexOf(this.searchWord) > -1 ||
-                  item.name.indexOf(this.searchWord) > -1) &&
-                  item.patientId &&
-                  item.patientCondition === "病危") ||
-                item.patientCondition === "病重"
-              );
-            });
+            data = data.concat(
+              this.patientsInfoData.filter((item) => {
+                return (
+                  (item.patientId && item.patientCondition === "病危") ||
+                  item.patientCondition === "病重"
+                );
+              })
+            );
           }
           if (this.admitted.includes("三天超37.5")) {
-            data = data.filter((item) => {
-              return (
-                (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                  item.name.indexOf(this.searchWord) > -1) &&
-                item.patientId &&
-                item.temperatureFlag == 1
-              );
-            });
+            data = data.concat(
+              this.patientsInfoData.filter((item) => {
+                return item.patientId && item.temperatureFlag == 1;
+              })
+            );
           }
           if (this.admitted.includes("入院四天")) {
-            data = data.filter((item) => {
-              return (
-                (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                  item.name.indexOf(this.searchWord) > -1) &&
-                item.patientId &&
-                moment(item.admissionDate.slice(0, 10)).isAfter(
-                  moment().subtract(4, "days").format("YYYY-MM-DD")
-                )
-              );
-            });
+            data = data.concat(
+              this.patientsInfoData.filter((item) => {
+                return (
+                  item.patientId &&
+                  moment(item.admissionDate.slice(0, 10)).isAfter(
+                    moment().subtract(4, "days").format("YYYY-MM-DD")
+                  )
+                );
+              })
+            );
           }
           if (this.admitted.includes("术后三天")) {
-            data = data.filter((item) => {
-              return (
-                (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                  item.name.indexOf(this.searchWord) > -1) &&
-                item.patientId &&
-                item.operationFlag == 1
-              );
-            });
+            data = data.concat(
+              this.patientsInfoData.filter((item) => {
+                return item.patientId && item.operationFlag == 1;
+              })
+            );
           }
           if (this.admitted.includes("转科三天")) {
-            data = data.filter((item) => {
-              return (
-                (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                  item.name.indexOf(this.searchWord) > -1) &&
-                item.patientId &&
-                item.transferFlag == 1
-              );
-            });
+            data = data.concat(
+              this.patientsInfoData.filter((item) => {
+                return item.patientId && item.transferFlag == 1;
+              })
+            );
           }
         }
-        return data;
-        //       return this.admitted.includes("所有患者")
-        //         ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
-        //             item.name.indexOf(this.searchWord) > -1) &&
-        //             item.patientId
-        //         : this.admitted === "危重患者"
-        //         ? ((item.bedLabel.indexOf(this.searchWord) > -1 ||
-        //             item.name.indexOf(this.searchWord) > -1) &&
-        //             item.patientId &&
-        //             item.patientCondition === "病危") ||
-        //           item.patientCondition === "病重"
-        //         : (item.bedLabel.indexOf(this.searchWord) > -1 ||
-        //             item.name.indexOf(this.searchWord) > -1) &&
-        //           item.patientId &&
-        //           moment(item.admissionDate.slice(0, 10)).isAfter(
-        //             moment().subtract(4, "days").format("YYYY-MM-DD")
-        //           );
-        //     })
+        //取合并的区间，但是能满足条件的患者合并起来可能会重复，所以排序去掉重复的
+        data.sort((a, b) => a.bedLabel - b.bedLabel);
+        return Array.from(new Set(data.filter((item) => {
+            return (
+              item.patientId &&
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1)
+            );
+          })))
+
       },
       set(value) {
         // this.tableData = value;
@@ -996,9 +969,6 @@ export default {
       this.pageLoadng = true;
       await getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
-        // this.patientsInfoData.forEach((x,i)=>{
-        //   i<5?x.temperatureFlag=1:i>=5&&i<10?x.operationFlag=1:i>=10&&i<20?x.transferFlag=1:x.patientCondition='病危'
-        // })
         this.pageLoadng = false;
       });
     },
