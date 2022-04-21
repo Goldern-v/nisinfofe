@@ -30,7 +30,6 @@
       </p>
       <div action @keyup.13="post" ref="titleInput">
         <!-- <el-input size="small" type="text" placeholder="输入标题名称" v-model="title"></el-input> -->
-        
         <template  v-if="HOSPITAL_ID == 'foshanrenyi'">
           <el-autocomplete
             style="width: 100%"
@@ -125,10 +124,10 @@ export default {
     },
     post() {
       this.close();
-      if(this.sonValue && this.options){
+      if(this.sonValue && this.options && this.HOSPITAL_ID == 'foshanrenyi'){
         // console.log(this.sonValue);
         this.callback(this.sonValue,this.sonData);
-      }else if(this.fstitle){
+      }else if(this.fstitle && this.HOSPITAL_ID == 'foshanrenyi'){
         this.callback(this.fstitle);
       }else{
         this.callback(this.title);
