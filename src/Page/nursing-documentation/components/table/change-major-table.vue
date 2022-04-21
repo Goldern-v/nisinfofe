@@ -51,7 +51,7 @@
       ></el-table-column>
 
       <el-table-column
-        prop="bedLabel"
+        :prop="HOSPITAL_ID === 'beihairenyi' ? 'bedNo' : 'bedLabel'"
         label="床号"
         min-width="40"
         align="center"
