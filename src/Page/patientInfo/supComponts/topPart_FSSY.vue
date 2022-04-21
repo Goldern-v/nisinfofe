@@ -140,6 +140,12 @@
       >
         <div class="nav-item">护嘱单</div>
       </router-link>
+      <router-link
+        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
+        tag="span"
+      >
+        <div class="nav-item">360视图</div>
+      </router-link>
       <!-- <router-link
         :to="{
           path: '/hospitalEval',

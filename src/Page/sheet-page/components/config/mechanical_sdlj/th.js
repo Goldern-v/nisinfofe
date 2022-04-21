@@ -22,7 +22,8 @@ export default {
                 {"name":"","colspan":"2","rowspan":"1","key":"recordYear"},
                 {"name":"护理评估","colspan":"4","rowspan":"1"},
                 {"name":"呼吸机参数设置","colspan":"10","rowspan":"1"},
-                {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
+                {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}},
+                {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
             ]
         ,
         mid: 

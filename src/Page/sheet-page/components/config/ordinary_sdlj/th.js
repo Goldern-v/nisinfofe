@@ -13,7 +13,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1150px"
+      width: "1180px"
     },
     th: {
         top: 
@@ -32,7 +32,8 @@ export default {
                 {"name":"","colspan":"1","rowspan":"3",canSet: true, key: "armValue3","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"","colspan":"1","rowspan":"3",canSet: true, key: "armValue4","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"303px","maxWidth":"303px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
+                {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}},
+                {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
             ]
         ,
         mid: 
