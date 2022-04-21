@@ -25,11 +25,6 @@
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .item-con {
-  // position: relative;
-  // padding: 10px 20px;
-
-  
-
   &:hover {
     background: #f4f2f5;
     cursor: pointer;
@@ -78,20 +73,19 @@
   height: 1px;
   margin: 0 20px;
 }
-</style>
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-  .custom-tree-node {
-    font-size: 14px;
-    width: 90%;
-    display: flex;
-    position: relative;
-    top: -33px;
-    left: 25px;
-    justify-content: space-between;
-  }
-  .tooltipcls{
-    margin-right: 10px;
-  }
+>>> .el-tree-node__content{
+  display: flex;
+  align-items:center ;
+}
+>>> .custom-tree-node {
+  font-size: 14px;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+>>> .tooltipcls{
+  margin-right: 10px;
+}
 </style>
 <script>
 import bus from "vue-happy-bus";
@@ -174,6 +168,7 @@ export default {
       console.log(event,data);
       // this.bus.$emit("openAddTitleTemplateModalFS", data);
       this.$refs.addTitletemplateModalFssyss.open(data)
+      
     },
     getRecordCode() {
       if (
@@ -187,19 +182,14 @@ export default {
     },
     toDel(data) {
       console.log(data);
-      this.$confirm("此操作将永久删除该含选项标题版, 是否继续?", "提示", {
+      if(data.id){
+        this.$confirm("此操作将永久删除该自定义标题版, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        let obj = {
-          groupName: data.groupName,
-          recordCode:
-            //北海体温单调用护理记录单模板
-            this.getRecordCode() ? "bodyTemperature" : sheetInfo.sheetType,
-          wardCode: this.deptCode,
-        };
-        deleteGroup(obj).then((res) => {
+        let id = data.id
+        deleteId(id).then((res) => {
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -207,6 +197,28 @@ export default {
           this.bus.$emit("refreshTitleTemplate");
         });
       });
+      }else{
+        this.$confirm("此操作将永久删除该含选项标题版, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }).then(() => {
+          let obj = {
+            groupName: data.groupName,
+            recordCode:
+              //北海体温单调用护理记录单模板
+              this.getRecordCode() ? "bodyTemperature" : sheetInfo.sheetType,
+            wardCode: this.deptCode,
+          };
+          deleteGroup(obj).then((res) => {
+            this.$message({
+              type: "success",
+              message: "删除成功!",
+            });
+            this.bus.$emit("refreshTitleTemplate");
+          });
+        });
+      }
     },
     toDelectId(data) {
       this.$confirm("此操作将永久删除该自定义标题版, 是否继续?", "提示", {

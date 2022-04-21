@@ -353,7 +353,10 @@ export default {
     },
   },
   created() {
-    this.onLoad()
+    this.onLoad();
+    this.bus.$on("loadImplementationList", () => {
+      this.onLoad();
+    });
   },
   watch: {
     deptCode() {

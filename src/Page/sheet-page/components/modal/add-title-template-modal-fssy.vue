@@ -168,8 +168,8 @@ export default {
         // };
         titleTempalateSaveOrUpdate(data).then(res => {
           this.$message.success("更新常用语模版成功");
-          this.close();
           this.bus.$emit("refreshTitleTemplate");
+          this.close();
         });
       } else {
          console.log(this.contentList);
