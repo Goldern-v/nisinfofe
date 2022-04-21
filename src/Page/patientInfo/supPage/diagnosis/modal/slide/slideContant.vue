@@ -366,9 +366,11 @@ export default {
             console.log(res);
             this.beginTime = res.data.data.object.beginTime;
             this.status = res.data.data.object.status;
+            this.factorList = res.data.data.factorList;
             this.$store.commit("upMeasureGuizhou", {
               measure: res.data.data.object.diagMeasures,
-              target: res.data.data.object.diagTarget
+              target: res.data.data.object.diagTarget,
+              factor:res.data.data.object.diagFactor
             });
           });
         }
