@@ -13,16 +13,17 @@
 export default {
     // 科室的名称
     deptType: "",
-    // style: {
-    //   width: "1300px"
-    // },
+    style: {
+      width: "1150px"
+    },
     th: {
         top: 
             [
                 {"name":"","colspan":"2","rowspan":"1","key":"recordYear"},
                 {"name":"观察项目","colspan":"17","rowspan":"1"},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
+                {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}},
+                {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
             ]
         ,
         mid: 

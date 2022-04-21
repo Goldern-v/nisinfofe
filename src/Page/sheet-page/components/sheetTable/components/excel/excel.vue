@@ -231,7 +231,7 @@
               }?${token}`"
               alt
             />
-            <span v-if="tr.find((item) => item.key == 'auditorNo').value && (sheetInfo.sheetType === 'neonate_sdlj' || sheetInfo.sheetType === 'pediatrics_sdlj')"
+            <span v-if="tr.find((item) => item.key == 'auditorNo').value && HOSPITAL_ID==='sdlj'" style="font-size: 12px;margin:10px -5px 0 0;"
               >、</span
             >
             <span v-else-if="tr.find((item) => item.key == 'auditorNo').value"
