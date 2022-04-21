@@ -44,6 +44,13 @@
       </div>
       <!-- 弹出框 -->
       <newForm ref="newForm"></newForm>
+      <!-- 批量审核弹框 -->
+      <BatchAuditForm
+        :batchAuditDialog="batchAuditDialog"
+        :batchAuditForms="batchAuditForms"
+        :refresh="refreshTree"
+        @closeBatchAudit="handleCloseBatchAudit"
+      />
     </div>
 
     <div
@@ -216,7 +223,34 @@
     box-shadow: 0 2px 4px 0 #eee;
   }
 }
+.tree-box-node2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 13px;
+  color: #687179;
+  position: relative;
+  top: 3px;
+  .box-label {
+    overflow hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &:hover .view {
+    display: inherit;
+  }
 
+  img {
+    width: 20px;
+    position: relative;
+    top: 3px;
+    margin-right: 2px;
+  }
+}
 .el-tree {
   border: 0 !important;
 }
@@ -254,6 +288,7 @@ import fileiconYellow from "@/common/images/record/文件黄点.png";
 import fileboxYellow from "@/common/images/record/文件夹黄点.png";
 
 import { SweetModal, SweetModalTab } from "@/plugin/sweet-modal-vue";
+import BatchAuditForm from '../modal/BatchAuditForm.vue'
 import {
   listPatientRecord,
   emrList,
@@ -289,6 +324,8 @@ export default {
       isActive: false, //是否点击收起图标
       isPersonage: false, //是否为个人详情打开
       hisLeftList: ["wujing"], //是否要开放左侧收缩功能医院
+      batchAuditDialog: false, // 批量审核表单弹框
+      batchAuditForms: {}, // 批量审核节点数据
     };
   },
   computed: {
@@ -627,14 +664,38 @@ export default {
         );
       }
       if (node.level !== 2) {
-        return h("span", { class: { "tree-box-node": true } }, [
-          h("img", { attrs: { src: box } }),
-          h("span", {}, node.label),
-          viewDom,
-        ]);
+        if (this.HOSPITAL_ID === 'foshanrenyi') {
+          this.batchAuditForms = node.data
+          return (
+            <span class="tree-box-node2">
+              <span class="box-label">
+                <img src={box}/>
+                <span>{node.label}</span>
+              </span>
+              {
+                node.data.canBatchAudit &&
+                <el-button
+                  type="text"
+                  size="mini"
+                  on-click={
+                    (e) => this.batchAudit(e, node)
+                  }
+                >
+                  批量审核
+                </el-button>
+              }
+            </span>
+          )
+        } else {
+          return h("span", { class: { "tree-box-node": true } }, [
+            h("img", { attrs: { src: box } }),
+            h("span", {}, node.label),
+            viewDom,
+          ]);
+        }
       } else {
         if (this.HOSPITAL_ID == "foshanrenyi") {
-          
+
           let pageIndex = node.parent.childNodes.map((item, index) => {
             if (item.id == data.$treeNodeId) {
               return index - node.parent.childNodes.length;
@@ -655,6 +716,19 @@ export default {
             h("span", {}, node.label),
           ]);
         }
+      }
+    },
+    batchAudit(e, node) {
+      e.stopPropagation()
+      this.batchAuditForms = node.data
+      this.batchAuditDialog = true
+      console.log('批量审核', node);
+
+    },
+    handleCloseBatchAudit(refresh) {
+      this.batchAuditDialog = false
+      if (refresh) {
+        this.refreshTree(true)
       }
     },
     handleViewClick(e, node) {
@@ -724,6 +798,7 @@ export default {
               nooForm: item.nooForm,
               pageUrl: item.pageUrl,
               formTreeRemindType: item.formTreeRemindType,
+              canBatchAudit: item.canBatchAudit,
               children:
                 item.formInstanceDtoList &&
                 item.formInstanceDtoList.map((option, i) => {
@@ -980,6 +1055,7 @@ export default {
     SweetModal,
     SweetModalTab,
     newForm,
+    BatchAuditForm,
   },
 };
 </script>

@@ -166,7 +166,7 @@
           <el-button
             type="text"
             @click="backTracking(scope.row)"
-            v-if="isEdit && scope.row.executeDateTime && scope.row.executeFlag!=4"
+            v-if="isEdit && scope.row.executeDateTime && scope.row.executeFlag == 0"
             >补录</el-button
           >
           <el-button
@@ -189,6 +189,7 @@
         </template>
       </u-table-column>
     </u-table>
+    <editModal ref="editModal"></editModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -415,6 +416,7 @@ export default {
               orderNo: item.orderNo, //医嘱号
               barcode: item.barCode, //条码号
               executeNurse: this.empNo, //执行人
+              verifyNurse:'',//核对人
               // type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
               supplementaryRes: value, //补执行的原因填写
             };
@@ -446,6 +448,8 @@ export default {
 
     console.log(this.selectedData,'ddddddddddddd');
   },
-  components: {}
+  components: {
+    editModal
+  },
 };
 </script>

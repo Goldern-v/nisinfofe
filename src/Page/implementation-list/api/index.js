@@ -76,7 +76,7 @@ export function addRecord(obj) {
   if (HOSPITAL_ID=="lingcheng"){
       return axios.post(`${apiPath}procedure/his`, obj)
   }if(HOSPITAL_ID == 'whfk'){
-    return axios.post(`${apiPath}procedure/webExecute/getOrderExecuteSupplementary`)
+    return axios.post(`${apiPath}procedure/webExecute/getOrderExecuteSupplementary`,obj)
   }else{
     return axios.post(`${apiPath}${hospitalExecute}/orderExecute`, obj);
   }
