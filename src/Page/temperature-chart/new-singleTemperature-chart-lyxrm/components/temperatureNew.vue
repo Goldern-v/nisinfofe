@@ -64,6 +64,7 @@
 <script>
 import nullBg from "../../../../components/null/null-bg";
 import bus from "vue-happy-bus";
+import moment from 'moment';
 export default {
   props: {
     queryTem: Object,
@@ -84,10 +85,10 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        // "http://192.168.0.81:9091/temperature/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
-      "http://192.168.4.189:9091/hcres/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://localhost:8081/#/" /* 医院正式环境内网 导致跨域 */,
+      "http://192.168.4.175:9091/hcres/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://192.168.4.189:9091/hcres/#/printAll" /* 医院正式环境内网 */,
+        "http://192.168.4.175:9091/hcres/#/printAll" /* 医院正式环境内网 */,
 
       outNetUrl:
         "http://120.24.240.231:15091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
@@ -102,6 +103,10 @@ export default {
           // this.outNetUrl /* 外网 */
         );
       }, 1500);
+    },
+    //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime){
+      this.bus.$emit('getDataFromPage',dateTime)
     },
     printAll() {
       this.isPrintAll = true; //隐藏页码控制区域
@@ -194,6 +199,12 @@ export default {
               case "dblclick":/* 双击查阅体温单子 */
           this.openRight();
           break;
+                    case "currentPage":
+            this.currentPage = e.data.value;
+            break;
+             case "clickDateTime":
+            this.getDataFromPage(e.data.value)
+            break;
           default:
             break;
         }
@@ -241,6 +252,14 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+        this.bus.$on('dateChangePage',(value)=>{
+      value=moment(value).format("YYYY-MM-DD")
+        this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "dateChangePage", value },
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    })
   },
   computed: {
     patientInfo() {

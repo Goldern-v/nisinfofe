@@ -30,7 +30,6 @@
       </p>
       <div action @keyup.13="post" ref="titleInput">
         <!-- <el-input size="small" type="text" placeholder="输入标题名称" v-model="title"></el-input> -->
-        
         <template  v-if="HOSPITAL_ID == 'foshanrenyi'">
           <el-autocomplete
             style="width: 100%"
@@ -43,7 +42,7 @@
               v-for="item in options"
               :key="item.id"
               :label="item.title"
-              :value="item.id">
+              :value="item.title">
             </el-option>
           </el-select>
         </template>
@@ -98,7 +97,7 @@ export default {
   },
   methods: {
     open(callback, title, item,datader) {
-      console.log(callback, title, item, datader);
+      console.log(datader,title);
       if(datader && datader.children && this.HOSPITAL_ID == 'foshanrenyi'){
         this.callback = callback;
         this.options = datader.children
@@ -112,6 +111,8 @@ export default {
       }else{
         this.callback = callback;
         this.cellObj = item;
+        this.options = null;
+        this.fstitle = title;
         this.title = title.indexOf("标题") > -1 ? "" : title;
         this.$refs.modalName.open();
         this.$nextTick(() => {
@@ -123,9 +124,10 @@ export default {
     },
     post() {
       this.close();
-      if(this.sonValue){
+      if(this.sonValue && this.options && this.HOSPITAL_ID == 'foshanrenyi'){
+        // console.log(this.sonValue);
         this.callback(this.sonValue,this.sonData);
-      }else if(this.fstitle){
+      }else if(this.fstitle && this.HOSPITAL_ID == 'foshanrenyi'){
         this.callback(this.fstitle);
       }else{
         this.callback(this.title);

@@ -166,7 +166,7 @@
           <el-button
             type="text"
             @click="backTracking(scope.row)"
-            v-if="isEdit && scope.row.executeDateTime && scope.row.executeFlag!=4"
+            v-if="isEdit && scope.row.executeDateTime && scope.row.executeFlag == 0"
             >补录</el-button
           >
           <el-button

@@ -160,7 +160,6 @@ export default {
         let deleteList = []
         if(item.groupName == '纯标题模板'){
           deleteList = item.list
-          console.log(item);
           deleteList.map((sonItem)=>{
             IstitleData.push({
               groupName:sonItem.title,
@@ -241,10 +240,14 @@ export default {
     }
   },
   created() {
-    this.bus.$on("refreshTitleTemplate", this.getData);
+    if(this.HOSPITAL_ID == "foshanrenyi"){
+      this.getData()
+      this.bus.$on("refreshTitleTemplate", this.getData);
+    }
   },
   mounted() {
-    //  this.show = false
+    this.show = false
+    this.bus.$on("refreshTitleTemplate", this.getData);
   },
   
   components: {
