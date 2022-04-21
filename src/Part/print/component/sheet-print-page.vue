@@ -191,8 +191,9 @@
       border-color: #000;
     }
   }
-  strong{
-    font-family: '黑体' !important;
+  strong {
+    font-family: "SimHei" !important;
+    font-size: 13px !important;
   }
 }
 

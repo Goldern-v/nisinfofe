@@ -358,6 +358,10 @@ export default {
       this.onLoad();
     });
   },
+  mounted() {
+    this.onLoad();
+    this.bus.$on("loadImplementationList", this.onLoad);
+  },
   watch: {
     deptCode() {
       this.search();

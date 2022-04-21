@@ -72,6 +72,7 @@
 <script>
 import nullBg from "../../../../components/null/null-bg";
 import bus from "vue-happy-bus";
+import moment from 'moment';
 export default {
   props: {
     queryTem: Object,
@@ -93,7 +94,7 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         "http://192.168.0.81:9091/temperature/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
-      // "http://192.168.1.75:8080/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
+      // "http://192.168.1.75:8081/#/withoutPain" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.0.81:9091/temperature/#/printAll" /* 医院正式环境内网 */,
       withoutPainAll: "http://192.168.0.81:9091/temperature/#/withoutPainAll",
@@ -222,6 +223,9 @@ export default {
           case "dblclick" /* 双击查阅体温单子 */:
             this.openRight();
             break;
+             case "currentPage":
+            this.currentPage = e.data.value;
+            break;
              case "clickDateTime":
             this.getDataFromPage(e.data.value)
             break;
@@ -272,6 +276,14 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+            this.bus.$on('dateChangePage',(value)=>{
+      value=moment(value).format("YYYY-MM-DD")
+        this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "dateChangePage", value },
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    })
   },
   computed: {
     patientInfo() {
