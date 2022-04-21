@@ -48,6 +48,7 @@
 import DTable from "./d-table";
 import DTableHD from "./d-table-HD";
 import DTableGZ from "./d-table-GZ";
+import DTableFSSY from "./d-table-FSSY";
 import { nursingDiagsPatient } from "../../api/index";
 import { model } from "../../diagnosisViewModel";
 import bus from "vue-happy-bus";
@@ -69,6 +70,7 @@ export default {
       let ID_Component = {
         "huadu":DTableHD,
         "guizhou":DTableGZ,
+        "foshanrenyi":DTableFSSY,
         default:DTable
       }
       return ID_Component[this.HOSPITAL_ID]||ID_Component.default
@@ -195,7 +197,8 @@ export default {
   components: {
     DTable,
     DTableHD,
-    DTableGZ
+    DTableGZ,
+    DTableFSSY,
   }
 };
 </script>
