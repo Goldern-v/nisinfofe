@@ -240,11 +240,13 @@ export default {
     }
   },
   created() {
-    this.getData()
-    this.bus.$on("refreshTitleTemplate", this.getData);
+    if(this.HOSPITAL_ID == "foshanrenyi"){
+      this.getData()
+      this.bus.$on("refreshTitleTemplate", this.getData);
+    }
   },
   mounted() {
-     this.show = false
+    this.show = false
     this.bus.$on("refreshTitleTemplate", this.getData);
   },
   
