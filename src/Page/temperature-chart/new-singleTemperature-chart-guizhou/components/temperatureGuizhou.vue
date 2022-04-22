@@ -3,12 +3,6 @@
     <div class="contain">
       <!-- <el-dropdown > -->
       <div class="print-btn tool-btn" @click="onPrint()">打印</div>
-      <!-- <el-dropdown-menu slot="dropdown">
-       <el-dropdown-item> <el-button type="primary"  @click="onPrint()">打印当周</el-button></el-dropdown-item>
-    <el-dropdown-item><el-button type="primary"  @click="printAll()">批量打印</el-button></el-dropdown-item>
-       </el-dropdown-menu>
-      </el-dropdown> -->
-      <!-- <div class="newBorn tool-btn" @click="changeNewBorn()">切换</div> -->
       <div class="newBorn">
         <div @click="nomalModel()" class="nomal">默认体温单</div>
         /
@@ -19,7 +13,6 @@
         <button
           :disabled="currentPage === 1"
           @click="toPre"
-          v-show="!isPrintAll"
         >
           首周
         </button>
@@ -45,7 +38,7 @@
           尾周
         </button>
       </div>
-      <div class="tem-con" :style="contentHeight" v-if="!isPrintAll&&filePath">
+      <div class="tem-con" :style="contentHeight" v-if="filePath">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="printID"
@@ -84,22 +77,17 @@ export default {
       showTemp: true, //默认选择标准的体温单曲线
       open: false,
       isSave: false,
-      isPrintAll: false,
       visibled: false,
-      printAllPath: "",
       intranetUrl:
         // "http://localhost:8080/#/" /* 医院正式环境内网 导致跨域 */,
         "http://192.168.8.158:8588/temperature/#/" /* 医院正式环境内网 */,
       newBornUrl: "http://192.168.8.158:8588/temperaturenew/#/",
-      printAllUrl:
-        "http://192.168.8.158:8588/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
-      outNetUrl:
-        "http://120.224.211.7:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
+      // printAllUrl:
+      //   "http://192.168.8.158:8588/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
     };
   },
   methods: {
     onPrint() {
-      this.isPrintAll = false;
       setTimeout(() => {
         this.$refs.pdfCon.contentWindow.postMessage(
           { type: "printing" },
@@ -108,16 +96,15 @@ export default {
         );
       }, 1500);
     },
-    printAll() {
-      this.isPrintAll = true; //隐藏页码控制区域
-      setTimeout(() => {
-        this.$refs.pdfConAll.contentWindow.postMessage(
-          { type: "printingAll" },
-          this.printAllUrl /* 内网 */
-          // this.outNetUrl /* 外网 */
-        );
-      }, 1500);
-    },
+    // printAll() {
+    //   setTimeout(() => {
+    //     this.$refs.pdfConAll.contentWindow.postMessage(
+    //       { type: "printingAll" },
+    //       this.printAllUrl /* 内网 */
+    //       // this.outNetUrl /* 外网 */
+    //     );
+    //   }, 1500);
+    // },
     changeNewBorn() {
       if (this.showTemp === true) {
         this.showTemp = false;
@@ -187,11 +174,11 @@ export default {
       // const tempUrl = `${this.intranetUrl}?PatientId=0000944876&VisitId=2&StartTime=2021-05-13&showInnerPage=1`;/* 内网 */
       if (this.showTemp === false) {
         const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
-        const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
+        // const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
         this.filePath = "";
         setTimeout(() => {
           this.filePath = tempUrl;
-          this.printAllPath = tempAllUrl;
+          // this.printAllPath = tempAllUrl;
         }, 0);
       } //显示新生儿体温曲线的时候切换url路径
       else {
@@ -265,9 +252,6 @@ export default {
         this.showTemp === true ? this.intranetUrl : this.newBornUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
-    },
-    patientInfo() {
-      this.isPrintAll = false;
     },
   },
   mounted() {

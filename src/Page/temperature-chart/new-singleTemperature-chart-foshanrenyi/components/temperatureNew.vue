@@ -139,8 +139,8 @@ export default {
       visibled: false,
       printAllPath: "",
       intranetUrl:
-        "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
-        // "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.103.17:9091/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
     };
