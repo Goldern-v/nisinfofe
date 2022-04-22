@@ -1082,16 +1082,34 @@ export default {
       for (let i = 0; i < record.length; i++) {
         doc += record[i].find((item) => item.key == "description").value || "";
       }
+      console.log(1086,doc)
       this.recordDate =
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value ||
         "";
 
-      if (true) {
-        // 清除空格
-        var reg = new RegExp(" ", "g");
-        doc = doc.replace(reg, "");
-      }
+      //肺科特别需求。补计时间另起一行
+       if(this.HOSPITAL_ID=='whfk' &&  doc.split('补计时间').length==2){
+          // 截取最后补计时间，前面的内容
+          let replenishTime= `补计时间${doc.split('补计时间')[1]}`
+          doc=doc.split('补计时间')[0]
+          console.log(1097,replenishTime)
+          var reg = new RegExp(" ", "g");
+          doc = doc.replace(reg, "");
+          doc = `${doc}${replenishTime}`
+       }else{
+          if (true) {
+            // 清除空格
+            var reg = new RegExp(" ", "g");
+            doc = doc.replace(reg, "");
+          }
+       }
+      //  if (true) {
+      //    // 清除空格
+      //    var reg = new RegExp(" ", "g");
+      //    doc = doc.replace(reg, "");
+      //  }
+      console.log(1097,doc)
       // 富文本处理（去除字符串开头空格）
       this.doc = doc.replace(/&nbsp;/g, " ").replace(/^\s*/g, "");
       for (let j = 0; j < sheetModel.length; j++) {
@@ -1369,7 +1387,52 @@ export default {
       ) {
         allDoc = "    " + this.doc;
       }
-      for (let i = 0; i < allDoc.length; i++) {
+      // 补计时间
+        let replenishTime=''
+      if(this.HOSPITAL_ID=='whfk'){
+        // 因为后端要配置行数不满 不拼接特殊特殊情况记录，需要整个医院做配置。所以武汉肺科单独出来
+        let commonText=allDoc
+        if(allDoc.split('补计时间').length==2){
+           // 非手术科室护理记录单和手术科室护理记录单需要 有‘补计时间’就另起一行
+              replenishTime= `补计时间${allDoc.split('补计时间')[1]}`
+           // 截取最后补计时间，前面的内容
+              commonText=allDoc.split('补计时间')[0]
+        }
+        // 循环补计时间前面的内容的长度就可以
+        for (let i = 0; i < commonText.length; i++) {
+           let charCode = commonText.charCodeAt(i);
+           // 字符为 ，。；,.：:
+           if (
+             charCode == "65292" ||
+             charCode == "12290" ||
+             charCode == "65307" ||
+             charCode == "44" ||
+             charCode == "46" ||
+             charCode == "65306" ||
+             charCode == "109" ||
+             charCode == "103" ||
+             charCode == "58"
+           ) {
+             text += commonText[i];
+           } else if(this.sheetInfo.sheetType === "nonsurgicalcare_fk"||this.sheetInfo.sheetType === "operating_fk"){
+            //  非手术科室护理记录单且包含补计时间
+            if (GetLength(text) > 27) {
+              result.push(text);
+              text = commonText[i];
+            } else {
+              text += commonText[i];
+            }
+           }else {
+            if (GetLength(text) > 23) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }
+       }
+      }else{
+        for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
         // 字符为 ，。；,.：:
         if (
@@ -1460,7 +1523,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "common_wj"||this.sheetInfo.sheetType === "nonsurgicalcare_fk") {
+          }else if (this.sheetInfo.sheetType === "common_wj") {
             if (GetLength(text) > 27) {
               result.push(text);
               text = allDoc[i];
@@ -1504,11 +1567,39 @@ export default {
             }
           }
         }
+       }
       }
+      
       if (text) {
         result.push(text);
       }
 
+      if(this.HOSPITAL_ID==='whfk' && replenishTime){
+        // 有补计时间最后自己一行推进去
+        text=""
+        // result.push(replenishTime);
+        for (let i = 0; i < replenishTime.length; i++) {
+           if(this.sheetInfo.sheetType === "nonsurgicalcare_fk"||this.sheetInfo.sheetType === "operating_fk"){
+            if (GetLength(text) > 27) {
+              result.push(text);
+              text = replenishTime[i];
+            } else {
+              text += replenishTime[i];
+            }
+           }else {
+            if (GetLength(text) > 23) {
+              result.push(text);
+              text = replenishTime[i];
+            } else {
+              text += replenishTime[i];
+            }
+          }
+        }
+        if (text) {
+          result.push(text);
+        }
+      }
+      
       if(type == 'ayncVisitedData'){
         return result;
       }
