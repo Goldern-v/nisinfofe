@@ -46,8 +46,8 @@
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id="printID"
-          v-if="filePath"
+          id="temperatureChart"
+          v-if="filePath&&!isPrintAll"
           :src="filePath"
           frameborder="0"
           ref="pdfCon"
@@ -57,10 +57,10 @@
       <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id="printID"
-          v-if="filePath"
+          id="chartPrintAll"
           :src="printAllPath"
           frameborder="0"
+          v-if="printAllPath&&isPrintAll"
           ref="pdfConAll"
           class="lcIframe"
         ></iframe>
@@ -81,6 +81,7 @@ export default {
       bus: bus(this),
       date: "",
       filePath: "",
+      printAllPath:"",
       contentHeight: { height: "" },
       currentPage: 1,
       toCurrentPage: 1,
