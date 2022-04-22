@@ -16,7 +16,7 @@
       </div>
       <div class="new-print-modal__text">
         <span>{{ currentBottle.sex || "" }}</span>
-        <span>{{ currentBottle.age ? currentBottle.age + "岁" : "" }}</span>
+        <span>{{ currentBottle.age }}</span>
         <div>{{ currentBottle.name }}</div>
         <div>
           {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
@@ -117,7 +117,7 @@
   }
   .new-print-modal__text {
     display: grid;
-    grid-template-columns: auto minmax(30px, 40px) auto auto;
+    grid-template-columns: minmax(45px, 50px) minmax(30px, 50px) auto auto;
     grid-template-rows: auto;
     grid-gap: 0px 5px;
     align-items: center;
@@ -153,18 +153,18 @@
       flex: 1;
       font-weight: 700;
       line-height: 13px;
-      @extend .p-lr-5;
+			padding-left: 15px;
       .left-item--normal {
-        line-height: 16px;
+				line-height: 16px;
         font-size: 15px;
       }
     }
     .new-print-modal__content__right {
-      display: flex;
+			display: flex;
       flex-direction: column;
       width: 70px;
       text-align: right;
-      padding-right: 5px;
+			@extend .p-lr-5;
 			padding-bottom: 2px;
       line-height: 16px;
       div {
@@ -283,7 +283,7 @@ export default {
 			if (this.currentBottle.orderText.length <= 3) return false;
       let max = 9;
       this.currentBottle.orderText.map(v => {
-        if (getBytesLength(v) > 30) max -= 2;
+        if (getBytesLength(v) > 27) max -= 2;
         else max -= 1;
       });
       return max < 0;

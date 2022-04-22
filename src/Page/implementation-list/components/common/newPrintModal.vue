@@ -11,7 +11,7 @@
                         <div style="text-indent:5px">{{currentBottle.deptName}}</div>
                         <div>{{currentBottle.patientId || ''}}</div>
                         <div>{{currentBottle.sex || ''}}</div>
-                        <div>{{currentBottle.age ? currentBottle.age + '岁' : ''}}</div>
+                        <div>{{currentBottle.age}}</div>
                     </div>
                     <div class="new-modal-top-left-second">
                         <div style="text-indent:5px">执行日期:{{currentBottle.executeDate.substr(0,16)}}</div>
