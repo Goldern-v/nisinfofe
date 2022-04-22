@@ -471,6 +471,7 @@ export default {
       },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
+      checkItem:["腋温", "脉搏", "心率", "口温",'肛温','疼痛','疼痛干预','物理降温'],
       fieldList: {}, // 自定义项目列表
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
@@ -514,6 +515,7 @@ export default {
       handler(newName, oldName) {
           if(this.query.entryTime&&this.query.entryDate){
         this.getList();
+        this.bus.$emit("dateChangePage", this.query.entryDate);
           }
       },
       deep: true,
@@ -524,7 +526,6 @@ export default {
       // console.log(val);
     },
     setValid(trage, val) {
-      console.log(trage)
       switch (trage) {
         case "腋温":
         case "肛温":
@@ -564,9 +565,8 @@ export default {
       let val = vitalSignObj.vitalValue;
       if (
         val !== "" &&
-        ["腋温", "脉搏", "心率", "口温",'肛温','疼痛','疼痛干预','物理降温'].includes(vitalSignObj.vitalSigns)
+        this.checkItem.includes(vitalSignObj.vitalSigns)
       ) {
-       console.log(vitalSignObj, index)
 
         //验证表单
         if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
@@ -893,17 +893,6 @@ export default {
         //护理文书不允许修改
         window.openSetTextModalNew(
           (text) => {
-            let data = {
-              patientId: this.patientInfo.patientId,
-              visitId: this.patientInfo.visitId,
-              wardCode: this.patientInfo.wardCode,
-              vitalCode: key,
-              fieldCn: text,
-              recordDate:
-                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-                "  " +
-                this.query.entryTime,
-            };
             let voildStr = text.trim();
             if (checkValueStr.includes(text)) {
               this.$message.error(`修改${label}失败!已存在${text}项目`);
@@ -914,6 +903,17 @@ export default {
             ) {
               this.$message.error(`修改${label}失败!请输入自定义内容`);
             } else {
+              let data = {
+              patientId: this.patientInfo.patientId,
+              visitId: this.patientInfo.visitId,
+              wardCode: this.patientInfo.wardCode,
+              vitalCode: key,
+              fieldCn: voildStr,
+              recordDate:
+                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+                "  " +
+                this.query.entryTime,
+            };
               savefieldTitleNew(data).then((res) => {
                 this.fieldList[index].fieldCn = text;
                 this.$message.success(`修改${label}成功`);
@@ -948,7 +948,7 @@ export default {
             break;
         }
          if(item.vitalValue !== "" &&
-        ["腋温", "脉搏", "心率", "口温",'肛温','疼痛','疼痛干预','物理降温'].includes(item.vitalSigns)){
+        this.checkItem.includes(item.vitalSigns)){
             if(!validForm.valid(this.setValid(item.vitalSigns, item.vitalValue))){
             saveFlagArr.push(false)
             }

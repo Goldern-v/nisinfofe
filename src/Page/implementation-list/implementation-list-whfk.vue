@@ -191,10 +191,12 @@ import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode, handleWebExecuteBatch } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
+import bus from "vue-happy-bus";
 export default {
   mixins: [common],
   data() {
     return {
+      bus: bus(this),
       pageInput: "",
       pageLoadng: false,
       page: {
@@ -353,7 +355,16 @@ export default {
     },
   },
   created() {
-    this.onLoad()
+    this.onLoad();
+    this.bus.$on("loadImplementationList", () => {
+      this.onLoad();
+    });
+  },
+  mounted() {
+    this.onLoad();
+     this.bus.$on("loadImplementationList", () => {
+      this.onLoad();
+    });
   },
   watch: {
     deptCode() {

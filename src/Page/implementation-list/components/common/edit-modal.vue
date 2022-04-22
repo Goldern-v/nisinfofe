@@ -77,7 +77,7 @@ export default {
     open(data) {
       this.$refs.newRecord.open();
       this.afterStartExecuteTime = data.realExecuteDateTime;
-      this.afterEndExecuteTime = data.endDateTime;
+      this.afterEndExecuteTime = data.endDateTime || data.endInfusionTime;
       this.eidtRowData = data;
     },
     close() {
@@ -104,7 +104,7 @@ export default {
           : this.afterEndExecuteTime //需要修改后的实际结束时间
       };
       updateExecuteTime(data).then(res => {
-        this.$message.success(res.data.data.ErrorMsg);
+        this.$message.success('修改成功！');
         this.bus.$emit("loadImplementationList");
         this.close();
       });

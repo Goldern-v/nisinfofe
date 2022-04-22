@@ -2,7 +2,7 @@
 /*
   佛山杏坛 - 护理记录单(产后)
 */
-
+ 
 /**
  * @description: 开发注意事项:
     1、自定义表头 canSet: true, key: "armValue4"
@@ -31,27 +31,16 @@ export default {
                 {"name":"泌<br/>乳<br/>情<br/>况","colspan":"1","rowspan":"3"},
                 {"name":"宫<br/>底<br/>高<br/>度<br/>U=<br/>Fb","colspan":"1","rowspan":"3"},
                 {"name":"子宫<br/>收缩","colspan":"2","rowspan":"1"},
-                {"name":"腹<br/>部<br/>伤<br/>口<br/>敷<br/>料","colspan":"1","rowspan":"3"},
-                {"name":"腹<br/>部<br/>伤<br/>口<br/>疼<br/>痛","colspan":"1","rowspan":"3"},
-                {"name":"会<br/>阴<br/>伤<br/>口<br/>情<br/>况","colspan":"1","rowspan":"3"},
-                {"name":"会<br/>阴<br/>伤<br/>口<br/>疼<br/>痛","colspan":"1","rowspan":"3"},
-                {"name":"排<br/>气","colspan":"1","rowspan":"3"},
-                {"name":"排<br/>尿","colspan":"1","rowspan":"3"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue1","style":{"minWidth":"25px","maxWidth":"25px"}},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue2","style":{"minWidth":"25px","maxWidth":"25px"}},
-                {"name":"压<br/>沙<br/>袋","colspan":"1","rowspan":"3"},
-                {"name":"预<br/>防<br/>尿<br/>潴<br/>留","colspan":"1","rowspan":"3"},
-                {"name":"尿<br/>管<br/>固<br/>定<br/>通<br/>畅","colspan":"1","rowspan":"3"},
-                {"name":"尿<br/>液<br/>颜<br/>色","colspan":"1","rowspan":"3"},
-                {"name":"镇<br/>痛<br/>泵<br/>固<br/>定<br/>通<br/>畅","colspan":"1","rowspan":"3"},
-                {"name":"吸<br/>氧<br/>升<br/>/分","colspan":"1","rowspan":"3"},
-                {"name":"心<br/>电<br/>监<br/>护","colspan":"1","rowspan":"3"},
-                {"name":"饮<br/>食<br/>指<br/>导","colspan":"1","rowspan":"3"},
-                {"name":"母<br/>乳<br/>喂<br/>养<br/>指<br/>导","colspan":"1","rowspan":"3"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem1"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem2"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem3"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem4"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem5"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem6"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem7"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem8"},
                 {"name":"护<br/>理<br/>措<br/>施","colspan":"1","rowspan":"3"},
                 {"name":"护<br/>理<br/>安<br/>全","colspan":"1","rowspan":"3"},
-                {"name":"报<br/>告<br/>医<br/>生","colspan":"1","rowspan":"3"},
-                {"name":"遵<br/>医<br/>嘱<br/>继<br/>续<br/>观<br/>察","colspan":"1","rowspan":"3"},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"45px","maxWidth":"45px"}}

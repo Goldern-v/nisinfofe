@@ -6,7 +6,7 @@
           id="date-picker"
           type="date"
           size="small"
-          style="width: 190px"
+          style="width: 120px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -30,6 +30,31 @@
           >
           </el-time-select>
         </div>
+        <el-button-group>
+          <el-button
+            style="height: 33px; margin-top: -4px"
+            type="primary"
+            size="mini"
+            @click="() => preDate()"
+            >上一天</el-button
+          >
+          <el-button
+            style="height: 33px; margin-top: -4px"
+            type="primary"
+            size="mini"
+            @click="() => nextDate()"
+            >下一天</el-button
+          >
+        </el-button-group>
+        <!-- <div class="save-btn-top" v-if="patientInfo.patientId">
+          <el-button
+            :disabled="isDisable()"
+            type="primary"
+            class="save-btn"
+            @click="saveVitalSign(vitalSignObj)"
+            >保存</el-button
+          >
+        </div> -->
       </div>
     </div>
     <div class="row-bottom">
@@ -116,7 +141,12 @@
                           e.preventDefault();
                         }
                       "
-                      @input="handlePopRefresh(vitalSignObj[j])"
+                      @input="
+                        () => {
+                          handlePopRefresh(vitalSignObj[j]);
+                          validFormFc(vitalSignObj[j], i + 1);
+                        }
+                      "
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
@@ -164,7 +194,10 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-              <div class="context-box" v-if="Object.keys(this.otherMultiDictList).length">
+              <div
+                class="context-box"
+                v-if="Object.keys(this.otherMultiDictList).length"
+              >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
                     <span class="title"> 其他信息 </span>
@@ -200,7 +233,7 @@
                       :value="vitalSignObj[j].popVisible"
                     >
                       <input
-                        :id="i + 1"
+                        :id="i + 100"
                         @keydown.enter="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
@@ -208,13 +241,18 @@
                             : 'text'
                         "
                         :title="vitalSignObj[j].vitalValue"
-                         @mousewheel="
-                        (e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                        }
-                      "
-                        @input="handlePopRefresh(vitalSignObj[j])"
+                        @mousewheel="
+                          (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                          }
+                        "
+                        @input="
+                          () => {
+                            handlePopRefresh(vitalSignObj[j]);
+                            validFormFc(vitalSignObj[j], i + 100);
+                          }
+                        "
                         @click="() => (vitalSignObj[j].popVisible = true)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
                         v-model="vitalSignObj[j].vitalValue"
@@ -264,8 +302,8 @@
                 </el-collapse-item>
               </div>
             </div>
-            <div class="context-box" v-if="fieldList!=={}">
-              <el-collapse-item name="fieldList" >
+            <div class="context-box" v-if="fieldList !== {}">
+              <el-collapse-item name="fieldList">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
                   <i class="header-icon el-icon-info"></i>
@@ -298,8 +336,13 @@
                       class="fieldClass"
                       @keydown.enter="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
-                      @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
-                       @mousewheel="
+                      @input="
+                        () => {
+                          handlePopRefresh(vitalSignObj[j]);
+                          validFormFc(vitalSignObj[j], h + 100);
+                        }
+                      "
+                      @mousewheel="
                         (e) => {
                           e.preventDefault();
                           e.stopPropagation();
@@ -422,6 +465,7 @@
 import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
+import { validForm } from "../../validForm/validForm";
 import {
   getVitalSignListByDate,
   getmultiDict,
@@ -464,10 +508,20 @@ export default {
       editableTabsValue: "2",
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: moment().format("HH:mm")+':00', //录入时间
+        entryTime: moment().format("HH:mm") + ":00", //录入时间
       },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
+      checkItem: [
+        "腋温",
+        "脉搏",
+        "心率",
+        "口温",
+        "肛温",
+        "疼痛评分",
+        "疼痛干预",
+        "物理降温",
+      ],
       fieldList: {}, // 自定义项目列表
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
@@ -487,17 +541,16 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
-this.bus.$on("getDataFromPage", (dateTime) => {
+    this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate = dateTime.slice(0, 10);
       this.query.entryTime = dateTime.slice(11, 16) + ":00";
       this.dateInp = dateTime.slice(11, 16);
     });
-
   },
   created() {
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
-     this.bus.$on("refreshVitalSignList", () => {
+    this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
   },
@@ -509,21 +562,31 @@ this.bus.$on("getDataFromPage", (dateTime) => {
   watch: {
     query: {
       handler(newName, oldName) {
-         if(this.query.entryTime&&this.query.entryDate){
-        this.getList();
-         }
+        if (this.query.entryTime && this.query.entryDate) {
+          this.getList();
+          this.bus.$emit("dateChangePage", this.query.entryDate);
+        }
       },
       deep: true,
     },
-    rightSheet(value) {
-    },
+    rightSheet(value) {},
   },
   methods: {
     handleChange(val) {
       // console.log(val);
     },
-       formatDate(date){
-      return  moment(new Date(date)).format("YYYY-MM-DD")
+    formatDate(date) {
+      return moment(new Date(date)).format("YYYY-MM-DD");
+    },
+    preDate() {
+      this.query.entryDate = moment(
+        new Date(this.query.entryDate).getTime() - 24 * 60 * 60 * 1000
+      ).format("YYYY-MM-DD");
+    },
+    nextDate() {
+      this.query.entryDate = moment(
+        new Date(this.query.entryDate).getTime() + 24 * 60 * 60 * 1000
+      ).format("YYYY-MM-DD");
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
@@ -531,6 +594,58 @@ this.bus.$on("getDataFromPage", (dateTime) => {
     show(e) {
       if (e.keyCode == 13) {
         this.changeDate(this.$refs.timeSelect);
+      }
+    },
+    setValid(trage, val) {
+      switch (trage) {
+        case "腋温":
+        case "肛温":
+        case "口温":
+        case "物理降温":
+          let o = {
+            体温: {
+              value: val,
+              reg: [34, 42],
+              errorMsg: "体温请填入30~42之间的数值",
+            },
+          };
+          return o;
+        case "脉搏":
+        case "心率":
+          let y = {
+            脉搏: {
+              value: val,
+              reg: [20, 180],
+            },
+          };
+          return y;
+        case "疼痛评分":
+        case "疼痛干预":
+          let g = {
+            疼痛评分: {
+              value: val,
+              reg: [0, 10],
+            },
+          };
+          return g;
+        default:
+          break;
+      }
+    },
+    validFormFc(vitalSignObj, index) {
+      let val = vitalSignObj.vitalValue;
+      if (val !== "" && this.checkItem.includes(vitalSignObj.vitalSigns)) {
+        //验证表单
+        if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
+          document.getElementById(index).style.border = "";
+          vitalSignObj.isCorrect = true;
+        } else {
+          document.getElementById(index).style.border = "1px solid red";
+          vitalSignObj.isCorrect = false;
+        }
+      } else {
+        document.getElementById(index).style.border = "";
+        vitalSignObj.isCorrect = true;
       }
     },
     changeNext(e) {
@@ -611,7 +726,7 @@ this.bus.$on("getDataFromPage", (dateTime) => {
         wardCode: this.patientInfo.wardCode,
         recordDate: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
       }).then((res) => {
-           this.tabsData = [];
+        this.tabsData = [];
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -639,6 +754,10 @@ this.bus.$on("getDataFromPage", (dateTime) => {
             this.fieldList[item.vitalCode] = item;
         });
       });
+      let input = document.getElementsByTagName("input");
+      for (let i = 0; i < input.length; i++) {
+        input[i].style.border = "";
+      }
     },
     //时间组件失去焦点
     changeDate(val) {
@@ -776,7 +895,6 @@ this.bus.$on("getDataFromPage", (dateTime) => {
               classCode: item.classCode,
             };
             this.fieldList = { ...obj };
-
           }
         });
         this.multiDictList = { ...data };
@@ -869,6 +987,7 @@ this.bus.$on("getDataFromPage", (dateTime) => {
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
         this.query.entryTime;
+      let saveFlagArr = [];
       obj.map((item) => {
         item.recordDate = recordDate;
         switch (item.vitalSigns) {
@@ -882,6 +1001,16 @@ this.bus.$on("getDataFromPage", (dateTime) => {
           default:
             break;
         }
+        if (
+          item.vitalValue !== "" &&
+          this.checkItem.includes(item.vitalSigns)
+        ) {
+          if (
+            !validForm.valid(this.setValid(item.vitalSigns, item.vitalValue))
+          ) {
+            saveFlagArr.push(false);
+          }
+        }
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
@@ -890,11 +1019,15 @@ this.bus.$on("getDataFromPage", (dateTime) => {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
       };
-      await saveAll(data).then((res) => {
-        this.$message.success("保存成功");
-      });
-      this.getList();
-      this.bus.$emit("refreshImg");
+      if (saveFlagArr.includes(false)) {
+        this.$message.error("存在数值错误,请耐心检查!");
+      } else {
+        await saveAll(data).then((res) => {
+          this.$message.success("保存成功");
+        });
+        this.getList();
+        this.bus.$emit("refreshImg");
+      }
     },
 
     // formatTopExpandDate(val) {
@@ -929,18 +1062,21 @@ this.bus.$on("getDataFromPage", (dateTime) => {
 
   .column-right {
     display: inline-block;
-    margin-left: 25px;
+    margin-left: 10px;
     height: 50px;
+    width: 100%;
     overflow: auto;
   }
 
   .row-top {
     background-color: #fff;
     height: 47px;
+    width: 100%;
 
     .column-left {
       margin: 10px 45px 0px 0px;
       flex-direction: column;
+      width: 100%;
     }
   }
 
@@ -958,9 +1094,11 @@ this.bus.$on("getDataFromPage", (dateTime) => {
         float: left;
         overflow: auto;
       }
-      .record-list::-webkit-scrollbar{
-    display: none;
-        }
+
+      .record-list::-webkit-scrollbar {
+        display: none;
+      }
+
       >div {
         .recordList {
           line-height: 30px;
@@ -1011,10 +1149,11 @@ this.bus.$on("getDataFromPage", (dateTime) => {
     >>>input {
       pointer-events: auto !important;
     }
-     >>>.el-input__inner {
+
+    >>>.el-input__inner {
       border-radius: 6px;
-      margin-left:5px;
-      height:28px;
+      margin-left: 5px;
+      height: 33px;
     }
   }
 
@@ -1046,7 +1185,7 @@ this.bus.$on("getDataFromPage", (dateTime) => {
     float: left;
 
     input {
-      width: 100%;
+      width: 96%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1073,7 +1212,7 @@ this.bus.$on("getDataFromPage", (dateTime) => {
     margin-left: 10%;
 
     input {
-      width: 100%;
+      width: 96%;
       font-size: 16px;
       border: none;
       outline: 0px;

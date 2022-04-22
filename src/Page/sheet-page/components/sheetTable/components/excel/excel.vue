@@ -231,7 +231,7 @@
               }?${token}`"
               alt
             />
-            <span v-if="tr.find((item) => item.key == 'auditorNo').value && (sheetInfo.sheetType === 'neonate_sdlj' || sheetInfo.sheetType === 'pediatrics_sdlj')"
+            <span v-if="tr.find((item) => item.key == 'auditorNo').value && HOSPITAL_ID==='sdlj'" style="font-size: 12px;margin:10px -5px 0 0;"
               >、</span
             >
             <span v-else-if="tr.find((item) => item.key == 'auditorNo').value"
@@ -875,21 +875,25 @@ export default {
     },
     setTitle(item) {
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
-        (title) => {
+        (title,sonData) => {
+          console.log(sonData);
           let data = {
             patientId: this.patientInfo.patientId,
             visitId: this.patientInfo.visitId,
             pageIndex: this.index,
             fieldEn: item.key,
             fieldCn: title,
+            sonData: sonData,
             recordCode: sheetInfo.sheetType,
           };
           saveTitle(data).then((res) => {
             item.name = title;
+            item.foshansiyiSonData = sonData
           });
         },
         item.name,
-        item
+        item,
+        item.foshansiyiSonData,
       );
     },
     addNullRow(index, row) {

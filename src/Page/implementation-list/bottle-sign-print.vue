@@ -61,7 +61,8 @@
           </el-select>
           <el-button size="small" type="primary" @click="search">查询</el-button>
           <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
-          <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印</el-button>
+          <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
+          <el-button size="small" v-if="['sdlj'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
           <el-button size="small" @click="creatImplement">生成执行</el-button>
           <!-- <a href="VMS://abcdefg" @click="onPrint" >1</a> -->
           <el-button size="small" @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
@@ -94,7 +95,7 @@
       </div>
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <div style="height:5.7cm" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
-          <NewPrintModal :newModalSize="newModalSize" :itemObj='itemBottleCard' />
+          <component :is="newPrintCom" :newModalSize="newModalSize" :itemObj='itemBottleCard' />
         </div>
       </div>
     </div>
@@ -184,9 +185,10 @@
 </style>
 <script>
 import modal from "./modal/modal.vue"
-import dTable from "./components/table/bottle-sign-print-table";
+import dTable from "./components/table/bottle-sign-print-table.vue";
 import pagination from "./components/common/pagination";
 import NewPrintModal from "./components/common/newPrintModal"
+import NewPrintModalSdlj from "./components/common/newPrintModalSdlj"
 import printing from 'printing'
 import { patEmrList } from "@/api/document";
 import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder } from "./api/index";
@@ -431,6 +433,11 @@ export default {
         })
       })
     },
+    // 打印全部
+    onPrintAll() {
+      this.selectedData = this.$_.flattenDeep(this.pagedTable)
+      this.newOnPrint()
+    },
     cleanPrintStatusRoundTime(){
       if(this.printStatusTimmer){
         clearTimeout(this.printStatusTimmer)
@@ -504,6 +511,16 @@ export default {
   created() {
     this.onLoad();
   },
+  computed: {
+    newPrintCom() {
+      switch(this.HOSPITAL_ID) {
+        case 'sdlj':
+          return 'NewPrintModalSdlj'
+        default:
+          return 'NewPrintModal'
+      }
+    }
+  },
   watch: {
     deptCode() {
       this.search();
@@ -525,7 +542,8 @@ export default {
     dTable,
     modal,
     pagination,
-    NewPrintModal
+    NewPrintModal,
+    NewPrintModalSdlj,
   }
 };
 </script>

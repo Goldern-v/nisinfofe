@@ -21,9 +21,9 @@
             <whiteButton text icon="icon-search"></whiteButton>
           </div>
           <div class="list-con">
-            <div v-for="(item, key) in filterData" :key="key">
-              <templateItem :data="item" :key="item.id"></templateItem>
-            </div>
+            <!-- <div v-for="(item, key) in filterData" :key="key"> -->
+              <templateItem :listdata="filterData" ></templateItem>
+            <!-- </div> -->
           </div>
           <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
             <i class="iconfont icon-tianjia"></i> 新建模板
@@ -134,7 +134,7 @@ import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./components/title-template-item-fssy.vue";
 import addTemplateModal from "./add-title-template-modal-fssy.vue";
 import bus from "vue-happy-bus";
-import { listItem } from "../../api/recordDesc";
+import {titleTempalateList} from "./api/index"
 import sheetInfo from "../config/sheetInfo/index.js";
 export default {
   data() {
@@ -147,16 +147,49 @@ export default {
       listMap: [],
       typeList: [],
       selectedType: "",
-      selectWidth: 100
+      selectWidth: 100,
     };
   },
   computed: {
     filterData() {
       let listMap = this.listMap;
-      let filterData = listMap.filter(item => {
-        return item.name.indexOf(this.searchWord) > -1;
+      let IstitleData = []
+      let NotitleData = []
+      
+      listMap.map((item,index)=>{
+        let deleteList = []
+        if(item.groupName == '纯标题模板'){
+          deleteList = item.list
+          deleteList.map((sonItem)=>{
+            IstitleData.push({
+              groupName:sonItem.title,
+              id:sonItem.id,
+              recordCode:sonItem.recordCode,
+              wardCode:sonItem.wardCode,
+            })
+          })
+        //  listMap.splice(index,1)
+        }else{
+          item['children'] = item.list,
+          NotitleData.push(item)
+        }
+      })
+      let setListData = [...IstitleData,...NotitleData]
+      let filterData = setListData;
+      // console.log(filterData);
+      filterData = setListData.filter(item => {
+        return item.groupName.indexOf(this.searchWord) > -1;
       });
       return filterData;
+    }
+  },
+  watch: {
+    selectedType() {
+      if (this.selectedType) {
+        list(this.selectedType).then(res => {
+          this.listMap = res.data.data.list;
+        });
+      }
     }
   },
   methods: {
@@ -183,15 +216,21 @@ export default {
     },
     async getData() {
       let deptCode = this.$store.state.lesion.deptCode
-      let {
-        data: { data }
-      } = await listItem(
-        "自定义标题",
-        //北海体温单调用护理记录单模板
-        this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
-        deptCode,
-      );
-      this.listMap = data;
+      // let {
+      //   data: { data }
+      // } = await listItem(
+      //   "自定义标题",
+      //   //北海体温单调用护理记录单模板
+      //   this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
+      //   deptCode,
+      // );
+      // this.listMap = data;
+      let opstObj = {}
+      opstObj.wardCode = deptCode
+      let res = await titleTempalateList(opstObj)
+      if(res.data.code == '200'){
+        this.listMap = res.data.data
+      }
     },
     openAddModal() {
       this.$refs.addTemplateModal.open();
@@ -201,20 +240,16 @@ export default {
     }
   },
   created() {
-    this.bus.$on("refreshTitleTemplate", this.getData);
-  },
-  mounted() {
-    //  this.show = false
-  },
-  watch: {
-    selectedType() {
-      if (this.selectedType) {
-        list(this.selectedType).then(res => {
-          this.listMap = res.data.data.list;
-        });
-      }
+    if(this.HOSPITAL_ID == "foshanrenyi"){
+      this.getData()
+      this.bus.$on("refreshTitleTemplate", this.getData);
     }
   },
+  mounted() {
+    this.show = false
+    this.bus.$on("refreshTitleTemplate", this.getData);
+  },
+  
   components: {
     whiteButton,
     templateItem,

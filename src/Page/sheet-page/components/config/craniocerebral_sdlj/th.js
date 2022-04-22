@@ -13,7 +13,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1230px"
+      width: "1290px"
     },
     th: {
         top: 
@@ -43,7 +43,8 @@ export default {
                 {"name":"抬<br/>高<br/>床<br/>头<br/>15<br/>度","colspan":"1","rowspan":"3"},
                 {"name":"","colspan":"1","rowspan":"3", canSet: true, key: "armValue","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
+                {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}},
+                {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
             ]
         ,
         mid: 

@@ -22,6 +22,8 @@ export function listNurseAdtHd(data,HOSPITAL_ID) {
     return axios.post(`${apiPath}nurseAdtLog/listNurseAdtJm`,data);
   } else if(HOSPITAL_ID && HOSPITAL_ID == 'nanfangzhongxiyi') {
     return axios.post(`${apiPath}nurseAdtLog/listNurseAdtNFZXY`,data);
+  } else if(HOSPITAL_ID && HOSPITAL_ID == 'beihairenyi') {
+    return axios.post(`${apiPath}nurseAdtLog/listNurseAdtBh`,data);
   } else {
     return axios.post(`${apiPath}nurseAdtLog/listNurseAdtHd`,data);
   }
@@ -31,6 +33,11 @@ export function listNurseAdtHd(data,HOSPITAL_ID) {
 //横沥同步出院患者
 export function synchronizeHengLi() {
   return axios.get(`${apiPath}HisHengLiDischarge/syncDischargePat`);
+  //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
+}
+// 北海-转科同步患者
+export function syncMajorBH(wardCode) {
+  return axios.get(`${apiPath}HisBeiHaiExecute/syncPatientTransfer/${wardCode}`);
   //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
 }
 

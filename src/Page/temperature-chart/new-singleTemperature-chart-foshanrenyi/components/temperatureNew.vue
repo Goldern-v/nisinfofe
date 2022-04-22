@@ -16,7 +16,6 @@
           @click="
             currentPage = 1;
             toCurrentPage = 1;
-
           "
         >
           首周
@@ -69,26 +68,24 @@
             >心率</el-button
           >
         </div>
-        <div >
-          <null-bg v-show="!filePath" :image-size=100></null-bg>
-
-           <iframe
-          id="detailChat"
-          v-if="detailChatFlag&&filePath"
-          :src="detailChatUrl"
-          frameborder="0"
-          ref="detailChat"
-          class="detailChat"
-        ></iframe>
+        <div>
+          <null-bg v-show="!filePath" :image-size="100"></null-bg>
+          <iframe
+            id="detailChat"
+            v-if="detailChatFlag && filePath"
+            :src="detailChatUrl"
+            frameborder="0"
+            ref="detailChat"
+            class="detailChat"
+          ></iframe>
         </div>
-
       </moveContext>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id="printID"
-          v-if="filePath"
+          id="temperatureChart"
           :src="filePath"
+          v-if="!isPrintAll&&filePath"
           frameborder="0"
           ref="pdfCon"
           class="lcIframe"
@@ -97,9 +94,9 @@
       <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id="printID"
-          v-if="filePath"
+          id="chartPrintAll"
           :src="printAllPath"
+           v-if="isPrintAll&&printAllPath"
           frameborder="0"
           ref="pdfConAll"
           class="lcIframe"
@@ -143,11 +140,9 @@ export default {
       printAllPath: "",
       intranetUrl:
         // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
-      "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.103.17:9091/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
-      outNetUrl:
-        "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
@@ -171,21 +166,20 @@ export default {
         );
       }, 1500);
     },
-            //将体温单上的时间传过来，再监听到录入组件，获取录入记录
-    getDataFromPage(dateTime){
-      this.bus.$emit('getDataFromPage',dateTime)
+    //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime) {
+      this.bus.$emit("getDataFromPage", dateTime);
     },
     async openDetailChat() {
-    await this.$store.commit("newDialogVisible", true);
-    let value=this.currentPage
-    if(this.$refs.detailChat.contentWindow&&this.filePath){
-       this.$refs.detailChat.contentWindow.postMessage(
-        { type: "currentPage",value },
-        this.detailChatUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-    }
-
+      await this.$store.commit("newDialogVisible", true);
+      let value = this.currentPage;
+      if (this.$refs.detailChat.contentWindow && this.filePath) {
+        this.$refs.detailChat.contentWindow.postMessage(
+          { type: "currentPage", value },
+          this.detailChatUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }
     },
     changeDetailChatUrl(type) {
       this.detailChatFlag = false;
@@ -210,19 +204,16 @@ export default {
       }
 
       this.currentPage = this.toCurrentPage;
-
     },
     toNext() {
       if (this.currentPage === this.pageTotal) return;
       this.currentPage++;
       this.toCurrentPage = this.currentPage;
-
     },
     toPre() {
       if (this.currentPage === 1) return;
       this.currentPage--;
       this.toCurrentPage = this.currentPage;
-
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -242,7 +233,10 @@ export default {
       }, 0);
     },
     getHeight() {
-      this.contentHeight.height = window.innerHeight - (this.$route.path.includes('nursingPreview')?40:100) + "px";
+      this.contentHeight.height =
+        window.innerHeight -
+        (this.$route.path.includes("nursingPreview") ? 40 : 100) +
+        "px";
     },
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
@@ -257,8 +251,11 @@ export default {
           case "dblclick" /* 双击查阅体温单子 */:
             this.openRight();
             break;
-              case "clickDateTime":
-            this.getDataFromPage(e.data.value)
+              case "currentPage":
+            this.currentPage = e.data.value;
+            break;
+          case "clickDateTime":
+            this.getDataFromPage(e.data.value);
             break;
           default:
             break;
@@ -286,15 +283,14 @@ export default {
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
       );
-      if(this.$refs.detailChat.contentWindow){
-             let value=this.currentPage
-    this.$refs.detailChat.contentWindow.postMessage(
-        { type: "currentPage",value },
-        this.detailChatUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
+      if (this.$refs.detailChat.contentWindow) {
+        let value = this.currentPage;
+        this.$refs.detailChat.contentWindow.postMessage(
+          { type: "currentPage", value },
+          this.detailChatUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
       }
-
     },
   },
   mounted() {
@@ -315,6 +311,14 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+    this.bus.$on("dateChangePage", (value) => {
+      value = moment(value).format("YYYY-MM-DD");
+      this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "dateChangePage", value },
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    });
   },
   computed: {
     detailChatUrl() {

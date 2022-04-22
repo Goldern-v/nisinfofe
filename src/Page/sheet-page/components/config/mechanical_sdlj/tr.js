@@ -35,20 +35,20 @@ export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, value: ''},
-  { key: 'position', event: keyf1, value: '', next: '', name: '体位', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'sputum', event: keyf1, value: '', next: '', name: '痰液形状', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'intubation', event: keyf1, value: '', next: 'cm', name: '插管深度', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'process', event: keyf1, value: '', next: '', name: '湿化温度', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'ventilation', event: keyf1, value: '', next: '', name: '通气模式', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'breathing', event: keyf1, value: '', next: '', name: '呼吸频率', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'breatheTime', event: keyf1, value: '', next: 's', name: '吸气时间', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'peak', event: keyf1, value: '', next: 'cmH2o', name: '吸气峰值', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'pressure', event: keyf1, value: '', next: '', name: 'PEEP', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'concentration', event: keyf1, value: '', next: '%', name: '氧浓度', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'traffic', event: keyf1, value: '', next: 'L/min', name: '吸气流量', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'turbulence', event: keyf1, value: '', next: '', name: '震荡幅度', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'frequency', event: keyf1, value: '', next: '', name: 'HFO频率', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'average', event: keyf1, value: '', next: '', name: '平均压', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'position', event: keyf1, value: '', next: '', name: '体位', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'sputum', event: keyf1, value: '', next: '', name: '痰液形状', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'intubation', event: keyf1, value: '', next: 'cm', name: '插管深度', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'process', event: keyf1, value: '', next: '', name: '湿化温度', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'ventilation', event: keyf1, value: '', next: '', name: '通气模式', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'breathing', event: keyf1, value: '', next: '', name: '呼吸频率', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'breatheTime', event: keyf1, value: '', next: 's', name: '吸气时间', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'peak', event: keyf1, value: '', next: 'cmH2o', name: '吸气峰值', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'pressure', event: keyf1, value: '', next: '', name: 'PEEP', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'concentration', event: keyf1, value: '', next: '%', name: '氧浓度', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'traffic', event: keyf1, value: '', next: 'L/min', name: '吸气流量', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'turbulence', event: keyf1, value: '', next: '', name: '震荡幅度', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'frequency', event: keyf1, value: '', next: '', name: 'HFO频率', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'average', event: keyf1, value: '', next: '', name: '平均压', textarea: { width: 48 }, change: (e, td) => limitChange(e, td, 8) },
   {
     hidden:true,
     key: "description", //特殊情况记录
@@ -59,7 +59,7 @@ export default [
   },
   { key: "sign", value: "" },//单签
   // { key: "sign2", value: "" },//双签
-  //{ key: "audit", value: "" },//审核签名
+  { key: "audit", value: "" },//审核签名
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
   { hidden:true, key:'signerName2', value:''},
