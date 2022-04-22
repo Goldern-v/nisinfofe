@@ -70,7 +70,6 @@
         </div>
         <div>
           <null-bg v-show="!filePath" :image-size="100"></null-bg>
-
           <iframe
             id="detailChat"
             v-if="detailChatFlag && filePath"
@@ -84,9 +83,9 @@
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id="printID"
-          v-if="filePath"
+          id="temperatureChart"
           :src="filePath"
+          v-if="!isPrintAll&&filePath"
           frameborder="0"
           ref="pdfCon"
           class="lcIframe"
@@ -95,9 +94,9 @@
       <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id="printID"
-          v-if="filePath"
+          id="chartPrintAll"
           :src="printAllPath"
+           v-if="isPrintAll&&printAllPath"
           frameborder="0"
           ref="pdfConAll"
           class="lcIframe"
@@ -140,12 +139,10 @@ export default {
       visibled: false,
       printAllPath: "",
       intranetUrl:
-        // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
-        "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.103.17:9091/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
-      outNetUrl:
-        "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
