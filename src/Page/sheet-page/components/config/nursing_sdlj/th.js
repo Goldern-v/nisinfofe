@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1200px"
+      width: "1260px"
     },
     th: {
         top: 
@@ -23,7 +23,8 @@ export default {
                 {"name":"产妇","colspan":"15","rowspan":"1"},
                 {"name":"新生儿","colspan":"9","rowspan":"1"},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
+                {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}},
+                {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
             ]
         ,
         mid: 

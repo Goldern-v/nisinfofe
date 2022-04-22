@@ -66,7 +66,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理诊断计划</div>
+        <div class="nav-item">护理计划</div>
       </router-link>
       <router-link
         :to="{
@@ -139,6 +139,12 @@
         tag="span"
       >
         <div class="nav-item">护嘱单</div>
+      </router-link>
+      <router-link
+        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
+        tag="span"
+      >
+        <div class="nav-item">360视图</div>
       </router-link>
       <!-- <router-link
         :to="{

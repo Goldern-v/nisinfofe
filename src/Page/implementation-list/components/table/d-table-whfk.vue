@@ -110,6 +110,7 @@
               yzx: scope.row.executeFlag == 2
               }"
            :title="forMatExecuteFlag(scope.row.executeFlag)">{{ forMatExecuteFlag(scope.row.executeFlag) }}</span>
+            <span v-if="scope.row.type == 1">(补)</span>
         </template>
       </u-table-column>
 
@@ -328,6 +329,7 @@ import qs from "qs";
 import moment from "moment";
 import { addRecord,cancelOrderExecuteApi } from "../../api/index";
 import editModal from "../common/edit-modal";
+import bus from "vue-happy-bus";
 export default {
   props: {
     pageLoadng: Boolean,
@@ -336,6 +338,7 @@ export default {
   mixins: [commonMixin],
   data() {
     return {
+      bus: bus(this),
       rowHeight: 30,
       checked: true,
       selectedData: []

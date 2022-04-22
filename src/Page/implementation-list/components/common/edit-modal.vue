@@ -77,7 +77,7 @@ export default {
     open(data) {
       this.$refs.newRecord.open();
       this.afterStartExecuteTime = data.realExecuteDateTime;
-      this.afterEndExecuteTime = data.endDateTime;
+      this.afterEndExecuteTime = data.endDateTime || data.endInfusionTime;
       this.eidtRowData = data;
     },
     close() {

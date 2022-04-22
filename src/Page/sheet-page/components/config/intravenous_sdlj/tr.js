@@ -35,17 +35,17 @@ export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, value: ''},
-  { key: 'liquid', event: keyf1, value: '', next: 'ml', name: '液体名称', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'magnesium', event: keyf1, value: '', next: '', name: '硫酸镁', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'amp', event: keyf1, value: '', next: '', name: '安宝', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'liquid', event: keyf1, value: '', next: 'ml', name: '液体名称', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'magnesium', event: keyf1, value: '', next: '', name: '硫酸镁', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'amp', event: keyf1, value: '', next: '', name: '安宝', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'dripping', event: keyf1, value: '', next: '滴/分', name: '滴速', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'contractions', event: keyf1, value: '', next: 's/min', name: '宫缩', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'urineOutput', event: keyf1, value: '', next: 'ml', name: '尿量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'reflectionLeft', event: keyf1, value: '', next: '', name: '膝反射左侧', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'reflectionRight', event: keyf1, value: '', next: '', name: '膝反射右侧', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'urineOutput', event: keyf1, value: '', next: 'ml', name: '尿量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'reflectionLeft', event: keyf1, value: '', next: '', name: '膝反射左侧', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'reflectionRight', event: keyf1, value: '', next: '', name: '膝反射右侧', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
@@ -57,7 +57,7 @@ export default [
   },
   { key: "sign", value: "" },//单签
   // { key: "sign2", value: "" },//双签
-  //{ key: "audit", value: "" },//审核签名
+  { key: "audit", value: "" },//审核签名
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
   { hidden:true, key:'signerName2', value:''},
