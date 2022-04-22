@@ -31,12 +31,13 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let fyList = ['G','I','D']
+// let fyList = ['G','I','D']
 let ksList = ['D','S','F']
-let qbqkList = ['D','S','E']
-let xyfsList = ['N','F','W','M','H']
-let hlaqList = ['A','B','C','D','E','F','G','H','I']
-let tyList = ['○','I','II','III','√','×','+','++','+++','WL','YWT','YT','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','W','X']
+// let qbqkList = ['D','S','E']
+// let xyfsList = ['N','F','W','M','H']
+// let hlaqList = ['A','B','C','D','E','F','G','H','I']
+let hlaqList = [{name:"A留陪人",value:"A"},{name:"B防坠床",value:"B"},{name:"C防药物外渗",value:"C"},{name:"D防红臀",value:"D"},{name:"E防拔管",value:"E"},{name:"F防误吸",value:"F"},{name:"G防窒息",value:"G"},{name:"H防烫伤",value:"H"},{name:"I其他",value:"I"}]
+// let tyList = ['○','I','II','III','√','×','+','++','+++','WL','YWT','YT','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','W','X']
 
 export default [
   { hidden: true, key: 'recordDate', value: '' },
@@ -59,41 +60,51 @@ export default [
   { key: 'suck', event: keyf1, value: '', next: '', name: '吸吮力', autoComplete: { data: ['G','S','D'] }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'feedingType', event: keyf1, value: '', next: '', name: '喂养种类', autoComplete: { data: ['D','M'] }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'feedingWay', event: keyf1, value: '', next: '', name: '喂养方式', autoComplete: { data: ['S','N','M'] }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue2', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'navelSituation', event: keyf1, value: '', next: '', name: '脐部情况', autoComplete: { data: qbqkList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue3', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue4', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue5', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue6', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue7', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue8', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue9', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue10', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue11', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue12', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'oxygenWay', event: keyf1, value: '', next: 'L/min', name: '吸氧方式', autoComplete: { data: xyfsList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'oxygenFlow', event: keyf1, value: '', next: '%', name: '氧流量', textarea: { width: 21 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'oxygenConcentration', event: keyf1, value: '', next: '', name: '氧浓度', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'needleSmoothly', event: keyf1, value: '', next: '', name: '留置针固定通畅', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'pipeNursing', event: keyf1, value: '', next: '', name: '冲管护理', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue13', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue14', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'oralCare', event: keyf1, value: '', next: '', name: '口腔护理', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'navelNursing', event: keyf1, value: '', next: '', name: '脐部护理', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'hipNursing', event: keyf1, value: '', next: '', name: '臀部护理', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'touch', event: keyf1, value: '', next: '', name: '抚触', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue15', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'turnBack', event: keyf1, value: '', next: '', name: '翻身拍背', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'bath', event: keyf1, value: '', next: '', name: '沐浴', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'bedBath', event: keyf1, value: '', next: '', name: '床上浴', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue16', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue17', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue18', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue19', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue20', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue2', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'navelSituation', event: keyf1, value: '', next: '', name: '脐部情况', autoComplete: { data: qbqkList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue3', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue4', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue5', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue6', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue7', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue8', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue9', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue10', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue11', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue12', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'oxygenWay', event: keyf1, value: '', next: 'L/min', name: '吸氧方式', autoComplete: { data: xyfsList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'oxygenFlow', event: keyf1, value: '', next: '%', name: '氧流量', textarea: { width: 21 }, change: (e, td) => limitChange(e, td, 4) },
+  // { key: 'oxygenConcentration', event: keyf1, value: '', next: '', name: '氧浓度', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'needleSmoothly', event: keyf1, value: '', next: '', name: '留置针固定通畅', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'pipeNursing', event: keyf1, value: '', next: '', name: '冲管护理', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue13', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue14', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'oralCare', event: keyf1, value: '', next: '', name: '口腔护理', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'navelNursing', event: keyf1, value: '', next: '', name: '脐部护理', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'hipNursing', event: keyf1, value: '', next: '', name: '臀部护理', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'touch', event: keyf1, value: '', next: '', name: '抚触', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue15', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'turnBack', event: keyf1, value: '', next: '', name: '翻身拍背', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'bath', event: keyf1, value: '', next: '', name: '沐浴', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'bedBath', event: keyf1, value: '', next: '', name: '床上浴', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue16', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue17', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue18', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue19', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'armValue20', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
+  
+  { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'customItem2', event: keyf1, value: '', next: '', name: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'customItem3', event: keyf1, value: '', next: '', name: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'customItem4', event: keyf1, value: '', next: '', name: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'customItem5', event: keyf1, value: '', next: '', name: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'customItem6', event: keyf1, value: '', next: '', name: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'customItem7', event: keyf1, value: '', next: '', name: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'customItem8', event: keyf1, value: '', next: '', name: '', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 2) },
+  
   { key: 'nursingSafety', event: keyf1, value: '', next: '', name: '护理安全', autoComplete: { data: hlaqList }, textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'reportDoctor', event: keyf1, value: '', next: '', name: '报告医生', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  // { key: 'reportDoctor', event: keyf1, value: '', next: '', name: '报告医生', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'continueObserve', event: keyf1, value: '', next: '', name: '遵医嘱继续观察', textarea: { width: 18 }, change: (e, td) => limitChange(e, td, 2) },
   {
     key: "description", //特殊情况记录
