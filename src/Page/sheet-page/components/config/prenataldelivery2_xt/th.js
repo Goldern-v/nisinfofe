@@ -41,7 +41,7 @@ export default {
                 {"name":"吸<br/>氧<br/>升<br/>/分","colspan":"1","rowspan":"3"},
                 {"name":"微<br/>机<br/>血<br/>糖<br/>mmol<br/>/L","colspan":"1","rowspan":"3"},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue","style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue2","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"护<br/>理<br/>安<br/>全","colspan":"1","rowspan":"3"},
                 {"name":"护<br/>理<br/>措<br/>施","colspan":"1","rowspan":"3"},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
