@@ -384,6 +384,7 @@
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
+            @input="(e)=>splitSave && $emit('onModalChange',e,tr,x,y,index)"
             :style="[
               td.style,
               td.key === 'recordMonth' &&
@@ -410,7 +411,7 @@
                 })
             "
             @blur="onBlur($event, { x, y, z: index }, tr)"
-            @click="!tr.isRead && td.click && td.click($event, td)"
+            @click="!tr.isRead && td.click && td.click($event, td, tr)"
             v-else
           />
           <div 
@@ -753,6 +754,9 @@ export default {
         return !td.hidden;
       });
     },
+    splitSave(){
+      return process.env.splitSave
+    }
   },
   methods: {
     redBottom(tr,y){

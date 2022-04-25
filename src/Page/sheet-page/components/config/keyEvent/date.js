@@ -72,9 +72,10 @@ export function event_date_year(e, td) {
   }
 }
 
-export function click_date(e, td) {
+export function click_date(e, td, tr) {
   if (td.value == "") {
     td.value = moment().format("MM-DD");
+    tr.isChange = true
   }
 }
 
@@ -90,9 +91,10 @@ export function click_date_time(e, td) {
   }
 }
 
-export function click_time(e, td) {
+export function click_time(e, td, tr) {
   if (td.value == "") {
     td.value = moment().format("HH:mm");
+    tr.isChange = true
   }
 }
 // 点击自动打勾“√”
