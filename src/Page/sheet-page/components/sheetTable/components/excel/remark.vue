@@ -417,10 +417,9 @@
     <!-- 佛山杏坛 护理记录单(消化专科) -->
     <div v-if="sheetInfo.sheetType == 'gastroenterology_xt'">
       注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；A谵妄；B药眠。&nbsp;<strong>瞳孔对光反射</strong>：灵敏√；迟钝+；消失－。&nbsp;<strong>恶心</strong>：A持续性；B间；C无。&nbsp;<strong>反酸</strong>：A间；B缓解。&nbsp;<strong>嗳气</strong>：A间；B缓解。&nbsp;<strong>呕吐</strong>：A胃内容物；B咖啡渣样物；C暗红色血液；D鲜血；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.otQt" :data-value="sheetInfo.relObj.otQt"/>。
-      <strong>管道</strong>：通畅 √，阻塞X。&nbsp;<strong>腹痛部位</strong>：A上腹部□左□右B中上腹；C脐周；D下腹部□左□右；E全腹；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ftbwQt" :data-value="sheetInfo.relObj.ftbwQt"/>。<strong>腹痛程度</strong>：0无痛；I轻度；II中度；III重度。<strong>咳嗽</strong>：A剧咳；B间咳;C缓解。&nbsp;&nbsp;<strong>咳痰</strong>：A白色粘痰；B黄色粘痰；C黄白色粘痰；D白色稀痰；E:无；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ktQt" :data-value="sheetInfo.relObj.ktQt"/>。
-      &nbsp;<strong>头晕</strong>：A持续性；B间；C活动后；D无。&nbsp;&nbsp;<strong>头痛</strong>：A轻度；B中度；C重度；D 无。<br/><strong>气促</strong>：A持续性；B减轻；C活动后；D无。&nbsp;<strong>胸闷</strong>：A持续性；B间；C无。&nbsp;<strong>水肿部位</strong>：A上肢：左、右、双；B下肢：左、右、双；C阴囊；D全身； <strong>水肿程度</strong>：消退0；轻度+；中度++；重度+++。  
+      <strong>管道</strong>：通畅 √，阻塞X。&nbsp;<strong>腹痛部位</strong>：A上腹部□左□右B中上腹；C脐周；D下腹部□左□右；E全腹；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ftbwQt" :data-value="sheetInfo.relObj.ftbwQt"/>。<strong>腹痛程度</strong>：0无痛；I轻度；II中度；III重度。<strong>咳嗽</strong>：A剧咳；B间咳;C缓解。  
       &nbsp;<strong>水肿护理</strong>：A抬高15cm；B保护水肿皮肤；C其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.szhlQt" :data-value="sheetInfo.relObj.szhlQt"/>。
-      <strong>尿液颜色</strong>：A淡黄色；B深黄色；C浓茶色；D酱油色；E乳白色；F洗肉水色；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.nyysQt" :data-value="sheetInfo.relObj.nyysQt"/>。&nbsp;<strong>护理措施</strong>：A卧床休息；B心理支持；C协助翻身；D指导活动；E饮食指导（E1禁食；E2低盐低脂饮食；E3糖尿病饮食；E4流质饮食；E5半流质饮食；E6低嘌呤饮食；E7优质蛋白饮食；E8其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。）；F局部热疗G指导有效咳嗽；H膀胱功能训练；I指导皮肤清洁；J肢体功能锻炼；K其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQtK" :data-value="sheetInfo.relObj.hlcsQtK"/>。<br/>
+      &nbsp;<strong>护理措施</strong>：A卧床休息；B心理支持；C协助翻身；D指导活动；E饮食指导（E1禁食；E2低盐低脂饮食；E3糖尿病饮食；E4流质饮食；E5半流质饮食；E6低嘌呤饮食；E7优质蛋白饮食；E8其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。）；F局部热疗G指导有效咳嗽；H膀胱功能训练；I指导皮肤清洁；J肢体功能锻炼；K其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQtK" :data-value="sheetInfo.relObj.hlcsQtK"/>。<br/>
       <strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒；D防坠床；E防药物外渗；F防失禁性皮炎；G防拔管；H防误吸；I防窒息；J防烫伤；K防走失；L其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。
       &nbsp;<strong>启用相关护理表格</strong>：A住院患者跌倒/坠床危险因素评估护理单；B基本生活活动能力量表；C吞咽功能障碍评定记录单；D糖尿病足护理记录单；E压疮风险护理单；F压疮伤口护理单；H危重症患者转运护理单；I输血安全护理单；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.qybgQt" :data-value="sheetInfo.relObj.qybgQt"/>。
     </div>
@@ -437,8 +436,7 @@
       注：<strong>意识</strong>：①清醒；②嗜睡；③模糊；④浅昏迷；⑤深昏迷；⑥谵妄。&nbsp;<strong>瞳孔对光反射</strong>：灵敏√；迟钝＋；消失－。&nbsp;<strong>疼痛/肿胀</strong>：○无;I轻度;II中度;III重度。&nbsp;<strong>伤口敷料</strong>：①干洁；②渗液；③渗血；④无。<br/>
       <strong>呕心物/引流液/尿液颜色</strong>：A淡黄；B深黄；C淡红色；D鲜红色；E暗红色；F褐色；G草绿色；H墨绿色；I白色；J其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.jQt" :data-value="sheetInfo.relObj.jQt"/>。&nbsp;<strong>留置尿管/留置胃管/留置镇痛泵/深静脉置管/伤口引流管</strong>：①固定通畅；<br/>②夹管；③堵塞；④脱管；⑤拔管；<strong>穿刺口情况</strong>：①正常；②红肿；③渗液；④渗血。
       <strong>护理措施</strong>：A绝对卧床休息；B卧床休息；C半坐位；D抬高患肢；E指导下床活动；F协助翻身；G指导有效咳嗽；H肢体功能训练；I膀胱功能训练；J预防足下垂；K指导皮肤清洁；L心理支持；M去枕平卧；N:口腔护理；O:压疮护理；P q2h翻身拍背；R其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.rQt" :data-value="sheetInfo.relObj.rQt"/>。
-      <strong>饮食指导</strong>：①禁饮食；②流质饮食；③半流质饮食；④普食；⑤低盐饮食；⑥低脂饮食；⑦糖尿病饮食；⑧软食；⑨冷流质；⑩低嘌呤饮食；
-      <strong>护理安全</strong>：①留陪人；②防跌倒；③防坠床；④防脱管；⑤防烫伤；⑥防压疮；⑦防走失；⑧防窒息；⑨防误吸；⑩防拔管；⑪防药物外渗；⑫防失禁性皮炎; ⑬住院期间禁烟酒。
+      <strong>护理安全</strong>：A留陪人；B防跌倒；C防坠床；D防脱管；E防烫伤；F防压疮；G防走失；H防窒息；I防误吸；J防拔管；K防药物外渗；L防失禁性皮炎; M住院期间禁烟酒。
       <strong>启用相关护理表格</strong>：①基本生活活动能力量表；②住院患跌倒/坠床危险因素评估护理单；③糖尿病足护理单；④压疮风险护理单；⑤输血安全护理单；⑥危重症患者转运护理单；⑦压疮伤口护理单; ⑧吞咽功能障碍评定记录表；⑨格拉斯哥评分；⑩深静脉血栓观察护理单。&nbsp;<strong>皮肤颜色</strong>：①正常；②暗红；③青紫；④淤黑；⑤苍白；⑥黄染；⑦潮红。
     </div>
     <!-- 佛山杏坛 护理记录单 -->

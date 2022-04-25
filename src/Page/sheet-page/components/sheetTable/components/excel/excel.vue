@@ -354,7 +354,7 @@
             @blur="
               !HOSPITAL_ID === 'huadu' &&
                 !td.splice &&
-                onBlur($event, { x, y, z: index })
+                onBlur($event, { x, y, z: index }, tr )
             "
             @click="
               sheetInfo.sheetType == 'antenatalwaiting_jm' &&
@@ -384,6 +384,7 @@
             v-model="td.value"
             :data-value="td.value"
             :position="`${x},${y},${index}`"
+            @input="(e)=>splitSave && $emit('onModalChange',e,tr,x,y,index)"
             :style="[
               td.style,
               td.key === 'recordMonth' &&
@@ -409,8 +410,8 @@
                   tr,
                 })
             "
-            @blur="onBlur($event, { x, y, z: index })"
-            @click="!tr.isRead && td.click && td.click($event, td)"
+            @blur="onBlur($event, { x, y, z: index }, tr)"
+            @click="!tr.isRead && td.click && td.click($event, td, tr)"
             v-else
           />
           <div 
@@ -753,6 +754,9 @@ export default {
         return !td.hidden;
       });
     },
+    splitSave(){
+      return process.env.splitSave
+    }
   },
   methods: {
     redBottom(tr,y){
@@ -841,15 +845,25 @@ export default {
         // onFocusToAutoComplete(e, bind);
       }
     },
-    onBlur(e, bind) {
+    onBlur(e, bind, tr) {
       if (sheetInfo.model == "print") return;
       onBlurToAutoComplete(e, bind);
+      let recordDate = tr.find(item=>{
+        return item.key == "recordDate"
+      })
       if (this.HOSPITAL_ID == "guizhou") {
         //不允许输入未来时间
         if (bind.x == 0) {
-          let inputDate = Date.parse(
-            new Date(moment().format("YYYY") + "-" + e.target.value)
-          ); //输入日期
+          let inputDate = ""
+          if(recordDate.value){
+            inputDate = Date.parse(
+              new Date(recordDate.value.substring(0,4) + "-" + e.target.value)
+            ); //输入日期
+          }else{
+            inputDate = Date.parse(
+              new Date(moment().format("YYYY") + "-" + e.target.value)
+            ); //输入日期
+          }
           let nowDate = Date.parse(new Date(moment().format("YYYY-MM-DD"))); //当前日期
           if (inputDate - nowDate > 0) {
             this.$message.warning("不允许输入未来时间！");
@@ -858,9 +872,16 @@ export default {
             this.dateOnBlur[bind.y] = false;
           }
         } else if (bind.x == 1) {
-          let inputTime = Date.parse(
-            new Date(moment().format("YYYY-MM-DD") + " " + e.target.value)
-          ); //输入日期
+          let inputTime = ""
+          if(recordDate.value){
+            inputTime = Date.parse(
+              new Date(recordDate.value.substring(0,10) + " " + e.target.value)
+            ); //输入日期
+          }else{
+            inputTime = Date.parse(
+              new Date(moment().format("YYYY-MM-DD") + " " + e.target.value)
+            ); //输入日期
+          }
           let nowTime = Date.parse(
             new Date(moment().format("YYYY-MM-DD HH:mm"))
           ); //当前日期

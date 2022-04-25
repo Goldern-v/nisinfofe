@@ -26,6 +26,7 @@
         :hasFiexHeader="true"
         :isInPatientDetails="isInPatientDetails"
         :listData="listData"
+        @onModalChange="(e,tr,x,y,index)=>$emit('onModalChange',e,tr,x,y,index)"
       ></excel>
     </div>
   </div>
