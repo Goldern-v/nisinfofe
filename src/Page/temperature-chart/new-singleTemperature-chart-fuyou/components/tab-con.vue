@@ -610,7 +610,6 @@ export default {
         val !== "" &&
         this.checkItem.includes(vitalSignObj.vitalSigns)
       ) {
-       console.log(vitalSignObj, index)
 
         //验证表单
         if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {

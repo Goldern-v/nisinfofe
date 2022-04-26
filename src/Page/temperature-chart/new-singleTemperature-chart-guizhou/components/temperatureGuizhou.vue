@@ -38,8 +38,9 @@
           尾周
         </button>
       </div>
+      <null-bg v-show="!filePath" class=""></null-bg>
       <div class="tem-con" :style="contentHeight" v-if="filePath">
-        <null-bg v-show="!filePath"></null-bg>
+
         <iframe
           id="printID"
           v-if="filePath"
@@ -319,6 +320,11 @@ export default {
     color: red;
     margin-right: 5px;
   }
+      .null-bg {
+      background-color: #fff;
+      height: 1000px;
+      margin-top: 5px;
+    }
 
   .newBornNomal {
     margin-left: 5px;
