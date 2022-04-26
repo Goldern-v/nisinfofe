@@ -1356,7 +1356,7 @@ export default {
       if(this.isSaving){
         return
       }
-      if(!this.staticObj.recordHour){
+      if(type!='ayncVisitedData' && !this.staticObj.recordHour){
         return this.$message.warning('记录时间不得为空！')
       }
       this.isSaving=true
@@ -1618,6 +1618,7 @@ export default {
         if (this.record[i]) {
           this.record[i].find((item) => item.key == "description").value =
             result[i];
+          process.env.splitSave && (this.record[i].isChange = true)
         } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
           let nullRowArr = nullRow();
@@ -1636,6 +1637,7 @@ export default {
           sheetModel[this.lastZ].bodyModel[this.lastY].find(
             (item) => item.key == "description"
           ).value = result[i];
+          process.env.splitSave && (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true)
         }
       }
       if (

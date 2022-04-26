@@ -346,7 +346,7 @@ export default {
         if (
           this.user &&
           (this.user.roleManageCode == "QCR0001" ||
-            this.user.roleManageCodeList.find((code) => code == "QCR0001"))
+            (this.user.roleManageCodeList || []).find((code) => code == "QCR0001"))
         ) {
           this.allDepartmentsList = allDepartmentsList;
         } else {
@@ -432,7 +432,7 @@ export default {
         !(
           this.user &&
           (this.user.roleManageCode == "QCR0001" ||
-            this.user.roleManageCodeList.find((code) => code == "QCR0001"))
+            (this.user.roleManageCodeList || []).find((code) => code == "QCR0001"))
         )
       ) {
         this.$message({

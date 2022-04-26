@@ -3,20 +3,20 @@ import sheetInfo from "../config/sheetInfo/index.js";
 import {
   renderRelObj
 } from "../utils/relObj";
-
+import moment from 'moment'
 function decode(ayncVisitedData) {
   let allData = [];
   for (let pageIndex = 0; pageIndex < data.length; pageIndex++) {
     let bodyModel = data[pageIndex].bodyModel;
     let result = [];
     for (let index in bodyModel) {
-      if (bodyModel.hasOwnProperty(index)) {
+      if (bodyModel.hasOwnProperty(index) && (!process.env.splitSave || bodyModel[index].isChange)) {
         let tr = {};
         for (let option of bodyModel[index]) {
           tr[option.key] = option.value;
         }
         tr.pageIndex = pageIndex;
-        result[index] = tr;
+        result.push(tr)
       }
     }
     allData = [...allData, ...result];
@@ -24,7 +24,13 @@ function decode(ayncVisitedData) {
 
   // 贵州-同步护理巡视内容到特殊情况
   if (process.env.HOSPITAL_ID == "guizhou" && ayncVisitedData) {
-    let rowObjData = { ...allData[0] };
+    let nullRowConfig = JSON.parse(JSON.stringify(data[0].bodyModel[0]))
+    let nullRow = {}
+    for (let option of nullRowConfig) {
+      // tr[option.key] = option.value;
+      nullRow[option.key] = ''
+    }
+    let rowObjData = { ...nullRow };
     for (let key in rowObjData) {
       if (key != 'pageIndex') {
         rowObjData[key] = '';
@@ -37,7 +43,7 @@ function decode(ayncVisitedData) {
       rowObjData.description = description;
       asyncData = [...asyncData, { ...rowObjData }]
     })
-    if (!allData[0].recordMonth) {
+    if (allData[0] && !allData[0].recordMonth) {
       allData = [...asyncData, ...allData]
     } else {
       allData = [...allData, ...asyncData]
@@ -68,7 +74,16 @@ function decode(ayncVisitedData) {
   ) {
     auditorMapData.auditorMap = sheetInfo.auditorMap;
   }
-
+  if(process.env.splitSave){
+    let firstRecord = allData[0]
+    if(firstRecord && firstRecord.recordDate && (!firstRecord.recordMonth || !firstRecord.recordHour)){
+      let [month,hour] = firstRecord.recordDate.split(' ')
+      month = month && moment(month).format('MM-DD')
+      firstRecord.recordMonth = month
+      firstRecord.recordHour = hour
+    }
+  }
+  
   return {
     list: allData,
     relObj: renderRelObj(sheetInfo.relObj),

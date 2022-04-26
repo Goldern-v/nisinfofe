@@ -227,6 +227,7 @@ export default {
       // this.listMap = data;
       let opstObj = {}
       opstObj.wardCode = deptCode
+      if(!opstObj.wardCode) return
       let res = await titleTempalateList(opstObj)
       if(res.data.code == '200'){
         this.listMap = res.data.data
