@@ -1356,7 +1356,7 @@ export default {
       if(this.isSaving){
         return
       }
-      if(!this.staticObj.recordHour){
+      if(type!='ayncVisitedData' && !this.staticObj.recordHour){
         return this.$message.warning('记录时间不得为空！')
       }
       this.isSaving=true

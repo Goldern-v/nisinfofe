@@ -65,13 +65,6 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
-import {
-  getNurseExchangeInfo,
-  getNurseExchangeInfoByTime,
-} from "../../../sheet-page/api/index";
-import {
-  autoVitalSigns,
-} from "../../api/api";
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
@@ -192,6 +185,9 @@ this.$refs.pdfConAll.contentWindow.postMessage(
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
+              case "currentPage":
+            this.currentPage = e.data.value;
+            break;
           case "clickDateTime":
             this.getDataFromPage(e.data.value)
             break;
@@ -278,6 +274,14 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+        this.bus.$on('dateChangePage',(value)=>{
+      value=moment(value).format("YYYY-MM-DD")
+        this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "dateChangePage", value },
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    })
   },
   computed: {
     patientInfo() {

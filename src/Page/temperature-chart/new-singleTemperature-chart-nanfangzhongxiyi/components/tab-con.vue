@@ -535,6 +535,8 @@ export default {
       handler(newName, oldName) {
          if(this.query.entryTime&&this.query.entryDate){
         this.getList();
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+
          }
       },
       deep: true,
@@ -617,6 +619,9 @@ export default {
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
          this.getList();
+         setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 300);
       });
 
       if(type==='0'){
@@ -925,6 +930,9 @@ export default {
           }).then((res) => {
             this.getList();
             this.bus.$emit("refreshImg");
+            setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 300);
           });
         });
       }
@@ -1013,6 +1021,9 @@ export default {
       });
        this.getList();
       this.bus.$emit("refreshImg");
+      setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 300);
       }
 
     },
