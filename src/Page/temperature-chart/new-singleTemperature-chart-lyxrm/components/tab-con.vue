@@ -881,6 +881,9 @@ export default {
           }).then((res) => {
             this.getList();
             this.bus.$emit("refreshImg");
+            setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
           });
         });
       }
@@ -894,6 +897,9 @@ export default {
       }).then(async (res) => {
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
+        setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -984,7 +990,9 @@ export default {
         });
         this.getList();
         this.bus.$emit("refreshImg");
+        setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
       }
     },
   },

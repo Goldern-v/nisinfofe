@@ -300,7 +300,7 @@
                             index
                           )
                         "
-                        >{{ i.fieldCn }}</span
+                        >{{ i.fieldCn==='自定义1'?'其他':i.fieldCn }}</span
                       >
                     </div>
 
@@ -513,7 +513,10 @@ async mounted() {
   watch: {
     query: {
       handler(newName, oldName) {
+         if (this.query.entryTime && this.query.entryDate) {
         this.getList();
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+        }
       },
       deep: true,
     },
@@ -875,6 +878,9 @@ async mounted() {
           }).then((res) => {
             this.getList();
             this.bus.$emit("refreshImg");
+            setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 300);
           });
         });
       }
@@ -888,6 +894,9 @@ async mounted() {
       }).then(async (res) => {
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
+        setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 300);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -974,6 +983,9 @@ async mounted() {
       });
        this.getList();
       this.bus.$emit("refreshImg");
+      setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 300);
       }
     },
   },

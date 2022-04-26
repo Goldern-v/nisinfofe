@@ -306,7 +306,7 @@
           </el-table-column>-->
           <el-table-column
             prop="foodSize"
-            label="入量"
+            label="总输入量"
             min-width="70"
             align="center"
           >
@@ -328,7 +328,7 @@
 
           <el-table-column
             prop="dischargeSize"
-            label="出量"
+            label="总排出量"
             min-width="70"
             align="center"
           >

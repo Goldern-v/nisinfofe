@@ -203,6 +203,9 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
+              case "currentPage":
+            this.currentPage = e.data.value;
+            break;
           case "getNurseExchangeInfo" /* 转科转床接口，聊城二院取消，花都保留 */:
             const params = {
               patientId: this.$route.query.patientId,
@@ -272,6 +275,14 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+        this.bus.$on('dateChangePage',(value)=>{
+      value=moment(value).format("YYYY-MM-DD")
+        this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "dateChangePage", value },
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    })
   },
   computed: {
     patientInfo() {
