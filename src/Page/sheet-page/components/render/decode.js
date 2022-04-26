@@ -24,7 +24,13 @@ function decode(ayncVisitedData) {
 
   // 贵州-同步护理巡视内容到特殊情况
   if (process.env.HOSPITAL_ID == "guizhou" && ayncVisitedData) {
-    let rowObjData = { ...allData[0] };
+    let nullRowConfig = JSON.parse(JSON.stringify(data[0].bodyModel[0]))
+    let nullRow = {}
+    for (let option of nullRowConfig) {
+      // tr[option.key] = option.value;
+      nullRow[option.key] = ''
+    }
+    let rowObjData = { ...nullRow };
     for (let key in rowObjData) {
       if (key != 'pageIndex') {
         rowObjData[key] = '';
@@ -37,7 +43,7 @@ function decode(ayncVisitedData) {
       rowObjData.description = description;
       asyncData = [...asyncData, { ...rowObjData }]
     })
-    if (!allData[0].recordMonth) {
+    if (allData[0] && !allData[0].recordMonth) {
       allData = [...asyncData, ...allData]
     } else {
       allData = [...allData, ...asyncData]
