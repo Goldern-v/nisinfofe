@@ -3,20 +3,20 @@ import sheetInfo from "../config/sheetInfo/index.js";
 import {
   renderRelObj
 } from "../utils/relObj";
-
+import moment from 'moment'
 function decode(ayncVisitedData) {
   let allData = [];
   for (let pageIndex = 0; pageIndex < data.length; pageIndex++) {
     let bodyModel = data[pageIndex].bodyModel;
     let result = [];
     for (let index in bodyModel) {
-      if (bodyModel.hasOwnProperty(index)) {
+      if (bodyModel.hasOwnProperty(index) && (!process.env.splitSave || bodyModel[index].isChange)) {
         let tr = {};
         for (let option of bodyModel[index]) {
           tr[option.key] = option.value;
         }
         tr.pageIndex = pageIndex;
-        result[index] = tr;
+        result.push(tr)
       }
     }
     allData = [...allData, ...result];
@@ -68,7 +68,16 @@ function decode(ayncVisitedData) {
   ) {
     auditorMapData.auditorMap = sheetInfo.auditorMap;
   }
-
+  if(process.env.splitSave){
+    let firstRecord = allData[0]
+    if(firstRecord && firstRecord.recordDate && (!firstRecord.recordMonth || !firstRecord.recordHour)){
+      let [month,hour] = firstRecord.recordDate.split(' ')
+      month = month && moment(month).format('MM-DD')
+      firstRecord.recordMonth = month
+      firstRecord.recordHour = hour
+    }
+  }
+  
   return {
     list: allData,
     relObj: renderRelObj(sheetInfo.relObj),

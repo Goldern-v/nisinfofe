@@ -30,6 +30,7 @@
               :isInPatientDetails="true"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
+              @onModalChange="onModalChange"
             ></component>
           </div>
           <div
@@ -634,6 +635,32 @@ export default {
       } else {
         return false;
       }
+    },
+    onModalChange(e,tr,x,y,index){
+      console.log(tr,x,y,index);
+      tr.isChange = true
+      let isStartPage =  index == 0 || y!=0
+      let dateIndex = tr.findIndex(item=>item.key == "recordDate")
+      let preRow = isStartPage ? this.sheetModel[index].bodyModel[y - 1] : this.sheetModel[index - 1].bodyModel[this.sheetModel[index - 1].bodyModel.length - 1]
+      let flagItem = preRow
+      if(tr[dateIndex].value){
+        flagItem = tr
+      } 
+      else if(preRow && ![0,1].includes(x)){
+        let hourIndex = tr.findIndex(item=>item.key == "recordHour")
+        let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
+        let [preMonth,preHour] = preRow[dateIndex].value.split(' ')
+        preMonth = preMonth && moment(preMonth).format('MM-DD')
+        console.log(preMonth,preHour);
+        !tr[monthIndex].value && (tr[monthIndex].value = preMonth)
+        !tr[hourIndex].value && (tr[hourIndex].value = preHour)
+      }
+      this.sheetModel.map((pageItem,pageIndex)=>{
+        pageItem.bodyModel.map(row=>{
+          row[dateIndex].value == flagItem[dateIndex].value && (row.isChange = true)
+        })
+      })
+      console.log(this.sheetModel);
     },
   },
 

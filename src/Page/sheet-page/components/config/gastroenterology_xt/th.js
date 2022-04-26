@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1415px"
+      width: "1360px"
     },
     th: {
         top:
@@ -38,24 +38,14 @@ export default {
                 {"name":"腹痛部位","colspan":"1","rowspan":"3","canSet":true,"key":"armValue7","style":{"minWidth":"20px","maxWidth":"20px"}},
                 {"name":"腹痛程度","colspan":"1","rowspan":"3","canSet":true,"key":"armValue8","style":{"minWidth":"20px","maxWidth":"20px"}},
                 {"name":"咳嗽","colspan":"1","rowspan":"3","canSet":true,"key":"armValue9","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"咳痰","colspan":"1","rowspan":"3","canSet":true,"key":"armValue10","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"头晕","colspan":"1","rowspan":"3","canSet":true,"key":"armValue11","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"头痛","colspan":"1","rowspan":"3","canSet":true,"key":"armValue12","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"气促","colspan":"1","rowspan":"3","canSet":true,"key":"armValue13","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"胸闷","colspan":"1","rowspan":"3","canSet":true,"key":"armValue14","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"水肿部位及程度","colspan":"1","rowspan":"3","canSet":true,"key":"armValue15","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"护理措施","colspan":"1","rowspan":"3","canSet":true,"key":"armValue16","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"尿管","colspan":"2","rowspan":"1"},
-                {"name":"胃管","colspan":"2","rowspan":"1"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue21","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue22","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue23","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"启用相关护理表格","colspan":"1","rowspan":"3","canSet":true,"key":"armValue24","style":{"minWidth":"20px","maxWidth":"20px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue10","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue11","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue12","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue13","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"吸氧升/分","colspan":"1","rowspan":"3","canSet":true,"key":"armValue25","style":{"minWidth":"20px","maxWidth":"20px"}},
                 {"name":"心电监护","colspan":"1","rowspan":"3","canSet":true,"key":"armValue26","style":{"minWidth":"20px","maxWidth":"20px"}},
                 {"name":"护<br/>理<br/>措<br/>施","colspan":"1","rowspan":"3"},
                 {"name":"护<br/>理<br/>安<br/>全","colspan":"1","rowspan":"3"},
-                {"name":"报<br/>告<br/>医<br/>生","colspan":"1","rowspan":"3"},
                 {"name":"遵<br/>医<br/>嘱<br/>继<br/>续<br/>观<br/>察","colspan":"1","rowspan":"3"},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
@@ -72,10 +62,10 @@ export default {
                 {"name":"量<br/>ml","colspan":"1","rowspan":"2"},
                 {"name":"内容","colspan":"1","rowspan":"2"},
                 {"name":"量<br/>ml","colspan":"1","rowspan":"2"},
-                {"name":"固定通畅","colspan":"1","rowspan":"2","canSet":true,"key":"armValue17","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"尿液颜色","colspan":"1","rowspan":"2","canSet":true,"key":"armValue18","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"固定通畅","colspan":"1","rowspan":"2","canSet":true,"key":"armValue19","style":{"minWidth":"20px","maxWidth":"20px"}},
-                {"name":"置入刻度 cm","colspan":"1","rowspan":"2","canSet":true,"key":"armValue20","style":{"minWidth":"20px","maxWidth":"20px"}},
+                // {"name":"固定通畅","colspan":"1","rowspan":"2","canSet":true,"key":"armValue17","style":{"minWidth":"20px","maxWidth":"20px"}},
+                // {"name":"尿液颜色","colspan":"1","rowspan":"2","canSet":true,"key":"armValue18","style":{"minWidth":"20px","maxWidth":"20px"}},
+                // {"name":"固定通畅","colspan":"1","rowspan":"2","canSet":true,"key":"armValue19","style":{"minWidth":"20px","maxWidth":"20px"}},
+                // {"name":"置入刻度 cm","colspan":"1","rowspan":"2","canSet":true,"key":"armValue20","style":{"minWidth":"20px","maxWidth":"20px"}},
             ]
         ,
         bottom:

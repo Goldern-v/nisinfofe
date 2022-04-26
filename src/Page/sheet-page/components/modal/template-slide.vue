@@ -10,7 +10,7 @@
           </span>
         </div>
         <div>
-          <div class="search-con" style="line-height:32px" flex v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='wujing'||HOSPITAL_ID==='huadu'">
+          <div class="search-con" style="line-height:32px" flex v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='wujing'||HOSPITAL_ID==='huadu'||HOSPITAL_ID==='foshanrenyi'">
             <span style="font-size:14px;">模板分类：</span>
             <el-radio v-model="templateType" label="dept">科室</el-radio>
             <el-radio v-model="templateType" label="common" style="margin-right:10px">公共</el-radio>
@@ -377,7 +377,7 @@ export default {
     },
     listconHeight(){
       let str=""
-      if(this.HOSPITAL_ID==='liaocheng' || this.HOSPITAL_ID==='wujing'||this.HOSPITAL_ID==='huadu'){
+      if(this.HOSPITAL_ID==='liaocheng' || this.HOSPITAL_ID==='wujing'||this.HOSPITAL_ID==='huadu'||this.HOSPITAL_ID==='foshanrenyi'){
          str='height: calc(100vh - 191px)'
       }
       return str
@@ -400,7 +400,7 @@ export default {
     },
      getData() {
       //特殊情况,开启分类权限医院名
-      const isDeptList=["liaocheng","wujing","huadu"]
+      const isDeptList=["liaocheng","wujing","huadu",'foshanrenyi']
       if(isDeptList.includes(this.HOSPITAL_ID)){
       typeListByDept(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
         this.typeList = res.data.data[this.templateType];

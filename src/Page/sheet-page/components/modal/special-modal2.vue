@@ -1088,11 +1088,11 @@ export default {
         record[0].find((item) => item.key == "recordDate").value ||
         "";
 
-      //肺科特别需求。补计时间另起一行
-       if(this.HOSPITAL_ID=='whfk' &&  doc.split('补计时间').length==2){
-          // 截取最后补计时间，前面的内容
-          let replenishTime= `补计时间${doc.split('补计时间')[1]}`
-          doc=doc.split('补计时间')[0]
+      //肺科特别需求。补记时间另起一行
+       if(this.HOSPITAL_ID=='whfk' &&  doc.split('补记时间').length==2){
+          // 截取最后补记时间，前面的内容
+          let replenishTime= `补记时间${doc.split('补记时间')[1]}`
+          doc=doc.split('补记时间')[0]
           console.log(1097,replenishTime)
           var reg = new RegExp(" ", "g");
           doc = doc.replace(reg, "");
@@ -1387,18 +1387,18 @@ export default {
       ) {
         allDoc = "    " + this.doc;
       }
-      // 补计时间
+      // 补记时间
         let replenishTime=''
       if(this.HOSPITAL_ID=='whfk'){
         // 因为后端要配置行数不满 不拼接特殊特殊情况记录，需要整个医院做配置。所以武汉肺科单独出来
         let commonText=allDoc
-        if(allDoc.split('补计时间').length==2){
-           // 非手术科室护理记录单和手术科室护理记录单需要 有‘补计时间’就另起一行
-              replenishTime= `补计时间${allDoc.split('补计时间')[1]}`
-           // 截取最后补计时间，前面的内容
-              commonText=allDoc.split('补计时间')[0]
+        if(allDoc.split('补记时间').length==2){
+           // 非手术科室护理记录单和手术科室护理记录单需要 有‘补记时间’就另起一行
+              replenishTime= `补记时间${allDoc.split('补记时间')[1]}`
+           // 截取最后补记时间，前面的内容
+              commonText=allDoc.split('补记时间')[0]
         }
-        // 循环补计时间前面的内容的长度就可以
+        // 循环补记时间前面的内容的长度就可以
         for (let i = 0; i < commonText.length; i++) {
            let charCode = commonText.charCodeAt(i);
            // 字符为 ，。；,.：:
@@ -1415,7 +1415,7 @@ export default {
            ) {
              text += commonText[i];
            } else if(this.sheetInfo.sheetType === "nonsurgicalcare_fk"||this.sheetInfo.sheetType === "operating_fk"){
-            //  非手术科室护理记录单且包含补计时间
+            //  非手术科室护理记录单且包含补记时间
             if (GetLength(text) > 27) {
               result.push(text);
               text = commonText[i];
@@ -1575,7 +1575,7 @@ export default {
       }
 
       if(this.HOSPITAL_ID==='whfk' && replenishTime){
-        // 有补计时间最后自己一行推进去
+        // 有补记时间最后自己一行推进去
         text=""
         // result.push(replenishTime);
         for (let i = 0; i < replenishTime.length; i++) {
@@ -1618,6 +1618,7 @@ export default {
         if (this.record[i]) {
           this.record[i].find((item) => item.key == "description").value =
             result[i];
+          process.env.splitSave && (this.record[i].isChange = true)
         } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
           let nullRowArr = nullRow();
@@ -1636,6 +1637,7 @@ export default {
           sheetModel[this.lastZ].bodyModel[this.lastY].find(
             (item) => item.key == "description"
           ).value = result[i];
+          process.env.splitSave && (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true)
         }
       }
       if (
