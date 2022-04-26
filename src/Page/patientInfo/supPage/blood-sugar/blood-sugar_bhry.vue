@@ -11,7 +11,7 @@
           <div class="sup-title">微量血糖测定登记表</div>
           <p flex="main:justify" class="info">
             <span>病人姓名：{{ resMsg.name }}</span>
-            <span>性别：{{ resMsg.sex }}</span>
+            <span>性别：{{ resMsg.gender }}</span>
             <span>年龄：{{ resMsg.age }}</span>
             <span>科室：{{ resMsg.deptName }}</span>
             <span>床号：{{ resMsg.bedNo }}</span>

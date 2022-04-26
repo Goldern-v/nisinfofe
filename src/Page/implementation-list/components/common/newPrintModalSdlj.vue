@@ -38,9 +38,9 @@
           <div>
             <img :src="currentBottle.qcSrc || ''" />
           </div>
+          <span class="text--large">{{ currentBottle.frequency }}</span>
           <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
-          <span>{{ currentBottle.frequency }}</span>
-          <span>{{ currentBottle.execute_type }}</span>
+          <span class="text--large">{{ currentBottle.executeType }}</span>
         </div>
       </div>
     </div>
@@ -170,14 +170,16 @@
       div {
 				padding-top: 1px;
         width: 100%;
-        flex: 1;
+        /* flex: 1; */
+				margin-bottom: 8px;
       }
       img {
         width: 100%;
         height: auto;
       }
-      span:nth-of-type(n + 2) {
-        font-size: 15px;
+      .text--large {
+        font-size: 17px;
+				font-weight: 700;
       }
     }
   }
