@@ -476,6 +476,10 @@ export default {
           value: "authorization",
           label: "知情同意书",
         },
+        {
+          value: "leaveHospital",
+          label: "出院评估",
+        },
       ],
       // guizhouOptions: [
 
@@ -726,7 +730,6 @@ export default {
             // this.templates = resText.data;
 
           }
-
           this.pageLoading = false;
         });
       } else if (this.formType == "4") {
@@ -735,6 +738,19 @@ export default {
           console.log(res);
           this.templates = res.data.data.missionList;
           this.tmpitem = res.data.data.eduFormTemplate;
+          this.pageLoading = false;
+        });
+      } else if (this.formType == "leaveHospital") {
+        templates(this.deptCode).then((res) => {
+          // if (this.filterObj && this.filterObj.formName) {
+          //   this.templates = res.data.data.filter(
+          //     (item) => item.name === this.filterObj.formName
+          //   );
+          
+          // } else {
+            // formCode  E1346  //佛山人医 选中出院评估后单独把出院评估及指导筛选出来
+            this.templates = res.data.data.filter(item=> item.formCode =='E1346');
+          // }
           this.pageLoading = false;
         });
       } else {
@@ -746,7 +762,6 @@ export default {
           } else {
             this.templates = res.data.data.list;
           }
-
           this.pageLoading = false;
         });
       }

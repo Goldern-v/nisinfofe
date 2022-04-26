@@ -165,7 +165,7 @@ export default {
   computed: {
     showDel() {
       let userStore = JSON.parse(localStorage.user)
-      return userStore && (userStore.roleManageCode == 'QCR0001' || userStore.roleManageCodeList.find(code => code == 'QCR0001'))
+      return userStore && (userStore.roleManageCode == 'QCR0001' || (userStore.roleManageCodeList || []).find(code => code == 'QCR0001'))
     }
   },
   mounted() {
