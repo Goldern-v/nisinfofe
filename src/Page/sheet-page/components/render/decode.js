@@ -79,8 +79,8 @@ function decode(ayncVisitedData) {
     if(firstRecord && firstRecord.recordDate && (!firstRecord.recordMonth || !firstRecord.recordHour)){
       let [month,hour] = firstRecord.recordDate.split(' ')
       month = month && moment(month).format('MM-DD')
-      firstRecord.recordMonth = month
-      firstRecord.recordHour = hour
+      !firstRecord.recordMonth && (firstRecord.recordMonth = month)
+      !firstRecord.recordHour && (firstRecord.recordHour = hour)
     }
   }
   
