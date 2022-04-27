@@ -148,6 +148,7 @@ function onFocusToAutoComplete(e, bind) {
                 item.value = '';
               }
             });
+            tr.isChange = true
           }
           if (data) {
             td.value = data.trim()
