@@ -570,14 +570,14 @@ export default {
 
         //验证表单
         if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
-          document.getElementById(index).style.border = "";
+          document.getElementById(index).style.outline = "";
           vitalSignObj.isCorrect = true;
         } else {
-          document.getElementById(index).style.border = "1px solid red";
+          document.getElementById(index).style.outline = "1px solid red";
           vitalSignObj.isCorrect = false;
         }
       } else {
-        document.getElementById(index).style.border = "";
+        document.getElementById(index).style.outline = "";
         vitalSignObj.isCorrect = true;
       }
     },
@@ -701,7 +701,7 @@ export default {
       });
       let input = document.getElementsByTagName("input");
       for (let i = 0; i < input.length; i++) {
-        input[i].style.border = "";
+        input[i].style.outline = "";
       }
     },
     //时间组件失去焦点
@@ -1118,9 +1118,10 @@ export default {
   .rowBox {
     width: 45%;
     float: left;
+    over-flow:hidden;
 
     input {
-      width: 100%;
+      width: 95%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1145,9 +1146,10 @@ export default {
     width: 45%;
     float: left;
     margin-left: 10%;
+    over-flow:hidden;
 
     input {
-      width: 100%;
+      width: 95%;
       font-size: 16px;
       border: none;
       outline: 0px;

@@ -105,6 +105,10 @@ export default {
         );
       }, 1500);
     },
+           //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime){
+      this.bus.$emit('getDataFromPage',dateTime)
+    },
     //关闭婴儿版本体温曲线
     // closeChat() {
     //   this.$store.commit("showBabyChat", false);
@@ -182,6 +186,9 @@ export default {
             break;
               case "currentPage":
             this.currentPage = e.data.value;
+            break;
+            case "clickDateTime":
+            this.getDataFromPage(e.data.value)
             break;
           case "getNurseExchangeInfoAll":
             const paramsAll = {

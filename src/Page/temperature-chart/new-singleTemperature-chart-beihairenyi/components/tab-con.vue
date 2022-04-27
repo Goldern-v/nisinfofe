@@ -1105,8 +1105,9 @@ export default {
     width: 45%;
     float: left;
 
+
     input {
-      width: 100%;
+      width: 95%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1131,9 +1132,10 @@ export default {
     width: 45%;
     float: left;
     margin-left: 10%;
+    over-flow:hidden;
 
     input {
-      width: 100%;
+      width: 95%;
       font-size: 16px;
       border: none;
       outline: 0px;

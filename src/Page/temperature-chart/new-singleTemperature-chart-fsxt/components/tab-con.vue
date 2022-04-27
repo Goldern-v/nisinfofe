@@ -513,6 +513,10 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+          this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate=dateTime.slice(0,10)
+        this.query.entryTime=dateTime.slice(11,13)
+    });
 
   },
 
@@ -1058,9 +1062,10 @@ export default {
   .rowBox {
     width: 45%;
     float: left;
+    over-flow:hidden;
 
     input {
-      width: 100%;
+      width: 95%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1085,9 +1090,10 @@ export default {
     width: 45%;
     float: left;
     margin-left: 10%;
+    over-flow:hidden;
 
     input {
-      width: 100%;
+      width: 95%;
       font-size: 16px;
       border: none;
       outline: 0px;

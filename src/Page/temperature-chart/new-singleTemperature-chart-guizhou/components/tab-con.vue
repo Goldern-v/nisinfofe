@@ -44,7 +44,7 @@
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div class="record-list" :style="{ width: `${35}%` }">
+        <div class="record-list" :style="{ width: `${38}%` }">
           <div class="record-item">
             <div
               :class="
@@ -653,14 +653,14 @@ export default {
 
         //验证表单
         if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
-          document.getElementById(index).style.border = "";
+          document.getElementById(index).style.outline = "";
           vitalSignObj.isCorrect = true;
         } else {
-          document.getElementById(index).style.border = "1px solid red";
+          document.getElementById(index).style.outline = "1px solid red";
           vitalSignObj.isCorrect = false;
         }
       } else {
-        document.getElementById(index).style.border = "";
+        document.getElementById(index).style.outline = "";
         vitalSignObj.isCorrect = true;
       }
     },
@@ -756,7 +756,7 @@ export default {
       });
             let input = document.getElementsByTagName("input");
       for (let i = 0; i < input.length; i++) {
-        input[i].style.border = "";
+        input[i].style.outline = "";
       }
     },
     /* 日期搜索功能 */
@@ -1105,7 +1105,7 @@ export default {
     }
 
     .inputter-region {
-      width: 63%;
+      width: 60%;
       float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;
@@ -1171,9 +1171,10 @@ export default {
   .rowBox {
     width: 45%;
     float: left;
+    over-flow:hidden;
 
     input {
-      width: 100%;
+      width: 95%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1198,9 +1199,10 @@ export default {
     width: 45%;
     float: left;
     margin-left: 10%;
+    over-flow:hidden;
 
     input {
-      width: 100%;
+      width: 95%;
       font-size: 16px;
       border: none;
       outline: 0px;
