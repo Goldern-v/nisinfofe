@@ -442,6 +442,7 @@ export default {
       handler(newName, oldName) {
         if (this.query.entryTime && this.query.entryDate) {
         this.getList();
+        this.bus.$emit("dateChangePage", this.query.entryDate);
         }
       },
       deep: true,
@@ -750,6 +751,9 @@ export default {
         }).then((res) => {
           this.getList();
           this.bus.$emit("refreshImg");
+          setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
         });
       });
     },
@@ -840,6 +844,9 @@ export default {
           this.$message.success("保存成功");
           this.getList();
           this.bus.$emit("refreshImg");
+          setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
         });
       } else {
         this.$message.error("存在数据错误！请检查");

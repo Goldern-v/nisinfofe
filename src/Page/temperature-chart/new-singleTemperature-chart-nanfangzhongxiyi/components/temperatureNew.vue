@@ -65,13 +65,6 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
-import {
-  getNurseExchangeInfo,
-  getNurseExchangeInfoByTime,
-} from "../../../sheet-page/api/index";
-import {
-  autoVitalSigns,
-} from "../../api/api";
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
@@ -95,8 +88,8 @@ export default {
       visibled: false,
       printAllPath:"",
       intranetUrl:
-        "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-        // "http://localhost:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://localhost:8080/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:"http://10.158.210.28:9093/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
       outNetUrl:
         "http://218.107.37.134:9093/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
@@ -192,6 +185,9 @@ this.$refs.pdfConAll.contentWindow.postMessage(
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
+              case "currentPage":
+            this.currentPage = e.data.value;
+            break;
           case "clickDateTime":
             this.getDataFromPage(e.data.value)
             break;
@@ -278,6 +274,14 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+        this.bus.$on('dateChangePage',(value)=>{
+      value=moment(value).format("YYYY-MM-DD")
+        this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "dateChangePage", value },
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    })
   },
   computed: {
     patientInfo() {

@@ -276,7 +276,7 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
-            this.bus.$on('dateChangePage',(value)=>{
+    this.bus.$on('dateChangePage',(value)=>{
       value=moment(value).format("YYYY-MM-DD")
         this.$refs.pdfCon.contentWindow.postMessage(
         { type: "dateChangePage", value },

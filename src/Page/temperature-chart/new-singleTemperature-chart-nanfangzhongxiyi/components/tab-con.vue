@@ -535,6 +535,8 @@ export default {
       handler(newName, oldName) {
          if(this.query.entryTime&&this.query.entryDate){
         this.getList();
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+
          }
       },
       deep: true,
@@ -596,14 +598,14 @@ export default {
       ) {
         //验证表单
         if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
-          document.getElementById(index).style.border = "";
+          document.getElementById(index).style.outline = "";
           vitalSignObj.isCorrect = true;
         } else {
-          document.getElementById(index).style.border = "1px solid red";
+          document.getElementById(index).style.outline = "1px solid red";
           vitalSignObj.isCorrect = false;
         }
       } else {
-        document.getElementById(index).style.border = "";
+        document.getElementById(index).style.outline = "";
         vitalSignObj.isCorrect = true;
       }
     },
@@ -617,6 +619,9 @@ export default {
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
          this.getList();
+         setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 300);
       });
 
       if(type==='0'){
@@ -747,7 +752,7 @@ export default {
       });
        let input = document.getElementsByTagName("input");
       for (let i = 0; i < input.length; i++) {
-        input[i].style.border = "";
+        input[i].style.outline = "";
       }
     },
     //时间组件失去焦点
@@ -925,6 +930,9 @@ export default {
           }).then((res) => {
             this.getList();
             this.bus.$emit("refreshImg");
+            setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 300);
           });
         });
       }
@@ -1013,6 +1021,9 @@ export default {
       });
        this.getList();
       this.bus.$emit("refreshImg");
+      setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 300);
       }
 
     },
@@ -1156,7 +1167,7 @@ export default {
     float: left;
 
     input {
-      width: 100%;
+      width: 95%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1183,7 +1194,7 @@ export default {
     margin-left: 10%;
 
     input {
-      width: 100%;
+      width: 95%;
       font-size: 16px;
       border: none;
       outline: 0px;
