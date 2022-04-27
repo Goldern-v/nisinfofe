@@ -773,7 +773,7 @@ export default {
       let hourValue = ''
       if(preRow){
         monthValue = preRow[monthIndex].value || moment(preRow[dateIndex].value.split(' ')[0]).format('MM-DD')
-        hourValue = preRow[hourIndex].value || moment(preRow[dateIndex].value.split(' ')[1]).format('HH:ss')
+        hourValue = preRow[hourIndex].value || preRow[dateIndex].value.split(' ')[1]
       } else {
         monthValue = moment().format('MM-DD')
         hourValue= moment().format('HH:ss')
