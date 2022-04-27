@@ -165,8 +165,8 @@
         <input
           style="width: 35px;font-size:13px;text-align: center;"
           class="bottom-line"
-          :data-value="sheetInfo.relObj['pregnantWeeks']"
-          v-model="sheetInfo.relObj['pregnantWeeks']"
+          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
         />
         周
       </span>
@@ -429,10 +429,21 @@ export default {
       }
     }
   },
-  watch: {},
+  watch: {
+    index(){
+      if(this.index!=0){
+       this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo.relObj[`${this.index}pregnantWeeks`]?this.sheetInfo.relObj[`${this.index}pregnantWeeks`]: this.sheetInfo.relObj[`${this.index-1}pregnantWeeks`]
+      }
+    }
+  },
   components: {
     bedRecordModal,
   },
+  created(){
+    if(this.index!=0){
+      this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo.relObj[`${this.index}pregnantWeeks`]?this.sheetInfo.relObj[`${this.index}pregnantWeeks`]: this.sheetInfo.relObj[`${this.index-1}pregnantWeeks`]
+    }
+  }
 };
 </script>
 
