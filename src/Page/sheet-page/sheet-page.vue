@@ -771,15 +771,15 @@ export default {
       let hourIndex = tr.findIndex(item=>item.key == "recordHour")
       let monthValue = ''
       let hourValue = ''
-      if(preRow){
+      if(preRow && (preRow[monthIndex].value || preRow[dateIndex].value || preRow[hourIndex].value)){
         monthValue = preRow[monthIndex].value || moment(preRow[dateIndex].value.split(' ')[0]).format('MM-DD')
         hourValue = preRow[hourIndex].value || preRow[dateIndex].value.split(' ')[1]
       } else {
         monthValue = moment().format('MM-DD')
         hourValue= moment().format('HH:ss')
       }
-      !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
-      !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
+      x!=0 && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
+      x!=1 && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
       // // 如果存在上条记录
       // else if(preRow){
       //   // 获取上条记录的日期和时间
