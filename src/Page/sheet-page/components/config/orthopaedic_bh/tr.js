@@ -39,7 +39,7 @@ export default [
   { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率',textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸',textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压',textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压',textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8)},
   { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量量', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8),autoComplete: { data: ['尿量','大便','呕吐液','胸腔引流液','痰液','骨科引流','VSD'] } },
