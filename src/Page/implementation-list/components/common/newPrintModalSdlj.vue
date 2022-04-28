@@ -140,6 +140,7 @@
       grid-row-end: 3;
       grid-column-start: 4;
       grid-column-end: 5;
+      white-space: nowrap;
     }
     div:first-of-type {
       grid-column-start: 3;
