@@ -414,7 +414,7 @@
             @click="!tr.isRead && td.click && td.click($event, td, tr)"
             v-else
           />
-          <div 
+          <div
             v-if="HOSPITAL_ID=='wujing' && td.key=='food' && tr.barCodeIdentification"
             :class="[HOSPITAL_ID=='wujing' && td.key=='food' && tr.barCodeIdentification]"
             >
@@ -523,7 +523,7 @@
             sheetInfo.sheetType == 'critical_lcey'||
             sheetInfo.sheetType == 'critical_new_lcey'||
             sheetInfo.sheetType == 'critical2_lcey'
-            
+
           "
           ><strong>护士长审核：</strong></span
         >
@@ -546,7 +546,7 @@
           </div>
         </span>
         <!-- &nbsp;&nbsp;&nbsp; -->
-        <div 
+        <div
           style="margin-right:50px">
         </div>
         <div
@@ -588,6 +588,7 @@ import {
   delSelectRow,
   markSave,
   markDelete,
+  saveTitleOptions,
 } from "@/api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
 import { Tr } from "../../../render/Body.js";
@@ -895,8 +896,12 @@ export default {
       }
     },
     setTitle(item) {
+      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        this.setTitleFS(item)
+        return
+      }
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
-        (title,sonData) => {
+        (title) => {
           console.log(sonData);
           let data = {
             patientId: this.patientInfo.patientId,
@@ -904,17 +909,39 @@ export default {
             pageIndex: this.index,
             fieldEn: item.key,
             fieldCn: title,
-            sonData: sonData,
+            // sonData: sonData,
             recordCode: sheetInfo.sheetType,
           };
           saveTitle(data).then((res) => {
             item.name = title;
-            item.foshansiyiSonData = sonData
+            // item.foshansiyiSonData = sonData
           });
         },
         item.name,
         item,
-        item.foshansiyiSonData,
+      );
+    },
+    //
+    setTitleFS(item) {
+      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
+        (title, obj) => {
+          let { list = [], id = '' } = obj
+          list = list.map(v => v.options)
+          let data = {
+            pageIndex: this.index,
+            columnName: item.key,
+            id,
+            title,
+            list1: list,
+            recordCode: sheetInfo.sheetType,
+          };
+          saveTitleOptions(data).then((res) => {
+            // item.name = title;
+            this.bus.$emit('refreshSheetPage')
+          });
+        },
+        item.name,
+        item,
       );
     },
     addNullRow(index, row) {
@@ -1368,7 +1395,7 @@ export default {
         console.log(error);
         return false;
       }
-    }, 
+    },
     // 右键菜单
     openContextMenu(e, index, row, cell) {
       $(e.target).parents("tr").addClass("selectedRow");

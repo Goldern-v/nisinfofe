@@ -153,6 +153,7 @@ const currentTargetUrl = (() => {
 
     // 佛山市医
      case 'foshanrenyi':
+       return "http://192.168.20.93:8080"
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://219.159.198.37:9094"  // 正式地址
       // return "https://cr.fsyyy.com:9094"  // 正式地址
