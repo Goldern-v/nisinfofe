@@ -7,6 +7,9 @@
       <el-tree
         :data="datalist"
         :render-content="renderContent"
+        :props="{
+          children: 'list'
+        }"
         @node-click="addTemplateAtDoc"
       >
       </el-tree>
@@ -98,7 +101,7 @@ import addTitletemplateModalFssy from '../add-title-template-modal-fssy.vue';
 export default {
   mixins: [common],
   props: {
-    listdata: Array,
+    listData: Array,
   },
   data() {
     return {
@@ -108,14 +111,13 @@ export default {
     };
   },
   watch:{
-    listdata(newValue){
+    listData(newValue){
       // console.log(newValue);
       this.datalist = newValue
     }
   },
   mounted(){
-    this.datalist = this.listdata
-    // console.log(this.listdata,'gaohaixiong');
+    this.datalist = this.listData
   },
   methods: {
     renderContent(h, { node, data, store }) {
@@ -124,15 +126,19 @@ export default {
           <span
             class="custom-tree-node"
           >
-            <span>{data.groupName}</span>
+            <span>{data.title}</span>
             <span style="margin-left:10px">
               <el-tooltip content="编辑" placement="bottom" effect="dark" class="tooltipcls">
-                <i class="iconfont icon-hulijiludan" on-click={()=>{this.toEdit(event,data)}}></i>
+                <i class="iconfont icon-hulijiludan" on-click={(e)=>{
+                  e.stopPropagation()
+                  this.toEdit(e,data)
+                  }}></i>
               </el-tooltip>
               <el-tooltip content="删除" placement="bottom" effect="dark">
                 <i
                   class="iconfont icon-shanchuzhenghang"
-                  on-click={()=>{
+                  on-click={(e)=>{
+                    e.stopPropagation()
                     this.toDel(data)
                   }}
                 ></i>
@@ -145,13 +151,14 @@ export default {
           <span
             class="custom-tree-node"
           >
-            <span>{data.title}</span>
+            <span>{data.options}</span>
             <span style="margin-left:10px">
               <el-tooltip content="删除" placement="bottom" effect="dark">
                 <i
                   class="iconfont icon-shanchuzhenghang"
-                  on-click={()=>{
-                    this.toDelectId(data)
+                  on-click={(e)=>{
+                    e.stopPropagation()
+                    this.toDeleteById(data)
                   }}
                 ></i>
               </el-tooltip>
@@ -161,14 +168,14 @@ export default {
       }
     },
     addTemplateAtDoc(data) {
-      console.log(data);
+      if (data.title == undefined) return
       this.bus.$emit("addTitleTemplateFS", data);
     },
     toEdit(event,data) {
       console.log(event,data);
       // this.bus.$emit("openAddTitleTemplateModalFS", data);
       this.$refs.addTitletemplateModalFssyss.open(data)
-      
+
     },
     getRecordCode() {
       if (
@@ -220,8 +227,8 @@ export default {
         });
       }
     },
-    toDelectId(data) {
-      this.$confirm("此操作将永久删除该自定义标题版, 是否继续?", "提示", {
+    toDeleteById(data) {
+      this.$confirm("此操作将永久删除该自定义标题选项, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

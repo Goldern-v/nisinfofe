@@ -275,6 +275,7 @@ import {
   delPage,
   markList,
   splitRecordBlock,
+  findListByBlockId,
 } from "@/api/sheet.js";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -380,7 +381,6 @@ export default {
           }
         });
       });
-
       return resultModel;
     },
     sheetTable() {
@@ -638,11 +638,17 @@ export default {
       this.tableLoading = true;
       $(".red-border").removeClass("red-border");
       //  cleanData()
-      return Promise.all([
+      let fnArr = [
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.patientInfo.patientId, this.patientInfo.visitId),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
-      ]).then((res) => {
+      ]
+      // 佛山市一 获取自定义标题数据
+      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        fnArr.shift()
+        fnArr.unshift(findListByBlockId())
+      }
+      return Promise.all(fnArr).then((res) => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
         this.$store.commit('upMasterInfo',bodyData)
@@ -757,29 +763,56 @@ export default {
        this.bus.$emit("refreshImg");
     },
     onModalChange(e,tr,x,y,index){
+      // 改变当前行状态
       tr.isChange = true
-      let isStartPage =  index == 0 || y!=0
+      // // 获取recordDate的下标
       let dateIndex = tr.findIndex(item=>item.key == "recordDate")
+      // 如果当前行有recordDate(即是保存过)
+      if(tr[dateIndex].value)return
+      // // 判断修改的记录是否起始页
+      let isStartPage =  index == 0 || y!=0
+      // // 获取上条记录
       let preRow = isStartPage ? this.sheetModel[index].bodyModel[y - 1] : this.sheetModel[index - 1].bodyModel[this.sheetModel[index - 1].bodyModel.length - 1]
-      let flagItem = preRow
-      if(tr[dateIndex].value){
-        flagItem = tr
-      } 
-      else if(preRow && ![0,1].includes(x)){
-        let hourIndex = tr.findIndex(item=>item.key == "recordHour")
-        let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
-        let [preMonth,preHour] = preRow[dateIndex].value.split(' ')
-        preMonth = preMonth && moment(preMonth).format('MM-DD')
-        console.log(preMonth,preHour);
-        !tr[monthIndex].value && (tr[monthIndex].value = preMonth)
-        !tr[hourIndex].value && (tr[hourIndex].value = preHour)
+      let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
+      let hourIndex = tr.findIndex(item=>item.key == "recordHour")
+      let monthValue = ''
+      let hourValue = ''
+      if(preRow){
+        monthValue = preRow[monthIndex].value || moment(preRow[dateIndex].value.split(' ')[0]).format('MM-DD')
+        hourValue = preRow[hourIndex].value || preRow[dateIndex].value.split(' ')[1]
+      } else {
+        monthValue = moment().format('MM-DD')
+        hourValue= moment().format('HH:ss')
       }
-      this.sheetModel.map((pageItem,pageIndex)=>{
-        pageItem.bodyModel.map(row=>{
-          row[dateIndex].value == flagItem[dateIndex].value && (row.isChange = true)
-        })
-      })
-      console.log(this.sheetModel);
+      !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
+      !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
+      // // 如果存在上条记录
+      // else if(preRow){
+      //   // 获取上条记录的日期和时间
+      //   let hourIndex = tr.findIndex(item=>item.key == "recordHour")
+      //   let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
+      //   let [preMonth,preHour] = preRow[dateIndex].value.split(' ')
+      //   preMonth = preMonth && moment(preMonth).format('MM-DD')
+      //   // 如果本条记录日期时间为空，将按照上条记录对当前记录进行日期和时间的赋值
+      //   !tr[monthIndex].value && (tr[monthIndex].value = preRow[monthIndex].value)
+      //   !tr[hourIndex].value && (tr[hourIndex].value = preRow[hourIndex].value)
+      //   // 如果上条记录是多条记录，那么将上条记录的recordDate截取赋值给本条记录
+      //   !tr[monthIndex].value && (tr[monthIndex].value = preMonth)
+      //   !tr[hourIndex].value && (tr[hourIndex].value = preHour)
+      //   // 如果是首条记录
+      // }else if(!preRow){
+      //   // 并且没有输入日期时间，默认取当前时间
+      //   let hourIndex = tr.findIndex(item=>item.key == "recordHour")
+      //   let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
+      //   !tr[monthIndex].value && (tr[monthIndex].value = moment().format('MM-DD'))
+      //   !tr[hourIndex].value && (tr[hourIndex].value = moment().format('HH:mm'))
+      //   return tr.isChange = true
+      // }
+      // this.sheetModel.map((pageItem,pageIndex)=>{
+      //   pageItem.bodyModel.map(row=>{
+      //     row[dateIndex].value === flagItem[dateIndex].value && (row.isChange = true)
+      //   })
+      // })
     },
   },
   created() {
