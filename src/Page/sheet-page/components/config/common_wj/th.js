@@ -80,8 +80,8 @@ export default {
         瞳孔<br/>mm
         `,
         style: {
-          minWidth: '35px',
-          maxWidth: '35px'
+          minWidth: '40px',
+          maxWidth: '40px'
         },
         colspan: '1',
         rowspan: '3'
@@ -200,8 +200,8 @@ export default {
       {
         name: '日期',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
         colspan: '1',
         rowspan: '2'
@@ -209,8 +209,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '37px',
-          maxWidth: '37px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
         colspan: '1',
         rowspan: '2'
