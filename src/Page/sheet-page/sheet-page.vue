@@ -275,6 +275,7 @@ import {
   delPage,
   markList,
   splitRecordBlock,
+  findListByBlockId,
 } from "@/api/sheet.js";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -380,7 +381,6 @@ export default {
           }
         });
       });
-
       return resultModel;
     },
     sheetTable() {
@@ -638,11 +638,17 @@ export default {
       this.tableLoading = true;
       $(".red-border").removeClass("red-border");
       //  cleanData()
-      return Promise.all([
+      let fnArr = [
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.patientInfo.patientId, this.patientInfo.visitId),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
-      ]).then((res) => {
+      ]
+      // 佛山市一 获取自定义标题数据
+      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        fnArr.shift()
+        fnArr.unshift(findListByBlockId())
+      }
+      return Promise.all(fnArr).then((res) => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
         this.$store.commit('upMasterInfo',bodyData)
