@@ -100,7 +100,7 @@ module.exports = {
     COMPANY_NAME: '"百辰源(广州)科技有限公司"',
     ABOUT_INFO: '"关于百辰源"',
     title: '"智慧护理信息系统"',
-    // splitSave:true
+    splitSave:true
   },
   "zhongshanqi": {
     HOSPITAL_ID: '"zhongshanqi"',

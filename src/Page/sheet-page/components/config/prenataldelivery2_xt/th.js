@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1360px"
+      width: "1385px"
     },
     th: {
         top:
@@ -58,8 +58,8 @@ export default {
                 {"name":"项目","colspan":"1","rowspan":"2"},
                 {"name":"量<br/>ml","colspan":"1","rowspan":"2"},
                 {"name":"无","colspan":"1","rowspan":"2"},
-                {"name":"持<br/>续","colspan":"1","rowspan":"2"},
-                {"name":"间<br/>歇","colspan":"1","rowspan":"2"},
+                {"name":"持续<br/>/秒","colspan":"1","rowspan":"2"},
+                {"name":"间歇<br/>/分","colspan":"1","rowspan":"2"},
                 {"name":"强<br/>度","colspan":"1","rowspan":"2"}
             ]
         ,

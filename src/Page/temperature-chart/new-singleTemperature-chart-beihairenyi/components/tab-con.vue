@@ -531,6 +531,7 @@ export default {
       handler(newName, oldName) {
         if (this.query.entryTime && this.query.entryDate) {
           this.getList();
+          this.bus.$emit("dateChangePage", this.query.entryDate);
         }
       },
       deep: true,
@@ -603,18 +604,6 @@ export default {
           document.getElementById("1").focus();
         }
       }
-    },
-    /* 同步入院、同步出院 */
-    syncInAndOutHospital(type) {
-      autoVitalSigns({
-        patientId: this.patientInfo.patientId,
-        visitId: this.patientInfo.visitId,
-        type: type,
-      }).then(async (res) => {
-        this.getList();
-        this.$message.success("同步成功");
-        await this.bus.$emit("refreshImg");
-      });
     },
 
  getHeight() {
@@ -856,6 +845,9 @@ export default {
           }).then((res) => {
             this.getList();
             this.bus.$emit("refreshImg");
+            setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
           });
         });
       }
@@ -870,6 +862,9 @@ export default {
         this.getList();
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
+         setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -947,6 +942,9 @@ export default {
       });
       this.getList();
       this.bus.$emit("refreshImg");
+       setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
     },
     formatTopExpandDate(val) {
       this.topExpandDate = val;
@@ -1107,8 +1105,9 @@ export default {
     width: 45%;
     float: left;
 
+
     input {
-      width: 100%;
+      width: 95%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1133,9 +1132,10 @@ export default {
     width: 45%;
     float: left;
     margin-left: 10%;
+    over-flow:hidden;
 
     input {
-      width: 100%;
+      width: 95%;
       font-size: 16px;
       border: none;
       outline: 0px;

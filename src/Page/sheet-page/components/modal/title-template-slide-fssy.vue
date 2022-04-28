@@ -226,9 +226,10 @@ export default {
       //   deptCode,
       // );
       // this.listMap = data;
-      let obj = {}
-      obj.wardCode = deptCode
-      let res = await titleTemplateList(obj)
+      let opstObj = {}
+      opstObj.wardCode = deptCode
+      if(!opstObj.wardCode) return
+      let res = await titleTemplateList(opstObj)
       if(res.data.code == '200'){
         this.listMap = res.data.data
       }

@@ -325,6 +325,7 @@
             "
             :maxlength="td.textarea.maxLength || 1000"
             @input="
+              splitSave && $emit('onModalChange',$event,tr,x,y,index);
               td.change && td.change($event, td);
               td.autoComplete && getOptionsData(td, tr, $event);
               remoteMethod($event.currentTarget.value);
