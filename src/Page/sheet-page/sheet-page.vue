@@ -275,6 +275,7 @@ import {
   delPage,
   markList,
   splitRecordBlock,
+  findListByBlockId,
 } from "@/api/sheet.js";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -380,7 +381,6 @@ export default {
           }
         });
       });
-
       return resultModel;
     },
     sheetTable() {
@@ -638,11 +638,17 @@ export default {
       this.tableLoading = true;
       $(".red-border").removeClass("red-border");
       //  cleanData()
-      return Promise.all([
+      let fnArr = [
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.patientInfo.patientId, this.patientInfo.visitId),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
-      ]).then((res) => {
+      ]
+      // 佛山市一 获取自定义标题数据
+      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        fnArr.shift()
+        fnArr.unshift(findListByBlockId())
+      }
+      return Promise.all(fnArr).then((res) => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
         this.$store.commit('upMasterInfo',bodyData)
@@ -771,15 +777,15 @@ export default {
       let hourIndex = tr.findIndex(item=>item.key == "recordHour")
       let monthValue = ''
       let hourValue = ''
-      if(preRow){
+      if(preRow && (preRow[monthIndex].value || preRow[dateIndex].value || preRow[hourIndex].value)){
         monthValue = preRow[monthIndex].value || moment(preRow[dateIndex].value.split(' ')[0]).format('MM-DD')
         hourValue = preRow[hourIndex].value || preRow[dateIndex].value.split(' ')[1]
       } else {
         monthValue = moment().format('MM-DD')
         hourValue= moment().format('HH:ss')
       }
-      !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
-      !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
+      x!=0 && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
+      x!=1 && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
       // // 如果存在上条记录
       // else if(preRow){
       //   // 获取上条记录的日期和时间

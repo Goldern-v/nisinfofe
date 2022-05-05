@@ -148,6 +148,10 @@ export default {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.liaoc.json"))
         )
+      } else if (this.HOSPITAL_ID === 'lyxrm') {
+        file = JSON.parse(
+          JSON.stringify(require("../data/入院评估.form.lyxrm.json"))
+        )
       } else {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.json"))

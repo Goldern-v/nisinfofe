@@ -65,7 +65,7 @@
                  <el-dropdown-item :class="{active: $route.path == '/sheetHospitalAdmission'}">
                   <router-link to="/sheetHospitalAdmission" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalAdmission"></i> 入院评估
+                      <i class="sheetHospitalAdmission"></i> 首次评估
                     </el-row>
                   </router-link>
                 </el-dropdown-item>

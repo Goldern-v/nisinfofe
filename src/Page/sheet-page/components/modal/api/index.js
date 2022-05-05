@@ -30,11 +30,11 @@ export const getDoctorAdvice = (params) => {
 
 
 //佛山市一  护记自定义标题获取数据
-export const titleTempalateList = (postlist)=>{
+export const titleTemplateList = (postlist)=>{
   return axios.post(`${apiPath}record/titleTempalate/list`,postlist)
 }
 //佛山市一  护记自定义标题保存或新增
-export const titleTempalateSaveOrUpdate = (obj)=>{
+export const titleTemplateSaveOrUpdate = (obj)=>{
   return axios.post(`${apiPath}record/titleTempalate/saveOrUpdate`,obj)
 }
 //佛山市一   护记自定义标题删除标题

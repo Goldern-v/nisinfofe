@@ -31,7 +31,7 @@
       >
         <div class="nav-item">护理文书</div>
       </router-link>
-      <!-- <span><div class="nav-item" @click="oepnDoctorEmr">病历</div></span> -->
+      <span><div class="nav-item" @click="oepnDoctorEmr">病历</div></span>
       <!-- <router-link
         :to="{
           path: '/sheetNursingOrder',
@@ -245,7 +245,7 @@ export default {
       const md5_key = 'tongji123456';
       const hash = md5(patientId+visitId+md5_key);
       window.open(
-        `openChrome:http://10.207.40.43:8080/cpoe-ui-server/diseaseDocView.do?patient_id=${patientId}&visit_id=${visitId}&hash=${hash}`
+        `openChrome:http://10.207.40.43:8080/cpoe-ui-server/diseaseDocView.do?patient_id=${patientId}&visit_id=${visitId}&hash=${hash}&sys_type=2`
       );
     }
   },
