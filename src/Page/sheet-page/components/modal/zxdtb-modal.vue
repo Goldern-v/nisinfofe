@@ -301,6 +301,7 @@ export default {
       let temArr = this.multipleSelection;
       if (
         this.multipleSelection.length != 0 &&
+        // 执行单同步保存，记得去api文件saveVitalSign这个接口添加医院名字！！！！
         (this.HOSPITAL_ID == "fuyou" ||
           this.HOSPITAL_ID == "wujing" ||
           this.HOSPITAL_ID == "quzhou" ||
