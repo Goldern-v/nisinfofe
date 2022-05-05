@@ -10,7 +10,7 @@ let autoTitleDataDisk = [];
  * autoOptionsData: 自定义选项
  * @returns
  */
-let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = [], autoOptionsData = []}) {
+let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = '', autoOptionsData = []}) {
   return {
     titleModel: Title(titleData, autoTitleData, index),
     bodyModel: Body(bodyData, index, autoOptionsData)
@@ -105,6 +105,16 @@ export function initSheetPage(titleData, bodyData, markData) {
     );
   }
   if (data.length == 0) {
-    data.push(Page());
+    data.push(Page({
+      titleData: titleList.filter(item => {
+        return item.pageIndex == 0;
+      }),
+      autoTitleData: autoTitleDataDisk,
+      bodyData: bodyList.filter(item => {
+        return item.pageIndex == 0;
+      }),
+      index: 0,
+      autoOptionsData: customOptions.filter(v => v.pageIndex == 0)
+    }));
   }
 }
