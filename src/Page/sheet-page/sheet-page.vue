@@ -784,8 +784,8 @@ export default {
         monthValue = moment().format('MM-DD')
         hourValue= moment().format('HH:ss')
       }
-      x!=0 && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
-      x!=1 && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
+      ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
+      ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
       // // 如果存在上条记录
       // else if(preRow){
       //   // 获取上条记录的日期和时间

@@ -1022,7 +1022,7 @@ export default {
       this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
       this.blockId = item.id;
       cleanData();
-      this.bus.$emit("refreshSheetPage", true);
+      // this.bus.$emit("refreshSheetPage", true);//会导致数据渲染两次，和sheetpage里的监听冲突，所以屏蔽
     },
     /** pdf打印 */
     toPdfPrint() {
