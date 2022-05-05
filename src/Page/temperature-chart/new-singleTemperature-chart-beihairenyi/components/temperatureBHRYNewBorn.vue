@@ -65,7 +65,6 @@
 <script>
 import nullBg from "../../../../components/null/null-bg";
 import {
-  getNurseExchangeInfo,
   getNurseExchangeInfoByTime,
 } from "../../../sheet-page/api/index";
 import moment from "moment";

@@ -14,7 +14,7 @@
             <label class="label">日期：</label>
             <input
               type="text"
-              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu'"
+              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'wujing'"
               :placeholder="autoDate"
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
@@ -24,7 +24,7 @@
             <label class="label">时间：</label>
             <input
               type="text"
-              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu'"
+              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'wujing'"
               v-model="staticObj.recordHour"
               @keyup="timeKey($event, staticObj, 'recordHour')"
             />
@@ -208,7 +208,7 @@
                 <div flex-box="1"></div>
               </div>
             </div>
-            <div v-if="HOSPITAL_ID == 'liaocheng'">
+            <div v-if="HOSPITAL_ID == 'liaocheng'&&(sheetInfo.sheetType!='critical2_lcey'&&sheetInfo.sheetType!='critical_lcey'&&sheetInfo.sheetType!='critical_new_lcey'&&sheetInfo.sheetType!='access_lcey')">
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">体温：</div>
@@ -514,12 +514,13 @@
                 >+模板</span
               >
             </div>
-            <!-- 陵城特殊情况特殊记录富文本 -->
+            <!-- 陵城特殊情况特殊记录富文本（上下标） -->
+            <!-- 武警护理记录单特殊特殊情况富文本（加粗）  -->
             <div
               class="edit_container"
               v-if="
                 sheetInfo.selectBlock.openRichText &&
-                HOSPITAL_ID === 'lingcheng'
+                (HOSPITAL_ID === 'lingcheng'||sheetInfo.sheetType === 'common_wj')
               "
             >
               <quill-editor
@@ -547,7 +548,7 @@
           type="primary"
           @click="
             sheetInfo.selectBlock.openRichText &&
-            (HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'hengli')
+            (HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'hengli'|| sheetInfo.sheetType === 'common_wj')
               ? postRichText()
               : post()
           "
@@ -841,7 +842,7 @@ export default {
         placeholder: "请编辑内容",
         modules: {
           toolbar: [
-            [{ script: "sub" }, { script: "super" }], // 上下标
+             this.HOSPITAL_ID==='wujing'?['bold']:[{ script: "sub" }, { script: "super" }], // 武警加粗/陵城上下标（别一起开，逻辑会有问题）
           ],
         },
         theme: "snow",
@@ -858,7 +859,8 @@ export default {
         list: [],
       },
       multiDictList: [],
-      beihaiList:["体温","脉搏","呼吸","血压","心率"]
+      beihaiList:["体温","脉搏","呼吸","血压","心率"],
+      isSaving:false,//给弹窗保存做节流
     };
   },
   computed: {
@@ -1047,6 +1049,20 @@ export default {
       } else {
         isRead = false;
       }
+      // 江门上线需求,对部分工号开放特殊情况修改权限,由后端处理主表信息中的readOnly字段
+      if(this.HOSPITAL_ID=='fuyou'){
+        isRead = this.$store.state.form_masterInfo.masterInfo.readOnly
+      }
+      // 佛山人医  完全根据canModify来控制
+      if(this.HOSPITAL_ID=='foshanrenyi'){
+        // status  三种状态  1签名（普通） 2审核
+        if(status>=1){
+           // 审核   isRead  sheet-page.vue这个文件的的isRead方法决定
+           isRead=tr.isRead
+        }else{
+          isRead = false;
+        }
+      }
       this.isRead = isRead;
       this.table = config.table;
       this.customTitle = decoder_title(config.thead);
@@ -1071,11 +1087,26 @@ export default {
         record[0].find((item) => item.key == "recordDate").value ||
         "";
 
-      if (true) {
-        // 清除空格
-        var reg = new RegExp(" ", "g");
-        doc = doc.replace(reg, "");
-      }
+      //肺科特别需求。补记时间另起一行
+       if(this.HOSPITAL_ID=='whfk' &&  doc.split('补记时间').length==2){
+          // 截取最后补记时间，前面的内容
+          let replenishTime= `补记时间${doc.split('补记时间')[1]}`
+          doc=doc.split('补记时间')[0]
+          var reg = new RegExp(" ", "g");
+          doc = doc.replace(reg, "");
+          doc = `${doc}${replenishTime}`
+       }else{
+          if (true) {
+            // 清除空格
+            var reg = new RegExp(" ", "g");
+            doc = doc.replace(reg, "");
+          }
+       }
+      //  if (true) {
+      //    // 清除空格
+      //    var reg = new RegExp(" ", "g");
+      //    doc = doc.replace(reg, "");
+      //  }
       // 富文本处理（去除字符串开头空格）
       this.doc = doc.replace(/&nbsp;/g, " ").replace(/^\s*/g, "");
       for (let j = 0; j < sheetModel.length; j++) {
@@ -1149,9 +1180,13 @@ export default {
       let val = data.replace(regP, "");
       const subArray = val.match(/<sub>(.*?)<\/sub>/g);
       const supArray = val.match(/<sup>(.*?)<\/sup>/g);
-      if ((subArray && subArray.length) || (supArray && supArray.length)) {
+      // 加粗
+      const strongArray=val.match(/<strong>(.*?)<\/strong>/g);
+      if ((subArray && subArray.length) || (supArray && supArray.length) || (strongArray && strongArray.length)) {
         var subReg = /(<\/?sub.*?>)/gi;
         var supReg = /(<\/?sup.*?>)/gi;
+        // 加粗
+        var strongReg=/(<\/?strong.*?>)/gi;
         subArray &&
           subArray.map((item) => {
             const wipeLabel = item.replace(subReg, "");
@@ -1168,29 +1203,48 @@ export default {
             itemArray.map((item) => (str += "<sup>" + item + "</sup>"));
             val = val.replace(new RegExp(item, "g"), str);
           });
+          // 加粗
+        strongArray &&
+          strongArray.map((item) => {
+            const wipeLabel = item.replace(strongReg, "");
+            const itemArray = wipeLabel.split("");
+            let str = "";
+            itemArray.map((item) => (str += "<strong>" + item + "</strong>"));
+            val = val.replace(new RegExp(item, "g"), str);
+          });
       }
       return val;
     },
     // 保存（富文本）
     postRichText() {
+      if(!this.staticObj.recordHour){
+        return this.$message.warning('记录时间不得为空！')
+      }
+      // okLength保存的时候，一条数据给后端传的字数长度
       let okLength = ""
       if(this.HOSPITAL_ID=='lingcheng'||this.HOSPITAL_ID=='hengli'){
         okLength = 46
-      }else {
+      } else if(this.sheetInfo.sheetType === 'common_wj'){
+        okLength = 40
+       }else {
         okLength = 23
       }
+      
       var GetLength = function (str) {
         // 过滤上下标签替换
         const subReg = /(<\/?sub.*?>)/gi;
         const supReg = /(<\/?sup.*?>)/gi;
+        // 过滤加粗标签替换
+        const strongReg = /(<\/?strong.*?>)/gi;
         let wipeSubStr = str.replace(subReg, "");
         let wipeSupStr = wipeSubStr.replace(supReg, "");
+        let wipeStrongStr= wipeSupStr.replace(strongReg,"")
         // 计算文本内容真实长度
         var realLength = 0,
-          len = wipeSupStr.length,
+          len = wipeStrongStr.length,
           charCode = -1;
         for (var i = 0; i < len; i++) {
-          charCode = wipeSupStr.charCodeAt(i);
+          charCode = wipeStrongStr.charCodeAt(i);
           if (charCode == 94) realLength += 0;
           else if (charCode >= 0 && charCode <= 128 && charCode != 32)
             realLength += 1;
@@ -1202,12 +1256,13 @@ export default {
       let result = [];
       let text = "";
       // 处理特殊字符 标签
-      const doc = this.htmlEscape(this.doc);
-      let allDoc = this.setLabelData(doc);
+      const doc = this.htmlEscape(this.doc);//特殊字符
+      let allDoc = this.setLabelData(doc);//标签
       // 首行缩进效果
       if (
         this.HOSPITAL_ID != "weixian" &&
         this.HOSPITAL_ID != "huadu" &&
+        this.sheetInfo.sheetType != "common_wj" &&
         this.sheetInfo.sheetType != "special"
       ) {
         allDoc = "  " + allDoc;
@@ -1217,7 +1272,12 @@ export default {
       let index = 0;
       for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
-        const isContinue = isSpecialLabel && i <= index + 11;
+        // 陵城是sub和sup标签<sup></sup>    <sub></sub>就是11
+        let isContinue=isSpecialLabel && i <= index + 11
+        if(this.sheetInfo.sheetType === 'common_wj'){
+          // 武警是加粗<strong></strong>就是17。
+          isContinue=isSpecialLabel && i <= index + 17
+        }
         // 字符为 ，。；,.：:
         if (
           charCode == "65292" ||
@@ -1232,7 +1292,7 @@ export default {
           isContinue
         ) {
           text += allDoc[i];
-        } else {
+        }else {
           if (GetLength(text) > okLength) {
             text = text.replace(/\s/g, "&nbsp;");
             result.push(text);
@@ -1290,6 +1350,13 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
+      if(this.isSaving){
+        return
+      }
+      if(type!='ayncVisitedData' && !this.staticObj.recordHour){
+        return this.$message.warning('记录时间不得为空！')
+      }
+      this.isSaving=true
       // 计算字节长度
       var GetLength = function (str) {
         var realLength = 0,
@@ -1312,11 +1379,57 @@ export default {
         this.sheetInfo.sheetType != "special" &&
         this.HOSPITAL_ID != "huadu" &&
         this.HOSPITAL_ID != "nanfangzhongxiyi" &&
+        this.HOSPITAL_ID != "wujing" &&
         this.sheetInfo.sheetType != "icu_qz"
       ) {
         allDoc = "    " + this.doc;
       }
-      for (let i = 0; i < allDoc.length; i++) {
+      // 补记时间
+        let replenishTime=''
+      if(this.HOSPITAL_ID=='whfk'){
+        // 因为后端要配置行数不满 不拼接特殊特殊情况记录，需要整个医院做配置。所以武汉肺科单独出来
+        let commonText=allDoc
+        if(allDoc.split('补记时间').length==2){
+           // 非手术科室护理记录单和手术科室护理记录单需要 有‘补记时间’就另起一行
+              replenishTime= `补记时间${allDoc.split('补记时间')[1]}`
+           // 截取最后补记时间，前面的内容
+              commonText=allDoc.split('补记时间')[0]
+        }
+        // 循环补记时间前面的内容的长度就可以
+        for (let i = 0; i < commonText.length; i++) {
+           let charCode = commonText.charCodeAt(i);
+           // 字符为 ，。；,.：:
+           if (
+             charCode == "65292" ||
+             charCode == "12290" ||
+             charCode == "65307" ||
+             charCode == "44" ||
+             charCode == "46" ||
+             charCode == "65306" ||
+             charCode == "109" ||
+             charCode == "103" ||
+             charCode == "58"
+           ) {
+             text += commonText[i];
+           } else if(this.sheetInfo.sheetType === "nonsurgicalcare_fk"||this.sheetInfo.sheetType === "operating_fk"){
+            //  非手术科室护理记录单且包含补记时间
+            if (GetLength(text) > 27) {
+              result.push(text);
+              text = commonText[i];
+            } else {
+              text += commonText[i];
+            }
+           }else {
+            if (GetLength(text) > 23) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }
+       }
+      }else{
+        for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
         // 字符为 ，。；,.：:
         if (
@@ -1337,6 +1450,7 @@ export default {
               this.sheetInfo.sheetType === "icu_qz" ||
               this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
               this.sheetInfo.sheetType === "common_gzry") {
+            // 特殊情况长度截取，前端控制部分
             if (GetLength(text) > 46) {
               result.push(text);
               text = allDoc[i];
@@ -1392,8 +1506,50 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "nursingrecords_zxy" || this.sheetInfo.sheetType === "recordicu2_zxy") {
+          }else if (this.sheetInfo.sheetType === "nursingrecords_zxy") {
+            if (GetLength(text) > 54) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "recordicu2_zxy") {
             if (GetLength(text) > 70) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "common_wj") {
+            if (GetLength(text) > 27) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "areageneral_fs"||this.sheetInfo.sheetType === "pediatric_fs"||this.sheetInfo.sheetType === "pupilgeneral_fs"||this.sheetInfo.sheetType === "labor_bh"||this.sheetInfo.sheetType === "department_bh"||this.sheetInfo.sheetType === "cardiac_lcey"||this.sheetInfo.sheetType === "labor_lcey"||this.sheetInfo.sheetType === "caseamount_wx") {
+            if (GetLength(text) > 36) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "diabetes_bh"||this.sheetInfo.sheetType === "ophthalmology_bh"||this.sheetInfo.sheetType === "observation_bh"||this.sheetInfo.sheetType === "maternal_lcey") {
+            if (GetLength(text) > 26) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "revivemonitoring_bh"||this.sheetInfo.sheetType === "emergency_treat_yx") {
+            if (GetLength(text) > 42) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          }else if (this.sheetInfo.sheetType === "paediatrician2_xt"||this.sheetInfo.sheetType === "neonatalspecialty2_xt") {
+            if (GetLength(text) > 14) {
               result.push(text);
               text = allDoc[i];
             } else {
@@ -1408,11 +1564,39 @@ export default {
             }
           }
         }
+       }
       }
+      
       if (text) {
         result.push(text);
       }
 
+      if(this.HOSPITAL_ID==='whfk' && replenishTime){
+        // 有补记时间最后自己一行推进去
+        text=""
+        // result.push(replenishTime);
+        for (let i = 0; i < replenishTime.length; i++) {
+           if(this.sheetInfo.sheetType === "nonsurgicalcare_fk"||this.sheetInfo.sheetType === "operating_fk"){
+            if (GetLength(text) > 27) {
+              result.push(text);
+              text = replenishTime[i];
+            } else {
+              text += replenishTime[i];
+            }
+           }else {
+            if (GetLength(text) > 23) {
+              result.push(text);
+              text = replenishTime[i];
+            } else {
+              text += replenishTime[i];
+            }
+          }
+        }
+        if (text) {
+          result.push(text);
+        }
+      }
+      
       if(type == 'ayncVisitedData'){
         return result;
       }
@@ -1431,6 +1615,7 @@ export default {
         if (this.record[i]) {
           this.record[i].find((item) => item.key == "description").value =
             result[i];
+          process.env.splitSave && (this.record[i].isChange = true)
         } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
           let nullRowArr = nullRow();
@@ -1449,6 +1634,7 @@ export default {
           sheetModel[this.lastZ].bodyModel[this.lastY].find(
             (item) => item.key == "description"
           ).value = result[i];
+          process.env.splitSave && (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true)
         }
       }
       if (
@@ -1462,6 +1648,9 @@ export default {
       } else {
         this.bus.$emit("saveSheetPage", this.isLast);
       }
+      setTimeout(()=>{
+        this.isSaving=false
+      },1000)
       this.close();
     },
     openTemplateSlider() {
@@ -1481,7 +1670,7 @@ export default {
     },
     f1Key(e, obj, key) {
       if (e.keyCode == 192) {
-        obj[key] += "✓";
+        obj[key] += "√";
         e.preventDefault();
       }
     },
@@ -1537,14 +1726,14 @@ export default {
       handler() {
         for (let i = 0; i < this.customTitle.length; i++) {
           if (this.check[i]) {
-            this.staticObj[this.customTitle[i].key] = "✓";
+            this.staticObj[this.customTitle[i].key] = "√";
           }
         }
       },
     },
     doc(val){
       if(!val.trim().length)return
-      let reg = new RegExp(/<(?:(?!\bsub\b|\bsup\b|\bp\b|[<>]).)+>/g)
+      let reg = new RegExp(/<(?:(?!\bstrong\b|\bsub\b|\bsup\b|\bp\b|[<>]).)+>/g)
       if(reg.test(val)){
         this.doc = val.replace(reg,'')
       }

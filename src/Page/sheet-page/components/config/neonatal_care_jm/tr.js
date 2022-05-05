@@ -70,7 +70,7 @@ export default [
 {
   key: "breath", //呼吸 次/min
   value: "",
-  name: "心率",
+  name: "呼吸",
   next: "次/分",
   event: keyf1,
 },
@@ -87,7 +87,7 @@ export default [
     keyf1(e, td);
   },
    textarea: {
-    width: 30
+    width: 60
   }
 },
 {
@@ -210,6 +210,9 @@ export default [
   name: "大便",
   next: "g/性状",
   event: keyf1,
+  autoComplete: {
+    data: ["/胎粪","/黄便","/黄绿","/墨绿"]
+  },
   textarea: {
     width: 40
   }

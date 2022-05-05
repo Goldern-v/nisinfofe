@@ -9,7 +9,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1220px"
+    width: "1300px"
   },
   th: {
     top: [{
@@ -33,7 +33,7 @@ export default {
       },
       {
         name: `
-        体温<br/>（℃）
+        体温<br/>℃
         `,
         style: {},
         colspan: "1",
@@ -41,7 +41,7 @@ export default {
       },
       {
         name: `
-        脉搏<br/>（次/分）
+        脉搏<br/>次/分
         `,
         style: {},
         colspan: "1",
@@ -49,7 +49,7 @@ export default {
       },
       {
         name: `
-        呼吸<br/>（次/分）
+        呼吸<br/>次/分
         `,
         style: {},
         colspan: "1",
@@ -57,7 +57,14 @@ export default {
       },
       {
         name: `
-        血压<br/>（mmHg）
+        血压<br/>mmHg
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        血糖<br/>mol/L
         `,
         colspan: "1",
         rowspan: "3"
@@ -71,7 +78,7 @@ export default {
       },
       {
         name: `
-        胎心音<br/>（次/分）
+        胎心音<br/>次/分
         `,
         colspan: "1",
         rowspan: "3"
@@ -113,7 +120,7 @@ export default {
       },
       {
         name: `
-        胎动<br/>（次/h）
+        胎动<br/>次/h
         `,
         style: {},
         colspan: "1",
@@ -132,17 +139,13 @@ export default {
         rowspan: "3",
       },
       {
-        name: `临<br/>产<br/>时<br/>间`,
+        name: `临产时间`,
         style: {},
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `胎<br/>儿<br/>娩<br/>出<br/>时<br/>间`,
-        style: {
-          minWidth: '65px',
-          maxWidth: '65px',
-        },
         colspan: "1",
         rowspan: "3",
       },
@@ -151,6 +154,20 @@ export default {
         style: {},
         colspan: "2",
         rowspan: "1",
+      },
+      {
+        name: ``,
+        canSet:true,
+        key:"armValue",
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: ``,
+        canSet:true,
+        key:"armValue2",
+        colspan: "1",
+        rowspan: "3",
       },
       {
         name: `
@@ -236,12 +253,12 @@ export default {
         rowspan: "2"
       },
       {
-        name: "缩宫素<br/>浓度<br/>（U/500ml）",
+        name: "缩宫素<br/>浓度<br/>U/500ml",
         colspan: "1",
         rowspan: "2",
       },
       {
-        name: "滴数<br/>(滴/分)",
+        name: "滴数<br/>滴/分",
         colspan: "1",
         rowspan: "2",
       },

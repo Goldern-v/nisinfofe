@@ -6,6 +6,11 @@
       :title="modalTitle"
       :enable-mobile-fullscreen="false"
     >
+      <div style="margin-bottom: 20px" v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='wujing'||HOSPITAL_ID==='huadu'||HOSPITAL_ID==='foshanrenyi'">
+        <span for class="title" style="margin-right: 10px">模板分类：</span>
+        <el-radio v-model="templateType" label="dept">科室</el-radio>
+        <el-radio v-model="templateType" label="common">公共</el-radio>
+      </div>
       <div flex="main:justify cross:center" style="margin-bottom: 20px">
         <p for class="title" style="margin-right: 10px">类别：</p>
         <el-autocomplete
@@ -58,7 +63,10 @@
 import {
   typeList,
   saveOrUpdate,
-  list
+  list,
+  // 特殊情况模板，分类
+  typeListByDept,
+  saveOrUpdateByEmpNo
 } from "@/Page/sheet-page/api/recordDesc.js";
 import bus from "vue-happy-bus";
 import { quillEditor } from "vue-quill-editor"; //调用编辑器
@@ -84,7 +92,10 @@ export default {
           ]
         },
         theme: "snow"
-      }
+      },
+      templateType:"dept",
+      isPosting:false,
+      beforeEmpNo:""
     };
   },
   computed: {
@@ -104,27 +115,57 @@ export default {
         (this.groupName = item.groupName), (this.title = item.title);
         this.content = item.content;
         this.id = item.id;
+        this.beforeEmpNo=item.empNo
       } else {
         (this.groupName = ""), (this.title = "");
         this.content = "";
         this.id = "";
+        this.beforeEmpNo=""
       }
     },
     close() {
       this.$refs.modal.close();
     },
     post() {
-      saveOrUpdate(this.groupName, this.title, this.content, this.id ,localStorage.wardCode,this.HOSPITAL_ID).then(
+      //特殊情况,保存开启权限分类医院名
+      const isDeptList=["liaocheng","wujing","huadu","foshanrenyi"]
+      if(isDeptList.includes(this.HOSPITAL_ID)){
+        const user=JSON.parse(localStorage.getItem("user"))
+        const wardCode=this.templateType==='dept'?localStorage.wardCode:""
+        let changeEmpNo=user.empNo
+        if(this.id){
+          changeEmpNo=this.beforeEmpNo
+        }
+        if(!this.isPosting){
+          this.isPosting=true
+          saveOrUpdateByEmpNo(this.groupName, this.title, this.content, this.id ,wardCode,user.empNo,changeEmpNo).then(
+          res => {
+            if (this.id) {
+              this.$message.success("更新常用语模版成功");
+            } else {
+             this.$message.success("保存常用语模版成功");
+            }
+            setTimeout(()=>{
+              this.isPosting=false
+            },500)
+         }
+        );
+       }
+      }else{
+        saveOrUpdate(this.groupName, this.title, this.content, this.id ,localStorage.wardCode,this.HOSPITAL_ID).then(
         res => {
           if (this.id) {
             this.$message.success("更新常用语模版成功");
           } else {
             this.$message.success("保存常用语模版成功");
           }
-          this.close();
-          this.bus.$emit("refreshTemplate");
         }
-      );
+       );
+      }
+        this.close();
+        setTimeout(()=>{
+          this.bus.$emit("refreshTemplate");
+        },200)
     },
     querySearch(queryString, cb) {
       cb(
@@ -134,19 +175,36 @@ export default {
       );
     },
     getData() {
-      typeList(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
+       //特殊情况,开启权限分类医院名
+      const isDeptList=["liaocheng","wujing","huadu","foshanrenyi"]
+      if(isDeptList.includes(this.HOSPITAL_ID)){
+        typeListByDept(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
+        this.typeList = res.data.data[this.templateType].map(item => {
+          return {
+            value: item
+          };
+        });
+      });
+      }else{
+        typeList(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
         this.typeList = res.data.data.list.map(item => {
           return {
             value: item
           };
         });
       });
+      }
     }
   },
   created() {
     this.bus.$on("openAddTemplateModal", item => {
       this.open(item);
     });
+  },
+  watch:{
+     templateType(){
+       this.getData()
+     }
   },
   components: {
     quillEditor

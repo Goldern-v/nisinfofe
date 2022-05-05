@@ -50,7 +50,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 31
+      width: 51
     }
   },
   {
@@ -58,7 +58,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 130
+      width: 51
     }
   },
   {
@@ -66,7 +66,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 31
+      width: 91
     }
   },
   {

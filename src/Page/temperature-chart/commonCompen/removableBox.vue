@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:id="id" v-if="dialogVisible" @mousedown="mousedown">
+  <div v-bind:id="id" v-show="dialogVisible" @mousedown="mousedown">
     <div class="header">
       <div>
         <h2>{{ titlex }}</h2>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "Window",
+  // name: "Window",
   props: {
     titlex: String,
     id: [String, Number],

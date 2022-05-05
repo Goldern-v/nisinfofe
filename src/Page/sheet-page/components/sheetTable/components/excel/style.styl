@@ -1,4 +1,7 @@
 .sheet-page-container, .sheet-excel-container, .sheet-page-container-neonatology {
+  .red-border {
+    border 2px solid red !important
+  }
   .icu_lc {
     input,textarea {
       font-size: 14px !important;
@@ -24,7 +27,9 @@
     .head-con {
       background: #f4f2f5;
     }
-
+    #bigFonstSize span{
+      font-size:14px;
+    }
     td, th {
       height: 30px;
       text-align: center;
@@ -52,12 +57,14 @@
   .head-con {
     th {
       height: 26px;
+      word-wrap:break-word;
     }
   }
 
   .canSet {
     color: #284FC2;
     cursor: pointer;
+    word-wrap:break-word;
 
     &:hover {
       background: #fafafa;
@@ -202,7 +209,9 @@
     &.mark-row-5 {
       background: rgba(80, 208, 101, 0.4);
     }
-
+    &.redBottom{
+      border-bottom:  2px solid red;
+    }
     &.redText {
       input, textarea  {
         color: red;
@@ -247,15 +256,14 @@
 
     .sh-name {
       position: absolute;
-      right: 0;
+      right: 150px;
       top: -10px;
       display: flex;
       align-items: center;
       min-height: 30px;
-      
     }
     .sh-time{
-      right: -130px;
+      right: 0px;
     }
     .zg-name {
       position: absolute;
@@ -385,4 +393,46 @@
   .xiegangSignImg{
     transform: scale(0.8)
   }
+}
+
+.identification-first,
+.identification-middle,
+.identification-only-one,
+.identification-last
+{
+  width:40px;
+  height:25px;
+  position: absolute;
+  top: 50%;
+  color:blue;
+  transform: translate(2px, -50%);
+}
+
+.identification-first{
+  box-sizing:border-box;
+  padding-left: 12px;
+  background:url('../../../../images/left-top.png') no-repeat;
+  right: -3px;
+
+}
+
+.identification-middle{
+  background:url('../../../../images/left-middle.png') no-repeat;
+  right: -3px;
+}
+
+.identification-last{
+  background:url('../../../../images/left-last.png') no-repeat;
+  right: -3px;
+}
+
+.identification-only-one{
+  box-sizing:border-box;
+  // padding-left: 12px;
+  // background:url('../../../../images/left-only.png') no-repeat;
+   right: 0px;
+}
+
+.identification-usage{
+  
 }

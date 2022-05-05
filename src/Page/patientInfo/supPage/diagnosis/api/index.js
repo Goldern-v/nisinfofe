@@ -89,3 +89,26 @@ export function getPlanFormListByPV(patientId, visitId) {
 export function savePlanForm(obj) {
   return axios.post(`${apiPath}/planForm/save`, obj);
 }
+
+// 贵州护理诊断签名接口
+export const planListGuiZhou = (params,id)=>{
+  return axios.get(`${apiPath}nursingDiags/sign/${id}`, {params});
+}
+
+// 聊城导入模板接口
+export const importExcelApi = (body,wardCode)=>{
+  return axios.post(`${apiPath}nursingDiags/importExcel/${wardCode}`, body);
+}
+
+// 聊城文本模板删除接口
+export const deleteMeasureTargetsApi = (body)=>{
+  return axios.post(`${apiPath}nursingDiags/deleteMeasureTargets`, body);
+}
+
+// 聊城文本模板下载接口
+export const getTemplateApi = ()=>{
+  return axios.get(`${apiPath}nursingDiags/getTemplate`,
+  {
+    responseType: "blob"
+  });
+}

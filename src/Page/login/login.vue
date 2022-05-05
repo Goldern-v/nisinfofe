@@ -221,12 +221,16 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .logo-con {
   height: 63px;
-  width: 63px;
+  // width: 63px;
   margin: 24px auto 19px;
 
   img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
+    -webkit-object-fit: contain;
+    -moz-object-fit: contain;
+    -ms-object-fit: contain;
   }
 }
 
@@ -327,7 +331,7 @@ a {
     font-size: 20px;
     letter-spacing: 1px;
     // font-family '微软雅黑' !important
-    left: 146px;
+    left: 130px;
   }
 
   .sys-name {
@@ -436,6 +440,27 @@ export default {
       let password=this.password;
       (this.md5HisList.includes(this.HOSPITAL_ID))&&(this.password!=="Bcy@22qw") && (password=md5(this.password));
       // login(this.account, this.password, this.verificationCode)
+      // login前先执行his校验 by谢岗
+      // if (this.HOSPITAL_ID == 'xiegang') {
+      //   try {
+      //     console.log('testOnly-1')
+      //     const res = await hisLogin({
+      //       Empl_Code: this.account,
+      //       PassWord: password,
+      //       Client: '移动护理电脑端'
+      //     })
+      //     if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
+      //       this.$message.error("请重新登录");
+      //       this.ajax = false
+      //       return
+      //     }
+      //   } catch (e) {
+      //     this.$message.error("请重新登录");
+      //     this.ajax = false
+      //     return
+      //   }
+      // }
+
       login(this.account, password, this.verificationCode)
         .then((res) => {
           // 记住账号
@@ -448,7 +473,7 @@ export default {
           user.token = res.data.data.authToken;
           window.app.authToken = res.data.data.authToken;
           localStorage["ppp"] = this.password;
-          localStorage.setItem("user",JSON.stringify(res.data.data.user)) 
+          localStorage.setItem("user",JSON.stringify(res.data.data.user))
           localStorage["adminNurse"] = res.data.data.adminNurse;
           Cookies.remove("NURSING_USER");
           //清除江门妇幼ca
@@ -478,8 +503,10 @@ export default {
             if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
               /** 验证证书 */
               window.openCaSignModal();
-            }else if(this.HOSPITAL_ID == "fuyou"){
+            }else if(["fuyou"].includes(this.HOSPITAL_ID)){
               window.openFuyouCaSignModal();
+            }else if(['hj'].includes(this.HOSPITAL_ID)){
+              window.openHjCaSignModal();
             }
           }
           // 清除科室记录
@@ -587,6 +614,18 @@ export default {
           return require("../../common/images/logo_nanfangzhongxiyi.png");
         case "xiegang":
           return require("../../common/images/logo_xiegang.png");
+        case "whfk":
+          return require("../../common/images/logo_whfk.png");
+        case "wujing":
+          return require("../../common/images/logo_wujing.png");
+        case "liaocheng":
+          return require("../../common/images/logoBack.png")
+        case "foshanrenyi":
+          return require("../../common/images/foshan_logo.png")
+        case "lyxrm":
+          return require("../../common/images/lyxrm_logo.png")
+        case "fsxt":
+          return require("../../common/images/fsxt_logo.png")
         default:
           return require("../../common/images/logo.png");
       }
@@ -599,7 +638,9 @@ export default {
         this.HOSPITAL_ID == "guizhou" ||
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "lingcheng" ||
-        this.HOSPITAL_ID == "wujing"
+        this.HOSPITAL_ID == "wujing"||
+        this.HOSPITAL_ID == "foshanrenyi" ||
+        this.HOSPITAL_ID == "fsxt"
       ) {
         logoName = "智慧护理信息系统";
       } else if (this.HOSPITAL_ID == "quzhou") {

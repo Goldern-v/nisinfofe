@@ -107,20 +107,18 @@
       </span>
       <span
         v-if="sheetInfo.sheetType === 'postpartumnursing_jm'"
-        @click="updateDelivery('delivery', '分娩方式', patientInfo.delivery)"
       >
         分娩方式：
         <div class="bottom-line" style="min-width: 80px">
-          {{ delivery }}
+          {{ patientInfo.relObj.delivery? patientInfo.relObj.delivery : ""}}
         </div>
       </span>
       <span
-        v-if="sheetInfo.sheetType === 'postpartumnursing_jm'"
-        class="ml-1000"
+        v-if="sheetInfo.sheetType === 'postpartumnursing_jm'||sheetInfo.sheetType === 'neonatology_jm'"
       >
-        分娩日期：
-        <div class="bottom-line" style="min-width: 80px">
-          {{ patientInfo.deliveryDate ? patientInfo.deliveryDate : "" }}
+        {{sheetInfo.sheetType == 'postpartumnursing_jm'?'分娩日期':'出生日期'}}：
+        <div class="bottom-line" style="min-width: 95px">
+          {{ patientInfo.relObj.deliveryDate ? patientInfo.relObj.deliveryDate : "" }}
         </div>
       </span>
       <span v-if="sheetInfo.sheetType === 'gynaecology_jm'">
@@ -152,6 +150,7 @@ import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
 import bedRecordModal from "../../../modal/bedRecord-modal";
 import setTextModalFuyou  from "@/Page/sheet-page/components/sheetTable/components/table-components/set-text-modal-fuyou.vue"
+import { saveBody }  from  "@/api/sheet.js"
 export default {
   props: {
     patientInfo: Object,
@@ -223,17 +222,6 @@ export default {
         `修改入院诊断`
       );
     },
-    updateDelivery(key, label, autoText) {
-      this.$refs.modalName.open( 
-        (text) => {
-          sheetInfo.relObj[`PageIndex_delivery_${this.index}`] = text;
-          this.$message.success(`修改分娩方式成功`);
-          this.bus.$emit("saveSheetPage", false);
-        },
-        this.delivery,
-        `修改分娩方式`);
-
-    },
   },
   filters: {
     toymd(val) {
@@ -255,18 +243,37 @@ export default {
     if(sheetInfo.sheetType === 'neonatal_care_jm'){
       this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
-    // 江门妇幼产后护理记录单获取分娩时间
-    if(sheetInfo.sheetType ==='postpartumnursing_jm'&&this.index===0){
-        const res = await  getDeliveryInfo(this.patientInfo.patientId)
+    // 江门妇幼产后护理记录单获取分娩时间分娩方式并且存到病人信息里
+    if((sheetInfo.sheetType ==='postpartumnursing_jm'||sheetInfo.sheetType ==='neonatology_jm')){
+        let paintID=this.patientInfo.patientId
+        // 判断病人是否婴儿
+        if(paintID.includes("_")){
+          paintID=this.patientInfo.patientId.split("_")[0]
+        }
+        const res = await  getDeliveryInfo(paintID)
         if(res.data.data.length!=0){
            const dateOfBirth=res.data.data[0].DateOfBirth
            const date=dateOfBirth.split(" ")[0].split("/")
            const time=dateOfBirth.split(" ")[1].split(":")
            const deliveryDate=`${date[0]}-${date[1]}-${date[2]} ${time[0]}:${time[1]}`
-           this.$set(this.patientInfo,'deliveryDate',deliveryDate)
+           const delivery=res.data.data[0].TaiErMianChuFangShi||""
+           if(this.patientInfo.relObj.delivery!=delivery||this.patientInfo.relObj.deliveryDate!=deliveryDate){
+            await saveBody(
+            this.patientInfo.patientId,
+            this.patientInfo.visitId,
+            {
+              relObj:{
+                'deliveryDate':deliveryDate,
+                'delivery':delivery
+              }
+            }
+            )
+            this.$set(this.patientInfo.relObj,'deliveryDate',deliveryDate)
+            this.$set(this.patientInfo.relObj,'delivery',delivery)
+           }
         }
+       
     }
-     console.log(this.patientInfo);
   },
   watch: {},
   components: {

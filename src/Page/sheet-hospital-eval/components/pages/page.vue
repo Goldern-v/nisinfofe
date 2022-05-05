@@ -178,7 +178,7 @@ export default {
       // remote
       // let url = this.getFilePath("住院评估.index.json", rootDir);
       let url = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
         url = this.getFilePath("住院评估.index.liaoc.json", rootDir);
       } else {
         url = this.getFilePath("住院评估.index.json", rootDir);
@@ -199,7 +199,7 @@ export default {
       //
       // main json file
       // url = this.getFilePath("住院评估.form.json", `${rootDir}/main`);
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
         url = this.getFilePath("住院评估.form.liaoc.json", `${rootDir}/main`);
       } else {
         url = this.getFilePath("住院评估.form.json", `${rootDir}/main`);
@@ -219,7 +219,7 @@ export default {
 
       // 主表字段对照表
       // url = this.getFilePath("住院评估.schemes.json", `${rootDir}/main`);
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
         url = this.getFilePath("住院评估.schemes.liaoc.json", `${rootDir}/main`);
       } else {
         url = this.getFilePath("住院评估.schemes.json", `${rootDir}/main`);
@@ -441,7 +441,7 @@ export default {
       //
       // 主表结构
       let file = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
         file = JSON.parse(
           JSON.stringify(require("../data/住院评估.form.liaoc.json"))
         )
@@ -460,7 +460,7 @@ export default {
       );
       // 主表下拉框选项字典表
       let dictionary = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.liaoc.json")))
       } else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.json")))
@@ -468,7 +468,7 @@ export default {
       //
       // 其他下拉框选项字典表
       let otherDictionary = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.liaoc.json")))
       } else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.json")));

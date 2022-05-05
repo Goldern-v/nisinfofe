@@ -1,56 +1,100 @@
 <template>
-  <div class="patient-list-part" :style="{left: openLeft?'0':'-201px'}">
+  <div class="patient-list-part" :style="{ left: openLeft ? '0' : '-201px' }">
     <div class="search-box">
-      <el-input placeholder="床号/姓名" icon="search" v-model="searchWord"></el-input>
+      <el-input
+        placeholder="床号/姓名"
+        icon="search"
+        v-model="searchWord"
+      ></el-input>
     </div>
     <div class="left-wapper">
+      <follow-list
+        :data="sortList"
+        @selectPatient="selectPatient"
+        v-if="hasFollowList"
+      >
+        <template slot-scope="{ scope }">
+          <span
+            class="point-box"
+            v-if="$route.path == '/formPage'"
+            v-show="
+              scope.formLowestStatus !== '' && scope.formLowestStatus != '2'
+            "
+            :class="{
+              red: scope.formLowestStatus == 0,
+              green: scope.formLowestStatus == 1,
+              isImg2: img2Show,
+            }"
+          ></span>
+        </template>
+      </follow-list>
       <div class="patient-list-contain">
         <div
           class="patient-box"
           flex="cross:center"
-          v-for="(item,index) in sortList"
-          :key="item.patientId+item.visitId+item.bedLabel+item.inpNo+index"
+          v-for="(item, index) in sortList"
+          :key="
+            item.patientId + item.visitId + item.bedLabel + item.inpNo + index
+          "
           @click="selectPatient(item)"
-          :class="{active: isActive(item)}"
+          :class="{ active: isActive(item) }"
         >
           <img
-            :src="item.bedLabel.includes('_')?imageBoy:imageMan"
+            :src="item.bedLabel.includes('_') ? imageBoy : imageMan"
             alt
-            :class="{img1:img1Show,img2:img2Show}"
+            :class="{ img1: img1Show, img2: img2Show }"
             v-if="item.sex == '男'"
           />
           <img
-            :src="item.bedLabel.includes('_')?imageGirl:imageWomen"
+            :src="item.bedLabel.includes('_') ? imageGirl : imageWomen"
             alt
-            :class="{img1:img1Show,img2:img2Show}"
+            :class="{ img1: img1Show, img2: img2Show }"
             v-else
           />
-          <div class="name" flex-box="1">{{item.name}}</div>
-          <div class="bed">{{item.bedLabel}} 床</div>
+          <div class="name" flex-box="1">{{ item.name }}</div>
+          <div class="bed">{{ item.bedLabel }} 床</div>
 
           <span
             class="point-box"
             v-if="$route.path == '/formPage'"
-            v-show="item.formLowestStatus !== '' && item.formLowestStatus != '2'"
-            :class="{red: item.formLowestStatus == 0, green: item.formLowestStatus == 1,isImg2: img2Show}"
+            v-show="
+              item.formLowestStatus !== '' && item.formLowestStatus != '2'
+            "
+            :class="{
+              red: item.formLowestStatus == 0,
+              green: item.formLowestStatus == 1,
+              isImg2: img2Show,
+            }"
           ></span>
+          <div class="angle" v-if="nursingClassList.includes(HOSPITAL_ID)&&item.nursingClass">
+            <img :src="require(`./images/${item.nursingClass}.png`)" alt/>
+          </div>
         </div>
       </div>
       <div
         class="flag-con"
-        :style="{top: flagTop}"
+        :style="{ top: flagTop }"
         flex="main:center cross:center"
         @click="toOpenLeft"
       >
-        <i class="iconfont icon-yincang" v-show="openLeft" style="margin-left: -1px"></i>
-        <i class="iconfont icon-xianshi" v-show="!openLeft" style="margin-left: -2px"></i>
+        <i
+          class="iconfont icon-yincang"
+          v-show="openLeft"
+          style="margin-left: -1px"
+        ></i>
+        <i
+          class="iconfont icon-xianshi"
+          v-show="!openLeft"
+          style="margin-left: -2px"
+        ></i>
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .patient-list-part {
-  height: auto;
+  // height: auto;
+  height: 100%;
   box-sizing: border-box;
   padding-top: 45px;
   position: relative;
@@ -61,7 +105,7 @@
 }
 
 .patient-list-contain {
-  padding: 0px 13px 11px;
+  padding: 0px 3px 11px 13px;
   height: 100%;
   box-sizing: border-box;
   overflow: auto;
@@ -74,7 +118,15 @@
     border-radius: 3px;
     margin: 1px 0;
     position: relative;
-
+    .angle {
+      position: absolute;
+      top: 0px;
+      right:0px;
+      img{
+        height: 15px;
+        width: 15px;
+      }
+    }
     .img1 {
       height: 30px;
       width: 30px;
@@ -95,6 +147,7 @@
     }
 
     .bed {
+      margin-right: 5px;
       color: #333333;
     }
 
@@ -155,7 +208,10 @@
 
 .left-wapper {
   position: relative;
-  height: calc(100vh - 114px);
+  // height: calc(100vh - 114px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .point-box {
@@ -198,10 +254,11 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
+import FollowList from "../follow/index";
 export default {
   props: {
     data: Array,
-    isSelectPatient: Function
+    isSelectPatient: Function,
   },
   mixins: [common],
   data() {
@@ -211,15 +268,17 @@ export default {
       img1Show: true,
       img2Show: false,
       selectPatientId: "",
+      //需要患者列表中增加护理等级显示的医院
+      nursingClassList: ['guizhou'],
       imageBoy: require("./images/男婴.png"),
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
-      imageWomen: require("./images/女.png")
+      imageWomen: require("./images/女.png"),
+      noClearnCurrentPatient:['guizhou'] // 不需要清空当前选中患者的医院
     };
   },
   methods: {
     selectPatient(item) {
-      
       this.selectPatientId = item.patientId;
       if (this.isSelectPatient) {
         this.isSelectPatient(item);
@@ -232,6 +291,45 @@ export default {
         );
       }
     },
+    findCurrentPatient({ patientId, visitId }) {
+      return this.sortList.find((p) => {
+        return patientId == p.patientId && visitId == p.visitId;
+      });
+    },
+    async fetchData() {
+      let currentPatient = ''
+      if(this.HOSPITAL_ID == 'whfk'){
+        currentPatient = ''
+      }else{
+        currentPatient = this.$store.getters.getCurrentPatient();
+      }
+      let patientId =
+        this.$route.params.patientId || currentPatient.patientId || "";
+      let visitId = this.$route.params.visitId || currentPatient.visitId || "";
+      let p = this.findCurrentPatient({
+        patientId,
+        visitId,
+      });
+      if(!p&&this.isAdmissionHisView){
+        patientId = this.$route.params.patientId
+        visitId = this.$route.params.visitId
+        let res = await getPatientInfo(patientId,visitId)
+        p = res.data.data
+      }
+      if (p) {
+        if(currentPatient){
+          p = {...currentPatient,...p}
+        }
+        this.selectPatient(p);
+        console.log(this.selectPatientId);
+      }
+      console.log(
+        "路由拦截:$route.params",
+        [currentPatient],
+        [p, this.sortList],
+        [this.$route.params]
+      );
+    },
     isActive(item) {
       return (
         item.patientId == (this.selectPatientId || this.$route.query.patientId)
@@ -239,11 +337,11 @@ export default {
     },
     toOpenLeft() {
       this.$store.commit("upOpenSheetLeft", !this.openLeft);
-    }
+    },
   },
   computed: {
     list() {
-      return this.data.filter(item => {
+      return this.data.filter((item) => {
         return (
           item.bedLabel.indexOf(this.searchWord) > -1 ||
           item.name.indexOf(this.searchWord) > -1
@@ -265,20 +363,26 @@ export default {
         if (cacheSign > -1) {
           cacheList[i].babyName = cacheList[i].name.substring(cacheSign);
           cacheList[i].name = cacheList[i].name.substring(0, cacheSign);
-          if(cacheList[i].bedLabel.split('_').length>1){
-            cacheList[i].bedLabel = cacheList[i].bedLabel.split('_')[0];
+          if (cacheList[i].bedLabel.split("_").length > 1) {
+            cacheList[i].bedLabel = cacheList[i].bedLabel.split("_")[0];
           }
         }
         cacheList[i].cacheNum = i;
       }
+
       let sortData = [];
       for (let i = 0; i < cacheList.length; i++) {
         let filter1Array = [];
         let sortFliter = [];
         let cacheData = [];
-        if (!cacheList[i].babyName) {
+        if (["wujing"].includes(this.HOSPITAL_ID)) {
           sortFliter.push(cacheList[i]);
+        } else {
+          if (!cacheList[i].babyName) {
+            sortFliter.push(cacheList[i]);
+          }
         }
+
         for (let j = 0; j < cacheList.length; j++) {
           if (
             !cacheList[i].babyName &&
@@ -304,7 +408,6 @@ export default {
           JSON.parse(JSON.stringify(putSortList))
         );
       } catch (error) {}
-
       return putSortList;
     },
     openLeft() {
@@ -315,7 +418,10 @@ export default {
     },
     flagTop() {
       return `${this.wih * 0.4}px`;
-    }
+    },
+    hasFollowList(){
+      return process.env.hasFollow
+    },
   },
   watch: {
     deptCode(ndata, odata) {
@@ -326,15 +432,21 @@ export default {
         this.img1Show = true;
         this.img2Show = false;
       }
+    },
+    data(){
+      if(this.noClearnCurrentPatient.includes(this.HOSPITAL_ID))this.fetchData()
     }
   },
-  create() {},
+  create() {
+  },
   mounted() {
     if (this.deptCode == "051102") {
       this.img1Show = false;
       this.img2Show = true;
     }
   },
-  components: {}
+  components: {
+    FollowList,
+  },
 };
 </script>

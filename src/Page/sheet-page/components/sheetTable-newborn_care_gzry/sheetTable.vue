@@ -50,6 +50,7 @@
             出生胎龄：
             <input
               class="bottom-line-input"
+              :style="{width:'80px'}"
               :data-value="sheetInfo.relObj.gestationalAge"
               v-model="sheetInfo.relObj.gestationalAge"
             />
@@ -61,10 +62,14 @@
           <span>诊断：
             <input 
               class="bottom-line-input full-width"
-              :data-value="sheetInfo.relObj.zd"
-              v-model="sheetInfo.relObj.zd"
+              :data-value="sheetInfo.relObj[`${index}_zd`]"
+               v-model="sheetInfo.relObj[`${index}_zd`]"
             />
           </span>
+          <!-- 
+              :data-value="sheetInfo.relObj.zd"
+              v-model="sheetInfo.relObj.zd"
+           -->
           <span>护理等级：
             <span class="boxRadio">
               <label>
@@ -109,6 +114,7 @@
           :scrollY="scrollY"
           :hasFiexHeader="true"
           :isInPatientDetails="isInPatientDetails"
+          @onModalChange="(e,tr,x,y,index)=>$emit('onModalChange',e,tr,x,y,index)"
         >
         </excel>
       </div>
@@ -144,15 +150,13 @@
     width: 50px;
     border-bottom: 1px solid #000;
     padding: 2px 0 2px 2px;
-    height: 12px;
+    height: 24px;
     position: relative;
     outline: none;
     text-align: center;
   }
   
   .header-con {
-    text-align: center;
-
     .his-name {
       font-size: 18px;
       padding: 0 0px;
@@ -344,18 +348,20 @@ export default {
   },
   computed: {
     patientInfo() {
-      return this.sheetInfo.selectBlock || {};
+      return this.sheetInfo.masterInfo || {};
     },
     /** 只读模式 */
     readOnly() {
-      let controlReadOnly = this.sheetInfo.selectBlock.readOnly //后端控制readOnly为true只能查阅，不能修改
-      if (controlReadOnly) {
-        return controlReadOnly
-      }
+      // if(this.HOSPITAL_ID == "fuyou"){
+      //   let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+      //   if (controlReadOnly) {
+      //     return true
+      //   }
+      // }
 
-      // return !this.userDeptList
-      //   .map(item => item.code)
-      //   .includes(this.sheetInfo.selectBlock.deptCode);
+      return !this.userDeptList
+        .map(item => item.code)
+        .includes(this.sheetInfo.selectBlock.deptCode);
     }
   },
   filters: {
@@ -367,8 +373,52 @@ export default {
   update() {},
   mounted() {
     // 初始化诊断如果没有值取后端返回的默认诊断
-    this.sheetInfo.relObj.zd = 
-    this.sheetInfo.relObj.zd ? this.sheetInfo.relObj.zd : this.patientInfo.diagnosis;
+    // this.sheetInfo.relObj.zd = 
+    // this.sheetInfo.relObj.zd ? this.sheetInfo.relObj.zd : this.patientInfo.diagnosis;
+    
+    if(this.index==0){
+      // 初始化(第一页)诊断如果没有值取后端返回的默认诊断
+      let beforeZd=this.sheetInfo.relObj.zd?this.sheetInfo.relObj.zd: this.patientInfo.diagnosis
+      this.sheetInfo.relObj[`${this.index}_zd`]=
+      this.sheetInfo.relObj[`${this.index}_zd`] ? this.sheetInfo.relObj[`${this.index}_zd`]: beforeZd;
+    }else{
+      let  beforeZd=""
+      if(this.patientInfo.diagnosis){
+        beforeZd=this.patientInfo.diagnosis
+      }
+      if(this.sheetInfo.relObj.zd){
+        beforeZd=this.sheetInfo.relObj.zd
+      }
+      if(!!this.sheetInfo.relObj[`${this.index-1}_zd`]){
+        beforeZd=this.sheetInfo.relObj[`${this.index-1}_zd`]
+      }
+      console.log(402,beforeZd)
+      this.sheetInfo.relObj[`${this.index}_zd`]=
+      this.sheetInfo.relObj[`${this.index}_zd`] ? this.sheetInfo.relObj[`${this.index}_zd`]:beforeZd
+    }
+  },
+  watch:{
+    // 切换页数1~10,2~20就侦听index变化
+    index(newval,oldval){
+       if(newval==0){
+         let beforeZd=this.sheetInfo.relObj.zd?this.sheetInfo.relObj.zd: this.patientInfo.diagnosis
+         this.sheetInfo.relObj[`${newval}_zd`]=
+         this.sheetInfo.relObj[`${newval}_zd`] ? this.sheetInfo.relObj[`${newval}_zd`]:beforeZd
+       }else{
+        let beforeZd=""
+        if(this.patientInfo.diagnosis){
+           beforeZd=this.patientInfo.diagnosis
+        }
+        if(this.sheetInfo.relObj.zd){
+           beforeZd=this.sheetInfo.relObj.zd
+        }
+        if(!!this.sheetInfo.relObj[`${newval-1}_zd`]){
+           beforeZd=this.sheetInfo.relObj[`${newval-1}_zd`]
+        }
+         this.sheetInfo.relObj[`${newval}_zd`]=
+         this.sheetInfo.relObj[`${newval}_zd`] ?this.sheetInfo.relObj[`${newval}_zd`]: beforeZd
+       }
+    } 
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {

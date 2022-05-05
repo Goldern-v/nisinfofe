@@ -58,21 +58,32 @@
 
 <script>
 import moment from "moment";
-import { FLOW_STATUS, FLOW_TYPE, searchKeyByCode } from "../enums";
+import { filterBC, FLOW_STATUS, FLOW_TYPE, searchKeyByCode } from "../enums";
+
 export default {
 	props: {},
 	data() {
 		return {
 			formData: {
 				transferType: 'out',
-				type: searchKeyByCode(FLOW_TYPE, 'changeF'),
+				type: '',
 				date: [],
 				transferStatus: '',
 				keyWord: ''
 			},
-			flowTypeList: FLOW_TYPE,
+			// flowTypeList: FLOW_TYPE,
 			flowStatusList: FLOW_STATUS
 		};
+	},
+	computed: {
+		flowTypeList() {
+			switch(this.HOSPITAL_ID) {
+				case 'hj':
+					return filterBC(FLOW_TYPE, ['operationF'])
+				default:
+					return FLOW_TYPE
+			}
+		}
 	},
 	watch: {
 		'formData.type': {
@@ -82,6 +93,9 @@ export default {
 		},
 		'formData.transferType': {
 			handler() {
+				if (['hj'].includes(this.HOSPITAL_ID) && this.formData. transferType == 'in') {
+					this.formData.date = ['', '']
+				}
 				this.search()
 			},
 		},
@@ -101,8 +115,8 @@ export default {
 		}
 	},
 	mounted() {
+		this.formData.type = this.flowTypeList[0].key
 		this.formData.date = [moment().startOf('month').format('YYYY-MM-DD'), moment().endOf('month').format('YYYY-MM-DD')]
-
 		this.search()
 	},
 	components: {}

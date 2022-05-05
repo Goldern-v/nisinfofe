@@ -12,6 +12,8 @@ import sheet from './module/sheet'
 import patient from './module/patient'
 import hospitalEval from './module/hospitalEval'
 import temperature from './module/temperature'
+import admittingSave from './module/admittingSave'
+import form_masterInfo from "./module/form_masterInfo"
 Vue.use(vuex)
 let store = new vuex.Store({
   modules: {
@@ -26,7 +28,9 @@ let store = new vuex.Store({
     sheet,
     patient,
     hospitalEval,
-    temperature
+    temperature,
+    admittingSave,
+    form_masterInfo
   }
 })
 

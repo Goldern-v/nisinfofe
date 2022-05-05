@@ -79,7 +79,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "350px",
+      width: "360px",
       background: "transparent",
       fontSize: "14px"
     },

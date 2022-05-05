@@ -3,7 +3,7 @@ import axios from './axios'
 import {
   apiPath
 } from './apiConfig'
-
+const HOSPITAL_ID = process.env.HOSPITAL_ID
 // 护理单元
 function nursingUnit() {
   return axios.get(`${apiPath}user/nursingUnit`)
@@ -27,6 +27,7 @@ function patients(deptCode, config, HisName = process.env.HOSPITAL_NAME) {
   };
   // let url = hisList[HisName] || `patList/${deptCode}`
   let url = hisList[HisName] || `patListWithNewForm/${deptCode}`
+
   if (config) {
     return axios.post(`${apiPath}bed/patList/config/${deptCode}`, config)
   } else {
@@ -79,6 +80,20 @@ function syncGetNurseBedRecJiangMenFY(deptCode){
 function syncGetNurseBedRecJiangMenFSSY(deptCode){
   return axios.get(`${apiPath}HisFoSanShiYiBedRec/syncGetNurseBedRec/${deptCode}`)
 }
+//北海 --更新床位一览卡信息
+function syncGetNurseBedRecBeiHaiExecute(deptCode){
+  return axios.get(`${apiPath}HisBeiHaiExecute/syncGetNurseBedRec/${deptCode}`)
+}
+
+//顺德龙江 --更新床位一览卡信息
+function syncGetNurseBedRecSDLJExecute(deptCode){
+  return axios.get(`${apiPath}HisLinYiBedRec/syncGetNurseBedRec/${deptCode}`)
+}
+
+//东莞谢岗 --更新床位一览卡信息
+function syncGetNurseBedRecDGXGExecute(deptCode){
+  return axios.get(`${apiPath}HisLinYiBedRec/syncGetNurseBedRec/${deptCode}`)
+}
 
 // 威县 --同步医嘱
 function syncGetMedicalAdvice(deptCode) {
@@ -105,4 +120,8 @@ export {
   syncGetNurseBedRecQuzhou,
   syncGetNurseBedRecHengli,
   syncGetNurseBedRecJiangMenFY,
+  syncGetNurseBedRecJiangMenFSSY,
+  syncGetNurseBedRecSDLJExecute,
+  syncGetNurseBedRecDGXGExecute,
+  syncGetNurseBedRecBeiHaiExecute,
 }

@@ -1,17 +1,21 @@
 export const keyf1 = function (e, td) {
   if (e.keyCode == 192) {
-    td.value = (td.value + '✓')
+    td.value = (td.value + '√')
     e.preventDefault();
   }
   setTimeout(() => {
-    td.value = td.value.replace(/·/g, '✓').replace(/`/g, '✓')
+    td.value = td.value.replace(/·/g, '√').replace(/`/g, '√')
   }, 10)
 }
 //新花都限制
 // 限制输入，最多输入全中文num个字
 export const limitChange = function (e, td, num) {
   let maxLength = num*2
-  const currentValue = td.value + (e.data || '')
+  let currentValue = td.value + (e.data || '')
+  // 花都用的是360浏览器。但是360内核是用chorme。只能用医院名字判断
+  if(process.env.HOSPITAL_ID==="huadu"){
+    currentValue=td.value
+  }
   const length = GetLength(currentValue)
   if (length > maxLength) {
     /* 如果输入长度超出，则将值转为数组 */

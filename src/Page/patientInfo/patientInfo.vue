@@ -1,6 +1,7 @@
 <template>
   <div :class="{ hj: HOSPITAL_ID == 'hj' }">
-    <leftPartHengli
+    <component :is="witchLeft" v-if="inited"/>
+    <!-- <leftPartHengli
       v-if="inited && HOSPITAL_ID=='hengli'"
       @handleInpatientSave="handleInpatientSave"
     ></leftPartHengli>
@@ -15,7 +16,7 @@
     <leftPart
       v-else-if="inited"
       @handleInpatientSave="handleInpatientSave"
-    ></leftPart>
+    ></leftPart> -->
     <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
       <!-- <topPart></topPart> -->
       <component :is="switchCompt()" v-if="inited" />
@@ -57,12 +58,14 @@ import topPartLingCheng from "@/Page/patientInfo/supComponts/topPart_LingCheng";
 import topPartHuaDu from "@/Page/patientInfo/supComponts/topPart_HuaDu"; // 广州市花都区人民医院
 import topPartWuJing from "@/Page/patientInfo/supComponts/topPart_WuJing"; // 武警广东省总队医院
 import topPartLiaoCheng from "@/Page/patientInfo/supComponts/topPart_LiaoCheng"; // 聊城市第二人民医院
+import topPartLYXRM from "@/Page/patientInfo/supComponts/topPart_LYXRM"; // 临邑县人民医院
 import topPartShanNan from "@/Page/patientInfo/supComponts/topPart_ShanNan"; // 山南市人民医院
 import topPartZhongShanQi from "@/Page/patientInfo/supComponts/topPart_ZhongShanQi"; // 武警广东省总队医院
 import topPartGuiZhou from "@/Page/patientInfo/supComponts/topPart_GuiZhou"; // 贵州省人民医院
 import topPartQuZhou from "@/Page/patientInfo/supComponts/topPart_QuZhou.vue"; // 曲周县医院
 import topPartNFZXY from "@/Page/patientInfo/supComponts/topPart_NFZXY.vue"; // 南方中西医院医院
 import topPartXiegang from "@/Page/patientInfo/supComponts/topPart_Xiegang.vue"; // 谢岗医院
+import topPartWHFK from "@/Page/patientInfo/supComponts/topPart_WHFK.vue"; // 武汉肺科
 import topPartJmfy from "@/Page/patientInfo/supComponts/topPart_Jmfy.vue";
 import topPartFSSY from "@/Page/patientInfo/supComponts/topPart_FSSY.vue";//佛山市一
 import topPartYC from "@/Page/patientInfo/supComponts/topPart_YC.vue";//阳春中医
@@ -70,6 +73,7 @@ import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import leftPartHengli from "@/Page/patientInfo/supComponts/leftPart_Hengli";
 import leftPartFuyou from "@/Page/patientInfo/supComponts/leftPart_Fuyou";
 import leftPartHuadu from "@/Page/patientInfo/supComponts/leftPart_Huadu";
+import leftPartFSXT from "@/Page/patientInfo/supComponts/leftPart_FSXT";
 import { getPatientInfo } from "@/api/common.js";
 
 export default {
@@ -83,6 +87,16 @@ export default {
     };
   },
   computed: {
+    witchLeft(){
+      let HOSPITAL_ID_Obj = {
+        hengli:'leftPartHengli',
+        huadu:'leftPartHuadu',
+        fuyou:'leftPartFuyou',
+        fsxt:'leftPartFSXT',
+        default:'leftPart'
+      }
+      return HOSPITAL_ID_Obj[this.HOSPITAL_ID] || HOSPITAL_ID_Obj.default
+    },
     openLeft() {
       return this.$store.state.common.openLeft;
     },
@@ -108,6 +122,7 @@ export default {
         this.inited = true;
         this.query = res.data.data;
         Object.assign(this.$route.query, this.query);
+        console.log('获取患者信息接口===========>',this.query)
         // getPatientInfo
         window.app.$store.commit(
           "upCurrentPatientObj",
@@ -138,6 +153,8 @@ export default {
         东莞市谢岗医院: "topPartXiegang",
         佛山市第一人民医院:"topPartFSSY",
         阳春中医院:"topPartYC",
+        武汉市肺科医院:"topPartWHFK",
+        临邑县人民医院:"topPartLYXRM"
       };
       return hisList[HisName] || "topPart";
     },
@@ -171,6 +188,7 @@ export default {
     topPartHuaDu,
     topPartWuJing,
     topPartLiaoCheng,
+    topPartLYXRM,
     topPartZhongShanQi,
     topPartShanNan,
     topPartFSSY,
@@ -184,6 +202,8 @@ export default {
     leftPartFuyou,
     leftPartHuadu,
     topPartYC,
+    leftPartFSXT,
+    topPartWHFK
   },
 };
 </script>

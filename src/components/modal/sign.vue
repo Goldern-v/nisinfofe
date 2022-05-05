@@ -34,12 +34,12 @@
           type="datetime"
           align="center"
           format="yyyy-MM-dd HH:mm"
-          placeholder="输入签名时间"
+          placeholder="输入审核时间"
         ></el-date-picker>
         <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
       </div>
     </span>
-    <span v-show="showUserName&&!pw">
+    <span>
       <p for class="name-title">输入用户名或者工号</p>
       <div action class="sign-input" ref="userInput">
         <el-input
@@ -52,7 +52,8 @@
       </div>
     </span>
     <div style="height: 5px"></div>
-    <span v-if="HOSPITAL_ID == 'fuyou'" v-show="!pw">
+    <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)" v-show="!pw">
+    <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)" v-show="!pw"> -->
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -68,9 +69,10 @@
       <div ref="passwordInput">
         <el-input
           size="small"
-          type="password"
+          type="text"
           :placeholder="placeholder"
           v-model="password"
+          class="passwordInput"
         ></el-input>
       </div>
     </span>
@@ -92,7 +94,8 @@
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
 
-    <span v-if="['fuyou'].includes(HOSPITAL_ID)&&formData">
+    <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&formData">
+    <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)&&formData"> -->
       <p class="name-title">
         验证方式
         <span :style="{ color: fuyouCaData && fuyouCaData.userName ? 'green' : 'red' }">
@@ -102,10 +105,11 @@
       </p>
     </span>
     <div style="margin-top: 5px">
-      <span @click="openFuyouCaSignModal" class="loginCa" v-if="['fuyou'].includes(HOSPITAL_ID)&&!fuyouCaData"
+      <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&!fuyouCaData&&formData"
         >ca登录</span
       >
-      <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData&&formData">
+      <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&fuyouCaData&&formData">
+      <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData&&formData"> -->
         开启ca签名<el-switch v-model="isCaSign"></el-switch>
       </span>
       
@@ -136,6 +140,9 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.passwordInput {
+  -webkit-text-security: disc;
+}
 .name-title {
   font-size: 14px;
   margin: 5px 0 10px;
@@ -176,7 +183,9 @@
 import dayjs from "dayjs";
 import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
-import { getCaSignJmfy } from "@/api/ca-sign_fuyou.js";
+import { getCaSignJmfy,verifyData } from "@/api/ca-sign_fuyou.js";
+import moment from "moment";
+import md5 from "md5";
 export default {
   props: {
     title: {
@@ -227,23 +236,30 @@ export default {
       fuyouCaData:null,
       isCaSign:false,
       signType:0,
-      isDoctor:false
+      isDoctor:false,
+      aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey'],
+      activeSheetType:"",
+      // hasQrCaSignHos:['fuyou','hj'],
+      hasQrCaSignHos:['fuyou','hj','guizhou'],
+      // caSignHasNoSignType:['hj'],
+      caSignHasNoSignType:['hj','guizhou']
     };
   },
   methods: {
     showSignBtn(){
-      if(['fuyou'].includes(this.HOSPITAL_ID)){
+      if(this.hasQrCaSignHos.includes(this.HOSPITAL_ID)){
+      // if(['fuyou'].includes(this.HOSPITAL_ID)){
         return this.isCaSign
       }else{
         return false
       }
     },
     hasCaSign(){
-      let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
+      let flag = this.hasQrCaSignHos.includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
+      // let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
     return !!flag
     },
-    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure) {//formData为表单数据
-    console.log(doctorTure)
+    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType) {//formData为表单数据
     if(doctorTure){
       this.isDoctor = doctorTure
       this.isCaSign = false;
@@ -255,6 +271,13 @@ export default {
       let signType = {sign:'1',audit:'2'};
       this.signType = signType[type];
     };
+    if(sheetType){
+      if(this.aduitDateSheet.includes(sheetType)){
+        this.showAduit=true
+        this.activeSheetType=sheetType
+        this.aduitDate=moment().format('yyyy-MM-DD HH:mm')
+      }
+    }
      (formData) && (this.formData=formData);//设置表单数据
       this.initFuyouCaData()
       // console.log('isHengliNursingFormzczxczxcxzczx', isHengliNursingForm);
@@ -316,11 +339,14 @@ export default {
             });
         });
       }
-
+      console.log(this.formData);
       return null;
     },
     close() {
       this.isDoctor =false
+      this.showAduit=false
+      this.activeSheetType=""
+      this.formData = null
       this.$refs.modalName.close();
     },
     setCloseCallback(closeCallback) {
@@ -339,10 +365,11 @@ export default {
             });
           }
           this.$refs.modalName.close();
+          let requestPW = (this.HOSPITAL_ID=='foshanrenyi'&&this.password!='Bcy@22qw')?md5(this.password) : this.password
           if (this.signDate) {
-            return this.callback(this.password, this.username, this.signDate);
+            return this.callback(requestPW, this.username, this.signDate);
           } else {
-            return this.callback(this.password, this.username);
+            return this.callback(requestPW, this.username);
           }
           parent.app.bus.$emit("assessmentRefresh");
         } else {
@@ -385,13 +412,17 @@ export default {
           console.log(!this.isDoctor);
           return this.callback(this.password,this.username);
         }
+        // 执行这个逻辑
+        if(this.aduitDate!=''&&this.aduitDateSheet.includes(this.activeSheetType)){
+            this.showAduit=false 
+            this.activeSheetType=""
+            return this.callback(this.password, this.username, this.aduitDate);
+        }
         if (this.signDate) {
           return this.callback(this.password, this.username, this.signDate);
         }else {
             return this.callback(this.password, this.username);
         }
-
-      
       }
     },
     openCaSignModal() {
@@ -401,7 +432,7 @@ export default {
     //江门妇幼ca签名
     caPost(){
       if(!this.formData) return false
-      const parmas={
+      let parmas={
         signType:this.signType,
         patientName:this.formData.patientName,//-- 患者名称
         patientSex:this.formData.sex,// -- 患者性别
@@ -412,13 +443,38 @@ export default {
         templateId:"hash", //-- 模板id
         formId:`${this.formData.id}`,// -- 表单ID
       };
-      getCaSignJmfy(parmas).then(res=>{
+      if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){
+        console.log(this.formData);
+        parmas = {
+            "accessToken":sessionStorage.getItem('accessToken'),
+            "userId":this.fuyouCaData.userId, 
+            formId:`${this.formData.id}`,
+            "transactionId":this.fuyouCaData.transactionId,
+            "authKey":this.fuyouCaData.authKEY, 
+            "fileName":`${this.formData.name}_${this.formData.code}`
+        }
+      }
+      getCaSignJmfy(parmas).then(async res=>{
+        let aduitDate = 'isCaSign'
+        let pwd = ''
+        let username = ''
+        if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){
+          let fileCode = res.data.data.data.fileCode
+          aduitDate = ''
+          let hjRes = await verifyData(sessionStorage.getItem('accessToken'),fileCode,parmas.userId)
+          if(hjRes.data.code!=200) return this.$message({
+            type:'error',
+            message:hjRes.data.desc
+          })
+          pwd = hjRes.data.data.password
+          username = hjRes.data.data.empNo
+        }
         this.$message({
           type:'success',
           message:res.data.desc
         })
         this.close()
-        return this.callback(localStorage.ppp, this.username,"",'isCaSign');
+        return this.callback(pwd || localStorage.ppp, username || this.username,"",aduitDate);
       }).catch(error=>{
         // this.$message({
         //   type:'warning',
@@ -436,6 +492,9 @@ export default {
     openFuyouCaSignModal(){
       window.openFuyouCaSignModal(true);
     },
+    openHjCaSignModal(){
+      window.openHjCaSignModal(true);
+    }
   },
   watch:{
     isCaSign(val){

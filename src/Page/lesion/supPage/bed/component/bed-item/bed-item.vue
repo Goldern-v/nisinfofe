@@ -26,6 +26,14 @@ export default {
         }
       }
       return "";
+    },
+    //过滤体重单位伟null情况
+    filterWeight(val){
+      if(val && val!=''){
+        return val.replace(/null/g, "KG")
+      }else {
+        return ""
+      }
     }
   },
   methods: {

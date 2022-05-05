@@ -36,6 +36,16 @@
             </el-radio>
           </el-radio-group>
         </el-row>
+        <!-- 模糊查询 -->
+        <span class="newSearchBox" v-if="searchHisList.includes(HOSPITAL_ID)">
+          <el-input
+            placeholder="请输入医嘱内容"
+            prefix-icon="el-icon-search"
+            class="newSearch"
+            v-model="orderText">
+          </el-input>
+          <el-button class="searchBt" type="primary" @click="getData">查询</el-button>
+        </span>
         <div style="flex: 1"></div>
         <el-button
           class="select-btn"
@@ -104,6 +114,18 @@
     color: #333;
   }
 }
+.newSearchBox{
+  .newSearch{
+    width: 180px;
+    margin-left: 10px;
+    height: 70px;
+    line-height: 70px;
+  }
+  .searchBt{
+    position relative;
+  }
+}
+
 
 .select-nav {
   height: 34px;
@@ -166,7 +188,9 @@ import adviceTableLiaocheng from "./component/adviceTable_liaocheng";
 import adviceTableFy from "./component/adviceTable_fuyou";
 import adviceTableXiegang from "./component/adviceTable_xiegang.vue";
 import adviceTableBeihairenyi from "./component/adviceTable_beihairenyi.vue";
-import { orders } from "@/api/patientInfo";
+import adviceTableWHFK from "./component/adviceTable_whfk.vue";
+import adviceTableSDLJ from "./component/adviceTable_sdlj.vue";
+import { orders, newOrders } from "@/api/patientInfo";
 import {getProcedureData} from '@/api/common'
 import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
 export default {
@@ -178,7 +202,11 @@ export default {
       tableLoading: false,
       statusList: [],
       dataRes:[],
-      data2Res:[]
+      data2Res:[],
+      orderText:"",//模糊查询值
+      searchHisList:["beihairenyi"],//有模糊查询方法医院
+      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk'], // 需要添加rowType(同一医嘱内第几条记录)的医院
+      specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi'] // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
     };
   },
   computed: {
@@ -213,12 +241,7 @@ export default {
         });
       }
       // console.log(data);
-      if ([
-            'liaocheng',
-            'fuyou',
-            'hengli',
-            'guizhou',
-          ].includes(this.HOSPITAL_ID)) {
+      if (this.duplicateRemoval.includes(this.HOSPITAL_ID)) {
         data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
@@ -233,21 +256,15 @@ export default {
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
-              if(this.HOSPITAL_ID=='fuyou' || this.HOSPITAL_ID == "guizhou"){
-                item.specialSymbols ="┓"
-              }
+              this.specialSymbolsHos.includes(this.HOSPITAL_ID) && (item.specialSymbols ="┓")
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
-              if(this.HOSPITAL_ID=='fuyou' || this.HOSPITAL_ID == "guizhou"){
-                item.specialSymbols ="┛"
-              }
+              this.specialSymbolsHos.includes(this.HOSPITAL_ID) && (item.specialSymbols ="┛")
             } else {
               /** 中间条 */
               item.rowType = 2;
-              if(this.HOSPITAL_ID=='fuyou' || this.HOSPITAL_ID == "guizhou"){
-                item.specialSymbols ="┃"
-              }
+              this.specialSymbolsHos.includes(this.HOSPITAL_ID) && (item.specialSymbols ="┃")
             }
           } else {
             item.rowType = 1;
@@ -269,6 +286,8 @@ export default {
         guizhou:"adviceTableGuizhou",
         xiegang:"adviceTableXiegang",
         beihairenyi:"adviceTableBeihairenyi",
+        whfk:'adviceTableWHFK',
+        sdlj:"adviceTableSDLJ",
         default:"adviceTable",
       }
       if(idToCom[HOSPITAL_ID]){
@@ -330,11 +349,25 @@ export default {
     },
     getData() {
       this.tableLoading = true;
-      orders(this.infoData.patientId, this.infoData.visitId).then((res) => {
-        this.tableLoading = false;
-        this.tableData = res.data.data;
-        this.dataRes = res.data.data
-      });
+      //是否有模糊查询功能
+      if(this.searchHisList.includes(this.HOSPITAL_ID)){
+        newOrders(this.infoData.patientId, this.infoData.visitId,this.orderText).then((res) => {
+          this.tableLoading = false;
+          this.tableData = res.data.data;
+          this.dataRes = res.data.data;
+          this.btn="1";
+          this.radio= "全部";
+          //this.getStatusList();
+        });
+      }else {
+        orders(this.infoData.patientId, this.infoData.visitId).then((res) => {
+          this.tableLoading = false;
+          this.tableData = res.data.data;
+          this.dataRes = res.data.data
+        });
+      }
+      
+      
     },
     syncGetPatientOrders() {
       this.$message.info("正在同步数据...");
@@ -372,7 +405,9 @@ export default {
     adviceTableLiaocheng,
     adviceTableXiegang,
     adviceTableBeihairenyi,
-    adviceTableFy
+    adviceTableWHFK,
+    adviceTableFy,
+    adviceTableSDLJ
   },
 };
 </script>

@@ -10,7 +10,25 @@
     :style="style"
     ref="autoBox"
   >
-    <div class="el-scrollbar">
+  <!-- 下拉框显示序号+内容 -->
+  <div id="scrollbar-width" class="el-scrollbar" v-if="data[0] && typeof (data[0]) == 'object'">
+      <div
+        class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+      >
+        <ul class="el-scrollbar__view el-autocomplete-suggestion__list" style="position: relative;">
+          <li
+            class
+            @click.stop="post(item.value, index)"
+            v-for="(item, index) in data"
+            :key="item.value"
+            :class="{autoSelected: index == selectIndex}"
+          >{{item.name}}</li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- 下拉框只显示序号 -->
+    <div class="el-scrollbar" v-else>
       <div
         class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
       >
@@ -51,6 +69,7 @@
   position absolute;
   top 0;
   left 0;
+  z-index:99999;
 }
 .autoSelected {
   background: #EEF6F5 !important;
@@ -59,6 +78,12 @@
 #CrAutocomplete li:active {
   background: rgb(228, 241, 240);
 }
+
+#scrollbar-width {
+  min-width: 240px;
+  max-width: 300px;
+}
+
 .child-scrollBar {
   width: 100%;
   position: absolute;

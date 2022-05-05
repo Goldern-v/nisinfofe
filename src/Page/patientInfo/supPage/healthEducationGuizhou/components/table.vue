@@ -30,7 +30,7 @@
           <!-- 教育时间 -->
 
           <td>
-            <span>{{ data["教育时间"] }}</span>
+            <span>{{ data["教育时间"].replace(/([0-9]{4}\-)/, '') }}</span>
           </td>
           <!-- 宣教内容 -->
           <td
@@ -196,7 +196,7 @@ export default {
         console.log('res.data.instance.content', res.data.data.instance.content);
         this.$message.success("保存成功");
         this.$refs.healthContentModal.close();
-        
+
       });
     },
     init() {
@@ -298,7 +298,7 @@ export default {
     line-height: 50px;
   }
   .education-table {
-    width: 660px;
+    width: 620px;
     color: #000;
     border-collapse: collapse;
     thead {

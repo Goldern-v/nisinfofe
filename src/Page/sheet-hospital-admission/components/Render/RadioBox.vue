@@ -203,10 +203,19 @@ export default {
       //
       //
       let score = 0;
+      let sumdata = 0;
+      let str = ''
       // 计算总分
       if (this.formObj.selectedItems) {
         this.formObj.selectedItems.map(item => {
-          score += ~~item.score;
+          if(this.formObj.formSetting.formInfo.formCode == 'E0616'){
+            console.log(this.formObj.model["I616001"],"this.formObj")
+          score =  (this.formObj.model["I616001"]?this.formObj.model["I616001"]:"_")+"+"+(this.formObj.model["I616002"]?this.formObj.model["I616002"]:"_")+"+"+(this.formObj.model["I616003"]?this.formObj.model["I616003"]:"_")
+       
+          return score
+          }else{
+            score += ~~item.score;
+          }
         });
       }
       //

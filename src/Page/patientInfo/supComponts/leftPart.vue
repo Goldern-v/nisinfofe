@@ -33,6 +33,11 @@
           <div class="list-li">住院号：{{ info.patientId }}</div>
           <div class="list-li">住院次数：{{ info.visitId }}</div>
         </div>
+        <div class="list-box" v-else-if="this.HOSPITAL_ID == 'foshanrenyi'">
+          <div class="list-li">住院号：{{ info.patientId }}</div>
+          <div class="list-li">记账号：{{ info.inpNo }}</div>
+          <div class="list-li">住院次数：{{ info.visitId }}</div>
+        </div>
         <div class="list-box" v-else>
           <div class="list-li">ID：{{ info.patientId }}</div>
           <div class="list-li">住院号：{{ info.inpNo }}</div>
@@ -58,7 +63,7 @@
           <div class="list2-li">科室：{{ info.deptName }}</div>
           <div class="list2-li">
             入院：{{
-            ['huadu','liaocheng'].includes(HOSPITAL_ID)
+            ['huadu','liaocheng', 'wujing'].includes(HOSPITAL_ID)
                 ? info.admissionWardDateTime
                 : info.admissionDate
             }}(第{{ info.inpDay }}天)
@@ -157,6 +162,8 @@
     <bedModalZsq ref="bedModalZsq"></bedModalZsq>
     <bedModalBh ref="bedModalBh"></bedModalBh>
     <bedModalQz ref="bedModalQz"></bedModalQz>
+    <bedModalSDLJ ref="bedModalSDLJ"></bedModalSDLJ>
+    <bedModalWhfk ref="bedModalWhfk"></bedModalWhfk>
     <printModal ref="printModal"></printModal>
     <archiveModal
       ref="archiveModal"
@@ -297,6 +304,7 @@
 <script>
 import bedModal from "./modal/bed-modal.vue";
 import bedModalWujing from "./modal/bed-modal_wujing.vue";
+import bedModalSDLJ from "./modal/bed-modal-sdlj.vue";
 import bedModalWx from "./modal/bed-modal_wx.vue";
 import bedModalLc from "./modal/bed-modal_lc.vue";
 import bedModalLiaocheng from "./modal/bed-modal_liaocheng.vue";
@@ -305,6 +313,7 @@ import bedModalHd from "./modal/bed-modal-hd.vue";
 import bedModalZsq from "./modal/bed-modal-zsq.vue";
 import bedModalBh from "./modal/bed-modal-bh.vue";
 import bedModalQz from "./modal/bed-modal-qz.vue";
+import bedModalWhfk from "./modal/bed-modal-whfk.vue"
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
 import { previewArchive } from "./modal/api/index";
@@ -339,8 +348,10 @@ export default {
     },
     // 床头卡打印
     openBedPrint(printMode) {
+      
       let hospital_left = {
         wujing:'bedModalWujing',
+        sdlj:'bedModalSDLJ',
         weixian:'bedModalWx',
         lingcheng:'bedModalLc',
         liaocheng:'bedModalLiaocheng',
@@ -348,6 +359,7 @@ export default {
         zhongshanqi:'bedModalZsq',
         beihairenyi:'bedModalBh',
         quzhou:'bedModalQz',
+        whfk:'bedModalWhfk',
         // nanfangzhongxiyi:'bedModalNfzxy',
       }
       if(hospital_left[this.HOSPITAL_ID]){
@@ -408,7 +420,7 @@ export default {
     window.document.title = `${this.info.bedLabel}-${this.info.name}`;
   },
   mounted() {
-    this.getArchiveStatus(); 
+    this.getArchiveStatus();
   },
   components: {
     bedModal,
@@ -416,6 +428,7 @@ export default {
     bedModalWx,
     bedModalWujing,
     bedModalLc,
+    bedModalSDLJ,
     bedModalLiaocheng,
     // bedModalNfzxy,
     archiveModal,
@@ -423,7 +436,8 @@ export default {
     InpatientRegis,
     bedModalZsq,
     bedModalBh,
-    bedModalQz
+    bedModalQz,
+    bedModalWhfk
   }
 };
 </script>

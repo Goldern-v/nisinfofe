@@ -14,9 +14,11 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
+import { size } from "lodash";
 let 入量名称 = [];
 let 出量名称 = [];
-let 意识 = ['(-)', '(+)', '(++)', '(+++)', '(△)', '(√)',];
+// let 意识 = ['(-)', '(+)', '(++)', '(+++)', '(△)', '(√)',];
+let ysList = [];
 
 export default [
   {
@@ -44,7 +46,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 27
+      width: 30
     },
   },
   {
@@ -55,7 +57,7 @@ export default [
     name: "脉搏",
     next: "次/分",
     textarea: {
-      width: 35
+      width: 40
     },
   },
   {
@@ -66,7 +68,7 @@ export default [
     name: "呼吸",
     next: "次/分",
     textarea: {
-      width: 35
+      width: 40
     },
   },
   {
@@ -83,7 +85,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 45
+      width: 42
     },
   },
   {
@@ -93,10 +95,10 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
     name: "意识",
     autoComplete: {
-      data: 意识
+      data: ysList
     },
     textarea: {
-      width: 40
+      width: 30
     },
   },
   {
@@ -104,9 +106,9 @@ export default [
     value: "",
     event: keyf1,
     name: "入量名称",
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 40),
     textarea: {
-      width: 65,
+      width: 135,
     },
     autoComplete: {
       data: 入量名称
@@ -212,11 +214,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "410px",
+      width: "340px",
       background: "transparent",
     },
     textarea: {
-      width: 410
+      width: 340
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -307,4 +309,29 @@ export default [
     value: true,
   },
 ];
+
+export function getListData() {
+  let list = [
+    "南方中西医:护理记录单:意识",
+  ];
+
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(ysList, list[0], data);
+  });
+}
+
+getListData();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}
 

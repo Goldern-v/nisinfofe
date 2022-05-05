@@ -17,6 +17,7 @@
 <script>
 import bus from "vue-happy-bus";
 import nullBg from "@/components/null/null-bg";
+import { getPatient360View } from './../../api';
 export default {
   data() {
     return {
@@ -37,10 +38,34 @@ export default {
     //   this.fileUrl = fileUrl;
     //   this.show = false;
     // });
-    let vid=window.app.$store.state.patient.currentPatient.inpNo
-    if(this.HOSPITAL_ID == 'huadu' && vid){
+    // window.addEventListener("message", (data)=>{
+    //   console.log(data);
+    // }, false);
+    let vid=window.app.$store.state.patient.currentPatient.inpNo;
+    const currentPatient=window.app.$store.state.patient.currentPatient;//patientId
+    //console.log(window.app.$store.state.patient.currentPatient)
+    if(this.HOSPITAL_ID && vid){
       this.show = false;
-      this.fileUrl = `http://172.16.8.41:5402/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+      //const personInfoUrl="http://172.16.8.41:5402";
+      switch(this.HOSPITAL_ID){
+        case "huadu":
+          //this.fileUrl = `/newCrNursing/personInfoUrl/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+          //this.fileUrl = `http://172.16.8.41:5402/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+          this.fileUrl = `http://172.16.8.135:9092/?vid=${vid}&vidType=02&appId=360&security=123#/personInfo`;
+          break;
+        case "fuyou":
+          this.fileUrl = `http://192.168.19.198:8282/templates/medicalRecord/medicalRecordViewPreview.html?embedded-view=true&req_no=${currentPatient.patientId}&type=2`;
+          break; 
+        case "foshanrenyi":
+          this.fileUrl = `http://hz360.fsyyy.com:8081/cdr/personal/?patientId=${currentPatient.patientId}&visitNumber=1&systemcode=HLXT&doctorcode=000000&oporIp=IP`;
+          break; 
+        case "lyxrm":
+        case "liaocheng":
+          this.getUrl();
+          break; 
+        default:
+          break; 
+      }
     }
   },
   computed: {
@@ -57,6 +82,19 @@ export default {
       setTimeout(() => {
         wid.document.getElementById("toolbar").style.display = "none";
       }, 2000);
+    },
+    //获取url
+    getUrl(){
+      const currentPatient=window.app.$store.state.patient.currentPatient;//patientId
+      getPatient360View(currentPatient.patientId).then(res=>{
+        try {
+          this.fileUrl=res.data.data.url;
+        } catch (error) {
+          console.log(error)
+        }
+      }).catch(error=>{
+        console.log(error)
+      })
     }
   }
 };

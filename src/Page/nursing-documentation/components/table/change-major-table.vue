@@ -16,6 +16,14 @@
       ></el-table-column>
 
       <el-table-column
+         v-if="['huadu'].includes(HOSPITAL_ID)"
+         prop="patientId"
+         label="住院号"
+         min-width="60"
+         align="center"
+      ></el-table-column>
+      <el-table-column
+         v-else
          prop="inpNo"
          label="住院号"
          min-width="60"
@@ -43,7 +51,7 @@
       ></el-table-column>
 
       <el-table-column
-        prop="bedLabel"
+        :prop="HOSPITAL_ID === 'beihairenyi' ? 'bedNo' : 'bedLabel'"
         label="床号"
         min-width="40"
         align="center"

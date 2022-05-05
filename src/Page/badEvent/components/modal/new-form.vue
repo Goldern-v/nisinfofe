@@ -157,7 +157,7 @@ export default {
         name: "badEventEdit",
         params: {
           id: item.wardCode || 1,
-          name: item.name,
+          name: item.name.replace(/\.html$/, ''),
           operation: "create",
           type: data.badEventType,
           code: data.badEventCode

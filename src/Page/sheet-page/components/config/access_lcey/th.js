@@ -6,35 +6,22 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: "",
-  style: {
-    width: "1200px"
-  },
+  // style: {
+  //   width: "1200px"
+  // },
   th: {
-    top: [{
-        name: currYear(),
+    top: [
+      {
+        name: '',
+        style: {},
         colspan: "2",
         rowspan: "1",
-        style: {
-          minWidth: "82px"
-        },
-        canSet: true,
-        key: "recordYear",
+        key:'recordYear'
       },
       {
         name: "入量(ml)",
-        style: {
-          width: "30px"
-        },
-        colspan: "6",
+        colspan: "5",
         rowspan: "1"
-      },
-      {
-        name: "余液",
-        style: {
-          width: "30px"
-        },
-        colspan: "1",
-        rowspan: "3"
       },
       {
         name: "出量(ml)",
@@ -47,7 +34,8 @@ export default {
       {
         name: "平衡",
         style: {
-          width: "30px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         colspan: "1",
         rowspan: "3"
@@ -60,7 +48,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: '55px',
+          maxWidth: '55px',
         },
       },
       {
@@ -70,27 +59,52 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: '55px',
+          maxWidth: '55px',
         },
       },
       {
         name: `
         静脉
         `,
-        colspan: "2",
-        rowspan: "1",
+        colspan: "1",
+        rowspan: "2",
         style: {
-          width: "30px"
+          minWidth: '155px',
+          maxWidth: '155px',
+        },
+      },
+      {
+        name: `
+        入量
+        `,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
         name: `
         胃肠
         `,
-        colspan: "3",
-        rowspan: "1",
+        colspan: "1",
+        rowspan: "2",
         style: {
-          width: "30px"
+          minWidth: '75px',
+          maxWidth: '75px',
+        },
+      },
+      {
+        name: `
+        入量
+        `,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '35px',
+          maxWidth: '35px',
         },
       },
       {
@@ -100,7 +114,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "62px"
+          minWidth: '35px',
+          maxWidth: '35px',
         },
       },
       {
@@ -110,7 +125,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "30px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -120,7 +136,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -130,7 +147,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -140,17 +158,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
-        },
-      },
-      {
-        name: `
-        汗液量
-        `,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          width: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -160,9 +169,11 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
-        canSet: true
+        canSet: true,
+        key: "customTitle1",
       },
       {
         name: `
@@ -171,68 +182,37 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
-        canSet: true
+        canSet: true,
+        key: "customTitle2",
       },
       {
         name: `
-        总出量
+        标题3
         `,
         colspan: "1",
         rowspan: "2",
         style: {
-          width: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
+        },
+        canSet: true,
+        key: "customTitle3",
+      },
+      {
+        name: `
+        出量
+        `,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       }
     ],
-    bottom: [{
-        name: `
-        液体
-        `,
-        colspan: "1",
-        rowspan: "1",
-        style: {
-          width: "40px"
-        },
-      }, {
-        name: `
-        血制品
-        `,
-        colspan: "1",
-        rowspan: "1",
-        style: {
-          width: "40px"
-        },
-      }, {
-        name: `
-        饮食
-        `,
-        colspan: "1",
-        rowspan: "1",
-        style: {
-          width: "40px"
-        },
-      }, {
-        name: `
-        口服药
-        `,
-        colspan: "1",
-        rowspan: "1",
-        style: {
-          width: "40px"
-        },
-      }, {
-        name: `
-        肠内营养
-        `,
-        colspan: "1",
-        rowspan: "1",
-        style: {
-          width: "40px"
-        },
-      },
-
-    ]
+    bottom: []
   }
 };

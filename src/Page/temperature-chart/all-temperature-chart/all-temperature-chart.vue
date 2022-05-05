@@ -36,7 +36,10 @@
           clearable
         />
       </span>
-      <div class="times" v-if="['huadu', 'fuyou'].includes(HOSPITAL_ID)">
+      <div
+        class="times"
+        v-if="['huadu', 'fuyou', 'fsxt'].includes(HOSPITAL_ID)"
+      >
         <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
           <input
             type="radio"
@@ -68,7 +71,7 @@
       <div
         class="times"
         v-if="
-          ['quzhou', 'wujing', 'nanfangzhongxiyi', 'foshanshiyi'].includes(
+          ['quzhou', 'wujing', 'nanfangzhongxiyi', 'foshanrenyi'].includes(
             HOSPITAL_ID
           )
         "
@@ -143,6 +146,19 @@
           cell-mouse-enter
         >
           <el-table-column
+            v-if="levelColorHis.includes(HOSPITAL_ID)"
+            prop="nursingClass"
+            label="护理等级"
+            min-width="90"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <div :style="rowStyle(scope.row)">
+                {{ scope.row.nursingClass }}
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="bedLabel"
             label="床号"
             min-width="60"
@@ -184,9 +200,15 @@
           >
             <template slot-scope="scope">
               <!-- <el-input v-model="scope.row.temperature"></el-input> -->
-              <custom-input
+              <input
                 v-model="scope.row.temperature"
-                colClass="temperature"
+                :class="className"
+                class="temperature"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
               />
             </template>
           </el-table-column>
@@ -197,7 +219,16 @@
             min-width="80"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.pulse" colClass="pulse" />
+              <input
+                v-model="scope.row.pulse"
+                class="pulse"
+                :class="className"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
               <!-- <el-input v-model="scope.row.pulse"></el-input> -->
             </template>
           </el-table-column>
@@ -208,7 +239,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.breath" colClass="breath" />
+              <input
+                v-model="scope.row.breath"
+                :class="className"
+                class="breath"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.breath" class="breath" /> -->
               <!-- <el-input v-model="scope.row.breath"></el-input> -->
             </template>
           </el-table-column>
@@ -220,10 +261,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.bloodPressure"
-                colClass="bloodPressure"
+                :class="className"
+                class="bloodPressure"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
@@ -235,7 +283,20 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.amBp" colClass="bloodPressure" />
+              <input
+                v-model="scope.row.amBp"
+                :class="className"
+                class="amBp"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input
+                v-model="scope.row.amBp"
+                class="bloodPressure"
+              /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
@@ -247,19 +308,130 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.pmBp" colClass="bloodPressure" />
+              <input
+                v-model="scope.row.pmBp"
+                :class="className"
+                class="pmBp"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.pmBp" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
-          <el-table-column
+           <el-table-column
+           v-if="HOSPITAL_ID !== 'guizhou'"
             prop="stoolNum"
             label="大便次数"
             min-width="80"
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.stoolNum" colClass="stoolNum" />
-              <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="
+                  !(
+                    shitOption &&
+                    shitOption.length > 0
+                  )
+                "
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in shitOption"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.stoolNum = option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
+                <input
+                  slot="reference"
+                  v-model="scope.row.stoolNum"
+                  :class="className"
+                  class="stoolNum"
+                  type="text"
+                  @keydown="handleKeyDown"
+                  @keyup="handleKeyUp"
+                  v-on:input="validFormFc"
+                  @click="toRow"
+                />
+              </el-popover>
+            </template>
+          </el-table-column>
+           <el-table-column
+           v-if="HOSPITAL_ID === 'guizhou'"
+            prop="stoolNum"
+            label="大便"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="
+                  !(
+                    totalDictInfo['大便'].options &&
+                    totalDictInfo['大便'].options.length > 0
+                  )
+                "
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in totalDictInfo['大便'].options"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.stoolNum = option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
+                <input
+                  slot="reference"
+                  v-model="scope.row.stoolNum"
+                  :class="className"
+                  class="stoolNum"
+                  type="text"
+                  @keydown="handleKeyDown"
+                  @keyup="handleKeyUp"
+                  v-on:input="validFormFc"
+                  @click="toRow"
+                />
+              </el-popover>
+            </template>
+          </el-table-column>
+          <el-table-column
+            v-if="HOSPITAL_ID === 'liaocheng'"
+            prop="painScore"
+            label="疼痛"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.painScore"
+                :class="className"
+                class="painScore"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.painScore" class="painScore" /> -->
+              <!-- <el-input v-model="scope.row.painScore"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -270,10 +442,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.heartRate"
-                colClass="heartRate"
+                :class="className"
+                class="heartRate"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.heartRate" class="heartRate" /> -->
               <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
@@ -285,10 +464,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.heartRate"
-                colClass="heartRate"
+                :class="className"
+                class="heartRate"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.heartRate" class="heartRate" /> -->
               <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
@@ -300,10 +486,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.fieldThree"
-                colClass="fieldThree"
+                :class="className"
+                class="fieldThree"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.fieldThree" class="fieldThree" /> -->
               <!-- <el-input v-model="scope.row.fieldThree"></el-input> -->
             </template>
           </el-table-column>
@@ -315,10 +508,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.drainage"
-                colClass="fieldThree"
+                :class="className"
+                class="drainage"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.drainage" class="fieldThree" /> -->
               <!-- <el-input v-model="scope.row.fieldThree"></el-input> -->
             </template>
           </el-table-column>
@@ -330,7 +530,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.foodSize" colClass="foodSize" />
+              <input
+                v-model="scope.row.foodSize"
+                :class="className"
+                class="foodSize"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.foodSize" class="foodSize" /> -->
               <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
             </template>
           </el-table-column>
@@ -342,7 +552,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.foodSize" colClass="foodSize" />
+              <input
+                v-model="scope.row.foodSize"
+                :class="className"
+                class="foodSize"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.foodSize" class="foodSize" /> -->
               <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
             </template>
           </el-table-column>
@@ -354,10 +574,17 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.dischargeSize"
-                colClass="dischargeSize"
+                :class="className"
+                class="dischargeSize"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.dischargeSize" class="dischargeSize" /> -->
               <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
             </template>
           </el-table-column>
@@ -369,22 +596,39 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.dischargeSize"
-                colClass="dischargeSize"
+                :class="className"
+                class="dischargeSize"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.dischargeSize" class="dischargeSize" /> -->
               <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID === 'quzhou'"
+            v-if="HOSPITAL_ID === 'quzhou' || HOSPITAL_ID === 'liaocheng'"
             prop="height"
             label="身高"
             min-width="80"
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input v-model="scope.row.height" colClass="curWeight" />
+              <input
+                v-model="scope.row.height"
+                :class="className"
+                class="height"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.height" class="curWeight" /> -->
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
@@ -395,52 +639,86 @@
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.curWeight"
-                colClass="curWeight"
+                :class="className"
+                class="curWeight"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
+              <!-- <input v-model="scope.row.curWeight" class="curWeight" /> -->
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            v-if="HOSPITAL_ID === 'guizhou'||HOSPITAL_ID === 'quzhou'"
-            prop="nursingEvent"
-            label="护理事件"
-            min-width="100"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <custom-input
-                v-model="scope.row.nursingEvent"
-                colClass="curWeight"
-              />
-              <el-input v-model="scope.row.curWeight"></el-input> 2021-09-25
-            </template>
-          </el-table-column> -->
-          <!-- <el-table-column
-            prop="height"
-            label="身高"
-            min-width="60"
-            align="center"
-          > -->
-          <!-- <template slot-scope="scope"> -->
-          <!-- <custom-input v-model="scope.row.height" colClass="height" /> -->
-          <!-- <el-input v-model="scope.row.height"></el-input> -->
-          <!-- </template> -->
-          <!-- </el-table-column> -->
+
           <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
+            v-if="HOSPITAL_ID === 'guizhou'"
             prop="painScore"
             label="疼痛"
             min-width="60"
             align="center"
           >
             <template slot-scope="scope">
-              <custom-input
+              <input
                 v-model="scope.row.painScore"
-                colClass="painScore"
+                :class="className"
+                class="painScore"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
               />
-              <!-- <el-input v-model="scope.row.painScore"></el-input> -->
+
+            </template>
+          </el-table-column>
+           <el-table-column
+            v-if="HOSPITAL_ID === 'guizhou'"
+            prop="nursingEvent"
+            label="病人事件"
+            min-width="100"
+            align="center"
+          >
+
+            <template slot-scope="scope">
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="
+                  !(
+                    totalDictInfo['病人事件'].options &&
+                    totalDictInfo['病人事件'].options.length > 0
+                  )
+                "
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in totalDictInfo['病人事件'].options"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.nursingEvent = option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
+                <input
+                  slot="reference"
+                  v-model="scope.row.nursingEvent"
+                  :class="className"
+                  class="nursingEvent"
+                  type="text"
+                  @keyup="handleKeyUp"
+                  v-on:input="validFormFc"
+                  @keydown="handleKeyDown"
+                  @click="toRow"
+                />
+              </el-popover>
             </template>
           </el-table-column>
         </el-table>
@@ -608,6 +886,36 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.all-temperature-chart-input {
+  width: 100%;
+  padding: 2px 5px;
+  margin: 0;
+  line-height: 20px;
+  border: 1px solid #ccc;
+  border-color: #ccc;
+  border-radius: 2px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s;
+  font-size: 14px;
+
+  &:focus {
+    border-color: #4bb08d;
+    background-color: #9adcc5;
+  }
+}
+
+.selection-dict-item {
+  height: 24px;
+  line-height: 24px;
+  padding: 0 5px;
+
+  &:hover {
+    background: rgb(111, 192, 164) !important;
+    color: #fff !important;
+  }
+}
+
 .all-temperature-chart {
   position: relative;
 
@@ -769,20 +1077,32 @@
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
-import { getPatientsInfo, saveOverAllTemperture } from "../api/api";
+import {
+  getPatientsInfo,
+  saveOverAllTemperture,
+  getmultiDict,
+} from "../api/api";
 import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
 import CustomInput from "./components/CustomInput.vue";
+import { validForm } from "../validForm/validForm";
+import { listItem } from "@/api/common.js";
 
 export default {
   mixins: [common],
   props: {},
   data() {
     return {
+      levelColor: null, //等级颜色
+      levelColorHis: ["wujing"], //显示护理等级及颜色医院his列表
       isSelectedPatient: "",
       patientList: [],
       isSelectedNurs: "",
+      handleKeyCode: [37, 38, 39, 40, 13],
+      colClass: "",
+      totalDictInfo: {},
+      shitOption:['灌肠','失禁','人工肛门','腹泻','※','☆','E','1/E','2/E','0/E','1 2/E','*/E','☆/E','3/2E'],
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now() - 8.64e6;
@@ -918,6 +1238,25 @@ export default {
                 return "22";
               }
             case "wujing":
+              if (this.getHours() >= 0 && this.getHours() <= 2) {
+                return "02";
+              }
+              if (this.getHours() > 2 && this.getHours() <= 6) {
+                return "06";
+              }
+              if (this.getHours() > 6 && this.getHours() <= 10) {
+                return "10";
+              }
+              if (this.getHours() > 10 && this.getHours() <= 14) {
+                return "14";
+              }
+              if (this.getHours() > 14 && this.getHours() <= 18) {
+                return "18";
+              }
+              if (this.getHours() > 18 && this.getHours() <= 23) {
+                return "22";
+              }
+            case "foshanrenyi":
               if (this.getHours() >= 0 && this.getHours() <= 2) {
                 return "02";
               }
@@ -1096,32 +1435,80 @@ export default {
     };
   },
   computed: {
-    tableData() {
-      return this.patientsInfoData.filter((item) => {
-        if (
-          ["beihairenyi"].includes(this.HOSPITAL_ID)
-          //北海过滤婴儿的患者，批量去批量婴儿护理记录单上录入
-        ) {
-          return (
-            (item.bedLabel.indexOf(this.searchWord) > -1 ||
-              item.name.indexOf(this.searchWord) > -1) &&
-            item.patientId &&
-            item.visitId !== "0"
-          );
-        } else {
-          return (
-            (item.bedLabel.indexOf(this.searchWord) > -1 ||
-              item.name.indexOf(this.searchWord) > -1) &&
-            item.patientId
-          );
-        }
-      });
+    className() {
+      return ["all-temperature-chart-input"].join(" ");
+    },
+    tableData: {
+      get() {
+        return this.patientsInfoData.filter((item) => {
+          if (
+            ["beihairenyi"].includes(this.HOSPITAL_ID)
+            //北海过滤婴儿的患者，批量去批量婴儿护理记录单上录入
+          ) {
+            return (
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId &&
+              item.visitId !== "0"
+            );
+          } else {
+            return (
+              (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId
+            );
+          }
+        });
+      },
+      set(value) {
+        // this.tableData = value;
+      },
     },
   },
   mounted() {
     this.query.wardCode = this.deptCode;
+    getmultiDict(this.query.wardCode).then((res) => {
+      res.data.data.map((item, index) => {
+        data[item.vitalSign] = item.vitalCode;
+        this.totalDictInfo[item.vitalSign] = {
+          ...item,
+          options: item.selectType ? item.selectType.split(",") : [],
+        };
+      });
+    });
+  },
+  created() {
+    window.addEventListener("keydown", this.keydownSave, false);
   },
   methods: {
+    //行样式
+    rowStyle(row) {
+      if (!this.levelColorHis.includes(this.HOSPITAL_ID)) {
+        return {};
+      }
+      switch (this.HOSPITAL_ID) {
+        case "wujing":
+          return {
+            backgroundColor: this.getBaColor(row),
+            color: "white",
+          };
+        default:
+          return {
+            backgroundColor: this.getBaColor(row),
+            color: "white",
+          };
+      }
+    },
+    //获取对应护理等级背景颜色
+    getBaColor(row) {
+      if (this.levelColor && row && row.nursingClass) {
+        return this.levelColor.find((item) => item.code == row.nursingClass)
+          ? this.levelColor.find((item) => item.code == row.nursingClass).name
+          : null;
+      } else {
+        return "";
+      }
+    },
     handlePatientChange() {},
     selectedNurs() {},
     getHours() {
@@ -1133,6 +1520,8 @@ export default {
       if (!this.deptCode) {
         return;
       }
+      this.reset(); //重置数组
+
       let data = Object.assign({}, this.query);
       if (this.HOSPITAL_ID === "guizhou") {
         data.entryDate = data.entryDate
@@ -1146,12 +1535,36 @@ export default {
         this.pageLoadng = true;
       }
 
-      getPatientsInfo(data).then((res) => {
+      getPatientsInfo(data).then(async (res) => {
         this.patientsInfoData = res.data.data;
         this.pageLoadng = false;
+        // console.log("接口数据", res.data.data);
+        try {
+          const {
+            data: { data: levelColor },
+          } = await listItem("nursing_level");
+          this.levelColor = levelColor;
+        } catch (error) {
+          console.log(error);
+        }
       });
     },
-
+    reset() {
+      this.patientList = [];
+      this.patientsInfoData = [];
+      this.tableData = [];
+    },
+    keydownSave(e) {
+      if (
+        e.keyCode === 13 &&
+        this.$route.path.includes("allTemperatureChart") &&
+        !["guizhou"].includes(this.HOSPITAL_ID)
+      ) {
+        this.saveAllTemperture();
+      } else {
+        return;
+      }
+    },
     saveAllTemperture() {
       this.pageLoadng = true;
       let data = {
@@ -1221,7 +1634,6 @@ export default {
       tempertureData.entryDate = tempertureData.entryDate
         ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
-
       saveOverAllTemperture(tempertureData).then((res) => {
         if (res.data.code === "200" && res.data.desc === "操作成功") {
           this.$message.success("保存成功");
@@ -1231,6 +1643,194 @@ export default {
         this.getData();
       });
     },
+    handleKeyDown(e) {
+      if (this.handleKeyCode.includes(e.keyCode)) {
+        this.colClass = e.target.className;
+        let rowIndex = e.path[3].rowIndex;
+        if (e.keyCode === 37) {
+          //处理左按键
+          if (e.target.selectionStart === 0) {
+            // 如果光标在开头，跳转前一个输入框
+            let inputEls = document.getElementsByClassName(
+              "all-temperature-chart-input"
+            );
+            let currentIdx = 0;
+            for (var i = 0; i < inputEls.length; ++i) {
+              if (e.target === inputEls[i]) currentIdx = i;
+            }
+            let prevIdx = currentIdx - 1;
+            inputEls[prevIdx] && inputEls[prevIdx].focus();
+          }
+        } else if (e.keyCode === 39) {
+          //处理右按键
+          if (e.target.selectionEnd === e.target.value.length) {
+            // 如果光标在末尾，跳转后一个输入框
+            let inputEls = document.getElementsByClassName(
+              "all-temperature-chart-input"
+            );
+            let currentIdx = 0;
+            for (var i = 0; i < inputEls.length; ++i) {
+              if (e.target === inputEls[i]) currentIdx = i;
+            }
+            let nextIdx = currentIdx + 1;
+            inputEls[nextIdx] && inputEls[nextIdx].focus();
+          }
+        } else {
+          //处理上下按键，跳转相同类名的输入框
+          let inputEls = document.getElementsByClassName(e.target.className);
+          let currentIdx = 0;
+
+          for (var i = 0; i < inputEls.length; ++i) {
+            if (e.target === inputEls[i]) currentIdx = i;
+          }
+          if (e.keyCode === 38) {
+            currentIdx--;
+          } else if (
+            e.keyCode === 40 ||
+            (e.keyCode === 13 && ["guizhou"].includes(this.HOSPITAL_ID))
+            //当贵州的时候，回车不调用保存事件，执行跳转到下一个患者的聚集性事件
+          ) {
+            currentIdx++;
+          }
+          inputEls[currentIdx] && inputEls[currentIdx].focus();
+        }
+      }
+    },
+    toRow(e) {
+      let rowIndex =e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
+        ? e.path[4].rowIndex
+        : e.path[3].rowIndex;
+      let tableElement = e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
+        ? e.path[5]
+        : e.path[4];
+      var trs = tableElement.getElementsByClassName("el-table__row");
+
+      for (let i = 0; i < trs.length; i++) {
+        if (rowIndex === i) {
+          trs[i].style.backgroundColor = "green";
+        } else {
+          trs[i].style.backgroundColor = "";
+        }
+      }
+    },
+    handleKeyUp(e) {
+      let rowIndex = e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
+        ? e.path[4].rowIndex
+        : e.path[3].rowIndex;
+      let tableElement = e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
+        ? e.path[5]
+        : e.path[4];
+      var trs = tableElement.getElementsByClassName("el-table__row");
+      for (let i = 0; i < trs.length; i++) {
+        if (rowIndex === i) {
+          trs[i].style.backgroundColor = "green";
+        } else {
+          trs[i].style.backgroundColor = "";
+        }
+      }
+    },
+    // setValid(trage, val) {
+    //   switch (trage) {
+    //     case "temperature":
+    //       let o = {
+    //         体温: {
+    //           value: val,
+    //           reg: [30, 50],
+    //           errorMsg: "体温请填入30~50之间的数值",
+    //         },
+    //       };
+    //       return o;
+    //     case "heartRate":
+    //       let h = {
+    //         心率: {
+    //           value: val,
+    //           reg: [0, 300],
+    //           errorMsg: "体温请填入0~300之间的数值",
+    //         },
+    //       };
+    //       return h;
+    //     case "bloodPressure":
+    //       let x = {
+    //         血压: {
+    //           value: val,
+    //           reg: [0, 300],
+    //           errorMsg: "体温请填入0~300之间的数值",
+    //         },
+    //       };
+    //       return x;
+    //     case "pulse":
+    //       let y = {
+    //         脉搏: {
+    //           value: val,
+    //           reg: [0, 300],
+    //           errorMsg: "体温请填入0~300之间的数值",
+    //         },
+    //       };
+    //       return y;
+    //     case "breath":
+    //       let g = {
+    //         呼吸: {
+    //           value: val,
+    //           reg: [0, 120],
+    //           errorMsg: "体温请填入0~120之间的数值或者R/r",
+    //         },
+    //       };
+    //       return g;
+    //     default:
+    //       break;
+    //   }
+    // },
+    //validForm验证表单
+    // validFormFc(e) {
+    //   if (["liaocheng"].includes(this.HOSPITAL_ID)) {
+    //     let checkItem = e.path[0].classList[1];
+    //     let val = e.target.value;
+    //     let checksStr = [
+    //       "breath",
+    //       "pulse",
+    //       "bloodPressure",
+    //       "heartRate",
+    //       "temperature",
+    //     ];
+    //     var trs = e.path[3];
+    //     if (checksStr.includes(checkItem) && val !== "") {
+    //       if (validForm.valid(this.setValid(checkItem, val))) {
+    //         // console.log(trs.getElementsByClassName(checkItem)[0].style)
+    //         trs.getElementsByClassName(checkItem)[0].style.border = "";
+    //       } else {
+    //         trs.getElementsByClassName(checkItem)[0].style.border =
+    //           "thick solid red";
+    //       }
+    //     } else {
+    //       trs.getElementsByClassName(checkItem)[0].style.border = "";
+    //     }
+    //   }
+
+    //   let val = vitalSignObj.vitalValue;
+    //   if (
+    //     vitalSignObj.popVisible === true &&
+    //     val !== "" &&
+    //     ["体温", "脉搏", "心率", "呼吸", "血压"].includes(
+    //       vitalSignObj.vitalSigns
+    //     )
+    //   ) {
+    //     //验证表单
+    //     if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
+    //       document.getElementById(index).style.border = "";
+    //       vitalSignObj.isCorrect = true;
+    //     } else {
+    //       document.getElementById(index).style.border = "thick solid red";
+    //       vitalSignObj.isCorrect = false;
+    //       // this.$message({
+    //       //   message: this.setValid(vitalSignObj.vitalSigns)[vitalSignObj.vitalSigns].errorMsg,
+    //       //   type: 'warning'
+    //       // });
+    //     }
+    //   } else {
+    //     document.getElementById(index).style.border = "";
+    //     vitalSignObj.isCorrect = true;
+    //   }
+    // },
     async onPrint() {
       this.pageLoadng = true;
       this.$nextTick(async () => {
@@ -1255,7 +1855,105 @@ export default {
       });
       this.pageLoadng = false;
     },
+    setValid(trage, val) {
+      switch (trage) {
+        case "temperature":
+          let o = {
+            体温: {
+              value: val,
+              reg: [30, 50],
+              errorMsg: "体温请填入30~50之间的数值",
+            },
+          };
+          return o;
+        case "heartRate":
+          let h = {
+            心率: {
+              value: val,
+              reg: [0, 300],
+              errorMsg: "体温请填入0~300之间的数值",
+            },
+          };
+          return h;
+        case "bloodPressure":
+          let x = {
+            血压: {
+              value: val,
+              reg: [0, 300],
+              errorMsg: "体温请填入0~300之间的数值",
+            },
+          };
+          return x;
+        case "pulse":
+          let y = {
+            脉搏: {
+              value: val,
+              reg: [0, 300],
+              errorMsg: "体温请填入0~300之间的数值",
+            },
+          };
+          return y;
+        case "breath":
+          let g = {
+            呼吸: {
+              value: val,
+              reg: [0, 120],
+              errorMsg: "体温请填入0~120之间的数值或者R/r",
+            },
+          };
+          return g;
+        default:
+          break;
+      }
+    },
+    //validForm验证表单
+    validFormFc(e) {
+      if (["liaocheng"].includes(this.HOSPITAL_ID)) {
+        let checkItem = e.path[0].classList[0];
+        let val = e.target.value;
+        let checksStr = [
+          "breath",
+          "pulse",
+          "bloodPressure",
+          "heartRate",
+          "temperature",
+        ];
+        var trs = e.path[3];
+        if (checksStr.includes(checkItem) && val !== "") {
+          if (validForm.valid(this.setValid(checkItem, val))) {
+            // console.log(trs.getElementsByClassName(checkItem)[0].style)
+            trs.getElementsByClassName(checkItem)[0].style.border = "";
+          } else {
+            trs.getElementsByClassName(checkItem)[0].style.border =
+              "thick solid red";
+          }
+        } else {
+          trs.getElementsByClassName(checkItem)[0].style.border = "";
+        }
+      }
+
+      //     let val=vitalSignObj.vitalValue
+      //   if(vitalSignObj.popVisible===true&&val!==""&&['体温','脉搏','心率','呼吸','血压'].includes(vitalSignObj.vitalSigns)){
+      //  //验证表单
+      //   if (validForm.valid(this.setValid(vitalSignObj.vitalSigns,val))) {
+      //     document.getElementById(index).style.border=""
+      //   vitalSignObj.isCorrect=true
+      //   }else{
+      //     document.getElementById(index).style.border="thick solid red"
+      //     vitalSignObj.isCorrect=false
+      //     // this.$message({
+      //     //   message: this.setValid(vitalSignObj.vitalSigns)[vitalSignObj.vitalSigns].errorMsg,
+      //     //   type: 'warning'
+      //     // });
+
+      //   }
+      //   }else{
+      //      document.getElementById(index).style.border=""
+      //      vitalSignObj.isCorrect=true
+      //   }
+    },
   },
+
   components: {
     CustomInput,
   },

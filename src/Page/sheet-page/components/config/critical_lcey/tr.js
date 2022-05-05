@@ -23,6 +23,7 @@ export default [{
     key: "consciousness", //意识
     value: "",
     event: keyf1,
+    name:"意识",
     autoComplete: {
       data: ['清醒', '嗜睡', '昏睡', '模糊', '谵妄', '浅昏迷', '昏迷', '深昏迷','冬眠状态','麻醉未醒','镇静状态']
     },
@@ -34,6 +35,8 @@ export default [{
     key: "pupilLeft", //左(mm)
     value: "",
     event: keyf1,
+    name:"左",
+    next:"mm",
     textarea: {
       width: 32
     },
@@ -42,6 +45,8 @@ export default [{
     key: "pupilRight", //右(mm)
     value: "",
     event: keyf1,
+    name:"右",
+    next:"mm",
     textarea: {
       width: 32
     },
@@ -49,6 +54,7 @@ export default [{
   {
     key: "pupilReflect", //光反射
     value: "",
+    name:"光反射",
     event: keyf1,
     autoComplete: {
       data: ['++','+','-']
@@ -57,31 +63,42 @@ export default [{
   {
     key: "temperature", //体温
     value: "",
+    name:"体温",
+    next:"(°C)",
     event: keyf1
   },
   {
     key: "pulse", //   心率/脉搏
     value: "",
+    name:"心率/脉搏",
+    next:"（次/分）",
     event: keyf1,
   },
   {
     key: "breath", //呼吸
     value: "",
+    name:"呼吸",
+    next:"（次/分）",
     event: keyf1
   },
   {
     key: "bloodPressure", //血压
     value: "",
+    name:"血压",
+    next:"mmHg",
     event: keyf1,
   },
   {
     key: "spo2", //SPO2
     value: "",
+    name:"SPO2",
+    next:"mm%",
     event: keyf1,
   },
   {
     key: "oxygenWay", //氧疗方式
     value: "",
+    name:"氧疗方式",
     event: keyf1,
     autoComplete: {
       data: ['鼻导管', '雾化面罩', '储氧面罩', '高流湿化吸氧', '无创面罩', '文丘里面罩', '呼吸机']
@@ -92,12 +109,14 @@ export default [{
   },
   {
     key: "fieldSix", //氧疗L/min
+    name:"氧疗L/min",
     value: "",
     event: keyf1
   },
   {
     key: "food", //项目
     value: "",
+    name:"项目",
     event: keyf1,
     textarea: {
       width: 55
@@ -106,6 +125,8 @@ export default [{
   {
     key: "foodSize", //入量(ml)
     value: "",
+    name:"入量",
+    next:"(ml)",
     event: keyf1,
     textarea: {
       width: 32
@@ -114,6 +135,7 @@ export default [{
   {
     key: "fieldOne", //尿量
     value: "",
+    name:"尿量",
     event: keyf1,
     textarea: {
       width: 32
@@ -122,6 +144,7 @@ export default [{
   {
     key: "fieldTwo", //大便量
     value: "",
+    name:"大便量",
     event: keyf1,
     textarea: {
       width: 32
@@ -130,6 +153,7 @@ export default [{
   {
     key: "fieldThree", // 痰液量
     value: "",
+    name:"痰液量",
     event: keyf1,
     textarea: {
       width: 32
@@ -144,7 +168,7 @@ export default [{
     },
   },
   {
-    key: "dischargeSize", //标题2
+    key: "discharge", //标题2
     value: "",
     event: keyf1,
     textarea: {
@@ -160,9 +184,11 @@ export default [{
     },
   },
   {
-    key: "discharge", // 出量
+    key: "dischargeSize", // 出量
     value: "",
     event: keyf1,
+    name:"出量",
+    next:"(ml)",
     textarea: {
       width: 32
     },
@@ -190,7 +216,17 @@ export default [{
   },
   {
     key: "sign",
-    value: ""
+    value: "",
+    style: {
+      minWidth: '55px'
+    }
+  },
+  {
+    key: "sign2",
+    value: "",
+    style: {
+      minWidth: '55px'
+    }
   },
   // {
   //   key: "audit",
@@ -204,6 +240,11 @@ export default [{
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -243,6 +284,11 @@ export default [{
   },
   {
     hidden: true,
+    key: "signerNo2",
+    value: ""
+  },
+  {
+    hidden: false,
     key: "auditorNo",
     value: ""
   },

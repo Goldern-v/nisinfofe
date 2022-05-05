@@ -42,6 +42,13 @@
           <span class="name">血糖</span>
         </div>
       </div>
+      <div v-if="showBloodOxygen.includes(HOSPITAL_ID)">
+        <div @click="setItemShow('five')" class="title">血氧</div>
+        <div v-if="isShowObj.five" @click="showForm('bloodOxygen')" class='fromCss'>
+          <img src='@/common/images/record/文件.png' class="img"/>
+          <span class="name">血氧</span>
+        </div>
+      </div>
     </div>
     <!-- 弹出框 -->
     <newForm ref="newForm"></newForm>
@@ -202,12 +209,14 @@ export default {
       isShowObj: {
         one: false,
         two: false,
-        three: false,
-        four:false
+        three: true,//默认显示体温单模块
+        four:false,
+        five:false
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
-      showBloodSugar:['guizhou','hengli','huadu'] // 是否开放血糖模块
+      showBloodSugar:['guizhou','hengli','huadu','whfk', 'beihairenyi', 'nanfangzhongxiyi'], // 是否开放血糖模块
+      showBloodOxygen:['whfk'] // 是否开放血氧模块
     };
   },
   computed: {
@@ -232,13 +241,12 @@ export default {
   methods: {
     // 控制右边表单
     showForm (type) {
-      console.log(this.$route.query);
       this.bus.$emit("openOtherForm", { component: type });
+      this.bus.$emit("refreshImg");
     },
     nodeClick(data, node) {
       this.$refs.templateSide.close()
 
-      console.log(data, "data");
       if (data.component) {
         return this.bus.$emit("openOtherForm", data);
       }
@@ -391,11 +399,14 @@ export default {
     if (!(this.$route.query.patientId && this.$route.query.visitId)) return;
     this.getTreeData(true);
   },
-  mounted() {
+  async mounted() {
     let isOk = this.$route.query.nursingPreviewIsShow;
     if (isOk && isOk == "1") {
       this.nursingPreviewIsShow = false
     }
+   await this.bus.$emit("openOtherForm", { component: 'temperature'});//默认打开体温单界面
+    this.bus.$emit("refreshImg");
+
 
     //回应子界面打开自定义模板弹窗
     this.bus.$on("templateSideOpen", (payload)=>{

@@ -6,11 +6,18 @@
         <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
         <patientList toName="sugarPage" :callFunction="isSelectPatient" />
       </div>
-      <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
+      <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}" ref="rightPart">
         <!-- <bloodSugar ref="bloodSugar"></bloodSugar> -->
-        <component :is="switchCompt()" ref="bloodSugar" />
+        <div v-if="HOSPITAL_ID === 'sdlj'">
+          <component v-if="!isAdult" :is="el" ref="bloodSugar" @removeSugar='removeSugar' :setScrollTop="setScrollTop"/>
+          <sugarBtn v-else ref="sugarBtn" @onAddTableModal='onAddTableModal'></sugarBtn>
+        </div>
+        <div v-else>
+          <component :is="switchCompt()" ref="bloodSugar" :setScrollTop="setScrollTop"/>
+        </div>
       </div>
     </div>
+    <bloodSugarModal ref="bloodSugarModal" @onCreate='onCreate'></bloodSugarModal>
   </div>
 </template>
 
@@ -53,6 +60,12 @@ import bus from "vue-happy-bus";
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar"; // 厚街医院
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian"; // 威县医院
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry"; // 北海人医
+import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj";
+import sugarBtn from "@/Page/patientInfo/supPage/blood-sugar-sdlj/components/sugar-btn.vue";
+import bloodSugarModal from "@/Page/patientInfo/supComponts/modal/blood-sugar-modal.vue"
+import tr from '../sheet-page/components/config/tbhld_lc/tr';
+import { getPatientForm } from "@/Page/patientInfo/supPage/blood-sugar-sdlj/api/index.js"; //获取患者存在表单id
+
 export default {
   mixins: [common],
   data() {
@@ -61,7 +74,9 @@ export default {
         bedList: []
       },
       patientListLoading: false,
-      bus: bus(this)
+      bus: bus(this),
+      isAdult: true,
+      el: 'bloodSugar'
     };
   },
   computed: {
@@ -73,9 +88,33 @@ export default {
     },
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
-    }
+    },
   },
   methods: {
+    removeSugar() {
+      this.isAdult = true
+    },
+    onAddTableModal() {
+      this.$refs.bloodSugarModal.open()
+    },
+    onCreate(data) {
+      this.isAdult = false
+      if (data.type == "成人") 
+        this.el = 'bloodSugarSdlj' 
+      else 
+        this.el = 'bloodSugar'
+    },
+    //设置滚动
+    setScrollTop(){
+      console.log("滚动")
+      if(["beihairenyi"].includes(this.HOSPITAL_ID)){
+        this.$nextTick(()=>{
+          const rightPart = this.$refs.rightPart;
+            console.log(rightPart.querySelectorAll(".sugr-page").length)
+            rightPart.scrollTop = rightPart.scrollHeight - 1050;
+        })
+      }
+    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
@@ -93,19 +132,41 @@ export default {
         威县人民医院: "bloodSugarWeiXian",
         东莞市厚街医院: "bloodSugar",
         北海市人民医院:'bloodSugarBhry',
+        // 佛山市顺德区龙江医院: 'bloodSugarSdlj'
       };
       return hisList[HisName] || "bloodSugar";
     },
-    isSelectPatient(item) {
-      this.$router.replace(
-        {
+    async isSelectPatient(item,isScrollTop=false) {
+      if (this.HOSPITAL_ID === 'sdlj') {
+        const { data } = await getPatientForm(item.patientId, item.visitId)
+        // data数据为空的情况下是 这个患者没有创建血糖单子
+        if (!data.data) {
+          this.isAdult = true
+        } else {
+          // 判断是否是成人 还是创建儿童
+          this.isAdult = false
+          if (data.data.hisPatSugarList) { // 接口儿童单子特有的字段 hisPatSugarList
+            // '儿童'
+            this.el = 'bloodSugar'
+          } else {
+            // '成人'
+            this.el = 'bloodSugarSdlj' 
+          }
+          this.$router.replace({
+            path: "/sugarPage",
+            query: item
+          }, () => {
+            this.$refs.bloodSugar && this.$refs.bloodSugar.load(isScrollTop);
+          });
+        }
+      } else {
+        this.$router.replace({
           path: "/sugarPage",
           query: item
-        },
-        () => {
-          this.$refs.bloodSugar.load();
-        }
-      );
+        }, () => {
+          this.$refs.bloodSugar.load(isScrollTop);
+        });
+      }
     }
   },
   created() {
@@ -113,6 +174,7 @@ export default {
     // 初始化
     if (this.deptCode) {
       this.getDate();
+      // console.log('oppppp', this.patientInfo);
     }
 
     this.bus.$on("refreshFormPagePatientList", this.getDate);
@@ -128,13 +190,16 @@ export default {
         this.bus.$emit("closeAssessment");
       }
       this.getDate();
-    }
+    },
   },
   components: {
     patientList,
     bloodSugar,
     bloodSugarWeiXian,
-    bloodSugarBhry
+    bloodSugarBhry,
+    bloodSugarSdlj,
+    sugarBtn,
+    bloodSugarModal
   }
 };
 </script>

@@ -91,9 +91,9 @@
         >
           <ElOption
             v-for="item in BeiHaiTypeList"
-            :key="item.vitalSign"
-            :label="item.vitalSign"
-            :value="item.vitalSign"
+            :key="item.itemName"
+            :label="item.itemName"
+            :value="item.itemName"
           />
         </ElSelect>
         <ElSelect
@@ -122,11 +122,13 @@
           HOSPITAL_ID != 'huadu' &&
           HOSPITAL_ID != 'liaocheng' &&
           HOSPITAL_ID != 'hengli' &&
-          HOSPITAL_ID != 'guizhou'
+          HOSPITAL_ID != 'guizhou'&&
+          HOSPITAL_ID != 'sdlj'&&
+          HOSPITAL_ID != 'whfk'
         "
       >
         <ElInput v-model="form.riValue" />
-        <span class="unit">(ü)</span>
+        <span class="unit">{{HOSPITAL_ID == 'beihairenyi' ? '(U)' : 'ü'}}</span>
       </ElFormItem>
       <ElFormItem
         label="备注："
@@ -160,6 +162,7 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import * as apis from "../api";
+import {getSugarItemDict} from '../api/index'
 import patientInfoVue from "../../../patientInfo.vue";
 const defaultForm = {};
 
@@ -266,29 +269,7 @@ export default {
         vitalSign: "睡前",
       },
     ],
-    BeiHaiTypeList: [
-      {
-        vitalSign: "早餐前",
-      },
-      {
-        vitalSign: "早餐后",
-      },
-      {
-        vitalSign: "午餐前",
-      },
-      {
-        vitalSign: "午餐后",
-      },
-      {
-        vitalSign: "晚餐前",
-      },
-      {
-        vitalSign: "晚餐后",
-      },
-      {
-        vitalSign: "睡前",
-      }
-    ],
+    BeiHaiTypeList: [],//用接口返回的字典
   }),
   props: {
     sugarItem: Array,
@@ -368,7 +349,8 @@ export default {
         };
         this.oldRecordDate = "";
       }
-      if (this.HOSPITAL_ID == "beihairenyi"||this.HOSPITAL_ID == "liaocheng") {
+      // if (this.HOSPITAL_ID == "beihairenyi"||this.HOSPITAL_ID == "liaocheng") {
+      if (["beihairenyi","liaocheng","guizhou"].includes(this.HOSPITAL_ID)) {
         this.form.sugarValue = this.form.sugarValue || '';
         this.form.riValue = this.form.riValue || '';
       }
@@ -382,7 +364,7 @@ export default {
           this.curEmpName = res.data.data.empName;
           this.curEmpNo = res.data.data.empNo;
         });
-      });
+      },'执行人切换',null,false,'',{id:`${this.patientInfo.patientId}_${new Date(this.form.recordDate || new Date())}`,code:"form_sugar",name:'微量血糖测定登记表'});
     },
     onClose() {
       this.close();
@@ -443,10 +425,17 @@ export default {
       });
     }
     if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu" && this.HOSPITAL_ID != "beihairenyi") {
+
       this.typeList = this.sugarItem;
     }
     if (this.HOSPITAL_ID === "quzhou") {
       this.quzhouTypeList = this.sugarItem;
+    }
+    if(this.HOSPITAL_ID == "beihairenyi"){
+      //北海血糖项目字典接口
+       getSugarItemDict().then(res=>{
+      this.BeiHaiTypeList=res.data.data
+    })
     }
     // 花都项目可编辑
     if (this.HOSPITAL_ID == "huadu") {

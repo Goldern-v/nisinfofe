@@ -816,8 +816,22 @@ export default {
                 } else {
                   let score = this.formBox.model.evalScore;
                   let desc = this.formBox.model.evalDesc || "";
-                  let result = score + "分 " + desc;
-                  this.formObj.model[this.parentName] = result;
+                  if(this.formBox.model.formCode == 'E0616'){
+                    console.log(this.formBox.model["I385031"],'11111111111111111')
+                    if(this.formBox.model["I385031"] == null){
+                      this.formBox.model["I385031"] = '_'
+                    }
+                     if(score.indexOf('分') != -1){
+                       let result = score + " " + this.formBox.model["I385031"];
+                       this.formObj.model[this.parentName] = result;
+                     }else{
+                       let result = score + "分 " + this.formBox.model["I385031"];
+                       this.formObj.model[this.parentName] = result;
+                     }
+                  }else{
+                    let result = score + "分 " + desc;
+                    this.formObj.model[this.parentName] = result;
+                  }
 
 
                   if (this.$root.$refs[this.formCode][this.parentName]) {

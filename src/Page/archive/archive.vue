@@ -30,7 +30,7 @@
           size="small"
           placeholder="全部"
           @change="selectedStatus"
-        >
+         >
           <el-option value>全部</el-option>
           <el-option
             :key="item.id"
@@ -39,7 +39,14 @@
             >{{ item.name }}</el-option
           >
         </el-select>
+        <!--北海的查询条件-->
 
+          <template v-if="['beihairenyi'].includes(this.HOSPITAL_ID)">
+ <span class="type-label">姓名:</span>
+        <el-input v-model="query.patientName" placeholder="请输入患者姓名"   size="small" style="width:190px"/>
+        <span class="type-label">住院号:</span>
+        <el-input v-model="query.inpNo" placeholder="请输入患者住院号"   size="small" style="width:190px"/>
+          </template>
         <button @click.stop="search">查询</button>
       </div>
       <div
@@ -105,8 +112,18 @@
           header-align="center"
           align="center"
           label="住院号"
-          prop="inpNo"
+          prop="patientId"
           min-width="160px"
+          v-if="HOSPITAL_ID=='huadu'"
+        ></el-table-column>
+
+        <el-table-column
+          header-align="center"
+          align="center"
+          label="住院号"
+          prop=inpNo
+          min-width="160px"
+          v-else
         ></el-table-column>
 
         <el-table-column
@@ -297,7 +314,9 @@ export default {
         dischargeDateBegin: "", //出院开始时间
         dischargeDateEnd: "", //出院结束时间
         wardCode: "", //科室代码
-        showStatus: "" //状态查找：-2=归档失败,-1=生成pdf失败,0=待生成pdf,1=待归档,2=已归档
+        showStatus: "", //状态查找：-2=归档失败,-1=生成pdf失败,0=待生成pdf,1=待归档,2=已归档
+        patientName:"",//患者姓名
+        inpNo:""//住院号
       },
       total: 0,
       patientArchiveList: [], //科室患者归档列表
@@ -336,7 +355,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        let patientId = this.HOSPITAL_ID=='huadu'?item.inpNo:item.patientId
+        let patientId = item.patientId
         let visitId = item.visitId
         uploadFileArchive(patientId, visitId).then(rep => {
           this.$message({
@@ -548,7 +567,9 @@ export default {
   },
   mounted() {
     this.tablesHeight();
-    if (!this.query.dischargeDateBegin) {
+    if(!this.query.dischargeDateBegin && this.HOSPITAL_ID == 'beihairenyi') {
+      this.query.dischargeDateBegin = this.getDateStr(-7);
+    } else if (!this.query.dischargeDateBegin) {
       this.query.dischargeDateBegin = this.getDateStr(-2);
     }
     this.query.dischargeDateEnd = this.query.dischargeDateEnd

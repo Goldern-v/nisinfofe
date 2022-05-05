@@ -70,6 +70,7 @@
           :scrollY="scrollY"
           :hasFiexHeader="true"
           :isInPatientDetails="isInPatientDetails"
+          @onModalChange="(e,tr,x,y,index)=>$emit('onModalChange',e,tr,x,y,index)"
         >
         </excel>
       </div>
@@ -98,14 +99,13 @@
     width: 30px;
     padding: 2px 0 2px 2px;
     border-bottom: 1px solid #000;
-    height: 12px;
+    height: 24px;
     position: relative;
     outline: none;
     text-align: center;
   }
 
   .header-con {
-    text-align: center;
 
     .his-name {
       font-size: 18px;
@@ -297,18 +297,20 @@ export default {
   },
   computed: {
     patientInfo() {
-      return this.sheetInfo.selectBlock || {};
+      return this.sheetInfo.masterInfo || {};
     },
     /** 只读模式 */
     readOnly() {
-      let controlReadOnly = this.sheetInfo.selectBlock.readOnly //后端控制readOnly为true只能查阅，不能修改
-      if (controlReadOnly) {
-        return controlReadOnly
-      }
+      // if(this.HOSPITAL_ID == "fuyou"){
+      //   let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+      //   if (controlReadOnly) {
+      //     return true
+      //   }
+      // }
       
-      // return !this.userDeptList
-      //   .map(item => item.code)
-      //   .includes(this.sheetInfo.selectBlock.deptCode);
+      return !this.userDeptList
+        .map(item => item.code)
+        .includes(this.sheetInfo.selectBlock.deptCode);
     }
   },
   filters: {

@@ -76,7 +76,8 @@
               </td>
             </tr>
             <tr>
-              <td colspan="7">
+              <!-- <td colspan="7"> -->
+              <td colspan="9">
                 <div class="table-remake">
                   <span style="width: 40px;">备注：</span>
                   <input v-model="record.remark" type="text">
@@ -227,6 +228,18 @@
             label: "病房情况（安全危‘√’，其它为‘×’,并在备注栏详情描述早交班汇报，特殊情况当时上报科室领导）",
             columns: [
               {
+                label: "粤康码",
+                prop: "healthCode",
+                editable: true,
+                width: "100"
+              },
+              {
+                label: "行程码",
+                prop: "itineraryCode",
+                editable: true,
+                width: "100"
+              },
+              {
                 label: "22:00",
                 prop: "tenPm",
                 editable: true,
@@ -266,6 +279,8 @@
           {key: 'twoAm', No: 'twoAmNo'},
           {key: 'fourAm', No: 'fourAmNo'},
           {key: 'sixAm', No: 'sixAmNo'},
+          {key: 'healthCode', No: 'healthCodeNo'},
+          {key: 'itineraryCode', No: 'itineraryCodeNo'},
         ]
       };
     },

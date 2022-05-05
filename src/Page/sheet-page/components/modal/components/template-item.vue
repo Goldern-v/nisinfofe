@@ -72,7 +72,7 @@
 <script>
 import bus from "vue-happy-bus";
 import data from "../../../sheet";
-import { del } from "../../../api/recordDesc.js";
+import { del,delByEmpNo } from "../../../api/recordDesc.js";
 export default {
   props: {
     data: Object
@@ -97,6 +97,18 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
+      //特殊情况,删除开启权限验证的医院名字。
+      const isDeptList=["liaocheng","wujing","huadu",'foshanrenyi']
+      if(isDeptList.includes(this.HOSPITAL_ID)){
+          const user=JSON.parse(localStorage.getItem("user"))
+          delByEmpNo(this.data.id,user.empNo).then(res => {
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+          this.bus.$emit("refreshTemplate");
+        });
+      }else{
         del(this.data.id).then(res => {
           this.$message({
             type: "success",
@@ -104,6 +116,7 @@ export default {
           });
           this.bus.$emit("refreshTemplate");
         });
+      }
       });
     }
   },

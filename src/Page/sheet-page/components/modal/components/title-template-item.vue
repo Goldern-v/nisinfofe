@@ -76,6 +76,13 @@ export default {
     toEdit() {
       this.bus.$emit("openAddTitleTemplateModal", this.data);
     },
+     getRecordCode(){
+      if((this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes('temperature'))){
+        return true
+      }else{
+        return false
+      }
+    },
     toDel() {
       this.$confirm("此操作将永久删除该自定义标题版, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -85,9 +92,11 @@ export default {
         let data = {
           dictCode: "自定义标题",
           itemCode: this.data.name,
-          recordCode:  
+          deptCode:this.deptCode,
+          recordCode:
         //北海体温单调用护理记录单模板
-        ['beihairenyi','guizhou'].includes(this.HOSPITAL_ID)&&this.$route.path.includes('newSingleTemperatureChart')?'bodyTemperature':sheetInfo.sheetType,
+        this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
+        moduleCode:this.getRecordCode()?'bodyTemperature':"",
           wardCode: this.deptCode
         };
         dictDelete(data).then(res => {

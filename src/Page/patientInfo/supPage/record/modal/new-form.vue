@@ -13,7 +13,9 @@
             HOSPITAL_ID != 'hj' &&
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng' &&
-            HOSPITAL_ID != 'guizhou'
+            HOSPITAL_ID != 'guizhou' &&
+            HOSPITAL_ID != 'foshanrenyi' &&
+            HOSPITAL_ID != 'fsxt'
           "
           v-model="formType"
           placeholder="选择类型"
@@ -32,11 +34,36 @@
             HOSPITAL_ID != 'hj' &&
             HOSPITAL_ID != 'huadu' &&
             HOSPITAL_ID != 'liaocheng' &&
-            HOSPITAL_ID != 'guizhou'
+            HOSPITAL_ID != 'guizhou' &&
+            HOSPITAL_ID != 'foshanrenyi' &&
+            HOSPITAL_ID != 'fsxt'
           "
           class="text-con"
           :placeholder="
             '搜索' + options.find((item) => item.value == formType).label
+          "
+          icon="search"
+          v-model="searchWord"
+        ></el-input>
+        <el-select
+          v-if="HOSPITAL_ID == 'foshanrenyi' || HOSPITAL_ID == 'fsxt'"
+          v-model="formType"
+          placeholder="选择类型"
+          class="type-select"
+          :disabled="formTypeReadOnly"
+        >
+          <el-option
+            v-for="item in foshanrenyiOptions"
+            :key="item.value || item.label"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <el-input
+          v-if="HOSPITAL_ID == 'foshanrenyi' || HOSPITAL_ID == 'fsxt'"
+          class="text-con"
+          :placeholder="
+            '搜索' + foshanrenyiOptions.find((item) => item.value == formType).label
           "
           icon="search"
           v-model="searchWord"
@@ -432,6 +459,28 @@ export default {
           label: "知情同意书",
         },
       ],
+      foshanrenyiOptions: [
+        {
+          value: "1",
+          label: "护理评估",
+        },
+        {
+          value: "monitor",
+          label: "监测记录",
+        },
+        {
+          value: "report",
+          label: "报告类",
+        },
+        {
+          value: "authorization",
+          label: "知情同意书",
+        },
+        {
+          value: "leaveHospital",
+          label: "出院评估",
+        },
+      ],
       // guizhouOptions: [
 
       //   // {
@@ -681,7 +730,6 @@ export default {
             // this.templates = resText.data;
 
           }
-
           this.pageLoading = false;
         });
       } else if (this.formType == "4") {
@@ -690,6 +738,19 @@ export default {
           console.log(res);
           this.templates = res.data.data.missionList;
           this.tmpitem = res.data.data.eduFormTemplate;
+          this.pageLoading = false;
+        });
+      } else if (this.formType == "leaveHospital") {
+        templates(this.deptCode).then((res) => {
+          // if (this.filterObj && this.filterObj.formName) {
+          //   this.templates = res.data.data.filter(
+          //     (item) => item.name === this.filterObj.formName
+          //   );
+          
+          // } else {
+            // formCode  E1346  //佛山人医 选中出院评估后单独把出院评估及指导筛选出来
+            this.templates = res.data.data.filter(item=> item.formCode =='E1346');
+          // }
           this.pageLoading = false;
         });
       } else {
@@ -701,7 +762,6 @@ export default {
           } else {
             this.templates = res.data.data.list;
           }
-
           this.pageLoading = false;
         });
       }

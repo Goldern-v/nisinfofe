@@ -45,7 +45,7 @@
       <span>
         床号：
         <div :class="['bottom-line',HOSPITAL_ID=='huadu'?'has-background':'']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ bedAndDeptChange.bedLabelChange }}
+          {{ patientInfo.bedLabel }}
         </div>
       </span>
       <span>
@@ -71,7 +71,7 @@
     </div>
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
-    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
+    <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 
@@ -98,6 +98,9 @@ export default {
   },
   mounted() {},
   computed: {
+    routePath(){
+      return window.location.href
+    },
     neonatology2Age() {
       if (this.index == 0) {
         return sheetInfo.relObj.age || this.patientInfo.age;
@@ -146,9 +149,9 @@ export default {
   },
   methods: {
     openBedRecordModal(){
-      if (this.readOnly) {
-        return this.$message.warning("你无权操作此护记，仅供查阅");
-      }
+      // if (this.readOnly) {
+      //   return this.$message.warning("你无权操作此护记，仅供查阅");
+      // }
       this.$refs.bedRecordModal.open();
     },
     updateBirthDay() {

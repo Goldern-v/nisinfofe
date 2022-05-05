@@ -26,6 +26,7 @@
         :hasFiexHeader="true"
         :isInPatientDetails="isInPatientDetails"
         :listData="listData"
+        @onModalChange="(e,tr,x,y,index)=>$emit('onModalChange',e,tr,x,y,index)"
       ></excel>
     </div>
   </div>
@@ -117,7 +118,7 @@
     width: 30px;
     border-bottom: 1px solid #000;
     padding: 2px 0 2px 2px;
-    height: 12px;
+    height: 24px;
     position: relative;
     outline: none;
     text-align: center;
@@ -139,8 +140,10 @@ import tableHeadGzry from "./components/table-head/table-head-gzry";
 import tableHeadLc from "./components/table-head/table-head-lc";
 import tableHeadTbhldLc from "./components/table-head/table-head-tbhld-lc";
 import tableHeadWj from "./components/table-head/table-head-wj";
+import tableHeadSdlj from "./components/table-head/table-head-sdlj";
 import tableHeadHd from "./components/table-head/table-head-hd";
 import tableHeadFuyou from "./components/table-head/table-head-fuyou";
+import tableHeadFoSanXingTan from "./components/table-head/table-head-foshanxingtan.vue";
 import tableHeadXieGang from "./components/table-head/table-head-xiegang";
 import tableHeadNanFangZhongXiYi from "./components/table-head/table-head-nanfangzhongxiyi";
 import tableHeadBeiHaiRenYi from "./components/table-head/table-head-beihairenyi";
@@ -148,6 +151,9 @@ import tableHeadFoShanRenYi from "./components/table-head/table-head-foshanrenyi
 import tableHeadHengLi from "./components/table-head/table-head-hengli";
 import tableHeadShanNan from "./components/table-head/table-head-shannan";
 import tableHeadQz from "./components/table-head/table-head-qz";
+import tableHeadWhFk from "./components/table-head/table-head-whfk"
+import tableHeadLcey from "./components/table-head/table-head-lcey"
+import tableHeadWhYx from "./components/table-head/table-head-whyx.vue"
 export default {
   props: {
     data: Object,
@@ -162,35 +168,42 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
+      //开启后端控制readOnly的医院
+      readOnlyList: [
+        "fuyou"
+      ]
     };
   },
   computed: {
     patientInfo() {
-      return this.sheetInfo.selectBlock || {};
+      return this.sheetInfo.masterInfo || {};
     },
     /** 只读模式 */
     readOnly() {
       if (
-        this.HOSPITAL_ID == "huadu" &&
-        sheetInfo.sheetType === "body_temperature_Hd"
+        this.HOSPITAL_ID == "huadu" 
       ) {
         return false;
       }
-      let controlReadOnly = this.sheetInfo.selectBlock.readOnly //后端控制readOnly为true只能查阅，不能修改
-      if (controlReadOnly) {
-        return controlReadOnly
+      if (sheetInfo.sheetType === "obstetrics") return false;
+
+      if(this.readOnlyList.includes(this.HOSPITAL_ID)){
+        let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+        if (controlReadOnly) {
+          return true
+        }
+      } else {
+        return !this.userDeptList
+        .map(item => item.code)
+        .includes(this.sheetInfo.selectBlock.deptCode);
       }
-      // if (sheetInfo.sheetType === "obstetrics") return false;
-      // return !this.userDeptList
-      //   .map(item => item.code)
-      //   .includes(this.sheetInfo.selectBlock.deptCode);
     },
     tableHead() {
       /** 产科 */
       if (sheetInfo.sheetType === "prenatal") {
         return tableHeadPrenata;
-      } else if (sheetInfo.sheetType === "special") {
+      } else if (sheetInfo.sheetType === "special") { 
         return tableHeadTbhldLc;
       } else if (this.HOSPITAL_ID == "weixian") {
         return tableHeadWx;
@@ -218,7 +231,17 @@ export default {
         return tableHeadShanNan;
       } else if (this.HOSPITAL_ID == "quzhou") {
         return tableHeadQz;
-      } else {
+      } else if (this.HOSPITAL_ID == "fsxt") {
+        return tableHeadFoSanXingTan;
+      } else if (this.HOSPITAL_ID == "whfk") {
+        return tableHeadWhFk;
+      } else if (this.HOSPITAL_ID == "sdlj") {
+        return tableHeadSdlj;
+      }else if (this.HOSPITAL_ID == "liaocheng") {
+        return tableHeadLcey;
+      } else if (this.HOSPITAL_ID == "whyx") {
+        return tableHeadWhYx;
+      }else {
         return tableHead;
       }
     }

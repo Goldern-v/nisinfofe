@@ -12,7 +12,8 @@
         @click="onRowRemove"
       >删除行</Button>
       <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button>
-      <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
+      <Button :disabled="isEmpty" @click="beforePrint">打印预览</Button>
+      <Button @click="onCopy">复制</Button>
       <div class="empty"></div>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
@@ -61,6 +62,8 @@
             </div>
           </div>
           <ExcelTable
+            v-if="!isPrint"
+            :isPrint="isPrint"
             ref="table"
             class="table"
             :fixedTh="fixedTh"
@@ -69,6 +72,35 @@
             :editable="!allSigned"
             :get-context-menu="getContextMenu"
             v-model="patients"
+            @dblclick="onDblClickRow"
+            @input-change="onTableInputChange"
+            @input-keydown="onTableInputKeydown"
+          >
+            <tr class="empty-row" v-if="!patients.length">
+              <td colspan="9" style="padding: 0">
+                <Placeholder
+                  black
+                  size="small"
+                  data-print-style="display: none;"
+                  :show-add="!allSigned"
+                  @click="onPatientModalShow()"
+                >
+                  <i class="el-icon-plus"></i> 添加患者记录
+                </Placeholder>
+              </td>
+            </tr>
+          </ExcelTable>
+          <ExcelTable
+            v-else
+            :isPrint="isPrint"
+            ref="table"
+            class="table"
+            :fixedTh="fixedTh"
+            data-print-style="height: auto;"
+            :columns="columns"
+            :editable="!allSigned"
+            :get-context-menu="getContextMenu"
+            v-model="printList"
             @dblclick="onDblClickRow"
             @input-change="onTableInputChange"
             @input-keydown="onTableInputKeydown"
@@ -168,11 +200,20 @@
     />
     <SpecialCasePanel ref="specialCasePanel" @apply-template="onSpecialCasePanelApply" />
     <SignModal ref="signModal" />
+    <SelectPatientModal 
+      v-if="isSelectPatient" 
+      :dialogVisible="isSelectPatient" 
+      @setIsSelectPatient="setIsSelectPatient" 
+      :treeData="patients"
+      @setPrintList="setPrintList"
+    />
+    <div id="print-table-content" style="display:none"></div>
   </div>
 </template>
 
 <script>
 import common from "@/common/mixin/common.mixin";
+import SelectPatientModal from "@/Page/shift-work-fy/components/selectPatientModal.vue"
 import FallibleImage from "@/components/FallibleImage/FallibleImage.vue";
 import { pick } from "lodash";
 import print from "printing";
@@ -244,6 +285,7 @@ export default {
   },
   data() {
     return {
+      isSelectPatient:false,
       loading: false,
       modified: false,
       depts: [],
@@ -355,7 +397,9 @@ export default {
           printWidth:"120",
         }
       ],
-      fixedTh: false
+      fixedTh: false,
+      printList:[],
+      isPrint:false
     };
   },
   computed: {
@@ -407,6 +451,15 @@ export default {
     });
   },
   methods: {
+    setPrintList(payload){
+      this.isPrint = true
+      this.printList = payload
+      this.isSelectPatient = false
+      this.$nextTick(async ()=>{
+        await this.onPrint()
+        this.isPrint = false
+      })
+    },
     async loadDepts() {
       const parentCode = this.deptCode;
       const res1 = await apis.listDepartment(parentCode);
@@ -450,7 +503,6 @@ export default {
           );
         }
       } catch (error) {
-        console.log(error);
         this.$router.replace({ name: "shiftWorks" });
       }
       this.loading = false;
@@ -475,6 +527,8 @@ export default {
               "diagnosis",
               "symptom",
               "background",
+              "cure",
+              "diet",
               "checkInspection",
               "proposal"
             ])
@@ -557,7 +611,8 @@ export default {
               selectedRow["background"] = data["background"];
               selectedRow["checkInspection"] = data["checkInspection"];
               selectedRow["proposal"] = data["proposal"];
-
+              selectedRow["cure"] = data["cure"]
+              selectedRow["diet"] = data["diet"]
               await this.onSave();
             }
           },
@@ -768,10 +823,27 @@ export default {
       this.modified = true;
     },
     async onSave(tip) {
+      // 妇幼要求带C的床位排在最后
+      function sortCallBack(item1,item2){
+        let a = item1.bedLabel
+        let b = item2.bedLabel
+        if(!a.includes('C') && !b.includes('C')){
+            return Number(a) - Number(b)
+        }else if(a.includes('C') && b.includes('C')){
+            let v1 = Number(a.split('C')[1])
+            let v2 = Number(b.split('C')[1])
+            return v1 - v2
+        }else if(a.includes('C')){
+            return 1
+        }else if(b.includes('C')){
+            return -1
+        }
+      }
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
       const changeShiftPatients = this.patients
         .filter(p => p.name || p.id)
+        .sort(sortCallBack)
         .map((p, i) => ({ ...p, sortValue: i + 1 }));
 
       await apis.updateShiftRecord({
@@ -888,20 +960,59 @@ export default {
         this.reloadSideList();
       });
     },
+    setIsSelectPatient(flag){
+      this.isSelectPatient = flag
+    },
+    beforePrint(){
+      this.setIsSelectPatient(true)
+    },
     async onPrint() {
       this.loading = true;
       this.fixedTh = false;
       this.$nextTick(async () => {
+        let printNode = this.$refs.printable.cloneNode(true)
+        // let printTableContent = document.getElementById("print-table-content")
+        // printTableContent.appendChild(printNode)
+        let tableConent = printNode.querySelectorAll('tbody')[0]
+        tableConent.innerHTML = ''
+        let trs = this.$refs.printable.querySelectorAll('tbody')[0].querySelectorAll('tr')
+        let pageHeight = 0;
+        Array.prototype.forEach.call(trs,(tr,trIdx)=>{
+          if(pageHeight + tr.offsetHeight>580){
+            let childrens = [tr.cloneNode(true),tr.cloneNode(true)]
+            // let rowsNum = Math.ceil((pageHeight + tr.offsetHeight) / 700)
+            let rowsNum = 2
+            let tds = tr.querySelectorAll('td')
+            let tdStr = Array.prototype.map.call(tds,(td)=>td.innerText)
+            let tdStrClone = [JSON.parse(JSON.stringify(tdStr)),JSON.parse(JSON.stringify(tdStr))]
+            let tdStrLength = tdStr.map(str=>str.length)
+            let maxLength = Math.ceil(Math.max(...tdStrLength) / 2)
+            tdStr.map((str,index)=>{
+              if(tdStrLength[index]>maxLength){
+                tdStrClone[0][index] = str.slice(0,maxLength)
+                tdStrClone[1][index] = str.slice(maxLength,tdStrLength[index])
+                childrens[0].querySelectorAll('td')[index].innerText = tdStrClone[0][index]
+                childrens[1].querySelectorAll('td')[index].innerText = tdStrClone[1][index]
+              }else{
+                childrens[1].querySelectorAll('td')[index].innerText = ''
+              }
+            })
+            childrens[0].id = 'no-border-bottom'
+            tableConent.appendChild(childrens[0])
+            childrens[1].id = 'no-border-top'
+            tableConent.appendChild(childrens[1])
+            pageHeight = tr.offsetHeight % 580
+          }else{
+            tableConent.appendChild(tr.cloneNode(true))
+            pageHeight += tr.offsetHeight
+          }
+        })
         await print(this.$refs.printable, {
-          beforePrint: formatter,
+          beforePrint: (win)=>formatter(win,printNode),
           direction: "horizontal",
           injectGlobalCss: true,
           scanStyles: false,
           css: `
-            @page{
-              margin-top:20mm;
-              margin-bottom:10mm;
-            }
             @page:first{
               margin-top:0;
             }
@@ -912,10 +1023,62 @@ export default {
             pre {
               white-space: pre-wrap;
             }
+            #no-border-top td{
+              border-top:none!important;
+            }
+            #no-border-bottom td{
+              border-bottom:none!important;
+            }
+            table{
+              border-bottom:1px solid #000;
+            }
           `
         });
       });
       this.loading = false;
+    },
+    async onCopy() {
+      // let isData = false;
+      // this.patients.forEach(item => {
+      //   for (const key in item) {
+      //     if (item[key]) isData = true;
+      //   }
+      // })
+      if (!(this.allSigned || !this.modified)) {
+        this.$confirm('有未保存数据，是否覆盖?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async() => {
+          let { data } = await apis.copyShift(this.record.id)
+          if (data.code === '200') {
+            this.load()
+            this.$message({
+              type: 'success',
+              message: '复制成功!'
+            });
+          } else {
+            this.$message({
+              type: 'error',
+              message: `${data.desc}!`
+            });
+          }
+        })
+      } else {
+        let { data } = await apis.copyShift(this.record.id)
+        if (data.code === '200') {
+          this.load()
+          this.$message({
+            type: 'success',
+            message: '复制成功!'
+          });
+        } else {
+          this.$message({
+            type: 'error',
+            message: `${data.desc}!`
+          });
+        }
+      }
     },
     onTableInputChange({ prop, row }) {
       this.modified = true;
@@ -989,6 +1152,7 @@ export default {
   },
   components: {
     FallibleImage,
+    SelectPatientModal,
     Button,
     ExcelTable,
     Placeholder,

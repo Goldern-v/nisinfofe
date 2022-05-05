@@ -842,12 +842,30 @@ export default {
                   //
                   let desc = evalDesc || this.formBox.model.evalDesc || "";
                   //
-                  let result = syncToRecordDesc || score + "分 " + desc || "";
-                  result = result.replace(/null/g, "");
-                  result = result.replace(/undefined/g, "");
-                  this.setElementValue(this.parentName, result + "");
-                  this.formObj.model[this.parentName] = result || "";
-                  this.getValueRule(this.parentName, result);
+                  console.log(this.formBox.model["I385031"])
+                   if(this.formBox.model.formCode == 'E0616'){
+                     console.log(score.indexOf('分') != -1)
+                     let result = ''
+                     if(score.indexOf('分') != -1){
+                       result = syncToRecordDesc || score + " " + this.formBox.model["I385031"] || "";
+                     } else{
+                       result = syncToRecordDesc || score + "分 " + this.formBox.model["I385031"] || "";
+                     }
+                    
+                      result = result.replace(/null/g, "");
+                      result = result.replace(/undefined/g, "");
+                      this.setElementValue(this.parentName, result + "");
+                      this.formObj.model[this.parentName] = result || "";
+                      this.getValueRule(this.parentName, result);
+                  }else{
+                    let result = syncToRecordDesc || score + "分 " + desc || "";
+                    result = result.replace(/null/g, "");
+                    result = result.replace(/undefined/g, "");
+                    this.setElementValue(this.parentName, result + "");
+                    this.formObj.model[this.parentName] = result || "";
+                    this.getValueRule(this.parentName, result);
+                  }
+                 
                   // console.log('评估结果：',result,this.parentName,this.formObj.model[this.parentName])
                 }
               }

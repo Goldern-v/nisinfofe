@@ -57,6 +57,7 @@
               :isInPatientDetails="false"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
+              @onModalChange="onModalChange"
             ></component>
             <!-- <sheetTable
               v-else
@@ -96,6 +97,8 @@
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
     <syncToIsbarModal ref="syncToIsbarModal"></syncToIsbarModal>
+    <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
+    <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
     <!-- 电子病例弹窗 -->
     <doctorEmr v-if="HOSPITAL_ID === 'huadu'" />
   </div>
@@ -243,10 +246,12 @@ import sheetTable_newborn_qzx from "./components/sheetTable-newborn_qzx/sheetTab
 import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
 import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
 import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";
+import sheetTable_record_children_serious2_lc from "./components/sheetTable-record_children_serious2_lc/sheetTable";
 import sheetTable_waiting_birth_gzry from "./components/sheetTable-waiting_birth_gzry/sheetTable";
 import sheetTable_newborn_care_gzry from "./components/sheetTable-newborn_care_gzry/sheetTable";
 import sheetTable_catheterplacement_jm from "./components/sheetTable-catheterplacement_jm/sheetTable";
 import sheetTable_picc_custody_jm from "./components/sheetTable-picc_custody_jm/sheetTable";
+import sheetTable_nicu_custody_hd from "./components/sheetTable-nicu_custody_hd/sheetTable";
 import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/sheetTable";
 import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
@@ -270,6 +275,7 @@ import {
   delPage,
   markList,
   splitRecordBlock,
+  findListByBlockId,
 } from "@/api/sheet.js";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -285,10 +291,13 @@ import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue
 import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
 import syncToIsbarModal from "@/Page/sheet-page/components/modal/sync-toIsbar-modal.vue";
+import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
+import syncExamAmountModal from "@/Page/sheet-page/components/modal/async-exam-amount-modal";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
 import { blockSave, getNurseExchageInfo } from "./api/index";
+import TableRadioVue from './components/sheetTable/components/table-components/TableRadio.vue';
 export default {
   mixins: [common],
   data() {
@@ -365,7 +374,7 @@ export default {
       resultModel.map((item) => {
         item.data.bodyModel.map((tr, x) => {
           if (!tr.hasOwnProperty("isRead")) {
-            tr.isRead = this.isRead(tr);
+            tr.isRead = this.isRead(tr,x);
             tr.map((td, y) => {
               td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel);
             });
@@ -388,6 +397,8 @@ export default {
         return sheetTableDressing_count;
       } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
         return sheetTableMaternal_newborn_lc;
+      } else if (sheetInfo.sheetType == "record_children_serious2_lc") {
+        return sheetTable_record_children_serious2_lc;
       } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
         return sheetTable_picc_maintenance_hd;
       } else if (sheetInfo.sheetType == "intervention_cure_hd") {
@@ -420,6 +431,8 @@ export default {
         return sheetTable_catheterplacement_jm;
       } else if (sheetInfo.sheetType == "picc_custody_jm") {
         return sheetTable_picc_custody_jm;
+      } else if (sheetInfo.sheetType == "nicu_custody_hd") {
+        return sheetTable_nicu_custody_hd;
       } else if (sheetInfo.sheetType == "nicu_custody_jm") {
         return sheetTable_nicu_custody_jm;
       } else if (sheetInfo.sheetType == "cardiology_lcey") {
@@ -465,6 +478,18 @@ export default {
           return !this.listData[x].canModify;
         }
       }
+      if (this.HOSPITAL_ID=='whfk') {
+        if (td && this.listData[x]) {
+          // 是否签名,签名了就不能编辑。需要取消签名
+          if(tr.find((item) => item.key == "status").value === "1"){
+           return true
+          }
+        }
+      }
+      // 如果审核完，canModify=false才禁用
+      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[x] && (this.listData[x].status==2)&& (!this.listData[x].canModify)){
+        return true
+      }
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
@@ -481,7 +506,7 @@ export default {
       }
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
-        this.HOSPITAL_ID == "huadu" &&
+        (this.HOSPITAL_ID == "huadu") &&
         tr.find((item) => item.key == "status").value === "1"
       ) {
         let flag =
@@ -514,13 +539,23 @@ export default {
         return false;
       }
     },
-    isRead(tr) {
+    isRead(tr,x) {
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd"
       ) {
         return false;
       }
+      if(this.listData && this.listData[x] && this.listData[x].canModify){
+        return false;
+      }
+      // 当审核完，就出现问题，下拉还是会出现。 用this.isDisabed解决
+      // 这里主要是给弹窗做判断isRead
+      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[x] && (this.listData[x].status==2)&& (!this.listData[x].canModify)){
+        // 当审核完，status=2&&canModify=false,
+        return true
+      }
+
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;
       if (status == 1) {
@@ -547,6 +582,9 @@ export default {
       }
     },
     addSheetPage() {
+      if (!this.patientInfo.patientId) {
+        return this.$message.info("请选择一名患者");
+      }
       if (
         (this.HOSPITAL_ID === "huadu" ||
           this.HOSPITAL_ID === "hj" ||
@@ -600,13 +638,42 @@ export default {
       this.tableLoading = true;
       $(".red-border").removeClass("red-border");
       //  cleanData()
-      return Promise.all([
+      let fnArr = [
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.patientInfo.patientId, this.patientInfo.visitId),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
-      ]).then((res) => {
+      ]
+      // 佛山市一 获取自定义标题数据
+      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        fnArr.shift()
+        fnArr.unshift(findListByBlockId())
+      }
+      return Promise.all(fnArr).then((res) => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
+        this.$store.commit('upMasterInfo',bodyData)
+        if(this.HOSPITAL_ID=='wujing'){
+          let barcodeArr = {}
+          bodyData.list.map((tr,index)=>{
+            if(tr.expand){
+              barcodeArr[tr.expand] = barcodeArr[tr.expand] ? (barcodeArr[tr.expand] + 1) : 1
+              if(barcodeArr[tr.expand] == 1 && ((bodyData.list[index + 1] && bodyData.list[index + 1].expand != tr.expand)||(!bodyData.list[index + 1]))){
+                // 只有一行药品时不显示分组符号
+                tr.barCodeIdentification = 'identification-only-one'
+                tr.identificationUsage = tr.expand2
+              }
+              else if(barcodeArr[tr.expand] == 1){
+                tr.barCodeIdentification = 'identification-first'
+                tr.identificationUsage = tr.expand2
+              }else if((bodyData.list[index + 1] && bodyData.list[index + 1].expand != tr.expand)||(!bodyData.list[index + 1])){
+                tr.barCodeIdentification = 'identification-last'
+              }else{
+                tr.barCodeIdentification = 'identification-middle'
+              }
+            }
+          })
+        }
+        // console.log(bodyData);
         let markData = res[2].data.data.list || [];
         this.listData = bodyData.list;
         /* 显示转科转床的信息 */
@@ -620,6 +687,7 @@ export default {
         // this.sheetModel = []
         this.$nextTick(() => {
           // this.sheetModel = sheetModel
+          // console.log(titleData);
           initSheetPage(titleData, bodyData, markData);
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
           this.getHomePage(isBottom);
@@ -656,7 +724,10 @@ export default {
       });
     },
     breforeQuit(next) {
-      if (!sheetInfo.isSave) {
+      if (
+        !sheetInfo.isSave &&
+        !this.$route.path.includes("singleTemperatureChart")
+      ) {
         window.app
           .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
             confirmButtonText: "离开",
@@ -689,6 +760,59 @@ export default {
     },
     isSelectPatient(item) {
       this.$store.commit("upPatientInfo", item);
+       this.bus.$emit("refreshImg");
+    },
+    onModalChange(e,tr,x,y,index){
+      // 改变当前行状态
+      tr.isChange = true
+      // // 获取recordDate的下标
+      let dateIndex = tr.findIndex(item=>item.key == "recordDate")
+      // 如果当前行有recordDate(即是保存过)
+      if(tr[dateIndex].value)return
+      // // 判断修改的记录是否起始页
+      let isStartPage =  index == 0 || y!=0
+      // // 获取上条记录
+      let preRow = isStartPage ? this.sheetModel[index].bodyModel[y - 1] : this.sheetModel[index - 1].bodyModel[this.sheetModel[index - 1].bodyModel.length - 1]
+      let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
+      let hourIndex = tr.findIndex(item=>item.key == "recordHour")
+      let monthValue = ''
+      let hourValue = ''
+      if(preRow && (preRow[monthIndex].value || preRow[dateIndex].value || preRow[hourIndex].value)){
+        monthValue = preRow[monthIndex].value || moment(preRow[dateIndex].value.split(' ')[0]).format('MM-DD')
+        hourValue = preRow[hourIndex].value || preRow[dateIndex].value.split(' ')[1]
+      } else {
+        monthValue = moment().format('MM-DD')
+        hourValue= moment().format('HH:ss')
+      }
+      x!=0 && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
+      x!=1 && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
+      // // 如果存在上条记录
+      // else if(preRow){
+      //   // 获取上条记录的日期和时间
+      //   let hourIndex = tr.findIndex(item=>item.key == "recordHour")
+      //   let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
+      //   let [preMonth,preHour] = preRow[dateIndex].value.split(' ')
+      //   preMonth = preMonth && moment(preMonth).format('MM-DD')
+      //   // 如果本条记录日期时间为空，将按照上条记录对当前记录进行日期和时间的赋值
+      //   !tr[monthIndex].value && (tr[monthIndex].value = preRow[monthIndex].value)
+      //   !tr[hourIndex].value && (tr[hourIndex].value = preRow[hourIndex].value)
+      //   // 如果上条记录是多条记录，那么将上条记录的recordDate截取赋值给本条记录
+      //   !tr[monthIndex].value && (tr[monthIndex].value = preMonth)
+      //   !tr[hourIndex].value && (tr[hourIndex].value = preHour)
+      //   // 如果是首条记录
+      // }else if(!preRow){
+      //   // 并且没有输入日期时间，默认取当前时间
+      //   let hourIndex = tr.findIndex(item=>item.key == "recordHour")
+      //   let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
+      //   !tr[monthIndex].value && (tr[monthIndex].value = moment().format('MM-DD'))
+      //   !tr[hourIndex].value && (tr[hourIndex].value = moment().format('HH:mm'))
+      //   return tr.isChange = true
+      // }
+      // this.sheetModel.map((pageItem,pageIndex)=>{
+      //   pageItem.bodyModel.map(row=>{
+      //     row[dateIndex].value === flagItem[dateIndex].value && (row.isChange = true)
+      //   })
+      // })
     },
   },
   created() {
@@ -862,6 +986,48 @@ export default {
     this.bus.$on("refreshSheetPage", (isFirst) => {
       this.getSheetData(isFirst);
     });
+    //保存前做签名校验
+    this.bus.$on("toSheetSaveNoSign", (newWid) => {
+      console.log(this.sheetModel[0].bodyModel);
+      let flag = true //控制保存开关
+      let yearList = [] //所有日期时间数组
+      let sameDay = "" // 同一天
+      this.sheetModel[0].bodyModel.map((row,rowIdx)=>{
+        //处理所有日期时间数组
+        if(row.find((item) => item.key == 'recordMonth').value != ""){
+          sameDay = row.find((item) => item.key == 'recordMonth').value
+        }
+        if(row.find((item) => item.key == 'status').value != ''&& (row.find((item) => item.key == 'recordMonth').value || row.find((item) => item.key == 'recordHour').value) ){
+          if(row.find((item) => item.key == 'recordMonth').value === ""){
+            yearList.push(`${sameDay} ${row.find((item) => item.key == 'recordHour').value}`)
+          }else{
+            yearList.push(`${row.find((item) => item.key == 'recordMonth').value} ${row.find((item) => item.key == 'recordHour').value}`)
+          }
+        }
+        //通过是否填写了时间来判定该行是否为有数据的一行
+        let isChange = row.find((item) => item.key == 'recordHour').value
+        if(isChange){
+          //未签名状态status.value的值为空或0
+          let noSignRow = row.find((item) => item.key == 'status').value === '0' || row.find((item) => item.key == 'status').value === ''
+          if(noSignRow){
+            let year = row.find((item) => item.key == 'recordMonth').value
+            let time = row.find((item) => item.key == 'recordHour').value
+            //如果是同一天的同一个时间不需要签名
+            if(yearList.includes(`${year} ${time}`)){
+
+            }else{
+              $(`#row_${rowIdx}`).eq(0).addClass("red-border")
+              flag = false
+              return this.$message.warning("存在未签名的记录，请全部签名后再保存");
+            }
+          }
+        }
+      })
+      if(flag){
+        this.bus.$emit('saveSheetPage', 'noSaveSign')
+      }
+    });
+
     this.bus.$on("toSheetPrintPage", (newWid) => {
       if ($(".sign-text").length) {
         // 判断是否存在标记
@@ -950,7 +1116,8 @@ export default {
         process.env.HOSPITAL_ID == "fuyou" ||
         process.env.HOSPITAL_ID == "quzhou" ||
         process.env.HOSPITAL_ID == "huadu" ||
-        this.HOSPITAL_ID === "foshanrenyi"
+        process.env.HOSPITAL_ID == "foshanrenyi"||
+        process.env.HOSPITAL_ID == "liaocheng"
       ) {
         this.$router.push(`/print/sheetPage`);
       } else {
@@ -1001,6 +1168,16 @@ export default {
     this.bus.$on("syncDecription", (tr, td) => {
       this.$refs.syncToIsbarModal.open(tr, td, sheetModel);
     });
+    this.bus.$on("syncImportExam", (tr, td) => {
+      this.$refs.syncExamTestModal.open(tr, td, sheetModel);
+    });
+    this.bus.$on("syncImportAmountExam", (tr, td) => {
+      this.$refs.syncExamAmountModal.open(tr, td, sheetModel);
+    });
+    this.bus.$on("ImportExamCallBack", (str) => {
+      console.log(this.sheetModel[0].bodyModel[0][18].value);
+      this.bus.$emit('saveSheetPage','noSaveSign')
+    });
   },
   watch: {
     patientInfo(val) {
@@ -1034,11 +1211,19 @@ export default {
         this.sheetInfo.selectBlock = {};
       }
     },
+    // 切换主页后在点击其他用户不会更新
+    'sheetInfo.sheetType': {
+      handler(val, prev) {
+        if (val != prev) {
+          this.bus.$emit('refreshSheetPage', true)
+        }
+      }
+    }
   },
   beforeRouteLeave: (to, from, next) => {
     if (
       !sheetInfo.isSave &&
-      !this.$route.path.includes("singleTemperatureChart") //去除体温单切换未保存提示
+      !from.fullPath.includes("singleTemperatureChart") //去除体温单切换未保存提示
     ) {
       window.app
         .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
@@ -1067,6 +1252,8 @@ export default {
     setPageModal,
     pizhuModal,
     syncToIsbarModal,
+    syncExamTestModal,
+    syncExamAmountModal,
     sheetTableNeonatology,
     sheetTablePost_partum,
     evalModel,
@@ -1090,6 +1277,7 @@ export default {
     sheetTable_newborn_care_gzry,
     sheetTable_catheterplacement_jm,
     sheetTable_picc_custody_jm,
+    sheetTable_nicu_custody_hd,
     sheetTable_nicu_custody_jm,
     doctorEmr,
     sheetTable_oxytocin_hl,

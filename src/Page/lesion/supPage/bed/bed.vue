@@ -180,7 +180,7 @@ export default {
       pBtnShow:false,
       pmodalShow:false,
       searchWord: "",
-      bedList: [],
+      bedList: [], // 在子组件search-con中通过$parent赋值,就很傻比
       loading: false,
       tableData: [],//医嘱提醒id
       timeId: "",
@@ -200,14 +200,14 @@ export default {
       return this.wih - 93 + "px";
     },
     currentBedItem() {
+      // 床位一览卡版本
       if (this.HOSPITAL_ID == "huadu") {
         return bedItemHd;
       } else if (
-        ["liaocheng",
-        "shannan",
-        "quzhou",
-        "nanfangzhongxiyi",
-        "foshanrenyi"
+        [
+          "liaocheng","whfk","shannan","quzhou",
+          "foshanrenyi","fsxt","whyx","sdlj",
+          'lyxrm'
         ].includes(this.HOSPITAL_ID)) {
         return bedItemLcey;
       }else if (this.HOSPITAL_ID == "beihairenyi") {

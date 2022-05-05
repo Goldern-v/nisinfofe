@@ -21,6 +21,12 @@
               <th colspan="4">
                 <img src="./img/体征任务.png" />
                 <span>体征任务（{{ body.content.length }}）</span>
+                <div style="float: right" v-if="HOSPITAL_ID === 'fuyou'">
+                  <el-radio-group @change='radioChange' v-model="radioStatus" size='small'>
+                    <el-radio-button label="未完成"></el-radio-button>
+                    <el-radio-button label="已完成"></el-radio-button>
+                  </el-radio-group>
+                </div>
               </th>
             </tr>
             <tr>
@@ -168,12 +174,21 @@
                 </td>
                 <td>{{ item.bedLabel + "床 " + item.patientName }}</td>
                 <td>{{ item.content }}</td>
-                <td>
+                <td v-if="HOSPITAL_ID !== 'nanfangzhongxiyi'">
                   <span v-if="item.type == '1'" style="color: red">未签名</span>
                   <span
                     v-else-if="item.type == '2' && item.status == '1'"
                     style="color: red"
                     >未审核</span
+                  >
+                  <span v-else>{{ item.signerName }}</span>
+                </td>
+                <td v-if="HOSPITAL_ID === 'nanfangzhongxiyi'">
+                  <span v-if="item.type == '1'" style="color: red">未签名({{item.signerName}})</span>
+                  <span
+                    v-else-if="item.type == '2' && item.status == '1'"
+                    style="color: red"
+                    >{{item.signerName}}未审核</span
                   >
                   <span v-else>{{ item.signerName }}</span>
                 </td>
@@ -208,6 +223,7 @@ export default {
   },
   data() {
     return {
+      radioStatus: '未完成',
       body: {
         //左侧 体症任务信息
         number: 0,
@@ -255,6 +271,11 @@ export default {
     };
   },
   methods: {
+    //
+    radioChange(value) {
+      this.radioStatus = value;
+      this.initBodyTast()
+    },
     onlyme(isme) {
       //右侧是否显示我自己的备注按钮事件
       console.log(isme);
@@ -273,6 +294,17 @@ export default {
       this.centerDialogVisible = false;
       this.$router.push("/sheetPage");
     },
+    // 体征任务
+    initBodyTast() {
+      let time = moment().format("L");
+      this.page1Loading = true;
+      bodyTast(this.deptCode, time, this.radioStatus) // 获取数据--体症任务
+        .then(rep => {
+          let data = rep.data.data;
+          this.$set(this.body, "content", data);
+          this.page1Loading = false;
+        });
+    },
     init() {
       if (!this.deptCode) return;
       let time = moment().format("L");
@@ -285,15 +317,16 @@ export default {
         this.user.name = JSON.parse(user).empName;
       } catch (error) {}
 
-      this.page1Loading = true;
+      // this.page1Loading = true;
       this.page2Loading = true;
       this.page3Loading = true;
-      bodyTast(this.deptCode, time) // 获取数据--体症任务
-        .then(rep => {
-          let data = rep.data.data;
-          this.$set(this.body, "content", data);
-          this.page1Loading = false;
-        });
+      // bodyTast(this.deptCode, time, this.radioStatus) // 获取数据--体症任务
+      //   .then(rep => {
+      //     let data = rep.data.data;
+      //     this.$set(this.body, "content", data);
+      //     this.page1Loading = false;
+      //   });
+      this.initBodyTast() // 获取数据--体症任务
       nurseTast(this.deptCode, time) //获取数据---评估任务
         .then(rep => {
           let data = rep.data.data;
@@ -334,6 +367,7 @@ export default {
   },
   computed: {
     filterPostil() {
+      console.log(this.postil.content)
       if (this.postil.isshow) {
         return this.postil.content.filter(item => {
           return item.signerNo == this.userInfo.empNo;

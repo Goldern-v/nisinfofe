@@ -109,7 +109,6 @@
   }
 
   .header-con {
-    text-align: center;
 
     .his-name {
       font-size: 18px;
@@ -307,18 +306,20 @@ export default {
   computed: {
     patientInfo() {
       // return this.sheet.patientInfo
-      return this.sheetInfo.selectBlock || {};
+      return this.sheetInfo.masterInfo || {};
     },
     /** 只读模式 */
     readOnly() {
-      // return !this.userDeptList
-      //   .map(item => item.code)
-      //   .includes(this.sheetInfo.selectBlock.deptCode);
-      
-      let controlReadOnly = this.sheetInfo.selectBlock.readOnly //后端控制readOnly为true只能查阅，不能修改
-      if (controlReadOnly) {
-        return controlReadOnly
-      }
+      return !this.userDeptList
+        .map(item => item.code)
+        .includes(this.sheetInfo.selectBlock.deptCode);
+
+      // if(this.HOSPITAL_ID == "fuyou"){
+      //   let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+      //   if (controlReadOnly) {
+      //     return true
+      //   }
+      // }
     }
   },
   filters: {

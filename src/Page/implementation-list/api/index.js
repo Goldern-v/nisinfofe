@@ -34,10 +34,16 @@ export function getExecuteWithWardcode(obj) {
       `${apiPath}${hospitalExecute}/getWardExeacute`,
       obj
     );
-  }else if(["wujing","foshanrenyi","hengli"].includes(HOSPITAL_ID)){
+  }else if(["fsxt","wujing","foshanrenyi","hengli","sdlj",'lyxrm'].includes(HOSPITAL_ID)){
     // 新版执行单（武警）
     return axios.post(
       `${apiPath}procedure/webExecute/webGetWardExecute`,
+      obj
+    );
+  }else if(HOSPITAL_ID == 'whfk'){
+    //查询执行单
+    return axios.post(
+      `${apiPath}procedure/webExecute/webGetWardExecuteWithTime`,
       obj
     );
   }else if(HOSPITAL_ID == "liaocheng"){
@@ -69,6 +75,8 @@ export function getExecuteWithWardcode(obj) {
 export function addRecord(obj) {
   if (HOSPITAL_ID=="lingcheng"){
       return axios.post(`${apiPath}procedure/his`, obj)
+  }if(HOSPITAL_ID == 'whfk'){
+    return axios.post(`${apiPath}procedure/webExecute/getOrderExecuteSupplementary`,obj)
   }else{
     return axios.post(`${apiPath}${hospitalExecute}/orderExecute`, obj);
   }
@@ -76,7 +84,14 @@ export function addRecord(obj) {
 
 // 更新实际执行时间/结束输液时间（陵城）
 export function updateExecuteTime(obj) {
-  return axios.post(`${apiPath}${hospitalExecute}/getorderexecuteUpdate`, obj);
+  switch(HOSPITAL_ID){
+    case 'quzhou':
+      return axios.post(`${apiPath}hisLiaoChengExecute/getorderexecuteUpdate`, obj);
+    case 'whfk':
+      return axios.post(`${apiPath}procedure/webExecute/getOrderExecuteUpdate`, obj);
+    default :
+      return axios.post(`${apiPath}${hospitalExecute}/getorderexecuteUpdate`, obj);
+  }
 }
 
 
@@ -84,9 +99,13 @@ export function updateExecuteTime(obj) {
 // 网页端：医嘱查询，执行单打印用
 export function getPrintExecuteWithWardcode(obj) {
   return axios.post(
-      `${apiPath}procedure/webExecute/webGetOrdersPrint`,
-      obj
+    `${apiPath}procedure/webExecute/webGetOrdersExecutePrint`,
+    obj
   );
+  // return axios.post(
+  //     `${apiPath}procedure/webExecute/webGetOrdersPrint`,
+  //     obj
+  // );
 }
 // 执行执行单（批量）
 export function handleWebExecuteBatch(arr) {
@@ -104,4 +123,21 @@ export function handleWebGetPrintResult(uuid) {
 
 export function webExecutePrint(body){
   return axios.post(`${apiPath}procedure/webExecute/webExecutePrint`,body)
+}
+
+// 取消执行单(聊城)
+export function cancelOrderExecuteApi(body){
+  return axios.post(`${apiPath}hisLiaoChengExecute/cancelOrderExecute`,body)
+}
+
+
+export function getPrintListContent(body){
+  return axios.post(`${apiPath}procedure/webExecute/webGetExecuteWithBarcodeList`,body)
+}
+
+export function webSplitOrder(obj) {
+  return axios.post(
+    `${apiPath}procedure/webExecute/webSplitOrder`,
+    obj
+  );
 }

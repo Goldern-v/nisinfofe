@@ -16,7 +16,7 @@
       <div class="column-right">
         <span style="padding-left: 5px">日期：</span>
         <ElDatePicker
-          class="date-picker"
+          id="date-picker"
           type="date"
           size="mini"
           style="width: 110px"
@@ -186,7 +186,6 @@ import {
   getLastList,
   getViSigsByReDate,
 } from "../../api/api";
-import { mockData, recordList } from "../data/data";
 export default {
   props: { patientInfo: Object },
   data() {
@@ -215,8 +214,6 @@ export default {
     });
 
     return {
-      mockData,
-      recordList,
       bus: bus(this),
       editableTabsValue: "2",
       query: {
@@ -294,11 +291,13 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+
+  },
+  created() {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
   },
-  created() {},
   computed: {},
   watch: {
     query: {
@@ -375,12 +374,12 @@ export default {
             ),
         wardCode: this.patientInfo.wardCode,
       };
-      await this.getVitalList();
       /* 获取患者某个时间点的体征信息 */
       await getVitalSignListBy10({
         visitId: data.visitId,
         patientId: data.patientId,
       }).then((res) => {
+        this.tabsData = [];
         res.data.data.map((item, index) => {
           /* 如果该患者没有体温单记录则返回 */
           if (!item.recordDate) return;
@@ -395,6 +394,10 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         wardCode: this.patientInfo.wardCode,
+         recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime + ":00:00"
       }).then((res) => {
         res.data.data.list.map((item) => {
           this.fieldList[item.vitalCode] = item;
@@ -510,6 +513,10 @@ export default {
             wardCode: this.patientInfo.wardCode,
             vitalCode: key,
             fieldCn: text,
+             recordDate:
+        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+        "  " +
+        this.query.entryTime + ":00:00"
           };
           savefieldTitle(data).then((res) => {
              this.fieldList[index].fieldCn=text;
@@ -633,6 +640,16 @@ export default {
     left: 30%;
     margin-top: 10px;
     width: 100px;
+  }
+    #date-picker {
+    >>>input {
+      pointer-events: auto !important;
+    }
+     >>>.el-input__inner {
+      border-radius: 6px;
+      margin-left:5px;
+      height:28px;
+    }
   }
 }
 </style>

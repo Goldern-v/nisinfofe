@@ -5,10 +5,10 @@
         <div class="title-con" flex>
           <span style="width: 60px; text-align: center">{{ controlStatus ? '组名':'组号'}}</span>
           <span flex-box="1" style="width: 0;margin-right: 20px">床位</span>
-          <span flex-box="1" style="width: 0;margin-right: 10px">责任护士</span>
+          <span flex-box="1" style="width: 0;margin-right: 10px">管床护士</span>
         </div>
         <div v-if="controlStatus">
-          <div v-for="(item, index) in hengliOptions" :key="item.id">
+          <div v-for="(item) in hengliOptions" :key="item.id">
             <div class="list-con"  flex="cross:center" v-if="item.isShow === '1'">
               <span style="width: 60px; text-align: center">{{ item.groupName }}</span>
               <input flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
@@ -22,7 +22,8 @@
             <span style="width: 60px; text-align: center" v-if="deptCode == '042302' && index==2 && HOSPITAL_ID=='hj'">A：</span>
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==3 && HOSPITAL_ID=='hj'">A2：</span>
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==4 && HOSPITAL_ID=='hj'">A3：</span>
-            <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || HOSPITAL_ID=='huadu' || HOSPITAL_ID=='liaocheng' ? index+1 : index}}：</span>
+            <!-- <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || HOSPITAL_ID=='huadu' || HOSPITAL_ID=='liaocheng' ? index+1 : index}}：</span> -->
+            <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi'].includes(HOSPITAL_ID)? index+1 : index}}：</span>
             <input v-if="HOSPITAL_ID !== 'liaocheng'" flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
             <!-- 聊城二院 床位 添加 下拉选项 -->
             <el-select

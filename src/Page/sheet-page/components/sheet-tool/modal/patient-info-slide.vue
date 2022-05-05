@@ -2,7 +2,8 @@
   <div class="patient-info-slide">
     <div class="no-do-bg" v-show="show" @click="close"></div>
     <transition name="el-zoom-in-left">
-      <div class="slide-con" v-show="show">
+      <!-- 护理记录单页面用原本样式。不是护理记录单页面就往上移30px -->
+      <div :class="{'slide-con':true,'otherSlide-con':faultNurseRecordList}" v-show="show">
         <div class="head-con" flex="cross:center main:justify">
           <span class="title">患者资料</span>
           <!-- <span class="close-btn" @click="close">
@@ -26,7 +27,7 @@
             <div class="label">患者医嘱</div>
             <el-button @click="openModal('adviceModal')">查看</el-button>
           </div>
-          <div class="item-box" v-if="HOSPITAL_ID == 'lingcheng'">
+          <div class="item-box" v-if="['lingcheng','lyxrm','foshanrenyi'].includes(HOSPITAL_ID)">
             <img src="../images/检验报告@2x.png" alt class="label-icon" />
             <div class="label">病历</div>
             <el-button @click="openModal('doctorEmrModal')">查看</el-button>
@@ -83,6 +84,10 @@
   box-shadow: -3px 2px 5px 0px rgba(0, 0, 0, 0.08);
   z-index: 1;
   background: #fff;
+}
+
+.otherSlide-con{
+   top: 71px;
 }
 
 .head-con {
@@ -158,6 +163,13 @@ import testModal from "./test-modal";
 import adviceModal from "./advice-modal";
 import doctorEmrModal from "./doctor-emr-modal";
 export default {
+  props:{
+    // 解决不是护理记录单样式问题。
+    faultNurseRecordList:{
+      type:Boolean,
+      default:false
+    }
+  },
   data() {
     return {
       bus: bus(this),
@@ -180,7 +192,6 @@ export default {
       this.$refs[name].open();
     }
   },
-  created() {},
   mounted() {},
   watch: {},
   components: {

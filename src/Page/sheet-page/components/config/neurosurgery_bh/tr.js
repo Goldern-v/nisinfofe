@@ -47,7 +47,7 @@ export default [{
     next: "℃",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 27
+      width: 30
     },
   },
   {
@@ -58,7 +58,7 @@ export default [{
     next: "次/分",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -69,7 +69,7 @@ export default [{
     next: "次/分",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -79,7 +79,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 45
     },
   },
   {
@@ -89,7 +89,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 30
+      width: 45
     },
   },
   {
@@ -109,9 +109,9 @@ export default [{
     name: "吸氧",
     next: "L/min",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 30
+      width: 50
     },
   },
   {
@@ -271,7 +271,7 @@ export default [{
     },
   },
   {
-    key: "strengthRightOn", //特殊监测icp
+    key: "icp", //特殊监测icp
     value: "",
     name: "ICP",
     event: keyf1,
@@ -281,7 +281,7 @@ export default [{
     },
   },
   {
-    key: "strengthRightDown", //特殊监测cvp
+    key: "cvp", //特殊监测cvp
     value: "",
     name: "CVP",
     event: keyf1,
@@ -295,9 +295,9 @@ export default [{
     value: "",
     name: "入量名称",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 20),
     textarea: {
-      width: 65
+      width: 125
     },
   },
   {
@@ -318,7 +318,7 @@ export default [{
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 65
+      width: 45
     },
     autoComplete: {
       data: 出量名称
@@ -340,9 +340,9 @@ export default [{
     value: "",
     name: "出量颜色",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 40
     },
     autoComplete: {
       data: 颜色
@@ -366,9 +366,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "管道护理",
-    change: (e, td) => limitChange(e, td, 14),
+    change: (e, td) => limitChange(e, td, 22),
     textarea: {
-      width: 90
+      width: 140
     },
     splice: true,
     autoComplete: {

@@ -32,7 +32,9 @@
         </div>
       </div>
       <div class="right-part">
-        <testForm v-show="rightData.testNo" ref="testForm"></testForm>
+        <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm>
+        <!--右边的检验报告单部分，花都的testFormHD组件，因为事件与其他医院不一样-->
+        <testFormHD v-if="rightData.testNo&&['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testFormHD>
       </div>
     </div>
   </div>
@@ -42,7 +44,7 @@
 .content {
   margin: 20px 20px;
 }
-.left-part 
+.left-part
   float left
   width 36%
   background: #FFFFFF;
@@ -60,13 +62,13 @@
       font-weight bold
   .body
     padding 20px
-    background #fff    
+    background #fff
     overflow auto
     .item
       padding 11px 14px 11px 14px
       margin-bottom 10px
       border: 1px solid #E4E8EB;
-      border-radius: 2px;  
+      border-radius: 2px;
       position relative
       cursor pointer
       &.active
@@ -82,27 +84,27 @@
         margin-top 10px
       .result
         position absolute
-        top 8px  
-        right 10px  
+        top 8px
+        right 10px
         font-size: 13px;
         color: #E72C2C;
-        img 
+        img
           height 22px
 .right-part
   float right
   width 63%
   background: #F7FAFA;
   border: 1px solid #CBD5DD;
-  border-radius: 2px;          
+  border-radius: 2px;
 .null-con
   img
     display block
     margin 20% auto 20px
     width 120px
   p
-    text-align center   
+    text-align center
     font-size: 13px;
-		color: #666;  
+		color: #666;
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
@@ -110,7 +112,7 @@
   height 30px
   width 126px
   font-size: 12px;
-  color: #333333;  
+  color: #333333;
 </style>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 .left-part  .header .select .el-input__inner
@@ -118,11 +120,12 @@
   width 126px
   margin-left 16px
   font-size: 12px;
-  color: #333333;  
+  color: #333333;
 </style>
 
 <script>
   import testForm from './component/testForm'
+  import testFormHD from './component/testFormHD'
   import {
     testList
   } from '@/api/patientInfo'
@@ -170,12 +173,14 @@
     },
     methods: {
       toRight(data) {
+        console.log('data', data)
         this.rightData = data
         this.$refs.testForm.open(data)
       }
     },
     components: {
-      testForm
+      testForm,
+      testFormHD
     }
   }
 </script>

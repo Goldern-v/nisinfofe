@@ -22,7 +22,7 @@
     left:-0%;
     .selectbox{
         width: 300px;
-        height: 300px;
+        height: 410px;
         background-color: #fff;
         position: absolute;
         border: 1px solid #ddd;
@@ -30,11 +30,11 @@
         overflow: auto;
         .optionbox{
             border-bottom: 1px solid #ddd;
-            height: 25px;
-            line-height: 25px;
+            height: 30px;
+            line-height: 30px;
             text-indent: 10px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
         &:hover{
             background-color: #50c595;
             color: #fff;
@@ -78,6 +78,7 @@ return {
         '压疮预防及护理',
         '肛周皮肤护理',
         '协助/指导患者翻身及有效咳嗽',
+        "抬高床头15-30°",
         '抬高床头30°以上',
         '协助床上移动',
         '指导/协助被动肢体功能锻炼',
@@ -88,11 +89,43 @@ return {
         '防跌倒',
         '床上使用便器',
         '床边放大便椅',
+        '床上擦浴',
         '床上洗头',
         '温水擦浴',
-        '指导患者出院前打胰岛素', 
+        '餐前打胰岛素', 
+        '脐部护理',
+        '洗浴',
+        '防坠床',
+        '翻身拍背',
+        "肢体气压治疗",
+        '母乳喂养知识宣教',
+        '观察产程进展',
+        '落实减痛措施',
+        '指导分娩技巧',
+        '观察胎心情况',
+        '观察宫缩情况',
+        '指导自数胎动',
+        '观察膀胱排空及羊水情况',
+        '保持会阴清洁',
+        '禁止下床',
+        '指导床上活动',
+        '指导卧位',
+        '观察阴道流血情况',
+        '观察宫腔止血球囊引流情况',
+        '保持管道通畅及防管道脱落',
+        '协助翻身',
+        '指导挤奶技巧',
+        '指导肢体功能锻炼促进产后康复',
+        '观察伤口出血/渗血情况',
+        '检查伤口敷料情况',
+        '剪指甲/更换病人服',
+        '控制入量',
+        '观察会阴情况',
+        '观察下肢血运情况',
+        '腹部按摩',
+        '右下肢制动',
     ],
-    frequencyOptions:['qd','bid','tid','q4h','q6h','q8h','q12h','q3d','qw','biw']
+    frequencyOptions:['qd','bid','tid','q2h','q4h','q6h','q8h','q12h','q3d','qw','biw']
 };
 },
 methods:{

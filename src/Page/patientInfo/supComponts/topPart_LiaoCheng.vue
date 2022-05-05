@@ -186,6 +186,18 @@
       >
         <div class="nav-item">执行单</div>
       </router-link>
+      <router-link
+        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
+        tag="span"
+      >
+        <div class="nav-item">患者360</div>
+      </router-link>
+      <router-link
+        :to="{path:'/patientFlowForm', query: {patientId:query.patientId, visitId: query.visitId}}"
+        tag="span"
+      >
+        <div class="nav-item">患者流转单</div>
+      </router-link>
 
       <!-- <router-link :to="{path:'/sheetNursingOrder', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
         <div class="nav-item">护嘱单</div>

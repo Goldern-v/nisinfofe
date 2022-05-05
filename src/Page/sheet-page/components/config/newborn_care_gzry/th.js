@@ -1,6 +1,6 @@
 export default {
   style: {
-    width: '1200px'
+    width: '1250px'
   },
   // 科室的名称
   deptType: '',
@@ -31,7 +31,7 @@ export default {
         rowspan: '3'
       },
       {
-        name: '温<br>箱<br>/<br>辐<br>射<br>台<br>℃',
+        name: '温箱<br>/<br>辐射台<br>℃',
         colspan: '1',
         rowspan: '3'
       },

@@ -71,6 +71,17 @@ function changePassword_hx(empNo, oldPswd, newPswd, rePswd) {
         rePswd
     })
 }
+
+//获取正则
+function passwordRule() {
+    return axios.get(`${apiPath}getPasswordRule`)
+}
+
+// 新版重置密码（带正则）
+function  updatePassword(data) {
+    return axios.post(`${apiPath}updatePassword`,data)
+}
+
 export {
     working,
     clockIn,
@@ -80,5 +91,7 @@ export {
     notice,
     noticePage,
     changePassword,
-    changePassword_hx
+    changePassword_hx,
+    passwordRule,
+    updatePassword
 }

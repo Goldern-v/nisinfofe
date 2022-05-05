@@ -12,6 +12,26 @@
       ></el-input>
     </div>
     <div class="left-wapper">
+     <follow-list :data="sortList" @selectPatient="selectPatient" v-if="hasFollowList">
+       <template  slot-scope="{ scope }">
+         <span
+            class="point-box"
+            v-if="$route.path == '/formPage'"
+            v-show="
+              scope.formLowestStatus !== '' && scope.formLowestStatus != '2'
+            "
+            :class="{
+              red: scope.formLowestStatus == 0,
+              green: scope.formLowestStatus == 1,
+              isImg2: img2Show,
+            }"
+          ></span>
+       </template>
+     </follow-list>
+      <el-button-group v-if="hasGroupHos">
+        <el-button :type="isGroup?'primary':''" @click="isGroup = true">默认管床</el-button>
+        <el-button :type="!isGroup?'primary':''" @click="isGroup = false">全部床位</el-button>
+      </el-button-group>
       <div class="patient-list-contain">
         <!-- path: "/hospitalEval/:patientId?/:visitId?/:formId?" @click="selectPatient(item)"-->
         <router-link
@@ -59,6 +79,9 @@
               isImg2: img2Show,
             }"
           ></span>
+          <div class="angle" v-if="nursingClassList.includes(HOSPITAL_ID)&&item.nursingClass">
+            <img :src="require(`./images/${item.nursingClass}.png`)" alt/>
+          </div>
         </router-link>
       </div>
 
@@ -84,7 +107,8 @@
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .patient-list-part {
-  height: auto;
+  // height: auto;
+  height: 100%;
   box-sizing: border-box;
   padding-top: 45px;
   position: relative;
@@ -95,7 +119,7 @@
 }
 
 .patient-list-contain {
-  padding: 0px 13px 11px;
+  padding: 0px 3px 11px 13px;
   height: 100%;
   box-sizing: border-box;
   overflow: auto;
@@ -109,6 +133,16 @@
     margin: 1px 0;
     position: relative;
     text-decoration: none !important;
+
+    .angle {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      img{
+        height: 15px;
+        width: 15px;
+      }
+    }
 
     .img1 {
       height: 30px;
@@ -130,6 +164,7 @@
     }
 
     .bed {
+      margin-right: 5px;
       color: #333333;
     }
 
@@ -190,7 +225,10 @@
 
 .left-wapper {
   position: relative;
-  height: calc(100vh - 114px);
+  // height: calc(100vh - 114px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .point-box {
@@ -229,11 +267,17 @@
     left: 14px;
   }
 }
+.el-button-group{
+  display: flex;
+  justify-content: space-between;
+}
 </style>
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
+import {getPatientInfo} from "@/api/common"
 import bus from "vue-happy-bus";
+import FollowList from "../follow/index";
 export default {
   props: {
     data: Array,
@@ -250,10 +294,15 @@ export default {
       selectPatientId: "",
       patientListLoading: false,
       bedList: [],
+      baseBedList: [],
+      //需要患者列表中增加护理等级显示的医院
+      nursingClassList: ['guizhou'],
       imageBoy: require("./images/男婴.png"),
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
       imageWomen: require("./images/女.png"),
+      noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
+      isGroup:false // 是否选中管床
     };
   },
   methods: {
@@ -261,10 +310,19 @@ export default {
       if (this.deptCode) {
         // console.log("获取病人列表", this.deptCode);
         this.patientListLoading = true;
-        patients(this.deptCode, {}).then((res) => {
-          this.bedList = res.data.data.filter((item) => {
-            return item.patientId;
-          });
+        let config = process.env.hasFollow ? {showFollew:true} : null
+        patients(this.deptCode,config).then((res) => {
+          let {data:{data}} = res
+          let bedData = data.filter(item=>item.patientId)
+          // if(process.env.hasGroupHos){
+          //   let isGroup = bedData.every(item=>item.focus == false) // 如果未进行分组，默认显示全部
+          //   this.bedList = isGroup?bedData:bedData.filter(item=>item.focus);
+          // }else{
+          //   this.bedList = bedData;
+          // }
+          this.baseBedList = bedData
+          this.bedList = bedData;
+          this.hasGroupHos && this.groupBedList.length && (this.isGroup = true)
           this.patientListLoading = false;
           this.fetchData();
         });
@@ -291,8 +349,8 @@ export default {
         this.$store.commit("upCurrentPatientObj", patient);
         this.$store.commit("upWardCode", patient.wardCode || "");
         this.$store.commit("upWardName", patient.wardName || "");
-        //
-        this.callFunction(patient);
+        //patient 参数 true是否要滚动到最后一页
+        this.callFunction(patient,true);
         //
       }
     },
@@ -309,8 +367,13 @@ export default {
         return patientId == p.patientId && visitId == p.visitId;
       });
     },
-    fetchData() {
-      let currentPatient = this.$store.getters.getCurrentPatient();
+    async fetchData() {
+      let currentPatient = ''
+      if(this.HOSPITAL_ID == 'whfk'){
+        currentPatient = ''
+      }else{
+        currentPatient = this.$store.getters.getCurrentPatient();
+      }
       let patientId =
         this.$route.params.patientId || currentPatient.patientId || "";
       let visitId = this.$route.params.visitId || currentPatient.visitId || "";
@@ -318,7 +381,16 @@ export default {
         patientId,
         visitId,
       });
+      if(!p&&this.isAdmissionHisView){
+        patientId = this.$route.params.patientId
+        visitId = this.$route.params.visitId
+        let res = await getPatientInfo(patientId,visitId)
+        p = res.data.data
+      }
       if (p) {
+        if(currentPatient){
+          p = {...currentPatient,...p}
+        }
         this.selectPatient(p);
       }
       console.log(
@@ -330,6 +402,9 @@ export default {
     },
   },
   computed: {
+    isAdmissionHisView(){
+      return this.$route.path.includes('admissionHisView')
+    },
     list() {
       return this.bedList.filter((item) => {
         return (
@@ -409,11 +484,20 @@ export default {
     flagTop() {
       return `${this.wih * 0.4}px`;
     },
+    hasFollowList(){
+      return process.env.hasFollow
+    },
+    hasGroupHos(){
+      return process.env.hasGroupHos
+    },
+    groupBedList(){
+      return this.baseBedList.filter(item=>item.focus)
+    }
   },
   watch: {
     deptCode(ndata, odata) {
       // 清空当前选中病人
-      this.$store.commit("upCurrentPatientObj", new Object());
+      if(!this.noClearnCurrentPatient.includes(this.HOSPITAL_ID))this.$store.commit("upCurrentPatientObj", new Object());
 
       if (ndata == "051102") {
         this.img1Show = false;
@@ -426,6 +510,9 @@ export default {
       //
     },
     "$route.params.patientId": "fetchData",
+    isGroup(val){
+      this.bedList = val?this.groupBedList:this.baseBedList
+    }
   },
   created() {
     if (this.deptCode) {
@@ -438,6 +525,8 @@ export default {
       this.img2Show = true;
     }
   },
-  components: {},
+  components: {
+    FollowList
+  }
 };
 </script>

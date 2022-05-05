@@ -1,5 +1,5 @@
 <template>
-  <div class="header-con">
+  <div :class="['header-con',sheetInfo.sheetType === 'common_wj'?'wujing-big-title':'']">
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <div v-if="sheetInfo.sheetType === 'waiting_birth_wj'">
@@ -110,7 +110,7 @@
       </span>
     </div>
     <div v-else>
-      <div class="info-con" flex="main:justify">
+      <div class="info-con" :class="{'big-header':sheetInfo.sheetType=='common_wj'}" flex="main:justify">
       <span
         @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
       >
@@ -157,16 +157,22 @@
       </span>
       <!-- {{index}} {{relObj}} -->
       </div>
-      <div class="info-con">
+      <div class="info-con" :class="{'big-header':sheetInfo.sheetType=='common_wj'}">
        <span
         @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
       >
         诊断：
         <div
           class="bottom-line"
-          style="min-width: 800px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          style="min-width: 1080px;max-width: 1080px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >
-          {{ diagnosis }}
+          {{ processedDiagnosis[0] }}
+        </div>
+        <div
+          class="bottom-line"
+          style="margin-left:53px;min-width: 1080px;max-width: 1080px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+        >
+          {{ processedDiagnosis[1] }}
         </div>
       </span>
       </div>
@@ -190,7 +196,7 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
     };
   },
   computed: {
@@ -208,13 +214,38 @@ export default {
           }
         }
       }
-      return (
-        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
-        this.patientInfo.diagnosis
-      );
+      let result = (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] || this.patientInfo.diagnosis
+      return result;
+    },
+    processedDiagnosis(){
+      let strArr = this.diagnosis.split('')
+      let arr = []
+      let text = ''
+      strArr.map(str=>{
+        if(this.GetLength(text + str)>140){
+          arr.push(text)
+          text = str
+        }else{
+          text += str
+        }
+      })
+      arr.push(text)
+      text = ''
+      return arr
     }
   },
   methods: {
+    GetLength(str) {
+      var realLength = 0,
+        len = str.length,
+        charCode = -1;
+      for (var i = 0; i < len; i++) {
+        charCode = str.charCodeAt(i);
+        if (charCode >= 0 && charCode <= 128) realLength += 1;
+        else realLength += 2;
+      }
+      return realLength;
+    },
     updateBirthDay() {
       window.openSetAuditDateModal(
         date => {
@@ -263,6 +294,7 @@ export default {
 <style lang='scss' scoped>
 .header-con {
   .info-con {
+    margin: 0 0;
     > span {
       height: 23px;
       line-height: 23px;
@@ -274,6 +306,14 @@ export default {
       }
     }
   }
+}
+.wujing-big-title{
+  .title,.his-name{
+    font-size: 29px;
+  }
+}
+.big-header span{
+  font-size: 15px!important;
 }
 .bottom-line-input {
   display: inline-block;

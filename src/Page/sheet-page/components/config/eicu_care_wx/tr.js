@@ -35,7 +35,7 @@ import { multiDictInfo } from "../../../api/index";
       name: "静脉性质",
       change: (e, td) => limitChange(e, td, 12),
       textarea: {
-        width: 90
+        width: 100
       },
       // autoComplete: {
       //   data: ["5%葡萄糖","10%葡萄糖","生理盐水","甘露醇","白蛋白","血液制品","其他"]
@@ -51,7 +51,7 @@ import { multiDictInfo } from "../../../api/index";
       name: "静脉量",
       change: (e, td) => limitChange(e, td, 12),
       textarea: {
-        width: 90
+        width: 100
       },
     },
     {
@@ -61,7 +61,7 @@ import { multiDictInfo } from "../../../api/index";
       name: "饮食性质",
       change: (e, td) => limitChange(e, td, 12),
       textarea: {
-        width: 90
+        width: 100
       },
       // autoComplete: {
       //   data: ["水","流质","冷流","半流质","普食","鼻饲","禁食","低脂低盐饮食","糖尿病饮食"]
@@ -77,7 +77,7 @@ import { multiDictInfo } from "../../../api/index";
       name: "饮食量",
       change: (e, td) => limitChange(e, td, 12),
       textarea: {
-        width: 90
+        width: 100
       },
     },
     {
@@ -85,7 +85,7 @@ import { multiDictInfo } from "../../../api/index";
       value: "",
       event: keyf1,
       textarea: {
-        width: 90
+        width: 100
       },
       change: (e, td) => limitChange(e, td, 12),
       autoComplete: {
@@ -100,7 +100,7 @@ import { multiDictInfo } from "../../../api/index";
       event: keyf1,
       change: (e, td) => limitChange(e, td, 12),
       textarea: {
-        width: 90
+        width: 100
       },
       autoComplete: {
         data: 出量性质
@@ -109,13 +109,13 @@ import { multiDictInfo } from "../../../api/index";
       parentKey: "出量名称"
     },
     {
-      key: "dischargeSize", //dischargeSize 出量
+      key: "outQuantity", //dischargeSize 出量
       value: "",
       event: keyf1,
       name: "出量",
       change: (e, td) => limitChange(e, td, 12),
       textarea: {
-        width: 90
+        width: 100
       },
     },
     {

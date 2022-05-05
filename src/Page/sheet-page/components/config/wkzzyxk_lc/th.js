@@ -100,8 +100,8 @@ export default {
         SPO2
         `,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '35px',
+          maxWidth: '35px'
         },
         colspan: '1',
         rowspan: '3'
@@ -132,8 +132,8 @@ export default {
         canSet: true,
         key: "field22",
         style: {
-          minWidth: "57px",
-          maxWidth: "57px"
+          minWidth: "45px",
+          maxWidth: "45px"
         }
       },
       {
@@ -144,8 +144,8 @@ export default {
         canSet: true,
         key: "field23",
         style: {
-          minWidth: "57px",
-          maxWidth: "57px"
+          minWidth: "45px",
+          maxWidth: "45px"
         }
       },
       {
@@ -156,8 +156,8 @@ export default {
         canSet: true,
         key: "field24",
         style: {
-          minWidth: "57px",
-          maxWidth: "57px"
+          minWidth: "45px",
+          maxWidth: "45px"
         }
       },
       //护理记录
@@ -217,8 +217,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
       },
       {
@@ -239,15 +239,15 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '35px',
+          maxWidth: '35px',
           whiteSpace: 'nowrap'
         },
       },
     ],
     bottom: [{
         name: `
-        直径(mm)
+        直径<br/>(mm)
         `,
         colspan: '1',
         rowspan: '1',
@@ -269,7 +269,7 @@ export default {
       },
       {
         name: `
-        直径(mm)
+        直径<br/>(mm)
         `,
         colspan: '1',
         rowspan: '1',

@@ -30,6 +30,7 @@
           <!-- <slideConRight ref="slideConRight"></slideConRight> -->
           <slideContant ref="slideContant"></slideContant>
           <slideConRightGuizhou ref="slideConRightGuizhou"></slideConRightGuizhou>
+          <slideConRightLiaoCheng ref="slideConRightLiaoCheng"></slideConRightLiaoCheng>
         </div>
       </div>
     </div>
@@ -61,10 +62,11 @@
 
     .left-part {
       width: 199px;
-      position: absolute;
+      position: fixed;
       left: 0;
       top: 0;
       bottom: 0;
+      padding-top: 60px;
     }
 
     .right-part {
@@ -122,6 +124,7 @@ import slideCon from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideCon"
 // import slideConRight from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideConRight";
 import slideContant from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideContant.vue"
 import slideConRightGuizhou from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
+import slideConRightLiaoCheng from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideRightLiaoCheng.vue";
 import { model } from "@/Page/patientInfo/supPage/diagnosis/diagnosisViewModel";
 
 import { getPlanFormListByPV } from "@/Page/patientInfo/supPage/diagnosis/api";
@@ -133,11 +136,11 @@ export default {
   provide() {
     return {
       openSlideCon: item => {
-        // if(["guizhou",'huadu'].includes(this.HOSPITAL_ID)){
+        if(['liaocheng'].includes(this.HOSPITAL_ID)){
+          this.$refs.slideConRightLiaoCheng.open(item)
+        }else{
           this.$refs.slideConRightGuizhou.open(item)
-        // }else{
-        //   this.$refs.slideCon.open(item)
-        // }
+        }
       },
       // openSlideConRight: item => this.$refs.slideConRight.open(item),
       openSlideContant: item => this.$refs.slideContant.open(item)
@@ -269,6 +272,7 @@ export default {
     tableCon,
     patientList,
     slideConRightGuizhou,
+    slideConRightLiaoCheng,
     slideContant
   }
 };

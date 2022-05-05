@@ -6,6 +6,7 @@
     <slideCon ref="slideCon"></slideCon>
     <slideContant ref="slideContant"></slideContant>
     <slideConRightGuizhou ref="slideConRightGuizhou"></slideConRightGuizhou>
+    <slideConRightLiaoCheng ref="slideConRightLiaoCheng"></slideConRightLiaoCheng>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -20,6 +21,7 @@ import tool from "./components/tool/tool";
 import tableCon from "./components/tableCon/tableCon";
 import slideCon from "./modal/slide/slideCon";
 import slideConRightGuizhou from "./modal/slide/slideRightGuizhou.vue";
+import slideConRightLiaoCheng from "./modal/slide/slideRightLiaoCheng.vue";
 import slideContant from "./modal/slide/slideContant.vue"
 import { model } from "./diagnosisViewModel";
 import { getPlanFormListByPV } from "./api";
@@ -29,12 +31,13 @@ export default {
   provide() {
     return {
       openSlideCon: item => {
-        if(this.HOSPITAL_ID=="guizhou"||this.HOSPITAL_ID=="huadu"){
-          this.$refs.slideConRightGuizhou.open(item)
+        if(['liaocheng'].includes(this.HOSPITAL_ID)){
+          this.$refs.slideConRightLiaoCheng.open(item)
         }else{
-          this.$refs.slideCon.open(item)
+          this.$refs.slideConRightGuizhou.open(item)
         }
       },
+      // openSlideConRight: item => this.$refs.slideConRight.open(item),
       openSlideContant: item => this.$refs.slideContant.open(item)
     };
   },
@@ -94,6 +97,7 @@ export default {
     tool,
     slideCon,
     slideConRightGuizhou,
+    slideConRightLiaoCheng,
     slideContant,
     tableCon
   }

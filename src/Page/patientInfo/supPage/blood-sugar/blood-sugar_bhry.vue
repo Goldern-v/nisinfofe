@@ -7,53 +7,15 @@
     <div ref="Contain" @mousewheel="(e) => onScroll(e)">
       <div v-show="!isChart" class="blood-sugar-con">
         <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
-          <!-- <img class="his-logo"
-          src="../../../../common/images/his-logo/厚街医徽.png" />-->
           <div class="title">{{ HOSPITAL_NAME_SPACE }}</div>
-          <!-- <div
-            class="sup-title"
-            v-if="HOSPITAL_NAME === '广州市花都区人民医院'"
-          >
-            指尖血糖测定登记表
-          </div>
-          <div
-            class="sup-title"
-            v-else-if="HOSPITAL_NAME === '江门市妇幼保健院'"
-          >
-            血糖记录单
-          </div>
-          <div
-            class="sup-title"
-            v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院'"
-          >
-            血糖测量记录单
-          </div>
-          <div class="sup-title" v-else-if="HOSPITAL_ID == 'liaocheng'">
-            血糖酮体记录表
-          </div>
-           -->
           <div class="sup-title">微量血糖测定登记表</div>
-          <!-- <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div> -->
           <p flex="main:justify" class="info">
-            <span>病人姓名：{{ patientInfo.name }}</span>
-            <span>性别：{{ patientInfo.sex }}</span>
-            <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
-              >年龄：{{ formAge ? formAge : patientInfo.age }}</span
-            >
-            <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
-            <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
-            <span v-else-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
-            <span v-else
-              >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
-            >
-            <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
-            <span>床号：{{ resBedNol || patientInfo.bedLabel }}</span>
-            <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
-            <span v-if="HOSPITAL_ID == 'liaocheng'"
-              >病案号：{{ patientInfo.inpNo }}</span
-            >
-            <span v-else>住院号：{{ resInHosId || patientInfo.inpNo }}</span>
-            <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
+            <span>病人姓名：{{ resMsg.name }}</span>
+            <span>性别：{{ resMsg.gender }}</span>
+            <span>年龄：{{ resMsg.age }}</span>
+            <span>科室：{{ resMsg.deptName }}</span>
+            <span>床号：{{ resMsg.bedNo }}</span>
+            <span>住院号：{{ resMsg.inHosId }}</span>
           </p>
           <div class="table-warpper" flex="cross:stretch">
             <sugarTable
@@ -235,6 +197,9 @@ import common from "@/common/mixin/common.mixin.js";
 
 export default {
   mixins: [common],
+  props: {
+    setScrollTop: Function,
+  },
   data() {
     return {
       pageLoading: false,
@@ -252,6 +217,7 @@ export default {
       resBedNol:'',
       resInHosId:'',
       tDeptName: "",
+      resMsg:{}
     };
   },
   computed: {
@@ -273,13 +239,14 @@ export default {
       );
       this.formAge = res.data.data.itemMap.age;
     },
-    async load() {
+    async load(isScrollTop=false) {
       this.pageLoading = true;
       const res = await getSugarListWithPatientId(
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
       console.log(res);
+      this.resMsg = res.data.data
       this.resAge = res.data.data.age;
       if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
         this.resName = res.data.data.name;
@@ -315,6 +282,9 @@ export default {
         } else {
           this.startPage = 1;
         }
+        (isScrollTop) && (this.setScrollTop());
+        //this.$emit("setScrollTop")
+        //this.setScrollTop()
       });
     },
     toPrint() {

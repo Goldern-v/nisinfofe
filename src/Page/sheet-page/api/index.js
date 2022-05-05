@@ -14,6 +14,10 @@ export const getNurseExchangeInfo = (patientId, visitId) => {
 export const getNurseExchangeInfoByTime = (data) => {
   return axios.post(`${apiPath}nurseLog/getNurseExchangeInfo`, data);
 };
+//批量打印的转科转床记录
+export const getNurseExchangeInfoBatch = (data) => {
+  return axios.post(`${apiPath}nurseLog/getNurseExchangeInfoBatch`, data);
+};
 
 // 护记体征信息同步到体温单
 export const saveBatch = (data) => {
@@ -210,14 +214,16 @@ export const updateSheetHeadInfo = (obj = {}) => {
 };
 
 // 获取his患者体征
-export const getVitalSign = (patientId, visitId, recordDate,id,hospitalId) => {
+export const getVitalSign = (patientId, visitId, recordDate,itemType,repeatIndicator,id,hospitalId) => {
   if(hospitalId=="wujing"){
     return axios.post(
       `${apiPath}record/block/nurseExecute/list/${id}`,{
         patientId,
         visitId,
-        executeDateTime: recordDate
-    }
+        executeDateTime: recordDate,
+        executeType: itemType,
+        repeatIndicator: repeatIndicator,
+      }
     );
   }
   return axios.get(
@@ -244,6 +250,17 @@ export const getOrdersExecuteLc = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;
   return axios.post(`${apiPath}/record/block/getOrdersExecuteLc/list/${id}`, obj);
 };
+// 佛山人医获取his患者体征
+export const getOrdersExecuteFsry = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}/record/block/getOrdersExecuteFssy/list/${id}`, obj);
+};
+
+// 武汉肺科获取his患者体征
+export const getOrdersExecuteWhfk = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}/record/block//getOrdersExecuteWhfk/list/${id}`, obj);
+};
 
 // 贵州获取his患者输血同步
 export const nurseBloodList = (obj = {}) => {
@@ -253,7 +270,7 @@ export const nurseBloodList = (obj = {}) => {
 
 // 保存his患者体征
 export const saveVitalSign = (data,hospitalId) => {
-  if(hospitalId=='wujing'||hospitalId=='quzhou'||hospitalId=='liaocheng'||hospitalId=='guizhou'||hospitalId=='weixian'){
+  if(hospitalId=='wujing'||hospitalId=='quzhou'||hospitalId=='liaocheng'||hospitalId=='guizhou'||hospitalId=='weixian'||hospitalId=='foshanrenyi'){
     return axios.post(
       `${apiPath}record/block/ordersExecute/save`,
       data

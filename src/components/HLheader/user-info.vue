@@ -9,7 +9,7 @@
       >
         <span class="text" v-show="!img">求真像</span>
       </div>
-      <div class="user-text" flex-box="1">
+      <div class="user-text">
         <div class="name">
           {{ user.empName }}
           <span class="year">（{{ user.sex }}岁）</span>
@@ -17,7 +17,7 @@
         <div class="work">{{ user.title }}</div>
         <div class="dept">{{ user.deptName }}</div>
       </div>
-      <div style="margin-right: -8px" @click="$emit('quit')">
+      <div style="margin-right: -8px;width: 120px;" @click="$emit('quit')">
         <whiteButton text="注销登录"></whiteButton>
       </div>
     </div>
@@ -45,18 +45,19 @@
         <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
       </div>
     </div>
-    <div class="admin-system-info" v-if="HOSPITAL_ID === 'fuyou'">
+    <div class="admin-system-info" v-if="hasQrCaSignHos.includes(HOSPITAL_ID)">
+    <!-- <div class="admin-system-info" v-if="['fuyou'].includes(HOSPITAL_ID)"> -->
       证书状态:
       <p>
         <label>{{ (fuyouCaData && fuyouCaData.userName?fuyouCaData.userName:'无证书') || "无证书" }}:</label>
         <span>{{ fuyouCaData ? "已登录" : "未登录" }}</span>
       </p>
       <div class="button-con">
-        <el-button size="mini" @click="openFuyouCaSignModal">证书登录</el-button>
+        <el-button size="mini" @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()">证书登录</el-button>
         <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
-    <div v-if="HOSPITAL_ID === 'liaocheng'">
+    <div v-if="['liaocheng','foshanrenyi','fsxt'].includes(HOSPITAL_ID)">
       <div class="boxShadow" @click="onPrint">
         <div class="qrcode" ref="qrcodeContainer"></div>
       </div>
@@ -88,14 +89,17 @@
       <p><label>IP代理地址:</label><span>{{proxyIP}}</span></p>-->
     </div>
     <div class="footer-con" flex="cross:center">
-      <span @click="$emit('setPassword')">修改密码</span
-      >&nbsp;&nbsp;|&nbsp;&nbsp; <span>个人档案</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+      <span v-if="HOSPITAL_ID !=='whfk'">
+        <span @click="$emit('setPassword')">修改密码</span>&nbsp;&nbsp;|&nbsp;&nbsp; 
+      </span>
+      <span>个人档案</span>&nbsp;&nbsp;|&nbsp;&nbsp;
       <span @click="clear">清除缓存</span>
     </div>
     <uploadImgModal ref="uploadImgModal"></uploadImgModal>
     <caSignModal ref="caSignModal"></caSignModal>
     <printQrCode ref="printQrCode"></printQrCode>
     <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
+    <hjCaSignModal ref="hjCaSignModal"></hjCaSignModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -120,6 +124,7 @@
   }
 
   .user-text {
+    flex: 1;
     .name {
       font-size: 14px;
       color: #333333;
@@ -263,6 +268,8 @@ import caSignModal from "@/components/modal/ca-sign";
 import { $_$WebSocketObj, SignedData, Logout } from "@/api/XTXSAB.js";
 import { setInterval } from "timers";
 import fuyouCaSignModal from "@/components/modal/fuyou-ca-sign";
+import hjCaSignModal from "@/components/modal/hj-ca-sign";
+import md5 from "md5";
 let timer = null;
 export default {
   mixins: [common],
@@ -276,11 +283,13 @@ export default {
       ca_name: "",
       ca_isLogin: "",
       strUserCertID: "",
-      showScaleTip: false,
+      showScaleTip:['huadu'].includes(this.HOSPITAL_ID),
       userName: "",
       passWord: "",
       fuyouCaData:null,//江门妇幼ca签名认证数据
       isUpdateFuyouCaData:true,
+      // hasQrCaSignHos:['fuyou','hj'],
+      hasQrCaSignHos:['fuyou','hj','guizhou']
     };
   },
   props: {
@@ -436,6 +445,9 @@ export default {
     openFuyouCaSignModal() {
       this.$refs.fuyouCaSignModal.open();
     },
+    openHjCaSignModal() {
+      this.$refs.hjCaSignModal.open();
+    },
     getCaStatus() {
       $_$WebSocketObj.GetUserList((usrInfo) => {
         this.strUserCertID = usrInfo.retVal
@@ -476,16 +488,26 @@ export default {
     //二维码
     qrcode() {
       //非聊城不执行
-      if(!['liaocheng'].includes(this.HOSPITAL_ID )) return false;
+      if(!['liaocheng','foshanrenyi','fsxt'].includes(this.HOSPITAL_ID )) return false;
+      let titleObject = this.userName + " " + this.passWord;
+      ['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))); 
+      //console.log(this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))) 
+      console.log(titleObject);
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
-        text: this.userName + " " + this.passWord , // 二维码的内容
+        //text: this.userName + " " + this.passWord , // 二维码的内容
+        text: titleObject , // 二维码的内容
         colorDark: '#000',// 二维码的颜色
         colorLight: '#fff',
         correctLevel: QRCode.CorrectLevel.H
       })
       qrcode._el.title = "点击打印二维码";
+    },
+    getBase(str){
+      //加密encodeURIcomponent
+      const jiaMi = encodeURIComponent(str);
+      return btoa(jiaMi);
     },
     //获取local里的用户名和密码
     loadComments() {
@@ -514,16 +536,18 @@ export default {
     );
     clearInterval(timer);
     if (process.env.ENABLE_BLUETOOTH_SIGN) {
+      let outTimes = this.HOSPITAL_ID == 'foshanrenyi' ? 1000 : 5000 // 佛山市一要求缩短证书检测时间
       this.getCaStatus();
       let timer = setInterval(() => {
         this.getCaStatus();
-      }, 5000);
+      }, outTimes);
     }
   },
   mounted() {
     this.getUserImg();
     this.getSignImg();
-    this.showScaleTip = localStorage.getItem("noShowScaleTip") ? true : false;
+    let noShowScaleTip = localStorage.getItem("noShowScaleTip")
+    noShowScaleTip && (this.showScaleTip = true)
     this.$nextTick(() => {
       this.qrcode()
     });
@@ -538,6 +562,7 @@ export default {
     QRCode,
     printQrCode,
     fuyouCaSignModal,
+    hjCaSignModal,
   },
 };
 </script>

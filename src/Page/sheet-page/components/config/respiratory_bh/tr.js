@@ -38,9 +38,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "入量名称",
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 20),
     textarea: {
-      width: 65
+      width: 120
     },
   },
   {
@@ -132,9 +132,9 @@ export default [{
     value: "",
     name: "吸氧",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 30
+      width: 52
     },
   },
   {
@@ -203,9 +203,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "管道护理",
-    change: (e, td) => limitChange(e, td, 14),
+    change: (e, td) => limitChange(e, td, 22),
     textarea: {
-      width: 90
+      width: 140
     },
     splice: true,
     autoComplete: {

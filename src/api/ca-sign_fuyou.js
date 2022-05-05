@@ -41,12 +41,28 @@ export function saveSignPic(signPic) {
 
 //数字医信OAuth登陆-认证请求接口
 export const getAuthorize=(data)=>{
-  return axios.get(`${apiPath}caSignJmfy/authorizeCaJmfy`)
+  console.log(process.env.HOSPITAL_ID);
+  switch(process.env.HOSPITAL_ID){
+    case 'hj':
+    case 'guizhou':
+      return axios.get(`${apiPath}caSignHoujie/getAccessToken`)
+    default:
+      return axios.get(`${apiPath}caSignJmfy/authorizeCaJmfy`)
+  }
 }
 
 //数字医信 OAuth登陆-获取用户信息
 export const getTrustUserInfo=(data)=>{
-  return axios.get(`${apiPath}caSignJmfy/tokeninfoCaJmfy/${data.requestId}`)
+  switch(process.env.HOSPITAL_ID){
+    case 'hj':
+    case 'guizhou':
+      return axios.post(`${apiPath}caSignHoujie/auth/getOauthStatus`,{
+        accessToken:data.accessToken,
+        transactionId:data.transactionId,
+      })
+    default:
+      return axios.get(`${apiPath}caSignJmfy/tokeninfoCaJmfy/${data.requestId}`)
+  }
 }
 
 
@@ -61,8 +77,24 @@ export const getTrustUserInfo=(data)=>{
 // "formId":"139339", -- 表单ID
 // "selfSign":false -- 是否开启自动签名
 export function getCaSignJmfy(data) {
-  return axios.post(`${apiPath}caSignJmfy/pushCaSign`,data);
+  switch(process.env.HOSPITAL_ID){
+    case 'hj':
+    case 'guizhou':
+      console.log(data);
+      return axios.post(`${apiPath}caSignHoujie/sign/signdata`,data)
+    default:
+      return axios.post(`${apiPath}caSignJmfy/pushCaSign`,data);
+  }
 }
 
+export function getQrCode(accessToken){
+  return axios.get(`${apiPath}caSignHoujie/auth/oauth/${accessToken}`,{oauthMethod:'3'})
+}
 
-
+export function verifyData(accessToken,fileCode,empNo){
+  return axios.post(`${apiPath}caSignHoujie/sign/verifyData`,{
+    accessToken,
+    fileCode,
+    empNo
+})
+}

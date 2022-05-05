@@ -133,6 +133,67 @@ export default {
       this.getDate();
     },
   },
+  beforeRouteUpdate(to, from, next) {
+    if(!this.$store.state.admittingSave.admittingSave){
+      return this.$confirm('入院评估单还未保存，是否需要离开页面?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '退出成功!'
+          });
+           this.$store.state.admittingSave.admittingSave = true
+           return next()
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          }); 
+          return next(false)
+        });
+        // console.log(comfirm,'ddd');
+        // if(!comfirm) {
+        //   return next()
+        // }else{
+        //   next(false)
+        // }
+    }else{
+      next()
+    }
+  },
+  beforeRouteLeave(to,from,next){
+     if(!this.$store.state.admittingSave.admittingSave){
+      return this.$confirm('入院评估单还未保存，是否需要离开页面?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '退出成功!'
+          });
+           this.$store.state.admittingSave.admittingSave = true
+           return next()
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          }); 
+          return next(false)
+        });
+        // console.log(comfirm,'ddd');
+        // if(!comfirm) {
+        //   return next()
+        // }else{
+        //   next(false)
+        // }
+    }else{
+      next()
+    }
+  },
+
   components: {
     patientList,
     record,

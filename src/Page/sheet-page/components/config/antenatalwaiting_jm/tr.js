@@ -10,8 +10,9 @@ import {
 import {
   event_date,
   event_time,
+  event_date_time,
   click_date,
-  // click_date_time,
+  click_date_time,
   click_time
 } from "../keyEvent/date";
 
@@ -93,13 +94,26 @@ export default [
     }
   },
   {
+    key: "bloodSugar", //血糖
+    value: "",
+    event: keyf1,
+    name: "血糖",
+    next:"mol/L",
+    textarea: {
+      width: 32
+    }
+  },
+  {
     key: "preInputOne", //胎方位
     value: "",
     event: keyf1,
     name: "胎方位",
     textarea: {
       width: 40
-    }
+    }, 
+    autoComplete: {
+      data: ['LOA','LOT','ROA','ROT','LST','RST','LSCA','RSCA']
+    },
   },
   {
     key: "preInputTwo", //胎心音
@@ -229,20 +243,21 @@ export default [
   {
     key: "preFieldSeven", //临产时间
     value: "",
-    event: event_time,
+    event: event_date_time,
+    click: click_date_time,
     name: "临产时间",
     textarea: {
-      width: 40,
+      width: 70,
     },
   },
   {
     key: "preFieldEight", //胎儿娩出时间
     value: "",
     event: event_time,
-    click: click_time,
+    // click: click_time,
     name: "胎儿娩出时间",
     textarea: {
-      width: 60,
+      width: 40,
     },
   },
   {
@@ -264,6 +279,22 @@ export default [
     textarea: {
       width: 30,
       maxLength: 4
+    },
+  },
+  {
+    key: "armValue", //自定义1
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 40,
+    },
+  },
+  {
+    key: "armValue2", //自定义12
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 40,
     },
   },
   {

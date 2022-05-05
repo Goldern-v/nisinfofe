@@ -171,6 +171,8 @@
       >
         <div class="nav-item">体温单</div>
       </router-link>
+      <div class="nav-item--block"></div>
+      <div class="nav-item nav-item--nurse">{{adminNurse}}</div>
     </div>
     <div style="height: 50px"></div>
   </div>
@@ -203,6 +205,7 @@
 .nav-con {
   height: 50px;
   min-width: 1030px;
+  display: flex;
   background-image: linear-gradient(-180deg, #F7F7F9 0%, #EAEBEF 100%);
   padding-top: 12px;
   box-sizing: border-box;
@@ -210,7 +213,7 @@
   padding-right: 20px;
   border-bottom: 1px solid #CBD5DD;
   position: fixed;
-  width: 100%;
+  width: calc(100% - 200px);
   z-index: 10;
 }
 
@@ -221,8 +224,11 @@
   font-size: 13px;
   color: #687179;
   letter-spacing: 0.26px;
-  float: left;
+  // float: left;
   cursor: pointer;
+}
+.nav-item--block {
+  flex: 1;
 }
 
 .router-link-active {
@@ -247,6 +253,9 @@ export default {
     query() {
       let query = this.$route.query;
       return query;
+    },
+    adminNurse() {
+      return localStorage['adminNurse'] || ''
     }
   },
   components: {}

@@ -38,9 +38,16 @@ export default function Title(
   }
   break;
   case "Record_Children_Serious_Lc": {
-    // 陵城区-病重（病危）
+    // 陵城区-儿童重症医学科护理记录单【PICU】
     Th = JSON.parse(
       JSON.stringify(require("../config/picu_lc/th.js").default)
+    );
+  }
+  break;
+  case "record_children_serious2_lc": {
+    // 陵城区-儿童重症医学科护理记录单【PICU】（新）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/record_children_serious2_lc/th.js").default)
     );
   }
   break;
@@ -314,6 +321,20 @@ export default function Title(
     );
   }
   break;
+  case "caseamount_wx": {
+    // 威县-新生儿科重症监护出入量记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/caseamount_wx/th.js").default)
+    );
+  }
+  break;
+  case "newbornintensive_wx": {
+    // 威县-新生儿科重症监护记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/newbornintensive_wx/th.js").default)
+    );
+  }
+  break;
   case "cpr": {
     // cpr心肺复苏单（心血管内科）
     Th = JSON.parse(JSON.stringify(require("../config/cpr/th").default));
@@ -459,6 +480,13 @@ export default function Title(
     );
   }
   break;
+  case "nicu_custody_hd": {
+    // 花都-NICU监护单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nicu_custody_hd/th").default)
+    );
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     Th = JSON.parse(
@@ -467,7 +495,7 @@ export default function Title(
   }
   break;
   case "common_wj": {
-    // 省总队医院-护理记录单
+    // 武警-护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/common_wj/th").default)
     );
@@ -662,6 +690,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_new_lcey": {
+    // 聊城二院 - 病重（病危）患者护理记录单（带瞳孔）(新)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_new_lcey/th").default)
+    );
+  }
+  break;
   case "peri_intervention_lcey": {
     // 聊城二院 - 围介入期护理观察记录单
     Th = JSON.parse(
@@ -687,6 +722,34 @@ export default function Title(
     // 聊城二院 - 出入量记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/access_lcey/th").default)
+    );
+  }
+  break;
+  case "maternal_lcey": {
+    // 聊城二院 - 产妇产后观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/maternal_lcey/th").default)
+    );
+  }
+  break;
+  case "magnesium_lcey": {
+    // 聊城二院 - 硫酸镁静滴观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/magnesium_lcey/th").default)
+    );
+  }
+  break;
+  case "cardiac_lcey": {
+    // 聊城二院 - 胎心记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiac_lcey/th").default)
+    );
+  }
+  break;
+  case "labor_lcey": {
+    // 聊城二院 - 产程记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_lcey/th").default)
     );
   }
   break;
@@ -1000,6 +1063,97 @@ export default function Title(
     );
   }
   break;
+  case "neurology_bh": {
+    // 北海市 - 神经内科危重护理单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurology_bh/th").default)
+    );
+  }
+  break;
+  case "diabetes_bh": {
+    // 北海市 - 糖尿病治疗观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/diabetes_bh/th").default)
+    );
+  }
+  break;
+  case "revivemonitoring_bh": {
+    // 北海市 - 心胸外科术后复苏监测记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/revivemonitoring_bh/th").default)
+    );
+  }
+  break;
+  case "orthopaedic_bh": {
+    // 北海市 - 骨科危重患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopaedic_bh/th").default)
+    );
+  }
+  break;
+  case "surgery_bh": {
+    // 北海市 - 普外危重患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/surgery_bh/th").default)
+    );
+  }
+  break;
+  case "transplant_bh": {
+    // 北海市 - 肢体与组织移植血液循环观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/transplant_bh/th").default)
+    );
+  }
+  break;
+  case "ophthalmology_bh": {
+    // 北海市 - 眼科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ophthalmology_bh/th").default)
+    );
+  }
+  break;
+  case "labor_bh": {
+    // 北海市 - 产程观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_bh/th").default)
+    );
+  }
+  break;
+  case "emergency_bh": {
+    // 北海市 - 急诊CRRT治疗记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/emergency_bh/th").default)
+    );
+  }
+  break;
+  case "observation_bh": {
+    // 北海市 - 急诊ICU病情观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/observation_bh/th").default)
+    );
+  }
+  break;
+  case "seriously_bh": {
+    // 北海市 - 心胸外科病重（危）患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/seriously_bh/th").default)
+    );
+  }
+  break;
+  case "department_bh": {
+    // 北海市 - 急诊科重症监护室(EICU)CRRT 治疗记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/department_bh/th").default)
+    );
+  }
+  break;
+  case "monitoring_bh": {
+    // 北海市 - 心胸外科心电监护观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/monitoring_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
@@ -1091,6 +1245,41 @@ export default function Title(
     );
   }
   break;
+  case "icu_cpr_xg": {
+    // 东莞谢岗 - ICU心肺复苏单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_cpr_xg/th").default)
+    );
+  }
+  break;
+  case "peritoneal_xg": {
+    // 东莞谢岗 - 腹膜透析记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/peritoneal_xg/th").default)
+    );
+  }
+  break;
+  case "contraction_inhibitor_xg": {
+    // 东莞谢岗 - 宫缩抑制剂静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/contraction_inhibitor_xg/th").default)
+    );
+  }
+  break;
+  case "magnesium_sulphate_xg": {
+    // 东莞谢岗 - 硫酸镁注射液静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/magnesium_sulphate_xg/th").default)
+    );
+  }
+  break;
+  case "oxytocin_xg": {
+    // 东莞谢岗 - 催产素静脉点滴观察单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_xg/th").default)
+    );
+  }
+  break;
   case "cardiology_fs": {
     // 佛山市一 - 心内科通用护理记录单
     Th = JSON.parse(
@@ -1102,6 +1291,476 @@ export default function Title(
     // 佛山市一 - IABP护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/iabp_fs/th").default)
+    );
+  }
+  break;
+  case "orthopaedic_fs": {
+    // 佛山市一 - 护理记录单(骨科通用护理单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopaedic_fs/th").default)
+    );
+  }
+  break;
+  case "cervicalspine_fs": {
+    // 佛山市一 - 护理记录单(颈椎病保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cervicalspine_fs/th").default)
+    );
+  }
+  break;
+  case "cervicalspondylosis_fs": {
+    // 佛山市一 - 护理记录单(颈椎病手术治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cervicalspondylosis_fs/th").default)
+    );
+  }
+  break;
+  case "cervicalfracture_fs": {
+    // 佛山市一 - 护理记录单(颈椎骨折手术治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cervicalfracture_fs/th").default)
+    );
+  }
+  break;
+  case "burndepartment_fs": {
+    // 佛山市一 - 护理记录单(烧伤科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/burndepartment_fs/th").default)
+    );
+  }
+  break;
+  case "articulatio_fs": {
+    // 佛山市一 - 护理记录单(髋关节置换术后)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/articulatio_fs/th").default)
+    );
+  }
+  break;
+  case "genus_fs": {
+    // 佛山市一 - 护理记录单(膝关节置换术)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/genus_fs/th").default)
+      );
+  }
+  break;
+  case "handsfeet_fs": {
+    // 佛山市一 - 护理记录单(手足科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/handsfeet_fs/th").default)
+    );
+  }
+  break;
+  case "generalnursing_fs": {
+    // 佛山市一 - 护理记录单(通用护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/generalnursing_fs/th").default)
+    );
+  }
+  break;
+ 
+  case "upperdisorders_fs": {
+    // 佛山市一 - 护理记录单(上肢疾患保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/upperdisorders_fs/th").default)
+    );
+  }
+  break;
+  case "upperfractures_fs": {
+    // 佛山市一 - -护理记录单(上肢骨折术后)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/upperfractures_fs/th").default)
+    );
+  }
+  break;
+  case "lowerdisorders_fs": {
+    // 佛山市一 - -护理记录单(下肢疾患保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/lowerdisorders_fs/th").default)
+    );
+  }
+  break;
+  case "lowerfracture_fs": {
+    // 佛山市一 - 护理记录单(下肢骨折术后)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/lowerfracture_fs/th.js").default)
+    );
+  }
+  break;
+  case "resection_fs": {
+    // 佛山市一 - 护理记录单(肿物切除术)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/resection_fs/th.js").default)
+    );
+  }
+  break;
+  case "upperremoved_fs": {
+    // 佛山市一 - 护理记录单(上肢内固定物拆除)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/upperremoved_fs/th.js").default)
+    );
+  }
+  break;
+  case "lowerremoved_fs": {
+    // 佛山市一 - 护理记录单(下肢内固定物拆除)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/lowerremoved_fs/th.js").default)
+      );
+    }
+  break;
+  case "osteoporotic_fs": {
+    // 佛山市一 - 护理记录单(骨质疏松保守与手术治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/osteoporotic_fs/th.js").default)
+      );
+    }
+  break;
+  case "hipdisorders_fs": {
+    // 佛山市一 - 护理记录单(髋部疾患保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/hipdisorders_fs/th.js").default)
+      );
+    }
+  break;
+  case "criticallyill_fs": {
+    // 佛山市一 - 护理记录单(危重患者护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/criticallyill_fs/th.js").default)
+      );
+    }
+  break;
+  case "kneedisease_fs": {
+    // 佛山市一 - 护理记录单(膝关节疾患)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/kneedisease_fs/th.js").default)
+    );
+  }
+  break;
+  case "kneearthroscopy_fs": {
+    // 佛山市一 - 护理记录单(膝关节镜术护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/kneearthroscopy_fs/th.js").default)
+    );
+  }
+  break;
+  case "thoracicdisease_fs": {
+    // 佛山市一 - 护理记录单(胸椎疾病保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/thoracicdisease_fs/th").default)
+    );
+  }
+  break;
+  case "thoracicvertebrae_fs": {
+    // 佛山市一 - 护理记录单(胸椎疾病手术治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/thoracicvertebrae_fs/th.js").default)
+    );
+  }
+  break;
+  case "lumbardisease_fs": {
+    // 佛山市一 - 护理记录单(腰椎疾病保守治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/lumbardisease_fs/th.js").default)
+    );
+  }
+  break;
+  case "operationlumbar_fs": {
+    // 佛山市一 - 护理记录单(腰椎疾病手术治疗)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/operationlumbar_fs/th.js").default)
+    );
+  }
+  break;
+  case "general_fs": {
+    // 佛山市一 - -护理记录单(新生儿科通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general_fs/th").default)
+      );
+    }
+  break;
+  case "eyegeneral_fs": {
+    // 佛山市一 - -护理记录单(眼科通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/eyegeneral_fs/th").default)
+      );
+    }
+  break;
+  case "pupilgeneral_fs": {
+    // 佛山市一 - -护理记录单(儿科二区带瞳孔通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pupilgeneral_fs/th").default)
+      );
+    }
+  break;
+  case "areageneral_fs": {
+    // 佛山市一 - -护理记录单(儿科二区通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/areageneral_fs/th").default)
+      );
+    }
+  break;
+  case "pediatric_fs": {
+    // 佛山市一 - -护理记录单(儿科通用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric_fs/th").default)
+      );
+    }
+  break;
+  case "nonsurgicalcare_fk": {
+    // 武汉肺科 - 非手术科室护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nonsurgicalcare_fk/th.js").default)
+    );
+  }
+  break;
+  case "access_fk": {
+    // 武汉肺科 - 出入液量记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/access_fk/th.js").default)
+    );
+  }
+  break;
+  case "operating_fk": {
+    // 武汉肺科 - 手术科室记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/operating_fk/th.js").default)
+    );
+  }
+  break;
+  case "neonate_sdlj": {
+    // 顺德龙江 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonate_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "craniocerebral_sdlj": {
+    // 顺德龙江 - 护理记录单（颅脑外科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/craniocerebral_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "ordinary_sdlj": {
+    // 顺德龙江 - 护理普通记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ordinary_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "intravenous_sdlj": {
+    // 顺德龙江 - 硫酸镁、安宝静脉点滴观察记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intravenous_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "nursing_sdlj": {
+    // 顺德龙江 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "prenatal_sdlj": {
+    // 顺德龙江 - 产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "dreathe_sdlj": {
+    // 顺德龙江 - 呼吸专科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/dreathe_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "urology_sdlj": {
+    // 顺德龙江 - 护理记录单（泌尿外科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/urology_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "mechanical_sdlj": {
+    // 顺德龙江 - 机械通气监护记录单（儿科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/mechanical_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "orthopaedic_sdlj": {
+    // 顺德龙江 - 护理记录单（骨科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopaedic_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "pediatrics_sdlj": {
+    // 顺德龙江 - 护理记录单（儿科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatrics_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "microsurgical_sdlj": {
+    // 顺德龙江 - 护理记录单（显微外科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/microsurgical_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "cardiovascular_xt": {
+    // 佛山杏坛 - 护理记录单(心血管呼吸专科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiovascular_xt/th.js").default)
+    );
+  }
+  break;
+  case "criticaldisease_xt": {
+    // 佛山杏坛 - 危重症护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/criticaldisease_xt/th.js").default)
+    );
+  }
+  break;
+  case "pentagram2_xt": {
+    // 佛山杏坛 - 护理记录单（眼耳鼻咽喉科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pentagram2_xt/th.js").default)
+    );
+  }
+  break;
+  case "prenataldelivery2_xt": {
+    // 佛山杏坛 - 护理记录单(产前待产记录)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenataldelivery2_xt/th.js").default)
+    );
+  }
+  break;
+  case "postpartum2_xt": {
+    // 佛山杏坛 - 护理记录单(产后)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum2_xt/th.js").default)
+    );
+  }
+  break;
+  case "gynaecology2_xt": {
+    // 佛山杏坛 - 护理记录单(妇科专科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/gynaecology2_xt/th.js").default)
+    );
+  }
+  break;
+  case "pediatric3_xt": {
+    // 佛山杏坛 - 护理记录单(产科新生儿科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric3_xt/th.js").default)
+    );
+  }
+  break;
+  case "paediatrician2_xt": {
+    // 佛山杏坛 - 护理记录单(儿科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/paediatrician2_xt/th.js").default)
+    );
+  }
+  break;
+  case "neonatalspecialty2_xt": {
+    // 佛山杏坛 - 护理记录单(新生儿专科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatalspecialty2_xt/th.js").default)
+    );
+  }
+  break;
+  case "gastroenterology_xt": {
+    // 佛山杏坛 - 护理记录单(消化专科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/gastroenterology_xt/th.js").default)
+    );
+  }
+  break;
+  case "care3_xt": {
+    // 佛山杏坛 - 护理记录单(内三科通用单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/care3_xt/th.js").default)
+    );
+  }
+  break;
+  case "care2_xt": {
+    // 佛山杏坛 - 外一护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/care2_xt/th.js").default)
+    );
+  }
+  break;
+  case "general2_xt": {
+    // 佛山杏坛 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general2_xt/th.js").default)
+    );
+  }
+  break;
+  case "fracture_xt": {
+    // 佛山杏坛 - 护理记录单（骨折）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/fracture_xt/th.js").default)
+    );
+  }
+  break;
+  case "spine_xt": {
+    // 佛山杏坛 - 护理记录单（脊柱）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/spine_xt/th.js").default)
+    );
+  }
+  break;
+  case "craniocerebral_xt": {
+    // 佛山杏坛 - 护理记录单（颅脑）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/craniocerebral_xt/th.js").default)
+    );
+  }
+  break;
+  case "general_xt": {
+    // 佛山杏坛 - 护理记录单（通用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general_xt/th.js").default)
+    );
+  }
+  break;
+  case "emergency_treat_yx": {
+    // 武汉亚心 - 急诊留观记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/emergency_treat_yx/th").default)
+    );
+  }
+  break;
+  case "neonatology_yx": {
+    // 武汉亚心 - 新生儿科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_yx/th").default)
+    );
+  }
+  break;
+  case "icu_yx": {
+    // 武汉亚心 - ICU护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_yx/th").default)
+    );
+  }
+  break;
+  case "common_yx": {
+    // 武汉亚心 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/common_yx/th").default)
+    );
+  }
+  break;
+  case "test_common": {
+    // 护理记录单（测试用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general_xt/th.js").default)
     );
   }
   break;

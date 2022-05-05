@@ -42,9 +42,9 @@
                 <!-- <span v-if="item.type && item.type!='' && item.type!=item.name">-{{item.type}}</span> -->
               <!-- </el-option>
             </el-select> -->
-            <el-button 
-              type="text" 
-              class="modal-btn" 
+            <el-button
+              type="text"
+              class="modal-btn"
               @click="handleOpenRichEditorModal"
             >
               编辑
@@ -238,7 +238,7 @@ export default {
           return total=form["教育对象"].split(",").includes(item.text)?total.concat(item.value):total
         },[]);
         }
-        
+
         let method = educationMethod.filter(
           (item) => item.text === form["教育方法"]
         )[0];
@@ -271,7 +271,7 @@ export default {
           signature: "",
         };
         //贵州给初始教育时间
-        (this.HOSPITAL_ID == 'guizhou') && (this.date=dayjs(new Date()).format("MM-DD HH:mm"));
+        (this.HOSPITAL_ID == 'guizhou') && (this.date=dayjs(new Date()).format("YYYY-MM-DD HH:mm"));
         //赋值富文本
          this.$refs.richEditorModal.changeEditContent("");
       }
@@ -310,7 +310,7 @@ export default {
     },
     // 打开富文本编辑弹框
     handleOpenRichEditorModal() {
-      this.$refs.richEditorModal.open(this.isEdit);     
+      this.$refs.richEditorModal.open(this.isEdit);
     },
     // 更新宣教内容
     updateContent(content) {
@@ -340,12 +340,13 @@ export default {
     },
 
     openSignModal() {
+      console.log(this.itemData.id);
       window.openSignModal((password, empNo) => {
         getUser(password, empNo).then((res) => {
           this.curEmpName = res.data.data.empName;
           this.curEmpNo = res.data.data.empNo;
         });
-      });
+      },'执行人切换',null,false,'',{id:this.blockId,code:"form_edu",name:'健康宣教'});
     },
 
     // 关闭弹框
@@ -368,7 +369,7 @@ export default {
       });
       return data;
     },
-    
+
     //防抖宣教内容下拉搜索框方法
     debounceRemote(func, delay) {
       this.debounceTimer = null;
@@ -412,7 +413,7 @@ export default {
     // },
     // 处理保存入参
     setParams() {
-      let date = dayjs(new Date()).format("MM-DD HH:mm");
+      let date = dayjs(new Date()).format("YYYY-MM-DD HH:mm");
       let itemData = this.options.filter(
         (item) => item.missionId === this.form.state
       )[0]; // 宣教内容item
@@ -433,7 +434,7 @@ export default {
         (item) => item.value === this.form.assessment
       )[0].text; // 教育评估
       let pageParam = {
-        教育时间: this.date ? dayjs(this.date).format("MM-DD HH:mm") : date,
+        教育时间: this.date ? dayjs(this.date).format("YYYY-MM-DD HH:mm") : date,
         教育对象: object,
         教育方法: method,
         教育评估: assessment,

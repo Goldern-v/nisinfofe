@@ -1,6 +1,6 @@
 <template>
   <div class="tool-contain" flex="cross:center">
-    <div class="item-box" flex="cross:center main:center" v-if="showToolBar">
+    <div class="item-box" :class="{'lc-item':HOSPITAL_ID=='liaocheng'}" flex="cross:center main:center" v-if="showToolBar">
       <div class="text-con" @click="addPatient">添加患者</div>
     </div>
     <addSweetModal
@@ -35,6 +35,15 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.lc-item {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-390px);
+  width: 120px !important;
+  height: 30px !important;
+  background: #4bb08d !important;
+  color: #fff !important;
+}
 .tool-contain {
   background-image: linear-gradient(-180deg, #F8F8FA 0%, #EBECF0 100%);
   border-bottom: 1px solid #CBD5DD;

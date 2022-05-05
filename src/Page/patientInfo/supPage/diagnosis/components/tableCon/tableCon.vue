@@ -2,7 +2,7 @@
   <div class="containter" v-loading="tableLoading" ref="printable">
     <div class="header-con">
       <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
-      <div class="title">护理诊断计划</div>
+      <div class="title">{{HOSPITAL_ID=="liaocheng" || HOSPITAL_ID=="guizhou"?"护理计划":"护理诊断计划"}}</div>
       <div class="info-con" flex="main:justify">
         <span>
           姓名：
@@ -33,6 +33,11 @@
           {{ patientInfo.admissionDate }}
         </span>
       </div>
+      <div v-if="HOSPITAL_ID == 'guizhou'" class="info-con" flex="main:justify">
+        <span>
+          诊断：{{ patientInfo.diagnosis}}
+        </span>
+      </div>
     </div>
     <component :is="tableComplate" :tableData="tableData"></component>
     <!-- <DTable :tableData="tableData"></DTable> -->
@@ -42,6 +47,8 @@
 <script>
 import DTable from "./d-table";
 import DTableHD from "./d-table-HD";
+import DTableGZ from "./d-table-GZ";
+import DTableFSSY from "./d-table-FSSY";
 import { nursingDiagsPatient } from "../../api/index";
 import { model } from "../../diagnosisViewModel";
 import bus from "vue-happy-bus";
@@ -62,6 +69,8 @@ export default {
     tableComplate(){
       let ID_Component = {
         "huadu":DTableHD,
+        "guizhou":DTableGZ,
+        "foshanrenyi":DTableFSSY,
         default:DTable
       }
       return ID_Component[this.HOSPITAL_ID]||ID_Component.default
@@ -187,7 +196,9 @@ export default {
   },
   components: {
     DTable,
-    DTableHD
+    DTableHD,
+    DTableGZ,
+    DTableFSSY,
   }
 };
 </script>

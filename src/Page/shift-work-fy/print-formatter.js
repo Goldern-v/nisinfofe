@@ -1,13 +1,12 @@
-export default function(win) {
+export default function(win,printNode) {
   const root = win.document.body.children[0];
-  console.log(root);
 
   root.setAttribute("style", "width: 1080px;");
 
-  const header = root.querySelector(".head");
-  const footer = root.querySelector(".foot");
+  const header = printNode.querySelector(".head");
+  const footer = printNode.querySelector(".foot");
 
-  const table = root.querySelector("table");
+  const table = printNode.querySelector("table");
   const tbody = table.children[2];
   const trs = tbody.querySelectorAll("tr");
 
@@ -37,9 +36,9 @@ export default function(win) {
         ? row[0].offsetHeight + row[1].offsetHeight
         : row.offsetHeight;
 
-    if (!page || page.offsetHeight + h > 700) {
+    if (!page || page.offsetHeight + h > 620) {
       if (page && row === rest) {
-        while (page.offsetHeight + 30 < 700) {
+        while (page.offsetHeight + 30 < 620) {
           newTableBody.appendChild(emptyRow.cloneNode(true));
         }
       }
@@ -77,7 +76,7 @@ export default function(win) {
       if (shouldFillRows) {
         const target = newTableBody.children[newTableBody.children.length - 2];
 
-        while (page.offsetHeight + 30 < 700) {
+        while (page.offsetHeight + 30 < 620) {
           newTableBody.insertBefore(emptyRow.cloneNode(true), target);
         }
       }
@@ -99,17 +98,16 @@ export default function(win) {
     children.forEach((child, i, children) => {
       const pageNum = document.createElement("div");
       pageNum.style =
-        "position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; font-size: 12px; font-family: SimSun";
+        "position: relative; bottom: 0; left: 0; width: 100%; text-align: center; font-size: 12px; font-family: SimSun";
       pageNum.innerHTML = `第 ${i + 1} / ${children.length} 页`;
       child.style = "position: relative; height: 780px;";
       child.appendChild(pageNum);
-
-      if (i > 0) {
-        const divider = document.createElement("div");
-        divider.style = "page-break-after: always;";
-
-        root.insertBefore(divider, child);
-      }
+      child.style = "page-break-after: always;";
+      // if (i > 0) {
+      //   const divider = document.createElement("div");
+      //   divider.style = "page-break-after: always;";
+      //   root.insertBefore(divider, child);
+      // }
     });
   }
 }

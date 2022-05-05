@@ -37,7 +37,7 @@
                   <ElOption label="大夜班" value="大夜班" />
               </ElSelect>
             </div>
-            <div style="text-align: right;">交班日期：<b>{{record.changeShiftDate}}</b></div>
+            <!-- <div style="text-align: right;">交班日期：<b>{{record.changeShiftDate}}</b></div> -->
             <div v-if="HOSPITAL_ID == 'hj'">
               <div class="details">
                 <span>
@@ -204,9 +204,9 @@
                 <span>
                   手术：<b><input type="text" v-model="shiftWithWardcodes.patientOpration" /></b>人，
                 </span>
-                <span>
+                <!-- <span>
                   病重：<b><input type="text" v-model="shiftWithWardcodes.patientBz" /></b>人，
-                </span>
+                </span> -->
                 <span>
                   明日手术：<b><input type="text" v-model="shiftWithWardcodes.patientOprationTommorow" /></b>人
                 </span>
@@ -216,13 +216,13 @@
               </div>
               <div class="details" style="margin-top: 5px;">
                 <span>
-                  监护：<b><input type="text" v-model="shiftWithWardcodes.patientCustody" /></b>人，
-                </span>
-                <span>
                   病危：<b><input type="text" v-model="shiftWithWardcodes.patientBw" /></b>人，
                 </span>
                 <span>
                   病重：<b><input type="text" v-model="shiftWithWardcodes.patientBz" /></b>人，
+                </span>
+                <span>
+                  监护：<b><input type="text" v-model="shiftWithWardcodes.patientCustody" /></b>人，
                 </span>
                 <span>
                   一级：<b><input type="text" v-model="shiftWithWardcodes.patientYi" /></b>人，
@@ -237,7 +237,8 @@
                   压疮高危：<b><input type="text" v-model="shiftWithWardcodes.patientPressure" /></b>人，
                 </span>
                 <span>
-                  跌倒/坠床高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人，
+                  <!-- 跌倒/坠床高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人， -->
+                  跌倒高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人，
                 </span>
                 <span>
                   VTE高危：<b><input type="text" v-model="shiftWithWardcodes.patientVte" /></b>人
@@ -363,6 +364,7 @@
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
             </div>
+            <div data-print-style="width: auto"><span>交班日期：</span> <span>{{record.changeShiftDate}}</span></div>
           </div>
         </div>
       </div>

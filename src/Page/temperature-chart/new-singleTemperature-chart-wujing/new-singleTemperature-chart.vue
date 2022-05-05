@@ -19,7 +19,7 @@
           :isSelectPatient="isSelectPatient"
         ></patientList>
       </div>
-      <div class="right-part" v-loading="tableLoading">
+      <div class="right-part" v-loading="tableLoading"  :class="openLeft ? 'isLeft' : 'isRight'">
         <div class="sheetTable-contain">
           <temperatureNew
             class="contain-center"
@@ -69,7 +69,6 @@
     }
 
     .right-part {
-      margin-left: 199px;
       height: 100%;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
@@ -87,12 +86,15 @@
           flex: 3;
           border-left: 1px solid #eee;
           height: 100%;
-          padding: 10px;
           // margin-top:10px;
         }
       }
     }
   }
+  .isLeft {
+      margin-left: 199px;
+      }
+
 }
 </style>
 
@@ -102,8 +104,6 @@ import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
-import print from "printing";
-import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureNew from "./components/temperatureNew";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-wujing/components/tab-con";
 import Button from "@/Page/badEvent/components/button.vue";
@@ -141,7 +141,7 @@ export default {
       if (this.fullpage) {
         return this.wih - 44 + "px";
       } else {
-        return this.wih - 74 + "px";
+        return this.wih - 64 + "px";
       }
     },
     fullpage() {

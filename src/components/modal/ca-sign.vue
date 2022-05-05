@@ -95,7 +95,11 @@ export default {
       username: "",
       password: "",
       strUserCertID: "",
-      callback: null
+      callback: null,
+      FSRY_CA_timer:null,
+      timing_detection_CA:{ //需要定时检测ca签名的医院
+        foshanrenyi:1000 // 医院和对应的检测时间间隔
+      } 
     };
   },
   methods: {
@@ -117,6 +121,28 @@ export default {
           this.$message.warning("没有检查到证书");
         }
       });
+      // 需要定时检测ca签名的医院
+      if(this.timing_detection_CA[this.HOSPITAL_ID]){
+        this.$refs.modal.setCloseCallback(()=>{
+          console.log('这是弹窗插件自带的取消回调');
+          clearInterval(this.FSRY_CA_timer)
+        })
+        this.FSRY_CA_timer = setInterval(()=>{
+          $_$WebSocketObj.GetUserList(usrInfo => {
+            this.strUserCertID = usrInfo.retVal
+              .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
+              .replace("&&&", "");
+            let username = usrInfo.retVal.substring(
+              0,
+              usrInfo.retVal.indexOf("||")
+            );
+            console.log(username);
+            if (username) {
+              this.username = username;
+            }
+          });
+        },this.timing_detection_CA[this.HOSPITAL_ID])
+      }
     },
     close() {
       this.$refs.modal.close();
@@ -147,6 +173,6 @@ export default {
       );
     }
   },
-  components: {}
+  components: {},
 };
 </script>

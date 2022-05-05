@@ -16,14 +16,14 @@ axios.interceptors.request.use((config) => {
     // 判断如果是登录 则无需验证token
     config.headers.common['App-Token-Nursing'] = $params.appToken || '51e827c9-d80e-40a1-a95a-1edc257596e7'
 
-    var token = (window.app && window.app.$getCookie('NURSING_USER').split('##')[1]) || $params.token
+    var token = (window.app && window.app.$getCookie('NURSING_USER').split('##')[1]) || $params.token || (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).token)
 
     if (config.url.indexOf("identityCheck") > -1 || config.url.indexOf('sysPasswordSet/findList') > -1) {
         config.headers.common["Auth-Token-Nursing"] = token || '';
     }
 
     // 遍历白名单
-    const whiteList = ['login', 'autoLogin', 'ssoLogin', 'logout', 'changePasswordByEmpNo', 'sysPasswordSet/findList', 'identityCheck']
+    const whiteList = ['login', 'autoLogin', 'ssoLogin', 'logout', 'changePasswordByEmpNo', 'sysPasswordSet/findList', 'identityCheck', 'getPasswordRule','updatePassword']
 
     for (let i = 0; i < whiteList.length; i++) {
         let whiteUrlPath = whiteList[i]
@@ -50,6 +50,14 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((res) => {
     // if (typeof res.data === 'string') res.data = JSON.parse(res.data)
     var data = res.data
+    // by谢岗
+    // const {config} = res
+    // const whiteList = ['service1.asmx']
+    // console.log('test-res', res)
+    // if (whiteList.findIndex(v => config.url.indexOf(v)> -1)> -1) {
+    //     return res
+    // }
+
     if (window.location.href.includes('nursingDoc') || window.location.href.includes('showPatientDetails')) {
         if (res.data.code == '301') {
             localStorage.clear();

@@ -10,7 +10,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1350px"
+    width: "1450px"
   },
   th: {
     top: [{
@@ -83,7 +83,7 @@ export default {
       },
       {
         name: `
-        GlasGon
+        GCS
         `,
         style: {},
         colspan: "3",

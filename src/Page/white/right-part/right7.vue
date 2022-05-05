@@ -1,6 +1,6 @@
 <template>
   <div style="padding-bottom: 20px;">
-    <boxBase title="安全日志指标" :icon="require('../images/留言板.png')">
+    <boxBase :title="whiteRightTitle.includes(HOSPITAL_ID) ? '护理安全日志' : '安全日志指标'" :icon="require('../images/留言板.png')">
       <div class="body-con"
            v-loading="pageLoading"
            slot="body-con">
@@ -8,7 +8,25 @@
              <label>项目</label>
              <label>安全天数</label>
            </div>
-           <div class="group" v-for="item in list" :key="item.prop">
+           <div v-if="HOSPITAL_ID == 'liaocheng'">
+             <div class="group" v-for="items in list1" :key="items.prop">
+             <label>{{items.name}}</label>
+             <div class="right">
+                <div class="day">
+                  {{listData[items.prop] || 0}}
+                </div>
+                <div class="date">
+                  <el-date-picker
+                    v-model="allDate[items.prop]"
+                    type="date"
+                    placeholder="选择日期" @change="changeDate($event,items.prop)">
+                  </el-date-picker>
+                </div>
+             </div>
+           </div>
+           </div>
+           <div v-else>
+             <div class="group" v-for="item in list" :key="item.prop">
              <label>{{item.name}}</label>
              <div class="right">
                 <div class="day">
@@ -22,6 +40,7 @@
                   </el-date-picker>
                 </div>
              </div>
+           </div>
            </div>
       </div>
     </boxBase>
@@ -45,14 +64,15 @@
         line-height 30px
         border: none;
       .day
-        width 50px
+        width 70px
         height 30px
-        font-size 16px
-        text-align center
+        font-size 14px
+        text-align right
         color #4bb08d
         line-height 30px
         font-weight bold
         padding-right 35px
+        white-space: nowrap
       .date
         position absolute
         top 0
@@ -95,8 +115,31 @@ export default {
           prop: 'total'
         },
       ],
+      list1: [
+        {
+          name: '院内压力性损伤',
+          prop: 'ylxss'
+        },
+        {
+          name: '跌倒坠床',
+          prop: 'ddzc'
+        },
+        {
+          name: '管道脱落',
+          prop: 'glht'
+        },
+        {
+          name: '安全用药',
+          prop: 'aqyy'
+        },
+        {
+          name: '安全总天数',
+          prop: 'total'
+        },
+      ],
       listData: {},
-      allDate: {}
+      allDate: {},
+      whiteRightTitle:['liaocheng']
     }
   },
   created() {
@@ -117,16 +160,29 @@ export default {
     // 	"ylxssDate":"院内压力性损伤日期",
     // 	"ddzcDate":"跌倒坠床日期",
     // 	"glhtDate":"管理滑脱日期",
-    // 	"aqyyDate":"安全用药日期"
+    // 	"aqyyDate":"安全用药日期",
+    //  "totalDate":"总天数日期"
     // }
     changeDate(val,prop){
-      let data = {
+      if(this.HOSPITAL_ID == 'liaocheng') {
+        var data = {
         deptCode: this.deptCode,
         ylxssDate: this.listData.ylxssDate,
         ddzcDate: this.listData.ddzcDate,
         glhtDate: this.listData.glhtDate,
-        aqyyDate: this.listData.aqyyDate
+        aqyyDate: this.listData.aqyyDate,
+        totalDate: this.listData.totalDate,
+        }
+      } else {
+        var data = {
+        deptCode: this.deptCode,
+        ylxssDate: this.listData.ylxssDate,
+        ddzcDate: this.listData.ddzcDate,
+        glhtDate: this.listData.glhtDate,
+        aqyyDate: this.listData.aqyyDate,
+        }
       }
+      
       data[`${prop}Date`] = val;
       saveWhiteLogIndicators(data).then(res=>{
         this.getData();

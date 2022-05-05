@@ -77,7 +77,7 @@
         >
           <div class="cell">
             {{
-              item.riValue && item.riValue !== "0" ? item.riValue + " ü" : ""
+              item.riValue && item.riValue !== "0" ? item.riValue + " U" : ""
             }}
           </div>
         </td>
@@ -91,11 +91,18 @@
         </td>
         <td>
           <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
-          <div class="cell noPrint" v-else>{{ item.nurse }}</div>
+          <div class="cell noPrint" v-else>
+            <img
+              style="width:60px;height:28px;"
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+            />
+          </div>
           <div :class="['cell','inPrint']">
             <!-- {{item.nurseEmpNo}} -->
             <img
-              style="width:99px;height:30px;"
+              style="width:60px;height:28px;"
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
               :alt="item.nurse"
               v-if="item.nurseEmpNo"

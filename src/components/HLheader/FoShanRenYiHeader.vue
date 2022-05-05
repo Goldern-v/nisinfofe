@@ -32,32 +32,133 @@
                 <i class="iconfont icon-shouye"></i> 首页
               </el-row>
             </router-link>
-            <!-- <router-link to="/archive" tag="span">
+             <router-link to="/bed" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-chuangweiyilanqia"></i> 床位一览卡
+              </el-row>
+            </router-link>
+            <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
               </el-row>
-            </router-link> -->
+            </router-link>
             <!-- <router-link to="/scheduling" tag="span" v-show="deptCode == '031202'">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
               </el-row>
             </router-link>-->
-            <router-link to="/board" tag="span">
+            <!-- 原来 -->
+            <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-baiban"></i> 白板
+                <i class="nursingAssessment"></i> 护理文书
+              </el-row>
+            </router-link> -->
+             <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveTemperaturePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>护理文书
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                 <el-dropdown-item :class="{active: $route.path == '/sheetHospitalAdmission'}">
+                  <router-link to="/sheetHospitalAdmission" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="sheetHospitalAdmission"></i> 首次评估
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                 <el-dropdown-item :class="{active: $route.path == '/formPage'}">
+                  <router-link to="/formPage" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="nursingAssessment"></i> 其他文书评估
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            <router-link to="/sheetPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i> 护理记录单
               </el-row>
             </router-link>
-
-            <!-- <router-link to="/MEWS" tag="span">
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveTemperaturePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>体温单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                 <el-dropdown-item :class="{active: $route.path.includes('singleTemperatureChart')}">
+                  <router-link to="/newSingleTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="singleTemperatureChart"></i>单人录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.includes('allTemperatureChart'),
+                  }"
+                >
+                  <router-link to="/allTemperatureChart" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allTemperatureChart"></i>批量录入体温单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+             <router-link to="/sugarPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
+            </router-link>
+            <!-- <router-link to="/implementationList" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 执行单
+              </el-row>
+            </router-link> -->
+            <el-dropdown
+              menu-align="start"
+              :hide-on-click="false"
+              :class="{ 'router-link-active': isActivePage }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>执行单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                 <el-dropdown-item
+                  :class="{ active: $route.path == '/implementationList' }"
+                >
+                  <router-link to="/implementationList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="catheterPage"></i>执行单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <!-- <el-dropdown-item
+                  :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
+                >
+                  <router-link to="/bottleLabelByProgram" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="wardReport"></i>执行瓶签打印
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item> -->
+              </el-dropdown-menu>
+            </el-dropdown>
+            <router-link to="/shiftWork" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 交班志
+              </el-row>
+            </router-link>
+            <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulirenwu"></i> MEWS
                 <span class="red-tip" v-if="isTip"></span>
-              </el-row>
-            </router-link> -->
-
-            <router-link to="/bed" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-chuangweiyilanqia"></i> 床位一览卡
               </el-row>
             </router-link>
             <!-- <router-link to="/sheetHospitalAdmission" tag="span">
@@ -156,12 +257,6 @@
                 <i class="iconfont icon-dongtairizhi"></i> 导管
               </el-row>
             </router-link>-->
-
-            <!-- <router-link to="/infuse" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
-              </el-row>
-            </router-link>-->
             <!-- <router-link to="/wardReport" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 病房日报
@@ -172,103 +267,9 @@
                 <i class="iconfont icon-huliwenshu"></i> 患者查询
               </el-row>
             </router-link> -->
-            <router-link to="/formPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i> 护理评估单
-              </el-row>
-            </router-link>
-            <router-link to="/sheetPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i> 护理记录单
-              </el-row>
-            </router-link>
-            <router-link to="/healthEdu" tag="span">
-              <el-row class="nav-item" type="flex" align="middle"
-                >健康教育单</el-row
-              >
-            </router-link>
-            <router-link to="/sugarPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
-            </router-link>
-            <el-dropdown
-              menu-align="start"
-              :class="{ 'router-link-active': isActiveTemperaturePage }"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>体温单
-              </el-row>
-              <el-dropdown-menu slot="dropdown">
-                 <el-dropdown-item :class="{active: $route.path.includes('singleTemperatureChart')}">
-                  <router-link to="/newSingleTemperatureChart" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="singleTemperatureChart"></i>单人录入体温单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{
-                    active: $route.path.includes('allTemperatureChart'),
-                  }"
-                >
-                  <router-link to="/allTemperatureChart" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="allTemperatureChart"></i>批量录入体温单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <!-- <router-link to="/shiftWork" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-jiaobanzhi"></i> 交班志
-              </el-row>
-            </router-link> -->
-
-            <!-- <router-link to="/implementationList" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-jiaobanzhi"></i> 执行单
-              </el-row>
-            </router-link> -->
-            <el-dropdown
-              menu-align="start"
-              :hide-on-click="false"
-              :class="{ 'router-link-active': isActivePage }"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>执行单
-              </el-row>
-              <el-dropdown-menu slot="dropdown">
-                 <el-dropdown-item
-                  :class="{ active: $route.path == '/implementationList' }"
-                >
-                  <router-link to="/implementationList" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="catheterPage"></i>执行单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <!-- <el-dropdown-item
-                  :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
-                >
-                  <router-link to="/bottleLabelByProgram" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="wardReport"></i>执行瓶签打印
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item> -->
-
-              </el-dropdown-menu>
-            </el-dropdown>
-            <router-link to="/nursingRounds" tag="span">
-              <el-row class="nav-item" type="flex" align="middle"
-                >护理巡视
-              </el-row>
-            </router-link>
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
-            </router-link>-->
+            </router-link> -->
 
             <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
               <el-row class="nav-item" type="flex" align="middle">
@@ -302,11 +303,61 @@
                 <i class="iconfont icon-hulijiludan"></i>其他
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <!-- <el-dropdown-item>
-                  <router-link to="/badEvent" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">不良事件</el-row>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/board' }"
+                >
+                  <router-link to="/board" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="board"></i>白板
+                    </el-row>
                   </router-link>
-                </el-dropdown-item>-->
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/infuse' }"
+                >
+                  <router-link to="/infuse" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="infuse"></i> 智慧输液
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/healthEdu' }"
+                >
+                  <router-link to="/healthEdu" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="healthEdu"></i>健康教育单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/nursingRounds' }"
+                >
+                  <router-link to="/nursingRounds" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="nursingRounds"></i>护理巡视
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/allCatheter' }"
+                >
+                  <router-link to="/allCatheter" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="allCatheter"></i>导管
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/badEvent' }"
+                >
+                  <router-link to="/badEvent" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="badEvent"></i>不良事件
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <el-dropdown-item
                   :class="{ active: $route.path == '/nursingDocumentation' }"
                 >
@@ -342,7 +393,7 @@
                   </router-link>
                 </el-dropdown-item>-->
 
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
                 >
                   <router-link to="/wardReport" tag="span">
@@ -350,9 +401,9 @@
                       <i class="wardReport"></i>病房日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
 
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{
                     active: $route.path.indexOf('/inpatientReport') > -1,
                   }"
@@ -362,7 +413,7 @@
                       <i class="inpatientReport"></i>住院日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/bedRecord') > -1 }"
                 >
@@ -435,7 +486,16 @@
                       <i class="badEvent"></i>不良事件
                     </el-row>
                   </router-link>
-                </el-dropdown-item>-->
+                </el-dropdown-item> -->
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/noCheckTest' }"
+                >
+                  <router-link to="/noCheckTest" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="noCheckTest"></i>未做检查/检验
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/nursingRules'}">
                   <router-link to="/nursingRules" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -563,10 +623,13 @@
 .nav-item {
   height: 60px;
   padding: 0 15px;
-  font-size: 14px;
-  color: #687179;
+  font-size: 16px;
+  color: #000;
+  font-weight: 700;
   letter-spacing: 0;
   cursor: pointer;
+  border-left: 1px solid #f0f4f7;
+  border-right: 1px solid #f0f4f7;
 
   i {
     margin-right: 5px;
@@ -579,11 +642,12 @@
   &:hover {
     background: #f8f8fa;
   }
+  
 }
 
 .router-link-active {
   .nav-item {
-    background: #F8F8FA;
+    background: #d8d8e1;
     border-left: 1px solid #EAEEF1;
     border-right: 1px solid #EAEEF1;
     border-top: 4px solid #4BB08D;
@@ -638,7 +702,11 @@
       background-image: url('../../common/images/index/血糖.png');
     }
 
-    &.healthEducation {
+    &.board {
+      background-image: url('../../common/images/index/共享文件.png');
+    }
+
+    &.healthEdu {
       background-image: url('../../common/images/index/健康教育单.png');
     }
 
@@ -650,7 +718,7 @@
       background-image: url('../../common/images/index/工作量统计.png');
     }
 
-    &.catheterPage {
+    &.allCatheter {
       background-image: url('../../common/images/index/导管.png');
     }
 
@@ -666,7 +734,7 @@
       background-image: url('../../common/images/index/不良事件.jpg');
     }
 
-    &.nursingRules {
+    &.nursingRounds {
       background-image: url('../../common/images/index/制度.png');
     }
 
@@ -686,7 +754,7 @@
       background-image: url('../../common/images/index/产科分娩登记表.png');
     }
 
-    &.vaccineManagement {
+    &.infuse {
       background-image: url('../../common/images/index/疫苗管理.png');
     }
 
@@ -865,7 +933,12 @@ export default {
     },
     isActivePage() {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
-      if (this.$route.path == "/nursingDocumentation") return true;
+      if (this.$route.path == "/board") return true;
+      if (this.$route.path == "/infuse") return true;
+      if (this.$route.path == "/badEvent") return true;
+      if (this.$route.path == "/healthEdu") return true;
+      if (this.$route.path == "/nursingRounds") return true;
+      if (this.$route.path == "/allCatheter") return true;
       if (this.$route.path == "/workloadSatistics") return true;
       if (this.$route.path == "/badEvent") return true;
       if (this.$route.path == "/inpatientReport") return true;

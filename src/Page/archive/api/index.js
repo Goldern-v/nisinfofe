@@ -40,3 +40,25 @@ export function getAchivePrintConfig() {
   return axios.get(
     `${apiPath}dict/dictInfo/archivePrintConfig`);
 }
+
+/**
+ * 申请召回
+ * @returns
+ */
+export function recallApply(params) {
+  return axios.post(`${apiPath}print/archive/recallApply`, params)
+}
+/**
+ * 撤销
+ * @returns
+ */
+export function recallCancel(params) {
+  return axios.post(`${apiPath}print/archive/recallCancel`, params)
+}
+/**
+ * 审批
+ * @returns
+ */
+export function recallAudit(params) {
+  return axios.post(`${apiPath}print/archive/recallAudit`, params)
+}

@@ -342,7 +342,8 @@ export default {
             //
             window.openSignModal((password, empNo) => {
               let post = {
-                id: this.formObj.model.patientId != '' ? this.formObj.model.id : window.formObj.model.id,
+                // id: this.formObj.model.patientId != '' ? this.formObj.model.id : window.formObj.model.id,
+                id: this.formObj.model.id || window.formObj.model.id,
                 empNo,
                 password,
               };
@@ -623,6 +624,7 @@ export default {
       // return `${item.wardName} ${dayjs(item.createTime).format('MM-DD')} 至 ${item.completeTime ? dayjs(item.completeTime).format('MM-DD') : '至今'}`
     },
     showMeasureDetialBox(res) {
+      console.log('res',res);
       let {
         data: {
           data: { diags: diags },
@@ -632,7 +634,7 @@ export default {
       let diagsArray = (diags || []).map((d) => {
         return d;
       });
-
+      console.log('diagsArray',diagsArray);
       this.$root.$refs.diagnosisModal.open(diagsArray);
     },
     formCheckEvalTask(diags = null) {
@@ -716,14 +718,12 @@ export default {
 
 
         this.formObj.model.formCode = this.formCode;
-        if(this.formObj.model.patientId !== ''){
-          console.log('this');
-          post = Object.assign({}, this.formObj.model, post);
-        }else{
-          console.log('window');
-          post = Object.assign({}, window.formObj.model, post);
-        }
-
+        // if(this.formObj.model.patientId !== ''){ // 不知道这个条件是区分啥的
+        //   post = Object.assign({}, this.formObj.model, post);
+        // }else{
+        //   post = Object.assign({}, window.formObj.model, post);
+        // }
+        post = Object.assign({}, this.formObj.model, window.formObj.model, post);
         // post.formCode = this.formCode
 
         let postData = new Object();
@@ -757,7 +757,6 @@ export default {
 
             //
             if (showMeasure) {
-              console.log(res,'gaohaixiong');
               this.showMeasureDetialBox(res);
             }
             //

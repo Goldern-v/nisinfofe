@@ -33,11 +33,10 @@
       <el-table-column
         header-align="center"
         align="center"
-        label="科室"
-        prop="wardName"
+        label="发生科室"
+        prop="happenedDeptName"
         min-width="140px"
       ></el-table-column>
-
       <el-table-column
         prop="patientName"
         header-align="center"
@@ -74,7 +73,7 @@
           <div class="justify">
             <el-button type="text" @click="openDetail(scope.row)">查看</el-button>
             <el-button
-              v-if="scope.row.status == 0 || scope.row.status == 1"
+              v-if="showDel || scope.row.status == 0 || scope.row.status == 1"
               type="text"
               @click="delDetail(scope.row)"
             >删除</el-button>
@@ -163,6 +162,12 @@ export default {
       currentRow: localStorage["BadEvent-CurrentRow"] || -1
     };
   },
+  computed: {
+    showDel() {
+      let userStore = JSON.parse(localStorage.user)
+      return userStore && (userStore.roleManageCode == 'QCR0001' || (userStore.roleManageCodeList || []).find(code => code == 'QCR0001'))
+    }
+  },
   mounted() {
     this.setCurrent(this.currentRow);
   },
@@ -189,7 +194,7 @@ export default {
         name: "badEventView",
         params: {
           id: row.id,
-          name: row.badEventName || row.chainName,
+          name: row.eventType,
           code: row.badEventCode || row.chainCode,
           type: row.eventType || row.chainName,
           status: row.status,

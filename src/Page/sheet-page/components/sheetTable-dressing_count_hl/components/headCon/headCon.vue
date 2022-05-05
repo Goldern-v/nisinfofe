@@ -652,23 +652,23 @@ export default {
       }
     }
     td:nth-of-type(1) {
-      width: 10%;
+      width: 16.6%;
       // background-color: red
     }
     td:nth-of-type(2) {
-      width: 10%;
+      width: 16.6%;
     }
     td:nth-of-type(3) {
-      width: 10%;
+      width: 16.6%;
     }
     td:nth-of-type(4) {
-      width: 10%;
+      width: 16.6%;
     }
     td:nth-of-type(5) {
-      width: 40%;
+      width: 16.6%;
     }
     td:nth-of-type(6) {
-      width: 20%;
+      width: 16.6%;
     }
     tr:nth-of-type(2n + 1) {
       background-color: #f4f2f5;

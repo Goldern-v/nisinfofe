@@ -17,6 +17,7 @@ import "@/assets/vue-event-calendar/style.css";
 
 import "@/assets/css/flex.css";
 import "@/assets/font/iconfont.css";
+process.env.HOSPITAL_ID == 'huadu'?(require("@/assets/css/styleHd.styl")):(require("@/assets/css/styleChrome.styl"))
 import "@/assets/css/style.styl";
 import "@/assets/css/tinyreset.css";
 import VueParticles from "vue-particles";
@@ -138,6 +139,7 @@ import {
 Vue.component("IviewTable", IviewTable);
 // Vue.component('IviewSelect', IviewSelect);
 import "./common/css/iview-table.css";
+// import 'view-design/dist/styles/iview.css' //有影响到床位一览卡、患者详情页的样式
 // import './common/css/iview-select.css';
 //组件
 import VueContextMenu from "vue-contextmenu";
@@ -155,7 +157,7 @@ Vue.prototype.HOSPITAL_NAME_SPACE = process.env.HOSPITAL_NAME_SPACE;
 Vue.prototype.COMPANY_NAME = process.env.COMPANY_NAME;
 Vue.prototype.ABOUT_INFO = process.env.ABOUT_INFO;
 let versionInfo = require("./version.json");
-
+localStorage.setItem('最近打包人员', JSON.stringify(versionInfo["最近打包人员"]))
 global.system = {
   软件名称: versionInfo["软件名称"],
   版本号: versionInfo["版本号"], //devTools.getLastPackagedDate(),

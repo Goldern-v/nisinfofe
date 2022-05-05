@@ -36,7 +36,7 @@
           <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="HOSPITAL_ID !='guizhou'"></el-table-column>
           <el-table-column prop="pulse" label="脉搏(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou'"></el-table-column>
-          <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou'"></el-table-column>
+          <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="HOSPITAL_ID =='guizhou' || HOSPITAL_ID  == 'foshanrenyi'"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="bloodPressure" label="血压(mmHg)" min-width="110px" align="center"></el-table-column>
         </el-table>
@@ -92,15 +92,16 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist:{},
+      splitPulseHospital:['nanfangzhongxiyi'] // 脉搏/心率的值仅有一个的时候不显示斜杠
     };
   },
   methods: {
-    open(baseParams) {  
+    open(baseParams) {
       console.log(baseParams,"gaohaix");
       this.formlist = baseParams
       console.log(this.formlist);
       if (!this.patientInfo.patientId && !baseParams.patientId) {
-        return this.$message.warning("请选择一名患者");
+        return this.$message.info("请选择一名患者");
       }
       this.searchDate = moment().format("YYYY-MM-DD");
       this.getData();
@@ -111,7 +112,7 @@ export default {
     },
     post() {
       let temArr = this.multipleSelection
-      if(this.multipleSelection.length!=0 &&(this.HOSPITAL_ID=='fuyou'||this.HOSPITAL_ID=='wujing')){
+      if(this.multipleSelection.length!=0 &&(this.HOSPITAL_ID=='fuyou')){
          this.multipleSelection.map((item,index)=>{
           if(item.pulse){
             let strArr = item.pulse.split("/")
@@ -135,11 +136,27 @@ export default {
         this.patientInfo.visitId || this.formlist.visitId,
         this.searchDate
       ).then(res => {
-        this.tableData = res.data.data.list;
+        let tableList = res.data.data.list
+        this.splitPulseHospital.includes(this.HOSPITAL_ID) && tableList.map(item=>{
+          item.pulse = this.getShowPluse(item.pulse)
+        })
+        this.tableData = tableList;
       });
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
+    },
+    getShowPluse(pulse){
+      if(!pulse.includes('/')){
+        return pulse
+      }else{
+        let [relPulse,heartRate] = pulse.split('/')
+        if(relPulse && heartRate){
+          return pulse
+        }else{
+          return relPulse || heartRate || ""
+        }
+      }
     }
   },
   computed: {
@@ -152,7 +169,7 @@ export default {
       if(this.formlist != undefined){
         return this.formlist;
       }
-        
+
     }
   },
   components: {

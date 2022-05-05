@@ -209,7 +209,7 @@ export default {
       }else if(newVal == '重症监护患者疼痛观察工具'){
         this.tableScoreSever();
       }else if(newVal == '小儿疼痛行为评估量表'){
-        this.tableScoreSever();
+        this.tableScoreChild();
       }
     },
     "formObj.model.I618004"(newVal) {
@@ -419,6 +419,7 @@ export default {
       //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
     },
     scoreListChild(val){
+      console.log(val);
        this.formObj.model["evalScore"] = val;
         this.setElementValue("evalScore", val);
       //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
@@ -626,6 +627,7 @@ export default {
                 Number(r.scoreMax),
               ];
               let score = Number(valueNew.split("分")[0]);
+              console.log(score,'score')
               scoreMin = scoreMin === NaN ? 0 : scoreMin;
               scoreMax = scoreMax === NaN ? 0 : scoreMax;
               score = score === NaN ? 0 : score;

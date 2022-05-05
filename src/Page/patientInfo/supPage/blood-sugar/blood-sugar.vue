@@ -9,7 +9,10 @@
         <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
           <!-- <img class="his-logo"
           src="../../../../common/images/his-logo/厚街医徽.png" />-->
-          <div class="title">{{ HOSPITAL_NAME_SPACE }}</div>
+          <div class="title" v-if="HOSPITAL_ID == 'whfk'">
+             <img class="title-img" src="./image/logo.png" alt="logo" />
+          </div>
+          <div class="title" v-else>{{ HOSPITAL_NAME_SPACE }}</div>
           <div
             class="sup-title"
             v-if="HOSPITAL_NAME === '广州市花都区人民医院'"
@@ -24,6 +27,12 @@
           </div>
           <div
             class="sup-title"
+            v-else-if="HOSPITAL_NAME === '佛山市顺德区龙江医院'"
+          >
+            血 糖 监 测 记 录 表
+          </div>
+          <div
+            class="sup-title"
             v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院'"
           >
             血糖测量记录单
@@ -31,7 +40,10 @@
           <div class="sup-title" v-else-if="HOSPITAL_ID == 'liaocheng'">
             血糖酮体记录表
           </div>
-          
+          <div class="sup-title" v-else-if="HOSPITAL_ID == 'whfk'">
+            血糖监测单
+          </div>
+
           <div class="sup-title" v-else>微量血糖测定登记表</div>
           <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div>
           <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
@@ -44,50 +56,71 @@
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
             <span  style="width:70px" v-if="HOSPITAL_ID == 'liaocheng'">床号：{{ patientInfo.bedLabel }}</span>
             <span  style="width:100px" v-else>床号：{{ patientInfo.bedLabel }}</span>
-            <span>病人姓名：{{ patientInfo.name }}</span>
-            <span>性别：{{ patientInfo.sex }}</span>
+            <span>病人姓名：{{ patientInfo.name  || tableHeaderInfo.name }}</span>
+            <span>性别：{{ patientInfo.sex  || tableHeaderInfo.gender }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
               >年龄：{{ formAge ? formAge : patientInfo.age }}</span
             >
             <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <span v-if="HOSPITAL_ID == 'liaocheng'"
-              >病案号：{{ patientInfo.inpNo }}</span
+              >病案号：{{ patientInfo.inpNo  }}</span
             >
-            <span v-else>住院号：{{ patientInfo.inpNo }}</span>
+            <span v-else>住院号：{{ patientInfo.inpNo || tableHeaderInfo.inpNo }}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
-          <p flex="main:justify" class="info" v-else>
-            <span>病人姓名：{{ patientInfo.name }}</span>
-            <span>性别：{{ patientInfo.sex }}</span>
+          <p flex="main:justify" class="info" v-else-if="isPreviewUserInfo">
+            <span>病人姓名：{{ sugarUserInfo.name || tableHeaderInfo.name}}</span>
+            <span>性别：{{ sugarUserInfo.gender }}</span>
+            <span >年龄：{{sugarUserInfo.age }}</span>
+            <span>科室：{{ sugarUserInfo.deptName }}</span>
+            <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
+            <span>床号：{{sugarUserInfo.bedNo }}</span>
+            <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
+            <span>住院号：{{sugarUserInfo.inHosId }}</span>
+            <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
+          </p>
+          <!-- 表头信息-->
+          <p flex="main:justify" class="info" :style="{'marginTop':Toppx}" v-else>
+            <span>病人姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
+            <span>性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
               >年龄：{{ formAge ? formAge : patientInfo.age }}</span
             >
-            <span v-else>年龄：{{ resAge ? resAge : patientInfo.age }}</span>
+            <span v-else>年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
             <span v-else-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
             <span v-else
-              >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span
+              >科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span
             >
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
-            <span>床号：{{ resBedNol || patientInfo.bedLabel }}</span>
+            <span>床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <span v-if="HOSPITAL_ID == 'liaocheng'"
               >病案号：{{ patientInfo.inpNo }}</span
             >
-            <span v-else>住院号：{{ resInHosId || patientInfo.inpNo }}</span>
+            <span v-else>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div class="table-warpper" flex="cross:stretch">
             <!-- 【左边】聊城二院血糖表格单独管理 -->
             <sugarTableLcey
-            v-if="HOSPITAL_ID == 'liaocheng'"
-            :data="item.left"
+              v-if="HOSPITAL_ID == 'liaocheng'"
+              :data="item.left"
               :selected.sync="selected"
               @dblclick="hisDisabled()&&onEdit()"
               :baseIndex='0'
               @uploadList="uploadView"
             ></sugarTableLcey>
+            <sugarTableWhfk
+              v-else-if="HOSPITAL_ID == 'whfk'"
+              :data="item.left"
+              :selected.sync="selected"
+              @dblclick="hisDisabled()&&onEdit()"
+              :baseIndex='0'
+              @uploadList="uploadView"
+              :sugarItem.sync="typeList"
+            ></sugarTableWhfk>
             <sugarTable
             v-else
               :data="item.left"
@@ -111,6 +144,15 @@
               :baseIndex='27'
                @uploadList="uploadView"
             ></sugarTableLcey>
+            <sugarTableWhfk
+              v-else-if="HOSPITAL_ID == 'whfk'"
+              :data="item.right"
+              :selected.sync="selected"
+              @dblclick="hisDisabled()&&onEdit()"
+              :baseIndex='27'
+              @uploadList="uploadView"
+              :sugarItem.sync="typeList"
+            ></sugarTableWhfk>
             <sugarTable
             v-else
               :data="item.right"
@@ -126,7 +168,7 @@
         <nullBg v-show="listMap.length == 0"></nullBg>
         <!-- <div class="addBtn" v-show="listMap.length == 0"> -->
         <div class="addBtn" v-show="listMap.length == 0 && !isPreview">
-          <whiteButton text="添加血糖记录" @click="onAddTable" />
+          <whiteButton text="添加血糖记录" @click="onAddTable" :disabled="isPreview"/>
         </div>
       </div>
     </div>
@@ -139,29 +181,30 @@
     </div>
     <div class="tool-con" v-show="listMap.length" :class="[HOSPITAL_ID=='guizhou'?'guizhou-btn':'']">
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID!=='liaocheng'"></whiteButton>
-        <whiteButton text="添加记录" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID==='liaocheng'"></whiteButton>
-        <whiteButton 
-        text="保存" 
-        @click="saveActiveSugar()" 
-        v-if="HOSPITAL_ID==='liaocheng'"
+        <whiteButton text="添加" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID!=='liaocheng'" :disabled="isPreview"></whiteButton>
+        <whiteButton text="添加记录" @click="hisDisabled()&&onAdd()" v-if="HOSPITAL_ID==='liaocheng'" :disabled="isPreview"></whiteButton>
+        <whiteButton
+        text="保存"
+        @click="saveActiveSugar()"
+        v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='whfk'"
          :disabled="!selected || !selected.recordDate"></whiteButton>
         <whiteButton
           text="修改"
           @click="hisDisabled()&&onEdit()"
-          :disabled="!selected || !selected.recordDate"
+          :disabled="!selected || !selected.recordDate||isPreview"
           v-if="HOSPITAL_ID != 'lingcheng'"
         ></whiteButton>
         <whiteButton
           text="删除"
           @click="hisDisabled()&&onRemove()"
-          :disabled="!selected || !selected.recordDate"
+          :disabled="!selected || !selected.recordDate||isPreview"
         ></whiteButton>
         <whiteButton
           :text="`设置起始页(${startPage})`"
           @click="hisDisabled()&&openSetPageModal(listMap.length)"
+          :disabled="isPreview"
         ></whiteButton>
-        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"></whiteButton>
+        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()" :disabled="isPreview"></whiteButton>
         <whiteButton
           :text="!isChart ? '查看曲线' : HOSPITAL_ID=='guizhou'?'返回':'查看表格'"
           @click="openChart"
@@ -198,9 +241,14 @@
     font-weight: bold;
   }
 
+  .title-img {
+    width: 100%;
+    height: 100%;
+  }
+
   .sup-title {
     font-size: 21px;
-    padding: 10px 0 0px;
+    padding: 1px 0 0px;
     text-align: center;
     font-weight: bold;
   }
@@ -283,6 +331,7 @@
 <script>
 import sugarTable from "./components/sugar-table.vue";
 import sugarTableLcey from "./components/sugar-table-lcey.vue";
+import sugarTableWhfk from "./components/sugar-table-whfk.vue"
 import {
   getSugarListWithPatientId,
   saveSugarList,
@@ -290,7 +339,7 @@ import {
   getPvHomePage,
   getSugarItemDict,
   getEditAge,
-  getFormHeadData,
+  getFormHeadData
 } from "./api/index.js";
 import whiteButton from "@/components/button/white-button.vue";
 import sugarChart from "./components/sugar-chart.vue";
@@ -310,6 +359,7 @@ export default {
       listMap: [],
       hisPatSugarList: [],
       isChart: false,
+      tableHeaderInfo:{},
       selected: null,
       startPage: 1,
       typeList: [],
@@ -322,6 +372,8 @@ export default {
       resInHosId:'',
       tDeptName: "",
       registNum:0,//血糖登记次数
+      hisUserTitLeList:['huadu'],//表头用户信息通过获取用户信息接口获取的医院
+      sugarUserInfo:{},//患者基础信息
     };
   },
   computed: {
@@ -334,6 +386,16 @@ export default {
     //是否为预览状态不可编辑
     isPreview(){
       return (this.$route.query && this.$route.path.includes("nursingPreview") && this.$route.query.nursingPreviewIsShow=='1');
+    },
+    //是否为表头用户信息通过获取用户信息接口获取的医院且为调阅接口
+    isPreviewUserInfo(){
+      return this.hisUserTitLeList.includes(this.HOSPITAL_ID) && this.$route.path.includes("nursingPreview");
+    },
+    Toppx(){
+      if(this.HOSPITAL_ID==='whfk'){
+        return '16px'
+      }
+      return '30px'
     }
   },
   methods: {
@@ -342,6 +404,24 @@ export default {
       this.getSugarItemDict();
   },
   async  saveActiveSugar(){
+    if(this.HOSPITAL_ID==='whfk'){
+      if(!this.selected.sugarItem){
+        this.$message({
+          message: '请填写项目再保存',
+          type: 'error',
+          duration:"1500"
+        })
+        return
+      }
+      if(!this.selected.sugarValue){
+        this.$message({
+          message: '请填写血糖值再保存',
+          type: 'error',
+          duration:"1500"
+        })
+        return
+      }
+    }
     const user=JSON.parse(localStorage.getItem("user"))
        let item = {
         patientId: this.patientInfo.patientId,
@@ -379,15 +459,16 @@ if(this.selected.expand2!==undefined){
         // 判断日期
         const formatArr=DateArr[0].split("-")
         const firstDate=`${formatArr[1]}-${formatArr[2]}`
-        if(item.date&&firstDate!==item.date){
-          item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
+        if(item.date&&firstDate!==item.date&&this.HOSPITAL_ID==='liaocheng'){
+            //聊城显示时间是没有年份的。 
+            item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
         }
-      
+
       await saveSugarList([item])
       this.$message.success("保存成功");
       this.load()
       this.getSugarItemDict();
-    
+
     },
     hisDisabled(){
       return  !this.$route.path.includes('nursingPreview')
@@ -405,7 +486,13 @@ if(this.selected.expand2!==undefined){
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
+      this.tableHeaderInfo=res.data.data
+      if(res.data.data.hisPatSugarList.length != 0){
+        this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel
+      }
       this.resAge = res.data.data.age;
+      ////表头用户信息通过获取用户信息接口获取的医院
+      (this.hisUserTitLeList.includes(this.HOSPITAL_ID)) && (this.sugarUserInfo = res.data.data);
       if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
         this.resName = res.data.data.name;
         this.resGender = res.data.data.gender;
@@ -445,12 +532,17 @@ if(this.selected.expand2!==undefined){
       });
     },
     toPrint() {
-      window.localStorage.sugarModel = $(this.$refs.Contain).html();
-      if (process.env.NODE_ENV === "production") {
-        let newWid = window.open();
-        newWid.location.href = "/crNursing/print/sugar";
-      } else {
+      if (this.HOSPITAL_ID === 'sdlj') {
+        window.localStorage.sugarModel = $(this.$refs.Contain).html();
         this.$router.push(`/print/sugar`);
+      } else {
+        window.localStorage.sugarModel = $(this.$refs.Contain).html();
+        if (process.env.NODE_ENV === "production") {
+          let newWid = window.open();
+          newWid.location.href = "/crNursing/print/sugar";
+        } else {
+          this.$router.push(`/print/sugar`);
+        }
       }
     },
     openChart() {
@@ -507,8 +599,11 @@ if(this.selected.expand2!==undefined){
       }
 
       await removeSugar(item);
-      this.load();
+      await this.load();
       this.selected = null;
+      if (this.HOSPITAL_ID === "sdlj" && this.listMap.length === 0) {
+        this.$emit('removeSugar')
+      }
     },
     async onSave(item) {
       item.recordDate =
@@ -566,9 +661,14 @@ if(this.selected.expand2!==undefined){
       }
     },
   },
-  created() {
+  async created() {
     if (this.$route.query.patientId) {
-      this.load();
+      await this.load();
+    }
+    
+    // 为了处理顺德龙江选择儿童单子立马创建表单问题
+    if (this.HOSPITAL_ID === "sdlj" && this.listMap.length == 0 && !this.isPreview) {
+      this.onAddTable()
     }
     if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
       this.getSugarItemDict();
@@ -597,8 +697,8 @@ if(this.selected.expand2!==undefined){
   },
   components: {
     sugarTable,
-    // 聊城二院血糖表格
     sugarTableLcey,
+    sugarTableWhfk,
     whiteButton,
     sugarChart,
     nullBg,

@@ -96,7 +96,6 @@
   }
 
   .header-con {
-    text-align: center;
 
     .his-name {
       font-size: 18px;
@@ -186,7 +185,7 @@ export default {
   computed: {
     patientInfo() {
       // return this.sheet.patientInfo
-      return this.sheetInfo.selectBlock || {};
+      return this.sheetInfo.masterInfo || {};
     },
     sheetPageIndex() {
       return this.sheet.sheetPageIndex;

@@ -82,6 +82,7 @@
       >
         同步床位数据
       </button>
+      <span v-if="showSyncBedBtn && node_env=='development'">(测试环境别点，<br/>会清空患者！！！)</span>
       <button
         class="login-btn"
         :class="{ noactive: showProgress }"
@@ -119,6 +120,9 @@
         :hasVteDanger="hasVteDanger"
         :isMultiDrugResistant="isMultiDrugResistant"
         :isDangerInThrombus="isDangerInThrombus"
+        :isPain="isPain"
+        :isAdl="isAdl"
+        :tubingShedding="tubingShedding"
       ></footerBar>
     </div>
   </div>
@@ -292,7 +296,10 @@ import {
   syncGetNurseBedRecQuzhou,
   syncGetNurseBedRecHengli,
   syncGetNurseBedRecJiangMenFY,
-  syncGetNurseBedRecJiangMenFSSY
+  syncGetNurseBedRecJiangMenFSSY,
+  syncGetNurseBedRecBeiHaiExecute,
+  syncGetNurseBedRecSDLJExecute,
+  syncGetNurseBedRecDGXGExecute,
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -307,9 +314,13 @@ export default {
       startTimer: "",
       endTimer: "",
       showProgress: false,
+      // hasGroupHos:['fuyou'] // 需要根据白板进行分组显示的医院
     };
   },
   computed: {
+    node_env(){
+      return process.env.NODE_ENV
+    },
     isChangeke() {
       return this.deptCode.includes("051102");
     },
@@ -476,6 +487,9 @@ export default {
     qfhz() {
       return this.bedList.filter((item) => item.totalCosts > item.prepayments);
     },
+    mrgc(){
+      return this.bedList.filter(item=>item.focus);
+    },
     list() {
       let list = [
         {
@@ -592,11 +606,11 @@ export default {
         },
       ];
       if (
-        this.HOSPITAL_ID == "zhongshanqi" ||
-        this.HOSPITAL_ID == "liaocheng" ||
-        this.HOSPITAL_ID == "beihairenyi" ||
-        this.HOSPITAL_ID == "fuyou" ||
-        this.HOSPITAL_ID == "huadu"
+          [
+            "zhongshanqi", "liaocheng",  "beihairenyi",
+            "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
+            "huadu",  "whyx", "fsxt", "sdlj","whfk"
+          ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
           name: "我的关注",
@@ -624,6 +638,11 @@ export default {
             type: "bed",
           });
       }
+      process.env.hasGroupHos && list.splice(1,0,{
+        name: "默认管床",
+        num: this.mrgc.length,
+        type: "bed",
+      })
       return list;
     },
     // 同步床位数据
@@ -636,7 +655,13 @@ export default {
         'shannan', 
         'quzhou', 
         'fuyou',
-        "foshanrenyi"
+        "foshanrenyi",
+        "fsxt",
+        "whfk",
+        "beihairenyi",
+        "lyxrm",
+        "sdlj",
+        "xiegang"
         ].includes(
         this.HOSPITAL_ID
       );
@@ -651,7 +676,19 @@ export default {
     // 血栓高危
     isDangerInThrombus(){
       return this.bedList.filter((item)=> item.isDangerInThrombus)
-    }
+    },
+    //疼痛
+    isPain(){
+      return this.bedList.filter((item)=> item.isPain == "1")
+    },
+    //生理自理能力
+    isAdl(){
+      return this.bedList.filter((item)=> item.isAdl == "1")
+    },
+     //管道脱落
+    tubingShedding(){
+      return this.bedList.filter((item)=> item.tubingShedding == "1")
+    },
   },
   methods: {
     async getDate() {
@@ -669,9 +706,14 @@ export default {
             ).name;
             return item;
           });
+          let isGroup = this.bedList.every(item=>item.focus == false) // 如果未进行分组，默认显示全部
+          if(process.env.hasGroupHos && !isGroup){ // 判断该医院是否需要按照分组进行显示
+            this.selectName = "默认管床";
+          }else{
+            this.selectName = "全部床位";
+          }
           this.$parent.bedList = this.bedList;
           this.$parent.loading = false;
-          this.selectName = "全部床位";
         });
       }
     },
@@ -709,6 +751,15 @@ export default {
           break;
         case "foshanrenyi":
           syncData = syncGetNurseBedRecJiangMenFSSY;
+          break;
+        case "beihairenyi":
+          syncData = syncGetNurseBedRecBeiHaiExecute;
+          break;
+        case "sdlj":
+          syncData = syncGetNurseBedRecSDLJExecute;
+          break;
+        case "xiegang":
+          syncData = syncGetNurseBedRecDGXGExecute;
           break;
         default:
           syncData = syncGetNurseBedRec;
@@ -758,6 +809,7 @@ export default {
       this.getDate();
     },
     selectName(val) {
+      console.log(val)
       switch (val) {
         case "":
         case "全部床位":
@@ -842,11 +894,13 @@ export default {
           }
           break;
         case "跌倒高风险":
+        case "跌倒风险":
           {
             this.$parent.bedList = this.dangerInMorse;
           }
           break;
         case "压疮高风险":
+        case "压疮风险":
           {
             this.$parent.bedList = this.dangerInYachuang;
           }
@@ -920,6 +974,26 @@ export default {
         case "共入床位":
           {
             this.$parent.bedList = this.shareIn;
+          }
+          break;
+        case "ADL":
+          {
+            this.$parent.bedList = this.isPain;
+          }
+          break;
+        case "疼痛":
+          {
+            this.$parent.bedList = this.isAdl;
+          }
+          break;
+        case "管道脱落风险":
+          {
+            this.$parent.bedList = this.tubingShedding;
+          }
+          break;
+        case "默认管床":
+          {
+            this.$parent.bedList = this.mrgc;
           }
           break;
         default: {

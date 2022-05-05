@@ -1,6 +1,76 @@
 <template>
   <div>
     <div class="tool-contain" flex="cross:center">
+    <template  v-if="HOSPITAL_ID == 'whfk'">
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="createSheet"
+        v-if="!isSingleTem && !isDeputy && isShow()"
+      >
+        <div class="text-con">新建记录单</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="openStaticModal"
+        v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
+      >
+        <div class="text-con">出入量统计</div>
+      </div>
+      <div
+        v-if="showSetCreatePage()"
+        class="item-box"
+        flex="cross:center main:center"
+        @click="setPage"
+        style="width: 110px"
+      >
+        <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="toPrint"
+        v-if="
+          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
+          HOSPITAL_ID == 'guizhou'
+        "
+      >
+        <div class="text-con">打印预览</div>
+      </div>
+      <div
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="toPdfPrint"
+        v-show="isDev && isShow()"
+      >
+        <div class="text-con">批量打印</div>
+      </div>
+      <div
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="delSheet"
+      >
+        <div class="text-con">删除整单</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="emit('addSheetPage')"
+      >
+        <div class="text-con">添加新页</div>
+      </div>
+       <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="toSave"
+      >
+        <div class="text-con" flex="cross:center">保存</div>
+      </div>
+    </template>
+    <template v-else>
       <div
         class="item-box"
         flex="cross:center main:center"
@@ -19,7 +89,7 @@
       <div
         class="item-box"
         flex="cross:center main:center"
-        @click="emit('saveSheetPage', 'noSaveSign')"
+        @click="toSave"
       >
         <div class="text-con" flex="cross:center">保存</div>
       </div>
@@ -36,7 +106,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="setPage"
-        style="width: 90px"
+        style="width: 110px"
       >
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
@@ -79,6 +149,7 @@
       >
         <div class="text-con">新建记录单</div>
       </div>
+    </template>
       <div
         class="item-box"
         flex="cross:center main:center"
@@ -213,7 +284,7 @@
         class="item-box"
         style="width: 85px"
         flex="cross:center main:center"
-        v-if="!isDeputy && ['huadu', 'beihairenyi'].includes(HOSPITAL_ID)"
+        v-if="!isDeputy && ['huadu','wujing', 'beihairenyi'].includes(HOSPITAL_ID)"
       >
         <input
           class="pegeSelect"
@@ -222,6 +293,17 @@
           v-model="pageNum"
           @keydown="pageNumKeyDown"
         />
+      </div>
+      <div
+        class="item-box"
+        style="width: 30px"
+        flex="cross:center main:center"
+        @click="openEMR"
+        v-if='HOSPITAL_ID == "beihairenyi"'
+      >
+        <div class="text-con">
+          电子病历
+        </div>
       </div>
       <!-- <div class="item-box" flex="cross:center main:center" @click="tofull">
             <div class="text-con">
@@ -283,7 +365,9 @@
           HOSPITAL_ID == 'wujing' ||
           HOSPITAL_ID == 'quzhou' ||
           HOSPITAL_ID == 'weixian' ||
-          HOSPITAL_ID == 'liaocheng'
+          HOSPITAL_ID == 'liaocheng'||
+          HOSPITAL_ID == 'foshanrenyi'||
+          HOSPITAL_ID == 'whfk'
         "
       >
         <div class="text-con">
@@ -308,7 +392,8 @@
       v-if="
         patientInfo.patientId &&
         !$route.path.includes('temperature') &&
-        !$route.path.includes('Baby_sheetPage')
+        !$route.path.includes('Baby_sheetPage') &&
+        HOSPITAL_ID != 'huadu'
       "
     ></patientInfo>
     <newFormModal ref="newFormModal"></newFormModal>
@@ -319,6 +404,7 @@
       ref="zxdtbModal"
       :blockId="blockId"
       :title="titleName"
+      :modalWidth="modalWidth"
     ></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
     <!-- <sweet-modal
@@ -367,21 +453,26 @@ import patientInfoModal from "./modal/patient-info-modal";
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
-import temperatureHD from "../../../patientInfo/supPage/temperature/temperatureHD";
+import temperatureHD from "../../../patientInfo/supPage/temperature/temperature-huadu";
 //体温曲线窗口
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
-import temperatureLCEY from "../../../patientInfo/supPage/temperature/temperatureLCEY";
-import temperatureWuJing from "../../../patientInfo/supPage/temperature/temperatureWuJing";
-import temperatureDghl from "../../../patientInfo/supPage/temperature/temperatureDghl";
 import { getPatientInfo } from "@/api/common.js";
-import Temperature from "@/Page/patientInfo/supPage/temperature/temperature.vue";
 
 export default {
   mixins: [commom],
   name: "sheetTool",
+  props: {
+    isNursingPreview: {//是否为调阅界面体温单调起的护记
+      type:Boolean,
+      default:false
+    }
+  },
   data() {
     return {
       bus: bus(this),
+      readOnlyList: [
+        "fuyou","huadu"
+      ],
       tool: "",
       showCurve: false,
       creator: "",
@@ -393,11 +484,20 @@ export default {
       sheetBlockList: [],
       queryTem: {},
       titleName: "",
+      modalWidth: 720,
       pageNum: "",
       firstPage: 1,
     };
   },
   methods: {
+    openEMR() {
+      // patient_id  患者id  visit_id  住院次数
+      if (!this.patientInfo.patientId) {
+        return this.$message.info("请选择一名患者");
+      }
+      let url = `http://192.168.37.203:8086?hospital_no=498784278&patient_id=${this.patientInfo.patientId}&visit_id=${this.patientInfo.visitId}&FILE_VISIT_TYPE=2`
+      window.open(url, '_blank');
+    },
     pageNumKeyDown(e) {
       if (e.keyCode == 13) {
         let startPage = Number(this.pageNum);
@@ -443,6 +543,9 @@ export default {
     },
     /* 出入量统计弹框--花都区分 */
     openStaticModal() {
+      if (!this.patientInfo.patientId) {
+        return this.$message.info("请选择一名患者");
+      }
       switch (process.env.HOSPITAL_ID) {
         case "huadu":
           this.bus.$emit("openHDModal");
@@ -463,6 +566,8 @@ export default {
         visitId: this.sheetInfo.selectBlock.visitId,
       };
       this.$store.commit("newDialogVisible", true); //打开体温曲线
+      this.bus.$emit("refreshImg"); //打开体温曲线
+
     },
     /* 打开婴儿的体温曲线页面 */
     openBabyChat() {
@@ -472,7 +577,7 @@ export default {
 
     emit(todo, value) {
       if (!this.patientInfo.patientId) {
-        return this.$message.warning("请选择一名患者");
+        return this.$message.info("请选择一名患者");
       }
       if (this.sheetInfo.sheetType != "body_temperature_Hd") {
         if (this.readOnly) {
@@ -485,15 +590,27 @@ export default {
     tofull() {
       this.$store.commit("upSheetPageFullpage", !this.fullpage);
     },
+    toSave() {
+      if (process.env.HOSPITAL_ID == "nanfangzhongxiyi") {
+        this.bus.$emit('toSheetSaveNoSign')
+      }else{
+        this.bus.$emit('saveSheetPage', 'noSaveSign')
+      }
+    },
     toPrint() {
+      // 正式环境打印会打开窗口,个别医院双签名打印设置为不打开新窗口（打开窗口样式有bug）
+      // 不打开窗口，打印完返回会有Bug（下拉不显示和表头不能修改）,只能重新加载页面
+      if(this.HOSPITAL_ID=='liaocheng' || this.HOSPITAL_ID=='huadu'){
+         this.$store.commit('upPreRouter',location.href)
+      }
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
-
       if (
         process.env.HOSPITAL_ID == "fuyou" ||
         process.env.HOSPITAL_ID == "quzhou" ||
         process.env.HOSPITAL_ID == "huadu" ||
-        process.env.HOSPITAL_ID === "foshanrenyi"
+        process.env.HOSPITAL_ID === "foshanrenyi"||
+        process.env.HOSPITAL_ID == "liaocheng"
       ) {
         this.bus.$emit("toSheetPrintPage");
       } else {
@@ -540,7 +657,7 @@ export default {
     },
     setPage() {
       if (!this.patientInfo.patientId) {
-        return this.$message.warning("请选择一名患者");
+        return this.$message.info("请选择一名患者");
       }
       if (!this.sheetInfo.selectBlock.id) {
         return this.$message.warning("还没有选择护理记录单");
@@ -778,10 +895,10 @@ export default {
         );
         this.$store.commit("upDeptCode", data.data.wardCode);
       }
-      console.log(
-        "条件",
-        this.patientInfo.patientId && this.patientInfo.visitId && this.deptCode
-      );
+      // console.log(
+      //   "条件",
+      //   this.patientInfo.patientId && this.patientInfo.visitId && this.deptCode
+      // );
       if (
         this.patientInfo.patientId &&
         this.patientInfo.visitId &&
@@ -798,7 +915,8 @@ export default {
           if (
             this.$route.path.includes("singleTemperatureChart") ||
             this.$route.path.includes("temperature") ||
-            this.$route.path.includes("Baby_sheetPage")
+            this.$route.path.includes("Baby_sheetPage") ||
+            (this.$route.path.includes("nursingPreview") && this.isNursingPreview)
           ) {
             this.sheetBlockList = list.filter((item) => {
               switch (this.HOSPITAL_ID) {
@@ -855,7 +973,7 @@ export default {
     },
     createSheet() {
       if (!this.patientInfo.patientId) {
-        return this.$message.warning("请选择一名患者");
+        return this.$message.info("请选择一名患者");
       }
       this.$refs.newFormModal.open();
     },
@@ -930,6 +1048,9 @@ export default {
     openZxdtbModal() {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
+      }
+      if (this.HOSPITAL_ID == "wujing") {
+        this.modalWidth = 850;
       }
       if (this.HOSPITAL_ID == "guizhou") {
         this.titleName = "输血同步";
@@ -1010,12 +1131,15 @@ export default {
     },
     /** 只读模式 */
     readOnly() {
-      try {
+      if(this.readOnlyList.includes(this.HOSPITAL_ID)){
+        let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+        if (controlReadOnly) {
+          return true
+        }
+      } else {
         return !this.userDeptList
-          .map((item) => item.code)
-          .includes(this.sheetInfo.selectBlock.deptCode);
-      } catch (error) {
-        return false;
+        .map(item => item.code)
+        .includes(this.sheetInfo.selectBlock.deptCode);
       }
     },
     /* 监听路由是否是单个体温单 */
@@ -1044,14 +1168,6 @@ export default {
       switch (this.HOSPITAL_ID) {
         case "huadu":
           return temperatureHD;
-          break;
-        case "liaocheng":
-          return temperatureLCEY;
-          break;
-        case "wujing":
-          return temperatureWuJing;
-          // case "hengli":
-          //   return temperatureDghl;
           break;
         default:
           break;
@@ -1089,6 +1205,7 @@ export default {
             if (index >= startPage && index <= endPage) {
               this.pageArea = this.selectList[i].value || "";
               let todo = () => {
+                if(!this.patientInfo.recordId) return
                 $(this.$parent.$refs.scrollCon).animate({
                   scrollTop:
                     $(`[recordId='${this.patientInfo.recordId}']`)
@@ -1173,10 +1290,14 @@ export default {
       let page = this.pageArea.split("-");
       let startPage = page[0];
       let endPage = page[1];
+      let maxPage = {
+        'wujing':30,
+        'default':20
+      }
       if (startPage && endPage) {
         if (
           Number(endPage) - Number(startPage) >= 0 &&
-          Number(endPage) - Number(startPage) <= 20
+          Number(endPage) - Number(startPage) <= maxPage[this.HOSPITAL_ID] || maxPage.default
         ) {
           this.sheetInfo.startPage = startPage;
           this.sheetInfo.endPage = endPage;
@@ -1192,7 +1313,7 @@ export default {
       deep: true,
       handler() {
         if (this.patientInfo.patientId) {
-          console.log(111);
+          // console.log(111);
           this.$parent.breforeQuit(() => {
             this.getBlockList();
             this.bus.$emit("setSheetTableLoading", true);
@@ -1231,10 +1352,6 @@ export default {
     patientInfoModal,
     patientInfo,
     temperatureHD,
-    temperatureLCEY,
-    temperatureWuJing,
-    temperatureDghl,
-    Temperature,
   },
 };
 </script>

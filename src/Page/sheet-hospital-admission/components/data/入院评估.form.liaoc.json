@@ -781,7 +781,7 @@
           "name": "I100005",
           "type": "input",
           "labelTitle": "BP",
-          "suffixDesc": "mmHG",
+          "suffixDesc": "mmHg",
           "titleStyle": "width:30px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "65px",
@@ -2100,7 +2100,7 @@
           "name": "I100106",
           "type": "input",
           "title": "排便次数",
-          "suffixDesc": "次/天",
+          "suffixDesc": "次",
           "style": null,
           "titleStyle": "width:61px!important",
           "inputStyle": "width:270px!important",
@@ -3513,6 +3513,7 @@
           "class": null,
           "readOnly": null
         },
+        {},
         {
           "name": "",
           "type": "formGroupHR",
@@ -4107,30 +4108,7 @@
           "class": null,
           "readOnly": null
         },
-        {
-          "name": "I001478",
-          "type": "select",
-          "title": "四肢活动",
-          "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "活动",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "四肢活动情况",
-                "parentName": "I001479",
-                "type": "dependent"
-              }
-            }
-          ]
-        },
+        
         {
           "name": "I001483",
           "type": "select",

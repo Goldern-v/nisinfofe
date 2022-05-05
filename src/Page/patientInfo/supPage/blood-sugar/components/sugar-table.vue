@@ -3,7 +3,7 @@
     <table>
       <tr>
         <th
-          v-if="HOSPITAL_ID != 'guizhou'"
+          v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'"
           style="width: 2%; min-width: 20px"
         >
           序号
@@ -31,7 +31,9 @@
             HOSPITAL_ID != 'liaocheng'&&
             HOSPITAL_ID != 'hengli'&&
             HOSPITAL_ID != 'fuyou'&&
-            HOSPITAL_ID != 'guizhou'
+            HOSPITAL_ID != 'sdlj'&&
+            HOSPITAL_ID != 'guizhou'&&
+            HOSPITAL_ID != 'whfk'
           "
         >
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
@@ -54,7 +56,7 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td v-if="HOSPITAL_ID != 'guizhou'">
+        <td v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'">
           {{index + baseIndex + 1}}
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
@@ -91,7 +93,9 @@
             HOSPITAL_ID != 'liaocheng'&&
             HOSPITAL_ID != 'hengli'&&
             HOSPITAL_ID != 'fuyou'&&
-            HOSPITAL_ID != 'guizhou'
+            HOSPITAL_ID != 'sdlj'&&
+            HOSPITAL_ID != 'guizhou'&&
+            HOSPITAL_ID != 'whfk'
           "
         >
           <div class="cell">
@@ -121,6 +125,14 @@
         </td>
         <td v-else>
           <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
+          <div class="cell noPrint" v-else-if="HOSPITAL_ID == 'whfk'">
+            <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+              style="width:70%;height: 90%;"
+            />
+          </div>
           <div class="cell noPrint" v-else>{{ item.nurse }}</div>
           <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->
@@ -130,7 +142,7 @@
               v-if="item.expand1"
             />
           </div>
-          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'']" v-else>
+          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'']" v-else>
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
@@ -201,7 +213,7 @@
 
   .inPrint {
     display: none;
- 
+
     &.lc {
       height: 29px;
     }
@@ -212,6 +224,10 @@
   }
   .guizhou-img img{
     width: 55px !important;
+    height: 25px !important;
+  }
+  .whfk-img img{
+    width: 45px !important;
     height: 25px !important;
   }
 }
@@ -237,7 +253,7 @@ export default {
       let renderData = [];
       let firstDate = "";
       for (let i = 0; i < this.data.length; i++) {
-        if(this.HOSPITAL_ID == 'lingcheng'){
+        if(this.HOSPITAL_ID == 'lingcheng' || this.HOSPITAL_ID == 'whfk'){
           this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
         }else{
           this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");

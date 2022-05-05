@@ -178,7 +178,6 @@
     outline: none;
   }
   .header-con {
-    text-align: center;
     .bottom-line {
       border-top: 0;
       border-left: 0;
@@ -369,18 +368,20 @@ export default {
   },
   computed: {
     patientInfo() {
-      return this.sheetInfo.selectBlock || {};
+      return this.sheetInfo.masterInfo || {};
     },
     /** 只读模式 */
     readOnly() {
-      let controlReadOnly = this.sheetInfo.selectBlock.readOnly //后端控制readOnly为true只能查阅，不能修改
-      if (controlReadOnly) {
-        return controlReadOnly
+      if(this.HOSPITAL_ID == "fuyou"){
+        let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
+        if (controlReadOnly) {
+          return true
+        }
+      }else {
+        return !this.userDeptList
+        .map(item => item.code)
+        .includes(this.sheetInfo.selectBlock.deptCode);
       }
-      
-      // return !this.userDeptList
-      //   .map(item => item.code)
-      //   .includes(this.sheetInfo.selectBlock.deptCode);
     },
     diagnosis() {
       /** 最接近的index */

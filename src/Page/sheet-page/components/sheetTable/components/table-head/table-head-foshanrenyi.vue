@@ -3,7 +3,7 @@
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
-    <div :class="{'info-con': true, 'info-con_new': sheetInfo.sheetType === 'pediatrics_jm'}" flex="main:justify">
+    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'iabp_fs'||sheetInfo.sheetType === 'cardiology_fs'">
        <span>
         姓名：
         <div class="bottom-line" style="min-width: 70px">
@@ -59,8 +59,66 @@
         </div>
       </span> -->
     </div>
+     <div class="info-con" flex="main:justify" v-else>
+       <span>
+        姓名：
+        <div class="bottom-line" style="min-width: 70px">
+          {{ patientInfo.patientName }}
+        </div>
+      </span>
+      <span>
+        床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <span>
+        性别：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.sex }}
+        </div>
+      </span>
+       <span>
+        年龄：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.age }}
+        </div>
+      </span>
+       <span>
+        住院号：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.inpNo }}
+        </div>
+      </span>
+      <span>
+        病区：
+        <div class="bottom-line" style="min-width: 70px">
+          {{ patientInfo.deptName }}
+        </div>
+      </span>
+      <span>
+        科室：
+        <div class="bottom-line" style="min-width: 70px">
+          {{ patientInfo.realDeptName }}
+        </div>
+      </span>
+      <!-- <span>
+        床号：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span> -->
+      
+     
+      <!-- <span v-if="sheetInfo.sheetType === 'neonatal_care_jm'">
+        入院日期：
+        <div class="bottom-line" style="min-width: 150px">
+          {{ patientInfo.admissionDate }}
+        </div>
+      </span> -->
+    </div>
     <div class="info-con">
-      <span v-if="sheetInfo.sheetType === 'cardiology_fs'"
+      <span v-if="sheetInfo.sheetType != 'iabp_fs'"
         @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
       >
         入院诊断：
@@ -77,7 +135,7 @@
         </div>
       </span>
     </div>
-    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
+    <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 
@@ -104,6 +162,9 @@ export default {
   },
   mounted() {},
   computed: {
+    routePath(){
+      return window.location.href
+    },
     diagnosis() {
       /** 最接近的index */
       let realIndex = 0;
@@ -186,6 +247,7 @@ export default {
     },
   },
   created() {
+    console.log();
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
@@ -194,7 +256,6 @@ export default {
       this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
       console.log(this.patientInfo);
-
   },
   watch: {},
   components: {

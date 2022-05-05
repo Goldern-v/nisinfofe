@@ -33,11 +33,7 @@
         <div class="nav-item" v-else>护理文书</div>
       </router-link>
       <router-link
-        v-if="
-          HOSPITAL_ID == 'hj' ||
-            HOSPITAL_ID == 'fuyou' ||
-            HOSPITAL_ID == 'liaocheng'
-        "
+        v-if="['hj','fuyou','liaocheng','sdlj'].includes(HOSPITAL_ID) "
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -46,6 +42,12 @@
       >
         <div class="nav-item">病历</div>
       </router-link>
+      <!-- <span v-if="['hj'].includes(HOSPITAL_ID)">
+        <a 
+          class="nav-item no-under-link"
+          :href="`openIE:http://10.35.0.135:9080/htweb/ShowInpatientInfo.jsp?ipid=${query.patientId}~${query.visitId}`"
+        >病历(新)</a>
+      </span> -->
       <router-link
         :to="{
           path: '/sheetNursingOrder',
@@ -234,6 +236,9 @@
     border-bottom: 0;
     border-radius: 4px 4px 0 0;
   }
+}
+.no-under-link{
+  text-decoration: none;
 }
 </style>
 <script>

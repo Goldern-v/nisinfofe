@@ -30,6 +30,7 @@
               :isInPatientDetails="true"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
+              @onModalChange="onModalChange"
             ></component>
           </div>
           <div
@@ -54,6 +55,7 @@
     <specialModal ref="specialModal"></specialModal>
     <specialModal2 ref="specialModal2"></specialModal2>
     <pizhuModal ref="pizhuModal"></pizhuModal>
+    <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <evalModel ref="evalModel"></evalModel>
     <!-- 电子病例弹窗 -->
     <doctorEmr
@@ -187,10 +189,12 @@ import sheetTable_internal_eval_lcey from "@/Page/sheet-page/components/sheetTab
 import sheetTable_surgical_eval2_lcey from "@/Page/sheet-page/components/sheetTable-surgical_eval2_lcey/sheetTable";
 import sheetTable_intervention_cure_lcey from "@/Page/sheet-page/components/sheetTable-intervention_cure_lcey/sheetTable";
 import sheetTable_picu_hemodialysis_jm from "@/Page/sheet-page/components/sheetTable-picu_hemodialysis_jm/sheetTable";
+import sheetTable_record_children_serious2_lc from "@/Page/sheet-page/components/sheetTable-record_children_serious2_lc/sheetTable";
 import sheetTable_waiting_birth_gzry from "@/Page/sheet-page/components/sheetTable-waiting_birth_gzry/sheetTable";
 import sheetTable_newborn_care_gzry from "@/Page/sheet-page/components/sheetTable-newborn_care_gzry/sheetTable";
 import sheetTable_catheterplacement_jm from "@/Page/sheet-page/components/sheetTable-catheterplacement_jm/sheetTable";
 import sheetTable_picc_custody_jm from "@/Page/sheet-page/components/sheetTable-picc_custody_jm/sheetTable";
+import sheetTable_nicu_custody_hd from "@/Page/sheet-page/components/sheetTable-nicu_custody_hd/sheetTable";
 import sheetTable_nicu_custody_jm from "@/Page/sheet-page/components/sheetTable-nicu_custody_jm/sheetTable";
 import sheetTable_cardiology_lcey from "@/Page/sheet-page/components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "@/Page/sheet-page/components/sheetTable-oxytocin_hl/sheetTable";
@@ -232,6 +236,7 @@ import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
 import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBottom";
 import { patients } from "@/api/lesion";
+import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
 
 export default {
   mixins: [common],
@@ -299,7 +304,7 @@ export default {
       resultModel.map(item=>{
         item.data.bodyModel.map((tr,x)=>{
           if(!tr.hasOwnProperty('isRead')){
-            tr.isRead = this.isRead(tr)
+            tr.isRead = this.isRead(tr,x)
             tr.map((td,y)=>{
               td.isDisabed = this.isDisabed(tr,td,x,y,item.data.bodyModel)
             })
@@ -321,6 +326,8 @@ export default {
         return sheetTableDressing_count;
       } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
         return sheetTableMaternal_newborn_lc;
+      } else if (sheetInfo.sheetType == "record_children_serious2_lc") {
+        return sheetTable_record_children_serious2_lc;
       } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
         return sheetTable_picc_maintenance_hd;
       } else if (sheetInfo.sheetType == "intervention_cure_hd") {
@@ -351,6 +358,8 @@ export default {
         return sheetTable_catheterplacement_jm;
       } else if (sheetInfo.sheetType == "picc_custody_jm") {
         return sheetTable_picc_custody_jm;
+      } else if (sheetInfo.sheetType == "nicu_custody_hd") {
+        return sheetTable_nicu_custody_hd;
       } else if (sheetInfo.sheetType == "cardiology_lcey") {
         return sheetTable_cardiology_lcey;
       } else if (sheetInfo.sheetType == "nicu_custody_jm") {
@@ -397,6 +406,29 @@ export default {
       ]).then(res => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
+
+        if(this.HOSPITAL_ID=='wujing'){
+          let barcodeArr = {} 
+          bodyData.list.map((tr,index)=>{
+            if(tr.expand){
+              barcodeArr[tr.expand] = barcodeArr[tr.expand] ? (barcodeArr[tr.expand] + 1) : 1
+              if(barcodeArr[tr.expand] == 1 && ((bodyData.list[index + 1] && bodyData.list[index + 1].expand != tr.expand)||(!bodyData.list[index + 1]))){
+                // 只有一行药品时不显示分组符号
+                tr.barCodeIdentification = 'identification-only-one'
+                tr.identificationUsage = tr.expand2
+              }
+              else if(barcodeArr[tr.expand] == 1){
+                tr.barCodeIdentification = 'identification-first'
+                tr.identificationUsage = tr.expand2
+              }else if((bodyData.list[index + 1] && bodyData.list[index + 1].expand != tr.expand)||(!bodyData.list[index + 1])){
+                tr.barCodeIdentification = 'identification-last'
+              }else{
+                tr.barCodeIdentification = 'identification-middle'
+              }
+            }
+          })
+        }
+
         let markData = res[2].data.data.list || [];
         this.listData = bodyData.list;
 
@@ -510,6 +542,23 @@ export default {
     },
     isDisabed(tr, td, x, y, bodyModel) {
       // canModify false可以修改，true禁止修改
+      // 签名后不能修改，要取消修改才能修改
+      if (this.sheetInfo.sheetType == "common_xg") {
+        if (td && this.listData[x]) {
+          return !this.listData[x].canModify;
+        }
+      }
+      if (this.HOSPITAL_ID=='whfk') {
+        if (td && this.listData[x]) {
+          // 是否签名,签名了就不能编辑。需要取消签名
+          if(tr.find((item) => item.key == "status").value === "1"){
+           return true
+          }
+        }
+      }
+      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[x] && (this.listData[x].status==2)&& (!this.listData[x].canModify)){
+        return true
+      }
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
@@ -526,7 +575,7 @@ export default {
       }
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
-        this.HOSPITAL_ID == "huadu" &&
+        (this.HOSPITAL_ID == "huadu") &&
         tr.find((item) => item.key == "status").value === "1"
       ) {
         let flag =
@@ -559,12 +608,21 @@ export default {
         return false;
       }
     },
-    isRead(tr) {
+    isRead(tr,x) {
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd"
       ) {
         return false;
+      }
+      if(this.listData && this.listData[x] && this.listData[x].canModify){
+        return false;
+      }
+      // 这里主要是给弹窗做判断isread
+      // 判断状态
+      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[x] && (this.listData[x].status==2)&& (!this.listData[x].canModify)){
+        // 当审核完，status=2&&canModify=false
+        return true
       }
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;
@@ -577,6 +635,31 @@ export default {
       } else {
         return false;
       }
+    },
+    onModalChange(e,tr,x,y,index){
+       // 改变当前行状态
+      tr.isChange = true
+      // // 获取recordDate的下标
+      let dateIndex = tr.findIndex(item=>item.key == "recordDate")
+      // 如果当前行有recordDate(即是保存过)
+      if(tr[dateIndex].value)return
+      // // 判断修改的记录是否起始页
+      let isStartPage =  index == 0 || y!=0
+      // // 获取上条记录
+      let preRow = isStartPage ? this.sheetModel[index].bodyModel[y - 1] : this.sheetModel[index - 1].bodyModel[this.sheetModel[index - 1].bodyModel.length - 1]
+      let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
+      let hourIndex = tr.findIndex(item=>item.key == "recordHour")
+      let monthValue = ''
+      let hourValue = ''
+      if(preRow){
+        monthValue = preRow[monthIndex].value || moment(preRow[dateIndex].value.split(' ')[0]).format('MM-DD')
+        hourValue = preRow[hourIndex].value || preRow[dateIndex].value.split(' ')[1]
+      } else {
+        monthValue = moment().format('MM-DD')
+        hourValue= moment().format('HH:ss')
+      }
+      !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
+      !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
     },
   },
 
@@ -831,7 +914,11 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-      if (process.env.HOSPITAL_ID == "fuyou"|| process.env.HOSPITAL_ID == "quzhou" || process.env.HOSPITAL_ID == "huadu") {
+      if (process.env.HOSPITAL_ID == "fuyou"|| 
+          process.env.HOSPITAL_ID == "quzhou" || 
+          process.env.HOSPITAL_ID == "huadu"||
+          process.env.HOSPITAL_ID == "xiegang"||
+          process.env.HOSPITAL_ID == "liaocheng") {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
@@ -878,6 +965,13 @@ export default {
         });
       });
     });
+    this.bus.$on("syncImportExam", (tr, td) => {
+      this.$refs.syncExamTestModal.open(tr, td, sheetModel);
+    });
+    this.bus.$on("ImportExamCallBack", (str) => {
+      // console.log(this.sheetModel[0].bodyModel[0][18].value, 88881);
+      this.bus.$emit('saveSheetPage','noSaveSign')
+    });
   },
   watch: {
     deptCode(val) {
@@ -920,6 +1014,7 @@ export default {
     GuizhouModal,
     signModal,
     specialModal,
+    syncExamTestModal,
     specialModal2,
     setPageModal,
     pizhuModal,
@@ -946,6 +1041,7 @@ export default {
     sheetTable_newborn_care_gzry,
     sheetTable_catheterplacement_jm,
     sheetTable_picc_custody_jm,
+    sheetTable_nicu_custody_hd,
     sheetTable_nicu_custody_jm,
     sheetTable_oxytocin_hl,
     sheetTable_emergency_rescue,

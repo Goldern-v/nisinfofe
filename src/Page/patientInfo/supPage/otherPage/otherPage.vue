@@ -1,5 +1,5 @@
 <template>
-  <div class="content" :class="{'doctor-emr-hd':HOSPITAL_ID == 'huadu'}">
+  <div class="content" :class="{'doctor-emr-hd':getOther()}">
     <div class="right-part">
       <right-part></right-part>
     </div>
@@ -14,6 +14,12 @@ export default {
   },
   components: {
     rightPart
+  },
+  methods:{
+    //360患者特殊样式
+    getOther(){
+      return ["huadu","fuyou","foshanrenyi"].includes(this.HOSPITAL_ID)
+    }
   }
 };
 </script>

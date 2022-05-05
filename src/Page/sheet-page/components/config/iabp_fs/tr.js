@@ -5,7 +5,7 @@
 /**
  * @description: 开发注意事项:
     1、textarea: { width:45 }, change: (e, td) => limitChange(e, td, 6) 的意思是宽度设置45，字数限制6个。
-    2、autoComplete: { data: [] } 为下拉框内容，根据需要添加。
+    2、（1）autoComplete: { data: [] } 为下拉框显示序号，根据需要添加。（2）autoComplete: { data: [{name:'',value:''}] } 为下拉框显示序号+内容，根据需要添加。
     3、splice: '' 为下拉框多选功能，搭配autoComplete使用, (''内容可自定义,splice: '/'为用“/”分隔)。
     4、name、next 为双击弹窗的内容，name为标题，next是单位。
     5、自定义项目，在th里要写 canSet: true , key: '' , key值为th对应tr的key值。
@@ -33,7 +33,7 @@ import {
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: 'recordMonth', event: event_date, click: click_date, value: '', next: ''},
-  { key: 'recordHour', event: event_time, value: '', next: ''},
+  { key: 'recordHour', event: event_time, click: click_time, value: '', next: ''},
   { key: 'assistRatio', event: keyf1, value: '', next: '', name: 'ASSISTRATIO', textarea: { width: 75 }, change: (e, td) => limitChange(e, td, 12) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'psp', event: keyf1, value: '', next: 'mmHg', name: 'PSP', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 8) },
@@ -49,11 +49,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "350px",
+      width: "360px",
       background: "transparent",
     },
     textarea: {
-      width: 350
+      width: 360
     },
     event: function (e, td) {
       console.log(e.keyCode);

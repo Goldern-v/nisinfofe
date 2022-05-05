@@ -3,12 +3,12 @@
     <sweet-modal ref="newRecord" size="big-650" title="添加护理诊断">
       <div class="record-con">
         <div class="search-con">
-          <div @keyup.enter.prevent="searchBybtn">
+          <div @keyup.enter.prevent="searchBybtn" style="display:flex;">
             <!-- <el-input placeholder="请输入诊断关键词" v-model="searchWord" class="diagnosis-search">
               <el-button type="primary" slot="append" v-touch-ripple @click="search">搜索</el-button>
             </el-input>-->
             <el-autocomplete
-              placeholder="请输入诊断关键词"
+              :placeholder="HOSPITAL_ID == 'guizhou' ? '请输入护理问题关键词' : '请输入诊断关键词' "
               v-model="searchWord"
               class="diagnosis-search"
               :fetch-suggestions="querySearch"
@@ -43,8 +43,48 @@
           layout="prev, pager, next, jumper"
           :total="totalCount"
         ></el-pagination>
+        <div style="flex:1;"></div>
+        <div class="import-btn">
+          <el-button 
+            type="primary" 
+            v-if="isImportModuleDevSuccess && hasImport.includes(HOSPITAL_ID)" 
+            v-touch-ripple 
+            @click="openImportModal"
+          >导入</el-button>
+        </div>
       </div>
     </sweet-modal>
+    <div v-if="isConfirm" class="confirm-box" @click.stop="isConfirm = false">
+      <div class="confirm-content" @click.stop="">
+        <div class="confirm-content-title">
+          <div class="title-label">导入诊断知识</div>
+          <div class="confirm-close-btn" @click.stop="isConfirm = false"><i class="el-icon-close" style="color:#ccc"></i></div>
+        </div>
+        <div class="confirm-split-line"></div>
+        <div class="confirm-text"  @click.stop="">
+          说明：上传前请先
+          <span style="color:#04a580" @click="downloadTemplete">下载模板</span>
+          ，按照模板要求将内容填完后，再点击立即上传按钮进行导入
+        </div>
+        <div class="confirm-btns">
+          <el-upload
+            ref="upload"
+            class="upload-demo"
+            :action="`${apiPath}nursingDiags/importExcel/${wardCode}`"
+            :headers="importHeaders"
+            multiple
+            :show-file-list="false"
+            :before-upload='beforeUpload'
+            :on-exceed="handleExceed"
+            :on-success="upLoadSuccess"
+            name="upfile"
+            :file-list="fileList"
+            >
+            <el-button type="primary">立即上传</el-button>
+          </el-upload>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -53,7 +93,7 @@
   .sweet-modal .sweet-content
     max-height calc(100vh - 50px)
 .diagnosis-search
-  width 100%
+  flex: 1;
   .el-input-group__append
     background: #4BB08D;
     border: 1px solid #4BB08D;
@@ -70,6 +110,7 @@
   color: #999999;
   margin 8px 0 0
 .page-con
+  display:flex;
   text-align left
   margin 18px 0 5px
 .list-con
@@ -87,10 +128,64 @@
     }
   }
 }
+.import-btn{
+  >>> button{
+    height: 37px;
+  }
+}
+.confirm-box{
+  position: fixed;
+  z-index:100021; 
+  top:0;
+  left: 0;
+  width: 100vw;
+  height:100vh;
+  background rgba(0,0,0,.3)
+  .confirm-content{
+    width: 600px;
+    height: 200px;
+    background #fff;
+    margin: 45vh auto 0;
+    border-radius: 2px;
+    .confirm-content-title{
+      display: flex;
+      height: 40px;
+      line-height 40px;
+      .title-label{
+        flex: 1;
+        text-indent 20px;
+      }
+      .confirm-close-btn{
+        cursor: pointer;
+        width: 30px;
+      }
+    }
+    .confirm-split-line{
+      width: 600px;
+      height: 1px;
+      border-bottom:1px dashed #ccc; 
+    }
+    .confirm-text{
+      height: 108px;
+      line-height 108px;
+      font-size: 12px;
+      text-align center
+      span{
+        cursor:pointer;
+      }
+    }
+    .confirm-btns{
+      line-height 45px;
+      height: 45px;
+      text-align center;
+    }
+  }
+}
 </style>
 
 <script>
-import { nursingDiagsSearch } from "../api/index";
+import { apiPath } from "@/api/apiConfig";
+import { nursingDiagsSearch,getTemplateApi } from "../api/index";
 import diagnosisList from "./list/diagnosisList.vue";
 export default {
   data() {
@@ -103,7 +198,12 @@ export default {
       searchLoading: false,
       cacheSearchList: localStorage.diagnosisCacheSearchList
         ? JSON.parse(localStorage.diagnosisCacheSearchList)
-        : []
+        : [],
+      hasImport:['liaocheng','guizhou','foshanrenyi'],
+      isConfirm:false,
+      fileList:[],
+      isImportModuleDevSuccess:true,
+      apiPath,
     };
   },
   mounted() {},
@@ -169,10 +269,64 @@ export default {
       //     return { value };
       //   })
       // );
+    },
+    openImportModal(){
+      this.isConfirm = true
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+    },
+    beforeUpload(files){
+      this.isConfirm = false
+      // element组件抽风，需要用promise才可以正常取消上传，后续版本如果修复了可以改掉
+      return new Promise((resolve, reject) => {
+        this.$confirm('导入后，将会在知识库中新增诊断知识，可在添加诊断计划时选择使用', '确定要导入新的诊断知识吗?', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+        }).then(res=>{
+          return resolve(true);
+        }).catch(err=>{
+          this.$message.warning('您已取消导入！')
+          return reject(false);
+        })
+      });
+    },
+    upLoadSuccess(response, file, fileList){
+      if(response.code!=200)return this.$message.error(response.desc)
+      this.$message.success('成功导入诊断知识')
+    },
+    downloadTemplete(){
+      getTemplateApi().then(res=>{
+          let blob = new Blob([res.data], {
+            type: res.data.type // 'application/vnd.ms-excel;charset=utf-8'
+          });
+
+          let a = document.createElement("a");
+          let href = window.URL.createObjectURL(blob); // 创建链接对象
+          a.href = href;
+          a.download = '模板文件.xlsx'; // 自定义文件名
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(href);
+          document.body.removeChild(a); // 移除a元素
+      })
     }
   },
   components: {
     diagnosisList
+  },
+  computed:{
+    wardCode(){
+      let code = localStorage.getItem('wardCode')
+      return code
+    },
+    importHeaders(){
+      let headers = {}
+      headers['App-Token-Nursing'] = '51e827c9-d80e-40a1-a95a-1edc257596e7'
+      headers['Auth-Token-Nursing'] = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).token
+      return headers
+    }
   }
 };
 </script>

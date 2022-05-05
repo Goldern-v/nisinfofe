@@ -35,21 +35,30 @@ export default [{
     value: "",
     event: keyf1,
     name: '体温',
-    next: '℃'
+    next: '℃',
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "pulse", //脉搏
     value: "",
     event: keyf1,
     name: '脉搏',
-    next: '次/分'
+    next: '次/分',
+    textarea: {
+      width: 36
+    },
   },
   {
     key: "breath", //呼吸
     value: "",
     event: keyf1,
     name: '呼吸',
-    next: '次/分'
+    next: '次/分',
+    textarea: {
+      width: 36
+    },
   },
   {
     key: "bloodPressure", //血压
@@ -62,14 +71,20 @@ export default [{
       keyf1(e, td);
     },
     name: '血压',
-    next: 'mmHg'
+    next: 'mmHg',
+    textarea: {
+      width: 50
+    },
   },
   {
     key: "oxygen", //氧饱和度%
     value: "",
     event: keyf1,
     name: '氧饱和度',
-    next: '%'
+    next: '%',
+    textarea: {
+      width: 40
+    },
   },
   {
     key: "consciousness", //神志
@@ -78,7 +93,10 @@ export default [{
     name: '神志',
     autoComplete: {
       data: ysList
-    }
+    },
+    textarea: {
+      width: 36
+    },
   },
   {
     key: "field5", //出量:尿量ml
@@ -86,7 +104,10 @@ export default [{
     event: keyf1,
     name: '尿量',
     next: 'ml',
-    statBottomLine: true
+    statBottomLine: true,
+    textarea: {
+      width: 45
+    }
   },
   {
     key: "field6", //出量:呕吐ml
@@ -94,7 +115,10 @@ export default [{
     event: keyf1,
     name: '呕吐',
     next: 'ml',
-    statBottomLine: true
+    statBottomLine: true,
+    textarea: {
+      width: 45
+    }
   },
   {
     key: "field7", // 出量:大便ml
@@ -102,7 +126,10 @@ export default [{
     event: keyf1,
     name: '大便',
     next: 'ml',
-    statBottomLine: true
+    statBottomLine: true,
+    textarea: {
+      width: 45
+    }
   },
   {
     key: "field8", // 出量:其他引流量ml
@@ -110,14 +137,20 @@ export default [{
     event: keyf1,
     name: '其他引流量',
     next: 'ml',
-    statBottomLine: true
+    statBottomLine: true,
+    textarea: {
+      width: 50
+    }
   },
   {
     key: "field9", // 出量:其他
     value: "",
     event: keyf1,
     name: '其他',
-    statBottomLine: true
+    statBottomLine: true,
+    textarea: {
+      width: 40
+    }
   },
   {
     key: "field1", // 入量:口服ml
@@ -125,7 +158,10 @@ export default [{
     event: keyf1,
     name: '口服',
     next: 'ml',
-    statBottomLine: true
+    statBottomLine: true,
+    textarea: {
+      width: 40
+    }
   },
   {
     key: "field2", // 入量:静脉
@@ -133,7 +169,10 @@ export default [{
     event: keyf1,
     name: '静脉',
     next: 'ml',
-    statBottomLine: true
+    statBottomLine: true,
+    textarea: {
+      width: 40
+    }
   },
   {
     key: "field3", // 入量:肌肉注释
@@ -141,7 +180,10 @@ export default [{
     event: keyf1,
     name: '肌肉注释',
     next: 'ml',
-    statBottomLine: true
+    statBottomLine: true,
+    textarea: {
+      width: 40
+    }
   },
   {
     key: "field4", // 入量:灌肠
@@ -149,37 +191,55 @@ export default [{
     event: keyf1,
     name: '灌肠',
     next: 'ml',
-    statBottomLine: true
+    statBottomLine: true,
+    textarea: {
+      width: 40
+    }
   },
   {
     key: "field10", // 皮肤情况
     value: "",
     event: keyf1,
-    name: '皮肤情况'
+    name: '皮肤情况',
+    textarea: {
+      width: 55
+    }
   },
   {
     key: "field11", // 管道护理
     value: "",
     event: keyf1,
-    name: '管道护理'
+    name: '管道护理',
+    textarea: {
+      width: 55
+    }
   },
   {
     key: "field12", // 气道护理
     value: "",
     event: keyf1,
-    name: '气道护理'
+    name: '气道护理',
+    textarea: {
+      width: 55
+    }
   },
   {
     key: "field13", // 痰液性状
     value: "",
     event: keyf1,
-    name: '痰液性状'
+    name: '痰液性状',
+    textarea: {
+      width: 55
+    }
   },
   {
     key: "field14", // 其他
     value: "",
     event: keyf1,
-    name: '其他'
+    name: '其他',
+    textarea: {
+      width: 55
+    }
   },
   {
     key: "description", //特殊情况记录

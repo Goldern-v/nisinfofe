@@ -17,7 +17,22 @@
         </el-button-group>
       </div>
       <p for class="name-title">请选择日期区间：</p>
-      <div flex="cross:center main:center" style="margin:0 15px 20px">
+      <div flex="cross:center main:center" style="margin:0 15px 20px" v-if="HOSPITAL_ID==='fuyou'">
+      <el-date-picker
+      v-model="date[0]"
+      type="datetime"
+      format="yyyy-MM-dd HH:mm"
+      placeholder="选择开始日期">
+      </el-date-picker>
+      <span style="padding: 0 15px; width: 30px">至</span>
+      <el-date-picker
+      v-model="date[1]"
+      type="datetime"
+      format="yyyy-MM-dd HH:mm"
+      placeholder="选择结束日期">
+      </el-date-picker>
+      </div>
+      <div flex="cross:center main:center" style="margin:0 15px 20px" v-else>
         <cr-date-picker
           v-model="date[0]"
           type="datetime"
@@ -119,8 +134,10 @@ export default {
         .subtract(1, "days")
         .format("YYYY-MM-DD");
       let t = moment().format("YYYY-MM-DD");
-      let yt = y + " 07:00";
-      let tt = t + " 07:00";
+      // let yt = y + " 07:00";
+      // let tt = t + " 07:00";
+      let yt = ["wujing"].includes(this.HOSPITAL_ID) ? y + " 08:00" : y + " 07:00";
+      let tt = ["wujing"].includes(this.HOSPITAL_ID) ? t + " 07:59" : t + " 07:00" ;
       this.date = [yt, tt];
     },
     close() {
@@ -128,9 +145,16 @@ export default {
     },
     post() {
       if (this.date[1]) {
+        // this.bus.$emit("saveSheetPage");
+        // setTimeout(() => {
         let date = this.date;
         let startTime = this.date[0];
         let endTime = this.date[1];
+        if(this.HOSPITAL_ID==="fuyou"){
+        // el-date-picker的value-format不生效
+          startTime=moment(startTime).format("YYYY-MM-DD HH:mm")
+          endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
+          }
         let recordCode = sheetInfo.sheetType;
         outputSum(
           this.$parent.patientInfo.patientId,
@@ -148,6 +172,7 @@ export default {
           });
           this.close();
         });
+        // }, 500);
       } else {
         this.$message({
           showClose: true,
@@ -159,6 +184,11 @@ export default {
       let date = this.date;
       let startTime = this.date[0];
       let endTime = this.date[1];
+      if(this.HOSPITAL_ID==="fuyou"){
+        // el-date-picker的value-format不生效
+        startTime=moment(startTime).format("YYYY-MM-DD HH:mm")
+        endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
+      }
       putGroupCount(
         this.$parent.patientInfo.patientId,
         this.$parent.patientInfo.visitId,
@@ -166,7 +196,12 @@ export default {
         endTime
       ).then(res => {
         if (res.data.data.desc) {
-          this.description = this.description + res.data.data.desc;
+          if(this.HOSPITAL_ID==="wujing"){
+            let str = res.data.data.desc.replace(/出量/g,"总出量");
+            this.description = this.description + str;
+          }else{
+            this.description = this.description + res.data.data.desc;
+          }
         } else {
           this.$message.warning("分类合计为空");
         }

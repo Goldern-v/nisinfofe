@@ -89,10 +89,9 @@ import qs from 'qs'
             obj[i] = item[i]
           }
         }
-        let newWid = window.open(`/crNursing/sheetPage`)
-        newWid.onload = function() {
-          setTimeout(() => { newWid.app.$store.commit('upPatientInfo', obj)}, 500)
-        }
+        this.$router.push(`/sheetPage/${obj.patientId}/${obj.visitId}/${obj.inpNo}`)
+        setTimeout(() => { this.$store.commit('upPatientInfo', obj)}, 500)
+        setTimeout(() => { this.$store.commit('upCurrentPatientObj', obj)}, 500)
         this.close()
       }
     },

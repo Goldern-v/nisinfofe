@@ -19,9 +19,10 @@
       </div>
       <div class="text">重置</div>
       </div>-->
-       <div class="item-box" @click="$router.go(-1)" v-if="HOSPITAL_ID!=='xiegang'">
+       <div class="item-box" @click="goBack" v-if="HOSPITAL_ID!=='xiegang'&&HOSPITAL_ID!=='whfk'">
         <div
           class="icon"
+          style="font-size: 18px;"
           flex="cross:center main:center"
         >返回</div>
       </div>
@@ -70,6 +71,8 @@
         <sheetPrintPage v-if="$route.params.type == 'sheetPage'" :qoSelect="qoSelect"></sheetPrintPage>
         <sheetPrintNursingOrder v-if="$route.params.type == 'sheetNursingOrder'"></sheetPrintNursingOrder>
         <sugar v-if="$route.params.type == 'sugar'"></sugar>
+        <oxygen v-if="$route.params.type == 'oxygen'"></oxygen>
+        <bloodSugar v-if="$route.params.type == 'bloodSugar'"></bloodSugar>
         <health v-if="$route.params.type == 'health'"></health>
         <lcHealth v-if="$route.params.type == 'lcHealth'"></lcHealth>
         <growthPrintPage v-if="$route.params.type == 'growth'"></growthPrintPage>
@@ -196,6 +199,8 @@ import notice from "./component/notice";
 import sheetPrintPage from "./component/sheet-print-page";
 import sheetPrintNursingOrder from "./component/sheet-print-nursing-order";
 import sugar from "./component/sugar-print-page.vue";
+import oxygen from "./component/oxygen-print-page.vue";
+import bloodSugar from "./component/bloodSugar-print-page.vue"
 import health from "./component/health-print-page";
 import lcHealth from "./component/lcHealth-print-page";
 import growthPrintPage from "./component/growth-print-page.vue";
@@ -213,7 +218,9 @@ export default {
     };
   },
   methods: {
+    
     print() {
+      console.log(this.$route.query, 888)
       if (!this.canPrint) return;
       if (this.$route.params.type == "assessment") {
         this.bus.$emit("printAssessment");
@@ -233,6 +240,17 @@ export default {
     },
     resert() {
       this.scaleNum = 1;
+    },
+    goBack(){
+    if(this.HOSPITAL_ID=='liaocheng'||this.HOSPITAL_ID=='huadu'){
+      // 不打开窗口打印返回（下拉会没有和表头不能修改）。刷新页面
+      location.replace(this.$store.state.sheet.preRouter)
+      setTimeout(()=>{
+        this.$store.commit('upPreRouter',"")
+      },1000)
+    }else{
+      this.$router.go(-1)
+    }
     }
   },
   created() {
@@ -257,6 +275,8 @@ export default {
     sheetPrintNursingOrder,
     notice,
     sugar,
+    oxygen,
+    bloodSugar,
     growthPrintPage,
     health,
     lcHealth,

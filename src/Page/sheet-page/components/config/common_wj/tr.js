@@ -39,7 +39,7 @@ export default [
   {
     key: "breath", //呼吸
     value: "",
-    event: keyf1
+    event: keyf1,
   },
   {
     key: "bloodPressure", //血压
@@ -50,6 +50,9 @@ export default [
         e.preventDefault();
       }
       keyf1(e, td);
+    },
+    textarea: {
+      width: 45
     }
   },
   {
@@ -58,12 +61,25 @@ export default [
     event: keyf1,
     autoComplete: {
       data: ysList
+    },
+    textarea: {
+      width: 35
     }
   },
   {
     key: "pupil", // 瞳孔
     value: "",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: [
+        '2.5+/2.5+',
+        '2.5-/2.5-',
+        '2.5±/2.5±'
+      ]
+    },
+    textarea: {
+      width: 40
+    }
   },
   {
     key: "food", //入
@@ -73,7 +89,7 @@ export default [
       data: ruList
     },
     textarea: {
-      width: 68
+      width: 120
     }
   },
   {
@@ -89,7 +105,7 @@ export default [
       data: chuList
     },
     textarea: {
-      width: 40
+      width: 70
     }
   },
   {
@@ -102,7 +118,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 48
+      width: 38
     }
   },
   {
@@ -110,7 +126,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 48
+      width: 38
     }
   },
   {
@@ -118,7 +134,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 38
     }
   },
   {
@@ -126,25 +142,25 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 36
+      width: 38
     }
   },
-  {
-    key: "fieldFive", //标题5
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
-  {
-    key: "fieldSix", //标题6
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 36
-    }
-  },
+  // {
+  //   key: "fieldFive", //标题5
+  //   value: "",
+  //   event: keyf1,
+  //   textarea: {
+  //     width: 38
+  //   }
+  // },
+  // {
+  //   key: "fieldSix", //标题6
+  //   value: "",
+  //   event: keyf1,
+  //   textarea: {
+  //     width: 38
+  //   }
+  // },
   {
     key: "description", //特殊情况记录
     value: "",
@@ -154,7 +170,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "275px",
       background: "transparent"
     },
     event: function(e, td) {
@@ -178,6 +194,21 @@ export default [
   {
     hidden: true,
     key: "id",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "expand",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "expand2",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "expand3",
     value: ""
   },
   {
@@ -254,7 +285,6 @@ export function getListData4() {
     for (let item of res.data.data) {
       chuList.push(item.name);
     }
-    chuList.push("阴道出血")
   });
   let list = ["意识"];
   multiDictInfo(list).then(res => {

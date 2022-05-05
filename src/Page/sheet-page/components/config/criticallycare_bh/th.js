@@ -9,6 +9,9 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: "",
+  style: {
+    width: "1250px"
+  },
   th: {
     top: [{
         name: `
@@ -50,6 +53,14 @@ export default {
       {
         name: `
         血压<br/>(mmHg)
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        心率
         `,
         style: {},
         colspan: "1",
@@ -143,9 +154,12 @@ export default {
       },
       {
         name: `
-        护士签名
+        护士<br/>签名
         `,
-        style: {},
+        style: {
+          minWidth: "60px",
+          maxWidth: "60px",
+        },
         colspan: "1",
         rowspan: "3",
       },

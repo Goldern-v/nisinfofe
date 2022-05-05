@@ -13,8 +13,8 @@ import moment from "moment";
 const getRecordType = (HOSPITAL_ID) => {
   switch (HOSPITAL_ID) {
     case 'huadu':
-      return 'body_temperature_Hd'
-    case ' wujing':
+      return 'body_temperature_hd'
+    case 'wujing':
       return 'body_temperature_wj'
     case 'zhongshanqi':
       return 'body_temperature_zsqy'
@@ -28,14 +28,13 @@ const getRecordType = (HOSPITAL_ID) => {
       return 'body_temperature_hl'
     case 'quzhou':
       return 'body_temperature_qz'
-      case 'beihairenyi':
+    case 'beihairenyi':
       return 'bodyTemperatureLocal'
-      case 'nanfangzhongxiyi':
+    case 'nanfangzhongxiyi':
       return 'body_temperature_nfzxy'
     default:
       return 'bodyTemperatureLocal'
   }
-
 }
 
 //新的体温单批量录入 （加上不同医院体温单code值）-- 获取科室患者信息
@@ -51,7 +50,7 @@ export function saveOverAllTemperture(params) {
 }
 //获取当天的录入记录
 export const getNowDateTimeList = (data) => {
-  return axios.post(`${apiPath}vitalSign/list`,data);
+  return axios.post(`${apiPath}vitalSign/list`, data);
 };
 
 //聊城二院出入院同步
@@ -87,11 +86,10 @@ export const getfieldList = (data) => {
 export const savefieldTitle = (data) => {
   return axios.post(`${apiPath}vitalSign/fieldSetting/save`, data);
 };
-
-// // 聊城二院体温单录入
-// export const saveAll = (data) => {
-//   return axios.post(`${apiPath}vitalSign/saveAll`, data);
-// };
+//花都七天自定义标题
+export const savefieldTitleNew = (data) => {
+  return axios.post(`${apiPath}record/${getRecordType(process.env.HOSPITAL_ID)}/fieldSetting/save`, data);
+};
 
 // 聊城二院体温单删除记录
 export const deleteRecord = (data) => {
@@ -103,7 +101,7 @@ export const saveAll = (data) => {
   return axios.post(`${apiPath}record/${getRecordType(process.env.HOSPITAL_ID)}/saveAll`, data);
 };
 
-/** 获取指定日期最近10天的数据 */
+/** 获取指定日期最近10天的录入数据数据 */
 export const getVitalSignListByDate = (query = {
   patientId: '',
   visitId: '',
@@ -112,12 +110,10 @@ export const getVitalSignListByDate = (query = {
 }) => {
   return axios.post(`${apiPath}vitalSign/list`, query);
 };
-
 /** 获取最新10条体征信息 */
 export const getLastList = (patientId, visitId) => {
   return axios.get(`${apiPath}vitalSign/lastList/${patientId}/${visitId}`);
 };
-
 // 聊城二院获取患者某个时间点的体征信息
 export const getViSigsByReDate = (data) => {
   return axios.post(`${apiPath}vitalSign/getByRecordDate`, data);

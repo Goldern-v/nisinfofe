@@ -86,6 +86,9 @@ export default [
     value: "",
     event: keyf1,
     name: "意识",
+    autoComplete: {
+      data: ["清醒","嗜睡","昏睡","浅昏迷","深昏迷","谵妄"]
+    },
     textarea: {
       width: 50
     }
@@ -144,6 +147,9 @@ export default [
     key: "measuresOne", //咽痛
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: ["无","有"]
+    },
     name: "咽痛",
     textarea: {
       width: 50
@@ -163,6 +169,9 @@ export default [
     value: "",
     event: keyf1,
     name: "低流量吸氧",
+    autoComplete: {
+      data: ["√","停止"]
+    },
     textarea: {
       width: 50
     },
@@ -171,6 +180,9 @@ export default [
     key: "measuresfour", //心电监护
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: ["√","停止"]
+    },
     name: "心电监护",
     textarea: {
       width: 50
@@ -180,6 +192,9 @@ export default [
     key: "measuresFive", //咽部伤口渗血
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: ["无","有"]
+    },
     name: "咽部伤口渗血",
     textarea: {
       width: 50

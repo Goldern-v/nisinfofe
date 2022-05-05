@@ -86,6 +86,21 @@ export default [{
   //   next: "mmol/L",
   // },
   {
+    key: "nursingType", //护理类型
+    value: "",
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    },
+    name: "护理类型",
+    autoComplete: {
+      data: ['体位护理', '皮肤护理', '营养护理','导管护理','足背动脉搏动']
+    }
+  }, 
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {
