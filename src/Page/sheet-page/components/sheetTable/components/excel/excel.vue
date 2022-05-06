@@ -903,7 +903,6 @@ export default {
       }
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title) => {
-          console.log(sonData);
           let data = {
             patientId: this.patientInfo.patientId,
             visitId: this.patientInfo.visitId,
