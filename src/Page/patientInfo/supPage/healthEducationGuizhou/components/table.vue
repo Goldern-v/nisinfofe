@@ -116,7 +116,7 @@ export default {
       isPrint: false,
       theadData: [
         [
-          { rowspan: 2, text: "教育时间", width: 80 },
+          { rowspan: 2, text: "教育时间", width: 110 },
           { rowspan: 2, text: "宣教内容", width: 160 },
           { colspan: 3, text: "教育对象" },
           // { colspan: 4, text: "教育方法" },
