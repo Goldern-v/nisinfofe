@@ -26,7 +26,7 @@
                 Object.assign({}, td.style, {
                   minWidth: td.textarea.width + 'px',
                   maxWidth: td.textarea.width + 'px',
-                })
+                }) 
               "
             ></textarea>
             <input type="text" :style="[td.style]" v-else />
@@ -192,6 +192,23 @@
             :data-value="td.value"
             placeholderChar=" "
             @keydown="onKeyDown($event, { x, y, z: index, td });"
+            @focus="
+              td.autoComplete &&
+                onFocus($event, {
+                  autoComplete: getCompleteArr(tr, td),
+                  x,
+                  y,
+                  z: index,
+                  td,
+                  tr,
+                  splice: td.splice,
+                })
+            "
+            @blur="
+              !HOSPITAL_ID === 'huadu' &&
+                !td.splice &&
+                onBlur($event, { x, y, z: index }, tr )
+            "
           ></masked-input>
           <div
             v-else-if="
