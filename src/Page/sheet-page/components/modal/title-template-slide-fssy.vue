@@ -243,7 +243,7 @@ export default {
   },
   created() {
     this.getData()
-    this.bus.$on("refreshTitleTemplate", this.getData);
+    // this.bus.$on("refreshTitleTemplate", this.getData);
   },
   mounted() {
     this.show = false

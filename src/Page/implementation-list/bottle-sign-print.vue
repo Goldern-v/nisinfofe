@@ -191,7 +191,7 @@ import NewPrintModal from "./components/common/newPrintModal"
 import NewPrintModalSdlj from "./components/common/newPrintModalSdlj"
 import printing from 'printing'
 import { patEmrList } from "@/api/document";
-import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder } from "./api/index";
+import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2 } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 export default {
@@ -361,11 +361,11 @@ export default {
       this.onLoad();
     },
     // 打印
-    onPrint(){
+    async onPrint(){
       this.selectedData = this.$refs.plTable.selectedData;
       if((this.selectedData||[]).length<=0)
       return this.$message('未选择勾选打印条目')
-      if(this.hasNewPrintHos.includes(this.HOSPITAL_ID))return this.newOnPrint()
+      if(this.hasNewPrintHos.includes(this.HOSPITAL_ID))return await this.newOnPrint()
       this.isShowModal = false
       this.src = ``;
       this.printNum = 0;
@@ -398,45 +398,48 @@ export default {
 
       // this.printResult(this.selectedData.length);
     },
-    newOnPrint(){
-      let barCode = this.$_.uniqBy(this.selectedData.map(item=>item.barcode)).join('|')
+    async newOnPrint(){
+      let barCodeList = this.$_.uniqBy(this.selectedData.map(item=>item.barcode))
       // let barcode = this.selectedData.map(item=>item.barcode).join('|')
       let printObj = {}
-      getPrintListContent({barCode}).then(res=>{
-        let barcodes = barCode.split('|')
-        res.data.data.map(item=>{
-          printObj[item.barCode] = printObj[item.barCode] || []
-          printObj[item.barCode].push(item)
-        })
-        let sortArr = []
-        barcodes.map(item=>{
-          sortArr.push(printObj[item])
-        })
-        this.printObj = sortArr
-        document.getElementById('new-print-box').style.display = 'block'
-        this.$nextTick(()=>{
-          printing(this.$refs.new_print_modal,{
-            injectGlobalCss: true,
-            scanStyles: false,
-            css: `
-              @page{
-                margin: 0 0;
-              }
-              body{
-                ${this.newModalSize=='6*8'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
-              }
-            `
-          }).then(()=>{
-            document.getElementById('new-print-box').style.display = 'none'
-            this.onLoad()
-          })
+      let res = ''
+      if (['sdlj'].includes(this.HOSPITAL_ID)) {
+        res = await getPrintListContent2({barcodeList: barCodeList})
+      } else {
+        res = await getPrintListContent({barCode: barCodeList.join('|')})
+      }
+      res.data.data.map(item=>{
+        printObj[item.barCode] = printObj[item.barCode] || []
+        printObj[item.barCode].push(item)
+      })
+      let sortArr = []
+      barCodeList.map(item=>{
+        sortArr.push(printObj[item])
+      })
+      this.printObj = sortArr
+      document.getElementById('new-print-box').style.display = 'block'
+      this.$nextTick(()=>{
+        printing(this.$refs.new_print_modal,{
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+            @page{
+              margin: 0 0;
+            }
+            body{
+              ${this.newModalSize=='6*8'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
+            }
+          `
+        }).then(()=>{
+          document.getElementById('new-print-box').style.display = 'none'
+          this.onLoad()
         })
       })
     },
     // 打印全部
-    onPrintAll() {
+    async onPrintAll() {
       this.selectedData = this.$_.flattenDeep(this.pagedTable)
-      this.newOnPrint()
+      await this.newOnPrint()
     },
     cleanPrintStatusRoundTime(){
       if(this.printStatusTimmer){
