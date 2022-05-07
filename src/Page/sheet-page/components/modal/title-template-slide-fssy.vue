@@ -216,6 +216,7 @@ export default {
       this.selectedTab = tab;
     },
     async getData() {
+    if (!['foshanrenyi'].includes(this.HOSPITAL_ID)) return
       let deptCode = this.$store.state.lesion.deptCode
       // let {
       //   data: { data }
@@ -243,7 +244,7 @@ export default {
   },
   created() {
     this.getData()
-    this.bus.$on("refreshTitleTemplate", this.getData);
+    // this.bus.$on("refreshTitleTemplate", this.getData);
   },
   mounted() {
     this.show = false

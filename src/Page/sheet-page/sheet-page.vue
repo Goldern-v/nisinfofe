@@ -1212,13 +1212,13 @@ export default {
       }
     },
     // 切换主页后在点击其他用户不会更新
-    'sheetInfo.sheetType': {
-      handler(val, prev) {
-        if (val != prev) {
-          this.bus.$emit('refreshSheetPage', true)
-        }
-      }
-    }
+    // 'sheetInfo.sheetType': {
+    //   handler(val, prev) {
+    //     if (val != prev) {
+    //       this.bus.$emit('refreshSheetPage', true)
+    //     }
+    //   }
+    // }
   },
   beforeRouteLeave: (to, from, next) => {
     if (

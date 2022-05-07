@@ -1022,7 +1022,7 @@ export default {
       this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
       this.blockId = item.id;
       cleanData();
-      // this.bus.$emit("refreshSheetPage", true);//会导致数据渲染两次，和sheetpage里的监听冲突，所以屏蔽
+      this.bus.$emit("refreshSheetPage", true);//会导致数据渲染两次，和sheetpage里的监听冲突，所以屏蔽
     },
     /** pdf打印 */
     toPdfPrint() {
@@ -1118,7 +1118,7 @@ export default {
       return this.$store.state.sheet.patientInfo;
     },
     patientId() {
-      return this.$store.state.sheet.patientInfo.id;
+      return this.$store.state.sheet.patientInfo.patientId;
     },
     showCrl() {
       switch (this.sheetInfo.sheetType) {
@@ -1310,7 +1310,7 @@ export default {
       });
     },
     patientId: {
-      deep: true,
+      // deep: true,
       handler() {
         if (this.patientInfo.patientId) {
           // console.log(111);
