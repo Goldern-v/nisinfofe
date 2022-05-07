@@ -504,6 +504,7 @@ export default {
               pageItem: data.pageTitle,
               status: data.status,
               missionId: data.missionId,
+              pageIndex: node.data.pageIndex
             })
           );
         } else {
@@ -839,6 +840,7 @@ export default {
                     form_id: option.id,
                     formName: item.formName,
                     formTreeRemindType: item.formTreeRemindType,
+                    pageIndex: item.formInstanceDtoList.length - i
                   };
                 }),
             };
