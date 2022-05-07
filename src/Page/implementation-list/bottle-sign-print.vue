@@ -403,6 +403,7 @@ export default {
       // let barcode = this.selectedData.map(item=>item.barcode).join('|')
       let printObj = {}
       let res = ''
+      console.log('test-barCodeList', barCodeList)
       if (['sdlj'].includes(this.HOSPITAL_ID)) {
         res = await getPrintListContent2({barcodeList: barCodeList})
       } else {
