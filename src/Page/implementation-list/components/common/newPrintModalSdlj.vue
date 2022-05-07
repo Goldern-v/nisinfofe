@@ -39,7 +39,11 @@
           <div>
             <img :src="currentBottle.qcSrc || ''" />
           </div>
-          <span class="text--large">{{ `${currentBottle.frequency}${groupNo ? `(${groupNo})`: ''}` }}</span>
+          <p class="text--large">
+            <span>
+              {{ `${currentBottle.frequency}${groupNo ? `(${groupNo})`: ''}` }}
+            </span>
+          </p>
           <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
           <span class="text--large">{{ currentBottle.executeType }}</span>
         </div>
@@ -192,6 +196,16 @@
       .text--large {
         font-size: 17px;
 				font-weight: 700;
+      }
+      p.text--large {
+        white-space: nowrap;
+        position: relative;
+        height: 16px;
+        span {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
       }
     }
   }
