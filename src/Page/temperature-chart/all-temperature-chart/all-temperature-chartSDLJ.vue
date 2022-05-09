@@ -342,18 +342,17 @@
               />
             </template>
           </el-table-column>
-<!--
           <el-table-column
-            prop="dischargeSize"
+            prop="bloodOxygen"
             label="血氧饱和度"
             min-width="70"
             align="center"
           >
             <template slot-scope="scope">
               <input
-                v-model="scope.row.dischargeSize"
+                v-model="scope.row.bloodOxygen"
                 :class="className"
-                class="dischargeSize"
+                class="bloodOxygen"
                 type="text"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
@@ -361,7 +360,7 @@
                 @click="toRow"
               />
             </template>
-          </el-table-column> -->
+          </el-table-column>
           <el-table-column
             prop="fieldThree"
             label="尿量"
@@ -955,6 +954,7 @@ export default {
         recordMonth: "",
         recordYear: "",
         sign: "",
+        bloodOxygen:"",
         signerName: "",
         signerNo: "",
         status: "0",
