@@ -2002,6 +2002,24 @@
             "无",
             "不会诉说",
             "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "疼痛评估单",
+                "default": "疼痛评估单",
+                "name": "E1325",
+                "parentName": "E1325",
+                "type": "independent",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
           ]
         },
         {
@@ -2510,6 +2528,23 @@
           "options": [
             "无",
             "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "成人压疮表",
+                "default": "成人压疮表",
+                "type": "independent",
+                "parentName": "E1306",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
           ]
         }
       ]
@@ -2626,6 +2661,25 @@
           "options": [
             "无",
             "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "openDiffKey": "无",
+                "title": "Barthel指数（BI）评定量表",
+                "default": "Barthel指数（BI）评定量表",
+                "name": "E1314",
+                "type": "independent",
+                "parentName": "E1314",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
           ]
         },
         {
@@ -2640,6 +2694,24 @@
           "options": [
             "无",
             "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "跌倒评估单(成人)",
+                "default": "跌倒评估单(成人)",
+                "name": "E1316",
+                "type": "independent",
+                "parentName": "E1316",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
           ]
         },
         {
@@ -2655,6 +2727,36 @@
             "无",
             "有,Padua评分表(非手术科室)",
             "有,Caprini评分表(手术科室)"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有,Padua评分表(非手术科室)",
+                "cleanKey": "无",
+                "title": "Padua评分表(非手术科室)",
+                "default": "Padua评分表(非手术科室)",
+                "name": "E1312",
+                "type": "independent",
+                "parentName": "E1312",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,Caprini评分表(手术科室)",
+                "cleanKey": "无",
+                "title": "Caprini评分表(手术科室)",
+                "default": "Caprini评分表(手术科室)",
+                "name": "E1313",
+                "type": "independent",
+                "parentName": "E1313",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
           ]
         }
       ]
