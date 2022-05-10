@@ -92,20 +92,26 @@ import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue"; //血糖
+import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj.vue"; //血糖
 import bloodOxygen  from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
 import { getPatientInfo } from "@/api/common.js";
+import { getPatientForm } from "@/Page/patientInfo/supPage/blood-sugar-sdlj/api/index.js"; //获取患者存在表单id
+
 import bus from "vue-happy-bus";
 export default {
   data() {
     return {
       bus: bus(this),
       otherComponent: null,
+      isBloodSugarSdlj: false //顺德龙江血糖单类型
     };
   },
   created() {
     // 获取患者信息
     this.getPatientInfo();
+    //判断顺德龙江血糖单类型
+    this.getPatientForm()
     this.$store.commit("closeFullPageRecord");
     this.bus.$on("openOtherForm", data => {
       this.otherComponent =
@@ -116,11 +122,32 @@ export default {
     });
   },
   methods: {
+    getPatientForm(){
+      getPatientForm(this.$route.query.patientId, this.$route.query.visitId).then(
+        res=> {
+          let data = res.data.data || {};
+          if (data.hisPatSugarList) { // 接口儿童单子特有的字段 hisPatSugarList
+            // '儿童'
+            this.isBloodSugarSdlj = false
+          } else {
+            // '成人'
+            this.isBloodSugarSdlj = true
+          }
+        }
+      )
+    },
     // 获取各医院的血糖单
     getBloodSugar() {
       switch (process.env.HOSPITAL_ID) {
         case "beihairenyi":
           return bloodSugarBhry;
+        case "sdlj":
+          if(this.isBloodSugarSdlj){
+            return bloodSugarSdlj 
+          }else{
+            return bloodSugar 
+          }
+          
         default:
           return bloodSugar;
       }
@@ -175,6 +202,7 @@ export default {
     sheet,
     bloodSugar,
     bloodSugarBhry,
+    bloodSugarSdlj,
     bloodOxygen,
     temperature,
     temperatureHD,
