@@ -25,7 +25,7 @@
 import fileicon from "@/common/images/doctorEmr/文件.png";
 import filebox from "@/common/images/doctorEmr/文件夹.png";
 import BusFactory from "vue-happy-bus";
-import { getDoctorEmr } from "../../api/index";
+import { getDoctorEmr,getDoctorEmr2 } from "../../api/index";
 export default {
   data() {
     return {
@@ -63,6 +63,9 @@ export default {
     getTreeData() {
       this.treeLoading = true;
       if(this.HOSPITAL_ID != "beihairenyi"){
+        getDoctorEmr2(this.$route.query.patientId, this.$route.query.visitId).then(res2=>{
+          console.log("res",res2)
+        })
         Promise.all([
         getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)
       ])
