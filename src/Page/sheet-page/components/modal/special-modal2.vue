@@ -391,7 +391,7 @@
                     "
                   ></el-checkbox>
                   <div class="label" style="min-width: 70px">
-                    {{ item.name || key }}：
+                    {{ HOSPITAL_ID == 'sdlj' && (sheetInfo.sheetType === 'ordinary_sdlj') ? '脉搏/心率' : item.name || key }}：
                   </div>
                   <input
                     type="text"

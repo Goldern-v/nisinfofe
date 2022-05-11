@@ -637,7 +637,7 @@ export default {
       }
     },
     onModalChange(e,tr,x,y,index){
-       // 改变当前行状态
+      // 改变当前行状态
       tr.isChange = true
       // // 获取recordDate的下标
       let dateIndex = tr.findIndex(item=>item.key == "recordDate")
@@ -651,15 +651,15 @@ export default {
       let hourIndex = tr.findIndex(item=>item.key == "recordHour")
       let monthValue = ''
       let hourValue = ''
-      if(preRow){
+      if(preRow && (preRow[monthIndex].value || preRow[dateIndex].value || preRow[hourIndex].value)){
         monthValue = preRow[monthIndex].value || moment(preRow[dateIndex].value.split(' ')[0]).format('MM-DD')
         hourValue = preRow[hourIndex].value || preRow[dateIndex].value.split(' ')[1]
       } else {
         monthValue = moment().format('MM-DD')
         hourValue= moment().format('HH:ss')
       }
-      !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
-      !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
+      ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
+      ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
     },
   },
 
@@ -984,6 +984,14 @@ export default {
       handler() {
         if (this.patientInfo.name) {
           sheetInfo.isSave = false;
+        }
+      }
+    },
+    // 切换主页后在点击其他用户不会更新
+    'sheetInfo.sheetType': {
+      handler(val, prev) {
+        if (val != prev) {
+          this.bus.$emit('refreshSheetPage', true)
         }
       }
     }

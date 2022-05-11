@@ -127,7 +127,8 @@ module.exports = {
     HOSPITAL_ID: '"nanfangzhongxiyi"',
     HOSPITAL_NAME: '"南方医科大学中西医结合医院"',
     HOSPITAL_NAME_SPACE: '"南 方 医 科 大 学 中 西 医 结 合 医 院"',
-    title: '"南方医科大学中西医结合医院智慧护理信息系统"'
+    title: '"南方医科大学中西医结合医院智慧护理信息系统"',
+    formPage_change_major: true
   },
   "yangchunzhongyi": {
     HOSPITAL_ID: '"yangchunzhongyi"',

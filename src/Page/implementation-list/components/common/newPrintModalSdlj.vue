@@ -26,6 +26,7 @@
       </div>
       <div class="new-print-modal__content">
         <div class="new-print-modal__content__left">
+          <div v-if="isSevere" class="content__left__severe"></div>
           <div
             :class="{ 'left-item--normal': !isSmallItem }"
             v-for="(item, index) in currentBottle.orderText"
@@ -38,7 +39,11 @@
           <div>
             <img :src="currentBottle.qcSrc || ''" />
           </div>
-          <span class="text--large">{{ currentBottle.frequency }}</span>
+          <p class="text--large">
+            <span>
+              {{ `${currentBottle.frequency}${groupNo ? `(${groupNo})`: ''}` }}
+            </span>
+          </p>
           <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
           <span class="text--large">{{ currentBottle.executeType }}</span>
         </div>
@@ -151,6 +156,7 @@
     flex: 1;
     display: flex;
     .new-print-modal__content__left {
+      position: relative;
       flex: 1;
       font-weight: 700;
       line-height: 13px;
@@ -158,6 +164,15 @@
       .left-item--normal {
 				line-height: 16px;
         font-size: 15px;
+      }
+      .content__left__severe {
+        position: absolute;
+        left: calc(50% - 50px);
+        top: 10px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 2px solid #000;
       }
     }
     .new-print-modal__content__right {
@@ -181,6 +196,16 @@
       .text--large {
         font-size: 17px;
 				font-weight: 700;
+      }
+      p.text--large {
+        white-space: nowrap;
+        position: relative;
+        height: 16px;
+        span {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
       }
     }
   }
@@ -246,11 +271,7 @@ export default {
     return {};
   },
   methods: {},
-  watch: {
-    itemObj(val) {
-      console.log(val);
-    }
-  },
+  watch: {},
   computed: {
     currentBottle() {
       let cloneObj = cloneDeep(this.itemObj[0]);
@@ -296,7 +317,15 @@ export default {
 				return '广东医科大学附属第三医院'
 			}
 			return this.HOSPITAL_NAME
-		}
+		},
+    // 组号
+    groupNo() {
+      return this.itemObj[0] && this.itemObj[0].groupNo || ''
+    },
+    // 是否重症
+    isSevere() {
+      return this.itemObj[0] && this.itemObj[0].drugType == 2
+    },
   },
   filters: {
     repeatIndicatorFilter(val) {

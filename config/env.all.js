@@ -4,6 +4,7 @@
   hasGroupHos:需要根据白板分组进行显示
   hasFollow:根据我的关注进行显示
   npm_config_report:需要生成报告的医院
+  formPage_change_major:评估单模块患者护理文书通过科室区分（解决转科表单的问题）
 */
 
 module.exports = {
@@ -125,7 +126,8 @@ module.exports = {
     HOSPITAL_ID: '"nanfangzhongxiyi"',
     HOSPITAL_NAME: '"南方医科大学中西医结合医院"',
     HOSPITAL_NAME_SPACE: '"南 方 医 科 大 学 中 西 医 结 合 医 院"',
-    title: '"南方医科大学中西医结合医院智慧护理信息系统"'
+    title: '"南方医科大学中西医结合医院智慧护理信息系统"',
+    formPage_change_major: true
   },
   xiegang: {
     HOSPITAL_ID: '"xiegang"',

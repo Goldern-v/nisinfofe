@@ -22,7 +22,7 @@ export default {
                 {"name":"时间","colspan":"1","rowspan":"3"},
                 {"name":"T<br/>(℃)","colspan":"1","rowspan":"3"},
                 {"name":"P/HR<br/>(次/min)","colspan":"1","rowspan":"3"},
-                {"name":"R<br/>(次/min)","colspan":"1","rowspan":"3"},
+                {"name":"R<br/>(次/min)<br/>/SPO₂(%)","colspan":"1","rowspan":"3"},
                 {"name":"BP<br/>(mmHg)","colspan":"1","rowspan":"3"},
                 {"name":"意识","colspan":"1","rowspan":"3"},
                 {"name":"入","colspan":"2","rowspan":"1"},

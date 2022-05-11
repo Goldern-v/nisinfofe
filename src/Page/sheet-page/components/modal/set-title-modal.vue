@@ -275,7 +275,9 @@ export default {
       }
     });
     // 刷新标题模板列表
-    this.bus.$on("refreshTitleTemplate", this.getTemplateList);
+    if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+      this.bus.$on("refreshTitleTemplate", this.getTemplateList);
+    }
   },
   components: {
     titleTemplateSlide,

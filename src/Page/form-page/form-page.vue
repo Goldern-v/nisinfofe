@@ -112,26 +112,27 @@ export default {
   },
   created() {
     this.$store.commit("upPatientInfo", {});
-    // 初始化
-    if (this.deptCode) {
-      this.getDate();
-    }
-
+    // 初始化  
+    // 优化后bedList由组件自己维护。不需要发请求
+    // if (this.deptCode) {
+    //   this.getDate();
+    // }
     this.bus.$on("refreshFormPagePatientList", this.getDate);
   },
   watch: {
-    deptCode(val, oldValue) {
-      console.log(oldValue, val, "oldValue");
-      if (oldValue && val) {
-        this.$router.replace({
-          path: "/formPage",
-          query: {},
-        });
-        this.bus.$emit("refreshTree", true);
-        this.bus.$emit("closeAssessment");
-      }
-      this.getDate();
-    },
+    // 优化后bedList由组件自己维护。不需要发请求
+    // deptCode(val, oldValue) {
+    //   console.log(oldValue, val, "oldValue");
+    //   if (oldValue && val) {
+    //     this.$router.replace({
+    //       path: "/formPage",
+    //       query: {},
+    //     });
+    //     this.bus.$emit("refreshTree", true);
+    //     this.bus.$emit("closeAssessment");
+    //   }
+    //   this.getDate();
+    // },
   },
   beforeRouteUpdate(to, from, next) {
     if(!this.$store.state.admittingSave.admittingSave){

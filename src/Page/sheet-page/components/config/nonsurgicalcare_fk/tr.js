@@ -68,6 +68,7 @@ export default [
   {
     key: "bloodPressure", //血压
     value: "",
+    event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 50
@@ -395,43 +396,43 @@ export default [
   }
 ];
 
-export function getListData() {
-  let list = [
-    "胎膜",
-    "胎位",
-    "宫缩持续/间歇",
-    "先露高低",
-    "宫颈管",
-    "羊水性状",
-    "宫颈扩张",
-    "宫缩强度",
-    "花都:产前护理记录单:出量名称"
-  ];
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(tmList, list[0], data);
-    setList(twList, list[1], data);
-    setList(gscxjxList, list[2], data);
-    setList(xlgdList, list[3], data);
-    setList(gjgList, list[4], data);
-    setList(ysxzList, list[5], data);
-    setList(gjkzList, list[6], data);
-    setList(gsqdList, list[7], data);
-    // setList(入量名称, "入量名称", data);
-    setList(出量名称, list[8], data);
-  });
-}
+// export function getListData() {
+//   let list = [
+//     "胎膜",
+//     "胎位",
+//     "宫缩持续/间歇",
+//     "先露高低",
+//     "宫颈管",
+//     "羊水性状",
+//     "宫颈扩张",
+//     "宫缩强度",
+//     "花都:产前护理记录单:出量名称"
+//   ];
+//   multiDictInfo(list).then(res => {
+//     let data = res.data.data;
+//     // setList(tmList, list[0], data);
+//     setList(twList, list[1], data);
+//     setList(gscxjxList, list[2], data);
+//     setList(xlgdList, list[3], data);
+//     setList(gjgList, list[4], data);
+//     setList(ysxzList, list[5], data);
+//     setList(gjkzList, list[6], data);
+//     setList(gsqdList, list[7], data);
+//     // setList(入量名称, "入量名称", data);
+//     setList(出量名称, list[8], data);
+//   });
+// }
 
-getListData();
-/**
- *
- * @param {*} list 原数组
- * @param {*} key 对应的key
- * @param {*} data 数据源
- */
-function setList(list, key, data) {
-  list.splice(0, list.length);
-  for (let item of data[key]) {
-    list.push(item.name);
-  }
-}
+// getListData();
+// /**
+//  *
+//  * @param {*} list 原数组
+//  * @param {*} key 对应的key
+//  * @param {*} data 数据源
+//  */
+// function setList(list, key, data) {
+//   list.splice(0, list.length);
+//   for (let item of data[key]) {
+//     list.push(item.name);
+//   }
+// }
