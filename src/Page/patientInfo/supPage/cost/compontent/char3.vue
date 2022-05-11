@@ -59,7 +59,7 @@
   .text-con
     height 100px
   .text-item
-    text-align center  
+    text-align center
     font-size: 20px;
     cursor pointer
     .aside
@@ -70,18 +70,18 @@
       .icon
         width 15px
         height 15px
-        display inline-block 
+        display inline-block
         position relative
         top 2px
     &.type-1
-      color: #559FF0;  
+      color: #559FF0;
     &.type-2
       color: #4BB08D;
     &.type-3
-      color: #E72C2C;     
+      color: #E72C2C;
   .tip
     font-size: 12px;
-    color: #687179;    
+    color: #687179;
     text-align center
     position absolute
     bottom 0px
@@ -91,7 +91,7 @@
    width 100%
    position relative
    top -20px
-}      
+}
 </style>
 
 <script>
@@ -185,7 +185,7 @@
               },
               itemStyle: {
                 normal: {
-                   color: '#4BB08D'
+                  color: '#4BB08D'
                 },
               },
               data: [this.prePay]
@@ -197,12 +197,13 @@
               barWidth: 22,
               label: {
                 normal: {
-                  show: true
+                  show: true,
+                  position: this.prePay == 0 | (this.total / this.prePay < 0.1) ? 'left' : 'inside'
                 }
               },
               itemStyle: {
                 normal: {
-                   color: '#559FF0'
+                  color: '#559FF0'
                 },
               },
               data: [this.total]
@@ -215,12 +216,12 @@
               label: {
                 normal: {
                   show: true,
-                  position: 'left'
+                  position: this.prePay == 0 | (this.needPay / this.prePay < 0.1) ? 'left' : 'inside'
                 }
               },
               itemStyle: {
                 normal: {
-                   color: '#EE5C4A'
+                  color: '#EE5C4A'
                 },
               },
               data: [this.needPay]

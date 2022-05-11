@@ -113,37 +113,43 @@ export default {
         canSet: false,
       },
       {
-        name: `伤口<br>敷料`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: '31px',
-          maxWidth: '31px',
-        }
-      },
-      {
-        name: `伤口<br>疼痛<br>评分`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: '31px',
-          maxWidth: '31px',
-        }
-      },
-      {
-        name: `压疮<br>评分`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: '31px',
-          maxWidth: '31px',
-        }
-      },
-      {
         name: `标题1`,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        canSet: true,
+        key: 'fieldOne',
+        style: {
+          minWidth: '31px',
+          maxWidth: '31px',
+        }
+      },
+      {
+        name: `标题2`,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        canSet: true,
+        key: 'fieldTwo',
+        style: {
+          minWidth: '31px',
+          maxWidth: '31px',
+        }
+      },
+      {
+        name: `标题3`,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        canSet: true,
+        key: 'fieldThree',
+        style: {
+          minWidth: '31px',
+          maxWidth: '31px',
+        }
+      },
+      {
+        name: `标题4`,
         style: {},
         colspan: '1',
         rowspan: '3',
@@ -155,7 +161,7 @@ export default {
         }
       },
       {
-        name: `标题2`,
+        name: `标题5`,
         style: {},
         colspan: '1',
         rowspan: '3',
@@ -167,7 +173,7 @@ export default {
         }
       },
       {
-        name: `标题3`,
+        name: `标题6`,
         style: {},
         colspan: '1',
         rowspan: '3',

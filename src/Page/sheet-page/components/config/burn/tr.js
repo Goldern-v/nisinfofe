@@ -123,19 +123,16 @@ export default [
     key: "fieldOne", //标题1
     value: "",
     event: keyf1,
-    name: "伤口敷料"
   },
   {
     key: "fieldTwo", //标题2
     value: "",
     event: keyf1,
-    name: "伤口疼痛评分"
   },
   {
     key: "fieldThree", //标题3
     value: "",
     event: keyf1,
-    name: "压疮评分"
   },
   {
     key: "fieldFour", //标题4

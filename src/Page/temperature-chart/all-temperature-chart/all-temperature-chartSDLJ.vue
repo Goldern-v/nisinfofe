@@ -304,7 +304,7 @@
               />
             </template>
           </el-table-column>-->
-          <el-table-column
+          <!-- <el-table-column
             prop="foodSize"
             label="总输入量"
             min-width="70"
@@ -321,30 +321,44 @@
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.foodSize" class="foodSize" /> -->
-              <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
             </template>
-          </el-table-column>
-
-          <el-table-column
-            prop="dischargeSize"
-            label="总排出量"
-            min-width="70"
+          </el-table-column> -->
+           <el-table-column
+            prop="painScore"
+            label="疼痛强度"
+            min-width="60"
             align="center"
-          >
+           >
             <template slot-scope="scope">
-              <input
-                v-model="scope.row.dischargeSize"
+             <input
+                v-model="scope.row.painScore"
                 :class="className"
-                class="dischargeSize"
+                class="painScore"
                 type="text"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.dischargeSize" class="dischargeSize" /> -->
-              <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="bloodOxygen"
+            label="血氧饱和度"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.bloodOxygen"
+                :class="className"
+                class="bloodOxygen"
+                type="text"
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
             </template>
           </el-table-column>
           <el-table-column
@@ -911,6 +925,7 @@ export default {
         arterialPressure: "", //有创动脉收缩压
         heigh: "",
         patientId: "",
+        painScore:"",
         visitId: "",
         audit: "",
         auditorName: "",
@@ -939,6 +954,7 @@ export default {
         recordMonth: "",
         recordYear: "",
         sign: "",
+        bloodOxygen:"",
         signerName: "",
         signerNo: "",
         status: "0",

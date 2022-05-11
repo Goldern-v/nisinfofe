@@ -51,8 +51,8 @@
         <td v-for="(items, idx) in tdArr" :key="idx + 'td'">
           <div class="cell noPrint">
             <!-- {{ item.date }} -->
-            <input type="text" v-model="item[tdArr[idx]]" v-if="tdArr[idx] === 'time'" @input="inputTime(item,'time',':')" />
-            <input type="text" v-model="item[tdArr[idx]]" v-else />
+            <input type="text" :readonly="routePath.includes('nursingPreview')" v-model="item[tdArr[idx]]" v-if="tdArr[idx] === 'time'" @input="inputTime(item,'time',':')" />
+            <input type="text" :readonly="routePath.includes('nursingPreview')" v-model="item[tdArr[idx]]" v-else />
           </div>
           <div :class="['cell','inPrint']">
             {{item[tdArr[idx]]}}
@@ -175,6 +175,9 @@ export default {
     };
   },
   computed: {
+    routePath(){
+      return window.location.href
+    },
     renderData() {
       if (!this.data) return;
       let renderData = [];
@@ -206,6 +209,7 @@ export default {
   },
   methods: {
     inputTime(rowItem, code, char) {
+      if (window.location.href.includes('nursingPreview')) return
       if (rowItem[code] && rowItem[code].length>=5) {
         rowItem[code] = rowItem[code].substring(0, 5)
       } else if (
@@ -221,6 +225,7 @@ export default {
       }
     },
     onSelect(item,renderData) {
+      if (window.location.href.includes('nursingPreview')) return
       this.$emit("renderData",item, renderData);
       this.$emit("update:selected",item);
       if(!item.dateStr){

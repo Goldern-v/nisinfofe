@@ -187,16 +187,17 @@ export default {
         return false;
       }
     },
+    /**删除标题模板 */
     toDel(data) {
-      console.log(data);
-      if(data.id){
-        this.$confirm("此操作将永久删除该自定义标题版, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该含选项标题版, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        let id = data.id
-        deleteId(id).then((res) => {
+        let obj = {
+          id: data.id
+        };
+        deleteGroup(obj).then((res) => {
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -204,29 +205,8 @@ export default {
           this.bus.$emit("refreshTitleTemplate");
         });
       });
-      }else{
-        this.$confirm("此操作将永久删除该含选项标题版, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
-        }).then(() => {
-          let obj = {
-            groupName: data.groupName,
-            recordCode:
-              //北海体温单调用护理记录单模板
-              this.getRecordCode() ? "bodyTemperature" : sheetInfo.sheetType,
-            wardCode: this.deptCode,
-          };
-          deleteGroup(obj).then((res) => {
-            this.$message({
-              type: "success",
-              message: "删除成功!",
-            });
-            this.bus.$emit("refreshTitleTemplate");
-          });
-        });
-      }
     },
+    /**删除标题模板选项 */
     toDeleteById(data) {
       this.$confirm("此操作将永久删除该自定义标题选项, 是否继续?", "提示", {
         confirmButtonText: "确定",
