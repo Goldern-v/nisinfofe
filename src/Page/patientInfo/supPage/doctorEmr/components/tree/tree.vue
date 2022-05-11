@@ -25,7 +25,7 @@
 import fileicon from "@/common/images/doctorEmr/文件.png";
 import filebox from "@/common/images/doctorEmr/文件夹.png";
 import BusFactory from "vue-happy-bus";
-import { getDoctorEmr } from "../../api/index";
+import { getDoctorEmr,getDoctorEmr2 } from "../../api/index";
 export default {
   data() {
     return {
@@ -62,54 +62,74 @@ export default {
     },
     getTreeData() {
       this.treeLoading = true;
-      if(this.HOSPITAL_ID != "beihairenyi"){
-        Promise.all([
-        getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)
-      ])
-        .then(res => {
-          let resDataArr = res[0].data.data;
-          let keys = Object.keys(resDataArr);
-          let regions = [];
-          if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "shannan" || this.HOSPITAL_ID == "quzhou") {
-            for (let i = 0; i < keys.length; i++) {
-              regions.push({
-                label: keys[i],
-                children: resDataArr[keys[i]].map(item => {
-                  return {
-                    label: item.topic,
-                    fileUrl: item.expand1
-                  };
-                })
-              });
+      if(this.HOSPITAL_ID != "beihairenyi"){  
+        if(this.HOSPITAL_ID == "hj"){
+          Promise.all([getDoctorEmr2(this.$route.query.patientId, this.$route.query.visitId)]).then(res2=>{
+            let regions = [];
+            const data = res2[0].data.data
+            console.log("res",data)
+            for (let i = 0; i < data.length; i++) {
+              regions.push({ 
+                label: data[i].emrName,
+                content:data[i].content
+              })
             }
-          } else {
-            for (let i = 0; i < keys.length; i++) {
-              regions.push({
-                label: keys[i],
-                children: resDataArr[keys[i]].map(item => {
-                  return {
-                    label: item.topic,
-                    fileUrl: item.fileUrl
-                  };
-                })
-              });
+            this.regions = regions;
+          }).then(res => {
+            this.treeLoading = false;
+          });
+        }else{
+          Promise.all([
+          getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)
+        ])
+          .then(res => {
+            let resDataArr = res[0].data.data;
+            let keys = Object.keys(resDataArr);
+            let regions = [];
+            if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "shannan" || this.HOSPITAL_ID == "quzhou") {
+              for (let i = 0; i < keys.length; i++) {
+                regions.push({
+                  label: keys[i],
+                  children: resDataArr[keys[i]].map(item => {
+                    return {
+                      label: item.topic,
+                      fileUrl: item.expand1
+                    };
+                  })
+                });
+              }
+            } else {
+              for (let i = 0; i < keys.length; i++) {
+                regions.push({
+                  label: keys[i],
+                  children: resDataArr[keys[i]].map(item => {
+                    return {
+                      label: item.topic,
+                      fileUrl: item.fileUrl
+                    };
+                  })
+                });
+              }
             }
-          }
-
-          // debugger;
-
-          this.regions = regions;
-        })
-        .then(res => {
-          this.treeLoading = false;
-        });
+  
+            // debugger;
+  
+            this.regions = regions;
+          })
+          .then(res => {
+            this.treeLoading = false;
+          });
+        }
       }
       
     },
     nodeClick(data, node) {
-      // console.log(node, "node");
+      console.log(data,node, "node");
       // rgb(228, 241, 240)
-      if (node.level === 2) {
+      if(this.HOSPITAL_ID == 'hj'){
+        let content = data.content
+        this.bus.$emit("openContent", content);
+      }else if(node.level === 2){
         let fileUrl = node.data.fileUrl;
         this.bus.$emit("openDoctorEmr", fileUrl);
       }
@@ -175,7 +195,7 @@ export default {
       } else {
         icon = fileicon;
       }
-      if (node.level !== 2) {
+      if (node.level !== 2 && this.HOSPITAL_ID != 'hj') {
         return (
           <span class="tree-box-node">
             {" "}
