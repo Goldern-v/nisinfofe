@@ -179,6 +179,7 @@
 
 <script>
 import adviceTable from "./component/adviceTable";
+import adviceTableYc from "./component/adviceTable_yangchun";
 import adviceTableWx from "./component/adviceTable_wx";
 import adviceTableHd from "./component/adviceTable_hd";
 import adviceTableNanfangzhongxiyi from "./component/adviceTable_nanfangzhongxiyi";
@@ -236,11 +237,9 @@ export default {
           let select2 =
             item.orderStatusName === this.radio.toString() ||
             this.radio === "全部";
-          // console.log(selcet1);
           return selcet1 && select2;
         });
       }
-      // console.log(data);
       if (this.duplicateRemoval.includes(this.HOSPITAL_ID)) {
         data.map((item, index, array) => {
           let prevRowId =
@@ -288,6 +287,7 @@ export default {
         beihairenyi:"adviceTableBeihairenyi",
         whfk:'adviceTableWHFK',
         sdlj:"adviceTableSDLJ",
+        yangchunzhongyi:"adviceTableYc",
         default:"adviceTable",
       }
       if(idToCom[HOSPITAL_ID]){
@@ -364,10 +364,12 @@ export default {
           this.tableLoading = false;
           this.tableData = res.data.data;
           this.dataRes = res.data.data
+        }).catch((error)=>{
+          this.tableLoading = false;
         });
       }
-      
-      
+
+
     },
     syncGetPatientOrders() {
       this.$message.info("正在同步数据...");
@@ -407,6 +409,7 @@ export default {
     adviceTableBeihairenyi,
     adviceTableWHFK,
     adviceTableFy,
+    adviceTableYc,
     adviceTableSDLJ
   },
 };
