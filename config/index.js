@@ -156,8 +156,8 @@ const currentTargetUrl = (() => {
       //  return "http://192.168.20.93:8080"
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://219.159.198.37:9094"  // 正式地址
-      // return "https://cr.fsyyy.com:9094"  // 正式地址
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "https://cr.fsyyy.com:9094"  // 正式地址
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.3.226:8080" // 初升测试本地内网
 
     // 福清妇幼保健院
