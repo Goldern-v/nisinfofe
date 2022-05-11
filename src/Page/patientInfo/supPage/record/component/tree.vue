@@ -76,7 +76,6 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .form-list-part {
   position: relative;
-
   // transition: all 2s;
   .header {
     height: 37px;
@@ -526,6 +525,7 @@ export default {
       // let filebox = filebox
       // // 如果存在保存
       // console.log("111",node.childNodes,node.level)
+      // console.log(h,  node, data, store );
       //未签名
       let hasSave =
         node.childNodes.filter((item) => {
@@ -688,7 +688,7 @@ export default {
             </span>
           )
         } else {
-          return h("span", { class: { "tree-box-node": true } }, [
+          return h("span", { class: { "tree-box-node": true }, attrs: { title: node.label } }, [
             h("img", { attrs: { src: box } }),
             h("span", {}, node.label),
             viewDom,
@@ -832,6 +832,8 @@ export default {
                   return {
                     status: option.status,
                     evalScore: option.evalScore || "",
+                    deptCode: option.deptCode,
+                    deptName: option.deptName,
                     label: `${option.evalDate}
                   ${option.countSize ? option.countSize + "条" : ""}
                   ${option.evalScore ? option.evalScore + "分" : ""}
@@ -899,7 +901,6 @@ export default {
             default:
               break;
           }
-
           list_1 = list_1.filter(
             (item) => item.formCode != "form_transfusion_safety"
           );
@@ -907,6 +908,29 @@ export default {
             list_1.push(list_3);
           }
 
+          //区分患者转科------------------------------------------------------------------------------------------------------
+          if(process.env.formPage_change_major){
+            let newList = []
+            list_1.map((item,index)=>{
+              //处理患者转科前的表单
+              //每个科室对应的表单数组
+              let dptObj = {}
+              item.children.map((childrenItem,childrenIdx)=>{
+                console.log(childrenItem);
+                !dptObj[childrenItem.deptName] ? dptObj[childrenItem.deptName] = [childrenItem] : dptObj[childrenItem.deptName] = [...dptObj[childrenItem.deptName],childrenItem]
+              })
+              for (let i in dptObj){
+                let newObj = {}
+                newObj = JSON.parse(JSON.stringify(item))
+                newObj.label = list_1[index].label + "(" + i + ")"
+                newObj.children = dptObj[i]
+                newList.push(newObj)
+              }
+            })
+            list_1 = [...newList]
+          }
+          
+          //区分患者转科------------------------------------------------------------------------------------------------------
           if (this.filterObj) {
             this.regions = list_1.filter(
               (item) => item.label == this.filterObj.label
@@ -944,7 +968,7 @@ export default {
       this.expandListCopy.remove(curNode.index);
     },
     newRecordOpen() {
-      // console.log(this.filterObj);
+      // console.log(this.regions); 
       this.$refs.newForm.open(this.filterObj);
     },
     refreshTree(isAllRefresh = false) {

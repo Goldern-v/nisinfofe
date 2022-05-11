@@ -956,6 +956,10 @@ export default {
           }
           this.sheetInfo.selectBlock =
             this.sheetBlockList[this.sheetBlockList.length - 1] || {};
+            if(this.sheetBlockList.length==0){
+              // 如果该病人没有护记，切换病人时需要清空分页
+              this.pageArea=''
+            }
           if (this.patientInfo.blockId) {
             try {
               let index = this.sheetBlockList.findIndex(
