@@ -155,7 +155,7 @@
           <div class="value">{{ data.prepayments }}</div>
         </div>
 
-        <div flex="" class="table-line">
+        <div flex="" class="table-line" v-if="!['guizhou'].includes(HOSPITAL_ID)">
           <div class="key">费用合计：</div>
           <div class="value">{{ data.totalCosts }}</div>
         </div>
