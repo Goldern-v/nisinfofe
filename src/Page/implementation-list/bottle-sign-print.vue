@@ -51,7 +51,8 @@
           <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
           <span class="label" v-if="hasNewPrintHos.includes(HOSPITAL_ID)">瓶签大小:</span>
           <el-select v-if="hasNewPrintHos.includes(HOSPITAL_ID)" v-model="newModalSize" placeholder="请选择" size="small" style="width:80px;margin-right: 10px;">
-            <el-option label="6*8" :value="'6*8'"></el-option>
+            <el-option v-if="['lyxrm'].includes(HOSPITAL_ID)" label="7*8" :value="'7*8'"></el-option>
+            <el-option v-else label="6*8" :value="'6*8'"></el-option>
             <el-option label="3*5" :value="'3*5'"></el-option>
           </el-select>
           <span class="label">重打标志:</span>
@@ -189,6 +190,7 @@ import dTable from "./components/table/bottle-sign-print-table.vue";
 import pagination from "./components/common/pagination";
 import NewPrintModal from "./components/common/newPrintModal"
 import NewPrintModalSdlj from "./components/common/newPrintModalSdlj"
+import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm"
 import printing from 'printing'
 import { patEmrList } from "@/api/document";
 import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2 } from "./api/index";
@@ -243,6 +245,10 @@ export default {
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},]
       }
     };
+  },
+  mounted() {
+    if (['lyxrm'].includes(this.HOSPITAL_ID))
+      this.newModalSize = '7*8'
   },
   beforeDestroy(){
     this.cleanPrintStatusRoundTime()
@@ -404,7 +410,7 @@ export default {
       let printObj = {}
       let res = ''
       console.log('test-barCodeList', barCodeList)
-      if (['sdlj'].includes(this.HOSPITAL_ID)) {
+      if (['sdlj','lyxrm'].includes(this.HOSPITAL_ID)) {
         res = await getPrintListContent2({barcodeList: barCodeList})
       } else {
         res = await getPrintListContent({barCode: barCodeList.join('|')})
@@ -428,7 +434,7 @@ export default {
               margin: 0 0;
             }
             body{
-              ${this.newModalSize=='6*8'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
+              ${this.newModalSize=='6*8' || this.newModalSize == '7*8'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
             }
           `
         }).then(()=>{
@@ -520,6 +526,8 @@ export default {
       switch(this.HOSPITAL_ID) {
         case 'sdlj':
           return 'NewPrintModalSdlj'
+        case 'lyxrm':
+          return 'NewPrintModalLyxrm'
         default:
           return 'NewPrintModal'
       }
@@ -548,6 +556,7 @@ export default {
     pagination,
     NewPrintModal,
     NewPrintModalSdlj,
+    NewPrintModalLyxrm,
   }
 };
 </script>
