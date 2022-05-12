@@ -35,7 +35,7 @@
           clearable
         >
           <ElOption
-            v-for="item in allDepartmentsList"
+            v-for="item in allHoleDepartmentsList"
             :key="item.id"
             :label="item.name"
             :value="item.code"
@@ -309,6 +309,9 @@ export default {
         };
       });
       return [{ value: "", label: "全部" }, ...arr];
+    },
+    allHoleDepartmentsList(){
+      return [{ code: "", name: "全部" }, ...this.allDepartmentsList];
     }
   },
   watch: {
