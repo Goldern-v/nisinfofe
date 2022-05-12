@@ -42,6 +42,15 @@
       </router-link>
       <router-link
         :to="{
+          path: '/doctorEmr',
+          query: { patientId: query.patientId, visitId: query.visitId },
+        }"
+        tag="span"
+      >
+        <div class="nav-item">病历</div>
+      </router-link>
+      <router-link
+        :to="{
           path: '/advice',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"

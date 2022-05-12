@@ -32,7 +32,7 @@
             <div class="label">病历</div>
             <el-button @click="openModal('doctorEmrModal')">查看</el-button>
           </div>
-          <div class="item-box" v-if="HOSPITAL_ID == 'quzhou'">
+          <div class="item-box" v-if="['quzhou','whfk'].includes(HOSPITAL_ID)">
             <img src="../images/检验报告@2x.png" alt class="label-icon" />
             <div class="label">患者病历</div>
             <el-button @click="openModal('doctorEmrModal')">查看</el-button>
