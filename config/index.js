@@ -41,8 +41,8 @@ const currentTargetUrl = (() => {
   switch (HOSPITAL_ID) {
     /** 厚街 */
     case "hj":
-      return "http://120.197.141.41:9091" //厚街正式
-      // return "http://120.197.141.41:9094" //东莞正式库的测试
+      // return "http://120.197.141.41:9091" //厚街正式
+      return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
     // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
       // return "http://192.168.20.83:8080" // 彬哥本地
@@ -156,8 +156,8 @@ const currentTargetUrl = (() => {
       //  return "http://192.168.20.93:8080"
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://219.159.198.37:9094"  // 正式地址
-      // return "https://cr.fsyyy.com:9094"  // 正式地址
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "https://cr.fsyyy.com:9094"  // 正式地址
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.3.226:8080" // 初升测试本地内网
 
     // 福清妇幼保健院

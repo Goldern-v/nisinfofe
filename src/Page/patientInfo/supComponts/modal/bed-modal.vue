@@ -714,6 +714,9 @@ export default {
         case "hengli":
           qr_png_value = this.query.expand1;
           break;
+        case "foshanrenyi":
+          qr_png_value = '1001|' + this.query.patientId;
+          break;
         default:
           qr_png_value = this.query.patientId;
           break;
