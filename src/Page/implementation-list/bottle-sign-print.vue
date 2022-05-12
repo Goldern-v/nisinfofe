@@ -415,6 +415,7 @@ export default {
       } else {
         res = await getPrintListContent({barCode: barCodeList.join('|')})
       }
+      console.log(111);
       res.data.data.map(item=>{
         printObj[item.barCode] = printObj[item.barCode] || []
         printObj[item.barCode].push(item)
