@@ -386,7 +386,8 @@
                             i.vitalCode,
                             i.fieldCn,
                             i.fieldCn,
-                            index
+                            index,
+                            i.nurse
                           )
                         "
                         >{{ i.fieldCn }}</span
@@ -503,6 +504,7 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       timeStrFormat:"",
+      nurse:JSON.parse(localStorage.getItem('user')),
       totalDictInfo: {},
     };
   },
@@ -529,6 +531,9 @@ export default {
     isPain() {
       return this.$store.state.temperature.isPain;
     },
+    canEdit(){
+      return this.nurse.empNo==='admin'||this.nurse.roleManageCode === "QCR0001"||this.nurse.roleManageCodeList.includes('QCR0001')
+    }
   },
   watch: {
     query: {
@@ -746,8 +751,10 @@ export default {
           this.query.entryTime,
       }).then((res) => {
         res.data.data.list.map((item) => {
+          console.log(res.data.data)
           if (this.vitalSignObj[item.vitalCode])
             this.fieldList[item.vitalCode] = item;
+            console.log(this.fieldList[item.vitalCode],12312)
         });
       });
        let input = document.getElementsByTagName("input");
@@ -938,7 +945,7 @@ export default {
       }
     },
     /* 修改自定义标题，弹出弹窗并保存 */
-    updateTextInfo(key, label, autotext, index) {
+    updateTextInfo(key, label, autotext, index,nurse) {
       let checkValue = Object.values(this.fieldList) || [];
       let checkValueStr = checkValue.map((item) => item.fieldCn);
       if (!this.isDisable()) {
@@ -951,6 +958,7 @@ export default {
               wardCode: this.patientInfo.wardCode,
               vitalCode: key,
               fieldCn: text,
+              nurse:['自定义1','自定义2','自定义3','自定义4'].includes(text)?"":this.nurse.empNo,
               recordDate:
                 moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
                 "  " +
@@ -966,10 +974,15 @@ export default {
             ) {
               this.$message.error(`修改${label}失败!请输入自定义内容`);
             } else {
-              savefieldTitleNew(data).then((res) => {
+              //护士工号想等  和护士长和管理员可以修改  //空的护士人可以录入，因为老的自定义没有护士名字
+              if(nurse==this.nurse.empNo||this.canEdit||!nurse){
+                savefieldTitleNew(data).then((res) => {
                 this.fieldList[index].fieldCn = text;
+                this.getList()
                 this.$message.success(`修改${label}成功`);
               });
+              }
+
             }
             // this.getList();
           },
