@@ -86,7 +86,7 @@ export default {
             let resDataArr = res[0].data.data;
             let keys = Object.keys(resDataArr);
             let regions = [];
-            if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "shannan" || this.HOSPITAL_ID == "quzhou"||this.HOSPITAL_ID == "whfk") {
+            if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "shannan" || this.HOSPITAL_ID == "quzhou") {
               for (let i = 0; i < keys.length; i++) {
                 regions.push({
                   label: keys[i],
