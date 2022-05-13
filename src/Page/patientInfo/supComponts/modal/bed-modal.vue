@@ -143,7 +143,7 @@
               <span class="label">病情等级:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
-                  class="dj-box"
+                  class="dj-box printCare"
                   @click="selectRegistCare('重')"
                   :class="{ active: formData.registCare.includes('重') }"
                   :src="
@@ -153,7 +153,7 @@
                   "
                 />
                 <img
-                  class="dj-box"
+                  class="dj-box  printCare"
                   @click="selectRegistCare('危')"
                   :class="{ active: formData.registCare.includes('危') }"
                   :src="
@@ -163,7 +163,7 @@
                   "
                 />
                 <img
-                  class="dj-box"
+                  class="dj-box printCare"
                   @click="selectRegistCare('普')"
                   :class="{ active: formData.registCare.includes('普') }"
                   :src="
@@ -178,7 +178,7 @@
               <span class="label">护理级别:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
-                  class="dj-box"
+                  class="dj-box printCare"
                   @click="selectRegistCare('特')"
                   :class="{ active: formData.registCare.includes('特') }"
                   :src="
@@ -188,7 +188,7 @@
                   "
                 />
                 <img
-                  class="dj-box"
+                  class="dj-box printCare"
                   @click="selectRegistCare('一')"
                   :class="{ active: formData.registCare.includes('一') }"
                   :src="
@@ -198,7 +198,7 @@
                   "
                 />
                 <img
-                  class="dj-box"
+                  class="dj-box printCare"
                   @click="selectRegistCare('二')"
                   :class="{ active: formData.registCare.includes('二') }"
                   :src="
@@ -208,7 +208,7 @@
                   "
                 />
                 <img
-                  class="dj-box"
+                  class="dj-box printCare"
                   @click="selectRegistCare('三')"
                   :class="{ active: formData.registCare.includes('三') }"
                   :src="
@@ -276,7 +276,7 @@
           <div style="width: 131px">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
-            <div>
+            <div :class="{aliCenter:HOSPITAL_ID == 'lyxrm'}">
               <div
                 class="tip-item-con"
                 flex="cross:center main:justify"
@@ -527,7 +527,17 @@ input[type='checkbox']:checked:after {
   line-height: 32px;
   white-space: nowrap;
 }
-
+.aliCenter{
+    display: flex;
+    flex-direction: column;
+    height: 299px;
+    .tip-item-con{
+      margin-bottom: 0;
+      &:first-of-type{
+      margin: 35px 0 105px;
+      }
+    }
+}
 .tip-item-con {
   border: 1px solid #000;
   border-radius: 8px;
@@ -585,18 +595,18 @@ export default {
       qrCode: "" /** 二维码 */,
       qrCodeNum: "" /** 二维码 */,
       tipList: [
-        {
-          label: "小心跌倒",
-          img: require("./images/Group 6.png")
-        },
+        // {
+        //   label: "小心跌倒",
+        //   img: require("./images/Group 6.png")
+        // },
         {
           label: "小心烫伤",
           img: require("./images/Group 7.png")
         },
-        {
-          label: "防止压疮",
-          img: require("./images/Group 9.png")
-        },
+        // {
+        //   label: "防止压疮",
+        //   img: require("./images/Group 9.png")
+        // },
         {
           label: "防止偷盗",
           img: require("./images/Group 10.png")
@@ -692,6 +702,8 @@ export default {
     },
     open() {
       this.init();
+      // const printCare = document.querySelectorAll(".printCare")
+      // console.log(printCare)
       if (
         (this.HOSPITAL_ID == "liaocheng" &&
           JSON.parse(localStorage.user) &&
@@ -764,9 +776,20 @@ export default {
       });
     },
     onPrint() {
+      // this.formData.registCare.includes('特')
+      const printCare = document.querySelectorAll(".printCare")
+      let arr = []
+      for(let i=0;i<printCare.length;i++){
+        arr=  printCare[i].className.split(" ")
+        if(!arr.includes("active"))
+          printCare[i].style.display = "none"
+      }
       this.$nextTick(() => {
         this.post();
         print(this.$refs.printCon);
+        for(let i=0;i<printCare.length;i++){
+          printCare[i].style.display = "block"
+      }
       });
     },
     querySearchAsyncDoc(queryString, cb) {
