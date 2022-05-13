@@ -178,8 +178,10 @@ export default {
       // remote
       // let url = this.getFilePath("住院评估.index.json", rootDir);
       let url = null
-      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng'].includes(this.HOSPITAL_ID)) {
         url = this.getFilePath("住院评估.index.liaoc.json", rootDir);
+      } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        url = this.getFilePath("住院评估.index.lyxrm.json", rootDir);
       } else {
         url = this.getFilePath("住院评估.index.json", rootDir);
       }
@@ -199,8 +201,10 @@ export default {
       //
       // main json file
       // url = this.getFilePath("住院评估.form.json", `${rootDir}/main`);
-      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng'].includes(this.HOSPITAL_ID)) {
         url = this.getFilePath("住院评估.form.liaoc.json", `${rootDir}/main`);
+      } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        url = this.getFilePath("住院评估.form.lyxrm.json", `${rootDir}/main`);
       } else {
         url = this.getFilePath("住院评估.form.json", `${rootDir}/main`);
       }
@@ -219,8 +223,10 @@ export default {
 
       // 主表字段对照表
       // url = this.getFilePath("住院评估.schemes.json", `${rootDir}/main`);
-      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng'].includes(this.HOSPITAL_ID)) {
         url = this.getFilePath("住院评估.schemes.liaoc.json", `${rootDir}/main`);
+      } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        url = this.getFilePath("住院评估.schemes.lyxrm.json", `${rootDir}/main`);
       } else {
         url = this.getFilePath("住院评估.schemes.json", `${rootDir}/main`);
       }
@@ -441,9 +447,13 @@ export default {
       //
       // 主表结构
       let file = null
-      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng'].includes(this.HOSPITAL_ID)) {
         file = JSON.parse(
           JSON.stringify(require("../data/住院评估.form.liaoc.json"))
+        )
+      } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        file = JSON.parse(
+          JSON.stringify(require("../data/住院评估.form.lyxrm.json"))
         )
       } else {
         file = JSON.parse(
@@ -460,16 +470,20 @@ export default {
       );
       // 主表下拉框选项字典表
       let dictionary = null
-      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.liaoc.json")))
+      } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.lyxrm.json")))
       } else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.json")))
       }
       //
       // 其他下拉框选项字典表
       let otherDictionary = null
-      if (['liaocheng', 'lyxrm'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.liaoc.json")))
+      } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.lyxrm.json")))
       } else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.json")));
       }

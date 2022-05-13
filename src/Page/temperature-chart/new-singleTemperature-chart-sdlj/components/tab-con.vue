@@ -877,10 +877,10 @@ async mounted() {
             wardCode: this.patientInfo.wardCode,
           }).then((res) => {
             this.getList();
-            this.bus.$emit("refreshImg");
+          this.bus.$emit("refreshImg");
             setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 300);
+      }, 1000);
           });
         });
       }
@@ -893,10 +893,10 @@ async mounted() {
         type: type,
       }).then(async (res) => {
         this.$message.success("同步成功");
-        await this.bus.$emit("refreshImg");
+        this.bus.$emit("refreshImg");
         setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 300);
+      }, 1000);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -982,10 +982,10 @@ async mounted() {
         this.$message.success("保存成功");
       });
        this.getList();
-      this.bus.$emit("refreshImg");
+     this.bus.$emit("refreshImg");
       setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 300);
+      }, 1000);
       }
     },
   },

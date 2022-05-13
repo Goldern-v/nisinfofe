@@ -235,20 +235,22 @@ export default {
     this.bus.$on("refreshImg", () => {
       this.getImg();
     });
-  },
-  created() {
-    // this.getImg();
-    window.addEventListener("resize", this.getHeight);
-    window.addEventListener("message", this.messageHandle, false);
-    this.getHeight();
-        this.bus.$on('dateChangePage',(value)=>{
+       this.bus.$on('dateChangePage',(value)=>{
       value=moment(value).format("YYYY-MM-DD")
+      console.log('触发')
         this.$refs.pdfCon.contentWindow.postMessage(
         { type: "dateChangePage", value },
         this.intranetUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
     })
+  },
+  created() {
+    // this.getImg();
+    window.addEventListener("resize", this.getHeight);
+    window.addEventListener("message", this.messageHandle, false);
+    this.getHeight();
+
   },
   computed: {
     patientInfo() {
