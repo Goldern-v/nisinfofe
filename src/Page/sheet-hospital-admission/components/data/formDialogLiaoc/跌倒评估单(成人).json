@@ -499,10 +499,10 @@
         {
           "name": "I610009",
           "type": "radio",
-          "title": "自动列入高风险:",
+          "title": "自动列入高风险:入住ICU、急诊抢救室、麻醉复苏室、手术室、分娩室及血液透析室的患者，一级重度贫血患者、眩晕患者、晚期妊娠孕妇、产后24小时内的孕妇",
           "code": "45",
           "score": 45,
-          "style": null,
+          "style": "display: inline-block;width: 494px;white-space: break-spaces !important;",
           "class": null,
           "html": null,
           "readOnly": null

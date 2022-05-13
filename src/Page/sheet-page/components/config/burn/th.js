@@ -120,8 +120,8 @@ export default {
         canSet: true,
         key: 'fieldOne',
         style: {
-          minWidth: '31px',
-          maxWidth: '31px',
+          minWidth: '37px',
+          maxWidth: '37px',
         }
       },
       {
@@ -132,8 +132,8 @@ export default {
         canSet: true,
         key: 'fieldTwo',
         style: {
-          minWidth: '31px',
-          maxWidth: '31px',
+          minWidth: '37px',
+          maxWidth: '37px',
         }
       },
       {
@@ -144,8 +144,8 @@ export default {
         canSet: true,
         key: 'fieldThree',
         style: {
-          minWidth: '31px',
-          maxWidth: '31px',
+          minWidth: '37px',
+          maxWidth: '37px',
         }
       },
       {
