@@ -62,8 +62,8 @@
           </el-select>
           <el-button size="small" type="primary" @click="search">查询</el-button>
           <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
-          <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj','fsxt'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
-          <el-button size="small" v-if="['sdlj','fsxt'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
+          <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj','fsxt','whfk'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
+          <el-button size="small" v-if="['sdlj','fsxt','whfk'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
           <el-button size="small" @click="creatImplement">生成执行</el-button>
           <!-- <a href="VMS://abcdefg" @click="onPrint" >1</a> -->
           <el-button size="small" @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
@@ -410,7 +410,7 @@ export default {
       let printObj = {}
       let res = ''
       console.log('test-barCodeList', barCodeList)
-      if (['sdlj','fsxt','lyxrm'].includes(this.HOSPITAL_ID)) {
+      if (['sdlj','fsxt','lyxrm','whfk'].includes(this.HOSPITAL_ID)) {
         res = await getPrintListContent2({barcodeList: barCodeList})
       } else {
         res = await getPrintListContent({barCode: barCodeList.join('|')})
