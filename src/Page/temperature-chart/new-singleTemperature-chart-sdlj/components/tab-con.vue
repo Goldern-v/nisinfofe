@@ -877,7 +877,7 @@ async mounted() {
             wardCode: this.patientInfo.wardCode,
           }).then((res) => {
             this.getList();
-          await this.bus.$emit("refreshImg");
+          this.bus.$emit("refreshImg");
             setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
       }, 1000);
@@ -893,7 +893,7 @@ async mounted() {
         type: type,
       }).then(async (res) => {
         this.$message.success("同步成功");
-        await this.bus.$emit("refreshImg");
+        this.bus.$emit("refreshImg");
         setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
       }, 1000);
@@ -982,7 +982,7 @@ async mounted() {
         this.$message.success("保存成功");
       });
        this.getList();
-     await this.bus.$emit("refreshImg");
+     this.bus.$emit("refreshImg");
       setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
       }, 1000);
