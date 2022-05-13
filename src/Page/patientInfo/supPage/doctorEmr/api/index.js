@@ -7,3 +7,7 @@ import {
 export function getDoctorEmr(patientId, visitId) {
   return axios.get(`${apiPath}patient/doctorEmrs/${patientId}/${visitId}`)
 }
+//获取医生病历2
+export function getDoctorEmr2(patientId, visitId) {
+  return axios.get(`${apiPath}patient/getDoctorEmrs/${patientId}/${visitId}`)
+}

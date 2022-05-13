@@ -2,13 +2,13 @@
   <div
     :style="{
       width: `${newModalSize.split('*')[1] == '8' ? '8' : '10'}cm`,
-      height: `${newModalSize == '6*8' ? '5.9' : '5.7'}cm`
+      height: `${newModalSize == '7*8' ? '6.9' : '6.7'}cm`
     }"
   >
     <div
-      v-if="newModalSize == '6*8'"
+      v-if="newModalSize == '7*8'"
       class="new-print-modal new-print-modal--large"
-      style="width:8cm;height:5.9cm"
+      style="width:8cm;height:6.9cm"
     >
       <div class="new-print-modal__title">
         <span>{{ hospitalName }}</span>
@@ -313,14 +313,10 @@ export default {
       return max < 0;
     },
 		hospitalName() {
-      switch(this.HOSPITAL_ID) {
-        case 'sdlj':
-          return '广东医科大学附属第三医院'
-        case 'fsxt':
-          return '杏坛医院'
-        default:
-          return this.HOSPITAL_NAME
-      }
+			if (this.HOSPITAL_ID === 'sdlj') {
+				return '广东医科大学附属第三医院'
+			}
+			return this.HOSPITAL_NAME
 		},
     // 组号
     groupNo() {

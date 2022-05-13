@@ -1,6 +1,6 @@
 <template>
   <div class="content" v-loading="pageLoading">
-    <null-bg v-if="show"></null-bg>
+    <null-bg v-if="show && !content"></null-bg>
     <!-- <iframe id="iframeId" src="http://119.145.71.86:9801/hcres/emr_pdf/1342087_1/A.17.pdf" frameborder="0" class="emr-pdf" :style="{height:height}" v-if="!show"></iframe> -->
     <iframe
       ref="iframe"
@@ -11,6 +11,7 @@
       v-if="!show"
       @load="onload"
     ></iframe>
+    <div v-if="content" v-html="content"></div>
   </div>
 </template>
 
@@ -22,6 +23,7 @@ export default {
   data() {
     return {
       fileUrl: null,
+      content:"",
       bus: bus(this),
       show: true,
       pageLoading: false
@@ -46,6 +48,11 @@ export default {
       // this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`;
       this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}&visitId=${this.$route.query.visitId}`;
       // this.getTreeData();
+    }
+    if(this.HOSPITAL_ID == 'hj'){
+      this.bus.$on("openContent", content => {
+        this.content =content
+      })
     }
   },
   computed: {
