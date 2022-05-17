@@ -97,7 +97,7 @@
       </div>
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <div :class="{relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))}" 
-          style="height:5.7cm;" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
+          :style="{height:'5.7cm',margin:`${newModalSize=='3*7'?'1px 0 0 1px':'1px 0 0'}`}" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
           <component :is="newPrintCom" :newModalSize="newModalSize" :itemObj='itemBottleCard' />
         </div>
       </div>
