@@ -26,7 +26,7 @@
               <span>{{
                 HOSPITAL_ID == "hj"
                   ? "百辰源智慧护理信息系统"
-                  : "智慧护理信息系统"
+                  : "临邑县人民医院"
               }}</span>
             </el-row>
             <!-- <router-link to="/index"
