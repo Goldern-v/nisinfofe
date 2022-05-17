@@ -145,8 +145,8 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
-        <div class="nav-item" @click="()=>window.open(`http://10.158.220.54:8081/view/#/timeline?patientNo=${query.patientId}&visitTypeCode=03`)">患者360视图</div>
-        <div class="nav-item" @click="toPath('http://10.158.220.36:8080/#!/goto/outview_documents/',query.inpNo)">重症护理记录单</div>
+        <div class="nav-item" @click="toPath(1,`http://10.158.220.54:8081/view/#/timeline?patientNo=断开&visitTypeCode=03`,query.patientId)">患者360视图</div>
+        <div class="nav-item" @click="toPath(2,'http://10.158.220.36:8080/#!/goto/outview_documents/',query.inpNo)">重症护理记录单</div>
       <!-- <router-link to="/dev" tag="span">
         <div class="nav-item">手术</div>
       </router-link>-->
@@ -236,8 +236,15 @@ export default {
     }
   },
   methods:{
-    toPath(path,query){
+    toPath(num,path,query){
+      if(num==2){
         window.open(`${path}${query}`)
+      }else{
+        let arr =[];
+        arr = path.split("断开")
+        let url = arr.join(query)
+        window.open(url)
+      }
     }
   },
   components: {}
