@@ -220,7 +220,6 @@ export default {
   methods: {
     
     print() {
-      console.log(this.$route.query, 888)
       if (!this.canPrint) return;
       if (this.$route.params.type == "assessment") {
         this.bus.$emit("printAssessment");
