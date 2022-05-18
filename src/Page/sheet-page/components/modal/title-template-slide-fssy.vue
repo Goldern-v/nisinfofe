@@ -32,6 +32,7 @@
       </div>
     </transition>
     <addTemplateModal ref="addTemplateModal"></addTemplateModal>
+    <addTemplateModalTemp ref="Temperature" v-if="isTemperature"></addTemplateModalTemp>
   </div>
 </template>
 
@@ -133,6 +134,7 @@
 import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./components/title-template-item-fssy.vue";
 import addTemplateModal from "./add-title-template-modal-fssy.vue";
+import addTemplateModalTemp from "./add-title-template-modal.vue";
 import bus from "vue-happy-bus";
 import {titleTemplateList} from "./api/index"
 import sheetInfo from "../config/sheetInfo/index.js";
@@ -182,7 +184,12 @@ export default {
         return item.title.indexOf(this.searchWord) > -1;
       });
       return filterData;
+    },
+    isTemperature(){
+      return this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes("temperature")
+
     }
+
   },
   watch: {
     selectedType() {
@@ -232,11 +239,23 @@ export default {
       if(!opstObj.wardCode) return
       let res = await titleTemplateList(opstObj)
       if(res.data.code == '200'){
-        this.listMap = res.data.data
+        if(this.isTemperature){
+          //如果是体温单界面  就只查询体温单的自定义标题
+        this.listMap = res.data.data.filter((x)=>x.recordCode==="bodyTemperature")
+        }else{
+        this.listMap = res.data.data.filter((x)=>x.recordCode!=="bodyTemperature")
+
+        }
       }
     },
     openAddModal() {
+      if(this.isTemperature){
+      this.$refs.Temperature.open();
+
+      }else{
       this.$refs.addTemplateModal.open();
+
+      }
     },
     addTemplateAtDoc(item) {
       this.bus.$emit("addTemplateAtDoc", item.content);
@@ -254,7 +273,8 @@ export default {
   components: {
     whiteButton,
     templateItem,
-    addTemplateModal
+    addTemplateModal,
+    addTemplateModalTemp
   }
 };
 </script>
