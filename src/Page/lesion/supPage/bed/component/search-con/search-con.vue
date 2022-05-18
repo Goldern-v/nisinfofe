@@ -79,7 +79,6 @@
         class="login-btn"
         @click="syncGetNurseBedRecData"
         v-if="showSyncBedBtn"
-        :disable="ifCanTobu"
       >
         同步床位数据
       </button>
@@ -747,8 +746,9 @@ export default {
       return this.bedList.filter((item) => item.nursingClass == level);
     },
     syncGetNurseBedRecData() {
+      if(!this.ifCanTobu) return 
+      this.ifCanTobu=false
       this.$message.info("正在更新");
-      this.ifCanTobu = fasle;
       let syncData = syncGetNurseBedRec;
       switch (this.HOSPITAL_ID) {
         case "lingcheng":
@@ -789,11 +789,12 @@ export default {
         this.$message.success("更新成功");
         this.getDate();
         this.ifCanTobu = true;
-      });
+      },()=>{this.ifCanTobu = true;});
     },
     syncGetNursePatientRecData(){
+      if(!this.ifCanAsyncPatient)  return 
+      this.ifCanAsyncPatient=false
       this.$message.info("正在更新");
-      this.ifCanAsyncPatient = false;
        let syncPatientData = syncGetNursePatientWHFKRecData;
       switch (this.HOSPITAL_ID) {
         case "whfk":
@@ -807,7 +808,7 @@ export default {
         this.$message.success("更新成功");
         this.getDate();
         this.ifCanAsyncPatient = true;
-      });
+      },()=>{this.ifCanAsyncPatient = true;});
     },
     syncGetMedicalAdvice() {
       if (this.showProgress || !this.deptCode) {
