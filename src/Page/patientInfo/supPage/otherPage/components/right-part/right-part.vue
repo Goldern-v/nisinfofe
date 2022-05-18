@@ -1,5 +1,6 @@
 <template>
   <div class="content" v-loading="pageLoading">
+    
     <null-bg v-if="show"></null-bg>
     <!-- <iframe id="iframeId" src="https://www.jianshu.com/p/b8d45314a495" frameborder="0" class="emr-pdf" :style="{height:height}"></iframe> -->
     <iframe
@@ -43,7 +44,7 @@ export default {
     // }, false);
     let vid=window.app.$store.state.patient.currentPatient.inpNo;
     const currentPatient=window.app.$store.state.patient.currentPatient;//patientId
-    //console.log(window.app.$store.state.patient.currentPatient)
+    // console.log("window.app",window.app,window.app.$store.state.patient.currentPatient)
     if(this.HOSPITAL_ID && vid){
       this.show = false;
       //const personInfoUrl="http://172.16.8.41:5402";
@@ -63,6 +64,9 @@ export default {
         case "liaocheng":
           this.getUrl();
           break; 
+        case "nanfangzhongxiyi":
+          this.fileUrl = `http://10.158.220.54:8081/view/#/timeline?patientNo=${this.$route.query.inpNo}&visitTypeCode=03`;
+          break;
         default:
           break; 
       }

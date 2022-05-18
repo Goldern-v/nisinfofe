@@ -145,7 +145,12 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
-        <div class="nav-item" @click="toPath(1,`http://10.158.220.54:8081/view/#/timeline?patientNo=断开&visitTypeCode=03`,query.inpNo)">患者360视图</div>
+      <router-link
+        :to="{path:'/otherPage', query: {inpNo:query.inpNo}}"
+        tag="span"
+      >
+        <div class="nav-item">患者360</div>
+      </router-link>
         <div class="nav-item" @click="toPath(2,'http://10.158.220.36:8080/#!/goto/outview_documents/',query.inpNo)">重症护理记录单</div>
       <!-- <router-link to="/dev" tag="span">
         <div class="nav-item">手术</div>

@@ -18,7 +18,7 @@ export default {
   methods:{
     //360患者特殊样式
     getOther(){
-      return ["huadu","fuyou","foshanrenyi"].includes(this.HOSPITAL_ID)
+      return ["nanfangzhongxiyi","huadu","fuyou","foshanrenyi"].includes(this.HOSPITAL_ID)
     }
   }
 };
