@@ -103,6 +103,12 @@ function syncGetMedicalAdvice(deptCode) {
 function getPatientOrdersWithWardCode(deptCode) {
   return axios.get(`${apiPath}hisZhongShanQiYuanExecute/getPatientOrdersWithWardCode/${deptCode}`)
 }
+// 武汉肺科 --更新患者数据
+function syncGetNursePatientWHFKRecData(deptCode) {
+  return axios.get(`${apiPath}bed/syncPatInHospital/${deptCode}`)
+}
+
+
 
 export {
   nursingUnit,
@@ -124,4 +130,5 @@ export {
   syncGetNurseBedRecSDLJExecute,
   syncGetNurseBedRecDGXGExecute,
   syncGetNurseBedRecBeiHaiExecute,
+  syncGetNursePatientWHFKRecData
 }
