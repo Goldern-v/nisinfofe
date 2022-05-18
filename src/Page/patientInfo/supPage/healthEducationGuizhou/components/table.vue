@@ -56,7 +56,7 @@
             <span class="remark-span">{{ data["备注"] }}</span>
           </td>
           <!-- 签名 -->
-          <td v-if="HOSPITAL_ID == 'lingcheng'" class="specialTd">
+          <td v-if="['guizhou','lingcheng'].includes(HOSPITAL_ID)" class="specialTd">
             <img
               v-show="data['lc签名']"
               class="img"
