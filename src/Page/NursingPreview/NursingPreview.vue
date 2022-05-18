@@ -87,6 +87,7 @@ import temperatureDghl from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureBhry from "@/Page/patientInfo/supPage/temperature/temperature-beihairenyi";
 import temperatureWuJing from "@/Page/patientInfo/supPage/temperature/temperature-wujing";
 import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-whfk";
+import temperatureFSXT from "@/Page/patientInfo/supPage/temperature/temperature-fsxt";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
@@ -143,11 +144,11 @@ export default {
           return bloodSugarBhry;
         case "sdlj":
           if(this.isBloodSugarSdlj){
-            return bloodSugarSdlj 
+            return bloodSugarSdlj
           }else{
-            return bloodSugar 
+            return bloodSugar
           }
-          
+
         default:
           return bloodSugar;
       }
@@ -177,6 +178,8 @@ export default {
           return temperatureSDLJ;
         case "lyxrm":
           return temperatureLYXRM;
+        case "fsxt":
+          return temperatureFSXT;
         default:
           return temperature;
       }
@@ -215,6 +218,7 @@ export default {
     temperatureWHFK,
     temperatureLYXRM,
     temperatureSDLJ,
+    temperatureFSXT
   }
 };
 </script>

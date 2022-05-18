@@ -601,10 +601,13 @@ export default {
     if (sheetInfo.selectBlock.relSignInfo == undefined) {
       this.$set(this.sheetInfo.selectBlock, "relSignInfo", {});
     }
-
-    if (JSON.stringify(this.relObj) == "{}") {
-      Object.assign(this.sheetInfo.relObj, this.firstTableBody1);
-    }
+    this.$nextTick(() => {
+      if (JSON.stringify(this.relObj) == "{}") {
+        setTimeout(()=> {
+          this.sheetInfo.relObj = {...this.sheetInfo.relObj, ...this.firstTableBody1}
+        }, 100)
+      }
+    })
   },
   mounted() {},
   computed: {
@@ -612,7 +615,9 @@ export default {
       return window.location.href.indexOf("print") > -1;
     }
   },
-  watch: {},
+  watch: {
+
+  },
   coponents: {}
 };
 </script>

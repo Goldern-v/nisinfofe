@@ -186,6 +186,8 @@ export default {
       let contexts = null
       if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
         contexts = require.context('../data/formDialogLiaoc', true, /\.json$/);
+      } else if (this.HOSPITAL_ID === 'lyxrm') {
+        contexts = require.context('../data/formDialogLyxrm', true, /\.json$/);
       } else {
         contexts = require.context('../data/formDialog', true, /\.json$/);
       }
@@ -202,6 +204,8 @@ export default {
           let schemesJson = null
           if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
             schemesJson = require(`../data/formSchemesLiaoc/${fromName}.txt.json`)
+          } else if (this.HOSPITAL_ID === 'lyxrm') {
+            schemesJson = require(`../data/formSchemesLyxrm/${fromName}.txt.json`)
           } else {
             schemesJson = require(`../data/formSchemes/${fromName}.txt.json`)
           }

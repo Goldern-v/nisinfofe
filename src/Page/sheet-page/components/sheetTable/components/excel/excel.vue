@@ -1735,6 +1735,10 @@ export default {
       window.openContextMenu({ style, data });
     },
     openEditModal(tr, data, e) {
+      // 花都副页关闭编辑框
+      if(this.sheetInfo.sheetType=='additional_count_hd'){
+        return
+      }
       this.isOpenEditModal = true;
       setTimeout(() => {
         this.isOpenEditModal = false;

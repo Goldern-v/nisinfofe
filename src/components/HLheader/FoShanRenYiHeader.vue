@@ -53,9 +53,9 @@
                 <i class="nursingAssessment"></i> 护理文书
               </el-row>
             </router-link> -->
-             <el-dropdown
+            <el-dropdown
               menu-align="start"
-              :class="{ 'router-link-active': isActiveTemperaturePage }"
+              :class="{ 'router-link-active': isNursing }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -123,7 +123,7 @@
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
-              :class="{ 'router-link-active': isActivePage }"
+              :class="{ 'router-link-active': $route.path == '/implementationList' }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -967,6 +967,10 @@ export default {
         path.includes("allTemperatureChart")
       );
     },
+    isNursing() {
+      let path = this.$route.path;
+      return path.includes("sheetHospitalAdmission") || path.includes("formPage")
+    }
   },
   methods: {
     handleCommand(command) {

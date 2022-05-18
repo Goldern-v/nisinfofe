@@ -1,0 +1,4157 @@
+{
+    "pageSetting": {
+        "size": "4A",
+        "rotation": "portrait",
+        "margin": "0",
+        "width": "820px",
+        "height": "auto",
+        "mode": "_development",
+        "style": ""
+    },
+    "formSetting": {
+        "updateInfo": "由{{updaterName}}创建，最后编辑于{{updateTime}}",
+        "formTitle": {
+            "hospitalName": "东莞市厚街医院",
+            "formName": "住 院 评 估"
+        },
+        "formHeads": [{
+                "name": "name",
+                "value": null,
+                "title": "姓名",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "sex",
+                "value": null,
+                "title": "性别",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "age",
+                "value": null,
+                "title": "年龄",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "wardName",
+                "value": null,
+                "title": "病区",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "bedLabel",
+                "value": null,
+                "title": "床号",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "inpNo",
+                "value": null,
+                "title": "住院号",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "admissionDate",
+                "value": null,
+                "title": "入院日期",
+                "class": "",
+                "style": "",
+                "show": true
+            }
+        ],
+        "formTail": {
+            "showEvalScore": false,
+            "showSign": true,
+            "showAudit": true
+        },
+        "formInfo": {
+            "formCode": "E0100",
+            "formApiCode": "E0100",
+            "formName": "住院评估",
+            "status": "0",
+            "formType": "eval"
+        }
+    },
+    "dictionary": {},
+    "schemes": {},
+    "model": {},
+    "body": [{
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 3,
+            "title": "一、基础评估",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "evalDate",
+                    "type": "datePicker",
+                    "title": "评估时间",
+                    "value": "",
+                    "placeholder": "评估时间",
+                    "style": "width:145px",
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "signerName",
+                    "type": "input",
+                    "title": "评估人",
+                    "inputWidth": "120px!important",
+                    "leftTdStyle": "text-align: right;min-width: 88px;",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "value": "",
+                    "placeholder": "",
+                    "style": "",
+                    "class": null,
+                    "readOnly": true
+                },
+                {
+                    "name": "status",
+                    "type": "input",
+                    "title": "状态",
+                    "inputWidth": "120px!important",
+                    "value": "",
+                    "placeholder": "状态",
+                    "style": "",
+                    "class": null,
+                    "readOnly": true,
+                    "rule": [{
+                            "equals": ["-1", "未保存"],
+                            "style": "color:gray",
+                            "display": "未签名"
+                        },
+                        {
+                            "equals": ["0", "未签名 "],
+                            "style": "color:blue",
+                            "display": "未签名"
+                        },
+                        {
+                            "equals": ["1", "已签名"],
+                            "style": "color: red;border-color: red;",
+                            "display": "已签名"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "1",
+            "title": "一、基础评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100001",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "基础评估",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100001",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100001",
+                    "type": "select",
+                    "title": "体温",
+                    "subTitle": "I100000",
+                    "inputWidth": "217px",
+                    "leftTdStyle": "min-width:80px!important",
+                    "rightTdStyle": "width:237px!important",
+                    "unitStyle": "",
+                    "titleDisplay": "体温",
+                    "suffixDesc": "℃",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "options": ["34", "35", "36", "37", "38", "39", "40", "41"],
+                    "dialog": {
+                        "title": "体温类型",
+                        "parentName": "I100001",
+                        "type": "dependent"
+                    },
+                    "rule": [{
+                            "min": "-Infinity",
+                            "max": "35",
+                            "message": "体温过低",
+                            "agelevel": "成人",
+                            "frequency": "成人每4小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "38.6",
+                            "max": "Infinity",
+                            "agelevel": "成人",
+                            "message": "体温过高",
+                            "frequency": "成人每4小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "36",
+                            "message": "体温过低",
+                            "agelevel": ["幼儿", "学龄前", "学龄期", "儿童"],
+                            "frequency": "儿童腋下每半小时评估",
+                            "equal": {
+                                "key": "I100000",
+                                "value": "腋下"
+                            },
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "37.5",
+                            "max": "Infinity",
+                            "agelevel": ["幼儿", "学龄前", "学龄期", "儿童"],
+                            "message": "体温过高",
+                            "frequency": "儿童腋下每半小时评估",
+                            "equal": {
+                                "key": "I100000",
+                                "value": "腋下"
+                            },
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "36.2",
+                            "message": "体温过低",
+                            "agelevel": ["幼儿", "学龄前", "学龄期", "儿童"],
+                            "frequency": "儿童肛温每4小时评估",
+                            "equal": {
+                                "key": "I100000",
+                                "value": "肛温"
+                            },
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "37.8",
+                            "max": "Infinity",
+                            "agelevel": ["幼儿", "学龄前", "学龄期", "儿童"],
+                            "message": "体温过高",
+                            "frequency": "儿童肛温每半小时评估",
+                            "equal": {
+                                "key": "I100000",
+                                "value": "肛温"
+                            },
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "36",
+                            "message": "体温过低",
+                            "agelevel": "新生儿",
+                            "frequency": "新生儿腋下每半小时评估",
+                            "equal": {
+                                "key": "I100000",
+                                "value": "腋下"
+                            },
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "37.5",
+                            "max": "Infinity",
+                            "agelevel": "新生儿",
+                            "message": "体温过高",
+                            "frequency": "新生儿腋下每半小时评估",
+                            "equal": {
+                                "key": "I100000",
+                                "value": "腋下"
+                            },
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "36.2",
+                            "message": "体温过低",
+                            "agelevel": "新生儿",
+                            "frequency": "新生儿肛温每4小时评估",
+                            "equal": {
+                                "key": "I100000",
+                                "value": "肛温"
+                            },
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "37.8",
+                            "max": "Infinity",
+                            "agelevel": "新生儿",
+                            "message": "体温过高",
+                            "frequency": "新生儿肛温每半小时评估",
+                            "equal": {
+                                "key": "I100000",
+                                "value": "肛温"
+                            },
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "source": "I100000",
+                            "target": "I100001",
+                            "type": "signValue"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100002",
+                    "type": "input",
+                    "title": "心率/脉率",
+                    "suffixDesc": "次/分",
+                    "inputWidth": "227px",
+                    "rightTdStyle": "width:256px!important",
+                    "style": "color:black",
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "min": "-Infinity",
+                            "max": "51",
+                            "agelevel": "成人",
+                            "message": "成人心率脉率异常过缓",
+                            "frequency": "成人每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "110",
+                            "max": "Infinity",
+                            "agelevel": "成人",
+                            "message": "成人心率脉率异常过速",
+                            "frequency": "成人每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "80",
+                            "message": "幼儿心率脉率异常过缓",
+                            "agelevel": "幼儿",
+                            "frequency": "幼儿每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "160",
+                            "max": "Infinity",
+                            "agelevel": "幼儿",
+                            "message": "幼儿心率脉率异常过速",
+                            "frequency": "幼儿每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "60",
+                            "message": "心率脉率异常过缓",
+                            "agelevel": "学龄前",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "140",
+                            "max": "Infinity",
+                            "agelevel": "学龄前",
+                            "message": "心率脉率异常过速",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "60",
+                            "message": "心率脉率异常过缓",
+                            "agelevel": "学龄期",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "130",
+                            "max": "Infinity",
+                            "agelevel": "学龄期",
+                            "message": "心率脉率异常过速",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "90",
+                            "message": "婴儿心率脉率异常过缓",
+                            "agelevel": ["婴儿", "新生儿"],
+                            "frequency": "婴儿每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "180",
+                            "max": "Infinity",
+                            "agelevel": ["婴儿", "新生儿"],
+                            "message": "婴儿心率脉率异常过速",
+                            "frequency": "婴儿每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100003",
+                    "type": "input",
+                    "title": "呼吸",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "次/分",
+                    "class": null,
+                    "readOnly": false,
+                    "rule": [{
+                            "min": "-Infinity",
+                            "max": "8",
+                            "agelevel": "成人",
+                            "message": "成人呼吸频率过慢",
+                            "frequency": "成人每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "25",
+                            "max": "Infinity",
+                            "agelevel": "成人",
+                            "message": "成人呼吸频率过快",
+                            "frequency": "成人每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "20",
+                            "message": "幼儿呼吸频率过慢",
+                            "agelevel": "幼儿",
+                            "frequency": "幼儿每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "50",
+                            "max": "Infinity",
+                            "agelevel": "幼儿",
+                            "message": "幼儿呼吸频率过快",
+                            "frequency": "幼儿每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "16",
+                            "message": "呼吸频率过慢",
+                            "agelevel": "学龄前",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "40",
+                            "max": "Infinity",
+                            "agelevel": "学龄前",
+                            "message": "呼吸频率过快",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "16",
+                            "message": "呼吸频率过慢",
+                            "agelevel": "学龄期",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "40",
+                            "max": "Infinity",
+                            "agelevel": "学龄期",
+                            "message": "呼吸频率过快",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "30",
+                            "message": "婴儿呼吸频率过慢",
+                            "agelevel": ["婴儿", "新生儿"],
+                            "frequency": "婴儿每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "60",
+                            "max": "Infinity",
+                            "agelevel": ["婴儿", "新生儿"],
+                            "message": "婴儿呼吸频率过快",
+                            "frequency": "婴儿每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100004",
+                    "type": "input",
+                    "title": "SPO2",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "%",
+                    "style": null,
+                    "class": null,
+                    "readOnly": false,
+                    "rule": [{
+                            "min": "-Infinity",
+                            "max": "90",
+                            "agelevel": ["成人", "儿童", "幼儿"],
+                            "message": "血氧饱和度SPO2异常",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": "80",
+                            "agelevel": ["新生儿", "婴儿"],
+                            "message": "血氧饱和度SPO2异常",
+                            "frequency": "新生儿每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100005",
+                    "type": "input",
+                    "title": "血压",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "mmhg",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "split": "/",
+                            "maxs": [180, 100],
+                            "agelevel": ["成人", "儿童", "幼儿"],
+                            "message": "血压过高",
+                            "frequency": "每4小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "split": "/",
+                            "message": "血压过低",
+                            "frequency": "每4小时评估",
+                            "agelevel": ["成人", "儿童", "幼儿"],
+                            "mins": [90, 60],
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "split": "/",
+                            "maxs": [50, 30],
+                            "agelevel": ["新生儿", "婴儿"],
+                            "message": "婴儿血压过高",
+                            "frequency": "婴儿每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "split": "/",
+                            "agelevel": ["新生儿", "婴儿"],
+                            "message": "婴儿血压过低",
+                            "frequency": "婴儿每1小时评估",
+                            "mins": [50, 30],
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100006",
+                    "type": "input",
+                    "title": "微量法血糖",
+                    "inputWidth": "227px",
+                    "suffixDesc": "mmol/l",
+                    "leftTdStyle": "",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "min": "-Infinity",
+                            "max": 3.9,
+                            "agelevel": ["成人", "儿童", "幼儿", "婴儿"],
+                            "message": "空腹血糖过低",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": 6.1,
+                            "max": "Infinity",
+                            "agelevel": ["成人", "儿童", "幼儿", "婴儿"],
+                            "message": "血糖过高",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "-Infinity",
+                            "max": 2.2,
+                            "agelevel": ["新生儿"],
+                            "message": "空腹血糖过低",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": 8,
+                            "max": "Infinity",
+                            "agelevel": ["新生儿"],
+                            "message": "空腹血糖过高",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "name": "输入字符自动转换",
+                            "source": "I100006",
+                            "target": "I100006",
+                            "string": "LO",
+                            "replacement": "<1.1"
+                        },
+                        {
+                            "name": "输入字符自动转换",
+                            "source": "I100006",
+                            "target": "I100006",
+                            "string": "HI",
+                            "replacement": ">27.8"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100007",
+                    "type": "input",
+                    "title": "CVP",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "cmH2O",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "min": "-Infinity",
+                            "max": "5",
+                            "message": "中心静脉压CVP异常",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "12",
+                            "max": "Infinity",
+                            "message": "中心静脉压CVP异常",
+                            "frequency": "每1小时评估",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100008",
+                    "type": "select",
+                    "title": "意识",
+                    "suffixDesc": "",
+                    "inputWidth": "227px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": false,
+                    "options": ["清醒", "对说话有反应", "对痛有反应", "无反应"],
+                    "rule": [{
+                            "min": "",
+                            "max": "",
+                            "equal": "对痛有反应",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "",
+                            "max": "",
+                            "equal": "无反应",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100009",
+                    "type": "input",
+                    "title": "身高",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "cm",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "name": "计算BMI",
+                        "height": "I100009",
+                        "weight": "I100010",
+                        "result": "I100011"
+                    }]
+                },
+                {
+                    "name": "I100010",
+                    "type": "input",
+                    "title": "体重",
+                    "inputWidth": "227px",
+                    "suffixDesc": "kg",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "name": "计算BMI",
+                        "height": "I100009",
+                        "weight": "I100010",
+                        "result": "I100011"
+                    }]
+                },
+                {
+                    "name": "I100011",
+                    "type": "input",
+                    "title": "BMI",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "kg/㎡",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "min": "-Infinity",
+                            "max": "18.49",
+                            "style": "color:blue"
+                        },
+                        {
+                            "min": "24",
+                            "max": "26.9",
+                            "message": "偏胖",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "27",
+                            "max": "29.9",
+                            "message": "肥胖",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "30",
+                            "max": "39.9",
+                            "message": "重度肥胖",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "40",
+                            "max": "Infinity",
+                            "message": "极重度肥胖",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "name": "计算BMI",
+                            "height": "I100009",
+                            "weight": "I100010",
+                            "result": "I100011"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100322",
+                    "type": "select",
+                    "title": "入量",
+                    "inputWidth": "227px",
+                    "suffixDesc": "",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "入量情况",
+                                "default": "入量情况",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "diff": "无",
+                            "message": "",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100013",
+                    "type": "select",
+                    "title": "睡眠",
+                    "suffixDesc": "",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "options": [
+                        "正常",
+                        "难入睡",
+                        "易醒",
+                        "早醒",
+                        "多梦",
+                        "睡眠不安",
+                        "夜啼",
+                        "惊醒",
+                        "盗汗",
+                        "其他"
+                    ],
+                    "rule": [{
+                        "min": "",
+                        "max": "",
+                        "equal": "",
+                        "equals": ["难入睡", "易醒", "早醒", "多梦"],
+                        "message": "睡眠形态紊乱",
+                        "frequency": "每天评估",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100325",
+                    "type": "select",
+                    "title": "出量",
+                    "inputWidth": "227px",
+                    "suffixDesc": "",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "出量情况",
+                                "default": "出量情况",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "diff": "无",
+                            "message": "",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100014",
+                    "type": "select",
+                    "title": "腹围",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "cm",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "options": ["33", "35", "40", "45", "50", "未测量"]
+                },
+                {
+                    "name": "I100328",
+                    "type": "select",
+                    "title": "翻身",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "1",
+            "title": "二、系统评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "2.1 心理社会精神评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100015",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "心理社会精神评估",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100015",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100015",
+                    "type": "select",
+                    "title": "精神状态",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "options": ["正常", "疲倦", "萎靡", "亢"],
+                    "rule": [{
+                        "diff": "正常",
+                        "message": "精神状态不佳",
+                        "frequency": "每天评估",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100017",
+                    "type": "select",
+                    "title": "服用药物",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equal": "是",
+                        "style": "color: red;border-color: red;"
+                    }]
+                }
+            ]
+        },
+        {
+            "name": "I100018",
+            "type": "formGroupColBox",
+            "col": 2,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100018",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "2.2 神经系统",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "神经系统",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100021",
+                    "type": "input",
+                    "title": "瞳孔(左大小)",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "suffixDesc": "mm",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null
+                },
+                {
+                    "name": "I100023",
+                    "type": "input",
+                    "title": "瞳孔(右大小)",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "suffixDesc": "mm",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null
+                },
+                {
+                    "name": "I100022",
+                    "type": "select",
+                    "title": "瞳孔(左反射)",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": false
+                },
+                {
+                    "name": "I100024",
+                    "type": "select",
+                    "title": "瞳孔(右反射)",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": false
+                },
+                {
+                    "name": "I100025",
+                    "type": "select",
+                    "title": "语言",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100140",
+                    "type": "select",
+                    "title": "视物",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100329",
+                    "type": "select",
+                    "title": "乏力",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100330",
+                    "type": "select",
+                    "title": "麻木",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100331",
+                    "type": "select",
+                    "title": "视物模糊",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100332",
+                    "type": "select",
+                    "title": "视物旋转",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100333",
+                    "type": "select",
+                    "title": "口角歪斜",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100334",
+                    "type": "select",
+                    "title": "眼闭合不全",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100029",
+                    "type": "select",
+                    "title": "肌力(左上肢)",
+                    "style": null,
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:78px!important",
+                    "class": null,
+                    "tips": "肌力分级说明",
+                    "readOnly": null,
+                    "children": [{
+                            "name": "I100029",
+                            "type": "select",
+                            "title": "肌力(左上肢)",
+                            "style": null,
+                            "inputWidth": "212px",
+                            "leftTdStyle": "min-width:78px!important",
+                            "class": null,
+                            "tips": "肌力分级说明",
+                            "readOnly": null
+                        },
+                        {
+                            "name": "I100029",
+                            "type": "help",
+                            "title": "肌力分级说明",
+                            "style": null,
+                            "elementStyle": "margin-left: 8px;",
+                            "class": "help-image",
+                            "labelStyle": "",
+                            "labelClass": "select-label",
+                            "readOnly": null,
+                            "dialog": {
+                                "title": "肌力分级说明",
+                                "default": "肌力分级说明",
+                                "okText": "好的，知道了",
+                                "hasCancel": false,
+                                "type": "dependent"
+                            },
+                            "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100030",
+                    "type": "select",
+                    "title": "肌力(右上肢)",
+                    "style": null,
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:78px!important",
+                    "class": null,
+                    "tips": "肌力分级说明",
+                    "readOnly": null,
+                    "children": [{
+                            "name": "I100030",
+                            "type": "select",
+                            "title": "肌力(右上肢)",
+                            "style": null,
+                            "inputWidth": "212px",
+                            "leftTdStyle": "min-width:78px!important",
+                            "class": null,
+                            "tips": "肌力分级说明",
+                            "readOnly": null
+                        },
+                        {
+                            "name": "I100030",
+                            "type": "help",
+                            "title": "肌力分级说明",
+                            "style": null,
+                            "elementStyle": "margin-left: 8px;",
+                            "class": "help-image",
+                            "labelStyle": "",
+                            "labelClass": "select-label",
+                            "readOnly": null,
+                            "dialog": {
+                                "title": "肌力分级说明",
+                                "default": "肌力分级说明",
+                                "okText": "好的，知道了",
+                                "hasCancel": false,
+                                "type": "dependent"
+                            },
+                            "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100031",
+                    "type": "select",
+                    "title": "肌力(左下肢)",
+                    "style": null,
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:78px!important",
+                    "class": null,
+                    "tips": "肌力分级说明",
+                    "readOnly": null,
+                    "children": [{
+                            "name": "I100031",
+                            "type": "select",
+                            "title": "肌力(左下肢)",
+                            "style": null,
+                            "inputWidth": "212px",
+                            "leftTdStyle": "min-width:78px!important",
+                            "class": null,
+                            "tips": "肌力分级说明",
+                            "readOnly": null
+                        },
+                        {
+                            "name": "I100031",
+                            "type": "help",
+                            "title": "肌力分级说明",
+                            "style": null,
+                            "elementStyle": "margin-left: 8px;",
+                            "class": "help-image",
+                            "labelStyle": "",
+                            "labelClass": "select-label",
+                            "readOnly": null,
+                            "dialog": {
+                                "title": "肌力分级说明",
+                                "default": "肌力分级说明",
+                                "okText": "好的，知道了",
+                                "hasCancel": false,
+                                "type": "dependent"
+                            },
+                            "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100032",
+                    "type": "select",
+                    "title": "肌力(右下肢)",
+                    "style": null,
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:78px!important",
+                    "class": null,
+                    "tips": "肌力分级说明",
+                    "readOnly": null,
+                    "children": [{
+                            "name": "I100032",
+                            "type": "select",
+                            "title": "肌力(右下肢)",
+                            "style": null,
+                            "inputWidth": "212px",
+                            "leftTdStyle": "min-width:78px!important",
+                            "class": null,
+                            "tips": "肌力分级说明",
+                            "readOnly": null
+                        },
+                        {
+                            "name": "I100031",
+                            "type": "help",
+                            "title": "肌力分级说明",
+                            "style": null,
+                            "elementStyle": "margin-left: 8px;",
+                            "class": "help-image",
+                            "labelStyle": "",
+                            "labelClass": "select-label",
+                            "readOnly": null,
+                            "dialog": {
+                                "title": "肌力分级说明",
+                                "default": "肌力分级说明",
+                                "okText": "好的，知道了",
+                                "hasCancel": false,
+                                "type": "dependent"
+                            },
+                            "tips": "<p style='color:green'>肌力分级说明:</p><p><span style='color:blue'>0级</span>    肌肉无任何收缩现象</sp><p><span style='color:blue'>1级</span>    肌肉仅能轻微收缩</p><p><span style='color:blue'>2级</span>    肢体能在床上平行移动，但不能对抗阻力</p><p><span style='color:blue'>3级</span>    肢体能抬高床面，但不能对抗阻力</p><p><span style='color:blue'>4级</span>    能对抗阻力活动</p><p><span style='color:blue'>5级</span>    肌力正常</p>"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100033",
+                    "type": "select",
+                    "title": "肌张力",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equals": ["高", "低"],
+                        "style": "color: red;border-color: red;"
+                    }]
+                }
+            ]
+        },
+        {
+            "name": "I100034",
+            "type": "formGroupColBox",
+            "col": 1,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100034",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "2.3 呼吸系统",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100035",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "呼吸系统",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100035",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100035",
+                    "type": "input",
+                    "title": "呼吸次数",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "次/分",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "min": -1,
+                            "max": 8,
+                            "style": "color:blue"
+                        },
+                        {
+                            "min": 25,
+                            "max": "Infinity",
+                            "message": "呼吸次数异常",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100036",
+                    "type": "select",
+                    "title": "呼吸节律",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "正常",
+                        "message": "呼吸节律异常",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100037",
+                    "type": "select",
+                    "title": "呼吸困难",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "options": ["有", "无"],
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "呼吸困难",
+                                "parentName": "I100000",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equal": "有",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100141",
+                    "type": "select",
+                    "title": "口唇甲床紫绀",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "无",
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100142",
+                    "type": "select",
+                    "title": "紫绀程度",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100143",
+                    "type": "select",
+                    "title": "卧位",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "无",
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100144",
+                    "type": "select",
+                    "title": "鼻塞鼻涕",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "无",
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100145",
+                    "type": "select",
+                    "title": "其他症状",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "无",
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100039",
+                    "type": "select",
+                    "title": "胸闷",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equal": "有",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100040",
+                    "type": "select",
+                    "title": "喘息",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equal": "有",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100041",
+                    "type": "select",
+                    "title": "咳嗽咳痰",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "咳嗽咳痰",
+                                "parentName": "I100000",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equal": "有",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100045",
+                    "type": "select",
+                    "title": "气管切开",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "气管切开",
+                                "parentName": "I100000",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equal": "有",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100047",
+                    "type": "select",
+                    "title": "气管插管",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "气管插管",
+                                "parentName": "I100000",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equal": "有",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100051",
+                    "type": "select",
+                    "title": "给氧方式",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "给氧方式",
+                                "parentName": "I100000",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equal": "有",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100146",
+                    "type": "select",
+                    "title": "机械通气",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "机械通气",
+                                "parentName": "I100146",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "diff": "无",
+                            "message": "",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 1,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100054",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "2.4 心血管系统",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100055",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "心血管系统",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100055",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100055",
+                    "type": "select",
+                    "title": "心电监护",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100057",
+                    "type": "select",
+                    "title": "心律",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equal": "不齐",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100152",
+                    "type": "select",
+                    "title": "胸痛",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "无",
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100026",
+                    "type": "select",
+                    "title": "头晕",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "无",
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100153",
+                    "type": "select",
+                    "title": "头痛",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "无",
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100154",
+                    "type": "select",
+                    "title": "水肿",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "无",
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100157",
+                    "type": "select",
+                    "title": "内瘘震颤音",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "无",
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100059",
+                    "type": "select",
+                    "title": "心悸",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equal": "有",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100060",
+                    "type": "select",
+                    "title": "左足背动脉搏动",
+                    "inputWidth": "197px",
+                    "leftTdStyle": "min-width:100px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "equals": ["变弱", "不能触及"],
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "dialog": {
+                                "openKey": ["变弱", "不能触及"],
+                                "cleanKey": "正常",
+                                "dialogList": [{
+                                        "title": "Caprini评分表(非手术科室)",
+                                        "default": "Caprini评分表(非手术科室)",
+                                        "name": "I100136",
+                                        "parentName": "I100136",
+                                        "type": "independent",
+                                        "showHead": "true"
+                                    },
+                                    {
+                                        "title": "Caprini评分表(手术科室)",
+                                        "default": "Caprini评分表(手术科室)",
+                                        "name": "I100136",
+                                        "parentName": "I100136",
+                                        "type": "independent",
+                                        "showHead": "true"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "I100061",
+                    "type": "select",
+                    "title": "右足背动脉搏动",
+                    "inputWidth": "197px",
+                    "leftTdStyle": "min-width:100px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "equals": ["变弱", "不能触及"],
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "dialog": {
+                                "openKey": ["变弱", "不能触及"],
+                                "cleanKey": "正常",
+                                "dialogList": [{
+                                        "title": "Caprini评分表(非手术科室)",
+                                        "default": "Caprini评分表(非手术科室)",
+                                        "name": "I100136",
+                                        "parentName": "I100136",
+                                        "type": "independent",
+                                        "showHead": "true"
+                                    },
+                                    {
+                                        "title": "Caprini评分表(手术科室)",
+                                        "default": "Caprini评分表(手术科室)",
+                                        "name": "I100136",
+                                        "parentName": "I100136",
+                                        "type": "independent",
+                                        "showHead": "true"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "I100062",
+                    "type": "select",
+                    "title": "左桡动脉搏动",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100063",
+                    "type": "select",
+                    "title": "右桡动脉搏动",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "I100065",
+            "type": "formGroupColBox",
+            "col": 1,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100065",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "2.5 骨骼、肌、皮肤系统",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100066",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "骨骼、肌、皮肤系统",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100066",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100064",
+                    "type": "",
+                    "title": "毛细血管充盈",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": "input-elements-nowrap",
+                    "readOnly": null,
+                    "children": [{
+                            "name": "I100064",
+                            "type": "select",
+                            "title": "毛细血管充盈",
+                            "inputWidth": "212px",
+                            "leftTdStyle": "min-width:85px!important",
+                            "style": null,
+                            "class": null,
+                            "readOnly": null,
+                            "options": ["阴性", "阳性"],
+                            "rule": [{
+                                "equals": ["阳性"],
+                                "style": "color: red;border-color: red;"
+                            }],
+                            "tips": "毛细血管充盈说明"
+                        },
+                        {
+                            "name": "I100064",
+                            "type": "help",
+                            "title": "毛细血管充盈说明",
+                            "style": null,
+                            "elementStyle": "margin-left: 8px;",
+                            "class": "help-image",
+                            "labelStyle": "",
+                            "labelClass": "select-label",
+                            "readOnly": null,
+                            "dialog": {
+                                "title": "毛细血管充盈说明",
+                                "default": "毛细血管充盈说明",
+                                "okText": "好的，知道了",
+                                "hasCancel": false,
+                                "type": "dependent"
+                            },
+                            "tips": "<p style='color:green'>毛细血管充盈说明:</p><p><span style='color:blue'>阴性</span>    撤除压力后，局部皮肤颜色由白转红的时间≤2s</p><p><span style='color:blue'>阳性</span>    撤除压力后，局部皮肤颜色由白转红的时间＞3s,或成斑点状发红</p>"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100066",
+                    "type": "select",
+                    "title": "皮肤颜色",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100067",
+                    "type": "select",
+                    "title": "皮肤温度",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100068",
+                    "type": "select",
+                    "title": "皮疹",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": "有",
+                            "cleanKey": "无",
+                            "title": "皮疹",
+                            "default": "皮疹",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100070",
+                    "type": "select",
+                    "title": "皮下出血",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": "有",
+                            "cleanKey": "无",
+                            "title": "皮下出血",
+                            "default": "皮下出血",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100073",
+                    "type": "select",
+                    "title": "水肿范围",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "无",
+                        "message": "有皮肤受损的危险",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100074",
+                    "type": "select",
+                    "title": "水肿性质",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100075",
+                    "type": "select",
+                    "title": "水肿程度",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equals": ["中度", "重度"],
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100076",
+                    "type": "select",
+                    "title": "肢体肿胀",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100077",
+                    "type": "select",
+                    "title": "肢体活动受限",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": "有",
+                            "cleanKey": "无",
+                            "title": "肢体活动受限",
+                            "default": "肢体活动受限",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100084",
+                    "type": "select",
+                    "title": "假肢",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "假肢",
+                                "default": "假肢",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equals": ["有"],
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100159",
+                    "type": "select",
+                    "title": "伤口皮肤情况",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": "异常",
+                            "cleanKey": "正常",
+                            "title": "伤口皮肤情况异常",
+                            "default": "伤口皮肤情况异常",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100078",
+                    "type": "select",
+                    "title": "造口粘膜",
+                    "multiplechoice": true,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100079",
+                    "type": "select",
+                    "title": "伤口",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "伤口",
+                                "aliasTitle": "部位",
+                                "default": "伤口",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equals": ["有"],
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100089",
+                    "type": "select",
+                    "title": "口腔粘膜",
+                    "multiplechoice": true,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": "正常",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100081",
+                    "type": "select",
+                    "title": "伤口敷料情况",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100082",
+                    "type": "select",
+                    "title": "压疮",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "压疮",
+                                "aliasTitle": "部位",
+                                "default": "压疮",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equals": ["有"],
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100086",
+                    "type": "select",
+                    "title": "外固定",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "外固定",
+                                "default": "外固定",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equals": ["有"],
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100167",
+                    "type": "select",
+                    "title": "感觉",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": "异常",
+                            "cleanKey": "正常",
+                            "title": "感觉异常",
+                            "default": "感觉异常",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100170",
+                    "type": "select",
+                    "title": "牵引",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": "有",
+                            "cleanKey": "无",
+                            "title": "牵引有",
+                            "default": "牵引有",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100174",
+                    "type": "select",
+                    "title": "体位护理",
+                    "multiplechoice": true,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 1,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100090",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "2.6 胃肠道系统",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100094",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "胃肠道系统",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100094",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100094",
+                    "type": "select",
+                    "title": "饮食",
+                    "multiplechoice": true,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100095",
+                    "type": "select",
+                    "title": "食欲",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equals": ["亢进", "减退"],
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100096",
+                    "type": "select",
+                    "title": "恶心",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equals": ["有"],
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100097",
+                    "type": "select",
+                    "title": "呕吐",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "呕吐",
+                                "default": "呕吐",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "diff": "无",
+                            "message": "护理问题：恶心，舒适状态的改变",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100098",
+                    "type": "select",
+                    "title": "腹胀",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": "有",
+                            "cleanKey": "无",
+                            "title": "腹胀",
+                            "default": "腹胀",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100100",
+                    "type": "select",
+                    "title": "腹部触感",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100101",
+                    "type": "select",
+                    "title": "腹部压痛",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": "有",
+                            "cleanKey": "无",
+                            "title": "腹部压痛",
+                            "default": "腹部压痛",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100103",
+                    "type": "select",
+                    "title": "腹部反跳痛",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100181",
+                    "type": "select",
+                    "title": "反酸/嗳气",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100104",
+                    "type": "select",
+                    "title": "肠鸣音",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100175",
+                    "type": "select",
+                    "title": "肠内营养方式",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100182",
+                    "type": "select",
+                    "title": "腹水",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": "有",
+                            "cleanKey": ["无"],
+                            "title": "腹水测量",
+                            "default": "腹水测量",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100105",
+                    "type": "select",
+                    "title": "排便",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "正常",
+                                "cleanKey": ["失禁", "造瘘", "腹泻"],
+                                "title": "大便频率",
+                                "default": "大便频率",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "dialog": {
+                                "openKey": "便秘",
+                                "cleanKey": ["失禁", "造瘘", "腹泻"],
+                                "title": "大便频率",
+                                "default": "大便频率",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "dialog": {
+                                "openKey": "腹泻",
+                                "cleanKey": ["失禁", "造瘘", "便秘", "正常"],
+                                "title": "腹泻",
+                                "default": "腹泻",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "diff": ["正常"],
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100109",
+                    "type": "select",
+                    "title": "黑便/血便",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": ["无"],
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100110",
+                    "type": "select",
+                    "title": "肛门排气",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 1,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100111",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "2.7 生殖泌尿系统",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "3",
+            "title": "2.7.1 男性生殖泌尿系统",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100112",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "生殖泌尿系统",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100112",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100112",
+                    "type": "select",
+                    "title": "排尿",
+                    "multiplechoice": true,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": ["未发现异常"],
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100113",
+                    "type": "select",
+                    "title": "尿管",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100114",
+                    "type": "select",
+                    "title": "尿液性质",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": ["黄色"],
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100184",
+                    "type": "select",
+                    "title": "阴囊",
+                    "multiplechoice": true,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": ["无"],
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100185",
+                    "type": "select",
+                    "title": "尿道口分泌物",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "multiplechoice": true,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": ["无"],
+                        "message": "有感染的危险",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100186",
+                    "type": "select",
+                    "title": "尿道口渗血",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": ["无"],
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100187",
+                    "type": "select",
+                    "title": "阴茎",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": ["无"],
+                        "message": "量",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100188",
+                    "type": "select",
+                    "title": "睾丸",
+                    "multiplechoice": true,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "diff": ["无"],
+                        "message": "有睾丸扭转，即时处理后评估",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100115",
+                    "type": "select",
+                    "title": "膀胱冲洗",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["间歇", ""],
+                            "cleanKey": ["无", "持续"],
+                            "title": "膀胱冲洗",
+                            "default": "膀胱冲洗",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100117",
+                    "type": "select",
+                    "title": "透析",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equal": "有",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100118",
+                    "type": "select",
+                    "title": "动静脉瘘",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equal": "有",
+                        "style": "color: red;border-color: red;"
+                    }]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 1,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100125",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "3",
+            "title": "2.7.2 产科生殖泌尿系统",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100112",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "产科生殖泌尿系统",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100112",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100290",
+                    "type": "select",
+                    "title": "羊水情况",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": ["清", "Ⅰ", "Ⅱ", "Ⅲ", "血性"],
+                                "cleanKey": "无",
+                                "title": "羊水情况",
+                                "default": "羊水情况",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equal": ["清", "Ⅰ", "Ⅱ", "Ⅲ", "血性"],
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100292",
+                    "type": "select",
+                    "title": "腹部：宫缩",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": ["不规则", "规则"],
+                                "cleanKey": "无",
+                                "title": "腹部宫缩",
+                                "default": "腹部宫缩",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equal": "不规则",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100119",
+                    "type": "select",
+                    "title": "阴道流血",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "阴道流血",
+                                "default": "阴道流血",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equal": "有",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100122",
+                    "type": "select",
+                    "title": "阴道异常分泌物",
+                    "inputWidth": "197px",
+                    "leftTdStyle": "min-width:100px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                            "dialog": {
+                                "openKey": "有",
+                                "cleanKey": "无",
+                                "title": "阴道异常分泌物",
+                                "default": "阴道异常分泌物",
+                                "type": "dependent"
+                            }
+                        },
+                        {
+                            "equal": "有",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100299",
+                    "type": "input",
+                    "title": "胎心音",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "次/分",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null,
+                    "rule": [{
+                            "min": "-Infinity",
+                            "max": "110",
+                            "message": "胎心过缓",
+                            "style": "color: red;border-color: red;"
+                        },
+                        {
+                            "min": "160",
+                            "max": "Infinity",
+                            "message": "胎心过速",
+                            "style": "color: red;border-color: red;"
+                        }
+                    ]
+                },
+                {
+                    "name": "I100300",
+                    "type": "input",
+                    "title": "胎方位常用",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null
+                },
+                {
+                    "name": "I100301",
+                    "type": "input",
+                    "title": "胎方位其他",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null
+                },
+                {
+                    "name": "I100189",
+                    "type": "select",
+                    "title": "宫口宫颈管消退",
+                    "inputWidth": "197px",
+                    "leftTdStyle": "min-width:100px!important",
+                    "suffixDesc": "",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["消退"],
+                            "cleanKey": "未消",
+                            "title": "宫口宫颈管消退情况",
+                            "default": "宫口宫颈管消退情况",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100193",
+                    "type": "select",
+                    "title": "会阴情况",
+                    "inputWidth": "227px",
+                    "suffixDesc": "",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["异常"],
+                            "cleanKey": "正常",
+                            "title": "会阴情况",
+                            "default": "会阴情况",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100196",
+                    "type": "input",
+                    "title": "宫底高度",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null
+                },
+                {
+                    "name": "I100197",
+                    "type": "input",
+                    "title": "子宫收缩",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null
+                },
+                {
+                    "name": "I100198",
+                    "type": "input",
+                    "title": "恶露量",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "ml",
+                    "style": "",
+                    "readOnly": null,
+                    "rule": [{
+                        "min": "50",
+                        "max": "Infinity",
+                        "equal": "",
+                        "message": "有产后出血的危险",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100199",
+                    "type": "input",
+                    "title": "恶露气味",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null
+                },
+                {
+                    "name": "I100079",
+                    "type": "input",
+                    "title": "伤口",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["有"],
+                            "cleanKey": "无",
+                            "title": "伤口情况",
+                            "default": "伤口情况",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100204",
+                    "type": "input",
+                    "title": "肛门坠胀感",
+                    "inputWidth": "227px!important",
+                    "suffixDesc": "",
+                    "rightTdStyle": "",
+                    "unitStyle": "",
+                    "style": "",
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 2,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100312",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "2.8 血液系统"
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "3",
+            "title": "2.8.1 贫血"
+        },
+        {
+            "name": "I100205",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "2.8.1 贫血",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100205",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100205",
+                "type": "select",
+                "title": "血红蛋白",
+                "style": null,
+                "class": null,
+                "readOnly": null,
+                "rule": [{
+                        "diff": ["轻度(Hb>90g/l)"],
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    },
+                    {
+                        "dialog": {
+                            "openKey": [
+                                "中度(Hb60~90g/l)",
+                                "重度(Hb30~59g/l)",
+                                "极重度(Hb<30g/l)"
+                            ],
+                            "cleanKey": ["轻度(Hb>90g/l)"],
+                            "title": "血红蛋白",
+                            "default": "血红蛋白",
+                            "type": "dependent"
+                        }
+                    }
+                ]
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed"
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "3",
+            "title": "2.8.2 出血与出血倾向"
+        },
+        {
+            "name": "I100205",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "2.8.2 出血与出血倾向",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100205",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100206",
+                    "type": "select",
+                    "title": "出血部位",
+                    "multiplechoice": true,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "equal": "颅内",
+                        "message": "",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100207",
+                    "type": "select",
+                    "title": "出血程度",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "children": [{
+                            "name": "I100207",
+                            "type": "select",
+                            "title": "出血程度",
+                            "elementStyle": "max-width:270px!important",
+                            "style": null,
+                            "class": null,
+                            "readOnly": null,
+                            "rule": [{
+                                    "equal": "",
+                                    "message": "",
+                                    "style": "color: red;border-color: red;"
+                                },
+                                {
+                                    "dialog": {
+                                        "openKey": ["轻度出血"],
+                                        "cleanKey": ["中度出血", "重度出血"],
+                                        "title": "轻度出血",
+                                        "default": "轻度出血",
+                                        "type": "dependent"
+                                    }
+                                },
+                                {
+                                    "dialog": {
+                                        "openKey": ["中度出血"],
+                                        "cleanKey": ["轻度出血", "重度出血"],
+                                        "title": "中度出血",
+                                        "default": "中度出血",
+                                        "type": "dependent"
+                                    }
+                                },
+                                {
+                                    "dialog": {
+                                        "openKey": ["重度出血"],
+                                        "cleanKey": ["中度出血", "轻度出血"],
+                                        "title": "重度出血",
+                                        "default": "重度出血",
+                                        "type": "dependent"
+                                    }
+                                }
+                            ],
+                            "tips": "出血程度说明"
+                        },
+                        {
+                            "name": "I100031",
+                            "type": "help",
+                            "title": "出血程度说明",
+                            "style": null,
+                            "elementStyle": "margin-left: 8px;",
+                            "class": "help-image",
+                            "labelStyle": "",
+                            "labelClass": "select-label",
+                            "readOnly": null,
+                            "tips": "<p style='color:green'>出血程度说明:</p><p><span style='color:blue'>轻度出血</span>    出血量＜500ml</p><p><span style='color:blue'>中度出血</span>    出血量在500-1000ml,收缩压低于90mmHg</p><p><span style='color:blue'>重度出血出</span>    血量＞1000ml,收缩压低于60-75mmHg,心率＞120次/分</p>"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed"
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "3",
+            "title": "2.8.3 继发感染（发热）"
+        },
+        {
+            "name": "I100212",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "2.8.3 继发感染（发热）",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100212",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100212",
+                    "type": "select",
+                    "title": "发热",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100309",
+                    "type": "select",
+                    "title": "降温处理",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 1,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100313",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed"
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "2.9 其他系统评估"
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "3",
+            "title": "2.9.1 乳房"
+        },
+        {
+            "name": "I100213",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "2.9.1 乳房",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100213",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100213",
+                    "type": "select",
+                    "title": "乳房情况",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["(+)"],
+                            "cleanKey": "(-)",
+                            "title": "乳房情况",
+                            "default": "乳房情况",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100215",
+                    "type": "select",
+                    "title": "泌乳情况",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100216",
+                    "type": "select",
+                    "title": "产后乳房胀痛",
+                    "inputWidth": "207px",
+                    "leftTdStyle": "min-width:90px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I100217",
+                    "type": "select",
+                    "title": "产后乳房胀痛程度",
+                    "inputWidth": "187px",
+                    "leftTdStyle": "min-width:110px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 1,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100314",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed"
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "3",
+            "title": "2.9.2 五官"
+        },
+        {
+            "name": "I100218",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "2.9.2 五官",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100218",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100218",
+                    "type": "select",
+                    "title": "视力障碍",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["有"],
+                            "cleanKey": "无",
+                            "title": "视力障碍",
+                            "default": "视力障碍",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100220",
+                    "type": "select",
+                    "title": "眼部外观异常",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["有"],
+                            "cleanKey": "无",
+                            "title": "眼部外观异常",
+                            "default": "眼部外观异常",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100222",
+                    "type": "select",
+                    "title": "眼部感觉异常",
+                    "inputWidth": "212px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["有"],
+                            "cleanKey": "无",
+                            "title": "眼部感觉异常",
+                            "default": "眼部感觉异常",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100227",
+                    "type": "select",
+                    "title": "耳部的临床症状",
+                    "inputWidth": "202px",
+                    "leftTdStyle": "min-width:95px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["有"],
+                            "cleanKey": "无",
+                            "title": "耳部的临床症状",
+                            "default": "耳部的临床症状",
+                            "parentName": "I100227",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100235",
+                    "type": "select",
+                    "title": "鼻部的临床症状",
+                    "inputWidth": "202px",
+                    "leftTdStyle": "min-width:95px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["有"],
+                            "cleanKey": "无",
+                            "title": "鼻部的临床症状",
+                            "default": "鼻部的临床症状",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100242",
+                    "type": "select",
+                    "title": "咽部的临床症状",
+                    "inputWidth": "202px",
+                    "leftTdStyle": "min-width:95px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["有"],
+                            "cleanKey": "无",
+                            "title": "咽部的临床症状",
+                            "default": "咽部的临床症状",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100250",
+                    "type": "select",
+                    "title": "喉部的临床症状",
+                    "inputWidth": "202px",
+                    "leftTdStyle": "min-width:95px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["有"],
+                            "cleanKey": "无",
+                            "title": "喉部的临床症状",
+                            "default": "喉部的临床症状",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100252",
+                    "type": "select",
+                    "title": "口腔的临床症状",
+                    "inputWidth": "202px",
+                    "leftTdStyle": "min-width:95px!important",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["有"],
+                            "cleanKey": "无",
+                            "title": "口腔的临床症状",
+                            "default": "口腔的临床症状",
+                            "type": "dependent"
+                        }
+                    }]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 1,
+            "colWidth": ["100%"],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                "name": "I100315",
+                "type": "mark",
+                "title": "备注",
+                "style": null,
+                "class": null,
+                "readOnly": null
+            }]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "prefixDesc": "",
+            "suffixDesc": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "1",
+            "title": "三、风险动态评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.1 自理能力",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100126",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "自理能力",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100126",
+                    "type": "input",
+                    "title": "自理能力评估",
+                    "inputWidth": "213px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": true,
+                    "dialog": {
+                        "title": "自理能力评估表",
+                        "default": "自理能力评估表",
+                        "name": "I100126",
+                        "parentName": "I100126",
+                        "type": "independent",
+                        "showHead": "true"
+                    },
+                    "rule": [{
+                        "scoreMin": -1,
+                        "scoreMax": 60,
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100127",
+                    "type": "input",
+                    "title": "Barden压疮风险",
+                    "inputWidth": "198px",
+                    "leftTdStyle": "min-width:100px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": true,
+                    "dialog": {
+                        "title": "Barden压疮风险评估表",
+                        "default": "Barden压疮风险评估表",
+                        "type": "independent",
+                        "name": "I100127",
+                        "parentName": "I100127",
+                        "showHead": "true"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.2 Barden压疮风险",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": true
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.3 四肢活动",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100129",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "四肢活动",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100128",
+                    "type": "select",
+                    "title": "四肢活动",
+                    "inputWidth": "213px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null,
+                    "rule": [{
+                        "dialog": {
+                            "openKey": ["无力", "单瘫", "偏瘫", "截瘫", "全瘫"],
+                            "cleanKey": "自如",
+                            "title": "四肢活动",
+                            "default": "四肢活动",
+                            "type": "dependent"
+                        }
+                    }]
+                },
+                {
+                    "name": "I100129",
+                    "type": "select",
+                    "title": "日常照顾者",
+                    "inputWidth": "213px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "elementStyle": "width: 270px;",
+                    "multiplechoice": true,
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.4 跌倒风险",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100130",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "跌倒风险",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100130",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "I100130",
+                    "type": "input",
+                    "title": "跌倒风险评估",
+                    "inputWidth": "213px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": true,
+                    "dialog": [{
+                            "title": "跌倒评估单(儿童)",
+                            "default": "跌倒评估单(儿童)",
+                            "name": "I100130",
+                            "parentName": "I100130",
+                            "type": "independent",
+                            "showHead": "true"
+                        },
+                        {
+                            "title": "跌倒评估单(成人)",
+                            "default": "跌倒评估单(成人)",
+                            "name": "I100130",
+                            "parentName": "I100130",
+                            "type": "independent",
+                            "showHead": "true"
+                        }
+                    ],
+                    "rule": [{
+                        "indexOf": "高风险",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100132",
+                    "type": "input",
+                    "title": "疼痛评估",
+                    "inputWidth": "213px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": true,
+                    "dialog": {
+                        "title": "疼痛评估单",
+                        "default": "疼痛评估单",
+                        "name": "I100132",
+                        "parentName": "I100132",
+                        "type": "independent",
+                        "showHead": "true"
+                    },
+                    "rule": [{
+                        "scoreMin": "4",
+                        "scoreMax": "100",
+                        "style": "color: red;border-color: red;"
+                    }]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.5 疼痛评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.7 吞咽评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100028",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "吞咽评估",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100028",
+            "style": null,
+            "classes": null,
+            "readOnly": true,
+            "children": [{
+                    "name": "I100028",
+                    "type": "input",
+                    "title": "吞咽评估",
+                    "inputWidth": "213px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "readOnly": true,
+                    "dialog": {
+                        "title": "吞咽进食护理单",
+                        "default": "吞咽进食护理单",
+                        "name": "I100028",
+                        "parentName": "I100028",
+                        "type": "independent",
+                        "showHead": "false"
+                    },
+                    "rule": [{
+                        "equal": "吞水：+ ;吞糊：+ ;",
+                        "style": "color: red;border-color: red;"
+                    }]
+                },
+                {
+                    "name": "I100136",
+                    "type": "input",
+                    "title": "VTE风险评估",
+                    "inputWidth": "213px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": true,
+                    "dialog": [{
+                            "title": "Caprini评分表(非手术科室)",
+                            "default": "Caprini评分表(非手术科室)",
+                            "name": "I100136",
+                            "parentName": "I100136",
+                            "type": "independent",
+                            "showHead": "true"
+                        },
+                        {
+                            "title": "Caprini评分表(手术科室)",
+                            "default": "Caprini评分表(手术科室)",
+                            "name": "I100136",
+                            "parentName": "I100136",
+                            "type": "independent",
+                            "showHead": "true"
+                        }
+                    ],
+                    "rule": [{
+                        "indexOf": "高风险",
+                        "style": "color: red;border-color: red;"
+                    }]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.8 VTE风险评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "I100020",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "GCS格拉斯哥昏迷评估",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100020",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100020",
+                    "type": "input",
+                    "title": "GCS格拉斯哥昏迷评估",
+                    "inputWidth": "173px",
+                    "leftTdStyle": "min-width:125px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": true,
+                    "dialog": {
+                        "title": "GCS格拉斯哥昏迷评估",
+                        "default": "GCS格拉斯哥昏迷评估",
+                        "name": "I100020",
+                        "parentName": "I100020",
+                        "type": "independent",
+                        "showHead": "true"
+                    }
+                },
+                {
+                    "name": "I100342",
+                    "type": "input",
+                    "title": "自杀风险评估",
+                    "inputWidth": "213px",
+                    "leftTdStyle": "min-width:85px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": true,
+                    "dialog": {
+                        "title": "住院患者自杀风险评估",
+                        "default": "住院患者自杀风险评估",
+                        "name": "I100342",
+                        "parentName": "I100342",
+                        "type": "independent",
+                        "showHead": "true"
+                    },
+                    "rule": [{
+                        "indexOf": "自杀风险",
+                        "style": "color: red;border-color: red;"
+                    }]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.9 GCS格拉斯哥昏迷评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.10 住院患者自杀风险评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": ""
+        },
+
+        {
+            "name": "I100355",
+            "type": "formGroupColBox",
+            "col": 2,
+            "title": "简易智力状态检查",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100355",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [{
+                    "name": "I100355",
+                    "type": "input",
+                    "title": "简易智力状态检查",
+                    "inputWidth": "193px",
+                    "leftTdStyle": "min-width:105px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": true,
+                    "dialog": {
+                        "title": "简易智力状态检查",
+                        "default": "简易智力状态检查",
+                        "name": "I100355",
+                        "parentName": "I100355",
+                        "type": "independent",
+                        "showHead": "true"
+                    }
+                },
+                {
+                    "name": "I100356",
+                    "type": "input",
+                    "title": "营养风险筛查护理单",
+                    "inputWidth": "183px",
+                    "leftTdStyle": "min-width:115px!important",
+                    "elementStyle": "width: 270px;",
+                    "style": null,
+                    "class": null,
+                    "readOnly": true,
+                    "dialog": {
+                        "title": "营养风险筛查护理单",
+                        "default": "营养风险筛查护理单",
+                        "name": "I100356",
+                        "parentName": "I100356",
+                        "type": "independent",
+                        "showHead": "true"
+                    },
+                    "rule": [{
+                        "indexOf": "营养风险",
+                        "style": "color: red;border-color: red;"
+                    }]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.11 简易智力状态检查",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "2",
+            "title": "3.12 营养风险筛查护理单",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "color:transparent;height:0px;margin:0",
+            "classes": "",
+            "readOnly": ""
+        }
+    ],
+    "dialogs": [],
+    "header": []
+}

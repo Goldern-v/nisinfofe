@@ -23,7 +23,7 @@ export default {
                 {"name":"时间","colspan":"1","rowspan":"3"},
                 {"name":"T<br/>℃","colspan":"1","rowspan":"3"},
                 {"name":"P/HR<br/>次/分","colspan":"1","rowspan":"3"},
-                {"name":"R<br/>次/分","colspan":"1","rowspan":"3"},
+                {"name":"R<br/>(次/min)<br/>/SPO₂(%)","colspan":"1","rowspan":"3", "style":{"minWidth":"50px","maxWidth":"50px"}},
                 {"name":"BP<br/>mmHg","colspan":"1","rowspan":"3"},
                 {"name":"意<br/>识","colspan":"1","rowspan":"3"},
                 {"name":"入","colspan":"2","rowspan":"1"},
