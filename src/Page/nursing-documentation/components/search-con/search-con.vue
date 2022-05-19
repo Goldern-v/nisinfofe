@@ -326,6 +326,10 @@ export default {
      if(['huadu'].includes(this.HOSPITAL_ID)){
        this.data.admissionDate=[moment().subtract(7, "days"), new Date()]
      }
+    // 武汉肺科 花都入院起始日期改为当前
+    if(['whfk'].includes(this.HOSPITAL_ID)){
+       this.data.admissionDate=[moment().subtract(0, "days"), new Date()]
+     }
   },
   mounted(){
     console.log(this.data)

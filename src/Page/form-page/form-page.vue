@@ -120,19 +120,18 @@ export default {
     this.bus.$on("refreshFormPagePatientList", this.getDate);
   },
   watch: {
-    // 优化后bedList由组件自己维护。不需要发请求
-    // deptCode(val, oldValue) {
-    //   console.log(oldValue, val, "oldValue");
-    //   if (oldValue && val) {
-    //     this.$router.replace({
-    //       path: "/formPage",
-    //       query: {},
-    //     });
-    //     this.bus.$emit("refreshTree", true);
-    //     this.bus.$emit("closeAssessment");
-    //   }
-    //   this.getDate();
-    // },
+    deptCode(val, oldValue) {
+      if (oldValue && val) {
+        this.$router.replace({
+          path: "/formPage",
+          query: {},
+        });
+        this.bus.$emit("refreshTree", true);
+        this.bus.$emit("closeAssessment");
+      }
+      // 优化后bedList由组件自己维护。不需要发请求
+      // this.getDate();
+    },
   },
   beforeRouteUpdate(to, from, next) {
     if(!this.$store.state.admittingSave.admittingSave){

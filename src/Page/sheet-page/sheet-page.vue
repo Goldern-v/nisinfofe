@@ -819,10 +819,10 @@ export default {
   created() {
     // 初始化
     cleanData();
-    // 下拉
-    if (this.deptCode) {
-      this.getDate();
-    }
+    // 下拉  以前替换了病人栏，这个应该是多余请求。
+    // if (this.deptCode) {
+    //   this.getDate();
+    // }
     this.bus.$on("addSheetPage", () => {
       if (!this.sheetInfo.selectBlock.id) {
         return this.$notify.info({
@@ -1187,10 +1187,10 @@ export default {
     },
     deptCode(val) {
       if (val) {
-        this.getDate();
+        // this.getDate();
         this.breforeQuit(() => {
           cleanData();
-          this.getDate();
+          // this.getDate();
         });
       }
     },
