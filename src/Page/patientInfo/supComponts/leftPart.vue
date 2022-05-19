@@ -35,7 +35,7 @@
         </div>
         <div class="list-box" v-else-if="this.HOSPITAL_ID == 'foshanrenyi'">
           <div class="list-li">住院号：{{ info.patientId }}</div>
-          <div class="list-li">记账号：{{ info.inpNo }}</div>
+          <!-- <div class="list-li">记账号：{{ info.inpNo }}</div> -->
           <div class="list-li">住院次数：{{ info.visitId }}</div>
         </div>
         <div class="list-box" v-else>
