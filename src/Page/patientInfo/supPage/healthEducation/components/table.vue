@@ -48,14 +48,26 @@
             <span class="remark-span">{{data['备注']}}</span>
           </td>
           <!-- 签名 -->
-          <td v-if="HOSPITAL_ID == 'lingcheng'" class="specialTd">
+          <td v-if="['lingcheng','guizhou'].includes(HOSPITAL_ID)" class="specialTd">
             <img
+              v-if="HOSPITAL_ID=='lingcheng'"
               v-show="data['lc签名']"
               class="img"
               :src="`/crNursing/api/file/signImage/${data['lc签名']}?${token}`"
               alt
             />
+            <span class="noPrint" v-else>{{data['签名']}}</span>
+            <img
+              v-if="HOSPITAL_ID=='guizhou'"
+              v-show="data['lc签名']"
+              :class="['img',['guizhou'].includes(HOSPITAL_ID) && 'inPrint']"
+              :src="`/crNursing/api/file/signImage/${data['lc签名']}?${token}`"
+              alt
+            />
           </td>
+          <!-- <td v-else-if="['guizhou'].includes(HOSPITAL_ID)" class="noPrint">
+            <span>{{data['签名']}}</span>
+          </td> -->
           <td v-else>
             <span>{{data['签名']}}</span>
           </td>
@@ -266,6 +278,9 @@ export default {
       height: 25px;
       vertical-align: middle !important;
       box-sizing: border-box;
+    }
+    .inPrint{
+      display: none;
     }
     .is-radio {
       position: absolute;
