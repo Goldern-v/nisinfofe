@@ -142,7 +142,13 @@
         </div>
       </span>
     </div>
-    <div class="info-con" flex="main:justify" v-if="!diagnosisList.includes(sheetInfo.sheetType)">
+    <div class="info-con" v-if="!diagnosisList.includes(sheetInfo.sheetType)">
+      <span v-if="sheetInfo.sheetType=='ordinary_sdlj'" style="margin-right:50px;">
+        入院日期：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.admissionDate | toymd}}
+        </div>
+      </span>
       <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
         诊断：
         <div
