@@ -139,5 +139,9 @@ export function webSplitOrder(obj) {
   return axios.post(
     `${apiPath}procedure/webExecute/webSplitOrder`,
     obj
-  );
+    );
+  }
+/**获取瓶签打印参数 by顺德龙江 */
+export function getPrintListContent2(body){
+  return axios.post(`${apiPath}procedure/webExecute/webGetExecuteWithBarcodeList2`,body)
 }

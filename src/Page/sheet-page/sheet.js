@@ -3,12 +3,17 @@ import Body from "./components/render/Body";
 import Mark from "./components/render/Mark.js";
 import sheetInfo from "./components/config/sheetInfo";
 
-// 自定义标题数据缓存数据
 let autoTitleDataDisk = [];
-let Page = function(titleData, autoTitleData, bodyData, index) {
+/**
+ * 自定义标题数据缓存数据
+ * @param {*} param0
+ * autoOptionsData: 自定义选项
+ * @returns
+ */
+let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = '', autoOptionsData = []}) {
   return {
     titleModel: Title(titleData, autoTitleData, index),
-    bodyModel: Body(bodyData, index)
+    bodyModel: Body(bodyData, index, autoOptionsData)
   };
 };
 let data = [];
@@ -17,13 +22,15 @@ export default data;
 export function addSheetPage(callback) {
   data.push(
     Page(
-      [],
-      autoTitleDataDisk.map(item => {
-        item.pageIndex = data.length;
-        return item;
-      }),
-      [],
-      data.length
+      {
+        titleData: [],
+        autoTitleData: autoTitleDataDisk.map(item => {
+          item.pageIndex = data.length;
+          return item;
+        }),
+        bodyData: [],
+        index: data.length
+      }
     )
   );
   callback && callback();
@@ -44,9 +51,15 @@ export function initSheetPage(titleData, bodyData, markData) {
   cleanData();
   let titleList = [];
   let bodyList = [];
+  let customOptions = []
   sheetInfo.masterInfo = bodyData;// 主表信息
   try {
-    titleList = titleData.list;
+    if (['foshanrenyi'].includes(process.env.HOSPITAL_ID)) {
+      titleList = titleData.FieldSetting
+      customOptions = titleData.Options
+    } else {
+      titleList = titleData.list;
+    }
     bodyList = bodyData.list.map((item, index, arr) => {
       /** 上一条的年份 */
       let prevYear = arr[index - 1] && arr[index - 1].recordYear;
@@ -78,19 +91,30 @@ export function initSheetPage(titleData, bodyData, markData) {
 
   for (let i = 0; i <= realSize; i++) {
     data.push(
-      Page(
-        titleList.filter(item => {
+      Page({
+        titleData: titleList.filter(item => {
           return item.pageIndex == i;
         }),
-        autoTitleDataDisk,
-        bodyList.filter(item => {
+        autoTitleData: autoTitleDataDisk,
+        bodyData: bodyList.filter(item => {
           return item.pageIndex == i;
         }),
-        i
-      )
+        index: i,
+        autoOptionsData: customOptions.filter(v => v.pageIndex == i)
+      })
     );
   }
   if (data.length == 0) {
-    data.push(Page([], [], [], 0));
+    data.push(Page({
+      titleData: titleList.filter(item => {
+        return item.pageIndex == 0;
+      }),
+      autoTitleData: autoTitleDataDisk,
+      bodyData: bodyList.filter(item => {
+        return item.pageIndex == 0;
+      }),
+      index: 0,
+      autoOptionsData: customOptions.filter(v => v.pageIndex == 0)
+    }));
   }
 }

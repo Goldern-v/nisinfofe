@@ -256,6 +256,12 @@ export const getOrdersExecuteFsry = (obj = {}) => {
   return axios.post(`${apiPath}/record/block/getOrdersExecuteFssy/list/${id}`, obj);
 };
 
+// 武汉肺科获取his患者体征
+export const getOrdersExecuteWhfk = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}/record/block//getOrdersExecuteWhfk/list/${id}`, obj);
+};
+
 // 贵州获取his患者输血同步
 export const nurseBloodList = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;
@@ -264,7 +270,7 @@ export const nurseBloodList = (obj = {}) => {
 
 // 保存his患者体征
 export const saveVitalSign = (data,hospitalId) => {
-  if(hospitalId=='wujing'||hospitalId=='quzhou'||hospitalId=='liaocheng'||hospitalId=='guizhou'||hospitalId=='weixian'||hospitalId=='foshanrenyi'){
+  if(hospitalId=='wujing'||hospitalId=='quzhou'||hospitalId=='liaocheng'||hospitalId=='guizhou'||hospitalId=='weixian'||hospitalId=='foshanrenyi'||hospitalId=='whfk'){
     return axios.post(
       `${apiPath}record/block/ordersExecute/save`,
       data

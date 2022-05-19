@@ -637,30 +637,29 @@ export default {
       }
     },
     onModalChange(e,tr,x,y,index){
-      console.log(tr,x,y,index);
+      // 改变当前行状态
       tr.isChange = true
-      let isStartPage =  index == 0 || y!=0
+      // // 获取recordDate的下标
       let dateIndex = tr.findIndex(item=>item.key == "recordDate")
+      // 如果当前行有recordDate(即是保存过)
+      if(tr[dateIndex].value)return
+      // // 判断修改的记录是否起始页
+      let isStartPage =  index == 0 || y!=0
+      // // 获取上条记录
       let preRow = isStartPage ? this.sheetModel[index].bodyModel[y - 1] : this.sheetModel[index - 1].bodyModel[this.sheetModel[index - 1].bodyModel.length - 1]
-      let flagItem = preRow
-      if(tr[dateIndex].value){
-        flagItem = tr
-      } 
-      else if(preRow && ![0,1].includes(x)){
-        let hourIndex = tr.findIndex(item=>item.key == "recordHour")
-        let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
-        let [preMonth,preHour] = preRow[dateIndex].value.split(' ')
-        preMonth = preMonth && moment(preMonth).format('MM-DD')
-        console.log(preMonth,preHour);
-        !tr[monthIndex].value && (tr[monthIndex].value = preMonth)
-        !tr[hourIndex].value && (tr[hourIndex].value = preHour)
+      let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
+      let hourIndex = tr.findIndex(item=>item.key == "recordHour")
+      let monthValue = ''
+      let hourValue = ''
+      if(preRow && (preRow[monthIndex].value || preRow[dateIndex].value || preRow[hourIndex].value)){
+        monthValue = preRow[monthIndex].value || moment(preRow[dateIndex].value.split(' ')[0]).format('MM-DD')
+        hourValue = preRow[hourIndex].value || preRow[dateIndex].value.split(' ')[1]
+      } else {
+        monthValue = moment().format('MM-DD')
+        hourValue= moment().format('HH:ss')
       }
-      this.sheetModel.map((pageItem,pageIndex)=>{
-        pageItem.bodyModel.map(row=>{
-          row[dateIndex].value == flagItem[dateIndex].value && (row.isChange = true)
-        })
-      })
-      console.log(this.sheetModel);
+      ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
+      ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
     },
   },
 
@@ -985,6 +984,14 @@ export default {
       handler() {
         if (this.patientInfo.name) {
           sheetInfo.isSave = false;
+        }
+      }
+    },
+    // 切换主页后在点击其他用户不会更新
+    'sheetInfo.sheetType': {
+      handler(val, prev) {
+        if (val != prev) {
+          this.bus.$emit('refreshSheetPage', true)
         }
       }
     }

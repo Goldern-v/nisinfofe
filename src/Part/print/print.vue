@@ -220,7 +220,6 @@ export default {
   methods: {
     
     print() {
-      console.log(this.$route.query, 888)
       if (!this.canPrint) return;
       if (this.$route.params.type == "assessment") {
         this.bus.$emit("printAssessment");
@@ -242,7 +241,7 @@ export default {
       this.scaleNum = 1;
     },
     goBack(){
-    if(this.HOSPITAL_ID=='liaocheng'){
+    if(this.HOSPITAL_ID=='liaocheng'||this.HOSPITAL_ID=='huadu'){
       // 不打开窗口打印返回（下拉会没有和表头不能修改）。刷新页面
       location.replace(this.$store.state.sheet.preRouter)
       setTimeout(()=>{

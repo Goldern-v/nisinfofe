@@ -305,6 +305,7 @@ export default {
         todo: this.info.todo,
         title: this.info.title || "",
         isPrintPreview: info.isPrintPreview,
+        pageIndex: this.info.pageIndex
         // ...this.info
       };
       if (this.onlyView) {

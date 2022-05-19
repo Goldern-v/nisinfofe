@@ -1,6 +1,18 @@
 <template>
   <div>
-    <div v-if="data1">
+    <div
+      class="exam-list"
+      v-if="HOSPITAL_ID == 'guizhou' && examList.length"
+      :style="{ height: height }"
+    >
+      <div class="page" v-for="item in examList" :key="item.expand1">
+        <iframe
+          :src="'http://192.168.8.68:8080/report/pdf' + item.expand1"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </div>
+    <div v-else-if="data1">
       <el-row v-loading="loading" class="form" :style="{ height: height }">
         <div class="title">{{ HOSPITAL_NAME }}</div>
         <div class="name">{{ data.examItem }}报告单</div>
@@ -113,18 +125,6 @@
           </el-button>-->
         </div>
       </el-row>
-    </div>
-    <div
-      class="exam-list"
-      v-if="HOSPITAL_ID == 'guizhou' && examList.length"
-      :style="{ height: height }"
-    >
-      <div class="page" v-for="item in examList" :key="item.expand1">
-        <iframe
-          :src="'http://192.168.8.68:8080/report/pdf' + item.expand1"
-          frameborder="0"
-        ></iframe>
-      </div>
     </div>
     <div
       v-if="!data1 && data.examNo == ''"
@@ -270,7 +270,6 @@ export default {
       // this.$refs.imgModal.open(examNo, name)
     },
     open(data) {
-      console.log(data, this.$route.query.name);
       if (data) {
         this.data = data;
         this.data.name = this.$route.query.name || this.$store.state.sheet.patientInfo.name

@@ -5,21 +5,51 @@ import {
 import {
   getRowNum
 } from "../utils/sheetRow";
-export default function Body(data = [], index) {
+const EMPTY_FLAG = 'empty'
+/**
+ *  返回表格数据
+ * @param {*} data
+ * @param {*} index
+ * @param {*} customList 自定义标题的选项
+ * @returns
+ */
+export default function Body(data = [], index, customList = []) {
   let rowNum = getRowNum(index);
   let bodyModel = [];
+    // 重新设置自定义选项
+    let formatCustomObj = {}
+    if(['foshanrenyi'].includes(process.env.HOSPITAL_ID) && customList.length > 0) {
+      customList.reduce((total, cur) => {
+        if (!cur.fieldEn) return total
+        if (total[cur.fieldEn]) {
+          total[cur.fieldEn].push(cur)
+        } else {
+          total[cur.fieldEn] = [cur]
+        }
+        return total
+      }, formatCustomObj)
+      Object.keys(formatCustomObj).map(v => {
+        let item = formatCustomObj[v]
+        // 纯标题 返回一个字符串
+        if (item[0] && item[0].id === null) {
+          formatCustomObj[v] = EMPTY_FLAG
+          return
+        }
+        formatCustomObj[v] = item.sort((a,b) => Number(a.indexNo) - Number(b.indexNo)).map(v => v.options)
+      })
+    }
   for (let i = 0; i < Math.max(data.length, rowNum); i++) {
-    bodyModel[i] = Tr(data[i],i);
+    bodyModel[i] = Tr(data[i],i,formatCustomObj);
   }
   return bodyModel;
 }
 import moment from "moment";
 const nowYear=moment().year()
 
-function Tr(data = {}, i) {
-  let schema = switechSheetType(sheetInfo.sheetType);
+function Tr(data = {}, i, formatCustomObj= {}) {
+  let schema = switchSheetType(sheetInfo.sheetType);
   let customColumn = switchNodeTime(sheetInfo.sheetType)
-  let mergetTr = [];
+  let mergeTr = [];
   for (let index = 0; index < schema.length; index++) {
     let keys = Object.keys(schema[index]);
     let obj = {};
@@ -32,29 +62,40 @@ function Tr(data = {}, i) {
     if(obj.key=="nodeTime"){
       obj.value = customColumn[i] || data[schema[index].key] || "";
     }
+    // 对自定义选项做修改
+    if (formatCustomObj[obj.key]) {
+      // 纯标题删除默认选项
+      if (formatCustomObj[obj.key] == EMPTY_FLAG && obj.autoComplete) {
+        delete obj.autoComplete
+      } else {
+        obj.autoComplete = {
+          data: formatCustomObj[obj.key]
+        }
+      }
+    }
     if(process.env.HOSPITAL_ID == 'wujing'){
-      mergetTr.barCodeIdentification = data.barCodeIdentification
-      mergetTr.identificationUsage = data.identificationUsage
+      mergeTr.barCodeIdentification = data.barCodeIdentification
+      mergeTr.identificationUsage = data.identificationUsage
     }
     obj.markObj = matchMark(data.id, schema[index].key);
-    mergetTr.push(obj);
+    mergeTr.push(obj);
   }
-  mergetTr.push({
+  mergeTr.push({
     hidden: true,
     key: "markObj",
     value: matchMark(data.id, "all")
   });
   /** 年份分割 */
-  mergetTr.push({
+  mergeTr.push({
     hidden: true,
     key: "yearBreak",
     value: data.yearBreak==nowYear?`${data.yearBreak}-`:data.yearBreak
   });
-  return mergetTr;
+  return mergeTr;
 }
 
 export const nullRow = () => {
-  let schema = switechSheetType(sheetInfo.sheetType);
+  let schema = switchSheetType(sheetInfo.sheetType);
   let customColumn = switchNodeTime(sheetInfo.sheetType)
   return Tr(schema);
 };
@@ -63,8 +104,8 @@ export {
   Tr
 };
 
-// 区分科室
-function switechSheetType(type) {
+/**区分科室 */
+function switchSheetType(type) {
   let schema;
   switch (type) {
     case "special": {
@@ -598,7 +639,7 @@ function switechSheetType(type) {
       // 聊城二院 - 产妇产后观察记录单
       schema = require("../config/maternal_lcey/tr").default;
     }
-      break; 
+      break;
     case "magnesium_lcey": {
       // 聊城二院 - 硫酸镁静滴观察记录单
       schema = require("../config/magnesium_lcey/tr").default;
@@ -608,12 +649,12 @@ function switechSheetType(type) {
       // 聊城二院 - 胎心记录单
       schema = require("../config/cardiac_lcey/tr").default;
     }
-      break;  
+      break;
     case "labor_lcey": {
       // 聊城二院 - 产程记录单
       schema = require("../config/labor_lcey/tr").default;
     }
-      break;  
+      break;
     case "body_temperature_wj": {
       // 武警总队 - 体温单
       schema = require("../config/body_temperature_wj/tr").default;
@@ -814,12 +855,12 @@ function switechSheetType(type) {
       // 北海市 - 产科病重（危）患者护理记录
       schema = require("../config/criticalobstetric_bh/tr.js").default;
     }
-      break;  
+      break;
     case "neurosurgery_bh": {
       // 北海市 - 神经外科危重护理记录
       schema = require("../config/neurosurgery_bh/tr.js").default;
     }
-      break;  
+      break;
     case "prenatalcheck_bh": {
       // 北海市 - 产前检查治疗记录表
       schema = require("../config/prenatalcheck_bh/tr.js").default;
@@ -1039,7 +1080,7 @@ function switechSheetType(type) {
       // 佛山市一 - 护理记录单(手足科)
       schema = require("../config/handsfeet_fs/tr.js").default;
     }
-      break;      
+      break;
     case "generalnursing_fs": {
       // 佛山市一 - 护理记录单(通用护理记录单)
       schema = require("../config/generalnursing_fs/tr.js").default;
@@ -1164,57 +1205,57 @@ function switechSheetType(type) {
         // 武汉肺科 - 手术科室记录单
       schema = require("../config/operating_fk/tr.js").default;
     }
-      break; 
+      break;
     case "neonate_sdlj": {
       // 顺德龙江 - 新生儿护理记录单
       schema = require("../config/neonate_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "craniocerebral_sdlj": {
       // 顺德龙江 - 护理记录单（颅脑外科）
       schema = require("../config/craniocerebral_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "ordinary_sdlj": {
       // 顺德龙江 - 护理普通记录单
       schema = require("../config/ordinary_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "intravenous_sdlj": {
       // 顺德龙江 - 硫酸镁、安宝静脉点滴观察记录表
       schema = require("../config/intravenous_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "nursing_sdlj": {
       // 顺德龙江 - 产科护理记录单
       schema = require("../config/nursing_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "prenatal_sdlj": {
       // 顺德龙江 - 产前待产记录单
       schema = require("../config/prenatal_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "dreathe_sdlj": {
       // 顺德龙江 - 呼吸专科护理记录单
       schema = require("../config/dreathe_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "urology_sdlj": {
       // 顺德龙江 - 护理记录单（泌尿外科）
       schema = require("../config/urology_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "mechanical_sdlj": {
       // 顺德龙江 - 机械通气监护记录单（儿科）
       schema = require("../config/mechanical_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "orthopaedic_sdlj": {
       // 顺德龙江 - 护理记录单（骨科）
       schema = require("../config/orthopaedic_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "pediatrics_sdlj": {
       // 顺德龙江 - 护理记录单（儿科）
       schema = require("../config/pediatrics_sdlj/tr.js").default;
@@ -1224,7 +1265,7 @@ function switechSheetType(type) {
       // 顺德龙江 - 护理记录单（显微外科）
       schema = require("../config/microsurgical_sdlj/tr.js").default;
     }
-    break; 
+    break;
     case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）
       schema = require("../config/cardiovascular_xt/tr.js").default;
@@ -1241,7 +1282,7 @@ function switechSheetType(type) {
     }
       break;
     case "prenataldelivery2_xt": {
-      // 佛山杏坛 - 护理记录单(产前待产记录) 
+      // 佛山杏坛 - 护理记录单(产前待产记录)
       schema = require("../config/prenataldelivery2_xt/tr.js").default;
     }
       break;
@@ -1294,22 +1335,27 @@ function switechSheetType(type) {
       // 佛山杏坛 - 护理记录单（骨折）
       schema = require("../config/fracture_xt/tr.js").default;
     }
-    break; 
+    break;
     case "spine_xt": {
       // 佛山杏坛 - 护理记录单（脊柱）
       schema = require("../config/spine_xt/tr.js").default;
     }
-    break; 
+    break;
     case "craniocerebral_xt": {
       // 佛山杏坛 - 护理记录单（颅脑）
       schema = require("../config/craniocerebral_xt/tr.js").default;
     }
-    break; 
+    break;
     case "general_xt": {
       // 佛山杏坛 - 护理记录单（通用）
       schema = require("../config/general_xt/tr.js").default;
     }
-    break; 
+    break;
+    case "generalnursing_xt": {
+      // 佛山杏坛 - 护理记录单（全院通用）
+      schema = require("../config/generalnursing_xt/tr.js").default;
+    }
+    break;
     case "emergency_treat_yx": {
       // 武汉亚心 - 急诊留观记录单
       schema = require("../config/emergency_treat_yx/tr.js").default;
@@ -1334,7 +1380,7 @@ function switechSheetType(type) {
       // 护理记录单（测试用）
       schema = require("../config/general_xt/tr.js").default;
     }
-    break;  
+    break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

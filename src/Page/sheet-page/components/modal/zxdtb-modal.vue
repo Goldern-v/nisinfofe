@@ -2,7 +2,7 @@
   <div>
     <sweet-modal ref="modal" :modalWidth="modalWidth" :title="title">
       <div flex="cross:center">
-        <div v-if="HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'"  >
+        <div v-if="HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk'"  >
           <span class="label">执行单日期：</span>
           <el-date-picker
             v-model="longDate"
@@ -26,7 +26,7 @@
             placeholderChar=" "
           ></masked-input>
         </div>
-        <div v-if="HOSPITAL_ID == 'quzhou'||HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'" style="margin-left: 20px">
+        <div v-if="HOSPITAL_ID == 'quzhou'||HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk'" style="margin-left: 20px">
           <span class="label">类型：</span>
           <el-select
             v-model="executeType"
@@ -148,7 +148,7 @@
             align="center"
           ></el-table-column>
           <!-- <el-table-column v-if="HOSPITAL_ID == 'quzhou'" prop="desc" label="描述" min-width="110px" align="center"></el-table-column> -->
-          <template v-if="HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'|| HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'">
+          <template v-if="HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'|| HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk'">
             <el-table-column
               prop="orderText"
               label="医嘱内容"
@@ -236,7 +236,8 @@ import {
   nurseBloodList,
   getOrdersExecuteWx,
   getOrdersExecuteLc,
-  getOrdersExecuteFsry
+  getOrdersExecuteFsry,
+  getOrdersExecuteWhfk
 } from "../../api/index";
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
@@ -300,12 +301,14 @@ export default {
       let temArr = this.multipleSelection;
       if (
         this.multipleSelection.length != 0 &&
+        // 执行单同步保存，记得去api文件saveVitalSign这个接口添加医院名字！！！！
         (this.HOSPITAL_ID == "fuyou" ||
           this.HOSPITAL_ID == "wujing" ||
           this.HOSPITAL_ID == "quzhou" ||
           this.HOSPITAL_ID == "weixian" ||
           this.HOSPITAL_ID == "liaocheng"||
-          this.HOSPITAL_ID == "foshanrenyi")
+          this.HOSPITAL_ID == "foshanrenyi"||
+          this.HOSPITAL_ID == 'whfk')
       ) {
         this.multipleSelection.map((item, index) => {
           if (item.pulse) {
@@ -426,6 +429,18 @@ export default {
         let startDate = this.longDate[0] ? moment(this.longDate[0]).format('YYYY-MM-DD') : ''
         let endDate = this.longDate[1] ? moment(this.longDate[1]).format('YYYY-MM-DD') : ''
         getOrdersExecuteFsry({
+          patientId: this.patientInfo.patientId || this.formlist.patientId,
+          visitId: this.patientInfo.visitId || this.formlist.visitId,
+          startDate,
+          endDate,
+          executeType: this.executeType,
+        }).then((res) => {
+          this.tableData = res.data.data.list;
+        });
+      } else if (this.HOSPITAL_ID == "whfk") {
+        let startDate = this.longDate[0] ? moment(this.longDate[0]).format('YYYY-MM-DD') : ''
+        let endDate = this.longDate[1] ? moment(this.longDate[1]).format('YYYY-MM-DD') : ''
+        getOrdersExecuteWhfk({
           patientId: this.patientInfo.patientId || this.formlist.patientId,
           visitId: this.patientInfo.visitId || this.formlist.visitId,
           startDate,

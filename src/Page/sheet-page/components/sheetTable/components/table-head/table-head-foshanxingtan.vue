@@ -163,23 +163,25 @@
         />
         孕
         <input
-          style="width: 20px;font-size:13px;text-align: center;"
+          style="width: 35px;font-size:13px;text-align: center;"
           class="bottom-line"
-          :data-value="sheetInfo.relObj['pregnantWeeks']"
-          v-model="sheetInfo.relObj['pregnantWeeks']"
+          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
         />
         周
       </span>
       <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
         产程开始时间：
         <div @click="updateLaborTime('laborTime', '产程开始时间', patientInfo.laborTime)" class="bottom-line" style="min-width: 150px;height: 12px;">
-          {{ laborTime | YMDHM }}
+        <span v-if="laborTime=='/'" style="margin-left:70px"> <strong>{{laborTime}}</strong></span>
+        <span v-else>{{ laborTime | YMDHM }}</span>  
         </div>
       </span>
       <span v-if="sheetInfo.sheetType=='prenataldelivery2_xt'">
         胎儿娩出时间：
         <div @click="updateDeliveryTime('deliveryTime', '胎儿娩出时间', patientInfo.deliveryTime)" class="bottom-line" style="min-width: 150px;height: 12px;">
-          {{ deliveryTime | YMDHM }}
+         <span v-if="deliveryTime=='/'" style="margin-left:70px"><strong>{{deliveryTime}}</strong></span>   
+         <span v-else> {{ deliveryTime | YMDHM }}</span>
         </div>
       </span>
     </div>
@@ -328,7 +330,7 @@ export default {
       }
       return (
         (sheetInfo.relObj || {})[`laborTime`] ||
-        this.patientInfo.laborTime
+        (this.patientInfo.laborTime == undefined ? '/' : this.patientInfo.laborTime )
       );
     },
     deliveryTime() {
@@ -347,7 +349,7 @@ export default {
       }
       return (
         (sheetInfo.relObj || {})[`deliveryTime`] ||
-        this.patientInfo.deliveryTime
+        (this.patientInfo.deliveryTime == undefined ?'/':this.patientInfo.deliveryTime)
       );
     },
   },
@@ -427,10 +429,21 @@ export default {
       }
     }
   },
-  watch: {},
+  watch: {
+    index(){
+      if(this.index!=0){
+       this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo.relObj[`${this.index}pregnantWeeks`]?this.sheetInfo.relObj[`${this.index}pregnantWeeks`]: this.sheetInfo.relObj[`${this.index-1}pregnantWeeks`]
+      }
+    }
+  },
   components: {
     bedRecordModal,
   },
+  created(){
+    if(this.index!=0){
+      this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo.relObj[`${this.index}pregnantWeeks`]?this.sheetInfo.relObj[`${this.index}pregnantWeeks`]: this.sheetInfo.relObj[`${this.index-1}pregnantWeeks`]
+    }
+  }
 };
 </script>
 

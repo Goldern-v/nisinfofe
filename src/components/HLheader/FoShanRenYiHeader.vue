@@ -47,11 +47,37 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
               </el-row>
             </router-link>-->
-            <router-link to="/formPage" tag="span">
+            <!-- 原来 -->
+            <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i> 护理评估单
+                <i class="nursingAssessment"></i> 护理文书
               </el-row>
-            </router-link>
+            </router-link> -->
+            <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isNursing }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>护理文书
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                 <el-dropdown-item :class="{active: $route.path == '/sheetHospitalAdmission'}">
+                  <router-link to="/sheetHospitalAdmission" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="sheetHospitalAdmission"></i> 首次评估
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                 <el-dropdown-item :class="{active: $route.path == '/formPage'}">
+                  <router-link to="/formPage" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="nursingAssessment"></i> 其他文书评估
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
             <router-link to="/sheetPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理记录单
@@ -97,7 +123,7 @@
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
-              :class="{ 'router-link-active': isActivePage }"
+              :class="{ 'router-link-active': $route.path == '/implementationList' }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -941,6 +967,10 @@ export default {
         path.includes("allTemperatureChart")
       );
     },
+    isNursing() {
+      let path = this.$route.path;
+      return path.includes("sheetHospitalAdmission") || path.includes("formPage")
+    }
   },
   methods: {
     handleCommand(command) {

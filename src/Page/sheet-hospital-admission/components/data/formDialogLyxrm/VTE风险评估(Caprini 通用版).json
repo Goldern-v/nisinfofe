@@ -1,0 +1,1057 @@
+
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "临邑县人民医院",
+      "formName": "VTE风险评估(Caprini 通用版)"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "code": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "code": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "code": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "code": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "code": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "code": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "code": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E1313",
+      "formApiCode": "E1313",
+      "formName": "VTE风险评估(Caprini 通用版)",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "code": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;margin:0;",
+          "code": "0",
+          "hiddenTips": true,
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;margin:0;",
+          "code": "0",
+          "hiddenTips": true,
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "以下选项，每项1分",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1313027",
+          "type": "checkbox",
+          "title": "1.年龄41~60岁",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313028",
+          "type": "checkbox",
+          "title": "2.卧床的患者",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313029",
+          "type": "checkbox",
+          "title": "3.BMI>25㎏/m2",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313030",
+          "type": "checkbox",
+          "title": "4.小手术",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313031",
+          "type": "checkbox",
+          "title": "5.腿肿胀",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313032",
+          "type": "checkbox",
+          "title": "6.静脉曲张",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313033",
+          "type": "checkbox",
+          "title": "7.肺功能异常",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313034",
+          "type": "checkbox",
+          "title": "8.炎性肠病史",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313035",
+          "type": "checkbox",
+          "title": "9.急性心肌梗死",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313036",
+          "type": "checkbox",
+          "title": "10.脓毒症(＜1个月)",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313037",
+          "type": "checkbox",
+          "title": "11.充血性心力衰竭(＜1个月)",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313038",
+          "type": "checkbox",
+          "title": "12.严重肺部疾病,含肺炎(＜1个月)",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313039",
+          "type": "checkbox",
+          "title": "13.妊娠期间或产后(＜1个月)",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313040",
+          "type": "checkbox",
+          "title": "14.有不明原因或者习惯性流产史",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313041",
+          "type": "checkbox",
+          "title": "15.口服避孕药或激素替代疗法",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "以下选项，每项2分",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1313042",
+          "type": "checkbox",
+          "title": "16.年龄61~74岁",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313043",
+          "type": "checkbox",
+          "title": "17.卧床不起(>72h)",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313044",
+          "type": "checkbox",
+          "title": "18.关节镜手术(>45min)",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313045",
+          "type": "checkbox",
+          "title": "19.大型开放手术(>45min)",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313046",
+          "type": "checkbox",
+          "title": "20.腹腔镜手术(>45min)",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313047",
+          "type": "checkbox",
+          "title": "21.恶性肿瘤",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313048",
+          "type": "checkbox",
+          "title": "22.石膏固定",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313049",
+          "type": "checkbox",
+          "title": "23.中央静脉通路",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "以下选项，每项3分",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1313050",
+          "type": "checkbox",
+          "title": "24.年龄≥75岁",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313051",
+          "type": "checkbox",
+          "title": "25.VTE病史",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313052",
+          "type": "checkbox",
+          "title": "26.VTE家族史",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313053",
+          "type": "checkbox",
+          "title": "27.凝血因子VLeiden突变",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313054",
+          "type": "checkbox",
+          "title": "28.凝血酶原G20210A突变",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313055",
+          "type": "checkbox",
+          "title": "29.狼疮抗凝物阳性",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313056",
+          "type": "checkbox",
+          "title": "30.抗心磷脂抗体阳性",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313057",
+          "type": "checkbox",
+          "title": "31.血清同型半胱氨酸升高",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313058",
+          "type": "checkbox",
+          "title": "32.肝素诱发血小板减少症",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313059",
+          "type": "checkbox",
+          "title": "33.其他先天或获得性血栓形成倾向",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "以下选项，每项5分",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1313060",
+          "type": "checkbox",
+          "title": "34.卒中(＜1个月)",
+          "code": "5",
+          "score": 5,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313061",
+          "type": "checkbox",
+          "title": "35.择期关节置换术",
+          "code": "5",
+          "score": 5,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313062",
+          "type": "checkbox",
+          "title": "36.髋、骨盆或下肢骨折",
+          "code": "5",
+          "score": 5,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313063",
+          "type": "checkbox",
+          "title": "37.急性脊髓损伤(＜1个月)",
+          "code": "5",
+          "score": 5,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313064",
+          "type": "checkbox",
+          "title": "已确诊VTE",
+          "code": "5",
+          "score": 5,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313065",
+          "type": "checkbox",
+          "title": "入住ICU",
+          "code": "5",
+          "score": 5,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、预防护理措施：",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "1. 健康宣教：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1313004",
+          "type": "checkbox",
+          "title": "一般护理：嘱患者进食低脂清淡、富含纤维素的食物，多饮水，保持大便通畅，并戒烟",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313005",
+          "type": "checkbox",
+          "title": "活动指导：指导患者进行踝泵运动及膝关节屈伸运动，无法自主活动给予被动运动",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313006",
+          "type": "checkbox",
+          "title": "用药指导：抗凝治疗期间，嘱患者观察皮肤、黏膜、消化道、泌尿道、牙龈及全身有无出血发生，如有出血倾向，应立即告知医务人员，避免碰撞及跌倒，用软毛刷刷牙，避免进食坚硬、刺激食物等",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313007",
+          "type": "checkbox",
+          "title": "出院指导：告知患者出院后定期门诊复查，遵医嘱按时服药。保持良好情绪，减轻心理压力，若出现下肢肿胀、疼痛或出血等现象，请尽快就医",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "2. 基础预防：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1313008",
+          "type": "checkbox",
+          "title": "术中和术后适度补液、饮水、避免脱水",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313009",
+          "type": "checkbox",
+          "title": "抬高患肢：抬高下肢20～30°(略高于心脏水平)，禁止腘窝及小腿下单独垫枕",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313010",
+          "type": "checkbox",
+          "title": "改善生活方式，嘱患者戒烟戒酒，控制血糖、血脂",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313011",
+          "type": "checkbox",
+          "title": "规范静脉穿刺技术，尽量避免深静脉穿刺和下肢静脉穿刺输液",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313012",
+          "type": "checkbox",
+          "title": "早期活动，尽早下床(被动活动/踝泵运动)",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "3. 物理预防：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1313013",
+          "type": "checkbox",
+          "title": "使用梯度压力袜",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313014",
+          "type": "checkbox",
+          "title": "使用间歇性充气加压装置",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313015",
+          "type": "checkbox",
+          "title": "使用足底静脉泵",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "4. 药物预防",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I004007",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1313016",
+          "type": "checkbox",
+          "title": "遵医嘱给予抗凝药物",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313017",
+          "type": "checkbox",
+          "title": "用药前了解患者有无出血性疾病",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313018",
+          "type": "checkbox",
+          "title": "注意患者有无出血倾向，观察患者皮肤、黏膜、消化道、泌尿道、牙龈及全身有无出血发生，如有出血倾向，应立即通知医生及时处理",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313019",
+          "type": "checkbox",
+          "title": "避免碰撞及跌倒，用软毛刷刷牙，避免进食坚硬、刺激食物等",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "inputWidth": "136px",
+          "value": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "inputWidth": "136px",
+          "value": "",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "min": "-1",
+              "max": "3",
+              "equal": "低危",
+              "style": "color:blue",
+              "display": "低危"
+            },
+            {
+              "min": "3",
+              "max": "5",
+              "equal": "中危",
+              "style": "color:blue",
+              "display": "中危"
+            },
+            {
+              "min": "5",
+              "max": "200",
+              "equal": "高危",
+              "style": "color:blue",
+              "display": "高危"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

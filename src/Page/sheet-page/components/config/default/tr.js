@@ -20,7 +20,7 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
+    click: process.env.HOSPITAL_ID == 'foshanrenyi' ? click_time : ""
 
   },
   {

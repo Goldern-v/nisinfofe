@@ -1,6 +1,18 @@
 <template>
   <div style="position: relative">
-    <div v-if="data1">
+    <div
+      class="test-list"
+      v-if="HOSPITAL_ID == 'guizhou' && testList.length"
+      :style="{ height: height }"
+    >
+      <div class="page" v-for="item in testList" :key="item.expand1">
+        <iframe
+          :src="'http://192.168.8.68:8080/report/pdf' + item.expand1"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </div>
+    <div v-else-if="data1">
       <el-row v-loading="loading" class="form" :style="{ minHeight: height }">
         <div class="title">{{ HOSPITAL_NAME }}</div>
         <div class="name">{{ data.subject }}报告单</div>
@@ -76,18 +88,6 @@
           </el-table-column>
         </el-table>
       </el-row>
-    </div>
-    <div
-      class="test-list"
-      v-if="HOSPITAL_ID == 'guizhou' && testList.length"
-      :style="{ height: height }"
-    >
-      <div class="page" v-for="item in testList" :key="item.expand1">
-        <iframe
-          :src="'http://192.168.8.68:8080/report/pdf' + item.expand1"
-          frameborder="0"
-        ></iframe>
-      </div>
     </div>
     <div v-if="!data1" class="form" :style="{ minHeight: height }">
       <div class="null-con">

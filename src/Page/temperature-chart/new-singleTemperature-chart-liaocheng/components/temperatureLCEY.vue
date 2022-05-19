@@ -66,10 +66,6 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
-import {
-  getNurseExchangeInfo,
-  getNurseExchangeInfoByTime,
-} from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
@@ -180,6 +176,9 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
+            case "currentPage":
+            this.currentPage = e.data.value;
+            break;
              case "clickDateTime":
             this.getDataFromPage(e.data.value)
             break;
@@ -263,6 +262,10 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+      this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate=dateTime.slice(0,10)
+        this.query.entryTime=dateTime.slice(11,13)
+    });
   },
   computed: {
     patientInfo() {

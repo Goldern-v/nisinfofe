@@ -64,6 +64,7 @@
 <script>
 import nullBg from "../../../../components/null/null-bg";
 import bus from "vue-happy-bus";
+import moment from "moment";
 export default {
   props: {
     queryTem: Object,
@@ -188,6 +189,9 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
+              case "currentPage":
+            this.currentPage = e.data.value;
+            break;
               case "dblclick":/* 双击查阅体温单子 */
           this.openRight();
           break;
@@ -238,6 +242,14 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+        this.bus.$on('dateChangePage',(value)=>{
+      value=moment(value).format("YYYY-MM-DD")
+        this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "dateChangePage", value },
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    })
   },
   computed: {
     patientInfo() {

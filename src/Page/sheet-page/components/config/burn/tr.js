@@ -1,6 +1,6 @@
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
+import { keyf1, limitChange } from "../keyEvent/f1.js";
 import { event_date, event_time, click_date } from "../keyEvent/date";
 import info from "../sheetInfo";
 let ysList = [];
@@ -123,34 +123,37 @@ export default [
     key: "fieldOne", //标题1
     value: "",
     event: keyf1,
-    name: "伤口敷料"
+    textarea: { width: 37 }, change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldTwo", //标题2
     value: "",
     event: keyf1,
-    name: "伤口疼痛评分"
+    textarea: { width: 37 }, change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldThree", //标题3
     value: "",
     event: keyf1,
-    name: "压疮评分"
+    textarea: { width: 37 }, change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldFour", //标题4
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: { width: 37 }, change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldFive", //标题5
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: { width: 37 }, change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "fieldSix", //标题6
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: { width: 37 }, change: (e, td) => limitChange(e, td, 6),
   },
   {
     key: "description", //特殊情况记录

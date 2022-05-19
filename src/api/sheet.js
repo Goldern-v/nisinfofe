@@ -100,3 +100,21 @@ export const syncVisitWithDatePad = (patientId, visitId, startDate, endDate) => 
 export const delSelectRow = (params) => {
   return axios.post(`${apiPath}record/${sheetInfo.sheetType}/deleteMultiRecord`, params);
 }
+
+/**
+ * 获取自定义模板 by佛山市一
+ * @returns
+ */
+ export const findListByBlockId = () => {
+  return axios.post(`${apiPath}record/titleTempalate/findListByBlockId`, {
+    blockId: sheetInfo.selectBlock.id
+  })
+}
+
+/**
+ * 保存自定义标题所选模板内容 by佛山市一
+ */
+ export const saveTitleOptions = (params) => {
+  params.blockId = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}record/titleTempalate/saveTitleOptions`, params)
+}

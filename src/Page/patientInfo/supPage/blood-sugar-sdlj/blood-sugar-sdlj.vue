@@ -19,7 +19,7 @@
         <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"
         ></whiteButton>
       </div> -->
-      <div class="tool-btn">
+      <div class="tool-btn" v-if="!routePath.includes('nursingPreview')">
         <div
           class="item-box"
           flex="cross:center main:center"
@@ -325,6 +325,9 @@ export default {
     };
   },
   computed: {
+    routePath(){
+      return window.location.href
+    },
     patientInfo() {
       return this.$route.query;
     },

@@ -11,9 +11,11 @@ var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
-
 // default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
+// var port = process.env.PORT || config.dev.port
+const customPort = process.env.npm_config_port || ''
+console.log('test-process', customPort)
+var port = customPort || process.env.PORT || config.dev.port
     // automatically open browser, if not set will be false
 var autoOpenBrowser = !!config.dev.autoOpenBrowser
     // Define HTTP proxies to your custom API backend

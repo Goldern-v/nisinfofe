@@ -652,7 +652,7 @@ export default {
       });
       let input = document.getElementsByTagName("input");
       for (let i = 0; i < input.length; i++) {
-        input[i].style.border = "";
+        input[i].style.outline = "";
       }
     },
     //时间组件失去焦点
@@ -719,10 +719,10 @@ export default {
             },
           };
           return y;
-        case "疼痛强度":
+        case "疼痛":
         case "疼痛干预":
           let g = {
-            疼痛评分: {
+            疼痛: {
               value: val,
               reg: [0, 10],
             },
@@ -741,14 +741,14 @@ export default {
 
         //验证表单
         if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
-          document.getElementById(index).style.border = "";
+          document.getElementById(index).style.outline = "";
           vitalSignObj.isCorrect = true;
         } else {
-          document.getElementById(index).style.border = "1px solid red";
+          document.getElementById(index).style.outline = "1px solid red";
           vitalSignObj.isCorrect = false;
         }
       } else {
-        document.getElementById(index).style.border = "";
+        document.getElementById(index).style.outline = "";
         vitalSignObj.isCorrect = true;
       }
     },
@@ -881,6 +881,9 @@ export default {
           }).then((res) => {
             this.getList();
             this.bus.$emit("refreshImg");
+            setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
           });
         });
       }
@@ -894,6 +897,9 @@ export default {
       }).then(async (res) => {
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
+        setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -984,7 +990,9 @@ export default {
         });
         this.getList();
         this.bus.$emit("refreshImg");
+        setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
       }
     },
   },
@@ -1127,9 +1135,10 @@ export default {
   .rowBox {
     width: 45%;
     float: left;
+    over-flow:hidden;
 
     input {
-      width: 98%;
+      width: 95%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1154,9 +1163,10 @@ export default {
     width: 45%;
     float: left;
     margin-left: 10%;
+    over-flow:hidden;
 
     input {
-      width: 98%;
+      width: 95%;
       font-size: 16px;
       border: none;
       outline: 0px;

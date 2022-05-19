@@ -41,8 +41,8 @@ const currentTargetUrl = (() => {
   switch (HOSPITAL_ID) {
     /** 厚街 */
     case "hj":
-      return "http://120.197.141.41:9091" //厚街正式
-      // return "http://120.197.141.41:9094" //东莞正式库的测试
+      // return "http://120.197.141.41:9091" //厚街正式
+      return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
     // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
       // return "http://192.168.20.83:8080" // 彬哥本地
@@ -77,9 +77,9 @@ const currentTargetUrl = (() => {
 
     /** 聊城 */
     case "liaocheng":
-      return "http://120.224.211.7:9094" //聊城正式
+      // return "http://120.224.211.7:9094" //聊城正式
       // return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
-      // return "http://192.168.1.54:9871" //公司-聊城测试-内网
+      return "http://192.168.1.54:9871" //公司-聊城测试-内网
       // return "http://192.168.2.122:8080" // 初升本地
       // return "http://192.168.20.83:8080"  //伟彬本地
 
@@ -153,10 +153,11 @@ const currentTargetUrl = (() => {
 
     // 佛山市医
      case 'foshanrenyi':
+      //  return "http://192.168.20.93:8080"
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://219.159.198.37:9094"  // 正式地址
-      // return "https://cr.fsyyy.com:9094"  // 正式地址
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "https://cr.fsyyy.com:9094"  // 正式地址
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.3.226:8080" // 初升测试本地内网
 
     // 福清妇幼保健院
@@ -166,8 +167,8 @@ const currentTargetUrl = (() => {
 
       // 佛山杏坛
     case 'fsxt':
-      // return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@24nr
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@24nr
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.3.226:8080" // 初升本地
     case 'yangchunzhongyi':  //阳春
       return "http://192.168.1.54:9866" // 默认公司本地内网厚街
@@ -184,7 +185,8 @@ const currentTargetUrl = (() => {
     // 临邑县人民
     case 'lyxrm':
       // return "http://192.168.1.54:9890" // 内网测试
-      return "http://222.133.53.230:9093" // 临邑正式
+      // return "http://222.133.53.230:9093" // 临邑正式
+      return "http://222.133.53.230:9091" // 临邑正式
 
     /** 默认公司本地内网厚街测试环境 */
     default:

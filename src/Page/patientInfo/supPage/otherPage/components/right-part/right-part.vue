@@ -1,5 +1,6 @@
 <template>
   <div class="content" v-loading="pageLoading">
+    
     <null-bg v-if="show"></null-bg>
     <!-- <iframe id="iframeId" src="https://www.jianshu.com/p/b8d45314a495" frameborder="0" class="emr-pdf" :style="{height:height}"></iframe> -->
     <iframe
@@ -43,7 +44,7 @@ export default {
     // }, false);
     let vid=window.app.$store.state.patient.currentPatient.inpNo;
     const currentPatient=window.app.$store.state.patient.currentPatient;//patientId
-    //console.log(window.app.$store.state.patient.currentPatient)
+    // console.log("window.app",window.app,window.app.$store.state.patient.currentPatient)
     if(this.HOSPITAL_ID && vid){
       this.show = false;
       //const personInfoUrl="http://172.16.8.41:5402";
@@ -57,12 +58,15 @@ export default {
           this.fileUrl = `http://192.168.19.198:8282/templates/medicalRecord/medicalRecordViewPreview.html?embedded-view=true&req_no=${currentPatient.patientId}&type=2`;
           break; 
         case "foshanrenyi":
-          this.fileUrl = `http://hz360.fsyyy.com:8081/cdr/personal/?patientId=${currentPatient.patientId}&visitNumber=1&systemcode=HLXT&doctorcode=000000&oporIp=IP`;
+          this.fileUrl = `http://hz360.fsyyy.com:8081/cdr/personal/?patientId=${currentPatient.patientId}&visitNumber=1&systemcode=HLXT&doctorcode=${JSON.parse(localStorage.user).empNo}&oporIp=IP`;
           break; 
         case "lyxrm":
         case "liaocheng":
           this.getUrl();
           break; 
+        case "nanfangzhongxiyi":
+          this.fileUrl = `http://10.158.220.54:8081/view/#/timeline?patientNo=${this.$route.query.inpNo}&visitTypeCode=03`;
+          break;
         default:
           break; 
       }

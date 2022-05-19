@@ -503,6 +503,11 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+        this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate = dateTime.slice(0, 10);
+      this.query.entryTime = dateTime.slice(11, 16) + ":00";
+      this.dateInp = dateTime.slice(11, 16);
+    });
 
   },
   created() {
@@ -816,6 +821,9 @@ export default {
           }).then((res) => {
             this.getList();
             this.bus.$emit("refreshImg");
+            setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
           });
         });
       }
@@ -829,6 +837,9 @@ export default {
       }).then(async (res) => {
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
+        setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -905,6 +916,9 @@ export default {
       });
       this.getList();
       this.bus.$emit("refreshImg");
+      setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 500);
     },
   },
   components: { nullBg },
@@ -1044,9 +1058,10 @@ export default {
   .rowBox {
     width: 45%;
     float: left;
+    over-flow:hidden;
 
     input {
-      width: 100%;
+      width: 90%;
       font-size: 15px;
       border: none;
       outline: 0px;
@@ -1071,9 +1086,10 @@ export default {
     width: 45%;
     float: left;
     margin-left: 10%;
+    over-flow:hidden;
 
     input {
-      width: 100%;
+      width: 90%;
       font-size: 16px;
       border: none;
       outline: 0px;

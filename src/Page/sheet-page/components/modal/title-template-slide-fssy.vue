@@ -22,7 +22,7 @@
           </div>
           <div class="list-con">
             <!-- <div v-for="(item, key) in filterData" :key="key"> -->
-              <templateItem :listdata="filterData" ></templateItem>
+              <templateItem :listData="filterData" ></templateItem>
             <!-- </div> -->
           </div>
           <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
@@ -32,6 +32,7 @@
       </div>
     </transition>
     <addTemplateModal ref="addTemplateModal"></addTemplateModal>
+    <addTemplateModalTemp ref="Temperature" v-if="isTemperature"></addTemplateModalTemp>
   </div>
 </template>
 
@@ -133,8 +134,9 @@
 import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./components/title-template-item-fssy.vue";
 import addTemplateModal from "./add-title-template-modal-fssy.vue";
+import addTemplateModalTemp from "./add-title-template-modal.vue";
 import bus from "vue-happy-bus";
-import {titleTempalateList} from "./api/index"
+import {titleTemplateList} from "./api/index"
 import sheetInfo from "../config/sheetInfo/index.js";
 export default {
   data() {
@@ -154,34 +156,40 @@ export default {
     filterData() {
       let listMap = this.listMap;
       let IstitleData = []
-      let NotitleData = []
-      
-      listMap.map((item,index)=>{
-        let deleteList = []
-        if(item.groupName == '纯标题模板'){
-          deleteList = item.list
-          deleteList.map((sonItem)=>{
-            IstitleData.push({
-              groupName:sonItem.title,
-              id:sonItem.id,
-              recordCode:sonItem.recordCode,
-              wardCode:sonItem.wardCode,
-            })
-          })
-        //  listMap.splice(index,1)
-        }else{
-          item['children'] = item.list,
-          NotitleData.push(item)
-        }
-      })
-      let setListData = [...IstitleData,...NotitleData]
-      let filterData = setListData;
+      let titleData = []
+
+      // listMap.map((item,index)=>{
+      //   let deleteList = []
+      //   if(item.list.length <= 0){
+      //     deleteList = item.list
+      //     deleteList.map((sonItem)=>{
+      //       IstitleData.push({
+      //         groupName:sonItem.title,
+      //         id:sonItem.id,
+      //         recordCode:sonItem.recordCode,
+      //         wardCode:sonItem.wardCode,
+      //       })
+      //     })
+      //   //  listMap.splice(index,1)
+      //   }else{
+      //     item['children'] = item.list
+      //     titleData.push(item)
+      //   }
+      // })
+      // let setListData = [...IstitleData,...titleData]
+      // let filterData = setListData;
       // console.log(filterData);
-      filterData = setListData.filter(item => {
-        return item.groupName.indexOf(this.searchWord) > -1;
+      if (!!this.searchWord) return listMap
+      return listMap.filter(item => {
+        return item.title.indexOf(this.searchWord) > -1;
       });
       return filterData;
+    },
+    isTemperature(){
+      return this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes("temperature")
+
     }
+
   },
   watch: {
     selectedType() {
@@ -215,6 +223,7 @@ export default {
       this.selectedTab = tab;
     },
     async getData() {
+    if (!['foshanrenyi'].includes(this.HOSPITAL_ID)) return
       let deptCode = this.$store.state.lesion.deptCode
       // let {
       //   data: { data }
@@ -227,33 +236,45 @@ export default {
       // this.listMap = data;
       let opstObj = {}
       opstObj.wardCode = deptCode
-      let res = await titleTempalateList(opstObj)
+      if(!opstObj.wardCode) return
+      let res = await titleTemplateList(opstObj)
       if(res.data.code == '200'){
-        this.listMap = res.data.data
+        if(this.isTemperature){
+          //如果是体温单界面  就只查询体温单的自定义标题
+        this.listMap = res.data.data.filter((x)=>x.recordCode==="bodyTemperature")
+        }else{
+        this.listMap = res.data.data.filter((x)=>x.recordCode!=="bodyTemperature")
+
+        }
       }
     },
     openAddModal() {
+      if(this.isTemperature){
+      this.$refs.Temperature.open();
+
+      }else{
       this.$refs.addTemplateModal.open();
+
+      }
     },
     addTemplateAtDoc(item) {
       this.bus.$emit("addTemplateAtDoc", item.content);
     }
   },
   created() {
-    if(this.HOSPITAL_ID == "foshanrenyi"){
-      this.getData()
-      this.bus.$on("refreshTitleTemplate", this.getData);
-    }
+    this.getData()
+    // this.bus.$on("refreshTitleTemplate", this.getData);
   },
   mounted() {
     this.show = false
     this.bus.$on("refreshTitleTemplate", this.getData);
   },
-  
+
   components: {
     whiteButton,
     templateItem,
-    addTemplateModal
+    addTemplateModal,
+    addTemplateModalTemp
   }
 };
 </script>

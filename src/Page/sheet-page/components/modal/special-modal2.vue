@@ -391,7 +391,7 @@
                     "
                   ></el-checkbox>
                   <div class="label" style="min-width: 70px">
-                    {{ item.name || key }}：
+                    {{ HOSPITAL_ID == 'sdlj' && (sheetInfo.sheetType === 'ordinary_sdlj') ? '脉搏/心率' : item.name || key }}：
                   </div>
                   <input
                     type="text"
@@ -1082,7 +1082,6 @@ export default {
       for (let i = 0; i < record.length; i++) {
         doc += record[i].find((item) => item.key == "description").value || "";
       }
-      console.log(1086,doc)
       this.recordDate =
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value ||
@@ -1093,7 +1092,6 @@ export default {
           // 截取最后补记时间，前面的内容
           let replenishTime= `补记时间${doc.split('补记时间')[1]}`
           doc=doc.split('补记时间')[0]
-          console.log(1097,replenishTime)
           var reg = new RegExp(" ", "g");
           doc = doc.replace(reg, "");
           doc = `${doc}${replenishTime}`
@@ -1109,7 +1107,6 @@ export default {
       //    var reg = new RegExp(" ", "g");
       //    doc = doc.replace(reg, "");
       //  }
-      console.log(1097,doc)
       // 富文本处理（去除字符串开头空格）
       this.doc = doc.replace(/&nbsp;/g, " ").replace(/^\s*/g, "");
       for (let j = 0; j < sheetModel.length; j++) {
@@ -1356,7 +1353,7 @@ export default {
       if(this.isSaving){
         return
       }
-      if(!this.staticObj.recordHour){
+      if(type!='ayncVisitedData' && !this.staticObj.recordHour){
         return this.$message.warning('记录时间不得为空！')
       }
       this.isSaving=true

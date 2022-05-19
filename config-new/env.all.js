@@ -100,7 +100,7 @@ module.exports = {
     COMPANY_NAME: '"百辰源(广州)科技有限公司"',
     ABOUT_INFO: '"关于百辰源"',
     title: '"智慧护理信息系统"',
-    // splitSave:true
+    splitSave:true
   },
   "zhongshanqi": {
     HOSPITAL_ID: '"zhongshanqi"',
@@ -127,7 +127,8 @@ module.exports = {
     HOSPITAL_ID: '"nanfangzhongxiyi"',
     HOSPITAL_NAME: '"南方医科大学中西医结合医院"',
     HOSPITAL_NAME_SPACE: '"南 方 医 科 大 学 中 西 医 结 合 医 院"',
-    title: '"南方医科大学中西医结合医院智慧护理信息系统"'
+    title: '"南方医科大学中西医结合医院智慧护理信息系统"',
+    formPage_change_major: true
   },
   "yangchunzhongyi": {
     HOSPITAL_ID: '"yangchunzhongyi"',

@@ -1729,6 +1729,13 @@ export default function Title(
     );
   }
   break;
+  case "generalnursing_xt": {
+    // 佛山杏坛 - 护理记录单（全院通用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/generalnursing_xt/th.js").default)
+    );
+  }
+  break;
   case "emergency_treat_yx": {
     // 武汉亚心 - 急诊留观记录单
     Th = JSON.parse(

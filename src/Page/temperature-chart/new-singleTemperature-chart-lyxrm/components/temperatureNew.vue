@@ -205,6 +205,8 @@ export default {
              case "clickDateTime":
             this.getDataFromPage(e.data.value)
             break;
+            
+
           default:
             break;
         }

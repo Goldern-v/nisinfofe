@@ -13,6 +13,7 @@ export default async function () {
   setInterval(async () => {
     recentHtml = await getHtml()
     if (recentHtml != currentHtml) {
+      currentHtml = recentHtml
       try {
         if (['huadu'].includes(process.env.HOSPITAL_ID)) {
           window.app.$alert('发现新的版本了，点击立即更新', '更新提示', {
@@ -34,7 +35,6 @@ export default async function () {
         }
       }
       catch (e) { }
-      currentHtml = recentHtml
     }
   }, 1000 * 200)
 }

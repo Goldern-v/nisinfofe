@@ -366,7 +366,8 @@
           HOSPITAL_ID == 'quzhou' ||
           HOSPITAL_ID == 'weixian' ||
           HOSPITAL_ID == 'liaocheng'||
-          HOSPITAL_ID == 'foshanrenyi'
+          HOSPITAL_ID == 'foshanrenyi'||
+          HOSPITAL_ID == 'whfk'
         "
       >
         <div class="text-con">
@@ -599,7 +600,7 @@ export default {
     toPrint() {
       // 正式环境打印会打开窗口,个别医院双签名打印设置为不打开新窗口（打开窗口样式有bug）
       // 不打开窗口，打印完返回会有Bug（下拉不显示和表头不能修改）,只能重新加载页面
-      if(this.HOSPITAL_ID=='liaocheng'){
+      if(this.HOSPITAL_ID=='liaocheng' || this.HOSPITAL_ID=='huadu'){
          this.$store.commit('upPreRouter',location.href)
       }
       if (!this.sheetInfo.selectBlock.id)
@@ -955,6 +956,10 @@ export default {
           }
           this.sheetInfo.selectBlock =
             this.sheetBlockList[this.sheetBlockList.length - 1] || {};
+            if(this.sheetBlockList.length==0){
+              // 如果该病人没有护记，切换病人时需要清空分页
+              this.pageArea=''
+            }
           if (this.patientInfo.blockId) {
             try {
               let index = this.sheetBlockList.findIndex(
@@ -1021,7 +1026,7 @@ export default {
       this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
       this.blockId = item.id;
       cleanData();
-      this.bus.$emit("refreshSheetPage", true);
+      this.bus.$emit("refreshSheetPage", true);//会导致数据渲染两次，和sheetpage里的监听冲突，所以屏蔽
     },
     /** pdf打印 */
     toPdfPrint() {
@@ -1117,7 +1122,7 @@ export default {
       return this.$store.state.sheet.patientInfo;
     },
     patientId() {
-      return this.$store.state.sheet.patientInfo.id;
+      return this.$store.state.sheet.patientInfo.patientId;
     },
     showCrl() {
       switch (this.sheetInfo.sheetType) {
@@ -1309,7 +1314,7 @@ export default {
       });
     },
     patientId: {
-      deep: true,
+      // deep: true,
       handler() {
         if (this.patientInfo.patientId) {
           // console.log(111);

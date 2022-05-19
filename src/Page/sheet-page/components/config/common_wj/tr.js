@@ -78,7 +78,7 @@ export default [
       ]
     },
     textarea: {
-      width: 30
+      width: 40
     }
   },
   {

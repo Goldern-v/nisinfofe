@@ -38,8 +38,9 @@
           尾周
         </button>
       </div>
+      <null-bg v-show="!filePath" class=""></null-bg>
       <div class="tem-con" :style="contentHeight" v-if="filePath">
-        <null-bg v-show="!filePath"></null-bg>
+
         <iframe
           id="printID"
           v-if="filePath"
@@ -203,6 +204,9 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
+              case "currentPage":
+            this.currentPage = e.data.value;
+            break;
           case "getNurseExchangeInfo" /* 转科转床接口，聊城二院取消，花都保留 */:
             const params = {
               patientId: this.$route.query.patientId,
@@ -272,6 +276,14 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+        this.bus.$on('dateChangePage',(value)=>{
+      value=moment(value).format("YYYY-MM-DD")
+        this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "dateChangePage", value },
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    })
   },
   computed: {
     patientInfo() {
@@ -308,6 +320,11 @@ export default {
     color: red;
     margin-right: 5px;
   }
+      .null-bg {
+      background-color: #fff;
+      height: 1000px;
+      margin-top: 5px;
+    }
 
   .newBornNomal {
     margin-left: 5px;

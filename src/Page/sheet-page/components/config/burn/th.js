@@ -113,42 +113,12 @@ export default {
         canSet: false,
       },
       {
-        name: `伤口<br>敷料`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: '31px',
-          maxWidth: '31px',
-        }
-      },
-      {
-        name: `伤口<br>疼痛<br>评分`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: '31px',
-          maxWidth: '31px',
-        }
-      },
-      {
-        name: `压疮<br>评分`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: '31px',
-          maxWidth: '31px',
-        }
-      },
-      {
         name: `标题1`,
         style: {},
         colspan: '1',
         rowspan: '3',
         canSet: true,
-        key: 'fieldFour',
+        key: 'fieldOne',
         style: {
           minWidth: '37px',
           maxWidth: '37px',
@@ -160,7 +130,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         canSet: true,
-        key: 'fieldFive',
+        key: 'fieldTwo',
         style: {
           minWidth: '37px',
           maxWidth: '37px',
@@ -168,6 +138,42 @@ export default {
       },
       {
         name: `标题3`,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        canSet: true,
+        key: 'fieldThree',
+        style: {
+          minWidth: '37px',
+          maxWidth: '37px',
+        }
+      },
+      {
+        name: `标题4`,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        canSet: true,
+        key: 'fieldFour',
+        style: {
+          minWidth: '37px',
+          maxWidth: '37px',
+        }
+      },
+      {
+        name: `标题5`,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        canSet: true,
+        key: 'fieldFive',
+        style: {
+          minWidth: '37px',
+          maxWidth: '37px',
+        }
+      },
+      {
+        name: `标题6`,
         style: {},
         colspan: '1',
         rowspan: '3',

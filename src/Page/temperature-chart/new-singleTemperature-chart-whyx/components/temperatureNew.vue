@@ -139,6 +139,10 @@ export default {
 
       this.currentPage = this.toCurrentPage;
     },
+        //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime){
+      this.bus.$emit('getDataFromPage',dateTime)
+    },
     //切换疼痛体温单
     changeModel() {
       this.showTemp = false;
@@ -187,6 +191,12 @@ export default {
           case "pageTotal":
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
+            break;
+              case "currentPage":
+            this.currentPage = e.data.value;
+            break;
+             case "clickDateTime":
+            this.getDataFromPage(e.data.value)
             break;
               case "dblclick":/* 双击查阅体温单子 */
           this.openRight();
@@ -238,6 +248,14 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
+        this.bus.$on('dateChangePage',(value)=>{
+      value=moment(value).format("YYYY-MM-DD")
+        this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "dateChangePage", value },
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    })
   },
   computed: {
     patientInfo() {

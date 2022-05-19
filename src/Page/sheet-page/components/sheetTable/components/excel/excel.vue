@@ -26,7 +26,7 @@
                 Object.assign({}, td.style, {
                   minWidth: td.textarea.width + 'px',
                   maxWidth: td.textarea.width + 'px',
-                })
+                }) 
               "
             ></textarea>
             <input type="text" :style="[td.style]" v-else />
@@ -192,6 +192,23 @@
             :data-value="td.value"
             placeholderChar=" "
             @keydown="onKeyDown($event, { x, y, z: index, td });"
+            @focus="
+              td.autoComplete &&
+                onFocus($event, {
+                  autoComplete: getCompleteArr(tr, td),
+                  x,
+                  y,
+                  z: index,
+                  td,
+                  tr,
+                  splice: td.splice,
+                })
+            "
+            @blur="
+              !HOSPITAL_ID === 'huadu' &&
+                !td.splice &&
+                onBlur($event, { x, y, z: index }, tr )
+            "
           ></masked-input>
           <div
             v-else-if="
@@ -325,6 +342,7 @@
             "
             :maxlength="td.textarea.maxLength || 1000"
             @input="
+              splitSave && $emit('onModalChange',$event,tr,x,y,index);
               td.change && td.change($event, td);
               td.autoComplete && getOptionsData(td, tr, $event);
               remoteMethod($event.currentTarget.value);
@@ -414,7 +432,7 @@
             @click="!tr.isRead && td.click && td.click($event, td, tr)"
             v-else
           />
-          <div 
+          <div
             v-if="HOSPITAL_ID=='wujing' && td.key=='food' && tr.barCodeIdentification"
             :class="[HOSPITAL_ID=='wujing' && td.key=='food' && tr.barCodeIdentification]"
             >
@@ -523,7 +541,7 @@
             sheetInfo.sheetType == 'critical_lcey'||
             sheetInfo.sheetType == 'critical_new_lcey'||
             sheetInfo.sheetType == 'critical2_lcey'
-            
+
           "
           ><strong>护士长审核：</strong></span
         >
@@ -546,7 +564,7 @@
           </div>
         </span>
         <!-- &nbsp;&nbsp;&nbsp; -->
-        <div 
+        <div
           style="margin-right:50px">
         </div>
         <div
@@ -588,6 +606,7 @@ import {
   delSelectRow,
   markSave,
   markDelete,
+  saveTitleOptions,
 } from "@/api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
 import { Tr } from "../../../render/Body.js";
@@ -895,26 +914,51 @@ export default {
       }
     },
     setTitle(item) {
+      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        this.setTitleFS(item)
+        return
+      }
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
-        (title,sonData) => {
-          console.log(sonData);
+        (title) => {
           let data = {
             patientId: this.patientInfo.patientId,
             visitId: this.patientInfo.visitId,
             pageIndex: this.index,
             fieldEn: item.key,
             fieldCn: title,
-            sonData: sonData,
+            // sonData: sonData,
             recordCode: sheetInfo.sheetType,
           };
           saveTitle(data).then((res) => {
             item.name = title;
-            item.foshansiyiSonData = sonData
+            // item.foshansiyiSonData = sonData
           });
         },
         item.name,
         item,
-        item.foshansiyiSonData,
+      );
+    },
+    //
+    setTitleFS(item) {
+      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
+        (title, obj) => {
+          let { list = [], id = '' } = obj
+          list = list.map(v => v.options)
+          let data = {
+            pageIndex: this.index,
+            columnName: item.key,
+            id,
+            title,
+            list1: list,
+            recordCode: sheetInfo.sheetType,
+          };
+          saveTitleOptions(data).then((res) => {
+            // item.name = title;
+            this.bus.$emit('refreshSheetPage')
+          });
+        },
+        item.name,
+        item,
       );
     },
     addNullRow(index, row) {
@@ -1368,7 +1412,7 @@ export default {
         console.log(error);
         return false;
       }
-    }, 
+    },
     // 右键菜单
     openContextMenu(e, index, row, cell) {
       $(e.target).parents("tr").addClass("selectedRow");
@@ -1691,6 +1735,10 @@ export default {
       window.openContextMenu({ style, data });
     },
     openEditModal(tr, data, e) {
+      // 花都副页关闭编辑框
+      if(this.sheetInfo.sheetType=='additional_count_hd'){
+        return
+      }
       this.isOpenEditModal = true;
       setTimeout(() => {
         this.isOpenEditModal = false;

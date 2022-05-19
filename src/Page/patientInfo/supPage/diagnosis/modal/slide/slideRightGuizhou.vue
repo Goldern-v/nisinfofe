@@ -89,7 +89,7 @@
 
             <el-checkbox-group v-model="resultFactorList" @change="handleFactorCheckedChange">
               <div class="m-10" v-for="item in factorList" :key="item.id">
-                <el-checkbox :label="item.serialNo" :disabled="status === '2'">{{item.factor}}</el-checkbox>
+                <el-checkbox :label="item.id" :disabled="status === '2'">{{item.factor}}</el-checkbox>
               </div>
             </el-checkbox-group>
           </div>
@@ -277,7 +277,7 @@ export default {
         return this.resultTargetList.includes(item.serialNo)
       }).map(e=>e.parameter).join("")
       let factor = this.factorList.filter(item=>{
-        return this.resultFactorList.includes(item.serialNo)
+        return this.resultFactorList.includes(item.id)
       }).map(e=>e.factor).join("")
 
       this.$store.commit("upMeasureGuizhou",{measure,target,factor})
@@ -316,7 +316,7 @@ export default {
     /** 全选目标 */
     handleFactorCheckAllChange(event) {
       this.resultFactorList = event.target.checked
-        ? this.factorList.map(item => item.serialNo)
+        ? this.factorList.map(item => item.id)
         : [];
 
       console.log( this.factorList)
@@ -325,10 +325,10 @@ export default {
     handleFactorCheckedChange(value) {
       let checkedCount = value.length;
       this.checkFactorAll =
-        checkedCount === this.factorList.map(item => item.serialNo).length;
+        checkedCount === this.factorList.map(item => item.id).length;
       this.isFactorIndeterminate =
         checkedCount > 0 &&
-        checkedCount < this.factorList.map(item => item.serialNo).length;
+        checkedCount < this.factorList.map(item => item.id).length;
     }
   },
   components: {}
