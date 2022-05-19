@@ -1351,6 +1351,11 @@ function switchSheetType(type) {
       schema = require("../config/general_xt/tr.js").default;
     }
     break;
+    case "generalnursing_xt": {
+      // 佛山杏坛 - 护理记录单（全院通用）
+      schema = require("../config/generalnursing_xt/tr.js").default;
+    }
+    break;
     case "emergency_treat_yx": {
       // 武汉亚心 - 急诊留观记录单
       schema = require("../config/emergency_treat_yx/tr.js").default;
