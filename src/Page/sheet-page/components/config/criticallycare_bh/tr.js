@@ -183,9 +183,9 @@ export default [{
     name: "吸氧",
     next: "L/min",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 30
+      width: 45
     },
   },
   {
@@ -218,9 +218,9 @@ export default [{
     value: "",
     event: keyf1,
     name: "皮肤情况",
-    change: (e, td) => limitChange(e, td, 14),
+    change: (e, td) => limitChange(e, td, 12),
     textarea: {
-      width: 90
+      width: 75
     },
     splice: true,
     autoComplete: {

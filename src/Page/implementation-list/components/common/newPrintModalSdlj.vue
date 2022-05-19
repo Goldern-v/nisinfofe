@@ -46,6 +46,7 @@
           </p>
           <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
           <span class="text--large">{{ currentBottle.executeType }}</span>
+          <span v-if="currentBottle.administration">{{ currentBottle.administration }}</span>
         </div>
       </div>
     </div>
@@ -96,6 +97,7 @@
   page-break-after: always;
   >>> * {
     font-size: 12px;
+    color: #000;
   }
   .p-lr-5 {
     padding: 0 5px;
@@ -117,7 +119,8 @@
     @extend .p-lr-5;
     @extend .bb;
     span:first-child {
-      font-size: 18px;
+      font-size: 16px;
+      white-space: nowrap;
     }
   }
   .new-print-modal__text {
@@ -158,7 +161,7 @@
     .new-print-modal__content__left {
       position: relative;
       flex: 1;
-      font-weight: 700;
+      font-weight: 900;
       line-height: 13px;
 			padding-left: 15px;
       .left-item--normal {
