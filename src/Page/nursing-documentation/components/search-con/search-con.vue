@@ -326,19 +326,14 @@ export default {
      if(['huadu'].includes(this.HOSPITAL_ID)){
        this.data.admissionDate=[moment().subtract(7, "days"), new Date()]
      }
-    // 武汉肺科 花都入院起始日期改为当前
-    if(['whfk'].includes(this.HOSPITAL_ID)){
-       this.data.admissionDate=[moment().subtract(0, "days"), new Date()]
-     }
   },
   mounted(){
-    console.log(this.data)
     //江门妇幼、转院、出院中的【起始时间】调整为当天
       if(['fuyou'].includes(this.HOSPITAL_ID))
       {
         this.data.dischargeDate=[new Date(), new Date()];
         this.data.dateTime= [new Date(), new Date()];
-      } else if(['sdlj'].includes(this.HOSPITAL_ID)) {
+      } else if(['sdlj','whfk'].includes(this.HOSPITAL_ID)) {
         this.data.dischargeDate = [new Date(), new Date()]
       }
   },
