@@ -315,36 +315,36 @@ export default {
     },
     // 打印
     toPrint() {
-      printing(this.$refs.HealthEducation,{
-        direction: "vertical",
-        injectGlobalCss: true,
-        scanStyles: false,
-        css:`
-        @page{
-          margin:0mm;
+      // printing(this.$refs.HealthEducation,{
+      //   direction: "vertical",
+      //   injectGlobalCss: true,
+      //   scanStyles: false,
+      //   css:`
+      //   @page{
+      //     margin:0mm;
 
-        }
-        .healthEducation.health-page{
-          padding:50px;
-        }
-        .health-education{
-          left:20px;
-        }
-        `
-      })
-      // this.$refs.tableParams[0].print()
-      // if (this.pageParam.length > 30) {
-      //   this.setPageData()
-      // }
-      // setTimeout(() => {
-        // window.localStorage.healthPrintPage = $(this.$refs.HealthEducation).html();
-        // if (process.env.NODE_ENV === "production") {
-          // let newWid = window.open();
-        //   newWid.location.href = "/crNursing/print/health";
-        // } else {
-          // this.$router.push(`/print/health`);
       //   }
-      // }, 500)
+      //   .healthEducation.health-page{
+      //     padding:50px;
+      //   }
+      //   .health-education{
+      //     left:20px;
+      //   }
+      //   `
+      // })
+      this.$refs.tableParams[0].print()
+      if (this.pageParam.length > 30) {
+        this.setPageData()
+      }
+      setTimeout(() => {
+        window.localStorage.healthPrintPage = $(this.$refs.HealthEducation).html();
+        if (process.env.NODE_ENV === "production") {
+          let newWid = window.open();
+          newWid.location.href = "/crNursing/print/health";
+        } else {
+          this.$router.push(`/print/health`);
+        }
+      }, 500)
     }
   }
 }
