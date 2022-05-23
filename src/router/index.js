@@ -312,7 +312,8 @@ import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
-import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; // 厚街
+import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; 
+import healthEducationGuizhou from "@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue"; 
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
@@ -330,7 +331,7 @@ import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
 
 // 健康教育
-const healthEducationGuizhou = () => import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue");
+// const healthEducationGuizhou = () => import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue");
 
 const healthEducationBerhairenyi = () => import("@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation.vue")
 
