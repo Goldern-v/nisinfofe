@@ -490,7 +490,7 @@ export default {
       //非聊城不执行
       if(!['liaocheng','foshanrenyi','fsxt','lyxrm'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi','fsxt','lyxrm'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))); 
+      ['foshanrenyi'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))); 
       //console.log(this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))) 
       console.log(titleObject);
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
