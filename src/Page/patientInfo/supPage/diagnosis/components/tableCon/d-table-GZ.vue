@@ -66,12 +66,12 @@
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" width="325" header-align="center"></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="95" align="center"></el-table-column>
-         <el-table-column label="护士签名" width="90" header-align="center" align="center">
+        <el-table-column label="护士签名" width="90" header-align="center" align="center">
           <template slot-scope="scope">
             <!-- <div v-if="!scope.row.signerName" class="tool-btn" @click="onSignOrCancel(scope.row)">
               点击签名
             </div> -->
-            <div  @click="onSignOrCancel(scope.row)">{{scope.row.operatorName}}</div>
+            <div @click="onSignOrCancel(scope.row)">{{scope.row.operatorName}}</div>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="95" header-align="center">
@@ -129,21 +129,36 @@
         </el-table-column>
 
         <el-table-column prop="diagName" label="护理问题" width="205" header-align="center"></el-table-column>
-        <el-table-column label="护理措施计划" width="305" header-align="center">
+        <!-- <el-table-column label="护理措施计划" width="305" header-align="center">
           <template slot-scope="scope">
-            <div v-for="(item, index) in scope.row.measuresName" :key="index">
+            <div v-for="(item, index) in scope.row.measuresName" :key="index"  v-show="scope.row.measuresName.length">
               <p>{{item && item.measureDetail}}</p>
               <br v-if="index != scope.row.measuresName.length - 1" />
             </div>
           </template>
+        </el-table-column> -->
+        <el-table-column label="护理措施计划" width="305" header-align="center">
+          <template slot-scope="scope">
+            <div>
+              <div v-for="(item, index) in scope.row.measuresName" :key="index"  v-show="scope.row.measuresName.length">
+                <p>{{item && item.measureDetail}}</p>
+                <br v-if="index != scope.row.measuresName.length - 1" />
+              </div>
+              <div v-if="!scope.row.measuresName.length" v-html="scope.row.diagMeasures&&scope.row.diagMeasures.replace(/\n/g,'<br><br>')"></div>
+            </div>
+          </template>
         </el-table-column>
+       
         <el-table-column label="护理目标" width="95" header-align="center">
           <template slot-scope="scope">
-            <span v-for="(item, index) in scope.row.targetsName" :key="index">
-              {{
-              item && item.parameter
-              }}
-            </span>
+            <div>
+              <span v-for="(item, index) in scope.row.targetsName" :key="index" v-show="scope.row.targetsName.length">
+                {{
+                item && item.parameter
+                }}
+              </span>
+              <span v-if="!scope.row.targetsName.length" v-html="scope.row.diagTarget&&scope.row.diagTarget.replace(/\n/g,'<br><br>')">{{scope.row.diagTarget}}</span>
+            </div>
           </template>
         </el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="95" align="center"></el-table-column>
@@ -158,10 +173,11 @@
         <el-table-column prop="evalContent" label="评价说明" width="300" header-align="center"></el-table-column>
         <el-table-column label="护士签名" width="84" header-align="center">
           <template slot-scope="scope">
-            <img class="signer-img" v-if="scope.row.signerNo" :src="`/crNursing/api/file/signImage/${scope.row.signerNo}?${token}`" alt="">
+            <!-- <img class="signer-img" v-if="scope.row.signerNo" :src="`/crNursing/api/file/signImage/${scope.row.signerNo}?${token}`" alt=""> -->
+            <div>{{scope.row.operatorName}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="signTime" label="签名时间" width="95" header-align="center" align="center"></el-table-column>
+        <el-table-column prop="endTime" label="签名时间" width="95" header-align="center" align="center"></el-table-column>
       </el-table>
     </div>
     <stopDiagnosisModal ref="stopDiagnosisModal"></stopDiagnosisModal>

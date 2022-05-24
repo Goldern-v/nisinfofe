@@ -11,7 +11,7 @@
       v-if="!show"
       @load="onload"
     ></iframe>
-    <div v-if="content" v-html="content"></div>
+    <div v-if="content" v-html="content" style="text-align: justify;line-height: 1.5;"></div>
   </div>
 </template>
 
