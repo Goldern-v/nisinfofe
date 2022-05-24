@@ -155,8 +155,8 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       //  return "http://192.168.20.93:8080"
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
-      // return "http://219.159.198.37:9094"  // 正式地址
-      return "https://cr.fsyyy.com:9094"  // 正式地址
+      return "http://219.159.198.37:9094"  // 正式地址
+      // return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.3.226:8080" // 初升测试本地内网
 
@@ -187,7 +187,9 @@ const currentTargetUrl = (() => {
       // return "http://192.168.1.54:9890" // 内网测试
       // return "http://222.133.53.230:9093" // 临邑正式
       return "http://222.133.53.230:9091" // 临邑正式
-
+    // 广东同江医院
+    case 'gdtj':
+      return 'http://192.168.1.54:9866'
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"

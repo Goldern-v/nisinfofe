@@ -63,8 +63,8 @@
           </el-select>
           <el-button size="small" type="primary" @click="search">查询</el-button>
           <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
-          <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj','fsxt','whfk'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
-          <el-button size="small" v-if="['sdlj','fsxt','whfk'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
+          <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj', 'gdtj', 'fsxt','whfk'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
+          <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt','whfk'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
           <el-button size="small" @click="creatImplement">生成执行</el-button>
           <!-- <a href="VMS://abcdefg" @click="onPrint" >1</a> -->
           <el-button size="small" @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
@@ -96,7 +96,7 @@
         </div> -->
       </div>
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
-        <div :class="{relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))}" 
+        <div :class="{relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))}"
           :style="{height:'5.7cm',margin:`${newModalSize=='3*7'?'1px 0 0 1px':'1px 0 0'}`}" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
           <component :is="newPrintCom" :newModalSize="newModalSize" :itemObj='itemBottleCard' />
         </div>
@@ -248,7 +248,7 @@ export default {
       pagedTable:[],
       printObj:[],
       newModalSize:'6*8',
-      hasNewPrintHos:['sdlj','fsxt','whfk','lyxrm','wujing'],
+      hasNewPrintHos:['sdlj', 'gdtj', 'fsxt','whfk','lyxrm','wujing'],
       typeOptions:{
         'whfk':[
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"标本"},],
@@ -421,7 +421,7 @@ export default {
       let printObj = {}
       let res = ''
       console.log('test-barCodeList', barCodeList)
-      if (['sdlj','fsxt','lyxrm','whfk'].includes(this.HOSPITAL_ID)) {
+      if (['sdlj', 'gdtj', 'fsxt','lyxrm','whfk'].includes(this.HOSPITAL_ID)) {
         res = await getPrintListContent2({barcodeList: barCodeList})
       } else {
         res = await getPrintListContent({barCode: barCodeList.join('|')})
@@ -537,6 +537,7 @@ export default {
     newPrintCom() {
       switch(this.HOSPITAL_ID) {
         case 'sdlj':
+        case 'gdtj':
           return 'NewPrintModalSdlj'
         case 'fsxt':
           return 'NewPrintModalSdlj'

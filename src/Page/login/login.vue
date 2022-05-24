@@ -505,7 +505,7 @@ export default {
               window.openCaSignModal();
             }else if(["fuyou"].includes(this.HOSPITAL_ID)){
               window.openFuyouCaSignModal();
-            }else if(['hj'].includes(this.HOSPITAL_ID)){
+            }else if(['hj','guizhou'].includes(this.HOSPITAL_ID)){
               window.openHjCaSignModal();
             }
           }
