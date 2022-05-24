@@ -31,8 +31,8 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let ysList = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨']
-let dgfyList = ['√','+','-']
+let ysList = ['清醒','嗜睡','模糊','昏睡','浅昏迷','中昏迷','深昏迷','谵妄','药眠']
+let dgfyList = ['灵敏','迟钝','消失']
 
 
 export default [
