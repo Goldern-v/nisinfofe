@@ -216,7 +216,8 @@ import {
   showTitle,
   delPage,
   markList,
-  splitRecordBlock
+  splitRecordBlock,
+  findListByBlockId
 } from "@/api/sheet.js";
 import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -297,7 +298,6 @@ export default {
         };
         return obj;
       });
-
       let resultModel = mapSheetModel.filter(item => {
         return showSheetPage(item.index);
       });
@@ -398,12 +398,18 @@ export default {
         return;
       }
       this.tableLoading = true;
-      $(".red-border").removeClass("red-border");
-      return Promise.all([
+       let fnArr = [
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.patientInfo.patientId, this.patientInfo.visitId),
-        markList(this.patientInfo.patientId, this.patientInfo.visitId)
-      ]).then(res => {
+        markList(this.patientInfo.patientId, this.patientInfo.visitId),
+      ]
+      // 佛山市一 获取自定义标题数据
+      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        fnArr.shift()
+        fnArr.unshift(findListByBlockId())
+      }
+      $(".red-border").removeClass("red-border");
+      return Promise.all(fnArr).then(res => {
         let titleData = res[0].data.data;
         let bodyData = res[1].data.data;
 
