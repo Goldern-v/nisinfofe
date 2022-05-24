@@ -453,7 +453,7 @@ const router = new Router({
             return temperatureWHFK
           case 'lyxrm':
             return temperatureLYXRM
-          case 'sdlj':
+          case 'sdlj' || 'gdtj':
             return temperatureSDLJ
           case 'fsxt':
             return temperatureFSXT
@@ -631,7 +631,7 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -660,7 +660,7 @@ const router = new Router({
                 return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
-              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm':
+              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
@@ -895,7 +895,7 @@ const router = new Router({
                 return temperatureDGXG
               case 'lyxrm':
                 return temperatureLYXRM
-              case 'sdlj':
+              case 'sdlj' || 'gdtj':
                 return temperatureSDLJ
               case 'whfk':
                 return temperatureWHFK
@@ -924,7 +924,7 @@ const router = new Router({
           // component: catheter,
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
-              case 'liaocheng' || 'whyx' || 'sdlj' || 'foshanrenyi' || 'lyxrm':
+              case 'liaocheng' || 'whyx' || 'sdlj' || 'foshanrenyi' || 'lyxrm' || 'gdtj':
                 return allCatheter
               default:
                 return catheter
@@ -1053,7 +1053,7 @@ const router = new Router({
             case 'lyxrm':
               return implementationListLyxrm
             case 'wujing':
-            case 'sdlj':
+            case 'sdlj' || 'gdtj':
               return implementationListWujing
             case 'whfk':
               return implementationListWhfk
@@ -1285,7 +1285,7 @@ const router = new Router({
               return allTemperatureChartNFZXY
             case 'lyxrm':
               return allTemperatureChartLYXRM
-            case 'sdlj':
+            case 'sdlj' || 'gdtj':
               return allTemperatureChartSDLJ
             case 'whyx':
               return allTemperatureChartWHYX
@@ -1323,7 +1323,7 @@ const router = new Router({
               return newSingleTemperatureChartWHFK
             case 'lyxrm':
               return newSingleTemperatureChartLYXRM
-            case 'sdlj':
+            case 'sdlj' || 'gdtj':
               return newSingleTemperatureChartSDLJ
               case 'whyx':
                 return newSingleTemperatureChartWHYX
