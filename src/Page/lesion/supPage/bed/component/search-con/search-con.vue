@@ -679,7 +679,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi"
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj"
         ].includes(
         this.HOSPITAL_ID
       );
