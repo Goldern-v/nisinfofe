@@ -27,12 +27,12 @@
           <div :title="(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.name) : ''">{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.name) : ''}}</div>
         </template>
       </u-table-column>
-      <u-table-column label="性别" prop="sex" min-width="70px" align="center" v-if="HOSPITAL_ID == 'sdlj'">
+      <u-table-column label="性别" prop="sex" min-width="70px" align="center" v-if="['sdlj', 'gdtj'].includes(HOSPITAL_ID)">
         <template slot-scope="scope">
           <div :title="scope.row.sex">{{(scope.row.rowType == 1 || !scope.row.rowType) ? scope.row.sex:''}}</div>
         </template>
       </u-table-column>
-      <u-table-column label="年龄" prop="age" min-width="70px" align="center" v-if="HOSPITAL_ID == 'sdlj'">
+      <u-table-column label="年龄" prop="age" min-width="70px" align="center" v-if="['sdlj', 'gdtj'].includes(HOSPITAL_ID)">
         <template slot-scope="scope">
           <div :title="scope.row.age">{{(scope.row.rowType == 1 || !scope.row.rowType) ? scope.row.age:''}}</div>
         </template>

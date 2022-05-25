@@ -37,6 +37,7 @@
           <el-radio-button label="所有患者"></el-radio-button>
           <el-radio-button label="危重患者"></el-radio-button>
           <!-- <el-radio-button label="三天超37.5"></el-radio-button> -->
+          <el-radio-button label="当天入院"></el-radio-button>
           <el-radio-button label="入院四天"></el-radio-button>
         </el-radio-group>
       </div>
@@ -323,14 +324,14 @@
               />
             </template>
           </el-table-column> -->
-           <el-table-column
+          <el-table-column
             prop="painScore"
             label="疼痛强度"
             min-width="60"
             align="center"
-           >
+          >
             <template slot-scope="scope">
-             <input
+              <input
                 v-model="scope.row.painScore"
                 :class="className"
                 class="painScore"
@@ -856,21 +857,28 @@ export default {
     tableData: {
       get() {
         return this.patientsInfoData.filter((item) => {
-              return this.admitted === "所有患者"
-                ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                    item.name.indexOf(this.searchWord) > -1) &&
-                    item.patientId
-                : this.admitted === "危重患者"
-                ? ((item.bedLabel.indexOf(this.searchWord) > -1 ||
-                    item.name.indexOf(this.searchWord) > -1) &&
-                    item.patientId &&
-                    item.patientCondition === "病危"||
-                  item.patientCondition === "病重")
-                : (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                    item.name.indexOf(this.searchWord) > -1) &&
-                  item.patientId &&
-                 moment(item.admissionDate.slice(0, 10)).isAfter(moment().subtract(4, "days").format("YYYY-MM-DD"))
-            })
+          return this.admitted === "所有患者"
+            ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+                item.patientId
+            : this.admitted === "危重患者"
+            ? ((item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+                item.patientId &&
+                item.patientCondition === "病危") ||
+              item.patientCondition === "病重"
+            : this.admitted === "当天入院"
+            ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId &&
+              item.admissionDate.slice(0, 10) == moment().format("YYYY-MM-DD")
+            : (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId &&
+              moment(item.admissionDate.slice(0, 10)).isAfter(
+                moment().subtract(4, "days").format("YYYY-MM-DD")
+              );
+        });
       },
       set(value) {
         // this.tableData = value;
@@ -899,10 +907,9 @@ export default {
         ? moment(data.entryDate).format("YYYY/MM/DD ")
         : moment(new Date()).format("YYYY/MM/DD");
       this.pageLoadng = true;
-     await getPatientsInfo(data).then((res) => {
+      await getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
         this.pageLoadng = false;
-
       });
       //  data.abnormalTemperature = 1;
       // getPatientsInfo(data).then((res) => {
@@ -925,7 +932,7 @@ export default {
         arterialPressure: "", //有创动脉收缩压
         heigh: "",
         patientId: "",
-        painScore:"",
+        painScore: "",
         visitId: "",
         audit: "",
         auditorName: "",
@@ -954,7 +961,7 @@ export default {
         recordMonth: "",
         recordYear: "",
         sign: "",
-        bloodOxygen:"",
+        bloodOxygen: "",
         signerName: "",
         signerNo: "",
         status: "0",

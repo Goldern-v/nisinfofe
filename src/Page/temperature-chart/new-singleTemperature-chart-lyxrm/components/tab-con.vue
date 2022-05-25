@@ -719,10 +719,10 @@ export default {
             },
           };
           return y;
-        case "疼痛强度":
+        case "疼痛":
         case "疼痛干预":
           let g = {
-            疼痛评分: {
+            疼痛: {
               value: val,
               reg: [0, 10],
             },

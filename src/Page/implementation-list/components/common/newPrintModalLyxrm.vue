@@ -1,12 +1,13 @@
 <template>
+<!-- 6.7 -->
   <div
     :style="{
-      width: `${newModalSize.split('*')[1] == '8' ? '8' : '10'}cm`,
-      height: `${newModalSize == '7*8' ? '6.9' : '6.7'}cm`
+      width: `${newModalSize.split('*')[1] == '80' ? '8' : '14'}cm`,
+      height: `${newModalSize == '70*80' ? '6.9' : '6'}cm`
     }"
   >
     <div
-      v-if="newModalSize == '7*8'"
+      v-if="newModalSize == '70*80'"
       class="new-print-modal new-print-modal--large"
       style="width:8cm;height:6.9cm"
     >
@@ -34,6 +35,9 @@
           >
             {{ item }}
           </div>
+          <div v-if="isBiguang || isSevere" class="content__left_warm">
+            <img :src="WarmUrl">
+          </div>
         </div>
         <div class="new-print-modal__content__right">
           <div>
@@ -48,19 +52,29 @@
           <span class="text--large">{{ currentBottle.executeType }}</span>
         </div>
       </div>
+      <div class="new-print-modal_bott">
+        <div class="modal_bott_top">
+          <span>配液者</span><span></span>
+          <span>配置时间</span><span></span>
+        </div>
+        <div class="modal_bott_bottom">
+          <span>核对者</span><span></span>
+        </div>
+          
+      </div>
     </div>
 
     <div
       v-else
       class="new-print-modal"
-      style="height:6cm;width:10cm;display:flex"
+      style="height:6cm;width:14cm;display:flex"
     >
       <div class="new-modal-small-left">
         <div class="new-modal-small-left-first">
           <div style="text-indent:5px">{{ currentBottle.bedLabel }}</div>
           <div>{{ currentBottle.name }}</div>
           <div>{{ currentBottle.patientId }}</div>
-        </div>
+        </div>1
         <div class="new-modal-small-left-second">
           <div style="text-indent:5px">
             {{ currentBottle.executeDate | executeDateFilter }}
@@ -85,7 +99,7 @@
           <img :src="currentBottle.qcSrc || ''" />
         </div>
         <div class="new-modal-small-right-bottom">
-          <div>{{ currentBottle.frequency }}</div>
+          <div style="text-align:center;">{{ currentBottle.frequency }}</div>
         </div>
       </div>
     </div>
@@ -118,6 +132,10 @@
     @extend .bb;
     span:first-child {
       font-size: 18px;
+      text-align: center;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
   .new-print-modal__text {
@@ -138,6 +156,9 @@
     span:nth-child(2n - 1) {
       text-align: left;
     }
+    span:nth-of-type(3) {
+      min-width:70px;
+    }
     > div {
       font-size: 25px;
       font-weight: 900;
@@ -155,12 +176,26 @@
   .new-print-modal__content {
     flex: 1;
     display: flex;
+    min-height: 220px;
+
+    .content__left_warm{
+        text-align: center;
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+          img{
+              width: 40px;
+              height: 40px;
+        }
+      }
     .new-print-modal__content__left {
       position: relative;
       flex: 1;
       font-weight: 700;
       line-height: 13px;
 			padding-left: 15px;
+     padding-bottom: 50px;
       .left-item--normal {
 				line-height: 16px;
         font-size: 15px;
@@ -174,6 +209,7 @@
         border-radius: 50%;
         border: 2px solid #000;
       }
+     
     }
     .new-print-modal__content__right {
 			display: flex;
@@ -209,7 +245,44 @@
       }
     }
   }
-
+  .new-print-modal_bott{
+    border-top:1px solid #000;
+    padding:15px;
+    font-size: 15px;
+     
+    .modal_bott_top{
+      display: flex;
+      margin-bottom: 10px;
+      span:nth-of-type(2n+1){
+        margin-right: 10px;
+      }
+      span:nth-of-type(2){
+        margin-right: 10px;
+      }
+      span:nth-of-type(2n){
+        position: relative;
+        top: 15px;
+        width: 50px;
+        border-top:1px solid #000;
+      }
+      span:nth-of-type(4){
+        width: 80px;
+      }
+    }
+    .modal_bott_bottom{
+      display: flex;
+      span:nth-of-type(1){
+        margin-right: 10px;
+      }
+      span:nth-of-type(2){
+        position: relative;
+        top: 15px;
+        width: 50px;
+        border-top:1px solid #000;
+      }
+    }
+     
+  }
   .new-modal-small-left {
     >>> * {
       font-size: 16px;
@@ -260,7 +333,8 @@ var qr = require("qr-image");
 const DRUG_TYPES = {
   1: "普通",
   2: "高危",
-  3: "自备"
+  3: "自备",
+  4: "避光"
 };
 export default {
   props: {
@@ -270,14 +344,14 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+  },
   watch: {},
   computed: {
     currentBottle() {
       let cloneObj = cloneDeep(this.itemObj[0]);
       let orderText = [];
       let dosageDosageUnits = [];
-
       this.itemObj.map(item => {
         orderText.push(item.orderText + (DRUG_TYPES[item.drugType] || ""));
         let content = `${item.dosage || ""}${item.dosageUnits || ""}`;
@@ -325,6 +399,23 @@ export default {
     // 是否重症
     isSevere() {
       return this.itemObj[0] && this.itemObj[0].drugType == 2
+    },
+    // 是否避光
+    isBiguang() {
+      return this.itemObj[0] && this.itemObj[0].drugType == 4
+    },
+    // 返回避光或者重症图片路径
+    WarmUrl() {
+      let url = ""
+      switch(this.itemObj[0].drugType){
+        case "2":
+          url = require("../../../../common/images/card/gaowei.png");
+          break;
+        case "4":
+          url = require("../../../../common/images/card/biguang.png");
+          break;
+      }
+      return url
     },
   },
   filters: {

@@ -44,8 +44,11 @@
               {{ `${currentBottle.frequency}${groupNo ? `(${groupNo})`: ''}` }}
             </span>
           </p>
-          <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
+          <div>
+            <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
+          </div>
           <span class="text--large">{{ currentBottle.executeType }}</span>
+          <span v-if="currentBottle.administration">{{ currentBottle.administration }}</span>
         </div>
       </div>
     </div>
@@ -96,6 +99,7 @@
   page-break-after: always;
   >>> * {
     font-size: 12px;
+    color: #000;
   }
   .p-lr-5 {
     padding: 0 5px;
@@ -116,8 +120,11 @@
     height: 24px;
     @extend .p-lr-5;
     @extend .bb;
+    padding-right: 10px;
     span:first-child {
-      font-size: 18px;
+      font-size: 16px;
+      font-weight: 900;
+      white-space: nowrap;
     }
   }
   .new-print-modal__text {
@@ -137,6 +144,11 @@
     }
     span:nth-child(2n - 1) {
       text-align: left;
+    }
+     span:nth-of-type(3) {
+      min-width:72px;
+      font-size: 13px;
+      font-weight: 900;
     }
     > div {
       font-size: 25px;
@@ -158,12 +170,14 @@
     .new-print-modal__content__left {
       position: relative;
       flex: 1;
-      font-weight: 700;
+      font-weight: 900;
       line-height: 13px;
 			padding-left: 15px;
+      padding-top: 10px;
       .left-item--normal {
 				line-height: 16px;
         font-size: 15px;
+        font-weight: 900;
       }
       .content__left__severe {
         position: absolute;
@@ -183,11 +197,24 @@
 			@extend .p-lr-5;
 			padding-bottom: 2px;
       line-height: 16px;
+      font-weight: 900;
       div {
-				padding-top: 1px;
-        width: 100%;
-        /* flex: 1; */
-				margin-bottom: 8px;
+        &:first-of-type{
+          padding-top: 1px;
+          width: 100%;
+          /* flex: 1; */
+          margin-bottom: 8px;
+        }
+        &:last-of-type{
+          position: relative;
+          min-height: 32px;
+          margin-right: 10px;
+          span{
+            position: absolute;
+            left: -15px;
+            top: 0;
+          }
+        }
       }
       img {
         width: 100%;
@@ -206,6 +233,9 @@
           top: 0;
           right: 0;
         }
+      }
+      >span{
+        margin-right: 10px;
       }
     }
   }

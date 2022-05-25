@@ -32,6 +32,7 @@
     "dev:whfk": "npm run dev --whfk",
     "dev:sdlj": "npm run dev --sdlj",
     "dev:lyxrm": "npm run dev --lyxrm",
+    "dev:gdtj": "npm run dev --gdtj",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "build:": "npm run build",
@@ -63,6 +64,7 @@
     "buildNew:whfk": "npm run buildNew: whfk",
     "buildNew:sdlj": "npm run buildNew: sdlj",
     "buildNew:lyxrm": "npm run buildNew: lyxrm",
+    "buildNew:gdtj": "npm run buildNew: gdtj",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"

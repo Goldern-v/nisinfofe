@@ -34,7 +34,7 @@ export function getExecuteWithWardcode(obj) {
       `${apiPath}${hospitalExecute}/getWardExeacute`,
       obj
     );
-  }else if(["fsxt","wujing","foshanrenyi","hengli","sdlj",'lyxrm'].includes(HOSPITAL_ID)){
+  }else if(["fsxt","wujing","foshanrenyi","hengli","sdlj",'lyxrm', 'gdtj'].includes(HOSPITAL_ID)){
     // 新版执行单（武警）
     return axios.post(
       `${apiPath}procedure/webExecute/webGetWardExecute`,

@@ -471,6 +471,10 @@
       <strong>护理安全</strong>：A留陪人； B防跌倒；C防坠床；D防药物外渗；<br/>E防失禁性皮炎；F防拔管；G防误吸；H防窒息；I防烫伤；J防走失；K其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.aqQt" :data-value="sheetInfo.relObj.aqQt"/>。
       <strong>启用相关护理表格</strong>：A住院患者跌倒/坠床危险因素评估护理单；B基本生活活动能力量表；C吞咽功能障碍评定记录单；D糖尿病足护理单；<br/>E压疮风险护理单；F压疮伤口护理单；H危重症患者转运护理单；I 输血安全护理单；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.bgQt" :data-value="sheetInfo.relObj.bgQt"/>。
     </div>
+    <!-- 佛山杏坛 护理记录单（全院通用） -->
+    <!-- <div v-if="sheetInfo.sheetType == 'generalnursing_xt'">
+      注：<strong>意识</strong>：①清醒；②嗜睡；③模糊；④昏睡；⑤浅昏迷；⑥中昏迷；⑦深昏迷；⑧谵妄；⑨药眠。&nbsp;<strong>瞳孔反射</strong>：灵敏√；迟钝＋；消失－。
+    </div> -->
     <!-- 武汉肺科 非手术科室护理记录单,-->
     <div v-if="sheetInfo.sheetType == 'nonsurgicalcare_fk'">
         说明：1、观察内容无异常时，用“N”来表示，异常时如实描述。2、常用护理措施代码：⑴口腔护理 ⑵会阴护理 ⑶清洁面部 ⑷温水擦浴 ⑸气管切开护理 ⑹吸痰 ⑺预防压疮护理 ⑻雾化吸入 ⑼更换引流装置

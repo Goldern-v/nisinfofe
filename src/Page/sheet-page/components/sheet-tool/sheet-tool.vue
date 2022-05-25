@@ -600,7 +600,7 @@ export default {
     toPrint() {
       // 正式环境打印会打开窗口,个别医院双签名打印设置为不打开新窗口（打开窗口样式有bug）
       // 不打开窗口，打印完返回会有Bug（下拉不显示和表头不能修改）,只能重新加载页面
-      if(this.HOSPITAL_ID=='liaocheng' || this.HOSPITAL_ID=='huadu'){
+      if(['liaocheng','huadu','foshanrenyi'].includes(this.HOSPITAL_ID)){
          this.$store.commit('upPreRouter',location.href)
       }
       if (!this.sheetInfo.selectBlock.id)

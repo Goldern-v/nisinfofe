@@ -85,6 +85,13 @@
       <span v-if="showSyncBedBtn && node_env=='development'">(测试环境别点，<br/>会清空患者！！！)</span>
       <button
         class="login-btn"
+        @click="syncGetNursePatientRecData"
+        v-if="showSyncPatientBtn"
+      >
+        同步患者数据
+      </button>
+      <button
+        class="login-btn"
         :class="{ noactive: showProgress }"
         @click="syncGetMedicalAdvice"
         v-if="HOSPITAL_ID == 'weixian'"
@@ -300,6 +307,7 @@ import {
   syncGetNurseBedRecBeiHaiExecute,
   syncGetNurseBedRecSDLJExecute,
   syncGetNurseBedRecDGXGExecute,
+  syncGetNursePatientWHFKRecData
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
 import { listItem } from "@/api/common.js";
@@ -314,6 +322,8 @@ export default {
       startTimer: "",
       endTimer: "",
       showProgress: false,
+      ifCanTobu:true,
+      ifCanAsyncPatient:true
       // hasGroupHos:['fuyou'] // 需要根据白板进行分组显示的医院
     };
   },
@@ -666,6 +676,14 @@ export default {
         this.HOSPITAL_ID
       );
     },
+    // 同步患者数据
+    showSyncPatientBtn() {
+      return [
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj"
+        ].includes(
+        this.HOSPITAL_ID
+      );
+    },
     // 多重耐药患者
     isMultiDrugResistant(){
       return this.bedList.filter((item) => item.isMultiDrugResistant);
@@ -728,6 +746,8 @@ export default {
       return this.bedList.filter((item) => item.nursingClass == level);
     },
     syncGetNurseBedRecData() {
+      if(!this.ifCanTobu) return 
+      this.ifCanTobu=false
       this.$message.info("正在更新");
       let syncData = syncGetNurseBedRec;
       switch (this.HOSPITAL_ID) {
@@ -768,7 +788,27 @@ export default {
       syncData(this.deptCode).then((res) => {
         this.$message.success("更新成功");
         this.getDate();
-      });
+        this.ifCanTobu = true;
+      },()=>{this.ifCanTobu = true;});
+    },
+    syncGetNursePatientRecData(){
+      if(!this.ifCanAsyncPatient)  return 
+      this.ifCanAsyncPatient=false
+      this.$message.info("正在更新");
+       let syncPatientData = syncGetNursePatientWHFKRecData;
+      switch (this.HOSPITAL_ID) {
+        case "whfk":
+          syncPatientData = syncGetNursePatientWHFKRecData;
+          break;
+        default:
+          syncPatientData = syncGetNursePatientWHFKRecData;
+          break;
+      }
+      syncPatientData(this.deptCode).then((res) => {
+        this.$message.success("更新成功");
+        this.getDate();
+        this.ifCanAsyncPatient = true;
+      },()=>{this.ifCanAsyncPatient = true;});
     },
     syncGetMedicalAdvice() {
       if (this.showProgress || !this.deptCode) {
