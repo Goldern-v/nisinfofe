@@ -44,7 +44,9 @@
               {{ `${currentBottle.frequency}${groupNo ? `(${groupNo})`: ''}` }}
             </span>
           </p>
-          <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
+          <div>
+            <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
+          </div>
           <span class="text--large">{{ currentBottle.executeType }}</span>
           <span v-if="currentBottle.administration">{{ currentBottle.administration }}</span>
         </div>
@@ -197,10 +199,22 @@
       line-height: 16px;
       font-weight: 900;
       div {
-				padding-top: 1px;
-        width: 100%;
-        /* flex: 1; */
-				margin-bottom: 8px;
+        &:first-of-type{
+          padding-top: 1px;
+          width: 100%;
+          /* flex: 1; */
+          margin-bottom: 8px;
+        }
+        &:last-of-type{
+          position: relative;
+          min-height: 32px;
+          margin-right: 10px;
+          span{
+            position: absolute;
+            left: -15px;
+            top: 0;
+          }
+        }
       }
       img {
         width: 100%;
