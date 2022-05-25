@@ -118,8 +118,10 @@
     height: 24px;
     @extend .p-lr-5;
     @extend .bb;
+    padding-right: 10px;
     span:first-child {
       font-size: 16px;
+      font-weight: 900;
       white-space: nowrap;
     }
   }
@@ -140,6 +142,11 @@
     }
     span:nth-child(2n - 1) {
       text-align: left;
+    }
+     span:nth-of-type(3) {
+      min-width:72px;
+      font-size: 13px;
+      font-weight: 900;
     }
     > div {
       font-size: 25px;
@@ -164,9 +171,11 @@
       font-weight: 900;
       line-height: 13px;
 			padding-left: 15px;
+      padding-top: 10px;
       .left-item--normal {
 				line-height: 16px;
         font-size: 15px;
+        font-weight: 900;
       }
       .content__left__severe {
         position: absolute;
@@ -186,6 +195,7 @@
 			@extend .p-lr-5;
 			padding-bottom: 2px;
       line-height: 16px;
+      font-weight: 900;
       div {
 				padding-top: 1px;
         width: 100%;
@@ -209,6 +219,9 @@
           top: 0;
           right: 0;
         }
+      }
+      >span{
+        margin-right: 10px;
       }
     }
   }
