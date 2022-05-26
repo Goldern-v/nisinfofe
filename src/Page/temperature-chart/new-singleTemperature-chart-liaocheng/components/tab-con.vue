@@ -229,6 +229,7 @@
             <span class="preText">表顶注释</span>
             <el-select
               size="mini"
+              clearable
               @click.native="modifiValue"
               v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
             >
@@ -259,6 +260,7 @@
             <span class="preText">表底注释</span>
             <el-select
               size="mini"
+              clearable
               v-model="vitalSignObj[multiDictList['表底注释']].expand1"
             >
               <!-- <el-option

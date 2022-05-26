@@ -361,6 +361,7 @@
                       "
                       slot="prepend"
                       placeholder="请选择"
+                      clearable
                       style="width: 100%; height: 25px"
                     >
                       <el-option

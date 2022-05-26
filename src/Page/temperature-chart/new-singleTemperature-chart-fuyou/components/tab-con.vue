@@ -307,6 +307,7 @@
                 <div class="rowBox" v-if="multiDictList['表顶注释']">
                   <span class="preText">表顶注释</span>
                   <el-select
+                  clearable
                     :disabled="isDisable()"
                     size="mini"
                     v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
@@ -344,6 +345,7 @@
                 >
                   <span class="preText">表底注释</span>
                   <el-select
+                  clearable
                     size="mini"
                     :disabled="isDisable()"
                     v-model="vitalSignObj[multiDictList['表底注释']].expand1"
@@ -625,7 +627,6 @@ export default {
       }
     },
     handleChange(val) {
-      // console.log(val);
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";

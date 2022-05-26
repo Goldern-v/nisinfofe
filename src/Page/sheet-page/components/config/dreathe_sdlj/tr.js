@@ -1,5 +1,5 @@
 
-/** 
+/**
   顺德龙江 - 呼吸专科护理记录单
 */
 
@@ -51,7 +51,7 @@ export default [
   { key: 'sputumProperties', event: keyf1, value: '', next: '', name: '痰液性质', splice: '/', autoComplete: { data: ['WL','YWT','YT','B'] }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'sputumVolume', event: keyf1, value: '', next: '', name: '痰量', splice: '/', autoComplete: { data: ['+','++','+++'] }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'stethalgia', event: keyf1, value: '', next: '', name: '胸痛', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'oxygen', event: keyf1, value: '', next: '', name: '吸氧', textarea: { width: 25 },  autoComplete: { data: ['A','B','C','D'] }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'expectoration', event: keyf1, value: '', next: '', name: '排痰/吸痰', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'semireclining', event: keyf1, value: '', next: '', name: '翻身拍背半坐卧位', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'fowler', event: keyf1, value: '', next: '', name: '翻身拍背平卧位', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
@@ -88,5 +88,5 @@ export default [
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''}
-  
+
 ]

@@ -335,6 +335,7 @@
                   <el-select
                     :disabled="isDisable()"
                     size="mini"
+                    clearable
                     v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
                   >
                     <el-option
@@ -355,6 +356,7 @@
                   <el-select
                     :disabled="isDisable()"
                     size="mini"
+                    clearable
                     v-model="vitalSignObj[multiDictList['中间注释']].expand1"
                   >
                     <el-option
@@ -389,6 +391,7 @@
                   <span class="preText">表底注释</span>
                   <el-select
                     size="mini"
+                    clearable
                     :disabled="isDisable()"
                     v-model="vitalSignObj[multiDictList['表底注释']].expand1"
                   >
