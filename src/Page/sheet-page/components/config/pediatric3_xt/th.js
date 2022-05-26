@@ -31,7 +31,7 @@ export default {
                 {"name":"吸吮力","colspan":"3","rowspan":"1"},
                 {"name":"喂养","colspan":"5","rowspan":"1"},
                 {"name":"脐部情况","colspan":"3","rowspan":"1"},
-                {"name":"经皮<br/>胆红<br/>素测<br/>定（颈）<br/> md/dl","colspan":"1","rowspan":"3"},
+                {"name":"经皮<br/>胆红<br/>素测<br/>定（额）<br/> md/dl","colspan":"1","rowspan":"3"},
                 {"name":"经皮<br/>胆红<br/>素测<br/>定（胸）<br/> md/dl","colspan":"1","rowspan":"3"},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem3"},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem4"},

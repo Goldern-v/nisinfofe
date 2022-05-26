@@ -122,7 +122,7 @@
 
       <u-table-column prop="executeNurseName" title="executeNurseName" label="执行护士" min-width="80px" align="center">
       <template slot-scope="scope">
-          <span :title="scope.row.executeEndNurseName">{{scope.row.executeEndNurseName}}</span>
+          <span :title="scope.row.executeNurseName">{{scope.row.executeNurseName}}</span>
         </template>
       </u-table-column>
 

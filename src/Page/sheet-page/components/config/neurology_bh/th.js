@@ -39,7 +39,7 @@ export default {
             { "name": "出量", "colspan": "4", "rowspan": "1"}, 
             { "name": "管道<br/>护理", "colspan": "1", "rowspan": "3"},
             { "name": "皮肤<br/>情况", "colspan": "1", "rowspan": "3"},
-            { "name": "", "colspan": "1", "rowspan": "3","canSet":true,"key":"armValue"},
+            // { "name": "", "colspan": "1", "rowspan": "3","canSet":true,"key":"armValue"},
             // { "name": "", "colspan": "1", "rowspan": "3","canSet":true,"key":"armValue2"},//去掉自定义，给入量名称添加位置
             { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3"}

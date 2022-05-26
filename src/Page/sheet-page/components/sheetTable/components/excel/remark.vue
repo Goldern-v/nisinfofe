@@ -472,9 +472,9 @@
       <strong>启用相关护理表格</strong>：A住院患者跌倒/坠床危险因素评估护理单；B基本生活活动能力量表；C吞咽功能障碍评定记录单；D糖尿病足护理单；<br/>E压疮风险护理单；F压疮伤口护理单；H危重症患者转运护理单；I 输血安全护理单；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.bgQt" :data-value="sheetInfo.relObj.bgQt"/>。
     </div>
     <!-- 佛山杏坛 护理记录单（全院通用） -->
-    <div v-if="sheetInfo.sheetType == 'generalnursing_xt'">
+    <!-- <div v-if="sheetInfo.sheetType == 'generalnursing_xt'">
       注：<strong>意识</strong>：①清醒；②嗜睡；③模糊；④昏睡；⑤浅昏迷；⑥中昏迷；⑦深昏迷；⑧谵妄；⑨药眠。&nbsp;<strong>瞳孔反射</strong>：灵敏√；迟钝＋；消失－。
-    </div>
+    </div> -->
     <!-- 武汉肺科 非手术科室护理记录单,-->
     <div v-if="sheetInfo.sheetType == 'nonsurgicalcare_fk'">
         说明：1、观察内容无异常时，用“N”来表示，异常时如实描述。2、常用护理措施代码：⑴口腔护理 ⑵会阴护理 ⑶清洁面部 ⑷温水擦浴 ⑸气管切开护理 ⑹吸痰 ⑺预防压疮护理 ⑻雾化吸入 ⑼更换引流装置
@@ -529,7 +529,7 @@
       3、痰液的性质用符号表示:白色稀痰WL/黄白稠痰YWT/黄色稠痰YT/血性痰B。&nbsp; &nbsp;4、痰量：小量+/中量++/大量+++。<br/>
       5、有胸痛者，在特殊记录栏内用文字说明胸痛的部位、性质、程度、持续时间并记录加重、缓解的因素，如“呼吸、咳嗽时加剧”等。<br/>
       6、健康教育：用相应的字母表示。A：检查宣教 B：用药指导 C：饮食指导 D：用氧安全 E：疾病知识 F：康复指导 G：腹式呼吸 H：缩唇呼吸 I：其他。  <br/>
-      7、神志：A清 B昏睡 C浅昏迷 D深昏迷 E谵妄   &nbsp; &nbsp;    8、吸氧：A低 B中 C高 D面罩  &nbsp; &nbsp;  9、瞳孔  &nbsp; &nbsp;    对光反射：A存在 B迟钝 C无 &nbsp; &nbsp;  直径：A  &lt;2mm  B  2-5mm  C  &gt;5mm
+      7、神志：A清 B昏睡 C浅昏迷 D深昏迷 E谵妄   &nbsp; &nbsp;    8、瞳孔  &nbsp; &nbsp;    对光反射：A存在 B迟钝 C无 &nbsp; &nbsp;  直径：A  &lt;2mm  B  2-5mm  C  &gt;5mm
 
     </div>
     <!-- 顺德龙江 - 护理记录单（骨科）-->

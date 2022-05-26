@@ -39,7 +39,7 @@ import {
     { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏',textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率',textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'nibp', event: keyf1, value: '', name: 'NIBP', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+    { key: 'nibp', event: keyf1, value: '', name: 'NIBP', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'ibp', event: keyf1, value: '', name: 'IBP', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'oxygenSaturation', event: keyf1, value: '', next: '%', name: '血氧饱和度', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'oxygen', event: keyf1, value: '',next: 'L/min',name: '吸氧', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12),autoComplete: { data: ['无','鼻导管吸氧','小容量面罩','储氧面罩','面罩接湿化吸氧','气管切开接湿化吸氧','气管插管接湿化吸氧','气管插管接呼吸机辅助','气管切开接呼吸机辅助','文丘里','面罩接T管','无创通气'] },splice:true },
@@ -61,7 +61,7 @@ import {
     { key: 'outputCharacter', event: keyf1, value: '', next: '', name: '出量性状', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4),autoComplete: { data: ['粘稠','稀薄','清','浑浊','絮状物'] }},
     { key: 'pipeline', event: keyf1, value: '', name: '管道情况', textarea: { width: 140 }, change: (e, td) => limitChange(e, td, 25),autoComplete: { data: ['无','口咽通气管','鼻咽通气管','导尿管','胃管','浅静脉留置针','气切','气管插管','气切套管','PICC','输液港','CVC','胸腔引流管','脑室引流管','硬膜下引流管','硬膜外引流管'] },splice:true},
     { key: 'skin', event: keyf1, value: '', name: '皮肤情况', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) ,autoComplete: { data: ['完整','苍白','黄疸','潮红','紫绀','干燥','出血点','压力性损伤','破损','水肿','皮疹','疤痕','淤青'] },splice:true},
-    { key: 'armValue', event: keyf1, value: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+    // { key: 'armValue', event: keyf1, value: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
     // { key: 'armValue2', event: keyf1, value: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },//去掉自定义，给入量名称添加位置
     {
       key: "description", //特殊情况记录

@@ -73,14 +73,17 @@
               <input
                 type="text"
                 :style="{
-                  width: '75px',
-                  'font-size': query.bedLabel.length > 3 ? '24px' : '30px',
+                  width: '250px',
+                  'font-size': query.bedLabel.length > 3 ? '32px' : '32px',
                   'padding-left': '5px',
                   'line-height': ' 34px'
                 }"
                 class="bottom-line"
-                :value="query.bedLabel + '床'"
+                :value="'床号：' + query.bedLabel + '床'"
               />
+              </div>
+              <div flex="cross:center" class="input-item">
+                 <span class="label">入院时间：</span>
               <input
                 type="text"
                 flex-box="1"
@@ -89,7 +92,8 @@
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
               />
-            </div>
+              </div>
+            
             <!-- <div flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
               <div nowidth class="check-con" flex-box="1" flex="main:justify cross:center">
@@ -113,7 +117,7 @@
                 </label>
               </div>
             </div>-->
-            <div flex="cross:center" class="input-item">
+            <!-- <div flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
               <div
                 nowidth
@@ -138,8 +142,8 @@
                   @blur="onBlurToAutoComplete"
                 />
               </div>
-            </div>
-            <div flex="cross:center" class="input-item">
+            </div> -->
+              <!-- <div flex="cross:center" class="input-item">
               <span class="label">病情等级:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
@@ -173,8 +177,8 @@
                   "
                 />
               </div>
-            </div>
-            <div flex="cross:center" class="input-item">
+            </div> -->
+            <!-- <div flex="cross:center" class="input-item">
               <span class="label">护理级别:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
@@ -217,8 +221,8 @@
                       : require('./images/三.png')
                   "
                 />
-              </div>
-            </div>
+              </div> 
+            </div> -->
             <div flex="cross:center" class="input-item">
               <span class="label">主管医生:</span>
               <!-- <el-autocomplete v-model="formData.mainDoctors"
