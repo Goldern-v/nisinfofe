@@ -348,6 +348,7 @@
                     :disabled="isDisable()"
                     size="mini"
                     v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
+                    clearable
                   >
                     <el-option
                       v-for="(item, topIndex) in getFilterSelections(
@@ -380,6 +381,7 @@
                     :disabled="isDisable()"
                     size="mini"
                     v-model="vitalSignObj[multiDictList['中间注释']].expand1"
+                    clearable
                   >
                     <el-option
                       v-for="(item, bottomIndex) in getFilterSelections(
@@ -403,6 +405,7 @@
                     size="mini"
                     :disabled="isDisable()"
                     v-model="vitalSignObj[multiDictList['表底注释']].expand1"
+                    clearable
                   >
                     <el-option
                       v-for="(item, bottomIndex) in getFilterSelections(
