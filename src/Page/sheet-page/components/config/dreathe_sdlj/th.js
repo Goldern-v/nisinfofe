@@ -5,9 +5,9 @@
 
 /**
  * @description: 开发注意事项:
-    1、自定义表头 canSet: true, key: "armValue4"            
+    1、自定义表头 canSet: true, key: "armValue4"
     2、表格头部年份显示 {"name":'',"style":{},"colspan":"2","rowspan":"1","key":'recordYear'},
-    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, },
 */
 
 export default {
@@ -17,7 +17,7 @@ export default {
       width: "1405px"
     },
     th: {
-        top: 
+        top:
             [
                 {"name":"日期","colspan":"1","rowspan":"3"},
                 {"name":"时间","colspan":"1","rowspan":"3"},
@@ -30,7 +30,7 @@ export default {
                 {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
             ]
         ,
-        mid: 
+        mid:
             [
                 {"name":"T<br/>℃","colspan":"1","rowspan":"2"},
                 {"name":"P/HR<br/>次/<br/>min","colspan":"1","rowspan":"2"},
@@ -45,7 +45,7 @@ export default {
                 {"name":"痰<br/>液<br/>性<br/>质","colspan":"1","rowspan":"2"},
                 {"name":"痰<br/>液<br/>量","colspan":"1","rowspan":"2"},
                 {"name":"胸<br/>痛","colspan":"1","rowspan":"2"},
-                {"name":"吸<br/>氧","colspan":"1","rowspan":"2"},
+                {"name":"吸<br/>氧<br/>L/<br/>min","colspan":"1","rowspan":"2"},
                 {"name":"排痰<br/>/吸痰","colspan":"1","rowspan":"2"},
                 {"name":"体位<br/>管理","colspan":"2","rowspan":"1"},
                 {"name":"口<br/>腔<br/>护<br/>理","colspan":"1","rowspan":"2"},
@@ -58,7 +58,7 @@ export default {
                 {"name":"","colspan":"1","rowspan":"2","canSet":true,"key":"armValue3","style":{"minWidth":"35px","maxWidth":"35px"}}
             ]
         ,
-        bottom: 
+        bottom:
             [
                 {"name":"对光<br/>反射","colspan":"1","rowspan":"1"},
                 {"name":"直径<br/>mm","colspan":"1","rowspan":"1"},
@@ -71,4 +71,4 @@ export default {
             ]
         ,
     }
-}  
+}
