@@ -924,7 +924,8 @@ export default {
           process.env.HOSPITAL_ID == "quzhou" || 
           process.env.HOSPITAL_ID == "huadu"||
           process.env.HOSPITAL_ID == "xiegang"||
-          process.env.HOSPITAL_ID == "liaocheng") {
+          process.env.HOSPITAL_ID == "liaocheng" ||
+          process.env.HOSPITAL_ID == "foshanrenyi") {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
