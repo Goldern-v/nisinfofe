@@ -544,7 +544,6 @@ export default {
          if(this.query.entryTime&&this.query.entryDate){
         this.getList();
         this.bus.$emit("dateChangePage", this.query.entryDate);
-
          }
       },
       deep: true,
@@ -552,7 +551,6 @@ export default {
   },
   methods: {
     handleChange(val) {
-      // console.log(val);
     },
         setValid(trage, val) {
       switch (trage) {
@@ -629,7 +627,7 @@ export default {
          this.getList();
          setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 2000);
+      }, 1000);
       });
 
       if(type==='0'){
@@ -940,7 +938,7 @@ export default {
             this.bus.$emit("refreshImg");
             setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 2000);
+      }, 1000);
           });
         });
       }
@@ -1037,7 +1035,7 @@ export default {
       this.bus.$emit("refreshImg");
       setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 2000);
+      }, 1000);
       }
 
     },
