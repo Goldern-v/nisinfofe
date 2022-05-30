@@ -152,19 +152,12 @@ export default {
               arr.push(key);
             }
           }
+          let aa= 
           this.data = [...arr];
         }
       }else {
-        let data =[...config.data]
-        let arr=["大便","小便","呕吐物","痰","胃液"];
-        for(let i=0;i<data.length;i++){
-          if(arr.includes(data[i])){
-            data.splice(i, 1);
-            break;
-          }
-        }
-        this.data = arr.concat(data) || [];
-      }
+      this.data = config.data || [];
+     }
 
       if (this.data && this.data.length >= 1) {
         this.show = true;
