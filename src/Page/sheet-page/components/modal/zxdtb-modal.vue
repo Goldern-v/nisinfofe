@@ -88,6 +88,7 @@
           height="350"
           @selection-change="handleSelectionChange"
           @select="handleSelect"
+          @row-click='handleRowClick'
         >
           <el-table-column
             type="selection"
@@ -337,6 +338,12 @@ export default {
           !item.isFirst && (item.recordDate = firstTime)
         })
       }
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+       temArr=JSON.parse(JSON.stringify(temArr)).map(item=>{
+          item.foodSize=item.dosage
+          return item
+        })
+      }
       saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
         this.$message.success("保存成功");
         this.close();
@@ -489,6 +496,11 @@ export default {
       }).map(item=>{
       this.$refs['zxdtb-table'].toggleRowSelection(item,isAdd)
       })
+    },
+    // 一行选中
+    handleRowClick(row, column, event){
+      if(!['foshanrenyi'].includes(this.HOSPITAL_ID)) return
+      this.$refs['zxdtb-table'].toggleRowSelection(row)
     },
     changeRecordDate(row,type,newVal){
       let [month,hours] = row.recordDate.split(' ')

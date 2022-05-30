@@ -959,7 +959,7 @@ export default {
     setTitleFS(item) {
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
-          let { list = [], id = '' } = obj
+          let { list = [], id = '' } = obj  || {}
           list = list.map(v => v.options)
           let data = {
             pageIndex: this.index,
