@@ -89,7 +89,7 @@ export default {
       printAllPath:"",
       intranetUrl:
         "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-        // "http://localhost:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.78:8080/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:"http://10.158.210.28:9093/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
       outNetUrl:
         "http://218.107.37.134:9093/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,

@@ -885,7 +885,7 @@ export default {
             this.bus.$emit("refreshImg");
             setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
           });
         });
       }
@@ -901,7 +901,7 @@ export default {
         await this.bus.$emit("refreshImg");
         setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -994,7 +994,7 @@ export default {
       this.bus.$emit("refreshImg");
        setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
 
       }
 

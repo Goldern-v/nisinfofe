@@ -629,7 +629,7 @@ export default {
          this.getList();
          setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 300);
+      }, 2000);
       });
 
       if(type==='0'){
@@ -754,10 +754,8 @@ export default {
           this.query.entryTime,
       }).then((res) => {
         res.data.data.list.map((item) => {
-          console.log(res.data.data)
           if (this.vitalSignObj[item.vitalCode])
             this.fieldList[item.vitalCode] = item;
-            console.log(this.fieldList[item.vitalCode],12312)
         });
       });
        let input = document.getElementsByTagName("input");
@@ -942,7 +940,7 @@ export default {
             this.bus.$emit("refreshImg");
             setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 300);
+      }, 2000);
           });
         });
       }
@@ -1039,7 +1037,7 @@ export default {
       this.bus.$emit("refreshImg");
       setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 300);
+      }, 2000);
       }
 
     },

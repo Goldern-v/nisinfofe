@@ -1,7 +1,7 @@
 /** 设置护理记录单行数 */
 import sheetInfo from "../config/sheetInfo";
 export function getRowNum(index) {
-  console.log(index, "index", sheetInfo.sheetType);
+  // console.log(index, "index", sheetInfo.sheetType);
   if (sheetInfo.sheetType == "neonatology") {
     if (index === 0) {
       return 15;
