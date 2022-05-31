@@ -152,11 +152,12 @@ export default {
               arr.push(key);
             }
           }
+          let aa= 
           this.data = [...arr];
         }
       }else {
-        this.data = config.data || [];
-      }
+      this.data = config.data || [];
+     }
 
       if (this.data && this.data.length >= 1) {
         this.show = true;

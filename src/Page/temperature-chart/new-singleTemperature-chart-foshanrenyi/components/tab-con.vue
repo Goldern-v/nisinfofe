@@ -372,6 +372,7 @@
                   <el-select
                     :disabled="isDisable()"
                     size="mini"
+                    clearable
                     v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
                   >
                     <el-option
@@ -392,6 +393,7 @@
                   <el-select
                     :disabled="isDisable()"
                     size="mini"
+                    clearable
                     v-model="vitalSignObj[multiDictList['中间注释']].expand1"
                   >
                     <el-option
@@ -427,6 +429,7 @@
                   <el-select
                     size="mini"
                     :disabled="isDisable()"
+                    clearable
                     v-model="vitalSignObj[multiDictList['表底注释']].expand1"
                   >
                     <el-option
@@ -927,7 +930,7 @@ export default {
             this.bus.$emit("refreshImg");
             setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
           });
         });
       }
@@ -943,7 +946,7 @@ export default {
         await this.bus.$emit("refreshImg");
         setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -1035,7 +1038,7 @@ export default {
         this.bus.$emit("refreshImg");
         setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
       }
     },
 

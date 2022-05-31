@@ -317,6 +317,7 @@
                 <div class="rowBox" v-if="multiDictList['表顶注释']">
                   <span class="preText">表顶注释</span>
                   <el-select
+                  clearable
                     :disabled="isDisable()"
                     size="mini"
                     v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
@@ -349,6 +350,7 @@
                 >
                   <span class="preText">表底注释</span>
                   <el-select
+                  clearable
                     size="mini"
                     :disabled="isDisable()"
                     v-model="vitalSignObj[multiDictList['表底注释']].expand1"
@@ -810,7 +812,7 @@ export default {
             this.bus.$emit("refreshImg");
             setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
           });
         });
       }
@@ -826,7 +828,7 @@ export default {
         await this.bus.$emit("refreshImg");
         setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -909,7 +911,7 @@ export default {
       this.bus.$emit("refreshImg");
       setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
     },
     formatTopExpandDate(val) {
       this.topExpandDate = val;

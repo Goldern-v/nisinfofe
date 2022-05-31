@@ -150,6 +150,11 @@
     font-family: "SimHei" !important;
     font-weight: 400;
   }
+   textarea {
+    color: #000000 !important;
+    font-family: "SimHei" !important;
+    font-weight: 400 !important; 
+  }
 }
 
 @media print {

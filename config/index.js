@@ -155,9 +155,9 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       //  return "http://192.168.20.93:8080"
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
-      return "http://219.159.198.37:9094"  // 正式地址
+      // return "http://219.159.198.37:9094"  // 正式地址
       // return "https://cr.fsyyy.com:9094"  // 正式地址
-      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.3.226:8080" // 初升测试本地内网
 
     // 福清妇幼保健院
@@ -167,7 +167,7 @@ const currentTargetUrl = (() => {
 
       // 佛山杏坛
     case 'fsxt':
-      return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@24nr
+      return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@23nr
       // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.3.226:8080" // 初升本地
     case 'yangchunzhongyi':  //阳春
@@ -175,8 +175,8 @@ const currentTargetUrl = (() => {
     case 'whyx':  //武汉亚心
       return "http://192.168.1.54:9866" // 武汉亚心
 
-    case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
-      return "http://192.168.1.54:9884" // 武汉肺科
+    // case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
+    //   return "http://192.168.1.54:9884" // 武汉肺科
       // return "http://192.168.3.227:8080" // 初升本地
     case 'sdlj':  //顺德龙江
       return "http://192.168.1.54:9871" // 顺德龙江 内防访问地址192.168.1.54:9887

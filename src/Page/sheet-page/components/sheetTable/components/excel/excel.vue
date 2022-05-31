@@ -791,9 +791,26 @@ export default {
         if (td.parentKey) {
           let index = tr.findIndex((e) => e.key === td.parentKey); // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
           let arr = td.autoComplete.data[0][[tr[index].value]] || []; // 获取父级对应的子选项数组
+          console.log("data对象",arr)
           return { data: arr.map((item) => item.itemName) };
         } else {
-          return td.autoComplete;
+          if(td.key=="discharge"){
+            let data =[...td.autoComplete.data]
+            let autoCompleteData = {}
+            let arr=["大便","小便","呕吐物","痰","胃液"];
+            if(td.autoComplete.data.length>0){
+              for(let i=0;i<td.autoComplete.data.length;i++){
+                if(arr.includes(td.autoComplete.data[i])){
+                  td.autoComplete.data.splice(i, 1);
+                  break;
+              }
+            }
+          }
+          autoCompleteData = {data:arr.concat(td.autoComplete.data)}
+          return autoCompleteData;
+        }else{
+          return td.autoComplete
+        }
         }
       } else {
         return td.autoComplete;
@@ -942,7 +959,7 @@ export default {
     setTitleFS(item) {
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
-          let { list = [], id = '' } = obj
+          let { list = [], id = '' } = obj  || {}
           list = list.map(v => v.options)
           let data = {
             pageIndex: this.index,

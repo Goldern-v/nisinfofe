@@ -294,6 +294,7 @@
                     :disabled="isDisable()"
                     size="mini"
                     v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
+                    clearable
                   >
                     <el-option
                       v-for="(item, topIndex) in getFilterSelections(
@@ -314,6 +315,7 @@
                     :disabled="isDisable()"
                     size="mini"
                     v-model="vitalSignObj[multiDictList['中间注释']].expand1"
+                    clearable
                   >
                     <el-option
                       v-for="(item, bottomIndex) in getFilterSelections(
@@ -349,6 +351,7 @@
                     size="mini"
                     :disabled="isDisable()"
                     v-model="vitalSignObj[multiDictList['表底注释']].expand1"
+                    clearable
                   >
                     <el-option
                       v-for="(item, bottomIndex) in getFilterSelections(
@@ -541,7 +544,6 @@ export default {
          if(this.query.entryTime&&this.query.entryDate){
         this.getList();
         this.bus.$emit("dateChangePage", this.query.entryDate);
-
          }
       },
       deep: true,
@@ -549,7 +551,6 @@ export default {
   },
   methods: {
     handleChange(val) {
-      // console.log(val);
     },
         setValid(trage, val) {
       switch (trage) {
@@ -626,7 +627,7 @@ export default {
          this.getList();
          setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 300);
+      }, 1000);
       });
 
       if(type==='0'){
@@ -751,10 +752,8 @@ export default {
           this.query.entryTime,
       }).then((res) => {
         res.data.data.list.map((item) => {
-          console.log(res.data.data)
           if (this.vitalSignObj[item.vitalCode])
             this.fieldList[item.vitalCode] = item;
-            console.log(this.fieldList[item.vitalCode],12312)
         });
       });
        let input = document.getElementsByTagName("input");
@@ -939,7 +938,7 @@ export default {
             this.bus.$emit("refreshImg");
             setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 300);
+      }, 1000);
           });
         });
       }
@@ -1036,7 +1035,7 @@ export default {
       this.bus.$emit("refreshImg");
       setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 300);
+      }, 1000);
       }
 
     },

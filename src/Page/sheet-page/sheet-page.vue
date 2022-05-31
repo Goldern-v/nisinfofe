@@ -1208,7 +1208,7 @@ export default {
     },
     "$route.path"() {
       // 针对贵州切换出入量记录单数据不刷新，如果有问题可回撤
-      if (this.HOSPITAL_ID == "guizhou") {
+      if (this.HOSPITAL_ID == "guizhou" || this.HOSPITAL_ID == 'huadu') {
         this.sheetInfo.selectBlock = {};
       }
     },

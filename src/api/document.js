@@ -35,6 +35,11 @@ export function synchronizeHengLi() {
   return axios.get(`${apiPath}HisHengLiDischarge/syncDischargePat`);
   //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
 }
+//武汉肺科同步出院患者
+export function synchronizeWHFK() {
+  return axios.get(`${apiPath}patient/syncOutHospital`);
+  //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
+}
 // 北海-转科同步患者
 export function syncMajorBH(wardCode) {
   return axios.get(`${apiPath}HisBeiHaiExecute/syncPatientTransfer/${wardCode}`);
