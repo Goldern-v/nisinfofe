@@ -129,7 +129,10 @@
                           e.preventDefault();
                         }
                       "
-                      @input="handlePopRefresh(vitalSignObj[j])"
+                      @input="()=>{
+                        handlePopRefresh(vitalSignObj[j])
+                        validFormFc(vitalSignObj[j], i + 1)
+                      }"
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
@@ -225,11 +228,14 @@
                       :value="vitalSignObj[j].popVisible"
                     >
                       <input
-                        :id="i + 1"
+                        :id="i + 100"
                         @keydown.enter="changeNext"
                         type="text"
                         :title="vitalSignObj[j].vitalValue"
-                        @input="handlePopRefresh(vitalSignObj[j])"
+                        @input="()=>{
+                        handlePopRefresh(vitalSignObj[j])
+                        validFormFc(vitalSignObj[j], i + 100)
+                      }"
                         @mousewheel="
                           (e) => {
                             e.preventDefault();
@@ -443,6 +449,7 @@
 import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
+import { validForm } from "../../validForm/validForm";
 import {
   getmultiDict,
   getVitalSignListByDate,
@@ -493,6 +500,8 @@ export default {
       recordDate: "",
       fieldList: {}, // 自定义项目列表
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
+      checkItem: ["042", "02", "20", "041", "043", , "3"],
+      // checkItem:["体温", "脉搏", "心率", "口温",'肛温','疼痛强度','疼痛干预','降温'],
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
       otherMultiDictList: {}, //其他体征信息
@@ -559,6 +568,48 @@ export default {
         this.changeDate(this.$refs.timeSelect);
       }
     },
+    setValid(trage, val) {
+      switch (trage) {
+        case "041":
+        case "042":
+        case "043":
+        case "3":
+          let o = {
+            体温: {
+              value: val,
+              reg: [33, 42],
+            },
+          };
+          return o;
+        case "02":
+        case "20":
+          let y = {
+            脉搏: {
+              value: val,
+              reg: [20, 180],
+            },
+          };
+          return y;
+        default:
+          break;
+      }
+    },
+    validFormFc(vitalSignObj, index) {
+      let val = vitalSignObj.vitalValue;
+      if (val !== "" && this.checkItem.includes(vitalSignObj.vitalCode)) {
+        //验证表单
+        if (validForm.valid(this.setValid(vitalSignObj.vitalCode, val))) {
+          document.getElementById(index).style.outline = "";
+          vitalSignObj.isCorrect = true;
+        } else {
+          document.getElementById(index).style.outline = "1px solid red";
+          vitalSignObj.isCorrect = false;
+        }
+      } else {
+        document.getElementById(index).style.outline = "";
+        vitalSignObj.isCorrect = true;
+      }
+    },
     //时间组件失去焦点
     changeDate(val) {
       let numberVal = val.$el.children[1].value;
@@ -609,8 +660,11 @@ export default {
       }
     },
 
- getHeight() {
-      this.contentHeight.height = window.innerHeight - (this.$route.path.includes('nursingPreview')?40:100) + "px";
+    getHeight() {
+      this.contentHeight.height =
+        window.innerHeight -
+        (this.$route.path.includes("nursingPreview") ? 40 : 100) +
+        "px";
     },
     init() {
       let obj = {};
@@ -692,6 +746,10 @@ export default {
             this.fieldList[item.vitalCode] = item;
         });
       });
+      let input = document.getElementsByTagName("input");
+      for (let i = 0; i < input.length; i++) {
+        input[i].style.outline = "";
+      }
     },
     /* 日期搜索功能 */
     selectTemRec(val) {
@@ -849,8 +907,8 @@ export default {
             this.getList();
             this.bus.$emit("refreshImg");
             setTimeout(() => {
-        this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 1000);
+              this.bus.$emit("dateChangePage", this.query.entryDate);
+            }, 1000);
           });
         });
       }
@@ -865,9 +923,9 @@ export default {
         this.getList();
         this.$message.success("同步成功");
         await this.bus.$emit("refreshImg");
-         setTimeout(() => {
-        this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 1000);
+        setTimeout(() => {
+          this.bus.$emit("dateChangePage", this.query.entryDate);
+        }, 1000);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
@@ -908,6 +966,8 @@ export default {
     /* 录入体温单 */
     async saveVitalSign(value) {
       let obj = Object.values(value);
+      let saveFlagArr=[]
+      let nomalFlagArr=[]
       obj.map((item) => {
         item.recordDate =
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
@@ -932,6 +992,24 @@ export default {
           default:
             break;
         }
+        switch(item.vitalCode){
+          case '041':
+          case '042':
+          case '043':
+          case '3':
+        if(item.vitalValue !== "" &&(item.vitalValue>37||item.vitalValue<36)){
+          nomalFlagArr.push(false)
+            }
+          break
+        }
+        if(item.vitalValue !== "" &&
+        this.checkItem.includes(item.vitalCode)){
+            if(!validForm.valid(this.setValid(item.vitalCode, item.vitalValue))){
+            saveFlagArr.push(false)
+            }
+
+        }
+
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
@@ -940,14 +1018,41 @@ export default {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
       };
-      await saveAll(data).then((res) => {
+        if(saveFlagArr.includes(false)){
+        this.$message.error("存在数值错误,请耐心检查!");
+      }else{
+        if(nomalFlagArr.includes(false)){
+          this.$confirm('正常温度范围为36~37℃！请核对', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+        saveAll(data).then((res) => {
         this.$message.success("保存成功");
       });
       this.getList();
       this.bus.$emit("refreshImg");
-       setTimeout(() => {
+      setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
       }, 1000);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消保存，请核对患者温度'
+          });
+        });
+
+        }else{
+       await saveAll(data).then((res) => {
+        this.$message.success("保存成功");
+      });
+      this.getList();
+      this.bus.$emit("refreshImg");
+      setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 1000);
+        }
+      }
     },
     formatTopExpandDate(val) {
       this.topExpandDate = val;
@@ -1016,9 +1121,10 @@ export default {
         float: left;
         overflow: auto;
       }
-      .record-list::-webkit-scrollbar{
-    display: none;
-          }
+
+      .record-list::-webkit-scrollbar {
+        display: none;
+      }
 
       >div {
         .recordList {
@@ -1108,7 +1214,6 @@ export default {
     width: 45%;
     float: left;
 
-
     input {
       width: 95%;
       font-size: 15px;
@@ -1135,7 +1240,7 @@ export default {
     width: 45%;
     float: left;
     margin-left: 10%;
-    over-flow:hidden;
+    over-flow: hidden;
 
     input {
       width: 95%;
