@@ -474,9 +474,11 @@ export default {
       if (
         (this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
-        td &&
-        this.listData[x]) 
-        || (this.HOSPITAL_ID == "xiegang" && td && this.listData[x])
+        td && this.listData[x]) 
+        || 
+        (this.HOSPITAL_ID == "xiegang" && td && this.listData[x])
+        ||
+        (this.HOSPITAL_ID == "nanfangzhongxiyi" && td && this.listData[x])
       ) {
         return !this.listData[x].canModify;
       }
