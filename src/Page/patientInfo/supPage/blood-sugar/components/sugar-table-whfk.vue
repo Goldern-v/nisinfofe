@@ -25,18 +25,18 @@
         v-for="(item,index) in renderData"
         :class="{ selected: selected === item }"
         :key="index"
-        @click="onSelect(item)"
+        @click="onSelect(item,index)"
       >
         <!--序号 -->
         <td >
           {{index + baseIndex + 1}}
         </td>
         <!-- 时间 -->
-        <td  style="padding: 0 2px;" @click="textTime(item,index)">
+        <td  style="padding: 0 2px;" @click="testTime(item,index)" @keydown="onKeyDown($event,renderData,index)">
           <div flex="main:justify" style="white-space: nowrap" class="time">
               <!-- 显示时间 -->
             <span :data-value="item.date">
-              <input type="text" v-model="item.date" :data-value="item.date" @input="handlPattern(item)" class="fulltime">
+              <input type="text" v-model="item.date" :data-value="item.date" @input="handlPattern(item)" class="fulltime" :id="`P${pageIndex}-O${index + baseIndex + 1}`">
               <!-- <span>{{ item.date }}</span> -->
             </span>
             <span>
@@ -49,7 +49,9 @@
         <!-- 类型 -->
         <td>
           <div class="cell" :title="item.sugarItem" >
-             <input type="text" class="fake" v-model="item.sugarItem" :data-value="item.sugarItem" >
+            <!-- <input type="text" class="fake" v-model="item.sugarItem" :data-value="item.sugarItem" > -->
+            <div class="fake" :data-value="item.sugarItem" style="text-align:center;width:100%;transform:translateY(2px);">{{item.sugarItem}}</div>
+            <!-- 直接用组件样式带不过去打印 -->
             <el-autocomplete
               class="inline-input"
               v-model="item.sugarItem"
@@ -61,8 +63,9 @@
           </div>
         </td>
         <!-- 血糖值 -->
-        <td>
-           <div class="cell" >
+        <td @keydown="onKeyDown($event,renderData,index)">
+          <!-- 血糖栏才能按enter保存 -->
+           <div class="cell" @keydown='onKeyDownToSave($event,renderData)'>
              <input type="text" v-model="item.sugarValue" :data-value="item.sugarValue" >  
             </div>
         </td>
@@ -208,6 +211,7 @@ export default {
     selected: Object,
     baseIndex:Number,
     sugarItem: Array,//下拉选项
+    pageIndex:Number
   },
   mixins: [common],
   data() {
@@ -215,7 +219,8 @@ export default {
       msg: "hello vue",
       restaurants: [],
       isEdit:false,
-      activeEmpNo:""
+      activeEmpNo:"",
+      activeIndex:'',
     };
   },
   computed: {
@@ -265,10 +270,36 @@ if (!this.data) return;
     },
   },
   methods: {
+    onKeyDown(e,list,index){
+      if(e.keyCode==38){
+        if(this.activeIndex==0) return
+        this.activeIndex=+this.activeIndex-1
+        this.onSelect(list[this.activeIndex])
+        document.getElementById(`P${this.pageIndex}-O${this.activeIndex + this.baseIndex + 1}`).focus()
+      }else if(e.keyCode==40){
+        if(this.activeIndex==26) return
+        this.activeIndex=this.activeIndex+1
+        this.onSelect(list[this.activeIndex])
+        // 当前这行数据的第一个日期获得焦点
+        // :id="`P${pageIndex}-O${index + baseIndex + 1}`"
+        document.getElementById(`P${this.pageIndex}-O${this.activeIndex + this.baseIndex + 1}`).focus()
+        this.testTime(list[this.activeIndex],this.activeIndex)
+      }
+      // e.keyCode==37 左   左右键有待开发
+      // e.keyCode==39 右
+    },
+    onKeyDownToSave(e,list){
+      if(e.keyCode==13){
+       this.$emit("toSave",list[this.activeIndex])
+      }
+      if(e.keyCode==9){
+         e.preventDefault()
+      }
+    },
     // handlerClick(){
     //   console.log(1);
     // },
-   textTime(item,index){
+   testTime(item,index){
     //  判断是否为空
     if(!item.date&&!item.time){
        if(item.expand2===undefined){
@@ -290,9 +321,11 @@ if (!this.data) return;
         this.isEdit=true
       }
     }
-      
     },
-    onSelect(item) {
+    onSelect(item,index) {
+      if(index||index==0){
+         this.activeIndex=+index
+      }
       this.$emit("update:selected", item);
     },
     // onDblClick(item) {
@@ -332,15 +365,15 @@ if (!this.data) return;
               item.oldRecordDate=item.recordDate
              }else{
                item.oldRecordDate=item.recordDate
-              }
+             }
              //  先删后改
             await removeSugar(item);
             if(item.recordDate){
               const arr= item.oldRecordDate.split(" ")
               const arr1= arr[0].split("-")
-              const year=`${arr1[1]}-${arr1[2]}`
+              const year=`${arr1[0]}-${arr1[1]}-${arr1[2]}`
               item.recordDate=`${year} ${item.time}:00`
-             }
+            }
           }
           this.curEmpName = res.data.data.empName;
           // this.empNo = res.data.data.empNo;
@@ -411,7 +444,6 @@ if (!this.data) return;
       });
     },
     querySearch(queryString, cb){
-      // console.log(queryString)
        var restaurants = this.restaurants;
        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
        cb(results);
