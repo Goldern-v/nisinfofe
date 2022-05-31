@@ -1198,7 +1198,7 @@ export default {
       deep: true,
       immediate: true,
       handler(newValue, oldValue) {
-        if (this.HOSPITAL_ID == "guizhou") {
+        if (this.HOSPITAL_ID == "guizhou" || this.HOSPITAL_ID == 'huadu') {
         } else {
           if (this.patientInfo.name) {
             sheetInfo.isSave = false;

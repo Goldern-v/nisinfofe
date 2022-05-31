@@ -120,6 +120,8 @@
               :baseIndex='0'
               @uploadList="uploadView"
               :sugarItem.sync="typeList"
+              @toSave='saveActiveSugar(item)'
+              :pageIndex='index+1'
             ></sugarTableWhfk>
             <sugarTable
             v-else
@@ -152,6 +154,8 @@
               :baseIndex='27'
               @uploadList="uploadView"
               :sugarItem.sync="typeList"
+              @toSave='saveActiveSugar(item)'
+              :pageIndex='index+1'
             ></sugarTableWhfk>
             <sugarTable
             v-else
@@ -458,12 +462,16 @@ if(this.selected.expand2!==undefined){
         }
         // 判断日期
         const formatArr=DateArr[0].split("-")
-        const firstDate=`${formatArr[1]}-${formatArr[2]}`
-        if(item.date&&firstDate!==item.date&&this.HOSPITAL_ID==='liaocheng'){
+        const notYearDate=`${formatArr[1]}-${formatArr[2]}`
+        const YearDate=`${formatArr[0]}-${formatArr[1]}-${formatArr[2]}`
+        if(item.date&&notYearDate!==item.date&&this.HOSPITAL_ID==='liaocheng'){
             //聊城显示时间是没有年份的。 
             item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
         }
-
+        if(item.date&&YearDate!==item.date&&this.HOSPITAL_ID==='whfk'){
+            //武汉肺科显示时间是有年份的。 
+            item.recordDate=`${item.date} ${item.time}:00`
+        }
       await saveSugarList([item])
       this.$message.success("保存成功");
       this.load()
