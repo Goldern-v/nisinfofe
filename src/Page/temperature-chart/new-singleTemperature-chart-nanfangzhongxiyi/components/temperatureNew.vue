@@ -6,14 +6,17 @@
         <el-button type="primary" @click="printAll()">批量打印</el-button>
       </el-button-group>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-        <div :class="rightSheet===true?'pagination':'paginationRight'" v-show="!isPrintAll">
+      <div
+        :class="rightSheet === true ? 'pagination' : 'paginationRight'"
+        v-show="!isPrintAll"
+      >
         <button :disabled="currentPage === 1" @click="currentPage = 1">
           首周
         </button>
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
-       <span class="page"
+        <span class="page"
           >第<input
             type="number"
             min="1"
@@ -31,10 +34,14 @@
         >
           尾周
         </button>
-      <el-button-group :style="rightButton()">
-        <el-button type="primary" @click="syncInAndOutHospital((type = '0'))">同步入院</el-button>
-        <el-button type="primary" @click="syncInAndOutHospital((type = '1'))">同步出院</el-button>
-      </el-button-group>
+        <el-button-group :style="rightButton()">
+          <el-button type="primary" @click="syncInAndOutHospital((type = '0'))"
+            >同步入院</el-button
+          >
+          <el-button type="primary" @click="syncInAndOutHospital((type = '1'))"
+            >同步出院</el-button
+          >
+        </el-button-group>
       </div>
 
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
@@ -80,36 +87,34 @@ export default {
       currentPage: 1,
       pageTotal: 1,
       open: false,
-      patientId:"",
-      toCurrentPage :1,
-      visitId:"",
+      patientId: "",
+      toCurrentPage: 1,
+      visitId: "",
       isSave: false,
-      isPrintAll:false,
+      isPrintAll: false,
       visibled: false,
-      printAllPath:"",
+      printAllPath: "",
       intranetUrl:
         "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
         // "http://192.168.1.78:8080/#/" /* 医院正式环境内网 导致跨域 */,
-      printAllUrl:"http://10.158.210.28:9093/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
+      printAllUrl:
+        "http://10.158.210.28:9093/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
       outNetUrl:
         "http://218.107.37.134:9093/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
   },
   methods: {
     onPrint() {
-        this.isPrintAll=false
-         setTimeout(()=>{
-this.$refs.pdfCon.contentWindow.postMessage(
-        { type: "printing" },
-        this.intranetUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-      },1500)
-
-
-
+      this.isPrintAll = false;
+      setTimeout(() => {
+        this.$refs.pdfCon.contentWindow.postMessage(
+          { type: "printing" },
+          this.intranetUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
-        toPre() {
+    toPre() {
       if (this.currentPage === 1) return;
       this.currentPage--;
       this.toCurrentPage = this.currentPage;
@@ -131,45 +136,44 @@ this.$refs.pdfCon.contentWindow.postMessage(
 
       this.currentPage = this.toCurrentPage;
     },
-    printAll(){
-      this.isPrintAll=true  //隐藏页码控制区域
-        setTimeout(()=>{
-this.$refs.pdfConAll.contentWindow.postMessage(
-        { type: "printingAll" },
-        this.printAllUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-      },1500)
+    printAll() {
+      this.isPrintAll = true; //隐藏页码控制区域
+      setTimeout(() => {
+        this.$refs.pdfConAll.contentWindow.postMessage(
+          { type: "printingAll" },
+          this.printAllUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }, 1500);
     },
-    rightButton(){
+    rightButton() {
       return {
-         "position": "relative",
-        "left":this.rightSheet===false?"20%":"8%",
-      }
+        position: "relative",
+        left: this.rightSheet === false ? "20%" : "8%",
+      };
     },
-    syncInAndOutHospital(type){
-      this.bus.$emit('syncInAndOutHospital',type)
-
+    syncInAndOutHospital(type) {
+      this.bus.$emit("syncInAndOutHospital", type);
     },
     //将体温单上的时间传过来，再监听到录入组件，获取录入记录
-    getDataFromPage(dateTime){
-      this.bus.$emit('getDataFromPage',dateTime)
+    getDataFromPage(dateTime) {
+      this.bus.$emit("getDataFromPage", dateTime);
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
-      this.date=date;
-      this.patientId=patientId;
-      this.visitId=visitId;
+      this.date = date;
+      this.patientId = patientId;
+      this.visitId = visitId;
       /* 单独处理体温单，嵌套iframe */
       const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`;/* 内网 */
+      const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
       // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
-        this.printAllPath=tempAllUrl
+        this.printAllPath = tempAllUrl;
       }, 0);
     },
     getHeight() {
@@ -185,48 +189,17 @@ this.$refs.pdfConAll.contentWindow.postMessage(
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-              case "currentPage":
-            this.currentPage = e.data.value;
+          case "currentPage":
+            if (this.currentPage !== e.data.value) {
+              this.currentPage = e.data.value;
+            }
             break;
           case "clickDateTime":
-            this.getDataFromPage(e.data.value)
+            this.getDataFromPage(e.data.value);
             break;
-             case "dblclick" /* 双击查阅体温单子 */:
+          case "dblclick" /* 双击查阅体温单子 */:
             this.openRight();
             break;
-          // case "getNurseExchangeInfo":/* 转科转床接口，聊城二院取消，花都保留 */
-          // const params = {
-          //   patientId: this.$route.query.patientId,
-          //   visitId: this.$route.query.visitId
-          // };
-          // // 发请求
-          // getNurseExchangeInfo(params.patientId, params.visitId).then(res => {
-          //   const value = {
-          //     adtLog: res.data.data.adtLog,
-          //     bedExchangeLog: res.data.data.bedExchangeLog
-          //   };
-          //   this.$refs.pdfCon.contentWindow.postMessage(
-          //     { type: "nurseExchangeInfo", value },
-          //     "*"
-          //   );
-          // });
-          // const params = {
-          //   patientId: this.$route.query.patientId,
-          //   startLogDateTime: e.data.value.startLogDateTime,
-          //   endLogDateTime: e.data.value.endLogDateTime,
-          //   visitId: this.$route.query.visitId
-          // };
-          // getNurseExchangeInfoByTime(params).then(res => {
-          //   const value = {
-          //     adtLog: res.data.data.adtLog,
-          //     bedExchangeLog: res.data.data.bedExchangeLog
-          //   };
-          //   this.$refs.pdfCon.contentWindow.postMessage(
-          //     { type: "nurseExchangeInfo", value },
-          //     "*"
-          //   );
-          // });
-          // break;
           default:
             break;
         }
@@ -244,15 +217,14 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     },
   },
   watch: {
-     patientInfo() {
-      this.isPrintAll=false
+    patientInfo() {
+      this.isPrintAll = false;
     },
     currentPage(value) {
       this.toCurrentPage = value;
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
       );
     },
   },
@@ -274,14 +246,14 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
-        this.bus.$on('dateChangePage',(value)=>{
-      value=moment(value).format("YYYY-MM-DD")
-        this.$refs.pdfCon.contentWindow.postMessage(
+    this.bus.$on("dateChangePage", (value) => {
+      value = moment(value).format("YYYY-MM-DD");
+      this.$refs.pdfCon.contentWindow.postMessage(
         { type: "dateChangePage", value },
         this.intranetUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
-    })
+    });
   },
   computed: {
     patientInfo() {
@@ -319,18 +291,21 @@ this.$refs.pdfConAll.contentWindow.postMessage(
     }
   }
 }
+
 .pageInput {
   width: 30px;
   border: 0px;
 }
+
 .pagination {
   display: inline;
   position: relative;
   left: 12%;
   font-weight: normal;
 }
-.paginationRight{
- display: inline;
+
+.paginationRight {
+  display: inline;
   position: relative;
   left: 25%;
   font-weight: normal;

@@ -206,6 +206,7 @@ export default {
             break;
               case "currentPage":
             this.currentPage = e.data.value;
+             console.log('信息系统事件watching',e.data.value)
             break;
           case "getNurseExchangeInfo" /* 转科转床接口，聊城二院取消，花都保留 */:
             const params = {
@@ -251,6 +252,7 @@ export default {
   watch: {
     currentPage(value) {
       this.toCurrentPage = value;
+      console.log('信息系统watching',value)
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.showTemp === true ? this.intranetUrl : this.newBornUrl /* 内网 */
