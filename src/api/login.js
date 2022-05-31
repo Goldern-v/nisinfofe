@@ -5,8 +5,8 @@ import { apiPath } from './apiConfig'
 function login(empNo, password, code, repaint) {
   return axios.post(`${apiPath}login`, qs.stringify({ empNo, password, code, repaint }))
 }
-function hisLogin(obj) {
-  return axios.post(`${apiPath}login/dgxg`, qs.stringify(obj))
+function hisLogin(empNo, password, code, repaint) {
+  return axios.post(`${apiPath}login/dgxg`, qs.stringify({ empNo, password, code, repaint }))
 }
 function logout(authToken) {
   localStorage.clear();
