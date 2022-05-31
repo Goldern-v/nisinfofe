@@ -176,6 +176,7 @@
     </div>
     <div class="search-btn" flex="cross:center main:center" @click="search" v-touch-ripple>检索</div>
     <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='2'&&['whfk'].includes(HOSPITAL_ID)" @click="synchWhFK" v-touch-ripple>同步出院患者</div>
+    <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='1'&&['sdlj'].includes(HOSPITAL_ID)" @click="syncGetNurseBedRecData" v-touch-ripple>同步</div>
     <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='2'&&hasSynchronize.includes(HOSPITAL_ID)" @click="synchronize" v-touch-ripple>同步</div>
     <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='3'&&HOSPITAL_ID === 'beihairenyi'" @click="syncMajor" v-touch-ripple>同步</div>
     <div class="search-btn2" flex="cross:center main:center" v-if="['wujing'].includes(HOSPITAL_ID)" @click="handleExport" v-touch-ripple>导出</div>
@@ -268,7 +269,7 @@
 }
 </style>
 <script>
-import { nursingUnit} from "@/api/lesion";
+import { nursingUnit,syncGetNurseBedRecJiangMenFSSY} from "@/api/lesion";
 import { synchronizeHengLi,synchronizeWHFK, syncMajorBH, synchronizeFuyou } from "@/api/document";
 import { nursingUnitAll} from "@/api/common";
 import moment from "moment";
@@ -289,6 +290,7 @@ export default {
         diagnosis: "",//病种
         // hospitalTransfer:['huadu','fuyou']//转科医院名字
       },
+        ifCanTobu:true,
       ifCanFKtongbu:true,
       hasSynchronize:['hengli','fuyou', 'beihairenyi','nanfangzhongxiyi'],
     };
@@ -344,6 +346,19 @@ export default {
       // if(!['huadu'].includes(this.HOSPITAL_ID)) {
       //   this.$store.commit("upDeptCode", value);
       // }
+    },
+    syncGetNurseBedRecData() {
+      if(!this.ifCanTobu) return 
+      this.ifCanTobu=false
+      this.$message.info("正在更新");
+      syncGetNurseBedRecJiangMenFSSY(this.deptCode).then((res) => {
+        this.$message.success("更新成功");
+        this.getDate();
+        this.ifCanTobu = true;
+      },()=>{
+        this.$message.error("更新失败");
+        this.ifCanTobu = true;
+        });
     },
     search() {
       this.$parent.page.pageIndex = 1;

@@ -64,7 +64,7 @@ export default {
       },
       {
         name: `
-        血糖<br/>mol/L
+        血糖<br/>mmol<br/>/L
         `,
         colspan: "1",
         rowspan: "3"

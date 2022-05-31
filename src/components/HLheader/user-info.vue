@@ -57,7 +57,7 @@
         <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
-    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm'].includes(HOSPITAL_ID)">
+    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi'].includes(HOSPITAL_ID)">
       <div class="boxShadow" @click="onPrint">
         <div class="qrcode" ref="qrcodeContainer"></div>
       </div>
@@ -90,7 +90,7 @@
     </div>
     <div class="footer-con" flex="cross:center">
       <span v-if="HOSPITAL_ID !=='whfk'">
-        <span @click="$emit('setPassword')">修改密码</span>&nbsp;&nbsp;|&nbsp;&nbsp; 
+        <span @click="$emit('setPassword')">修改密码</span>&nbsp;&nbsp;|&nbsp;&nbsp;
       </span>
       <span>个人档案</span>&nbsp;&nbsp;|&nbsp;&nbsp;
       <span @click="clear">清除缓存</span>
@@ -232,7 +232,7 @@
 }
 .boxShadow {
   width: 100%;
-  padding: 20px 0; 
+  padding: 20px 0;
   display: flex;
   justify-content: center;
   transition: all 0.6s;
@@ -243,8 +243,8 @@
     img {
       width: 132px;
       height: 132px;
-      background-color: #fff; 
-      padding: 6px; 
+      background-color: #fff;
+      padding: 6px;
     }
   }
 }
@@ -289,7 +289,7 @@ export default {
       fuyouCaData:null,//江门妇幼ca签名认证数据
       isUpdateFuyouCaData:true,
       // hasQrCaSignHos:['fuyou','hj'],
-      hasQrCaSignHos:['fuyou','hj','guizhou']
+      hasQrCaSignHos:['fuyou','hj','guizhou','foshanrenyi']
     };
   },
   props: {
@@ -360,7 +360,7 @@ export default {
         this.$message.success("退出证书登录成功");
       })
     },
-    
+
     //初始化江门妇幼签名数据
     initFuyouCaData(){
       //window.localStorage.setItem("fuyouCaData"
@@ -488,10 +488,10 @@ export default {
     //二维码
     qrcode() {
       //非聊城不执行
-      if(!['liaocheng','foshanrenyi','fsxt','lyxrm'].includes(this.HOSPITAL_ID )) return false;
+      if(!['liaocheng','fsxt','lyxrm','beihairenyi'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi','fsxt','lyxrm'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))); 
-      //console.log(this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))) 
+      ['foshanrenyi','fsxt','lyxrm','beihairenyi'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
+      //console.log(this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})))
       console.log(titleObject);
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽

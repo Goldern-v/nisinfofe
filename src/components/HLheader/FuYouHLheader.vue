@@ -238,6 +238,13 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link>
+
+            <router-link v-if="HOSPITAL_ID=='fuyou'" to="/nursingRounds" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                 护理巡视
+              </el-row>
+            </router-link>
+
             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveTemperaturePage }"

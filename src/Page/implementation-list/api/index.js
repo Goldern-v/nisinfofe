@@ -98,10 +98,13 @@ export function updateExecuteTime(obj) {
 // 新版执行单（武警）
 // 网页端：医嘱查询，执行单打印用
 export function getPrintExecuteWithWardcode(obj) {
-  return axios.post(
-    `${apiPath}procedure/webExecute/webGetOrdersExecutePrint`,
-    obj
-  );
+  // getPatientOrdersWithWardCode
+  switch(HOSPITAL_ID){
+    case 'whfk':
+      return axios.get(`${apiPath}/WuHanFeiKeData/getPatientOrdersWithWardCode/${obj.wardCode}`)
+    default : 
+      return axios.post(`${apiPath}procedure/webExecute/webGetOrdersExecutePrint`, obj)
+  }
   // return axios.post(
   //     `${apiPath}procedure/webExecute/webGetOrdersPrint`,
   //     obj
