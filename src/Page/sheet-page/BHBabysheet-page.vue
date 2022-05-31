@@ -472,10 +472,11 @@ export default {
     isDisabed(tr, td, x, y, bodyModel) {
       // canModify false可以修改，true禁止修改
       if (
-        this.HOSPITAL_ID == "huadu" &&
+        (this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd" &&
         td &&
-        this.listData[x]
+        this.listData[x]) 
+        || (this.HOSPITAL_ID == "xiegang" && td && this.listData[x])
       ) {
         return !this.listData[x].canModify;
       }
