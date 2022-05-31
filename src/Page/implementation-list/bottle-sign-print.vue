@@ -297,7 +297,6 @@ export default {
       this.query.endDate = moment(this.endDate).format('YYYY-MM-DD HH:mm:ss')
       this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
-
       getPrintExecuteWithWardcode(this.query).then(res => {
         let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
