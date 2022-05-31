@@ -223,6 +223,9 @@ export default {
       // startDate: moment().format("YYYY-MM-DD"),
       startDate: process.env.HOSPITAL_ID=='whfk'? moment().format("YYYY-MM-DD")+' 00:00:00':moment().format("YYYY-MM-DD")+' 07:00:00',
       endDate: process.env.HOSPITAL_ID=='whfk'?  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00' :  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
+       startDate: process.env.HOSPITAL_ID=='fsxt'? moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00':moment().format("YYYY-MM-DD")+' 07:00:00',
+      endDate: process.env.HOSPITAL_ID=='fsxt'?  moment(moment().toDate().getTime()+86400000 * 1).format("YYYY-MM-DD")+' 23:59:00' :  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
+      
       repeatIndicator: "",
       type: "",
       status: "",
