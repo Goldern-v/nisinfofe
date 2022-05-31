@@ -20,7 +20,7 @@
           <el-button class="modal-btn" @click="close">取消</el-button>
           <el-button class="modal-btn" type="info" @click="onPrint">打印</el-button>
         </div>
-    </sweet-modal>    
+    </sweet-modal>
   </div>
 </template>
 
@@ -28,7 +28,7 @@
 .box-print {
   width: 3cm;
   height: 3cm;
-  margin: 0 auto; 
+  margin: 0 auto;
   margin-top: 20px;
   display: flex;
   flex-flow: column;
@@ -40,7 +40,7 @@
       display: inline-block;
       img {
         width: 2.8cm;
-        height: 2.8cm; 
+        height: 2.8cm;
         overflow: hidden;
       }
     }
@@ -48,17 +48,17 @@
   .box-foot {
     width: 120%;
     margin: 0 auto;
-    margin-left: -10px; 
-    font-size: 12px; 
+    margin-left: -10px;
+    font-size: 12px;
     display: flex;
     justify-content: space-around;
   }
 }
 .box-btn {
   width: 150px;
-  margin: 20px auto; 
+  margin: 20px auto;
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
 }
 
 
@@ -86,7 +86,7 @@ export default {
     }
   },
   computed: {
-    
+
   },
   methods: {
     init() {
@@ -133,7 +133,7 @@ export default {
     //二维码
     qrcode() {
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi','fsxt','lyxrm'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));  
+      ['foshanrenyi','fsxt','lyxrm','beihairenyi'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         // width: this.cmpx,// 二维码的宽
         // height: this.cmpx,// 二维码的高
