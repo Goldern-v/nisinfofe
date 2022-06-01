@@ -59,7 +59,7 @@
       
       <u-table-column prop="supplementaryRes" label="补录状态" min-width="120px" align="center">
       <template slot-scope="scope">
-          <span :title="scope.row.supplementaryRes">{{scope.row.supplementaryRes ?"已完成":"未补录" }}</span>
+          <span>{{scope.row.supplementaryRes ?"已完成":"未补录" }}</span>
         </template>
       </u-table-column>
 
