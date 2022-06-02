@@ -691,36 +691,39 @@ export default {
           // console.log(titleData);
           initSheetPage(titleData, bodyData, markData);
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
-          this.getHomePage(isBottom);
+          // 暂时方案有影响就换其他办法，报错是因为贵州切换患者时清空了sheetInfo.selectBlock
+          if (this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id&&this.HOSPITAL_ID==='guizhou') {
+              this.getHomePage(isBottom);
+             
+             this.tableLoading = false;
 
-          this.tableLoading = false;
-
-          let timeNum = 5;
-          function toBottom() {
-            timeNum--;
-            setTimeout(() => {
-              this.sheetInfo.isSave = true;
-              if (
-                isBottom &&
-                this.$refs.scrollCon.scrollHeight >
-                  this.$refs.scrollCon.offsetHeight
-              ) {
-                // this.$refs.scrollCon.scrollTop =
-                //   this.$refs.scrollCon.scrollHeight -
-                //   this.$refs.scrollCon.offsetHeight -
-                //   190;
-                sheetScrollBotton.call(this, 0);
-                timeNum > 0 && toBottom.call(this);
-              } else {
-                timeNum > 0 && toBottom.call(this);
-              }
-            }, 200);
-          }
+             let timeNum = 5;
+             function toBottom() {
+             timeNum--;
+             setTimeout(() => {
+               this.sheetInfo.isSave = true;
+               if (
+                 isBottom &&
+                 this.$refs.scrollCon.scrollHeight >
+                 this.$refs.scrollCon.offsetHeight
+               ) {
+                 // this.$refs.scrollCon.scrollTop =
+                 //   this.$refs.scrollCon.scrollHeight -
+                 //   this.$refs.scrollCon.offsetHeight -
+                 //   190;
+                 sheetScrollBotton.call(this, 0);
+                 timeNum > 0 && toBottom.call(this);
+               } else {
+                 timeNum > 0 && toBottom.call(this);
+               }
+             }, 200);
+            }
           this.$nextTick(() => {
             if (!this.patientInfo.recordId) {
               toBottom.call(this);
             }
           });
+          }
         });
       });
     },
