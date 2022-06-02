@@ -692,8 +692,10 @@ export default {
           initSheetPage(titleData, bodyData, markData);
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
           // 暂时方案有影响就换其他办法，报错是因为贵州切换患者时清空了sheetInfo.selectBlock
-          if (this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id&&this.HOSPITAL_ID==='guizhou') {
-              this.getHomePage(isBottom);
+          if ((!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) && this.HOSPITAL_ID=='guizhou') {
+             return
+          }
+           this.getHomePage(isBottom);
              
              this.tableLoading = false;
 
@@ -723,7 +725,6 @@ export default {
               toBottom.call(this);
             }
           });
-          }
         });
       });
     },
