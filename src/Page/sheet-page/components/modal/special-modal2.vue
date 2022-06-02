@@ -891,7 +891,7 @@ export default {
     isDisabed() {
     if (
         this.HOSPITAL_ID == "huadu" &&
-        sheetInfo.sheetType === "body_temperature_Hd" 
+        sheetInfo.sheetType === "body_temperature_Hd"
       ) {
         return false;
       }
@@ -1193,6 +1193,7 @@ export default {
             const itemArray = wipeLabel.split("");
             let str = "";
             itemArray.map((item) => (str += "<sub>" + item + "</sub>"));
+            item = changeRegKeyword(item);//转义reg关键字
             val = val.replace(new RegExp(item, "g"), str);
           });
         supArray &&
@@ -1201,6 +1202,7 @@ export default {
             const itemArray = wipeLabel.split("");
             let str = "";
             itemArray.map((item) => (str += "<sup>" + item + "</sup>"));
+            item = changeRegKeyword(item);//转义reg关键字
             val = val.replace(new RegExp(item, "g"), str);
           });
           // 加粗
@@ -1210,8 +1212,22 @@ export default {
             const itemArray = wipeLabel.split("");
             let str = "";
             itemArray.map((item) => (str += "<strong>" + item + "</strong>"));
+            item = changeRegKeyword(item);//转义reg关键字
             val = val.replace(new RegExp(item, "g"), str);
           });
+
+        /**在利用item生成regExp的时候，需要注意item转regExp需要转义关键字
+         *关键字：* . ? + ^ $ | \ / [ ] ( ) { }
+         *(由于转换成\*,\.,\?关键字会和关键字'\'冲突，需要优先处理'\')
+         **/
+        function changeRegKeyword(item){
+          const regChangeArr = ['\\\\','\\\*','\\\.','\\\?','\\\+','\\\^','\\\$','\\\|','\\\/','\\\[','\\\]','\\\(','\\\)'];
+          for(let i = 0; i< regChangeArr.length; i++ ) {
+            let keyword = regChangeArr[i]
+            item = item.replace(new RegExp(keyword,"g"),`\\${keyword[keyword.length - 1]}`)
+          }
+          return item
+        }
       }
       return val;
     },
@@ -1229,8 +1245,8 @@ export default {
        }else {
         okLength = 23
       }
-      
-      var GetLength = function (str) {
+
+      var GetLength = function (str,sheetType) {
         // 过滤上下标签替换
         const subReg = /(<\/?sub.*?>)/gi;
         const supReg = /(<\/?sup.*?>)/gi;
@@ -1245,10 +1261,29 @@ export default {
           charCode = -1;
         for (var i = 0; i < len; i++) {
           charCode = wipeStrongStr.charCodeAt(i);
-          if (charCode == 94) realLength += 0;
-          else if (charCode >= 0 && charCode <= 128 && charCode != 32)
-            realLength += 1;
-          else realLength += 2;
+
+          // if (charCode == 94) realLength += 0;
+          // else if (charCode >= 0 && charCode <= 128 && charCode != 32)
+          //   realLength += 1;
+          // else realLength += 2;
+
+          switch(sheetType){
+            //武警记录单不将'^'视作上标，故不做 charCode == 94 的判断
+            case 'common_wj':{
+              console.log('common_wj!')
+              if (charCode >= 0 && charCode <= 128 && charCode != 32)
+                realLength += 1;
+              else realLength += 2;
+              break;
+            }
+            default: {
+              if (charCode == 94) realLength += 0;
+              else if (charCode >= 0 && charCode <= 128 && charCode != 32)
+                realLength += 1;
+              else realLength += 2;
+              break;
+            }
+          }
         }
         return realLength;
       };
@@ -1293,7 +1328,7 @@ export default {
         ) {
           text += allDoc[i];
         }else {
-          if (GetLength(text) > okLength) {
+          if (GetLength(text,this.sheetInfo.sheetType) > okLength) {
             text = text.replace(/\s/g, "&nbsp;");
             result.push(text);
             isSpecialLabel = false;
@@ -1445,7 +1480,7 @@ export default {
         ) {
           text += allDoc[i];
         } else {
-          if (this.HOSPITAL_ID == "lingcheng" || 
+          if (this.HOSPITAL_ID == "lingcheng" ||
               this.HOSPITAL_ID == "shannan"  ||
               this.sheetInfo.sheetType === "icu_qz" ||
               this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
@@ -1566,7 +1601,7 @@ export default {
         }
        }
       }
-      
+
       if (text) {
         result.push(text);
       }
@@ -1596,7 +1631,7 @@ export default {
           result.push(text);
         }
       }
-      
+
       if(type == 'ayncVisitedData'){
         return result;
       }

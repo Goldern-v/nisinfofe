@@ -78,9 +78,10 @@
         <template slot-scope="scope">
           <span
             :class="{
-              yzx: scope.row.executeFlag == 2
+              Red: ["0","3","2","9"].includes(scope.row.executeFlag),
+              Green: ["1"].includes(scope.row.executeFlag)
               }"
-           :title="scope.row.executeFlag == 2 ? '已执行' : '未执行'">{{ scope.row.executeFlag == 2 ? '已执行' : '未执行' }}</span>
+          >{{ scope.row.executeFlag == 0 ? '未执行' : scope.row.executeFlag == 1 ? "执行中" : scope.row.executeFlag == 2 ? "已结束" :scope.row.executeFlag == 3 ? "暂停" :"作废"}}</span>
         </template>
       </u-table-column>
 
@@ -92,7 +93,43 @@
 
       <u-table-column prop="executeNurseName" title="executeNurseName" label="执行护士" min-width="80px" align="center">
       <template slot-scope="scope">
-          <span :title="scope.row.executeNurseName | ymdhms">{{scope.row.executeNurseName | ymdhms}}</span>
+          <span >{{scope.row.executeNurseName}}</span>
+        </template>
+      </u-table-column>
+
+      <u-table-column
+        prop="endInfusionTime"
+        label="结束输液护士/时间"
+        min-width="200px"
+      >
+        <template slot-scope="scope">
+          <div>
+              {{ scope.row.endInfusionNurse }} {{ scope.row.endInfusionTime | ymdhms }}
+          </div>
+        </template>
+      </u-table-column>
+
+      <u-table-column
+        prop="pauseDateTime"
+        label="结束输液护士/时间/原因"
+        min-width="200px"
+      >
+        <template slot-scope="scope">
+          <div>
+              {{ scope.row.pauseNurse }} {{ scope.row.pauseDateTime | ymdhms }} {{scope.row.pauseReason}}
+          </div>
+        </template>
+      </u-table-column>
+
+        <u-table-column
+        prop="unexecutedReason"
+        label="未执行原因"
+        min-width="200px"
+      >
+        <template slot-scope="scope">
+          <div>
+            {{ scope.row.unexecutedReason }}
+          </div>
         </template>
       </u-table-column>
 
@@ -120,6 +157,16 @@
         </template>
       </u-table-column>
 
+      <u-table-column label="操作" min-width="100px" align="center">
+        <template slot-scope="scope">
+           <el-button
+            type="text"
+            @click="backTracking(scope.row)"
+            v-if="isEdit"
+            >补录</el-button
+          >
+        </template>
+      </u-table-column>
     </u-table>
   </div>
 </template>
@@ -155,12 +202,12 @@
       font-size: 13px !important;
       white-space: normal !important;
 
-      .yzx {
+      .Red {
         color: red;
       }
 
-      .zxz {
-        color: blue;
+      .Green {
+        color: #4bb08d;
       }
     }
 
@@ -266,10 +313,31 @@ export default {
     return {
       rowHeight: 30,
       checked: true,
-      selectedData: []
+      selectedData: [],
+      isEdit:false
     };
   },
   methods: {
+    backTracking(item) {
+        this.$confirm("是否补录?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "info",
+        }).then(() => {
+          let data = {
+            strJson: JSON.stringify({
+              LabelId: item.barCode,
+              EmpNo: this.empNo,
+              Type: "1",
+              tradeCode: "OrderExecute",
+            }),
+          };
+          addRecord(data).then((res) => {
+            this.$message.success("补录成功");
+            this.bus.$emit("loadImplementationList");
+          });
+        });
+    },
     rowcb(obj){
       // 如果该条执行单是一组多条的 或者该执行单是已完成的隐藏当前多选框
       if(obj.row.rowType > 1 || obj.row.executeFlag == 2){
@@ -279,6 +347,13 @@ export default {
     handleSelectionChange(selection){
       this.selectedData = selection;
     }
+  },
+   mounted() {
+    this.isEdit =
+      JSON.parse(localStorage.user) 
+      // && JSON.parse(localStorage.user).post == "护长"
+        ? true
+        : false;
   },
   filters: {
     ymdhm(val) {

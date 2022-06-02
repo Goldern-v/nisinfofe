@@ -383,7 +383,7 @@ a {
 </style>
 
 <script>
-import { login } from "@/api/login";
+import { login,hisLogin } from "@/api/login";
 import Cookies from "js-cookie";
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
@@ -413,7 +413,7 @@ export default {
           this.verificationImg = res.data.data
         })
     },
-    login(type) {
+    async login(type) {
       // console.log(md5(this.account, "this.account"));
       // return;
       if (!(this.account && this.password)) {
@@ -441,26 +441,27 @@ export default {
       (this.md5HisList.includes(this.HOSPITAL_ID))&&(this.password!=="Bcy@22qw") && (password=md5(this.password));
       // login(this.account, this.password, this.verificationCode)
       // login前先执行his校验 by谢岗
-      // if (this.HOSPITAL_ID == 'xiegang') {
-      //   try {
-      //     console.log('testOnly-1')
-      //     const res = await hisLogin({
-      //       Empl_Code: this.account,
-      //       PassWord: password,
-      //       Client: '移动护理电脑端'
-      //     })
-      //     if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
-      //       this.$message.error("请重新登录");
-      //       this.ajax = false
-      //       return
-      //     }
-      //   } catch (e) {
-      //     this.$message.error("请重新登录");
-      //     this.ajax = false
-      //     return
-      //   }
-      // }
-
+        let login = login;
+      if (this.HOSPITAL_ID == 'xiegang') {
+        login = hisLogin
+        // try {
+        //   console.log('testOnly-1')
+        //   const res = await hisLogin({
+        //     empNo: this.account,
+        //     password: password,
+        //     code:  this.verificationCode
+        //   })
+        //   if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
+        //     this.$message.error("请重新登录");
+        //     this.ajax = false
+        //     return
+        //   }
+        // } catch (e) {
+        //   this.$message.error("请重新登录");
+        //   this.ajax = false
+        //   return
+        // }
+      }
       login(this.account, password, this.verificationCode)
         .then((res) => {
           // 记住账号

@@ -931,7 +931,7 @@ export default {
       }
     },
     setTitle(item) {
-      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) {
         this.setTitleFS(item)
         return
       }

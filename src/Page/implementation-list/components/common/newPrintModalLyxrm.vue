@@ -12,7 +12,7 @@
       style="width:8cm;height:6.9cm"
     >
       <div class="new-print-modal__title">
-        <span>{{ hospitalName }}</span>
+        <span :class="{center:currentBottle.deptName.length<=6}">{{ hospitalName }}</span>
         <span>{{ currentBottle.deptName }}</span>
       </div>
       <div class="new-print-modal__text">
@@ -131,11 +131,13 @@
     @extend .p-lr-5;
     @extend .bb;
     span:first-child {
+      &.center{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
       font-size: 18px;
       text-align: center;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
     }
   }
   .new-print-modal__text {
@@ -232,6 +234,9 @@
       .text--large {
         font-size: 17px;
 				font-weight: 700;
+      }
+      >span:last-of-type{
+        min-width: 72px;
       }
       p.text--large {
         white-space: nowrap;
