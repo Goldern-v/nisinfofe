@@ -404,7 +404,7 @@ export default {
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
       ]
       // 佛山市一 获取自定义标题数据
-      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) {
         fnArr.shift()
         fnArr.unshift(findListByBlockId())
       }
