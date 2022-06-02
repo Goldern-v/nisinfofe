@@ -99,16 +99,15 @@ export function updateExecuteTime(obj) {
 // 网页端：医嘱查询，执行单打印用
 export function getPrintExecuteWithWardcode(obj) {
   // getPatientOrdersWithWardCode
-  switch(HOSPITAL_ID){
-    case 'whfk':
-      return axios.get(`${apiPath}/WuHanFeiKeData/getPatientOrdersWithWardCode/${obj.wardCode}`)
-    default : 
-      return axios.post(`${apiPath}procedure/webExecute/webGetOrdersExecutePrint`, obj)
-  }
+  return axios.post(`${apiPath}procedure/webExecute/webGetOrdersExecutePrint`, obj)
   // return axios.post(
   //     `${apiPath}procedure/webExecute/webGetOrdersPrint`,
   //     obj
   // );
+}
+// 武汉肺科同步医嘱
+export function getPatientOrder(obj) {
+  return axios.get(`${apiPath}WuHanFeiKeData/getPatientOrdersWithWardCode/${obj.wardCode}`)
 }
 // 执行执行单（批量）
 export function handleWebExecuteBatch(arr) {
