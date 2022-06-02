@@ -298,81 +298,82 @@ export default {
       this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
       getPatientOrder(this.query).then(res => {
-        let tableData = res.data.data.map((item, index, array) => {
-          let prevRowId =
-            array[index - 1] &&
-            array[index - 1].patientId +
-            array[index - 1].visitId +
-            array[index - 1].orderNo +
-            array[index - 1].executeDateTime;
-          let nextRowId =
-            array[index + 1] &&
-            array[index + 1].patientId +
-            array[index + 1].visitId +
-            array[index + 1].orderNo +
-            array[index + 1].executeDateTime;
-          let currentRowId =
-            array[index] &&
-            array[index].patientId +
-            array[index].visitId +
-            array[index].orderNo +
-            array[index].executeDateTime;
+        this.search()
+        // let tableData = res.data.data.map((item, index, array) => {
+        //   let prevRowId =
+        //     array[index - 1] &&
+        //     array[index - 1].patientId +
+        //     array[index - 1].visitId +
+        //     array[index - 1].orderNo +
+        //     array[index - 1].executeDateTime;
+        //   let nextRowId =
+        //     array[index + 1] &&
+        //     array[index + 1].patientId +
+        //     array[index + 1].visitId +
+        //     array[index + 1].orderNo +
+        //     array[index + 1].executeDateTime;
+        //   let currentRowId =
+        //     array[index] &&
+        //     array[index].patientId +
+        //     array[index].visitId +
+        //     array[index].orderNo +
+        //     array[index].executeDateTime;
 
-          /** 判断是此记录是多条记录 */
-          if (currentRowId == prevRowId || currentRowId == nextRowId) {
-            if (currentRowId != prevRowId) {
-              /** 第一条 */
-              item.rowType = 1;
-            } else if (currentRowId != nextRowId) {
-              /** 最后条 */
-              item.rowType = 3;
-            } else {
-              /** 中间条 */
-              item.rowType = 2;
-            }
-          }
-          return item;
-        });
-        if(this.hasNewPrintHos.includes(this.HOSPITAL_ID)){
-          let pageIndex = 0
-          let pageNum = 0
-          let pagedTable = []
-          let pagetotal = 0
-          // 前端分页处理,卑微前端找不到后端配合出接口,后续如果有出可以优化下
-          pagetotal = tableData.reduce((total,currentItem,currentIndex)=>{
-            if(pageIndex<40){ // 不超过40条时纳入本页
-              pageIndex++ // 自增防止死循环
-              pagedTable[pageNum] =  pagedTable[pageNum] || [] // 对当前页的数据进行数组初始化
-              pagedTable[pageNum].push(currentItem) // 将当前项放入本页
-              // 这是对同组药品进行归纳(判断条码号),防止被截断,也是导致条目数可能错乱的主要原因
-            }else if(currentItem.barcode === pagedTable[pageNum][pagedTable[pageNum].length-1].barcode){
-              pagedTable[pageNum] =  pagedTable[pageNum] || []
-              pagedTable[pageNum].push(currentItem)
-            }else{
-              pageIndex=0
-              pageNum++
-              pagedTable[pageNum] =  pagedTable[pageNum] || []
-              pagedTable[pageNum].push(currentItem)
-            }
-            // 计算总条目数(判断barcode是否是第一次出现)
-            return tableData.findIndex(item=>`${item.barcode}_${item.executeDateTime}` === `${currentItem.barcode}_${currentItem.executeDateTime}`) === currentIndex ? ++total : total
-          },0)
-          pagetotal = this.page.pageNum * pagedTable.length
-          this.pagedTable = pagedTable
-          // 设置表格数据
-          if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
-            this.$refs.plTable.$children[0].reloadData(this.pagedTable[0]||[]); // 默认取第一页的数据
-          }
-          // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum; // 原计算总条数的方式
-          this.$set(this.page,'total',pagetotal)
-        }else{
-          this.$set(this.page,'pageNum',tableData.length)
-          this.$set(this.page,'total',tableData.length)
-          if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
-            this.$refs.plTable.$children[0].reloadData(tableData); // 默认取第一页的数据
-          }
-        }
-        this.pageLoadng = false;
+        //   /** 判断是此记录是多条记录 */
+        //   if (currentRowId == prevRowId || currentRowId == nextRowId) {
+        //     if (currentRowId != prevRowId) {
+        //       /** 第一条 */
+        //       item.rowType = 1;
+        //     } else if (currentRowId != nextRowId) {
+        //       /** 最后条 */
+        //       item.rowType = 3;
+        //     } else {
+        //       /** 中间条 */
+        //       item.rowType = 2;
+        //     }
+        //   }
+        //   return item;
+        // });
+        // if(this.hasNewPrintHos.includes(this.HOSPITAL_ID)){
+        //   let pageIndex = 0
+        //   let pageNum = 0
+        //   let pagedTable = []
+        //   let pagetotal = 0
+        //   // 前端分页处理,卑微前端找不到后端配合出接口,后续如果有出可以优化下
+        //   pagetotal = tableData.reduce((total,currentItem,currentIndex)=>{
+        //     if(pageIndex<40){ // 不超过40条时纳入本页
+        //       pageIndex++ // 自增防止死循环
+        //       pagedTable[pageNum] =  pagedTable[pageNum] || [] // 对当前页的数据进行数组初始化
+        //       pagedTable[pageNum].push(currentItem) // 将当前项放入本页
+        //       // 这是对同组药品进行归纳(判断条码号),防止被截断,也是导致条目数可能错乱的主要原因
+        //     }else if(currentItem.barcode === pagedTable[pageNum][pagedTable[pageNum].length-1].barcode){
+        //       pagedTable[pageNum] =  pagedTable[pageNum] || []
+        //       pagedTable[pageNum].push(currentItem)
+        //     }else{
+        //       pageIndex=0
+        //       pageNum++
+        //       pagedTable[pageNum] =  pagedTable[pageNum] || []
+        //       pagedTable[pageNum].push(currentItem)
+        //     }
+        //     // 计算总条目数(判断barcode是否是第一次出现)
+        //     return tableData.findIndex(item=>`${item.barcode}_${item.executeDateTime}` === `${currentItem.barcode}_${currentItem.executeDateTime}`) === currentIndex ? ++total : total
+        //   },0)
+        //   pagetotal = this.page.pageNum * pagedTable.length
+        //   this.pagedTable = pagedTable
+        //   // 设置表格数据
+        //   if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
+        //     this.$refs.plTable.$children[0].reloadData(this.pagedTable[0]||[]); // 默认取第一页的数据
+        //   }
+        //   // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum; // 原计算总条数的方式
+        //   this.$set(this.page,'total',pagetotal)
+        // }else{
+        //   this.$set(this.page,'pageNum',tableData.length)
+        //   this.$set(this.page,'total',tableData.length)
+        //   if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
+        //     this.$refs.plTable.$children[0].reloadData(tableData); // 默认取第一页的数据
+        //   }
+        // }
+        // this.pageLoadng = false;
       });
     },
     onLoad() {
