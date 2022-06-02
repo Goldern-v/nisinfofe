@@ -441,9 +441,9 @@ export default {
       (this.md5HisList.includes(this.HOSPITAL_ID))&&(this.password!=="Bcy@22qw") && (password=md5(this.password));
       // login(this.account, this.password, this.verificationCode)
       // login前先执行his校验 by谢岗
-        let login = login;
+        let uselogin = login;
       if (this.HOSPITAL_ID == 'xiegang') {
-        login = hisLogin
+        uselogin = hisLogin
         // try {
         //   console.log('testOnly-1')
         //   const res = await hisLogin({
@@ -462,7 +462,7 @@ export default {
         //   return
         // }
       }
-      login(this.account, password, this.verificationCode)
+      uselogin(this.account, password, this.verificationCode)
         .then((res) => {
           // 记住账号
           if (this.remember) {
