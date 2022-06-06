@@ -371,12 +371,22 @@ export default {
       let resultModel = mapSheetModel.filter((item) => {
         return showSheetPage(item.index);
       });
-      resultModel.map((item) => {
+      // index为第几页
+      resultModel.map((item,index) => {
+        // x为每页护记的行数
         item.data.bodyModel.map((tr, x) => {
           if (!tr.hasOwnProperty("isRead")) {
-            tr.isRead = this.isRead(tr,x);
+            // 如果传x永远都是当前护记的行数，不会叠加（列入0~16 17条数据的护记）。使用的时候是判断的是整个表格的数据(一页显示17条数据的护记  可能会有几百条数据，所以x需要计算)
+            // 不计算 isRead  isDisabed  永远都是拿第一页数据进行比对，是否签名与审核，第2页之后的都是用第一页的数据比较
+            let nowX=''
+            if(index==0){
+              nowX=  x
+            }else{
+              nowX= 16 + 17*(index-1) + x+1
+            }
+            tr.isRead = this.isRead(tr,x,nowX);
             tr.map((td, y) => {
-              td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel);
+              td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel,nowX);
             });
           }
         });
@@ -471,7 +481,8 @@ export default {
       }
       return flag;
     },
-    isDisabed(tr, td, x, y, bodyModel) {
+    isDisabed(tr, td, x, y, bodyModel,nowX) {
+      // nowX可以看上面注解，估计所有医院用x都有bug(无论有多少页数据，只能第一页的数据进行判断，返回isDisabed)。但是不敢动，医院反正有问题就可替换nowX
       // canModify false可以修改，true禁止修改
       // 签名后不能修改，要取消修改才能修改
       if (this.sheetInfo.sheetType == "common_xg") {
@@ -488,7 +499,7 @@ export default {
         }
       }
       // 如果审核完，canModify=false才禁用
-      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[x] && (this.listData[x].status==2)&& (!this.listData[x].canModify)){
+      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[nowX] && (this.listData[nowX].status==2)&& (!this.listData[nowX].canModify)){
         return true
       }
       if (
@@ -540,7 +551,8 @@ export default {
         return false;
       }
     },
-    isRead(tr,x) {
+    isRead(tr,x,nowX) {
+      // nowX可以看上面注解，估计所有医院用x都有bug(无论有多少页数据，只能第一页的数据进行判断，返回isRead)。但是不敢动，医院反正有问题就可替换nowX
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd"
@@ -552,7 +564,7 @@ export default {
       }
       // 当审核完，就出现问题，下拉还是会出现。 用this.isDisabed解决
       // 这里主要是给弹窗做判断isRead
-      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[x] && (this.listData[x].status==2)&& (!this.listData[x].canModify)){
+      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[nowX] && (this.listData[nowX].status==2)&& (!this.listData[nowX].canModify)){
         // 当审核完，status=2&&canModify=false,
         return true
       }
