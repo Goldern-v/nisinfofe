@@ -479,6 +479,16 @@ export default {
             localStorage["rememberAccount"] = this.account;
           }
           this.ajax = false;
+          let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$") 
+          if (['sdlj'].includes(this.HOSPITAL_ID) && !regexp.test(password)) {
+            this.$message({
+              showClose: true,
+              message: "当前登录密码强度较弱，请修改密码后登录!",
+              type: "warning",
+            });
+            this.$router.push('/resetpassword')
+            return
+          }
           // 存下token 和用户信息 Auth-Token-Nursing
           let user = res.data.data.user;
           user.token = res.data.data.authToken;

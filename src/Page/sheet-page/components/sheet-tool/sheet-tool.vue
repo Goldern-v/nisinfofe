@@ -1301,7 +1301,7 @@ export default {
       if (startPage && endPage) {
         if (
           Number(endPage) - Number(startPage) >= 0 &&
-          Number(endPage) - Number(startPage) <= maxPage[this.HOSPITAL_ID] || maxPage.default
+          Number(endPage) - Number(startPage) <= (maxPage[this.HOSPITAL_ID] || maxPage.default)
         ) {
           this.sheetInfo.startPage = startPage;
           this.sheetInfo.endPage = endPage;

@@ -238,6 +238,7 @@ import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
 import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBottom";
 import { patients } from "@/api/lesion";
 import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
+import { getRowNum } from "@/Page/sheet-page/components/utils/sheetRow"
 
 export default {
   mixins: [common],
@@ -310,7 +311,7 @@ export default {
             if(index==0){
               nowX=  x
             }else{
-              nowX= 16 + 17*(index-1) + x+1
+              nowX= (getRowNum(index) - 1) + getRowNum(index)*(index-1) + x + 1
             }
             tr.isRead = this.isRead(tr,x,nowX)
             tr.map((td,y)=>{
@@ -588,6 +589,7 @@ export default {
         }
         return true;
       }
+
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
         (this.HOSPITAL_ID == "huadu") &&
@@ -640,6 +642,15 @@ export default {
         // 当审核完，status=2&&canModify=false
         return true
       }
+
+      if (
+        (this.HOSPITAL_ID == "xiegang" && td && this.listData[nowX])
+        ||
+        (this.HOSPITAL_ID == "nanfangzhongxiyi" && td && this.listData[nowX])
+      ) {
+        return !this.listData[nowX].canModify;
+      }
+
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;
       if (status == 1) {
