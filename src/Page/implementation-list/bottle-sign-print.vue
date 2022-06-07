@@ -67,7 +67,8 @@
           <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt','whfk'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
           <el-button size="small" @click="creatImplement">生成执行</el-button>
           <!-- <a href="VMS://abcdefg" @click="onPrint" >1</a> -->
-          <el-button size="small" v-if="HOSPITAL_ID == 'whfk'" @click="syncData" :disabled="status=='已执行'">同步医嘱</el-button>
+          <el-button size="small" v-if="HOSPITAL_ID == 'whfk'" @click="syncData">同步医嘱</el-button>
+          <el-button size="small" v-else-if="HOSPITAL_ID == 'sdlj'" @click="syncData">同步医嘱</el-button>
           <el-button size="small" v-else @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
         </div>
       </div>
@@ -205,9 +206,18 @@ import NewPrintModalSdlj from "./components/common/newPrintModalSdlj"
 import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm"
 import printing from 'printing'
 import { patEmrList } from "@/api/document";
-import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2, getPatientOrder } from "./api/index";
+import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2, getPatientOrder,getSDLJPatientOrder } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
+const initStartDate = () => {
+  if (['whfk', 'fsxt'].includes(process.env.HOSPITAL_ID)) return moment().format("YYYY-MM-DD")+' 00:00:00'
+  return moment().format("YYYY-MM-DD")+' 07:00:00'
+}
+const initEndDate = () => {
+  if (['whfk'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00'
+  if (['fsxt'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 23:59:00'
+  return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00'
+}
 export default {
   mixins: [common],
   data() {
@@ -215,6 +225,7 @@ export default {
       src:"",
       pageInput: "",
       pageLoadng: false,
+      ifCanTongbu:true,
       page: {
         pageIndex: 1,
         // pageNum: 20,
@@ -222,11 +233,9 @@ export default {
         total: 0
       },
       // startDate: moment().format("YYYY-MM-DD"),
-      startDate: process.env.HOSPITAL_ID=='whfk'? moment().format("YYYY-MM-DD")+' 00:00:00':moment().format("YYYY-MM-DD")+' 07:00:00',
-      endDate: process.env.HOSPITAL_ID=='whfk'?  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00' :  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
-       startDate: process.env.HOSPITAL_ID=='fsxt'? moment().format("YYYY-MM-DD")+' 00:00:00':moment().format("YYYY-MM-DD")+' 07:00:00',
-      endDate: process.env.HOSPITAL_ID=='fsxt'?  moment().format("YYYY-MM-DD")+' 23:59:00' :  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
-      
+      startDate: initStartDate(),
+      endDate: initEndDate(),
+
       repeatIndicator: "",
       type: "",
       status: "",
@@ -290,14 +299,20 @@ export default {
       }
     },
     syncData() {
-      if (!this.deptCode) return;
+      if (!this.deptCode || !this.ifCanTongbu) return;
+      this.ifCanTongbu = false
       this.pageLoadng = true;
+      let getOrder;
+      if(['sdlj'].includes(this.HOSPITAL_ID)){
+        getOrder=getSDLJPatientOrder
+      }else getOrder=getPatientOrder
       this.query.wardCode = this.deptCode;
       this.query.startDate = moment(this.startDate).format('YYYY-MM-DD HH:mm:ss')
       this.query.endDate = moment(this.endDate).format('YYYY-MM-DD HH:mm:ss')
       this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
-      getPatientOrder(this.query).then(res => {
+      getOrder(this.query).then(res => {
+        this.ifCanTongbu=true
         this.search()
         // let tableData = res.data.data.map((item, index, array) => {
         //   let prevRowId =
@@ -374,6 +389,8 @@ export default {
         //   }
         // }
         // this.pageLoadng = false;
+      },err=>{
+        this.ifCanTongbu=true
       });
     },
     onLoad() {

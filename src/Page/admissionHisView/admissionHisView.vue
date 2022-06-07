@@ -8,12 +8,16 @@
 import sheetHospitalAdmission from "@/Page/sheet-hospital-admission/sheet-hospital-admission.vue"
 import { autoLogin } from "@/api/login";
 import Cookies from "js-cookie";
+import { mapMutations } from 'vuex';
 export default {
 props: {},
 data() {
 return {};
 },
 methods: {
+    ...mapMutations('common', [
+        'setUser'
+    ])
 },
 created(){
 },
@@ -30,6 +34,7 @@ beforeRouteEnter(to,from,next){
                 user.token = res.data.data.authToken;
                 window.app.authToken = res.data.data.authToken;
                 localStorage.setItem("user",JSON.stringify(res.data.data.user))
+                this.setUser(res.data.data.user || {})
                 Cookies.set(
                     "NURSING_USER",
                     `${res.data.data.user.id}##${res.data.data.authToken}`,

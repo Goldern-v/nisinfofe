@@ -145,7 +145,7 @@ export default {
           customClass: "screen-lock-view-message",
         });
       } else {
-        this.$store.commit("setScreenLock", false);
+        this.$store.commit("common/setScreenLock", false);
       }
     },
     bindingActiveTimmer() {
@@ -161,12 +161,12 @@ export default {
       this.activeTimmer = setTimeout(() => {
         let user = JSON.parse(localStorage.user || "{}");
         if (!this.screenLock && user.empName) {
-          this.$store.commit("setScreenLock", true);
+          this.$store.commit("common/setScreenLock", true);
         }
       }, this.lockBeforeMinute * 60 * 1000);
     },
     quit() {
-      this.$store.commit("setScreenLock", false);
+      this.$store.commit("common/setScreenLock", false);
 
       logout(Cookies.get("NURSING_USER"));
       Cookies.remove("password");

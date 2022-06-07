@@ -56,7 +56,7 @@
             <div @click="onSignOrCancel(scope.row)">{{scope.row.creatorName}}</div>
           </template>
         </el-table-column>
-        
+
         <el-table-column
           prop="evalType"
           label="护理评价"
@@ -94,7 +94,7 @@
             </div>
           </template>
         </el-table-column>
-       
+
         <!-- <el-table-column prop="signTime" label="签名时间" width="95" align="center"></el-table-column> -->
         <!--
       <el-table-column
@@ -148,7 +148,7 @@
             </div>
           </template>
         </el-table-column>
-       
+
         <el-table-column label="护理目标" width="95" header-align="center">
           <template slot-scope="scope">
             <div>
@@ -192,6 +192,7 @@ import { nursingDiagsDel, savePlanForm } from "../../api/index";
 import stopDiagnosisModal from "../../modal/stopDiagnosisModal";
 import Cookies from "js-cookie";
 import { $params } from "@/pages/sheet-print/tool/tool";
+import { mapGetters, mapState } from 'vuex';
 export default {
   mixins: [common],
   props: ["tableData"],
@@ -233,7 +234,6 @@ export default {
       // }
     },
     edit(row) {
-      // if (!this.verify()) return;
       model.selectedRow = row;
       this.openSlideCon({
         id: model.selectedRow.id,
@@ -250,6 +250,10 @@ export default {
     },
     del(row) {
       // if (!this.verify()) return;
+      if ( row.status !== '1' && (!this.isHeadNurse || this.user.empNo !== row.creator)) {
+        this.$message.warning('护士长以上或创建人支持删除')
+        return
+      }
       model.selectedRow = row;
       window.openSignModal((password, empNo) => {
         nursingDiagsDel(password, empNo, model.selectedRow.id).then(res => {
@@ -284,6 +288,12 @@ export default {
       let appToken = $params.appToken || '51e827c9-d80e-40a1-a95a-1edc257596e7'
       return `App-Token-Nursing=${appToken}&Auth-Token-Nursing=${token}`;
     },
+    ...mapGetters('common', {
+      isHeadNurse: 'isHeadNurse'
+    }),
+    ...mapState({
+      user: state => state.common.user
+    })
   }
 };
 </script>

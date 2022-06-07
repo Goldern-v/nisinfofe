@@ -302,6 +302,14 @@
               </el-row>
             </router-link>
 
+            <router-link to="/nursingDocumentation" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i>患者查询
+              </el-row>
+            </router-link>
+
+
+
             <router-link to="/badEvent" tag="span" v-if="HOSPITAL_ID == 'hj'">
               <el-row class="nav-item" type="flex" align="middle"
                 >不良事件
@@ -354,7 +362,7 @@
                     <el-row class="menu-item" type="flex" align="middle">不良事件</el-row>
                   </router-link>
                 </el-dropdown-item>-->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/nursingDocumentation' }"
                 >
                   <router-link to="/nursingDocumentation" tag="span">
@@ -362,7 +370,7 @@
                       <i class="nursingDocumentation"></i>患者查询
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item
                     :class="{ active: $route.path == '/catheterPage' }"
                 >
@@ -402,7 +410,7 @@
                     </el-row>
                   </el-dropdown-item>
                 </el-dropdown-item>-->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/nursingRules' }"
                 >
                   <router-link to="/nursingRules" tag="span">
@@ -518,7 +526,7 @@
                       </template>
                     </el-dropdown-menu>
                   </el-dropdown>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>
@@ -971,7 +979,7 @@ export default {
     },
     isActivePage() {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
-      if (this.$route.path == "/nursingDocumentation") return true;
+      // if (this.$route.path == "/nursingDocumentation") return true;
       // if (this.$route.path == "/badEvent") return true;
       if (this.$route.path.indexOf("/inpatientReport") > -1) return true;
       if (this.$route.path == "/catheterPage") return true;
