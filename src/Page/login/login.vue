@@ -71,7 +71,7 @@
           <div class="input-con" v-if="showVerification">
             <input
               type="password"
-              style="border-top: 0;width:170px;"
+              style="border-top: 0; width: 170px"
               placeholder="验证码，单击图片刷新"
               v-model="verificationCode"
             />
@@ -81,7 +81,12 @@
               width="14"
             />
             <div class="verificationImg">
-              <img :src="verificationImg" alt="" @click="refreshImg" style="cursor:pointer">
+              <img
+                :src="verificationImg"
+                alt=""
+                @click="refreshImg"
+                style="cursor: pointer"
+              />
             </div>
           </div>
           <div class="remember-con">
@@ -272,15 +277,17 @@ a {
     bottom: 0;
     margin: auto 0;
   }
+
   .verificationImg {
     width: 90px;
     height: 37px;
     position: absolute;
     top: 0;
     right: 0;
+
     img {
       width: 80px;
-      height 37px;
+      height: 37px;
     }
   }
 }
@@ -383,10 +390,11 @@ a {
 </style>
 
 <script>
-import { login } from "@/api/login";
+import { login, hisLogin } from "@/api/login";
 import Cookies from "js-cookie";
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
+import { mapMutations } from "vuex";
 const CryptoJS = require("crypto-js");
 const SecretKey = "chenrui2020";
 
@@ -395,25 +403,25 @@ export default {
     return {
       account: "",
       password: "",
-      verificationCode:"",//验证码
+      verificationCode: "", //验证码
       remember: true,
       ajax: false,
       showPwdType: true, //显示的登录方式，默认是密码
       loginLoading: false,
-      showVerification: false,//展示验证码
-      verificationImg: "",//验证码图片base64
-      md5HisList:["foshanrenyi"],//需要md5加密医院
+      showVerification: false, //展示验证码
+      verificationImg: "", //验证码图片base64
+      md5HisList: ["foshanrenyi"], //需要md5加密医院
     };
   },
   methods: {
+    ...mapMutations("common", ["setUser"]),
     //刷新验证码图片
-    refreshImg(){
-      login(this.account, this.password, "", true)
-        .then((res) => {
-          this.verificationImg = res.data.data
-        })
+    refreshImg() {
+      login(this.account, this.password, "", true).then((res) => {
+        this.verificationImg = res.data.data;
+      });
     },
-    login(type) {
+    async login(type) {
       // console.log(md5(this.account, "this.account"));
       // return;
       if (!(this.account && this.password)) {
@@ -425,7 +433,7 @@ export default {
         });
         return;
       }
-      if (this.showVerification&&!this.verificationCode) {
+      if (this.showVerification && !this.verificationCode) {
         //          如果空
         this.$message({
           showClose: true,
@@ -437,31 +445,34 @@ export default {
       //        阻止重新登录
       if (this.ajax === true) return;
       this.ajax = true;
-      let password=this.password;
-      (this.md5HisList.includes(this.HOSPITAL_ID))&&(this.password!=="Bcy@22qw") && (password=md5(this.password));
+      let password = this.password;
+      this.md5HisList.includes(this.HOSPITAL_ID) &&
+        this.password !== "Bcy@22qw" &&
+        (password = md5(this.password));
       // login(this.account, this.password, this.verificationCode)
       // login前先执行his校验 by谢岗
-      // if (this.HOSPITAL_ID == 'xiegang') {
-      //   try {
-      //     console.log('testOnly-1')
-      //     const res = await hisLogin({
-      //       Empl_Code: this.account,
-      //       PassWord: password,
-      //       Client: '移动护理电脑端'
-      //     })
-      //     if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
-      //       this.$message.error("请重新登录");
-      //       this.ajax = false
-      //       return
-      //     }
-      //   } catch (e) {
-      //     this.$message.error("请重新登录");
-      //     this.ajax = false
-      //     return
-      //   }
-      // }
-
-      login(this.account, password, this.verificationCode)
+      let uselogin = login;
+      if (this.HOSPITAL_ID == "xiegang") {
+        uselogin = hisLogin;
+        // try {
+        //   console.log('testOnly-1')
+        //   const res = await hisLogin({
+        //     empNo: this.account,
+        //     password: password,
+        //     code:  this.verificationCode
+        //   })
+        //   if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
+        //     this.$message.error("请重新登录");
+        //     this.ajax = false
+        //     return
+        //   }
+        // } catch (e) {
+        //   this.$message.error("请重新登录");
+        //   this.ajax = false
+        //   return
+        // }
+      }
+      uselogin(this.account, password, this.verificationCode)
         .then((res) => {
           // 记住账号
           if (this.remember) {
@@ -473,7 +484,8 @@ export default {
           user.token = res.data.data.authToken;
           window.app.authToken = res.data.data.authToken;
           localStorage["ppp"] = this.password;
-          localStorage.setItem("user",JSON.stringify(res.data.data.user))
+          localStorage.setItem("user", JSON.stringify(res.data.data.user));
+          this.setUser(res.data.data.user || {});
           localStorage["adminNurse"] = res.data.data.adminNurse;
           Cookies.remove("NURSING_USER");
           //清除江门妇幼ca
@@ -498,14 +510,14 @@ export default {
           ) {
             this.$router.push("/badEvent");
           } else {
-            this.$store.commit("upRelogin", false);
+            this.$store.commit("common/upRelogin", false);
             this.$router.push("/index");
-            if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
+            if (["foshanrenyi", "weixian"].includes(this.HOSPITAL_ID)) {
               /** 验证证书 */
               window.openCaSignModal();
-            }else if(["fuyou"].includes(this.HOSPITAL_ID)){
+            } else if (["fuyou"].includes(this.HOSPITAL_ID)) {
               window.openFuyouCaSignModal();
-            }else if(['hj','guizhou'].includes(this.HOSPITAL_ID)){
+            } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
               window.openHjCaSignModal();
             }
           }
@@ -530,10 +542,10 @@ export default {
             input.focus();
             input.select();
           } else if (res.data.errorCode == "301") {
-            this.showVerification = true
-            this.verificationImg = res.data.data
+            this.showVerification = true;
+            this.verificationImg = res.data.data;
           } else if (res.data.errorCode == "403") {
-            this.refreshImg()
+            this.refreshImg();
           }
         });
     },
@@ -619,26 +631,32 @@ export default {
         case "wujing":
           return require("../../common/images/logo_wujing.png");
         case "liaocheng":
-          return require("../../common/images/logoBack.png")
+          return require("../../common/images/logoBack.png");
         case "foshanrenyi":
-          return require("../../common/images/foshan_logo.png")
+          return require("../../common/images/foshan_logo.png");
         case "lyxrm":
-          return require("../../common/images/lyxrm_logo.png")
+          return require("../../common/images/lyxrm_logo.png");
         case "fsxt":
-          return require("../../common/images/fsxt_logo.png")
+          return require("../../common/images/fsxt_logo.png");
         default:
           return require("../../common/images/logo.png");
       }
     },
     logoName() {
       let logoName = "百辰源智慧护理信息系统";
-      if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "zhongshanqi" || this.HOSPITAL_ID == "nanfangzhongxiyi" || this.HOSPITAL_ID == "huadu"|| this.HOSPITAL_ID == "xiegang") {
+      if (
+        this.HOSPITAL_ID == "hj" ||
+        this.HOSPITAL_ID == "zhongshanqi" ||
+        this.HOSPITAL_ID == "nanfangzhongxiyi" ||
+        this.HOSPITAL_ID == "huadu" ||
+        this.HOSPITAL_ID == "xiegang"
+      ) {
         logoName = `${this.HOSPITAL_NAME}<br />智慧护理信息系统`;
       } else if (
         this.HOSPITAL_ID == "guizhou" ||
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "lingcheng" ||
-        this.HOSPITAL_ID == "wujing"||
+        this.HOSPITAL_ID == "wujing" ||
         this.HOSPITAL_ID == "foshanrenyi" ||
         this.HOSPITAL_ID == "fsxt"
       ) {

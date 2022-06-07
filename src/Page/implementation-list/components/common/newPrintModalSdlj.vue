@@ -26,7 +26,7 @@
       </div>
       <div class="new-print-modal__content">
         <div class="new-print-modal__content__left">
-          <div v-if="isSevere" class="content__left__severe"></div>
+          <div v-if="isSevere" class="content__left__severe">G</div>
           <div
             :class="{ 'left-item--normal': !isSmallItem }"
             v-for="(item, index) in currentBottle.orderText"
@@ -39,7 +39,7 @@
           <div>
             <img :src="currentBottle.qcSrc || ''" />
           </div>
-          <p class="text--large">
+          <p class="text--large absolute--small">
             <span>
               {{ `${currentBottle.frequency}${groupNo ? `(${groupNo})`: ''}` }}
             </span>
@@ -48,7 +48,9 @@
             <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
           </div>
           <span class="text--large">{{ currentBottle.executeType }}</span>
-          <span v-if="currentBottle.administration">{{ currentBottle.administration }}</span>
+          <p class="absolute--small" v-if="currentBottle.administration">
+            <span>{{ currentBottle.administration }}</span>
+          </p>
         </div>
       </div>
     </div>
@@ -186,7 +188,13 @@
         width: 100px;
         height: 100px;
         border-radius: 50%;
-        border: 2px solid #000;
+        border: 6px solid #000;
+        opacity: .4;
+        font-size: 50px;
+        font-weight: bolder;
+        line-height: 100px;
+        text-align: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
       }
     }
     .new-print-modal__content__right {
@@ -224,15 +232,22 @@
         font-size: 17px;
 				font-weight: 700;
       }
-      p.text--large {
+      .absolute {
         white-space: nowrap;
         position: relative;
-        height: 16px;
         span {
           position: absolute;
           top: 0;
           right: 0;
         }
+      }
+      p.absolute--large {
+        height: 16px;
+        @extend .absolute;
+      }
+      p.absolute--small {
+        height: 13px;
+        @extend .absolute;
       }
       >span{
         margin-right: 10px;
@@ -358,7 +373,7 @@ export default {
     },
     // 是否重症
     isSevere() {
-      return this.itemObj[0] && this.itemObj[0].drugType == 2
+      return this.itemObj && this.itemObj.find(item => item.drugType == 2)
     },
   },
   filters: {

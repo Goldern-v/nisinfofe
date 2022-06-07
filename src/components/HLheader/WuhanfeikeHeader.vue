@@ -83,7 +83,7 @@
              <el-dropdown
               menu-align="start"
               :hide-on-click="false"
-              
+
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -316,6 +316,11 @@
               <el-row class="nav-item" type="flex" align="middle"
                 >护理巡视
               </el-row>
+            </router-link>
+            <router-link to="/planList" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+              >护理计划单</el-row
+              >
             </router-link>
             <el-dropdown
               menu-align="start"

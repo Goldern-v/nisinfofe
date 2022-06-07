@@ -54,7 +54,7 @@ export function initSheetPage(titleData, bodyData, markData) {
   let customOptions = []
   sheetInfo.masterInfo = bodyData;// 主表信息
   try {
-    if (['foshanrenyi'].includes(process.env.HOSPITAL_ID)) {
+    if (['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID)) {
       titleList = titleData.FieldSetting
       customOptions = titleData.Options
     } else {

@@ -81,7 +81,7 @@ export function removeShiftRecord(id, empNo, password) {
 
 // 更新交班签名
 export function signShiftRecord(id, autographNameType, empNo, password) {
-  if(HOSPITAL_ID === "weixian"){
+  if(['xiegang','weixian'].includes(HOSPITAL_ID)){
     return axios.post(
       `${apiPath}changeShiftTime/updateAutographName`,{
         id,

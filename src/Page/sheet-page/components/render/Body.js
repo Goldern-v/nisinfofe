@@ -18,7 +18,7 @@ export default function Body(data = [], index, customList = []) {
   let bodyModel = [];
     // 重新设置自定义选项
     let formatCustomObj = {}
-    if(['foshanrenyi'].includes(process.env.HOSPITAL_ID) && customList.length > 0) {
+    if(['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID) && customList.length > 0) {
       customList.reduce((total, cur) => {
         if (!cur.fieldEn) return total
         if (total[cur.fieldEn]) {

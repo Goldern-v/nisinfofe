@@ -67,7 +67,8 @@
           <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt','whfk'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
           <el-button size="small" @click="creatImplement">生成执行</el-button>
           <!-- <a href="VMS://abcdefg" @click="onPrint" >1</a> -->
-          <el-button size="small" @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
+          <el-button size="small" v-if="HOSPITAL_ID == 'whfk'" @click="syncData" :disabled="status=='已执行'">同步医嘱</el-button>
+          <el-button size="small" v-else @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
         </div>
       </div>
       <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
@@ -204,9 +205,18 @@ import NewPrintModalSdlj from "./components/common/newPrintModalSdlj"
 import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm"
 import printing from 'printing'
 import { patEmrList } from "@/api/document";
-import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2 } from "./api/index";
+import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2, getPatientOrder } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
+const initStartDate = () => {
+  if (['whfk', 'fsxt'].includes(process.env.HOSPITAL_ID)) return moment().format("YYYY-MM-DD")+' 00:00:00'
+  return moment().format("YYYY-MM-DD")+' 07:00:00'
+}
+const initEndDate = () => {
+  if (['whfk'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00'
+  if (['fsxt'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 23:59:00'
+  return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00'
+}
 export default {
   mixins: [common],
   data() {
@@ -221,11 +231,9 @@ export default {
         total: 0
       },
       // startDate: moment().format("YYYY-MM-DD"),
-      startDate: process.env.HOSPITAL_ID=='whfk'? moment().format("YYYY-MM-DD")+' 00:00:00':moment().format("YYYY-MM-DD")+' 07:00:00',
-      endDate: process.env.HOSPITAL_ID=='whfk'?  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00' :  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
-       startDate: process.env.HOSPITAL_ID=='fsxt'? moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00':moment().format("YYYY-MM-DD")+' 07:00:00',
-      endDate: process.env.HOSPITAL_ID=='fsxt'?  moment(moment().toDate().getTime()+86400000 * 1).format("YYYY-MM-DD")+' 23:59:00' :  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
-      
+      startDate: initStartDate(),
+      endDate: initEndDate(),
+
       repeatIndicator: "",
       type: "",
       status: "",
@@ -288,7 +296,93 @@ export default {
         this.$refs.plTable.$children[0].reloadData(this.pagedTable[newPage - 1]||[]);
       }
     },
+    syncData() {
+      if (!this.deptCode) return;
+      this.pageLoadng = true;
+      this.query.wardCode = this.deptCode;
+      this.query.startDate = moment(this.startDate).format('YYYY-MM-DD HH:mm:ss')
+      this.query.endDate = moment(this.endDate).format('YYYY-MM-DD HH:mm:ss')
+      this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
+      this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
+      getPatientOrder(this.query).then(res => {
+        this.search()
+        // let tableData = res.data.data.map((item, index, array) => {
+        //   let prevRowId =
+        //     array[index - 1] &&
+        //     array[index - 1].patientId +
+        //     array[index - 1].visitId +
+        //     array[index - 1].orderNo +
+        //     array[index - 1].executeDateTime;
+        //   let nextRowId =
+        //     array[index + 1] &&
+        //     array[index + 1].patientId +
+        //     array[index + 1].visitId +
+        //     array[index + 1].orderNo +
+        //     array[index + 1].executeDateTime;
+        //   let currentRowId =
+        //     array[index] &&
+        //     array[index].patientId +
+        //     array[index].visitId +
+        //     array[index].orderNo +
+        //     array[index].executeDateTime;
 
+        //   /** 判断是此记录是多条记录 */
+        //   if (currentRowId == prevRowId || currentRowId == nextRowId) {
+        //     if (currentRowId != prevRowId) {
+        //       /** 第一条 */
+        //       item.rowType = 1;
+        //     } else if (currentRowId != nextRowId) {
+        //       /** 最后条 */
+        //       item.rowType = 3;
+        //     } else {
+        //       /** 中间条 */
+        //       item.rowType = 2;
+        //     }
+        //   }
+        //   return item;
+        // });
+        // if(this.hasNewPrintHos.includes(this.HOSPITAL_ID)){
+        //   let pageIndex = 0
+        //   let pageNum = 0
+        //   let pagedTable = []
+        //   let pagetotal = 0
+        //   // 前端分页处理,卑微前端找不到后端配合出接口,后续如果有出可以优化下
+        //   pagetotal = tableData.reduce((total,currentItem,currentIndex)=>{
+        //     if(pageIndex<40){ // 不超过40条时纳入本页
+        //       pageIndex++ // 自增防止死循环
+        //       pagedTable[pageNum] =  pagedTable[pageNum] || [] // 对当前页的数据进行数组初始化
+        //       pagedTable[pageNum].push(currentItem) // 将当前项放入本页
+        //       // 这是对同组药品进行归纳(判断条码号),防止被截断,也是导致条目数可能错乱的主要原因
+        //     }else if(currentItem.barcode === pagedTable[pageNum][pagedTable[pageNum].length-1].barcode){
+        //       pagedTable[pageNum] =  pagedTable[pageNum] || []
+        //       pagedTable[pageNum].push(currentItem)
+        //     }else{
+        //       pageIndex=0
+        //       pageNum++
+        //       pagedTable[pageNum] =  pagedTable[pageNum] || []
+        //       pagedTable[pageNum].push(currentItem)
+        //     }
+        //     // 计算总条目数(判断barcode是否是第一次出现)
+        //     return tableData.findIndex(item=>`${item.barcode}_${item.executeDateTime}` === `${currentItem.barcode}_${currentItem.executeDateTime}`) === currentIndex ? ++total : total
+        //   },0)
+        //   pagetotal = this.page.pageNum * pagedTable.length
+        //   this.pagedTable = pagedTable
+        //   // 设置表格数据
+        //   if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
+        //     this.$refs.plTable.$children[0].reloadData(this.pagedTable[0]||[]); // 默认取第一页的数据
+        //   }
+        //   // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum; // 原计算总条数的方式
+        //   this.$set(this.page,'total',pagetotal)
+        // }else{
+        //   this.$set(this.page,'pageNum',tableData.length)
+        //   this.$set(this.page,'total',tableData.length)
+        //   if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
+        //     this.$refs.plTable.$children[0].reloadData(tableData); // 默认取第一页的数据
+        //   }
+        // }
+        // this.pageLoadng = false;
+      });
+    },
     onLoad() {
       if (!this.deptCode) return;
       this.pageLoadng = true;
