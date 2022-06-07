@@ -23,7 +23,7 @@
     <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
     <hjCaSignModal ref="hjCaSignModal"></hjCaSignModal>
     <!-- 测试 -->
-    
+
     <!-- 锁屏界面 -->
     <ScreenLockView v-if="HOSPITAL_ID === 'zhongshanqi'" />
   </div>
@@ -94,7 +94,7 @@ export default {
     // end --- 针对花都多窗口切换用户bug的绑定监听事件
 
     window.onresize = () => {
-      this.$store.commit("upWih");
+      this.$store.commit("common/upWih");
     };
     // 禁止缩放
     if (

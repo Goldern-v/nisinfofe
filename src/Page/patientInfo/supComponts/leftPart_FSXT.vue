@@ -338,7 +338,7 @@ export default {
   },
   methods: {
     toOpenLeft() {
-      this.$store.commit("upOpenLeft", !this.openLeft);
+      this.$store.commit("common/upOpenLeft", !this.openLeft);
     },
     // 床头卡打印
     openBedPrint(printMode) {
@@ -414,7 +414,7 @@ export default {
     window.document.title = `${this.info.bedLabel}-${this.info.name}`;
   },
   mounted() {
-    this.getArchiveStatus(); 
+    this.getArchiveStatus();
   },
   components: {
     bedModal,
