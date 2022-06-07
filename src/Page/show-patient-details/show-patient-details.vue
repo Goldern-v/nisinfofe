@@ -81,9 +81,9 @@ export default {
     // this.$route.query.deptCode = "4003";
 
     // 修改高度
-    this.$store.commit("upWihInPatient");
+    this.$store.commit("common/upWihInPatient");
     window.onresize = () => {
-      this.$store.commit("upWihInPatient");
+      this.$store.commit("common/upWihInPatient");
     };
     getPatientInfo(this.$route.query.patientId, this.$route.query.visitId).then(
       res => {

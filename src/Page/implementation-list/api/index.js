@@ -109,6 +109,10 @@ export function getPrintExecuteWithWardcode(obj) {
 export function getPatientOrder(obj) {
   return axios.get(`${apiPath}WuHanFeiKeData/getPatientOrdersWithWardCode/${obj.wardCode}`)
 }
+// 顺德龙江同步医嘱
+export function getSDLJPatientOrder(obj) {
+  return axios.get(`${apiPath}procedure/webExecute/syncNurseOrders/${obj.wardCode}`)
+}
 // 执行执行单（批量）
 export function handleWebExecuteBatch(arr) {
   return axios.post(
