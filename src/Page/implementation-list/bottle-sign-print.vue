@@ -208,6 +208,15 @@ import { patEmrList } from "@/api/document";
 import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2, getPatientOrder } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
+const initStartDate = () => {
+  if (['whfk', 'fsxt'].includes(process.env.HOSPITAL_ID)) return moment().format("YYYY-MM-DD")+' 00:00:00'
+  return moment().format("YYYY-MM-DD")+' 07:00:00'
+}
+const initEndDate = () => {
+  if (['whfk'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00'
+  if (['fsxt'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 23:59:00'
+  return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00'
+}
 export default {
   mixins: [common],
   data() {
@@ -222,11 +231,9 @@ export default {
         total: 0
       },
       // startDate: moment().format("YYYY-MM-DD"),
-      startDate: process.env.HOSPITAL_ID=='whfk'? moment().format("YYYY-MM-DD")+' 00:00:00':moment().format("YYYY-MM-DD")+' 07:00:00',
-      endDate: process.env.HOSPITAL_ID=='whfk'?  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00' :  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
-       startDate: process.env.HOSPITAL_ID=='fsxt'? moment().format("YYYY-MM-DD")+' 00:00:00':moment().format("YYYY-MM-DD")+' 07:00:00',
-      endDate: process.env.HOSPITAL_ID=='fsxt'?  moment().format("YYYY-MM-DD")+' 23:59:00' :  moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00',
-      
+      startDate: initStartDate(),
+      endDate: initEndDate(),
+
       repeatIndicator: "",
       type: "",
       status: "",

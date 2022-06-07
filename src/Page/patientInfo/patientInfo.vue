@@ -103,9 +103,9 @@ export default {
   },
   created() {
     // 修改高度
-    this.$store.commit("upWihInPatient");
+    this.$store.commit("common/upWihInPatient");
     window.onresize = () => {
-      this.$store.commit("upWihInPatient");
+      this.$store.commit("common/upWihInPatient");
     };
     this.getPatientData();
   },

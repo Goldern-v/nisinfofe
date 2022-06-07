@@ -174,7 +174,6 @@
 <script>
 import inspectForm from "./component/inspectForm";
 import inspectFormFuyou from "./component/inspectForm_fuyou";
-inspectFormFuyou
 import { examList } from "@/api/patientInfo";
 export default {
   data() {
