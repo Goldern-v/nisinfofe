@@ -35,7 +35,7 @@ import {
     {
       key: "temperature", //T
       value: "",
-      name: "T",
+      name: "体温",
       next:"℃",
       event: keyf1,
       change: (e, td) => limitChange(e, td,4),
@@ -46,7 +46,7 @@ import {
     {
       key: "pulse", //脉搏/心率
       value: "",
-      name: "P",
+      name: "脉搏",
       next:"次/分",
       event: keyf1,
       change: (e, td) => limitChange(e, td,4),
@@ -57,7 +57,7 @@ import {
     {
       key: "breath", //R 呼吸
       value: "",
-      name: "P",
+      name: "呼吸",
       next:"次/分",
       event: keyf1,
       change: (e, td) => limitChange(e, td,4),
@@ -68,7 +68,7 @@ import {
     {
       key: "bloodPressure", //BP
       value: "",
-      name: "BP",
+      name: "血压",
       next:"mmHg",
       event: keyf1,
       change: (e, td) => limitChange(e, td,6),
