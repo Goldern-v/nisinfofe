@@ -373,7 +373,7 @@ export default {
     },
     // 是否重症
     isSevere() {
-      return this.itemObj[0] && this.itemObj[0].drugType == 2
+      return this.itemObj && this.itemObj.find(item => item.drugType == 2)
     },
   },
   filters: {
