@@ -1466,6 +1466,7 @@ export default {
       }else{
         for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
+        console.log("charCode",charCode)
         // 字符为 ，。；,.：:
         if (
           charCode == "65292" ||
@@ -1591,6 +1592,7 @@ export default {
               text += allDoc[i];
             }
           }else {
+            console.log("this.sheetInfo.sheetType",this.sheetInfo.sheetType)
             if (GetLength(text) > 23) {
               result.push(text);
               text = allDoc[i];

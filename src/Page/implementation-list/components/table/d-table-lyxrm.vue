@@ -78,10 +78,10 @@
         <template slot-scope="scope">
           <span
             :class="{
-              Red: ["0","3","2","9"].includes(scope.row.executeFlag),
-              Green: ["1"].includes(scope.row.executeFlag)
+              Red: ['0','3','2','9'].includes(scope.row.executeFlag),
+              Green: ['1'].includes(scope.row.executeFlag)
               }"
-          >{{ scope.row.executeFlag == 0 ? '未执行' : scope.row.executeFlag == 1 ? "执行中" : scope.row.executeFlag == 2 ? "已结束" :scope.row.executeFlag == 3 ? "暂停" :"作废"}}</span>
+          >{{ scope.row.executeFlag == 0 ? '未执行' : scope.row.executeFlag == 1 ? '执行中' : scope.row.executeFlag == 2 ? '已结束' :scope.row.executeFlag == 3 ? '暂停' :'作废'}}</span>
         </template>
       </u-table-column>
 

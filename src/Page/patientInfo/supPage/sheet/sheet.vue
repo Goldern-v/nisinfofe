@@ -323,6 +323,7 @@ export default {
       return resultModel;
     },
     sheetTable() {
+      console.log("sheetInfo.sheetType",sheetInfo.sheetType)
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
       } else if (sheetInfo.sheetType == "post_partum") {
