@@ -20,6 +20,9 @@ export default {
     upOpenLeft(state) {
       state.openLeft = !state.openLeft
     },
+    upDefaultOpenLeft(state,value) {
+      state.openLeft = value
+    },
     upMailUnread(state, num) {
       state.mailUnread = num
     },
