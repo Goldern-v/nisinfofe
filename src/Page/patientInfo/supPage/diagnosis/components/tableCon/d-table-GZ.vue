@@ -220,11 +220,8 @@ import { nursingDiagsDel, savePlanForm } from "../../api/index";
 import stopDiagnosisModal from "../../modal/stopDiagnosisModal";
 import Cookies from "js-cookie";
 import { $params } from "@/pages/sheet-print/tool/tool";
-<<<<<<< HEAD
 import { mapGetters, mapState } from 'vuex';
-=======
 import { nursingDiagsUpdate } from "@/Page/patientInfo/supPage/diagnosis/api/index.js";
->>>>>>> 8617
 export default {
   mixins: [common],
   props: ["tableData"],
