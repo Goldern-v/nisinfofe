@@ -52,7 +52,7 @@
             {{scope.row.beginTime}}
             <el-date-picker
               v-model="beginTime"
-              v-if="['guizhou'].includes(HOSPITAL_ID) && scope.row.beginTime!=''"
+              v-if="['guizhou'].includes(HOSPITAL_ID) && scope.row.beginTime"
               :default-value="scope.row.beginTime"
               type="datetime"
               placeholder="选择日期时间"
@@ -83,8 +83,8 @@
           <template slot-scope="scope">
             {{scope.row.endTime}}
             <el-date-picker
-              v-model="endtime"
-              v-if="['guizhou'].includes(HOSPITAL_ID) && scope.row.endTime!=''"
+              v-model="endTime"
+              v-if="['guizhou'].includes(HOSPITAL_ID) && scope.row.endTime"
               :default-value="scope.row.endTime"
               type="datetime"
               placeholder="选择日期时间"
@@ -230,15 +230,16 @@ export default {
       model,
       beginTime:"",
       endTime:"",
-      endTime:"",
       diagnosisLoading:false
     };
   },
   methods: {
     timeChange(val,row,type){
+      console.log("1111111111")
       let measureStr2 = (row.measuresName.length>0 && row.measuresName.join(" ")) || row.diagMeasures
       let factorStr2 = (row.targetsName.length>0 && row.targetsName.join(" ")) || row.diagTarget
         window.openSignModal((password, empNo) => {
+        console.log("222222222")
         let params = {
           creator: password,
           empNo,
