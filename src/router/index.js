@@ -388,6 +388,7 @@ const router = new Router({
     component: (() => {
       switch (HOSPITAL_ID) {
         case 'whfk':
+        case 'sdlj':
           // 新版修改密码
           return newResetPassword
         default:

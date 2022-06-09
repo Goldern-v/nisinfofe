@@ -422,6 +422,7 @@ export default {
   },
   created() {
     console.log("P:created");
+    if(['foshanrenyi'].includes(this.HOSPITAL_ID)) this.$store.commit("common/upDefaultOpenLeft", false);
     window.document.title = `${this.info.bedLabel}-${this.info.name}`;
   },
   mounted() {

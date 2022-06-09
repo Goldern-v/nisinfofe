@@ -152,7 +152,11 @@ export default {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.lyxrm.json"))
         )
-      } else {
+      }/** else if (this.HOSPITAL_ID === 'foshanrenyi') {
+        file = JSON.parse(
+          JSON.stringify(require("../data/入院评估.form.foshanrenyi.json"))
+        )
+      } */ else {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.json"))
         )
@@ -188,7 +192,9 @@ export default {
         contexts = require.context('../data/formDialogLiaoc', true, /\.json$/);
       } else if (this.HOSPITAL_ID === 'lyxrm') {
         contexts = require.context('../data/formDialogLyxrm', true, /\.json$/);
-      } else {
+      } /**else if (this.HOSPITAL_ID === 'foshanrenyi') {
+        contexts = require.context('../data/formDialogfoshanrenyi', true, /\.json$/);
+      } */else {
         contexts = require.context('../data/formDialog', true, /\.json$/);
       }
       contexts.keys().forEach((context, b, c, d) => {
@@ -206,7 +212,9 @@ export default {
             schemesJson = require(`../data/formSchemesLiaoc/${fromName}.txt.json`)
           } else if (this.HOSPITAL_ID === 'lyxrm') {
             schemesJson = require(`../data/formSchemesLyxrm/${fromName}.txt.json`)
-          } else {
+          } /**else if (this.HOSPITAL_ID === 'foshanrenyi') {
+            schemesJson = require(`../data/formSchemesfoshanrenyi/${fromName}.txt.json`)
+          } */else {
             schemesJson = require(`../data/formSchemes/${fromName}.txt.json`)
           }
           let schemes = JSON.parse(JSON.stringify(schemesJson));
