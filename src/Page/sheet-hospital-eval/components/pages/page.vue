@@ -182,7 +182,9 @@ export default {
         url = this.getFilePath("住院评估.index.liaoc.json", rootDir);
       } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
         url = this.getFilePath("住院评估.index.lyxrm.json", rootDir);
-      } else {
+      } /**else if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        url = this.getFilePath("住院评估.index.foshanrenyi.json", rootDir);
+      } */else {
         url = this.getFilePath("住院评估.index.json", rootDir);
       }
       //
@@ -205,7 +207,9 @@ export default {
         url = this.getFilePath("住院评估.form.liaoc.json", `${rootDir}/main`);
       } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
         url = this.getFilePath("住院评估.form.lyxrm.json", `${rootDir}/main`);
-      } else {
+      } /**else if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        url = this.getFilePath("住院评估.form.foshanrenyi.json", `${rootDir}/main`);
+      } */else {
         url = this.getFilePath("住院评估.form.json", `${rootDir}/main`);
       }
       let jdata = await getJSON(url).catch(err => {
@@ -227,7 +231,9 @@ export default {
         url = this.getFilePath("住院评估.schemes.liaoc.json", `${rootDir}/main`);
       } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
         url = this.getFilePath("住院评估.schemes.lyxrm.json", `${rootDir}/main`);
-      } else {
+      } /**else if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        url = this.getFilePath("住院评估.schemes.foshanrenyi.json", `${rootDir}/main`);
+      } */else {
         url = this.getFilePath("住院评估.schemes.json", `${rootDir}/main`);
       }
 
@@ -455,7 +461,11 @@ export default {
         file = JSON.parse(
           JSON.stringify(require("../data/住院评估.form.lyxrm.json"))
         )
-      } else {
+      } /**else if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        file = JSON.parse(
+          JSON.stringify(require("../data/住院评估.form.foshanrenyi.json"))
+        )
+      } */else {
         file = JSON.parse(
           JSON.stringify(require("../data/住院评估.form.json"))
         )
@@ -474,7 +484,9 @@ export default {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.liaoc.json")))
       } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.lyxrm.json")))
-      } else {
+      } /**else if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.foshanrenyi.json")))
+      }*/ else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/住院评估.dictionary.json")))
       }
       //
@@ -484,7 +496,9 @@ export default {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.liaoc.json")))
       } else if (['lyxrm'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.lyxrm.json")))
-      } else {
+      }/**  else if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.foshanrenyi.json")))
+      } */else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/other.dictionary.json")));
       }
       //

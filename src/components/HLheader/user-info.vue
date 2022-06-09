@@ -289,7 +289,7 @@ export default {
       fuyouCaData:null,//江门妇幼ca签名认证数据
       isUpdateFuyouCaData:true,
       // hasQrCaSignHos:['fuyou','hj'],
-      hasQrCaSignHos:['fuyou','hj','guizhou','foshanrenyi']
+      hasQrCaSignHos:['fuyou','hj','guizhou']
     };
   },
   props: {

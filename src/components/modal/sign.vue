@@ -125,6 +125,7 @@
         v-if="!showSignBtn()"
         @dblclick.stop="post"
         @click.stop="post"
+        :loading="btnLoading"
         >确认</el-button
       >
       <el-button 
@@ -242,7 +243,8 @@ export default {
       // hasQrCaSignHos:['fuyou','hj'],
       hasQrCaSignHos:['fuyou','hj','guizhou'],
       // caSignHasNoSignType:['hj'],
-      caSignHasNoSignType:['hj','guizhou']
+      caSignHasNoSignType:['hj','guizhou'],
+      btnLoading:false
     };
   },
   methods: {
@@ -260,6 +262,7 @@ export default {
     return !!flag
     },
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType) {//formData为表单数据
+    this.btnLoading = false
     if(doctorTure){
       this.isDoctor = doctorTure
       this.isCaSign = false;
@@ -354,6 +357,7 @@ export default {
       this.$refs.modalName.setCloseCallback(closeCallback);
     },
     post() {
+      this.btnLoading = true
       this.setCloseCallback(null);
       if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         if (this.pw) {

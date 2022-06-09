@@ -298,6 +298,9 @@ import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
 import { blockSave, getNurseExchageInfo } from "./api/index";
 import TableRadioVue from './components/sheetTable/components/table-components/TableRadio.vue';
+import { getRowNum } from "./components/utils/sheetRow"
+
+
 export default {
   mixins: [common],
   data() {
@@ -382,7 +385,7 @@ export default {
             if(index==0){
               nowX=  x
             }else{
-              nowX= 16 + 17*(index-1) + x+1
+              nowX= (getRowNum(index) - 1) + getRowNum(index)*(index-1) + x + 1
             }
             tr.isRead = this.isRead(tr,x,nowX);
             tr.map((td, y) => {
@@ -510,6 +513,15 @@ export default {
       ) {
         return !this.listData[x].canModify;
       }
+
+      if (
+        (this.HOSPITAL_ID == "xiegang" && td && this.listData[nowX])
+        ||
+        (this.HOSPITAL_ID == "nanfangzhongxiyi" && td && this.listData[nowX])
+      ) {
+        return !this.listData[nowX].canModify;
+      }
+
       if (td && td.key == "recordYear") {
         if (!tr.find((item) => item.key == "recordMonth").value) {
           td.value = "";

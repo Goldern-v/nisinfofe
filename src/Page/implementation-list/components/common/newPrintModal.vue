@@ -1,7 +1,7 @@
 <template>
     <div :style="{width:`${newModalSize.split('*')[1]=='8'?'8':'10'}cm`,height:`${newModalSize=='6*8' ? '5.9' : '5.7'}cm`}">
         <div v-if="newModalSize=='6*8'" class="new-print-modal" style="width:8cm,height:5.7cm">
-            <div class="new-modal-top">
+            <div class="new-modal-top" :class="HOSPITAL_ID=='whfk' ? 'reverse' : ''">
                 <div class="new-modal-top-left">
                     <div class="new-modal-top-left-first">
                         <div>{{currentBottle.name}}</div>
@@ -91,14 +91,25 @@
         font-size: 12px;
     }
     .new-modal-top{
+        &.reverse{
+            flex-direction: row-reverse;
+            >div:first-child {
+                border-right: none;
+            }
+            >div:last-child {
+                border-right: 1px solid #000;
+            }
+        }
         display: flex;
         /* height: 65%; */
         font-weight: 600;
         div {
             font-size: 13px;
         }
-        .new-modal-top-left{
+        >div:first-child {
             border-right: 1px solid #000;
+        }
+        .new-modal-top-left{
             box-sizing: border-box;
             /* flex: 2; */
             width: calc(100% - 60px);
