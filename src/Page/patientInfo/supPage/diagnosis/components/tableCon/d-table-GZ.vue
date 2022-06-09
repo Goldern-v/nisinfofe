@@ -47,7 +47,21 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="beginTime" label="开始时间" width="95" align="center"></el-table-column>
+        <el-table-column prop="beginTime" label="开始时间" width="95" align="center">
+          <template slot-scope="scope">
+            {{scope.row.beginTime}}
+            <el-date-picker
+              v-model="beginTime"
+              v-if="['guizhou'].includes(HOSPITAL_ID) && scope.row.beginTime"
+              :default-value="scope.row.beginTime"
+              type="datetime"
+              placeholder="选择日期时间"
+              value-format="yyyy-MM-dd HH:mm"
+              :clearable="false"
+              @change="val => {timeChange(val, scope.row,'beginTime');}">
+            </el-date-picker>
+          </template>
+        </el-table-column>
         <el-table-column label="护士签名" width="90" header-align="center" align="center">
           <template slot-scope="scope">
             <!-- <div v-if="!scope.row.creatorName" class="tool-btn" @click="onSignOrCancel(scope.row)">
@@ -65,7 +79,21 @@
           align="center"
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" width="325" header-align="center"></el-table-column>
-        <el-table-column prop="endTime" label="停止时间" width="95" align="center"></el-table-column>
+        <el-table-column prop="endTime" label="停止时间" width="95" align="center">
+          <template slot-scope="scope">
+            {{scope.row.endTime}}
+            <el-date-picker
+              v-model="endTime"
+              v-if="['guizhou'].includes(HOSPITAL_ID) && scope.row.endTime"
+              :default-value="scope.row.endTime"
+              type="datetime"
+              placeholder="选择日期时间"
+              value-format="yyyy-MM-dd HH:mm"
+              :clearable="false"
+              @change="val => {timeChange(val, scope.row,'endTime');}">
+            </el-date-picker>
+          </template>
+        </el-table-column>
         <el-table-column label="护士签名" width="90" header-align="center" align="center">
           <template slot-scope="scope">
             <!-- <div v-if="!scope.row.signerName" class="tool-btn" @click="onSignOrCancel(scope.row)">
@@ -192,7 +220,11 @@ import { nursingDiagsDel, savePlanForm } from "../../api/index";
 import stopDiagnosisModal from "../../modal/stopDiagnosisModal";
 import Cookies from "js-cookie";
 import { $params } from "@/pages/sheet-print/tool/tool";
+<<<<<<< HEAD
 import { mapGetters, mapState } from 'vuex';
+=======
+import { nursingDiagsUpdate } from "@/Page/patientInfo/supPage/diagnosis/api/index.js";
+>>>>>>> 8617
 export default {
   mixins: [common],
   props: ["tableData"],
@@ -200,10 +232,47 @@ export default {
   data() {
     return {
       model,
+      beginTime:"",
+      endTime:"",
       diagnosisLoading:false
     };
   },
   methods: {
+    timeChange(val,row,type){
+      console.log("1111111111")
+      let measureStr2 = (row.measuresName.length>0 && row.measuresName.join(" ")) || row.diagMeasures
+      let factorStr2 = (row.targetsName.length>0 && row.targetsName.join(" ")) || row.diagTarget
+        window.openSignModal((password, empNo) => {
+        console.log("222222222")
+        let params = {
+          creator: password,
+          empNo,
+          id:row.id,
+          patientId: this.$route.query.patientId,
+          visitId: this.$route.query.visitId,
+          patientName: this.$route.query.name,
+          bedLabel: this.$route.query.bedLabel,
+          code: row.diagCode,
+          name: row.diagName,
+          measureStr: measureStr2,
+          targetStr: factorStr2,
+          factorStr: row.diagFactor,
+          wardCode: model.selectedBlock.wardCode,
+        };
+        if(type==="beginTime") params.beginTime=val
+        else params.endTime=val
+        nursingDiagsUpdate(params).then(res => {
+          console.log(model, "modelmodel");
+          this.$message.success("保存成功");
+          model.newDiagnosisModal.close();
+          model.refreshTable();
+          this.$store.commit("upMeasureGuizhou", {
+              measure:"",
+              target:""
+          });
+        });
+      })
+    },  
     onSignOrCancel(row){
       window.openSignModal((password,username)=>{
         this.diagnosisLoading = true
@@ -334,6 +403,14 @@ export default {
     }
     td {
       border: 1px solid #000 !important;
+    }
+    .el-date-editor.el-input{
+      width: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50% );
+      opacity: 0;
     }
     .cell {
       padding: 0 5px;
