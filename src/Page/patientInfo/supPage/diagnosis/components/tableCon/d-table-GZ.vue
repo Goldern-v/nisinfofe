@@ -84,7 +84,7 @@
                 @click="stop(scope.row)"
               >停止</div>
               <div
-                v-if="scope.row.status == 1"
+                v-if="scope.row.status == 1 || ['guizhou'].includes(HOSPITAL_ID)"
                 class="tool-btn"
                 style="color: red"
                 @click="del(scope.row)"

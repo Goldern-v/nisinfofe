@@ -41,6 +41,9 @@
             <span>是否同步</span>
           </div>
         </div>
+        <div class="diagnosis-box">
+          <el-button v-if="showDiagnosisBtn" size="small" class="diagnosis-box__btn" @click="openDiagnosisModal">同步护理计划</el-button>
+        </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
           <el-tab-pane label="固定项目" name="1" :disabled="isDisabed">
             <div v-if="HOSPITAL_ID == 'hj'">
@@ -558,6 +561,7 @@
       </div>
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
+    <diagnosis-modal v-if="['guizhou'].includes(HOSPITAL_ID)" ref="diagnosisModalRef" @handleOk="handleDiagnosis" />
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -726,6 +730,17 @@
     font-size:14px;
   }
 }
+.diagnosis-box {
+  position: relative;
+
+  .diagnosis-box__btn {
+    position: absolute;
+    bottom: -35px
+    right: 0px;
+    z-index: 90;
+  }
+
+}
 </style>
 <script>
 import bus from "vue-happy-bus";
@@ -747,6 +762,7 @@ import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import { saveBatch, getmultiDict } from "../../api/index";
+import DiagnosisModal from './diagnosis-modal.vue';
 
 function autoComplete(el, bind) {
   if (bind.value.dataList) {
@@ -906,6 +922,13 @@ export default {
         return false;
       }
     },
+    /**通用记录单 by贵州 */
+    commonFormGZ() {
+      return this.sheetInfo.sheetType === 'common_gzry'
+    },
+    showDiagnosisBtn() {
+      return ['guizhou'].includes(process.env.HOSPITAL_ID) && this.commonFormGZ && this.activeTab === '3'
+    }
   },
   methods: {
     /* 是否同步体征信息 */
@@ -1717,6 +1740,14 @@ export default {
     handleInputBlur(e) {
       this.blurIndex = e.srcElement.selectionStart;
     },
+    /**打开护理诊断同步 */
+    openDiagnosisModal() {
+      this.$refs.diagnosisModalRef.open()
+    },
+    /**获取选择的同步项 */
+    handleDiagnosis(val) {
+      this.doc += val.diagName
+    }
   },
   mounted() {
     // 打开特殊情况
@@ -1777,6 +1808,7 @@ export default {
   components: {
     templateSlide,
     quillEditor,
+    DiagnosisModal,
   },
 };
 </script>

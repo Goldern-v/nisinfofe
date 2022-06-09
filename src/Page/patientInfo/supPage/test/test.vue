@@ -175,7 +175,9 @@
       toRight(data) {
         console.log('data', data)
         this.rightData = data
-        this.$refs.testForm.open(data)
+        this.$nextTick(() => {
+          this.$refs.testForm && this.$refs.testForm.open(data)
+        })
       }
     },
     components: {

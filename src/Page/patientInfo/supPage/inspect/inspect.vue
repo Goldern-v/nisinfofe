@@ -174,7 +174,7 @@
 <script>
 import inspectForm from "./component/inspectForm";
 import inspectFormFuyou from "./component/inspectForm_fuyou";
-import { examList } from "@/api/patientInfo";
+import { examList, getExamList } from "@/api/patientInfo";
 export default {
   data() {
     return {
@@ -242,7 +242,9 @@ export default {
       // console.log(data);
       if (!data) return;
       this.rightData = data;
-      return this.$refs.inspectForm.open(data);
+      this.$nextTick(() => {
+        this.$refs.inspectForm.open(data);
+      })
       // if (data.resultStatus != "已出报告") {
       //   return this.$refs.inspectForm.open(null);
       // } else {
@@ -250,6 +252,16 @@ export default {
       // }
     },
     getData() {
+      // if (['guizhou'].includes(process.env.HOSPITAL_ID)) {
+      //   getExamList(
+      //     this.infoData.patientId,
+      //     this.visitId == "门诊" ? 0 : this.visitId
+      //   ).then(res => {
+      //     this.list = res.data.data;
+      //     // this.toRight(this.list[0]);
+      //   })
+      //   return
+      // }
       examList(
         this.infoData.patientId,
         this.visitId == "门诊" ? 0 : this.visitId

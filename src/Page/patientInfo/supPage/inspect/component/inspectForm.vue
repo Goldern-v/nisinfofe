@@ -285,6 +285,8 @@ export default {
           ).then((res) => {
             this.examList = res.data.data;
             this.loading = false;
+          }).catch(e => {
+            this.loading = false;
           });
           return;
         }
