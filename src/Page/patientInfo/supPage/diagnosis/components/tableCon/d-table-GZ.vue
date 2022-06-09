@@ -52,7 +52,7 @@
             {{scope.row.beginTime}}
             <el-date-picker
               v-model="beginTime"
-              v-if="['guizhou'].includes(HOSPITAL_ID)"
+              v-if="['guizhou'].includes(HOSPITAL_ID) && scope.row.beginTime!=''"
               :default-value="scope.row.beginTime"
               type="datetime"
               placeholder="选择日期时间"
@@ -84,7 +84,7 @@
             {{scope.row.endTime}}
             <el-date-picker
               v-model="endtime"
-              v-if="['guizhou'].includes(HOSPITAL_ID)"
+              v-if="['guizhou'].includes(HOSPITAL_ID) && scope.row.endTime!=''"
               :default-value="scope.row.endTime"
               type="datetime"
               placeholder="选择日期时间"
@@ -229,6 +229,7 @@ export default {
     return {
       model,
       beginTime:"",
+      endTime:"",
       endTime:"",
       diagnosisLoading:false
     };
