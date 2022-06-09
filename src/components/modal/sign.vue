@@ -262,6 +262,7 @@ export default {
     return !!flag
     },
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType) {//formData为表单数据
+    this.btnLoading = false
     if(doctorTure){
       this.isDoctor = doctorTure
       this.isCaSign = false;
@@ -385,7 +386,6 @@ export default {
             // let username = this.username
             let pwd = this.HOSPITAL_ID=="foshanrenyi"?password:localStorage.ppp
             // let pwd = localStorage.ppp
-            this.btnLoading = false
             if (this.signDate) {
               return this.callback(
                 pwd,
