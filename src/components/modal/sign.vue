@@ -125,6 +125,7 @@
         v-if="!showSignBtn()"
         @dblclick.stop="post"
         @click.stop="post"
+        :loading="btnLoading"
         >确认</el-button
       >
       <el-button 
@@ -242,7 +243,8 @@ export default {
       // hasQrCaSignHos:['fuyou','hj'],
       hasQrCaSignHos:['fuyou','hj','guizhou'],
       // caSignHasNoSignType:['hj'],
-      caSignHasNoSignType:['hj','guizhou']
+      caSignHasNoSignType:['hj','guizhou'],
+      btnLoading:false
     };
   },
   methods: {
@@ -354,6 +356,7 @@ export default {
       this.$refs.modalName.setCloseCallback(closeCallback);
     },
     post() {
+      this.btnLoading = true
       this.setCloseCallback(null);
       if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         if (this.pw) {
@@ -382,6 +385,7 @@ export default {
             // let username = this.username
             let pwd = this.HOSPITAL_ID=="foshanrenyi"?password:localStorage.ppp
             // let pwd = localStorage.ppp
+            this.btnLoading = false
             if (this.signDate) {
               return this.callback(
                 pwd,
