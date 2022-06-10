@@ -60,7 +60,7 @@
         <div class="modal_bott_bottom">
           <span>核对者</span><span></span>
         </div>
-          
+
       </div>
     </div>
 
@@ -178,7 +178,7 @@
   .new-print-modal__content {
     flex: 1;
     display: flex;
-    min-height: 220px;
+    /* min-height: 220px; */
 
     .content__left_warm{
         text-align: center;
@@ -197,7 +197,7 @@
       font-weight: 700;
       line-height: 13px;
 			padding-left: 15px;
-     padding-bottom: 50px;
+     /* padding-bottom: 50px; */
       .left-item--normal {
 				line-height: 16px;
         font-size: 15px;
@@ -211,7 +211,6 @@
         border-radius: 50%;
         border: 2px solid #000;
       }
-     
     }
     .new-print-modal__content__right {
 			display: flex;
@@ -254,7 +253,7 @@
     border-top:1px solid #000;
     padding:15px;
     font-size: 15px;
-     
+
     .modal_bott_top{
       display: flex;
       margin-bottom: 10px;
@@ -286,7 +285,7 @@
         border-top:1px solid #000;
       }
     }
-     
+
   }
   .new-modal-small-left {
     >>> * {
@@ -403,7 +402,8 @@ export default {
     },
     // 是否重症
     isSevere() {
-      return this.itemObj[0] && this.itemObj[0].drugType == 2
+      // return this.itemObj[0] && this.itemObj[0].drugType == 2
+      return this.itemObj && this.itemObj.find(item => item.drugType == 2)
     },
     // 是否避光
     isBiguang() {

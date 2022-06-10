@@ -49,7 +49,6 @@ export default {
     },
     // 护士长
     isHeadNurse(state) {
-      console.log('test-state.user', state.user)
       if (!state.user) return false
       if (state.user.roleManageCode === 'QCR0004') return true
       if (state.user.roleManageCodeList && state.user.roleManageCodeList.find((code) => code === "QCR0004")) return true

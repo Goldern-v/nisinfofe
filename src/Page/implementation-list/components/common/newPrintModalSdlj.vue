@@ -174,8 +174,8 @@
       flex: 1;
       font-weight: 900;
       line-height: 13px;
-			padding-left: 15px;
-      padding-top: 10px;
+			padding-left: 10px;
+      padding-top: 5px;
       .left-item--normal {
 				line-height: 16px;
         font-size: 15px;
@@ -324,7 +324,7 @@ export default {
       let dosageDosageUnits = [];
 
       this.itemObj.map(item => {
-        orderText.push(item.orderText + (DRUG_TYPES[item.drugType] || ""));
+        orderText.push(item.orderText + (['sdlj'].includes(this.HOSPITAL_ID) ? '' : (DRUG_TYPES[item.drugType] || "")));
         let content = `${item.dosage || ""}${item.dosageUnits || ""}`;
         dosageDosageUnits.push(content);
       });
