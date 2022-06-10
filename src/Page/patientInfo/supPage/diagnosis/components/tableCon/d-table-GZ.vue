@@ -58,6 +58,7 @@
               placeholder="选择日期时间"
               value-format="yyyy-MM-dd HH:mm"
               :clearable="false"
+              @focus="choseID(scope.row)"
               @change="val => {timeChange(val, scope.row,'beginTime');}">
             </el-date-picker>
           </template>
@@ -90,6 +91,7 @@
               placeholder="选择日期时间"
               value-format="yyyy-MM-dd HH:mm"
               :clearable="false"
+              @focus="choseID(scope.row)"
               @change="val => {timeChange(val, scope.row,'endTime');}">
             </el-date-picker>
           </template>
@@ -231,20 +233,23 @@ export default {
       model,
       beginTime:"",
       endTime:"",
+      choseId:"",
       diagnosisLoading:false
     };
   },
   methods: {
+    choseID(row){
+      this.choseID = row.id
+      console.log(row,this.choseID)
+    },
     timeChange(val,row,type){
-      console.log("1111111111")
       let measureStr2 = (row.measuresName.length>0 && row.measuresName.join(" ")) || row.diagMeasures
       let factorStr2 = (row.targetsName.length>0 && row.targetsName.join(" ")) || row.diagTarget
         window.openSignModal((password, empNo) => {
-        console.log("222222222")
         let params = {
           creator: password,
           empNo,
-          id:row.id,
+          id:this.choseID,
           patientId: this.$route.query.patientId,
           visitId: this.$route.query.visitId,
           patientName: this.$route.query.name,
@@ -335,9 +340,19 @@ export default {
       this.$refs.stopDiagnosisModal.open();
     }
   },
-  created() {},
+  created() {
+    this.$nextTick(()=>{
+      console.log(this.tableData,"tableDatax")
+
+    })
+  },
   components: {
     stopDiagnosisModal
+  },
+  watch:{
+    tableData(val,v){
+      console.log(val,)
+    }
   },
   computed:{
     token() {
