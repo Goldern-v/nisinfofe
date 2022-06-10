@@ -190,6 +190,9 @@ const currentTargetUrl = (() => {
     // 广东同江医院
     case 'gdtj':
       return 'http://192.168.1.54:9866'
+    // 烟台玲珑
+    case 'ytll':
+      return 'http://192.168.1.54:9866'
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"

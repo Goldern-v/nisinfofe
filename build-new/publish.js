@@ -39,6 +39,7 @@ let sshUpload = (
     南方医科大学顺德医院附属杏坛医院: "fsxt",
     福清妇幼保健院:"fuqingfuyou",
     广东同江医院: "tongjiang",
+    玲珑英诚医院: "ytll",
   };
   let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {
