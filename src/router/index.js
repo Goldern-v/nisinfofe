@@ -354,6 +354,7 @@ const statisticalWorkload = () => import("@/Page/statistical-query/statistical-w
 const statisticalBreath = () => import("@/Page/statistical-query/statistical-breath/index.vue")
 const statisticalExitAdmission = () => import("@/Page/statistical-query/statistical-exitAdmission/index.vue")
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
+const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -824,6 +825,14 @@ const router = new Router({
         {
           path: "/test",
           component: test
+          // component: (() => {
+          //   switch (process.env.HOSPITAL_ID) {
+          //     case 'guizhou':
+          //       return testGuizhou
+          //     default:
+          //       return text
+          //   }
+          // })()
         },
         {
           path: "/record",

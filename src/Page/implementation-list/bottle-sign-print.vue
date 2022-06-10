@@ -238,10 +238,11 @@ export default {
       isShowModal:false,
       query: {
         wardCode:"",
-        itemType:"输液",//医嘱类别，输液、雾化
+        itemType: ['whfk'].includes(this.HOSPITAL_ID) ? "全部" : "输液",//医嘱类别，输液、雾化
         executeDate:moment().format("YYYY-MM-DD"),//执行日期
         bedLabel:'',//床位号，如果查全部传*"
-        repeatIndicator:9,//医嘱类型，长期传1，临时传0，全部传9
+        repeatIndicator: ['whfk'].includes(this.HOSPITAL_ID) ? 0 : 9,
+        //医嘱类型，长期传1，临时传0，全部传9
         reprintFlag:0,//是否重打，1=是，0=否
       },
       selectedData: [],//选中打印执行单条数
@@ -257,7 +258,7 @@ export default {
       hasNewPrintHos:['sdlj', 'gdtj', 'fsxt','whfk','lyxrm','wujing'],
       typeOptions:{
         'whfk':[
-          {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"标本"},],
+          {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"标本"},],
         default:[
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},]
       }
@@ -536,23 +537,23 @@ export default {
       this.printObj = sortArr
       console.log(sortArr,"sortArr")
       document.getElementById('new-print-box').style.display = 'block'
-      this.$nextTick(()=>{
-        printing(this.$refs.new_print_modal,{
-          injectGlobalCss: true,
-          scanStyles: false,
-          css: `
-            @page{
-              margin: 0 0;
-            }
-            body{
-              ${this.newModalSize=='6*8' || this.newModalSize == '70*80'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
-            }
-          `
-        }).then(()=>{
-          document.getElementById('new-print-box').style.display = 'none'
-          this.onLoad()
-        })
-      })
+      // this.$nextTick(()=>{
+      //   printing(this.$refs.new_print_modal,{
+      //     injectGlobalCss: true,
+      //     scanStyles: false,
+      //     css: `
+      //       @page{
+      //         margin: 0 0;
+      //       }
+      //       body{
+      //         ${this.newModalSize=='6*8' || this.newModalSize == '70*80'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
+      //       }
+      //     `
+      //   }).then(()=>{
+      //     document.getElementById('new-print-box').style.display = 'none'
+      //     this.onLoad()
+      //   })
+      // })
     },
     // 打印全部
     async onPrintAll() {
