@@ -160,6 +160,7 @@ let upload = () => {
 let zip = () => {
     // 压缩打包zip
     // zipFolder(`./release/${buildFileName}${moment().format("YYYY-MM-DD_HH_mm")}.zip`, `./release/${buildFileName}`)
+    zipFolder(`./publish/${buildFileName}${moment().format("YYYY-MM-DD_HH_mm")}.zip`, `./dist/${buildFileName}`)
     zipFolder(`./dist/${buildFileName}${moment().format("YYYY-MM-DD_HH_mm")}.zip`, `./dist/${buildFileName}`)
 }
 

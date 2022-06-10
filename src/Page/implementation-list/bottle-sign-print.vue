@@ -89,17 +89,10 @@
           <img src="./images/print.png" alt="">
           <p>正在初始化打印,请稍等…</p>
         </div>
-        <!-- <div class="print" v-show="showProgress" @click.stop>
-          <el-progress :percentage="(printNum/selectedData.length)*100 || 0"></el-progress>
-          <p>
-            <span>{{printStatusMsg}}</span>
-            <el-button v-show="showCancelPrint"  @click="closePrint" style="margin-left:15px;">取消</el-button>
-          </p>
-        </div> -->
       </div>
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <div :class="{relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))}"
-          :style="{height:'5.7cm',margin:`${newModalSize=='3*7'?'1px 0 0 1px':'1px 0 0'}`}" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
+          :style="{margin:`${newModalSize=='3*7'?'1px 0 0 1px':'1px 0 0'}`}" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
           <component :is="newPrintCom" :newModalSize="newModalSize" :itemObj='itemBottleCard' />
         </div>
       </div>
