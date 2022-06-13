@@ -156,7 +156,7 @@
             selectedItem(td);
             td.key == 'description' &&
               HOSPITAL_ID === 'guizhou' &&
-              !isRead(tr) &&
+              !tr.isRead &&
               openEditModal(tr, data, $event);
           "
         >

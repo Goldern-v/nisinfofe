@@ -179,18 +179,16 @@ export const getExamTestUrl = (patientId, visitId, examNo) =>
   axios.post(`${apiPath}hisPacsLis/getPacsLis`, { patientId, visitId, examNo });
 
 /**检查列表 by贵州 */
-export const getExamList = (patientId, visitId, examNo) =>
+export const getExamList = (patientId, visitId) =>
   axios.post(`${apiPath}hisPacsLis/getExamList`, {
     patientId,
     visitId,
-    examNo
   });
 /**检验列表 by贵州 */
-export const getTestList = (patientId, visitId, examNo) =>
+export const getTestList = (patientId, visitId) =>
   axios.post(`${apiPath}hisPacsLis/getTestList`, {
     patientId,
-    visitId,
-    examNo
+    visitId
   });
 
 export {

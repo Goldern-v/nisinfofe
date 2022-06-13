@@ -48,6 +48,7 @@
               @renderData="handleSelectedleft"
               @refresh="load()"
               :baseIndex="0"
+              :pageIndex='index+1'
             ></sugarTable>
             <div
               style="
@@ -65,6 +66,7 @@
               @renderData="handleSelectedright"
               @refresh="load()"
               :baseIndex="27"
+              :pageIndex='index+1'
             ></sugarTable>
           </div>
           <div class="page-con">
@@ -131,7 +133,7 @@
   }
 
   .info {
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 5px;
 
     span {

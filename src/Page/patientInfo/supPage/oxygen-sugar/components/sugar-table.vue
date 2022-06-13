@@ -22,36 +22,36 @@
           v-for="(item,index) in renderData"
           :class="{ selected: selected === item }"
           :key="index+'item.sugarValue'"
-          @click="onSelect(item,renderData)"
+          @click="onSelect(item,renderData,index)"
         >
-          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
+          <td :style="item.signerNo ? 'cursor: not-allowed;': ''" @keydown="onKeyDown($event,renderData,index,'dateStr')">
             <div class="cell noPrint">
               <!-- {{ item.date }} -->
-              <input type="text" v-model="item.dateStr" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " />
+              <input type="text" v-model="item.dateStr" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' "  :id="`P${pageIndex}-dateStr${index + baseIndex + 1}`" />
             </div>
             <div :class="['cell','inPrint']">
               {{item.dateStr}}
             </div>
           </td>
-          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' " @keydown="onKeyDown($event,renderData,index,'timeStr')">
             <div class="cell noPrint">
-              <input type="text" v-model="item.timeStr" @input="inputTime(item,'timeStr',':')" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " />
+              <input type="text" v-model="item.timeStr" @input="inputTime(item,'timeStr',':')" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' "  :id="`P${pageIndex}-timeStr${index + baseIndex + 1}`"/>
             </div>
             <div :class="['cell','inPrint']">
               {{item.timeStr}}
             </div>
           </td>
-          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' " @keydown="onKeyDown($event,renderData,index,'sugarOxygen')">
             <div class="cell noPrint">
-              <input type="text" v-model="item.sugarOxygen" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " /> 
+              <input type="text" v-model="item.sugarOxygen" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' "  :id="`P${pageIndex}-sugarOxygen${index + baseIndex + 1}`"/> 
             </div>
              <div :class="['cell','inPrint']">
               {{item.sugarOxygen}}
             </div>
           </td>
-          <td :style="item.signerNo ? 'cursor: not-allowed;': '' ">
+          <td :style="item.signerNo ? 'cursor: not-allowed;': '' " @keydown="onKeyDown($event,renderData,index,'heartRate')">
             <div class="cell noPrint">
-              <input type="text" v-model="item.heartRate" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' " />
+              <input type="text" v-model="item.heartRate" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' "  :id="`P${pageIndex}-heartRate${index + baseIndex + 1}`"/>
             </div>
              <div :class="['cell','inPrint']">
               {{item.heartRate}}
@@ -180,6 +180,8 @@
 import common from "@/common/mixin/common.mixin.js";
 import * as apis from "../api";
 import { length } from 'sockjs-client/lib/transport-list';
+import {getCursortPosition} from '@/Page/sheet-page/components/sheetTable/components/excel/tool.js'
+
 export default {
   props: {
     data: Array,
@@ -188,11 +190,13 @@ export default {
     patientInfo:Object,
     saveParams:Object,
     isToPrint:Boolean,
+    pageIndex:Number
   },
   mixins: [common],
   data() {
     return {
       msg: "hello vue",
+      activeIndex:''
     };
   },
   computed: {
@@ -226,6 +230,34 @@ export default {
     },
   },
   methods: {
+    onKeyDown(e,list,index,type){
+      const typeList=['dateStr','timeStr','sugarOxygen','heartRate']
+      const nowInput=document.getElementById(`P${this.pageIndex}-${type}${this.activeIndex + this.baseIndex + 1}`)
+      const typeIndex = typeList.findIndex(v => v==type)
+      if(e.keyCode==38){//上
+        if(this.activeIndex==0) return
+        this.activeIndex=+this.activeIndex-1
+        this.onSelect(list[this.activeIndex])
+        document.getElementById(`P${this.pageIndex}-${type}${this.activeIndex + this.baseIndex + 1}`).focus()
+      }else if(e.keyCode==40){//下
+        if(this.activeIndex==26) return
+        this.activeIndex=this.activeIndex+1
+        this.onSelect(list[this.activeIndex],list)
+        document.getElementById(`P${this.pageIndex}-${type}${this.activeIndex + this.baseIndex + 1}`).focus()
+      }else if(e.keyCode==37){// 左
+         if(type=='dateStr') return
+         if(getCursortPosition(nowInput)<=0){
+           e.preventDefault();
+           document.getElementById(`P${this.pageIndex}-${typeList[typeIndex-1]}${this.activeIndex + this.baseIndex + 1}`).focus()
+         }
+      }else if(e.keyCode==39){// 右
+         if(type=='heartRate') return
+         if (getCursortPosition(nowInput) >= nowInput.value.length) {
+          e.preventDefault();
+          document.getElementById(`P${this.pageIndex}-${typeList[typeIndex+1]}${this.activeIndex + this.baseIndex + 1}`).focus()
+         }
+      }
+    },
     inputTime(rowItem, code, char) {
       if (rowItem[code] && rowItem[code].length>=5) {
         rowItem[code] = rowItem[code].substring(0, 5)
@@ -242,8 +274,10 @@ export default {
         this.lastValue = rowItem[code]
       }
     },
-    onSelect(item,renderData) {
-      console.log(renderData)
+    onSelect(item,renderData,index) {
+      if(index||index==0){
+        this.activeIndex=index
+      }
       this.$emit("renderData",item, renderData);
       this.$emit("update:selected",item);
       if(!item.dateStr){

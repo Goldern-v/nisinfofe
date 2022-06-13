@@ -89,17 +89,10 @@
           <img src="./images/print.png" alt="">
           <p>正在初始化打印,请稍等…</p>
         </div>
-        <!-- <div class="print" v-show="showProgress" @click.stop>
-          <el-progress :percentage="(printNum/selectedData.length)*100 || 0"></el-progress>
-          <p>
-            <span>{{printStatusMsg}}</span>
-            <el-button v-show="showCancelPrint"  @click="closePrint" style="margin-left:15px;">取消</el-button>
-          </p>
-        </div> -->
       </div>
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <div :class="{relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))}"
-          :style="{height:'5.7cm',margin:`${newModalSize=='3*7'?'1px 0 0 1px':'1px 0 0'}`}" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
+          :style="{margin:`${newModalSize=='3*7'?'1px 0 0 1px':'1px 0 0'}`}" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
           <component :is="newPrintCom" :newModalSize="newModalSize" :itemObj='itemBottleCard' />
         </div>
       </div>
@@ -187,7 +180,8 @@
 .new-print-box{
   .relatop{
     position relative;
-    top:1cm;
+    // top:1cm;
+    margin-bottom: 1cm !important;
   }
   // display: none;
     //   position: absolute;
@@ -245,10 +239,11 @@ export default {
       isShowModal:false,
       query: {
         wardCode:"",
-        itemType:"输液",//医嘱类别，输液、雾化
+        itemType: ['whfk'].includes(this.HOSPITAL_ID) ? "全部" : "输液",//医嘱类别，输液、雾化
         executeDate:moment().format("YYYY-MM-DD"),//执行日期
         bedLabel:'',//床位号，如果查全部传*"
-        repeatIndicator:9,//医嘱类型，长期传1，临时传0，全部传9
+        repeatIndicator: ['whfk'].includes(this.HOSPITAL_ID) ? 0 : 9,
+        //医嘱类型，长期传1，临时传0，全部传9
         reprintFlag:0,//是否重打，1=是，0=否
       },
       selectedData: [],//选中打印执行单条数
@@ -264,7 +259,7 @@ export default {
       hasNewPrintHos:['sdlj', 'gdtj', 'fsxt','whfk','lyxrm','wujing'],
       typeOptions:{
         'whfk':[
-          {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"标本"},],
+          {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"标本"},],
         default:[
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},]
       }

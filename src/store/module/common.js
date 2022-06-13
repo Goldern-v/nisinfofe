@@ -20,6 +20,9 @@ export default {
     upOpenLeft(state) {
       state.openLeft = !state.openLeft
     },
+    upDefaultOpenLeft(state,value) {
+      state.openLeft = value
+    },
     upMailUnread(state, num) {
       state.mailUnread = num
     },
@@ -46,7 +49,6 @@ export default {
     },
     // 护士长
     isHeadNurse(state) {
-      console.log('test-state.user', state.user)
       if (!state.user) return false
       if (state.user.roleManageCode === 'QCR0004') return true
       if (state.user.roleManageCodeList && state.user.roleManageCodeList.find((code) => code === "QCR0004")) return true

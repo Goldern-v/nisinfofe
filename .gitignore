@@ -4,6 +4,7 @@ package-lock.json
 zip/
 release/
 dist/
+publish/
 dist/*/*
 .dist/*
 .resource/*
