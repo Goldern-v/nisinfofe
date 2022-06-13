@@ -75,7 +75,7 @@ export function getExecuteWithWardcode(obj) {
 export function addRecord(obj) {
   if (HOSPITAL_ID=="lingcheng"){
       return axios.post(`${apiPath}procedure/his`, obj)
-  }if(HOSPITAL_ID == 'whfk'){
+  }if(HOSPITAL_ID == 'whfk' || HOSPITAL_ID == 'lyxrm'){
     return axios.post(`${apiPath}procedure/webExecute/getOrderExecuteSupplementary`,obj)
   }else{
     return axios.post(`${apiPath}${hospitalExecute}/orderExecute`, obj);
