@@ -26,7 +26,7 @@
                 Object.assign({}, td.style, {
                   minWidth: td.textarea.width + 'px',
                   maxWidth: td.textarea.width + 'px',
-                }) 
+                })
               "
             ></textarea>
             <input type="text" :style="[td.style]" v-else />
@@ -957,6 +957,7 @@ export default {
     },
     //
     setTitleFS(item) {
+      let self = this
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
           let { list = [], id = '' } = obj  || {}
@@ -969,6 +970,7 @@ export default {
             list1: list,
             recordCode: sheetInfo.sheetType,
           };
+          self.bus.$emit("saveSheetPage");
           saveTitleOptions(data).then((res) => {
             // item.name = title;
             this.bus.$emit('refreshSheetPage')
