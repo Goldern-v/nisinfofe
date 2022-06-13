@@ -219,6 +219,8 @@ const allTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartSDLJ.vue"); //顺德龙江量录入体温单
 const allTemperatureChartWHYX = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHYX.vue"); //武汉亚心量录入体温单
+const allTemperatureChartFSRY = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSRY.vue"); //武汉亚心量录入体温单
 const newSingleTemperatureChart = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //新版体温单录入页面
 const newSingleTemperatureChartLiaoCheng = () =>
@@ -1300,6 +1302,8 @@ const router = new Router({
               return allTemperatureChartSDLJ
             case 'whyx':
               return allTemperatureChartWHYX
+            case 'foshanrenyi':
+              return allTemperatureChartFSRY
             default:
               return allTemperatureChart
           }

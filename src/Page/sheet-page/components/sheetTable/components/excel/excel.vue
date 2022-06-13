@@ -963,11 +963,18 @@ export default {
           let { list = [], id = '' } = obj  || {}
           list = list.map(v => v.options)
           let data = {
-            pageIndex: this.index,
-            columnName: item.key,
-            id,
-            title,
-            list1: list,
+            // pageIndex: this.index,
+            // columnName: item.key,
+            // id,
+            // title,
+            // list1: list,
+            list: [{
+              pageIndex: this.index,
+              fieldEn: item.key,
+              id,
+              fieldCn: title,
+              option: list,
+            }],
             recordCode: sheetInfo.sheetType,
           };
           self.bus.$emit("saveSheetPage");
