@@ -609,9 +609,17 @@ export default {
     // 跳转至电子病历
     openDetail(row) {
       const { patientId, visitId } = row
-      this.$router.push({path: '/home', query: {
-        patientId, visitId
-      }})
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        const { href } = this.$router.resolve({
+          path: "/home",
+          query: { patientId, visitId }
+        });
+        window.open(href, "_blank");
+      } else {
+        this.$router.push({path: '/home', query: {
+          patientId, visitId
+        }})
+      }
     },
     // 撤销申请
     cancelRecall(row) {

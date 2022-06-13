@@ -88,7 +88,7 @@
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
-          <div class="label">办公室：</div>
+          <div class="label">{{HOSPITAL_ID=='whyx'?"三线医生：":"办公室："}}</div>
           <input flex-box="1" v-model="data.workClass" @blur="update" />
         </div>
         <template v-if="deptCode == '041702'">
