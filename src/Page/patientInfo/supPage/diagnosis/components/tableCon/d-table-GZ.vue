@@ -58,7 +58,7 @@
               placeholder="选择日期时间"
               value-format="yyyy-MM-dd HH:mm"
               :clearable="false"
-              @focus="choseID(scope.row)"
+              @focus="()=>{choseId(scope.row)}"
               @change="val => {timeChange(val, scope.row,'beginTime');}">
             </el-date-picker>
           </template>
@@ -91,7 +91,7 @@
               placeholder="选择日期时间"
               value-format="yyyy-MM-dd HH:mm"
               :clearable="false"
-              @focus="choseID(scope.row)"
+              @focus="()=>{choseId(scope.row)}"
               @change="val => {timeChange(val, scope.row,'endTime');}">
             </el-date-picker>
           </template>
@@ -233,18 +233,27 @@ export default {
       model,
       beginTime:"",
       endTime:"",
-      choseId:"",
+      choseID:"",
+      choseName:"",
+      choseCode:"",
+      choseDiagFactor:"",
+      measureStr2:"",
+      factorStr2:"",
       diagnosisLoading:false
     };
   },
   methods: {
-    choseID(row){
+    choseId(row){
       this.choseID = row.id
+      this.choseName = row.diagName
+      this.choseCode = row.diagCode
+      this.choseDiagFactor = row.diagFactor
+      this.measureStr2 = (row.measuresName.length>0 && row.measuresName.join(" ")) || row.diagMeasures
+      this.factorStr2 = (row.targetsName.length>0 && row.targetsName.join(" ")) || row.diagTarget
+
       console.log(row,this.choseID)
     },
     timeChange(val,row,type){
-      let measureStr2 = (row.measuresName.length>0 && row.measuresName.join(" ")) || row.diagMeasures
-      let factorStr2 = (row.targetsName.length>0 && row.targetsName.join(" ")) || row.diagTarget
         window.openSignModal((password, empNo) => {
         let params = {
           creator: password,
@@ -254,11 +263,11 @@ export default {
           visitId: this.$route.query.visitId,
           patientName: this.$route.query.name,
           bedLabel: this.$route.query.bedLabel,
-          code: row.diagCode,
-          name: row.diagName,
-          measureStr: measureStr2,
-          targetStr: factorStr2,
-          factorStr: row.diagFactor,
+          code: this.choseCode,
+          name: this.choseName,
+          measureStr: this.measureStr2,
+          targetStr: this.factorStr2,
+          factorStr: this.choseDiagFactor,
           wardCode: model.selectedBlock.wardCode,
         };
         if(type==="beginTime") params.beginTime=val
@@ -408,6 +417,15 @@ export default {
   } */
   /deep/ .el-table {
     border: 1px solid #000 !important;
+    .el-date-editor--datetime{
+      .el-input__icon{
+        display: none;
+      }
+      .el-input__inner{
+        width: 100%;
+        padding-right: 0 !important;
+      }
+    }
     th {
       border-left: 1px solid #000 !important;
       border-right: 1px solid #000 !important;
