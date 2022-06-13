@@ -755,7 +755,7 @@ export default {
       nursingList: [],
       query: {
         wardCode: "", //科室编码
-      startFiltering: false,
+      startFiltering: true,
         entryDate:moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           if (this.getHours() >= 0 && this.getHours() <= 2) {

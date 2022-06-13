@@ -99,9 +99,9 @@ export default {
     },
     onCreate(data) {
       this.isAdult = false
-      if (data.type == "成人") 
-        this.el = 'bloodSugarSdlj' 
-      else 
+      // if (data.type == "成人") 
+      //   this.el = 'bloodSugarSdlj' 
+      // else 
         this.el = 'bloodSugar'
     },
     //设置滚动
@@ -148,10 +148,11 @@ export default {
           if (data.data.hisPatSugarList) { // 接口儿童单子特有的字段 hisPatSugarList
             // '儿童'
             this.el = 'bloodSugar'
-          } else {
-            // '成人'
-            this.el = 'bloodSugarSdlj' 
-          }
+          } 
+          // else {
+          //   // '成人'
+          //   this.el = 'bloodSugarSdlj' 
+          // }
           this.$router.replace({
             path: "/sugarPage",
             query: item
