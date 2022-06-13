@@ -180,7 +180,8 @@
 .new-print-box{
   .relatop{
     position relative;
-    top:1cm;
+    // top:1cm;
+    margin-bottom: 1cm !important;
   }
   // display: none;
     //   position: absolute;
@@ -537,23 +538,23 @@ export default {
       this.printObj = sortArr
       console.log(sortArr,"sortArr")
       document.getElementById('new-print-box').style.display = 'block'
-      // this.$nextTick(()=>{
-      //   printing(this.$refs.new_print_modal,{
-      //     injectGlobalCss: true,
-      //     scanStyles: false,
-      //     css: `
-      //       @page{
-      //         margin: 0 0;
-      //       }
-      //       body{
-      //         ${this.newModalSize=='6*8' || this.newModalSize == '70*80'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
-      //       }
-      //     `
-      //   }).then(()=>{
-      //     document.getElementById('new-print-box').style.display = 'none'
-      //     this.onLoad()
-      //   })
-      // })
+      this.$nextTick(()=>{
+        printing(this.$refs.new_print_modal,{
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+            @page{
+              margin: 0 0;
+            }
+            body{
+              ${this.newModalSize=='6*8' || this.newModalSize == '70*80'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
+            }
+          `
+        }).then(()=>{
+          document.getElementById('new-print-box').style.display = 'none'
+          this.onLoad()
+        })
+      })
     },
     // 打印全部
     async onPrintAll() {

@@ -179,11 +179,11 @@ export default {
       // let setListData = [...IstitleData,...titleData]
       // let filterData = setListData;
       // console.log(filterData);
-      if (!!this.searchWord) return listMap
+      if (!this.searchWord) return listMap
       return listMap.filter(item => {
         return item.title.indexOf(this.searchWord) > -1;
       });
-      return filterData;
+      // return filterData;
     },
     isTemperature(){
       return this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes("temperature")
