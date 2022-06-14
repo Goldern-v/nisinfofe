@@ -127,7 +127,7 @@
       </div>
       <div class="search-box">
         <el-input
-          placeholder="床号/姓名"
+          placeholder="床号/姓名/多选用空格隔开"
           icon="search"
           v-model="searchWord"
         ></el-input>
@@ -322,8 +322,8 @@
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
-           <el-table-column
-           v-if="HOSPITAL_ID !== 'guizhou'"
+          <el-table-column
+            v-if="HOSPITAL_ID !== 'guizhou'"
             prop="stoolNum"
             label="大便次数"
             min-width="80"
@@ -334,12 +334,7 @@
                 placement="right"
                 width="100px"
                 trigger="focus"
-                :disabled="
-                  !(
-                    shitOption &&
-                    shitOption.length > 0
-                  )
-                "
+                :disabled="!(shitOption && shitOption.length > 0)"
               >
                 <div
                   class="selection-dict-item"
@@ -367,8 +362,8 @@
               </el-popover>
             </template>
           </el-table-column>
-           <el-table-column
-           v-if="HOSPITAL_ID === 'guizhou'"
+          <el-table-column
+            v-if="HOSPITAL_ID === 'guizhou'"
             prop="stoolNum"
             label="大便"
             min-width="80"
@@ -672,17 +667,15 @@
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
-
             </template>
           </el-table-column>
-           <el-table-column
+          <el-table-column
             v-if="HOSPITAL_ID === 'guizhou'"
             prop="nursingEvent"
             label="病人事件"
             min-width="100"
             align="center"
           >
-
             <template slot-scope="scope">
               <el-popover
                 placement="right"
@@ -946,7 +939,7 @@
     }
 
     .search-box {
-      width: 168px;
+      width: 200px;
       margin-right: 10px;
 
       >>>&.el-input {
@@ -1102,7 +1095,22 @@ export default {
       handleKeyCode: [37, 38, 39, 40, 13],
       colClass: "",
       totalDictInfo: {},
-      shitOption:['灌肠','失禁','人工肛门','腹泻','※','☆','E','1/E','2/E','0/E','1 2/E','*/E','☆/E','3/2E'],
+      shitOption: [
+        "灌肠",
+        "失禁",
+        "人工肛门",
+        "腹泻",
+        "※",
+        "☆",
+        "E",
+        "1/E",
+        "2/E",
+        "0/E",
+        "1 2/E",
+        "*/E",
+        "☆/E",
+        "3/2E",
+      ],
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now() - 8.64e6;
@@ -1118,47 +1126,9 @@ export default {
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
             case "huadu":
-              if (this.getHours() >= 1 && this.getHours() <= 4) {
-                return "04";
-              }
-              if (this.getHours() > 4 && this.getHours() <= 8) {
-                return "08";
-              }
-              if (this.getHours() > 8 && this.getHours() <= 12) {
-                return "12";
-              }
-              if (this.getHours() > 12 && this.getHours() <= 16) {
-                return "16";
-              }
-              if (this.getHours() > 16 && this.getHours() <= 20) {
-                return "20";
-              }
-              if (
-                (this.getHours() > 20 && this.getHours() <= 23) ||
-                this.getHours() === 0
-              ) {
-                return "23";
-              }
-            case "beihairenyi":
-              if (this.getHours() >= 0 && this.getHours() <= 3) {
-                return "03";
-              }
-              if (this.getHours() > 3 && this.getHours() <= 7) {
-                return "07";
-              }
-              if (this.getHours() > 7 && this.getHours() <= 11) {
-                return "11";
-              }
-              if (this.getHours() > 11 && this.getHours() <= 15) {
-                return "15";
-              }
-              if (this.getHours() > 15 && this.getHours() <= 19) {
-                return "19";
-              }
-              if (this.getHours() > 19 && this.getHours() <= 23) {
-                return "23";
-              }
+            case "fsxt":
             case "fuyou":
+            case "hengli":
               if (this.getHours() >= 1 && this.getHours() <= 4) {
                 return "04";
               }
@@ -1181,6 +1151,8 @@ export default {
                 return "23";
               }
             case "quzhou":
+            case "guizhou":
+            case "wujing":
               if (this.getHours() >= 0 && this.getHours() <= 4) {
                 return "02";
               }
@@ -1197,101 +1169,6 @@ export default {
                 return "18";
               }
               if (this.getHours() > 20 && this.getHours() <= 23) {
-                return "22";
-              }
-            case "hengli":
-              if (this.getHours() >= 0 && this.getHours() <= 3) {
-                return "03";
-              }
-              if (this.getHours() > 3 && this.getHours() <= 7) {
-                return "07";
-              }
-              if (this.getHours() > 7 && this.getHours() <= 11) {
-                return "11";
-              }
-              if (this.getHours() > 11 && this.getHours() <= 15) {
-                return "15";
-              }
-              if (this.getHours() > 15 && this.getHours() <= 19) {
-                return "19";
-              }
-              if (this.getHours() > 19 && this.getHours() <= 23) {
-                return "23";
-              }
-            case "guizhou":
-              if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
-              }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
-              }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
-              }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
-              }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
-              }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
-              }
-            case "wujing":
-              if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
-              }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
-              }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
-              }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
-              }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
-              }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
-              }
-            case "foshanrenyi":
-              if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
-              }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
-              }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
-              }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
-              }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
-              }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
-              }
-            case "nanfangzhongxiyi":
-              if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
-              }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
-              }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
-              }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
-              }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
-              }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
                 return "22";
               }
             default:
@@ -1440,25 +1317,30 @@ export default {
     },
     tableData: {
       get() {
-        return this.patientsInfoData.filter((item) => {
-          if (
-            ["beihairenyi"].includes(this.HOSPITAL_ID)
-            //北海过滤婴儿的患者，批量去批量婴儿护理记录单上录入
-          ) {
-            return (
-              (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId &&
-              item.visitId !== "0"
-            );
-          } else {
-            return (
+        let data=[]
+        if (this.searchWord.includes(" ")) {
+          let searchWordArray=this.searchWord.split(' ').filter((s)=>s!=='')
+            searchWordArray.forEach((x)=>{
+             let reg=new RegExp(x,"i"); //忽略大小写
+              this.patientsInfoData.forEach((obj)=>{
+                if(obj.patientId&&(obj.bedLabel.match(reg) ||obj.name.match(reg))){
+                  data.push(obj)
+                }
+              })
+              })
+        } else {
+          data =this.patientsInfoData.filter((item) => {
+              return (
               (item.bedLabel.indexOf(this.searchWord) > -1 ||
                 item.name.indexOf(this.searchWord) > -1) &&
               item.patientId
             );
-          }
-        });
+
+          });
+        }
+        var reg = /[a-zA-Z]+/;  //[a-zA-Z]表示匹配字母，g表示全局匹配
+         data.sort((a, b) => Number(a.bedLabel.replace(reg,'')) - Number(b.bedLabel.replace(reg,'')));
+         return Array.from(new Set([...data]))
       },
       set(value) {
         // this.tableData = value;
@@ -1697,12 +1579,16 @@ export default {
       }
     },
     toRow(e) {
-      let rowIndex =e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
-        ? e.path[4].rowIndex
-        : e.path[3].rowIndex;
-      let tableElement = e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
-        ? e.path[5]
-        : e.path[4];
+      let rowIndex =
+        e.target.className.includes("stoolNum") ||
+        e.target.className.includes("nursingEvent")
+          ? e.path[4].rowIndex
+          : e.path[3].rowIndex;
+      let tableElement =
+        e.target.className.includes("stoolNum") ||
+        e.target.className.includes("nursingEvent")
+          ? e.path[5]
+          : e.path[4];
       var trs = tableElement.getElementsByClassName("el-table__row");
 
       for (let i = 0; i < trs.length; i++) {
@@ -1714,12 +1600,16 @@ export default {
       }
     },
     handleKeyUp(e) {
-      let rowIndex = e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
-        ? e.path[4].rowIndex
-        : e.path[3].rowIndex;
-      let tableElement = e.target.className.includes('stoolNum')||e.target.className.includes('nursingEvent')
-        ? e.path[5]
-        : e.path[4];
+      let rowIndex =
+        e.target.className.includes("stoolNum") ||
+        e.target.className.includes("nursingEvent")
+          ? e.path[4].rowIndex
+          : e.path[3].rowIndex;
+      let tableElement =
+        e.target.className.includes("stoolNum") ||
+        e.target.className.includes("nursingEvent")
+          ? e.path[5]
+          : e.path[4];
       var trs = tableElement.getElementsByClassName("el-table__row");
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
