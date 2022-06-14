@@ -283,7 +283,7 @@ export default {
           });
         });
       })
-    },  
+    },
     onSignOrCancel(row){
       window.openSignModal((password,username)=>{
         this.diagnosisLoading = true
@@ -330,7 +330,7 @@ export default {
     },
     del(row) {
       // if (!this.verify()) return;
-      if ( row.status !== '1' && (!this.isHeadNurse || this.user.empNo !== row.creator)) {
+      if ( row.status !== '1' && (!this.isHeadNurse && this.user.empNo !== row.creator)) {
         this.$message.warning('护士长以上或创建人支持删除')
         return
       }

@@ -56,7 +56,7 @@
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
-          <div class="label">N班：</div>
+          <div class="label">{{ getClassAllP2() }}</div>
           <input flex-box="1" v-model="data.classN" @blur="update">
         </div>
         <div style="height: 15px"></div>
@@ -142,8 +142,18 @@ export default {
           return "P班："
         case "fsxt":
           return "P班："
+        case "whyx":
+          return "N班："
         default:
           return "P全班："
+      }
+    },
+    getClassAllP2(){
+      switch(this.HOSPITAL_ID) {
+        case "whyx":
+          return "大N班："
+        default:
+          return "N班："
       }
     }
   },
