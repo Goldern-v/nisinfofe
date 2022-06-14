@@ -111,8 +111,9 @@
               yzx: scope.row.executeFlag == 2
               }"
            :title="forMatExecuteFlag(scope.row.executeFlag)">{{ forMatExecuteFlag(scope.row.executeFlag) }}</span>
-          <span v-if="scope.row.type == 1">(补)</span>
-          <p>{{scope.row.supplementaryRes ?"已完成":"未补录"}}</p>
+          <span v-if="scope.row.supplementaryRes && scope.row.executeFlag == 2">(补)</span>
+          <!-- <span v-if="scope.row.type == 1">(补)</span> -->
+          <!-- <p>{{scope.row.supplementaryRes ?"已完成":"未补录"}}</p> -->
         </template>
       </u-table-column>
 
