@@ -25,7 +25,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="姓名" prop="name" min-width="70px" align="center">
+      <u-table-column label="姓名" prop="name" width="80px" align="center">
         <template slot-scope="scope">
           <div :title="(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.name) : ''">{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.name) : ''}}</div>
         </template>
@@ -55,19 +55,17 @@
         </template>
       </u-table-column>
 
-      
-      
-      <u-table-column prop="supplementaryRes" label="补录状态" min-width="120px" align="center">
-      <template slot-scope="scope">
-          <span>{{scope.row.supplementaryRes ?"已完成":"未补录" }}</span>
-        </template>
-      </u-table-column>
-
       <u-table-column label="频次" prop="frequency" min-width="80px" align="center">
-      <template slot-scope="scope">
+        <template slot-scope="scope">
           <span :title="scope.row.frequency">{{scope.row.frequency }}</span>
         </template>
       </u-table-column>
+
+      <!-- <u-table-column prop="supplementaryRes" label="补录状态" min-width="120px" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.supplementaryRes ?"已完成":"未补录" }}</span>
+        </template>
+      </u-table-column> -->
 
       <u-table-column label="执行时间说明" prop="performSchedule" min-width="100px" align="center">
       <template slot-scope="scope">
@@ -75,62 +73,75 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="医生说明" prop="freqDetail" min-width="200px" align="center">
-      <template slot-scope="scope">
-          <span :title="scope.row.freqDetail">{{scope.row.freqDetail}}</span>
-        </template>
-      </u-table-column>
-      <u-table-column label="摆药人" prop="beiNurse" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="摆药人" prop="beiNurse" width="80px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.beiNurse">{{scope.row.beiNurse}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="摆药时间" prop="beiTime" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="摆药时间" prop="beiTime" min-width="160px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.beiTime">{{scope.row.beiTime}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="配药人" prop="dispenseNurse" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="配药人" prop="dispenseNurse" width="80px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseNurse">{{scope.row.dispenseNurse}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="配药时间" prop="dispenseDateTime" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="配药时间" prop="dispenseDateTime" min-width="160px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseDateTime">{{scope.row.dispenseDateTime}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="核对人" prop="dispenseVerifyNurse" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="核对人" prop="dispenseVerifyNurse" width="80px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseVerifyNurse">{{scope.row.dispenseVerifyNurse}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="核对时间" prop="dispenseVerifyDateTime" min-width="200px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="核对时间" prop="dispenseVerifyDateTime" min-width="160px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseVerifyDateTime">{{scope.row.dispenseVerifyDateTime}}</span>
         </template>
       </u-table-column>
 
-      <u-table-column prop="executeFlag" label="状态" min-width="80px" align="center">
+      <u-table-column prop="executeFlag" label="状态" min-width="120px" align="center">
         <template slot-scope="scope">
           <span
             :class="{
               yzx: scope.row.executeFlag == 2
               }"
            :title="forMatExecuteFlag(scope.row.executeFlag)">{{ forMatExecuteFlag(scope.row.executeFlag) }}</span>
-            <span v-if="scope.row.type == 1">(补)</span>
+          <span v-if="scope.row.type == 1">(补)</span>
+          <p>{{scope.row.supplementaryRes ?"已完成":"未补录"}}</p>
         </template>
       </u-table-column>
 
-       <u-table-column prop="realExecuteDateTime" label="执行时间" min-width="160px" align="center">
-        <template slot-scope="scope">
-          <span :title="scope.row.realExecuteDateTime | ymdhms">{{scope.row.realExecuteDateTime | ymdhms}}</span>
-        </template>
-       </u-table-column>
+      <u-table-column prop="realExecuteDateTime" label="执行时间" min-width="160px" align="center">
+      <template slot-scope="scope">
+        <span :title="scope.row.realExecuteDateTime | ymdhms">{{scope.row.realExecuteDateTime | ymdhms}}</span>
+      </template>
+      </u-table-column>
 
       <u-table-column prop="executeNurseName" title="executeNurseName" label="执行护士" min-width="80px" align="center">
       <template slot-scope="scope">
           <span :title="scope.row.executeNurseName">{{scope.row.executeNurseName}}</span>
+        </template>
+      </u-table-column>
+
+      <u-table-column prop="stopDateTime" label="结束输液时间" min-width="160px" align="center">
+        <template slot-scope="scope">
+          <span :title="scope.row.endInfusionTime | ymdhms">{{scope.row.endInfusionTime | ymdhms}}</span>
+        </template>
+      </u-table-column>
+      <u-table-column prop="stopDateTime" label="结束输液护士" width="100px" align="center">
+        <template slot-scope="scope">
+          <span :title="scope.row.executeEndNurseName">{{scope.row.executeEndNurseName}}</span>
+        </template>
+      </u-table-column>
+
+      <u-table-column prop="supplementaryRes" label="补录原因" min-width="120px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.supplementaryRes">{{scope.row.supplementaryRes }}</span>
         </template>
       </u-table-column>
 
@@ -157,21 +168,13 @@
           <span :title="scope.row.stopDateTime | ymdhms">{{scope.row.stopDateTime | ymdhms}}</span>
         </template>
       </u-table-column>
-      <u-table-column prop="stopDateTime" label="结束输液时间" min-width="160px" align="center">
-        <template slot-scope="scope">
-          <span :title="scope.row.endInfusionTime | ymdhms">{{scope.row.endInfusionTime | ymdhms}}</span>
-        </template>
-      </u-table-column>
-      <u-table-column prop="stopDateTime" label="结束输液护士" min-width="160px" align="center">
-        <template slot-scope="scope">
-          <span :title="scope.row.executeEndNurseName">{{scope.row.executeEndNurseName}}</span>
-        </template>
-      </u-table-column>
-      <u-table-column prop="supplementaryRes" label="补录原因" min-width="120px" align="center">
+
+      <u-table-column label="医生说明" prop="freqDetail" min-width="200px" align="center">
       <template slot-scope="scope">
-          <span :title="scope.row.supplementaryRes">{{scope.row.supplementaryRes }}</span>
+          <span :title="scope.row.freqDetail">{{scope.row.freqDetail}}</span>
         </template>
       </u-table-column>
+
        <u-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
           <div
@@ -332,6 +335,12 @@
 
   >>>.el-table__body-wrapper {
     // overflow-x hidden
+    &::-webkit-scrollbar {
+      height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #aaa;
+    }
   }
 }
 </style>
@@ -457,6 +466,7 @@ export default {
     }
   },
  mounted() {
+   console.log('test-only-1')
     this.isEdit =
       JSON.parse(localStorage.user)
         ? true

@@ -590,6 +590,14 @@ export default {
         return true;
       }
 
+      if (
+        (this.HOSPITAL_ID == "xiegang" && td && this.listData[nowX])
+        ||
+        (this.HOSPITAL_ID == "nanfangzhongxiyi" && td && this.listData[nowX])
+      ) {
+        return !this.listData[nowX].canModify;
+      }
+
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
         (this.HOSPITAL_ID == "huadu") &&
@@ -641,14 +649,6 @@ export default {
       if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[nowX] && (this.listData[nowX].status==2)&& (!this.listData[nowX].canModify)){
         // 当审核完，status=2&&canModify=false
         return true
-      }
-
-      if (
-        (this.HOSPITAL_ID == "xiegang" && td && this.listData[nowX])
-        ||
-        (this.HOSPITAL_ID == "nanfangzhongxiyi" && td && this.listData[nowX])
-      ) {
-        return !this.listData[nowX].canModify;
       }
 
       let status = tr.find((item) => item.key == "status").value;
