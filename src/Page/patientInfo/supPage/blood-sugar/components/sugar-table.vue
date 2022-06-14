@@ -148,6 +148,7 @@
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
               :alt="item.nurse"
               v-if="item.nurseEmpNo"
+              :class="HOSPITAL_ID=='sdlj'? 'imgsdlj' : ''"
             />
           </div>
         </td>
@@ -201,6 +202,12 @@
         object-fit: contain !important;
         -webkit-object-fit: contain!important;
       }
+      .imgsdlj {
+        width: 30px;
+        height: 100%;
+        object-fit: contain !important;
+        -webkit-object-fit: contain!important;
+      }
     }
 
     th {
@@ -218,6 +225,7 @@
       height: 29px;
     }
   }
+
   .liaocheng-img{
     width:55px;
     height:18px;
