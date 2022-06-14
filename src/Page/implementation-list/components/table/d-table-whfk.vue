@@ -197,11 +197,11 @@
             "
             >修改</el-button
           >
-          <el-button
+          <!-- <el-button
             type="text"
             @click="cancelOrderExecute(scope.row)"
             >取消</el-button
-          >
+          > -->
           </div>
         </template>
       </u-table-column>
