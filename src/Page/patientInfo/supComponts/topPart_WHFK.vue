@@ -92,7 +92,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理文书</div>
+        <div class="nav-item">护理文书<span class="remind" :class="status.form==0?'mepty':''"></span> </div>
       </router-link>
       <!-- <router-link
         v-if="
@@ -124,7 +124,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理记录单</div>
+        <div class="nav-item">护理记录单 <span class="remind" :class="status.record==0?'mepty':''"></span> </div>
       </router-link>
        <router-link
         :to="{
@@ -133,7 +133,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">血糖</div>
+        <div class="nav-item">血糖 <span class="remind" :class="status.sugar==0?'mepty':''"></span> </div>
       </router-link>
        <router-link
         :to="{
@@ -142,7 +142,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">血氧</div>
+        <div class="nav-item">血氧 <span class="remind"  :class="status.sugar_oxygen==0?'mepty':''"></span> </div>
       </router-link>
       <router-link
         :to="{
@@ -151,7 +151,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">健康教育单</div>
+        <div class="nav-item">健康教育单 <span class="remind" :class="status.mission==0?'mepty':''"></span> </div>
       </router-link>
       <!-- <router-link
         :to="{
@@ -248,6 +248,22 @@
   letter-spacing: 0.26px;
   float: left;
   cursor: pointer;
+  position: relative;
+  .remind {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #f00;
+    right: 4px;
+    top: 2px;
+    // text-align: center;
+    // line-height: 1;
+    // color: #fff;
+  }
+  .mepty {
+    background:#27a45e;
+  }
 }
 
 .router-link-active {
@@ -261,11 +277,19 @@
 </style>
 <script>
 import common from "@/common/mixin/common.mixin";
+import { getPaperWork } from "@/api/patientInfo";
 export default {
   mixins: [common],
   data() {
     return {
-      msg: "hello vue"
+      msg: "hello vue",
+      status:{
+        form: 0,  //护理文书
+        mission: 0, //健康教育单
+        record: 0, //护记
+        sugar: 0,  //血糖
+        sugar_oxygen: 0  //血氧
+      }
     };
   },
   computed: {
@@ -274,6 +298,13 @@ export default {
       return query;
     }
   },
-  components: {}
+  components: {},
+  mounted() {
+    console.log(123);
+    getPaperWork(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
+      // console.log('res',res);
+      this.status = res.data.data.paperWorks
+    })
+  }
 };
 </script>
