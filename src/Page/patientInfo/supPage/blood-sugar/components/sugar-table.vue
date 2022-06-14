@@ -203,7 +203,7 @@
         -webkit-object-fit: contain!important;
       }
       .imgsdlj {
-        width: 30px;
+        width: 40px;
         height: 100%;
         object-fit: contain !important;
         -webkit-object-fit: contain!important;
