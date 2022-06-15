@@ -99,7 +99,7 @@
 
       <u-table-column
         prop="endInfusionTime"
-        label="结束输液护士/时间"
+        label="暂停输液护士/时间"
         min-width="200px"
       >
         <template slot-scope="scope">
