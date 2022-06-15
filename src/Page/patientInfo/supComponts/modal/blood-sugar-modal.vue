@@ -122,13 +122,13 @@ export default {
       bus: bus(this),
       selectData: "",
       filterData: [
-        {
-            type: '成人',
-            name: '成人-血糖监测记录表'
-        },
+        // {
+        //     type: '成人',
+        //     name: '成人-血糖监测记录表'
+        // },
         {
             type: '儿童',
-            name: '儿童-血糖监测记录表'
+            name: '血糖监测记录单（通用）'
         }
 
       ]

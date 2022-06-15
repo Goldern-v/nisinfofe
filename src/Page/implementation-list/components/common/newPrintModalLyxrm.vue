@@ -15,15 +15,21 @@
         <span :class="{center:currentBottle.deptName.length<=6}">{{ hospitalName }}</span>
         <span>{{ currentBottle.deptName }}</span>
       </div>
-      <div class="new-print-modal__text">
-        <span>{{ currentBottle.sex || "" }}</span>
-        <span>{{ currentBottle.age }}</span>
-        <div>{{ currentBottle.name }}</div>
-        <div>
-          {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
+      <div class="new-print-modal__second">
+        <div class="new-print-modal__text">
+          <div>{{ currentBottle.name }}</div>
+          <div>
+            {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
+          </div>
+          <span>{{ currentBottle.sex || "" }}</span>
+          <span>{{ currentBottle.age }}</span>
+          <span>{{ currentBottle.patientId || "" }}</span>
+          <span>{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
         </div>
-        <span>{{ currentBottle.patientId || "" }}</span>
-        <span>{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
+
+        <div class="qc-box">
+            <img :src="currentBottle.qcSrc || ''" />
+          </div>
       </div>
       <div class="new-print-modal__content">
         <div class="new-print-modal__content__left">
@@ -40,9 +46,6 @@
           </div>
         </div>
         <div class="new-print-modal__content__right">
-          <div>
-            <img :src="currentBottle.qcSrc || ''" />
-          </div>
           <p class="text--large">
             <span>
               {{ `${currentBottle.frequency}${groupNo ? `(${groupNo})`: ''}` }}
@@ -105,6 +108,7 @@
     </div>
   </div>
 </template>
+// 临邑浏览器版本有部分为谷歌49，需要考虑兼容
 <style lang="scss" scoped>
 .new-print-modal {
   page-break-after: always;
@@ -140,44 +144,39 @@
       text-align: center;
     }
   }
-  .new-print-modal__text {
-    display: grid;
-    grid-template-columns: minmax(45px, 50px) minmax(30px, 50px) auto auto;
-    grid-template-rows: auto;
-    grid-gap: 0px 5px;
-    align-items: center;
-    @extend .p-lr-5;
+  .new-print-modal__second {
+    display: flex;
     @extend .bb;
+  }
+  .new-print-modal__text {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    @extend .p-lr-5;
+    span, div {
+      width: 50%;
+    }
     span {
       line-height: 15px;
       min-height: 15px;
     }
-    span:nth-child(2n) {
-      text-align: right;
-    }
-    span:nth-child(2n - 1) {
-      text-align: left;
-    }
-    span:nth-of-type(3) {
-      min-width:70px;
-    }
     > div {
       font-size: 25px;
       font-weight: 900;
-      grid-row-start: 1;
-      grid-row-end: 3;
-      grid-column-start: 4;
-      grid-column-end: 5;
       white-space: nowrap;
     }
-    div:first-of-type {
-      grid-column-start: 3;
-      grid-column-end: 4;
+  }
+  .qc-box {
+    width: 54px;
+    img {
+      width: 100%;
+      height: auto;
     }
   }
   .new-print-modal__content {
     flex: 1;
     display: flex;
+    position: relative;
     /* min-height: 220px; */
 
     .content__left_warm{
@@ -213,11 +212,12 @@
       }
     }
     .new-print-modal__content__right {
+      position: absolute;
+      right: 0;
+      bottom: 0;
 			display: flex;
       flex-direction: column;
-      width: 70px;
       text-align: right;
-			@extend .p-lr-5;
 			padding-bottom: 2px;
       line-height: 16px;
       div {
@@ -225,10 +225,6 @@
         width: 100%;
         /* flex: 1; */
 				margin-bottom: 8px;
-      }
-      img {
-        width: 100%;
-        height: auto;
       }
       .text--large {
         font-size: 17px;
@@ -241,17 +237,12 @@
         white-space: nowrap;
         position: relative;
         height: 16px;
-        span {
-          position: absolute;
-          top: 0;
-          right: 0;
-        }
       }
     }
   }
   .new-print-modal_bott{
     border-top:1px solid #000;
-    padding:15px;
+    padding: 8px 15px;
     font-size: 15px;
 
     .modal_bott_top{
@@ -407,7 +398,8 @@ export default {
     },
     // 是否避光
     isBiguang() {
-      return this.itemObj[0] && this.itemObj[0].drugType == 4
+      return this.itemObj && this.itemObj.find(item => item.drugType == 4)
+      // return this.itemObj[0] && this.itemObj[0].drugType == 4
     },
     // 返回避光或者重症图片路径
     WarmUrl() {

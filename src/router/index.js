@@ -219,6 +219,8 @@ const allTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartSDLJ.vue"); //顺德龙江量录入体温单
 const allTemperatureChartWHYX = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHYX.vue"); //武汉亚心量录入体温单
+const allTemperatureChartFSRY = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSRY.vue"); //武汉亚心量录入体温单
 const newSingleTemperatureChart = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //新版体温单录入页面
 const newSingleTemperatureChartLiaoCheng = () =>
@@ -312,8 +314,8 @@ import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
-import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue"; 
-import healthEducationGuizhou from "@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue"; 
+import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue";
+import healthEducationGuizhou from "@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue";
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
@@ -354,6 +356,7 @@ const statisticalWorkload = () => import("@/Page/statistical-query/statistical-w
 const statisticalBreath = () => import("@/Page/statistical-query/statistical-breath/index.vue")
 const statisticalExitAdmission = () => import("@/Page/statistical-query/statistical-exitAdmission/index.vue")
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
+const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -453,7 +456,7 @@ const router = new Router({
             return temperatureDGXG
           case 'whfk':
             return temperatureWHFK
-          case 'lyxrm':
+          case 'lyxrm' || 'ytll':
             return temperatureLYXRM
           case 'sdlj' || 'gdtj':
             return temperatureSDLJ
@@ -498,7 +501,7 @@ const router = new Router({
               return indexHd
             case 'fqfybjy':
               return shiftWorkFq;
-            case 'liaocheng' || 'whfk' || 'whyx' || 'lyxrm':
+            case 'liaocheng' || 'whfk' || 'whyx' || 'lyxrm' || 'ytll':
               return indexLiaocheng
             case 'wujing':
               return indexWujing
@@ -511,7 +514,7 @@ const router = new Router({
         path: "/archive",
         component: (() => {
           switch(HOSPITAL_ID) {
-            case 'lyxrm':
+            case 'lyxrm' || 'ytll':
             case 'foshanrenyi':
               return archiveFSSY
             default:
@@ -633,7 +636,7 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj' || 'ytll':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -662,7 +665,7 @@ const router = new Router({
                 return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
-              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj':
+              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj' || 'ytll':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
@@ -824,6 +827,14 @@ const router = new Router({
         {
           path: "/test",
           component: test
+          // component: (() => {
+          //   switch (process.env.HOSPITAL_ID) {
+          //     case 'guizhou':
+          //       return testGuizhou
+          //     default:
+          //       return text
+          //   }
+          // })()
         },
         {
           path: "/record",
@@ -895,7 +906,7 @@ const router = new Router({
                 return temperatureFSXT
               case 'xiegang':
                 return temperatureDGXG
-              case 'lyxrm':
+              case 'lyxrm' || 'ytll':
                 return temperatureLYXRM
               case 'sdlj' || 'gdtj':
                 return temperatureSDLJ
@@ -926,7 +937,7 @@ const router = new Router({
           // component: catheter,
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
-              case 'liaocheng' || 'whyx' || 'sdlj' || 'foshanrenyi' || 'lyxrm' || 'gdtj':
+              case 'liaocheng' || 'whyx' || 'sdlj' || 'foshanrenyi' || 'lyxrm' || 'gdtj' || 'ytll':
                 return allCatheter
               default:
                 return catheter
@@ -1052,7 +1063,7 @@ const router = new Router({
               return implementationListShannan
             case 'zhongshanqi':
               return implementationListZhongshanqi
-            case 'lyxrm':
+            case 'lyxrm' || 'ytll':
               return implementationListLyxrm
             case 'wujing':
             case 'sdlj' || 'gdtj':
@@ -1285,12 +1296,14 @@ const router = new Router({
               return allTemperatureChartWHFK
             case 'nanfangzhongxiyi':
               return allTemperatureChartNFZXY
-            case 'lyxrm':
+            case 'lyxrm' || 'ytll':
               return allTemperatureChartLYXRM
             case 'sdlj' || 'gdtj':
               return allTemperatureChartSDLJ
             case 'whyx':
               return allTemperatureChartWHYX
+            case 'foshanrenyi':
+              return allTemperatureChartFSRY
             default:
               return allTemperatureChart
           }
@@ -1323,7 +1336,7 @@ const router = new Router({
               return newSingleTemperatureChartDGXG
             case 'whfk':
               return newSingleTemperatureChartWHFK
-            case 'lyxrm':
+            case 'lyxrm' || 'ytll':
               return newSingleTemperatureChartLYXRM
             case 'sdlj' || 'gdtj':
               return newSingleTemperatureChartSDLJ

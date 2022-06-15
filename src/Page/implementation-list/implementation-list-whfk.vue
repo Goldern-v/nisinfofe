@@ -294,6 +294,8 @@ export default {
         }
         this.page.total = Number(res.data.pageCount) * this.page.pageNum;
         this.pageLoadng = false;
+      }).catch(e => {
+        this.pageLoadng = false;
       });
     },
     search() {

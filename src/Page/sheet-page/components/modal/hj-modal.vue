@@ -138,6 +138,10 @@ export default {
       // let tt = t + " 07:00";
       let yt = ["wujing"].includes(this.HOSPITAL_ID) ? y + " 08:00" : y + " 07:00";
       let tt = ["wujing"].includes(this.HOSPITAL_ID) ? t + " 07:59" : t + " 07:00" ;
+      if(['fsxt'].includes(this.HOSPITAL_ID)){
+        yt=y + " 08:01"
+        tt=t + " 08:00"
+      }
       this.date = [yt, tt];
     },
     close() {

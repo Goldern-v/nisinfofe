@@ -90,6 +90,7 @@ import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureFSXT from "@/Page/patientInfo/supPage/temperature/temperature-fsxt";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
+import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature-nanfangzhongxiyi";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue"; //血糖
@@ -180,6 +181,8 @@ export default {
           return temperatureLYXRM;
         case "fsxt":
           return temperatureFSXT;
+        case "nanfangzhongxiyi":
+          return temperatureNFZXY;
         default:
           return temperature;
       }
@@ -218,7 +221,8 @@ export default {
     temperatureWHFK,
     temperatureLYXRM,
     temperatureSDLJ,
-    temperatureFSXT
+    temperatureFSXT,
+    temperatureNFZXY
   }
 };
 </script>

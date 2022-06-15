@@ -23,6 +23,7 @@
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==3 && HOSPITAL_ID=='hj'">A2：</span>
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==4 && HOSPITAL_ID=='hj'">A3：</span>
             <!-- <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || HOSPITAL_ID=='huadu' || HOSPITAL_ID=='liaocheng' ? index+1 : index}}：</span> -->
+            <span style="width: 60px; text-align: center" v-else-if="HOSPITAL_ID=='whyx'">责{{index+1}}：</span>
             <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi'].includes(HOSPITAL_ID)? index+1 : index}}：</span>
             <input v-if="HOSPITAL_ID !== 'liaocheng'" flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
             <!-- 聊城二院 床位 添加 下拉选项 -->
