@@ -300,7 +300,6 @@ export default {
   },
   components: {},
   mounted() {
-    console.log(123);
     getPaperWork(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
       // console.log('res',res);
       this.status = res.data.data.paperWorks
