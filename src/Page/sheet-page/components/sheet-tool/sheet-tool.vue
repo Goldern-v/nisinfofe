@@ -367,7 +367,8 @@
           HOSPITAL_ID == 'weixian' ||
           HOSPITAL_ID == 'liaocheng'||
           HOSPITAL_ID == 'foshanrenyi'||
-          HOSPITAL_ID == 'whfk'
+          HOSPITAL_ID == 'whfk' ||
+          HOSPITAL_ID == 'lyxrm'
         "
       >
         <div class="text-con">

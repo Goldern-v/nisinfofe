@@ -387,7 +387,9 @@ export default {
             }else{
               nowX= (getRowNum(index) - 1) + getRowNum(index)*(index-1) + x + 1
             }
+            // console.log(nowX, 66666)
             tr.isRead = this.isRead(tr,x,nowX);
+            // console.log(nowX, tr.isRead, 66666)
             tr.map((td, y) => {
               td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel,nowX);
             });
@@ -571,6 +573,10 @@ export default {
       ) {
         return false;
       }
+      if ((this.HOSPITAL_ID=='nanfangzhongxiyi' || this.HOSPITAL_ID=='xiegang') && (this.listData && this.listData[nowX] && !this.listData[nowX].canModify)) {
+        return true
+      }
+
       if(this.listData && this.listData[x] && this.listData[x].canModify){
         return false;
       }

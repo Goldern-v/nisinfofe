@@ -91,8 +91,9 @@
         </div>
       </div>
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
-        <div :class="{relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))}"
-          :style="{margin:`${newModalSize=='3*7'?'1px 0 0 1px':'1px 0 0'}`}" v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
+        <!-- {relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))},  -->
+        <div :class="[{'break-page': ['lyxrm'].includes(HOSPITAL_ID) && bottleCardIndex % 2 == 1 && bottleCardIndex > 0}]"
+          v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
           <component :is="newPrintCom" :newModalSize="newModalSize" :itemObj='itemBottleCard' />
         </div>
       </div>
@@ -178,11 +179,11 @@
   }
 }
 .new-print-box{
-  .relatop{
-    position relative;
-    // top:1cm;
-    margin-bottom: 1cm !important;
-  }
+  // .relatop{
+  //   position relative;
+  //   // top:1cm;
+  //   margin-top: 1cm !important;
+  // }
   // display: none;
     //   position: absolute;
     // left: 0;
@@ -548,6 +549,9 @@ export default {
             }
             body{
               ${this.newModalSize=='6*8' || this.newModalSize == '70*80'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
+            }
+            .break-page {
+              page-before-break: always;
             }
           `
         }).then(()=>{

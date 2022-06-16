@@ -2,14 +2,16 @@
 <!-- 6.7 -->
   <div
     :style="{
-      width: `${newModalSize.split('*')[1] == '80' ? '8' : '14'}cm`,
-      height: `${newModalSize == '70*80' ? '6.9' : '6'}cm`
+      width: `${newModalSize == '70*80' ? '7' : '14'}cm`,
+      height: `${newModalSize == '70*80' ? '8' : '7.99'}cm`
     }"
   >
+    <!-- 小瓶签一张纸需要打印2条数据数据间要留白 -->
+    <div v-if="newModalSize == '3*7'" class="blank--small"></div>
     <div
       v-if="newModalSize == '70*80'"
       class="new-print-modal new-print-modal--large"
-      style="width:8cm;height:6.9cm"
+      style="width:7cm;height:8cm"
     >
       <div class="new-print-modal__title">
         <span :class="{center:currentBottle.deptName.length<=6}">{{ hospitalName }}</span>
@@ -69,7 +71,7 @@
 
     <div
       v-else
-      class="new-print-modal"
+      class="new-print-modal new-modal-small"
       style="height:6cm;width:14cm;display:flex"
     >
       <div class="new-modal-small-left">
@@ -77,7 +79,7 @@
           <div style="text-indent:5px">{{ currentBottle.bedLabel }}</div>
           <div>{{ currentBottle.name }}</div>
           <div>{{ currentBottle.patientId }}</div>
-        </div>1
+        </div>
         <div class="new-modal-small-left-second">
           <div style="text-indent:5px">
             {{ currentBottle.executeDate | executeDateFilter }}
@@ -90,10 +92,9 @@
           <div
             v-for="(item, index) in currentBottle.orderText"
             :key="index"
-            style="line-height:16px;text-indent:5px;display:flex"
+            style="line-height:20px;text-indent:5px;display:flex"
           >
-            <div>{{ item }}</div>
-            <div>{{ currentBottle.dosageDosageUnits[index] }}</div>
+            <div>{{ item }}{{ currentBottle.dosageDosageUnits[index] }}</div>
           </div>
         </div>
       </div>
@@ -113,7 +114,8 @@
 .new-print-modal {
   page-break-after: always;
   >>> * {
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 700;
   }
   .p-lr-5 {
     padding: 0 5px;
@@ -180,16 +182,16 @@
     /* min-height: 220px; */
 
     .content__left_warm{
-        text-align: center;
-        position: absolute;
-        bottom: 10px;
-        left: 0;
-        width: 100%;
-          img{
-              width: 40px;
-              height: 40px;
-        }
+      text-align: center;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+        img {
+            width: 40px;
+            height: 40px;
       }
+    }
     .new-print-modal__content__left {
       position: relative;
       flex: 1;
@@ -276,13 +278,15 @@
         border-top:1px solid #000;
       }
     }
-
   }
-  .new-modal-small-left {
-    >>> * {
-      font-size: 16px;
+  &.new-modal-small {
+    div,p,span {
+
+      font-size: 17px;
       line-height: 24px;
     }
+  }
+  .new-modal-small-left {
     flex: 2;
     height: 100%;
     box-sizing: border-box;
@@ -301,10 +305,6 @@
     }
   }
   .new-modal-small-right {
-    >>> * {
-      font-size: 16px;
-      line-height: 24px;
-    }
     flex: 1;
     box-sizing: border-box;
     border: 1px solid #000;
@@ -318,6 +318,9 @@
       }
     }
   }
+}
+.blank--small {
+  height: 1.4cm;
 }
 </style>
 <script>
