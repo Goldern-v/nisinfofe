@@ -93,6 +93,7 @@
                       ? 'rowBoxRight'
                       : 'rowBox'
                   "
+                  class="pathological"
                   v-for="(j, index, i) in baseMultiDictList"
                   :key="index"
                 >
@@ -194,6 +195,7 @@
                         ? 'rowBoxRight'
                         : 'rowBox'
                     "
+                    class="otherPathological"
                     v-for="(j, index, i) in otherMultiDictList"
                     :key="index"
                   >
@@ -222,7 +224,10 @@
                             : 'text'
                         "
                         :title="vitalSignObj[j].vitalValue"
-                        @input="handlePopRefresh(vitalSignObj[j])"
+                        @input="()=>{
+                          validFormFc(vitalSignObj[j], i + 100)
+                          handlePopRefresh(vitalSignObj[j])
+                        }"
                         @mousewheel="
                           (e) => {
                             e.preventDefault();
@@ -312,6 +317,8 @@
                     <input
                       type="text"
                       class="fieldClass"
+                      :id="h + 1000"
+                      @keydown.enter="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
                       @click="
@@ -554,25 +561,32 @@ export default {
     },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
-        let inputListLength = document.getElementsByClassName("rowBox").length;
-        if (Number(e.target.id) < inputListLength) {
-          switch (Number(e.target.id)) {
-            case 6:
-              document.getElementById("12").focus();
-            case 12:
-              document.getElementById("16").focus();
-            default:
-              document.getElementById(Number(e.target.id) + 1).focus();
-          }
-        } else if (Number(e.target.id) === inputListLength) {
+        let baseLength = document.getElementsByClassName("pathological").length;
+        let otherLength =
+          document.getElementsByClassName("otherPathological").length;
+        this.otherDicListLength = otherLength;
+        if (Number(e.target.id) < baseLength) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (Number(e.target.id) === baseLength) {
           document.getElementById("100").focus();
+        } else if (
+          Number(e.target.id) > baseLength &&
+          Number(e.target.id) < otherLength + 100 - 1
+        ) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+          console.log(otherLength,Number(e.target.id),100 + otherLength - 2)
+
+        }
+        if (Number(e.target.id) >= 100 + otherLength - 2) {
+
+          document.getElementById("1000").focus();
         }
       } else {
         let inputListLength =
           document.getElementsByClassName("fieldClass").length;
-        if (Number(e.target.id) < inputListLength + 100 - 1) {
+        if (Number(e.target.id) < inputListLength + 1000 - 1) {
           document.getElementById(Number(e.target.id) + 1).focus();
-        } else if (Number(e.target.id) === inputListLength + 100 - 1) {
+        } else if (Number(e.target.id) === inputListLength + 1000 - 1) {
           document.getElementById("1").focus();
         }
       }
