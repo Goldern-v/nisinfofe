@@ -40,6 +40,25 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
+          <div
+            style="margin-left: 220px"
+            v-if="HOSPITAL_ID === 'foshanrenyi'"
+           >
+          <el-button
+             class="modal-btn"
+             type="primary"
+             @click="openPISilde('inspectModal')"
+          >
+           检验报告
+          </el-button>
+          <el-button
+             class="modal-btn"
+             type="primary"
+             @click="openPISilde('testModal')"
+          >
+            检查报告
+          </el-button>
+          </div>
         </div>
         <div class="diagnosis-box">
           <el-button v-if="showDiagnosisBtn" size="small" class="diagnosis-box__btn" @click="openDiagnosisModal">同步护理计划</el-button>
@@ -931,6 +950,10 @@ export default {
     }
   },
   methods: {
+    openPISilde(type){
+      // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
+       this.bus.$emit("openclosePatientInfo",type,false,true)
+    },
     /* 是否同步体征信息 */
     sycnTempChange() {
       if (this.isSyncTemp) {
@@ -1785,6 +1808,15 @@ export default {
       }
       this.bus.$emit("saveSheetPage",true,ayncVisitedData);
     });
+    // 佛山市一检查报告和检验报告同步
+    this.bus.$on("syncReportFSSY",(str)=>{
+      if(this.doc){
+        this.doc+='\n'+str
+      }else{
+        this.doc+=str
+      }
+      
+    })
   },
   watch: {
     check: {
