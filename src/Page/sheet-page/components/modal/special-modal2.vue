@@ -1591,7 +1591,7 @@ export default {
               text += allDoc[i];
             }
           }else {
-            console.log("111111111")
+            console.log("111111111",text,GetLength(text))
             if (GetLength(text) > 23) {
             console.log("2222222222")
               result.push(text);
