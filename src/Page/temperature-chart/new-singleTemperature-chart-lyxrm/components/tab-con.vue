@@ -30,6 +30,15 @@
           >
           </el-time-select>
         </div>
+        <div class="save-btn-top" v-if="patientInfo.patientId">
+          <el-button
+            :disabled="isDisable()"
+            type="primary"
+            class="save-btn"
+            @click="saveVitalSign(vitalSignObj)"
+            >保存</el-button
+          >
+        </div>
       </div>
     </div>
     <div class="row-bottom">
@@ -214,7 +223,6 @@
                         "
                         :title="vitalSignObj[j].vitalValue"
                         @input="handlePopRefresh(vitalSignObj[j])"
-                        v-on:input="validFormFc(vitalSignObj[j], i + 100)"
                         @mousewheel="
                           (e) => {
                             e.preventDefault();
@@ -302,10 +310,8 @@
                     </div>
 
                     <input
-                      :id="h + 100"
                       type="text"
                       class="fieldClass"
-                      @keydown.enter="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
                       @click="
@@ -1022,6 +1028,7 @@ export default {
     display: inline-block;
     margin-left: 15px;
     height: 50px;
+    width:100%;
     overflow: auto;
   }
 
@@ -1111,7 +1118,10 @@ export default {
       height: 28px;
     }
   }
-
+    .save-btn-top {
+    width: 50px;
+    display: inline-block;
+  }
   .times {
     display: inline-block;
     width: 100px;
