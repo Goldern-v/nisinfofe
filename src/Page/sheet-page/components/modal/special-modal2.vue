@@ -40,6 +40,25 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
+          <div
+            style="margin-left: 220px"
+            v-if="HOSPITAL_ID === 'foshanrenyi'"
+           >
+          <el-button
+             class="modal-btn"
+             type="primary"
+             @click="openPISilde('inspectModal')"
+          >
+           检验报告
+          </el-button>
+          <el-button
+             class="modal-btn"
+             type="primary"
+             @click="openPISilde('testModal')"
+          >
+            检查报告
+          </el-button>
+          </div>
         </div>
         <div class="diagnosis-box">
           <el-button v-if="showDiagnosisBtn" size="small" class="diagnosis-box__btn" @click="openDiagnosisModal">同步护理计划</el-button>
@@ -931,6 +950,10 @@ export default {
     }
   },
   methods: {
+    openPISilde(type){
+      // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
+       this.bus.$emit("openclosePatientInfo",type,false,true)
+    },
     /* 是否同步体征信息 */
     sycnTempChange() {
       if (this.isSyncTemp) {
@@ -1077,7 +1100,7 @@ export default {
         isRead = this.$store.state.form_masterInfo.masterInfo.readOnly
       }
       // 佛山人医  完全根据canModify来控制
-      if(this.HOSPITAL_ID=='foshanrenyi'){
+      if(this.HOSPITAL_ID=='foshanrenyi' || this.HOSPITAL_ID=='nanfangzhongxiyi'){
         // status  三种状态  1签名（普通） 2审核
         if(status>=1){
            // 审核   isRead  sheet-page.vue这个文件的的isRead方法决定
@@ -1785,6 +1808,15 @@ export default {
       }
       this.bus.$emit("saveSheetPage",true,ayncVisitedData);
     });
+    // 佛山市一检查报告和检验报告同步
+    this.bus.$on("syncReportFSSY",(str)=>{
+      if(this.doc){
+        this.doc+='\n'+str
+      }else{
+        this.doc+=str
+      }
+      
+    })
   },
   watch: {
     check: {

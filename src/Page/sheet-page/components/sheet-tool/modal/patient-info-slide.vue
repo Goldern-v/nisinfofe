@@ -188,8 +188,8 @@ export default {
     toggle() {
       this.show = !this.show;
     },
-    openModal(name) {
-      this.$refs[name].open();
+    openModal(name,feature) {
+      this.$refs[name].open(feature);
     }
   },
   mounted() {},

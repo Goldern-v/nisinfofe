@@ -641,6 +641,10 @@ export default {
       ) {
         return false;
       }
+      if ((this.HOSPITAL_ID=='nanfangzhongxiyi' || this.HOSPITAL_ID=='xiegang') && (this.listData && this.listData[nowX] && !this.listData[nowX].canModify)) {
+        return true
+      }
+
       if(this.listData && this.listData[x] && this.listData[x].canModify){
         return false;
       }
