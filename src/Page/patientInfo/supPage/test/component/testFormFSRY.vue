@@ -30,7 +30,7 @@
           <span>申请医生：{{ data.reqDoctor }}</span>
           <span>报告日期：{{ data.resultDate | dataForm }}</span>
         </el-row>
-        <el-checkbox-group v-model="checkList">
+        <el-checkbox-group v-model="checkList[activeIndex]">
         <el-table
           :data="data1"
           :height="height1"
@@ -39,7 +39,7 @@
           @row-click="openChart"
         >  
           <el-table-column
-            label="勾选"
+            label="同步"
             min-width="60px"
           >
               <template slot-scope="scope">
@@ -231,7 +231,9 @@ export default {
       dialogVisible: false,
       chartData: {},
       testList: [],
-      checkList:[]
+      checkList:[],
+      checkListLength:0,
+      activeIndex:0
     };
   },
   computed: {
@@ -261,7 +263,7 @@ export default {
       }
     },
     openChart(data,event, column) {
-      if(column.label==="勾选"){
+      if(column.label==="同步"){
         return
       }
       this.chartData = data;
@@ -273,8 +275,18 @@ export default {
     closeChart() {
       this.dialogVisible = false;
     },
-    open(data) {
+    open(data,index,clLength) {
+      console.log('data',data)
+      console.log('index',index)
+      console.log('clLength',clLength)
+      if(clLength>0&&clLength){
+        //如果选项多于1个，那么改造checkList为二维数组
+        for (let index = 0; index < clLength ; index++) {
+           this.checkList.push([])
+        }
+      }
       this.data = data;
+      this.activeIndex=index
       this.loading = true;
       this.data1 = [];
       this.closeChart();
@@ -293,7 +305,6 @@ export default {
       testItems(this.data.testNo)
         .then((res) => {
           this.data1 = res.data.data;
-          // console.log(300,this.data1)
           this.loading = false;
         })
         .catch(() => {
