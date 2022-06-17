@@ -10,11 +10,11 @@ import {
   click_date
 } from "../keyEvent/date";
 
-// let 表底注释 = [];
-// let 表顶注释 = [];
+let 表底注释 = [];
+let 表顶注释 = [];
 // 医院反应下拉会无反应。bug这边复现不了，可能是发请求拿数据是卡住。所以数据写死
-let 表底注释 = ['拒测','不在','外出','不升','请假','右PPD','左PPD','PPD︵-︶','PPD︵+︶','PPD︵++︶','PPD︵+++︶','冰敷','退热贴','冷水枕','降温毯','温水浴','辅助呼吸','PDD','停辅助呼吸'];
-let 表顶注释= ['入院|','手术','分娩|','出院|','转入|','死亡|','排胎|','出生|','手术分娩|','手术入院|','转出|'];
+// let 表底注释 = ['拒测','不在','外出','不升','请假','右PPD','左PPD','PPD︵-︶','PPD︵+︶','PPD︵++︶','PPD︵+++︶','冰敷','退热贴','冷水枕','降温毯','温水浴','辅助呼吸','PDD','停辅助呼吸'];
+// let 表顶注释= ['入院|','手术','分娩|','出院|','转入|','死亡|','排胎|','出生|','手术分娩|','手术入院|','转出|'];
 
 export default [{
   key: "recordMonth", //日期
@@ -306,41 +306,41 @@ export default [{
 ];
 
 
-// let filterKey = '花都' + ':';
-// let filterKey2 = '体温单' + ':';
-// let filterKey2Arr = ["表底注释", "表顶注释"];
+let filterKey = '花都' + ':';
+let filterKey2 = '体温单' + ':';
+let filterKey2Arr = ["表底注释", "表顶注释"];
 
-// export function getListData4() {
-//   let list = [
-//     "表底注释",
-//     "表顶注释",
-//   ];
+export function getListData4() {
+  let list = [
+    "表底注释",
+    "表顶注释",
+  ];
 
-//   list = list.map(key => {
-//     return filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
-//   });
-//   multiDictInfo(list).then(res => {
-//     let data = res.data.data;
-//     setList(表底注释, "表底注释", data);
-//     setList(表顶注释, "表顶注释", data);
-//   });
-// }
+  list = list.map(key => {
+    return filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+  });
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(表底注释, "表底注释", data);
+    setList(表顶注释, "表顶注释", data);
+  });
+}
 
-// getListData4();
+getListData4();
 
-// /**
-//  *
-//  * @param {*} list 原数组
-//  * @param {*} key 对应的key
-//  * @param {*} data 数据源
-//  * @param {*} isChildOptions 当前选项是否有下拉子选项
-//  */
-// function setList(list, key, data,) {
-//   key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ * @param {*} isChildOptions 当前选项是否有下拉子选项
+ */
+function setList(list, key, data,) {
+  key = filterKey2Arr.includes(key) ? filterKey + filterKey2 + key : filterKey + key;
 
-//   list.splice(0, list.length);
-//   for (let item of data[key]) {
-//     list.push(item.name);
-//   }
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
 
-// }
+}

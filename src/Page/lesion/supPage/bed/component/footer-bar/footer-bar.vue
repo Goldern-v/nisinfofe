@@ -115,20 +115,21 @@ export default {
           key: "MEWS预警",
           length: this.MEWS.length
         },
-        
-        
+
+
       ];
       if (
         this.HOSPITAL_ID == "lingcheng" ||
         this.HOSPITAL_ID == "huadu" ||
-        this.HOSPITAL_ID == "liaocheng"
+        this.HOSPITAL_ID == "liaocheng" ||
+        ['lyyz','qhwy'].includes(this.HOSPITAL_ID)
       ) {
         arr.push({
           key: "发热",
           length: this.isFever.length
         });
       }
-      if (this.HOSPITAL_ID == "liaocheng") {
+      if (['liaocheng','lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
         arr.push({
           key: "VTE高风险",
           length: this.hasVteDanger.length
@@ -148,7 +149,7 @@ export default {
         arr.splice(2,0, {key: "ADL",length: this.isPain.length},
           {key: "疼痛",length: this.isAdl.length},
           {key: "管道脱落风险",length: this.tubingShedding.length},)
-        
+
       }
       if(this.HOSPITAL_ID == "beihairenyi"){
         // console.log("多重耐药患者:",this.isMultiDrugResistant);
