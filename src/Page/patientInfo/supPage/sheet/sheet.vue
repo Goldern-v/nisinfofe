@@ -594,6 +594,8 @@ export default {
         (this.HOSPITAL_ID == "xiegang" && td && this.listData[nowX])
         ||
         (this.HOSPITAL_ID == "nanfangzhongxiyi" && td && this.listData[nowX])
+        ||
+        (this.HOSPITAL_ID == "sdlj" && td && this.listData[nowX])
       ) {
         return !this.listData[nowX].canModify;
       }
@@ -641,7 +643,7 @@ export default {
       ) {
         return false;
       }
-      if ((this.HOSPITAL_ID=='nanfangzhongxiyi' || this.HOSPITAL_ID=='xiegang') && (this.listData && this.listData[nowX] && !this.listData[nowX].canModify)) {
+      if ((this.HOSPITAL_ID=='nanfangzhongxiyi' || this.HOSPITAL_ID=='xiegang' || this.HOSPITAL_ID=='sdlj') && (this.listData && this.listData[nowX] && !this.listData[nowX].canModify)) {
         return true
       }
 
