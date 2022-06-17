@@ -436,6 +436,10 @@ export default {
           cancelButtonText: "取消",
         })
           .then(({ value }) => {
+            if (value.trim() == '') {
+              this.$message.warn('请填写补录原因');
+              return
+            }
             let data = {
               patientId:item.patientId,
               visitId:item.visitId,

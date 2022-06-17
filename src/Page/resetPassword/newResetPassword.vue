@@ -522,7 +522,7 @@ export default {
   },
   mounted() {
     this.getSecurityLevelSetting();
-    if(['sdlj'].includes(this.HOSPITAL_ID)){
+    if(['sdlj','hengli'].includes(this.HOSPITAL_ID)){
       this.reg = {
         flag: true,
         // rule: "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z~!@#$%^&*._?]+$)(?![a-z0-9]+$)(?![a-z~!@#$%^&*._?]+$)(?![0-9~!@#$%^&*._?]+$)[a-zA-Z0-9~!@#$%^&*._?]{8,}$",

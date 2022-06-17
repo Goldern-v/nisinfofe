@@ -59,10 +59,10 @@
             <el-option label="外用" value="外用"></el-option>
             <el-option label="化验" value="化验"></el-option> -->
 
-            <el-option 
-              v-for="(optionItem,optionIndex) in typeOptions" 
+            <el-option
+              v-for="(optionItem,optionIndex) in typeOptions"
               :key="optionIndex"
-              :label="optionItem.label" 
+              :label="optionItem.label"
               :value="optionItem.value || optionItem.label"
             ></el-option>
           </el-select>
@@ -217,7 +217,6 @@ import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import print from "printing";
 import formatter from "./print-formatter";
-
 export default {
   mixins: [common],
   data() {
@@ -391,7 +390,7 @@ export default {
         this.onLoad();
       });
     },
-    
+
     async onPrint() {
       this.$nextTick(async () => {
         await print(this.$refs.printable, {

@@ -392,6 +392,7 @@ const router = new Router({
       switch (HOSPITAL_ID) {
         case 'whfk':
         case 'sdlj':
+        case 'hengli':
           // 新版修改密码
           return newResetPassword
         default:
