@@ -272,27 +272,33 @@ export default {
   methods: {
     async writeDescription(){
       this.isSaving=true
-      let projectStr='检查项目:'
-      let seeStr='检查所见:'
-      let impressionStr='印象:'
-      // 左边的接口this.listByFilter
+      let str=''
       for(var i=0;i<this.checkList.length;i++){
+        let projectStr='检查项目:'
+        let seeStr='检查所见:'
+        let impressionStr='印象:'
         let nowItem=this.listByFilter[this.checkList[i]]
         if (nowItem.examNo !== "") {
-            const res=await   examResult(nowItem.examNo)
+            const res=await  examResult(nowItem.examNo)
             // 如果res.data.data==null跳出
             if(res.data.data==null){
               continue
             }
-            seeStr=`${seeStr}${res.data.data.description}`
+            // 接口返回数据回头\n所以都清理
+            const clearseeStr=res.data.data.description.replace(/[\n]/g, '')
+            seeStr=`${seeStr}${clearseeStr}`
         }
-        projectStr=`${projectStr}${this.listByFilter[this.checkList[i]].examItem}；`
-        impressionStr=`${impressionStr}${this.listByFilter[this.checkList[i]].impression}；`
+        const clearprojectStr=this.listByFilter[this.checkList[i]].examItem.replace(/[\n]/g, '')
+        projectStr=`${projectStr}${clearprojectStr}`
+        const clearimpressionStr=this.listByFilter[this.checkList[i]].impression.replace(/[\n]/g, '')
+        impressionStr=`${impressionStr}${clearimpressionStr}`
+        str += str ? '\n' : '' 
+        str += projectStr + '\n' + seeStr + '\n' + impressionStr
       }
       this.isSaving=false
       this.$emit('closeSweet')
       this.bus.$emit("openclosePatientInfo",'',true)
-      const str=projectStr+'\n'+seeStr+'\n'+impressionStr
+      // const str=projectStr+'\n'+seeStr+'\n'+impressionStr
       this.bus.$emit('syncReportFSSY',str)
     },
     toRight(data) {
