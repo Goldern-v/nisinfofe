@@ -92,7 +92,7 @@
       </div>
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <!-- {relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))},  -->
-        <div :class="[{'break-page': ['lyxrm'].includes(HOSPITAL_ID) && bottleCardIndex % 2 == 1 && bottleCardIndex > 0}]"
+        <div :class="[{'break-page': ['lyxrm'].includes(HOSPITAL_ID) && bottleCardIndex % 3 == 0 && bottleCardIndex > 0}]"
           v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
           <component :is="newPrintCom" :newModalSize="newModalSize" :itemObj='itemBottleCard' />
         </div>

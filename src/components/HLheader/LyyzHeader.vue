@@ -22,7 +22,7 @@
               align="middle"
               v-else
             >
-              <img src="../../common/images/logo-white-60.png" />
+              <img src="../../common/images/logo_lyyz.png" />
               <span>{{
                 HOSPITAL_ID == "hj"
                   ? "百辰源智慧护理信息系统"
