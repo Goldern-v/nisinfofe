@@ -2,7 +2,7 @@
   <div>
     <sweet-modal ref="modal" :modalWidth="modalWidth" :title="title">
       <div flex="cross:center">
-        <div v-if="HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk'"  >
+        <div v-if="HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk' || HOSPITAL_ID == 'lyxrm'">
           <span class="label">执行单日期：</span>
           <el-date-picker
             v-model="longDate"
@@ -26,7 +26,7 @@
             placeholderChar=" "
           ></masked-input>
         </div>
-        <div v-if="HOSPITAL_ID == 'quzhou'||HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk'" style="margin-left: 20px">
+        <div v-if="HOSPITAL_ID == 'quzhou'||HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk'|| HOSPITAL_ID == 'lyxrm'" style="margin-left: 20px">
           <span class="label">类型：</span>
           <el-select
             v-model="executeType"
@@ -103,11 +103,11 @@
           >
             <template slot-scope="scope">
               <span v-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{ scope.row.recordDate.split(" ")[0] }}</span>
-              <masked-input 
-                v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst" 
+              <masked-input
+                v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst"
                 class="mask-input"
                 :style="{width:'100%',border:'none',background:'transparentify',textAlign:'center'}"
-                :value="scope.row.recordDate.split(' ')[0]" 
+                :value="scope.row.recordDate.split(' ')[0]"
                 @input="(value)=>changeRecordDate(scope.row,'Month',value)"
                 type="text"
                 :mask="() =>[/\d/, /\d/,/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]"
@@ -123,11 +123,11 @@
             <template slot-scope="scope">
               <span v-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{ scope.row.recordDate.split(" ")[1] }}</span>
               <!-- <el-input v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst" :value="scope.row.recordDate.split(' ')[1]" @input="(value)=>changeRecordDate(scope.row,'Hour',value)"></el-input> -->
-              <masked-input 
-                v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst" 
+              <masked-input
+                v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst"
                 class="mask-input"
                 :style="{width:'100%',border:'none',background:'transparentify',textAlign:'center'}"
-                :value="scope.row.recordDate.split(' ')[1]" 
+                :value="scope.row.recordDate.split(' ')[1]"
                 @input="(value)=>changeRecordDate(scope.row,'Hour',value)"
                 type="text"
                 :mask="() =>[/\d/, /\d/, ':', /\d/, /\d/]"
@@ -149,7 +149,7 @@
             align="center"
           ></el-table-column>
           <!-- <el-table-column v-if="HOSPITAL_ID == 'quzhou'" prop="desc" label="描述" min-width="110px" align="center"></el-table-column> -->
-          <template v-if="HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'|| HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk'">
+          <template v-if="HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'|| HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk'|| HOSPITAL_ID == 'lyxrm'">
             <el-table-column
               prop="orderText"
               label="医嘱内容"
@@ -266,7 +266,7 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist: {},
-      executeType: this.HOSPITAL_ID==='liaocheng'?"输液":"",
+      executeType: this.HOSPITAL_ID==='liaocheng'|| this.HOSPITAL_ID == 'lyxrm' ?"输液":"",
       repeatIndicator: "",
       identicalGroupSelect:['wujing'],
       repeatIndicatorList: [
@@ -309,7 +309,8 @@ export default {
           this.HOSPITAL_ID == "weixian" ||
           this.HOSPITAL_ID == "liaocheng"||
           this.HOSPITAL_ID == "foshanrenyi"||
-          this.HOSPITAL_ID == 'whfk')
+          this.HOSPITAL_ID == 'whfk'||
+          this.HOSPITAL_ID == 'lyxrm')
       ) {
         this.multipleSelection.map((item, index) => {
           if (item.pulse) {
@@ -322,7 +323,7 @@ export default {
         });
       }
       if(this.sheetInfo.sheetType === 'access_lcey'){
-        let filterList = JSON.parse(JSON.stringify(temArr)) 
+        let filterList = JSON.parse(JSON.stringify(temArr))
         filterList.map((item,index)=>{
           filterList[index].orderText = item.orderText + item.dosage
           if(item.dosage.includes("g")){
@@ -420,7 +421,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (this.HOSPITAL_ID == "liaocheng") {
+      } else if (this.HOSPITAL_ID == "liaocheng"|| this.HOSPITAL_ID == 'lyxrm') {
         let startDate = this.longDate[0] ? moment(this.longDate[0]).format('YYYY-MM-DD') : ''
         let endDate = this.longDate[1] ? moment(this.longDate[1]).format('YYYY-MM-DD') : ''
         getOrdersExecuteLc({
@@ -520,7 +521,7 @@ export default {
       }
     },
     allType(){
-      if(this.HOSPITAL_ID==='liaocheng'){
+      if(this.HOSPITAL_ID==='liaocheng'|| HOSPITAL_ID == 'lyxrm'){
         return [
         {
           id: "",
@@ -645,7 +646,7 @@ export default {
         },
         ]
       }
-     
+
     }
   },
   components: {

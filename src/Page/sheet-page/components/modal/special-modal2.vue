@@ -40,6 +40,25 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
+          <div
+            style="margin-left: 220px"
+            v-if="HOSPITAL_ID === 'foshanrenyi'"
+           >
+          <el-button
+             class="modal-btn"
+             type="primary"
+            @click="openPISilde('testModal')"
+          >
+           检验报告
+          </el-button>
+          <el-button
+             class="modal-btn"
+             type="primary"
+              @click="openPISilde('inspectModal')"
+          >
+            检查报告
+          </el-button>
+          </div>
         </div>
         <div class="diagnosis-box">
           <el-button v-if="showDiagnosisBtn" size="small" class="diagnosis-box__btn" @click="openDiagnosisModal">同步护理计划</el-button>
@@ -931,6 +950,10 @@ export default {
     }
   },
   methods: {
+    openPISilde(type){
+      // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
+       this.bus.$emit("openclosePatientInfo",type,false,true)
+    },
     /* 是否同步体征信息 */
     sycnTempChange() {
       if (this.isSyncTemp) {
@@ -1411,6 +1434,10 @@ export default {
       if(this.isSaving){
         return
       }
+      if(this.HOSPITAL_ID == "foshanrenyi"){
+        // 佛山市一，护记弹窗保存有换行\n,所以要全部清理。不然textarea显示有问题
+        this.doc=this.doc.replace(/\n/ig,'')
+      }
       if(type!='ayncVisitedData' && !this.staticObj.recordHour){
         return this.$message.warning('记录时间不得为空！')
       }
@@ -1753,6 +1780,16 @@ export default {
     // 打开特殊情况
     window.openSpecialModal2 = (config) => {
       this.open(config);
+      if(this.HOSPITAL_ID == "foshanrenyi"){
+        // 打开编辑框时 检查项目:, 检查所见:, 印象:
+        // 需要在签名添加\n，让回显的形式达到那边一样
+        let str=this.doc
+        let array = ['检查项目:', '检查所见:', '印象:']
+        for (let i = 0; i < array.length; i++) {
+          str = str.replace(new RegExp(array[i], 'g'), `\n${array[i]}`)
+        }
+        this.doc=str
+      }
       this.isSyncTemp = false;
       (this.vitalSignKeys = {
         体温: { key: "temperature", check: false },
@@ -1785,6 +1822,15 @@ export default {
       }
       this.bus.$emit("saveSheetPage",true,ayncVisitedData);
     });
+    // 佛山市一检查报告和检验报告同步
+    this.bus.$on("syncReportFSSY",(str)=>{
+      if(this.doc){
+        this.doc+='\n'+str
+      }else{
+        this.doc+=str
+      }
+      
+    })
   },
   watch: {
     check: {
