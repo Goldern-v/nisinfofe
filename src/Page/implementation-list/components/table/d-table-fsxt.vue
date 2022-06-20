@@ -353,7 +353,7 @@ export default {
     async save(mark, id) {
       this.isEdit = false
       const params = {
-        executeId: id || 10,
+        executeId: id,
         nurseMemo: mark
       }
       const res = await saveMark(params)
