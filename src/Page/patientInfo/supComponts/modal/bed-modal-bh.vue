@@ -976,7 +976,7 @@ export default {
       } else {
         this.title = "编辑床头卡";
       }
-      let qr_png_value = this.query.patientId + "|" + this.query.visitId;
+      let qr_png_value = (['beihairenyi'].includes(this.HOSPITAL_ID)?"P":"") +this.query.patientId + "|" + this.query.visitId;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {
