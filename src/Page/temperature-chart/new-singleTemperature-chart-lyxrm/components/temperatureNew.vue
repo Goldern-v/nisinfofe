@@ -10,7 +10,6 @@
         /
         <div @click="changeModel()" class="painNomal">疼痛版本</div>
       </div> -->
-
       <div :class="rightSheet===true?'pagination':'paginationRight'">
                <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
           首周
@@ -205,7 +204,7 @@ export default {
              case "clickDateTime":
             this.getDataFromPage(e.data.value)
             break;
-            
+
 
           default:
             break;
