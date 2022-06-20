@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="right-part">
-        <testFormFSRY ref="testForm"></testFormFSRY>
+        <testFormFSRY ref="testForm" :checkNum='radio'></testFormFSRY>
         <!-- <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm> -->
         <!--右边的检验报告单部分，花都的testFormHD组件，因为事件与其他医院不一样-->
         <!-- <testFormHD v-if="rightData.testNo&&['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testFormHD> -->

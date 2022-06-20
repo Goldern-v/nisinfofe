@@ -521,7 +521,7 @@ export default {
       }
     },
     allType(){
-      if(this.HOSPITAL_ID==='liaocheng'|| HOSPITAL_ID == 'lyxrm'){
+      if(this.HOSPITAL_ID==='liaocheng'||this.HOSPITAL_ID == 'lyxrm'){
         return [
         {
           id: "",

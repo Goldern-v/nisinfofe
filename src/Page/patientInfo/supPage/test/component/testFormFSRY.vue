@@ -43,7 +43,7 @@
             min-width="60px"
           >
               <template slot-scope="scope">
-                <el-checkbox :label="scope.$index">
+                <el-checkbox :label="scope.$index" :disabled='checkNum!=activeIndex'>
                    <br/>
                 </el-checkbox>
               </template>
@@ -223,6 +223,12 @@ th {
 import { testItems, getExamTestUrl } from "@/api/patientInfo";
 import lineChart from "./lineChart";
 export default {
+  props:{
+    checkNum:{
+      type:Number,
+      default:0
+    }
+  },
   data() {
     return {
       data: {},
