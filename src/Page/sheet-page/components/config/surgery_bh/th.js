@@ -18,7 +18,7 @@ export default {
     // 科室的名称
     deptType: "", 
     style: {
-      width: "1250px"
+      width: "1450px"
     },
     th: {
         top: 
@@ -41,7 +41,7 @@ export default {
             { "name": "吸氧<br/>L/<br/>min", "colspan": "1", "rowspan": "3"}, 
             { "name": "管道护理", "colspan": "1", "rowspan": "3"}, 
             { "name": "皮肤情况", "colspan": "1", "rowspan": "3"}, 
-            { "name": "病情记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+            { "name": "病情记录", "colspan": "1", "rowspan": "3", style: { minWidth: "158px",  maxWidth: "158px"}, }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3"}
          ]
         , 

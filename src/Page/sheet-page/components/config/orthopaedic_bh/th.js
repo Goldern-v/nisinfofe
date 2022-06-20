@@ -39,7 +39,7 @@ export default {
             { "name": "感觉活动、末梢血液循环", "colspan": "4", "rowspan": "1"}, 
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue"}, 
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue2"}, 
-            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "158px",  maxWidth: "158px"}, }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3"}, 
          ]
         , 
