@@ -47,14 +47,14 @@
           <el-button
              class="modal-btn"
              type="primary"
-             @click="openPISilde('inspectModal')"
+            @click="openPISilde('testModal')"
           >
            检验报告
           </el-button>
           <el-button
              class="modal-btn"
              type="primary"
-             @click="openPISilde('testModal')"
+              @click="openPISilde('inspectModal')"
           >
             检查报告
           </el-button>
@@ -1434,6 +1434,10 @@ export default {
       if(this.isSaving){
         return
       }
+      if(this.HOSPITAL_ID == "foshanrenyi"){
+        // 佛山市一，护记弹窗保存有换行\n,所以要全部清理。不然textarea显示有问题
+        this.doc=this.doc.replace(/\n/ig,'')
+      }
       if(type!='ayncVisitedData' && !this.staticObj.recordHour){
         return this.$message.warning('记录时间不得为空！')
       }
@@ -1776,6 +1780,16 @@ export default {
     // 打开特殊情况
     window.openSpecialModal2 = (config) => {
       this.open(config);
+      if(this.HOSPITAL_ID == "foshanrenyi"){
+        // 打开编辑框时 检查项目:, 检查所见:, 印象:
+        // 需要在签名添加\n，让回显的形式达到那边一样
+        let str=this.doc
+        let array = ['检查项目:', '检查所见:', '印象:']
+        for (let i = 0; i < array.length; i++) {
+          str = str.replace(new RegExp(array[i], 'g'), `\n${array[i]}`)
+        }
+        this.doc=str
+      }
       this.isSyncTemp = false;
       (this.vitalSignKeys = {
         体温: { key: "temperature", check: false },

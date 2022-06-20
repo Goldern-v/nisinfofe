@@ -502,7 +502,7 @@ const router = new Router({
               return indexHd
             case 'fqfybjy':
               return shiftWorkFq;
-            case 'liaocheng' || 'whfk' || 'whyx' || 'lyxrm' || 'ytll':
+            case 'liaocheng' || 'whfk' || 'whyx' || 'lyxrm' || 'ytll'||'lyyz'||'qhwy':
               return indexLiaocheng
             case 'wujing':
               return indexWujing
@@ -637,7 +637,7 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj' || 'ytll':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj' || 'ytll'||'lyyz'||'qhwy':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -1058,7 +1058,7 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'lingcheng':
               return implementationListLingcheng
-            case 'liaocheng':
+            case 'liaocheng'||'lyyz'||'qhwy':
               return implementationListLiaocheng
             case 'shannan':
               return implementationListShannan
