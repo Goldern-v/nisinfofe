@@ -339,7 +339,7 @@ export default {
           !item.isFirst && (item.recordDate = firstTime)
         })
       }
-      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+      if(['foshanrenyi','lyxrm'].includes(this.HOSPITAL_ID)){
        temArr=JSON.parse(JSON.stringify(temArr)).map(item=>{
           item.foodSize=item.dosage
           return item
