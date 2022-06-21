@@ -174,7 +174,6 @@
     display: flex;
     justify-content: space-between;
     @extend .bb;
-
   }
   .warm-icon{
     img {
@@ -216,7 +215,7 @@
     box-sizing: border-box;
     font-weight: 700;
     div,p,span {
-      font-size: 18px;
+      font-size: 19px;
       line-height: 24px;
     }
   }
@@ -252,7 +251,7 @@
     flex: 1;
     div {
       white-space: pre-wrap;
-      line-height: 20px;
+      line-height: 21px;
       text-align: left;
       border: 1px solid #000;
       border-top: none;
