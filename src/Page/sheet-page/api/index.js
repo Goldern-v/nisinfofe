@@ -30,11 +30,13 @@ export const getmultiDict = (wardcode) => {
 };
 
 // 分类合计
-export const putGroupCount = (patientId, visitId, startTime, endTime) => {
+export const putGroupCount = (patientId, visitId, startTime, endTime,type) => {
+  //type默认0统计出量和入量；1只统计出量；2只统计入量
   return axios.post(`${apiPath}record/${sheetInfo.sheetType}/putGroupCount`, {
     startTime,
     endTime,
-    blockId: sheetInfo.selectBlock.id
+    blockId: sheetInfo.selectBlock.id,
+    type
   });
 };
 

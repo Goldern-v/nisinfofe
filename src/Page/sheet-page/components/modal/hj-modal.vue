@@ -104,7 +104,8 @@ export default {
       ],
       description: "",
       bus: bus(this),
-      active:'' // 顶部按钮激活状态(聊城)
+      active:'', // 顶部按钮激活状态(聊城)
+      sheetInfo
     };
   },
   methods: {
@@ -160,13 +161,19 @@ export default {
           endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
           }
         let recordCode = sheetInfo.sheetType;
+        //默认0统计出量和入量；1只统计出量；2只统计入量
+        let type=0
+        if(this.sheetInfo.sheetType=='operating_fk'){
+           type=1
+        }
         outputSum(
           this.$parent.patientInfo.patientId,
           this.$parent.patientInfo.visitId,
           recordCode,
           startTime,
           endTime,
-          this.description
+          this.description,
+          type
         ).then(res => {
           this.bus.$emit("refreshSheetPage");
           this.$message({
@@ -193,11 +200,17 @@ export default {
         startTime=moment(startTime).format("YYYY-MM-DD HH:mm")
         endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
       }
+      //默认0统计出量和入量；1只统计出量；2只统计入量
+      let type=0
+      if(this.sheetInfo.sheetType=='operating_fk'){
+          type=1
+      }
       putGroupCount(
         this.$parent.patientInfo.patientId,
         this.$parent.patientInfo.visitId,
         startTime,
-        endTime
+        endTime,
+        type
       ).then(res => {
         if (res.data.data.desc) {
           if(this.HOSPITAL_ID==="wujing"){
