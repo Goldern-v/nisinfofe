@@ -174,6 +174,8 @@ export default {
       let dictionary = null
       if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.liaoc.json")))
+      } else if (this.HOSPITAL_ID === 'lyxrm') {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.lyxrm.json")))
       } else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.json")))
       }

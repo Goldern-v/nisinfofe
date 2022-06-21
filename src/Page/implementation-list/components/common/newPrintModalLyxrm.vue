@@ -3,7 +3,7 @@
   <div
     :style="{
       width: `${newModalSize == '70*80' ? '7' : '14'}cm`,
-      height: `${newModalSize == '70*80' ? '8' : '5.33'}cm`
+      height: `${newModalSize == '70*80' ? '8' : '5.3'}cm`
     }"
   >
     <!-- 小瓶签一张纸需要打印3条数据数据间要留白 -->
@@ -20,21 +20,15 @@
       </div>
       <div class="new-print-modal__second">
         <div>
-          姓名:
-          <span>
-            {{ currentBottle.name }}
-          </span>
+          姓名:<span>{{ currentBottle.name }}</span>
         </div>
         <div>
-          床号:
-          <span>
-            {{ currentBottle.bedLabel }}
-          </span>
+          床号:<span>{{ currentBottle.bedLabel }}</span>
         </div>
-        <div>{{ `ID号: ${currentBottle.patientId || ""}` }}</div>
-        <div>{{ `性别: ${currentBottle.sex || ""}` }}</div>
-        <div>{{ `科室: ${currentBottle.deptName}` }}</div>
-        <div>{{ `年龄: ${currentBottle.age}` }}</div>
+        <div>{{ `ID号:${currentBottle.patientId || ""}` }}</div>
+        <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
+        <div>{{ `科室:${currentBottle.deptName}` }}</div>
+        <div>{{ `年龄:${currentBottle.age}` }}</div>
       </div>
 
       <div class="new-print-modal__content">
@@ -45,7 +39,7 @@
       </div>
 
       <div class="new-print-modal__tip">
-        <div>医生说明: {{freqDetail}}</div>
+        <div>医生说明:{{freqDetail}}</div>
         <div class="warm-icon">
           <img v-for="v in currentBottle.tipIcons" :key="v" :src="warmUrl(v)">
         </div>
@@ -54,12 +48,12 @@
       <div class="new-print-modal__b">
         <div class="new-print-modal__b__l">
           <span>
-            途径: {{ currentBottle.administration }}
+            途径:{{ currentBottle.administration }}
           </span>
           <span>
-            频率: {{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
+            频率:{{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
           </span>
-          <span>执行时间: {{ currentBottle.executeDate.substr(0, 16) }}</span>
+          <span>执行时间:{{ currentBottle.executeDate.substr(0, 16) }}</span>
           <span>配液者</span>
           <span>配置时间</span>
           <span>核对者</span>
@@ -73,22 +67,16 @@
     <div
       v-else
       class="new-print-modal new-modal-small"
-      style="height:5cm;width:14cm;display:flex"
+      style="height:4.9cm;width:14cm;display:flex"
     >
       <div class="new-modal-small-top">
         <div class="new-modal-small-top__left">
 
           <div>
-            姓名:
-            <span>
-              {{ currentBottle.name }}
-            </span>
+            姓名: <span>{{ currentBottle.name }}</span>
           </div>
           <div>
-            床号:
-            <span>
-              {{ currentBottle.bedLabel }}
-            </span>
+            床号: <span>{{ currentBottle.bedLabel }}</span>
           </div>
           <div>
             途径: {{ currentBottle.administration }}
@@ -115,11 +103,10 @@
 // 临邑浏览器版本有部分为谷歌49，需要考虑兼容
 <style lang="scss" scoped>
 .new-print-modal {
-  page-break-after: always;
-  >>> * {
-    /* font-size: 13px; */
+  /* >>> * {
+    font-size: 13px;
     font-weight: 700;
-  }
+  } */
   .p-lr {
     padding: 0 8px;
   }
@@ -128,9 +115,10 @@
   }
 
   &.new-print-modal--large {
+    page-break-after: always;
     display: flex;
     flex-direction: column;
-    /* font-weight: 600; */
+    font-weight: 800;
 		height: 100%;
     font-size: 14px;
     line-height: 18px;
@@ -150,14 +138,16 @@
     flex-wrap: wrap;
     @extend .bb;
     div {
-      flex: 65%;
+      flex: 62%;
+      text-indent: 3px;
     }
 
     >div:nth-child(2n) {
-      flex: 35%;
+      flex: 38%;
+      text-indent: 0px;
     }
     >div>span {
-      font-size: 25px;
+      font-size: 24px;
       font-weight: 800;
       white-space: nowrap;
     }
@@ -209,7 +199,7 @@
     span:nth-child(1),span:nth-child(2),span:nth-child(4),span:nth-child(5) {
       width: 50%;
     }
-    span:nth-child(n+3) {
+    span:nth-child(n+4) {
       display: flex;
       &::after {
         content: '';
@@ -223,33 +213,36 @@
     display: flex;
     flex-direction: column;
 		height: 100%;
+    box-sizing: border-box;
+    font-weight: 700;
     div,p,span {
-      font-size: 19px;
+      font-size: 18px;
       line-height: 24px;
     }
   }
   .new-modal-small-top {
     display: flex;
-    @extend .bb;
+    border: 1px solid #000;
     .new-modal-small-top__left {
       flex: 1;
       display: flex;
       flex-wrap: wrap;
       div {
-        flex: 65%;
+        flex: 62%;
       }
 
       >div:nth-child(2n) {
-        flex: 35%;
+        flex: 38%;
       }
       >div>span {
-        font-size: 25px;
+        font-size: 24px;
         font-weight: 800;
         white-space: nowrap;
       }
     }
     .new-modal-small-top__right {
       width: 60px;
+      padding: 1px 1px 0px;
       img {
         width: 100%;
       }
@@ -261,7 +254,8 @@
       white-space: pre-wrap;
       line-height: 20px;
       text-align: left;
-      @extend .bb;
+      border: 1px solid #000;
+      border-top: none;
     }
   }
 

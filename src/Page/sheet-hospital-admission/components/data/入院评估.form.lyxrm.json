@@ -635,7 +635,7 @@
         {
           "name": "I001013",
           "type": "select",
-          "title": "资源来源",
+          "title": "资料来源",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:175px!important",
@@ -784,19 +784,6 @@
           "titleStyle": "width:30px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "65px",
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "hiddenTips": true
-        },
-        {
-          "name": "I100004",
-          "type": "input",
-          "title": "SPO2",
-          "suffixDesc": "%",
-          "titleStyle": "width:45px!important",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "55px",
           "style": null,
           "class": null,
           "readOnly": null,
