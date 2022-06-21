@@ -217,6 +217,18 @@ import {
       },
     },
     {
+      key: "oralMucosa", //口腔黏膜
+      value: "",
+      name: "口腔黏膜",
+      next:"",
+      event: keyf1,
+      autoComplete: { data: ['N','破溃'] },
+      change: (e, td) => limitChange(e, td,4),
+      textarea: {
+        width: 32
+      },
+    },
+    {
       key: "drainage1", //自定义1
       value: "",
       name: "",
