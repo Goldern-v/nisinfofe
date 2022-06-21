@@ -10,7 +10,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1330px"
+    width: "1362px"
   },
   th: {
     top: [ 
@@ -80,6 +80,14 @@ export default {
       {
         name: `
         切口<br/>敷料
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        口腔<br/>黏膜
         `,
         style: {},
         colspan: "1",
