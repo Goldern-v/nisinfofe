@@ -232,6 +232,7 @@
         this.bus.$emit('syncReportFSSY',str)
       },
       toRight(data,index,clLength) {
+        this.radio=index
         // console.log('data', data)s
         this.rightData = data
         this.$nextTick(() => {
