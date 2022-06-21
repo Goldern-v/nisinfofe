@@ -144,7 +144,7 @@ export default {
       this.loading = true;
       // 主表结构
       let file = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.liaoc.json"))
         )
@@ -172,7 +172,7 @@ export default {
       );
       // 主表下拉框选项字典表
       let dictionary = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.liaoc.json")))
       } else if (this.HOSPITAL_ID === 'lyxrm') {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.lyxrm.json")))
@@ -190,7 +190,7 @@ export default {
 
       /** 自动获取弹窗配置 */
       let contexts = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
         contexts = require.context('../data/formDialogLiaoc', true, /\.json$/);
       } else if (this.HOSPITAL_ID === 'lyxrm') {
         contexts = require.context('../data/formDialogLyxrm', true, /\.json$/);
@@ -210,7 +210,7 @@ export default {
           let fromName = context.replace("./", "").replace(".json", "");
 
           let schemesJson = null
-          if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+          if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
             schemesJson = require(`../data/formSchemesLiaoc/${fromName}.txt.json`)
           } else if (this.HOSPITAL_ID === 'lyxrm') {
             schemesJson = require(`../data/formSchemesLyxrm/${fromName}.txt.json`)
@@ -284,7 +284,7 @@ export default {
       this.status = config.patient.status;
 
       // 请求接口获取数据填充
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院') {
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
         const {data: {data}} = await getPatientInfo(config.patient.patientId, config.patient.visitId)
         formObj.I001014 = data.chargeType  // 费别
         formObj.I001003 = data.nation // 名族
