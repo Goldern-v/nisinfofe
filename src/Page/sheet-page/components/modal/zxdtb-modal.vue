@@ -339,7 +339,7 @@ export default {
           !item.isFirst && (item.recordDate = firstTime)
         })
       }
-      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+      if(['foshanrenyi','lyxrm'].includes(this.HOSPITAL_ID)){
        temArr=JSON.parse(JSON.stringify(temArr)).map(item=>{
           item.foodSize=item.dosage
           return item
@@ -421,7 +421,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (this.HOSPITAL_ID == "liaocheng"|| this.HOSPITAL_ID == 'lyxrm') {
+      } else if (this.HOSPITAL_ID == "liaocheng") {
         let startDate = this.longDate[0] ? moment(this.longDate[0]).format('YYYY-MM-DD') : ''
         let endDate = this.longDate[1] ? moment(this.longDate[1]).format('YYYY-MM-DD') : ''
         getOrdersExecuteLc({
@@ -433,7 +433,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      }else if (this.HOSPITAL_ID == "foshanrenyi") {
+      }else if (this.HOSPITAL_ID == "foshanrenyi"|| this.HOSPITAL_ID == 'lyxrm') {
         let startDate = this.longDate[0] ? moment(this.longDate[0]).format('YYYY-MM-DD') : ''
         let endDate = this.longDate[1] ? moment(this.longDate[1]).format('YYYY-MM-DD') : ''
         getOrdersExecuteFsry({
