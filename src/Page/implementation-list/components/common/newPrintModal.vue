@@ -99,6 +99,9 @@
             >div:last-child {
                 border-right: 1px solid #000;
             }
+            .new-modal-top-left .new-modal-top-left-first {
+                justify-content: flex-start;
+            }
         }
         display: flex;
         /* height: 65%; */

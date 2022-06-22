@@ -219,6 +219,8 @@ const allTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartSDLJ.vue"); //顺德龙江量录入体温单
 const allTemperatureChartWHYX = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHYX.vue"); //武汉亚心量录入体温单
+const allTemperatureChartFSRY = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSRY.vue"); //武汉亚心量录入体温单
 const newSingleTemperatureChart = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //新版体温单录入页面
 const newSingleTemperatureChartLiaoCheng = () =>
@@ -390,6 +392,7 @@ const router = new Router({
       switch (HOSPITAL_ID) {
         case 'whfk':
         case 'sdlj':
+        case 'hengli':
           // 新版修改密码
           return newResetPassword
         default:
@@ -499,7 +502,7 @@ const router = new Router({
               return indexHd
             case 'fqfybjy':
               return shiftWorkFq;
-            case 'liaocheng' || 'whfk' || 'whyx' || 'lyxrm' || 'ytll':
+            case 'liaocheng' || 'whfk' || 'whyx' || 'lyxrm' || 'ytll'||'lyyz'||'qhwy':
               return indexLiaocheng
             case 'wujing':
               return indexWujing
@@ -634,7 +637,7 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj' || 'ytll':
+            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj' || 'ytll'||'lyyz'||'qhwy':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -1055,7 +1058,7 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'lingcheng':
               return implementationListLingcheng
-            case 'liaocheng':
+            case 'liaocheng'||'lyyz'||'qhwy':
               return implementationListLiaocheng
             case 'shannan':
               return implementationListShannan
@@ -1300,6 +1303,8 @@ const router = new Router({
               return allTemperatureChartSDLJ
             case 'whyx':
               return allTemperatureChartWHYX
+            case 'foshanrenyi':
+              return allTemperatureChartFSRY
             default:
               return allTemperatureChart
           }

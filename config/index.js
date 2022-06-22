@@ -167,8 +167,8 @@ const currentTargetUrl = (() => {
 
       // 佛山杏坛
     case 'fsxt':
-      return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@23nr
-      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@23nr
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.3.226:8080" // 初升本地
     case 'yangchunzhongyi':  //阳春
       return "http://192.168.1.54:9866" // 默认公司本地内网厚街
@@ -184,7 +184,7 @@ const currentTargetUrl = (() => {
       // return "http://218.13.34.230:9094" //正式
     // 临邑县人民
     case 'lyxrm':
-      // return "http://192.168.1.54:9890" // 内网测试
+      return "http://192.168.1.54:9890" // 内网测试
       // return "http://222.133.53.230:9093" // 临邑正式
       // return "http://222.133.53.230:9091" // 临邑正式
     // 广东同江医院

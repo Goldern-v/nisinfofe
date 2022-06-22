@@ -308,10 +308,10 @@ export default {
             // 如果传x永远都是当前护记的行数，不会叠加（列入0~16 17条数据的护记）。使用的时候是判断的是整个表格的数据(一页显示17条数据的护记  可能会有几百条数据，所以x需要计算)
             // 不计算 isRead  isDisabed  永远都是拿第一页数据进行比对，是否签名与审核，第2页之后的都是用第一页的数据比较
             let nowX=''
-            if(index==0){
+            if(item.index==0){
               nowX=  x
             }else{
-              nowX= (getRowNum(index) - 1) + getRowNum(index)*(index-1) + x + 1
+              nowX= (getRowNum(item.index) - 1) + getRowNum(item.index)*(item.index-1) + x + 1
             }
             tr.isRead = this.isRead(tr,x,nowX)
             tr.map((td,y)=>{
@@ -590,6 +590,16 @@ export default {
         return true;
       }
 
+      if (
+        (this.HOSPITAL_ID == "xiegang" && td && this.listData[nowX])
+        ||
+        (this.HOSPITAL_ID == "nanfangzhongxiyi" && td && this.listData[nowX])
+        ||
+        (this.HOSPITAL_ID == "sdlj" && td && this.listData[nowX])
+      ) {
+        return !this.listData[nowX].canModify;
+      }
+
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
       if (
         (this.HOSPITAL_ID == "huadu") &&
@@ -633,6 +643,10 @@ export default {
       ) {
         return false;
       }
+      if ((this.HOSPITAL_ID=='nanfangzhongxiyi' || this.HOSPITAL_ID=='xiegang' || this.HOSPITAL_ID=='sdlj') && (this.listData && this.listData[nowX] && !this.listData[nowX].canModify)) {
+        return true
+      }
+
       if(this.listData && this.listData[x] && this.listData[x].canModify){
         return false;
       }
@@ -641,14 +655,6 @@ export default {
       if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[nowX] && (this.listData[nowX].status==2)&& (!this.listData[nowX].canModify)){
         // 当审核完，status=2&&canModify=false
         return true
-      }
-
-      if (
-        (this.HOSPITAL_ID == "xiegang" && td && this.listData[nowX])
-        ||
-        (this.HOSPITAL_ID == "nanfangzhongxiyi" && td && this.listData[nowX])
-      ) {
-        return !this.listData[nowX].canModify;
       }
 
       let status = tr.find((item) => item.key == "status").value;

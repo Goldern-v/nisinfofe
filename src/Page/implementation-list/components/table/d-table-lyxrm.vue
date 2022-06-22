@@ -111,7 +111,7 @@
 
       <u-table-column
         prop="pauseDateTime"
-        label="结束输液护士/时间/原因"
+        label="暂停输液护士/时间/原因"
         min-width="200px"
       >
         <template slot-scope="scope">
@@ -300,6 +300,7 @@
 }
 </style>
 <script>
+import { addRecord } from "../../api/index";
 import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
@@ -318,25 +319,28 @@ export default {
     };
   },
   methods: {
-    backTracking(item) {
-        this.$confirm("是否补录?", "提示", {
+     backTracking(item) {
+        this.$prompt("请输入补执行的原因", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
-          type: "info",
-        }).then(() => {
-          let data = {
-            strJson: JSON.stringify({
-              LabelId: item.barCode,
-              EmpNo: this.empNo,
-              Type: "1",
-              tradeCode: "OrderExecute",
-            }),
-          };
-          addRecord(data).then((res) => {
-            this.$message.success("补录成功");
-            this.bus.$emit("loadImplementationList");
-          });
-        });
+        })
+          .then(({ value }) => {
+            let data = {
+              patientId:item.patientId,
+              visitId:item.visitId,
+              orderNo: item.orderNo, //医嘱号
+              barcode: item.barCode, //条码号
+              executeNurse: this.empNo, //执行人
+              verifyNurse:'',//核对人
+              // type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
+              supplementaryRes: value, //补执行的原因填写
+            };
+            addRecord(data).then((res) => {
+              this.$message.success("补录成功");
+              this.bus.$emit("loadImplementationList");
+            });
+          })
+          .catch(() => {});
     },
     rowcb(obj){
       // 如果该条执行单是一组多条的 或者该执行单是已完成的隐藏当前多选框

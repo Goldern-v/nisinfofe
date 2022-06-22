@@ -44,3 +44,9 @@ export const accomplish = (id) => {
 export const info = (patientId, visitId) => {
     return axios.get(`${apiPath}patient/info/${patientId}/${visitId}`)
 }
+
+
+// fsxt执行单保存备注
+export const saveMark = (params) => {
+    return axios.post(`${apiPath}procedure/webExecute/saveNurseExecute`, qs.stringify(params))
+}

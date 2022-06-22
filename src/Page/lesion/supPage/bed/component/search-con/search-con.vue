@@ -619,7 +619,7 @@ export default {
           [
             "zhongshanqi", "liaocheng",  "beihairenyi",
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
-            "huadu",  "whyx", "fsxt", "sdlj","whfk"
+            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','qhwy'
           ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
@@ -658,12 +658,12 @@ export default {
     // 同步床位数据
     showSyncBedBtn() {
       return [
-        "weixian", 
-        "lingcheng", 
-        "liaocheng", 
+        "weixian",
+        "lingcheng",
+        "liaocheng",
         "hengli",
-        'shannan', 
-        'quzhou', 
+        'shannan',
+        'quzhou',
         'fuyou',
         "foshanrenyi",
         "fsxt",
@@ -671,7 +671,8 @@ export default {
         "beihairenyi",
         "lyxrm",
         "sdlj",
-        "xiegang"
+        "xiegang",
+        'lyyz','qhwy'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -679,7 +680,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm"
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -746,7 +747,7 @@ export default {
       return this.bedList.filter((item) => item.nursingClass == level);
     },
     syncGetNurseBedRecData() {
-      if(!this.ifCanTobu) return 
+      if(!this.ifCanTobu) return
       this.ifCanTobu=false
       this.$message.info("正在更新");
       let syncData = syncGetNurseBedRec;
@@ -754,7 +755,7 @@ export default {
         case "lingcheng":
           syncData = syncGetNurseBedRecLc;
           break;
-        case "liaocheng":
+        case "liaocheng"|'lyyz'|'qhwy':
           syncData = syncGetNurseBedRecLiaocheng;
           break;
         case "shannan":
@@ -792,7 +793,7 @@ export default {
       },()=>{this.ifCanTobu = true;});
     },
     syncGetNursePatientRecData(){
-      if(!this.ifCanAsyncPatient)  return 
+      if(!this.ifCanAsyncPatient)  return
       this.ifCanAsyncPatient=false
       this.$message.info("正在更新");
        let syncPatientData = syncGetNursePatientWHFKRecData;

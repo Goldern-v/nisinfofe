@@ -410,7 +410,7 @@ export default {
       loginLoading: false,
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
-      md5HisList: ["foshanrenyi","sdlj"], //需要md5加密医院
+      md5HisList: ["foshanrenyi","sdlj","hengli"], //需要md5加密医院
     };
   },
   methods: {
@@ -481,7 +481,7 @@ export default {
           this.ajax = false;
           // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$") 
           let regexp = new RegExp("^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$")
-          if (['sdlj'].includes(this.HOSPITAL_ID) && !regexp.test(this.password)) {
+          if (['sdlj','hengli'].includes(this.HOSPITAL_ID) && !regexp.test(this.password)) {
             this.$message({
               showClose: true,
               message: "当前登录密码强度较弱，请修改密码后登录!",

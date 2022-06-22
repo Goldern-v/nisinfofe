@@ -97,6 +97,13 @@
           <span :title="scope.row.realExecuteDateTime | ymdhms">{{scope.row.realExecuteDateTime | ymdhms}}</span>
         </template> -->
       </u-table-column>
+
+      <u-table-column prop="dispenseDateTime" label="配药时间" min-width="160px" align="center">
+        <template slot-scope="scope">
+          <span :title="scope.row.dispenseDateTime | ymdhms">{{scope.row.dispenseDateTime | ymdhms}}</span>
+        </template>
+       </u-table-column>
+
       <u-table-column prop="dispenseVerifyNurse" label="配药护士核对" min-width="90px" align="center">
         <!-- <template slot-scope="scope">
           <span :title="scope.row.realExecuteDateTime | ymdhms">{{scope.row.realExecuteDateTime | ymdhms}}</span>
@@ -108,6 +115,12 @@
         </template>
        </u-table-column>
 
+       <u-table-column prop="executeEndTime" label="结束时间" min-width="160px" align="center">
+        <template slot-scope="scope">
+          <span :title="scope.row.executeEndTime | ymdhms">{{scope.row.executeEndTime | ymdhms}}</span>
+        </template>
+       </u-table-column>
+
       <u-table-column prop="executeEndNurseName" title="executeEndNurseName" label="执行护士" min-width="80px" align="center">
       </u-table-column>
 
@@ -116,7 +129,29 @@
           <span :title="scope.row.repeatIndicator == 1 ? '长期' : '临时'">{{scope.row.repeatIndicator == 1 ? '长期' : '临时'}}</span>
         </template>
       </u-table-column>
-<!-- 
+
+      <u-table-column prop="nurseMemo" label="备注" min-width="160px" align="center">
+        <template slot-scope="scope">
+          <el-input
+            v-if="isEdit"
+            :ref="`nurseMemo${scope.$index}`"
+            autofocus
+            size="small"
+            v-model="scope.row.nurseMemo"
+            @blur="save(scope.row.nurseMemo, scope.row.executeId)"
+          />
+          <div
+            class="nurse-mark"
+            v-else
+            :title="scope.row.nurseMemo"
+            @click="editMark(scope)"
+          >
+            {{ scope.row.nurseMemo }}
+          </div>
+          <!---->
+        </template>
+      </u-table-column>
+<!--
       <u-table-column prop="orderNo" label="医嘱号" min-width="70px" align="center">
        <template slot-scope="scope">
           <span :title="scope.row.orderNo">{{scope.row.orderNo}}</span>
@@ -265,10 +300,17 @@
   >>>.el-table__body-wrapper {
     // overflow-x hidden
   }
+  >>>.umy-table-beyond {
+    height: 100%;
+  }
+  >>>.nurse-mark {
+    width: 100%;
+    height: 100%!important;
+  }
 }
 </style>
 <script>
-import { info } from "@/api/task";
+import { info, saveMark } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
@@ -281,7 +323,8 @@ export default {
     return {
       rowHeight: 30,
       checked: true,
-      selectedData: []
+      selectedData: [],
+      isEdit: false
     };
   },
   methods: {
@@ -297,6 +340,23 @@ export default {
     getExecuteFlag(flag){
       let arr = ['未执行','执行中','已执行']
       return arr[flag] || '未执行'
+    },
+    editMark (row) {
+      this.isEdit = true
+      // if (this.isEdit) {
+      //   this.$nextTick(() => {
+      //     console.log(this.$refs[`nurseMemo${row.$index}`])
+      //     this.$refs[`nurseMemo0`].focus()
+      //   })
+      // }
+    },
+    async save(mark, id) {
+      this.isEdit = false
+      const params = {
+        executeId: id,
+        nurseMemo: mark
+      }
+      const res = await saveMark(params)
     }
   },
   filters: {

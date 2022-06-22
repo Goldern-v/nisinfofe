@@ -1,6 +1,7 @@
 <template>
   <div>
     <boxBase title="今日护士排班" :icon="require('../images/今日护士排班.png')">
+      <el-button v-if="['fsxt'].includes(HOSPITAL_ID)" slot="head-btn" size="small" class="head-btn" @click="handleSync">同步</el-button>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-if="HOSPITAL_ID=='huadu'">
         <div flex="cross:center">
           <div class="label">A班：</div>
@@ -56,7 +57,7 @@
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
-          <div class="label">N班：</div>
+          <div class="label">{{ getClassAllP2() }}</div>
           <input flex-box="1" v-model="data.classN" @blur="update">
         </div>
         <div style="height: 15px"></div>
@@ -88,7 +89,7 @@ input
 </style>
 <script>
 import boxBase from "../base/box-base.vue";
-import { deptSetting } from "../api";
+import { deptSetting, getTodayNurse } from "../api";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 export default {
@@ -142,8 +143,34 @@ export default {
           return "P班："
         case "fsxt":
           return "P班："
+        case "whyx":
+          return "N班："
         default:
           return "P全班："
+      }
+    },
+    getClassAllP2(){
+      switch(this.HOSPITAL_ID) {
+        case "whyx":
+          return "大N班："
+        default:
+          return "N班："
+      }
+    },
+    formatClassName(arr) {
+      return arr.reduce((text, item, index) => text += `${index > 0 ? ' ' : ''}${item.empName}`, '')
+    },
+    // 同步护士
+    async handleSync() {
+      try {
+        const res = await getTodayNurse(this.deptCode)
+        if (res.data && res.data.code == '200') {
+          this.data.classP = this.formatClassName(res.data.data['A班'] || [])
+          this.data.classAllP = this.formatClassName(res.data.data['P班'] || [])
+          this.data.classN = this.formatClassName(res.data.data['N班'] || [])
+          this.update()
+        }
+      } catch (e) {
       }
     }
   },

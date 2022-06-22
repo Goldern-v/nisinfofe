@@ -1,6 +1,12 @@
 <template>
-  <sweet-modal ref="modalName" title="检验报告" class="modal-con">
-    <test></test>
+  <sweet-modal ref="modalName" title="检验报告" class="modal-con" >
+    <!-- 佛山从护记进入是可以回填数据,去护记的特殊情况 -->
+    <template v-if="HOSPITAL_ID == 'foshanrenyi'&& hasFeature">
+       <testFSRY></testFSRY>
+    </template>
+    <template v-else>
+       <test></test>
+    </template>
     <!-- <div slot="button">
       <el-button class="modal-btn" @click="$refs.modalName.close()"
         >取消</el-button
@@ -23,19 +29,35 @@
 </style>
 <script>
 import test from "@/Page/patientInfo/supPage/test/test";
+import testFSRY from "@/Page/patientInfo/supPage/test/testFSRY";
+import bus from "vue-happy-bus";
 export default {
   props: {},
   data() {
-    return {};
+    return {
+      hasFeature:false,
+      bus: bus(this)
+    };
   },
   methods: {
-    open() {
+    open(feature) {
+      if(feature){
+        this.hasFeature=true
+        this.$refs.modalName.setCloseCallback(()=>{
+          this.bus.$emit("openclosePatientInfo",'',true)
+        })
+      }
       this.$refs.modalName.open();
     },
-    post() {}
+    post() {},
+    close(){
+      this.hasFeature=false
+      this.$refs.modalName.close();
+    }
   },
   components: {
-    test
+    test,
+    testFSRY
   }
 };
 </script>
