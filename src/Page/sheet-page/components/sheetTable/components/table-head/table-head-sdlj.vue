@@ -4,12 +4,6 @@
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType == 'prenatal_sdlj'">
-      <!-- <span>
-        床号：
-        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ patientInfo.bedLabel }}
-        </div>
-      </span> -->
       <span>
         姓名：
         <div class="bottom-line" style="min-width: 30px">
@@ -22,12 +16,18 @@
           {{ patientInfo.age }}
         </div>
       </span>
-      <span>
+        <span>
+        床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <!-- <span>
         床号：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.bedLabel }}
         </div>
-      </span>
+      </span> -->
       <span>
         孕次：
         <input
@@ -92,12 +92,6 @@
       </span>
     </div>
     <div class="info-con" flex="main:justify" v-else>
-      <!-- <span>
-        床号：
-        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ patientInfo.bedLabel }}
-        </div>
-      </span> -->
       <span>
         姓名：
         <div class="bottom-line" style="min-width: 30px">
@@ -123,12 +117,18 @@
           {{ patientInfo.deptName }}
         </div>
       </span>
-      <span>
+       <span>
+        床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <!-- <span>
         床号：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.bedLabel }}
         </div>
-      </span>
+      </span> -->
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 50px">
@@ -229,9 +229,9 @@ export default {
   },
   methods: {
     openBedRecordModal(){
-      if (this.readOnly) {
-        return this.$message.warning("你无权操作此护记，仅供查阅");
-      }
+      // if (this.readOnly) {
+      //   return this.$message.warning("你无权操作此护记，仅供查阅");
+      // }
       this.$refs.bedRecordModal.open();
     },
     updateDiagnosis(key, label, autoText) {
