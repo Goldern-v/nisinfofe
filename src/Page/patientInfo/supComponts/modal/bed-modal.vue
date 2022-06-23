@@ -729,6 +729,9 @@ export default {
         case "foshanrenyi":
           qr_png_value = '1001|' + this.query.patientId;
           break;
+        case "nanfangzhongxiyi":
+          qr_png_value = this.query.patientId + '|' + this.query.visitId;
+          break;
         default:
           qr_png_value = this.query.patientId;
           break;
