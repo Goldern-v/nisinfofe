@@ -108,8 +108,8 @@
           {{ patientInfo.bedLabel }}
         </div>
       </span> -->
-      
-     
+
+
       <!-- <span v-if="sheetInfo.sheetType === 'neonatal_care_jm'">
         入院日期：
         <div class="bottom-line" style="min-width: 150px">
@@ -133,6 +133,15 @@
         >
           {{ diagnosis }}
         </div>
+      </span>
+
+    </div>
+    <div class="info-con">
+      <span v-if="sheetInfo.sheetType == 'ultrasound_fs'">
+        <span>治疗日期：</span>
+        <input v-model="sheetInfo.relObj.zlrq"/>
+        <span>&nbsp;治疗时间：</span>
+        <input v-model="sheetInfo.relObj.zlsj"/>
       </span>
     </div>
     <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
@@ -277,5 +286,11 @@ input.bottom-line {
 .info-con_new{
   display: flex;
   justify-content: center;
+}
+input {
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  text-align: center;
 }
 </style>
