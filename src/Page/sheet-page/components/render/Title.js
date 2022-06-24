@@ -880,7 +880,7 @@ export default function Title(
     );
   }
   break;
- 
+
   case "obstetrics_hl": {
     // 横沥 - 护理记录单(产科)
     Th = JSON.parse(
@@ -1357,7 +1357,7 @@ export default function Title(
     );
   }
   break;
- 
+
   case "upperdisorders_fs": {
     // 佛山市一 - 护理记录单(上肢疾患保守治疗)
     Th = JSON.parse(
@@ -1502,6 +1502,13 @@ export default function Title(
     // 佛山市一 - -护理记录单(儿科通用)
     Th = JSON.parse(
       JSON.stringify(require("../config/pediatric_fs/th").default)
+      );
+    }
+  break;
+  case "ultrasound_fs": {
+    // 佛山市一 - -护理记录单(超声消融治疗护理巡视记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ultrasound_fs/th").default)
       );
     }
   break;
