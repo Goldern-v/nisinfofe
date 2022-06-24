@@ -12,7 +12,11 @@ export const save = (params, formType, formCode) => {
 }
 /**获取患者存在表单id */
 export const getPatientForm = (patientId, visitId) => {
-  return axios.get(`${apiPath}others/sugar_oxygen/getPatientForm/${patientId}/${visitId}`)
+  if (process.env.HOSPITAL_ID == 'whfk') {
+    return axios.get(`${apiPath}eval/sugar_oxygen/getPatientForm/${patientId}/${visitId}`)
+  } else {
+    return axios.get(`${apiPath}others/sugar_oxygen/getPatientForm/${patientId}/${visitId}`)
+  }
 }
 
 //批量删除单条记录
