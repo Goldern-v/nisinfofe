@@ -138,7 +138,7 @@
                     }">
                     <router-link to="/sheetHospitalEval" tag="span">
                       <el-row class="menu-item" type="flex" align="middle">
-                        <i class="sheetHospitalEval"></i>住院评估
+                        <i class="sheetHospitalEval"></i>日常评估
                       </el-row>
                     </router-link> </el-dropdown-item>
                 <el-dropdown-item
