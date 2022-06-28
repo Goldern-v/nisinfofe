@@ -43,7 +43,7 @@
           </td>
           <td :style="item.signerNo ? 'cursor: not-allowed;': '' " @keydown="onKeyDown($event,renderData,index,'sugarOxygen')">
             <div class="cell noPrint">
-              <input type="text" v-model="item.sugarOxygen" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' "  :id="`P${pageIndex}-sugarOxygen${index + baseIndex + 1}`"/> 
+              <input type="text" v-model="item.sugarOxygen" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' "  :id="`P${pageIndex}-sugarOxygen${index + baseIndex + 1}`"/>
             </div>
              <div :class="['cell','inPrint']">
               {{item.sugarOxygen}}
@@ -76,7 +76,7 @@
             </div>
           </td>
         </tr>
-    
+
     </table>
   </div>
 </template>
@@ -131,7 +131,7 @@
         }
       }
 
-      
+
 
       img {
         width: 65%;
@@ -160,7 +160,7 @@
       width: 65%;
       height: 80%;
     }
- 
+
     &.lc {
       height: 29px;
     }
@@ -262,7 +262,7 @@ export default {
       if (rowItem[code] && rowItem[code].length>=5) {
         rowItem[code] = rowItem[code].substring(0, 5)
       } else if (
-        rowItem[code].length == 2 && 
+        rowItem[code].length == 2 &&
         rowItem[code].split('')[2] !== char
       ){
         let valueArr = rowItem[code].split('')
@@ -298,9 +298,9 @@ export default {
             this.saveParams.list = [itemRow];
             let fkformCode = 'sugar_oxygen'
             itemRow.signerNo
-            console.log(itemRow.sugarOxygen);
+            console.log(itemRow.sugarOxygen, 1111);
             if(itemRow.sugarOxygen){
-              apis.rowSign(this.saveParams,'others',fkformCode).then((res) => {
+              apis.rowSign(this.saveParams, this.HOSPITAL_ID == 'whfk' ? 'eval' : 'others', fkformCode).then((res) => {
                 // console.log(res)
                 if(res.data.code == 200 && res.data.data != null){
                   itemRow = res.data.data[0]
@@ -330,7 +330,7 @@ export default {
             this.saveParams.list = [itemRow];
             let fkformCode = 'sugar_oxygen'
             itemRow.signerNo
-              apis.cancelRowSign(this.saveParams,'others',fkformCode).then((res) => {
+              apis.cancelRowSign(this.saveParams, this.HOSPITAL_ID == 'whfk' ? 'eval' : 'others',fkformCode).then((res) => {
                 // console.log(res)
                 if(res.data.code == 200 && res.data.data != null){
                   itemRow = res.data.data[0]
@@ -342,7 +342,7 @@ export default {
                 }
               });
           },'取消签名');
-           
+
           }
     },
   },

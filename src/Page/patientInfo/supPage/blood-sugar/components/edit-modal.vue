@@ -3,7 +3,7 @@
     <ElForm
       class="edit-modal-form"
       style="margin-bottom: 20px"
-      label-width="100px"
+      :label-width="HOSPITAL_ID == 'fsxt' ? '120px' : '100px'"
     >
       <ElFormItem label="日期：" required>
         <ElDatePicker v-model="form.recordDate" :clearable="false" />
@@ -110,9 +110,24 @@
           />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem label="血糖值：" required>
+      <ElFormItem :label="`${HOSPITAL_ID == 'fsxt' ? '微量' : ''}血糖值：`" required>
         <ElInput v-model="form.sugarValue" />
         <span class="unit">(mmol/L)</span>
+      </ElFormItem>
+      <ElFormItem v-if="HOSPITAL_ID == 'fsxt'" label="瞬感血糖值：" required>
+        <ElInput v-model="form.expand1" />
+        <span class="unit">(mmol/L)</span>
+      </ElFormItem>
+      <ElFormItem v-if="HOSPITAL_ID == 'fsxt'" label="胰岛素类型：" required>
+        <!-- <ElInput v-model="form.expand3" /> -->
+        <ElSelect v-model="form.expand3">
+          <ElOption
+            v-for="item in insulinType"
+            :key="item.name"
+            :label="item.name"
+            :value="item.name"
+          />
+        </ElSelect>
       </ElFormItem>
       <ElFormItem
         label="RI剂量："
@@ -136,11 +151,11 @@
       >
         <!-- <ElInput v-model="form.expand3" /> -->
         <el-input
-        resize=none
-  type="textarea"
-  :autosize="{ minRows: 2, maxRows: 4}"
-  v-model="form.expand3">
-</el-input>
+          resize=none
+          type="textarea"
+          :autosize="{ minRows: 2, maxRows: 4}"
+          v-model="form.expand3">
+        </el-input>
       </ElFormItem>
       <ElFormItem label="血酮值：" required v-if="HOSPITAL_ID == 'liaocheng'">
         <ElInput v-model="form.riValue" />
@@ -178,6 +193,8 @@ export default {
       sugarValue: '',
       riValue: '',
       remarks:'',
+      expand1:'',
+      expand2:'',
       expand3:''
     },
     curEmpName: "",
@@ -270,6 +287,14 @@ export default {
       },
     ],
     BeiHaiTypeList: [],//用接口返回的字典
+    insulinType: [  // fsxt：胰岛素类型
+      { name: '德谷门冬双胰岛素注射液' },
+      { name: '甘精胰岛素注射液' },
+      { name: '赖脯胰岛素注射液' },
+      { name: '门冬胰岛素30注射液' },
+      { name: '门冬胰岛素注射液' },
+      { name: '人胰岛素注射液' },
+    ],
   }),
   props: {
     sugarItem: Array,
@@ -353,6 +378,9 @@ export default {
       if (["beihairenyi","liaocheng","guizhou"].includes(this.HOSPITAL_ID)) {
         this.form.sugarValue = this.form.sugarValue || '';
         this.form.riValue = this.form.riValue || '';
+      }
+      if (this.HOSPITAL_ID == 'fsxt') {
+        this.form.expand1 = this.form.expand1 || 0
       }
     },
     close() {

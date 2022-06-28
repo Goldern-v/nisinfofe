@@ -35,7 +35,9 @@
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
-        >{{item}}</div>
+        >{{item}}
+          <span>{{currentBottle.dosageDosageUnits[index]}}</span>
+        </div>
       </div>
 
       <div class="new-print-modal__tip">
@@ -67,11 +69,10 @@
     <div
       v-else
       class="new-print-modal new-modal-small"
-      style="height:4.9cm;width:14cm;display:flex"
+      style="height:5cm;width:14cm;display:flex"
     >
       <div class="new-modal-small-top">
         <div class="new-modal-small-top__left">
-
           <div>
             姓名: <span>{{ currentBottle.name }}</span>
           </div>
@@ -84,7 +85,9 @@
           <div>
             频率: {{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
           </div>
-          <div>执行时间: {{ currentBottle.executeDate.substr(0, 16) }}</div>
+          <div>
+            执行时间: {{currentBottle.executeDate.substr(0, 16)}}
+          </div>
         </div>
         <div class="new-modal-small-top__right">
           <img :src="currentBottle.qcSrc || ''" />
@@ -95,30 +98,31 @@
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
-        >{{item}}</div>
+        >{{item}}
+          <span>{{currentBottle.dosageDosageUnits[index]}}</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 // 临邑浏览器版本有部分为谷歌49，需要考虑兼容
 <style lang="scss" scoped>
+.p-lr {
+  padding: 0 8px;
+}
+.bb {
+  border-bottom: 1px solid #000;
+}
 .new-print-modal {
-  /* >>> * {
-    font-size: 13px;
-    font-weight: 700;
-  } */
-  .p-lr {
-    padding: 0 8px;
-  }
-  .bb {
-    border-bottom: 1px solid #000;
+  * {
+    font-family: SimHei !important;
   }
 
   &.new-print-modal--large {
     page-break-after: always;
     display: flex;
     flex-direction: column;
-    font-weight: 800;
+    font-weight: 500;
 		height: 100%;
     font-size: 14px;
     line-height: 18px;
@@ -131,11 +135,14 @@
     width: 100%;
     font-size: 18px;
     margin: 2px 0 4px;
+    flex-shrink: 0;
   }
 
   .new-print-modal__second {
     display: flex;
     flex-wrap: wrap;
+    flex-shrink: 0;
+    align-items: flex-end;
     @extend .bb;
     div {
       flex: 62%;
@@ -146,9 +153,19 @@
       flex: 38%;
       text-indent: 0px;
     }
+    >div:nth-child(-n + 2) {
+      line-height: 24px;
+    }
+    >div:nth-child(2)>span {
+      font-size: 22px;
+      font-weight: 200;
+      text-shadow: 1px 0px #000,-1px 0px #000,0px 1px #000,0px -1px #000,;
+    }
     >div>span {
       font-size: 24px;
-      font-weight: 800;
+      line-height: 24px;
+      display: inline-block;
+      font-weight: 900;
       white-space: nowrap;
     }
   }
@@ -156,6 +173,7 @@
   .qc-box {
     width: 54px;
     overflow: hidden;
+    padding: 1px 1px 0px 0px;
     img {
       width: 100%;
       height: auto;
@@ -165,7 +183,10 @@
   .new-print-modal__content {
     flex: 1;
     div {
-      white-space: pre-wrap;
+      /* white-space: pre-wrap; */
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 4px;
       line-height: 20px;
       text-align: left;
     }
@@ -213,10 +234,10 @@
     flex-direction: column;
 		height: 100%;
     box-sizing: border-box;
-    font-weight: 700;
+    font-weight: 500;
     div,p,span {
-      font-size: 19px;
-      line-height: 24px;
+      font-size: 22px;
+      line-height: 25px;
     }
   }
   .new-modal-small-top {
@@ -226,22 +247,36 @@
       flex: 1;
       display: flex;
       flex-wrap: wrap;
+      /* align-items: flex-end; */
+      overflow: hidden;
       div {
         flex: 62%;
+        height: 25px;
       }
 
       >div:nth-child(2n) {
         flex: 38%;
       }
-      >div>span {
-        font-size: 24px;
-        font-weight: 800;
+      >div:last-child {
+        flex: 100%;
         white-space: nowrap;
+        height: 25px;
+      }
+      >div:nth-child(-n + 2) {
+      line-height: 25px;
+      height: 42px;
+    }
+      >div>span {
+        font-weight: 700;
+        font-size: 38px;
+        line-height: 42px;
+        text-shadow: 1px 0px #000,-1px 0px #000,0px 1px #000,0px -1px #000,;
+        display: inline-block;
       }
     }
     .new-modal-small-top__right {
-      width: 60px;
-      padding: 1px 1px 0px;
+      width: 88px;
+      padding: 2px 2px 0px 0px;
       img {
         width: 100%;
       }
@@ -250,8 +285,10 @@
   .new-modal-small-content {
     flex: 1;
     div {
-      white-space: pre-wrap;
-      line-height: 21px;
+      /* white-space: pre-wrap; */
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 4px;
       text-align: left;
       border: 1px solid #000;
       border-top: none;
@@ -260,20 +297,13 @@
 
 }
 .blank--small {
-  height: 0.3cm;
+  height: 0.2cm;
 }
 </style>
 <script>
 import { cloneDeep } from "lodash";
 import moment from "moment";
-import { getBytesLength } from "@/utils/tool";
 var qr = require("qr-image");
-const DRUG_TYPES = {
-  1: "普通",
-  2: "高危",
-  3: "自备",
-  4: "避光"
-};
 
 const arrayBufferToBase64 = (buffer) => {
   var binary = "";
@@ -315,22 +345,23 @@ export default {
       let orderText = [];
       // 提示图标
       let tipIcons = []
+      let dosageDosageUnits = []
       this.itemObj.map(item => {
         orderText.push(item.orderText);
         const val = ['2', '4'].find(v => v == item.printFlag)
         if (val) {
           tipIcons.push(val)
         }
-        // let content = `${item.dosage || ""}${item.dosageUnits || ""}`;
-        // dosageDosageUnits.push(content);
+        let content = `${item.dosage || ""}${item.dosageUnits || ""}`;
+        dosageDosageUnits.push(content);
       });
       tipIcons.length>2 && (tipIcons = [...new Set(tipIcons)])
 
       let qr_png_value = this.itemObj[0].barCode;
-      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      var qr_png = qr.imageSync(qr_png_value, { type: "png",margin: 0 });
       let base64 = arrayBufferToBase64(qr_png);
       let qcSrc = base64;
-      cloneObj = { ...cloneObj, orderText, qcSrc, tipIcons };
+      cloneObj = { ...cloneObj, orderText, qcSrc, tipIcons, dosageDosageUnits };
       return cloneObj;
     },
 		hospitalName() {
