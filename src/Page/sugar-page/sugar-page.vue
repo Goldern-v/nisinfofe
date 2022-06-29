@@ -61,6 +61,7 @@ import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar"; // 
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian"; // 威县医院
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry"; // 北海人医
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj";
+import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt"; // 佛山杏坛
 import sugarBtn from "@/Page/patientInfo/supPage/blood-sugar-sdlj/components/sugar-btn.vue";
 import bloodSugarModal from "@/Page/patientInfo/supComponts/modal/blood-sugar-modal.vue"
 import tr from '../sheet-page/components/config/tbhld_lc/tr';
@@ -99,9 +100,9 @@ export default {
     },
     onCreate(data) {
       this.isAdult = false
-      // if (data.type == "成人") 
-      //   this.el = 'bloodSugarSdlj' 
-      // else 
+      // if (data.type == "成人")
+      //   this.el = 'bloodSugarSdlj'
+      // else
         this.el = 'bloodSugar'
     },
     //设置滚动
@@ -132,6 +133,7 @@ export default {
         威县人民医院: "bloodSugarWeiXian",
         东莞市厚街医院: "bloodSugar",
         北海市人民医院:'bloodSugarBhry',
+        南方医科大学顺德医院附属杏坛医院:'bloodSugarFsxt',
         // 佛山市顺德区龙江医院: 'bloodSugarSdlj'
       };
       return hisList[HisName] || "bloodSugar";
@@ -148,10 +150,10 @@ export default {
           if (data.data.hisPatSugarList) { // 接口儿童单子特有的字段 hisPatSugarList
             // '儿童'
             this.el = 'bloodSugar'
-          } 
+          }
           // else {
           //   // '成人'
-          //   this.el = 'bloodSugarSdlj' 
+          //   this.el = 'bloodSugarSdlj'
           // }
           this.$router.replace({
             path: "/sugarPage",
@@ -199,6 +201,7 @@ export default {
     bloodSugarWeiXian,
     bloodSugarBhry,
     bloodSugarSdlj,
+    bloodSugarFsxt,
     sugarBtn,
     bloodSugarModal
   }

@@ -184,3 +184,7 @@ export const saveOrUpdateHL = (data) => {
 export const deletePatientGroupById = (id) => {
   return axios.get(`${apiPath}whiteboardManage/deletePatientGroupById/${id}`);
 };
+/**获取同步排班 by佛山杏坛 */
+export const getTodayNurse = (deptCode) => {
+  return axios.get(`${apiPath}whiteboardManage/deptSetting/getTodayNurse?deptCode=${deptCode}`)
+}

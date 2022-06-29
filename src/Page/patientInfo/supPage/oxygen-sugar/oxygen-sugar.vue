@@ -258,7 +258,7 @@ export default {
       sugarUserInfo: {}, //患者基础信息
       baseParams:{
         formCode: '',
-        formType: 'others',
+        formType: this.HOSPITAL_ID == 'whfk' ? 'eval' : 'others',
         id: '',
         deptCode: '',
         deptName: '',
