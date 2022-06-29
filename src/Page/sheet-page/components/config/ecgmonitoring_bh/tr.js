@@ -134,7 +134,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      width: "158px",
       background: "transparent",
     },
     change: (e, td) => limitChange(e, td, 12),

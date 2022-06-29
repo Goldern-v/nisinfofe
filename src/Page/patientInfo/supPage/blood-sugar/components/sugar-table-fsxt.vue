@@ -40,7 +40,9 @@
           </div>
         </td>
         <td>
-          <div class="cell" :title="item.expand1">{{ item.expand1 }}</div>
+          <div class="cell" :title="item.expand1">
+            {{ item.expand1 && item.expand1 !== "0" ? item.expand1 : "" }}
+          </div>
         </td>
         <td>
           <div class="cell" :title="item.expand3">{{ item.expand3 }}</div>
@@ -66,7 +68,7 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .blood-sugar-table {
   &.table-box {
     width: 0;
@@ -105,7 +107,6 @@
       }
 
       img {
-        // width: 100%;
         height: 100%;
         //object-fit: cover;
         object-fit: contain !important;

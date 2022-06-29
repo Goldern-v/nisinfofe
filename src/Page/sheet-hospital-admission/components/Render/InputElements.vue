@@ -469,7 +469,7 @@ export default {
                   this.formObj.model[child.name] &&
                   this.formObj.model[child.name].indexOf(title) > -1
                 ) {
-                  // console.log(
+                  // console.log( 'cmd'
                   //   "!!!=vet=!!!",
                   //   title,
                   //   d,
@@ -513,7 +513,7 @@ export default {
                   child.title.indexOf("VTE") === -1 &&
                   !cleanKeyCheck()
                 ) {
-                  
+
                   html += `<span><span style='${obj.style}'>${
                     this.formObj.model[d.dialog.parentName] || ""
                   }${obj.suffixDesc || ""}</span></span>`;

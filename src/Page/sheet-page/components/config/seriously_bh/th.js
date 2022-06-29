@@ -39,7 +39,7 @@ export default {
             { "name": "CVP<br/>cmH20", "colspan": "1", "rowspan": "3"}, 
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue"}, 
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue2"}, 
-            { "name": "病情记录", "colspan": "1", "rowspan": "3",style: { minWidth: "150px",  maxWidth: "150px"} }, 
+            { "name": "病情记录", "colspan": "1", "rowspan": "3",style: { minWidth: "158px",  maxWidth: "158px"} }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3",style: { minWidth: "80px",  maxWidth: "80px"}}
          ]
         , 
