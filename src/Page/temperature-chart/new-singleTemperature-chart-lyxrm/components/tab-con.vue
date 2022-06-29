@@ -33,19 +33,18 @@
         <div class="save-btn-top" v-if="patientInfo.patientId">
           <el-button
             :disabled="isDisable()"
-            type="primary"
+             :type="isUpdate ? 'warning' : 'primary'"
             class="save-btn"
             @click="saveVitalSign(vitalSignObj)"
-            >保存</el-button
-          >
+            >{{ isUpdate ? "更新" : "保存" }}</el-button>
         </div>
       </div>
     </div>
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div class="record-list" :style="{ width: `${35}%` }">
-          <div class="record-item">
+        <div class="record-list" :style="{ width: `${37}%` }">
+          <div class="record-item" v-if="!isUpdate">
             <div
               :class="
                 [
@@ -60,10 +59,11 @@
               style="margin: 0px"
               v-for="(item, tabIndex) in tabsData"
               :key="tabIndex"
-              @contextmenu.stop.prevent="
-                (e) => rightMouseDown(e, item.recordDate, tabIndex)
+              @dblclick="
+                (e) => rightMouseDown(e, item.recordDate, item.recordPerson)
               "
               @click="changeQuery(item.recordDate)"
+              slot="reference"
             >
               {{ item.recordDate.slice(5, 17) }}
               {{ item.recordPerson }}
@@ -71,6 +71,24 @@
                 @click="removeRecord(item.recordDate, tabIndex)"
                 class="el-icon-delete"
               ></i>
+            </div>
+          </div>
+          <div class="record-item" v-else>
+            <span style="color: red"> 此次更新的录入记录: </span>
+            <div
+              :class="['recordList', 'active'].join(' ')"
+              style="margin: 0px"
+              @dblclick="(e) => rightMouseDown()"
+              slot="reference_2"
+            >
+              {{
+                `${updateData.entryDate.slice(
+                  5,
+                  17
+                )} ${updateData.entryTime.slice(0, 5)}`
+              }}
+              {{ updateData.updatePerson }}
+              <i class="el-icon-edit"></i>
             </div>
           </div>
         </div>
@@ -424,11 +442,10 @@
           <div class="save">
             <el-button
               :disabled="isDisable()"
-              type="primary"
-              class="save-btn"
-              @click="saveVitalSign(vitalSignObj)"
-              >保存</el-button
-            >
+              :type="isUpdate ? 'warning' : 'primary'"
+            class="save-btn"
+            @click="saveVitalSign(vitalSignObj)"
+            >{{ isUpdate ? "更新" : "保存" }}</el-button>
             <div class="clear" style="height: 30px"></div>
             <!--占位符-->
           </div>
@@ -486,6 +503,11 @@ export default {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: moment().format("HH:mm") + ":00", //录入时间
       },
+        updateData: {
+        entryDate: "", //更新录入日期
+        entryTime: "", //更新时间
+        updatePerson: "", //原来的记录人
+      },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
       checkItem: [
@@ -513,6 +535,7 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
+      isUpdate: false,
     };
   },
   async mounted() {
@@ -534,10 +557,15 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
+        if (this.query.entryTime && this.query.entryDate && !this.isUpdate) {
         this.getList();
         this.bus.$emit("dateChangePage", this.query.entryDate);
+        }
       },
       deep: true,
+    },
+        patientInfo() {
+      this.isUpdate = false;
     },
     rightSheet(value) {
       alert(value);
@@ -574,7 +602,6 @@ export default {
           Number(e.target.id) < otherLength + 100 - 1
         ) {
           document.getElementById(Number(e.target.id) + 1).focus();
-          console.log(otherLength,Number(e.target.id),100 + otherLength - 2)
 
         }
         if (Number(e.target.id) >= 100 + otherLength - 2) {
@@ -803,6 +830,11 @@ export default {
       //this.query.entryTime = value.slice(12, 20);
       //赋值初始值
       this.dateInp = value.slice(12, 17);
+       //更新模式，把日期+时间更新到updateData
+      if (this.isUpdate) {
+        this.updateData.entryDate = temp.slice(0, 10);
+        this.updateData.entryTime = value.slice(12, 20);
+      }
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -883,32 +915,64 @@ export default {
       });
     },
     //右键删除记录
-    rightMouseDown(e, dateTime, tabIndex) {
+    async rightMouseDown(e, dateTime, recordPerson) {
       if (!this.isDisable()) {
-        this.removeRecord(dateTime, tabIndex);
+        if (!this.isUpdate) {
+          this.$confirm("进入更新此条记录,此记录会被替换", "更新记录", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+            .then(() => {
+              this.isUpdate = !this.isUpdate;
+              this.updateData.entryDate = dateTime.slice(0, 10);
+              this.updateData.entryTime = dateTime.slice(12, 20);
+              this.updateData.updatePerson = recordPerson;
+            })
+            .catch(() => {});
+        } else {
+          this.isUpdate = !this.isUpdate;
+        }
       }
     },
     /* 删除记录 */
     async removeRecord(targetName, index) {
       if (!this.isDisable()) {
-        await this.$confirm("是否确删除该记录?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "info",
-        }).then(() => {
+        if (this.isUpdate) {
           deleteRecord({
             patientId: this.patientInfo.patientId,
-            recordDate: targetName,
+            recordDate:
+              moment(new Date(this.updateData.entryDate)).format("YYYY-MM-DD") +
+              "  " +
+              this.updateData.entryTime,
             visitId: this.patientInfo.visitId,
             wardCode: this.patientInfo.wardCode,
           }).then((res) => {
-            this.getList();
             this.bus.$emit("refreshImg");
             setTimeout(() => {
-        this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+              this.bus.$emit("dateChangePage", this.query.entryDate);
+            }, 1000);
           });
-        });
+        } else {
+          await this.$confirm("是否确删除该记录?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "info",
+          }).then(() => {
+            deleteRecord({
+              patientId: this.patientInfo.patientId,
+              recordDate: targetName,
+              visitId: this.patientInfo.visitId,
+              wardCode: this.patientInfo.wardCode,
+            }).then((res) => {
+              this.getList();
+              this.bus.$emit("refreshImg");
+              setTimeout(() => {
+                this.bus.$emit("dateChangePage", this.query.entryDate);
+              }, 1000);
+            });
+          });
+        }
       }
     },
     /* 同步入院、同步出院 */
@@ -922,14 +986,14 @@ export default {
         await this.bus.$emit("refreshImg");
         setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
       });
     },
     /* 修改自定义标题，弹出弹窗并保存 */
     updateTextInfo(key, label, autotext, index) {
       let checkValue = Object.values(this.fieldList) || [];
       let checkValueStr = checkValue.map((item) => item.fieldCn);
-      if (!this.isDisable()) {
+      if (!this.isDisable()&& !this.isUpdate) {
         //护理文书不允许修改
         window.openSetTextModalNew(
           (text) => {
@@ -1008,14 +1072,21 @@ export default {
       if (saveFlagArr.includes(false)) {
         this.$message.error("存在数值错误,请耐心检查!");
       } else {
+              if (this.isUpdate) await this.removeRecord();
         await saveAll(data).then((res) => {
+          if(this.isUpdate){
+          this.$message.success("更新成功,双击记录返回录入界面！");
+
+          }else{
           this.$message.success("保存成功");
+
+          }
         });
-        this.getList();
+       await this.getList();
         this.bus.$emit("refreshImg");
         setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 500);
+      }, 1000);
       }
     },
   },
@@ -1097,7 +1168,7 @@ export default {
     }
 
     .inputter-region {
-      width: 63%;
+      width: 61%;
       float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;
