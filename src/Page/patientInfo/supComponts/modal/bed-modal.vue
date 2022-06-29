@@ -656,7 +656,7 @@ export default {
         };
         this.modalLoading = false;
         if (
-          this.HOSPITAL_ID == "liaocheng" &&
+          ['lyxrm'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post != "护长"
         ) {
@@ -705,10 +705,10 @@ export default {
       // const printCare = document.querySelectorAll(".printCare")
       // console.log(printCare)
       if (
-        (this.HOSPITAL_ID == "liaocheng" &&
+        (['lyxrm'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post == "护长") ||
-        this.HOSPITAL_ID != "liaocheng"
+        !['lyxrm'].includes(this.HOSPITAL_ID)
       ) {
         this.isOpen();
       }
