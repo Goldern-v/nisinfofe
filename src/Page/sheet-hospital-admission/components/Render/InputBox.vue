@@ -571,7 +571,7 @@ export default {
       let self = this;
       let xy = e.target.getBoundingClientRect();
       console.log(
-        "inputFocus",
+        "inputFocus111111",
         e,
         child,
         this.formObj.model,
@@ -591,18 +591,20 @@ export default {
       //   this.$root.$refs.mainPage.checkFormMissingItems()
       // }
       // cancelSignOrAduit formSignOrAudit
-
+      console.log("this.obj.name ",this.obj.name )
       if (this.obj.name === "signerName") {
         // console.log('---',this.obj.name,this.$root.$refs.mainPage)
         if (
           this.$root.$refs.mainPage.formSignOrAudit &&
           this.formObj.model.status == "0"
         ) {
+          console.log("1111111111")
           this.$root.$refs.mainPage.formSignOrAudit();
         } else if (
           this.$root.$refs.mainPage.cancelSignOrAduit &&
           this.formObj.model.status == "1"
         ) {
+          console.log("2222222222")
           this.$root.$refs.mainPage.cancelSignOrAduit();
         }
       } else if (this.obj.name === "auditorName") {
