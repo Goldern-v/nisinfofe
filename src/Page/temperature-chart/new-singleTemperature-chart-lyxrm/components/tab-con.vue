@@ -1070,7 +1070,10 @@ export default {
         visitId: this.patientInfo.visitId,
       };
       if (saveFlagArr.includes(false)) {
-        this.$message.error("存在数值错误,请耐心检查!");
+        this.$confirm("存在数值错误,请耐心检查!", "提示", {
+          showCancelButton:false,
+            type: "error",
+          })
       } else {
               if (this.isUpdate) await this.removeRecord();
         await saveAll(data).then((res) => {
