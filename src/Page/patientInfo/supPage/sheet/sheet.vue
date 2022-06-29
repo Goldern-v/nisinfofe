@@ -737,6 +737,8 @@ export default {
       });
     });
     this.bus.$on("saveSheetPage", (isInitSheetPageSize = true,ayncVisitedData) => {
+      console.log("tiaozhelile ",ayncVisitedData,decode(ayncVisitedData)) 
+
       let save = () => {
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;

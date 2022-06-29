@@ -442,6 +442,20 @@
                   <input
                     type="text"
                     :readonly="isRead"
+                    v-model="foodVal"
+                    v-autoComplete="{
+                      dataList: dictionary[item.key],
+                      obj: fixedList,
+                      key: key,
+                      tr,
+                      td: item,
+                    }"
+                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
+                    v-else-if="HOSPITAL_ID=='beihairenyi' && key=='food'"
+                  />
+                  <input
+                    type="text"
+                    :readonly="isRead"
                     v-model="fixedList[key].value"
                     v-autoComplete="{
                       dataList: dictionary[item.key],
@@ -810,6 +824,7 @@ export default {
   data() {
     return {
       bus: bus(this),
+      foodVal:"",
       doc: "",
       blurIndex: null,
       recordDate: "",
@@ -1082,6 +1097,12 @@ export default {
       for (let i = 0; i < record.length; i++) {
         doc += record[i].find((item) => item.key == "description").value || "";
       }
+      let foodstr = "";
+      for (let i = 0; i < record.length; i++) {
+        foodstr += record[i].find((item) => item.key == "food").value || "";
+      }
+      this.foodVal = foodstr
+      console.log("this.fixedList.food.value",this.fixedList.food.value)
       this.recordDate =
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value ||
@@ -1385,6 +1406,7 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
+      console.log("jinlai",this.fixedList)
       if(this.isSaving){
         return
       }
@@ -1409,6 +1431,25 @@ export default {
       let result = [];
       let text = "";
       let allDoc = this.doc;
+      let foodDoc = this.foodVal,foodText="",foodResult=[]
+      //北海人医的入量名称做换行
+      if(this.HOSPITAL_ID=="beihairenyi"){
+        for (let i = 0; i < foodDoc.length; i++) {
+        let charCode = foodDoc.charCodeAt(i);
+        // 字符为 ，。；,.：:
+        if(GetLength(foodText) >=7){
+          foodResult.push(foodText);
+          foodText = foodDoc[i];
+          }else{
+          foodText += foodDoc[i];
+          }
+        }
+        if (foodText) {
+        foodResult.push(foodText);
+        }
+      }
+
+      console.log(foodResult,"foodResult")
       if (
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
@@ -1464,6 +1505,7 @@ export default {
           }
        }
       }else{
+        console.log("11111111111111")
         for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
         // 字符为 ，。；,.：:
@@ -1591,20 +1633,21 @@ export default {
               text += allDoc[i];
             }
           }else {
-            console.log("111111111",text,GetLength(text))
+            // console.log("111111111",text,GetLength(text))
             if (GetLength(text) > 23) {
-            console.log("2222222222")
+            // console.log("2222222222")
               result.push(text);
               text = allDoc[i];
             } else {
-            console.log("3333333333")
+            // console.log("3333333333")
               text += allDoc[i];
             }
           }
         }
        }
       }
-
+      
+      console.log("GetLength",result)
       if (text) {
         result.push(text);
       }
@@ -1645,16 +1688,59 @@ export default {
       for (let i = 0; i < this.record.length; i++) {
         this.record[i].find((item) => item.key == "description").value = "";
       }
+      for (let j = 0; j < this.record.length; j++) {
+        this.record[j].find((item) => item.key == "food").value = "";
+      }
+
+      if(this.HOSPITAL_ID=="beihairenyi"){
+        for (let i = 0; i < foodResult.length; i++) {
+          if (i == 0) {
+            // 合并数据
+            console.log("mergeTr",this.record[0], this.staticObj, this.fixedList)
+            console.log("mergeTr2",mergeTr(this.record[0], this.staticObj, this.fixedList))
+            mergeTr(this.record[0], this.staticObj, this.fixedList);
+          }
+          if (this.record[i]) {
+            this.record[i].find((item) => item.key == "food").value =
+              foodResult[i];
+            process.env.splitSave && (this.record[i].isChange = true)
+            console.log("")
+         } else {
+            let currRow = JSON.parse(JSON.stringify(this.record[0]));
+            let nullRowArr = nullRow();
+  
+            nullRowArr.find((item) => item.key == "recordSource").value =
+              currRow.find((item) => item.key == "recordSource").value;
+            nullRowArr.find((item) => item.key == "recordDate").value =
+              currRow.find((item) => item.key == "recordDate").value;
+  
+            sheetModel[this.lastZ].bodyModel.splice(
+              this.lastY + 1,
+              0,
+              nullRowArr
+            );
+            this.lastY++;
+            sheetModel[this.lastZ].bodyModel[this.lastY].find(
+              (item) => item.key == "food"
+            ).value = foodResult[i];
+            process.env.splitSave && (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true)
+          }
+        }
+
+      }
+      console.log("this.recorddddddddd",this.record,foodResult)
       for (let i = 0; i < result.length; i++) {
         if (i == 0) {
           // 合并数据
+          console.log("mergeTr",this.record[0], this.staticObj, this.fixedList)
+          console.log("mergeTr2",mergeTr(this.record[0], this.staticObj, this.fixedList))
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
         if (this.record[i]) {
           this.record[i].find((item) => item.key == "description").value =
             result[i];
           process.env.splitSave && (this.record[i].isChange = true)
-        } else {
+       } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
           let nullRowArr = nullRow();
 
@@ -1675,15 +1761,18 @@ export default {
           process.env.splitSave && (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true)
         }
       }
+
       if (
         (this.HOSPITAL_ID === "huadu" &&
           sheetInfo.sheetType !== "body_temperature_Hd") ||
         this.HOSPITAL_ID === "zhongshanqi"||this.HOSPITAL_ID === "beihairenyi"&&this.sheetInfo.sheetType!=='infant_bh'
       ) {
+        console.log("123123123",this.isLast)
         this.isSyncTemp
           ? this.sycnTempChange()
           : this.bus.$emit("saveSheetPage", this.isLast);
       } else {
+        console.log("456456")
         this.bus.$emit("saveSheetPage", this.isLast);
       }
       setTimeout(()=>{
