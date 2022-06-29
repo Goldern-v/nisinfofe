@@ -111,7 +111,7 @@ export default {
       );
     },
     destroyUnlock(){
-     const lockForm=JSON.parse(localStorage.getItem("lockForm"))  
+     const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
      if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
         unLock(lockForm.type,lockForm.formId).then(res=>{
           localStorage.setItem('lockForm','')
@@ -141,6 +141,7 @@ export default {
         });
         this.bus.$emit("refreshTree", true);
         this.bus.$emit("closeAssessment");
+        this.destroyUnlock()
       }
       // 优化后bedList由组件自己维护。不需要发请求
       // this.getDate();
