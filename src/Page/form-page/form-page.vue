@@ -112,6 +112,19 @@ export default {
     },
     destroyUnlock(){
      const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
+     /* 判断是否已经自动解锁 */
+     if(lockForm && lockForm.initTime){
+        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
+        let min=10
+        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
+        const afterInitTime= +lockForm.initTime + 60000 * min
+        const nowTime=Date.now()
+        if(nowTime > afterInitTime ){
+          /* 超时间 */
+          localStorage.setItem('lockForm','')
+          return
+        }
+     }
      if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
         unLock(lockForm.type,lockForm.formId).then(res=>{
           localStorage.setItem('lockForm','')
