@@ -113,7 +113,9 @@ export default {
     destroyUnlock(){
      const lockForm=JSON.parse(localStorage.getItem("lockForm"))  
      if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
-       unLock(lockForm.type,lockForm.formId)
+        unLock(lockForm.type,lockForm.formId).then(res=>{
+          localStorage.setItem('lockForm','')
+        })
      }
     }
   },
