@@ -368,10 +368,10 @@ export default {
       );
       let listMap = [];
 
-      for (let i = 0; i < list.length; i += 54) {
+      for (let i = 0; i < list.length; i += 27) {
         let obj = {};
         obj.left = list.slice(i, i + 27);
-        obj.right = list.slice(i + 27, i + 54);
+        // obj.right = list.slice(i + 27, i + 54);
         listMap.push(obj);
       }
       this.listMap = listMap;
