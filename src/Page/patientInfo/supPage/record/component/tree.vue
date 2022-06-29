@@ -325,6 +325,7 @@ export default {
       hisLeftList: ["wujing"], //是否要开放左侧收缩功能医院
       batchAuditDialog: false, // 批量审核表单弹框
       batchAuditForms: {}, // 批量审核节点数据
+      lockHospitalList:['huadu'],//配置了评估单锁定功能的医院
     };
   },
   computed: {
@@ -488,6 +489,10 @@ export default {
       // console.log("555555555555")
       // rgb(228, 241, 240)
       if (node.level === 2) {
+        // 当点击2级栏目就是这里做操作，不知道是否能进入。所以先清空
+        if(this.lockHospitalList.includes(this.HOSPITAL_ID)){
+         localStorage.setItem("lockForm",'')
+        }
         if (node.parent.label != "记录单") {
           console.log("---$emit('openAssessment')");
           this.bus.$emit(
