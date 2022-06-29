@@ -1052,8 +1052,11 @@ export default {
       let tr = record[record.length - 1];
       this.tr = tr || [];
       let isRead;
+        console.log("openjinlai22222",this.tr)
       let status = tr.find((item) => item.key == "status").value;
+        console.log("openjinla33333")
       let empNo = tr.find((item) => item.key == "empNo").value;
+        console.log("openjinlai4444")
       let isAuditor = JSON.parse(localStorage.user).nursingStaff;
       if (status >= 1) {
         if (empNo == JSON.parse(localStorage.user).empNo || isAuditor) {
@@ -1098,11 +1101,14 @@ export default {
         doc += record[i].find((item) => item.key == "description").value || "";
       }
       let foodstr = "";
-      for (let i = 0; i < record.length; i++) {
-        foodstr += record[i].find((item) => item.key == "food").value || "";
-      }
+        console.log("jinlai555ß55555",record)
+        if(this.HOSPITAL_ID=="beihairenyi" &&  this.fixedList.hasOwnProperty('food')){
+          for (let i = 0; i < record.length; i++) {
+            foodstr += record[i].find((item) => item.key == "food").value || "";
+          }
+        }
       this.foodVal = foodstr
-      console.log("this.fixedList.food.value",this.fixedList.food.value)
+      // console.log("this.fixedList.food.value",this.fixedList.food.value)
       this.recordDate =
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value ||
@@ -1433,7 +1439,7 @@ export default {
       let allDoc = this.doc;
       let foodDoc = this.foodVal,foodText="",foodResult=[]
       //北海人医的入量名称做换行
-      if(this.HOSPITAL_ID=="beihairenyi"){
+      if(this.HOSPITAL_ID=="beihairenyi" && this.fixedList.hasOwnProperty('food')){
         for (let i = 0; i < foodDoc.length; i++) {
         let charCode = foodDoc.charCodeAt(i);
         // 字符为 ，。；,.：:
@@ -1449,7 +1455,7 @@ export default {
         }
       }
 
-      console.log(foodResult,"foodResult")
+      // console.log(foodResult,"foodResult")
       if (
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
@@ -1688,11 +1694,13 @@ export default {
       for (let i = 0; i < this.record.length; i++) {
         this.record[i].find((item) => item.key == "description").value = "";
       }
-      for (let j = 0; j < this.record.length; j++) {
-        this.record[j].find((item) => item.key == "food").value = "";
+      if(this.HOSPITAL_ID=="beihairenyi" && this.fixedList.hasOwnProperty('food')){
+        for (let j = 0; j < this.record.length; j++) {
+          this.record[j].find((item) => item.key == "food").value = "";
+        }
       }
 
-      if(this.HOSPITAL_ID=="beihairenyi"){
+      if(this.HOSPITAL_ID=="beihairenyi" &&  this.fixedList.hasOwnProperty('food')){
         for (let i = 0; i < foodResult.length; i++) {
           if (i == 0) {
             // 合并数据
