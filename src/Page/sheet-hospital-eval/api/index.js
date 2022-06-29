@@ -124,3 +124,11 @@ export function getEvalInfo(patientId, visitId) {
 export function vitalsign(postData) {
   return axios.post(`${apiPath}/vitalSign/getVitalSigns`, postData)
 }
+
+
+// 如果两个护士同时操作一张评估单，会导致数据错乱，所以今日是锁定当前评估单，离开后就解锁
+/* type 普通:form 旧多行:formCommon  新多行:fill 护记:record */
+/* id 打开当前这个单唯一的id */
+export function unLock(type,id){
+  return axios.get(`${apiPath}form/design/unlock/${type}/${id}`);
+}

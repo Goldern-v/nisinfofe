@@ -62,7 +62,7 @@ import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
 import record from "@/Page/patientInfo/supPage/record/record";
-
+import {unLock} from "@/Page/sheet-hospital-eval/api/index.js"
 export default {
   mixins: [common],
   data() {
@@ -72,6 +72,7 @@ export default {
       },
       patientListLoading: false,
       bus: bus(this),
+      lockHospitalList:['huadu']//配置了评估单锁定功能的医院
     };
   },
   computed: {
@@ -109,15 +110,27 @@ export default {
         }
       );
     },
+    destroyUnlock(){
+     const lockForm=JSON.parse(localStorage.getItem("lockForm"))  
+     if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
+        unLock(lockForm.type,lockForm.formId).then(res=>{
+          localStorage.setItem('lockForm','')
+        })
+     }
+    }
   },
   created() {
     this.$store.commit("upPatientInfo", {});
+    //初始化，进入页面就设置为空
+    localStorage.setItem('lockForm','')
     // 初始化  
     // 优化后bedList由组件自己维护。不需要发请求
     // if (this.deptCode) {
     //   this.getDate();
     // }
     this.bus.$on("refreshFormPagePatientList", this.getDate);
+    // 解锁
+    this.bus.$on("quitUnlock",this.destroyUnlock)
   },
   watch: {
     deptCode(val, oldValue) {
@@ -193,10 +206,13 @@ export default {
       next()
     }
   },
-
   components: {
     patientList,
     record,
   },
+  beforeDestroy(){
+    // 切换模块的时候解锁
+    this.destroyUnlock()
+  }
 };
 </script>

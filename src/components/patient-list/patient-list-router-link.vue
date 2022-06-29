@@ -51,6 +51,7 @@
             },
           }"
           :class="{ active: isActive(item) }"
+          @click.native="toUnlock"
         >
           <img
             :src="item.bedLabel.includes('_') ? imageBoy : imageMan"
@@ -302,10 +303,14 @@ export default {
       imageMan: require("./images/男.png"),
       imageWomen: require("./images/女.png"),
       noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
-      isGroup:false // 是否选中管床
+      isGroup:false ,// 是否选中管床
     };
   },
   methods: {
+    toUnlock(){
+      //  解锁评估单
+       this.bus.$emit("quitUnlock")
+    },
     getDate() {
       if (this.deptCode) {
         // console.log("获取病人列表", this.deptCode);

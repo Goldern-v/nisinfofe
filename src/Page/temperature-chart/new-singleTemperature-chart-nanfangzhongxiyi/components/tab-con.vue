@@ -1115,7 +1115,13 @@ export default {
       } else {
         if (this.isUpdate) await this.removeRecord();
         await saveAll(data).then((res) => {
+          if(this.isUpdate){
+          this.$message.success("更新成功,双击记录返回录入界面！");
+
+          }else{
           this.$message.success("保存成功");
+
+          }
         });
         this.getList();
         this.bus.$emit("refreshImg");
