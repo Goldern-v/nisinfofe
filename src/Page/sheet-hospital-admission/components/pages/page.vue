@@ -154,7 +154,7 @@ export default {
         )
       } else if (this.HOSPITAL_ID === 'foshanrenyi') {
         file = JSON.parse(
-          JSON.stringify(require(`../data/foshanrenyi/入院评估.form.foshanrenyi.json`))
+          JSON.stringify(require('../data/foshanrenyi/入院评估.form.foshanrenyi.json'))
         )
       }  else {
         file = JSON.parse(
@@ -177,7 +177,7 @@ export default {
       } else if (this.HOSPITAL_ID === 'lyxrm') {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.lyxrm.json")))
       } else if (this.HOSPITAL_ID === 'foshanrenyi'){
-        dictionary = JSON.parse(JSON.stringify(require(`../data/fosahnrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json`)))
+        dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
       } else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.json")))
       }
@@ -197,7 +197,7 @@ export default {
       } else if (this.HOSPITAL_ID === 'lyxrm') {
         contexts = require.context('../data/formDialogLyxrm', true, /\.json$/);
       } else if (this.HOSPITAL_ID === 'foshanrenyi') {
-        contexts = require.context(`../data/${this.HOSPITAL_ID}/formDialog`, true, /\.json$/);
+        contexts = require.context('../data/foshanrenyi/formDialog', true, /\.json$/);
       } else {
         contexts = require.context('../data/formDialog', true, /\.json$/);
       }
