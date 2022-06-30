@@ -1535,7 +1535,7 @@ export default {
               this.sheetInfo.sheetType === "icu_qz" ||
               this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
               this.sheetInfo.sheetType === "common_gzry") {
-            // 特殊情况长度截取，前端控制部分
+            // 特殊情况长度截取，前端控制部分(长度计算：输入的字数*2-2)
             if (GetLength(text) > 46) {
               result.push(text);
               text = allDoc[i];
@@ -1557,6 +1557,13 @@ export default {
               text += allDoc[i];
             }
           } else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
+            if (GetLength(text) > 98) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
+          } else if (this.sheetInfo.sheetType === "internal_eval_linyi") {
             if (GetLength(text) > 98) {
               result.push(text);
               text = allDoc[i];

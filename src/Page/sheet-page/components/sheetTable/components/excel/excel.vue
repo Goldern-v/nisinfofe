@@ -483,6 +483,7 @@
         </span>
       </span>
       第 {{ index + sheetStartPage }} 页
+      <!-- 表单底部开启审核签名时需要在src\Page\sheet-page\components\render\decode.js文件中添加对应医院 -->
       <span
         class="sh-name"
         v-if="auditArr.includes(sheetInfo.sheetType) || HOSPITAL_ID == 'fsxt'"
@@ -491,7 +492,9 @@
             sheetInfo.sheetType === 'internal_eval_lcey' ||
             sheetInfo.sheetType === 'critical_lcey'||
             sheetInfo.sheetType === 'critical_new_lcey'||
-            sheetInfo.sheetType === 'critical2_lcey',
+            sheetInfo.sheetType === 'critical2_lcey' ||
+            sheetInfo.sheetType === 'internal_eval_linyi' ||
+            sheetInfo.sheetType === 'critical_linyi',
         }"
 
       >
@@ -540,8 +543,9 @@
             sheetInfo.sheetType == 'internal_eval_lcey' ||
             sheetInfo.sheetType == 'critical_lcey'||
             sheetInfo.sheetType == 'critical_new_lcey'||
-            sheetInfo.sheetType == 'critical2_lcey'
-
+            sheetInfo.sheetType == 'critical2_lcey' ||
+            sheetInfo.sheetType == 'internal_eval_linyi' ||
+            sheetInfo.sheetType == 'critical_linyi'
           "
           ><strong>护士长审核：</strong></span
         >
@@ -572,7 +576,9 @@
             sheetInfo.sheetType == 'internal_eval_lcey' ||
             sheetInfo.sheetType == 'critical_lcey'||
             sheetInfo.sheetType == 'critical_new_lcey'||
-            sheetInfo.sheetType == 'critical2_lcey'"
+            sheetInfo.sheetType == 'critical2_lcey' ||
+            sheetInfo.sheetType == 'internal_eval_linyi' ||
+            sheetInfo.sheetType == 'critical_linyi'"
             style="margin-right:50px"
           >
           <span> <strong>审核时间：</strong> </span>
@@ -694,6 +700,8 @@ export default {
         "critical_new_lcey",
         "critical2_lcey",
         "icu_cpr_xg",
+        "internal_eval_linyi", //临邑人医_一般或者护理记录单
+        "critical_linyi", //临邑人医_病重（病危）患者护理记录单（带瞳孔）
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -1862,6 +1870,7 @@ export default {
       // } else {
       //   window.openSpecialModal(config); //旧版本
       // }
+      console.log('config', config)
       // 双击出现记录单编辑弹框
       window.openSpecialModal2(config);
     },
@@ -1943,7 +1952,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey']
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =
