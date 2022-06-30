@@ -12,6 +12,9 @@
     <!-- 弹窗 -->
     <DialogSweet ref="dialogBox" :formObj="formObj" />
 
+    <!-- 关联表单弹窗 -->
+    <RelationFormModal ref="relationFormModal" :formObj="formObj"/>
+
     <!-- 人体图 -->
     <bodyModal ref="bodyModal" :formObj="formObj" />
 
@@ -64,6 +67,7 @@ import UIEditor from "./UIEditor";
 import TableOfContent from "./TableOfContent";
 import Dialog from "./Dialog";
 import DialogSweet from "./DialogSweet";
+import RelationFormModal from "./RelationFormModal";
 import FormGroupColBox from "./FormGroupColBox";
 import FormGroupHorizontalBox from "./FormGroupHorizontalBox";
 import InputElements from "./InputElements";
@@ -77,6 +81,7 @@ import bodyModal from "./modal/body-modal/body-modal";
 import diagnosisSlide from "./modal/diagnosisSlide";
 import diagnosisModal from "../Render/modal/diagnosis-modal";
 import templateSlide from "../Render/modal/template-slide/template-slide";
+import bus from "vue-happy-bus";
 // import VueDragResize from 'vue-drag-resize'
 // import ElementUI from 'element-ui'
 // import { Button, Select , Input, Table, Form, FormItem, Radio, Checkbox} from 'element-ui';
@@ -101,6 +106,7 @@ export default {
     TableOfContent,
     Dialog,
     DialogSweet,
+    RelationFormModal,
     draggable,
     templateSlide,
     autoComplete,
@@ -117,7 +123,8 @@ export default {
       showMessage: false,
       showUIEditor: false,
       updaterName: "",
-      updateTime: ""
+      updateTime: "",
+      bus: bus(this),
     };
   },
   computed: {},
@@ -210,7 +217,11 @@ export default {
             window.formObj.model["I001351"] = deptName + "";
           }
         } else {
-          this.formObj.formSetting.formTitle.formName = "入 院 评 估 表";
+          if(this.HOSPITAL_ID ='foshanrenyi') {
+            this.formObj.formSetting.formTitle.formName = "首次护理记录";
+          }else {
+            this.formObj.formSetting.formTitle.formName = "入 院 评 估 表";
+          }
         }
       } catch (error) {}
     },

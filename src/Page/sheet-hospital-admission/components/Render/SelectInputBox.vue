@@ -23,14 +23,14 @@
       :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
       :size="obj.size||''"
       :type="obj.inputType||'text'"
-      :disabled="obj.readOnly?true:false"
+      :disabled="!!obj.readOnly || isDisabled(obj)"
       v-bind="obj.props"
       @change="inputChange($event, obj)"
       @dblclick.native.stop="inputdbClick($event, obj)"
       @click.stop="inputClick($event, obj)"
       @focus="inputFocus($event, obj)"
       @keydown.native="inputKeyDown($event, obj)"
-      :readonly="obj.selectOnly "
+      :readonly="obj.selectOnly"
     >
       <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span>
       <!-- <span slot="append"> -->
@@ -54,6 +54,7 @@
 import vue from "vue";
 import uuid from "node-uuid";
 import { setTimeout } from "timers";
+import bus from "vue-happy-bus";
 // import autoComplete from "./autoComplete.vue"
 
 export default {
@@ -84,7 +85,8 @@ export default {
       isShow: true,
       isFirstClick: true,
       isShowDownList: false,
-      readOnly: false
+      readOnly: false,
+      bus: bus(this),
     };
   },
   computed: {
@@ -93,7 +95,7 @@ export default {
         return this.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
       return "E0001";
-    }
+    },
   },
   watch: {
     inputValue(valueNew, oldvaule) {
@@ -117,6 +119,12 @@ export default {
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       this.$root.$refs[this.formCode][refName] = this.$refs[refName];
     }
+
+    //vue-happy-bus添加修改inputvalue方法
+    this.bus.$on(`updateValue${this.obj.name}`,()=>{
+      console.log('bus received!',`updateValue${this.obj.name}`);
+      this.inputValue = this.formObj.model[this.obj.name]
+    });
 
     // if(this.obj && this.obj.hasOwnProperty('value')>-1 && this.obj.value &&this.obj.value.constructor === Array){
     //   this.obj['options'] = this.obj.value
@@ -212,7 +220,8 @@ export default {
               (itemClick &&
                 (r.dialog.openKey + "").includes(itemClick) &&
                 (valueNew + "").includes(r.dialog.openKey + "")) ||
-              (itemClick && (itemClick + "").includes(r.dialog.openKey + ""))
+              (itemClick && (itemClick + "").includes(r.dialog.openKey + "")) ||
+              (itemClick && r.dialog.openKey.some(key => { return (itemClick + "").includes(key) }))
             ) {
               this.$root.$refs.dialogBox.openBox(
                 r.dialog.dialogList || r.dialog
@@ -249,6 +258,67 @@ export default {
                   }
                 });
               }
+            }
+          }
+          /*规则：关联表单*/
+          else if (r.relationForm && isClick) {
+            if (
+              valueNew == r.relationForm.openKey ||
+              r.relationForm.openKey.indexOf(valueNew) > -1 ||
+              (r.relationForm.openDiffKey &&
+                r.relationForm.openDiffKey.indexOf(valueNew) == -1) ||
+              (itemClick &&
+                (r.relationForm.openKey + "").includes(itemClick) &&
+                (valueNew + "").includes(r.relationForm.openKey + "")) ||
+              (itemClick && (itemClick + "").includes(r.relationForm.openKey + ""))
+            ) {
+              /**评估单需要的公共数据,不一定齐全，如有需要自行补全*/
+              const {
+                patientName,
+                deptName,
+                deptCode,
+                visitId,
+                patientId,
+                diagnosis,
+                sex,
+                bedLabel,
+                inpNo,
+                age,
+              } = this.formObj.model;
+              const query = {
+                patientName,
+                deptName,
+                deptCode,
+                visitId,
+                patientId,
+                diagnosis,
+                sex,
+                bedLabel,
+                inpNo,
+                age,
+                id: this.formObj.model[r.relationForm.params.formCode]//关联表单id
+              };
+              const params = {
+                formId: this.formObj.model[r.relationForm.params.formCode] || "",
+                showSignBtn: true,
+                query,
+                ...r.relationForm.params,
+              };
+              console.log('cmd params.formId',params.formId)
+              this.$root.bus.$emit('showRelationFormModal',params)
+
+            }
+          }
+          /**回显光标定位*/
+          else if(r.cursorReposition && isClick) {
+            let positionList = r.cursorReposition.find(item => {return item.value === valueNew })
+            console.log('cmd positionList',positionList);
+            let target = this.$refs[this.obj.name].$refs.input
+            if(positionList) {
+              target.focus();
+              this.$nextTick(()=>{
+                target.setSelectionRange(positionList.position, positionList.position);
+              })
             }
           }
         });
@@ -416,7 +486,7 @@ export default {
                     // if (target.hasOwnProperty("$rightNode")) {
                       //   target.$rightNode.focus();
                     // }
-                      this.$forceUpdate() 
+                      this.$forceUpdate()
                     })
                 }
                 // 多选
@@ -549,6 +619,49 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    /**通过配置
+     * isDisabledRules:
+     * [{
+     *   type: 'equal'||'notequal',
+     *   reqCode:'',
+     *   valList: [],
+     *   whiteList: []
+     * }]
+     * 动态修改属性disabled*/
+    isDisabled(obj) {
+      if(obj.isDisabledRules) {
+        if(obj.isDisabledRules.some(rule => {
+          //当 绑定值(this.formObj.model[rule.key]) 在valList内 [valist.includes(this.formObj.model[rule.key])]时禁用
+          if(rule.type === 'equal') {
+            //不存在值，默认不禁用
+            if(!this.formObj.model[rule.key]) return false
+            //有禁用白名单，优先先判断
+            if(rule.whiteList) {
+              if(rule.whiteList.some(val => {
+                return this.formObj.model[rule.key] && this.formobj.model[rule.key].includes(val)
+              })) return false
+            }
+            return rule.valList.some(val => { return this.formObj.model[rule.key].includes(val) })
+          }
+          //当 绑定值(this.formObj.model[rule.key])不在valList内 [!valist.includes(this.formObj.model[rule.key])]时禁用
+          else if(rule.type === 'notEqual') {
+            //不存在值，默认禁用
+            if(!this.formObj.model[rule.key]) return true
+            //有’非‘禁用白名单，优先先判断
+            if(rule.whiteList) {
+              if(rule.whiteList.some(val => {
+                return this.formObj.model[rule.key] && this.formObj.model[rule.key].includes(val)
+              })){ return true }
+            }
+            return !rule.valList.some(val => { return this.formObj.model[rule.key].includes(val) })
+          }else {
+            console.warn(`isDisabledRules no Types! ${rule.key}`);
+          }
+        }))
+          return true;
+      }
+      return false;
     }
   }
 };
@@ -610,6 +723,11 @@ export default {
     // background #dfffdf
   &:placeholder
     color: #dbe6e4;
+
+  &:read-only
+    cursor: no-drop!important;
+    color: black!important;
+    background:rgb(238, 246, 245);
 
 // .el-input
 //   width: 172px;

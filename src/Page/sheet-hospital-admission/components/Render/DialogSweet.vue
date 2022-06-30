@@ -109,6 +109,7 @@ import FormFooter from "./FormFooter";
 // import FormGroupHorizontalBox from './FormGroupHorizontalBox'
 // import FormGroupColBox from './FormGroupColBox'
 // import draggable from 'vuedraggable'
+import bus from 'vue-happy-bus';
 import dayjs from "dayjs";
 
 import comm, {
@@ -160,6 +161,7 @@ export default {
       type: "independent",
       formBox: null /** 弹窗的数据 */,
       callback: null,
+      callbackInfo: null,/** JSON配置中替代callback*/
       formDialogObj: {},
       formCode: "E0001",
       form: {
@@ -178,6 +180,7 @@ export default {
       parentFormCode: "",
       dialogFormCode: "",
       show: true,
+      bus: bus(this),
     };
   },
   computed: {},
@@ -203,6 +206,7 @@ export default {
       this.formConfig = {};
       this.parentFormCode = "";
       this.dialogFormCode = "";
+      this.callbackInfo = null;
     },
     inital() {
       this.lock = false;
@@ -888,6 +892,21 @@ export default {
 
         // }, signBoxTitle);
       }
+
+      /**回传弹窗的某一个值*/
+      if(this.callbackInfo) {
+        let resVal = this.formObj.model[this.callbackInfo.reqCode];
+        if(this.callbackInfo.prefix) {
+          resVal = this.callbackInfo.prefix + resVal;
+        }
+        if(this.callbackInfo.suffix) {
+          resVal = resVal + this.callbackInfo.suffix;
+        }
+        this.formObj.model[this.callbackInfo.respCode] = resVal;
+        /**bus发送方法 `updateValue${this.obj.name}` **/
+        this.bus.$emit(`updateValue${this.callbackInfo.respCode}`);
+      }
+
       // console.log(this.callback, "aaaaaaaaa");
       if (this.callback) {
         // formBox
@@ -906,6 +925,7 @@ export default {
       this.hasOK = config.hasOK === false ? false : true;
       this.type = config.type || "dependent";
       this.callback = config.callback || null;
+      this.callbackInfo = config.callbackInfo || null;//JSON配置无法使用callback导入函数，用calbackInfo操纵关键变量
 
       //
       if (config.type === "independent") {

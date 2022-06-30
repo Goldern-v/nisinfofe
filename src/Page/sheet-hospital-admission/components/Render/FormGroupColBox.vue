@@ -32,7 +32,9 @@
           <td
             v-for="(col,cindex) in obj.col"
             :key="'td'+cindex+col"
-            v-if="((n+(col-1))%obj.col)===col-1 && (n+(col-1))<obj.children.length && showElement(obj.children[n+(col-1)],n+(col-1))"
+            v-if="((n+(col-1))%obj.col)===
+            col-1 && (n+(col-1))<obj.children.length
+            && showElement(obj.children[n+(col-1)],n+(col-1))"
             v-bind="obj.children[n+(col-1)].tdProps"
           >
             <TipsBox :obj="obj.children[n+(col-1)]" :formObj="formObj">
