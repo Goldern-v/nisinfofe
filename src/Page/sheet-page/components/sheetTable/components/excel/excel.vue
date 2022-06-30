@@ -2114,6 +2114,7 @@ export default {
     // console.log("mounted");
   },
   created() {
+    console.log("this.data",this.data)
     if (
       this.doubleSignArr.includes(sheetInfo.sheetType) &&
       sheetInfo.selectBlock.relSignInfo == undefined

@@ -42,14 +42,11 @@
           </el-row> -->
           <span class="label">医嘱分类:</span>
           <el-select
-            @change='itemTypeOnChange'
-            v-model="itemTypeTem"
-            multiple
+            v-model="query.itemType"
             placeholder="请选择"
             size="small"
-            style="width: 250px"
+            style="width: 150px"
           >
-            <el-option label="全部" value="全部"></el-option>
             <el-option label="输液" value="输液"></el-option>
             <el-option label="注射" value="注射"></el-option>
             <el-option label="口服" value="口服"></el-option>
@@ -191,10 +188,9 @@ export default {
       status: "",
       bedLabel: "",
       test: "",
-      itemTypeTem: ["全部"],
       query: {
         wardCode: "",
-        itemType: ["全部"], //医嘱类别，输液、雾化
+        itemType: "输液", //医嘱类别，输液、雾化
         executeDate: moment().format("YYYY-MM-DD"), //执行日期
         bedLabel: "", //床位号，如果查全部传*"
         repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
@@ -214,16 +210,6 @@ export default {
       this.page.pageIndex = newPage;
       this.onLoad();
     },
-    itemTypeOnChange(value) {
-      if (this.itemTypeTem.length === 2 && this.itemTypeTem.includes('全部')) {
-        this.itemTypeTem.shift()
-        return
-      } else if (this.itemTypeTem.length > 2 && this.itemTypeTem[this.itemTypeTem.length - 1] === '全部') {
-        this.itemTypeTem = ['全部']
-        return
-      } 
-      this.onLoad();
-    },
     onLoad() {
       if (!this.deptCode) return;
       this.pageLoadng = true;
@@ -232,7 +218,6 @@ export default {
         ? moment(this.query.executeDate).format("YYYY-MM-DD")
         : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : "*";
-      this.query.itemType = this.itemTypeTem.length > 0 ? this.itemTypeTem.join(",") : "全部"
 
       getExecuteWithWardcode(this.query).then((res) => {
         let tableData = res.data.data.map((item, index, array) => {

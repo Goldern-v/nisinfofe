@@ -394,9 +394,14 @@ export default {
               "padding-top:20px;";
           }
         }
+        // 厚街（手术患者交接记录单第三方查阅时可以编辑，显示top-bar按钮）
         if (wid.document.querySelector(".top-bar")) {
           wid.document.querySelector(".top-bar").style = "display:none;";
           wid.document.querySelector("body").style = "padding-top:20px;";
+        }
+        if (wid.document.querySelector(".top-bar") && this.HOSPITAL_ID == 'hj' && this.info.formCode == 'J0010') {
+          wid.document.querySelector(".top-bar").style = "display: flex;";
+          wid.document.querySelector("body").style = "padding-top:50px;";
         }
       }
 
@@ -535,6 +540,11 @@ export default {
           let css = `#app input,#app label,#app td,#app .sign-con{
               pointer-events: none !important;
           }`;
+          // 厚街（手术患者交接记录单第三方查阅时可以编辑）
+          if (this.HOSPITAL_ID == 'hj' && this.info.formCode == 'J0010') {
+            css = `#app input,#app label,#app td,#app .sign-con{
+            }`;
+          }
           var style = document.createElement("style");
           style.type = "text/css";
           try {

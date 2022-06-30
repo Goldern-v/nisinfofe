@@ -26,7 +26,7 @@
         <!-- <i class="iconfont icon-guodi"></i> -->
       </div>
     </div>
-    <div v-if="HOSPITAL_ID!='guizhou'" class="top-box" flex-box="1">
+    <div class="top-box" flex-box="1">
       <div class="head-con">
         <div class="title">住院费用</div>
         <!-- <div class="warning">31,032.09</div> -->
@@ -38,7 +38,7 @@
         <!-- <i class="iconfont icon-guodi"></i> -->
       </div>
     </div>
-    <div v-if="HOSPITAL_ID!='guizhou'" class="top-box" flex-box="1">
+    <div class="top-box" flex-box="1">
       <div class="head-con">
         <div class="title">预交金</div>
         <div class="warning" v-show="Number(prePay) - Number(total) < 0">
@@ -211,8 +211,6 @@ export default {
     ).then(res => {
       this.DrugFeePercent = res.data.data.percent;
     });
-    // 贵州接口报错 后端暂时没空处理 需求先屏蔽掉
-    if(this.HOSPITAL_ID!="guizhou"){
       getFeeDetail(
         this.info.wardCode,
         this.info.patientId,
@@ -221,7 +219,6 @@ export default {
         this.total = res.data.data.total;
         this.prePay = res.data.data.prePay;
       });
-    }
   },
   components: {}
 };
