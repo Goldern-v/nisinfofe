@@ -1604,14 +1604,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          } else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
-            if (GetLength(text) > 98) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          } else if (this.sheetInfo.sheetType === "internal_eval_linyi") {
+          } else if (this.sheetInfo.sheetType === "internal_eval_lcey" || this.sheetInfo.sheetType === "internal_eval_linyi") {
             if (GetLength(text) > 98) {
               result.push(text);
               text = allDoc[i];
