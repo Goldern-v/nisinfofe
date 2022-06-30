@@ -471,7 +471,6 @@ export default {
     }
   },
  mounted() {
-   console.log('test-only-1')
     this.isEdit =
       JSON.parse(localStorage.user)
         ? true
