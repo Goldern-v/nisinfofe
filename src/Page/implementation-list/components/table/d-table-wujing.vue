@@ -73,6 +73,54 @@
         </template>
       </u-table-column>
 
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="备药人" prop="beiNurse" min-width="70px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.beiNurse">{{scope.row.beiNurse}}</span>
+        </template>
+      </u-table-column>
+
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="备药时间" prop="beiTime" min-width="140px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.beiTime">{{scope.row.beiTime}}</span>
+        </template>
+      </u-table-column>
+      
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="备药核对人" prop="beiHeNurse" min-width="120px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.beiHeNurse">{{scope.row.beiHeNurse}}</span>
+        </template>
+      </u-table-column>
+      
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="备药核对时间" prop="beiHeTime" min-width="140px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.beiHeTime">{{scope.row.beiHeTime}}</span>
+        </template>
+      </u-table-column>
+      
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="配液人" prop="dispenseNurse" min-width="70px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.dispenseNurse">{{scope.row.dispenseNurse}}</span>
+        </template>
+      </u-table-column>
+      
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="配液时间" prop="dispenseDateTime" min-width="140px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.dispenseDateTime">{{scope.row.dispenseDateTime}}</span>
+        </template>
+      </u-table-column>
+      
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="配液核对人" prop="dispenseVerifyNurse" min-width="120px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.dispenseVerifyNurse">{{scope.row.dispenseVerifyNurse}}</span>
+        </template>
+      </u-table-column>
+      
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="配液核对时间" prop="dispenseVerifyDateTime" min-width="140px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.dispenseVerifyDateTime">{{scope.row.dispenseVerifyDateTime}}</span>
+        </template>
+      </u-table-column>
+      
       <u-table-column prop="executeFlag" label="状态" min-width="80px" align="center">
         <template slot-scope="scope">
           <span
