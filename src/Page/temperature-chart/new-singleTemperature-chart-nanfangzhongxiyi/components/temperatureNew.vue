@@ -35,10 +35,10 @@
           尾周
         </button>
         <el-button-group :style="rightButton()">
-          <el-button type="primary" @click="syncInAndOutHospital((type = '0'))"
+          <el-button type="primary" @click="syncInAndOutHospital((type = '0'))" :disabled="!isDisable"
             >同步入院</el-button
           >
-          <el-button type="primary" @click="syncInAndOutHospital((type = '1'))"
+          <el-button type="primary" @click="syncInAndOutHospital((type = '1'))" :disabled="!isDisable"
             >同步出院</el-button
           >
         </el-button-group>
@@ -96,7 +96,7 @@ export default {
       printAllPath: "",
       intranetUrl:
         // "http://localhost:8080/#/" /* 医院正式环境内网 导致跨域 */,
-        // "http://192.168.1.78:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.81:8080/#/" /* 医院正式环境内网 导致跨域 */,
         "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://10.158.210.28:9093/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
@@ -262,6 +262,12 @@ export default {
     },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
+    },
+      isDisable() {
+      return(
+        this.$route.path.includes("newSingleTemperatureChart") ||
+        this.$route.path.includes("temperature")
+      )
     },
   },
   beforeDestroy() {

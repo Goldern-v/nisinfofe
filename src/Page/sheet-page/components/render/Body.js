@@ -663,6 +663,11 @@ function switchSheetType(type) {
     case "critical_linyi": {
       // 临邑人医 - 病重（病危）患者护理记录单（带瞳孔）
       schema = require("../config/critical_linyi/tr").default;
+      break;
+    }
+    case "baby_lcey": {
+      // 聊城二院 - 新生儿监护记录单
+      schema = require("../config/baby_lcey/tr").default;
     }
       break;
     case "body_temperature_wj": {

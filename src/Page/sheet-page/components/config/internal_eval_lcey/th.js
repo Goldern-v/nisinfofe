@@ -119,7 +119,7 @@ export default {
       },
       {
         name: `
-        医师签名
+        护士签名
         `,
         style: {
           minWidth: '55px',

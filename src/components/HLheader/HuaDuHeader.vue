@@ -806,6 +806,7 @@ import userInfo from "./user-info.vue";
 import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
+import bus from "vue-happy-bus";
 export default {
   mixins: [common],
   data() {
@@ -817,6 +818,7 @@ export default {
       isTip: false, //是否mews高亮
       mewsMd5: "",
       mewsId: "",
+      bus: bus(this),
       // showBadEvent:
       //   (localStorage["showBadEvent"] &&
       //     localStorage["showBadEvent"] === "true") ||
@@ -899,7 +901,10 @@ export default {
     toAdmin() {
       window.location.href = "/crNursing/admin";
     },
-    quit() {
+   async quit() {
+      // 登出前调用解锁
+       await this.bus.$emit("quitUnlock")
+      // 登出操作
       logout(Cookies.get("NURSING_USER"));
       Cookies.remove("password");
       Cookies.remove("deptId");

@@ -1072,6 +1072,12 @@ export default {
                 if (readOnly) {
                   continue;
                 }
+                //佛山人医，添加input disabled属性的校验
+                let disabled = element.disabled;
+                if(disabled) {
+                  console.log( 'cmd disabled',disabled)
+                  continue;
+                }
                 name = element.$parent.obj.name;
                 title = element.$parent.obj.title;
                 // element.$parent.$parent.$parent.$parent.obj.title;

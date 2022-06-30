@@ -353,7 +353,7 @@ export default {
       this.$refs.modalName.close();
     },
     setCloseCallback(closeCallback) {
-      console.log("----setCloseCallback");
+      console.log("Sign----setCloseCallback");
       this.$refs.modalName.setCloseCallback(closeCallback);
     },
     post() {
@@ -401,11 +401,12 @@ export default {
         }
       } else {
         if (this.password == "") {
-          return this.$message({
+           this.$message({
             message: "请输入密码",
             type: "warning",
             showClose: true
           });
+          return this.btnLoading = false
         }
         this.$refs.modalName.close();
         console.log(this.aduitDate,'-------------------------------------');

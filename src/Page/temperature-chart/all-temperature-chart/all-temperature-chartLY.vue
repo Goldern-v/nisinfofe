@@ -93,7 +93,6 @@
             align="center"
           >
             <template slot-scope="scope">
-              <!-- <el-input v-model="scope.row.temperature"></el-input> -->
               <input
                 v-model="scope.row.temperature"
                 :class="className"
@@ -101,26 +100,6 @@
                 type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="physicalCooling"
-            label="降温处理"
-            min-width="70"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.physicalCooling"
-                :class="className"
-                class="physicalCooling"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
             </template>
@@ -144,36 +123,8 @@
                 "
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
-              <!-- <el-input v-model="scope.row.pulse"></el-input> -->
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="heartRate"
-            label="心率"
-            min-width="70"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.heartRate"
-                :class="className"
-                class="heartRate"
-                type="number"
-                @mousewheel="
-                  (e) => {
-                    e.preventDefault();
-                  }
-                "
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.heartRate" class="heartRate" /> -->
-              <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -194,12 +145,9 @@
                   }
                 "
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.breath" class="breath" /> -->
-              <!-- <el-input v-model="scope.row.breath"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -216,11 +164,26 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
-              <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="height"
+            label="身高"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.height"
+                :class="className"
+                class="height"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
             </template>
           </el-table-column>
           <el-table-column
@@ -236,34 +199,11 @@
                 class="curWeight"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
             </template>
           </el-table-column>
-
-          <!-- <el-table-column
-            prop="urinate"
-            label="小便次数"
-            min-width="80"
-            align="center"
-           >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.urinate"
-                :class="className"
-                class="urinate"
-                type="number"
-                @mousewheel="(e)=>{e.preventDefault()}"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column> -->
-
           <el-table-column
             prop="stoolNum"
             label="大便次数"
@@ -278,32 +218,51 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.stoolNum" class="stoolNum" /> -->
-              <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            prop="fieldThree"
-            label="尿量"
-            min-width="80"
+          <el-table-column
+            prop="heartRate"
+            label="心率"
+            min-width="70"
             align="center"
           >
             <template slot-scope="scope">
               <input
-                v-model="scope.row.fieldThree"
+                v-model="scope.row.heartRate"
                 :class="className"
-                class="fieldThree"
-                type="text"
+                class="heartRate"
+                type="number"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
             </template>
-          </el-table-column>-->
+          </el-table-column>
+          <el-table-column
+            prop="physicalCooling"
+            label="降温处理"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.physicalCooling"
+                :class="className"
+                class="physicalCooling"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
           <el-table-column
             prop="foodSize"
             label="入量"
@@ -317,12 +276,9 @@
                 class="foodSize"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.foodSize" class="foodSize" /> -->
-              <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
             </template>
           </el-table-column>
 
@@ -339,12 +295,9 @@
                 class="dischargeSize"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.dischargeSize" class="dischargeSize" /> -->
-              <!-- <el-input v-model="scope.row.dischargeSize"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -360,31 +313,11 @@
                 class="fieldThree"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            prop="arterialPressure"
-            label="有创动脉收缩压"
-            min-width="120"
-            align="center"
-            >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.arterialPressure"
-                :class="className"
-                class="arterialPressure"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column> -->
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -464,6 +397,37 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="height"
+            label="身高"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.height"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="curWeight"
+            label="体重111"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.curWeight"></el-input>
+            </template>
+          </el-table-column>
+
+          <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.stoolNum"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="heartRate"
             label="心率"
             min-width="60"
@@ -474,13 +438,21 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="fieldThree"
-            label="尿量"
-            min-width="60"
+            prop="physicalCooling"
+            label="降温处理"
+            min-width="70"
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.fieldThree"></el-input>
+              <input
+                v-model="scope.row.physicalCooling"
+                :class="className"
+                class="physicalCooling"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
             </template>
           </el-table-column>
           <el-table-column
@@ -503,47 +475,17 @@
               <el-input v-model="scope.row.dischargeSize"></el-input>
             </template>
           </el-table-column>
+
           <el-table-column
-            prop="curWeight"
-            label="体重"
+            prop="fieldThree"
+            label="尿量"
             min-width="60"
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.curWeight"></el-input>
+              <el-input v-model="scope.row.fieldThree"></el-input>
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            prop="height"
-            label="身高"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.height"></el-input>
-            </template>
-          </el-table-column> -->
-          <el-table-column
-            prop="stoolNum"
-            label="大便次数"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.stoolNum"></el-input>
-            </template>
-          </el-table-column>
-          <!-- <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
-            prop="painScore"
-            label="疼痛"
-            min-width="60"
-            align="center"
-           >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.painScore"></el-input>
-            </template>
-          </el-table-column> -->
         </el-table>
       </div>
     </div>
@@ -851,12 +793,14 @@ export default {
                 ? ((item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
                     item.patientId &&
-                    item.patientCondition === "病危"||
-                  item.patientCondition === "病重")
+                    item.patientCondition === "病危") ||
+                  item.patientCondition === "病重"
                 : (item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
                   item.patientId &&
-                moment(item.admissionDate.slice(0, 10)).isAfter(moment().subtract(4, "days").format("YYYY-MM-DD"))
+                  moment(item.admissionDate.slice(0, 10)).isAfter(
+                    moment().subtract(4, "days").format("YYYY-MM-DD")
+                  )
             })
           : this.heightTemperature.filter((item) => {
               return (
@@ -893,10 +837,10 @@ export default {
         ? moment(data.entryDate).format("YYYY/MM/DD ")
         : moment(new Date()).format("YYYY/MM/DD");
       this.pageLoadng = true;
-     await getPatientsInfo(data).then((res) => {
+      await getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
       });
-       data.abnormalTemperature = 1;
+      data.abnormalTemperature = 1;
       getPatientsInfo(data).then((res) => {
         this.heightTemperature = res.data.data;
         this.pageLoadng = false;
@@ -1079,82 +1023,6 @@ export default {
         });
       });
       this.pageLoadng = false;
-    },
-    setValid(trage, val) {
-      switch (trage) {
-        case "temperature":
-          let o = {
-            体温: {
-              value: val,
-              reg: [30, 50],
-              errorMsg: "体温请填入30~50之间的数值",
-            },
-          };
-          return o;
-        case "heartRate":
-          let h = {
-            心率: {
-              value: val,
-              reg: [0, 300],
-              errorMsg: "体温请填入0~300之间的数值",
-            },
-          };
-          return h;
-        case "bloodPressure":
-          let x = {
-            血压: {
-              value: val,
-              reg: [0, 300],
-              errorMsg: "体温请填入0~300之间的数值",
-            },
-          };
-          return x;
-        case "pulse":
-          let y = {
-            脉搏: {
-              value: val,
-              reg: [0, 300],
-              errorMsg: "体温请填入0~300之间的数值",
-            },
-          };
-          return y;
-        case "breath":
-          let g = {
-            呼吸: {
-              value: val,
-              reg: [0, 120],
-              errorMsg: "体温请填入0~120之间的数值或者R/r",
-            },
-          };
-          return g;
-        default:
-          break;
-      }
-    },
-    //validForm验证表单
-    validFormFc(e) {
-      if (["liaocheng"].includes(this.HOSPITAL_ID)) {
-        let checkItem = e.path[0].classList[0];
-        let val = e.target.value;
-        let checksStr = [
-          "breath",
-          "pulse",
-          "bloodPressure",
-          "heartRate",
-          "temperature",
-        ];
-        var trs = e.path[3];
-        if (checksStr.includes(checkItem) && val !== "") {
-          if (validForm.valid(this.setValid(checkItem, val))) {
-            trs.getElementsByClassName(checkItem)[0].style.border = "";
-          } else {
-            trs.getElementsByClassName(checkItem)[0].style.border =
-              "thick solid red";
-          }
-        } else {
-          trs.getElementsByClassName(checkItem)[0].style.border = "";
-        }
-      }
     },
   },
 

@@ -19,19 +19,6 @@ export default [{
     event: event_time
   },
   {
-    key: "consciousness", //意识
-    value: "",
-    name: "意识",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 58
-    },
-    autoComplete: {
-      data: ['清醒', '模糊', '嗜睡', '昏睡', '谵妄', '浅昏迷', '昏迷', '深昏迷', '麻醉未醒', '冬眠状态']
-    },
-  },
-  {
     key: "temperature", //T（体温）
     value: "",
     name: "T",
@@ -67,73 +54,42 @@ export default [{
     event: keyf1,
   },
   {
-    key: "therapy", //氧疗方式
+    key: "IncubatorTemperature", //温箱温度
     value: "",
     event: keyf1,
-    name: "氧疗方式",
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 80
-    },
-    autoComplete: {
-      data: ['鼻导管', '面罩', '储氧面罩', 'HFNC', '无创辅助通气', '气管插管给氧', '气管切开给氧', '文丘里面罩']
-    },
+    name: "温箱温度",
   },
   {
-    key: "oxygen", //氧疗L/min
+    key: "oxygen", //温箱湿度
     value: "",
-    name: "氧疗L/min",
+    name: "温箱湿度",
     event: keyf1,
-    textarea: {
-      width: 40
-    },
   },
   {
-    key: "food", //入量
+    key: "food", //氧流量
     value: "",
     event: keyf1,
-    name: "入量",
-    textarea: {
-      width: 88
-    },
+    name: "氧流量",
   },
   {
-    key: "foodSize", //量(ml)
+    key: "infusionObs", //输液观察
     value: "",
     event: keyf1,
-    name: "入量(量)",
+    name: "输液观察",
     next:"ml",
-    textarea: {
-      width: 32
-    },
   },
   {
-    key: "discharge", //出量
-    value: "",
-    event: keyf1,
-    name: "出量",
-    change: (e, td) => limitChange(e, td, 7),
-    autoComplete: {
-      data: ['尿', '大便', '痰液', '呕吐物', '引流量', '其他']
-    },
-  },
-  {
-    key: "dischargeSize", //量(ml)
-    value: "",
-    event: keyf1,
-    name: "出量(量)",
-    next:"ml",
-    textarea: {
-      width: 32
-    },
-  },
-  {
-    key: "customTitle", //自定义
+    key: "customTitle1", //自定义
     value: "",
     event: keyf1
   },
   {
-    key: "description", //特殊处理及病情观察
+    key: "customTitle2", //自定义
+    value: "",
+    event: keyf1
+  },
+  {
+    key: "description", //病情观察及护理措施
     value: "",
     style: {
       textAlign: "left",
@@ -153,16 +109,10 @@ export default [{
       keyf1(e, td);
     }
   },
+  
   {
     key: "sign",
     value: ""
-  },
-  {
-    key: "sign2",
-    value: "",
-    style: {
-      minWidth: '55px'
-    }
   },
   // {
   //   key: "audit",
@@ -176,11 +126,6 @@ export default [{
   {
     hidden: true,
     key: "signerName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerName2",
     value: ""
   },
   {
@@ -216,11 +161,6 @@ export default [{
   {
     hidden: false,
     key: "signerNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerNo2",
     value: ""
   },
   {

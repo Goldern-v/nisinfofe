@@ -215,8 +215,9 @@ export default {
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
-      showBloodSugar:['guizhou','hengli','huadu','whfk', 'beihairenyi', 'nanfangzhongxiyi', 'sdlj'], // 是否开放血糖模块
-      showBloodOxygen:['whfk'] // 是否开放血氧模块
+      showBloodSugar:['guizhou','hengli','huadu','whfk', 'beihairenyi', 'nanfangzhongxiyi', 'sdlj' , 'foshanrenyi'], // 是否开放血糖模块
+      showBloodOxygen:['whfk'] ,// 是否开放血氧模块
+      timer:null
     };
   },
   computed: {
@@ -405,9 +406,9 @@ export default {
       this.nursingPreviewIsShow = false
     }
    await this.bus.$emit("openOtherForm", { component: 'temperature'});//默认打开体温单界面
-    this.bus.$emit("refreshImg");
-
-
+    this.timer=setTimeout(()=>{
+     this.bus.$emit("refreshImg");
+     },1000)
     //回应子界面打开自定义模板弹窗
     this.bus.$on("templateSideOpen", (payload)=>{
       this.handleAddTemplateAtDoc = payload.callback
@@ -422,6 +423,7 @@ export default {
   },
   beforeDestroy(){
     this.$refs.templateSide.close()
+  clearTimeout(this.timer);
   },
   components: {
     SweetModal,
