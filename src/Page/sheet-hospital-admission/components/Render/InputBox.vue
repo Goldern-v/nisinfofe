@@ -25,7 +25,7 @@
       :class="model === 'development' ? 'development-model' : (obj.class||'')"
       :size="obj.size||''"
       :type="obj.inputType||'text'"
-      :disabled="obj.disabled?true:false"
+      :disabled="!!obj.disabled || isDisabled(obj)"
       :readonly="obj.readOnly?obj.readOnly:false"
       v-bind="obj.props"
       @change="inputChange($event, obj)"
@@ -133,8 +133,8 @@ export default {
       }else if(valueNew == '小儿疼痛行为评估量表'){
         this.tableScoreChild();
       }
-      
-      
+
+
       if (this.model === "normal") {
         this.formObj.model[this.obj.name] = valueNew;
         this.checkValueRule(valueNew);
@@ -408,7 +408,7 @@ export default {
               // if(this.obj.name==='I100011'){
               //   console.log('!!!!计算BMI',this.obj.title,this.obj,r,height,weight,result)
               // }
-              
+
             }
           }
 
@@ -502,6 +502,17 @@ export default {
               }
             }
           }
+          /**回显光标定位*/
+          else if(r.cursorReposition && isClick) {
+            let positionList = r.cursorReposition.find(item => {return item.value === valueNew })
+            let target = this.$refs[this.obj.name].$refs.input
+            if(positionList) {
+              target.focus();
+              this.$nextTick(()=>{
+                target.setSelectionRange(positionList.position, positionList.position);
+              })
+            }
+          }
         });
       }
       // if (this.$refs && this.$refs[this.obj.name]) {
@@ -531,7 +542,7 @@ export default {
             let textResult = this.$root.$refs[this.formCode][
               "evalDesc"
               ].checkValueRule(0);
-            
+
             this.formObj.model["evalDesc"] = "无营养风险";
             this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
               "无营养风险"
@@ -548,7 +559,7 @@ export default {
           try {
             this.formObj.model["evalScore"] = ' ';
             this.$root.$refs[this.formCode]["evalScore"].setCurrentValue('');
-            
+
             this.formObj.model["evalDesc"] = "";
             this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
               ""
@@ -837,10 +848,53 @@ export default {
       //   this.inputFocus(e, child)
       // }
     },
-    
+
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    /**通过配置
+     * isDisabledRules:
+     * [{
+     *   type: 'equal'||'notequal',
+     *   reqCode:'',
+     *   valList: [],
+     *   whiteList: []
+     * }]
+     * 动态修改属性disabled*/
+    isDisabled(obj) {
+      if(obj.isDisabledRules) {
+        if(obj.isDisabledRules.some(rule => {
+          //当 绑定值(this.formObj.model[rule.key]) 在valList内 [valist.includes(this.formObj.model[rule.key])]时禁用
+          if(rule.type === 'equal') {
+            //不存在值，默认不禁用
+            if(!this.formObj.model[rule.key]) return false
+            //有禁用白名单，优先先判断
+            if(rule.whiteList) {
+              if(rule.whiteList.some(val => {
+                return this.formObj.model[rule.key] && this.formobj.model[rule.key].includes(val)
+              })) return false
+            }
+            return rule.valList.some(val => { return this.formObj.model[rule.key].includes(val) })
+          }
+          //当 绑定值(this.formObj.model[rule.key])不在valList内 [!valist.includes(this.formObj.model[rule.key])]时禁用
+          else if(rule.type === 'notEqual') {
+            //不存在值，默认禁用
+            if(!this.formObj.model[rule.key]) return true
+            //有’非‘禁用白名单，优先先判断
+            if(rule.whiteList) {
+              if(rule.whiteList.some(val => {
+                return this.formObj.model[rule.key] && this.formObj.model[rule.key].includes(val)
+              })){ return true }
+            }
+            return !rule.valList.some(val => { return this.formObj.model[rule.key].includes(val) })
+          }else {
+            console.warn(`isDisabledRules no Types! ${rule.key}`);
+          }
+        }))
+          return true;
+      }
+      return false;
     }
   }
 };
