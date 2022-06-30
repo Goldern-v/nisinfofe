@@ -238,7 +238,7 @@ export default {
       isCaSign:false,
       signType:0,
       isDoctor:false,
-      aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey'],
+      aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi'],
       activeSheetType:"",
       // hasQrCaSignHos:['fuyou','hj'],
       hasQrCaSignHos:['fuyou','hj','guizhou'],

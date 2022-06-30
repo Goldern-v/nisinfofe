@@ -60,6 +60,7 @@ export default {
     isTommorowDischarge: Array,
     isTommorowOperation: Array,
     dangerInMorse: Array,
+    dangerInVteLy: Array,
     dangerInYachuang: Array,
     hasYachuang: Array,
     isToadyHosipital: Array,
@@ -135,13 +136,14 @@ export default {
           length: this.hasVteDanger.length
         });
       }
-      // if(this.HOSPITAL_ID == "huadu"){
-      //   console.log("多重耐药患者:",this.isMultiDrugResistant);
-      //    arr.push({
-      //     key: "多重耐药患者",
-      //     length: this.isMultiDrugResistant.length
-      //   });
-      // }
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        arr.splice(1,0,
+          {
+          key: "VTE高风险",
+          length: this.dangerInVteLy.length
+          }
+        );
+      }
       if(this.HOSPITAL_ID == "whfk"){
         arr = arr.filter((item)=> {
           return (item.key !='MEWS预警'&& item.key != "预出院"&& item.key != "已有压疮")

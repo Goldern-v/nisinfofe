@@ -20,7 +20,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">首页</div>  
+        <div class="nav-item">首页</div>
       </router-link>
       <router-link
         :to="{
@@ -31,7 +31,7 @@
       >
         <div class="nav-item">护理文书</div>
       </router-link>
-      
+
       <span><div class="nav-item" v-if="HOSPITAL_ID != 'guizhou'" @click="oepnDoctorEmr">病历</div></span>
       <!-- <router-link
         :to="{
@@ -158,6 +158,12 @@
         tag="span"
       >
         <div class="nav-item">体温单</div>
+      </router-link>
+      <router-link
+        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
+        tag="span"
+      >
+        <div class="nav-item">患者360</div>
       </router-link>
     </div>
     <div style="height: 50px"></div>
