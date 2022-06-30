@@ -106,13 +106,13 @@ export default [{
       minWidth: '55px'
     }
   },
-  {
-    key: "sign2",
-    value: "",
-    style: {
-      minWidth: '55px'
-    }
-  },
+  // {
+  //   key: "sign2",
+  //   value: "",
+  //   style: {
+  //     minWidth: '55px'
+  //   }
+  // },
   // {
   //   key: "audit",
   //   value: ""
