@@ -800,7 +800,7 @@ export default {
                   item.patientId &&
                   moment(item.admissionDate.slice(0, 10)).isAfter(
                     moment().subtract(4, "days").format("YYYY-MM-DD")
-                  );
+                  )
             })
           : this.heightTemperature.filter((item) => {
               return (
