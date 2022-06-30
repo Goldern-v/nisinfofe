@@ -118,6 +118,7 @@ export default {
       this.show = false
     },
     open(config) {
+      console.log(config,"config")
       this.style = config.style;
       this.callback = config.callback;
       this.splice = config.td&&config.td.splice
@@ -157,6 +158,7 @@ export default {
         }
       }else {
       this.data = config.data || [];
+      console.log("dadada",this.data)
      }
 
       if (this.data && this.data.length >= 1) {
@@ -201,6 +203,7 @@ export default {
       }
     },
     post(item) {
+      console.log("item",item)
       let flag = true;
       if(this.options && this.options.length){
         this.options.map(opt => {
@@ -214,6 +217,7 @@ export default {
       }
       if(flag){
         item = this.parentVal?item + '(' + this.parentVal + ')': item;
+        console.log("item/",item,this.parentVal)
         this.callback(item);
         this.show = this.splice;
       }
