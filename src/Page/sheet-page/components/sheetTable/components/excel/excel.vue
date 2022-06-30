@@ -491,7 +491,8 @@
             sheetInfo.sheetType === 'internal_eval_lcey' ||
             sheetInfo.sheetType === 'critical_lcey'||
             sheetInfo.sheetType === 'critical_new_lcey'||
-            sheetInfo.sheetType === 'critical2_lcey',
+            sheetInfo.sheetType === 'critical2_lcey'||
+            sheetInfo.sheetType === 'baby_lcey',
         }"
 
       >
@@ -540,8 +541,8 @@
             sheetInfo.sheetType == 'internal_eval_lcey' ||
             sheetInfo.sheetType == 'critical_lcey'||
             sheetInfo.sheetType == 'critical_new_lcey'||
-            sheetInfo.sheetType == 'critical2_lcey'
-
+            sheetInfo.sheetType == 'critical2_lcey'||
+            sheetInfo.sheetType == 'baby_lcey'
           "
           ><strong>护士长审核：</strong></span
         >
@@ -572,7 +573,8 @@
             sheetInfo.sheetType == 'internal_eval_lcey' ||
             sheetInfo.sheetType == 'critical_lcey'||
             sheetInfo.sheetType == 'critical_new_lcey'||
-            sheetInfo.sheetType == 'critical2_lcey'"
+            sheetInfo.sheetType == 'critical2_lcey'||
+            sheetInfo.sheetType == 'baby_lcey'"
             style="margin-right:50px"
           >
           <span> <strong>审核时间：</strong> </span>
@@ -693,6 +695,7 @@ export default {
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
         "critical_new_lcey",
         "critical2_lcey",
+        "baby_lcey",
         "icu_cpr_xg",
       ],
       // 需要双签名的记录单code
@@ -1943,7 +1946,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey']
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','baby_lcey']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =

@@ -655,6 +655,11 @@ function switchSheetType(type) {
       schema = require("../config/labor_lcey/tr").default;
     }
       break;
+    case "baby_lcey": {
+      // 聊城二院 - 新生儿监护记录单
+      schema = require("../config/baby_lcey/tr").default;
+    }
+      break;
     case "body_temperature_wj": {
       // 武警总队 - 体温单
       schema = require("../config/body_temperature_wj/tr").default;

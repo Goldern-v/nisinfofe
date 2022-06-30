@@ -753,6 +753,13 @@ export default function Title(
     );
   }
   break;
+  case "baby_lcey": {
+    // 聊城二院 - 新生儿监护记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_lcey/th").default)
+    );
+  }
+  break;
   case "common_zsqy": {
     // 中山七院-护理记录单
     Th = JSON.parse(
