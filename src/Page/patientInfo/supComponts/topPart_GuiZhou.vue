@@ -160,7 +160,7 @@
         <div class="nav-item">体温单</div>
       </router-link>
       <router-link
-        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
+        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId,inpNo:query.inpNo}}"
         tag="span"
       >
         <div class="nav-item">患者360</div>
