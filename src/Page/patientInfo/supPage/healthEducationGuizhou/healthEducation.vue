@@ -42,7 +42,7 @@
                 <span>病人姓名：{{patientInfo.name}}</span>
                 <span>性别：{{patientInfo.sex}}</span>
                 <span>年龄：{{patientInfo.age}}</span>
-                <span>科室：{{patientInfo.deptName}}</span>
+                <span>科室：{{patientInfo.wardName}}</span>
                 <span>床号：{{patientInfo.bedLabel}}</span>
                 <span>住院号：{{patientInfo.inpNo}}</span>
           </div>
