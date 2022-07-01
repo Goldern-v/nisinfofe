@@ -54,7 +54,7 @@ export default [{
     event: keyf1,
   },
   {
-    key: "IncubatorTemperature", //温箱温度
+    key: "incubatorTemperature", //温箱温度
     value: "",
     event: keyf1,
     name: "温箱温度",

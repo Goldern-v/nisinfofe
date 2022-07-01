@@ -113,10 +113,6 @@ export default [{
   //     minWidth: '55px'
   //   }
   // },
-  // {
-  //   key: "audit",
-  //   value: ""
-  // },
   {
     hidden: true,
     key: "id",
@@ -127,11 +123,11 @@ export default [{
     key: "signerName",
     value: ""
   },
-  {
-    hidden: true,
-    key: "signerName2",
-    value: ""
-  },
+  // {
+  //   hidden: true,
+  //   key: "signerName2",
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "status",
@@ -167,11 +163,11 @@ export default [{
     key: "signerNo",
     value: ""
   },
-  {
-    hidden: true,
-    key: "signerNo2",
-    value: ""
-  },
+  // {
+  //   hidden: true,
+  //   key: "signerNo2",
+  //   value: ""
+  // },
   {
     hidden: false,
     key: "auditorNo",

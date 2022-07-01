@@ -17,7 +17,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "30px"
+          minWidth: "25px"
         },
       },
       {
@@ -27,7 +27,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "30px"
+          minWidth: "25px"
         },
       },
       {
@@ -41,6 +41,9 @@ export default {
         `,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "48px"
+        },
       },
       {
         name: `
@@ -119,7 +122,7 @@ export default {
       },
       // {
       //   name: `
-      //   护士签名
+      //   医师签名
       //   `,
       //   style: {
       //     minWidth: '55px',
