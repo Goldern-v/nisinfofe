@@ -84,50 +84,59 @@
           <span :title="scope.row.beiTime">{{scope.row.beiTime}}</span>
         </template>
       </u-table-column>
-      
+
       <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="备药核对人" prop="beiHeNurse" min-width="120px" align="center">
       <template slot-scope="scope">
           <span :title="scope.row.beiHeNurse">{{scope.row.beiHeNurse}}</span>
         </template>
       </u-table-column>
-      
+
       <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="备药核对时间" prop="beiHeTime" min-width="140px" align="center">
       <template slot-scope="scope">
           <span :title="scope.row.beiHeTime">{{scope.row.beiHeTime}}</span>
         </template>
       </u-table-column>
-      
+
       <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="配液人" prop="dispenseNurse" min-width="70px" align="center">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseNurse">{{scope.row.dispenseNurse}}</span>
         </template>
       </u-table-column>
-      
+
       <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="配液时间" prop="dispenseDateTime" min-width="140px" align="center">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseDateTime">{{scope.row.dispenseDateTime}}</span>
         </template>
       </u-table-column>
-      
+
       <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="配液核对人" prop="dispenseVerifyNurse" min-width="120px" align="center">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseVerifyNurse">{{scope.row.dispenseVerifyNurse}}</span>
         </template>
       </u-table-column>
-      
+
       <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="配液核对时间" prop="dispenseVerifyDateTime" min-width="140px" align="center">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseVerifyDateTime">{{scope.row.dispenseVerifyDateTime}}</span>
         </template>
       </u-table-column>
-      
-      <u-table-column prop="executeFlag" label="状态" min-width="80px" align="center">
+
+      <u-table-column prop="executeFlag" label="状态" min-width="80px" align="center" v-if="HOSPITAL_ID == 'wujing'">
         <template slot-scope="scope">
           <span
             :class="{
               yzx: scope.row.executeFlag == 2
               }"
-           :title="scope.row.executeFlag == 2 ? '已执行' : '未执行'">{{ scope.row.executeFlag == 2 ? '已执行' : '未执行' }}</span>
+          :title="scope.row.executeFlag == 2 ? '已执行' : '未执行'">{{ scope.row.executeFlag == 2 ? '已执行' : '未执行' }}</span>
+        </template>
+      </u-table-column>
+      <u-table-column prop="executeFlag" label="状态" min-width="80px" align="center" v-else>
+        <template slot-scope="scope">
+          <span
+            :class="{
+              yzx: scope.row.executeFlag == 2
+              }"
+          :title="forMatExecuteFlag(Number(scope.row.executeFlag))">{{ forMatExecuteFlag(Number(scope.row.executeFlag)) }}</span>
         </template>
       </u-table-column>
 
@@ -314,6 +323,28 @@ export default {
     };
   },
   methods: {
+          forMatExecuteFlag(flag){
+      switch (Number(flag)) {
+            case 0:
+              return '未执行'
+            case 1:
+              return '执行中'
+            case 2:
+              return '已完成'
+            case 3:
+              return '暂停'
+            case 4:
+              return '继续'
+            case 5:
+              return '取消'
+            case 6:
+              return '巡视'
+            case 7:
+              return '送出'
+              default:
+              return ''
+          }
+    },
     rowcb(obj){
       // 如果该条执行单是一组多条的 或者该执行单是已完成的隐藏当前多选框
       if(obj.row.rowType > 1 || obj.row.executeFlag == 2){

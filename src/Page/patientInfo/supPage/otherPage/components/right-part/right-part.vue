@@ -10,6 +10,8 @@
       class="emr-pdf"
       :style="{height:height}"
       v-if="!show"
+      security="restricted"
+      sandbox=""
       @load="onload"
     ></iframe>
   </div>

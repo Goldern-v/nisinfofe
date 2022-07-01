@@ -7,7 +7,7 @@
       <span>
         科室：
         <div class="bottom-line" style="min-width: 70px">
-          {{ patientInfo.realDeptName }}
+          {{ patientInfo.deptName }}
         </div>
       </span>
       <span>
