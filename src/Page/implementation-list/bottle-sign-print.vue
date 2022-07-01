@@ -39,7 +39,15 @@
             <el-option label="临时" :value="0"></el-option>
           </el-select>
           <span class="label">医嘱分类:</span>
-          <el-select v-model="query.itemType" placeholder="请选择" size="small" style="width:80px">
+          <el-select v-if="HOSPITAL_ID == 'lyxrm'" v-model="lyxrmItemType" placeholder="请选择" size="small" style="width:250px" multiple>
+            <el-option
+              v-for="(optionItem,optionIndex) in typeOptions[HOSPITAL_ID] || typeOptions.default"
+              :key="optionIndex"
+              :label="optionItem.label"
+              :value=" optionItem.value || optionItem.label"
+            ></el-option>
+          </el-select>
+          <el-select v-model="query.itemType" placeholder="请选择" size="small" style="width:80px" v-else>
             <el-option
               v-for="(optionItem,optionIndex) in typeOptions[HOSPITAL_ID] || typeOptions.default"
               :key="optionIndex"
@@ -256,6 +264,7 @@ export default {
         //医嘱类型，长期传1，临时传0，全部传9
         reprintFlag:['lyxrm'].includes(this.HOSPITAL_ID) ? 9 : 0,//是否重打，1=是，0=否
       },
+      lyxrmItemType:['全部'],
       selectedData: [],//选中打印执行单条数
       printNum: 0,//已经打印执行单的条数
       Uuid: '',//打印流水号
@@ -414,6 +423,11 @@ export default {
       this.query.endDate = moment(this.endDate).format('YYYY-MM-DD HH:mm:ss')
       this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
+      if(this.HOSPITAL_ID == 'lyxrm'){
+        this.query.itemType = this.lyxrmItemType.join(',')
+      }else{
+        this.query.itemType = this.query.itemType
+      }
       getPrintExecuteWithWardcode(this.query).then(res => {
         let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
