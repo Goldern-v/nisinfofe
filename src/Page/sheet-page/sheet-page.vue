@@ -853,6 +853,11 @@ export default {
   created() {
     // 初始化
     cleanData();
+    // 针对贵州体温单如果选中病人，切换到护记。不显示病人护记问题
+    if(this.HOSPITAL_ID == "guizhou"){
+      /* 不知道贵州切换副页的问题是不是这个影响的，以后有机会可以删除 侦听watch $route.path这个试试*/
+       this.$store.commit("upPatientInfo", {});
+    }
     // 下拉  以前替换了病人栏，这个应该是多余请求。
     // if (this.deptCode) {
     //   this.getDate();
