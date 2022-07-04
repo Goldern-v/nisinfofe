@@ -317,7 +317,7 @@ export default {
             tr.map((td,y)=>{
               td.isDisabed = this.isDisabed(tr,td,x,y,item.data.bodyModel,nowX)
             })
-          } 
+          }
         })
       })
       return resultModel;
@@ -423,7 +423,7 @@ export default {
         let bodyData = res[1].data.data;
 
         if(this.HOSPITAL_ID=='wujing'){
-          let barcodeArr = {} 
+          let barcodeArr = {}
           bodyData.list.map((tr,index)=>{
             if(tr.expand){
               barcodeArr[tr.expand] = barcodeArr[tr.expand] ? (barcodeArr[tr.expand] + 1) : 1
@@ -947,8 +947,8 @@ export default {
       // } else {
       //   this.$router.push(`/print/sheetPage`);
       // }
-      if (process.env.HOSPITAL_ID == "fuyou"|| 
-          process.env.HOSPITAL_ID == "quzhou" || 
+      if (process.env.HOSPITAL_ID == "fuyou"||
+          process.env.HOSPITAL_ID == "quzhou" ||
           process.env.HOSPITAL_ID == "huadu"||
           process.env.HOSPITAL_ID == "xiegang"||
           process.env.HOSPITAL_ID == "liaocheng" ||
@@ -1033,7 +1033,7 @@ export default {
   beforeRouteLeave: (to, from, next) => {
     if (!sheetInfo.isSave) {
       window.app
-        .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
+        .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
           confirmButtonText: "离开",
           cancelButtonText: "取消",
           type: "warning"
