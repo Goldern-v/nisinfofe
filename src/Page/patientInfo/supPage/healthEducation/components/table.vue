@@ -28,7 +28,7 @@
             <!-- <input class="date" type="text" name="" id="" :value="data['教育时间']"> -->
           </td>
           <!-- 宣教内容 -->
-          <td :class="['contentLeft', {'isPrint': !isPrint}]" @click="healthContent($event, data)">
+          <td :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, data)">
             <span>{{data['宣教内容']}}</span>
           </td>
           <!-- 教育对象 -->
@@ -114,7 +114,7 @@ export default {
       name: "",
       contentData: "",
       isContent: false,
-      isPrint: false,
+      isPrints: false,
       theadData: [
         [
           { rowspan: 2, text: "教育时间", width: 80 },
@@ -165,7 +165,7 @@ export default {
 
     // 打印
     print() {
-      this.isPrint = true;
+      this.isPrints = true;
     },
 
     // 初始化默认值

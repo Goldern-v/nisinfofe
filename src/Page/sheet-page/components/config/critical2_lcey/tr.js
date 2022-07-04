@@ -160,9 +160,6 @@ export default [{
   {
     key: "sign2",
     value: "",
-    style: {
-      minWidth: '55px'
-    }
   },
   // {
   //   key: "audit",

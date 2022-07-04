@@ -217,16 +217,10 @@ export default [{
   {
     key: "sign",
     value: "",
-    style: {
-      minWidth: '55px'
-    }
   },
   {
     key: "sign2",
     value: "",
-    style: {
-      minWidth: '55px'
-    }
   },
   // {
   //   key: "audit",
