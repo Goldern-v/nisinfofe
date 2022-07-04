@@ -302,7 +302,19 @@
           record.autographNameP &&
           record.autographNameN
         );
-      }
+      },
+      // 二维配置数组转一维
+      realColumns() {
+        let columns = [];
+        for (const col of this.columns) {
+          if (col.columns && col.columns.length) {
+            columns = columns.concat(col.columns);
+          } else {
+            columns.push(col);
+          }
+        }
+        return columns;
+      },
     },
     watch: {
       deptCode(value, oldValue) {
@@ -809,7 +821,7 @@
         this.fixedTh = false;
         this.$nextTick(async () => {
           await print(this.$refs.printable, {
-            beforePrint: formatter,
+            beforePrint: (win) => formatter(win,this.realColumns.length | 9),
             direction: "vertical",
             injectGlobalCss: true,
             scanStyles: false,
