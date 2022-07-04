@@ -39,7 +39,7 @@
             <el-option label="临时" :value="0"></el-option>
           </el-select>
           <span class="label">医嘱分类:</span>
-          <el-select v-if="HOSPITAL_ID == 'lyxrm'" v-model="lyxrmItemType" placeholder="请选择" size="small" style="width:250px" multiple>
+          <el-select v-if="HOSPITAL_ID == 'lyxrm'" v-model="lyxrmItemType" placeholder="请选择" size="small" style="width:250px" multiple @change="()=>{search()}">
             <el-option
               v-for="(optionItem,optionIndex) in typeOptions[HOSPITAL_ID] || typeOptions.default"
               :key="optionIndex"
