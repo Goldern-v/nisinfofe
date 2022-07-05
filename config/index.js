@@ -243,6 +243,15 @@ module.exports = {
           "^/crNursing/api": "/crNursing/api" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
         }
       },
+      '/crNursing/caSign': {
+        target: 'http://10.211.55.3:30960',
+        // target: 'http://127.0.0.1:30960',
+        // target: 'http://172.20.10.4:30960',
+        changeOrigin: true,
+        pathRewrite: {
+            '^/crNursing/caSign': ''
+        }
+      },
       "/crNursing/asset": {
         target: "http://120.25.105.45:9864", //测试
         // target: "http://120.24.240.231:15091", //武警正式

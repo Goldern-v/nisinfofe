@@ -8,6 +8,11 @@ function login(empNo, password, code, repaint) {
 function hisLogin(empNo, password, code, repaint) {
   return axios.post(`${apiPath}login/dgxg`, qs.stringify({ empNo, password, code, repaint }))
 }
+//测GetUserList
+function GetUserList(empNo, password, code, repaint) {
+  console.log("jinlai");
+   return axios.get(`/crNursing/caSign/AllUkeyList`)
+}
 function logout(authToken) {
   localStorage.clear();
   sessionStorage.clear();
@@ -45,4 +50,4 @@ function checkUser(empNo, password) {
 //   return axios.post(`http://10.45.0.24:8066/service1.asmx/账户校验`,params, {'Content-Type': 'application/x-www-form-urlencoded'})
 // }
 
-export { login, logout, autoLogin, checkUser,hisLogin }
+export { login, logout, autoLogin, checkUser,hisLogin,GetUserList }

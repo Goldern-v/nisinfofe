@@ -390,7 +390,7 @@ a {
 </style>
 
 <script>
-import { login, hisLogin } from "@/api/login";
+import { login, hisLogin,GetUserList } from "@/api/login";
 import Cookies from "js-cookie";
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
@@ -422,8 +422,6 @@ export default {
       });
     },
     async login(type) {
-      // console.log(md5(this.account, "this.account"));
-      // return;
       if (!(this.account && this.password)) {
         //          如果空
         this.$message({
@@ -447,33 +445,36 @@ export default {
       this.ajax = true;
       let password = this.password;
       this.md5HisList.includes(this.HOSPITAL_ID) &&
-        // this.password !== "Bcy@22qw" &&
+        this.password !== "Bcy@22qw" &&
         (password = md5(this.password));
       // login(this.account, this.password, this.verificationCode)
       // login前先执行his校验 by谢岗
       let uselogin = login;
       if (this.HOSPITAL_ID == "xiegang") {
         uselogin = hisLogin;
-        // try {
-        //   console.log('testOnly-1')
-        //   const res = await hisLogin({
-        //     empNo: this.account,
-        //     password: password,
-        //     code:  this.verificationCode
-        //   })
-        //   if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
-        //     this.$message.error("请重新登录");
-        //     this.ajax = false
-        //     return
-        //   }
-        // } catch (e) {
-        //   this.$message.error("请重新登录");
-        //   this.ajax = false
-        //   return
-        // }
+        try {
+          console.log('testOnly-1')
+          const res = await hisLogin({
+            empNo: this.account,
+            password: password,
+            code:  this.verificationCode
+          })
+          if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
+            this.$message.error("请重新登录");
+            this.ajax = false
+            return
+          }
+        } catch (e) {
+          this.$message.error("请重新登录");
+          this.ajax = false
+          return
+        }
       }
       uselogin(this.account, password, this.verificationCode)
         .then((res) => {
+          GetUserList().then(res=>{
+            console.log("res",res)
+          })
           // 记住账号
           if (this.remember) {
             localStorage["rememberAccount"] = this.account;
