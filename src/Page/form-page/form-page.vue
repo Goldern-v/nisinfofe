@@ -226,7 +226,7 @@ export default {
   },
   beforeDestroy(){
     // 切换模块的时候解锁
-    this.destroyUnlock()
+    // this.destroyUnlock()
   }
 };
 </script>
