@@ -40,7 +40,7 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
-          <div
+           <div
             style="margin-left: 220px"
             v-if="HOSPITAL_ID === 'foshanrenyi'"
            >
@@ -464,6 +464,20 @@
                   <input
                     type="text"
                     :readonly="isRead"
+                    v-model="foodVal"
+                    v-autoComplete="{
+                      dataList: dictionary[item.key],
+                      obj: fixedList,
+                      key: key,
+                      tr,
+                      td: item,
+                    }"
+                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
+                    v-else-if="HOSPITAL_ID=='beihairenyi' && key=='food'"
+                  />
+                  <input
+                    type="text"
+                    :readonly="isRead"
                     v-model="fixedList[key].value"
                     v-autoComplete="{
                       dataList: dictionary[item.key],
@@ -749,7 +763,7 @@
     font-size:14px;
   }
 }
-.diagnosis-box {
+  .diagnosis-box {
   position: relative;
 
   .diagnosis-box__btn {
@@ -759,7 +773,7 @@
     z-index: 90;
   }
 
-}
+  }
 </style>
 <script>
 import bus from "vue-happy-bus";
@@ -845,6 +859,7 @@ export default {
   data() {
     return {
       bus: bus(this),
+      foodVal:"",
       doc: "",
       blurIndex: null,
       recordDate: "",
@@ -941,7 +956,7 @@ export default {
         return false;
       }
     },
-    /**通用记录单 by贵州 */
+     /**通用记录单 by贵州 */
     commonFormGZ() {
       return this.sheetInfo.sheetType === 'common_gzry'
     },
@@ -950,7 +965,7 @@ export default {
     }
   },
   methods: {
-    openPISilde(type){
+     openPISilde(type){
       // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
        this.bus.$emit("openclosePatientInfo",type,false,true)
     },
@@ -1083,8 +1098,11 @@ export default {
       let tr = record[record.length - 1];
       this.tr = tr || [];
       let isRead;
+        console.log("openjinlai22222",this.tr)
       let status = tr.find((item) => item.key == "status").value;
+        console.log("openjinla33333")
       let empNo = tr.find((item) => item.key == "empNo").value;
+        console.log("openjinlai4444")
       let isAuditor = JSON.parse(localStorage.user).nursingStaff;
       if (status >= 1) {
         if (empNo == JSON.parse(localStorage.user).empNo || isAuditor) {
@@ -1128,6 +1146,15 @@ export default {
       for (let i = 0; i < record.length; i++) {
         doc += record[i].find((item) => item.key == "description").value || "";
       }
+      let foodstr = "";
+        console.log("jinlai555ß55555",record)
+        if(this.HOSPITAL_ID=="beihairenyi" &&  this.fixedList.hasOwnProperty('food')){
+          for (let i = 0; i < record.length; i++) {
+            foodstr += record[i].find((item) => item.key == "food").value || "";
+          }
+        }
+      this.foodVal = foodstr
+      // console.log("this.fixedList.food.value",this.fixedList.food.value)
       this.recordDate =
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value ||
@@ -1431,6 +1458,7 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
+      console.log("jinlai",this.fixedList)
       if(this.isSaving){
         return
       }
@@ -1459,6 +1487,25 @@ export default {
       let result = [];
       let text = "";
       let allDoc = this.doc;
+      let foodDoc = this.foodVal,foodText="",foodResult=[]
+      //北海人医的入量名称做换行
+      if(this.HOSPITAL_ID=="beihairenyi" && this.fixedList.hasOwnProperty('food')){
+        for (let i = 0; i < foodDoc.length; i++) {
+        let charCode = foodDoc.charCodeAt(i);
+        // 字符为 ，。；,.：:
+        if(GetLength(foodText) >=7){
+          foodResult.push(foodText);
+          foodText = foodDoc[i];
+          }else{
+          foodText += foodDoc[i];
+          }
+        }
+        if (foodText) {
+        foodResult.push(foodText);
+        }
+      }
+
+      // console.log(foodResult,"foodResult")
       if (
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
@@ -1514,6 +1561,7 @@ export default {
           }
        }
       }else{
+        console.log("11111111111111")
         for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
         // 字符为 ，。；,.：:
@@ -1535,7 +1583,7 @@ export default {
               this.sheetInfo.sheetType === "icu_qz" ||
               this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
               this.sheetInfo.sheetType === "common_gzry") {
-            // 特殊情况长度截取，前端控制部分
+            // 特殊情况长度截取，前端控制部分(长度计算：输入的字数*2-2)
             if (GetLength(text) > 46) {
               result.push(text);
               text = allDoc[i];
@@ -1556,7 +1604,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          } else if (this.sheetInfo.sheetType === "internal_eval_lcey") {
+          } else if (this.sheetInfo.sheetType === "internal_eval_lcey" || this.sheetInfo.sheetType === "internal_eval_linyi") {
             if (GetLength(text) > 98) {
               result.push(text);
               text = allDoc[i];
@@ -1612,6 +1660,13 @@ export default {
             } else {
               text += allDoc[i];
             }
+          }else if (this.sheetInfo.sheetType === "baby_lcey") {
+            if (GetLength(text) > 20) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           }else if (this.sheetInfo.sheetType === "areageneral_fs"||this.sheetInfo.sheetType === "pediatric_fs"||this.sheetInfo.sheetType === "pupilgeneral_fs"||this.sheetInfo.sheetType === "labor_bh"||this.sheetInfo.sheetType === "department_bh"||this.sheetInfo.sheetType === "cardiac_lcey"||this.sheetInfo.sheetType === "labor_lcey"||this.sheetInfo.sheetType === "caseamount_wx") {
             if (GetLength(text) > 36) {
               result.push(text);
@@ -1640,25 +1695,30 @@ export default {
             } else {
               text += allDoc[i];
             }
-          } else if (this.sheetInfo.sheetType === 'ultrasound_fs') {
+            } else if (this.sheetInfo.sheetType === 'ultrasound_fs') {
             if (GetLength(text) > 30) {
               result.push(text);
               text = allDoc[i];
             } else {
               text += allDoc[i];
             }
-          } else {
+          } 
+          else {
+            // console.log("111111111",text,GetLength(text))
             if (GetLength(text) > 23) {
+            // console.log("2222222222")
               result.push(text);
               text = allDoc[i];
             } else {
+            // console.log("3333333333")
               text += allDoc[i];
             }
           }
         }
        }
       }
-
+      
+      console.log("GetLength",result)
       if (text) {
         result.push(text);
       }
@@ -1699,16 +1759,61 @@ export default {
       for (let i = 0; i < this.record.length; i++) {
         this.record[i].find((item) => item.key == "description").value = "";
       }
+      if(this.HOSPITAL_ID=="beihairenyi" && this.fixedList.hasOwnProperty('food')){
+        for (let j = 0; j < this.record.length; j++) {
+          this.record[j].find((item) => item.key == "food").value = "";
+        }
+      }
+
+      if(this.HOSPITAL_ID=="beihairenyi" &&  this.fixedList.hasOwnProperty('food')){
+        for (let i = 0; i < foodResult.length; i++) {
+          if (i == 0) {
+            // 合并数据
+            console.log("mergeTr",this.record[0], this.staticObj, this.fixedList)
+            console.log("mergeTr2",mergeTr(this.record[0], this.staticObj, this.fixedList))
+            mergeTr(this.record[0], this.staticObj, this.fixedList);
+          }
+          if (this.record[i]) {
+            this.record[i].find((item) => item.key == "food").value =
+              foodResult[i];
+            process.env.splitSave && (this.record[i].isChange = true)
+            console.log("")
+         } else {
+            let currRow = JSON.parse(JSON.stringify(this.record[0]));
+            let nullRowArr = nullRow();
+  
+            nullRowArr.find((item) => item.key == "recordSource").value =
+              currRow.find((item) => item.key == "recordSource").value;
+            nullRowArr.find((item) => item.key == "recordDate").value =
+              currRow.find((item) => item.key == "recordDate").value;
+  
+            sheetModel[this.lastZ].bodyModel.splice(
+              this.lastY + 1,
+              0,
+              nullRowArr
+            );
+            this.lastY++;
+            sheetModel[this.lastZ].bodyModel[this.lastY].find(
+              (item) => item.key == "food"
+            ).value = foodResult[i];
+            process.env.splitSave && (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true)
+          }
+        }
+
+      }
+      console.log("this.recorddddddddd",this.record,foodResult)
       for (let i = 0; i < result.length; i++) {
         if (i == 0) {
           // 合并数据
+          console.log("mergeTr",this.record[0], this.staticObj, this.fixedList)
+          console.log("mergeTr2",mergeTr(this.record[0], this.staticObj, this.fixedList))
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
         if (this.record[i]) {
           this.record[i].find((item) => item.key == "description").value =
             result[i];
           process.env.splitSave && (this.record[i].isChange = true)
-        } else {
+       } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
           let nullRowArr = nullRow();
 
@@ -1729,15 +1834,18 @@ export default {
           process.env.splitSave && (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true)
         }
       }
+
       if (
         (this.HOSPITAL_ID === "huadu" &&
           sheetInfo.sheetType !== "body_temperature_Hd") ||
         this.HOSPITAL_ID === "zhongshanqi"||this.HOSPITAL_ID === "beihairenyi"&&this.sheetInfo.sheetType!=='infant_bh'
       ) {
+        console.log("123123123",this.isLast)
         this.isSyncTemp
           ? this.sycnTempChange()
           : this.bus.$emit("saveSheetPage", this.isLast);
       } else {
+        console.log("456456")
         this.bus.$emit("saveSheetPage", this.isLast);
       }
       setTimeout(()=>{
@@ -1774,7 +1882,7 @@ export default {
     handleInputBlur(e) {
       this.blurIndex = e.srcElement.selectionStart;
     },
-    /**打开护理诊断同步 */
+      /**打开护理诊断同步 */
     openDiagnosisModal() {
       this.$refs.diagnosisModalRef.open()
     },
@@ -1828,7 +1936,7 @@ export default {
         list: this.post('ayncVisitedData')
       }
       this.bus.$emit("saveSheetPage",true,ayncVisitedData);
-    });
+    }); 
     // 佛山市一检查报告和检验报告同步
     this.bus.$on("syncReportFSSY",(str)=>{
       if(this.doc){
@@ -1862,6 +1970,7 @@ export default {
     templateSlide,
     quillEditor,
     DiagnosisModal,
+
   },
 };
 </script>

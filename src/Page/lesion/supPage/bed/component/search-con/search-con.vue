@@ -119,6 +119,7 @@
         :isTommorowDischarge="isTommorowDischarge"
         :isTommorowOperation="isTommorowOperation"
         :dangerInMorse="dangerInMorse"
+        :dangerInVteLy="dangerInVteLy"
         :dangerInYachuang="dangerInYachuang"
         :isToadyHosipital="isToadyHosipital"
         :hasYachuang="hasYachuang"
@@ -437,6 +438,10 @@ export default {
          list = this.bedList.filter((item) => item.dangerInMorse);
       }
       return list;
+    },
+    // VTE高分险
+    dangerInVteLy() {
+      return this.bedList.filter((item) => item.dangerInVteLy);
     },
     // 压疮高分险
     dangerInYachuang() {
@@ -938,6 +943,11 @@ export default {
         case "跌倒风险":
           {
             this.$parent.bedList = this.dangerInMorse;
+          }
+          break;
+        case "VTE高风险":
+          {
+            this.$parent.bedList = this.dangerInVteLy;
           }
           break;
         case "压疮高风险":

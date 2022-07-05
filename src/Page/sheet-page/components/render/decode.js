@@ -89,7 +89,8 @@ function decode(ayncVisitedData) {
     process.env.HOSPITAL_ID == "shannan" ||
     process.env.HOSPITAL_ID == "guizhou" ||
     process.env.HOSPITAL_ID == "fsxt" ||
-    process.env.HOSPITAL_ID == "xiegang"
+    process.env.HOSPITAL_ID == "xiegang" ||
+    process.env.HOSPITAL_ID == "lyxrm"
   ) {
     auditorMapData.auditorMap = sheetInfo.auditorMap;
   }

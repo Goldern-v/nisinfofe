@@ -753,6 +753,27 @@ export default function Title(
     );
   }
   break;
+  case "internal_eval_linyi": {
+    // 临邑人医 - 一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_eval_linyi/th.js").default)
+    );
+  }
+  break;
+  case "critical_linyi": {
+    // 临邑人医 - 病重（病危）患者护理记录单（带瞳孔）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_linyi/th").default)
+    );
+  }
+  break;
+  case "baby_lcey": {
+    // 聊城二院 - 新生儿监护记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_lcey/th").default)
+    );
+  }
+  break;
   case "common_zsqy": {
     // 中山七院-护理记录单
     Th = JSON.parse(

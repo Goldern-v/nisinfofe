@@ -704,7 +704,6 @@ export default {
     return {
       isSelectedPatient: "",
       patientList: [],
-      heightTemperature: [],
       isSelectedNurs: "",
       handleKeyCode: [37, 38, 39, 40, 13],
       colClass: "",
@@ -783,8 +782,7 @@ export default {
     },
     tableData: {
       get() {
-        return this.admitted !== "三天超37.5"
-          ? this.patientsInfoData.filter((item) => {
+         return this.patientsInfoData.filter((item) => {
               return this.admitted === "所有患者"
                 ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
@@ -795,20 +793,17 @@ export default {
                     item.patientId &&
                     item.patientCondition === "病危") ||
                   item.patientCondition === "病重"
+                :this.admitted === "三天超37.5"
+                ?(item.bedLabel.indexOf(this.searchWord) > -1 ||
+                    item.name.indexOf(this.searchWord) > -1) &&
+                    item.temperatureFlag==1
                 : (item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
                   item.patientId &&
                   moment(item.admissionDate.slice(0, 10)).isAfter(
                     moment().subtract(4, "days").format("YYYY-MM-DD")
-                  );
+                  )
             })
-          : this.heightTemperature.filter((item) => {
-              return (
-                (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                  item.name.indexOf(this.searchWord) > -1) &&
-                item.patientId
-              );
-            });
       },
       set(value) {
         // this.tableData = value;
@@ -839,11 +834,7 @@ export default {
       this.pageLoadng = true;
       await getPatientsInfo(data).then((res) => {
         this.patientsInfoData = res.data.data;
-      });
-      data.abnormalTemperature = 1;
-      getPatientsInfo(data).then((res) => {
-        this.heightTemperature = res.data.data;
-        this.pageLoadng = false;
+         this.pageLoadng = false;
       });
     },
 

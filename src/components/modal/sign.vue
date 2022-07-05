@@ -238,7 +238,7 @@ export default {
       isCaSign:false,
       signType:0,
       isDoctor:false,
-      aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey'],
+      aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi'],
       activeSheetType:"",
       // hasQrCaSignHos:['fuyou','hj'],
       hasQrCaSignHos:['fuyou','hj','guizhou'],
@@ -353,7 +353,7 @@ export default {
       this.$refs.modalName.close();
     },
     setCloseCallback(closeCallback) {
-      console.log("----setCloseCallback");
+      console.log("Sign----setCloseCallback");
       this.$refs.modalName.setCloseCallback(closeCallback);
     },
     post() {
@@ -401,11 +401,12 @@ export default {
         }
       } else {
         if (this.password == "") {
-          return this.$message({
+           this.$message({
             message: "请输入密码",
             type: "warning",
             showClose: true
           });
+          return this.btnLoading = false
         }
         this.$refs.modalName.close();
         console.log(this.aduitDate,'-------------------------------------');

@@ -323,6 +323,7 @@ export default {
       return resultModel;
     },
     sheetTable() {
+      console.log("sheetInfo.sheetType",sheetInfo.sheetType)
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
       } else if (sheetInfo.sheetType == "post_partum") {
@@ -742,6 +743,8 @@ export default {
       });
     });
     this.bus.$on("saveSheetPage", (isInitSheetPageSize = true,ayncVisitedData) => {
+      console.log("tiaozhelile ",ayncVisitedData,decode(ayncVisitedData)) 
+
       let save = () => {
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;

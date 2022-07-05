@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1250px"
+    width: "1300px"
   },
   th: {
     top: [
@@ -144,7 +144,7 @@ export default {
       },
       {
         name: `
-        医师签名
+        护士签名
         `,
         colspan: '1',
         rowspan: '3'

@@ -8,8 +8,8 @@ export default {
     top: [{
         name: '日期',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '3'
@@ -17,8 +17,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '3'
@@ -30,8 +30,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: "58px",
-          maxWidth: "58px"
+          minWidth: "52px",
+          maxWidth: "52px"
         },
       },
       {
@@ -136,7 +136,13 @@ export default {
         name: `
         签名
         `,
-        style: {},
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        护士签名
+        `,
         colspan: '1',
         rowspan: '3'
       }
