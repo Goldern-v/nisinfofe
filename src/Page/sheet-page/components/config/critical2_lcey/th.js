@@ -136,7 +136,6 @@ export default {
         name: `
         签名
         `,
-        style: {},
         colspan: '1',
         rowspan: '3'
       },
