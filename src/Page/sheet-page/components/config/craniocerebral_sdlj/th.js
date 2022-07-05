@@ -40,8 +40,9 @@ export default {
                 {"name":"疼<br/>痛","colspan":"1","rowspan":"3"},
                 {"name":"留<br/>置<br/>尿<br/>管","colspan":"1","rowspan":"3"},
                 {"name":"尿<br/>色","colspan":"1","rowspan":"3"},
-                {"name":"抬<br/>高<br/>床<br/>头<br/>15<br/>度","colspan":"1","rowspan":"3"},
-                {"name":"","colspan":"1","rowspan":"3", canSet: true, key: "armValue","style":{"minWidth":"35px","maxWidth":"35px"}},
+                // {"name":"抬<br/>高<br/>床<br/>头<br/>15<br/>度","colspan":"1","rowspan":"3"},
+                {"name":"","colspan":"1","rowspan":"3", canSet: true, key: "armValue1","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"","colspan":"1","rowspan":"3", canSet: true, key: "armValue2","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}},
                 {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}

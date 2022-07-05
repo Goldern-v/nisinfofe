@@ -46,6 +46,7 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
+          class="djw"
           :class="{ canSet: item.canSet}"
           @click="item.canSet && setTitle(item)"
         >
@@ -75,8 +76,9 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
+          class="djw2"
           :class="{ canSet: item.canSet }"
-          @click="item.canSet && setTitle(item)"
+          @click="item.canSet && setTitle(item,data.titleModel)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
           <span v-else v-html="item.name"></span>
@@ -883,6 +885,7 @@ export default {
       leftTopBottomRight(e, bind);
     },
     onFocus(e, bind) {
+      console.log("11111",bind)
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
         setTimeout(() => {
@@ -942,7 +945,8 @@ export default {
         }
       }
     },
-    setTitle(item) {
+    setTitle(item,item2) {
+      console.log("item,setTitle",item,item2)
       if (['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) {
         this.setTitleFS(item)
         return
@@ -1813,7 +1817,7 @@ export default {
           tab = "3";
         }
       }
-
+      console.log("data.titleModel",data.titleModel)
       let thead = data.titleModel;
       let table = data.bodyModel;
       // 数组重组
@@ -2056,6 +2060,7 @@ export default {
           JSON.stringify(this.defaultOptionList)
         );
       }
+      console.log("this.accessOptionList",this.accessOptionList)
       if (this.currentKey) {
         this.accessOptionData[this.currentKey] = [...this.accessOptionList];
       }else{
@@ -2099,6 +2104,7 @@ export default {
       this.accessOptionList = JSON.parse(
         JSON.stringify(this.defaultOptionList)
       );
+      console.log("this.accessOptionList",this.accessOptionList)
       this.accessOptionData[td.name] = [...this.accessOptionList];
     },
   },

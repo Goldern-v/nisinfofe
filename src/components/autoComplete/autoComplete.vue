@@ -98,6 +98,7 @@
 </style>
 
 <script>
+import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo/index.js'
 export default {
   data() {
     return {
@@ -157,8 +158,14 @@ export default {
           this.data = [...arr];
         }
       }else {
-      this.data = config.data || [];
-      console.log("dadada",this.data)
+        if(process.env.HOSPITAL_ID == 'sdlj'){
+          if(sheetInfo.sheetType == "craniocerebral_sdlj"){
+            if(["consciousness",'reflectionLeft','reflectionRight'].includes(config.td.key)){
+            this.data = config.data.data || [];
+      }
+    } 
+  }else this.data = config.data || [];
+      console.log("dadada",this.data,config)
      }
 
       if (this.data && this.data.length >= 1) {
