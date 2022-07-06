@@ -31,7 +31,7 @@
 <script>
 import searchCon from "./components/search-con.vue";
 import commonMixin from '@/common/mixin/common.mixin.js';
-import { FLOW_STATUS, FLOW_TYPE, searchItem, searchKeyByCode } from "./enums";
+import { EXTRA_FLOW_STATUS, FLOW_STATUS, FLOW_TYPE, searchItem, searchKeyByCode } from "./enums";
 import { patientFlowList } from '@/api/patient-flow.js'
 
 export default {
@@ -125,7 +125,7 @@ export default {
 					title: '流转状态',
 					minWidth: 110,
 					render: (h, { row }) => {
-						const item = searchItem(FLOW_STATUS, row.transferStatus, 'key')
+						const item = searchItem([...FLOW_STATUS, ...EXTRA_FLOW_STATUS], row.transferStatus, 'key')
 						if (item) {
 							return (
 								<span style={{color: item.color}}>{item.label}</span>
