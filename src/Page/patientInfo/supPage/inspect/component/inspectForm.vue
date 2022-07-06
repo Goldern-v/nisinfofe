@@ -2,12 +2,13 @@
   <div>
     <div
       class="exam-list"
-      v-if="HOSPITAL_ID == 'guizhou' && examList.length"
+      v-if="HOSPITAL_ID == 'guizhou'"
+      v-show="dataGz.reportUrl"
       :style="{ height: height }"
     >
-      <div class="page" v-for="item in examList" :key="item.expand1">
+      <div class="page">
         <iframe
-          :src="'http://192.168.8.68:8080/report/pdf' + item.expand1"
+          :src="'http://192.168.8.68:8080/report/pdf' + dataGz.reportUrl"
           frameborder="0"
         ></iframe>
       </div>
@@ -127,7 +128,7 @@
       </el-row>
     </div>
     <div
-      v-if="!data1 && data.examNo == ''"
+      v-if="(!data1 && data.examNo == '') || (HOSPITAL_ID == 'guizhou' && !dataGz.reportUrl)"
       class="form"
       :style="{ height: height }"
     >
@@ -234,7 +235,8 @@ export default {
       loading: true,
       showImg: false,
       picNum: 0,
-      examList: [],
+      // 贵州数据
+      dataGz: {},
     };
   },
   computed: {
@@ -270,6 +272,7 @@ export default {
       // this.$refs.imgModal.open(examNo, name)
     },
     open(data) {
+      console.log('test-data', data)
       if (data) {
         this.data = data;
         this.data.name = this.$route.query.name || this.$store.state.sheet.patientInfo.name
@@ -278,16 +281,18 @@ export default {
         this.showImg = false;
         if (this.HOSPITAL_ID == "guizhou") {
           this.data1 = null;
-          getExamTestUrl(
-            this.$route.query.patientId,
-            this.$route.query.visitId,
-            this.data.examNo
-          ).then((res) => {
-            this.examList = res.data.data;
-            this.loading = false;
-          }).catch(e => {
-            this.loading = false;
-          });
+          this.data == null
+          this.dataGz = data
+          // getExamTestUrl(
+          //   this.$route.query.patientId,
+          //   this.$route.query.visitId,
+          //   this.data.examNo
+          // ).then((res) => {
+          //   this.examList = res.data.data;
+          //   this.loading = false;
+          // }).catch(e => {
+          //   this.loading = false;
+          // });
           return;
         }
         // console.log(this.data.examNo);
@@ -308,6 +313,7 @@ export default {
         }
       } else {
         this.data1 = false;
+        this.dataGz = {}
         this.loading = false;
       }
     },

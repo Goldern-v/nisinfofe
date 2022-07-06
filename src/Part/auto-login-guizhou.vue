@@ -28,23 +28,24 @@ export default {
   mounted() {
     let token = this.$route.query.token || this.$route.query.ticket;
     let v_url = this.$route.query.service;
-    let { appCode , appName , v_token } = this.$route.query
+    // let { appCode , appName , v_token } = this.$route.query
+    console.log('this.$route.query',this.$route.query);
     let params = {}
     //新加参数
-    // let appCode = "YDHLXT";
-    // let appName = "护理信息系统";
-    if(appCode && appName) {
+    let appCode = "YDHLXT";
+    let appName = "护理信息系统";
+    if(v_url) {
+      params = {
+        token: token,
+        v_url: v_url || '',
+      }
+    }else {
       params = {
         token: "",
         appCode: appCode,
         appName: appName,
-        v_token: v_token,
+        v_token: token,
         tradeCode: "nursing_ssoLogin_2"
-      }
-    }else {
-      params = {
-        token: token,
-        v_url: v_url || '',
       }
     }
     autoLogin(params).then((res) => {
