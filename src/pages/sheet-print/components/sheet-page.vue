@@ -74,6 +74,7 @@ export default {
         "safemetachysis_jm",//江门妇幼_输血护理记录单
         "internal_eval_lcey",//聊城_一般患者护理记录单
         "critical_new_lcey",//聊城_病重（危）患者护理记录单(带瞳孔）
+        "critical2_lcey",//聊城_病重（危）患者护理记录单
         "critical_lcey",//聊城_病重（病危）患者护理记录单（带瞳孔）
       ],
       bus: bus(this),

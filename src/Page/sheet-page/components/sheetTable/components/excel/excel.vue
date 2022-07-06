@@ -277,6 +277,7 @@
                   sheetInfo.sheetType === 'obstetricnursing_jm' ||
                   sheetInfo.sheetType === 'internal_eval_lcey' ||
                   sheetInfo.sheetType === 'critical_new_lcey'||
+                  sheetInfo.sheetType === 'critical2_lcey'||
                   sheetInfo.sheetType === 'critical_lcey')&&
                 tr.find((item) => item.key == 'signerNo2').value
               "
@@ -734,6 +735,7 @@ export default {
         "cardiology_fs", //佛山市一_心内科通用护理记录单
         "internal_eval_lcey",//聊城_一般患者护理记录单
         "critical_new_lcey",//聊城_病重（危）患者护理记录单(带瞳孔）
+        "critical2_lcey",//聊城_病重（危）患者护理记录单
         "critical_lcey",//聊城_病重（病危）患者护理记录单（带瞳孔）
       ],
       // 底部两个签名的其中一个自定义字段
