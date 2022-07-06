@@ -829,15 +829,15 @@ const router = new Router({
         },
         {
           path: "/test",
-          component: test
-          // component: (() => {
-          //   switch (process.env.HOSPITAL_ID) {
-          //     case 'guizhou':
-          //       return testGuizhou
-          //     default:
-          //       return text
-          //   }
-          // })()
+          // component: test
+          component: (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'guizhou':
+                return testGuizhou
+              default:
+                return test
+            }
+          })()
         },
         {
           path: "/record",

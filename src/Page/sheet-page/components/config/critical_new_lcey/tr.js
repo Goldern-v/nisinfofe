@@ -286,6 +286,6 @@ export default [{
   {
     hidden: true,
     key: "multiSign",
-    value: false
+    value: true
   }
 ];

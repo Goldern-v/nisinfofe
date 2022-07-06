@@ -26,7 +26,7 @@
 
   .item-con {
     height: 100%;
-    max-width: 130px;
+    max-width: 138px;
     font-size: 12px;
     color: #333333;
     display: flex;
@@ -84,11 +84,11 @@ export default {
           length: this.dangerInMorse.length
         },
         {
-          key: this.HOSPITAL_ID=="whfk"?"压疮风险":"压疮高风险",
+          key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" ? "压力性损伤高风险" : "压疮高风险",
           length: this.dangerInYachuang.length
         },
         {
-          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮":"已有压疮",
+          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" ?"已有压力性损伤": "已有压疮",
           length: this.hasYachuang.length
         },
         {
@@ -178,6 +178,7 @@ export default {
   },
   methods: {
     selectType(item) {
+      console.log(item);
       if (item.key == this.selectedType) {
         this.$parent.selectName = "";
       } else {
