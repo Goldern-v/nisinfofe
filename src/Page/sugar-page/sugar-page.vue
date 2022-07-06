@@ -135,7 +135,7 @@ export default {
         东莞市厚街医院: "bloodSugar",
         北海市人民医院:'bloodSugarBhry',
         南方医科大学顺德医院附属杏坛医院:'bloodSugarFsxt',
-        // 佛山市第一人民医院:'bloodSugarFoShanRenYi',
+        佛山市第一人民医院:'bloodSugarFoShanRenYi',
         // 佛山市顺德区龙江医院: 'bloodSugarSdlj'
       };
       return hisList[HisName] || "bloodSugar";

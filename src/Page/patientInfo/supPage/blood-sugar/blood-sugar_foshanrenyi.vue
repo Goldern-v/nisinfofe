@@ -343,7 +343,7 @@ export default {
         oldRecordDate: "",
         nurseEmpNo: user.empNo,
         nurse: user.empNo,
-        expand1: "",
+        expand1: this.selected.expand1,
         expand2: 1,
         wardCode: this.patientInfo.wardCode,
         time: this.selected.time,
@@ -481,6 +481,9 @@ export default {
       this.selected = null;
     },
     async onSave(item) {
+      if (!item.sugarValue) {
+        return this.$message.error('请填写血糖值再保存')
+      }
       item.recordDate =
         moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
       item.patientId = this.patientInfo.patientId;

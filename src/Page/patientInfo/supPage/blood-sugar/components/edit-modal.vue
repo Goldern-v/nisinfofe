@@ -139,7 +139,8 @@
           HOSPITAL_ID != 'hengli' &&
           HOSPITAL_ID != 'guizhou'&&
           HOSPITAL_ID != 'sdlj'&&
-          HOSPITAL_ID != 'whfk'
+          HOSPITAL_ID != 'whfk'&&
+          HOSPITAL_ID != 'foshanrenyi'
         "
       >
         <ElInput v-model="form.riValue" />
@@ -159,6 +160,10 @@
       </ElFormItem>
       <ElFormItem label="血酮值：" required v-if="HOSPITAL_ID == 'liaocheng'">
         <ElInput v-model="form.riValue" />
+        <span class="unit">(mmol/L)</span>
+      </ElFormItem>
+      <ElFormItem label="尿酮值：" required v-if="HOSPITAL_ID == 'foshanrenyi'">
+        <ElInput v-model="form.expand1" />
         <span class="unit">(mmol/L)</span>
       </ElFormItem>
       <ElFormItem
@@ -375,12 +380,15 @@ export default {
         this.oldRecordDate = "";
       }
       // if (this.HOSPITAL_ID == "beihairenyi"||this.HOSPITAL_ID == "liaocheng") {
-      if (["beihairenyi","liaocheng","guizhou"].includes(this.HOSPITAL_ID)) {
+      if (["beihairenyi","liaocheng","guizhou", 'foshanrenyi'].includes(this.HOSPITAL_ID)) {
         this.form.sugarValue = this.form.sugarValue || '';
         this.form.riValue = this.form.riValue || '';
       }
       if (this.HOSPITAL_ID == 'fsxt') {
         this.form.expand1 = this.form.expand1 || 0
+      }
+      if (this.HOSPITAL_ID == 'foshanrenyi') {
+        this.form.expand1 = form.expand1 || ''
       }
     },
     close() {
