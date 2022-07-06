@@ -28,7 +28,6 @@ class WebSocketService {
   }
 
   connection() {
-    console.log('test-1', 1)
     // 向服务器发起websocket连接
     this.stompClient.connect(
       this.headers,
@@ -40,7 +39,6 @@ class WebSocketService {
       },
       err => {
         console.log('test-err', err)
-        console.log('test-this', this)
         if (this.reconnectNo < 4) {
           this.reconnectNo += 1
           console.log('test-this.reconnectNo', this.reconnectNo)

@@ -3,8 +3,8 @@
     <div class="content">
       <div class="left-part">
         <el-row class="header inspect-header" type="flex" align="middle">
-          <span class="title">检查列表</span>
-          <el-select v-model="value" placeholder="请选择" class="select">
+          <span class="title" v-if="!isGuizhou">检查列表</span>
+          <el-select v-model="value" v-if="!isGuizhou" placeholder="请选择" class="select">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -34,17 +34,17 @@
             @click="toRight(item)"
             :class="{ active: item.examNo == rightData.examNo }"
           >
-            <div class="title">{{ item.examItem }}</div>
-            <div class="aside">{{ item.reqDate }}</div>
+            <div class="title">{{ item.examItem || item.reportName }}</div>
+            <div class="aside">{{ item.reqDate || item.publishDate }}</div>
             <div class="result">
               <span
-                v-if="item.resultStatus.indexOf('申请') == -1"
+                v-if="!isGuizhou && item.resultStatus.indexOf('申请') == -1"
                 style="color: green"
               >
                 {{ item.resultStatus }}
                 <!-- <img src="../../../../common/images/info/完成@2x.png" alt> -->
               </span>
-              <span v-if="item.resultStatus.indexOf('申请') > -1">{{
+              <span v-if="!isGuizhou && item.resultStatus.indexOf('申请') > -1">{{
                 item.resultStatus
               }}</span>
             </div>
@@ -57,7 +57,7 @@
       </div>
       <div class="right-part">
         <inspectFormFuyou v-show="rightData.examNo" ref="inspectForm" v-if="HOSPITAL_ID=='fuyou'"></inspectFormFuyou>
-        <inspectForm v-show="rightData.examNo" ref="inspectForm" v-else></inspectForm>
+        <inspectForm  ref="inspectForm" v-else></inspectForm>
       </div>
     </div>
   </div>
@@ -208,6 +208,7 @@ export default {
     },
     listByFilter() {
       console.log(this.list);
+      if (this.isGuizhou) return this.list
       return this.list.filter((item) => {
         if (this.value == "全部") return true;
         return item.examClass == this.value;
@@ -219,6 +220,9 @@ export default {
     height() {
       return `${this.wih - 255}px`;
     },
+    isGuizhou() {
+      return ['guizhou'].includes(process.env.HOSPITAL_ID)
+    }
   },
   created() {
     if (this.infoData.visitId > 20) {
@@ -252,16 +256,16 @@ export default {
       // }
     },
     getData() {
-      // if (['guizhou'].includes(process.env.HOSPITAL_ID)) {
-      //   getExamList(
-      //     this.infoData.patientId,
-      //     this.visitId == "门诊" ? 0 : this.visitId
-      //   ).then(res => {
-      //     this.list = res.data.data;
-      //     // this.toRight(this.list[0]);
-      //   })
-      //   return
-      // }
+      if (this.isGuizhou) {
+        getExamList(
+          this.infoData.patientId,
+          this.visitId == "门诊" ? 0 : this.visitId
+        ).then(res => {
+          this.list = res.data.data;
+          this.toRight(this.list[0]);
+        })
+        return
+      }
       examList(
         this.infoData.patientId,
         this.visitId == "门诊" ? 0 : this.visitId
