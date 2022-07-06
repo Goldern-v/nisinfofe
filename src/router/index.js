@@ -186,8 +186,6 @@ const implementationListWhfk = () =>
   import("@/Page/implementation-list/implementation-list-whfk.vue"); //肺科执行单
 const implementationListLyxrm= ()=>
 import("@/Page/implementation-list/implementation-list-lyxrm.vue")//临邑执行单
-const implementationListYtll= ()=>
-import("@/Page/implementation-list/implementation-list-ytll.vue")//玲珑英诚医院行单
 const implementationListFSSY = () =>
   import("@/Page/implementation-list/implementation-list-FSSY.vue"); //武警执行单
 const implementationListFsxt = ()=>
@@ -971,8 +969,8 @@ const router = new Router({
                 return bloodSugarBeiHaiRenYi
               case 'fsxt':
                 return bloodSugarFsxt
-              // case 'foshanrenyi':
-              //   return bloodSugarFoShanRenYi
+              case 'foshanrenyi':
+                return bloodSugarFoShanRenYi
               default:
                 return bloodSugar
             }
@@ -1072,10 +1070,8 @@ const router = new Router({
               return implementationListShannan
             case 'zhongshanqi':
               return implementationListZhongshanqi
-            case 'lyxrm':
+            case 'lyxrm' || 'ytll':
               return implementationListLyxrm
-            case 'ytll':
-              return implementationListYtll
             case 'wujing':
             case 'sdlj' || 'gdtj':
               return implementationListWujing

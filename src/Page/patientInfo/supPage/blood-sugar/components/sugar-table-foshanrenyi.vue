@@ -19,14 +19,16 @@
         <td>
           {{index + baseIndex + 1}}
         </td>
-        <td style="padding: 0 4px">
-          <div flex="main:justify" style="white-space: nowrap;justify-content: center">
-            <span>
-              <span>{{ item.date }}</span>
-            </span>
+        <td style="padding: 0 4px" @click="setDate(item, index)">
+          <div class="cell noPrint">
+            <!-- <span>{{ item.date }}</span> -->
+            <input type="text" v-model="item.date" :class="{ selected: selected === item }" />
             <!-- <span>
               <span>{{ item.time }}</span>
             </span> -->
+          </div>
+          <div class="cell inPrint" :title="item.date">
+            {{ item.date }}
           </div>
         </td>
         <td>
@@ -61,10 +63,10 @@
         <td>
           <div class="cell noPrint">
             <!-- {{ item.riValue && item.riValue !== "0" ? item.riValue + " ü" : "" }} -->
-            <input :class="{ selected: selected === item }" v-model="item.riValue"/>
+            <input :class="{ selected: selected === item }" v-model="item.expand1"/>
           </div>
           <div class="cell inPrint">
-            {{ item.riValue && item.riValue !== "0" ? item.riValue + " ü" : "" }}
+            {{ item.expand1 && item.expand1 !== "0" ? item.expand1 : "" }}
           </div>
         </td>
         <td>
@@ -189,6 +191,7 @@
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
+import moment from 'moment'
 export default {
   props: {
     data: Array,
@@ -206,18 +209,18 @@ export default {
     renderData() {
       if (!this.data) return;
       let renderData = [];
-      let firstDate = "";
+      // let firstDate = "";
       for (let i = 0; i < this.data.length; i++) {
         this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
         let obj = this.data[i];
         let date = this.data[i].md.split(" ")[0];
         let time = this.data[i].md.split(" ")[1];
-        if (firstDate != date) {
+        // if (firstDate != date) {
           obj.date = date;
-        } else {
-          obj.date = "";
-        }
-        firstDate = date;
+        // } else {
+        //   obj.date = "";
+        // }
+        // firstDate = date;
         obj.time = time;
         renderData.push(obj);
       }
@@ -226,6 +229,9 @@ export default {
       }
       // console.log(renderData);
       return renderData;
+    },
+    patientInfo() {
+      return this.$route.query;
     },
   },
   filters: {
@@ -245,6 +251,19 @@ export default {
     },
     openSignModal() {
 
+    },
+    setDate(item, index) {
+      if(!item.date && !item.time) {
+        if(item.expand2 === undefined) {
+          const fullTime = moment().format("YYYY-MM-DD HH:mm:ss")
+          const date = moment().format("YYYY-MM-DD")
+          const time = moment().format("HH:mm")
+          item.date = date
+          item.time = time
+          item.recordDate = fullTime
+        } else {
+        }
+      }
     }
   },
   components: {},
