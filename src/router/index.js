@@ -837,7 +837,7 @@ const router = new Router({
               case 'guizhou':
                 return testGuizhou
               default:
-                return text
+                return test
             }
           })()
         },
