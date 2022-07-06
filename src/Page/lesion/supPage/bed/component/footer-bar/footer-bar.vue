@@ -26,7 +26,7 @@
 
   .item-con {
     height: 100%;
-    max-width: 130px;
+    max-width: 138px;
     font-size: 12px;
     color: #333333;
     display: flex;
@@ -60,6 +60,7 @@ export default {
     isTommorowDischarge: Array,
     isTommorowOperation: Array,
     dangerInMorse: Array,
+    dangerInVteLy: Array,
     dangerInYachuang: Array,
     hasYachuang: Array,
     isToadyHosipital: Array,
@@ -83,11 +84,11 @@ export default {
           length: this.dangerInMorse.length
         },
         {
-          key: this.HOSPITAL_ID=="whfk"?"压疮风险":"压疮高风险",
+          key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" ? "压力性损伤高风险" : "压疮高风险",
           length: this.dangerInYachuang.length
         },
         {
-          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮":"已有压疮",
+          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" ?"已有压力性损伤": "已有压疮",
           length: this.hasYachuang.length
         },
         {
@@ -135,13 +136,14 @@ export default {
           length: this.hasVteDanger.length
         });
       }
-      // if(this.HOSPITAL_ID == "huadu"){
-      //   console.log("多重耐药患者:",this.isMultiDrugResistant);
-      //    arr.push({
-      //     key: "多重耐药患者",
-      //     length: this.isMultiDrugResistant.length
-      //   });
-      // }
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        arr.splice(1,0,
+          {
+          key: "VTE高风险",
+          length: this.dangerInVteLy.length
+          }
+        );
+      }
       if(this.HOSPITAL_ID == "whfk"){
         arr = arr.filter((item)=> {
           return (item.key !='MEWS预警'&& item.key != "预出院"&& item.key != "已有压疮")
@@ -176,6 +178,7 @@ export default {
   },
   methods: {
     selectType(item) {
+      console.log(item);
       if (item.key == this.selectedType) {
         this.$parent.selectName = "";
       } else {

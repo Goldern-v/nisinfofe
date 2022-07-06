@@ -111,7 +111,7 @@
         <el-table-column
           header-align="center"
           align="center"
-          label="住院号"
+          label="病人ID"
           prop="inpNo"
           min-width="160px"
         ></el-table-column>

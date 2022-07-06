@@ -109,7 +109,7 @@ export default {
     },
     {
       name: `
-        吸氧<br/>(L/min)
+        低流量<br/>吸氧
         `,
       style: {},
       colspan: '1',

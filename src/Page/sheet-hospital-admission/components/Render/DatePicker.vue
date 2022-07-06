@@ -14,6 +14,7 @@
       <el-date-picker
       :ref="obj.name"
       :name="obj.name"
+      :disabled="!!obj.readOnly || isDisabled(obj)"
       v-model="datePickerValue"
       :label="obj.title"
       :class="obj.class"
@@ -29,6 +30,7 @@
     <el-date-picker
       :ref="obj.name"
       :name="obj.name"
+      :disabled="!!obj.readOnly || isDisabled(obj)"
       v-model="datePickerValue"
       :label="obj.title"
       :class="obj.class"
@@ -76,7 +78,7 @@ export default {
   watch: {
     datePickerValue(valueNew, oldvaule) {
       console.log("datePickerValue:", valueNew, oldvaule);
-      
+
       // let value = valueNew.toString();
       // let index = -1;
       // if (!this.formObj.model[this.obj.name]) {
@@ -185,6 +187,49 @@ export default {
     getUUID(child = null) {
       let uuid_ = uuid.v1();
       return uuid_;
+    },
+    /**通过配置
+     * isDisabledRules:
+     * [{
+     *   type: 'equal'||'notequal',
+     *   reqCode:'',
+     *   valList: [],
+     *   whiteList: []
+     * }]
+     * 动态修改属性disabled*/
+    isDisabled(obj) {
+      if(obj.isDisabledRules) {
+        if(obj.isDisabledRules.some(rule => {
+          //当 绑定值(this.formObj.model[rule.key]) 在valList内 [valist.includes(this.formObj.model[rule.key])]时禁用
+          if(rule.type === 'equal') {
+            //不存在值，默认不禁用
+            if(!this.formObj.model[rule.key]) return false
+            //有禁用白名单，优先先判断
+            if(rule.whiteList) {
+              if(rule.whiteList.some(val => {
+                return this.formObj.model[rule.key] && this.formobj.model[rule.key].includes(val)
+              })) return false
+            }
+            return rule.valList.some(val => { return this.formObj.model[rule.key].includes(val) })
+          }
+          //当 绑定值(this.formObj.model[rule.key])不在valList内 [!valist.includes(this.formObj.model[rule.key])]时禁用
+          else if(rule.type === 'notEqual') {
+            //不存在值，默认禁用
+            if(!this.formObj.model[rule.key]) return true
+            //有’非‘禁用白名单，优先先判断
+            if(rule.whiteList) {
+              if(rule.whiteList.some(val => {
+                return this.formObj.model[rule.key] && this.formObj.model[rule.key].includes(val)
+              })){ return true }
+            }
+            return !rule.valList.some(val => { return this.formObj.model[rule.key].includes(val) })
+          }else {
+            console.warn(`isDisabledRules no Types! ${rule.key}`);
+          }
+        }))
+          return true;
+      }
+      return false;
     }
   }
 };

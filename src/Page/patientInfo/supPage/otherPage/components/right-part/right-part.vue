@@ -1,6 +1,6 @@
 <template>
   <div class="content" v-loading="pageLoading">
-    
+
     <null-bg v-if="show"></null-bg>
     <!-- <iframe id="iframeId" src="https://www.jianshu.com/p/b8d45314a495" frameborder="0" class="emr-pdf" :style="{height:height}"></iframe> -->
     <iframe
@@ -9,9 +9,18 @@
       frameborder="0"
       class="emr-pdf"
       :style="{height:height}"
-      v-if="!show"
+      v-if="!show & !needSandbox"
       @load="onload"
     ></iframe>
+    <iframe
+      ref="iframe"
+      :src="fileUrl"
+      frameborder="0"
+      class="emr-pdf"
+      :style="{height:height}"
+      v-if="!show & needSandbox"
+      sandbox="allow-scripts"
+      @load="onload" />
   </div>
 </template>
 
@@ -56,19 +65,27 @@ export default {
           break;
         case "fuyou":
           this.fileUrl = `http://192.168.19.198:8282/templates/medicalRecord/medicalRecordViewPreview.html?embedded-view=true&req_no=${currentPatient.patientId}&type=2`;
-          break; 
+          break;
         case "foshanrenyi":
           this.fileUrl = `http://hz360.fsyyy.com:8081/cdr/personal/?patientId=${currentPatient.patientId}&visitNumber=1&systemcode=HLXT&doctorcode=${JSON.parse(localStorage.user).empNo}&oporIp=IP`;
-          break; 
+          break;
         case "lyxrm":
         case "liaocheng":
           this.getUrl();
-          break; 
+          break;
         case "nanfangzhongxiyi":
           this.fileUrl = `http://10.158.220.54:8081/view/#/timeline?patientNo=${this.$route.query.inpNo}&visitTypeCode=03`;
           break;
+        case "guizhou":
+          let user = localStorage.getItem('user')
+          if (user) {
+            user = JSON.parse(user)
+          }
+          // 10.207.40.24:9091
+          this.fileUrl = `http://10.207.45.213:8015/cdr/personal/?medicalrecordno=${this.$route.query.inpNo}&systemcode=008&doctorcode=${user.empNo || this.$route.query.empNo}`;
+          break;
         default:
-          break; 
+          break;
       }
     }
   },
@@ -78,7 +95,11 @@ export default {
     },
     height() {
       return this.wih - 146 + "px";
-    }
+    },
+    // 需要添加sandbox
+    needSandbox() {
+      return ['guizhou'].includes(this.HOSPITAL_ID)
+    },
   },
   methods: {
     onload() {

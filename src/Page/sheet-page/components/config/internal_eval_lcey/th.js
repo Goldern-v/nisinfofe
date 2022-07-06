@@ -117,17 +117,17 @@ export default {
         colspan: '1',
         rowspan: '3'
       },
-      {
-        name: `
-        医师签名
-        `,
-        style: {
-          minWidth: '55px',
-          maxWidth: '55px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      }
+      // {
+      //   name: `
+      //   护士签名
+      //   `,
+      //   style: {
+      //     minWidth: '55px',
+      //     maxWidth: '55px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // }
     ],
     mid: [],
     bottom: []

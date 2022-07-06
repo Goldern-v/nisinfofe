@@ -1,5 +1,5 @@
 <template>
-    <div :style="{width:`${newModalSize.split('*')[1]=='8'?'8':'10'}cm`,height:`${newModalSize=='6*8' ? '5.9' : '5.7'}cm`}">
+    <div :style="{width:`${newModalSize.split('*')[1]=='8'?'8':'10'}cm`,height:`${newModalSize=='6*8' ? '5.9' : '5.8'}cm`}">
         <div v-if="newModalSize=='6*8'" class="new-print-modal" style="width:8cm,height:5.7cm">
             <div class="new-modal-top" :class="HOSPITAL_ID=='whfk' ? 'reverse' : ''">
                 <div class="new-modal-top-left">
@@ -55,7 +55,7 @@
                 </div> -->
             </div>
         </div>
-        <div v-else class="new-print-modal" style="height:6cm;width:10cm;display:flex">
+        <div v-else class="new-print-modal" style="height:5.8cm;width:10cm;display:flex">
             <div class="new-modal-small-left">
                 <div class="new-modal-small-left-first">
                     <div style="text-indent:5px">{{currentBottle.bedLabel}}</div>

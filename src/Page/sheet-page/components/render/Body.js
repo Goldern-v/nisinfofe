@@ -655,6 +655,26 @@ function switchSheetType(type) {
       schema = require("../config/labor_lcey/tr").default;
     }
       break;
+    case "internal_eval_linyi": {
+      // 临邑人医 - 一般患者护理评估记录单
+      schema = require("../config/internal_eval_linyi/tr.js").default;
+    }
+      break;
+    case "critical_linyi": {
+      // 临邑人医 - 病重（病危）患者护理记录单（带瞳孔）
+      schema = require("../config/critical_linyi/tr").default;
+    }
+      break;
+    case "critical_new_linyi": {
+      // 临邑人医 - 病重（病危）患者护理记录单（新）
+      schema = require("../config/critical_new_linyi/tr.js").default;
+    }
+      break;
+    case "baby_lcey": {
+      // 聊城二院 - 新生儿监护记录单
+      schema = require("../config/baby_lcey/tr").default;
+    }
+      break;
     case "body_temperature_wj": {
       // 武警总队 - 体温单
       schema = require("../config/body_temperature_wj/tr").default;

@@ -186,8 +186,6 @@ const implementationListWhfk = () =>
   import("@/Page/implementation-list/implementation-list-whfk.vue"); //肺科执行单
 const implementationListLyxrm= ()=>
 import("@/Page/implementation-list/implementation-list-lyxrm.vue")//临邑执行单
-const implementationListYtll= ()=>
-import("@/Page/implementation-list/implementation-list-ytll.vue")//玲珑英诚医院行单
 const implementationListFSSY = () =>
   import("@/Page/implementation-list/implementation-list-FSSY.vue"); //武警执行单
 const implementationListFsxt = ()=>
@@ -312,6 +310,7 @@ import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import oxygenSugar from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar.vue"; // 厚街
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; // 杏坛
+import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_foshanrenyi.vue"; // 佛医
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
@@ -830,15 +829,15 @@ const router = new Router({
         },
         {
           path: "/test",
-          component: test
-          // component: (() => {
-          //   switch (process.env.HOSPITAL_ID) {
-          //     case 'guizhou':
-          //       return testGuizhou
-          //     default:
-          //       return text
-          //   }
-          // })()
+          // component: test
+          component: (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'guizhou':
+                return testGuizhou
+              default:
+                return test
+            }
+          })()
         },
         {
           path: "/record",
@@ -970,6 +969,8 @@ const router = new Router({
                 return bloodSugarBeiHaiRenYi
               case 'fsxt':
                 return bloodSugarFsxt
+              case 'foshanrenyi':
+                return bloodSugarFoShanRenYi
               default:
                 return bloodSugar
             }
@@ -1069,10 +1070,8 @@ const router = new Router({
               return implementationListShannan
             case 'zhongshanqi':
               return implementationListZhongshanqi
-            case 'lyxrm':
+            case 'lyxrm' || 'ytll':
               return implementationListLyxrm
-            case 'ytll':
-              return implementationListYtll
             case 'wujing':
             case 'sdlj' || 'gdtj':
               return implementationListWujing

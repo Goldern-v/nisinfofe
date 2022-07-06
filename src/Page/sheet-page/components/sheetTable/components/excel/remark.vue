@@ -235,7 +235,7 @@
       </p>
     </div>
     <!-- 陵 城 病重（病危）患者护理记录单 -->
-    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'">
+    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'||sheetInfo.sheetType == 'critical_new_linyi'">
       <table>
         <colgroup>
           <col width="46px" />
@@ -255,7 +255,7 @@
           </tr>
         </tbody>
       </table>
-      <div style="padding-top: 10px;" v-if="sheetInfo.sheetType == 'critical_lc'">
+      <div style="padding-top: 10px;" v-if="sheetInfo.sheetType == 'critical_lc' || sheetInfo.sheetType == 'critical_new_linyi'">
         <p>注：瞳孔对光反应：灵敏（+）、迟钝（S）、消失（-）表示。</p>
       </div>
     </div>
@@ -534,11 +534,10 @@
     </div>
     <!-- 顺德龙江 - 护理记录单（骨科）-->
     <div v-if="sheetInfo.sheetType == 'orthopaedic_sdlj'">
-      书写说明：⑴体位：A=抬高；B=抬高制动；C=外展中立位；D=外展位；&nbsp;⑵颜色：A=红润；B=黑色；C=青紫色；D=暗红；E=苍白；F=花斑 G=粉红；&nbsp;⑶皮温：A=温暖；B=低于健侧；C=稍低于健侧；D=冰凉；E=高于健侧；<br/>
+      书写说明：⑴体位：A=抬高；B=抬高制动；C=外展中立位；D=外展位；&nbsp;⑵颜色：A=红润；B=黑色；C=瘀紫色；D=暗红；E=苍白；F=花斑 G=粉红；&nbsp;⑶皮温：A=温暖；B=低于健侧；C=稍低于健侧；D=冰凉；E=高于健侧；<br/>
       ⑷肿胀：A=无；B=I度；C=II度；D=III度；&nbsp;⑸感觉：A=正常；B=稍麻；C=麻痹；D=消失；&nbsp;⑹活动：A=正常；B=轻度受限；C=中度受限；D=重度受限；E=障碍；&nbsp;⑺毛细血管反应：A=偏快＜1秒；B=正常1~2秒；<br/>C=偏慢＞2秒；D=消失
-      &nbsp;⑻动脉搏动：A=正常；B=减弱；C=无；&nbsp;⑼皮肤完整性：A=完整；B=发红；C=水泡；D=破损，渗液；&nbsp;
-      ⑽护理措施：A=防足下垂；B=患肢保暖；C=受压处皮肤垫软垫;D=翻身、拍背，指导深呼吸及有效咳嗽等预防并发症； E=针眼护理；F=防压疮；&nbsp;⑾伤口敷料：A=干洁；B=少量渗血/渗液；C=中量渗血/渗液；
-      ⑿指引功能锻炼：A=踝泵运动；B=股四头肌等长收缩运动；C=直腿抬高运动；D=抬臂运动；E=膝关节屈曲运动；F=坐位训练；G=站立训练；H=扶拐行走训练；I=扶助；行架行走训练；J未固定关节运动；&nbsp;⒀石膏：A=过紧；B=过松；C=合适；&nbsp;⒁牵引：A=过紧；B=过松；C=合适
+      &nbsp;⑻动脉搏动：A=正常；B=减弱；C=无；&nbsp;⑼伤口敷料：A=干洁；B=少量渗血/渗液；C=中量渗血/渗液；&nbsp;⑽石膏：A=过紧；B=过松；C=合适；&nbsp;⑾牵引：A=过紧；B=过松；C=合适
+      ⑿指引功能锻炼：A=趾端伸屈；B=踝泵运动；C=股四头肌等长收缩运动；D=直腿抬高运动；E=膝关节屈曲运动；F=坐位训练；G=站立训练；H=扶拐行走训练；I=扶助；行架行走训练；J=未固定关节运动；K=指端伸屈；L=握拳训练；M=腕关节旋转运动；N=抬臂运动；O=肩关节环形运动；P=扩胸运动；&nbsp;⒀皮肤完整性：A=完整；B=发红；C=破损;D=渗液；E=结痂；⒁护理措施：A=防足下垂；B=患肢保暖；C=受压处皮肤垫软垫;D=翻身；E=拍背;F=指导深呼吸及有效咳嗽等预防并发症； G=针眼护理；H=防压疮&nbsp;
     </div>
      <!-- 顺德龙江 - 护理记录单（显微外科））-->
     <div v-if="sheetInfo.sheetType == 'microsurgical_sdlj'">
@@ -577,7 +576,7 @@ export default {
   },
   created() {
     if (
-      this.sheetInfo.sheetType == "critical_lc" &&
+      (this.sheetInfo.sheetType == "critical_lc" || this.sheetInfo.sheetType == "critical_new_linyi") &&
       this.sheetInfo.relObj["advice10"] == undefined
     ) {
       this.sheetInfo.relObj["advice10"] =

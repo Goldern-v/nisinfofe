@@ -34,12 +34,38 @@
 <script>
 import tree from "./component/tree";
 import rightPart from "./component/right-part/right-part.vue";
+import {unLock} from "@/Page/sheet-hospital-eval/api/index.js"
 export default {
   props: {
     filterObj: Object
   },
   data() {
-    return {};
+    return {
+      lockHospitalList:['huadu']
+    };
+  },
+  methods:{
+    destroyUnlock(){
+     const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
+     /* 判断是否已经自动解锁 */
+     if(lockForm && lockForm.initTime){
+        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
+        let min=10
+        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
+        const afterInitTime= +lockForm.initTime + 60000 * min
+        const nowTime=Date.now()
+        if(nowTime > afterInitTime ){
+          /* 超时间 */
+          localStorage.setItem('lockForm','')
+          return
+        }
+     }
+     if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
+        unLock(lockForm.type,lockForm.formId).then(res=>{
+          localStorage.setItem('lockForm','')
+        })
+     }
+    }
   },
   created() {
     this.$store.commit("closeFullPageRecord");
@@ -47,6 +73,25 @@ export default {
   components: {
     tree,
     rightPart
+  },
+  // beforeRouteLeave: (to, from, next) => {
+  //   const isSave = localStorage.getItem('isSave')
+  //   if (!JSON.parse(isSave) && isSave != null) {
+  //     window.app
+  //       .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
+  //         confirmButtonText: "离开",
+  //         cancelButtonText: "取消",
+  //         type: "warning"
+  //       })
+  //       .then(res => {
+  //         next();
+  //       });
+  //   } else {
+  //     next();
+  //   }
+  // },
+  beforeDestroy(){
+    this.destroyUnlock()
   }
 };
 </script>

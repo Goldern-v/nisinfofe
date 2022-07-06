@@ -6,6 +6,8 @@ class WebSocketService {
     this.connection()
   }
   isConnection = false
+  // 重连次数 最多4次
+  reconnectNo = 0
   // 自增的订阅id
   subscribId = 0
   // 等待订阅队列
@@ -15,7 +17,7 @@ class WebSocketService {
   // md5队列 每一个订阅数据的唯一标识
   md5List = JSON.parse(sessionStorage.mewsMd5List || null) || []
 
-  socket = new SockJS("/crNursing/message", null, { timeout: 3000 })
+  socket = new SockJS("/crNursing/message", null, { timeout: 10000 })
   //本地开发测试http://120.197.141.41:9091
   // socket = new SockJS("http://120.224.211.7:9094/crNursing/message", null, { timeout: 1000 })
   stompClient = Stomp.over(this.socket)
@@ -30,12 +32,18 @@ class WebSocketService {
     this.stompClient.connect(
       this.headers,
       frame => {
+        this.reconnectNo = 0
         this.isConnection = true
         this.handleSubscribeList()
         console.log('连接成功~~~~~')
       },
       err => {
         console.log('test-err', err)
+        if (this.reconnectNo < 4) {
+          this.reconnectNo += 1
+          console.log('test-this.reconnectNo', this.reconnectNo)
+          this.connection()
+        }
        }
     );
   }

@@ -32,7 +32,7 @@
           :key="row.id + '' + rowIndex"
       >
         <td
-            v-for="(col, colIndex) of realColumns"
+            v-for="(col) of realColumns"
             :key="col.label"
             :style="{'text-align': col.align || 'left'}"
             @click="onInputClick(rowIndex, col.prop,row,col)"

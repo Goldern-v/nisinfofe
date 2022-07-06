@@ -20,7 +20,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">首页</div>  
+        <div class="nav-item">首页</div>
       </router-link>
       <router-link
         :to="{
@@ -31,7 +31,7 @@
       >
         <div class="nav-item">护理文书</div>
       </router-link>
-      
+
       <span><div class="nav-item" v-if="HOSPITAL_ID != 'guizhou'" @click="oepnDoctorEmr">病历</div></span>
       <!-- <router-link
         :to="{
@@ -159,6 +159,12 @@
       >
         <div class="nav-item">体温单</div>
       </router-link>
+      <!-- <router-link
+        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId,inpNo:query.inpNo}}"
+        tag="span"
+      > -->
+        <div class="nav-item" @click="openOtherPage">患者360</div>
+      <!-- </router-link> -->
     </div>
     <div style="height: 50px"></div>
   </div>
@@ -248,6 +254,18 @@ export default {
       window.open(
         `openChrome:http://10.207.40.43:8080/cpoe-ui-server/diseaseDocView.do?patient_id=${patientId}&visit_id=${visitId}&hash=${hash}&sys_type=2`
       );
+    },
+    openOtherPage() {
+      console.log('test-this.query', this.query)
+      let user = localStorage.getItem('user')
+      if (user) {
+        user = JSON.parse(user)
+      }
+      const fileUrl = `http://10.207.45.213:8015/cdr/personal/?medicalrecordno=${this.query.inpNo}&systemcode=008&doctorcode=${user.empNo || this.$route.query.empNo}`;
+      const a = document.createElement('a')
+      a.href = fileUrl
+      a.target = '_blank'
+      a.click()
     }
   },
   components: {},

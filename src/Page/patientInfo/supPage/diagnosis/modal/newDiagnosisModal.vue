@@ -1,6 +1,6 @@
 <template>
   <div class="diagnosis-modal">
-    <sweet-modal ref="newRecord" size="big-650" title="添加护理诊断">
+    <sweet-modal ref="newRecord" size="big-650" :title="HOSPITAL_ID == 'huadu'?'添加护理计划': '添加护理诊断'">
       <div class="record-con">
         <div class="search-con">
           <div @keyup.enter.prevent="searchBybtn" style="display:flex;">
@@ -8,7 +8,7 @@
               <el-button type="primary" slot="append" v-touch-ripple @click="search">搜索</el-button>
             </el-input>-->
             <el-autocomplete
-              :placeholder="HOSPITAL_ID == 'guizhou' ? '请输入护理问题关键词' : '请输入诊断关键词' "
+              :placeholder="['guizhou','huadu'].includes(HOSPITAL_ID) ? '请输入护理问题关键词' : '请输入诊断关键词' "
               v-model="searchWord"
               class="diagnosis-search"
               :fetch-suggestions="querySearch"

@@ -157,6 +157,10 @@ export default [{
     key: "sign",
     value: ""
   },
+  {
+    key: "sign2",
+    value: "",
+  },
   // {
   //   key: "audit",
   //   value: ""
@@ -169,6 +173,11 @@ export default [{
   {
     hidden: true,
     key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName2",
     value: ""
   },
   {
@@ -207,6 +216,11 @@ export default [{
     value: ""
   },
   {
+    hidden: true,
+    key: "signerNo2",
+    value: ""
+  },
+  {
     hidden: false,
     key: "auditorNo",
     value: ""
@@ -224,6 +238,6 @@ export default [{
   {
     hidden: true,
     key: "multiSign",
-    value: false
+    value: true
   }
 ];
