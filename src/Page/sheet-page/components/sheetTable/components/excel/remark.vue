@@ -235,7 +235,7 @@
       </p>
     </div>
     <!-- 陵 城 病重（病危）患者护理记录单 -->
-    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'">
+    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'||sheetInfo.sheetType == 'critical_new_linyi'">
       <table>
         <colgroup>
           <col width="46px" />
@@ -255,7 +255,7 @@
           </tr>
         </tbody>
       </table>
-      <div style="padding-top: 10px;" v-if="sheetInfo.sheetType == 'critical_lc'">
+      <div style="padding-top: 10px;" v-if="sheetInfo.sheetType == 'critical_lc' || sheetInfo.sheetType == 'critical_new_linyi'">
         <p>注：瞳孔对光反应：灵敏（+）、迟钝（S）、消失（-）表示。</p>
       </div>
     </div>
@@ -577,7 +577,7 @@ export default {
   },
   created() {
     if (
-      this.sheetInfo.sheetType == "critical_lc" &&
+      (this.sheetInfo.sheetType == "critical_lc" || this.sheetInfo.sheetType == "critical_new_linyi") &&
       this.sheetInfo.relObj["advice10"] == undefined
     ) {
       this.sheetInfo.relObj["advice10"] =

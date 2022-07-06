@@ -767,6 +767,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_new_linyi": {
+    // 临邑人医 - 病重（病危）患者护理记录单（新）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_new_linyi/th").default)
+    );
+  }
+  break;
   case "baby_lcey": {
     // 聊城二院 - 新生儿监护记录单
     Th = JSON.parse(

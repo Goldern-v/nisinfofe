@@ -452,7 +452,8 @@
         sheetInfo.sheetType === 'intervention_cure_lcey' ||
         sheetInfo.sheetType === 'critical_lc' ||
         sheetInfo.sheetType === 'picu_hemodialysis_jm' ||
-        sheetInfo.sheetType === 'rescue_hl'
+        sheetInfo.sheetType === 'rescue_hl' ||
+        sheetInfo.sheetType === 'critical_new_linyi'
       "
     ></slot>
     <!-- 表格下方的备注组件 -->
@@ -528,6 +529,7 @@
             sheetInfo.sheetType == 'gynecology_hl' ||
             sheetInfo.sheetType == 'critical_lc' ||
             sheetInfo.sheetType == 'neonatology_hl' ||
+            sheetInfo.sheetType == 'critical_new_linyi' ||
             HOSPITAL_ID == 'fsxt'
           "
           >质控护士：</span
@@ -706,6 +708,7 @@ export default {
         "icu_cpr_xg",
         "internal_eval_linyi", //临邑人医_一般或者护理记录单
         "critical_linyi", //临邑人医_病重（病危）患者护理记录单（带瞳孔）
+        "critical_new_linyi",
       ],
       // 需要双签名的记录单code
       multiSignArr: [
