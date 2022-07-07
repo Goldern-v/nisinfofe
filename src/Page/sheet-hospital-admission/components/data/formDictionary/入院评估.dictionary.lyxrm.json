@@ -275,19 +275,19 @@
     ],
     "I001014": [
         {
-            "code": "农合",
-            "name": "农合",
-            "pinyin": "ns"
+            "code": "新农合",
+            "name": "新农合",
+            "pinyin": "xns"
         },
         {
-            "code": "贫困人口",
-            "name": "贫困人口",
-            "pinyin": "pkrk"
+            "code": "城镇居民",
+            "name": "城镇居民",
+            "pinyin": "czjm"
         },
         {
-            "code": "异地",
-            "name": "异地",
-            "pinyin": "yd"
+            "code": "职工医保",
+            "name": "职工医保",
+            "pinyin": "zgyb"
         },
         {
             "code": "自费",
@@ -295,34 +295,9 @@
             "pinyin": "zf"
         },
         {
-            "code": "公费医疗",
-            "name": "公费医疗",
-            "pinyin": "gfyl"
-        },
-        {
-            "code": "医保",
-            "name": "医保",
-            "pinyin": "yb"
-        },
-        {
-            "code": "社保",
-            "name": "社保",
-            "pinyin": "sb"
-        },
-        {
-            "code": "商业保险",
-            "name": "商业保险",
-            "pinyin": "sybx"
-        },
-        {
-            "code": "记账单位",
-            "name": "记账单位",
-            "pinyin": "jzdw"
-        },
-        {
-            "code": "他人赔付",
-            "name": "他人赔付",
-            "pinyin": "trpf"
+            "code": "贫困人口",
+            "name": "贫困人口",
+            "pinyin": "pkrk"
         },
         {
             "code": "其他",
@@ -995,11 +970,6 @@
             "code": "模糊",
             "name": "模糊",
             "pinyin": "mh"
-        },
-        {
-            "code": "不清",
-            "name": "不清",
-            "pinyin": "bq"
         },
         {
             "code": "失明",
