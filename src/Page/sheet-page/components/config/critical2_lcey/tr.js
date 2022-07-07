@@ -160,9 +160,6 @@ export default [{
   {
     key: "sign2",
     value: "",
-    style: {
-      minWidth: '55px'
-    }
   },
   // {
   //   key: "audit",
@@ -241,6 +238,6 @@ export default [{
   {
     hidden: true,
     key: "multiSign",
-    value: false
+    value: true
   }
 ];

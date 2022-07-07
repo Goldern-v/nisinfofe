@@ -1,5 +1,5 @@
 <template>
-    <div :style="{width:`${newModalSize.split('*')[1]=='8'?'8':'10'}cm`,height:`${newModalSize=='6*8' ? '5.9' : '5.7'}cm`}">
+    <div :style="{width:`${newModalSize.split('*')[1]=='8'?'8':'10'}cm`,height:`${newModalSize=='6*8' ? '5.9' : '5.8'}cm`}">
         <div v-if="newModalSize=='6*8'" class="new-print-modal" style="width:8cm,height:5.7cm">
             <div class="new-modal-top" :class="HOSPITAL_ID=='whfk' ? 'reverse' : ''">
                 <div class="new-modal-top-left">
@@ -55,8 +55,8 @@
                 </div> -->
             </div>
         </div>
-        <div v-else class="new-print-modal" style="height:6cm;width:10cm;display:flex">
-            <div class="new-modal-small-left">
+        <div v-else class="new-print-modal" style="height:5.8cm;width:10cm;display:flex">
+            <div class="new-modal-small-left" :class="{'is-fk': isFk}">
                 <div class="new-modal-small-left-first">
                     <div style="text-indent:5px">{{currentBottle.bedLabel}}</div>
                     <div>{{currentBottle.name}}</div>
@@ -67,13 +67,13 @@
                     <div style="min-width:50px;">{{currentBottle.repeatIndicator | repeatIndicatorFilter}}</div>
                 </div>
                 <div class="new-modal-small-left-third">
-                    <div v-for="(item,index) in currentBottle.orderText" :key="index"  style="line-height:16px;text-indent:5px;display:flex">
-                        <div>{{item}}</div>
-                        <div>{{currentBottle.dosageDosageUnits[index]}}</div>
+                    <div v-for="(item,index) in currentBottle.orderText" :key="index"  style="text-indent:5px;display:flex">
+                        <div>{{item}}{{isFk ? currentBottle.dosageDosageUnits[index] : ''}}</div>
+                        <div v-if="!isFk">{{currentBottle.dosageDosageUnits[index]}}</div>
                     </div>
                 </div>
             </div>
-            <div class="new-modal-small-right">
+            <div class="new-modal-small-right" :class="{'is-fk': isFk}">
                 <div class="new-modal-small-right-top">
                     <img :src="currentBottle.qcSrc || ''">
                 </div>
@@ -208,6 +208,22 @@
             font-size:16px;
             line-height: 24px;
         }
+        &.is-fk {
+            border: none;
+            border-right: 1px solid #000;
+            >>>* {
+                font-size: 20px;
+                line-height: 22px !important;
+                font-weight: 700;
+            }
+            .new-modal-small-left-first {
+                padding-top: 3px;
+                div {
+                    font-size: 24px;
+                    line-height: 24px !important;
+                }
+            }
+        }
         flex: 2;
         height: 100%;
         box-sizing: border-box;
@@ -224,11 +240,21 @@
             justify-content: space-between;
             box-sizing: border-box;
         }
+        .new-modal-small-left-third{
+            line-height:16px;
+        }
     }
     .new-modal-small-right{
         >>> *{
             font-size:16px;
             line-height: 24px;
+        }
+        &.is-fk {
+            border: none;
+            >>>* {
+                font-size: 20px;
+                font-weight: 700;
+            }
         }
         flex: 1;
         box-sizing: border-box;
@@ -297,6 +323,9 @@ computed: {
         let qcSrc = base64
         cloneObj = {...cloneObj,orderText,dosageDosageUnits,qcSrc}
         return cloneObj
+    },
+    isFk() {
+        return ['whfk'].includes(this.HOSPITAL_ID)
     }
 },
 filters:{

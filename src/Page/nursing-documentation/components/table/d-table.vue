@@ -47,13 +47,13 @@
 
       <el-table-column
         prop="patientId"
-        label="病人ID"
+        :label="['foshanrenyi'].includes(HOSPITAL_ID)?'住院号':'病人ID'"
         min-width="120px"
         v-if="!['fuyou'].includes(HOSPITAL_ID)"
       ></el-table-column>
 
       <el-table-column
-        label="住院号"
+        :label="['foshanrenyi'].includes(HOSPITAL_ID)?'病人ID':'住院号'"
         prop="inpNo"
         min-width="95px"
       ></el-table-column>

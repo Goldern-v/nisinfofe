@@ -70,6 +70,83 @@
         <div class="text-con" flex="cross:center">保存</div>
       </div>
     </template>
+    <template v-else-if="HOSPITAL_ID == 'huadu'">
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="emit('addSheetPage')"
+        v-if="!isLock"
+      >
+        <div class="text-con">添加新页</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="toSave"
+        v-if="!isLock"
+      >
+        <div class="text-con" flex="cross:center">保存</div>
+      </div>
+      <template  v-if="!isLock">
+        <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="openStaticModal"
+        v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
+         >
+          <div class="text-con">出入量统计</div>
+        </div>
+      </template>
+      <template  v-if="!isLock">
+        <div
+        v-if="showSetCreatePage()"
+        class="item-box"
+        flex="cross:center main:center"
+        @click="setPage"
+        style="width: 110px"
+         >
+        <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
+      </div>
+      </template>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click="toPrint"
+        v-if="
+          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
+          HOSPITAL_ID == 'guizhou'
+        "
+      >
+        <div class="text-con">打印预览</div>
+      </div>
+      <div
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="toPdfPrint"
+        v-show="isDev && isShow()"
+      >
+        <div class="text-con">批量打印</div>
+      </div>
+      <template  v-if="!isLock">
+        <div
+        v-if="!isDeputy"
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="delSheet"
+        >
+          <div class="text-con">删除整单</div>
+       </div>
+      </template>  
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="createSheet"
+        v-if="!isSingleTem && !isDeputy && isShow()"
+      >
+        <div class="text-con">新建记录单</div>
+      </div>
+    </template>
     <template v-else>
       <div
         class="item-box"
@@ -325,29 +402,33 @@
       </div>
       <div class="line" v-if="!isSingleTem_LCEY && !isDeputy"></div>
       <div style="width: 5px"></div>
-      <div
-        class="right-btn"
-        flex="cross:center main:center"
-        @click="emit('openEvalModel')"
-        v-if="showCrl && !isSingleTem_LCEY && !isDeputy"
-      >
-        <div class="text-con">
-          <img src="./images/评估.png" alt />
-          评估同步
+      <template  v-if="!isLock">
+        <div
+          class="right-btn"
+          flex="cross:center main:center"
+          @click="emit('openEvalModel')"
+          v-if="showCrl && !isSingleTem_LCEY && !isDeputy"
+        >
+          <div class="text-con">
+            <img src="./images/评估.png" alt />
+            评估同步
+          </div>
         </div>
-      </div>
+      </template>
       <div class="line" v-if="!isSingleTem_LCEY && !isDeputy"></div>
-      <div
-        class="right-btn"
-        flex="cross:center main:center"
-        @click.stop="openTztbModal"
-        v-if="!isSingleTem_LCEY && !isDeputy"
-      >
-        <div class="text-con">
-          <img src="./images/体征.png" alt />
-          体征同步
+      <template  v-if="!isLock">
+        <div
+          class="right-btn"
+          flex="cross:center main:center"
+          @click.stop="openTztbModal"
+          v-if="!isSingleTem_LCEY && !isDeputy"
+         >
+          <div class="text-con">
+            <img src="./images/体征.png" alt />
+            体征同步
+          </div>
         </div>
-      </div>
+      </template>
       <div
         class="line"
         v-if="HOSPITAL_ID == 'wujing' || HOSPITAL_ID == 'quzhou'"
@@ -464,6 +545,10 @@ export default {
   name: "sheetTool",
   props: {
     isNursingPreview: {//是否为调阅界面体温单调起的护记
+      type:Boolean,
+      default:false
+    },
+    isLock:{ //护记是否被锁定
       type:Boolean,
       default:false
     }
