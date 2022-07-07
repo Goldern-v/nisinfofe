@@ -19,7 +19,7 @@
       </div>
       <div class="text">重置</div>
       </div>-->
-       <div class="item-box" @click="goBack" v-if="HOSPITAL_ID!=='xiegang'&&HOSPITAL_ID!=='whfk'">
+      <div class="item-box" @click="goBack" v-if="HOSPITAL_ID!=='xiegang'&&HOSPITAL_ID!=='whfk' && HOSPITAL_ID!=='sdlj'">
         <div
           class="icon"
           style="font-size: 18px;"
