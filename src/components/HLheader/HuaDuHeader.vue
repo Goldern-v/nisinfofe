@@ -142,7 +142,7 @@
                 >
                   <router-link to="/planList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="healthEducation"></i>护理诊断计划
+                      <i class="healthEducation"></i>护理计划
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
