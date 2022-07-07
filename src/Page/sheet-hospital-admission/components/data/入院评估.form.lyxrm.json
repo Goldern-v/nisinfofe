@@ -604,6 +604,7 @@
           "type": "select",
           "title": "入院带入物品",
           "style": null,
+          "multiplechoice": true,
           "titleStyle": "width:123px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "66px",
@@ -780,7 +781,7 @@
           "name": "I100005",
           "type": "input",
           "labelTitle": "BP",
-          "suffixDesc": "mmHG",
+          "suffixDesc": "mmHg",
           "titleStyle": "width:30px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "65px",
@@ -1171,8 +1172,8 @@
         {
           "name": "I001106",
           "type": "select",
-          "title": "生活习惯:嗜酒",
-          "postTitle": "嗜酒频率",
+          "title": "生活习惯:饮酒",
+          "postTitle": "饮酒频率",
           "postText": "(两/斤)",
           "titleStyle": "width:92px!important",
           "inputStyle": "width:270px!important",
@@ -1184,7 +1185,7 @@
               "dialog": {
                 "openKey": "有",
                 "cleanKey": "无",
-                "title": "嗜酒",
+                "title": "饮酒",
                 "parentName": "I001106",
                 "type": "dependent"
               }
