@@ -52,14 +52,14 @@
             <h1 class="name" v-html="logoName"></h1>
           </div>
           <div class="input-con">
-            <input type="text" placeholder="用户名" v-model="account" />
+            <input type="text" :disabled="caLoginFlag" placeholder="用户名" v-model="account" />
             <img src="../../common/images/account.png" height="14" width="14" />
           </div>
           <div class="input-con">
             <input
               type="password"
               style="border-top: 0"
-              placeholder="密码"
+              :placeholder="caLoginFlag?'证书密码':'密码'"
               v-model="password"
             />
             <img
@@ -68,7 +68,7 @@
               width="14"
             />
           </div>
-          <div class="input-con" v-if="showVerification">
+          <div class="input-con" v-if="showVerification && !caLoginFlag">
             <input
               type="password"
               style="border-top: 0; width: 170px"
@@ -90,18 +90,22 @@
             </div>
           </div>
           <div class="remember-con">
-            <el-checkbox v-model="remember">
+            <el-checkbox v-model="remember" v-if="!caLoginFlag">
               <span style="font-size: 13px; color: #687179">记住账号</span>
             </el-checkbox>
             <button
+              v-if="!caLoginFlag"
               style="background-color: #fff; float: right; border: 0"
               @click="toReset()"
             >
               重置密码
             </button>
           </div>
-          <button v-touch-ripple class="login-btn" @click="login">
+          <button v-if="!caLoginFlag" v-touch-ripple class="login-btn" @click="login">
             {{ !ajax ? "登录系统" : "登录中..." }}
+          </button>
+          <button v-if="caLoginFlag" v-touch-ripple class="login-btn" @click="login">
+            {{ !ajax ? "证书登录" : "登录中..." }}
           </button>
         </div>
       </div>
@@ -121,6 +125,7 @@
         <span>联系客服</span>
       </p>
     </div>
+    <!-- <userInfo ref="userInfo"></userInfo> -->
   </div>
 </template>
 
@@ -390,15 +395,23 @@ a {
 </style>
 
 <script>
-import { login, hisLogin,GetUserList } from "@/api/login";
+// import userInfo from "@/components/HLheader/user-info.vue"
+import { login, hisLogin } from "@/api/login";
+import { GetUserList,caLoginBefore,caLoginLater,verifyUser,SOF_SignData,SOF_VerifySignedData,SOF_Login,SOF_ExportUserCert,genRandom,GetAllUkeyList } from "@/api/caCardApi";
 import Cookies from "js-cookie";
+import {caLoginobj} from './caLoign';
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
 import { mapMutations } from "vuex";
 const CryptoJS = require("crypto-js");
 const SecretKey = "chenrui2020";
 
+let logintimer = null;
+let uselogin =null
 export default {
+  // components:{
+  //   userInfo
+  // },
   data() {
     return {
       account: "",
@@ -408,6 +421,11 @@ export default {
       ajax: false,
       showPwdType: true, //显示的登录方式，默认是密码
       loginLoading: false,
+      checkCa:false, //判断是否已经插入了ukey
+      strRandom:"",
+      useCaList:['foshanrenyi'],
+      UkeyObj:{}, //保存ukeys里面的信息
+      caLoginFlag:false, //拿来区分是不是ukey登录，要区分checkCa
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
       md5HisList: ["foshanrenyi","sdlj","hengli"], //需要md5加密医院
@@ -422,6 +440,7 @@ export default {
       });
     },
     async login(type) {
+      console.log("type",type)
       if (!(this.account && this.password)) {
         //          如果空
         this.$message({
@@ -445,11 +464,12 @@ export default {
       this.ajax = true;
       let password = this.password;
       this.md5HisList.includes(this.HOSPITAL_ID) &&
-        this.password !== "Bcy@22qw" &&
+        this.password !== "Bcy@22qw" && 
+        !this.caLoginFlag &&
         (password = md5(this.password));
       // login(this.account, this.password, this.verificationCode)
       // login前先执行his校验 by谢岗
-      let uselogin = login;
+        uselogin = login;
       if (this.HOSPITAL_ID == "xiegang") {
         uselogin = hisLogin;
         try {
@@ -470,96 +490,294 @@ export default {
           return
         }
       }
-      uselogin(this.account, password, this.verificationCode)
-        .then((res) => {
-          GetUserList().then(res=>{
-            console.log("res",res)
-          })
-          // 记住账号
-          if (this.remember) {
-            localStorage["rememberAccount"] = this.account;
-          }
-          this.ajax = false;
-          // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$") 
-          let regexp = new RegExp("^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$")
-          if (['sdlj','hengli'].includes(this.HOSPITAL_ID) && !regexp.test(this.password)) {
-            this.$message({
-              showClose: true,
-              message: "当前登录密码强度较弱，请修改密码后登录!",
-              type: "warning",
-            });
-            this.$router.push('/resetpassword')
-            return
-          }
-          // 存下token 和用户信息 Auth-Token-Nursing
-          let user = res.data.data.user;
-          user.token = res.data.data.authToken;
-          window.app.authToken = res.data.data.authToken;
-          localStorage["ppp"] = this.password;
-          localStorage.setItem("user", JSON.stringify(res.data.data.user));
-          this.setUser(res.data.data.user || {});
-          localStorage["adminNurse"] = res.data.data.adminNurse;
-          Cookies.remove("NURSING_USER");
-          //清除江门妇幼ca
-          localStorage.removeItem("fuyouCaData");
-          Cookies.set(
-            "NURSING_USER",
-            `${res.data.data.user.id}##${res.data.data.authToken}`,
-            {
-              path: "/",
-            }
-          );
-          this.loginLoading = false;
-          if (
-            this.$store.state.common.relogin &&
-            this.$store.state.common.relogin != "/login"
-          ) {
-            this.$router.push(this.$store.state.common.relogin);
-          } else if (
-            user &&
-            user.roleManageCodeList.length > 0 &&
-            type == "loginReportedSystem"
-          ) {
-            this.$router.push("/badEvent");
-          } else {
-            this.$store.commit("common/upRelogin", false);
-            this.$router.push("/index");
-            if (["foshanrenyi", "weixian"].includes(this.HOSPITAL_ID)) {
-              /** 验证证书 */
-              window.openCaSignModal();
-            } else if (["fuyou"].includes(this.HOSPITAL_ID)) {
-              window.openFuyouCaSignModal();
-            } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
-              window.openHjCaSignModal();
-            }
-          }
-          // 清除科室记录
-          this.$store.commit("upDeptCode", "");
-          localStorage.selectDeptValue = "";
-          this.$store.commit("upDeptName", "");
+      //是否切换到了ca登录
+      if(this.caLoginFlag){
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)) uselogin=verifyUser
+        console.log("logincaLoginFlag",this.UkeyObj)
+        const strCertId = this.UkeyObj.substring(this.UkeyObj.indexOf("||")+2,this.UkeyObj.length).replace("&&&", "");
+        const strPassword = password
+        caLoginLater(strCertId,strPassword,this.strRandom).then(caLoginLaterRes=>{
+          this.loginIn(caLoginLaterRes,type,true)
+        },err=>{
+            this.$message.error(err)
         })
-        .catch((res) => {
-          this.ajax = false;
-          console.log(res);
-          if (res.data.errorCode == 1000) {
-            setTimeout(() => {
-              this.$router.push("/resetPassword");
-            }, 1000);
-          } else if (res.data.desc == "员工号不存在") {
-            let input = document.querySelectorAll(".input-con input")[0];
-            input.focus();
-            input.select();
-          } else if (res.data.desc == "密码错误") {
-            let input = document.querySelectorAll(".input-con input")[1];
-            input.focus();
-            input.select();
-          } else if (res.data.errorCode == "301") {
-            this.showVerification = true;
-            this.verificationImg = res.data.data;
-          } else if (res.data.errorCode == "403") {
-            this.refreshImg();
-          }
-        });
+        // SOF_Login(strCertId,strPassword).then(SOF_LoginRes=>{
+        //   if(SOF_LoginRes.data=="True"){
+        //     SOF_SignData(strCertId,this.strRandom).then(SOF_SignDataRes=>{
+        //       // console.log("SOF_SignData",SOF_SignDataRes)
+        //       if(SOF_SignDataRes.data){
+        //         SOF_ExportUserCert(strCertId).then(SOF_ExportUserCertRes=>{
+        //           console.log("SOF_ExportUserCertRes",SOF_ExportUserCertRes)
+        //           if(SOF_ExportUserCertRes.data){
+                    // this.loginIn({userCert:SOF_ExportUserCertRes.data,signedValue:SOF_SignDataRes.data},type,true)
+        //           }
+        //         })
+        //       }
+        //     })
+        //   }else{
+        //     this.$message.error("证书密码错误!")
+        //   }
+        //   // console.log(SOF_LoginRes ,"SOF_LoginRes")
+        // })
+      }else{
+        let loginOBJ = {empNo:this.account,password, code:this.verificationCode}
+        this.loginIn(loginOBJ,type)
+        // uselogin(this.account, password, this.verificationCode)
+        //   .then((res) => {
+        //     // 记住账号
+        //     if (this.remember) {
+        //       localStorage["rememberAccount"] = this.account;
+        //     }
+        //     this.ajax = false;
+        //     // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$") 
+        //     let regexp = new RegExp("^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$")
+        //     if (['sdlj','hengli'].includes(this.HOSPITAL_ID) && !regexp.test(this.password)) {
+        //       this.$message({
+        //         showClose: true,
+        //         message: "当前登录密码强度较弱，请修改密码后登录!",
+        //         type: "warning",
+        //       });
+        //       this.$router.push('/resetpassword')
+        //       return
+        //     }
+        //     // 存下token 和用户信息 Auth-Token-Nursing
+        //     let user = res.data.data.user;
+        //     user.token = res.data.data.authToken;
+        //     window.app.authToken = res.data.data.authToken;
+        //     localStorage["ppp"] = this.password;
+        //     localStorage.setItem("user", JSON.stringify(res.data.data.user));
+        //     this.setUser(res.data.data.user || {});
+        //     localStorage["adminNurse"] = res.data.data.adminNurse;
+        //     Cookies.remove("NURSING_USER");
+        //     //清除江门妇幼ca
+        //     localStorage.removeItem("fuyouCaData");
+        //     Cookies.set(
+        //       "NURSING_USER",
+        //       `${res.data.data.user.id}##${res.data.data.authToken}`,
+        //       {
+        //         path: "/",
+        //       }
+        //     );
+        //     this.loginLoading = false;
+        //     if (
+        //       this.$store.state.common.relogin &&
+        //       this.$store.state.common.relogin != "/login"
+        //     ) {
+        //       this.$router.push(this.$store.state.common.relogin);
+        //     } else if (
+        //       user &&
+        //       user.roleManageCodeList.length > 0 &&
+        //       type == "loginReportedSystem"
+        //     ) {
+        //       this.$router.push("/badEvent");
+        //     } else {
+        //       this.$store.commit("common/upRelogin", false);
+        //       this.$router.push("/index");
+        //       if (["weixian"].includes(this.HOSPITAL_ID)) {
+        //         /** 验证证书 */
+        //         window.openCaSignModal();
+        //       } else if (["fuyou"].includes(this.HOSPITAL_ID)) {
+        //         window.openFuyouCaSignModal();
+        //       } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
+        //         window.openHjCaSignModal();
+        //       }
+        //     }
+        //     // 清除科室记录
+        //     this.$store.commit("upDeptCode", "");
+        //     localStorage.selectDeptValue = "";
+        //     this.$store.commit("upDeptName", "");
+        //   })
+        //   .catch((res) => {
+        //     this.ajax = false;
+        //     console.log(res);
+        //     if (res.data.errorCode == 1000) {
+        //       setTimeout(() => {
+        //         this.$router.push("/resetPassword");
+        //       }, 1000);
+        //     } else if (res.data.desc == "员工号不存在") {
+        //       let input = document.querySelectorAll(".input-con input")[0];
+        //       input.focus();
+        //       input.select();
+        //     } else if (res.data.desc == "密码错误") {
+        //       let input = document.querySelectorAll(".input-con input")[1];
+        //       input.focus();
+        //       input.select();
+        //     } else if (res.data.errorCode == "301") {
+        //       this.showVerification = true;
+        //       this.verificationImg = res.data.data;
+        //     } else if (res.data.errorCode == "403") {
+        //       this.refreshImg();
+        //     }
+        //   });
+      }
+    },
+    loginIn(loginOBJ,type,ifCA){
+        uselogin(loginOBJ)
+          .then((res) => {
+            //登录后停止轮询
+            clearInterval(logintimer);
+            if(ifCA){
+              localStorage["caUser"] = this.account;
+            }
+            // 记住账号
+            if (this.remember) {
+              localStorage["rememberAccount"] = this.account;
+            }
+            this.ajax = false;
+            // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$") 
+            let regexp = new RegExp("^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$")
+            if (['sdlj','hengli'].includes(this.HOSPITAL_ID) && !regexp.test(this.password)) {
+              this.$message({
+                showClose: true,
+                message: "当前登录密码强度较弱，请修改密码后登录!",
+                type: "warning",
+              });
+              this.$router.push('/resetpassword')
+              return
+            }
+            // 存下token 和用户信息 Auth-Token-Nursing
+            let user = res.data.data.user;
+            user.token = res.data.data.authToken;
+            window.app.authToken = res.data.data.authToken;
+            localStorage["ppp"] = this.password;
+            localStorage.setItem("user", JSON.stringify(res.data.data.user));
+            this.setUser(res.data.data.user || {});
+            localStorage["adminNurse"] = res.data.data.adminNurse;
+            Cookies.remove("NURSING_USER");
+            //清除江门妇幼ca
+            localStorage.removeItem("fuyouCaData");
+            Cookies.set(
+              "NURSING_USER",
+              `${res.data.data.user.id}##${res.data.data.authToken}`,
+              {
+                path: "/",
+              }
+            );
+            this.loginLoading = false;
+            if (
+              this.$store.state.common.relogin &&
+              this.$store.state.common.relogin != "/login"
+            ) {
+              this.$router.push(this.$store.state.common.relogin);
+            } else if (
+              user &&
+              user.roleManageCodeList.length > 0 &&
+              type == "loginReportedSystem"
+            ) {
+              this.$router.push("/badEvent");
+            } else {
+              this.$store.commit("common/upRelogin", false);
+              this.$router.push("/index");
+              if (["weixian"].includes(this.HOSPITAL_ID)) {
+                /** 验证证书 */
+                window.openCaSignModal();
+              } else if (["fuyou"].includes(this.HOSPITAL_ID)) {
+                window.openFuyouCaSignModal();
+              } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
+                window.openHjCaSignModal();
+              }
+            }
+            // 清除科室记录
+            this.$store.commit("upDeptCode", "");
+            localStorage.selectDeptValue = "";
+            this.$store.commit("upDeptName", "");
+          })
+          .catch((res) => {
+            console.log("1111111",caLoginobj)
+              //模拟ca登录成功后 要删{
+            if(ifCA){
+              let res2={}
+              res2.data = caLoginobj
+              console.log(res2.data)
+              // 记住账号
+              if (this.remember) {
+                localStorage["rememberAccount"] = this.account;
+              }
+              this.ajax = false;
+              // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$") 
+              let regexp = new RegExp("^(?![xA-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$")
+              if (['sdlj','hengli'].includes(this.HOSPITAL_ID) && !regexp.test(this.password)) {
+                this.$message({
+                  showClose: true,
+                  message: "当前登录密码强度较弱，请修改密码后登录!",
+                  type: "warning",
+                });
+                this.$router.push('/res2etpassword')
+                return
+              }
+              // 存下token 和用户信息 Auth-Token-Nursing
+              let user = res2.data.data.user;
+              user.token = res2.data.data.authToken;
+              window.app.authToken = res2.data.data.authToken;
+              localStorage["ppp"] = this.password;
+              localStorage.setItem("user", JSON.stringify(res2.data.data.user));
+              this.setUser(res2.data.data.user || {});
+              localStorage["adminNurse"] = res2.data.data.adminNurse;
+              Cookies.remove("NURSING_USER");
+              //清除江门妇幼ca
+              localStorage.removeItem("fuyouCaData");
+              Cookies.set(
+                "NURSING_USER",
+                `${res2.data.data.user.id}##${res2.data.data.authToken}`,
+                {
+                  path: "/",
+                }
+              );
+              this.loginLoading = false;
+              if (
+                this.$store.state.common.relogin &&
+                this.$store.state.common.relogin != "/login"
+              ) {
+                this.$router.push(this.$store.state.common.relogin);
+              } else if (
+                user &&
+                user.roleManageCodeList.length > 0 &&
+                type == "loginReportedSystem"
+              ) {
+                this.$router.push("/badEvent");
+              } else {
+                this.$store.commit("common/upRelogin", false);
+                this.$router.push("/index");
+                if (["weixian"].includes(this.HOSPITAL_ID)) {
+                  /** 验证证书 */
+                  window.openCaSignModal();
+                } else if (["fuyou"].includes(this.HOSPITAL_ID)) {
+                  window.openFuyouCaSignModal();
+                } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
+                  window.openHjCaSignModal();
+                }
+              }
+              // 清除科室记录
+              this.$store.commit("upDeptCode", "");
+              localStorage.selectDeptValue = "";
+              this.$store.commit("upDeptName", "");
+  
+            // }
+              
+            }
+
+
+            this.ajax = false;
+            console.log(res);
+            if (res.data.errorCode == 1000) {
+              setTimeout(() => {
+                this.$router.push("/resetPassword");
+              }, 1000);
+            } else if (res.data.desc == "员工号不存在") {
+              let input = document.querySelectorAll(".input-con input")[0];
+              input.focus();
+              input.select();
+            } else if (res.data.desc == "密码错误") {
+              let input = document.querySelectorAll(".input-con input")[1];
+              input.focus();
+              input.select();
+            } else if (res.data.errorCode == "301") {
+              this.showVerification = true;
+              this.verificationImg = res.data.data;
+            } else if (res.data.errorCode == "403") {
+              this.refreshImg();
+            }
+          });
     },
     toReset() {
       this.$router.push("/resetPassword");
@@ -605,12 +823,25 @@ export default {
         this.$message.error("登录信息错误，已取消自动登录");
         console.error(e);
       }
+    } 
+    if(this.useCaList.includes(this.HOSPITAL_ID)){
+      clearInterval(logintimer);
+       logintimer = setInterval(() => {
+          GetUserList().then(res=>{
+            if(res.data.length>0){
+              this.UkeyObj = res.data
+              this.checkCa = true
+            }else{
+              this.checkCa = false
+            }
+            // console.log("res",res)
+          })
+      }, 1000);
     }
   },
   mounted() {
     /**清除锁屏的本地存储相关 */
     if (localStorage.screenLock) localStorage.removeItem("screenLock");
-
     let elList = document.querySelectorAll(".input-con input");
     EnterToTab(
       elList,
@@ -681,6 +912,78 @@ export default {
   },
   components: {},
   watch: {
+    checkCa:{
+      handler(newVal, oldVal) {
+        if(newVal){
+          //调用后端服务器拿取服务器证书，随机数，签名值
+          caLoginBefore().then(caLoginFunRes=>{
+            console.log(caLoginFunRes,"caLoginFunRes")
+            this.strRandom = caLoginFunRes
+            this.caLoginFlag = true
+            this.account = this.UkeyObj.split("||")[0]
+            this.password = ""
+            console.log(caLoginFunRes,"caLoginFunRes")
+          },err=>{
+            this.$message.error(err)
+            clearInterval(logintimer);
+          })
+
+          // genRandom().then(genRes=>{
+          //   console.log("genRes",Object.prototype.toString.call(genRes.data))
+          //   if(Object.prototype.toString.call(genRes.data)==="[object Object]"){
+          //     const {random:strRandom,serverCert:strServerCert,signedValue:strServerSignRan} = genRes.data.data
+          //     //SOF_VerifySignedData通过后切换成ca登录操作
+          //     this.strRandom = strRandom
+          //     SOF_VerifySignedData(strServerCert,strRandom,strServerSignRan).then(SignedDatares=>{
+          //       //如果通过情况下 
+          //         console.log(SignedDatares,"SignedDatares")
+          //       if(SignedDatares.data=="True"){
+          //         this.caLoginFlag = true
+          //         this.account = this.UkeyObj.split("||")[0]
+          //         this.password = ""
+          //       }else{
+          //         this.$message.error("验证服务器签名失败！")
+          //         clearInterval(logintimer);
+          //       }
+          //     }).catch(err=>{
+          //         this.$message.error("验证服务器接口失效！")
+          //         clearInterval(logintimer);
+          //       })
+          //   }else {
+          //     console.log("11111")
+          //      //因为genRandom老崩 所以先失败的时候也强制执行
+          //     this.strRandom = "123456"
+          //     this.caLoginFlag = true
+          //     this.account = this.UkeyObj.split("||")[0]
+          //     this.password = ""
+          //     this.$message.error(genRes.desc)
+          //     clearInterval(logintimer);
+          //   }
+          // }).catch(err=>{
+          //   //因为genRandom老崩 所以先失败的时候也强制执行
+          //     this.strRandom = "123456"
+          //     this.caLoginFlag = true
+          //     this.account = this.UkeyObj.split("||")[0]
+          //     this.password = ""
+          //     this.$message.error("获取证书接口失败，请查看服务器")
+          //     clearInterval(logintimer);
+          // })
+          // 调取第三方SOF_VerifySignedData
+            
+        }else{
+          // console.log("removecaUser")
+          // localStorage.removeItem("caUser");
+          // this.$refs.userInfo.getCaStatus()
+          this.$message.warning("usbkey卡未插入")
+          this.caLoginFlag = false
+          this.account = ""
+          this.password = ""
+        }
+        console.log('oldVal:', oldVal)
+        console.log('newVal:', newVal)
+        },
+      immediate: true
+    },
     password() {
       if (this.HOSPITAL_ID == "zhongshanqi") {
         this.password = this.password.slice(0, 16);

@@ -262,7 +262,8 @@ export default {
     return !!flag
     },
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType) {//formData为表单数据
-    this.btnLoading = false
+   console.log("aaaaaaaa")
+   this.btnLoading = false
     if(doctorTure){
       this.isDoctor = doctorTure
       this.isCaSign = false;
@@ -377,27 +378,30 @@ export default {
           }
           parent.app.bus.$emit("assessmentRefresh");
         } else {
-          verifyCaSign().then(res => {
-            console.log(res.random);
-            this.$refs.modalName.close();
-            let {password,empNo} = res.data
-            console.log(res);
-            let username = this.HOSPITAL_ID=="foshanrenyi"?empNo:this.username
-            // let username = this.username
-            let pwd = this.HOSPITAL_ID=="foshanrenyi"?password:localStorage.ppp
-            // let pwd = localStorage.ppp
-            if (this.signDate) {
-              return this.callback(
-                pwd,
-                // random,
-                username,
-                this.signDate,
-                res.random,
-              );
-            } else {
-              return this.callback(pwd, username);
-            }
-          });
+          console.log("wahaha")
+          // if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+            verifyCaSign().then(res => {
+              console.log(res.random);
+              this.$refs.modalName.close();
+              let {password,empNo} = res.data
+              console.log(res);
+              let username = this.HOSPITAL_ID=="foshanrenyi"?empNo:this.username
+              // let username = this.username
+              let pwd = this.HOSPITAL_ID=="foshanrenyi"?password:localStorage.ppp
+              // let pwd = localStorage.ppp
+              if (this.signDate) {
+                return this.callback(
+                  pwd,
+                  // random,
+                  username,
+                  this.signDate,
+                  res.random,
+                );
+              } else {
+                return this.callback(pwd, username);
+              }
+            });
+          // }
         }
       } else {
         if (this.password == "") {
