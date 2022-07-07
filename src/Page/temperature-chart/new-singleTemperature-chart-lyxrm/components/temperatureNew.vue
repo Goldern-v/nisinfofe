@@ -1,3 +1,4 @@
+<script src="../../../../../config/index.js"></script>
 <template>
   <div>
     <div class="contain">
