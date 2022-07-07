@@ -83,6 +83,7 @@
           <!-- <a href="VMS://abcdefg" @click="onPrint" >1</a> -->
           <el-button size="small" v-if="HOSPITAL_ID == 'whfk'" @click="syncData">同步医嘱</el-button>
           <el-button size="small" v-else-if="HOSPITAL_ID == 'sdlj'" @click="syncData">同步医嘱</el-button>
+          <el-button size="small" v-else-if="HOSPITAL_ID == 'lyxrm'" @click="syncData">同步医嘱</el-button>
           <el-button size="small" v-else @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
         </div>
       </div>
@@ -218,7 +219,7 @@ import NewPrintModalSdlj from "./components/common/newPrintModalSdlj"
 import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm"
 import printing from 'printing'
 import { patEmrList } from "@/api/document";
-import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2, getPatientOrder,getSDLJPatientOrder } from "./api/index";
+import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2, getPatientOrder,getSDLJPatientOrder, syncNurseOrdersByWardCode } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 const initStartDate = () => {
@@ -327,6 +328,8 @@ export default {
       let getOrder;
       if(['sdlj'].includes(this.HOSPITAL_ID)){
         getOrder=getSDLJPatientOrder
+      } else if(['lyxrm'].includes(this.HOSPITAL_ID)){
+        getOrder = syncNurseOrdersByWardCode
       }else getOrder=getPatientOrder
       this.query.wardCode = this.deptCode;
       this.query.startDate = moment(this.startDate).format('YYYY-MM-DD HH:mm:ss')
@@ -413,6 +416,8 @@ export default {
         // this.pageLoadng = false;
       },err=>{
         this.ifCanTongbu=true
+        this.pageLoadng = false;
+
       });
     },
     onLoad() {
