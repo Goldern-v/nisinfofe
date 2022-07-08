@@ -12,46 +12,16 @@
       ></el-input>
     </div>
     <div class="left-wapper">
-     <follow-list :data="sortList" @selectPatient="selectPatient" v-if="hasFollowList">
-       <template  slot-scope="{ scope }">
-         <span
-            class="point-box"
-            v-if="$route.path == '/formPage'"
-            v-show="
-              scope.formLowestStatus !== '' && scope.formLowestStatus != '2'
-            "
-            :class="{
-              red: scope.formLowestStatus == 0,
-              green: scope.formLowestStatus == 1,
-              isImg2: img2Show,
-            }"
-          ></span>
-       </template>
-     </follow-list>
-      <el-button-group v-if="hasGroupHos">
-        <el-button :type="isGroup?'primary':''" @click="isGroup = true">默认管床</el-button>
-        <el-button :type="!isGroup?'primary':''" @click="isGroup = false">全部床位</el-button>
-      </el-button-group>
       <div class="patient-list-contain">
-        <!-- path: "/hospitalEval/:patientId?/:visitId?/:formId?" @click="selectPatient(item)"-->
-        <router-link
+        <div
           class="patient-box"
           flex="cross:center"
           v-for="(item, index) in sortList"
           :key="
             item.patientId + item.visitId + item.bedLabel + item.inpNo + index
           "
-          :to="{
-            name: toName,
-            params: {
-              patientId: item.patientId,
-              visitId: item.visitId,
-              formId: item.id,
-              inpNo: item.inpNo,
-            },
-          }"
-          :class="{active: makePatient? isActive(item) :false }"
-          @click.native="toUnlock(item)"
+          :class="{active: makePatient ? isActive(item) :false}"
+          @click="toUnlock(item)"
         >
           <img
             :src="item.bedLabel.includes('_') ? imageBoy : imageMan"
@@ -83,7 +53,7 @@
           <div class="angle" v-if="nursingClassList.includes(HOSPITAL_ID)&&item.nursingClass">
             <img :src="require(`./images/${item.nursingClass}.png`)" alt/>
           </div>
-        </router-link>
+        </div>
       </div>
 
       <div
@@ -309,12 +279,16 @@ export default {
   },
   methods: {
     toUnlock(value){
-      if(this.HOSPITAL_ID == 'guizhou' && value.bedLabel == this.makePatient && this.$route.path=='/nursingMakeItem'){
-        this.$router.push('/nursingRounds')
+      if(value.bedLabel == this.makePatient){
         this.$store.commit("upMakePatient", '');
+        this.$store.commit("upPatientInfo", {});
+        this.selectPatient(false);
         this.makePatient = ''
       }else{
-         this.makePatient = value.bedLabel
+        this.makePatient = value.bedLabel
+        this.$store.commit("upPatientInfo", value);
+        this.callFunction(value,true);
+        this.selectPatient(value);
         this.$store.commit("upMakePatient", value.bedLabel);
       }
       //  解锁评估单
@@ -322,39 +296,22 @@ export default {
     },
     getDate() {
       if (this.deptCode) {
-        // console.log("获取病人列表", this.deptCode);
         this.patientListLoading = true;
         let config = process.env.hasFollow ? {showFollew:true} : null
         patients(this.deptCode,config).then((res) => {
           let {data:{data}} = res
           let bedData = data.filter(item=>item.patientId)
-          // if(process.env.hasGroupHos){
-          //   let isGroup = bedData.every(item=>item.focus == false) // 如果未进行分组，默认显示全部
-          //   this.bedList = isGroup?bedData:bedData.filter(item=>item.focus);
-          // }else{
-          //   this.bedList = bedData;
-          // }
           this.baseBedList = bedData
           this.bedList = bedData;
           this.hasGroupHos && this.groupBedList.length && (this.isGroup = true)
           this.patientListLoading = false;
-          this.fetchData();
         });
       }
     },
     selectPatient(patient) {
-      this.selectPatientId = patient.patientId;
-      //
-      console.log(
-        "selectPatient",
-        patient,
-        patient.patientId,
-        patient.visitId,
-        patient.formId,
-        this.$route.path,
-        this.$route
-      );
-      if (this.callFunction) {
+      
+      if (this.callFunction && this.makePatient && patient) {
+        this.selectPatientId = patient.patientId;
         this.$route.query.patientId = patient.patientId;
         this.$route.query.visitId = patient.visitId;
         this.$route.query.inpNo = patient.inpNo;
@@ -363,9 +320,10 @@ export default {
         this.$store.commit("upCurrentPatientObj", patient);
         this.$store.commit("upWardCode", patient.wardCode || "");
         this.$store.commit("upWardName", patient.wardName || "");
-        //patient 参数 true是否要滚动到最后一页
-        this.callFunction(patient,true);
-        //
+
+      }else{
+        this.selectPatientId = null
+        this.$route.query.patientId = null
       }
     },
     isActive(item) {
@@ -381,39 +339,7 @@ export default {
         return patientId == p.patientId && visitId == p.visitId;
       });
     },
-    async fetchData() {
-      let currentPatient = ''
-      if(this.HOSPITAL_ID == 'whfk'){
-        currentPatient = ''
-      }else{
-        currentPatient = this.$store.getters.getCurrentPatient();
-      }
-      let patientId =
-        this.$route.params.patientId || currentPatient.patientId || "";
-      let visitId = this.$route.params.visitId || currentPatient.visitId || "";
-      let p = this.findCurrentPatient({
-        patientId,
-        visitId,
-      });
-      if(!p&&this.isAdmissionHisView){
-        patientId = this.$route.params.patientId
-        visitId = this.$route.params.visitId
-        let res = await getPatientInfo(patientId,visitId)
-        p = res.data.data
-      }
-      if (p) {
-        if(currentPatient){
-          p = {...currentPatient,...p}
-        }
-        this.selectPatient(p);
-      }
-      console.log(
-        "路由拦截:$route.params",
-        [currentPatient],
-        [p, this.sortList],
-        [this.$route.params]
-      );
-    },
+    
   },
   computed: {
     isAdmissionHisView(){
@@ -498,16 +424,13 @@ export default {
     flagTop() {
       return `${this.wih * 0.4}px`;
     },
-    hasFollowList(){
-      return process.env.hasFollow
-    },
-    hasGroupHos(){
-      return process.env.hasGroupHos
-    },
     groupBedList(){
       return this.baseBedList.filter(item=>item.focus)
     },
-    
+    //贵州获取患者床位
+    isMakePatient(){
+      return this.$store.state.sheet.makePatient
+    }
   },
   watch: {
     deptCode(ndata, odata) {
@@ -528,13 +451,6 @@ export default {
     isGroup(val){
       this.bedList = val?this.groupBedList:this.baseBedList
     },
-    "$route.path"(newValue){
-      if(newValue == '/nursingRounds' && this.makePatient){
-        this.makePatient = '';
-        this.$store.commit("upMakePatient", '');
-      }
-    }
-    
   },
   created() {
     if (this.deptCode) {

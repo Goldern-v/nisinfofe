@@ -1,3 +1,4 @@
+<script src="../../../../../config/index.js"></script>
 <template>
   <div>
     <div class="contain">
@@ -190,6 +191,15 @@ export default {
       setTimeout(() => {
         this.detailChatFlag = true;
       }, 0);
+      setTimeout(() => {
+        if (this.$refs.detailChat.contentWindow) {
+          let value = this.currentPage;
+          this.$refs.detailChat.contentWindow.postMessage(
+            { type: "currentPage", value },
+            this.detailChatUrl /* 内网 */
+          );
+        }
+      }, 300);
     },
     toPage() {
       if (
@@ -295,6 +305,14 @@ export default {
         this.intranetUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
+      if (this.$refs.detailChat.contentWindow) {
+        let value = this.currentPage;
+        this.$refs.detailChat.contentWindow.postMessage(
+          { type: "currentPage", value },
+          this.detailChatUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }
     },
   },
   mounted() {
@@ -326,7 +344,7 @@ export default {
   },
   computed: {
     detailChatUrl() {
-      let path = `${this.intranetUrl}/detailed`;//正式服内网地址(http://192.168.4.175:9091/hcres/#/detailed)
+      let path = `${this.intranetUrl}detailed`;//正式服内网地址(http://192.168.4.175:9091/hcres/#/detailed)
       // let path = "http://localhost:8080/#/detailed";//个人测试地址
       return `${path}?showVitalSign=${this.showVitalSign}`; /* 外网 */
     },
