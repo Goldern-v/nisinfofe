@@ -44,6 +44,13 @@
           }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="医生说明" min-width="150px">
+        <template slot-scope="scope">
+          <span :class="type(scope.row.orderStatusName)">{{
+            scope.row.freqDetail
+          }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         label="剂量"
         min-width="70px"

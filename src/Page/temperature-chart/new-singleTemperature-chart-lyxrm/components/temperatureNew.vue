@@ -1,9 +1,11 @@
+<script src="../../../../../config/index.js"></script>
 <template>
   <div>
     <div class="contain">
       <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
+        <el-button type="primary" @click="openDetailChat()">曲线详情</el-button>
       </el-button-group>
       <!-- <div class="newBorn">
         <div @click="nomalModel()" class="nomal">默认体温单</div>
@@ -11,19 +13,19 @@
         <div @click="changeModel()" class="painNomal">疼痛版本</div>
       </div> -->
       <div :class="rightSheet===true?'pagination':'paginationRight'">
-               <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
+        <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
           首周
         </button>
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
         <span class="page">第<input
-            type="number"
-            min="1"
-            v-model.number="toCurrentPage"
-            class="pageInput"
-            @keyup.enter="toPage()"
-          />页/共{{ pageTotal }}页</span>
+          type="number"
+          min="1"
+          v-model.number="toCurrentPage"
+          class="pageInput"
+          @keyup.enter="toPage()"
+        />页/共{{ pageTotal }}页</span>
         <button :disabled="currentPage === pageTotal"  @click="toNext">
           下一周
         </button>
@@ -34,6 +36,43 @@
           尾周
         </button>
       </div>
+      <moveContext
+        :id="'detailChatBox'"
+        :titlex="'曲详情线'"
+        class="detailChatBox"
+      >
+        <div class="button-context">
+          <el-button
+            type="primary"
+            @click="changeDetailChatUrl((type = 1))"
+            class="detail-button"
+          >体温</el-button
+          >
+          <el-button
+            type="primary"
+            @click="changeDetailChatUrl((type = 2))"
+            class="detail-button"
+          >脉搏</el-button
+          >
+          <el-button
+            type="primary"
+            @click="changeDetailChatUrl((type = 3))"
+            class="detail-button"
+          >心率</el-button
+          >
+        </div>
+        <div>
+          <null-bg v-show="!filePath" :image-size="100"></null-bg>
+          <iframe
+            id="detailChat"
+            v-if="detailChatFlag && filePath"
+            :src="detailChatUrl"
+            frameborder="0"
+            ref="detailChat"
+            class="detailChat"
+          ></iframe>
+        </div>
+      </moveContext>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
@@ -62,8 +101,11 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
+import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 import bus from "vue-happy-bus";
 import moment from 'moment';
+
+
 export default {
   props: {
     queryTem: Object,
@@ -78,17 +120,20 @@ export default {
       toCurrentPage: 1,
       pageTotal: 1,
       open: false,
+      patientId: "",
+      visitId: "",
+      showVitalSign: 1,
       isSave: false,
       isPain: false,
+      detailChatFlag: true,
       showTemp: true, //默认选择标准的体温单曲线
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        // "http://localhost:8081/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://localhost:8080/#/" /* 本地自测环境 导致跨域 */,
       "http://192.168.4.175:9091/hcres/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.4.175:9091/hcres/#/printAll" /* 医院正式环境内网 */,
-
       outNetUrl:
         "http://120.24.240.231:15091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
     };
@@ -106,6 +151,17 @@ export default {
     //将体温单上的时间传过来，再监听到录入组件，获取录入记录
     getDataFromPage(dateTime){
       this.bus.$emit('getDataFromPage',dateTime)
+    },
+    async openDetailChat() {
+      await this.$store.commit("newDialogVisible", true);
+      let value = this.currentPage;
+      if (this.$refs.detailChat.contentWindow && this.filePath) {
+        this.$refs.detailChat.contentWindow.postMessage(
+          { type: "currentPage", value },
+          this.detailChatUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }
     },
     printAll() {
       this.isPrintAll = true; //隐藏页码控制区域
@@ -128,6 +184,22 @@ export default {
       if (this.currentPage === 1) return;
       this.currentPage--;
       this.toCurrentPage = this.currentPage;
+    },
+    changeDetailChatUrl(type) {
+      this.detailChatFlag = false;
+      this.showVitalSign = type;
+      setTimeout(() => {
+        this.detailChatFlag = true;
+      }, 0);
+      setTimeout(() => {
+        if (this.$refs.detailChat.contentWindow) {
+          let value = this.currentPage;
+          this.$refs.detailChat.contentWindow.postMessage(
+            { type: "currentPage", value },
+            this.detailChatUrl /* 内网 */
+          );
+        }
+      }, 300);
     },
     toPage() {
       if (
@@ -164,7 +236,7 @@ export default {
 
       this.getImg();
     },
-     getImg() {
+    getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
@@ -195,13 +267,13 @@ export default {
             this.pageTotal = e.data.value;
             this.currentPage = e.data.value;
             break;
-              case "dblclick":/* 双击查阅体温单子 */
-          this.openRight();
-          break;
-                    case "currentPage":
+          case "dblclick":/* 双击查阅体温单子 */
+            this.openRight();
+            break;
+          case "currentPage":
             this.currentPage = e.data.value;
             break;
-             case "clickDateTime":
+          case "clickDateTime":
             this.getDataFromPage(e.data.value)
             break;
 
@@ -233,6 +305,14 @@ export default {
         this.intranetUrl /* 内网 */
         // this.outNetUrl /* 外网 */
       );
+      if (this.$refs.detailChat.contentWindow) {
+        let value = this.currentPage;
+        this.$refs.detailChat.contentWindow.postMessage(
+          { type: "currentPage", value },
+          this.detailChatUrl /* 内网 */
+          // this.outNetUrl /* 外网 */
+        );
+      }
     },
   },
   mounted() {
@@ -253,9 +333,9 @@ export default {
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
-        this.bus.$on('dateChangePage',(value)=>{
+    this.bus.$on('dateChangePage',(value)=>{
       value=moment(value).format("YYYY-MM-DD")
-        this.$refs.pdfCon.contentWindow.postMessage(
+      this.$refs.pdfCon.contentWindow.postMessage(
         { type: "dateChangePage", value },
         this.intranetUrl /* 内网 */
         // this.outNetUrl /* 外网 */
@@ -263,13 +343,18 @@ export default {
     })
   },
   computed: {
+    detailChatUrl() {
+      let path = `${this.intranetUrl}detailed`;//正式服内网地址(http://192.168.4.175:9091/hcres/#/detailed)
+      // let path = "http://localhost:8080/#/detailed";//个人测试地址
+      return `${path}?showVitalSign=${this.showVitalSign}`; /* 外网 */
+    },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
     },
-         authTokenNursing() {
+    authTokenNursing() {
       return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
   },
@@ -278,6 +363,7 @@ export default {
   },
   components: {
     nullBg,
+    moveContext,
   },
 };
 </script>
@@ -313,7 +399,7 @@ export default {
   font-weight: normal;
 }
 .paginationRight{
- display: inline;
+  display: inline;
   position: relative;
   left: 23%;
   font-weight: normal;
@@ -378,4 +464,36 @@ button[disabled=disabled] {
   top: 0;
   display: inline-flex !important;
 }
+
+.detailChatBox {
+  position: absolute;
+  right: 10%;
+  top: 15px;
+  width: 1000px;
+  height: 400px;
+  z-index: 999;
+  box-shadow: -2px 0 7px -1px black; // 左边阴影;
+  background: #fff;
+}
+
+.detailChat {
+  width: 100%;
+  height: 400px;
+}
+
+.button-context {
+  height: 50px;
+  background: rgb(240, 240, 241);
+
+  button {
+    position: relative;
+    top: 10px;
+  }
+}
+
+.detail-button {
+  margin-left: 25px;
+  width: 100px;
+}
+
 </style>

@@ -187,6 +187,15 @@ export default {
       setTimeout(() => {
         this.detailChatFlag = true;
       }, 0);
+         setTimeout(() => {
+               if (this.$refs.detailChat.contentWindow) {
+        let value = this.currentPage;
+        this.$refs.detailChat.contentWindow.postMessage(
+          { type: "currentPage", value },
+          this.detailChatUrl /* 内网 */
+        );
+      }
+      }, 300);
     },
     toPage() {
       if (

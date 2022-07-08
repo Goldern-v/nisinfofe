@@ -7,7 +7,7 @@
   >
     <div class="head-con" flex>
       <div class="tool-con" flex-box="1">
-        <sheetTool ref="sheetTool"></sheetTool>
+        <sheetTool ref="sheetTool" :isLock='isLock'></sheetTool>
       </div>
     </div>
     <div
@@ -239,7 +239,8 @@ import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBott
 import { patients } from "@/api/lesion";
 import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
 import { getRowNum } from "@/Page/sheet-page/components/utils/sheetRow"
-
+//解锁
+import {unLock} from "@/Page/sheet-hospital-eval/api/index.js"
 export default {
   mixins: [common],
   data() {
@@ -258,7 +259,11 @@ export default {
       scrollTop: 0,
       scrollY: 0,
       bedAndDeptChange: {},
-      listData: []
+      listData: [],
+      lockHospitalList:[
+        'huadu'
+      ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
+      isLock:false
     };
   },
   computed: {
@@ -421,6 +426,24 @@ export default {
       $(".red-border").removeClass("red-border");
       return Promise.all(fnArr).then(res => {
         let titleData = res[0].data.data;
+        /* 判断护记单是否被锁定 */
+        if(res[1].data.errorCode=='3001' && res[1].data.desc.indexOf('锁定')!=-1 && this.lockHospitalList.includes(this.HOSPITAL_ID)){
+          localStorage.setItem('lockForm','')
+          this.isLock=true
+          window.app && window.app.$message({
+            showClose: true,
+            message: res[1].data.desc,
+            type: 'error'
+          })
+        }else{
+          const formConfig={
+            formId:this.sheetInfo.selectBlock.id,
+            type:'record',
+            initTime:Date.now()
+          }
+          this.isLock=false
+          localStorage.setItem('lockForm',JSON.stringify(formConfig))
+        }
         let bodyData = res[1].data.data;
 
         if(this.HOSPITAL_ID=='wujing'){
@@ -695,6 +718,27 @@ export default {
       ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
       ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
     },
+    destroyUnlock(){
+      const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
+      /* 判断是否已经自动解锁 */
+      if(lockForm && lockForm.initTime){
+        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
+        let min=10
+        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
+        const afterInitTime= +lockForm.initTime + 60000 * min
+        const nowTime=Date.now()
+        if(nowTime > afterInitTime ){
+          /* 超时间 */
+          localStorage.setItem('lockForm','')
+          return
+        }
+       }
+       if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
+         unLock(lockForm.type,lockForm.formId).then(res=>{
+            localStorage.setItem('lockForm','')
+         })
+       }
+    }
   },
 
   created() {
@@ -1033,7 +1077,11 @@ export default {
       }
     }
   },
-  beforeRouteLeave: (to, from, next) => {
+  beforeRouteLeave (to, from, next) {
+    /* 除了体温单模块和登出页面都触发解锁 */
+    if(this.lockHospitalList.includes(this.HOSPITAL_ID) && from.fullPath.includes("sheet") && !to.fullPath.includes("login")){
+       this.destroyUnlock()
+    }
     if (!sheetInfo.isSave) {
       window.app
         .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
