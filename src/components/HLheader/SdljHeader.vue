@@ -115,7 +115,7 @@
               :class="{ 'router-link-active': isActiveFormPage }"
             >
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-hulijiludan"></i> 护理文书
+                <i class="iconfont icon-hulijiludan"></i> 其他文书
               </el-row>
 
               <el-dropdown-menu slot="dropdown">

@@ -9,11 +9,18 @@
       frameborder="0"
       class="emr-pdf"
       :style="{height:height}"
-      v-if="!show"
-      security="restricted"
-      sandbox=""
+      v-if="!show & !needSandbox"
       @load="onload"
     ></iframe>
+    <iframe
+      ref="iframe"
+      :src="fileUrl"
+      frameborder="0"
+      class="emr-pdf"
+      :style="{height:height}"
+      v-if="!show & needSandbox"
+      sandbox="allow-scripts"
+      @load="onload" />
   </div>
 </template>
 
@@ -74,6 +81,7 @@ export default {
           if (user) {
             user = JSON.parse(user)
           }
+          // 10.207.40.24:9091
           this.fileUrl = `http://10.207.45.213:8015/cdr/personal/?medicalrecordno=${this.$route.query.inpNo}&systemcode=008&doctorcode=${user.empNo || this.$route.query.empNo}`;
           break;
         default:
@@ -87,7 +95,11 @@ export default {
     },
     height() {
       return this.wih - 146 + "px";
-    }
+    },
+    // 需要添加sandbox
+    needSandbox() {
+      return ['guizhou'].includes(this.HOSPITAL_ID)
+    },
   },
   methods: {
     onload() {

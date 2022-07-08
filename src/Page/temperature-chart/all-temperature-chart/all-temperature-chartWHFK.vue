@@ -215,6 +215,26 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="height"
+            label="身高"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.height"
+                :class="className"
+                class="height"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.height" class="curWeight" /> -->
+              <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="curWeight"
             label="体重"
             min-width="70"
@@ -272,49 +292,8 @@
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.heartRate" class="heartRate" /> -->
-              <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
-
-          <!-- <el-table-column
-            prop="urinate"
-            label="小便次数"
-            min-width="80"
-            align="center"
-           >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.urinate"
-                :class="className"
-                class="urinate"
-                type="number"
-                @mousewheel="(e)=>{e.preventDefault()}"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column> -->
-
-          <!-- <el-table-column
-            prop="fieldThree"
-            label="尿量"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.fieldThree"
-                :class="className"
-                class="fieldThree"
-                type="text"
-                @keyup="handleKeyUp"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>-->
           <el-table-column
             prop="foodSize"
             label="入量"
@@ -461,13 +440,53 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.stoolNum"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="bloodPressure"
             label="血压"
-            min-width="80"
+            min-width="60"
             align="center"
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.bloodPressure"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="height"
+            label="身高"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.height"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="curWeight"
+            label="体重"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.curWeight"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="physicalCooling"
+            label="降温处理"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.physicalCooling"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -480,16 +499,7 @@
               <el-input v-model="scope.row.heartRate"></el-input>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="fieldThree"
-            label="尿量"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.fieldThree"></el-input>
-            </template>
-          </el-table-column>
+
           <el-table-column
             prop="foodSize"
             label="入量"
@@ -511,46 +521,25 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="curWeight"
-            label="体重"
+            prop="fieldThree"
+            label="尿量"
             min-width="60"
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.curWeight"></el-input>
+              <el-input v-model="scope.row.fieldThree"></el-input>
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            prop="height"
-            label="身高"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.height"></el-input>
-            </template>
-          </el-table-column> -->
           <el-table-column
-            prop="stoolNum"
-            label="大便次数"
-            min-width="60"
+            prop="arterialPressure"
+            label="有创动脉收缩压"
+            min-width="70"
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.stoolNum"></el-input>
+              <el-input v-model="scope.row.arterialPressure"></el-input>
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
-            prop="painScore"
-            label="疼痛"
-            min-width="60"
-            align="center"
-           >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.painScore"></el-input>
-            </template>
-          </el-table-column> -->
         </el-table>
       </div>
     </div>
@@ -922,14 +911,17 @@ export default {
         }
         //取合并的区间，但是能满足条件的患者合并起来可能会重复，所以排序去掉重复的
         data.sort((a, b) => a.bedLabel - b.bedLabel);
-        return Array.from(new Set(data.filter((item) => {
-            return (
-              item.patientId &&
-              (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1)
-            );
-          })))
-
+        return Array.from(
+          new Set(
+            data.filter((item) => {
+              return (
+                item.patientId &&
+                (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                  item.name.indexOf(this.searchWord) > -1)
+              );
+            })
+          )
+        );
       },
       set(value) {
         // this.tableData = value;
@@ -985,7 +977,6 @@ export default {
         blockId: "",
         urinate: "", //小便次数
         arterialPressure: "", //有创动脉收缩压
-        heigh: "",
         patientId: "",
         visitId: "",
         audit: "",

@@ -65,6 +65,13 @@ export const FLOW_STATUS = [
     key: 2
   }
 ]
+export const EXTRA_FLOW_STATUS = [
+  {
+    label: '流转撤销',
+    color: '#c72a29',
+    key: 6
+  }
+]
 export const searchItem = (arr, value, key) => {
   return arr.find(v => v[key] == value)
 }

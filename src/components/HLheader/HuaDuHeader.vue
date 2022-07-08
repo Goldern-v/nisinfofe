@@ -142,7 +142,7 @@
                 >
                   <router-link to="/planList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="healthEducation"></i>护理诊断计划
+                      <i class="healthEducation"></i>护理计划
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -903,7 +903,11 @@ export default {
     },
    async quit() {
       // 登出前调用解锁
-       await this.bus.$emit("quitUnlock")
+      /* 两个函数是一样的。但是从不同页面触发需要在哪个页面$on注册这个方法。如果名字一样注册了两次，这里就会触发两次，所以名字有所区别*/
+      //评估单解锁
+      await this.bus.$emit("quitUnlock")
+      //护记单解锁
+      await this.bus.$emit("quitUnlockSheetPage")
       // 登出操作
       logout(Cookies.get("NURSING_USER"));
       Cookies.remove("password");

@@ -138,6 +138,7 @@ import tableHeadDiagnosis from "./components/table-head/table-head-diagnosis";
 import tableHeadWx from "./components/table-head/table-head-wx";
 import tableHeadGzry from "./components/table-head/table-head-gzry";
 import tableHeadLc from "./components/table-head/table-head-lc";
+import tableHeadLinyi from "./components/table-head/table-head-linyi";
 import tableHeadTbhldLc from "./components/table-head/table-head-tbhld-lc";
 import tableHeadWj from "./components/table-head/table-head-wj";
 import tableHeadSdlj from "./components/table-head/table-head-sdlj";
@@ -209,6 +210,8 @@ export default {
         return tableHeadWx;
       } else if (this.HOSPITAL_ID == "lingcheng") {
         return tableHeadLc;
+      } else if (this.HOSPITAL_ID == "lyxrm") {
+        return tableHeadLinyi;
       } else if (this.HOSPITAL_ID == "wujing") {
         return tableHeadWj;
       } else if (this.HOSPITAL_ID == "huadu") {

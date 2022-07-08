@@ -30,8 +30,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: "35px",
-          maxWidth: "35px"
+          minWidth: "26px",
+          maxWidth: "26px"
         },
       },
       {
@@ -52,8 +52,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: "35px",
-          maxWidth: "35px"
+          minWidth: "26px",
+          maxWidth: "26px"
         },
       },
       {
@@ -74,8 +74,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: "35px",
-          maxWidth: "35px"
+          minWidth: "26px",
+          maxWidth: "26px"
         },
       },
       {
@@ -85,8 +85,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: "35px",
-          maxWidth: "35px"
+          minWidth: "26px",
+          maxWidth: "26px"
         },
       },
       {
@@ -96,8 +96,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: "35px",
-          maxWidth: "35px"
+          minWidth: "26px",
+          maxWidth: "26px"
         },
       },
       {
@@ -151,7 +151,7 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          width: '240px'
+          width: '310px'
         },
       },
       {

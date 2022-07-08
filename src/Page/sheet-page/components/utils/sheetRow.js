@@ -48,7 +48,7 @@ export function getRowNum(index) {
     //   // console.log("222",sheetInfo.sheetStartPage +index,sheetInfo.endPage)
     //   return 9;
     // }
-  } else if (sheetInfo.sheetType == "critical_lc") {
+  } else if (sheetInfo.sheetType == "critical_lc" || sheetInfo.sheetType == "critical_new_linyi") {
     return 20;
   } else if (sheetInfo.sheetType == "cardiology_lcey") {
     return 15;
