@@ -230,6 +230,7 @@ export default {
     "query.nursingClass"() {
       this.search();
     },
+    // 当前被选择的患者并且路由在子级时，发起请求过滤，这里也可以考虑直接前端过滤。
     makePatient(newValue){
       if( newValue && this.$route.path === '/nursingMakeItem' ){
         this.query.bedLabel = newValue;

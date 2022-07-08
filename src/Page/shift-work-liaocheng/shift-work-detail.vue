@@ -26,7 +26,7 @@
       >创建交班志</Placeholder>
       <div class="paper" v-else>
         <div ref="printable" data-print-style="height: auto;">
-          <div class="head shift-paper">
+          <div class="head shift-paper liaocFixedTh" v-if="liaocFixedTh && HOSPITAL_ID == 'liaocheng'">
             <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
             <h1 class="title">{{deptName}}</h1>
             <h2 class="sub-title">ISBAR交班记录卡</h2>
@@ -130,7 +130,7 @@
             <div v-if="HOSPITAL_ID == 'zhongshanqi'">
               <div class="details">
                 <span>
-                  病区情况：原有：<input type="text" v-model="shiftWithWardcodes.patientTotal" />人，
+                  病区情况：原有：<input type="text" v-model="shiftWithWardcodes.patientTotal"/>人，
                 </span>
                 <span>
                   新收：<input type="text" v-model="shiftWithWardcodes.inHospitalTotal" />人，
@@ -184,7 +184,7 @@
             <div v-else>
               <div class="details">
                 <span>
-                  病区情况：总数：<b><input type="text" v-model="shiftWithWardcodes.allTotal" /></b>人，
+                  病区情况：总数：<b><input type="text" v-model="shiftWithWardcodes.allTotal"  style="width:60px"/></b>人，
                 </span>
                 <span>
                   出院：<b><input type="text" v-model="shiftWithWardcodes.patientOut" /></b>人，
@@ -234,7 +234,227 @@
                   危急值：<b><input type="text" v-model="shiftWithWardcodes.patientCritical" /></b>人，
                 </span>
                 <span>
-                  压疮高危：<b><input type="text" v-model="shiftWithWardcodes.patientPressure" /></b>人，
+                  {{HOSPITAL_ID=='liaocheng' ? '压力性损伤' : '压疮高危'}}：<b><input type="text" v-model="shiftWithWardcodes.patientPressure" /></b>人，
+                </span>
+                <span>
+                  <!-- 跌倒/坠床高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人， -->
+                  跌倒高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人，
+                </span>
+                <span>
+                  VTE高危：<b><input type="text" v-model="shiftWithWardcodes.patientVte" /></b>人
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="head shift-paper" >
+            <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
+            <h1 class="title">{{deptName}}</h1>
+            <h2 class="sub-title">ISBAR交班记录卡</h2>
+            <div class="class-option" v-if="HOSPITAL_ID == 'zhongshanqi'">
+                <ElSelect size="small" :value="currentClass" @input="onClassChange">
+                  <ElOption label="白班" value="白班" />
+                  <ElOption label="小夜班" value="小夜班" />
+                  <ElOption label="大夜班" value="大夜班" />
+              </ElSelect>
+            </div>
+            <!-- <div style="text-align: right;">交班日期：<b>{{record.changeShiftDate}}</b></div> -->
+            <div v-if="HOSPITAL_ID == 'hj'">
+              <div class="details">
+                <span>
+                  病区情况：原有：
+                  <b>{{record.patientTotal || 0}}</b>人，
+                </span>
+                <span>
+                  新收：
+                  <b>{{record.inHospitalTotal || 0}}</b>人，
+                </span>
+                <span>
+                  转入：
+                  <b>{{record.transInTotal || 0}}</b>人，
+                </span>
+                <span>
+                  出院：
+                  <b>{{record.outHospitalTotal || 0}}</b>人，
+                </span>
+                <span>
+                  转出：
+                  <b>{{record.transOutTotal || 0}}</b>人，
+                </span>
+                <span>
+                  现有：
+                  <b>{{record.nowHospitalTotal || 0}}</b>人，
+                </span>
+                <span>
+                  病危：
+                  <b>{{record.dangerTotal || 0}}</b>人，
+                </span>
+                <span>
+                  病重：
+                  <b>{{record.seriousTotal || 0}}</b>人，
+                </span>
+                <span>
+                  手术：
+                  <b>{{record.operationTotal || 0}}</b>人
+                </span>
+                <span>
+                  交班日期：
+                  <b>{{record.changeShiftDate}}</b>
+                </span>
+              </div>
+
+              <div
+                class="details"
+                style="margin-top: 10px"
+                v-if="record.deptCode && (record.deptCode.indexOf('051102_03') > -1 || record.deptCode.indexOf('051102_04') > -1) "
+              >
+                <span>
+                  <!-- 051102 051102_03 051102_04 051102_02 -->
+                  <span style="color: transparent">空</span>新生儿：原有：
+                  <b>{{record.babyPatintTotal || 0}}</b>人，
+                </span>
+                <span>
+                  新收：
+                  <b>{{record.babyInHospitalTotal || 0}}</b>人，
+                </span>
+                <span>
+                  转入：
+                  <b>{{record.babyTransInTotal || 0}}</b>人，
+                </span>
+                <span>
+                  出院：
+                  <b>{{record.babyOutHospitalTotal || 0}}</b>人，
+                </span>
+                <span>
+                  转出：
+                  <b>{{record.babyTransOutTotal || 0}}</b>人，
+                </span>
+                <span>
+                  现有：
+                  <b>{{record.babyNowHospitalTotal || 0}}</b>人，
+                </span>
+                <span>
+                  病危：
+                  <b>{{record.babyDangerTotal || 0}}</b>人，
+                </span>
+                <span>
+                  病重：
+                  <b>{{record.babySeriousTotal || 0}}</b>人，
+                </span>
+                <span>
+                  手术：
+                  <b>{{record.babyOperationTotal || 0}}</b>人
+                </span>
+                <span style="color: transparent">交班日期： 2019-05-15</span>
+              </div>
+            </div>
+            <div v-if="HOSPITAL_ID == 'zhongshanqi'">
+              <div class="details">
+                <span>
+                  病区情况：原有：<input type="text" v-model="shiftWithWardcodes.patientTotal"/>人，
+                </span>
+                <span>
+                  新收：<input type="text" v-model="shiftWithWardcodes.inHospitalTotal" />人，
+                </span>
+                <span>
+                  转入：<input type="text" v-model="shiftWithWardcodes.transInTotal" />人，
+                </span>
+                <span>
+                  出院：<input type="text" v-model="shiftWithWardcodes.outHospitalTotal" />人，
+                </span>
+                <span>
+                  转出：<input type="text" v-model="shiftWithWardcodes.transOutTotal" />人，
+                </span>
+                <span>
+                  现有：<input type="text" v-model="shiftWithWardcodes.nowHospitalTotal" />人，
+                </span>
+                <span>
+                  病危：<input type="text" v-model="shiftWithWardcodes.dangerTotal" />人，
+                </span>
+                <span>
+                  病重：<input type="text" v-model="shiftWithWardcodes.seriousTotal" />人，
+                </span>
+                <span>
+                  手术：<input type="text" v-model="shiftWithWardcodes.operationTotal" />人
+                </span>
+               </div>
+               <div class="details" style="margin-top: 5px;">
+                <span>
+                  特级护理：<input type="text" v-model="shiftWithWardcodes.tjhl" />人，
+                </span>
+                <span>
+                  一级护理：<input type="text" v-model="shiftWithWardcodes.yjhl" />人，
+                </span>
+                <span>
+                  二级护理：<input type="text" v-model="shiftWithWardcodes.ejhl" />人，
+                </span>
+                <span>
+                  三级护理：<input type="text" v-model="shiftWithWardcodes.sjhl" />人，
+                </span>
+                <span>
+                  体温异常：<input type="text" v-model="shiftWithWardcodes.twyc" />人，
+                </span>
+                <span>
+                  血压异常：<input type="text" v-model="shiftWithWardcodes.xyyc" />人，
+                </span>
+                <span>
+                  血糖异常：<input type="text" v-model="shiftWithWardcodes.xtyc" />人
+                </span>
+              </div>
+            </div>
+            <div v-else>
+              <div class="details">
+                <span>
+                  病区情况：总数：<b><input type="text" v-model="shiftWithWardcodes.allTotal"  style="width:60px"/></b>人，
+                </span>
+                <span>
+                  出院：<b><input type="text" v-model="shiftWithWardcodes.patientOut" /></b>人，
+                </span>
+                <span>
+                  转出：<b><input type="text" v-model="shiftWithWardcodes.patientTransferOut" /></b>人，
+                </span>
+                <span>
+                  死亡：<b><input type="text" v-model="shiftWithWardcodes.patientDead" /></b>人，
+                </span>
+                <span>
+                  新入：<b><input type="text" v-model="shiftWithWardcodes.patientNew" /></b>人，
+                </span>
+                <span>
+                  转入：<b><input type="text" v-model="shiftWithWardcodes.patientTransferIn" /></b>人，
+                </span>
+                <span>
+                  手术：<b><input type="text" v-model="shiftWithWardcodes.patientOpration" /></b>人，
+                </span>
+                <!-- <span>
+                  病重：<b><input type="text" v-model="shiftWithWardcodes.patientBz" /></b>人，
+                </span> -->
+                <span>
+                  明日手术：<b><input type="text" v-model="shiftWithWardcodes.patientOprationTommorow" /></b>人
+                </span>
+                <span>
+                分娩：<b><input type="text" v-model="shiftWithWardcodes.patientBirth" /></b>人
+                </span>
+              </div>
+              <div class="details" style="margin-top: 5px;">
+                <span>
+                  病危：<b><input type="text" v-model="shiftWithWardcodes.patientBw" /></b>人，
+                </span>
+                <span>
+                  病重：<b><input type="text" v-model="shiftWithWardcodes.patientBz" /></b>人，
+                </span>
+                <span>
+                  监护：<b><input type="text" v-model="shiftWithWardcodes.patientCustody" /></b>人，
+                </span>
+                <span>
+                  一级：<b><input type="text" v-model="shiftWithWardcodes.patientYi" /></b>人，
+                </span>
+                <span>
+                  吸氧：<b><input type="text" v-model="shiftWithWardcodes.patientOxygen" /></b>人，
+                </span>
+                <span>
+                  危急值：<b><input type="text" v-model="shiftWithWardcodes.patientCritical" /></b>人，
+                </span>
+                <span>
+                  {{HOSPITAL_ID=='liaocheng' ? '压力性损伤' : '压疮高危'}}：<b><input type="text" v-model="shiftWithWardcodes.patientPressure" /></b>人，
                 </span>
                 <span>
                   <!-- 跌倒/坠床高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人， -->
@@ -545,6 +765,7 @@ export default {
         }
       ],
       fixedTh: false,
+      liaocFixedTh: false,
       currentClass: "白班"
     };
   },
@@ -594,8 +815,10 @@ export default {
     $(dom).scroll(e => {
       if ($(dom).scrollTop() >= 117) {
         this.fixedTh = true;
+        this.liaocFixedTh = true;
       } else {
         this.fixedTh = false;
+        this.liaocFixedTh = false;
       }
     });
   },
@@ -1087,6 +1310,7 @@ export default {
     async onPrint() {
       this.loading = true;
       this.fixedTh = false;
+      this.liaocFixedTh = false;
       this.$nextTick(async () => {
         await print(this.$refs.printable, {
           beforePrint: formatter,
@@ -1095,6 +1319,10 @@ export default {
           scanStyles: false,
           css: `
           .fixedTh {
+            display: none !important;
+            height: auto;
+          }
+          .liaocFixedTh {
             display: none !important;
             height: auto;
           }
@@ -1245,6 +1473,14 @@ export default {
 .head {
   position: relative;
   // padding 15px 0 10px
+}
+
+.liaocFixedTh{
+  position fixed
+  background-color:#fff
+  top 103px
+  width 1040px
+  z-index 1
 }
 
 .logo {
