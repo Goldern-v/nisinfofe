@@ -34,7 +34,7 @@
 <script>
 import tree from "./component/tree";
 import rightPart from "./component/right-part/right-part.vue";
-import {unLock} from "@/Page/sheet-hospital-eval/api/index.js"
+import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 export default {
   props: {
     filterObj: Object
@@ -45,12 +45,16 @@ export default {
     };
   },
   methods:{
-    destroyUnlock(){
+    async destroyUnlock(){
      const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
      /* 判断是否已经自动解锁 */
      if(lockForm && lockForm.initTime){
         /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
         let min=10
+        const res=await unLockTime()
+        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
+          min = +res.data.data/100
+        }
         /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
         const afterInitTime= +lockForm.initTime + 60000 * min
         const nowTime=Date.now()
