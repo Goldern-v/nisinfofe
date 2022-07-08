@@ -64,7 +64,7 @@ export default [
   { key: 'urineTube', event: keyf1, value: '', next: '', name: '留置尿管', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'urineColor', event: keyf1, value: '', next: '', name: '尿色', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
   // { key: 'raise', event: keyf1, value: '', next: '', name: '抬高床头15度', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'armValue1', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "description", //特殊情况记录
