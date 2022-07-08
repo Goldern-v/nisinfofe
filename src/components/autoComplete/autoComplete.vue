@@ -98,6 +98,7 @@
 </style>
 
 <script>
+import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo/index.js'
 export default {
   data() {
     return {
@@ -110,7 +111,8 @@ export default {
       childData: [],//子下拉组件
       options: '',//父子数据（父子下拉同时显示数据）
       parentVal: '',//当前父下拉
-      splice:''
+      splice:'',
+      config:""
     };
   },
   methods: {
@@ -118,6 +120,8 @@ export default {
       this.show = false
     },
     open(config) {
+      console.log(config,"config")
+      this.config = config
       this.style = config.style;
       this.callback = config.callback;
       this.splice = config.td&&config.td.splice
@@ -156,9 +160,14 @@ export default {
           this.data = [...arr];
         }
       }else {
-      this.data = config.data || [];
+        if(process.env.HOSPITAL_ID == 'sdlj' && sheetInfo.sheetType == "craniocerebral_sdlj"){
+            if(["consciousness",'reflectionLeft','reflectionRight'].includes(config.td.key)){
+            this.data = config.data.data || [];
+    }else this.data = config.data || []; 
+  }else this.data = config.data || [];
+      console.log("dadada",this.data,config)
      }
-
+      console.log()
       if (this.data && this.data.length >= 1) {
         this.show = true;
       }else {
@@ -201,6 +210,15 @@ export default {
       }
     },
     post(item) {
+      console.log("item",item)
+      if(process.env.HOSPITAL_ID == 'sdlj'){
+        if(sheetInfo.sheetType == "craniocerebral_sdlj"){
+          if(["consciousness",'reflectionLeft','reflectionRight'].includes(this.config.td.key)){
+            item = this.config.data.dataVal[this.config.data.data.indexOf(item)]
+            console.log(this.config.data.data.indexOf(item),"this.data.data.indexOf(item)")
+    } 
+  }
+}
       let flag = true;
       if(this.options && this.options.length){
         this.options.map(opt => {
@@ -214,6 +232,7 @@ export default {
       }
       if(flag){
         item = this.parentVal?item + '(' + this.parentVal + ')': item;
+        console.log("item/",item,this.parentVal)
         this.callback(item);
         this.show = this.splice;
       }

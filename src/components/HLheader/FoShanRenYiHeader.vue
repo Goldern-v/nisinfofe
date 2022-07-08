@@ -78,6 +78,11 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
+             <router-link to="/planList" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+                >护理计划单</el-row
+              >
+            </router-link>
             <router-link to="/sheetPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理记录单

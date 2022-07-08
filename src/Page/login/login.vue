@@ -410,7 +410,7 @@ export default {
       loginLoading: false,
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
-      md5HisList: ["foshanrenyi","sdlj","hengli"], //需要md5加密医院
+      md5HisList: ["foshanrenyi","hengli",'sdlj'], //需要md5加密医院
     };
   },
   methods: {
@@ -639,6 +639,8 @@ export default {
           return require("../../common/images/logo_xiegang.png");
         case "whfk":
           return require("../../common/images/logo_whfk.png");
+        case "liaocheng":
+          return require("../../common/images/login_liaocheng.png");
         case "wujing":
           return require("../../common/images/logo_wujing.png");
         case "liaocheng":

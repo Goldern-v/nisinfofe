@@ -149,6 +149,21 @@
       <u-table-column prop="executeNurseName" title="executeNurseName" label="执行护士" min-width="80px" align="center">
       </u-table-column>
 
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="结束时间" prop="executeEndTime" min-width="160px" align="center">
+      <template slot-scope="scope">
+          <span :title="scope.row.executeEndTime">{{scope.row.executeEndTime}}</span>
+        </template>
+      </u-table-column>
+
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" prop="executeEndNurseName" title="executeEndNurseName" label="结束护士" min-width="80px" align="center">
+      </u-table-column>
+
+      <u-table-column v-if="HOSPITAL_ID == 'sdlj'" label="输液时间/分钟" min-width="100px" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.executeEndTime && scope.row.realExecuteDateTime ? (parseInt(new Date(scope.row.executeEndTime).getTime() - new Date(scope.row.realExecuteDateTime).getTime()) / 1000 / 60).toFixed(2) : '' }}</span>
+        </template>
+      </u-table-column>
+
       <u-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center">
        <template slot-scope="scope">
           <span :title="scope.row.repeatIndicator == 1 ? '长期' : '临时'">{{scope.row.repeatIndicator == 1 ? '长期' : '临时'}}</span>
@@ -363,6 +378,6 @@ export default {
       return val ? moment(val).format("YYYY-MM-DD HH:mm:ss") : "";
     }
   },
-  components: {}
+  components: {},
 };
 </script>

@@ -240,7 +240,7 @@ import { patients } from "@/api/lesion";
 import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
 import { getRowNum } from "@/Page/sheet-page/components/utils/sheetRow"
 //解锁
-import {unLock} from "@/Page/sheet-hospital-eval/api/index.js"
+import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 export default {
   mixins: [common],
   data() {
@@ -718,12 +718,16 @@ export default {
       ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
       ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
     },
-    destroyUnlock(){
+    async destroyUnlock(){
       const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
       /* 判断是否已经自动解锁 */
       if(lockForm && lockForm.initTime){
-        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
         let min=10
+        /* 拿后台字典的分钟数 */
+        const res=await unLockTime()
+        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
+          min = +res.data.data/100
+        }
         /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
         const afterInitTime= +lockForm.initTime + 60000 * min
         const nowTime=Date.now()

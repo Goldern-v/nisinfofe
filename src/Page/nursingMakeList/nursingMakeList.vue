@@ -2,15 +2,16 @@
     <div class="advice-list body-con">
         <div class="left-part">
             <patientList
-            toName="adviceItem"
-            :callFunction="isSelectPatient"
+              toName="nursingMakeItem"
+              :callFunction="isSelectPatient"
             />
         </div>
         <div 
             class="right-part"
             :style="{ marginLeft: openLeft ? '200px' : '0' }"
-        >
-            <adviceGuizhou />
+        >     
+            <nursingRoundsGuizhou v-if="this.$route.path == '/nursingRounds'" />
+            <router-view v-else></router-view>
         </div>
     </div>
 </template>
@@ -40,12 +41,14 @@
 
 
 <script>
-import patientList from "@/components/patient-list/patient-list-make-guizhou.vue";
-import adviceGuizhou from '@/Page/patientInfo/supPage/advice_guizhou/advice'
+import patientList from "@/components/patient-list/patient-list-router-link.vue";
+import nursingRoundsGuizhou from "../nursing-rounds-guizhou/nursing-rounds.vue";
 export default {
 props: {},
 data() {
-return {};
+return {
+  isBedLabel:true,
+};
 },
 methods: {
     isSelectPatient(item) {
@@ -57,9 +60,10 @@ computed:{
       return this.$store.state.sheet.openSheetLeft;
     },
 },
+
 components: {
     patientList,
-    adviceGuizhou
+    nursingRoundsGuizhou
 }
 };
 </script>

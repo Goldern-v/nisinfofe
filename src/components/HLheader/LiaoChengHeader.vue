@@ -22,11 +22,11 @@
               align="middle"
               v-else
             >
-              <img src="../../common/images/logo-white-60.png" />
+              <img src="../../common/images/liaocheng_logo.png" />
               <span>{{
                 HOSPITAL_ID == "hj"
                   ? "百辰源智慧护理信息系统"
-                  : "智慧护理信息系统"
+                  : ""
               }}</span>
             </el-row>
             <!-- <router-link to="/index"
@@ -626,8 +626,8 @@
   margin-right: 11px;
 
   img {
-    width: 30px;
-    height: 30px;
+    width: 200px;
+    height: 70%;
   }
 
   span {
