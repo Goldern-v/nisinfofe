@@ -205,6 +205,8 @@ const bottleLabelByProgram = () => import("@/Page/implementation-list/bottle-sig
 const dcList = () => import("@/Page/dc-list/dc-list.vue"); //执行单
 const patientList = () => import("@/Page/patientList/index"); //执行单
 const nursingRounds = () => import("@/Page/nursing-rounds/nursing-rounds.vue"); //护理巡视
+const nursingMakeListGuizhou = () => import("@/Page/nursingMakeList/nursingMakeList.vue"); //贵州护理巡视
+const nursingRoundsGuizhou = () => import("@/Page/nursing-rounds-guizhou/nursing-rounds.vue"); //贵州左边
 const allTemperatureChart = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chart.vue"); //所以版本的批量录入体温单
 const allTemperatureChartBHRY = () =>
@@ -1283,8 +1285,22 @@ const router = new Router({
       },
       {
         path: "/nursingRounds",
-        component: nursingRounds,
-        name: "护理巡视"
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'guizhou':
+              return nursingMakeListGuizhou
+            default:
+              return nursingRounds
+          }
+        })(),
+        name: "护理巡视",
+        children:['guizhou'].includes(HOSPITAL_ID)?[
+          {
+            path: "/nursingMakeItem",
+            name: "nursingMakeItem",
+            component: nursingRoundsGuizhou
+          },
+        ]:[]
       },
       {
         path: "/singleTemperatureChart",

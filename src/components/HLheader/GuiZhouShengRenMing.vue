@@ -200,11 +200,11 @@
                 >不良事件
               </el-row>
             </router-link>
-            <!-- <router-link to="/nursingRounds" tag="span">
+            <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理巡视
               </el-row>
-            </router-link> -->
+            </router-link>
             <!-- <el-dropdown
               menu-align="start"
               :class="{
@@ -327,6 +327,11 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
+            <router-link to="/implementationList" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 执行单
+              </el-row>
+            </router-link>
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"

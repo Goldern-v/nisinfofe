@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="content">
-      <div class="select-nav">
-        <span>查询时间：</span>
+      <!-- <div class="select-nav"> -->
+        <!-- <span>查询时间：</span>
         <masked-input 
           type="text"
           class="mask-input"
@@ -12,7 +12,7 @@
           :mask="() => [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/]"
           :guide="true"
           placeholderChar=" "
-        />
+        /> -->
         <!-- <div class="select-btn-con">
           <el-button
             class="select-btn"
@@ -48,7 +48,7 @@
           </el-radio-group>
         </el-row> -->
         <!-- 模糊查询 -->
-        <span class="newSearchBox" v-if="searchHisList.includes(HOSPITAL_ID)">
+        <!-- <span class="newSearchBox" v-if="searchHisList.includes(HOSPITAL_ID)">
           <el-input
             placeholder="请输入医嘱内容"
             prefix-icon="el-icon-search"
@@ -57,7 +57,7 @@
           </el-input>
           <el-button class="searchBt" type="primary" @click="getData">查询</el-button>
         </span>
-        <div style="flex: 1"></div>
+        <div style="flex: 1"></div> -->
         <!-- <el-button
           class="select-btn"
           v-if="HOSPITAL_ID == 'weixian'"
@@ -71,7 +71,7 @@
         >
           <el-button class="select-btn" type="primary">打印执行单</el-button>
         </a> -->
-      </div>
+      <!-- </div> -->
       <!-- <component
         :tableData="tableDataSelect"
         :tableLoading="tableLoading"
@@ -217,7 +217,7 @@
 
 <script>
 // import adviceTableGuizhou from "./component/adviceTable_guizhou";
-import implementation from '@/Page/implementation-list/implementation-list-liaocheng.vue'
+import implementation from '@/Page/implementation-list/implementation-list-guizhou.vue'
 import { orders, newOrders } from "@/api/patientInfo";
 import {getProcedureData} from '@/api/common'
 import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
@@ -234,7 +234,7 @@ export default {
       data2Res:[],
       orderText:"",//模糊查询值
       searchHisList:["beihairenyi"],//有模糊查询方法医院
-      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk'], // 需要添加rowType(同一医嘱内第几条记录)的医院
+      duplicateRemoval:['guizhou'], // 需要添加rowType(同一医嘱内第几条记录)的医院
       specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi'], // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
       searchDate:moment().format('YYYY-MM')
     };

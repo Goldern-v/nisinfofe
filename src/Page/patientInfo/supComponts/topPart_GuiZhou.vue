@@ -123,6 +123,15 @@
       >
         <div class="nav-item">医嘱</div>
       </router-link>
+       <router-link
+        :to="{
+          path: '/patientNursingRound',
+          query: { patientId: query.patientId, visitId: query.visitId ,bedLabel: query.bedLabel},
+        }"
+        tag="span"
+      >
+        <div class="nav-item">护理巡视</div>
+      </router-link>
       <router-link
         :to="{
           path: '/inspect',
@@ -141,6 +150,7 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
+     
       <!-- <router-link to="/dev" tag="span">
         <div class="nav-item">手术</div>
       </router-link>-->
