@@ -410,7 +410,7 @@ export default {
       loginLoading: false,
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
-      md5HisList: ["foshanrenyi","sdlj","hengli"], //需要md5加密医院
+      md5HisList: ["foshanrenyi","hengli",'sdlj'], //需要md5加密医院
     };
   },
   methods: {

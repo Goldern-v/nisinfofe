@@ -128,7 +128,15 @@ function onFocusToAutoComplete(e, bind) {
     isRead = false;
   }
   if (isRead) return;
-
+  let autoCompleteData = autoComplete.data
+  //顺德龙江颅脑外科的意识瞳孔下拉选项只保留符号
+  if(process.env.HOSPITAL_ID == 'sdlj'){
+    if(sheetInfo.sheetType == "craniocerebral_sdlj"){
+      if(["consciousness",'reflectionLeft','reflectionRight'].includes(td.key)){
+        autoCompleteData = autoComplete
+      }
+    }
+  }
   setTimeout(() => {
     // console.log(xy.left - scrollLeft - window.scrollX,xy.left,scrollLeft,window.scrollX);
     window.openAutoComplete({
@@ -137,7 +145,7 @@ function onFocusToAutoComplete(e, bind) {
         left: `${xy.left - scrollLeft - window.scrollX}px`,
         addWidth: `${xy.width}px`
       },
-      data: autoComplete.data,
+      data: autoCompleteData,
       callback: function (data) {
         // 威县下拉选项后一个选项依赖于前一个td的选择(威县这个功能已经废除，如果使用了下拉就用不了多选)（如果想要这个功能可参考 威县-重症护理记录单II（EICU））
         // 选择出量名称的时候和上次不一样 则清除出量性质
