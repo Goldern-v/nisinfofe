@@ -92,7 +92,8 @@ export default {
         name: `
         体温<br/>℃
         `,
-        style: {},
+        style: {
+        },
         colspan: "1",
         rowspan: "2",
       },
