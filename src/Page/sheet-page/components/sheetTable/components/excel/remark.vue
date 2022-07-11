@@ -363,11 +363,6 @@
       <strong>十四.胃内引流:</strong>1.黄色粘液 2.白色粘液 3.咖啡色粘液 4.粉红色粘液 5.草绿色粘液 6絮状物7.鲜血8.黄绿色黏液
       <strong>十五．身体部位:</strong>a.面部 b.耳后 c.颈部 d.上肢 e.下肢 f.臀部 g.腹部 h.胸部 i.腋窝 j.脐部 k.眼周 l.口周 m.腹股沟 n.周身 o.头部 P.会阴q.足底
     </div>
-    <!-- 佛山杏坛 危重症护理记录单 -->
-    <div v-if="sheetInfo.sheetType == 'criticaldisease_xt'">
-      说明：<strong>意识</strong>：清醒√；嗜睡+；意识模糊△；浅昏迷++；深昏迷+++。
-      <strong>瞳孔反应</strong>：灵敏√；迟钝+；消失-。
-    </div>
     <!-- 佛山杏坛 护理记录单(产前待产记录) -->
     <div v-if="sheetInfo.sheetType == 'prenataldelivery2_xt'">
       注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；谵妄。&nbsp;<strong>胎心音</strong>：双胎以上用“/”间隔。&nbsp;<strong>胎位</strong>：LOA，ROA，LSA，RSA等。&nbsp;<strong>宫缩</strong>：未临产前：无、偶有、敏感、不规则、弱；临产后：弱、中、强。<br/>

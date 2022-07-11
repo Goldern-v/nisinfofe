@@ -623,15 +623,15 @@ export default {
             },
           };
           return o;
-        case "脉搏":
-          case "心率":
-          let y = {
-            脉搏: {
-              value: val,
-              reg: [20, 180],
-            },
-          };
-          return y;
+        // case "脉搏":
+        //   case "心率":
+        //   let y = {
+        //     脉搏: {
+        //       value: val,
+        //       reg: [0, 300],
+        //     },
+        //   };
+        //   return y;
         case "疼痛评分":
         case "降痛后评分":
           let g = {

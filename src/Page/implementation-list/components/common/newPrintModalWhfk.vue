@@ -2,7 +2,7 @@
   <div
     :style="{
       width: `${isLargeType ? '8' : '10'}cm`,
-      height: `${isLargeType ? '5.9' : '5.9'}cm`,
+      height: `${isLargeType ? '5.8' : '5.9'}cm`,
     }"
     class="new-print-modal"
 		:class="{'new-print-modal--s': !isLargeType}"
@@ -104,6 +104,7 @@
         box-sizing: border-box;
         overflow: hidden;
         img {
+					margin-top: 6px;
           width: 100%;
           height: 64px;
           object-fit: cover;
@@ -195,7 +196,7 @@ export default {
         dosageDosageUnits.push(content);
       });
       let qr_png_value = this.itemObj[0].barCode;
-      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      var qr_png = qr.imageSync(qr_png_value, { type: "png",margin: 2 });
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);

@@ -99,12 +99,12 @@
           @currentChange="handleCurrentChange"
         ></pagination>
       </div>
-      <div class="print-modal" v-show="showPintModal" @click="closePrint">
+      <!-- <div class="print-modal" v-show="showPintModal" @click="closePrint">
         <div class="init" v-show="!showProgress">
           <img src="./images/print.png" alt="">
           <p>正在初始化打印,请稍等…</p>
         </div>
-      </div>
+      </div> -->
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <!-- :class="{'new-print-box--small': !['6*8', '70*80'].includes(newModalSize)}" -->
         <!-- {relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))},  -->
@@ -602,6 +602,8 @@ export default {
         }).then(()=>{
           document.getElementById('new-print-box').style.display = 'none'
           this.onLoad()
+        }).catch(e => {
+          console.log('test-e', e)
         })
       })
     },
