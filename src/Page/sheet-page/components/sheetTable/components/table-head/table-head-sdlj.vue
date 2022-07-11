@@ -49,7 +49,7 @@
       <span>
         孕周：
         <input
-          style="width:20px"
+          style="width:35px"
           class="bottom-line"
           :data-value="sheetInfo.relObj['yz_' + index]"
           v-model="sheetInfo.relObj['yz_' + index]"
