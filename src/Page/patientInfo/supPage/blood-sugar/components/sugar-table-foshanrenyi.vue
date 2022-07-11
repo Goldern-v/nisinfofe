@@ -69,10 +69,20 @@
             {{ item.expand1 && item.expand1 !== "0" ? item.expand1 : "" }}
           </div>
         </td>
-        <td>
+        <!-- <td>
           <div class="cell noPrint sign-cell" @click="sign(item)">{{ item.nurse }}</div>
           <div :class="['cell','inPrint']">
             <!-- {{item.nurseEmpNo}} -->
+           <!-- <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+            />
+          </div>
+        </td> -->
+        <td >
+          <div class="cell liaocheng-img" @click="sign(item)">
+            <!-- 这里改。-->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
               :alt="item.nurse"
@@ -280,7 +290,7 @@ export default {
     sign(item){
      window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then(async(res) => {
-          this.activeEmpNo = res.data.data.empName
+          this.activeEmpNo=res.data.data.empNo
           // 保存逻辑
           if(item.expand2===undefined){
             item.expand2=1
@@ -331,9 +341,9 @@ export default {
           item.name = this.patientInfo.name;
           item.bedLabel = this.patientInfo.bedLabel;
           item.wardCode = this.patientInfo.wardCode;
-          (item.nurseEmpNo = this.activeEmpNo || this.empNo || ""), //护士工号
-          item.nurse = this.activeEmpNo || this.empNo || ""
-          await saveSugarList([item])
+          (item.nurseEmpNo = this.activeEmpNo||this.empNo || ""), //护士工号
+          item.nurse= this.activeEmpNo||this.empNo || ""
+          await  saveSugarList([item])
           this.load();
           this.isEdit=false
           // 解决报错
