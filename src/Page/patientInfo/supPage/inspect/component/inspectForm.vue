@@ -8,7 +8,7 @@
     >
       <div class="page">
         <iframe
-          :src="'http://192.168.8.68:8080/report/pdf' + dataGz.reportUrl"
+          :src="dataGz.reportUrl"
           frameborder="0"
         ></iframe>
       </div>

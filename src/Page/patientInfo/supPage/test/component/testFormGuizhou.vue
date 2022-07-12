@@ -1,11 +1,13 @@
 <template>
-  <div style="position: relative">
+  <div
+    :style="{ height: height }"
+  >
     <div
       class="page"
       v-if="data.reportUrl"
     >
       <iframe
-        :src="'http://192.168.8.68:8080/report/pdf' + data.reportUrl"
+        :src="data.reportUrl"
         frameborder="0"
       ></iframe>
     </div>
