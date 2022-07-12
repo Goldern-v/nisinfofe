@@ -213,6 +213,8 @@ export default {
         "craniocerebral_sdlj",//护理记录单（颅脑外科）
         "neonate_sdlj",//新生儿护理记录单
         "microsurgical_sdlj",//护理记录单（显微外科）
+        'neurology_sdlj',//护理记录单（神经内科）
+        'intervent_sdlj',//护理记录单（综合介入科）
       ]
     };
   },
