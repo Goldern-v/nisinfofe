@@ -309,6 +309,7 @@ export default {
   },
   methods: {
     toUnlock(value){
+      // 双选是同一患者时置空当前患者，并跳转值父级路由。
       if(this.HOSPITAL_ID == 'guizhou' && value.bedLabel == this.makePatient && this.$route.path=='/nursingMakeItem'){
         this.$router.push('/nursingRounds')
         this.$store.commit("upMakePatient", '');
@@ -528,8 +529,9 @@ export default {
     isGroup(val){
       this.bedList = val?this.groupBedList:this.baseBedList
     },
+    // 贵州护理巡视选中患者是如点击到护理巡视模块置空选中的患者
     "$route.path"(newValue){
-      if(newValue == '/nursingRounds' && this.makePatient){
+      if(newValue == '/nursingRounds' && this.makePatient && this.HOSPITAL_ID == 'guizhou'){
         this.makePatient = '';
         this.$store.commit("upMakePatient", '');
       }

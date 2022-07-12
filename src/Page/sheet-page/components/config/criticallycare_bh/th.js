@@ -10,7 +10,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1250px"
+    width: "1255px"
   },
   th: {
     top: [{
@@ -31,7 +31,10 @@ export default {
         name: `
         体温<br/>℃
         `,
-        style: {},
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px",
+        },
         colspan: "1",
         rowspan: "3",
       },
@@ -54,7 +57,10 @@ export default {
         name: `
         血压<br/>(mmHg)
         `,
-        style: {},
+        style: {
+          minWidth: "50px",
+          maxWidth: "50px",
+        },
         colspan: "1",
         rowspan: "3",
       },

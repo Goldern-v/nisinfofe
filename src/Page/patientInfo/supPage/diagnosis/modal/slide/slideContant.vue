@@ -399,6 +399,15 @@ export default {
         if (this.status === "1") {
           obj.id = this.data.id;
         }
+        if(process.env.HOSPITAL_ID  == 'foshanrenyi'){
+          obj.nursingClass=this.data.nursingClass?this.data.nursingClass : '';
+          obj.catheterNursing=this.data.catheterNursing?this.data.catheterNursing : '';
+          obj.positionNursing=this.data.positionNursing?this.data.positionNursing : '';
+          obj.skinNursing=this.data.skinNursing?this.data.skinNursing : '';
+          obj.tracheaNursingCode=this.data.tracheaNursingCode?this.data.tracheaNursingCode : '';
+          obj.securityNursingCode=this.data.securityNursingCode?this.data.securityNursingCode : '';
+          obj.dietaryGuidanceType=this.data.dietaryGuidanceType?this.data.dietaryGuidanceType : '';
+        }
         let promise =
           this.status === "0"
             ? nursingDiagsSave(obj)
