@@ -520,4 +520,10 @@ export default {
   resize: none;
   background-color: transparent;
 }
+
+/deep/ *::-webkit-scrollbar{
+  width: 7px;
+  height: 10px;
+  background-color: #eaeaea;
+}
 </style>

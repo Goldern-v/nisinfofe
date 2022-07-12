@@ -1,5 +1,5 @@
 
-/** 
+/**
   顺德龙江 - 护理普通记录单
 */
 
@@ -36,7 +36,7 @@ export default [
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, value: ''},
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏/心率', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
@@ -73,5 +73,5 @@ export default [
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''}
-  
+
 ]

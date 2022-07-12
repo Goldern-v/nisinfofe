@@ -1596,6 +1596,20 @@ export default function Title(
     );
   }
   break;
+  case "pediatric3_sdlj": {
+    // 顺德龙江 - 产科新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric3_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "postpartum_sdlj": {
+    // 顺德龙江 - 产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_sdlj/th.js").default)
+    );
+  }
+  break;
   case "prenatal_sdlj": {
     // 顺德龙江 - 产前待产记录单
     Th = JSON.parse(

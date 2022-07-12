@@ -104,6 +104,12 @@
           {{ patientInfo.sex }}
         </div>
       </span>
+      <span v-show="birthdayList.includes(sheetInfo.sheetType)">
+        出生日期：
+        <div class="bottom-line" style="min-width: 100px" >
+          {{ patientInfo.birthday }}
+        </div>
+      </span>
       <span>
         年龄：
         <div class="bottom-line" style="min-width: 30px">
@@ -191,7 +197,12 @@ export default {
       diagnosisList: [
         "intravenous_sdlj", //硫酸镁、安宝静脉点滴观察记录表
         "prenatal_sdlj", //产前待产记录单
+        "pediatric3_sdlj", //护理记录单（产科新生儿护理记录单）
         "mechanical_sdlj",//机械通气监护记录单（儿科）
+      ],
+      // 需要出身日期的表单
+      birthdayList:[
+        "pediatric3_sdlj", //护理记录单（产科新生儿护理记录单）
       ],
       //需要入院日期的表单
       admissionDateList: [

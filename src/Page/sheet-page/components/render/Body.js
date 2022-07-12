@@ -1235,6 +1235,11 @@ function switchSheetType(type) {
       schema = require("../config/neonate_sdlj/tr.js").default;
     }
     break;
+    case "pediatric3_sdlj": {
+      // 顺德龙江 - 产科新生儿护理记录单
+      schema = require("../config/pediatric3_sdlj/tr.js").default;
+    }
+    break;
     case "craniocerebral_sdlj": {
       // 顺德龙江 - 护理记录单（颅脑外科）
       schema = require("../config/craniocerebral_sdlj/tr.js").default;
@@ -1258,6 +1263,11 @@ function switchSheetType(type) {
     case "prenatal_sdlj": {
       // 顺德龙江 - 产前待产记录单
       schema = require("../config/prenatal_sdlj/tr.js").default;
+    }
+    break;
+    case "postpartum_sdlj": {
+      // 顺德龙江 - 产后护理记录单
+      schema = require("../config/postpartum_sdlj/tr.js").default;
     }
     break;
     case "dreathe_sdlj": {

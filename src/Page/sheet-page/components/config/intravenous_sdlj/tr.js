@@ -39,18 +39,18 @@ export default [
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, value: ''},
   { key: 'liquid', event: keyf1, value: '', next: 'ml', name: '液体名称', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 5) },
-  { key: 'magnesium', event: keyf1, value: '', next: '', name: '硫酸镁', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'amp', event: keyf1, value: '', next: '', name: '安宝', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'magnesium', event: keyf1, value: '', next: '/g', name: '硫酸镁', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'amp', event: keyf1, value: '', next: '/mg', name: '安宝', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'dripping', event: keyf1, value: '', next: '滴/分', name: '滴速', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 5) },
   { key: 'contractions', event: keyf1, value: '', next: 's/min', name: '宫缩', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 5) },
   { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 5) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 5) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'bloodPressure1', event: keyf1, value: '', next: 'mmHg', name: '胎心音', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure2', event: keyf1, value: '', next: 'mmHg', name: '胎动', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure3', event: keyf1, value: '', next: 'mmHg', name: '阴道出血量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure4', event: keyf1, value: '', next: 'mmHg', name: '体温', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure5', event: keyf1, value: '', next: 'mmHg', name: '脉搏', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'heartSound', event: keyf1, value: '', next: '次/分', name: '胎心音', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'fetal', event: keyf1, value: '', next: '次/时', name: '胎动', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'vaginalBleeding', event: keyf1, value: '', next: 'ml', name: '阴道出血量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'urineOutput', event: keyf1, value: '', next: 'ml', name: '尿量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'reflectionLeft', event: keyf1, value: '', next: '', name: '膝反射左侧', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'reflectionRight', event: keyf1, value: '', next: '', name: '膝反射右侧', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -109,7 +109,7 @@ export default [
     },
   },
   {
-    key: "fieldFour", //出量颜色
+    key: "dischargeColor", //出量颜色
     value: "",
     event: keyf1,
     name: "出量颜色",
@@ -124,9 +124,9 @@ export default [
       textAlign: "left",
     }
   },
-  { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'armValue3', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'customItem2', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'customItem3', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
 
   {
     key: "description", //特殊情况记录
