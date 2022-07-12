@@ -1652,6 +1652,20 @@ export default function Title(
     );
   }
   break;
+  case "neurology_sdlj": {
+    // 顺德龙江 - 护理记录单（神经内科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurology_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "intervent_sdlj": {
+    // 顺德龙江 - 护理记录单（综合介入科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intervent_sdlj/th.js").default)
+    );
+  }
+  break;
   case "criticaldisease_xt": {
     // 佛山杏坛 - 危重症护理记录单
     Th = JSON.parse(

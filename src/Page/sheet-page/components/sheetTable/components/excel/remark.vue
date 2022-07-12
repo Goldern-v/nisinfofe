@@ -557,6 +557,14 @@
       <p style="margin-left:65px"><span style="margin-right:211px">⑥颜色：A、红润   B、苍白  C、微紫  D、暗红  E、紫绀  F、花斑</span>⑦皮温：A、正常　B、偏低　 C、偏高</p>
       <p style="margin-left:65px"><span style="margin-right:330px">⑧肿胀：A、无   B、Ⅰ度  C、Ⅱ度  D、Ⅲ度</span>⑨感觉：A、无　　B、麻痹　 C、消失</p>
     </div>
+    <!-- 顺德龙江 - 护理记录单（神经内科）-->
+    <div v-if="sheetInfo.sheetType == 'neurology_sdlj'">
+      备注：意识：清√，嗜睡+，浅昏迷++，深昏迷+++，药眠。&nbsp; &nbsp;瞳孔对光反射判断：灵敏√，迟钝+，消失－。
+    </div>
+    <!-- 顺德龙江 - 护理记录单（综合介入科）-->
+    <div v-if="sheetInfo.sheetType == 'intervent_sdlj'">
+      备注：意识：清√，嗜睡+，浅昏迷++，深昏迷+++，药眠。&nbsp; &nbsp;瞳孔对光反射判断：灵敏√，迟钝+，消失－。
+    </div>
     <!--武汉亚心 -  新生儿科护理记录单-->
     <div v-if="sheetInfo.sheetType == 'neonatology_yx'">
        备注：N表示正常 管道名称：A-留置针、B-深静脉置管、C-尿管、D-胃管、E-心包纵隔管、F-右胸腔管、G-心包引流管、H-左胸腔管、I-动脉置管、J-气管插管、O-PICCO管、P-腹腔引流管、Q-脑积液引流管、R-PICC管<br/>

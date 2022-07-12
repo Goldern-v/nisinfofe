@@ -1290,6 +1290,16 @@ function switchSheetType(type) {
       schema = require("../config/microsurgical_sdlj/tr.js").default;
     }
     break;
+    case "neurology_sdlj": {
+      // 顺德龙江 - 护理记录单（神经内科）
+      schema = require("../config/neurology_sdlj/tr.js").default;
+    }
+    break;
+    case "intervent_sdlj": {
+      // 顺德龙江 - 护理记录单（综合介入科）
+      schema = require("../config/intervent_sdlj/tr.js").default;
+    }
+    break;
     case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）
       schema = require("../config/cardiovascular_xt/tr.js").default;

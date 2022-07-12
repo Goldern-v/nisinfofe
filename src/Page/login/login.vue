@@ -447,7 +447,7 @@ export default {
       this.ajax = true;
       let password = this.password;
       this.md5HisList.includes(this.HOSPITAL_ID) &&
-        this.password !== "Bcy@22qw" &&
+        // this.password !== "Bcy@22qw" &&
         (password = md5(this.password));
       // login(this.account, this.password, this.verificationCode)
       // login前先执行his校验 by谢岗
