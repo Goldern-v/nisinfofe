@@ -163,11 +163,12 @@
   .page-con {
     font-size: 13px;
     text-align: center;
-    bottom: 20px;
-    position: absolute;
+    padding: 20px 0px 0px 0px;
+    // bottom: 20px;
+    // position: absolute;
     // width 100%
-    left: 0;
-    right: 0;
+    // left: 0;
+    // right: 0;
   }
 
   .addBtn {
