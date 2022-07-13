@@ -750,7 +750,7 @@ export default {
              return
           }
            this.getHomePage(isBottom);
-             
+
              this.tableLoading = false;
 
              let timeNum = 5;
@@ -954,6 +954,14 @@ export default {
     this.bus.$on(
       "saveSheetPage",
       (isInitSheetPageSize = true, ayncVisitedData) => {
+        if(this.HOSPITAL_ID == 'liaocheng' && this.sheetInfo.sheetType == 'access_lcey'){
+          let data =  decode(ayncVisitedData)
+          let isAccess = data.list.find((item=>{
+            let reg = /^[0-9]+.?[0-9]*$/;
+            return (item.intravenousVolume !== '' && !reg.test(item.intravenousVolume)) || (item.intake !== '' && !reg.test(item.intake))
+          }))
+          if(isAccess) return this.$message.error('入量填项输入应为数字！')
+        }
         let save = () => {
           // 审核签名（头部保存按钮auditorMap传空对象，不去修改审核签名数据，避免跨窗口审核签名丢失）
           if (isInitSheetPageSize == "noSaveSign") {
