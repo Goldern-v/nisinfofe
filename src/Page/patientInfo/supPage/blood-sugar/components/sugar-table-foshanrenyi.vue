@@ -72,8 +72,8 @@
         <!-- <td>
           <div class="cell noPrint sign-cell" @click="sign(item)">{{ item.nurse }}</div>
           <div :class="['cell','inPrint']">
-            <!-- {{item.nurseEmpNo}} -->
-           <!-- <img
+            {{item.nurseEmpNo}}
+           img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
               :alt="item.nurse"
               v-if="item.nurseEmpNo"
