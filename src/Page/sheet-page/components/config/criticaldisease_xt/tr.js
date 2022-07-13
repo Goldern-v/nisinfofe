@@ -31,9 +31,10 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let ysList = ['√','Δ','+','++','+++']
-let dgfyList = ['√','+','-']
+let ysList = ['药眠','清醒','嗜睡','意识模糊','浅昏迷','深昏迷']
+let dgfyList = ['灵敏','迟钝','消失']
 let tyList = ['○','I','II','III','+','++','+++','-','A','B','C','D','E','F','G','H']
+let hxList=['辅助呼吸','辅助通气']
 
 export default [
   { hidden: true, key: 'recordDate', value: '' },
@@ -41,7 +42,7 @@ export default [
   { key: "recordHour", event: event_time, value: ''},
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) ,autoComplete: { data: hxList }},
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodSugar', event: keyf1, value: '', next: 'mmol/L', name: '血糖', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -64,8 +65,8 @@ export default [
   { key: 'pressureDefense', event: keyf1, value: '', next: '', name: '防压疮护理', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'constraintTape', event: keyf1, value: '', next: '', name: '使用约束带', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'restraintSkin', event: keyf1, value: '', next: '', name: '约束带处皮肤', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'adrenaline', event: keyf1, value: '', next: '', name: '肾上腺素', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'dopamine', event: keyf1, value: '', next: '', name: '多巴胺', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'adrenaline', event: keyf1, value: '', next: 'mg', name: '肾上腺素', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  // { key: 'dopamine', event: keyf1, value: '', next: '', name: '多巴胺', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue', event: keyf1, value: '', next: '', name: '', autoComplete: { data: tyList }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "description", //特殊情况记录

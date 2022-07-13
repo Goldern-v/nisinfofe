@@ -1596,6 +1596,20 @@ export default function Title(
     );
   }
   break;
+  case "pediatric3_sdlj": {
+    // 顺德龙江 - 产科新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric3_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "postpartum_sdlj": {
+    // 顺德龙江 - 产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_sdlj/th.js").default)
+    );
+  }
+  break;
   case "prenatal_sdlj": {
     // 顺德龙江 - 产前待产记录单
     Th = JSON.parse(
@@ -1649,6 +1663,20 @@ export default function Title(
     // 佛山杏坛 - 护理记录单(心血管呼吸专科)
     Th = JSON.parse(
       JSON.stringify(require("../config/cardiovascular_xt/th.js").default)
+    );
+  }
+  break;
+  case "neurology_sdlj": {
+    // 顺德龙江 - 护理记录单（神经内科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurology_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "intervent_sdlj": {
+    // 顺德龙江 - 护理记录单（综合介入科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intervent_sdlj/th.js").default)
     );
   }
   break;

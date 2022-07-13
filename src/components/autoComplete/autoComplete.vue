@@ -26,7 +26,7 @@
         </ul>
       </div>
     </div>
-  
+
     <!-- 下拉框只显示序号 -->
     <div class="el-scrollbar" v-else>
       <div
@@ -156,14 +156,14 @@ export default {
               arr.push(key);
             }
           }
-          let aa= 
+          let aa=
           this.data = [...arr];
         }
       }else {
         if(process.env.HOSPITAL_ID == 'sdlj' && sheetInfo.sheetType == "craniocerebral_sdlj"){
             if(["consciousness",'reflectionLeft','reflectionRight'].includes(config.td.key)){
             this.data = config.data.data || [];
-    }else this.data = config.data || []; 
+    }else this.data = config.data || [];
   }else this.data = config.data || [];
       console.log("dadada",this.data,config)
      }
@@ -216,7 +216,7 @@ export default {
           if(["consciousness",'reflectionLeft','reflectionRight'].includes(this.config.td.key)){
             item = this.config.data.dataVal[this.config.data.data.indexOf(item)]
             console.log(this.config.data.data.indexOf(item),"this.data.data.indexOf(item)")
-    } 
+    }
   }
 }
       let flag = true;
@@ -231,8 +231,14 @@ export default {
         });
       }
       if(flag){
-        item = this.parentVal?item + '(' + this.parentVal + ')': item;
-        console.log("item/",item,this.parentVal)
+
+        console.log("item/",item,this.parentVal,this.splice)
+        if(process.env.HOSPITAL_ID == 'sdlj' && sheetInfo.sheetType == "orthopaedic_sdlj" && this.splice == '&'){
+          console.log('111111111111');
+          item = item;
+        }else{
+          item = this.parentVal?item + '(' + this.parentVal + ')': item;
+        }
         this.callback(item);
         this.show = this.splice;
       }

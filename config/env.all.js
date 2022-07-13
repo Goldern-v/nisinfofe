@@ -71,7 +71,8 @@ module.exports = {
     HOSPITAL_NAME_SPACE: '"武 警 广 东 省 总 队 医 院"',
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
     ABOUT_INFO: '"关于宸瑞普惠"',
-    title: '"智慧护理信息系统"'
+    title: '"智慧护理信息系统"',
+    splitSave:true
   },
   hengxian: {
     HOSPITAL_ID: '"hengxian"',
