@@ -25,6 +25,15 @@
               :value="item.label"
             ></el-option>
           </el-select>
+
+          <el-button
+            class="report-btn"
+            type="text"
+            v-if="HOSPITAL_ID == 'sdlj'"
+            @click="checkOriginReport()"
+          >
+            查看原报告
+          </el-button>
         </el-row>
         <div class="body" :style="{ height: height }">
           <div
@@ -135,6 +144,10 @@
       }
     }
   }
+  .report-btn {
+    font-size: 12px;
+    padding-right 0px;
+  }
 }
 
 .right-part {
@@ -158,6 +171,7 @@
   }
 
   color: #666;
+
 }
 </style>
 
@@ -242,6 +256,10 @@ export default {
     this.visitId = this.infoData.visitId;
   },
   methods: {
+    // 查看原报告
+    checkOriginReport() {
+      window.open(`http://192.168.100.26:8090/HkWebReport/ExaminePatientController/GetHistoryList.do?DataBase=ALL%22&exam_Pat_No=${this.infoData.inpNo}`)
+    },
     toRight(data) {
       // console.log(data);
       if (!data) return;

@@ -43,7 +43,7 @@
         <div class="nav-item">病历</div>
       </router-link>
       <!-- <span v-if="['hj'].includes(HOSPITAL_ID)">
-        <a 
+        <a
           class="nav-item no-under-link"
           :href="`openIE:http://10.35.0.135:9080/htweb/ShowInpatientInfo.jsp?ipid=${query.patientId}~${query.visitId}`"
         >病历(新)</a>
@@ -65,6 +65,13 @@
         tag="span"
       >
         <div class="nav-item">护理记录单</div>
+      </router-link>
+      <router-link
+        v-if="HOSPITAL_ID == 'sdlj'"
+        to=""
+        @click.native="toHandNumbness()"
+      >
+        <div class="nav-item-shouma" >手麻记录单</div>
       </router-link>
       <router-link
         v-if="!['beihairenyi'].includes(this.HOSPITAL_ID)"
@@ -237,6 +244,16 @@
     border-radius: 4px 4px 0 0;
   }
 }
+.nav-item-shouma {
+  height: 37px;
+  line-height: 37px;
+  padding: 0 10px;
+  font-size: 13px;
+  color: #687179;
+  letter-spacing: 0.26px;
+  float: left;
+  cursor: pointer;
+}
 .no-under-link{
   text-decoration: none;
 }
@@ -256,6 +273,12 @@ export default {
       return query;
     }
   },
-  components: {}
+  components: {},
+  methods: {
+    // （顺德龙江）手麻记录单（第三方链接）
+    toHandNumbness() {
+      window.open(`http://192.168.100.9:8280/trackao/basedata/userLoginForClient.action?id=1668&password=123&resultCode=getTrackaoAnaesRecordPDF&hisId=${this.query.inpNo}`)
+    }
+  }
 };
 </script>
