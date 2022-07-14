@@ -41,9 +41,9 @@ const bdList = [{ name: 'A=正常', value: 'A' }, { name: 'B=减弱', value: 'B'
 const flList = [{ name: 'A=干洁', value: 'A' }, { name: 'B=少量渗血/渗液', value: 'B' }, { name: 'C=中量渗血/渗液', value: 'C' }]
 const sgList = [{ name: 'A=过紧', value: 'A' }, { name: 'B=过松', value: 'B' }, { name: 'C=合适', value: 'C' }]
 const qyList = [{ name: 'A=过紧', value: 'A' }, { name: 'B=过松', value: 'B' }, { name: 'C=合适', value: 'C' }]
-const gndlList = [{ name: 'A=踝泵运动', value: 'A' }, { name: 'B=股四头肌等长收缩运动', value: 'B' }, { name: 'C=直腿抬高运动', value: 'C' }, { name: 'D=抬臂运动', value: 'D' }, { name: 'E=膝关节屈曲运动', value: 'E' }, { name: 'F=坐位训练', value: 'F' }, { name: 'G=站立训练', value: 'G' }, { name: 'H=扶拐行走训练', value: 'H' }, { name: 'I=扶助；行架行走训练', value: 'I' }, { name: 'J=未固定关节运动', value: 'J' },]
-const pfList = [{ name: 'A=完整', value: 'A' }, { name: 'B=发红', value: 'B' }, { name: 'C=水泡', value: 'C' }, { name: 'D=破损，渗液', value: 'D' }]
-const csList = [{ name: 'A=防足下垂', value: 'A' }, { name: 'B=患肢保暖', value: 'B' }, { name: 'C=受压处皮肤垫软垫', value: 'C' }, { name: 'D=翻身、拍背，F=指导深呼吸及有效咳嗽等预防并发症', value: 'D' }, { name: 'E=针眼护理', value: 'E' }, { name: 'F=防压疮', value: 'F' }]
+const gndlList = [{ name: 'A=趾端伸屈', value: 'A' }, { name: 'B=踝泵运动', value: 'B' }, { name: 'C=股四头肌等长收缩运动', value: 'C' }, { name: 'D=直腿抬高运动', value: 'D' }, { name: 'E=膝关节屈曲运动', value: 'E' }, { name: 'F=坐位训练', value: 'F' }, { name: 'G=站立训练', value: 'G' }, { name: 'H=扶拐行走训练', value: 'H' }, { name: 'I=扶助；行架行走训练', value: 'I' }, { name: 'J=未固定关节运动', value: 'J' }, { name: 'K=指端伸屈', value: 'K' }, { name: 'L=握拳训练', value: 'L' }, { name: 'M=腕关节旋转运动', value: 'M' }, { name: 'N=抬臂运动', value: 'N' }, { name: 'O=肩关节环形运动', value: 'O' }, { name: 'P=扩胸运动', value: 'P' }]
+const pfList = [{ name: 'A=完整', value: 'A' }, { name: 'B=水泡', value: 'B' }, { name: 'C=破损', value: 'C' }, { name: 'D=渗液', value: 'D' }, { name: 'E=结痂', value: 'E' }]
+const csList = [{ name: 'A=防足下垂', value: 'A' }, { name: 'B=患肢保暖', value: 'B' }, { name: 'C=受压处皮肤垫软垫', value: 'C' }, { name: 'D=翻身', value: 'D' }, { name: 'E=拍背', value: 'E' }, { name: 'F=指导深呼吸及有效咳嗽等预防并发症', value: 'F' }, { name: 'G=针眼护理', value: 'G' }, { name: 'H=防压疮', value: 'H' }]
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
