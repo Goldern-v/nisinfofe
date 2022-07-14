@@ -121,11 +121,11 @@ export default {
           prop: 'ylxss'
         },
         {
-          name: '跌倒坠床',
+          name: '跌倒',
           prop: 'ddzc'
         },
         {
-          name: '管道脱落',
+          name: '非计划拔管',
           prop: 'glht'
         },
         {
@@ -182,7 +182,7 @@ export default {
         aqyyDate: this.listData.aqyyDate,
         }
       }
-      
+
       data[`${prop}Date`] = val;
       saveWhiteLogIndicators(data).then(res=>{
         this.getData();

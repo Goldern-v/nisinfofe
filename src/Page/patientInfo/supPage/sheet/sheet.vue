@@ -791,8 +791,15 @@ export default {
       });
     });
     this.bus.$on("saveSheetPage", (isInitSheetPageSize = true,ayncVisitedData) => {
-      console.log("tiaozhelile ",ayncVisitedData,decode(ayncVisitedData)) 
-
+      console.log("tiaozhelile ",ayncVisitedData,decode(ayncVisitedData))
+      if(this.HOSPITAL_ID == 'liaocheng' && this.sheetInfo.sheetType == 'access_lcey'){
+          let data =  decode(ayncVisitedData)
+          let isAccess = data.list.find((item=>{
+            let reg = /^[0-9]+.?[0-9]*$/;
+            return (item.intravenousVolume !== '' && !reg.test(item.intravenousVolume)) || (item.intake !== '' && !reg.test(item.intake))
+          }))
+          if(isAccess) return this.$message.error('入量填项输入应为数字！')
+        }
       let save = () => {
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;
