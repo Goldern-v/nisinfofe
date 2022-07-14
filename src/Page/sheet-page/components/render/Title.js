@@ -1799,6 +1799,13 @@ export default function Title(
     );
   }
   break;
+  case "bloodCircul_xt": {
+    // 佛山杏坛 -血运观察护理单（外四科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/bloodCircul_xt/th.js").default)
+    );
+  }
+  break;
   case "emergency_treat_yx": {
     // 武汉亚心 - 急诊留观记录单
     Th = JSON.parse(

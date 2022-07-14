@@ -105,13 +105,19 @@ export default {
       thirdBedRecord:"",
       bedLabel:"",
       bedModalWidth:450,
+      activeIndex:''//护记当前的页码，用于保存患者信息的relObj
     };
   },
   methods: {
-    open(baseParams) {
+    open(baseParams,index) {
       this.formlist = baseParams
       if (!this.patientInfo.patientId && !baseParams.patientId) {
         return this.$message.warning("请选择一名患者");
+      }
+      // 护记当前的页码。杏坛需求，床号每一页不一样，存在relObj里面
+      if(index>=0){
+        console.log('index',index)
+        this.activeIndex=index
       }
       this.searchDate = moment().format("YYYY-MM-DD");
       this.getData();
@@ -121,18 +127,35 @@ export default {
       this.$refs.modal.close();
     },
     post() {
-      updateBlockInfo({
+      // 护记当前的页码。杏坛需求，床号每一页不一样，存在relObj里面
+      if(this.activeIndex>=0){
+        updateBlockInfo({
         patientId:this.patientInfo.patientId || this.formlist.patientId,
         visitId:this.patientInfo.visitId || this.formlist.visitId,
         id:this.sheetInfo.selectBlock.id,
         bedLogList:this.tableData,
         bedLabel: this.bedLabel,
-      }).then(res => {
-        this.$message.success("保存成功");
-        this.close();
-        this.bus.$emit("refreshSheetPage");
-      });
-      this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
+        }).then(res => {
+          this.$message.success("保存成功");
+          this.close();
+        });
+        this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
+        sheetInfo.relObj[`PageIndex_bedLabel_${this.activeIndex}`] = this.bedLabel;
+        this.bus.$emit("saveSheetPage", false);    
+      }else{
+        updateBlockInfo({
+          patientId:this.patientInfo.patientId || this.formlist.patientId,
+          visitId:this.patientInfo.visitId || this.formlist.visitId,
+          id:this.sheetInfo.selectBlock.id,
+          bedLogList:this.tableData,
+          bedLabel: this.bedLabel,
+        }).then(res => {
+          this.$message.success("保存成功");
+          this.close();
+          this.bus.$emit("refreshSheetPage");
+        });
+        this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
+      }
     },
     getData() {
       bedExchangeModifyLog(
