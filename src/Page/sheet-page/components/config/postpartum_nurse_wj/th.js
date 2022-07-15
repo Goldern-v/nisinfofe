@@ -115,7 +115,7 @@ export default {
       },
       {
         name: `
-        功底<br/>高度<br/>u=Fb
+        宫底<br/>高度<br/>u=Fb
         `,
         style: {
           minWidth: '40px',
@@ -175,8 +175,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: '270px',
-          maxWidth: '270px',
+          minWidth: '280px',
+          maxWidth: '280px',
         },
         colspan: '1',
         rowspan: '3'

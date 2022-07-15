@@ -470,7 +470,7 @@ function switchSheetType(type) {
     }
       break;
     case "postpartum_nurse_wj": {
-      // 武警-产后护理记录单
+      // 武警-产科护理记录单
       schema = require("../config/postpartum_nurse_wj/tr.js").default;
     }
       break;
