@@ -469,6 +469,11 @@ function switchSheetType(type) {
       schema = require("../config/common_wj/tr.js").default;
     }
       break;
+    case "postpartum_nurse_wj": {
+      // 武警-产后护理记录单
+      schema = require("../config/postpartum_nurse_wj/tr.js").default;
+    }
+      break;
     case "neonatology_picc": {
       // 厚街-新生儿科PICC导管维护护理记录单
       schema = require("../config/neonatology_picc/tr.js").default;

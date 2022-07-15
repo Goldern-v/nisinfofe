@@ -456,7 +456,8 @@
         sheetInfo.sheetType === 'critical_lc' ||
         sheetInfo.sheetType === 'picu_hemodialysis_jm' ||
         sheetInfo.sheetType === 'rescue_hl' ||
-        sheetInfo.sheetType === 'critical_new_linyi'
+        sheetInfo.sheetType === 'critical_new_linyi' ||
+        sheetInfo.sheetType === 'postpartum_nurse_wj'
       "
     ></slot>
     <!-- 表格下方的备注组件 -->
@@ -522,7 +523,8 @@
             sheetInfo.sheetType == 'common_hl' ||
             sheetInfo.sheetType == 'rescue_hl' ||
             sheetInfo.sheetType == 'emergency_stay_hl' ||
-            sheetInfo.sheetType == 'waiting_birth_wj'
+            sheetInfo.sheetType == 'waiting_birth_wj' ||
+            sheetInfo.sheetType == 'postpartum_nurse_wj'
           "
           >护士长签名：</span
         >
@@ -691,6 +693,7 @@ export default {
         "prenatal_hd",
         "postpartum_hd", // 产后护理记录单
         "common_wj",
+        "postpartum_nurse_wj",
         "intervention_cure_lcey",
         "critical_lc",
         "common_hl",

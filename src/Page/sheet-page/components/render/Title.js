@@ -501,6 +501,13 @@ export default function Title(
     );
   }
   break;
+  case "postpartum_nurse_wj": {
+    // 武警-产后护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_nurse_wj/th").default)
+    );
+  }
+  break;
   case "neonatology_picc": {
     // 新生儿科PICC导管维护护理记录单
     Th = JSON.parse(

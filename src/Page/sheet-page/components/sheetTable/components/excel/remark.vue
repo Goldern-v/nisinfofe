@@ -56,6 +56,12 @@
       备注:①意识：清醒✔、嗜睡+、朦胧++、浅昏迷+++、深昏迷++++、麻醉未醒△、药眠○、谵妄⊙。②.瞳孔对光的反应：灵敏+，迟钝±，消失-(左/右);
     </div>
     <div
+      v-if="sheetInfo.sheetType == 'postpartum_nurse_wj'"
+      style="font-size: 13px; margin-top: -5px"
+    >
+      备注:①意识：清醒、嗜睡、昏睡、模糊、浅昏迷、深昏迷、谵妄状态、镇静状态、朦胧、麻醉未醒、药眠；&nbsp;②乳房情况：(+)、(-)；&nbsp;③泌乳情况：无、少、中、多；&nbsp;④宫颈高度：u-3、u-2、u-1、u=0、u+1、u+2、u+3；&nbsp;⑤子宫收缩：软、硬、轮廓不清；&nbsp;⑥伤口：会阴(+)、会阴(-)、腹部(+)、腹部(-)
+    </div>
+    <div
       v-if="
         sheetInfo.sheetType == 'common_hl' ||
           sheetInfo.sheetType == 'prenatal_hl' ||
