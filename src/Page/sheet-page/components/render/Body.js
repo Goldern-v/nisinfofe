@@ -1405,6 +1405,11 @@ function switchSheetType(type) {
       schema = require("../config/generalnursing_xt/tr.js").default;
     }
     break;
+    case "bloodCircul_xt": {
+      // 佛山杏坛 -血运观察护理单（外四科）
+      schema = require("../config/bloodCircul_xt/tr.js").default;
+    }
+    break;
     case "emergency_treat_yx": {
       // 武汉亚心 - 急诊留观记录单
       schema = require("../config/emergency_treat_yx/tr.js").default;
