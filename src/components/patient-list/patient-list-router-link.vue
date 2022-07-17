@@ -50,8 +50,8 @@
               inpNo: item.inpNo,
             },
           }"
-          :class="{ active: isActive(item) }"
-          @click.native="toUnlock"
+          :class="{active: makePatient? isActive(item) :false }"
+          @click.native="toUnlock(item)"
         >
           <img
             :src="item.bedLabel.includes('_') ? imageBoy : imageMan"
@@ -304,10 +304,20 @@ export default {
       imageWomen: require("./images/女.png"),
       noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
       isGroup:false ,// 是否选中管床
+      makePatient:'',// 贵州护理巡视表的点击患者
     };
   },
   methods: {
-    toUnlock(){
+    toUnlock(value){
+      // 双选是同一患者时置空当前患者，并跳转值父级路由。
+      if(this.HOSPITAL_ID == 'guizhou' && value.bedLabel == this.makePatient && this.$route.path=='/nursingMakeItem'){
+        this.$router.push('/nursingRounds')
+        this.$store.commit("upMakePatient", '');
+        this.makePatient = ''
+      }else{
+         this.makePatient = value.bedLabel
+        this.$store.commit("upMakePatient", value.bedLabel);
+      }
       //  解锁评估单
        this.bus.$emit("quitUnlock")
     },
@@ -497,7 +507,8 @@ export default {
     },
     groupBedList(){
       return this.baseBedList.filter(item=>item.focus)
-    }
+    },
+    
   },
   watch: {
     deptCode(ndata, odata) {
@@ -517,7 +528,15 @@ export default {
     "$route.params.patientId": "fetchData",
     isGroup(val){
       this.bedList = val?this.groupBedList:this.baseBedList
+    },
+    // 贵州护理巡视选中患者是如点击到护理巡视模块置空选中的患者
+    "$route.path"(newValue){
+      if(newValue == '/nursingRounds' && this.makePatient && this.HOSPITAL_ID == 'guizhou'){
+        this.makePatient = '';
+        this.$store.commit("upMakePatient", '');
+      }
     }
+    
   },
   created() {
     if (this.deptCode) {

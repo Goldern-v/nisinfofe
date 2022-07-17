@@ -413,7 +413,7 @@
                     "
                   ></el-checkbox>
                   <div class="label" style="min-width: 70px">
-                    {{ HOSPITAL_ID == 'sdlj' && (sheetInfo.sheetType === 'ordinary_sdlj') ? '脉搏/心率' : item.name || key }}：
+                    {{ item.name || key }}：
                   </div>
                   <input
                     type="text"
@@ -1681,7 +1681,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          }else if (this.sheetInfo.sheetType === "revivemonitoring_bh"||this.sheetInfo.sheetType === "emergency_treat_yx") {
+          }else if (this.sheetInfo.sheetType === "revivemonitoring_bh"||this.sheetInfo.sheetType === "emergency_treat_yx"||this.sheetInfo.sheetType === "postpartum_nurse_wj") {
             if (GetLength(text) > 42) {
               result.push(text);
               text = allDoc[i];
@@ -1702,7 +1702,7 @@ export default {
             } else {
               text += allDoc[i];
             }
-          } 
+          }
           else {
             // console.log("111111111",text,GetLength(text))
             if (GetLength(text) > 23) {
@@ -1717,7 +1717,7 @@ export default {
         }
        }
       }
-      
+
       console.log("GetLength",result)
       if (text) {
         result.push(text);
@@ -1781,12 +1781,12 @@ export default {
          } else {
             let currRow = JSON.parse(JSON.stringify(this.record[0]));
             let nullRowArr = nullRow();
-  
+
             nullRowArr.find((item) => item.key == "recordSource").value =
               currRow.find((item) => item.key == "recordSource").value;
             nullRowArr.find((item) => item.key == "recordDate").value =
               currRow.find((item) => item.key == "recordDate").value;
-  
+
             sheetModel[this.lastZ].bodyModel.splice(
               this.lastY + 1,
               0,
@@ -1936,7 +1936,7 @@ export default {
         list: this.post('ayncVisitedData')
       }
       this.bus.$emit("saveSheetPage",true,ayncVisitedData);
-    }); 
+    });
     // 佛山市一检查报告和检验报告同步
     this.bus.$on("syncReportFSSY",(str)=>{
       if(this.doc){

@@ -300,7 +300,7 @@ import { blockSave, getNurseExchageInfo } from "./api/index";
 import TableRadioVue from './components/sheetTable/components/table-components/TableRadio.vue';
 import { getRowNum } from "./components/utils/sheetRow"
 //解锁
-import {unLock} from "@/Page/sheet-hospital-eval/api/index.js"
+import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 
 
 export default {
@@ -750,7 +750,7 @@ export default {
              return
           }
            this.getHomePage(isBottom);
-             
+
              this.tableLoading = false;
 
              let timeNum = 5;
@@ -873,12 +873,16 @@ export default {
       //   })
       // })
     },
-    destroyUnlock(){
+    async destroyUnlock(){
       const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
       /* 判断是否已经自动解锁 */
       if(lockForm && lockForm.initTime){
         /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
         let min=10
+        const res=await unLockTime()
+        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
+          min = +res.data.data/100
+        }
         /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
         const afterInitTime= +lockForm.initTime + 60000 * min
         const nowTime=Date.now()
@@ -950,6 +954,14 @@ export default {
     this.bus.$on(
       "saveSheetPage",
       (isInitSheetPageSize = true, ayncVisitedData) => {
+        if(this.HOSPITAL_ID == 'liaocheng' && this.sheetInfo.sheetType == 'access_lcey'){
+          let data =  decode(ayncVisitedData)
+          let isAccess = data.list.find((item=>{
+            let reg = /^[0-9]+.?[0-9]*$/;
+            return (item.intravenousVolume !== '' && !reg.test(item.intravenousVolume)) || (item.intake !== '' && !reg.test(item.intake))
+          }))
+          if(isAccess) return this.$message.error('入量填项输入应为数字！')
+        }
         let save = () => {
           // 审核签名（头部保存按钮auditorMap传空对象，不去修改审核签名数据，避免跨窗口审核签名丢失）
           if (isInitSheetPageSize == "noSaveSign") {

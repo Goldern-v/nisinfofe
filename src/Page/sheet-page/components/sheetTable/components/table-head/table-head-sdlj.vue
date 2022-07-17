@@ -49,7 +49,7 @@
       <span>
         孕周：
         <input
-          style="width:20px"
+          style="width:35px"
           class="bottom-line"
           :data-value="sheetInfo.relObj['yz_' + index]"
           v-model="sheetInfo.relObj['yz_' + index]"
@@ -102,6 +102,12 @@
         性别：
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.sex }}
+        </div>
+      </span>
+      <span v-show="birthdayList.includes(sheetInfo.sheetType)">
+        出生日期：
+        <div class="bottom-line" style="min-width: 100px" >
+          {{ patientInfo.birthday }}
         </div>
       </span>
       <span>
@@ -191,7 +197,12 @@ export default {
       diagnosisList: [
         "intravenous_sdlj", //硫酸镁、安宝静脉点滴观察记录表
         "prenatal_sdlj", //产前待产记录单
+        "pediatric3_sdlj", //护理记录单（产科新生儿护理记录单）
         "mechanical_sdlj",//机械通气监护记录单（儿科）
+      ],
+      // 需要出身日期的表单
+      birthdayList:[
+        "pediatric3_sdlj", //护理记录单（产科新生儿护理记录单）
       ],
       //需要入院日期的表单
       admissionDateList: [
@@ -202,6 +213,8 @@ export default {
         "craniocerebral_sdlj",//护理记录单（颅脑外科）
         "neonate_sdlj",//新生儿护理记录单
         "microsurgical_sdlj",//护理记录单（显微外科）
+        'neurology_sdlj',//护理记录单（神经内科）
+        'intervent_sdlj',//护理记录单（综合介入科）
       ]
     };
   },

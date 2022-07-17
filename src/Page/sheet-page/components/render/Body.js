@@ -469,6 +469,11 @@ function switchSheetType(type) {
       schema = require("../config/common_wj/tr.js").default;
     }
       break;
+    case "postpartum_nurse_wj": {
+      // 武警-产科护理记录单
+      schema = require("../config/postpartum_nurse_wj/tr.js").default;
+    }
+      break;
     case "neonatology_picc": {
       // 厚街-新生儿科PICC导管维护护理记录单
       schema = require("../config/neonatology_picc/tr.js").default;
@@ -1235,6 +1240,11 @@ function switchSheetType(type) {
       schema = require("../config/neonate_sdlj/tr.js").default;
     }
     break;
+    case "pediatric3_sdlj": {
+      // 顺德龙江 - 产科新生儿护理记录单
+      schema = require("../config/pediatric3_sdlj/tr.js").default;
+    }
+    break;
     case "craniocerebral_sdlj": {
       // 顺德龙江 - 护理记录单（颅脑外科）
       schema = require("../config/craniocerebral_sdlj/tr.js").default;
@@ -1258,6 +1268,11 @@ function switchSheetType(type) {
     case "prenatal_sdlj": {
       // 顺德龙江 - 产前待产记录单
       schema = require("../config/prenatal_sdlj/tr.js").default;
+    }
+    break;
+    case "postpartum_sdlj": {
+      // 顺德龙江 - 产后护理记录单
+      schema = require("../config/postpartum_sdlj/tr.js").default;
     }
     break;
     case "dreathe_sdlj": {
@@ -1288,6 +1303,16 @@ function switchSheetType(type) {
     case "microsurgical_sdlj": {
       // 顺德龙江 - 护理记录单（显微外科）
       schema = require("../config/microsurgical_sdlj/tr.js").default;
+    }
+    break;
+    case "neurology_sdlj": {
+      // 顺德龙江 - 护理记录单（神经内科）
+      schema = require("../config/neurology_sdlj/tr.js").default;
+    }
+    break;
+    case "intervent_sdlj": {
+      // 顺德龙江 - 护理记录单（综合介入科）
+      schema = require("../config/intervent_sdlj/tr.js").default;
     }
     break;
     case "cardiovascular_xt": {
@@ -1378,6 +1403,11 @@ function switchSheetType(type) {
     case "generalnursing_xt": {
       // 佛山杏坛 - 护理记录单（全院通用）
       schema = require("../config/generalnursing_xt/tr.js").default;
+    }
+    break;
+    case "bloodCircul_xt": {
+      // 佛山杏坛 -血运观察护理单（外四科）
+      schema = require("../config/bloodCircul_xt/tr.js").default;
     }
     break;
     case "emergency_treat_yx": {

@@ -93,7 +93,7 @@
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
               />
               </div>
-            
+
             <!-- <div flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
               <div nowidth class="check-con" flex-box="1" flex="main:justify cross:center">
@@ -221,7 +221,7 @@
                       : require('./images/三.png')
                   "
                 />
-              </div> 
+              </div>
             </div> -->
             <div flex="cross:center" class="input-item">
               <span class="label">主管医生:</span>
@@ -707,7 +707,7 @@ export default {
     },
     isOpen() {
       this.$refs.modal.open();
-      let qr_png_value = `1002|${this.query.patientId}`;
+      let qr_png_value = `1002|${this.query.patientId}|${this.query.visitId}`;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";

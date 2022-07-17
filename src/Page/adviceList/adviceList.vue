@@ -10,7 +10,7 @@
             class="right-part"
             :style="{ marginLeft: openLeft ? '200px' : '0' }"
         >
-            <router-view></router-view>
+            <adviceGuizhou />
         </div>
     </div>
 </template>
@@ -40,7 +40,8 @@
 
 
 <script>
-import patientList from "@/components/patient-list/patient-list-router-link.vue";
+import patientList from "@/components/patient-list/patient-list-make-guizhou.vue";
+import adviceGuizhou from '@/Page/patientInfo/supPage/advice_guizhou/advice'
 export default {
 props: {},
 data() {
@@ -57,7 +58,8 @@ computed:{
     },
 },
 components: {
-    patientList
+    patientList,
+    adviceGuizhou
 }
 };
 </script>

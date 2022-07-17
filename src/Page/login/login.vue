@@ -688,6 +688,8 @@ export default {
           return require("../../common/images/logo_xiegang.png");
         case "whfk":
           return require("../../common/images/logo_whfk.png");
+        case "liaocheng":
+          return require("../../common/images/login_liaocheng.png");
         case "wujing":
           return require("../../common/images/logo_wujing.png");
         case "liaocheng":
