@@ -177,7 +177,9 @@ export default {
       },
       educationObiect: educationObiect,
       educationMethod: educationMethod,
-      educationAssessment: educationAssessment
+      educationAssessment: educationAssessment,
+      verifySignObj:{},
+      SigndataObj:{}
     };
   },
   methods: {
@@ -267,7 +269,7 @@ export default {
         getUser(password, empNo).then(res => {
           this.curEmpName = res.data.data.empName;
           this.curEmpNo = res.data.data.empNo;
-        });
+        },'',null,false,'',"",undefined, undefined ,undefined,this.SigndataObj,this.verifySignObj);
       });
     },
 
@@ -391,6 +393,23 @@ export default {
         type: itemData ? itemData.type : this.itemData.type, // 非必须，宣教类型
         pageParam: JSON.stringify(pageParam) // 非必须，页面参数
       };
+      this.SigndataObj = {
+        Patient_ID:queryInfo.patientId,
+        Visit_ID:queryInfo.visitId,
+        Document_Title:itemData ? itemData.name : this.itemData.name,
+        Document_ID:"form_edu",
+        Section_ID:this.form.state ? this.form.state : this.itemData.missionId,
+        strSignData: JSON.stringify(pageParam),
+      };
+      this.verifySignObj = {
+        patientId:queryInfo.patientId,
+        visitId:queryInfo.visitId,
+        formName:itemData ? itemData.name : this.itemData.name,
+        formCode:"form_edu",
+        instanceId:this.form.state ? this.form.state : this.itemData.missionId,
+        recordId:this.type === 2 ? this.itemData.id : "",
+        signData:JSON.stringify(pageParam),
+      }
       return data;
     },
     // 保存

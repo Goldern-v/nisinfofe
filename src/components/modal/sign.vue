@@ -181,12 +181,14 @@
 </style>
 
 <script>
+import { GetUserList,verifyNewCaSign } from "@/api/caCardApi";
 import dayjs from "dayjs";
 import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
 import { getCaSignJmfy,verifyData } from "@/api/ca-sign_fuyou.js";
 import moment from "moment";
 import md5 from "md5";
+
 export default {
   props: {
     title: {
@@ -217,9 +219,9 @@ export default {
   data() {
     return {
       username:
-        localStorage && localStorage.user
+        localStorage.caUser ? localStorage.caUser:(localStorage && localStorage.user
           ? JSON.parse(localStorage.user).empNo
-          : "",
+          : ""),
       password: "",
       signDate: dayjs().format("YYYY-MM-DD HH:mm") || "",
       callback: "",
@@ -237,6 +239,7 @@ export default {
       fuyouCaData:null,
       isCaSign:false,
       signType:0,
+      userNum:0,
       isDoctor:false,
       aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi'],
       activeSheetType:"",
@@ -244,7 +247,10 @@ export default {
       hasQrCaSignHos:['fuyou','hj','guizhou'],
       // caSignHasNoSignType:['hj'],
       caSignHasNoSignType:['hj','guizhou'],
-      btnLoading:false
+      btnLoading:false,
+      verifySignObj:{},
+      SigndataObj:{},
+      foshanshiyiIFca:false
     };
   },
   methods: {
@@ -261,8 +267,18 @@ export default {
       // let flag = ['fuyou'].includes(this.HOSPITAL_ID)&& this.fuyouCaData && this.fuyouCaData.userName
     return !!flag
     },
-    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType) {//formData为表单数据
-   console.log("aaaaaaaa")
+    open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType,SigndataObj,verifySignObj) {//formData为表单数据
+    if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+       GetUserList().then(res=>{
+        this.userNum++
+              if(res.data.length==0){
+                localStorage.removeItem("caUser");
+                this.foshanshiyiIFca=false
+            }else this.foshanshiyiIFca=true
+      })
+    }
+    
+    console.log("aaaaaaaa",callback,title,showDate,isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj)
    this.btnLoading = false
     if(doctorTure){
       this.isDoctor = doctorTure
@@ -302,19 +318,25 @@ export default {
       }
       this.title1 = "";
       title && (this.title1 = title);
-      (this.username =
-        localStorage && localStorage.user
-          ? JSON.parse(localStorage.user).empNo
-          : ""),
+      if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        (this.username =
+          localStorage && localStorage.user
+            ? JSON.parse(localStorage.user).empNo
+            : "")
+        this.ca_name = window.ca_name;
+        this.ca_isLogin = window.ca_isLogin;
+      }
         (this.callback = callback);
+        if(this.HOSPITAL_ID=="foshanrenyi"){
+          this.verifySignObj = verifySignObj
+          this.SigndataObj = SigndataObj
+        }
       this.showDate = showDate;
       // this.showMessage = showMessage;
       this.message = message;
       this.password = "";
       this.pw = false;
 
-      this.ca_name = window.ca_name;
-      this.ca_isLogin = window.ca_isLogin;
 
       
       this.$refs.modalName.open();
@@ -358,6 +380,7 @@ export default {
       this.$refs.modalName.setCloseCallback(closeCallback);
     },
     post() {
+        // debugger
       this.btnLoading = true
       this.setCloseCallback(null);
       if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
@@ -379,8 +402,8 @@ export default {
           parent.app.bus.$emit("assessmentRefresh");
         } else {
           console.log("wahaha")
-          // if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
-            verifyCaSign().then(res => {
+          if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+            verifyCaSign().then(res => {  
               console.log(res.random);
               this.$refs.modalName.close();
               let {password,empNo} = res.data
@@ -401,7 +424,35 @@ export default {
                 return this.callback(pwd, username);
               }
             });
-          // }
+          }else{
+              this.$refs.modalName.close();
+              console.log(this.SigndataObj,"delsignModal")
+              verifyNewCaSign(this.SigndataObj,this.verifySignObj).then(verifyNewCaSignRes=>{
+                console.log(verifyNewCaSignRes,"verifyNewCaSignRes")
+                const {password,empNo} =verifyNewCaSignRes
+                if (this.signDate){
+                  return this.callback(
+                  password,
+                  // random,
+                  empNo,
+                  this.signDate,
+                );
+                }else return this.callback(password,empNo);
+              },(err)=>{
+                if(err=="ca证书还未登录，请先登录！" || err=="请用密码验证！") return this.$message.error(err)
+                this.username = (JSON.parse(localStorage.user)).empNo
+                if (this.signDate) {
+                return this.callback(
+                  localStorage.ppp,
+                  // random,
+                  this.username,
+                  this.signDate,
+                );
+              } else {
+                return this.callback(localStorage.ppp, this.username);
+              }
+              })
+          }
         }
       } else {
         if (this.password == "") {
@@ -508,7 +559,27 @@ export default {
   watch:{
     isCaSign(val){
       this.pw = val;
-    }
+    },
+    userNum:{
+      handler(newVal, oldVal) {
+        console.log("1111 111111foshanshiyiIFca")
+        if(this.foshanshiyiIFca){
+          console.log("foshanshiyiIFca is new")
+          this.username =
+          localStorage && localStorage.caUser
+            ? localStorage.caUser
+            : JSON.parse(localStorage.user).empNo
+            this.ca_name = localStorage.caUser?localStorage.caUser:"";
+            this.ca_isLogin = !!this.ca_name;
+        }else{
+          this.username = JSON.parse(localStorage.user).empNo
+          this.ca_name = "";
+          this.ca_isLogin = !!this.ca_name;
+        }
+        console.log('oldVal:', oldVal)
+        console.log('newVal:', newVal)
+        },
+    },
   },
   mounted(){
     //初始化江门妇幼签名数据

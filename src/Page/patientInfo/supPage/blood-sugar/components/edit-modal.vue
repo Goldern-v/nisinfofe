@@ -162,6 +162,7 @@
         <span class="unit">(mmol/L)</span>
       </ElFormItem>
       <ElFormItem
+        v-if="HOSPITAL_ID != 'foshanrenyi'"
         :label="HOSPITAL_ID == 'liaocheng' ? '测量者：' : '执行人：'"
         required
       >
@@ -295,6 +296,8 @@ export default {
       { name: '门冬胰岛素注射液' },
       { name: '人胰岛素注射液' },
     ],
+    SigndataObj:{},
+    verifySignObj:{}
   }),
   props: {
     sugarItem: Array,
@@ -387,19 +390,68 @@ export default {
       this.$refs.modal.close();
     },
     openSignModal() {
+      console.log("this.patientInfo",this.patientInfo,this.form)
       window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then((res) => {
           this.curEmpName = res.data.data.empName;
           this.curEmpNo = res.data.data.empNo;
         });
-      },'执行人切换',null,false,'',{id:`${this.patientInfo.patientId}_${new Date(this.form.recordDate || new Date())}`,code:"form_sugar",name:'微量血糖测定登记表'});
+      },'执行人切换',null,false,'',{id:`${this.patientInfo.patientId}_${new Date(this.form.recordDate || new Date())}`,code:"form_sugar",name:'微量血糖测定登记表'},undefined, undefined ,undefined,this.SigndataObj,this.verifySignObj);
     },
+    
     onClose() {
       this.close();
     },
+    caRucanFun(){
+      const editParams = {}
+        for(let key in this.form){
+          if(this.form[key]) editParams[key]=this.form[key]
+        }
+       this.SigndataObj = {
+        Patient_ID:this.patientInfo.patientId,
+        Visit_ID:this.patientInfo.visitId,
+        Document_Title:"微量血糖测定登记表",
+        Document_ID:"form_sugar",
+        Section_ID:"",
+        strSignData: JSON.stringify(editParams),
+      };
+
+       this.verifySignObj = {
+        patientId:this.patientInfo.patientId,
+        visitId:this.patientInfo.visitId,
+        formName:"微量血糖测定登记表",
+        formCode:"form_sugar",
+        instanceId:"",
+        recordId:this.form.recordId,
+        signData:JSON.stringify(editParams),
+      }
+    },
+    openFoshanRYModal(){
+      this.caRucanFun()
+      window.openSignModal((password, empNo) => {
+        apis.getUser(password, empNo).then((res) => {
+          this.curEmpName = res.data.data.empName;
+          this.curEmpNo = res.data.data.empNo;
+        const data = { ...this.form, oldRecordDate: this.oldRecordDate };
+        data.recordDate.setHours(data.recordTime.getHours());
+        data.recordDate.setMinutes(data.recordTime.getMinutes());
+        data.recordDate.setSeconds(data.recordTime.getSeconds())
+        if (this.HOSPITAL_ID != "fuyou") {
+        data.nurse = this.curEmpNo;
+        }
+        delete data.recordTime; 
+        console.log("data222",data,this.form,this.oldRecordDate)
+        this.$emit("confirm", data);
+        });
+      },'',null,false,'',{id:`${this.patientInfo.patientId}_${new Date(this.form.recordDate || new Date())}`,code:"form_sugar",name:'微量血糖测定登记表'},undefined,undefined,undefined,this.SigndataObj,this.verifySignObj)
+    },
     onConfirm() {
+      if(this.HOSPITAL_ID === "foshanrenyi"){
+        return this.openFoshanRYModal()
+      }
+      // this.openSignModal()
       const data = { ...this.form, oldRecordDate: this.oldRecordDate };
-      console.log(data);
+      console.log(data,"data111");
       data.recordDate.setHours(data.recordTime.getHours());
       data.recordDate.setMinutes(data.recordTime.getMinutes());
       data.recordDate.setSeconds(data.recordTime.getSeconds());

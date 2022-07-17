@@ -273,7 +273,6 @@ import fuyouCaSignModal from "@/components/modal/fuyou-ca-sign";
 import hjCaSignModal from "@/components/modal/hj-ca-sign";
 import md5 from "md5";
 let timer = null;
-let caSignFoshantimer = null
 export default {
   mixins: [common],
   data() {
@@ -292,7 +291,9 @@ export default {
       fuyouCaData:null,//江门妇幼ca签名认证数据
       isUpdateFuyouCaData:true,
       // hasQrCaSignHos:['fuyou','hj'],
-      hasQrCaSignHos:['fuyou','hj','guizhou']
+      hasQrCaSignHos:['fuyou','hj','guizhou'],
+      userNum:0,
+      foshanshiyiIFca:false
     };
   },
   props: {
@@ -469,27 +470,13 @@ export default {
           });
         });
       }else{
-        const caUser = localStorage["caUser"] || ""
-    //     if(caUser){
-    //        clearInterval(caSignFoshantimer);
-    //        caSignFoshantimer = setInterval(() => {
-    //        GetUserList().then(res=>{
-    //         if(res.data.length>0){
-    //           this.UkeyObj = res.data
-    //           this.checkCa = true
-    //         }else{
-    //           this.checkCa = false
-    //         }
-    //         // console.log("res",res)
-    //       })
-    //   }, 1000);
-    // }
-        // }
-        this.ca_isLogin =  !!caUser 
-        window.ca_isLogin = this.ca_isLogin;
-        this.ca_name = caUser
-        window.ca_name = this.ca_name;
-        console.log(caUser,"caUser")
+        GetUserList().then(res=>{
+        this.userNum++
+              if(res.data.length==0){
+                localStorage.removeItem("caUser");
+                this.foshanshiyiIFca=false
+            }else this.foshanshiyiIFca=true
+      })
       }
     },
     logoutCaSign() {
@@ -584,6 +571,19 @@ export default {
     });
     //初始化
 
+  },
+  watch:{
+    userNum:{
+      handler(newVal, oldVal) {
+        if(this.foshanshiyiIFca){
+            this.ca_name = localStorage.caUser?localStorage.caUser:"";
+            this.ca_isLogin = !!this.ca_name;
+        }else{
+          this.ca_name = "";
+          this.ca_isLogin = !!this.ca_name;
+        }
+        },
+    },
   },
   components: {
     SysPasswordManage,
