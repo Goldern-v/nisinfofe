@@ -335,10 +335,10 @@ export default {
       let url = ""
       switch(type + ''){
         case "2":
-          url = require("../../common/images/card/gaowei.png");
+          url = require("../../../../common/images/card/gaowei.png");
           break;
         case "4":
-          url = require("../../common/images/card/biguang.png");
+          url = require("../../../../common/images/card/biguang.png");
           break;
       }
       return url
