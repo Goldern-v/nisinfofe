@@ -82,7 +82,7 @@
         <!-- <ElFormItem prop="signature" label="签名：">
           <ElInput v-model="form.signature" />
         </ElFormItem>-->
-        <ElFormItem label="执行人：" required>
+        <ElFormItem v-if="HOSPITAL_ID != 'foshanrenyi'" label="执行人：" required>
           <span>{{curEmpName}}</span>
           <span class="btn" @click="openSignModal">切换</span>
         </ElFormItem>
@@ -148,7 +148,9 @@ export default {
       },
       educationObiect: educationObiect,
       educationMethod: educationMethod,
-      educationAssessment: educationAssessment
+      educationAssessment: educationAssessment,
+      verifySignObj:{},
+      SigndataObj:{}
     };
   },
   methods: {
@@ -230,13 +232,25 @@ export default {
       }
       return val;
     },
-
+    openFoshanRYModal(){
+      this.setParams()
+      console.log(this.SigndataObj,this.verifySignObj,"this.SigndataObj,this.verifySignObj")
+      return new Promise((resolve, reject) => {
+      window.openSignModal((password, empNo) => {
+        getUser(password, empNo).then(res => {
+          this.curEmpName = res.data.data.empName;
+          this.curEmpNo = res.data.data.empNo;
+          resolve()
+        });
+        },'',null,false,'',"",undefined, undefined ,undefined,this.SigndataObj,this.verifySignObj);
+      })
+    },
     openSignModal() {
       window.openSignModal((password, empNo) => {
         getUser(password, empNo).then(res => {
           this.curEmpName = res.data.data.empName;
           this.curEmpNo = res.data.data.empNo;
-        });
+        },'',null,false,'',"",undefined, undefined ,undefined);
       });
     },
 
@@ -279,8 +293,33 @@ export default {
         this.options = [];
       }
     },
+    caRucanFun(){
+      const editParams = {}
+        for(let key in this.form){
+          if(this.form[key]) editParams[key]=this.form[key]
+        }
+       this.SigndataObj = {
+        Patient_ID:queryInfo.patientId,
+        Visit_ID:queryInfo.visitId,
+        Document_Title:itemData ? itemData.name : this.itemData.name,
+        Document_ID:"form_edu",
+        Section_ID:this.form.state ? this.form.state : this.itemData.missionId,
+        strSignData: JSON.stringify(pageParam),
+      };
+
+       this.verifySignObj = {
+        patientId:queryInfo.patientId,
+        visitId:queryInfo.visitId,
+        formName:itemData ? itemData.name : this.itemData.name,
+        formCode:"form_edu",
+        instanceId:this.form.state ? this.form.state : this.itemData.missionId,
+        recordId:this.type === 2 ? this.itemData.id : "",
+        signData:JSON.stringify(pageParam),
+      }
+    },
     // 处理保存入参
     setParams() {
+      
       let date = dayjs(new Date()).format("MM-DD HH:mm");
       let itemData = this.options.filter(
         item => item.missionId === this.form.state
@@ -320,12 +359,28 @@ export default {
         type: itemData ? itemData.type : this.itemData.type, // 非必须，宣教类型
         pageParam: JSON.stringify(pageParam) // 非必须，页面参数
       };
+            this.SigndataObj = {
+        Patient_ID:queryInfo.patientId,
+        Visit_ID:queryInfo.visitId,
+        Document_Title:itemData ? itemData.name : this.itemData.name,
+        Document_ID:"form_edu",
+        Section_ID:this.form.state ? this.form.state : this.itemData.missionId,
+        strSignData: JSON.stringify(pageParam),
+      };
+
+       this.verifySignObj = {
+        patientId:queryInfo.patientId,
+        visitId:queryInfo.visitId,
+        formName:itemData ? itemData.name : this.itemData.name,
+        formCode:"form_edu",
+        instanceId:this.form.state ? this.form.state : this.itemData.missionId,
+        recordId:this.type === 2 ? this.itemData.id : "",
+        signData:JSON.stringify(pageParam),
+      }
+      console.log("queryInfo",queryInfo,this.form,this.itemData)
       return data;
     },
-    // 保存
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
+    submitFormFun(){
           let data = this.setParams();
           let isOk = false; //用来判断是否弹窗提示已推送是否继续添加
           let arr = this.pageParam.filter(
@@ -361,6 +416,16 @@ export default {
               this.close();
             });
           }
+    },
+    // 保存
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          if(this.HOSPITAL_ID === "foshanrenyi"){
+             this.openFoshanRYModal().then(res=>{
+              this.submitFormFun()
+             })
+          }else this.submitFormFun()
         } else {
           return false;
         }

@@ -41,8 +41,9 @@
         <span>{{ ca_isLogin ? "已登录" : "未登录" }}</span>
       </p>
       <div class="button-con">
-        <el-button size="mini" @click="openCaSignModal">证书登录</el-button>
-        <el-button size="mini" @click="logoutCaSign">证书退出</el-button>
+        <el-button size="mini" v-if="(['foshanrenyi'].includes(HOSPITAL_ID) && !ca_isLogin) || !['foshanrenyi'].includes(HOSPITAL_ID)" @click="openCaSignModal">证书登录</el-button>
+        <!-- 佛山人医院先暂时屏蔽掉 -->
+        <el-button v-if="!['foshanrenyi'].includes(HOSPITAL_ID)" size="mini" @click="logoutCaSign">证书退出</el-button>
       </div>
     </div>
     <div class="admin-system-info" v-if="hasQrCaSignHos.includes(HOSPITAL_ID)">
@@ -255,6 +256,7 @@
 
 </style>
 <script>
+import { GetUserList } from "@/api/caCardApi";
 import moment from "moment";
 import QRCode from "qrcodejs2"
 import printQrCode from "./modal/printQrCode.vue";
@@ -289,7 +291,9 @@ export default {
       fuyouCaData:null,//江门妇幼ca签名认证数据
       isUpdateFuyouCaData:true,
       // hasQrCaSignHos:['fuyou','hj'],
-      hasQrCaSignHos:['fuyou','hj','guizhou']
+      hasQrCaSignHos:['fuyou','hj','guizhou'],
+      userNum:0,
+      foshanshiyiIFca:false
     };
   },
   props: {
@@ -449,21 +453,31 @@ export default {
       this.$refs.hjCaSignModal.open();
     },
     getCaStatus() {
-      $_$WebSocketObj.GetUserList((usrInfo) => {
-        this.strUserCertID = usrInfo.retVal
-          .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
-          .replace("&&&", "");
-        this.ca_name = usrInfo.retVal.substring(
-          0,
-          usrInfo.retVal.indexOf("||")
-        );
-
-        SignedData(this.strUserCertID, "123213", (retValObj) => {
-          this.ca_isLogin = !!retValObj.retVal;
-          window.ca_isLogin = this.ca_isLogin;
-          window.ca_name = this.ca_name;
+      if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        $_$WebSocketObj.GetUserList((usrInfo) => {
+          this.strUserCertID = usrInfo.retVal
+            .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
+            .replace("&&&", "");
+          this.ca_name = usrInfo.retVal.substring(
+            0,
+            usrInfo.retVal.indexOf("||")
+          );
+  
+          SignedData(this.strUserCertID, "123213", (retValObj) => {
+            this.ca_isLogin = !!retValObj.retVal;
+            window.ca_isLogin = this.ca_isLogin;
+            window.ca_name = this.ca_name;
+          });
         });
-      });
+      }else{
+        GetUserList().then(res=>{
+        this.userNum++
+              if(res.data.length==0){
+                localStorage.removeItem("caUser");
+                this.foshanshiyiIFca=false
+            }else this.foshanshiyiIFca=true
+      })
+      }
     },
     logoutCaSign() {
       this.$confirm("是否确认退出证书登录?", "提示", {
@@ -474,7 +488,9 @@ export default {
         Logout(this.strUserCertID, (retValObj) => {
           if (retValObj.retVal) {
             this.$message.success("退出证书登录成功");
-            this.getCaStatus();
+            if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+              this.getCaStatus();
+            }
           }
         });
       });
@@ -541,6 +557,8 @@ export default {
       let timer = setInterval(() => {
         this.getCaStatus();
       }, outTimes);
+    }else if(this.HOSPITAL_ID == 'foshanrenyi'){
+      this.getCaStatus()
     }
   },
   mounted() {
@@ -553,6 +571,19 @@ export default {
     });
     //初始化
 
+  },
+  watch:{
+    userNum:{
+      handler(newVal, oldVal) {
+        if(this.foshanshiyiIFca){
+            this.ca_name = localStorage.caUser?localStorage.caUser:"";
+            this.ca_isLogin = !!this.ca_name;
+        }else{
+          this.ca_name = "";
+          this.ca_isLogin = !!this.ca_name;
+        }
+        },
+    },
   },
   components: {
     SysPasswordManage,
