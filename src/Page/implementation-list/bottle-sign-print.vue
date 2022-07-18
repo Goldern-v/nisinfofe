@@ -290,7 +290,7 @@ export default {
         'whfk':[
           {label: '全部'},{label:"输液"},{label:"注射"},{label:"皮试"},{label:"雾化"},{label:"标本"},{label:"口服"},{label:"治疗"}],
         'lyxrm':[
-          {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},],
+          {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"泵入"},{label:"标本"},{label:"其他"},],
         default:[
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},]
       },
