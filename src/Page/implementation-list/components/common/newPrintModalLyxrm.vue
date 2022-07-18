@@ -303,8 +303,14 @@
 <script>
 import { cloneDeep } from "lodash";
 import moment from "moment";
+import { getBytesLength } from "@/utils/tool";
 var qr = require("qr-image");
-
+const DRUG_TYPE = {
+  1: "普通",
+  2: "高危",
+  3: "自备",
+  4: "避光",
+};
 const arrayBufferToBase64 = (buffer) => {
   var binary = "";
   var bytes = new Uint8Array(buffer);

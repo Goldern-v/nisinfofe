@@ -133,6 +133,13 @@
               style="width:70%;height: 90%;"
             />
           </div>
+          <div class="cell noPrint" v-else-if="HOSPITAL_ID == 'foshanrenyi'">
+            <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+            />
+          </div>
           <div class="cell noPrint" v-else>{{ item.nurse }}</div>
           <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
             <!-- {{item.nurseEmpNo}} -->

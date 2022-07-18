@@ -469,6 +469,11 @@ function switchSheetType(type) {
       schema = require("../config/common_wj/tr.js").default;
     }
       break;
+    case "postpartum_nurse_wj": {
+      // 武警-产科护理记录单
+      schema = require("../config/postpartum_nurse_wj/tr.js").default;
+    }
+      break;
     case "neonatology_picc": {
       // 厚街-新生儿科PICC导管维护护理记录单
       schema = require("../config/neonatology_picc/tr.js").default;
@@ -1398,6 +1403,11 @@ function switchSheetType(type) {
     case "generalnursing_xt": {
       // 佛山杏坛 - 护理记录单（全院通用）
       schema = require("../config/generalnursing_xt/tr.js").default;
+    }
+    break;
+    case "bloodCircul_xt": {
+      // 佛山杏坛 -血运观察护理单（外四科）
+      schema = require("../config/bloodCircul_xt/tr.js").default;
     }
     break;
     case "emergency_treat_yx": {

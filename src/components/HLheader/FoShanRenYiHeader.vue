@@ -526,8 +526,9 @@
                 placement="bottom-end"
                 width="320"
                 trigger="click"
+                @show="userInfoOpen"
               >
-                <userInfo @setPassword="setPassword" @quit="quit"></userInfo>
+                <userInfo ref="userInfo" @setPassword="setPassword" @quit="quit"></userInfo>
               </el-popover>
               <span>
                 <el-select
@@ -978,6 +979,9 @@ export default {
     }
   },
   methods: {
+    userInfoOpen(){
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)) this.$refs.userInfo.getCaStatus()
+    },
     handleCommand(command) {
       switch (command) {
         case "quit":

@@ -4,12 +4,6 @@
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
      <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType=='pediatric3_xt'||sheetInfo.sheetType=='prenataldelivery2_xt'||sheetInfo.sheetType=='postpartum2_xt'">
-      <!-- <span>
-        床号：
-        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ patientInfo.bedLabel }}
-        </div>
-      </span> -->
       <span>
         姓名：
         <div class="bottom-line" style="min-width: 30px">
@@ -36,10 +30,17 @@
       </span>
       <span>
         床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          <!-- {{ patientInfo.bedLabel }} -->
+          {{ patientInfo.relObj[`PageIndex_bedLabel_${index}`]}}
+        </div>
+      </span>
+      <!-- <span>
+        床号：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.bedLabel }}
         </div>
-      </span>
+      </span> -->
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 50px">
@@ -95,13 +96,58 @@
         />钳产
       </div>
       </div>
-    <div class="info-con" flex="main:justify" v-else>
-      <!-- <span>
-        床号：
-        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ patientInfo.bedLabel }}
+      <template v-else-if="sheetInfo.sheetType=='bloodCircul_xt'">
+         <div class="info-con" flex="main:justify" >
+            <span>
+              姓名：
+              <div class="bottom-line" style="min-width: 30px">
+                {{ patientInfo.patientName }}
+              </div>
+            </span>
+            <span>
+              性别：
+              <div class="bottom-line" style="min-width: 30px">
+                 {{ patientInfo.sex }}
+              </div>
+            </span>
+            <span>
+              年龄：
+              <div class="bottom-line" style="min-width: 30px">
+               {{ patientInfo.age }}
+              </div>
+            </span>
+            <span>
+              科室：
+              <div class="bottom-line" style="min-width: 100px">
+              {{ patientInfo.deptName }}
+              </div>
+            </span>
+            <span>
+              床号：
+              <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+              <!-- {{ patientInfo.bedLabel }} -->
+              {{ patientInfo.relObj[`PageIndex_bedLabel_${this.index}`]}}
+            </div>
+           </span>
+           <span>
+              住院号：
+              <div class="bottom-line" style="min-width: 50px">
+             {{ patientInfo.inpNo }}
+             </div>
+           </span>
+      </div>
+      <div class="info-con" flex="main:justify" >
+        <span>
+          观察部位:
+          <span>A:</span><input v-model="sheetInfo.relObj.A"/>
+          <span>B:</span><input v-model="sheetInfo.relObj.B"/>
+          <span>C:</span><input v-model="sheetInfo.relObj.C"/>
+          <span>D:</span><input v-model="sheetInfo.relObj.D"/>
+          <span>E:</span><input v-model="sheetInfo.relObj.E"/>
+        </span>
         </div>
-      </span> -->
+    </template>
+    <div class="info-con" flex="main:justify" v-else>
       <span>
         姓名：
         <div class="bottom-line" style="min-width: 30px">
@@ -129,10 +175,17 @@
       </span>
       <span>
         床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          <!-- {{ patientInfo.bedLabel }} -->
+          {{ patientInfo.relObj[`PageIndex_bedLabel_${index}`]}}
+        </div>
+      </span>
+      <!-- <span>
+        床号：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.bedLabel }}
         </div>
-      </span>
+      </span> -->
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 50px">
@@ -236,7 +289,8 @@ export default {
       diagnosisList: [
         'pediatric3_xt',
         'prenataldelivery2_xt',
-        'postpartum2_xt'
+        'postpartum2_xt',
+        'bloodCircul_xt'
       ],
     };
   },
@@ -358,7 +412,8 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      this.$refs.bedRecordModal.open();
+      // 把当前页护记的页码存入,用于每一页床号的自定义
+      this.$refs.bedRecordModal.open('',this.index);
     },
     updateBirthDay() {
       window.openSetAuditDateModal(
@@ -430,10 +485,18 @@ export default {
     }
   },
   watch: {
-    index(){
+    index(newVal,oldVal){
       if(this.index!=0){
        this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo.relObj[`${this.index}pregnantWeeks`]?this.sheetInfo.relObj[`${this.index}pregnantWeeks`]: this.sheetInfo.relObj[`${this.index-1}pregnantWeeks`]
       }
+      /* 处理床位互不影响，写这么复杂是因为医院已经再用了，要兼顾数据 */
+      let beforeBed=this.patientInfo.bedLabel
+      let nowBed=this.sheetInfo.relObj[`PageIndex_bedLabel_${newVal}`]
+      if(this.index!=0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${newVal-1}`]){
+        // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
+      beforeBed=this.sheetInfo.relObj[`PageIndex_bedLabel_${newVal-1}`]
+      }
+      this.sheetInfo.relObj[`PageIndex_bedLabel_${newVal}`]=nowBed ? nowBed : beforeBed
     }
   },
   components: {
@@ -443,6 +506,14 @@ export default {
     if(this.index!=0){
       this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo.relObj[`${this.index}pregnantWeeks`]?this.sheetInfo.relObj[`${this.index}pregnantWeeks`]: this.sheetInfo.relObj[`${this.index-1}pregnantWeeks`]
     }
+    /*  每页独立床号功能 */
+    let beforeBed=this.patientInfo.bedLabel
+    let nowBed=this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]
+    if(this.index!=0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index-1}`]){
+      // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
+      beforeBed=this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index-1}`]
+    }
+    this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]= nowBed ? nowBed : beforeBed
   }
 };
 </script>
@@ -504,5 +575,11 @@ input[type='checkbox']:checked:after {
   border-top: 2px solid blue;
   top: 10px;
   left: -2px;
+}
+input {
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  text-align: center;
 }
 </style>

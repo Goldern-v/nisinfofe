@@ -53,7 +53,7 @@
       ></el-table-column>
 
       <el-table-column
-        :label="['foshanrenyi'].includes(HOSPITAL_ID)?'病人ID':'住院号'"
+        :label="['foshanrenyi'].includes(HOSPITAL_ID)?'记账号':'住院号'"
         prop="inpNo"
         min-width="95px"
       ></el-table-column>

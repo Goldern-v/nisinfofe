@@ -55,11 +55,12 @@
             <el-option label="口服" value="口服"></el-option>
             <el-option label="雾化" value="雾化"></el-option>
             <el-option label="皮试" value="皮试"></el-option>
-            <el-option label="治疗" value="治疗"></el-option>
+            <!-- <el-option label="治疗" value="治疗"></el-option>
             <el-option label="理疗" value="理疗"></el-option>
             <el-option label="护理" value="护理"></el-option>
-            <el-option label="外用" value="外用"></el-option>
-            <el-option label="化验" value="化验"></el-option>
+            <el-option label="外用" value="外用"></el-option> -->
+            <el-option label="标本" value="标本"></el-option>
+            <el-option label="泵入" value="泵入"></el-option>
             <el-option label="其他" value="其他"></el-option>
           </el-select>
           <span class="label">床号:</span>
@@ -130,7 +131,7 @@
 }
 
 .head-con {
-  height: 42px;
+  height: 62px;
   display: flex;
   justify-content: space-between;
   align-items: center;

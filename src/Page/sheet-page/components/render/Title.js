@@ -501,6 +501,13 @@ export default function Title(
     );
   }
   break;
+  case "postpartum_nurse_wj": {
+    // 武警-产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_nurse_wj/th").default)
+    );
+  }
+  break;
   case "neonatology_picc": {
     // 新生儿科PICC导管维护护理记录单
     Th = JSON.parse(
@@ -1796,6 +1803,13 @@ export default function Title(
     // 佛山杏坛 - 护理记录单（全院通用）
     Th = JSON.parse(
       JSON.stringify(require("../config/generalnursing_xt/th.js").default)
+    );
+  }
+  break;
+  case "bloodCircul_xt": {
+    // 佛山杏坛 -血运观察护理单（外四科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/bloodCircul_xt/th.js").default)
     );
   }
   break;

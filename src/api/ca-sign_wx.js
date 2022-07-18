@@ -45,7 +45,6 @@ export function saveSignPic(signPic) {
     })
   );
 }
-
 export function verifyCaSign() {
   return new Promise((resolve, reject) => {
     // 获取用户id
