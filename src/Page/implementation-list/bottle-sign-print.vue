@@ -288,7 +288,7 @@ export default {
       hasNewPrintHos:['sdlj', 'gdtj', 'fsxt','whfk','lyxrm','wujing'],
       typeOptions:{
         'whfk':[
-          {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"标本"},],
+          {label: '全部'},{label:"输液"},{label:"注射"},{label:"皮试"},{label:"雾化"},{label:"标本"},{label:"口服"},{label:"治疗"}],
         'lyxrm':[
           {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},],
         default:[
@@ -593,7 +593,7 @@ export default {
               margin: 0 0;
             }
             body{
-              ${this.newModalSize=='6*8' || this.newModalSize == '70*80'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
+              ${this.newModalSize=='6*8' || this.newModalSize == '70*80' || this.HOSPITAL_ID=='whfk'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
             }
             .break-page {
               page-break-after: always;
