@@ -20,6 +20,7 @@ let titleList_next = []
  * @returns
  */
 let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = '', autoOptionsData = []}) {
+  console.log(autoTitleData, 77777)
   return {
     titleModel: Title(titleData, autoTitleData, index),
     bodyModel: Body(bodyData, index, autoOptionsData)
@@ -30,6 +31,7 @@ export default data;
 
 export async function addSheetPage(callback) {
   let Options = []
+  let fieldSetting = []
   if (['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID)) {
     let formatCustomObj = {}
     autoOptions_next.reduce((total, cur) => {
@@ -64,16 +66,18 @@ export async function addSheetPage(callback) {
     if (http.data.code === '200') {
       Options = http.data.data.Options.filter(v => v.pageIndex === data.length)
       autoOptions_next = Options
+      fieldSetting = http.data.data.FieldSetting || []
     }
   }
   data.push(
     Page(
       {
         titleData: [],
-        autoTitleData: autoTitleDataDisk.map(item => {
-          item.pageIndex = data.length;
-          return item;
-        }),
+        // autoTitleData: autoTitleDataDisk.map(item => {
+        //   item.pageIndex = data.length;
+        //   return item;
+        // }),
+        autoTitleData: fieldSetting,
         bodyData: [],
         index: data.length,
         autoOptionsData: Options
@@ -97,7 +101,8 @@ export function cleanData() {
   titleList_next = []
 }
 
-export function initSheetPage(titleData, bodyData, markData) {
+export async function initSheetPage(titleData, bodyData, markData) {
+  // console.log('bodyData', bodyData)
   cleanData();
   let titleList = [];
   let bodyList = [];
@@ -153,10 +158,12 @@ export function initSheetPage(titleData, bodyData, markData) {
           return item.pageIndex == i;
         }),
         index: i,
-        autoOptionsData: customOptions.filter(v => v.pageIndex == i)
+        // 这里设置每页的自定义下拉
+        autoOptionsData: customOptions.filter(v => v.pageIndex === i)
       })
     );
   }
+  // console.log('datazzzzzz', data)
   if (data.length == 0) {
     data.push(Page({
       titleData: titleList.filter(item => {
