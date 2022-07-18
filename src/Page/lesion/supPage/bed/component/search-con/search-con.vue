@@ -677,7 +677,9 @@ export default {
         "lyxrm",
         "sdlj",
         "xiegang",
-        'lyyz','qhwy'
+        'lyyz',
+        'qhwy',
+        'gdtj'
         ].includes(
         this.HOSPITAL_ID
       );
