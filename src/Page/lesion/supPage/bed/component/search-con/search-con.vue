@@ -624,7 +624,7 @@ export default {
           [
             "zhongshanqi", "liaocheng",  "beihairenyi",
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
-            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','qhwy'
+            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','qhwy',"gdtj"
           ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
@@ -677,7 +677,7 @@ export default {
         "lyxrm",
         "sdlj",
         "xiegang",
-        'lyyz','qhwy'
+        'lyyz','qhwy',"gdtj"
         ].includes(
         this.HOSPITAL_ID
       );
@@ -685,7 +685,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu'
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu',"gdtj"
         ].includes(
         this.HOSPITAL_ID
       );
@@ -782,6 +782,7 @@ export default {
           syncData = syncGetNurseBedRecBeiHaiExecute;
           break;
         case "sdlj":
+        case "gdtj":
           syncData = syncGetNurseBedRecSDLJExecute;
           break;
         case "xiegang":
