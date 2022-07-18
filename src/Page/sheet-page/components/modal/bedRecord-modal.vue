@@ -29,9 +29,9 @@
             </template>
           </el-table-column>
           <!-- <el-table-column prop="logDateTime" label="时间" min-width="110px" align="center"></el-table-column> -->
-          <el-table-column v-if="HOSPITAL_ID == 'huadu'" prop="bedLabelNew" label="床号" min-width="110px" align="center"></el-table-column>
-          <el-table-column v-if="HOSPITAL_ID != 'huadu'" prop="bedLabelOld" label="旧床号" min-width="110px" align="center"></el-table-column>
-          <el-table-column v-if="HOSPITAL_ID != 'huadu'" prop="bedLabelNew" label="新床号" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="oneBedHospital.includes(HOSPITAL_ID)" prop="bedLabelNew" label="床号" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="!oneBedHospital.includes(HOSPITAL_ID)" prop="bedLabelOld" label="旧床号" min-width="110px" align="center"></el-table-column>
+          <el-table-column v-if="!oneBedHospital.includes(HOSPITAL_ID)" prop="bedLabelNew" label="新床号" min-width="110px" align="center"></el-table-column>
          
         </el-table>
       </div>
@@ -105,7 +105,8 @@ export default {
       thirdBedRecord:"",
       bedLabel:"",
       bedModalWidth:450,
-      activeIndex:''//护记当前的页码，用于保存患者信息的relObj
+      activeIndex:'',//护记当前的页码，用于保存患者信息的relObj
+      oneBedHospital:['huadu','fsxt'],
     };
   },
   methods: {
@@ -138,10 +139,10 @@ export default {
         }).then(res => {
           this.$message.success("保存成功");
           this.close();
+          this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
+          sheetInfo.relObj[`PageIndex_bedLabel_${this.activeIndex}`] = res.data.data.bedLabel;
+          this.bus.$emit("saveSheetPage", false);  
         });
-        this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
-        sheetInfo.relObj[`PageIndex_bedLabel_${this.activeIndex}`] = this.bedLabel;
-        this.bus.$emit("saveSheetPage", false);    
       }else{
         updateBlockInfo({
           patientId:this.patientInfo.patientId || this.formlist.patientId,
@@ -173,7 +174,7 @@ export default {
             this.$refs.bedRecord.toggleRowSelection(item,item.selected)
           })  
         })
-        if(this.HOSPITAL_ID == 'huadu'){
+        if(this.oneBedHospital.includes(this.HOSPITAL_ID)){
           this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
           this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
           this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
@@ -196,7 +197,7 @@ export default {
       this.multipleSelection = val.sort((a,b)=>{
         return a.index - b.index
       });
-      if(this.HOSPITAL_ID == 'huadu'){
+      if(this.oneBedHospital.includes(this.HOSPITAL_ID)){
         this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
         this.secondBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
         this.thirdBedRecord = this.multipleSelection[2] ? this.multipleSelection[2].bedLabelNew : ""
@@ -231,7 +232,7 @@ export default {
     whiteButton
   },
   created() {
-    if(this.HOSPITAL_ID == 'huadu'){
+    if(this.oneBedHospital.includes(this.HOSPITAL_ID)){
       this.bedModalWidth = 450
     }else{
       this.bedModalWidth = 550
