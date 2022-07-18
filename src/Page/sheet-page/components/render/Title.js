@@ -502,7 +502,7 @@ export default function Title(
   }
   break;
   case "postpartum_nurse_wj": {
-    // 武警-产后护理记录单
+    // 武警-产科护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/postpartum_nurse_wj/th").default)
     );

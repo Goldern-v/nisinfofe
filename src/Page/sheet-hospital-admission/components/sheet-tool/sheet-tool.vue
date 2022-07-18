@@ -1307,6 +1307,27 @@ export default {
           signType = { audit: true };
           titleModal = "审核护士签名";
         }
+
+        let datapost = Object.assign({}, window.formObj.model);
+        let SigndataObj = {
+              Patient_ID:this.patientInfo.patientId,
+              Visit_ID:this.patientInfo.visitId,
+              Document_Title:this.formObj.formSetting.formTitle.formName,
+              Document_ID:"eval",
+              Section_ID:this.formId,
+              strSignData: JSON.stringify(datapost),
+            };
+
+        let verifySignObj = {
+                    patientId:this.patientInfo.patientId,
+                    visitId:this.patientInfo.visitId,
+                    formName:this.formObj.formSetting.formTitle.formName,
+                    formCode:"eval",
+                    instanceId:this.formId,
+                    recordId:"",
+                    signData:JSON.stringify(datapost),
+                  }
+
         window.openSignModal(
           (password, empNo, signDate) => {
             this.bus.$emit("setHosptialAdmissionLoading", {
@@ -1336,6 +1357,9 @@ export default {
               password,
               ...signType,
             };
+
+            
+
             window.formObj.model.formCode = this.formCode;
 
             post = Object.assign({}, window.formObj.model, post);
@@ -1355,6 +1379,7 @@ export default {
             }
 
             console.log("签名post", post, postData);
+            
             //
             save(postData)
               .then((res) => {
@@ -1384,7 +1409,8 @@ export default {
             console.log("表单填写结果", post);
           },
           titleModal,
-          true
+          true,undefined,  undefined, undefined, undefined ,undefined,undefined,
+          SigndataObj,verifySignObj
         );
       }
     },

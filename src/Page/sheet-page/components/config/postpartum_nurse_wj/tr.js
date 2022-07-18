@@ -308,6 +308,7 @@ export function getListData4() {
   
   multiDictInfo(list).then(res => {
     let data = res.data.data;
+    console.log(1111,data);
     for(let i=0;i<list.length;i++) {
       setList(allList[i], list[i], data);
     }

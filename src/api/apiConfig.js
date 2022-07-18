@@ -9,4 +9,5 @@ var host = ''
 var domain = `${host}/crNursing/`
 var apiPath = `${host}/crNursing/api/`
 var assist = `${host}/crNursing/resource/range/`
-export {host, apiPath, assist}
+var caSignHOST = 'http://127.0.0.1:30960'
+export {host, apiPath, assist,caSignHOST}

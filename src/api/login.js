@@ -2,12 +2,14 @@
 import axios from './axios'
 import qs from 'qs'
 import { apiPath } from './apiConfig'
-function login(empNo, password, code, repaint) {
-  return axios.post(`${apiPath}login`, qs.stringify({ empNo, password, code, repaint }))
+function login(loginOBJ) {
+  console.log("...loginOBJ",loginOBJ)
+  return axios.post(`${apiPath}login`, qs.stringify({ ...loginOBJ }))
 }
-function hisLogin(empNo, password, code, repaint) {
-  return axios.post(`${apiPath}login/dgxg`, qs.stringify({ empNo, password, code, repaint }))
+function hisLogin(loginOBJ) {
+  return axios.post(`${apiPath}login/dgxg`, qs.stringify({...loginOBJ}))
 }
+
 function logout(authToken) {
   localStorage.clear();
   sessionStorage.clear();
@@ -45,4 +47,4 @@ function checkUser(empNo, password) {
 //   return axios.post(`http://10.45.0.24:8066/service1.asmx/账户校验`,params, {'Content-Type': 'application/x-www-form-urlencoded'})
 // }
 
-export { login, logout, autoLogin, checkUser,hisLogin }
+export { login, logout, autoLogin, checkUser,hisLogin}
