@@ -99,13 +99,14 @@
           @currentChange="handleCurrentChange"
         ></pagination>
       </div>
-      <div class="print-modal" v-show="showPintModal" @click="closePrint">
+      <!-- <div class="print-modal" v-show="showPintModal" @click="closePrint">
         <div class="init" v-show="!showProgress">
           <img src="./images/print.png" alt="">
           <p>正在初始化打印,请稍等…</p>
         </div>
-      </div>
+      </div> -->
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
+        <!-- :class="{'new-print-box--small': !['6*8', '70*80'].includes(newModalSize)}" -->
         <!-- {relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))},  -->
         <div :class="[{'break-page': ['lyxrm'].includes(HOSPITAL_ID) && bottleCardIndex % 3 == 2}]"
           v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
@@ -209,6 +210,13 @@
     // background: #fff;
     // transform: translateY(-50%);
 }
+@media print {
+  .new-print-box--small {
+    transform: scale(0.5);
+    transform-origin: 0 0 0;
+    overflow: hidden
+  }
+}
 </style>
 <script>
 import modal from "./modal/modal.vue"
@@ -217,6 +225,7 @@ import pagination from "./components/common/pagination";
 import NewPrintModal from "./components/common/newPrintModal"
 import NewPrintModalSdlj from "./components/common/newPrintModalSdlj"
 import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm"
+import NewPrintModalWhfk from "./components/common/newPrintModalWhfk"
 import printing from 'printing'
 import { patEmrList } from "@/api/document";
 import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2, getPatientOrder,getSDLJPatientOrder, syncNurseOrdersByWardCode } from "./api/index";
@@ -279,9 +288,9 @@ export default {
       hasNewPrintHos:['sdlj', 'gdtj', 'fsxt','whfk','lyxrm','wujing'],
       typeOptions:{
         'whfk':[
-          {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"标本"},],
+          {label: '全部'},{label:"输液"},{label:"注射"},{label:"皮试"},{label:"雾化"},{label:"标本"},{label:"口服"},{label:"治疗"}],
         'lyxrm':[
-          {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},],
+          {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"泵入"},{label:"标本"},{label:"其他"},],
         default:[
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},]
       },
@@ -584,7 +593,7 @@ export default {
               margin: 0 0;
             }
             body{
-              ${this.newModalSize=='6*8' || this.newModalSize == '70*80'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
+              ${this.newModalSize=='6*8' || this.newModalSize == '70*80' || this.HOSPITAL_ID=='whfk'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
             }
             .break-page {
               page-break-after: always;
@@ -593,6 +602,8 @@ export default {
         }).then(()=>{
           document.getElementById('new-print-box').style.display = 'none'
           this.onLoad()
+        }).catch(e => {
+          console.log('test-e', e)
         })
       })
     },
@@ -684,6 +695,8 @@ export default {
           return 'NewPrintModalSdlj'
         case 'lyxrm':
           return 'NewPrintModalLyxrm'
+        case 'whfk':
+          return 'NewPrintModalWhfk'
         default:
           return 'NewPrintModal'
       }
@@ -713,6 +726,7 @@ export default {
     NewPrintModal,
     NewPrintModalSdlj,
     NewPrintModalLyxrm,
+    NewPrintModalWhfk,
   }
 };
 </script>

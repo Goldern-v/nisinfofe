@@ -78,6 +78,11 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
+             <router-link to="/planList" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+                >护理计划单</el-row
+              >
+            </router-link>
             <router-link to="/sheetPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理记录单
@@ -521,8 +526,9 @@
                 placement="bottom-end"
                 width="320"
                 trigger="click"
+                @show="userInfoOpen"
               >
-                <userInfo @setPassword="setPassword" @quit="quit"></userInfo>
+                <userInfo ref="userInfo" @setPassword="setPassword" @quit="quit"></userInfo>
               </el-popover>
               <span>
                 <el-select
@@ -973,6 +979,9 @@ export default {
     }
   },
   methods: {
+    userInfoOpen(){
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)) this.$refs.userInfo.getCaStatus()
+    },
     handleCommand(command) {
       switch (command) {
         case "quit":

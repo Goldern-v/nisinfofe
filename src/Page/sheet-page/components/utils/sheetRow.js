@@ -31,8 +31,8 @@ export function getRowNum(index) {
     return 22;
   } else if (sheetInfo.sheetType == "intervention_cure") {
     return 15;
-  } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc") {
-    return 26; 
+  } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc" || sheetInfo.sheetType == "ops_linyi") {
+    return 26;
   } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj" || sheetInfo.sheetType == "iabp_fs") {
     return 33;
   } else if (sheetInfo.sheetType == "icu_lc") {
@@ -65,15 +65,15 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType === 'blood_circulation_hl') {
     return 35
-  } else if (sheetInfo.sheetType === 'criticaldisease_xt' || sheetInfo.sheetType === 'cardiovascular_xt' ) {
+  } else if (sheetInfo.sheetType === 'intravenous_sdlj'|| sheetInfo.sheetType === 'criticaldisease_xt' || sheetInfo.sheetType === 'cardiovascular_xt' ) {
     return 20
-  } else if (sheetInfo.sheetType === 'access_fk'||sheetInfo.sheetType === 'cardiac_lcey') {
+  } else if ( sheetInfo.sheetType === 'access_fk'||sheetInfo.sheetType === 'cardiac_lcey') {
     return 28
-  } else if (sheetInfo.sheetType === 'intravenous_sdlj'||sheetInfo.sheetType === 'mechanical_sdlj') {
+  } else if (sheetInfo.sheetType === 'mechanical_sdlj') {
     return 33
-  } else if (sheetInfo.sheetType === 'magnesium_lcey') {
+  } else if ( sheetInfo.sheetType === 'magnesium_lcey') {
     return 24
-  }else if (sheetInfo.sheetType === 'record_children_serious2_lc') {
+  }else if ( sheetInfo.sheetType === 'record_children_serious2_lc') {
     return 19
   }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt') {
     return 21

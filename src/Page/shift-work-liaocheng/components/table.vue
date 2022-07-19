@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table fixed-th" v-if="fixedTh">
+    <table  :class=" HOSPITAL_ID=='liaocheng' ?  'table fixed-liaoc-th': 'table fixed-th'" v-if="fixedTh">
       <colgroup>
         <col v-for="col of realColumns" :key="col.label" :width="col.width">
       </colgroup>
@@ -284,7 +284,12 @@ export default {
         background none
 .fixed-th
   position fixed
-  top 102px
+  top 103px
+  width 1040px
+  z-index 1
+.fixed-liaoc-th
+  position fixed
+  top 205px
   width 1040px
   z-index 1
 </style>

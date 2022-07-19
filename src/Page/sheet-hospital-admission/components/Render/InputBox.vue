@@ -238,6 +238,7 @@ export default {
     // }
   },
   created() {
+    console.log("this.$root.$refs.mainPage.",this.$root.$refs.mainPage)
     if(this.obj.name == "I385031" && (this.formObj.model.I385031 == '' || this.formObj.model.I385031 == null)){
       this.formObj.model.I385031 = '_'
     }
@@ -579,6 +580,7 @@ export default {
     },
     inputFocus(e, child) {
       // this.isShow = true
+      console.log("inputFocus",e,child)
       let self = this;
       let xy = e.target.getBoundingClientRect();
       console.log(
@@ -657,6 +659,7 @@ export default {
           ? this.obj.multiplechoice
           : false;
         if (this.$root.$refs.autoInput) {
+          console.log("this.$root.$refs.autoInput",this.$root.$refs.autoInput)
           this.$root.$refs.autoInput.open({
             obj: obj,
             multiplechoice: multiplechoice,

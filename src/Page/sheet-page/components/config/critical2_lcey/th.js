@@ -139,13 +139,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },
-      {
-        name: `
-        护士签名
-        `,
-        colspan: '1',
-        rowspan: '3'
-      }
+      
     ],
     mid: [{
         name: `

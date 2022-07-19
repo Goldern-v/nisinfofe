@@ -45,3 +45,10 @@ export const deleteId = (id)=>{
 export const deleteGroup = (obj)=>{
   return axios.post(`${apiPath}record/titleTempalate/deleteGroup`,obj)
 }
+
+// 获取入量列表 by中西医
+// /getWardExecuteZXY/{patientId}/{visitId}/{beginDate}/{endDate}/{administration}
+export const getWardExecuteZXY = ( params ) => {
+  return axios.post(
+    `${apiPath}execute/getWardExecuteZXY`, params);
+};

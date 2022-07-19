@@ -501,6 +501,13 @@ export default function Title(
     );
   }
   break;
+  case "postpartum_nurse_wj": {
+    // 武警-产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_nurse_wj/th").default)
+    );
+  }
+  break;
   case "neonatology_picc": {
     // 新生儿科PICC导管维护护理记录单
     Th = JSON.parse(
@@ -761,7 +768,7 @@ export default function Title(
   }
   break;
   case "critical_linyi": {
-    // 临邑人医 - 病重（病危）患者护理记录单（带瞳孔）
+    // 临邑人医 - 病重（病危）患者护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/critical_linyi/th").default)
     );
@@ -771,6 +778,13 @@ export default function Title(
     // 临邑人医 - 病重（病危）患者护理记录单（新）
     Th = JSON.parse(
       JSON.stringify(require("../config/critical_new_linyi/th").default)
+    );
+  }
+  break;
+  case "ops_linyi": {
+    // 临邑人医 - 围手术期患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ops_linyi/th").default)
     );
   }
   break;
@@ -1596,6 +1610,20 @@ export default function Title(
     );
   }
   break;
+  case "pediatric3_sdlj": {
+    // 顺德龙江 - 产科新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric3_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "postpartum_sdlj": {
+    // 顺德龙江 - 产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_sdlj/th.js").default)
+    );
+  }
+  break;
   case "prenatal_sdlj": {
     // 顺德龙江 - 产前待产记录单
     Th = JSON.parse(
@@ -1649,6 +1677,20 @@ export default function Title(
     // 佛山杏坛 - 护理记录单(心血管呼吸专科)
     Th = JSON.parse(
       JSON.stringify(require("../config/cardiovascular_xt/th.js").default)
+    );
+  }
+  break;
+  case "neurology_sdlj": {
+    // 顺德龙江 - 护理记录单（神经内科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurology_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "intervent_sdlj": {
+    // 顺德龙江 - 护理记录单（综合介入科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intervent_sdlj/th.js").default)
     );
   }
   break;
@@ -1768,6 +1810,13 @@ export default function Title(
     // 佛山杏坛 - 护理记录单（全院通用）
     Th = JSON.parse(
       JSON.stringify(require("../config/generalnursing_xt/th.js").default)
+    );
+  }
+  break;
+  case "bloodCircul_xt": {
+    // 佛山杏坛 -血运观察护理单（外四科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/bloodCircul_xt/th.js").default)
     );
   }
   break;

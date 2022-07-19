@@ -502,7 +502,7 @@ export default {
         entryTime: moment().format("HH:mm") + ":00", //录入时间
       },
       activeNames: ["biometric", "otherBiometric", "fieldList"],
-      checkItem:["腋温", "脉搏", "心率", "口温",'肛温','疼痛评分','降痛后评分','降温后'],
+      checkItem:["腋温", "口温",'肛温','疼痛评分','降痛后评分','降温后'],
       recordDate: "",
       fieldList: {}, // 自定义项目列表
       multiDictList: {}, //全部的字典信息，生成保存的数组用
@@ -623,15 +623,15 @@ export default {
             },
           };
           return o;
-        case "脉搏":
-          case "心率":
-          let y = {
-            脉搏: {
-              value: val,
-              reg: [20, 180],
-            },
-          };
-          return y;
+        // case "脉搏":
+        //   case "心率":
+        //   let y = {
+        //     脉搏: {
+        //       value: val,
+        //       reg: [0, 300],
+        //     },
+        //   };
+        //   return y;
         case "疼痛评分":
         case "降痛后评分":
           let g = {

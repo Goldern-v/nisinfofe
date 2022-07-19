@@ -55,6 +55,7 @@
 </style>
 
 <script>
+import { GetUserList,caLoginBefore,caLoginLater,verifyUser } from "@/api/caCardApi";
 import dayjs from "dayjs";
 import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
@@ -96,7 +97,11 @@ export default {
       password: "",
       strUserCertID: "",
       callback: null,
+      UkeyObj:"",
       FSRY_CA_timer:null,
+      caLoginFlag:false,
+      account:"",
+      strRandom:"",
       timing_detection_CA:{ //需要定时检测ca签名的医院
         foshanrenyi:1000 // 医院和对应的检测时间间隔
       } 
@@ -104,30 +109,57 @@ export default {
   },
   methods: {
     open(callback) {
-      this.$refs.modal.open();
+      console.log("111213123")
+      //佛山人民医院先判断是否有插卡才打开弹窗
+      if(["foshanrenyi"].includes(this.HOSPITAL_ID)){
+        GetUserList().then(res=>{
+          if(res.data.length>0){
+              this.UkeyObj=res.data
+              caLoginBefore().then(caLoginBeforeRes=>{
+              this.strRandom = caLoginBeforeRes
+              this.caLoginFlag = true
+              this.username = this.UkeyObj.split("||")[0]
+              console.log("username",this.username)
+              this.password = ""
+              this.$refs.modal.open();
+              },err=>{
+                  this.$message.error(err);
+              })
+              // this.UkeyObj = res.data
+              // this.checkCa = true
+            }else{
+              this.checkCa = false
+              this.$message.warning("useKey未插入");
+            }
+            // console.log("res",res)
+          })
+      }else{
+        this.$refs.modal.open();
+      }
       this.callback = callback;
       this.password = "";
-      $_$WebSocketObj.GetUserList(usrInfo => {
-        this.strUserCertID = usrInfo.retVal
-          .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
-          .replace("&&&", "");
-        let username = usrInfo.retVal.substring(
-          0,
-          usrInfo.retVal.indexOf("||")
-        );
-        if (username) {
-          this.username = username;
-        } else {
-          this.$message.warning("没有检查到证书");
-        }
-      });
+      if(!["foshanrenyi"].includes(this.HOSPITAL_ID)){
+        $_$WebSocketObj.GetUserList(usrInfo => {
+          this.strUserCertID = usrInfo.retVal
+            .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
+            .replace("&&&", "");
+          let username = usrInfo.retVal.substring(
+            0,
+            usrInfo.retVal.indexOf("||")
+          );
+          if (username) {
+            this.username = username;
+          } else {
+            this.$message.warning("没有检查到证书");
+          }
+        });
       // 需要定时检测ca签名的医院
       if(this.timing_detection_CA[this.HOSPITAL_ID]){
         this.$refs.modal.setCloseCallback(()=>{
           console.log('这是弹窗插件自带的取消回调');
           clearInterval(this.FSRY_CA_timer)
         })
-        this.FSRY_CA_timer = setInterval(()=>{
+        this.FSRY_CA_timer = setInterval(()=>{  
           $_$WebSocketObj.GetUserList(usrInfo => {
             this.strUserCertID = usrInfo.retVal
               .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
@@ -143,6 +175,8 @@ export default {
           });
         },this.timing_detection_CA[this.HOSPITAL_ID])
       }
+
+      }
     },
     close() {
       this.$refs.modal.close();
@@ -155,22 +189,38 @@ export default {
           showClose: true
         });
       }
-      var ctx = { certID: this.strUserCertID, objForm: {}, action: "" };
-      VerifyUserPIN(
-        this.strUserCertID,
-        this.password,
-        retValObj => {
-          if (retValObj.retVal) {
+      if(!["foshanrenyi"].includes(this.HOSPITAL_ID)){
+        var ctx = { certID: this.strUserCertID, objForm: {}, action: "" };
+        VerifyUserPIN(
+          this.strUserCertID,
+          this.password,
+          retValObj => {
+            if (retValObj.retVal) {
+              this.$message.success("登录成功");
+              this.callback && this.callback();
+              this.$refs.modal.close();
+            } else {
+              $loginVerifyPINCallBack(retValObj);
+              // this.$message.error("验证失败");
+            }
+          },
+          ctx
+        );
+      }else{
+        const strCertId = this.UkeyObj.substring(this.UkeyObj.indexOf("||")+2,this.UkeyObj.length).replace("&&&", "");
+        const strPassword = this.password
+        caLoginLater(strCertId,strPassword,this.strRandom).then(caLoginLaterRes=>{
+          verifyUser(caLoginLaterRes).then(verifyUserRes=>{
+            console.log("verifyUserRes",verifyUserRes)
+            localStorage["caUser"] = this.username;
             this.$message.success("登录成功");
-            this.callback && this.callback();
-            this.$refs.modal.close();
-          } else {
-            $loginVerifyPINCallBack(retValObj);
-            // this.$message.error("验证失败");
-          }
-        },
-        ctx
-      );
+              this.callback && this.callback();
+              this.$refs.modal.close();
+          })
+        },err=>{
+            this.$message.error(err)
+        })
+      }
     }
   },
   components: {},

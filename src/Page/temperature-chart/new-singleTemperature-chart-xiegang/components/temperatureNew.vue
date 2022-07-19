@@ -34,6 +34,14 @@
         >
           尾周
         </button>
+          <el-button-group :style="rightButton()">
+          <el-button type="primary" @click="syncInAndOutHospital((type = '0'))" :disabled="!isDisable"
+            >同步入院</el-button
+          >
+          <el-button type="primary" @click="syncInAndOutHospital((type = '1'))" :disabled="!isDisable"
+            >同步出院</el-button
+          >
+        </el-button-group>
       </div>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
@@ -85,7 +93,7 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
        intranetUrl:
-        // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.72:8080/#/" /* 医院正式环境内网 导致跨域 */,
         "http://10.45.0.176:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://10.45.0.176:9091/temperature/#/printAll" /* 医院正式环境内网 */,
@@ -139,6 +147,20 @@ export default {
       }
 
       this.currentPage = this.toCurrentPage;
+    },
+    // 同步出入院
+    syncInAndOutHospital(type) {
+      this.bus.$emit("syncInAndOutHospital", type);
+    },
+    rightButton() {
+      return {
+        position: "relative",
+        left: this.rightSheet === false ? "18%" : "7%",
+      };
+    },
+    //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime){
+      this.bus.$emit('getDataFromPage',dateTime)
     },
     //切换疼痛体温单
     changeModel() {
@@ -195,6 +217,9 @@ export default {
               case "dblclick":/* 双击查阅体温单子 */
           this.openRight();
           break;
+          case "clickDateTime":
+            this.getDataFromPage(e.data.value)
+            break;
           default:
             break;
         }
@@ -254,6 +279,12 @@ export default {
   computed: {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
+    },
+    isDisable() {
+      return(
+        this.$route.path.includes("newSingleTemperatureChart") ||
+        this.$route.path.includes("temperature")
+      )
     },
     rightSheet() {
       return this.$store.state.temperature.rightPart;

@@ -132,3 +132,8 @@ export function vitalsign(postData) {
 export function unLock(type,id){
   return axios.get(`${apiPath}form/design/unlock/${type}/${id}`);
 }
+
+// 获取后台配置的解锁时间
+export function unLockTime(){
+  return axios.get(`${apiPath}dict/common/getDictItem?dictCode=propertiesConfig&itemCode=his_form_data_lock_timeout`);
+}

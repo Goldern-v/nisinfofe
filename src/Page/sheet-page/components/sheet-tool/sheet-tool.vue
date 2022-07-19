@@ -137,7 +137,7 @@
         >
           <div class="text-con">删除整单</div>
        </div>
-      </template>  
+      </template>
       <div
         class="item-box"
         flex="cross:center main:center"
@@ -347,7 +347,7 @@
         class="item-box"
         style="width: 85px"
         flex="cross:center main:center"
-        v-if="!isDeputy || HOSPITAL_ID == 'guizhou'"
+        v-if="!isDeputy || HOSPITAL_ID == 'guizhou'||HOSPITAL_ID == 'huadu'"
       >
         <el-autocomplete
           class="pegeSelect"
@@ -393,7 +393,18 @@
         class="right-btn"
         flex="cross:center main:center"
         @click="openRltbModal"
-        v-if="HOSPITAL_ID == 'guizhou' && isDeputy"
+        v-if="['guizhou'].includes(HOSPITAL_ID)  && isDeputy"
+      >
+        <div class="text-con">
+          <img src="./images/评估.png" alt />
+          入量同步
+        </div>
+      </div>
+      <div
+        class="right-btn"
+        flex="cross:center main:center"
+        @click="openRltbModal"
+        v-if="showRltbN"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
@@ -489,6 +500,7 @@
       :modalWidth="modalWidth"
     ></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
+    <rltb-nfzxy-modal v-if="showRltbN" ref="rltbNfzxyModal" :blockId="blockId" />
     <!-- <sweet-modal
       ref="sheet"
       title="体温曲线"
@@ -531,6 +543,7 @@ import setTitleModal from "../modal/set-title-modal.vue";
 import tztbModal from "../modal/tztb-modal.vue";
 import zxdtbModal from "../modal/zxdtb-modal.vue";
 import rltbModal from "../modal/rltb-modal.vue";
+import RltbNfzxyModal from "../modal/rltb-nfzxy-modal.vue";
 import patientInfoModal from "./modal/patient-info-modal";
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
@@ -1154,6 +1167,11 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
+
+      if (['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
+        this.$refs.rltbNfzxyModal.open()
+        return
+      }
       this.$refs.rltbModal.open();
     },
     /* 切换主页 */
@@ -1263,6 +1281,10 @@ export default {
           break;
       }
     },
+    // 显示入量同步
+    showRltbN() {
+      return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
+    }
   },
   created() {
     this.bus.$on("initSheetPageSize", () => {
@@ -1442,6 +1464,7 @@ export default {
     patientInfoModal,
     patientInfo,
     temperatureHD,
+    RltbNfzxyModal,
   },
 };
 </script>

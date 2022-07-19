@@ -1,5 +1,5 @@
 
-/** 
+/**
   顺德龙江 - 产前待产记录单
 */
 
@@ -35,6 +35,10 @@ export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, value: ''},
+  { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 5) },
+  { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 5) },
+  { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 5) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'position', event: keyf1, value: '', next: '', name: '胎位', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'cardiac', event: keyf1, value: '', next: '次/min', name: '胎心', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
@@ -77,5 +81,5 @@ export default [
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''}
-  
+
 ]

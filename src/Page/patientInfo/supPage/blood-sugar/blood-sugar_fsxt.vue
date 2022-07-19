@@ -51,7 +51,7 @@
               :baseIndex='27'
             ></sugarTableFsxt> -->
           </div>
-          <div class="page-con">
+          <div class="page-con-fsxt">
             第 {{ index + 1 }} / {{ listMap.length }} 页
           </div>
         </div>
@@ -100,7 +100,7 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .blood-sugar-con {
   .sugr-page {
     margin: 20px auto;
@@ -160,14 +160,15 @@
     height: 44px;
   }
 
-  .page-con {
+  .page-con-fsxt {
     font-size: 13px;
     text-align: center;
-    bottom: 20px;
-    position: absolute;
+    padding: 20px 0px 0px 0px;
+    // bottom: 20px;
+    // position: absolute;
     // width 100%
-    left: 0;
-    right: 0;
+    // left: 0;
+    // right: 0;
   }
 
   .addBtn {

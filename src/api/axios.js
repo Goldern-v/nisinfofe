@@ -18,12 +18,19 @@ axios.interceptors.request.use((config) => {
 
     var token = (window.app && window.app.$getCookie('NURSING_USER').split('##')[1]) || $params.token || (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).token)
 
-    if (config.url.indexOf("identityCheck") > -1 || config.url.indexOf('sysPasswordSet/findList') > -1) {
+    if (config.url.indexOf("identityCheck") > -1 || config.url.indexOf('sysPasswordSet/findList') > -1 ) {
+        config.headers.common["Auth-Token-Nursing"] = token || '';
+    }else if(config.url.indexOf('dsvsFssyNew/verifyUser') > -1 && window.app.$route.fullPath.indexOf("/login")==-1){
         config.headers.common["Auth-Token-Nursing"] = token || '';
     }
-
     // 遍历白名单
-    const whiteList = ['login', 'autoLogin', 'ssoLogin', 'logout', 'changePasswordByEmpNo', 'sysPasswordSet/findList', 'identityCheck', 'getPasswordRule','updatePassword']
+    const whiteList = [
+    'login', 'autoLogin', 'ssoLogin', 'logout',
+    'changePasswordByEmpNo', 'sysPasswordSet/findList', 
+    'identityCheck', 'getPasswordRule','updatePassword',
+    'AllUkeyList','SOF_ExportUserCert','genRandom',
+    'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser"
+]
 
     for (let i = 0; i < whiteList.length; i++) {
         let whiteUrlPath = whiteList[i]
@@ -85,7 +92,7 @@ axios.interceptors.response.use((res) => {
     }
     // 如果token没有通过
     if (data.code === '300') {
-
+        
         /** 评估单页面特殊处理，突出提示效果 */
         if (window.app && window.app.$message) {
             let path = app.$route.path
