@@ -768,7 +768,7 @@ export default function Title(
   }
   break;
   case "critical_linyi": {
-    // 临邑人医 - 病重（病危）患者护理记录单（带瞳孔）
+    // 临邑人医 - 病重（病危）患者护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/critical_linyi/th").default)
     );
@@ -778,6 +778,13 @@ export default function Title(
     // 临邑人医 - 病重（病危）患者护理记录单（新）
     Th = JSON.parse(
       JSON.stringify(require("../config/critical_new_linyi/th").default)
+    );
+  }
+  break;
+  case "ops_linyi": {
+    // 临邑人医 - 围手术期患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ops_linyi/th").default)
     );
   }
   break;
