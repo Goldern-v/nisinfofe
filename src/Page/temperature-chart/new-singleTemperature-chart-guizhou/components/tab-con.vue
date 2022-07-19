@@ -502,7 +502,7 @@ export default {
         entryTime: moment().format("HH:mm") + ":00", //录入时间
       },
       activeNames: ["biometric", "otherBiometric", "fieldList"],
-      checkItem:["腋温", "脉搏", "心率", "口温",'肛温','疼痛评分','降痛后评分','降温后'],
+      checkItem:["腋温", "口温",'肛温','疼痛评分','降痛后评分','降温后'],
       recordDate: "",
       fieldList: {}, // 自定义项目列表
       multiDictList: {}, //全部的字典信息，生成保存的数组用

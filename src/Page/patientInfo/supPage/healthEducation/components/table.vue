@@ -48,9 +48,9 @@
             <span class="remark-span">{{data['备注']}}</span>
           </td>
           <!-- 签名 -->
-          <td v-if="['lingcheng','guizhou'].includes(HOSPITAL_ID)" class="specialTd">
+          <td v-if="['lingcheng','guizhou','foshanrenyi'].includes(HOSPITAL_ID)" class="specialTd">
             <img
-              v-if="HOSPITAL_ID=='lingcheng'"
+              v-if="HOSPITAL_ID=='lingcheng' || HOSPITAL_ID=='foshanrenyi'"
               v-show="data['lc签名']"
               class="img"
               :src="`/crNursing/api/file/signImage/${data['lc签名']}?${token}`"

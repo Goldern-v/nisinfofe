@@ -32,26 +32,63 @@
         >
         </component>
       </el-row>
-      <printsModal v-if="HOSPITAL_ID=='huadu'" v-show="pBtnShow" ref="printmodal" @toPrints="toPrints" @cancelPrints="cancelPrints"></printsModal>
-      <printView v-if="HOSPITAL_ID=='huadu'" v-show="pmodalShow" @cancelPrint="cancelPrint" @toPrints="surePrints" :list="bedList"></printView>
+      <printsModal
+        v-if="HOSPITAL_ID == 'huadu'"
+        v-show="pBtnShow"
+        ref="printmodal"
+        @toPrints="toPrints"
+        @cancelPrints="cancelPrints"
+      ></printsModal>
+      <printView
+        v-if="HOSPITAL_ID == 'huadu'"
+        v-show="pmodalShow"
+        @cancelPrint="cancelPrint"
+        @toPrints="surePrints"
+        :list="bedList"
+      ></printView>
       <printHdModal ref="bedModalHd"></printHdModal>
     </div>
 
     <div class="advice-tips" v-show="!loading">
-      <sweet-modal ref="modal" title="医嘱提醒" :modalWidth="500" :blocking="true">
-        <el-table
-          :data="tableData"
-          style="width: 100%"
-          border
-          :height="400"
-        >
-          <el-table-column prop="bedlabel" label="床号" min-width="50px" align="center"></el-table-column>
-          <el-table-column prop="name" label="姓名" min-width="80px" align="center"></el-table-column>
-          <el-table-column prop="wardCode" label="科室" min-width="80px" align="center"></el-table-column>
-          <el-table-column prop="orderText" label="药品名称" min-width="80px" align="center"></el-table-column>
-          <el-table-column prop="dosage" label="剂量" min-width="80px" align="center">
+      <sweet-modal
+        ref="modal"
+        title="医嘱提醒"
+        :modalWidth="500"
+        :blocking="true"
+      >
+        <el-table :data="tableData" style="width: 100%" border :height="400">
+          <el-table-column
+            prop="bedlabel"
+            label="床号"
+            min-width="50px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="name"
+            label="姓名"
+            min-width="80px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="wardCode"
+            label="科室"
+            min-width="80px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="orderText"
+            label="药品名称"
+            min-width="80px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="dosage"
+            label="剂量"
+            min-width="80px"
+            align="center"
+          >
             <template slot-scope="scope">
-             <div>{{scope.row.dosage}}{{scope.row.dosageUnits}}</div>
+              <div>{{ scope.row.dosage }}{{ scope.row.dosageUnits }}</div>
             </template>
           </el-table-column>
         </el-table>
@@ -99,17 +136,21 @@
     margin-top: 32px;
   }
 }
+
 .bed-hd {
   .card-con {
     padding: 15px 15px 50px;
   }
+
   .left-part {
     margin-right: 240px;
   }
+
   .right-part {
     width: 240px;
   }
 }
+
 .advice-tips {
   >>> .sweet-modal-overlay {
     width: 500px;
@@ -119,6 +160,7 @@
     right: 160px;
     bottom: 37px;
     background: transparent;
+
     .sweet-modal {
       top: auto !important;
       left: auto !important;
@@ -153,6 +195,7 @@
     line-height: 20px;
   }
 }
+
 .bed-hd {
   .footer-con {
     right: 240px !important;
@@ -166,30 +209,30 @@ import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
 import bedItemBhry from "./component/bed-item-bhry/bed-item.vue";
-import bedItemFuyou from "./component/bed-item-fuyou/bed-item.vue"
+import bedItemFuyou from "./component/bed-item-fuyou/bed-item.vue";
 import searchCon from "./component/search-con/search-con.vue";
-import printHdModal from "./component/prints/modals.vue"
+import printHdModal from "./component/prints/modals.vue";
 import common from "@/common/mixin/common.mixin.js";
-import printsModal from "./component/bed-item-hd/prints-model.vue"
-import printView from "./component/prints/prints-view.vue"
+import printsModal from "./component/bed-item-hd/prints-model.vue";
+import printView from "./component/prints/prints-view.vue";
 import qs from "qs";
 export default {
   mixins: [common],
   data() {
     return {
-      pBtnShow:false,
-      pmodalShow:false,
+      pBtnShow: false,
+      pmodalShow: false,
       searchWord: "",
       bedList: [], // 在子组件search-con中通过$parent赋值,就很傻比
       loading: false,
-      tableData: [],//医嘱提醒id
+      tableData: [], //医嘱提醒id
       timeId: "",
-      printMode:"h",
+      printMode: "h",
     };
   },
   computed: {
     likeList() {
-      return this.bedList.filter(item => {
+      return this.bedList.filter((item) => {
         return item.isFollow === "1";
       });
     },
@@ -205,12 +248,22 @@ export default {
         return bedItemHd;
       } else if (
         [
-          "liaocheng","whfk","shannan","quzhou",
-          "foshanrenyi","fsxt","whyx","sdlj",
-          'lyxrm','lyyz','qhwy'
-        ].includes(this.HOSPITAL_ID)) {
+          "liaocheng",
+          "whfk",
+          "shannan",
+          "quzhou",
+          "foshanrenyi",
+          "fsxt",
+          "whyx",
+          "sdlj",
+          "lyxrm",
+          "lyyz",
+          "qhwy",
+          'gdtj'
+        ].includes(this.HOSPITAL_ID)
+      ) {
         return bedItemLcey;
-      }else if (this.HOSPITAL_ID == "beihairenyi") {
+      } else if (this.HOSPITAL_ID == "beihairenyi") {
         return bedItemBhry;
       }
       // else if (this.HOSPITAL_ID == "fuyou") {
@@ -219,7 +272,7 @@ export default {
       else {
         return bedItem;
       }
-    }
+    },
   },
   filters: {
     dayNum(value) {
@@ -237,46 +290,46 @@ export default {
         new Date(value).Format("yyyy-MM-dd")
       );
       return `${value} 第(${day})天`;
-    }
+    },
   },
-  mounted(){
+  mounted() {
     // 中山七-医嘱提醒
-    if(this.HOSPITAL_ID == "zhongshanqi"){
+    if (this.HOSPITAL_ID == "zhongshanqi") {
       this.close();
       this.getAdvice();
-      this.timeId = setInterval(()=>{
+      this.timeId = setInterval(() => {
         this.getAdvice();
-      },10*60*1000)
+      }, 10 * 60 * 1000);
     }
   },
   beforeDestroy() {
-    if(this.HOSPITAL_ID == "zhongshanqi"){
+    if (this.HOSPITAL_ID == "zhongshanqi") {
       clearInterval(this.timeId);
     }
   },
   methods: {
-    cancelPrints(){
-      this.pBtnShow = false
+    cancelPrints() {
+      this.pBtnShow = false;
     },
-    cancelPrint(){
-      this.pmodalShow = false
+    cancelPrint() {
+      this.pmodalShow = false;
     },
-    surePrints(selectValue){
+    surePrints(selectValue) {
       console.log(this.$refs.bedModalHd);
-      this.$refs.bedModalHd.open(this.printMode,selectValue);
+      this.$refs.bedModalHd.open(this.printMode, selectValue);
     },
-    toPrints(printMode){
-      this.printMode = printMode
-      this.pBtnShow = false
-      this.pmodalShow = true
+    toPrints(printMode) {
+      this.printMode = printMode;
+      this.pBtnShow = false;
+      this.pmodalShow = true;
     },
-    itemMouseRight(event){
-      if(this.HOSPITAL_ID!="huadu"){
-        return
+    itemMouseRight(event) {
+      if (this.HOSPITAL_ID != "huadu") {
+        return;
       }
-      this.$refs.printmodal.$el.style.top = event.clientY - 50 + 'px';
-      this.$refs.printmodal.$el.style.left = event.clientX + 'px';
-      this.pBtnShow = true
+      this.$refs.printmodal.$el.style.top = event.clientY - 50 + "px";
+      this.$refs.printmodal.$el.style.left = event.clientX + "px";
+      this.pBtnShow = true;
     },
     handleClick(tab, event) {
       console.log(tab, event);
@@ -288,19 +341,20 @@ export default {
       console.log(item);
       // 床位一览卡关注
       if (item.isFollow === "0") {
-        follow(this.deptCode, item.bedLabel, item.bedNo).then(res => {
+        follow(this.deptCode, item.bedLabel, item.bedNo).then((res) => {
           item.isFollow = "1";
           this.$message({
             message: "关注该床位成功",
-            type: "success"
+            type: "success",
           });
         });
-      }else if (item.isFollow === "1") {//床位一览卡取消关注
-        unfollow(this.deptCode, item.bedNo).then(res => {
+      } else if (item.isFollow === "1") {
+        //床位一览卡取消关注
+        unfollow(this.deptCode, item.bedNo).then((res) => {
           item.isFollow = "0";
           this.$message({
             message: "取消关注该床位",
-            type: "success"
+            type: "success",
           });
         });
       }
@@ -342,7 +396,7 @@ export default {
         this.$message({
           showClose: true,
           message: "这是空床位",
-          type: "warning"
+          type: "warning",
         });
         e.preventDefault();
       }
@@ -352,7 +406,7 @@ export default {
         this.$message({
           showClose: true,
           message: "这是空床位",
-          type: "warning"
+          type: "warning",
         });
         return;
       }
@@ -362,32 +416,27 @@ export default {
           obj[i] = item[i];
         }
       }
-      // this.$router.push({
-      //   path: '/home',
-      //   query: obj
-      // })
-      window.open(
-        `/crNursing/home?${qs.stringify({
-          patientId: obj.patientId,
-          visitId: obj.visitId
-        })}`
-      );
+      const patientInfo = {
+        patientId: obj.patientId,
+        visitId: obj.visitId,
+      };
+        window.open(`/crNursing/home?${qs.stringify(patientInfo)}`);
     },
     close() {
       this.$refs.modal.close();
     },
     // 中山七-医嘱提醒
-    getAdvice(){
-      if(!this.deptCode){
+    getAdvice() {
+      if (!this.deptCode) {
         return;
       }
-      getPatientOrdersWithWardCode(this.deptCode).then(res => {
+      getPatientOrdersWithWardCode(this.deptCode).then((res) => {
         this.tableData = res.data.data;
-        if(this.tableData && this.tableData.length > 0){
+        if (this.tableData && this.tableData.length > 0) {
           this.$refs.modal.open();
         }
-      })
-    }
+      });
+    },
   },
   components: {
     bedItem,
@@ -397,7 +446,7 @@ export default {
     bedItemBhry,
     printsModal,
     printView,
-    printHdModal
-  }
+    printHdModal,
+  },
 };
 </script>

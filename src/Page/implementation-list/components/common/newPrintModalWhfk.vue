@@ -1,11 +1,11 @@
 <template>
   <div
     :style="{
-      width: `${isLargeType ? '8' : '10'}cm`,
-      height: `${isLargeType ? '5.8' : '5.9'}cm`,
+      width: `${isLargeType ? '8' : '7'}cm`,
+      height: `${isLargeType ? '5.8' : '4'}cm`,
     }"
     class="new-print-modal"
-		:class="{'new-print-modal--s': !isLargeType}"
+		:class="{'new-print-modal--s': !isLargeType,'pageBreak':isLargeType}"
   >
     <div class="new-modal-top">
       <div class="new-modal-top-right">
@@ -53,9 +53,11 @@
 </template>
 <style lang='scss' scoped>
 .new-print-modal {
-  page-break-after: always;
 	display: flex;
 	flex-direction: column;
+  &.pageBreak{
+    page-break-after: always;
+  }
   >>> * {
     font-size: 12px;
   }
@@ -147,20 +149,20 @@
   }
   &.new-print-modal--s {
 		>>> * {
-			font-size: 18px;
+			font-size: 12px;
 			font-weight: 700;
 			line-height: 21px;
 		}
 		.new-modal-top div {
-      font-size: 18px;
+      font-size: 13px;
 			line-height: 21px;
     }
 		.new-modal-top-left .new-modal-top-left-first  div{
-			font-size: 29px;
+			font-size: 22px;
 			padding-top: 3px;
 		}
 		.new-modal-bottom div {
-			font-size: 20px;
+			font-size: 14px;
 			line-height: 22px;
 		}
   }

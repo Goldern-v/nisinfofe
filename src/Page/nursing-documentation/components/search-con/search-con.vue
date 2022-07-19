@@ -164,8 +164,14 @@
       <div class="input-con" v-if="HOSPITAL_ID!='fuyou'">
         <el-input v-model="data.patientId" placeholder="请输入病人ID"></el-input>
       </div>
+        <div class="input-con" v-if="HOSPITAL_ID == 'foshanrenyi'">
+        <el-input v-model="data.patientId" placeholder="请输入住院号"></el-input>
+      </div>
       <div class="input-con">
         <el-input v-model="data.inpNo" placeholder="请输入住院号"></el-input>
+      </div>
+      <div class="input-con" v-if="HOSPITAL_ID == 'foshanrenyi'">
+        <el-input v-model="data.inpNo" placeholder="请输入记帐号"></el-input>
       </div>
       <div class="input-con">
         <el-input v-model="data.bedLabel" placeholder="请输入床号"></el-input>

@@ -181,7 +181,8 @@
               toSign(tr, y, data.bodyModel, showSign(tr), $event, td)
             "
             v-html="showSign(tr)"
-          ></div>
+          >
+          </div>
           <masked-input
             v-else-if="['huadu'].includes(HOSPITAL_ID) && td.key == 'recordHour'"
             :position="`${x},${y},${index}`"
@@ -653,6 +654,8 @@ import decode from "../../../../components/render/decode.js";
 import moment from "moment";
 import { getUser } from "@/api/common.js";
 import bottomRemark from "./remark";
+import { SOF_SignData,verifySign,getPic,getSOF_ExportUserCert,GetUserList} from "@/api/caCardApi";
+
 // console.dir(sheetInfo);
 export default {
   props: {
@@ -665,7 +668,7 @@ export default {
     listData: Array,
   },
   mixins: [common],
-  data() {
+  data() {    
     return {
       Mark,
       matchMark,
@@ -1080,6 +1083,13 @@ export default {
       return [allList, currIndex];
     },
     toSign(trArr, index, bodyModel, showSign, e, td) {
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+    GetUserList().then(res=>{
+      if (res.data.length == 0) {
+        localStorage.removeItem("caUser")
+      }
+    })
+  }
       this.sheetInfo.downControl = e.ctrlKey;
       if (this.sheetInfo.downControl) return;
       if (this.sheetInfo.selectRow.length) {
@@ -1099,18 +1109,16 @@ export default {
         let status = trArr.find((item) => {
           return item.key == "status";
         }).value;
+        
         // if (status == 1) return this.$message.warning('该记录已经签名了')
         let save = () => {
-          this.$refs.signModal.open((password, empNo) => {
+          if(this.HOSPITAL_ID=="foshanrenyi"){
             let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let data = {
-              empNo,
-              password,
-              list: [
+            let strSignDataOBJ = 
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1118,50 +1126,188 @@ export default {
                   patientId: this.patientInfo.patientId,
                   visitId: this.patientInfo.visitId,
                   pageIndex: this.index,
-                }),
-              ],
-              multiSign: this.multiSign || false,
-              // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-              signType:
-                this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
-                  ? this.signType
-                  : "",
+                })
+                let strSignData ={}
+              for(let key in strSignDataOBJ){
+                if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+              }
+                console.log("strSignData",strSignData)
+            let SigndataObj = {
+              Patient_ID:this.patientInfo.patientId,
+              Visit_ID:this.patientInfo.visitId,
+              Document_Title:this.$parent.patientInfo.recordName,
+              Document_ID:sheetInfo.sheetType,
+              Section_ID:trObj.id,
+              strSignData: JSON.stringify(strSignData),
             };
-            sign(
-              this.patientInfo.patientId,
-              this.patientInfo.visitId,
-              data
-            ).then((res) => {
-              let trArrClone = Tr(res.data.data[0]);
-              if (
-                trArr.find((item) => {
-                  return item.key == "recordMonth";
-                }).value == ""
-              ) {
-                trArrClone.find((item) => {
-                  return item.key == "recordMonth";
-                }).value = "";
+            let verifySignObj = {
+                    patientId:this.patientInfo.patientId,
+                    visitId:this.patientInfo.visitId,
+                    formName:this.$parent.patientInfo.recordName,
+                    formCode:sheetInfo.sheetType,
+                    instanceId:this.$parent.patientInfo.id,
+                    recordId:strSignData.id,
+                    signData:JSON.stringify(strSignData),
+                  }
+            this.$refs.signModal.open((password,empNo) => {
+              
+              // SOF_SignData(
+              //   data
+              // ).then((res) => {
+                // console.log("SOF_SignData",res)
+                // if(res.data){
+                //   let signPic = ""
+                    // Promise.all([getPic(strCertId),getSOF_ExportUserCert(strCertId)]).then(result=>{
+                      // if(!localStorage.user.signPic){
+                      //   signPic=result[0]
+                      // } 
+                  // verifySign({
+                  //   patientId:this.patientInfo.patientId,
+                  //   visitId:this.patientInfo.visitId,
+                  //   formName:this.$parent.patientInfo.recordName,
+                  //   formCode:sheetInfo.sheetType,
+                  //   instanceId:this.$parent.patientInfo.id,
+                  //   recordId:strSignData.id,
+                  //   userCert:result[1],
+                  //   signedValue:res.data,
+                  //   signData:JSON.stringify(strSignData),
+                  //   signPic
+                  // }).then(verifySignRes=>{
+                // let {password,empNo} = verifySignRes.data.data
+
+                    let trObj = {};
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
               }
-              if (
-                trArr.find((item) => {
-                  return item.key == "recordHour";
-                }).value == ""
-              ) {
-                trArrClone.find((item) => {
-                  return item.key == "recordHour";
-                }).value = "";
-              }
-              trArr.splice(0, trArr.length);
-              for (let i = 0; i < trArrClone.length; i++) {
-                trArr.push(trArrClone[i]);
-              }
-              this.$notify.success({
-                title: "提示",
-                message: "签名成功",
+              let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+              let data2 = {
+                empNo,
+                password,
+                list: [
+                  Object.assign({}, trObj, {
+                    recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                    recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                    recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                    patientId: this.patientInfo.patientId,
+                    visitId: this.patientInfo.visitId,
+                    pageIndex: this.index,
+                  }),
+                ],
+                multiSign: this.multiSign || false,
+                // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
+                signType:
+                  this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
+                    ? this.signType
+                    : "",
+              };
+
+
+                    // console.log(verifySignRes,"verifySignRes")
+                     sign(
+                this.patientInfo.patientId,
+                this.patientInfo.visitId,
+                data2
+              ).then((res) => {
+                let trArrClone = Tr(res.data.data[0]);
+                if (
+                  trArr.find((item) => {
+                    return item.key == "recordMonth";
+                  }).value == ""
+                ) {
+                  trArrClone.find((item) => {
+                    return item.key == "recordMonth";
+                  }).value = "";
+                }
+                if (
+                  trArr.find((item) => {
+                    return item.key == "recordHour";
+                  }).value == ""
+                ) {
+                  trArrClone.find((item) => {
+                    return item.key == "recordHour";
+                  }).value = "";
+                }
+                trArr.splice(0, trArr.length);
+                for (let i = 0; i < trArrClone.length; i++) {
+                  trArr.push(trArrClone[i]);
+                }
+                this.$notify.success({
+                  title: "提示",
+                  message: "签名成功",
+                });
+                this.bus.$emit("saveSheetPage", true);
               });
-              this.bus.$emit("saveSheetPage", true);
-            });
-          },'',null,false,'',['guizhou','foshanrenyi'].includes(this.HOSPITAL_ID)?{}:null);
+                  // })
+                // })
+                // }else{
+                //   this.$message.error("验证签名失败!")
+                // }
+              // });
+            },'',null,false,'',{},undefined,undefined,undefined,SigndataObj,verifySignObj);
+          }else{
+            this.$refs.signModal.open((password, empNo) => {
+              console.log("1111111111signModal")
+              let trObj = {};
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
+              }
+              let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+              let data = {
+                empNo,
+                password,
+                list: [
+                  Object.assign({}, trObj, {
+                    recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                    recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                    recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                    patientId: this.patientInfo.patientId,
+                    visitId: this.patientInfo.visitId,
+                    pageIndex: this.index,
+                  }),
+                ],
+                multiSign: this.multiSign || false,
+                // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
+                signType:
+                  this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
+                    ? this.signType
+                    : "",
+              };
+              sign(
+                this.patientInfo.patientId,
+                this.patientInfo.visitId,
+                data
+              ).then((res) => {
+                let trArrClone = Tr(res.data.data[0]);
+                if (
+                  trArr.find((item) => {
+                    return item.key == "recordMonth";
+                  }).value == ""
+                ) {
+                  trArrClone.find((item) => {
+                    return item.key == "recordMonth";
+                  }).value = "";
+                }
+                if (
+                  trArr.find((item) => {
+                    return item.key == "recordHour";
+                  }).value == ""
+                ) {
+                  trArrClone.find((item) => {
+                    return item.key == "recordHour";
+                  }).value = "";
+                }
+                trArr.splice(0, trArr.length);
+                for (let i = 0; i < trArrClone.length; i++) {
+                  trArr.push(trArrClone[i]);
+                }
+                this.$notify.success({
+                  title: "提示",
+                  message: "签名成功",
+                });
+                this.bus.$emit("saveSheetPage", true);
+              });
+            },'',null,false,'',['guizhou'].includes(this.HOSPITAL_ID)?{}:null,undefined ,undefined ,undefined);
+          }
         };
         let reverseList = [...decode().list].reverse();
         /** 最后的时间 */
@@ -1197,24 +1343,63 @@ export default {
         }
       } else {
         // 删除签名
-        this.$refs.delsignModal.open((password, empNo) => {
-          let id = trArr.find((item) => {
-            return item.key == "id";
-          }).value;
-          cancelSign({
-            id,
-            empNo,
-            password,
-            multiSign: this.multiSign,
-            // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-            signType:
-              this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
-                ? this.signType
-                : "",
-          }).then((res) => {
-            this.bus.$emit("saveSheetPage", true);
-          });
-        },'',null,false,'',['guizhou','foshanrenyi'].includes(this.HOSPITAL_ID)?{}:null);
+        let SigndataObj = {}, verifySignObj={}
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+          let trObj = {};
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
+            }
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            let strSignDataOBJ = 
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index,
+                })
+                let strSignData ={}
+              for(let key in strSignDataOBJ){
+                if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+              }
+                console.log("strSignData",strSignData)
+            SigndataObj = {
+              Patient_ID:this.patientInfo.patientId,
+              Visit_ID:this.patientInfo.visitId,
+              Document_Title:this.$parent.patientInfo.recordName,
+              Document_ID:sheetInfo.sheetType,
+              Section_ID:trObj.id,
+              strSignData: JSON.stringify(strSignData),
+            };
+            verifySignObj = {
+                    patientId:this.patientInfo.patientId,
+                    visitId:this.patientInfo.visitId,
+                    formName:this.$parent.patientInfo.recordName,
+                    formCode:sheetInfo.sheetType,
+                    instanceId:this.$parent.patientInfo.id,
+                    recordId:strSignData.id,
+                    signData:JSON.stringify(strSignData),
+                  }
+        }
+          this.$refs.delsignModal.open((password, empNo) => {
+            let id = trArr.find((item) => {
+              return item.key == "id";
+            }).value;
+            cancelSign({
+              id,
+              empNo,
+              password,
+              multiSign: this.multiSign,
+              // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
+              signType:
+                this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
+                  ? this.signType
+                  : "",
+            }).then((res) => {
+              this.bus.$emit("saveSheetPage", true);
+            });
+          },'',null,false,'',['guizhou','foshanrenyi'].includes(this.HOSPITAL_ID)?{}:null,undefined,undefined,undefined,SigndataObj,verifySignObj);
       }
     },
     toAudit(trArr, index, bodyModel, showAudit, e) {
@@ -1228,61 +1413,189 @@ export default {
           return item.key == "status";
         }).value;
         // if (status == 1) return this.$message.warning('该记录已经签名了')
-        this.$refs.signModal.open((password, empNo) => {
-          let trObj = {};
-          for (let i = 0; i < trArr.length; i++) {
-            trObj[trArr[i].key] = trArr[i].value;
-          }
-          let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-          let data = {
-            empNo,
-            password,
-            audit: true,
-            list: [
-              Object.assign({}, trObj, {
-                recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
-                recordHour: this.getPrev(currIndex, allList, "recordHour"),
-                patientId: this.patientInfo.patientId,
-                visitId: this.patientInfo.visitId,
-                pageIndex: this.index,
-              }),
-            ],
-          };
-          sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
-            (res) => {
-              let trArrClone = Tr(res.data.data[0]);
-              if (
-                trArr.find((item) => {
-                  return item.key == "recordMonth";
-                }).value == ""
-              ) {
-                trArrClone.find((item) => {
-                  return item.key == "recordMonth";
-                }).value = "";
-              }
-              if (
-                trArr.find((item) => {
-                  return item.key == "recordHour";
-                }).value == ""
-              ) {
-                trArrClone.find((item) => {
-                  return item.key == "recordHour";
-                }).value = "";
-              }
-              trArr.splice(0, trArr.length);
-              for (let i = 0; i < trArrClone.length; i++) {
-                trArr.push(trArrClone[i]);
-              }
-              this.$notify.success({
-                title: "提示",
-                message: "审核成功",
-              });
-              this.bus.$emit("saveSheetPage", true);
+        if(this.HOSPITAL_ID=="foshanrenyi"){
+           let trObj = {};
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
             }
-          );
-        },['guizhou','foshanrenyi'].includes(this.HOSPITAL_ID)?{}:null);
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            let strSignDataOBJ = 
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index,
+                })
+                let strSignData ={}
+              for(let key in strSignDataOBJ){
+                if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+              }
+                console.log("strSignData",strSignData)
+            let SigndataObj = {
+              Patient_ID:this.patientInfo.patientId,
+              Visit_ID:this.patientInfo.visitId,
+              Document_Title:this.$parent.patientInfo.recordName,
+              Document_ID:sheetInfo.sheetType,
+              Section_ID:trObj.id,
+              strSignData: JSON.stringify(strSignData),
+            };
+            let verifySignObj = {
+                    patientId:this.patientInfo.patientId,
+                    visitId:this.patientInfo.visitId,
+                    formName:this.$parent.patientInfo.recordName,
+                    formCode:sheetInfo.sheetType,
+                    instanceId:this.$parent.patientInfo.id,
+                    recordId:strSignData.id,
+                    signData:JSON.stringify(strSignData),
+                  }
+          this.$refs.signModal.open((password,empNo) => {
+          let data = {
+              empNo,
+              password,
+              audit: true,
+              list: [
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index,
+                }),
+              ],
+            };
+          sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
+              (res) => {
+                let trArrClone = Tr(res.data.data[0]);
+                if (
+                  trArr.find((item) => {
+                    return item.key == "recordMonth";
+                  }).value == ""
+                ) {
+                  trArrClone.find((item) => {
+                    return item.key == "recordMonth";
+                  }).value = "";
+                }
+                if (
+                  trArr.find((item) => {
+                    return item.key == "recordHour";
+                  }).value == ""
+                ) {
+                  trArrClone.find((item) => {
+                    return item.key == "recordHour";
+                  }).value = "";
+                }
+                trArr.splice(0, trArr.length);
+                for (let i = 0; i < trArrClone.length; i++) {
+                  trArr.push(trArrClone[i]);
+                }
+                this.$notify.success({
+                  title: "提示",
+                  message: "审核成功",
+                });
+                this.bus.$emit("saveSheetPage", true);
+              }
+            );
+             
+            },'',undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
+        }else{
+          this.$refs.signModal.open((password, empNo) => {
+            let trObj = {};
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
+            }
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            let data = {
+              empNo,
+              password,
+              audit: true,
+              list: [
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index,
+                }),
+              ],
+            };
+            sign(this.patientInfo.patientId, this.patientInfo.visitId, data).then(
+              (res) => {
+                let trArrClone = Tr(res.data.data[0]);
+                if (
+                  trArr.find((item) => {
+                    return item.key == "recordMonth";
+                  }).value == ""
+                ) {
+                  trArrClone.find((item) => {
+                    return item.key == "recordMonth";
+                  }).value = "";
+                }
+                if (
+                  trArr.find((item) => {
+                    return item.key == "recordHour";
+                  }).value == ""
+                ) {
+                  trArrClone.find((item) => {
+                    return item.key == "recordHour";
+                  }).value = "";
+                }
+                trArr.splice(0, trArr.length);
+                for (let i = 0; i < trArrClone.length; i++) {
+                  trArr.push(trArrClone[i]);
+                }
+                this.$notify.success({
+                  title: "提示",
+                  message: "审核成功",
+                });
+                this.bus.$emit("saveSheetPage", true);
+              }
+            );
+          },['guizhou'].includes(this.HOSPITAL_ID)?"":null,"",undefined,undefined,undefined,undefined,undefined,undefined);
+
+        }
       } else {
         // 删除签名
+        let SigndataObj = {}, verifySignObj={}
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+          let trObj = {};
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
+            }
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            let strSignDataOBJ = 
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index,
+                })
+                let strSignData ={}
+              for(let key in strSignDataOBJ){
+                if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+              }
+                console.log("strSignData",strSignData)
+            SigndataObj = {
+              Patient_ID:this.patientInfo.patientId,
+              Visit_ID:this.patientInfo.visitId,
+              Document_Title:this.$parent.patientInfo.recordName,
+              Document_ID:sheetInfo.sheetType,
+              Section_ID:trObj.id,
+              strSignData: JSON.stringify(strSignData),
+            };
+            verifySignObj = {
+                    patientId:this.patientInfo.patientId,
+                    visitId:this.patientInfo.visitId,
+                    formName:this.$parent.patientInfo.recordName,
+                    formCode:sheetInfo.sheetType,
+                    instanceId:this.$parent.patientInfo.id,
+                    recordId:strSignData.id,
+                    signData:JSON.stringify(strSignData),
+                  }
+        }
         this.$refs.delsignModal.open((password, empNo) => {
           let id = trArr.find((item) => {
             return item.key == "id";
@@ -1307,7 +1620,7 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        if (this.HOSPITAL_ID == "weixian") {
+        if (this.HOSPITAL_ID == "weixian" || this.HOSPITAL_ID == "foshanrenyi") {
           return trArr.find((item) => item.key == "signerNo").value
             ? `<img
               width="50"
@@ -1338,11 +1651,23 @@ export default {
       let status = trArr.find((item) => {
         return item.key == "status";
       }).value;
+        console.log("koaosdad",status)
       let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
+        console.log("koaosdad",auditorName)
       if (status == "2") {
-        return auditorName;
+        if (this.HOSPITAL_ID == "foshanrenyi") {
+          return  `<img
+              width="50"
+              height="100%"
+              style="object-fit: contain"
+              src="/crNursing/api/file/signImage/${
+                trArr.find((item) => item.key == "auditorNo").value
+              }?${this.token}"
+              alt
+            /> `
+        }else return auditorName;
       } else {
         return "";
       }
@@ -1596,7 +1921,7 @@ export default {
                      });
                     this.bus.$emit("saveSheetPage", true);
                    });
-                  });
+                  },);
                  } else {
                   this.$confirm("你确定删除该行数据吗", "提示", {
                    confirmButtonText: "删除",
@@ -2138,7 +2463,7 @@ export default {
     // console.log("mounted");
   },
   created() {
-    console.log("this.data",this.data)
+    console.log("this.data",this.data,this.$parent.patientInfo)
     if (
       this.doubleSignArr.includes(sheetInfo.sheetType) &&
       sheetInfo.selectBlock.relSignInfo == undefined

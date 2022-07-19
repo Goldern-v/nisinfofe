@@ -159,6 +159,7 @@ const currentTargetUrl = (() => {
       // return "http://192.168.20.147:9091"  // 双艳
       return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.3.226:8080" // 初升测试本地内网
+      // return "http://192.168.20.71:8080" //宪锋本地地址
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -175,8 +176,8 @@ const currentTargetUrl = (() => {
     case 'whyx':  //武汉亚心
       return "http://192.168.1.54:9866" // 武汉亚心
 
-    case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
-      return "http://192.168.1.54:9884" // 武汉肺科
+    // case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
+      // return "http://192.168.1.54:9884" // 武汉肺科
       // return "http://192.168.3.226:8080" // 初升本地
     case 'sdlj':  //顺德龙江
       return "http://192.168.1.54:9871" // 顺德龙江 内防访问地址192.168.1.54:9887
@@ -195,7 +196,8 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9866'
     /** 默认公司本地内网厚街测试环境 */
     default:
-      return "http://192.168.1.54:9866"
+      // return "http://192.168.1.54:9866",
+      return "http://222.133.53.230:9091"
   }
 })();
 
@@ -241,6 +243,17 @@ module.exports = {
         pathRewrite: {
           // crNursing 东莞厚街护理系统 路径
           "^/crNursing/api": "/crNursing/api" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+        }
+      },
+      '/crNursing/caSign': {
+        target: 'http://192.168.3.90:30960',//永杰用第三方服务器的地址
+        // target: 'http://10.211.55.3:30960',//浚威用第三方服务器的地址
+        // target: 'http://192.168.141.219:30960',//湛雪用第三方服务器的地址
+        // target: 'http://127.0.0.1:30960',
+        // target: 'http://172.20.10.4:30960',
+        changeOrigin: true,
+        pathRewrite: {
+            '^/crNursing/caSign': ''
         }
       },
       "/crNursing/asset": {

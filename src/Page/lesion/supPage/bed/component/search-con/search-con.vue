@@ -677,7 +677,9 @@ export default {
         "lyxrm",
         "sdlj",
         "xiegang",
-        'lyyz','qhwy'
+        'lyyz',
+        'qhwy',
+        'gdtj'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -776,6 +778,9 @@ export default {
           syncData = syncGetNurseBedRecJiangMenFY;
           break;
         case "foshanrenyi":
+          syncData = syncGetNurseBedRecJiangMenFSSY;
+          break;
+        case 'lyxrm':
           syncData = syncGetNurseBedRecJiangMenFSSY;
           break;
         case "beihairenyi":
