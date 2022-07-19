@@ -778,6 +778,9 @@ export default {
         case "foshanrenyi":
           syncData = syncGetNurseBedRecJiangMenFSSY;
           break;
+        case 'lyxrm':
+          syncData = syncGetNurseBedRecJiangMenFSSY;
+          break;
         case "beihairenyi":
           syncData = syncGetNurseBedRecBeiHaiExecute;
           break;
