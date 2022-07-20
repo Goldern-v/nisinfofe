@@ -14,7 +14,7 @@
         />
       </span>
       <!-- <div class="times" v-if="HOSPITAL_ID === 'quzhou'||HOSPITAL_ID === 'wujing'"> -->
-      
+
       <div
         class="times"
       >
@@ -209,7 +209,7 @@
               <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
-          
+
           <el-table-column
             prop="fieldThree"
             label="尿量"
@@ -252,7 +252,7 @@
               <!-- <el-input v-model="scope.row.foodSize"></el-input> -->
             </template>
           </el-table-column>
-          
+
           <el-table-column
             prop="dischargeSize"
             label="出量"
@@ -717,7 +717,7 @@ export default {
         entryDate:moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
-            
+
             case "beihairenyi":
               if (this.getHours() >= 0 && this.getHours() <= 3) {
                 return "03";
@@ -742,7 +742,7 @@ export default {
           }
         })(), //录入时间
       },
-      
+
       timesOdd: [
         {
           id: 0,
@@ -769,8 +769,8 @@ export default {
           value: "23",
         },
       ],
-      
-      
+
+
       patientsInfoData: [],
       searchWord: "",
       pageLoadng: true,
@@ -853,13 +853,13 @@ export default {
     },
     keydownSave(e) {
           if (
-        e.keyCode === 13 
+        e.keyCode === 13
       ) {
         // console.log( debounce(this.saveAllTemperture,1500));
         // debounce(this.saveAllTemperture,500)
         this.saveAllTemperture()
-      } 
-      
+      }
+
     },
     saveAllTemperture() {
       this.pageLoadng = true;
@@ -904,6 +904,7 @@ export default {
         heartRate: "",
         stoolNum: "",
         height: "",
+        fieldThree,
       };
       let list = this.tableData.map((item) => {
         let obj = {};

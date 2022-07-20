@@ -1500,23 +1500,6 @@ export default {
              
             },'',undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
         }else{
-          let SigndataObj = {
-              Patient_ID:this.patientInfo.patientId,
-              Visit_ID:this.patientInfo.visitId,
-              Document_Title:this.$parent.patientInfo.recordName,
-              Document_ID:sheetInfo.sheetType,
-              Section_ID:trObj.id,
-              strSignData: JSON.stringify(strSignData),
-            };
-            let verifySignObj = {
-                    patientId:this.patientInfo.patientId,
-                    visitId:this.patientInfo.visitId,
-                    formName:this.$parent.patientInfo.recordName,
-                    formCode:sheetInfo.sheetType,
-                    instanceId:this.$parent.patientInfo.id,
-                    recordId:strSignData.id,
-                    signData:JSON.stringify(strSignData),
-                  }
           this.$refs.signModal.open((password, empNo) => {
             let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
@@ -1569,7 +1552,7 @@ export default {
                 this.bus.$emit("saveSheetPage", true);
               }
             );
-          },['guizhou'].includes(this.HOSPITAL_ID)?"":null,"",undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
+          },['guizhou'].includes(this.HOSPITAL_ID)?"":null,"",undefined,undefined,undefined,undefined,undefined,undefined);
 
         }
       } else {
