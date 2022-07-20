@@ -192,7 +192,7 @@ export default {
       status: "",
       bedLabel: "",
       test: "",
-      itemTypeTem: ["全部"],
+      itemTypeTem: ["输液"],
       query: {
         wardCode: "",
         itemType: ["全部"], //医嘱类别，输液、雾化
@@ -222,7 +222,7 @@ export default {
       } else if (this.itemTypeTem.length > 2 && this.itemTypeTem[this.itemTypeTem.length - 1] === '全部') {
         this.itemTypeTem = ['全部']
         return
-      } 
+      }
       this.onLoad();
     },
     onLoad() {

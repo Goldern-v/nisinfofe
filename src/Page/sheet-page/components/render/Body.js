@@ -5,7 +5,7 @@ import {
 import {
   getRowNum
 } from "../utils/sheetRow";
-const EMPTY_FLAG = ''
+const EMPTY_FLAG = 'empty'
 /**
  *  返回表格数据
  * @param {*} data
@@ -666,13 +666,18 @@ function switchSheetType(type) {
     }
       break;
     case "critical_linyi": {
-      // 临邑人医 - 病重（病危）患者护理记录单（带瞳孔）
+      // 临邑人医 - 病重（病危）患者护理记录单
       schema = require("../config/critical_linyi/tr").default;
     }
       break;
     case "critical_new_linyi": {
       // 临邑人医 - 病重（病危）患者护理记录单（新）
       schema = require("../config/critical_new_linyi/tr.js").default;
+    }
+      break;
+    case "ops_linyi": {
+      // 临邑人医 - 围手术期患者护理记录
+      schema = require("../config/ops_linyi/tr").default;
     }
       break;
     case "baby_lcey": {

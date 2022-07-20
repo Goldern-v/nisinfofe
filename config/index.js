@@ -126,13 +126,12 @@ const currentTargetUrl = (() => {
     case "shannan":
       // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
       return "http://192.168.1.54:9878" // 公司-山南市人民医院测试-内网
-
     /** 武警广东省总队医院 */
     case "wujing":
       // return "http://120.24.240.231:15091" // 公司-武警广东省总队医院正式
-      // return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
+      return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.20.187:8080" // 杨鑫本地
-      return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式  crph3675 crph
+      // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式  crph3675 crph
 
     /** 曲周医院 */
     case 'quzhou':
@@ -176,8 +175,8 @@ const currentTargetUrl = (() => {
     case 'whyx':  //武汉亚心
       return "http://192.168.1.54:9866" // 武汉亚心
 
-    case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
-      return "http://192.168.1.54:9884" // 武汉肺科
+    // case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
+      // return "http://192.168.1.54:9884" // 武汉肺科
       // return "http://192.168.3.226:8080" // 初升本地
     case 'sdlj':  //顺德龙江
       return "http://192.168.1.54:9871" // 顺德龙江 内防访问地址192.168.1.54:9887
@@ -196,7 +195,8 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9866'
     /** 默认公司本地内网厚街测试环境 */
     default:
-      return "http://192.168.1.54:9866"
+      // return "http://192.168.1.54:9866",
+      return "http://222.133.53.230:9091"
   }
 })();
 

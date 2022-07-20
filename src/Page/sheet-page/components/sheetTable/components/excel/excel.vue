@@ -9,7 +9,7 @@
     <table
       class="sheet-table table-fixed-th no-print"
       :style="{ width: fiexHeaderWidth }"
-      :class="{ isFixed, isInPatientDetails }"
+      :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl}"
       v-if="hasFiexHeader"
     >
       <tr class="body-con">
@@ -46,7 +46,6 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          class="djw"
           :class="{ canSet: item.canSet}"
           @click="item.canSet && setTitle(item)"
         >
@@ -61,6 +60,7 @@
     <table
       class="sheet-table"
       ref="table"
+      :class="{'tableTd-14':wujingCommonHl}"
       :style="{ width: sheetInfo.sheetType == 'access_gzry' ? '100%' : '' }"
     >
       <tr
@@ -76,7 +76,6 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          class="djw2"
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item,data.titleModel)"
         >
@@ -763,6 +762,7 @@ export default {
 
       },
       currentKey: "", //点击下拉当前的key
+      wujingCommonHl:false
     };
   },
   computed: {
@@ -1500,23 +1500,6 @@ export default {
              
             },'',undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
         }else{
-          let SigndataObj = {
-              Patient_ID:this.patientInfo.patientId,
-              Visit_ID:this.patientInfo.visitId,
-              Document_Title:this.$parent.patientInfo.recordName,
-              Document_ID:sheetInfo.sheetType,
-              Section_ID:trObj.id,
-              strSignData: JSON.stringify(strSignData),
-            };
-            let verifySignObj = {
-                    patientId:this.patientInfo.patientId,
-                    visitId:this.patientInfo.visitId,
-                    formName:this.$parent.patientInfo.recordName,
-                    formCode:sheetInfo.sheetType,
-                    instanceId:this.$parent.patientInfo.id,
-                    recordId:strSignData.id,
-                    signData:JSON.stringify(strSignData),
-                  }
           this.$refs.signModal.open((password, empNo) => {
             let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
@@ -1569,7 +1552,7 @@ export default {
                 this.bus.$emit("saveSheetPage", true);
               }
             );
-          },['guizhou'].includes(this.HOSPITAL_ID)?"":null,"djw",undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
+          },['guizhou'].includes(this.HOSPITAL_ID)?"":null,"",undefined,undefined,undefined,undefined,undefined,undefined);
 
         }
       } else {
@@ -2480,6 +2463,13 @@ export default {
     // console.log("mounted");
   },
   created() {
+    if(this.HOSPITAL_ID == 'wujing' && sheetInfo.sheetType == 'common_hl'){
+      let sUserAgent = navigator.userAgent;
+      if(sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1 || sUserAgent.indexOf("Windows NT 5.1") > -1){
+        this.wujingCommonHl=true
+        console.log("this.wujingCommonHl",this.wujingCommonHl)
+      }
+    }
     console.log("this.data",this.data,this.$parent.patientInfo)
     if (
       this.doubleSignArr.includes(sheetInfo.sheetType) &&
