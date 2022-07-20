@@ -12,7 +12,7 @@
           style="width:150px"
         ></el-date-picker>
         <span class="label">护理等级:</span>
-        <el-select v-model="query.nursingClass" placeholder="请选择" size="small" style="width:150px">
+        <el-select clearable v-model="query.nursingClass" placeholder="请选择" size="small" style="width:150px">
           <el-option
             :label="nursingClass.name"
             :value="nursingClass.code"
@@ -203,6 +203,8 @@ export default {
       let list = ["nurse_nursing_class"];
       multiDictInfo(list).then(res => {
         this.allNursingClass = res.data.data.nurse_nursing_class;
+        if (this.HOSPITAL_ID === 'lyxrm') this.allNursingClass.unshift({name: '全部', code: ''})
+        
       });
     },
     openViewModal() {

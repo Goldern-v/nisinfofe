@@ -132,7 +132,7 @@
                       <i class="sheetHospitalAdmission"></i>入院评估
                     </el-row>
                   </router-link> </el-dropdown-item>
-                  <el-dropdown-item
+                  <!-- <el-dropdown-item
                     :class="{
                       active: $route.path == '/sheetHospitalEval'
                     }">
@@ -140,7 +140,7 @@
                       <el-row class="menu-item" type="flex" align="middle">
                         <i class="sheetHospitalEval"></i>日常评估
                       </el-row>
-                    </router-link> </el-dropdown-item>
+                    </router-link> </el-dropdown-item> -->
                 <el-dropdown-item
                   :class="{ active: $route.path == '/healthEdu' }"
                 >
