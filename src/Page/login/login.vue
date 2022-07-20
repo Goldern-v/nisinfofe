@@ -476,7 +476,7 @@ export default {
           })
           if(res.data.code==200) {
             // this.$message.error(res.data.desc)
-            this.loginSucceed(res)
+            this.loginSucceed(res,type)
             this.ajax = false
           }else {
             this.$message.error(res.data.desc)
@@ -534,7 +534,7 @@ export default {
               this.$router.push('/resetpassword')
               return
             }
-            this.loginSucceed(res)
+            this.loginSucceed(res,type)
           })
           .catch((res) => {
             this.ajax = false;
@@ -558,7 +558,7 @@ export default {
             }
           });
     },
-    loginSucceed(res) {
+    loginSucceed(res,type) {
       // 存下token 和用户信息 Auth-Token-Nursing
       let user = res.data.data.user;
       user.token = res.data.data.authToken;
