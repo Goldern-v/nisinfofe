@@ -904,7 +904,7 @@ export default {
         heartRate: "",
         stoolNum: "",
         height: "",
-        fieldThree,
+        fieldThree:"",
       };
       let list = this.tableData.map((item) => {
         let obj = {};
