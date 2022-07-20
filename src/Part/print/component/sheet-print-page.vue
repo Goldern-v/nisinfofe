@@ -302,7 +302,7 @@ export default {
       minWidth: sheetTableWidth + "px"
     });
 
-    if (sheetTableWidth > 1000 && this.sheetInfo.sheetType != 'ops_linyi') {
+    if (sheetTableWidth > 1000 && this.sheetInfo.sheetType != 'ops_linyi' && this.sheetInfo.sheetType != 'nicu_custody_hd') {
       printDir("h");
       addCSS(
         window,
@@ -322,6 +322,18 @@ export default {
         @media print {
           .iframe > div:nth-of-type(2n) {
             height: ${sheetTableWidth * 0.75}px !important;
+          }
+        }
+        `
+      );
+    } else if (this.sheetInfo.sheetType == 'nicu_custody_hd') {
+      printDir("h");
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(2n) {
+            height: ${sheetTableWidth * 0.74}px !important;
           }
         }
         `
