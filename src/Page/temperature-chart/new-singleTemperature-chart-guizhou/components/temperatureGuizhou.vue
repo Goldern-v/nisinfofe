@@ -218,6 +218,7 @@ export default {
             getNurseExchangeInfoByTime(params).then((res) => {
               const value = {
                 adtLog: res.data.data.adtLog,
+                adtLogWardName:res.data.adtLogWardName,
                 bedExchangeLog: res.data.data.bedExchangeLog,
               };
               this.$refs.pdfCon.contentWindow.postMessage(
