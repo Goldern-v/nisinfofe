@@ -339,6 +339,12 @@ export default {
           !item.isFirst && (item.recordDate = firstTime)
         })
       }
+      /**【武警】保存前将入量food中'\b'后的数据进行删除*/
+      if(['wujing'].includes(this.HOSPITAL_ID)){
+        temArr.map(item=>{
+          return item.food.split('\b')[0]
+        })
+      }
       if(['foshanrenyi','lyxrm'].includes(this.HOSPITAL_ID)){
        temArr=JSON.parse(JSON.stringify(temArr)).map(item=>{
           item.foodSize=item.dosage
@@ -469,7 +475,10 @@ export default {
         ).then((res) => {
           if(this.identicalGroupSelect.includes(this.HOSPITAL_ID)){
             let responeList = JSON.parse(JSON.stringify(res.data.data.list))
-            // responeList.push({"blockId":83941,"entityId":null,"patientId":"61505022","visitId":"1","desc":"","food":"静脉注射药物名称\b静脉注射","foodSize":"12","barcode":"222","empNo":"","empName":"","recordDate":"2021-09-12 12:12","dosage":"","administration":"","orderText":""})
+            // responeList.push(
+            //   {"blockId":83941,"entityId":null,"patientId":"61505022","visitId":"1","desc":"","food":"静脉注射药物名称\b静脉注射","foodSize":"12","barcode":"222","empNo":"","empName":"","recordDate":"2021-09-12 12:12","dosage":"","administration":"","orderText":""},
+            //   {"blockId": 5904, "entityId": null, "patientId": "422385", "visitId": "2", "desc": "", "food": "甲硝唑氯化钠注射液(0.5g*100ml)甲基\b静脉续滴", "foodSize": "100", "barcode": "ZXDSY0027349371", "dosageUnits": "ml", "orderNo": "130", "empNo": "", "empName": "", "indexNo": null, "recordDate": "2022-07-20 15:00", "dosage": "", "administration": "静脉续滴", "orderText": "", "isFirst": true}
+            // )
             if(responeList.length){
               responeList.map(item=>{
                 let targetObj = responeList.find(e=>item.barcode==e.barcode)
