@@ -181,7 +181,7 @@
 </style>
 
 <script>
-import { GetUserList,verifyNewCaSign } from "@/api/caCardApi";
+import { GetUserList,verifyNewCaSign,nanfnagCaSign } from "@/api/caCardApi";
 import dayjs from "dayjs";
 import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
@@ -279,6 +279,7 @@ export default {
     }
     
     console.log("aaaaaaaa",callback,title,showDate,isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj)
+  
    this.btnLoading = false
     if(doctorTure){
       this.isDoctor = doctorTure
@@ -330,6 +331,8 @@ export default {
         if(this.HOSPITAL_ID=="foshanrenyi"){
           this.verifySignObj = verifySignObj
           this.SigndataObj = SigndataObj
+        }else if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+          this.verifySignObj = verifySignObj
         }
       this.showDate = showDate;
       // this.showMessage = showMessage;
@@ -462,6 +465,11 @@ export default {
             showClose: true
           });
           return this.btnLoading = false
+        }
+         if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+          nanfnagCaSign(9980,this.password,this.verifySignObj).then(res1=>{
+            console.log("nanfnagCaSign",res1)
+          },err=>{this.$message.error(err)})
         }
         this.$refs.modalName.close();
         console.log(this.aduitDate,'-------------------------------------');

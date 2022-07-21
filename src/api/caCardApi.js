@@ -4,8 +4,9 @@ import {
   caSignHOST
 } from './apiConfig'
 import qs from 'qs'
+import base from '../utils/base64'
 
-
+//佛山人医ca签名有关接口
 //获取useKey用户名和UkeyID
 function GetUserList() {
   return axios.post(`${caSignHOST}/GetUserList`)
@@ -177,6 +178,42 @@ function verifyNewCaSign(SigndataObj,verifySignObj) {
   })
 })
 }
+
+// 南方中西医ca签名相关接口
+function getCertificate(userUid) {
+  return axios.get(`${apiPath}caSignNfzxy/getCertificate`,{params:{
+    userUid
+  }})
+}
+function getAccessToken(params) {
+  return axios.post(`${apiPath}caSignNfzxy/getAccessToken`,params)
+}
+function p7Sign(params) {
+  return axios.post(`${apiPath}caSignNfzxy/p7Sign`,params)
+}
+
+function nanfnagCaSign(userUid,password,p7SignObj) {
+  return new Promise((resolve, reject) => {
+    console.log(p7SignObj,"p7SignObj")
+    const base64 = new base()
+    const userPin = base64.encode("v7euvM")
+    getCertificate(userUid).then(Certificateres=>{
+      if(Certificateres.data.data.contents.length>0){
+        const certContent = Certificateres.data.data.contents[0].signCert
+        console.log("password",password)
+        getAccessToken({certContent,userPin}).then(AccessTokenres=>{
+          if(AccessTokenres.data.data.contents.userToken && AccessTokenres.data.data.contents.userToken.length>0){
+            const userToken = AccessTokenres.data.data.contents.userToken
+            p7Sign({...p7SignObj,userUid,userToken}).then(p7Signres=>{
+              resolve(p7Signres)
+            })
+          }
+        })
+      }
+      else reject("获取证书失败！")
+    })
+  })
+}
 export {
   getSOF_ExportUserCert,
   getPic,
@@ -192,5 +229,6 @@ export {
   verifyUser,
   verifySign,
   pic_GetPic_Base64,
-  verifyNewCaSign
+  verifyNewCaSign,
+  nanfnagCaSign
 }

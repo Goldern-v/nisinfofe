@@ -653,7 +653,7 @@ import decode from "../../../../components/render/decode.js";
 import moment from "moment";
 import { getUser } from "@/api/common.js";
 import bottomRemark from "./remark";
-import { SOF_SignData,verifySign,getPic,getSOF_ExportUserCert,GetUserList} from "@/api/caCardApi";
+import { GetUserList} from "@/api/caCardApi";
 
 // console.dir(sheetInfo);
 export default {
@@ -1245,6 +1245,10 @@ export default {
               // });
             },'',null,false,'',{},undefined,undefined,undefined,SigndataObj,verifySignObj);
           }else{
+            let p7SignObj = {}
+            if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+               p7SignObj = {formId:this.$parent.patientInfo.id}
+            }
             this.$refs.signModal.open((password, empNo) => {
               console.log("1111111111signModal")
               let trObj = {};
@@ -1306,7 +1310,7 @@ export default {
                 });
                 this.bus.$emit("saveSheetPage", true);
               });
-            },'',null,false,'',['guizhou'].includes(this.HOSPITAL_ID)?{}:null,undefined ,undefined ,undefined);
+            },'',null,false,'',['guizhou'].includes(this.HOSPITAL_ID)?{}:null,undefined ,undefined ,undefined,undefined,['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)?p7SignObj:undefined);
           }
         };
         let reverseList = [...decode().list].reverse();
