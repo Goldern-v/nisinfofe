@@ -137,7 +137,7 @@ export default [{
   {
     key: "woundDress", //伤口辅料
     value: "",
-    name:"伤口辅料",
+    name:"伤口敷料",
     event: keyf1,
     autoComplete: {
       data: shangko
