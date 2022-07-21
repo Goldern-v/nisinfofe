@@ -467,7 +467,7 @@ export default {
           return this.btnLoading = false
         }
          if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
-          nanfnagCaSign(9980,this.password,this.verifySignObj).then(res1=>{
+          nanfnagCaSign(9981,this.password,this.verifySignObj).then(res1=>{
             console.log("nanfnagCaSign",res1)
           },err=>{this.$message.error(err)})
         }

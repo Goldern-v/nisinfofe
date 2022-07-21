@@ -196,7 +196,7 @@ function nanfnagCaSign(userUid,password,p7SignObj) {
   return new Promise((resolve, reject) => {
     console.log(p7SignObj,"p7SignObj")
     const base64 = new base()
-    const userPin = base64.encode("v7euvM")
+    const userPin = base64.encode("GPvK1U")
     getCertificate(userUid).then(Certificateres=>{
       if(Certificateres.data.data.contents.length>0){
         const certContent = Certificateres.data.data.contents[0].signCert
@@ -204,7 +204,7 @@ function nanfnagCaSign(userUid,password,p7SignObj) {
         getAccessToken({certContent,userPin}).then(AccessTokenres=>{
           if(AccessTokenres.data.data.contents.userToken && AccessTokenres.data.data.contents.userToken.length>0){
             const userToken = AccessTokenres.data.data.contents.userToken
-            p7Sign({...p7SignObj,userUid,userToken}).then(p7Signres=>{
+            p7Sign({signData:{...p7SignObj},userUid ,userToken}).then(p7Signres=>{
               resolve(p7Signres)
             })
           }

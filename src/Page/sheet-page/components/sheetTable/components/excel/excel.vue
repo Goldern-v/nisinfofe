@@ -1247,7 +1247,33 @@ export default {
           }else{
             let p7SignObj = {}
             if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
-               p7SignObj = {formId:this.$parent.patientInfo.id}
+              let trObj = {};
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
+              }
+              let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+               let strSignDataOBJ = Object.assign({}, trObj, {
+                    recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                    recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                    recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                    patientId: this.patientInfo.patientId,
+                    visitId: this.patientInfo.visitId,
+                    pageIndex: this.index,
+                  })
+                 let strSignData ={}
+                  for(let key in strSignDataOBJ){
+                  if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+                }
+               p7SignObj = {
+                formId:this.$parent.patientInfo.id,
+                patientId:this.patientInfo.patientId,
+                visitId:this.patientInfo.visitId,
+                formName:this.$parent.patientInfo.recordName,
+                formCode:sheetInfo.sheetType,
+                instanceId:this.$parent.patientInfo.id,
+                recordId:strSignData.id,
+                signData:JSON.stringify(strSignData)
+                }
             }
             this.$refs.signModal.open((password, empNo) => {
               console.log("1111111111signModal")
