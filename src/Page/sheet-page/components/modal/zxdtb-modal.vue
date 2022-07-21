@@ -339,16 +339,18 @@ export default {
           !item.isFirst && (item.recordDate = firstTime)
         })
       }
-      /**【武警】保存前将入量food中'\b'后的数据进行删除*/
+      /**【武警】保存前将入量内容food中'\b'后的数据进行删除*/
       if(['wujing'].includes(this.HOSPITAL_ID)){
-        temArr.map(item=>{
-          return item.food.split('\b')[0]
+        temArr = JSON.parse(JSON.stringify(temArr)).map(item=>{
+          item.food = item.food.split('\b')[0]
+          return item
         })
       }
       if(['foshanrenyi','lyxrm'].includes(this.HOSPITAL_ID)){
        temArr=JSON.parse(JSON.stringify(temArr)).map(item=>{
           item.foodSize=item.dosage
           return item
+
         })
       }
       saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
