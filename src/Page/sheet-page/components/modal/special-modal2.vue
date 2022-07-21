@@ -588,7 +588,7 @@
               ? postRichText()
               : post()
           "
-          v-show="!isRead"
+          v-show="!isRead && !isRecordBan"
           >保存</el-button
         >
       </div>
@@ -911,6 +911,7 @@ export default {
       multiDictList: [],
       beihaiList:["体温","脉搏","呼吸","血压","心率"],
       isSaving:false,//给弹窗保存做节流
+      isRecordBan: false, // 佛医记录是否禁用编辑
     };
   },
   computed: {
@@ -1126,6 +1127,10 @@ export default {
         }else{
           isRead = false;
         }
+      }
+      if (this.HOSPITAL_ID == 'foshanrenyi') {
+        this.isRecordBan = config.canNotSave || false
+        console.log('isRecordBan', this.isRecordBan)
       }
       this.isRead = isRead;
       this.table = config.table;

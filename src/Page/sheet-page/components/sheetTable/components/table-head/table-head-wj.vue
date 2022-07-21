@@ -171,6 +171,7 @@
         <div
           class="bottom-line"
           style="margin-left:53px;min-width: 1080px;max-width: 1080px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          v-if="processedDiagnosis[1]"
         >
           {{ processedDiagnosis[1] }}
         </div>

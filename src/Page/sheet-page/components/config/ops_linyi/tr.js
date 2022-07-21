@@ -33,47 +33,6 @@ export default [{
     event: event_time,
     click: click_time
   },
-  // {
-  //   key: "consciousness", //意识
-  //   value: "",
-  //   event: keyf1,
-  //   name:"意识",
-  //   autoComplete: {
-  //     data: ['清醒', '嗜睡', '昏睡', '模糊', '谵妄', '浅昏迷', '昏迷', '深昏迷','冬眠状态','麻醉未醒','镇静状态']
-  //   },
-  //   textarea: {
-  //     width: 40
-  //   },
-  // },
-  // {
-  //   key: "pupilLeft", //左(mm)
-  //   value: "",
-  //   event: keyf1,
-  //   name:"左",
-  //   next:"mm",
-  //   textarea: {
-  //     width: 32
-  //   },
-  // },
-  // {
-  //   key: "pupilRight", //右(mm)
-  //   value: "",
-  //   event: keyf1,
-  //   name:"右",
-  //   next:"mm",
-  //   textarea: {
-  //     width: 32
-  //   },
-  // },
-  // {
-  //   key: "pupilReflect", //光反射
-  //   value: "",
-  //   name:"对光反射",
-  //   event: keyf1,
-  //   autoComplete: {
-  //     data: ['++','+','-']
-  //   },
-  // },
   {
     key: "temperature", //体温
     value: "",
@@ -178,7 +137,7 @@ export default [{
   {
     key: "woundDress", //伤口辅料
     value: "",
-    name:"伤口辅料",
+    name:"伤口敷料",
     event: keyf1,
     autoComplete: {
       data: shangko

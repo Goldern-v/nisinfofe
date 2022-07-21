@@ -474,12 +474,21 @@ export default {
             password: password,
             code:  this.verificationCode
           })
-          if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
-            this.$message.error("请重新登录");
+          if(res.data.code==200) {
+            // this.$message.error(res.data.desc)
+            this.loginSucceed(res,type)
+            this.ajax = false
+          }else {
+            this.$message.error(res.data.desc)
             this.ajax = false
             return
           }
+          // if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
+          //   this.$message.error("请重新登录");
+
+          // }
         } catch (e) {
+          console.log('e',e);
           this.$message.error("请重新登录");
           this.ajax = false
           return
@@ -525,52 +534,7 @@ export default {
               this.$router.push('/resetpassword')
               return
             }
-            // 存下token 和用户信息 Auth-Token-Nursing
-            let user = res.data.data.user;
-            user.token = res.data.data.authToken;
-            window.app.authToken = res.data.data.authToken;
-            localStorage["ppp"] = this.password;
-            localStorage.setItem("user", JSON.stringify(res.data.data.user));
-            this.setUser(res.data.data.user || {});
-            localStorage["adminNurse"] = res.data.data.adminNurse;
-            Cookies.remove("NURSING_USER");
-            //清除江门妇幼ca
-            localStorage.removeItem("fuyouCaData");
-            Cookies.set(
-              "NURSING_USER",
-              `${res.data.data.user.id}##${res.data.data.authToken}`,
-              {
-                path: "/",
-              }
-            );
-            this.loginLoading = false;
-            if (
-              this.$store.state.common.relogin &&
-              this.$store.state.common.relogin != "/login"
-            ) {
-              this.$router.push(this.$store.state.common.relogin);
-            } else if (
-              user &&
-              user.roleManageCodeList.length > 0 &&
-              type == "loginReportedSystem"
-            ) {
-              this.$router.push("/badEvent");
-            } else {
-              this.$store.commit("common/upRelogin", false);
-              this.$router.push("/index");
-              if (["weixian"].includes(this.HOSPITAL_ID)) {
-                /** 验证证书 */
-                window.openCaSignModal();
-              } else if (["fuyou"].includes(this.HOSPITAL_ID)) {
-                window.openFuyouCaSignModal();
-              } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
-                window.openHjCaSignModal();
-              }
-            }
-            // 清除科室记录
-            this.$store.commit("upDeptCode", "");
-            localStorage.selectDeptValue = "";
-            this.$store.commit("upDeptName", "");
+            this.loginSucceed(res,type)
           })
           .catch((res) => {
             this.ajax = false;
@@ -593,6 +557,54 @@ export default {
               this.refreshImg();
             }
           });
+    },
+    loginSucceed(res,type) {
+      // 存下token 和用户信息 Auth-Token-Nursing
+      let user = res.data.data.user;
+      user.token = res.data.data.authToken;
+      window.app.authToken = res.data.data.authToken;
+      localStorage["ppp"] = this.password;
+      localStorage.setItem("user", JSON.stringify(res.data.data.user));
+      this.setUser(res.data.data.user || {});
+      localStorage["adminNurse"] = res.data.data.adminNurse;
+      Cookies.remove("NURSING_USER");
+      //清除江门妇幼ca
+      localStorage.removeItem("fuyouCaData");
+      Cookies.set(
+        "NURSING_USER",
+        `${res.data.data.user.id}##${res.data.data.authToken}`,
+        {
+          path: "/",
+        }
+      );
+      this.loginLoading = false;
+      if (
+        this.$store.state.common.relogin &&
+        this.$store.state.common.relogin != "/login"
+      ) {
+        this.$router.push(this.$store.state.common.relogin);
+      } else if (
+        user &&
+        user.roleManageCodeList.length > 0 &&
+        type == "loginReportedSystem"
+      ) {
+        this.$router.push("/badEvent");
+      } else {
+        this.$store.commit("common/upRelogin", false);
+        this.$router.push("/index");
+        if (["weixian"].includes(this.HOSPITAL_ID)) {
+          /** 验证证书 */
+          window.openCaSignModal();
+        } else if (["fuyou"].includes(this.HOSPITAL_ID)) {
+          window.openFuyouCaSignModal();
+        } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
+          window.openHjCaSignModal();
+        }
+      }
+      // 清除科室记录
+      this.$store.commit("upDeptCode", "");
+      localStorage.selectDeptValue = "";
+      this.$store.commit("upDeptName", "");
     },
     toReset() {
       this.$router.push("/resetPassword");

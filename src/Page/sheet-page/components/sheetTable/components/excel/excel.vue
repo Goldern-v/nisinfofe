@@ -9,7 +9,7 @@
     <table
       class="sheet-table table-fixed-th no-print"
       :style="{ width: fiexHeaderWidth }"
-      :class="{ isFixed, isInPatientDetails }"
+      :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl}"
       v-if="hasFiexHeader"
     >
       <tr class="body-con">
@@ -46,7 +46,6 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          class="djw"
           :class="{ canSet: item.canSet}"
           @click="item.canSet && setTitle(item)"
         >
@@ -61,6 +60,7 @@
     <table
       class="sheet-table"
       ref="table"
+      :class="{'tableTd-14':wujingCommonHl}"
       :style="{ width: sheetInfo.sheetType == 'access_gzry' ? '100%' : '' }"
     >
       <tr
@@ -76,7 +76,6 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          class="djw2"
           :class="{ canSet: item.canSet }"
           @click="item.canSet && setTitle(item,data.titleModel)"
         >
@@ -151,7 +150,7 @@
             td.key=='food' &&
             {
               textAlign:'left'
-            })
+            }, (HOSPITAL_ID == 'foshanrenyi' && td.signDisabled && { cursor: 'not-allowed' }))
           "
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="
@@ -177,6 +176,7 @@
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
+            :class="{ noClick: td.signDisabled }"
             @click.stop="
               toSign(tr, y, data.bodyModel, showSign(tr), $event, td)
             "
@@ -227,6 +227,7 @@
           <div
             v-else-if="td.key == 'audit'"
             class="sign-text"
+            :class="{ noClick: td.signDisabled }"
             @click.stop="toAudit(tr, y, data.bodyModel, showAudit(tr), $event)"
             v-html="showAudit(tr)"
           ></div>
@@ -668,7 +669,7 @@ export default {
     listData: Array,
   },
   mixins: [common],
-  data() {    
+  data() {
     return {
       Mark,
       matchMark,
@@ -763,6 +764,7 @@ export default {
 
       },
       currentKey: "", //点击下拉当前的key
+      wujingCommonHl:false
     };
   },
   computed: {
@@ -1109,7 +1111,7 @@ export default {
         let status = trArr.find((item) => {
           return item.key == "status";
         }).value;
-        
+
         // if (status == 1) return this.$message.warning('该记录已经签名了')
         let save = () => {
           if(this.HOSPITAL_ID=="foshanrenyi"){
@@ -1118,7 +1120,7 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ = 
+            let strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1150,7 +1152,7 @@ export default {
                     signData:JSON.stringify(strSignData),
                   }
             this.$refs.signModal.open((password,empNo) => {
-              
+
               // SOF_SignData(
               //   data
               // ).then((res) => {
@@ -1160,7 +1162,7 @@ export default {
                     // Promise.all([getPic(strCertId),getSOF_ExportUserCert(strCertId)]).then(result=>{
                       // if(!localStorage.user.signPic){
                       //   signPic=result[0]
-                      // } 
+                      // }
                   // verifySign({
                   //   patientId:this.patientInfo.patientId,
                   //   visitId:this.patientInfo.visitId,
@@ -1350,7 +1352,7 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ = 
+            let strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1419,7 +1421,7 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ = 
+            let strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1497,7 +1499,7 @@ export default {
                 this.bus.$emit("saveSheetPage", true);
               }
             );
-             
+
             },'',undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
         }else{
           this.$refs.signModal.open((password, empNo) => {
@@ -1564,7 +1566,7 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ = 
+            let strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1651,12 +1653,13 @@ export default {
       let status = trArr.find((item) => {
         return item.key == "status";
       }).value;
+      const sign = trArr.find(item => item.key == 'auditorNo').value
         console.log("koaosdad",status)
       let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
         console.log("koaosdad",auditorName)
-      if (status == "2") {
+      if (status == "2" && sign) {
         if (this.HOSPITAL_ID == "foshanrenyi") {
           return  `<img
               width="50"
@@ -2150,7 +2153,9 @@ export default {
           tab = "3";
         }
       }
-      console.log("data.titleModel",data.titleModel)
+      // 能否保存()
+      const canNotSave = tr.find(item => item.key == 'recordMonth').isDisabed
+      console.log("data.titleModel",data.titleModel, tr)
       let thead = data.titleModel;
       let table = data.bodyModel;
       // 数组重组
@@ -2197,6 +2202,7 @@ export default {
         thead,
         tab,
         isLast,
+        canNotSave
       };
       // if (
       //   this.HOSPITAL_ID == "weixian" ||
@@ -2463,6 +2469,13 @@ export default {
     // console.log("mounted");
   },
   created() {
+    if(this.HOSPITAL_ID == 'wujing' && sheetInfo.sheetType == 'common_hl'){
+      let sUserAgent = navigator.userAgent;
+      if(sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1 || sUserAgent.indexOf("Windows NT 5.1") > -1){
+        this.wujingCommonHl=true
+        console.log("this.wujingCommonHl",this.wujingCommonHl)
+      }
+    }
     console.log("this.data",this.data,this.$parent.patientInfo)
     if (
       this.doubleSignArr.includes(sheetInfo.sheetType) &&
