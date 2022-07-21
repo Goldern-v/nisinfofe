@@ -267,7 +267,7 @@
       :modalWidth="800"
       :title="preview.title"
     >
-      <div class="archive-detail-modal" v-loading="pageLoading2">
+      <div v-if="printDetailList.length > 0" class="archive-detail-modal" v-loading="pageLoading2">
         <div
           class="arrow"
           :class="{ isFullMode: modalObj.infull }"
@@ -295,9 +295,10 @@
           />
         </div>
       </div>
+      <div v-else>该患者暂无文书信息</div>
       <div slot="button" class="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" @click="print">打印</el-button>
+        <el-button class="modal-btn" @click="print" v-if="printDetailList.length > 0">打印</el-button>
       </div>
     </sweet-modal>
     <cancel-recall-modal ref="cancelRecallRef" :loading.sync="pageLoading" :item="curItem" @refresh="handleRefresh" />
@@ -382,6 +383,7 @@ export default {
   },
   methods: {
     close() {
+      this.preview.title = ''
       this.$refs["preview-modal"].close();
     },
     print() {
@@ -518,7 +520,7 @@ export default {
     },
 
     previewFile() {
-      if (this.printDetailList) {
+      if (this.printDetailList.length > 0) {
         this.preview = {
           title:
             this.printDetailList[this.currentFileIndex].formName +
@@ -530,12 +532,12 @@ export default {
           url: this.printDetailList[this.currentFileIndex].filePath,
           type: "pdf"
         };
-        this.$refs["preview-modal"].open();
         this.pdfHeight = window.innerHeight * 0.8;
         if (this.$refs["preview-modal"]) {
           this.modalObj = this.$refs["preview-modal"];
         }
       }
+      this.$refs["preview-modal"].open();
     },
     // 上一个文件
     preveFile() {

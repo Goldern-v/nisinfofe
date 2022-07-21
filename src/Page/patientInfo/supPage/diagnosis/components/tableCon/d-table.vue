@@ -111,19 +111,37 @@
         <el-table-column prop="diagName" label="护理问题" min-width="100px" header-align="center"></el-table-column>
         <el-table-column label="护理措施计划" min-width="300px" header-align="center">
           <template slot-scope="scope">
-            <div v-for="(item, index) in scope.row.measuresName" :key="index">
+            <!-- <div v-for="(item, index) in scope.row.measuresName" :key="index">
               <p>{{item && item.measureDetail}}</p>
               <br v-if="index != scope.row.measuresName.length - 1" />
+            </div> -->
+
+            <div>
+              <div v-for="(item, index) in scope.row.measuresName" :key="index"  v-show="scope.row.measuresName.length">
+                <p>{{item && item.measureDetail}}</p>
+                <br v-if="index != scope.row.measuresName.length - 1" />
+              </div>
+              <div v-if="!scope.row.measuresName.length" v-html="scope.row.diagMeasures&&scope.row.diagMeasures.replace(/\n/g,'<br><br>')"></div>
             </div>
+
           </template>
+          
         </el-table-column>
         <el-table-column label="护理目标" min-width="150px" header-align="center">
           <template slot-scope="scope">
-            <span v-for="(item, index) in scope.row.targetsName" :key="index">
+            <!-- <span v-for="(item, index) in scope.row.targetsName" :key="index">
               {{
               item && item.parameter
               }}
-            </span>
+            </span> -->
+            <div>
+              <span v-for="(item, index) in scope.row.targetsName" :key="index" v-show="scope.row.targetsName.length">
+                {{
+                item && item.parameter
+                }}
+              </span>
+              <span v-if="!scope.row.targetsName.length" v-html="scope.row.diagTarget&&scope.row.diagTarget.replace(/\n/g,'<br><br>')">{{scope.row.diagTarget}}</span>
+            </div>
           </template>
         </el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
