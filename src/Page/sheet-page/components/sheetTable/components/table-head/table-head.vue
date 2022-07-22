@@ -30,7 +30,7 @@
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
       </span>
       <span>
-        住院号/ID号：
+        住院号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
       <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
