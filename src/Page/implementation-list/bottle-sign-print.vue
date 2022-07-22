@@ -103,7 +103,7 @@
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <!-- :class="{'new-print-box--small': !['6*8', '70*80'].includes(newModalSize)}" -->
         <!-- {relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))},  -->
-        <div :class="[{'break-page': ['lyxrm'].includes(HOSPITAL_ID) && bottleCardIndex % 3 == 2}]"
+        <div :class="[{'break-page': ['lyxrm'].includes(HOSPITAL_ID) && bottleCardIndex % 3 == 2 && newModalSize=='3*7'}]"
           v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
           <component :is="newPrintCom" :newModalSize="newModalSize" :itemObj='itemBottleCard' />
         </div>
@@ -577,9 +577,10 @@ export default {
         printing(this.$refs.new_print_modal,{
           injectGlobalCss: true,
           scanStyles: false,
+              // margin: 0 0;
           css: `
             @page{
-              margin: 0 0;
+              ${(this.newModalSize == '3*7' && ['lyxrm'].includes(this.HOSPITAL_ID)) ? 'margin: 0 1mm 0 0;': 'margin: 0 0;'}
             }
             body{
               ${this.newModalSize=='6*8' || this.newModalSize == '70*80' || this.HOSPITAL_ID=='whfk'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
