@@ -3,7 +3,7 @@
     <u-table
       style="width: 100%"
       border
-      :height="wih - 173"
+      :height="tableH"
       v-loading="pageLoadng"
       :row-class-name="rowcb"
       use-virtual
@@ -237,6 +237,14 @@ export default {
       checked: true,
       selectedData: []
     };
+  },
+  computed: {
+    tableH() {
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        return this.wih - 197
+      }
+      return this.wih - 173
+    }
   },
   methods: {
     rowcb(obj){

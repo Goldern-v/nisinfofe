@@ -150,7 +150,7 @@
             td.key=='food' &&
             {
               textAlign:'left'
-            })
+            }, (HOSPITAL_ID == 'foshanrenyi' && td.signDisabled && { cursor: 'not-allowed' }))
           "
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="
@@ -176,6 +176,7 @@
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
+            :class="{ noClick: td.signDisabled }"
             @click.stop="
               toSign(tr, y, data.bodyModel, showSign(tr), $event, td)
             "
@@ -226,6 +227,7 @@
           <div
             v-else-if="td.key == 'audit'"
             class="sign-text"
+            :class="{ noClick: td.signDisabled }"
             @click.stop="toAudit(tr, y, data.bodyModel, showAudit(tr), $event)"
             v-html="showAudit(tr)"
           ></div>
@@ -667,7 +669,7 @@ export default {
     listData: Array,
   },
   mixins: [common],
-  data() {    
+  data() {
     return {
       Mark,
       matchMark,
@@ -1109,7 +1111,7 @@ export default {
         let status = trArr.find((item) => {
           return item.key == "status";
         }).value;
-        
+
         // if (status == 1) return this.$message.warning('该记录已经签名了')
         let save = () => {
           if(this.HOSPITAL_ID=="foshanrenyi"){
@@ -1118,7 +1120,7 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ = 
+            let strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1150,7 +1152,7 @@ export default {
                     signData:JSON.stringify(strSignData),
                   }
             this.$refs.signModal.open((password,empNo) => {
-              
+
               // SOF_SignData(
               //   data
               // ).then((res) => {
@@ -1160,7 +1162,7 @@ export default {
                     // Promise.all([getPic(strCertId),getSOF_ExportUserCert(strCertId)]).then(result=>{
                       // if(!localStorage.user.signPic){
                       //   signPic=result[0]
-                      // } 
+                      // }
                   // verifySign({
                   //   patientId:this.patientInfo.patientId,
                   //   visitId:this.patientInfo.visitId,
@@ -1350,7 +1352,7 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ = 
+            let strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1419,7 +1421,7 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ = 
+            let strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1497,7 +1499,7 @@ export default {
                 this.bus.$emit("saveSheetPage", true);
               }
             );
-             
+
             },'',undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
         }else{
           this.$refs.signModal.open((password, empNo) => {
@@ -1564,7 +1566,7 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ = 
+            let strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1651,12 +1653,13 @@ export default {
       let status = trArr.find((item) => {
         return item.key == "status";
       }).value;
-        // console.log("koaosdad",status)
+      const sign = trArr.find(item => item.key == 'auditorNo').value
+        console.log("koaosdad",status)
       let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
-        // console.log("koaosdad",auditorName)
-      if (status == "2") {
+        console.log("koaosdad",auditorName)
+      if (status == "2" && sign) {
         if (this.HOSPITAL_ID == "foshanrenyi") {
           return  `<img
               width="50"
@@ -2150,7 +2153,9 @@ export default {
           tab = "3";
         }
       }
-      console.log("data.titleModel",data.titleModel)
+      // 能否保存()
+      const canNotSave = tr.find(item => item.key == 'recordMonth').isDisabed
+      console.log("data.titleModel",data.titleModel, tr)
       let thead = data.titleModel;
       let table = data.bodyModel;
       // 数组重组
@@ -2197,6 +2202,7 @@ export default {
         thead,
         tab,
         isLast,
+        canNotSave
       };
       // if (
       //   this.HOSPITAL_ID == "weixian" ||

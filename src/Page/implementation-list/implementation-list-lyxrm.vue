@@ -78,6 +78,7 @@
           >
             <el-option label="全部" value="全部"></el-option>
             <el-option label="已执行" :value="2"></el-option>
+            <el-option label="执行中" :value="1"></el-option>
             <el-option label="未执行" :value="0"></el-option>
           </el-select>
           <el-button size="small" type="primary" @click="search"
@@ -175,6 +176,7 @@ import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode, handleWebExecuteBatch } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
+import bus from "vue-happy-bus";
 export default {
   mixins: [common],
   data() {
@@ -204,7 +206,8 @@ export default {
       isExecutionTime:false,
       form:{
         date:moment().format("YYYY-MM-DD HH:mm:ss"),
-      }
+      },
+      bus: bus(this)
     };
   },
   methods: {

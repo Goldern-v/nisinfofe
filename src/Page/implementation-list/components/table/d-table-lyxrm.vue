@@ -305,6 +305,7 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
+import bus from "vue-happy-bus";
 export default {
   props: {
     pageLoadng: Boolean
@@ -315,7 +316,8 @@ export default {
       rowHeight: 30,
       checked: true,
       selectedData: [],
-      isEdit:false
+      isEdit:false,
+      bus: bus(this)
     };
   },
   methods: {
@@ -354,7 +356,7 @@ export default {
   },
    mounted() {
     this.isEdit =
-      JSON.parse(localStorage.user) 
+      JSON.parse(localStorage.user)
       // && JSON.parse(localStorage.user).post == "护长"
         ? true
         : false;

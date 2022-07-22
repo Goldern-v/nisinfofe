@@ -380,6 +380,7 @@ export default {
       let resultModel = mapSheetModel.filter((item) => {
         return showSheetPage(item.index);
       });
+      console.log('resultModel', resultModel)
       // index为第几页
       resultModel.map((item,index) => {
         // x为每页护记的行数
@@ -396,6 +397,7 @@ export default {
             tr.isRead = this.isRead(tr,x,nowX);
             tr.map((td, y) => {
               td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel,nowX);
+              td.signDisabled = this.setSignDiabled(td, nowX)
             });
           }
         });
@@ -490,6 +492,29 @@ export default {
       }
       return flag;
     },
+    // 查找数组最后一个符号条件元素的下标
+    findLastIndex(array = [], callback, thisArg) {
+      for (let i = array.length; i >= 0; i--) {
+        const value = array[i]
+        if (callback.call(thisArg, value, i, array)) {
+          return i
+        }
+      }
+      return -1
+    },
+    // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
+    setSignDiabled(td, nowX) {
+      if (this.HOSPITAL_ID == 'foshanrenyi') {
+        const lastIndex = this.findLastIndex(
+          this.listData,
+          item => item && this.listData[nowX] && item.recordDate == this.listData[nowX].recordDate
+        )
+        console.log('lastIndex', lastIndex)
+        return lastIndex != -1 && nowX !== lastIndex
+      } else {
+        return false
+      }
+    },
     isDisabed(tr, td, x, y, bodyModel,nowX) {
       // nowX可以看上面注解，估计所有医院用x都有bug(无论有多少页数据，只能第一页的数据进行判断，返回isDisabed)。但是不敢动，医院反正有问题就可替换nowX
       // canModify false可以修改，true禁止修改
@@ -505,6 +530,18 @@ export default {
           if(tr.find((item) => item.key == "status").value === "1"){
            return true
           }
+        }
+      }
+      // 佛医护记单除特殊情况以及同一记录的第一条其余填写保存后锁定
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        // 如果审核完，canModify = false 全部禁用
+        if (this.listData[nowX] && (this.listData[nowX].status==2) && !this.listData[nowX].canModify) {
+          return true
+        } else { // 否则按照锁定规则
+          const firstEqualIndex = this.listData.findIndex(
+            item  => this.listData[nowX] && item.recordDate == this.listData[nowX].recordDate
+          )
+          return firstEqualIndex != -1 && firstEqualIndex !== nowX && td.key != 'description'
         }
       }
       // 如果审核完，canModify=false才禁用
