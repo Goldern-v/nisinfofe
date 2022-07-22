@@ -232,12 +232,13 @@ import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,ge
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 const initStartDate = () => {
-  if (['whfk', 'fsxt'].includes(process.env.HOSPITAL_ID)) return moment().format("YYYY-MM-DD")+' 00:00:00'
+  if (['whfk', 'fsxt','lyxrm'].includes(process.env.HOSPITAL_ID)) return moment().format("YYYY-MM-DD")+' 00:00:00'
   return moment().format("YYYY-MM-DD")+' 07:00:00'
 }
 const initEndDate = () => {
   if (['whfk'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00'
   if (['fsxt'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 23:59:00'
+  if (['lyxrm'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 23:59:00'
   return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00'
 }
 export default {

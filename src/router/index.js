@@ -290,6 +290,7 @@ import adviceGuizhou from "@/Page/patientInfo/supPage/advice_guizhou/advice";
 import inspect from "@/Page/patientInfo/supPage/inspect/inspect";
 import test from "@/Page/patientInfo/supPage/test/test";
 import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr"; //病历
+import doctorEmrLyyz from "@/Page/patientInfo/supPage/medical-record/index.vue"
 import cost from "@/Page/patientInfo/supPage/cost/cost";
 import temperature from "@/Page/patientInfo/supPage/temperature/temperature";//默认版本体温单，床位一览卡进入
 import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperature-huadu";
@@ -847,7 +848,14 @@ const router = new Router({
         },
         {
           path: "/doctorEmr",
-          component: doctorEmr
+          component: (() => {
+            switch (HOSPITAL_ID) {
+              case 'lyyz':
+                return doctorEmrLyyz
+              default:
+                return doctorEmr
+            }
+          })(),
         },
         {
           path: "/cost",

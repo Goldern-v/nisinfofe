@@ -37,7 +37,8 @@
         <template slot-scope="scope">
           <el-checkbox
             class="checkbox"
-            v-model="scope.row.checked"
+            :value="scope.row.checked"
+            @change="handleCheckbox(scope.row)"
             :disabled="scope.row.disabled"
           ></el-checkbox>
         </template>
@@ -203,6 +204,7 @@ export default {
           id: 1,
           label: "执行时间",
           property: "ExecuteDateTime",
+          width: 140
         },
         { id: 3, label: "医嘱名称", property: "ItemName" },
         { id: 2, label: "类别", property: "Administration" },
@@ -238,7 +240,22 @@ export default {
         tradeCode: "getOrdersExecuteInfo",
       })
         .then((res) => {
-          this.tableData = res.data.data; //有真实接口用这个
+          let code = ''
+          const {data = [] } = res.data
+          this.tableData = data.map((v,i)=> {
+            let next = data[i + 1]
+            // 上一个与当前相同
+            let sameAsLast = code == v.Barcode
+            const obj = {
+              isFirst: code != v.Barcode && next && next.Barcode == v.Barcode,
+              isOrder: sameAsLast && next && code == next.Barcode,
+              isLast: sameAsLast && (next && v.Barcode != next.Barcode || !next),
+              ...v,
+              checked: false
+            }
+            code = v.Barcode
+            return obj
+          }); //有真实接口用这个
 
           // 取消加载动画
           this.loading = false;
@@ -340,6 +357,18 @@ export default {
       let recordHour = date.substring(11, 16);
       return { recordDate, recordMonth, recordHour };
     },
+    // 多选
+    handleCheckbox(row) {
+      row.checked = !row.checked
+      if (row.isFirst) {
+        this.tableData.map((v, i) => {
+          if (v.Barcode == row.Barcode && !v.isFirst) {
+            this.$set(this.tableData[i], 'checked', row.checked)
+          }
+        });
+      }
+      // return true
+    }
   },
   components: {},
   computed: {

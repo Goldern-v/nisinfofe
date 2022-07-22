@@ -81,7 +81,7 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .blood-sugar-table {
   &.table-box {
     width: 0;
@@ -111,7 +111,7 @@
     }
 
     td {
-      height: 29px;
+      height: 28px;
       font-size: 12px;
       padding: 0 1px;
 
@@ -151,7 +151,10 @@
   }
   .noPrint{
     height: 100%;
-    line-height: 28px;
+    // line-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .inPrint {

@@ -1,7 +1,12 @@
 .sheet-page-container, .sheet-excel-container, .sheet-page-container-neonatology {
+  .noClick {
+    pointer-events: none;
+    cursor: not-allowed!important;
+  }
   .red-border {
     border 2px solid red !important
   }
+
   .icu_lc {
     input,textarea {
       font-size: 14px !important;
@@ -53,7 +58,12 @@
       cursor: pointer;
     }
   }
-
+  & .tableTd-14{
+      margin: 10px auto !important;
+      td{
+        line-height: 12px;
+      }
+    }
   .head-con {
     th {
       height: 26px;
@@ -434,5 +444,5 @@
 }
 
 .identification-usage{
-  
+
 }
