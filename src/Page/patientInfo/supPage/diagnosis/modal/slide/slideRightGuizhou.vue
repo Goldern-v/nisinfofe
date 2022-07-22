@@ -290,7 +290,7 @@ export default {
       this.isMeasuresIndeterminate = false;
     },
     handleMeasuresCheckedChange(value) {
-      let checkedCount = value.length;
+      let checkedCount = value.filter(item => item).length;;
       this.checkMeasuresAll =
         checkedCount === this.measures.map(item => item.serialNo).length;
       this.isMeasuresIndeterminate =
@@ -306,7 +306,7 @@ export default {
       console.log( this.measures)
     },
     handleTargetCheckedChange(value) {
-      let checkedCount = value.length;
+      let checkedCount = value.filter(item => item).length;;
       this.checkTargetAll =
         checkedCount === this.targetList.map(item => item.serialNo).length;
       this.isTargetIndeterminate =
@@ -318,12 +318,10 @@ export default {
       this.resultFactorList = event.target.checked
         ? this.factorList.map(item => item.id)
         : [];
-
-      console.log( this.factorList)
       this.isFactorIndeterminate = false;
     },
     handleFactorCheckedChange(value) {
-      let checkedCount = value.length;
+      let checkedCount = value.filter(item => item).length;
       this.checkFactorAll =
         checkedCount === this.factorList.map(item => item.id).length;
       this.isFactorIndeterminate =
