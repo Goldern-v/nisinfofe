@@ -588,7 +588,7 @@
               ? postRichText()
               : post()
           "
-          v-show="!isRead && !isRecordBan"
+          v-show="!isRead && (!isRecordBan || showSaveBtn)"
           >保存</el-button
         >
       </div>
@@ -963,6 +963,10 @@ export default {
     },
     showDiagnosisBtn() {
       return ['guizhou'].includes(process.env.HOSPITAL_ID) && this.commonFormGZ && this.activeTab === '3'
+    },
+    // 是否显示保存按钮
+    showSaveBtn() {
+      return this.HOSPITAL_ID !== 'foshanrenyi' ? true : this.activeTab == '3'
     }
   },
   methods: {
@@ -1129,8 +1133,8 @@ export default {
         }
       }
       if (this.HOSPITAL_ID == 'foshanrenyi') {
+        // 特殊情况可以保存
         this.isRecordBan = config.canNotSave || false
-        console.log('isRecordBan', this.isRecordBan)
       }
       this.isRead = isRead;
       this.table = config.table;
