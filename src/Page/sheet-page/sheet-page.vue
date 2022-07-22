@@ -512,7 +512,7 @@ export default {
         console.log('lastIndex', lastIndex)
         return lastIndex != -1 && nowX !== lastIndex
       } else {
-        return true
+        return false
       }
     },
     isDisabed(tr, td, x, y, bodyModel,nowX) {

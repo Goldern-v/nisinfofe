@@ -12,7 +12,7 @@
             placeholder="选择入院起始时间"
             size="small"
             v-model="startDate"
-            style="width:180px"
+            style="width:160px"
           ></el-date-picker>
           <!-- -- -->
           <span class="label">执行结束时间</span>
@@ -22,7 +22,7 @@
             placeholder="选择终止时间"
             size="small"
             v-model="endDate"
-            style="width:180px"
+            style="width:160px"
           ></el-date-picker>
           <!-- <el-date-picker
             type="date"
@@ -39,7 +39,7 @@
             <el-option label="临时" :value="0"></el-option>
           </el-select>
           <span class="label">医嘱分类:</span>
-          <el-select v-if="HOSPITAL_ID == 'lyxrm'" v-model="lyxrmItemType" placeholder="请选择" size="small" style="width:250px" multiple @change="()=>{search()}">
+          <el-select v-if="HOSPITAL_ID == 'lyxrm'" v-model="lyxrmItemType" placeholder="请选择" size="small" style="width:212px" multiple @change="()=>{search()}">
             <el-option
               v-for="(optionItem,optionIndex) in typeOptions[HOSPITAL_ID] || typeOptions.default"
               :key="optionIndex"
@@ -65,7 +65,7 @@
             <el-option v-else label="3*5" :value="'3*5'"></el-option>
           </el-select>
           <span class="label">重打标志:</span>
-          <el-select v-model="query.reprintFlag" placeholder="请选择" size="small" style="width:80px;margin-right: 10px;">
+          <el-select v-model="query.reprintFlag" placeholder="请选择" size="small" style="width:80px;">
             <!-- <el-option label="是" :value="1"></el-option>
             <el-option label="否" :value="0"></el-option> -->
             <el-option
@@ -99,12 +99,7 @@
           @currentChange="handleCurrentChange"
         ></pagination>
       </div>
-      <!-- <div class="print-modal" v-show="showPintModal" @click="closePrint">
-        <div class="init" v-show="!showProgress">
-          <img src="./images/print.png" alt="">
-          <p>正在初始化打印,请稍等…</p>
-        </div>
-      </div> -->
+
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <!-- :class="{'new-print-box--small': !['6*8', '70*80'].includes(newModalSize)}" -->
         <!-- {relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))},  -->
@@ -122,7 +117,7 @@
 }
 
 .head-con {
-  height: 42px;
+  min-height: 42px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -130,13 +125,17 @@
 
   h3 {
     font-size: 18px;
-    line-height: 42px;
+    line-height: 20px;
   }
 
   .label {
     font-size: 13px;
-    margin-left: 15px;
+    margin-left: 12px;
     margin-right: 5px;
+  }
+  >>> .el-tag {
+    height: 20px;
+    line-height: 20px;
   }
 }
 
@@ -198,17 +197,6 @@
   .break-page {
     page-break-after: always;
   }
-  // .relatop{
-  //   position relative;
-  //   // top:1cm;
-  //   margin-top: 1cm !important;
-  // }
-  // display: none;
-    //   position: absolute;
-    // left: 0;
-    // top: 50%;
-    // background: #fff;
-    // transform: translateY(-50%);
 }
 @media print {
   .new-print-box--small {
@@ -238,7 +226,7 @@ const initStartDate = () => {
 const initEndDate = () => {
   if (['whfk'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00'
   if (['fsxt'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 23:59:00'
-  if (['lyxrm'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 23:59:00'
+  if (['lyxrm'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 23:59:59'
   return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00'
 }
 export default {
@@ -275,7 +263,7 @@ export default {
         //医嘱类型，长期传1，临时传0，全部传9
         reprintFlag:['lyxrm'].includes(this.HOSPITAL_ID) ? 9 : 0,//是否重打，1=是，0=否
       },
-      lyxrmItemType:['全部'],
+      lyxrmItemType:['输液'],
       selectedData: [],//选中打印执行单条数
       printNum: 0,//已经打印执行单的条数
       Uuid: '',//打印流水号
