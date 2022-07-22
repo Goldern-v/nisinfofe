@@ -155,7 +155,7 @@
       ></el-date-picker>
     </div>
     </div>
-
+    <div v-if="!['foshanrenyi'].includes(HOSPITAL_ID)">
     <div class="search-box">
       <div class="title">病人信息</div>
       <div class="input-con">
@@ -164,14 +164,8 @@
       <div class="input-con" v-if="HOSPITAL_ID!='fuyou'">
         <el-input v-model="data.patientId" placeholder="请输入病人ID"></el-input>
       </div>
-        <div class="input-con" v-if="HOSPITAL_ID == 'foshanrenyi'">
-        <el-input v-model="data.patientId" placeholder="请输入住院号"></el-input>
-      </div>
       <div class="input-con">
         <el-input v-model="data.inpNo" placeholder="请输入住院号"></el-input>
-      </div>
-      <div class="input-con" v-if="HOSPITAL_ID == 'foshanrenyi'">
-        <el-input v-model="data.inpNo" placeholder="请输入记帐号"></el-input>
       </div>
       <div class="input-con">
         <el-input v-model="data.bedLabel" placeholder="请输入床号"></el-input>
@@ -179,6 +173,25 @@
       <div class="input-con" v-if="HOSPITAL_ID == 'zhongshanqi'">
         <el-input v-model="data.diagnosis" placeholder="请输入病种"></el-input>
       </div>
+    </div>
+    </div>
+    <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)">
+    <div class="search-box">
+      <div class="title">病人信息</div>
+      <div class="input-con">
+        <el-input v-model="data.name" placeholder="请输入病人姓名"></el-input>
+      </div>
+      <div class="input-con">
+        <el-input v-model="data.patientId" placeholder="请输入病人住院号"></el-input>
+      </div>
+      <div class="input-con">
+        <el-input v-model="data.inpNo" placeholder="请输入病人记账号"></el-input>
+      </div>
+      <div class="input-con">
+        <el-input v-model="data.bedLabel" placeholder="请输入床号"></el-input>
+      </div>
+    
+    </div>
     </div>
     <div class="search-btn" flex="cross:center main:center" @click="search" v-touch-ripple>检索</div>
     <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='2'&&['whfk'].includes(HOSPITAL_ID)" @click="synchWhFK" v-touch-ripple>同步出院患者</div>
