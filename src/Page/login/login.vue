@@ -596,7 +596,7 @@ export default {
           /** 验证证书 */
           window.openCaSignModal();
         } else if (["fuyou"].includes(this.HOSPITAL_ID)) {
-          window.openFuyouCaSignModal();
+          window.openFuyouCaSignModal(true);
         } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
           window.openHjCaSignModal();
         }

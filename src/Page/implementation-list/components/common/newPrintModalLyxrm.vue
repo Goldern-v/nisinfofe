@@ -19,16 +19,22 @@
         <span>{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
       </div>
       <div class="new-print-modal__second">
-        <div>
-          姓名:<span>{{ currentBottle.name }}</span>
+        <div class="flex">
+          <div>
+            姓名:<span>{{ currentBottle.name }}</span>
+          </div>
+          <div>
+            床号:<span>{{ currentBottle.bedLabel }}</span>
+          </div>
         </div>
-        <div>
-          床号:<span>{{ currentBottle.bedLabel }}</span>
+        <div class="flex">
+          <div>{{ `ID号:${currentBottle.patientId || ""}` }}</div>
+          <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
         </div>
-        <div>{{ `ID号:${currentBottle.patientId || ""}` }}</div>
-        <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
-        <div>{{ `科室:${currentBottle.deptName}` }}</div>
-        <div>{{ `年龄:${currentBottle.age}` }}</div>
+        <div class="flex">
+          <div>{{ `科室:${currentBottle.deptName}` }}</div>
+          <div>{{ `年龄:${currentBottle.age}` }}</div>
+        </div>
       </div>
 
       <div class="new-print-modal__content">
@@ -69,21 +75,26 @@
     <div
       v-else
       class="new-print-modal new-modal-small"
-      style="height:5cm;width:14cm;display:flex"
+      style="height:5cm;width:14cm;"
     >
+    <!-- display:flex -->
       <div class="new-modal-small-top">
         <div class="new-modal-small-top__left">
-          <div>
-            姓名: <span>{{ currentBottle.name }}</span>
+          <div class="flex">
+            <div>
+              姓名: <span>{{ currentBottle.name }}</span>
+            </div>
+            <div>
+              床号: <span>{{ currentBottle.bedLabel }}</span>
+            </div>
           </div>
-          <div>
-            床号: <span>{{ currentBottle.bedLabel }}</span>
-          </div>
-          <div>
-            途径: {{ currentBottle.administration }}
-          </div>
-          <div>
-            频率: {{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
+          <div class="flex">
+            <div>
+              途径: {{ currentBottle.administration }}
+            </div>
+            <div>
+              频率: {{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
+            </div>
           </div>
           <div>
             执行时间: {{currentBottle.executeDate.substr(0, 16)}}
@@ -127,6 +138,7 @@
     font-size: 14px;
     line-height: 18px;
     @extend .p-lr;
+    box-sizing: border-box;
   }
   .new-print-modal__title {
     display: flex;
@@ -139,35 +151,56 @@
   }
 
   .new-print-modal__second {
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
     flex-shrink: 0;
-    align-items: flex-end;
+    align-items: flex-end; */
+    height: 65px;
     @extend .bb;
+    .flex {
+      display: flex;
+      height: 18px;
+      div {
+        flex: 3;
+      }
+      div:last-child {
+        flex: 2;
+      }
+      >div>span {
+        font-size: 24px;
+        line-height: 24px;
+        display: inline-block;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+      &:first-child {
+        height: 28px;
+      }
+    }
     div {
       flex: 62%;
       text-indent: 3px;
     }
 
-    >div:nth-child(2n) {
+    /* >div:nth-child(2n) {
       flex: 38%;
       text-indent: 0px;
     }
     >div:nth-child(-n + 2) {
       line-height: 24px;
-    }
+    } */
     >div:nth-child(2)>span {
       font-size: 22px;
-      font-weight: 200;
-      text-shadow: 1px 0px #000,-1px 0px #000,0px 1px #000,0px -1px #000,;
+      font-weight: 900;
+      /* text-shadow: 1px 0px #000,-1px 0px #000,0px 1px #000,0px -1px #000,; */
     }
-    >div>span {
+    /* >div>span {
       font-size: 24px;
       line-height: 24px;
       display: inline-block;
       font-weight: 900;
       white-space: nowrap;
-    }
+    } */
   }
 
   .qc-box {
@@ -230,23 +263,28 @@
   }
 
   &.new-modal-small {
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
 		height: 100%;
     box-sizing: border-box;
     font-weight: 500;
+    padding-left: 8px;
     div,p,span {
       font-size: 22px;
       line-height: 25px;
     }
   }
   .new-modal-small-top {
-    display: flex;
+    /* display: flex; */
     border: 1px solid #000;
+    height: 98px;
+    box-sizing: border-box;
     .new-modal-small-top__left {
-      flex: 1;
-      display: flex;
-      flex-wrap: wrap;
+      display: inline-block;
+      width: calc(100% - 104px);
+      /* flex: 1; */
+      /* display: flex; */
+      /* flex-wrap: wrap; */
       /* align-items: flex-end; */
       overflow: hidden;
       div {
@@ -254,27 +292,41 @@
         height: 25px;
       }
 
-      >div:nth-child(2n) {
+      /* >div:nth-child(2n) {
         flex: 38%;
       }
       >div:last-child {
         flex: 100%;
         white-space: nowrap;
         height: 25px;
+      } */
+      /* >div:nth-child(-n + 2) {
+        line-height: 25px;
+        height: 42px;
+      } */
+      .flex:first-child{
+        line-height: 25px;
+        height: 42px;
+        >div>span {
+          font-weight: 700;
+          font-size: 38px;
+          line-height: 42px;
+          text-shadow: 1px 0px #000,-1px 0px #000,0px 1px #000,0px -1px #000,;
+          display: inline-block;
+        }
       }
-      >div:nth-child(-n + 2) {
-      line-height: 25px;
-      height: 42px;
-    }
-      >div>span {
-        font-weight: 700;
-        font-size: 38px;
-        line-height: 42px;
-        text-shadow: 1px 0px #000,-1px 0px #000,0px 1px #000,0px -1px #000,;
-        display: inline-block;
+      .flex {
+        display: flex;
+        div {
+          flex: 3;
+        }
+        div:last-child {
+          flex: 2;
+        }
       }
     }
     .new-modal-small-top__right {
+      display: inline-block;
       width: 88px;
       padding: 2px 2px 0px 0px;
       img {
