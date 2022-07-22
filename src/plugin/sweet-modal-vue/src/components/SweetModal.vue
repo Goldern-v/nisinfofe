@@ -363,14 +363,46 @@ export default {
      * Close the dialog
      * Emits an event 'close'
      */
-    close() {
-      if (this.closeCallback) {
-        this.closeCallback();
+    close(fuyouIfclose) {
+      console.log(fuyouIfclose,JSON.parse(localStorage.user).empNo,"fuyouIfclose")
+      if(this.HOSPITAL_ID=="fuyou"){
+        if(JSON.parse(localStorage.user).empNo!="admin"){
+          if(fuyouIfclose===true){
+            if (this.closeCallback) {
+              this.closeCallback();
+            }
+            this.visible = false;
+            this._unlockBody();
+            setTimeout(() => (this.is_open = false), 300);
+            this.$emit("close");
+          }
+        }else{
+           if (this.closeCallback) {
+              this.closeCallback();
+            }
+            this.visible = false;
+            this._unlockBody();
+            setTimeout(() => (this.is_open = false), 300);
+            this.$emit("close");
+        }
+      }else{
+         if (this.closeCallback) {
+              this.closeCallback();
+            }
+            this.visible = false;
+            this._unlockBody();
+            setTimeout(() => (this.is_open = false), 300);
+            this.$emit("close");
       }
-      this.visible = false;
-      this._unlockBody();
-      setTimeout(() => (this.is_open = false), 300);
-      this.$emit("close");
+      // if(((JSON.parse(localStorage.user).empNo!="admin" || fuyouIfclose===true) && this.HOSPITAL_ID=="fuyou") || this.HOSPITAL_ID!="fuyou"){
+      //   if (this.closeCallback) {
+      //     this.closeCallback();
+      //   }
+      //   this.visible = false;
+      //   this._unlockBody();
+      //   setTimeout(() => (this.is_open = false), 300);
+      //   this.$emit("close");
+      // }
     },
     /**
      * Close the dialog width callback func.
