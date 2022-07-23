@@ -957,6 +957,7 @@ export default {
           break;
         case "压疮高风险":
         case "压力性损伤高风险":
+        case "跌倒压力性损伤高风险":
         case "压疮风险":
           {
             this.$parent.bedList = this.dangerInYachuang;
@@ -964,6 +965,7 @@ export default {
           break;
         case "难免压疮":
         case "已有压力性损伤":
+        case "已有压力性损伤风险":
         case "已有压疮":
           {
             this.$parent.bedList = this.hasYachuang;

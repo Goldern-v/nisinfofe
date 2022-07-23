@@ -84,11 +84,11 @@ export default {
           length: this.dangerInMorse.length
         },
         {
-          key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" ? "压力性损伤高风险" : "压疮高风险",
+          key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" ? "压力性损伤高风险" : this.HOSPITAL_ID=="lyxrm" ?"跌倒压力性损伤高风险":"压疮高风险",
           length: this.dangerInYachuang.length
         },
         {
-          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" ?"已有压力性损伤": "已有压疮",
+          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" ?"已有压力性损伤": this.HOSPITAL_ID=="lyxrm" ?"已有压力性损伤风险" : "已有压疮",
           length: this.hasYachuang.length
         },
         {
