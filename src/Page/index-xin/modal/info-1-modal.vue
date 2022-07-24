@@ -126,6 +126,14 @@ export default {
           formCode: this.data.expand
         })}`;
       }
+      if (this.HOSPITAL_ID === 'lyxrm') {
+        url = `/crNursing/temperature?${qs.stringify({
+          patientId: this.data.patientId,
+          visitId: this.data.visitId,
+          formId: this.data.formId,
+          formCode: this.data.expand
+        })}`;
+      }
       window.open(url, "_blank");
       this.close();
     }
