@@ -95,6 +95,7 @@ import temperatureFSSY from "@/Page/patientInfo/supPage/temperature/temperature-
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue"; //血糖
+import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; //血糖
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj.vue"; //血糖
 import bloodOxygen  from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
@@ -144,6 +145,8 @@ export default {
       switch (process.env.HOSPITAL_ID) {
         case "beihairenyi":
           return bloodSugarBhry;
+        case "fsxt":
+          return bloodSugarFsxt
         case "sdlj":
           if(this.isBloodSugarSdlj){
             return bloodSugarSdlj
@@ -211,6 +214,7 @@ export default {
     sheet,
     bloodSugar,
     bloodSugarBhry,
+    bloodSugarFsxt,
     bloodSugarSdlj,
     bloodOxygen,
     temperature,

@@ -219,8 +219,8 @@ const initStartDate = () => {
 }
 const initEndDate = () => {
   if (['whfk'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00'
-  if (['fsxt'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 23:59:00'
-  if (['lyxrm'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 23:59:59'
+  if (['fsxt'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime() ).format("YYYY-MM-DD")+' 23:59:00'
+  if (['lyxrm'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()).format("YYYY-MM-DD")+' 23:59:59'
   return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00'
 }
 export default {

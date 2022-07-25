@@ -552,11 +552,11 @@
     </div>
      <!-- 顺德龙江 - 护理记录单（显微外科））-->
     <div v-if="sheetInfo.sheetType == 'microsurgical_sdlj'">
-      <p> <span style="margin-right:150px">书写说明：①伤口疼痛：0级（无痛）、Ⅰ级（轻度）、Ⅱ级（中度）、Ⅲ级（重度）</span><span>②伤口敷料：A、干洁　B、少量渗血/渗液　C、中量渗血/渗液　D、大量渗血/渗液</span></p>
-      <p style="margin-left:65px"><span style="margin-right:331px">③石膏固定：A、正常　B、过紧　C、过松</span>④皮瓣固定带：A、正常　B、过紧　C、过松</p>
-      <p style="margin-left:65px">⑤功能锻炼：A、踝泵运动　B、股四头肌等长收缩运动 C、直腿抬高运动　D、抬臂运动　E、患指关节主动运动　F、患指关节被动运动　G、肩、肘、腕关节锻炼</p>
-      <p style="margin-left:65px"><span style="margin-right:211px">⑥颜色：A、红润   B、苍白  C、微紫  D、暗红  E、紫绀  F、花斑</span>⑦皮温：A、正常　B、偏低　 C、偏高</p>
-      <p style="margin-left:65px"><span style="margin-right:330px">⑧肿胀：A、无   B、Ⅰ度  C、Ⅱ度  D、Ⅲ度</span>⑨感觉：A、无　　B、麻痹　 C、消失</p>
+      <p> <span style="margin-right:91px">书写说明：①伤口敷料：A、干洁　B、少量渗血/渗液　C、中量渗血/渗液　D、大量渗血/渗液</span><span>②石膏固定：A、正常　B、过紧　C、过松</span></p>
+      <p style="margin-left:65px">③皮瓣固定带：A、正常　B、过紧　C、过松</p>
+      <p style="margin-left:65px">④功能锻炼：A、踝泵运动　B、股四头肌等长收缩运动 C、直腿抬高运动　D、抬臂运动　E、患指关节主动运动　F、患指关节被动运动　G、肩、肘、腕关节锻炼</p>
+      <p style="margin-left:65px"><span style="margin-right:211px">⑤颜色：A、红润   B、苍白  C、微紫  D、暗红  E、紫绀  F、花斑</span>⑥皮温：A、正常　B、偏低　 C、偏高</p>
+      <p style="margin-left:65px"><span style="margin-right:333px">⑦肿胀：A、无   B、Ⅰ度  C、Ⅱ度  D、Ⅲ度</span>⑧感觉：A、无　　B、麻痹　 C、消失</p>
     </div>
     <!-- 顺德龙江 - 护理记录单（神经内科）-->
     <div v-if="sheetInfo.sheetType == 'neurology_sdlj'">

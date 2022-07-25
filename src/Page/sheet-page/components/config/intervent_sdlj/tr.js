@@ -1,5 +1,5 @@
 
-/** 
+/**
   顺德龙江 - 护理记录单（颅脑外科）
 */
 
@@ -53,8 +53,8 @@ export default [
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'outputAmount2', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'nausea', event: keyf1, value: '', next: '', name: '恶心/呕吐', textarea: { width: 30 },autoComplete: { data: ['无','√','间有'] }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'dizzy', event: keyf1, value: '', next: '', name: '头晕', textarea: { width: 30 }, autoComplete: { data: ['0','1','2','3','4','5','6','7','8','9','10'] }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'nausea', event: keyf1, value: '', next: '', name: '恶心/呕吐', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
+  { key: 'dizzy', event: keyf1, value: '', next: '', name: '头晕', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
   { key: 'monitoring', event: keyf1, value: '', next: '', name: '心电监护', textarea: { width: 30 },autoComplete: { data: ['√','停'] },  change: (e, td) => limitChange(e, td, 2) },
   { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'upperLeft', event: keyf1, value: '', next: '', name: '上肢左', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
@@ -92,5 +92,5 @@ export default [
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''}
-  
+
 ]

@@ -509,7 +509,6 @@ export default {
           this.listData,
           item => item && this.listData[nowX] && item.recordDate == this.listData[nowX].recordDate
         )
-        console.log('lastIndex', lastIndex)
         return lastIndex != -1 && nowX !== lastIndex
       } else {
         return false
@@ -1074,7 +1073,11 @@ export default {
               });
               this.pageLoading = false;
             })
-            .catch(() => {
+            .catch((err) => {
+              // console.log('sssssssssss', err)
+              if (err.data.code == '300') {
+                this.getSheetData()
+              }
               this.pageLoading = false;
             });
         };
