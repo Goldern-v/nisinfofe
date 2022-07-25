@@ -59,10 +59,7 @@
           <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
           <span class="label" v-if="hasNewPrintHos.includes(HOSPITAL_ID)">瓶签大小:</span>
           <el-select v-if="hasNewPrintHos.includes(HOSPITAL_ID)" v-model="newModalSize" placeholder="请选择" size="small" style="width:80px;margin-right: 10px;">
-            <el-option v-if="['lyxrm'].includes(HOSPITAL_ID)" label="70*80" :value="'70*80'"></el-option>
-            <el-option v-else label="6*8" :value="'6*8'"></el-option>
-            <el-option v-if="['lyxrm'].includes(HOSPITAL_ID)" label="3*7" :value="'3*7'"></el-option>
-            <el-option v-else label="3*5" :value="'3*5'"></el-option>
+            <el-option v-for="(v) in sizeList" :key="v" :label="v" :value="v"></el-option>
           </el-select>
           <span class="label">重打标志:</span>
           <el-select v-model="query.reprintFlag" placeholder="请选择" size="small" style="width:80px;">
@@ -79,15 +76,12 @@
           <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
           <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj', 'gdtj', 'fsxt','whfk'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
           <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt','whfk'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
-          <el-button size="small" @click="creatImplement">生成执行</el-button>
-          <!-- <a href="VMS://abcdefg" @click="onPrint" >1</a> -->
-          <el-button size="small" v-if="HOSPITAL_ID == 'whfk'" @click="syncData">同步医嘱</el-button>
-          <el-button size="small" v-else-if="HOSPITAL_ID == 'sdlj'" @click="syncData">同步医嘱</el-button>
-          <el-button size="small" v-else-if="HOSPITAL_ID == 'lyxrm'" @click="syncData">同步医嘱</el-button>
+          <el-button size="small" @click="createImplement">生成执行</el-button>
+          <el-button size="small" v-if="['whfk','sdlj','lyxrm'].includes(HOSPITAL_ID)" @click="syncData">同步医嘱</el-button>
           <el-button size="small" v-else @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
         </div>
       </div>
-      <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
+      <dTable :pageLoadng="pageLoading" ref="plTable"></dTable>
       <modal v-if="isShowModal" :src="src" @changeModal="changeModal"/>
       <div class="pagination-con" flex="main:justify cross:center">
         <pagination
@@ -102,7 +96,6 @@
 
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <!-- :class="{'new-print-box--small': !['6*8', '70*80'].includes(newModalSize)}" -->
-        <!-- {relatop:(printObj.length>=2&&newModalSize=='3*7')&&((bottleCardIndex+1)%2==1&&((bottleCardIndex+1)<printObj.length)||((bottleCardIndex+1)%2==0))},  -->
         <div :class="[{'break-page': ['lyxrm'].includes(HOSPITAL_ID) && bottleCardIndex % 3 == 2 && newModalSize=='3*7'}]"
           v-for="(itemBottleCard,bottleCardIndex) in printObj" :key="bottleCardIndex">
           <component :is="newPrintCom" :newModalSize="newModalSize" :itemObj='itemBottleCard' />
@@ -214,6 +207,7 @@ import NewPrintModal from "./components/common/newPrintModal"
 import NewPrintModalSdlj from "./components/common/newPrintModalSdlj"
 import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm"
 import NewPrintModalWhfk from "./components/common/newPrintModalWhfk"
+import NewPrintModalWujing from "./components/common/newPrintModalWujing"
 import printing from 'printing'
 import { patEmrList } from "@/api/document";
 import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2, getPatientOrder,getSDLJPatientOrder, syncNurseOrdersByWardCode } from "./api/index";
@@ -235,8 +229,9 @@ export default {
     return {
       src:"",
       pageInput: "",
-      pageLoadng: false,
-      ifCanTongbu:true,
+      pageLoading: false,
+      // 是否能同步
+      ifCanSync:true,
       page: {
         pageIndex: 1,
         // pageNum: 20,
@@ -267,7 +262,7 @@ export default {
       selectedData: [],//选中打印执行单条数
       printNum: 0,//已经打印执行单的条数
       Uuid: '',//打印流水号
-      printStatusTimmer: null,
+      printStatusTimer: null,
       printStatusReq: null,
       printStatusMsg: '',
       showCancelPrint: false,
@@ -292,14 +287,16 @@ export default {
     };
   },
   mounted() {
-    if (['lyxrm'].includes(this.HOSPITAL_ID))
-      this.newModalSize = '70*80'
+    // if (['lyxrm'].includes(this.HOSPITAL_ID))
+    //   this.newModalSize = '70*80'
+    // if
+    this.newModalSize = this.sizeList[0]
   },
   beforeDestroy(){
     this.cleanPrintStatusRoundTime()
   },
   methods: {
-    creatImplement(){
+    createImplement(){
       if (!this.deptCode) return;
       webSplitOrder({wardCode:this.deptCode}).then(res=>{
         if(res.data && res.data.code) return this.$message.success(res.data.desc)
@@ -320,9 +317,9 @@ export default {
       }
     },
     syncData() {
-      if (!this.deptCode || !this.ifCanTongbu) return;
-      this.ifCanTongbu = false
-      this.pageLoadng = true;
+      if (!this.deptCode || !this.ifCanSync) return;
+      this.ifCanSync = false
+      this.pageLoading = true;
       let getOrder;
       if(['sdlj'].includes(this.HOSPITAL_ID)){
         getOrder=getSDLJPatientOrder
@@ -335,7 +332,7 @@ export default {
       this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
       getOrder(this.query).then(res => {
-        this.ifCanTongbu=true
+        this.ifCanSync=true
         this.search()
         // let tableData = res.data.data.map((item, index, array) => {
         //   let prevRowId =
@@ -411,16 +408,16 @@ export default {
         //     this.$refs.plTable.$children[0].reloadData(tableData); // 默认取第一页的数据
         //   }
         // }
-        // this.pageLoadng = false;
+        // this.pageLoading = false;
       },err=>{
-        this.ifCanTongbu=true
-        this.pageLoadng = false;
+        this.ifCanSync=true
+        this.pageLoading = false;
 
       });
     },
     onLoad() {
       if (!this.deptCode) return;
-      this.pageLoadng = true;
+      this.pageLoading = true;
       this.query.wardCode = this.deptCode;
       this.query.startDate = moment(this.startDate).format('YYYY-MM-DD HH:mm:ss')
       this.query.endDate = moment(this.endDate).format('YYYY-MM-DD HH:mm:ss')
@@ -471,9 +468,9 @@ export default {
           let pageIndex = 0
           let pageNum = 0
           let pagedTable = []
-          let pagetotal = 0
+          let pageTotal = 0
           // 前端分页处理,卑微前端找不到后端配合出接口,后续如果有出可以优化下
-          pagetotal = tableData.reduce((total,currentItem,currentIndex)=>{
+          pageTotal = tableData.reduce((total,currentItem,currentIndex)=>{
             if(pageIndex<40){ // 不超过40条时纳入本页
               pageIndex++ // 自增防止死循环
               pagedTable[pageNum] =  pagedTable[pageNum] || [] // 对当前页的数据进行数组初始化
@@ -491,14 +488,14 @@ export default {
             // 计算总条目数(判断barcode是否是第一次出现)
             return tableData.findIndex(item=>`${item.barcode}_${item.executeDateTime}` === `${currentItem.barcode}_${currentItem.executeDateTime}`) === currentIndex ? ++total : total
           },0)
-          pagetotal = this.page.pageNum * pagedTable.length
+          pageTotal = this.page.pageNum * pagedTable.length
           this.pagedTable = pagedTable
           // 设置表格数据
           if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
             this.$refs.plTable.$children[0].reloadData(this.pagedTable[0]||[]); // 默认取第一页的数据
           }
           // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum; // 原计算总条数的方式
-          this.$set(this.page,'total',pagetotal)
+          this.$set(this.page,'total',pageTotal)
         }else{
           this.$set(this.page,'pageNum',tableData.length)
           this.$set(this.page,'total',tableData.length)
@@ -506,7 +503,7 @@ export default {
             this.$refs.plTable.$children[0].reloadData(tableData); // 默认取第一页的数据
           }
         }
-        this.pageLoadng = false;
+        this.pageLoading = false;
       });
     },
     search() {
@@ -527,8 +524,8 @@ export default {
 
       let url = '';
       this.selectedData.map((item,index) => {
-        let targettIndex = this.selectedData.findIndex(e=>e.orderNo==item.orderNo)
-        if(targettIndex==index){
+        let targetIndex = this.selectedData.findIndex(e=>e.orderNo==item.orderNo)
+        if(targetIndex==index){
           console.log(`${item.patientId}|${item.visitId}|${item.orderNo};`);
           url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
         }
@@ -583,7 +580,7 @@ export default {
               ${(this.newModalSize == '3*7' && ['lyxrm'].includes(this.HOSPITAL_ID)) ? 'margin: 0 1mm 0 0;': 'margin: 0 0;'}
             }
             body{
-              ${this.newModalSize=='6*8' || this.newModalSize == '70*80' || this.HOSPITAL_ID=='whfk'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
+              ${this.normalSize || this.HOSPITAL_ID=='whfk'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
             }
             .break-page {
               page-break-after: always;
@@ -603,8 +600,8 @@ export default {
       await this.newOnPrint()
     },
     cleanPrintStatusRoundTime(){
-      if(this.printStatusTimmer){
-        clearTimeout(this.printStatusTimmer)
+      if(this.printStatusTimer){
+        clearTimeout(this.printStatusTimer)
       }
 
       if(this.printStatusReq){
@@ -618,7 +615,7 @@ export default {
     //   this.showProgress = true;
     //   this.cleanPrintStatusRoundTime()
 
-    //   this.printStatusTimmer = setTimeout(()=>{
+    //   this.printStatusTimer = setTimeout(()=>{
     //     this.printStatusReq = handleWebGetPrintResult(this.Uuid)
     //     .then(res => {
     //       const {data,code,desc} = res.data
@@ -687,9 +684,26 @@ export default {
           return 'NewPrintModalLyxrm'
         case 'whfk':
           return 'NewPrintModalWhfk'
+        case 'wujing':
+          return 'NewPrintModalWujing'
         default:
           return 'NewPrintModal'
       }
+    },
+    // 瓶签大小列表
+    sizeList() {
+      switch(this.HOSPITAL_ID) {
+        case 'lyxrm':
+          return ['70*80', '3*7']
+        case 'wujing':
+          return ['5*8', '3*5']
+        default:
+          return ['6*8', '3*5']
+      }
+    },
+    // 打印不需要缩小的尺寸
+    normalSize() {
+      return ['70*80','6*8', '5*8'].includes(this.newModalSize)
     }
   },
   watch: {
@@ -717,6 +731,7 @@ export default {
     NewPrintModalSdlj,
     NewPrintModalLyxrm,
     NewPrintModalWhfk,
+    NewPrintModalWujing,
   }
 };
 </script>

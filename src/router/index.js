@@ -1114,6 +1114,11 @@ const router = new Router({
           },
         ]:[]
       },
+      // {
+      //   path: '/implementationListNew',
+      //   component: () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue"), // 新版临邑执行单,
+      //   name: 'implementationListNew'
+      // },
       {
         path: "/bottleLabel",
         component: bottleLabel,
