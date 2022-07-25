@@ -1,5 +1,5 @@
 
-/** 
+/**
   顺德龙江 - 护理记录单（颅脑外科）
 */
 
@@ -49,9 +49,9 @@ export default [
   { key: 'outputAmount', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'outputContent2', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'outputAmount2', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'nausea', event: keyf1, value: '', next: '', name: '恶心/呕吐', textarea: { width: 30 },autoComplete: { data: ['无','√','间有'] }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'nausea', event: keyf1, value: '', next: '', name: '恶心/呕吐', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
   // { key: 'vomiting', event: keyf1, value: '', next: '', name: '呕吐', textarea: { width: 30 }, autoComplete: { data: ['无','√','间有'] }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'dizzy', event: keyf1, value: '', next: '', name: '头晕', textarea: { width: 30 }, autoComplete: { data: ['0','1','2','3','4','5','6','7','8','9','10'] }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'dizzy', event: keyf1, value: '', next: '', name: '头晕', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
   // { key: 'headache', event: keyf1, value: '', next: '', name: '头痛', textarea: { width: 30 }, autoComplete: { data: ['0','1','2','3','4','5','6','7','8','9','10'] }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'monitoring', event: keyf1, value: '', next: '', name: '心电监护', textarea: { width: 30 },autoComplete: { data: ['√','停'] },  change: (e, td) => limitChange(e, td, 2) },
   { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
@@ -59,11 +59,18 @@ export default [
   { key: 'upperRight', event: keyf1, value: '', next: '', name: '上肢右', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'lowerLeft', event: keyf1, value: '', next: '', name: '下肢左', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'lowerRight', event: keyf1, value: '', next: '', name: '下肢右', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'dressing', event: keyf1, value: '', next: '', name: '头部伤口敷料', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'ache', event: keyf1, value: '', next: '', name: '疼痛', textarea: { width: 30 },autoComplete: { data: ['0','1','2','3','4','5','6','7','8','9','10'] }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'urineTube', event: keyf1, value: '', next: '', name: '留置尿管', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
-  { key: 'urineColor', event: keyf1, value: '', next: '', name: '尿色', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
+
+  // { key: 'dressing', event: keyf1, value: '', next: '', name: '头部伤口敷料', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'ache', event: keyf1, value: '', next: '', name: '疼痛', textarea: { width: 30 },autoComplete: { data: ['0','1','2','3','4','5','6','7','8','9','10'] }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'urineTube', event: keyf1, value: '', next: '', name: '留置尿管', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'urineColor', event: keyf1, value: '', next: '', name: '尿色', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'dressing', event: keyf1, value: '', next: '', name: '', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'ache', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'urineTube', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 2) },
+  // { key: 'urineColor', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 2) },
+
   // { key: 'raise', event: keyf1, value: '', next: '', name: '抬高床头15度', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
+
   { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
@@ -91,5 +98,5 @@ export default [
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''}
-  
+
 ]
