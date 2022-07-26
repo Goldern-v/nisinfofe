@@ -944,10 +944,10 @@ export default {
       /* 不知道贵州切换副页的问题是不是这个影响的，以后有机会可以删除 侦听watch $route.path这个试试*/
        this.$store.commit("upPatientInfo", {});
     }
-    // 下拉  以前替换了病人栏，这个应该是多余请求。
-    // if (this.deptCode) {
-    //   this.getDate();
-    // }
+    // 这个貌似是个别表单用来拿婴儿的床号。不要注释
+    if (this.deptCode) {
+      this.getDate();
+    }
     this.bus.$on("addSheetPage", () => {
       if (!this.sheetInfo.selectBlock.id) {
         return this.$notify.info({
@@ -1324,7 +1324,7 @@ export default {
         // this.getDate();
         this.breforeQuit(() => {
           cleanData();
-          // this.getDate();
+          this.getDate();
         });
         // 解锁
         this.destroyUnlock()
