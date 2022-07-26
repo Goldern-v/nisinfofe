@@ -517,6 +517,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <!-- <el-dropdown-item>
+                  <router-link to="/implementationListNew" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="catheterPage"></i>执行记录
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item> -->
 
                 <!-- <el-dropdown-item>
                   <router-link to="/dcList" tag="span">

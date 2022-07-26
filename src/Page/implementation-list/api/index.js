@@ -70,6 +70,15 @@ export function getExecuteWithWardcode(obj) {
     obj
   );
 }
+// 获取执行单 by临邑
+export function getExecuteWithWardCodeLyxrm(obj) {
+  // 聊城新版执行单通过执行时间段获取（）
+  return axios.post(
+    `${apiPath}hisLiaoChengExecute/getOrdersExecuteWithWardCodeNew`,
+    obj
+  );
+}
+
 
 // 补录（陵城）
 export function addRecord(obj) {

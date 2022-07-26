@@ -17,12 +17,13 @@
         @openSettingModal="openSettingModal"
       >></searchCon>
       <div class="list-con">
-        <span @click="getDetail(item)" v-for="(item,index) in filterData" :key="index" v-if="HOSPITAL_ID=='hengli'||HOSPITAL_ID=='wujing'">
-          <infuse-item :data="item"></infuse-item>
-        </span>
-        <span v-for="(item,index) in filterData" :key="index" v-else>
-          <infuse-item :data="item"></infuse-item>
-        </span>
+        <!-- <template v-if="HOSPITAL_ID=='hengli'||HOSPITAL_ID=='wujing'"> -->
+          <span @click="getDetail(item)" v-for="(item,index) in filterData" :key="index">
+            <infuse-item :data="item"></infuse-item>
+          </span>
+          <!-- <span v-for="(item,index) in filterData" :key="index" v-else>
+            <infuse-item :data="item"></infuse-item>
+          </span> -->
         <null-bg v-show="filterData.length == 0" text="暂时没有输液数据～"></null-bg>
       </div>
     </div>
@@ -195,6 +196,7 @@ export default {
       }
     },
     getDetail(data) {
+      if(!['hengli','wujing'].this.HOSPITAL_ID) return 
       this.pageLoading = true;
       let barCode = data.barCode;
       if(this.HOSPITAL_ID=='hengli'||this.HOSPITAL_ID=='wujing'){
@@ -247,7 +249,7 @@ export default {
       clearInterval(this.timer);
       this.getWarningValue();
       this.getInfuseList();
-    }
+    },
   },
   created() {
     this.getWarningValue();

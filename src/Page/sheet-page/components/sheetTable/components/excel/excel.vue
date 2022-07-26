@@ -1657,11 +1657,11 @@ export default {
         return item.key == "status";
       }).value;
       const sign = trArr.find(item => item.key == 'auditorNo').value
-        console.log("koaosdad",status)
+        // console.log("koaosdad",status)
       let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
-        console.log("koaosdad",auditorName)
+        // console.log("koaosdad",auditorName)
       if (status == "2" && sign) {
         if (this.HOSPITAL_ID == "foshanrenyi") {
           return  `<img
