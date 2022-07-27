@@ -597,10 +597,9 @@ export default {
           this.listData,
           item => item && this.listData[nowX] && item.recordDate == this.listData[nowX].recordDate
         )
-        console.log('lastIndex', lastIndex)
         return lastIndex != -1 && nowX !== lastIndex
       } else {
-        return true
+        return false
       }
     },
     isDisabed(tr, td, x, y, bodyModel,nowX) {

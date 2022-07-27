@@ -5,9 +5,9 @@
 
 /**
  * @description: 开发注意事项:
-    1、自定义表头 canSet: true, key: "armValue4"            
+    1、自定义表头 canSet: true, key: "armValue4"
     2、表格头部年份显示 {"name":'',"style":{},"colspan":"2","rowspan":"1","key":'recordYear'},
-    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, }, 
+    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, },
 */
 
 export default {
@@ -17,7 +17,7 @@ export default {
       width: "1250px"
     },
     th: {
-        top: 
+        top:
             [
                 {"name":"日期","colspan":"1","rowspan":"3"},
                 {"name":"时间","colspan":"1","rowspan":"3"},
@@ -32,9 +32,11 @@ export default {
                 {"name":"伤口<br/>疼痛","colspan":"1","rowspan":"3"},
                 {"name":"伤口<br/>敷料","colspan":"1","rowspan":"3"},
                 {"name":"石膏<br/>固定","colspan":"1","rowspan":"3"},
-                {"name":"皮瓣<br/>固定","colspan":"1","rowspan":"3"},
+                // {"name":"皮瓣<br/>固定","colspan":"1","rowspan":"3"},
+
                 {"name":"功能<br/>锻炼","colspan":"1","rowspan":"3"},
                 {"name":"患肢<br/>情况","colspan":"4","rowspan":"1"},
+                {"name":"","colspan":"1","rowspan":"3", "canSet":true,"key":"flapFixed","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue2","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue3","style":{"minWidth":"35px","maxWidth":"35px"}},
@@ -43,7 +45,7 @@ export default {
                 {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
             ]
         ,
-        mid: 
+        mid:
             [
                 {"name":"内容","colspan":"1","rowspan":"2"},
                 {"name":"量<br/>ml","colspan":"1","rowspan":"2"},
@@ -55,9 +57,9 @@ export default {
                 {"name":"感觉","colspan":"1","rowspan":"2"},
             ]
         ,
-        bottom: 
+        bottom:
             [
             ]
         ,
     }
-}  
+}

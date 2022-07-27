@@ -5,7 +5,8 @@ import {
 import {
   getRowNum
 } from "../utils/sheetRow";
-const EMPTY_FLAG = 'empty'
+// const EMPTY_FLAG = 'empty'
+const EMPTY_FLAG = ''
 /**
  *  返回表格数据
  * @param {*} data

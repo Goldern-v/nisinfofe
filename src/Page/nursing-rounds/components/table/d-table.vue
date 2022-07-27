@@ -51,7 +51,11 @@
         min-width="80px"
         v-if="isNursingRoundsAuthority"
       >
-        <template slot-scope="scope">
+        <template slot-scope="scope" v-if="['lyxrm'].includes(HOSPITAL_ID)">
+          <el-button @click="openViewModal(scope.row,true)" type="text" :disabled="scope.row.operator!=empName">编辑</el-button>
+          <el-button @click="deleteData(scope.row)" type="text" v-if="isRoleManage">删除</el-button>
+        </template>
+        <template slot-scope="scope" v-else>
           <span
             :class="scope.row.num == '0' ? 'no-special' : 'btn-text'"
             @click="scope.row.num == '0' ? () => {} : openViewModal(scope.row)"
@@ -161,8 +165,8 @@ export default {
     }
   },
   methods: {
-    openViewModal(data) {
-      this.$refs.nursingRoundsModal.open(data);
+    openViewModal(data,flag=false) {
+      this.$refs.nursingRoundsModal.open(data,flag);
     },
     deleteData(data) {
       this.form = {

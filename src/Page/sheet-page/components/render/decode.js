@@ -22,7 +22,7 @@ function decode(ayncVisitedData) {
       }
     })
   })
-  
+
   let allData = [];
   for (let pageIndex = 0; pageIndex < data.length; pageIndex++) {
     let bodyModel = data[pageIndex].bodyModel;
@@ -90,7 +90,8 @@ function decode(ayncVisitedData) {
     process.env.HOSPITAL_ID == "guizhou" ||
     process.env.HOSPITAL_ID == "fsxt" ||
     process.env.HOSPITAL_ID == "xiegang" ||
-    process.env.HOSPITAL_ID == "lyxrm"
+    process.env.HOSPITAL_ID == "lyxrm" ||
+    process.env.HOSPITAL_ID == "foshanrenyi"
   ) {
     auditorMapData.auditorMap = sheetInfo.auditorMap;
   }
@@ -103,7 +104,7 @@ function decode(ayncVisitedData) {
       !firstRecord.recordHour && (firstRecord.recordHour = hour)
     }
   }
-  
+
   return {
     list: allData,
     relObj: renderRelObj(sheetInfo.relObj),

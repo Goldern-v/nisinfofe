@@ -42,6 +42,14 @@
         >
           尾周
         </button>
+        <el-button-group :style="rightButton()">
+          <el-button type="primary" @click="syncInAndOutHospital((type = '0'))"
+            >同步入院</el-button
+          >
+          <el-button type="primary" @click="syncInAndOutHospital((type = '1'))"
+            >同步出院</el-button
+          >
+        </el-button-group>
       </div>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
@@ -153,6 +161,12 @@ export default {
     //将体温单上的时间传过来，再监听到录入组件，获取录入记录
     getDataFromPage(dateTime) {
       this.bus.$emit("getDataFromPage", dateTime);
+    },
+    rightButton() {
+      return {
+        position: "relative",
+        left: this.rightSheet === false ? "18%" : "4%",
+      };
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");

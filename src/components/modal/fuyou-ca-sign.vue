@@ -132,6 +132,7 @@ export default {
   },
   methods: {
     open(callback,isStart) {
+      console.log("isStart",isStart)
       this.$refs.modal.open();
       this.callback = callback;
       this.password = "";
@@ -139,11 +140,11 @@ export default {
       this.bus.$emit("updateFuyouCaData");
       (isStart) && (this.getAuthorizeApi());//执行ca验证
     },
-    close() {
+    close(fuyouIfclose) {
+      console.log("test--1")
       this.clearIntervalItem();
-      this.$refs.modal.close();
+      this.$refs.modal.close(fuyouIfclose)
       this.bus.$emit("updateFuyouCaData")
-      
     },
     //启动倒数定时器
     startSetIntervalItem(){
@@ -282,11 +283,12 @@ export default {
               clearInterval(this.setIntervalItem)
               this.setIntervalItem=null;
               this.authoState='0'
-              this.close()
+              this.close(true)
             }, 1000);
           }
       }).catch(error=>{
         console.log(error);
+        this.close(true)
         if(error.code!=200){
          this.$message({
             type: "info",

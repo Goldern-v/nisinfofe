@@ -41,7 +41,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '50px',
+          minWidth: '60px',
         },
       },
       {
@@ -51,7 +51,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '50px',
+          minWidth: '60px',
         },
       },
       {
@@ -61,7 +61,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '35px',
+          minWidth: '42px',
         },
       },
       {
@@ -71,7 +71,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '32px',
+          minWidth: '42px',
         },
       },
       {
@@ -81,7 +81,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '32px',
+          minWidth: '42px',
         },
       },
       {
@@ -91,7 +91,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '32px',
+          minWidth: '42px',
         },
       },
       {
@@ -101,7 +101,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '32px',
+          minWidth: '42px',
         },
       },
       {
@@ -111,7 +111,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '32px',
+          minWidth: '42px',
         },
       },
       {
@@ -121,7 +121,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '45px',
+          minWidth: '55px',
         },
       },
       {
@@ -131,7 +131,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '250px',
+          minWidth: '130px',
         },
       },
       {
@@ -202,7 +202,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '150px'
+          minWidth: '180px'
         },
       },
       {

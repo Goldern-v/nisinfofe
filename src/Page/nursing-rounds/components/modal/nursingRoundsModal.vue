@@ -13,6 +13,7 @@
           :clearable="false"
           type="datetime"
           placeholder="选择日期时间"
+          :disabled="isDisabled"
         />
       </ElFormItem>
       <ElFormItem label="巡视内容：" required>
@@ -74,6 +75,7 @@ export default {
         operateDateNew: new Date(),
         visitContentNew: ""
       },
+      isDisabled:false,
       loading: false,
       onOkCallBack: null
     };
@@ -81,26 +83,36 @@ export default {
   computed: {},
   methods: {
     // 打开弹窗
-    open(data) {
+    open(data,flag=false) {
       // 获取回显数据
       this.form = {
         empNo:this.empNo, // --工号
         empName:this.empName, //--护士姓名
         serialNo: data.serialNo,
-        operateDate:moment(data.operateDate).format("YYYY-MM-DD HH:mm:ss") || new Date(),//  --巡视日期
+        operateDate: moment(data.operateDate).format("YYYY-MM-DD HH:mm:ss") || new Date(),//  --巡视日期
         operateDateNew: moment(data.operateDate).format("YYYY-MM-DD HH:mm:ss") || new Date(),//  --巡视新日期
         visitContent:data.visitContent, //--巡视内容
         visitContentNew: data.visitContent,// --巡视新内容
       };
+      this.isDisabled = flag
       this.$refs.sweetModal.open();
     },
     // 保存
     async onConfirm() {
-      if (this.form.operateDateNew && this.form.visitContentNew) {
-        this.form.operateDateNew = moment(this.form.operateDateNew).format(
-          "YYYY-MM-DD HH:mm:ss"
-        );
+      if (this.form.visitContentNew) {
+
         this.loading = true;
+        if(['lyxrm'].includes(this.HOSPITAL_ID)){
+          this.form.operateDateNew = ""
+          this.form.operateDate = ""
+        }else if(this.form.operateDateNew){
+          this.form.operateDateNew = moment(this.form.operateDateNew).format(
+            "YYYY-MM-DD HH:mm:ss"
+          );
+        }else {
+          this.$message.warning("保存前请先填写巡视内容");
+          return
+        }
         await updateOperateDateLingChen(this.form)
           .then(res => {
             this.loading = false;
@@ -119,7 +131,7 @@ export default {
         this.$refs.sweetModal.close();
         this.getData();
       } else {
-        this.$message.warning("保存前请先填写巡视时间与内容");
+        this.$message.warning("保存前请先填写巡视内容");
       }
     },
     // 关闭弹窗

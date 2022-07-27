@@ -87,9 +87,9 @@ const currentTargetUrl = (() => {
 
     /** 江门妇幼 */
     case "fuyou":
-      // return "http://218.14.180.38:9094" // 江门妇幼正式
+      return "http://218.14.180.38:9094" // 江门妇幼正式
       // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
-      return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
+      // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
       // return "http://192.168.20.82:8080" // 本地
 
 
@@ -157,7 +157,7 @@ const currentTargetUrl = (() => {
       // return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.20.147:9091"  // 双艳
       // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
-      // return "http://192.168.3.226:8080" // 初升测试本地内网
+      // return "http://192.168.20.102:8080" // 初升测试本地内网
       // return "http://192.168.20.71:8080" //宪锋本地地址
 
     // 福清妇幼保健院
@@ -184,9 +184,9 @@ const currentTargetUrl = (() => {
       // return "http://218.13.34.230:9094" //正式
     // 临邑县人民
     case 'lyxrm':
-      // return "http://192.168.1.54:9890" // 内网测试
+      return "http://192.168.1.54:9890" // 内网测试
       // return "http://222.133.53.230:9093" // 临邑正式
-      return "http://222.133.53.230:9091" // 临邑正式
+      // return "http://222.133.53.230:9091" // 临邑正式
     // 广东同江医院
     case 'gdtj':
       return 'http://192.168.1.54:9866'

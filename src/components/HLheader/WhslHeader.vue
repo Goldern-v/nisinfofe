@@ -7,27 +7,12 @@
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
             <el-row
-              class="logo-con logo-con-hj"
-              type="flex"
-              align="middle"
-              v-if="HOSPITAL_ID == 'hj'"
-            >
-              <img src="../../common/images/logo_hj.png" />
-              <span> <br />智慧护理信息系统 </span>
-            </el-row>
-            <el-row
               class="logo-con"
               type="flex"
               justify="center"
               align="middle"
-              v-else
             >
-              <img src="../../common/images/lyxrm_logo.png" />
-              <span>{{
-                HOSPITAL_ID == "hj"
-                  ? "百辰源智慧护理信息系统"
-                  : "临邑县人民医院"
-              }}</span>
+              <img src="../../common/images/whsl_logo_white.png" />
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -47,42 +32,12 @@
                 <i class="iconfont icon-shouye"></i> 护理任务
               </el-row>
             </router-link>
-            <!-- <router-link to="/implementationList" tag="span">
+            <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
-            </router-link> -->
+            </router-link>
             <el-dropdown
-              menu-align="start"
-              :hide-on-click="false"
-              :class="{ 'router-link-active': isImplementation }"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>执行单
-              </el-row>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
-                  :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
-                >
-                  <router-link to="/bottleLabelByProgram" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="wardReport"></i>执行瓶签打印
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/implementationList' }"
-                >
-                  <router-link to="/implementationList" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="catheterPage"></i>执行记录
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveAssessPage }"
             >
@@ -99,10 +54,30 @@
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="sheetHospitalAdmission"></i>入院评估
                     </el-row>
-                  </router-link> </el-dropdown-item>
-
+                  </router-link> </el-dropdown-item
+                ><el-dropdown-item
+                  :class="{
+                    active: $route.path == '/sheetHospitalEval'
+                  }"
+                >
+                  <router-link to="/sheetHospitalEval" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="sheetHospitalEval"></i>住院评估
+                    </el-row>
+                  </router-link> </el-dropdown-item
+                ><el-dropdown-item
+                  :class="{
+                    active: $route.path == '/MEWS'
+                  }"
+                >
+                  <router-link to="/MEWS" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="sheetHospitalEval"></i> MEWS
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown> -->
+            </el-dropdown>
             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveRecordPage }"
@@ -122,25 +97,6 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{
-                    active: $route.path == '/sheetHospitalAdmission'
-                  }"
-                >
-                  <router-link to="/sheetHospitalAdmission" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalAdmission"></i>入院评估
-                    </el-row>
-                  </router-link> </el-dropdown-item>
-                  <!-- <el-dropdown-item
-                    :class="{
-                      active: $route.path == '/sheetHospitalEval'
-                    }">
-                    <router-link to="/sheetHospitalEval" tag="span">
-                      <el-row class="menu-item" type="flex" align="middle">
-                        <i class="sheetHospitalEval"></i>日常评估
-                      </el-row>
-                    </router-link> </el-dropdown-item> -->
                 <el-dropdown-item
                   :class="{ active: $route.path == '/healthEdu' }"
                 >
@@ -233,11 +189,6 @@
                 <i class="iconfont icon-allCatheter"></i> 导管
               </el-row>
             </router-link>
-            <router-link to="/MEWS" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-allCatheter"></i> MEWS
-              </el-row>
-            </router-link>
             <router-link to="/statisticalQuery" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-allCatheter"></i> 统计查询
@@ -280,11 +231,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
               </el-row>
             </router-link> -->
-            <router-link to="/archive" tag="span">
+            <!-- <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
               </el-row>
-            </router-link>
+            </router-link> -->
 
             <!-- <router-link
               to="/deliveryRoomWhiteboard"
@@ -517,13 +468,6 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <!-- <el-dropdown-item>
-                  <router-link to="/implementationListNew" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="catheterPage"></i>执行记录
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item> -->
 
                 <!-- <el-dropdown-item>
                   <router-link to="/dcList" tag="span">
@@ -667,7 +611,8 @@
   margin-right: 11px;
 
   img {
-    width: 50px;
+    width: 180px;
+    height: 70%;
   }
 
   span {
@@ -1077,13 +1022,6 @@ export default {
         path.includes("sheetHospitalAdmission") ||
         path.includes("sheetHospitalEval") ||
         path.includes("MEWS")
-      );
-    },
-    isImplementation(){
-      let path = this.$route.path;
-      return (
-        path.includes("bottleLabelByProgram") ||
-        path.includes("implementationList")
       );
     }
   },

@@ -459,6 +459,7 @@
         sheetInfo.sheetType === 'picu_hemodialysis_jm' ||
         sheetInfo.sheetType === 'rescue_hl' ||
         sheetInfo.sheetType === 'critical_new_linyi' ||
+        sheetInfo.sheetType === 'ultrasound_fs' ||
         sheetInfo.sheetType === 'postpartum_nurse_wj'
       "
     ></slot>
@@ -537,6 +538,7 @@
             sheetInfo.sheetType == 'critical_lc' ||
             sheetInfo.sheetType == 'neonatology_hl' ||
             sheetInfo.sheetType == 'critical_new_linyi' ||
+            sheetInfo.sheetType == 'ultrasound_fs' ||
             HOSPITAL_ID == 'fsxt'
           "
           >质控护士：</span
@@ -719,6 +721,7 @@ export default {
         "internal_eval_linyi", //临邑人医_一般或者护理记录单
         "critical_linyi", //临邑人医_病重（病危）患者护理记录单（带瞳孔）
         "critical_new_linyi",
+        "ultrasound_fs",
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -1654,11 +1657,11 @@ export default {
         return item.key == "status";
       }).value;
       const sign = trArr.find(item => item.key == 'auditorNo').value
-        console.log("koaosdad",status)
+        // console.log("koaosdad",status)
       let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
-        console.log("koaosdad",auditorName)
+        // console.log("koaosdad",auditorName)
       if (status == "2" && sign) {
         if (this.HOSPITAL_ID == "foshanrenyi") {
           return  `<img

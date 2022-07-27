@@ -622,7 +622,7 @@ export default {
       ];
       if (
           [
-            "zhongshanqi", "liaocheng",  "beihairenyi",
+            "zhongshanqi", "liaocheng",  "beihairenyi",'ytll',
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
             "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','qhwy'
           ].includes(this.HOSPITAL_ID)
@@ -679,7 +679,8 @@ export default {
         "xiegang",
         'lyyz',
         'qhwy',
-        'gdtj'
+        'gdtj',
+        'ytll'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -687,7 +688,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu'
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -762,7 +763,7 @@ export default {
         case "lingcheng":
           syncData = syncGetNurseBedRecLc;
           break;
-        case "liaocheng"|'lyyz'|'qhwy':
+        case "liaocheng"|'lyyz'|'qhwy'|'ytll':
           syncData = syncGetNurseBedRecLiaocheng;
           break;
         case "shannan":
@@ -957,6 +958,7 @@ export default {
           break;
         case "压疮高风险":
         case "压力性损伤高风险":
+        case "跌倒压力性损伤高风险":
         case "压疮风险":
           {
             this.$parent.bedList = this.dangerInYachuang;
@@ -964,6 +966,7 @@ export default {
           break;
         case "难免压疮":
         case "已有压力性损伤":
+        case "已有压力性损伤风险":
         case "已有压疮":
           {
             this.$parent.bedList = this.hasYachuang;

@@ -124,6 +124,19 @@ export default {
         return false;
       }
     },
+    // 护士长
+    isRoleManage() {
+      try {
+        let user = JSON.parse(localStorage.user)
+        if (!user) return false
+        if (user.roleManageCode === 'QCR0004') return true
+        if (user.roleManageCodeList.find((code) => code === "QCR0004")) return true
+        if (user.roleManage == "1") return true
+        if (user.post == '护长') return true
+      } catch (error) {
+        return false;
+      }
+    },
     // 管理员 护理部
     isAdminOrNursingDepartment() {
       try {
@@ -138,6 +151,7 @@ export default {
     // 护理巡视操作权限
     isNursingRoundsAuthority() {
       try {
+        if(['lyxrm'].includes(process.env.HOSPITAL_ID)) return true
         let isOk = JSON.parse(localStorage.user).roleManageCodeList
           ? JSON.parse(localStorage.user).roleManageCodeList.filter(
             item => item == "LC_XS_001"
