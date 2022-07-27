@@ -32,6 +32,7 @@
         min-width="60px"
         align="center"
         :tree-node="true"
+        fixed="left"
       >
         <template slot-scope="scope">
           <div v-show="scope.row.child">
@@ -45,6 +46,7 @@
         prop="patientName"
         min-width="70px"
         align="center"
+        fixed="left"
       >
         <template slot-scope="scope">
           <div v-show="scope.row.child">
@@ -53,7 +55,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="医嘱内容" prop="orderText" min-width="250px">
+      <u-table-column label="医嘱内容" prop="orderText" min-width="250px" fixed="left">
         <template slot-scope="scope">
           <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.orderText">
             {{ item.orderText }}
@@ -106,7 +108,7 @@
       <u-table-column
         prop="executeDateTime"
         label="预计执行时间"
-        min-width="160px"
+        min-width="120px"
         align="center"
       >
         <template slot-scope="scope">
@@ -121,7 +123,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="administration" label="途径" min-width="90px">
+      <u-table-column prop="administration" label="途径" min-width="120px">
         <template slot-scope="scope">
           <div v-if="scope.row.child && scope.row.child.length">
             <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.administration">
@@ -139,7 +141,7 @@
       <u-table-column
         prop="executeFlag"
         label="执行状态"
-        min-width="75px"
+        min-width="120px"
         align="center"
       >
         <template slot-scope="scope">
@@ -166,7 +168,7 @@
       <u-table-column
         prop="startNurse"
         label="执行人"
-        min-width="75px"
+        min-width="120px"
         align="center"
       >
         <template slot-scope="scope">
@@ -197,14 +199,14 @@
       </u-table-column>
 
       <u-table-column
-        prop="realExecuteDateTime"
+        prop="speed"
         label="滴速"
         min-width="70px"
         align="center"
       >
         <template slot-scope="scope">
-          <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.realExecuteDateTime">
-            {{ item.realExecuteDateTime | ymdhm2 }}
+          <div v-for="(item, index) in scope.row.child" :key="index" v-show="item.speed">
+            {{ item.speed }}
           </div>
         </template>
       </u-table-column>
@@ -299,13 +301,13 @@
       </u-table-column>
 
       <u-table-column
-        prop="typeReason"
+        prop="nurseMemo"
         label="护士备注"
         min-width="200px"
       >
         <template slot-scope="scope">
           <div v-show="scope.row.child">
-            {{ scope.row.typeReason }}
+            {{ scope.row.nurseMemo }}
           </div>
         </template>
       </u-table-column>
@@ -321,29 +323,18 @@
             type="text"
             @click="backTracking(item)"
             v-if="isEdit && item.executeDateTime && item.executeFlag!=4"
-            >补录</el-button
-          >
-          <el-button
-            type="text"
-            @click="editTime(item)"
-
-            v-if="
-              isEdit &&
-              ((HOSPITAL_ID == 'lingcheng' && item.executeFlag > 0) ||
-                item.executeFlag == 4)
-            "
-            >修改</el-button
+            >补执行</el-button
           >
           <el-button
             type="text"
             @click="handleRemarks(item)"
             >备注</el-button
           >
-          <el-button
+          <!-- <el-button
             type="text"
             @click="cancelOrderExecute(item)"
             >取消</el-button
-          >
+          > -->
           </div>
         </template>
       </u-table-column>
@@ -369,7 +360,7 @@
     }
 
     td {
-      height: 30px;
+      height: 72px !important;
       position: relative;
     }
 
@@ -474,6 +465,15 @@
   >>>.u-table__body-wrapper {
     // overflow-x hidden
   }
+  >>>.el-table__body-wrapper {
+    // overflow-x hidden
+    &::-webkit-scrollbar {
+      height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #aaa;
+    }
+  }
 }
 </style>
 <script>
@@ -481,7 +481,7 @@ import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 import moment from "moment";
-import { addRecord,cancelOrderExecuteApi } from "../../api/index";
+import { addRecord,cancelOrderExecuteApi, updateOrderExecutePc } from "../../api/index";
 import editModal from "../common/edit-modal";
 import bus from "vue-happy-bus";
 export default {
@@ -587,44 +587,23 @@ export default {
     },
     // 补录
     backTracking(item) {
-      if (this.HOSPITAL_ID == "lingcheng") {
-        this.$confirm("是否补录?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "info",
-        }).then(() => {
+      this.$prompt("请输入补执行的原因", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+      })
+        .then(({ value }) => {
           let data = {
-            strJson: JSON.stringify({
-              LabelId: item.barCode,
-              EmpNo: this.empNo,
-              Type: "1",
-              tradeCode: "OrderExecute",
-            }),
+            barcode: item.barCode, //条码号
+            empNO: this.empNo, //执行人
+            type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
+            typeReason: value, //补执行的原因填写
           };
-          addRecord(data).then((res) => {
+          updateOrderExecutePc(data).then((res) => {
             this.$message.success("补录成功");
             this.bus.$emit("loadImplementationList");
           });
-        });
-      } else {
-        this.$prompt("请输入补执行的原因", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
         })
-          .then(({ value }) => {
-            let data = {
-              barcode: item.barCode, //条码号
-              empNO: this.empNo, //执行人
-              type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
-              typeReason: value, //补执行的原因填写
-            };
-            addRecord(data).then((res) => {
-              this.$message.success("补录成功");
-              this.bus.$emit("loadImplementationList");
-            });
-          })
-          .catch(() => {});
-      }
+        .catch(() => {});
     },
     editTime(data) {
       this.$refs.editModal.open(data);
@@ -649,28 +628,29 @@ export default {
         return `wrapRowType-${row.wrapRowType}`;
       }
     },
+    // 备注
     handleRemarks(item) {
       this.$prompt("请输入备注", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
         })
           .then(({ value }) => {
-            let { empNo } = user
-            let { barCode } = item
-            let cancelReason = value
-            console.log(cancelReason);
-            cancelOrderExecuteApi({
-              empNO:empNo,
-              barcode:barCode,
-              cancelReason
-            }).then((res)=>{
+            let data = {
+              patientId:item.patientId,
+              visitId:item.visitId,
+              orderNo: item.orderNo, //医嘱号
+              barcode: item.barCode, //条码号
+              executeNurse: this.empNo, //执行人
+              verifyNurse:'',//核对人
+              // type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
+              supplementaryRes: value, //补执行的原因填写
+            };
+            addRecord(data).then((res)=>{
               this.$message.success(res.data.desc)
               this.bus.$emit("loadImplementationList");
             })
           })
-          .catch((err) => {
-              this.$message.success(err.data.desc)
-          });
+          .catch((err) => {});
     }
   },
   mounted() {
