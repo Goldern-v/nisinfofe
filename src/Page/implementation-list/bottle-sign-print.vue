@@ -281,7 +281,9 @@ export default {
       thumpOptions:{
          'lyxrm':[
            {label:"全部",value:9},{label:"是",value:1},{label:"否",value:0}],
-        default:[
+         'fsxt':[
+           {label:"全部",value:9},{label:"是",value:1},{label:"否",value:0}],
+          default:[
           {label:"是",value:1},{label:"否",value:0}]
       }
     };

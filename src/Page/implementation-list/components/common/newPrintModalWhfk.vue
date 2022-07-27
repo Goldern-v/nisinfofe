@@ -2,7 +2,7 @@
   <div
     :style="{
       width: `${isLargeType ? '8' : '7'}cm`,
-      height: `${isLargeType ? '5.8' : '4'}cm`,
+      height: `${isLargeType ? '5.8' : '4.5'}cm`,
     }"
     class="new-print-modal"
 		:class="{'new-print-modal--s': !isLargeType,'pageBreak':isLargeType}"
