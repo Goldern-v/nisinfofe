@@ -87,7 +87,7 @@
                 flex-box="1"
                 class="bottom-line"
               >{{query.patientId}}</div>
-              </div>
+            </div>
             <div flex="cross:center" class="input-item">
               <span class="label">主管医生:</span>
               <div
@@ -144,7 +144,13 @@
             <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
           </div>
           <div>
-            <div>
+            <div v-if="['fsxt'].includes(HOSPITAL_ID)">
+              <span>住院号：{{ query.patientId }}</span>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+            </div>
+            <div v-else>
               <span>{{ query.name }}</span>
               <span>{{ query.sex }}</span>
               <span>{{ query.age }}</span>

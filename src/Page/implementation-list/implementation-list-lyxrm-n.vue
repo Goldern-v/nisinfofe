@@ -5,7 +5,6 @@
         <span class="label" style="margin-left: 0">执行日期:</span>
 
         <el-date-picker
-          :disabled="workClassList.length>0?true:false"
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择入院起始时间"
@@ -15,7 +14,6 @@
         ></el-date-picker>
         &nbsp;--&nbsp;
         <el-date-picker
-          :disabled="workClassList.length>0?true:false"
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择终止时间"
@@ -23,13 +21,13 @@
           v-model="endDate"
           style="width:160px"
         ></el-date-picker>
-        <span class="label">班次:</span>
+        <!-- <span class="label">班次:</span>
         <el-row class="select-btn-list" type="flex" align="middle">
         <el-checkbox-group v-model="workClassList">
           <el-checkbox label="白班"></el-checkbox>
           <el-checkbox label="夜班"></el-checkbox>
          </el-checkbox-group>
-        </el-row>
+        </el-row> -->
         <span class="label">长/临:</span>
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="repeatIndicator">
@@ -295,66 +293,38 @@ export default {
           value: "皮试"
         },
         {
-          name: "治疗（理疗）",
-          value: "治疗（理疗）"
-        },
-        {
           name: "标本",
           value: "标本"
-        }
+        },
+        {
+          name: "泵入",
+          value: "泵入"
+        },
+        {
+          name: "其他",
+          value: "其他"
+        },
       ],
-      workClassList:["白班","夜班"]
-    };
-  },
-  computed: {
-    statusList() {
-      if (this.type === 0) {
-        return [
-          {
-            id: "",
-            name: "全部"
-          },
-          {
-            id: 0,
-            name: "未执行"
-          },
-          {
-            id: 1,
-            name: "开始输液"
-          },
-          {
-            id: 2,
-            name: "暂停输液"
-          },
-          {
-            id: 3,
-            name: "继续输液"
-          },
-          {
-            id: 4,
-            name: "已完成"
-          }
-        ]
-      }
-      return [
+      statusList: [
         {
           id: "",
           name: "全部"
         },
         {
-          id: 0,
-          name: "未执行"
+          id: 2,
+          name: "已执行"
         },
         {
           id: 1,
           name: "执行中"
         },
         {
-          id: 4,
-          name: "已完成"
-        }
-      ]
-    }
+          id: 0,
+          name: "未执行"
+        },
+      ],
+      workClassList:["白班","夜班"]
+    };
   },
   methods: {
     handleSizeChange(newSize) {
@@ -394,12 +364,12 @@ export default {
 
           prevRowId =
             array[index - 1] &&
-            array[index - 1].patientId + array[index - 1].orderNo;
+            array[index - 1].barCode;
           nextRowId =
             array[index + 1] &&
-            array[index + 1].patientId + array[index + 1].orderNo;
+            array[index + 1].barCode;
           currentRowId =
-            array[index] && array[index].patientId + array[index].orderNo;
+            array[index] && array[index].barCode;
 
           item.id = index;
 
@@ -451,7 +421,6 @@ export default {
         tableData.map(item => {
           item.child = item.child ? item.child : [{ ...item }];
         });
-        console.log(tableData);
         this.tableData = [...tableData];
         // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
         this.pageLoading = false;
@@ -481,11 +450,9 @@ export default {
       this.search();
     },
     startDate() {
-      console.log(this.orderTimeStr)
       this.search();
     },
     endDate() {
-      console.log(this.orderTimeStr)
       this.search();
     },
     repeatIndicator() {
@@ -500,26 +467,26 @@ export default {
     status() {
       this.search();
     },
-    workClassList:{
-      deep:true,
-      handler(newVal){
-        if(newVal.length==2){
-          // 白班夜班,当前日期的07:30:00~第二天日期的07:30:00
-          this.startDate=moment().format("YYYY-MM-DD")+' 07:30:00'
-          this.endDate=moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00'
-        }else if(newVal.length==1){
-          if(newVal[0]=="白班"){
-            // 白班，当前日期的07:30:00~当前日期的17:30:00
-            this.startDate=moment().format("YYYY-MM-DD")+' 07:30:00'
-            this.endDate=moment().format("YYYY-MM-DD")+' 17:30:00'
-          }else{
-            // 夜班,当前日期的17：30：00到第二天日期的07：30：00
-            this.startDate=moment().format("YYYY-MM-DD")+' 17:30:00'
-            this.endDate=moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00'
-          }
-        }
-      }
-    }
+    // workClassList:{
+    //   deep:true,
+    //   handler(newVal){
+    //     if(newVal.length==2){
+    //       // 白班夜班,当前日期的07:30:00~第二天日期的07:30:00
+    //       this.startDate=moment().format("YYYY-MM-DD")+' 07:30:00'
+    //       this.endDate=moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00'
+    //     }else if(newVal.length==1){
+    //       if(newVal[0]=="白班"){
+    //         // 白班，当前日期的07:30:00~当前日期的17:30:00
+    //         this.startDate=moment().format("YYYY-MM-DD")+' 07:30:00'
+    //         this.endDate=moment().format("YYYY-MM-DD")+' 17:30:00'
+    //       }else{
+    //         // 夜班,当前日期的17：30：00到第二天日期的07：30：00
+    //         this.startDate=moment().format("YYYY-MM-DD")+' 17:30:00'
+    //         this.endDate=moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00'
+    //       }
+    //     }
+    //   }
+    // }
   },
   components: {
     dTable,
