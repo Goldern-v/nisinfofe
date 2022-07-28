@@ -2,7 +2,7 @@
   <div
     :style="{
       width: `${isLargeType ? '8' : '7'}cm`,
-      height: `${isLargeType ? '5.8' : '4.5'}cm`,
+      height: `${isLargeType ? '5.8' : '4.1'}cm`,
     }"
     class="new-print-modal"
 		:class="{'new-print-modal--s': !isLargeType,'pageBreak':isLargeType}"
@@ -21,8 +21,8 @@
           </div>
         </div>
         <div class="new-modal-top-left-second">
-          <div style="text-indent: 5px">{{ currentBottle.deptName }}</div>
-          <div>{{ currentBottle.patientId || "" }}</div>
+          <div style="text-indent: 5px">{{ isLargeType?currentBottle.deptName:currentBottle.patientId }}</div>
+          <div>{{ isLargeType?(currentBottle.patientId || ""):currentBottle.deptName }}</div>
           <div>{{ currentBottle.sex || "" }}</div>
           <div>{{ currentBottle.age }}</div>
         </div>
@@ -82,6 +82,7 @@
           line-height: 29px;
           font-size: 25px;
           font-weight: 900;
+          height:29px;
         }
         div + div {
           margin-left: 8px;
@@ -148,23 +149,59 @@
     }
   }
   &.new-print-modal--s {
+    display: block;
 		>>> * {
 			font-size: 12px;
 			font-weight: 700;
 			line-height: 21px;
 		}
-		.new-modal-top div {
-      font-size: 13px;
-			line-height: 21px;
-    }
-		.new-modal-top-left .new-modal-top-left-first  div{
-			font-size: 22px;
-			padding-top: 3px;
-		}
-		.new-modal-bottom div {
+		>>> .new-modal-top{
+        display:block;
+        overflow: hidden;
+        >div{
+          float:left;
+          &:first-of-type{
+            width: 59px;
+          }
+        }
+        .new-modal-top-left{
+          >div:first-of-type{
+            height:29px;
+          }
+          div{
+            height:21px;
+          }
+        }
+        div {
+        font-size: 13px;
+			  line-height: 21px;
+      }
+    } 
+		.new-modal-top-left{
+        .new-modal-top-left-first{
+            display: block;
+          div{
+            display: inline-block;
+			      font-size: 22px;
+			      padding-top: 3px;
+        }  
+		  }
+      .new-modal-top-left-second{
+        display:block;
+        div{
+          display: inline-block;
+        }
+      }
+    } 
+		.new-modal-bottom{
+      // height: 64.2px;
+      height: 56px;
+      display: block;
+      div {
 			font-size: 14px;
 			line-height: 22px;
-		}
+		  }
+    } 
   }
 }
 </style>

@@ -503,7 +503,7 @@ export default {
           this.$set(this.page,'total',tableData.length)
           if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
             this.$refs.plTable.$children[0].reloadData(tableData); // 默认取第一页的数据
-          }
+          } 
         }
         this.pageLoading = false;
       });
