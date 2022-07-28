@@ -34,9 +34,9 @@ export default {
                 {"name":"功<br/>能<br/>锻<br/>炼<br/>⑿","colspan":"1","rowspan":"3"},
                 {"name":"皮<br/>肤<br/>完<br/>整<br/>性<br/>⒀","colspan":"1","rowspan":"3"},
                 {"name":"护<br/>理<br/>措<br/>施<br/>⒁","colspan":"1","rowspan":"3"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"expand"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"expand2"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"expand3"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom1"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom2"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom3"},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}},
                 {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
