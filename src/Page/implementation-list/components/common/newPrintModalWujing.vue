@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div :style="{
+      width: `${isLargeType ? '8' : '10'}cm`,
+      height: `${isLargeType ? '4.8' : '5.8'}cm`,
+    }">
     <!-- <div
       v-if="newModalSize == '6*8'"
       class="new-print-modal"
@@ -87,7 +90,7 @@
             :key="index"
             style="text-indent: 5px"
           >
-            {{ item }}
+            {{ item }}&nbsp;&nbsp;{{ currentBottle.dosageDosageUnits[index] }}
           </div>
         </div>
         <div>
@@ -155,22 +158,24 @@
   .new-modal-top {
     display: flex;
     font-weight: 600;
+    height: 50px;
     div {
       font-size: 13px;
     }
     .new-modal-top-left {
-      box-sizing: border-box;
-      width: calc(100% - 60px);
+      width: calc(100% - 50px);
+      height: 50px;
       .new-modal-top-left-first {
         display: flex;
         justify-content: center;
-        height: 39px;
+        padding-top: 6px;
+        height: 28px;
         // background-color: #000;
         border-bottom: 1px solid #000;
         white-space: nowrap;
         & > div {
           text-align: center;
-          line-height: 39px;
+          line-height: 28px;
           font-size: 20px;
           font-weight: 900;
         }
@@ -179,8 +184,8 @@
         }
       }
       .new-modal-top-left-second {
-        height: 20px;
-        line-height: 20px;
+        height: 16px;
+        line-height: 16px;
         display: flex;
         white-space: nowrap;
         div {
@@ -189,7 +194,7 @@
       }
     }
     .new-modal-top-right {
-      width: 60px;
+      width: 50px;
       .new-modal-top-right-top {
         box-sizing: border-box;
         overflow: hidden;
@@ -206,15 +211,15 @@
     flex-direction: column;
     font-weight: 700;
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 50px);
     box-sizing: border-box;
     line-height: 16px;
     .new-modal-bottom-first {
       overflow: hidden;
-      height: calc(100% - 48px);
+      height: calc(100% - 50px);
       div {
-        line-height: 18px;
-        font-size: 15px;
+        line-height: 16px;
+        font-size: 14px;
       }
     }
     .new-modal-bottom-second {
@@ -225,10 +230,10 @@
         border: 1px solid #000;
         top: 1px;
         left: 1px;
-        height: 30px;
-        width: 30px;
+        height: 28px;
+        width: 28px;
         border-radius: 50%;
-        line-height: 29px;
+        line-height: 28px;
         font-size: 25px;
         position: absolute;
       }
@@ -334,7 +339,7 @@ export default {
         dosageDosageUnits.push(content);
       });
       let qr_png_value = this.itemObj[0].barCode;
-      var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: 2 });
+      var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: 1 });
       // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
@@ -355,6 +360,9 @@ export default {
       return (
         this.itemObj && this.itemObj.map((item) => item.freqDetail).join("\n")
       );
+    },
+    isLargeType() {
+      return this.newModalSize == "5*8";
     },
   },
   filters: {

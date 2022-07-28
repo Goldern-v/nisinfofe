@@ -110,7 +110,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="95" align="center"></el-table-column>
-        <el-table-column label="护士签名" width="90" header-align="center" align="center">
+        <el-table-column label="开始护士" width="90" header-align="center" align="center">
           <template slot-scope="scope">
             <!-- <div v-if="!scope.row.creatorName" class="tool-btn" @click="onSignOrCancel(scope.row)">
               点击签名
@@ -128,7 +128,7 @@
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" width="325" header-align="center"></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="95" align="center"></el-table-column>
-         <el-table-column label="护士签名" width="90" header-align="center" align="center" fixed="right">
+         <el-table-column label="停止护士" width="90" header-align="center" align="center" fixed="right">
           <template slot-scope="scope">
             <!-- <div v-if="!scope.row.signerName" class="tool-btn" @click="onSignOrCancel(scope.row)">
               点击签名
