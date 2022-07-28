@@ -80,9 +80,9 @@ export default [
   { key: 'functional', event: keyf1, value: '', next: '', name: '功能锻炼', splice: ' ', autoComplete: { data: gndlList },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'integrity', event: keyf1, value: '', next: '', name: '皮肤完整性', splice: ' ', autoComplete: { data: pfList },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'measures', event: keyf1, value: '', next: '', name: '护理措施', splice: ' ', autoComplete: { data: csList },  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'expand', event: keyf1, value: '', next: '', name: '', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'expand2', event: keyf1, value: '', next: '', name: '', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'expand3', event: keyf1, value: '', next: '', name: '', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'custom1', event: keyf1, value: '', next: '', name: '', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'custom2', event: keyf1, value: '', next: '', name: '', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'custom3', event: keyf1, value: '', next: '', name: '', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "description", //特殊情况记录
     value: "",

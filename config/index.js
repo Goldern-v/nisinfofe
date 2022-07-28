@@ -57,9 +57,9 @@ const currentTargetUrl = (() => {
     case "lingcheng":
       // return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
       // return "https://info.cr-health.com:20204" // 公司-陵城测试-外网
-      return "http://192.168.1.54:9867" // 公司-陵城测试-内网
+      // return "http://192.168.1.54:9867" // 公司-陵城测试-内网
       // return "http://192.168.1.54:9867" // 公司-陵城测试-内网 admin 123456
-      // return "http://192.168.1.54:9866" // 公司-陵城测试-内网
+      return "http://192.168.1.54:9866" // 公司-陵城测试-内网
       // return "http://192.168.20.63:8080" // 初升本地
 
 
@@ -153,11 +153,11 @@ const currentTargetUrl = (() => {
     // 佛山市医
      case 'foshanrenyi':
       //  return "http://192.168.20.93:8080"
-      // return "https://cr.fsyyy.com:9094"  // 正式外网地址
+      return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.20.147:9091"  // 双艳
       // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
-      return "http://192.168.20.102:8080" // 初升测试本地内网
+      // return "http://192.168.20.102:8080" // 初升测试本地内网
       // return "http://192.168.20.71:8080" //宪锋本地地址
 
     // 福清妇幼保健院
@@ -175,8 +175,8 @@ const currentTargetUrl = (() => {
     case 'whyx':  //武汉亚心
       return "http://192.168.1.54:9866" // 武汉亚心
 
-    // case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
-      // return "http://192.168.1.54:9884" // 武汉肺科
+    case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
+      return "http://192.168.1.54:9884" // 武汉肺科
       // return "http://192.168.3.226:8080" // 初升本地
     case 'sdlj':  //顺德龙江
       return "http://192.168.1.54:9871" // 顺德龙江 内防访问地址192.168.1.54:9887

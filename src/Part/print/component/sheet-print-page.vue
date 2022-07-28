@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':'']">
+  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou', 'lingcheng'].includes(HOSPITAL_ID)?'fontInputW':'']">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -151,6 +151,11 @@
     font-weight: 400;
   }
    textarea {
+    color: #000000 !important;
+    font-family: "SimHei" !important;
+    font-weight: 400 !important;
+  }
+  div {
     color: #000000 !important;
     font-family: "SimHei" !important;
     font-weight: 400 !important;
