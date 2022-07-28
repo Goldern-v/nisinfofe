@@ -710,6 +710,14 @@ export default {
           let pages = String(
             pageIndex.find((item) => item !== undefined)
           ).split("")[1];
+          // const style = {}
+          // 多行表单（表内多行签名状态判断）
+          // if (data.multiLine) {
+          //   const formNoSign = node.data.formOperateType == "0"; // 无签名
+          //   const formSign = node.data.formOperateType == "1"; // 只有一个签名
+          //   const formAudit = node.data.formOperateType == "2"; // 责任 + 审核
+
+          // }
           // console.log(String(pages).split('')[1]);
           return h("span", { class: { "tree-node": true } }, [
             h("img", { attrs: { src: icon } }),
@@ -847,7 +855,10 @@ export default {
                     form_id: option.id,
                     formName: item.formName,
                     formTreeRemindType: item.formTreeRemindType,
-                    pageIndex: item.formInstanceDtoList.length - i
+                    pageIndex: item.formInstanceDtoList.length - i,
+                    multiLine: item.multiLine,
+                    formOperateType: item.formOperateType,
+                    signStatus: option.signStatus
                   };
                 }),
             };
@@ -934,7 +945,7 @@ export default {
             })
             list_1 = [...newList]
           }
-          
+
           //区分患者转科------------------------------------------------------------------------------------------------------
           if (this.filterObj) {
             this.regions = list_1.filter(
@@ -973,7 +984,7 @@ export default {
       this.expandListCopy.remove(curNode.index);
     },
     newRecordOpen() {
-      // console.log(this.regions); 
+      // console.log(this.regions);
       this.$refs.newForm.open(this.filterObj);
     },
     refreshTree(isAllRefresh = false) {

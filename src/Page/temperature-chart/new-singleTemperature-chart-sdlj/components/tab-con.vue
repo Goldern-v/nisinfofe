@@ -336,6 +336,8 @@
                     :disabled="isDisable()"
                     size="mini"
                     clearable
+                    filterable
+                    allow-create
                     v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
                   >
                     <el-option
@@ -357,6 +359,8 @@
                     :disabled="isDisable()"
                     size="mini"
                     clearable
+                    filterable
+                    allow-create
                     v-model="vitalSignObj[multiDictList['中间注释']].expand1"
                   >
                     <el-option
@@ -393,6 +397,8 @@
                     size="mini"
                     clearable
                     :disabled="isDisable()"
+                    filterable
+                    allow-create
                     v-model="vitalSignObj[multiDictList['表底注释']].expand1"
                   >
                     <el-option
@@ -498,6 +504,9 @@ export default {
   },
 async mounted() {
     await this.getVitalList();
+    this.bus.$on("syncInAndOutHospital", (type) => {
+      this.syncInAndOutHospital(type);
+    });
          this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate = dateTime.slice(0, 10);
       this.query.entryTime = dateTime.slice(11, 16) + ":00";

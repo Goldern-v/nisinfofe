@@ -70,6 +70,15 @@ export function getExecuteWithWardcode(obj) {
     obj
   );
 }
+// 获取执行单 by临邑
+export function getExecuteWithWardCodeLyxrm(obj) {
+  // 通过执行时间段获取
+  return axios.post(
+    `${apiPath}procedure/webExecute/getOrdersExecuteWithWardCodeNew`,
+    obj
+  );
+}
+
 
 // 补录（陵城）
 export function addRecord(obj) {
@@ -80,6 +89,10 @@ export function addRecord(obj) {
   }else{
     return axios.post(`${apiPath}${hospitalExecute}/orderExecute`, obj);
   }
+}
+/** 新版补执行 by临邑 */
+export function updateOrderExecutePc(obj) {
+  return axios.post(`${apiPath}procedure/webExecute/updateOrderExecutePc`, obj)
 }
 
 // 更新实际执行时间/结束输液时间（陵城）

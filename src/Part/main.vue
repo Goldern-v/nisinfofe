@@ -34,6 +34,7 @@ import GdtjHeader from "@/components/HLheader/GdtjHeader";//广东同江
 import YtllHeader from "@/components/HLheader/YtllHeader";//广东同江
 import LyyzHeader from "@/components/HLheader/LyyzHeader";//广东同江
 import QhwyHeader from "@/components/HLheader/QhwyHeader";//广东同江
+import WhslHeader from "@/components/HLheader/WhslHeader";//威海市立
 
 export default {
   data() {
@@ -73,6 +74,7 @@ export default {
         玲珑英诚医院: 'YtllHeader',
         临沂沂州医院: 'LyyzHeader',
         青海省第五人民医院: 'QhwyHeader',
+        威海市立医院: 'WhslHeader',
       };
       return hisList[HisName] || "HLheader";
     },
@@ -105,6 +107,7 @@ export default {
     YtllHeader,
     LyyzHeader,
     QhwyHeader,
+    WhslHeader
   },
 };
 </script>

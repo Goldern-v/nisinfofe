@@ -13,7 +13,7 @@
               justify="center"
               align="middle"
             >
-              <img src="../../common/images/logo-white-60.png" />
+              <img src="../../common/images/ytllHeader_logo.png" />
               <span>玲珑英诚医院</span>
             </el-row>
             <!-- <router-link to="/index"

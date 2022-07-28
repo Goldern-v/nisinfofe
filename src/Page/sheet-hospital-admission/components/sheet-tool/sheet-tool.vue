@@ -499,10 +499,13 @@ export default {
       loadPatient(this.patientInfo.patientId, this.patientInfo.visitId)
         .then((res) => {
           let valData = res.data.data
-          console.log(valData,'fafas sfasfsf');
-            window.formObj.model.I001002 = valData.occupation;
+          // console.log(valData,'fafas sfasfsf');
             window.formObj.model.I001012 = valData.marriage;
+          // 直接赋值，有点问题 临邑不需要
+          if (!['lyxrm'].includes(this.HOSPITAL_ID)) {
+            window.formObj.model.I001002 = valData.occupation;
             window.formObj.model.I001003 = valData.nation;
+          }
           this.syncHIS(res.data.data);
           // 回填表单
           this.$root.$refs["sheetPage"].fillForm();
@@ -521,6 +524,7 @@ export default {
 
       console.log("默认填写");
     },
+    /** 同步his数据 */
     syncHIS(model = window.formObj.model) {
       let keyMap = {
         diagnosis: "I001001", // 入院诊断
@@ -538,15 +542,19 @@ export default {
         // 'admissionDate':'', // 入院日期
       };
       let keys = Object.keys(keyMap);
-      console.log(
-        "===keyMap",
-        keyMap,
-        keys,
-        keyMap["diagnosis"],
-        window.formObj.model["I001001"]
-      );
+      // console.log(
+      //   "===keyMap",
+      //   keyMap,
+      //   keys,
+      //   keyMap["diagnosis"],
+      //   window.formObj.model["I001001"]
+      // );
+      console.log('test-window.formObj.model', window.formObj.model)
+
       keys = [...keys];
       keys.map((key) => {
+        // 临邑 不需要同步已存在数据的字段
+        if(['lyxrm'].includes(this.HOSPITAL_ID) && window.formObj.model[keyMap[key]]) return
         if (
           model[key] != undefined &&
           model[key] != "undefined" &&
@@ -1358,7 +1366,7 @@ export default {
               ...signType,
             };
 
-            
+
 
             window.formObj.model.formCode = this.formCode;
 
@@ -1379,7 +1387,7 @@ export default {
             }
 
             console.log("签名post", post, postData);
-            
+
             //
             save(postData)
               .then((res) => {

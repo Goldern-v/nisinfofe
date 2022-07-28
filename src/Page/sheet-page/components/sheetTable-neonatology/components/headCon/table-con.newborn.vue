@@ -543,6 +543,20 @@ export default {
               this.formatData.data.formData[key] = "";
             }
           }
+
+          /* 第一次创建的时候 sheetInfo src\Page\sheet-page\components\sheetTable-neonatology\components\headCon\新生儿.js拿的是这个 */
+          /* 然后后面空的把前面的覆盖了 */
+          /*  Object.assign之前,先把lastEvalData和sheetInfo.relObj先处理一下. */
+          for(let index in lastEvalData){
+             /* 如果relobj已经有数据，就不变。没有数据就把接口的数据赋值 */
+             if(sheetInfo.relObj[index] instanceof Array){
+                /* relobj有数据，不做处理，没有数据就赋值 */
+                if(sheetInfo.relObj[index].length!=0) return
+                sheetInfo.relObj[index]=[...lastEvalData[index]]   
+              }else{
+                sheetInfo.relObj[index] =sheetInfo.relObj[index] ? sheetInfo.relObj[index] : lastEvalData[index]
+              }        
+          }
           let obj = Object.assign(
             {},
             this.formatData.data.formData,
