@@ -416,6 +416,7 @@ export default {
               } else {
                 // 输入框回显数据
                 // if(element){
+                  // console.log(key, element)
                 textResult = this.$root.$refs[this.formCode][
                   key
                   ].checkValueRule(element);
@@ -489,7 +490,7 @@ export default {
               // }
               // this.$root.$refs[this.formCode][key] = element.split(',');
               if (element) {
-                // console.log('~~~~~!!',key,formObj,element)
+                console.log('~~~~~!!',key,formObj,element)
                 let value = element + "";
                 let arr = value.split(",");
                 if (arr) {
