@@ -1114,11 +1114,11 @@ const router = new Router({
           },
         ]:[]
       },
-      // {
-      //   path: '/implementationListNew',
-      //   component: () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue"), // 新版临邑执行单,
-      //   name: 'implementationListNew'
-      // },
+      {
+        path: '/implementationListNew',
+        component: () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue"), // 新版临邑执行单,
+        name: 'implementationListNew'
+      },
       {
         path: "/bottleLabel",
         component: bottleLabel,
@@ -1619,13 +1619,4 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-//处理缓存错误
-router.onError((error) => {
-  const pattern = /Loading chunk (\d)+ failed/g;
-  const isChunkLoadFailed = error.message.match(pattern);
-  const targetPath = router.history.pending.fullPath;
-  if (isChunkLoadFailed) {
-    router.replace(targetPath);
-  }
-})
 export default router;

@@ -26,7 +26,7 @@
         </span>
         <span>
           {{['huadu'].includes(HOSPITAL_ID)?'住院号：':'住院号/ID号：'}}
-          <div class="bottom-line" style="min-width: 60px">{{ ['huadu'].includes(HOSPITAL_ID)?patientInfo.patientId:patientInfo.inpNo }}</div>
+          <div class="bottom-line" style="min-width: 60px">{{ ['huadu','foshanrenyi'].includes(HOSPITAL_ID)?patientInfo.patientId:patientInfo.inpNo }}</div>
         </span>
         <span>
           入院日期：

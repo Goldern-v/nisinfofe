@@ -579,7 +579,7 @@ export default {
               // margin: 0 0;
           css: `
             @page{
-              ${(this.newModalSize == '3*7' && ['lyxrm'].includes(this.HOSPITAL_ID)) ? 'margin: 0 1mm 0 0;': 'margin: 0 0;'}
+              ${this.printM}
             }
             body{
               ${this.normalSize || this.HOSPITAL_ID=='whfk'?'':'transform: scale(0.5);transform-origin: 0 0 0;'}
@@ -706,7 +706,17 @@ export default {
     // 打印不需要缩小的尺寸
     normalSize() {
       return ['70*80','6*8', '5*8'].includes(this.newModalSize)
-    }
+    },
+    printM() {
+      if (this.newModalSize == '3*7' && ['lyxrm'].includes(this.HOSPITAL_ID)) {
+        return 'margin: 0 1mm 0 0;'
+      }
+      if (this.newModalSize == '5*8' && ['wujing'].includes(this.HOSPITAL_ID)) {
+        return 'margin: 0 0 0 12mm;'
+      }
+      return 'margin: 0 0;'
+
+    },
   },
   watch: {
     deptCode() {
