@@ -882,6 +882,7 @@ export default {
           }
           //当 绑定值(this.formObj.model[rule.key])不在valList内 [!valist.includes(this.formObj.model[rule.key])]时禁用
           else if(rule.type === 'notEqual') {
+            console.log(this.formObj, obj, rule, !this.formObj.model[rule.key], '1111112222222222')
             //不存在值，默认禁用
             if(!this.formObj.model[rule.key]) return true
             //有’非‘禁用白名单，优先先判断

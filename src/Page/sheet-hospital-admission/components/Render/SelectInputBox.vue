@@ -166,6 +166,7 @@ export default {
   methods: {
     checkValueRule(valueNew, isClick, itemClick = null) {
       let textResult = valueNew;
+      console.log(this.obj, valueNew, isClick, 999999)
       this.obj.style = "";
       if (
         this.obj.hasOwnProperty("rule") !== -1 &&
@@ -182,6 +183,7 @@ export default {
           value = value === NaN ? 0 : value;
           // 判断规则
           if (r.min && r.max && (value >= min && value < max)) {
+            console.log(value, r.min, r.max,  r.style)
             this.obj.style = r.style;
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.equal && r.equal === valueNew) {
@@ -209,6 +211,29 @@ export default {
               (score >= scoreMin && score <= scoreMax)
             ) {
               this.obj.style = r.style;
+            }
+            // this.obj.style = Object.assign({}, this.obj.style, r.style);
+          } else if (r.indexOfScore && r.scoreStrMin && r.scoreStrMax) {
+            let [scoreMin, scoreMax] = [Number(r.scoreStrMin), Number(r.scoreStrMax)];
+            let score = valueNew && Number(valueNew.replace(/[^\d]/g, ''));
+            scoreMin = scoreMin === NaN ? 0 : scoreMin;
+            scoreMax = scoreMax === NaN ? 0 : scoreMax;
+            score = score === NaN ? 0 : score;
+            if (
+              r.scoreStrMin &&
+              r.scoreStrMax &&
+              (score >= scoreMin && score <= scoreMax)
+            ) {
+              if (r.ScoreOpenkey){
+                // 莫得办法了 添加成功 就在循环编列了一次  一直取rule最后一条  也有想过把判断添加到对应的 relationForm 但这样子就会打不开关联表单（阿弥陀佛）
+                if (valueNew.indexOf('有,Autar评估表') > -1 && score > 10) {
+                  this.obj.style = r.style
+                }
+                if (valueNew.indexOf('有,Capiric评估表') > -1) {
+                  this.obj.style = r.style 
+                }
+              } else
+                this.obj.style = r.style;
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.dialog && isClick) {

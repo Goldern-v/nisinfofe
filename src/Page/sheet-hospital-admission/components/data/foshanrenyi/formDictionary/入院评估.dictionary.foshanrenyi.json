@@ -253,11 +253,6 @@
     ],
     "I001013": [
         {
-            "code": "本人",
-            "name": "本人",
-            "pinyin": "br"
-        },
-        {
             "code": "患者",
             "name": "患者",
             "pinyin": "hz"
@@ -2367,13 +2362,13 @@
     ],
     "I001114": [
         {
-            "code": "既往体健",
-            "name": "既往体健",
+            "code": "无",
+            "name": "无",
             "pinyin": "jwtj"
         },
         {
-            "code": "曾有病史",
-            "name": "曾有病史",
+            "code": "有",
+            "name": "有",
             "pinyin": "cybs"
         }
     ],
@@ -2557,43 +2552,11 @@
             "pinyin": "qt"
         }
     ],
-    "I001138": [
-        {
-            "code": "良好",
-            "name": "良好",
-            "pinyin": "lh"
-        },
-        {
-            "code": "一般",
-            "name": "一般",
-            "pinyin": "yb"
-        },
-        {
-            "code": "差",
-            "name": "差",
-            "pinyin": "c"
-        }
-    ],
     "I001142": [
         {
-            "code": "轻度脑损伤（12-15分）",
-            "name": "轻度脑损伤（12-15分）",
-            "pinyin": "qdnss"
-        },
-        {
-            "code": "中度脑损伤（9-12分）",
-            "name": "中度脑损伤（9-12分）",
-            "pinyin": "zdnss"
-        },
-        {
-            "code": "浅昏迷（3-8分）",
-            "name": "浅昏迷（3-8分）",
-            "pinyin": "qhm"
-        },
-        {
-            "code": "深昏迷（3分）",
-            "name": "深昏迷（3分）",
-            "pinyin": "shm"
+            "code": "清醒",
+            "name": "清醒",
+            "pinyin": "qx"
         },
         {
             "code": "关联GSC评分表",
@@ -2611,6 +2574,18 @@
             "code": "不切题",
             "name": "不切题",
             "pinyin": "bqt"
+        }
+    ],
+    "I100023": [
+        {
+            "code": "能应",
+            "name": "能应",
+            "pinyin": "ny"
+        },
+        {
+            "code": "不应",
+            "name": "不应",
+            "pinyin": "by"
         }
     ],
     "I001148": [
@@ -2833,18 +2808,18 @@
     ],
     "I001213": [
         {
-            "code": "澄清",
-            "name": "澄清",
+            "code": "清",
+            "name": "清",
             "pinyin": "cq"
         },
         {
-            "code": "血性",
-            "name": "血性",
+            "code": "浑浊",
+            "name": "浑浊",
             "pinyin": "xx"
         },
         {
-            "code": "混浊",
-            "name": "混浊",
+            "code": "有絮状物",
+            "name": "有絮状物",
             "pinyin": "hz"
         }
     ],
@@ -2862,9 +2837,9 @@
     ],
     "I001215": [
         {
-            "code": "无色",
-            "name": "无色",
-            "pinyin": "ws"
+            "code": "浑浊",
+            "name": "浑浊",
+            "pinyin": "hz"
         },
         {
             "code": "淡黄色",
@@ -2872,14 +2847,9 @@
             "pinyin": "dhs"
         },
         {
-            "code": "黄绿色",
-            "name": "黄绿色",
-            "pinyin": "hls"
-        },
-        {
-            "code": "黄色",
-            "name": "黄色",
-            "pinyin": "hs"
+            "code": "鲜红色",
+            "name": "鲜红色",
+            "pinyin": "yhs"
         },
         {
             "code": "暗红色",
@@ -2887,19 +2857,9 @@
             "pinyin": "ahs"
         },
         {
-            "code": "鲜红色",
-            "name": "鲜红色",
-            "pinyin": "xhs"
-        },
-        {
-            "code": "茶色",
-            "name": "茶色",
-            "pinyin": "cs"
-        },
-        {
-            "code": "褐色",
-            "name": "褐色",
-            "pinyin": "hs"
+            "code": "淡红色",
+            "name": "淡红色",
+            "pinyin": "dhs"
         }
     ],
     "I001216": [
@@ -2909,9 +2869,120 @@
             "pinyin": "w"
         },
         {
-            "code": "有",
-            "name": "有",
-            "pinyin": "y"
+            "code": "输液港",
+            "name": "输液港",
+            "pinyin": "syg"
+        },
+        {
+            "code": "CVC",
+            "name": "CVC",
+            "pinyin": "cvc"
+        },
+        {
+            "code": "PICC",
+            "name": "PICC",
+            "pinyin": "picc"
+        }
+    ],
+    "I001217": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
+        },
+        {
+            "code": "压痛",
+            "name": "压痛",
+            "pinyin": "yt"
+        },
+        {
+            "code": "肿胀",
+            "name": "肿胀",
+            "pinyin": "zz"
+        },
+        {
+            "code": "血肿",
+            "name": "血肿",
+            "pinyin": "xz"
+        },
+        {
+            "code": "感染",
+            "name": "感染",
+            "pinyin": "gr"
+        },
+        {
+            "code": "溃疡",
+            "name": "溃疡",
+            "pinyin": "kyang"
+        },
+        {
+            "code": "分泌物",
+            "name": "分泌物",
+            "pinyin": "femiw"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qta"
+        }
+    ],
+    "I0011022": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
+        },
+        {
+            "code": "疼痛",
+            "name": "疼痛",
+            "pinyin": "tengt"
+        },
+        {
+            "code": "异常",
+            "name": "异常",
+            "pinyin": "yc"
+        },
+        {
+            "code": "血肿",
+            "name": "血肿",
+            "pinyin": "xz"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I0011024": [
+        {
+            "code": "左颈静脉",
+            "name": "左颈静脉",
+            "pinyin": "zjjm"
+        },
+        {
+            "code": "右颈静脉",
+            "name": "右颈静脉",
+            "pinyin": "yjjm"
+        },
+        {
+            "code": "左股静脉",
+            "name": "左股静脉",
+            "pinyin": "zgjm"
+        },
+        {
+            "code": "右股静脉",
+            "name": "右股静脉",
+            "pinyin": "ygjm"
+        },
+        {
+            "code": "左锁骨下静脉",
+            "name": "左锁骨下静脉",
+            "pinyin": "zsgxjm"
+        },
+        {
+            "code": "右锁骨下静脉",
+            "name": "右锁骨下静脉",
+            "pinyin": "ysgxjm"
         }
     ],
     "I001254": [
