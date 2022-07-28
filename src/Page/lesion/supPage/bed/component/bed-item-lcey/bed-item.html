@@ -16,8 +16,8 @@
               <span class="point-box" v-show="data.formLowestStatus != '2'"
                 :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"></span>
             </span>
-            <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病重'">病重</span>
-            <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危'">病危</span>
+            <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病重' && HOSPITAL_ID !='lyxrm'">病重</span>
+            <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危' && HOSPITAL_ID !='lyxrm'">病危</span>
           </div>
           <div class="info" v-if="HOSPITAL_ID == 'beihairenyi' || HOSPITAL_ID == 'whfk' ">
             {{data.sex}} | {{data.age}} | {{data.inpNo}} | {{data.chargeType
@@ -53,10 +53,13 @@
             </span>
           </div>
           <div flex-box="1" flex="dir:right" style="width: 0">
-            <div class="table-name" v-for="item in (data.conditionIconDtos &&  data.conditionIconDtos.slice(0,6))"
-              :key="item.iconText" :title="item.iconText" :style="{background: item.iconTextRgb}">
-              <span>{{item.showContent}}</span>
-            </div>
+            <template  v-for="item in (data.conditionIconDtos &&  data.conditionIconDtos.slice(0,6))">
+              <div class="table-name"
+                v-if="!(item.iconText=='病危' && HOSPITAL_ID =='lyxrm')"
+                :key="item.iconText" :title="item.iconText" :style="{background: item.iconTextRgb}">
+                <span>{{item.showContent}}</span>
+              </div>
+            </template>
             <div class="table-name" v-for="item in (data.evalIcons &&  data.evalIcons.slice(0,6))" :key="item.formName"
               :title="item.description + ' 分数:' + item.evalScore + '分'" :style="{background: item.iconTextRgb}"
               @click.stop="toFormPage(data, item)">
