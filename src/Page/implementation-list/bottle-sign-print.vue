@@ -55,6 +55,9 @@
               :value=" optionItem.value || optionItem.label"
             ></el-option>
           </el-select>
+          <span class="label">途径:</span>
+          <el-autocomplete v-if="['lyxrm'].includes(HOSPITAL_ID)" size="small" style="width: 80px;" v-model="administration" :fetch-suggestions="querySearch" :trigger-on-focus="false" @select="() => {}" />
+
           <span class="label">床号:</span>
           <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
           <span class="label" v-if="hasNewPrintHos.includes(HOSPITAL_ID)">瓶签大小:</span>
@@ -246,6 +249,22 @@ export default {
       type: "",
       status: "",
       bedLabel: "",
+      /**途径 */
+      administration: '',
+      pathList: [
+        {
+          value:'静脉点滴',
+        },
+        {
+          value:'皮下注射',
+        },
+        {
+          value:'静脉注射',
+        },
+        {
+          value:'肌肉注射',
+        },
+      ],
       showPintModal: false,//是否显示打印弹框
       showProgress: false,
       isShowModal:false,
@@ -427,6 +446,7 @@ export default {
       this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
       if(this.HOSPITAL_ID == 'lyxrm'){
         this.query.itemType = this.lyxrmItemType.join(',')
+        this.query.administration = this.administration
       }else{
         this.query.itemType = this.query.itemType
       }
@@ -503,7 +523,7 @@ export default {
           this.$set(this.page,'total',tableData.length)
           if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
             this.$refs.plTable.$children[0].reloadData(tableData); // 默认取第一页的数据
-          } 
+          }
         }
         this.pageLoading = false;
       });
@@ -669,7 +689,12 @@ export default {
       if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].toggleAllSelection){
         this.$refs.plTable.$children[0].toggleAllSelection();
       }
-    }
+    },
+    querySearch(queryString, cb) {
+      var results = queryString ? this.pathList.filter((v) => v.value.indexOf(queryString) > -1) : this.pathList;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
   },
   created() {
     this.onLoad();

@@ -90,7 +90,10 @@
             :key="index"
             style="text-indent: 5px"
           >
-            {{ item }}&nbsp;&nbsp;{{ currentBottle.dosageDosageUnits[index] }}
+            {{ item }}
+            <span>
+              {{ currentBottle.dosageDosageUnits[index] }}
+            </span>
           </div>
         </div>
         <div>
@@ -218,8 +221,13 @@
       overflow: hidden;
       height: calc(100% - 50px);
       div {
+        display: flex;
+        justify-content: space-between;
         line-height: 16px;
         font-size: 14px;
+        span {
+          white-space: nowrap;
+        }
       }
     }
     .new-modal-bottom-second {
