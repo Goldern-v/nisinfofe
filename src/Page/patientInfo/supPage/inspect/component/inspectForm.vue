@@ -272,7 +272,6 @@ export default {
       // this.$refs.imgModal.open(examNo, name)
     },
     open(data) {
-      console.log('test-data', data)
       if (data) {
         this.data = data;
         this.data.name = this.$route.query.name || this.$store.state.sheet.patientInfo.name

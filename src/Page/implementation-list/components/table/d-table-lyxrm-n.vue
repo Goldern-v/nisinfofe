@@ -532,7 +532,7 @@ export default {
         },
         {
           id: 2,
-          name: "暂停输液",
+          name: "已执行",
         },
         {
           id: 3,

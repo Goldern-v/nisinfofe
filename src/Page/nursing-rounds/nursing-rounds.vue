@@ -35,7 +35,7 @@
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
-      <dTable :tableData="tableData" :pageLoadng="pageLoadng" :getData="onLoad"></dTable>
+      <component :is="tableCon" :tableData="tableData" :pageLoadng="pageLoadng" :getData="onLoad" ref="plTable"></component>
       <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="query.pageIndex"
@@ -98,6 +98,47 @@
       }
     }
   }
+  >>> .plTableBox {
+    .tree--btn-wrapper {
+      position: absolute;
+      top: 50%;
+      width: 1em;
+      height: 1em;
+      line-height: 1em;
+      margin-top: -.5em;
+      transition: transform .2s ease-in-out;
+      z-index: 1;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      color: #333!important;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .pl-tree-cell {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
+      padding-left: 1.5em;
+    }
+
+    .el-icon-folder-add:before {
+      font-family: element-icons;
+      content: "\E61C";
+    }
+    .el-icon-folder-remove:before {
+      font-family: element-icons;
+      content: "\E619";
+    }
+    .ivu-table-cell-tree-empty {
+      cursor: default;
+      color: transparent;
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
 }
 
 .head-con {
@@ -134,6 +175,7 @@
 </style>
 <script>
 import dTable from "./components/table/d-table";
+import dTableLyxrm from "./components/table/d-table-lyxrm";
 import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getNursingVisitLc } from "./api/index";
@@ -175,22 +217,79 @@ export default {
       this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
         getNursingVisitLc(this.query).then(res => {
-          this.tableData = res.data.data.list.map((item, index, array) => {
-            let prevRowId = array[index - 1] && array[index - 1].patientId;
-            let nextRowId = array[index + 1] && array[index + 1].patientId;
-            let currentRowId = array[index] && array[index].patientId;
-            /** 判断是此记录是多条记录 */
-            if (currentRowId == prevRowId || currentRowId == nextRowId) {
-              if (currentRowId != prevRowId) {
-                /** 第一条 */
-                item.rowType = 1;
+          if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+            let child = [],
+              tableData = [];
+            res.data.data.list.map((item, index, array) => {
+              let prevRowId, nextRowId, currentRowId;
+
+              prevRowId =
+                array[index - 1] &&
+                array[index - 1].patientId;
+              nextRowId =
+                array[index + 1] &&
+                array[index + 1].patientId;
+              currentRowId =
+                array[index] && array[index].patientId;
+
+              item.id = index;
+
+              /** 判断是此记录是多条记录 */
+              if (currentRowId == prevRowId || currentRowId == nextRowId) {
+
+                child.push(item);
+                if (currentRowId != prevRowId) {
+                  /** 第一条 */
+                  item.rowType = 1;
+                  child.pop();
+                  tableData.push(item);
+                } else if (currentRowId != nextRowId) {
+                  /** 最后条 */
+                  item.rowType = 3;
+
+                  tableData[tableData.length - 1].children = JSON.parse(
+                    JSON.stringify(child)
+                  );
+                  child = [];
+                } else {
+                  /** 中间条 */
+                  item.rowType = 2;
+                }
               } else {
-                /** 最后条 */
-                item.rowType = 2;
+                tableData.push(item);
               }
+            });
+
+            // tableData.map(item => {
+            //   item.child = item.child ? item.child : [{ ...item }];
+            // });
+            this.tableData = [...tableData];
+
+            if (
+              this.$refs.plTable.$children &&
+              this.$refs.plTable.$children[0] &&
+              this.$refs.plTable.$children[0].reloadData
+            ) {
+              this.$refs.plTable.$children[0].reloadData(tableData);
             }
-            return item;
-          });
+          } else {
+            this.tableData = res.data.data.list.map((item, index, array) => {
+              let prevRowId = array[index - 1] && array[index - 1].patientId;
+              let nextRowId = array[index + 1] && array[index + 1].patientId;
+              let currentRowId = array[index] && array[index].patientId;
+              /** 判断是此记录是多条记录 */
+              if (currentRowId == prevRowId || currentRowId == nextRowId) {
+                if (currentRowId != prevRowId) {
+                  /** 第一条 */
+                  item.rowType = 1;
+                } else {
+                  /** 最后条 */
+                  item.rowType = 2;
+                }
+              }
+              return item;
+            });
+          }
           this.total = res.data.data.totalCount || this.total;
           this.pageLoadng = false;
         });
@@ -204,7 +303,7 @@ export default {
       multiDictInfo(list).then(res => {
         this.allNursingClass = res.data.data.nurse_nursing_class;
         if (this.HOSPITAL_ID === 'lyxrm') this.allNursingClass.unshift({name: '全部', code: ''})
-        
+
       });
     },
     openViewModal() {
@@ -226,8 +325,19 @@ export default {
       this.search();
     }
   },
+  computed: {
+    tableCon() {
+      switch(this.HOSPITAL_ID) {
+        case 'lyxrm':
+          return 'dTableLyxrm'
+        default:
+          return 'dTable'
+      }
+    },
+  },
   components: {
     dTable,
+    dTableLyxrm,
     pagination,
     authorityModal
   }

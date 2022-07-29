@@ -549,7 +549,6 @@ export default {
       //   keyMap["diagnosis"],
       //   window.formObj.model["I001001"]
       // );
-      console.log('test-window.formObj.model', window.formObj.model)
 
       keys = [...keys];
       keys.map((key) => {
