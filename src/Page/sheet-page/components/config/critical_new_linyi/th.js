@@ -24,6 +24,15 @@ export default {
         rowspan: '3'
       },
       {
+        name: '神志',
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
         name: '意识',
         style: {
           minWidth: '60px',
