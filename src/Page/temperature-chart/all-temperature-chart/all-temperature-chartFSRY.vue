@@ -119,8 +119,7 @@
                 v-model="scope.row.temperature"
                 :class="className"
                 class="temperature"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                 
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
@@ -138,8 +137,7 @@
               <input
                 v-model="scope.row.pulse"
                 class="pulse"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                 
                 :class="className"
                 type="text"
                 @keydown="handleKeyDown"
@@ -158,8 +156,7 @@
               <input
                 v-model="scope.row.breath"
                 :class="className"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                 
                 class="breath"
                 type="text"
                 @keyup="handleKeyUp"
@@ -180,8 +177,7 @@
               <input
                 v-model="scope.row.bloodPressure"
                 :class="className"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                 
                 class="bloodPressure"
                 type="text"
                 @keydown="handleKeyDown"
@@ -221,8 +217,7 @@
                   slot="reference"
                   v-model="scope.row.stoolNum"
                   :class="className"
-                  :readonly="isReadonly(scope.row.recordDate)"
-                  :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                   
                   class="stoolNum"
                   type="text"
                   @keydown="handleKeyDown"
@@ -243,8 +238,7 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                 
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
@@ -263,8 +257,7 @@
                 v-model="scope.row.fieldThree"
                 :class="className"
                 class="fieldThree"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                 
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
@@ -283,8 +276,7 @@
                 v-model="scope.row.foodSize"
                 :class="className"
                 class="foodSize"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
@@ -303,8 +295,7 @@
                 v-model="scope.row.dischargeSize"
                 :class="className"
                 class="dischargeSize"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                 
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
@@ -323,8 +314,7 @@
                 v-model="scope.row.curWeight"
                 :class="className"
                 class="curWeight"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                 
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
@@ -849,12 +839,12 @@ export default {
       }
     },
     //费整点的患者数据只允许查看不许修改
-    isReadonly(recordDate) {
-      return (
-        !this.query.startFiltering &&
-        recordDate !== `${this.query.entryDate} ${this.query.entryTime}:00:00`
-      );
-    },
+    // isReadonly(recordDate) {
+    //   return (
+    //     !this.query.startFiltering &&
+    //     recordDate !== `${this.query.entryDate} ${this.query.entryTime}:00:00`
+    //   );
+    // },
     //获取对应护理等级背景颜色
     getBaColor(row) {
       if (this.levelColor && row && row.nursingClass) {
