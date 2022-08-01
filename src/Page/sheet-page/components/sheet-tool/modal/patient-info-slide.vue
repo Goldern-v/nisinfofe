@@ -187,7 +187,7 @@ export default {
   computed: {
     show360() {
       // 护理文书显示 by临邑
-      return ['lyxrm'].includes(this.HOSPITAL_ID) && this.$route.path == '/formPage'
+      return ['lyxrm'].includes(this.HOSPITAL_ID)
     },
     url360() {
       const { patientId = '' } = this.$route.query
