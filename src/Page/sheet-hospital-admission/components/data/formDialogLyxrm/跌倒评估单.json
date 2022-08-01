@@ -191,6 +191,131 @@
       "readOnly": ""
     },
     {
+      "name": "符合自动列入高风险患者（选择序号）",
+      "type": "formGroupVerticalBox",
+      "title": "符合自动列入高风险患者（选择序号）",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003003111",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "中深度镇静及手术后的麻醉过程及复苏后6h，局麻除外",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "产后24h内",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "步态不稳",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "肢体无力",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "晚期妊娠",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "重度贫血",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "视物不清",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "意识障碍",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "头晕",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "眩晕",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1316020",
+          "type": "checkbox",
+          "title": "精神状态差",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
       "name": "1. 近3个月有无跌倒",
       "type": "formGroupVerticalBox",
       "title": "1. 近3个月有无跌倒",

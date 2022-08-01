@@ -27,7 +27,7 @@ export default [{
     autoComplete: {
       data: ysList
     },
-    name: "神志"
+    name: "意识"
   },
   {
     key: "pupilLeft", //瞳孔-左-直径(mm）

@@ -19,6 +19,7 @@ let jkjy = ['术前', '术后' ]
 let sm = ['好', '差' ]
 let sybwpf = ['完好', '压红', '水泡', '溃疡']
 let sqzb = ['备皮', '禁饮食', '备血', '灌肠']
+let szList = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 
 
 export default [{
@@ -32,6 +33,15 @@ export default [{
     value: "",
     event: event_time,
     click: click_time
+  },
+  {
+    key: "consciousness", //神志
+    value: "",
+    event: keyf1,
+    autoComplete: {
+      data: szList
+    },
+    name: "神志"
   },
   {
     key: "temperature", //体温

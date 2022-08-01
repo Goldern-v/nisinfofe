@@ -25,6 +25,15 @@ export default {
         rowspan: '3'
       },
       {
+        name: '神志',
+        style: {
+          minWidth: '35px',
+          maxWidth: '35px',
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
         name: `
         体温<br/>(°C)
         `,
