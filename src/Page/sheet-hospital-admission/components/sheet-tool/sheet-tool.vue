@@ -2,20 +2,21 @@
   <div>
     <div class="tool-contain" flex="cross:center">
       <!-- buttonsLeft -->
-      <div
-        v-for="(button, i) in buttonsLeft"
-        :key="button.label + i"
-        class="item-box"
-        flex="cross:center main:center"
-        @click.stop="button.onClick"
-        :class="{
-          disabled: button.getDisabled && button.getDisabled(selectBlock),
-        }"
-        :style="button.style"
-        v-if="button.getDisabled ? !button.getDisabled(selectBlock) : true"
-      >
-        <div class="text-con">{{ button.label }}</div>
-      </div>
+      <template v-for="(button, i) in buttonsLeft">
+        <div
+          :key="button.label + i"
+          class="item-box"
+          flex="cross:center main:center"
+          @click.stop="button.onClick"
+          :class="{
+            disabled: button.getDisabled && button.getDisabled(selectBlock),
+          }"
+          :style="button.style"
+          v-if="button.getDisabled ? !button.getDisabled(selectBlock) : true"
+        >
+          <div class="text-con">{{ button.label }}</div>
+        </div>
+      </template>
       <div flex-box="1"></div>
       <span class="label">评估记录：</span>
       <el-select
