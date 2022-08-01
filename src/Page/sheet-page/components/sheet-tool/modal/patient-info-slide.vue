@@ -37,11 +37,18 @@
             <div class="label">患者病历</div>
             <el-button @click="openModal('doctorEmrModal')">查看</el-button>
           </div>
+          <div class="item-box" v-if="show360">
+            <img src="../images/检验报告@2x.png" alt class="label-icon" />
+            <div class="label">360视图</div>
+            <el-button @click="openModal('iframeModal', {url: url360})">查看</el-button>
+          </div>
         </div>
         <inspectModal ref="inspectModal" v-if="show"></inspectModal>
         <testModal ref="testModal" v-if="show"></testModal>
         <adviceModal ref="adviceModal" v-if="show"></adviceModal>
         <doctorEmrModal ref="doctorEmrModal" v-if="show"></doctorEmrModal>
+        <iframeModal ref="iframeModal" v-if="show" />
+
       </div>
     </transition>
   </div>
@@ -162,6 +169,7 @@ import inspectModal from "./inspect-modal";
 import testModal from "./test-modal";
 import adviceModal from "./advice-modal";
 import doctorEmrModal from "./doctor-emr-modal";
+import iframeModal from "./iframe-modal";
 export default {
   props:{
     // 解决不是护理记录单样式问题。
@@ -176,7 +184,16 @@ export default {
       show: false
     };
   },
-  computed: {},
+  computed: {
+    show360() {
+      // 护理文书显示 by临邑
+      return ['lyxrm'].includes(this.HOSPITAL_ID) && this.$route.path == '/formPage'
+    },
+    url360() {
+      const { patientId = '' } = this.$route.query
+      return `http://192.168.4.206:8082/TJEMRProject/visitRecordList?authorityId=49486019-X&patId=${patientId}`
+    }
+  },
   methods: {
     open() {
       this.show = true;
@@ -198,7 +215,8 @@ export default {
     inspectModal,
     testModal,
     adviceModal,
-    doctorEmrModal
+    doctorEmrModal,
+    iframeModal,
   }
 };
 </script>
