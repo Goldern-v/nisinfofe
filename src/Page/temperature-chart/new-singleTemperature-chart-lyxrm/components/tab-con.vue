@@ -33,7 +33,7 @@
         <div class="save-btn-top" v-if="patientInfo.patientId">
           <el-button
             :disabled="isDisable()"
-             :type="isUpdate ? 'warning' : 'primary'"
+            :type="isUpdate ? 'warning' : 'primary'"
             class="save-btn"
             @click="saveVitalSign(vitalSignObj)"
             >{{ isUpdate ? "更新" : "保存" }}</el-button>

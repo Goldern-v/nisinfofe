@@ -351,6 +351,15 @@
                     >
                     </el-option>
                   </el-select>
+                  <el-time-picker
+                    size="mini"
+                    :readonly="isDisable()"
+                    v-model="timeVal"
+                    placeholder="选择表顶时间"
+                    style="width: 100%"
+                    @change="formatTopExpandDate"
+                  >
+                  </el-time-picker>
                 </div>
                 <!--目前武警是没有用的中间注释的--->
                 <div class="rowBox" v-if="multiDictList['中间注释']">
@@ -460,7 +469,6 @@ export default {
       ["20"]: ["17:00", "20:59"],
       ["24"]: ["21:00", "23:59"],
     };
-
     let entryTime = "02:00:00";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
@@ -483,6 +491,7 @@ export default {
         entryTime: moment().format("HH:mm")+':00', //录入时间
       },
       recordDate: "",
+        timeVal:new moment(),
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
       checkItem:["体温", "脉搏", "心率", "口温",'肛温','疼痛强度','疼痛干预','物理降温'],
       fieldList: {}, // 自定义项目列表
@@ -532,8 +541,15 @@ async mounted() {
       },
       deep: true,
     },
-    rightSheet(value) {
-      alert(value);
+        patientInfo() {
+      //切换患者重新获得时间
+      this.timeVal = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      );
     },
   },
   methods: {
@@ -542,6 +558,9 @@ async mounted() {
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 40 + "px";
+    },
+        formatTopExpandDate(val) {
+      this.topExpandDate = val;
     },
     show(e) {
       if (e.keyCode == 13) {
@@ -739,7 +758,6 @@ async mounted() {
         val !== "" &&
         this.checkItem.includes(vitalSignObj.vitalSigns)
       ) {
-       console.log(vitalSignObj, index)
 
         //验证表单
         if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
@@ -816,10 +834,12 @@ async mounted() {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
-            this.vitalSignObj[v.vitalCode] = {
-              ...v,
-              popVisible: false,
-            };
+            this.vitalSignObj[v.vitalCode] = v;
+            if (v.vitalSigns == "表顶注释") {
+              this.timeVal = moment(
+                this.vitalSignObj[v.vitalCode].expand2
+              ).utc()._d;
+            }
           });
         } else {
           this.init();
@@ -964,16 +984,18 @@ async mounted() {
         item.recordDate = recordDate;
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 =
-              moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-              " " +
-              this.query.entryTime;
+            if(this.topExpandDate){
+            item.expand2 =moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +" " +this.topExpandDate
+            }else{
+            item.expand2 = moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +" " +this.query.entryTime;
+
+            }
             break;
 
           default:
             break;
         }
-         if(item.vitalValue !== "" &&
+        if(item.vitalValue !== "" &&
         this.checkItem.includes(item.vitalSigns)){
             if(!validForm.valid(this.setValid(item.vitalSigns, item.vitalValue))){
             saveFlagArr.push(false)

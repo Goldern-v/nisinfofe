@@ -168,6 +168,9 @@ export default {
         left: this.rightSheet === false ? "18%" : "4%",
       };
     },
+        syncInAndOutHospital(type) {
+      this.bus.$emit("syncInAndOutHospital", type);
+    },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
@@ -251,7 +254,6 @@ export default {
     });
        this.bus.$on('dateChangePage',(value)=>{
       value=moment(value).format("YYYY-MM-DD")
-      console.log('触发')
         this.$refs.pdfCon.contentWindow.postMessage(
         { type: "dateChangePage", value },
         this.intranetUrl /* 内网 */
