@@ -1502,7 +1502,9 @@ export default {
             console.log("保存评估", res);
             this.$message.success("保存成功");
             this.bus.$emit("setHosptialAdmissionLoading", false);
-            // this.showMeasureDetialBox(res);
+            if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+              this.showMeasureDetialBox(res);
+            }
             //
             let {
               data: {
