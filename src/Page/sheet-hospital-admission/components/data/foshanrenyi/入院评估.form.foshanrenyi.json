@@ -1078,6 +1078,10 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
       "title": "三、健康史/饮食/认知/语言沟通",
       "message": "",
       "require": "false",
@@ -1089,7 +1093,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I100013",
+          "name": "I001219",
           "type": "select",
           "title": "睡眠",
           "titleStyle": "width:60px!important",
@@ -1109,7 +1113,6 @@
         }
       ]
     },
-
     {
       "name": "",
       "type": "formGroupColBox",
@@ -1133,7 +1136,7 @@
           "isDisabledRules": [
             {
               "type": "notEqual",
-              "key": "I100013",
+              "key": "I001219",
               "valList": [
                 "使用辅助药物"
               ]
@@ -2069,7 +2072,7 @@
           "name": "I0011024",
           "type": "select",
           "multiplechoice": true,
-          "title": "部位",
+          "title": "CVC部位",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:667px!important",
@@ -2089,7 +2092,7 @@
     {
       "name": "",
       "type": "formGroupColBox",
-      "col": 2,
+      "col": 1,
       "title": "四、排泄与管道",
       "message": "",
       "require": "false",
@@ -2101,75 +2104,91 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I001218",
-          "type": "input",
-          "title": "外露",
+          "name": "I0011025",
+          "type": "select",
+          "multiplechoice": true,
+          "title": "PICC部位",
+          "style": null,
           "titleStyle": "width:60px!important",
+          "inputStyle": "width:667px!important",
+          "class": null,
+          "isDisabledRules": [
+            {
+              "type": "notEqual",
+              "key": "I001216",
+              "valList": [
+                "PICC"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "五、皮肤",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I0011026",
+          "type": "input",
+          "title": "肢体上臂周径",
+          "titleStyle": "width:83px!important",
           "inputStyle": "width:270px!important",
           "isDisabledRules": [
             {
               "type": "notEqual",
               "key": "I001216",
               "valList": [
-                "有"
+                "PICC"
               ]
             }
           ],
           "value": "",
           "suffixDesc": "cm",
           "style": null,
-          "inputWidth": "180px!important",
+          "inputWidth": "220px!important",
           "class": null,
           "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I001219",
-          "type": "datePicker",
-          "readOnly": "true",
-          "title": "置管日期",
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "isDisabledRules": [
-            {
-              "type": "notEqual",
-              "key": "I001216",
-              "valList": [
-                "有"
-              ]
-            }
-          ],
-          "placeholder": "空",
-          "style": "width:136px!important",
-          "inputWidth": "180px!important",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I001220",
-          "type": "datePicker",
-          "title": "预计拔管日期",
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:270px!important",
-          "isDisabledRules": [
-            {
-              "type": "notEqual",
-              "key": "I001216",
-              "valList": [
-                "有"
-              ]
-            }
-          ],
-          "placeholder": "空",
-          "style": "width:136px!important",
-          "inputWidth": "160px!important",
-          "class": null,
           "readOnly": null
         }
       ]
     },
-
-
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "五、皮肤",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "boxStyle": "height: 64px !important; width:727px !important",
+      "children": [
+        {
+          "name": "I0011029",
+          "type": "input",
+          "inputType": "textarea",
+          "title": "其他",
+          "titleStyle": "width:65px!important",
+          "inputStyle": "width:100%!important",
+          "class": null
+        }
+      ]
+    },
     {
       "name": "",
       "type": "formGroupHR",

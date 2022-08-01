@@ -70,6 +70,7 @@ import topPartJmfy from "@/Page/patientInfo/supComponts/topPart_Jmfy.vue";
 import topPartFSSY from "@/Page/patientInfo/supComponts/topPart_FSSY.vue";//佛山市一
 import topPartLyyz from "@/Page/patientInfo/supComponts/topPart_Lyyz.vue";//佛山市一
 import topPartYC from "@/Page/patientInfo/supComponts/topPart_YC.vue";//阳春中医
+import topPartSdlj from "@/Page/patientInfo/supComponts/topPart_Sdlj.vue";//顺德龙江
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import leftPartHengli from "@/Page/patientInfo/supComponts/leftPart_Hengli";
 import leftPartFuyou from "@/Page/patientInfo/supComponts/leftPart_Fuyou";
@@ -157,6 +158,7 @@ export default {
         武汉市肺科医院:"topPartWHFK",
         临邑县人民医院:"topPartLYXRM",
         临沂沂州医院: "topPartLyyz",
+        佛山市顺德区龙江医院:"topPartSdlj",
       };
       return hisList[HisName] || "topPart";
     },
@@ -207,6 +209,7 @@ export default {
     leftPartFSXT,
     topPartWHFK,
     topPartLyyz,
+    topPartSdlj,
   },
 };
 </script>

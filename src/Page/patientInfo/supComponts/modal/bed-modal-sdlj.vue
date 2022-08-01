@@ -24,8 +24,8 @@
               />
             </div>
             <div flex="cross:center" class="input-item input-item-row">
-              <div>{{query.sex}}</div>
-              <div>{{query.age}}</div>
+              <div class="size">{{query.sex}}</div>
+              <div class="size">{{query.age}}</div>
               <div>{{wardName}}</div>
 
             </div>
@@ -236,7 +236,14 @@
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
-  width: auto
+  width: auto;
+  height: 50px;
+  .size {
+    height: 50px;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 50px;
+  }
 }
 
 input[type='checkbox'] {
