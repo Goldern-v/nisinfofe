@@ -27,7 +27,6 @@
           type="selection" />
           <el-table-column
             label="日期"
-            min-width="200px"
             align="center"
           >
             <template slot-scope="scope">
@@ -36,7 +35,6 @@
           </el-table-column>
           <el-table-column
             label="时间"
-            min-width="100px"
             align="center"
           >
             <template slot-scope="scope">
@@ -96,6 +94,9 @@
 }
 
 .table-con {
+  >>> table {
+    min-width: 100%;
+  }
   margin-top: 20px;
   >>> .el-table__body-wrapper {
     overflow-x: auto !important;
