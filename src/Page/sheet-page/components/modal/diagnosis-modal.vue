@@ -19,10 +19,12 @@
           ref="table"
           :data="filterData"
           border
-          height="350"
+          height="500"
           highlight-current-row
-          @current-change="handleSelectionChange"
+          @selection-change="handleSelectionChange"
         >
+        <el-table-column
+          type="selection" />
           <el-table-column
             label="日期"
             min-width="200px"
@@ -34,7 +36,7 @@
           </el-table-column>
           <el-table-column
             label="时间"
-            min-width="200px"
+            min-width="100px"
             align="center"
           >
             <template slot-scope="scope">
@@ -45,6 +47,34 @@
             prop="diagName"
             label="护理问题"
             min-width="275px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            v-if="newType"
+            prop="diagMeasures"
+            label="护理措施计划"
+            min-width="275px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            v-if="newType"
+            prop="diagTarget"
+            label="护理目标"
+            min-width="275px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            v-if="newType"
+            prop="evalType"
+            label="护理评价"
+            min-width="100px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            v-if="newType"
+            prop="evalContent"
+            label="评价说明"
+            min-width="100px"
             align="center"
           ></el-table-column>
         </el-table>
@@ -106,6 +136,7 @@ export default {
       bus: bus(this),
       formList: {},
       filterData: [],
+      newType: ['lyxrm'].includes(this.HOSPITAL_ID)
     };
   },
   methods: {
@@ -124,7 +155,7 @@ export default {
     },
     post() {
       if (!this.selectedItem) return this.$message.warning('请选择一条数据')
-      this.$emit('handleOk',this.selectedItem)
+      this.$emit('handleOk',{ item: this.selectedItem, key: this.insertKey })
       this.close()
     },
     async getData() {
@@ -167,6 +198,15 @@ export default {
 
       if (this.formList != undefined) {
         return this.formList;
+      }
+    },
+    // 同步需要的字段名
+    insertKey() {
+      switch(this.HOSPITAL_ID) {
+        case 'lyxrm':
+          return 'diagMeasures'
+        default:
+          return 'diagName'
       }
     }
   },

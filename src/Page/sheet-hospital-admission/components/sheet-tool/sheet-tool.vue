@@ -823,7 +823,7 @@ export default {
       return `${dayjs(item.evalDate).format("MM-DD")}`;
       // return `${item.wardName} ${dayjs(item.createTime).format('MM-DD')} 至 ${item.completeTime ? dayjs(item.completeTime).format('MM-DD') : '至今'}`
     },
-    showMeasureDetialBox(res) {
+    showMeasureDetailBox(res) {
       let {
         data: {
           data: { diags: diags },
@@ -867,6 +867,7 @@ export default {
       //   window.formObj.dialogs.push(dialog);
       // }
       //
+      console.log('test-this.$root.$refs', this.$root.$refs, diagsArray)
       this.$root.$refs.diagnosisModal.open(diagsArray);
     },
     removeCheckMark(isXRadiobox = true) {
@@ -1502,7 +1503,9 @@ export default {
             console.log("保存评估", res);
             this.$message.success("保存成功");
             this.bus.$emit("setHosptialAdmissionLoading", false);
-            // this.showMeasureDetialBox(res);
+            if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+              this.showMeasureDetailBox(res);
+            }
             //
             let {
               data: {
