@@ -21,8 +21,10 @@
           border
           height="500"
           highlight-current-row
-          @current-change="handleSelectionChange"
+          @selection-change="handleSelectionChange"
         >
+        <el-table-column
+          type="selection" />
           <el-table-column
             label="日期"
             min-width="200px"

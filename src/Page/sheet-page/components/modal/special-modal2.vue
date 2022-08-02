@@ -1904,10 +1904,12 @@ export default {
     },
     /**获取选择的同步项 */
     handleDiagnosis({ item, key }) {
-      if (this.doc && item[key]) {
-        this.doc += '\n'
-      }
-      this.doc += item[key]
+      item.forEach(v => {
+        if (this.doc && v[key]) {
+          this.doc += '\n'
+        }
+        this.doc += v[key]
+      });
     }
   },
   mounted() {
