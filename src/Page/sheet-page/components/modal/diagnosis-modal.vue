@@ -97,6 +97,9 @@
 
 .table-con {
   margin-top: 20px;
+  >>> .el-table__body-wrapper {
+    overflow-x: auto !important;
+  }
 
   >>>.el-table .cell, >>>.el-table th > div {
     padding: 0 5px;
