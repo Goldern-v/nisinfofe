@@ -708,10 +708,6 @@ export default {
     //时间组件失去焦点
     changeDate(val) {
       let numberVal = val.$el.children[1].value;
-      // if(!moment(numberVal,"HH:mm",true).isValid()) {
-      //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
-      //     return false;
-      // }
       if (
         (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
         (numberVal.indexOf(":") != -1 && numberVal.length == 5)
@@ -720,10 +716,6 @@ export default {
           numberVal.indexOf(":") == -1
             ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
             : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
-        // if(!moment(numberVal,"HH:mm",true).isValid()) {
-        //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
-        //   return false;
-        // }
         let [hours, min] = time.split(":");
         if (0 <= hours && hours <= 24 && 0 <= min && min <= 59) {
           this.query.entryTime = time + ":00";
