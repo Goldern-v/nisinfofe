@@ -65,6 +65,20 @@
             :key="typeItem.id"
           ></el-option>
         </el-select>
+        <span class="label">核对状态:</span>
+        <el-select
+          v-model="dispenseFlag"
+          placeholder="请选择"
+          size="small"
+          style="width:80px"
+        >
+          <el-option
+            :label="v.name"
+            :value="v.value"
+            v-for="v in dispenseFlagList"
+            :key="v.value"
+          ></el-option>
+        </el-select>
         <div style="flex: 1"></div>
         <el-input
           size="small"
@@ -323,7 +337,23 @@ export default {
           name: "未执行"
         },
       ],
-      workClassList:["白班","夜班"]
+      workClassList:["白班","夜班"],
+      // 核对状态
+      dispenseFlag: '',
+      dispenseFlagList: [
+        {
+          value: '',
+          name: '全部'
+        },
+        {
+          value: 0,
+          name: '未核对'
+        },
+        {
+          value: 14,
+          name: '已核对'
+        },
+      ],
     };
   },
   methods: {
@@ -350,16 +380,15 @@ export default {
             : this.type, //执行单类型:输液,口服、治疗、雾化、注射
         bedLabel: this.bedLabel, //床号
         patientName: this.patientName, //患者姓名
-        administration: this.administration // //途径
+        administration: this.administration, // //途径
+        dispenseFlag: this.dispenseFlag,
       };
 
       getExecuteWithWardCodeLyxrm(obj).then(res => {
-        // this.tableData = res.data.data;
-        // this.pageLoading = false;
-        let children = [],
-          child = [],
-          tableData = [];
-        res.data.data.map((item, index, array) => {
+        // let children = [],
+        //   child = [],
+        //   tableData = [];
+        let tableData = res.data.data.map((item, index, array) => {
           let prevRowId, nextRowId, currentRowId;
 
           prevRowId =
@@ -374,53 +403,66 @@ export default {
           item.id = index;
 
           /** 判断是此记录是多条记录 */
+        //   if (currentRowId == prevRowId || currentRowId == nextRowId) {
+        //     child.map(e=>{
+        //       if(e.orderText==item.orderText){item.orderText = "";item.dosage = "";item.dosageUnits = ""}
+        //       if(e.frequency==item.frequency){item.frequency = ""}
+        //       if(e.administration==item.administration){item.administration = ""}
+        //       if(e.executeDateTime==item.executeDateTime){
+        //         item.executeDateTime = "";
+        //         item.executeFlag= 5;
+        //         item.realExecuteDateTime="";
+        //         item.startNurse="";
+        //         item.endNurse="";
+        //         item.endDateTime=""
+        //       }
+        //     })
+        //     child.push(item);
+        //     if(item.executeType=="输液"){
+        //       children.push(item)
+        //     }
+        //     if (currentRowId != prevRowId) {
+        //       /** 第一条 */
+        //       item.rowType = 1;
+        //       tableData.push(item);
+        //     } else if (currentRowId != nextRowId) {
+        //       /** 最后条 */
+        //       item.rowType = 3;
+        //     if(item.executeType=="输液"){
+        //       tableData[tableData.length - 1].children = JSON.parse(
+        //         JSON.stringify(children)
+        //       );
+        //       children = [];
+        //     }
+        //       tableData[tableData.length - 1].child = JSON.parse(
+        //         JSON.stringify(child)
+        //       );
+        //       child = [];
+        //     } else {
+        //       /** 中间条 */
+        //       item.rowType = 2;
+        //     }
+        //   } else {
+        //     tableData.push(item);
+        //   }
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
-            child.map(e=>{
-              if(e.orderText==item.orderText){item.orderText = "";item.dosage = "";item.dosageUnits = ""}
-              if(e.frequency==item.frequency){item.frequency = ""}
-              if(e.administration==item.administration){item.administration = ""}
-              if(e.executeDateTime==item.executeDateTime){
-                item.executeDateTime = "";
-                item.executeFlag= 5;
-                item.realExecuteDateTime="";
-                item.startNurse="";
-                item.endNurse="";
-                item.endDateTime=""
-              }
-            })
-            child.push(item);
-            if(item.executeType=="输液"){
-              children.push(item)
-            }
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
-              tableData.push(item);
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
-            if(item.executeType=="输液"){
-              tableData[tableData.length - 1].children = JSON.parse(
-                JSON.stringify(children)
-              );
-              children = [];
-            }
-              tableData[tableData.length - 1].child = JSON.parse(
-                JSON.stringify(child)
-              );
-              child = [];
             } else {
               /** 中间条 */
               item.rowType = 2;
             }
-          } else {
-            tableData.push(item);
           }
+          return item;
         });
 
-        tableData.map(item => {
-          item.child = item.child ? item.child : [{ ...item }];
-        });
+        // tableData.map(item => {
+        //   item.child = item.child ? item.child : [{ ...item }];
+        // });
         this.tableData = [...tableData];
         // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
         this.pageLoading = false;
