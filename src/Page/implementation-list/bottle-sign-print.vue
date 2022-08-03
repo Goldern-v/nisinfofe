@@ -288,12 +288,14 @@ export default {
       pagedTable:[],
       printObj:[],
       newModalSize:'6*8',
-      hasNewPrintHos:['sdlj', 'gdtj', 'fsxt','whfk','lyxrm','wujing'],
+      hasNewPrintHos:['sdlj', 'gdtj', 'fsxt','whfk','lyxrm','wujing','ytll'],
       typeOptions:{
         'whfk':[
           {label: '全部'},{label:"输液"},{label:"注射"},{label:"皮试"},{label:"雾化"},{label:"标本"},{label:"口服"},{label:"治疗"}],
         'lyxrm':[
           {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"泵入"},{label:"标本"},{label:"其他"},],
+        'ytll':[
+          {label: '全部'},{label:"输液"},{label:"注射"},{label:"皮试"},{label:"雾化"},{label:"标本"},{label:"口服"},{label:"治疗"}],
         default:[
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},]
       },
@@ -576,7 +578,7 @@ export default {
       let printObj = {}
       let res = ''
       console.log('test-barCodeList', barCodeList)
-      if (['sdlj', 'gdtj', 'fsxt','lyxrm','whfk'].includes(this.HOSPITAL_ID)) {
+      if (['sdlj', 'gdtj', 'fsxt','lyxrm','whfk','ytll'].includes(this.HOSPITAL_ID)) {
         res = await getPrintListContent2({barcodeList: barCodeList})
       } else {
         res = await getPrintListContent({barCode: barCodeList.join('|')})

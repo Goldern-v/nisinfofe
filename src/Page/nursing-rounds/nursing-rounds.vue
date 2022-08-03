@@ -184,6 +184,7 @@ import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import authorityModal from "./components/modal/authorityModal";
 
+const pageSize = ['lyxrm'].includes(process.env.HOSPITAL_ID) ? 1000 : 20
 export default {
   mixins: [common],
   data() {
@@ -197,7 +198,7 @@ export default {
         nursingClass: "", //护理等级
         bedLabel: "",
         pageIndex: 1,
-        pageSize: 20
+        pageSize
       },
       total: 0,
       allNursingClass: []
