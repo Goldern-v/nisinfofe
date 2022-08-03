@@ -707,11 +707,11 @@ export default {
     },
     //疼痛
     isPain(){
-      return this.bedList.filter((item)=> item.isPain == "1")
+      return this.bedList.filter((item)=> item.pain)
     },
     //生理自理能力
     isAdl(){
-      return this.bedList.filter((item)=> item.isAdl == "1")
+      return this.bedList.filter((item)=> item.adl)
     },
      //管道脱落
     tubingShedding(){
