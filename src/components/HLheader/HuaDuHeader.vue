@@ -903,17 +903,14 @@ export default {
     },
     /* 其实几个页面都用到这个函数应该封装的。但是我没有空！！！天天催！！ */
     async destroyUnlock(){
-      console.log('护记解锁！！！')
       const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
       /* 判断是否已经自动解锁 */
       if(lockForm && lockForm.initTime){
-        console.log('截取时间')
         /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
         let min=10
         const res=await unLockTime()
-        console.log(923,res)
         if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
-          min = +res.data.data/100
+          min = +res.data.data
         }
         /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
         const afterInitTime= +lockForm.initTime + 60000 * min
@@ -924,7 +921,6 @@ export default {
           return
         }
        }
-       console.log('这里触发？？')
        if(lockForm && lockForm.formId && this.HOSPITAL_ID=='huadu'){
           unLock(lockForm.type,lockForm.formId).then(res=>{
              consoel.log(1087,res)

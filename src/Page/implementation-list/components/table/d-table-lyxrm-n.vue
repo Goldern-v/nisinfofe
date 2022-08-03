@@ -286,6 +286,9 @@
     .pink {
       background-color: pink;
     }
+    .red {
+      background-color: #ec7373;
+    }
 
     td {
       height: 65px !important;
@@ -542,11 +545,15 @@ export default {
       this.$refs.editModal.open(data);
     },
     addRowClass(row) {
-      if (row.row.executeFlag == 4) {
+      if (row.row.nurseMemo) {
+        return 'red'
+      }
+      if (row.row.executeFlag == 2) {
         return "green";
       } else if (row.row.executeFlag == 1) {
         return "pink";
       }
+      return ''
     },
     // 下拉树切换控制 包裹线显示
     toggleTreeExpand(row, treeExpanded, event) {
