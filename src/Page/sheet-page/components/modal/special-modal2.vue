@@ -594,7 +594,7 @@
       </div>
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
-    <diagnosis-modal v-if="['guizhou', 'lyxrm'].includes(HOSPITAL_ID)" :modalWidth="diagnosisWid" ref="diagnosisModalRef" @handleOk="handleDiagnosis" />
+    <diagnosis-modal v-if="['guizhou', 'lyxrm','huadu'].includes(HOSPITAL_ID)" :modalWidth="diagnosisWid" ref="diagnosisModalRef" @handleOk="handleDiagnosis" />
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -966,6 +966,7 @@ export default {
         case 'guizhou':
         return this.commonFormGZ && this.activeTab === '3'
         case 'lyxrm':
+        case 'huadu':
           return this.activeTab === '3'
         default:
           return false
@@ -974,6 +975,7 @@ export default {
     diagnosisWid() {
       switch(process.env.HOSPITAL_ID) {
         case 'lyxrm':
+        case 'huadu':
           return 1200
         default:
           return 720

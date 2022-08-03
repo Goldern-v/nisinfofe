@@ -140,7 +140,7 @@ export default {
       bus: bus(this),
       formList: {},
       filterData: [],
-      newType: ['lyxrm'].includes(this.HOSPITAL_ID)
+      newType: ['lyxrm','huadu'].includes(this.HOSPITAL_ID)
     };
   },
   methods: {
@@ -175,7 +175,8 @@ export default {
             planFormId: res.data.data[0].id,
           })
           if (res1.data.code == 200) {
-            this.tableData = res1.data.data.page.list || []
+            console.log(res1.data.data.page.list);
+             this.tableData = res1.data.data.page.list || []
             this.handleSearch()
           }
           return res1
@@ -190,8 +191,11 @@ export default {
     handleSearch() {
       if (!this.searchDate) return (this.filterData = this.tableData)
       this.filterData = this.tableData.filter(v => {
+        console.log(v);
         return v.beginTime.indexOf(moment(this.searchDate).format('YYYY-MM-DD')) > -1
       })
+
+      console.log(this.filterData);
     }
   },
   computed: {
@@ -208,6 +212,7 @@ export default {
     insertKey() {
       switch(this.HOSPITAL_ID) {
         case 'lyxrm':
+        case 'huadu':
           return 'diagMeasures'
         default:
           return 'diagName'
