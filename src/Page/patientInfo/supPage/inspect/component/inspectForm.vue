@@ -15,7 +15,8 @@
     </div>
     <div v-else-if="data1">
       <el-row v-loading="loading" class="form" :style="{ height: height }">
-        <div class="title">{{ HOSPITAL_NAME }}</div>
+        <div class="title" v-if="HOSPITAL_ID == 'sdlj'">广东医科大学附属第三医院佛山市顺德区龙江医院</div>
+        <div class="title" v-else>{{ HOSPITAL_NAME }}</div>
         <div class="name">{{ data.examItem }}报告单</div>
         <table>
           <tr>

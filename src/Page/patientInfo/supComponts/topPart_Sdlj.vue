@@ -1,17 +1,16 @@
 <template>
   <div class="patient-info-head">
          <el-row
-              class="logo-con"
-              type="flex"
-              align="middle"
-            >
-              <img
-                src="../../../common/images/logo-white.png"
-                height="63"
-                width="63"
-              />
-              <span>广东医科大学附属第三医院<br />智慧护理信息系统</span>
-            </el-row>
+      class="logo-con"
+      type="flex"
+      align="middle"
+    >
+      <img src="../../../common/images/logo-white-60.png" height="60" width="60" />
+      <span>
+        广东医科大学附属第三医院
+        <br />智慧护理信息系统
+      </span>
+    </el-row>
     <div class="nav-con">
       <router-link
         :to="{
@@ -188,7 +187,7 @@
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .logo-con {
-  width: 220px;
+  width: 200px;
   min-width: 200px;
   height: 50px;
   background: #4bb08d;
@@ -204,7 +203,7 @@
 
   span {
     margin-left: 6px;
-    font-size: 14px;
+    font-size: 12px;
     color: #EFF2F9;
     letter-spacing: 0;
     line-height: 16px;
