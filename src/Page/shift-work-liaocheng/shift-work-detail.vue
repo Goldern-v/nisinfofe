@@ -463,6 +463,7 @@
                 <span>
                   VTE高危：<b><input type="text" v-model="shiftWithWardcodes.patientVte" /></b>人
                 </span>
+                <span>交班日期<b>{{record.changeShiftDate}}</b></span>
               </div>
             </div>
           </div>
@@ -694,14 +695,14 @@ export default {
             {
               label: "床号",
               prop: "bedLabel",
-              editable: true,
+              editable: ['whfk'].includes(this.HOSPITAL_ID)? false : true,
               align: "center",
               width: "35"
             },
             {
               label: "姓名、性别、年龄",
               prop: "name",
-              width: "53",
+              width: ['whfk'].includes(this.HOSPITAL_ID)?"45":"53",
               render: row => {
                 const status = row.patientStatus
                   ? `(${row.patientStatus})`
@@ -720,13 +721,13 @@ export default {
               label: "主要诊断",
               prop: "diagnosis",
               editable: true,
-              width: "80"
+              width: ['whfk'].includes(this.HOSPITAL_ID)?"98":"80"
             },
             {
               label: "主诉及现存主要问题",
               prop: "mainComplaint",
               editable: true,
-              width: "90"
+              width: ['whfk'].includes(this.HOSPITAL_ID)?"80":"90"
             }
           ]
         },
