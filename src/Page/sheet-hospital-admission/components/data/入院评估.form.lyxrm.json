@@ -749,7 +749,21 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": true,
+          "rule": [
+            {
+              "min": "-Infinity",
+              "max": "35",
+              "style": "color: red; border-color",
+              "message": "体温过低"
+            },
+            {
+              "min": "37.6",
+              "max": "Infinity",
+              "style": "color: red; border-color",
+              "message": "体温过高"
+            }
+          ]
         },
         {
           "name": "I100002",
@@ -762,7 +776,21 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": true,
+          "rule": [
+            {
+              "min": "-Infinity",
+              "max": "60",
+              "style": "color: red; border-color",
+              "message": "脉搏过低"
+            },
+            {
+              "min": "101",
+              "max": "Infinity",
+              "style": "color: red; border-color",
+              "message": "脉搏过高"
+            }
+          ]
         },
         {
           "name": "I100003",
@@ -775,7 +803,21 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": true,
+          "rule": [
+            {
+              "min": "-Infinity",
+              "max": "16",
+              "style": "color: red; border-color",
+              "message": "呼吸过低"
+            },
+            {
+              "min": "21",
+              "max": "Infinity",
+              "style": "color: red; border-color",
+              "message": "呼吸过高"
+            }
+          ]
         },
         {
           "name": "I100005",
@@ -788,7 +830,21 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": true,
+          "rule": [
+            {
+              "min": "-Infinity/-Infinity",
+              "max": "90/60",
+              "style": "color: red; border-color",
+              "message": "收缩压过低/舒张压过低"
+            },
+            {
+              "min": "140/90",
+              "max": "Infinity/Infinity",
+              "style": "color: red; border-color",
+              "message": "收缩压过高/舒张压过高"
+            }
+          ]
         }
       ]
     },

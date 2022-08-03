@@ -319,7 +319,9 @@ export default {
         this.$store.commit("upMakePatient", value.bedLabel);
       }
       //  解锁评估单
-       this.bus.$emit("quitUnlock")
+      this.bus.$emit("quitUnlock")
+      //  解锁护理记录单
+      this.bus.$emit("quitUnlockSheetPage")
     },
     getDate() {
       if (this.deptCode) {

@@ -1,9 +1,31 @@
 
 <template>
   <span
-    style
-    :style="(obj.label||obj.suffixDesc)  && {display: 'flex', alignItems: 'center', margin:'5px 0' }"
+    :style="(obj.label||obj.suffixDesc || alertMessage) && {display: 'flex', alignItems: 'center', margin:'5px 0' }"
   >
+  <!-- 警报icon -->
+    <div
+      v-if="obj.type === 'input' && alertMessage"
+      class="alert-message"
+    >
+      <el-tooltip
+        class="item"
+        effect="light"
+        :enterable="false"
+        placement="top"
+      >
+        <div class="el-tooltip-content" slot="content">
+          <div v-html="alertMessage || ''"></div>
+        </div>
+        <img
+          :src="alertImg"
+          :alt="obj.title"
+          :style="obj.tips ? 'margin-left:28px!important' : ''"
+          :name="`${obj.name}_${obj.title}_${obj.label}_img`"
+          width="14"
+        />
+      </el-tooltip>
+    </div>
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
@@ -109,6 +131,10 @@ export default {
       tableScore2:false,
       tableScore3:false,
       tableScore4:false,
+      alertMessage: "",
+      alertImg: require("@/assets/img/预警@2x.png"),
+      alertActivated: false,
+      currentRule: {},
     };
   },
   computed: {
@@ -343,7 +369,10 @@ export default {
     },
     checkValueRule(valueNew) {
       let textResult = valueNew;
+      // 初始化
       this.obj.style = "";
+      this.alertMessage = "";
+      this.currentRule = {};
       if (
         this.obj.hasOwnProperty("rule") !== -1 &&
         this.obj.rule &&
@@ -412,10 +441,16 @@ export default {
 
             }
           }
-
+          this.checkSlashValue(valueNew, r)
           // 判断规则
           if (r.min && r.max && (value >= min && value < max)) {
             this.obj.style = r.style;
+            if (r.message) {
+              this.alertMessage = r.message + "";
+              this.alertActivated = true;
+              this.currentRule = { ...r };
+              // return;
+            }
             // 替换显示 r.display
             if (
               r.display &&
@@ -899,6 +934,29 @@ export default {
           return true;
       }
       return false;
+    },
+    /**有斜杠的值，一般有两个数据 */
+    checkSlashValue(value, r) {
+      if (r.min && r.max && r.min.indexOf('/') > -1 && r.max.indexOf('/') > -1) {
+        let [min0,min1] = r.min.split('/')
+        let [max0,max1] = r.max.split('/')
+        let [nv0, nv1 = ''] = value.split('/')
+        let v0 = Number(nv0)
+        let v1 = Number(nv1)
+        min0 = isNaN(min0) ? 0 : min0;
+        max0 = isNaN(max0) ? 0 : max0;
+        min1 = isNaN(min1) ? 0 : min1;
+        max1 = isNaN(max1) ? 0 : max1;
+        let showM0 = v0 >= min0 && v0 < max0
+        let showM1 =  nv1 && v1 >= min1 && v1 < max1
+        if (r.message && (showM0 || showM1) ) {
+          const mArr = r.message.split('/')
+
+          this.alertMessage = mArr.filter((v, i) => [showM0, showM1][i]).join('\n');
+          this.alertActivated = true;
+          this.currentRule = { ...r };
+        }
+      }
     }
   }
 };
@@ -1046,9 +1104,17 @@ export default {
     // border-left 1px solid #4baf8d
     background #eef5f5
   }
-
-
-
+}
+.alert-message {
+  cursor: pointer;
+  color: red;
+  font-size: 12px;
+  // position: absolute !important;
+  // margin-left: -10px !important;
+  position: relative;
+  left: 3px;
+  margin-top: 0px;
+  z-index: 2;
 }
 </style>
 

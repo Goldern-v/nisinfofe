@@ -901,13 +901,40 @@ export default {
     toAdmin() {
       window.location.href = "/crNursing/admin";
     },
+    /* 其实几个页面都用到这个函数应该封装的。但是我没有空！！！天天催！！ */
+    async destroyUnlock(){
+      console.log('护记解锁！！！')
+      const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
+      /* 判断是否已经自动解锁 */
+      if(lockForm && lockForm.initTime){
+        console.log('截取时间')
+        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
+        let min=10
+        const res=await unLockTime()
+        console.log(923,res)
+        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
+          min = +res.data.data/100
+        }
+        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
+        const afterInitTime= +lockForm.initTime + 60000 * min
+        const nowTime=Date.now()
+        if(nowTime > afterInitTime ){
+          /* 超时间 */
+          localStorage.setItem('lockForm','')
+          return
+        }
+       }
+       console.log('这里触发？？')
+       if(lockForm && lockForm.formId && this.HOSPITAL_ID=='huadu'){
+          unLock(lockForm.type,lockForm.formId).then(res=>{
+             consoel.log(1087,res)
+             localStorage.setItem('lockForm','')
+          })
+       }
+    },
    async quit() {
       // 登出前调用解锁
-      /* 两个函数是一样的。但是从不同页面触发需要在哪个页面$on注册这个方法。如果名字一样注册了两次，这里就会触发两次，所以名字有所区别*/
-      //评估单解锁
-      await this.bus.$emit("quitUnlock")
-      //护记单解锁
-      await this.bus.$emit("quitUnlockSheetPage")
+      await this.destroyUnlock()
       // 登出操作
       logout(Cookies.get("NURSING_USER"));
       Cookies.remove("password");
