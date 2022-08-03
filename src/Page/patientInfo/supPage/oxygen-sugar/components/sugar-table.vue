@@ -24,34 +24,34 @@
           :key="index+'item.sugarValue'"
           @click="onSelect(item,renderData,index)"
         >
-          <td :style="item.signerNo ? 'cursor: not-allowed;': ''" @keydown="onKeyDown($event,renderData,index,'dateStr')">
+          <td :style="getStyle(item.signerNo)" @keydown="onKeyDown($event,renderData,index,'dateStr')">
             <div class="cell noPrint">
               <!-- {{ item.date }} -->
-              <input type="text" v-model="item.dateStr" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' "  :id="`P${pageIndex}-dateStr${index + baseIndex + 1}`" />
+              <input type="text" v-model="item.dateStr" :disabled="allowEdit(item.signerNo)" :style="getStyle(item.signerNo)"  :id="`P${pageIndex}-dateStr${index + baseIndex + 1}`" />
             </div>
             <div :class="['cell','inPrint']">
               {{item.dateStr}}
             </div>
           </td>
-          <td :style="item.signerNo ? 'cursor: not-allowed;': '' " @keydown="onKeyDown($event,renderData,index,'timeStr')">
+          <td :style="getStyle(item.signerNo)" @keydown="onKeyDown($event,renderData,index,'timeStr')">
             <div class="cell noPrint">
-              <input type="text" v-model="item.timeStr" @input="inputTime(item,'timeStr',':')" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' "  :id="`P${pageIndex}-timeStr${index + baseIndex + 1}`"/>
+              <input type="text" v-model="item.timeStr" @input="inputTime(item,'timeStr',':')" :disabled="allowEdit(item.signerNo)" :style="getStyle(item.signerNo)"  :id="`P${pageIndex}-timeStr${index + baseIndex + 1}`"/>
             </div>
             <div :class="['cell','inPrint']">
               {{item.timeStr}}
             </div>
           </td>
-          <td :style="item.signerNo ? 'cursor: not-allowed;': '' " @keydown="onKeyDown($event,renderData,index,'sugarOxygen')">
+          <td :style="getStyle(item.signerNo)" @keydown="onKeyDown($event,renderData,index,'sugarOxygen')">
             <div class="cell noPrint">
-              <input type="text" v-model="item.sugarOxygen" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' "  :id="`P${pageIndex}-sugarOxygen${index + baseIndex + 1}`"/>
+              <input type="text" v-model="item.sugarOxygen" :disabled="allowEdit(item.signerNo)" :style="getStyle(item.signerNo)"  :id="`P${pageIndex}-sugarOxygen${index + baseIndex + 1}`"/>
             </div>
              <div :class="['cell','inPrint']">
               {{item.sugarOxygen}}
             </div>
           </td>
-          <td :style="item.signerNo ? 'cursor: not-allowed;': '' " @keydown="onKeyDown($event,renderData,index,'heartRate')">
+          <td :style="getStyle(item.signerNo)" @keydown="onKeyDown($event,renderData,index,'heartRate')">
             <div class="cell noPrint">
-              <input type="text" v-model="item.heartRate" :disabled="item.signerNo ? true : false" :style="item.signerNo ? 'cursor: not-allowed;': '' "  :id="`P${pageIndex}-heartRate${index + baseIndex + 1}`"/>
+              <input type="text" v-model="item.heartRate" :disabled="allowEdit(item.signerNo)" :style="getStyle(item.signerNo)"  :id="`P${pageIndex}-heartRate${index + baseIndex + 1}`"/>
             </div>
              <div :class="['cell','inPrint']">
               {{item.heartRate}}
@@ -233,6 +233,28 @@ export default {
     },
   },
   methods: {
+    getStyle(sign) {
+      if (sign) {
+        if (this.HOSPITAL_ID === 'whfk') {
+          if (this.isRoleManage) {
+            return {}
+          }
+        }
+        return { cursor: 'not-allowed' }
+      }
+      return {}
+    },
+    allowEdit(sign) {
+      if (sign) {
+        if (this.HOSPITAL_ID === 'whfk') {
+          if (this.isRoleManage) {
+            return false
+          }
+        }
+        return true
+      }
+      return false
+    },
     onKeyDown(e,list,index,type){
       const typeList=['dateStr','timeStr','sugarOxygen','heartRate']
       const nowInput=document.getElementById(`P${this.pageIndex}-${type}${this.activeIndex + this.baseIndex + 1}`)

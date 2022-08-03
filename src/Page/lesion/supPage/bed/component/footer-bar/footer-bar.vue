@@ -85,7 +85,7 @@ export default {
         },
         {
           key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ? "压力性损伤高风险" : this.HOSPITAL_ID=="lyxrm" ?"跌倒压力性损伤高风险":"压疮高风险",
-          length: this.dangerInYachuang.length
+          length: this.HOSPITAL_ID=="whfk" ? this.hasYachuang.length : this.dangerInYachuang.length
         },
         {
           key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ?"已有压力性损伤": this.HOSPITAL_ID=="lyxrm" ?"已有压力性损伤风险" : "已有压疮",
