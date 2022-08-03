@@ -725,7 +725,7 @@ export default {
                   type="text"
                   size="mini"
                   on-click={
-                    (e) => this.batchAudit(e, node)
+                    (e) => this.batchAudit(e, node,this.$route.query)
                   }
                 >
                   批量审核
@@ -765,11 +765,11 @@ export default {
         }
       }
     },
-    batchAudit(e, node) {
+    batchAudit(e, node,query) {
       e.stopPropagation()
-      this.batchAuditForms = node.data
+      this.batchAuditForms = {...node.data,query}
       this.batchAuditDialog = true
-      console.log('批量审核', node);
+      console.log('批量审核', node,query);
 
     },
     handleCloseBatchAudit(refresh) {
