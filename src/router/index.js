@@ -1080,7 +1080,9 @@ const router = new Router({
               return implementationListShannan
             case 'zhongshanqi':
               return implementationListZhongshanqi
-            case 'lyxrm' || 'ytll':
+            case 'lyxrm':
+              return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
+            case  'ytll':
               return implementationListLyxrm
             case 'wujing':
             case 'sdlj' || 'gdtj':
@@ -1114,11 +1116,11 @@ const router = new Router({
           },
         ]:[]
       },
-      {
-        path: '/implementationListNew',
-        component: () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue"), // 新版临邑执行单,
-        name: 'implementationListNew'
-      },
+      // {
+      //   path: '/implementationListNew',
+      //   component: () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue"), // 新版临邑执行单,
+      //   name: 'implementationListNew'
+      // },
       {
         path: "/bottleLabel",
         component: bottleLabel,
