@@ -261,7 +261,8 @@ export default {
       bedAndDeptChange: {},
       listData: [],
       lockHospitalList:[
-        'huadu'
+        'huadu',
+        'liaocheng'
       ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
       isLock:false
     };
@@ -433,11 +434,12 @@ export default {
           this.isLock=true
           window.app && window.app.$message({
             showClose: true,
-            message: res[1].data.desc,
-            type: 'error'
+            message: res[1].data.desc, 
+            type: 'error',
+            duration:5000
           })
         }else{
-          const formConfig={
+          const formConfig={ 
             formId:this.sheetInfo.selectBlock.id,
             type:'record',
             initTime:Date.now()

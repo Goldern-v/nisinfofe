@@ -330,7 +330,8 @@ export default {
         "wujing",
       ], // 患者列表点击前往体温单录入的医院
       lockHospitalList:[
-        'huadu'
+        'huadu',
+        'liaocheng'
       ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
       isLock:false
     };
@@ -730,7 +731,8 @@ export default {
           window.app && window.app.$message({
             showClose: true,
             message: res[1].data.desc,
-            type: 'error'
+            type: 'error',
+            duration:5000
           })
         }else{
           const formConfig={
@@ -929,9 +931,9 @@ export default {
         }
        }
        if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
-         unLock(lockForm.type,lockForm.formId).then(res=>{
-            localStorage.setItem('lockForm','')
-         })
+          unLock(lockForm.type,lockForm.formId).then(res=>{
+             localStorage.setItem('lockForm','')
+          })
        }
     }
   },

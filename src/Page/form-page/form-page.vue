@@ -72,7 +72,7 @@ export default {
       },
       patientListLoading: false,
       bus: bus(this),
-      lockHospitalList:['huadu']//配置了评估单锁定功能的医院
+      lockHospitalList:['huadu','liaocheng']//配置了评估单锁定功能的医院
     };
   },
   computed: {
