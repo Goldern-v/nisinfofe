@@ -14,7 +14,6 @@
             v-model="startDate"
             style="width:160px"
           ></el-date-picker>
-          <!-- -- -->
           <span class="label">执行结束时间</span>
           <el-date-picker
             type="datetime"
@@ -208,6 +207,7 @@ import dTable from "./components/table/bottle-sign-print-table.vue";
 import pagination from "./components/common/pagination";
 import NewPrintModal from "./components/common/newPrintModal"
 import NewPrintModalSdlj from "./components/common/newPrintModalSdlj"
+import NewPrintModalFsxt from "./components/common/newPrintModalFsxt"
 import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm"
 import NewPrintModalWhfk from "./components/common/newPrintModalWhfk"
 import NewPrintModalWujing from "./components/common/newPrintModalWujing"
@@ -706,7 +706,7 @@ export default {
         case 'gdtj':
           return 'NewPrintModalSdlj'
         case 'fsxt':
-          return 'NewPrintModalSdlj'
+          return 'NewPrintModalFsxt'
         case 'lyxrm':
           return 'NewPrintModalLyxrm'
         case 'whfk':
@@ -766,6 +766,7 @@ export default {
     pagination,
     NewPrintModal,
     NewPrintModalSdlj,
+    NewPrintModalFsxt,
     NewPrintModalLyxrm,
     NewPrintModalWhfk,
     NewPrintModalWujing,

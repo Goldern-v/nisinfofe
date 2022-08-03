@@ -131,11 +131,9 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         // "http://localhost:8080/#/" /* 本地自测环境 导致跨域 */,
-      "http://192.168.4.175:9091/hcres/#/" /* 医院正式环境内网 导致跨域 */,
+      "http://192.168.4.175:9091/temperature" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://192.168.4.175:9091/hcres/#/printAll" /* 医院正式环境内网 */,
-      outNetUrl:
-        "http://120.24.240.231:15091/temperature/#/" /* 医院正式环境外网：想要看iframe的效果，测试的时候可以把本地的地址都改成外网测试 */,
+        "http://192.168.4.175:9091/temperature/printAll" /* 医院正式环境内网 */,
     };
   },
   methods: {
@@ -344,7 +342,7 @@ export default {
   },
   computed: {
     detailChatUrl() {
-      let path = `${this.intranetUrl}detailed`;//正式服内网地址(http://192.168.4.175:9091/hcres/#/detailed)
+      let path = `${this.intranetUrl}/detailed`;//正式服内网地址(http://192.168.4.175:9091/temperature/#/detailed)
       // let path = "http://localhost:8080/#/detailed";//个人测试地址
       return `${path}?showVitalSign=${this.showVitalSign}`; /* 外网 */
     },

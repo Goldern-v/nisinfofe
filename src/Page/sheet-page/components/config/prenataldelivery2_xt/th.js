@@ -40,10 +40,7 @@ export default {
                 {"name":"宫<br/>颈<br/>内<br/>口<br/>探<br/>查","colspan":"1","rowspan":"3"},
                 {"name":"吸<br/>氧<br/>升<br/>/分","colspan":"1","rowspan":"3"},
                 {"name":"微<br/>机<br/>血<br/>糖<br/>mmol<br/>/L","colspan":"1","rowspan":"3"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue","style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"armValue2","style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"护<br/>理<br/>安<br/>全","colspan":"1","rowspan":"3"},
-                {"name":"护<br/>理<br/>措<br/>施","colspan":"1","rowspan":"3"},
+            
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
                 {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
