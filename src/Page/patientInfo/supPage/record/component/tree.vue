@@ -529,7 +529,7 @@ export default {
       // let fileicon = fileicon
       // let filebox = filebox
       // // 如果存在保存
-      // console.log("111",node.childNodes,node.level)
+      // console.log("111",node.childNodes)
       // console.log(h,  node, data, store );
       //未签名
       let hasSave =
@@ -658,6 +658,47 @@ export default {
           icon = fileicon;
         }
       }
+      // 多行表单签名状态（佛医）
+      const style = {} // 文件夹
+      const pageStyle = {} // 每张表单
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        // signStatus: 0 - 完成，1 - 未签名（责任签名），2 - 未审核
+        // 多行表单（表内多行签名状态判断）
+        if (data.multiLine) {
+          const formsSign = node.data.formOperateType == "1"; // 只有一个签名（责任签名）
+          const formsAudit = node.data.formOperateType == "2"; // 责任 + 审核
+          // 是否有表单多行内未签名（责任签名）
+          const hasPageNotSign = node.childNodes.filter((item) => {
+            return item.data.signStatus === "1";
+          }).length > 0;
+          // 是否有表单多行内未审核
+          const hasPageNotAudit = node.childNodes.filter((item) => {
+            return item.data.signStatus === "2";
+          }).length > 0;
+          const currentPageNotSign = node.data.signStatus === '1' // 当前表单多行内未签名（责任签名）
+          const currentPageNotAudit = node.data.signStatus === '2' // 当前表单多行内未审核
+          if (formsSign) { // 表单多行内只有签名（责任）
+            if (hasPageNotSign) { // 存在表单目录下有表单多行内未签名（责任签名）
+              style.color = 'red'
+            }
+            if (currentPageNotSign) { // 当前表单多行内未签名（责任签名）
+              pageStyle.color = 'red'
+            }
+          } else if (formsAudit) { // 表单多行内有两个签名，责任 + 审核
+            if (hasPageNotSign) { // 存在表单目录下有表单多行内未签名（责任签名）
+              style.color = 'red'
+            } else if (hasPageNotAudit) { // 存在表单目录下有表单多行内未审核
+              style.color = 'green'
+            }
+            if (currentPageNotSign) { // 当前表单多行内未签名（责任签名）
+              pageStyle.color = 'red'
+            } else if (currentPageNotAudit) { // 当前表单多行内未审核
+              pageStyle.color = 'green'
+            }
+          }
+        }
+        // console.log('style', style);
+      }
       let viewDom = h();
       if (this.HOSPITAL_ID === "liaocheng" || this.HOSPITAL_ID === "quzhou") {
         viewDom = h(
@@ -676,7 +717,7 @@ export default {
             <span class="tree-box-node2">
               <span class="box-label">
                 <img src={box}/>
-                <span>{node.label}</span>
+                <span style={ style }>{node.label}</span>
               </span>
               {
                 node.data.canBatchAudit &&
@@ -710,16 +751,8 @@ export default {
           let pages = String(
             pageIndex.find((item) => item !== undefined)
           ).split("")[1];
-          // const style = {}
-          // 多行表单（表内多行签名状态判断）
-          // if (data.multiLine) {
-          //   const formNoSign = node.data.formOperateType == "0"; // 无签名
-          //   const formSign = node.data.formOperateType == "1"; // 只有一个签名
-          //   const formAudit = node.data.formOperateType == "2"; // 责任 + 审核
 
-          // }
-          // console.log(String(pages).split('')[1]);
-          return h("span", { class: { "tree-node": true } }, [
+          return h("span", { class: { "tree-node": true }, style: pageStyle }, [
             h("img", { attrs: { src: icon } }),
             h("span", {}, `第${pages}页`),
             h("span", {}, node.label),
@@ -813,6 +846,8 @@ export default {
               pageUrl: item.pageUrl,
               formTreeRemindType: item.formTreeRemindType,
               canBatchAudit: item.canBatchAudit,
+              multiLine: item.multiLine,
+              formOperateType: item.formOperateType,
               children:
                 item.formInstanceDtoList &&
                 item.formInstanceDtoList.map((option, i) => {
