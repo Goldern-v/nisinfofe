@@ -16,22 +16,31 @@
           
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div flex="cross:center" class="qr-code-item" style="height:150px;">
-              <p class="name">{{query.name}}</p>
+              <p v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" style="line-height: 80px;" class="name">
+                <span>{{nameYing}}</span><br>
+                <span>{{nameAfter}}</span>
+              </p>
+              <p v-else class="name">{{query.name}}</p>
               <img
                 class="qr-code"
                 :class="{ hasRemark: hasRemark }"
                 :src="qrCode"
               />
             </div>
-            <div flex="cross:center" class="input-item input-item-row">
-              <div class="size">{{query.sex}}</div>
-              <div class="size">{{query.age}}</div>
+            <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="input-item input-item-row">
+              <div>{{query.sex}}</div>
+              <div v-if="HOSPITAL_ID!='sdlj'">{{query.age}}</div>
+              <div v-else-if="HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')>=0">{{query.age}}</div>
               <div>{{wardName}}</div>
 
             </div>
+            <div v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="input-item">
+              <div>身高:</div><div style="width: 120px;">{{query.height}}</div>
+              <div>体重:</div><div style="width: 120px;">{{query.weight}}</div>
+            </div>
             <div flex="cross:center" class="input-item" style="width:auto;height:50px">
               <div style="display:flex">
-                <span class="label">住院号:</span>
+                <span :class="{'label-nowidth':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="label">住院号:</span>
                 <input
                   type="text"
                   nowidth
@@ -44,7 +53,7 @@
               <div class="bedNum">{{query.bedLabel + '床'}}</div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label">入院日期:</span>
+              <span class="label">{{HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')==-1?'出生时间:':'入院日期:'}}</span>
               <input
                 type="text"
                 nowidth
@@ -54,7 +63,7 @@
                 :value="moment(query.admissionDate).format('YYYY-MM-DD HH:mm:ss')"
               />
             </div>
-            <div flex="cross:center" class="input-item">
+            <div v-if="HOSPITAL_ID!='sdlj'" flex="cross:center" class="input-item">
               <span class="label">主治医生:</span>
               <input
                 type="text"
@@ -236,13 +245,9 @@
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
-  width: auto;
-  height: 50px;
-  .size {
-    height: 50px;
-    font-size: 50px;
-    font-weight: bold;
-    line-height: 50px;
+  width: auto
+  &.input-item-nopadding{
+    padding:0;
   }
 }
 
@@ -351,6 +356,9 @@ input[type='checkbox']:checked:after {
   white-space: nowrap;
   width: 130px;
   text-align: right;
+  &.label-nowidth{
+    width:auto;
+  }
 }
 
 .tip-item-con {
@@ -434,7 +442,9 @@ export default {
         mainDoctors: "",
         dutyNurses: "",
         remark: "",
-        remarkPrint: true
+        remarkPrint: true,
+        nameYing:"",
+        nameAfter:""
       },
       ysList: []
     };
@@ -462,6 +472,12 @@ export default {
         dutyNurses: "",
         remark: ""
       };
+      console.log("this.query.",this.query)
+      if(this.HOSPITAL_ID=="sdlj" && this.query.patientId.indexOf("$")>=0){
+        const patientArr = this.query.name.split(")")
+        this.nameYing = patientArr[0] + ")"
+        this.nameAfter = patientArr[1]
+      }
       getEntity(this.query.patientId, this.query.visitId).then(res => {
         let resData = res.data.data;
         let diagnosis = textOver(this.query.diagnosis, 52);
