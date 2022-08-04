@@ -502,6 +502,7 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
+      timeStrFormat: "",
     };
   },
   async mounted() {
@@ -667,10 +668,6 @@ export default {
     //时间组件失去焦点
     changeDate(val) {
       let numberVal = val.$el.children[1].value;
-      // if(!moment(numberVal,"HH:mm",true).isValid()) {
-      //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
-      //     return false;
-      // }
       if (
         (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
         (numberVal.indexOf(":") != -1 && numberVal.length == 5)
@@ -695,10 +692,18 @@ export default {
       }
     },
     // 下拉选项触发查询
-    changeVal(newVal, oldVal) {
-      if (newVal && newVal.split(":").length == 2) {
-        this.query.entryTime = newVal + ":00";
-        this.dateInp = newVal;
+    async changeVal(newVal, oldVal) {
+      //操作时间
+      await this.formatTimeFun(newVal);
+      this.timeStrFormat = "";
+    },
+    formatTimeFun(newVal) {
+      if (newVal.split(":").length == 2) {
+        if (this.timeStrFormat === "00" || this.timeStrFormat === "") {
+          this.query.entryTime = newVal + ":00";
+        } else {
+          this.query.entryTime = newVal + `:${this.timeStrFormat}`;
+        }
       }
     },
     /* 日期搜索功能 */
@@ -726,8 +731,7 @@ export default {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
       this.query.entryTime = value.slice(12, 20);
-      //this.query.entryTime = value.slice(12, 20);
-      //赋值初始值
+      this.timeStrFormat = temp.slice(18, 20);
       this.dateInp = value.slice(12, 17);
     },
     getFilterSelections(orgin, filterStr) {
@@ -736,7 +740,6 @@ export default {
     },
     handlePopRefresh(target) {
       target.popVisible = false;
-
       setTimeout(() => (target.popVisible = true), 100);
     },
     /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口  */
