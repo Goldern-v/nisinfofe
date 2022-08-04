@@ -1040,12 +1040,12 @@ export default {
           break;
         case "ADL":
           {
-            this.$parent.bedList = this.isPain;
+            this.$parent.bedList = this.isAdl;
           }
           break;
         case "疼痛":
           {
-            this.$parent.bedList = this.isAdl;
+            this.$parent.bedList = this.isPain;
           }
           break;
         case "管道脱落风险":
