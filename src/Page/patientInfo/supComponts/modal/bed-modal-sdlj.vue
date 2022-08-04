@@ -11,7 +11,7 @@
         <div
           class="bed-card-con"
           flex
-          :class="{ remarkCon: formData.remarkPrint }"
+          :class="{ remarkCon: formData.remarkPrint,itemHeight:HOSPITAL_ID=='sdlj' }"
         >
           
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
@@ -27,7 +27,8 @@
                 :src="qrCode"
               />
             </div>
-            <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="input-item input-item-row">
+            <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0,'fontSize-50':HOSPITAL_ID=='sdlj'}" 
+            class="input-item input-item-row">
               <div>{{query.sex}}</div>
               <div v-if="HOSPITAL_ID!='sdlj'">{{query.age}}</div>
               <div v-else-if="HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')>=0">{{query.age}}</div>
@@ -121,7 +122,11 @@
   position: relative;
   // border: 1px solid #000;
   height: 370px;
-
+  &.itemHeight{
+    .input-item{
+      height:50px;
+    }
+  }
   .bed-card-con-top{
     height: 150px;
   }
@@ -248,6 +253,9 @@
   width: auto
   &.input-item-nopadding{
     padding:0;
+  }
+  &.fontSize-50{
+    font-size:50px;
   }
 }
 
