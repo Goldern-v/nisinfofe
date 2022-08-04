@@ -149,8 +149,8 @@ export default {
         arr = arr.filter((item)=> {
           return (item.key !='MEWS预警'&& item.key != "预出院"&& item.key != "已有压疮")
         })
-        arr.splice(2,0, {key: "ADL",length: this.isPain.length},
-          {key: "疼痛",length: this.isAdl.length},
+        arr.splice(2,0, {key: "ADL",length: this.isAdl.length},
+          {key: "疼痛",length: this.isPain.length},
           {key: "管道脱落风险",length: this.tubingShedding.length},)
 
       }
