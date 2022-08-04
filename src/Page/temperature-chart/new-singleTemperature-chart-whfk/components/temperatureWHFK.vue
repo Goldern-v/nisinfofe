@@ -85,10 +85,10 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
        intranetUrl:
-        "http://192.168.2.131:9091/temperature/#/" /* 医院正式环境内网 导致跨域,
+        "http://192.168.2.131:9091/temperature/#/pain" /* 医院正式环境内网 导致跨域,
       // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 */,
       printAllUrl:
-        "http://192.168.2.131:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+        "http://192.168.2.131:9091/temperature/#/painPrintAll" /* 医院正式环境内网 */,
         // "http://192.168.3.192:8080/#/printAll" /* 医院正式环境内网 */,
     };
   },
