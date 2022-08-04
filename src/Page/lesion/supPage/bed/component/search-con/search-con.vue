@@ -689,7 +689,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl'
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj'
         ].includes(
         this.HOSPITAL_ID
       );
