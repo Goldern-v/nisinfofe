@@ -261,8 +261,7 @@ export default {
       bedAndDeptChange: {},
       listData: [],
       lockHospitalList:[
-        'huadu',
-        'liaocheng'
+        'huadu'
       ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
       isLock:false
     };
@@ -754,31 +753,6 @@ export default {
       }
       ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
       ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
-    },
-    async destroyUnlock(){
-      const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
-      /* 判断是否已经自动解锁 */
-      if(lockForm && lockForm.initTime){
-        let min=10
-        /* 拿后台字典的分钟数 */
-        const res=await unLockTime()
-        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
-          min = +res.data.data
-        }
-        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
-        const afterInitTime= +lockForm.initTime + 60000 * min
-        const nowTime=Date.now()
-        if(nowTime > afterInitTime ){
-          /* 超时间 */
-          localStorage.setItem('lockForm','')
-          return
-        }
-       }
-       if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
-         unLock(lockForm.type,lockForm.formId).then(res=>{
-            localStorage.setItem('lockForm','')
-         })
-       }
     }
   },
 
