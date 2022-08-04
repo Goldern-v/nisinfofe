@@ -63,7 +63,7 @@
                 :value="moment(query.admissionDate).format('YYYY-MM-DD HH:mm:ss')"
               />
             </div>
-            <div v-if="HOSPITAL_ID!='sdlj'" flex="cross:center" class="input-item">
+            <div v-if="!(HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0)" flex="cross:center" class="input-item">
               <span class="label">主治医生:</span>
               <input
                 type="text"
