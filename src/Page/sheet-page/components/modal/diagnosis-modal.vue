@@ -177,12 +177,38 @@ export default {
           if (res1.data.code == 200) {
             console.log(res1.data.data.page.list);
              this.tableData = res1.data.data.page.list || []
+             this.tableData = this.tableData.map(v => {
+              if (this.testRep(v.diagMeasures, v.measuresName) || this.testRep(v.diagTarget, v.targetsName)) {
+                return {
+                  ...v,
+                  diagMeasures: this.formatList(v.diagMeasures, v.measuresName, 'measureDetail'),
+                  diagTarget: this.formatList(v.diagTarget, v.targetsName, 'parameter'),
+                }
+              }
+              return v
+             })
             this.handleSearch()
           }
           return res1
         }
       } catch (e) {
       }
+    },
+    /**
+     * 入院评估的护理计划 有些字段不直接存储数据，而是存储序号，如：1_2
+     * @params value: 数据， list： 序号对应的数组 key：具体取数组中的哪个字段
+     */
+    formatList(value, list, key) {
+      if (this.testRep(value, list)) {
+        return list.map(v => v[key])
+      }
+      return value
+    },
+    /**
+     * 检查序号
+     */
+    testRep(value, list) {
+      return value.length > 0 && value.split('_').length == list.length
     },
     handleSelectionChange(val) {
       this.selectedItem = val;

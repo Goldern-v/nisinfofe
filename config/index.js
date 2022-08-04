@@ -153,10 +153,10 @@ const currentTargetUrl = (() => {
     // 佛山市医
      case 'foshanrenyi':
       //  return "http://192.168.20.93:8080"
-      return "https://cr.fsyyy.com:9094"  // 正式外网地址
+      // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.20.147:9091"  // 双艳
-      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" // 初升测试本地内网
       // return "http://192.168.20.71:8080" //宪锋本地地址
 
@@ -181,8 +181,8 @@ const currentTargetUrl = (() => {
     case 'sdlj':  //顺德龙江
       // return "http://192.168.1.54:9871" // 顺德龙江 内防访问地址192.168.1.54:9887
       // return "http://192.168.3.226:8080" // 初升本地
-      return "http://192.168.20.90:8080" // 杨鑫
-      // return "http://218.13.34.230:9094" //正式
+      // return "http://192.168.20.90:8080" // 杨鑫
+      return "http://218.13.34.230:9094" //正式
     // 临邑县人民
     case 'lyxrm':
       // return "http://192.168.1.54:9890" // 内网测试

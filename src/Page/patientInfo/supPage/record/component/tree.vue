@@ -665,8 +665,8 @@ export default {
         // signStatus: 0 - 完成，1 - 未签名（责任签名），2 - 未审核
         // 多行表单（表内多行签名状态判断）
         if (data.multiLine) {
-          const formsSign = node.data.formOperateType == "1"; // 只有一个签名（责任签名）
-          const formsAudit = node.data.formOperateType == "2"; // 责任 + 审核
+          const formsSign = node.data.fillRemindType == "1"; // 只有一个签名（责任签名）
+          const formsAudit = node.data.fillRemindType == "2"; // 责任 + 审核
           // 是否有表单多行内未签名（责任签名）
           const hasPageNotSign = node.childNodes.filter((item) => {
             return item.data.signStatus === "1";
@@ -688,12 +688,12 @@ export default {
             if (hasPageNotSign) { // 存在表单目录下有表单多行内未签名（责任签名）
               style.color = 'red'
             } else if (hasPageNotAudit) { // 存在表单目录下有表单多行内未审核
-              style.color = 'green'
+              style.color = '#27a45e'
             }
             if (currentPageNotSign) { // 当前表单多行内未签名（责任签名）
               pageStyle.color = 'red'
             } else if (currentPageNotAudit) { // 当前表单多行内未审核
-              pageStyle.color = 'green'
+              pageStyle.color = '#27a45e'
             }
           }
         }
@@ -725,7 +725,7 @@ export default {
                   type="text"
                   size="mini"
                   on-click={
-                    (e) => this.batchAudit(e, node)
+                    (e) => this.batchAudit(e, node,this.$route.query)
                   }
                 >
                   批量审核
@@ -765,11 +765,11 @@ export default {
         }
       }
     },
-    batchAudit(e, node) {
+    batchAudit(e, node,query) {
       e.stopPropagation()
-      this.batchAuditForms = node.data
+      this.batchAuditForms = {...node.data,query}
       this.batchAuditDialog = true
-      console.log('批量审核', node);
+      console.log('批量审核', node,query);
 
     },
     handleCloseBatchAudit(refresh) {
@@ -847,7 +847,7 @@ export default {
               formTreeRemindType: item.formTreeRemindType,
               canBatchAudit: item.canBatchAudit,
               multiLine: item.multiLine,
-              formOperateType: item.formOperateType,
+              fillRemindType: item.fillRemindType,
               children:
                 item.formInstanceDtoList &&
                 item.formInstanceDtoList.map((option, i) => {
@@ -892,7 +892,7 @@ export default {
                     formTreeRemindType: item.formTreeRemindType,
                     pageIndex: item.formInstanceDtoList.length - i,
                     multiLine: item.multiLine,
-                    formOperateType: item.formOperateType,
+                    fillRemindType: item.fillRemindType,
                     signStatus: option.signStatus
                   };
                 }),

@@ -3,11 +3,11 @@
   <div flex-box="1" class="table-box blood-sugar-table" >
     <table>
       <tr>
-        <th
+        <!-- <th
           style="width: 2%; min-width: 20px"
         >
          序号
-        </th>
+        </th> -->
         <th
           style="width: 30%; min-width: 75px"
         >
@@ -28,22 +28,21 @@
         @click="onSelect(item,index)"
       >
         <!--序号 -->
-        <td >
+        <!-- <td >
           {{index + baseIndex + 1}}
-        </td>
+        </td> -->
         <!-- 时间 -->
         <td  style="padding: 0 2px;" @click="testTime(item,index)" @keydown="onKeyDown($event,renderData,index)">
-          <div flex="main:justify" style="white-space: nowrap" class="time">
+          <div flex="main:justify" style="white-space: nowrap;justify-content: center" class="time">
               <!-- 显示时间 -->
             <span :data-value="item.date">
               <input type="text" v-model="item.date" :data-value="item.date" @input="handlPattern(item)" class="fulltime" :id="`P${pageIndex}-O${index + baseIndex + 1}`">
               <!-- <span>{{ item.date }}</span> -->
             </span>
-            <span>
-              <!-- <input type="text" v-model="item.time" :data-value="item.time" @input="handleTime"> -->
-                <input type="text" v-model="item.time" :data-value="item.time" @input="((el)=>{handleTime(el,item)})">
+            <!-- <span> -->
+                <!-- <input type="text" v-model="item.time" :data-value="item.time" @input="((el)=>{handleTime(el,item)})"> -->
               <!-- <span>{{ item.time }}</span> -->
-            </span>
+            <!-- </span> -->
           </div>
         </td>
         <!-- 类型 -->
@@ -66,7 +65,7 @@
         <td @keydown="onKeyDown($event,renderData,index)">
           <!-- 血糖栏才能按enter保存 -->
            <div class="cell" @keydown='onKeyDownToSave($event,renderData)'>
-             <input type="text" v-model="item.sugarValue" :data-value="item.sugarValue" >  
+             <input type="text" v-model="item.sugarValue" :data-value="item.sugarValue" >
             </div>
         </td>
         <!-- 签名 -->
@@ -136,7 +135,7 @@
 
   .inPrint {
     display: none;
- 
+
     &.lc {
       height: 29px;
     }
@@ -167,7 +166,7 @@
     input{
       padding:0px;
       height 15px;
-      width: 100%; 
+      width: 100%;
       border: none;
       outline: none;
       background: inherit;
@@ -189,7 +188,7 @@
   .el-autocomplete{
      opacity:0
   }
-  
+
 }
 </style>
 
@@ -480,7 +479,7 @@ this.isEdit=true
     loadAll() {
         // return [
         //   { "value": "3Am" },
-        //   { "value": "早餐前" }, 
+        //   { "value": "早餐前" },
         //   { "value": "早餐后" },
         //   { "value": "午餐前" },
         //   { "value": "午餐后" },

@@ -689,7 +689,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl'
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -962,7 +962,7 @@ export default {
         case "跌倒压力性损伤高风险":
         case "压疮风险":
           {
-            this.$parent.bedList = this.dangerInYachuang;
+            this.$parent.bedList = this.HOSPITAL_ID=='whfk' ? this.hasYachuang : this.dangerInYachuang;
           }
           break;
         case "难免压疮":
@@ -1040,12 +1040,12 @@ export default {
           break;
         case "ADL":
           {
-            this.$parent.bedList = this.isPain;
+            this.$parent.bedList = this.isAdl;
           }
           break;
         case "疼痛":
           {
-            this.$parent.bedList = this.isAdl;
+            this.$parent.bedList = this.isPain;
           }
           break;
         case "管道脱落风险":
