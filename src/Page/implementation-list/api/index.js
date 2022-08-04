@@ -40,7 +40,7 @@ export function getExecuteWithWardcode(obj) {
       `${apiPath}procedure/webExecute/webGetWardExecute`,
       obj
     );
-  }else if(HOSPITAL_ID == 'whfk'){
+  }else if(['whfk','ytll'].includes(HOSPITAL_ID)){
     //查询执行单
     return axios.post(
       `${apiPath}procedure/webExecute/webGetWardExecuteWithTime`,

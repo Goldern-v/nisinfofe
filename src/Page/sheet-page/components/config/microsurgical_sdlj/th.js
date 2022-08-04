@@ -52,7 +52,7 @@ export default {
                 {"name":"内容","colspan":"1","rowspan":"2"},
                 {"name":"量<br/>ml","colspan":"1","rowspan":"2"},
                 {"name":"颜色","colspan":"1","rowspan":"2"},
-                {"name":"皮肤","colspan":"1","rowspan":"2"},
+                {"name":"皮温","colspan":"1","rowspan":"2"},
                 {"name":"肿胀","colspan":"1","rowspan":"2"},
                 {"name":"感觉","colspan":"1","rowspan":"2"},
             ]

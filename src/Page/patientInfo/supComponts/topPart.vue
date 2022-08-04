@@ -294,9 +294,7 @@ export default {
     // 医膳通
     toYst() {
       const {
-        empNo: userLoginId,
         deptCode,
-        name: userName,
         name: patName,
         sex: patSex,
         patientId: tfHospNo,
@@ -305,17 +303,17 @@ export default {
         patientId: tfHospitalIdentity
         } = this.patient
       const obj = {
-        userLoginId,
+        userLoginId: this.empNo,
         deptCode,
-        userName,
+        userName: this.empName,
         patName,
         patSex: this.formatValue(patSex, {'男': 'M', '女': 'F', default: 0}),
         tfHospNo,
-        patDeptCode,
-        patCardid,
-        tfHospitalIdentity,
         tfType: 1,
+        patCardid,
+        patDeptCode,
         doctorRoleType: 2,
+        tfHospitalIdentity,
         routeName: 'NutritionScreening',
         isUpdateDept: 1
       }

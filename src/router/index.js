@@ -655,7 +655,6 @@ const router = new Router({
             case 'liaocheng':
             case 'zhongshanqi':
             case 'foshanrenyi':
-            case 'whfk':
             case 'whyx':
             case 'sdlj':
             case 'lyxrm':
@@ -694,7 +693,6 @@ const router = new Router({
               case 'liaocheng':
               case 'zhongshanqi':
               case 'foshanrenyi':
-              case 'whfk':
               case 'whyx':
               case 'sdlj':
               case 'lyxrm':

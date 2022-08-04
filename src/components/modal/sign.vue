@@ -270,11 +270,11 @@ export default {
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType,SigndataObj,verifySignObj) {//formData为表单数据
     if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
        GetUserList().then(res=>{
-        this.userNum++
-              if(res.data.length==0){
-                localStorage.removeItem("caUser");
+         if(res.data.length==0){
+           localStorage.removeItem("caUser");
                 this.foshanshiyiIFca=false
             }else this.foshanshiyiIFca=true
+        this.userNum++
       })
     }
     

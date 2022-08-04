@@ -346,7 +346,7 @@ export default {
       let getOrder;
       if(['sdlj'].includes(this.HOSPITAL_ID)){
         getOrder=getSDLJPatientOrder
-      } else if(['lyxrm'].includes(this.HOSPITAL_ID)){
+      } else if(['lyxrm', 'whfk'].includes(this.HOSPITAL_ID)){
         getOrder = syncNurseOrdersByWardCode
       }else getOrder=getPatientOrder
       this.query.wardCode = this.deptCode;
