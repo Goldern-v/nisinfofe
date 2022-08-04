@@ -351,7 +351,7 @@ export default {
             {
               label: "床号",
               prop: "bedLabel",
-              // editable: true,
+              editable: true,
               align: "center",
               width: this.HOSPITAL_ID=="hengli"?"45":"35"
             },

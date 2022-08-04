@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      lockHospitalList:['huadu','liaocheng']
+      lockHospitalList:['huadu']//配置了表单锁定的医院
     };
   },
   methods:{
