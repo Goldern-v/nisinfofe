@@ -962,7 +962,7 @@ export default {
         case "跌倒压力性损伤高风险":
         case "压疮风险":
           {
-            this.$parent.bedList = this.dangerInYachuang;
+            this.$parent.bedList = this.HOSPITAL_ID=='whfk' ? this.hasYachuang : this.dangerInYachuang;
           }
           break;
         case "难免压疮":
