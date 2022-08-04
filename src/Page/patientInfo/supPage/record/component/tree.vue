@@ -35,7 +35,7 @@
           :render-content="renderContent"
           :default-expand-all="HOSPITAL_ID == 'whfk' && !isPersonage"
           @node-click="nodeClick"
-          node-key="index"
+          node-key="id"
           :default-expanded-keys="expandList"
           @node-expand="node_expand"
           @node-collapse="node_collapse"
@@ -1107,6 +1107,7 @@ export default {
   },
   created() {
     console.log(this.$route.name);
+    console.log(1110,this.index)
     if(!this.$route.name){
       this.isPersonage = true;
     }
