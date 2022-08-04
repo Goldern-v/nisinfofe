@@ -273,8 +273,8 @@ export default {
         total: 0
       },
        orderTimeStr: [moment().format("YYYY-MM-DD")+' 07:30:00',moment().format("YYYY-MM-DD")+' 17:30:00'],
-      startDate: moment().format("YYYY-MM-DD")+' 07:30:00',
-      endDate: moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:30:00',
+      startDate: moment().format("YYYY-MM-DD")+' 00:00:00',
+      endDate: moment(moment().toDate().getTime() ).format("YYYY-MM-DD")+' 23:59:59',
       repeatIndicator: "",
       type: "",
       status: "",
@@ -311,6 +311,10 @@ export default {
           value: "标本"
         },
         {
+          name: "治疗",
+          value: "治疗"
+        },
+        {
           name: "泵入",
           value: "泵入"
         },
@@ -321,7 +325,7 @@ export default {
       ],
       statusList: [
         {
-          id: "",
+          id: "3",
           name: "全部"
         },
         {
