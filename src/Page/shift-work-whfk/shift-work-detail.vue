@@ -377,13 +377,13 @@ export default {
               label: "主要诊断",
               prop: "diagnosis",
               editable: true,
-              width: "158"
+              width: "178"
             },
             {
               label: "主诉及现存主要问题",
               prop: "mainComplaint",
               editable: true,
-              width: "70"
+              width: "50"
             }
           ]
         },

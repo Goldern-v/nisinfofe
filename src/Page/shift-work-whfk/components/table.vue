@@ -242,7 +242,7 @@ export default {
     border-collapse collapse
 
     th, td
-      // height 30px
+      height 30px
       border 1px solid #444444
       font-size 12px
       vertical-align middle
@@ -254,7 +254,7 @@ export default {
       background #f4f2f5
       font-weight 700
       text-align center
-      // word-break keep-all
+      word-break keep-all
       // white-space nowrap
 
     tbody tr
