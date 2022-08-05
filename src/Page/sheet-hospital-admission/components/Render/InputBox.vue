@@ -200,7 +200,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.obj,'this.obj',this.$root.$refs[this.formCode][this.obj.name])
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     if (!this.$root.$refs[this.formCode]) {
       this.$root.$refs[this.formCode] = new Array();
