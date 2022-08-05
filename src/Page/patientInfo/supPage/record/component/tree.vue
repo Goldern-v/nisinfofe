@@ -35,7 +35,7 @@
           :render-content="renderContent"
           :default-expand-all="HOSPITAL_ID == 'whfk' && !isPersonage"
           @node-click="nodeClick"
-          node-key="index"
+          node-key="id"
           :default-expanded-keys="expandList"
           @node-expand="node_expand"
           @node-collapse="node_collapse"
@@ -325,7 +325,7 @@ export default {
       hisLeftList: ["wujing"], //是否要开放左侧收缩功能医院
       batchAuditDialog: false, // 批量审核表单弹框
       batchAuditForms: {}, // 批量审核节点数据
-      lockHospitalList:['huadu','liaocheng'],//配置了评估单锁定功能的医院
+      lockHospitalList:['huadu'],//配置了评估单锁定功能的医院
     };
   },
   computed: {
@@ -1107,6 +1107,7 @@ export default {
   },
   created() {
     console.log(this.$route.name);
+    console.log(1110,this.index)
     if(!this.$route.name){
       this.isPersonage = true;
     }

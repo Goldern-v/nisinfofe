@@ -97,7 +97,7 @@ export default function(win) {
     children.forEach((child, i, children) => {
       const pageNum = document.createElement("div");
       pageNum.style =
-        "position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; font-size: 12px; font-family: SimSun";
+        "position: absolute; bottom: -10px; left: 0; width: 100%; text-align: center; font-size: 12px; font-family: SimSun";
       pageNum.innerHTML = `第 ${i + 1} / ${children.length} 页`;
       child.style = "position: relative; height: 780px;";
       child.appendChild(pageNum);
