@@ -255,7 +255,7 @@ export default {
       font-weight 700
       text-align center
       word-break keep-all
-      white-space nowrap
+      // white-space nowrap
 
     tbody tr
       &:nth-child(2n)

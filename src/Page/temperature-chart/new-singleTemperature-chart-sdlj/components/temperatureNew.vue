@@ -102,7 +102,7 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        // "http://192.168.1.6:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.72:8080/#/" /* 医院正式环境内网 导致跨域 */,
       "http://192.168.168.82:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.168.82:9091/temperature/#/printAll" /* 医院正式环境内网 */,

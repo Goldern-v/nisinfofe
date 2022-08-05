@@ -330,8 +330,7 @@ export default {
         "wujing",
       ], // 患者列表点击前往体温单录入的医院
       lockHospitalList:[
-        'huadu',
-        'liaocheng'
+        'huadu'
       ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
       isLock:false
     };
@@ -911,31 +910,6 @@ export default {
       //   })
       // })
     },
-    async destroyUnlock(){
-      const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
-      /* 判断是否已经自动解锁 */
-      if(lockForm && lockForm.initTime){
-        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
-        let min=10
-        const res=await unLockTime()
-        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
-          min = +res.data.data
-        }
-        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
-        const afterInitTime= +lockForm.initTime + 60000 * min
-        const nowTime=Date.now()
-        if(nowTime > afterInitTime ){
-          /* 超时间 */
-          localStorage.setItem('lockForm','')
-          return
-        }
-       }
-       if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
-          unLock(lockForm.type,lockForm.formId).then(res=>{
-             localStorage.setItem('lockForm','')
-          })
-       }
-    }
   },
   created() {
     // 初始化
@@ -1317,7 +1291,7 @@ export default {
       console.log(this.sheetModel[0].bodyModel[0][18].value);
       this.bus.$emit('saveSheetPage','noSaveSign')
     });
-    this.bus.$on("quitUnlockSheetPage",this.destroyUnlock)
+    // this.bus.$on("quitUnlockSheetPage",this.destroyUnlock)
   },
   watch: {
     patientInfo(val) {

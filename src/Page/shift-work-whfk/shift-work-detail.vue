@@ -351,14 +351,14 @@ export default {
             {
               label: "床号",
               prop: "bedLabel",
-              // editable: true,
+              editable: true,
               align: "center",
-              width: this.HOSPITAL_ID=="hengli"?"45":"35"
+              width: this.HOSPITAL_ID=="hengli"?"45":"25"
             },
             {
               label: "姓名、性别、年龄",
               prop: "name",
-              width: "45",
+              width: "25",
               render: row => {
                 const status = row.patientStatus
                   ? `(${row.patientStatus})`
@@ -377,13 +377,13 @@ export default {
               label: "主要诊断",
               prop: "diagnosis",
               editable: true,
-              width: "98"
+              width: "178"
             },
             {
               label: "主诉及现存主要问题",
               prop: "mainComplaint",
               editable: true,
-              width: "80"
+              width: "50"
             }
           ]
         },

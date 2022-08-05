@@ -3,11 +3,11 @@
   <div flex-box="1" class="table-box blood-sugar-table" >
     <table>
       <tr>
-        <th
+        <!-- <th
           style="width: 2%; min-width: 20px"
         >
          序号
-        </th>
+        </th> -->
         <th
           style="width: 30%; min-width: 75px"
         >
@@ -28,26 +28,25 @@
         @click="onSelect(item,index)"
       >
         <!--序号 -->
-        <td >
+        <!-- <td >
           {{index + baseIndex + 1}}
-        </td>
+        </td> -->
         <!-- 时间 -->
         <td  style="padding: 0 2px;" @click="testTime(item,index)" @keydown="onKeyDown($event,renderData,index)">
-          <div flex="main:justify" style="white-space: nowrap" class="time">
+          <div flex="main:justify" style="white-space: nowrap;justify-content: center" class="time">
               <!-- 显示时间 -->
             <span :data-value="item.date">
               <input type="text" v-model="item.date" :data-value="item.date" @input="handlPattern(item)" class="fulltime" :id="`P${pageIndex}-O${index + baseIndex + 1}`">
               <!-- <span>{{ item.date }}</span> -->
             </span>
-            <span>
-              <!-- <input type="text" v-model="item.time" :data-value="item.time" @input="handleTime"> -->
-                <input type="text" v-model="item.time" :data-value="item.time" @input="((el)=>{handleTime(el,item)})">
+            <!-- <span> -->
+                <!-- <input type="text" v-model="item.time" :data-value="item.time" @input="((el)=>{handleTime(el,item)})"> -->
               <!-- <span>{{ item.time }}</span> -->
-            </span>
+            <!-- </span> -->
           </div>
         </td>
         <!-- 类型 -->
-        <td>
+        <td style="height: 29px">
           <div class="cell" :title="item.sugarItem" >
             <!-- <input type="text" class="fake" v-model="item.sugarItem" :data-value="item.sugarItem" > -->
             <div class="fake" :data-value="item.sugarItem" style="text-align:center;width:100%;transform:translateY(2px);">{{item.sugarItem}}</div>
@@ -66,7 +65,7 @@
         <td @keydown="onKeyDown($event,renderData,index)">
           <!-- 血糖栏才能按enter保存 -->
            <div class="cell" @keydown='onKeyDownToSave($event,renderData)'>
-             <input type="text" v-model="item.sugarValue" :data-value="item.sugarValue" >  
+             <input type="text" v-model="item.sugarValue" :data-value="item.sugarValue" >
             </div>
         </td>
         <!-- 签名 -->
@@ -110,7 +109,7 @@
     }
 
     td {
-      height: 29px;
+      height: 28px;
       font-size: 12px;
       padding: 0 1px;
       .cell {
@@ -136,7 +135,7 @@
 
   .inPrint {
     display: none;
- 
+
     &.lc {
       height: 29px;
     }
@@ -159,7 +158,9 @@
         font-size :12px !important
     }
     .fulltime{
-      width 60px
+      // width 60px
+      width: 100%;
+      text-align: center;
     }
   }
   .cell{
@@ -167,7 +168,7 @@
     input{
       padding:0px;
       height 15px;
-      width: 100%; 
+      width: 100%;
       border: none;
       outline: none;
       background: inherit;
@@ -189,7 +190,7 @@
   .el-autocomplete{
      opacity:0
   }
-  
+
 }
 </style>
 
@@ -226,32 +227,32 @@ export default {
   computed: {
     renderData: {
       get(){
-if (!this.data) return;
-      let renderData = [];
-      let firstDate = "";
-      for (let i = 0; i < this.data.length; i++) {
-        // if(this.HOSPITAL_ID == 'lingcheng'){
-        //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
-        // }else{
-        //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
-        // }
-        this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
-        let obj = this.data[i];
-        let date = this.data[i].md.split(" ")[0];
-        let time = this.data[i].md.split(" ")[1];
-        if (firstDate != date) {
-          obj.date = date;
-        } else {
-          obj.date = "";
+        if (!this.data) return;
+        let renderData = [];
+        let firstDate = "";
+        for (let i = 0; i < this.data.length; i++) {
+          // if(this.HOSPITAL_ID == 'lingcheng'){
+          //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+          // }else{
+          //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+          // }
+          this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+          let obj = this.data[i];
+          let date = this.data[i].md.split(" ")[0];
+          let time = this.data[i].md.split(" ")[1];
+          if (firstDate != date) {
+            obj.date = date;
+          } else {
+            obj.date = "";
+          }
+          firstDate = date;
+          obj.time = time;
+          renderData.push(obj);
         }
-        firstDate = date;
-        obj.time = time;
-        renderData.push(obj);
-      }
-      while (renderData.length <= 26) {
-        renderData.push({});
-      }
-      return renderData;
+        while (renderData.length <= 26) {
+          renderData.push({});
+        }
+        return renderData;
       },
       set(val){
          console.log(val)
@@ -300,27 +301,29 @@ if (!this.data) return;
     //   console.log(1);
     // },
    testTime(item,index){
-    //  判断是否为空
-    if(!item.date&&!item.time){
-       if(item.expand2===undefined){
-         const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
-         const date=moment().format("YYYY-MM-DD")
-         const time=moment().format("HH:mm")
-         item.date=date
-         item.time=time
-         item.recordDate=fullTime
-         this.isEdit=false
-       //  可以判断时间
-      for (let i = 0;  i< index ;  i++) {
-        if(this.renderData[i].date===item.date){
-          item.date=""
-          break
+      //  判断是否为空
+      if(!item.date){
+        if(item.expand2===undefined){
+          const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
+          const date=moment().format("YYYY-MM-DD")
+          const time=moment().format("HH:mm")
+          item.date=date
+          if (!item.time) {
+            item.time=time
+          }
+          item.recordDate=fullTime
+          this.isEdit=false
+          //  可以判断时间
+          // for (let i = 0;  i< index ;  i++) {
+          //   if(this.renderData[i].date===item.date){
+          //     item.date = ""
+          //     break
+          //   }
+          // }
+        } else {
+          this.isEdit=true
         }
       }
-      }else{
-        this.isEdit=true
-      }
-    }
     },
     onSelect(item,index) {
       if(index||index==0){
@@ -480,7 +483,7 @@ this.isEdit=true
     loadAll() {
         // return [
         //   { "value": "3Am" },
-        //   { "value": "早餐前" }, 
+        //   { "value": "早餐前" },
         //   { "value": "早餐后" },
         //   { "value": "午餐前" },
         //   { "value": "午餐后" },

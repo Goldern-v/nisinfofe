@@ -70,7 +70,7 @@
         <div class="text-con" flex="cross:center">保存</div>
       </div>
     </template>
-    <template v-else-if="HOSPITAL_ID == 'huadu'||HOSPITAL_ID == 'liaocheng'">
+    <template v-else-if="HOSPITAL_ID == 'huadu'">
       <div
         class="item-box"
         flex="cross:center main:center"
@@ -449,7 +449,6 @@
         v-if="HOSPITAL_ID == 'guizhou' && sheetInfo.sheetType === 'common_gzry'"
       ></div>
       <div style="width: 5px"></div>
-      <template  v-if="!isLock">
       <div
         class="right-btn"
         flex="cross:center main:center"
@@ -469,7 +468,6 @@
           执行单同步
         </div>
       </div>
-      </template>
       <div
         class="right-btn"
         flex="cross:center main:center"
