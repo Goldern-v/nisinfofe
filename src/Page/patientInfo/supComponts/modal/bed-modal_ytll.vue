@@ -7,70 +7,46 @@
       :enable-mobile-fullscreen="false"
       class="modal"
     >
-      <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon">
+      <div class="bed-card-warpper" v-loading="modalLoading" >
         <div
+          ref="printCon"
           class="bed-card-con"
           flex
           :class="{ remarkCon: formData.remarkPrint }"
         >
           <img
-            class="qr-code"
-            :class="{ hasRemark: hasRemark }"
+            class="qr-code hasRemark"
             :src="qrCode"
           />
-          <div
+          <!-- <div
             class="qr-code-num"
             :class="{ hasRemark: hasRemark, }"
             :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
           >
             {{ qrCodeNum }}
-          </div>
+          </div> -->
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div
               flex="cross:center"
-              class="input-item"
-              style="height: 51px"
-              v-if="HOSPITAL_ID == 'hj'"
+              class="input-item inputItemHeight"
+              style="height: 43px;padding-top: 10px;"
             >
               <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
-                type="text"
-                nowidth
-                style="font-size: 42px;padding-left: 0px;font-weight: 900;"
-                flex-box="1"
-                class="bottom-line"
-                :value="query.name"
-              />
-              <input
-                type="text"
-                nowidth
-                style="font-size: 30px;padding-left: 0px;width:31%;height: 100%;box-sizing: border-box;"
-                class="bottom-line"
-                :value="query.sex + ' ' + query.age"
-              />
-            </div>
-            <div
-              flex="cross:center"
-              class="input-item"
-              style="height: 43px"
-              v-else
-            >
-              <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
+              <span style="width: 130px;"></span>
+              <!-- <input
                 type="text"
                 nowidth
                 style="font-size: 32px;padding-left: 5px;"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
-              />
+              /> -->
+              <span style="width: 100%;text-align: center;padding-left: 10px;">{{query.bedLabel}}床</span>
             </div>
             <div flex="cross:center" class="input-item">
               <!-- <span class="label">住院号:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
+              <span style="width: 130px;"></span>
+              <!-- <input
                 type="text"
                 :style="{
                   width: '75px',
@@ -88,204 +64,40 @@
                 nowidth
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
-              />
-            </div>
-            <!-- <div flex="cross:center" class="input-item">
-              <span class="label">饮食:</span>
-              <div nowidth class="check-con" flex-box="1" flex="main:justify cross:center">
-                <label>
-                  <input
-                    type="checkbox"
-                    value="普食"
-                    checked
-                    class="checkBox"
-                    v-model="formData.diet"
-                  >普食
-                </label>
-                <label>
-                  <input type="checkbox" value="半流" class="checkBox" v-model="formData.diet">半流
-                </label>
-                <label>
-                  <input type="checkbox" value="流质" class="checkBox" v-model="formData.diet">流质
-                </label>
-                <label>
-                  <input type="checkbox" value="糖尿病" class="checkBox" v-model="formData.diet">糖尿病
-                </label>
-              </div>
-            </div>-->
-            <div flex="cross:center" class="input-item">
-              <span class="label">饮食:</span>
-              <div
-                nowidth
-                class="check-con"
-                flex-box="1"
-                flex="main:justify cross:center"
-              >
-                <input
-                  type="text"
-                  nowidth
-                  flex-box="1"
-                  class="bottom-line"
-                  style="font-size: 26px"
-                  v-model="formData.diet"
-                  @focus="
-                    onFocusToAutoComplete($event, {
-                      autoComplete: ysList,
-                      obj: formData,
-                      key: 'diet'
-                    })
-                  "
-                  @blur="onBlurToAutoComplete"
-                />
-              </div>
+              /> -->
+              <span>{{query.name}}</span>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label">病情等级:</span>
-              <div nowidth flex-box="1" flex="main:left cross:center">
-                <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('重')"
-                  :class="{ active: formData.registCare.includes('重') }"
-                  :src="
-                    formData.registCare.includes('重')
-                      ? require('./images/重选.png')
-                      : require('./images/重.png')
-                  "
-                />
-                <img
-                  class="dj-box  printCare"
-                  @click="selectRegistCare('危')"
-                  :class="{ active: formData.registCare.includes('危') }"
-                  :src="
-                    formData.registCare.includes('危')
-                      ? require('./images/危选.png')
-                      : require('./images/危.png')
-                  "
-                />
-                <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('普')"
-                  :class="{ active: formData.registCare.includes('普') }"
-                  :src="
-                    formData.registCare.includes('普')
-                      ? require('./images/普选.png')
-                      : require('./images/普.png')
-                  "
-                />
-              </div>
+              <span style="width: 130px;"></span>
+              <span>{{query.sex}}</span>
+              <span style="display:inline-block;width:10px;"></span>
+              <span>{{query.age}}</span>
+            </div>
+            <div style="margin-top: 30px;" flex="cross:center" class="input-item">
+              <span class="label">住 院 号：</span>
+              <span>{{query.patientId}}</span>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label">护理级别:</span>
-              <div nowidth flex-box="1" flex="main:left cross:center">
-                <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('特')"
-                  :class="{ active: formData.registCare.includes('特') }"
-                  :src="
-                    formData.registCare.includes('特')
-                      ? require('./images/特选.png')
-                      : require('./images/特.png')
-                  "
-                />
-                <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('一')"
-                  :class="{ active: formData.registCare.includes('一') }"
-                  :src="
-                    formData.registCare.includes('一')
-                      ? require('./images/一选.png')
-                      : require('./images/一.png')
-                  "
-                />
-                <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('二')"
-                  :class="{ active: formData.registCare.includes('二') }"
-                  :src="
-                    formData.registCare.includes('二')
-                      ? require('./images/二选.png')
-                      : require('./images/二.png')
-                  "
-                />
-                <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('三')"
-                  :class="{ active: formData.registCare.includes('三') }"
-                  :src="
-                    formData.registCare.includes('三')
-                      ? require('./images/三选.png')
-                      : require('./images/三.png')
-                  "
-                />
-              </div>
+              <span class="label">入院时间：</span>
+              <span>{{moment(query.admissionDate).format('YYYY-MM-DD')}}</span>
             </div>
-            <div flex="cross:center" class="input-item">
-              <span class="label">主管医生:</span>
+            <div style="padding-bottom: 20px;" flex="cross:center" class="input-item">
+              <span class="label">主管医生：</span>
+              <span>{{formData.mainDoctors}}</span>
               <!-- <el-autocomplete v-model="formData.mainDoctors"
                                :fetch-suggestions="querySearchAsyncDoc"
                                class="auto-input"
                                flex-box="1"
                                disabled
               ></el-autocomplete>-->
-              <input
+              <!-- <input
                 type="text"
                 nowidth
                 style="font-size: 26px"
                 flex-box="1"
                 class="bottom-line"
                 v-model="formData.mainDoctors"
-              />
-            </div>
-            <div flex="cross:center" class="input-item">
-              <span class="label">责任护士:</span>
-              <!-- <el-autocomplete v-model="formData.dutyNurses"
-                               :fetch-suggestions="querySearchAsyncNur"
-                               class="auto-input"
-                               flex-box="1"
-                               disabled
-              ></el-autocomplete>-->
-              <input
-                type="text"
-                nowidth
-                flex-box="1"
-                class="bottom-line"
-                style="font-size: 26px"
-                v-model="formData.dutyNurses"
-              />
-            </div>
-            <div
-              flex="cross:top"
-              class="input-item"
-              style="height: 58px;margin-top: 4px"
-              v-if="formData.remarkPrint && HOSPITAL_ID === 'hengli'"
-            >
-              <div class="input-item-left">
-                <span class="input-item-left-label">诊断:</span>
-              </div>
-
-              <textarea
-                type="text"
-                nowidth
-                flex-box="1"
-                class="bottom-line remark"
-                :value="formData.remark"
-                :maxlength="35"
-              ></textarea>
-            </div>
-          </div>
-          <div style="width: 131px">
-            <div class="tip">温馨提示</div>
-            <div style="height: 2px"></div>
-            <div :class="{aliCenter:HOSPITAL_ID == 'lyxrm'}">
-              <div
-                class="tip-item-con"
-                flex="cross:center main:justify"
-                v-for="item in tipList"
-                :key="item.label"
-              >
-                <img :src="item.img" alt />
-                <span>{{ item.label }}</span>
-              </div>
+              /> -->
             </div>
           </div>
         </div>
@@ -293,7 +105,6 @@
       <div slot="button">
         <span
           style="position: absolute; left: 10px; padding-top: 4px"
-          v-if="HOSPITAL_ID != 'hj'"
         >
           <span>显示诊断</span>
           <el-switch
@@ -329,7 +140,15 @@
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
   font-size: 16px;
-
+  // width:6.9cm;
+  // height:6.7cm;
+  padding:5px ;
+  // -webkit-print-color-adjust: exact;
+  //   print-color-adjust: exact;
+  //   color-adjust: exact;
+  // background:red;
+  // transform: scale(1.5);
+              // transform-origin: 0 0 0;
   >>> * {
     font-family: 'SimHei', 'Microsoft Yahei' !important;
     font-weight: bold;
@@ -337,27 +156,29 @@
 }
 
 .bed-card-con {
-  margin: 20px;
-  width: 511px;
-  height: 335px;
-  padding: 5px 8px;
+  // margin: 5px;
+  // width: 511px;
+  // height: 335px;
+  // padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
+  width: 7cm;
+  height: 6.9cm;
   border: 1px solid #000;
-  height: 370px;
+  // height: 370px;
 
   // &.remarkCon
   .qr-code {
     position: absolute;
-    top: -5px;
-    left: -5px;
+    top: 1px;
+    left: 1px;
     height: 112px;
     width: 112px;
 
     &.hasRemark {
-      width: 96px;
-      height: 96px;
+      width: 130px;
+      height: 130px;
     }
   }
 
@@ -405,13 +226,17 @@
 }
 
 .input-item {
-  height: 40px;
-  padding-right: 12px;
+  height: 30px;
+  // padding-right: 12px;
   font-size: 22px;
   font-weight: bold;
   position: relative;
+  padding-left:10px;
   z-index: 2;
-
+  &.inputItemHeight{
+      line-height: 43px;
+      font-size: 43px;
+  }
   .input-item-left {
     display: inline-block;
 
@@ -583,7 +408,7 @@ import {
   findByKeywordNur,
   saveBed
 } from "./api/index.js";
-import print from "./tool/print";
+import print from "printing";
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
@@ -782,20 +607,21 @@ export default {
       });
     },
     onPrint() {
-      // this.formData.registCare.includes('特')
-      const printCare = document.querySelectorAll(".printCare")
-      let arr = []
-      for(let i=0;i<printCare.length;i++){
-        arr=  printCare[i].className.split(" ")
-        if(!arr.includes("active"))
-          printCare[i].style.display = "none"
-      }
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon);
-        for(let i=0;i<printCare.length;i++){
-          printCare[i].style.display = "block"
-      }
+        print(this.$refs.printCon, {
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+            @page {
+              margin: 0.5cm 0.5cm 0;
+            }
+            .bed-card-con{
+              transform-origin: 0 0;
+              transform: scale(1.2，1.1);
+            }
+          `
+          });
       });
     },
     querySearchAsyncDoc(queryString, cb) {
