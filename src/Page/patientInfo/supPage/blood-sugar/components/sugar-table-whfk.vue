@@ -46,7 +46,7 @@
           </div>
         </td>
         <!-- 类型 -->
-        <td>
+        <td style="height: 29px">
           <div class="cell" :title="item.sugarItem" >
             <!-- <input type="text" class="fake" v-model="item.sugarItem" :data-value="item.sugarItem" > -->
             <div class="fake" :data-value="item.sugarItem" style="text-align:center;width:100%;transform:translateY(2px);">{{item.sugarItem}}</div>
@@ -109,7 +109,7 @@
     }
 
     td {
-      height: 29px;
+      height: 28px;
       font-size: 12px;
       padding: 0 1px;
       .cell {
@@ -158,7 +158,9 @@
         font-size :12px !important
     }
     .fulltime{
-      width 60px
+      // width 60px
+      width: 100%;
+      text-align: center;
     }
   }
   .cell{
@@ -225,32 +227,32 @@ export default {
   computed: {
     renderData: {
       get(){
-if (!this.data) return;
-      let renderData = [];
-      let firstDate = "";
-      for (let i = 0; i < this.data.length; i++) {
-        // if(this.HOSPITAL_ID == 'lingcheng'){
-        //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
-        // }else{
-        //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
-        // }
-        this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
-        let obj = this.data[i];
-        let date = this.data[i].md.split(" ")[0];
-        let time = this.data[i].md.split(" ")[1];
-        if (firstDate != date) {
-          obj.date = date;
-        } else {
-          obj.date = "";
+        if (!this.data) return;
+        let renderData = [];
+        let firstDate = "";
+        for (let i = 0; i < this.data.length; i++) {
+          // if(this.HOSPITAL_ID == 'lingcheng'){
+          //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+          // }else{
+          //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+          // }
+          this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+          let obj = this.data[i];
+          let date = this.data[i].md.split(" ")[0];
+          let time = this.data[i].md.split(" ")[1];
+          if (firstDate != date) {
+            obj.date = date;
+          } else {
+            obj.date = "";
+          }
+          firstDate = date;
+          obj.time = time;
+          renderData.push(obj);
         }
-        firstDate = date;
-        obj.time = time;
-        renderData.push(obj);
-      }
-      while (renderData.length <= 26) {
-        renderData.push({});
-      }
-      return renderData;
+        while (renderData.length <= 26) {
+          renderData.push({});
+        }
+        return renderData;
       },
       set(val){
          console.log(val)
@@ -299,27 +301,29 @@ if (!this.data) return;
     //   console.log(1);
     // },
    testTime(item,index){
-    //  判断是否为空
-    if(!item.date&&!item.time){
-       if(item.expand2===undefined){
-         const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
-         const date=moment().format("YYYY-MM-DD")
-         const time=moment().format("HH:mm")
-         item.date=date
-         item.time=time
-         item.recordDate=fullTime
-         this.isEdit=false
-       //  可以判断时间
-      for (let i = 0;  i< index ;  i++) {
-        if(this.renderData[i].date===item.date){
-          item.date=""
-          break
+      //  判断是否为空
+      if(!item.date){
+        if(item.expand2===undefined){
+          const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
+          const date=moment().format("YYYY-MM-DD")
+          const time=moment().format("HH:mm")
+          item.date=date
+          if (!item.time) {
+            item.time=time
+          }
+          item.recordDate=fullTime
+          this.isEdit=false
+          //  可以判断时间
+          // for (let i = 0;  i< index ;  i++) {
+          //   if(this.renderData[i].date===item.date){
+          //     item.date = ""
+          //     break
+          //   }
+          // }
+        } else {
+          this.isEdit=true
         }
       }
-      }else{
-        this.isEdit=true
-      }
-    }
     },
     onSelect(item,index) {
       if(index||index==0){

@@ -7,77 +7,113 @@
       :enable-mobile-fullscreen="false"
       class="modal"
     >
-      <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon">
+      <div class="bed-card-warpper" v-loading="modalLoading" >
         <div
+          ref="printCon"
           class="bed-card-con"
           flex
-          :class="{ remarkCon: formData.remarkPrint,itemHeight:HOSPITAL_ID=='sdlj' }"
+          :class="{ remarkCon: formData.remarkPrint }"
         >
-          
+          <img
+            class="qr-code hasRemark"
+            :src="qrCode"
+          />
+          <!-- <div
+            class="qr-code-num"
+            :class="{ hasRemark: hasRemark, }"
+            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
+          >
+            {{ qrCodeNum }}
+          </div> -->
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
-            <div flex="cross:center" class="qr-code-item" style="height:150px;">
-              <p v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" style="line-height: 80px;" class="name">
-                <span>{{nameYing}}</span><br>
-                <span>{{nameAfter}}</span>
-              </p>
-              <p v-else class="name">{{query.name}}</p>
-              <img
-                class="qr-code"
-                :class="{ hasRemark: hasRemark }"
-                :src="qrCode"
-              />
-            </div>
-            <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" 
-            class="input-item input-item-row">
-              <div class="fontSize-50">{{query.sex}}</div>
-              <div class="fontSize-50" v-if="HOSPITAL_ID!='sdlj'">{{query.age}}</div>
-              <div class="fontSize-50" v-else-if="HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')>=0">{{query.age}}</div>
-              <div>{{wardName}}</div>
-            </div>
-            <div v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="input-item">
-              <div>身高:</div><div style="width: 120px;">{{query.height}}</div>
-              <div>体重:</div><div style="width: 120px;">{{query.weight}}</div>
-            </div>
-            <div flex="cross:center" class="input-item" style="width:auto;height:50px">
-              <div style="display:flex">
-                <span :class="{'label-nowidth':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="label">住院号:</span>
-                <input
-                  type="text"
-                  nowidth
-                  style="font-size: 26px;width:200px"
-                  flex-box="1"
-                  class="bottom-line"
-                  v-model="query.patientId"
-                />
-              </div>
-              <div class="bedNum">{{query.bedLabel + '床'}}</div>
-            </div>
-            <div flex="cross:center" class="input-item">
-              <span class="label">{{HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')==-1?'出生时间:':'入院日期:'}}</span>
-              <input
+            <div
+              flex="cross:center"
+              class="input-item inputItemHeight"
+              style="height: 43px;padding-top: 10px;"
+            >
+              <!-- <span class="label">患者姓名:</span> -->
+              <span style="width: 130px;"></span>
+              <!-- <input
                 type="text"
                 nowidth
-                style="font-size: 26px"
+                style="font-size: 32px;padding-left: 5px;"
                 flex-box="1"
                 class="bottom-line"
-                :value="moment(query.admissionDate).format('YYYY-MM-DD HH:mm:ss')"
-              />
+                :value="query.name + ' ' + query.sex + ' ' + query.age"
+              /> -->
+              <span style="width: 100%;text-align: center;padding-left: 10px;">{{query.bedLabel}}床</span>
             </div>
-            <div v-if="!(HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0)" flex="cross:center" class="input-item">
-              <span class="label">主治医生:</span>
+            <div flex="cross:center" class="input-item">
+              <!-- <span class="label">住院号:</span> -->
+              <span style="width: 130px;"></span>
+              <!-- <input
+                type="text"
+                :style="{
+                  width: '75px',
+                  'font-size': query.bedLabel.length > 3 ? '24px' : '30px',
+                  'padding-left': '5px',
+                  'line-height': ' 34px'
+                }"
+                class="bottom-line"
+                :value="query.bedLabel + '床'"
+              />
               <input
+                type="text"
+                flex-box="1"
+                style="width: 0px;font-size: 30px; padding-left: 2px;"
+                nowidth
+                class="bottom-line"
+                :value="moment(query.admissionDate).format('YYYY-MM-DD')"
+              /> -->
+              <span>{{query.name}}</span>
+            </div>
+            <div flex="cross:center" class="input-item">
+              <span style="width: 130px;"></span>
+              <span>{{query.sex}}</span>
+              <span style="display:inline-block;width:10px;"></span>
+              <span>{{query.age}}</span>
+            </div>
+            <div style="margin-top: 30px;" flex="cross:center" class="input-item">
+              <span class="label">住 院 号：</span>
+              <span>{{query.inpNo}}</span>
+            </div>
+            <div  flex="cross:center" class="input-item">
+              <span class="label">主管医生：</span>
+              <span>{{formData.mainDoctors}}</span>
+              <!-- <el-autocomplete v-model="formData.mainDoctors"
+                               :fetch-suggestions="querySearchAsyncDoc"
+                               class="auto-input"
+                               flex-box="1"
+                               disabled
+              ></el-autocomplete>-->
+              <!-- <input
                 type="text"
                 nowidth
                 style="font-size: 26px"
                 flex-box="1"
                 class="bottom-line"
                 v-model="formData.mainDoctors"
-              />
+              /> -->
+            </div>
+            <div style="padding-bottom: 20px;" flex="cross:center" class="input-item">
+              <span class="label">入院时间：</span>
+              <span>{{moment(query.admissionDate).format('YYYY-MM-DD')}}</span>
             </div>
           </div>
         </div>
       </div>
       <div slot="button">
+        <span
+          style="position: absolute; left: 10px; padding-top: 4px"
+        >
+          <span>显示诊断</span>
+          <el-switch
+            on-text="是"
+            off-text="否"
+            v-model="formData.remarkPrint"
+          ></el-switch>
+        </span>
+
         <el-button class="modal-btn" @click="close">取消</el-button>
         <el-button class="modal-btn" type="primary" @click="post"
           >保存</el-button
@@ -104,7 +140,15 @@
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
   font-size: 16px;
-
+  // width:6.9cm;
+  // height:6.7cm;
+  padding:5px ;
+  // -webkit-print-color-adjust: exact;
+  //   print-color-adjust: exact;
+  //   color-adjust: exact;
+  // background:red;
+  // transform: scale(1.5);
+              // transform-origin: 0 0 0;
   >>> * {
     font-family: 'SimHei', 'Microsoft Yahei' !important;
     font-weight: bold;
@@ -112,43 +156,29 @@
 }
 
 .bed-card-con {
-  margin: 20px;
-  width: 511px;
-  height: 335px;
+  // margin: 5px;
+  // width: 511px;
+  // height: 335px;
   // padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
-  // border: 1px solid #000;
-  height: 370px;
-  &.itemHeight{
-    .input-item{
-      height:50px;
-    }
-  }
-  .bed-card-con-top{
-    height: 150px;
-  }
+  width: 7cm;
+  height: 6.9cm;
+  border: 1px solid #000;
+  // height: 370px;
+
   // &.remarkCon
-  .name{
-    line-height: 160px;
-    white-space: nowrap;
-    height: 160px;
-    width: 360px;
-    text-align: center;
-    font-size: 88px;
-    z-index: 10;
-  }
   .qr-code {
     position: absolute;
-    top: -25px;
-    right: -25px;
-    height: 200px;
-    width: 200px;
+    top: 1px;
+    left: 1px;
+    height: 112px;
+    width: 112px;
 
     &.hasRemark {
-      width: 96px;
-      height: 96px;
+      width: 130px;
+      height: 130px;
     }
   }
 
@@ -183,17 +213,6 @@
   font-size: 28px;
 }
 
-.bedNum{
-  position: absolute;
-  top: 0;
-  right: 10px;
-  min-width: 100px;
-  font-size: 50px;
-  text-align: right;
-  height: 50px;
-  line-height: 50px;
-}
-
 .remark {
   height: 60px;
   resize: none;
@@ -205,14 +224,19 @@
   border: 0;
   padding: 0;
 }
-.qr-code-item {
-  height: 40px;
-  padding-right: 12px;
+
+.input-item {
+  height: 30px;
+  // padding-right: 12px;
   font-size: 22px;
   font-weight: bold;
   position: relative;
+  padding-left:10px;
   z-index: 2;
-
+  &.inputItemHeight{
+      line-height: 43px;
+      font-size: 43px;
+  }
   .input-item-left {
     display: inline-block;
 
@@ -221,43 +245,6 @@
         margin-right: 2px;
       }
     }
-  }
-}
-
-.input-item {
-  height: 40px;
-  width: 390px;
-  padding-right: 12px;
-  font-size: 30px;
-  font-weight: bold;
-  position: relative;
-  margin-left: 10px;
-  z-index: 2;
-
-  .input-item-left {
-    display: inline-block;
-
-    width 75px {
-      .input-item-left-label {
-        margin-right: 2px;
-      }
-    }
-  }
-}
-
-.input-item-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 10px;
-  width: auto
-  &.input-item-nopadding{
-    padding:0;
-  }
-  .fontSize-50{
-    height: 50px;
-    font-size: 50px;
-    font-weight: bold;
-    line-height: 50px;
   }
 }
 
@@ -364,13 +351,18 @@ input[type='checkbox']:checked:after {
   margin-right: 2px;
   line-height: 32px;
   white-space: nowrap;
-  width: 130px;
-  text-align: right;
-  &.label-nowidth{
-    width:auto;
-  }
 }
-
+.aliCenter{
+    display: flex;
+    flex-direction: column;
+    height: 299px;
+    .tip-item-con{
+      margin-bottom: 0;
+      &:first-of-type{
+      margin: 35px 0 105px;
+      }
+    }
+}
 .tip-item-con {
   border: 1px solid #000;
   border-radius: 8px;
@@ -416,7 +408,7 @@ import {
   findByKeywordNur,
   saveBed
 } from "./api/index.js";
-import print from "./tool/print";
+import print from "printing";
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
@@ -428,18 +420,18 @@ export default {
       qrCode: "" /** 二维码 */,
       qrCodeNum: "" /** 二维码 */,
       tipList: [
-        {
-          label: "小心跌倒",
-          img: require("./images/Group 6.png")
-        },
+        // {
+        //   label: "小心跌倒",
+        //   img: require("./images/Group 6.png")
+        // },
         {
           label: "小心烫伤",
           img: require("./images/Group 7.png")
         },
-        {
-          label: "防止压疮",
-          img: require("./images/Group 9.png")
-        },
+        // {
+        //   label: "防止压疮",
+        //   img: require("./images/Group 9.png")
+        // },
         {
           label: "防止偷盗",
           img: require("./images/Group 10.png")
@@ -452,9 +444,7 @@ export default {
         mainDoctors: "",
         dutyNurses: "",
         remark: "",
-        remarkPrint: true,
-        nameYing:"",
-        nameAfter:""
+        remarkPrint: true
       },
       ysList: []
     };
@@ -463,15 +453,9 @@ export default {
     query() {
       return this.$route.query;
     },
-    wardName() {
-      return this.$store.state.lesion.deptName;
-    },
     hasRemark() {
       return this.formData.remarkPrint;
     }
-  },
-  created(){
-    console.log(this.$store.state);
   },
   methods: {
     init() {
@@ -482,12 +466,6 @@ export default {
         dutyNurses: "",
         remark: ""
       };
-      console.log("this.query.",this.query)
-      if(this.HOSPITAL_ID=="sdlj" && this.query.patientId.indexOf("$")>=0){
-        const patientArr = this.query.name.split(")")
-        this.nameYing = patientArr[0] + ")"
-        this.nameAfter = patientArr[1]
-      }
       getEntity(this.query.patientId, this.query.visitId).then(res => {
         let resData = res.data.data;
         let diagnosis = textOver(this.query.diagnosis, 52);
@@ -503,7 +481,7 @@ export default {
         };
         this.modalLoading = false;
         if (
-          this.HOSPITAL_ID == "liaocheng" &&
+          ['lyxrm'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post != "护长"
         ) {
@@ -549,11 +527,13 @@ export default {
     },
     open() {
       this.init();
+      // const printCare = document.querySelectorAll(".printCare")
+      // console.log(printCare)
       if (
-        (this.HOSPITAL_ID == "liaocheng" &&
+        (['lyxrm'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post == "护长") ||
-        this.HOSPITAL_ID != "liaocheng"
+        !['lyxrm'].includes(this.HOSPITAL_ID)
       ) {
         this.isOpen();
       }
@@ -571,8 +551,14 @@ export default {
         case "hengli":
           qr_png_value = this.query.expand1;
           break;
-        case "sdlj":
-          qr_png_value = "ZY" + this.query.patientId;
+        case "foshanrenyi":
+          qr_png_value = '1001|' + this.query.patientId;
+          break;
+        case "nanfangzhongxiyi":
+          qr_png_value = this.query.patientId + '|' + this.query.visitId;
+          break;
+        case "lyxrm":
+          qr_png_value ='P' + this.query.patientId;
           break;
         default:
           qr_png_value = this.query.patientId;
@@ -623,7 +609,19 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon);
+        print(this.$refs.printCon, {
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+            @page {
+              margin: 0.5cm 0.5cm 0;
+            }
+            .bed-card-con{
+              transform-origin: 0 0;
+              transform: scale(1.2，1.1);
+            }
+          `
+          });
       });
     },
     querySearchAsyncDoc(queryString, cb) {

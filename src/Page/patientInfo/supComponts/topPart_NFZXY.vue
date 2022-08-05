@@ -146,7 +146,7 @@
         <div class="nav-item">检验</div>
       </router-link>
       <router-link
-        :to="{path:'/otherPage', query: {inpNo:query.inpNo}}"
+        :to="{path:'/otherPage', query: {inpNo:query.inpNo,doctorName:query.name,doctorCode:empNo}}"
         tag="span"
       >
         <div class="nav-item">患者360</div>
@@ -238,6 +238,9 @@ export default {
     query() {
       let query = this.$route.query;
       return query;
+    },
+    empNo(){
+      return JSON.parse(localStorage.user).empNo
     }
   },
   methods:{

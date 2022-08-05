@@ -8,7 +8,7 @@
       <ElFormItem label="日期：" required>
         <ElDatePicker v-model="form.recordDate" :clearable="false" />
       </ElFormItem>
-      <ElFormItem label="时间：" required>
+      <ElFormItem label="时间：" required v-if="HOSPITAL_ID !== 'whfk'">
         <ElTimePicker
           v-model="form.recordTime"
           :clearable="false"
@@ -406,7 +406,7 @@ export default {
         });
       },'执行人切换',null,false,'',{id:`${this.patientInfo.patientId}_${new Date(this.form.recordDate || new Date())}`,code:"form_sugar",name:'微量血糖测定登记表'},undefined, undefined ,undefined,this.SigndataObj,this.verifySignObj);
     },
-    
+
     onClose() {
       this.close();
     },
@@ -447,7 +447,7 @@ export default {
         if (this.HOSPITAL_ID != "fuyou") {
         data.nurse = this.curEmpNo;
         }
-        delete data.recordTime; 
+        delete data.recordTime;
         console.log("data222",data,this.form,this.oldRecordDate)
         this.$emit("confirm", data);
         });
