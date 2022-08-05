@@ -77,11 +77,7 @@
               <span class="label">住 院 号：</span>
               <span>{{query.inpNo}}</span>
             </div>
-            <div flex="cross:center" class="input-item">
-              <span class="label">入院时间：</span>
-              <span>{{moment(query.admissionDate).format('YYYY-MM-DD')}}</span>
-            </div>
-            <div style="padding-bottom: 20px;" flex="cross:center" class="input-item">
+            <div  flex="cross:center" class="input-item">
               <span class="label">主管医生：</span>
               <span>{{formData.mainDoctors}}</span>
               <!-- <el-autocomplete v-model="formData.mainDoctors"
@@ -98,6 +94,10 @@
                 class="bottom-line"
                 v-model="formData.mainDoctors"
               /> -->
+            </div>
+            <div style="padding-bottom: 20px;" flex="cross:center" class="input-item">
+              <span class="label">入院时间：</span>
+              <span>{{moment(query.admissionDate).format('YYYY-MM-DD')}}</span>
             </div>
           </div>
         </div>
