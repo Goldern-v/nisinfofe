@@ -72,7 +72,7 @@
 
           <div class="new-modal-top-left-second">
             <div style="text-indent: 5px"> 频率:{{ currentBottle.frequency }}</div>
-            <div>{{ currentBottle.administration }}</div>
+            <div>途径:{{ currentBottle.administration }}</div>
             <!-- <div>{{ currentBottle.age }}</div> -->
           </div>
         </div>
@@ -88,9 +88,10 @@
           <div
             v-for="(item, index) in currentBottle.orderText"
             :key="index"
-            style="text-indent: 5px"
           >
+          <span>
             {{ item }}
+          </span>
             <span>
               {{ currentBottle.dosageDosageUnits[index] }}
             </span>
@@ -224,9 +225,16 @@
         display: flex;
         justify-content: space-between;
         line-height: 16px;
-        font-size: 14px;
+        font-size: 13px;
+
         span {
-          white-space: nowrap;
+          text-align: left;
+        }
+        span:first-child {
+          flex: 1
+        }
+        span:nth-child(2) {
+          width: 50px;
         }
       }
     }
@@ -242,7 +250,8 @@
         width: 28px;
         border-radius: 50%;
         line-height: 28px;
-        font-size: 25px;
+        font-size: 22px;
+        text-align: center;
         position: absolute;
       }
       .line {
