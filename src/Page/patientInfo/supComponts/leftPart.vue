@@ -156,6 +156,7 @@
     <bedModal ref="bedModal"></bedModal>
     <bedModalWx ref="bedModalWx"></bedModalWx>
     <bedModalWujing ref="bedModalWujing"></bedModalWujing>
+    <bedModalYtLL ref="bedModalYtLL"></bedModalYtLL>
     <bedModalLc ref="bedModalLc"></bedModalLc>
     <bedModalLiaocheng ref="bedModalLiaocheng"></bedModalLiaocheng>
     <!-- <bedModalNfzxy ref="bedModalNfzxy"></bedModalNfzxy> -->
@@ -306,6 +307,7 @@
 </style>
 <script>
 import bedModal from "./modal/bed-modal.vue";
+import bedModalYtLL from "./modal/bed-modal_ytll.vue";
 import bedModalWujing from "./modal/bed-modal_wujing.vue";
 import bedModalSDLJ from "./modal/bed-modal-sdlj.vue";
 import bedModalWx from "./modal/bed-modal_wx.vue";
@@ -365,7 +367,8 @@ export default {
         beihairenyi:'bedModalBh',
         quzhou:'bedModalQz',
         whfk:'bedModalWhfk',
-        hj:'bedModalHj'
+        hj:'bedModalHj',
+        ytll:'bedModalYtLL'
         // nanfangzhongxiyi:'bedModalNfzxy',
       }
       if(hospital_left[this.HOSPITAL_ID]){
@@ -448,7 +451,8 @@ export default {
     bedModalQz,
     bedModalWhfk,
     bedModalXiegang,
-    bedModalHj
+    bedModalHj,
+    bedModalYtLL
   }
 };
 </script>

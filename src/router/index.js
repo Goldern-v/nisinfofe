@@ -653,15 +653,15 @@ const router = new Router({
             case 'fuyou':
               return shiftWorkFy
             case 'liaocheng':
-            case 'zhongshanqi':
-            case 'foshanrenyi':
-            case 'whyx':
-            case 'sdlj':
-            case 'lyxrm':
-            case 'gdtj':
-            case 'ytll':
-            case 'lyyz':
-            case 'qhwy':
+            // case 'zhongshanqi':
+            // case 'foshanrenyi':
+            // case 'whyx':
+            // case 'sdlj':
+            // case 'lyxrm':
+            // case 'gdtj':
+            // case 'ytll':
+            // case 'lyyz':
+            // case 'qhwy':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -691,13 +691,13 @@ const router = new Router({
               case 'fuyou':
                 return shiftWorkDetailFy
               case 'liaocheng':
-              case 'zhongshanqi':
-              case 'foshanrenyi':
-              case 'whyx':
-              case 'sdlj':
-              case 'lyxrm':
-              case 'gdtj':
-              case 'ytll':
+              // case 'zhongshanqi':
+              // case 'foshanrenyi':
+              // case 'whyx':
+              // case 'sdlj':
+              // case 'lyxrm':
+              // case 'gdtj':
+              // case 'ytll':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
