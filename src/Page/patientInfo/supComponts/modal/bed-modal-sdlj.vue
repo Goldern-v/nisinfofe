@@ -27,13 +27,12 @@
                 :src="qrCode"
               />
             </div>
-            <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0,'fontSize-50':HOSPITAL_ID=='sdlj'}" 
+            <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" 
             class="input-item input-item-row">
-              <div>{{query.sex}}</div>
-              <div v-if="HOSPITAL_ID!='sdlj'">{{query.age}}</div>
-              <div v-else-if="HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')>=0">{{query.age}}</div>
+              <div class="fontSize-50">{{query.sex}}</div>
+              <div class="fontSize-50" v-if="HOSPITAL_ID!='sdlj'">{{query.age}}</div>
+              <div class="fontSize-50" v-else-if="HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')>=0">{{query.age}}</div>
               <div>{{wardName}}</div>
-
             </div>
             <div v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="input-item">
               <div>身高:</div><div style="width: 120px;">{{query.height}}</div>
@@ -254,8 +253,11 @@
   &.input-item-nopadding{
     padding:0;
   }
-  &.fontSize-50{
-    font-size:50px;
+  .fontSize-50{
+    height: 50px;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 50px;
   }
 }
 

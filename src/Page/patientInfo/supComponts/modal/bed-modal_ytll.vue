@@ -75,7 +75,7 @@
             </div>
             <div style="margin-top: 30px;" flex="cross:center" class="input-item">
               <span class="label">住 院 号：</span>
-              <span>{{query.patientId}}</span>
+              <span>{{query.inpNo}}</span>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">入院时间：</span>
