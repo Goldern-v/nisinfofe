@@ -180,6 +180,7 @@ export default {
 
       window.localStorage.diagnosisModel = box.innerHTML;
       if (box.innerHTML) {
+        this.$store.commit('upPreRouter',location.href)
         this.$router.push(`/print/diagnosis`);
       }
     },
