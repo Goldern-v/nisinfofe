@@ -97,7 +97,11 @@
                 <i class="iconfont icon-hulijiludan"></i>体温单
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                 <el-dropdown-item :class="{active: $route.path.includes('singleTemperatureChart')}">
+                 <el-dropdown-item
+                 :class="{
+                    active: $route.path.includes('newSingleTemperatureChart'),
+                  }"
+                 >
                   <router-link to="/newSingleTemperatureChart" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="singleTemperatureChart"></i>单人录入体温单
@@ -966,9 +970,10 @@ export default {
       // if (this.$route.path == "/sugarPage") return true;
       // return false;
     },
-    isActiveTemperaturePage() {
+        isActiveTemperaturePage() {
       let path = this.$route.path;
       return (
+        path.includes("newSingleTemperatureChart") ||
         path.includes("singleTemperatureChart") ||
         path.includes("allTemperatureChart")
       );

@@ -42,6 +42,8 @@
         <div
           class="sheetTable-contain"
           ref="scrollCon"
+              id="page"
+
           @scroll="(e) => onScroll(e)"
         >
           <div ref="sheetTableContain">
@@ -330,8 +332,7 @@ export default {
         "wujing",
       ], // 患者列表点击前往体温单录入的医院
       lockHospitalList:[
-        'huadu',
-        'liaocheng'
+        'huadu'
       ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
       isLock:false
     };
@@ -381,7 +382,6 @@ export default {
       let resultModel = mapSheetModel.filter((item) => {
         return showSheetPage(item.index);
       });
-      console.log('resultModel', resultModel)
       // index为第几页
       resultModel.map((item,index) => {
         // x为每页护记的行数
@@ -397,8 +397,9 @@ export default {
             }
             tr.isRead = this.isRead(tr,x,nowX);
             tr.map((td, y) => {
-              td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel,nowX);
-              td.signDisabled = this.setSignDiabled(td, nowX)
+              //暂时屏蔽限制 加快加载速度
+              // td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel,nowX);
+              // td.signDisabled = this.setSignDiabled(td, nowX)
             });
           }
         });
@@ -406,7 +407,6 @@ export default {
       return resultModel;
     },
     sheetTable() {
-      console.log(sheetInfo.sheetType,"sheetInfo.sheetType")
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
         //  return sheetTablePost_partum;
@@ -473,7 +473,26 @@ export default {
       }
     },
   },
+  mounted(){
+        document.getElementById('page').addEventListener('scroll',this.test)
+  },
   methods: {
+    test(){
+        let clientHeight = document.documentElement.clientHeight || document.body.clientHeight
+      // 滚动区域
+      let scrollObj = document.getElementsByClassName('sheetTable-contain')[0]
+      // 滚动区域到头部的距离
+      let scrollTop = scrollObj.scrollTop
+      // 滚动条的总高度
+      let scrollHeight = scrollObj.scrollHeight
+      // 滚动条到底部的条件
+      if (scrollTop + clientHeight == scrollHeight) {
+        // 滚动区域到头部的距离 + 屏幕高度 = 可滚动的总高度
+        this.loadMore()
+      }
+    },
+    loadMore(){
+    },
     isFirst(tr, x, y, bodyModel) {
       let recordDate = tr.find((item) => item.key == "recordDate").value;
       let recordSource = tr.find((item) => item.key == "recordSource").value;
@@ -766,7 +785,6 @@ export default {
             }
           })
         }
-        // console.log(bodyData);
         let markData = res[2].data.data.list || [];
         this.listData = bodyData.list;
         /* 显示转科转床的信息 */
@@ -780,7 +798,6 @@ export default {
         // this.sheetModel = []
         this.$nextTick(() => {
           // this.sheetModel = sheetModel
-          // console.log(titleData);
           initSheetPage(titleData, bodyData, markData);
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
           // 暂时方案有影响就换其他办法，报错是因为贵州切换患者时清空了sheetInfo.selectBlock
@@ -911,31 +928,6 @@ export default {
       //   })
       // })
     },
-    async destroyUnlock(){
-      const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
-      /* 判断是否已经自动解锁 */
-      if(lockForm && lockForm.initTime){
-        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
-        let min=10
-        const res=await unLockTime()
-        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
-          min = +res.data.data
-        }
-        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
-        const afterInitTime= +lockForm.initTime + 60000 * min
-        const nowTime=Date.now()
-        if(nowTime > afterInitTime ){
-          /* 超时间 */
-          localStorage.setItem('lockForm','')
-          return
-        }
-       }
-       if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
-          unLock(lockForm.type,lockForm.formId).then(res=>{
-             localStorage.setItem('lockForm','')
-          })
-       }
-    }
   },
   created() {
     // 初始化
@@ -1127,7 +1119,6 @@ export default {
     });
     //保存前做签名校验
     this.bus.$on("toSheetSaveNoSign", (newWid) => {
-      console.log(this.sheetModel[0].bodyModel);
       let flag = true //控制保存开关
       let yearList = [] //所有日期时间数组
       let sameDay = "" // 同一天
@@ -1231,26 +1222,6 @@ export default {
         }
         window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       }
-
-      // let printUrl = "";
-      // if (process.env.NODE_ENV === "production") {
-      //   this.$message.info("正在准备打印，请勿重复操作");
-      // printUrl = "/crNursing/print/sheetPage?toPrint=true";
-      //   /** 打印 */
-      //   const iframe = document.createElement("iframe");
-      //   iframe.style.display = "block";
-      //   iframe.style.height = "0";
-      //   iframe.style.width = "0";
-      //   iframe.style.overflow = "hidden";
-      //   iframe.src = printUrl;
-      //   document.body.appendChild(iframe);
-      //   const iframeWindow = iframe.contentWindow;
-      //   setTimeout(() => {
-      //     document.body.removeChild(iframe);
-      //   }, 20000);
-      // } else {
-      //   this.$router.push(`/print/sheetPage`);
-      // }
       if (
         process.env.HOSPITAL_ID == "fuyou" ||
         process.env.HOSPITAL_ID == "quzhou" ||
@@ -1314,10 +1285,9 @@ export default {
       this.$refs.syncExamAmountModal.open(tr, td, sheetModel);
     });
     this.bus.$on("ImportExamCallBack", (str) => {
-      console.log(this.sheetModel[0].bodyModel[0][18].value);
       this.bus.$emit('saveSheetPage','noSaveSign')
     });
-    this.bus.$on("quitUnlockSheetPage",this.destroyUnlock)
+    // this.bus.$on("quitUnlockSheetPage",this.destroyUnlock)
   },
   watch: {
     patientInfo(val) {

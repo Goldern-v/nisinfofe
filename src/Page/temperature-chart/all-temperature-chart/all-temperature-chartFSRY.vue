@@ -794,7 +794,6 @@ export default {
     tableData: {
       get() {
         return this.patientsInfoData
-          .sort((a, b) => Number(a.bedLabel) - Number(b.bedLabel))
           .filter((item) => {
             return this.admitted === "所有患者"
               ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
@@ -850,9 +849,10 @@ export default {
     },
     //费整点的患者数据只允许查看不许修改
     isReadonly(recordDate) {
+      recordDate=moment(recordDate).format('YYYY-MM-DD HH:mm:ss')
       return (
-        !this.query.startFiltering &&this.query.entryTime==14&&
-        recordDate !== `${this.query.entryDate} ${this.query.entryTime}:00:00`
+        !this.query.startFiltering &&
+        recordDate !== `${moment(this.query.entryDate).format('YYYY-MM-DD')} ${this.query.entryTime}:00:00`
       );
     },
     //获取对应护理等级背景颜色

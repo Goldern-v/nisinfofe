@@ -1,14 +1,14 @@
 <template>
   <div
     :style="{
-      width: `${newModalSize.split('*')[1] == '8' ? '6' : '10'}cm`,
-      height: `${newModalSize == '6*8' ? '7.9' : '5.7'}cm`
+      width: `${newModalSize.split('*')[1] == '8' ? '8' : '10'}cm`,
+      height: `${newModalSize == '6*8' ? '5.9' : '5.7'}cm`
     }"
   >
     <div
       v-if="newModalSize == '6*8'"
       class="new-print-modal new-print-modal--large"
-      style="width:6cm;height:7.9cm"
+      style="width:8cm;height:5.9cm"
     >
       <div class="new-print-modal__title">
         <span>{{ currentBottle.deptName }}</span>
@@ -18,19 +18,21 @@
         <span>
           {{currentBottle.administration}}
         </span>
-
       </div>
       <div class="new-print-modal__text">
         <span>{{ currentBottle.name }}</span>
         <span>{{ currentBottle.age }}</span>
         <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
       </div>
+      <div class="new-print-modal__qc">
+        <img :src="currentBottle.qcSrc || ''" />
+      </div>
 
       <table class="new-print-modal__content" height="16">
         <colgroup>
-          <col width="55%" />
+          <col width="66%" />
           <col />
-          <col />
+          <col width="30"/>
           <col />
         </colgroup>
         <tr>
@@ -51,9 +53,6 @@
           </tr>
 
       </table>
-        <div class="new-print-modal__bottom">
-          <img :src="currentBottle.qcSrc || ''" />
-        </div>
     </div>
 
     <div
@@ -110,34 +109,34 @@
   .bb {
     border-bottom: 1px solid #000;
   }
+  .same-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 56px);
+    height: 24px;
+  }
   &.new-print-modal--large {
+    position: relative;
     display: flex;
     flex-direction: column;
     /* font-weight: 600; */
 		height: 100%;
   }
   .new-print-modal__title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 24px;
-    @extend .p-lr-5;
+    @extend .same-top;
     @extend .bb;
-    padding-right: 10px;
-      font-size: 16px;
+    font-size: 16px;
+    height: 32px;
     .bigger {
       font-size: 18px;
       font-weight: 900;
     }
   }
   .new-print-modal__text {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    @extend .p-lr-5;
+    @extend .same-top;
     span {
       font-size: 16px;
-      line-height: 18px;
     }
   }
   .new-print-modal__content {
@@ -145,14 +144,19 @@
     td {
       border: 1px solid #000;
     }
+    tr:nth-child(n + 1) {
+      font-size: 13px;
+    }
     span {
       font-weight: 900;
       line-height: 14px;
     }
   }
-  .new-print-modal__bottom {
-    width: 70px;
-    @extend .p-lr-5;
+  .new-print-modal__qc {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 56px;
     img {
       width: 100%;
       height: auto;

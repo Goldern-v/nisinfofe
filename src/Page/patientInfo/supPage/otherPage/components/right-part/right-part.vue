@@ -74,7 +74,7 @@ export default {
           this.getUrl();
           break;
         case "nanfangzhongxiyi":
-          this.fileUrl = `http://10.158.220.54:8081/view/#/timeline?patientNo=${this.$route.query.inpNo}&visitTypeCode=03`;
+          this.fileUrl = `http://10.158.220.54:8081/view/#/timeline?patientNo=${this.$route.query.inpNo}&visitTypeCode=03&doctorCode=${this.$route.query.doctorCode}&doctorName=${this.$route.query.doctorName}`;
           break;
         case "guizhou":
           let user = localStorage.getItem('user')

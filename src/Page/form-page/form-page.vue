@@ -72,7 +72,7 @@ export default {
       },
       patientListLoading: false,
       bus: bus(this),
-      lockHospitalList:['huadu','liaocheng']//配置了评估单锁定功能的医院
+      lockHospitalList:['huadu']//配置了评估单锁定功能的医院
     };
   },
   computed: {
@@ -110,31 +110,6 @@ export default {
         }
       );
     },
-    async destroyUnlock(){
-     const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
-     /* 判断是否已经自动解锁 */
-     if(lockForm && lockForm.initTime){
-        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
-        let min=10
-        const res=await unLockTime()
-        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
-          min = +res.data.data
-        }
-        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
-        const afterInitTime= +lockForm.initTime + 60000 * min
-        const nowTime=Date.now()
-        if(nowTime > afterInitTime ){
-          /* 超时间 */
-          localStorage.setItem('lockForm','')
-          return
-        }
-     }
-     if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
-        unLock(lockForm.type,lockForm.formId).then(res=>{
-          localStorage.setItem('lockForm','')
-        })
-     }
-    }
   },
   created() {
     this.$store.commit("upPatientInfo", {});
@@ -147,7 +122,7 @@ export default {
     // }
     this.bus.$on("refreshFormPagePatientList", this.getDate);
     // 解锁
-    this.bus.$on("quitUnlock",this.destroyUnlock)
+    // this.bus.$on("quitUnlock",this.destroyUnlock)
   },
   watch: {
     deptCode(val, oldValue) {
@@ -229,8 +204,6 @@ export default {
     record,
   },
   beforeDestroy(){
-    // 切换模块的时候解锁
-    // this.destroyUnlock()
   }
 };
 </script>

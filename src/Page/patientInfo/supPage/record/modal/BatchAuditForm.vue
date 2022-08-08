@@ -71,7 +71,6 @@ export default {
     };
   },
   mounted() {
-
   },
   computed: {
     isEmpty() {
@@ -97,6 +96,27 @@ export default {
           center: true,
         });
       }
+      const signData={}
+      this.batchAuditForms.children.forEach((item,index)=>{
+        signData['label'+index] =item.label
+      })
+      let SigndataObj={
+        Document_ID:this.batchAuditForms.formCode,
+        Document_Title:this.batchAuditForms.label,
+        Section_ID:this.batchAuditForms.children[0].form_id,
+        strSignData: JSON.stringify(signData),
+        Patient_ID:this.batchAuditForms.query.patientId,
+        Visit_ID:this.batchAuditForms.query.visitId
+      }
+      let verifySignObj={
+        patientId:this.batchAuditForms.query.patientId,
+        visitId:this.batchAuditForms.query.visitId,
+        formCode:this.batchAuditForms.formCode,
+        formName:this.batchAuditForms.label,
+        instanceId:this.batchAuditForms.children[0].form_id,
+        recordId:"",
+        signData:JSON.stringify(signData)
+      }
       this.$refs.signModal.open((password, empNo) => {
         const params = {
           ids: this.checkList,
@@ -112,7 +132,7 @@ export default {
         .catch(error => {
           return error
         })
-      })
+      },undefined,false,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj)
     },
     handleCheckAllChange(val) {
       this.checkList = this.checkAll ? this.canAudit.map(item => item.form_id) : [];

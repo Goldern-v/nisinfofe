@@ -95,7 +95,6 @@
             align="center"
           >
             <template slot-scope="scope">
-              <!-- <el-input v-model="scope.row.temperature"></el-input> -->
               <input
                 v-model="scope.row.temperature"
                 :class="className"
@@ -128,7 +127,6 @@
                 @keyup="handleKeyUp"
                 @click="toRow"
               />
-              <!-- <el-input v-model="scope.row.pulse"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -165,8 +163,6 @@
                 @keyup="handleKeyUp"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.stoolNum" class="stoolNum" /> -->
-              <!-- <el-input v-model="scope.row.stoolNum"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -187,6 +183,7 @@
                   }
                 "
                 @keyup="handleKeyUp"
+                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -215,8 +212,6 @@
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
-              <!-- <input v-model="scope.row.heartRate" class="heartRate" /> -->
-              <!-- <el-input v-model="scope.row.heartRate"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -239,64 +234,6 @@
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
-
-          <!-- <el-table-column
-            prop="urinate"
-            label="小便次数"
-            min-width="80"
-            align="center"
-           >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.urinate"
-                :class="className"
-                class="urinate"
-                type="number"
-                @mousewheel="(e)=>{e.preventDefault()}"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column> -->
-
-          <!-- <el-table-column
-            prop="fieldThree"
-            label="尿量"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.fieldThree"
-                :class="className"
-                class="fieldThree"
-                type="text"
-                @keyup="handleKeyUp"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>-->
-          <!-- <el-table-column
-            prop="foodSize"
-            label="总输入量"
-            min-width="70"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.foodSize"
-                :class="className"
-                class="foodSize"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column> -->
           <el-table-column
             prop="bloodOxygen"
             label="血氧饱和度"
@@ -369,25 +306,6 @@
               />
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            prop="arterialPressure"
-            label="有创动脉收缩压"
-            min-width="120"
-            align="center"
-            >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.arterialPressure"
-                :class="className"
-                class="arterialPressure"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column> -->
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -516,26 +434,6 @@
               <el-input v-model="scope.row.physicalCooling"></el-input>
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            prop="foodSize"
-            label="入量"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.foodSize"></el-input>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="dischargeSize"
-            label="出量"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.dischargeSize"></el-input>
-            </template>
-          </el-table-column> -->
           <el-table-column
             prop="curWeight"
             label="体重"
@@ -556,27 +454,6 @@
               <el-input v-model="scope.row.fieldThree"></el-input>
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            prop="height"
-            label="身高"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.height"></el-input>
-            </template>
-          </el-table-column> -->
-          <!-- <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
-            prop="painScore"
-            label="疼痛"
-            min-width="60"
-            align="center"
-           >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.painScore"></el-input>
-            </template>
-          </el-table-column> -->
         </el-table>
       </div>
     </div>
@@ -806,14 +683,14 @@ export default {
       // },
       nursingList: [],
       checkOptions: [
-        "危重患者",
-        "周体重",
-        "体温37.5",
-        "高温38.5",
-        "手  术",
-        "转  科",
         "当天入院",
         "入院四天",
+        "转  科",
+        "手术四天",
+        "危重患者",
+        "体温37.5",
+        "高温38.5",
+        "周体重",
       ],
       query: {
         wardCode: "", //科室编码
@@ -899,7 +776,7 @@ export default {
           {key:"入院四天",arr:'data5'},
           {key:"当天入院",arr:'data6'},
           {key:"转  科",arr:'data7'},
-          {key:"手  术",arr:'data8'},
+          {key:"手术四天",arr:'data8'},
           ]
           const PatientArray=[]
         if (this.admitted.length != 0){
@@ -956,9 +833,7 @@ export default {
             }
           }
           data = PatientArray.reduce((a, b) => {
-            return a.filter((item, index) => {
-              return b.map((x)=>x.patientId).includes(item.patientId)
-            }, [])
+            return [...Array.from(new Set([...a, ...b]))]
           })
         }
         return data;

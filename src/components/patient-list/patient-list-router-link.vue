@@ -307,42 +307,11 @@ export default {
       noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
       isGroup:false ,// 是否选中管床
       makePatient:'',// 贵州护理巡视表的点击患者
-      lockHospitalList:['huadu','liaocheng']//有锁定功能的医院
+      lockHospitalList:['huadu']//有锁定功能的医院
     };
   },
   methods: {
-    async destroyUnlock(){
-      console.log('护理单解锁')
-      const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
-      console.log(917,lockForm)
-      /* 判断是否已经自动解锁 */
-      if(lockForm && lockForm.initTime){
-        console.log('解锁时间')
-        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
-        let min=10
-        const res=await unLockTime()
-        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
-          min = +res.data.data
-        }
-        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
-        const afterInitTime= +lockForm.initTime + 60000 * min
-        const nowTime=Date.now()
-        if(nowTime > afterInitTime ){
-          /* 超时间 */
-          localStorage.setItem('lockForm','')
-          console.log('超时')
-          return
-        }
-       }
-       if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
-        console.log('超时还执行？')
-          unLock(lockForm.type,lockForm.formId).then(res=>{
-             console.log('解锁',res)
-             localStorage.setItem('lockForm','')
-          })
-       }
-    },
-    async toUnlock(value){
+   async toUnlock(value){
       // 双选是同一患者时置空当前患者，并跳转值父级路由。
       if(this.HOSPITAL_ID == 'guizhou' && value.bedLabel == this.makePatient && this.$route.path=='/nursingMakeItem'){
         this.$router.push('/nursingRounds')
@@ -352,7 +321,10 @@ export default {
          this.makePatient = value.bedLabel
         this.$store.commit("upMakePatient", value.bedLabel);
       }
-      await this.destroyUnlock()
+      // 函数在minxin里。src\common\mixin\common.mixin.js
+      if(this.lockHospitalList.includes(this.HOSPITAL_ID)){
+        await this.destroyUnlock()
+      }
     },
     getDate() {
       if (this.deptCode) {

@@ -33,6 +33,10 @@
         住院号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
+      <!-- <span>
+        ID号：
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
+      </span> -->
       <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
         温箱编号：
         <input
