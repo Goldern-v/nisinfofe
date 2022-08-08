@@ -28,85 +28,99 @@
           class="login-shaw"
         />
         <div class="login-con">
-          <div class="toggle-login-type" v-if="HOSPITAL_ID == 'zhongshanqi'">
-            <div class="img" @click="toggleLoginType">
-              <img
-                src="../../common/images/login_pwd.png"
-                alt=""
-                v-show="!showPwdType"
-              />
-              <img
-                src="../../common/images/login_qrcode.png"
-                alt=""
-                v-show="showPwdType"
-              />
+            <div class="toggle-login-type" v-if="HOSPITAL_ID == 'zhongshanqi'">
+              <div class="img" @click="toggleLoginType">
+                <img
+                  src="../../common/images/login_pwd.png"
+                  alt=""
+                  v-show="!showPwdType"
+                />
+                <img
+                  src="../../common/images/login_qrcode.png"
+                  alt=""
+                  v-show="showPwdType"
+                />
+              </div>
+              <div class="qrcode" v-show="!showPwdType">
+                <img src="../../common/images/qrcode_zsq.png" alt="" />
+              </div>
             </div>
-            <div class="qrcode" v-show="!showPwdType">
-              <img src="../../common/images/qrcode_zsq.png" alt="" />
-            </div>
-          </div>
           <div>
             <div class="logo-con">
               <img :src="logoUrl" height="63" width="63" />
             </div>
             <h1 class="name" v-html="logoName"></h1>
           </div>
-          <div class="input-con">
-            <input type="text" :disabled="caLoginFlag" placeholder="用户名" v-model="account" />
-            <img src="../../common/images/account.png" height="14" width="14" />
-          </div>
-          <div class="input-con">
-            <input
-              type="password"
-              style="border-top: 0"
-              :placeholder="caLoginFlag?'证书密码':'密码'"
-              v-model="password"
-            />
-            <img
-              src="../../common/images/password.png"
-              height="14"
-              width="14"
-            />
-          </div>
-          <div class="input-con" v-if="showVerification && !caLoginFlag">
-            <input
-              type="password"
-              style="border-top: 0; width: 170px"
-              placeholder="验证码，单击图片刷新"
-              v-model="verificationCode"
-            />
-            <img
-              src="../../common/images/verificationCode.png"
-              height="14"
-              width="14"
-            />
-            <div class="verificationImg">
-              <img
-                :src="verificationImg"
-                alt=""
-                @click="refreshImg"
-                style="cursor: pointer"
-              />
+          <div :style="[{overflow:HOSPITAL_ID == 'nanfangzhongxiyi'?'hidden':''},translate300COM,translateTypeCOM]">
+            <div class="nanfangCa-Box" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">
+              <div class="nanfangCa-choseline"><div class="translateType"></div></div>
+              <div class="nanfangCa-con" @click="changeLoginType(false)">密码登录</div>
+              <div class="nanfangCa-con" @click="changeLoginType(true)">ca扫码登录</div>
+            </div>
+            <div class="tranSlate-300" :class="{'nanfangCa-loginBox':HOSPITAL_ID == 'nanfangzhongxiyi'}">
+              <div :class="{'nanfangCa-Boxx':HOSPITAL_ID == 'nanfangzhongxiyi'}">
+                <div class="input-con">
+                  <input type="text" :disabled="caLoginFlag" placeholder="用户名" v-model="account" />
+                  <img src="../../common/images/account.png" height="14" width="14" />
+                </div>
+                <div class="input-con">
+                  <input
+                    type="password"
+                    style="border-top: 0"
+                    :placeholder="caLoginFlag?'证书密码':'密码'"
+                    v-model="password"
+                  />
+                  <img
+                    src="../../common/images/password.png"
+                    height="14"
+                    width="14"
+                  />
+                </div>
+                <div class="input-con" v-if="showVerification && !caLoginFlag">
+                  <input
+                    type="password"
+                    style="border-top: 0; width: 170px"
+                    placeholder="验证码，单击图片刷新"
+                    v-model="verificationCode"
+                  />
+                  <img
+                    src="../../common/images/verificationCode.png"
+                    height="14"
+                    width="14"
+                  />
+                  <div class="verificationImg">
+                    <img
+                      :src="verificationImg"
+                      alt=""
+                      @click="refreshImg"
+                      style="cursor: pointer"
+                    />
+                  </div>
+                </div>
+                <div class="remember-con">
+                  <el-checkbox v-model="remember" v-if="!caLoginFlag">
+                    <span style="font-size: 13px; color: #687179">记住账号</span>
+                  </el-checkbox>
+                  <button
+                    v-if="!caLoginFlag"
+                    style="background-color: #fff; float: right; border: 0"
+                    @click="toReset()"
+                  >
+                    重置密码
+                  </button>
+                </div>
+                <button v-if="!caLoginFlag" v-touch-ripple class="login-btn" @click="login">
+                  {{ !ajax ? "登录系统" : "登录中..." }}
+                </button>
+                <button v-if="caLoginFlag" v-touch-ripple class="login-btn" @click="login">
+                  {{ !ajax ? "证书登录" : "登录中..." }}
+                </button>
+              </div>
+              <div class="nanfangCa-Boxx" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">
+                <img src="../../common/images/qrcode_zsq.png" alt="" />
+              </div>
             </div>
           </div>
-          <div class="remember-con">
-            <el-checkbox v-model="remember" v-if="!caLoginFlag">
-              <span style="font-size: 13px; color: #687179">记住账号</span>
-            </el-checkbox>
-            <button
-              v-if="!caLoginFlag"
-              style="background-color: #fff; float: right; border: 0"
-              @click="toReset()"
-            >
-              重置密码
-            </button>
-          </div>
-          <button v-if="!caLoginFlag" v-touch-ripple class="login-btn" @click="login">
-            {{ !ajax ? "登录系统" : "登录中..." }}
-          </button>
-          <button v-if="caLoginFlag" v-touch-ripple class="login-btn" @click="login">
-            {{ !ajax ? "证书登录" : "登录中..." }}
-          </button>
         </div>
       </div>
       <p class="footer-text">
@@ -193,6 +207,56 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   border-radius: 2px;
   position: relative;
   z-index: 2;
+  .nanfangCa-loginBox{
+    display:flex;
+    width:600px;
+    transition:all 0.4s;
+    &.tranSlate-300{
+      // transform: translateX(-300px);
+      transform:var(--translate300);
+    }
+  }
+  .nanfangCa-Boxx{
+    width:50%;
+    flex:1;
+    >img{
+      width :100%;
+      height:100%;
+    }
+  }
+  .nanfangCa-Box{
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    position :relative;
+    .nanfangCa-choseline{
+      position :absolute;
+      bottom :5px;
+      width :100%;
+      left :0;
+      height:5px;
+      // background :#78dafb;
+      background :#d0d6db;
+      >div{
+        height: 100%;
+        width: 50%;
+        background:#78dafb;
+        &.translateType{
+          transform:var(--translateType);
+        }
+      }
+    }
+    .nanfangCa-con{
+      flex: 1;
+      width: 50%;
+      padding-bottom: 20px;
+      cursor: pointer;
+      position relative;
+      
+    }
+
+  }
 
   .toggle-login-type {
     .img {
@@ -424,6 +488,9 @@ export default {
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
       md5HisList: ["foshanrenyi","hengli",'sdlj'], //需要md5加密医院
+      BeiHaiCaloginType:false, //false 密码登录 true ca扫码登录
+      translate300:'translateX(0px)',
+      translateType:"translateX(100%)"
     };
   },
   methods: {
@@ -433,6 +500,16 @@ export default {
       login(this.account, this.password, "", true).then((res) => {
         this.verificationImg = res.data.data;
       });
+    },
+    changeLoginType(typeFlag){
+      if(typeFlag){
+        this.translate300='translateX(-300px)' 
+        this.translateType ="translateX(100%)"
+      }else{
+        this.translate300='translateX(0)'
+        this.translateType ="translateX(0)"
+      } 
+      console.log(this.translate300,typeFlag,"this.translate300")
     },
     async login(type) {
       console.log("type",type)
@@ -682,6 +759,16 @@ export default {
     );
   },
   computed: {
+    translate300COM(){
+       return {
+        "--translate300": this.translate300
+      };
+    },
+    translateTypeCOM(){
+       return {
+        "--translateType": this.translateType
+      };
+    },
     logoUrl() {
       switch (this.HOSPITAL_ID) {
         case "hj":
