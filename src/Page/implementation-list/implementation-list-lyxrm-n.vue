@@ -93,11 +93,14 @@
           v-model="bedLabel"
         ></el-input>
         <el-input
+          type="text"
+          auto-complete="off"
           size="small"
           style="width: 75px;margin-right: 15px;"
           placeholder="输入途径进行搜索"
           v-model="administration"
         ></el-input>
+        <el-input style="width: 0px; padding: 0px; height: 0px; overflow: hidden;" />
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
 
@@ -512,6 +515,13 @@ export default {
     },
     status() {
       this.search();
+    },
+    '$route.query': {
+      handler(v) {
+        this.patientName = v.patientName
+        this.onLoad()
+      },
+      immediate: true,
     },
     // workClassList:{
     //   deep:true,

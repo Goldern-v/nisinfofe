@@ -3,6 +3,7 @@
 </template>
 
 <script>
+// 跳转的路由最后一个输入框会自动填充账号，可以在最后一个输入框加上一个隐藏的输入框
 import { login } from "@/api/login";
 import { checkLogin,getPatient } from "./api/";
 import Cookies from "js-cookie";
@@ -162,62 +163,7 @@ export default {
             }
           );
           let url = this.$route.query;
-          let type,
-            patientId = url.patientId,
-            visitId = url.visitId || "all";
-           switch (url.viewType) {
-            case "nursingPreview":
-              {
-                type = "nursingPreview";
-              }
-              break;
-            case "doc":
-              {
-                type = "record";
-              }
-              break;
-            case "record":
-              {
-                type = "sheet";
-              }
-              break;
-            case "doctorEmr":
-              {
-                type = "doctorEmr";
-              }
-              break;
-            case "inspect":
-              {
-                type = "inspect";
-              }
-              break;
-            case "test":
-              {
-                type = "test";
-              }
-              break;
-            case "temperature":
-              {
-                type = "temperature";
-              }
-              break;
-            default: {
-              type = "record";
-            }
-          }
-          let timeId = setTimeout(() => {
-            clearTimeout(timeId);
-            if (type == "nursingPreview") {
-              this.$router.push(`/nursingPreview?patientId=${patientId}&visitId=${visitId}&nursingPreviewIsShow=1`);
-            } else {
-              this.$router.push(
-                `/showPatientDetails/${type}?patientId=` +
-                  patientId +
-                  "&visitId=" +
-                  visitId
-              );
-            }
-          }, 500);
+          this.formatRoute(url)
         })
         .catch(err => {
           if (err.data) {
@@ -274,104 +220,112 @@ export default {
         });
         //跳转页面
         (isLogin) && (await this.getPage(url));
-       ;
     },
     //跳转路由
     async getPage(url){
-        let type,
-        patientId = url.patientId,
+      let patientId = url.patientId,
         visitId = url.visitId || "all";
-        let isError=false;
-        if((!url.patientId || !url.visitId) && url.expand1){
-              const newData= await this.getPatientIdAndVisitId(url.expand1);
-              (newData.res) && ({patientId,visitId}=newData.res);
-              (!newData.res) && (isError=true);
-              console.log(newData)
-              console.log("ssssnewData")
-        }
-        if(isError) return false;
-          switch (url.viewType) {
-          case "nursingPreview":
-            {
-              type = "nursingPreview";
-            }
-            break;
-          case "doc":
-            {
-              type = "record";
-            }
-            break;
-          case "record":
-            {
-              type = "sheet";
-            }
-            break;
-          case "doctorEmr":
-            {
-              type = "doctorEmr";
-            }
-            break;
-          case "inspect":
-            {
-              type = "inspect";
-            }
-            break;
-          case "test":
-            {
-              type = "test";
-            }
-            break;
-          case "temperature":
-            {
-              type = "temperature";
-            }
-            break;
-          default: {
-            type = "record";
-          }
-        }
-        let timeId = setTimeout(() => {
-          clearTimeout(timeId);
-          if (type == "nursingPreview") {
-            this.$router.push(
-              `/nursingPreview?patientId=${patientId}&visitId=${visitId}&nursingPreviewIsShow=1`
-            );
-          } else {
-            this.$router.push(
-              `/showPatientDetails/${type}?patientId=` +
-                patientId +
-                "&visitId=" +
-                visitId
-            );
-          }
-        }, 500);
+      let isError=false;
+      if((!url.patientId || !url.visitId) && url.expand1){
+        const newData= await this.getPatientIdAndVisitId(url.expand1);
+        (newData.res) && ({patientId,visitId}=newData.res);
+        (!newData.res) && (isError=true);
+        console.log(newData)
+        // console.log("ssssnewData")
+      }
+      if(isError) return false;
+        this.formatRoute(url)
     },
     //获取patientId visitId
     async getPatientIdAndVisitId(expand1){
-      let parmas={
+      let params={
         res:null,//数据集合
         error:null,//错误提示
       };
      await getPatient(expand1).then(res=>{
         console.log(res)
         if(res.data.code==200){
-          parmas.res=res.data.data.id;
+          params.res=res.data.data.id;
         }else {
            try {
-             parmas.error=res.data.desc;
+             params.error=res.data.desc;
              this.errorMsg = res.data.desc;
            } catch (error) {
-             parmas.error=error
+             params.error=error
              this.errorMsg = error;
            }
         }
       }).catch(error=>{
         console.log(error)
-          parmas.error=error;
+          params.error=error;
           this.errorMsg = error;
       });
-      return parmas
+      return params
     },
+    /** 选择路由地址，修改参数 */
+    formatRoute(url) {
+      let type,
+        patientId = url.patientId,
+        visitId = url.visitId || "all";
+      switch (url.viewType) {
+        case "nursingPreview":
+          {
+            type = "nursingPreview";
+          }
+          break;
+        case "doc":
+          {
+            type = "record";
+          }
+          break;
+        case "record":
+          {
+            type = "sheet";
+          }
+          break;
+        case "doctorEmr":
+          {
+            type = "doctorEmr";
+          }
+          break;
+        case "inspect":
+          {
+            type = "inspect";
+          }
+          break;
+        case "test":
+          {
+            type = "test";
+          }
+          break;
+        case "temperature":
+          {
+            type = "temperature";
+          }
+          break;
+        case "implementationList":
+          type = "implementationList";
+          break;
+        default: {
+          type = "record";
+        }
+      }
+      let timeId = setTimeout(() => {
+        clearTimeout(timeId);
+        let src = ''
+        if (type == "nursingPreview") {
+          src = `/nursingPreview?patientId=${patientId}&visitId=${visitId}&nursingPreviewIsShow=1`
+        } else if (type == "implementationList") {
+          src = `/showPatientDetails/${type}?patientName=${url.patientName || ''}`
+        } else {
+          src = `/showPatientDetails/${type}?patientId=` +
+              patientId +
+              "&visitId=" +
+              visitId
+        }
+        this.$router.push(src)
+      }, 500);
+    }
   }
 };
 </script>
