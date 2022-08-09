@@ -118,3 +118,8 @@ export const delSelectRow = (params) => {
   params.blockId = sheetInfo.selectBlock.id;
   return axios.post(`${apiPath}record/titleTempalate/saveTitleOptions`, params)
 }
+
+export const addNewPageTitleOptions = (params) => {
+  params.blockId = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}record/titleTempalate/addNewPageTitleOptions`, params)
+}

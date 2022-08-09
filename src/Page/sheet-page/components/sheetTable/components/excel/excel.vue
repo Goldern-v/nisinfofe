@@ -47,7 +47,7 @@
           :rowspan="item.rowspan"
           :style="item.style"
           :class="{ canSet: item.canSet}"
-          @click="item.canSet && setTitle(item, data)"
+          @click="item.canSet && setTitle(item)"
         >
           <span v-if="item.key == 'recordYear'">{{
             recordYear()
@@ -77,7 +77,7 @@
           :rowspan="item.rowspan"
           :style="item.style"
           :class="{ canSet: item.canSet }"
-          @click="item.canSet && setTitle(item,data)"
+          @click="item.canSet && setTitle(item, data.titleModel)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
           <span v-else v-html="item.name"></span>
@@ -961,12 +961,10 @@ export default {
     },
     setTitle(item,item2) {
       if (['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) {
-        if (item2.fromAddPage) {
-          console.log('item2', item2)
-          return
-        }
-          console.log('item233', item2)
-        this.setTitleFS(item, item2)
+        // if (item2.fromAddPage) {
+        //   return
+        // }
+        this.setTitleFS(item)
         return
       }
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
