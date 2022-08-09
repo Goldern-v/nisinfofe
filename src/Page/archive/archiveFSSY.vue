@@ -611,7 +611,7 @@ export default {
     // 跳转至电子病历
     openDetail(row) {
       const { patientId, visitId } = row
-      if (this.HOSPITAL_ID === 'foshanrenyi') {
+      if (['foshanrenyi', 'lyxrm'].includes(this.HOSPITAL_ID)) {
         const { href } = this.$router.resolve({
           path: "/home",
           query: { patientId, visitId }

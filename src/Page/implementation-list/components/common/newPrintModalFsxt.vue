@@ -113,8 +113,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: calc(100% - 56px);
-    height: 24px;
+    width: calc(100% - 70px);
+    height: 30px;
   }
   &.new-print-modal--large {
     position: relative;
@@ -127,7 +127,8 @@
     @extend .same-top;
     @extend .bb;
     font-size: 16px;
-    height: 32px;
+    padding-top: 10px;
+    /* height: 32px; */
     .bigger {
       font-size: 18px;
       font-weight: 900;
@@ -156,7 +157,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 56px;
+    width: 70px;
     img {
       width: 100%;
       height: auto;

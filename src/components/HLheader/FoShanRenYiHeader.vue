@@ -1065,6 +1065,7 @@ export default {
   created() {
     // this.$store.dispatch("getMailUnread");
     nursingUnit().then((res) => {
+      this.deptList =  [];
       this.deptList = res.data.data.deptList;
       this.deptValue =
         localStorage.selectDeptValue ||

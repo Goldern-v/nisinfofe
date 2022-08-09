@@ -60,6 +60,9 @@
       .cell {
         padding: 0 5px;
       }
+      .gutter{
+        border:none !important;
+      }
 
       .selected-row td {
         background: #fff8b1 !important;

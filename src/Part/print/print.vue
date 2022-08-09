@@ -77,7 +77,7 @@
         <lcHealth v-if="$route.params.type == 'lcHealth'"></lcHealth>
         <growthPrintPage v-if="$route.params.type == 'growth'"></growthPrintPage>
         <birthCertificatePrint v-if="$route.params.type == 'birthCertificate'"></birthCertificatePrint>
-        <diagnosisPrintPage v-if="$route.params.type == 'diagnosis'"></diagnosisPrintPage>
+        <diagnosisPrintPage v-if="$route.params.type == 'diagnosis'"  :qoSelect="qoSelect"></diagnosisPrintPage>
       </div>
     </div>
   </div>
@@ -218,7 +218,7 @@ export default {
     };
   },
   methods: {
-    
+
     print() {
       if (!this.canPrint) return;
       if (this.$route.params.type == "assessment") {
@@ -246,7 +246,7 @@ export default {
       location.replace(this.$store.state.sheet.preRouter)
       setTimeout(()=>{
         this.$store.commit('upPreRouter',"")
-      },1000)
+      },2000)
     }else{
       this.$router.go(-1)
     }
