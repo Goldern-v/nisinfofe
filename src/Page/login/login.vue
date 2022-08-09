@@ -54,8 +54,8 @@
           <div :style="[{overflow:HOSPITAL_ID == 'nanfangzhongxiyi'?'hidden':''},translate300COM,translateTypeCOM]">
             <div class="nanfangCa-Box" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">
               <div class="nanfangCa-choseline"><div class="translateType"></div></div>
-              <div class="nanfangCa-con" @click="changeLoginType(false)">密码登录</div>
-              <div class="nanfangCa-con" @click="changeLoginType(true)">ca扫码登录</div>
+              <div class="nanfangCa-con" @click="(e)=>changeLoginType(false,e)">密码登录</div>
+              <div class="nanfangCa-con" @click="(e)=>changeLoginType(true,e)">ca扫码登录</div>
             </div>
             <div class="tranSlate-300" :class="{'nanfangCa-loginBox':HOSPITAL_ID == 'nanfangzhongxiyi'}">
               <div :class="{'nanfangCa-Boxx':HOSPITAL_ID == 'nanfangzhongxiyi'}">
@@ -236,12 +236,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
       width :100%;
       left :0;
       height:5px;
-      // background :#78dafb;
       background :#d0d6db;
       >div{
         height: 100%;
         width: 50%;
-        background:#78dafb;
+        background:#79c09e;
         &.translateType{
           transform:var(--translateType);
         }
@@ -490,7 +489,7 @@ export default {
       md5HisList: ["foshanrenyi","hengli",'sdlj'], //需要md5加密医院
       BeiHaiCaloginType:false, //false 密码登录 true ca扫码登录
       translate300:'translateX(0px)',
-      translateType:"translateX(100%)"
+      translateType:"translateX(0)"
     };
   },
   methods: {
@@ -501,7 +500,7 @@ export default {
         this.verificationImg = res.data.data;
       });
     },
-    changeLoginType(typeFlag){
+    changeLoginType(typeFlag,e){
       if(typeFlag){
         this.translate300='translateX(-300px)' 
         this.translateType ="translateX(100%)"
@@ -509,7 +508,7 @@ export default {
         this.translate300='translateX(0)'
         this.translateType ="translateX(0)"
       } 
-      console.log(this.translate300,typeFlag,"this.translate300")
+      console.log(e,this.translate300,typeFlag,"this.translate300")
     },
     async login(type) {
       console.log("type",type)
