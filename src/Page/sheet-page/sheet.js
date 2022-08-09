@@ -32,6 +32,7 @@ export default data;
 
 export async function addSheetPage(callback) {
   let Options = []
+  let FieldTitle = []
   if (['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID)) {
     // let formatCustomObj = {}
     // autoOptions_next.reduce((total, cur) => {
@@ -68,6 +69,7 @@ export async function addSheetPage(callback) {
     let http = await findListByBlockId()
     if (http.data.code === '200') {
       Options = http.data.data.Options.filter(v => v.pageIndex === data.length)
+      FieldTitle = http.data.data.FieldSetting.filter(v => v.pageIndex === data.length)
       // autoOptions_next = Options
     }
   }
@@ -75,7 +77,7 @@ export async function addSheetPage(callback) {
     Page(
       {
         titleData: [],
-        autoTitleData: autoTitleDataDisk.map(item => {
+        autoTitleData: ['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID) ? FieldTitle : autoTitleDataDisk.map(item => {
           item.pageIndex = data.length;
           return item;
         }),
