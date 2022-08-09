@@ -518,8 +518,10 @@ export default {
     },
     '$route.query': {
       handler(v) {
-        this.patientName = v.patientName
-        this.onLoad()
+        if (v.patientName) {
+          this.patientName = v.patientName
+          this.onLoad()
+        }
       },
       immediate: true,
     },
