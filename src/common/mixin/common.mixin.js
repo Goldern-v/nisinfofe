@@ -236,15 +236,12 @@ export default {
     },
     // 表单解锁
     async destroyUnlock(){
-      console.log('hjmhjmhjm')
-      console.log(240,this.lockHospitalList)
       const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
       /* 判断是否已经自动解锁 */
       if(lockForm && lockForm.initTime){
         /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
         let min=10
         const res=await unLockTime()
-        console.log(923,res)
         if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
           min = +res.data.data
         }
