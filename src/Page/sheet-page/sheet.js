@@ -68,7 +68,7 @@ export async function addSheetPage(callback) {
     let http = await findListByBlockId()
     if (http.data.code === '200') {
       Options = http.data.data.Options.filter(v => v.pageIndex === data.length)
-      autoOptions_next = Options
+      // autoOptions_next = Options
     }
   }
   data.push(
@@ -99,8 +99,8 @@ export function cleanData() {
   Mark.splice(0, Mark.length);
   autoTitleDataDisk = [];
   // autoOptionsData = []
-  autoOptions_next = []
-  titleList_next = []
+  // autoOptions_next = []
+  // titleList_next = []
 }
 
 export function initSheetPage(titleData, bodyData, markData) {
@@ -113,8 +113,8 @@ export function initSheetPage(titleData, bodyData, markData) {
     if (['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID)) {
       titleList = titleData.FieldSetting
       customOptions = titleData.Options
-      titleList_next = titleData.FieldSetting
-      autoOptions_next = titleData.Options
+      // titleList_next = titleData.FieldSetting
+      // autoOptions_next = titleData.Options
     } else {
       titleList = titleData.list;
     }
