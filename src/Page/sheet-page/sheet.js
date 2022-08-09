@@ -19,10 +19,11 @@ let titleList_next = []
  * autoOptionsData: 自定义选项
  * @returns
  */
-let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = '', autoOptionsData = []}) {
+let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = '', autoOptionsData = [], fromAddPage = false}) {
   return {
     titleModel: Title(titleData, autoTitleData, index),
-    bodyModel: Body(bodyData, index, autoOptionsData)
+    bodyModel: Body(bodyData, index, autoOptionsData),
+    fromAddPage
   };
 };
 let data = [];
@@ -76,7 +77,8 @@ export async function addSheetPage(callback) {
         }),
         bodyData: [],
         index: data.length,
-        autoOptionsData: Options
+        autoOptionsData: Options,
+        fromAddPage: true
       }
     )
   );
