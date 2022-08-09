@@ -365,6 +365,46 @@ const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
+// 执行单路由
+const getImplementation = () => {
+  switch (HOSPITAL_ID) {
+    case 'lingcheng':
+      return implementationListLingcheng
+    case 'liaocheng':
+    case 'lyyz':
+    case 'qhwy':
+      return implementationListLiaocheng
+    case 'shannan':
+      return implementationListShannan
+    case 'zhongshanqi':
+      return implementationListZhongshanqi
+    case 'lyxrm':
+      return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
+    case 'wujing':
+    case 'sdlj':
+    case 'gdtj':
+      return implementationListWujing
+    case 'whfk':
+    case 'ytll':
+      return implementationListWhfk
+    case 'fsxt':
+      return implementationListFsxt
+    case 'foshanrenyi':
+      return implementationListFSSY
+    case 'quzhou':
+      return implementationListQuzhou
+    case 'huadu':
+      return implementationListHuadu
+    case 'fuyou':
+      return implementationListFuyou
+    case 'hengli':
+      return implementationListHengli
+    case 'guizhou':
+      return adviceList
+    default:
+      return implementationList
+  }
+}
 const router = new Router({
   mode: "history",
   base: "/crNursing/",
@@ -478,6 +518,10 @@ const router = new Router({
         }
       })(),
       name: "体温单"
+    },{
+      path: 'implementationList',
+      component: getImplementation(),
+      name: '执行单'
     }
     ]
   },
@@ -1104,45 +1148,7 @@ const router = new Router({
       },
       {
         path: "/implementationList",
-        component: (() => {
-          switch (HOSPITAL_ID) {
-            case 'lingcheng':
-              return implementationListLingcheng
-            case 'liaocheng':
-            case 'lyyz':
-            case 'qhwy':
-              return implementationListLiaocheng
-            case 'shannan':
-              return implementationListShannan
-            case 'zhongshanqi':
-              return implementationListZhongshanqi
-            case 'lyxrm':
-              return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
-            case 'wujing':
-            case 'sdlj':
-            case 'gdtj':
-              return implementationListWujing
-            case 'whfk':
-            case 'ytll':
-              return implementationListWhfk
-            case 'fsxt':
-              return implementationListFsxt
-            case 'foshanrenyi':
-              return implementationListFSSY
-            case 'quzhou':
-              return implementationListQuzhou
-            case 'huadu':
-              return implementationListHuadu
-            case 'fuyou':
-              return implementationListFuyou
-            case 'hengli':
-              return implementationListHengli
-            case 'guizhou':
-              return adviceList
-            default:
-              return implementationList
-          }
-        })(),
+        component: getImplementation(),
         name: "执行单",
         children:['guizhou'].includes(HOSPITAL_ID)?[
           {

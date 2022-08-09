@@ -166,6 +166,32 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="breath"
+            label="呼吸"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.breath"
+                :class="className"
+                class="breath"
+                type="number"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
+                @keyup="handleKeyUp"
+                v-on:input="validFormFc"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.breath" class="breath" /> -->
+              <!-- <el-input v-model="scope.row.breath"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="heartRate"
             label="心率"
             min-width="70"

@@ -42,6 +42,8 @@
         <div
           class="sheetTable-contain"
           ref="scrollCon"
+              id="page"
+
           @scroll="(e) => onScroll(e)"
         >
           <div ref="sheetTableContain">
@@ -380,7 +382,6 @@ export default {
       let resultModel = mapSheetModel.filter((item) => {
         return showSheetPage(item.index);
       });
-      console.log('resultModel', resultModel)
       // index为第几页
       resultModel.map((item,index) => {
         // x为每页护记的行数
@@ -396,8 +397,9 @@ export default {
             }
             tr.isRead = this.isRead(tr,x,nowX);
             tr.map((td, y) => {
-              td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel,nowX);
-              td.signDisabled = this.setSignDiabled(td, nowX)
+              //暂时屏蔽限制 加快加载速度
+              // td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel,nowX);
+              // td.signDisabled = this.setSignDiabled(td, nowX)
             });
           }
         });
@@ -405,7 +407,6 @@ export default {
       return resultModel;
     },
     sheetTable() {
-      console.log(sheetInfo.sheetType,"sheetInfo.sheetType")
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
         //  return sheetTablePost_partum;
@@ -472,7 +473,26 @@ export default {
       }
     },
   },
+  mounted(){
+        document.getElementById('page').addEventListener('scroll',this.test)
+  },
   methods: {
+    test(){
+        let clientHeight = document.documentElement.clientHeight || document.body.clientHeight
+      // 滚动区域
+      let scrollObj = document.getElementsByClassName('sheetTable-contain')[0]
+      // 滚动区域到头部的距离
+      let scrollTop = scrollObj.scrollTop
+      // 滚动条的总高度
+      let scrollHeight = scrollObj.scrollHeight
+      // 滚动条到底部的条件
+      if (scrollTop + clientHeight == scrollHeight) {
+        // 滚动区域到头部的距离 + 屏幕高度 = 可滚动的总高度
+        this.loadMore()
+      }
+    },
+    loadMore(){
+    },
     isFirst(tr, x, y, bodyModel) {
       let recordDate = tr.find((item) => item.key == "recordDate").value;
       let recordSource = tr.find((item) => item.key == "recordSource").value;
@@ -765,7 +785,6 @@ export default {
             }
           })
         }
-        // console.log(bodyData);
         let markData = res[2].data.data.list || [];
         this.listData = bodyData.list;
         /* 显示转科转床的信息 */
@@ -779,7 +798,6 @@ export default {
         // this.sheetModel = []
         this.$nextTick(() => {
           // this.sheetModel = sheetModel
-          // console.log(titleData);
           initSheetPage(titleData, bodyData, markData);
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
           // 暂时方案有影响就换其他办法，报错是因为贵州切换患者时清空了sheetInfo.selectBlock
@@ -1101,7 +1119,6 @@ export default {
     });
     //保存前做签名校验
     this.bus.$on("toSheetSaveNoSign", (newWid) => {
-      console.log(this.sheetModel[0].bodyModel);
       let flag = true //控制保存开关
       let yearList = [] //所有日期时间数组
       let sameDay = "" // 同一天
@@ -1205,26 +1222,6 @@ export default {
         }
         window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       }
-
-      // let printUrl = "";
-      // if (process.env.NODE_ENV === "production") {
-      //   this.$message.info("正在准备打印，请勿重复操作");
-      // printUrl = "/crNursing/print/sheetPage?toPrint=true";
-      //   /** 打印 */
-      //   const iframe = document.createElement("iframe");
-      //   iframe.style.display = "block";
-      //   iframe.style.height = "0";
-      //   iframe.style.width = "0";
-      //   iframe.style.overflow = "hidden";
-      //   iframe.src = printUrl;
-      //   document.body.appendChild(iframe);
-      //   const iframeWindow = iframe.contentWindow;
-      //   setTimeout(() => {
-      //     document.body.removeChild(iframe);
-      //   }, 20000);
-      // } else {
-      //   this.$router.push(`/print/sheetPage`);
-      // }
       if (
         process.env.HOSPITAL_ID == "fuyou" ||
         process.env.HOSPITAL_ID == "quzhou" ||
@@ -1288,7 +1285,6 @@ export default {
       this.$refs.syncExamAmountModal.open(tr, td, sheetModel);
     });
     this.bus.$on("ImportExamCallBack", (str) => {
-      console.log(this.sheetModel[0].bodyModel[0][18].value);
       this.bus.$emit('saveSheetPage','noSaveSign')
     });
     // this.bus.$on("quitUnlockSheetPage",this.destroyUnlock)
