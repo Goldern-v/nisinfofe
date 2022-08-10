@@ -994,10 +994,6 @@ export default {
         );
         this.$store.commit("upDeptCode", data.data.wardCode);
       }
-      // console.log(
-      //   "条件",
-      //   this.patientInfo.patientId && this.patientInfo.visitId && this.deptCode
-      // );
       if (
         this.patientInfo.patientId &&
         this.patientInfo.visitId &&
@@ -1058,6 +1054,7 @@ export default {
             if(this.sheetBlockList.length==0){
               // 如果该病人没有护记，切换病人时需要清空分页
               this.pageArea=''
+              this.bus.$emit('clearSheetModel')
             }
           if (this.patientInfo.blockId) {
             try {
