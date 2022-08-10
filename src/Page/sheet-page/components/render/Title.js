@@ -1322,6 +1322,13 @@ export default function Title(
     );
   }
   break;
+  case "internal_xg": {
+    // 东莞谢岗 - 护理记录单(内科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_xg/th").default)
+    );
+  }
+  break;
   case "cardiology_fs": {
     // 佛山市一 - 心内科通用护理记录单
     Th = JSON.parse(
