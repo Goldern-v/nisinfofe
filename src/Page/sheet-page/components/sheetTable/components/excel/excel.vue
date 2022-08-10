@@ -77,7 +77,7 @@
           :rowspan="item.rowspan"
           :style="item.style"
           :class="{ canSet: item.canSet }"
-          @click="item.canSet && setTitle(item,data.titleModel)"
+          @click="item.canSet && setTitle(item, data.titleModel)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
           <span v-else v-html="item.name"></span>
@@ -961,6 +961,9 @@ export default {
     },
     setTitle(item,item2) {
       if (['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) {
+        // if (item2.fromAddPage) {
+        //   return
+        // }
         this.setTitleFS(item)
         return
       }
