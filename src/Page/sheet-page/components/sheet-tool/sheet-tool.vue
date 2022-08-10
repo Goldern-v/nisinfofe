@@ -699,7 +699,7 @@ export default {
     toPrint() {
       // 正式环境打印会打开窗口,个别医院双签名打印设置为不打开新窗口（打开窗口样式有bug）
       // 不打开窗口，打印完返回会有Bug（下拉不显示和表头不能修改）,只能重新加载页面
-      if(['liaocheng','huadu','foshanrenyi'].includes(this.HOSPITAL_ID)){
+      if(['liaocheng','huadu','foshanrenyi','xiegang'].includes(this.HOSPITAL_ID)){
          this.$store.commit('upPreRouter',location.href)
       }
       if (!this.sheetInfo.selectBlock.id)
@@ -709,7 +709,8 @@ export default {
         process.env.HOSPITAL_ID == "quzhou" ||
         process.env.HOSPITAL_ID == "huadu" ||
         process.env.HOSPITAL_ID === "foshanrenyi"||
-        process.env.HOSPITAL_ID == "liaocheng"
+        process.env.HOSPITAL_ID == "liaocheng"||
+        process.env.HOSPITAL_ID == "xiegang"
       ) {
         this.bus.$emit("toSheetPrintPage");
       } else {

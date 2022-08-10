@@ -546,6 +546,25 @@ export default {
       );
     }
      if (
+      (this.HOSPITAL_ID === "xiegang") 
+    ) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='审核<br/>签名']{
+            display:none !important;
+          }
+           #sheetPagePrint#sheetPagePrint th[dataname='审核人<br/>签名']{
+            display:none !important;
+          }
+          #sheetPagePrint th[dataname="记录者<br/>签名"] {
+              min-width: 100px !important;
+              max-width: 100px !important;
+            }
+        `
+      );
+    }
+     if (
       (this.HOSPITAL_ID === "sdlj") &&
       this.sheetInfo.sheetType == "neonate_sdlj"
     ) {

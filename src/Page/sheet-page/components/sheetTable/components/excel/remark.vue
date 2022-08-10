@@ -312,7 +312,7 @@
       </p>
     </div>
     <!-- 东莞谢岗护理记录单 -->
-    <div v-if="sheetInfo.sheetType == 'common_xg'">
+    <div v-if="sheetInfo.sheetType == 'common_xg'||sheetInfo.sheetType == 'internal_xg'">
       健康宣教内容：1.入院宣教；2.辅助检查目的及注意事项；3.吸氧目的及注意事项；4.心电监护目的及注意事项；5.术前宣教；6.术后宣教；7.饮食指导；
       8.防跌倒；9.出院宣教；<br/>10.用药指导；11.输血注意事项；12.特殊感染隔离注意事项。
     </div>
