@@ -823,52 +823,22 @@ export default {
       return `${dayjs(item.evalDate).format("MM-DD")}`;
       // return `${item.wardName} ${dayjs(item.createTime).format('MM-DD')} 至 ${item.completeTime ? dayjs(item.completeTime).format('MM-DD') : '至今'}`
     },
+    /**
+     * 显示保存后diags数据的弹窗
+     */
     showMeasureDetailBox(res) {
       let {
         data: {
           data: { diags: diags },
         },
       } = res;
-      console.log("显示评估详情", res, diags, window.formObj.dialogs);
-      let diagsArray = diags.map((d) => {
-        return d;
-      });
-      // let dialog = {
-      //   title: "住院评估内容确认",
-      //   type: "formGroupVerticalBox",
-      //   name: "",
-      //   showTitle: false,
-      //   modalWidth: 720,
-      //   message: "",
-      //   require: "false",
-      //   prefixDesc: "",
-      //   suffixDesc: "",
-      //   style: null,
-      //   classes: null,
-      //   readOnly: null,
-      //   children: [
-      //     {
-      //       type: "html",
-      //       title: "",
-      //       style: "width:100%;text-indent: 0em;",
-      //       class: null,
-      //       html: `根据本次评估内容分析，患者可能有以下${
-      //         diagsArray.length
-      //       }个护理问题，请您确认：`
-      //     },
-      //     ...diagsArray
-      //   ]
-      // };
-      //
-      // let dArray = window.formObj.dialogs.filter(d => d.title === dialog.title);
-      // if (dArray && dArray.length > 0) {
-      //   dArray[0] = dialog;
-      // } else {
-      //   window.formObj.dialogs.push(dialog);
-      // }
-      //
-      console.log('test-this.$root.$refs', this.$root.$refs, diagsArray)
-      this.$root.$refs.diagnosisModal.open(diagsArray);
+      // console.log("显示评估详情", res, diags, window.formObj.dialogs);
+      if (diags) {
+        let diagsArray = diags.map((d) => {
+          return d;
+        });
+        this.$root.$refs.diagnosisModal.open(diagsArray);
+      }
     },
     removeCheckMark(isXRadiobox = true) {
       let object = this.$root.$refs;
@@ -1367,8 +1337,6 @@ export default {
               ...signType,
             };
 
-
-
             window.formObj.model.formCode = this.formCode;
 
             post = Object.assign({}, window.formObj.model, post);
@@ -1504,6 +1472,8 @@ export default {
             this.$message.success("保存成功");
             this.bus.$emit("setHosptialAdmissionLoading", false);
             if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+              this.selectBlock.status = "1";
+              this.changeSelectBlock(this.selectBlock);
               this.showMeasureDetailBox(res);
             }
             //

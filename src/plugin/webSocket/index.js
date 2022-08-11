@@ -41,7 +41,7 @@ class WebSocketService {
         console.log('test-err', err)
         if (this.reconnectNo < 4) {
           this.reconnectNo += 1
-          console.log('test-this.reconnectNo', this.reconnectNo)
+          // console.log('test-this.reconnectNo', this.reconnectNo)
           this.connection()
         }
        }

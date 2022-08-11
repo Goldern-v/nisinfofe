@@ -5250,7 +5250,7 @@
       "children": [
         {
           "name": "evalDate",
-          "type": "input",
+          "type": "datePicker",
           "title": "记录时间",
           "titleStyle": "width:70px!important",
           "inputStyle": "width:270px!important",
@@ -5258,7 +5258,8 @@
           "suffixDesc": "",
           "style": null,
           "class": null,
-          "readOnly": true
+          "readOnly": false,
+          "hiddenTips": true
         },
         {
           "name": "signerName",
@@ -5282,7 +5283,8 @@
           "suffixDesc": "",
           "style": null,
           "class": null,
-          "readOnly": true
+          "readOnly": false,
+          "hiddenTips": true
         },
         {
           "name": "auditorName",
