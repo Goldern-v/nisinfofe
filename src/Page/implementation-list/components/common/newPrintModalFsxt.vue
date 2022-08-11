@@ -20,7 +20,7 @@
         </span>
       </div>
       <div class="new-print-modal__text">
-        <span>{{ currentBottle.name }}</span>
+        <span class="bigger">{{ currentBottle.name }}</span>
         <span>{{ currentBottle.age }}</span>
         <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
       </div>
@@ -139,6 +139,10 @@
     span {
       font-size: 16px;
     }
+    .bigger {
+      font-size: 18px;
+      font-weight: 900;
+    }
   }
   .new-print-modal__content {
     /* flex: 1; */
@@ -147,6 +151,9 @@
     }
     tr:nth-child(n + 1) {
       font-size: 13px;
+    }
+    tr td:nth-child(n + 1) {
+      text-align: center;
     }
     span {
       font-weight: 900;
