@@ -7,7 +7,7 @@
   >
     <div class="head-con" flex>
       <div class="tool-con" flex-box="1">
-        <sheetTool ref="sheetTool" :isLock='isLock'></sheetTool>
+        <sheetTool ref="sheetTool" :isLock='isLock'  :isLoad='isLoad'></sheetTool>
       </div>
     </div>
     <div
@@ -260,7 +260,8 @@ export default {
       lockHospitalList:[
         'huadu'
       ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
-      isLock:false
+      isLock:false,
+      isLoad:false
     };
   },
   computed: {
@@ -376,6 +377,9 @@ export default {
       }
     },
     getSheetData(isBottom) {
+      if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
+        this.isLoad=false
+      }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
         setTimeout(() => {
@@ -396,6 +400,9 @@ export default {
       }
       $(".red-border").removeClass("red-border");
       return Promise.all(fnArr).then(res => {
+        if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
+          this.isLoad=true
+        }
         let titleData = res[0].data.data;
         /* 判断护记单是否被锁定 */
         if(res[1].data.errorCode=='3001' && res[1].data.desc.indexOf('锁定')!=-1 && this.lockHospitalList.includes(this.HOSPITAL_ID)){
