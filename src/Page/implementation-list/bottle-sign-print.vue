@@ -576,6 +576,12 @@ export default {
     },
     async newOnPrint(){
       let barCodeList = this.$_.uniqBy(this.selectedData.map(item=>item.barcode))
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        // /该条执行单是一组多条的 或者该执行单是已完成的隐藏
+       barCodeList = this.selectedData.reduce((per,item,index)=>{
+          return (item.rowType <= 1 || !item.rowType) ? per.concat(item.barcode) : per
+        },[])
+      }
       // let barcode = this.selectedData.map(item=>item.barcode).join('|')
       let printObj = {}
       let res = ''
