@@ -125,6 +125,9 @@ export default [
     event: keyf1,
     name: "入量名称",
     change: (e, td) => limitChange(e, td, 10),
+    autoComplete: {
+      data: ['补液','食物','水','奶','其他']
+    },
     textarea: {
       width: 65,
     }
@@ -146,6 +149,9 @@ export default [
     event: keyf1,
     name: "出量名称",
     change: (e, td) => limitChange(e, td, 10),
+    autoComplete: {
+      data: ['阴道出血','术中出血','大便','心包','引流量','痰','呕吐物','其他','腹腔','胸液','胃管','胆管','腋下引流量','胸壁引流量','切口引流量','腹腔引流管','甲状腺窝引流管','颈前引流管','盆腔引流管','切口引流管','文氏引流管','胆囊床引流管','胆囊窝引流管','胆总管','T管','无形逝水量']
+    },
     textarea: {
       width: 65,
     }

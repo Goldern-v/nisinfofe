@@ -2,7 +2,7 @@
   <div class="containter" v-loading="tableLoading" ref="printable">
     <div class="header-con">
       <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
-      <div class="title">{{["liaocheng","guizhou",'huadu','foshanrenyi'].includes(HOSPITAL_ID) ?"护理计划":"护理诊断计划"}}</div>
+      <div class="title">{{["liaocheng","guizhou",'huadu','foshanrenyi','lyxrm','whsl'].includes(HOSPITAL_ID) ?"护理计划":"护理诊断计划"}}</div>
       <div class="info-con" flex="main:justify">
         <span>
           姓名：

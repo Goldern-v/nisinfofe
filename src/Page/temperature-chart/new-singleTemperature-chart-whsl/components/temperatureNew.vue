@@ -131,9 +131,9 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         // "http://localhost:8080/#/" /* 本地自测环境 导致跨域 */,
-      "http://192.168.4.175:9091/temperature" /* 医院正式环境内网 导致跨域 */,  
+      "http://10.101.1.141:9091/temperature" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://192.168.4.175:9091/temperature/printAll" /* 医院正式环境内网 */,
+        "http://10.101.1.141:9091/temperature/printAll" /* 医院正式环境内网 */,
     };
   },
   methods: {
