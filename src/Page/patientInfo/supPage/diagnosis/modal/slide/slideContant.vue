@@ -306,13 +306,12 @@
 import {
   measure,
   nursingDiagsSave,
-  diagsDetails,
   nursingDiagsView,
   nursingDiagsUpdate
 } from "@/Page/patientInfo/supPage/diagnosis/api/index.js";
 import moment from "moment";
 import { model } from "@/Page/patientInfo/supPage/diagnosis/diagnosisViewModel";
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState } from "vuex";
 let bindData = {
   data: {},
   show: false,
@@ -356,14 +355,12 @@ export default {
       this.show = true;
       this.data = item;
       measure(item.code).then(res => {
-        console.log(res);
         this.measures = res.data.data.measures;
         this.targetList = res.data.data.targetList;
         this.factorList = res.data.data.factorList;
         this.definition = res.data.data.definition;
         if (item.id) {
           nursingDiagsView(item.id).then(res => {
-            console.log(res);
             this.beginTime = res.data.data.object.beginTime;
             this.status = res.data.data.object.status;
             this.factorList = res.data.data.factorList;
@@ -377,7 +374,10 @@ export default {
       });
     },
     close() {
+      //关闭弹框取消关联输入框内容
+      this.$store.commit('cleanMeasureGuizhouAll')
       this.show = false;
+
     },
     save() {
         window.openSignModal((password, empNo) => {
@@ -393,7 +393,7 @@ export default {
           measureStr: this.measureStr,
           targetStr: this.targetStr,
           factorStr: this.factorStr,
-          wardCode: model.selectedBlock.wardCode,
+          wardCode: !this.$route.path.includes('newSingleTemperatureChart') ? model.selectedBlock.wardCode : this.$store.state.sheet.patientInfo.wardCode,
           beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm")
         };
         if (this.status === "1") {
@@ -416,8 +416,7 @@ export default {
             : null;
         promise &&
           promise.then(res => {
-            console.log(model, "modelmodel");
-            this.$message.success("保存成功");
+             this.$message.success(!this.$route.path.includes('newSingleTemperatureChart')?"保存成功":"关联成功")
             model.newDiagnosisModal.close();
             this.close();
             model.refreshTable();

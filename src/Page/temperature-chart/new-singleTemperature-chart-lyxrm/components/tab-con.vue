@@ -108,8 +108,8 @@
                     index.includes('术后天数')
                       ? 'rowItem_noShow'
                       : (i - 1) % 2 === 0
-                      ? 'rowBoxRight'
-                      : 'rowBox'
+                        ? 'rowBoxRight'
+                      :'rowBox'
                   "
                   class="pathological"
                   v-for="(j, index, i) in baseMultiDictList"
@@ -118,6 +118,8 @@
                   <div class="rowItemText">
                     <span>{{ index }}</span>
                   </div>
+                  <div class="input_icon">
+                    <span @click="openNewDiagnosis(vitalSignObj[j])" style="color: red;position: absolute;" v-if="checkDiagnose(vitalSignObj[j], i + 1)" :title="`${vitalSignObj[j].vitalSigns}数值异常`"><i class="el-icon-information" ></i></span>
                   <el-tooltip
                     placement="top"
                     popper-class="custom-temp-dict-select"
@@ -145,8 +147,10 @@
                           e.preventDefault();
                         }
                       "
-                      @input="handlePopRefresh(vitalSignObj[j])"
-                      v-on:input="validFormFc(vitalSignObj[j], i + 1)"
+                      @input="()=>{
+                        validFormFc(vitalSignObj[j], i + 1)
+                        handlePopRefresh(vitalSignObj[j])
+                      }"
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
@@ -191,6 +195,8 @@
                       </div>
                     </template>
                   </el-tooltip>
+                    </div>
+
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
@@ -452,6 +458,10 @@
         </div>
       </div>
     </div>
+      <newDiagnosisModal ref="newDiagnosisModal"></newDiagnosisModal>
+      <slideContant ref="slideContant"></slideContant>
+      <slideConRight ref="slideConRight"></slideConRight>
+    <stopDiagnosisModal ref="stopDiagnosisModal"></stopDiagnosisModal>
   </div>
 </template>
 <script>
@@ -459,6 +469,11 @@ import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
 import { validForm } from "../../validForm/validForm";
+import newDiagnosisModal from "../../../../Page/patientInfo/supPage/diagnosis/modal/newDiagnosisModal.vue";
+import slideContant from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideContant.vue"
+import slideConRight from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
+import stopDiagnosisModal from "../../../../Page/patientInfo/supPage/diagnosis/modal/stopDiagnosisModal";
+import { model } from "../../../../Page/patientInfo/supPage/diagnosis/diagnosisViewModel.js";
 import {
   getVitalSignListByDate,
   getmultiDict,
@@ -471,6 +486,16 @@ import {
 } from "../../api/api";
 export default {
   props: { patientInfo: Object },
+    provide() {
+    return {
+      openSlideCon: item => {
+          this.$refs.slideConRight.open(item)
+      },
+      openSlideContant: async (item)=>{
+        this.$refs.slideContant.open(item)
+      }
+    };
+  },
   data() {
     // 初始化筛选时间
     let initTimeArea = {
@@ -499,6 +524,7 @@ export default {
     return {
       bus: bus(this),
       editableTabsValue: "2",
+      model,
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: moment().format("HH:mm") + ":00", //录入时间
@@ -539,6 +565,7 @@ export default {
     };
   },
   async mounted() {
+     this.model.newDiagnosisModal = this.$refs.newDiagnosisModal;
     await this.getVitalList();
     this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate = dateTime.slice(0, 10);
@@ -553,6 +580,11 @@ export default {
       this.getList();
     });
   },
+  beforeRouteLeave(){
+    this.$refs.slideConRight.show=false
+    this.$refs.newDiagnosisModal.show=false
+    this.$refs.slideContant.show=false
+  },
   computed: {},
   watch: {
     query: {
@@ -564,18 +596,44 @@ export default {
       },
       deep: true,
     },
-        patientInfo() {
+      patientInfo() {
       this.isUpdate = false;
-    },
-    rightSheet(value) {
-      alert(value);
     },
   },
   methods: {
     handleChange(val) {
-      // console.log(val);
     },
-
+    openNewDiagnosis(diagnose) {
+      this.$refs.newDiagnosisModal.open();
+      this.$refs.newDiagnosisModal.searchWord=`${diagnose.vitalSigns}`;
+    },
+    checkDiagnose(diagnose,i){
+      const { vitalCode, vitalValue } = diagnose
+      if (!['01','02','04','062','20'].includes(vitalCode)) {
+        return
+      } else {
+        if(vitalValue){
+                  let setCheckValue = (vitalCode, vitalValue) => {
+          switch (Number(vitalCode)) {
+            case 1:
+              return Number(vitalValue) < 35 || Number(vitalValue) > 37.5
+            case 2:
+            case 20:
+              return vitalValue < 60 || vitalValue > 100
+            case 4:
+              return vitalValue < 16 || vitalValue > 20
+            case 62:
+            const Contract = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[0]:vitalValue
+            const Diastolic = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[1]:""
+              return (Contract < 90 || Contract > 139)||Diastolic&&(Diastolic<60||Diastolic>89)
+            default:
+              break;
+          }
+        }
+        return setCheckValue(vitalCode, vitalValue)
+        }
+      }
+    },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
     },
@@ -1085,7 +1143,7 @@ export default {
       }
     },
   },
-  components: { nullBg },
+  components: { nullBg , stopDiagnosisModal , newDiagnosisModal , slideContant ,slideConRight,},
 };
 </script>
 
@@ -1228,7 +1286,6 @@ export default {
   .rowBox {
     width: 45%;
     float: left;
-    over-flow:hidden;
 
     input {
       width: 95%;
@@ -1242,7 +1299,11 @@ export default {
       width: 85px;
     }
   }
-
+  .input_icon {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
   .el-collapse-item__header__arrow {
     position: relative !important;
     left: 80% !important;
