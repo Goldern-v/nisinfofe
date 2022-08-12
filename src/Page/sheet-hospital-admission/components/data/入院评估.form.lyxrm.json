@@ -5275,7 +5275,7 @@
         },
         {
           "name": "auditTime",
-          "type": "input",
+          "type": "datePicker",
           "title": "审核时间",
           "titleStyle": "width:70px!important",
           "inputStyle": "width:270px!important",
