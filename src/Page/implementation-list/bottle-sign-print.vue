@@ -54,8 +54,8 @@
               :value=" optionItem.value || optionItem.label"
             ></el-option>
           </el-select>
-          <span class="label">途径:</span>
-          <el-autocomplete v-if="['lyxrm'].includes(HOSPITAL_ID)" size="small" style="width: 80px;" v-model="administration" :fetch-suggestions="querySearch" :trigger-on-focus="false" @select="() => {}" />
+          <span class="label" v-if="showAdministration">途径:</span>
+          <el-autocomplete v-if="showAdministration" size="small" style="width: 80px;" v-model="administration" :fetch-suggestions="querySearch" :trigger-on-focus="false" @select="() => {}" />
 
           <span class="label">床号:</span>
           <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
@@ -125,8 +125,8 @@
 
   .label {
     font-size: 13px;
-    margin-left: 12px;
-    margin-right: 5px;
+    margin-left: 8px;
+    // margin-right: 5px;
   }
   >>> .el-tag {
     height: 20px;
@@ -211,6 +211,7 @@ import NewPrintModalFsxt from "./components/common/newPrintModalFsxt"
 import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm"
 import NewPrintModalWhfk from "./components/common/newPrintModalWhfk"
 import NewPrintModalWujing from "./components/common/newPrintModalWujing"
+import NewPrintModalYtll from "./components/common/newPrintModalYtll"
 import printing from 'printing'
 import { patEmrList } from "@/api/document";
 import { getPrintExecuteWithWardcode ,handleWebGetPrintResult,webExecutePrint,getPrintListContent,webSplitOrder, getPrintListContent2, getPatientOrder,getSDLJPatientOrder, syncNurseOrdersByWardCode } from "./api/index";
@@ -295,7 +296,8 @@ export default {
         'lyxrm':[
           {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"泵入"},{label:"标本"},{label:"其他"},],
         'ytll':[
-          {label: '全部'},{label:"输液"},{label:"注射"},{label:"皮试"},{label:"雾化"},{label:"标本"},{label:"口服"},{label:"治疗"}],
+          {label: '全部'}, {label: '输液'}, {label: '注射'}, {label: '雾化'}, {label: '口服'}, {label: '治疗'}, {label: '皮试'}, {label: '膀胱冲洗'}, {label: '气道湿化'}, {label: '标本'}, {label: '其他'},
+          ],
         default:[
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},]
       },
@@ -574,6 +576,12 @@ export default {
     },
     async newOnPrint(){
       let barCodeList = this.$_.uniqBy(this.selectedData.map(item=>item.barcode))
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        // /该条执行单是一组多条的 或者该执行单是已完成的隐藏
+       barCodeList = this.selectedData.reduce((per,item,index)=>{
+          return (item.rowType <= 1 || !item.rowType) ? per.concat(item.barcode) : per
+        },[])
+      }
       // let barcode = this.selectedData.map(item=>item.barcode).join('|')
       let printObj = {}
       let res = ''
@@ -680,12 +688,12 @@ export default {
     //   }, 5*1000)
     // },
     // 关闭打印弹框
-    closePrint(e){
-      this.cleanPrintStatusRoundTime()
-      this.showCancelPrint = false;
-      this.showProgress == false
-      this.showPintModal = false;
-    },
+    // closePrint(e){
+    //   this.cleanPrintStatusRoundTime()
+    //   this.showCancelPrint = false;
+    //   this.showProgress == false
+    //   this.showPintModal = false;
+    // },
     // 全选
     allSelection(){
       if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].toggleAllSelection){
@@ -715,6 +723,8 @@ export default {
           return 'NewPrintModalWhfk'
         case 'wujing':
           return 'NewPrintModalWujing'
+        case 'ytll':
+          return 'NewPrintModalYtll'
         default:
           return 'NewPrintModal'
       }
@@ -726,13 +736,15 @@ export default {
           return ['70*80', '3*7']
         case 'wujing':
           return ['5*8', '3*5']
+        case 'ytll':
+          return ['7*7']
         default:
           return ['6*8', '3*5']
       }
     },
     // 打印不需要缩小的尺寸
     normalSize() {
-      return ['70*80','6*8', '5*8'].includes(this.newModalSize)
+      return ['70*80','6*8', '5*8', '7*7'].includes(this.newModalSize)
     },
     printM() {
       if (this.newModalSize == '3*7' && ['lyxrm'].includes(this.HOSPITAL_ID)) {
@@ -741,9 +753,15 @@ export default {
       if (this.newModalSize == '5*8' && ['wujing'].includes(this.HOSPITAL_ID)) {
         return 'margin: 0 0 0 12mm;'
       }
+      if (this.newModalSize == '7*7' && ['ytll'].includes(this.HOSPITAL_ID)) {
+        return 'margin: 0 0 0 3mm;'
+      }
       return 'margin: 0 0;'
-
     },
+    // 是否显示途径
+    showAdministration() {
+      return ['lyxrm'].includes(this.HOSPITAL_ID)
+    }
   },
   watch: {
     deptCode() {
@@ -772,6 +790,7 @@ export default {
     NewPrintModalLyxrm,
     NewPrintModalWhfk,
     NewPrintModalWujing,
+    NewPrintModalYtll,
   }
 };
 </script>

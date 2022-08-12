@@ -150,6 +150,12 @@
               <span>{{ query.sex }}</span>
               <span>{{ query.age }}</span>
             </div>
+            <div v-else-if="['gdtj'].includes(HOSPITAL_ID)">
+              <span>{{ query.name }}</span>
+              <span>住院号：{{ query.patientId }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+            </div>
             <div v-else>
               <span>{{ query.name }}</span>
               <span>{{ query.sex }}</span>

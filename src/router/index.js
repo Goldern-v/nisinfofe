@@ -196,6 +196,8 @@ const implementationListFuyou = () =>
   import("@/Page/implementation-list/implementation-list-fuyou.vue"); //江门妇幼执行单
 const implementationListHengli = () =>
   import("@/Page/implementation-list/implementation-list-hengli.vue"); //横沥执行单
+const implementationListNanfangzhongxiyi = () =>
+  import("@/Page/implementation-list/implementation-list-nanfangzhongxiyi.vue"); //横沥执行单
 
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 const bottleLabelByProgram = () => import("@/Page/implementation-list/bottle-sign-print.vue"); //瓶签打印
@@ -385,8 +387,9 @@ const getImplementation = () => {
     case 'gdtj':
       return implementationListWujing
     case 'whfk':
-    case 'ytll':
       return implementationListWhfk
+    case 'ytll':
+      return () => import("@/Page/implementation-list/implementation-list-ytll.vue")
     case 'fsxt':
       return implementationListFsxt
     case 'foshanrenyi':
@@ -401,6 +404,8 @@ const getImplementation = () => {
       return implementationListHengli
     case 'guizhou':
       return adviceList
+    case 'nanfangzhongxiyi':
+      return implementationListNanfangzhongxiyi
     default:
       return implementationList
   }

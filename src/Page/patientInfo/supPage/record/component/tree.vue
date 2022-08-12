@@ -734,6 +734,10 @@ export default {
             </span>
           )
         } else {
+           /* 逻辑一直没改过。但是有一次发包过去厚街，医院非说这两张表以前没有状态的。直接强制去掉 */
+          if( (node.label=="生长发育评估量表"||node.label=="住院病人处理单") && this.HOSPITAL_ID=='hj'){
+            box = filebox;
+          }
           return h("span", { class: { "tree-box-node": true }, attrs: { title: node.label } }, [
             h("img", { attrs: { src: box } }),
             h("span", {}, node.label),
@@ -758,6 +762,10 @@ export default {
             h("span", {}, node.label),
           ]);
         } else {
+          /* 逻辑一直没改过。但是有一次发包过去厚街，医院非说这两张表以前没有状态的。直接强制去掉 */
+          if( (data.formName=="生长发育评估量表"||data.formName=="住院病人处理单") && this.HOSPITAL_ID=='hj'){
+             icon = fileicon;
+          }
           return h("span", { class: { "tree-node": true } }, [
             h("img", { attrs: { src: icon } }),
             h("span", {}, node.label),

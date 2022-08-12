@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ hj:  ['hj','sdlj'].includes(HOSPITAL_ID) }">
+  <div :class="{ hj:  ['hj','sdlj','fuyou'].includes(HOSPITAL_ID) }">
     <component :is="witchLeft" v-if="inited"/>
     <!-- <leftPartHengli
       v-if="inited && HOSPITAL_ID=='hengli'"
