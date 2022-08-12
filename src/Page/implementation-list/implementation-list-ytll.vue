@@ -2,16 +2,33 @@
   <div>
     <div class="main-contain">
       <div class="head-con">
+        <h3>批量执行单</h3>
         <div>
           <span class="label" style="margin-left: 0">执行日期:</span>
           <el-date-picker
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择入院起始时间"
+            size="small"
+            v-model="startDate"
+            style="width: 180px"
+          ></el-date-picker>
+          <el-date-picker
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择终止时间"
+            size="small"
+            v-model="endDate"
+            style="width: 180px"
+          ></el-date-picker>
+          <!-- <el-date-picker
             type="date"
             format="yyyy-MM-dd"
             placeholder="选择入院起始时间"
             size="small"
             v-model="query.executeDate"
             style="width: 150px"
-          ></el-date-picker>
+          ></el-date-picker> -->
           <!-- <span class="label">长/临:</span>
           <el-row class="select-btn-list" type="flex" align="middle">
             <el-radio-group v-model="repeatIndicator">
@@ -47,17 +64,7 @@
             size="small"
             style="width: 150px"
           >
-            <el-option label="输液" value="输液"></el-option>
-            <el-option label="注射" value="注射"></el-option>
-            <el-option label="口服" value="口服"></el-option>
-            <el-option label="雾化" value="雾化"></el-option>
-            <el-option label="皮试" value="皮试"></el-option>
-            <el-option label="治疗" value="治疗"></el-option>
-            <el-option label="理疗" value="理疗"></el-option>
-            <el-option label="护理" value="护理"></el-option>
-            <el-option label="外用" value="外用"></el-option>
-            <el-option label="化验" value="化验"></el-option>
-            <el-option label="其他" value="其他"></el-option>
+            <el-option v-for="(v,i) in itemTypes" :key="i" :label="v.label" :value="v.label == '全部' ? '' : v.label"></el-option>
           </el-select>
           <span class="label">床号:</span>
           <el-input
@@ -79,45 +86,32 @@
           <el-button size="small" type="primary" @click="search"
             >查询</el-button
           >
-          <!-- <el-button
+          <el-button
             size="small"
             @click="allSelection"
             :disabled="status == '已执行'"
             >全选</el-button
           >
-          <el-button
-            size="small"
-            @click="middleware"
-            :disabled="status == '已执行'"
-            >执行</el-button
-          > -->
         </div>
       </div>
-      <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
-      <!-- <div class="pagination-con" flex="main:justify cross:center">
-        <pagination
-          :pageIndex="page.pageIndex"
-          :size="page.pageNum"
-          :total="page.total"
-          @sizeChange="handleSizeChange"
-          @currentChange="handleCurrentChange"
-        ></pagination>
-      </div> -->
+      <dTable :pageLoadng="pageLoadng" :currentType="query.itemType" ref="plTable"></dTable>
+
       <el-dialog title="执行时间" :visible.sync="isExecutionTime">
-  <el-form :model="form">
-    <el-form-item label="执行时间">
-      <el-date-picker
-      v-model="form.date"
-      type="datetime"
-      placeholder="选择执行时间">
-    </el-date-picker>
-    </el-form-item>
-  </el-form>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="isExecutionTime = false">取 消</el-button>
-    <el-button type="primary" @click="confirm">确 定</el-button>
-  </div>
-</el-dialog>
+        <el-form :model="form">
+          <el-form-item label="执行时间">
+            <el-date-picker
+              v-model="form.date"
+              type="datetime"
+              placeholder="选择执行时间"
+            >
+            </el-date-picker>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="isExecutionTime = false">取 消</el-button>
+          <el-button type="primary" @click="confirm">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -165,16 +159,18 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table-lyxrm.vue";
+import dTable from "./components/table/d-table-whfk";
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode, handleWebExecuteBatch } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
+import bus from "vue-happy-bus";
 export default {
   mixins: [common],
   data() {
     return {
+      bus: bus(this),
       pageInput: "",
       pageLoadng: false,
       page: {
@@ -183,7 +179,10 @@ export default {
         pageNum: 100,
         total: 0,
       },
-      startDate: moment().format("YYYY-MM-DD"),
+      startDate:  moment().format("YYYY-MM-DD") + " 00:00:00",
+      endDate:
+        moment(moment().toDate().getTime() + 86400000).format("YYYY-MM-DD") +
+        " 00:00:00",
       type: "",
       status: "",
       bedLabel: "",
@@ -196,10 +195,26 @@ export default {
         repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
         executeFlag: "全部", //0未执行，2已执行
       },
-      isExecutionTime:false,
-      form:{
-        date:moment().format("YYYY-MM-DD HH:mm:ss"),
-      }
+      isExecutionTime: false,
+      form: {
+        date: moment().format("YYYY-MM-DD HH:mm:ss"),
+      },
+      itemTypes: [
+        {label: '全部'},
+        {label: '输液'},
+        {label: '注射'},
+        {label: '雾化'},
+        {label: '口服'},
+        {label: '治疗'},
+        {label: '皮试'},
+        {label: '膀胱冲洗'},
+        {label: '气道湿化'},
+        {label: '标本'},
+        {label: '检查'},
+        {label: '手术'},
+        {label: '护理'},
+        {label: '其他'},
+      ]
     };
   },
   methods: {
@@ -210,15 +225,22 @@ export default {
       this.page.pageIndex = newPage;
       this.onLoad();
     },
+
     onLoad() {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       this.query.wardCode = this.deptCode;
+      this.query.startDate = moment(this.startDate).format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
+      this.query.endDate = moment(this.endDate).format("YYYY-MM-DD HH:mm:ss");
+      this.query.executeDate = this.query.executeDate
+        ? moment(this.query.executeDate).format("YYYY-MM-DD")
+        : moment().format("YYYY-MM-DD");
       this.query.executeDate = this.query.executeDate
         ? moment(this.query.executeDate).format("YYYY-MM-DD")
         : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : "*";
-
       getExecuteWithWardcode(this.query).then((res) => {
         let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
@@ -236,7 +258,6 @@ export default {
             array[index].patientId +
               array[index].barCode +
               array[index].executeDateTime;
-
           /** 判断是此记录是多条记录 */
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
             if (currentRowId != prevRowId) {
@@ -260,7 +281,9 @@ export default {
         ) {
           this.$refs.plTable.$children[0].reloadData(tableData);
         }
-        this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
+        this.page.total = Number(res.data.pageCount) * this.page.pageNum;
+        this.pageLoadng = false;
+      }).catch(e => {
         this.pageLoadng = false;
       });
     },
@@ -279,23 +302,23 @@ export default {
       }
     },
     confirm() {
-      this.handleExecuteBatch()
-      this.isExecutionTime=false;
+      this.handleExecuteBatch();
+      this.isExecutionTime = false;
     },
     middleware() {
       let selectedData = this.$refs.plTable.selectedData;
       if (selectedData.length <= 0) return;
-      if(['wujing'].includes(this.HOSPITAL_ID)) {
-        this.isExecutionTime = true
-      }else {
-        this.handleExecuteBatch()
+      if (["wujing"].includes(this.HOSPITAL_ID)) {
+        this.isExecutionTime = true;
+      } else {
+        this.handleExecuteBatch();
       }
     },
     // 批量处理执行单
     handleExecuteBatch() {
       let selectedData = this.$refs.plTable.selectedData,
         data = [];
-      this.isExecutionTime = true
+      this.isExecutionTime = true;
       if (selectedData.length <= 0) return;
 
       selectedData.map((item) => {
@@ -307,14 +330,14 @@ export default {
           executeNurse: this.empNo, // 执行护士工号
           verifyNurse: this.empNo, // 核对护士工号
         };
-        if(['wujing'].includes(this.HOSPITAL_ID)){
-          obj.startDate = moment(this.form.date).format("YYYY-MM-DD HH:mm:ss")
+        if (["wujing"].includes(this.HOSPITAL_ID)) {
+          obj.startDate = moment(this.form.date).format("YYYY-MM-DD HH:mm:ss");
         }
         // 相同barcode只需要发送一条记录
-        let isHas = data.every(e=>{
-          return e.barcode != obj.barcode
-        })
-        isHas?data.push(obj):''
+        let isHas = data.every((e) => {
+          return e.barcode != obj.barcode;
+        });
+        isHas ? data.push(obj) : "";
       });
       handleWebExecuteBatch({ lists: data }).then((res) => {
         this.$message.success(res.data.desc);
@@ -328,11 +351,20 @@ export default {
       this.onLoad();
     });
   },
+  mounted() {
+    this.onLoad();
+     this.bus.$on("loadImplementationList", () => {
+      this.onLoad();
+    });
+  },
   watch: {
     deptCode() {
       this.search();
     },
     startDate() {
+      this.search();
+    },
+    endDate() {
       this.search();
     },
     type() {

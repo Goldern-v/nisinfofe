@@ -37,8 +37,8 @@
           v-if="formObj.formSetting.updateInfo"
           v-html="formObj.formSetting.updateInfo"
         ></span>
-        <img src="../../images/责任护士已签.png" alt v-if=" formObj.model.status==1" class="lock-img" />
-        <img src="../../images/审核护士已签.png" alt v-if=" formObj.model.status==2" class="lock-img" />
+        <img src="../../images/责任护士已签.png" alt v-if="formObj.model.status==1" class="lock-img" />
+        <img src="../../images/审核护士已签.png" alt v-if="formObj.model.status==2" class="lock-img" />
         <!-- 页面标题 -->
         <FormTitle :obj="formObj.formSetting" :formObj="formObj" />
 
