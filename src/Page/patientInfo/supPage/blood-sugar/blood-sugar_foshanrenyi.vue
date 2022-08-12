@@ -400,10 +400,11 @@ export default {
 
       this.hisPatSugarList = res.data.data.hisPatSugarList;
       /** 时间排序 */
-      let list = res.data.data.hisPatSugarList.sort(
-        (a, b) =>
-          new Date(a.recordDate).getTime() - new Date(b.recordDate).getTime()
-      );
+      // let list = res.data.data.hisPatSugarList.sort(
+      //   (a, b) =>
+      //     new Date(a.recordDate).getTime() - new Date(b.recordDate).getTime()
+      // );
+      let list = res.data.data.hisPatSugarList
       let listMap = [];
 
       for (let i = 0; i < list.length; i += 54) {
