@@ -243,13 +243,14 @@
       >
         <div class="text-con">同步护理巡视</div>
       </div>
+       <!-- 针对主副页切换，必须等到数据回来了才有显示 -->
       <div
         :class="[hisDocPreview('main') ? 'right-btn' : 'item-box']"
         :id="[hisDocPreview('main') ? 'is-deputy-btn' : '']"
         style="background: antiquewhite"
         flex="cross:center main:center"
         @click.stop="backMainForm"
-        v-if="isDeputy"
+        v-if="isDeputy && isLoad"
       >
         <div class="text-con">
           {{ HOSPITAL_ID == "guizhou" ? "护理记录单" : "切换主页" }}
@@ -562,6 +563,10 @@ export default {
       default:false
     },
     isLock:{ //护记是否被锁定
+      type:Boolean,
+      default:false
+    },
+    isLoad:{//list接口数据是否回来了，回来就显示切换在主副页
       type:Boolean,
       default:false
     }

@@ -150,7 +150,7 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
-     
+
       <!-- <router-link to="/dev" tag="span">
         <div class="nav-item">手术</div>
       </router-link>-->
@@ -266,7 +266,6 @@ export default {
       );
     },
     openOtherPage() {
-      console.log('test-this.query', this.query)
       let user = localStorage.getItem('user')
       if (user) {
         user = JSON.parse(user)

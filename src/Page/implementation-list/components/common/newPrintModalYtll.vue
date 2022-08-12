@@ -1,14 +1,13 @@
 <template>
-  <div
+  <!-- <div
     :style="{
-      width: `${newModalSize.split('*')[1] == '8' ? '8' : '10'}cm`,
-      height: `${newModalSize == '6*8' ? '5.9' : '5.8'}cm`,
+      width: `${newModalSize == '7*7' ? '7' : '1'}cm`,
+      height: `${newModalSize == '7*7' ? '6.9' : '1'}cm`,
     }"
-  >
+  > -->
     <div
-      v-if="newModalSize == '6*8'"
       class="new-print-modal"
-      style="width:8cm;height:5.8cm"
+      style="width:7cm;height:6.95cm"
     >
       <div class="new-modal-top">
         <div class="new-modal-top-left">
@@ -26,9 +25,9 @@
           </div>
           <div class="new-modal-top-left-second">
             <div style="text-indent: 5px">
-              执行日期:{{ currentBottle.executeDate.substr(0, 16) }}
+              {{ currentBottle.executeDate.substr(0, 16) }}
             </div>
-            <div style="min-width: 50px">
+            <div>
               {{ currentBottle.repeatIndicator | repeatIndicatorFilter }}
             </div>
           </div>
@@ -37,6 +36,11 @@
           <div class="new-modal-top-right-top">
             <img :src="currentBottle.qcSrc || ''" />
           </div>
+          <!-- <div class="new-modal-top-right-bottom">
+                        <div style="text-indent:5px" v-for="(item,index) in currentBottle.dosageDosageUnits" :key="index">
+                            {{item}}
+                        </div>
+                    </div> -->
         </div>
       </div>
       <div class="new-modal-bottom">
@@ -49,27 +53,14 @@
             {{ item }}
           </div>
         </div>
-        <!-- <div class="new-modal-bottom-first">
-                    <div style="width:20%">配液者</div>
-                    <div style="width:20%"></div>
-                    <div style="width:20%">配液时间</div>
-                    <div style="flex: 1"></div>
-                </div> -->
+
         <div class="new-modal-bottom-second">
-          <!-- <div style="width:20%">校对者</div>
-                    <div style="width:20%"></div> -->
           <div style="width: 20%">频次途径</div>
           <div style="flex: 1">{{ currentBottle.frequency }}</div>
         </div>
-        <!-- <div class="new-modal-bottom-third">
-                    <div style="width:20%">执行者</div>
-                    <div style="width:20%"></div>
-                    <div style="width:20%">医生说明</div>
-                    <div style="flex: 1"></div>
-                </div> -->
       </div>
     </div>
-    <div
+    <!-- <div
       v-else
       class="new-print-modal"
       style="height: 5.8cm; width: 10cm; display: flex"
@@ -94,7 +85,9 @@
             :key="index"
             style="text-indent: 5px; display: flex"
           >
-            <div>{{ item }}</div>
+            <div>
+              {{ item }}
+            </div>
           </div>
         </div>
       </div>
@@ -106,18 +99,17 @@
           <div>{{ currentBottle.frequency }}</div>
         </div>
       </div>
-    </div>
-  </div>
+    </div> -->
+  <!-- </div> -->
 </template>
 <style lang='scss' scoped>
 .new-print-modal {
   page-break-after: always;
+  height: 100%;
   >>> * {
     font-size: 12px;
   }
   .new-modal-top {
-    display: flex;
-    /* height: 65%; */
     font-weight: 600;
     div {
       font-size: 13px;
@@ -126,9 +118,9 @@
       border-right: 1px solid #000;
     }
     .new-modal-top-left {
+      display: inline-block;
       box-sizing: border-box;
-      /* flex: 2; */
-      width: calc(100% - 60px);
+      width: calc(100% - 70px);
       .new-modal-top-left-first {
         display: flex;
         justify-content: center;
@@ -161,17 +153,14 @@
     }
     .new-modal-top-right {
       width: 62px;
-      // background-color: red;
-      /* border-bottom: 1px solid #000; */
-      /* border-right: 1px solid #000; */
-      /* border-top: 1px solid #000; */
+      display: inline-block;
       .new-modal-top-right-top {
         box-sizing: border-box;
-        /* border-bottom: 1px solid #000; */
         overflow: hidden;
         img {
+          display: block;
           width: 100%;
-          height: 64px;
+          height: auto;
           object-fit: cover;
         }
       }
@@ -181,25 +170,21 @@
     }
   }
   .new-modal-bottom {
-    // background-color: yellow;
     border-top: 1px solid #000;
-    display: flex;
-    flex-direction: column;
     font-weight: 700;
     width: 100%;
     height: calc(100% - 70px);
     box-sizing: border-box;
     .new-modal-bottom-first {
+      line-height: 16px;
+      overflow: hidden;
+      height: calc(100% - 22px);
       div {
         line-height: 18px;
         font-size: 15px;
       }
-      line-height: 16px;
-      overflow: hidden;
-      height: calc(100% - 22px);
     }
-    .new-modal-bottom-second,
-    .new-modal-bottom-third {
+    .new-modal-bottom-second {
       width: 100%;
       display: flex;
       line-height: 21px;
