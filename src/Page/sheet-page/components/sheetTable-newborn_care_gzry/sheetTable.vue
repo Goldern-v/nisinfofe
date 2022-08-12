@@ -70,7 +70,7 @@
               :data-value="sheetInfo.relObj.zd"
               v-model="sheetInfo.relObj.zd"
            -->
-          <span>护理等级：
+          <!-- <span>护理等级：
             <span class="boxRadio">
               <label>
                 <input 
@@ -105,7 +105,7 @@
                 >Ⅱ级
               </label>
             </span>
-          </span>
+          </span> -->
         </div>
         <excel
           :data="data"
