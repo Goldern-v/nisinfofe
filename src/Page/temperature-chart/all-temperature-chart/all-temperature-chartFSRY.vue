@@ -692,7 +692,6 @@ import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
 import CustomInput from "./components/CustomInput.vue";
-import { validForm } from "../validForm/validForm";
 import { listItem } from "@/api/common.js";
 
 export default {
@@ -851,7 +850,6 @@ export default {
     isReadonly(recordDate) {
       recordDate=moment(recordDate).format('YYYY-MM-DD HH:mm:ss')
       return (
-        !this.query.startFiltering &&
         recordDate !== `${moment(this.query.entryDate).format('YYYY-MM-DD')} ${this.query.entryTime}:00:00`
       );
     },
