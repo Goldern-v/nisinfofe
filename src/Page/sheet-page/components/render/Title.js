@@ -1701,6 +1701,13 @@ export default function Title(
     );
   }
   break;
+  case "mild_hypothermia_sdlj": {
+    // 顺德龙江-亚低温治疗护理记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/mild_hypothermia_sdlj/th").default)
+    );
+  }
+  break;
   case "criticaldisease_xt": {
     // 佛山杏坛 - 危重症护理记录单
     Th = JSON.parse(
