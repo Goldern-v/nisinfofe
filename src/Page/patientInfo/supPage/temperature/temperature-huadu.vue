@@ -6,8 +6,10 @@
         <el-button type="primary" @click="printAll()">批量打印</el-button>
       </el-button-group>
 
-      <!-- <div class="print-btn tool-btn" @click="onToggle()">录入</div> -->
       <div class="pagination" v-show="!isPrintAll">
+       <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
+          首周
+        </button>
         <button :disabled="currentPage === 1" @click="toPre">上一页</button>
         <span class="page"
           >第<input
@@ -21,6 +23,12 @@
         <button :disabled="currentPage === pageTotal" @click="toNext">
           下一页
         </button>
+         <button
+          :disabled="currentPage === pageTotal"
+          @click="currentPage = pageTotal"
+        >
+          尾周
+          </button>
       </div>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
@@ -36,7 +44,7 @@
       <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
-          id="printID"
+          id="printIDAll"
           v-if="filePath"
           :src="printAllPath"
           frameborder="0"
@@ -238,19 +246,24 @@ export default {
         this.$refs.pdfCon.contentWindow.postMessage(
           { type: "printing" },
           this.intranetUrl /* 内网 */
-          // this.outNetUrl /* 外网 */
         );
       }, 1500);
     },
     printAll() {
       this.isPrintAll = true; //隐藏页码控制区域
-      setTimeout(() => {
-        this.$refs.pdfConAll.contentWindow.postMessage(
-          { type: "printingAll" },
-          this.printAllUrl /* 内网 */
-          // this.outNetUrl /* 外网 */
-        );
-      }, 1500);
+        let chechLoad = setInterval(() => {
+          var printIDAll = this.$refs.pdfConAll
+          if (printIDAll.contentWindow) {
+            setTimeout(()=>{
+              this.$refs.pdfConAll.contentWindow.postMessage(
+                { type: "printingAll" },
+                this.printAllUrl /* 内网 */
+                // this.outNetUrl /* 外网 */
+              );
+            },2000)
+            clearInterval(chechLoad)
+          }
+        }, 500)
     },
     getImg() {
       let date = !this.$route.query.admissionDate||this.$route.query.admissionDate==='undefined'
@@ -325,9 +338,6 @@ export default {
       }
     },
     onToggle() {
-      //nursingPreviewIsShow
-      // if (this.$route.path.includes("singleTemperatureChart")
-      // || (this.$route.path.includes("nursingPreview") && this.$route.query && this.$route.query.nursingPreviewIsShow=='1' )) {
       if (this.$route.path.includes("singleTemperatureChart")) {
         return;
       } else {

@@ -80,7 +80,7 @@
           type="checkbox"
           value="pgc"
           :ischecked="sheetInfo.relObj['pgc']"
-          v-model="checkedpfc"
+          v-model="checkedpgc"
         />剖宫产
         <input
           type="checkbox"

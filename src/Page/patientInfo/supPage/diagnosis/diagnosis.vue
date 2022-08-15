@@ -15,7 +15,6 @@
 </style>
 <script>
 import nullBg from "../../../../components/null/null-bg";
-import { patient } from "@/api/home";
 import BusFactory from "vue-happy-bus";
 import tool from "./components/tool/tool";
 import tableCon from "./components/tableCon/tableCon";
@@ -37,7 +36,6 @@ export default {
           this.$refs.slideConRightGuizhou.open(item)
         }
       },
-      // openSlideConRight: item => this.$refs.slideConRight.open(item),
       openSlideContant: item => this.$refs.slideContant.open(item)
     };
   },

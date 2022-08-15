@@ -302,27 +302,6 @@
               <!-- <el-input v-model="scope.row.curWeight"></el-input> -->
             </template>
           </el-table-column>
-          <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
-            prop="painScore"
-            label="疼痛"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.painScore"
-                :class="className"
-                class="painScore"
-                type="text"
-                @keyup="handleKeyUp"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.painScore" class="painScore" /> -->
-              <!-- <el-input v-model="scope.row.painScore"></el-input> -->
-            </template>
-          </el-table-column>
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">

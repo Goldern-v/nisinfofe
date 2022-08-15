@@ -219,6 +219,8 @@ const allTemperatureChartNFZXY = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartNFZXY.vue"); //武汉肺科批量录入体温单
 const allTemperatureChartLYXRM = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartLY.vue"); //临邑量录入体温单
+  const allTemperatureChartWHSL = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHSL.vue"); //威海量录入体温单
 const allTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartSDLJ.vue"); //顺德龙江量录入体温单
 const allTemperatureChartWHYX = () =>
@@ -253,6 +255,8 @@ const newSingleTemperatureChartWHFK = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-whfk/new-singleTemperature-chart.vue");//武汉肺科新版体温单单人录入
 const newSingleTemperatureChartLYXRM = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-lyxrm/new-singleTemperature-chart.vue");//临邑新版体温单单人录入
+  const newSingleTemperatureChartWHSL = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-whsl/new-singleTemperature-chart.vue");//威海市立新版体温单单人录入
 const newSingleTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-sdlj/new-singleTemperature-chart.vue");//顺德龙江新版体温单单人录入
   const newSingleTemperatureChartWHYX = () =>
@@ -309,6 +313,7 @@ import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature
 import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperature-xiegang";
 import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-whfk";
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
+import temperatureWHSL from "@/Page/patientInfo/supPage/temperature/temperature-whsl";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import temperatureWHYX from "@/Page/patientInfo/supPage/temperature/temperature-whyx";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
@@ -511,6 +516,8 @@ const router = new Router({
           case 'lyxrm':
           case 'ytll':
             return temperatureLYXRM
+            case 'whsl':
+                return temperatureWHSL
           case 'sdlj':
           case 'gdtj':
             return temperatureSDLJ
@@ -997,6 +1004,8 @@ const router = new Router({
               case 'lyxrm':
               case 'ytll':
                 return temperatureLYXRM
+              case 'whsl':
+                return temperatureWHSL
               case 'sdlj':
               case 'gdtj':
                 return temperatureSDLJ
@@ -1384,6 +1393,8 @@ const router = new Router({
             case 'lyxrm':
             case 'ytll':
               return allTemperatureChartLYXRM
+            case 'whsl':
+              return allTemperatureChartWHSL
             case 'sdlj':
             case 'gdtj':
               return allTemperatureChartSDLJ
@@ -1426,6 +1437,8 @@ const router = new Router({
             case 'lyxrm':
             case 'ytll':
               return newSingleTemperatureChartLYXRM
+            case 'whsl':
+            return newSingleTemperatureChartWHSL
             case 'sdlj':
             case 'gdtj':
               return newSingleTemperatureChartSDLJ
