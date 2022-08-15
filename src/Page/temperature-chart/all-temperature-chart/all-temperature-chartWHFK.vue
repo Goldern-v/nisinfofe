@@ -932,7 +932,6 @@ export default {
     this.query.wardCode = this.deptCode;
     getmultiDict(this.query.wardCode).then((res) => {
       res.data.data.map((item, index) => {
-        data[item.vitalSign] = item.vitalCode;
         this.totalDictInfo[item.vitalSign] = {
           ...item,
           options: item.selectType ? item.selectType.split(",") : [],
