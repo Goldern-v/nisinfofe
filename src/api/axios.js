@@ -12,6 +12,8 @@ import {
     MessageBox
 } from "element-ui";
 // 统一处理token发送
+
+let CaSignurl = ""
 axios.interceptors.request.use((config) => {
     // 判断如果是登录 则无需验证token
     config.headers.common['App-Token-Nursing'] = $params.appToken || '51e827c9-d80e-40a1-a95a-1edc257596e7'
@@ -34,8 +36,10 @@ axios.interceptors.request.use((config) => {
 
     for (let i = 0; i < whiteList.length; i++) {
         let whiteUrlPath = whiteList[i]
-        if (config.url.indexOf(whiteUrlPath) > -1)
+        if (config.url.indexOf(whiteUrlPath) > -1){
+            CaSignurl = config.url.indexOf("GetUserList")>-1 && "GetUserList"
             return config
+        }
     }
 
     var user = localStorage['user']
@@ -139,7 +143,7 @@ axios.interceptors.response.use((res) => {
     if (err && err.message == 'Network Error') {
         window.app && window.app.$message({
             showClose: true,
-            message: '网络错误，请检查你的网络',
+            message: CaSignurl == "GetUserList"?'未能识别到U盾':'网络错误，请检查你的网络',
             type: 'warning'
         })
     }
