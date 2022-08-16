@@ -3,7 +3,7 @@
     <div class="content">
       <!-- <div class="select-nav"> -->
         <!-- <span>查询时间：</span>
-        <masked-input 
+        <masked-input
           type="text"
           class="mask-input"
           style="width: 108px;"
@@ -333,7 +333,7 @@ export default {
     //     }
     //   }
     // }
-    this.getData();
+    // this.getData();
     this.getStatusList();
   },
   methods: {
@@ -366,8 +366,8 @@ export default {
           this.dataRes = res.data.data
         });
       }
-      
-      
+
+
     },
     syncGetPatientOrders() {
       this.$message.info("正在同步数据...");

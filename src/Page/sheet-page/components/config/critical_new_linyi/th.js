@@ -23,6 +23,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },
+      
       {
         name: '意识',
         style: {

@@ -52,7 +52,7 @@ export default [
   { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'outputAmount2', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
+  { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'nausea', event: keyf1, value: '', next: '', name: '恶心/呕吐', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
   { key: 'dizzy', event: keyf1, value: '', next: '', name: '头晕', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
   { key: 'monitoring', event: keyf1, value: '', next: '', name: '心电监护', textarea: { width: 30 },autoComplete: { data: ['√','停'] },  change: (e, td) => limitChange(e, td, 2) },

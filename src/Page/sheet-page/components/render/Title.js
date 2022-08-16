@@ -1322,6 +1322,13 @@ export default function Title(
     );
   }
   break;
+  case "internal_xg": {
+    // 东莞谢岗 - 护理记录单(内科)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_xg/th").default)
+    );
+  }
+  break;
   case "cardiology_fs": {
     // 佛山市一 - 心内科通用护理记录单
     Th = JSON.parse(
@@ -1691,6 +1698,13 @@ export default function Title(
     // 顺德龙江 - 护理记录单（综合介入科）
     Th = JSON.parse(
       JSON.stringify(require("../config/intervent_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "mild_hypothermia_sdlj": {
+    // 顺德龙江-亚低温治疗护理记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/mild_hypothermia_sdlj/th").default)
     );
   }
   break;

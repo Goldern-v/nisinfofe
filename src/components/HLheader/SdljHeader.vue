@@ -7,30 +7,17 @@
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
             <el-row
-              class="logo-con logo-con-hj"
-              type="flex"
-              align="middle"
-              v-if="HOSPITAL_ID == 'hj'"
-            >
-              <img src="../../common/images/logo_hj.png" />
-              <span>
-                东莞市厚街医院
-                <br />智慧护理信息系统
-              </span>
-            </el-row>
-            <el-row
               class="logo-con"
               type="flex"
               justify="center"
               align="middle"
-              v-else
             >
-              <img src="../../common/images/logo-white-60.png" />
-              <span>{{
-                HOSPITAL_ID == "hj"
-                  ? "百辰源智慧护理信息系统"
-                  : "智慧护理信息系统"
-              }}</span>
+              <img
+                src="../../common/images/logo-white-60.png"
+                height="63"
+                width="63"
+              />
+              <span>广东医科大学附属第三医院<br />智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -634,7 +621,7 @@
 }
 
 .logo-con {
-  width: 200px;
+  width: 220px;
   min-width: 200px;
   height: 100%;
   background: #4BB08D;

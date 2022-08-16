@@ -287,6 +287,8 @@ export default {
         beihairenyi:"adviceTableBeihairenyi",
         whfk:'adviceTableWHFK',
         sdlj:"adviceTableSDLJ",
+        gdtj:"adviceTableSDLJ",
+        ytll:"adviceTableSDLJ",
         yangchunzhongyi:"adviceTableYc",
         default:"adviceTable",
       }

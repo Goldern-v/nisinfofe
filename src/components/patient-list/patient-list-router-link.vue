@@ -279,6 +279,8 @@ import { patients } from "@/api/lesion";
 import {getPatientInfo} from "@/api/common"
 import bus from "vue-happy-bus";
 import FollowList from "../follow/index";
+//解锁
+import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 export default {
   props: {
     data: Array,
@@ -305,10 +307,11 @@ export default {
       noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
       isGroup:false ,// 是否选中管床
       makePatient:'',// 贵州护理巡视表的点击患者
+      lockHospitalList:['huadu']//有锁定功能的医院
     };
   },
   methods: {
-    toUnlock(value){
+   async toUnlock(value){
       // 双选是同一患者时置空当前患者，并跳转值父级路由。
       if(this.HOSPITAL_ID == 'guizhou' && value.bedLabel == this.makePatient && this.$route.path=='/nursingMakeItem'){
         this.$router.push('/nursingRounds')
@@ -318,8 +321,10 @@ export default {
          this.makePatient = value.bedLabel
         this.$store.commit("upMakePatient", value.bedLabel);
       }
-      //  解锁评估单
-       this.bus.$emit("quitUnlock")
+      // 函数在minxin里。src\common\mixin\common.mixin.js
+      if(this.lockHospitalList.includes(this.HOSPITAL_ID)){
+        await this.destroyUnlock()
+      }
     },
     getDate() {
       if (this.deptCode) {

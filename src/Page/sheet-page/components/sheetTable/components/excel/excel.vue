@@ -77,7 +77,7 @@
           :rowspan="item.rowspan"
           :style="item.style"
           :class="{ canSet: item.canSet }"
-          @click="item.canSet && setTitle(item,data.titleModel)"
+          @click="item.canSet && setTitle(item, data.titleModel)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
           <span v-else v-html="item.name"></span>
@@ -821,7 +821,6 @@ export default {
         if (td.parentKey) {
           let index = tr.findIndex((e) => e.key === td.parentKey); // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
           let arr = td.autoComplete.data[0][[tr[index].value]] || []; // 获取父级对应的子选项数组
-          console.log("data对象",arr)
           return { data: arr.map((item) => item.itemName) };
         } else {
           if(td.key=="discharge"){
@@ -901,7 +900,6 @@ export default {
       leftTopBottomRight(e, bind);
     },
     onFocus(e, bind) {
-      console.log("11111",bind)
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
         setTimeout(() => {
@@ -962,8 +960,10 @@ export default {
       }
     },
     setTitle(item,item2) {
-      console.log("item,setTitle",item,item2)
       if (['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) {
+        // if (item2.fromAddPage) {
+        //   return
+        // }
         this.setTitleFS(item)
         return
       }
@@ -1136,7 +1136,6 @@ export default {
               for(let key in strSignDataOBJ){
                 if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
               }
-                console.log("strSignData",strSignData)
             let SigndataObj = {
               Patient_ID:this.patientInfo.patientId,
               Visit_ID:this.patientInfo.visitId,
@@ -1251,7 +1250,6 @@ export default {
             },'',null,false,'',{},undefined,undefined,undefined,SigndataObj,verifySignObj);
           }else{
             this.$refs.signModal.open((password, empNo) => {
-              console.log("1111111111signModal")
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1368,7 +1366,6 @@ export default {
               for(let key in strSignDataOBJ){
                 if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
               }
-                console.log("strSignData",strSignData)
             SigndataObj = {
               Patient_ID:this.patientInfo.patientId,
               Visit_ID:this.patientInfo.visitId,
@@ -1437,7 +1434,6 @@ export default {
               for(let key in strSignDataOBJ){
                 if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
               }
-                console.log("strSignData",strSignData)
             let SigndataObj = {
               Patient_ID:this.patientInfo.patientId,
               Visit_ID:this.patientInfo.visitId,
@@ -1582,7 +1578,6 @@ export default {
               for(let key in strSignDataOBJ){
                 if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
               }
-                console.log("strSignData",strSignData)
             SigndataObj = {
               Patient_ID:this.patientInfo.patientId,
               Visit_ID:this.patientInfo.visitId,
@@ -1657,11 +1652,11 @@ export default {
         return item.key == "status";
       }).value;
       const sign = trArr.find(item => item.key == 'auditorNo').value
-        console.log("koaosdad",status)
+        // console.log("koaosdad",status)
       let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
-        console.log("koaosdad",auditorName)
+        // console.log("koaosdad",auditorName)
       if (status == "2" && sign) {
         if (this.HOSPITAL_ID == "foshanrenyi") {
           return  `<img
@@ -1836,7 +1831,6 @@ export default {
                 }
                 return Object.assign({}, item, obj);
               });
-              console.log(this.sheetInfo.copyRow);
           },
         },
         {
@@ -2158,7 +2152,6 @@ export default {
       }
       // 能否保存()
       const canNotSave = tr.find(item => item.key == 'recordMonth').isDisabed
-      console.log("data.titleModel",data.titleModel, tr)
       let thead = data.titleModel;
       let table = data.bodyModel;
       // 数组重组
@@ -2220,7 +2213,6 @@ export default {
       // } else {
       //   window.openSpecialModal(config); //旧版本
       // }
-      console.log('config', config)
       // 双击出现记录单编辑弹框
       window.openSpecialModal2(config);
     },
@@ -2402,7 +2394,6 @@ export default {
           JSON.stringify(this.defaultOptionList)
         );
       }
-      console.log("this.accessOptionList",this.accessOptionList)
       if (this.currentKey) {
         this.accessOptionData[this.currentKey] = [...this.accessOptionList];
       }else{
@@ -2446,7 +2437,6 @@ export default {
       this.accessOptionList = JSON.parse(
         JSON.stringify(this.defaultOptionList)
       );
-      console.log("this.accessOptionList",this.accessOptionList)
       this.accessOptionData[td.name] = [...this.accessOptionList];
     },
   },
@@ -2476,10 +2466,8 @@ export default {
       let sUserAgent = navigator.userAgent;
       if(sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1 || sUserAgent.indexOf("Windows NT 5.1") > -1){
         this.wujingCommonHl=true
-        console.log("this.wujingCommonHl",this.wujingCommonHl)
       }
     }
-    console.log("this.data",this.data,this.$parent.patientInfo)
     if (
       this.doubleSignArr.includes(sheetInfo.sheetType) &&
       sheetInfo.selectBlock.relSignInfo == undefined

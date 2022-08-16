@@ -594,7 +594,7 @@
       </div>
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
-    <diagnosis-modal v-if="['guizhou'].includes(HOSPITAL_ID)" ref="diagnosisModalRef" @handleOk="handleDiagnosis" />
+    <diagnosis-modal v-if="['guizhou', 'lyxrm','huadu'].includes(HOSPITAL_ID)" :modalWidth="diagnosisWid" ref="diagnosisModalRef" @handleOk="handleDiagnosis" />
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -962,7 +962,24 @@ export default {
       return this.sheetInfo.sheetType === 'common_gzry'
     },
     showDiagnosisBtn() {
-      return ['guizhou'].includes(process.env.HOSPITAL_ID) && this.commonFormGZ && this.activeTab === '3'
+      switch(process.env.HOSPITAL_ID) {
+        case 'guizhou':
+        return this.commonFormGZ && this.activeTab === '3'
+        case 'lyxrm':
+        case 'huadu':
+          return this.activeTab === '3'
+        default:
+          return false
+      }
+    },
+    diagnosisWid() {
+      switch(process.env.HOSPITAL_ID) {
+        case 'lyxrm':
+        case 'huadu':
+          return 1200
+        default:
+          return 720
+      }
     },
     // 是否显示保存按钮
     showSaveBtn() {
@@ -1606,6 +1623,13 @@ export default {
             } else {
               text += allDoc[i];
             }
+          }else if (this.sheetInfo.sheetType == "common_xg"||this.sheetInfo.sheetType == "internal_xg") {
+            if (GetLength(text) > 32) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           }else if (this.sheetInfo.sheetType === "iabp_fs") {
             if (GetLength(text) > 56) {
               result.push(text);
@@ -1896,8 +1920,13 @@ export default {
       this.$refs.diagnosisModalRef.open()
     },
     /**获取选择的同步项 */
-    handleDiagnosis(val) {
-      this.doc += val.diagName
+    handleDiagnosis({ item, key }) {
+      item.forEach(v => {
+        if (this.doc && v[key]) {
+          this.doc += '\n'
+        }
+        this.doc += v[key]
+      });
     }
   },
   mounted() {

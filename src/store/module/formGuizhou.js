@@ -11,10 +11,11 @@ export default {
         state.measureGuizhou = value.measure
         state.targetGuizhou = value.target
         state.factorStrGuizhou = value.factor
-        console.log(state.targetGuizhou,state.measureGuizhou,state.factorStrGuizhou);
       },
       cleanMeasureGuizhouAll(state) {
         state.measureGuizhou = ""
+        state.targetGuizhou=""
+        state.factorStrGuizhou=""
       },
   }
 }

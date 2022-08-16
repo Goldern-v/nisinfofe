@@ -69,7 +69,7 @@
       <router-link
         v-if="HOSPITAL_ID == 'sdlj'"
         to=""
-        @click.native="toHandNumbness()"
+        @click.native="openNewPage('toHandNumbness')"
       >
         <div class="nav-item-shouma" >手麻记录单</div>
       </router-link>
@@ -99,7 +99,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理诊断计划</div>
+        <div class="nav-item">护理计划</div>
       </router-link>
       <router-link
         :to="{
@@ -182,6 +182,8 @@
       >
         <div class="nav-item">体温单</div>
       </router-link>
+
+      <span class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toYst')">医膳通</span>
     </div>
     <div style="height: 50px"></div>
   </div>
@@ -260,6 +262,8 @@
 </style>
 <script>
 import common from "@/common/mixin/common.mixin";
+import qs from "qs"
+import { mapState } from 'vuex';
 export default {
   mixins: [common],
   data() {
@@ -271,13 +275,53 @@ export default {
     query() {
       let query = this.$route.query;
       return query;
-    }
+    },
+    ...mapState({
+      patient: (state) => state.patient.currentPatient
+      })
   },
   components: {},
   methods: {
+    openNewPage(key) {
+      if (key) {
+        this[key]()
+      }
+    },
     // （顺德龙江）手麻记录单（第三方链接）
     toHandNumbness() {
       window.open(`http://192.168.100.9:8280/trackao/basedata/userLoginForClient.action?id=1668&password=123&resultCode=getTrackaoAnaesRecordPDF&hisId=${this.query.inpNo}`)
+    },
+    // 医膳通
+    toYst() {
+      const {
+        deptCode,
+        name: patName,
+        sex: patSex,
+        patientId: tfHospNo,
+        deptCode: patDeptCode,
+        idNo: patCardid,
+        patientId: tfHospitalIdentity
+        } = this.patient
+      const obj = {
+        userLoginId: this.empNo,
+        deptCode,
+        userName: this.empName,
+        patName,
+        patSex: this.formatValue(patSex, {'男': 'M', '女': 'F', default: 0}),
+        tfHospNo,
+        tfType: 1,
+        patCardid,
+        patDeptCode,
+        doctorRoleType: 2,
+        tfHospitalIdentity,
+        routeName: 'NutritionScreening',
+        isUpdateDept: 1
+      }
+      let url = `http://192.168.10.66:20000/#/tranView?${qs.stringify(obj)}`
+      window.open(url)
+    },
+    formatValue(value, obj) {
+      return obj[value] || obj['default']
     }
   }
 };

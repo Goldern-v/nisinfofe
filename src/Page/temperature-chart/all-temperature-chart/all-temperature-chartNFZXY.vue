@@ -233,7 +233,24 @@
               />
             </template>
           </el-table-column>
-
+          <el-table-column
+            prop="drainage"
+            label="引流量"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.drainage"
+                :class="className"
+                class="drainage"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
           <el-table-column
             prop="fieldThree"
             label="尿量"
@@ -245,26 +262,6 @@
                 v-model="scope.row.fieldThree"
                 :class="className"
                 class="fieldThree"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column
-            v-if="HOSPITAL_ID === 'quzhou'"
-            prop="drainage"
-            label="引流量"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.drainage"
-                :class="className"
-                class="drainage"
                 type="text"
                 @keyup="handleKeyUp"
                 v-on:input="validFormFc"
@@ -332,26 +329,6 @@
               />
             </template>
           </el-table-column>
-
-          <!-- <el-table-column
-            prop="painScore"
-            label="疼痛评分"
-            min-width="70"
-            align="center"
-           >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.painScore"
-                :class="className"
-                class="painScore"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column> -->
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -430,6 +407,16 @@
               <el-input v-model="scope.row.bloodPressure"></el-input>
             </template>
           </el-table-column>
+           <el-table-column
+            prop="stoolNum"
+            label="大便次数"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.stoolNum"></el-input>
+            </template>
+          </el-table-column>
           <el-table-column
             prop="heartRate"
             label="心率"
@@ -478,27 +465,6 @@
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.curWeight"></el-input>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="stoolNum"
-            label="大便次数"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.stoolNum"></el-input>
-            </template>
-          </el-table-column>
-          <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
-            prop="painScore"
-            label="疼痛"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.painScore"></el-input>
             </template>
           </el-table-column>
         </el-table>

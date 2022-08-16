@@ -92,73 +92,57 @@ export default {
       },
       {
         name: `
-        患肢<br/>感觉/活动
+        标题1
         `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `标题1`,
+        canSet: true,
         colspan: "1",
         rowspan: "3",
+        key: "affectedLimb",
         style: {
           minWidth: "45px",
           maxWidth: "45px"
         },
-        canSet: true,
-        key: "customItem1",
       },
       {
         name: `标题2`,
         colspan: "1",
         rowspan: "3",
+        canSet: true,
+        key: "customItem1",
         style: {
           minWidth: "45px",
           maxWidth: "45px"
         },
-        canSet: true,
-        key: "customItem2",
       },
       {
         name: `标题3`,
         colspan: "1",
         rowspan: "3",
+        canSet: true,
+        key: "customItem2",
         style: {
           minWidth: "45px",
           maxWidth: "45px"
         },
-        canSet: true,
-        key: "customItem3",
       },
       {
         name: `标题4`,
         colspan: "1",
         rowspan: "3",
+        canSet: true,
+        key: "customItem3",
         style: {
           minWidth: "45px",
           maxWidth: "45px"
         },
-        canSet: true,
-        key: "customItem4",
-      },
-      {
-        name: `标题5`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "45px",
-          maxWidth: "45px"
-        },
-        canSet: true,
-        key: "customItem5",
       },
       {
         name: `
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          minWidth: "215px",
+          maxWidth: "215px"
         },
         colspan: "1",
         rowspan: "3"
@@ -167,13 +151,14 @@ export default {
         name: `
         记录者<br/>签名
         `,
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        },
         colspan: "1",
         rowspan: "3",
       },
+      {
+        "name": "审核<br/>签名", 
+        "colspan": "1", 
+        "rowspan": "3"
+      }
     ],
     mid: [
       {
@@ -210,11 +195,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          minWidth: "65px",
-          maxWidth: "65px"
-        },
-        
       },
       {
         name: `
@@ -229,10 +209,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
-        style: {
-          minWidth: "65px",
-          maxWidth: "65px"
-        },
       },
       {
         name: `

@@ -146,7 +146,7 @@ export default [
     next: "mL",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 60
     },
   },
   {

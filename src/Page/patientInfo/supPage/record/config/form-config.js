@@ -153,7 +153,13 @@ export function getFormConfig(formName) {
     case "入院评估表(妇科)":
     case "入院评估表(外科)":
     case "入院评估表(内科)":
-    case "入院评估表(儿科)": {
+    case "入院评估表(儿科)":
+    case "首次护理记录单(产科)":
+    case "首次护理记录单(新生儿科)":  
+    case "首次护理记录单(妇科)":
+    case "首次护理记录单(外科)":
+    case "首次护理记录单(内科)":
+    case "首次护理记录单(儿科)": {
       let config = Object.assign({}, defaultConfig);
       config.hasMeasure = false;
       config.isOutSign = true;

@@ -229,6 +229,7 @@ export default {
                     this.model.selectedBlockId = ''
                     this.model.blockList = []
                     model.refreshTable();
+                    this.model.refreshBlock();
                     model.selectedRow = null;
                   });
       });

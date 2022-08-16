@@ -97,7 +97,8 @@
                 HOSPITAL_ID == 'zhongshanqi' ||
                 HOSPITAL_ID == 'liaocheng' ||
                 HOSPITAL_ID == 'beihairenyi' ||
-                HOSPITAL_ID == 'xiegang'
+                HOSPITAL_ID == 'xiegang' ||
+                HOSPITAL_ID == 'gdtj'
             "
           >
             {{HOSPITAL_ID=='beihairenyi'?'成人腕带打印':'腕带打印'}}
@@ -156,6 +157,7 @@
     <bedModal ref="bedModal"></bedModal>
     <bedModalWx ref="bedModalWx"></bedModalWx>
     <bedModalWujing ref="bedModalWujing"></bedModalWujing>
+    <bedModalYtLL ref="bedModalYtLL"></bedModalYtLL>
     <bedModalLc ref="bedModalLc"></bedModalLc>
     <bedModalLiaocheng ref="bedModalLiaocheng"></bedModalLiaocheng>
     <!-- <bedModalNfzxy ref="bedModalNfzxy"></bedModalNfzxy> -->
@@ -306,6 +308,7 @@
 </style>
 <script>
 import bedModal from "./modal/bed-modal.vue";
+import bedModalYtLL from "./modal/bed-modal_ytll.vue";
 import bedModalWujing from "./modal/bed-modal_wujing.vue";
 import bedModalSDLJ from "./modal/bed-modal-sdlj.vue";
 import bedModalWx from "./modal/bed-modal_wx.vue";
@@ -365,7 +368,8 @@ export default {
         beihairenyi:'bedModalBh',
         quzhou:'bedModalQz',
         whfk:'bedModalWhfk',
-        hj:'bedModalHj'
+        hj:'bedModalHj',
+        ytll:'bedModalYtLL'
         // nanfangzhongxiyi:'bedModalNfzxy',
       }
       if(hospital_left[this.HOSPITAL_ID]){
@@ -376,7 +380,7 @@ export default {
     },
     // 腕带打印
     openWristPrint(printMode) {
-      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng") {
+      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "gdtj") {
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);
@@ -448,7 +452,8 @@ export default {
     bedModalQz,
     bedModalWhfk,
     bedModalXiegang,
-    bedModalHj
+    bedModalHj,
+    bedModalYtLL
   }
 };
 </script>

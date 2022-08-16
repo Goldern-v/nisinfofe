@@ -110,7 +110,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="95" align="center"></el-table-column>
-        <el-table-column label="护士签名" width="90" header-align="center" align="center">
+        <el-table-column label="开始护士" width="90" header-align="center" align="center">
           <template slot-scope="scope">
             <!-- <div v-if="!scope.row.creatorName" class="tool-btn" @click="onSignOrCancel(scope.row)">
               点击签名
@@ -128,12 +128,12 @@
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" width="325" header-align="center"></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="95" align="center"></el-table-column>
-         <el-table-column label="护士签名" width="90" header-align="center" align="center" fixed="right">
+         <el-table-column label="停止护士" width="90" header-align="center" align="center" fixed="right">
           <template slot-scope="scope">
             <!-- <div v-if="!scope.row.signerName" class="tool-btn" @click="onSignOrCancel(scope.row)">
               点击签名
             </div> -->
-            <div  @click="onSignOrCancel(scope.row)">{{scope.row.operatorName}}</div>
+            <div style="min-height:24px"  @click="onSignOrCancel(scope.row)">{{scope.row.operatorName}}</div>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="95" header-align="center" fixed="right">
@@ -241,10 +241,11 @@
         <el-table-column prop="evalContent" label="评价说明" width="130" header-align="center"></el-table-column>
         <el-table-column label="护士签名" width="65" header-align="center" >
           <template slot-scope="scope">
-            <img class="signer-img" v-if="scope.row.signerNo" :src="`/crNursing/api/file/signImage/${scope.row.signerNo}?${token}`" alt="">
+            <!-- <img class="signer-img" v-if="scope.row.operatorName" :src="`/crNursing/api/file/signImage/${scope.row.operatorName}?${token}`" alt=""> -->
+            {{scope.row.operatorName}}
           </template>
         </el-table-column>
-        <el-table-column prop="signTime" label="签名时间" width="85" header-align="center" align="center"></el-table-column>
+        <!-- <el-table-column prop="endTime" label="签名时间" width="85" header-align="center" align="center"></el-table-column> -->
       </el-table>
     </div>
     <stopDiagnosisModal ref="stopDiagnosisModal"></stopDiagnosisModal>
@@ -396,6 +397,7 @@ export default {
       // if (!this.verify()) return;
       model.selectedRow = row;
       window.openSignModal((password, empNo) => {
+        console.log(password);
         nursingDiagsDel(password, empNo, model.selectedRow.id).then(res => {
           this.$message.success("删除成功");
           model.refreshTable();
@@ -465,7 +467,18 @@ export default {
       border-left: 1px solid #000 !important;
       border-right: 1px solid #000 !important;
       border-bottom: 1px solid #000 !important;
+       .gutter{
+        border: none !important;
+      }
     }
+    /* th:last-child{
+      border:none !important;
+      border-left: 1px solid #000 !important;
+    }
+    th:nth-last-child(2){
+      border:none !important;
+
+    } */
     td {
       border: 1px solid #000 !important;
     }
@@ -478,6 +491,10 @@ export default {
     .el-table__body-wrapper {
       margin-top: -1px;
     }
+    .el-table__fixed-body-wrapper{
+      top:30px !important;
+    }
+
   }
   .print-table {
     /* visibility: hidden; */

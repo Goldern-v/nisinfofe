@@ -88,7 +88,7 @@
         2、当管道出现问题时请注意描述，例如描述其出血、渗血、穿刺点情况
       </p>
     </div>
-    <div v-if="sheetInfo.sheetType == 'mild_hypothermia_hd'">
+    <div v-if="sheetInfo.sheetType == 'mild_hypothermia_hd' || sheetInfo.sheetType == 'mild_hypothermia_sdlj'">
       备注：记录要求与说明。（1）所处治疗阶段与治疗模式，直接勾选当前选项;(2)亚低温治疗开始为“降温”阶段，每15min记录1次，直至达到目标温度（33.5~33.5-34℃,约1-2h）后1h,
       进入“维持治疗'阶段，然后每2h记录1次，时间约72h：之后开始“复温”，复温期间每小时记录肛温1次，一般肛温为2h升高0.5℃。
       <p>
@@ -312,7 +312,7 @@
       </p>
     </div>
     <!-- 东莞谢岗护理记录单 -->
-    <div v-if="sheetInfo.sheetType == 'common_xg'">
+    <div v-if="sheetInfo.sheetType == 'common_xg'||sheetInfo.sheetType == 'internal_xg'">
       健康宣教内容：1.入院宣教；2.辅助检查目的及注意事项；3.吸氧目的及注意事项；4.心电监护目的及注意事项；5.术前宣教；6.术后宣教；7.饮食指导；
       8.防跌倒；9.出院宣教；<br/>10.用药指导；11.输血注意事项；12.特殊感染隔离注意事项。
     </div>

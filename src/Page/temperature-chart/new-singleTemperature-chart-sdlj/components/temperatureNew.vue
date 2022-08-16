@@ -42,6 +42,14 @@
         >
           尾周
         </button>
+        <el-button-group :style="rightButton()">
+          <el-button type="primary" @click="syncInAndOutHospital((type = '0'))"
+            >同步入院</el-button
+          >
+          <el-button type="primary" @click="syncInAndOutHospital((type = '1'))"
+            >同步出院</el-button
+          >
+        </el-button-group>
       </div>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
@@ -94,7 +102,7 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        // "http://192.168.1.6:8080/#/" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.72:8080/#/" /* 医院正式环境内网 导致跨域 */,
       "http://192.168.168.82:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://192.168.168.82:9091/temperature/#/printAll" /* 医院正式环境内网 */,
@@ -153,6 +161,15 @@ export default {
     //将体温单上的时间传过来，再监听到录入组件，获取录入记录
     getDataFromPage(dateTime) {
       this.bus.$emit("getDataFromPage", dateTime);
+    },
+    rightButton() {
+      return {
+        position: "relative",
+        left: this.rightSheet === false ? "18%" : "4%",
+      };
+    },
+        syncInAndOutHospital(type) {
+      this.bus.$emit("syncInAndOutHospital", type);
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -237,7 +254,6 @@ export default {
     });
        this.bus.$on('dateChangePage',(value)=>{
       value=moment(value).format("YYYY-MM-DD")
-      console.log('触发')
         this.$refs.pdfCon.contentWindow.postMessage(
         { type: "dateChangePage", value },
         this.intranetUrl /* 内网 */

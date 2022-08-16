@@ -6,31 +6,18 @@
       <div class="header-con">
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
-            <el-row
-              class="logo-con logo-con-hj"
-              type="flex"
-              align="middle"
-              v-if="HOSPITAL_ID == 'hj'"
-            >
-              <img src="../../common/images/logo_hj.png" />
-              <span>
-                东莞市厚街医院
-                <br />智慧护理信息系统
-              </span>
-            </el-row>
-            <el-row
+             <el-row
               class="logo-con"
               type="flex"
               justify="center"
               align="middle"
-              v-else
             >
-              <img src="../../common/images/logo-white-60.png" />
-              <span>{{
-                HOSPITAL_ID == "hj"
-                  ? "百辰源智慧护理信息系统"
-                  : "智慧护理信息系统"
-              }}</span>
+              <img
+                src="../../common/images/jmfy_log.png"
+                height="63"
+                width="63"
+              />
+              <span>江门市妇幼保健医<br />智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">

@@ -34,12 +34,12 @@ export default {
                 {"name":"功<br/>能<br/>锻<br/>炼<br/>⑿","colspan":"1","rowspan":"3"},
                 {"name":"皮<br/>肤<br/>完<br/>整<br/>性<br/>⒀","colspan":"1","rowspan":"3"},
                 {"name":"护<br/>理<br/>措<br/>施<br/>⒁","colspan":"1","rowspan":"3"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"expand"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"expand2"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"expand3"},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom1", style: {minWidth: "30px", maxWidth: "30px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom2", style: {minWidth: "30px", maxWidth: "30px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom3", style: {minWidth: "30px", maxWidth: "30px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
-                {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}},
-                {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
+                {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
             ]
         ,
         mid:
@@ -58,9 +58,12 @@ export default {
                 {"name":"体<br/>位<br/>⑴","colspan":"1","rowspan":"2"},
                 {"name":"颜<br/>色<br/>⑵","colspan":"1","rowspan":"2"},
                 {"name":"皮<br/>温<br/>⑶","colspan":"1","rowspan":"2"},
-                {"name":"肿<br/>胀<br/>⑷","colspan":"1","rowspan":"2"},
-                {"name":"感<br/>觉<br/>⑸","colspan":"1","rowspan":"2"},
-                {"name":"活<br/>动<br/>⑹","colspan":"1","rowspan":"2"},
+                // {"name":"肿<br/>胀<br/>⑷","colspan":"1","rowspan":"2"},
+                // {"name":"感<br/>觉<br/>⑸","colspan":"1","rowspan":"2"},
+                // {"name":"活<br/>动<br/>⑹","colspan":"1","rowspan":"2"},
+                {"name":"肿胀⑷","colspan":"1","rowspan":"2", "canSet":true, key: 'swelling' },
+                {"name":"感觉⑸","colspan":"1","rowspan":"2", "canSet":true, key: 'feeling'},
+                {"name":"活动⑹","colspan":"1","rowspan":"2", "canSet":true, key: 'activity'},
                 {"name":"毛<br/>细<br/>血<br/>管<br/>反<br/>应<br/>⑺","colspan":"1","rowspan":"2"},
                 {"name":"动<br/>脉<br/>搏<br/>动<br/>⑻","colspan":"1","rowspan":"2"},
                 {"name":"伤<br/>口<br/>敷<br/>料<br/>⑼","colspan":"1","rowspan":"2"},

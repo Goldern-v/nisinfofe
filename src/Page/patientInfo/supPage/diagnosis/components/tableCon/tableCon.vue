@@ -2,7 +2,7 @@
   <div class="containter" v-loading="tableLoading" ref="printable">
     <div class="header-con">
       <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
-      <div class="title">{{["liaocheng","guizhou",'huadu','foshanrenyi'].includes(HOSPITAL_ID) ?"护理计划":"护理诊断计划"}}</div>
+      <div class="title">{{["liaocheng","guizhou",'huadu','foshanrenyi','lyxrm','whsl'].includes(HOSPITAL_ID) ?"护理计划":"护理诊断计划"}}</div>
       <div class="info-con" flex="main:justify">
         <span>
           姓名：
@@ -26,7 +26,7 @@
         </span>
         <span>
           {{['huadu'].includes(HOSPITAL_ID)?'住院号：':'住院号/ID号：'}}
-          <div class="bottom-line" style="min-width: 60px">{{ ['huadu'].includes(HOSPITAL_ID)?patientInfo.patientId:patientInfo.inpNo }}</div>
+          <div class="bottom-line" style="min-width: 60px">{{ ['huadu','foshanrenyi'].includes(HOSPITAL_ID)?patientInfo.patientId:patientInfo.inpNo }}</div>
         </span>
         <span>
           入院日期：
@@ -180,6 +180,7 @@ export default {
 
       window.localStorage.diagnosisModel = box.innerHTML;
       if (box.innerHTML) {
+        this.$store.commit('upPreRouter',location.href)
         this.$router.push(`/print/diagnosis`);
       }
     },

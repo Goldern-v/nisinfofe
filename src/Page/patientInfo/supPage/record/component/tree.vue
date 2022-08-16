@@ -43,7 +43,7 @@
           :render-content="renderContent"
           :default-expand-all="HOSPITAL_ID == 'whfk' && !isPersonage"
           @node-click="nodeClick"
-          node-key="index"
+          node-key="id"
           :default-expanded-keys="expandList"
           @node-expand="node_expand"
           @node-collapse="node_collapse"
@@ -537,7 +537,7 @@ export default {
       // let fileicon = fileicon
       // let filebox = filebox
       // // 如果存在保存
-      // console.log("111",node.childNodes,node.level)
+      // console.log("111",node.childNodes)
       // console.log(h,  node, data, store );
       //未签名
       let hasSave =
@@ -666,6 +666,47 @@ export default {
           icon = fileicon;
         }
       }
+      // 多行表单签名状态（佛医）
+      const style = {} // 文件夹
+      const pageStyle = {} // 每张表单
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        // signStatus: 0 - 完成，1 - 未签名（责任签名），2 - 未审核
+        // 多行表单（表内多行签名状态判断）
+        if (data.multiLine) {
+          const formsSign = node.data.fillRemindType == "1"; // 只有一个签名（责任签名）
+          const formsAudit = node.data.fillRemindType == "2"; // 责任 + 审核
+          // 是否有表单多行内未签名（责任签名）
+          const hasPageNotSign = node.childNodes.filter((item) => {
+            return item.data.signStatus === "1";
+          }).length > 0;
+          // 是否有表单多行内未审核
+          const hasPageNotAudit = node.childNodes.filter((item) => {
+            return item.data.signStatus === "2";
+          }).length > 0;
+          const currentPageNotSign = node.data.signStatus === '1' // 当前表单多行内未签名（责任签名）
+          const currentPageNotAudit = node.data.signStatus === '2' // 当前表单多行内未审核
+          if (formsSign) { // 表单多行内只有签名（责任）
+            if (hasPageNotSign) { // 存在表单目录下有表单多行内未签名（责任签名）
+              style.color = 'red'
+            }
+            if (currentPageNotSign) { // 当前表单多行内未签名（责任签名）
+              pageStyle.color = 'red'
+            }
+          } else if (formsAudit) { // 表单多行内有两个签名，责任 + 审核
+            if (hasPageNotSign) { // 存在表单目录下有表单多行内未签名（责任签名）
+              style.color = 'red'
+            } else if (hasPageNotAudit) { // 存在表单目录下有表单多行内未审核
+              style.color = '#27a45e'
+            }
+            if (currentPageNotSign) { // 当前表单多行内未签名（责任签名）
+              pageStyle.color = 'red'
+            } else if (currentPageNotAudit) { // 当前表单多行内未审核
+              pageStyle.color = '#27a45e'
+            }
+          }
+        }
+        // console.log('style', style);
+      }
       let viewDom = h();
       if (this.HOSPITAL_ID === "liaocheng" || this.HOSPITAL_ID === "quzhou") {
         viewDom = h(
@@ -684,7 +725,7 @@ export default {
             <span class="tree-box-node2">
               <span class="box-label">
                 <img src={box}/>
-                <span>{node.label}</span>
+                <span style={ style }>{node.label}</span>
               </span>
               {
                 node.data.canBatchAudit &&
@@ -692,7 +733,7 @@ export default {
                   type="text"
                   size="mini"
                   on-click={
-                    (e) => this.batchAudit(e, node)
+                    (e) => this.batchAudit(e, node,this.$route.query)
                   }
                 >
                   批量审核
@@ -701,6 +742,10 @@ export default {
             </span>
           )
         } else {
+           /* 逻辑一直没改过。但是有一次发包过去厚街，医院非说这两张表以前没有状态的。直接强制去掉 */
+          if( (node.label=="生长发育评估量表"||node.label=="住院病人处理单") && this.HOSPITAL_ID=='hj'){
+            box = filebox;
+          }
           return h("span", { class: { "tree-box-node": true }, attrs: { title: node.label } }, [
             h("img", { attrs: { src: box } }),
             h("span", {}, node.label),
@@ -718,13 +763,17 @@ export default {
           let pages = String(
             pageIndex.find((item) => item !== undefined)
           ).split("")[1];
-          // console.log(String(pages).split('')[1]);
-          return h("span", { class: { "tree-node": true } }, [
+
+          return h("span", { class: { "tree-node": true }, style: pageStyle }, [
             h("img", { attrs: { src: icon } }),
             h("span", {}, `第${pages}页`),
             h("span", {}, node.label),
           ]);
         } else {
+          /* 逻辑一直没改过。但是有一次发包过去厚街，医院非说这两张表以前没有状态的。直接强制去掉 */
+          if( (data.formName=="生长发育评估量表"||data.formName=="住院病人处理单") && this.HOSPITAL_ID=='hj'){
+             icon = fileicon;
+          }
           return h("span", { class: { "tree-node": true } }, [
             h("img", { attrs: { src: icon } }),
             h("span", {}, node.label),
@@ -732,11 +781,11 @@ export default {
         }
       }
     },
-    batchAudit(e, node) {
+    batchAudit(e, node,query) {
       e.stopPropagation()
-      this.batchAuditForms = node.data
+      this.batchAuditForms = {...node.data,query}
       this.batchAuditDialog = true
-      console.log('批量审核', node);
+      console.log('批量审核', node,query);
 
     },
     handleCloseBatchAudit(refresh) {
@@ -813,6 +862,8 @@ export default {
               pageUrl: item.pageUrl,
               formTreeRemindType: item.formTreeRemindType,
               canBatchAudit: item.canBatchAudit,
+              multiLine: item.multiLine,
+              fillRemindType: item.fillRemindType,
               children:
                 item.formInstanceDtoList &&
                 item.formInstanceDtoList.map((option, i) => {
@@ -855,7 +906,10 @@ export default {
                     form_id: option.id,
                     formName: item.formName,
                     formTreeRemindType: item.formTreeRemindType,
-                    pageIndex: item.formInstanceDtoList.length - i
+                    pageIndex: item.formInstanceDtoList.length - i,
+                    multiLine: item.multiLine,
+                    fillRemindType: item.fillRemindType,
+                    signStatus: option.signStatus
                   };
                 }),
             };
@@ -1069,6 +1123,7 @@ export default {
   },
   created() {
     console.log(this.$route.name);
+    console.log(1110,this.index)
     if(!this.$route.name){
       this.isPersonage = true;
     }

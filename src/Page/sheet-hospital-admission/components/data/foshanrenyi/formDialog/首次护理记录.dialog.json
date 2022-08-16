@@ -1504,7 +1504,7 @@
         "name": "I001107",
         "type": "input",
         "title": "嗜酒频率",
-        "suffixDesc": "(两/斤)",
+        "suffixDesc": "(两/天)",
         "inputWidth": "auto!important",
         "class": null,
         "html": null,
@@ -1614,16 +1614,16 @@
     ]
   },
   {
-    "title": "健康史",
+    "title": "输液港周围皮肤",
     "type": "formGroupHorizontalBox",
     "colWidth": [
-      "30%",
-      "70%"
+      "40%",
+      "60%"
     ],
-    "name": "I001115",
+    "name": "I0011021",
     "message": "",
     "require": "false",
-    "aliasTitle": "曾有病史",
+    "aliasTitle": "其他",
     "showTitle": true,
     "suffixDesc": "",
     "keys": "",
@@ -1635,10 +1635,10 @@
     "modalWidth": 400,
     "children": [
       {
-        "name": "I001115",
+        "name": "I0011021",
         "type": "input",
         "inputType": "textarea",
-        "title": "健康史",
+        "title": "输液港周围皮肤",
         "style": "width:100%",
         "tdStyle": "width:100%",
         "elementStyle": "width:100%",
@@ -1649,29 +1649,34 @@
     ]
   },
   {
-    "title": "睡眠辅助药物",
+    "title": "同侧肢体活动",
     "type": "formGroupHorizontalBox",
     "colWidth": [
       "40%",
       "60%"
     ],
-    "name": "I001117",
+    "name": "I0011023",
     "message": "",
     "require": "false",
-    "aliasTitle": "睡眠辅助药物",
+    "aliasTitle": "其他",
     "showTitle": true,
     "suffixDesc": "",
     "keys": "",
-    "style": null,
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
     "classes": null,
     "readOnly": null,
     "modalWidth": 400,
     "children": [
       {
-        "name": "I001117",
+        "name": "I0011023",
         "type": "input",
-        "title": "睡眠药物名称",
-        "style": null,
+        "inputType": "textarea",
+        "title": "同侧肢体活动",
+        "style": "width:100%",
+        "tdStyle": "width:100%",
+        "elementStyle": "width:100%",
         "class": null,
         "html": null,
         "readOnly": null
@@ -1691,13 +1696,15 @@
     "style": null,
     "classes": null,
     "readOnly": null,
-    "modalWidth": 400,
+    "modalWidth": 550,
     "children": [
       {
         "name": "I001120",
         "type": "input",
+        "inputType": "select",
         "label": "过敏原",
-        "labelWidth": "100px",
+        "labelWidth": "50px",
+        "multiplechoice": true,
         "value": "",
         "options": [
           "青霉素",
@@ -1713,6 +1720,7 @@
           "蟹"
         ],
         "style": null,
+        "inputWidth": "400px",
         "class": null,
         "html": null,
         "readOnly": null

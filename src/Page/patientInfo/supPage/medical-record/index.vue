@@ -26,7 +26,7 @@ return {
 computed: {
   url() {
     const { patientId, visitId } = this.$route.query
-    const baseUrl = `http://10.66.3.1:8009/EMRWeb.aspx?${qs.stringify({inhosid: patientId, inhostimes: visitId})}`
+    const baseUrl = `http://10.66.3.1:8009/EMRWeb.aspx?${qs.stringify({inhosid: `'${patientId}'`, inhostimes: visitId})}`
     return baseUrl;
   }
 },

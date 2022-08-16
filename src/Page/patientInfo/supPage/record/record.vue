@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      lockHospitalList:['huadu']
+      lockHospitalList:['huadu']//配置了表单锁定的医院
     };
   },
   methods:{
@@ -53,7 +53,7 @@ export default {
         let min=10
         const res=await unLockTime()
         if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
-          min = +res.data.data/100
+          min = +res.data.data
         }
         /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
         const afterInitTime= +lockForm.initTime + 60000 * min

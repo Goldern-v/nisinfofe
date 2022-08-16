@@ -203,7 +203,7 @@
                 placement="right"
                 width="100px"
                 trigger="focus"
-                :disabled="!(shitOption && shitOption.length > 0)"
+                :disabled="!(shitOption && shitOption.length > 0&&!isReadonly(scope.row.recordDate))"
               >
                 <div
                   class="selection-dict-item"
@@ -692,7 +692,6 @@ import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
 import CustomInput from "./components/CustomInput.vue";
-import { validForm } from "../validForm/validForm";
 import { listItem } from "@/api/common.js";
 
 export default {
@@ -794,7 +793,6 @@ export default {
     tableData: {
       get() {
         return this.patientsInfoData
-          .sort((a, b) => Number(a.bedLabel) - Number(b.bedLabel))
           .filter((item) => {
             return this.admitted === "所有患者"
               ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
@@ -818,7 +816,6 @@ export default {
     this.query.wardCode = this.deptCode;
     getmultiDict(this.query.wardCode).then((res) => {
       res.data.data.map((item, index) => {
-        data[item.vitalSign] = item.vitalCode;
         this.totalDictInfo[item.vitalSign] = {
           ...item,
           options: item.selectType ? item.selectType.split(",") : [],
@@ -850,9 +847,9 @@ export default {
     },
     //费整点的患者数据只允许查看不许修改
     isReadonly(recordDate) {
+      recordDate=moment(recordDate).format('YYYY-MM-DD HH:mm:ss')
       return (
-        !this.query.startFiltering &&
-        recordDate !== `${this.query.entryDate} ${this.query.entryTime}:00:00`
+        recordDate !== `${moment(this.query.entryDate).format('YYYY-MM-DD')} ${this.query.entryTime}:00:00`
       );
     },
     //获取对应护理等级背景颜色

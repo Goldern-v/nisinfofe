@@ -184,8 +184,8 @@ const implementationListWujing = () =>
   import("@/Page/implementation-list/implementation-list-wujing.vue"); //武警执行单
 const implementationListWhfk = () =>
   import("@/Page/implementation-list/implementation-list-whfk.vue"); //肺科执行单
-const implementationListLyxrm= ()=>
-import("@/Page/implementation-list/implementation-list-lyxrm.vue")//临邑执行单
+// const implementationListLyxrm= ()=>
+// import("@/Page/implementation-list/implementation-list-lyxrm.vue")//临邑执行单
 const implementationListFSSY = () =>
   import("@/Page/implementation-list/implementation-list-FSSY.vue"); //武警执行单
 const implementationListFsxt = ()=>
@@ -196,6 +196,8 @@ const implementationListFuyou = () =>
   import("@/Page/implementation-list/implementation-list-fuyou.vue"); //江门妇幼执行单
 const implementationListHengli = () =>
   import("@/Page/implementation-list/implementation-list-hengli.vue"); //横沥执行单
+const implementationListNanfangzhongxiyi = () =>
+  import("@/Page/implementation-list/implementation-list-nanfangzhongxiyi.vue"); //横沥执行单
 
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 const bottleLabelByProgram = () => import("@/Page/implementation-list/bottle-sign-print.vue"); //瓶签打印
@@ -217,6 +219,8 @@ const allTemperatureChartNFZXY = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartNFZXY.vue"); //武汉肺科批量录入体温单
 const allTemperatureChartLYXRM = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartLY.vue"); //临邑量录入体温单
+  const allTemperatureChartWHSL = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHSL.vue"); //威海量录入体温单
 const allTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartSDLJ.vue"); //顺德龙江量录入体温单
 const allTemperatureChartWHYX = () =>
@@ -251,6 +255,8 @@ const newSingleTemperatureChartWHFK = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-whfk/new-singleTemperature-chart.vue");//武汉肺科新版体温单单人录入
 const newSingleTemperatureChartLYXRM = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-lyxrm/new-singleTemperature-chart.vue");//临邑新版体温单单人录入
+  const newSingleTemperatureChartWHSL = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-whsl/new-singleTemperature-chart.vue");//威海市立新版体温单单人录入
 const newSingleTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-sdlj/new-singleTemperature-chart.vue");//顺德龙江新版体温单单人录入
   const newSingleTemperatureChartWHYX = () =>
@@ -307,6 +313,7 @@ import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature
 import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperature-xiegang";
 import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-whfk";
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
+import temperatureWHSL from "@/Page/patientInfo/supPage/temperature/temperature-whsl";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import temperatureWHYX from "@/Page/patientInfo/supPage/temperature/temperature-whyx";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
@@ -365,6 +372,49 @@ const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
 
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
+// 执行单路由
+const getImplementation = () => {
+  switch (HOSPITAL_ID) {
+    case 'lingcheng':
+      return implementationListLingcheng
+    case 'liaocheng':
+    case 'lyyz':
+    case 'qhwy':
+      return implementationListLiaocheng
+    case 'shannan':
+      return implementationListShannan
+    case 'zhongshanqi':
+      return implementationListZhongshanqi
+    case 'lyxrm':
+      return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
+    case 'wujing':
+    case 'sdlj':
+    case 'gdtj':
+      return implementationListWujing
+    case 'whfk':
+      return implementationListWhfk
+    case 'ytll':
+      return () => import("@/Page/implementation-list/implementation-list-ytll.vue")
+    case 'fsxt':
+      return implementationListFsxt
+    case 'foshanrenyi':
+      return implementationListFSSY
+    case 'quzhou':
+      return implementationListQuzhou
+    case 'huadu':
+      return implementationListHuadu
+    case 'fuyou':
+      return implementationListFuyou
+    case 'hengli':
+      return implementationListHengli
+    case 'guizhou':
+      return adviceList
+    case 'nanfangzhongxiyi':
+      return implementationListNanfangzhongxiyi
+    default:
+      return implementationList
+  }
+}
 const router = new Router({
   mode: "history",
   base: "/crNursing/",
@@ -440,7 +490,8 @@ const router = new Router({
         switch (process.env.HOSPITAL_ID) {
           case 'huadu':
             return temperatureHD
-          case 'liaocheng'  || 'whyx':
+          case 'liaocheng':
+          case 'whyx':
             return temperatureLCEY
           case 'guizhou':
             return temperatureGuizhou
@@ -462,9 +513,13 @@ const router = new Router({
             return temperatureDGXG
           case 'whfk':
             return temperatureWHFK
-          case 'lyxrm' || 'ytll':
+          case 'lyxrm':
+          case 'ytll':
             return temperatureLYXRM
-          case 'sdlj' || 'gdtj':
+            case 'whsl':
+                return temperatureWHSL
+          case 'sdlj':
+          case 'gdtj':
             return temperatureSDLJ
           case 'fsxt':
             return temperatureFSXT
@@ -475,6 +530,10 @@ const router = new Router({
         }
       })(),
       name: "体温单"
+    },{
+      path: 'implementationList',
+      component: getImplementation(),
+      name: '执行单'
     }
     ]
   },
@@ -507,7 +566,13 @@ const router = new Router({
               return indexHd
             case 'fqfybjy':
               return shiftWorkFq;
-            case 'liaocheng' || 'whfk' || 'whyx' || 'lyxrm' || 'ytll'||'lyyz'||'qhwy':
+            case 'liaocheng':
+            case 'whfk':
+            case 'whyx':
+            case 'lyxrm':
+            case 'ytll':
+            case 'lyyz':
+            case 'qhwy':
               return indexLiaocheng
             case 'wujing':
               return indexWujing
@@ -520,7 +585,8 @@ const router = new Router({
         path: "/archive",
         component: (() => {
           switch(HOSPITAL_ID) {
-            case 'lyxrm' || 'ytll':
+            case 'lyxrm':
+            case 'ytll':
             case 'foshanrenyi':
               return archiveFSSY
             default:
@@ -642,7 +708,16 @@ const router = new Router({
               return ISBARshiftWorkHd
             case 'fuyou':
               return shiftWorkFy
-            case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj' || 'ytll'||'lyyz'||'qhwy':
+            case 'liaocheng':
+            // case 'zhongshanqi':
+            // case 'foshanrenyi':
+            // case 'whyx':
+            // case 'sdlj':
+            // case 'lyxrm':
+            // case 'gdtj':
+            // case 'ytll':
+            // case 'lyyz':
+            // case 'qhwy':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -671,7 +746,14 @@ const router = new Router({
                 return ISBARshiftWorkDetailHd
               case 'fuyou':
                 return shiftWorkDetailFy
-              case 'liaocheng' || 'zhongshanqi' || 'foshanrenyi' || 'whfk' || 'whyx' || 'sdlj' || 'lyxrm' || 'gdtj' || 'ytll':
+              case 'liaocheng':
+              // case 'zhongshanqi':
+              // case 'foshanrenyi':
+              // case 'whyx':
+              // case 'sdlj':
+              // case 'lyxrm':
+              // case 'gdtj':
+              // case 'ytll':
                 return shiftWorkDetailLiaocheng
               // case 'guizhou':
               //   return shiftWorkDetailGuizhou
@@ -919,9 +1001,13 @@ const router = new Router({
                 return temperatureFSXT
               case 'xiegang':
                 return temperatureDGXG
-              case 'lyxrm' || 'ytll':
+              case 'lyxrm':
+              case 'ytll':
                 return temperatureLYXRM
-              case 'sdlj' || 'gdtj':
+              case 'whsl':
+                return temperatureWHSL
+              case 'sdlj':
+              case 'gdtj':
                 return temperatureSDLJ
               case 'whfk':
                 return temperatureWHFK
@@ -950,7 +1036,13 @@ const router = new Router({
           // component: catheter,
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
-              case 'liaocheng' || 'whyx' || 'sdlj' || 'foshanrenyi' || 'lyxrm' || 'gdtj' || 'ytll':
+              case 'liaocheng':
+              case 'whyx':
+              case 'sdlj':
+              case 'foshanrenyi':
+              case 'lyxrm':
+              case 'gdtj':
+              case 'ytll':
                 return allCatheter
               default:
                 return catheter
@@ -1070,41 +1162,7 @@ const router = new Router({
       },
       {
         path: "/implementationList",
-        component: (() => {
-          switch (HOSPITAL_ID) {
-            case 'lingcheng':
-              return implementationListLingcheng
-            case 'liaocheng'||'lyyz'||'qhwy':
-              return implementationListLiaocheng
-            case 'shannan':
-              return implementationListShannan
-            case 'zhongshanqi':
-              return implementationListZhongshanqi
-            case 'lyxrm' || 'ytll':
-              return implementationListLyxrm
-            case 'wujing':
-            case 'sdlj' || 'gdtj':
-              return implementationListWujing
-            case 'whfk':
-              return implementationListWhfk
-            case 'fsxt':
-              return implementationListFsxt
-            case 'foshanrenyi':
-              return implementationListFSSY
-            case 'quzhou':
-              return implementationListQuzhou
-            case 'huadu':
-              return implementationListHuadu
-            case 'fuyou':
-              return implementationListFuyou
-            case 'hengli':
-              return implementationListHengli
-            case 'guizhou':
-              return adviceList
-            default:
-              return implementationList
-          }
-        })(),
+        component: getImplementation(),
         name: "执行单",
         children:['guizhou'].includes(HOSPITAL_ID)?[
           {
@@ -1114,6 +1172,11 @@ const router = new Router({
           },
         ]:[]
       },
+      // {
+      //   path: '/implementationListNew',
+      //   component: () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue"), // 新版临邑执行单,
+      //   name: 'implementationListNew'
+      // },
       {
         path: "/bottleLabel",
         component: bottleLabel,
@@ -1327,9 +1390,13 @@ const router = new Router({
               return allTemperatureChartWHFK
             case 'nanfangzhongxiyi':
               return allTemperatureChartNFZXY
-            case 'lyxrm' || 'ytll':
+            case 'lyxrm':
+            case 'ytll':
               return allTemperatureChartLYXRM
-            case 'sdlj' || 'gdtj':
+            case 'whsl':
+              return allTemperatureChartWHSL
+            case 'sdlj':
+            case 'gdtj':
               return allTemperatureChartSDLJ
             case 'whyx':
               return allTemperatureChartWHYX
@@ -1367,9 +1434,13 @@ const router = new Router({
               return newSingleTemperatureChartDGXG
             case 'whfk':
               return newSingleTemperatureChartWHFK
-            case 'lyxrm' || 'ytll':
+            case 'lyxrm':
+            case 'ytll':
               return newSingleTemperatureChartLYXRM
-            case 'sdlj' || 'gdtj':
+            case 'whsl':
+            return newSingleTemperatureChartWHSL
+            case 'sdlj':
+            case 'gdtj':
               return newSingleTemperatureChartSDLJ
               case 'whyx':
                 return newSingleTemperatureChartWHYX

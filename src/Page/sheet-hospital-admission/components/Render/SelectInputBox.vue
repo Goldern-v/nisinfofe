@@ -13,7 +13,7 @@
     <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
     <!-- :placeholder="obj.options && obj.options.length>0 ? (obj.options[0].name + '') : (obj.placeholder||'')"  || obj.type==='select' -->
     <el-input
-      v-model="inputValue"
+      v-model="inputVal"
       :id="getUUID()"
       :ref="obj.name"
       :name="obj.name"
@@ -46,7 +46,7 @@
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
     </el-input>
-    <!-- <span>{{obj.suffixDesc}}</span> -->
+    <!-- <span>{{this.formObj.model[this.obj.name] + ':' + inputVal}}</span> -->
   </span>
 </template>
 
@@ -96,6 +96,14 @@ export default {
       } catch (error) {}
       return "E0001";
     },
+    inputVal: {
+      get() {
+        return this.inputValue || this.formObj.model[this.obj.name]
+      },
+      set(val) {
+        this.inputValue = val
+      }
+    }
   },
   watch: {
     inputValue(valueNew, oldvaule) {
@@ -105,12 +113,13 @@ export default {
       this.checkValueRule(valueNew);
       // console.log("obj:", this.obj, this.$refs);
       this.isShowDownList = false;
-      return valueNew;
+      // return valueNew;
     }
   },
   mounted() {
     try {
-      this.inputValue = this.formObj.model[this.obj.name];
+      this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
+      // console.log('this.inputValue', this.inputValue, this.formObj.model, window.formObj)
     } catch (error) {}
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     this.readOnly = this.obj.readOnly ? this.obj.readOnly : false;
@@ -122,7 +131,7 @@ export default {
 
     //vue-happy-bus添加修改inputvalue方法
     this.bus.$on(`updateValue${this.obj.name}`,()=>{
-      console.log('bus received!',`updateValue${this.obj.name}`);
+      // console.log('bus received!',`updateValue${this.obj.name}`);
       this.inputValue = this.formObj.model[this.obj.name]
     });
 
@@ -166,6 +175,8 @@ export default {
   methods: {
     checkValueRule(valueNew, isClick, itemClick = null) {
       let textResult = valueNew;
+      // console.log(this.obj.name, valueNew, isClick, 999999)
+      this.inputValue = valueNew
       this.obj.style = "";
       if (
         this.obj.hasOwnProperty("rule") !== -1 &&
@@ -182,6 +193,7 @@ export default {
           value = value === NaN ? 0 : value;
           // 判断规则
           if (r.min && r.max && (value >= min && value < max)) {
+            // console.log(value, r.min, r.max,  r.style)
             this.obj.style = r.style;
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.equal && r.equal === valueNew) {
@@ -199,7 +211,7 @@ export default {
           } else if (r.scoreMin || r.scoreMax) {
             let [scoreMin, scoreMax] = [Number(r.scoreMin), Number(r.scoreMax)];
             let score = Number(valueNew.split("分")[0]);
-            console.log(score, "scorescorescore");
+            // console.log(score, "scorescorescore");
             scoreMin = scoreMin === NaN ? 0 : scoreMin;
             scoreMax = scoreMax === NaN ? 0 : scoreMax;
             score = score === NaN ? 0 : score;
@@ -209,6 +221,29 @@ export default {
               (score >= scoreMin && score <= scoreMax)
             ) {
               this.obj.style = r.style;
+            }
+            // this.obj.style = Object.assign({}, this.obj.style, r.style);
+          } else if (r.indexOfScore && r.scoreStrMin && r.scoreStrMax) {
+            let [scoreMin, scoreMax] = [Number(r.scoreStrMin), Number(r.scoreStrMax)];
+            let score = valueNew && Number(valueNew.replace(/[^\d]/g, ''));
+            scoreMin = scoreMin === NaN ? 0 : scoreMin;
+            scoreMax = scoreMax === NaN ? 0 : scoreMax;
+            score = score === NaN ? 0 : score;
+            if (
+              r.scoreStrMin &&
+              r.scoreStrMax &&
+              (score >= scoreMin && score <= scoreMax)
+            ) {
+              if (r.ScoreOpenkey){
+                // 莫得办法了 添加成功 就在循环编列了一次  一直取rule最后一条  也有想过把判断添加到对应的 relationForm 但这样子就会打不开关联表单（阿弥陀佛）
+                if (valueNew.indexOf('有,Autar评估表') > -1 && score > 10) {
+                  this.obj.style = r.style
+                }
+                if (valueNew.indexOf('有,Capiric评估表') > -1) {
+                  this.obj.style = r.style
+                }
+              } else
+                this.obj.style = r.style;
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.dialog && isClick) {

@@ -73,32 +73,32 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="摆药人" prop="beiNurse" width="80px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="摆药人" prop="beiNurse" width="80px" align="center" v-if="currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.beiNurse">{{scope.row.beiNurse}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="摆药时间" prop="beiTime" min-width="160px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="摆药时间" prop="beiTime" min-width="160px" align="center" v-if="currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.beiTime">{{scope.row.beiTime}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="配药人" prop="dispenseNurse" width="80px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="配药人" prop="dispenseNurse" width="80px" align="center" v-if="currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseNurse">{{scope.row.dispenseNurse}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="配药时间" prop="dispenseDateTime" min-width="160px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="配药时间" prop="dispenseDateTime" min-width="160px" align="center" v-if="currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseDateTime">{{scope.row.dispenseDateTime}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="核对人" prop="dispenseVerifyNurse" width="80px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="核对人" prop="dispenseVerifyNurse" width="80px" align="center" v-if="currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseVerifyNurse">{{scope.row.dispenseVerifyNurse}}</span>
         </template>
       </u-table-column>
-      <u-table-column label="核对时间" prop="dispenseVerifyDateTime" min-width="160px" align="center" v-if="HOSPITAL_ID == 'whfk' && currentType == '输液'">
+      <u-table-column label="核对时间" prop="dispenseVerifyDateTime" min-width="160px" align="center" v-if="currentType == '输液'">
       <template slot-scope="scope">
           <span :title="scope.row.dispenseVerifyDateTime">{{scope.row.dispenseVerifyDateTime}}</span>
         </template>

@@ -2,20 +2,21 @@
   <div>
     <div class="tool-contain" flex="cross:center">
       <!-- buttonsLeft -->
-      <div
-        v-for="(button, i) in buttonsLeft"
-        :key="button.label + i"
-        class="item-box"
-        flex="cross:center main:center"
-        @click.stop="button.onClick"
-        :class="{
-          disabled: button.getDisabled && button.getDisabled(selectBlock),
-        }"
-        :style="button.style"
-        v-if="button.getDisabled ? !button.getDisabled(selectBlock) : true"
-      >
-        <div class="text-con">{{ button.label }}</div>
-      </div>
+      <template v-for="(button, i) in buttonsLeft">
+        <div
+          :key="button.label + i"
+          class="item-box"
+          flex="cross:center main:center"
+          @click.stop="button.onClick"
+          :class="{
+            disabled: button.getDisabled && button.getDisabled(selectBlock),
+          }"
+          :style="button.style"
+          v-if="button.getDisabled ? !button.getDisabled(selectBlock) : true"
+        >
+          <div class="text-con">{{ button.label }}</div>
+        </div>
+      </template>
       <div flex-box="1"></div>
       <span class="label">评估记录：</span>
       <el-select
@@ -499,10 +500,13 @@ export default {
       loadPatient(this.patientInfo.patientId, this.patientInfo.visitId)
         .then((res) => {
           let valData = res.data.data
-          console.log(valData,'fafas sfasfsf');
-            window.formObj.model.I001002 = valData.occupation;
+          // console.log(valData,'fafas sfasfsf');
             window.formObj.model.I001012 = valData.marriage;
+          // 直接赋值，有点问题 临邑不需要
+          if (!['lyxrm'].includes(this.HOSPITAL_ID)) {
+            window.formObj.model.I001002 = valData.occupation;
             window.formObj.model.I001003 = valData.nation;
+          }
           this.syncHIS(res.data.data);
           // 回填表单
           this.$root.$refs["sheetPage"].fillForm();
@@ -521,6 +525,7 @@ export default {
 
       console.log("默认填写");
     },
+    /** 同步his数据 */
     syncHIS(model = window.formObj.model) {
       let keyMap = {
         diagnosis: "I001001", // 入院诊断
@@ -538,15 +543,18 @@ export default {
         // 'admissionDate':'', // 入院日期
       };
       let keys = Object.keys(keyMap);
-      console.log(
-        "===keyMap",
-        keyMap,
-        keys,
-        keyMap["diagnosis"],
-        window.formObj.model["I001001"]
-      );
+      // console.log(
+      //   "===keyMap",
+      //   keyMap,
+      //   keys,
+      //   keyMap["diagnosis"],
+      //   window.formObj.model["I001001"]
+      // );
+
       keys = [...keys];
       keys.map((key) => {
+        // 临邑 不需要同步已存在数据的字段
+        if(['lyxrm'].includes(this.HOSPITAL_ID) && window.formObj.model[keyMap[key]]) return
         if (
           model[key] != undefined &&
           model[key] != "undefined" &&
@@ -815,51 +823,22 @@ export default {
       return `${dayjs(item.evalDate).format("MM-DD")}`;
       // return `${item.wardName} ${dayjs(item.createTime).format('MM-DD')} 至 ${item.completeTime ? dayjs(item.completeTime).format('MM-DD') : '至今'}`
     },
-    showMeasureDetialBox(res) {
+    /**
+     * 显示保存后diags数据的弹窗
+     */
+    showMeasureDetailBox(res) {
       let {
         data: {
           data: { diags: diags },
         },
       } = res;
-      console.log("显示评估详情", res, diags, window.formObj.dialogs);
-      let diagsArray = diags.map((d) => {
-        return d;
-      });
-      // let dialog = {
-      //   title: "住院评估内容确认",
-      //   type: "formGroupVerticalBox",
-      //   name: "",
-      //   showTitle: false,
-      //   modalWidth: 720,
-      //   message: "",
-      //   require: "false",
-      //   prefixDesc: "",
-      //   suffixDesc: "",
-      //   style: null,
-      //   classes: null,
-      //   readOnly: null,
-      //   children: [
-      //     {
-      //       type: "html",
-      //       title: "",
-      //       style: "width:100%;text-indent: 0em;",
-      //       class: null,
-      //       html: `根据本次评估内容分析，患者可能有以下${
-      //         diagsArray.length
-      //       }个护理问题，请您确认：`
-      //     },
-      //     ...diagsArray
-      //   ]
-      // };
-      //
-      // let dArray = window.formObj.dialogs.filter(d => d.title === dialog.title);
-      // if (dArray && dArray.length > 0) {
-      //   dArray[0] = dialog;
-      // } else {
-      //   window.formObj.dialogs.push(dialog);
-      // }
-      //
-      this.$root.$refs.diagnosisModal.open(diagsArray);
+      // console.log("显示评估详情", res, diags, window.formObj.dialogs);
+      if (diags) {
+        let diagsArray = diags.map((d) => {
+          return d;
+        });
+        this.$root.$refs.diagnosisModal.open(diagsArray);
+      }
     },
     removeCheckMark(isXRadiobox = true) {
       let object = this.$root.$refs;
@@ -1358,8 +1337,6 @@ export default {
               ...signType,
             };
 
-            
-
             window.formObj.model.formCode = this.formCode;
 
             post = Object.assign({}, window.formObj.model, post);
@@ -1379,7 +1356,7 @@ export default {
             }
 
             console.log("签名post", post, postData);
-            
+
             //
             save(postData)
               .then((res) => {
@@ -1494,7 +1471,11 @@ export default {
             console.log("保存评估", res);
             this.$message.success("保存成功");
             this.bus.$emit("setHosptialAdmissionLoading", false);
-            // this.showMeasureDetialBox(res);
+            if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+              this.selectBlock.status = "1";
+              this.changeSelectBlock(this.selectBlock);
+              this.showMeasureDetailBox(res);
+            }
             //
             let {
               data: {

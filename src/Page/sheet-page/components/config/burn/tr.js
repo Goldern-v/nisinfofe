@@ -85,7 +85,10 @@ export default [
   {
     key: "spo2", //spo2
     value: "",
-    event: keyf1
+    event: keyf1,
+    textarea: {
+      width: 30
+    }
   },
   {
     key: "food", //入

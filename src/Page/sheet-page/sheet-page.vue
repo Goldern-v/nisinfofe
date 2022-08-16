@@ -8,7 +8,7 @@
     <div class="head-con" flex>
       <div class="dept-select-con"></div>
       <div class="tool-con" flex-box="1">
-        <sheetTool ref="sheetTool" :isLock='isLock'></sheetTool>
+        <sheetTool ref="sheetTool" :isLock='isLock' :isLoad='isLoad'></sheetTool>
       </div>
     </div>
     <div
@@ -42,6 +42,8 @@
         <div
           class="sheetTable-contain"
           ref="scrollCon"
+              id="page"
+
           @scroll="(e) => onScroll(e)"
         >
           <div ref="sheetTableContain">
@@ -59,17 +61,9 @@
               :listData="listData"
               @onModalChange="onModalChange"
             ></component>
-            <!-- <sheetTable
-              v-else
-              v-for="(item, index) in filterSheetModel"
-              :key="index"
-              :data="item.data"
-              :index="item.index"
-              :length="item.length"
-            ></sheetTable>-->
           </div>
           <div
-            v-show="sheetModel.length == 0"
+            v-show="sheetModelData.length == 0"
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
@@ -85,7 +79,7 @@
         </div>
       </div>
     </div>
-    <delPageModal ref="delPageModal" :index="sheetModel.length"></delPageModal>
+    <delPageModal ref="delPageModal" :index="sheetModelData.length"></delPageModal>
     <HjModal ref="HjModal"></HjModal>
     <HdModal ref="HdModal"></HdModal>
     <GuizhouModal ref="GuizhouModal"></GuizhouModal>
@@ -228,7 +222,6 @@ import doctorEmr from "@/components/doctorEmr";
 import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
 import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
-import sheeTableBurn_plastic from "./components/sheeTable-burn_plastic/sheetTable";
 import sheetTablePost_partum from "./components/sheetTable-post_partum/sheetTable";
 import sheetTablePost_hemodialysis from "./components/sheetTable-hemodialysis/sheetTable";
 import sheetTable_oxytocin from "./components/sheetTable-oxytocin/sheetTable";
@@ -259,12 +252,12 @@ import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescu
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
-import { typeList } from "@/api/lesion";
 import sheetModel, {
   addSheetPage,
   delSheetPage,
   initSheetPage,
   cleanData,
+  getData,
 } from "./sheet.js";
 import { patients } from "@/api/lesion";
 import decode from "./components/render/decode.js";
@@ -297,8 +290,6 @@ import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
 import { blockSave, getNurseExchageInfo } from "./api/index";
-import TableRadioVue from './components/sheetTable/components/table-components/TableRadio.vue';
-import { getRowNum } from "./components/utils/sheetRow"
 //解锁
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 
@@ -314,7 +305,7 @@ export default {
       pageLoading: false,
       tableLoading: false,
       bus: bus(this),
-      sheetModel,
+      sheetModelData:[],
       sheetInfo,
       scrollTop: 0,
       typeList: [], // 科室类型
@@ -332,7 +323,8 @@ export default {
       lockHospitalList:[
         'huadu'
       ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
-      isLock:false
+      isLock:false,
+      isLoad:false  //如果主页数据多接口就返回慢，在数据没回来之前切换了副页，副页的数据会被后回来的主页数据覆盖。
     };
   },
   computed: {
@@ -368,44 +360,12 @@ export default {
           return false;
         }
       };
-      let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        let obj = {
-          index,
-          data: item,
-          length: arr.length,
-        };
-        return obj;
-      });
-
-      let resultModel = mapSheetModel.filter((item) => {
-        return showSheetPage(item.index);
-      });
-      console.log('resultModel', resultModel)
-      // index为第几页
-      resultModel.map((item,index) => {
-        // x为每页护记的行数
-        item.data.bodyModel.map((tr, x) => {
-          if (!tr.hasOwnProperty("isRead")) {
-            // 如果传x永远都是当前护记的行数，不会叠加（列入0~16 17条数据的护记）。使用的时候是判断的是整个表格的数据(一页显示17条数据的护记  可能会有几百条数据，所以x需要计算)
-            // 不计算 isRead  isDisabed  永远都是拿第一页数据进行比对，是否签名与审核，第2页之后的都是用第一页的数据比较
-            let nowX=''
-            if(item.index==0){
-              nowX=  x
-            }else{
-              nowX= (getRowNum(item.index) - 1) + getRowNum(item.index)*(item.index-1) + x + 1
-            }
-            tr.isRead = this.isRead(tr,x,nowX);
-            tr.map((td, y) => {
-              td.isDisabed = this.isDisabed(tr, td, x, y, item.data.bodyModel,nowX);
-              td.signDisabled = this.setSignDiabled(td, nowX)
-            });
-          }
-        });
+      let resultModel =this.sheetModelData.filter((item,index) => {
+        return showSheetPage(index)
       });
       return resultModel;
     },
     sheetTable() {
-      console.log(sheetInfo.sheetType,"sheetInfo.sheetType")
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
         //  return sheetTablePost_partum;
@@ -492,156 +452,6 @@ export default {
       }
       return flag;
     },
-    // 查找数组最后一个符号条件元素的下标
-    findLastIndex(array = [], callback, thisArg) {
-      for (let i = array.length; i >= 0; i--) {
-        const value = array[i]
-        if (callback.call(thisArg, value, i, array)) {
-          return i
-        }
-      }
-      return -1
-    },
-    // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
-    setSignDiabled(td, nowX) {
-      if (this.HOSPITAL_ID == 'foshanrenyi') {
-        const lastIndex = this.findLastIndex(
-          this.listData,
-          item => item && this.listData[nowX] && item.recordDate == this.listData[nowX].recordDate
-        )
-        console.log('lastIndex', lastIndex)
-        return lastIndex != -1 && nowX !== lastIndex
-      } else {
-        return false
-      }
-    },
-    isDisabed(tr, td, x, y, bodyModel,nowX) {
-      // nowX可以看上面注解，估计所有医院用x都有bug(无论有多少页数据，只能第一页的数据进行判断，返回isDisabed)。但是不敢动，医院反正有问题就可替换nowX
-      // canModify false可以修改，true禁止修改
-      // 签名后不能修改，要取消修改才能修改
-      if (this.sheetInfo.sheetType == "common_xg") {
-        if (td && this.listData[x]) {
-          return !this.listData[x].canModify;
-        }
-      }
-      if (this.HOSPITAL_ID=='whfk') {
-        if (td && this.listData[x]) {
-          // 是否签名,签名了就不能编辑。需要取消签名
-          if(tr.find((item) => item.key == "status").value === "1"){
-           return true
-          }
-        }
-      }
-      // 佛医护记单除特殊情况以及同一记录的第一条其余填写保存后锁定
-      if (this.HOSPITAL_ID === 'foshanrenyi') {
-        // 如果审核完，canModify = false 全部禁用
-        if (this.listData[nowX] && (this.listData[nowX].status==2) && !this.listData[nowX].canModify) {
-          return true
-        } else { // 否则按照锁定规则
-          const firstEqualIndex = this.listData.findIndex(
-            item  => this.listData[nowX] && item.recordDate == this.listData[nowX].recordDate
-          )
-          return firstEqualIndex != -1 && firstEqualIndex !== nowX && td.key != 'description'
-        }
-      }
-      // 如果审核完，canModify=false才禁用
-      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[nowX] && (this.listData[nowX].status==2)&& (!this.listData[nowX].canModify)){
-        return true
-      }
-      if (
-        this.HOSPITAL_ID == "huadu" &&
-        sheetInfo.sheetType === "body_temperature_Hd" &&
-        td &&
-        this.listData[x]
-      ) {
-        return !this.listData[x].canModify;
-      }
-
-      if (
-        (this.HOSPITAL_ID == "xiegang" && this.listData && this.listData[nowX])
-        ||
-        (this.HOSPITAL_ID == "nanfangzhongxiyi" && this.listData && this.listData[nowX])
-        ||
-        (this.HOSPITAL_ID == "sdlj" && this.listData && this.listData[nowX])
-      ) {
-        return !this.listData[nowX].canModify;
-      }
-
-      if (td && td.key == "recordYear") {
-        if (!tr.find((item) => item.key == "recordMonth").value) {
-          td.value = "";
-        }
-        return true;
-      }
-      // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
-      if (
-        (this.HOSPITAL_ID == "huadu") &&
-        tr.find((item) => item.key == "status").value === "1"
-      ) {
-        let flag =
-          tr.find((item) => item.key == "status").value === "1" && // 是否已签名
-          this.listData &&
-          this.listData[x] &&
-          !this.listData[x].canModify; // 是否有权限
-        //td存在才判断
-        if (td) {
-          flag =
-            !this.isFirst(tr, x, y, bodyModel) &&
-            (td.key === "recordMonth" || td.key === "recordHour"); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
-        }
-        return flag;
-      }
-      if (
-        this.HOSPITAL_ID != "weixian" ||
-        (td && td.key == "description") ||
-        tr.find((item) => item.key == "recordSource").value == 5
-      ) {
-        return false;
-      }
-      if (
-        tr.find((item) => item.key == "description").value &&
-        !tr.find((item) => item.key == "recordHour").value &&
-        !tr.find((item) => item.key == "recordMonth").value
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isRead(tr,x,nowX) {
-      // nowX可以看上面注解，估计所有医院用x都有bug(无论有多少页数据，只能第一页的数据进行判断，返回isRead)。但是不敢动，医院反正有问题就可替换nowX
-      if (
-        this.HOSPITAL_ID == "huadu" &&
-        sheetInfo.sheetType === "body_temperature_Hd"
-      ) {
-        return false;
-      }
-      if ((this.HOSPITAL_ID=='nanfangzhongxiyi' || this.HOSPITAL_ID=='xiegang' || this.HOSPITAL_ID=='sdlj') && (this.listData && this.listData[nowX] && !this.listData[nowX].canModify)) {
-        return true
-      }
-
-      if(this.listData && this.listData[x] && this.listData[x].canModify){
-        return false;
-      }
-      // 当审核完，就出现问题，下拉还是会出现。 用this.isDisabed解决
-      // 这里主要是给弹窗做判断isRead
-      if(this.HOSPITAL_ID==="foshanrenyi"&&this.listData && this.listData[nowX] && (this.listData[nowX].status==2)&& (!this.listData[nowX].canModify)){
-        // 当审核完，status=2&&canModify=false,
-        return true
-      }
-
-      let status = tr.find((item) => item.key == "status").value;
-      let empNo = tr.find((item) => item.key == "empNo").value;
-      if (status == 1) {
-        if (empNo == this.empNo || this.isAuditor) {
-          return false;
-        } else {
-          return true;
-        }
-      } else {
-        return false;
-      }
-    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
@@ -701,7 +511,10 @@ export default {
         this.bus.$emit("openNewSheetModal");
       }
     },
-    getSheetData(isBottom) {
+   async getSheetData(isBottom) {
+      if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
+        this.isLoad=false
+      }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
         setTimeout(() => {
@@ -723,6 +536,9 @@ export default {
         fnArr.unshift(findListByBlockId())
       }
       return Promise.all(fnArr).then((res) => {
+        if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
+          this.isLoad=true
+        }
         let titleData = res[0].data.data;
         /* 判断护记单是否被锁定。 */
         if(res[1].data.errorCode=='3001' && res[1].data.desc.indexOf('锁定')!=-1 && this.lockHospitalList.includes(this.HOSPITAL_ID)){
@@ -731,7 +547,8 @@ export default {
           window.app && window.app.$message({
             showClose: true,
             message: res[1].data.desc,
-            type: 'error'
+            type: 'error',
+            duration:5000
           })
         }else{
           const formConfig={
@@ -742,6 +559,7 @@ export default {
           this.isLock=false
           localStorage.setItem('lockForm',JSON.stringify(formConfig))
         }
+
         let bodyData = res[1].data.data;
         this.$store.commit('upMasterInfo',bodyData)
         if(this.HOSPITAL_ID=='wujing'){
@@ -765,7 +583,6 @@ export default {
             }
           })
         }
-        // console.log(bodyData);
         let markData = res[2].data.data.list || [];
         this.listData = bodyData.list;
         /* 显示转科转床的信息 */
@@ -776,41 +593,34 @@ export default {
             deptNameChange: bodyData.deptName,
           };
         }
-        // this.sheetModel = []
         this.$nextTick(() => {
-          // this.sheetModel = sheetModel
-          // console.log(titleData);
-          initSheetPage(titleData, bodyData, markData);
+        initSheetPage(titleData, bodyData, markData, this.listData);
+        this.sheetModelData= getData()
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
           // 暂时方案有影响就换其他办法，报错是因为贵州切换患者时清空了sheetInfo.selectBlock
-          if ((!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) && this.HOSPITAL_ID=='guizhou') {
-             return
+          if ((!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) && this.HOSPITAL_ID == 'guizhou') {
+            return
           }
-           this.getHomePage(isBottom);
+          this.getHomePage(isBottom);
 
-             this.tableLoading = false;
-
-             let timeNum = 5;
-             function toBottom() {
-             timeNum--;
-             setTimeout(() => {
-               this.sheetInfo.isSave = true;
-               if (
-                 isBottom &&
-                 this.$refs.scrollCon.scrollHeight >
-                 this.$refs.scrollCon.offsetHeight
-               ) {
-                 // this.$refs.scrollCon.scrollTop =
-                 //   this.$refs.scrollCon.scrollHeight -
-                 //   this.$refs.scrollCon.offsetHeight -
-                 //   190;
-                 sheetScrollBotton.call(this, 0);
-                 timeNum > 0 && toBottom.call(this);
-               } else {
-                 timeNum > 0 && toBottom.call(this);
-               }
-             }, 200);
-            }
+          this.tableLoading = false;
+          let timeNum = 5;
+          function toBottom() {
+            timeNum--;
+            setTimeout(() => {
+              this.sheetInfo.isSave = true;
+              if (
+                isBottom &&
+                this.$refs.scrollCon.scrollHeight >
+                this.$refs.scrollCon.offsetHeight
+              ) {
+                sheetScrollBotton.call(this, 0);
+                timeNum > 0 && toBottom.call(this);
+              } else {
+                timeNum > 0 && toBottom.call(this);
+              }
+            }, 200);
+          }
           this.$nextTick(() => {
             if (!this.patientInfo.recordId) {
               toBottom.call(this);
@@ -856,7 +666,7 @@ export default {
     },
     isSelectPatient(item) {
       this.$store.commit("upPatientInfo", item);
-       this.bus.$emit("refreshImg");
+      this.bus.$emit("refreshImg");
     },
     onModalChange(e,tr,x,y,index){
       // 改变当前行状态
@@ -868,7 +678,7 @@ export default {
       // // 判断修改的记录是否起始页
       let isStartPage =  index == 0 || y!=0
       // // 获取上条记录
-      let preRow = isStartPage ? this.sheetModel[index].bodyModel[y - 1] : this.sheetModel[index - 1].bodyModel[this.sheetModel[index - 1].bodyModel.length - 1]
+      let preRow = isStartPage ? sheetModel[index].bodyModel[y - 1] : sheetModel[index - 1].bodyModel[sheetModel[index - 1].bodyModel.length - 1]
       let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
       let hourIndex = tr.findIndex(item=>item.key == "recordHour")
       let monthValue = ''
@@ -882,72 +692,23 @@ export default {
       }
       ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
       ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
-      // // 如果存在上条记录
-      // else if(preRow){
-      //   // 获取上条记录的日期和时间
-      //   let hourIndex = tr.findIndex(item=>item.key == "recordHour")
-      //   let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
-      //   let [preMonth,preHour] = preRow[dateIndex].value.split(' ')
-      //   preMonth = preMonth && moment(preMonth).format('MM-DD')
-      //   // 如果本条记录日期时间为空，将按照上条记录对当前记录进行日期和时间的赋值
-      //   !tr[monthIndex].value && (tr[monthIndex].value = preRow[monthIndex].value)
-      //   !tr[hourIndex].value && (tr[hourIndex].value = preRow[hourIndex].value)
-      //   // 如果上条记录是多条记录，那么将上条记录的recordDate截取赋值给本条记录
-      //   !tr[monthIndex].value && (tr[monthIndex].value = preMonth)
-      //   !tr[hourIndex].value && (tr[hourIndex].value = preHour)
-      //   // 如果是首条记录
-      // }else if(!preRow){
-      //   // 并且没有输入日期时间，默认取当前时间
-      //   let hourIndex = tr.findIndex(item=>item.key == "recordHour")
-      //   let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
-      //   !tr[monthIndex].value && (tr[monthIndex].value = moment().format('MM-DD'))
-      //   !tr[hourIndex].value && (tr[hourIndex].value = moment().format('HH:mm'))
-      //   return tr.isChange = true
-      // }
-      // this.sheetModel.map((pageItem,pageIndex)=>{
-      //   pageItem.bodyModel.map(row=>{
-      //     row[dateIndex].value === flagItem[dateIndex].value && (row.isChange = true)
-      //   })
-      // })
     },
-    async destroyUnlock(){
-      const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
-      /* 判断是否已经自动解锁 */
-      if(lockForm && lockForm.initTime){
-        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
-        let min=10
-        const res=await unLockTime()
-        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
-          min = +res.data.data/100
-        }
-        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
-        const afterInitTime= +lockForm.initTime + 60000 * min
-        const nowTime=Date.now()
-        if(nowTime > afterInitTime ){
-          /* 超时间 */
-          localStorage.setItem('lockForm','')
-          return
-        }
-       }
-       if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
-         unLock(lockForm.type,lockForm.formId).then(res=>{
-            localStorage.setItem('lockForm','')
-         })
-       }
-    }
   },
   created() {
     // 初始化
     cleanData();
+    this.bus.$on('clearSheetModel',()=>{
+      this.sheetModelData=[]
+    })
     // 针对贵州体温单如果选中病人，切换到护记。不显示病人护记问题
     if(this.HOSPITAL_ID == "guizhou"){
       /* 不知道贵州切换副页的问题是不是这个影响的，以后有机会可以删除 侦听watch $route.path这个试试*/
-       this.$store.commit("upPatientInfo", {});
+      this.$store.commit("upPatientInfo", {});
     }
-    // 下拉  以前替换了病人栏，这个应该是多余请求。
-    // if (this.deptCode) {
-    //   this.getDate();
-    // }
+    // 这个貌似是个别表单用来拿婴儿的床号。不要注释
+    if (this.deptCode) {
+      this.getDate();
+    }
     this.bus.$on("addSheetPage", () => {
       if (!this.sheetInfo.selectBlock.id) {
         return this.$notify.info({
@@ -958,16 +719,13 @@ export default {
       addSheetPage(() => {
         this.$nextTick(() => {
           this.bus.$emit("initSheetPageSize");
+         /**添加页码重新赋值*/
+         this.sheetModelData=getData()
           this.$nextTick(() => {
-            // $(this.$refs.scrollCon).animate({
-            //   scrollTop:
-            //     this.$refs.scrollCon.scrollHeight -
-            //     this.$refs.scrollCon.offsetHeight -
-            //     ($(".contant").height() - 560)
-            // });
             sheetScrollBotton.call(this);
           });
         });
+
       });
     });
     this.bus.$on("delSheetPage", () => {
@@ -1074,7 +832,10 @@ export default {
               });
               this.pageLoading = false;
             })
-            .catch(() => {
+            .catch((err) => {
+              if (err.data.code == '300') {
+                this.getSheetData()
+              }
               this.pageLoading = false;
             });
         };
@@ -1122,11 +883,10 @@ export default {
     });
     //保存前做签名校验
     this.bus.$on("toSheetSaveNoSign", (newWid) => {
-      console.log(this.sheetModel[0].bodyModel);
       let flag = true //控制保存开关
       let yearList = [] //所有日期时间数组
       let sameDay = "" // 同一天
-      this.sheetModel[0].bodyModel.map((row,rowIdx)=>{
+      this.sheetModelData[0].data.bodyModel.map((row,rowIdx)=>{
         //处理所有日期时间数组
         if(row.find((item) => item.key == 'recordMonth').value != ""){
           sameDay = row.find((item) => item.key == 'recordMonth').value
@@ -1205,8 +965,6 @@ export default {
         return this.$message.warning("存在未签名的记录，请全部签名后再打印");
       }
 
-      // window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
-
       // 对存储空间不够做处理
       try {
         window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
@@ -1226,32 +984,13 @@ export default {
         }
         window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       }
-
-      // let printUrl = "";
-      // if (process.env.NODE_ENV === "production") {
-      //   this.$message.info("正在准备打印，请勿重复操作");
-      // printUrl = "/crNursing/print/sheetPage?toPrint=true";
-      //   /** 打印 */
-      //   const iframe = document.createElement("iframe");
-      //   iframe.style.display = "block";
-      //   iframe.style.height = "0";
-      //   iframe.style.width = "0";
-      //   iframe.style.overflow = "hidden";
-      //   iframe.src = printUrl;
-      //   document.body.appendChild(iframe);
-      //   const iframeWindow = iframe.contentWindow;
-      //   setTimeout(() => {
-      //     document.body.removeChild(iframe);
-      //   }, 20000);
-      // } else {
-      //   this.$router.push(`/print/sheetPage`);
-      // }
       if (
         process.env.HOSPITAL_ID == "fuyou" ||
         process.env.HOSPITAL_ID == "quzhou" ||
         process.env.HOSPITAL_ID == "huadu" ||
         process.env.HOSPITAL_ID == "foshanrenyi"||
-        process.env.HOSPITAL_ID == "liaocheng"
+        process.env.HOSPITAL_ID == "liaocheng"||
+        process.env.HOSPITAL_ID == "xiegang"
       ) {
         this.$router.push(`/print/sheetPage`);
       } else {
@@ -1309,10 +1048,9 @@ export default {
       this.$refs.syncExamAmountModal.open(tr, td, sheetModel);
     });
     this.bus.$on("ImportExamCallBack", (str) => {
-      console.log(this.sheetModel[0].bodyModel[0][18].value);
       this.bus.$emit('saveSheetPage','noSaveSign')
     });
-    this.bus.$on("quitUnlockSheetPage",this.destroyUnlock)
+    // this.bus.$on("quitUnlockSheetPage",this.destroyUnlock)
   },
   watch: {
     patientInfo(val) {
@@ -1324,13 +1062,13 @@ export default {
         // this.getDate();
         this.breforeQuit(() => {
           cleanData();
-          // this.getDate();
+          this.getDate();
         });
         // 解锁
         this.destroyUnlock()
       }
     },
-    sheetModel: {
+    sheetModelData: {
       deep: true,
       immediate: true,
       handler(newValue, oldValue) {

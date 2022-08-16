@@ -519,7 +519,7 @@ export default {
               localStorage["caUser"] = this.account;
             }
             // 记住账号
-            if (this.remember) {
+            if (this.remember && !ifCA) {
               localStorage["rememberAccount"] = this.account;
             }
             this.ajax = false;
@@ -627,6 +627,7 @@ export default {
     if (localStorage["rememberAccount"]) {
       this.account = localStorage["rememberAccount"];
     }
+    if(localStorage["caUser"]) localStorage.removeItem("caUser");
     if (this.HOSPITAL_ID == "guizhou" && this.$route.query.formatInfo) {
       this.loginLoading = true;
       try {
@@ -712,6 +713,8 @@ export default {
           return require("../../common/images/lyxrm_logo.png");
         case "fsxt":
           return require("../../common/images/fsxt_logo.png");
+        case "whsl":
+          return require("../../common/images/whsl_logo.png")
         default:
           return require("../../common/images/logo.png");
       }

@@ -50,6 +50,19 @@ export default {
   },
   watch: {
     checkboxValue(valueNew, oldvaule) {
+      console.log(this.formObj,valueNew,oldvaule,this.obj,this.formCode);
+      if(this.formCode == 'E1316' && this.formObj.model.I1316020){
+        this.$root.$refs[this.formCode]["evalScore"].setCurrentValue('45');
+        this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue('跌倒高风险');
+      }
+
+      if(this.formCode == 'E1316' && !this.formObj.model.I1316020){
+        let scoreList = ["I1316001","I1316002","I1316003","I1316004","I1316006","I1316038"]
+        let Score =  scoreList.reduce((pro,cur) =>{
+            return pro + parseInt(this.formCode.model[cur])
+        },0)
+        this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(Score);
+      }
       // this.formObj.model[this.obj.name] = valueNew;
       // let value = valueNew.toString();
       // let index = -1;
@@ -126,13 +139,13 @@ export default {
 
       let rootRefs = this.$root.$refs[this.formCode][this.obj.name];
 
-      console.log(
-        "--obj.name:",
-        this.obj.name,
-        rootRefs,
-        this.$root.$refs,
-        this.$refs[this.refName]
-      );
+      // console.log(
+      //   "--obj.name:",
+      //   this.obj.name,
+      //   rootRefs,
+      //   this.$root.$refs,
+      //   this.$refs[this.refName]
+      // );
 
       if (!this.formObj.model[this.obj.name]) {
         this.formObj.model[this.obj.name] = "";
@@ -162,7 +175,7 @@ export default {
           this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
             return c.title !== this.obj.title;
           });
-          console.log("取消选中", "index", index, objArray);
+          // console.log("取消选中", "index", index, objArray);
         }
         this.formObj.model[this.obj.name] = objArray.toString();
       } else {
@@ -174,14 +187,14 @@ export default {
       }
 
       if (e.target.checked !== undefined) {
-        console.log(
-          "checkboxClick",
-          e.target.checked,
-          e,
-          this.obj,
-          this.$root.$refs[this.formCode][this.obj.name][this.refName],
-          this.formObj
-        );
+        // console.log(
+        //   "checkboxClick",
+        //   e.target.checked,
+        //   e,
+        //   this.obj,
+        //   this.$root.$refs[this.formCode][this.obj.name][this.refName],
+        //   this.formObj
+        // );
       }
 
       // if (index === -1) {

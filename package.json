@@ -36,6 +36,7 @@
     "dev:ytll": "npm run dev --ytll",
     "dev:lyyz": "npm run dev --lyyz",
     "dev:qhwy": "npm run dev --qhwy",
+    "dev:whsl": "npm run dev --whsl",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "build:": "npm run build",
@@ -71,6 +72,7 @@
     "buildNew:ytll": "npm run buildNew: ytll",
     "buildNew:lyyz": "npm run buildNew: lyyz",
     "buildNew:qhwy": "npm run buildNew: qhwy",
+    "buildNew:whsl": "npm run buildNew: whsl",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"
@@ -89,6 +91,7 @@
     "execa": "^2.0.3",
     "glob": "^7.1.2",
     "html2canvas": "^1.0.0-rc.3",
+    "increase-memory-limit": "^1.0.7",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
     "js-model": "^1.5.1",

@@ -243,13 +243,14 @@
       >
         <div class="text-con">同步护理巡视</div>
       </div>
+       <!-- 针对主副页切换，必须等到数据回来了才有显示 -->
       <div
         :class="[hisDocPreview('main') ? 'right-btn' : 'item-box']"
         :id="[hisDocPreview('main') ? 'is-deputy-btn' : '']"
         style="background: antiquewhite"
         flex="cross:center main:center"
         @click.stop="backMainForm"
-        v-if="isDeputy"
+        v-if="isDeputy && isLoad"
       >
         <div class="text-con">
           {{ HOSPITAL_ID == "guizhou" ? "护理记录单" : "切换主页" }}
@@ -564,6 +565,10 @@ export default {
     isLock:{ //护记是否被锁定
       type:Boolean,
       default:false
+    },
+    isLoad:{//list接口数据是否回来了，回来就显示切换在主副页
+      type:Boolean,
+      default:false
     }
   },
   data() {
@@ -699,7 +704,7 @@ export default {
     toPrint() {
       // 正式环境打印会打开窗口,个别医院双签名打印设置为不打开新窗口（打开窗口样式有bug）
       // 不打开窗口，打印完返回会有Bug（下拉不显示和表头不能修改）,只能重新加载页面
-      if(['liaocheng','huadu','foshanrenyi'].includes(this.HOSPITAL_ID)){
+      if(['liaocheng','huadu','foshanrenyi','xiegang'].includes(this.HOSPITAL_ID)){
          this.$store.commit('upPreRouter',location.href)
       }
       if (!this.sheetInfo.selectBlock.id)
@@ -709,7 +714,8 @@ export default {
         process.env.HOSPITAL_ID == "quzhou" ||
         process.env.HOSPITAL_ID == "huadu" ||
         process.env.HOSPITAL_ID === "foshanrenyi"||
-        process.env.HOSPITAL_ID == "liaocheng"
+        process.env.HOSPITAL_ID == "liaocheng"||
+        process.env.HOSPITAL_ID == "xiegang"
       ) {
         this.bus.$emit("toSheetPrintPage");
       } else {
@@ -994,10 +1000,6 @@ export default {
         );
         this.$store.commit("upDeptCode", data.data.wardCode);
       }
-      // console.log(
-      //   "条件",
-      //   this.patientInfo.patientId && this.patientInfo.visitId && this.deptCode
-      // );
       if (
         this.patientInfo.patientId &&
         this.patientInfo.visitId &&
@@ -1058,6 +1060,7 @@ export default {
             if(this.sheetBlockList.length==0){
               // 如果该病人没有护记，切换病人时需要清空分页
               this.pageArea=''
+              this.bus.$emit('clearSheetModel')
             }
           if (this.patientInfo.blockId) {
             try {

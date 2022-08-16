@@ -6,7 +6,7 @@
           id="date-picker"
           type="date"
           size="mini"
-          style="width: 120px;height:28px;"
+          style="width:110px;height:28px;"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"

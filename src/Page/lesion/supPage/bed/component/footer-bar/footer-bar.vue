@@ -84,11 +84,11 @@ export default {
           length: this.dangerInMorse.length
         },
         {
-          key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" ? "压力性损伤高风险" : this.HOSPITAL_ID=="lyxrm" ?"跌倒压力性损伤高风险":"压疮高风险",
-          length: this.dangerInYachuang.length
+          key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ? "压力性损伤高风险" : this.HOSPITAL_ID=="lyxrm" ?"压力性损伤高风险":"压疮高风险",
+          length: this.HOSPITAL_ID=="whfk" ? this.hasYachuang.length : this.dangerInYachuang.length
         },
         {
-          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" ?"已有压力性损伤": this.HOSPITAL_ID=="lyxrm" ?"已有压力性损伤风险" : "已有压疮",
+          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ?"已有压力性损伤": this.HOSPITAL_ID=="lyxrm" ?"已有压力性损伤风险" : "已有压疮",
           length: this.hasYachuang.length
         },
         {
@@ -123,6 +123,7 @@ export default {
         this.HOSPITAL_ID == "lingcheng" ||
         this.HOSPITAL_ID == "huadu" ||
         this.HOSPITAL_ID == "liaocheng" ||
+        this.HOSPITAL_ID == "ytll" ||
         ['lyyz','qhwy'].includes(this.HOSPITAL_ID)
       ) {
         arr.push({
@@ -130,7 +131,7 @@ export default {
           length: this.isFever.length
         });
       }
-      if (['liaocheng','lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng','lyyz','qhwy','ytll'].includes(this.HOSPITAL_ID)) {
         arr.push({
           key: "VTE高风险",
           length: this.hasVteDanger.length
@@ -148,8 +149,8 @@ export default {
         arr = arr.filter((item)=> {
           return (item.key !='MEWS预警'&& item.key != "预出院"&& item.key != "已有压疮")
         })
-        arr.splice(2,0, {key: "ADL",length: this.isPain.length},
-          {key: "疼痛",length: this.isAdl.length},
+        arr.splice(2,0, {key: "ADL",length: this.isAdl.length},
+          {key: "疼痛",length: this.isPain.length},
           {key: "管道脱落风险",length: this.tubingShedding.length},)
 
       }

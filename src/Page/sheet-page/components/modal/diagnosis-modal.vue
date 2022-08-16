@@ -19,13 +19,14 @@
           ref="table"
           :data="filterData"
           border
-          height="350"
+          height="500"
           highlight-current-row
-          @current-change="handleSelectionChange"
+          @selection-change="handleSelectionChange"
         >
+        <el-table-column
+          type="selection" />
           <el-table-column
             label="日期"
-            min-width="200px"
             align="center"
           >
             <template slot-scope="scope">
@@ -34,7 +35,6 @@
           </el-table-column>
           <el-table-column
             label="时间"
-            min-width="200px"
             align="center"
           >
             <template slot-scope="scope">
@@ -45,6 +45,34 @@
             prop="diagName"
             label="护理问题"
             min-width="275px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            v-if="newType"
+            prop="diagMeasures"
+            label="护理措施计划"
+            min-width="275px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            v-if="newType"
+            prop="diagTarget"
+            label="护理目标"
+            min-width="275px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            v-if="newType"
+            prop="evalType"
+            label="护理评价"
+            min-width="100px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            v-if="newType"
+            prop="evalContent"
+            label="评价说明"
+            min-width="100px"
             align="center"
           ></el-table-column>
         </el-table>
@@ -66,7 +94,13 @@
 }
 
 .table-con {
+  >>> table {
+    min-width: 100%;
+  }
   margin-top: 20px;
+  >>> .el-table__body-wrapper {
+    overflow-x: auto !important;
+  }
 
   >>>.el-table .cell, >>>.el-table th > div {
     padding: 0 5px;
@@ -106,6 +140,7 @@ export default {
       bus: bus(this),
       formList: {},
       filterData: [],
+      newType: ['lyxrm','huadu'].includes(this.HOSPITAL_ID)
     };
   },
   methods: {
@@ -124,7 +159,7 @@ export default {
     },
     post() {
       if (!this.selectedItem) return this.$message.warning('请选择一条数据')
-      this.$emit('handleOk',this.selectedItem)
+      this.$emit('handleOk',{ item: this.selectedItem, key: this.insertKey })
       this.close()
     },
     async getData() {
@@ -140,13 +175,40 @@ export default {
             planFormId: res.data.data[0].id,
           })
           if (res1.data.code == 200) {
-            this.tableData = res1.data.data.page.list || []
+            console.log(res1.data.data.page.list);
+             this.tableData = res1.data.data.page.list || []
+             this.tableData = this.tableData.map(v => {
+              if (this.testRep(v.diagMeasures, v.measuresName) || this.testRep(v.diagTarget, v.targetsName)) {
+                return {
+                  ...v,
+                  diagMeasures: this.formatList(v.diagMeasures, v.measuresName, 'measureDetail'),
+                  diagTarget: this.formatList(v.diagTarget, v.targetsName, 'parameter'),
+                }
+              }
+              return v
+             })
             this.handleSearch()
           }
           return res1
         }
       } catch (e) {
       }
+    },
+    /**
+     * 入院评估的护理计划 有些字段不直接存储数据，而是存储序号，如：1_2
+     * @params value: 数据， list： 序号对应的数组 key：具体取数组中的哪个字段
+     */
+    formatList(value, list, key) {
+      if (this.testRep(value, list)) {
+        return list.map(v => v[key])
+      }
+      return value
+    },
+    /**
+     * 检查序号
+     */
+    testRep(value, list) {
+      return value.length > 0 && value.split('_').length == list.length
     },
     handleSelectionChange(val) {
       this.selectedItem = val;
@@ -155,8 +217,11 @@ export default {
     handleSearch() {
       if (!this.searchDate) return (this.filterData = this.tableData)
       this.filterData = this.tableData.filter(v => {
+        console.log(v);
         return v.beginTime.indexOf(moment(this.searchDate).format('YYYY-MM-DD')) > -1
       })
+
+      console.log(this.filterData);
     }
   },
   computed: {
@@ -167,6 +232,16 @@ export default {
 
       if (this.formList != undefined) {
         return this.formList;
+      }
+    },
+    // 同步需要的字段名
+    insertKey() {
+      switch(this.HOSPITAL_ID) {
+        case 'lyxrm':
+        case 'huadu':
+          return 'diagMeasures'
+        default:
+          return 'diagName'
       }
     }
   },

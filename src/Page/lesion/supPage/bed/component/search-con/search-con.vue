@@ -622,7 +622,7 @@ export default {
       ];
       if (
           [
-            "zhongshanqi", "liaocheng",  "beihairenyi",
+            "zhongshanqi", "liaocheng",  "beihairenyi",'ytll',
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
             "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','qhwy'
           ].includes(this.HOSPITAL_ID)
@@ -679,7 +679,9 @@ export default {
         "xiegang",
         'lyyz',
         'qhwy',
-        'gdtj'
+        'gdtj',
+        'ytll',
+        'whsl'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -687,7 +689,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu'
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -705,11 +707,11 @@ export default {
     },
     //疼痛
     isPain(){
-      return this.bedList.filter((item)=> item.isPain == "1")
+      return this.bedList.filter((item)=> item.pain)
     },
     //生理自理能力
     isAdl(){
-      return this.bedList.filter((item)=> item.isAdl == "1")
+      return this.bedList.filter((item)=> item.adl)
     },
      //管道脱落
     tubingShedding(){
@@ -762,7 +764,7 @@ export default {
         case "lingcheng":
           syncData = syncGetNurseBedRecLc;
           break;
-        case "liaocheng"|'lyyz'|'qhwy':
+        case "liaocheng"|'lyyz'|'qhwy'|'ytll':
           syncData = syncGetNurseBedRecLiaocheng;
           break;
         case "shannan":
@@ -960,7 +962,7 @@ export default {
         case "跌倒压力性损伤高风险":
         case "压疮风险":
           {
-            this.$parent.bedList = this.dangerInYachuang;
+            this.$parent.bedList = this.HOSPITAL_ID=='whfk' ? this.hasYachuang : this.dangerInYachuang;
           }
           break;
         case "难免压疮":
@@ -1038,12 +1040,12 @@ export default {
           break;
         case "ADL":
           {
-            this.$parent.bedList = this.isPain;
+            this.$parent.bedList = this.isAdl;
           }
           break;
         case "疼痛":
           {
-            this.$parent.bedList = this.isAdl;
+            this.$parent.bedList = this.isPain;
           }
           break;
         case "管道脱落风险":

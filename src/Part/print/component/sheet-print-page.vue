@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':'']">
+  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou', 'lingcheng'].includes(HOSPITAL_ID)?'fontInputW':'']">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -151,6 +151,11 @@
     font-weight: 400;
   }
    textarea {
+    color: #000000 !important;
+    font-family: "SimHei" !important;
+    font-weight: 400 !important;
+  }
+  div {
     color: #000000 !important;
     font-family: "SimHei" !important;
     font-weight: 400 !important;
@@ -536,6 +541,25 @@ export default {
             }
            img{
               transform: scale(0.8);
+            }
+        `
+      );
+    }
+     if (
+      (this.HOSPITAL_ID === "xiegang") 
+    ) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='审核<br/>签名']{
+            display:none !important;
+          }
+           #sheetPagePrint#sheetPagePrint th[dataname='审核人<br/>签名']{
+            display:none !important;
+          }
+          #sheetPagePrint th[dataname="记录者<br/>签名"] {
+              min-width: 100px !important;
+              max-width: 100px !important;
             }
         `
       );

@@ -1,6 +1,7 @@
 <template>
   <sweet-modal ref="modalName" :modalWidth="900" title="MEWS评分曲线">
-    <div class="title">{{ HOSPITAL_NAME }}</div>
+    <div class="title" v-if="HOSPITAL_ID=='sdlj'">{{ HOSPITAL_NAME_SPACE }}</div>
+    <div class="title" v-else>{{ HOSPITAL_NAME }}</div>
     <div class="info">
       <span>患者：{{ patientInfo.name }}</span>
       <span>性别：{{ patientInfo.sex }}</span>

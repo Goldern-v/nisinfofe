@@ -97,7 +97,11 @@
                 <i class="iconfont icon-hulijiludan"></i>体温单
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                 <el-dropdown-item :class="{active: $route.path.includes('singleTemperatureChart')}">
+                 <el-dropdown-item
+                 :class="{
+                    active: $route.path.includes('newSingleTemperatureChart'),
+                  }"
+                 >
                   <router-link to="/newSingleTemperatureChart" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="singleTemperatureChart"></i>单人录入体温单
@@ -308,6 +312,15 @@
                 <i class="iconfont icon-hulijiludan"></i>其他
               </el-row>
               <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/board' }"
+                >
+                  <router-link to="/statisticalQuery" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i> 统计查询
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <el-dropdown-item
                   :class="{ active: $route.path == '/board' }"
                 >
@@ -648,7 +661,7 @@
   &:hover {
     background: #f8f8fa;
   }
-  
+
 }
 
 .router-link-active {
@@ -966,9 +979,10 @@ export default {
       // if (this.$route.path == "/sugarPage") return true;
       // return false;
     },
-    isActiveTemperaturePage() {
+        isActiveTemperaturePage() {
       let path = this.$route.path;
       return (
+        path.includes("newSingleTemperatureChart") ||
         path.includes("singleTemperatureChart") ||
         path.includes("allTemperatureChart")
       );
@@ -1060,6 +1074,7 @@ export default {
   created() {
     // this.$store.dispatch("getMailUnread");
     nursingUnit().then((res) => {
+      this.deptList =  [];
       this.deptList = res.data.data.deptList;
       this.deptValue =
         localStorage.selectDeptValue ||

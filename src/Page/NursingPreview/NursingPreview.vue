@@ -90,11 +90,14 @@ import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureFSXT from "@/Page/patientInfo/supPage/temperature/temperature-fsxt";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
+import temperatureWhSL from "@/Page/patientInfo/supPage/temperature/temperature-whsl";
 import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature-nanfangzhongxiyi";
 import temperatureFSSY from "@/Page/patientInfo/supPage/temperature/temperature-foshanrenyi";
+import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperature-xiegang.vue";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue"; //血糖
+import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; //血糖
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj.vue"; //血糖
 import bloodOxygen  from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
@@ -144,6 +147,8 @@ export default {
       switch (process.env.HOSPITAL_ID) {
         case "beihairenyi":
           return bloodSugarBhry;
+        case "fsxt":
+          return bloodSugarFsxt
         case "sdlj":
           if(this.isBloodSugarSdlj){
             return bloodSugarSdlj
@@ -186,6 +191,10 @@ export default {
           return temperatureNFZXY;
         case "foshanrenyi":
           return temperatureFSSY;
+        case "xiegang":
+          return temperatureDGXG;
+           case "whsl":
+          return temperatureWhSL;
         default:
           return temperature;
       }
@@ -211,6 +220,7 @@ export default {
     sheet,
     bloodSugar,
     bloodSugarBhry,
+    bloodSugarFsxt,
     bloodSugarSdlj,
     bloodOxygen,
     temperature,
@@ -226,7 +236,9 @@ export default {
     temperatureSDLJ,
     temperatureFSXT,
     temperatureNFZXY,
-    temperatureFSSY
+    temperatureFSSY,
+    temperatureDGXG,
+    temperatureWhSL
   }
 };
 </script>

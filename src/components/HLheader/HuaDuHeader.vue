@@ -824,6 +824,7 @@ export default {
       //     localStorage["showBadEvent"] === "true") ||
       //   this.isDev ||
       //   false
+      lockHospitalList:['huadu']//配置了评估单锁定功能的医院
     };
   },
   computed: {
@@ -903,11 +904,7 @@ export default {
     },
    async quit() {
       // 登出前调用解锁
-      /* 两个函数是一样的。但是从不同页面触发需要在哪个页面$on注册这个方法。如果名字一样注册了两次，这里就会触发两次，所以名字有所区别*/
-      //评估单解锁
-      await this.bus.$emit("quitUnlock")
-      //护记单解锁
-      await this.bus.$emit("quitUnlockSheetPage")
+      await this.destroyUnlock()
       // 登出操作
       logout(Cookies.get("NURSING_USER"));
       Cookies.remove("password");
