@@ -20,3 +20,4 @@
   bedList: [], //病人列表
   auditorMap: {}, //审核人签名
 };
+export default data

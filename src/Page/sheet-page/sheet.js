@@ -76,7 +76,7 @@ export function delSheetPage(index, callback) {
 
   export function cleanData() {
     data.splice(0, data.length);
-    Mark.splice(0, data.length);
+    Mark.splice(0, Mark.length);
     autoTitleDataDisk = [];
     sheetData = [];
     listData = [];
