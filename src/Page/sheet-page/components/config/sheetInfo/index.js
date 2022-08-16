@@ -1,4 +1,5 @@
-export default {
+
+ let data={
   sheetType: "",
   isSave: true,
   sheetStartPage: 1,
