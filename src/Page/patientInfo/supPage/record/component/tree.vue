@@ -14,6 +14,14 @@
           >护理评估单</span
         >
         <span
+          v-else-if="HOSPITAL_ID == 'fuyou'"
+          class="title"
+          style="cursor: pointer"
+          @click="refreshTree()"
+          @dblclick="refreshTree(true)"
+          >护理评估</span
+        >
+        <span
           v-else
           class="title"
           style="cursor: pointer"
@@ -934,7 +942,7 @@ export default {
             })
             list_1 = [...newList]
           }
-          
+
           //区分患者转科------------------------------------------------------------------------------------------------------
           if (this.filterObj) {
             this.regions = list_1.filter(
@@ -973,7 +981,7 @@ export default {
       this.expandListCopy.remove(curNode.index);
     },
     newRecordOpen() {
-      // console.log(this.regions); 
+      // console.log(this.regions);
       this.$refs.newForm.open(this.filterObj);
     },
     refreshTree(isAllRefresh = false) {
