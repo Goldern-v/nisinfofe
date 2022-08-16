@@ -14,6 +14,14 @@
           >护理评估单</span
         >
         <span
+          v-else-if="HOSPITAL_ID == 'fuyou'"
+          class="title"
+          style="cursor: pointer"
+          @click="refreshTree()"
+          @dblclick="refreshTree(true)"
+          >护理评估</span
+        >
+        <span
           v-else
           class="title"
           style="cursor: pointer"
