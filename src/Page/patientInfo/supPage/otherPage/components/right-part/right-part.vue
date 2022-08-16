@@ -9,18 +9,10 @@
       frameborder="0"
       class="emr-pdf"
       :style="{height:height}"
-      v-if="!show & !needSandbox"
-      @load="onload"
-    ></iframe>
-    <iframe
-      ref="iframe"
-      :src="fileUrl"
-      frameborder="0"
-      class="emr-pdf"
-      :style="{height:height}"
-      v-if="!show & needSandbox"
-      sandbox="allow-scripts"
+      v-else
       @load="onload" />
+      <!-- 沙盒特性 -->
+      <!-- sandbox="allow-scripts" -->
   </div>
 </template>
 
@@ -76,14 +68,6 @@ export default {
         case "nanfangzhongxiyi":
           this.fileUrl = `http://10.158.220.54:8081/view/#/timeline?patientNo=${this.$route.query.inpNo}&visitTypeCode=03&doctorCode=${this.$route.query.doctorCode}&doctorName=${this.$route.query.doctorName}`;
           break;
-        case "guizhou":
-          let user = localStorage.getItem('user')
-          if (user) {
-            user = JSON.parse(user)
-          }
-          // 10.207.40.24:9091
-          this.fileUrl = `http://10.207.45.213:8015/cdr/personal/?medicalrecordno=${this.$route.query.inpNo}&systemcode=008&doctorcode=${user.empNo || this.$route.query.empNo}`;
-          break;
         default:
           break;
       }
@@ -95,10 +79,6 @@ export default {
     },
     height() {
       return this.wih - 146 + "px";
-    },
-    // 需要添加sandbox
-    needSandbox() {
-      return ['guizhou'].includes(this.HOSPITAL_ID)
     },
   },
   methods: {
