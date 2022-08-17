@@ -24,8 +24,9 @@ return {
 computed: {
   url() {
     const baseUrl = 'http://10.45.0.184/EmrVieww/Index.aspx?hospital_no=45722882244190011A1001&patient_id='
-    const { patientId } = this.$route.query
-    return baseUrl + patientId;
+    const { patientId , visitId} = this.$route.query
+    // 后面需要拼接住院次数。不然默认是1
+    return baseUrl + patientId + '&visit_id=' + visitId;
   }
 },
 methods: {
