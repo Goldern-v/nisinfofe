@@ -128,7 +128,7 @@ export default [{
       data: sqzb
     },
     textarea: {
-      width: 80
+      width: 60
     },
     
   },
@@ -153,7 +153,7 @@ export default [{
       data: shangko
     },
     textarea: {
-      width: 60
+      width: 58
     },
   },
   {

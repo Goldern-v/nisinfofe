@@ -370,35 +370,35 @@
       <strong>十五．身体部位:</strong>a.面部 b.耳后 c.颈部 d.上肢 e.下肢 f.臀部 g.腹部 h.胸部 i.腋窝 j.脐部 k.眼周 l.口周 m.腹股沟 n.周身 o.头部 P.会阴q.足底
     </div>
     <!-- 佛山杏坛 护理记录单(产前待产记录) -->
-    <div v-if="sheetInfo.sheetType == 'prenataldelivery2_xt'">
+    <!-- <div v-if="sheetInfo.sheetType == 'prenataldelivery2_xt'">
       注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；谵妄。&nbsp;<strong>胎心音</strong>：双胎以上用“/”间隔。&nbsp;<strong>胎位</strong>：LOA，ROA，LSA，RSA等。&nbsp;<strong>宫缩</strong>：未临产前：无、偶有、敏感、不规则、弱；临产后：弱、中、强。<br/>
       <strong>宫颈</strong>：未开、容一指及宫颈扩张阿拉伯数字。&nbsp;<strong>胎膜</strong>：已、未。&nbsp;<strong>衔接</strong>：已、未、部分。&nbsp;<strong>羊水性状</strong>：清、Ⅰº浑浊、Ⅱº浑浊、Ⅲº浑浊、血性。&nbsp;<strong>管道</strong>：固定通畅 √，阻塞X。<br/>
       <strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒，防坠床；D挂标识、防药物外渗；E挂标识、防脱管；F防烫伤；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。&nbsp;&nbsp;
       <strong>护理措施</strong>：A饮食指导；B心理支持；C指导室内活动；D绝对卧床休息；<br/>E左侧卧位；F头低足高卧位；G指导产妇深呼吸；H指导产妇屏气；I按摩腰骶部；J母乳喂养指导；K会阴护理；L指导排尿M留陪人；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。
-    </div>
+    </div> -->
     <!-- 佛山杏坛 护理记录单(产后) -->
-    <div v-if="sheetInfo.sheetType == 'postpartum2_xt'">
+    <!-- <div v-if="sheetInfo.sheetType == 'postpartum2_xt'">
       注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；谵妄。&nbsp;<strong>疼痛程度</strong>：0无痛；I轻度；II中度；III重度。&nbsp;<strong>泌乳情况</strong>：少、中、多；&nbsp;<strong>伤口敷料</strong>：A干洁；B渗液；C渗血。<br/><strong>伤口</strong>：正常√，异常：红肿、渗液、
       渗血、水肿。&nbsp;<strong>预防尿潴留</strong>：A指导多饮水、早排尿；B指导排尿时听流水声；C温水冲洗会阴；D热敷按摩膀胱区；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.yfQt" :data-value="sheetInfo.relObj.yfQt"/>。&nbsp;<strong>尿液颜色</strong>：A淡黄；B深黄；C棕红；D酱油色；E乳白色；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.nyysQt" :data-value="sheetInfo.relObj.nyysQt"/>。
       &nbsp;<strong>饮食指导</strong>：A术后饮食；B产后饮食；C催乳饮食；D其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ysQt" :data-value="sheetInfo.relObj.ysQt"/>。&nbsp;<strong>母乳喂养指导</strong>：A知识宣教；B早接触、早吸吮；C正确哺乳姿势；D挤奶技巧；E郛房热敷及按摩；<br/>F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.zsxjQt" :data-value="sheetInfo.relObj.zsxjQt"/>。&nbsp;<strong>管道</strong>：固定通畅 √，阻塞X。
       &nbsp;<strong>护理措施</strong>: A协助翻身；B指导床上翻身活动；C指导下床活动；D去枕平卧：E指导患者口腔护理；F膀胱功能训练；G指导会阴护理；H指导更换新生儿尿布；I指导新生儿脐部护理；J留置针护理；K出院指导；L其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。&nbsp;<strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒，防坠床；D挂标识、防药物外渗；E挂标识、防脱管；F防烫伤；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。
-    </div>
+    </div> -->
     <!-- 佛山杏坛 护理记录单(妇科专科) -->
-    <div v-if="sheetInfo.sheetType == 'gynaecology2_xt'">
+    <!-- <div v-if="sheetInfo.sheetType == 'gynaecology2_xt'">
       注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；谵妄。&nbsp;<strong>腹痛部位</strong>：A上腹部左；B上腹部右；C中上腹；D脐周；E下腹部；F全腹；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ftbwQt" :data-value="sheetInfo.relObj.ftbwQt"/>。&nbsp;<strong>疼痛程度</strong>：0无痛；I轻度；II中度；III重度。<br/>
       <strong>阴道分泌物</strong>：A正常；B黄色脓性；C稀薄泡沫状；D豆腐渣样；E血性；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.twQt" :data-value="sheetInfo.relObj.twQt"/>。&nbsp;<strong>尿液颜色</strong>：A淡黄；B深黄；C棕红；D酱油色；E乳白色；F其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.nyysQt" :data-value="sheetInfo.relObj.nyysQt"/>。&nbsp;<strong>伤口敷料</strong>：A干洁；B渗液；C渗血。<br/>
       <strong>伤口</strong>：正常√，异常：红肿、渗液、渗血、水肿。管道：固定通畅 √，阻塞X。&nbsp;<strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒，防坠床；D挂标识、防药物外渗；E挂标识、防脱管；F防烫伤；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。<br/>
       <strong>护理措施</strong>: A协助翻身；B指导床上翻身活动；C指导下床活动；D去枕平卧：E指导患者口腔护理；F膀胱功能训练；G指导会阴护理；H指导用药注意事项；I留置针护理；J饮食指导；K出院指导；L其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。<br/>
       <strong>阴道出血颜色</strong>：A鲜红；B暗红；C淡红；D咖啡；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.cxysQt" :data-value="sheetInfo.relObj.cxysQt"/>。
-    </div>
+    </div> -->
     <!-- 佛山杏坛 护理记录单(产科新生儿科) -->
-    <div v-if="sheetInfo.sheetType == 'pediatric3_xt'">
+    <!-- <div v-if="sheetInfo.sheetType == 'pediatric3_xt'">
       注：<strong>皮肤颜色</strong>：R-红润、F-潮红、X-黄染、C-青紫、P-苍白。&nbsp;<strong>皮肤弹性</strong>：G-好、S-一般、D-差；&nbsp;<strong>皮疹位置</strong>：H-头面部、N-颈部、U-上肢、L-下肢、O-腋下、T-胸腹、B-背部、S-阴囊、C-肛周、W-全身；<br/>
       <strong>性质程度</strong>：S-散在、M-多发、I-密集，P-表面脓点皮肤未破损、B-表面破损、U表面溃疡； &nbsp;<strong>产瘤、头部血肿位置</strong>：L-左、R-右，T-头顶、F-顶额部；<br/>
       <strong>护理措施</strong>：A预防窒息；B预防坠床；C预防烫伤；D指导外用药；E指导口药服用；F喂养护理；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。&nbsp;<strong>呕吐物性质</strong>：A白色；B黄色；C绿色；D咖啡E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.otwQt" :data-value="sheetInfo.relObj.otwQt"/>。
-    </div>
+    </div> -->
     <!-- 佛山杏坛 护理记录单(儿科) -->
-    <div v-if="sheetInfo.sheetType == 'paediatrician2_xt'">
+    <!-- <div v-if="sheetInfo.sheetType == 'paediatrician2_xt'">
       注：<strong>精神状态</strong>：A萎靡；B疲乏；C烦躁不安、D易惊；E其他：<input class="bottomInput" type="text" style="width:70px;" v-model="sheetInfo.relObj.jsztQt" :data-value="sheetInfo.relObj.jsztQt"/>。<strong>上呼吸道症状</strong>：A鼻塞；B流涕；C喷嚏；D咽痛；E声音嘶哑；F其他；<input class="bottomInput" style="width:70px;" type="text" v-model="sheetInfo.relObj.hxdzzQt" :data-value="sheetInfo.relObj.hxdzzQt"/>。<strong>气促/呼吸困难</strong>：0无 I轻度 II中度 III重度 A其他：<input class="bottomInput" type="text" style="width:70px;" v-model="sheetInfo.relObj.qcQt" :data-value="sheetInfo.relObj.qcQt"/>。<br/>
       <strong>留置针位置</strong>：A右手B左手C右足D左足E其它：<input class="bottomInput" style="width:70px;" type="text" v-model="sheetInfo.relObj.lzzwzQt" :data-value="sheetInfo.relObj.lzzwzQt"/>。&nbsp;<strong>咳嗽</strong>：A剧咳；B间咳；C犬吠样咳；D、阵发性连声咳；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.ksQt" :data-value="sheetInfo.relObj.ksQt"/>。
       &nbsp;<strong>痰液性质</strong>：WL白色稀痰，YWT黄白稀痰，YT黄色稠痰，A其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.tyxzQt" :data-value="sheetInfo.relObj.tyxzQt"/>。<br/><strong>痰量</strong>：+小量（每天＜10ml）；++中量（每天10~100 ml）；+++大量(每天＞100ml)。&nbsp;<strong>呕吐</strong>：A喷射状；B非喷射状。
@@ -407,14 +407,14 @@
       &nbsp;<strong>程度</strong>：S-散在、M-多发、I-密集；<br/><strong>吸氧方式</strong>：N-鼻导管、F-面罩、H-头罩。&nbsp;<strong>护理安全</strong>：A留陪人；B防坠床；C防药物外渗；D防红臀；E防拔管；F防误吸；G防窒息；H防烫伤；I其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。
       &nbsp;<strong>护理措施</strong>：A保持呼吸道通畅；B发热护理；C冰袋降温；<br/>D口服药服用指导；E添加辅食指导；F母乳喂养指导；G活动指导；H饮食指导：H1禁食；H2流质饮食；H3半流饮食；H4其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。I指导臀部护理；J留置针护理；K指导拍背排痰；L口腔护理；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQtN" :data-value="sheetInfo.relObj.hlcsQtN"/>。<br/>
       <strong>大便性状颜色</strong>：A黄色稀便； B洗肉水样稀便；C黄色蛋花样便；D米泔样稀水便；E脓血便；F黄色烂便；G其它：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.dbQt" :data-value="sheetInfo.relObj.dbQt"/>。
-    </div>
+    </div> -->
     <!-- 佛山杏坛 护理记录单(新生儿专科) -->
-    <div v-if="sheetInfo.sheetType == 'neonatalspecialty2_xt'">
+    <!-- <div v-if="sheetInfo.sheetType == 'neonatalspecialty2_xt'">
       注：<strong>反应</strong>：G-好、I-激惹、D-差；&nbsp;<strong>哭声</strong>：D-大、S-一般、F-微弱；&nbsp;<strong>吸吮力</strong>：G-好、S-一般、D-差；&nbsp;<strong>喂养</strong>：种类D-母乳、M-代乳；方式S-自吮、N-鼻饲、M-口饲；&nbsp;<strong>咳嗽</strong>：D-干咳、C-咳痰、A-咳喘、B-犬吠样咳；&nbsp;<br/>
       <strong>呕吐</strong>：J-喷射、T-非喷射；<strong>脐部情况</strong>：D-干洁、S-渗液、E-渗血；&nbsp;<strong>皮肤颜色</strong>：R-红润、F-潮红、X-黄染、C-青紫、P-苍白。皮肤弹性：G-好、S-一般、D-差；&nbsp;<strong>皮疹位置</strong>：H-头面部、N-颈部、U-上肢、L-下肢、O-腋下、T-胸腹、<br/>
       B-背部、S-阴囊、C-肛周、W-全身；<strong>性质</strong>：A斑丘疹；B丘疹；C疱疹；D脓疮疹；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.xzQt" :data-value="sheetInfo.relObj.xzQt"/>。&nbsp;<strong>程度</strong>：S-散在、M-多发、I-密集，P-表面脓点皮肤未破损、B-表面破损、U表面溃疡；&nbsp;<strong>痰液性质</strong>：WL-白色稀痰、YWT-黄白稀痰、YT-黄色稠痰、 B-血性痰 ；<strong>痰量</strong>：小量+、中量++、大量+++；&nbsp;<strong>产瘤、头部血肿位置</strong>：L-左、R-右，T-头顶、F-顶额部；&nbsp;<strong>吸氧方式</strong>：N-鼻导管、F-面罩、W-箱内、M-机械通气、H-头罩。&nbsp;<strong>护理安全</strong>：A留陪人；B防坠床；<br/>
       C防药物外渗；D防红臀；E防拔管；F防误吸；G防窒息；H防烫伤；I其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。
-    </div>
+    </div> -->
     <!-- 佛山杏坛 护理记录单(消化专科) -->
     <div v-if="sheetInfo.sheetType == 'gastroenterology_xt'">
       注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；A谵妄；B药眠。&nbsp;<strong>瞳孔对光反射</strong>：灵敏√；迟钝+；消失－。&nbsp;<strong>恶心</strong>：A持续性；B间；C无。&nbsp;<strong>反酸</strong>：A间；B缓解。&nbsp;<strong>嗳气</strong>：A间；B缓解。&nbsp;<strong>呕吐</strong>：A胃内容物；B咖啡渣样物；C暗红色血液；D鲜血；E其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.otQt" :data-value="sheetInfo.relObj.otQt"/>。
