@@ -324,9 +324,10 @@ export default {
         }
       }
       // 隐藏切换
-
+      console.log(this.$root.$refs, this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.title],this.formCode,this.obj.title, '1111111111111111')
       if (this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.title]) {
         if (this.formObj.model[this.obj.name] === this.obj.title) {
+          console.log(this.formObj.model[this.obj.name], this.obj.name, '222222222')
           this.$root.$refs[this.formCode][
           "formGroupColBox" + this.obj.title
             ].hidden = false;

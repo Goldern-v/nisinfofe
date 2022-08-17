@@ -192,6 +192,7 @@ export default {
           max = max === NaN ? 0 : max;
           value = value === NaN ? 0 : value;
           // 判断规则
+          console.log(r.equals, valueNew, r.style, r.equals && r.equals.indexOf(valueNew) !== -1, '111111111111')
           if (r.min && r.max && (value >= min && value < max)) {
             // console.log(value, r.min, r.max,  r.style)
             this.obj.style = r.style;
@@ -199,7 +200,8 @@ export default {
           } else if (r.equal && r.equal === valueNew) {
             this.obj.style = r.style;
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
-          } else if (r.equals && r.equals.indexOf(valueNew) !== -1) {
+          } else if (r.equals && valueNew && valueNew.indexOf(r.equals) !== -1) {
+            console.log(r.equals,r.style, '99999999900000000000')
             this.obj.style = r.style;
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (

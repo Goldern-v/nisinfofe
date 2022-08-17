@@ -902,6 +902,9 @@ export default {
         if(this.callbackInfo.suffix) {
           resVal = resVal + this.callbackInfo.suffix;
         }
+        if(this.callbackInfo.openKey) {
+          resVal = this.formObj.model[this.callbackInfo.openKey] + "：" + resVal;
+        }
         this.formObj.model[this.callbackInfo.respCode] = resVal;
         /**bus发送方法 `updateValue${this.obj.name}` **/
         this.bus.$emit(`updateValue${this.callbackInfo.respCode}`);
