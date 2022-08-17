@@ -31,7 +31,7 @@ axios.interceptors.request.use((config) => {
     'changePasswordByEmpNo', 'sysPasswordSet/findList', 
     'identityCheck', 'getPasswordRule','updatePassword',
     'AllUkeyList','SOF_ExportUserCert','genRandom',
-    'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser"
+    'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser","SOF_GetRetryCount"
 ]
 
     for (let i = 0; i < whiteList.length; i++) {
