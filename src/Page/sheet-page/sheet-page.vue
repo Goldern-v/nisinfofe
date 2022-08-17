@@ -38,6 +38,7 @@
         :style="{ marginLeft: openLeft ? '200px' : '0' }"
         :class="{ wxHighLightBg: HOSPITAL_ID == 'weixian' }"
         v-loading="tableLoading"
+        element-loading-text="拼命加载中"
       >
         <div
           class="sheetTable-contain"
@@ -63,7 +64,7 @@
             ></component>
           </div>
           <div
-            v-show="sheetModelData.length == 0"
+            v-show="sheetModelData.length == 0&&done"
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
@@ -516,6 +517,7 @@ export default {
   getSheetData(isBottom) {
     //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
     this.done=false
+      this.tableLoading = true;
       if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
         this.isLoad=false
       }
@@ -526,7 +528,6 @@ export default {
         }, 300);
         return;
       }
-      this.tableLoading = true;
       $(".red-border").removeClass("red-border");
       //  cleanData()
       let fnArr = [
@@ -603,12 +604,11 @@ export default {
       //加载表单
         this.sheetModelData= getData()
           this.done=true
+          this.tableLoading = false;
           if ((!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) && this.HOSPITAL_ID == 'guizhou') {
             return
           }
           this.getHomePage(isBottom);
-
-          this.tableLoading = false;
           let timeNum = 5;
           function toBottom() {
             timeNum--;

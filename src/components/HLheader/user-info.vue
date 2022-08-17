@@ -531,12 +531,19 @@ export default {
       let ppp = localStorage.getItem("ppp");
       this.userName = rememberAccount;
       this.passWord = ppp;
+    },
+    quit(){
+      this.$emit("quit")
     }
   },
   created() {
     this.loadComments();
     this.bus.$on("refreshUserImg", () => {
       this.getUserImg();
+    });
+    this.bus.$on("quit", () => {
+      console.log("123123123")
+      this.quit();
     });
     this.bus.$on("refreshSign", () => {
       this.getSignImg();
