@@ -52,6 +52,11 @@
   padding: 5px;
   text-align: justify;
 }
+>>> .logoutClass{
+  .el-message-box__btns{
+    text-align: center;
+  }
+}
 </style>
 
 <script>
@@ -93,6 +98,7 @@ export default {
   },
   data() {
     return {
+      bus: bus(this),
       username: "",
       password: "",
       strUserCertID: "",
@@ -112,6 +118,7 @@ export default {
       console.log("111213123")
       //佛山人民医院先判断是否有插卡才打开弹窗
       if(["foshanrenyi"].includes(this.HOSPITAL_ID)){
+        
         GetUserList().then(res=>{
           if(res.data.length>0){
               this.UkeyObj=res.data
@@ -211,6 +218,18 @@ export default {
         const strPassword = this.password
         caLoginLater(strCertId,strPassword,this.strRandom).then(caLoginLaterRes=>{
           verifyUser(caLoginLaterRes).then(verifyUserRes=>{
+            if(verifyUserRes.desc=="非当前登录用户证书，请重新登录"){
+              this.$confirm('是否切换用户登陆?', '提示', {
+                confirmButtonText: '退出重新登录系统',
+                cancelButtonText: '继续使用',
+                type: 'warning',
+                customClass: "logoutClass"
+              }).then(() => {
+                this.bus.$emit("quit")
+              }).catch(() => {
+                
+              });
+            }
             console.log("verifyUserRes",verifyUserRes)
             localStorage["caUser"] = this.username;
             this.$message.success("登录成功");

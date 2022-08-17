@@ -22,6 +22,9 @@ function GetAllUkeyList() {
 function SOF_ExportUserCert(UkeyID) {
   return axios.post(`${caSignHOST}/SOF_ExportUserCert`, UkeyID)
 }
+function SOF_GetRetryCount(UkeyID) {
+  return axios.post(`${caSignHOST}/SOF_GetRetryCount`, UkeyID)
+}
 /**
  * genRandome接口获取到random,serverCert,signedValue
  * @param {服务器证书} strServerCert 
@@ -123,7 +126,13 @@ function caLoginLater(strCertId, strPassword, strRandom) {
           }
         })
       } else {
-        reject("证书密码错误!")
+        SOF_GetRetryCount(strCertId).then(SOF_GetRetryCountRes=>{
+          if(SOF_GetRetryCountRes.data>0){
+            reject("证书密码错误!您还有"+SOF_GetRetryCountRes.data+"次机会")
+          }else{
+            reject("密码错误，Ukey已锁，请解锁后再试")
+          }
+        })
       }
       // console.log(SOF_LoginRes ,"SOF_LoginRes")
     })
@@ -192,5 +201,6 @@ export {
   verifyUser,
   verifySign,
   pic_GetPic_Base64,
-  verifyNewCaSign
+  verifyNewCaSign,
+  SOF_GetRetryCount
 }
