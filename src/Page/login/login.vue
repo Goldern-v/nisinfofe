@@ -418,6 +418,7 @@ export default {
       loginLoading: false,
       checkCa:false, //判断是否已经插入了ukey
       strRandom:"",
+      strServerCert:"",
       useCaList:['foshanrenyi'],
       UkeyObj:{}, //保存ukeys里面的信息
       caLoginFlag:false, //拿来区分是不是ukey登录，要区分checkCa
@@ -500,7 +501,7 @@ export default {
         console.log("logincaLoginFlag",this.UkeyObj)
         const strCertId = this.UkeyObj.substring(this.UkeyObj.indexOf("||")+2,this.UkeyObj.length).replace("&&&", "");
         const strPassword = password
-        caLoginLater(strCertId,strPassword,this.strRandom).then(caLoginLaterRes=>{
+        caLoginLater(strCertId,strPassword,this.strRandom,this.strServerCert).then(caLoginLaterRes=>{
           this.loginIn(caLoginLaterRes,type,true)
         },err=>{
             this.$message.error(err)
@@ -751,7 +752,9 @@ export default {
         if(newVal){
           caLoginBefore().then(caLoginFunRes=>{
             console.log(caLoginFunRes,"caLoginFunRes")
-            this.strRandom = caLoginFunRes
+            const {strRandom,strServerCert} = caLoginFunRes
+            this.strRandom = strRandom
+            this.strServerCert = strServerCert
             this.caLoginFlag = true
             this.account = this.UkeyObj.split("||")[0]
             this.password = ""

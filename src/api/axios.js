@@ -8,6 +8,7 @@ import Cookies from 'js-cookie'
 import {
     $params
 } from '@/pages/sheet-print/tool/tool'
+import { logout } from "@/api/login";
 import {
     MessageBox
 } from "element-ui";
@@ -30,7 +31,7 @@ axios.interceptors.request.use((config) => {
     'login', 'autoLogin', 'ssoLogin', 'logout',
     'changePasswordByEmpNo', 'sysPasswordSet/findList', 
     'identityCheck', 'getPasswordRule','updatePassword',
-    'AllUkeyList','SOF_ExportUserCert','genRandom',
+    'AllUkeyList','SOF_ExportUserCert','genRandom','SOF_ValidateCert_Text',
     'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser","SOF_GetRetryCount"
 ]
 
@@ -38,6 +39,7 @@ axios.interceptors.request.use((config) => {
         let whiteUrlPath = whiteList[i]
         if (config.url.indexOf(whiteUrlPath) > -1){
             CaSignurl = config.url.indexOf("GetUserList")>-1 && "GetUserList"
+            CaSignurl = config.url.indexOf("verifyUser")>-1 && "verifyUser"
             return config
         }
     }
@@ -119,6 +121,27 @@ axios.interceptors.response.use((res) => {
             }
 
         }
+        if(CaSignurl=="verifyUser" && data.desc=="非当前登录用户证书，请重新登录"){
+            window.app && window.app.$confirm('是否切换用户登陆?', '提示', {
+                confirmButtonText: '退出重新登录系统',
+                cancelButtonText: '继续使用',
+                type: 'warning',
+                customClass: "logoutClass"
+              }).then(() => {
+                logout(Cookies.get("NURSING_USER"));
+                Cookies.remove("password");
+                Cookies.remove("deptId");
+                Cookies.remove("access");
+                Cookies.remove("hasGreet");
+                Cookies.remove("token");
+                Cookies.remove("user");
+                Cookies.remove("NURSING_USER", { path: "/" });
+                window.app.$router.push("/login");
+                window.app.$store.commit("upDeptCode", "");
+              }).catch(() => {
+                
+              });
+        }
         console.log('data.errorCode', data)
         return Promise.reject(res);
     } else if (data.code === '301') {
@@ -141,6 +164,7 @@ axios.interceptors.response.use((res) => {
     }
 }, (err) => {
     if (err && err.message == 'Network Error') {
+        
         window.app && window.app.$message({
             showClose: true,
             message: CaSignurl == "GetUserList"?'未能识别到U盾':'网络错误，请检查你的网络',

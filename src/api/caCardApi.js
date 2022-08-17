@@ -25,6 +25,9 @@ function SOF_ExportUserCert(UkeyID) {
 function SOF_GetRetryCount(UkeyID) {
   return axios.post(`${caSignHOST}/SOF_GetRetryCount`, UkeyID)
 }
+function SOF_ValidateCert_Text(UkeyID) {
+  return axios.post(`${caSignHOST}/SOF_ValidateCert_Text`, UkeyID)
+}
 /**
  * genRandome接口获取到random,serverCert,signedValue
  * @param {服务器证书} strServerCert 
@@ -88,7 +91,7 @@ function caLoginBefore() {
         SOF_VerifySignedData(strServerCert, strRandom, strServerSignRan).then(SignedDatares => {
           //如果通过情况下 
           if (SignedDatares.data == "True") {
-            resolve(strRandom)
+            resolve({strRandom,strServerCert})
           } else {
             reject("验证服务器签名失败！")
           }
@@ -104,7 +107,7 @@ function caLoginBefore() {
   })
 }
 
-function caLoginLater(strCertId, strPassword, strRandom) {
+function caLoginLater(strCertId, strPassword, strRandom,strServerCert) {
   return new Promise((resolve, reject) => {
     SOF_Login(strCertId, strPassword).then(SOF_LoginRes => {
       if (SOF_LoginRes.data == "True") {
@@ -130,7 +133,18 @@ function caLoginLater(strCertId, strPassword, strRandom) {
           if(SOF_GetRetryCountRes.data>0){
             reject("证书密码错误!您还有"+SOF_GetRetryCountRes.data+"次机会")
           }else{
-            reject("密码错误，Ukey已锁，请解锁后再试")
+            SOF_ValidateCert_Text(SOF_ValidateCert_Text).then(SOF_ValidateCertRes=>{
+              const status = SOF_ValidateCertRes.data.split("|")[0]
+              const desc = SOF_ValidateCertRes.data.split("|")[1]
+              switch(status){
+                case "-6":
+                  return reject("密码错误，Ukey已锁，请解锁后再试")
+                default:
+                  return reject(desc)
+              }
+              console.log(SOF_ValidateCertRes,"SOF_ValidateCertRes");
+            })
+            // reject("密码错误，Ukey已锁，请解锁后再试")
           }
         })
       }

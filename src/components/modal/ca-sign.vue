@@ -108,6 +108,7 @@ export default {
       caLoginFlag:false,
       account:"",
       strRandom:"",
+      strServerCert:"",
       timing_detection_CA:{ //需要定时检测ca签名的医院
         foshanrenyi:1000 // 医院和对应的检测时间间隔
       } 
@@ -122,8 +123,11 @@ export default {
         GetUserList().then(res=>{
           if(res.data.length>0){
               this.UkeyObj=res.data
+              let nowInkeyName = res.data.split("||")[0]
               caLoginBefore().then(caLoginBeforeRes=>{
-              this.strRandom = caLoginBeforeRes
+              const {strRandom,strServerCert} = caLoginBeforeRes
+              this.strRandom = strRandom
+              this.strServerCert = strServerCert
               this.caLoginFlag = true
               this.username = this.UkeyObj.split("||")[0]
               console.log("username",this.username)
@@ -216,20 +220,8 @@ export default {
       }else{
         const strCertId = this.UkeyObj.substring(this.UkeyObj.indexOf("||")+2,this.UkeyObj.length).replace("&&&", "");
         const strPassword = this.password
-        caLoginLater(strCertId,strPassword,this.strRandom).then(caLoginLaterRes=>{
+        caLoginLater(strCertId,strPassword,this.strRandom,this.strServerCert).then(caLoginLaterRes=>{
           verifyUser(caLoginLaterRes).then(verifyUserRes=>{
-            if(verifyUserRes.desc=="非当前登录用户证书，请重新登录"){
-              this.$confirm('是否切换用户登陆?', '提示', {
-                confirmButtonText: '退出重新登录系统',
-                cancelButtonText: '继续使用',
-                type: 'warning',
-                customClass: "logoutClass"
-              }).then(() => {
-                this.bus.$emit("quit")
-              }).catch(() => {
-                
-              });
-            }
             console.log("verifyUserRes",verifyUserRes)
             localStorage["caUser"] = this.username;
             this.$message.success("登录成功");
