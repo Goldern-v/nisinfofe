@@ -19,7 +19,7 @@
       </div>
       <div class="text">重置</div>
       </div>-->
-      <div class="item-box" @click="goBack" v-if="HOSPITAL_ID!=='xiegang'&&HOSPITAL_ID!=='whfk' && HOSPITAL_ID!=='sdlj'">
+      <div class="item-box" @click="goBack" v-if="HOSPITAL_ID!=='whfk' && HOSPITAL_ID!=='sdlj'">
         <div
           class="icon"
           style="font-size: 18px;"
@@ -241,7 +241,7 @@ export default {
       this.scaleNum = 1;
     },
     goBack(){
-    if(['liaocheng','huadu','foshanrenyi'].includes(this.HOSPITAL_ID)){
+    if(['liaocheng','huadu','foshanrenyi','xiegang'].includes(this.HOSPITAL_ID)){
       // 不打开窗口打印返回（下拉会没有和表头不能修改）。刷新页面
       location.replace(this.$store.state.sheet.preRouter)
       setTimeout(()=>{

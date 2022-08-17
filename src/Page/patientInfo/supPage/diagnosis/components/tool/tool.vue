@@ -10,6 +10,7 @@
       >
         <div class="text-con" flex="cross:center" v-if="HOSPITAL_ID =='guizhou'">添加护理计划</div>
         <div class="text-con" flex="cross:center" v-else-if="HOSPITAL_ID =='huadu'">添加新计划</div>
+        <div class="text-con" flex="cross:center" v-else-if="HOSPITAL_ID =='lyxrm'"> 添加护理计划</div>
         <div class="text-con" flex="cross:center" v-else>添加新诊断</div>
       </div>
       <div
@@ -229,6 +230,7 @@ export default {
                     this.model.selectedBlockId = ''
                     this.model.blockList = []
                     model.refreshTable();
+                    this.model.refreshBlock();
                     model.selectedRow = null;
                   });
       });

@@ -1623,6 +1623,13 @@ export default {
             } else {
               text += allDoc[i];
             }
+          }else if (this.sheetInfo.sheetType == "common_xg"||this.sheetInfo.sheetType == "internal_xg") {
+            if (GetLength(text) > 32) {
+              result.push(text);
+              text = allDoc[i];
+            } else {
+              text += allDoc[i];
+            }
           }else if (this.sheetInfo.sheetType === "iabp_fs") {
             if (GetLength(text) > 56) {
               result.push(text);

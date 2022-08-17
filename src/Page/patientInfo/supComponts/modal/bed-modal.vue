@@ -7,7 +7,7 @@
       :enable-mobile-fullscreen="false"
       class="modal"
     >
-      <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon">
+      <div class="bed-card-wrapper" v-loading="modalLoading" ref="printCon">
         <div
           class="bed-card-con"
           flex
@@ -324,7 +324,7 @@
   }
 }
 
-.bed-card-warpper {
+.bed-card-wrapper {
   background: #fff;
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
@@ -792,7 +792,9 @@ export default {
       }
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon);
+        print(this.$refs.printCon, (el) => {
+          el.style.marginLeft = '194mm'
+        });
         for(let i=0;i<printCare.length;i++){
           printCare[i].style.display = "block"
       }

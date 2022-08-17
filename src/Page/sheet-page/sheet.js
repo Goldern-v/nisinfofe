@@ -1,15 +1,18 @@
 import Title from "./components/render/Title";
 import Body from "./components/render/Body";
-import Mark from "./components/render/Mark.js";
-import sheetInfo from "./components/config/sheetInfo";
+import sheetInfo  from "./components/config/sheetInfo";
+import { getRowNum } from "./components/utils/sheetRow"
 import {
   // saveTitleOptions,
   addNewPageTitleOptions,
   findListByBlockId
 } from "@/api/sheet.js";
+import Mark from "./components/render/Mark";
 
 let autoTitleDataDisk = [];
-// let autoOptionsData = [];
+//护记需要转换数据格式
+let sheetData = []
+let listData=[]
 
 // 为了添加新页的时候把上一页的自定义标题（或者下拉选择拷贝到新添加页）
 // let autoOptions_next = []
@@ -35,32 +38,7 @@ export async function addSheetPage(callback) {
   let FieldTitle = []
   if (['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID)) {
     // let formatCustomObj = {}
-    // autoOptions_next.reduce((total, cur) => {
-    //   if (!cur.fieldEn) return total
-    //   if (cur.pageIndex == data.length - 1) {
-    //     if (total[cur.fieldEn]) {
-    //       total[cur.fieldEn].push(cur)
-    //     } else {
-    //       total[cur.fieldEn] = [cur]
-    //     }
-    //     return total
-    //   } else { return total }
-    // }, formatCustomObj)
-    // let list = []
-    // console.log(titleList_next, autoTitleDataDisk, 7777755)
-    // Object.keys(formatCustomObj).map(item => {
-    //   if (!item) return
-    //   let title = titleList_next.filter(v => v.fieldEn === item)
-    //   let options = formatCustomObj[item].map(v => v.options)
-    //   list.push({fieldEn: formatCustomObj[item][0].fieldEn, id: formatCustomObj[item][0].id, pageIndex: data.length, fieldCn: title[0].fieldCn, option: options})
-    // })
     let params = {
-      // pageIndex: this.index,
-      // columnName: item.key,
-      // id,
-      // title,
-      // list1: list,
-      // list,
       pageIndex: data.length,
       recordCode: sheetInfo.sheetType,
     };
@@ -84,7 +62,7 @@ export async function addSheetPage(callback) {
         bodyData: [],
         index: data.length,
         autoOptionsData: Options,
-        // fromAddPage: true 
+        // fromAddPage: true
       }
     )
   );
@@ -96,27 +74,204 @@ export function delSheetPage(index, callback) {
   callback && callback();
 }
 
-export function cleanData() {
-  data.splice(0, data.length);
-  Mark.splice(0, Mark.length);
-  autoTitleDataDisk = [];
-  // autoOptionsData = []
-  // autoOptions_next = []
-  // titleList_next = []
-}
+  export function cleanData() {
+    data.splice(0, data.length);
+    Mark.splice(0, Mark.length);
+    autoTitleDataDisk = [];
+    sheetData = [];
+    listData = [];
+  }
+  let isFirst = function(tr, x, y, bodyModel) {
+    let recordDate = tr.find(item => item.key == "recordDate").value;
+    let recordSource = tr.find(item => item.key == "recordSource").value;
+    let flag = false;
+    if (recordDate && recordSource) {
+      let dateIndex = bodyModel[0].findIndex(e => e.key == "recordDate");
+      let sourceIndex = bodyModel[0].findIndex(e => e.key == "recordSource");
+      let index = bodyModel.findIndex(item => {
+        return (
+          item[dateIndex].value == recordDate &&
+          item[sourceIndex].value == recordSource
+        );
+      });
+      flag = index == x;
+    }
+    return flag;
+  };
+  let isRead = function(tr, x, nowX, listData) {
+    // nowX可以看上面注解，估计所有医院用x都有bug(无论有多少页数据，只能第一页的数据进行判断，返回isRead)。但是不敢动，医院反正有问题就可替换nowX
+    if (
+      process.env.HOSPITAL_ID == "huadu" &&
+      sheetInfo.sheetType === "body_temperature_Hd"
+    ) {
+      return false;
+    }
+    if (
+      (process.env.HOSPITAL_ID == "nanfangzhongxiyi" ||
+        process.env.HOSPITAL_ID == "xiegang" ||
+        process.env.HOSPITAL_ID == "sdlj") &&
+      listData && listData[nowX] && !listData[nowX].canModify
+    ) {
+      return true;
+    }
+    if (listData && listData[x] && listData[x].canModify) {
+      return false;
+    }
+    // 当审核完，就出现问题，下拉还是会出现。 用this.isDisabed解决
+    // 这里主要是给弹窗做判断isRead
+    if (
+      process.env.HOSPITAL_ID === "foshanrenyi" &&
+      listData &&
+      listData[nowX] &&
+      listData[nowX].status == 2 &&
+      !listData[nowX].canModify
+    ) {
+      // 当审核完，status=2&&canModify=false,
+      return true;
+    }
+  };
+  // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
+  let isDisabed = function(tr, td, x, y, bodyModel, nowX, sheetType) {
+    // nowX可以看上面注解，估计所有医院用x都有bug(无论有多少页数据，只能第一页的数据进行判断，返回isDisabed)。但是不敢动，医院反正有问题就可替换nowX
+    // canModify false可以修改，true禁止修改
+    // 签名后不能修改，要取消修改才能修改
+    if (sheetType == "common_xg") {
+      if (td && listData[x]) {
+        return !listData[x].canModify;
+      }
+    }
+    if (process.env.HOSPITAL_ID == "whfk") {
+      if (td && listData[x]) {
+        // 是否签名,签名了就不能编辑。需要取消签名
+        if (tr.find(item => item.key == "status").value === "1") {
+          return true;
+        }
+      }
+    }
+    // 佛医护记单除特殊情况以及同一记录的第一条其余填写保存后锁定
+    if (process.env.HOSPITAL_ID === "foshanrenyi") {
+      // 如果审核完，canModify = false 全部禁用
+      if (
+        listData[nowX] &&
+        listData[nowX].status == 2 &&
+        !listData[nowX].canModify
+      ) {
+        return true;
+      } else {
+        // 否则按照锁定规则
+        const firstEqualIndex = listData.findIndex(
+          item => listData[nowX] && item.recordDate == listData[nowX].recordDate
+        );
+        return (
+          firstEqualIndex != -1 &&
+          firstEqualIndex !== nowX &&
+          td.key != "description"
+        );
+      }
+    }
+    // 如果审核完，canModify=false才禁用
+    if (
+      process.env.HOSPITAL_ID === "foshanrenyi" &&
+      listData &&
+      listData[nowX] &&
+      listData[nowX].status == 2 &&
+      !listData[nowX].canModify
+    ) {
+      return true;
+    }
+    if (
+      process.env.HOSPITAL_ID == "huadu" &&
+      sheetInfo.sheetType === "body_temperature_Hd" &&
+      td &&
+      listData[x]
+    ) {
+      return !listData[x].canModify;
+    }
 
-export function initSheetPage(titleData, bodyData, markData) {
+    if (
+      (process.env.HOSPITAL_ID == "xiegang" && listData && listData[nowX]) ||
+      (process.env.HOSPITAL_ID == "nanfangzhongxiyi" &&
+        listData &&
+        listData[nowX]) ||
+      (process.env.HOSPITAL_ID == "sdlj" && listData && listData[nowX])
+    ) {
+      return !listData[nowX].canModify;
+    }
+
+    if (td && td.key == "recordYear") {
+      if (!tr.find(item => item.key == "recordMonth").value) {
+        td.value = "";
+      }
+      return true;
+    }
+    // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
+    if (
+      process.env.HOSPITAL_ID == "huadu" &&
+      tr.find(item => item.key == "status").value === "1"
+    ) {
+      let flag =
+        tr.find(item => item.key == "status").value === "1" && // 是否已签名
+        listData &&
+        listData[x] &&
+        !listData[x].canModify; // 是否有权限
+      //td存在才判断
+      if (td) {
+        flag =
+          !isFirst(tr, x, y, bodyModel) &&
+          (td.key === "recordMonth" || td.key === "recordHour"); // 已签名的recordMonth和recordHour单元格，并且不是第一行(最高等级)
+      }
+      return flag;
+    }
+    if (
+      process.env.HOSPITAL_ID != "weixian" ||
+      (td && td.key == "description") ||
+      tr.find(item => item.key == "recordSource").value == 5
+    ) {
+      return false;
+    }
+    if (
+      tr.find(item => item.key == "description").value &&
+      !tr.find(item => item.key == "recordHour").value &&
+      !tr.find(item => item.key == "recordMonth").value
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+    // 查找数组最后一个符号条件元素的下标
+  let findLastIndex=function(array = [], callback, thisArg) {
+      for (let i = array.length; i >= 0; i--) {
+        const value = array[i]
+        if (callback.call(thisArg, value, i, array)) {
+          return i
+        }
+      }
+      return -1
+    }
+    // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
+  let setSignDiabled=function(td, nowX ,listData) {
+      if (process.env.HOSPITAL_ID == 'foshanrenyi') {
+        const lastIndex = findLastIndex(
+          listData,
+          item => item && listData[nowX] && item.recordDate == listData[nowX].recordDate
+        )
+        return lastIndex != -1 && nowX !== lastIndex
+      } else {
+        return false
+      }
+    }
+export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
   cleanData();
   let titleList = [];
   let bodyList = [];
   let customOptions = []
   sheetInfo.masterInfo = bodyData;// 主表信息
+  listData=listDataList
   try {
     if (['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID)) {
       titleList = titleData.FieldSetting
       customOptions = titleData.Options
-      // titleList_next = titleData.FieldSetting
-      // autoOptions_next = titleData.Options
     } else {
       titleList = titleData.list;
     }
@@ -133,7 +288,6 @@ export function initSheetPage(titleData, bodyData, markData) {
   autoTitleDataDisk = titleList.filter(item => {
     return true;
   });
-  // autoOptionsData = [...customOptions]
   let realSize = Math.max(
     ...bodyList.map(item => {
       return item.pageIndex || 0;
@@ -148,8 +302,8 @@ export function initSheetPage(titleData, bodyData, markData) {
       sheetInfo.auditorMap[key] = "";
     }
   }
-  sheetInfo.auditorMap = Object.assign({}, bodyData.auditorMap);
 
+  sheetInfo.auditorMap = Object.assign({}, bodyData.auditorMap);
   for (let i = 0; i <= realSize; i++) {
     data.push(
       Page({
@@ -179,3 +333,51 @@ export function initSheetPage(titleData, bodyData, markData) {
     }));
   }
 }
+  let forMatData = () => {
+      sheetData = data.map((item, index, arr) => {
+        let obj = {
+          index,
+          data: item,
+          length: arr.length
+        };
+        return obj;
+      });
+      sheetData.map((item, index) => {
+        // x为每页护记的行数
+        item.data.bodyModel.map((tr, x) => {
+          if (!tr.hasOwnProperty("isRead")) {
+            // 如果传x永远都是当前护记的行数，不会叠加（列入0~16 17条数据的护记）。使用的时候是判断的是整个表格的数据(一页显示17条数据的护记  可能会有几百条数据，所以x需要计算)
+            // 不计算 isRead  isDisabed  永远都是拿第一页数据进行比对，是否签名与审核，第2页之后的都是用第一页的数据比较
+            let nowX = "";
+            if (item.index == 0) {
+              nowX = x;
+            } else {
+              nowX =
+                getRowNum(item.index) -
+                1 +
+                getRowNum(item.index) * (item.index - 1) +
+                x +
+                1;
+            }
+            tr.isRead = isRead(tr, x, nowX, listData);
+            tr.map((td, y) => {
+              td.isDisabed = isDisabed(
+                tr,
+                td,
+                x,
+                y,
+                item.data.bodyModel,
+                nowX,
+                sheetInfo.sheetType
+              );
+              td.signDisabled = setSignDiabled(td, nowX, listData);
+            });
+          }
+        });
+      });
+    };
+    //返回护记显示的数据
+    export function getData() {
+      forMatData();
+      return sheetData;
+    }

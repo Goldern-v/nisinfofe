@@ -52,6 +52,11 @@
   padding: 5px;
   text-align: justify;
 }
+>>> .logoutClass{
+  .el-message-box__btns{
+    text-align: center;
+  }
+}
 </style>
 
 <script>
@@ -93,6 +98,7 @@ export default {
   },
   data() {
     return {
+      bus: bus(this),
       username: "",
       password: "",
       strUserCertID: "",
@@ -102,6 +108,7 @@ export default {
       caLoginFlag:false,
       account:"",
       strRandom:"",
+      strServerCert:"",
       timing_detection_CA:{ //需要定时检测ca签名的医院
         foshanrenyi:1000 // 医院和对应的检测时间间隔
       } 
@@ -112,11 +119,15 @@ export default {
       console.log("111213123")
       //佛山人民医院先判断是否有插卡才打开弹窗
       if(["foshanrenyi"].includes(this.HOSPITAL_ID)){
+        
         GetUserList().then(res=>{
           if(res.data.length>0){
               this.UkeyObj=res.data
+              let nowInkeyName = res.data.split("||")[0]
               caLoginBefore().then(caLoginBeforeRes=>{
-              this.strRandom = caLoginBeforeRes
+              const {strRandom,strServerCert} = caLoginBeforeRes
+              this.strRandom = strRandom
+              this.strServerCert = strServerCert
               this.caLoginFlag = true
               this.username = this.UkeyObj.split("||")[0]
               console.log("username",this.username)
@@ -209,7 +220,7 @@ export default {
       }else{
         const strCertId = this.UkeyObj.substring(this.UkeyObj.indexOf("||")+2,this.UkeyObj.length).replace("&&&", "");
         const strPassword = this.password
-        caLoginLater(strCertId,strPassword,this.strRandom).then(caLoginLaterRes=>{
+        caLoginLater(strCertId,strPassword,this.strRandom,this.strServerCert).then(caLoginLaterRes=>{
           verifyUser(caLoginLaterRes).then(verifyUserRes=>{
             console.log("verifyUserRes",verifyUserRes)
             localStorage["caUser"] = this.username;

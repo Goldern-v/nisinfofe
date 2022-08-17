@@ -33,7 +33,6 @@ export default {
     open(data) {
       if(data){
         this.url = data.url
-        console.log('test-data', data)
       }
       this.$refs.modalName.open();
     },

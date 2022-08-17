@@ -596,20 +596,14 @@ export default {
       }, title);
     }
   },
-
-  created() {
-    if (sheetInfo.selectBlock.relSignInfo == undefined) {
+  mounted() {
+        if (sheetInfo.selectBlock.relSignInfo == undefined) {
       this.$set(this.sheetInfo.selectBlock, "relSignInfo", {});
     }
-    this.$nextTick(() => {
-      if (JSON.stringify(this.relObj) == "{}") {
-        setTimeout(()=> {
-          this.sheetInfo.relObj = {...this.sheetInfo.relObj, ...this.firstTableBody1}
-        }, 100)
+      if (Object.keys(this.sheetInfo.relObj).length==0) {
+          this.sheetInfo.relObj = {...this.firstTableBody1}
       }
-    })
   },
-  mounted() {},
   computed: {
     isPrint() {
       return window.location.href.indexOf("print") > -1;

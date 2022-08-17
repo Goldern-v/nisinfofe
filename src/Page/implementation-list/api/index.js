@@ -57,6 +57,11 @@ export function getExecuteWithWardcode(obj) {
       `${apiPath}hisJiangMenFyExecute/getOrdersExecuteWithWardCode`,
       obj
     );
+  } else if (HOSPITAL_ID == 'nanfangzhongxiyi') {
+    return axios.post(
+      `${apiPath}hisNanFangZhongXiYiExecute/getWardExecute`,
+      obj
+    );
   }
   // hospitalExecute为空 其他默认医院是用厚街的
   if(HOSPITAL_ID == "hj" || !hospitalExecute){

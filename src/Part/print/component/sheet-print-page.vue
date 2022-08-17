@@ -290,7 +290,7 @@ export default {
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
     // 江门妇幼的护理单打印双数页面会翻转,横沥ICU机械通气护理单,武汉肺科。修复
-    if(this.HOSPITAL_ID==="sdlj" || this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"||this.HOSPITAL_ID==="wujing"||this.HOSPITAL_ID==="fsxt"||this.HOSPITAL_ID==="whfk"||this.HOSPITAL_ID==="foshanrenyi"){
+    if(this.HOSPITAL_ID==="sdlj" || this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"||this.HOSPITAL_ID==="wujing"||this.HOSPITAL_ID==="fsxt"||this.HOSPITAL_ID==="whfk"||this.HOSPITAL_ID==="foshanrenyi"||this.HOSPITAL_ID==="lyxrm"){
       printDir("h");
             addCSS(
               window,
@@ -541,6 +541,25 @@ export default {
             }
            img{
               transform: scale(0.8);
+            }
+        `
+      );
+    }
+     if (
+      (this.HOSPITAL_ID === "xiegang") 
+    ) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='审核<br/>签名']{
+            display:none !important;
+          }
+           #sheetPagePrint#sheetPagePrint th[dataname='审核人<br/>签名']{
+            display:none !important;
+          }
+          #sheetPagePrint th[dataname="记录者<br/>签名"] {
+              min-width: 100px !important;
+              max-width: 100px !important;
             }
         `
       );

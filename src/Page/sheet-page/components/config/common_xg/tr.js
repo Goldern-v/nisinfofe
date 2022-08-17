@@ -45,7 +45,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 27
+      width: 30
     },
   },
   {
@@ -84,7 +84,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 45
+      width: 50
     },
   },
   {
@@ -142,7 +142,7 @@ export default [
     name: "入量名称",
     change: (e, td) => limitChange(e, td, 12),
     textarea: {
-      width: 75,
+      width: 65,
     },
     autoComplete: {
       data: 入量名称
@@ -166,7 +166,7 @@ export default [
     name: "出量名称",
     change: (e, td) => limitChange(e, td, 12),
     textarea: {
-      width: 75,
+      width: 65,
     },
     autoComplete: {
       data: 出量名称
@@ -189,22 +189,38 @@ export default [
     name: "健康宣教",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 12),
-    autoComplete: {
-      data: [1,2,3,4,5,6,7,8,9,10,11,12]
-    },
+    // autoComplete: {
+    //   data: [1,2,3,4,5,6,7,8,9,10,11,12]
+    // },
+    autoComplete: { 
+      data:
+       [
+        {name:'1.入院宣教',value:'1'},
+        {name:'2.辅助检查目的及注意事项',value:'2'},
+        {name:'3.吸氧目的及注意事项',value:'3'},
+        {name:'4.心电监护目的及注意事项',value:'4'},
+        {name:'5.术前宣教',value:'5'},
+        {name:'6.术后宣教',value:'6'},
+        {name:'7.饮食指导',value:'7'},
+        {name:'8.防跌倒',value:'8'},
+        {name:'9.出院宣教',value:'9'},
+        {name:'10.用药指导',value:'10'},
+        {name:'11.输血注意事项',value:'11'},
+        {name:'12.特殊感染隔离注意事项',value:'12'},
+       ] 
+    } ,
     splice:true,
     textarea: {
-      width: 50
+      width: 70
     },
   },
   {
     key: "affectedLimb", //患肢感觉/活动
     value: "",
-    name: "患肢感觉/活动",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 65
+      width: 45
     },
   },
   {
@@ -235,24 +251,6 @@ export default [
     },
   },
   {
-    key: "customItem4", //标题4
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "customItem5", //标题5
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
-    },
-  },
-  {
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -261,11 +259,8 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      width: "215px",
       background: "transparent",
-    },
-    textarea: {
-      width: 150
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -276,84 +271,23 @@ export default [
       keyf1(e, td);
     }
   },
-  {
-    key: "sign",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "id",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerName2",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "status",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordSource",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordYear",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "dataHash",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordDate",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "monthHour",
-    value: ""
-  },
-  {
-    hidden: false,
-    key: "signerNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerNo2",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "auditorNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "auditorName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "empNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "multiSign",
-    value: true,
-  },
+  { key: "sign", value: "" },//单签
+  // { key: "sign2", value: "" },//双签
+  { key: "audit", value: "" },//审核签名
+  { hidden:true, key:'id', value:''},
+  { hidden:true, key:'signerName', value:''},
+  { hidden:true, key:'signerName2', value:''},
+  { hidden:true, key:'status', value:''},
+  { hidden:true, key:'recordSource', value:''},
+  { hidden:true, key:'recordYear', value:''},
+  { hidden:true, key:'dataHash', value:''},
+  { hidden:true, key:'recordDate', value:''},
+  { hidden:true, key:'monthHour', value:''},
+  { hidden:false, key:'signerNo', value:''},//单签
+  { hidden:true, key:'signerNo2', value:''},//双签
+  { hidden:false, key:'auditorNo', value:''},//审核签名
+  { hidden:true, key:'auditorName', value:''},
+  { hidden:true, key:'empNo', value:''},
+  { hidden:true, key:'multiSign', value:''}
 ];
 

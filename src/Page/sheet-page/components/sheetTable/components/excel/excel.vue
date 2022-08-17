@@ -641,7 +641,6 @@ import {
   BlackTop,
 } from "./tool.js";
 import sheetInfo from "../../../config/sheetInfo";
-import Mark, { matchMark } from "../../../render/Mark.js";
 import $ from "jquery";
 import bus from "vue-happy-bus";
 import sheetModel from "../../../../sheet.js";
@@ -673,8 +672,6 @@ export default {
   mixins: [common],
   data() {
     return {
-      Mark,
-      matchMark,
       bus: bus(this),
       sheetInfo,
       timeOnBlur: [false], //时间控制是否变红
@@ -683,6 +680,7 @@ export default {
       isFixed: false,
       multiSign: false,
       selectType: false, //时间日期鼠标选中修改控制限制
+      flag:true,
       //底部签名
       auditArr: [
         "com_lc",
@@ -806,6 +804,7 @@ export default {
     splitSave(){
       return process.env.splitSave
     }
+
   },
   methods: {
     redBottom(tr,y){
@@ -2452,14 +2451,13 @@ export default {
       } else {
         this.isFixed = false;
       }
+      this.fiexHeaderWidth =
+      this.$refs.table && this.$refs.table.offsetWidth + "px";
       // console.log(this.$refs.table.getBoundingClientRect());
     },
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   mounted() {
-    this.fiexHeaderWidth =
-      this.$refs.table && this.$refs.table.offsetWidth + "px";
-    // console.log("mounted");
   },
   created() {
     if(this.HOSPITAL_ID == 'wujing' && sheetInfo.sheetType == 'common_hl'){

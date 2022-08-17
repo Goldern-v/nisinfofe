@@ -560,6 +560,9 @@ export default {
         case "lyxrm":
           qr_png_value ='P' + this.query.patientId;
           break;
+        case "ytll":
+          qr_png_value ='ZY' + this.query.patientId;
+          break;
         default:
           qr_png_value = this.query.patientId;
           break;

@@ -97,7 +97,8 @@
                 HOSPITAL_ID == 'zhongshanqi' ||
                 HOSPITAL_ID == 'liaocheng' ||
                 HOSPITAL_ID == 'beihairenyi' ||
-                HOSPITAL_ID == 'xiegang'
+                HOSPITAL_ID == 'xiegang' ||
+                HOSPITAL_ID == 'gdtj'
             "
           >
             {{HOSPITAL_ID=='beihairenyi'?'成人腕带打印':'腕带打印'}}
@@ -379,7 +380,7 @@ export default {
     },
     // 腕带打印
     openWristPrint(printMode) {
-      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng") {
+      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "gdtj") {
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);

@@ -109,7 +109,9 @@
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
-        >{{item}}
+        >
+          <span>{{item}}</span>
+          <span>{{itemObj[index].freqDetail}}</span>
           <span>{{currentBottle.dosageDosageUnits[index]}}</span>
         </div>
       </div>

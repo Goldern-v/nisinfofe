@@ -99,7 +99,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理诊断计划</div>
+        <div class="nav-item">护理计划</div>
       </router-link>
       <router-link
         :to="{
