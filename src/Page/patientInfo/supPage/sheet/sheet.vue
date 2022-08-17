@@ -15,7 +15,7 @@
       id="sheet_body_con"
       :style="{ height: containHeight }"
     >
-      <div class="right-part" v-loading="tableLoading">
+      <div class="right-part" v-loading="tableLoading"  element-loading-text="拼命加载中">
         <div class="sheetTable-contain" ref="scrollCon" @scroll="onScroll">
           <div ref="sheetTableContain" v-if="done">
             <component
@@ -34,7 +34,7 @@
             ></component>
           </div>
           <div
-            v-show="sheetModelData.length == 0"
+            v-show="sheetModelData.length == 0&&done"
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
@@ -378,6 +378,7 @@ export default {
       }
     },
     getSheetData(isBottom) {
+      this.tableLoading = true;
           //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
     this.done=false
       if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
@@ -390,7 +391,6 @@ export default {
         }, 100);
         return;
       }
-      this.tableLoading = true;
        let fnArr = [
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.patientInfo.patientId, this.patientInfo.visitId),
@@ -465,9 +465,7 @@ export default {
           this.sheetModelData = getData();
           this.done=true
           this.getHomePage(isBottom);
-
           this.tableLoading = false;
-
           let timeNum = 5;
 
           function toBottom() {
