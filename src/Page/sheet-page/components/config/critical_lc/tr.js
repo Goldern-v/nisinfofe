@@ -29,36 +29,36 @@ export default [{
     },
     name: "意识"
   },
-  {
-    key: "pupilLeft", //瞳孔-左-直径(mm）
-    value: "",
-    event: keyf1,
-    name: "瞳孔-左-直径(mm）"
-  },
-  {
-    key: "pupilReflectLeft", //瞳孔-左-对光反应
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["+", "S", "-"]
-    },
-    name: "瞳孔-左-对光反应"
-  },
-  {
-    key: "pupilRight", //瞳孔-右-直径(mm）
-    value: "",
-    event: keyf1,
-    name: "瞳孔-右-直径(mm）"
-  },
-  {
-    key: "pupilReflectRight", //瞳孔-右-对光反应
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["+", "S", "-"]
-    },
-    name: "瞳孔-右-对光反应"
-  },
+  // {
+  //   key: "pupilLeft", //瞳孔-左-直径(mm）
+  //   value: "",
+  //   event: keyf1,
+  //   name: "瞳孔-左-直径(mm）"
+  // },
+  // {
+  //   key: "pupilReflectLeft", //瞳孔-左-对光反应
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ["+", "S", "-"]
+  //   },
+  //   name: "瞳孔-左-对光反应"
+  // },
+  // {
+  //   key: "pupilRight", //瞳孔-右-直径(mm）
+  //   value: "",
+  //   event: keyf1,
+  //   name: "瞳孔-右-直径(mm）"
+  // },
+  // {
+  //   key: "pupilReflectRight", //瞳孔-右-对光反应
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ["+", "S", "-"]
+  //   },
+  //   name: "瞳孔-右-对光反应"
+  // },
   {
     key: "temperature", //体温
     value: "",
