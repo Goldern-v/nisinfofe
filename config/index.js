@@ -175,8 +175,8 @@ const currentTargetUrl = (() => {
     case 'whyx':  //武汉亚心
       return "http://192.168.1.54:9866" // 武汉亚心
 
-    case 'whfk':  //武汉肺科 内防访问地址192.168.1.54:9884
-      return "http://192.168.1.54:9884" // 武汉肺科
+    case 'whfk':  //武汉肺科
+      return "http://192.168.1.54:9884" // 测试
       // return "http://192.168.3.226:8080" // 初升本地
     case 'sdlj':  //顺德龙江
       return "http://192.168.1.54:9887" // 顺德龙江内网测试
@@ -193,6 +193,7 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9866'
     // 烟台玲珑
     case 'ytll':
+      return "http://221.214.210.170:39094"  // 正式
       return 'http://192.168.1.54:9866'
     /** 默认公司本地内网厚街测试环境 */
     default:
