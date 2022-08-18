@@ -64,7 +64,7 @@
             ></component>
           </div>
           <div
-            v-show="sheetModelData.length == 0&&done"
+            v-show="sheetModelData.length"
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
