@@ -83,7 +83,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">体温单</div>
+        <div class="nav-item">体温单<span :class="status.bodyTemperature ? 'remind' : ''"></span></div>
       </router-link>
       <router-link
         :to="{
@@ -92,7 +92,8 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理文书<span class="remind" :class="status.form==0?'mepty':''"></span> </div>
+        <!-- <div class="nav-item">护理文书<span class="remind" :class="status.form==0?'mepty':''"></span> </div> -->
+        <div class="nav-item">护理文书<span :class="status.form ? 'remind' : ''"></span> </div>
       </router-link>
       <!-- <router-link
         v-if="
@@ -124,7 +125,8 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理记录单 <span class="remind" :class="status.record==0?'mepty':''"></span> </div>
+        <!-- <div class="nav-item">护理记录单 <span class="remind" :class="status.record==0?'mepty':''"></span> </div> -->
+        <div class="nav-item">护理记录单 <span :class="status.record ? 'remind' : ''"></span> </div>
       </router-link>
        <router-link
         :to="{
@@ -133,7 +135,8 @@
         }"
         tag="span"
       >
-        <div class="nav-item">血糖 <span class="remind" :class="status.sugar==0?'mepty':''"></span> </div>
+        <!-- <div class="nav-item">血糖 <span class="remind" :class="status.sugar==0?'mepty':''"></span> </div> -->
+        <div class="nav-item">血糖 <span :class="status.sugar ? 'remind' : ''"></span> </div>
       </router-link>
        <router-link
         :to="{
@@ -142,7 +145,8 @@
         }"
         tag="span"
       >
-        <div class="nav-item">血氧 <span class="remind"  :class="status.sugar_oxygen==0?'mepty':''"></span> </div>
+        <!-- <div class="nav-item">血氧 <span class="remind"  :class="status.sugar_oxygen==0?'mepty':''"></span> </div> -->
+        <div class="nav-item">血氧 <span :class="status.sugar_oxygen ? 'remind' : ''"></span> </div>
       </router-link>
       <router-link
         :to="{
@@ -151,7 +155,8 @@
         }"
         tag="span"
       >
-        <div class="nav-item">健康教育单 <span class="remind" :class="status.mission==0?'mepty':''"></span> </div>
+        <!-- <div class="nav-item">健康教育单 <span class="remind" :class="status.mission==0?'mepty':''"></span> </div> -->
+        <div class="nav-item">健康教育单 <span :class="status.mission ? 'remind' : ''"></span> </div>
       </router-link>
       <!-- <router-link
         :to="{
@@ -189,7 +194,7 @@
       <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>-->
-      
+
       <router-link
         :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
@@ -254,7 +259,8 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: #f00;
+    // background-color: #f00;
+    background-color: #27a45e;
     right: 4px;
     top: 2px;
     // text-align: center;
@@ -288,7 +294,8 @@ export default {
         mission: 0, //健康教育单
         record: 0, //护记
         sugar: 0,  //血糖
-        sugar_oxygen: 0  //血氧
+        sugar_oxygen: 0,  //血氧
+        bodyTemperature: 0, // 体温单
       }
     };
   },
@@ -301,7 +308,7 @@ export default {
   components: {},
   mounted() {
     getPaperWork(this.$route.query.patientId,this.$route.query.visitId).then(res=>{
-      // console.log('res',res);
+      console.log('res',res);
       this.status = res.data.data.paperWorks
     })
   }
