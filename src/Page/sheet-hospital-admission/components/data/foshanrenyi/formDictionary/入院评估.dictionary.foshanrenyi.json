@@ -1073,7 +1073,8 @@
             "code": "有",
             "name": "有",
             "pinyin": "y"
-        }{
+        },
+        {
             "code": "可回纳",
             "name": "可回纳",
             "pinyin": "khn"
@@ -1099,7 +1100,8 @@
             "code": "有",
             "name": "有",
             "pinyin": "y"
-        }{
+        },
+        {
             "code": "可回纳",
             "name": "可回纳",
             "pinyin": "khn"
@@ -2018,7 +2020,7 @@
             "code": "正常",
             "name": "正常",
             "pinyin": "zc"
-        }
+        },
         {
             "code": "左侧红肿",
             "name": "左侧红肿",
