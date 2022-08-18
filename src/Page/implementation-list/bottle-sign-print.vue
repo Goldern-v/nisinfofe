@@ -738,6 +738,8 @@ export default {
           return ['5*8', '3*5']
         case 'ytll':
           return ['7*7']
+        case 'whfk':
+          return ['6*8', '3.5*5']
         default:
           return ['6*8', '3*5']
       }
