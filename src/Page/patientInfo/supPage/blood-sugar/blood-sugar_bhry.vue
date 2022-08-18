@@ -14,7 +14,7 @@
             <span>性别：{{ resMsg.gender }}</span>
             <span>年龄：{{ resMsg.age }}</span>
             <span>科室：{{ resMsg.deptName }}</span>
-            <span>床号：{{ resMsg.bedNo }}</span>
+            <span>床号：{{ resMsg.bedLabel }}</span>
             <span>住院号：{{ resMsg.inHosId }}</span>
           </p>
           <div class="table-warpper" flex="cross:stretch">
