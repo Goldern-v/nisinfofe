@@ -184,7 +184,7 @@ import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import authorityModal from "./components/modal/authorityModal";
 
-const pageSize = ['lyxrm'].includes(process.env.HOSPITAL_ID) ? 1000 : 20
+const pageSize = ['lyxrm', 'whsl'].includes(process.env.HOSPITAL_ID) ? 1000 : 20
 export default {
   mixins: [common],
   data() {
@@ -218,7 +218,7 @@ export default {
       this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
         getNursingVisitLc(this.query).then(res => {
-          if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+          if (['lyxrm', 'whsl'].includes(this.HOSPITAL_ID)) {
             let child = [],
               tableData = [];
             res.data.data.list.map((item, index, array) => {
@@ -303,7 +303,7 @@ export default {
       let list = ["nurse_nursing_class"];
       multiDictInfo(list).then(res => {
         this.allNursingClass = res.data.data.nurse_nursing_class;
-        if (this.HOSPITAL_ID === 'lyxrm') this.allNursingClass.unshift({name: '全部', code: ''})
+        if (['lyxrm', 'whsl'].includes(this.HOSPITAL_ID)) this.allNursingClass.unshift({name: '全部', code: ''})
 
       });
     },
@@ -330,6 +330,7 @@ export default {
     tableCon() {
       switch(this.HOSPITAL_ID) {
         case 'lyxrm':
+        case 'whsl':
           return 'dTableLyxrm'
         default:
           return 'dTable'

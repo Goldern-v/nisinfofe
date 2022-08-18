@@ -81,7 +81,7 @@
           </div>
         </td> -->
         <td >
-          <div class="cell liaocheng-img" @click="sign(item)">
+          <div class="cell sign-con" @click="sign(item)">
             <!-- 这里改。-->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
@@ -154,7 +154,12 @@
         }
       }
 
+      .sign-con {
+        max-width: 52px;
+      }
+
       img {
+        width: 100%;
         height: 100%;
         //object-fit: cover;
         object-fit: contain !important;

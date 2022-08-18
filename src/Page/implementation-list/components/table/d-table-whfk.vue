@@ -129,12 +129,12 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="stopDateTime" label="结束输液时间" min-width="160px" align="center">
+      <u-table-column v-if="showInfusion" prop="stopDateTime" label="结束输液时间" min-width="160px" align="center">
         <template slot-scope="scope">
           <span :title="scope.row.endInfusionTime | ymdhms">{{scope.row.endInfusionTime | ymdhms}}</span>
         </template>
       </u-table-column>
-      <u-table-column prop="stopDateTime" label="结束输液护士" width="100px" align="center">
+      <u-table-column v-if="showInfusion" prop="stopDateTime" label="结束输液护士" width="100px" align="center">
         <template slot-scope="scope">
           <span :title="scope.row.executeEndNurseName">{{scope.row.executeEndNurseName}}</span>
         </template>
@@ -366,6 +366,16 @@ export default {
       checked: true,
       selectedData: []
     };
+  },
+  computed: {
+    showInfusion() {
+      switch(this.HOSPITAL_ID) {
+        case 'ytll':
+          return ['', '输液'].includes(this.currentType)
+        default:
+          return true
+      }
+    }
   },
   methods: {
       forMatExecuteFlag(flag){
