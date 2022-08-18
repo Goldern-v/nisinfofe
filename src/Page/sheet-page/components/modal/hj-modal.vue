@@ -105,7 +105,8 @@ export default {
       description: "",
       bus: bus(this),
       active:'', // 顶部按钮激活状态(聊城)
-      sheetInfo
+      sheetInfo,
+      isCounting:false  //计算的时候做节流
     };
   },
   methods: {
@@ -149,6 +150,12 @@ export default {
       this.$refs.modal.close();
     },
     post() {
+      //添加节流
+      if (this.isCounting) return
+      this.isCounting=true
+      setTimeout(()=>{
+       this.isCounting=false
+      },1000)
       if (this.date[1]) {
         // this.bus.$emit("saveSheetPage");
         // setTimeout(() => {

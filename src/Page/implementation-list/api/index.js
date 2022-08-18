@@ -88,10 +88,11 @@ export function getExecuteWithWardCodeLyxrm(obj) {
 // 补录（陵城）
 export function addRecord(obj) {
   if (HOSPITAL_ID=="lingcheng"){
-      return axios.post(`${apiPath}procedure/his`, obj)
-  }if(HOSPITAL_ID == 'whfk' || HOSPITAL_ID == 'lyxrm'){
+    return axios.post(`${apiPath}procedure/his`, obj)
+  }
+  else if(['whfk', 'lyxrm', 'ytll'].includes(HOSPITAL_ID)){
     return axios.post(`${apiPath}procedure/webExecute/getOrderExecuteSupplementary`,obj)
-  }else{
+  } else {
     return axios.post(`${apiPath}${hospitalExecute}/orderExecute`, obj);
   }
 }
@@ -106,6 +107,7 @@ export function updateExecuteTime(obj) {
     case 'quzhou':
       return axios.post(`${apiPath}hisLiaoChengExecute/getorderexecuteUpdate`, obj);
     case 'whfk':
+    case 'ytll':
       return axios.post(`${apiPath}procedure/webExecute/getOrderExecuteUpdate`, obj);
     default :
       return axios.post(`${apiPath}${hospitalExecute}/getorderexecuteUpdate`, obj);

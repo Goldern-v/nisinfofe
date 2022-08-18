@@ -38,8 +38,13 @@ axios.interceptors.request.use((config) => {
     for (let i = 0; i < whiteList.length; i++) {
         let whiteUrlPath = whiteList[i]
         if (config.url.indexOf(whiteUrlPath) > -1){
-            CaSignurl = config.url.indexOf("GetUserList")>-1 && "GetUserList"
-            CaSignurl = config.url.indexOf("verifyUser")>-1 && "verifyUser"
+            if(config.url.indexOf("GetUserList")>-1 ){
+                CaSignurl = "GetUserList"
+            }else if(config.url.indexOf("verifyUser")>-1){
+                CaSignurl = "verifyUser"
+            }
+            // CaSignurl = config.url.indexOf("GetUserList")>-1 && "GetUserList"
+            // CaSignurl = config.url.indexOf("verifyUser")>-1 && "verifyUser"
             return config
         }
     }
@@ -164,7 +169,7 @@ axios.interceptors.response.use((res) => {
     }
 }, (err) => {
     if (err && err.message == 'Network Error') {
-        
+        console.log(CaSignurl,"CaSignurl");
         window.app && window.app.$message({
             showClose: true,
             message: CaSignurl == "GetUserList"?'未能识别到U盾':'网络错误，请检查你的网络',

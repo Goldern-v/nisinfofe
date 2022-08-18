@@ -475,7 +475,12 @@ export default {
               if(res.data.length==0){
                 localStorage.removeItem("caUser");
                 this.foshanshiyiIFca=false
-            }else this.foshanshiyiIFca=true
+            }else{
+              if(res.data.split("||")[0] != localStorage["caUser"]){
+                localStorage.removeItem("caUser");
+                this.foshanshiyiIFca=false
+              }else this.foshanshiyiIFca=true
+            } 
       })
       }
     },
