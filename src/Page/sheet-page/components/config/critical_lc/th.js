@@ -32,15 +32,15 @@ export default {
         colspan: '1',
         rowspan: '3'
       },
-      {
-        name: '瞳孔',
-        style: {
-          minWidth: '40px',
-          maxWidth: '40px',
-        },
-        colspan: '4',
-        rowspan: '1'
-      },
+      // {
+      //   name: '瞳孔',
+      //   style: {
+      //     minWidth: '40px',
+      //     maxWidth: '40px',
+      //   },
+      //   colspan: '4',
+      //   rowspan: '1'
+      // },
       {
         name: '体温',
         style: {
@@ -116,24 +116,26 @@ export default {
         },
       },
       {
-        name: `
-        RASS<br />评分
-        `,
+        // name: `RASS<br />评分`,
+        name: ``,
         colspan: '1',
         rowspan: '3',
         style: {
           minWidth: '53px',
         },
+        canSet: true,
+        key: 'custom1'
       },
       {
-        name: `标题1`,
+        // name: `标题1`,
+        name: ``,
         style: {
           minWidth: '53px',
         },
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldFive",
+        key: "custom2",
       },
       {
         name: `
@@ -157,67 +159,69 @@ export default {
         rowspan: '3'
       }
     ],
-    mid: [{
-      name: `
-      左
-      `,
-      colspan: '2',
-      rowspan: '1',
-      style: {
-        minWidth: '32px',
-      },
-    },
-    {
-      name: `
-      右
-      `,
-      colspan: '2',
-      rowspan: '1',
-      style: {
-        minWidth: '32px',
-      },
-    },
+    mid: [
+    //   {
+    //   name: `
+    //   左
+    //   `,
+    //   colspan: '2',
+    //   rowspan: '1',
+    //   style: {
+    //     minWidth: '32px',
+    //   },
+    // },
+    // {
+    //   name: `
+    //   右
+    //   `,
+    //   colspan: '2',
+    //   rowspan: '1',
+    //   style: {
+    //     minWidth: '32px',
+    //   },
+    // },
     ],
-    bottom: [{
-        name: `
-        直径<br/>(mm）
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        对光<br/>反应
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        直径<br/>(mm）
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        对光<br/>反应
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
+    bottom: [
+      // {
+      //   name: `
+      //   直径<br/>(mm）
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px',
+      //   },
+      // },
+      // {
+      //   name: `
+      //   对光<br/>反应
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px',
+      //   },
+      // },
+      // {
+      //   name: `
+      //   直径<br/>(mm）
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px',
+      //   },
+      // },
+      // {
+      //   name: `
+      //   对光<br/>反应
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px',
+      //   },
+      // },
       {
         name: `
         ℃
