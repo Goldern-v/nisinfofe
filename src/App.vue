@@ -223,6 +223,9 @@ export default {
     window.closeCaSignModal = () => {
       this.$refs.caSignModal.close();
     };
+    window.reloginCaSignModal = (relogobj) => {
+      this.$refs.caSignModal.relogin(relogobj);
+    };
     /** 江门妇幼ca签名 */
     window.openFuyouCaSignModal = (isStart) => {
       return this.$refs.fuyouCaSignModal.open(()=>{},isStart);

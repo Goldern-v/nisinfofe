@@ -48,10 +48,11 @@ function SOF_VerifySignedData(strServerCert, strRandom, strServerSignRan) {
  * @param {*} strPassword 
  * @returns 
  */
-function SOF_Login(strCertId, strPassword) {
+function SOF_Login(strCertId, strPassword,username) {
   return axios.post(`${caSignHOST}/SOF_Login`, {
     strCertId,
-    strPassword
+    strPassword,
+    username
   })
 }
 // SOF_SignData
@@ -107,9 +108,9 @@ function caLoginBefore() {
   })
 }
 
-function caLoginLater(strCertId, strPassword, strRandom,strServerCert) {
+function caLoginLater(strCertId, strPassword, strRandom,strServerCert,username) {
   return new Promise((resolve, reject) => {
-    SOF_Login(strCertId, strPassword).then(SOF_LoginRes => {
+    SOF_Login(strCertId, strPassword,username).then(SOF_LoginRes => {
       if (SOF_LoginRes.data == "True") {
         SOF_SignData({
           strCertId,
