@@ -42,7 +42,6 @@ export default {
       localStorage.selectDeptValue = "";
       this.$store.commit("upDeptName", "");
     }).catch(e => {
-      console.log('test-e', e)
       if (!['whfk'].includes(this.HOSPITAL_ID)) return
       this.$router.replace('/login')
     });
