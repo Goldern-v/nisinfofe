@@ -64,7 +64,7 @@
             ></component>
           </div>
           <div
-            v-show="sheetModelData.length"
+            v-show="!sheetModelData.length"
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
@@ -523,11 +523,13 @@ export default {
       }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
+        this.tableLoading = false;
         setTimeout(() => {
           sheetInfo.isSave = true;
         }, 300);
         return;
       }
+
       $(".red-border").removeClass("red-border");
       //  cleanData()
       let fnArr = [

@@ -354,6 +354,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_new_lc": {
+    // 陵城-病重（病危）患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_new_lc/th").default)
+    );
+  }
+  break;
   case "critical2_lc": {
     // 陵城-病重（病危）患者护理记录（新生儿）
     Th = JSON.parse(

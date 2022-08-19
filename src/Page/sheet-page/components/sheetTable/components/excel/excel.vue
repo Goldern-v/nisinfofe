@@ -456,6 +456,7 @@
         sheetInfo.sheetType === 'internal_eval_lcey' ||
         sheetInfo.sheetType === 'intervention_cure_lcey' ||
         sheetInfo.sheetType === 'critical_lc' ||
+        sheetInfo.sheetType === 'critical_new_lc' ||
         sheetInfo.sheetType === 'picu_hemodialysis_jm' ||
         sheetInfo.sheetType === 'rescue_hl' ||
         sheetInfo.sheetType === 'critical_new_linyi' ||
