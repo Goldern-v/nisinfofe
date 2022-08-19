@@ -290,6 +290,7 @@ export default {
         gdtj:"adviceTableSDLJ",
         ytll:"adviceTableSDLJ",
         yangchunzhongyi:"adviceTableYc",
+        whsl:"adviceTableSDLJ",
         default:"adviceTable",
       }
       if(idToCom[HOSPITAL_ID]){
