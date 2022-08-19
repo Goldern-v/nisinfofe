@@ -34,7 +34,7 @@
             ></component>
           </div>
           <div
-            v-show="sheetModelData.length"
+            v-show="!sheetModelData.length"
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
@@ -386,6 +386,7 @@ export default {
       }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
+        this.tableLoading = false;
         setTimeout(() => {
           sheetInfo.isSave = true;
         }, 100);
@@ -464,8 +465,8 @@ export default {
          await initSheetPage(titleData, bodyData, markData,this.listData);
           this.sheetModelData = getData();
           this.done=true
-          this.getHomePage(isBottom);
           this.tableLoading = false;
+          this.getHomePage(isBottom);
           let timeNum = 5;
 
           function toBottom() {
