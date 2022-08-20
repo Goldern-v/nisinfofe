@@ -90,7 +90,7 @@ import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureFSXT from "@/Page/patientInfo/supPage/temperature/temperature-fsxt";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
-import temperatureWhSL from "@/Page/patientInfo/supPage/temperature/temperature-whsl";
+import temperatureWHSL from "@/Page/patientInfo/supPage/temperature/temperature-whsl";
 import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature-nanfangzhongxiyi";
 import temperatureFSSY from "@/Page/patientInfo/supPage/temperature/temperature-foshanrenyi";
 import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperature-xiegang.vue";
@@ -194,7 +194,7 @@ export default {
         case "xiegang":
           return temperatureDGXG;
            case "whsl":
-          return temperatureWhSL;
+          return temperatureWHSL;
         default:
           return temperature;
       }
@@ -238,7 +238,7 @@ export default {
     temperatureNFZXY,
     temperatureFSSY,
     temperatureDGXG,
-    temperatureWhSL
+    temperatureWHSL
   }
 };
 </script>
