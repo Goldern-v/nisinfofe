@@ -37,10 +37,10 @@
             <div class="label">患者病历</div>
             <el-button @click="openModal('doctorEmrModal')">查看</el-button>
           </div>
-          <div class="item-box" v-if="show360">
+          <div class="item-box" v-for="(v, i) in extraList" :key="i">
             <img src="../images/检验报告@2x.png" alt class="label-icon" />
-            <div class="label">360视图</div>
-            <el-button @click="openModal('iframeModal', {url: url360})">查看</el-button>
+            <div class="label">{{ v.name }}</div>
+            <el-button @click="openModal('iframeModal', {url: v.url})">查看</el-button>
           </div>
         </div>
         <inspectModal ref="inspectModal" v-if="show"></inspectModal>
@@ -185,13 +185,25 @@ export default {
     };
   },
   computed: {
-    show360() {
-      // 护理文书显示 by临邑
-      return ['lyxrm'].includes(this.HOSPITAL_ID)
-    },
-    url360() {
-      const { patientId = '' } = this.$route.query
-      return `http://192.168.4.206:8082/TJEMRProject/visitRecordList?authorityId=49486019-X&patId=${patientId}`
+    extraList() {
+      switch(this.HOSPITAL_ID) {
+        case 'lyxrm':
+          return [
+            {
+              name: '360视图',
+              url: this.url360()
+            }
+          ]
+        case 'xiegang':
+          return [
+            {
+              name: '病历',
+              url: this.urlRecord()
+            }
+          ]
+        default:
+          return []
+      }
     }
   },
   methods: {
@@ -207,7 +219,20 @@ export default {
     },
     openModal(name,feature) {
       this.$refs[name].open(feature);
-    }
+    },
+    url360() {
+      const { patientId = '' } = this.$route.query
+      return `http://192.168.4.206:8082/TJEMRProject/visitRecordList?authorityId=49486019-X&patId=${patientId}`
+    },
+    urlRecord() {
+      let { patientId = '', visitId = '' } = (this.$route.query || {})
+      if (patientId == '' || visitId == '') {
+        let params = this.$route
+        patientId = params.patientId || ''
+        visitId = params.visitId || ''
+      }
+      return ` http://10.45.0.184/EmrVieww/Index.aspx?hospital_no=45722882244190011A1001&patient_id=${patientId}&visit_id=${visitId}`
+    },
   },
   mounted() {},
   watch: {},

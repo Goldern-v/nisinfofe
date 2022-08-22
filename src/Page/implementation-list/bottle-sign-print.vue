@@ -621,9 +621,7 @@ export default {
         }).then(()=>{
           document.getElementById('new-print-box').style.display = 'none'
           this.onLoad()
-        }).catch(e => {
-          console.log('test-e', e)
-        })
+        }).catch(e => {})
       })
     },
     // 打印全部

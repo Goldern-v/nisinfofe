@@ -80,7 +80,7 @@
     <SysPasswordManage
       v-if="isAdminOrNursingDepartment && HOSPITAL_ID === 'zhongshanqi'"
     />
-    <div class="admin-system-info" v-if="empNo === 'admin'">
+    <div class="admin-system-info" v-if="user.empNo === 'admin'">
       仅管理员可见:
       <p v-for="(info, i) in adminSystemInfo" :key="i">
         <label>{{ info.key }}:</label>
@@ -439,7 +439,7 @@ export default {
           this.$store.commit("upDeptCode", '');
         }
       }
-      location.reload(true);
+      // location.reload(true);
       // localStorage.clear()
       // location.href = '/crNursing/login'
     },
@@ -546,10 +546,6 @@ export default {
     this.bus.$on("refreshUserImg", () => {
       this.getUserImg();
     });
-    this.bus.$on("quit", () => {
-      console.log("123123123")
-      this.quit();
-    });
     this.bus.$on("refreshSign", () => {
       this.getSignImg();
     });
@@ -585,6 +581,15 @@ export default {
 
   },
   watch:{
+    "$store.state.common.user":{
+      handler(newVal, oldVal) {
+        this.user = newVal
+        this.getSignImg()
+        console.log(newVal,oldVal,"localStorage.userwatch")
+      },
+      immediate:true,
+      deep:true
+    },
     userNum:{
       handler(newVal, oldVal) {
         if(this.foshanshiyiIFca){
