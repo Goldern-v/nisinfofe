@@ -18,7 +18,15 @@ export function listShiftRecord(deptCode, startDate, endDate,shiftType=1) {
 export function getShiftRecord(id,shiftTypeId = 1) {
   return axios.get(`${apiPath}changeShiftMaster/getById/${id}/${shiftTypeId}`);
 }
+// 按ID解除交班锁定
+export function unLockShiftRecord(id,shiftTypeId = 1) {
+  return axios.get(`${apiPath}changeShiftMaster/unlock/${id}/${shiftTypeId}`);
+}
 
+// 获取后台配置的解锁时间
+export function unLockTime(){
+  return axios.get(`${apiPath}dict/common/getDictItem?dictCode=propertiesConfig&itemCode=his_form_data_lock_timeout`);
+}
 // "changeShiftTime": {
 //   "id": 24834,
 //   "deptCode": "051101", --科室编码

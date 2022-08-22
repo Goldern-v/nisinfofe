@@ -918,6 +918,7 @@ import userInfo from "./user-info.vue";
 import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
+import { unLockShiftRecord,unLockTime } from "@/Page/shift-work-liaocheng/apis/index.js";
 export default {
   mixins: [common],
   data() {
@@ -1040,6 +1041,36 @@ export default {
     }
   },
   methods: {
+     async toUnLock(){
+       // 判断是否超时了。超时就清空信息。不用发请求
+        if(this.$store.state.shiftRecords.enterTime){
+          let min=10
+          /* 获取后台配置自动解锁时间 */
+          const {data:{data}}=await unLockTime()
+          if(data!=='his_form_data_lock_timeout'){
+            // 默认10分钟
+             min=+data
+          }
+          /* 进入的时间 乘以多少分钟 1分钟=60000  有效的锁定时间*/
+          const enterTime=+this.$store.state.shiftRecords.enterTime + 60000 * min
+          const nowTime=Date.now()
+          if(nowTime>enterTime){
+            // ID号清空
+            this.$store.commit("changeShiftRecordID",'')
+            // 进入时间清空
+            this.$store.commit("changeEnterTime",'')
+            return
+          }
+        }
+        // 有ID就解锁
+        if(this.$store.state.shiftRecords.shiftRecordID){
+          // 解锁
+          const res= await unLockShiftRecord(this.$store.state.shiftRecords.shiftRecordID)
+          // 清空
+          this.$store.commit("changeShiftRecordID",'')
+          this.$store.commit("changeEnterTime",'')
+        }
+    },
     handleCommand(command) {
       switch (command) {
         case "quit":
@@ -1058,7 +1089,9 @@ export default {
     toAdmin() {
       window.location.href = "/crNursing/admin";
     },
-    quit() {
+    async quit() {
+      // 交班报告解锁
+      await this.toUnLock()
       logout(Cookies.get("NURSING_USER"));
       Cookies.remove("password");
       Cookies.remove("deptId");
