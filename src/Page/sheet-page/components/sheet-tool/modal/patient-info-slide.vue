@@ -185,28 +185,20 @@ export default {
     };
   },
   computed: {
-    url360() {
-      const { patientId = '' } = this.$route.query
-      return `http://192.168.4.206:8082/TJEMRProject/visitRecordList?authorityId=49486019-X&patId=${patientId}`
-    },
-    urlRecord() {
-      const { patientId = '', visitId = '' } = this.$route.query
-      return ` http://10.45.0.184/EmrVieww/Index.aspx?hospital_no=45722882244190011A1001&patient_id=${patientId}&visit_id=${visitId}`
-    },
     extraList() {
       switch(this.HOSPITAL_ID) {
         case 'lyxrm':
           return [
             {
               name: '360视图',
-              url: this.url360
+              url: this.url360()
             }
           ]
         case 'xiegang':
           return [
             {
               name: '病历',
-              url: this.urlRecord
+              url: this.urlRecord()
             }
           ]
         default:
@@ -227,7 +219,20 @@ export default {
     },
     openModal(name,feature) {
       this.$refs[name].open(feature);
-    }
+    },
+    url360() {
+      const { patientId = '' } = this.$route.query
+      return `http://192.168.4.206:8082/TJEMRProject/visitRecordList?authorityId=49486019-X&patId=${patientId}`
+    },
+    urlRecord() {
+      let { patientId = '', visitId = '' } = (this.$route.query || {})
+      if (patientId == '' || visitId == '') {
+        let params = this.$route
+        patientId = params.patientId || ''
+        visitId = params.visitId || ''
+      }
+      return ` http://10.45.0.184/EmrVieww/Index.aspx?hospital_no=45722882244190011A1001&patient_id=${patientId}&visit_id=${visitId}`
+    },
   },
   mounted() {},
   watch: {},
