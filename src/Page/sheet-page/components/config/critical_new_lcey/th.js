@@ -55,7 +55,7 @@ export default {
       },
       {
         name: `
-        PR/HR
+        HR/PR
         `,
         colspan: '1',
         rowspan: '1',

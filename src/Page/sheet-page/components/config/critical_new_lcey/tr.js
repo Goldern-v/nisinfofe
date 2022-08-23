@@ -74,7 +74,7 @@ export default [{
     key: "pulse", //   心率/脉搏
     value: "",
     event: keyf1,
-    name:"PR/HR",
+    name:"HR/PR",
     next:"次/分",
     textarea: {
       width: 45
