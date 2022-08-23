@@ -144,15 +144,15 @@ export default {
         case "fsxt":
           return "P班："
         case "whyx":
-          return "N班："
+          return "科班："
         default:
           return "P全班："
       }
     },
     getClassAllP2(){
       switch(this.HOSPITAL_ID) {
-        case "whyx":
-          return "大N班："
+        // case "whyx":
+        //   return "大N班："
         default:
           return "N班："
       }

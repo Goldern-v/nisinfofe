@@ -231,7 +231,7 @@ export default {
         patientId = params.patientId || ''
         visitId = params.visitId || ''
       }
-      return ` http://10.45.0.184/EmrVieww/Index.aspx?hospital_no=45722882244190011A1001&patient_id=${patientId}&visit_id=${visitId}`
+      return `http://10.45.0.184/EmrVieww/Index.aspx?hospital_no=45722882244190011A1001&patient_id=${patientId}&visit_id=${visitId}`
     },
   },
   mounted() {},
