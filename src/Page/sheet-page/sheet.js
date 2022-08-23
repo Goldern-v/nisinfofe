@@ -1,13 +1,13 @@
 import Title from "./components/render/Title";
 import Body from "./components/render/Body";
-import Mark from "./components/render/Mark.js";
-import sheetInfo from "./components/config/sheetInfo";
+import sheetInfo  from "./components/config/sheetInfo";
 import { getRowNum } from "./components/utils/sheetRow"
 import {
   // saveTitleOptions,
   addNewPageTitleOptions,
   findListByBlockId
 } from "@/api/sheet.js";
+import Mark from "./components/render/Mark";
 
 let autoTitleDataDisk = [];
 //护记需要转换数据格式
@@ -261,7 +261,7 @@ export function delSheetPage(index, callback) {
         return false
       }
     }
-export function initSheetPage(titleData, bodyData, markData ,listDataList) {
+export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
   cleanData();
   let titleList = [];
   let bodyList = [];
@@ -288,7 +288,6 @@ export function initSheetPage(titleData, bodyData, markData ,listDataList) {
   autoTitleDataDisk = titleList.filter(item => {
     return true;
   });
-  // autoOptionsData = [...customOptions]
   let realSize = Math.max(
     ...bodyList.map(item => {
       return item.pageIndex || 0;
@@ -303,8 +302,8 @@ export function initSheetPage(titleData, bodyData, markData ,listDataList) {
       sheetInfo.auditorMap[key] = "";
     }
   }
-  sheetInfo.auditorMap = Object.assign({}, bodyData.auditorMap);
 
+  sheetInfo.auditorMap = Object.assign({}, bodyData.auditorMap);
   for (let i = 0; i <= realSize; i++) {
     data.push(
       Page({

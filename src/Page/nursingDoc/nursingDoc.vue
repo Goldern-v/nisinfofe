@@ -223,18 +223,25 @@ export default {
     },
     //跳转路由
     async getPage(url){
+      let newUrl = url
       let patientId = url.patientId,
         visitId = url.visitId || "all";
       let isError=false;
       if((!url.patientId || !url.visitId) && url.expand1){
         const newData= await this.getPatientIdAndVisitId(url.expand1);
-        (newData.res) && ({patientId,visitId}=newData.res);
+        // (newData.res) && ({patientId,visitId}=newData.res);
+        if(newData.res){
+          newUrl.patientId = newData.res.patientId
+          newUrl.visitId = newData.res.visitId
+          console.log('newUrl',newUrl);
+        }
         (!newData.res) && (isError=true);
-        console.log(newData)
+        console.log('newData',newData)
         // console.log("ssssnewData")
       }
       if(isError) return false;
-        this.formatRoute(url)
+      console.log('url',newUrl);
+      this.formatRoute(newUrl)
     },
     //获取patientId visitId
     async getPatientIdAndVisitId(expand1){

@@ -354,6 +354,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_new_lc": {
+    // 陵城-病重（病危）患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_new_lc/th").default)
+    );
+  }
+  break;
   case "critical2_lc": {
     // 陵城-病重（病危）患者护理记录（新生儿）
     Th = JSON.parse(
@@ -1698,6 +1705,13 @@ export default function Title(
     // 顺德龙江 - 护理记录单（综合介入科）
     Th = JSON.parse(
       JSON.stringify(require("../config/intervent_sdlj/th.js").default)
+    );
+  }
+  break;
+  case "mild_hypothermia_sdlj": {
+    // 顺德龙江-亚低温治疗护理记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/mild_hypothermia_sdlj/th").default)
     );
   }
   break;

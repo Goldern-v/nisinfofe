@@ -370,6 +370,11 @@ function switchSheetType(type) {
       schema = require("../config/critical_lc/tr.js").default;
     }
       break;
+    case "critical_new_lc": {
+      // 陵城-病重（病危）患者护理记录单
+      schema = require("../config/critical_new_lc/tr.js").default;
+    }
+      break;
     case "stress_injury_hd": {
       // 花都-压力性损伤护理记录单
       schema = require("../config/stress_injury_hd/tr.js").default;
@@ -1066,7 +1071,7 @@ function switchSheetType(type) {
         // 东莞谢岗 - 护理记录单(内科)
       schema = require("../config/internal_xg/tr.js").default;
     }
-      break;  
+      break;
     case "cardiology_fs": {
       // 佛山市一 - 心内科通用护理记录单
       schema = require("../config/cardiology_fs/tr.js").default;
@@ -1326,6 +1331,11 @@ function switchSheetType(type) {
       schema = require("../config/intervent_sdlj/tr.js").default;
     }
     break;
+    case "mild_hypothermia_sdlj": {
+      // 顺德龙江-亚低温治疗护理记录表
+      schema = require("../config/mild_hypothermia_sdlj/tr.js").default;
+    }
+      break;
     case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）
       schema = require("../config/cardiovascular_xt/tr.js").default;

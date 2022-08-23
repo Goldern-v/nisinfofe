@@ -96,7 +96,9 @@
       }
     },
     watch: {
-      deptCode (value, oldValue) {
+      async deptCode (value, oldValue) {
+        /* 切换科室的时候解锁 */
+        await this.toUnLock()
         this.$router.push({path: '/shiftWork'})
       },
       '$route.params.code' () {
@@ -167,7 +169,42 @@
       },
       onToggleFullPage () {
         this.fullPage = !this.fullPage
+      },
+      async toUnLock(){
+        // 判断是否超时了。超时就清空信息。不用发请求
+        if(this.$store.state.shiftRecords.enterTime){
+          let min=10
+          /* 获取后台配置自动解锁时间 */
+          const {data:{data}}=await apis.unLockTime()
+          if(data!=='his_form_data_lock_timeout'){
+            // 默认10分钟
+             min=+data
+          }
+          /* 进入的时间 乘以多少分钟 1分钟=60000  有效的锁定时间*/
+          const enterTime=+this.$store.state.shiftRecords.enterTime + 60000 * min
+          const nowTime=Date.now()
+          if(nowTime>enterTime){
+            // ID号清空
+            this.$store.commit("changeShiftRecordID",'')
+            // 进入时间清空
+            this.$store.commit("changeEnterTime",'')
+            return
+          }
+        }
+        // 有ID就解锁
+        if(this.$store.state.shiftRecords.shiftRecordID){
+          // 解锁
+          const res= await apis.unLockShiftRecord(this.$store.state.shiftRecords.shiftRecordID)
+          // ID号清空
+          this.$store.commit("changeShiftRecordID",'')
+          // 进入时间清空
+          this.$store.commit("changeEnterTime",'')
+        }
       }
+    },
+    async destroyed(){
+      /* 切换模块的时候解锁 */
+      await this.toUnLock()
     },
     components: {
       CreateShiftWorkModal,

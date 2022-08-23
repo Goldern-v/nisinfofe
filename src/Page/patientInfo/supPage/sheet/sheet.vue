@@ -15,9 +15,9 @@
       id="sheet_body_con"
       :style="{ height: containHeight }"
     >
-      <div class="right-part" v-loading="tableLoading">
+      <div class="right-part" v-loading="tableLoading"  element-loading-text="拼命加载中">
         <div class="sheetTable-contain" ref="scrollCon" @scroll="onScroll">
-          <div ref="sheetTableContain">
+          <div ref="sheetTableContain" v-if="done">
             <component
               v-bind:is="sheetTable"
               v-for="(item, index) in filterSheetModel"
@@ -34,7 +34,7 @@
             ></component>
           </div>
           <div
-            v-show="sheetModelData.length == 0"
+            v-show="!sheetModelData.length"
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
@@ -245,10 +245,11 @@ export default {
       data: {
         deptValue: "",
         deptList: [],
-        bedList: []
+        bedList: [],
       },
       patientListLoading: false,
       tableLoading: false,
+        done:false,//控制表单加载的开关 等数据完成后打开  加载数据
       pageLoading: false,
       bus: bus(this),
       sheetModelData:[],
@@ -377,17 +378,20 @@ export default {
       }
     },
     getSheetData(isBottom) {
+      this.tableLoading = true;
+          //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
+    this.done=false
       if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
         this.isLoad=false
       }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
+        this.tableLoading = false;
         setTimeout(() => {
           sheetInfo.isSave = true;
         }, 100);
         return;
       }
-      this.tableLoading = true;
        let fnArr = [
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
         showBody(this.patientInfo.patientId, this.patientInfo.visitId),
@@ -456,14 +460,13 @@ export default {
             deptNameChange: bodyData.deptName
           };
         }
-        this.$nextTick(() => {
-          initSheetPage(titleData, bodyData, markData,this.listData);
-          this.sheetModelData = getData();
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
-          this.getHomePage(isBottom);
-
+        this.$nextTick(async() => {
+         await initSheetPage(titleData, bodyData, markData,this.listData);
+          this.sheetModelData = getData();
+          this.done=true
           this.tableLoading = false;
-
+          this.getHomePage(isBottom);
           let timeNum = 5;
 
           function toBottom() {

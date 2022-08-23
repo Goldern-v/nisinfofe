@@ -38,6 +38,7 @@
         :style="{ marginLeft: openLeft ? '200px' : '0' }"
         :class="{ wxHighLightBg: HOSPITAL_ID == 'weixian' }"
         v-loading="tableLoading"
+        element-loading-text="拼命加载中"
       >
         <div
           class="sheetTable-contain"
@@ -46,7 +47,7 @@
 
           @scroll="(e) => onScroll(e)"
         >
-          <div ref="sheetTableContain">
+          <div ref="sheetTableContain" v-if="done">
             <component
               v-bind:is="sheetTable"
               v-for="(item, index) in filterSheetModel"
@@ -63,7 +64,7 @@
             ></component>
           </div>
           <div
-            v-show="sheetModelData.length == 0"
+            v-show="!sheetModelData.length"
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
@@ -293,7 +294,6 @@ import { blockSave, getNurseExchageInfo } from "./api/index";
 //解锁
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 
-
 export default {
   mixins: [common],
   data() {
@@ -304,6 +304,7 @@ export default {
       patientListLoading: false,
       pageLoading: false,
       tableLoading: false,
+      done:false,//控制表单加载的开关 等数据完成后打开  加载数据
       bus: bus(this),
       sheetModelData:[],
       sheetInfo,
@@ -459,10 +460,12 @@ export default {
           this.data.bedList = res.data.data.filter((item) => {
             return item.patientId;
           });
+
           sheetInfo.bedList = this.data.bedList;
           this.patientListLoading = false;
           sheetInfo.isSave = true;
         });
+
       }
     },
     addSheetPage() {
@@ -511,18 +514,22 @@ export default {
         this.bus.$emit("openNewSheetModal");
       }
     },
-   async getSheetData(isBottom) {
+  getSheetData(isBottom) {
+    //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
+    this.done=false
+      this.tableLoading = true;
       if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
         this.isLoad=false
       }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
+        this.tableLoading = false;
         setTimeout(() => {
           sheetInfo.isSave = true;
         }, 300);
         return;
       }
-      this.tableLoading = true;
+
       $(".red-border").removeClass("red-border");
       //  cleanData()
       let fnArr = [
@@ -593,17 +600,17 @@ export default {
             deptNameChange: bodyData.deptName,
           };
         }
-        this.$nextTick(() => {
-        initSheetPage(titleData, bodyData, markData, this.listData);
+        sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
+        this.$nextTick(async () => {
+      await initSheetPage(titleData, bodyData, markData, this.listData);
+      //加载表单
         this.sheetModelData= getData()
-          sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
-          // 暂时方案有影响就换其他办法，报错是因为贵州切换患者时清空了sheetInfo.selectBlock
+          this.done=true
+          this.tableLoading = false;
           if ((!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) && this.HOSPITAL_ID == 'guizhou') {
             return
           }
           this.getHomePage(isBottom);
-
-          this.tableLoading = false;
           let timeNum = 5;
           function toBottom() {
             timeNum--;

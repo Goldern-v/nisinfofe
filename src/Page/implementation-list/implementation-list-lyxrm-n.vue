@@ -508,9 +508,9 @@ export default {
       this.search();
     },
     type(newVal, oldVal) {
-      if (oldVal == "输液") {
-        this.status = "";
-      }
+      // if (oldVal == "输液") {
+      //   this.status = "";
+      // }
       this.search();
     },
     status() {

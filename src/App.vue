@@ -223,6 +223,9 @@ export default {
     window.closeCaSignModal = () => {
       this.$refs.caSignModal.close();
     };
+    window.reloginCaSignModal = (relogobj) => {
+      this.$refs.caSignModal.relogin(relogobj);
+    };
     /** 江门妇幼ca签名 */
     window.openFuyouCaSignModal = (isStart) => {
       return this.$refs.fuyouCaSignModal.open(()=>{},isStart);
@@ -239,6 +242,7 @@ export default {
     //fuyouCaSignModal
     /** 关闭前提示 */
     !this.isDev &&
+      !window.location.href.includes("otherPage") &&
       !window.location.href.includes("nursingDoc") &&
       !window.location.href.includes("showPatientDetails") &&
       (window.onbeforeunload = function(event) {

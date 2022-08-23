@@ -60,47 +60,47 @@
         <div class="info-con between">
           <!-- <span>诊断：{{ patientInfo.diagnosis }}</span> -->
           <span>诊断：
-            <input 
+            <input
               class="bottom-line-input full-width"
               :data-value="sheetInfo.relObj[`${index}_zd`]"
                v-model="sheetInfo.relObj[`${index}_zd`]"
             />
           </span>
-          <!-- 
+          <!--
               :data-value="sheetInfo.relObj.zd"
               v-model="sheetInfo.relObj.zd"
            -->
           <!-- <span>护理等级：
             <span class="boxRadio">
               <label>
-                <input 
-                  type="radio" 
-                  value="重症监护" 
-                  v-model="sheetInfo.relObj.nursingGrade" 
+                <input
+                  type="radio"
+                  value="重症监护"
+                  v-model="sheetInfo.relObj.nursingGrade"
                   :ischecked="sheetInfo.relObj.nursingGrade == '重症监护'"
                 >重症监护
               </label>
               <label>
-                <input 
-                  type="radio" 
-                  value="特级" 
-                  v-model="sheetInfo.relObj.nursingGrade" 
+                <input
+                  type="radio"
+                  value="特级"
+                  v-model="sheetInfo.relObj.nursingGrade"
                   :ischecked="sheetInfo.relObj.nursingGrade == '特级'"
                 >特级
               </label>
               <label>
-                <input 
-                  type="radio" 
-                  value="Ⅰ级" 
-                  v-model="sheetInfo.relObj.nursingGrade" 
+                <input
+                  type="radio"
+                  value="Ⅰ级"
+                  v-model="sheetInfo.relObj.nursingGrade"
                   :ischecked="sheetInfo.relObj.nursingGrade == 'Ⅰ级'"
                 >Ⅰ级
               </label>
               <label>
-                <input 
-                  type="radio" 
-                  value="Ⅱ级" 
-                  v-model="sheetInfo.relObj.nursingGrade" 
+                <input
+                  type="radio"
+                  value="Ⅱ级"
+                  v-model="sheetInfo.relObj.nursingGrade"
                   :ischecked="sheetInfo.relObj.nursingGrade == 'Ⅱ级'"
                 >Ⅱ级
               </label>
@@ -138,7 +138,7 @@
   }
   .between {
     display: flex;
-    justify-content: space-between;  
+    justify-content: space-between;
     .full-width {
       text-align: left;
       width: 500px;
@@ -155,7 +155,7 @@
     outline: none;
     text-align: center;
   }
-  
+
   .header-con {
     .his-name {
       font-size: 18px;
@@ -243,7 +243,7 @@
       outline: none;
     }
   }
-  
+
 
   .bottomCon {
     position: relative;
@@ -373,9 +373,9 @@ export default {
   update() {},
   mounted() {
     // 初始化诊断如果没有值取后端返回的默认诊断
-    // this.sheetInfo.relObj.zd = 
+    // this.sheetInfo.relObj.zd =
     // this.sheetInfo.relObj.zd ? this.sheetInfo.relObj.zd : this.patientInfo.diagnosis;
-    
+
     if(this.index==0){
       // 初始化(第一页)诊断如果没有值取后端返回的默认诊断
       let beforeZd=this.sheetInfo.relObj.zd?this.sheetInfo.relObj.zd: this.patientInfo.diagnosis
@@ -418,7 +418,7 @@ export default {
          this.sheetInfo.relObj[`${newval}_zd`]=
          this.sheetInfo.relObj[`${newval}_zd`] ?this.sheetInfo.relObj[`${newval}_zd`]: beforeZd
        }
-    } 
+    }
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {

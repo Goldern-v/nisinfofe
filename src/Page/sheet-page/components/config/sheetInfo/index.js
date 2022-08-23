@@ -1,4 +1,5 @@
-export default {
+
+ let data={
   sheetType: "",
   isSave: true,
   sheetStartPage: 1,
@@ -19,3 +20,4 @@ export default {
   bedList: [], //病人列表
   auditorMap: {}, //审核人签名
 };
+export default data

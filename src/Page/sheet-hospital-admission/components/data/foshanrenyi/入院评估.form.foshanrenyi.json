@@ -490,7 +490,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "二、生命体症",
+      "title": "二、生命体征",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -916,11 +916,16 @@
                 "title": "心脏起搏",
                 "parentName": "I001102",
                 "name": "I001102",
-                "type": "dependent"
+                "type": "dependent",
+                "callbackInfo": {
+                  "respCode": "I001102",
+                  "reqCode": "I001103",
+                  "prefix": "有："
+                }
               }
             },
             {
-              "equal": "有",
+              "equals": "有",
               "style": "color:red"
             }
           ]
@@ -953,7 +958,7 @@
               }
             },
             {
-              "equal": "有",
+              "equals": "有",
               "style": "color:red"
             }
           ]
@@ -986,7 +991,7 @@
               }
             },
             {
-              "equal": "有",
+              "equals": "有",
               "style": "color:red"
             }
           ]
@@ -1008,23 +1013,19 @@
                 "cleanKey": "无",
                 "title": "药物名称（药物依赖/吸毒）",
                 "parentName": "I001108",
-                "type": "dependent"
+                "type": "dependent",
+                "callbackInfo": {
+                  "respCode": "I001108",
+                  "reqCode": "I001109",
+                  "prefix": "有："
+                }
               }
             },
             {
-              "equal": "有",
+              "equals": "有",
               "style": "color:red"
             }
           ]
-        },
-        {
-          "name": "I001114",
-          "type": "select",
-          "title": "既往史",
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "style": null,
-          "class": null
         }
       ]
     },
@@ -1047,15 +1048,6 @@
           "type": "input",
           "inputType": "textarea",
           "title": "曾有病史",
-          "isDisabledRules": [
-            {
-              "type": "notEqual",
-              "key": "I001114",
-              "valList": [
-                "有"
-              ]
-            }
-          ],
           "titleStyle": "width:65px!important",
           "inputStyle": "width:100%!important",
           "class": null
@@ -1189,7 +1181,7 @@
               }
             },
             {
-              "equal": "有",
+              "equals": "有",
               "style": "color:red"
             }
           ]
@@ -1678,7 +1670,7 @@
           "class": null,
           "showDeptName": [
             "新生儿科",
-            "儿科"
+            "肛肠外科"
           ]
         }
       ]
@@ -2300,41 +2292,6 @@
           ]
         },
         {
-          "name": "I001254",
-          "type": "select",
-          "title": "皮肤情况",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          
-          "class": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": [
-                  "紫绀", "苍白", "黄疸", "黄染", "潮红", "红斑",
-                  "薄如纸", "干燥", "出血点", "压疮", "破损", "水肿",
-                  "皮疹"
-                ],
-                "cleanKey": "完整",
-                "title": "皮肤详细描述",
-                "parentName": "I001254",
-                "type": "dependent"
-              }
-            }
-          ]
-        },
-        {
-          "name": "I100067",
-          "type": "select",
-          "title": "皮肤温度",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          
-          "class": null
-        },
-        {
           "name": "I001964",
           "type": "select",
           "title": "皮疹",
@@ -2434,38 +2391,11 @@
               "style": "color:red"
             }
           ]
-        },
-        {
-          "name": "I001258",
-          "type": "select",
-          "title": "压力性损伤",
-          "style": null,
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "247px",
-          "class": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "压力性损伤情况",
-                "parentName": "I001254",
-                "type": "dependent"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
         }
       ]
     },
     {
-      "name": "I001260",
+      "name": "",
       "type": "formGroupColBox",
       "col": 1,
       "title": "五、皮肤",
@@ -2478,17 +2408,32 @@
       "classes": null,
       "children": [
         {
-          "name": "I001260",
+          "name": "I001254",
           "type": "select",
-          "title": "管道",
+          "title": "皮肤情况",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          
+          "inputStyle": "width:670px!important",
           "class": null,
-          "options": [
-            "无",
-            "有"
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "紫绀", "苍白", "黄疸", "黄染", "潮红", "红斑",
+                  "薄如纸", "干燥", "出血点", "压疮", "破损", "水肿",
+                  "皮疹"
+                ],
+                "cleanKey": "完整",
+                "title": "皮肤详细描述",
+                "parentName": "I001254",
+                "type": "dependent",
+                "callbackInfo": {
+                  "respCode": "I001254",
+                  "reqCode": "I001113",
+                  "openKey": "I001254"
+                }
+              }
+            }
           ]
         }
       ]
@@ -2537,67 +2482,8 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          
           "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "relationForm": {
-                "openKey": [
-                  "无力",
-                  "活动受限",
-                  "左上肢偏瘫",
-                  "左下肢偏瘫",
-                  "右上肢偏瘫",
-                  "右下肢偏瘫",
-                  "左侧肢体偏瘫",
-                  "右侧肢体偏瘫",
-                  "截瘫",
-                  "全瘫"
-                ],
-                "cleanKey": "自如",
-                "params": {
-                  "formCode": "E0362",
-                  "showSignBtn": true,
-                  "title": "佛山人医ADL量表(Barthel 指数)",
-                  "formUrl": "佛山人医ADL量表(Barthel 指数).html",
-                  "callbackInfo": {
-                    "needScore": true,
-                    "code": "I100126",
-                    "prefix": "BADL评分",
-                    "suffix":[
-                      {
-                        "max": 100,
-                        "min": 100,
-                        "value": "分，独立"
-                      },
-                      {
-                        "max": 95,
-                        "min": 75,
-                        "value": "分，轻度依赖"
-                      },
-                      {
-                        "max": 70,
-                        "min": 50,
-                        "value": "分，中度依赖"
-                      },
-                      {
-                        "max": 45,
-                        "min": 25,
-                        "value": "分，重度依赖"
-                      },
-                      {
-                        "max": 20,
-                        "min": 0,
-                        "value": "分，完全依赖"
-                      }
-                    ]
-                  }
-                },
-                "title": "四肢活动"
-              }
-            }
-          ]
+          "readOnly": null
         },
         {
           "name": "I100129",
@@ -2927,8 +2813,8 @@
               "tasks": [
                 {
                   "clean": [
-                    "妇科",
-                    "儿科",
+                    "疝和腹壁外科",
+                    "肛肠外科",
                     "产科",
                     "新生儿科",
                     "母乳宣教"
@@ -2939,7 +2825,7 @@
             {
               "name": "I001351",
               "type": "radio",
-              "title": "妇科",
+              "title": "疝和腹壁外科",
               "elementStyle": "margin: 3px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
@@ -2947,22 +2833,22 @@
               "tasks": [
                 {
                   "clean": [
-                    "妇科",
-                    "儿科",
+                    "疝和腹壁外科",
+                    "肛肠外科",
                     "产科",
                     "新生儿科",
                     "母乳宣教"
                   ]
                 },
                 {
-                  "show": "妇科"
+                  "show": "疝和腹壁外科"
                 }
               ]
             },
             {
               "name": "I001351",
               "type": "radio",
-              "title": "儿科",
+              "title": "肛肠外科",
               "elementStyle": "margin: 3px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
@@ -2970,15 +2856,15 @@
               "tasks": [
                 {
                   "clean": [
-                    "妇科",
-                    "儿科",
+                    "疝和腹壁外科",
+                    "肛肠外科",
                     "产科",
                     "新生儿科",
                     "母乳宣教"
                   ]
                 },
                 {
-                  "show": "儿科"
+                  "show": "肛肠外科"
                 }
               ]
             },
@@ -2993,8 +2879,8 @@
               "tasks": [
                 {
                   "clean": [
-                    "妇科",
-                    "儿科",
+                    "疝和腹壁外科",
+                    "肛肠外科",
                     "产科",
                     "新生儿科"
                   ]
@@ -3018,8 +2904,8 @@
               "tasks": [
                 {
                   "clean": [
-                    "妇科",
-                    "儿科",
+                    "疝和腹壁外科",
+                    "肛肠外科",
                     "产科",
                     "新生儿科",
                     "母乳宣教"
@@ -3038,7 +2924,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "妇科",
+      "title": "疝和腹壁外科",
       "parentKey": "I001351",
       "message": "",
       "require": "false",
@@ -3053,145 +2939,52 @@
         {
           "name": "I001352",
           "type": "select",
-          "title": "月经情况",
+          "title": "腹股沟肿物",
           "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          
+          "titleStyle": "width:70px!important",
+          "inputStyle": "width:260px!important",
           "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "末次月经",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "末次月经情况",
-                "parentName": "I001352",
-                "type": "dependent"
-              }
-            },
-            {
-              "dialog": {
-                "openKey": "其他",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "月经其他情况",
-                "parentName": "I001352",
-                "type": "dependent"
-              }
-            }
-          ]
+          "readOnly": null
         },
         {
           "name": "I001355",
           "type": "select",
-          "title": "月经失调",
+          "title": "腹部肿物",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          
           "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "其他",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "月经失调其他情况",
-                "parentName": "I001355",
-                "type": "dependent"
-              }
-            }
-          ]
+          "readOnly": null
         },
         {
           "name": "I001357",
           "type": "select",
-          "title": "避孕方法",
+          "title": "脐部肿物",
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          
           "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "其他",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "避孕方法其他情况",
-                "parentName": "I001357",
-                "type": "dependent"
-              }
-            }
-          ]
+          "readOnly": null
         },
         {
           "name": "I100119",
           "type": "select",
-          "title": "阴道流血",
+          "title": "会阴部",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          
+          "inputStyle": "width:270px!important",          
           "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "阴道流血情况",
-                "parentName": "I100119",
-                "type": "dependent"
-              }
-            }
-          ]
+          "readOnly": null
         },
         {
           "name": "I100122",
           "type": "select",
-          "title": "阴道异常分泌物",
+          "title": "阴囊皮肤",
           "style": null,
           "titleStyle": "width:100px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "141px",
           "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "其他",
-                "cleanKey": [
-                  "无",
-                  "有"
-                ],
-                "title": "阴道异常分泌物其他情况",
-                "parentName": "I100122",
-                "type": "dependent"
-              }
-            },
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": [
-                  "无"
-                ],
-                "title": "阴道分泌物情况",
-                "parentName": "I100122",
-                "type": "dependent"
-              }
-            }
-          ]
+          "readOnly": null
         }
       ]
     },
@@ -3914,7 +3707,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "儿科",
+      "title": "肛肠外科",
       "parentKey": "I001351",
       "message": "",
       "hidden": true,
@@ -3925,146 +3718,26 @@
       "style": null,
       "classes": null,
       "readOnly": null,
+      "boxStyle": "height: 64px !important;",
       "children": [
         {
           "name": "I001367",
           "type": "select",
-          "title": "头面部:头颅",
-          "postTitle": "头颅情况",
+          "title": "腹部",
+          "postTitle": "腹部",
           "style": null,
-          "titleStyle": "width:81px!important",
+          "titleStyle": "width:60px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "其他",
-                "cleanKey": "无",
-                "title": "头颅其他说明",
-                "parentName": "I001367",
-                "type": "dependent",
-                "otherDialog": {
-                  "name": "I001368",
-                  "title": "头颅其他说明"
-                }
-              }
-            }
-          ]
+          "class": null
         },
         {
           "name": "I001369",
-          "type": "select",
-          "title": "头面部:前囟",
-          "postTitle": "前囟情况",
-          "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "未闭",
-                "cleanKey": "已闭",
-                "title": "前囟未闭情况",
-                "parentName": "I001369",
-                "type": "dependent"
-              }
-            }
-          ]
-        },
-        {
-          "name": "I100089",
-          "type": "select",
-          "title": "口腔粘膜",
-          "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I001373",
-          "type": "select",
-          "title": "呼吸运动",
-          "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "呼吸受限",
-                "cleanKey": [
-                  "平顺"
-                ],
-                "title": "呼吸受限情况",
-                "parentName": "I001373",
-                "type": "dependent"
-              }
-            }
-          ]
-        },
-        {
-          "name": "I001372",
-          "type": "select",
-          "title": "胸部外观",
-          "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I001375",
-          "type": "select",
-          "title": "呼吸道症状",
-          "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I001377",
-          "type": "select",
-          "title": "腹部",
-          "multiplechoice": true,
-          "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I100104",
-          "type": "select",
-          "title": "肠鸣音",
-          "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null
-        },
-        {
-          "name": "I100128",
-          "type": "select",
-          "title": "四肢活动",
-          "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "readOnly": null
+          "type": "input",
+          "inputType": "textarea",
+          "title": "肛查",
+          "titleStyle": "width:65px!important",
+          "inputStyle": "width:268px!important",
+          "class": null
         }
       ]
     },

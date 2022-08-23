@@ -621,9 +621,7 @@ export default {
         }).then(()=>{
           document.getElementById('new-print-box').style.display = 'none'
           this.onLoad()
-        }).catch(e => {
-          console.log('test-e', e)
-        })
+        }).catch(e => {})
       })
     },
     // 打印全部
@@ -738,6 +736,8 @@ export default {
           return ['5*8', '3*5']
         case 'ytll':
           return ['7*7']
+        case 'whfk':
+          return ['6*8', '3.5*5']
         default:
           return ['6*8', '3*5']
       }
