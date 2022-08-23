@@ -448,6 +448,7 @@ const router = new Router({
         case 'whfk':
         case 'sdlj':
         case 'hengli':
+        case 'fuyou':
           // 新版修改密码
           return newResetPassword
         default:

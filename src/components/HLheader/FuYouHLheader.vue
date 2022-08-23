@@ -310,6 +310,11 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
+              <router-link to="/allCatheter" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 导管
+              </el-row>
+            </router-link>
             <router-link
               to="/singleRound"
               tag="span"
@@ -1033,7 +1038,7 @@ export default {
       this.$nextTick(()=>{
         this.$refs.setPassword.open();
       })
-      
+
     },
     remoteMethod(query) {
       if (query !== "") {
