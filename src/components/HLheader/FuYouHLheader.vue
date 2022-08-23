@@ -17,7 +17,7 @@
                 height="63"
                 width="63"
               />
-              <span>江门市妇幼保健医<br />智慧护理信息系统</span>
+              <span>江门市妇幼保健院<br />智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
