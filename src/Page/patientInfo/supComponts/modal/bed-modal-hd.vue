@@ -165,16 +165,35 @@
             <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
-            <div class="allergy">
-              <p :class="[allergy1||drugGms||allergy2?'gm':'']">
-                过敏信息：
-                <span v-if="allergy1">{{ allergy1 }};</span>
-                <span v-if="drugGms">{{ drugGms }};</span>
-                <span v-if="allergy2">{{ allergy2 }}</span>
-                <span v-if="!(allergy1||drugGms||allergy2)">无</span>
-              </p>
+			
+			<div flex="cross:top"
+              class="input-item"
+				v-if="['gdtj'].includes(HOSPITAL_ID)" style="width:350px;height: 60px;">
+              <span class="label">过敏信息：</span>
+			  <textarea
+                type="text"
+                nowidth
+                flex-box="1"
+				placeholder="20个字以内"
+                class="bottom-line remark allergy-textarea is_hide_textarea"
+                v-model="allergy_gdtj"
+                :maxlength="20"
+              ></textarea>
+			  <p class="bottom-line remark allergy-textarea print-page__ptext" flex-box="1" style="whiteSpace: pre-wrap;">{{allergy_gdtj}}</p>
+              
             </div>
-            <!-- <svg id="barcode"></svg> -->
+			<div class="allergy" v-else>
+				<p :class="[allergy1||drugGms||allergy2?'gm':'']">
+					过敏信息：
+					<span v-if="allergy1">{{ allergy1 }};</span>
+					<span v-if="drugGms">{{ drugGms }};</span>
+					<span v-if="allergy2">{{ allergy2 }}</span>
+					<span v-if="!(allergy1||drugGms||allergy2)">无</span>
+				</p>
+			</div>
+			
+			
+            <!-- <svg id="barcode"></svg> --> 
           </div>
           <img
             class="qr-code"
@@ -252,6 +271,17 @@
     text-align: center;
   }
 }
+.remark {
+  height: 60px;
+  resize: none;
+  overflow: hidden;
+  border-bottom: 1px solid #000;
+  margin-top: 1px;
+  font-size: 22px;
+  line-height: 30px;
+  border: 0;
+  padding: 0;
+}
 
 .bed-card-warpper {
   background: #fff;
@@ -303,6 +333,9 @@
       // height: 70px !important;
     }
   }
+}
+.print-page__ptext{
+	display: none;
 }
 
 .wrist-strap-print {
@@ -447,13 +480,23 @@
   height: 60px;
   resize: none;
   overflow: hidden;
-  border-bottom: 1px solid #000;
   margin-top: 1px;
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 20px;
   border: 0;
   padding: 0;
 }
+  .allergy-textarea{
+	overflow:hidden;
+	width: 235px;
+	padding-left 4px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	height: 58px;
+	border-radius:4px;
+	line-height: 1.1;
+    padding-top: 4px;
+	font-size: 19px;
+  }
 
 .input-item {
   height: 40px;
@@ -676,7 +719,8 @@ export default {
       title: "编辑床头卡",
       allergy1: "",
       allergy2: "",
-      drugGms: ""
+      drugGms: "",
+	  allergy_gdtj:"",//自定义过敏信息
     };
   },
   computed: {
@@ -835,6 +879,17 @@ export default {
           }
           .bed-card-vert-con {
           }
+		  .allergy-textarea{
+			
+		  }
+		  .is_hide_textarea{
+			display:none;
+		  }
+		  .print-page__ptext{
+			display:block !important;
+			border:none !important;
+			padding:0 !important;
+		  }
           @page {
             margin: 0;
           }
