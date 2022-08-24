@@ -139,11 +139,51 @@
       <div class="info-con" flex="main:justify" >
         <span>
           观察部位:
-          <span>A:</span><input v-model="sheetInfo.relObj.A"/>
-          <span>B:</span><input v-model="sheetInfo.relObj.B"/>
-          <span>C:</span><input v-model="sheetInfo.relObj.C"/>
-          <span>D:</span><input v-model="sheetInfo.relObj.D"/>
-          <span>E:</span><input v-model="sheetInfo.relObj.E"/>
+          <span>
+        A:
+        <input
+          style="width:120px"
+          class="bottom-line-input"
+          :data-value="sheetInfo.relObj.A"
+          v-model="sheetInfo.relObj.A"
+        />
+      </span>
+      <span>
+        B:
+        <input
+          style="width:120px"
+          class="bottom-line-input"
+          :data-value="sheetInfo.relObj.B"
+          v-model="sheetInfo.relObj.B"
+        />
+      </span>
+      <span>
+        C:
+        <input
+          style="width:120px"
+          class="bottom-line-input"
+          :data-value="sheetInfo.relObj.C"
+          v-model="sheetInfo.relObj.C"
+        />
+      </span>
+      <span>
+        D:
+        <input
+          style="width:120px"
+          class="bottom-line-input"
+          :data-value="sheetInfo.relObj.D"
+          v-model="sheetInfo.relObj.D"
+        />
+      </span>
+      <span>
+        E:
+        <input
+          style="width:120px"
+          class="bottom-line-input"
+          :data-value="sheetInfo.relObj.E"
+          v-model="sheetInfo.relObj.E"
+        />
+      </span>
         </span>
         </div>
     </template>
