@@ -242,6 +242,7 @@ export default {
     //fuyouCaSignModal
     /** 关闭前提示 */
     !this.isDev &&
+      !window.location.href.includes("otherPage") &&
       !window.location.href.includes("nursingDoc") &&
       !window.location.href.includes("showPatientDetails") &&
       (window.onbeforeunload = function(event) {

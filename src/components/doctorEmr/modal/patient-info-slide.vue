@@ -36,11 +36,17 @@
             <div class="label">患者病历</div>
             <el-button @click="openModal('doctorEmrModal')">查看</el-button>
           </div>
+          <div class="item-box" v-for="(v, i) in extraList" :key="i">
+            <img src="../images/检验报告@2x.png" alt class="label-icon" />
+            <div class="label">{{ v.name }}</div>
+            <el-button @click="openModal('iframeModal', {url: v.url})">查看</el-button>
+          </div>
         </div>
         <inspectModal ref="inspectModal" v-if="show"></inspectModal>
         <testModal ref="testModal" v-if="show"></testModal>
         <adviceModal ref="adviceModal" v-if="show"></adviceModal>
         <doctorEmrModal ref="doctorEmrModal" v-if="show"></doctorEmrModal>
+        <iframeModal ref="iframeModal" v-if="show" />
       </div>
     </transition>
   </div>
@@ -157,6 +163,7 @@ import inspectModal from "./inspect-modal";
 import testModal from "./test-modal";
 import adviceModal from "./advice-modal";
 import doctorEmrModal from "./doctor-emr-modal";
+import iframeModal from "@/Page/sheet-page/components/sheet-tool/modal/iframe-modal.vue";
 export default {
   data() {
     return {
@@ -164,7 +171,21 @@ export default {
       show: false
     };
   },
-  computed: {},
+  computed: {
+    extraList() {
+      switch(this.HOSPITAL_ID) {
+        case 'huadu':
+          return [
+            {
+              name: '360视图',
+              url: this.url360Hd()
+            }
+          ]
+        default:
+          return []
+      }
+    },
+  },
   methods: {
     open() {
       this.show = true;
@@ -176,9 +197,14 @@ export default {
     toggle() {
       this.show = !this.show;
     },
-    openModal(name) {
-      this.$refs[name].open();
-    }
+    openModal(name, feature) {
+      this.$refs[name].open(feature);
+    },
+    url360Hd() {
+      const { inpNo = '' } = this.$route.query
+      console.log('test-inpNo', inpNo)
+      return `http://172.16.8.135:9092/?vid=${inpNo}&vidType=02&appId=360&security=123#/personInfo`;
+    },
   },
   created() {},
   mounted() {},
@@ -187,7 +213,8 @@ export default {
     inspectModal,
     testModal,
     adviceModal,
-    doctorEmrModal
+    doctorEmrModal,
+    iframeModal,
   }
 };
 </script>

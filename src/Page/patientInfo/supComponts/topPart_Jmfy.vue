@@ -7,7 +7,7 @@
     >
       <img src="../../../common/images/jmfy_log.png" height="60" width="60" />
       <span>
-        江门市妇幼保健医
+        江门市妇幼保健院
         <br />智慧护理信息系统
       </span>
     </el-row>

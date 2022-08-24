@@ -14,6 +14,7 @@ import hospitalEval from './module/hospitalEval'
 import temperature from './module/temperature'
 import admittingSave from './module/admittingSave'
 import form_masterInfo from "./module/form_masterInfo"
+import shiftRecords from "./module/shiftRecords"
 Vue.use(vuex)
 let store = new vuex.Store({
   modules: {
@@ -30,7 +31,8 @@ let store = new vuex.Store({
     hospitalEval,
     temperature,
     admittingSave,
-    form_masterInfo
+    form_masterInfo,
+    shiftRecords
   }
 })
 

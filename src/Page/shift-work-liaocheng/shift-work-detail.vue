@@ -6,16 +6,17 @@
       <ElSelect size="small" :value="$route.params.code" @input="onCodeChange">
         <ElOption v-for="d of depts" :key="d.deptCode" :label="d.deptName" :value="d.deptCode" />
       </ElSelect>
-      <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()">添加患者</Button>
+      <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()"  v-if="!$store.state.shiftRecords.isLock">添加患者</Button>
       <Button
         :disabled="isEmpty || allSigned || !$refs.table || !$refs.table.selectedRow"
         @click="onRowRemove"
+        v-if="!$store.state.shiftRecords.isLock"
       >删除行</Button>
       <!-- <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button> -->
-      <Button :disabled="isEmpty || allSigned"  @click="onSave(true)">保存</Button>
+      <Button :disabled="isEmpty || allSigned"  @click="onSave(true)" v-if="!$store.state.shiftRecords.isLock">保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
-      <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
+      <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove" v-if="!$store.state.shiftRecords.isLock">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
     </div>
     <div class="container" ref="container">
@@ -824,6 +825,36 @@ export default {
     });
   },
   methods: {
+    async toUnLock(){
+       // 判断是否超时了。超时就清空信息。不用发请求
+        if(this.$store.state.shiftRecords.enterTime){
+          let min=10
+          /* 获取后台配置自动解锁时间 */
+          const {data:{data}}=await apis.unLockTime()
+          if(data!=='his_form_data_lock_timeout'){
+            // 默认10分钟
+             min=+data
+          }
+          /* 进入的时间 乘以多少分钟 1分钟=60000  有效的锁定时间*/
+          const enterTime=+this.$store.state.shiftRecords.enterTime + 60000 * min
+          const nowTime=Date.now()
+          if(nowTime>enterTime){
+            // ID号清空
+            this.$store.commit("changeShiftRecordID",'')
+            // 进入时间清空
+            this.$store.commit("changeEnterTime",'')
+            return
+          }
+        }
+        // 有ID就解锁
+        if(this.$store.state.shiftRecords.shiftRecordID){
+          // 解锁
+          const res= await apis.unLockShiftRecord(this.$store.state.shiftRecords.shiftRecordID)
+          // 清空
+          this.$store.commit("changeShiftRecordID",'')
+          this.$store.commit("changeEnterTime",'')
+        }
+    },
     async loadDepts() {
       const parentCode = this.deptCode;
       const res1 = await apis.listDepartment(parentCode);
@@ -850,15 +881,34 @@ export default {
       this.load();
     },
     async load() {
+      /* 每次加载数据都设为没有锁定 */
+      this.$store.commit("changeLockState",false)
       const id = this.$route.params.id;
       if (!id) return;
 
       this.loading = true;
       try {
         const {
-          data: { data }
+          data
         } = await apis.getShiftRecord(id);
-        const { changeShiftTimes: record, changeShiftPatients: patients,shiftWithWardcodes: shiftWithWardcodes } = data;
+        /* 提示正在操作。然后操作按钮隐藏 */
+        if(data.errorCode=='3001'){
+           window.app && window.app.$message({
+            showClose: true,
+            message: `其他护士${data.desc}`,
+            type: 'error',
+            duration:5000
+          })
+          this.$store.commit("changeLockState",true)
+          /* 如果切换其他加班日志，已经把锁定。那么之前自己有的交班日志，解锁 */
+          await this.toUnLock()
+        }else{
+          // 没有锁定成功进入。把ID存入VUEX解锁用
+          this.$store.commit("changeShiftRecordID",id)
+          // 存入进入的时间
+          this.$store.commit("changeEnterTime",Date.now())
+        }
+        const { changeShiftTimes: record, changeShiftPatients: patients,shiftWithWardcodes: shiftWithWardcodes } = data.data;
         record.specialCase = record.specialCase || "";
         this.record = record;
         this.patients = patients;
@@ -1295,8 +1345,10 @@ export default {
       //   }
       // });
       window.openSignModal(async (password, username) => {
-        await apis.removeShiftRecord(this.record.id, username, password);
-
+        const res=  await apis.removeShiftRecord(this.record.id, username, password);
+        if(res.data.code==200 && res.data.desc=='操作成功'){
+           await this.toUnLock()
+        }
         const code = this.$route.params.code;
 
         this.$message.success("删除成功");
