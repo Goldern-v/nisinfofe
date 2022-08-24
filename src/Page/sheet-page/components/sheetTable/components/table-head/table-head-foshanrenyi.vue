@@ -138,7 +138,7 @@
     </div>
     <div class="info-con">
       <span v-if="sheetInfo.sheetType == 'ipacu_fs'"
-        @click="updateDiagops('ops', '手术', patientInfo.ops)"
+        @click="updateDiagops('ops', '手术', patientInfo.relObj.ops)"
       >
         手术：
         <div
@@ -150,7 +150,7 @@
             white-space: nowrap;
           "
         >
-          {{ ops }}
+          {{ sheetInfo.relObj[`PageIndex_diagops_${index}`] }}
         </div>
       </span>
 
@@ -253,12 +253,12 @@ export default {
     updateDiagops(key, label, autoText) {
       window.openSetTextModal(
         (text) => {
-          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          sheetInfo.relObj[`PageIndex_diagops_${this.index}`] = text;
           this.$message.success(`修改手术成功`);
           this.bus.$emit("saveSheetPage", false);
         },
-        this.diagnosis,
-        `修改入院诊断`
+        this.sheetInfo.relObj[`PageIndex_diagops_${this.index}`],
+        `修改手术`
       );
     },
     updateDelivery(key, label, autoText) {

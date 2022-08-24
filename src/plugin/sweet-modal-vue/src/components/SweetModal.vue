@@ -371,7 +371,7 @@ export default {
     close(fuyouIfclose) {
       console.log(this.ifNoguan,fuyouIfclose,JSON.parse(localStorage.user).empNo,"fuyouIfclose")
       if(this.HOSPITAL_ID=="fuyou"){
-        if(this.ifNoguan){
+        if(this.ifNoguan || fuyouIfclose===true){
           if (this.closeCallback) {
               this.closeCallback();
             }

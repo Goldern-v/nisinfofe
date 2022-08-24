@@ -144,7 +144,7 @@ export default {
       console.log("test--1")
       if(fuyouIfclose ===true || JSON.parse(localStorage.user).empNo=="admin"){
         this.clearIntervalItem();
-        this.$refs.modal.close()
+        this.$refs.modal.close(fuyouIfclose)
         this.bus.$emit("updateFuyouCaData")
       }
     },
