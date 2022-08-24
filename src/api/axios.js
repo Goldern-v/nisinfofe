@@ -43,18 +43,18 @@ axios.interceptors.request.use((config) => {
     for (let i = 0; i < whiteList.length; i++) {
         let whiteUrlPath = whiteList[i]
         if (config.url.indexOf(whiteUrlPath) > -1){
-            if(config.url.indexOf("GetUserList")>-1 ){
-                CaSignurl = "GetUserList"
-            }else if(config.url.indexOf("verifyUser")>-1){
-                let configData = config.data
-                let configDataARR = configData.split("&")
-                configDataARR.map(item=>{
+            if(config.url.indexOf("GetUserList")>-1 || config.url.indexOf("verifyUser")>-1){
+                CaSignurl = config.url.indexOf("GetUserList")>-1?"GetUserList":"verifyUser"
+                if(config.url.indexOf("verifyUser")>-1){
+                    let configData = config.data
+                    let configDataARR = configData.split("&")
+                    configDataARR.map(item=>{
                     let arr = item.split("=")
                     verifyUserObj[arr[0]] = arr[1] 
-                })
-                console.log(config,verifyUserObj,"configverifyUser");
-                CaSignurl = "verifyUser"
-            }else if(config.url.indexOf("SOF_Login")>-1){
+                    })
+                }
+            }else CaSignurl = ""
+            if(config.url.indexOf("SOF_Login")>-1){
                 console.log("SOF_Login",config.data);
                 strCertId = config.data.strCertId
                 strPassword= config.data.strPassword
