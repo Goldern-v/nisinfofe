@@ -120,6 +120,26 @@ function patientNursing(
   );
 }
 
+/**收藏表单 */
+function collectAssessmentForm(deptCode, collectionUser,formCode) {
+  return axios.post(`${apiPath}form/saveForCollection`,{
+    deptCode, 
+    collectionUser,
+    formCode
+  }
+)}
+
+
+/* 取消收藏表单 */
+function unCollectAssessmentForm(deptCode, collectionUser,formCode) {
+  return axios.post(`${apiPath}form/unfollowCollection`,{
+    deptCode, 
+    collectionUser,
+    formCode
+  }
+)}
+
+
 export const groupList = (patientId, visitId, type, wardCode) => {
   if (type == "healthEdu") {
     return axios.post(`${apiPath}formType/${type}/list`, {
@@ -215,4 +235,6 @@ export {
   pic,
   picNum,
   newOrders,
+  collectAssessmentForm,
+  unCollectAssessmentForm
 };
