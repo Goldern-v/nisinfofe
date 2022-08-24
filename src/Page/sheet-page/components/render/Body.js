@@ -1421,6 +1421,11 @@ function switchSheetType(type) {
       schema = require("../config/general_xt/tr.js").default;
     }
     break;
+    case "ipacu_fs": {
+      // 佛山市一 - 麻醉科IPACU
+      schema = require("../config/ipacu_fs/tr.js").default;
+    }
+    break;
     case "generalnursing_xt": {
       // 佛山杏坛 - 护理记录单（全院通用）
       schema = require("../config/generalnursing_xt/tr.js").default;

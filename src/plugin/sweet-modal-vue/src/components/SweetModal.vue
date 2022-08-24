@@ -278,7 +278,8 @@ export default {
           overflow: null
         }
       },
-      infull: false
+      infull: false,
+      ifNoguan:true
     };
   },
   updated() {
@@ -333,7 +334,7 @@ export default {
      *
      * @param tabId string     Optional id or index of initial tab element.
      */
-    open(tabId = null) {
+    open(tabId = null,ifNoguan =true) {
       if (tabId && this.has_tabs) {
         // Find tab with wanted id.
         let openingTabs = this.tabs.filter(tab => {
@@ -358,33 +359,27 @@ export default {
       this.$refs.dragBox.style.top = "50%";
       setTimeout(() => (this.visible = true), 30);
       this.$emit("open");
+      console.log(this.ifNoguan,ifNoguan,"this.ifNoguan111")
+      if(ifNoguan===false) this.ifNoguan = false
+      // this.ifNoguan = !ifNoguan && ifNoguan
+      console.log(this.ifNoguan,ifNoguan,"this.ifNoguan222")
     },
     /**
      * Close the dialog
      * Emits an event 'close'
      */
     close(fuyouIfclose) {
-      console.log(fuyouIfclose,JSON.parse(localStorage.user).empNo,"fuyouIfclose")
+      console.log(this.ifNoguan,fuyouIfclose,JSON.parse(localStorage.user).empNo,"fuyouIfclose")
       if(this.HOSPITAL_ID=="fuyou"){
-        // if(JSON.parse(localStorage.user).empNo!="admin"){
-        //   if(fuyouIfclose===true){
-        //     if (this.closeCallback) {
-        //       this.closeCallback();
-        //     }
-        //     this.visible = false;
-        //     this._unlockBody();
-        //     setTimeout(() => (this.is_open = false), 300);
-        //     this.$emit("close");
-        //   }
-        // }else{
-           if (this.closeCallback) {
+        if(this.ifNoguan){
+          if (this.closeCallback) {
               this.closeCallback();
             }
             this.visible = false;
             this._unlockBody();
             setTimeout(() => (this.is_open = false), 300);
             this.$emit("close");
-        // }
+        }
       }else{
          if (this.closeCallback) {
               this.closeCallback();

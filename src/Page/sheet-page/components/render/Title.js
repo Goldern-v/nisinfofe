@@ -1820,6 +1820,13 @@ export default function Title(
     );
   }
   break;
+  case "ipacu_fs": {
+    // 佛山市一 - 麻醉科IPACU
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ipacu_fs/th.js").default)
+    );
+  }
+  break;
   case "general_xt": {
     // 佛山杏坛 - 护理记录单（通用）
     Th = JSON.parse(
