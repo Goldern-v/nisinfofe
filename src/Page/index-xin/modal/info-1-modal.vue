@@ -30,7 +30,12 @@
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post" :loading="iconLoading">查看患者详情</el-button>
+        <el-button class="modal-btn" type="primary" @click="post" :loading="iconLoading" v-if="HOSPITAL_ID!='lyxrm'">查看患者详情</el-button>
+        <template v-else>
+          <el-button class="modal-btn" type="primary" @click="post" :loading="iconLoading">查看患者体温单</el-button>
+          <el-button class="modal-btn" type="primary" @click="formPage" :loading="iconLoading">查看患者文书</el-button>
+
+        </template>
       </div>
     </sweet-modal>
   </div>
@@ -134,6 +139,14 @@ export default {
           formCode: this.data.expand
         })}`;
       }
+      window.open(url, "_blank");
+      this.close();
+    },
+    formPage() {
+      let url = `/crNursing/record?${qs.stringify({
+          patientId: this.data.patientId,
+          visitId: this.data.visitId,
+        })}`;
       window.open(url, "_blank");
       this.close();
     }

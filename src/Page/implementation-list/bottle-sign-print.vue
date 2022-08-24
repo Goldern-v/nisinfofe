@@ -751,7 +751,7 @@ export default {
         return 'margin: 0 1mm 0 0;'
       }
       if (this.newModalSize == '5*8' && ['wujing'].includes(this.HOSPITAL_ID)) {
-        return 'margin: 0 0 0 12mm;'
+        return 'margin: 0 0 0 15mm;'
       }
       if (this.newModalSize == '7*7' && ['ytll'].includes(this.HOSPITAL_ID)) {
         return 'margin: 0 0 0 3mm;'

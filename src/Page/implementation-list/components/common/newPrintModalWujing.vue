@@ -159,9 +159,12 @@
   >>> * {
     font-size: 12px;
   }
+  * {
+    font-family: SimHei !important;
+  }
   .new-modal-top {
     display: flex;
-    font-weight: 600;
+    font-weight: 800;
     height: 50px;
     div {
       font-size: 13px;
@@ -180,7 +183,7 @@
         & > div {
           text-align: center;
           line-height: 28px;
-          font-size: 20px;
+          font-size: 19px;
           font-weight: 900;
         }
         div + div {
@@ -213,7 +216,7 @@
   .new-modal-bottom {
     display: flex;
     flex-direction: column;
-    font-weight: 700;
+    font-weight: 800;
     width: 100%;
     height: calc(100% - 50px);
     box-sizing: border-box;
@@ -225,7 +228,6 @@
         display: flex;
         justify-content: space-between;
         line-height: 16px;
-        font-size: 13px;
 
         span {
           text-align: left;
@@ -296,13 +298,6 @@
     >>> * {
       font-size: 16px;
       line-height: 24px;
-    }
-    &.is-fk {
-      border: none;
-      >>> * {
-        font-size: 20px;
-        font-weight: 700;
-      }
     }
     flex: 1;
     box-sizing: border-box;
