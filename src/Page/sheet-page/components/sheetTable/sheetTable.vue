@@ -23,6 +23,7 @@
         :index="index"
         :length="length"
         :scrollY="scrollY"
+        :scrollX="scrollX"
         :hasFiexHeader="true"
         :isInPatientDetails="isInPatientDetails"
         :listData="listData"
@@ -161,6 +162,7 @@ export default {
     index: Number,
     length: Number,
     scrollY: Number,
+    scrollX: Number,
     isInPatientDetails: Boolean,
     bedAndDeptChange: Object,
     listData: Array
@@ -183,7 +185,7 @@ export default {
     /** 只读模式 */
     readOnly() {
       if (
-        this.HOSPITAL_ID == "huadu" 
+        this.HOSPITAL_ID == "huadu"
       ) {
         return false;
       }
@@ -204,7 +206,7 @@ export default {
       /** 产科 */
       if (sheetInfo.sheetType === "prenatal") {
         return tableHeadPrenata;
-      } else if (sheetInfo.sheetType === "special") { 
+      } else if (sheetInfo.sheetType === "special") {
         return tableHeadTbhldLc;
       } else if (this.HOSPITAL_ID == "weixian") {
         return tableHeadWx;
