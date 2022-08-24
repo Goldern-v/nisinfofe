@@ -260,6 +260,21 @@ export default {
                 );
               }
 
+              if(['lyxrm'].includes(this.HOSPITAL_ID)) {
+                addCSS(
+                  window,
+                  `
+                  @media print {
+                    #sheetPagePrint .iframe > div{
+                    padding-top: 40px !important;
+                    }
+                    .iframe > div:nth-of-type(2n) {
+                        transform: rotate(0) !important;
+                    }
+                }
+                  `
+                );
+              }
               /** 如果是威县超宽打印 */
               if (this.HOSPITAL_ID == "weixian") {
                 addCSS(
