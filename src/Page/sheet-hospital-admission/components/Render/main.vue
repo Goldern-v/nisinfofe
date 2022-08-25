@@ -28,7 +28,9 @@
     <autoComplete ref="autoInput" />
 
     <!-- 模板 -->
-    <templateSlide ref="templateSlide" />
+    <templateSlide v-if="HOSPITAL_ID !== 'foshanrenyi'" ref="templateSlide" />
+
+    <templateSlideFoshanshiyi v-else ref="templateSlideFoshanshiyi" />
     <!-- 页面信息 -->
     <div v-if="formObj && formObj.model" ref="mainPage" class="cover-page">
       <div :style="formObj.pageSetting.style || '' " class="main-page" :class="{lock: lock}">
@@ -81,6 +83,7 @@ import bodyModal from "./modal/body-modal/body-modal";
 import diagnosisSlide from "./modal/diagnosisSlide";
 import diagnosisModal from "../Render/modal/diagnosis-modal";
 import templateSlide from "../Render/modal/template-slide/template-slide";
+import templateSlideFoshanshiyi from '../Render/modal/template-slide/template-slide_foshanshiyi'
 import bus from "vue-happy-bus";
 // import VueDragResize from 'vue-drag-resize'
 // import ElementUI from 'element-ui'
@@ -112,7 +115,8 @@ export default {
     autoComplete,
     bodyModal,
     diagnosisSlide,
-    diagnosisModal
+    diagnosisModal,
+    templateSlideFoshanshiyi
     // VueDragResize
   },
   data() {
@@ -170,7 +174,7 @@ export default {
     this.$root.$refs.diagnosisModal = this.$refs.diagnosisModal;
     this.$root.$refs.tableOfContent = this.$refs.tableOfContent;
     this.$root.$refs.templateSlide = this.$refs.templateSlide;
-
+    this.$root.$refs.templateSlideFoshanshiyi = this.$refs.templateSlideFoshanshiyi;
     // console.log("allInputs", allInputs, this.$refs.mainPage);
     setTimeout(() => {
       //
