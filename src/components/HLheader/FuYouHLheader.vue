@@ -1101,6 +1101,7 @@ export default {
     },
   },
   created() {
+    if(["fuyou"].includes(this.HOSPITAL_ID)) window.openFuyouCaSignModal(true);
     // this.$store.dispatch("getMailUnread");
     nursingUnit().then((res) => {
       this.deptList = res.data.data.deptList;
