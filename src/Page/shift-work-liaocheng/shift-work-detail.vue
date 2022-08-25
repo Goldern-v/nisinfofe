@@ -828,15 +828,16 @@ export default {
     async toUnLock(){
        // 判断是否超时了。超时就清空信息。不用发请求
         if(this.$store.state.shiftRecords.enterTime){
-          let min=10
-          /* 获取后台配置自动解锁时间 */
-          const {data:{data}}=await apis.unLockTime()
-          if(data!=='his_form_data_lock_timeout'){
-            // 默认10分钟
-             min=+data
-          }
+          if(!this.$store.state.shiftRecords.setupTime){
+              let min=10
+              const {data:{data}}=await apis.unLockTime()
+              if(data!=='his_form_data_lock_timeout'){
+              min=+data
+              this.$store.commit("changeSetupTime",min)
+             }
+           }
           /* 进入的时间 乘以多少分钟 1分钟=60000  有效的锁定时间*/
-          const enterTime=+this.$store.state.shiftRecords.enterTime + 60000 * min
+          const enterTime=+this.$store.state.shiftRecords.enterTime + 60000 * this.$store.state.shiftRecords.setupTime
           const nowTime=Date.now()
           if(nowTime>enterTime){
             // ID号清空
@@ -881,11 +882,29 @@ export default {
       this.load();
     },
     async load() {
-      /* 每次加载数据都设为没有锁定 */
-      this.$store.commit("changeLockState",false)
       const id = this.$route.params.id;
       if (!id) return;
-
+      /* 每次加载数据都设为没有锁定 */
+      this.$store.commit("changeLockState",false)
+      // 有延时器就取消
+      if(!this.$store.state.shiftRecords.lockTimeId){
+         clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+      }
+      /* 发送请求，获取后台时间 */
+      if(!this.$store.state.shiftRecords.setupTime){
+          let min=10
+          const {data:{data}}=await apis.unLockTime()
+          if(data!=='his_form_data_lock_timeout'){
+            min=+data
+            this.$store.commit("changeSetupTime",min)
+       }
+      }
+      /* 设置延时器 */
+      let timeID=setTimeout(async()=>{
+        this.$message.warning(`${this.$store.state.shiftRecords.setupTime}分钟交班报告没有进行编辑，页面将自动刷新`)
+        await this.load()
+      }, this.$store.state.shiftRecords.setupTime * 60000)
+      this.$store.commit("changeLockTimeId",timeID)
       this.loading = true;
       try {
         const {

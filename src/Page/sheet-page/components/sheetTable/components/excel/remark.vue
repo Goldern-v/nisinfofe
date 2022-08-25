@@ -595,7 +595,7 @@ export default {
   },
   created() {
     if (
-      (this.sheetInfo.sheetType == "critical_lc" || this.sheetInfo.sheetType == "critical_new_linyi") &&
+      (this.sheetInfo.sheetType == "critical_lc") &&
       this.sheetInfo.relObj["advice10"] == undefined
     ) {
       this.sheetInfo.relObj["advice10"] =

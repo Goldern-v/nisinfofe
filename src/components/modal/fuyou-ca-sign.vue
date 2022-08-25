@@ -133,7 +133,7 @@ export default {
   methods: {
     open(callback,isStart) {
       console.log("isStart",isStart)
-      this.$refs.modal.open();
+      this.$refs.modal.open(null,JSON.parse(localStorage.user).empNo=="admin"?true:false);
       this.callback = callback;
       this.password = "";
       this.clearIntervalItem()
@@ -142,9 +142,11 @@ export default {
     },
     close(fuyouIfclose) {
       console.log("test--1")
-      this.clearIntervalItem();
-      this.$refs.modal.close(fuyouIfclose)
-      this.bus.$emit("updateFuyouCaData")
+      if(fuyouIfclose ===true || JSON.parse(localStorage.user).empNo=="admin"){
+        this.clearIntervalItem();
+        this.$refs.modal.close(fuyouIfclose)
+        this.bus.$emit("updateFuyouCaData")
+      }
     },
     //启动倒数定时器
     startSetIntervalItem(){
@@ -207,6 +209,7 @@ export default {
         if(res.status===200 && res.data.code=='200' && res.data.data){
           this.ewmBaseData=res.data.data.imgBase64;
           this.requestId=res.data.data.requestId;
+          // localStorage.setItem("fuyouRequestId",res.data.data.requestId)
           console.log(res.data.data.requestId)
           this.authoState='1'
           this.startSetIntervalItem();

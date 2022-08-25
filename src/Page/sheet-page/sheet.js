@@ -140,6 +140,22 @@ export function delSheetPage(index, callback) {
         return !listData[x].canModify;
       }
     }
+    // 临邑日期时间禁用符号，识别该行已经被占用
+    if (process.env.HOSPITAL_ID == 'lyxrm') {
+      if (listData[nowX]) {
+        // 第一条记录
+        const firstEqualIndex = listData.findIndex(
+          item => listData[nowX] && item.recordDate == listData[nowX].recordDate
+        );
+        return (
+          firstEqualIndex != -1 &&
+          firstEqualIndex !== nowX &&
+          (td.key == "recordMonth" || td.key == "recordHour")
+        );
+      } else {
+        return false
+      }
+    }
     if (process.env.HOSPITAL_ID == "whfk") {
       if (td && listData[x]) {
         // 是否签名,签名了就不能编辑。需要取消签名

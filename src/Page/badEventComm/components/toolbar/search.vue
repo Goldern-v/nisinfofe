@@ -335,12 +335,13 @@ export default {
           sessionStorage.getItem("allDepartmentsList")
         );
         // 护理部权限才可以查看所有科室
-        if (
-          this.user &&
-          (this.user.roleManageCode == "QCR0001" ||
-            this.user.roleManageCodeList.find((code) => code == "QCR0001"))
-        ) {
-          this.allDepartmentsList = allDepartmentsList;
+        if (this.isDeptRule) {
+          if (['fqfybjy'].includes(this.HOSPITAL_ID)) {
+            this.allDepartmentsList = [{ code: "", name: "全院" }, ...allDepartmentsList];
+            this.selectedDeptValue = ''
+          } else {
+            this.allDepartmentsList = allDepartmentsList;
+          }
         } else {
           this.allDepartmentsList = [
             allDepartmentsList.find((item) => item.deptCode == this.deptCode)
@@ -405,11 +406,7 @@ export default {
     search(e) {
       if (
         !this.selectedDeptValue &&
-        !(
-          this.user &&
-          (this.user.roleManageCode == "QCR0001" ||
-            this.user.roleManageCodeList.find((code) => code == "QCR0001"))
-        )
+        !(this.isDeptRule)
       ) {
         this.$message({
           type: "info",
@@ -427,6 +424,11 @@ export default {
         if (res.data && res.data.code == 200) {
           this.allDepartmentsList = res.data.data.deptList;
           sessionStorage.setItem("deptList",JSON.stringify(this.allDepartmentsList))
+          // 护理部权限才可以查看所有科室
+          if (this.isDeptRule && ['fqfybjy'].includes(this.HOSPITAL_ID)) {
+            this.allDepartmentsList = [{ code: "", name: "全院" }, ...res.data.data.deptList];
+            this.selectedDeptValue = ''
+          }
         }
       });
       // apis.getAllNursingUnit("type=2").then((res) => {

@@ -57,6 +57,7 @@
               :length="item.length"
               :isFirst="index === 0"
               :scrollY="scrollY"
+              :scrollX="scrollX"
               :isInPatientDetails="false"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
@@ -131,6 +132,7 @@
       left: 0;
       top: -40px;
       bottom: 0;
+      z-index: 2;
     }
 
     .right-part {
@@ -311,6 +313,7 @@ export default {
       scrollTop: 0,
       typeList: [], // 科室类型
       scrollY: 0,
+      scrollX: 0,
       bedAndDeptChange: {},
       listData: [],
       toSingleTempArr: [
@@ -367,6 +370,7 @@ export default {
       return resultModel;
     },
     sheetTable() {
+      console.log("sheetInfo.sheetType",sheetInfo.sheetType)
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
         //  return sheetTablePost_partum;
@@ -669,6 +673,7 @@ export default {
       if (sheetInfo.sheetType && sheetInfo.sheetType.indexOf("_wx") > -1) {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
+        this.scrollX = parseInt(e.target.scrollLeft)
       }
     },
     isSelectPatient(item) {

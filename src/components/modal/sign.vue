@@ -280,6 +280,10 @@ export default {
               }else this.foshanshiyiIFca=true
             } 
         this.userNum++
+      },()=>{
+         this.username = JSON.parse(localStorage.user).empNo
+          this.ca_name = "";
+          this.ca_isLogin = !!this.ca_name;
       })
     }
     

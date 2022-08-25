@@ -64,6 +64,8 @@
       <component
         :tableData="tableDataSelect"
         :tableLoading="tableLoading"
+        :isMulti="isMulti"
+        @handleCheckbox="(e) => { $emit('handleCheckbox', e)}"
         :is="currentAdviceTable"
       ></component>
     </div>
@@ -210,6 +212,16 @@ export default {
       specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi'] // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
     };
   },
+  props: {
+    isMulti: {
+      type: Boolean,
+      default: false,
+    },
+    handleCheckbox: {
+      type: Function,
+      default: (e)=> {},
+    },
+  },
   computed: {
     infoData() {
       return this.$route.query;
@@ -298,44 +310,9 @@ export default {
       }else{
         return idToCom.default
       }
-      // if (HOSPITAL_ID == "hengli") {
-      //   return "adviceTableCommon";
-      // }else if(HOSPITAL_ID == "liaocheng"){
-      //   return "adviceTableLiaocheng"
-      // }else if (HOSPITAL_ID == "fuyou") {
-      //   return "adviceTableFy";
-      // }else if (HOSPITAL_ID == "weixian") {
-      //   return "adviceTableWx";
-      // } else if (HOSPITAL_ID == "huadu") {
-      //   return "adviceTableHd";
-      // }else if (HOSPITAL_ID == "nanfangzhongxiyi") {
-      //   return "adviceTableNanfangzhongxiyi";
-      // }else if (HOSPITAL_ID == "guizhou") {
-      //   return "adviceTableGuizhou";
-      // }else if (HOSPITAL_ID == "xiegang") {
-      //   return "adviceTableXiegang";
-      // } else if (HOSPITAL_ID == "beihairenyi") {
-      //   return "adviceTableBeihairenyi";
-      // } else {
-      //   return "adviceTable";
-      // }
     },
   },
   created() {
-    // class TableItem {
-    //   constructor(key1, value1, key2, value2) {
-    //     return {
-    //       data1: {
-    //         key: key1,
-    //         value: value1
-    //       },
-    //       data2: {
-    //         key: key2,
-    //         value: value2
-    //       }
-    //     }
-    //   }
-    // }
     this.getData();
     this.getStatusList();
   },
