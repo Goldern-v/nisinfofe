@@ -166,7 +166,19 @@
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
 			
-			<div flex="cross:top"
+			<div flex="cross:center" class="input-item" style="width:76%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
+              <span class="label" style="margin-right:0;">过敏信息：</span>
+              <input
+                type="text"
+                nowidth
+                style="font-size: 20px;padding-left:0;"
+                flex-box="1"
+                class="bottom-line is_input_print"
+				:maxlength="13"
+                v-model="allergy_gdtj"
+              />
+            </div>
+			<!-- <div flex="cross:top"
               class="input-item"
 				v-if="['gdtj'].includes(HOSPITAL_ID)" style="width:350px;height: 60px;">
               <span class="label">过敏信息：</span>
@@ -181,7 +193,7 @@
               ></textarea>
 			  <p class="bottom-line remark allergy-textarea print-page__ptext" flex-box="1" style="whiteSpace: pre-wrap;">{{allergy_gdtj}}</p>
               
-            </div>
+            </div> -->
 			<div class="allergy" v-else>
 				<p :class="[allergy1||drugGms||allergy2?'gm':'']">
 					过敏信息：
@@ -879,8 +891,8 @@ export default {
           }
           .bed-card-vert-con {
           }
-		  .allergy-textarea{
-			
+		  .is_input_print{
+			font-size:20px !important;
 		  }
 		  .is_hide_textarea{
 			display:none;
@@ -889,6 +901,7 @@ export default {
 			display:block !important;
 			border:none !important;
 			padding:0 !important;
+			height:auto !important;
 		  }
           @page {
             margin: 0;
