@@ -202,7 +202,6 @@ export default {
     },
     url360Hd() {
       const { inpNo = '' } = this.$route.query
-      console.log('test-inpNo', inpNo)
       return `http://172.16.8.135:9092/?vid=${inpNo}&vidType=02&appId=360&security=123#/personInfo`;
     },
   },

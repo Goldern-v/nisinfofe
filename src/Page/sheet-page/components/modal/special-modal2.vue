@@ -60,8 +60,11 @@
           </el-button>
           </div>
         </div>
-        <div class="diagnosis-box">
-          <el-button v-if="showDiagnosisBtn" size="small" class="diagnosis-box__btn" @click="openDiagnosisModal">同步护理计划</el-button>
+        <div class="extra-box">
+          <div class="extra-box__content">
+            <el-button v-if="showAdviceBtn" size="small" @click="openModal('adviceModalRef')">同步医嘱</el-button>
+            <el-button v-if="showDiagnosisBtn" size="small" @click="openModal('diagnosisModalRef')">同步护理计划</el-button>
+          </div>
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
           <el-tab-pane label="固定项目" name="1" :disabled="isDisabed">
@@ -595,6 +598,7 @@
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
     <diagnosis-modal v-if="['guizhou', 'lyxrm','huadu'].includes(HOSPITAL_ID)" :modalWidth="diagnosisWid" ref="diagnosisModalRef" @handleOk="handleDiagnosis" />
+    <advice-modal v-if="['lyxrm',].includes(HOSPITAL_ID)" ref="adviceModalRef" @handleOk="handleDiagnosis" />
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -763,17 +767,18 @@
     font-size:14px;
   }
 }
-  .diagnosis-box {
+.extra-box {
   position: relative;
 
-  .diagnosis-box__btn {
+  .extra-box__content {
+    display: flex;
     position: absolute;
     bottom: -35px
     right: 0px;
     z-index: 90;
+    justify-content: flex-end;
   }
-
-  }
+}
 </style>
 <script>
 import bus from "vue-happy-bus";
@@ -785,17 +790,15 @@ import sheetInfo from "../config/sheetInfo";
 import { decoder_title, decoder_record2 } from "./render/decode.js";
 import { mergeTr } from "./render/render.js";
 import { dateKey, timeKey } from "../config/keyEvent/date.js";
-import { offset } from "../sheetTable/components/excel/tool.js";
-import { listItem } from "../../api/recordDesc.js";
 import { FormToEnter } from "@/plugin/tool/FormToTab.js";
 import $ from "jquery";
-import { isNumber } from "util";
 import { quillEditor } from "vue-quill-editor"; //调用编辑器
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import { saveBatch, getmultiDict } from "../../api/index";
 import DiagnosisModal from './diagnosis-modal.vue';
+import AdviceModal from "./advice-modal.vue"
 
 function autoComplete(el, bind) {
   if (bind.value.dataList) {
@@ -964,9 +967,18 @@ export default {
     showDiagnosisBtn() {
       switch(process.env.HOSPITAL_ID) {
         case 'guizhou':
-        return this.commonFormGZ && this.activeTab === '3'
+          return this.commonFormGZ && this.activeTab === '3'
         case 'lyxrm':
         case 'huadu':
+          return this.activeTab === '3'
+        default:
+          return false
+      }
+    },
+    /**同步医嘱 */
+    showAdviceBtn() {
+      switch(process.env.HOSPITAL_ID) {
+        case 'lyxrm':
           return this.activeTab === '3'
         default:
           return false
@@ -1120,11 +1132,8 @@ export default {
       let tr = record[record.length - 1];
       this.tr = tr || [];
       let isRead;
-        console.log("openjinlai22222",this.tr)
       let status = tr.find((item) => item.key == "status").value;
-        console.log("openjinla33333")
       let empNo = tr.find((item) => item.key == "empNo").value;
-        console.log("openjinlai4444")
       let isAuditor = JSON.parse(localStorage.user).nursingStaff;
       if (status >= 1) {
         if (empNo == JSON.parse(localStorage.user).empNo || isAuditor) {
@@ -1170,16 +1179,15 @@ export default {
       // 特殊记录组合
       let doc = "";
       for (let i = 0; i < record.length; i++) {
-        doc += record[i].find((item) => item.key == "description").value || "";
+        doc += (record[i].find((item) => item.key == "description") || {}).value || "";
       }
-      let foodstr = "";
-        console.log("jinlai555ß55555",record)
+      let foodStr = "";
         if(this.HOSPITAL_ID=="beihairenyi" &&  this.fixedList.hasOwnProperty('food')){
           for (let i = 0; i < record.length; i++) {
-            foodstr += record[i].find((item) => item.key == "food").value || "";
+            foodStr += record[i].find((item) => item.key == "food").value || "";
           }
         }
-      this.foodVal = foodstr
+      this.foodVal = foodStr
       // console.log("this.fixedList.food.value",this.fixedList.food.value)
       this.recordDate =
         config.recordDate ||
@@ -1248,8 +1256,8 @@ export default {
       }
 
       setTimeout(() => {
-        let elelist = $('#specialForm input[type="text"]');
-        FormToEnter(elelist);
+        let eleList = $('#specialForm input[type="text"]');
+        FormToEnter(eleList);
       }, 100);
     },
     close() {
@@ -1587,7 +1595,6 @@ export default {
           }
        }
       }else{
-        console.log("11111111111111")
         for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
         // 字符为 ，。；,.：:
@@ -1834,7 +1841,6 @@ export default {
         }
 
       }
-      console.log("this.recorddddddddd",this.record,foodResult)
       for (let i = 0; i < result.length; i++) {
         if (i == 0) {
           // 合并数据
@@ -1873,12 +1879,10 @@ export default {
           sheetInfo.sheetType !== "body_temperature_Hd") ||
         this.HOSPITAL_ID === "zhongshanqi"||this.HOSPITAL_ID === "beihairenyi"&&this.sheetInfo.sheetType!=='infant_bh'
       ) {
-        console.log("123123123",this.isLast)
         this.isSyncTemp
           ? this.sycnTempChange()
           : this.bus.$emit("saveSheetPage", this.isLast);
       } else {
-        console.log("456456")
         this.bus.$emit("saveSheetPage", this.isLast);
       }
       setTimeout(()=>{
@@ -1915,9 +1919,9 @@ export default {
     handleInputBlur(e) {
       this.blurIndex = e.srcElement.selectionStart;
     },
-      /**打开护理诊断同步 */
-    openDiagnosisModal() {
-      this.$refs.diagnosisModalRef.open()
+      /**打开弹窗 */
+    openModal(key) {
+      this.$refs[key] && this.$refs[key].open()
     },
     /**获取选择的同步项 */
     handleDiagnosis({ item, key }) {
@@ -1927,7 +1931,7 @@ export default {
         }
         this.doc += v[key]
       });
-    }
+    },
   },
   mounted() {
     // 打开特殊情况
@@ -2008,7 +2012,7 @@ export default {
     templateSlide,
     quillEditor,
     DiagnosisModal,
-
+    AdviceModal,
   },
 };
 </script>
