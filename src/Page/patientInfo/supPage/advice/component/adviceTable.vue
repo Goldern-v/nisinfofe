@@ -9,7 +9,11 @@
       :height="height()"
       class="advice-table"
       v-loading="tableLoading"
+      @selection-change="(e) => $emit('handleCheckbox', e)"
     >
+      <el-table-column
+        v-if="isMulti"
+        type="selection" />
       <el-table-column
         fixed
         label="医嘱号"
@@ -297,6 +301,14 @@ export default {
   props: {
     tableData: Array,
     tableLoading: Boolean,
+    isMulti: {
+      type: Boolean,
+      default: false,
+    },
+    handleCheckbox: {
+      type: Function,
+      default: (e)=> {},
+    },
   },
   data() {
     return {};

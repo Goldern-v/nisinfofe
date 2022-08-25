@@ -911,11 +911,13 @@ import userInfo from "./user-info.vue";
 import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
+import bus from "vue-happy-bus";
 
 export default {
   mixins: [common],
   data() {
     return {
+      bus: bus(this),
       show: "hello vue",
       user: JSON.parse(localStorage.user),
       deptValue: "",
@@ -1014,8 +1016,9 @@ export default {
     toAdmin() {
       window.location.href = "/crNursing/admin";
     },
-    quit() {
+    quit(ifRelogin) {
       logout(Cookies.get("NURSING_USER"));
+      console.log(ifRelogin,"ifRelogin")
       Cookies.remove("password");
       Cookies.remove("deptId");
       Cookies.remove("access");
@@ -1023,7 +1026,7 @@ export default {
       Cookies.remove("token");
       Cookies.remove("user");
       Cookies.remove("NURSING_USER", { path: "/" });
-      this.$router.push("/login");
+      if(ifRelogin!="relogin") this.$router.push("/login");
       this.$store.commit("upDeptCode", "");
     },
     setPassword() {
@@ -1073,6 +1076,7 @@ export default {
   },
   created() {
     // this.$store.dispatch("getMailUnread");
+    this.bus.$on("quit",(relogin)=>this.quit(relogin))
     nursingUnit().then((res) => {
       this.deptList =  [];
       this.deptList = res.data.data.deptList;
@@ -1089,6 +1093,14 @@ export default {
   },
 
   watch: {
+    "$store.state.common.user":{
+      handler(newVal, oldVal) {
+        this.user = newVal
+        console.log(newVal,oldVal,"localStorage.userwatch")
+      },
+      immediate:true,
+      deep:true
+    },
     $route() {
       if (this.$route.path == "/MEWS") {
         this.isTip = false;

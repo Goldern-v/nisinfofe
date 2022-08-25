@@ -52,7 +52,9 @@
         {{patientInfo.admissionDate | toymd}}
       </span>
     </div>
-    <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
+    <div v-if="HOSPITAL_ID == 'gdtj'" class="info-con">
+      <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span>
+    </div>
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
   </div>
 </template>

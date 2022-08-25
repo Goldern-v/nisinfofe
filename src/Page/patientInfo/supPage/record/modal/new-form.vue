@@ -199,6 +199,15 @@
           v-for="(e) in item"
           :key="e.id || e.label"
         >
+          <!-- 收藏的评估单标记 -->
+         <span class="likePng"  v-if="HOSPITAL_ID=='foshanrenyi'">
+                <img 
+                 v-if="e.collectionDept&&e.collectionUser"
+                 src="@/common/images/card/like.png" 
+                 style="height:13px"
+                 alt
+                 >
+          </span>
           <el-row type="flex" align="middle">
             <img
               src="../../../../../common/images/record/文件创建.png"
@@ -216,6 +225,24 @@
     </div>
 
       <div slot="button" @click="newRecordClose">
+        <!--    应该selectData.collectionDep也判断的。但是后端逻辑有问题。取消收藏不清空。所以先用收藏者判断. -->
+        <!--   !! 为了转Boolean-->
+        <el-button 
+          class="modal-btn" 
+          :disabled="!selectData || !!!selectData.collectionUser"
+          @click.stop="cancelCollectAssessment"
+          v-if="HOSPITAL_ID=='foshanrenyi'"
+         >取消收藏
+        </el-button>
+        <el-button 
+          class="modal-btn" 
+          type="primary"
+          :disabled="!selectData || !!selectData.collectionUser"
+          @click.stop="collectAssessment"
+          v-if="HOSPITAL_ID=='foshanrenyi'"
+        >
+        收藏
+        </el-button>
         <el-button class="modal-btn">关闭</el-button>
         <el-button
           class="modal-btn"
@@ -316,6 +343,7 @@
     }
   }
   .record-box {
+    position relative
     cursor: pointer;
     // float: left;
     box-sizing: border-box;
@@ -328,7 +356,11 @@
       border: 1px solid #C0D4CD;
       border-radius: 4px;
     }
-
+   .likePng{
+        position absolute
+        right 0
+        top 10
+      }
     img {
       height: 35px;
     }
@@ -369,6 +401,8 @@ import {
   listRecord,
   inform,
   healthEdu,
+  collectAssessmentForm,
+  unCollectAssessmentForm
 } from "@/api/patientInfo";
 import commonMixin from "@/common/mixin/common.mixin";
 import { host } from "@/api/apiConfig";
@@ -548,6 +582,16 @@ export default {
     };
   },
   methods: {
+   async collectAssessment(){
+      await collectAssessmentForm(this.deptCode,JSON.parse(localStorage.getItem('user')).empNo,this.selectData.formCode)
+      this.selectData=''
+      this.open()
+    },
+   async cancelCollectAssessment(){
+      await unCollectAssessmentForm(this.deptCode,JSON.parse(localStorage.getItem('user')).empNo,this.selectData.formCode)
+      this.selectData=''
+      this.open()
+    },
     hasTitle(item,index){
      return this.titleData&&this.titleData[item.groupName]&&this.titleData[item.groupName]==index
     },

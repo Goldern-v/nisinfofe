@@ -67,13 +67,13 @@
           class="bottom-line"
           style="min-width: 400px;max-width: 1000px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
         >{{diagnosis}}</div>
-      </span> --> 
-       <span v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'">入院日期：<div class="bottom-line" style="min-width: 50px">{{patientInfo.admissionDate | toymd}}</div></span>
+      </span> -->
+       <span v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc' || sheetInfo.sheetType == 'critical_new_lc'">入院日期：<div class="bottom-line" style="min-width: 50px">{{patientInfo.admissionDate | toymd}}</div></span>
     </div>
     <div class="info-con" flex="main:justify">
       <span
         @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
-        v-if="sheetInfo.sheetType == 'com_lc' || sheetInfo.sheetType == 'critical_lc'"
+        v-if="sheetInfo.sheetType == 'com_lc' || sheetInfo.sheetType == 'critical_lc' || sheetInfo.sheetType == 'critical_new_lc'"
       >
         诊断：
         <div
@@ -83,7 +83,7 @@
       </span>
       <span
         @click="updateOperation('operation', '手术', patientInfo.operation)"
-        v-if="sheetInfo.sheetType == 'com_lc' || sheetInfo.sheetType == 'critical_lc'"
+        v-if="sheetInfo.sheetType == 'com_lc' || sheetInfo.sheetType == 'critical_lc' || sheetInfo.sheetType == 'critical_new_lc'"
       >
         手术：
         <div

@@ -2,9 +2,9 @@
   <div
     :style="{
       width: `${isLargeType ? '8' : '7'}cm`,
-      height: `${isLargeType ? '5.8' : '4.1'}cm`,
+      height: `${isLargeType ? '5.8' : '4.5'}cm`,
     }"
-    class="new-print-modal"
+    class="new-print-modal" 
 		:class="{'new-print-modal--s': !isLargeType,'pageBreak':isLargeType}"
   >
     <div class="new-modal-top">
@@ -195,7 +195,7 @@
     } 
 		.new-modal-bottom{
       // height: 64.2px;
-      height: 56px;
+      height: 72px;
       display: block;
       div {
 			font-size: 14px;

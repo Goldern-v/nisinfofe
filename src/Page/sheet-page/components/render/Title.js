@@ -354,6 +354,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_new_lc": {
+    // 陵城-病重（病危）患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_new_lc/th").default)
+    );
+  }
+  break;
   case "critical2_lc": {
     // 陵城-病重（病危）患者护理记录（新生儿）
     Th = JSON.parse(
@@ -1813,6 +1820,13 @@ export default function Title(
     );
   }
   break;
+  case "ipacu_fs": {
+    // 佛山市一 - 麻醉科IPACU
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ipacu_fs/th.js").default)
+    );
+  }
+  break;
   case "general_xt": {
     // 佛山杏坛 - 护理记录单（通用）
     Th = JSON.parse(
@@ -1824,6 +1838,13 @@ export default function Title(
     // 佛山杏坛 - 护理记录单（全院通用）
     Th = JSON.parse(
       JSON.stringify(require("../config/generalnursing_xt/th.js").default)
+    );
+  }
+  break;
+  case "generalnursing_tj": {
+    // 佛山杏坛 - 护理记录单（全院通用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/generalnursing_tj/th.js").default)
     );
   }
   break;

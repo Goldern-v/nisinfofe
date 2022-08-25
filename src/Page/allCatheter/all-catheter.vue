@@ -33,7 +33,9 @@
             <i class="el-icon-plus"></i>
             添加导管
           </div>
-          <cathterTabel :ref="`cathterTabel_${index}`" @saveTableFn='saveTableFn' @onChangePatient_self='onChangePatient_self' :title="tableInfo.formTitle" @changeShowTable='changeShowTable' :tabelConfig='tableList' :tableInfo='tableInfo' v-if="showTable&&isMorePage" @updateTableConfig='updateTableConfig' v-for="(tableList,index) in tabelConfig" :key="index" :pageNum="(index + 1)"/>
+          <template  v-if="showTable&&isMorePage" >
+          <cathterTabel :ref="`cathterTabel_${index}`" @saveTableFn='saveTableFn' @onChangePatient_self='onChangePatient_self' :title="tableInfo.formTitle" @changeShowTable='changeShowTable' :tabelConfig='tableList' :tableInfo='tableInfo' @updateTableConfig='updateTableConfig' v-for="(tableList,index) in tabelConfig" :key="index" :pageNum="(index + 1)"/>
+          </template>
         </div>
       </div>
     </div>
@@ -346,7 +348,7 @@ export default {
   },
   watch: {
     patientInfo(val){
-      
+
     },
     tabelConfig(list,oldList){
       if(list.length>=17){

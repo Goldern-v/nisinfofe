@@ -10,6 +10,7 @@
       class="sheet-table table-fixed-th no-print"
       :style="{ width: fiexHeaderWidth }"
       :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl}"
+      ref="tableHead"
       v-if="hasFiexHeader"
     >
       <tr class="body-con">
@@ -456,6 +457,7 @@
         sheetInfo.sheetType === 'internal_eval_lcey' ||
         sheetInfo.sheetType === 'intervention_cure_lcey' ||
         sheetInfo.sheetType === 'critical_lc' ||
+        sheetInfo.sheetType === 'critical_new_lc' ||
         sheetInfo.sheetType === 'picu_hemodialysis_jm' ||
         sheetInfo.sheetType === 'rescue_hl' ||
         sheetInfo.sheetType === 'critical_new_linyi' ||
@@ -665,6 +667,7 @@ export default {
     index: Number,
     length: Number,
     scrollY: Number,
+    scrollX: Number,
     hasFiexHeader: Boolean,
     isInPatientDetails: Boolean,
     listData: Array,
@@ -2442,7 +2445,7 @@ export default {
   watch: {
     scrollY() {
       if (!this.hasFiexHeader) return;
-      let { top, bottom } = this.$refs.table.getBoundingClientRect();
+      let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       if (
         top < (this.isInPatientDetails ? 90 : 100) &&
         bottom > (this.isInPatientDetails ? 170 : 180)
@@ -2455,6 +2458,15 @@ export default {
       this.$refs.table && this.$refs.table.offsetWidth + "px";
       // console.log(this.$refs.table.getBoundingClientRect());
     },
+    scrollX(val) {
+      if (!this.hasFiexHeader) return;
+      let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
+      const tableHead = this.$refs.tableHead
+      // 临邑护记横向滚动时表头跟着滚动
+      if (this.HOSPITAL_ID == 'lyxrm') {
+        tableHead && (tableHead.style.left = left + 'px')
+      }
+    }
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   mounted() {

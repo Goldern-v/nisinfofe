@@ -244,7 +244,7 @@
                 </el-button>
               <el-button
                 type="text"
-                v-if="scope.row.uploadStatus == 2 && scope.row.recallApplyStatus == '' && scope.row.canApplyAndCancel"
+                v-if="scope.row.uploadStatus == 2 && (scope.row.recallApplyStatus == '' || scope.row.recallApplyStatus == '0') && scope.row.canApplyAndCancel"
                 @click="applyForRecall(scope.row, scope.$index)">
                 申请召回
                 </el-button>

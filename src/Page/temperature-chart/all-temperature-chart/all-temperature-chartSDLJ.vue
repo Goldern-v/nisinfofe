@@ -819,14 +819,15 @@ export default {
           });
           obj.data7 = data.filter((item) => {
             return (
-              item.operationFlag == 1
+              item.transferFlag == 1
             );
           });
           obj.data8 = data.filter((item) => {
             return (
-              item.transferFlag == 1
+              item.operationFlag == 1
             );
           });
+
           for(let k of filterArray){
             if(this.admitted.includes(k.key)){
               PatientArray.push(obj[k.arr])

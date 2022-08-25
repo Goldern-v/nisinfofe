@@ -53,7 +53,7 @@ export default {
       },
       {
         name: `
-        心率/脉搏<br/>（次/分）
+        HR/PR<br/>（次/分）
         `,
         colspan: '1',
         rowspan: '3',

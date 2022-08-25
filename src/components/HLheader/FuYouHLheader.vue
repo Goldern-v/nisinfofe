@@ -17,7 +17,7 @@
                 height="63"
                 width="63"
               />
-              <span>江门市妇幼保健医<br />智慧护理信息系统</span>
+              <span>江门市妇幼保健院<br />智慧护理信息系统</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -310,6 +310,11 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
+              <router-link to="/allCatheter" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 导管
+              </el-row>
+            </router-link>
             <router-link
               to="/singleRound"
               tag="span"
@@ -890,6 +895,7 @@ import userInfo from "./user-info.vue";
 import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
+import { getAuthorize,getTrustUserInfo } from "@/api/ca-sign_fuyou.js";
 import bus from "vue-happy-bus";
 export default {
   mixins: [common],
@@ -1033,7 +1039,7 @@ export default {
       this.$nextTick(()=>{
         this.$refs.setPassword.open();
       })
-      
+
     },
     remoteMethod(query) {
       if (query !== "") {
@@ -1096,6 +1102,9 @@ export default {
     },
   },
   created() {
+    if(["fuyou"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
+      window.openFuyouCaSignModal(true);
+    } 
     // this.$store.dispatch("getMailUnread");
     nursingUnit().then((res) => {
       this.deptList = res.data.data.deptList;

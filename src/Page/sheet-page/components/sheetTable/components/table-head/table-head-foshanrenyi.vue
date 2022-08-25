@@ -137,6 +137,25 @@
 
     </div>
     <div class="info-con">
+      <span v-if="sheetInfo.sheetType == 'ipacu_fs'"
+        @click="updateDiagops('ops', '手术', patientInfo.relObj.ops)"
+      >
+        手术：
+        <div
+          class="bottom-line"
+          style="
+            min-width: 650px;
+            min-height: 13px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          "
+        >
+          {{ sheetInfo.relObj[`PageIndex_diagops_${index}`] }}
+        </div>
+      </span>
+
+    </div>
+    <div class="info-con">
       <span v-if="sheetInfo.sheetType == 'ultrasound_fs'">
         <span>治疗日期：</span>
         <input v-model="sheetInfo.relObj.zlrq"/>
@@ -229,6 +248,17 @@ export default {
         },
         this.diagnosis,
         `修改入院诊断`
+      );
+    },
+    updateDiagops(key, label, autoText) {
+      window.openSetTextModal(
+        (text) => {
+          sheetInfo.relObj[`PageIndex_diagops_${this.index}`] = text;
+          this.$message.success(`修改手术成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.sheetInfo.relObj[`PageIndex_diagops_${this.index}`],
+        `修改手术`
       );
     },
     updateDelivery(key, label, autoText) {

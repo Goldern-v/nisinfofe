@@ -41,7 +41,7 @@ export default [{
   {
     key: "pulse", // PR/HR
     value: "",
-    name: "PR/HR",
+    name: " HR/PR",
     next:"次/分",
     event: keyf1
   },

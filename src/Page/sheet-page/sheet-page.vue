@@ -57,6 +57,7 @@
               :length="item.length"
               :isFirst="index === 0"
               :scrollY="scrollY"
+              :scrollX="scrollX"
               :isInPatientDetails="false"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
@@ -64,7 +65,7 @@
             ></component>
           </div>
           <div
-            v-show="sheetModelData.length == 0&&done"
+            v-show="!sheetModelData.length"
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
@@ -131,6 +132,7 @@
       left: 0;
       top: -40px;
       bottom: 0;
+      z-index: 2;
     }
 
     .right-part {
@@ -311,6 +313,7 @@ export default {
       scrollTop: 0,
       typeList: [], // 科室类型
       scrollY: 0,
+      scrollX: 0,
       bedAndDeptChange: {},
       listData: [],
       toSingleTempArr: [
@@ -367,6 +370,7 @@ export default {
       return resultModel;
     },
     sheetTable() {
+      console.log("sheetInfo.sheetType",sheetInfo.sheetType)
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
         //  return sheetTablePost_partum;
@@ -523,11 +527,13 @@ export default {
       }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
+        this.tableLoading = false;
         setTimeout(() => {
           sheetInfo.isSave = true;
         }, 300);
         return;
       }
+
       $(".red-border").removeClass("red-border");
       //  cleanData()
       let fnArr = [
@@ -667,6 +673,7 @@ export default {
       if (sheetInfo.sheetType && sheetInfo.sheetType.indexOf("_wx") > -1) {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
+        this.scrollX = parseInt(e.target.scrollLeft)
       }
     },
     isSelectPatient(item) {

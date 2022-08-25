@@ -73,7 +73,7 @@
       </div>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else>
         <div flex="cross:center">
-          <div class="label">{{deptCode == '041002' && HOSPITAL_ID=='hj'?'门诊医生':'主班医生'}}：</div>
+          <div class="label">{{doctor1}}：</div>
           <input flex-box="1" v-model="data.mainClassDoctor" @blur="update" />
         </div>
         <div style="height: 15px"></div>
@@ -149,6 +149,13 @@ export default {
       pageLoading: false,
       list: []
     };
+  },
+  computed: {
+    doctor1() {
+      if (this.deptCode == '041002' && this.HOSPITAL_ID == 'hj') return '门诊医生'
+      if (this.HOSPITAL_ID == 'whyx') return '白班医生'
+      return '主班医生'
+    }
   },
   created() {
     this.bus.$on("indexGetAllData", this.getData);

@@ -15,6 +15,11 @@ import {
 // 统一处理token发送
 
 let CaSignurl = ""
+let verifyUserObj = {}
+let strCertId = ""
+let strPassword = ""
+let username = ""
+let strRandom = ""
 axios.interceptors.request.use((config) => {
     // 判断如果是登录 则无需验证token
     config.headers.common['App-Token-Nursing'] = $params.appToken || '51e827c9-d80e-40a1-a95a-1edc257596e7'
@@ -38,8 +43,28 @@ axios.interceptors.request.use((config) => {
     for (let i = 0; i < whiteList.length; i++) {
         let whiteUrlPath = whiteList[i]
         if (config.url.indexOf(whiteUrlPath) > -1){
-            CaSignurl = config.url.indexOf("GetUserList")>-1 && "GetUserList"
-            CaSignurl = config.url.indexOf("verifyUser")>-1 && "verifyUser"
+            if(config.url.indexOf("GetUserList")>-1 || config.url.indexOf("verifyUser")>-1){
+                CaSignurl = config.url.indexOf("GetUserList")>-1?"GetUserList":"verifyUser"
+                if(config.url.indexOf("verifyUser")>-1){
+                    let configData = config.data
+                    let configDataARR = configData.split("&")
+                    configDataARR.map(item=>{
+                    let arr = item.split("=")
+                    verifyUserObj[arr[0]] = arr[1] 
+                    })
+                }
+            }else CaSignurl = ""
+            if(config.url.indexOf("SOF_Login")>-1){
+                console.log("SOF_Login",config.data);
+                strCertId = config.data.strCertId
+                strPassword= config.data.strPassword
+                username = config.data.username || ""
+            }else if(config.url.indexOf("SOF_SignData")>-1){
+                console.log("SOF_SignData",config.data);
+                strRandom = config.data.strSignData
+            }
+            // CaSignurl = config.url.indexOf("GetUserList")>-1 && "GetUserList"
+            // CaSignurl = config.url.indexOf("verifyUser")>-1 && "verifyUser"
             return config
         }
     }
@@ -123,23 +148,14 @@ axios.interceptors.response.use((res) => {
         }
         if(CaSignurl=="verifyUser" && data.desc=="非当前登录用户证书，请重新登录"){
             window.app && window.app.$confirm('是否切换用户登陆?', '提示', {
-                confirmButtonText: '退出重新登录系统',
+                confirmButtonText: '切换用户',
                 cancelButtonText: '继续使用',
                 type: 'warning',
                 customClass: "logoutClass"
               }).then(() => {
-                logout(Cookies.get("NURSING_USER"));
-                Cookies.remove("password");
-                Cookies.remove("deptId");
-                Cookies.remove("access");
-                Cookies.remove("hasGreet");
-                Cookies.remove("token");
-                Cookies.remove("user");
-                Cookies.remove("NURSING_USER", { path: "/" });
-                window.app.$router.push("/login");
-                window.app.$store.commit("upDeptCode", "");
+                window.reloginCaSignModal({username,verifyUserObj,strCertId,strPassword,strRandom})
               }).catch(() => {
-                
+                window.closeCaSignModal()
               });
         }
         console.log('data.errorCode', data)
@@ -164,7 +180,7 @@ axios.interceptors.response.use((res) => {
     }
 }, (err) => {
     if (err && err.message == 'Network Error') {
-        
+        console.log(CaSignurl,"CaSignurl");
         window.app && window.app.$message({
             showClose: true,
             message: CaSignurl == "GetUserList"?'未能识别到U盾':'网络错误，请检查你的网络',
