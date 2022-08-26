@@ -88,7 +88,10 @@
   th[dataname='护士<br>签名']{
     width: 90px !important;
   }
-
+  th[dataname='带教<br/>护士']{
+    display: none !important;
+  }
+  
 /* 打印时隐藏第二列签名表头---th */
   th[dataname='记录人签名']:last-child{
     display :none;
