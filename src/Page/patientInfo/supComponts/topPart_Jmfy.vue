@@ -248,6 +248,11 @@ export default {
       msg: "hello vue"
     };
   },
+  created(){
+    if(["fuyou"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
+      window.openFuyouCaSignModal(true);
+    } 
+  },
   computed: {
     query() {
       let query = this.$route.query;

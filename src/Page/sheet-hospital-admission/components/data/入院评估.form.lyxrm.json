@@ -1509,16 +1509,6 @@
           "class": null
         },
         {
-          "name": "I001955",
-          "type": "select",
-          "title": "营养异常风险",
-          "titleStyle": "width:92px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "148px",
-          "style": null,
-          "class": null
-        },
-        {
           "name": "I001128",
           "type": "select",
           "title": "咀嚼困难",

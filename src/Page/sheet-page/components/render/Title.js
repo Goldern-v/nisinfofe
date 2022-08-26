@@ -1841,6 +1841,13 @@ export default function Title(
     );
   }
   break;
+  case "generalnursing_tj": {
+    // 佛山杏坛 - 护理记录单（全院通用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/generalnursing_tj/th.js").default)
+    );
+  }
+  break;
   case "bloodCircul_xt": {
     // 佛山杏坛 -血运观察护理单（外四科）
     Th = JSON.parse(

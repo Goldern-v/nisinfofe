@@ -9,6 +9,9 @@ function info(patientId, visitId) {
 }
 // 医嘱列表
 function orders(patientId, visitId) {
+  if (!patientId && !visitId) {
+    return new Promise.reject()
+  }
   return axios.get(`${apiPath}patient/orders/${patientId}/${visitId}`);
 }
 // 是否有查询功能医嘱列表（北海）
@@ -123,7 +126,7 @@ function patientNursing(
 /**收藏表单 */
 function collectAssessmentForm(deptCode, collectionUser,formCode) {
   return axios.post(`${apiPath}form/saveForCollection`,{
-    deptCode, 
+    deptCode,
     collectionUser,
     formCode
   }
@@ -133,7 +136,7 @@ function collectAssessmentForm(deptCode, collectionUser,formCode) {
 /* 取消收藏表单 */
 function unCollectAssessmentForm(deptCode, collectionUser,formCode) {
   return axios.post(`${apiPath}form/unfollowCollection`,{
-    deptCode, 
+    deptCode,
     collectionUser,
     formCode
   }

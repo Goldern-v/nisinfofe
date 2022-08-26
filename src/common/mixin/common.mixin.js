@@ -78,7 +78,7 @@ export default {
             newToken = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user")).token ? JSON.parse(localStorage.getItem("user")).token:"";
           } catch (error) {}
           token = Cookies.get("NURSING_USER") && Cookies.get("NURSING_USER").split("##")[1] ? Cookies.get("NURSING_USER").split("##")[1] : newToken;
-          //token = Cookies.get("NURSING_USER").split("##")[1]; 
+          //token = Cookies.get("NURSING_USER").split("##")[1];
         }
       } catch (error) {
         token = $params.token;
@@ -148,6 +148,17 @@ export default {
       } catch (error) {
         return false;
       }
+    },
+    /**
+     * 不良事件的护理部权限
+     * @returns
+     */
+    isDeptRule() {
+      let user = JSON.parse(localStorage.user)
+
+      return user &&
+        (user.roleManageCode == "QCR0001" ||
+          user.roleManageCodeList.find((code) => code == "QCR0001"))
     },
     // 护理巡视操作权限
     isNursingRoundsAuthority() {

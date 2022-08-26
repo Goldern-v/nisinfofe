@@ -209,6 +209,7 @@ export default {
         if(res.status===200 && res.data.code=='200' && res.data.data){
           this.ewmBaseData=res.data.data.imgBase64;
           this.requestId=res.data.data.requestId;
+          // localStorage.setItem("fuyouRequestId",res.data.data.requestId)
           console.log(res.data.data.requestId)
           this.authoState='1'
           this.startSetIntervalItem();

@@ -895,6 +895,7 @@ import userInfo from "./user-info.vue";
 import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
+import { getAuthorize,getTrustUserInfo } from "@/api/ca-sign_fuyou.js";
 import bus from "vue-happy-bus";
 export default {
   mixins: [common],
@@ -1101,6 +1102,9 @@ export default {
     },
   },
   created() {
+    if(["fuyou"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
+      window.openFuyouCaSignModal(true);
+    } 
     // this.$store.dispatch("getMailUnread");
     nursingUnit().then((res) => {
       this.deptList = res.data.data.deptList;
