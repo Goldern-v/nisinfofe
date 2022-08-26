@@ -37,6 +37,8 @@
             class="save-btn"
             @click="saveVitalSign(vitalSignObj)"
             >{{ isUpdate ? "更新" : "保存" }}</el-button>
+            <el-button  @click.stop="openTztbModal"  v-if="this.HOSPITAL_ID == 'hj'">体征同步</el-button>
+            <el-button  @click.stop="revocation" v-if="this.HOSPITAL_ID == 'hj'" type="text">撤销同步</el-button>
         </div>
       </div>
     </div>
@@ -133,6 +135,7 @@
                     :manual="true"
                     :value="vitalSignObj[j].popVisible"
                   >
+                  {{}}
                     <input
                       :id="i + 1"
                       @keydown.enter="changeNext"
@@ -461,7 +464,8 @@
       <newDiagnosisModal ref="newDiagnosisModal"></newDiagnosisModal>
       <slideContant ref="slideContant"></slideContant>
       <slideConRight ref="slideConRight"></slideConRight>
-    <stopDiagnosisModal ref="stopDiagnosisModal"></stopDiagnosisModal>
+      <stopDiagnosisModal ref="stopDiagnosisModal"></stopDiagnosisModal>
+      <tztbModal ref="tztbModal"></tztbModal>
   </div>
 </template>
 <script>
@@ -474,6 +478,7 @@ import slideContant from "../../../../Page/patientInfo/supPage/diagnosis/modal/s
 import slideConRight from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
 import stopDiagnosisModal from "../../../../Page/patientInfo/supPage/diagnosis/modal/stopDiagnosisModal";
 import { model } from "../../../../Page/patientInfo/supPage/diagnosis/diagnosisViewModel.js";
+import tztbModal from "@/Page/sheet-page/components/modal/tztb-modal"
 import {
   getVitalSignListByDate,
   getmultiDict,
@@ -484,6 +489,7 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
+
 export default {
   props: { patientInfo: Object },
     provide() {
@@ -579,6 +585,17 @@ export default {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
+    this.bus.$on("refreshSheetPageOne" , (data)=>{
+      let list = data[0]
+      this.$nextTick(()=>{
+        let {recordDate ,temperature ,breathe ,pulse,bloodPressure } =list
+        let obj={temperature ,breathe ,pulse,bloodPressure }
+        for(let item in obj){
+        this.vitalSignObj[item].vitalValue = obj[item]
+        }
+
+      })
+    })
   },
   beforeRouteLeave(){
     this.$refs.slideConRight.show=false
@@ -601,6 +618,21 @@ export default {
     },
   },
   methods: {
+    revocation(){
+      this.$confirm("是否撤销记录", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }).then(()=>{
+            let obj={"temperature":"" ,"breathe":"" ,"pulse":"","bloodPressure":"" }
+              for(let item in obj){
+              this.vitalSignObj[item].vitalValue = obj[item]
+              }
+              this.$message.success('撤销成功')
+          }).catch((err)=>{
+            this.$message.success('取消撤销成功')
+          })
+    },
     handleChange(val) {
     },
     openNewDiagnosis(diagnose) {
@@ -679,6 +711,7 @@ export default {
     init() {
       let obj = {};
       if (!this.multiDictList) return;
+      console.log(this.multiDictList);
       /* 根据字典项构造一个对象(键为生命体征的中文名，值为对应的对象)：{"体温":{}} */
       for (let key in this.multiDictList) {
         obj[this.multiDictList[key]] = {
@@ -959,6 +992,7 @@ export default {
           }
         });
         this.multiDictList = { ...data };
+        console.log(baseDic);
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
         this.init();
@@ -1142,8 +1176,12 @@ export default {
       }, 1000);
       }
     },
+    // 体温同步
+    openTztbModal() {
+      this.$refs.tztbModal.open(this.patientInfo);
+    },
   },
-  components: { nullBg , stopDiagnosisModal , newDiagnosisModal , slideContant ,slideConRight,},
+  components: { nullBg , stopDiagnosisModal , newDiagnosisModal , slideContant ,slideConRight,tztbModal},
 };
 </script>
 
@@ -1163,7 +1201,9 @@ export default {
   }
 
   .column-right {
-    display: inline-block;
+    display: flex;
+    align-items:center;
+    justify-content: space-evenly
     margin-left: 15px;
     height: 50px;
     width:100%;
@@ -1256,23 +1296,19 @@ export default {
       height: 28px;
     }
   }
-    .save-btn-top {
-    width: 50px;
-    display: inline-block;
-  }
+  //   .save-btn-top {
+  //   width: 50px;
+  // }
   .times {
-    display: inline-block;
     width: 100px;
-    margin: 7px 0px 0px 7px;
+
 
     .new-time-select {
       height: 29px;
       width: 100px;
-      display: inline-block;
 
       >>>.el-input__inner {
-        height: 32px !important;
-        display: inline-block;
+        height: 28px !important;
         width: 100px;
         border-radius: 6px;
       }
@@ -1337,10 +1373,10 @@ export default {
   }
 
   .save-btn {
-    position: relative;
-    left: 30%;
-    margin-top: 10px;
-    width: 100px;
+    // position: relative;
+    // left: 30%;
+    // margin-top: 10px;
+    width: 60px;
   }
 
   .inputter-region::-webkit-scrollbar {
