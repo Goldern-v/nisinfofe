@@ -2056,6 +2056,59 @@ export default {
           },
         };
         data.push(obj);
+          let obj2 =  {
+          name: "撤销同步",
+          icon: "shanchuzhenghang",
+          click: () => {
+            let id = row.find(item => {
+              return item.key == "id";
+            }).value;
+            let isRead = this.isRead(row);
+            if (id) {
+              if (isRead) {
+                this.$parent.$parent.$refs.signModal.open((password, empNo) => {
+                  delRow(id, password, empNo).then(res => {
+                    this.delRow(index);
+                    this.$notify.success({
+                      title: "提示",
+                      message: "撤销同步成功"
+                    });
+                    this.bus.$emit("saveSheetPage", true);
+                  });
+                });
+              } else {
+                this.$confirm("你确定撤销该行数据吗", "提示", {
+                  confirmButtonText: "撤销同步",
+                  cancelButtonText: "取消",
+                  type: "warning"
+                }).then(res => {
+                  delRow(id, "", "").then(res => {
+                    this.delRow(index);
+                    this.$notify.success({
+                      title: "提示",
+                      message: "撤销同步成功"
+                    });
+                    this.bus.$emit("saveSheetPage", true);
+                  });
+                });
+              }
+            } else {
+              this.$confirm("你确定撤销同步该行数据吗", "提示", {
+                confirmButtonText: "撤销同步",
+                cancelButtonText: "取消",
+                type: "warning"
+              }).then(res => {
+                this.delRow(index);
+                this.$notify.success({
+                  title: "提示",
+                  message: "撤销同步成功"
+                });
+                this.bus.$emit("saveSheetPage", true);
+              });
+            }
+          }
+        }
+        data.push(obj2)
       }else if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
         data.splice(5,0,
         {
