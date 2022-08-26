@@ -490,6 +490,9 @@
         HOSPITAL_ID != 'huadu'
       "
     ></patientInfo>
+    <demonstarationLevca v-if="HOSPITAL_ID == 'hj' && patientInfo.patientId &&
+        !$route.path.includes('temperature') &&
+        !$route.path.includes('Baby_sheetPage') "></demonstarationLevca>
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
@@ -550,6 +553,8 @@ import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
 import temperatureHD from "../../../patientInfo/supPage/temperature/temperature-huadu";
+// 演示要使用的留痕追溯
+import demonstarationLevca from "./demonstaration-levca.vue"
 //体温曲线窗口
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 import { getPatientInfo } from "@/api/common.js";
@@ -1468,6 +1473,7 @@ export default {
     patientInfo,
     temperatureHD,
     RltbNfzxyModal,
+    demonstarationLevca,
   },
 };
 </script>
