@@ -887,8 +887,9 @@ export default {
       /* 每次加载数据都设为没有锁定 */
       this.$store.commit("changeLockState",false)
       // 有延时器就取消
-      if(!this.$store.state.shiftRecords.lockTimeId){
+      if(this.$store.state.shiftRecords.lockTimeId){
          clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+         this.$store.commit("changeLockTimeId",'')
       }
       /* 发送请求，获取后台时间 */
       if(!this.$store.state.shiftRecords.setupTime){
@@ -903,7 +904,7 @@ export default {
       let timeID=setTimeout(async()=>{
         this.$message.warning(`${this.$store.state.shiftRecords.setupTime}分钟交班报告没有进行编辑，页面将自动刷新`)
         await this.load()
-      }, this.$store.state.shiftRecords.setupTime * 60000)
+      },this.$store.state.shiftRecords.setupTime * 60000)
       this.$store.commit("changeLockTimeId",timeID)
       this.loading = true;
       try {
