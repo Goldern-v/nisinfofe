@@ -1796,10 +1796,9 @@ export default {
       if (result.length == 0) {
         result.push("");
       }
-  debugger
       
       for (let i = 0; i < this.record.length; i++) {
-        this.record[i].find((item) => item.key == "description" || "specialRecord").value = "";
+        this.record[i].find((item) => item.key == "description" || item.key == "specialRecord").value = "";
       }
       if(this.HOSPITAL_ID=="beihairenyi" && this.fixedList.hasOwnProperty('food')){
         for (let j = 0; j < this.record.length; j++) {
@@ -1851,7 +1850,7 @@ export default {
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
         if (this.record[i]) {
-          this.record[i].find((item) => item.key == "description" || "specialRecord").value =
+          this.record[i].find((item) => item.key == "description" || item.key ==  "specialRecord").value =
             result[i];
           process.env.splitSave && (this.record[i].isChange = true)
        } else {
@@ -1870,7 +1869,7 @@ export default {
           );
           this.lastY++;
           sheetModel[this.lastZ].bodyModel[this.lastY].find(
-            (item) => item.key == "description" || "specialRecord"
+            (item) => item.key == "description" || item.key ==  "specialRecord"
           ).value = result[i];
           process.env.splitSave && (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true)
         }
