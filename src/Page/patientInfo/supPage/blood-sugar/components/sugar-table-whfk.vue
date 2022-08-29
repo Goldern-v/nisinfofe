@@ -39,10 +39,10 @@
               <input type="text" v-model="item.date" :data-value="item.date" @input="handlPattern(item)" class="fulltime" :id="`P${pageIndex}-O${index + baseIndex + 1}`">
               <!-- <span>{{ item.date }}</span> -->
             </span>
-            <!-- <span> -->
-                <!-- <input type="text" v-model="item.time" :data-value="item.time" @input="((el)=>{handleTime(el,item)})"> -->
+            <span>
+                <input type="text" v-model="item.time" :data-value="item.time" @input="((el)=>{handleTime(el,item)})">
               <!-- <span>{{ item.time }}</span> -->
-            <!-- </span> -->
+            </span>
           </div>
         </td>
         <!-- 类型 -->
@@ -158,9 +158,9 @@
         font-size :12px !important
     }
     .fulltime{
-      // width 60px
-      width: 100%;
-      text-align: center;
+      width 60px
+      // width: 100%;
+      // text-align: center;
     }
   }
   .cell{
@@ -236,7 +236,7 @@ export default {
           // }else{
           //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
           // }
-          this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+          this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");
           let obj = this.data[i];
           let date = this.data[i].md.split(" ")[0];
           let time = this.data[i].md.split(" ")[1];
@@ -264,7 +264,7 @@ export default {
   },
   filters: {
     formatDate(val) {
-      return new Date(val).Format("YYYY-MM-dd");
+      return new Date(val).Format("MM-dd");
     },
     formatTime(val) {
       return new Date(val).Format("hh:mm");
@@ -290,8 +290,9 @@ export default {
       // e.keyCode==39 右
     },
     onKeyDownToSave(e,list){
+      
       if(e.keyCode==13){
-       this.$emit("toSave",list[this.activeIndex])
+        this.$emit("toSave",list[this.activeIndex])
       }
       if(e.keyCode==9){
          e.preventDefault()
@@ -302,24 +303,22 @@ export default {
     // },
    testTime(item,index){
       //  判断是否为空
-      if(!item.date){
+      if(!item.date&&!item.time){
         if(item.expand2===undefined){
           const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
-          const date=moment().format("YYYY-MM-DD")
+          const date=moment().format("MM-DD")
           const time=moment().format("HH:mm")
           item.date=date
-          if (!item.time) {
-            item.time=time
-          }
+          item.time=time
           item.recordDate=fullTime
           this.isEdit=false
           //  可以判断时间
-          // for (let i = 0;  i< index ;  i++) {
-          //   if(this.renderData[i].date===item.date){
-          //     item.date = ""
-          //     break
-          //   }
-          // }
+          for (let i = 0;  i< index ;  i++) {
+            if(this.renderData[i].date===item.date){
+              item.date = ""
+              break
+            }
+          }
         } else {
           this.isEdit=true
         }
