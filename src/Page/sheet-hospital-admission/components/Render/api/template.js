@@ -48,7 +48,7 @@ export function del(id) {
 }
 
 export function del_foshanshiyi(id, empNo) {
-  return axios.get(`${apiPath}record/desc/delete/${id}/${empNo}`);
+  return axios.get(`${apiPath}eval/desc/deleteByAuth/${id}/${empNo}`);
 }
 
 //  获取

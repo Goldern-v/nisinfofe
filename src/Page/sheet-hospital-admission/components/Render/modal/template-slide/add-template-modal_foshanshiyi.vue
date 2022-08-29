@@ -143,8 +143,8 @@ export default {
         this.userEmpNo = ''
         this.deptId = ''
         this.deptValue = this.user.deptCode
-        this.type = this.isRoleManage ?  ['科室'] : ['公共', '科室']
-        if (this.isRoleManage) {
+        this.type = this.isRoleManage && !this.isNewAdminOrNursingDepartment ?  ['科室'] : ['公共', '科室']
+        if (this.isRoleManage && !this.isNewAdminOrNursingDepartment) {
           this.type = ['科室']
           this.selectedType = '科室'
         } else {
