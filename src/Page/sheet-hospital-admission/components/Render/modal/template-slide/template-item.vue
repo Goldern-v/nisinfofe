@@ -115,7 +115,7 @@ export default {
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            del_foshanshiyi(this.data.id, user.empNo).then(res => {
+            del_foshanshiyi(this.data.id, this.user.empNo).then(res => {
               this.$message({
                 type: "success",
                 message: "删除成功!"
