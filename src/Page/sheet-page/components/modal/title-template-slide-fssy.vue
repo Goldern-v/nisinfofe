@@ -223,7 +223,7 @@ export default {
       this.selectedTab = tab;
     },
     async getData() {
-    if (!['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) return
+    if (!['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) return
       let deptCode = this.$store.state.lesion.deptCode
       // let {
       //   data: { data }
