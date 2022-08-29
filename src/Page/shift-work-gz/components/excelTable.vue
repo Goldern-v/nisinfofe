@@ -68,7 +68,7 @@
             </div>
             <button class="remove-td" @click="removeCurrent(index)"><i class="el-icon-close"></i></button>
           </td>
-          
+
         </tr>
         <!-- <tr v-for="(item, key) of formData.contents" :key="key">
           <td v-for="(option, colIndex) of item" :key="colIndex" :colspan="5">
@@ -627,7 +627,8 @@ export default {
     // },
   },
   mounted(){
-        console.log(data);
+    //这边进行输血患者，病危患者数据处理 const {patientTransfusion,patientCritical} = changeShiftTimes
+    // this.data.changeShiftTimes.patientTransfusion=''
 
     // 兼容之前填写的数据（把之前填写的数据再次填写到新数组）
     // if(!this.changeShiftContents.length){

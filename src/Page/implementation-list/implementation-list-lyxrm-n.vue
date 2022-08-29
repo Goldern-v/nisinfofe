@@ -21,13 +21,7 @@
           v-model="endDate"
           style="width:160px"
         ></el-date-picker>
-        <!-- <span class="label">班次:</span>
-        <el-row class="select-btn-list" type="flex" align="middle">
-        <el-checkbox-group v-model="workClassList">
-          <el-checkbox label="白班"></el-checkbox>
-          <el-checkbox label="夜班"></el-checkbox>
-         </el-checkbox-group>
-        </el-row> -->
+
         <span class="label">长/临:</span>
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="repeatIndicator">
@@ -54,9 +48,11 @@
         <span class="label">类型:</span>
         <el-select
           v-model="type"
+          multiple
           placeholder="请选择"
           size="small"
-          style="width:110px"
+          style="width:180px"
+          @change="handleChangeType"
         >
           <el-option
             :label="typeItem.name"
@@ -215,7 +211,7 @@
 }
 
 .head-con {
-  height: 42px;
+  min-height: 42px;
   display: flex;
   align-items: center;
   margin-bottom: 5px;
@@ -279,7 +275,7 @@ export default {
       startDate: moment().format("YYYY-MM-DD")+' 00:00:00',
       endDate: moment(moment().toDate().getTime() ).format("YYYY-MM-DD")+' 23:59:59',
       repeatIndicator: "",
-      type: "",
+      type: ['全部'],
       status: "",
       bedLabel: "",
       patientName: "",
@@ -287,7 +283,7 @@ export default {
       allType: [
         {
           name: "全部",
-          value: ""
+          value: "全部"
         },
         {
           name: "输液",
@@ -382,9 +378,7 @@ export default {
         repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
         executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
         executeType:
-          typeof this.type == "number"
-            ? this.allType[this.type + 1].name
-            : this.type, //执行单类型:输液,口服、治疗、雾化、注射
+          this.type.length > 0 ? this.type.join(",") : "全部", //执行单类型:输液,口服、治疗、雾化、注射
         bedLabel: this.bedLabel, //床号
         patientName: this.patientName, //患者姓名
         administration: this.administration, // //途径
@@ -486,7 +480,14 @@ export default {
     search() {
       this.page.pageIndex = 1;
       this.onLoad();
-    }
+    },
+    handleChangeType(value) {
+      if (this.type.length === 2 && this.type.includes('全部')) {
+        this.type.shift()
+      } else if (this.type.length > 2 && this.type[this.type.length - 1] === '全部') {
+        this.type = ['全部']
+      }
+    },
   },
   created() {
     this.onLoad();

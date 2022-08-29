@@ -47,6 +47,7 @@
             :data-value="sheetInfo.relObj['yz_' + index]"
             v-model="sheetInfo.relObj['yz_' + index]"
           />
+          {{ sheetInfo.sheetType === 'magnesium_sulphate_hl' ? '周' : '' }}
         </span>
       </span>
       <span
@@ -474,7 +475,7 @@ export default {
     }
     if(this.sheetInfo.sheetType==='ventilation_hl'){
          this.active=this.sheetInfo.relObj[`${this.index}checkWay`]
-    } 
+    }
   },
   watch: {
     // relObj: {
