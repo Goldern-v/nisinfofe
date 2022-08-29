@@ -159,8 +159,7 @@ const currentTargetUrl = (() => {
       // return "http://192.168.20.147:9091"  // 双艳
       return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" // 初升测试本地内网
-      // return "http://192.168.20.71:8080" //宪锋本地地址
-      // return "http://192.168.20.22:9091" //锦泳本地地址
+      return "http://192.168.20.102:8080" //宪锋本地地址
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -184,7 +183,8 @@ const currentTargetUrl = (() => {
       // return "http://192.168.1.54:9887" // 顺德龙江内网测试
       // return "http://192.168.3.226:8080" // 初升本地
       // return "http://218.13.34.230:9094" //正式
-      return "https://cr.fsyyy.com:9094" //佛山人医正式
+      // return "https://cr.fsyyy.com:9094" //佛山人医正式
+      return "http://218.13.87.27:9094" 
     // 临邑县人民
     case 'lyxrm':
       return "http://192.168.1.54:9890" // 内网测试
