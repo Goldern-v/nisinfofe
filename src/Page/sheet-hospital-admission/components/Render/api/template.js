@@ -19,6 +19,18 @@ export function list_foshanshiyi(groupName, wardCode = "") {
   return axios.post(`${apiPath}eval/desc/getList`, { groupName, wardCode });
 }
 
+export function saveOrUpdate_foshanshiyi(groupName, title, content, id, empNo, wardCode, currentEmpNo) {
+  return axios.post(`${apiPath}eval/desc/saveOrUpdateByAuth/${currentEmpNo}`, {
+    groupName,
+    title,
+    content,
+    id,
+    empNo,
+    wardCode
+  });
+}
+
+
 //  保存常用短语
 export function saveOrUpdate(groupName, title, content, id, recordCode = "neurology") {
   return axios.post(`${apiPath}record/desc/saveOrUpdate`, {

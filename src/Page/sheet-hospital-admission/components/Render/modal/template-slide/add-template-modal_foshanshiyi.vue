@@ -66,18 +66,13 @@
 </style>
 
 <script>
-import { typeList, saveOrUpdate, list } from "../../api/template.js";
+import { typeList, saveOrUpdate_foshanshiyi, list } from "../../api/template.js";
 import bus from "vue-happy-bus";
 import { keyNameMap, keyCodeMap } from "./deptMapList";
 import commom from "@/common/mixin/common.mixin.js";
+import { nursingUnit } from "@/api/lesion";
 export default {
   mixins: [commom],
-  props:{
-    deptList: { 
-      type: Array,
-      default: []
-    }
-  },
   data() {
     return {
       bus: bus(this),
@@ -85,11 +80,15 @@ export default {
       title: "",
       content: "",
       id: "",
+      userEmpNo: '',
       typeList: "",
       selectedType: '公共',
       deptValue: '',
       type: ['公共', '科室'],
-      deptENName: keyNameMap[this.deptName] || "neurology"
+      deptENName: keyNameMap[this.deptName] || "neurology",
+      deptList: [],
+      deptId: '',
+      user: localStorage.user && JSON.parse(localStorage.user)
     };
   },
   computed: {
@@ -102,30 +101,72 @@ export default {
     }
   },
   methods: {
+    getDeptLists() {
+      nursingUnit().then(res => {
+        if (res.data.code === '200')
+          this.deptList = res.data.data.deptList;
+      });
+    },
     open(item) {
       this.$refs.modal.open();
+      this.getDeptLists()
       this.getData();
+      // let user = localStorage.user && JSON.parse(localStorage.user)
+      if (this.selectedType === '公共') this.deptValue = ''
+
+      // if (this.isRoleManage) {
+      //   // let user = localStorage.user && JSON.parse(localStorage.user)
+      //   this.type = ['科室']
+      //   this.selectedType = '科室'
+      //   this.deptValue = this.user.deptCode
+      // }
       if (item) {
         (this.groupName = item.groupName), (this.title = item.title);
         this.content = item.content;
         this.id = item.id;
+        this.userEmpNo = item.empNo
+        this.deptId = item.wardCode
+        this.deptValue = item.wardCode
+        if (item.wardCode) {
+          this.type = ['科室']
+          this.selectedType = '科室'
+        } else {
+          this.type = ['公共']
+          this.selectedType = '公共'
+        }
       } else {
         (this.groupName = ""), (this.title = "");
         this.content = "";
         this.id = "";
+        this.userEmpNo = ''
+        this.deptId = ''
+        this.deptValue = this.user.deptCode
+        this.type = this.isRoleManage ?  ['科室'] : ['公共', '科室']
+        if (this.isRoleManage) {
+          this.type = ['科室']
+          this.selectedType = '科室'
+        } else {
+          this.type = ['公共', '科室']
+          this.selectedType = '公共'
+        }
       }
+      console.log(this.type, this.user, this.deptValue, this.isRoleManage, 2222)
     },
     close() {
       this.$refs.modal.close();
+      this.selectedType = '公共',
+      this.deptValue = ''
     },
     post() {
-      this.deptENName = keyNameMap[this.deptName] || "neurology";
-      saveOrUpdate(
+      console.log(111111)
+      saveOrUpdate_foshanshiyi(
         this.groupName,
         this.title,
         this.content,
         this.id,
-        this.deptCode||this.deptENName
+        this.userEmpNo,
+        this.deptValue,
+        this.user.empNo
       ).then(res => {
         if (this.id) {
           this.$message.success("更新常用语模版成功");
@@ -154,15 +195,11 @@ export default {
     }
   },
   created() {
+    // this.getDeptLists()
     this.bus.$on("openAddTemplateModal", item => {
       this.open(item);
     });
-    if (this.isRoleManage) {
-      let user = localStorage.user && JSON.parse(localStorage.user)
-      this.type = ['科室']
-      this.selectedType = '科室'
-      this.deptValue = user.deptCode
-    }
+    
   },
   components: {}
 };
