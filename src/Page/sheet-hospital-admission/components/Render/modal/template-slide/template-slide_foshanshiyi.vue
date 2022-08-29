@@ -258,7 +258,7 @@ export default {
       selectedTab: "1",
       listMap: [],
       typeList: {},
-      selectedType: "", // 类别
+      selectedType: "全部", // 类别
       selectedClasss: "全部",
       selectWidth: 100,
       refName: "",
@@ -299,7 +299,6 @@ export default {
       this.selectedType =  this.typeList.dept.filter(item => item.deptCode === value)[0].groupName[0].index
     },
     selectChangeType(value) {
-      // console.log(value, 33333)
       this.listType()
     },
     open(refName) {
@@ -335,9 +334,7 @@ export default {
     listType() {
       let wardCode = ''
       let groupName = ''
-      console.log(this.selectedClasss, 7777)
       if (this.selectedClasss === '全部') {
-        console.log(this.selectedType, 8888)
         // 点击类别的全部
         if (this.selectedType !== '全部') {
           let code = this.selectedType.split('_')[0]
@@ -357,7 +354,6 @@ export default {
       else if (this.selectedClasss === '科室') {
         wardCode = this.deptValue
         let groupNames = this.typeList.dept.filter(item => item.deptCode === this.deptValue)[0].groupName
-        console.log(groupNames, this.deptValue, this.selectedType, groupNames.filter(item => item.index === this.selectedType)[0], 77777)
         groupName = groupNames.filter(item => item.index === this.selectedType)[0].name
       } else {
         wardCode = '000000'
@@ -374,26 +370,6 @@ export default {
       typeList_foshanshiyi().then(res => {
         if (res.data.code === '200') {
           this.typeList = res.data.data;
-          if (this.selectedType) {
-
-            // list_foshanshiyi(this.selectedType, this.deptValue).then(res => {
-            //   this.listMap = res.data.data.list;
-            // });
-          } else {
-            if (this.selectedClasss === '科室') {
-              // this.selectedType = this.typeList.dept[0].groupName[0];
-              console.log(this.selectedType, 7777)
-              // let user = localStorage.user && JSON.parse(localStorage.user)
-              // this.deptValue = this.typeList.dept.filter(item => item.deptCode === this.user.deptCode)
-              // console.log()
-              // this.selectedType = this.user.deptName;
-
-
-            } else {
-              // this.selectedType = this.typeList.common[0].groupName[0].index;
-              this.selectedType = '全部'
-            }
-          }
         }
       });
     },
@@ -411,17 +387,14 @@ export default {
     }
   },
   created() {
-    this.show = true;
-    this.getData();
+
     // deptCode
     // let user = localStorage.user && JSON.parse(localStorage.user)
     // if (this.isRoleManage) {
     //   // this.selectedClasss = '科室'
     //   // this.deptValue = this.user.deptCode
     // }
-
     // this.listType()
-
     if (this.isNewAdminOrNursingDepartment) this.selectedClasss = '全部'
     this.bus.$on("refreshTemplate", this.getData);
   },

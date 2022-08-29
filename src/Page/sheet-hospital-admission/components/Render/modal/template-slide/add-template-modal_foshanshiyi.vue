@@ -150,7 +150,6 @@ export default {
           this.selectedType = '公共'
         }
       }
-      console.log(this.type, this.user, this.deptValue, this.isRoleManage, 2222)
     },
     close() {
       this.$refs.modal.close();
@@ -158,7 +157,6 @@ export default {
       this.deptValue = ''
     },
     post() {
-      console.log(111111)
       saveOrUpdate_foshanshiyi(
         this.groupName,
         this.title,
