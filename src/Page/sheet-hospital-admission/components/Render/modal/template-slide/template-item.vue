@@ -54,7 +54,7 @@
 </style>
 <script>
 import bus from "vue-happy-bus";
-import { del } from "../../api/template.js";
+import { del, del_foshanshiyi } from "../../api/template.js";
 // import { keyNameMap, keyCodeMap } from "./deptMapList";
 import commom from "@/common/mixin/common.mixin.js";
 export default {
@@ -66,7 +66,7 @@ export default {
   data() {
     return {
       bus: bus(this),
-      msg: "hello vue"
+      user: localStorage.user && JSON.parse(localStorage.user),
     };
   },
   computed: {
@@ -115,7 +115,7 @@ export default {
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            del(this.data.id).then(res => {
+            del_foshanshiyi(this.data.id, user.empNo).then(res => {
               this.$message({
                 type: "success",
                 message: "删除成功!"
