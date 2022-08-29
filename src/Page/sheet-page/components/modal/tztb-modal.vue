@@ -97,7 +97,6 @@ export default {
   },
   methods: {
     open(baseParams) {
-      console.log(baseParams,"gaohaix");
       this.formlist = baseParams
       console.log(this.formlist);
       if (!this.patientInfo.patientId && !baseParams.patientId) {

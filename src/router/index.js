@@ -1437,6 +1437,7 @@ const router = new Router({
               return newSingleTemperatureChartWHFK
             case 'lyxrm':
             case 'ytll':
+              case 'hj':
               return newSingleTemperatureChartLYXRM
             case 'whsl':
             return newSingleTemperatureChartWHSL

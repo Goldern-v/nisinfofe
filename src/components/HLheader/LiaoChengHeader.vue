@@ -1093,7 +1093,10 @@ export default {
     },
     async quit() {
       // 关闭定时器。
-      clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+      if(this.$store.state.shiftRecords.lockTimeId){
+        clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+        this.$store.commit("changeLockTimeId",'')
+      }
       // 交班报告解锁
       await this.toUnLock()
       logout(Cookies.get("NURSING_USER"));

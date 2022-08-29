@@ -234,7 +234,7 @@
               </el-row>
             </router-link>
 
-            <router-link to="/singleTemperatureChart" tag="span">
+            <router-link to="/newSingleTemperatureChart" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="singleTemperatureChart"></i>体温单
               </el-row>

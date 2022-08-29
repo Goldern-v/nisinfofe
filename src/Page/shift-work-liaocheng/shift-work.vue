@@ -205,7 +205,10 @@
     },
     async destroyed(){
       // 关闭定时器
-      clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+      if(this.$store.state.shiftRecords.lockTimeId){
+        clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+        this.$store.commit("changeLockTimeId",'')
+      }
       /* 切换模块的时候解锁 */
       await this.toUnLock()
     },

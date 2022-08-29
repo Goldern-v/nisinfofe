@@ -36,11 +36,11 @@ export default {
     },
     post() {
       if (this.selected.length == 0) return this.$message.warning('请选择一条数据')
-      this.$emit('handleOk',{ item: this.selected.map(v => ({val: [v.orderText, v.dosageUnits, v.administration].join('-')})), key: 'val' })
+      this.$emit('handleOk',{ item: this.selected.map(v => ({val: [v.orderText, v.dosage + v.dosageUnits, v.administration].filter(v=>v).join('-')})), key: 'val' })
       this.$refs.modalName.close()
     },
     handleCheckbox(e) {
-      console.log('test-e', e)
+      // console.log('test-e', e)
       this.selected = e
     }
   },
