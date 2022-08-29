@@ -105,7 +105,10 @@ export default {
       },
       {
         name: `宫颈<br/>扩张<br>(cm)`,
-        style: {},
+        style: {
+          minWidth: "60px",
+          maxWidth: "60px",
+        },
         colspan: "1",
         rowspan: "3"
       },
@@ -190,8 +193,8 @@ export default {
         持续<br>(s)
         `,
         style: {
-          minWidth: "60px",
-          maxWidth: "60px",
+          minWidth: "45px",
+          maxWidth: "45px",
           whiteSpace: "nowrap"
         },
         colspan: "1",
