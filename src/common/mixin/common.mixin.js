@@ -144,11 +144,30 @@ export default {
         let userStore = JSON.parse(localStorage.user)
         let isNurseDepartment = userStore.post.indexOf("护理部") != -1;
         let isAdmin = userStore.superuser
+
         return isNurseDepartment || isAdmin;
       } catch (error) {
         return false;
       }
     },
+    /** 是否是护理部 */
+    isNewAdminOrNursingDepartment() {
+      try {
+        if (this.isAdmin) return true;
+
+        if (this.user && this.user.roleManageCode === "QCR0001") return true;
+
+        if (
+          this.user &&
+          this.user.roleManageCodeList.find((code) => code === "QCR0001")
+        )
+          return true;
+        return false;
+      } catch (error) {
+        return false;
+      }
+    },
+
     /**
      * 不良事件的护理部权限
      * @returns

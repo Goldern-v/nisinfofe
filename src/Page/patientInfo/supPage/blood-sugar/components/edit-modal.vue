@@ -8,7 +8,7 @@
       <ElFormItem label="日期：" required>
         <ElDatePicker v-model="form.recordDate" :clearable="false" />
       </ElFormItem>
-      <ElFormItem label="时间：" required v-if="HOSPITAL_ID !== 'whfk'">
+      <ElFormItem label="时间：" required>
         <ElTimePicker
           v-model="form.recordTime"
           :clearable="false"
