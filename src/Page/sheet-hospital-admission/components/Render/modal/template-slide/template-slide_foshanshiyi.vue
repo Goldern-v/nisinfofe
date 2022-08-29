@@ -241,7 +241,7 @@
 <script>
 import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./template-item.vue";
-import { typeList,typeList_foshanshiyi, list_foshanshiyi, list } from "../../api/template";
+import { typeList_foshanshiyi, list_foshanshiyi } from "../../api/template";
 import addTemplateModal from "./add-template-modal_foshanshiyi.vue";
 import bus from "vue-happy-bus";
 import { keyNameMap, keyCodeMap } from "./deptMapList";
@@ -265,7 +265,6 @@ export default {
       deptENName: keyNameMap[this.deptName] || "neurology",
       deptValue: '',
       user: localStorage.user && JSON.parse(localStorage.user),
-
     };
   },
   computed: {

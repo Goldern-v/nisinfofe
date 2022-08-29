@@ -46,6 +46,11 @@ export function saveOrUpdate(groupName, title, content, id, recordCode = "neurol
 export function del(id) {
   return axios.get(`${apiPath}record/desc/delete/${id}`);
 }
+
+export function del_foshanshiyi(id, empNo) {
+  return axios.get(`${apiPath}record/desc/delete/${id}/${empNo}`);
+}
+
 //  获取
 export function get(id) {
   return axios.get(`${apiPath}record/desc/get/${id}`);

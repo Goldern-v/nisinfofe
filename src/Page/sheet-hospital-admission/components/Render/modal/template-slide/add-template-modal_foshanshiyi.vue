@@ -8,12 +8,14 @@
     >
       <div flex="main:justify cross:center" style="margin-bottom: 20px">
         <p for class="title" style="margin-right: 10px">类别：</p>
-        <el-autocomplete
+        <el-input v-model="groupName" placeholder="请输入类别"></el-input>
+        <!-- <el-autocomplete
           style="width: 100%"
           v-model="groupName"
           :fetch-suggestions="querySearch"
           placeholder="请输入内容"
-        ></el-autocomplete>
+        ></el-autocomplete> -->
+
       </div>
       <div flex="main:justify cross:center" style="margin-bottom: 20px">
         <p for class="title" style="margin-right: 10px">类型：</p>
