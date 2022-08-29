@@ -65,7 +65,7 @@ export default [
   { key: 'costom4', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom5', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
-    key: "description", //特殊情况记录
+    key: "specialRecord", //特殊情况记录
     value: "",
     style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "163px", background: "transparent" },
     textarea: { width: 163 },
