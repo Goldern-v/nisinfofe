@@ -74,13 +74,23 @@
               :value=" optionItem.value"
             ></el-option>
           </el-select>
-          <el-button size="small" type="primary" @click="search">查询</el-button>
-          <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
-          <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj', 'gdtj', 'fsxt','whfk'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
-          <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt','whfk'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
-          <el-button size="small" @click="createImplement">生成执行</el-button>
-          <el-button size="small" v-if="['whfk','sdlj','lyxrm'].includes(HOSPITAL_ID)" @click="syncData">同步医嘱</el-button>
-          <el-button size="small" v-else @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
+          <template v-if="['whfk'].includes(HOSPITAL_ID)">
+            <el-button size="small" type="primary" @click="search">查询</el-button>
+            <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
+            <el-button size="small" @click="syncData">同步医嘱</el-button>
+            <el-button size="small" @click="createImplement">生成执行</el-button>
+            <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印</el-button>
+            <el-button size="small" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
+          </template>
+          <template v-else>
+            <el-button size="small" type="primary" @click="search">查询</el-button>
+            <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
+            <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj', 'gdtj', 'fsxt'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
+            <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
+            <el-button size="small" @click="createImplement">生成执行</el-button>
+            <el-button size="small" v-if="['sdlj','lyxrm'].includes(HOSPITAL_ID)" @click="syncData">同步医嘱</el-button>
+            <el-button size="small" v-else @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
+          </template>
         </div>
       </div>
       <dTable :pageLoadng="pageLoading" ref="plTable"></dTable>
