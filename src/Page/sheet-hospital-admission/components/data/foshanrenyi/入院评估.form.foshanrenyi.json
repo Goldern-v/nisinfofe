@@ -4552,7 +4552,7 @@
           "boxStyle": "height:auto!important",
           "elementStyle": "",
           "class": null,
-          "hiddenTips": true,
+          "hiddenTips": false,
           "children": [
             {
               "name": "I001554",
@@ -4692,7 +4692,7 @@
           "elementStyle": "width:100%",
           "boxStyle": "height:auto!important",
           "class": null,
-          "hiddenTips": true,
+          "hiddenTips": false,
           "children": [
             {
               "name": "I001557",
@@ -4731,7 +4731,7 @@
           "boxStyle": "height:auto!important",
           "elementStyle": "",
           "class": null,
-          "hiddenTips": true,
+          "hiddenTips": false,
           "children": [
             {
               "name": "I001558",

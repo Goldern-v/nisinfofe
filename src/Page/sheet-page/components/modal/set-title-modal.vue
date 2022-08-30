@@ -18,7 +18,7 @@
       </p>
       <div action @keyup.13="post" ref="titleInput">
         <!-- <el-input size="small" type="text" placeholder="输入标题名称" v-model="title"></el-input> -->
-        <template  v-if="HOSPITAL_ID == 'foshanrenyi' || HOSPITAL_ID == 'fsxt'">
+        <template  v-if="HOSPITAL_ID == 'foshanrenyi' || HOSPITAL_ID == 'fsxt' || HOSPITAL_ID == 'gdtj'">
           <el-autocomplete
             style="width: 100%"
             :value="fstitle"
@@ -104,7 +104,7 @@ export default {
      */
     open(callback, title, item, optionList) {
       // if(optionList && optionList.children && this.HOSPITAL_ID == 'foshanrenyi'){
-      if(this.HOSPITAL_ID == 'foshanrenyi' || this.HOSPITAL_ID == 'fsxt' ){
+      if(this.HOSPITAL_ID == 'foshanrenyi' || this.HOSPITAL_ID == 'fsxt' || this.HOSPITAL_ID == 'gdtj'){
         this.callback = callback;
         // this.options = optionList.children
         this.fstitle = title;
@@ -130,7 +130,7 @@ export default {
       }
     },
     post() {
-      if(this.fstitle && this.HOSPITAL_ID == 'foshanrenyi' || this.HOSPITAL_ID == 'fsxt'){
+      if(this.fstitle && this.HOSPITAL_ID == 'foshanrenyi' || this.HOSPITAL_ID == 'fsxt' || this.HOSPITAL_ID == 'gdtj'){
         this.callback(this.fstitle, {
           list: this.options || [],
           id: this.selectedTempId
@@ -157,7 +157,7 @@ export default {
       this.$refs.titleTemplateSlideFS.close();
     },
     async querySearch(queryString, cb) {
-      if (['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
         let list = []
         if (!queryString) {
           list = this.templateList.map(item => ({value: item.title, id: item.id, list: item.list || []}))
@@ -214,7 +214,7 @@ export default {
       }
     },
     openTitleTemplateSlide() {
-      if (['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
         this.$refs.titleTemplateSlideFS.open();
         return
       }
@@ -275,7 +275,7 @@ export default {
       }
     });
     // 刷新标题模板列表
-    if (['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) {
+    if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
       this.bus.$on("refreshTitleTemplate", this.getTemplateList);
     }
   },
