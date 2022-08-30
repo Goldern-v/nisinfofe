@@ -133,9 +133,9 @@ export function getPatientOrder(obj) {
 export function getSDLJPatientOrder(obj) {
   return axios.get(`${apiPath}procedure/webExecute/syncNurseOrders/${obj.wardCode}`)
 }
-// 临邑同步医嘱
+// 临邑,烟台同步医嘱
 export function syncNurseOrdersByWardCode(obj) {
-  return axios.get(`${apiPath}/procedure/webExecute/syncNurseOrdersByWardCode/${obj.wardCode}`)
+  return axios.get(`${apiPath}procedure/webExecute/syncNurseOrdersByWardCode/${obj.wardCode}`)
 }
 // 执行执行单（批量）
 export function handleWebExecuteBatch(arr) {

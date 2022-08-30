@@ -719,7 +719,7 @@ export default {
         );
       }
       if (node.level !== 2) {
-        if (this.HOSPITAL_ID === 'foshanrenyi') {
+        if (["foshanrenyi","lyxrm"].includes(this.HOSPITAL_ID)) {
           this.batchAuditForms = node.data
           return (
             <span class="tree-box-node2">

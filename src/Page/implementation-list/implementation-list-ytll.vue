@@ -2,7 +2,7 @@
   <div>
     <div class="main-contain">
       <div class="head-con">
-        <h3>批量执行单</h3>
+        <h3>批量执行单222</h3>
         <div>
           <span class="label" style="margin-left: 0">执行日期:</span>
           <el-date-picker
@@ -207,8 +207,8 @@ export default {
         {label: '口服'},
         {label: '治疗'},
         {label: '皮试'},
-        {label: '膀胱冲洗'},
-        {label: '气道湿化'},
+        // {label: '膀胱冲洗'},
+        // {label: '气道湿化'},
         {label: '标本'},
         {label: '检查'},
         {label: '手术'},
