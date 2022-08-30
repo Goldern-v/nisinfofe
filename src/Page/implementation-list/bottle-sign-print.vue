@@ -55,7 +55,7 @@
             ></el-option>
           </el-select>
           <span class="label" v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)">途径:</span>
-          <el-autocomplete v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)" size="small" style="width: 80px;" v-model="administration" :fetch-suggestions="querySearch" :trigger-on-focus="false" @select="() => {}" />
+          <el-autocomplete v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)" size="small" style="width: 80px;" v-model="administration" :fetch-suggestions="querySearch" :trigger-on-focus="true" @select="() => {}" />
           <span class="label">床号:</span>
           <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
           <span class="label" v-if="hasNewPrintHos.includes(HOSPITAL_ID)">瓶签大小:</span>
@@ -100,7 +100,7 @@
           :size="page.pageNum"
           :total="page.total"
           @sizeChange="handleSizeChange"
-          :disableSize='true'
+          :disableSize='disableSize'
           @currentChange="handleCurrentChange"
         ></pagination>
       </div>
@@ -708,7 +708,9 @@ export default {
       }
     },
     querySearch(queryString, cb) {
-      var results = queryString ? this.pathList.filter((v) => v.value.indexOf(queryString) > -1) : this.pathList;
+      let list = [{value:'膀胱冲洗'},{value:'气道湿化'}]
+      let pathList = ['ytll'].includes(this.HOSPITAL_ID) ? list : this.pathList;
+      var results = queryString ? pathList.filter((v) => v.value.indexOf(queryString) > -1) : pathList;
       // 调用 callback 返回建议列表的数据
       cb(results);
     },
@@ -770,6 +772,9 @@ export default {
     // 是否显示途径
     showAdministration() {
       return ['lyxrm,ytll'].includes(this.HOSPITAL_ID)
+    },
+    disableSize () {
+      return !['wujing'].includes(this.HOSPITAL_ID)
     }
   },
   watch: {
