@@ -54,9 +54,8 @@
               :value=" optionItem.value || optionItem.label"
             ></el-option>
           </el-select>
-          <span class="label" v-if="showAdministration">途径:</span>
-          <el-autocomplete v-if="showAdministration" size="small" style="width: 80px;" v-model="administration" :fetch-suggestions="querySearch" :trigger-on-focus="false" @select="() => {}" />
-
+          <span class="label" v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)">途径:</span>
+          <el-autocomplete v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)" size="small" style="width: 80px;" v-model="administration" :fetch-suggestions="querySearch" :trigger-on-focus="false" @select="() => {}" />
           <span class="label">床号:</span>
           <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
           <span class="label" v-if="hasNewPrintHos.includes(HOSPITAL_ID)">瓶签大小:</span>
@@ -88,7 +87,7 @@
             <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj', 'gdtj', 'fsxt'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
             <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
             <el-button size="small" @click="createImplement">生成执行</el-button>
-            <el-button size="small" v-if="['sdlj','lyxrm'].includes(HOSPITAL_ID)" @click="syncData">同步医嘱</el-button>
+            <el-button size="small" v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)" @click="syncData">同步医嘱</el-button>
             <el-button size="small" v-else @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
           </template>
         </div>
@@ -306,7 +305,7 @@ export default {
         'lyxrm':[
           {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"泵入"},{label:"标本"},{label:"其他"},],
         'ytll':[
-          {label: '全部'}, {label: '输液'}, {label: '注射'}, {label: '雾化'}, {label: '口服'}, {label: '治疗'}, {label: '皮试'}, {label: '膀胱冲洗'}, {label: '气道湿化'}, {label: '标本'}, {label: '其他'},
+          {label: '全部'}, {label: '输液'}, {label: '注射'}, {label: '雾化'}, {label: '口服'}, {label: '治疗'}, {label: '皮试'}, {label: '标本'}, {label: '其他'},
           ],
         default:[
           {label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"理疗"},{label:"护理"},{label:"外用"},{label:"化验"},{label:"其他"},]
@@ -358,7 +357,7 @@ export default {
       let getOrder;
       if(['sdlj'].includes(this.HOSPITAL_ID)){
         getOrder=getSDLJPatientOrder
-      } else if(['lyxrm', 'whfk'].includes(this.HOSPITAL_ID)){
+      } else if(['lyxrm', 'whfk','ytll'].includes(this.HOSPITAL_ID)){
         getOrder = syncNurseOrdersByWardCode
       }else getOrder=getPatientOrder
       this.query.wardCode = this.deptCode;
@@ -458,7 +457,7 @@ export default {
       this.query.endDate = moment(this.endDate).format('YYYY-MM-DD HH:mm:ss')
       this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
-      if(this.HOSPITAL_ID == 'lyxrm'){
+      if(['lyxrm','ytll'].includes(this.HOSPITAL_ID)){
         this.query.itemType = this.lyxrmItemType.join(',')
         this.query.administration = this.administration
       }else{
@@ -770,7 +769,7 @@ export default {
     },
     // 是否显示途径
     showAdministration() {
-      return ['lyxrm'].includes(this.HOSPITAL_ID)
+      return ['lyxrm,ytll'].includes(this.HOSPITAL_ID)
     }
   },
   watch: {
