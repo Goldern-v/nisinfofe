@@ -159,7 +159,6 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-<<<<<<< HEAD
             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveTemperaturePage }"
