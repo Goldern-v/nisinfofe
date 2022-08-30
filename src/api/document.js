@@ -37,13 +37,30 @@ export function synchronizeHengLi() {
 }
 //武汉肺科同步出院患者
 export function synchronizeWHFK() {
-  return axios.get(`${apiPath}patient/syncOutHospital`);
+  let url = 'syncOutHospital';
+  switch (HOSPITAL_ID) {
+    case "whfk":
+      url = 'syncOutHospital'
+      break;
+    case "xiegang":
+      url = "syncOutHospitalXg";
+      break;
+    default:
+      url = 'syncOutHospital'
+      break;
+  }
+  return axios.get(`${apiPath}patient/${url}`);
   //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
 }
 // 北海-转科同步患者
 export function syncMajorBH(wardCode) {
   return axios.get(`${apiPath}HisBeiHaiExecute/syncPatientTransfer/${wardCode}`);
   //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
+}
+
+// 谢岗同步患者出院
+export function syncOutHospitalXg() {
+  return axios.get(`${apiPath}patient/syncOutHospitalXg`); 
 }
 
 export function synchronizeFuyou() {
