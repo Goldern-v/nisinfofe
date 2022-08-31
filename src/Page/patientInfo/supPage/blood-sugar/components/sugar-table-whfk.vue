@@ -9,12 +9,12 @@
          序号
         </th> -->
         <th
-          style="width: 30%; min-width: 75px"
+          style="width: 39%; min-width: 75px"
         >
           时间
         </th>
-        <th style="width: 30%">项目</th>
-        <th style="width: 24%">
+        <th style="width: 25%">项目</th>
+        <th style="width: 20%">
           血糖值<br />(mmol/L)
         </th>
         <th style="width: 14%">执行人</th>
@@ -158,7 +158,7 @@
         font-size :12px !important
     }
     .fulltime{
-      width 60px
+      width 70px
       // width: 100%;
       // text-align: center;
     }
