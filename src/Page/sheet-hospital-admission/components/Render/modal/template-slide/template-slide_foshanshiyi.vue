@@ -87,19 +87,20 @@
               </div>
             </div>
             <div flex>
-              <input
+              <el-input
                 type="text"
                 flex-box="1"
                 class="search-input"
                 placeholder="请输入你要查找的模版…"
                 v-model="searchWord"
+                @change="filterData"
               />
               <whiteButton text icon="icon-search"></whiteButton>
             </div>
           </div>
           <div class="list-con">
-            <div v-for="(item, key) in filterData" :key="key">
-              <templateItem :data="item" :key="item.id" :refName="refName"></templateItem>
+            <div v-for="(item, key) in filterDatas" :key="key">
+              <templateItem :data="item" :filterData='filterDatas' :key="item.id" :refName="refName"></templateItem>
             </div>
           </div>
           <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
@@ -161,13 +162,22 @@
   margin 10px 20px
   .search-input
     background: #FFFFFF;
-    border: 1px solid #C2CBD2;
+    // border: 1px solid #C2CBD2;
     border-radius: 0
     border-right 0px
     outline none
     padding-left 10px
     font-size: 12px;
     color: #687179;
+    margin-left: -8px;
+    width: 94%;
+    >>>.el-input__inner{
+      height: 32px;
+      border-right: none;
+    }
+    .white-btn{
+      padding: 0 8px !important;
+    }
   .search-con_select
     margin-top: 10px;
   .lable 
@@ -265,9 +275,10 @@ export default {
       deptENName: keyNameMap[this.deptName] || "neurology",
       deptValue: '',
       user: localStorage.user && JSON.parse(localStorage.user),
+      filterDatas: []
     };
   },
-  computed: {
+  methods: {
     filterData() {
       let listMap = this.listMap;
       let filterData = listMap.filter(item => {
@@ -276,26 +287,23 @@ export default {
           (item.title || "").indexOf(this.searchWord) > -1
         );
       });
-      return filterData;
-    }
-
-  },
-  methods: {
+      this.filterDatas = filterData
+    },
     radioChange(value) {
-      // console.log(value, 888)
       if (value === '科室') {
         let initDept = this.typeList.dept.filter(item => item.deptCode === this.user.deptCode)
-        this.deptValue = initDept.length > 0 ?  this.user.deptCode : this.typeList.dept[0].deptCode
-        this.selectedType = initDept.length > 0 ? initDept[0].groupName[0].index : this.typeList.dept[0].groupName[0].index;
+        this.deptValue = initDept.length > 0 ?  this.user.deptCode : this.typeList.dept.length > 0 && this.typeList.dept[0].deptCode
+        this.selectedType = initDept.length > 0 ? initDept[0].groupName[0].index : this.typeList.dept.length > 0 && this.typeList.dept[0].groupName[0].index;
       } else if(value === '全部') {
         // this.deptValue = ''
         this.selectedType = '全部'  
       } else {
-        this.selectedType = this.typeList.common[0].groupName[0].index;
+        this.selectedType = this.typeList.common.length > 0 ? this.typeList.common[0].groupName[0].index : '';
       }
     },
     selectChange(value) {
-      this.selectedType =  this.typeList.dept.filter(item => item.deptCode === value)[0].groupName[0].index
+      let newArr = this.typeList.dept.filter(item => item.deptCode === value)
+      this.selectedType = newArr.length > 0 ? newArr[0].groupName[0].index : ''
     },
     selectChangeType(value) {
       this.listType()
@@ -339,28 +347,30 @@ export default {
           let code = this.selectedType.split('_')[0]
           if (code === '000000' ) {
             wardCode = '000000'
-            groupName = this.typeList.common[0].groupName.filter(item => item.index === this.selectedType)[0].name;
+            groupName = this.typeList.common.length > 0 && this.typeList.common[0].groupName.filter(item => item.index === this.selectedType)[0].name;
           } else {
             wardCode = code
-            let groupNames = this.typeList.dept.filter(item => item.deptCode === code)[0].groupName
-            groupName = groupNames.filter(item => item.index === this.selectedType)[0].name
+            let newGroupName = this.typeList.dept.filter(item => item.deptCode === code)
+            let groupNames = newGroupName.length > 0 ? newGroupName[0].groupName.filter(item => item.index === this.selectedType) : []
+            groupName = groupNames.length > 0 ? groupNames[0].name : ''
           }
         } else {
           wardCode = '000000'
           groupName = '全部'
         }
-      }
-      else if (this.selectedClasss === '科室') {
+      } else if (this.selectedClasss === '科室') {
         wardCode = this.deptValue
-        let groupNames = this.typeList.dept.filter(item => item.deptCode === this.deptValue)[0].groupName
-        groupName = groupNames.filter(item => item.index === this.selectedType)[0].name
+        let newGroupName = this.typeList.dept.filter(item => item.deptCode === this.deptValue)
+        let groupNames = newGroupName.length > 0 ?  newGroupName[0].groupName.filter(item => item.index === this.selectedType) : []
+        groupName = groupNames.length > 0 ? groupNames[0].name : ''
       } else {
         wardCode = '000000'
-        groupName = this.typeList.common[0].groupName.filter(item => item.index === this.selectedType)[0].name;
+        groupName = this.typeList.common.length > 0 && this.typeList.common[0].groupName.filter(item => item.index === this.selectedType)[0].name;
       }
       list_foshanshiyi(groupName, wardCode).then(res => {
         if (res.data.code === '200') {
-          this.listMap = res.data.data;
+          this.listMap = res.data.data
+          this.filterDatas = res.data.data
         }
       });
     },
@@ -369,6 +379,15 @@ export default {
       typeList_foshanshiyi().then(res => {
         if (res.data.code === '200') {
           this.typeList = res.data.data;
+          // if (this.typeList.common.length > 0 || this.typeList.dept.length > 0) {
+          //   if (this.selectedClasss === '科室' && this.typeList.dept.length > 0) {
+          //     groupName = this.typeList.dept[0].groupName[0]..name;
+          //   } else {
+
+          //   }
+          // }
+            this.listType()
+
         }
       });
     },
@@ -386,29 +405,16 @@ export default {
     }
   },
   created() {
+    this.bus.$on("refreshTemplate", (data) => {
+      this.filterDatas = data
 
-    // deptCode
-    // let user = localStorage.user && JSON.parse(localStorage.user)
-    // if (this.isRoleManage) {
-    //   // this.selectedClasss = '科室'
-    //   // this.deptValue = this.user.deptCode
-    // }
-    // this.listType()
-    if (this.isNewAdminOrNursingDepartment) this.selectedClasss = '全部'
-    this.bus.$on("refreshTemplate", this.getData);
+    });
+    this.bus.$on("refreshTemplateAdd", this.getData)
   },
   mounted() {
     //  this.show = false
   },
   watch: {
-    // selectedType() {
-    //   if (this.selectedType) {
-    //     this.deptENName = keyNameMap[this.deptName] || "neurology";
-    //     list_foshanshiyi(this.selectedType, this.deptValue).then(res => {
-    //       this.listMap = res.data.data.list;
-    //     });
-    //   }
-    // }
   },
   components: {
     whiteButton,
