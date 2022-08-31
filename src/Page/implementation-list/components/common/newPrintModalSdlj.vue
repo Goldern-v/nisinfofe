@@ -48,8 +48,8 @@
             <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
           </div>
           <span class="text--large">{{ currentBottle.executeType }}</span>
-          <p class="absolute--small" v-if="currentBottle.administration">
-            <span>{{ currentBottle.administration }}</span>
+          <p :class="{marginRight:['sdlj'].includes(HOSPITAL_ID)}" class="absolute--small" v-if="currentBottle.administration">
+            <span :class="{fontStyle:['sdlj'].includes(HOSPITAL_ID)}">{{ currentBottle.administration }}</span>
           </p>
         </div>
       </div>
@@ -248,6 +248,13 @@
       p.absolute--small {
         height: 13px;
         @extend .absolute;
+        &.marginRight{
+          margin-right: 10px;
+        }
+        span{
+          font-size: 17px;
+          font-weight: 700;
+        }
       }
       >span{
         margin-right: 10px;
