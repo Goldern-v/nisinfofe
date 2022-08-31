@@ -5,7 +5,7 @@
       <div class="desc">{{data.content}}</div>
       <div class="tool-box" flex="cross:center">
         <el-tooltip content="编辑" placement="bottom" effect="dark">
-          <i class="iconfont icon-hulijiludan" @click.stop="toEdit"></i>
+          <i class="iconfont icon-hulijiludan" @click.stop="toEdit(data)"></i>
         </el-tooltip>
         <el-tooltip content="删除" placement="bottom" effect="dark">
           <i class="iconfont icon-shanchuzhenghang" @click.stop="toDel"></i>
@@ -61,7 +61,11 @@ export default {
   mixins: [commom],
   props: {
     data: Object,
-    refName: String
+    refName: String,
+    filterData: {
+      type: Array,
+      default: []
+    }
   },
   data() {
     return {
@@ -78,6 +82,9 @@ export default {
     }
   },
   methods: {
+    delete() {
+      return this.filterData.filter(item => item.id !== this.data.id)
+    },
     addTemplateAtDoc() {
       this.$root.$refs[this.formCode][
         this.refName
@@ -120,7 +127,8 @@ export default {
                 type: "success",
                 message: "删除成功!"
               });
-              this.bus.$emit("refreshTemplate");
+              this.bus.$emit("refreshTemplate", this.delete());
+              
             });
           });
         }else this.$message.warning('普通没有权限编辑模板！')

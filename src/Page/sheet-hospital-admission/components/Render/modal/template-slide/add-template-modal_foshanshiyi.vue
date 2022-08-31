@@ -159,13 +159,14 @@ export default {
       this.deptValue = ''
     },
     post() {
+      let code = this.selectedType === '公共' ? '' : this.deptValue 
       saveOrUpdate_foshanshiyi(
         this.groupName,
         this.title,
         this.content,
         this.id,
         this.userEmpNo,
-        this.deptValue,
+        code,
         this.user.empNo
       ).then(res => {
         if (this.id) {
@@ -174,7 +175,7 @@ export default {
           this.$message.success("保存常用语模版成功");
         }
         this.close();
-        this.bus.$emit("refreshTemplate");
+        this.bus.$emit("refreshTemplateAdd");
       });
     },
     querySearch(queryString, cb) {
