@@ -36,7 +36,7 @@ export default data;
 export async function addSheetPage(callback) {
   let Options = []
   let FieldTitle = []
-  if (['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID)) {
+  if (['foshanrenyi','fsxt', 'gdtj'].includes(process.env.HOSPITAL_ID)) {
     // let formatCustomObj = {}
     let params = {
       pageIndex: data.length,
@@ -55,7 +55,7 @@ export async function addSheetPage(callback) {
     Page(
       {
         titleData: [],
-        autoTitleData: ['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID) ? FieldTitle : autoTitleDataDisk.map(item => {
+        autoTitleData: ['foshanrenyi','fsxt', 'gdtj'].includes(process.env.HOSPITAL_ID) ? FieldTitle : autoTitleDataDisk.map(item => {
           item.pageIndex = data.length;
           return item;
         }),
@@ -285,7 +285,7 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
   sheetInfo.masterInfo = bodyData;// 主表信息
   listData=listDataList
   try {
-    if (['foshanrenyi','fsxt'].includes(process.env.HOSPITAL_ID)) {
+    if (['foshanrenyi','fsxt', 'gdtj'].includes(process.env.HOSPITAL_ID)) {
       titleList = titleData.FieldSetting
       customOptions = titleData.Options
     } else {

@@ -964,7 +964,7 @@ export default {
       }
     },
     setTitle(item,item2) {
-      if (['foshanrenyi','fsxt'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
         // if (item2.fromAddPage) {
         //   return
         // }
