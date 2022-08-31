@@ -306,7 +306,8 @@ export default {
       this.selectedType = newArr.length > 0 ? newArr[0].groupName[0].index : ''
     },
     selectChangeType(value) {
-      this.listType()
+      if(this.show)
+        this.listType()
     },
     open(refName) {
       this.getData();
@@ -331,7 +332,7 @@ export default {
     close() {
       this.show = false;
       this.deptValue = ''
-      this.selectedType = ""
+      this.selectedType = "全部"
       this.selectedClasss = "全部"
     },
     changeTab(tab) {
