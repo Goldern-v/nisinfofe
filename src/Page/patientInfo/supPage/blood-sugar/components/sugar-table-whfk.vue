@@ -236,7 +236,7 @@ export default {
           // }else{
           //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
           // }
-          this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");
+          this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
           let obj = this.data[i];
           let date = this.data[i].md.split(" ")[0];
           let time = this.data[i].md.split(" ")[1];
@@ -264,7 +264,7 @@ export default {
   },
   filters: {
     formatDate(val) {
-      return new Date(val).Format("MM-dd");
+      return new Date(val).Format("YYYY-MM-dd");
     },
     formatTime(val) {
       return new Date(val).Format("hh:mm");
@@ -306,7 +306,7 @@ export default {
       if(!item.date&&!item.time){
         if(item.expand2===undefined){
           const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
-          const date=moment().format("MM-DD")
+          const date=moment().format("YYYY-MM-DD")
           const time=moment().format("HH:mm")
           item.date=date
           item.time=time
