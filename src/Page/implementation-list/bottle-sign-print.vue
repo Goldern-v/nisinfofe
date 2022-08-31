@@ -303,7 +303,7 @@ export default {
         'whfk':[
           {label: '全部'},{label:"输液"},{label:"注射"},{label:"皮试"},{label:"雾化"},{label:"标本"},{label:"口服"},{label:"治疗"}],
         'lyxrm':[
-          {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"泵入"},{label:"标本"},{label:"其他"},],
+          {label: '全部'},{label:"输液"},{label:"注射"},{label:"口服"},{label:"雾化"},{label:"皮试"},{label:"治疗"},{label:"泵入"},{label:"标本"},{label:"非摆药机"},  {label:"其他"},],
         'ytll':[
           {label: '全部'}, {label: '输液'}, {label: '注射'}, {label: '雾化'}, {label: '口服'}, {label: '治疗'}, {label: '皮试'}, {label: '标本'}, {label: '其他'},
           ],
@@ -312,7 +312,7 @@ export default {
       },
       thumpOptions:{
          'lyxrm':[
-           {label:"全部",value:9},{label:"是",value:1},{label:"否",value:0}],
+           {label:"全部",value:9},{label:"已打印",value:1},{label:"未打印",value:0}],
          'fsxt':[
            {label:"全部",value:9},{label:"是",value:1},{label:"否",value:0}],
           default:[
