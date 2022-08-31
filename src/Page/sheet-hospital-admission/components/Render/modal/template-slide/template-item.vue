@@ -5,7 +5,7 @@
       <div class="desc">{{data.content}}</div>
       <div class="tool-box" flex="cross:center">
         <el-tooltip content="编辑" placement="bottom" effect="dark">
-          <i class="iconfont icon-hulijiludan" @click.stop="toEdit"></i>
+          <i class="iconfont icon-hulijiludan" @click.stop="toEdit(data)"></i>
         </el-tooltip>
         <el-tooltip content="删除" placement="bottom" effect="dark">
           <i class="iconfont icon-shanchuzhenghang" @click.stop="toDel"></i>
@@ -54,19 +54,23 @@
 </style>
 <script>
 import bus from "vue-happy-bus";
-import { del } from "../../api/template.js";
+import { del, del_foshanshiyi } from "../../api/template.js";
 // import { keyNameMap, keyCodeMap } from "./deptMapList";
 import commom from "@/common/mixin/common.mixin.js";
 export default {
   mixins: [commom],
   props: {
     data: Object,
-    refName: String
+    refName: String,
+    filterData: {
+      type: Array,
+      default: []
+    }
   },
   data() {
     return {
       bus: bus(this),
-      msg: "hello vue"
+      user: localStorage.user && JSON.parse(localStorage.user),
     };
   },
   computed: {
@@ -78,6 +82,9 @@ export default {
     }
   },
   methods: {
+    delete() {
+      return this.filterData.filter(item => item.id !== this.data.id)
+    },
     addTemplateAtDoc() {
       this.$root.$refs[this.formCode][
         this.refName
@@ -115,12 +122,13 @@ export default {
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            del(this.data.id).then(res => {
+            del_foshanshiyi(this.data.id, this.user.empNo).then(res => {
               this.$message({
                 type: "success",
                 message: "删除成功!"
               });
-              this.bus.$emit("refreshTemplate");
+              this.bus.$emit("refreshTemplate", this.delete());
+              
             });
           });
         }else this.$message.warning('普通没有权限编辑模板！')

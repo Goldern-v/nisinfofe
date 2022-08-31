@@ -170,12 +170,17 @@
       >
         <div class="nav-item">体温单</div>
       </router-link>
-      <router-link
+      <!-- <router-link
         :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
         <div class="nav-item">患者360</div>
-      </router-link>
+      </router-link> -->
+      <span>
+        <div class="nav-item" @click="openBlank">
+          患者360
+        </div>
+      </span>
     </div>
     <div style="height: 50px"></div>
   </div>
@@ -259,6 +264,11 @@ export default {
       return query;
     }
   },
-  components: {}
+  components: {},
+  methods:{
+    openBlank() {
+      window.open(`http://192.168.19.198:8282/templates/medicalRecord/medicalRecordViewPreview.html?embedded-view=true&req_no=${this.query.patientId}&type=2`)
+    }
+  }
 };
 </script>

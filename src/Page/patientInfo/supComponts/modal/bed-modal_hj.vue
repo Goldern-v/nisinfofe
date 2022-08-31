@@ -192,7 +192,7 @@
                   :class="{ active: formData.registCare.includes('特') }"
                   :src="
                     formData.registCare.includes('特')
-                      ? require('./images/特选.png')
+                      ? require('./images/特级厚街选.png')
                       : require('./images/特.png')
                   "
                 />
@@ -202,7 +202,7 @@
                   :class="{ active: formData.registCare.includes('一') }"
                   :src="
                     formData.registCare.includes('一')
-                      ? require('./images/一选.png')
+                      ? require('./images/一级护理厚街选.png')
                       : require('./images/一.png')
                   "
                 />
@@ -212,7 +212,7 @@
                   :class="{ active: formData.registCare.includes('二') }"
                   :src="
                     formData.registCare.includes('二')
-                      ? require('./images/二选.png')
+                      ? require('./images/二级护理选厚街选.png')
                       : require('./images/二.png')
                   "
                 />
@@ -222,20 +222,20 @@
                   :class="{ active: formData.registCare.includes('三') }"
                   :src="
                     formData.registCare.includes('三')
-                      ? require('./images/三选.png')
+                      ? require('./images/三级护理厚街选.png')
                       : require('./images/三.png')
                   "
                 />
-                <span class="nurseLevel" style="background-color: #e41616;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('特')">
+                <span class="nurseLevel" style="background-color: #FF0000;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('特')">
                   {{formData.registCare.includes('特')?'特级护理':''}}
                 </span>
-                <span class="nurseLevel" style="background-color: #ff703b;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('一')">
+                <span class="nurseLevel" style="background-color: #F988F5;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('一')">
                   {{formData.registCare.includes('一')?'一级护理':''}}
                 </span>
-                <span class="nurseLevel" style="background-color: #6394e6;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('二')">
+                <span class="nurseLevel" style="background-color: #87CEEB;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('二')">
                   {{formData.registCare.includes('二')?'二级护理':''}}
                 </span>
-                <span class="nurseLevel" style="background-color: #46bc90;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('三')">
+                <span class="nurseLevel" style="background-color: #008000;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('三')">
                   {{formData.registCare.includes('三')?'三级护理':''}}
                 </span>
               </div>

@@ -19,18 +19,18 @@
 .num
   font-size: 13px;
   color: #333333;
-  text-align right 
+  text-align right
   width 50px
 .line-con
   width 259px
   height 10px
   background: #EBEEF5;
-  border-radius: 11px;  
+  border-radius: 11px;
   position relative
 .color-line
   position absolute
   background: #23B7E5;
-  border-radius: 10px 0 0 10px;  
+  border-radius: 10px 0 0 10px;
   width 20%
   top 0
   left 0
@@ -50,10 +50,10 @@
       color() {
         switch(this.data.name) {
           case '病人总数' : return '#23B7E5'
-          case '特级护理' : return 'rgb(255, 192, 203)'
-          case '一级护理' : return 'rgb(255,0,0)'
-          case '二级护理' : return 'rgb(255,255,0)'
-          case '三级护理' : return 'rgb(0,255,0)'
+          case '特级护理' : return '#FF0000'
+          case '一级护理' : return '#FFC0CB'
+          case '二级护理' : return '#0000FF'
+          case '三级护理' : return ' #008000'
         }
       }
     },

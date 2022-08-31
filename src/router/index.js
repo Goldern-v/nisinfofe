@@ -226,7 +226,9 @@ const allTemperatureChartSDLJ = () =>
 const allTemperatureChartWHYX = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHYX.vue"); //武汉亚心量录入体温单
 const allTemperatureChartFSRY = () =>
-  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSRY.vue"); //武汉亚心量录入体温单
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSRY.vue"); //佛山人医量录入体温单
+const allTemperatureChartLYYZ = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartLYYZ.vue"); //临邑沂州量录入体温单
 const newSingleTemperatureChart = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //新版体温单录入页面
 const newSingleTemperatureChartLiaoCheng = () =>
@@ -255,6 +257,8 @@ const newSingleTemperatureChartWHFK = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-whfk/new-singleTemperature-chart.vue");//武汉肺科新版体温单单人录入
 const newSingleTemperatureChartLYXRM = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-lyxrm/new-singleTemperature-chart.vue");//临邑新版体温单单人录入
+const newSingleTemperatureChartLYYZ= () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-lyyz/new-singleTemperature-chart.vue");//临邑新版体温单单人录入
   const newSingleTemperatureChartWHSL = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-whsl/new-singleTemperature-chart.vue");//威海市立新版体温单单人录入
 const newSingleTemperatureChartSDLJ = () =>
@@ -313,6 +317,7 @@ import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature
 import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperature-xiegang";
 import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-whfk";
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
+import temperatureLYYZ from "@/Page/patientInfo/supPage/temperature/temperature-lyyz";
 import temperatureWHSL from "@/Page/patientInfo/supPage/temperature/temperature-whsl";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import temperatureWHYX from "@/Page/patientInfo/supPage/temperature/temperature-whyx";
@@ -524,6 +529,8 @@ const router = new Router({
             return temperatureSDLJ
           case 'fsxt':
             return temperatureFSXT
+          case 'lyyz':
+            return temperatureLYYZ
           case 'whyx':
             return temperatureWHYX
           default:
@@ -1014,6 +1021,8 @@ const router = new Router({
                 return temperatureWHFK
               case 'whyx':
                 return temperatureWHYX
+              case 'lyyz':
+                return temperatureLYYZ
               default:
                 return temperature
             }
@@ -1403,6 +1412,8 @@ const router = new Router({
               return allTemperatureChartWHYX
             case 'foshanrenyi':
               return allTemperatureChartFSRY
+            case 'lyyz':
+              return allTemperatureChartLYYZ
             default:
               return allTemperatureChart
           }
@@ -1413,43 +1424,45 @@ const router = new Router({
         path: "/newSingleTemperatureChart",
         component: (() => {
           switch (HOSPITAL_ID) {
-            case 'guizhou':
-              return newSingleTemperatureChartGuizhou
-            case 'beihairenyi':
-              return newSingleTemperatureChartBhry
-            case 'quzhou':
-              return newSingleTemperatureChartQuzhou
-            case 'wujing':
-              return newSingleTemperatureChartWujing
-            case 'hengli':
-              return newSingleTemperatureChartDghl
-            case 'fuyou':
-              return newSingleTemperatureChartJmfy
-            case 'foshanrenyi':
-              return newSingleTemperatureChartFSSY
-            case 'nanfangzhongxiyi':
-              return newSingleTemperatureChartZhongXiYi
-            case 'fsxt':
-              return newSingleTemperatureChartFSXT
-            case 'xiegang':
-              return newSingleTemperatureChartDGXG
-            case 'whfk':
-              return newSingleTemperatureChartWHFK
-            case 'lyxrm':
-            case 'ytll':
-              case 'hj':
-              return newSingleTemperatureChartLYXRM
-            case 'whsl':
-            return newSingleTemperatureChartWHSL
-            case 'sdlj':
-            case 'gdtj':
-              return newSingleTemperatureChartSDLJ
-              case 'whyx':
-                return newSingleTemperatureChartWHYX
-              case 'liaocheng':
-                return newSingleTemperatureChartLiaoCheng
+            case "guizhou":
+              return newSingleTemperatureChartGuizhou;
+            case "beihairenyi":
+              return newSingleTemperatureChartBhry;
+            case "quzhou":
+              return newSingleTemperatureChartQuzhou;
+            case "wujing":
+              return newSingleTemperatureChartWujing;
+            case "hengli":
+              return newSingleTemperatureChartDghl;
+            case "fuyou":
+              return newSingleTemperatureChartJmfy;
+            case "foshanrenyi":
+              return newSingleTemperatureChartFSSY;
+            case "nanfangzhongxiyi":
+              return newSingleTemperatureChartZhongXiYi;
+            case "fsxt":
+              return newSingleTemperatureChartFSXT;
+            case "xiegang":
+              return newSingleTemperatureChartDGXG;
+            case "whfk":
+              return newSingleTemperatureChartWHFK;
+            case "lyxrm":
+            case "ytll":
+            case "hj":
+              return newSingleTemperatureChartLYXRM;
+            case "whsl":
+              return newSingleTemperatureChartWHSL;
+            case "sdlj":
+            case "gdtj":
+              return newSingleTemperatureChartSDLJ;
+            case "whyx":
+              return newSingleTemperatureChartWHYX;
+            case "liaocheng":
+              return newSingleTemperatureChartLiaoCheng;
+            case "lyyz":
+              return newSingleTemperatureChartLYYZ;
             default:
-              return newSingleTemperatureChart
+              return newSingleTemperatureChart;
           }
         })(),
         name: "newSingleTemperatureChart"

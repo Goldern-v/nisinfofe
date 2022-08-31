@@ -8,12 +8,14 @@
     >
       <div flex="main:justify cross:center" style="margin-bottom: 20px">
         <p for class="title" style="margin-right: 10px">类别：</p>
-        <el-autocomplete
+        <el-input v-model="groupName" placeholder="请输入类别"></el-input>
+        <!-- <el-autocomplete
           style="width: 100%"
           v-model="groupName"
           :fetch-suggestions="querySearch"
           placeholder="请输入内容"
-        ></el-autocomplete>
+        ></el-autocomplete> -->
+
       </div>
       <div flex="main:justify cross:center" style="margin-bottom: 20px">
         <p for class="title" style="margin-right: 10px">类型：</p>
@@ -141,8 +143,8 @@ export default {
         this.userEmpNo = ''
         this.deptId = ''
         this.deptValue = this.user.deptCode
-        this.type = this.isRoleManage ?  ['科室'] : ['公共', '科室']
-        if (this.isRoleManage) {
+        this.type = this.isRoleManage && !this.isNewAdminOrNursingDepartment ?  ['科室'] : ['公共', '科室']
+        if (this.isRoleManage && !this.isNewAdminOrNursingDepartment) {
           this.type = ['科室']
           this.selectedType = '科室'
         } else {
@@ -157,13 +159,14 @@ export default {
       this.deptValue = ''
     },
     post() {
+      let code = this.selectedType === '公共' ? '' : this.deptValue 
       saveOrUpdate_foshanshiyi(
         this.groupName,
         this.title,
         this.content,
         this.id,
         this.userEmpNo,
-        this.deptValue,
+        code,
         this.user.empNo
       ).then(res => {
         if (this.id) {
@@ -172,7 +175,7 @@ export default {
           this.$message.success("保存常用语模版成功");
         }
         this.close();
-        this.bus.$emit("refreshTemplate");
+        this.bus.$emit("refreshTemplateAdd");
       });
     },
     querySearch(queryString, cb) {

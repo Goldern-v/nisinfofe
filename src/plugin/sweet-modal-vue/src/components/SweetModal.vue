@@ -433,9 +433,9 @@ export default {
         if (this.blocking) {
           if (this.pulseOnBlock) this.bounce();
         } else {
-          // 不能点击弹窗外的区域来关闭，只通过关闭、取消、保存按钮关闭。 
+          // 不能点击弹窗外的区域来关闭，只通过关闭、取消、保存按钮关闭。
           // 医院名单
-          const blackList=['guizhou','foshanrenyi','wujing','fsxt']
+          const blackList=['guizhou','foshanrenyi','wujing','fsxt', 'whfk']
           if(!blackList.includes(this.HOSPITAL_ID)){
             this.close();
           }

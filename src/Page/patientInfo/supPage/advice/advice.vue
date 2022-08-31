@@ -303,6 +303,7 @@ export default {
         ytll:"adviceTableSDLJ",
         yangchunzhongyi:"adviceTableYc",
         whsl:"adviceTableSDLJ",
+        qhwy:"adviceTableSDLJ",
         default:"adviceTable",
       }
       if(idToCom[HOSPITAL_ID]){

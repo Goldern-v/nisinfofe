@@ -50,7 +50,6 @@ export default {
   },
   watch: {
     checkboxValue(valueNew, oldvaule) {
-      console.log(this.formObj,valueNew,oldvaule,this.obj,this.formCode);
       if(this.formCode == 'E1316' && this.formObj.model.I1316020){
         this.$root.$refs[this.formCode]["evalScore"].setCurrentValue('45');
         this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue('跌倒高风险');
