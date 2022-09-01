@@ -38,8 +38,8 @@ export default {
           {"name": "疼<br/>痛<br/>VAS<br/>评<br/>分", "colspan": "1", "rowspan": "2"}, 
           {"name": "入量ml", "colspan": "2", "rowspan": "1"}, 
           {"name": "出量ml", "colspan": "4", "rowspan": "1"}, 
-          {"name": "吸氧", "colspan": "2", "rowspan": "1",style: { color:"red"},}, 
-          {"name": "静<br/>脉<br/>置<br/>管<br/>内<br/>置<br/>cm", "colspan": "1", "rowspan": "2",style: { color:"red"},}, 
+          {"name": "吸氧", "colspan": "2", "rowspan": "1",}, 
+          {"name": "静<br/>脉<br/>置<br/>管<br/>内<br/>置<br/>cm", "colspan": "1", "rowspan": "2"}, 
           { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"costom1"}, 
           { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"costom2"}, 
           { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"costom3"}, 
@@ -59,10 +59,10 @@ export default {
               {"name": "量", "colspan": "1", "rowspan": "1"}, 
               {"name": "颜<br/>色<br/>或<br/>性<br/>状", "colspan": "1", "rowspan": "1"}, 
               {"name": "刻<br/>度<br/>cm", "colspan": "1", "rowspan": "1"}, 
-              {"name": "方<br/>式", "colspan": "1", "rowspan": "1",style: { color:"red"},}, 
-              {"name": "流量<br/>L/min", "colspan": "1", "rowspan": "1",style: { color:"red"},}, 
+              {"name": "方<br/>式", "colspan": "1", "rowspan": "1"}, 
+              {"name": "流量<br/>L/min", "colspan": "1", "rowspan": "1"}, 
             ]
-            
+            // ,style: { color:"red"},
         , 
         bottom: 
             []
