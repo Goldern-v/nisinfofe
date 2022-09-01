@@ -62,11 +62,11 @@ export default {
   },
   watch: {
     loading(newVal, oldVal) {
-      console.log("loading", newVal, oldVal, this.isShowLoadingLayout);
+      // console.log("loading", newVal, oldVal, this.isShowLoadingLayout);
       this.isShowLoadingLayout = newVal;
     },
     deptCode(newVal, oldVal) {
-      console.log("watch:deptCode", [newVal, oldVal]);
+      // console.log("watch:deptCode", [newVal, oldVal]);
       // this.clearAll();
       this.initial();
       this.getOldFormInfo(() => {
@@ -75,7 +75,7 @@ export default {
       });
     },
     wardCode(newVal, oldVal) {
-      console.log("watch:wardCode", [newVal, oldVal]);
+      // console.log("watch:wardCode", [newVal, oldVal]);
       // this.clearAll();
       this.initial();
       this.getOldFormInfo(() => {
@@ -284,9 +284,11 @@ export default {
       this.status = config.patient.status;
 
       // 请求接口获取数据填充
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng','lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
         const {data: {data}} = await getPatientInfo(config.patient.patientId, config.patient.visitId)
-        formObj.I001014 = data.chargeType  // 费别
+        if(!formObj.I001014 && !['liaocheng'].includes(this.HOSPITAL_ID)){
+          formObj.I001014 = data.chargeType  // 费别
+        }
         formObj.I001003 = data.nation // 名族
       }
       // alert(status);
