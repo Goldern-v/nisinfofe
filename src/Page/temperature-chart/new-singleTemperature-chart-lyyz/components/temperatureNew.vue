@@ -5,7 +5,7 @@
       <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
-        <el-button type="primary" @click="openDetailChat()">曲线详情</el-button>
+        <!-- <el-button type="primary" @click="openDetailChat()">曲线详情</el-button> -->
       </el-button-group>
       <!-- <div class="newBorn">
         <div @click="nomalModel()" class="nomal">默认体温单</div>
@@ -131,9 +131,9 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         // "http://localhost:8080/#/" /* 本地自测环境 导致跨域 */,
-      "http://10.101.1.141:9091/temperature/#/pain" /* 医院正式环境内网 导致跨域 */,
+      "http://10.66.3.23:9091/temperature" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://10.101.1.141:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+        "http://10.66.3.23:9091/temperature/printAll" /* 医院正式环境内网 */,
     };
   },
   methods: {
@@ -342,7 +342,7 @@ export default {
   },
   computed: {
     detailChatUrl() {
-      let path = `${this.intranetUrl}/detailed`;//正式服内网地址(http://192.168.4.175:9091/temperature/#/detailed)
+      let path = `${this.intranetUrl}/detailed`;//正式服内网地址(http://10.66.3.23:9091/temperature/#/detailed)
       // let path = "http://localhost:8080/#/detailed";//个人测试地址
       return `${path}?showVitalSign=${this.showVitalSign}`; /* 外网 */
     },

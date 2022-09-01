@@ -194,7 +194,7 @@
     </div>
     </div>
     <div class="search-btn" flex="cross:center main:center" @click="search" v-touch-ripple>检索</div>
-    <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='2'&&['whfk'].includes(HOSPITAL_ID)" @click="synchWhFK" v-touch-ripple>同步出院患者</div>
+    <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='2'&&['whfk','xiegang'].includes(HOSPITAL_ID)" @click="synchWhFK" v-touch-ripple>同步出院患者</div>
     <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='1'&&['sdlj'].includes(HOSPITAL_ID)" @click="syncGetNurseBedRecData" v-touch-ripple>同步</div>
     <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='2'&&hasSynchronize.includes(HOSPITAL_ID)" @click="synchronize" v-touch-ripple>同步</div>
     <div class="search-btn2" flex="cross:center main:center"  v-if="data.status==='3'&&HOSPITAL_ID === 'beihairenyi'" @click="syncMajor" v-touch-ripple>同步</div>
@@ -289,7 +289,7 @@
 </style>
 <script>
 import { nursingUnit,syncGetNurseBedRecJiangMenFSSY} from "@/api/lesion";
-import { synchronizeHengLi,synchronizeWHFK, syncMajorBH, synchronizeFuyou } from "@/api/document";
+import { synchronizeHengLi,synchronizeWHFK, syncMajorBH, synchronizeFuyou,syncOutHospitalXg } from "@/api/document";
 import { nursingUnitAll} from "@/api/common";
 import moment from "moment";
 export default {

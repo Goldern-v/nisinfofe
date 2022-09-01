@@ -50,7 +50,6 @@ export default {
   },
   watch: {
     checkboxValue(valueNew, oldvaule) {
-      console.log(this.formObj,valueNew,oldvaule,this.obj,this.formCode);
       if(this.formCode == 'E1316' && this.formObj.model.I1316020){
         this.$root.$refs[this.formCode]["evalScore"].setCurrentValue('45');
         this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue('跌倒高风险');
@@ -215,10 +214,14 @@ export default {
 
       let score = 0;
       // 计算总分
-      if (this.formObj.selectedItems) {
-        this.formObj.selectedItems.map(item => {
-          score += ~~item.score;
-        });
+      if(this.formCode == 'E1316') { //特殊处理：跌倒风险评估单自动列入高风险多选不能累加分数
+        score = this.obj.score
+      } else{
+        if (this.formObj.selectedItems) {
+          this.formObj.selectedItems.map(item => {
+            score += ~~item.score;
+          });
+      }
       }
       //
 
@@ -232,7 +235,7 @@ export default {
           let textResult = this.$root.$refs[this.formCode][
             "evalDesc"
           ].checkValueRule(score);
-          console.log("evalDesc-textResult", score, textResult);
+          // console.log("evalDesc-textResult", score, textResult);
           this.formObj.model["evalDesc"] = textResult + "";
           this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
             textResult

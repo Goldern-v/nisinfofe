@@ -202,14 +202,7 @@ export default {
       this.selectedTab = tab;
     },
     getData() {
-      console.log(
-        "template-deptName",
-        this.deptName,
-        this.deptCode || [""],
-        keyNameMap
-      );
       this.deptENName = keyNameMap[this.deptName] || "neurology";
-      console.log("template-deptENName", this.deptENName);
       typeList(this.deptCode||this.deptENName).then(res => {
         this.typeList = res.data.data.list;
         if (this.selectedType) {
