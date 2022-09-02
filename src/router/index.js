@@ -391,6 +391,7 @@ const getImplementation = () => {
     case 'zhongshanqi':
       return implementationListZhongshanqi
     case 'lyxrm':
+    case 'whsl':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
