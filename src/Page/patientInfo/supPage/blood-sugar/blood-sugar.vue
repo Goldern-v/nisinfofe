@@ -464,12 +464,16 @@ if(this.selected.expand2!==undefined){
         const formatArr=DateArr[0].split("-")
         const notYearDate=`${formatArr[1]}-${formatArr[2]}`
         const YearDate=`${formatArr[0]}-${formatArr[1]}-${formatArr[2]}`
-        if(item.date&&notYearDate!==item.date&&(this.HOSPITAL_ID==='liaocheng' || this.HOSPITAL_ID==='whfk')){
-            //聊城、武汉肺科显示时间是没有年份的。 
+        if(item.date&&notYearDate!==item.date&&this.HOSPITAL_ID==='liaocheng'){
+            //聊城显示时间是没有年份的（显示月日时分）。 
+            item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
+        }
+        if(item.date&&YearDate!==item.date&&this.HOSPITAL_ID==='whfk'){
+            //武汉肺科显示时间（显示年月日时分）。 
             item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
         }
         // if(item.date&&YearDate!==item.date&&this.HOSPITAL_ID==='whfk'){
-        //     //武汉肺科显示时间是有年份的。 
+        //     //显示时间是有年份的（显示年月日）。 
         //     item.recordDate=`${item.date} ${item.time}:00`
         // }
       await saveSugarList([item])

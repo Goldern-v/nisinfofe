@@ -9,12 +9,12 @@
          序号
         </th> -->
         <th
-          style="width: 30%; min-width: 75px"
+          style="width: 39%; min-width: 75px"
         >
           时间
         </th>
-        <th style="width: 30%">项目</th>
-        <th style="width: 24%">
+        <th style="width: 25%">项目</th>
+        <th style="width: 20%">
           血糖值<br />(mmol/L)
         </th>
         <th style="width: 14%">执行人</th>
@@ -158,7 +158,7 @@
         font-size :12px !important
     }
     .fulltime{
-      width 60px
+      width 70px
       // width: 100%;
       // text-align: center;
     }
@@ -236,7 +236,7 @@ export default {
           // }else{
           //   this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
           // }
-          this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");
+          this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
           let obj = this.data[i];
           let date = this.data[i].md.split(" ")[0];
           let time = this.data[i].md.split(" ")[1];
@@ -264,7 +264,7 @@ export default {
   },
   filters: {
     formatDate(val) {
-      return new Date(val).Format("MM-dd");
+      return new Date(val).Format("YYYY-MM-dd");
     },
     formatTime(val) {
       return new Date(val).Format("hh:mm");
@@ -306,7 +306,7 @@ export default {
       if(!item.date&&!item.time){
         if(item.expand2===undefined){
           const fullTime=moment().format("YYYY-MM-DD HH:mm:ss")
-          const date=moment().format("MM-DD")
+          const date=moment().format("YYYY-MM-DD")
           const time=moment().format("HH:mm")
           item.date=date
           item.time=time

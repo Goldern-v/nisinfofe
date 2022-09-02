@@ -107,19 +107,17 @@ export default {
   },
   watch: {
     inputValue(valueNew, oldvaule) {
-      // console.log("inputValue:", valueNew, oldvaule);
       this.formObj.model[this.obj.name] = valueNew;
       // window.formObj.model[this.obj.name] = valueNew;
       this.checkValueRule(valueNew);
-      // console.log("obj:", this.obj, this.$refs);
       this.isShowDownList = false;
       // return valueNew;
     }
   },
   mounted() {
+    console.log('this.formObj', this.formObj)
     try {
       this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
-      // console.log('this.inputValue', this.inputValue, this.formObj.model, window.formObj)
     } catch (error) {}
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     this.readOnly = this.obj.readOnly ? this.obj.readOnly : false;
@@ -131,14 +129,12 @@ export default {
 
     //vue-happy-bus添加修改inputvalue方法
     this.bus.$on(`updateValue${this.obj.name}`,()=>{
-      // console.log('bus received!',`updateValue${this.obj.name}`);
       this.inputValue = this.formObj.model[this.obj.name]
     });
 
     // if(this.obj && this.obj.hasOwnProperty('value')>-1 && this.obj.value &&this.obj.value.constructor === Array){
     //   this.obj['options'] = this.obj.value
     // }
-    // console.log('inputMounted',this.$refs,this.$root.$refs)
   },
   created() {
     let refName = this.obj.name + "";
@@ -175,7 +171,6 @@ export default {
   methods: {
     checkValueRule(valueNew, isClick, itemClick = null) {
       let textResult = valueNew;
-      // console.log(this.obj.name, valueNew, isClick, 999999)
       this.inputValue = valueNew
       this.obj.style = "";
       if (
@@ -183,7 +178,7 @@ export default {
         this.obj.rule &&
         this.obj.rule.constructor === Array
       ) {
-        // console.log("rule:", this.obj.rule);
+        const openKeys = this.obj.rule.filter(item => item.dialog).map(item => item.dialog.openKey)
         // 遍历规则
         this.obj.rule.map(r => {
           let [min, max] = [Number(r.min), Number(r.max)];
@@ -192,7 +187,7 @@ export default {
           max = max === NaN ? 0 : max;
           value = value === NaN ? 0 : value;
           // 判断规则
-          console.log(r.equals, valueNew, r.style, r.equals && r.equals.indexOf(valueNew) !== -1, '111111111111')
+          console.log(r.dialog, itemClick, valueNew,  r.dialog && r.dialog.openKey.indexOf(valueNew), '111111111111')
           if (r.min && r.max && (value >= min && value < max)) {
             // console.log(value, r.min, r.max,  r.style)
             this.obj.style = r.style;
@@ -249,16 +244,19 @@ export default {
             }
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.dialog && isClick) {
+            const last = valueNew.split(',').reverse().find(v => {
+              return openKeys.find(key => v === key)
+            })
             if (
               valueNew == r.dialog.openKey ||
-              r.dialog.openKey.indexOf(valueNew) > -1 ||
+              (valueNew && r.dialog.openKey.indexOf(valueNew) > -1) ||
               (r.dialog.openDiffKey &&
                 r.dialog.openDiffKey.indexOf(valueNew) == -1) ||
-              (itemClick &&
-                (r.dialog.openKey + "").includes(itemClick) &&
-                (valueNew + "").includes(r.dialog.openKey + "")) ||
-              (itemClick && (itemClick + "").includes(r.dialog.openKey + "")) ||
-              (itemClick && r.dialog.openKey.some(key => { return (itemClick + "").includes(key) }))
+              // (itemClick &&
+              //   (r.dialog.openKey + "").includes(itemClick) &&
+              //   (valueNew + "").includes(r.dialog.openKey + "")) ||
+              // (itemClick && (itemClick + "").includes(r.dialog.openKey + "")) ||
+              (itemClick && last && (Array.isArray(r.dialog.openKey) ? r.dialog.openKey.includes(last) : last === r.dialog.openKey)) 
             ) {
               this.$root.$refs.dialogBox.openBox(
                 r.dialog.dialogList || r.dialog
@@ -341,7 +339,6 @@ export default {
                 query,
                 ...r.relationForm.params,
               };
-              console.log('cmd params.formId',params.formId)
               this.$root.bus.$emit('showRelationFormModal',params)
 
             }
@@ -349,7 +346,6 @@ export default {
           /**回显光标定位*/
           else if(r.cursorReposition && isClick) {
             let positionList = r.cursorReposition.find(item => {return item.value === valueNew })
-            console.log('cmd positionList',positionList);
             let target = this.$refs[this.obj.name].$refs.input
             if(positionList) {
               target.focus();
@@ -365,12 +361,10 @@ export default {
       try {
         this.$refs[this.obj.name].$refs.input.style = this.obj.style;
       } catch (error) {
-        // console.log(error);
       }
       return textResult;
     },
     inputBlur(e) {
-      console.log("inputBlur", e);
       // setTimeout(() => {
       // if(this.$root.$refs.autoInput){
       // this.$root.$refs.autoInput.closeBox()
@@ -380,13 +374,6 @@ export default {
       // this.isShow = false
     },
     iconClick(e) {
-      console.log(
-        "iconClick",
-        e,
-        this.$refs,
-        this.$refs[this.obj.name].$refs.input,
-        this.isShowDownList
-      );
       let target = this.$refs[this.obj.name].$refs.input;
       target.focus();
       // this.openAutoCompleteBox(target)
@@ -410,14 +397,6 @@ export default {
       }, 100);
     },
     inputClick(e, child) {
-      console.log(
-        "inputClick",
-        e,
-        child,
-        this.$root.$refs.autoInput.getInputElement(),
-        this.$root.$refs.autoInput.getStatus(),
-        this.isShowDownList
-      );
       if (this.readOnly) {
         return;
       }
@@ -448,13 +427,6 @@ export default {
       // }, 1);
     },
     inputFocus(e, child) {
-      console.log(
-        "inputFocus",
-        e,
-        e.target.tagName,
-        child,
-        window.document.getSelection()
-      );
       let target = this.$refs[this.obj.name].$refs.input;
 
       if (this.$refs[this.obj.name]) {
@@ -476,14 +448,6 @@ export default {
         return;
       }
       let xy = target.getBoundingClientRect();
-      console.log(
-        "openAutoCompleteBox",
-        this.formObj.model,
-        this.inputValue,
-        xy,
-        this.$refs,
-        this.$root.$refs
-      );
       let delt = xy.height;
 
       if (this.obj.options) {
@@ -509,12 +473,10 @@ export default {
             selectedList: obj[key] ? obj[key].split(",") : [],
             data: dataList,
             callback: data => {
-              console.log("===callback", [data, obj, key, target]);
               if (obj && data) {
                 // 单选
                 if (!multiplechoice || multiplechoice == false) {
                   // obj[key] = data;
-                  console.log(this.inputValue);
                     this.inputValue = null;
                     this.$nextTick(()=>{
                       obj[key] = data.code;
@@ -528,8 +490,8 @@ export default {
                 }
                 // 多选
                 if (multiplechoice === true) {
+                  console.log('inputValue',key, data)
                   let values = obj[key] ? obj[key].split(",") : [];
-                  console.log("==多选=callback", values, obj, key, target);
                   // 新增选项
                   if (!obj[key] || obj[key].indexOf(data.code) === -1) {
                     // values.push(data.code);
@@ -550,9 +512,7 @@ export default {
                 target.innerText = obj[key] + "";
               }
               //
-              // // console.log('callback',obj,data,e)
               // if (data) {
-              //   // console.log('==callback',obj,data)
               //   obj[key] = data.code;
               //   this.inputValue = data.name;
               //   this.checkValueRule(data.name, true);
@@ -573,37 +533,17 @@ export default {
       }
     },
     inputChange(e, child) {
-      // console.log("inputChange", e, child, this.formObj.model, this.inputValue);
     },
     inputdbClick(e, child) {
-      console.log(
-        "inputdbClick",
-        e,
-        child,
-        this.formObj.model,
-        e.target.tagName
-      );
       if (child.dialog) {
-        console.log("child.dialog", child.dialog, this.$refs, this.$root.$refs);
         try {
           // this.$root.$refs.dialogBox.$el.draggable = true
           this.$root.$refs.dialogBox.openBox(child.dialog, this.inputValue); //$el draggable
         } catch (error) {
-          console.log("error", error);
         }
       }
     },
     inputKeyDown(e, child) {
-      console.log(
-        "inputKeyDown",
-        e,
-        child,
-        e.target.tagName,
-        e.keyCode,
-        e.key,
-        e.target.selectionStart,
-        e.target.selectionEnd
-      );
       if (
         e.keyCode === 37 &&
         e.target.selectionStart === 0 &&
@@ -612,13 +552,6 @@ export default {
         // ArrowLeft
         e.target.$leftNode.focus();
         this.isShowDownList = false;
-        console.log(
-          "ArrowLeft",
-          e,
-          e.target,
-          e.target.$leftNode,
-          e.target.$leftNode.disabled
-        );
       } else if (
         e.keyCode === 39 &&
         e.target.selectionEnd === e.target.value.length &&
@@ -629,16 +562,8 @@ export default {
         e.target.$rightNode.focus();
         this.isShowDownList = false;
         // }
-        console.log(
-          "ArrowRight",
-          e,
-          e.target,
-          e.target.$rightNode,
-          e.target.$rightNode.disabled
-        );
       } else if (e.keyCode === 13) {
         // 13 Enter
-        console.log("Enter", e.target, this.$root.$refs.autoInput.getStatus());
         // this.isShowDownList = false
         setTimeout(() => {
           if (!this.$root.$refs.autoInput.getStatus() && e.target.$rightNode) {
@@ -693,7 +618,6 @@ export default {
             }
             return !rule.valList.some(val => { return this.formObj.model[rule.key].includes(val) })
           }else {
-            console.warn(`isDisabledRules no Types! ${rule.key}`);
           }
         }))
           return true;

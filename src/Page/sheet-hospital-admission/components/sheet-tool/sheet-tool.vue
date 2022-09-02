@@ -66,58 +66,8 @@
       <div style="width: 5px"></div>
     </div>
     <previewEvalModal ref="previewEvalModal"></previewEvalModal>
-    <el-dialog
-      title="体征同步"
-      :visible.sync="dialogTableVisible"
-      class="vaillist"
-    >
-      <el-date-picker
-        v-model="searchData.date"
-        type="datetime"
-        placeholder="开始日期"
-        style="width: 180px"
-        format="yyyy-MM-dd HH:mm"
-      >
-      </el-date-picker>
-      <span>-</span>
-      <el-date-picker
-        v-model="endData.date"
-        type="datetime"
-        placeholder="结束日期"
-        style="width: 180px"
-        format="yyyy-MM-dd HH:mm"
-      >
-      </el-date-picker>
-      <el-button @click="searchsign">查询</el-button>
-      <el-table
-        :data="gridData"
-        border
-        stripe
-        height="250"
-        @row-click="leftTablelist"
-      >
-        <el-table-column
-          type="index"
-          label="序号"
-          width="100"
-        ></el-table-column>
-        <el-table-column property="dateStr" label="日期"></el-table-column>
-        <el-table-column property="timeStr" label="时间"></el-table-column>
-        <el-table-column
-          property="axillaryTemperature"
-          label="体温（T）"
-        ></el-table-column>
-        <el-table-column
-          property="pulse"
-          label="脉搏（P）"
-        ></el-table-column>
-        <el-table-column property="breathe" label="呼吸（R）"></el-table-column>
-        <el-table-column
-          property="bloodPressure"
-          label="血压（BP）"
-        ></el-table-column>
-      </el-table>
-    </el-dialog>
+    <SynchronousModal :dialogTableVisible.sync="dialogTableVisible" @leftTablelist="leftTablelist"></SynchronousModal>
+
   </div>
 </template>
 
@@ -275,6 +225,7 @@ import { notifyBox } from "./notifyBox.js";
 import mergeDefaultValue, { setDefaultValue } from "../data/defalutValue/utils";
 import { getReEvaTask, loadPatient } from "../../api/index";
 import previewEvalModal from "../Render/modal/previewEvalModal";
+import SynchronousModal from "../Render/modal/SynchronousSingsModal";
 
 export default {
   mixins: [commom],
@@ -1530,24 +1481,9 @@ export default {
     // 体征同步
     formSignsOfsync() {
       this.dialogTableVisible = true;
-      let postData = {
-        patientId: this.patientInfo.patientId,
-        visitId: this.patientInfo.visitId,
-        startDate: this.searchData.date,
-        endDate: this.endData.date,
-      };
-       console.log(postData,"postDatapostDatapostDatapostData");
-      vitalsign(postData)
-        .then((res) => {
-          // console.log(res.data.data.list);
-          this.gridData = res.data.data.list;
-          // console.log(window.formObj.model);
-        })
-        .catch((err) => {
-          console.log("错误事件", err);
-        });
     },
     leftTablelist(val) {
+      
       this.thisRowData = this;
       this.thisRowData = val;
       this.dialogTableVisible = false;
@@ -1580,55 +1516,6 @@ export default {
     getFilterData() {
       this.$emit("getFilterData", this.searchData);
     },
-    getNowTime() {
-      var now = new Date();
-      var year = now.getFullYear(); // 得到年份
-      var month = now.getMonth(); // 得到月份
-      var date = now.getDate(); // 得到日期
-      var HH = now.getHours(); // 得到小时
-      var MM = now.getMinutes(); // 得到分钟
-      month = month + 1;
-      month = month.toString().padStart(2, "0");
-      date = date.toString().padStart(2, "0");
-      var defaultDate = `${year}-${month}-${date} ${HH}:${MM}`;
-      var defaultDate1 = `${year}-${month}-${date - 1} ${HH}:${MM}`;
-      this.$set(this.endData, "date", defaultDate);
-      this.$set(this.searchData, "date", defaultDate1);
-    },
-    searchsign() {
-      const sd = new Date(this.searchData.date);
-
-      const sDate =
-        sd.getFullYear() +
-        "-" +
-        this.p(sd.getMonth() + 1) +
-        "-" +
-        this.p(sd.getDate()) +
-        " " +
-        this.p(sd.getHours()) +
-        ":" +
-        this.p(sd.getMinutes());
-      this.searchData.date = sDate;
-      console.log(this.searchData.date, "kaishi");
-
-      const end = new Date(this.endData.date);
-      const eDate =
-        end.getFullYear() +
-        "-" +
-        this.p(end.getMonth() + 1) +
-        "-" +
-        this.p(end.getDate()) +
-        " " +
-        this.p(end.getHours()) +
-        ":" +
-        this.p(end.getMinutes());
-      this.endData.date = eDate;
-      console.log(this.endData.date, "kaishi");
-      this.formSignsOfsync();
-    },
-    p(s) {
-      return s < 10 ? "0" + s : s;
-    },
   },
   computed: {
     fullpage() {
@@ -1659,7 +1546,6 @@ export default {
       this.isNewForm = isNewForm;
     });
     // this.isNewForm = false;
-    this.getNowTime();
   },
   mounted() {
     window.rundev = () => {
@@ -1685,7 +1571,6 @@ export default {
     //
     // this.$root.$refs.mainPage['formSignOrAudit'] = this.formSignOrAudit
     //
-    this.getNowTime();
   },
   watch: {
     deptCode() {
@@ -1701,6 +1586,7 @@ export default {
   },
   components: {
     previewEvalModal,
+    SynchronousModal
   },
 };
 </script>

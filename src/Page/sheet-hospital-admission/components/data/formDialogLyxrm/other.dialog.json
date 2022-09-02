@@ -1475,12 +1475,12 @@
     ]
   },
   {
-    "title": "心脏起搏器",
+    "title": "心脏起搏",
     "type": "formGroupHorizontalBox",
     "name": "I001102",
     "message": "",
     "require": "false",
-    "aliasTitle": "心脏起搏器",
+    "aliasTitle": "心脏起搏有",
     "showTitle": true,
     "suffixDesc": "",
     "keys": "I001102",
