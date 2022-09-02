@@ -526,7 +526,16 @@ export default {
             this.ajax = false;
             // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$") 
             let regexp = new RegExp("^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$")
+            let regOnlyLetterNum = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,}$/  //大于8位必须包含大写、小写和数字-北海人医
             if (['sdlj','hengli'].includes(this.HOSPITAL_ID) && !regexp.test(this.password)) {
+              this.$message({
+                showClose: true,
+                message: "当前登录密码强度较弱，请修改密码后登录!",
+                type: "warning",
+              });
+              this.$router.push('/resetpassword')
+              return
+            }else if (['beihairenyi'].includes(this.HOSPITAL_ID) && !regOnlyLetterNum.test(this.password)) {
               this.$message({
                 showClose: true,
                 message: "当前登录密码强度较弱，请修改密码后登录!",
