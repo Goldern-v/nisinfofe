@@ -501,7 +501,7 @@ export default {
   watch: {
     form: {
       handler(newVal, oldVal) {
-        console.log(newVal);
+        // console.log(newVal);
         const patt = eval(`/${this.reg.rule}/`);
         if (newVal.newPswd) {
           const flag = this.reg.flag
@@ -529,6 +529,12 @@ export default {
         // rule: "^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$",
         rule:"^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$",
         ruleMsg: "字母大写，字母小写，特殊字符，数字四组中两种以上的随机组合,且长度不能少于8位"
+      }
+    }else if(['beihairenyi'].includes(this.HOSPITAL_ID)){
+      this.reg = {
+        flag: true,
+        rule:"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[^]{8,}$",
+        ruleMsg: "密码必须包含字母大写，字母小写，数字,且长度不能少于8位"
       }
     }else {
       this.getPasswordRule();
