@@ -168,16 +168,16 @@
           label="操作"
           min-width="150px"
         >
-          <template slot-scope="scope">
-            <div class="justify">
+        <template slot-scope="scope">
+            <div class="justify" v-if="HOSPITAL_ID !== 'guizhou'">
               <!-- 打印生成pdf文件 -->
               <el-button
                 type="text"
                 @click="generateArchive(scope.row)"
                 v-if="
                   scope.row.printStatus == 0 &&
-                    scope.row.resultStatus != 1 &&
-                    !isArchive
+                  scope.row.resultStatus != 1 &&
+                  !isArchive
                 "
                 >转pdf</el-button
               >
@@ -186,10 +186,10 @@
                 @click="generateArchive(scope.row)"
                 v-if="
                   scope.row.printStatus != 0 &&
-                    scope.row.printStatus != 1 &&
-                    scope.row.uploadStatus != 1 &&
-                    scope.row.uploadStatus != 2 &&
-                    !isArchive
+                  scope.row.printStatus != 1 &&
+                  scope.row.uploadStatus != 1 &&
+                  scope.row.uploadStatus != 2 &&
+                  !isArchive
                 "
                 >重转pdf</el-button
               >
@@ -213,6 +213,25 @@
                 @click="uploadFileArchive(scope.row)"
                 v-if="
                   (isArchive && scope.row.uploadStatus != 2) ||
+                  (scope.row.resultStatus == 1 &&
+                    scope.row.uploadStatus != 1 &&
+                    scope.row.uploadStatus != 2)
+                "
+                >归档</el-button
+              >
+            </div>
+            <div class="justify" v-if="HOSPITAL_ID == 'guizhou'">
+              <el-button
+                type="text"
+                @click="cancelArchive(scope.row)"
+                :v-if="scope.row.canCancelArchive"
+                >取消归档</el-button
+              >
+              <el-button
+                type="text"
+                @click="uploadFileArchive(scope.row)"
+                :v-if=" 
+                    (isArchive && scope.row.uploadStatus != 2) ||
                     (scope.row.resultStatus == 1 &&
                       scope.row.uploadStatus != 1 &&
                       scope.row.uploadStatus != 2)
@@ -588,6 +607,14 @@ export default {
     this.getUserConfig();
     // 是否开启自动归档
     this.getPrintConfig();
+    if (this.HOSPITAL_ID === "guizhou") {
+      this.statusList = [
+        { id: -2, name: "归档失败" },
+        { id: 0, name: "待归档" },
+        { id: 3, name: "取消归档" },
+        { id: 2, name: "已归档" },
+      ];
+    }
   },
   updated() {
     this.tablesHeight();
