@@ -1483,6 +1483,7 @@ export default {
       this.dialogTableVisible = true;
     },
     leftTablelist(val) {
+      
       this.thisRowData = this;
       this.thisRowData = val;
       this.dialogTableVisible = false;
