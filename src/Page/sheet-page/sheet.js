@@ -136,8 +136,8 @@ export function delSheetPage(index, callback) {
     // canModify false可以修改，true禁止修改
     // 签名后不能修改，要取消修改才能修改
     if (sheetType == "common_xg") {
-      if (td && listData[x]) {
-        return !listData[x].canModify;
+      if (td && listData[nowX]) {
+        return !listData[nowX].canModify;
       }
     }
     // 临邑日期时间禁用符号，识别该行已经被占用

@@ -190,7 +190,7 @@
       <div class="input-con">
         <el-input v-model="data.bedLabel" placeholder="请输入床号"></el-input>
       </div>
-    
+
     </div>
     </div>
     <div class="search-btn" flex="cross:center main:center" @click="search" v-touch-ripple>检索</div>
@@ -367,7 +367,7 @@ export default {
       // }
     },
     syncGetNurseBedRecData() {
-      if(!this.ifCanTobu) return 
+      if(!this.ifCanTobu) return
       this.ifCanTobu=false
       this.$message.info("正在更新");
       syncGetNurseBedRecJiangMenFSSY(this.deptCode).then((res) => {
@@ -397,7 +397,7 @@ export default {
     synchWhFK(){
       if(!this.ifCanFKtongbu){
         return;
-      } 
+      }
       this.ifCanFKtongbu=false
       this.$parent.page.pageIndex = 1;
       synchronizeWHFK().then(res => {

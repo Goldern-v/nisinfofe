@@ -725,6 +725,8 @@ export default {
           return require("../../common/images/fsxt_logo.png");
         case "whsl":
           return require("../../common/images/whsl_logo.png")
+        case 'zhzxy':
+          return require("../../common/images/zhzxy_logo.png")
         default:
           return require("../../common/images/logo.png");
       }

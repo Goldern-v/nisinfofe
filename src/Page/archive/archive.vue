@@ -30,7 +30,7 @@
           size="small"
           placeholder="全部"
           @change="selectedStatus"
-         >
+        >
           <el-option value>全部</el-option>
           <el-option
             :key="item.id"
@@ -41,18 +41,28 @@
         </el-select>
         <!--北海的查询条件-->
 
-          <template v-if="['beihairenyi','huadu'].includes(this.HOSPITAL_ID)">
- <span class="type-label">姓名:</span>
-        <el-input v-model="query.patientName" placeholder="请输入患者姓名"   size="small" style="width:190px"/>
-        <span class="type-label">住院号:</span>
-        <el-input v-model="query.inpNo" placeholder="请输入患者住院号"   size="small" style="width:190px"/>
-          </template>
+        <template v-if="['beihairenyi', 'huadu'].includes(this.HOSPITAL_ID)">
+          <span class="type-label">姓名:</span>
+          <el-input
+            v-model="query.patientName"
+            placeholder="请输入患者姓名"
+            size="small"
+            style="width: 190px"
+          />
+          <span class="type-label">住院号:</span>
+          <el-input
+            v-model="query.inpNo"
+            placeholder="请输入患者住院号"
+            size="small"
+            style="width: 190px"
+          />
+        </template>
         <button @click.stop="search">查询</button>
       </div>
       <div
         class="filterItem"
         v-if="showAutoPrintInfo"
-        style="text-align: right;"
+        style="text-align: right"
       >
         <el-switch
           v-model="showAutoPrint"
@@ -114,14 +124,14 @@
           label="住院号"
           prop="patientId"
           min-width="160px"
-          v-if="HOSPITAL_ID=='huadu'"
+          v-if="HOSPITAL_ID == 'huadu'"
         ></el-table-column>
 
         <el-table-column
           header-align="center"
           align="center"
           label="住院号"
-          prop=inpNo
+          prop="inpNo"
           min-width="160px"
           v-else
         ></el-table-column>
@@ -151,7 +161,7 @@
         >
           <template slot-scope="scope">
             <div
-              style="text-align: left;"
+              style="text-align: left"
               :style="
                 (scope.row.printStatus == 1 ||
                   scope.row.resultStatus == -1) && { color: 'red' }
@@ -168,7 +178,7 @@
           label="操作"
           min-width="150px"
         >
-        <template slot-scope="scope">
+          <template slot-scope="scope">
             <div class="justify" v-if="HOSPITAL_ID !== 'guizhou'">
               <!-- 打印生成pdf文件 -->
               <el-button
@@ -224,17 +234,19 @@
               <el-button
                 type="text"
                 @click="cancelArchive(scope.row)"
-                :v-if="scope.row.canCancelArchive"
+                :v-if="
+                  isNewAdminOrNursingDepartment &&
+                  scope.row.uploadStatus == 2 &&
+                  scope.row.resultStatus == 1
+                "
                 >取消归档</el-button
               >
               <el-button
                 type="text"
                 @click="uploadFileArchive(scope.row)"
-                :v-if=" 
-                    (isArchive && scope.row.uploadStatus != 2) ||
-                    (scope.row.resultStatus == 1 &&
-                      scope.row.uploadStatus != 1 &&
-                      scope.row.uploadStatus != 2)
+                :v-if="
+                  scope.row.uploadStatus == 3 ||
+                  (scope.row.resultStatus == 0 && scope.row.printStatus == 0)
                 "
                 >归档</el-button
               >
@@ -303,7 +315,7 @@ import {
   uploadFileArchive,
   getConfig,
   canCancelArchive,
-  getAchivePrintConfig
+  getAchivePrintConfig,
 } from "./api/index";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
@@ -314,7 +326,7 @@ export default {
   mixins: [common, mixin],
   components: {
     nullText,
-    pagination
+    pagination,
   },
   data() {
     return {
@@ -323,7 +335,7 @@ export default {
       preview: {
         type: "",
         name: "",
-        url: ""
+        url: "",
       },
       table2: false,
       pdfHeight: window.innerHeight * 0.8,
@@ -334,8 +346,8 @@ export default {
         dischargeDateEnd: "", //出院结束时间
         wardCode: "", //科室代码
         showStatus: "", //状态查找：-2=归档失败,-1=生成pdf失败,0=待生成pdf,1=待归档,2=已归档
-        patientName:"",//患者姓名
-        inpNo:""//住院号
+        patientName: "", //患者姓名
+        inpNo: "", //住院号
       },
       total: 0,
       patientArchiveList: [], //科室患者归档列表
@@ -349,12 +361,12 @@ export default {
         { id: -1, name: "生成pdf失败" },
         { id: 0, name: "待生成pdf" },
         { id: 1, name: "待归档" },
-        { id: 2, name: "已归档" }
+        { id: 2, name: "已归档" },
       ],
       isSelectedStatus: "", //选择状态
       isArchive: false, //是否直接一键归档
       showAutoPrintInfo: false, // 是否开启自动归档
-      showAutoPrint: true // 是否开启自动归档按钮
+      showAutoPrint: true, // 是否开启自动归档按钮
     };
   },
   methods: {
@@ -372,14 +384,14 @@ export default {
       this.$confirm("是否归档?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       }).then(() => {
-        let patientId = item.patientId
-        let visitId = item.visitId
-        uploadFileArchive(patientId, visitId).then(rep => {
+        let patientId = item.patientId;
+        let visitId = item.visitId;
+        uploadFileArchive(patientId, visitId).then((rep) => {
           this.$message({
             type: "success",
-            message: "文件上传成功"
+            message: "文件上传成功",
           });
           this.getArchiveList();
         });
@@ -426,7 +438,7 @@ export default {
       this.isFlag = true;
       clearTimeout(this.timeId);
       getArchiveList(this.query)
-        .then(res => {
+        .then((res) => {
           this.isFlag = false;
           this.patientArchiveList = res.data.data.list;
           this.total = res.data.data.totalCount || 0;
@@ -463,17 +475,17 @@ export default {
             }
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.isFlag = false;
           this.pageLoading = false;
         });
     },
     // 生成归档文件
     generateArchive(item) {
-      generateArchive(item.patientId, item.visitId).then(rep => {
+      generateArchive(item.patientId, item.visitId).then((rep) => {
         this.$message({
           type: "success",
-          message: "正在转pdf，请稍等"
+          message: "正在转pdf，请稍等",
         });
         this.getArchiveList();
       });
@@ -484,12 +496,12 @@ export default {
       this.printDetailList = "";
       this.pageLoading2 = true;
       previewArchive(item.patientId, item.visitId)
-        .then(res => {
+        .then((res) => {
           this.printDetailList = res.data.data.printDetailList;
           this.previewFile();
           this.pageLoading2 = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.pageLoading2 = false;
         });
     },
@@ -505,7 +517,7 @@ export default {
             this.printDetailList.length +
             ")",
           url: this.printDetailList[this.currentFileIndex].filePath,
-          type: "pdf"
+          type: "pdf",
         };
         this.$refs["preview-modal"].open();
         this.pdfHeight = window.innerHeight * 0.8;
@@ -553,24 +565,24 @@ export default {
     },
     // 获取用户配置
     getUserConfig() {
-      getConfig().then(res => {
+      getConfig().then((res) => {
         // printNotNeedToPdf true，不需要转pdf，直接一键归档
         this.isArchive = res.data.data.print.printNotNeedToPdf;
       });
     },
     // 归档：取消归档
     cancelArchive(item) {
-      canCancelArchive(item.patientId, item.visitId).then(res => {
+      canCancelArchive(item.patientId, item.visitId).then((res) => {
         this.$message.success(res.data.desc);
         this.getArchiveList();
       });
     },
     //  是否开启自动归档
     getPrintConfig() {
-      getAchivePrintConfig().then(res => {
+      getAchivePrintConfig().then((res) => {
         let data = res.data.data || [],
           times = 0;
-        data.map(item => {
+        data.map((item) => {
           if (item.code == "archive.print.auto" && item.name == "true") {
             times++;
           } else if (
@@ -582,11 +594,11 @@ export default {
         });
         this.showAutoPrintInfo = times == 2 ? true : false;
       });
-    }
+    },
   },
   mounted() {
     this.tablesHeight();
-    if(!this.query.dischargeDateBegin && this.HOSPITAL_ID == 'beihairenyi') {
+    if (!this.query.dischargeDateBegin && this.HOSPITAL_ID == "beihairenyi") {
       this.query.dischargeDateBegin = this.getDateStr(-7);
     } else if (!this.query.dischargeDateBegin) {
       this.query.dischargeDateBegin = this.getDateStr(-2);
@@ -623,8 +635,8 @@ export default {
   watch: {
     deptCode() {
       this.getArchiveList();
-    }
-  }
+    },
+  },
 };
 </script>
 

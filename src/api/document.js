@@ -38,7 +38,7 @@ export function synchronizeHengLi() {
 //武汉肺科同步出院患者
 export function synchronizeWHFK() {
   let url = 'syncOutHospital';
-  switch (HOSPITAL_ID) {
+  switch (process.env.HOSPITAL_ID) {
     case "whfk":
       url = 'syncOutHospital'
       break;
@@ -60,7 +60,7 @@ export function syncMajorBH(wardCode) {
 
 // 谢岗同步患者出院
 export function syncOutHospitalXg() {
-  return axios.get(`${apiPath}patient/syncOutHospitalXg`); 
+  return axios.get(`${apiPath}patient/syncOutHospitalXg`);
 }
 
 export function synchronizeFuyou() {
