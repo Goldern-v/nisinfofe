@@ -44,7 +44,7 @@
             <el-form-item label="账  号:" prop="empNo">
               <el-input
                 v-model="form.empNo"
-                placeholder="请输入原密码"
+                placeholder="请输入账号"
                 size="mini"
               ></el-input>
             </el-form-item>
