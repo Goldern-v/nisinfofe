@@ -52,12 +52,13 @@
                   <el-select  v-model="selectedType" @change="selectChangeType"  filterable placeholder="请选择">
                     <!-- <el-option v-for="item in typeList" :key="item" :label="item" :value="item"></el-option> -->
                     <el-option v-if="selectedClasss === '全部'" value="全部" label="全部"></el-option>
-                    <div v-show="selectedClasss === '公共' || selectedClasss === '全部'">
+                    <div>
                       <el-option-group
-                        v-for="group in typeList.common"
+                        v-for="group in (selectedClasss === '全部' ? allSelectedTypeList : (selectedClasss === '公共' ? typeList.common : typeList.dept.filter(item => item.deptCode === deptValue )) )"
                         :key="group.deptCode"
                         :class="{'optionGroup': selectedClasss === '公共'}"
-                        :label="selectedClasss === '公共' ? '' : group.deptName">
+                        :label="selectedClasss === '公共' || selectedClasss === '科室' ? '' : group.deptName"
+                        >
                         <el-option
                           v-for="item in group.groupName"
                           :key="item.index"
@@ -66,7 +67,7 @@
                         </el-option>
                       </el-option-group>
                     </div>
-                    <div v-show="selectedClasss === '科室' || selectedClasss === '全部'">
+                    <!-- <div v-show="selectedClasss === '科室' || selectedClasss === '全部'">
                       <el-option-group
                         v-for="group in (selectedClasss === '科室' ? typeList.dept.filter(item => item.deptCode === deptValue ) : typeList.dept)"
                         :key="group.deptCode"
@@ -80,7 +81,7 @@
                         </el-option>
 
                       </el-option-group>
-                    </div>
+                    </div> -->
                   </el-select>
                 </div>
                 </div>
@@ -275,7 +276,8 @@ export default {
       deptENName: keyNameMap[this.deptName] || "neurology",
       deptValue: '',
       user: localStorage.user && JSON.parse(localStorage.user),
-      filterDatas: []
+      filterDatas: [],
+      allSelectedTypeList: []
     };
   },
   methods: {
@@ -380,6 +382,7 @@ export default {
       typeList_foshanshiyi().then(res => {
         if (res.data.code === '200') {
           this.typeList = res.data.data;
+          this.allSelectedTypeList = [...this.typeList.common, ...this.typeList.dept]
           // if (this.typeList.common.length > 0 || this.typeList.dept.length > 0) {
           //   if (this.selectedClasss === '科室' && this.typeList.dept.length > 0) {
           //     groupName = this.typeList.dept[0].groupName[0]..name;

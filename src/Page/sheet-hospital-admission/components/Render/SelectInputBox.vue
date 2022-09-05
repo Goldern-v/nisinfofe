@@ -115,7 +115,6 @@ export default {
     }
   },
   mounted() {
-    console.log('this.formObj', this.formObj)
     try {
       this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
     } catch (error) {}
@@ -187,7 +186,6 @@ export default {
           max = max === NaN ? 0 : max;
           value = value === NaN ? 0 : value;
           // 判断规则
-          console.log(r.dialog, itemClick, valueNew,  r.dialog && r.dialog.openKey.indexOf(valueNew), '111111111111')
           if (r.min && r.max && (value >= min && value < max)) {
             // console.log(value, r.min, r.max,  r.style)
             this.obj.style = r.style;
@@ -196,7 +194,6 @@ export default {
             this.obj.style = r.style;
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.equals && valueNew && valueNew.indexOf(r.equals) !== -1) {
-            console.log(r.equals,r.style, '99999999900000000000')
             this.obj.style = r.style;
             // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (
@@ -208,7 +205,6 @@ export default {
           } else if (r.scoreMin || r.scoreMax) {
             let [scoreMin, scoreMax] = [Number(r.scoreMin), Number(r.scoreMax)];
             let score = Number(valueNew.split("分")[0]);
-            // console.log(score, "scorescorescore");
             scoreMin = scoreMin === NaN ? 0 : scoreMin;
             scoreMax = scoreMax === NaN ? 0 : scoreMax;
             score = score === NaN ? 0 : score;
@@ -490,7 +486,6 @@ export default {
                 }
                 // 多选
                 if (multiplechoice === true) {
-                  console.log('inputValue',key, data)
                   let values = obj[key] ? obj[key].split(",") : [];
                   // 新增选项
                   if (!obj[key] || obj[key].indexOf(data.code) === -1) {
