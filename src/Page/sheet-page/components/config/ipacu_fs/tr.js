@@ -41,7 +41,7 @@ export default [
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spo', event: keyf1, value: '', next: '%', name: 'SPO₂',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spirit', event: keyf1, value: '', next: '', name: '神志',autoComplete: { data: 
-    [{name:"麻醉未醒①",value:"麻醉未醒"},{name:"清醒②",value:"麻醉未醒"},{name:"谵妄③",value:"谵妄"},
+    [{name:"麻醉未醒①",value:"麻醉未醒"},{name:"清醒②",value:"清醒"},{name:"谵妄③",value:"谵妄"},
      {name:"嗜睡④",value:"嗜睡"},{name:"昏睡⑤",value:"昏睡"},{name:"浅昏迷⑥",value:"浅昏迷"},{name:"中度昏迷⑦",value:"中度昏迷"},
      {name:"深昏迷⑧",value:"深昏迷"},{name:"镇静状态⑨",value:"镇静状态"}
     ] } ,
