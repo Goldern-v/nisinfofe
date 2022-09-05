@@ -25,7 +25,7 @@
           </div>
           <div class="new-modal-top-left-second">
             <div style="text-indent: 5px">
-              {{ currentBottle.executeDate.substr(0, 16) }}
+              频次途径:{{ currentBottle.frequency }}
             </div>
             <div>
               {{ currentBottle.repeatIndicator | repeatIndicatorFilter }}
@@ -36,11 +36,6 @@
           <div class="new-modal-top-right-top">
             <img :src="currentBottle.qcSrc || ''" />
           </div>
-          <!-- <div class="new-modal-top-right-bottom">
-                        <div style="text-indent:5px" v-for="(item,index) in currentBottle.dosageDosageUnits" :key="index">
-                            {{item}}
-                        </div>
-                    </div> -->
         </div>
       </div>
       <div class="new-modal-bottom">
@@ -55,8 +50,9 @@
         </div>
 
         <div class="new-modal-bottom-second">
-          <div style="width: 20%">频次途径</div>
-          <div style="flex: 1">{{ currentBottle.frequency }}</div>
+          {{ currentBottle.executeDate.substr(0, 16) }}
+          <!-- <div style="width: 20%">频次途径</div>
+          <div style="flex: 1">{{ currentBottle.frequency }}</div> -->
         </div>
       </div>
     </div>
@@ -120,7 +116,7 @@
     .new-modal-top-left {
       display: inline-block;
       box-sizing: border-box;
-      width: calc(100% - 70px);
+      width: calc(100% - 80px);
       .new-modal-top-left-first {
         display: flex;
         justify-content: center;
@@ -131,7 +127,7 @@
         & > div {
           text-align: center;
           line-height: 29px;
-          font-size: 25px;
+          font-size: 27px;
           font-weight: 900;
         }
         div + div {
@@ -186,10 +182,11 @@
     }
     .new-modal-bottom-second {
       width: 100%;
-      display: flex;
+      /* display: flex; */
+      text-align: right;
       line-height: 21px;
       border-top: 1px solid #000;
-      div:first-child {
+      /* div:first-child {
         border-right: 1px solid #000;
       }
       div:nth-of-type(2n + 1) {
@@ -197,7 +194,7 @@
       }
       div:nth-of-type(2n) {
         text-indent: 5px;
-      }
+      } */
     }
   }
   .new-modal-small-left {
@@ -280,7 +277,7 @@ export default {
         dosageDosageUnits.push(content);
       });
       let qr_png_value = this.itemObj[0].barCode;
-      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: 1 });
       // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";

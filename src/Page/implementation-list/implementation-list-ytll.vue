@@ -2,7 +2,7 @@
   <div>
     <div class="main-contain">
       <div class="head-con">
-        <h3>批量执行单222</h3>
+        <h3>批量执行单</h3>
         <div>
           <span class="label" style="margin-left: 0">执行日期:</span>
           <el-date-picker

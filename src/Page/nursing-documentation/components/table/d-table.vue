@@ -159,10 +159,10 @@ export default {
   },
   methods: {
     async openDetail(row) {
-      if (row.notViewPatient) {
-        this.$message.warning("患者已归档，用户无权查看");
-        return;
-      }
+      // if (row.notViewPatient) {
+      //   this.$message.warning("患者已归档，用户无权查看");
+      //   return;
+      // }
       let res;
       if(this.HOSPITAL_ID=="huadu"){
        res = await info(row.inpNo, row.visitId);
