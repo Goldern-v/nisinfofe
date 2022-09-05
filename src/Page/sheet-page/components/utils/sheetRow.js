@@ -29,7 +29,7 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType == "com_lc") {
     return 22;
-  } else if (sheetInfo.sheetType == "intervention_cure") {
+  } else if (sheetInfo.sheetType == "intervention_cure"||sheetInfo.sheetType == "icu_cpr_xg") {
     return 15;
   } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc" || sheetInfo.sheetType == "ops_linyi") {
     return 26;
