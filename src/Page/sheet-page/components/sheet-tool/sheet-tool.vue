@@ -490,9 +490,9 @@
         HOSPITAL_ID != 'huadu'
       "
     ></patientInfo>
-    <demonstarationLevca v-if="HOSPITAL_ID == 'hj' && patientInfo.patientId &&
+    <!-- <demonstarationLevca v-if="HOSPITAL_ID == 'hj' && patientInfo.patientId &&
         !$route.path.includes('temperature') &&
-        !$route.path.includes('Baby_sheetPage') "></demonstarationLevca>
+        !$route.path.includes('Baby_sheetPage') "></demonstarationLevca> -->
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
