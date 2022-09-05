@@ -2792,6 +2792,70 @@
               "style": "color:red"
             }
           ]
+        },
+        {
+          "name": "I100396",
+          "type": "select",
+          "title": "非计划性拔管",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:266px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "无",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "非计划性拔管风险评估",
+                "default": "非计划性拔管风险评估",
+                "name": "I100396",
+                "type": "independent",
+                "parentName": "I100396",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "S0613",
+          "type": "select",
+          "title": "窒息误吸风险",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:266px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "无",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "窒息误吸风险评估",
+                "default": "窒息误吸风险评估",
+                "name": "S0613",
+                "type": "independent",
+                "parentName": "S0613",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
         }
       ]
     },
