@@ -238,5 +238,14 @@ module.exports = {
     ABOUT_INFO: '"关于百辰源"',
     title: '"威海市立护理信息系统"',
     hasFollow:true
-  }
+  },
+  zhzxy: {
+    HOSPITAL_ID: '"zhzxy"',
+    HOSPITAL_NAME: '"珠海中西医结合医院"',
+    HOSPITAL_NAME_SPACE: '"珠 海 中 西 医 结 合 医 院"',
+    COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"',
+    ENABLE_BLUETOOTH_SIGN: false
+  },
 }

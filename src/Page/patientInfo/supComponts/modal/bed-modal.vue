@@ -735,6 +735,9 @@ export default {
         case "lyxrm":
           qr_png_value ='P' + this.query.patientId;
           break;
+        case "zhzxy":
+          qr_png_value ='ZY' + this.query.patientId +"||"+ this.query.visitId;
+          break;
         default:
           qr_png_value = this.query.patientId;
           break;
