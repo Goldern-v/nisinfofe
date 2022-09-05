@@ -84,8 +84,8 @@
           <template v-else>
             <el-button size="small" type="primary" @click="search">查询</el-button>
             <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
-            <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj', 'gdtj', 'fsxt'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
-            <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
+            <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj', 'gdtj', 'fsxt', 'ytll'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
+            <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt', 'ytll'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
             <el-button size="small" @click="createImplement">生成执行</el-button>
             <el-button size="small" v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)" @click="syncData">同步医嘱</el-button>
             <el-button size="small" v-else @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
@@ -553,7 +553,7 @@ export default {
       let barCodeList = this.$_.uniqBy(this.selectedData.map(item=>item.barcode))
       if (['lyxrm'].includes(this.HOSPITAL_ID)) {
         // /该条执行单是一组多条的 或者该执行单是已完成的隐藏
-       barCodeList = this.selectedData.reduce((per,item,index)=>{
+        barCodeList = this.selectedData.reduce((per,item,index)=>{
           return (item.rowType <= 1 || !item.rowType) ? per.concat(item.barcode) : per
         },[])
       }
@@ -674,7 +674,7 @@ export default {
       }
     },
     querySearch(queryString, cb) {
-      let list = [{value:'膀胱冲洗'},{value:'气道湿化'}]
+      let list = [{value:'膀胱冲洗'},{value:'气滴'}]
       let pathList = ['ytll'].includes(this.HOSPITAL_ID) ? list : this.pathList;
       var results = queryString ? pathList.filter((v) => v.value.indexOf(queryString) > -1) : pathList;
       // 调用 callback 返回建议列表的数据
