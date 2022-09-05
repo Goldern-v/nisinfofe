@@ -465,6 +465,16 @@
         sheetInfo.sheetType === 'postpartum_nurse_wj'
       "
     ></slot>
+    <!-- 谢岗 -->
+    <div v-if="sheetInfo.sheetType == 'icu_cpr_xg'">
+      参加CPR人员签名:
+      <textarea 
+      style='width:99%;resize:none;border:1px solid #444' 
+      cols="125" 
+      rows="3" 
+      v-model="sheetInfo.relObj[`${index}_CPR`]"
+      :data-value="sheetInfo.relObj[`${index}_CPR`]"></textarea>
+    </div>
     <!-- 表格下方的备注组件 -->
     <bottomRemark></bottomRemark>
     <div>
@@ -549,10 +559,6 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'icu_cpr_xg'"
-          >参加CPR人员签名：</span
-        >
-        <!-- 聊城护士长审核 -->
         <span
           v-else-if="
             sheetInfo.sheetType == 'internal_eval_lcey' ||
@@ -719,7 +725,6 @@ export default {
         "critical_new_lcey",
         "critical2_lcey",
         "baby_lcey",
-        "icu_cpr_xg",
         "internal_eval_linyi", //临邑人医_一般或者护理记录单
         "critical_linyi", //临邑人医_病重（病危）患者护理记录单（带瞳孔）
         "critical_new_linyi",

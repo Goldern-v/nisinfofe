@@ -55,7 +55,7 @@
             ></el-option>
           </el-select>
           <span class="label" v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)">途径:</span>
-          <el-autocomplete v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)" size="small" style="width: 80px;" v-model="administration" :fetch-suggestions="querySearch" :trigger-on-focus="true" @select="() => {}" />
+          <el-autocomplete v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)" size="small" style="width: 80px;" v-model="query.administration" :fetch-suggestions="querySearch" :trigger-on-focus="true" @select="() => {}" />
           <span class="label">床号:</span>
           <el-input size="small" style="width: 80px;" v-model="bedLabel"></el-input>
           <span class="label" v-if="hasNewPrintHos.includes(HOSPITAL_ID)">瓶签大小:</span>
@@ -84,8 +84,8 @@
           <template v-else>
             <el-button size="small" type="primary" @click="search">查询</el-button>
             <el-button size="small" @click="allSelection" :disabled="status=='已执行'">全选</el-button>
-            <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj', 'gdtj', 'fsxt'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
-            <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
+            <el-button size="small" @click="onPrint" :disabled="status=='已执行'">打印{{ ['sdlj', 'gdtj', 'fsxt', 'ytll'].includes(HOSPITAL_ID) ? '此页' : '' }}</el-button>
+            <el-button size="small" v-if="['sdlj', 'gdtj', 'fsxt', 'ytll'].includes(HOSPITAL_ID)" @click="onPrintAll" :disabled="status=='已执行'">打印全部</el-button>
             <el-button size="small" @click="createImplement">生成执行</el-button>
             <el-button size="small" v-if="['sdlj','lyxrm','ytll'].includes(HOSPITAL_ID)" @click="syncData">同步医嘱</el-button>
             <el-button size="small" v-else @click="search" :disabled="status=='已执行'">同步医嘱</el-button>
@@ -286,6 +286,7 @@ export default {
         repeatIndicator: ['whfk'].includes(this.HOSPITAL_ID) ? 0 : 9,
         //医嘱类型，长期传1，临时传0，全部传9
         reprintFlag:['lyxrm'].includes(this.HOSPITAL_ID) ? 9 : 0,//是否重打，1=是，0=否
+        administration:""
       },
       lyxrmItemType:['输液'],
       selectedData: [],//选中打印执行单条数
@@ -317,7 +318,8 @@ export default {
            {label:"全部",value:9},{label:"是",value:1},{label:"否",value:0}],
           default:[
           {label:"是",value:1},{label:"否",value:0}]
-      }
+      },
+      tableData:""
     };
   },
   mounted() {
@@ -342,6 +344,7 @@ export default {
     },
     handleSizeChange(newSize) {
       this.page.pageNum = newSize;
+      this.pageDate(true)
     },
     handleCurrentChange(newPage) {
       this.page.pageIndex = newPage;
@@ -457,9 +460,9 @@ export default {
       this.query.endDate = moment(this.endDate).format('YYYY-MM-DD HH:mm:ss')
       this.query.executeDate = this.query.executeDate ? moment(this.query.executeDate).format("YYYY-MM-DD") : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : '*';
-      if(['lyxrm','ytll'].includes(this.HOSPITAL_ID)){
+      if(['lyxrm'].includes(this.HOSPITAL_ID)){
         this.query.itemType = this.lyxrmItemType.join(',')
-        this.query.administration = this.administration
+        // this.query.administration = this.administration
       }else{
         this.query.itemType = this.query.itemType
       }
@@ -499,45 +502,8 @@ export default {
           }
           return item;
         });
-        if(this.hasNewPrintHos.includes(this.HOSPITAL_ID)){
-          let pageIndex = 0
-          let pageNum = 0
-          let pagedTable = []
-          let pageTotal = 0
-          // 前端分页处理,卑微前端找不到后端配合出接口,后续如果有出可以优化下
-          pageTotal = tableData.reduce((total,currentItem,currentIndex)=>{
-            if(pageIndex<40){ // 不超过40条时纳入本页
-              pageIndex++ // 自增防止死循环
-              pagedTable[pageNum] =  pagedTable[pageNum] || [] // 对当前页的数据进行数组初始化
-              pagedTable[pageNum].push(currentItem) // 将当前项放入本页
-              // 这是对同组药品进行归纳(判断条码号),防止被截断,也是导致条目数可能错乱的主要原因
-            }else if(currentItem.barcode === pagedTable[pageNum][pagedTable[pageNum].length-1].barcode){
-              pagedTable[pageNum] =  pagedTable[pageNum] || []
-              pagedTable[pageNum].push(currentItem)
-            }else{
-              pageIndex=0
-              pageNum++
-              pagedTable[pageNum] =  pagedTable[pageNum] || []
-              pagedTable[pageNum].push(currentItem)
-            }
-            // 计算总条目数(判断barcode是否是第一次出现)
-            return tableData.findIndex(item=>`${item.barcode}_${item.executeDateTime}` === `${currentItem.barcode}_${currentItem.executeDateTime}`) === currentIndex ? ++total : total
-          },0)
-          pageTotal = this.page.pageNum * pagedTable.length
-          this.pagedTable = pagedTable
-          // 设置表格数据
-          if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
-            this.$refs.plTable.$children[0].reloadData(this.pagedTable[0]||[]); // 默认取第一页的数据
-          }
-          // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum; // 原计算总条数的方式
-          this.$set(this.page,'total',pageTotal)
-        }else{
-          this.$set(this.page,'pageNum',tableData.length)
-          this.$set(this.page,'total',tableData.length)
-          if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
-            this.$refs.plTable.$children[0].reloadData(tableData); // 默认取第一页的数据
-          }
-        }
+        this.tableData = tableData
+        this.pageDate()
         this.pageLoading = false;
       });
     },
@@ -576,7 +542,7 @@ export default {
           this.showPintModal = false
           this.isShowModal = true;
         },4000) // 武警上传有延迟，后续优化了的话可以把定时器删掉
-})
+      })
       // window.location.href = `LABELPRINT://${this.Uuid};${this.empNo};${this.query.executeDate};{${url}}`;
       // this.printStatusMsg = '正在打印,请稍等…'
       // this.showCancelPrint = false;
@@ -587,7 +553,7 @@ export default {
       let barCodeList = this.$_.uniqBy(this.selectedData.map(item=>item.barcode))
       if (['lyxrm'].includes(this.HOSPITAL_ID)) {
         // /该条执行单是一组多条的 或者该执行单是已完成的隐藏
-       barCodeList = this.selectedData.reduce((per,item,index)=>{
+        barCodeList = this.selectedData.reduce((per,item,index)=>{
           return (item.rowType <= 1 || !item.rowType) ? per.concat(item.barcode) : per
         },[])
       }
@@ -708,12 +674,57 @@ export default {
       }
     },
     querySearch(queryString, cb) {
-      let list = [{value:'膀胱冲洗'},{value:'气道湿化'}]
+      let list = [{value:'膀胱冲洗'},{value:'气滴'}]
       let pathList = ['ytll'].includes(this.HOSPITAL_ID) ? list : this.pathList;
       var results = queryString ? pathList.filter((v) => v.value.indexOf(queryString) > -1) : pathList;
       // 调用 callback 返回建议列表的数据
       cb(results);
     },
+    pageDate(isPageNum = false) {
+        if(this.hasNewPrintHos.includes(this.HOSPITAL_ID)){
+          let pageIndex = 0
+          let pageNum = 0
+          let pagedTable = []
+          let pageTotal = 0
+          // 前端分页处理,卑微前端找不到后端配合出接口,后续如果有出可以优化下
+          pageTotal = this.tableData.reduce((total,currentItem,currentIndex)=>{
+            var flag =  (!this.disableSize && !isPageNum) ? (pageIndex < this.tableData.length) : (pageIndex<this.page.pageNum)
+            if(flag){ // 不超过40条时纳入本页
+              pageIndex++ // 自增防止死循环
+              pagedTable[pageNum] =  pagedTable[pageNum] || [] // 对当前页的数据进行数组初始化
+              pagedTable[pageNum].push(currentItem) // 将当前项放入本页
+              // 这是对同组药品进行归纳(判断条码号),防止被截断,也是导致条目数可能错乱的主要原因
+            }else if(currentItem.barcode === pagedTable[pageNum][pagedTable[pageNum].length-1].barcode){
+              pagedTable[pageNum] =  pagedTable[pageNum] || []
+              pagedTable[pageNum].push(currentItem)
+            }else{
+              pageIndex=0
+              pageNum++
+              pagedTable[pageNum] =  pagedTable[pageNum] || []
+              pagedTable[pageNum].push(currentItem)
+            }
+            // 计算总条目数(判断barcode是否是第一次出现)
+            return this.tableData.findIndex(item=>`${item.barcode}_${item.executeDateTime}` === `${currentItem.barcode}_${currentItem.executeDateTime}`) === currentIndex ? ++total : total
+          },0)
+          pageTotal = this.page.pageNum * pagedTable.length
+          this.pagedTable = pagedTable
+          // 设置表格数据
+          if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
+            this.$refs.plTable.$children[0].reloadData(this.pagedTable[0]||[]); // 默认取第一页的数据
+          }
+          // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum; // 原计算总条数的方式
+          this.$set(this.page,'total',pageTotal)
+          if(!this.disableSize && !isPageNum){
+            this.$set(this.page,'pageNum',this.tableData.length)
+          }
+        }else{
+          this.$set(this.page,'pageNum',this.tableData.length)
+          this.$set(this.page,'total',this.tableData.length)
+          if(this.$refs.plTable.$children && this.$refs.plTable.$children[0] && this.$refs.plTable.$children[0].reloadData){
+            this.$refs.plTable.$children[0].reloadData(this.tableData); // 默认取第一页的数据
+          }
+        }
+    }
   },
   created() {
     this.onLoad();

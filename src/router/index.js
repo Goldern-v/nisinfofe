@@ -391,6 +391,7 @@ const getImplementation = () => {
     case 'zhongshanqi':
       return implementationListZhongshanqi
     case 'lyxrm':
+    case 'whsl':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -403,6 +404,7 @@ const getImplementation = () => {
     case 'fsxt':
       return implementationListFsxt
     case 'foshanrenyi':
+    case 'zhzxy':
       return implementationListFSSY
     case 'quzhou':
       return implementationListQuzhou
@@ -454,6 +456,7 @@ const router = new Router({
         case 'sdlj':
         case 'hengli':
         case 'fuyou':
+        case 'beihairenyi':
           // 新版修改密码
           return newResetPassword
         default:
@@ -512,6 +515,7 @@ const router = new Router({
           case 'nanfangzhongxiyi':
             return temperatureNFZXY
           case 'foshanrenyi':
+          case 'zhzxy':
             return temperatureFSSY
           case 'wujing':
             return temperatureWuJing
@@ -596,6 +600,7 @@ const router = new Router({
             case 'lyxrm':
             case 'ytll':
             case 'foshanrenyi':
+            case 'zhzxy':
               return archiveFSSY
             default:
               return archive
@@ -996,6 +1001,7 @@ const router = new Router({
               case 'fuyou':
                 return temperatureJmfy
               case 'foshanrenyi':
+              case 'zhzxy':
                 return temperatureFSSY
               case 'nanfangzhongxiyi':
                 return temperatureNFZXY
@@ -1053,6 +1059,7 @@ const router = new Router({
               case 'lyxrm':
               case 'gdtj':
               case 'ytll':
+              case 'zhzxy':
                 return allCatheter
               default:
                 return catheter
@@ -1082,6 +1089,7 @@ const router = new Router({
               case 'fsxt':
                 return bloodSugarFsxt
               case 'foshanrenyi':
+              case 'zhzxy':
                 return bloodSugarFoShanRenYi
               default:
                 return bloodSugar
@@ -1411,6 +1419,7 @@ const router = new Router({
             case 'whyx':
               return allTemperatureChartWHYX
             case 'foshanrenyi':
+            case 'zhzxy':
               return allTemperatureChartFSRY
             case 'lyyz':
               return allTemperatureChartLYYZ
@@ -1437,6 +1446,7 @@ const router = new Router({
             case "fuyou":
               return newSingleTemperatureChartJmfy;
             case "foshanrenyi":
+            case 'zhzxy':
               return newSingleTemperatureChartFSSY;
             case "nanfangzhongxiyi":
               return newSingleTemperatureChartZhongXiYi;

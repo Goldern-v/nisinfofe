@@ -32,8 +32,8 @@
           v-model="endDate"
           style="width:180px"
         ></el-date-picker>
-        <span class="label">班次:</span>
-        <el-row class="select-btn-list" type="flex" align="middle">
+        <span class="label" v-if="HOSPITAL_ID !== 'guizhou'">班次:</span>
+        <el-row v-if="HOSPITAL_ID !== 'guizhou'" class="select-btn-list" type="flex" align="middle">
         <el-checkbox-group v-model="workClassList">
           <el-checkbox label="白班"></el-checkbox>
           <el-checkbox label="夜班"></el-checkbox>

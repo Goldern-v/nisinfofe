@@ -175,6 +175,36 @@ export default {
       this.$refs.modalName.close();
     },
     post() {
+		if(this.HOSPITAL_ID == 'beihairenyi'){
+			//   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/  8~16位大写、小写和数字
+			let reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,}$/  //大于8位大写、小写和数字
+			if(this.oldPswd=='' || this.oldPswd!=localStorage.getItem('ppp')){
+				this.$message({
+					showClose: true,
+					message: '请正确输入旧密码',
+				});
+				return false
+			}else if(this.newPswd=='' || this.rePswd==''){
+				this.$message({
+					showClose: true,
+					message: '新密码不能为空',
+				});
+				return false
+			}else if(this.newPswd!=this.rePswd){
+				this.$message({
+					showClose: true,
+					message: '两次密码不一样,请重新输入',
+				});
+				return false
+			}else if(!reg.test(this.newPswd)){
+				// 密码至少包含大写字母，小写字母，数字，且不少于8位
+				this.$message({
+					showClose: true,
+					message: '密码必须包含英文字母大写、小写和数字，且不少于8位',
+				});
+				return false
+			}
+		}
       changePassword(this.oldPswd, this.newPswd, this.rePswd).then((res) => {
         let msg = this.permit.passwordThreshold
           ? "修改成功，建议三个月修改一次密码"

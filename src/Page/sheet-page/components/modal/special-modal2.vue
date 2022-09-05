@@ -14,7 +14,11 @@
             <label class="label">日期：</label>
             <input
               type="text"
-              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'wujing'"
+              :disabled="
+                recordDate != '' &&
+                HOSPITAL_ID != 'huadu' &&
+                HOSPITAL_ID != 'wujing'
+              "
               :placeholder="autoDate"
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
@@ -24,7 +28,11 @@
             <label class="label">时间：</label>
             <input
               type="text"
-              :disabled="recordDate != '' && HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'wujing'"
+              :disabled="
+                recordDate != '' &&
+                HOSPITAL_ID != 'huadu' &&
+                HOSPITAL_ID != 'wujing'
+              "
               v-model="staticObj.recordHour"
               @keyup="timeKey($event, staticObj, 'recordHour')"
             />
@@ -33,37 +41,62 @@
             style="margin-left: 10px"
             v-if="
               (HOSPITAL_ID === 'huadu' &&
-              sheetInfo.sheetType !== 'body_temperature_Hd') ||
-              HOSPITAL_ID === 'zhongshanqi'||HOSPITAL_ID === 'beihairenyi'&&sheetInfo.sheetType!=='infant_bh'
+                sheetInfo.sheetType !== 'body_temperature_Hd') ||
+              HOSPITAL_ID === 'zhongshanqi' ||
+              (HOSPITAL_ID === 'beihairenyi' &&
+                sheetInfo.sheetType !== 'infant_bh')
             "
           >
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
-           <div
-            style="margin-left: 220px"
-            v-if="HOSPITAL_ID === 'foshanrenyi'"
-           >
-          <el-button
-             class="modal-btn"
-             type="primary"
-            @click="openPISilde('testModal')"
-          >
-           检验报告
-          </el-button>
-          <el-button
-             class="modal-btn"
-             type="primary"
+          <div style="margin-left: 220px" v-if="HOSPITAL_ID === 'foshanrenyi'">
+            <el-button
+              class="modal-btn"
+              type="primary"
+              @click="openPISilde('testModal')"
+            >
+              检验报告
+            </el-button>
+            <el-button
+              class="modal-btn"
+              type="primary"
               @click="openPISilde('inspectModal')"
-          >
-            检查报告
-          </el-button>
+            >
+              检查报告
+            </el-button>
           </div>
         </div>
         <div class="extra-box">
           <div class="extra-box__content">
-            <el-button v-if="showAdviceBtn" size="small" @click="openModal('adviceModalRef')">同步医嘱</el-button>
-            <el-button v-if="showDiagnosisBtn" size="small" @click="openModal('diagnosisModalRef')">同步护理计划</el-button>
+            <el-button
+              v-if="showAdviceBtn"
+              size="mini"
+              type="primary"
+              @click="openPISilde('testModal')"
+            >
+              检验报告
+            </el-button>
+            <el-button
+              v-if="showAdviceBtn"
+              type="primary"
+              size="mini"
+              @click="openPISilde('inspectModal')"
+            >
+              检查报告
+            </el-button>
+            <el-button
+              v-if="showAdviceBtn"
+              size="mini"
+              @click="openModal('adviceModalRef')"
+              >同步医嘱</el-button
+            >
+            <el-button
+              v-if="showDiagnosisBtn"
+              size="mini"
+              @click="openModal('diagnosisModalRef')"
+              >同步护理计划</el-button
+            >
           </div>
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
@@ -72,17 +105,29 @@
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">体温：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.temperature" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.temperature"
+                  />
                   <div class="uniq">℃</div>
                 </div>
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">脉搏：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.pulse" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.pulse"
+                  />
                   <div class="uniq">次/分</div>
                 </div>
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">呼吸：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.breath" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.breath"
+                  />
                   <div class="uniq">次/分</div>
                 </div>
               </div>
@@ -111,7 +156,7 @@
                     v-autoComplete="{
                       dataList: dictionary.consciousness,
                       obj: staticObj,
-                      key: 'consciousness'
+                      key: 'consciousness',
                     }"
                   />
                   <div class="uniq"></div>
@@ -126,24 +171,43 @@
                     SOP
                     <sub>2</sub>：
                   </div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.spo2" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.spo2"
+                  />
                   <div class="uniq">%</div>
                 </div>
-                <div flex-box="1" v-if="staticObj.consciousness === undefined"></div>
+                <div
+                  flex-box="1"
+                  v-if="staticObj.consciousness === undefined"
+                ></div>
                 <div flex-box="1" v-if="staticObj.spo2 === undefined"></div>
               </div>
-              <div class="input-row" v-if="staticObj.pupilSizeLeft !== undefined" flex="main:justify">
+              <div
+                class="input-row"
+                v-if="staticObj.pupilSizeLeft !== undefined"
+                flex="main:justify"
+              >
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">瞳孔(大小)</div>
                 </div>
                 <div class="input-cell" flex="cross:center" flex-box="2">
                   <div class="label">左：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeLeft" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.pupilSizeLeft"
+                  />
                   <div class="uniq"></div>
                 </div>
                 <div class="input-cell" flex="cross:center" flex-box="2">
                   <div class="label">右：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeRight" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.pupilSizeRight"
+                  />
                   <div class="uniq"></div>
                 </div>
                 <div flex-box="2"></div>
@@ -165,7 +229,7 @@
                     v-autoComplete="{
                       dataList: dictionary.pupilReflexLeft,
                       obj: staticObj,
-                      key: 'pupilReflexLeft'
+                      key: 'pupilReflexLeft',
                     }"
                   />
                   <div class="uniq"></div>
@@ -179,14 +243,18 @@
                     v-autoComplete="{
                       dataList: dictionary.pupilReflexRight,
                       obj: staticObj,
-                      key: 'pupilReflexRight'
+                      key: 'pupilReflexRight',
                     }"
                   />
                   <div class="uniq"></div>
                 </div>
                 <div flex-box="2"></div>
               </div>
-              <div class="input-row" v-if="staticObj.food !== undefined" flex="main:left">
+              <div
+                class="input-row"
+                v-if="staticObj.food !== undefined"
+                flex="main:left"
+              >
                 <div class="input-cell" flex="cross:center">
                   <div class="label">入量名称：</div>
                   <input
@@ -197,19 +265,31 @@
                     v-autoComplete="{
                       dataList: dictionary.food,
                       obj: staticObj,
-                      key: 'food'
+                      key: 'food',
                     }"
                   />
                   <div class="uniq"></div>
                 </div>
-                <div class="input-cell" flex="cross:center" style="margin-left: 4px">
+                <div
+                  class="input-cell"
+                  flex="cross:center"
+                  style="margin-left: 4px"
+                >
                   <div class="label">量：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.foodSize" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.foodSize"
+                  />
                   <div class="uniq">ml</div>
                 </div>
                 <div flex-box="1"></div>
               </div>
-              <div class="input-row" v-if="staticObj.discharge !== undefined" flex="main:left">
+              <div
+                class="input-row"
+                v-if="staticObj.discharge !== undefined"
+                flex="main:left"
+              >
                 <div class="input-cell" flex="cross:center">
                   <div class="label">出量名称：</div>
                   <input
@@ -220,34 +300,62 @@
                     v-autoComplete="{
                       dataList: dictionary.discharge,
                       obj: staticObj,
-                      key: 'discharge'
+                      key: 'discharge',
                     }"
                   />
                   <div class="uniq"></div>
                 </div>
-                <div class="input-cell" flex="cross:center" style="margin-left: 4px">
+                <div
+                  class="input-cell"
+                  flex="cross:center"
+                  style="margin-left: 4px"
+                >
                   <div class="label">量：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.dischargeSize" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.dischargeSize"
+                  />
                   <div class="uniq">ml</div>
                 </div>
                 <div flex-box="1"></div>
               </div>
             </div>
-            <div v-if="HOSPITAL_ID == 'liaocheng'&&(sheetInfo.sheetType!='critical2_lcey'&&sheetInfo.sheetType!='critical_lcey'&&sheetInfo.sheetType!='critical_new_lcey'&&sheetInfo.sheetType!='access_lcey')">
+            <div
+              v-if="
+                HOSPITAL_ID == 'liaocheng' &&
+                sheetInfo.sheetType != 'critical2_lcey' &&
+                sheetInfo.sheetType != 'critical_lcey' &&
+                sheetInfo.sheetType != 'critical_new_lcey' &&
+                sheetInfo.sheetType != 'access_lcey'
+              "
+            >
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">体温：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.temperature" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.temperature"
+                  />
                   <div class="uniq">℃</div>
                 </div>
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">脉搏：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.pulse" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.pulse"
+                  />
                   <div class="uniq">次/分</div>
                 </div>
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">呼吸：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.breath" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.breath"
+                  />
                   <div class="uniq">次/分</div>
                 </div>
               </div>
@@ -276,7 +384,7 @@
                     v-autoComplete="{
                       dataList: dictionary.consciousness,
                       obj: staticObj,
-                      key: 'consciousness'
+                      key: 'consciousness',
                     }"
                   />
                   <div class="uniq"></div>
@@ -291,24 +399,43 @@
                     SOP
                     <sub>2</sub>：
                   </div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.spo2" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.spo2"
+                  />
                   <div class="uniq">%</div>
                 </div>
-                <div flex-box="1" v-if="staticObj.consciousness === undefined"></div>
+                <div
+                  flex-box="1"
+                  v-if="staticObj.consciousness === undefined"
+                ></div>
                 <div flex-box="1" v-if="staticObj.spo2 === undefined"></div>
               </div>
-              <div class="input-row" v-if="staticObj.pupilSizeLeft !== undefined" flex="main:justify">
+              <div
+                class="input-row"
+                v-if="staticObj.pupilSizeLeft !== undefined"
+                flex="main:justify"
+              >
                 <div class="input-cell" flex="cross:center" flex-box="1">
                   <div class="label">瞳孔(大小)</div>
                 </div>
                 <div class="input-cell" flex="cross:center" flex-box="2">
                   <div class="label">左：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeLeft" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.pupilSizeLeft"
+                  />
                   <div class="uniq"></div>
                 </div>
                 <div class="input-cell" flex="cross:center" flex-box="2">
                   <div class="label">右：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.pupilSizeRight" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.pupilSizeRight"
+                  />
                   <div class="uniq"></div>
                 </div>
                 <div flex-box="2"></div>
@@ -330,7 +457,7 @@
                     v-autoComplete="{
                       dataList: dictionary.pupilReflexLeft,
                       obj: staticObj,
-                      key: 'pupilReflexLeft'
+                      key: 'pupilReflexLeft',
                     }"
                   />
                   <div class="uniq"></div>
@@ -344,14 +471,18 @@
                     v-autoComplete="{
                       dataList: dictionary.pupilReflexRight,
                       obj: staticObj,
-                      key: 'pupilReflexRight'
+                      key: 'pupilReflexRight',
                     }"
                   />
                   <div class="uniq"></div>
                 </div>
                 <div flex-box="2"></div>
               </div>
-              <div class="input-row" v-if="staticObj.food !== undefined" flex="main:left">
+              <div
+                class="input-row"
+                v-if="staticObj.food !== undefined"
+                flex="main:left"
+              >
                 <div class="input-cell" flex="cross:center">
                   <div class="label">入量名称：</div>
                   <input
@@ -362,19 +493,31 @@
                     v-autoComplete="{
                       dataList: dictionary.food,
                       obj: staticObj,
-                      key: 'food'
+                      key: 'food',
                     }"
                   />
                   <div class="uniq"></div>
                 </div>
-                <div class="input-cell" flex="cross:center" style="margin-left: 4px">
+                <div
+                  class="input-cell"
+                  flex="cross:center"
+                  style="margin-left: 4px"
+                >
                   <div class="label">量：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.foodSize" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.foodSize"
+                  />
                   <div class="uniq">ml</div>
                 </div>
                 <div flex-box="1"></div>
               </div>
-              <div class="input-row" v-if="staticObj.discharge !== undefined" flex="main:left">
+              <div
+                class="input-row"
+                v-if="staticObj.discharge !== undefined"
+                flex="main:left"
+              >
                 <div class="input-cell" flex="cross:center">
                   <div class="label">出量名称：</div>
                   <input
@@ -385,14 +528,22 @@
                     v-autoComplete="{
                       dataList: dictionary.discharge,
                       obj: staticObj,
-                      key: 'discharge'
+                      key: 'discharge',
                     }"
                   />
                   <div class="uniq"></div>
                 </div>
-                <div class="input-cell" flex="cross:center" style="margin-left: 4px">
+                <div
+                  class="input-cell"
+                  flex="cross:center"
+                  style="margin-left: 4px"
+                >
                   <div class="label">量：</div>
-                  <input type="text" :readonly="isRead" v-model="staticObj.dischargeSize" />
+                  <input
+                    type="text"
+                    :readonly="isRead"
+                    v-model="staticObj.dischargeSize"
+                  />
                   <div class="uniq">ml</div>
                 </div>
                 <div flex-box="1"></div>
@@ -412,7 +563,9 @@
                       (HOSPITAL_ID === 'huadu' &&
                         sheetInfo.sheetType !== 'body_temperature_Hd' &&
                         Object.keys(vitalSignKeys).includes(item.name)) ||
-                      (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温')||HOSPITAL_ID === 'beihairenyi'&&beihaiList.indexOf(item.name)>-1
+                      (HOSPITAL_ID === 'zhongshanqi' && item.name === '体温') ||
+                      (HOSPITAL_ID === 'beihairenyi' &&
+                        beihaiList.indexOf(item.name) > -1)
                     "
                   ></el-checkbox>
                   <div class="label" style="min-width: 70px">
@@ -476,7 +629,7 @@
                       td: item,
                     }"
                     :style="item.maxWidth && { width: item.maxWidth + 'px' }"
-                    v-else-if="HOSPITAL_ID=='beihairenyi' && key=='food'"
+                    v-else-if="HOSPITAL_ID == 'beihairenyi' && key == 'food'"
                   />
                   <input
                     type="text"
@@ -496,7 +649,6 @@
                 </div>
               </div>
             </div>
-
           </el-tab-pane>
           <el-tab-pane
             label="自定义项目"
@@ -559,7 +711,8 @@
               class="edit_container"
               v-if="
                 sheetInfo.selectBlock.openRichText &&
-                (HOSPITAL_ID === 'lingcheng'||sheetInfo.sheetType === 'common_wj')
+                (HOSPITAL_ID === 'lingcheng' ||
+                  sheetInfo.sheetType === 'common_wj')
               "
             >
               <quill-editor
@@ -587,7 +740,9 @@
           type="primary"
           @click="
             sheetInfo.selectBlock.openRichText &&
-            (HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'hengli'|| sheetInfo.sheetType === 'common_wj')
+            (HOSPITAL_ID == 'lingcheng' ||
+              HOSPITAL_ID == 'hengli' ||
+              sheetInfo.sheetType === 'common_wj')
               ? postRichText()
               : post()
           "
@@ -597,8 +752,17 @@
       </div>
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
-    <diagnosis-modal v-if="['guizhou', 'lyxrm','huadu'].includes(HOSPITAL_ID)" :modalWidth="diagnosisWid" ref="diagnosisModalRef" @handleOk="handleDiagnosis" />
-    <advice-modal v-if="['lyxrm',].includes(HOSPITAL_ID)" ref="adviceModalRef" @handleOk="handleDiagnosis" />
+    <diagnosis-modal
+      v-if="['guizhou', 'lyxrm', 'huadu'].includes(HOSPITAL_ID)"
+      :modalWidth="diagnosisWid"
+      ref="diagnosisModalRef"
+      @handleOk="handleDiagnosis"
+    />
+    <advice-modal
+      v-if="['lyxrm'].includes(HOSPITAL_ID)"
+      ref="adviceModalRef"
+      @handleOk="handleDiagnosis"
+    />
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -759,21 +923,24 @@
     }
   }
 }
+
 .guizhou {
-  .special-date-con input{
-    font-size:14px;
+  .special-date-con input {
+    font-size: 14px;
   }
-  .input-cell input{
-    font-size:14px;
+
+  .input-cell input {
+    font-size: 14px;
   }
 }
+
 .extra-box {
   position: relative;
 
   .extra-box__content {
     display: flex;
     position: absolute;
-    bottom: -35px
+    bottom: -35px;
     right: 0px;
     z-index: 90;
     justify-content: flex-end;
@@ -797,8 +964,8 @@ import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import { saveBatch, getmultiDict } from "../../api/index";
-import DiagnosisModal from './diagnosis-modal.vue';
-import AdviceModal from "./advice-modal.vue"
+import DiagnosisModal from "./diagnosis-modal.vue";
+import AdviceModal from "./advice-modal.vue";
 
 function autoComplete(el, bind) {
   if (bind.value.dataList) {
@@ -862,7 +1029,7 @@ export default {
   data() {
     return {
       bus: bus(this),
-      foodVal:"",
+      foodVal: "",
       doc: "",
       blurIndex: null,
       recordDate: "",
@@ -895,7 +1062,9 @@ export default {
         placeholder: "请编辑内容",
         modules: {
           toolbar: [
-             this.HOSPITAL_ID==='wujing'?['bold']:[{ script: "sub" }, { script: "super" }], // 武警加粗/陵城上下标（别一起开，逻辑会有问题）
+            this.HOSPITAL_ID === "wujing"
+              ? ["bold"]
+              : [{ script: "sub" }, { script: "super" }], // 武警加粗/陵城上下标（别一起开，逻辑会有问题）
           ],
         },
         theme: "snow",
@@ -912,8 +1081,8 @@ export default {
         list: [],
       },
       multiDictList: [],
-      beihaiList:["体温","脉搏","呼吸","血压","心率"],
-      isSaving:false,//给弹窗保存做节流
+      beihaiList: ["体温", "脉搏", "呼吸", "血压", "心率"],
+      isSaving: false, //给弹窗保存做节流
       isRecordBan: false, // 佛医记录是否禁用编辑
     };
   },
@@ -943,7 +1112,7 @@ export default {
       return this.sheetInfo.sheetType == "neurology";
     },
     isDisabed() {
-    if (
+      if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd"
       ) {
@@ -960,48 +1129,48 @@ export default {
         return false;
       }
     },
-     /**通用记录单 by贵州 */
+    /**通用记录单 by贵州 */
     commonFormGZ() {
-      return this.sheetInfo.sheetType === 'common_gzry'
+      return this.sheetInfo.sheetType === "common_gzry";
     },
     showDiagnosisBtn() {
-      switch(process.env.HOSPITAL_ID) {
-        case 'guizhou':
-          return this.commonFormGZ && this.activeTab === '3'
-        case 'lyxrm':
-        case 'huadu':
-          return this.activeTab === '3'
+      switch (process.env.HOSPITAL_ID) {
+        case "guizhou":
+          return this.commonFormGZ && this.activeTab === "3";
+        case "lyxrm":
+        case "huadu":
+          return this.activeTab === "3";
         default:
-          return false
+          return false;
       }
     },
     /**同步医嘱 */
     showAdviceBtn() {
-      switch(process.env.HOSPITAL_ID) {
-        case 'lyxrm':
-          return this.activeTab === '3'
+      switch (process.env.HOSPITAL_ID) {
+        case "lyxrm":
+          return this.activeTab === "3";
         default:
-          return false
+          return false;
       }
     },
     diagnosisWid() {
-      switch(process.env.HOSPITAL_ID) {
-        case 'lyxrm':
-        case 'huadu':
-          return 1200
+      switch (process.env.HOSPITAL_ID) {
+        case "lyxrm":
+        case "huadu":
+          return 1200;
         default:
-          return 720
+          return 720;
       }
     },
     // 是否显示保存按钮
     showSaveBtn() {
-      return this.HOSPITAL_ID !== 'foshanrenyi' ? true : this.activeTab == '3'
-    }
+      return this.HOSPITAL_ID !== "foshanrenyi" ? true : this.activeTab == "3";
+    },
   },
   methods: {
-     openPISilde(type){
+    openPISilde(type) {
       // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
-       this.bus.$emit("openclosePatientInfo",type,false,true)
+      this.bus.$emit("openclosePatientInfo", type, false, true);
     },
     /* 是否同步体征信息 */
     sycnTempChange() {
@@ -1090,24 +1259,28 @@ export default {
           units: obj.unit,
         });
       });
-      if(this.HOSPITAL_ID==='beihairenyi'&&this.vitalSignKeys["体温"].check&&this.isSyncTemp){
+      if (
+        this.HOSPITAL_ID === "beihairenyi" &&
+        this.vitalSignKeys["体温"].check &&
+        this.isSyncTemp
+      ) {
         vitalTemp.push({
-           classCode: "A",
-           optionType: "",
-           selectType: "",
-           showType: "0",
-           timePointType: "",
-           unit: "℃",
-           unitVitalCode: "",
-           vitalCode: "042",
-           vitalSign: "腋表",
-           vitalSignType: "",
-           vitalType: "1"
-         })
-       this.vitalSignList.list.push({
+          classCode: "A",
+          optionType: "",
+          selectType: "",
+          showType: "0",
+          timePointType: "",
+          unit: "℃",
+          unitVitalCode: "",
+          vitalCode: "042",
+          vitalSign: "腋表",
+          vitalSignType: "",
+          vitalType: "1",
+        });
+        this.vitalSignList.list.push({
           ...vitalSignObj,
           vitalSigns: "腋表",
-          vitalSignsValue: this.fixedList['temperature'].value,
+          vitalSignsValue: this.fixedList["temperature"].value,
           classCode: "A",
           vitalCode: "042",
           units: "℃",
@@ -1145,22 +1318,25 @@ export default {
         isRead = false;
       }
       // 江门上线需求,对部分工号开放特殊情况修改权限,由后端处理主表信息中的readOnly字段
-      if(this.HOSPITAL_ID=='fuyou'){
-        isRead = this.$store.state.form_masterInfo.masterInfo.readOnly
+      if (this.HOSPITAL_ID == "fuyou") {
+        isRead = this.$store.state.form_masterInfo.masterInfo.readOnly;
       }
       // 佛山人医  完全根据canModify来控制
-      if(this.HOSPITAL_ID=='foshanrenyi' || this.HOSPITAL_ID=='nanfangzhongxiyi'){
+      if (
+        this.HOSPITAL_ID == "foshanrenyi" ||
+        this.HOSPITAL_ID == "nanfangzhongxiyi"
+      ) {
         // status  三种状态  1签名（普通） 2审核
-        if(status>=1){
-           // 审核   isRead  sheet-page.vue这个文件的的isRead方法决定
-           isRead=tr.isRead
-        }else{
+        if (status >= 1) {
+          // 审核   isRead  sheet-page.vue这个文件的的isRead方法决定
+          isRead = tr.isRead;
+        } else {
           isRead = false;
         }
       }
-      if (this.HOSPITAL_ID == 'foshanrenyi') {
+      if (this.HOSPITAL_ID == "foshanrenyi") {
         // 特殊情况可以保存
-        this.isRecordBan = config.canNotSave || false
+        this.isRecordBan = config.canNotSave || false;
       }
       this.isRead = isRead;
       this.table = config.table;
@@ -1179,15 +1355,20 @@ export default {
       // 特殊记录组合
       let doc = "";
       for (let i = 0; i < record.length; i++) {
-        doc += (record[i].find((item) => item.key == "description") || {}).value || "";
+        doc +=
+          (record[i].find((item) => item.key == "description") || {}).value ||
+          "";
       }
       let foodStr = "";
-        if(this.HOSPITAL_ID=="beihairenyi" &&  this.fixedList.hasOwnProperty('food')){
-          for (let i = 0; i < record.length; i++) {
-            foodStr += record[i].find((item) => item.key == "food").value || "";
-          }
+      if (
+        this.HOSPITAL_ID == "beihairenyi" &&
+        this.fixedList.hasOwnProperty("food")
+      ) {
+        for (let i = 0; i < record.length; i++) {
+          foodStr += record[i].find((item) => item.key == "food").value || "";
         }
-      this.foodVal = foodStr
+      }
+      this.foodVal = foodStr;
       // console.log("this.fixedList.food.value",this.fixedList.food.value)
       this.recordDate =
         config.recordDate ||
@@ -1195,20 +1376,20 @@ export default {
         "";
 
       //肺科特别需求。补记时间另起一行
-       if(this.HOSPITAL_ID=='whfk' &&  doc.split('补记时间').length==2){
-          // 截取最后补记时间，前面的内容
-          let replenishTime= `补记时间${doc.split('补记时间')[1]}`
-          doc=doc.split('补记时间')[0]
+      if (this.HOSPITAL_ID == "whfk" && doc.split("补记时间").length == 2) {
+        // 截取最后补记时间，前面的内容
+        let replenishTime = `补记时间${doc.split("补记时间")[1]}`;
+        doc = doc.split("补记时间")[0];
+        var reg = new RegExp(" ", "g");
+        doc = doc.replace(reg, "");
+        doc = `${doc}${replenishTime}`;
+      } else {
+        if (true) {
+          // 清除空格
           var reg = new RegExp(" ", "g");
           doc = doc.replace(reg, "");
-          doc = `${doc}${replenishTime}`
-       }else{
-          if (true) {
-            // 清除空格
-            var reg = new RegExp(" ", "g");
-            doc = doc.replace(reg, "");
-          }
-       }
+        }
+      }
       //  if (true) {
       //    // 清除空格
       //    var reg = new RegExp(" ", "g");
@@ -1265,7 +1446,7 @@ export default {
     },
     // 处理特殊字符转换函数
     htmlEscape(str) {
-      let reg = new RegExp(/&#44;/g)
+      let reg = new RegExp(/&#44;/g);
       console.log(str);
       return String(str)
         .replace(/&amp;/g, "&")
@@ -1288,19 +1469,23 @@ export default {
       const subArray = val.match(/<sub>(.*?)<\/sub>/g);
       const supArray = val.match(/<sup>(.*?)<\/sup>/g);
       // 加粗
-      const strongArray=val.match(/<strong>(.*?)<\/strong>/g);
-      if ((subArray && subArray.length) || (supArray && supArray.length) || (strongArray && strongArray.length)) {
+      const strongArray = val.match(/<strong>(.*?)<\/strong>/g);
+      if (
+        (subArray && subArray.length) ||
+        (supArray && supArray.length) ||
+        (strongArray && strongArray.length)
+      ) {
         var subReg = /(<\/?sub.*?>)/gi;
         var supReg = /(<\/?sup.*?>)/gi;
         // 加粗
-        var strongReg=/(<\/?strong.*?>)/gi;
+        var strongReg = /(<\/?strong.*?>)/gi;
         subArray &&
           subArray.map((item) => {
             const wipeLabel = item.replace(subReg, "");
             const itemArray = wipeLabel.split("");
             let str = "";
             itemArray.map((item) => (str += "<sub>" + item + "</sub>"));
-            item = changeRegKeyword(item);//转义reg关键字
+            item = changeRegKeyword(item); //转义reg关键字
             val = val.replace(new RegExp(item, "g"), str);
           });
         supArray &&
@@ -1309,17 +1494,17 @@ export default {
             const itemArray = wipeLabel.split("");
             let str = "";
             itemArray.map((item) => (str += "<sup>" + item + "</sup>"));
-            item = changeRegKeyword(item);//转义reg关键字
+            item = changeRegKeyword(item); //转义reg关键字
             val = val.replace(new RegExp(item, "g"), str);
           });
-          // 加粗
+        // 加粗
         strongArray &&
           strongArray.map((item) => {
             const wipeLabel = item.replace(strongReg, "");
             const itemArray = wipeLabel.split("");
             let str = "";
             itemArray.map((item) => (str += "<strong>" + item + "</strong>"));
-            item = changeRegKeyword(item);//转义reg关键字
+            item = changeRegKeyword(item); //转义reg关键字
             val = val.replace(new RegExp(item, "g"), str);
           });
 
@@ -1327,33 +1512,50 @@ export default {
          *关键字：* . ? + ^ $ | \ / [ ] ( ) { }
          *(由于转换成\*,\.,\?关键字会和关键字'\'冲突，需要优先处理'\')
          **/
-        function changeRegKeyword(item){
-          const regChangeArr = ['\\\\','\\\*','\\\.','\\\?','\\\+','\\\^','\\\$','\\\|','\\\/','\\\[','\\\]','\\\(','\\\)'];
-          for(let i = 0; i< regChangeArr.length; i++ ) {
-            let keyword = regChangeArr[i]
-            item = item.replace(new RegExp(keyword,"g"),`\\${keyword[keyword.length - 1]}`)
+        function changeRegKeyword(item) {
+          const regChangeArr = [
+            "\\\\",
+            "\\*",
+            "\\.",
+            "\\?",
+            "\\+",
+            "\\^",
+            "\\$",
+            "\\|",
+            "\\/",
+            "\\[",
+            "\\]",
+            "\\(",
+            "\\)",
+          ];
+          for (let i = 0; i < regChangeArr.length; i++) {
+            let keyword = regChangeArr[i];
+            item = item.replace(
+              new RegExp(keyword, "g"),
+              `\\${keyword[keyword.length - 1]}`
+            );
           }
-          return item
+          return item;
         }
       }
       return val;
     },
     // 保存（富文本）
     postRichText() {
-      if(!this.staticObj.recordHour){
-        return this.$message.warning('记录时间不得为空！')
+      if (!this.staticObj.recordHour) {
+        return this.$message.warning("记录时间不得为空！");
       }
       // okLength保存的时候，一条数据给后端传的字数长度
-      let okLength = ""
-      if(this.HOSPITAL_ID=='lingcheng'||this.HOSPITAL_ID=='hengli'){
-        okLength = 46
-      } else if(this.sheetInfo.sheetType === 'common_wj'){
-        okLength = 40
-       }else {
-        okLength = 23
+      let okLength = "";
+      if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "hengli") {
+        okLength = 46;
+      } else if (this.sheetInfo.sheetType === "common_wj") {
+        okLength = 40;
+      } else {
+        okLength = 23;
       }
 
-      var GetLength = function (str,sheetType) {
+      var GetLength = function (str, sheetType) {
         // 过滤上下标签替换
         const subReg = /(<\/?sub.*?>)/gi;
         const supReg = /(<\/?sup.*?>)/gi;
@@ -1361,7 +1563,7 @@ export default {
         const strongReg = /(<\/?strong.*?>)/gi;
         let wipeSubStr = str.replace(subReg, "");
         let wipeSupStr = wipeSubStr.replace(supReg, "");
-        let wipeStrongStr= wipeSupStr.replace(strongReg,"")
+        let wipeStrongStr = wipeSupStr.replace(strongReg, "");
         // 计算文本内容真实长度
         var realLength = 0,
           len = wipeStrongStr.length,
@@ -1374,10 +1576,10 @@ export default {
           //   realLength += 1;
           // else realLength += 2;
 
-          switch(sheetType){
+          switch (sheetType) {
             //武警记录单不将'^'视作上标，故不做 charCode == 94 的判断
-            case 'common_wj':{
-              console.log('common_wj!')
+            case "common_wj": {
+              console.log("common_wj!");
               if (charCode >= 0 && charCode <= 128 && charCode != 32)
                 realLength += 1;
               else realLength += 2;
@@ -1398,8 +1600,8 @@ export default {
       let result = [];
       let text = "";
       // 处理特殊字符 标签
-      const doc = this.htmlEscape(this.doc);//特殊字符
-      let allDoc = this.setLabelData(doc);//标签
+      const doc = this.htmlEscape(this.doc); //特殊字符
+      let allDoc = this.setLabelData(doc); //标签
       // 首行缩进效果
       if (
         this.HOSPITAL_ID != "weixian" &&
@@ -1415,10 +1617,10 @@ export default {
       for (let i = 0; i < allDoc.length; i++) {
         let charCode = allDoc.charCodeAt(i);
         // 陵城是sub和sup标签<sup></sup>    <sub></sub>就是11
-        let isContinue=isSpecialLabel && i <= index + 11
-        if(this.sheetInfo.sheetType === 'common_wj'){
+        let isContinue = isSpecialLabel && i <= index + 11;
+        if (this.sheetInfo.sheetType === "common_wj") {
           // 武警是加粗<strong></strong>就是17。
-          isContinue=isSpecialLabel && i <= index + 17
+          isContinue = isSpecialLabel && i <= index + 17;
         }
         // 字符为 ，。；,.：:
         if (
@@ -1434,8 +1636,8 @@ export default {
           isContinue
         ) {
           text += allDoc[i];
-        }else {
-          if (GetLength(text,this.sheetInfo.sheetType) > okLength) {
+        } else {
+          if (GetLength(text, this.sheetInfo.sheetType) > okLength) {
             text = text.replace(/\s/g, "&nbsp;");
             result.push(text);
             isSpecialLabel = false;
@@ -1492,18 +1694,18 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
-      console.log("jinlai",this.fixedList)
-      if(this.isSaving){
-        return
+      console.log("jinlai", this.fixedList);
+      if (this.isSaving) {
+        return;
       }
-      if(this.HOSPITAL_ID == "foshanrenyi"){
+      if (this.HOSPITAL_ID == "foshanrenyi") {
         // 佛山市一，护记弹窗保存有换行\n,所以要全部清理。不然textarea显示有问题
-        this.doc=this.doc.replace(/\n/ig,'')
+        this.doc = this.doc.replace(/\n/gi, "");
       }
-      if(type!='ayncVisitedData' && !this.staticObj.recordHour){
-        return this.$message.warning('记录时间不得为空！')
+      if (type != "ayncVisitedData" && !this.staticObj.recordHour) {
+        return this.$message.warning("记录时间不得为空！");
       }
-      this.isSaving=true
+      this.isSaving = true;
       // 计算字节长度
       var GetLength = function (str) {
         var realLength = 0,
@@ -1521,21 +1723,26 @@ export default {
       let result = [];
       let text = "";
       let allDoc = this.doc;
-      let foodDoc = this.foodVal,foodText="",foodResult=[]
+      let foodDoc = this.foodVal,
+        foodText = "",
+        foodResult = [];
       //北海人医的入量名称做换行
-      if(this.HOSPITAL_ID=="beihairenyi" && this.fixedList.hasOwnProperty('food')){
+      if (
+        this.HOSPITAL_ID == "beihairenyi" &&
+        this.fixedList.hasOwnProperty("food")
+      ) {
         for (let i = 0; i < foodDoc.length; i++) {
-        let charCode = foodDoc.charCodeAt(i);
-        // 字符为 ，。；,.：:
-        if(GetLength(foodText) >=7){
-          foodResult.push(foodText);
-          foodText = foodDoc[i];
-          }else{
-          foodText += foodDoc[i];
+          let charCode = foodDoc.charCodeAt(i);
+          // 字符为 ，。；,.：:
+          if (GetLength(foodText) >= 7) {
+            foodResult.push(foodText);
+            foodText = foodDoc[i];
+          } else {
+            foodText += foodDoc[i];
           }
         }
         if (foodText) {
-        foodResult.push(foodText);
+          foodResult.push(foodText);
         }
       }
 
@@ -1551,33 +1758,36 @@ export default {
         allDoc = "    " + this.doc;
       }
       // 补记时间
-        let replenishTime=''
-      if(this.HOSPITAL_ID=='whfk'){
+      let replenishTime = "";
+      if (this.HOSPITAL_ID == "whfk") {
         // 因为后端要配置行数不满 不拼接特殊特殊情况记录，需要整个医院做配置。所以武汉肺科单独出来
-        let commonText=allDoc
-        if(allDoc.split('补记时间').length==2){
-           // 非手术科室护理记录单和手术科室护理记录单需要 有‘补记时间’就另起一行
-              replenishTime= `补记时间${allDoc.split('补记时间')[1]}`
-           // 截取最后补记时间，前面的内容
-              commonText=allDoc.split('补记时间')[0]
+        let commonText = allDoc;
+        if (allDoc.split("补记时间").length == 2) {
+          // 非手术科室护理记录单和手术科室护理记录单需要 有‘补记时间’就另起一行
+          replenishTime = `补记时间${allDoc.split("补记时间")[1]}`;
+          // 截取最后补记时间，前面的内容
+          commonText = allDoc.split("补记时间")[0];
         }
         // 循环补记时间前面的内容的长度就可以
         for (let i = 0; i < commonText.length; i++) {
-           let charCode = commonText.charCodeAt(i);
-           // 字符为 ，。；,.：:
-           if (
-             charCode == "65292" ||
-             charCode == "12290" ||
-             charCode == "65307" ||
-             charCode == "44" ||
-             charCode == "46" ||
-             charCode == "65306" ||
-             charCode == "109" ||
-             charCode == "103" ||
-             charCode == "58"
-           ) {
-             text += commonText[i];
-           } else if(this.sheetInfo.sheetType === "nonsurgicalcare_fk"||this.sheetInfo.sheetType === "operating_fk"){
+          let charCode = commonText.charCodeAt(i);
+          // 字符为 ，。；,.：:
+          if (
+            charCode == "65292" ||
+            charCode == "12290" ||
+            charCode == "65307" ||
+            charCode == "44" ||
+            charCode == "46" ||
+            charCode == "65306" ||
+            charCode == "109" ||
+            charCode == "103" ||
+            charCode == "58"
+          ) {
+            text += commonText[i];
+          } else if (
+            this.sheetInfo.sheetType === "nonsurgicalcare_fk" ||
+            this.sheetInfo.sheetType === "operating_fk"
+          ) {
             //  非手术科室护理记录单且包含补记时间
             if (GetLength(text) > 27) {
               result.push(text);
@@ -1585,197 +1795,228 @@ export default {
             } else {
               text += commonText[i];
             }
-           }else {
+          } else {
             if (GetLength(text) > 23) {
               result.push(text);
               text = allDoc[i];
             } else {
-              text += allDoc[i];
-            }
-          }
-       }
-      }else{
-        for (let i = 0; i < allDoc.length; i++) {
-        let charCode = allDoc.charCodeAt(i);
-        // 字符为 ，。；,.：:
-        if (
-          charCode == "65292" ||
-          charCode == "12290" ||
-          charCode == "65307" ||
-          charCode == "44" ||
-          charCode == "46" ||
-          charCode == "65306" ||
-          charCode == "109" ||
-          charCode == "103" ||
-          charCode == "58"
-        ) {
-          text += allDoc[i];
-        } else {
-          if (this.HOSPITAL_ID == "lingcheng" ||
-              this.HOSPITAL_ID == "shannan"  ||
-              this.sheetInfo.sheetType === "icu_qz" ||
-              this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
-              this.sheetInfo.sheetType === "common_gzry") {
-            // 特殊情况长度截取，前端控制部分(长度计算：输入的字数*2-2)
-            if (GetLength(text) > 46) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          } else if (this.HOSPITAL_ID == "hengli") {
-            if (GetLength(text) > 40) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType == "common_xg"||this.sheetInfo.sheetType == "internal_xg") {
-            if (GetLength(text) > 32) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "iabp_fs") {
-            if (GetLength(text) > 56) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          } else if (this.sheetInfo.sheetType === "internal_eval_lcey" || this.sheetInfo.sheetType === "internal_eval_linyi") {
-            if (GetLength(text) > 98) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          } else if (this.sheetInfo.sheetType === "generalcare_bh") {
-            if (GetLength(text) > 130) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "change_shift_jm") {
-            if (GetLength(text) > 148) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "prenatalcheck_bh") {
-            if (GetLength(text) > 58) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "prenatalcheck_bh") {
-            if (GetLength(text) > 58) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "nursingrecords_zxy") {
-            if (GetLength(text) > 54) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "recordicu2_zxy") {
-            if (GetLength(text) > 70) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "common_wj") {
-            if (GetLength(text) > 27) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "baby_lcey") {
-            if (GetLength(text) > 20) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "areageneral_fs"||this.sheetInfo.sheetType === "pediatric_fs"||this.sheetInfo.sheetType === "pupilgeneral_fs"||this.sheetInfo.sheetType === "labor_bh"||this.sheetInfo.sheetType === "department_bh"||this.sheetInfo.sheetType === "cardiac_lcey"||this.sheetInfo.sheetType === "labor_lcey"||this.sheetInfo.sheetType === "caseamount_wx") {
-            if (GetLength(text) > 36) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "diabetes_bh"||this.sheetInfo.sheetType === "ophthalmology_bh"||this.sheetInfo.sheetType === "observation_bh"||this.sheetInfo.sheetType === "maternal_lcey") {
-            if (GetLength(text) > 26) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "revivemonitoring_bh"||this.sheetInfo.sheetType === "emergency_treat_yx"||this.sheetInfo.sheetType === "postpartum_nurse_wj") {
-            if (GetLength(text) > 42) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }else if (this.sheetInfo.sheetType === "paediatrician2_xt"||this.sheetInfo.sheetType === "neonatalspecialty2_xt") {
-            if (GetLength(text) > 14) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-            } else if (this.sheetInfo.sheetType === 'ultrasound_fs') {
-            if (GetLength(text) > 30) {
-              result.push(text);
-              text = allDoc[i];
-            } else {
-              text += allDoc[i];
-            }
-          }
-          else {
-            // console.log("111111111",text,GetLength(text))
-            if (GetLength(text) > 23) {
-            // console.log("2222222222")
-              result.push(text);
-              text = allDoc[i];
-            } else {
-            // console.log("3333333333")
               text += allDoc[i];
             }
           }
         }
-       }
+      } else {
+        for (let i = 0; i < allDoc.length; i++) {
+          let charCode = allDoc.charCodeAt(i);
+          // 字符为 ，。；,.：:
+          if (
+            charCode == "65292" ||
+            charCode == "12290" ||
+            charCode == "65307" ||
+            charCode == "44" ||
+            charCode == "46" ||
+            charCode == "65306" ||
+            charCode == "109" ||
+            charCode == "103" ||
+            charCode == "58"
+          ) {
+            text += allDoc[i];
+          } else {
+            if (
+              this.HOSPITAL_ID == "lingcheng" ||
+              this.HOSPITAL_ID == "shannan" ||
+              this.sheetInfo.sheetType === "icu_qz" ||
+              this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
+              this.sheetInfo.sheetType === "common_gzry"
+            ) {
+              // 特殊情况长度截取，前端控制部分(长度计算：输入的字数*2-2)
+              if (GetLength(text) > 46) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.HOSPITAL_ID == "hengli") {
+              if (GetLength(text) > 40) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (
+              this.sheetInfo.sheetType == "common_xg" ||
+              this.sheetInfo.sheetType == "internal_xg"
+            ) {
+              if (GetLength(text) > 32) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "iabp_fs") {
+              if (GetLength(text) > 56) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (
+              this.sheetInfo.sheetType === "internal_eval_lcey" ||
+              this.sheetInfo.sheetType === "internal_eval_linyi"
+            ) {
+              if (GetLength(text) > 98) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "generalcare_bh") {
+              if (GetLength(text) > 130) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "change_shift_jm") {
+              if (GetLength(text) > 148) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "prenatalcheck_bh") {
+              if (GetLength(text) > 58) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "prenatalcheck_bh") {
+              if (GetLength(text) > 58) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "nursingrecords_zxy") {
+              if (GetLength(text) > 54) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "recordicu2_zxy") {
+              if (GetLength(text) > 70) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "common_wj") {
+              if (GetLength(text) > 27) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "baby_lcey") {
+              if (GetLength(text) > 20) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (
+              this.sheetInfo.sheetType === "areageneral_fs" ||
+              this.sheetInfo.sheetType === "pediatric_fs" ||
+              this.sheetInfo.sheetType === "pupilgeneral_fs" ||
+              this.sheetInfo.sheetType === "labor_bh" ||
+              this.sheetInfo.sheetType === "department_bh" ||
+              this.sheetInfo.sheetType === "cardiac_lcey" ||
+              this.sheetInfo.sheetType === "labor_lcey" ||
+              this.sheetInfo.sheetType === "caseamount_wx"
+            ) {
+              if (GetLength(text) > 36) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (
+              this.sheetInfo.sheetType === "diabetes_bh" ||
+              this.sheetInfo.sheetType === "ophthalmology_bh" ||
+              this.sheetInfo.sheetType === "observation_bh" ||
+              this.sheetInfo.sheetType === "maternal_lcey"
+            ) {
+              if (GetLength(text) > 26) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (
+              this.sheetInfo.sheetType === "revivemonitoring_bh" ||
+              this.sheetInfo.sheetType === "emergency_treat_yx" ||
+              this.sheetInfo.sheetType === "postpartum_nurse_wj"
+            ) {
+              if (GetLength(text) > 42) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (
+              this.sheetInfo.sheetType === "paediatrician2_xt" ||
+              this.sheetInfo.sheetType === "neonatalspecialty2_xt"
+            ) {
+              if (GetLength(text) > 14) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "ultrasound_fs") {
+              if (GetLength(text) > 30) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else {
+              // console.log("111111111",text,GetLength(text))
+              if (GetLength(text) > 23) {
+                // console.log("2222222222")
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                // console.log("3333333333")
+                text += allDoc[i];
+              }
+            }
+          }
+        }
       }
 
-      console.log("GetLength",result)
+      console.log("GetLength", result);
       if (text) {
         result.push(text);
       }
 
-      if(this.HOSPITAL_ID==='whfk' && replenishTime){
+      if (this.HOSPITAL_ID === "whfk" && replenishTime) {
         // 有补记时间最后自己一行推进去
-        text=""
+        text = "";
         // result.push(replenishTime);
         for (let i = 0; i < replenishTime.length; i++) {
-           if(this.sheetInfo.sheetType === "nonsurgicalcare_fk"||this.sheetInfo.sheetType === "operating_fk"){
+          if (
+            this.sheetInfo.sheetType === "nonsurgicalcare_fk" ||
+            this.sheetInfo.sheetType === "operating_fk"
+          ) {
             if (GetLength(text) > 27) {
               result.push(text);
               text = replenishTime[i];
             } else {
               text += replenishTime[i];
             }
-           }else {
+          } else {
             if (GetLength(text) > 23) {
               result.push(text);
               text = replenishTime[i];
@@ -1789,37 +2030,53 @@ export default {
         }
       }
 
-      if(type == 'ayncVisitedData'){
+      if (type == "ayncVisitedData") {
         return result;
       }
 
       if (result.length == 0) {
         result.push("");
       }
-      
+
       for (let i = 0; i < this.record.length; i++) {
-        this.record[i].find((item) => item.key == "description" || item.key == "specialRecord").value = "";
+        this.record[i].find(
+          (item) => item.key == "description" || item.key == "specialRecord"
+        ).value = "";
       }
-      if(this.HOSPITAL_ID=="beihairenyi" && this.fixedList.hasOwnProperty('food')){
+      if (
+        this.HOSPITAL_ID == "beihairenyi" &&
+        this.fixedList.hasOwnProperty("food")
+      ) {
         for (let j = 0; j < this.record.length; j++) {
           this.record[j].find((item) => item.key == "food").value = "";
         }
       }
 
-      if(this.HOSPITAL_ID=="beihairenyi" &&  this.fixedList.hasOwnProperty('food')){
+      if (
+        this.HOSPITAL_ID == "beihairenyi" &&
+        this.fixedList.hasOwnProperty("food")
+      ) {
         for (let i = 0; i < foodResult.length; i++) {
           if (i == 0) {
             // 合并数据
-            console.log("mergeTr",this.record[0], this.staticObj, this.fixedList)
-            console.log("mergeTr2",mergeTr(this.record[0], this.staticObj, this.fixedList))
+            console.log(
+              "mergeTr",
+              this.record[0],
+              this.staticObj,
+              this.fixedList
+            );
+            console.log(
+              "mergeTr2",
+              mergeTr(this.record[0], this.staticObj, this.fixedList)
+            );
             mergeTr(this.record[0], this.staticObj, this.fixedList);
           }
           if (this.record[i]) {
             this.record[i].find((item) => item.key == "food").value =
               foodResult[i];
-            process.env.splitSave && (this.record[i].isChange = true)
-            console.log("")
-         } else {
+            process.env.splitSave && (this.record[i].isChange = true);
+            console.log("");
+          } else {
             let currRow = JSON.parse(JSON.stringify(this.record[0]));
             let nullRowArr = nullRow();
 
@@ -1837,23 +2094,32 @@ export default {
             sheetModel[this.lastZ].bodyModel[this.lastY].find(
               (item) => item.key == "food"
             ).value = foodResult[i];
-            process.env.splitSave && (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true)
+            process.env.splitSave &&
+              (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true);
           }
         }
-
       }
       for (let i = 0; i < result.length; i++) {
         if (i == 0) {
           // 合并数据
-          console.log("mergeTr",this.record[0], this.staticObj, this.fixedList)
-          console.log("mergeTr2",mergeTr(this.record[0], this.staticObj, this.fixedList))
+          console.log(
+            "mergeTr",
+            this.record[0],
+            this.staticObj,
+            this.fixedList
+          );
+          console.log(
+            "mergeTr2",
+            mergeTr(this.record[0], this.staticObj, this.fixedList)
+          );
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
         if (this.record[i]) {
-          this.record[i].find((item) => item.key == "description" || item.key ==  "specialRecord").value =
-            result[i];
-          process.env.splitSave && (this.record[i].isChange = true)
-       } else {
+          this.record[i].find(
+            (item) => item.key == "description" || item.key == "specialRecord"
+          ).value = result[i];
+          process.env.splitSave && (this.record[i].isChange = true);
+        } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
           let nullRowArr = nullRow();
 
@@ -1869,16 +2135,19 @@ export default {
           );
           this.lastY++;
           sheetModel[this.lastZ].bodyModel[this.lastY].find(
-            (item) => item.key == "description" || item.key ==  "specialRecord"
+            (item) => item.key == "description" || item.key == "specialRecord"
           ).value = result[i];
-          process.env.splitSave && (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true)
+          process.env.splitSave &&
+            (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true);
         }
       }
 
       if (
         (this.HOSPITAL_ID === "huadu" &&
           sheetInfo.sheetType !== "body_temperature_Hd") ||
-        this.HOSPITAL_ID === "zhongshanqi"||this.HOSPITAL_ID === "beihairenyi"&&this.sheetInfo.sheetType!=='infant_bh'
+        this.HOSPITAL_ID === "zhongshanqi" ||
+        (this.HOSPITAL_ID === "beihairenyi" &&
+          this.sheetInfo.sheetType !== "infant_bh")
       ) {
         this.isSyncTemp
           ? this.sycnTempChange()
@@ -1886,9 +2155,9 @@ export default {
       } else {
         this.bus.$emit("saveSheetPage", this.isLast);
       }
-      setTimeout(()=>{
-        this.isSaving=false
-      },1000)
+      setTimeout(() => {
+        this.isSaving = false;
+      }, 1000);
       this.close();
     },
     openTemplateSlider() {
@@ -1920,17 +2189,17 @@ export default {
     handleInputBlur(e) {
       this.blurIndex = e.srcElement.selectionStart;
     },
-      /**打开弹窗 */
+    /**打开弹窗 */
     openModal(key) {
-      this.$refs[key] && this.$refs[key].open()
+      this.$refs[key] && this.$refs[key].open();
     },
     /**获取选择的同步项 */
     handleDiagnosis({ item, key }) {
-      item.forEach(v => {
+      item.forEach((v) => {
         if (this.doc && v[key]) {
-          this.doc += '\n'
+          this.doc += "\n";
         }
-        this.doc += v[key]
+        this.doc += v[key];
       });
     },
   },
@@ -1938,15 +2207,15 @@ export default {
     // 打开特殊情况
     window.openSpecialModal2 = (config) => {
       this.open(config);
-      if(this.HOSPITAL_ID == "foshanrenyi"){
+      if (this.HOSPITAL_ID == "foshanrenyi") {
         // 打开编辑框时 检查项目:, 检查所见:, 印象:
         // 需要在签名添加\n，让回显的形式达到那边一样
-        let str=this.doc
-        let array = ['检查项目:', '检查所见:', '印象:']
+        let str = this.doc;
+        let array = ["检查项目:", "检查所见:", "印象:"];
         for (let i = 0; i < array.length; i++) {
-          str = str.replace(new RegExp(array[i], 'g'), `\n${array[i]}`)
+          str = str.replace(new RegExp(array[i], "g"), `\n${array[i]}`);
         }
-        this.doc=str
+        this.doc = str;
       }
       this.isSyncTemp = false;
       (this.vitalSignKeys = {
@@ -1971,24 +2240,23 @@ export default {
     });
 
     // 同步护理巡视
-    this.bus.$on("syncVisitWithDataSheet", obj => {
+    this.bus.$on("syncVisitWithDataSheet", (obj) => {
       this.doc = obj.description;
-      let ayncVisitedData =  {
+      let ayncVisitedData = {
         recordMonth: obj.recordMonth,
         recordHour: obj.recordHour,
-        list: this.post('ayncVisitedData')
-      }
-      this.bus.$emit("saveSheetPage",true,ayncVisitedData);
+        list: this.post("ayncVisitedData"),
+      };
+      this.bus.$emit("saveSheetPage", true, ayncVisitedData);
     });
     // 佛山市一检查报告和检验报告同步
-    this.bus.$on("syncReportFSSY",(str)=>{
-      if(this.doc){
-        this.doc+='\n'+str
-      }else{
-        this.doc+=str
+    this.bus.$on("syncReportFSSY", (str) => {
+      if (this.doc) {
+        this.doc += "\n" + str;
+      } else {
+        this.doc += str;
       }
-
-    })
+    });
   },
   watch: {
     check: {
@@ -2001,13 +2269,15 @@ export default {
         }
       },
     },
-    doc(val){
-      if(!val.trim().length)return
-      let reg = new RegExp(/<(?:(?!\bstrong\b|\bsub\b|\bsup\b|\bp\b|[<>]).)+>/g)
-      if(reg.test(val)){
-        this.doc = val.replace(reg,'')
+    doc(val) {
+      if (!val.trim().length) return;
+      let reg = new RegExp(
+        /<(?:(?!\bstrong\b|\bsub\b|\bsup\b|\bp\b|[<>]).)+>/g
+      );
+      if (reg.test(val)) {
+        this.doc = val.replace(reg, "");
       }
-    }
+    },
   },
   components: {
     templateSlide,
