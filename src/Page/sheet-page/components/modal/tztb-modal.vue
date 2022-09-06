@@ -125,7 +125,12 @@ export default {
       saveVitalSign(temArr).then(res => {
         this.$message.success("保存成功");
         this.close();
-        this.bus.$emit("refreshSheetPage");
+        if(this.HOSPITAL_ID=='fuyou'){
+          // 刷新页面后是否在底部
+          this.bus.$emit("refreshSheetPage",true);
+        }else{
+          this.bus.$emit("refreshSheetPage");
+        }
       });
       this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
     },
