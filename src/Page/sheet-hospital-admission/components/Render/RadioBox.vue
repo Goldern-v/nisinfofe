@@ -208,7 +208,7 @@ export default {
       // 计算总分
       if (this.formObj.selectedItems) {
         this.formObj.selectedItems.map(item => {
-          if(this.formObj.formSetting.formInfo.formCode == 'E0616'){
+          if(this.formObj.formSetting && this.formObj.formSetting.formInfo.formCode == 'E0616'){
             console.log(this.formObj.model["I616001"],"this.formObj")
           score =  (this.formObj.model["I616001"]?this.formObj.model["I616001"]:"_")+"+"+(this.formObj.model["I616002"]?this.formObj.model["I616002"]:"_")+"+"+(this.formObj.model["I616003"]?this.formObj.model["I616003"]:"_")
        
