@@ -566,16 +566,38 @@ export default {
       } else {
         res = await getPrintListContent({barCode: barCodeList.join('|')})
       }
-      res.data.data.map(item=>{
-        printObj[item.barCode] = printObj[item.barCode] || []
-        printObj[item.barCode].push(item)
-      })
-      let sortArr = []
-      barCodeList.map(item=>{
-        sortArr.push(printObj[item])
-      })
+        // 当超过5条药品，另起新瓶签
+      if (['wujing'].includes(this.HOSPITAL_ID)) {
+        let curBarCode = ''
+        let curIndex = 0
+
+        res.data.data.map(item=>{
+          if (curBarCode != item.barCode) {
+            curIndex = 0
+          }
+          let key = curIndex == 0 ? item.barCode : `${item.barCode}_${curIndex}`
+          curBarCode = item.barCode
+          console.log('test-key', key, printObj[key])
+          printObj[key] = printObj[key] || []
+          if (printObj[key].length < 5) {
+            printObj[key].push(item)
+            return
+          }
+          curIndex += 1
+          printObj[`${item.barCode}_${curIndex}`] = [item]
+        })
+      } else {
+        res.data.data.map(item=>{
+          printObj[item.barCode] = printObj[item.barCode] || []
+          printObj[item.barCode].push(item)
+        })
+      }
+      let sortArr = Object.values(printObj)
+      // barCodeList.map(item=>{
+      //   sortArr.push(printObj[item])
+      // })
       this.printObj = sortArr
-      console.log(sortArr,"sortArr")
+      console.log('test-sortArr', sortArr)
       document.getElementById('new-print-box').style.display = 'block'
       this.$nextTick(()=>{
         printing(this.$refs.new_print_modal,{
