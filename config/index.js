@@ -157,9 +157,10 @@ const currentTargetUrl = (() => {
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.20.147:9091"  // 双艳
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" // 初升测试本地内网
       // return "http://192.168.20.102:8080" //宪锋本地地址
+      return "http://192.168.43.178:8080" //焦川本地地址
 
     // 福清妇幼保健院
     case 'fqfybjy':
