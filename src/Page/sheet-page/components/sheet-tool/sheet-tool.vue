@@ -469,6 +469,7 @@
           HOSPITAL_ID == 'liaocheng'||
           HOSPITAL_ID == 'foshanrenyi'||
           HOSPITAL_ID == 'whfk' ||
+          HOSPITAL_ID == 'whhk' ||
           HOSPITAL_ID == 'lyxrm'
         "
       >

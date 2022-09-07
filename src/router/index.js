@@ -184,8 +184,6 @@ const implementationListWujing = () =>
   import("@/Page/implementation-list/implementation-list-wujing.vue"); //武警执行单
 const implementationListWhfk = () =>
   import("@/Page/implementation-list/implementation-list-whfk.vue"); //肺科执行单
-// const implementationListLyxrm= ()=>
-// import("@/Page/implementation-list/implementation-list-lyxrm.vue")//临邑执行单
 const implementationListFSSY = () =>
   import("@/Page/implementation-list/implementation-list-FSSY.vue"); //武警执行单
 const implementationListFsxt = ()=>
@@ -397,6 +395,7 @@ const getImplementation = () => {
       return implementationListZhongshanqi
     case 'lyxrm':
     case 'whsl':
+    case 'whhk':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -529,10 +528,11 @@ const router = new Router({
           case 'whfk':
             return temperatureWHFK
           case 'lyxrm':
+          case 'whhk':
           case 'ytll':
             return temperatureLYXRM
-            case 'whsl':
-                return temperatureWHSL
+          case 'whsl':
+              return temperatureWHSL
           case 'sdlj':
             return temperatureSDLJ
           case 'fsxt':
@@ -591,6 +591,7 @@ const router = new Router({
             case 'ytll':
             case 'lyyz':
             case 'qhwy':
+            case 'whhk':
               return indexLiaocheng
             case 'wujing':
               return indexWujing
@@ -607,6 +608,7 @@ const router = new Router({
             case 'ytll':
             case 'foshanrenyi':
             case 'zhzxy':
+            case 'whhk':
               return archiveFSSY
             default:
               return archive
@@ -1023,6 +1025,7 @@ const router = new Router({
                 return temperatureDGXG
               case 'lyxrm':
               case 'ytll':
+              case 'whhk':
                 return temperatureLYXRM
               case 'whsl':
                 return temperatureWHSL
@@ -1067,6 +1070,7 @@ const router = new Router({
               case 'gdtj':
               case 'ytll':
               case 'zhzxy':
+              case 'whhk':
                 return allCatheter
               default:
                 return catheter
@@ -1197,11 +1201,6 @@ const router = new Router({
           },
         ]:[]
       },
-      // {
-      //   path: '/implementationListNew',
-      //   component: () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue"), // 新版临邑执行单,
-      //   name: 'implementationListNew'
-      // },
       {
         path: "/bottleLabel",
         component: bottleLabel,
@@ -1417,6 +1416,7 @@ const router = new Router({
               return allTemperatureChartNFZXY
             case 'lyxrm':
             case 'ytll':
+            case 'whhk':
               return allTemperatureChartLYXRM
             case 'whsl':
               return allTemperatureChartWHSL
@@ -1467,6 +1467,7 @@ const router = new Router({
             case "lyxrm":
             case "ytll":
             case "hj":
+            case 'whhk':
               return newSingleTemperatureChartLYXRM;
             case "whsl":
               return newSingleTemperatureChartWHSL;

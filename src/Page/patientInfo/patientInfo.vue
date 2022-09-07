@@ -1,22 +1,6 @@
 <template>
   <div :class="{ hj:  ['hj','sdlj','fuyou'].includes(HOSPITAL_ID) }">
     <component :is="witchLeft" v-if="inited"/>
-    <!-- <leftPartHengli
-      v-if="inited && HOSPITAL_ID=='hengli'"
-      @handleInpatientSave="handleInpatientSave"
-    ></leftPartHengli>
-    <leftPartHuadu
-      v-else-if="inited && HOSPITAL_ID=='huadu'"
-      @handleInpatientSave="handleInpatientSave"
-    ></leftPartHuadu>
-    <leftPartFuyou
-      v-else-if="inited && HOSPITAL_ID=='fuyou'"
-      @handleInpatientSave="handleInpatientSave"
-    ></leftPartFuyou>
-    <leftPart
-      v-else-if="inited"
-      @handleInpatientSave="handleInpatientSave"
-    ></leftPart> -->
     <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
       <!-- <topPart></topPart> -->
       <component :is="switchCompt()" v-if="inited" />
@@ -71,6 +55,7 @@ import topPartFSSY from "@/Page/patientInfo/supComponts/topPart_FSSY.vue";//佛�
 import topPartLyyz from "@/Page/patientInfo/supComponts/topPart_Lyyz.vue";//佛山市一
 import topPartYC from "@/Page/patientInfo/supComponts/topPart_YC.vue";//阳春中医
 import topPartSdlj from "@/Page/patientInfo/supComponts/topPart_Sdlj.vue";//顺德龙江
+import topPartWhhk from "@/Page/patientInfo/supComponts/topPart_Whhk.vue";
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import leftPartHengli from "@/Page/patientInfo/supComponts/leftPart_Hengli";
 import leftPartFuyou from "@/Page/patientInfo/supComponts/leftPart_Fuyou";
@@ -159,6 +144,7 @@ export default {
         临邑县人民医院:"topPartLYXRM",
         临沂沂州医院: "topPartLyyz",
         佛山市顺德区龙江医院:"topPartSdlj",
+        武汉汉口医院: 'topPartWhhk',
       };
       return hisList[HisName] || "topPart";
     },
@@ -210,6 +196,7 @@ export default {
     topPartWHFK,
     topPartLyyz,
     topPartSdlj,
+    topPartWhhk,
   },
 };
 </script>

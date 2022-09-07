@@ -356,7 +356,8 @@
     <div v-if="sheetInfo.sheetType == 'nicu_custody_hd'">
       备注：特殊符号：“→” 更换、转换,“√”已检查,与上面相同,或已执行;<br/>
       痰液性质：白色稀痰(WL),白色稠痰(WT),黄色稀痰(YL),黄白色稀痰(YWL)黄色稠痰(YT),黄白色稠痰(YWT),新鲜血性液(B),陈旧性血性液(BL);<br/>
-      瞳孔：对光反应灵敏(+),对光反应迟钝(±),对光反应消失(-);基础护理:①口腔护理,②脐部护理,③臀部护理,④沐溶,⑤床上擦浴。
+      痰量：小量（+）,中量（++）,大量（+++）;<br/>
+      瞳孔：对光反应灵敏(+),对光反应迟钝(±),对光反应消失(-);基础护理:①口腔护理,②脐部护理,③臀部护理,④沐溶,⑤床上擦浴,⑥油浴,⑦抚触。
     </div>
     <!-- 威县  新生儿科重症监护记录单 -->
     <div v-if="sheetInfo.sheetType == 'newbornintensive_wx'">
@@ -371,7 +372,7 @@
     </div>
     <!-- 佛山杏坛 护理记录单(产前待产记录) -->
     <!-- <div v-if="sheetInfo.sheetType == 'prenataldelivery2_xt'">
-      注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；谵妄。&nbsp;<strong>胎心音</strong>：双胎以上用“/”间隔。&nbsp;<strong>胎位</strong>：LOA，ROA，LSA，RSA等。&nbsp;<strong>宫缩</strong>：未临产前：无、偶有、敏感、不规则、弱；临产后：弱、中、强。<br/>
+      注：<strong>意识</strong>：清醒√；嗜睡＋；模糊±；昏睡＋＋；昏迷＋＋＋；谵妄。&nbsp;<strong>胎心音</strong>：双胎以上用“/”间隔。&nbsp;<strong>胎位</strong>：LOA,ROA，LSA，RSA等。&nbsp;<strong>宫缩</strong>：未临产前：无、偶有、敏感、不规则、弱；临产后：弱、中、强。<br/>
       <strong>宫颈</strong>：未开、容一指及宫颈扩张阿拉伯数字。&nbsp;<strong>胎膜</strong>：已、未。&nbsp;<strong>衔接</strong>：已、未、部分。&nbsp;<strong>羊水性状</strong>：清、Ⅰº浑浊、Ⅱº浑浊、Ⅲº浑浊、血性。&nbsp;<strong>管道</strong>：固定通畅 √，阻塞X。<br/>
       <strong>护理安全</strong>：A留陪人；B防压疮；C防跌倒，防坠床；D挂标识、防药物外渗；E挂标识、防脱管；F防烫伤；G其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlaqQt" :data-value="sheetInfo.relObj.hlaqQt"/>。&nbsp;&nbsp;
       <strong>护理措施</strong>：A饮食指导；B心理支持；C指导室内活动；D绝对卧床休息；<br/>E左侧卧位；F头低足高卧位；G指导产妇深呼吸；H指导产妇屏气；I按摩腰骶部；J母乳喂养指导；K会阴护理；L指导排尿M留陪人；N其他：<input class="bottomInput" type="text" v-model="sheetInfo.relObj.hlcsQt" :data-value="sheetInfo.relObj.hlcsQt"/>。

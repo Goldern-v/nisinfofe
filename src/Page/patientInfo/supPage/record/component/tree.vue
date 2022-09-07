@@ -723,7 +723,7 @@ export default {
         );
       }
       if (node.level !== 2) {
-        if (["foshanrenyi","lyxrm"].includes(this.HOSPITAL_ID)) {
+        if (["foshanrenyi","lyxrm", 'whhk'].includes(this.HOSPITAL_ID)) {
           this.batchAuditForms = node.data
           return (
             <span class="tree-box-node2">

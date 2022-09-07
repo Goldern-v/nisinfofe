@@ -753,13 +753,13 @@
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
     />
     <advice-modal
-      v-if="['lyxrm'].includes(HOSPITAL_ID)"
+      v-if="['lyxrm', 'whhk'].includes(HOSPITAL_ID)"
       ref="adviceModalRef"
       @handleOk="handleDiagnosis"
     />
@@ -1139,6 +1139,7 @@ export default {
           return this.commonFormGZ && this.activeTab === "3";
         case "lyxrm":
         case "huadu":
+        case 'whhk':
           return this.activeTab === "3";
         default:
           return false;
@@ -1148,6 +1149,7 @@ export default {
     showAdviceBtn() {
       switch (process.env.HOSPITAL_ID) {
         case "lyxrm":
+        case 'whhk':
           return this.activeTab === "3";
         default:
           return false;
@@ -1157,6 +1159,7 @@ export default {
       switch (process.env.HOSPITAL_ID) {
         case "lyxrm":
         case "huadu":
+        case 'whhk':
           return 1200;
         default:
           return 720;

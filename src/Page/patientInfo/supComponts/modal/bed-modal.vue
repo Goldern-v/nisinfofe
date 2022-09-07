@@ -276,7 +276,7 @@
           <div style="width: 131px">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
-            <div :class="{aliCenter:HOSPITAL_ID == 'lyxrm'}">
+            <div :class="{aliCenter:['lyxrm', 'whhk'].includes(HOSPITAL_ID)}">
               <div
                 class="tip-item-con"
                 flex="cross:center main:justify"
@@ -634,6 +634,7 @@ export default {
   },
   methods: {
     init() {
+      console.log('test-only-default')
       this.formData = {
         diet: "",
         registCare: [],
@@ -705,10 +706,10 @@ export default {
       // const printCare = document.querySelectorAll(".printCare")
       // console.log(printCare)
       if (
-        (['lyxrm'].includes(this.HOSPITAL_ID) &&
+        (['lyxrm', 'whhk'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post == "护长") ||
-        !['lyxrm'].includes(this.HOSPITAL_ID)
+        !['lyxrm', 'whhk'].includes(this.HOSPITAL_ID)
       ) {
         this.isOpen();
       }
@@ -733,6 +734,7 @@ export default {
           qr_png_value = this.query.patientId + '|' + this.query.visitId;
           break;
         case "lyxrm":
+        case 'whhk':
           qr_png_value ='P' + this.query.patientId;
           break;
         case "zhzxy":

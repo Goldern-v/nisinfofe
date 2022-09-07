@@ -102,7 +102,7 @@ export default {
       if (this.form.visitContentNew) {
 
         this.loading = true;
-        if(['lyxrm'].includes(this.HOSPITAL_ID)){
+        if(['lyxrm', 'whhk'].includes(this.HOSPITAL_ID)){
           this.form.operateDateNew = ""
           this.form.operateDate = ""
         }else if(this.form.operateDateNew){

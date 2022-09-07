@@ -36,6 +36,7 @@ import LyyzHeader from "@/components/HLheader/LyyzHeader";//广东同江
 import QhwyHeader from "@/components/HLheader/QhwyHeader";//广东同江
 import WhslHeader from "@/components/HLheader/WhslHeader";//威海市立
 import ZhzxyHeader from "@/components/HLheader/ZhzxyHeader";//珠海中西医
+import WhhkHeader from "@/components/HLheader/WhhkHeader";
 
 export default {
   data() {
@@ -69,14 +70,14 @@ export default {
         南方医科大学顺德医院附属杏坛医院: 'FSXTHeader',
         阳春中医院: 'YangchunzhongyiHeader',
         武汉市肺科医院: 'WuhanfeikeHeader',
-        武汉亚心医院:'WuhanYaxinHeader',
         佛山市顺德区龙江医院:'SdljHeader',
         广东同江医院: 'GdtjHeader',
         玲珑英诚医院: 'YtllHeader',
         临沂沂州医院: 'LyyzHeader',
         青海省第五人民医院: 'QhwyHeader',
         威海市立医院: 'WhslHeader',
-        珠海市中西医结合医院: 'ZhzxyHeader'
+        珠海市中西医结合医院: 'ZhzxyHeader',
+        武汉汉口医院: 'WhhkHeader',
       };
       return hisList[HisName] || "HLheader";
     },
@@ -110,7 +111,8 @@ export default {
     LyyzHeader,
     QhwyHeader,
     WhslHeader,
-    ZhzxyHeader
+    ZhzxyHeader,
+    WhhkHeader,
   },
 };
 </script>

@@ -397,7 +397,7 @@ a {
 import { login, hisLogin } from "@/api/login";
 import { GetUserList,caLoginBefore,caLoginLater,verifyUser,SOF_SignData,SOF_VerifySignedData,SOF_Login,SOF_ExportUserCert,genRandom,GetAllUkeyList } from "@/api/caCardApi";
 import Cookies from "js-cookie";
-import {caLoginobj} from './caLoign';
+// import {caLoginobj} from './caLoign';
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
 import { mapMutations } from "vuex";
@@ -424,7 +424,7 @@ export default {
       caLoginFlag:false, //拿来区分是不是ukey登录，要区分checkCa
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
-      md5HisList: ["foshanrenyi","hengli",'sdlj'], //需要md5加密医院
+      md5HisList: ["foshanrenyi","hengli",'sdlj', 'zhzxy'], //需要md5加密医院
     };
   },
   methods: {
@@ -460,7 +460,7 @@ export default {
       this.ajax = true;
       let password = this.password;
       this.md5HisList.includes(this.HOSPITAL_ID) &&
-        this.password !== "Bcy@22qw" && 
+        this.password !== "Bcy@22qw" &&
         !this.caLoginFlag &&
         (password = md5(this.password));
       // login(this.account, this.password, this.verificationCode)
@@ -524,7 +524,7 @@ export default {
               localStorage["rememberAccount"] = this.account;
             }
             this.ajax = false;
-            // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$") 
+            // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$")
             let regexp = new RegExp("^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$")
             let regOnlyLetterNum = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,}$/  //大于8位必须包含大写、小写和数字-北海人医
             if (['sdlj','hengli'].includes(this.HOSPITAL_ID) && !regexp.test(this.password)) {
@@ -633,7 +633,7 @@ export default {
     },
   },
   created() {
-    
+
     if (localStorage["rememberAccount"]) {
       this.account = localStorage["rememberAccount"];
     }
@@ -662,7 +662,7 @@ export default {
         this.$message.error("登录信息错误，已取消自动登录");
         console.error(e);
       }
-    } 
+    }
     if(this.useCaList.includes(this.HOSPITAL_ID)){
       clearInterval(logintimer);
        logintimer = setInterval(() => {
@@ -727,6 +727,8 @@ export default {
           return require("../../common/images/whsl_logo.png")
         case 'zhzxy':
           return require("../../common/images/zhzxy_logo.png")
+        case 'whhk':
+          return require("../../common/images/logo_whhk.png")
         default:
           return require("../../common/images/logo.png");
       }
