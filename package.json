@@ -38,6 +38,7 @@
     "dev:qhwy": "npm run dev --qhwy",
     "dev:whsl": "npm run dev --whsl",
     "dev:zhzxy": "npm run dev --zhzxy",
+    "dev:whhk": "npm run dev --whhk",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "build:": "npm run build",
@@ -75,6 +76,7 @@
     "buildNew:qhwy": "npm run buildNew: qhwy",
     "buildNew:whsl": "npm run buildNew: whsl",
     "buildNew:zhzxy": "npm run buildNew: zhzxy",
+    "buildNew:whhk": "npm run buildNew: whhk",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"

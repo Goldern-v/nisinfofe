@@ -181,6 +181,7 @@ export default {
         case "whfk":
           return temperatureWHFK;
         case "lyxrm":
+        case 'whhk':
           return temperatureLYXRM;
         case "sdlj":
           return temperatureSDLJ;

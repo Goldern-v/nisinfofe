@@ -1,7 +1,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require("path");
 var chalk = require("chalk");
-var envAll = require("./env.all");
+var envAll = require("../config-new/env.all");
 var merge = require("webpack-merge");
 // crNursing  argv
 var _origin = process.env.npm_config_argv ? JSON.parse(process.env.npm_config_argv).original : '';

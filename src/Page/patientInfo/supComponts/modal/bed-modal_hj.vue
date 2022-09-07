@@ -597,7 +597,7 @@ input[type='checkbox']:checked:after {
   margin-bottom:10px;
   font-size: 12px;
   max-height :145px
-  
+
   img{
     width 46px
   }
@@ -694,7 +694,7 @@ export default {
         //   img: require("./images/allergy.png")
         // },
         // {
-        //   label: "呼吸道隔离",   
+        //   label: "呼吸道隔离",
         //   img: require("./images/quarantine.png")
         // },
       ],
@@ -876,7 +876,7 @@ export default {
       // this.formData.registCare.includes('特')
       const printCare = document.querySelectorAll(".printCare")
       let  illnessLevel= document.querySelectorAll(".illnessLevel")
-      let  nurseLevel=document.querySelectorAll(".nurseLevel") 
+      let  nurseLevel=document.querySelectorAll(".nurseLevel")
       let arr = []
       for(let i=0;i<printCare.length;i++){
           arr=  printCare[i].className.split(" ")
