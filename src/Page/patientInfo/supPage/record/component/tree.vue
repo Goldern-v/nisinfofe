@@ -477,6 +477,10 @@ export default {
         node.data.formName,
         data.pageTitle
       );
+      // 临邑评估单保存前的滚动定位
+      if (node.level === 1 && this.HOSPITAL_ID === 'lyxrm') {
+        sessionStorage.removeItem('evalScrollTop')
+      }
       // window.app.$store.commit('upFormFilledData', data)
       // wid.setTitle(data.pageTitle+"健康教育单")
       // this.bus.$emit("disableAllButons");
