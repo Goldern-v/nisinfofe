@@ -329,9 +329,11 @@ export default {
       let cloneObj = cloneDeep(this.itemObj[0]);
       let orderText = [];
       let dosageDosageUnits = [];
-
       this.itemObj.map(item => {
-        orderText.push(item.orderText + (['sdlj'].includes(this.HOSPITAL_ID) ? '' : (DRUG_TYPES[item.drugType] || "")));
+        if(['sdlj'].includes(this.HOSPITAL_ID) && this.newModalSize == '6*8'){
+          let orderTextarr = item.orderText.split("|")
+          orderText.push(...orderTextarr);
+        }else orderText.push(item.orderText + (['sdlj'].includes(this.HOSPITAL_ID) ? '' : (DRUG_TYPES[item.drugType] || "")));
         let content = `${item.dosage || ""}${item.dosageUnits || ""}`;
         dosageDosageUnits.push(content);
       });
