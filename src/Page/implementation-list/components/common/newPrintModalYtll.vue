@@ -185,7 +185,7 @@
     }
     .new-modal-bottom-second {
       width: 100%;
-      font-size: 17px;
+      /* font-size: 17px; */
       padding-right: 10px;
       /* display: flex; */
       text-align: right;

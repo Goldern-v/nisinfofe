@@ -160,7 +160,6 @@ export default {
         this.tableScoreChild();
       }
 
-
       if (this.model === "normal") {
         this.formObj.model[this.obj.name] = valueNew;
         this.checkValueRule(valueNew);
@@ -394,8 +393,8 @@ export default {
               this.$root.$refs[this.formCode][r.result]
             ) {
               let height =
+              this.formObj.model[r.height] ||
                 ~~this.$root.$refs[this.formCode][r.height].currentValue ||
-                this.formObj.model[r.height] ||
                 0;
               let weight =
                 ~~this.$root.$refs[this.formCode][r.weight].currentValue ||
@@ -418,8 +417,8 @@ export default {
                   0;
               }
               let result = '';
-              // console.log(isNaN(Number(weight)) && isNaN(Number(weight)))
-              if(isNaN(Number(weight)) && isNaN(Number(weight)) ){
+              // console.log(isNaN(Number(height)) && isNaN(Number(weight)))
+              if(isNaN(Number(height)) && isNaN(Number(weight)) ){
                 // console.log(this.formObj.model[r.result])
                 result = this.formObj.model[r.result]
                 this.$root.$refs[this.formCode][r.result].setCurrentValue(
@@ -733,7 +732,6 @@ export default {
                   }
                   obj[key] = values + "";
                   self.inputValue = obj[key] + "";
-                  // self.checkValueRule(obj[key], true);
                   e.target.focus();
                 }
                 //

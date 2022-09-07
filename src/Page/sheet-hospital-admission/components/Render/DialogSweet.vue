@@ -124,6 +124,7 @@ import { debug } from "util";
 // src/Page/sheet-hospital-admission/components/Render/common.js
 import common from "@/common/mixin/common.mixin.js";
 import mergeDefaultValue from "../data/defalutValue/utils";
+import lodash from "lodash";
 export default {
   name: "DialogSweet",
   mixins: [common],
@@ -213,13 +214,14 @@ export default {
       // this.formBox = {};
       this.formDialogObj = JSON.parse(JSON.stringify(this.formObj));
       this.formDialogObj.model = {};
-
+      console.log('window.formObj',window.formObj);
+      console.log('window.this.formBox',this.formBox);
       // 初始化清空数据
       let object = this.formBox.schemesObj;
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
           this.formDialogObj.model[key] = "";
-          this.formBox.model[key] = "";
+          // this.formBox.model[key] = "";
         }
       }
 
@@ -245,14 +247,14 @@ export default {
             (this.formBox.hasOwnProperty("body") &&
               this.formBox.body.length > 0))
         ) {
-          this.formBox.model = {};
+          // this.formBox.model = {};
           this.formBox.children.map((child) => {
             if (child.name) {
               if (window.formObj.model[child.name]) {
                 this.formBox.model[child.name] =
                   window.formObj.model[child.name];
               } else {
-                this.formBox.model[child.name] = "";
+                // this.formBox.model[child.name] = "";
               }
             }
           });
@@ -265,7 +267,7 @@ export default {
                     this.formBox.model[child.name] =
                       window.formObj.model[child.name];
                   } else {
-                    this.formBox.model[child.name] = "";
+                    // this.formBox.model[child.name] = "";
                   }
                 });
               }
@@ -919,6 +921,7 @@ export default {
     },
     initForm(config, value = null) {
       console.log("openBox", config, value, this.obj, this.formObj);
+      let formBoxCopy = lodash.cloneDeep(this.formObj)
       this.title = config.aliasTitle || config.title || "";
       this.size = config.size || "";
       this.top = config.top || "";
@@ -951,9 +954,12 @@ export default {
       //   )
       // );
 
-      this.formBox = JSON.parse(
-        JSON.stringify(this.formObj.dialogs[config.title] || {})
-      );
+      // this.formBox = JSON.parse(
+      //   JSON.stringify(this.formObj.dialogs[config.title] || {})
+      // );
+      let formObjDialogs = JSON.parse(JSON.stringify(this.formObj.dialogs[config.title] || {}))
+      formObjDialogs.model = formBoxCopy.model
+      this.formBox = formObjDialogs
 
       if (!this.formBox) {
         return;
@@ -984,7 +990,7 @@ export default {
       //   return console.error("弹窗配置为空");
       // }
       //
-      this.formBox.model = this.formBox.model ? this.formBox.model : {};
+      // this.formBox.model = this.formBox.model ? this.formBox.model : {};
 
       //
       try {

@@ -240,7 +240,7 @@ export default {
   },
   computed: {
     tableH() {
-      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'whhk'].includes(this.HOSPITAL_ID)) {
         return this.wih - 197
       }
       return this.wih - 173

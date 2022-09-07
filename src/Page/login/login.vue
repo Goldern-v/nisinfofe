@@ -397,7 +397,7 @@ a {
 import { login, hisLogin } from "@/api/login";
 import { GetUserList,caLoginBefore,caLoginLater,verifyUser,SOF_SignData,SOF_VerifySignedData,SOF_Login,SOF_ExportUserCert,genRandom,GetAllUkeyList } from "@/api/caCardApi";
 import Cookies from "js-cookie";
-import {caLoginobj} from './caLoign';
+// import {caLoginobj} from './caLoign';
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
 import { mapMutations } from "vuex";
@@ -424,7 +424,7 @@ export default {
       caLoginFlag:false, //拿来区分是不是ukey登录，要区分checkCa
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
-      md5HisList: ["foshanrenyi","hengli",'sdlj'], //需要md5加密医院
+      md5HisList: ["foshanrenyi","hengli",'sdlj', 'zhzxy'], //需要md5加密医院
     };
   },
   methods: {
@@ -727,6 +727,8 @@ export default {
           return require("../../common/images/whsl_logo.png")
         case 'zhzxy':
           return require("../../common/images/zhzxy_logo.png")
+        case 'whhk':
+          return require("../../common/images/logo_whhk.png")
         default:
           return require("../../common/images/logo.png");
       }

@@ -141,7 +141,7 @@ export function delSheetPage(index, callback) {
       }
     }
     // 临邑日期时间禁用符号，识别该行已经被占用
-    if (process.env.HOSPITAL_ID == 'lyxrm') {
+    if (['lyxrm', 'whhk'].includes(process.env.HOSPITAL_ID)) {
       if (listData[nowX]) {
         // 第一条记录
         const firstEqualIndex = listData.findIndex(

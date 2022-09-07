@@ -216,7 +216,7 @@
         {
           "name": "I1313028",
           "type": "checkbox",
-          "title": "2.卧床的患者",
+          "title": "2.计划小手术",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -227,7 +227,7 @@
         {
           "name": "I1313029",
           "type": "checkbox",
-          "title": "3.BMI>25㎏/m2",
+          "title": "3.近期大手术",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -238,7 +238,7 @@
         {
           "name": "I1313030",
           "type": "checkbox",
-          "title": "4.小手术",
+          "title": "4.BMI>30㎏/㎡",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -249,7 +249,7 @@
         {
           "name": "I1313031",
           "type": "checkbox",
-          "title": "5.腿肿胀",
+          "title": "5.卧床的内科患者",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -260,7 +260,7 @@
         {
           "name": "I1313032",
           "type": "checkbox",
-          "title": "6.静脉曲张",
+          "title": "6.炎症性肠史",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -271,7 +271,29 @@
         {
           "name": "I1313033",
           "type": "checkbox",
-          "title": "7.肺功能异常",
+          "title": "7.下肢水肿",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313071",
+          "type": "checkbox",
+          "title": "8.严重的肺部疾病",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313072",
+          "type": "checkbox",
+          "title": "9.肺功能异常，COPD",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -282,7 +304,7 @@
         {
           "name": "I1313034",
           "type": "checkbox",
-          "title": "8.炎性肠病史",
+          "title": "10.急性心肌梗（1个月内）",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -293,7 +315,7 @@
         {
           "name": "I1313035",
           "type": "checkbox",
-          "title": "9.急性心肌梗死",
+          "title": "11.充血性心力衰竭(＜1个月)",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -304,7 +326,7 @@
         {
           "name": "I1313036",
           "type": "checkbox",
-          "title": "10.脓毒症(＜1个月)",
+          "title": "12.脓毒症(＜1个月)",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -315,7 +337,7 @@
         {
           "name": "I1313037",
           "type": "checkbox",
-          "title": "11.充血性心力衰竭(＜1个月)",
+          "title": "13.充血性心力衰竭(＜1个月)",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -326,7 +348,7 @@
         {
           "name": "I1313038",
           "type": "checkbox",
-          "title": "12.严重肺部疾病,含肺炎(＜1个月)",
+          "title": "14.败血症（1个月内）",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -337,7 +359,7 @@
         {
           "name": "I1313039",
           "type": "checkbox",
-          "title": "13.妊娠期间或产后(＜1个月)",
+          "title": "15.输血（1个月内）",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -348,7 +370,7 @@
         {
           "name": "I1313040",
           "type": "checkbox",
-          "title": "14.有不明原因或者习惯性流产史",
+          "title": "16.下肢石膏或肢具固定",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -359,7 +381,51 @@
         {
           "name": "I1313041",
           "type": "checkbox",
-          "title": "15.口服避孕药或激素替代疗法",
+          "title": "17.中心静脉置管",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313073",
+          "type": "checkbox",
+          "title": "18.其他高危因数",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313027",
+          "type": "checkbox",
+          "title": "原因不明的死胎史，复发性自 然流产（≥3次），由于毒血 症或发育受限原因早产",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313027",
+          "type": "checkbox",
+          "title": "口服避孕药或激素替代治疗",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313027",
+          "type": "checkbox",
+          "title": "妊娠期或产后（1个月）",
           "code": "1",
           "score": 1,
           "style": "width:170px;height:30px",
@@ -395,7 +461,7 @@
         {
           "name": "I1313042",
           "type": "checkbox",
-          "title": "16.年龄61~74岁",
+          "title": "19.年龄61~74岁",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -406,7 +472,7 @@
         {
           "name": "I1313043",
           "type": "checkbox",
-          "title": "17.卧床不起(>72h)",
+          "title": "20.大手术（>60min）",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -417,7 +483,7 @@
         {
           "name": "I1313044",
           "type": "checkbox",
-          "title": "18.关节镜手术(>45min)",
+          "title": "21.关节镜手术(>60min)",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -428,7 +494,7 @@
         {
           "name": "I1313045",
           "type": "checkbox",
-          "title": "19.大型开放手术(>45min)",
+          "title": "22.既往恶性肿瘤",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -439,7 +505,7 @@
         {
           "name": "I1313046",
           "type": "checkbox",
-          "title": "20.腹腔镜手术(>45min)",
+          "title": "23.腹腔镜手术(>60min)",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -450,29 +516,7 @@
         {
           "name": "I1313047",
           "type": "checkbox",
-          "title": "21.恶性肿瘤",
-          "code": "2",
-          "score": 2,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1313048",
-          "type": "checkbox",
-          "title": "22.石膏固定",
-          "code": "2",
-          "score": 2,
-          "style": "width:170px;height:30px",
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1313049",
-          "type": "checkbox",
-          "title": "23.中央静脉通路",
+          "title": "24.肥胖（BMI>40kg/㎡）",
           "code": "2",
           "score": 2,
           "style": "width:170px;height:30px",
@@ -508,7 +552,7 @@
         {
           "name": "I1313050",
           "type": "checkbox",
-          "title": "24.年龄≥75岁",
+          "title": "25.年龄≥75岁",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -519,7 +563,7 @@
         {
           "name": "I1313051",
           "type": "checkbox",
-          "title": "25.VTE病史",
+          "title": "26.VTE病史",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -530,7 +574,7 @@
         {
           "name": "I1313052",
           "type": "checkbox",
-          "title": "26.VTE家族史",
+          "title": "27.VTE家族史",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -541,7 +585,7 @@
         {
           "name": "I1313053",
           "type": "checkbox",
-          "title": "27.凝血因子VLeiden突变",
+          "title": "28.凝血因子VLeiden突变",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -552,7 +596,7 @@
         {
           "name": "I1313054",
           "type": "checkbox",
-          "title": "28.凝血酶原G20210A突变",
+          "title": "29.凝血酶原G20210A突变",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -563,7 +607,7 @@
         {
           "name": "I1313055",
           "type": "checkbox",
-          "title": "29.狼疮抗凝物阳性",
+          "title": "30.狼疮抗凝物阳性",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -574,7 +618,7 @@
         {
           "name": "I1313056",
           "type": "checkbox",
-          "title": "30.抗心磷脂抗体阳性",
+          "title": "31.抗心磷脂抗体阳性",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -585,7 +629,7 @@
         {
           "name": "I1313057",
           "type": "checkbox",
-          "title": "31.血清同型半胱氨酸升高",
+          "title": "32.血清同型半胱氨酸升高",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -596,7 +640,7 @@
         {
           "name": "I1313058",
           "type": "checkbox",
-          "title": "32.肝素诱发血小板减少症",
+          "title": "33.肝素诱发血小板减少症",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -607,7 +651,40 @@
         {
           "name": "I1313059",
           "type": "checkbox",
-          "title": "33.其他先天或获得性血栓形成倾向",
+          "title": "34.其他先天或获得性血栓形成倾向",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313074",
+          "type": "checkbox",
+          "title": "35.肥胖（BMI>50kg/㎡）",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1313069",
+          "type": "checkbox",
+          "title": "36.大手术>持续2~3h",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+          {
+          "name": "I1313070",
+          "type": "checkbox",
+          "title": "37.现患恶性肿瘤或化疗",
           "code": "3",
           "score": 3,
           "style": "width:170px;height:30px",
@@ -615,6 +692,8 @@
           "html": null,
           "readOnly": null
         }
+        
+
       ]
     },
     {
@@ -643,7 +722,7 @@
         {
           "name": "I1313060",
           "type": "checkbox",
-          "title": "34.卒中(＜1个月)",
+          "title": "38.卒中(＜1个月)",
           "code": "5",
           "score": 5,
           "style": "width:170px;height:30px",
@@ -654,7 +733,7 @@
         {
           "name": "I1313061",
           "type": "checkbox",
-          "title": "35.择期关节置换术",
+          "title": "39.择期关节置换术",
           "code": "5",
           "score": 5,
           "style": "width:170px;height:30px",
@@ -665,7 +744,7 @@
         {
           "name": "I1313062",
           "type": "checkbox",
-          "title": "36.髋、骨盆或下肢骨折",
+          "title": "40.髋、骨盆或下肢骨折",
           "code": "5",
           "score": 5,
           "style": "width:170px;height:30px",
@@ -676,7 +755,7 @@
         {
           "name": "I1313063",
           "type": "checkbox",
-          "title": "37.急性脊髓损伤(＜1个月)",
+          "title": "41.急性脊髓损伤(＜1个月)",
           "code": "5",
           "score": 5,
           "style": "width:170px;height:30px",
@@ -687,7 +766,7 @@
         {
           "name": "I1313064",
           "type": "checkbox",
-          "title": "已确诊VTE",
+          "title": "42.已确诊VTE",
           "code": "5",
           "score": 5,
           "style": "width:170px;height:30px",
@@ -698,7 +777,7 @@
         {
           "name": "I1313065",
           "type": "checkbox",
-          "title": "入住ICU",
+          "title": "43.入住ICU",
           "code": "5",
           "score": 5,
           "style": "width:170px;height:30px",
