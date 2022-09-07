@@ -2,7 +2,7 @@
   <div>
     <sweet-modal ref="modal" :modalWidth="modalWidth" :title="title">
       <div flex="cross:center">
-        <div v-if="HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk' || HOSPITAL_ID == 'lyxrm'">
+        <div v-if="['weixian','liaocheng','foshanrenyi','whfk' , 'lyxrm', 'whhk'].includes(HOSPITAL_ID)">
           <span class="label">执行单日期：</span>
           <el-date-picker
             v-model="longDate"
@@ -26,7 +26,7 @@
             placeholderChar=" "
           ></masked-input>
         </div>
-        <div v-if="HOSPITAL_ID == 'quzhou'||HOSPITAL_ID == 'weixian'||HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk'|| HOSPITAL_ID == 'lyxrm'" style="margin-left: 20px">
+        <div v-if="['quzhou', 'weixian', 'liaocheng', 'foshanrenyi', 'whfk',  'lyxrm', 'whhk'].includes(HOSPITAL_ID)" style="margin-left: 20px">
           <span class="label">类型：</span>
           <el-select
             v-model="executeType"
@@ -149,7 +149,7 @@
             align="center"
           ></el-table-column>
           <!-- <el-table-column v-if="HOSPITAL_ID == 'quzhou'" prop="desc" label="描述" min-width="110px" align="center"></el-table-column> -->
-          <template v-if="HOSPITAL_ID == 'quzhou' || HOSPITAL_ID == 'weixian'|| HOSPITAL_ID == 'liaocheng'||HOSPITAL_ID == 'foshanrenyi'||HOSPITAL_ID == 'whfk'|| HOSPITAL_ID == 'lyxrm'">
+          <template v-if="['quzhou', 'weixian', 'liaocheng', 'foshanrenyi', 'whfk',  'lyxrm', 'whhk'].includes(HOSPITAL_ID)">
             <el-table-column
               prop="orderText"
               label="医嘱内容"
@@ -266,7 +266,7 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist: {},
-      executeType: this.HOSPITAL_ID==='liaocheng'|| this.HOSPITAL_ID == 'lyxrm' ?"输液":"",
+      executeType: ['liaocheng', 'lyxrm', 'whhk'].includes(this.HOSPITAL_ID) ?"输液":"",
       repeatIndicator: "",
       identicalGroupSelect:['wujing'],
       repeatIndicatorList: [
@@ -303,14 +303,7 @@ export default {
       if (
         this.multipleSelection.length != 0 &&
         // 执行单同步保存，记得去api文件saveVitalSign这个接口添加医院名字！！！！
-        (this.HOSPITAL_ID == "fuyou" ||
-          this.HOSPITAL_ID == "wujing" ||
-          this.HOSPITAL_ID == "quzhou" ||
-          this.HOSPITAL_ID == "weixian" ||
-          this.HOSPITAL_ID == "liaocheng"||
-          this.HOSPITAL_ID == "foshanrenyi"||
-          this.HOSPITAL_ID == 'whfk'||
-          this.HOSPITAL_ID == 'lyxrm')
+        (["fuyou", "wujing", 'quzhou', 'weixian', 'liaocheng', 'foshanrenyi', 'whfk',  'lyxrm', 'whhk'].includes(this.HOSPITAL_ID))
       ) {
         this.multipleSelection.map((item, index) => {
           if (item.pulse) {
@@ -346,7 +339,7 @@ export default {
           return item
         })
       }
-      if(['foshanrenyi','lyxrm'].includes(this.HOSPITAL_ID)){
+      if(['foshanrenyi','lyxrm', 'whhk'].includes(this.HOSPITAL_ID)){
        temArr=JSON.parse(JSON.stringify(temArr)).map(item=>{
           item.foodSize=item.dosage
           return item
@@ -441,7 +434,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      }else if (this.HOSPITAL_ID == "foshanrenyi"|| this.HOSPITAL_ID == 'lyxrm') {
+      }else if (["foshanrenyi", 'lyxrm', 'whhk'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0] ? moment(this.longDate[0]).format('YYYY-MM-DD') : ''
         let endDate = this.longDate[1] ? moment(this.longDate[1]).format('YYYY-MM-DD') : ''
         getOrdersExecuteFsry({
@@ -532,7 +525,7 @@ export default {
       }
     },
     allType(){
-      if(this.HOSPITAL_ID==='liaocheng'||this.HOSPITAL_ID == 'lyxrm'){
+      if(['liaocheng','lyxrm', 'whhk'].includes(this.HOSPITAL_ID)){
         return [
         {
           id: "",
