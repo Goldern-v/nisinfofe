@@ -460,7 +460,7 @@ export default {
       this.ajax = true;
       let password = this.password;
       this.md5HisList.includes(this.HOSPITAL_ID) &&
-        this.password !== "Bcy@22qw" && 
+        this.password !== "Bcy@22qw" &&
         !this.caLoginFlag &&
         (password = md5(this.password));
       // login(this.account, this.password, this.verificationCode)
@@ -524,7 +524,7 @@ export default {
               localStorage["rememberAccount"] = this.account;
             }
             this.ajax = false;
-            // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$") 
+            // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$")
             let regexp = new RegExp("^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$")
             let regOnlyLetterNum = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,}$/  //大于8位必须包含大写、小写和数字-北海人医
             if (['sdlj','hengli'].includes(this.HOSPITAL_ID) && !regexp.test(this.password)) {
@@ -633,7 +633,7 @@ export default {
     },
   },
   created() {
-    
+
     if (localStorage["rememberAccount"]) {
       this.account = localStorage["rememberAccount"];
     }
@@ -662,7 +662,7 @@ export default {
         this.$message.error("登录信息错误，已取消自动登录");
         console.error(e);
       }
-    } 
+    }
     if(this.useCaList.includes(this.HOSPITAL_ID)){
       clearInterval(logintimer);
        logintimer = setInterval(() => {
@@ -752,6 +752,8 @@ export default {
         logoName = "智慧护理信息系统";
       } else if (this.HOSPITAL_ID == "quzhou") {
         logoName = "宸瑞普惠智慧护理信息系统";
+      }else if(this.HOSPITAL_ID == "qhwy"){
+        logoName='青海省第五人民医院智慧护理信息系统'
       }
       return logoName;
     },

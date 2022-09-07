@@ -26,7 +26,7 @@
               <span>{{
                 HOSPITAL_ID == "hj"
                   ? "百辰源智慧护理信息系统"
-                  : "智慧护理信息系统"
+                  : "青海省第五人民医院智慧护理信息系统"
               }}</span>
             </el-row>
             <!-- <router-link to="/index"

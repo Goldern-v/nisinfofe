@@ -328,6 +328,7 @@ import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_f
 import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_foshanrenyi.vue"; // 佛医
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
+import ocxObject from "@/Page/patientInfo/supComponts/modal/ocxObject.vue";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
@@ -964,6 +965,10 @@ const router = new Router({
           path: "/otherPage",
           component: otherPage
         },
+          {
+            path: "/ocxObject",
+            component: ocxObject
+          },
         // {
         //   path: "/home1",
         //   component: home1
