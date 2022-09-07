@@ -4,7 +4,7 @@
 export default {
   // 科室的名称
   style: {
-    width: '1660px'
+    width: '1620px'
   },
   deptType: '',
   th: {
@@ -65,7 +65,7 @@ export default {
       },
       {
         name: `
-        NBP<br/>mmHg
+        BP<br/>mmHg
         `,
         colspan: '1',
         rowspan: '3',
@@ -76,32 +76,7 @@ export default {
       },
       {
         name: `
-        ABP<br/>mmHg
-        `,
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: '25px',
-          maxWidth: '25px',
-        },
-      },
-      {
-        name: `
-        导<br/>管<br/>前<br/>SPO<sub>2</sub><br/>(%)
-        `,
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: `
-        导<br/>管<br/>后<br/>SPO<sub>2</sub><br/>(%)
-        `,
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: `
-        PaCO<sub>2</sub><br/>mmHg
+        SPO<sub>2</sub><br/>(%)
         `,
         colspan: '1',
         rowspan: '3'
@@ -122,7 +97,7 @@ export default {
       },
       {
         name: `
-        肤<br/>色
+        脐<br/>部
         `,
         colspan: '1',
         rowspan: '3'
@@ -150,7 +125,7 @@ export default {
       },
       {
         name: `
-        瞳孔
+        瞳孔<br/>（对光反射）
         `,
         style: {},
         colspan: '2',
@@ -161,7 +136,7 @@ export default {
         入量
         `,
         style: {},
-        colspan: '3',
+        colspan: '4',
         rowspan: '1'
       },
       {
@@ -169,7 +144,7 @@ export default {
         出量
         `,
         style: {},
-        colspan: '5',
+        colspan: '7',
         rowspan: '1'
       },
       {
@@ -182,27 +157,6 @@ export default {
       {
         name: `
         氧<br/>浓<br/>度<br/>(%)
-        `,
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: `
-        插<br/>管<br/>型<br/>号
-        `,
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: `
-        插<br/>管<br/>深<br/>度<br/>(cm)
-        `,
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: `
-        雾<br/>化
         `,
         colspan: '1',
         rowspan: '3'
@@ -279,6 +233,13 @@ export default {
       },
       {
         name: `
+        名<br/>称
+        `,
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: `
         静<br/>脉<br/>(ml)
         `,
         colspan: '1',
@@ -300,7 +261,21 @@ export default {
       },
       {
         name: `
+        大<br/>便<br/>颜<br/>色
+        `,
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: `
         大<br/>便<br/>(g)
+        `,
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: `
+        小<br/>便<br/>颜<br/>色
         `,
         colspan: '1',
         rowspan: '2'
