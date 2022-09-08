@@ -597,10 +597,12 @@ export default {
           printObj[item.barCode].push(item)
         })
       }
-      let sortArr = Object.values(printObj)
-      // barCodeList.map(item=>{
-      //   sortArr.push(printObj[item])
-      // })
+      let sortArr = this.HOSPITAL_ID=='wujing'?Object.values(printObj) :[]
+      if(this.HOSPITAL_ID!='wujing'){
+        barCodeList.map(item=>{
+          sortArr.push(printObj[item])
+        })
+      }
       this.printObj = sortArr
       console.log('test-sortArr', sortArr)
       document.getElementById('new-print-box').style.display = 'block'
