@@ -174,7 +174,8 @@ global.system = {
   },
   process: process,
   dev: devTools,
-  tool: devTools
+  tool: devTools,
+  processType:process.env.HOSPITAL_ID
 };
 
 Vue.prototype.$system = global.system;
