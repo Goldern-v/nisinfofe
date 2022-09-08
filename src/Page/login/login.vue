@@ -729,6 +729,8 @@ export default {
           return require("../../common/images/zhzxy_logo.png")
         case 'whhk':
           return require("../../common/images/logo_whhk.png")
+        case 'qhwy':
+          return require("../../common/images/qhwy_logo.png")
         default:
           return require("../../common/images/logo.png");
       }
@@ -749,13 +751,12 @@ export default {
         this.HOSPITAL_ID == "lingcheng" ||
         this.HOSPITAL_ID == "wujing" ||
         this.HOSPITAL_ID == "foshanrenyi" ||
-        this.HOSPITAL_ID == "fsxt"
+        this.HOSPITAL_ID == "fsxt"||
+          this.HOSPITAL_ID == "qhwy"
       ) {
         logoName = "智慧护理信息系统";
       } else if (this.HOSPITAL_ID == "quzhou") {
         logoName = "宸瑞普惠智慧护理信息系统";
-      }else if(this.HOSPITAL_ID == "qhwy"){
-        logoName='青海省第五人民医院智慧护理信息系统'
       }
       return logoName;
     },
