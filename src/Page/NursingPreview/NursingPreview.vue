@@ -101,7 +101,7 @@ import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue";
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue"; //血糖
 import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; //血糖
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj.vue"; //血糖
-import bloodOxygen  from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
+import bloodOxygen from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
 import { getPatientInfo } from "@/api/common.js";
 import { getPatientForm } from "@/Page/patientInfo/supPage/blood-sugar-sdlj/api/index.js"; //获取患者存在表单id
@@ -119,30 +119,36 @@ export default {
     // 获取患者信息
     this.getPatientInfo();
     //判断顺德龙江血糖单类型
-    this.getPatientForm()
+    this.getPatientForm();
     this.$store.commit("closeFullPageRecord");
     this.bus.$on("openOtherForm", data => {
       this.otherComponent =
-        data.component == "temperature" ? this.getTemplate() : data.component == "bloodSugar" ? this.getBloodSugar() : data.component;
+        data.component == "temperature"
+          ? this.getTemplate()
+          : data.component == "bloodSugar"
+          ? this.getBloodSugar()
+          : data.component;
     });
     this.bus.$on("openAssessmentBox", data => {
       this.otherComponent = null;
     });
   },
   methods: {
-    getPatientForm(){
-      getPatientForm(this.$route.query.patientId, this.$route.query.visitId).then(
-        res=> {
-          let data = res.data.data || {};
-          if (data.hisPatSugarList) { // 接口儿童单子特有的字段 hisPatSugarList
-            // '儿童'
-            this.isBloodSugarSdlj = false
-          } else {
-            // '成人'
-            this.isBloodSugarSdlj = true
-          }
+    getPatientForm() {
+      getPatientForm(
+        this.$route.query.patientId,
+        this.$route.query.visitId
+      ).then(res => {
+        let data = res.data.data || {};
+        if (data.hisPatSugarList) {
+          // 接口儿童单子特有的字段 hisPatSugarList
+          // '儿童'
+          this.isBloodSugarSdlj = false;
+        } else {
+          // '成人'
+          this.isBloodSugarSdlj = true;
         }
-      )
+      });
     },
     // 获取各医院的血糖单
     getBloodSugar() {
@@ -150,12 +156,12 @@ export default {
         case "beihairenyi":
           return bloodSugarBhry;
         case "fsxt":
-          return bloodSugarFsxt
+          return bloodSugarFsxt;
         case "sdlj":
-          if(this.isBloodSugarSdlj){
-            return bloodSugarSdlj
-          }else{
-            return bloodSugar
+          if (this.isBloodSugarSdlj) {
+            return bloodSugarSdlj;
+          } else {
+            return bloodSugar;
           }
 
         default:
@@ -182,7 +188,7 @@ export default {
         case "whfk":
           return temperatureWHFK;
         case "lyxrm":
-        case 'whhk':
+        case "whhk":
           return temperatureLYXRM;
         case "sdlj":
           return temperatureSDLJ;
@@ -193,30 +199,32 @@ export default {
         case "foshanrenyi":
           return temperatureFSSY;
         case "xiegang":
+        case "qhwy":
           return temperatureDGXG;
-           case "whsl":
+        case "whsl":
           return temperatureWHSL;
-           case "lyyz":
+        case "lyyz":
           return temperatureLYYZ;
-           case "gdtj":
+        case "gdtj":
           return temperatureGDTJ;
         default:
           return temperature;
       }
     },
     // 获取患者信息
-    getPatientInfo(){
-      getPatientInfo(this.$route.query.patientId, this.$route.query.visitId).then(
-        res => {
-          let data = res.data.data || {};
-          let patientInfo = this.$store.state.sheet.patientInfo;
-          //let patientInfo = res.data.data ;
-          //优化访问crNursing/nursingPreview无数据问题问题（由于无admissionDate造成）
-          patientInfo.admissionDate=data.admissionDate;
-          patientInfo.wardCode = data.wardCode;
-          this.$store.commit("upPatientInfo", patientInfo);
-        }
-      );
+    getPatientInfo() {
+      getPatientInfo(
+        this.$route.query.patientId,
+        this.$route.query.visitId
+      ).then(res => {
+        let data = res.data.data || {};
+        let patientInfo = this.$store.state.sheet.patientInfo;
+        //let patientInfo = res.data.data ;
+        //优化访问crNursing/nursingPreview无数据问题问题（由于无admissionDate造成）
+        patientInfo.admissionDate = data.admissionDate;
+        patientInfo.wardCode = data.wardCode;
+        this.$store.commit("upPatientInfo", patientInfo);
+      });
     }
   },
   components: {
