@@ -754,6 +754,8 @@ export default {
         logoName = "智慧护理信息系统";
       } else if (this.HOSPITAL_ID == "quzhou") {
         logoName = "宸瑞普惠智慧护理信息系统";
+      }else if(this.HOSPITAL_ID == "qhwy"){
+        logoName='青海省第五人民医院智慧护理信息系统'
       }
       return logoName;
     },
