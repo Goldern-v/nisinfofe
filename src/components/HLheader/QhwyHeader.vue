@@ -7,27 +7,15 @@
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
             <el-row
-              class="logo-con logo-con-hj"
-              type="flex"
-              align="middle"
-              v-if="HOSPITAL_ID == 'hj'"
-            >
-              <img src="../../common/images/logo_hj.png" />
-              <span> <br />智慧护理信息系统 </span>
-            </el-row>
-            <el-row
               class="logo-con"
               type="flex"
               justify="center"
-              align="middle"
-              v-else
-            >
-              <img src="../../common/images/logo-white-60.png" />
-              <span>{{
-                HOSPITAL_ID == "hj"
-                  ? "百辰源智慧护理信息系统"
-                  : "智慧护理信息系统"
-              }}</span>
+              align="middle">
+              <img src="../../common/images/qhwy_logo.png" />
+              <div>
+                <p>青海省第五人民医院</p>
+                <p>智慧护理信息系统</p>
+              </div>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -402,7 +390,7 @@
     height: 30px;
   }
 
-  span {
+  p {
     margin-left: 6px;
     font-size: 14px;
     color: #EFF2F9;
