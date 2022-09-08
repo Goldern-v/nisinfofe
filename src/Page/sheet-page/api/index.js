@@ -315,3 +315,8 @@ export const  getDeliveryInfo= ( patientId ) => {
     `${apiPath}/form/design/getfyinfo/${patientId}`
   );
 };
+
+// 设置模板
+export const setSheetTemplate = (params) => {
+  return axios.post(`${apiPath}/record/setting/fieldTemplate/save`, params)
+}

@@ -226,6 +226,14 @@
       >
         <div class="text-con">新建记录单</div>
       </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="setAsTemplate"
+        v-if="!isSingleTem && !isDeputy && isShow() && HOSPITAL_ID === 'foshanrenyi'"
+      >
+        <div class="text-con">设为模板</div>
+      </div>
     </template>
       <div
         class="item-box"
@@ -541,6 +549,7 @@ import {
   toPdfPrint,
   blockSave,
   switchAdditionalBlock,
+  setSheetTemplate,
 } from "../../api/index.js";
 import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
@@ -575,6 +584,10 @@ export default {
     isLoad:{//list接口数据是否回来了，回来就显示切换在主副页
       type:Boolean,
       default:false
+    },
+    sheetTitleData: {
+      type: Object,
+      default: {}
     }
   },
   data() {
@@ -1088,6 +1101,24 @@ export default {
         return this.$message.info("请选择一名患者");
       }
       this.$refs.newFormModal.open();
+    },
+    // 设为模板
+    async setAsTemplate() {
+      // console.log('sheetTitleData', this.sheetTitleData)
+      const list = this.sheetTitleData.FieldSetting.map((item, index) => {
+        const options = this.sheetTitleData.Options.filter(
+          (op) => op.fieldEn === item.fieldEn
+        ).map((op) => op.options).join(',')
+        return {
+          recordCode: this.sheetInfo.sheetType,
+          deptCode: this.deptCode,
+          fieldEn: item.fieldEn,
+          fieldCn: item.fieldCn,
+          options
+        }
+      })
+      const res = await setSheetTemplate(list)
+      this.$message.success('设置成功')
     },
     createTemperature() {
       this.$refs.newFormModal.open();
