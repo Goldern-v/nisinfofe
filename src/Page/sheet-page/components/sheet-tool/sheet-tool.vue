@@ -1104,6 +1104,9 @@ export default {
     },
     // 设为模板
     async setAsTemplate() {
+      if (!this.patientInfo.patientId) {
+        return this.$message.info("请选择一名患者");
+      }
       // console.log('sheetTitleData', this.sheetTitleData)
       const list = this.sheetTitleData.FieldSetting.map((item, index) => {
         const options = this.sheetTitleData.Options.filter(
