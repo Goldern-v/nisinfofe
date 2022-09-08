@@ -208,7 +208,7 @@ export default {
       data2Res:[],
       orderText:"",//模糊查询值
       searchHisList:["beihairenyi"],//有模糊查询方法医院
-      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk'], // 需要添加rowType(同一医嘱内第几条记录)的医院
+      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk','ytll'], // 需要添加rowType(同一医嘱内第几条记录)的医院
       specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi'] // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
     };
   },
@@ -300,7 +300,7 @@ export default {
         whfk:'adviceTableWHFK',
         sdlj:"adviceTableSDLJ",
         gdtj:"adviceTableSDLJ",
-        ytll:"adviceTableSDLJ",
+        ytll:"adviceTableWHFK",
         yangchunzhongyi:"adviceTableYc",
         whsl:"adviceTableSDLJ",
         qhwy:"adviceTableSDLJ",
