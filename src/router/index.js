@@ -525,6 +525,7 @@ const router = new Router({
           case 'wujing':
             return temperatureWuJing
           case 'xiegang':
+          case 'qhwy':
             return temperatureDGXG
           case 'whfk':
             return temperatureWHFK
@@ -1027,6 +1028,7 @@ const router = new Router({
               case 'fsxt':
                 return temperatureFSXT
               case 'xiegang':
+              case 'qhwy':
                 return temperatureDGXG
               case 'lyxrm':
               case 'ytll':
@@ -1414,6 +1416,7 @@ const router = new Router({
             case 'beihairenyi':
               return allTemperatureChartBHRY
             case 'xiegang':
+              case 'qhwy':
               return allTemperatureChartDGXG
             case 'whfk':
               return allTemperatureChartWHFK
@@ -1466,6 +1469,7 @@ const router = new Router({
             case "fsxt":
               return newSingleTemperatureChartFSXT;
             case "xiegang":
+            case 'qhwy':
               return newSingleTemperatureChartDGXG;
             case "whfk":
               return newSingleTemperatureChartWHFK;

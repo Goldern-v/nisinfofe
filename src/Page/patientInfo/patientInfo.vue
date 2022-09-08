@@ -55,6 +55,7 @@ import topPartFSSY from "@/Page/patientInfo/supComponts/topPart_FSSY.vue";//佛�
 import topPartLyyz from "@/Page/patientInfo/supComponts/topPart_Lyyz.vue";//佛山市一
 import topPartYC from "@/Page/patientInfo/supComponts/topPart_YC.vue";//阳春中医
 import topPartSdlj from "@/Page/patientInfo/supComponts/topPart_Sdlj.vue";//顺德龙江
+import topPartQhwy from "@/Page/patientInfo/supComponts/topPart_Qhwy.vue";//青海五院
 import topPartWhhk from "@/Page/patientInfo/supComponts/topPart_Whhk.vue";
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import leftPartHengli from "@/Page/patientInfo/supComponts/leftPart_Hengli";
@@ -145,6 +146,7 @@ export default {
         临沂沂州医院: "topPartLyyz",
         佛山市顺德区龙江医院:"topPartSdlj",
         武汉汉口医院: 'topPartWhhk',
+        青海省第五人民医院:'topPartQhwy'
       };
       return hisList[HisName] || "topPart";
     },
@@ -197,6 +199,7 @@ export default {
     topPartLyyz,
     topPartSdlj,
     topPartWhhk,
+    topPartQhwy
   },
 };
 </script>
