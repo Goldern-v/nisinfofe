@@ -262,7 +262,9 @@ export default {
           'gdtj',
           'ytll',
           'whsl',
-          'zhzxy', 'whhk'
+          'zhzxy',
+          'whhk',
+          'nfyksdyy'
         ].includes(this.HOSPITAL_ID)
       ) {
         return bedItemLcey;

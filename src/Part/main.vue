@@ -37,6 +37,7 @@ import QhwyHeader from "@/components/HLheader/QhwyHeader";//广东同江
 import WhslHeader from "@/components/HLheader/WhslHeader";//威海市立
 import ZhzxyHeader from "@/components/HLheader/ZhzxyHeader";//珠海中西医
 import WhhkHeader from "@/components/HLheader/WhhkHeader";
+import nfyksdyyHeader from "@/components/HLheader/nfyksdyyHeader";
 
 export default {
   data() {
@@ -78,6 +79,7 @@ export default {
         威海市立医院: 'WhslHeader',
         珠海市中西医结合医院: 'ZhzxyHeader',
         武汉汉口医院: 'WhhkHeader',
+        南方医科大学顺德医院: 'nfyksdyyHeader',
       };
       return hisList[HisName] || "HLheader";
     },
@@ -113,6 +115,7 @@ export default {
     WhslHeader,
     ZhzxyHeader,
     WhhkHeader,
+    nfyksdyyHeader
   },
 };
 </script>
