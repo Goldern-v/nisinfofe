@@ -173,6 +173,10 @@
       <div class="input-con" v-if="HOSPITAL_ID == 'zhongshanqi'">
         <el-input v-model="data.diagnosis" placeholder="请输入病种"></el-input>
       </div>
+      <div class="input-con" v-if="HOSPITAL_ID === 'wujing'">
+        <el-input v-model="data.companyAddress" placeholder="请输入单位地址"></el-input>
+      </div>
+
     </div>
     </div>
     <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)">
@@ -301,6 +305,7 @@ export default {
         status: "1",//1住院，2出院，3转科
         name: "",
         bedLabel: "",
+        companyAddress:"",
         inpNo: "",
         patientId: "",
         admissionDate: [moment().subtract(30, "days"), new Date()],
