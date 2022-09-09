@@ -52,7 +52,7 @@
             </div>
             <div
               flex="cross:center"
-              class="input-item"
+             
               style="height: 43px"
               v-else
             >
@@ -73,10 +73,10 @@
               <input
                 type="text"
                 :style="{
-                  width: '75px',
-                  'font-size': query.bedLabel.length > 3 ? '24px' : '30px',
+                  width: '94px',
+                  'font-size':'24px',
                   'padding-left': '5px',
-                  'line-height': ' 34px'
+                  'line-height': ' 24px'
                 }"
                 class="bottom-line"
                 :value="query.bedLabel + '床'"
@@ -84,7 +84,7 @@
               <input
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 30px; padding-left: 2px;"
+                style="width: 0px;font-size: 24px; padding-left: 2px;"
                 nowidth
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
@@ -126,7 +126,7 @@
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  style="font-size: 26px"
+                  style="font-size: 24px"
                   v-model="formData.diet"
                   @focus="
                     onFocusToAutoComplete($event, {
@@ -230,7 +230,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 26px"
+                style="font-size: 24px"
                 flex-box="1"
                 class="bottom-line"
                 v-model="formData.mainDoctors"
@@ -249,7 +249,7 @@
                 nowidth
                 flex-box="1"
                 class="bottom-line"
-                style="font-size: 26px"
+                style="font-size: 24px"
                 v-model="formData.dutyNurses"
               />
             </div>
@@ -273,7 +273,7 @@
               ></textarea>
             </div>
           </div>
-          <div style="width: 131px">
+          <div :class="{ 'is-xiegang': HOSPITAL_ID == 'xiegang' }" style="width: 131px">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
             <div :class="{aliCenter:['lyxrm', 'whhk'].includes(HOSPITAL_ID)}">
@@ -411,6 +411,7 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
+  width:350px
 
   .input-item-left {
     display: inline-block;
@@ -545,7 +546,7 @@ input[type='checkbox']:checked:after {
   height: 51px;
   padding: 0 5px 0 5px;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   font-size: 17px;
 
   img {
@@ -572,6 +573,13 @@ label {
   label {
     font-size: 17px;
   }
+}
+.is-xiegang {
+  position: absolute;
+  top: 59px;
+  right: 10px;
+  z-index: 100;
+  background: #fff;
 }
 </style>
 
