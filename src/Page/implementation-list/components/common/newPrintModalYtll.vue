@@ -7,7 +7,7 @@
   > -->
     <div
       class="new-print-modal"
-      style="width:7cm;height:6.95cm"
+      style="width:7cm;height:6.99cm"
     >
       <div class="new-modal-top">
         <div class="new-modal-top-left">
@@ -116,18 +116,19 @@
     .new-modal-top-left {
       display: inline-block;
       box-sizing: border-box;
-      width: calc(100% - 80px);
+      width: calc(100% - 75px);
       .new-modal-top-left-first {
-        display: flex;
-        justify-content: center;
-        box-sizing: border-box;
-        height: 30px;
+        /* display: flex;
+        justify-content: center; */
+        /* box-sizing: border-box; */
+        height: 29px;
         // background-color: #000;
         border-bottom: 1px solid #000;
         & > div {
+          white-space: nowrap;
           text-align: center;
           line-height: 29px;
-          font-size: 27px;
+          font-size: 25px;
           font-weight: 900;
         }
         div + div {
@@ -135,20 +136,22 @@
         }
       }
       .new-modal-top-left-second {
-        height: 20px;
-        line-height: 20px;
-        display: flex;
-        justify-content: space-between;
+        height: 19px;
+        line-height: 19px;
+        /* display: flex; */
+        /* justify-content: space-between; */
         border-bottom: 1px solid #000;
-        box-sizing: border-box;
         white-space: nowrap;
         &:last-child {
           border-bottom: 0;
         }
+        div {
+          display: inline-block;
+        }
       }
     }
     .new-modal-top-right {
-      width: 62px;
+      width: 65px;
       display: inline-block;
       .new-modal-top-right-top {
         box-sizing: border-box;
@@ -169,7 +172,7 @@
     border-top: 1px solid #000;
     font-weight: 700;
     width: 100%;
-    height: calc(100% - 70px);
+    height: calc(100% - 71px);
     box-sizing: border-box;
     .new-modal-bottom-first {
       line-height: 16px;
@@ -182,9 +185,11 @@
     }
     .new-modal-bottom-second {
       width: 100%;
+      /* font-size: 17px; */
+      padding-right: 10px;
       /* display: flex; */
       text-align: right;
-      line-height: 21px;
+      line-height: 20px;
       border-top: 1px solid #000;
       /* div:first-child {
         border-right: 1px solid #000;
@@ -277,7 +282,7 @@ export default {
         dosageDosageUnits.push(content);
       });
       let qr_png_value = this.itemObj[0].barCode;
-      var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: 1 });
+      var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: 3 });
       // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";

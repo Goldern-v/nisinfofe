@@ -1,7 +1,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require("path");
 var chalk = require("chalk");
-var envAll = require("./env.all");
+var envAll = require("../config-new/env.all");
 var merge = require("webpack-merge");
 // crNursing  argv
 var _origin = process.env.npm_config_argv ? JSON.parse(process.env.npm_config_argv).original : '';
@@ -38,151 +38,151 @@ console.log(
 
 const HOSPITAL_ID = devEnv.HOSPITAL_ID.replace(/"/g, '');
 const currentTargetUrl = (() => {
-    switch (HOSPITAL_ID) {
-        /** 厚街 */
-        case "hj":
-            // return "http://120.197.141.41:9091" //厚街正式
-            // return "http://120.197.141.41:9094" //东莞正式库的测试
-            // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
-            return "http://192.168.1.54:9866" // 公司-厚街测试-内网
-                // return "http://192.168.20.83:8080" // 彬哥本地
+  switch (HOSPITAL_ID) {
+    /** 厚街 */
+    case "hj":
+      // return "http://120.197.141.41:9091" //厚街正式
+      // return "http://120.197.141.41:9094" //东莞正式库的测试
+    // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
+    return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+      // return "http://192.168.20.83:8080" // 彬哥本地
 
-            /** 威县 */
-        case "weixian":
-            // return "http://211.143.127.136:9093" //威县正式
-            // return "http://wxzf.hbwxrmyy.com:9093" //威县正式 admin  ad123456
-            return "http://192.168.1.54:9865" // 公司-威县测试-内网
+    /** 威县 */
+    case "weixian":
+      // return "http://211.143.127.136:9093" //威县正式
+      // return "http://wxzf.hbwxrmyy.com:9093" //威县正式 admin  ad123456
+      return "http://192.168.1.54:9865" // 公司-威县测试-内网
 
-            /** 陵城正式 */
-        case "lingcheng":
-            // return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
-            // return "https://info.cr-health.com:20204" // 公司-陵城测试-外网
-            // return "http://192.168.1.54:9867" // 公司-陵城测试-内网
-            // return "http://192.168.1.54:9867" // 公司-陵城测试-内网 admin 123456
-            return "http://192.168.1.54:9866" // 公司-陵城测试-内网
-                // return "http://192.168.20.63:8080" // 初升本地
-
-
-            /** 花都 */
-        case "huadu":
-            return "http://120.238.239.27:9094" //花都正式
-                // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
-                // return "http://192.168.20.93:8080" // 初升本地
-                // return "http://192.168.20.82:8080" // 大双本地
-                // return "http://192.168.1.54:9868" //公司-花都测试-内网
-
-            /** 贵州医科大正式 */
-        case "gy":
-            return "http://58.42.249.209:17953" //贵州医科大正式
-
-            /** 聊城 */
-        case "liaocheng":
-            return "http://120.224.211.7:61026" //聊城正式
-                // return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
-                // return "http://192.168.1.54:9871" //公司-聊城测试-内网
-                // return "http://192.168.2.122:8080" // 初升本地
-                // return "http://192.168.20.83:8080"  //伟彬本地
+    /** 陵城正式 */
+    case "lingcheng":
+      // return "http://120.224.184.10:9094" // 陵城正式正式   1520   654321
+      // return "https://info.cr-health.com:20204" // 公司-陵城测试-外网
+      // return "http://192.168.1.54:9867" // 公司-陵城测试-内网
+      // return "http://192.168.1.54:9867" // 公司-陵城测试-内网 admin 123456
+      return "http://192.168.1.54:9866" // 公司-陵城测试-内网
+      // return "http://192.168.20.63:8080" // 初升本地
 
 
+    /** 花都 */
+    case "huadu":
+      return "http://120.238.239.27:9094" //花都正式
+      // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
+      // return "http://192.168.20.93:8080" // 初升本地
+      // return "http://192.168.20.82:8080" // 大双本地
+      // return "http://192.168.1.54:9868" //公司-花都测试-内网
 
-            /** 江门妇幼 */
-        case "fuyou":
-            return "http://218.14.180.38:9094" // 江门妇幼正式
-                // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
-                // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
-                // return "http://192.168.20.82:8080" // 本地
+    /** 贵州医科大正式 */
+    case "gy":
+      return "http://58.42.249.209:17953" //贵州医科大正式
+
+    /** 聊城 */
+    case "liaocheng":
+      return "http://120.224.211.7:61026" //聊城正式
+      // return "https://info.cr-health.com:20209" // 公司-聊城测试-外网
+      // return "http://192.168.1.54:9871" //公司-聊城测试-内网
+      // return "http://192.168.2.122:8080" // 初升本地
+      // return "http://192.168.20.83:8080"  //伟彬本地
 
 
-            /** 中山七 */
-        case "zhongshanqi":
-            // return "http://119.136.20.125:9094" // 中山七正式
-            return "http://192.168.1.54:9873" // 公司-中山七测试-内网
 
-            /** 东莞横沥 */
-        case "hengli":
-            // return "http://183.63.206.194:9091" // 东莞横沥正式
-            return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
-                // return "http://192.168.20.138:8080" // 伟彬本地
-                // return "http://192.168.20.250:8080" // 初升本地
-                // return "http://192.168.20.93:8062"
+    /** 江门妇幼 */
+    case "fuyou":
+      return "http://218.14.180.38:9094" // 江门妇幼正式
+      // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
+      // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
+      // return "http://192.168.20.82:8080" // 本地
 
-            /** 南方中西医 */
-        case "nanfangzhongxiyi":
-            // return "http://218.107.37.134:9091" // 南方中西医正式
-            // return "http://192.168.1.54:9876" // 公司-南方中西医测试-内网
-            return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
-                // return 'http://192.168.20.62:8080'
 
-            /** 贵州省人民医院 */
-        case "guizhou":
-            // return "http://183.63.206.194:9091" // 贵州省人民医院
-            return "http://192.168.1.54:9875" // 公司-贵州省人民医院-内网
-                // return "https://info.cr-health.com:20203" // 公司-贵州省人民医院-外网
-                // return "http://192.168.8.204:9091" // 贵州正式
-                // return "http://10.207.40.24:9091" // 贵州测试
-                // return "http://info.cr-health.com:20111" // 公司-厚街测试-外网
-                // return "http://192.168.1.54:9867"
-                /** 山南市人民医院 */
-        case "shannan":
-            // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
-            return "http://192.168.1.54:9878" // 公司-山南市人民医院测试-内网
-                /** 武警广东省总队医院 */
-        case "wujing":
-            return 'http://14.18.101.182:9094' // crph3675 crph
-                // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
-            return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
-                // return "http://192.168.20.187:8080" // 杨鑫本地
-                // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式  crph3675 crph
+    /** 中山七 */
+    case "zhongshanqi":
+      // return "http://119.136.20.125:9094" // 中山七正式
+      return "http://192.168.1.54:9873" // 公司-中山七测试-内网
 
-            /** 曲周医院 */
-        case 'quzhou':
-            return "http://111.11.95.229:9094" //正式地址 admin Bcy@23nr.
-                // return "http://192.168.1.54:9879" // 内网测试
+    /** 东莞横沥 */
+    case "hengli":
+      // return "http://183.63.206.194:9091" // 东莞横沥正式
+      return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
+      // return "http://192.168.20.138:8080" // 伟彬本地
+      // return "http://192.168.20.250:8080" // 初升本地
+      // return "http://192.168.20.93:8062"
 
-        case 'xiegang':
-            // return "http://183.234.1.124:9093" // 谢岗正式
-            return "http://192.168.1.54:9882" // 测试地址-内网地址
-                // return "http://192.168.20.223:8080" // 初升本地
-                // return "http://192.168.20.147:8080" // 树鹏本地
-                // 北海人医
-        case 'beihairenyi':
-            return "http://219.159.198.37:9094" // 正式地址 bhrmyy 123456
-                // return "http://192.168.20.45:8080" // 伟彬本地
-                // return "http://192.168.1.54:9877" // 公司内网测试环境
-                // return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
+    /** 南方中西医 */
+    case "nanfangzhongxiyi":
+      // return "http://218.107.37.134:9091" // 南方中西医正式
+      // return "http://192.168.1.54:9876" // 公司-南方中西医测试-内网
+      return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
+      // return 'http://192.168.20.62:8080'
 
-            // 佛山市医
-        case 'foshanrenyi':
-            //  return "http://192.168.20.93:8080"
-            // return "https://cr.fsyyy.com:9094"  // 正式外网地址
-            // return "https://cr.fsyyy.com:9094"  // 正式地址
-            // return "http://192.168.20.147:9091"  // 双艳
-            return "http://192.168.1.54:9883" // 默认公司本地内网厚街
-                // return "http://192.168.20.102:8080" // 初升测试本地内网
-            return "http://192.168.20.102:8080" //宪锋本地地址
+    /** 贵州省人民医院 */
+    case "guizhou":
+      // return "http://183.63.206.194:9091" // 贵州省人民医院
+      return "http://192.168.1.54:9875" // 公司-贵州省人民医院-内网
+      // return "https://info.cr-health.com:20203" // 公司-贵州省人民医院-外网
+      // return "http://192.168.8.204:9091" // 贵州正式
+      // return "http://10.207.40.24:9091" // 贵州测试
+      // return "http://info.cr-health.com:20111" // 公司-厚街测试-外网
+      // return "http://192.168.1.54:9867"
+    /** 山南市人民医院 */
+    case "shannan":
+      // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
+      return "http://192.168.1.54:9878" // 公司-山南市人民医院测试-内网
+    /** 武警广东省总队医院 */
+    case "wujing":
+      return 'http://14.18.101.182:9094' // crph3675 crph
+      // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
+      return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
+      // return "http://192.168.20.187:8080" // 杨鑫本地
+      // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式  crph3675 crph
 
-            // 福清妇幼保健院
-        case 'fqfybjy':
-            return 'http://110.90.211.113:9091/' // 正式
-                // return "http://192.168.1.54:9866" // 默认公司本地内网厚街
+    /** 曲周医院 */
+    case 'quzhou':
+      return "http://111.11.95.229:9094" //正式地址 admin Bcy@23nr.
+      // return "http://192.168.1.54:9879" // 内网测试
 
-            // 佛山杏坛
-        case 'fsxt':
-            return "http://218.13.87.27:9094" // 正式地址 admin Bcy@23nr
-                // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
-                // return "http://192.168.3.226:8080" // 初升本地
-        case 'yangchunzhongyi': //阳春
-            return "http://192.168.1.54:9866" // 默认公司本地内网厚街
-        case 'whyx': //武汉亚心
-            return "http://192.168.1.54:9866" // 武汉亚心
+    case 'xiegang':
+      // return "http://183.234.1.124:9093" // 谢岗正式
+      return "http://192.168.1.54:9882" // 测试地址-内网地址
+      // return "http://192.168.20.223:8080" // 初升本地
+      // return "http://192.168.20.147:8080" // 树鹏本地
+    // 北海人医
+    case 'beihairenyi':
+      return "http://219.159.198.37:9094"  // 正式地址 bhrmyy 123456
+      // return "http://192.168.20.45:8080" // 伟彬本地
+      // return "http://192.168.1.54:9877" // 公司内网测试环境
+      // return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
+
+    // 佛山市医
+     case 'foshanrenyi':
+      //  return "http://192.168.20.93:8080"
+      // return "https://cr.fsyyy.com:9094"  // 正式外网地址
+      // return "https://cr.fsyyy.com:9094"  // 正式地址
+      // return "http://192.168.20.147:9091"  // 双艳
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://192.168.20.102:8080" // 初升测试本地内网
+      // return "http://192.168.20.102:8080" //宪锋本地地址
+
+    // 福清妇幼保健院
+    case 'fqfybjy':
+      return 'http://110.90.211.113:9091/' // 正式
+      // return "http://192.168.1.54:9866" // 默认公司本地内网厚街
+
+      // 佛山杏坛
+    case 'fsxt':
+      return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@23nr
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://192.168.3.226:8080" // 初升本地
+    case 'yangchunzhongyi':  //阳春
+      return "http://192.168.1.54:9866" // 默认公司本地内网厚街
+    case 'whyx':  //武汉亚心
+      return "http://192.168.1.54:9866" // 武汉亚心
 
     case 'whfk':  //武汉肺科
       return "http://192.168.1.54:9884" // 测试
       // return "http://192.168.3.226:8080" // 初升本地
     case 'sdlj':  //顺德龙江
-      return "http://192.168.1.54:9887" // 顺德龙江内网测试
+    //   return "http://192.168.1.54:9887" // 顺德龙江内网测试
       // return "http://192.168.3.226:8080" // 初升本地
-      // return "http://218.13.34.230:9094" //正式
+      return "http://218.13.34.230:9094" //正式
       // return "https://cr.fsyyy.com:9094" //佛山人医正式
       // return "http://218.13.87.27:9094"
     // 临邑县人民

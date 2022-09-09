@@ -192,9 +192,6 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <router-link to="/sugarPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
-            </router-link>
             <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理计划单</el-row
@@ -832,6 +829,13 @@ export default {
         path.includes("sheetHospitalAdmission") ||
         path.includes("sheetHospitalEval") ||
         path.includes("MEWS")
+      );
+    },
+    isImplementation(){
+      let path = this.$route.path;
+      return (
+        path.includes("bottleLabelByProgram") ||
+        path.includes("implementationList")
       );
     }
   },

@@ -19,3 +19,37 @@ export const getBytesLength = (text) => {
  });
  return totalLength;
 }
+
+/**
+ * 根据医院id返回数据
+ * @param {*} config {
+ *   map: {
+ *     默认选项 other
+ *     other?: any,
+ *     默认选项 all
+ *     all?: any,
+ *     默认选项 default
+ *     default?: any,
+ *     [p: string]: any
+ *   },
+ *   当前医院id或状态 默认为系统医院id
+ *   currentHospitalId?: string,
+ *   是否可以归类
+ *   vague?: boolean
+ * }
+ * @returns
+ */
+export const hisMatch = (config) => {
+  const { map, currentHospitalId, vague = true } = config
+  let _currentHospitalId = currentHospitalId || process.env.HOSPITAL_ID
+  if (vague) {
+    for (let hospitalId in map) {
+      if (hospitalId.split(',').indexOf(_currentHospitalId) >= 0)
+        return map[hospitalId]
+    }
+  } else {
+    if (Object.keys(map).indexOf(_currentHospitalId) >= 0) return map[_currentHospitalId]
+  }
+
+  return map["other"] || map["all"] || map["default"] || null
+}

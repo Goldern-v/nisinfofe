@@ -202,7 +202,7 @@
           <!-- 收藏的评估单标记 -->
          <span class="likePng"  v-if="HOSPITAL_ID=='foshanrenyi'">
                 <img 
-                 v-if="e.collectionDept&&e.collectionUser"
+                 v-if="e.collectionDept && (e.collectionUser.indexOf(activeUser)!=-1)"
                  src="@/common/images/card/like.png" 
                  style="height:13px"
                  alt
@@ -229,7 +229,7 @@
         <!--   !! 为了转Boolean-->
         <el-button 
           class="modal-btn" 
-          :disabled="!selectData || !!!selectData.collectionUser"
+          :disabled="!selectData || !!!(selectData.collectionUser.indexOf(activeUser)!=-1)"
           @click.stop="cancelCollectAssessment"
           v-if="HOSPITAL_ID=='foshanrenyi'"
          >取消收藏
@@ -237,7 +237,7 @@
         <el-button 
           class="modal-btn" 
           type="primary"
-          :disabled="!selectData || !!selectData.collectionUser"
+          :disabled="!selectData || !!(selectData.collectionUser.indexOf(activeUser)!=-1)"
           @click.stop="collectAssessment"
           v-if="HOSPITAL_ID=='foshanrenyi'"
         >
@@ -583,12 +583,12 @@ export default {
   },
   methods: {
    async collectAssessment(){
-      await collectAssessmentForm(this.deptCode,JSON.parse(localStorage.getItem('user')).empNo,this.selectData.formCode)
+      await collectAssessmentForm(this.deptCode,this.activeUser,this.selectData.formCode)
       this.selectData=''
       this.open()
     },
    async cancelCollectAssessment(){
-      await unCollectAssessmentForm(this.deptCode,JSON.parse(localStorage.getItem('user')).empNo,this.selectData.formCode)
+      await unCollectAssessmentForm(this.deptCode,this.activeUser,this.selectData.formCode)
       this.selectData=''
       this.open()
     },
@@ -812,6 +812,9 @@ export default {
     },
   },
   computed: {
+    activeUser(){
+      return JSON.parse(localStorage.getItem('user')).empNo
+    },
     filterData() {
       if (this.searchWord) {
         this.selectData = "";

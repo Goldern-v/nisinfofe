@@ -41,7 +41,10 @@ let sshUpload = (
     广东同江医院: "tongjiang",
     玲珑英诚医院: "ytll",
     威海市立医院: "weihai",
+    临沂沂州医院: 'yizhou',
     珠海市中西医结合医院: "zhuhaizhongxiyi",
+    武汉汉口医院: "wuhanhankou",
+    南方医科大学顺德医院: "nanfangyikeshundeyiyuan",
   };
   let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {

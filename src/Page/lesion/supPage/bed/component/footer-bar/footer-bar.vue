@@ -84,11 +84,11 @@ export default {
           length: this.dangerInMorse.length
         },
         {
-          key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ? "压力性损伤高风险" : this.HOSPITAL_ID=="lyxrm" ?"压力性损伤高风险":"压疮高风险",
+          key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ? "压力性损伤高风险" : ['lyxrm', 'whhk'].includes(this.HOSPITAL_ID) ?"压力性损伤高风险":"压疮高风险",
           length: this.HOSPITAL_ID=="whfk" ? this.hasYachuang.length : this.dangerInYachuang.length
         },
         {
-          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ?"已有压力性损伤": this.HOSPITAL_ID=="lyxrm" ?"已有压力性损伤风险" : "已有压疮",
+          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ?"已有压力性损伤": ['lyxrm', 'whhk'].includes(this.HOSPITAL_ID) ?"已有压力性损伤风险" : "已有压疮",
           length: this.hasYachuang.length
         },
         {
@@ -137,7 +137,7 @@ export default {
           length: this.hasVteDanger.length
         });
       }
-      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'whhk'].includes(this.HOSPITAL_ID)) {
         arr.splice(1,0,
           {
           key: "VTE高风险",

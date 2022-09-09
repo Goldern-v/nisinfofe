@@ -81,6 +81,14 @@
             打印床头卡
           </div>
           <div
+              v-if="HOSPITAL_ID ==='foshanrenyi'"
+              class="print-btn"
+              flex="cross:center main:center"
+              @click="openOcx"
+             >
+            临床路径
+          </div>
+          <div
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint('v')"
@@ -353,6 +361,10 @@ export default {
   methods: {
     toOpenLeft() {
       this.$store.commit("common/upOpenLeft", !this.openLeft);
+    },
+    openOcx(){
+      const {patientId,visitId,wardCode}=this.info
+      window.open(`/ocxObject?patientId=${patientId}&visitId=${visitId}&cpIncludeDeptCode=${wardCode}`)
     },
     // 床头卡打印
     openBedPrint(printMode) {

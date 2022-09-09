@@ -1302,7 +1302,7 @@ export default {
         }
         var reg = /[a-zA-Z]+/;  //[a-zA-Z]表示匹配字母，g表示全局匹配
         if(this.HOSPITAL_ID=='fsxt') data.sort((a, b) => Number(a.bedLabel.replace(reg,'')) - Number(b.bedLabel.replace(reg,'')));
-         return Array.from(new Set([...data]))
+        return Array.from(new Set([...data]))
       },
       set(value) {
         // this.tableData = value;
