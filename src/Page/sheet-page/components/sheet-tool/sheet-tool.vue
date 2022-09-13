@@ -155,14 +155,6 @@
       >
         <div class="text-con">添加新页</div>
       </div>
-      <!-- <div class="item-box" flex="cross:center main:center" flex-box="1" @click="emit('delSheetPage')">
-            <div class="icon-box">
-              <i class="icon-shanchu1 iconfont" style="font-size: 14px;color:#E55E01;"></i>
-            </div>
-            <div class="text-con">
-              删除记录单
-            </div>
-      </div>-->
       <div
         class="item-box"
         flex="cross:center main:center"
@@ -198,9 +190,6 @@
       >
         <div class="text-con">打印预览</div>
       </div>
-      <!-- <div class="item-box" flex="cross:center main:center" @click="toAllPrint">
-        <div class="text-con">批量打印</div>
-      </div>-->
       <div
         v-if="!isDeputy"
         class="item-box"
@@ -301,16 +290,7 @@
       >
         <div class="text-con">体温曲线</div>
       </div>
-      <!-- <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click.stop="createTemperature"
-        v-else
-      >
-        <div class="text-con">新建体温单</div>
-      </div> -->
       <div flex-box="1"></div>
-      <!-- <span class="label">护理记录：</span> -->
       <el-select
         v-if="!isDeputy"
         v-model="sheetInfo.selectBlock"
@@ -325,7 +305,6 @@
             <div class="col-2">科室</div>
             <div class="col-3">开始时间</div>
             <div class="col-4">页码</div>
-            <!-- <div class="col-3">结束时间</div> -->
           </div>
           <el-option
             v-for="item in sheetBlockList"
@@ -391,12 +370,6 @@
           电子病历
         </div>
       </div>
-      <!-- <div class="item-box" flex="cross:center main:center" @click="tofull">
-            <div class="text-con">
-              <span v-if="fullpage">关闭全屏</span>
-              <span v-else>全屏</span>
-            </div>
-      </div>-->
       <div style="width: 5px"></div>
       <div
         class="right-btn"
@@ -427,7 +400,7 @@
           class="right-btn"
           flex="cross:center main:center"
           @click="emit('openEvalModel')"
-          v-if="showCrl && !isSingleTem_LCEY && !isDeputy"
+          v-if="!isSingleTem_LCEY && !isDeputy && HOSPITAL_ID != 'foshanrenyi'"
         >
           <div class="text-con">
             <img src="./images/评估.png" alt />
@@ -467,7 +440,6 @@
           HOSPITAL_ID == 'quzhou' ||
           HOSPITAL_ID == 'weixian' ||
           HOSPITAL_ID == 'liaocheng'||
-          HOSPITAL_ID == 'foshanrenyi'||
           HOSPITAL_ID == 'whfk' ||
           HOSPITAL_ID == 'whhk' ||
           HOSPITAL_ID == 'lyxrm'
@@ -546,8 +518,8 @@ import { Tr } from "../render/Body.js";
 import {
   blockList,
   blockDelete,
-  toPdfPrint,
-  blockSave,
+  // toPdfPrint,
+  // blockSave,
   switchAdditionalBlock,
   setSheetTemplate,
 } from "../../api/index.js";
@@ -1057,15 +1029,9 @@ export default {
                 default:
                   break;
               }
-              // return this.HOSPITAL_ID === "huadu" ||
-              //   this.HOSPITAL_ID === "wujing"
-              //   ? item.recordCode === "body_temperature_Hd"
-              //   : item.recordCode === "body_temperature_lcey";
-              // return item.recordCode == "body_temperature_Hd";
             });
           } else {
             this.sheetBlockList = list.filter((item) => {
-              // return item.recordCode != "body_temperature_Hd";
               return (
                 (item.recordCode != "body_temperature_Hd") &
                 (item.recordCode != "body_temperature_hj") &
@@ -1104,6 +1070,9 @@ export default {
     },
     // 设为模板
     async setAsTemplate() {
+      if (!this.patientInfo.patientId) {
+        return this.$message.info("请选择一名患者");
+      }
       // console.log('sheetTitleData', this.sheetTitleData)
       const list = this.sheetTitleData.FieldSetting.map((item, index) => {
         const options = this.sheetTitleData.Options.filter(
@@ -1122,16 +1091,6 @@ export default {
     },
     createTemperature() {
       this.$refs.newFormModal.open();
-      // blockSave(
-      //   this.patientInfo.patientId,
-      //   this.patientInfo.visitId,
-      //   this.deptCode,
-      //   this.sheetInfo.sheetType
-      // ).then((res) => {
-      //   this.bus.$emit("getBlockList");
-      //   this.$message.success("创建成功");
-      //   this.bus.$emit("setSheetTableLoading", true);
-      // });
     },
     delSheet() {
       if (!this.sheetInfo.selectBlock.id)
@@ -1176,11 +1135,6 @@ export default {
       } else {
         this.$message.warning("没有可以打印的护理记录单");
       }
-
-      // toPdfPrint(false).then(res => {
-
-      //   // console.log(res, "res");
-      // });
     },
     openTztbModal() {
       if (this.readOnly) {
@@ -1316,7 +1270,6 @@ export default {
       switch (this.HOSPITAL_ID) {
         case "huadu":
           return temperatureHD;
-          break;
         default:
           break;
       }

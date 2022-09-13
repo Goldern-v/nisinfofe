@@ -33,11 +33,7 @@
         <div class="nav-item" v-else>护理文书</div>
       </router-link>
       <router-link
-        v-if="
-          HOSPITAL_ID == 'hj' ||
-            HOSPITAL_ID == 'fuyou' ||
-            HOSPITAL_ID == 'liaocheng'
-        "
+        v-if="['hj','fuyou','liaocheng','sdlj'].includes(HOSPITAL_ID) "
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -46,6 +42,12 @@
       >
         <div class="nav-item">病历</div>
       </router-link>
+      <!-- <span v-if="['hj'].includes(HOSPITAL_ID)">
+        <a
+          class="nav-item no-under-link"
+          :href="`openIE:http://10.35.0.135:9080/htweb/ShowInpatientInfo.jsp?ipid=${query.patientId}~${query.visitId}`"
+        >病历(新)</a>
+      </span> -->
       <router-link
         :to="{
           path: '/sheetNursingOrder',
@@ -64,8 +66,16 @@
       >
         <div class="nav-item">护理记录单</div>
       </router-link>
-      <!-- <router-link
-        v-if="!['beihairenyi'].includes(this.HOSPITAL_ID)"
+      <router-link
+        :to="{
+          path: '/temperature',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">体温单</div>
+      </router-link>
+      <router-link
         :to="{
           path: '/hospitalEval',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -73,16 +83,7 @@
         tag="span"
       >
         <div class="nav-item">住院日常评估</div>
-      </router-link> -->
-      <!-- <router-link
-        :to="{
-          path: '/catheter',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">导管</div>
-      </router-link> -->
+      </router-link>
       <router-link
         :to="{
           path: '/diagnosis',
@@ -90,7 +91,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理诊断计划</div>
+        <div class="nav-item">护理计划</div>
       </router-link>
       <router-link
         :to="{
@@ -139,15 +140,6 @@
       </router-link>
       <router-link
         :to="{
-          path: '/doctorEmr',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">病历</div>
-      </router-link>
-      <router-link
-        :to="{
           path: '/inspect',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
@@ -164,41 +156,12 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
-      <!-- <router-link to="/dev" tag="span">
-        <div class="nav-item">手术</div>
-      </router-link>-->
-      <!-- <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
-        <div class="nav-item">会诊</div>
-      </router-link>-->
-      <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
-        <div class="nav-item">护理记录单</div>
-      </router-link>-->
-      <router-link
-        :to="{
-          path: '/temperature',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">体温单</div>
-      </router-link>
-      <router-link
-        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
-        tag="span"
-      >
-        <div class="nav-item">患者360</div>
-      </router-link>
-      <router-link
-        :to="{path:'/patientNursingRound', query: {patientId:query.patientId, visitId: query.visitId}}"
-        tag="span"
-      >
-        <div class="nav-item">护理巡视</div>
-      </router-link>
+
     </div>
     <div style="height: 50px"></div>
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped> 
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .logo-con {
   width: 200px;
   min-width: 200px;
@@ -256,9 +219,24 @@
     border-radius: 4px 4px 0 0;
   }
 }
+.nav-item-shouma {
+  height: 37px;
+  line-height: 37px;
+  padding: 0 10px;
+  font-size: 13px;
+  color: #687179;
+  letter-spacing: 0.26px;
+  float: left;
+  cursor: pointer;
+}
+.no-under-link{
+  text-decoration: none;
+}
 </style>
 <script>
 import common from "@/common/mixin/common.mixin";
+import qs from "qs"
+import { mapState } from 'vuex';
 export default {
   mixins: [common],
   data() {
@@ -270,8 +248,54 @@ export default {
     query() {
       let query = this.$route.query;
       return query;
-    }
+    },
+    ...mapState({
+      patient: (state) => state.patient.currentPatient
+      })
   },
-  components: {}
+  components: {},
+  methods: {
+    openNewPage(key) {
+      if (key) {
+        this[key]()
+      }
+    },
+    // （顺德龙江）手麻记录单（第三方链接）
+    toHandNumbness() {
+      window.open(`http://192.168.100.9:8280/trackao/basedata/userLoginForClient.action?id=1668&password=123&resultCode=getTrackaoAnaesRecordPDF&hisId=${this.query.inpNo}`)
+    },
+    // 医膳通
+    toYst() {
+      const {
+        deptCode,
+        name: patName,
+        sex: patSex,
+        patientId: tfHospNo,
+        deptCode: patDeptCode,
+        idNo: patCardid,
+        patientId: tfHospitalIdentity
+        } = this.patient
+      const obj = {
+        userLoginId: this.empNo,
+        deptCode,
+        userName: this.empName,
+        patName,
+        patSex: this.formatValue(patSex, {'男': 'M', '女': 'F', default: 0}),
+        tfHospNo,
+        tfType: 1,
+        patCardid,
+        patDeptCode,
+        doctorRoleType: 2,
+        tfHospitalIdentity,
+        routeName: 'NutritionScreening',
+        isUpdateDept: 1
+      }
+      let url = `http://192.168.10.66:20000/#/tranView?${qs.stringify(obj)}`
+      window.open(url)
+    },
+    formatValue(value, obj) {
+      return obj[value] || obj['default']
+    }
+  }
 };
 </script>
