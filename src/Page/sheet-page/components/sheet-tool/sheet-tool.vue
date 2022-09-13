@@ -218,7 +218,7 @@
       <div
         class="item-box"
         flex="cross:center main:center"
-        @click.stop="setAsTemplate"
+        @click.stop="openSelectTmp"
         v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
       >
         <div class="text-con">设为模板</div>
@@ -478,6 +478,7 @@
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
     <rltbModal ref="rltbModal" :blockId="blockId"></rltbModal>
+    <selectPageModal ref="tmpModal" @setAsTemplate="setAsTemplate"></selectPageModal>
     <zxdtbModal
       ref="zxdtbModal"
       :blockId="blockId"
@@ -531,6 +532,7 @@ import zxdtbModal from "../modal/zxdtb-modal.vue";
 import rltbModal from "../modal/rltb-modal.vue";
 import RltbNfzxyModal from "../modal/rltb-nfzxy-modal.vue";
 import patientInfoModal from "./modal/patient-info-modal";
+import selectPageModal from './modal/selectPageModal.vue'
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
@@ -1076,15 +1078,25 @@ export default {
       }
       this.$refs.newFormModal.open();
     },
-    // 设为模板
-    async setAsTemplate() {
+    // 设为模板(打开选择弹框)
+    openSelectTmp() {
       if (!this.patientInfo.patientId) {
         return this.$message.info("请选择一名患者");
       }
-      // console.log('sheetTitleData', this.sheetTitleData)
-      const list = this.sheetTitleData.FieldSetting.map((item, index) => {
+      if (this.sheetTitleData.FieldSetting && this.sheetTitleData.FieldSetting.length) {
+        const maxPage = Math.max(...this.sheetTitleData.FieldSetting.map(item => item.pageIndex)) + 1
+        this.$refs.tmpModal.open(maxPage)
+      } else {
+        return this.$message.info("无自定义表头，无法设置为模板");
+      }
+    },
+    // 设为模板
+    async setAsTemplate(selectPage) {
+      const list = this.sheetTitleData.FieldSetting.filter(
+        item => item.pageIndex === selectPage
+      ).map((item, index) => {
         const options = this.sheetTitleData.Options.filter(
-          (op) => op.fieldEn === item.fieldEn
+          (op) => op.fieldEn === item.fieldEn && op.pageIndex === selectPage
         ).map((op) => op.options).join(',')
         return {
           recordCode: this.sheetInfo.sheetType,
@@ -1095,6 +1107,7 @@ export default {
         }
       })
       const res = await setSheetTemplate(list)
+      this.$refs.tmpModal.close()
       this.$message.success('设置成功')
     },
     createTemperature() {
@@ -1467,6 +1480,7 @@ export default {
     temperatureHD,
     RltbNfzxyModal,
     demonstarationLevca,
+    selectPageModal,
   },
 };
 </script>

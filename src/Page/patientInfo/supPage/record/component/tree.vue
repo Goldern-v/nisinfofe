@@ -766,8 +766,7 @@ export default {
           });
           let pages = String(
             pageIndex.find((item) => item !== undefined)
-          ).split("")[1];
-          console.log('打印页码作者吱吱吱吱吱吱吱吱吱吱吱吱', pages, pageIndex)
+          ).substring(1);
           return h("span", { class: { "tree-node": true }, style: pageStyle }, [
             h("img", { attrs: { src: icon } }),
             h("span", {}, `第${pages}页`),
