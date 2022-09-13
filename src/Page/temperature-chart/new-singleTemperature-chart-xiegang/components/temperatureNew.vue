@@ -12,7 +12,7 @@
       </div> -->
 
       <div :class="rightSheet===true?'pagination':'paginationRight'">
-               <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
+              <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
           首周
         </button>
         <button :disabled="currentPage === 1" @click="currentPage--">
@@ -78,6 +78,8 @@ export default {
     queryTem: Object,
   },
   data() {
+    const ipUrl = "http://10.45.0.176:9091"
+    const qhwyIpUrl = "http://10.177.128.74:9091"
     return {
       bus: bus(this),
       date: "",
@@ -92,11 +94,8 @@ export default {
       showTemp: true, //默认选择标准的体温单曲线
       visibled: false,
       isPrintAll: false, //是否打印所有
-       intranetUrl:
-        // "http://192.168.1.72:8080/#/" /* 医院正式环境内网 导致跨域 */,
-        "http://10.45.0.176:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
-      printAllUrl:
-        "http://10.45.0.176:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+      intranetUrl:`${this.HOSPITAL_ID=='qhwy'?qhwyIpUrl:ipUrl}/temperature/#/` /* 青海五院跟谢岗共用医院正式环境内网 导致跨域 */,
+      printAllUrl:`${this.HOSPITAL_ID=='qhwy'?qhwyIpUrl:ipUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
     };
   },
   methods: {
@@ -180,7 +179,7 @@ export default {
 
       this.getImg();
     },
-     getImg() {
+    getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;

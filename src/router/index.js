@@ -410,6 +410,7 @@ const getImplementation = () => {
       return implementationListFsxt
     case 'foshanrenyi':
     case 'zhzxy':
+    case 'nfyksdyy':
       return implementationListFSSY
     case 'quzhou':
       return implementationListQuzhou
@@ -521,10 +522,12 @@ const router = new Router({
             return temperatureNFZXY
           case 'foshanrenyi':
           case 'zhzxy':
+          case 'nfyksdyy':
             return temperatureFSSY
           case 'wujing':
             return temperatureWuJing
           case 'xiegang':
+          case 'qhwy':
             return temperatureDGXG
           case 'whfk':
             return temperatureWHFK
@@ -610,6 +613,7 @@ const router = new Router({
             case 'foshanrenyi':
             case 'zhzxy':
             case 'whhk':
+            case 'nfyksdyy':
               return archiveFSSY
             default:
               return archive
@@ -1015,6 +1019,7 @@ const router = new Router({
                 return temperatureJmfy
               case 'foshanrenyi':
               case 'zhzxy':
+              case 'nfyksdyy':
                 return temperatureFSSY
               case 'nanfangzhongxiyi':
                 return temperatureNFZXY
@@ -1027,6 +1032,7 @@ const router = new Router({
               case 'fsxt':
                 return temperatureFSXT
               case 'xiegang':
+              case 'qhwy':
                 return temperatureDGXG
               case 'lyxrm':
               case 'ytll':
@@ -1076,6 +1082,7 @@ const router = new Router({
               case 'ytll':
               case 'zhzxy':
               case 'whhk':
+              case 'nfyksdyy':
                 return allCatheter
               default:
                 return catheter
@@ -1414,6 +1421,7 @@ const router = new Router({
             case 'beihairenyi':
               return allTemperatureChartBHRY
             case 'xiegang':
+              case 'qhwy':
               return allTemperatureChartDGXG
             case 'whfk':
               return allTemperatureChartWHFK
@@ -1466,6 +1474,7 @@ const router = new Router({
             case "fsxt":
               return newSingleTemperatureChartFSXT;
             case "xiegang":
+            case 'qhwy':
               return newSingleTemperatureChartDGXG;
             case "whfk":
               return newSingleTemperatureChartWHFK;
