@@ -183,7 +183,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="setPage"
-        style="width: 110px"
+        style="width: 100px"
       >
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
@@ -230,7 +230,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click.stop="setAsTemplate"
-        v-if="!isSingleTem && !isDeputy && isShow() && HOSPITAL_ID === 'foshanrenyi'"
+        v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
       >
         <div class="text-con">设为模板</div>
       </div>
@@ -662,6 +662,14 @@ export default {
         return false;
       } else {
         return true;
+      }
+    },
+    // 是否显示设为模板
+    showSetAsTemplate() {
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        return this.isRoleManage || this.isNewAdminOrNursingDepartment
+      } else {
+        return false
       }
     },
     /* 出入量统计弹框--花都区分 */
