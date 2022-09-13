@@ -6,6 +6,7 @@ export default {
       enterTime:'', //进入的时间
       setupTime:'' , //后台配置的默认解锁时间（min）
       lockTimeId:'', //锁定重新加载页面
+      countDownId:'' //10分钟倒计时的标识
     },
     // 懒得改了，传多个参数。写一个函数就可以
     mutations: {
@@ -24,6 +25,9 @@ export default {
       changeLockTimeId(state,data){
         state.lockTimeId=data
       },
+      changeCountDownId(state,data){
+        state.countDownId=data
+      }
     }
   }
   
