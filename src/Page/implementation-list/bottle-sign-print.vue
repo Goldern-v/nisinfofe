@@ -12,7 +12,7 @@
             placeholder="选择入院起始时间"
             size="small"
             v-model="startDate"
-            style="width:160px"
+            :style="HOSPITAL_ID == 'ytll'? 'width:170px' : 'width:160px'"
           ></el-date-picker>
           <span class="label">执行结束时间</span>
           <el-date-picker
@@ -21,7 +21,7 @@
             placeholder="选择终止时间"
             size="small"
             v-model="endDate"
-            style="width:160px"
+            :style="HOSPITAL_ID == 'ytll'? 'width:170px' : 'width:160px'"
           ></el-date-picker>
           <!-- <el-date-picker
             type="date"
@@ -228,11 +228,11 @@ import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import { hisMatch } from '@/utils/tool';
 const initStartDate = () => {
-  if (['whfk', 'fsxt','lyxrm', 'whhk'].includes(process.env.HOSPITAL_ID)) return moment().format("YYYY-MM-DD")+' 00:00:00'
+  if (['whfk', 'fsxt','lyxrm', 'whhk', 'ytll'].includes(process.env.HOSPITAL_ID)) return moment().format("YYYY-MM-DD")+' 00:00:00'
   return moment().format("YYYY-MM-DD")+' 07:00:00'
 }
 const initEndDate = () => {
-  if (['whfk'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00'
+  if (['whfk', 'ytll'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 00:00:00'
   if (['fsxt'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime() ).format("YYYY-MM-DD")+' 23:59:00'
   if (['lyxrm', 'whhk'].includes(process.env.HOSPITAL_ID)) return moment(moment().toDate().getTime()).format("YYYY-MM-DD")+' 23:59:59'
   return moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:00:00'
@@ -249,7 +249,7 @@ export default {
       page: {
         pageIndex: 1,
         // pageNum: 20,
-        pageNum: 40,
+        pageNum:  this.HOSPITAL_ID == 'lyxrm' ? 100 : 40,
         total: 0
       },
       // startDate: moment().format("YYYY-MM-DD"),
@@ -548,11 +548,6 @@ export default {
           this.isShowModal = true;
         },4000) // 武警上传有延迟，后续优化了的话可以把定时器删掉
       })
-      // window.location.href = `LABELPRINT://${this.Uuid};${this.empNo};${this.query.executeDate};{${url}}`;
-      // this.printStatusMsg = '正在打印,请稍等…'
-      // this.showCancelPrint = false;
-
-      // this.printResult(this.selectedData.length);
     },
     async newOnPrint(){
       let barCodeList = this.$_.uniqBy(this.selectedData.map(item=>item.barcode))
@@ -597,10 +592,12 @@ export default {
           printObj[item.barCode].push(item)
         })
       }
-      let sortArr = Object.values(printObj)
-      // barCodeList.map(item=>{
-      //   sortArr.push(printObj[item])
-      // })
+      let sortArr = this.HOSPITAL_ID=='wujing'?Object.values(printObj) :[]
+      if(this.HOSPITAL_ID!='wujing'){
+        barCodeList.map(item=>{
+          sortArr.push(printObj[item])
+        })
+      }
       this.printObj = sortArr
       console.log('test-sortArr', sortArr)
       document.getElementById('new-print-box').style.display = 'block'

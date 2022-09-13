@@ -16,6 +16,7 @@
       <Button :disabled="isEmpty || allSigned"  @click="onSave(true)" v-if="!$store.state.shiftRecords.isLock">保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
+      <Button :disabled="true" v-if="HOSPITAL_ID == 'liaocheng' && countDown>0"><strong>{{countDown | timeCountDown}}</strong></Button>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove" v-if="!$store.state.shiftRecords.isLock">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
     </div>
@@ -628,6 +629,7 @@ import SpecialCaseModal from "./components/special-case-modal";
 import SpecialCasePanel from "./components/special-case-panel";
 import SignModal from "./components/sign-modal";
 import $ from "jquery";
+import moment from "moment";
 const defaultPatient = {
   name: "",
   bedLabel: "",
@@ -768,7 +770,8 @@ export default {
       ],
       fixedTh: false,
       liaocFixedTh: false,
-      currentClass: "白班"
+      currentClass: "白班",
+      countDown:0 //交班报告倒计时
     };
   },
   computed: {
@@ -891,6 +894,11 @@ export default {
          clearTimeout(this.$store.state.shiftRecords.lockTimeId)
          this.$store.commit("changeLockTimeId",'')
       }
+      // 有倒计时定时器就关闭
+      if(this.$store.state.shiftRecords.countDownId){
+        clearInterval(this.$store.state.shiftRecords.countDownId)
+        this.$store.commit("changeCountDownId",'')
+      }
       /* 发送请求，获取后台时间 */
       if(!this.$store.state.shiftRecords.setupTime){
           let min=10
@@ -923,6 +931,21 @@ export default {
           /* 如果切换其他加班日志，已经把锁定。那么之前自己有的交班日志，解锁 */
           await this.toUnLock()
         }else{
+          if(!this.$store.state.shiftRecords.countDownId){
+           // 右上角10分钟倒计时
+          // 这里不是600000是因为上面延时器在请求之前设置的，发送请求需要时间
+             this.countDown=this.$store.state.shiftRecords.setupTime * 60000 - 3000
+             let countDownTimeId=setInterval(()=>{
+               if(this.countDown==0){
+                  clearInterval(this.$store.state.shiftRecords.countDownId)
+                  this.$store.commit("changeCountDownId",'')
+               }
+              console.log('交班报告打印剩余时间，方便查找bug。一段时间没问题，可以删除',this.countDown)
+              this.countDown=this.countDown-1000
+            },1000)
+            this.$store.commit("changeCountDownId",countDownTimeId)
+          }
+          
           // 没有锁定成功进入。把ID存入VUEX解锁用
           this.$store.commit("changeShiftRecordID",id)
           // 存入进入的时间
@@ -1368,6 +1391,16 @@ export default {
         const res=  await apis.removeShiftRecord(this.record.id, username, password);
         if(res.data.code==200 && res.data.desc=='操作成功'){
            await this.toUnLock()
+           // 关闭定时器
+           if(this.$store.state.shiftRecords.lockTimeId){
+             clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+             this.$store.commit("changeLockTimeId",'')
+           }
+           // 关闭倒计时定时器
+           if(this.$store.state.shiftRecords.countDownId){
+             clearInterval(this.$store.state.shiftRecords.countDownId)
+             this.$store.commit("changeCountDownId",'')
+           }
         }
         const code = this.$route.params.code;
 
@@ -1480,6 +1513,11 @@ export default {
 
         textareas[toIndex].focus();
       }
+    }
+  },
+  filters:{
+    timeCountDown(val){
+       return moment(val).format('mm:ss')
     }
   },
   components: {

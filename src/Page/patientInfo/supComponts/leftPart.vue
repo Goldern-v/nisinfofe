@@ -81,6 +81,7 @@
             打印床头卡
           </div>
           <div
+              v-if="HOSPITAL_ID ==='foshanrenyi'"
               class="print-btn"
               flex="cross:center main:center"
               @click="openOcx"
