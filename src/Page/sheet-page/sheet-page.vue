@@ -8,7 +8,7 @@
     <div class="head-con" flex>
       <div class="dept-select-con"></div>
       <div class="tool-con" flex-box="1">
-        <sheetTool ref="sheetTool" :isLock='isLock' :isLoad='isLoad'></sheetTool>
+        <sheetTool ref="sheetTool" :isLock='isLock' :isLoad='isLoad' :sheetTitleData="sheetTitleData"></sheetTool>
       </div>
     </div>
     <div
@@ -328,7 +328,8 @@ export default {
         'huadu'
       ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
       isLock:false,
-      isLoad:false  //如果主页数据多接口就返回慢，在数据没回来之前切换了副页，副页的数据会被后回来的主页数据覆盖。
+      isLoad:false,  //如果主页数据多接口就返回慢，在数据没回来之前切换了副页，副页的数据会被后回来的主页数据覆盖。
+      sheetTitleData: {}, // 自定义表头数据
     };
   },
   computed: {
@@ -551,6 +552,7 @@ export default {
           this.isLoad=true
         }
         let titleData = res[0].data.data;
+        this.sheetTitleData = res[0].data.data || {};
         /* 判断护记单是否被锁定。 */
         if(res[1].data.errorCode=='3001' && res[1].data.desc.indexOf('锁定')!=-1 && this.lockHospitalList.includes(this.HOSPITAL_ID)){
           localStorage.setItem('lockForm','')

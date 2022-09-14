@@ -188,11 +188,17 @@
       >
         <div class="nav-item">患者360</div>
       </router-link>
+      <router-link
+        :to="{path:'/patientNursingRound', query: {patientId:query.patientId, visitId: query.visitId}}"
+        tag="span"
+      >
+        <div class="nav-item">护理巡视</div>
+      </router-link>
     </div>
     <div style="height: 50px"></div>
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped> 
 .logo-con {
   width: 200px;
   min-width: 200px;

@@ -262,7 +262,9 @@ export default {
           'gdtj',
           'ytll',
           'whsl',
-          'zhzxy'
+          'zhzxy',
+          'whhk',
+          'nfyksdyy'
         ].includes(this.HOSPITAL_ID)
       ) {
         return bedItemLcey;
@@ -422,8 +424,10 @@ export default {
       const patientInfo = {
         patientId: obj.patientId,
         visitId: obj.visitId,
+        cpIncludeDeptCode:obj.wardCode
       };
-        window.open(`/crNursing/home?${qs.stringify(patientInfo)}`);
+
+      window.open(`/crNursing/home?${qs.stringify(patientInfo)}`);
     },
     close() {
       this.$refs.modal.close();

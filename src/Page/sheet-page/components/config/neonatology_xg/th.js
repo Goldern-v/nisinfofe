@@ -161,6 +161,17 @@ export default {
         colspan: "1",
         rowspan: "3",
       },
+      {
+        name: `
+        审核<br/>签名
+        `,
+        style: {
+          minWidth: "50px",
+          maxWidth: "50px"
+        },
+        colspan: "1",
+        rowspan: "3",
+      },
     ],
     mid: [
       {

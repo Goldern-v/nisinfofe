@@ -58,7 +58,7 @@
         <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
-    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi'].includes(HOSPITAL_ID)">
+    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk'].includes(HOSPITAL_ID)">
       <div class="boxShadow" @click="onPrint">
         <div class="qrcode" ref="qrcodeContainer"></div>
       </div>
@@ -462,7 +462,7 @@ export default {
             0,
             usrInfo.retVal.indexOf("||")
           );
-  
+
           SignedData(this.strUserCertID, "123213", (retValObj) => {
             this.ca_isLogin = !!retValObj.retVal;
             window.ca_isLogin = this.ca_isLogin;
@@ -480,7 +480,7 @@ export default {
                 localStorage.removeItem("caUser");
                 this.foshanshiyiIFca=false
               }else this.foshanshiyiIFca=true
-            } 
+            }
       })
       }
     },
@@ -509,9 +509,9 @@ export default {
     //二维码
     qrcode() {
       //非聊城不执行
-      if(!['liaocheng','fsxt','lyxrm','beihairenyi'].includes(this.HOSPITAL_ID )) return false;
+      if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi','fsxt','lyxrm','beihairenyi'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
+      ['foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
       //console.log(this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})))
       console.log(titleObject);
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {

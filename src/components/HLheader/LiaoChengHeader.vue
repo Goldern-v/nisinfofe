@@ -1097,6 +1097,11 @@ export default {
         clearTimeout(this.$store.state.shiftRecords.lockTimeId)
         this.$store.commit("changeLockTimeId",'')
       }
+      // 关闭倒计时定时器
+      if(this.$store.state.shiftRecords.countDownId){
+        clearInterval(this.$store.state.shiftRecords.countDownId)
+        this.$store.commit("changeCountDownId",'')
+      }
       // 交班报告解锁
       await this.toUnLock()
       logout(Cookies.get("NURSING_USER"));

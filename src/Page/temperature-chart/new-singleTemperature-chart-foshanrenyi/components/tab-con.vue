@@ -1168,7 +1168,9 @@ export default {
       height: 33px;
     }
   }
-
+  >>>.el-select .el-input .el-input__icon {
+    color: #67ae8f;
+  }
   .times {
     display: inline-block;
     width: 100px;
@@ -1275,6 +1277,8 @@ export default {
   .clear {
     clear: both;
   }
+
+
 }
 </style>
 <style lang="scss">

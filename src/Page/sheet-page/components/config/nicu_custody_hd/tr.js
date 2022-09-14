@@ -12,7 +12,7 @@ import info from "../sheetInfo";
 
 let 反应 = ['好','一般','差']
 let 哭声 = ['大','一般','弱']
-let 肤色 = ['红润','苍白','苍黄']
+let 脐部 = ['红润','苍白','苍黄']
 let 肌张力 = ['正常','稍高','稍低','高','低']
 let 吸吮力 = ['好','一般','弱']
 let 体位 = ['左侧','右侧','平卧','俯卧']
@@ -20,10 +20,11 @@ let 瞳孔 = ['1.5','2.0','2.5','3.0','3.5','4.0','4.5','5.0','+','±','-']
 let 静脉 = ['输液','洗涤红细胞','悬浮红细胞','血浆','冷沉淀','PICC封管液']
 let 进食 = ['配方奶鼻饲','配方奶自吮','母乳鼻饲','母乳自吮','口服药']
 let 用氧方式 = ['鼻导管','头罩','温箱内','NCPAP(CPAP)','机械通气/CMV','机械通气/SIMV','机械通气/PRVC','机械通气/HFO']
-let 插管型号 = ['2.5','3.0','3.5','4.0']
-let 气道 = ['WL','WT','YL','YWL','YT','YWT']
-let 基础护理 = ['①','②','③','④','⑤']
-
+let 气道 = ['WL','WT','YL','YWL','YT','YWT','B','BL','+','++','+++']
+let 基础护理 = ['①','②','③','④','⑤','⑥','⑦']
+let 名称=['输液','PICC冲管液','冷沉淀','新鲜血浆','悬浮红细胞','白蛋白','人免疫球蛋白','血小板','洗涤红细胞']
+let 便颜色=['黄绿色','黄色','淡黄色','墨绿色','暗红色','鲜红色','淡红色','茶褐色']
+let 口鼻腔=['WL','WT','YL','YWL','YT','YWT','B','BL','+','++','+++']
 
 export default [
   {
@@ -82,9 +83,9 @@ export default [
     },
   },
   {
-    key: "nbp", //NBP
+    key: "bloodPressure", //BP
     value: "",
-    name: "NBP",
+    name: "BP",
     next: "mmHg",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
@@ -92,48 +93,16 @@ export default [
       width: 35
     },
   },
-  {
-    key: "abp", //ABP
-    value: "",
-    name: "ABP",
-    next: "mmHg",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 35
-    },
-  },
-  {
-    key: "beforeSpo", //导管前Spo2
-    value: "",
-    name: "导管前Spo2",
-    next: "%",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
-    },
-  },
+
   {
     key: "afterSpo", //导管后Spo2
     value: "",
-    name: "导管后Spo2",
+    name: "Spo2",
     next: "%",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 35
-    },
-  },
-  {
-    key: "paco2", //PaCO2
-    value: "",
-    name: "PaCO2",
-    next: "mmHg",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 5),
-    textarea: {
-      width: 40
     },
   },
   {
@@ -163,16 +132,16 @@ export default [
     },
   },
   {
-    key: "skin", //肤色
+    key: "skin", //脐部
     value: "",
-    name: "肤色",
+    name: "脐部",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 35
     },
     autoComplete: {
-      data: 肤色
+      data: 脐部
     },
   },
   {
@@ -215,9 +184,9 @@ export default [
     },
   },
   {
-    key: "pupilLeft", //瞳孔左
+    key: "pupilLeft", //瞳孔对光反射左
     value: "",
-    name: "瞳孔左",
+    name: "瞳孔（对光反射）左",
     next: "mm",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
@@ -230,9 +199,9 @@ export default [
     },
   },
   {
-    key: "pupilRight", //瞳孔右
+    key: "pupilRight", //瞳孔对光反射右
     value: "",
-    name: "瞳孔右",
+    name: "瞳孔（对光反射）右",
     next: "mm",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
@@ -242,6 +211,20 @@ export default [
     splice:'/',
     autoComplete: {
       data: 瞳孔
+    },
+  },
+  {
+    key: "inputName", //名称
+    value: "",
+    name: "名称",
+    next: "ml",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+    autoComplete: {
+      data: 名称
     },
   },
   {
@@ -283,6 +266,20 @@ export default [
     },
   },
   {
+    key: "poopColor", //大便颜色
+    value: "",
+    name: "大便颜色",
+    next: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+    autoComplete: {
+      data: 便颜色
+    },
+  },
+  {
     key: "poop", //大便
     value: "",
     name: "大便",
@@ -291,6 +288,20 @@ export default [
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 35
+    },
+  },
+  {
+    key: "peeColor", //小便颜色
+    value: "",
+    name: "小便颜色",
+    next: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 35
+    },
+    autoComplete: {
+      data: 便颜色
     },
   },
   {
@@ -371,49 +382,15 @@ export default [
     },
   },
   {
-    key: "intubation", //插管型号
-    value: "",
-    name: "插管型号",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
-    splice: true,
-    textarea: {
-      width: 35
-    },
-    autoComplete: {
-      data: 插管型号
-    },
-  },
-  {
-    key: "depth", //插管深度
-    value: "",
-    name: "插管深度",
-    next: "cm",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
-    },
-  },
-  {
-    key: "atomization", //雾化
-    value: "",
-    name: "雾化",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
-    },
-  },
-  {
     key: "airway", //气道
     value: "",
     name: "气道",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 45
+      width: 60
     },
+    splice:'/',
     autoComplete: {
       data: 气道
     },
@@ -423,9 +400,13 @@ export default [
     value: "",
     name: "口鼻腔",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 45
+      width: 60
+    },
+    splice:'/',
+    autoComplete: {
+      data: 口鼻腔
     },
   },
   {
@@ -433,10 +414,11 @@ export default [
     value: "",
     name: "基础护理",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 50
     },
+    splice:'/',
     autoComplete: {
       data: 基础护理
     },

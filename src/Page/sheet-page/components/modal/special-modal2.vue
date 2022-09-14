@@ -2,7 +2,7 @@
   <div ref="textArea">
     <sweet-modal
       ref="modal"
-      @close="breforeClose"
+      @close="beforeClose"
       :modalWidth="720"
       :title="title"
       :enable-mobile-fullscreen="false"
@@ -50,18 +50,32 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
-          <div style="margin-left: 220px" v-if="HOSPITAL_ID === 'foshanrenyi'">
+          <div class="modal-btn-box" v-if="activeTab === '3' && HOSPITAL_ID === 'foshanrenyi'">
             <el-button
-              class="modal-btn"
               type="primary"
-              @click="openPISilde('testModal')"
+              size="mini"
+              @click="emitFn('openEvalModel')"
+            >
+              评估同步
+            </el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              @click="openZxdtbModal"
+            >
+              执行单同步
+            </el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              @click="openPISlide('testModal')"
             >
               检验报告
             </el-button>
             <el-button
-              class="modal-btn"
               type="primary"
-              @click="openPISilde('inspectModal')"
+              size="mini"
+              @click="openPISlide('inspectModal')"
             >
               检查报告
             </el-button>
@@ -73,7 +87,7 @@
               v-if="showAdviceBtn"
               size="mini"
               type="primary"
-              @click="openPISilde('testModal')"
+              @click="openPISlide('testModal')"
             >
               检验报告
             </el-button>
@@ -81,7 +95,7 @@
               v-if="showAdviceBtn"
               type="primary"
               size="mini"
-              @click="openPISilde('inspectModal')"
+              @click="openPISlide('inspectModal')"
             >
               检查报告
             </el-button>
@@ -100,7 +114,7 @@
           </div>
         </div>
         <el-tabs v-model="activeTab" class="tab-content" type="card">
-          <el-tab-pane label="固定项目" name="1" :disabled="isDisabed">
+          <el-tab-pane label="固定项目" name="1" :disabled="isDisabled">
             <div v-if="HOSPITAL_ID == 'hj'">
               <div class="input-row" flex="main:justify">
                 <div class="input-cell" flex="cross:center" flex-box="1">
@@ -654,7 +668,7 @@
             label="自定义项目"
             name="2"
             v-if="customTitle && customTitle.length"
-            :disabled="isDisabed"
+            :disabled="isDisabled"
           >
             <div
               class="custom-cell"
@@ -753,15 +767,18 @@
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
     />
     <advice-modal
-      v-if="['lyxrm'].includes(HOSPITAL_ID)"
+      v-if="['lyxrm', 'whhk'].includes(HOSPITAL_ID)"
       ref="adviceModalRef"
       @handleOk="handleDiagnosis"
+    />
+    <zxdtbModal
+      ref="zxdtbModal"
     />
   </div>
 </template>
@@ -946,6 +963,11 @@
     justify-content: flex-end;
   }
 }
+.modal-btn-box {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+}
 </style>
 <script>
 import bus from "vue-happy-bus";
@@ -966,6 +988,8 @@ import "quill/dist/quill.bubble.css";
 import { saveBatch, getmultiDict } from "../../api/index";
 import DiagnosisModal from "./diagnosis-modal.vue";
 import AdviceModal from "./advice-modal.vue";
+import { mapMutations, mapState } from 'vuex';
+import zxdtbModal from "./zxdtb-modal.vue";
 
 function autoComplete(el, bind) {
   if (bind.value.dataList) {
@@ -1087,6 +1111,10 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      openModalFromSpecial: state => state.sheet.openModalFromSpecial,
+      evalData: state => state.sheet.evalData
+    }),
     title() {
       const recordDate =
         this.HOSPITAL_ID === "huadu" ? "&nbsp" : this.recordDate;
@@ -1111,7 +1139,7 @@ export default {
     isNeurology() {
       return this.sheetInfo.sheetType == "neurology";
     },
-    isDisabed() {
+    isDisabled() {
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd"
@@ -1139,6 +1167,7 @@ export default {
           return this.commonFormGZ && this.activeTab === "3";
         case "lyxrm":
         case "huadu":
+        case 'whhk':
           return this.activeTab === "3";
         default:
           return false;
@@ -1148,6 +1177,7 @@ export default {
     showAdviceBtn() {
       switch (process.env.HOSPITAL_ID) {
         case "lyxrm":
+        case 'whhk':
           return this.activeTab === "3";
         default:
           return false;
@@ -1157,6 +1187,7 @@ export default {
       switch (process.env.HOSPITAL_ID) {
         case "lyxrm":
         case "huadu":
+        case 'whhk':
           return 1200;
         default:
           return 720;
@@ -1168,12 +1199,13 @@ export default {
     },
   },
   methods: {
-    openPISilde(type) {
+    ...mapMutations(['upOpenModalFromSpecial', 'upEvalData']),
+    openPISlide(type) {
       // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
       this.bus.$emit("openclosePatientInfo", type, false, true);
     },
     /* 是否同步体征信息 */
-    sycnTempChange() {
+    syncTempChange() {
       if (this.isSyncTemp) {
         /* 处理勾选后的数据 */
         this.selectVitalSign();
@@ -1384,7 +1416,7 @@ export default {
         doc = doc.replace(reg, "");
         doc = `${doc}${replenishTime}`;
       } else {
-        if (true) {
+        if (!['internal_xg', 'common_xg'].includes(this.sheetInfo.sheetType)) {
           // 清除空格
           var reg = new RegExp(" ", "g");
           doc = doc.replace(reg, "");
@@ -1702,7 +1734,7 @@ export default {
         // 佛山市一，护记弹窗保存有换行\n,所以要全部清理。不然textarea显示有问题
         this.doc = this.doc.replace(/\n/gi, "");
       }
-      if (type != "ayncVisitedData" && !this.staticObj.recordHour) {
+      if (type != "asyncVisitedData" && !this.staticObj.recordHour) {
         return this.$message.warning("记录时间不得为空！");
       }
       this.isSaving = true;
@@ -1982,13 +2014,10 @@ export default {
                 text += allDoc[i];
               }
             } else {
-              // console.log("111111111",text,GetLength(text))
               if (GetLength(text) > 23) {
-                // console.log("2222222222")
                 result.push(text);
                 text = allDoc[i];
               } else {
-                // console.log("3333333333")
                 text += allDoc[i];
               }
             }
@@ -2030,7 +2059,7 @@ export default {
         }
       }
 
-      if (type == "ayncVisitedData") {
+      if (type == "asyncVisitedData") {
         return result;
       }
 
@@ -2150,7 +2179,7 @@ export default {
           this.sheetInfo.sheetType !== "infant_bh")
       ) {
         this.isSyncTemp
-          ? this.sycnTempChange()
+          ? this.syncTempChange()
           : this.bus.$emit("saveSheetPage", this.isLast);
       } else {
         this.bus.$emit("saveSheetPage", this.isLast);
@@ -2164,7 +2193,7 @@ export default {
       // this.$message.warning('正在开发中')
       this.$refs.templateSlide.open();
     },
-    breforeClose() {
+    beforeClose() {
       this.$refs.templateSlide.close();
     },
     dateKey,
@@ -2201,6 +2230,24 @@ export default {
         }
         this.doc += v[key];
       });
+    },
+    /**
+     * emit
+     */
+    emitFn(todo, value) {
+      // if (this.sheetInfo.sheetType != "body_temperature_Hd") {
+      //   if (this.$store.state.form_masterInfo.masterInfo.readOnly) {
+      //     return this.$message.warning("你无权操作此护记，仅供查阅");
+      //   }
+      // }
+      if (todo == 'openEvalModel') {
+        this.upOpenModalFromSpecial(true)
+      }
+      this.bus.$emit(todo, value);
+    },
+    openZxdtbModal() {
+      this.upOpenModalFromSpecial(true)
+      this.$refs.zxdtbModal.open();
     },
   },
   mounted() {
@@ -2242,12 +2289,12 @@ export default {
     // 同步护理巡视
     this.bus.$on("syncVisitWithDataSheet", (obj) => {
       this.doc = obj.description;
-      let ayncVisitedData = {
+      let asyncVisitedData = {
         recordMonth: obj.recordMonth,
         recordHour: obj.recordHour,
-        list: this.post("ayncVisitedData"),
+        list: this.post("asyncVisitedData"),
       };
-      this.bus.$emit("saveSheetPage", true, ayncVisitedData);
+      this.bus.$emit("saveSheetPage", true, asyncVisitedData);
     });
     // 佛山市一检查报告和检验报告同步
     this.bus.$on("syncReportFSSY", (str) => {
@@ -2278,12 +2325,21 @@ export default {
         this.doc = val.replace(reg, "");
       }
     },
+    // 评估同步返回的数据
+    evalData(val, old) {
+      if (val && old == '') {
+        this.doc && (this.doc += "\n");
+        this.doc += val;
+        this.upEvalData('')
+      }
+    }
   },
   components: {
     templateSlide,
     quillEditor,
     DiagnosisModal,
     AdviceModal,
+    zxdtbModal,
   },
 };
 </script>

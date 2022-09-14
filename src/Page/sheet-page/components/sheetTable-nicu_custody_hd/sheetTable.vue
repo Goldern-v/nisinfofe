@@ -74,19 +74,19 @@
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 96px;"
+                  style="width: 105px;"
                   v-model="sheetInfo.relObj['g1' + index]"
                   :data-value="sheetInfo.relObj['g1' + index]"
-                />管
+                />
               </div>
               <div class="box-item">
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 96px;"
+                  style="width: 105px;"
                   v-model="sheetInfo.relObj['g2' + index]"
                   :data-value="sheetInfo.relObj['g2' + index]"
-                />管
+                />
               </div>
             </div>
             <div class="box" style="width: 35%;">
@@ -169,14 +169,14 @@
                 />cm
               </div>
               <div class="box-item">
-                水囊注水
+                插入深度
                 <input
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
                   v-model="sheetInfo.relObj['snzs' + index]"
                   :data-value="sheetInfo.relObj['snzs' + index]"
-                />ml
+                />cm
               </div>
               <div class="box-item">
                 外露长度
@@ -189,7 +189,7 @@
                 />cm
               </div>
               <div class="box-item">
-                外露长度
+                插入深度
                 <input
                   type="textarea"
                   class="bottomInput"
@@ -209,14 +209,13 @@
                 />cm
               </div>
               <div class="box-item">
-                插入深度
                 <input
                   type="textarea"
                   class="bottomInput"
-                  style="width: 50px;"
+                  style="width: 123px;"
                   v-model="sheetInfo.relObj['crsd2' + index]"
                   :data-value="sheetInfo.relObj['crsd2' + index]"
-                />cm
+                />
               </div>
             </div>
           </div>

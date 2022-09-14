@@ -248,4 +248,23 @@ module.exports = {
     title: '"智慧护理信息系统"',
     ENABLE_BLUETOOTH_SIGN: false
   },
+  whhk: {
+    HOSPITAL_ID: '"whhk"',
+    HOSPITAL_NAME: '"武汉汉口医院"',
+    HOSPITAL_NAME_SPACE: '"武 汉 汉 口 医 院"',
+    COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"',
+    ENABLE_BLUETOOTH_SIGN: false
+  },
+  nfyksdyy: {
+    HOSPITAL_ID: '"nfyksdyy"',
+    HOSPITAL_NAME: '"南方医科大学顺德医院"',
+    HOSPITAL_NAME_SPACE: '"南 方 医 科 大 学 顺 德 医 院"',
+    COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"',
+    ENABLE_BLUETOOTH_SIGN: false
+  },
+  
 }

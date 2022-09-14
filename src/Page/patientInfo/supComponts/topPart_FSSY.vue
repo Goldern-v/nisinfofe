@@ -146,6 +146,9 @@
       >
         <div class="nav-item">360视图</div>
       </router-link>
+
+         <div class="nav-item" @click="openOtherPage">新嘉和</div>
+
       <!-- <router-link
         :to="{
           path: '/hospitalEval',
@@ -243,8 +246,12 @@ export default {
   mixins: [common],
   data() {
     return {
-      msg: "hello vue"
+      msg: "hello vue",
+      query:null,
     };
+  },
+  created(){
+    this.query=this.$route.query
   },
   computed: {
     query() {
@@ -252,6 +259,13 @@ export default {
       return query;
     }
   },
-  components: {}
+  components: {},
+  methods:{
+    openOtherPage() {
+      // console.log("query",this.query);
+      window.open(`http://192.168.99.72:8099/?hospital_no=45607379-3&patient_id=${this.query.patientId}&visit_id=${this.query.visitId}`)
+      
+    }
+  }
 };
 </script>

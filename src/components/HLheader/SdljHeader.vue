@@ -174,7 +174,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-              </el-dropdown-menu>
+              </el-dropdown-menu> 
             </el-dropdown>
             <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -340,6 +340,11 @@
 						<router-link to="/allCatheter" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-allCatheter"></i> 导管
+              </el-row>
+            </router-link>
+            <router-link to="/nursingRounds" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+                >护理巡视
               </el-row>
             </router-link>
             <el-dropdown

@@ -155,14 +155,6 @@
       >
         <div class="text-con">添加新页</div>
       </div>
-      <!-- <div class="item-box" flex="cross:center main:center" flex-box="1" @click="emit('delSheetPage')">
-            <div class="icon-box">
-              <i class="icon-shanchu1 iconfont" style="font-size: 14px;color:#E55E01;"></i>
-            </div>
-            <div class="text-con">
-              删除记录单
-            </div>
-      </div>-->
       <div
         class="item-box"
         flex="cross:center main:center"
@@ -183,7 +175,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="setPage"
-        style="width: 110px"
+        style="width: 100px"
       >
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
@@ -198,9 +190,6 @@
       >
         <div class="text-con">打印预览</div>
       </div>
-      <!-- <div class="item-box" flex="cross:center main:center" @click="toAllPrint">
-        <div class="text-con">批量打印</div>
-      </div>-->
       <div
         v-if="!isDeputy"
         class="item-box"
@@ -225,6 +214,14 @@
         v-if="!isSingleTem && !isDeputy && isShow()"
       >
         <div class="text-con">新建记录单</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="openSelectTmp"
+        v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
+      >
+        <div class="text-con">设为模板</div>
       </div>
     </template>
       <div
@@ -293,16 +290,7 @@
       >
         <div class="text-con">体温曲线</div>
       </div>
-      <!-- <div
-        class="item-box"
-        flex="cross:center main:center"
-        @click.stop="createTemperature"
-        v-else
-      >
-        <div class="text-con">新建体温单</div>
-      </div> -->
       <div flex-box="1"></div>
-      <!-- <span class="label">护理记录：</span> -->
       <el-select
         v-if="!isDeputy"
         v-model="sheetInfo.selectBlock"
@@ -317,7 +305,6 @@
             <div class="col-2">科室</div>
             <div class="col-3">开始时间</div>
             <div class="col-4">页码</div>
-            <!-- <div class="col-3">结束时间</div> -->
           </div>
           <el-option
             v-for="item in sheetBlockList"
@@ -383,12 +370,6 @@
           电子病历
         </div>
       </div>
-      <!-- <div class="item-box" flex="cross:center main:center" @click="tofull">
-            <div class="text-con">
-              <span v-if="fullpage">关闭全屏</span>
-              <span v-else>全屏</span>
-            </div>
-      </div>-->
       <div style="width: 5px"></div>
       <div
         class="right-btn"
@@ -419,7 +400,7 @@
           class="right-btn"
           flex="cross:center main:center"
           @click="emit('openEvalModel')"
-          v-if="showCrl && !isSingleTem_LCEY && !isDeputy"
+          v-if="!isSingleTem_LCEY && !isDeputy && HOSPITAL_ID != 'foshanrenyi'"
         >
           <div class="text-con">
             <img src="./images/评估.png" alt />
@@ -459,8 +440,8 @@
           HOSPITAL_ID == 'quzhou' ||
           HOSPITAL_ID == 'weixian' ||
           HOSPITAL_ID == 'liaocheng'||
-          HOSPITAL_ID == 'foshanrenyi'||
           HOSPITAL_ID == 'whfk' ||
+          HOSPITAL_ID == 'whhk' ||
           HOSPITAL_ID == 'lyxrm'
         "
       >
@@ -497,6 +478,7 @@
     <setTitleModal ref="setTitleModal"></setTitleModal>
     <tztbModal ref="tztbModal"></tztbModal>
     <rltbModal ref="rltbModal" :blockId="blockId"></rltbModal>
+    <selectPageModal ref="tmpModal" @setAsTemplate="setAsTemplate"></selectPageModal>
     <zxdtbModal
       ref="zxdtbModal"
       :blockId="blockId"
@@ -537,9 +519,10 @@ import { Tr } from "../render/Body.js";
 import {
   blockList,
   blockDelete,
-  toPdfPrint,
-  blockSave,
+  // toPdfPrint,
+  // blockSave,
   switchAdditionalBlock,
+  setSheetTemplate,
 } from "../../api/index.js";
 import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
@@ -549,6 +532,7 @@ import zxdtbModal from "../modal/zxdtb-modal.vue";
 import rltbModal from "../modal/rltb-modal.vue";
 import RltbNfzxyModal from "../modal/rltb-nfzxy-modal.vue";
 import patientInfoModal from "./modal/patient-info-modal";
+import selectPageModal from './modal/selectPageModal.vue'
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
@@ -574,6 +558,10 @@ export default {
     isLoad:{//list接口数据是否回来了，回来就显示切换在主副页
       type:Boolean,
       default:false
+    },
+    sheetTitleData: {
+      type: Object,
+      default: {}
     }
   },
   data() {
@@ -648,6 +636,14 @@ export default {
         return false;
       } else {
         return true;
+      }
+    },
+    // 是否显示设为模板
+    showSetAsTemplate() {
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        return this.isRoleManage || this.isNewAdminOrNursingDepartment
+      } else {
+        return false
       }
     },
     /* 出入量统计弹框--花都区分 */
@@ -1043,15 +1039,9 @@ export default {
                 default:
                   break;
               }
-              // return this.HOSPITAL_ID === "huadu" ||
-              //   this.HOSPITAL_ID === "wujing"
-              //   ? item.recordCode === "body_temperature_Hd"
-              //   : item.recordCode === "body_temperature_lcey";
-              // return item.recordCode == "body_temperature_Hd";
             });
           } else {
             this.sheetBlockList = list.filter((item) => {
-              // return item.recordCode != "body_temperature_Hd";
               return (
                 (item.recordCode != "body_temperature_Hd") &
                 (item.recordCode != "body_temperature_hj") &
@@ -1088,18 +1078,40 @@ export default {
       }
       this.$refs.newFormModal.open();
     },
+    // 设为模板(打开选择弹框)
+    openSelectTmp() {
+      if (!this.patientInfo.patientId) {
+        return this.$message.info("请选择一名患者");
+      }
+      if (this.sheetTitleData.FieldSetting && this.sheetTitleData.FieldSetting.length) {
+        const maxPage = Math.max(...this.sheetTitleData.FieldSetting.map(item => item.pageIndex)) + 1
+        this.$refs.tmpModal.open(maxPage)
+      } else {
+        return this.$message.info("无自定义表头，无法设置为模板");
+      }
+    },
+    // 设为模板
+    async setAsTemplate(selectPage) {
+      const list = this.sheetTitleData.FieldSetting.filter(
+        item => item.pageIndex === selectPage
+      ).map((item, index) => {
+        const options = this.sheetTitleData.Options.filter(
+          (op) => op.fieldEn === item.fieldEn && op.pageIndex === selectPage
+        ).map((op) => op.options).join(',')
+        return {
+          recordCode: this.sheetInfo.sheetType,
+          deptCode: this.deptCode,
+          fieldEn: item.fieldEn,
+          fieldCn: item.fieldCn,
+          options
+        }
+      })
+      const res = await setSheetTemplate(list)
+      this.$refs.tmpModal.close()
+      this.$message.success('设置成功')
+    },
     createTemperature() {
       this.$refs.newFormModal.open();
-      // blockSave(
-      //   this.patientInfo.patientId,
-      //   this.patientInfo.visitId,
-      //   this.deptCode,
-      //   this.sheetInfo.sheetType
-      // ).then((res) => {
-      //   this.bus.$emit("getBlockList");
-      //   this.$message.success("创建成功");
-      //   this.bus.$emit("setSheetTableLoading", true);
-      // });
     },
     delSheet() {
       if (!this.sheetInfo.selectBlock.id)
@@ -1144,11 +1156,6 @@ export default {
       } else {
         this.$message.warning("没有可以打印的护理记录单");
       }
-
-      // toPdfPrint(false).then(res => {
-
-      //   // console.log(res, "res");
-      // });
     },
     openTztbModal() {
       if (this.readOnly) {
@@ -1284,7 +1291,6 @@ export default {
       switch (this.HOSPITAL_ID) {
         case "huadu":
           return temperatureHD;
-          break;
         default:
           break;
       }
@@ -1474,6 +1480,7 @@ export default {
     temperatureHD,
     RltbNfzxyModal,
     demonstarationLevca,
+    selectPageModal,
   },
 };
 </script>

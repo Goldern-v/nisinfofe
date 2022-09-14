@@ -57,14 +57,16 @@
           </span>
         </div>
         <!--  -->
-        <div class="info-con between">
-          <!-- <span>诊断：{{ patientInfo.diagnosis }}</span> -->
+        <div class="info-con between" >
           <span>诊断：
-            <input
+            <span class="bottom-line" @click="updateZd(sheetInfo.relObj[`${index}_zd`])">
+              {{sheetInfo.relObj[`${index}_zd`]}}
+            </span>
+            <!-- <input
               class="bottom-line-input full-width"
               :data-value="sheetInfo.relObj[`${index}_zd`]"
                v-model="sheetInfo.relObj[`${index}_zd`]"
-            />
+            /> -->
           </span>
           <!--
               :data-value="sheetInfo.relObj.zd"
@@ -199,6 +201,13 @@
           height: 30px;
         }
       }
+    }
+    .bottom-line {
+     display: inline-block;
+     border-bottom: 1px solid black;
+     margin-bottom: 2px;
+     height: 24px;
+     width:1000px;
     }
   }
 
@@ -339,6 +348,23 @@ export default {
     };
   },
   methods: {
+    updateZd(textZd){
+      window.openSetTextModal(
+        (text) => {
+          sheetInfo.relObj[`${this.index}_zd`]=text
+          // 当前页之后的页码，都要同步。 
+          for (let i= 1; i < this.length-this.index; i++) {
+              const nextIndex=i+this.index
+              console.log(nextIndex)
+              sheetInfo.relObj[`${nextIndex}_zd`]=text
+          }   
+          this.$message.success(`修改诊断成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        textZd,
+        `修改诊断`
+      );
+    },
     openBedRecordModal(){
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
@@ -375,7 +401,6 @@ export default {
     // 初始化诊断如果没有值取后端返回的默认诊断
     // this.sheetInfo.relObj.zd =
     // this.sheetInfo.relObj.zd ? this.sheetInfo.relObj.zd : this.patientInfo.diagnosis;
-
     if(this.index==0){
       // 初始化(第一页)诊断如果没有值取后端返回的默认诊断
       let beforeZd=this.sheetInfo.relObj.zd?this.sheetInfo.relObj.zd: this.patientInfo.diagnosis
@@ -392,7 +417,6 @@ export default {
       if(!!this.sheetInfo.relObj[`${this.index-1}_zd`]){
         beforeZd=this.sheetInfo.relObj[`${this.index-1}_zd`]
       }
-      console.log(402,beforeZd)
       this.sheetInfo.relObj[`${this.index}_zd`]=
       this.sheetInfo.relObj[`${this.index}_zd`] ? this.sheetInfo.relObj[`${this.index}_zd`]:beforeZd
     }

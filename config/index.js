@@ -1,7 +1,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require("path");
 var chalk = require("chalk");
-var envAll = require("./env.all");
+var envAll = require("../config-new/env.all");
 var merge = require("webpack-merge");
 // crNursing  argv
 var _origin = process.env.npm_config_argv ? JSON.parse(process.env.npm_config_argv).original : '';
@@ -180,9 +180,9 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9884" // 测试
       // return "http://192.168.3.226:8080" // 初升本地
     case 'sdlj':  //顺德龙江
-      return "http://192.168.1.54:9887" // 顺德龙江内网测试
+    //   return "http://192.168.1.54:9887" // 顺德龙江内网测试
       // return "http://192.168.3.226:8080" // 初升本地
-      // return "http://218.13.34.230:9094" //正式
+      return "http://218.13.34.230:9094" //正式
       // return "https://cr.fsyyy.com:9094" //佛山人医正式
       // return "http://218.13.87.27:9094"
     // 临邑县人民
