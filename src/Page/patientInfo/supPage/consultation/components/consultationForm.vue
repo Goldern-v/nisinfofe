@@ -1,9 +1,9 @@
 <template>
   <div>
 	<el-row class="consultationForm" v-loading="consultation.status == '' && conId" v-show="!state.inDel">
-		<!-- 
-			@parame type { String }: 
-			hold: 会诊暂存 
+		<!--
+			@parame type { String }:
+			hold: 会诊暂存
 			done: 会诊完成
 			waitSure: 等待确认
 			applySure: 申请确认
@@ -48,7 +48,7 @@
 				</el-date-picker>
 			</el-form-item>
 			<el-form-item label="邀请会诊科室" :label-width="formLabelWidth" :style="{'pointer-events': consultation.status != '暂存' ? 'none' : 'auto'}">
-				<multiselect v-model="deptList" placeholder="选择或输入关键词搜索" label="name" track-by="code" :options="applyDepartmentOptions" :multiple="true" :taggable="false" :readonly="consultation.status != '暂存'"></multiselect>
+				<!-- <multiselect v-model="deptList" placeholder="选择或输入关键词搜索" label="name" track-by="code" :options="applyDepartmentOptions" :multiple="true" :taggable="false" :readonly="consultation.status != '暂存'"></multiselect> -->
 			</el-form-item>
 			<el-form-item label="申请会诊目的" :label-width="formLabelWidth">
 				<el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="consultation.conGoal" :readonly="consultation.status != '暂存'">
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-	import Multiselect from '@/plugin/vue-multiselect/src/index'
+	// import Multiselect from '@/plugin/vue-multiselect/src/index'
 	import {
 		detail,
 		getAllDept,
@@ -243,7 +243,7 @@
 			}
 		},
 		components: {
-			completeCon, Multiselect
+			completeCon,
 		}
 	}
 </script>
@@ -258,7 +258,7 @@
 //   margin 0 -20px
 .draft-btn
   background: #48AAEB;
-  border-color: #48AAEB;   
+  border-color: #48AAEB;
 .del-btn
   background: #F45D3F;
   border-color: #F45D3F;
@@ -277,7 +277,7 @@
 .del-text
   color #c0c0c0
   font-size 18px;
-  text-align center  
+  text-align center
 </style>
 
 <style lang="scss" scoped>
