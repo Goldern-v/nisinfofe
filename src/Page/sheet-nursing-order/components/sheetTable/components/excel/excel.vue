@@ -55,7 +55,7 @@
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
           @click="td.click || null"
-          @dblclick="openEditModal(tr, data, $event)" 
+          @dblclick="openEditModal(tr, data, $event)"
           :class="[
             td.markObj && `mark-mark-mark mark-cell-${td.markObj.signType}`,
           ]"
@@ -97,6 +97,36 @@
             @click="toSign(tr, y, data.bodyModel, showSign(tr, td.key), 6)"
             v-html="showSign(tr, td.key)"
           ></div>
+          <masked-input
+            v-else-if="['huadu'].includes(HOSPITAL_ID) && (td.key == 'stopTime' || td.key == 'startTime')  "
+            :position="`${x},${y},${index}`"
+            type="text"
+            class="mask-input"
+            :showMask="false"
+            v-model="td.value"
+            :mask="() => [ /\d/, /\d/, ':', /\d/, /\d/]"
+            :guide="true"
+            :data-value="td.value"
+            placeholderChar=" "
+            @keydown="onKeyDown($event, { x, y, z: index, td });"
+            @focus="
+              td.autoComplete &&
+                onFocus($event, {
+                  autoComplete: getCompleteArr(tr, td),
+                  x,
+                  y,
+                  z: index,
+                  td,
+                  tr,
+                  splice: td.splice,
+                })
+            "
+            @blur="
+              !HOSPITAL_ID === 'huadu' &&
+                !td.splice &&
+                onBlur($event, { x, y, z: index }, tr )
+            "
+          ></masked-input>
           <div
             v-else-if="td.key == 'signerName7'"
             class="sign-text"
@@ -259,7 +289,7 @@ import signModal from "@/components/modal/sign.vue";
 import specialModalHuadu from '@/Page/sheet-nursing-order/components/modal/special-modal_huadu'
 import { Tr } from "../../../render/Body.js";
 import { TrHj } from "../../../render/Body_hj.js";
-import { offset, getCursortPosition, focusElement, bindFocus } from "./tool.js";
+import { offset, getCursortPosition, focusElement, bindFocus,leftTopBottomRight, onFocusToAutoComplete,onBlurToAutoComplete} from "./tool.js";
 import sheetInfo from "../../../config/sheetInfo";
 import Mark, { matchMark } from "../../../render/Mark.js";
 import $ from "jquery";
@@ -322,7 +352,7 @@ export default {
         '床上擦浴',
         '床上洗头',
         '温水擦浴',
-        '餐前打胰岛素', 
+        '餐前打胰岛素',
         '脐部护理',
         '洗浴',
         '防坠床',
@@ -376,7 +406,7 @@ export default {
     },
     show(td){
       console.log(td);
-      
+
     },
     changeOrderContent(item){
       if(this.rowIndex<=26){
@@ -1023,6 +1053,76 @@ export default {
         console.log("按下commmand多选==", this.sheetInfo, sheetInfo);
       }
     },
+    // 键盘事件
+    onKeyDown(e, bind) {
+      if (sheetInfo.model == "print") return;
+      // 键盘切换事件
+      leftTopBottomRight(e, bind);
+    },
+    onFocus(e, bind) {
+      if (sheetInfo.model == "print") return;
+      if (!this.sheetInfo.downControl) {
+        setTimeout(() => {
+          if(!this.isOpenEditModal){
+            onFocusToAutoComplete(e, bind); //下拉框延迟
+          }
+        }, 300);
+        // onFocusToAutoComplete(e, bind);
+      }
+    },
+    getCompleteArr(tr, td){
+      return td.autoComplete;
+    },
+    onBlur(e, bind, tr) {
+      if (sheetInfo.model == "print") return;
+      onBlurToAutoComplete(e, bind);
+      let recordDate = tr.find(item=>{
+        return item.key == "recordDate"
+      })
+      if (this.HOSPITAL_ID == "guizhou") {
+        //不允许输入未来时间
+        if (bind.x == 0) {
+          let inputDate = ""
+          if(recordDate.value){
+            inputDate = Date.parse(
+              new Date(recordDate.value.substring(0,4) + "-" + e.target.value)
+            ); //输入日期
+          }else{
+            inputDate = Date.parse(
+              new Date(moment().format("YYYY") + "-" + e.target.value)
+            ); //输入日期
+          }
+          let nowDate = Date.parse(new Date(moment().format("YYYY-MM-DD"))); //当前日期
+          if (inputDate - nowDate > 0) {
+            this.$message.warning("不允许输入未来时间！");
+            this.dateOnBlur[bind.y] = true;
+          } else {
+            this.dateOnBlur[bind.y] = false;
+          }
+        } else if (bind.x == 1) {
+          let inputTime = ""
+          if(recordDate.value){
+            inputTime = Date.parse(
+              new Date(recordDate.value.substring(0,10) + " " + e.target.value)
+            ); //输入日期
+          }else{
+            inputTime = Date.parse(
+              new Date(moment().format("YYYY-MM-DD") + " " + e.target.value)
+            ); //输入日期
+          }
+          let nowTime = Date.parse(
+            new Date(moment().format("YYYY-MM-DD HH:mm"))
+          ); //当前日期
+          if (inputTime - nowTime > 0) {
+            this.$message.warning("不允许输入未来时间！");
+            this.timeOnBlur[bind.y] = true;
+          } else {
+            this.timeOnBlur[bind.y] = false;
+          }
+        }
+      }
+    },
+
   },
   created() {
     // sheetInfo.

@@ -312,7 +312,7 @@
              <div
                 :class="['tip-allergy',formData.glFlag?'hasGLtip-allergy':'']"
                 flex="cross:center main:justify"
-                style="margin-top:20px;"
+                style="margin-top:10px;"
                 v-if="formData.drugGms"
               >
                 <img src="./images/drugGms.png" alt />
@@ -578,7 +578,7 @@ input[type='checkbox']:checked:after {
   height: 51px;
   padding: 0 5px 0 5px;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 17px;
 
   img {
@@ -596,7 +596,7 @@ input[type='checkbox']:checked:after {
   box-sizing: border-box;
   margin-bottom:10px;
   font-size: 12px;
-  max-height :145px
+  max-height :102px
 
   img{
     width 46px
@@ -609,15 +609,15 @@ input[type='checkbox']:checked:after {
     white-space: normal !important;
     text-overflow: ellipsis;
     word-wrap: break-word;
-    -webkit-line-clamp: 6;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
   }
 }
 /* 有隔离的样式 */
 .hasGLtip-allergy{
-  max-height: 110px
+  max-height: 66px
   span{
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
   }
 }
 
@@ -673,10 +673,6 @@ export default {
       qrCode: "" /** 二维码 */,
       qrCodeNum: "" /** 二维码 */,
       tipList: [
-        // {
-        //   label: "小心跌倒",
-        //   img: require("./images/Group 6.png")
-        // },
         {
           label: "小心烫伤",
           img: require("./images/Group 7.png")
@@ -688,6 +684,10 @@ export default {
         {
           label: "防止偷盗",
           img: require("./images/Group 10.png")
+        },
+        {
+          label: "防止跌倒坠床",
+          img: require("./images/Group 6.png")
         },
         // {
         //   label: "测试用的字测试用的字测试用的字测试用的字测试用的字",
