@@ -766,8 +766,7 @@ export default {
           });
           let pages = String(
             pageIndex.find((item) => item !== undefined)
-          ).split("")[1];
-
+          ).substring(1);
           return h("span", { class: { "tree-node": true }, style: pageStyle }, [
             h("img", { attrs: { src: icon } }),
             h("span", {}, `第${pages}页`),

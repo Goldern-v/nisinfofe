@@ -1416,7 +1416,7 @@ export default {
         doc = doc.replace(reg, "");
         doc = `${doc}${replenishTime}`;
       } else {
-        if (true) {
+        if (!['internal_xg', 'common_xg'].includes(this.sheetInfo.sheetType)) {
           // 清除空格
           var reg = new RegExp(" ", "g");
           doc = doc.replace(reg, "");
