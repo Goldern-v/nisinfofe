@@ -146,6 +146,7 @@ import tableHeadSdlj from "./components/table-head/table-head-sdlj";
 import tableHeadHd from "./components/table-head/table-head-hd";
 import tableHeadFuyou from "./components/table-head/table-head-fuyou";
 import tableHeadFoSanXingTan from "./components/table-head/table-head-foshanxingtan.vue";
+import tableHeadGuangDoTonJiang from "./components/table-head/table-head-guangdotonjiang.vue";
 import tableHeadXieGang from "./components/table-head/table-head-xiegang";
 import tableHeadNanFangZhongXiYi from "./components/table-head/table-head-nanfangzhongxiyi";
 import tableHeadBeiHaiRenYi from "./components/table-head/table-head-beihairenyi";
@@ -246,6 +247,8 @@ export default {
         return tableHeadLcey;
       } else if (this.HOSPITAL_ID == "whyx") {
         return tableHeadWhYx;
+      } else if (this.HOSPITAL_ID == "gdtj") {
+        return tableHeadGuangDoTonJiang;
       }else {
         return tableHead;
       }

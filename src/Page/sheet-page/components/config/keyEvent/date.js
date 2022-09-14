@@ -103,3 +103,14 @@ export function click_check(e, td) {
     td.value = '√';
   }
 }
+
+// 点击打勾再次点击取消
+
+export function click_cancel(e, td) {
+  if (td.value == "") {
+    td.value = '√';
+  }else{
+    console.log('1111111111111111111111111',td.value);
+    td.value = ""
+  }
+}
