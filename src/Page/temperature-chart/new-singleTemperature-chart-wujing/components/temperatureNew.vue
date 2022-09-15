@@ -183,13 +183,14 @@ export default {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
       let patientId = this.queryTem.patientId;
       let visitId = this.queryTem.visitId;
+      let authTokenNursing = this.authTokenNursing;
       this.date = date;
       this.patientId = patientId;
       this.visitId = visitId;
       /* 单独处理体温单，嵌套iframe */
       if (this.showTemp) {
-        const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-        const tempAllUrl = `${this.withoutPainAll}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
+        const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
+        const tempAllUrl = `${this.withoutPainAll}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
         // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
         this.filePath = "";
         setTimeout(() => {
@@ -197,8 +198,8 @@ export default {
           this.printAllPath = tempAllUrl;
         }, 0);
       } else {
-        const tempUrl = `${this.painModelUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 内网 */
-        const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}`; /* 内网 */
+        const tempUrl = `${this.painModelUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
+        const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
         // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
         this.filePath = "";
         setTimeout(() => {
@@ -223,10 +224,10 @@ export default {
           case "dblclick" /* 双击查阅体温单子 */:
             this.openRight();
             break;
-             case "currentPage":
+            case "currentPage":
             this.currentPage = e.data.value;
             break;
-             case "clickDateTime":
+            case "clickDateTime":
             this.getDataFromPage(e.data.value)
             break;
           default:
@@ -291,6 +292,9 @@ export default {
     },
     rightSheet() {
       return this.$store.state.temperature.rightPart;
+    },
+    authTokenNursing() {
+      return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
   },
   beforeDestroy() {
