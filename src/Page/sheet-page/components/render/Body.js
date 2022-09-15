@@ -1236,6 +1236,16 @@ function switchSheetType(type) {
       schema = require("../config/ultrasound_fs/tr.js").default;
     }
       break;
+    case "hydrochloricacid_fs": {
+      // 佛山市一 - 盐酸利托君(安宝)观察记录单
+      schema = require("../config/hydrochloricacid_fs/tr.js").default;
+    }
+      break;
+    case "magnesiumsulf_fs": {
+      // 佛山市一 - 硫酸镁注射静脉滴注观察记录
+      schema = require("../config/magnesiumsulf_fs/tr.js").default;
+    }
+      break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;

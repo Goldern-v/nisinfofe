@@ -1829,7 +1829,8 @@ export default {
               this.HOSPITAL_ID == "shannan" ||
               this.sheetInfo.sheetType === "icu_qz" ||
               this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
-              this.sheetInfo.sheetType === "common_gzry"
+              this.sheetInfo.sheetType === "common_gzry" ||
+              this.sheetInfo.sheetType === "hydrochloricacid_fs"
             ) {
               // 特殊情况长度截取，前端控制部分(长度计算：输入的字数*2-2)
               if (GetLength(text) > 46) {
@@ -1900,6 +1901,13 @@ export default {
               } else {
                 text += allDoc[i];
               }
+            } else if (this.sheetInfo.sheetType === "magnesiumsulf_fs") {
+              if (GetLength(text) > 62) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
             } else if (this.sheetInfo.sheetType === "nursingrecords_zxy") {
               if (GetLength(text) > 54) {
                 result.push(text);
@@ -1959,7 +1967,7 @@ export default {
             } else if (
               this.sheetInfo.sheetType === "revivemonitoring_bh" ||
               this.sheetInfo.sheetType === "emergency_treat_yx" ||
-              this.sheetInfo.sheetType === "postpartum_nurse_wj"
+              this.sheetInfo.sheetType === "postpartum_nurse_wj" 
             ) {
               if (GetLength(text) > 42) {
                 result.push(text);
