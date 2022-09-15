@@ -96,12 +96,6 @@
           {{ patientInfo.deptName }}
         </div>
       </span>
-      <span>
-        科室：
-        <div class="bottom-line" style="min-width: 70px">
-          {{ patientInfo.realDeptName }}
-        </div>
-      </span>
       <!-- <span>
         床号：
         <div class="bottom-line" style="min-width: 50px">
@@ -125,7 +119,7 @@
         <div
           class="bottom-line"
           style="
-            min-width: 650px;
+            min-width: 1100px;
             min-height: 13px;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -144,7 +138,7 @@
         <div
           class="bottom-line"
           style="
-            min-width: 650px;
+            min-width: 1100px;
             min-height: 13px;
             text-overflow: ellipsis;
             white-space: nowrap;
