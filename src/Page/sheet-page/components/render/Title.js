@@ -1897,6 +1897,27 @@ export default function Title(
     );
   }
   break;
+  case "prenataldelivery2_tj": {
+    // 广东同江 - 产前护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenataldelivery2_tj/th.js").default)
+    );
+  }
+  break;
+  case "postpartum2_tj": {
+    // 广东同江 - 护理记录单(产后)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum2_tj/th.js").default)
+    );
+  }
+  break;
+  case "pediatric3_tj": {
+    // 广东同江 - 护理记录单(产后)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatric3_tj/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(

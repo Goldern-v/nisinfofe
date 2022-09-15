@@ -38,16 +38,6 @@ console.log(
 
 console.log(__dirname);
 
-// if (hospitalName == "--guiyi") {
-//   devEnv = require("./dev.env.guiyi");
-//   prodEnv = require("./prod.env.guiyi");
-// } else if (hospitalName == "--wuhang") {
-//   devEnv = require("./dev.env.wuhang");
-//   prodEnv = require("./prod.env.wuhang");
-// } else {
-//   devEnv = require("./dev.env");
-//   prodEnv = require("./prod.env");
-// }
 module.exports = {
     build: {
         env: prodEnv,

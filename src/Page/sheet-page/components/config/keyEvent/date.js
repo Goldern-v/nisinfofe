@@ -38,6 +38,8 @@ export function event_date(e, td) {
 }
 
 export function event_time(e, td) {
+  console.log('dddddddddddddddddddd');
+  console.log(e.keyCode, td.valye);
   if (td.value.length >= "2" && td.value.indexOf(":") == -1 && e.keyCode != 8) {
     setTimeout(() => {
       td.value = insert_flg(td.value, ":");
@@ -101,5 +103,16 @@ export function click_time(e, td, tr) {
 export function click_check(e, td) {
   if (td.value == "") {
     td.value = '√';
+  }
+}
+
+// 点击打勾再次点击取消
+
+export function click_cancel(e, td) {
+  if (td.value == "") {
+    td.value = '√';
+  }else{
+    console.log('1111111111111111111111111',td.value);
+    td.value = ""
   }
 }

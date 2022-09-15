@@ -1476,6 +1476,21 @@ function switchSheetType(type) {
       schema = require("../config/general_xt/tr.js").default;
     }
     break;
+    case "prenataldelivery2_tj": {
+     // 广东同江 - 产前护理记录
+      schema = require("../config/prenataldelivery2_tj/tr.js").default;
+    }
+      break;
+    case "postpartum2_tj": {
+      // 广东同江 - 护理记录单(产后)
+      schema = require("../config/postpartum2_tj/tr.js").default;
+    }
+      break;
+    case "pediatric3_tj": {
+      // 广东同江 - 护理记录单(产后)
+      schema = require("../config/pediatric3_tj/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

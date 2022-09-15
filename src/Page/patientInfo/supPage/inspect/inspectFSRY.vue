@@ -17,8 +17,7 @@
               class="title"
               style="margin-left: 20px"
               v-if="HOSPITAL_ID == 'gy'"
-              >住院标识</span
-              >
+              >住院标识</span>
              <span class="title" style="margin-left: 20px" v-else>住院次数</span>
              <el-select v-model="visitId" placeholder="请选择" class="select">
              <el-option

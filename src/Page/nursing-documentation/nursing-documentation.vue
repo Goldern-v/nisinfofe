@@ -128,6 +128,11 @@ export default {
       if (data.bedLabel) {
         obj.bedLabel = data.bedLabel;
       }
+      if(['wujing'].includes(this.HOSPITAL_ID)){
+        if (data.companyAddress) {
+          obj.companyAddress = data.companyAddress;
+        }
+      }
       if(!['beihairenyi'].includes(this.HOSPITAL_ID)){
           if (data.admissionDate[0]) {
         obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(

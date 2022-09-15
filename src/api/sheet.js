@@ -107,7 +107,8 @@ export const delSelectRow = (params) => {
  */
  export const findListByBlockId = () => {
   return axios.post(`${apiPath}record/titleTempalate/findListByBlockId`, {
-    blockId: sheetInfo.selectBlock.id
+    blockId: sheetInfo.selectBlock.id,
+    recordCode: sheetInfo.sheetType
   })
 }
 

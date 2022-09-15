@@ -310,7 +310,7 @@ label
     .barcode-img {
       width: 150px;
       p {
-        font-size: 16px;
+        font-size: 13px;
         line-height: 14px;
       }
     }
