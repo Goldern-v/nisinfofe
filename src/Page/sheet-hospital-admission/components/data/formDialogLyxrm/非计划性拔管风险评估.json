@@ -150,10 +150,10 @@
             {
               "equals": [
                 "0",
-                "已保存 "
+                ""
               ],
               "style": "color:blue",
-              "display": "已保存"
+              "display": ""
             },
             {
               "equals": [
