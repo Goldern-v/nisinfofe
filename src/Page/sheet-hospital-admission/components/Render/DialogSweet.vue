@@ -639,7 +639,7 @@ export default {
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
-        if (this.type === "dependent") {
+        if (this.type === "independent") {
           console.log("formBox", this.formBox, this.$root.$refs);
           setTimeout(() => {
             this.fillUIFormData(this.formBox.model);
