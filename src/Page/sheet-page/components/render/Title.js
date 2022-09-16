@@ -1568,6 +1568,20 @@ export default function Title(
       );
     }
   break;
+  case "hydrochloricacid_fs": {
+    // 佛山市一 - 盐酸利托君(安宝)观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/hydrochloricacid_fs/th").default)
+    );
+  }
+  break;
+  case "magnesiumsulf_fs": {
+    // 佛山市一 - 硫酸镁注射静脉滴注观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/magnesiumsulf_fs/th").default)
+    );
+  }
+  break;
   case "nonsurgicalcare_fk": {
     // 武汉肺科 - 非手术科室护理记录单
     Th = JSON.parse(

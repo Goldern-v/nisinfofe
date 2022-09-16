@@ -155,9 +155,9 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       //  return "http://192.168.20.93:8080"
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
-      // return "https://cr.fsyyy.com:9094"  // 正式地址
+      return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.20.147:9091"  // 双艳
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" // 初升测试本地内网
       // return "http://192.168.20.102:8080" //宪锋本地地址
 
@@ -201,6 +201,12 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9866'
     case 'zhzxy':
       return "http://192.168.1.54:9883" 
+    // 青海五院
+    case 'qhwy':
+      return 'http://192.168.1.54:9894'
+    // 临沂沂州
+    case 'lyyz':
+      return 'http://192.168.1.54:9895'
     /** 默认公司本地内网厚街测试环境 */
     default:
       // return "http://192.168.1.54:9866",
