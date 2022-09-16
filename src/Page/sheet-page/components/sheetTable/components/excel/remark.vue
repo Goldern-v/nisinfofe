@@ -594,9 +594,9 @@
       </p>
     </div>
     <!--佛山市一 -  麻醉科IPACU护理记录单-->
-    <div v-if="sheetInfo.sheetType == 'ipacu_fs'">
+    <!-- <div v-if="sheetInfo.sheetType == 'ipacu_fs'">
        注：1.神志：麻醉未醒“①”，清醒“②”，谵妄“③”，嗜睡“④”，昏睡“⑤”，浅昏迷“⑥”，中度昏迷“⑦”，深昏迷“⑧”。镇静状态“⑨”。 
-    </div>
+    </div> -->
   </div>
 </template>
 
