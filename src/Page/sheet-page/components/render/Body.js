@@ -1281,6 +1281,11 @@ function switchSheetType(type) {
       schema = require("../config/nursing_sdlj/tr.js").default;
     }
     break;
+    case "nursing_zhzxy": {
+      // 珠海中西医 - 护理记录单
+      schema = require("../config/nursing_zhzxy/tr.js").default;
+    }
+    break;
     case "prenatal_sdlj": {
       // 顺德龙江 - 产前待产记录单
       schema = require("../config/prenatal_sdlj/tr.js").default;

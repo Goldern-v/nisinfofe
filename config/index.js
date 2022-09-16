@@ -199,6 +199,8 @@ const currentTargetUrl = (() => {
     case 'ytll':
       return "http://221.214.210.170:39094"  // 正式
       return 'http://192.168.1.54:9866'
+    case 'zhzxy':
+      return "http://192.168.1.54:9883" 
     /** 默认公司本地内网厚街测试环境 */
     default:
       // return "http://192.168.1.54:9866",
