@@ -199,6 +199,12 @@ const currentTargetUrl = (() => {
     case 'ytll':
       return "http://221.214.210.170:39094"  // 正式
       return 'http://192.168.1.54:9866'
+    // 青海五院
+    case 'qhwy':
+      return 'http://192.168.1.54:9894'
+    // 临沂沂州
+    case 'lyyz':
+      return 'http://192.168.1.54:9895'
     /** 默认公司本地内网厚街测试环境 */
     default:
       // return "http://192.168.1.54:9866",
