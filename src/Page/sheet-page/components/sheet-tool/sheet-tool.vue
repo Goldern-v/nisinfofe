@@ -559,9 +559,14 @@ export default {
       type:Boolean,
       default:false
     },
+    // 动态表头数据
     sheetTitleData: {
       type: Object,
       default: {}
+    },
+    // 最大页数
+    maxPage: {
+      type: Number | String,
     }
   },
   data() {
@@ -1084,8 +1089,7 @@ export default {
         return this.$message.info("请选择一名患者");
       }
       if (this.sheetTitleData.FieldSetting && this.sheetTitleData.FieldSetting.length) {
-        const maxPage = Math.max(...this.sheetTitleData.FieldSetting.map(item => item.pageIndex)) + 1
-        this.$refs.tmpModal.open(maxPage)
+        this.$refs.tmpModal.open(this.maxPage)
       } else {
         return this.$message.info("无自定义表头，无法设置为模板");
       }
