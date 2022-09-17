@@ -1918,6 +1918,34 @@ export default function Title(
     );
   }
   break;
+  case "surgical_qhwy": {
+    // 青海五院 - 外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/surgical_qhwy/th").default)
+    );
+  }
+  break;
+  case "ophthalmology_qhwy": {
+    // 青海五院 - 眼科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ophthalmology_qhwy/th").default)
+    );
+  }
+  break;
+  case "seriouslynursing_qhwy": {
+    // 青海五院 - 病重（病危）患者护理记录单（二）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/seriouslynursing_qhwy/th").default)
+    );
+  }
+  break;
+  case "entnursing_qhwy": {
+    // 青海五院 - 耳鼻喉科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/entnursing_qhwy/th").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
