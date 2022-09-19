@@ -1568,6 +1568,20 @@ export default function Title(
       );
     }
   break;
+  case "hydrochloricacid_fs": {
+    // 佛山市一 - 盐酸利托君(安宝)观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/hydrochloricacid_fs/th").default)
+    );
+  }
+  break;
+  case "magnesiumsulf_fs": {
+    // 佛山市一 - 硫酸镁注射静脉滴注观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/magnesiumsulf_fs/th").default)
+    );
+  }
+  break;
   case "nonsurgicalcare_fk": {
     // 武汉肺科 - 非手术科室护理记录单
     Th = JSON.parse(
@@ -1901,6 +1915,34 @@ export default function Title(
     // 广东同江 - 护理记录单(产后)
     Th = JSON.parse(
       JSON.stringify(require("../config/pediatric3_tj/th.js").default)
+    );
+  }
+  break;
+  case "surgical_qhwy": {
+    // 青海五院 - 外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/surgical_qhwy/th").default)
+    );
+  }
+  break;
+  case "ophthalmology_qhwy": {
+    // 青海五院 - 眼科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ophthalmology_qhwy/th").default)
+    );
+  }
+  break;
+  case "seriousnursing_qhwy": {
+    // 青海五院 - 病重（病危）患者护理记录单（二）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/seriouslynursing_qhwy/th.js").default)
+    );
+  }
+  break;
+  case "entnursing_qhwy": {
+    // 青海五院 - 耳鼻喉科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/entnursing_qhwy/th").default)
     );
   }
   break;

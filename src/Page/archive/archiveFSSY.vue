@@ -112,7 +112,7 @@
           header-align="center"
           align="center"
           label="病人ID"
-          prop="inpNo"
+          prop="patientId"
           min-width="160px"
         ></el-table-column>
 

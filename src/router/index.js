@@ -695,11 +695,25 @@ const router = new Router({
       {
         path: "/wardReport",
         name: "wardReports",
-        component: wardReport,
+        component: (() => {
+          switch(HOSPITAL_ID) {
+            case 'fsxt':
+              return () => import('@/Page/ward-report-fsxt/index.vue')
+            default:
+              return wardReport
+          }
+        })(),
         children: [{
           name: "wardReport",
           path: "/wardReport/:date?",
-          component: wardReportDetail
+          component: (() => {
+            switch(HOSPITAL_ID) {
+              case 'fsxt':
+                return () => import('@/Page/ward-report-fsxt/detail.vue')
+              default:
+                return wardReportDetail
+            }
+          })()
         }]
       },
       {

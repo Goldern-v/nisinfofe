@@ -43,7 +43,8 @@ export default {
           { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"costom3","style":{"minWidth":"30px","maxWidth":"30px"}}, 
           { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"costom4","style":{"minWidth":"30px","maxWidth":"30px"}}, 
           { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"costom5","style":{"minWidth":"30px","maxWidth":"30px"}}, 
-          { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"costom6","style":{"minWidth":"30px","maxWidth":"30px"}},
+          { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"oxygenMode","style":{"minWidth":"30px","maxWidth":"30px"}},
+          { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"oxygenL","style":{"minWidth":"30px","maxWidth":"30px"}},
           { "name": "特殊情况记录", "colspan": "1", "rowspan": "2", style: { minWidth: "163px",  maxWidth: "163px"}, }, 
           { "name": "签名", "colspan": "1", "rowspan": "2"}, 
           { "name": "质控签名", "colspan": "1", "rowspan": "2"}
@@ -57,7 +58,7 @@ export default {
               {"name": "项<br/>目", "colspan": "1", "rowspan": "1"}, 
               {"name": "量", "colspan": "1", "rowspan": "1"}, 
               {"name": "颜<br/>色<br/>或<br/>性<br/>状", "colspan": "1", "rowspan": "1"},  
-              {"name": "流量<br/>L/min", "colspan": "1", "rowspan": "1"}, 
+              {"name": "流量<br/>L/cm", "colspan": "1", "rowspan": "1"}, 
             ]
             // ,style: { color:"red"},
         , 

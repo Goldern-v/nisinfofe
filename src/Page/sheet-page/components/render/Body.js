@@ -1236,6 +1236,16 @@ function switchSheetType(type) {
       schema = require("../config/ultrasound_fs/tr.js").default;
     }
       break;
+    case "hydrochloricacid_fs": {
+      // 佛山市一 - 盐酸利托君(安宝)观察记录单
+      schema = require("../config/hydrochloricacid_fs/tr.js").default;
+    }
+      break;
+    case "magnesiumsulf_fs": {
+      // 佛山市一 - 硫酸镁注射静脉滴注观察记录
+      schema = require("../config/magnesiumsulf_fs/tr.js").default;
+    }
+      break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;
@@ -1481,6 +1491,26 @@ function switchSheetType(type) {
       schema = require("../config/pediatric3_tj/tr.js").default;
     }
       break;
+    case "surgical_qhwy": {
+        // 青海五院 - 外科护理记录单
+        schema = require("../config/surgical_qhwy/tr.js").default;
+      }
+      break;  
+    case "ophthalmology_qhwy": {
+        // 青海五院 - 眼科护理记录单
+      schema = require("../config/ophthalmology_qhwy/tr.js").default;
+    }
+      break;  
+    case "seriousnursing_qhwy": {
+        // 青海五院 - 病重（病危）患者护理记录单（二）
+      schema = require("../config/seriouslynursing_qhwy/tr.js").default;
+    }
+      break; 
+    case "entnursing_qhwy": {
+        // 青海五院 - 耳鼻喉科护理记录单
+      schema = require("../config/entnursing_qhwy/tr.js").default;
+    }
+      break;   
     default: {
       schema = require("../config/default/tr.js").default;
     }
