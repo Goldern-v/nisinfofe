@@ -78,7 +78,7 @@ export default {
         临沂沂州医院: 'LyyzHeader',
         青海省第五人民医院: 'QhwyHeader',
         威海市立医院: 'WhslHeader',
-        珠海中西医结合医院: 'ZhzxyHeader',
+        珠海市中西医结合医院: 'ZhzxyHeader',
         武汉汉口医院: 'WhhkHeader',
         南方医科大学顺德医院: 'nfyksdyyHeader',
       };
