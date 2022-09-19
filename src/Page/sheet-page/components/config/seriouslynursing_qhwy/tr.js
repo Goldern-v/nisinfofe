@@ -193,7 +193,7 @@ import {
         change: (e, td) => limitChange(e, td, 4)
     },
     {
-        key: "perinealCare", //口腔护理
+        key: "oralCare", //口腔护理
         value: "",
         event: keyf1,
         name: '口腔护理',

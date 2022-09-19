@@ -1501,7 +1501,7 @@ function switchSheetType(type) {
       schema = require("../config/ophthalmology_qhwy/tr.js").default;
     }
       break;  
-    case "seriouslynursing_qhwy": {
+    case "seriousnursing_qhwy": {
         // 青海五院 - 病重（病危）患者护理记录单（二）
       schema = require("../config/seriouslynursing_qhwy/tr.js").default;
     }

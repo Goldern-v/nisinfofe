@@ -1932,10 +1932,10 @@ export default function Title(
     );
   }
   break;
-  case "seriouslynursing_qhwy": {
+  case "seriousnursing_qhwy": {
     // 青海五院 - 病重（病危）患者护理记录单（二）
     Th = JSON.parse(
-      JSON.stringify(require("../config/seriouslynursing_qhwy/th").default)
+      JSON.stringify(require("../config/seriouslynursing_qhwy/th.js").default)
     );
   }
   break;
