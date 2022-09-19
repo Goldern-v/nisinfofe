@@ -144,7 +144,7 @@ export default {
       this.loading = true;
       // 主表结构
       let file = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz'].includes(this.HOSPITAL_ID)) {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.liaoc.json"))
         )
@@ -152,11 +152,15 @@ export default {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.lyxrm.json"))
         )
+      } else if (this.HOSPITAL_ID === 'qhwy') {
+        file = JSON.parse(
+          JSON.stringify(require('../data/入院评估.form.qhwy.json'))
+        )
       } else if (this.HOSPITAL_ID === 'foshanrenyi') {
         file = JSON.parse(
           JSON.stringify(require('../data/foshanrenyi/入院评估.form.foshanrenyi.json'))
         )
-      }  else {
+      } else {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.json"))
         )
@@ -172,10 +176,12 @@ export default {
       );
       // 主表下拉框选项字典表
       let dictionary = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.liaoc.json")))
       } else if (this.HOSPITAL_ID === 'lyxrm') {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.lyxrm.json")))
+      } else if (this.HOSPITAL_ID === 'qhwy') {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.qhwy.json")))
       } else if (this.HOSPITAL_ID === 'foshanrenyi'){
         dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
       } else {
@@ -192,10 +198,12 @@ export default {
 
       /** 自动获取弹窗配置 */
       let contexts = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
+      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz'].includes(this.HOSPITAL_ID)) {
         contexts = require.context('../data/formDialogLiaoc', true, /\.json$/);
       } else if (this.HOSPITAL_ID === 'lyxrm') {
         contexts = require.context('../data/formDialogLyxrm', true, /\.json$/);
+      } else if (this.HOSPITAL_ID === 'qhwy') {
+        contexts = require.context('../data/formDialogQhwy', true, /\.json$/);
       } else if (this.HOSPITAL_ID === 'foshanrenyi') {
         contexts = require.context('../data/foshanrenyi/formDialog', true, /\.json$/);
       } else {
@@ -212,11 +220,13 @@ export default {
           let fromName = context.replace("./", "").replace(".json", "");
 
           let schemesJson = null
-          if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz','qhwy'].includes(this.HOSPITAL_ID)) {
+          if (this.HOSPITAL_NAME === '聊城市第二人民医院' || ['lyyz'].includes(this.HOSPITAL_ID)) {
             schemesJson = require(`../data/formSchemesLiaoc/${fromName}.txt.json`)
           } else if (this.HOSPITAL_ID === 'lyxrm') {
             schemesJson = require(`../data/formSchemesLyxrm/${fromName}.txt.json`)
-          } else {
+          } else if (this.HOSPITAL_ID === 'qhwy') {
+            schemesJson = require(`../data/formSchemesQhwy/${fromName}.txt.json`)
+          }else {
             schemesJson = require(`../data/formSchemes/${fromName}.txt.json`)
           }
           let schemes = JSON.parse(JSON.stringify(schemesJson));
