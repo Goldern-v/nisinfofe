@@ -386,7 +386,6 @@ export default {
         default:
           break
       }
-      console.log('test-filterArr', filterArr)
       return filterArr.includes(this.currentType)
     },
   },

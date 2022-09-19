@@ -29,7 +29,8 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理文书</div>
+        <div class="nav-item" v-if="HOSPITAL_ID == 'beihairenyi'">护理评估单</div>
+        <div class="nav-item" v-else>护理文书</div>
       </router-link>
       <router-link
         v-if="['hj','fuyou','liaocheng','sdlj'].includes(HOSPITAL_ID) "
@@ -66,15 +67,14 @@
         <div class="nav-item">护理记录单</div>
       </router-link>
       <router-link
-        :to="{
-          path: '/temperature',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
+        v-if="HOSPITAL_ID == 'sdlj'"
+        to=""
+        @click.native="openNewPage('toHandNumbness')"
       >
-        <div class="nav-item">体温单</div>
+        <div class="nav-item-shouma" >手麻记录单</div>
       </router-link>
       <router-link
+        v-if="!['beihairenyi'].includes(this.HOSPITAL_ID)"
         :to="{
           path: '/hospitalEval',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -83,6 +83,15 @@
       >
         <div class="nav-item">住院日常评估</div>
       </router-link>
+      <!-- <router-link
+        :to="{
+          path: '/catheter',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">导管</div>
+      </router-link> -->
       <router-link
         :to="{
           path: '/diagnosis',
@@ -155,6 +164,26 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
+      <!-- <router-link to="/dev" tag="span">
+        <div class="nav-item">手术</div>
+      </router-link>-->
+      <!-- <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
+        <div class="nav-item">会诊</div>
+      </router-link>-->
+      <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
+        <div class="nav-item">护理记录单</div>
+      </router-link>-->
+      <router-link
+        :to="{
+          path: '/temperature',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">体温单</div>
+      </router-link>
+
+      <span class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toYst')">医膳通</span>
     </div>
     <div style="height: 50px"></div>
   </div>
