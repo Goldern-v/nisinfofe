@@ -99,6 +99,7 @@
             size="small"
             style="width: 130px"
             multiple
+            @change="search"
           >
             <el-option
               v-for="(v, i) in bedList"
