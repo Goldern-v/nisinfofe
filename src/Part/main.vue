@@ -37,6 +37,7 @@ import QhwyHeader from "@/components/HLheader/QhwyHeader";//广东同江
 import WhslHeader from "@/components/HLheader/WhslHeader";//威海市立
 import ZhzxyHeader from "@/components/HLheader/ZhzxyHeader";//珠海中西医
 import WhhkHeader from "@/components/HLheader/WhhkHeader";
+import nfyksdyyHeader from "@/components/HLheader/nfyksdyyHeader";
 
 export default {
   data() {
@@ -48,6 +49,7 @@ export default {
   methods: {
     // 依据医院名字，标题组件切换
     switchCompt(HisName = process.env.HOSPITAL_NAME) {
+      console.log(process.env.HOSPITAL_NAME)
       let hisList = {
         威县人民医院: "WeiXianHeader",
         东莞市厚街医院: "HLheader",
@@ -76,8 +78,9 @@ export default {
         临沂沂州医院: 'LyyzHeader',
         青海省第五人民医院: 'QhwyHeader',
         威海市立医院: 'WhslHeader',
-        珠海市中西医结合医院: 'ZhzxyHeader',
+        珠海中西医结合医院: 'ZhzxyHeader',
         武汉汉口医院: 'WhhkHeader',
+        南方医科大学顺德医院: 'nfyksdyyHeader',
       };
       return hisList[HisName] || "HLheader";
     },
@@ -113,6 +116,7 @@ export default {
     WhslHeader,
     ZhzxyHeader,
     WhhkHeader,
+    nfyksdyyHeader
   },
 };
 </script>

@@ -310,7 +310,7 @@ export default {
       // 根据ID获取表单数据
       // this.formBox.model.id
       let id =
-        this.formObj.model[this.dialogFormCode] || this.formBox.model.id || "";
+        this.formObj.model[this.dialogFormCode] //|| this.formBox.model.id || "";
       console.log("根据ID表单", id, this.formBox, this.formObj);
       if (id) {
         id = ~~id;
@@ -639,7 +639,7 @@ export default {
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
-        if (this.type === "dependent") {
+        if (this.type === "independent") {
           console.log("formBox", this.formBox, this.$root.$refs);
           setTimeout(() => {
             this.fillUIFormData(this.formBox.model);
@@ -732,15 +732,18 @@ export default {
 
       if (this.dialogFormCode) {
         // this.formBox.model.parentId = this.formObj.model.id;
-        this.formBox["formCode"] = this.dialogFormCode;
+        this.formBox.model["formCode"] = this.dialogFormCode;
         this.formBox.model.parentId =
           window.formObj.model.formId || window.formObj.model.id;
         // this.formBox.model.status = window.formObj.model.status
-
+        this.formBox.model.id = "";
+        this.formBox.model.formId = "";
+        this.formBox.model.parentId = "";
         let signBoxTitle = this.okText + "确认";
-
+        console.log('this.formObj222',this.formObj,this.formBox);
         let postData = {
-          id: this.formBox.model.id || "",
+          // id: this.formBox.model.id || "",
+          id: this.formObj.model[this.dialogFormCode],
           // empNo: empNo,
           sign: true,
           // "audit": true,

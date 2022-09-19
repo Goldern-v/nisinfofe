@@ -59,6 +59,63 @@
         </div>
       </span> -->
     </div>
+    <div class="info-con" flex="main:justify" v-else-if="sheetInfo.sheetType === 'hydrochloricacid_fs' || sheetInfo.sheetType === 'magnesiumsulf_fs'">
+       <span>
+        姓名：
+        <div class="bottom-line" style="min-width: 70px">
+          {{ patientInfo.patientName }}
+        </div>
+      </span>
+      <span>
+        孕
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['pregnantTimes']"
+          v-model="sheetInfo.relObj['pregnantTimes']"
+        />产
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['parity']"
+          v-model="sheetInfo.relObj['parity']"
+        />
+      </span>
+      <span>
+        孕周：
+        <input
+          style="width: 35px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
+        />
+      </span>
+       <span>
+        年龄：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.age }}
+        </div>
+      </span>
+      <span>
+        科室：
+        <div class="bottom-line" style="min-width: 70px">
+          {{ patientInfo.realDeptName }}
+        </div>
+      </span>
+  
+      <span>
+        床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <span>
+        住院号：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.inpNo }}
+        </div>
+      </span>
+    </div>
      <div class="info-con" flex="main:justify" v-else>
        <span>
         姓名：
@@ -96,12 +153,6 @@
           {{ patientInfo.deptName }}
         </div>
       </span>
-      <span>
-        科室：
-        <div class="bottom-line" style="min-width: 70px">
-          {{ patientInfo.realDeptName }}
-        </div>
-      </span>
       <!-- <span>
         床号：
         <div class="bottom-line" style="min-width: 50px">
@@ -118,14 +169,14 @@
       </span> -->
     </div>
     <div class="info-con">
-      <span v-if="sheetInfo.sheetType != 'iabp_fs'"
+      <span v-if="sheetInfo.sheetType != 'iabp_fs' && sheetInfo.sheetType != 'hydrochloricacid_fs' && sheetInfo.sheetType != 'magnesiumsulf_fs'"
         @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
       >
         入院诊断：
         <div
           class="bottom-line"
           style="
-            min-width: 650px;
+            min-width: 1100px;
             min-height: 13px;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -144,7 +195,7 @@
         <div
           class="bottom-line"
           style="
-            min-width: 650px;
+            min-width: 1100px;
             min-height: 13px;
             text-overflow: ellipsis;
             white-space: nowrap;

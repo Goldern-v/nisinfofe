@@ -112,7 +112,7 @@
           header-align="center"
           align="center"
           label="病人ID"
-          prop="inpNo"
+          prop="patientId"
           min-width="160px"
         ></el-table-column>
 
@@ -611,7 +611,7 @@ export default {
     // 跳转至电子病历
     openDetail(row) {
       const { patientId, visitId } = row
-      if (['foshanrenyi', 'lyxrm','zhzxy', 'whhk'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'lyxrm','zhzxy', 'whhk','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         const { href } = this.$router.resolve({
           path: "/home",
           query: { patientId, visitId }

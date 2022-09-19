@@ -41,29 +41,32 @@ export default [
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spo', event: keyf1, value: '', next: '%', name: 'SPO₂',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spirit', event: keyf1, value: '', next: '', name: '神志',autoComplete: { data: 
-    [{name:"麻醉未醒①",value:"麻醉未醒"},{name:"清醒②",value:"清醒"},{name:"谵妄③",value:"谵妄"},
-     {name:"嗜睡④",value:"嗜睡"},{name:"昏睡⑤",value:"昏睡"},{name:"浅昏迷⑥",value:"浅昏迷"},{name:"中度昏迷⑦",value:"中度昏迷"},
-     {name:"深昏迷⑧",value:"深昏迷"},{name:"镇静状态⑨",value:"镇静状态"}
+    [{name:"麻醉未醒",value:"麻醉未醒"},{name:"清醒",value:"清醒"},{name:"镇静状态",value:"镇静状态"},{name:"谵妄",value:"谵妄"},
+     {name:"嗜睡",value:"嗜睡"},{name:"昏睡",value:"昏睡"},{name:"浅昏迷",value:"浅昏迷"},{name:"中度昏迷",value:"中度昏迷"},
+     {name:"深昏迷",value:"深昏迷"}
     ] } ,
     textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'rass', event: keyf1, value: '', next: '', name: 'RASS',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'heartRhythm', event: keyf1, value: '', next: '', name: '心律',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'cvp', event: keyf1, value: '', next: '', name: 'CVP',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'vas', event: keyf1, value: '', next: '', name: '疼痛VAS评分',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'food', event: keyf1, value: '', next: '', name: '入量项目',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'heartRhythm', event: keyf1, value: '', next: '', name: '心律',textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'cvp', event: keyf1, value: '', next: '', name: 'CVP',textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'vas', event: keyf1, value: '', next: '', name: '疼痛VAS评分',textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'food', event: keyf1, value: '', next: '', name: '入量项目',autoComplete: { data: 
+    [{name:"口服",value:"口服"},{name:"鼻饲",value:"鼻饲"},{name:"输液",value:"输液"}
+    ] } ,
+    textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量项目',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  
+  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量项目',textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'outputColor', event: keyf1, value: '', next: '', name: '颜色或性状',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'outputCm', event: keyf1, value: '', next: 'cm', name: '刻度',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'oxygenMode', event: keyf1, value: '', next: '', name: '吸氧方式',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'oxygenL', event: keyf1, value: '', next: 'L/min', name: '吸氧流量',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'venousIn', event: keyf1, value: '', next: 'CM', name: '静脉置管内置',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom1', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom2', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom3', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom4', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom5', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'oxygenMode', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'oxygenL', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
     key: "specialRecord", //特殊情况记录
     value: "",

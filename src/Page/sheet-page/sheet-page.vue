@@ -8,7 +8,13 @@
     <div class="head-con" flex>
       <div class="dept-select-con"></div>
       <div class="tool-con" flex-box="1">
-        <sheetTool ref="sheetTool" :isLock='isLock' :isLoad='isLoad' :sheetTitleData="sheetTitleData"></sheetTool>
+        <sheetTool
+          ref="sheetTool"
+          :isLock='isLock'
+          :isLoad='isLoad'
+          :sheetTitleData="sheetTitleData"
+          :maxPage="Number(sheetInfo.endPage)"
+        ></sheetTool>
       </div>
     </div>
     <div
@@ -371,7 +377,7 @@ export default {
       return resultModel;
     },
     sheetTable() {
-      console.log("sheetInfo.sheetType",sheetInfo.sheetType)
+      console.log("sheetInfo.sheetType",sheetInfo,sheetInfo.sheetType)
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
         //  return sheetTablePost_partum;

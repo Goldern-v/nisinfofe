@@ -86,7 +86,7 @@
 	import {
 		detail
 	} from '@/api/consultation'
-	import Multiselect from '@/plugin/vue-multiselect/src/index'
+	// import Multiselect from '@/plugin/vue-multiselect/src/index'
 	import peopelMoadl from '../moadl/peopel.vue'
 	import suggestMoadl from '../moadl/suggest.vue'
 	import BusFactory from 'vue-happy-bus'
@@ -94,7 +94,7 @@
 		name: "newFormDialog",
 		// props: ['dialogFormVisible'],
 		components: {
-			Multiselect
+			// Multiselect
 		},
 		data() {
 			return {
@@ -249,7 +249,7 @@
   background: #FFFFFF;
   border: 1px solid #CBD5DD;
   box-shadow: inset 0 1px 2px 0 rgba(0,0,0,0.20);
-  border-radius: 4px;  
+  border-radius: 4px;
   font-size: 13px;
   color: #333333;
   margin-bottom 15px
@@ -277,7 +277,7 @@
 		border: 1px solid #CBD5DD;
 		border-radius: 4px;
 		color: rgb(31, 61, 53);
-	}	
+	}
 </style>
 
 <style lang="stylus">
@@ -289,13 +289,13 @@
     margin 20px -20px;
   .dash-line
     border-top: 1px dashed #A09D9D;
-    margin  13px 0px; 
+    margin  13px 0px;
   .head
     margin 10px 0 15px;
   .info
-    margin 15px 0 18px  
+    margin 15px 0 18px
   .info-con
-    margin-right 50px  
+    margin-right 50px
     .value
       color: #151515;
 </style>

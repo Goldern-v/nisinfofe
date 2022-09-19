@@ -552,7 +552,8 @@
             sheetInfo.sheetType == 'critical_new_linyi' ||
             sheetInfo.sheetType == 'ultrasound_fs' ||
             sheetInfo.sheetType == 'generalnursing_tj' ||
-            HOSPITAL_ID == 'fsxt'
+            sheetInfo.sheetType == 'magnesiumsulf_fs' ||
+            HOSPITAL_ID == 'fsxt' 
           "
           >质控护士：</span
         >
@@ -729,7 +730,8 @@ export default {
         "critical_linyi", //临邑人医_病重（病危）患者护理记录单（带瞳孔）
         "critical_new_linyi",
         "ultrasound_fs",
-        "generalnursing_tj"
+        "generalnursing_tj",
+        "magnesiumsulf_fs"
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -2356,7 +2358,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj"]
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =

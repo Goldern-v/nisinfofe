@@ -62,8 +62,14 @@
         <ElCheckbox :disabled="!patients" :value="patients.length === selectedItems.length" @change="onCheckAll">全部</ElCheckbox>
         <ElCheckbox :disabled="!groups['新']" :value="isAllCheck('新')" @change="onCheckStatus($event, '新')">新入</ElCheckbox>
         <ElCheckbox :disabled="!groups['转入']" :value="isAllCheck('转入')" @change="onCheckStatus($event, '转入')">转入</ElCheckbox>
-        <ElCheckbox :disabled="!groups['今手']" :value="isAllCheck('今手')" @change="onCheckStatus($event, '今手')">今手</ElCheckbox>
-        <ElCheckbox :disabled="!groups['明手']" :value="isAllCheck('明手')" @change="onCheckStatus($event, '明手')">明手</ElCheckbox>
+        <template v-if="HOSPITAL_ID=='hj'">
+           <ElCheckbox :disabled="!groups['今日手术']" :value="isAllCheck('今日手术')" @change="onCheckStatus($event, '今日手术')">今日手术</ElCheckbox>
+           <ElCheckbox :disabled="!groups['明日手术']" :value="isAllCheck('明日手术')" @change="onCheckStatus($event, '明日手术')">明日手术</ElCheckbox>
+        </template>
+        <template v-else>
+           <ElCheckbox :disabled="!groups['今手']" :value="isAllCheck('今手')" @change="onCheckStatus($event, '今手')">今手</ElCheckbox>
+           <ElCheckbox :disabled="!groups['明手']" :value="isAllCheck('明手')" @change="onCheckStatus($event, '明手')">明手</ElCheckbox>
+        </template>
         <ElCheckbox :disabled="!groups['明出']" :value="isAllCheck('明出')" @change="onCheckStatus($event, '明出')">明出</ElCheckbox>
         <ElCheckbox :disabled="!groups['病重']" :value="isAllCheck('病重')" @change="onCheckStatus($event, '病重')">病重</ElCheckbox>
         <ElCheckbox :disabled="!groups['病危']" :value="isAllCheck('病危')" @change="onCheckStatus($event, '病危')">病危</ElCheckbox>
@@ -124,7 +130,13 @@
         }))
 
         const groups = groupBy(patients, 'patientType')
-        const status = ['新', '转入', '今手', '明手', '明出', '病重', '病危']
+        
+        let status
+        if(this.HOSPITAL_ID=='hj'){
+           status= ['新', '转入', '今日手术', '明日手术', '明出', '病重', '病危']
+        }else{
+          status= ['新', '转入', '今手', '明手', '明出', '病重', '病危']
+        }
 
         this.patients = patients.filter((p) => !this.selectedKeys.includes(p.key))
 

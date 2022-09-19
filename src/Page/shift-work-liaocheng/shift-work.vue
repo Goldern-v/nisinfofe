@@ -23,6 +23,7 @@
           v-for="record of records"
           :to="{name: 'shiftWork', params: {code: record.deptCode, id: record.id}}"
           :key="record.id"
+          @click.native="closeInterval"
         >
           <div class="text">{{record.changeShiftDate}}</div>
           <div :class="['state', {success: isAllSigned(record)}]"></div>
@@ -97,6 +98,16 @@
     },
     watch: {
       async deptCode (value, oldValue) {
+         // 关闭定时器
+        if(this.$store.state.shiftRecords.lockTimeId){
+          clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+          this.$store.commit("changeLockTimeId",'')
+         }
+         // 关闭倒计时定时器
+        if(this.$store.state.shiftRecords.countDownId){
+           clearInterval(this.$store.state.shiftRecords.countDownId)
+          this.$store.commit("changeCountDownId",'')
+         }
         /* 切换科室的时候解锁 */
         await this.toUnLock()
         this.$router.push({path: '/shiftWork'})
@@ -106,6 +117,13 @@
       }
     },
     methods: {
+      closeInterval(){
+        // 关闭倒计时定时器
+        // if(this.$store.state.shiftRecords.countDownId){
+         clearInterval(this.$store.state.shiftRecords.countDownId)
+         this.$store.commit("changeCountDownId",'')
+        // }
+      },
       async load () {
         this.loading = true
 
@@ -208,6 +226,11 @@
       if(this.$store.state.shiftRecords.lockTimeId){
         clearTimeout(this.$store.state.shiftRecords.lockTimeId)
         this.$store.commit("changeLockTimeId",'')
+      }
+      // 关闭倒计时定时器
+      if(this.$store.state.shiftRecords.countDownId){
+        clearInterval(this.$store.state.shiftRecords.countDownId)
+        this.$store.commit("changeCountDownId",'')
       }
       /* 切换模块的时候解锁 */
       await this.toUnLock()

@@ -1,7 +1,7 @@
 <template>
   <sweet-modal ref="modalName" title="检验报告" class="modal-con" >
     <!-- 佛山从护记进入是可以回填数据,去护记的特殊情况 -->
-    <template v-if="HOSPITAL_ID == 'foshanrenyi'&& hasFeature">
+    <template v-if="['foshanrenyi', 'lyxrm', 'whhk'].includes(HOSPITAL_ID) && hasFeature">
        <testFSRY></testFSRY>
     </template>
     <template v-else>

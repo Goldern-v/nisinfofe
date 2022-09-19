@@ -49,6 +49,12 @@
           <div class="label">{{ geClassP()}}</div>
           <input flex-box="1" v-model="data.classP" @blur="update">
         </div>
+        <div style="margin: 15px 0" v-if="['fsxt'].includes(HOSPITAL_ID)">
+          <div flex="cross:center">
+            <div class="label">二级护士：</div>
+            <input flex-box="1" v-model="data.secondDutyNurse" @blur="update">
+          </div>
+        </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
           <!-- <div class="label">{{ HOSPITAL_ID !== 'hengli' ? 'P全班：' : 'PN班：' }}</div> -->

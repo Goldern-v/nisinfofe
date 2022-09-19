@@ -100,7 +100,7 @@
               <div class="midEditInput">
                 <template  v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='xiegang'">
                  <el-date-picker
-                   @change="changeEvaldate"
+                   @change="changeEvalDate"
                    v-model="value1"
                    type="datetime"
                    placeholder="选择日期时间"
@@ -126,7 +126,7 @@
             </div>
             <div class="midEditBottom">
               <div class="midEditBottomSign">签名: {{rowData.creatorName}}</div>
-              <div class="midEditBottomReplace" @click="signTranceform">切换</div>
+              <div class="midEditBottomReplace" @click="handleSwitch">切换</div>
             </div>
             <div class="bottomSubmit">
               <el-button @click="writeForm">写入护理记录单</el-button>
@@ -145,8 +145,9 @@
 <script>
 import moment from "moment";
 import { getListAssessment, signBlock, saveEvalDesc } from "./api";
-import sheetInfo from "../../config/sheetInfo";
+// import sheetInfo from "../../config/sheetInfo";
 import bus from "vue-happy-bus";
+import { mapMutations, mapState } from 'vuex';
 export default {
   data() {
     return {
@@ -161,6 +162,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      openModalFromSpecial: state => state.sheet.openModalFromSpecial
+    }),
     aaa() {
       moment(this.value11).format("YYYY-MM-DD");
     }
@@ -169,7 +173,8 @@ export default {
     endData() {}
   },
   methods: {
-    changeEvaldate(){
+    ...mapMutations(['upOpenModalFromSpecial', 'upEvalData']),
+    changeEvalDate(){
       var date = new Date(this.value1)
       if(this.rowData.evalDate){
         this.rowData.evalDate=moment(date).format("YYYY-MM-DD HH:mm:ss")
@@ -233,7 +238,7 @@ export default {
       // })
       parentNode.classList.add("addRowClass");
     },
-    signTranceform() {
+    handleSwitch() {
       window.openSignModal((password, username) => {
         signBlock(password, username).then(res => {
           if (res.data.code == "200" && res.data.data) {
@@ -247,6 +252,12 @@ export default {
       });
     },
     writeForm() {
+      if (this.openModalFromSpecial) {
+        this.upEvalData(this.rowData.syncToRecordDesc)
+        this.upOpenModalFromSpecial(false)
+        this.close()
+        return
+      }
       saveEvalDesc(
         this.rowData.id,
         this.rowData.syncToRecordDesc,
