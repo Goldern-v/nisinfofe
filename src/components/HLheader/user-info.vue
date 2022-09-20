@@ -431,14 +431,23 @@ export default {
       this.$refs.uploadImgModal.open("signImg");
     },
     clear() {
+      let count = 0
       for (let key in localStorage) {
         if (key.includes("firtPainFormID") || key.includes("patientInfo")) {
           localStorage.removeItem(key);
+          count += 1
         }else if (key.includes("selectDeptValue")) {
           localStorage.removeItem(key);
           this.$store.commit("upDeptCode", '');
+          count += 1
         }
       }
+      if (count > 0) {
+        this.$message('清除成功')
+      } else {
+        this.$message('没有内容可清除')
+      }
+      count = null
       // location.reload(true);
       // localStorage.clear()
       // location.href = '/crNursing/login'

@@ -196,6 +196,7 @@ import adviceTableSDLJ from "./component/adviceTable_sdlj.vue";
 import { orders, newOrders } from "@/api/patientInfo";
 import {getProcedureData} from '@/api/common'
 import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
+import { hisMatch } from '@/utils/tool';
 export default {
   data() {
     return {
@@ -285,32 +286,36 @@ export default {
       return data;
     },
     currentAdviceTable() {
-      let HOSPITAL_ID = this.HOSPITAL_ID;
-      // 通过 this.HOSPITAL_ID 对应组件
-      let idToCom = {
-        hengli:"adviceTableCommon",
-        liaocheng:"adviceTableLiaocheng",
-        fuyou:"adviceTableFy",
-        weixian:"adviceTableWx",
-        huadu:"adviceTableHd",
-        nanfangzhongxiyi:"adviceTableNanfangzhongxiyi",
-        guizhou:"adviceTableGuizhou",
-        xiegang:"adviceTableXiegang",
-        beihairenyi:"adviceTableBeihairenyi",
-        whfk:'adviceTableWHFK',
-        sdlj:"adviceTableSDLJ",
-        gdtj:"adviceTableSDLJ",
-        ytll:"adviceTableWHFK",
-        yangchunzhongyi:"adviceTableYc",
-        whsl:"adviceTableSDLJ",
-        qhwy:"adviceTableSDLJ",
-        default:"adviceTable",
-      }
-      if(idToCom[HOSPITAL_ID]){
-        return idToCom[HOSPITAL_ID]
-      }else{
-        return idToCom.default
-      }
+      // 新医院注意 可以使用adviceTableSDLJ
+      return hisMatch({
+        map: {
+          hengli:"adviceTableCommon",
+          liaocheng:"adviceTableLiaocheng",
+          fuyou:"adviceTableFy",
+          weixian:"adviceTableWx",
+          huadu:"adviceTableHd",
+          nanfangzhongxiyi:"adviceTableNanfangzhongxiyi",
+          guizhou:"adviceTableGuizhou",
+          xiegang:"adviceTableXiegang",
+          beihairenyi:"adviceTableBeihairenyi",
+          whfk:'adviceTableWHFK',
+          yangchunzhongyi:"adviceTableYc",
+          'sdlj,ytll,whsl,qhwy,zhzxy':"adviceTableSDLJ",
+          default:"adviceTable",
+        }
+      })
+      // let idToCom = {
+      //   gdtj:"adviceTableSDLJ",
+      //   ytll:"adviceTableWHFK",
+      //   whsl:"adviceTableSDLJ",
+      //   qhwy:"adviceTableSDLJ",
+      //   qhwy:"adviceTableSDLJ",
+      // }
+      // if(idToCom[HOSPITAL_ID]){
+      //   return idToCom[HOSPITAL_ID]
+      // }else{
+      //   return idToCom.default
+      // }
     },
   },
   created() {
