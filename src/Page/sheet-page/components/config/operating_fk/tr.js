@@ -289,7 +289,7 @@ import {
       },
     },
     {
-      key: "drainageTube4", //自定义5
+      key: "drainage5", //自定义5
       value: "",
       name: "",
       next:"",
