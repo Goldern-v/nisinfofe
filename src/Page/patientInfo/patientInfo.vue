@@ -2,7 +2,6 @@
   <div :class="{ hj:  ['hj','sdlj','fuyou'].includes(HOSPITAL_ID) }">
     <component :is="witchLeft" v-if="inited"/>
     <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
-      <!-- <topPart></topPart> -->
       <component :is="switchCompt()" v-if="inited" />
       <router-view v-if="inited"></router-view>
     </div>
