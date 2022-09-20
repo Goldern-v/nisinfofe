@@ -1410,13 +1410,14 @@ const router = new Router({
         component: (() => {
           switch (HOSPITAL_ID) {
             case 'guizhou':
+            case 'zhzxy':
               return nursingMakeListGuizhou
             default:
               return nursingRounds
           }
         })(),
         name: "护理巡视",
-        children:['guizhou'].includes(HOSPITAL_ID)?[
+        children:['guizhou', 'zhzxy'].includes(HOSPITAL_ID)?[
           {
             path: "/nursingMakeItem",
             name: "nursingMakeItem",
