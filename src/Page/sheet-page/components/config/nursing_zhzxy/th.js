@@ -1,6 +1,6 @@
 
 /*
-  顺德龙江 - 产科护理记录单
+  珠海中西医 - 护理记录单
 */
 
 /**
@@ -19,12 +19,12 @@ export default {
     th: {
         top: 
             [
-                {"name":"日期","colspan":"1","rowspan":"2"},
-                {"name":"时间","colspan":"1","rowspan":"2"},
+                {"name":"日期","colspan":"1","rowspan":"2","style":{"minWidth":"45px","maxWidth":"45px"}},
+                {"name":"时间","colspan":"1","rowspan":"2","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"T<br>℃","colspan":"1","rowspan":"2"},
                 {"name":"P/HR<br>次/分","colspan":"1","rowspan":"2"},
                 {"name":"R<br>次/分","colspan":"1","rowspan":"2"},
-                {"name":"BP<br>mmH<br>g","colspan":"1","rowspan":"2"},
+                {"name":"BP<br>mmHg","colspan":"1","rowspan":"2","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"SpO2<br>％","colspan":"1","rowspan":"2"},
                 {"name":"吸氧<br>L/min","colspan":"1","rowspan":"2"},
                 {"name":"入量","colspan":"2","rowspan":"1"},
@@ -34,20 +34,20 @@ export default {
                 {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value3", "style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value4", "style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value5", "style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value6", "style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value7", "style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value8", "style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"病情观察及护理措施","colspan":"1","rowspan":"2","style":{"minWidth":"300px","maxWidth":"300px"}},
+                // {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value6", "style":{"minWidth":"35px","maxWidth":"35px"}},
+                // {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value7", "style":{"minWidth":"35px","maxWidth":"35px"}},
+                // {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value8", "style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"病情观察及护理措施","colspan":"1","rowspan":"2","style":{"minWidth":"250px","maxWidth":"250px"}},
                 {"name":"签名","colspan":"1","rowspan":"2","style":{"minWidth":"60px","maxWidth":"60px"}},
             ]
         ,
         mid: 
             [
-                {"name":"内容","colspan":"1","rowspan":"1"},
+                {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"ml","colspan":"1","rowspan":"1"},
-                {"name":"内容","colspan":"1","rowspan":"1"},
+                {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"ml","colspan":"1","rowspan":"1"},
-                {"name":"颜色/性状","colspan":"1","rowspan":"1"},
+                {"name":"颜色/性状","colspan":"1","rowspan":"1","style":{"minWidth":"55px","maxWidth":"55px"}},
             ]
         ,
         bottom: 
