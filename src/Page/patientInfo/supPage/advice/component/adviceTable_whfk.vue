@@ -144,7 +144,7 @@
           >{{scope.row.skinWay}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="皮试结果" min-width="80px" prop="skinResult">
+      <el-table-column  v-if="HOSPITAL_ID !== 'ytll'" label="皮试结果" min-width="80px" prop="skinResult">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -152,11 +152,25 @@
           >{{scope.row.skinResult}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="皮试时间" min-width="120px">
+      <el-table-column  v-if="HOSPITAL_ID == 'ytll'" label="皮试结果" min-width="80px" prop="skinResult">
+        <template slot-scope="scope">
+          <span
+            :class="type(scope.row.orderStatusName)"
+          >{{scope.row.skinResult}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column  v-if="HOSPITAL_ID != 'ytll'" label="皮试时间" min-width="120px">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
             v-show="Number(scope.row.rowType)== 1"
+          >{{scope.row.skinDate}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column  v-if="HOSPITAL_ID == 'ytll'" label="皮试时间" min-width="120px">
+        <template slot-scope="scope">
+          <span
+            :class="type(scope.row.orderStatusName)"
           >{{scope.row.skinDate}}</span>
         </template>
       </el-table-column>

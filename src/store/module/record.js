@@ -4,6 +4,8 @@ export default {
     ThreeTestSheet: false,
     EvaluationRecords: false,
     NursingCarePlan: false,
+    // 科室code
+    RDeptCode: '',
   },
   mutations: {
     openFullPageRecord(state) {
@@ -14,6 +16,9 @@ export default {
     },
     changeRecordValue(state, {key, value}) {
       state[key] = value
+    },
+    upRDeptCode(state, value) {
+      state.RDeptCode = value
     }
   }
 }

@@ -378,7 +378,7 @@
                   </router-link>
                 </el-dropdown-item>
 
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
                 >
                   <router-link to="/wardReport" tag="span">
@@ -386,7 +386,7 @@
                       <i class="wardReport"></i>病房日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
 
                 <!-- <el-dropdown-item
                   :class="{

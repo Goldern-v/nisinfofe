@@ -40,7 +40,6 @@ export default {
       this.$refs.modalName.close()
     },
     handleCheckbox(e) {
-      // console.log('test-e', e)
       this.selected = e
     }
   },

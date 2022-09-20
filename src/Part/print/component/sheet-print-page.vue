@@ -548,6 +548,18 @@ export default {
         `
       );
     }
+    if (
+      (this.HOSPITAL_ID === "qhwy")
+    ) {
+      addCSS(
+        window,
+        `
+           img{
+              transform: scale(0.8);
+            }
+        `
+      );
+    }
      if (
       (this.HOSPITAL_ID === "xiegang") 
     ) {

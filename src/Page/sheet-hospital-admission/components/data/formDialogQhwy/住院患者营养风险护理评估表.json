@@ -1,0 +1,548 @@
+{
+    "pageSetting": {
+        "size": "4A",
+        "rotation": "portrait",
+        "margin": "0",
+        "width": "750px",
+        "height": "auto",
+        "mode": "development_",
+        "style": ""
+    },
+    "formSetting": {
+        "formTitle": {
+            "hospitalName": "聊城市第二人民医院",
+            "formName": "营养风险筛查评估"
+        },
+        "formHeads": [
+            {
+                "name": "name",
+                "code": null,
+                "title": "姓名",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "sex",
+                "code": null,
+                "title": "性别",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "age",
+                "code": null,
+                "title": "年龄",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "wardName",
+                "code": null,
+                "title": "病区",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "bedLabel",
+                "code": null,
+                "title": "床号",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "inpNo",
+                "code": null,
+                "title": "住院号",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "admissionDate",
+                "code": null,
+                "title": "入院日期",
+                "class": "",
+                "style": "",
+                "show": true
+            }
+        ],
+        "formTail": {
+            "showEvalScore": false,
+            "showSign": true,
+            "showAudit": true
+        },
+        "formInfo": {
+            "formCode": "E0618",
+            "formApiCode": "E0618",
+            "formName": "营养风险筛查评估",
+            "status": "0",
+            "formType": "eval"
+        }
+    },
+    "dictionary": {
+        "疼痛部位": "A, B, C, D"
+    },
+    "schemes": {},
+    "model": {},
+    "body": [
+        {
+            "name": "I003001",
+            "type": "formGroupColBox",
+            "col": 3,
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I003001",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "evalDate",
+                    "type": "datePicker",
+                    "title": "评估时间",
+                    "titleStyle": "width:90px!important;margin:0;",
+                    "hiddenTips": true,
+                    "code": "",
+                    "placeholder": "评估时间",
+                    "style": "width:145px",
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "signerName",
+                    "type": "input",
+                    "title": "评估人",
+                    "titleStyle": "width:90px!important;margin:0;",
+                    "hiddenTips": true,
+                    "code": "0",
+                    "placeholder": "评估人",
+                    "style": "width:80px",
+                    "class": null,
+                    "readOnly": true
+                },
+                {
+                    "name": "status",
+                    "type": "input",
+                    "title": "状态",
+                    "titleStyle": "width:90px!important;margin:0;",
+                    "hiddenTips": true,
+                    "code": "0",
+                    "placeholder": "状态",
+                    "style": "width:80px",
+                    "class": null,
+                    "readOnly": true,
+                    "rule": [
+                        {
+                            "equals": [
+                                "-1",
+                                "未保存"
+                            ],
+                            "style": "color:gray",
+                            "display": "未签名"
+                        },
+                        {
+                            "equals": [
+                                "0",
+                                "已保存 "
+                            ],
+                            "style": "color:blue",
+                            "display": "已保存"
+                        },
+                        {
+                            "equals": [
+                                "1",
+                                "已签名"
+                            ],
+                            "style": "color:red",
+                            "display": "已签名"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "1",
+            "title": "一、评估内容",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "1",
+            "title": "表一，初步评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "text-align:center",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "营养风险筛查初步评估",
+            "type": "formGroupVerticalBox",
+            "title": "营养风险筛查初步评估",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "I618004",
+                    "type": "input",
+                    "label": "BMI<18.5kg/m²",
+                    "inputWidth": "50px",
+                    "options": [
+                        "是",
+                        "否"
+                    ],
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null,
+                    "selectOnly": true
+                },
+                {
+                    "name": "I618005",
+                    "type": "input",
+                    "label": "患者过去3个月内体重是否下降",
+                    "inputWidth": "50px",
+                    "options": [
+                        "是",
+                        "否"
+                    ],
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null,
+                    "selectOnly": true
+                },
+                {
+                    "name": "I618006",
+                    "type": "input",
+                    "label": "患者过去1周内摄食是否减少",
+                    "inputWidth": "50px",
+                    "options": [
+                        "是",
+                        "否"
+                    ],
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null,
+                    "selectOnly": true
+                },
+                {
+                    "name": "I618007",
+                    "type": "input",
+                    "label": "患者是否患有严重疾病（如在ICU接受治疗）",
+                    "inputStyle": "width:270px!important",
+                    "inputWidth": "50px",
+                    "options": [
+                        "是",
+                        "否"
+                    ],
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null,
+                    "selectOnly": true
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "1",
+            "title": "表二、全面评估",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "text-align:center",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "疾病状态/严重程度",
+            "type": "formGroupVerticalBox",
+            "title": "疾病状态/严重程度",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "疾病状态/严重程度",
+            "suffixDesc": "",
+            "keys": "I618020",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "I618020",
+                    "type": "radio",
+                    "title": "髋部骨折、肝硬化、长期血液透析,糖尿病、慢性阻塞性肺病肿瘤慢性疾病伴随着急症并发症",
+                    "code": "1",
+                    "score": "1",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I618020",
+                    "type": "radio",
+                    "title": "大的腹部手术、中风、重症肺炎、血液系统肿",
+                    "code": "2",
+                    "score": "2",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I618020",
+                    "type": "radio",
+                    "title": "颅脑损伤；骨髓抑制；加护病患（APACHE>10分）患者在加强病房中靠机械通气支持，蛋白质需要量增加而且不能被肠外或肠内营养支持所弥补，但是通过肠外或肠内营养支持可使蛋白质分解和氮丢失明显减",
+                    "code": "3",
+                    "score": "3",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "营养状态",
+            "type": "formGroupVerticalBox",
+            "title": "营养状态",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "营养状态",
+            "suffixDesc": "",
+            "keys": "I618021",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "I618021",
+                    "type": "radio",
+                    "title": "正常营养状态(0分)",
+                    "code": "0",
+                    "score": "0",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I618021",
+                    "type": "radio",
+                    "title": "1.3个月内，体重丢失>5%    2.在之前的一周中，摄入量为正常的50%~75%(1分)",
+                    "code": "1",
+                    "score": "1",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I618021",
+                    "type": "radio",
+                    "title": "1.2个月内，体重丢失>5%    2.BMI在18.5~20.5或及一般状况差      3.在之前的一周中，摄入量为正常的25%~50%",
+                    "code": "2",
+                    "score": "2",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I618021",
+                    "type": "radio",
+                    "title": "1.1个月内，体重丢失>5%(3个月内丢失>15%)   2.BMI<18.5(或血清白蛋白<35g/L)差      3.在之前的一周中，摄入量为正常的0%~25%",
+                    "code": "3",
+                    "score": "3",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "年龄",
+            "type": "formGroupVerticalBox",
+            "title": "年龄",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "年龄",
+            "suffixDesc": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "I618022",
+                    "type": "radio",
+                    "title": "年龄≥70岁(1分)",
+                    "code": "1",
+                    "score": "1",
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "I100001",
+            "type": "formGroupColBox",
+            "col": 2,
+            "colWidth": [
+                "40%",
+                "60%"
+            ],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "I100001",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "evalScore",
+                    "type": "input",
+                    "title": "评估得分",
+                    "titleStyle": "width:90px!important;margin:0;",
+                    "hiddenTips": true,
+                    "code": "evalScore",
+                    "placeholder": "评估得分",
+                    "style": "width:80px",
+                    "inputWidth": "136px",
+                    "class": null,
+                    "readOnly": true
+                },
+                {
+                    "name": "evalDesc",
+                    "type": "input",
+                    "title": "结果程度",
+                    "titleStyle": "width:90px!important;margin:0;",
+                    "hiddenTips": true,
+                    "code": "",
+                    "placeholder": "结果程度",
+                    "style": "width:80px",
+                    "inputWidth": "136px",
+                    "class": null,
+                    "readOnly": true,
+                    "rule": [
+                        {
+                            "min": "-1",
+                            "max": "1",
+                            "equal": "无营养风险",
+                            "style": "color:blue",
+                            "display": "无营养风险"
+                        },
+                        {
+                            "min": "1",
+                            "max": "3",
+                            "equal": "无营养不良风险",
+                            "style": "color:blue",
+                            "display": "无营养不良风险"
+                        },
+                        {
+                            "min": "3",
+                            "max": "99",
+                            "equal": "有营养不良风险",
+                            "style": "color:red",
+                            "display": "有营养不良风险"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "dialogs": [],
+    "header": [],
+    "footer": []
+}

@@ -206,7 +206,7 @@
         {
           "name": "I1316020",
           "type": "checkbox",
-          "title": "中深度镇静及手术后的麻醉过程及复苏后6h，局麻除外",
+          "title": "入住ICU患者",
           "code": "⑴",
           "score": 45,
           "style": null,
@@ -217,7 +217,7 @@
         {
           "name": "I1316020",
           "type": "checkbox",
-          "title": "产后24h内",
+          "title": "入住急诊抢救室",
           "code": "⑵",
           "score": 45,
           "style": null,
@@ -228,7 +228,7 @@
         {
           "name": "I1316020",
           "type": "checkbox",
-          "title": "步态不稳",
+          "title": "入住麻醉复苏室",
           "code": "⑶",
           "score": 45,
           "style": null,
@@ -239,7 +239,7 @@
         {
           "name": "I1316020",
           "type": "checkbox",
-          "title": "肢体无力",
+          "title": "入住分娩室",
           "code": "⑷",
           "score": 45,
           "style": null,
@@ -250,7 +250,7 @@
         {
           "name": "I1316020",
           "type": "checkbox",
-          "title": "晚期妊娠",
+          "title": "血液透析室患者",
           "code": "⑸",
           "score": 45,
           "style": null,
@@ -261,7 +261,7 @@
         {
           "name": "I1316020",
           "type": "checkbox",
-          "title": "重度贫血",
+          "title": "重度贫血患者",
           "code": "⑹",
           "score": 45,
           "style": null,
@@ -272,7 +272,7 @@
         {
           "name": "I1316020",
           "type": "checkbox",
-          "title": "视物不清",
+          "title": "眩晕患者",
           "code": "⑺",
           "score": 45,
           "style": null,
@@ -283,7 +283,7 @@
         {
           "name": "I1316020",
           "type": "checkbox",
-          "title": "意识障碍",
+          "title": "晚期妊娠孕妇",
           "code": "⑻",
           "score": 45,
           "style": null,
@@ -294,7 +294,7 @@
         {
           "name": "I1316020",
           "type": "checkbox",
-          "title": "头晕",
+          "title": "产后24小时的产妇",
           "code": "⑼",
           "score": 45,
           "style": null,
@@ -307,17 +307,6 @@
           "type": "checkbox",
           "title": "眩晕",
           "code": "⑽",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "精神状态差",
-          "code": "⑾",
           "score": 45,
           "style": null,
           "class": null,
@@ -375,9 +364,9 @@
       "readOnly": ""
     },
     {
-      "name": "2. 多于1个疾病诊断：",
+      "name": "2. 多于1个医学疾病诊断：",
       "type": "formGroupVerticalBox",
-      "title": "2. 多于1个疾病诊断：",
+      "title": "2. 多于1个医学疾病诊断：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -422,9 +411,9 @@
       "readOnly": ""
     },
     {
-      "name": "3. 步行需要帮助：",
+      "name": "3. 使用助行用具",
       "type": "formGroupVerticalBox",
-      "title": "3. 步行需要帮助：",
+      "title": "3. 使用助行用具",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -437,7 +426,7 @@
         {
           "name": "I1316003",
           "type": "radio",
-          "title": "不需要、卧床休息、坐轮椅、护士辅助”（0分）",
+          "title": "不需要、卧床休息、 护士辅助”（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -526,9 +515,9 @@
       "readOnly": ""
     },
     {
-      "name": "5. 步态：",
+      "name": "5. 步态/移动",
       "type": "formGroupVerticalBox",
-      "title": "5. 步态：",
+      "title": "5. 步态/移动",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -541,7 +530,7 @@
         {
           "name": "I1316004",
           "type": "radio",
-          "title": "正常、卧床、轮椅（0分）",
+          "title": "正常、卧床休息、轮椅（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -552,7 +541,7 @@
         {
           "name": "I1316004",
           "type": "radio",
-          "title": "乏力（10分）",
+          "title": "年龄>65岁、虚弱无力（10分）",
           "code": "10",
           "score": 10,
           "style": null,
@@ -562,7 +551,7 @@
         {
           "name": "I1316004",
           "type": "radio",
-          "title": "严重虚弱/受损（20分）",
+          "title": "严重虚弱（20分）",
           "code": "20",
           "score": 20,
           "style": null,
@@ -584,9 +573,9 @@
       "readOnly": ""
     },
     {
-      "name": "6. 认识状态：",
+      "name": "6. 精神状态",
       "type": "formGroupVerticalBox",
-      "title": "6. 认识状态：",
+      "title": "6. 精神状态",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -599,7 +588,7 @@
         {
           "name": "I1316006",
           "type": "radio",
-          "title": "自主行为能力（0分）",
+          "title": "正确评估自我能力（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -610,9 +599,9 @@
         {
           "name": "I1316006",
           "type": "radio",
-          "title": "无控制力（15分）",
-          "code": "20",
-          "score": 20,
+          "title": "高估自己能力、忘记自己受限制（15分）",
+          "code": "15",
+          "score": 15,
           "style": null,
           "class": null,
           "readOnly": null

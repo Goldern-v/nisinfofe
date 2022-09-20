@@ -157,6 +157,7 @@ import tableHeadQz from "./components/table-head/table-head-qz";
 import tableHeadWhFk from "./components/table-head/table-head-whfk"
 import tableHeadLcey from "./components/table-head/table-head-lcey"
 import tableHeadWhYx from "./components/table-head/table-head-whyx.vue"
+import tableHeadQhWy from "./components/table-head/table-head-qhwy.vue"
 export default {
   props: {
     data: Object,
@@ -249,6 +250,8 @@ export default {
         return tableHeadWhYx;
       } else if (this.HOSPITAL_ID == "gdtj") {
         return tableHeadGuangDoTonJiang;
+      }else if(this.HOSPITAL_ID == "qhwy"){
+        return tableHeadQhWy;
       }else {
         return tableHead;
       }

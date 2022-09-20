@@ -58,7 +58,7 @@ export default {
               {"name": "项<br/>目", "colspan": "1", "rowspan": "1"}, 
               {"name": "量", "colspan": "1", "rowspan": "1"}, 
               {"name": "颜<br/>色<br/>或<br/>性<br/>状", "colspan": "1", "rowspan": "1"},  
-              {"name": "流量<br/>L/cm", "colspan": "1", "rowspan": "1"}, 
+              {"name": "刻度<br/>/cm", "colspan": "1", "rowspan": "1"}, 
             ]
             // ,style: { color:"red"},
         , 
