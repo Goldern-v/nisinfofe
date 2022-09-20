@@ -95,7 +95,6 @@ export const wideTraversal = (treeArr, childName = 'columns', includesRoot = fal
       }
     }
   }
-  console.log('test-arr', arr)
   return arr
  }
 /**

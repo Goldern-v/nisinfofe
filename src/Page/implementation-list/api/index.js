@@ -175,3 +175,8 @@ export function webSplitOrder(obj) {
 export function getPrintListContent2(body){
   return axios.post(`${apiPath}procedure/webExecute/webGetExecuteWithBarcodeList2`,body)
 }
+
+/**根据科室id获取当前住院患者 */
+export function getBedLabelByWardCode(wardCode) {
+  return axios.get(`${apiPath}procedure/webExecute/getBedLabelByWardCode/${wardCode}`)
+}
