@@ -289,6 +289,18 @@ import {
       },
     },
     {
+      key: "drainageTube4", //自定义5
+      value: "",
+      name: "",
+      next:"",
+      event: keyf1,
+      autoComplete: { data: ['带入','置入','N','夹管','拔管'] },
+      change: (e, td) => limitChange(e, td,4),
+      textarea: {
+        width: 32
+      },
+    },
+    {
       key: "food", //入量项目
       value: "",
       name: "入量名称",

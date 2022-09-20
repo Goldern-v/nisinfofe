@@ -10,7 +10,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1362px"
+    width: "1394px"
   },
   th: {
     top: [ 
@@ -98,7 +98,7 @@ export default {
         导管及引流管
         `,
         style: {},
-        colspan: "5",
+        colspan: "6",
         rowspan: "1",
       },
       {
@@ -262,6 +262,15 @@ export default {
         colspan: "1",
         rowspan: "2",
         key:"drainage4",
+        canSet:true
+      },
+      {
+        name: 
+        ``,
+        style: {},
+        colspan: "1",
+        rowspan: "2",
+        key:"drainageTube4",
         canSet:true
       },
       {
