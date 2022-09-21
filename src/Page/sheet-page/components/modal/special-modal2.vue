@@ -767,7 +767,7 @@
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
@@ -1164,6 +1164,7 @@ export default {
     showDiagnosisBtn() {
       switch (process.env.HOSPITAL_ID) {
         case "guizhou":
+        case '925':
           return this.commonFormGZ && this.activeTab === "3";
         case "lyxrm":
         case "huadu":
@@ -1996,7 +1997,7 @@ export default {
             } else if (
               this.sheetInfo.sheetType === "revivemonitoring_bh" ||
               this.sheetInfo.sheetType === "emergency_treat_yx" ||
-              this.sheetInfo.sheetType === "postpartum_nurse_wj" 
+              this.sheetInfo.sheetType === "postpartum_nurse_wj"
             ) {
               if (GetLength(text) > 42) {
                 result.push(text);

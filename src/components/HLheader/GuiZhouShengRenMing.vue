@@ -7,22 +7,12 @@
         <el-row type="flex" class="row-bg" justify="space-between">
           <el-row class="left-part" type="flex">
             <el-row
-              class="logo-con logo-con-hj"
-              type="flex"
-              align="middle"
-              v-if="HOSPITAL_ID == 'hj'"
-            >
-              <img src="../../common/images/logo_hj.png" />
-              <span> <br />智慧护理信息系统 </span>
-            </el-row>
-            <el-row
               class="logo-con"
               type="flex"
               justify="center"
               align="middle"
-              v-else
             >
-              <img src="../../common/images/logo_guizhou.png" />
+              <img :src="logoUrl" />
               <span>{{
                 HOSPITAL_ID == "hj"
                   ? "百辰源智慧护理信息系统"
@@ -90,13 +80,6 @@
                 <i class="iconfont icon-shouye"></i> 任务提醒
               </el-row>
             </router-link>
-            <!-- <router-link to="/implementationList" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-jiaobanzhi"></i> 执行单
-              </el-row>
-            </router-link> -->
-            
-            <!--  -->
             <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveRecordPage }"
@@ -332,9 +315,45 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
-            <router-link to="/implementationList" tag="span">
+            <router-link v-if="HOSPIAL_ID == 'guizhou'" to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
+              </el-row>
+            </router-link>
+            <el-dropdown
+              v-else
+              menu-align="start"
+              :hide-on-click="false"
+              :class="{ 'router-link-active': isImplementation }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>执行单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
+                >
+                  <router-link to="/bottleLabelByProgram" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="wardReport"></i>执行瓶签打印
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/implementationList' }"
+                >
+                  <router-link to="/implementationList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="catheterPage"></i>执行记录
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            <router-link v-if="HOSPITAL_ID == '925'" to="/statisticalQuery" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 统计查询
               </el-row>
             </router-link>
             <el-dropdown
@@ -850,11 +869,6 @@ export default {
       isTip: false, //是否mews高亮
       mewsMd5: "",
       mewsId: "",
-      // showBadEvent:
-      //   (localStorage["showBadEvent"] &&
-      //     localStorage["showBadEvent"] === "true") ||
-      //   this.isDev ||
-      //   false
     };
   },
   computed: {
@@ -955,7 +969,15 @@ export default {
     },
     isActiveShiftWork() {
       return this.$route.path.includes('shiftWork');
-    }
+    },
+    logoUrl: () => require('../../common/images/logo_'+ process.env.HOSPITAL_ID + '.png'),
+    isImplementation(){
+      let path = this.$route.path;
+      return (
+        path.includes("bottleLabelByProgram") ||
+        path.includes("implementationList")
+      );
+    },
   },
   methods: {
     handleCommand(command) {
@@ -1086,7 +1108,7 @@ export default {
   components: {
     setPassword,
     userInfo,
-    
+
   },
 };
 </script>

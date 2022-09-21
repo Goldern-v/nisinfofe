@@ -424,6 +424,7 @@ const getImplementation = () => {
     case 'hengli':
       return implementationListHengli
     case 'guizhou':
+    case '925':
       return adviceList
     case 'nanfangzhongxiyi':
       return implementationListNanfangzhongxiyi
@@ -512,6 +513,7 @@ const router = new Router({
           case 'whyx':
             return temperatureLCEY
           case 'guizhou':
+          case '925':
             return temperatureGuizhou
           case 'beihairenyi':
             return temperatureBhry
@@ -773,8 +775,6 @@ const router = new Router({
               return shiftWorkWhfk
             case 'nanfangzhongxiyi':
               return shiftWorkNFZXY
-            // case 'guizhou':
-            //   return shiftWorkGuizhou
             default:
               return shiftWork
           }
@@ -799,8 +799,6 @@ const router = new Router({
               // case 'gdtj':
               // case 'ytll':
                 return shiftWorkDetailLiaocheng
-              // case 'guizhou':
-              //   return shiftWorkDetailGuizhou
               case 'nanfangzhongxiyi':
                 return shiftWorkDetailNFZXY
               case 'beihairenyi':
@@ -865,10 +863,10 @@ const router = new Router({
         path: "/badEvent",
         name: "badEvents",
         alias: "不良事件",
-        //component: HOSPITAL_ID == "guizhou" ? badEventGz : badEvent,
         component: (() => {
           switch (HOSPITAL_ID) {
             case 'guizhou':
+            case '925':
               return badEventGz
             case 'hj':
               return badEvent
@@ -880,10 +878,10 @@ const router = new Router({
         children: [{
           name: "badEventEdit",
           path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-          //component: HOSPITAL_ID == "guizhou" ? badEventEditPageGz : badEventEditPageGz
           component: (() => {
             switch (HOSPITAL_ID) {
               case 'guizhou':
+              case '925':
                 return badEventEditPageGz
               case 'hj':
                 return badEventEditPage
@@ -895,10 +893,10 @@ const router = new Router({
         {
           name: "badEventView",
           path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
-          //component: HOSPITAL_ID == "guizhou" ? badEventViewPageGz : badEventViewPage
           component: (() => {
             switch (HOSPITAL_ID) {
               case 'guizhou':
+              case '925':
                 return badEventViewPageGz
               case 'hj':
                 return badEventViewPage
@@ -962,6 +960,7 @@ const router = new Router({
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
+              case '925':
                 return testGuizhou
               default:
                 return test
@@ -1028,6 +1027,7 @@ const router = new Router({
               case 'liaocheng':
                 return temperatureLCEY
               case 'guizhou':
+              case '925':
                 return temperatureGuizhou
               case 'beihairenyi':
                 return temperatureBhry
@@ -1154,6 +1154,7 @@ const router = new Router({
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
+              case '925':
                 return healthEducationGuizhou
               case 'beihairenyi':
                 return healthEducationBerhairenyi
@@ -1224,7 +1225,7 @@ const router = new Router({
         path: "/implementationList",
         component: getImplementation(),
         name: "执行单",
-        children:['guizhou'].includes(HOSPITAL_ID)?[
+        children:['guizhou', '925'].includes(HOSPITAL_ID)?[
           {
             path: "/advice",
             name: "adviceItem",
@@ -1411,13 +1412,14 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
             case 'zhzxy':
+            case '925':
               return nursingMakeListGuizhou
             default:
               return nursingRounds
           }
         })(),
         name: "护理巡视",
-        children:['guizhou', 'zhzxy'].includes(HOSPITAL_ID)?[
+        children:['guizhou', 'zhzxy', '925'].includes(HOSPITAL_ID)?[
           {
             path: "/nursingMakeItem",
             name: "nursingMakeItem",
@@ -1475,6 +1477,7 @@ const router = new Router({
         component: (() => {
           switch (HOSPITAL_ID) {
             case "guizhou":
+            case '925':
               return newSingleTemperatureChartGuizhou;
             case "beihairenyi":
               return newSingleTemperatureChartBhry;
@@ -1689,6 +1692,7 @@ const router = new Router({
     component: (() => {
       switch (HOSPITAL_ID) {
         case 'guizhou':
+        case '925':
           return autoLoginGuizhou
         default:
           return autoLogin

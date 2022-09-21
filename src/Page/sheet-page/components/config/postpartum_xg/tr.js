@@ -24,6 +24,7 @@ let 乳量= ['少', '中', '多', '无']
 let 会阴= ['I°', '侧切', '(-)']
 let 腹部= ['(-)']
 let 尿管= ['通畅', '拔除', '脱落', '尿潴留']
+let PCA泵= ['通畅', '拔除', '脱落']
 
 export default [
   {
@@ -193,6 +194,9 @@ export default [
     name: "PCA泵",
     textarea: {
       width: 45
+    },
+    autoComplete: {
+      data: PCA泵
     },
   },
   {

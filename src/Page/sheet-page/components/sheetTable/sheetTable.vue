@@ -232,7 +232,7 @@ export default {
         return tableHeadFoShanRenYi;
       } else if (this.HOSPITAL_ID == "hengli") {
         return tableHeadHengLi;
-      } else if (this.HOSPITAL_ID == "guizhou") {
+      } else if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
         return tableHeadGzry;
       } else if (this.HOSPITAL_ID == "shannan") {
         return tableHeadShanNan;

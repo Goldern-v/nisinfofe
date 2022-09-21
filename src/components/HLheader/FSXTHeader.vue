@@ -13,7 +13,7 @@
               align="middle"
             >
               <img
-                src="../../common/images/fsxt_logo.png"
+                src="../../common/images/logo_fsxt.png"
                 height="63"
                 width="63"
               />

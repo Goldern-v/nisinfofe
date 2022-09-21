@@ -96,6 +96,21 @@ export default [
     textarea: {
       width: 35
     },
+    autoComplete: { data: 
+      [
+        {name:'LOA',value:'LOA'},
+        {name:'LOT',value:'LOT'},
+        {name:'LOP',value:'LOP'},
+        {name:'ROA',value:'ROA'},
+        {name:'ROT',value:'ROT'},
+        {name:'ROP',value:'ROP'},
+        {name:'LMA',value:'LMA'},
+        {name:'RMA',value:'RMA'},
+        {name:'LSA',value:'LSA'},
+        {name:'RSA',value:'RSA'},
+        {name:'横位',value:'横位'},
+      ] 
+    },
   },
   {
     key: "fetalHeart", //胎心
@@ -181,6 +196,7 @@ export default [
     textarea: {
       width: 35
     },
+    autoComplete: { data: ['S-3','S-2','S-1','S=0','S+1','S+2','S+3'] },
   },
   {
     key: "ruptured", //胎膜破裂
@@ -191,6 +207,7 @@ export default [
     textarea: {
       width: 35
     },
+    autoComplete: { data: ['已','未','自然','人工'] },
   },
   {
     key: "amniotic", //羊水性状
