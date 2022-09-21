@@ -1953,6 +1953,13 @@ export default function Title(
     );
   }
   break;
+  case "nurse_jew": {
+    // 925医院 - 患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nurse_jew/th").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(

@@ -1515,7 +1515,12 @@ function switchSheetType(type) {
         // 青海五院 - 耳鼻喉科护理记录单
       schema = require("../config/entnursing_qhwy/tr.js").default;
     }
-      break;   
+      break; 
+    case "nurse_jew": {
+        // 925医院 - 患者护理记录单
+      schema = require("../config/nurse_jew/tr.js").default;
+    }
+    break;     
     default: {
       schema = require("../config/default/tr.js").default;
     }
