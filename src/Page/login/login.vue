@@ -341,7 +341,6 @@ a {
     top: 4px;
     font-size: 20px;
     letter-spacing: 1px;
-    // font-family '微软雅黑' !important
     left: 130px;
   }
 
@@ -352,7 +351,6 @@ a {
     right: 25px;
     font-size: 22px;
     letter-spacing: 2px;
-    // font-family '微软雅黑' !important
   }
 
   .sys-version {
@@ -715,22 +713,24 @@ export default {
           return require("../../common/images/login_liaocheng.png");
         case "wujing":
           return require("../../common/images/logo_wujing.png");
-        case "liaocheng":
-          return require("../../common/images/logoBack.png");
         case "foshanrenyi":
-          return require("../../common/images/foshan_logo.png");
+          return require("../../common/images/logo_foshanrenyi.png");
         case "lyxrm":
-          return require("../../common/images/lyxrm_logo.png");
+          return require("../../common/images/logo_lyxrm.png");
         case "fsxt":
-          return require("../../common/images/fsxt_logo.png");
-        case "whsl":
-          return require("../../common/images/whsl_logo.png")
-        case 'zhzxy':
-          return require("../../common/images/zhzxy_logo.png")
+          return require("../../common/images/logo_fsxt.png");
         case 'whhk':
           return require("../../common/images/logo_whhk.png")
         case 'qhwy':
-          return require("../../common/images/qhwy_logo.png")
+          return require("../../common/images/logo_qhwy.png")
+        case '925':
+          return require("../../common/images/logo_925.png")
+        case "liaocheng":
+          return require("../../common/images/logoBack.png");
+        case "whsl":
+          return require("../../common/images/logo_whsl_login.png")
+        case 'zhzxy':
+          return require("../../common/images/logo_zhzxy_login.png")
         default:
           return require("../../common/images/logo.png");
       }

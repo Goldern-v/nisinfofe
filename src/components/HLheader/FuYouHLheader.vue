@@ -13,7 +13,7 @@
               align="middle"
             >
               <img
-                src="../../common/images/jmfy_log.png"
+                src="../../common/images/logo_fuyou.png"
                 height="63"
                 width="63"
               />
@@ -1104,7 +1104,7 @@ export default {
   created() {
     if(["fuyou"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
       window.openFuyouCaSignModal(true);
-    } 
+    }
     // this.$store.dispatch("getMailUnread");
     nursingUnit().then((res) => {
       this.deptList = res.data.data.deptList;

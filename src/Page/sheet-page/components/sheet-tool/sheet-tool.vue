@@ -32,8 +32,8 @@
         flex="cross:center main:center"
         @click="toPrint"
         v-if="
-          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
-          HOSPITAL_ID == 'guizhou'
+          (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
+          ['guizhou', '925'].includes(HOSPITAL_ID)
         "
       >
         <div class="text-con">打印预览</div>
@@ -113,8 +113,8 @@
         flex="cross:center main:center"
         @click="toPrint"
         v-if="
-          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
-          HOSPITAL_ID == 'guizhou'
+          (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
+          ['guizhou', '925'].includes(HOSPITAL_ID)
         "
       >
         <div class="text-con">打印预览</div>
@@ -184,8 +184,8 @@
         flex="cross:center main:center"
         @click="toPrint"
         v-if="
-          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
-          HOSPITAL_ID == 'guizhou'
+          (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
+          ['guizhou', '925'].includes(HOSPITAL_ID)
         "
       >
         <div class="text-con">打印预览</div>
@@ -228,7 +228,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="openStaticModal"
-        v-if="HOSPITAL_ID == 'guizhou' && isDeputy"
+        v-if="['guizhou', '925'].includes(HOSPITAL_ID) && isDeputy"
       >
         <div class="text-con">出入量统计</div>
       </div>
@@ -236,7 +236,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click.stop="syncVisitWithData"
-        v-if="HOSPITAL_ID == 'guizhou'"
+        v-if="['guizhou', '925'].includes(HOSPITAL_ID)"
       >
         <div class="text-con">同步护理巡视</div>
       </div>
@@ -250,7 +250,7 @@
         v-if="isDeputy && isLoad"
       >
         <div class="text-con">
-          {{ HOSPITAL_ID == "guizhou" ? "护理记录单" : "切换主页" }}
+          {{['guizhou', '925'].includes(HOSPITAL_ID)  ? "护理记录单" : "切换主页" }}
         </div>
       </div>
       <div
@@ -262,7 +262,7 @@
         v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalCode"
       >
         <div class="text-con">
-          {{ HOSPITAL_ID == "guizhou" ? "出入量记录单" : "切换副页" }}
+          {{ ['guizhou', '925'].includes(HOSPITAL_ID) ? "出入量记录单" : "切换副页" }}
         </div>
       </div>
       <div
@@ -335,7 +335,7 @@
         class="item-box"
         style="width: 85px"
         flex="cross:center main:center"
-        v-if="!isDeputy || HOSPITAL_ID == 'guizhou'||HOSPITAL_ID == 'huadu'"
+        v-if="!isDeputy || ['guizhou', 'huadu', '925'].includes(HOSPITAL_ID)"
       >
         <el-autocomplete
           class="pegeSelect"
@@ -375,7 +375,7 @@
         class="right-btn"
         flex="cross:center main:center"
         @click="openRltbModal"
-        v-if="['guizhou'].includes(HOSPITAL_ID)  && isDeputy"
+        v-if="['guizhou', '925'].includes(HOSPITAL_ID)  && isDeputy"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
@@ -428,7 +428,7 @@
       ></div>
       <div
         class="line"
-        v-if="HOSPITAL_ID == 'guizhou' && sheetInfo.sheetType === 'common_gzry'"
+        v-if="['guizhou', '925'].includes(HOSPITAL_ID) && sheetInfo.sheetType === 'common_gzry'"
       ></div>
       <div style="width: 5px"></div>
       <div
@@ -454,7 +454,7 @@
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
-        v-if="HOSPITAL_ID == 'guizhou' && sheetInfo.sheetType === 'common_gzry'"
+        v-if="['guizhou', '925'].includes(HOSPITAL_ID) && sheetInfo.sheetType === 'common_gzry'"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
@@ -630,7 +630,7 @@ export default {
       }
     },
     showSetCreatePage() {
-      return !this.isDeputy || this.HOSPITAL_ID == "guizhou";
+      return !this.isDeputy || ['guizhou', '925'].includes(this.HOSPITAL_ID);
     },
     //是否显示
     isShow() {
@@ -1174,7 +1174,7 @@ export default {
       if (this.HOSPITAL_ID == "wujing") {
         this.modalWidth = 850;
       }
-      if (this.HOSPITAL_ID == "guizhou") {
+      if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
         this.titleName = "输血同步";
       } else {
         this.titleName = "执行单同步";
@@ -1215,13 +1215,13 @@ export default {
       switch (type) {
         case "deputy":
           return (
-            this.HOSPITAL_ID == "guizhou" &&
+            ['guizhou', '925'].includes(this.HOSPITAL_ID) &&
             !this.isDeputy &&
             this.$route.path.includes("nursingPreview")
           );
         case "main":
           return (
-            this.HOSPITAL_ID == "guizhou" &&
+            ['guizhou', '925'].includes(this.HOSPITAL_ID) &&
             this.isDeputy &&
             this.$route.path.includes("nursingPreview")
           );
@@ -1282,7 +1282,7 @@ export default {
     },
     /* 贵州人医“出入量统计”移入出入量记录单 */
     isSingleTem_GZRY() {
-      return this.HOSPITAL_ID === "guizhou";
+      return ['guizhou', '925'].includes(this.HOSPITAL_ID);
     },
     /* 是否是副页 */
     isDeputy() {

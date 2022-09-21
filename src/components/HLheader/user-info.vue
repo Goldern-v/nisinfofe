@@ -58,7 +58,7 @@
         <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
-    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk'].includes(HOSPITAL_ID)">
+    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', '925'].includes(HOSPITAL_ID)">
       <div class="boxShadow" @click="onPrint">
         <div class="qrcode" ref="qrcodeContainer"></div>
       </div>

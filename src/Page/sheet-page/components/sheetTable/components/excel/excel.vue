@@ -142,7 +142,7 @@
               `stat-bottom-line`,
           ]"
           :style="
-            (HOSPITAL_ID == 'guizhou' &&
+            (['guizhou', '925'].includes(HOSPITAL_ID) &&
             sheetInfo.sheetType == 'access_gzry' && {
               boxSizing: 'border-box!important',
               width: td.style ? td.style.width : '',
@@ -157,7 +157,7 @@
           @click="
             selectedItem(td);
             td.key == 'description' &&
-              HOSPITAL_ID === 'guizhou' &&
+              ['guizhou', '925'].includes(HOSPITAL_ID) &&
               !tr.isRead &&
               openEditModal(tr, data, $event);
           "
@@ -300,7 +300,7 @@
             <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt>
           </div>-->
           <el-select
-            v-else-if="td.type == 'select' && HOSPITAL_ID == 'guizhou'"
+            v-else-if="td.type == 'select' && ['guizhou', '925'].includes(HOSPITAL_ID)"
             v-model="td.value"
             filterable
             remote
@@ -468,10 +468,10 @@
     <!-- 谢岗 -->
     <div v-if="sheetInfo.sheetType == 'icu_cpr_xg'">
       参加CPR人员签名:
-      <textarea 
-      style='width:99%;resize:none;border:1px solid #444' 
-      cols="125" 
-      rows="3" 
+      <textarea
+      style='width:99%;resize:none;border:1px solid #444'
+      cols="125"
+      rows="3"
       v-model="sheetInfo.relObj[`${index}_CPR`]"
       :data-value="sheetInfo.relObj[`${index}_CPR`]"></textarea>
     </div>
@@ -553,7 +553,7 @@
             sheetInfo.sheetType == 'ultrasound_fs' ||
             sheetInfo.sheetType == 'generalnursing_tj' ||
             sheetInfo.sheetType == 'magnesiumsulf_fs' ||
-            HOSPITAL_ID == 'fsxt' 
+            HOSPITAL_ID == 'fsxt'
           "
           >质控护士：</span
         >
@@ -828,7 +828,7 @@ export default {
     },
     // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
     getCompleteArr(tr, td) {
-      if (this.HOSPITAL_ID == "guizhou") {
+      if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
         if (td.parentKey) {
           let index = tr.findIndex((e) => e.key === td.parentKey); // 对比当前td的父级key以及当前行中的每一个key，找到对应下标
           let arr = td.autoComplete.data[0][[tr[index].value]] || []; // 获取父级对应的子选项数组
@@ -927,7 +927,7 @@ export default {
       let recordDate = tr.find(item=>{
         return item.key == "recordDate"
       })
-      if (this.HOSPITAL_ID == "guizhou") {
+      if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
         //不允许输入未来时间
         if (bind.x == 0) {
           let inputDate = ""
@@ -1320,7 +1320,7 @@ export default {
                 });
                 this.bus.$emit("saveSheetPage", true);
               });
-            },'',null,false,'',['guizhou'].includes(this.HOSPITAL_ID)?{}:null,undefined ,undefined ,undefined);
+            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:null,undefined ,undefined ,undefined);
           }
         };
         let reverseList = [...decode().list].reverse();
@@ -1412,7 +1412,7 @@ export default {
             }).then((res) => {
               this.bus.$emit("saveSheetPage", true);
             });
-          },'',null,false,'',['guizhou','foshanrenyi'].includes(this.HOSPITAL_ID)?{}:null,undefined,undefined,undefined,SigndataObj,verifySignObj);
+          },'',null,false,'',['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:null,undefined,undefined,undefined,SigndataObj,verifySignObj);
       }
     },
     toAudit(trArr, index, bodyModel, showAudit, e) {
@@ -1564,7 +1564,7 @@ export default {
                 this.bus.$emit("saveSheetPage", true);
               }
             );
-          },['guizhou'].includes(this.HOSPITAL_ID)?"":null,"",undefined,undefined,undefined,undefined,undefined,undefined);
+          },['guizhou', '925'].includes(this.HOSPITAL_ID)?"":null,"",undefined,undefined,undefined,undefined,undefined,undefined);
 
         }
       } else {
@@ -1619,7 +1619,7 @@ export default {
           }).then((res) => {
             this.bus.$emit("saveSheetPage", true);
           });
-        },'',null,false,'',['guizhou','foshanrenyi'].includes(this.HOSPITAL_ID)?{}:null);
+        },'',null,false,'',['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:null);
       }
     },
     // 展示签名状态

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <HLheader></HLheader> -->
     <component :is="switchCompt()" />
     <router-view></router-view>
   </div>
@@ -81,6 +80,7 @@ export default {
         珠海市中西医结合医院: 'ZhzxyHeader',
         武汉汉口医院: 'WhhkHeader',
         南方医科大学顺德医院: 'nfyksdyyHeader',
+        中国人民解放军联勤保障部队第九二五医院: 'GuiZhouShengRenMingHeader'
       };
       return hisList[HisName] || "HLheader";
     },

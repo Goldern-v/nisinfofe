@@ -24,7 +24,7 @@
           </el-date-picker>
         </div>
         <div v-else>
-          <span class="label">{{HOSPITAL_ID == 'guizhou' ? '输血日期：' : '执行单日期：' }}</span
+          <span class="label">{{["guizhou", '925'].includes(this.HOSPITAL_ID) ? '输血日期：' : '执行单日期：' }}</span
           >
           <masked-input
             type="text"
@@ -240,7 +240,7 @@
             ></el-table-column>
           </template>
           <el-table-column
-            v-if="HOSPITAL_ID == 'guizhou'"
+            v-if="['guizhou', '925'].includes(HOSPITAL_ID)"
             prop="desc"
             label="病情、护理措施及效果"
             min-width="110px"
@@ -493,7 +493,7 @@ export default {
             return obj;
           });
         });
-      } else if (this.HOSPITAL_ID == "guizhou") {
+      } else if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
         nurseBloodList({
           patientId: this.patientInfo.patientId || this.formlist.patientId,
           visitId: this.patientInfo.visitId || this.formlist.visitId,

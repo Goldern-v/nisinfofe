@@ -107,6 +107,7 @@
                 HOSPITAL_ID == 'beihairenyi' ||
                 HOSPITAL_ID == 'xiegang' ||
                 HOSPITAL_ID == 'zhzxy' ||
+                HOSPITAL_ID == '925' ||
                 HOSPITAL_ID == 'gdtj'
             "
           >
@@ -382,7 +383,8 @@ export default {
         quzhou:'bedModalQz',
         whfk:'bedModalWhfk',
         hj:'bedModalHj',
-        ytll:'bedModalYtLL'
+        ytll:'bedModalYtLL',
+        925: 'bedModalLiaocheng',
         // nanfangzhongxiyi:'bedModalNfzxy',
       }
       if(hospital_left[this.HOSPITAL_ID]){
@@ -393,7 +395,7 @@ export default {
     },
     // 腕带打印
     openWristPrint(printMode) {
-      if (["huadu", "liaocheng", "gdtj", 'zhzxy'].includes(this.HOSPITAL_ID)) {
+      if (["huadu", "liaocheng", "gdtj", 'zhzxy', '925'].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);

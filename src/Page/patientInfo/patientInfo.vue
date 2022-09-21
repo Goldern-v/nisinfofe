@@ -145,7 +145,8 @@ export default {
         临沂沂州医院: "topPartLyyz",
         佛山市顺德区龙江医院:"topPartSdlj",
         武汉汉口医院: 'topPartWhhk',
-        青海省第五人民医院:'topPartQhwy'
+        青海省第五人民医院:'topPartQhwy',
+        中国人民解放军联勤保障部队第九二五医院: 'topPartGuiZhou',
       };
       return hisList[HisName] || "topPart";
     },

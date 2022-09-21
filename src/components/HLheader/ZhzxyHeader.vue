@@ -12,7 +12,7 @@
               justify="center"
               align="middle"
             >
-              <img src="../../common/images/zhzxy_logo_white.png" />
+              <img src="../../common/images/logo_zhzxy.png" />
               <!-- <span>{{ HOSPITAL_NAME }}<br />智慧护理信息系统</span> -->
             </el-row>
             <!-- <router-link to="/index"

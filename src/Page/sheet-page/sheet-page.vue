@@ -529,7 +529,7 @@ export default {
     //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
     this.done=false
       this.tableLoading = true;
-      if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
+      if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
         this.isLoad=false
       }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
@@ -554,7 +554,7 @@ export default {
         fnArr.unshift(findListByBlockId())
       }
       return Promise.all(fnArr).then((res) => {
-        if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
+        if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
           this.isLoad=true
         }
         let titleData = res[0].data.data;
@@ -619,7 +619,7 @@ export default {
         this.sheetModelData= getData()
           this.done=true
           this.tableLoading = false;
-          if ((!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) && this.HOSPITAL_ID == 'guizhou') {
+          if ((!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) && ["guizhou", '925'].includes(this.HOSPITAL_ID)) {
             return
           }
           this.getHomePage(isBottom);
@@ -721,7 +721,7 @@ export default {
       this.sheetModelData=[]
     })
     // 针对贵州体温单如果选中病人，切换到护记。不显示病人护记问题
-    if(this.HOSPITAL_ID == "guizhou"){
+    if(["guizhou", '925'].includes(this.HOSPITAL_ID)){
       /* 不知道贵州切换副页的问题是不是这个影响的，以后有机会可以删除 侦听watch $route.path这个试试*/
       this.$store.commit("upPatientInfo", {});
     }
@@ -1092,7 +1092,7 @@ export default {
       deep: true,
       immediate: true,
       handler(newValue, oldValue) {
-        if (this.HOSPITAL_ID == "guizhou" || this.HOSPITAL_ID == 'huadu') {
+        if (["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)) {
         } else {
           if (this.patientInfo.name) {
             sheetInfo.isSave = false;
@@ -1102,7 +1102,7 @@ export default {
     },
     "$route.path"() {
       // 针对贵州切换出入量记录单数据不刷新，如果有问题可回撤
-      if (this.HOSPITAL_ID == "guizhou" || this.HOSPITAL_ID == 'huadu') {
+      if (["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)) {
         this.sheetInfo.selectBlock = {};
       }
     },
