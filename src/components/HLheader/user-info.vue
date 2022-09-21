@@ -518,7 +518,7 @@ export default {
     //二维码
     qrcode() {
       //非聊城不执行
-      if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk'].includes(this.HOSPITAL_ID )) return false;
+      if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk', '925'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
       ['foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
       //console.log(this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})))
