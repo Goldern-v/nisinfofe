@@ -522,8 +522,8 @@ export default {
           dischargeDateEnd: moment(this.data.dischargeDate[1]).format('YYYY-MM-DD'),
         });
         if (res.data.code === '200')
-          return this.$message.success("转科患者同步成功");
-        this.$message.error(res.data.desc || "转科患者同步失败");
+          return this.$message.success("出院患者同步成功");
+        this.$message.error(res.data.desc || "出院患者同步失败");
       } catch (error) {
       }
     },
