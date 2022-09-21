@@ -165,7 +165,7 @@
             <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
-			
+
 			<div flex="cross:center" class="input-item" style="width:76%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
               <span class="label" style="margin-right:0;">过敏信息：</span>
               <input
@@ -192,7 +192,6 @@
                 :maxlength="20"
               ></textarea>
 			  <p class="bottom-line remark allergy-textarea print-page__ptext" flex-box="1" style="whiteSpace: pre-wrap;">{{allergy_gdtj}}</p>
-              
             </div> -->
 			<div class="allergy" v-else>
 				<p :class="[allergy1||drugGms||allergy2?'gm':'']">
@@ -203,9 +202,8 @@
 					<span v-if="!(allergy1||drugGms||allergy2)">无</span>
 				</p>
 			</div>
-			
-			
-            <!-- <svg id="barcode"></svg> --> 
+
+            <!-- <svg id="barcode"></svg> -->
           </div>
           <img
             class="qr-code"
@@ -808,6 +806,9 @@ export default {
         case 'fsxt':
           qr_png_value = `1001|${this.query.patientId}|${this.query.visitId}|${this.query.name}`;
           break
+        case "zhzxy":
+          qr_png_value ='ZY' + this.query.patientId +"||"+ this.query.visitId;
+          break;
         default:
           qr_png_value = this.query.patientId + "|" + this.query.visitId;
           break

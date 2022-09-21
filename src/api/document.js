@@ -63,10 +63,10 @@ export function syncOutHospitalXg() {
   return axios.get(`${apiPath}patient/syncOutHospitalXg`);
 }
 
-export function synchronizeFuyou() {
-  return axios.get(`${apiPath}FuYouDischarge/syncDischargePat`);
-  //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
-}
+// export function synchronizeFuyou() {
+//   return axios.get(`${apiPath}FuYouDischarge/syncDischargePat`);
+//   //return axios.post(`${apiPath}nurseAdtLog/listNurseAdt`,data);
+// }
 
 // 获取江门妇幼
 export function listNurseAdtFuYou(data) {
@@ -86,4 +86,8 @@ export function handleExport(params) {
     {
       responseType: "blob"
     })
+}
+/**同步出院患者 */
+export const syncDischargedPatient = (params) => {
+  return axios.post(`${apiPath}patient/getDisChargePatients`, params)
 }

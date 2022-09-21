@@ -102,13 +102,13 @@
             @click="openWristPrint('wrist')"
             v-if="
               HOSPITAL_ID == 'huadu' ||
-                HOSPITAL_ID == 'zhongshanqi' ||
-                HOSPITAL_ID == 'liaocheng' ||
-                HOSPITAL_ID == 'beihairenyi' ||
-                HOSPITAL_ID == 'xiegang' ||
-                HOSPITAL_ID == 'zhzxy' ||
-                HOSPITAL_ID == '925' ||
-                HOSPITAL_ID == 'gdtj'
+              HOSPITAL_ID == 'zhongshanqi' ||
+              HOSPITAL_ID == 'liaocheng' ||
+              HOSPITAL_ID == 'beihairenyi' ||
+              HOSPITAL_ID == 'xiegang' ||
+              HOSPITAL_ID == 'zhzxy' ||
+              HOSPITAL_ID == '925' ||
+              HOSPITAL_ID == 'gdtj'
             "
           >
             {{HOSPITAL_ID=='beihairenyi'?'成人腕带打印':'腕带打印'}}
