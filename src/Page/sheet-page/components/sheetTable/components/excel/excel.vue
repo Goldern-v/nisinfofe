@@ -572,6 +572,12 @@
           "
           ><strong>护士长审核：</strong></span
         >
+        <span
+          v-else-if="
+            sheetInfo.sheetType == 'nurse_jew' 
+          "
+          ><strong>检查者签名：</strong></span
+        >
         <span v-else>上级护士签名：</span>
         <span class="sh-name-box">
           <div
@@ -731,7 +737,8 @@ export default {
         "critical_new_linyi",
         "ultrasound_fs",
         "generalnursing_tj",
-        "magnesiumsulf_fs"
+        "magnesiumsulf_fs",
+        'nurse_jew'
       ],
       // 需要双签名的记录单code
       multiSignArr: [

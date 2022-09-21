@@ -47,7 +47,7 @@ import {
       name: '意识',
       next: '',
       autoComplete: { data: ['√','+','++','+++','++++']},
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
     },
     {
@@ -57,7 +57,7 @@ import {
       name: '左瞳孔大小',
       next: '',
       autoComplete: { data: ['√','+','++']},
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
     },
     {
@@ -67,17 +67,17 @@ import {
       name: '右瞳孔大小',
       next: '',
       autoComplete: { data: ['√','+','++']},
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
     },
     {
-      key: "pupilReflexLeft", //左瞳孔反射
+      key: "pupilReflexLEFT", //左瞳孔反射
       value: "",
       event: keyf1,
       name: '左瞳孔反射',
       next: '',
       autoComplete: { data: ['√','+','++']},
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
     },
     {
@@ -87,7 +87,7 @@ import {
       name: '右瞳孔反射',
       next: '',
       autoComplete: { data: ['√','+','++']},
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
     },
     {
@@ -96,7 +96,7 @@ import {
       event: keyf1,
       name: '体温',
       next: '℃',
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
     },
     {
@@ -105,7 +105,7 @@ import {
       event: keyf1,
       name: '脉搏',
       next: '次/分',
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
     },
     {
@@ -114,7 +114,7 @@ import {
       event: keyf1,
       name: '呼吸',
       next: '次/分',
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
     },
     {
@@ -132,7 +132,7 @@ import {
       event: keyf1,
       name: '心率',
       next: '次/分',
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
     },
     {
@@ -141,7 +141,7 @@ import {
       event: keyf1,
       name: '心律',
       next: '',
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4),
       autoComplete: { data: ['齐','不齐']},
     },
@@ -151,7 +151,7 @@ import {
       event: keyf1,
       name: '血氧饱和度',
       next: '%',
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4),
     },
     {
@@ -160,8 +160,8 @@ import {
       event: keyf1,
       name: '氧疗方式',
       next: '',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4),
+      textarea:{ width:50},
+      change: (e, td) => limitChange(e, td, 6),
       autoComplete: { data: ['鼻导管','面罩','储氧面罩','HFNC','无创辅助通气','气管插管给氧','气管切开给氧','文丘里面罩']},
     },
     {
@@ -179,8 +179,8 @@ import {
       event: keyf1,
       name: '入量名称或用法',
       next: '',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4),
+      textarea:{ width:50},
+      change: (e, td) => limitChange(e, td, 6),
     },
     {
       key: "foodSize", //入量量
@@ -188,8 +188,8 @@ import {
       event: keyf1,
       name: '入量量',
       next: '',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4),
+      textarea:{ width:45},
+      change: (e, td) => limitChange(e, td, 6),
     },
     {
       key: "discharge", //出量名称
@@ -197,8 +197,8 @@ import {
       event: keyf1,
       name: '出量名称',
       next: '',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4),
+      textarea:{ width:50},
+      change: (e, td) => limitChange(e, td, 6),
       autoComplete: { data: ['尿','大便','痰','呕吐物','咯血','引流液']},
     },
     {
@@ -207,8 +207,8 @@ import {
       event: keyf1,
       name: '出量量',
       next: '',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4),
+      textarea:{ width:45},
+      change: (e, td) => limitChange(e, td, 6),
     },
     {
         key: "position", //体位
@@ -216,7 +216,7 @@ import {
         event: keyf1,
         name: '体位',
         next: '',
-        textarea:{ width:32},
+        textarea:{ width:35},
         change: (e, td) => limitChange(e, td, 4),
         autoComplete: { data: ['平','左','右','半坐','端坐','斜坡','中凹','站立','坐位']},
     },
@@ -226,7 +226,7 @@ import {
         event: keyf1,
         name: '病情巡视',
         next: '',
-        textarea:{ width:32},
+        textarea:{ width:35},
         change: (e, td) => limitChange(e, td, 4)
     },
     {
@@ -235,7 +235,7 @@ import {
       event: keyf1,
       name: '护理操作',
       next: '',
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4),
       autoComplete: { data: ['口腔护理','雾化吸入','膀胱冲洗','会阴擦洗','吸痰','鼻饲']},
     },
@@ -245,7 +245,7 @@ import {
       event: keyf1,
       name: '',
       next: '',
-      textarea:{ width:32},
+      textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
   },
     {
@@ -257,7 +257,7 @@ import {
         top: "1px",
         bottom: "1px",
         left: "1px",
-        width: "160px",
+        width: "158px",
         background: "transparent"
       },
       event: function (e, td) {

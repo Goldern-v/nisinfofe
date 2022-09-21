@@ -17,7 +17,7 @@ export default {
     th: {
       top: [
         { 
-          name: `日/月`, 
+          name: `月/日`, 
           colspan: "1",
           rowspan: "3" 
         },
@@ -161,12 +161,12 @@ export default {
           rowspan: '2'
         },   
         {
-          name: '病情巡视',
+          name: '病情<br/>巡视',
           colspan: '1',
           rowspan: '2'
         },   
         {
-          name: '护理操作',
+          name: '护理<br/>操作',
           colspan: '1',
           rowspan: '2'
         },   
