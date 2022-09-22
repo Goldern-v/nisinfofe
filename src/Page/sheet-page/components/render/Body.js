@@ -1246,6 +1246,11 @@ function switchSheetType(type) {
       schema = require("../config/magnesiumsulf_fs/tr.js").default;
     }
       break;
+    case "laborobservation_fs": {
+      // 佛山市一 - 产程观察记录单(含静滴催产素记录单)
+      schema = require("../config/laborobservation_fs/tr.js").default;
+    }
+      break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;

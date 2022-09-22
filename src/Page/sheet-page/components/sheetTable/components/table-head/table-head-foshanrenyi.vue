@@ -59,7 +59,7 @@
         </div>
       </span> -->
     </div>
-    <div class="info-con" flex="main:justify" v-else-if="sheetInfo.sheetType === 'hydrochloricacid_fs' || sheetInfo.sheetType === 'magnesiumsulf_fs'">
+    <div class="info-con" flex="main:justify" v-else-if="sheetInfo.sheetType === 'hydrochloricacid_fs' || sheetInfo.sheetType === 'magnesiumsulf_fs' || sheetInfo.sheetType === 'laborobservation_fs'">
        <span>
         姓名：
         <div class="bottom-line" style="min-width: 70px">
@@ -109,6 +109,12 @@
           {{ patientInfo.bedLabel }}
         </div>
       </span>
+      <span v-if="sheetInfo.sheetType === 'laborobservation_fs'">
+        第几次住院：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.visitId }}
+        </div>
+      </span>
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 80px">
@@ -116,6 +122,7 @@
         </div>
       </span>
     </div>
+
      <div class="info-con" flex="main:justify" v-else>
        <span>
         姓名：
@@ -168,8 +175,63 @@
         </div>
       </span> -->
     </div>
+    <div class="info-con"  v-if="sheetInfo.sheetType == 'laborobservation_fs'">
+      <span>
+        临产时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+      </span>
+      <span>
+        宫口全开时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+      </span>
+      <span>
+        娩出时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.deliveryTime1"
+            v-model="sheetInfo.relObj.deliveryTime1"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />/
+          <crDatePicker
+            :data-value="sheetInfo.relObj.deliveryTime2"
+            v-model="sheetInfo.relObj.deliveryTime2"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />/
+          <crDatePicker
+            :data-value="sheetInfo.relObj.deliveryTime3"
+            v-model="sheetInfo.relObj.deliveryTime3"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+      </span>
+
+    </div>
+    <div class="info-con info-con_select"  v-if="sheetInfo.sheetType == 'laborobservation_fs'">
+      <span>
+        娩出方式：
+        <el-select v-model="sheetInfo.relObj.deliveryMOde" multiple placeholder="">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+  </el-select>
+      </span>
+    </div>
     <div class="info-con">
-      <span v-if="sheetInfo.sheetType != 'iabp_fs' && sheetInfo.sheetType != 'hydrochloricacid_fs' && sheetInfo.sheetType != 'magnesiumsulf_fs'"
+      <span v-if="sheetInfo.sheetType != 'iabp_fs' && sheetInfo.sheetType != 'hydrochloricacid_fs' && sheetInfo.sheetType != 'magnesiumsulf_fs' && sheetInfo.sheetType != 'laborobservation_fs'"
         @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
       >
         入院诊断：
@@ -226,6 +288,7 @@ import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
 import bedRecordModal from "../../../modal/bedRecord-modal";
+import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
 
 export default {
   props: {
@@ -237,6 +300,25 @@ export default {
     return {
       bus: bus(this),
       sheetInfo,
+      options: [{
+          value: '顺产',
+          label: '顺产'
+        }, {
+          value: '吸引产',
+          label: '吸引产'
+        }, {
+          value: '剖宫产',
+          label: '剖宫产'
+        }, {
+          value: '钳产',
+          label: '钳产'
+        }, {
+          value: '臀助产',
+          label: '臀助产'
+        }, {
+          value: '臀牵引',
+          label: '臀牵引'
+        }],
     };
   },
   mounted() {},
@@ -348,7 +430,8 @@ export default {
   },
   watch: {},
   components: {
-    bedRecordModal
+    bedRecordModal,
+    crDatePicker
   },
 };
 </script>
@@ -374,4 +457,13 @@ input {
   outline: none;
   text-align: center;
 }
+.info-con_select /deep/.el-input__inner {
+  border: none;
+  border-bottom: 1px solid #000;
+  width: 520px;
+}
+.info-con_select /deep/.el-input__icon{
+  display: none;
+}
+
 </style>
