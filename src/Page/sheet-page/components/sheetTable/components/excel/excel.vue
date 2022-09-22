@@ -575,7 +575,7 @@
         >
         <span
           v-else-if="
-            sheetInfo.sheetType == 'nurse_jew' 
+            (sheetInfo.sheetType == 'nurse_jew' ||sheetInfo.sheetType == 'danger_nurse_jew')
           "
           ><strong>检查者签名：</strong></span
         >
@@ -740,7 +740,8 @@ export default {
         "generalnursing_tj",
         "magnesiumsulf_fs",
         "laborobservation_fs",
-        'nurse_jew'
+        'nurse_jew',
+        'danger_nurse_jew'
       ],
       // 需要双签名的记录单code
       multiSignArr: [

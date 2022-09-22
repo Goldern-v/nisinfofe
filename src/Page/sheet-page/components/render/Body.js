@@ -1522,10 +1522,15 @@ function switchSheetType(type) {
     }
       break; 
     case "nurse_jew": {
-        // 925医院 - 患者护理记录单
+        // 925医院 - 一般患者护理记录单
       schema = require("../config/nurse_jew/tr.js").default;
     }
-    break;     
+    break;
+    case "danger_nurse_jew": {
+      // 925医院 - 危重患者护理记录单
+    schema = require("../config/danger_nurse_jew/tr.js").default;
+  }
+  break;    
     default: {
       schema = require("../config/default/tr.js").default;
     }

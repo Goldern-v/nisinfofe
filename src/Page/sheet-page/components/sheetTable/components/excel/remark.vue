@@ -598,7 +598,7 @@
        注：1.神志：麻醉未醒“①”，清醒“②”，谵妄“③”，嗜睡“④”，昏睡“⑤”，浅昏迷“⑥”，中度昏迷“⑦”，深昏迷“⑧”。镇静状态“⑨”。 
     </div> -->
     <!--925医院 -  患者护理记录单-->
-    <div v-if="sheetInfo.sheetType == 'nurse_jew'">
+    <div v-if="sheetInfo.sheetType == 'nurse_jew'||sheetInfo.sheetType == 'danger_nurse_jew'">
       备注：神志清醒√，嗜睡/意识模糊+，昏睡++，浅昏迷+++，深昏迷++++。瞳孔对光反射：灵敏√，迟钝+，消失++。护理记录单横线上填一般或者危重       
     </div>
   </div>
