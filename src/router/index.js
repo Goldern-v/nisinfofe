@@ -513,7 +513,6 @@ const router = new Router({
           case 'whyx':
             return temperatureLCEY
           case 'guizhou':
-          case '925':
             return temperatureGuizhou
           case 'beihairenyi':
             return temperatureBhry
@@ -542,6 +541,7 @@ const router = new Router({
           case 'whsl':
               return temperatureWHSL
           case 'sdlj':
+          case '925':
             return temperatureSDLJ
           case 'fsxt':
             return temperatureFSXT
@@ -1027,7 +1027,6 @@ const router = new Router({
               case 'liaocheng':
                 return temperatureLCEY
               case 'guizhou':
-              case '925':
                 return temperatureGuizhou
               case 'beihairenyi':
                 return temperatureBhry
@@ -1058,6 +1057,7 @@ const router = new Router({
               case 'whsl':
                 return temperatureWHSL
               case 'sdlj':
+              case '925':
                 return temperatureSDLJ
               case 'whfk':
                 return temperatureWHFK
@@ -1477,7 +1477,6 @@ const router = new Router({
         component: (() => {
           switch (HOSPITAL_ID) {
             case "guizhou":
-            case '925':
               return newSingleTemperatureChartGuizhou;
             case "beihairenyi":
               return newSingleTemperatureChartBhry;
@@ -1508,6 +1507,7 @@ const router = new Router({
             case "whsl":
               return newSingleTemperatureChartWHSL;
             case "sdlj":
+            case '925':
               return newSingleTemperatureChartSDLJ;
             case "whyx":
               return newSingleTemperatureChartWHYX;
