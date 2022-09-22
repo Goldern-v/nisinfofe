@@ -1645,6 +1645,13 @@ export default function Title(
     );
   }
   break;
+  case "nursing_zhzxy": {
+    // 珠海中西医 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_zhzxy/th.js").default)
+    );
+  }
+  break;
   case "pediatric3_sdlj": {
     // 顺德龙江 - 产科新生儿护理记录单
     Th = JSON.parse(
@@ -1950,6 +1957,13 @@ export default function Title(
     // 青海五院 - 耳鼻喉科护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/entnursing_qhwy/th").default)
+    );
+  }
+  break;
+  case "nurse_jew": {
+    // 925医院 - 患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nurse_jew/th").default)
     );
   }
   break;

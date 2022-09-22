@@ -12,9 +12,7 @@
           <img class="qr-code" :class="{hasRemark: hasRemark}" :src="qrCode">
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div flex="cross:center" class="input-item" style="height: 50px;width:60%;">
-              <!-- <span class="label">患者姓名:</span> -->
               <span class="label" style="color:red">姓 名:</span>
-              <!-- <span :style="`width: ${hasRemark? 85: 100}px`"></span> -->
               <input
                 type="text"
                 nowidth
@@ -26,7 +24,6 @@
             </div>
             <div flex="cross:center" class="input-item" style="width:50%;">
               <span class="label" style="color:red">住院号:</span>
-              <!-- <span :style="`width: ${hasRemark? 85: 100}px`"></span> -->
               <input
                 type="text"
                 style="width: 67px;font-size: 28px; padding-left: 5px;"
@@ -37,7 +34,6 @@
             </div>
             <div flex="cross:center" class="input-item" style="height: 50px;width:75%;">
               <span class="label" style="color:red">性 别:</span>
-              <!-- <span :style="`width: ${hasRemark? 85: 100}px`"></span> -->
               <input
                 type="text"
                 style="width: 67px;font-size: 28px;padding-left: 5px;"
@@ -148,10 +144,6 @@
     height 137px
     width 137px
     z-index 3
-    // &.hasRemark
-
-    //   width 96px
-    //   height 96px
 [nowidth]
   width 0
 .bottom-line
@@ -476,7 +468,8 @@ export default {
       this.$refs.modal.open();
       this.printMode = printMode;
       this.title = this.printMode == 'h' ?"编辑床头卡":"腕带打印";
-      var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
+      const qrText = `${this.query.patientId}|${this.query.visitId}`
+      var qr_png = qr.imageSync(qrText, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);
@@ -490,16 +483,16 @@ export default {
       this.qrCode = base64;
       console.log("qr_png", base64);
       if(this.printMode == 'wrist'){
-         JsBarcode("#barcode", this.query.patientId, {
-　　 　　   lineColor: "#000",
-　　 　　   width: 4,
-　　 　　   height: 70,
-           fontSize: 40,
-           displayValue:true,//是否在条形码下方显示文字
-           text:this.query.wardName,//覆盖显示的文本
-           fontOptions: "bold",
-           textAlign: "left",
-　　　　});
+        JsBarcode("#barcode", this.query.patientId, {
+          lineColor: "#000",
+          width: 4,
+          height: 70,
+          fontSize: 40,
+          displayValue:true,//是否在条形码下方显示文字
+          text:this.query.wardName,//覆盖显示的文本
+          fontOptions: "bold",
+          textAlign: "left",
+        });
       }
     },
     close() {
@@ -550,28 +543,6 @@ export default {
         print(this.$refs.printCon);
       }
     },
-    querySearchAsyncDoc(queryString, cb) {
-      // findByKeyword(queryString).then(res => {
-      //   cb(res.data.data.map(item => {
-      //     return {value: item}
-      //   }));
-      // })
-      cb([]);
-    },
-    // handleSelectDoc(item) {
-    //     console.log(item);
-    //     return {
-    //       value: item + 123
-    //     }
-    // },
-    querySearchAsyncNur(queryString, cb) {
-      // findByKeywordNur(queryString).then(res => {
-      //   cb(res.data.data.map(item => {
-      //     return {value: item}
-      //   }));
-      // })
-      cb([]);
-    }
   },
   components: {}
 };

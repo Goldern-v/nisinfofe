@@ -42,7 +42,7 @@ function decode(ayncVisitedData) {
   }
 
   // 贵州-同步护理巡视内容到特殊情况
-  if (process.env.HOSPITAL_ID == "guizhou" && ayncVisitedData) {
+  if (['guizhou', '925'].includes(process.env.HOSPITAL_ID) && ayncVisitedData) {
     let nullRowConfig = JSON.parse(JSON.stringify(data[0].bodyModel[0]))
     let nullRow = {}
     for (let option of nullRowConfig) {
@@ -93,7 +93,8 @@ function decode(ayncVisitedData) {
     process.env.HOSPITAL_ID == "lyxrm" ||
     process.env.HOSPITAL_ID == "gdtj" ||
     process.env.HOSPITAL_ID == "whhk" ||
-    process.env.HOSPITAL_ID == "foshanrenyi"
+    process.env.HOSPITAL_ID == "foshanrenyi" ||
+    process.env.HOSPITAL_ID == "925"
   ) {
     auditorMapData.auditorMap = sheetInfo.auditorMap;
   }

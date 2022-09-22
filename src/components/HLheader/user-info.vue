@@ -58,7 +58,7 @@
         <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
-    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk'].includes(HOSPITAL_ID)">
+    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', '925'].includes(HOSPITAL_ID)">
       <div class="boxShadow" @click="onPrint">
         <div class="qrcode" ref="qrcodeContainer"></div>
       </div>
@@ -431,14 +431,23 @@ export default {
       this.$refs.uploadImgModal.open("signImg");
     },
     clear() {
+      let count = 0
       for (let key in localStorage) {
         if (key.includes("firtPainFormID") || key.includes("patientInfo")) {
           localStorage.removeItem(key);
+          count += 1
         }else if (key.includes("selectDeptValue")) {
           localStorage.removeItem(key);
           this.$store.commit("upDeptCode", '');
+          count += 1
         }
       }
+      if (count > 0) {
+        this.$message('清除成功')
+      } else {
+        this.$message('没有内容可清除')
+      }
+      count = null
       // location.reload(true);
       // localStorage.clear()
       // location.href = '/crNursing/login'
@@ -509,7 +518,7 @@ export default {
     //二维码
     qrcode() {
       //非聊城不执行
-      if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk'].includes(this.HOSPITAL_ID )) return false;
+      if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk', '925'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
       ['foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
       //console.log(this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})))

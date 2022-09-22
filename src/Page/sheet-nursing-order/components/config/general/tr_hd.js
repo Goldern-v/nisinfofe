@@ -178,20 +178,7 @@ export default [
     key: "stopTime", //时间
     value: "",
     click: click_time,
-    event: function (e, td) {
-      let k = e.keyCode
-      console.log('time-input-onkeydown', e, k)
-      if ((k >= 96 && k <= 105) || (k >= 48 && k <= 57) || (k >= 37 && k <= 40) || k === 8 || (e.target.selectionEnd !== e.target.selectionStart && ((k >= 96 && k <= 105) || (k >= 48 && k <= 57)))) {
-        e.returnValue = true
-      } else {
-        e.returnValue = false
-      }
-      if (e.target.value.length >= 5 && (k != 8 && (k < 37 || k > 40)) && e.target.selectionEnd === e.target.selectionStart) { e.returnValue = false }
-      if (e.target.value.length == '2' && e.target.value.indexOf('-') == -1 && k != 8) {
-        td.value += ":"
-      }
-      console.log('returnValue', e.returnValue, e.target.selectionStart, e.target.selectionEnd)
-    }
+    event: event_time,
   },
   // {
   //   key: "bloodPressure", //血压

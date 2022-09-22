@@ -7,7 +7,7 @@ export default {
     mailUnread: 0,
     relogin: false,
     screenLock: localStorage.screenLock === "true" ? true : false, // 是否锁屏 从本地存储初始化
-    user: JSON.parse(localStorage.getItem('user')) || {}
+    user: JSON.parse(localStorage.getItem('user')) || {},
     // 用户信息
   },
   mutations: {
