@@ -14,7 +14,7 @@
           clearable
         />
         <ElDatePicker
-          v-if="HOSPITAL_ID === 'guizhou'"
+          v-if="['guizhou', '925'].includes(HOSPITAL_ID)"
           class="date-picker"
           type="date"
           size="small"
@@ -71,9 +71,13 @@
       <div
         class="times"
         v-if="
-          ['quzhou', 'wujing', 'nanfangzhongxiyi', 'foshanrenyi'].includes(
-            HOSPITAL_ID
-          )
+          [
+            'quzhou',
+            'wujing',
+            'nanfangzhongxiyi',
+            'foshanrenyi',
+            '925'
+          ].includes(HOSPITAL_ID)
         "
       >
         <label
@@ -1113,6 +1117,7 @@ export default {
               }
             case "quzhou":
             case "guizhou":
+            case '925':
             case "wujing":
               if (this.getHours() >= 0 && this.getHours() <= 4) {
                 return "02";
