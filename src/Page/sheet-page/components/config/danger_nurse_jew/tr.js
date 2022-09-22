@@ -1,5 +1,5 @@
 /**
-   925医院 - 一般患者护理记录单
+   925医院 - 危重患者护理记录单
 /**
  * @description: 开发注意事项:
     1、textarea: { width:30 }, change: (e, td) => limitChange(e, td, 4) 的意思是宽度设置30，字数限制4个。
