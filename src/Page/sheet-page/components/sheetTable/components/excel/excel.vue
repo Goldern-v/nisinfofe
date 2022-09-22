@@ -553,7 +553,8 @@
             sheetInfo.sheetType == 'ultrasound_fs' ||
             sheetInfo.sheetType == 'generalnursing_tj' ||
             sheetInfo.sheetType == 'magnesiumsulf_fs' ||
-            HOSPITAL_ID == 'fsxt'
+            sheetInfo.sheetType == 'laborobservation_fs' ||
+            HOSPITAL_ID == 'fsxt' 
           "
           >质控护士：</span
         >
@@ -738,6 +739,7 @@ export default {
         "ultrasound_fs",
         "generalnursing_tj",
         "magnesiumsulf_fs",
+        "laborobservation_fs",
         'nurse_jew'
       ],
       // 需要双签名的记录单code
@@ -2365,7 +2367,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs']
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =

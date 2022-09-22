@@ -1582,6 +1582,13 @@ export default function Title(
     );
   }
   break;
+  case "laborobservation_fs": {
+    // 佛山市一 - 产程观察记录单(含静滴催产素记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/laborobservation_fs/th").default)
+    );
+  }
+  break;
   case "nonsurgicalcare_fk": {
     // 武汉肺科 - 非手术科室护理记录单
     Th = JSON.parse(
