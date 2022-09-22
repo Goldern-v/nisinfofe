@@ -5,7 +5,7 @@
       type="flex"
       align="middle"
     >
-      <img src="../../../common/images/jmfy_log.png" height="60" width="60" />
+      <img src="../../../common/images/logo_fuyou.png" height="60" width="60" />
       <span>
         江门市妇幼保健院
         <br />智慧护理信息系统
@@ -256,7 +256,7 @@ export default {
   created(){
     if(["fuyou"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
       window.openFuyouCaSignModal(true);
-    } 
+    }
   },
   computed: {
     query() {

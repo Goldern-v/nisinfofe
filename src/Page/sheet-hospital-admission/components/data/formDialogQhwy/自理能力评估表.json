@@ -1,0 +1,903 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "青海省第五人民医院",
+      "formName": "自理能力评估表"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E1600",
+      "formApiCode": "E1600",
+      "formName": "自理能力评估表",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "1. 进食",
+      "type": "formGroupHorizontalBox",
+      "title": "1. 进食",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "1. 进食",
+      "suffixDesc": "",
+      "keys": "S1600001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "S1600001",
+          "type": "radio",
+          "title": "完全独立（10分）",
+          "code": "10",
+          "score": 10,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "完全独立"
+        },
+        {
+          "name": "S1600001",
+          "type": "radio",
+          "title": "需部分帮助（5分）",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "需部分帮助"
+        },
+        {
+          "name": "S1600001",
+          "type": "radio",
+          "title": "需极大帮助（0分）",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "需极大帮助"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "2. 洗澡",
+      "type": "formGroupHorizontalBox",
+      "title": "2. 洗澡",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "2. 洗澡",
+      "suffixDesc": "",
+      "keys": "S1600002",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "S1600002",
+          "type": "radio",
+          "title": "完全独立（5分）",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "准备好洗澡水后，可自己独立完成洗澡过程"
+        },
+        {
+          "name": "S1600002",
+          "type": "radio",
+          "title": "需部分帮助（0分）",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "在洗澡过程中需他人帮助"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "3. 修饰",
+      "type": "formGroupHorizontalBox",
+      "title": "3. 修饰",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "3. 修饰",
+      "suffixDesc": "",
+      "keys": "S1600003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "S1600003",
+          "type": "radio",
+          "title": "完全独立（5分）",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "独立完成"
+        },
+        {
+          "name": "S1600003",
+          "type": "radio",
+          "title": "需部分帮助（0分）",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "需他人帮助"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "4. 穿衣",
+      "type": "formGroupHorizontalBox",
+      "title": "4. 穿衣",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "4. 穿衣",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "S1600004",
+          "type": "radio",
+          "title": "完全独立（10分）",
+          "code": "10",
+          "score": 10,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "可独立完成"
+        },
+        {
+          "name": "S1600004",
+          "type": "radio",
+          "title": "需部分帮助（5分）",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "需他人帮助"
+        },
+        {
+          "name": "S1600004",
+          "type": "radio",
+          "title": "需极大帮助（0分）",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "需极大帮助或完全依赖他人"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "5. 控制大便",
+      "type": "formGroupHorizontalBox",
+      "title": "5. 控制大便",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "5. 控制大便",
+      "suffixDesc": "",
+      "keys": "S1600005",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "S1600005",
+          "type": "radio",
+          "title": "完全独立（10分）",
+          "code": "10",
+          "score": 10,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "可控制大便"
+        },
+        {
+          "name": "S1600005",
+          "type": "radio",
+          "title": "需部分帮助（5分）",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "偶尔失控，或需让人提示"
+        },
+        {
+          "name": "S1600005",
+          "type": "radio",
+          "title": "需极大帮助（0分）",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "完全失控"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "6. 控制小便",
+      "type": "formGroupHorizontalBox",
+      "title": "6. 控制小便",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "6. 控制小便",
+      "suffixDesc": "",
+      "keys": "S1600006",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "S1600006",
+          "type": "radio",
+          "title": "完全独立（10分）",
+          "code": "10",
+          "score": 10,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "可控制小便"
+        },
+        {
+          "name": "S1600006",
+          "type": "radio",
+          "title": "需部分帮助（5分）",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "偶尔失控，或需让人提示"
+        },
+        {
+          "name": "S1600006",
+          "type": "radio",
+          "title": "需极大帮助（0分）",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "tips": "完全失控，或留置导尿管"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "7.如厕",
+      "type": "formGroupHorizontalBox",
+      "title": "7.如厕",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "7.如厕",
+      "suffixDesc": "",
+      "keys": "S1600007",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "S1600007",
+          "type": "radio",
+          "title": "完全独立（10分）",
+          "code": "10",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "score": 10,
+          "tips": "可独立完成"
+        },
+        {
+          "name": "S1600007",
+          "type": "radio",
+          "title": "需部分帮助（5分）",
+          "code": "5",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 5,
+          "tips": "需部分帮助"
+        },
+        {
+          "name": "S1600007",
+          "type": "radio",
+          "title": "需极大帮助（0分）",
+          "code": "0",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 0,
+          "tips": "需极大帮助或完全依赖他人"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "8.床椅转移",
+      "type": "formGroupHorizontalBox",
+      "title": "8.床椅转移",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "8.床椅转移",
+      "suffixDesc": "",
+      "keys": "S1600008",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "S1600008",
+          "type": "radio",
+          "title": "完全独立（15分）",
+          "code": "15",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "score": 15,
+          "tips": "可独立完成"
+        },
+        {
+          "name": "S1600008",
+          "type": "radio",
+          "title": "需部分帮助（10分）",
+          "code": "10",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 10,
+          "tips": "需要部分帮助"
+        },
+        {
+          "name": "S1600008",
+          "type": "radio",
+          "title": "需极大帮助（5分）",
+          "code": "5",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 5,
+          "tips": "需极大帮助"
+        },
+        {
+          "name": "S1600008",
+          "type": "radio",
+          "title": "完全依赖（0分）",
+          "code": "0",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 0,
+          "tips": "完全依赖他人"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "9.平地行走",
+      "type": "formGroupHorizontalBox",
+      "title": "9.平地行走",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "9.平地行走",
+      "suffixDesc": "",
+      "keys": "S1600009",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "S1600009",
+          "type": "radio",
+          "title": "完全独立（15分）",
+          "code": "15",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "score": 15,
+          "tips": "可独立在平地行走45m。"
+        },
+        {
+          "name": "S1600009",
+          "type": "radio",
+          "title": "需部分帮助（10分）",
+          "code": "10",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 10,
+          "tips": "需部分帮助"
+        },
+        {
+          "name": "S1600009",
+          "type": "radio",
+          "title": "需极大帮助（5分）",
+          "code": "5",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 5,
+          "tips": "需要极大帮助"
+        },
+        {
+          "name": "S1600009",
+          "type": "radio",
+          "title": "完全依赖（0分）",
+          "code": "0",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 0,
+          "tips": "完全依赖他人"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "10.上下楼梯",
+      "type": "formGroupHorizontalBox",
+      "title": "10.上下楼梯",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "10.上下楼梯",
+      "suffixDesc": "",
+      "keys": "S1600010",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "S1600010",
+          "type": "radio",
+          "title": "完全独立（10分）",
+          "code": "10",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "score": 10,
+          "tips": "可独立上下楼梯"
+        },
+        {
+          "name": "S1600010",
+          "type": "radio",
+          "title": "需部分帮助（5分）",
+          "code": "5",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 5,
+          "tips": "需要部分帮助"
+        },
+        {
+          "name": "S1600010",
+          "type": "radio",
+          "title": "需极大帮助（0分）",
+          "code": "0",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "score": 0,
+          "tips": "需极大帮助或完全依赖他人。"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "code": "evalScore",
+          "placeholder": "评估得分",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "code": "",
+          "placeholder": "结果程度",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "min": "-1",
+              "max": "41",
+              "equal": "重度依赖",
+              "style": "color:red",
+              "display": "重度依赖"
+            },
+            {
+              "min": "41",
+              "max": "61",
+              "equal": "中度依赖",
+              "style": "color:red",
+              "display": "中度依赖"
+            },
+            {
+              "min": "61",
+              "max": "99",
+              "equal": "轻度依赖",
+              "style": "color:blue",
+              "display": "轻度依赖"
+            },
+            {
+              "min": "99", 
+              "max": "101",
+              "equal": "无需依赖",
+              "style": "color:blue",
+              "display": "无需依赖"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

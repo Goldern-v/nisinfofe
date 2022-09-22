@@ -13,7 +13,7 @@
               align="middle"
             >
               <img
-                src="../../common/images/nfyksdyy_logo.png"
+                src="../../common/images/logo_nfyksdyy.png"
               />
             </el-row>
             <!-- <router-link to="/index"

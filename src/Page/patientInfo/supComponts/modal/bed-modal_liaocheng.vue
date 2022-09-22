@@ -21,7 +21,7 @@
           <div
             class="qr-code-num"
             :class="{ hasRemark: hasRemark, }"
-            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
+            :style="['liaocheng', '925'].includes(HOSPITAL_ID) ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
           >
             {{ qrCodeNum }}
           </div>
@@ -630,7 +630,7 @@ export default {
         };
         this.modalLoading = false;
         if (
-          this.HOSPITAL_ID == "liaocheng" &&
+          ["liaocheng", '925'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post != "护长"
         ) {
@@ -677,10 +677,10 @@ export default {
     open() {
       this.init();
       if (
-        (this.HOSPITAL_ID == "liaocheng" &&
+        (["liaocheng", '925'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post == "护长") ||
-        this.HOSPITAL_ID != "liaocheng"
+          !["liaocheng", '925'].includes(this.HOSPITAL_ID)
       ) {
         this.isOpen();
       }
@@ -690,6 +690,7 @@ export default {
       let qr_png_value = "";
       switch (this.HOSPITAL_ID) {
         case "liaocheng":
+        case '925':
           qr_png_value = this.query.patientId + "|" + this.query.visitId;
           break;
         case "shannan":
@@ -799,7 +800,7 @@ export default {
       let xy = offset(e.target);
 
       console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
-      
+
       setTimeout(() => {
         window.openAutoComplete({
           style: {

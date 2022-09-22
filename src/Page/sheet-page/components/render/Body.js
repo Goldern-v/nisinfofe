@@ -1291,6 +1291,11 @@ function switchSheetType(type) {
       schema = require("../config/nursing_sdlj/tr.js").default;
     }
     break;
+    case "nursing_zhzxy": {
+      // 珠海中西医 - 护理记录单
+      schema = require("../config/nursing_zhzxy/tr.js").default;
+    }
+    break;
     case "prenatal_sdlj": {
       // 顺德龙江 - 产前待产记录单
       schema = require("../config/prenatal_sdlj/tr.js").default;
@@ -1510,7 +1515,12 @@ function switchSheetType(type) {
         // 青海五院 - 耳鼻喉科护理记录单
       schema = require("../config/entnursing_qhwy/tr.js").default;
     }
-      break;   
+      break; 
+    case "nurse_jew": {
+        // 925医院 - 患者护理记录单
+      schema = require("../config/nurse_jew/tr.js").default;
+    }
+    break;     
     default: {
       schema = require("../config/default/tr.js").default;
     }

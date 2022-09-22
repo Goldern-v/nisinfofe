@@ -52,7 +52,7 @@
             </div>
             <div
               flex="cross:center"
-             
+
               style="height: 43px"
               v-else
             >
@@ -642,7 +642,6 @@ export default {
   },
   methods: {
     init() {
-      console.log('test-only-default')
       this.formData = {
         diet: "",
         registCare: [],

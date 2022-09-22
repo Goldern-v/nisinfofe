@@ -12,7 +12,7 @@
               justify="center"
               align="middle"
             >
-              <img src="../../common/images/whsl_logo_white.png" />
+              <img src="../../common/images/logo_whsl.png" />
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">

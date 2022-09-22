@@ -106,15 +106,12 @@ export default {
   },
   watch: {
     deptCode(value, oldValue) {
-      this.upRDeptCode(value);
+      this.upRDeptCode('');
       this.$router.push({ path: "/wardReport" });
     },
     RDeptCode: {
       handler(v) {
-        if (!v) {
-          this.upRDeptCode(this.deptCode);
-          return
-        }
+        if (!v) return
         this.load();
       },
       immediate: true,

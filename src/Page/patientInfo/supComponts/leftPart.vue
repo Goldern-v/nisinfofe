@@ -102,11 +102,13 @@
             @click="openWristPrint('wrist')"
             v-if="
               HOSPITAL_ID == 'huadu' ||
-                HOSPITAL_ID == 'zhongshanqi' ||
-                HOSPITAL_ID == 'liaocheng' ||
-                HOSPITAL_ID == 'beihairenyi' ||
-                HOSPITAL_ID == 'xiegang' ||
-                HOSPITAL_ID == 'gdtj'
+              HOSPITAL_ID == 'zhongshanqi' ||
+              HOSPITAL_ID == 'liaocheng' ||
+              HOSPITAL_ID == 'beihairenyi' ||
+              HOSPITAL_ID == 'xiegang' ||
+              HOSPITAL_ID == 'zhzxy' ||
+              HOSPITAL_ID == '925' ||
+              HOSPITAL_ID == 'gdtj'
             "
           >
             {{HOSPITAL_ID=='beihairenyi'?'成人腕带打印':'腕带打印'}}
@@ -381,7 +383,8 @@ export default {
         quzhou:'bedModalQz',
         whfk:'bedModalWhfk',
         hj:'bedModalHj',
-        ytll:'bedModalYtLL'
+        ytll:'bedModalYtLL',
+        925: 'bedModalLiaocheng',
         // nanfangzhongxiyi:'bedModalNfzxy',
       }
       if(hospital_left[this.HOSPITAL_ID]){
@@ -392,7 +395,7 @@ export default {
     },
     // 腕带打印
     openWristPrint(printMode) {
-      if (this.HOSPITAL_ID == "huadu" || this.HOSPITAL_ID == "liaocheng" || this.HOSPITAL_ID == "gdtj") {
+      if (["huadu", "liaocheng", "gdtj", 'zhzxy', '925'].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);
