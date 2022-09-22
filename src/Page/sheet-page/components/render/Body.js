@@ -1446,11 +1446,6 @@ function switchSheetType(type) {
       schema = require("../config/generalnursing_xt/tr.js").default;
     }
     break;
-    case "generalnursing_tj": {
-      // 佛山杏坛 - 护理记录单（全院通用）
-      schema = require("../config/generalnursing_tj/tr.js").default;
-    }
-    break;
     case "bloodCircul_xt": {
       // 佛山杏坛 -血运观察护理单（外四科）
       schema = require("../config/bloodCircul_xt/tr.js").default;
@@ -1495,6 +1490,11 @@ function switchSheetType(type) {
       // 广东同江 - 护理记录单(产后)
       schema = require("../config/pediatric3_tj/tr.js").default;
     }
+      break;
+    case "generalnursing_tj": {
+      // 广东同江 - 护理记录单（全院通用）
+        schema = require("../config/generalnursing_tj/tr.js").default;
+      }
       break;
     case "surgical_qhwy": {
         // 青海五院 - 外科护理记录单
