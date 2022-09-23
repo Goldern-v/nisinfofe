@@ -44,8 +44,8 @@ export default {
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem9"},
                 // {"name":"护<br/>理<br/>措<br/>施","colspan":"1","rowspan":"3"},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
-                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
-                {"name":"带教<br/>护士","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
+                {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"80px","maxWidth":"90px"}},
+                {"name":"带教<br/>护士","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
             ]
         ,
         mid:

@@ -9,15 +9,17 @@
   >
     <p for class="name-title">{{ title }}</p>
     <div ref="passwordInput">
-      <!-- <el-date-picker
+      <el-date-picker
         :style="{width: '100%'}"
         v-model="date"
         type="datetime"
         size="small"
         format="yyyy-MM-dd HH:mm"
         placeholder="选择日期时间"
-      ></el-date-picker>-->
+        v-if="['gdtj'].includes(HOSPITAL_ID)"
+      ></el-date-picker>
       <cr-date-picker
+        v-else
         :style="{ width: '100%' }"
         v-model="date"
       ></cr-date-picker>

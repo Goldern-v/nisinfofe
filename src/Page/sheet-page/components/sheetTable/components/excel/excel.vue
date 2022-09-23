@@ -240,6 +240,7 @@
                 tr.find((item) => item.key == 'auditorNo').value
               }?${token}`"
               alt
+              :class="{ xiegangSignImg: sheetInfo.sheetType === 'pediatric3_tj' || sheetInfo.sheetType === 'prenataldelivery2_tj' || sheetInfo.sheetType === 'postpartum2_tj'}"
             />
             <!-- 针对双签名打印预览为 xxx/xxx 显示 -->
             <!-- auditArr.includes(sheetInfo.sheetType) -->
@@ -292,7 +293,7 @@
               v-if="td.value"
               :style="!td.value && { opacity: 0 }"
               :src="`/crNursing/api/file/signImage/${td.value}?${token}`"
-              :class="{ xiegangSignImg: sheetInfo.sheetType === 'common_xg'||sheetInfo.sheetType === 'neonatology_xg' || HOSPITAL_ID==='wujing'}"
+              :class="{ xiegangSignImg: sheetInfo.sheetType === 'common_xg'||sheetInfo.sheetType === 'neonatology_xg' || HOSPITAL_ID==='wujing' || sheetInfo.sheetType === 'pediatric3_tj' || sheetInfo.sheetType === 'prenataldelivery2_tj' || sheetInfo.sheetType === 'postpartum2_tj'}"
               alt
             />
           </div>

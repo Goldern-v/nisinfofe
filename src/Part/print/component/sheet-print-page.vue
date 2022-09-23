@@ -241,6 +241,9 @@ export default {
         "iabp_fs", // 佛山市一_IABP护理记录单
         "intravenous_sdlj", // 顺德龙江_硫酸镁、安宝静脉点滴观察记录表
         "mechanical_sdlj", // 机械通气监护记录单（儿科）
+        "prenataldelivery2_tj", // 产前护理记录
+        "postpartum2_tj", // 产后护理记录单
+        "pediatric3_tj", // 产科新生儿护理记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -406,6 +409,20 @@ export default {
         @media print {
           .body-con{
             height: 35px !important;
+          }
+        }
+        `
+      );
+    }
+    if ( (this.HOSPITAL_ID === "gdtj") &&
+      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .body-con{
+            height: 40px !important;
           }
         }
         `

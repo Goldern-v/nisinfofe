@@ -1487,12 +1487,12 @@ function switchSheetType(type) {
     }
       break;
     case "postpartum2_tj": {
-      // 广东同江 - 护理记录单(产后)
+      // 广东同江 - 产后护理记录单
       schema = require("../config/postpartum2_tj/tr.js").default;
     }
       break;
     case "pediatric3_tj": {
-      // 广东同江 - 护理记录单(产后)
+      // 广东同江 - 产科新生儿护理记录单
       schema = require("../config/pediatric3_tj/tr.js").default;
     }
       break;
