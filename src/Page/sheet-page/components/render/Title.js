@@ -1582,6 +1582,13 @@ export default function Title(
     );
   }
   break;
+  case "laborobservation_fs": {
+    // 佛山市一 - 产程观察记录单(含静滴催产素记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/laborobservation_fs/th").default)
+    );
+  }
+  break;
   case "nonsurgicalcare_fk": {
     // 武汉肺科 - 非手术科室护理记录单
     Th = JSON.parse(
@@ -1862,13 +1869,6 @@ export default function Title(
     );
   }
   break;
-  case "generalnursing_tj": {
-    // 佛山杏坛 - 护理记录单（全院通用）
-    Th = JSON.parse(
-      JSON.stringify(require("../config/generalnursing_tj/th.js").default)
-    );
-  }
-  break;
   case "bloodCircul_xt": {
     // 佛山杏坛 -血运观察护理单（外四科）
     Th = JSON.parse(
@@ -1925,6 +1925,13 @@ export default function Title(
     );
   }
   break;
+  case "generalnursing_tj": {
+    // 广东同江 - 护理记录单（全院通用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/generalnursing_tj/th.js").default)
+    );
+  }
+  break;
   case "surgical_qhwy": {
     // 青海五院 - 外科护理记录单
     Th = JSON.parse(
@@ -1954,9 +1961,16 @@ export default function Title(
   }
   break;
   case "nurse_jew": {
-    // 925医院 - 患者护理记录单
+    // 925医院 - 一般患者护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/nurse_jew/th").default)
+    );
+  }
+  break;
+  case "danger_nurse_jew": {
+    // 925医院 - 危重患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/danger_nurse_jew/th").default)
     );
   }
   break;

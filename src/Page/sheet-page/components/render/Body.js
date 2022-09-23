@@ -1246,6 +1246,11 @@ function switchSheetType(type) {
       schema = require("../config/magnesiumsulf_fs/tr.js").default;
     }
       break;
+    case "laborobservation_fs": {
+      // 佛山市一 - 产程观察记录单(含静滴催产素记录单)
+      schema = require("../config/laborobservation_fs/tr.js").default;
+    }
+      break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;
@@ -1446,11 +1451,6 @@ function switchSheetType(type) {
       schema = require("../config/generalnursing_xt/tr.js").default;
     }
     break;
-    case "generalnursing_tj": {
-      // 佛山杏坛 - 护理记录单（全院通用）
-      schema = require("../config/generalnursing_tj/tr.js").default;
-    }
-    break;
     case "bloodCircul_xt": {
       // 佛山杏坛 -血运观察护理单（外四科）
       schema = require("../config/bloodCircul_xt/tr.js").default;
@@ -1496,6 +1496,11 @@ function switchSheetType(type) {
       schema = require("../config/pediatric3_tj/tr.js").default;
     }
       break;
+    case "generalnursing_tj": {
+      // 广东同江 - 护理记录单（全院通用）
+        schema = require("../config/generalnursing_tj/tr.js").default;
+      }
+      break;
     case "surgical_qhwy": {
         // 青海五院 - 外科护理记录单
         schema = require("../config/surgical_qhwy/tr.js").default;
@@ -1517,10 +1522,15 @@ function switchSheetType(type) {
     }
       break; 
     case "nurse_jew": {
-        // 925医院 - 患者护理记录单
+        // 925医院 - 一般患者护理记录单
       schema = require("../config/nurse_jew/tr.js").default;
     }
-    break;     
+    break;
+    case "danger_nurse_jew": {
+      // 925医院 - 危重患者护理记录单
+    schema = require("../config/danger_nurse_jew/tr.js").default;
+  }
+  break;    
     default: {
       schema = require("../config/default/tr.js").default;
     }

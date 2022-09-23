@@ -292,8 +292,16 @@ export default {
       });
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
-    // 江门妇幼的护理单打印双数页面会翻转,横沥ICU机械通气护理单,武汉肺科。修复
-    if(this.HOSPITAL_ID==="sdlj" || this.HOSPITAL_ID==="fuyou"||this.sheetInfo.sheetType==="ventilation_hl"||this.HOSPITAL_ID==="wujing"||this.HOSPITAL_ID==="fsxt"||this.HOSPITAL_ID==="whfk"||this.HOSPITAL_ID==="foshanrenyi"||this.HOSPITAL_ID==="lyxrm"){
+    //   医院的护理单打印双数页面会翻转（双面打印）。这些医院都是不需要偶数页面打印翻转的
+    if(this.HOSPITAL_ID==="sdlj" 
+       || this.HOSPITAL_ID==="fuyou"
+       ||this.sheetInfo.sheetType==="ventilation_hl"
+       ||this.HOSPITAL_ID==="wujing"
+       ||this.HOSPITAL_ID==="fsxt"
+       ||this.HOSPITAL_ID==="whfk"
+       ||this.HOSPITAL_ID==="foshanrenyi"
+       ||this.HOSPITAL_ID==="lyxrm"
+       ||this.HOSPITAL_ID==="huadu"){
       printDir("h");
             addCSS(
               window,
@@ -557,6 +565,24 @@ export default {
            img{
               transform: scale(0.8);
             }
+          
+        `
+      );
+    }
+    if (
+      (this.HOSPITAL_ID === "gdtj")
+    ) {
+      
+      addCSS(
+        window,
+        `
+            #sheetPagePrint th[dataname="护士<br/>签名"] {
+              min-width: 100px !important;
+              max-width: 100px !important;
+           }
+           img{
+              transform: scale(0.8);
+            }
         `
       );
     }
@@ -679,6 +705,21 @@ export default {
         `
       )
     }
+    // 如果双签可以这里加。打印的时候签名二合一。签名列拉宽
+    if (
+      (sheetInfo.sheetType == "generalnursing_tj")
+    ) {
+      
+      addCSS(
+        window,
+        `
+            #sheetPagePrint th[dataname="护士<br/>签名"] {
+              min-width: 100px !important;
+              max-width: 100px !important;
+           }
+        `
+      );
+    }
 
     // 陵城打印
     if (this.HOSPITAL_ID == "lingcheng") {
@@ -706,7 +747,7 @@ export default {
         `
       );
     }
-      if (sheetInfo.sheetType == "Record_Children_Serious_Lc") {
+    if (sheetInfo.sheetType == "Record_Children_Serious_Lc") {
         addCSS(
           window,
           `

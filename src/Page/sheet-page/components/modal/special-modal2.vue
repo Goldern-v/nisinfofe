@@ -1931,7 +1931,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "magnesiumsulf_fs") {
+            } else if (this.sheetInfo.sheetType === "magnesiumsulf_fs" || this.sheetInfo.sheetType === "laborobservation_fs") {
               if (GetLength(text) > 62) {
                 result.push(text);
                 text = allDoc[i];
