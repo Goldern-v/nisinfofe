@@ -1912,14 +1912,14 @@ export default function Title(
   }
   break;
   case "postpartum2_tj": {
-    // 广东同江 - 护理记录单(产后)
+    // 广东同江 - 产后护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/postpartum2_tj/th.js").default)
     );
   }
   break;
   case "pediatric3_tj": {
-    // 广东同江 - 护理记录单(产后)
+    // 广东同江 - 产科新生儿护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/pediatric3_tj/th.js").default)
     );

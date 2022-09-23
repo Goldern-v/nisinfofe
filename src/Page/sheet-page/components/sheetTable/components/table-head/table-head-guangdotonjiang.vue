@@ -11,19 +11,19 @@
         </div>
         <span v-if="sheetInfo.sheetType == 'pediatric3_tj' ">之婴</span>
       </span>
-      <span v-if="sheetInfo.sheetType!='pediatric3_xt'">
+      <span>
         年龄：
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.age }}
         </div>
       </span>
-      <span v-if="sheetInfo.sheetType!='pediatric3_xt'">
+      <span>
         科室：
         <div class="bottom-line" style="min-width: 100px">
           {{ patientInfo.deptName }}
         </div>
       </span>
-      <span v-if="sheetInfo.sheetType=='pediatric3_xt'">
+      <span>
         性别：
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.sex }}
@@ -60,7 +60,7 @@
       <span v-if="sheetInfo.sheetType=='pediatric3_tj'">
         出生日期：
         <div @click="updateBirthDay" class="bottom-line" style="min-width: 150px;height: 12px;">
-          {{ patientInfo.birthday | YMDHM }}
+          {{birthday | YMDHM }}
         </div>
       </span>
       <span v-if="sheetInfo.sheetType=='postpartum2_tj'">
@@ -313,6 +313,25 @@ export default {
         this.patientInfo.childbirth
       );
     },
+    birthday() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_birthday_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_birthday_${realIndex}`] ||
+        this.patientInfo.birthday
+      );
+    },
     laborTime() {
       /** 最接近的index */
       let realIndex = 0;
@@ -362,13 +381,12 @@ export default {
     },
     updateBirthDay() {
       window.openSetAuditDateModal(
-        date => {
-          updateSheetHeadInfo({ birthday: date }).then(res => {
-            this.patientInfo.birthday = res.data.data.birthday;
-            this.$message.success("修改出生日期成功");
-          });
+        (text) => {
+          sheetInfo.relObj[`PageIndex_birthday_${this.index}`] = text;
+          this.$message.success(`修改出生日期成功`);
+          this.bus.$emit("saveSheetPage", false);
         },
-        this.patientInfo.birthday,
+        this.birthday,
         "修改出生日期"
       );
     },
