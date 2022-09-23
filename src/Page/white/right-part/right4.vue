@@ -150,7 +150,7 @@ export default {
         case "fsxt":
           return "P班："
         case "whyx":
-          return "科班："
+          return "大N班："
         default:
           return "P全班："
       }
