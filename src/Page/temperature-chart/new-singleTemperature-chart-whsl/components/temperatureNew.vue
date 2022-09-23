@@ -36,43 +36,6 @@
           尾周
         </button>
       </div>
-      <moveContext
-        :id="'detailChatBox'"
-        :titlex="'曲详情线'"
-        class="detailChatBox"
-      >
-        <div class="button-context">
-          <el-button
-            type="primary"
-            @click="changeDetailChatUrl((type = 1))"
-            class="detail-button"
-          >体温</el-button
-          >
-          <el-button
-            type="primary"
-            @click="changeDetailChatUrl((type = 2))"
-            class="detail-button"
-          >脉搏</el-button
-          >
-          <el-button
-            type="primary"
-            @click="changeDetailChatUrl((type = 3))"
-            class="detail-button"
-          >心率</el-button
-          >
-        </div>
-        <div>
-          <null-bg v-show="!filePath" :image-size="100"></null-bg>
-          <iframe
-            id="detailChat"
-            v-if="detailChatFlag && filePath"
-            :src="detailChatUrl"
-            frameborder="0"
-            ref="detailChat"
-            class="detailChat"
-          ></iframe>
-        </div>
-      </moveContext>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe

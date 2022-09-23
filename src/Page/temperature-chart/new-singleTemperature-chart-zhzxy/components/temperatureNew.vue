@@ -1,15 +1,12 @@
 <template>
   <div>
     <div class="contain">
-      <el-button-group>
+      <div class="top_contain">
+        <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
       </el-button-group>
-      <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div
-        :class="rightSheet === true ? 'pagination' : 'paginationRight'"
-        v-show="!isPrintAll"
-      >
+      <div :class="rightSheet === true ? 'pagination' : 'paginationRight'">
         <button
           :disabled="currentPage === 1"
           @click="
@@ -19,7 +16,9 @@
         >
           首周
         </button>
-        <button :disabled="currentPage === 1" @click="toPre">上一周</button>
+        <button :disabled="currentPage === 1" @click="currentPage--">
+          上一周
+        </button>
         <span class="page"
           >第<input
             type="number"
@@ -34,20 +33,26 @@
         </button>
         <button
           :disabled="currentPage === pageTotal"
-          @click="
-            currentPage = pageTotal;
-            toCurrentPage = pageTotal;
-          "
+          @click="currentPage = pageTotal"
         >
           尾周
         </button>
+      </div>
+      <el-button-group>
+          <el-button type="primary" @click="syncInAndOutHospital((type = '0'))"
+            >同步入院</el-button
+          >
+          <el-button type="primary" @click="syncInAndOutHospital((type = '1'))"
+            >同步出院</el-button
+          >
+        </el-button-group>
       </div>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
           id="temperatureChart"
+          v-if="filePath&&!isPrintAll"
           :src="filePath"
-          v-if="!isPrintAll&&filePath"
           frameborder="0"
           ref="pdfCon"
           class="lcIframe"
@@ -58,8 +63,8 @@
         <iframe
           id="chartPrintAll"
           :src="printAllPath"
-          v-if="isPrintAll&&printAllPath"
           frameborder="0"
+          v-if="printAllPath&&isPrintAll"
           ref="pdfConAll"
           class="lcIframe"
         ></iframe>
@@ -70,34 +75,35 @@
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
-import moment from "moment";
 import bus from "vue-happy-bus";
+import moment from "moment";
 export default {
   props: {
     queryTem: Object,
   },
   data() {
+    //跟925医院共用录入界面 ，判断ip地址
+   const baseUrl="http://192.168.7.119:9091"
     return {
       bus: bus(this),
       date: "",
       filePath: "",
+      printAllPath:"",
       contentHeight: { height: "" },
       currentPage: 1,
+      toCurrentPage: 1,
       pageTotal: 1,
       open: false,
-      patientId: "",
-      visitId: "",
-      showVitalSign: 1,
       isSave: false,
-      detailChatFlag: true,
-      toCurrentPage: 1,
-      isPrintAll: false,
+      isPain: false,
+      showTemp: true, //默认选择标准的体温单曲线
       visibled: false,
-      printAllPath: "",
+      isPrintAll: false, //是否打印所有
       intranetUrl:
-        "http://192.168.7.119:9091/temperature" /* 医院正式环境内网 导致跨域 */,
+        // "http://192.168.1.72:8080/#/" /* 医院正式环境内网 导致跨域 */,
+      `${baseUrl}/temperature` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://192.168.7.119:9091/temperature/printAll" /* 医院正式环境内网批量打印 */,
+        `${baseUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
     };
   },
   methods: {
@@ -106,7 +112,7 @@ export default {
       setTimeout(() => {
         this.$refs.pdfCon.contentWindow.postMessage(
           { type: "printing" },
-          this.intranetUrl /* 内网 */
+          this.intranetUrl
           // this.outNetUrl /* 外网 */
         );
       }, 1500);
@@ -116,14 +122,22 @@ export default {
       setTimeout(() => {
         this.$refs.pdfConAll.contentWindow.postMessage(
           { type: "printingAll" },
-          this.printAllUrl /* 内网 */
+          this.showTemp === true
+            ? this.printAllUrl
+            : this.withoutPainAll /* 内网 */
           // this.outNetUrl /* 外网 */
         );
       }, 1500);
     },
-    //将体温单上的时间传过来，再监听到录入组件，获取录入记录
-    getDataFromPage(dateTime) {
-      this.bus.$emit("getDataFromPage", dateTime);
+    toNext() {
+      if (this.currentPage === this.pageTotal) return;
+      this.currentPage++;
+      this.toCurrentPage = this.currentPage;
+    },
+    toPre() {
+      if (this.currentPage === 1) return;
+      this.currentPage--;
+      this.toCurrentPage = this.currentPage;
     },
     toPage() {
       if (
@@ -142,15 +156,12 @@ export default {
 
       this.currentPage = this.toCurrentPage;
     },
-    toNext() {
-      if (this.currentPage === this.pageTotal) return;
-      this.currentPage++;
-      this.toCurrentPage = this.currentPage;
+    //将体温单上的时间传过来，再监听到录入组件，获取录入记录
+    getDataFromPage(dateTime) {
+      this.bus.$emit("getDataFromPage", dateTime);
     },
-    toPre() {
-      if (this.currentPage === 1) return;
-      this.currentPage--;
-      this.toCurrentPage = this.currentPage;
+        syncInAndOutHospital(type) {
+      this.bus.$emit("syncInAndOutHospital", type);
     },
     getImg() {
       let date = new Date(this.queryTem.admissionDate).Format("yyyy-MM-dd");
@@ -163,6 +174,7 @@ export default {
       /* 单独处理体温单，嵌套iframe */
       const tempUrl = `${this.intranetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
       const tempAllUrl = `${this.printAllUrl}?PatientId=${this.patientId}&VisitId=${this.visitId}&StartTime=${this.date}&authTokenNursing=${authTokenNursing}`; /* 内网 */
+      // const tempUrl = `${this.outNetUrl}?PatientId=${patientId}&VisitId=${visitId}&StartTime=${date}`; /* 外网 */
       this.filePath = "";
       setTimeout(() => {
         this.filePath = tempUrl;
@@ -170,10 +182,7 @@ export default {
       }, 0);
     },
     getHeight() {
-      this.contentHeight.height =
-        window.innerHeight -
-        (this.$route.path.includes("nursingPreview") ? 40 : 100) +
-        "px";
+      this.contentHeight.height = window.innerHeight - 110 + "px";
     },
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
@@ -219,6 +228,7 @@ export default {
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
       );
     },
   },
@@ -234,27 +244,28 @@ export default {
     this.bus.$on("refreshImg", () => {
       this.getImg();
     });
+       this.bus.$on('dateChangePage',(value)=>{
+      value=moment(value).format("YYYY-MM-DD")
+        this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "dateChangePage", value },
+        this.intranetUrl /* 内网 */
+        // this.outNetUrl /* 外网 */
+      );
+    })
   },
   created() {
     // this.getImg();
     window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
-    this.bus.$on("dateChangePage", (value) => {
-      value = moment(value).format("YYYY-MM-DD");
-      this.$refs.pdfCon.contentWindow.postMessage(
-        { type: "dateChangePage", value },
-        this.intranetUrl /* 内网 */
-        // this.outNetUrl /* 外网 */
-      );
-    });
+
   },
   computed: {
-    rightSheet() {
-      return this.$store.state.temperature.rightPart;
-    },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
+    },
+    rightSheet() {
+      return this.$store.state.temperature.rightPart;
     },
     authTokenNursing() {
       return JSON.parse(localStorage.getItem("user")).token; //获取登录token
@@ -270,39 +281,8 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.detailChatBox {
-  position: absolute;
-  right: 10%;
-  top: 15px;
-  width: 1000px;
-  height: 400px;
-  z-index: 999;
-  box-shadow: -2px 0 7px -1px black; // 左边阴影;
-  background: #fff;
-}
-
-.detailChat {
-  width: 100%;
-  height: 400px;
-}
-
-.button-context {
-  height: 50px;
-  background: rgb(240, 240, 241);
-
-  button {
-    position: relative;
-    top: 10px;
-  }
-}
-
-.detail-button {
-  margin-left: 25px;
-  width: 100px;
-}
-
 .contain {
-  margin: 10px 10px 0;
+  margin: 10px 10px 0 10px;
 
   .tem-con {
     width: 101%;
@@ -318,34 +298,28 @@ export default {
       height: 100%;
     }
   }
+  .top_contain {
+    display: flex;
+    justify-content: space-between;
+  }
 }
-
+.pageInput {
+  width: 50px;
+  border: 0px;
+}
 .pagination {
   display: inline;
-  position: relative;
-  left: 14%;
   font-weight: normal;
 }
-
-.paginationRight {
-  display: inline;
-  position: relative;
-  left: 20%;
-  font-weight: normal;
-}
-
 .page {
   margin: 0 10px;
 }
-
 button {
   cursor: pointer;
 }
-
 button[disabled=disabled] {
   cursor: not-allowed;
 }
-
 .tool-btn {
   width: 82px;
   height: 32px;
@@ -372,15 +346,11 @@ button[disabled=disabled] {
   }
 }
 
-.pageInput {
-  width: 30px;
-  border: 0px;
+.nomal {
+  color: red;
+  margin-right: 5px;
 }
-
-.print-btn {
-  position: relative;
-  left: 5%;
-  top: 0;
-  display: inline-flex !important;
+.painNomal {
+  margin-left: 5px;
 }
 </style>
