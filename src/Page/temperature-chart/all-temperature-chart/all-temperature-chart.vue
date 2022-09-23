@@ -82,7 +82,7 @@
       >
         <label
           :for="`time${item.id}`"
-          v-for="item in timesquZhou"
+          v-for="item in timesEven2"
           :key="item.id"
         >
           <input
@@ -118,7 +118,7 @@
         class="times"
         v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'beihairenyi'"
       >
-        <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id">
+        <label :for="`time${item.id}`" v-for="item in timeshengli" :key="item.id">
           <input
             type="radio"
             name="time"
@@ -1194,59 +1194,7 @@ export default {
           value: "22",
         },
       ],
-      timesquZhou: [
-        {
-          id: 0,
-          value: "02",
-        },
-        {
-          id: 1,
-          value: "06",
-        },
-        {
-          id: 2,
-          value: "10",
-        },
-        {
-          id: 3,
-          value: "14",
-        },
-        {
-          id: 4,
-          value: "18",
-        },
-        {
-          id: 5,
-          value: "22",
-        },
-      ],
       timeshengli: [
-        {
-          id: 0,
-          value: "03",
-        },
-        {
-          id: 1,
-          value: "07",
-        },
-        {
-          id: 2,
-          value: "11",
-        },
-        {
-          id: 3,
-          value: "15",
-        },
-        {
-          id: 4,
-          value: "19",
-        },
-        {
-          id: 5,
-          value: "23",
-        },
-      ],
-      timesOdd: [
         {
           id: 0,
           value: "03",

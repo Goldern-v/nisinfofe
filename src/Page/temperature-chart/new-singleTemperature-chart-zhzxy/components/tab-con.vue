@@ -21,9 +21,9 @@
             @blur="changeDate"
             @change="changeVal"
             :picker-options="{
-              start: '02:00',
+              start: '03:00',
               step: '04:00',
-              end: '22:00',
+              end: '23:00',
             }"
             class="new-time-select"
             placeholder="选择时间"
