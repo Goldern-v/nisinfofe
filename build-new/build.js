@@ -54,7 +54,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
         // );
         // 复制 ./dist目录 到 ./release/dist
         copyFolder.zip();
-        // copyFolder.upload();
+        copyFolder.upload();
         //
     });
 });
