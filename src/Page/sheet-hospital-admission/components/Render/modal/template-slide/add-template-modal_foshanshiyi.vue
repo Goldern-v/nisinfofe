@@ -6,6 +6,7 @@
       :title="modalTitle"
       :enable-mobile-fullscreen="false"
     >
+      
       <div flex="main:justify cross:center" style="margin-bottom: 20px">
         <p for class="title" style="margin-right: 10px">类别：</p>
         <el-input v-model="groupName" placeholder="请输入类别"></el-input>
@@ -15,11 +16,10 @@
           :fetch-suggestions="querySearch"
           placeholder="请输入内容"
         ></el-autocomplete> -->
-
       </div>
       <div flex="main:justify cross:center" style="margin-bottom: 20px">
         <p for class="title" style="margin-right: 10px">类型：</p>
-        <el-select style="width: 100%" v-model="selectedType" placeholder="请选择">
+        <el-select style="width: 100%"  @change="selectChangeType" v-model="selectedType" placeholder="请选择">
           <el-option v-for="item in type" :key="item" :label="item" :value="item"></el-option>
         </el-select>
       </div>
@@ -39,6 +39,25 @@
             :value="item.code"
           ></el-option>
         </el-select>
+      </div>
+      <div>
+        <div v-if="selectedType !== '公共'" flex="main:justify cross:center" style="margin-bottom: 20px">
+          <p for class="title" style="margin-right: 10px">表单：</p>
+          <el-select
+            style="width: 100%"
+            v-model="formCode"
+            filterable
+            placeholder="请选择表单"
+            autocomplete="off"
+          >
+            <el-option
+              v-for="item in formCodeList.filter(item => item.code !== 'all' && item.code !== '000000')"
+              :key="item.code"
+              :label="item.name"
+              :value="item.code"
+            ></el-option>
+          </el-select>
+        </div>
       </div>
       <div flex="main:justify cross:center" style="margin-bottom: 20px">
         <p for class="title" style="margin-right: 10px">标题：</p>
@@ -68,13 +87,14 @@
 </style>
 
 <script>
-import { typeList, saveOrUpdate_foshanshiyi, list } from "../../api/template.js";
+import { typeList, saveOrUpdate_foshanshiyi, list, add, update } from "../../api/template.js";
 import bus from "vue-happy-bus";
 import { keyNameMap, keyCodeMap } from "./deptMapList";
 import commom from "@/common/mixin/common.mixin.js";
 import { nursingUnit } from "@/api/lesion";
 export default {
   mixins: [commom],
+  props: ['formCodeList'],
   data() {
     return {
       bus: bus(this),
@@ -90,7 +110,9 @@ export default {
       deptENName: keyNameMap[this.deptName] || "neurology",
       deptList: [],
       deptId: '',
-      user: localStorage.user && JSON.parse(localStorage.user)
+      user: localStorage.user && JSON.parse(localStorage.user),
+      formCode: '000000',
+      groupId: ''
     };
   },
   computed: {
@@ -103,6 +125,11 @@ export default {
     }
   },
   methods: {
+    selectChangeType(val) {
+      if (val === '公共') 
+        this.formCode = '000000'
+      else this.formCode = this.id ? this.formCode : ''
+    },
     getDeptLists() {
       nursingUnit().then(res => {
         if (res.data.code === '200')
@@ -112,9 +139,9 @@ export default {
     open(item) {
       this.$refs.modal.open();
       this.getDeptLists()
-      this.getData();
+      // this.getData();
       // let user = localStorage.user && JSON.parse(localStorage.user)
-      if (this.selectedType === '公共') this.deptValue = ''
+      // if (this.selectedType === '公共') this.deptValue = ''
 
       // if (this.isRoleManage) {
       //   // let user = localStorage.user && JSON.parse(localStorage.user)
@@ -126,12 +153,15 @@ export default {
         (this.groupName = item.groupName), (this.title = item.title);
         this.content = item.content;
         this.id = item.id;
+        this.groupId = item.groupId
         this.userEmpNo = item.empNo
         this.deptId = item.wardCode
         this.deptValue = item.wardCode
-        if (item.wardCode) {
+        this.formCode = item.moduleCode
+        if (item.wardCode !== '000000') {
           this.type = ['科室']
           this.selectedType = '科室'
+          // this.formCode = item.moduleCode
         } else {
           this.type = ['公共']
           this.selectedType = '公共'
@@ -159,24 +189,37 @@ export default {
       this.deptValue = ''
     },
     post() {
-      let code = this.selectedType === '公共' ? '' : this.deptValue 
-      saveOrUpdate_foshanshiyi(
+      let code = this.selectedType === '公共' ? '000000' : this.deptValue
+      let http = this.id ? update(
         this.groupName,
         this.title,
         this.content,
-        this.id,
-        this.userEmpNo,
         code,
-        this.user.empNo
-      ).then(res => {
+        this.formCode,
+        this.groupId,
+        this.id
+      ) : 
+      add(
+        this.groupName,
+        this.title,
+        this.content,
+        code,
+        this.formCode
+      )
+      http.then(res => {
         if (this.id) {
           this.$message.success("更新常用语模版成功");
         } else {
           this.$message.success("保存常用语模版成功");
         }
+        this.bus.$emit("refreshTemplateAdd", { groupName: this.groupName, formCode: this.formCode, deptCode: code, selectedType: this.selectedType, id: this.id });
         this.close();
-        this.bus.$emit("refreshTemplateAdd");
       });
+
+
+      
+
+
     },
     querySearch(queryString, cb) {
       cb(
