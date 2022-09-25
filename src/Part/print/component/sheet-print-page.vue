@@ -587,6 +587,21 @@ export default {
       );
     }
     if (
+      (this.HOSPITAL_ID === "925")
+    ) {
+      addCSS(
+        window,
+        `
+           @media print {
+             @page{
+                 margin:10px 0 0;
+             }
+        }
+          
+        `
+      );
+    }
+    if (
       (this.HOSPITAL_ID === "gdtj")
     ) {
       

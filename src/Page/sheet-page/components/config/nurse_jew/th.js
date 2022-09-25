@@ -96,8 +96,8 @@ export default {
           护理措施和病情记录
           `,
           style: {
-            minWidth: '158px',
-            maxWidth: '158px',
+            minWidth: '190px',
+            maxWidth: '190px',
           },
           colspan: '1',
           rowspan: '3'
