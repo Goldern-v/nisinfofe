@@ -34,7 +34,7 @@ export function getExecuteWithWardcode(obj) {
       `${apiPath}${hospitalExecute}/getWardExeacute`,
       obj
     );
-  }else if(["fsxt","wujing","foshanrenyi","hengli","sdlj",'lyxrm', 'gdtj', 'whhk'].includes(HOSPITAL_ID)){
+  }else if(["fsxt","wujing","foshanrenyi","hengli","sdlj",'lyxrm', 'gdtj', 'whhk', '925'].includes(HOSPITAL_ID)){
     // 新版执行单（武警）
     return axios.post(
       `${apiPath}procedure/webExecute/webGetWardExecute`,
@@ -90,7 +90,7 @@ export function addRecord(obj) {
   if (HOSPITAL_ID=="lingcheng"){
     return axios.post(`${apiPath}procedure/his`, obj)
   }
-  else if(['whfk', 'lyxrm', 'ytll', 'whhk'].includes(HOSPITAL_ID)){
+  else if(['whfk', 'lyxrm', 'ytll', 'whhk', '925'].includes(HOSPITAL_ID)){
     return axios.post(`${apiPath}procedure/webExecute/getOrderExecuteSupplementary`,obj)
   } else {
     return axios.post(`${apiPath}${hospitalExecute}/orderExecute`, obj);

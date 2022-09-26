@@ -481,7 +481,8 @@ export default {
         "lyxrm",
         "wujing",
         "ytll",
-        'zhzxy'
+        'zhzxy',
+        '925',
       ],
       typeOptions: hisMatch({
         map: {
@@ -495,7 +496,7 @@ export default {
             { label: "口服" },
             { label: "治疗" },
           ],
-          "lyxrm,whhk,zhzxy": [
+          "lyxrm,whhk,zhzxy,925": [
             { label: "全部" },
             { label: "输液" },
             { label: "注射" },
@@ -536,7 +537,7 @@ export default {
       }),
       thumpOptions: hisMatch({
         map: {
-          "lyxrm,whhk,zhzxy": [
+          "lyxrm,whhk,zhzxy,925": [
             { label: "全部", value: 9 },
             { label: "已打印", value: 1 },
             { label: "未打印", value: 0 },

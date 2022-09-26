@@ -169,16 +169,16 @@
 }
 </style>
 <script>
-import patientList from "@/page/allCatheter/components/patient-list/patient-list.vue";
-import catheterList from "@/page/allCatheter/components/catheter-list/catheter-list.vue";
-import addCathter from '@/page/allCatheter/components/add-cathter/add-cathter.vue'
-import newCathter from '@/page/allCatheter/components/add-cathter/new-cathter.vue'
-import cathterTabel from '@/page/allCatheter/components/cathter-tabel/cathter-tabel.vue'
+import patientList from "@/Page/allCatheter/components/patient-list/patient-list.vue";
+import catheterList from "@/Page/allCatheter/components/catheter-list/catheter-list.vue";
+import addCathter from '@/Page/allCatheter/components/add-cathter/add-cathter.vue'
+import newCathter from '@/Page/allCatheter/components/add-cathter/new-cathter.vue'
+import cathterTabel from '@/Page/allCatheter/components/cathter-tabel/cathter-tabel.vue'
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
-import sheetInfo from "@/page/allCatheter/components/config/sheetInfo/index.js";
+import sheetInfo from "@/Page/allCatheter/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
-import {getCatheterList,saveCatheter,getCatheterTable} from '@/page/allCatheter/api/catheter'
+import {getCatheterList,saveCatheter,getCatheterTable} from '@/Page/allCatheter/api/catheter'
 import FollowList from '@/components/follow/index.vue'
 export default {
   mixins: [common],
