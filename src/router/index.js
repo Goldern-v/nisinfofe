@@ -401,6 +401,7 @@ const getImplementation = () => {
     case 'whsl':
     case 'whhk':
     case '925':
+    case 'zhzxy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -413,7 +414,6 @@ const getImplementation = () => {
     case 'fsxt':
       return implementationListFsxt
     case 'foshanrenyi':
-    case 'zhzxy':
     case 'nfyksdyy':
       return implementationListFSSY
     case 'quzhou':
@@ -437,7 +437,7 @@ const router = new Router({
   base: "/crNursing/",
   routes: [{
     path: "/",
-    redirect: "/index",
+    redirect: HOSPITAL_ID === 'lyxrm' ? '/bed' : "/index",
     alias: "主页"
   },
   {
@@ -1225,7 +1225,7 @@ const router = new Router({
         path: "/implementationList",
         component: getImplementation(),
         name: "执行单",
-        children:['guizhou', '925'].includes(HOSPITAL_ID)?[
+        children:['guizhou'].includes(HOSPITAL_ID)?[
           {
             path: "/advice",
             name: "adviceItem",
