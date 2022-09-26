@@ -92,7 +92,7 @@
     }
 </style>
 <script>
-import {getCatheterTemplate} from "@/page/allCatheter/api/catheter"
+import {getCatheterTemplate} from "@/Page/allCatheter/api/catheter"
 export default {
 props: {},
 data() {
@@ -128,7 +128,7 @@ created(){
             this.renderList = this.cathterType
         })
     }
-    
+
 },
 components: {}
 };

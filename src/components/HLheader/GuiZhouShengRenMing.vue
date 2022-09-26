@@ -315,7 +315,7 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
-            <router-link v-if="HOSPITAL_ID == 'guizhou'||HOSPITAL_ID == '925'" to="/implementationList" tag="span">
+            <router-link v-if="HOSPITAL_ID == 'guizhou'" to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>

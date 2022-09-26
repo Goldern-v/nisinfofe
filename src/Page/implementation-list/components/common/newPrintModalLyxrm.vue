@@ -2,16 +2,16 @@
 <!-- 6.7 -->
   <div
     :style="{
-      width: `${newModalSize == '70*80' ? '7' : '14'}cm`,
-      height: `${newModalSize == '70*80' ? '8' : '5.3'}cm`
+      width: `${newModalSize == '70*80' || newModalSize == '7*7' ? '7' : '14'}cm`,
+      height: `${newModalSize == '70*80' ? '8' : newModalSize == '7*7' ? '7' : '5.3'}cm`
     }"
   >
     <!-- 小瓶签一张纸需要打印3条数据数据间要留白 -->
     <div v-if="newModalSize == '3*7'" class="blank--small"></div>
     <div
-      v-if="newModalSize == '70*80'"
+      v-if="['70*80','7*7'].includes(newModalSize)"
       class="new-print-modal new-print-modal--large"
-      style="width:7cm;height:8cm"
+      :style="{width: '7cm',height: `${newModalSize == '7*7' ? 7 : 8}cm`}"
     >
       <div class="new-print-modal__title">
         <span>{{currentBottle.printFlag ? '补' : ''}}</span>
@@ -28,7 +28,8 @@
           </div>
         </div>
         <div class="flex">
-          <div>{{ `ID号:${currentBottle.patientId || ""}` }}</div>
+          <div v-if="this.HOSPITAL_ID === 'zhzxy'">{{ `住院号:${currentBottle.inpNo || ""}` }}</div>
+          <div v-else>{{ `ID号:${currentBottle.patientId || ""}` }}</div>
           <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
         </div>
         <div class="flex">
@@ -164,6 +165,7 @@
       height: 18px;
       div {
         flex: 3;
+        white-space: nowrap;
       }
       div:last-child {
         flex: 2;
