@@ -1505,22 +1505,22 @@ function switchSheetType(type) {
         // 青海五院 - 外科护理记录单
         schema = require("../config/surgical_qhwy/tr.js").default;
       }
-      break;  
+      break;
     case "ophthalmology_qhwy": {
         // 青海五院 - 眼科护理记录单
       schema = require("../config/ophthalmology_qhwy/tr.js").default;
     }
-      break;  
+      break;
     case "seriousnursing_qhwy": {
         // 青海五院 - 病重（病危）患者护理记录单（二）
       schema = require("../config/seriouslynursing_qhwy/tr.js").default;
     }
-      break; 
+      break;
     case "entnursing_qhwy": {
         // 青海五院 - 耳鼻喉科护理记录单
       schema = require("../config/entnursing_qhwy/tr.js").default;
     }
-      break; 
+      break;
     case "nurse_jew": {
         // 925医院 - 一般患者护理记录单
       schema = require("../config/nurse_jew/tr.js").default;
@@ -1530,7 +1530,17 @@ function switchSheetType(type) {
       // 925医院 - 危重患者护理记录单
     schema = require("../config/danger_nurse_jew/tr.js").default;
   }
-  break;    
+    break;
+    case "internal_eval_weihai": {
+      // 威海市立 - 一般患者护理记录单
+      schema = require("../config/internal_eval_weihai/tr.js").default;
+    }
+    break;
+    case "critical_new_weihai": {
+      // 威海市立 - 病重（病危）患者护理记录单（新）
+      schema = require("../config/critical_new_weihai/tr.js").default;
+    }
+    break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
