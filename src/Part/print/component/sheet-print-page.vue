@@ -594,7 +594,7 @@ export default {
         `
            @media print {
              @page{
-                 margin:10px 0 0;
+                 margin:10px 0 0 10px;
              }
         }
           
