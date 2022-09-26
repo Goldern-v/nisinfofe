@@ -151,7 +151,7 @@
       <span v-if="!admissionDateList.includes(sheetInfo.sheetType)">
         入院日期：
         <div class="bottom-line" style="min-width: 50px">
-          {{ patientInfo.admissionDate | toymd}}
+          {{ patientInfo.admissionDate | YMDHM}}
         </div>
       </span>
     </div>
@@ -445,6 +445,7 @@ export default {
         return moment(val).format("YYYY年MM月DD日HH时mm分");
       }
     }
+
   },
   watch: {
     index(newVal,oldVal){
