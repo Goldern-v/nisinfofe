@@ -48,7 +48,7 @@
         >病历(新)</a>
       </span> -->
       <router-link
-        v-if="HOSPITAL_ID !== 'zhzxy'"
+        v-if="(HOSPITAL_ID !== 'zhzxy'&&HOSPITAL_ID !== 'whsl')"
         :to="{
           path: '/sheetNursingOrder',
           query: { patientId: query.patientId, visitId: query.visitId }

@@ -112,10 +112,10 @@
       <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)&&fuyouCaData&&formData"> -->
         开启ca签名<el-switch v-model="isCaSign"></el-switch>
       </span>
-      
+
     </div>
 
-    
+
     <div style="height: 20px"></div>
     <div slot="button">
       <el-button class="modal-btn" @click.stop="close">取消</el-button>
@@ -128,7 +128,7 @@
         :loading="btnLoading"
         >确认</el-button
       >
-      <el-button 
+      <el-button
         v-if="hasCaSign()&&showSignBtn()"
         class="modal-btn"
         type="primary"
@@ -241,7 +241,7 @@ export default {
       signType:0,
       userNum:0,
       isDoctor:false,
-      aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi'],
+      aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi', 'internal_eval_weihai'],
       activeSheetType:"",
       // hasQrCaSignHos:['fuyou','hj'],
       hasQrCaSignHos:['fuyou','hj','guizhou'],
@@ -278,7 +278,7 @@ export default {
                 localStorage.removeItem("caUser");
                 this.foshanshiyiIFca=false
               }else this.foshanshiyiIFca=true
-            } 
+            }
         this.userNum++
       },()=>{
          this.username = JSON.parse(localStorage.user).empNo
@@ -286,7 +286,7 @@ export default {
           this.ca_isLogin = !!this.ca_name;
       })
     }
-    
+
     console.log("aaaaaaaa",callback,title,showDate,isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj)
    this.btnLoading = false
     if(doctorTure){
@@ -347,7 +347,7 @@ export default {
       this.pw = false;
 
 
-      
+
       this.$refs.modalName.open();
       if (!['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         this.$nextTick(() => {
@@ -412,7 +412,7 @@ export default {
         } else {
           console.log("wahaha")
           if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
-            verifyCaSign().then(res => {  
+            verifyCaSign().then(res => {
               console.log(res.random);
               this.$refs.modalName.close();
               let {password,empNo} = res.data
@@ -476,14 +476,14 @@ export default {
         console.log(this.aduitDate,'-------------------------------------');
         if(this.aduitDate != '' && this.HOSPITAL_ID == 'hengli'){
           return this.callback(this.password, this.username,this.signDate='', this.aduitDate);
-        } 
+        }
         if(this.isDoctor){
           console.log(!this.isDoctor);
           return this.callback(this.password,this.username);
         }
         // 执行这个逻辑
         if(this.aduitDate!=''&&this.aduitDateSheet.includes(this.activeSheetType)){
-            this.showAduit=false 
+            this.showAduit=false
             this.activeSheetType=""
             return this.callback(this.password, this.username, this.aduitDate);
         }
@@ -516,10 +516,10 @@ export default {
         console.log(this.formData);
         parmas = {
             "accessToken":sessionStorage.getItem('accessToken'),
-            "userId":this.fuyouCaData.userId, 
+            "userId":this.fuyouCaData.userId,
             formId:`${this.formData.id}`,
             "transactionId":this.fuyouCaData.transactionId,
-            "authKey":this.fuyouCaData.authKEY, 
+            "authKey":this.fuyouCaData.authKEY,
             "fileName":`${this.formData.name}_${this.formData.code}`
         }
       }
