@@ -481,7 +481,8 @@ export default {
         "lyxrm",
         "wujing",
         "ytll",
-        'zhzxy'
+        'zhzxy',
+        '925',
       ],
       typeOptions: hisMatch({
         map: {
@@ -495,7 +496,7 @@ export default {
             { label: "口服" },
             { label: "治疗" },
           ],
-          "lyxrm,whhk,zhzxy": [
+          "lyxrm,whhk,zhzxy,925": [
             { label: "全部" },
             { label: "输液" },
             { label: "注射" },
@@ -536,7 +537,7 @@ export default {
       }),
       thumpOptions: hisMatch({
         map: {
-          "lyxrm,whhk,zhzxy": [
+          "lyxrm,whhk,zhzxy,925": [
             { label: "全部", value: 9 },
             { label: "已打印", value: 1 },
             { label: "未打印", value: 0 },
@@ -1042,9 +1043,10 @@ export default {
       switch (this.HOSPITAL_ID) {
         case "lyxrm":
         case "whhk":
-        case 'zhzxy':
         case '925':
           return ["70*80", "3*7"];
+        case 'zhzxy':
+          return ["7*7", "3*7"];
         case "wujing":
           return ["5*8", "3*5"];
         case "ytll":

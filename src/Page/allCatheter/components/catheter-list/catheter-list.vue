@@ -6,11 +6,11 @@
             <div style="flex:2;" class="add-btn" @click="addCathter">+添加导管</div>
         </div>
         <div class="cathter-list">
-            <div 
-            v-for="(item,index) in renderCathter" 
-            class="cathter-item" 
-            :style="{color:item.fontColor,background:current==index?'#eff6f5':''}" 
-            :key="index" 
+            <div
+            v-for="(item,index) in renderCathter"
+            class="cathter-item"
+            :style="{color:item.fontColor,background:current==index?'#eff6f5':''}"
+            :key="index"
             @click="selectType(item,index)"
             >
                 {{item.formTitle + " " + item.createDate  + " " }}
@@ -75,7 +75,7 @@
     }
 </style>
 <script>
-import {getCatheterTable} from '@/page/allCatheter/api/catheter'
+import {getCatheterTable} from '@/Page/allCatheter/api/catheter'
 export default {
 props: {cathterArr:{type:Array,value:[]}},
 data() {
