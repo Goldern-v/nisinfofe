@@ -1,7 +1,7 @@
 <template>
   <div class="header-con">
-    <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
-    <div class="title" style="font-family: 'SimHei'!important" >{{ patientInfo.recordName }}</div>
+    <div class="his-name" style="font-size:21px">{{ HOSPITAL_NAME_SPACE }}</div>
+    <div class="title" >{{ patientInfo.recordName }}</div>
     <div class="info-con" flex="main:justify">
       <span>
         科别：
