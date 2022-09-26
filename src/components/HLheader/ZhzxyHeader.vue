@@ -152,7 +152,7 @@
                 >
                   <router-link to="/implementationList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="catheterPage"></i>执行单
+                      <i class="catheterPage"></i>执行记录
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -786,6 +786,9 @@
 
     &.allTemperatureChart {
       background-image: url('../../common/images/index/批量录入体温单.png');
+    }
+    &.catheterPage {
+      background-image: url('../../common/images/index/导管.png');
     }
   }
 }

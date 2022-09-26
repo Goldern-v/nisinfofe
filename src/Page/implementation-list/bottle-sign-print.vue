@@ -1043,9 +1043,10 @@ export default {
       switch (this.HOSPITAL_ID) {
         case "lyxrm":
         case "whhk":
-        case 'zhzxy':
         case '925':
           return ["70*80", "3*7"];
+        case 'zhzxy':
+          return ["7*7", "3*7"];
         case "wujing":
           return ["5*8", "3*5"];
         case "ytll":
