@@ -1974,6 +1974,20 @@ export default function Title(
     );
   }
   break;
+  case "internal_eval_weihai": {
+    // // 威海市立 - 一般患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_eval_weihai/th.js").default)
+    );
+  }
+  break;
+  case "critical_new_weihai": {
+    // // 威海市立 - 病重（病危）患者护理记录单（新）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_new_weihai/th.js").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
