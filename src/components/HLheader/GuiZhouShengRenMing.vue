@@ -970,7 +970,13 @@ export default {
     isActiveShiftWork() {
       return this.$route.path.includes('shiftWork');
     },
-    logoUrl: () => require('../../common/images/logo_'+ process.env.HOSPITAL_ID + '.png'),
+    logoUrl() {
+      if (['925', 'guizhou'].includes(this.HOSPITAL_ID)) {
+        return require('../../common/images/logo_'+ this.HOSPITAL_ID + '.png')
+      } else {
+        return require('../../common/images/logo.png')
+      }
+    },
     isImplementation(){
       let path = this.$route.path;
       return (
