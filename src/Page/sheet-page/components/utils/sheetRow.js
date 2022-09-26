@@ -73,6 +73,8 @@ export function getRowNum(index) {
     return 33
   } else if ( sheetInfo.sheetType === 'magnesium_lcey') {
     return 24
+  }else if ( sheetInfo.sheetType === 'prenataldelivery2_tj' || sheetInfo.sheetType === 'postpartum2_tj' || sheetInfo.sheetType === 'pediatric3_tj') {
+    return 22
   }else if ( sheetInfo.sheetType === 'record_children_serious2_lc'||sheetInfo.sheetType === sheetInfo.sheetType === 'generalnursing_tj') {
     return 19
   }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt') {
