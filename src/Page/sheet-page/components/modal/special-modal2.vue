@@ -1895,7 +1895,8 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType === "internal_eval_lcey" ||
-              this.sheetInfo.sheetType === "internal_eval_linyi"
+              this.sheetInfo.sheetType === "internal_eval_linyi" ||
+              this.sheetInfo.sheetType === "internal_eval_weihai"
             ) {
               if (GetLength(text) > 98) {
                 result.push(text);
@@ -2017,6 +2018,13 @@ export default {
               }
             } else if (this.sheetInfo.sheetType === "ultrasound_fs") {
               if (GetLength(text) > 30) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.sheetInfo.sheetType === "nurse_jew"||this.sheetInfo.sheetType === "danger_nurse_jew") {
+              if (GetLength(text) > 28) {
                 result.push(text);
                 text = allDoc[i];
               } else {

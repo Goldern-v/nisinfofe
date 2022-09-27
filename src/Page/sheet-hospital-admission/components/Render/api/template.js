@@ -47,11 +47,52 @@ export function del(id) {
   return axios.get(`${apiPath}record/desc/delete/${id}`);
 }
 
-export function del_foshanshiyi(id, empNo) {
-  return axios.get(`${apiPath}eval/desc/deleteByAuth/${id}/${empNo}`);
+export function del_foshanshiyi(id) {
+  return axios.get(`${apiPath}textTemplate/delete/${id}`);
 }
 
 //  获取
 export function get(id) {
   return axios.get(`${apiPath}record/desc/get/${id}`);
 }
+
+// 获取组名
+export function getGroupName(wardCode) {
+  return axios.post(`${apiPath}textTemplate/getGroup`, { wardCode });
+}
+
+// 获取以组名为条件的模块内容
+export function getlist(wardCode, groupName, moduleCode) {
+  return axios.post(`${apiPath}textTemplate/getList`, {wardCode, groupName, moduleCode});
+}
+
+//  获取表单模块
+export function getModuleCode() {
+  return axios.get(`${apiPath}formTemplate/getModuleCode`);
+}
+
+// 新增
+export function add(groupName, title, content, wardCode, moduleCode) {
+  return axios.post(`${apiPath}textTemplate/add`, {
+    groupName,
+    title,
+    content,
+    wardCode,
+    moduleCode
+  });
+}
+
+// 更新
+export function update(groupName, title, content, wardCode, moduleCode, groupId, contentId) {
+  return axios.post(`${apiPath}textTemplate/update`, {
+    groupName,
+    title,
+    content,
+    wardCode,
+    moduleCode,
+    groupId,
+    contentId
+  });
+}
+
+

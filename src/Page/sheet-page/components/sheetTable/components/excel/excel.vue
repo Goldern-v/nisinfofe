@@ -462,6 +462,7 @@
         sheetInfo.sheetType === 'picu_hemodialysis_jm' ||
         sheetInfo.sheetType === 'rescue_hl' ||
         sheetInfo.sheetType === 'critical_new_linyi' ||
+        sheetInfo.sheetType === 'critical_new_weihai' ||
         sheetInfo.sheetType === 'ultrasound_fs' ||
         sheetInfo.sheetType === 'postpartum_nurse_wj'
       "
@@ -515,6 +516,7 @@
             sheetInfo.sheetType === 'critical_new_lcey'||
             sheetInfo.sheetType === 'critical2_lcey' ||
             sheetInfo.sheetType === 'internal_eval_linyi' ||
+            sheetInfo.sheetType === 'internal_eval_weihai' ||
             sheetInfo.sheetType === 'critical_linyi' ||
             sheetInfo.sheetType === 'baby_lcey',
         }"
@@ -551,11 +553,13 @@
             sheetInfo.sheetType == 'critical_lc' ||
             sheetInfo.sheetType == 'neonatology_hl' ||
             sheetInfo.sheetType == 'critical_new_linyi' ||
+            sheetInfo.sheetType == 'critical_new_weihai' ||
             sheetInfo.sheetType == 'ultrasound_fs' ||
             sheetInfo.sheetType == 'generalnursing_tj' ||
             sheetInfo.sheetType == 'magnesiumsulf_fs' ||
             sheetInfo.sheetType == 'laborobservation_fs' ||
-            HOSPITAL_ID == 'fsxt' 
+            sheetInfo.sheetType === 'pediatric3_tj'||
+            HOSPITAL_ID == 'fsxt'
           "
           >质控护士：</span
         >
@@ -569,6 +573,7 @@
             sheetInfo.sheetType == 'critical_new_lcey'||
             sheetInfo.sheetType == 'critical2_lcey' ||
             sheetInfo.sheetType == 'internal_eval_linyi' ||
+            sheetInfo.sheetType == 'internal_eval_weihai' ||
             sheetInfo.sheetType == 'critical_linyi' ||
             sheetInfo.sheetType == 'baby_lcey'
           "
@@ -609,6 +614,7 @@
             sheetInfo.sheetType == 'critical_new_lcey'||
             sheetInfo.sheetType == 'critical2_lcey' ||
             sheetInfo.sheetType == 'internal_eval_linyi' ||
+            sheetInfo.sheetType == 'internal_eval_weihai' ||
             sheetInfo.sheetType == 'critical_linyi' ||
             sheetInfo.sheetType == 'baby_lcey'"
             style="margin-right:50px"
@@ -737,10 +743,12 @@ export default {
         "internal_eval_linyi", //临邑人医_一般或者护理记录单
         "critical_linyi", //临邑人医_病重（病危）患者护理记录单（带瞳孔）
         "critical_new_linyi",
+        "critical_new_weihai",
         "ultrasound_fs",
         "generalnursing_tj",
         "magnesiumsulf_fs",
         "laborobservation_fs",
+        "pediatric3_tj",
         'nurse_jew',
         'danger_nurse_jew'
       ],
@@ -2369,7 +2377,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs']
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =
