@@ -1251,6 +1251,11 @@ function switchSheetType(type) {
       schema = require("../config/laborobservation_fs/tr.js").default;
     }
       break;
+    case "babyarea_fs": {
+      // 佛山市一 - 爱婴区新生儿护理记录
+      schema = require("../config/babyarea_fs/tr.js").default;
+    }
+      break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;
