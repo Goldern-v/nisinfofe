@@ -497,7 +497,7 @@ export default {
   computed: {
     // 是否输液
     isInfusion() {
-      return this.currentType.includes(v => '输液') || this.currentType.includes(v => '全部')
+      return this.currentType.includes('输液') || this.currentType.includes('全部')
     }
   },
   components: {
