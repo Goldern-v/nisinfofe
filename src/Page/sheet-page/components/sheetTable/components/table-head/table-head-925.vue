@@ -1,7 +1,7 @@
 <template>
   <div class="header-con">
-    <div class="his-name" style="font-size:21px">{{ HOSPITAL_NAME_SPACE }}</div>
-    <div class="title" >{{ patientInfo.recordName }}</div>
+    <div class="his-name" style="font-size:23px">{{ HOSPITAL_NAME_SPACE }}</div>
+    <div class="title" style="font-size:23px">{{ patientInfo.recordName }}</div>
     <div class="info-con" flex="main:justify">
       <span>
         科别：

@@ -465,5 +465,12 @@ input {
 .info-con_select /deep/.el-input__icon{
   display: none;
 }
+.info-con_select /deep/.el-tag{
+  background: #fff;
+  border: none;
+}
+.info-con_select /deep/.el-tag__close{
+  display: none;
+}
 
 </style>

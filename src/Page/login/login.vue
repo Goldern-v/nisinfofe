@@ -599,7 +599,7 @@ export default {
         this.$router.push("/badEvent");
       } else {
         this.$store.commit("common/upRelogin", false);
-        this.$router.push("/index");
+        this.$router.push('/');
         if (["weixian"].includes(this.HOSPITAL_ID)) {
           /** 验证证书 */
           window.openCaSignModal();
