@@ -325,6 +325,11 @@ function switchSheetType(type) {
       schema = require("../config/unified_wx/tr.js").default;
     }
       break;
+    case "newunified_wx": {
+      // 威县- 新统一护理记录单
+      schema = require("../config/newunified_wx/tr.js").default;
+    }
+     break;
     case "intensive_care_wx": {
       // 威县-脑外科重症监护单
       schema = require("../config/intensive_care_wx/tr.js").default;
