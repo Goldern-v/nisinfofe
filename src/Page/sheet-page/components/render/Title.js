@@ -295,6 +295,13 @@ export default function Title(
     );
   }
   break;
+  case "newunified_wx": {
+    // 威县-统一护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/newunified_wx/th").default)
+    );
+  }
+  break;
   case "intensive_care_wx": {
     // 威县-脑外科重症监护单
     Th = JSON.parse(

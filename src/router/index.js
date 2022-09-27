@@ -949,6 +949,14 @@ const router = new Router({
         {
           path: "/advice",
           component: advice
+          // component: (() => {
+          //   switch(HOSPITAL_ID) {
+          //     case '925':
+          //       return () => import('@/Page/patientInfo/supPage/advice_925/advice')
+          //     default:
+          //       return advice
+          //   }
+          // })()
         },
         {
           path: "/inspect",

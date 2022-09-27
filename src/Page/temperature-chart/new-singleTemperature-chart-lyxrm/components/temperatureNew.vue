@@ -5,7 +5,7 @@
       <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
-        <el-button type="primary" @click="openDetailChat()">曲线详情</el-button>
+        <el-button type="primary" @click="openDetailChat()" v-if="['lyxrm'].includes(this.HOSPITAL_ID)">曲线详情</el-button>
       </el-button-group>
       <!-- <div class="newBorn">
         <div @click="nomalModel()" class="nomal">默认体温单</div>
@@ -111,6 +111,17 @@ export default {
     queryTem: Object,
   },
   data() {
+    //跟临邑医院共用录入界面 ，判断ip地址
+ const baseUrl=(()=>{
+  switch (process.env.HOSPITAL_ID) {
+    case 'lyxrm':
+      return 'http://192.168.4.175:9091'
+    case 'ytll':
+      return 'http://192.168.254.92:9091'
+    default:
+      break;
+  }
+ })()
     return {
       bus: bus(this),
       date: "",
@@ -130,10 +141,9 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-        // "http://localhost:8080/#/" /* 本地自测环境 导致跨域 */,
-      "http://192.168.4.175:9091/temperature" /* 医院正式环境内网 导致跨域 */,
+      `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://192.168.4.175:9091/temperature/printAll" /* 医院正式环境内网 */,
+        `${baseUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
     };
   },
   methods: {

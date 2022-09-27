@@ -56,8 +56,7 @@ export default [
     event: keyf1,
     name: '左瞳孔大小',
     next: '',
-    autoComplete: { data: ['√','+','++']},
-    textarea:{ width:32},
+    textarea:{ width:25},
     change: (e, td) => limitChange(e, td, 4)
   },
   {
@@ -66,8 +65,7 @@ export default [
     event: keyf1,
     name: '右瞳孔大小',
     next: '',
-    autoComplete: { data: ['√','+','++']},
-    textarea:{ width:32},
+    textarea:{ width:25},
     change: (e, td) => limitChange(e, td, 4)
   },
   {
@@ -258,7 +256,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "190px",
+      width: "230px",
       background: "transparent"
     },
     event: function (e, td) {
