@@ -1458,30 +1458,23 @@
           "inputStyle": "width:300px!important",
           "inputWidth": "180px",
           "style": null,
-          "class": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "治疗饮食",
-                "cleanKey": [
-                  "自行进食",
-                  "协助进食"
-                ],
-                "title": "治疗饮食",
-                "parentName": "I100094",
-                "type": "dependent"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
+          "class": null
         },
         {
           "name": "I100095",
           "type": "select",
           "title": "食欲",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I001126",
+          "type": "select",
+          "title": "治疗饮食",
+          "multiplechoice": true,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:300px!important",
           "inputWidth": "180px",
@@ -2533,23 +2526,7 @@
               "style": "color:red"
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "I001260",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "五、皮肤",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "classes": null,
-      "readOnly": true,
-      "children": [
+        },
         {
           "name": "I001260",
           "type": "select",
@@ -2561,12 +2538,13 @@
           "class": null,
           "options": [
             "无",
-            "有"
+            "有,成人压疮表",
+            "有,儿童压力性损伤风险因素评估（Braden Q 评分）"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "有,成人压疮表",
                 "cleanKey": "无",
                 "title": "成人压疮表",
                 "default": "成人压疮表",
@@ -2576,13 +2554,30 @@
               }
             },
             {
-              "equal": "有",
+              "dialog": {
+                "openKey": "有,儿童压力性损伤风险因素评估（Braden Q 评分）",
+                "cleanKey": "无",
+                "title": "儿童压力性损伤风险因素评估（Braden Q 评分）",
+                "default": "儿童压力性损伤风险因素评估（Braden Q 评分）",
+                "type": "independent",
+                "parentName": "I001260",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有,成人压疮表",
+              "style": "color:red"
+            },
+            {
+              "equal": "有,儿童压力性损伤风险因素评估（Braden Q 评分）",
               "style": "color:red"
             }
           ]
         }
       ]
     },
+
+
     {
       "name": "",
       "type": "formGroupHR",
@@ -2727,12 +2722,13 @@
           "class": null,
           "options": [
             "无",
-            "有"
+            "有，跌倒评估单",
+            "有，跌倒坠床风险评估（儿童）"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "有，跌倒评估单",
                 "cleanKey": "无",
                 "title": "跌倒评估单",
                 "default": "跌倒评估单",
@@ -2743,7 +2739,23 @@
               }
             },
             {
-              "equal": "有",
+              "dialog": {
+                "openKey": "有，跌倒坠床风险评估（儿童）",
+                "cleanKey": "无",
+                "title": "跌倒坠床风险评估（儿童）",
+                "default": "跌倒坠床风险评估（儿童）",
+                "name": "I001308",
+                "type": "independent",
+                "parentName": "I001308",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有，跌倒评估单",
+              "style": "color:red"
+            },
+            {
+              "equal": "有，跌倒坠床风险评估（儿童）",
               "style": "color:red"
             }
           ]
@@ -2836,12 +2848,13 @@
           "class": null,
           "options": [
             "无",
-            "有"
+            "有，窒息误吸风险评估",
+            "有，窒息误吸风险评估(儿童)"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有",
+                "openKey": "有，窒息误吸风险评估",
                 "cleanKey": "无",
                 "title": "窒息误吸风险评估",
                 "default": "窒息误吸风险评估",
@@ -2852,7 +2865,23 @@
               }
             },
             {
-              "equal": "有",
+              "dialog": {
+                "openKey": "有，窒息误吸风险评估(儿童)",
+                "cleanKey": "无",
+                "title": "窒息误吸风险评估",
+                "default": "窒息误吸风险评估",
+                "name": "S0613",
+                "type": "independent",
+                "parentName": "S0613",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有，窒息误吸风险评估",
+              "style": "color:red"
+            },
+            {
+              "equal": "有，窒息误吸风险评估(儿童)",
               "style": "color:red"
             }
           ]

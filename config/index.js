@@ -193,8 +193,9 @@ const currentTargetUrl = (() => {
       // return "http://120.24.240.231:19097"  // 临邑正式(临邑本地)
     // 广东同江医院
     case 'gdtj':
-      return 'http://192.168.1.54:9866'
+      // return 'http://192.168.1.54:9866'
       // return 'http://192.168.1.54:9892' // 同江测试
+      return 'http://218.204.204.90:9095' // 同江正式
     // 烟台玲珑
     case 'ytll':
       return "http://221.214.210.170:39094"  // 正式
