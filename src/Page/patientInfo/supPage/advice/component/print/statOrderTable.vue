@@ -69,14 +69,8 @@
               v-show="Number(scope.row.orderSubNo) <= 1&&!scope.row.doctorNo"
               >{{ scope.row.doctor }}</span
             >
-            <div class="img">
-              <img
-                v-show="
-                  Number(scope.row.orderSubNo) <= 1 && scope.row.doctorNo
-                "
-                :src="`/crNursing/api/file/signImage/${scope.row.doctorNo}?${token}`"
-                alt
-              />
+            <div v-show="Number(scope.row.orderSubNo) <= 1">
+              {{scope.row.doctorNo || scope.row.doctor}}
             </div>
           </template>
       </el-table-column>
@@ -101,12 +95,8 @@
         align="center"
       >
         <template slot-scope="scope">
-          <div class="img">
-            <img
-              v-show="Number(scope.row.orderSubNo) <= 1 && scope.row.nurseEmpNo"
-              :src="`/crNursing/api/file/signImage/${scope.row.nurseEmpNo}?${token}`"
-              alt
-            />
+          <div v-show="Number(scope.row.orderSubNo) <= 1">
+            {{scope.row.nurseEmpNo || scope.row.nurse}}
           </div>
         </template>
       </el-table-column>

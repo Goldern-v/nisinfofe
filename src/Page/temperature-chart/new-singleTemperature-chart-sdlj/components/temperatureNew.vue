@@ -87,7 +87,7 @@ export default {
   switch (process.env.HOSPITAL_ID) {
     case 'sdlj':
       return "http://192.168.168.82:9091"
-    case 'ytll':
+    case '925':
       return "http://192.168.1.37:9091"
     default:
       break;

@@ -31,14 +31,8 @@
               v-show="Number(scope.row.orderSubNo) <= 1&&!scope.row.doctorNo"
               >{{ scope.row.doctor }}</span
             >
-            <div class="img">
-              <img
-                v-show="
-                  Number(scope.row.orderSubNo) <= 1 && scope.row.doctorNo
-                "
-                :src="`/crNursing/api/file/signImage/${scope.row.doctorNo}?${token}`"
-                alt
-              />
+            <div v-show="Number(scope.row.orderSubNo) <= 1">
+              {{scope.row.doctorNo || scope.row.doctor}}
             </div>
           </template>
         </el-table-column>
@@ -47,17 +41,11 @@
           min-width="60px"
           prop="nurse"
           align="center"
-          >>
+          >
           <template slot-scope="scope">
-            <div class="img">
-              <img
-                v-show="
-                  Number(scope.row.orderSubNo) <= 1 && scope.row.nurseEmpNo
-                "
-                :src="`/crNursing/api/file/signImage/${scope.row.nurseEmpNo}?${token}`"
-                alt
-              />
-            </div>
+            <div v-show="Number(scope.row.orderSubNo) <= 1">
+              {{scope.row.nurseEmpNo || scope.row.nurse}}
+              </div>
           </template>
         </el-table-column>
       </el-table-column>
@@ -127,14 +115,8 @@
               v-show="Number(scope.row.orderSubNo) <= 1 && !scope.row.stopDoctorEmpNo"
               >{{ scope.row.stopDoctor }}
             </span>
-            <div class="img">
-              <img
-                v-show="
-                  Number(scope.row.orderSubNo) <= 1 && scope.row.stopDoctorEmpNo
-                "
-                :src="`/crNursing/api/file/signImage/${scope.row.stopDoctorEmpNo}?${token}`"
-                alt
-              />
+            <div v-show="Number(scope.row.orderSubNo) <= 1">
+              {{scope.row.stopDoctorEmpNo || scope.row.stopDoctor}}
             </div>
           </template>
         </el-table-column>
@@ -145,14 +127,8 @@
           align="center"
         >
           <template slot-scope="scope">
-            <div class="img">
-              <img
-                v-show="
-                  Number(scope.row.orderSubNo) <= 1 && scope.row.stopNurseEmpNo
-                "
-                :src="`/crNursing/api/file/signImage/${scope.row.stopNurseEmpNo}?${token}`"
-                alt
-              />
+            <div v-show="Number(scope.row.orderSubNo) <= 1">
+              {{scope.row.stopNurseEmpNo || scope.row.stopNurse }}
             </div>
           </template>
         </el-table-column>
