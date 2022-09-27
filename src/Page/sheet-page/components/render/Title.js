@@ -1589,6 +1589,13 @@ export default function Title(
     );
   }
   break;
+  case "babyarea_fs": {
+    // 佛山市一 - 爱婴区新生儿护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/babyarea_fs/th").default)
+    );
+  }
+  break;
   case "nonsurgicalcare_fk": {
     // 武汉肺科 - 非手术科室护理记录单
     Th = JSON.parse(
