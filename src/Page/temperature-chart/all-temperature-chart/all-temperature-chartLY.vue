@@ -169,6 +169,24 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="painScore"
+            label="疼痛"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.painScore"
+                :class="className"
+                class="painScore"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="height"
             label="身高"
             min-width="80"
@@ -875,6 +893,7 @@ export default {
         pupilReflexRight: "",
         pupilSizeLeft: "",
         pupilSizeRight: "",
+        painScore: "",
         recordDate: "",
         recordHour: "",
         recordMonth: "",
