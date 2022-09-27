@@ -77,10 +77,10 @@
 
 <script>
 import moment from "moment";
-import { updateSheetHeadInfo } from "../../../../api/index";
+// import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
-import { listItem } from "@/api/common.js";
-import sheetData from "../../../../sheet.js";
+// import { listItem } from "@/api/common.js";
+// import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
 import bedRecordModal from "../../../modal/bedRecord-modal";
 
@@ -136,8 +136,11 @@ export default {
         this.patientInfo.delivery
       );
     },
+    query() {
+      return this.$route.query || {}
+    },
     nurseLevel(){
-      return   (sheetInfo.relObj || {})['nurseLevel'] || ''
+      return (sheetInfo.relObj || {})['nurseLevel'] || this.query['nursingClass'] || ''
     }
   },
   methods: {

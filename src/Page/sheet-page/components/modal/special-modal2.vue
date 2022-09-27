@@ -50,7 +50,7 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
-          <div class="modal-btn-box" v-if="activeTab === '3' && HOSPITAL_ID === 'foshanrenyi'">
+          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925'].includes(HOSPITAL_ID)">
             <el-button
               type="primary"
               size="mini"
@@ -1164,7 +1164,6 @@ export default {
     showDiagnosisBtn() {
       switch (process.env.HOSPITAL_ID) {
         case "guizhou":
-        case '925':
           return this.commonFormGZ && this.activeTab === "3";
         case "lyxrm":
         case "huadu":
@@ -1201,6 +1200,8 @@ export default {
   },
   methods: {
     ...mapMutations(['upOpenModalFromSpecial', 'upEvalData']),
+    // 新医院注意 新增时需要在对应弹窗匹配
+    // 检验 src/Page/sheet-page/components/sheet-tool/modal/test-modal.vue
     openPISlide(type) {
       // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
       this.bus.$emit("openclosePatientInfo", type, false, true);

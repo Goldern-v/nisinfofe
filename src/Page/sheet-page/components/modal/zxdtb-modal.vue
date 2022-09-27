@@ -11,6 +11,7 @@
               'whfk',
               'lyxrm',
               'whhk',
+              '925'
             ].includes(HOSPITAL_ID)
           "
         >
@@ -24,7 +25,7 @@
           </el-date-picker>
         </div>
         <div v-else>
-          <span class="label">{{["guizhou", '925'].includes(this.HOSPITAL_ID) ? '输血日期：' : '执行单日期：' }}</span
+          <span class="label">{{["guizhou"].includes(this.HOSPITAL_ID) ? '输血日期：' : '执行单日期：' }}</span
           >
           <masked-input
             type="text"
@@ -48,6 +49,7 @@
               'whfk',
               'lyxrm',
               'whhk',
+              '925'
             ].includes(HOSPITAL_ID)
           "
           style="margin-left: 20px"
@@ -217,6 +219,7 @@
                 'whfk',
                 'lyxrm',
                 'whhk',
+                '925'
               ].includes(HOSPITAL_ID)
             "
           >
@@ -240,7 +243,7 @@
             ></el-table-column>
           </template>
           <el-table-column
-            v-if="['guizhou', '925'].includes(HOSPITAL_ID)"
+            v-if="['guizhou'].includes(HOSPITAL_ID)"
             prop="desc"
             label="病情、护理措施及效果"
             min-width="110px"
@@ -395,6 +398,7 @@ export default {
           "whfk",
           "lyxrm",
           "whhk",
+          '925'
         ].includes(this.HOSPITAL_ID)
       ) {
         this.multipleSelection.map((item, index) => {
@@ -431,7 +435,7 @@ export default {
           return item;
         });
       }
-      if (["foshanrenyi", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)) {
+      if (["foshanrenyi", "lyxrm", "whhk", '925'].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.foodSize = item.dosage;
           return item;
@@ -493,7 +497,7 @@ export default {
             return obj;
           });
         });
-      } else if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
+      } else if (['guizhou'].includes(this.HOSPITAL_ID)) {
         nurseBloodList({
           patientId: this.patientInfo.patientId || this.formlist.patientId,
           visitId: this.patientInfo.visitId || this.formlist.visitId,
@@ -533,7 +537,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", "lyxrm", "whhk", '925'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
@@ -615,7 +619,7 @@ export default {
     },
     // 一行选中
     handleRowClick(row, column, event) {
-      if (!["foshanrenyi"].includes(this.HOSPITAL_ID)) return;
+      if (!["foshanrenyi", '925'].includes(this.HOSPITAL_ID)) return;
       this.$refs["zxdtb-table"].toggleRowSelection(row);
     },
     changeRecordDate(row, type, newVal) {
@@ -719,7 +723,7 @@ export default {
             name: "其他",
           },
         ];
-      } else if (this.HOSPITAL_ID === "foshanrenyi") {
+      } else if (["foshanrenyi", '925'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",
