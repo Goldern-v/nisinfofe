@@ -83,7 +83,16 @@ export default {
   },
   data() {
     //跟925医院共用录入界面 ，判断ip地址
-   const baseUrl=['sdlj'].includes(this.HOSPIAL_ID)?"http://192.168.168.82:9091":"http://192.168.1.37:9091"
+    const baseUrl=(()=>{
+  switch (process.env.HOSPITAL_ID) {
+    case 'sdlj':
+      return "http://192.168.168.82:9091"
+    case 'ytll':
+      return "http://192.168.1.37:9091"
+    default:
+      break;
+  }
+ })()
     return {
       bus: bus(this),
       date: "",
