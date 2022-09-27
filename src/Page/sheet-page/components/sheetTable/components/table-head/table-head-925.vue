@@ -1,7 +1,15 @@
 <template>
   <div class="header-con">
-    <div class="his-name" style="font-size:23px">{{ HOSPITAL_NAME_SPACE }}</div>
-    <div class="title" style="font-size:23px">{{ patientInfo.recordName }}</div>
+    <div class="his-name" style="font-size:26px;margin-bottom:10px">{{ HOSPITAL_NAME_SPACE }}</div>
+    <div class="title" style="font-size:0px" v-if="sheetInfo.sheetType=='nurse_jew'">
+      <div class="nurse_title" style="border-bottom: 1px solid #000;padding:0 5px">一般</div>
+      <div class="nurse_title">患者护理记录单</div>
+    </div>
+    <div class="title" style="font-size:0px" v-else-if="sheetInfo.sheetType=='danger_nurse_jew'">
+      <div class="nurse_title" style="border-bottom: 1px solid #000;padding:0 5px">危重</div>
+      <div class="nurse_title">患者护理记录单</div>
+    </div>
+    <div class="title" style="font-size:30px" v-else>{{ patientInfo.recordName }}</div>
     <div class="info-con" flex="main:justify">
       <span>
         科别：
@@ -206,8 +214,17 @@ export default {
   border-right: 0;
   outline: none;
   height: 16px;
+  text-align: center;
 }
 .ml-1000 {
   margin-left: 1000px;
+}
+.nurse_title{
+  display: inline-block;
+  font-size: 30px;
+}
+.nurse_boder{
+  // border-bottom: 1px solid black;
+  // background-color: pink;
 }
 </style>
