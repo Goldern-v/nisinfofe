@@ -57,3 +57,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 开新医院时可以 搜索'新医院注意'
 ## 执行单接口报错
 src/Page/implementation-list/api/index.js 接口没有默认接口，需要配置
+
+## 床位一览卡同步按钮空白
+src/Page/lesion/supPage/bed/component/search-con/search-con.vue
+需要添加医院

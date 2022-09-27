@@ -19,42 +19,59 @@
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="radio">
             <el-radio class="radio" label="全部">全部</el-radio>
-            <el-radio class="radio" label="新开">新开</el-radio>
-            <el-radio class="radio" label="提交">提交</el-radio>
-            <el-radio class="radio" label="执行">执行</el-radio>
-            <el-radio class="radio" label="停止">停止</el-radio>
-            <el-radio class="radio" label="作废">作废</el-radio>
+            <el-radio
+              class="radio"
+              v-for="v in statusList"
+              :key="v"
+              :label="v"
+              >{{ v }}</el-radio
+            >
           </el-radio-group>
         </el-row>
         <div class="date">
           <span class="type-label">日期:</span>
           <span class="type-content">
             <el-date-picker
+              size="small"
               @change="changeDate"
               v-model="startDateTime"
               :clearable="false"
-              type="datetime" format="yyyy-MM-dd HH:mm" placeholder="选择开始日期"
+              type="datetime"
+              format="yyyy-MM-dd HH:mm"
+              placeholder="选择开始日期"
             />
             <span> - </span>
             <el-date-picker
+              size="small"
               @change="changeDate"
               v-model="endDateTime"
               :clearable="false"
-              type="datetime" format="yyyy-MM-dd HH:mm" placeholder="选择结束日期"
+              type="datetime"
+              format="yyyy-MM-dd HH:mm"
+              placeholder="选择结束日期"
             />
           </span>
         </div>
-        <el-input size="small" type="text" placeholder="输入打印起始页" id="start_pageIndex" style="width: 115px;"></el-input>
+        <el-input
+          size="small"
+          type="text"
+          placeholder="输入打印起始页"
+          id="start_pageIndex"
+          style="width: 115px"
+        ></el-input>
         <el-button @click="onPrint" :disabled="disPrint">打印</el-button>
       </div>
-      <adviceTable :tableData="tableDataSelect" :pageLoadng="pageLoadng"></adviceTable>
+      <adviceTable
+        :tableData="tableDataSelect"
+        :pageLoadng="pageLoading"
+      />
       <pagination
-          :pageIndex="page.pageIndex"
-          :size="page.pageNum"
-          :total="page.total"
-          @sizeChange="handleSizeChange"
-          @currentChange="handleCurrentChange"
-        ></pagination>
+        :pageIndex="page.pageIndex"
+        :size="page.pageNum"
+        :total="page.total"
+        @sizeChange="handleSizeChange"
+        @currentChange="handleCurrentChange"
+      />
       <standingOrderTable
         :tableData="printTableDataSelect"
         class="print-advice-table"
@@ -127,7 +144,7 @@
     float: left;
     margin-right: 23px;
 
-    .el-radio__label {
+    >>>.el-radio__label {
       color: #333;
       font-size: 12px;
     }
@@ -137,6 +154,7 @@
 .date {
   float: left;
   margin-right: 16px;
+
   >>>.el-input__inner {
     height: 34px;
     box-sizing: border-box;
@@ -165,23 +183,26 @@
           border-top: 1px solid #000 !important;
           border-left: 1px solid #000 !important;
           border-bottom: 1px solid #000 !important;
+          background-color: transparent !important;
+
           &:first-of-type {
             border-left: none !important;
           }
         }
 
         td {
-          height:  30px !important;
+          height: 30px !important;
           border: none !important;
           border-left: 1px solid #000 !important;
           padding: 0 !important;
+
           &:first-of-type {
             border-left: none !important;
           }
         }
 
         .cell {
-           padding: 0 !important;
+          padding: 0 !important;
         }
 
         .gutter {
@@ -189,7 +210,7 @@
         }
 
         img {
-          width: 100%;
+          width: auto;
           height: 100%;
           object-fit: cover;
         }
@@ -270,14 +291,16 @@
 import adviceTable from "./component/adviceTable";
 import standingOrderTable from "./component/standingOrderTable";
 import statOrderTable from "./component/statOrderTable";
-import { orders,ordersPage } from "@/api/patientInfo";
+import { orders, ordersPage } from "@/api/patientInfo";
 import print from "printing";
 import formatter from "./print-formatter";
 import moment from "moment";
 import pagination from "@/components/pagination/pagination";
 export default {
   data() {
-    let startDateTime = moment(new Date().setMonth(new Date().getMonth()-1)).format("YYYY-MM-DD HH:mm");
+    let startDateTime = moment(
+      new Date().setMonth(new Date().getMonth() - 1)
+    ).format("YYYY-MM-DD HH:mm");
     let endDateTime = moment(new Date()).format("YYYY-MM-DD HH:mm");
     return {
       tableData: [],
@@ -286,13 +309,14 @@ export default {
       startDateTime,
       endDateTime,
       newTableData: [],
-      pageLoadng: false,
+      pageLoading: false,
       page: {
         pageIndex: 1,
         pageNum: 20,
-        total: 0
+        total: 0,
       },
-      disPrint: true,//是否禁用打印按钮
+      statusList: ["新开", "提交", "执行", "停止", "作废"],
+      disPrint: true, //是否禁用打印按钮
     };
   },
   computed: {
@@ -302,67 +326,44 @@ export default {
     tableDataSelect() {
       let data = this.newTableData;
       data = data.filter((item) => {
-        let selcet1 = item.repeatIndicator === this.btn.toString();
+        let select1 = item.repeatIndicator === this.btn.toString();
         let select2 =
           item.orderStatusName.includes(this.radio.toString()) ||
           this.radio === "全部";
-        return selcet1 && select2;
+        return select1 && select2;
       });
       return data;
     },
     printTableDataSelect() {
       let data = this.tableData;
       data = data.filter((item) => {
-        let selcet1 = item.repeatIndicator === this.btn.toString();
+        let select1 = item.repeatIndicator === this.btn.toString();
         let select2 =
           (item.orderStatusName.includes(this.radio.toString()) ||
-          this.radio === "全部") && !item.orderStatusName.includes('作废');
-        return selcet1 && select2;
+            this.radio === "全部") &&
+          !item.orderStatusName.includes("作废");
+        return select1 && select2;
       });
       return data;
     },
   },
   created() {
-    // class TableItem {
-    //   constructor(key1, value1, key2, value2) {
-    //     return {
-    //       data1: {
-    //         key: key1,
-    //         value: value1
-    //       },
-    //       data2: {
-    //         key: key2,
-    //         value: value2
-    //       }
-    //     }
-    //   }
-    // }
     this.getOrders();
     this.getPageSizeOrders();
   },
   methods: {
     async onPrint() {
-      // const isPrint = this.tableDataSelect.map(item => {
-      //   if(item.orderStatusName === '医生作废' || item.nurse){ /* 医生作废的医嘱不对校对护士做判断 */
-      //     return true
-      //   }else {
-      //     return false
-      //   }
-      // }).every(val=>{
-      //     return val == true
-      // })
-      // if(isPrint){
-        let printEle =
-          this.btn == "1"
-            ? this.$refs.standingOrderTable.$el
-            : this.$refs.statOrderTable.$el;
-        this.$nextTick(async () => {
-          await print(printEle, {
-            beforePrint: formatter,
-            direction: "vertical",
-            injectGlobalCss: true,
-            scanStyles: false,
-            css: `
+      let printEle =
+        this.btn == "1"
+          ? this.$refs.standingOrderTable.$el
+          : this.$refs.statOrderTable.$el;
+      this.$nextTick(async () => {
+        await print(printEle, {
+          beforePrint: formatter,
+          direction: "vertical",
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
           .fixedTh {
             display: none !important;
             height: auto;
@@ -374,51 +375,56 @@ export default {
             width: 100% !important;
           }
           `,
-          });
         });
-      // }else{
-      //   return this.$message.warning("存在未签名的记录，请全部签名后再打印");
-      // }
+      });
     },
-    getOrders(){
+    getOrders() {
       let startDateType = Object.prototype.toString.call(this.startDateTime);
       if (startDateType == "[object Date]")
-        this.startDateTime =
-          moment(this.startDateTime).format("YYYY-MM-DD HH:mm");
+        this.startDateTime = moment(this.startDateTime).format(
+          "YYYY-MM-DD HH:mm"
+        );
       else if (!this.startDateTime) this.startDateTime = "";
 
       let endDateType = Object.prototype.toString.call(this.endDateTime);
       if (endDateType == "[object Date]")
         this.endDateTime = moment(this.endDateTime).format("YYYY-MM-DD HH:mm");
       else if (!this.endDateTime) this.endDateTime = "";
-      orders(this.infoData.patientId, this.infoData.visitId,this.startDateTime+":00",this.endDateTime +
-      ":59").then((res) => {
+      orders(
+        this.infoData.patientId,
+        this.infoData.visitId,
+        this.startDateTime + ":00",
+        this.endDateTime + ":59"
+      ).then((res) => {
         this.disPrint = false;
         this.tableData = res.data.data;
       });
     },
-    changeDate(){
+    changeDate() {
       this.getOrders();
       this.getPageSizeOrders();
     },
-    getPageSizeOrders(){
-      this.pageLoadng = true;
-      let query =  {
+    getPageSizeOrders() {
+      this.pageLoading = true;
+      let query = {
         endDateTime: this.endDateTime + ":59",
-        startDateTime: this.startDateTime+":00",
+        startDateTime: this.startDateTime + ":00",
         patientId: this.infoData.patientId,
         visitId: this.infoData.visitId,
         pageIndex: this.page.pageIndex,
-        pageNum:this.page.pageNum,
-        typeRepeat: this.btn
+        pageNum: this.page.pageNum,
+        typeRepeat: this.btn,
       };
       ordersPage(query).then((res) => {
-        this.pageLoadng = false;
+        this.pageLoading = false;
         this.newTableData = res.data.data.hisOrders;
-        this.page.total = res.data.data.total &&  Number(res.data.data.total) ? Number(res.data.data.total) * this.page.pageNum : 0;
+        this.page.total =
+          res.data.data.total && Number(res.data.data.total)
+            ? Number(res.data.data.total) * this.page.pageNum
+            : 0;
       });
     },
-    changeType(val){
+    changeType(val) {
       this.btn = val;
       this.getPageSizeOrders();
     },
@@ -434,7 +440,7 @@ export default {
     adviceTable,
     standingOrderTable,
     statOrderTable,
-    pagination
+    pagination,
   },
 };
 </script>

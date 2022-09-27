@@ -217,6 +217,9 @@ export const getTestList = (patientId, visitId) =>
 export const getPaperWork = (patientId, visitId) => {
   return axios.get(`${apiPath}patient/getPaperWork/${patientId}/${visitId}`);
 }
+export function ordersPage(query) {
+  return axios.post(`${apiPath}patient/ordersByTimePage`,query)
+}
 export {
   info,
   orders,
