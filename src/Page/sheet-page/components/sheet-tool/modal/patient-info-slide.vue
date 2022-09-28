@@ -190,7 +190,7 @@ export default {
         case 'lyxrm':
           return [
             {
-              name: '360视图',
+              name: '全景病历',
               url: this.url360()
             }
           ]
