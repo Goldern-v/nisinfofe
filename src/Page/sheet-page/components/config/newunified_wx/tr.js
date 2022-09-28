@@ -76,18 +76,27 @@ import {
       // autoComplete: {
       //   data: 疼痛部位
       // },
+      textarea: {
+        width: 32
+      },
       name: "疼痛部位"
     },
     {
       key: "field2", //疼痛性质
       value: "",
       event: keyf1,
+      textarea: {
+        width: 32
+      },
       name: "疼痛性质"
     },
     {
       key: "field3", //疼痛评分
       value: "",
       event: keyf1,
+      textarea: {
+        width: 32
+      },
       // autoComplete: {
       //   data: 疼痛评分
       // },
@@ -125,7 +134,7 @@ import {
       key: "field7", //饮食量
       value: "",
       event: keyf1,
-      name: "饮食量"
+      name: "饮食量",
     },
   
     {
@@ -152,7 +161,10 @@ import {
       key: "field10", //出量量
       value: "",
       event: keyf1,
-      name: "出量量"
+      name: "出量",
+      textarea: {
+        width: 25
+      },
     },
     {
       key: "consciousness", //意识
@@ -176,7 +188,10 @@ import {
       key: "field12", //吸氧量
       value: "",
       event: keyf1,
-      name: "吸氧量"
+      name: "吸氧量",
+      textarea: {
+        width: 25
+      },
     },
     {
       key: "field13", //精神状态

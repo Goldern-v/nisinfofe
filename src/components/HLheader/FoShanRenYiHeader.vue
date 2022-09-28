@@ -48,12 +48,12 @@
               </el-row>
             </router-link>-->
             <!-- 原来 -->
-            <!-- <router-link to="/formPage" tag="span">
+            <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理文书
               </el-row>
-            </router-link> -->
-            <el-dropdown
+            </router-link>
+            <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isNursing }"
             >
@@ -77,7 +77,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
              <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理计划单</el-row

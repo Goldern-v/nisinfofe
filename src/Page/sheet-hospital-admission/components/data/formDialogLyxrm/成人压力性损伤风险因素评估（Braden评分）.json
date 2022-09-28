@@ -11,7 +11,7 @@
   "formSetting": {
     "formTitle": {
       "hospitalName": "临邑县人民医院",
-      "formName": "成人压疮表"
+      "formName": "成人压力性损伤风险因素评估（Braden评分）"
     },
     "formHeads": [
       {
@@ -79,7 +79,7 @@
     "formInfo": {
       "formCode": "E1306",
       "formApiCode": "E1306",
-      "formName": "成人压疮表",
+      "formName": "成人压力性损伤风险因素评估（Braden评分）",
       "status": "0",
       "formType": "eval"
     }

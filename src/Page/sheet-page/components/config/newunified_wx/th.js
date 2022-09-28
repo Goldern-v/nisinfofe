@@ -280,12 +280,12 @@ export default {
         }
       },
       {
-        name: `标题15`,
+        name: `标题7`,
         style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field7",
+        key: "field27",
         style: {
           minWidth: "40px",
           maxWidth: "40px"

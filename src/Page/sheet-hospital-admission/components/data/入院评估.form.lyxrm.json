@@ -2538,16 +2538,16 @@
           "class": null,
           "options": [
             "无",
-            "有,成人压疮表",
+            "有,成人压力性损伤风险因素评估（Braden评分）",
             "有,儿童压力性损伤风险因素评估（Braden Q 评分）"
           ],
           "rule": [
             {
               "dialog": {
-                "openKey": "有,成人压疮表",
+                "openKey": "有,成人压力性损伤风险因素评估（Braden评分）",
                 "cleanKey": "无",
-                "title": "成人压疮表",
-                "default": "成人压疮表",
+                "title": "成人压力性损伤风险因素评估（Braden评分）",
+                "default": "成人压力性损伤风险因素评估（Braden评分）",
                 "type": "independent",
                 "parentName": "I001260",
                 "showHead": "true"
@@ -2565,7 +2565,7 @@
               }
             },
             {
-              "equal": "有,成人压疮表",
+              "equal": "有,成人压力性损伤风险因素评估（Braden评分）",
               "style": "color:red"
             },
             {
