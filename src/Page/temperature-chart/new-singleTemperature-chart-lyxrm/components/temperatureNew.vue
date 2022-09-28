@@ -111,13 +111,13 @@ export default {
     queryTem: Object,
   },
   data() {
-    //跟临邑医院共用录入界面 ，判断ip地址
+    //跟临邑医院共用录入界面 ，判断ip地址 部署方式不同  #是hash 否则是history
  const baseUrl=(()=>{
   switch (process.env.HOSPITAL_ID) {
     case 'lyxrm':
-      return 'http://192.168.4.175:9091'
+      return 'http://192.168.4.175:9091/temperature/'
     case 'ytll':
-      return 'http://192.168.254.92:9091'
+      return 'http://192.168.254.92:9091/temperature/#/'
     default:
       break;
   }
@@ -141,9 +141,9 @@ export default {
       visibled: false,
       isPrintAll: false, //是否打印所有
       intranetUrl:
-      `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
+      `${baseUrl}` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        `${baseUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
+        `${baseUrl}printAll` /* 医院正式环境内网 */,
     };
   },
   methods: {
@@ -352,7 +352,7 @@ export default {
   },
   computed: {
     detailChatUrl() {
-      let path = `${this.intranetUrl}/detailed`;//正式服内网地址(http://192.168.4.175:9091/temperature/#/detailed)
+      let path = `${this.intranetUrl}detailed`;//正式服内网地址(http://192.168.4.175:9091/temperature/#/detailed)
       // let path = "http://localhost:8080/#/detailed";//个人测试地址
       return `${path}?showVitalSign=${this.showVitalSign}`; /* 外网 */
     },
