@@ -949,6 +949,7 @@ const router = new Router({
         {
           path: "/advice",
           component: advice
+
           // component: (() => {
           //   switch(HOSPITAL_ID) {
           //     case '925':
@@ -1761,8 +1762,9 @@ router.beforeEach((to, from, next) => {
   //   router.push('/login')
   // }
   if (to.meta.title) {
-
     document.title = to.meta.title
+  } else {
+    document.title = process.env.title || '百辰源智慧护理信息系统'
   }
   next();
 });

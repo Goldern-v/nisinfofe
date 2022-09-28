@@ -258,7 +258,7 @@
     </div>
     <div
       class="search-btn2"
-      v-if="data.status === '2' && ['liaocheng'].includes(HOSPITAL_ID)"
+      v-if="data.status === '2' && ['liaocheng', 'foshanrenyi'].includes(HOSPITAL_ID)"
       @click="syncDischargedPatient"
       v-touch-ripple
       >同步出院患者</div
