@@ -57,7 +57,7 @@ export default {
       {
         name: `肢体情况`,
         style: {},
-        colspan: '2',
+        colspan: '3',
         rowspan: '1'
       },
       {
@@ -133,10 +133,16 @@ export default {
         rowspan: '1'
       },
       {
-        name: `疼痛`,
+        name: `疼痛部位`,
         colspan: '1',
         rowspan: '2'
       },
+      {
+        name: `疼痛评分`,
+        colspan: '1',
+        rowspan: '2'
+      },
+      
       {
         name: `类型`,
         colspan: '1',
