@@ -6,7 +6,7 @@
         <th style="width: 23%; min-width: 75px">时间</th>
         <th style="width: 20%">项目</th>
         <th style="width: 23%">血糖值<br />(mmol/L)</th>
-        <th style="width: 18%">尿酮值<br/>(mmol/L)</th>
+        <!-- <th style="width: 18%">尿酮值<br/>(mmol/L)</th> -->
         <th style="width: 14%">执行人</th>
       </tr>
       <tr
@@ -60,15 +60,15 @@
             {{ item.sugarValue && item.sugarValue !== "0" ? item.sugarValue : "" }}
           </div>
         </td>
-        <td>
-          <div class="cell noPrint">
+        <!-- <td>
+          <div class="cell noPrint"> -->
             <!-- {{ item.riValue && item.riValue !== "0" ? item.riValue + " ü" : "" }} -->
-            <input :class="{ selected: selected === item }" v-model="item.expand1"/>
-          </div>
+            <!-- <input :class="{ selected: selected === item }" v-model="item.expand1"/> -->
+          <!-- </div>
           <div class="cell inPrint">
             {{ item.expand1 && item.expand1 !== "0" ? item.expand1 : "" }}
           </div>
-        </td>
+        </td> -->
         <!-- <td>
           <div class="cell noPrint sign-cell" @click="sign(item)">{{ item.nurse }}</div>
           <div :class="['cell','inPrint']">
@@ -254,7 +254,7 @@ export default {
       while (renderData.length <= 26) {
         renderData.push({});
       }
-      // console.log(renderData);
+      console.log(renderData,"renderData");
       return renderData;
     },
     patientInfo() {

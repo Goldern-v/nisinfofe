@@ -157,9 +157,11 @@ const currentTargetUrl = (() => {
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.20.147:9091"  // 双艳
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" // 初升测试本地内网
       // return "http://192.168.20.102:8080" //宪锋本地地址
+      // return "http://127.0.0.1:8080" //
+      return "http://192.168.137.164:8080" //
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -206,7 +208,8 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9894'
     // 临沂沂州
     case 'lyyz':
-      return 'http://192.168.1.54:9895'
+      // return 'http://192.168.1.54:9895'
+      return 'http://192.168.137.164:8080'
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
       return 'http://192.168.1.54:9866'
@@ -231,6 +234,7 @@ module.exports = {
         // Before setting to `true`, make sure to:
         // npm install --save-dev compression-webpack-plugin
         productionGzip: false,
+      
         productionGzipExtensions: ["js", "css"],
         // Run the build command with an extra argument to
         // View the bundle analyzer report after build finishes:

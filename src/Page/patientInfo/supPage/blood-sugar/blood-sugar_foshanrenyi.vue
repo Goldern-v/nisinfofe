@@ -413,6 +413,7 @@ export default {
         obj.right = list.slice(i + 27, i + 54);
         listMap.push(obj);
       }
+      console.log(listMap,"listMap")
       this.listMap = listMap;
 
       getPvHomePage(

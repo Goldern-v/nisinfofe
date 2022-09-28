@@ -38,6 +38,31 @@
             placeholderChar=" "
           ></masked-input>
         </div>
+
+        <div
+          v-if="
+            [
+              'foshanrenyi',
+            ].includes(HOSPITAL_ID)
+          "
+          style="margin-left: 20px"
+        >
+          <span class="label">医嘱类型：</span>
+          <el-select
+            v-model="yizhuTypeItem"
+            placeholder="请选择"
+            size="small"
+            style="width: 150px"
+          >
+            <el-option
+              :label="typeItem.name"
+              :value="typeItem.id"
+              v-for="typeItem in yizhuTyoe"
+              :key="typeItem.id"
+            ></el-option>
+          </el-select>
+        </div>
+
         <div
           v-if="
             [
@@ -108,7 +133,7 @@
       <div class="table-con">
         <el-table
           ref="zxdtb-table"
-          :data="tableData"
+          :data="tableDatalist"
           border
           height="350"
           @selection-change="handleSelectionChange"
@@ -337,6 +362,7 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist: {},
+      yizhuTypeItem:"",
       executeType: ["liaocheng", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)
         ? "输液"
         : "",
@@ -639,6 +665,18 @@ export default {
     ...mapState({
       openModalFromSpecial: state => state.sheet.openModalFromSpecial
     }),
+    tableDatalist(){
+      console.log("jinlai",this.tableData)
+      let tableDatalist = []
+      if(this.yizhuTypeItem===""){
+        return this.tableData
+      }else{
+        this.tableData.map(item=>{
+          if(item.repeatIndicator===this.yizhuTypeItem) tableDatalist.push(item)
+        })
+        return tableDatalist
+      }
+    },
     patientInfo() {
       if (this.sheetInfo.selectBlock) {
         return this.sheetInfo.selectBlock;
@@ -647,6 +685,13 @@ export default {
       if (this.formlist != undefined) {
         return this.formlist;
       }
+    },
+    yizhuTyoe(){
+      return [
+        {name:"全部",id:""},
+        {name:"长期",id:"长期"},
+        {name:"临时",id:"临时"},
+      ]
     },
     allType() {
       if (["liaocheng", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)) {
