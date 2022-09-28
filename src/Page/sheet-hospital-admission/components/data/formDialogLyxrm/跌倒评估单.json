@@ -446,7 +446,7 @@
         {
           "name": "I1316003",
           "type": "radio",
-          "title": "依扶家具行走（30分）",
+          "title": "扶家具行走（30分）",
           "code": "30",
           "score": 30,
           "style": null,
@@ -714,9 +714,9 @@
       "readOnly": ""
     },
     {
-      "name": "无风险预防性干预措施",
+      "name": "低风险干预性措施",
       "type": "formGroupVerticalBox",
-      "title": "无风险预防性干预措施",
+      "title": "低风险干预性措施",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -729,44 +729,17 @@
         {
           "name": "I1316006",
           "type": "checkbox",
-          "title": "1.基础护理",
+          "title": "1.一般护理措施",
           "code": "√",
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "低风险标准预防干预性措施",
-      "type": "formGroupVerticalBox",
-      "title": "低风险标准预防干预性措施",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "I003003111",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
+        },
         {
           "name": "I1316007",
           "type": "checkbox",
-          "title": "1.保持病区地面清洁干燥，告知卫生间防滑措施(淋浴时有人陪伴)，鼓励使用卫生间扶手",
+          "title": "2.入院时向患者介绍病区环境及安全设施的使用方法",
           "code": "√",
           "style": null,
           "class": null,
@@ -776,7 +749,7 @@
         {
           "name": "I1316008",
           "type": "checkbox",
-          "title": "2.提供足够的照明，及时清除病房、床旁、通道及卫生间障碍",
+          "title": "3.卫生间等区域设置扶手、紧急呼叫铃等辅助设施，确保性能良好",
           "code": "√",
           "style": null,
           "class": null,
@@ -786,7 +759,7 @@
         {
           "name": "I1316009",
           "type": "checkbox",
-          "title": "3.正确使用床头灯及呼叫器，放于可及处",
+          "title": "4.保持病区地面清洁干燥，浴室、卫生间、配餐室有防滑设施及警 示标识",
           "code": "√",
           "style": null,
           "class": null,
@@ -796,7 +769,7 @@
         {
           "name": "I1316010",
           "type": "checkbox",
-          "title": "4.锁定病床，将日常物品放于患者易取处",
+          "title": "5.将水杯、鞋子等常用生活物品放于患者方便取用的位置",
           "code": "√",
           "style": null,
           "class": null,
@@ -806,7 +779,7 @@
         {
           "name": "I1316011",
           "type": "checkbox",
-          "title": "5.患者活动时有人陪伴，指导患者渐进坐起、渐进下床的方法",
+          "title": "6.嘱患者穿防滑鞋，衣裤大小合适",
           "code": "√",
           "style": null,
           "class": null,
@@ -816,7 +789,7 @@
         {
           "name": "I1316012",
           "type": "checkbox",
-          "title": "6.穿舒适的鞋及衣裤，必要时为患者提供步态技巧指导",
+          "title": "7.保持病床、轮椅和平车的安全使用；",
           "code": "√",
           "style": null,
           "class": null,
@@ -826,7 +799,7 @@
         {
           "name": "I1316013",
           "type": "checkbox",
-          "title": "7.应用平车、轮椅时及时锁定轮子，使用护栏及安全带",
+          "title": "8.根据风险评估结果采取相应的预防、护理措施。",
           "code": "√",
           "style": null,
           "class": null,
@@ -848,9 +821,9 @@
       "readOnly": ""
     },
     {
-      "name": "高风险预防干预性措施",
+      "name": "高风险干预性措施",
       "type": "formGroupVerticalBox",
-      "title": "高风险预防干预性措施",
+      "title": "高风险干预性措施",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -863,7 +836,7 @@
         {
           "name": "I1316014",
           "type": "checkbox",
-          "title": "1.执行基础护理及低风险标准预防性干预措施",
+          "title": "执行基础护理及低风险标准预防性干预措施",
           "code":"√",
           "style": null,
           "class": null,
@@ -873,7 +846,7 @@
         {
           "name": "I1316015",
           "type": "checkbox",
-          "title": "2.在床头、病员服明显位置放“防跌倒”标示",
+          "title": "在床头、病员服明显位置放“防跌倒”标示",
           "code":"√",
           "style": null,
           "class": null,
@@ -883,7 +856,7 @@
         {
           "name": "I1316016",
           "type": "checkbox",
-          "title": "3.将两侧床栏全部抬起，在患者下床活动需要协助时要求助",
+          "title": "将两侧床栏全部抬起，在患者下床活动需要协助时要求助",
           "code":"√",
           "style": null,
           "class": null,
@@ -893,7 +866,7 @@
         {
           "name": "I1316017",
           "type": "checkbox",
-          "title": "4.如患者神志障碍，必要时限制患者活动，适当约束，家属参与照护",
+          "title": "如患者神志障碍，必要时限制患者活动，适当约束，家属参与照护",
           "code":"√",
           "style": null,
           "class": null,
@@ -903,7 +876,7 @@
         {
           "name": "I1316018",
           "type": "checkbox",
-          "title": "5.加强营养，协助患者排尿、排便",
+          "title": "加强营养，协助患者排尿、排便",
           "code":"√",
           "style": null,
           "class": null,
