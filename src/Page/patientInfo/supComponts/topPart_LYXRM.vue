@@ -186,7 +186,7 @@
         :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
-        <div class="nav-item">患者360</div>
+        <div class="nav-item">全景病历</div>
       </router-link>
       <router-link
         :to="{path:'/patientNursingRound', query: {patientId:query.patientId, visitId: query.visitId}}"

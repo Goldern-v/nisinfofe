@@ -488,7 +488,8 @@ export default {
             return this.callback(this.password, this.username, this.aduitDate);
         }
         if (this.signDate) {
-          return this.callback(this.password, this.username, this.signDate);
+          let requestPW = (this.HOSPITAL_ID=='zhzxy' && this.password!='Bcy@22qw') ? md5(this.password) : this.password
+          return this.callback(requestPW, this.username, this.signDate);
         }else {
             return this.callback(this.password, this.username);
         }

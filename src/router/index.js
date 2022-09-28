@@ -400,6 +400,8 @@ const getImplementation = () => {
     case 'lyxrm':
     case 'whsl':
     case 'whhk':
+    case '925':
+    case 'zhzxy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -412,7 +414,6 @@ const getImplementation = () => {
     case 'fsxt':
       return implementationListFsxt
     case 'foshanrenyi':
-    case 'zhzxy':
     case 'nfyksdyy':
       return implementationListFSSY
     case 'quzhou':
@@ -424,7 +425,6 @@ const getImplementation = () => {
     case 'hengli':
       return implementationListHengli
     case 'guizhou':
-    case '925':
       return adviceList
     case 'nanfangzhongxiyi':
       return implementationListNanfangzhongxiyi
@@ -437,7 +437,7 @@ const router = new Router({
   base: "/crNursing/",
   routes: [{
     path: "/",
-    redirect: "/index",
+    redirect: HOSPITAL_ID === 'lyxrm' ? '/bed' : "/index",
     alias: "主页"
   },
   {
@@ -949,6 +949,15 @@ const router = new Router({
         {
           path: "/advice",
           component: advice
+
+          // component: (() => {
+          //   switch(HOSPITAL_ID) {
+          //     case '925':
+          //       return () => import('@/Page/patientInfo/supPage/advice_925/advice')
+          //     default:
+          //       return advice
+          //   }
+          // })()
         },
         {
           path: "/inspect",
@@ -1225,7 +1234,7 @@ const router = new Router({
         path: "/implementationList",
         component: getImplementation(),
         name: "执行单",
-        children:['guizhou', '925'].includes(HOSPITAL_ID)?[
+        children:['guizhou'].includes(HOSPITAL_ID)?[
           {
             path: "/advice",
             name: "adviceItem",
@@ -1753,8 +1762,9 @@ router.beforeEach((to, from, next) => {
   //   router.push('/login')
   // }
   if (to.meta.title) {
-
     document.title = to.meta.title
+  } else {
+    document.title = process.env.title || '百辰源智慧护理信息系统'
   }
   next();
 });

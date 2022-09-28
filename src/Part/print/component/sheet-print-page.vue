@@ -91,7 +91,7 @@
   th[dataname='带教<br/>护士']{
     display: none !important;
   }
-  
+
 /* 打印时隐藏第二列签名表头---th */
   th[dataname='记录人签名']:last-child{
     display :none;
@@ -241,9 +241,6 @@ export default {
         "iabp_fs", // 佛山市一_IABP护理记录单
         "intravenous_sdlj", // 顺德龙江_硫酸镁、安宝静脉点滴观察记录表
         "mechanical_sdlj", // 机械通气监护记录单（儿科）
-        "prenataldelivery2_tj", // 产前护理记录
-        "postpartum2_tj", // 产后护理记录单
-        "pediatric3_tj", // 产科新生儿护理记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -296,11 +293,12 @@ export default {
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
     //   医院的护理单打印双数页面会翻转（双面打印）。这些医院都是不需要偶数页面打印翻转的
-    if(this.HOSPITAL_ID==="sdlj" 
+    if(this.HOSPITAL_ID==="sdlj"
        || this.HOSPITAL_ID==="fuyou"
        ||this.sheetInfo.sheetType==="ventilation_hl"
        ||this.HOSPITAL_ID==="wujing"
        ||this.HOSPITAL_ID==="fsxt"
+       ||this.HOSPITAL_ID==="gdtj"
        ||this.HOSPITAL_ID==="whfk"
        ||this.HOSPITAL_ID==="foshanrenyi"
        ||this.HOSPITAL_ID==="lyxrm"
@@ -414,20 +412,6 @@ export default {
         `
       );
     }
-    if ( (this.HOSPITAL_ID === "gdtj") &&
-      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
-    ) {
-      addCSS(
-        window,
-        `
-        @media print {
-          .body-con{
-            height: 40px !important;
-          }
-        }
-        `
-      );
-    }
     if ( (this.HOSPITAL_ID === "wujing") &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
@@ -520,7 +504,7 @@ export default {
         `
       );
     }
-    
+
     if (
       (this.HOSPITAL_ID === "fsxt")
     ) {
@@ -582,7 +566,7 @@ export default {
            img{
               transform: scale(0.8);
             }
-          
+
         `
       );
     }
@@ -594,17 +578,17 @@ export default {
         `
            @media print {
              @page{
-                 margin:10px 0 0;
+                 margin:10px 0 0 10px;
              }
         }
-          
+
         `
       );
     }
     if (
       (this.HOSPITAL_ID === "gdtj")
     ) {
-      
+
       addCSS(
         window,
         `
@@ -619,7 +603,7 @@ export default {
       );
     }
      if (
-      (this.HOSPITAL_ID === "xiegang") 
+      (this.HOSPITAL_ID === "xiegang")
     ) {
       addCSS(
         window,
@@ -741,7 +725,7 @@ export default {
     if (
       (sheetInfo.sheetType == "generalnursing_tj")
     ) {
-      
+
       addCSS(
         window,
         `

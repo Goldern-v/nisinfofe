@@ -60,7 +60,7 @@
       <span v-if="sheetInfo.sheetType=='pediatric3_tj'">
         出生日期：
         <div @click="updateBirthDay" class="bottom-line" style="min-width: 150px;height: 12px;">
-          {{birthday | YMDHM }}
+          {{ birthday | YMDHM }}
         </div>
       </span>
       <span v-if="sheetInfo.sheetType=='postpartum2_tj'">
@@ -151,7 +151,7 @@
       <span v-if="!admissionDateList.includes(sheetInfo.sheetType)">
         入院日期：
         <div class="bottom-line" style="min-width: 50px">
-          {{ patientInfo.admissionDate | toymd}}
+          {{ patientInfo.admissionDate | YMDHM}}
         </div>
       </span>
     </div>
@@ -328,8 +328,7 @@ export default {
         }
       }
       return (
-        (sheetInfo.relObj || {})[`PageIndex_birthday_${realIndex}`] ||
-        this.patientInfo.birthday
+        (sheetInfo.relObj || {})[`PageIndex_birthday_${realIndex}`]
       );
     },
     laborTime() {
@@ -446,6 +445,7 @@ export default {
         return moment(val).format("YYYY年MM月DD日HH时mm分");
       }
     }
+
   },
   watch: {
     index(newVal,oldVal){

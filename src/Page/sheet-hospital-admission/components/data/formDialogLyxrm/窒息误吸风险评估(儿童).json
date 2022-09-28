@@ -1,0 +1,776 @@
+
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "临邑县人民医院",
+      "formName": "窒息/误吸风险评估（儿童）"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "code": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "code": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "code": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "code": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "code": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "code": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "code": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E1343",
+      "formApiCode": "E1343",
+      "formName": "窒息/误吸风险评估（儿童）",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "code": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;margin:0;",
+          "code": "0",
+          "hiddenTips": true,
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;margin:0;",
+          "code": "0",
+          "hiddenTips": true,
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                ""
+              ],
+              "style": "color:blue",
+              "display": ""
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "年龄",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1307308",
+          "type": "radio",
+          "title": "＞1岁（1分）",
+          "code": "1",
+          "score": 1,
+          "style": "width:370px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307308",
+          "type": "radio",
+          "title": "1个月-1岁（2分）",
+          "code": "2",
+          "score": 2,
+          "style": "width:370px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307308",
+          "type": "radio",
+          "title": "新生儿（3分）",
+          "code": "3",
+          "score": 3,
+          "style": "width:370px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "神志",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1307309",
+          "type": "radio",
+          "title": "神志清醒（1分）",
+          "code": "1",
+          "score": 1,
+          "style": "width:270px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307309",
+          "type": "radio",
+          "title": "神志清醒，药物镇静状态（2分）",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307309",
+          "type": "radio",
+          "title": "昏迷（3分）",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "颅内压升高、消化系统疾病、唇腭裂、喉软化、麻醉清醒前、鼻饲等",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1307310",
+          "type": "radio",
+          "title": "无（1分）",
+          "code": "1",
+          "score": 1,
+          "style": "width:270px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307310",
+          "type": "radio",
+          "title": "1种（2分）",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307310",
+          "type": "radio",
+          "title": "1种以上（3分）",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "饮食",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1307311",
+          "type": "radio",
+          "title": "禁饮食（1分）",
+          "code": "1",
+          "score": 1,
+          "style": "width:270px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307311",
+          "type": "radio",
+          "title": "普通饮食（2分）",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307311",
+          "type": "radio",
+          "title": "流质/半流质饮食（3分）",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "体位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1307312",
+          "type": "radio",
+          "title": "自主（1分）",
+          "code": "1",
+          "score": 1,
+          "style": "width:270px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307312",
+          "type": "radio",
+          "title": "伴我（2分）",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307312",
+          "type": "radio",
+          "title": "仰卧（3分）",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "陪护情况",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1307313",
+          "type": "radio",
+          "title": "有（1分）",
+          "code": "1",
+          "score": 1,
+          "style": "width:270px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307313",
+          "type": "radio",
+          "title": "无（3分）",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "人工气道/机械通气",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1307314",
+          "type": "radio",
+          "title": "有（3分）",
+          "code": "3",
+          "score": 3,
+          "style": "width:270px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307314",
+          "type": "radio",
+          "title": "无（1分）",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、预防护理措施：",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I001019",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1307316",
+          "type": "checkbox",
+          "title": "保持呼吸道通畅",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307317",
+          "type": "checkbox",
+          "title": "头偏向一侧",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307318",
+          "type": "checkbox",
+          "title": "抬高床头",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307319",
+          "type": "checkbox",
+          "title": "及时清除口鼻腔分泌物",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307320",
+          "type": "checkbox",
+          "title": "向患儿家属做好宣教，指导患儿家属正确的喂养/饮食体位",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307321",
+          "type": "checkbox",
+          "title": "告知患儿家属，发现患儿出现口唇紫绀、呼吸困难，及时告知医护人员",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307322",
+          "type": "checkbox",
+          "title": "加强巡视，每班交接",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307323",
+          "type": "checkbox",
+          "title": "对于意识障得的患儿，遵医嘱给予鼻饲",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307324",
+          "type": "checkbox",
+          "title": "对于带有人工气道的患儿，及时清理呼吸道分泌物",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1307325",
+          "type": "checkbox",
+          "title": "其他：",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "inputWidth": "136px",
+          "value": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "inputWidth": "136px",
+          "value": "",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "min": "-1",
+              "max": "3",
+              "equal": "低危",
+              "style": "color:blue",
+              "display": "低危"
+            },
+            {
+              "min": "3",
+              "max": "5",
+              "equal": "中危",
+              "style": "color:blue",
+              "display": "中危"
+            },
+            {
+              "min": "5",
+              "max": "200",
+              "equal": "高危",
+              "style": "color:blue",
+              "display": "高危"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}
