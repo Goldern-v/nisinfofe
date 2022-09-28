@@ -134,7 +134,7 @@ import {
       key: "field7", //饮食量
       value: "",
       event: keyf1,
-      name: "饮食量"
+      name: "饮食量",
     },
   
     {

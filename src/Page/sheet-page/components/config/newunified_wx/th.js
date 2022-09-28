@@ -285,7 +285,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "field7",
+        key: "field27",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
