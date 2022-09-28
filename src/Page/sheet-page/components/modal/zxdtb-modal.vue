@@ -365,7 +365,7 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist: {},
-      yizhuTypeItem:"",
+      yizhuTypeItem:"临时",
       executeType: ["liaocheng", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)
         ? "输液"
         : "",
