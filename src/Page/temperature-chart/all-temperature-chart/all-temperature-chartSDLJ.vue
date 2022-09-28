@@ -782,11 +782,7 @@ export default {
         if (this.admitted.length != 0){
           let obj={data1:[],data2:[],data3:[],data4:[],data5:[],data6:[],data7:[],data8:[]}
           obj.data1 = data.filter((item) => {
-            return (
-              (
-                item.patientCondition === "病危") ||
-              item.patientCondition === "病重"
-            );
+            return (item.patientCondition == 1);
           });
             obj.data2 = data.filter((item) => {
               return (
