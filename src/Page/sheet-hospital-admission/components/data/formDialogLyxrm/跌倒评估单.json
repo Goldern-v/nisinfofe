@@ -580,13 +580,13 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316006",
+      "keys": "I1316005",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316006",
+          "name": "I1316005",
           "type": "radio",
           "title": "正确评估自我能力（0分）",
           "code": "0",
@@ -597,7 +597,7 @@
           "readOnly": null
         },
         {
-          "name": "I1316006",
+          "name": "I1316005",
           "type": "radio",
           "title": "高估自己能力、忘记自己受限制（15分）",
           "code": "15",
