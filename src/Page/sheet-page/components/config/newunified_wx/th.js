@@ -280,7 +280,7 @@ export default {
         }
       },
       {
-        name: `标题15`,
+        name: `标题7`,
         style: {},
         colspan: "1",
         rowspan: "3",
