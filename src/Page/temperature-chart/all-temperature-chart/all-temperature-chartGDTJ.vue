@@ -745,7 +745,7 @@ export default {
             : moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
-            case "nanfangzhongxiyi":
+            case "gdtj":
               if (this.getHours() >= 0 && this.getHours() <= 2) {
                 return "02";
               }

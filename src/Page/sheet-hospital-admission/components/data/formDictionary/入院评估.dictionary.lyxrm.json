@@ -2542,14 +2542,54 @@
     ],
     "I001142": [
         {
-            "code": "能应",
-            "name": "能应",
-            "pinyin": "ny"
+            "code": "清醒",
+            "name": "清醒",
+            "pinyin": "qx"
         },
         {
-            "code": "不应",
-            "name": "不应",
-            "pinyin": "by"
+            "code": "嗜睡",
+            "name": "嗜睡",
+            "pinyin": "ss"
+        },
+        {
+            "code": "意识模糊",
+            "name": "意识模糊",
+            "pinyin": "ysmh"
+        },
+        {
+            "code": "昏迷",
+            "name": "昏迷",
+            "pinyin": "hm"
+        },
+        {
+            "code": "浅昏迷",
+            "name": "浅昏迷",
+            "pinyin": "qhm"
+        },
+        {
+            "code": "深昏迷",
+            "name": "深昏迷",
+            "pinyin": "shm"
+        },
+        {
+            "code": "谵妄",
+            "name": "谵妄",
+            "pinyin": "zw"
+        },
+        {
+            "code": "冬眠状态",
+            "name": "冬眠状态",
+            "pinyin": "dmzt"
+        },
+        {
+            "code": "麻醉未醒",
+            "name": "麻醉未醒",
+            "pinyin": "mzwx"
+        },
+        {
+            "code": "镇静状态",
+            "name": "镇静状态",
+            "pinyin": "zjzt"
         }
     ],
     "I001143": [
