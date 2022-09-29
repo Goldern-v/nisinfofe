@@ -23,11 +23,6 @@
       :style="{ height: containHeight }"
     >
       <div class="left-part">
-        <!-- <patientList
-          :data="data.bedList"
-          :isSelectPatient="isSelectPatient"
-          v-loading="patientListLoading"
-        ></patientList>-->
 
         <patientList
           :toName="
@@ -227,7 +222,6 @@
 <script>
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import doctorEmr from "@/components/doctorEmr";
-// import patientList from "@/components/patient-list/patient-list.vue";
 import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
 import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
@@ -525,9 +519,9 @@ export default {
         this.bus.$emit("openNewSheetModal");
       }
     },
-  getSheetData(isBottom) {
-    //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
-    this.done=false
+    getSheetData(isBottom) {
+      //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
+      this.done=false
       this.tableLoading = true;
       if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
         this.isLoad=false
