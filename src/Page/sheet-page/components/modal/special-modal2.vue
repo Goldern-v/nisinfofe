@@ -1975,7 +1975,8 @@ export default {
               this.sheetInfo.sheetType === "department_bh" ||
               this.sheetInfo.sheetType === "cardiac_lcey" ||
               this.sheetInfo.sheetType === "labor_lcey" ||
-              this.sheetInfo.sheetType === "caseamount_wx"
+              this.sheetInfo.sheetType === "caseamount_wx"||
+              this.sheetInfo.sheetType === "chemotherapy_qhwy"
             ) {
               if (GetLength(text) > 36) {
                 result.push(text);
@@ -1987,7 +1988,8 @@ export default {
               this.sheetInfo.sheetType === "diabetes_bh" ||
               this.sheetInfo.sheetType === "ophthalmology_bh" ||
               this.sheetInfo.sheetType === "observation_bh" ||
-              this.sheetInfo.sheetType === "maternal_lcey"
+              this.sheetInfo.sheetType === "maternal_lcey"||
+              this.sheetInfo.sheetType == "obstetrics_qhwy"
             ) {
               if (GetLength(text) > 26) {
                 result.push(text);

@@ -1960,6 +1960,34 @@ export default function Title(
     );
   }
   break;
+  case "obstetrics_qhwy": {
+    // 青海五院 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/obstetrics_qhwy/th").default)
+    );
+  }
+  break;
+  case "orthopedics_qhwy": {
+    // 青海五院 - 骨科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopedics_qhwy/th").default)
+    );
+  }
+  break;
+  case "chemotherapy_qhwy": {
+    // 青海五院 - 化疗观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/chemotherapy_qhwy/th").default)
+    );
+  }
+  break;
+  case "neurosurgery_qhwy": {
+    // 青海五院 - 神经外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurosurgery_qhwy/th").default)
+    );
+  }
+  break;
   case "nurse_jew": {
     // 925医院 - 一般患者护理记录单
     Th = JSON.parse(
