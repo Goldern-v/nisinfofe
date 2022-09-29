@@ -302,7 +302,7 @@
                 </el-collapse-item>
               </div>
             </div>
-            <div class="context-box" v-if="fieldList !== {}">
+            <div class="context-box" v-if="Object.keys(fieldList).length">
               <el-collapse-item name="fieldList">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
