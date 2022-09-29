@@ -1,43 +1,6 @@
 <template>
   <div>
-    <div class="header-con">
-      <div class="title">南方医科大学第三附属医院</div>
-      <div class="title">长期医嘱记录单</div>
-      <div class="info-con" style="text-align: right">
-        <span>
-          病人ID：
-          <div class="bottom-line" style="min-width: 70px; text-align: left">
-            {{ query.patientId }}
-          </div>
-        </span>
-      </div>
-      <div class="info-con header-info" flex="main:justify">
-        <span>
-          姓名：
-          <div class="bottom-line" style="min-width: 70px">
-            {{ query.name }}
-          </div>
-        </span>
-        <span>
-          床号：
-          <div class="bottom-line" style="min-width: 30px">
-            {{ query.bedLabel }}
-          </div>
-        </span>
-        <span>
-          科室：
-          <div class="bottom-line" style="min-width: 70px">
-            {{ query.deptName }}
-          </div>
-        </span>
-        <span>
-          住院号：
-          <div class="bottom-line" style="min-width: 70px">
-            {{ query.inpNo }}
-          </div>
-        </span>
-      </div>
-    </div>
+    <print-header />
     <el-table
       :data="tableData"
       stripe
@@ -199,50 +162,6 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.header-con {
-  .title {
-    font-size: 21px;
-    text-align: center;
-    font-weight: bold;
-    font-family: simsun, 'Times New Roman', Georgia, Serif !important;
-    padding: 10px 0 10px 10px;
-  }
-
-  span {
-    margin-right: 4px;
-    font-size: 14px;
-    color: #000;
-  }
-
-  .header-info {
-    padding-top: 15px;
-    padding-bottom: 10px;
-  }
-
-  .info-con {
-    text-align: left;
-
-    .bottom-line {
-      display: inline-block;
-      // border-bottom 1px solid #000
-      padding: 2px 0 2px 2px;
-      border-bottom: 1px solid #000 !important;
-    }
-
-    .bottom-line-input {
-      display: inline-block;
-      border: 0;
-      width: 30px;
-      border-bottom: 1px solid #000;
-      padding: 2px 0 2px 2px;
-      height: 12px;
-      position: relative;
-      outline: none;
-      text-align: center;
-    }
-  }
-}
-
 >>>.el-table {
   .cell {
     padding: 0 !important;
@@ -262,7 +181,7 @@
   }
 
   img {
-    width: 100%;
+    width: auto;
     height: 100%;
     object-fit: cover;
   }
@@ -332,6 +251,7 @@
 
 
 <script>
+import PrintHeader from './print-header.vue'
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 export default {
@@ -378,7 +298,9 @@ export default {
       return Number(val);
     },
   },
-  components: {},
+  components: {
+   PrintHeader,
+  },
   filters: {
     formatDate(val) {
       return val ? moment(val).format("MM-DD HH:mm") : "";

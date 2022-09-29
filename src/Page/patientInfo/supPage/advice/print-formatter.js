@@ -3,9 +3,10 @@ export default function(win) {
   console.log(root);
 
   root.setAttribute("style", "width: 900px;");
-  let start_pageIndex = document.getElementById('start_pageIndex').children[0].value || 1;
-  start_pageIndex = start_pageIndex > 0 ? parseInt(start_pageIndex) : 1;
+  // let start_pageIndex = document.getElementById('start_pageIndex').children[0].value || 1;
+  // start_pageIndex = start_pageIndex > 0 ? parseInt(start_pageIndex) : 1;
 
+  let start_pageIndex = 1;
   let header = root.querySelector(".header-con");
   let elHeader = root.querySelector(".el-table__header-wrapper");
 
@@ -16,7 +17,7 @@ export default function(win) {
   let patients = Array.from(trs); // 病人列表
 
   const emptyRow = document.createElement("tr");
-  let repeatNum = trs[0] && trs[0].children ?  trs[0].children.length : 5;
+  let repeatNum = trs[0] && trs[0].children ? trs[0].children.length : 5;
   emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(repeatNum);
   emptyRow.style.height = "30px";
 

@@ -256,8 +256,8 @@
                 </el-collapse-item>
               </div>
             </div>
-            <div class="context-box">
-              <el-collapse-item name="fieldList" v-if="Object.keys(fieldList).length">
+            <div class="context-box" v-if="Object.keys(fieldList).length">
+              <el-collapse-item name="fieldList">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
                   <i class="header-icon el-icon-info"></i>
@@ -285,23 +285,18 @@
                     </div>
 
                     <input
-                      :id="i + 100"
+                      :id="h + 100"
+                      type="text"
+                      class="fieldClass"
                       @keydown.enter="changeNext"
-                      :type="
-                        totalDictInfo[index].inputType === '2'
-                          ? 'number'
-                          : 'text'
-                      "
-                      :title="vitalSignObj[j].vitalValue"
-                      @input="handlePopRefresh(vitalSignObj[j])"
+                      :title="vitalSignObj[i.vitalCode].vitalValue"
                       @mousewheel="
                         (e) => {
                           e.preventDefault();
+                          e.stopPropagation();
                         }
                       "
-                      @click="() => (vitalSignObj[j].popVisible = true)"
-                      @blur="() => (vitalSignObj[j].popVisible = false)"
-                      v-model="vitalSignObj[j].vitalValue"
+                      v-model="vitalSignObj[i.vitalCode].vitalValue"
                     />
                   </div>
                 </div>
@@ -449,22 +444,22 @@ export default {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           if (this.getHours() >= 0 && this.getHours() <= 4) {
-            return "04";
+            return "02";
           }
           if (this.getHours() > 4 && this.getHours() <= 8) {
-            return "08";
+            return "06";
           }
           if (this.getHours() > 8 && this.getHours() <= 12) {
-            return "12";
+            return "10";
           }
           if (this.getHours() > 12 && this.getHours() <= 16) {
-            return "16";
+            return "14";
           }
           if (this.getHours() > 16 && this.getHours() <= 20) {
-            return "20";
+            return "18";
           }
           if (this.getHours() > 20 && this.getHours() <= 23) {
-            return "23";
+            return "22";
           }
           //录入时间
         })(), //录入时间
@@ -560,7 +555,6 @@ export default {
           document.getElementsByClassName("otherPathological").length;
         this.otherDicListLength = otherLength;
         let inputListLength = baseLength + otherLength;
-        console.log(Number(e.target.id), otherLength + 100 - 1);
 
         if (Number(e.target.id) < baseLength) {
           document.getElementById(Number(e.target.id) + 1).focus();
@@ -574,14 +568,13 @@ export default {
         }
       }
       if (Number(e.target.id) === 107) {
-        console.log("sss");
         document.getElementById("1").focus();
       }
     },
     handleChange(val) {
       // console.log(val);
     },
-       formatDate(date){
+      formatDate(date){
       return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     getHeight() {
@@ -778,6 +771,7 @@ export default {
               vitalCode: item.vitalCode,
               wardCode: this.patientInfo.wardCode,
               classCode: item.classCode,
+
             };
             this.fieldList = { ...obj };
           }
@@ -785,6 +779,7 @@ export default {
         this.multiDictList = { ...data };
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
+        console.log(this.totalDictInfo,9)
         this.init();
       });
     },

@@ -295,6 +295,13 @@ export default function Title(
     );
   }
   break;
+  case "newunified_wx": {
+    // 威县-统一护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/newunified_wx/th").default)
+    );
+  }
+  break;
   case "intensive_care_wx": {
     // 威县-脑外科重症监护单
     Th = JSON.parse(
@@ -1586,6 +1593,13 @@ export default function Title(
     // 佛山市一 - 产程观察记录单(含静滴催产素记录单)
     Th = JSON.parse(
       JSON.stringify(require("../config/laborobservation_fs/th").default)
+    );
+  }
+  break;
+  case "babyarea_fs": {
+    // 佛山市一 - 爱婴区新生儿护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/babyarea_fs/th").default)
     );
   }
   break;

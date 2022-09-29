@@ -13,14 +13,14 @@ import {
 } from "../keyEvent/date";
 // let ysList = ['母乳喂养','人工喂养','混合喂养','清淡饮食','禁食','禁饮','禁食禁饮'];
 let ymList = ['勃脉力500ml', 'NS250m1+缩宫素', '0.9%NS100+托烷司琼', '0.9%NS100+昂丹司琼', '5%GS500m1', '地米5mg', '力月西', '芬太尼', '造影剂']
-let yfList = ['点滴', 'iv']
+let yfList = ['点滴', 'iv', '肌注', '含服', '口服']
 let tcList = ['是', '否']
 let twList = ['俯卧位', '平卧位']
-let pfList = ['完好']
-let xhList = ['好']
+let pfList = ['完整','皮损']
+let xhList = ['温','冷']
 let ttList = ['左小腿', '左大腿', '右小腿', '右大腿', '足背', '足跟', '臀部', '骶尾部', '腹部', '左腹股沟', '右腹股沟', '左臀部皮肤褶皱区', '右臀部皮肤褶皱区']
 let lxList = ['尿管', '腹腔引流管']
-let ylList = ['夹闭']
+let ylList = ['夹闭','开放']
 export default [
   // {
   //   key: "recordDate", //年份
@@ -182,16 +182,26 @@ export default [
 {
   key: "pain", // 疼痛
   value: "",
-  name: "疼痛",
+  name: "疼痛部位",
   next: "ml",
   event: keyf1,
   autoComplete: {
     data: ttList
   },
   textarea: {
-    width: 120
+    width: 60
   },
   splice: true
+},
+{
+  key: "painScore", // 疼痛
+  value: "",
+  name: "疼痛评分",
+  next: "ml",
+  event: keyf1,
+  textarea: {
+    width: 60
+  },
 },
 {
   key: "pipeType", // 类型

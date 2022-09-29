@@ -37,6 +37,11 @@
                 <i class="iconfont icon-chuangweiyilanqia"></i> 床位一览卡
               </el-row>
             </router-link>
+            <router-link to="/nursingDocumentation" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingDocumentation"></i> 患者查询
+              </el-row>
+            </router-link>
             <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
@@ -48,12 +53,12 @@
               </el-row>
             </router-link>-->
             <!-- 原来 -->
-            <!-- <router-link to="/formPage" tag="span">
+            <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理文书
               </el-row>
-            </router-link> -->
-            <el-dropdown
+            </router-link>
+            <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isNursing }"
             >
@@ -77,7 +82,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
              <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理计划单</el-row
@@ -164,12 +169,12 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
             </router-link>
-            <router-link to="/MEWS" tag="span">
+            <!-- <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulirenwu"></i> MEWS
                 <span class="red-tip" v-if="isTip"></span>
               </el-row>
-            </router-link>
+            </router-link> -->
             <!-- <router-link to="/sheetHospitalAdmission" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulijiludan"></i> 入院评估
@@ -377,6 +382,15 @@
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item
+                  :class="{ active: $route.path == '/badEvent' }"
+                >
+                <router-link to="/MEWS" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                <i class="iconfont icon-hulirenwu"></i> MEWS
+              </el-row>
+            </router-link>
+            </el-dropdown-item>
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/nursingDocumentation' }"
                 >
                   <router-link to="/nursingDocumentation" tag="span">
@@ -384,7 +398,7 @@
                       <i class="nursingDocumentation"></i>患者查询
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/workloadSatistics' }"
                 >
