@@ -336,7 +336,7 @@
                   >
                     <div class="rowItemText">
                       <!--新生儿的大便次数 叫做粪便-->
-                      <span>{{ index == '大便次数' ?'粪便':index }}</span>
+                      <span>{{ index == '尿量' ?'小便次数':index }}</span>
                     </div>
                     <el-tooltip
                       placement="top"
@@ -1079,7 +1079,7 @@ export default {
         const babyDic = []
         let obj = [];
         //去除科室配置的项目 根据vitalCode来显示筛查项目
-      const babyType = ['01','aurigo','funicle','breast','milk','061','033','3'] //婴儿显示项目
+      const babyType = ['01','aurigo','funicle','breast','milk','061','033','3','12'] //婴儿显示项目
       const withOutbabyType = ['aurigo','funicle','breast','milk'] //成年人不显示项目
       if(this.isBaby){
         res.data.data.map((list)=>{
