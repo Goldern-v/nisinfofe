@@ -256,8 +256,8 @@ import {
       name: '出量名称',
       next: '',
       autoComplete: { data: ['尿量','呕血','大便','颈部引流量','胸壁引流量','胃肠减压','T管引流','腹腔引流','闭式引流','PTCD引流','肝上引流','胰周引流','盆腔引流','腋下引流','皮下引流','骶前引流','腹膜引流']},
-      textarea:{ width:50},
-      change: (e, td) => limitChange(e, td, 8)
+      textarea:{ width:70},
+      change: (e, td) => limitChange(e, td, 10)
     },
     {
       key: "dischargeSize", //出量量
