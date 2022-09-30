@@ -181,3 +181,7 @@ export function getEditAge(patientId, visitId, itemMap) {
 export function getFormHeadData(patientId, visitId) {
   return axios.get(`${apiPath}form/getFormHeadData/${patientId}/${visitId}/sugar`);
 }
+/**获取打印记录 */
+export function getPrintRecord(params, formType, formCode) {
+  return axios.post(`${apiPath}form/common/getPrintRecord`, params)
+}
