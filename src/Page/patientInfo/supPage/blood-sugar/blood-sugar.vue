@@ -407,6 +407,7 @@
   .col-2 {
     width: 126px;
     padding: 0 16px;
+    border-right: none;
   }
 
   .col-3 {
