@@ -260,7 +260,7 @@ import {
       key: "foodSize", //入量量
       value: "",
       event: keyf1,
-      name: '入量量',
+      name: '入量',
       next: 'ml',
       textarea:{ width:32},
       change: (e, td) => limitChange(e, td, 4)
@@ -279,7 +279,7 @@ import {
       key: "dischargeSize", //出量量
       value: "",
       event: keyf1,
-      name: '出量量',
+      name: '出量',
       next: 'ml',
       textarea:{ width:32},
       change: (e, td) => limitChange(e, td, 4)
