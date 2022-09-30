@@ -157,6 +157,8 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
+      <span class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toYst')">医膳通</span>
+
     </div>
     <div style="height: 50px"></div>
   </div>
