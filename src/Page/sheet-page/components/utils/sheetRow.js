@@ -57,7 +57,7 @@ export function getRowNum(index) {
   } else if (process.env.HOSPITAL_ID === 'hengli' && sheetInfo.sheetType !== 'oxytocin_hl' && sheetInfo.sheetType !== 'blood_circulation_hl') {
     /* 横沥所有普通护记都返回20行 */
     return 20;
-  } else if (sheetInfo.sheetType === 'oxytocin_hl') {
+  } else if (sheetInfo.sheetType === 'oxytocin_hl' || sheetInfo.sheetType === 'oxytocin_sdlj') {
     if (index === 0) {
       return 20;
     } else {
