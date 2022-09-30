@@ -273,8 +273,7 @@ export default {
         } 
           savePrint(fromParams)
           .then(res => {
-            window.clearInterval(timer)
-            this.getPrintRecordData();
+            window.clearInterval(timer);
           }, err => {})
         },2000)
     }
