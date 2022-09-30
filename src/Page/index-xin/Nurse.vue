@@ -7,7 +7,11 @@
           user.week
         }}，祝您工作顺利，天天都有好心情。</span
       >
+      <span v-if="HOSPITAL_ID === 'foshanrenyi'">
+        <el-button type="primary" @click.native="goUrl('http://192.168.99.81:9091/')">操作手册</el-button>
+         </span>
     </div>
+
     <div class="main-content" flex="main:justify">
       <div class="content-left" flex-box="1">
         <table cellspacing="0" border="1" class="tables">
@@ -294,6 +298,9 @@ export default {
       this.centerDialogVisible = false;
       this.$router.push("/sheetPage");
     },
+    goUrl(src) {
+    window.open(src,"_blank")
+    },
     // 体征任务
     initBodyTast() {
       let time = moment().format("L");
@@ -304,6 +311,7 @@ export default {
           this.$set(this.body, "content", data);
           this.page1Loading = false;
         });
+        
     },
     init() {
       if (!this.deptCode) return;

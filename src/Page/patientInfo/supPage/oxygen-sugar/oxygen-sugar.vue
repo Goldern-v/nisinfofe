@@ -94,6 +94,40 @@
         ></whiteButton>
         <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"
         ></whiteButton>
+        <el-select
+          v-model="printRecordValue"
+          value-key="id"
+          size="small"
+          placeholder=""
+          class="select-con"
+          @visible-change="getPrintRecordData()"
+        >
+          <div class="sheetSelect-con-sheet">
+            <div class="head-con" flex="cross:stretch">
+              <div class="col-1">打印人</div>
+              <div class="col-2">打印时间</div>
+            
+            </div>
+            <el-option
+              v-for="item in printRecord"
+              :key="item.id"
+              :label="item.printName+' '+item.printTime"
+              :value="item"
+            >
+            <div class="list-con" flex="cross:stretch" v-if="!item.nodData">
+                <div class="col-1" :title="item.printName">
+                  {{ item.printName }}
+                </div>
+                <div class="col-2" :title="item.printTime">
+                  {{ item.printTime }}
+                </div>
+              </div>
+              <div v-if="item.nodData" style="text-align: center;width: 562px;height: 100px;padding-top: 50px;background:#fff;background: rgb(255, 255, 255);color: #000">
+                  暂无打印记录
+                </div>
+            </el-option>
+          </div>
+        </el-select>
       </div>
     </div>
     <!-- <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
@@ -102,7 +136,7 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .blood-sugar-con {
   .sugr-page {
     margin: 10px auto;
@@ -185,6 +219,98 @@
     }
   }
 }
+.select-con  {
+  width: 86px;
+  >>> .el-input__inner {
+    background: #fff;
+    border: 1px solid #cbd5dd;
+    border-radius: 2px;
+    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 30px;
+    margin-top: 10px;
+  }
+} 
+>>> .el-select .el-input .el-input__icon {
+    top: 63%;
+  }
+
+ >>> .el-select-dropdown__item.hover {
+    background: #fff;
+  }
+
+ >>> .el-select-dropdown__item:hover {
+    background: #E5F1F0;
+  }
+  >>> .el-select-dropdown__list, .el-select-dropdown__item {
+    padding: 0;
+    height: auto;
+  }
+
+ >>> .el-select-dropdown__wrap {
+    max-height: 500px;
+    min-width: 562px;
+  }
+  .sheetSelect-con-sheet {
+  background: #FFFFFF;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  width: 562px !important;
+  left: auto !important;
+  right: 120px;
+
+ 
+
+  .head-con {
+    height: 37px;
+    background: #F7FAFA;
+    border-bottom: 1px solid #EAEEF1;
+    font-size: 13px;
+    color: #333333;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .col-1, .col-2, .col-3, .col-4 {
+    display: flex;
+    align-items: center;
+  }
+
+  .col-1 {
+    width: 192px;
+    padding: 0 24px;
+    border-right: 1px solid #EAEEF1;
+  }
+
+  .col-2 {
+    width: 126px;
+    padding: 0 16px;
+  }
+
+  .col-3 {
+    width: 133px;
+    padding: 0 14px;
+    border-right: 1px solid #EAEEF1;
+  }
+
+  .col-4 {
+    width: 80px;
+    padding: 0 14px;
+  }
+
+  .list-con {
+    font-size: 13px;
+    color: #333333;
+    height: 37px;
+    border-bottom: 1px solid #EAEEF1;
+    display: flex;
+    align-items: center;
+  }
+
+
+ 
+}
 </style>
 
 <style lang="scss" scoped>
@@ -204,7 +330,7 @@
   }
 }
 .guizhou-btn {
-  /deep/ .white-btn {
+  >>> .white-btn {
     color: #000;
   }
 }
@@ -226,6 +352,7 @@ import {
   getPatientForm, //获取患者存在表单id
   rowSign,//行签名,
   deleteRecord, //删除本行
+  getPrintRecord
 } from "./api/index.js";
 import whiteButton from "@/components/button/white-button.vue";
 import sugarChart from "./components/sugar-chart.vue";
@@ -277,6 +404,8 @@ export default {
       leftData:[],
       rightData:[],
       isToPrint:false,
+      printRecord:[],
+      printRecordValue:''
     };
   },
   computed: {
@@ -366,6 +495,7 @@ export default {
     },
     async load() {
       this.pageLoading = true;
+     
       const listRes = await getPatientForm(this.patientInfo.patientId, this.patientInfo.visitId)
       if(listRes.data.code >= '200' && listRes.data.data != null){
         this.baseParams.id = listRes.data.data.id
@@ -377,6 +507,9 @@ export default {
           this.baseParams.formCode = this.fkOxygenCode
         }
         const resList = await getForm(this.baseParams.id, this.baseParams.formType, this.baseParams.formCode)
+        if( this.HOSPITAL_ID === 'whfk'){
+          this.getPrintRecordData();
+        }
         this.baseParams.id ='',
         this.hisPatSugarList = resList.data.data.list;
         this.saveParams = resList.data.data
@@ -421,7 +554,11 @@ export default {
       // this.isToPrint=false;
       if (process.env.NODE_ENV === "production") {
         let newWid = window.open();
-        newWid.location.href = "/crNursing/print/oxygen";
+          if(this.HOSPITAL_ID === 'whfk'){
+            newWid.location.href = `/crNursing/print/oxygen?patientId=${this.saveParams.patientId}&visitId=${this.saveParams.visitId}&formId=${this.saveParams.id}&formType=${this.saveParams.type}&formCode=${this.saveParams.code}&formName=${this.saveParams.codeName}`; 
+          }else{
+            newWid.location.href = "/crNursing/print/oxygen";
+          }
       } else {
         this.$router.push(`/print/oxygen`);
       }
@@ -498,6 +635,28 @@ export default {
           Number(this.$refs.Contain.style.top.split("px")[0]) + 20 + "px";
       }
     },
+    getPrintRecordData(){
+      const fromParams = {
+        patientId:this.saveParams.patientId,
+        visitId:this.saveParams.visitId,
+        formId:this.saveParams.id,
+        formType:this.saveParams.type,
+        formCode:this.saveParams.code,
+        formName:this.saveParams.codeName
+      }
+      getPrintRecord(fromParams)
+      .then(res => {
+      this.printRecord = res.data.data&&res.data.data.length>0?res.data.data:[{printName:'',printTime:'',nodData:true}];
+      this.printRecordValue = this.printRecord[0]? this.printRecord[0]['printName']+' '+this.printRecord[0]['printTime']:'';
+      }, err => {
+
+      });
+    },
+  },
+  mounted(){
+    if( this.HOSPITAL_ID === 'whfk'&& this.saveParams.patientId){
+      this.getPrintRecordData();
+    }
   },
   created() {
     if (this.$route.query.patientId) {

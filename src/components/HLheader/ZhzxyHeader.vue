@@ -126,6 +126,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
             </router-link> -->
+            <router-link to="/shiftWork" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 交班志
+              </el-row>
+            </router-link>
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
@@ -137,6 +142,7 @@
                 <div class="before"></div>
                 <i class="iconfont icon-hulijiludan"></i>执行单
               </el-row>
+              
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"

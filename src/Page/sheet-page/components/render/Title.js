@@ -295,6 +295,13 @@ export default function Title(
     );
   }
   break;
+  case "newunified_wx": {
+    // 威县-统一护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/newunified_wx/th").default)
+    );
+  }
+  break;
   case "intensive_care_wx": {
     // 威县-脑外科重症监护单
     Th = JSON.parse(
@@ -1589,6 +1596,13 @@ export default function Title(
     );
   }
   break;
+  case "babyarea_fs": {
+    // 佛山市一 - 爱婴区新生儿护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/babyarea_fs/th").default)
+    );
+  }
+  break;
   case "nonsurgicalcare_fk": {
     // 武汉肺科 - 非手术科室护理记录单
     Th = JSON.parse(
@@ -1964,6 +1978,34 @@ export default function Title(
     // 青海五院 - 耳鼻喉科护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/entnursing_qhwy/th").default)
+    );
+  }
+  break;
+  case "obstetrics_qhwy": {
+    // 青海五院 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/obstetrics_qhwy/th").default)
+    );
+  }
+  break;
+  case "orthopedics_qhwy": {
+    // 青海五院 - 骨科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopedics_qhwy/th").default)
+    );
+  }
+  break;
+  case "chemotherapy_qhwy": {
+    // 青海五院 - 化疗观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/chemotherapy_qhwy/th").default)
+    );
+  }
+  break;
+  case "neurosurgery_qhwy": {
+    // 青海五院 - 神经外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurosurgery_qhwy/th").default)
     );
   }
   break;

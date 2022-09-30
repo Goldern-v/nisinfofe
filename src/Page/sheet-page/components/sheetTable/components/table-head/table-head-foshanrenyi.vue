@@ -102,7 +102,7 @@
           {{ patientInfo.realDeptName }}
         </div>
       </span>
-  
+
       <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
@@ -218,16 +218,23 @@
 
     </div>
     <div class="info-con info-con_select"  v-if="sheetInfo.sheetType == 'laborobservation_fs'">
-      <span>
+      <span style="display:flex;">
         娩出方式：
-        <el-select v-model="sheetInfo.relObj.deliveryMOde" multiple placeholder="">
+        <customSelectCanRepeat
+          :options="options"
+          multiple
+          @onSelect="(val) => setRelValue('deliveryMOde', val)"
+        >
+          <input type="text" v-model="sheetInfo.relObj.deliveryMOde" style="width:250px;">
+        </customSelectCanRepeat>
+        <!-- <el-select v-model="sheetInfo.relObj.deliveryMOde" multiple placeholder="">
           <el-option
             v-for="item in options"
             :key="item.value"
             :label="item.label"
             :value="item.value">
           </el-option>
-  </el-select>
+  </el-select> -->
       </span>
     </div>
     <div class="info-con">
@@ -289,6 +296,7 @@ import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
 import bedRecordModal from "../../../modal/bedRecord-modal";
 import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
+import customSelectCanRepeat from '@/components/customSelectCanRepeat/CustomSelectCanRepeat.vue'
 
 export default {
   props: {
@@ -302,22 +310,22 @@ export default {
       sheetInfo,
       options: [{
           value: '顺产',
-          label: '顺产'
+          name: '顺产'
         }, {
           value: '吸引产',
-          label: '吸引产'
+          name: '吸引产'
         }, {
           value: '剖宫产',
-          label: '剖宫产'
+          name: '剖宫产'
         }, {
           value: '钳产',
-          label: '钳产'
+          name: '钳产'
         }, {
           value: '臀助产',
-          label: '臀助产'
+          name: '臀助产'
         }, {
           value: '臀牵引',
-          label: '臀牵引'
+          name: '臀牵引'
         }],
     };
   },
@@ -366,6 +374,9 @@ export default {
     },
   },
   methods: {
+    setRelValue(code, val) {
+      this.$set(this.sheetInfo.relObj, code, val)
+    },
     openBedRecordModal(){
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
@@ -431,7 +442,8 @@ export default {
   watch: {},
   components: {
     bedRecordModal,
-    crDatePicker
+    crDatePicker,
+    customSelectCanRepeat
   },
 };
 </script>
@@ -463,6 +475,13 @@ input {
   width: 520px;
 }
 .info-con_select /deep/.el-input__icon{
+  display: none;
+}
+.info-con_select /deep/.el-tag{
+  background: #fff;
+  border: none;
+}
+.info-con_select /deep/.el-tag__close{
   display: none;
 }
 

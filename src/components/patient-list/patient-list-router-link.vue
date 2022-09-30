@@ -33,7 +33,6 @@
         <el-button :type="!isGroup?'primary':''" @click="isGroup = false">全部床位</el-button>
       </el-button-group>
       <div class="patient-list-contain">
-        <!-- path: "/hospitalEval/:patientId?/:visitId?/:formId?" @click="selectPatient(item)"-->
         <router-link
           class="patient-box"
           flex="cross:center"
@@ -307,7 +306,9 @@ export default {
       noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
       isGroup:false ,// 是否选中管床
       makePatient:'',// 贵州护理巡视表的点击患者
-      lockHospitalList:['huadu']//有锁定功能的医院
+      lockHospitalList:['huadu'],//有锁定功能的医院
+      // 进入页面是否自动选择第一个患者
+      isAutoSelect: this.HOSPITAL_ID === 'lyxrm'
     };
   },
   methods: {
@@ -328,7 +329,6 @@ export default {
     },
     getDate() {
       if (this.deptCode) {
-        // console.log("获取病人列表", this.deptCode);
         this.patientListLoading = true;
         let config = process.env.hasFollow ? {showFollew:true} : null
         patients(this.deptCode,config).then((res) => {
@@ -350,7 +350,6 @@ export default {
     },
     selectPatient(patient) {
       this.selectPatientId = patient.patientId;
-      //
       console.log(
         "selectPatient",
         patient,
@@ -420,6 +419,21 @@ export default {
         [this.$route.params]
       );
     },
+    /**初始自动选择第一个患者 by临邑 */
+    selectFirstPatient() {
+      if(!this.isAutoSelect) return
+      if (this.sortList.length === 0) return this.$router.push('/sheetPage')
+      const item = this.sortList[0]
+      this.$router.replace({
+        name: this.toName,
+        params: {
+          patientId: item.patientId,
+          visitId: item.visitId,
+          formId: item.id,
+          inpNo: item.inpNo,
+        }
+      })
+    },
   },
   computed: {
     isAdmissionHisView(){
@@ -435,8 +449,6 @@ export default {
     },
     //排序对应婴儿数据
     sortList() {
-      let cacheGetList = [];
-      let endList = [];
       let cacheList = JSON.parse(JSON.stringify(this.list));
       for (let i = 0; i < cacheList.length; i++) {
         // 736
@@ -462,10 +474,10 @@ export default {
       let sortData = [];
       for (let i = 0; i < cacheList.length; i++) {
         let filter1Array = [];
-        let sortFliter = [];
+        let sortFilter = [];
         let cacheData = [];
         if (!cacheList[i].babyName) {
-          sortFliter.push(cacheList[i]);
+          sortFilter.push(cacheList[i]);
         }
         for (let j = 0; j < cacheList.length; j++) {
           if (
@@ -478,7 +490,7 @@ export default {
             filter1Array.push(cacheList[j]);
           }
         }
-        cacheData = sortFliter.concat(filter1Array);
+        cacheData = sortFilter.concat(filter1Array);
         sortData = sortData.concat(cacheData);
       }
       let putSortList = [];
@@ -492,7 +504,7 @@ export default {
           JSON.parse(JSON.stringify(putSortList))
         );
       } catch (error) {}
-
+      console.log('test-only-sort')
       return putSortList;
     },
     openLeft() {
@@ -513,14 +525,13 @@ export default {
     groupBedList(){
       return this.baseBedList.filter(item=>item.focus)
     },
-    
   },
   watch: {
-    deptCode(ndata, odata) {
+    deptCode(nowData) {
       // 清空当前选中病人
       if(!this.noClearnCurrentPatient.includes(this.HOSPITAL_ID))this.$store.commit("upCurrentPatientObj", new Object());
 
-      if (ndata == "051102") {
+      if (nowData == "051102") {
         this.img1Show = false;
         this.img2Show = true;
       } else {
@@ -528,6 +539,13 @@ export default {
         this.img2Show = false;
       }
       this.getDate();
+      if (this.isAutoSelect && this.$route.path.indexOf('/sheetPage') > -1) {
+        this.$router.push('/sheetPage')
+        this.$nextTick(() => {
+          console.log('test-only-next')
+          this.selectFirstPatient()
+        })
+      }
       //
     },
     "$route.params.patientId": "fetchData",
@@ -540,8 +558,14 @@ export default {
         this.makePatient = '';
         this.$store.commit("upMakePatient", '');
       }
+    },
+    'sortList.length': {
+      handler(n, o) {
+        if (n && (n != o || this.$route.path == '/sheetPage')) {
+          this.selectFirstPatient()
+        }
+      }
     }
-    
   },
   created() {
     if (this.deptCode) {

@@ -325,6 +325,11 @@ function switchSheetType(type) {
       schema = require("../config/unified_wx/tr.js").default;
     }
       break;
+    case "newunified_wx": {
+      // 威县- 新统一护理记录单
+      schema = require("../config/newunified_wx/tr.js").default;
+    }
+     break;
     case "intensive_care_wx": {
       // 威县-脑外科重症监护单
       schema = require("../config/intensive_care_wx/tr.js").default;
@@ -1251,6 +1256,11 @@ function switchSheetType(type) {
       schema = require("../config/laborobservation_fs/tr.js").default;
     }
       break;
+    case "babyarea_fs": {
+      // 佛山市一 - 爱婴区新生儿护理记录
+      schema = require("../config/babyarea_fs/tr.js").default;
+    }
+      break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;
@@ -1526,6 +1536,26 @@ function switchSheetType(type) {
       schema = require("../config/entnursing_qhwy/tr.js").default;
     }
       break;
+    case "obstetrics_qhwy": {
+        // 青海五院 - 产科护理记录单
+      schema = require("../config/obstetrics_qhwy/tr.js").default;
+    }
+      break;
+    case "orthopedics_qhwy": {
+        // 青海五院 - 骨科护理记录单
+      schema = require("../config/orthopedics_qhwy/tr.js").default;
+    }
+      break;  
+    case "chemotherapy_qhwy": {
+        // 青海五院 - 化疗观察记录单
+      schema = require("../config/chemotherapy_qhwy/tr.js").default;
+    }
+      break; 
+    case "neurosurgery_qhwy": {
+        // 青海五院 - 神经外科护理记录单
+      schema = require("../config/neurosurgery_qhwy/tr.js").default;
+    }
+      break; 
     case "nurse_jew": {
         // 925医院 - 一般患者护理记录单
       schema = require("../config/nurse_jew/tr.js").default;

@@ -559,6 +559,8 @@
             sheetInfo.sheetType == 'magnesiumsulf_fs' ||
             sheetInfo.sheetType == 'laborobservation_fs' ||
             sheetInfo.sheetType === 'pediatric3_tj'||
+            sheetInfo.sheetType === 'prenataldelivery2_tj'||
+            sheetInfo.sheetType === 'postpartum2_tj'||
             HOSPITAL_ID == 'fsxt'
           "
           >质控护士：</span
@@ -749,6 +751,8 @@ export default {
         "magnesiumsulf_fs",
         "laborobservation_fs",
         "pediatric3_tj",
+        "prenataldelivery2_tj",
+        "postpartum2_tj",
         'nurse_jew',
         'danger_nurse_jew'
       ],
@@ -887,6 +891,9 @@ export default {
       let year=this.data.bodyModel[0][0].value.split("-")[0]
       if((this.HOSPITAL_ID==='fuyou'||this.HOSPITAL_ID==='whfk'||this.HOSPITAL_ID==='fsxt')&&year){
         year=`${year}年`
+      }
+      if(this.HOSPITAL_ID === 'foshanrenyi' && this.sheetInfo.sheetType == 'babyarea_fs'){
+         year=`${year || moment().format('YYYY')}年`
       }
       if(['wujing'].includes(this.HOSPITAL_ID)){
         let value = this.data.bodyModel[0].find(item=>item.key==="recordYear").value

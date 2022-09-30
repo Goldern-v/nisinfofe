@@ -208,8 +208,9 @@ import {
         name: '安全护理',
         next: '',
         autoComplete: { data: ['√','腕带','床档','约束带']},
-        textarea:{ width:32},
-        change: (e, td) => limitChange(e, td, 4)
+        splice:true,
+        textarea:{ width:60},
+        change: (e, td) => limitChange(e, td, 10)
     },
     {
       key: "food", //入量名称

@@ -624,7 +624,7 @@ export default {
           [
             "zhongshanqi", "liaocheng",  "beihairenyi",'ytll',
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
-            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','qhwy'
+            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','qhwy','zhzxy'
           ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
@@ -660,6 +660,7 @@ export default {
       })
       return list;
     },
+    // 新医院注意
     // 同步床位数据
     showSyncBedBtn() {
       return [
@@ -684,15 +685,17 @@ export default {
         'whsl',
         'whhk',
         'zhzxy',
-        'nfyksdyy'
+        'nfyksdyy',
+        '925',
         ].includes(
         this.HOSPITAL_ID
       );
     },
+    // 新医院注意
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy'
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925'
         ].includes(
         this.HOSPITAL_ID
       );

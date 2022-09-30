@@ -18,8 +18,8 @@ export default {
     th: {
         top:
             [
-                { "name": "日期", "colspan": "1", "rowspan": "3"},
-                { "name": "时间", "colspan": "1", "rowspan": "3"},
+                { "name": "日期", "colspan": "1", "rowspan": "3","style":{"minWidth":"35px","maxWidth":"35px"}},
+                { "name": "时间", "colspan": "1", "rowspan": "3","style":{"minWidth":"35px","maxWidth":"35px"}},
                 { "name": "生命体征", "colspan": "8", "rowspan": "1"},
                 { "name": "入量", "colspan": "2", "rowspan": "1"},
                 { "name": "出量", "colspan": "2", "rowspan": "1"},

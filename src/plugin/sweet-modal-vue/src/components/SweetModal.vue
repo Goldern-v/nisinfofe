@@ -180,7 +180,7 @@
       </div>
 
       <!-- Buttons -->
-      <div class="sweet-buttons djw" v-if="$slots.button">
+      <div class="sweet-buttons" v-if="$slots.button">
         <slot name="button"></slot>
       </div>
     </div>
