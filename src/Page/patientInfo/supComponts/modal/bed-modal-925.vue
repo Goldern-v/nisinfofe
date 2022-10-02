@@ -76,8 +76,23 @@
           <input type="text" />
         </div>
         <div class="hs-line2 flex-between">
-          <span class="label">主管医生：{{ formData.mainDoctors }}</span>
-          <span class="label">责任护士：{{ formData.dutyNurses }}</span>
+          <div class="input-item">
+            <span class="label">主管医生：</span>
+            <input
+              noWidth
+              type="text"
+              v-model="formData.mainDoctors"
+            />
+          </div>
+          <div class="input-item">
+            <span class="label">责任护士：</span>
+            <input
+              noWidth
+              type="text"
+              v-model="formData.dutyNurses"
+            />
+          </div>
+
         </div>
         <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
       </div>
@@ -116,7 +131,6 @@
             noWidth
             type="text"
             class="bottom-line"
-            readonly
             v-model="formData.mainDoctors"
           />
         </div>
@@ -126,7 +140,6 @@
             noWidth
             type="text"
             class="bottom-line"
-            readonly
             v-model="formData.dutyNurses"
           />
         </div>
@@ -318,7 +331,19 @@
   .hs-line2 {
     width: calc(100% - 110px);
     display: flex;
+    div.input-item {
+      display: flex;
+      height: 26px;
+      padding-right: 2px;
+      font-size: 20px;
+    }
+    .label {
+      margin-right: 0px;
+      line-height: 26px;
+    }
+
     input {
+      padding: 0px;
       flex: 1;
       font-size: 20px;
       line-height: 26px;
