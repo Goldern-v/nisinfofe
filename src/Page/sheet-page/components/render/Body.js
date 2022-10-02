@@ -1366,6 +1366,11 @@ function switchSheetType(type) {
       schema = require("../config/mild_hypothermia_sdlj/tr.js").default;
     }
       break;
+    case "oxytocin_sdlj": {
+      // 顺德龙江-催产素静脉点滴观察单
+      schema = require("../config/oxytocin_sdlj/tr.js").default;
+    }
+      break;
     case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）
       schema = require("../config/cardiovascular_xt/tr.js").default;
@@ -1531,6 +1536,26 @@ function switchSheetType(type) {
       schema = require("../config/entnursing_qhwy/tr.js").default;
     }
       break;
+    case "obstetrics_qhwy": {
+        // 青海五院 - 产科护理记录单
+      schema = require("../config/obstetrics_qhwy/tr.js").default;
+    }
+      break;
+    case "orthopedics_qhwy": {
+        // 青海五院 - 骨科护理记录单
+      schema = require("../config/orthopedics_qhwy/tr.js").default;
+    }
+      break;  
+    case "chemotherapy_qhwy": {
+        // 青海五院 - 化疗观察记录单
+      schema = require("../config/chemotherapy_qhwy/tr.js").default;
+    }
+      break; 
+    case "neurosurgery_qhwy": {
+        // 青海五院 - 神经外科护理记录单
+      schema = require("../config/neurosurgery_qhwy/tr.js").default;
+    }
+      break; 
     case "nurse_jew": {
         // 925医院 - 一般患者护理记录单
       schema = require("../config/nurse_jew/tr.js").default;

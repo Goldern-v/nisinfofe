@@ -219,6 +219,40 @@
           :text="'血糖登记数'+registNum"
           @click="()=>{}"
         ></whiteButton>
+        <el-select
+          v-model="printRecordValue"
+          value-key="id"
+          size="small"
+          placeholder=""
+          class="select-con"
+          @visible-change="getPrintRecordData()"
+        >
+          <div class="sheetSelect-con-sheet">
+            <div class="head-con" flex="cross:stretch">
+              <div class="col-1">打印人</div>
+              <div class="col-2">打印时间</div>
+            
+            </div>
+            <el-option
+              v-for="item in printRecord"
+              :key="item.id"
+              :label="item.printName+' '+item.printTime"
+              :value="item"
+            >
+              <div class="list-con" flex="cross:stretch" v-if="!item.nodData">
+                <div class="col-1" :title="item.printName">
+                  {{ item.printName }}
+                </div>
+                <div class="col-2" :title="item.printTime">
+                  {{ item.printTime }}
+                </div>
+              </div>
+              <div v-if="item.nodData" style="text-align: center;width: 562px;height: 100px;padding-top: 50px;background:#fff;background: rgb(255, 255, 255);color: #000">
+                  暂无打印记录
+                </div>
+            </el-option>
+          </div>
+        </el-select>
       </div>
     </div>
     <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
@@ -227,7 +261,7 @@
   </div>
 </template>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .blood-sugar-con {
   .sugr-page {
     margin: 20px auto;
@@ -306,6 +340,96 @@
     }
   }
 }
+.select-con  {
+  width: 110px;
+  >>> .el-input__inner {
+    background: #fff;
+    border: 1px solid #cbd5dd;
+    border-radius: 2px;
+    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 30px;
+    margin-top: 10px;
+  }
+} 
+>>> .el-select-dropdown__list, .el-select-dropdown__item {
+    padding: 0;
+    height: auto;
+  }
+
+>>> .el-select-dropdown__wrap {
+  max-height: 500px;
+  min-width: 562px;
+}
+>>> .el-select-dropdown__empty {
+  min-width: 562px;
+}
+>>>.el-select .el-input .el-input__icon {
+  top: 63%;
+}
+
+>>> .el-select-dropdown__item.hover {
+  background: #fff;
+}
+
+>>> .el-select-dropdown__item:hover {
+  background: #E5F1F0;
+}
+.sheetSelect-con-sheet {
+  background: #FFFFFF;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  width: 562px !important;
+  left: auto !important;
+  right: 120px;
+  .head-con {
+    height: 37px;
+    background: #F7FAFA;
+    border-bottom: 1px solid #EAEEF1;
+    font-size: 13px;
+    color: #333333;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .col-1, .col-2, .col-3, .col-4 {
+    display: flex;
+    align-items: center;
+  }
+
+  .col-1 {
+    width: 192px;
+    padding: 0 24px;
+    border-right: 1px solid #EAEEF1;
+  }
+
+  .col-2 {
+    width: 126px;
+    padding: 0 16px;
+    border-right: none;
+  }
+
+  .col-3 {
+    width: 133px;
+    padding: 0 14px;
+    border-right: 1px solid #EAEEF1;
+  }
+
+  .col-4 {
+    width: 80px;
+    padding: 0 14px;
+  }
+
+  .list-con {
+    font-size: 13px;
+    color: #333333;
+    height: 37px;
+    border-bottom: 1px solid #EAEEF1;
+    display: flex;
+    align-items: center;
+  }
+}
 </style>
 
 <style lang="scss" scoped>
@@ -325,10 +449,11 @@
   }
 }
 .guizhou-btn{
-  /deep/ .white-btn{
+  >>> .white-btn{
     color: #000;
   }
 }
+
 </style>
 
 
@@ -343,7 +468,8 @@ import {
   getPvHomePage,
   getSugarItemDict,
   getEditAge,
-  getFormHeadData
+  getFormHeadData,
+  getPrintRecord
 } from "./api/index.js";
 import whiteButton from "@/components/button/white-button.vue";
 import sugarChart from "./components/sugar-chart.vue";
@@ -378,6 +504,8 @@ export default {
       registNum:0,//血糖登记次数
       hisUserTitLeList:['huadu'],//表头用户信息通过获取用户信息接口获取的医院
       sugarUserInfo:{},//患者基础信息
+      printRecord:[],
+      printRecordValue:''
     };
   },
   computed: {
@@ -498,6 +626,9 @@ if(this.selected.expand2!==undefined){
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
+      if( this.HOSPITAL_ID === 'whfk'){
+        this.getPrintRecordData();
+      }
       this.tableHeaderInfo=res.data.data
       if(res.data.data.hisPatSugarList.length != 0){
         this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel
@@ -548,15 +679,28 @@ if(this.selected.expand2!==undefined){
         window.localStorage.sugarModel = $(this.$refs.Contain).html();
         this.$router.push(`/print/sugar`);
       } else {
+        const fromParams = {
+          patientId:this.patientInfo.patientId,
+          visitId:this.patientInfo.visitId,
+          formId:this.patientInfo.formId,
+          formType: "sugar",
+          formCode: "procedure",
+          formName:'血糖监测单',
+        }
         window.localStorage.sugarModel = $(this.$refs.Contain).html();
         if (process.env.NODE_ENV === "production") {
           let newWid = window.open();
-          newWid.location.href = "/crNursing/print/sugar";
+          if(this.HOSPITAL_ID === 'whfk'){
+            newWid.location.href = `/crNursing/print/sugar?patientId=${this.patientInfo.patientId}&visitId=${this.patientInfo.visitId}&formId=${this.patientInfo.formId}&formType=${"sugar"}&formCode=${"procedure"}&formName=${'血糖监测单'}`; 
+          }else{
+            newWid.location.href = "/crNursing/print/sugar";
+          }
         } else {
           this.$router.push(`/print/sugar`);
         }
       }
     },
+
     openChart() {
       // this.$refs.sugarChartModal.open()
       this.isChart = !this.isChart;
@@ -672,6 +816,28 @@ if(this.selected.expand2!==undefined){
           Number(this.$refs.Contain.style.top.split("px")[0]) + 20 + "px";
       }
     },
+    getPrintRecordData(){
+      const fromParams = {
+        patientId:this.patientInfo.patientId,
+        visitId:this.patientInfo.visitId,
+        formId:this.patientInfo.formId,
+        formType: "sugar",
+        formCode: "procedure",
+        formName:'血糖监测单',
+      }
+      getPrintRecord(fromParams)
+      .then(res => {
+        this.printRecord = res.data.data&&res.data.data.length>0?res.data.data:[{printName:'',printTime:'',nodData:true}];
+        this.printRecordValue = this.printRecord[0]? this.printRecord[0]['printName']+' '+this.printRecord[0]['printTime']:'';
+      }, err => {
+
+      });
+    },
+  },
+  mounted(){
+    if( this.HOSPITAL_ID === 'whfk' &&this.patientInfo.patientId){
+      this.getPrintRecordData();
+    }
   },
   async created() {
     if (this.$route.query.patientId) {
@@ -685,6 +851,7 @@ if(this.selected.expand2!==undefined){
     if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
       this.getSugarItemDict();
     }
+    
     if (this.HOSPITAL_ID == "lingcheng") {
       this.getFormHead();
     }

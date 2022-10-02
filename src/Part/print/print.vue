@@ -152,7 +152,7 @@
 
 .print-box {
   // display table
-  // min-height 100vh
+  // min-height 100vh   
   // padding-left: 60px
   margin-top: 26px;
   margin-right: 60px;
@@ -206,6 +206,8 @@ import lcHealth from "./component/lcHealth-print-page";
 import growthPrintPage from "./component/growth-print-page.vue";
 import birthCertificatePrint from "./component/birth-certificate-print.vue";
 import diagnosisPrintPage from "./component/diagnosis-print-page.vue";
+
+import { savePrint } from "./api/index";
 import bus from "vue-happy-bus";
 import { setTimeout } from "timers";
 export default {
@@ -257,9 +259,24 @@ export default {
       this.canPrint = true;
     }, 1000);
     window.document.body.style.background = "#dfdfdf";
-    window.onafterprint = (a, b, c) => {
-      console.log(a, b, c, 123);
-    };
+   
+    if(this.HOSPITAL_ID === 'whfk'){
+      const timer =  setInterval(window.onafterprint = (res)=>{
+        var url =window.location.href;
+        var fromParams = {};
+        var arr = url.split('?').pop().split('#').shift().split('&');
+        console.log(arr);
+        for(var i = arr.length-1;i>=0;i--){
+            var k = arr[i].split('=')[0];
+            var val = arr[i].split('=')[1];
+            fromParams[k] = val;
+        } 
+          savePrint(fromParams)
+          .then(res => {
+            window.clearInterval(timer);
+          }, err => {})
+        },2000)
+    }
   },
   components: {
     shfitPrint,

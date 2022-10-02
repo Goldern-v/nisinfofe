@@ -23,11 +23,6 @@
       :style="{ height: containHeight }"
     >
       <div class="left-part">
-        <!-- <patientList
-          :data="data.bedList"
-          :isSelectPatient="isSelectPatient"
-          v-loading="patientListLoading"
-        ></patientList>-->
 
         <patientList
           :toName="
@@ -227,7 +222,6 @@
 <script>
 import sheetTool from "./components/sheet-tool/sheet-tool.vue";
 import doctorEmr from "@/components/doctorEmr";
-// import patientList from "@/components/patient-list/patient-list.vue";
 import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import sheetTable from "./components/sheetTable/sheetTable.vue";
 import sheetTableNeonatology from "./components/sheetTable-neonatology/sheetTable";
@@ -257,6 +251,7 @@ import sheetTable_nicu_custody_hd from "./components/sheetTable-nicu_custody_hd/
 import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/sheetTable";
 import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
+import sheetTable_oxytocin_sdlj from "./components/sheetTable-oxytocin_sdlj/sheetTable";
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
@@ -435,6 +430,8 @@ export default {
         return sheetTable_emergency_rescue;
       } else if (sheetInfo.sheetType == "oxytocin_hl") {
         return sheetTable_oxytocin_hl;
+      } else if (sheetInfo.sheetType == "oxytocin_sdlj") {
+        return sheetTable_oxytocin_sdlj;
       } else if (sheetInfo.sheetType == "dressing_count_hl") {
         return sheetTable_dressing_count_hl;
       } else if (sheetInfo.sheetType == "intersurgerycure_qzx") {
@@ -525,9 +522,9 @@ export default {
         this.bus.$emit("openNewSheetModal");
       }
     },
-  getSheetData(isBottom) {
-    //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
-    this.done=false
+    getSheetData(isBottom) {
+      //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
+      this.done=false
       this.tableLoading = true;
       if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
         this.isLoad=false
@@ -1021,6 +1018,77 @@ export default {
         }
       }
     });
+
+    this.bus.$on("toSheetPrintPagewhfk", (obj) => {
+      const newWid = obj.newWid,fromParams=obj.fromParams;
+      if ($(".sign-text").length) {
+        // 判断是否存在标记
+        if ($(".mark-mark-mark").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".mark-mark-mark").eq(0).addClass("red-border").offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150,
+          });
+          return this.$message.warning("打印前必须去除所有标记");
+        }
+        // 判断是否存在未签名
+        if ($(".noSignRow").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".noSignRow").eq(0).addClass("red-border").offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150,
+          });
+          return this.$message.warning("存在未签名的记录，请全部签名后再打印");
+        }
+        if ($(".multiSign").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".multiSign").eq(0).addClass("red-border").offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150,
+          });
+          return this.$message.warning("记录存在多个签名，或者忘记填写时间");
+        }
+      }
+      if ($(".isNoSign") && $(".isNoSign").length) {
+        $(".signTd").eq(0).addClass("red-border");
+        $(this.$refs.scrollCon).animate({
+          scrollTop:
+            $(".isNoSign").eq(0).offset().top +
+            this.$refs.scrollCon.scrollTop -
+            150,
+        });
+        return this.$message.warning("存在未签名的记录，请全部签名后再打印");
+      }
+
+      // 对存储空间不够做处理
+      try {
+        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+      } catch (err) {
+        // 可能要预留下来的 暂时不移除
+        let keys = [
+          "selectDeptValue",
+          "rememberAccount",
+          "ppp",
+          "user",
+          "adminNurse",
+        ];
+        for (let key in localStorage) {
+          if (!keys.includes(key)) {
+            localStorage.removeItem(key);
+          }
+        }
+        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+      }
+     
+      // if (process.env.NODE_ENV === "production") {
+        newWid.location.href = `/crNursing/print/sheetPage?&patientId=${fromParams.patientId}&visitId=${fromParams.visitId}&formId=${fromParams.formId}&formType=${'record'}&formCode=${fromParams.formCode}&formName=${fromParams.formName}`;
+      // } else {
+      //   this.$router.push(`/print/sheetPage`);
+      // }
+    });
     this.bus.$on("openHJModal", () => {
       this.$refs.HjModal.open();
     });
@@ -1180,6 +1248,7 @@ export default {
     sheetTable_nicu_custody_jm,
     doctorEmr,
     sheetTable_oxytocin_hl,
+    sheetTable_oxytocin_sdlj,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,

@@ -1757,6 +1757,13 @@ export default function Title(
     );
   }
   break;
+  case "oxytocin_sdlj": {
+    // 顺德龙江-催产素静脉点滴观察单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_sdlj/th").default)
+    );
+  }
+  break;
   case "criticaldisease_xt": {
     // 佛山杏坛 - 危重症护理记录单
     Th = JSON.parse(
@@ -1971,6 +1978,34 @@ export default function Title(
     // 青海五院 - 耳鼻喉科护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/entnursing_qhwy/th").default)
+    );
+  }
+  break;
+  case "obstetrics_qhwy": {
+    // 青海五院 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/obstetrics_qhwy/th").default)
+    );
+  }
+  break;
+  case "orthopedics_qhwy": {
+    // 青海五院 - 骨科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopedics_qhwy/th").default)
+    );
+  }
+  break;
+  case "chemotherapy_qhwy": {
+    // 青海五院 - 化疗观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/chemotherapy_qhwy/th").default)
+    );
+  }
+  break;
+  case "neurosurgery_qhwy": {
+    // 青海五院 - 神经外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurosurgery_qhwy/th").default)
     );
   }
   break;

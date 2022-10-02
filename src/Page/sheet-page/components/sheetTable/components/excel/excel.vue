@@ -892,6 +892,9 @@ export default {
       if((this.HOSPITAL_ID==='fuyou'||this.HOSPITAL_ID==='whfk'||this.HOSPITAL_ID==='fsxt')&&year){
         year=`${year}年`
       }
+      if(this.HOSPITAL_ID === 'foshanrenyi' && this.sheetInfo.sheetType == 'babyarea_fs'){
+         year=`${year || moment().format('YYYY')}年`
+      }
       if(['wujing'].includes(this.HOSPITAL_ID)){
         let value = this.data.bodyModel[0].find(item=>item.key==="recordYear").value
         year = value || ''
