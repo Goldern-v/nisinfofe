@@ -1,14 +1,14 @@
 <template>
   <div class="header-con">
     <div class="his-name" style="font-size:26px;margin-bottom:10px">{{ HOSPITAL_NAME_SPACE }}</div>
-    <div class="title" style="font-size:0px" v-if="sheetInfo.sheetType=='nurse_jew'">
-      <div class="nurse_title" style="border-bottom: 1px solid #000;padding:0 5px">一般</div>
+    <div class="title" style="font-size:0px" v-if="sheetInfo.sheetType=='nurse_jew' || sheetInfo.sheetType== 'danger_nurse_jew'">
+      <div class="nurse_title" style="border-bottom: 1px solid #000;padding:0 5px">{{ "" | filtertitle(nurseLevel)}}</div>
       <div class="nurse_title">患者护理记录单</div>
     </div>
-    <div class="title" style="font-size:0px" v-else-if="sheetInfo.sheetType=='danger_nurse_jew'">
+    <!-- <div class="title" style="font-size:0px" v-else-if="sheetInfo.sheetType=='danger_nurse_jew'">
       <div class="nurse_title" style="border-bottom: 1px solid #000;padding:0 5px">危重</div>
       <div class="nurse_title">患者护理记录单</div>
-    </div>
+    </div> -->
     <div class="title" style="font-size:30px" v-else>{{ patientInfo.recordName }}</div>
     <div class="info-con" flex="main:justify">
       <span>
@@ -196,6 +196,9 @@ export default {
     toymd(val) {
       return moment(val).format("YYYY年MM月DD日");
     },
+    filtertitle(val,nurseLevel){
+      return (nurseLevel=="特级" || nurseLevel=="一级")?"危重":"一般"
+    }
   },
   created() {
     console.log(177,sheetInfo)
