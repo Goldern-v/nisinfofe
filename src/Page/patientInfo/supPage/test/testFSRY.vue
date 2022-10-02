@@ -21,7 +21,8 @@
         </el-row>
         <div class="body" :style="{height: height}">
          <!-- <el-radio-group v-model="radio"> -->
-          <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)" :class="{active: item.testNo == rightData.testNo}">
+          <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)" 
+          :class="{active: (!['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == rightData.testNo) || (['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == list[radio].testNo) }">
             <!-- <el-checkbox :label="(index)" class="fscheckBox" ><br/></el-checkbox> -->
             <el-radio :label="index" class="fscheckBox" v-model="radio"><br/></el-radio>
             <div class="title">{{item.subject}}</div>
@@ -198,7 +199,14 @@
     created() {
       testList(this.infoData.patientId, this.infoData.visitId).then((res) => {
         this.list = res.data.data
-        this.toRight(this.list[0],0,this.list.length)
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+          this.rightData = this.list.map(item=>{
+            return item.testResultList
+          })
+          this.toRight(this.rightData[0],0,this.list.length)
+        }else{
+          this.toRight(this.list[0],0,this.list.length)
+        }
       })
     },
     methods: {
@@ -233,8 +241,11 @@
       },
       toRight(data,index,clLength) {
         this.radio=index
-        // console.log('data', data)s
-        this.rightData = data
+        if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+          this.rightData = data
+        }else{
+          data = this.rightData[index]
+        }
         this.$nextTick(() => {
           this.$refs.testForm && this.$refs.testForm.open(data,index,clLength)
         })

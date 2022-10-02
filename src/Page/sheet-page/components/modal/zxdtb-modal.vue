@@ -670,7 +670,6 @@ export default {
       openModalFromSpecial: state => state.sheet.openModalFromSpecial
     }),
     tableDatalist(){
-      console.log("jinlai",this.tableData)
       let tableDatalist = []
       if(this.yizhuTypeItem===""){
         return this.tableData

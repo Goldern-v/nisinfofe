@@ -212,7 +212,7 @@ export default {
     return {
       data: {},
       data1: [],
-      loading: true,
+      loading: ['foshanrenyi'].includes(this.HOSPITAL_ID)?false:true,
       dialogVisible: false,
       chartData: {},
       testList: [],
@@ -255,8 +255,9 @@ export default {
       this.dialogVisible = false;
     },
     open(data) {
+      console.log("testFormdata,",data)
       this.data = data;
-      this.loading = true;
+      this.loading = ['foshanrenyi'].includes(this.HOSPITAL_ID)?false:true;
       this.data1 = [];
       this.closeChart();
       if (this.HOSPITAL_ID == "guizhou") {
@@ -271,15 +272,19 @@ export default {
         });
         return;
       }
-      testItems(this.data.testNo)
-        .then((res) => {
-          this.data1 = res.data.data;
-          this.loading = false;
-        })
-        .catch(() => {
-          this.data1 = false;
-          this.loading = false;
-        });
+      if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        testItems(this.data.testNo)
+          .then((res) => {
+            this.data1 = res.data.data;
+            this.loading = false;
+          })
+          .catch(() => {
+            this.data1 = false;
+            this.loading = false;
+          });
+      }else{
+        this.data1 = data
+      }
     },
   },
   mounted() {

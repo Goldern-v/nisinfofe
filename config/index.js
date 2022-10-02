@@ -155,13 +155,13 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       //  return "http://192.168.20.93:8080"
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
-      // return "https://cr.fsyyy.com:9094"  // 正式地址
+      return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.20.147:9091"  // 双艳
       // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" // 初升测试本地内网
       // return "http://192.168.20.102:8080" //宪锋本地地址
       // return "http://127.0.0.1:8080" //
-      return "http://192.168.137.164:8080" //
+      // return "http://192.168.137.111:8080" //
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -217,7 +217,8 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9892'
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
-      return 'http://192.168.1.54:9866'
+      // return 'http://192.168.1.54:9866'
+      return 'http://120.24.240.231:19097'
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"
