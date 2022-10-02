@@ -9,11 +9,20 @@
       border
       class="advice-table"
     >
-      <el-table-column label="日期" min-width="80px" align="center">
+      <el-table-column label="日期" min-width="50px" align="center">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+            v-show="showDate(scope)"
+            >{{ scope.row.startDate | formatDate('MM-DD') }}</span
+          >
+        </template>
+      </el-table-column>
+      <el-table-column label="时间" min-width="50px" align="center">
+        <template slot-scope="scope">
+          <span
+            :class="type(scope.row.orderStatusName)"
+            v-show="showDate(scope, 'time')"
             >{{ scope.row.startDate | formatDate }}</span
           >
         </template>
@@ -36,16 +45,12 @@
             <span
               :class="[
                 type(scope.row.orderStatusName),
-                {
-                  rowType1: scope.row.rowType == 1,
-                  rowType2: scope.row.rowType == 2,
-                },
               ]" style="margin-right: 15px;"
-              >{{ scope.row.dosage }}{{ scope.row.dosageUnits }}</span
+              >{{scope.row.specialSymbols}}{{ scope.row.dosage }}{{ scope.row.dosageUnits }}</span
             >
             <span
               :class="type(scope.row.orderStatusName)"
-              >{{ scope.row.administration }}</span
+              >{{ scope.row.rowType === 1 ? scope.row.administration : '' }}</span
             >
             <span
             :class="type(scope.row.orderStatusName)"
@@ -64,11 +69,11 @@
         align="center"
       >
         <template slot-scope="scope">
-            <span
+            <!-- <span
               :class="type(scope.row.orderStatusName)"
               v-show="Number(scope.row.orderSubNo) <= 1&&!scope.row.doctorNo"
               >{{ scope.row.doctor }}</span
-            >
+            > -->
             <div v-show="Number(scope.row.orderSubNo) <= 1">
               {{scope.row.doctorNo || scope.row.doctor}}
             </div>
@@ -117,6 +122,7 @@
   }
   td {
     height:  30px !important;
+    vertical-align: top;
   }
 
   img {
@@ -236,13 +242,21 @@ export default {
     Number(val) {
       return Number(val);
     },
+    /**判断是否与上一个数据时间相同 */
+    showDate(obj, type = 'date') {
+      const { row, $index } = obj
+      if ($index - 1 < 0) return true
+      if (type == 'date')
+        return this.Number(row.orderSubNo) <= 1 && (row.startDate.substr(0, 10) != this.tableData[$index - 1].startDate.substr(0, 10))
+      return this.Number(row.orderSubNo) <= 1 && (row.startDate != this.tableData[$index - 1].startDate)
+    }
   },
   components: {
    PrintHeader,
   },
   filters: {
-    formatDate(val) {
-      return val ? moment(val).format("MM-DD HH:mm") : "";
+    formatDate(val, formatText = 'HH:mm') {
+      return val ? moment(val).format(formatText) : "";
     },
   },
   watch: {

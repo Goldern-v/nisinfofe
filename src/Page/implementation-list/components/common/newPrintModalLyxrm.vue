@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="new-print-modal__content">
+      <div class="new-print-modal__content" :class="{is925}">
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
@@ -63,9 +63,9 @@
             频率:{{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
           </span>
           <span>执行时间:{{ currentBottle.executeDate.substr(0, 16) }}</span>
-          <span>配液者</span>
-          <span>配置时间</span>
-          <span>核对者</span>
+          <span v-if="!is925">配液者</span>
+          <span v-if="!is925">配置时间</span>
+          <span v-if="!is925">核对者</span>
         </div>
         <div class="qc-box">
           <img :src="currentBottle.qcSrc || ''" />
@@ -227,6 +227,11 @@
       line-height: 20px;
       text-align: left;
     }
+    &.is925 {
+      * {
+        font-size: 16px;
+      }
+    }
   }
   .new-print-modal__tip {
     display: flex;
@@ -383,7 +388,9 @@ export default {
     newModalSize: { type: String, default: "6*8" }
   },
   data() {
-    return {};
+    return {
+      is925: this.HOSPITAL_ID === '925'
+    };
   },
   methods: {
     // 返回避光或者重症图片路径
