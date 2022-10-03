@@ -85,7 +85,7 @@
 
 <script>
 import moment from "moment";
-// import { updateSheetHeadInfo } from "../../../../api/index";
+import { info } from "@/api/patientInfo";
 import sheetInfo from "../../../config/sheetInfo";
 // import { listItem } from "@/api/common.js";
 // import sheetData from "../../../../sheet.js";
@@ -145,9 +145,11 @@ export default {
       );
     },
     query() {
+      console.log(this.$route.query ,"created")
       return this.$route.query || {}
     },
     nurseLevel(){
+      console.log("sheetInfo.relObj ",sheetInfo.relObj,'this.query',this.query['nursingClass'])
       return (sheetInfo.relObj || {})['nurseLevel'] || this.query['nursingClass'] || ''
     }
   },
@@ -197,11 +199,15 @@ export default {
       return moment(val).format("YYYY年MM月DD日");
     },
     filtertitle(val,nurseLevel){
-      return (nurseLevel=="特级" || nurseLevel=="一级")?"危重":"一般"
+      return (nurseLevel.indexOf("特级")>-1 || nurseLevel.indexOf("一级")>-1)?"危重":"一般"
     }
   },
   created() {
-    console.log(177,sheetInfo)
+    if(sheetInfo.sheetType=='nurse_jew' || sheetInfo.sheetType== 'danger_nurse_jew' && !sheetInfo.relObj['nurseLevel']){
+      info(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
+        this.$set(sheetInfo.relObj,'  ',res.data.data.nursingClass)
+      })
+    }
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
