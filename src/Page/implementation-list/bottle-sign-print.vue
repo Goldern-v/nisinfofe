@@ -879,11 +879,7 @@ export default {
               ${this.printM}
             }
             body{
-              ${
-                this.normalSize || this.HOSPITAL_ID == "whfk"
-                  ? ""
-                  : "transform: scale(0.5);transform-origin: 0 0 0;"
-              }
+              ${this.printScaleText}
             }
             .break-page {
               page-break-after: always;
@@ -1057,9 +1053,12 @@ export default {
           return ["6*8", "3*5"];
       }
     },
-    // 打印不需要缩小的尺寸
-    normalSize() {
-      return ["70*80", "6*8", "5*8", "7*7"].includes(this.newModalSize);
+    // 打印缩放的尺寸
+    printScaleText() {
+      if (["70*80", "6*8", "5*8", "7*7"].includes(this.newModalSize) || this.HOSPITAL_ID == "whfk") return ""
+      if (this.HOSPITAL_ID === '925' && this.newModalSize === '70*80')
+        return  "transform: scale(0.8);transform-origin: 0 0 0;"
+      return  "transform: scale(0.5);transform-origin: 0 0 0;"
     },
     printM() {
       if (

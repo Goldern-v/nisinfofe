@@ -39,7 +39,7 @@
 <style lang='scss' scoped>
 .header-con {
   .title {
-    font-size: 21px;
+    font-size: 24px;
     text-align: center;
     font-weight: bold;
     font-family: simsun, "Times New Roman", Georgia, Serif !important;
@@ -60,9 +60,9 @@
 
     .bottom-line {
       display: inline-block;
-      // border-bottom 1px solid #000
       padding: 2px 0 2px 2px;
       border-bottom: 1px solid #000 !important;
+      text-align: center;
     }
 
     .bottom-line-input {

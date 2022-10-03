@@ -50,7 +50,7 @@
       <span>
         ID：
         <div class="bottom-line" style="min-width: 80px">
-          {{ patientInfo.id }}
+          {{ patientInfo.patientId }}
         </div>
       </span>
       <span @click="updateNurseLevel()">
