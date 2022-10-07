@@ -162,10 +162,10 @@
         <ElInput v-model="form.riValue" />
         <span class="unit">(mmol/L)</span>
       </ElFormItem>
-      <ElFormItem label="尿酮值：" required v-if="HOSPITAL_ID == 'foshanrenyi'">
+      <!-- <ElFormItem label="尿酮值：" required v-if="HOSPITAL_ID == 'foshanrenyi'">
         <ElInput v-model="form.expand1" />
         <span class="unit">(mmol/L)</span>
-      </ElFormItem>
+      </ElFormItem> -->
       <ElFormItem
         v-if="HOSPITAL_ID != 'foshanrenyi'"
         :label="HOSPITAL_ID == 'liaocheng' ? '测量者：' : '执行人：'"

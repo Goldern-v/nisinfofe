@@ -8,7 +8,7 @@
       <div v-show="!isChart" class="blood-sugar-con">
         <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
           <div class="title">{{ HOSPITAL_NAME_SPACE }}</div>
-          <div class="sup-title">血糖尿酮记录单</div>
+          <div class="sup-title">血糖记录单</div>
           <p flex="main:justify" class="info" v-if="isPreviewUserInfo">
             <span
               >病人姓名：{{ sugarUserInfo.name || tableHeaderInfo.name }}</span
