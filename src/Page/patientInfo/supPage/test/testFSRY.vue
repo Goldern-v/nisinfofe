@@ -213,24 +213,46 @@
       async writeDescription(){
         this.isSaving=true
         let str=''
-        const res= await testItems(this.listByFilter[this.radio].testNo)
         // 当前按钮的数组
         const activeCheckList=this.$refs.testForm.checkList[this.$refs.testForm.activeIndex]
-        if(activeCheckList.length>0){
-          for(var i=0;i<activeCheckList.length;i++){
-            // 当前按钮的数组的项
-            const nowItem=activeCheckList[i]
-            if(i==0){
-               const strDate= moment(this.listByFilter[this.radio].resultDate).format("YYYY-MM-DD")
-               str += `${this.listByFilter[this.radio].subject},`
-               str +=`${strDate},`
-               str += `${res.data.data[nowItem].itemName},`
-               str += `${res.data.data[nowItem].result}`
-               str += `${res.data.data[nowItem].units},`
-            }else{
-               str += `${res.data.data[nowItem].itemName},`
-               str += `${res.data.data[nowItem].result}` 
-               str += `${res.data.data[nowItem].units},`
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){ 
+          if(activeCheckList.length>0){
+            for(var i=0;i<activeCheckList.length;i++){
+              // 当前按钮的数组的项
+              const nowItem=activeCheckList[i]
+              if(i==0){
+                // const strDate= moment(this.listByFilter[this.radio].resultDate).format("YYYY-MM-DD")
+                str += `${this.listByFilter[this.radio].subject},`
+                // str +=`${strDate},`
+                str += `${this.rightData[this.radio][nowItem].itemName},`
+                str += `${this.rightData[this.radio][nowItem].result}`
+                str += `${this.rightData[this.radio][nowItem].units},`
+              }else{
+                str += `${this.rightData[this.radio][nowItem].itemName},`
+                str += `${this.rightData[this.radio][nowItem].result}` 
+                str += `${this.rightData[this.radio][nowItem].units}${i==activeCheckList.length-1?',':'。'}`
+              }
+            }
+          }
+          console.log(this.rightData[this.$refs.testForm.activeIndex],"writeDescription")
+        }else{
+          if(activeCheckList.length>0){
+            const res= await testItems(this.listByFilter[this.radio].testNo)
+            for(var i=0;i<activeCheckList.length;i++){
+              // 当前按钮的数组的项
+              const nowItem=activeCheckList[i]
+              if(i==0){
+                const strDate= moment(this.listByFilter[this.radio].resultDate).format("YYYY-MM-DD")
+                str += `${this.listByFilter[this.radio].subject},`
+                str +=`${strDate},`
+                str += `${res.data.data[nowItem].itemName},`
+                str += `${res.data.data[nowItem].result}`
+                str += `${res.data.data[nowItem].units},`
+              }else{
+                str += `${res.data.data[nowItem].itemName},`
+                str += `${res.data.data[nowItem].result}` 
+                str += `${res.data.data[nowItem].units},`
+              }
             }
           }
         }
