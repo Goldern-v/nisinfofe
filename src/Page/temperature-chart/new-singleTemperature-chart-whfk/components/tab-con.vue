@@ -970,7 +970,7 @@ export default {
           default:
             break;
         }
-         if(item.vitalValue !== "" &&
+        if(item.vitalValue !== "" &&
         this.checkItem.includes(item.vitalSigns)){
             if(!validForm.valid(this.setValid(item.vitalSigns, item.vitalValue))){
             saveFlagArr.push(false)
