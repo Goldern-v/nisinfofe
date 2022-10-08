@@ -22,7 +22,7 @@ export default {
                 { "name": "时间", "colspan": "1", "rowspan": "3","style":{"minWidth":"35px","maxWidth":"35px"}},
                 { "name": "生命体征", "colspan": "8", "rowspan": "1"},
                 { "name": "入量", "colspan": "2", "rowspan": "1"},
-                { "name": "出量", "colspan": "2", "rowspan": "1"},
+                { "name": "出量", "colspan": "3", "rowspan": "1"},
                 { "name": "", "colspan": "1", "rowspan": "3", canSet: true, key: "armValue4"},
                 { "name": "", "colspan": "1", "rowspan": "3", canSet: true, key: "armValue5"},
                 { "name": "", "colspan": "1", "rowspan": "3", canSet: true, key: "armValue6"},
@@ -49,7 +49,8 @@ export default {
                 {"name": "内容", "colspan": "1", "rowspan": "2"},
                 {"name": "量ml", "colspan": "1", "rowspan": "2"},
                 {"name": "内容", "colspan": "1", "rowspan": "2"},
-                {"name": "量ml", "colspan": "1", "rowspan": "2"}
+                {"name": "量ml", "colspan": "1", "rowspan": "2"},
+                {"name": "颜色/性状", "colspan": "1", "rowspan": "2"}
             ]
         ,
         bottom:

@@ -10,3 +10,7 @@ export function getUser(password, empNo) {
     empNo
   });
 }
+// 获取用户信息
+export function getNursePatsInHospital(patientId, visitId) {
+  return axios.get(`${apiPath}patient/getNursePatsInHospital/${patientId}/${visitId}`);
+}

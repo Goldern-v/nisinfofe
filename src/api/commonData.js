@@ -49,6 +49,12 @@ export function loadPatient(patientId,visitId) {
 export function loadEval(code,patientId,visitId) {
   return axios.get(`${apiPath}commonData/loadEval/${code}/${patientId}/${visitId}`)
 }
+/**
+ *  获取手术名称
+ */
+export function getOperationName(patientId,visitId, date) {
+  return axios.get(`${apiPath}commonData/operationName/${patientId}/${visitId}/${date}`)
+}
 
 export default {
   loadScore:loadScore,

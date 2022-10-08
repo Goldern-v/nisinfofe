@@ -41,11 +41,7 @@
         </div>
 
         <div
-          v-if="
-            [
-              'foshanrenyi',
-            ].includes(HOSPITAL_ID)
-          "
+          v-if="showAdvice"
           style="margin-left: 20px"
         >
           <span class="label">医嘱类型：</span>
@@ -385,6 +381,8 @@ export default {
           name: "临时",
         },
       ],
+      // 是否显示医嘱类型
+      showAdvice: ['foshanrenyi'].includes(this.HOSPITAL_ID),
     };
   },
   methods: {
@@ -670,9 +668,8 @@ export default {
       openModalFromSpecial: state => state.sheet.openModalFromSpecial
     }),
     tableDatalist(){
-      console.log("jinlai",this.tableData)
       let tableDatalist = []
-      if(this.yizhuTypeItem===""){
+      if(this.yizhuTypeItem==="" || !this.showAdvice){
         return this.tableData
       }else{
         this.tableData.map(item=>{

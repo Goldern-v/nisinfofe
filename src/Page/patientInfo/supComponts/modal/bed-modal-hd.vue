@@ -86,7 +86,7 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-              >{{HOSPITAL_ID == '925' ? query.inpNo : query.patientId}}</div>
+              >{{query.patientId}}</div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">主管医生:</span>
