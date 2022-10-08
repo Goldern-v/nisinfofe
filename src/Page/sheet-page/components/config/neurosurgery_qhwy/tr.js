@@ -196,7 +196,7 @@ import {
       event: keyf1,
       name: '管路护理',
       next: '',
-      autoComplete: { data: ['√','静脉置管','留置胃管','留置尿管','负压引流','营养管']},
+      autoComplete: { data: ['√','静脉置管','留置胃管','留置尿管','负压引流','营养管','吸痰护理']},
       textarea:{ width:32},
       change: (e, td) => limitChange(e, td, 4)
     },
