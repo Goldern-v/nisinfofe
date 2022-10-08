@@ -1089,7 +1089,7 @@ export default {
         visitId: this.patientInfo.visitId,
       };
       if (saveFlagArr.includes(false)) {
-        this.$confirm("存在数值错误,请耐心检查!", "提示", {
+        this.$confirm("存在数值错误,请耐心检查!,点击确定保存", "提示", {
           showCancelButton:true,
           cancelButtonText: '取消',
             type: "error",
@@ -1110,6 +1110,22 @@ export default {
         this.bus.$emit("dateChangePage", this.query.entryDate);
       }, 1000);
           })
+      }else{
+                    //不做保存限制 验证通过直接保存
+        if (this.isUpdate) await this.removeRecord();
+        await saveAll(data).then((res) => {
+          if(this.isUpdate){
+          this.$message.success("更新成功,双击记录返回录入界面！");
+
+          }else{
+          this.$message.success("保存成功");
+          }
+        });
+        await this.getList();
+        this.bus.$emit("refreshImg");
+        setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }, 1000);
       }
     },
   },
