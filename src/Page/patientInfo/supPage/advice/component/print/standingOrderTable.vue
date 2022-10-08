@@ -47,7 +47,7 @@
                 :class="[
                   type(scope.row.orderStatusName),
                 ]" style="margin-right: 15px;"
-                >{{scope.row.specialSymbols}}{{ scope.row.dosage }}{{ scope.row.dosageUnits }}</span
+                >{{ scope.row.dosage }}{{ scope.row.dosageUnits }}{{scope.row.specialSymbols}}</span
               >
               <span
                 :class="type(scope.row.orderStatusName)"
@@ -58,7 +58,7 @@
               >{{scope.row.skinResult}}</span>
               <span
                 :class="type(scope.row.orderStatusName)"
-                >{{ scope.row.frequency }}</span
+                >{{ formatFrequency(scope) }}</span
               >
             </div>
           </template>
@@ -295,6 +295,13 @@ export default {
       if (type == 'date')
         return this.Number(row.orderSubNo) <= 1 && (row[key].substr(0, 10) != this.tableData[$index - 1][key].substr(0, 10))
       return this.Number(row.orderSubNo) <= 1 && (row[key] != this.tableData[$index - 1][key])
+    },
+    formatFrequency({ row, $index }) {
+      if (this.tableData.length === 0) return ''
+      if (row.rowType == 1 || !row.frequency || $index <= 0)
+        return row.frequency
+      if (this.tableData[$index - 1].frequency == row.frequency) return ''
+      return row.frequency
     }
   },
   components: {
