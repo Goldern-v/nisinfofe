@@ -13,17 +13,32 @@ class ValidForm {
     //验证通过
         return true;
       }
-      if(o[key].value.includes('/')){
-        let press=o[key].value.split('/')
-        //存在血压用/隔开，需要分别验证两个数值
-          if((press[0]>=o[key].reg[0]&&press[0]<=o[key].reg[1])&&(press[1]>=o[key].reg[0]&&press[1]<=o[key].reg[1])){
-            return true
+      //谢岗需要特殊判断血压的值，存在收缩压和舒张压
+      if(!['xiegang'].includes(process.env.HOSPITAL_ID)){
+        if(o[key].value.includes('/')){
+          let press=o[key].value.split('/')
+          //存在血压用/隔开，需要分别验证两个数值
+            if((press[0]>=o[key].reg[0]&&press[0]<=o[key].reg[1])&&(press[1]>=o[key].reg[0]&&press[1]<=o[key].reg[1])){
+              return true
+            }else{
+              return false
+            }
+          // })
+        }
+      }else{
+        if(o[key].value.includes('/')){
+          let press=o[key].value.split('/')
+          //存在血压用/隔开，需要分别验证两个数值
+            if((press[0]>=o[key].reg[0]&&press[0]<=o[key].reg[1])&&(press[1]>=60&&press[1]<=90)){
+              return true
 
-          }else{
-            return false
-          }
-        // })
+            }else{
+              return false
+            }
+          // })
+        }
       }
+
     }
 
     return false;

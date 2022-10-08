@@ -292,6 +292,41 @@
       </div>
       <div flex-box="1"></div>
       <el-select
+        v-if=" HOSPITAL_ID == 'whfk' "
+        v-model="printRecordValue"
+        value-key="id"
+        size="small"
+        placeholder=""
+        class="select-con"
+        @visible-change="getPrintRecordData()"
+      >
+        <div class="sheetSelect-con-sheet sheetSelect-con-sheet-print">
+          <div class="head-con" flex="cross:stretch" >
+            <div class="col-1">打印人</div>
+            <div class="col-2" style="border-right:none">打印时间</div>
+          
+          </div>
+          <el-option
+            v-for="item in printRecord"
+            :key="item.id"
+            :label="item.printName+' '+item.printTime"
+            :value="item"
+          >
+            <div class="list-con list-con-print" flex="cross:stretch" v-if="!item.nodData">
+              <div class="col-1" :title="item.printName">
+                {{ item.printName }}
+              </div>
+              <div class="col-2" :title="item.printTime" style="border-right:none">
+                {{ item.printTime }}
+              </div>
+            </div>
+            <div v-if="item.nodData" style="text-align: center;width: 562px;height: 100px;padding-top: 50px;background:#fff;background: rgb(255, 255, 255);color: #000">
+                暂无打印记录
+              </div>
+          </el-option>
+        </div>
+      </el-select>
+      <el-select
         v-if="!isDeputy"
         v-model="sheetInfo.selectBlock"
         @change="changeSelectBlock"
@@ -523,6 +558,7 @@ import {
   // blockSave,
   switchAdditionalBlock,
   setSheetTemplate,
+  getPrintRecord
 } from "../../api/index.js";
 import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
@@ -589,6 +625,8 @@ export default {
       modalWidth: 720,
       pageNum: "",
       firstPage: 1,
+      printRecord:[],
+      printRecordValue:''
     };
   },
   methods: {
@@ -599,6 +637,26 @@ export default {
       }
       let url = `http://192.168.37.203:8086?hospital_no=498784278&patient_id=${this.patientInfo.patientId}&visit_id=${this.patientInfo.visitId}&FILE_VISIT_TYPE=2`
       window.open(url, '_blank');
+    },
+    getPrintRecordData(){
+      const fromParams = {
+          patientId:this.sheetInfo.selectBlock.patientId,
+          visitId:this.sheetInfo.selectBlock.visitId,
+          formId:this.sheetInfo.selectBlock.id,
+          formType:'record',
+          formCode:this.sheetInfo.selectBlock.recordCode,
+          formName:this.sheetInfo.selectBlock.recordName,
+      }
+      if(!this.sheetInfo.selectBlock.patientId){
+        return;
+      }
+      getPrintRecord(fromParams)
+      .then(res => {
+        this.printRecord = res.data.data&&res.data.data.length>0?res.data.data:[{printName:'',printTime:'',nodData:true}];
+        this.printRecordValue = this.printRecord[0]? this.printRecord[0]['printName']+' '+this.printRecord[0]['printTime']:'';
+      }, err => {
+
+      });
     },
     pageNumKeyDown(e) {
       if (e.keyCode == 13) {
@@ -710,6 +768,14 @@ export default {
     toPrint() {
       // 正式环境打印会打开窗口,个别医院双签名打印设置为不打开新窗口（打开窗口样式有bug）
       // 不打开窗口，打印完返回会有Bug（下拉不显示和表头不能修改）,只能重新加载页面
+      const fromParams = {
+          patientId:this.sheetInfo.selectBlock.patientId,
+          visitId:this.sheetInfo.selectBlock.visitId,
+          formId:this.sheetInfo.selectBlock.id,
+          formType:'record',
+          formCode:this.sheetInfo.selectBlock.recordCode,
+          formName:this.sheetInfo.selectBlock.recordName,
+      }
       if(['liaocheng','huadu','foshanrenyi','xiegang'].includes(this.HOSPITAL_ID)){
          this.$store.commit('upPreRouter',location.href)
       }
@@ -725,8 +791,12 @@ export default {
       ) {
         this.bus.$emit("toSheetPrintPage");
       } else {
-        if (process.env.NODE_ENV == "production") {
-          let newWid;
+        // if (process.env.NODE_ENV == "production") {
+        let newWid;
+        if( this.HOSPITAL_ID === 'whfk'){
+          newWid = window.open();
+          return this.bus.$emit("toSheetPrintPagewhfk", {newWid,fromParams});
+        }else{
           if (!$(".sign-text").length) {
             newWid = window.open();
             return this.bus.$emit("toSheetPrintPage", newWid);
@@ -738,10 +808,13 @@ export default {
           ) {
             newWid = window.open();
           }
-          this.bus.$emit("toSheetPrintPage", newWid);
-        } else {
-          this.bus.$emit("toSheetPrintPage");
+          this.bus.$emit("toSheetPrintPage",newWid);
         }
+        
+        // } else {
+        //   
+        //   this.bus.$emit("toSheetPrintPage");
+        // }
       }
     },
     toAllPrint() {
@@ -1011,6 +1084,7 @@ export default {
         this.patientInfo.visitId &&
         this.deptCode
       ) {
+       
         blockList(
           this.patientInfo.patientId,
           this.patientInfo.visitId,
@@ -1073,6 +1147,9 @@ export default {
             }
           }
           this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+          if( this.HOSPITAL_ID === 'whfk'&& this.sheetInfo.selectBlock.patientId){
+            this.getPrintRecordData();
+          }
           // this.bus.$emit('refreshSheetPage', true)
         });
       }
@@ -1154,9 +1231,24 @@ export default {
     /** pdf打印 */
     toPdfPrint() {
       if (sheetInfo.selectBlock.id) {
-        window.open(
-          `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}`
-        );
+       
+        if( this.HOSPITAL_ID === 'whfk'){
+          const params = {
+            patientId:sheetInfo.selectBlock.patientId,
+            visitId:sheetInfo.selectBlock.visitId,
+            formId:sheetInfo.selectBlock.id,
+            formType:'record',
+            formCode:sheetInfo.selectBlock.recordCode,
+            formName:sheetInfo.selectBlock.recordName,
+          }
+          window.open(
+            `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}&patientId=${sheetInfo.selectBlock.patientId}&visitId=${sheetInfo.selectBlock.visitId}&formId=${sheetInfo.selectBlock.id}&formType=${'record'}&formCode=${sheetInfo.selectBlock.recordCode}&formName=${sheetInfo.selectBlock.recordName}`
+          )
+          }else{
+            window.open(
+              `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}`
+            );
+        }
       } else {
         this.$message.warning("没有可以打印的护理记录单");
       }
@@ -1302,7 +1394,8 @@ export default {
     // 显示入量同步
     showRltbN() {
       return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
-    }
+    },
+  
   },
   created() {
     this.bus.$on("initSheetPageSize", () => {
@@ -1388,6 +1481,7 @@ export default {
     this.bus.$on("getBlockList", () => {
       this.getBlockList();
     });
+    
     document.onkeydown = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = true;
@@ -1400,6 +1494,9 @@ export default {
     };
   },
   mounted() {
+    if( this.HOSPITAL_ID === 'whfk' && this.sheetInfo.selectBlock.patientId){
+      this.getPrintRecordData();
+    }
     document.querySelector("#sheet_body_con").addEventListener("click", () => {
       if (!this.sheetInfo.downControl) {
         this.sheetInfo.selectRow.splice(0, this.sheetInfo.selectRow.length);
@@ -1500,6 +1597,7 @@ export default {
 <style lang="stylus" scoped>
 .pegeSelect {
   >>> .el-input__inner {
+    width: 85px;
     border: 0 !important;
     font-size: 12px;
     color: #333333;
@@ -1513,6 +1611,9 @@ export default {
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+   >>>.select-con .el-input__inner {
+    width: 85px !important;
+  }
 .sheetSelect-con-sheet {
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
@@ -1530,14 +1631,17 @@ export default {
     max-height: 500px;
   }
 
-  .head-con {
-    height: 37px;
-    background: #F7FAFA;
-    border-bottom: 1px solid #EAEEF1;
-    font-size: 13px;
-    color: #333333;
-    font-weight: bold;
-  }
+  
+ .head-con {
+   height: 37px;
+   background: #F7FAFA;
+   border-bottom: 1px solid #EAEEF1;
+   font-size: 13px;
+   color: #333333;
+   font-weight: bold;
+ }
+
+
 
   .col-1, .col-2, .col-3, .col-4 {
     display: flex;
@@ -1587,8 +1691,10 @@ export default {
       width: 4px;
       background: #4bb08d;
     }
-  }
+   
 
+  }
+ 
   .el-select-dropdown__item.hover {
     background: #fff;
   }
@@ -1597,7 +1703,19 @@ export default {
     background: #E5F1F0;
   }
 }
-
+.select-con {
+    width: 80px;
+    margin-right:10px;
+  }
+.sheetSelect-con-sheet-print .el-select-dropdown__item.selected:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  height: 20px;
+  width: 4px;
+  background: #fff;
+}
 .red-border {
   border: 2px solid red !important;
 }

@@ -204,6 +204,7 @@ import sheetTable_nicu_custody_hd from "@/Page/sheet-page/components/sheetTable-
 import sheetTable_nicu_custody_jm from "@/Page/sheet-page/components/sheetTable-nicu_custody_jm/sheetTable";
 import sheetTable_cardiology_lcey from "@/Page/sheet-page/components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "@/Page/sheet-page/components/sheetTable-oxytocin_hl/sheetTable";
+import sheetTable_oxytocin_sdlj from "@/Page/sheet-page/components/sheetTable-oxytocin_sdlj/sheetTable";
 import sheetTable_emergency_rescue from "@/Page/sheet-page/components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "@/Page/sheet-page/components/sheetTable-dressing_count_hl/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
@@ -363,6 +364,8 @@ export default {
         return sheetTable_emergency_rescue;
       } else if (sheetInfo.sheetType == "oxytocin_hl") {
         return sheetTable_oxytocin_hl;
+      } else if (sheetInfo.sheetType == "oxytocin_sdlj") {
+        return sheetTable_oxytocin_sdlj;
       } else if (sheetInfo.sheetType == "dressing_count_hl") {
         return sheetTable_dressing_count_hl;
       } else if (sheetInfo.sheetType == "intersurgerycure_qzx") {
@@ -986,6 +989,7 @@ export default {
     sheetTable_nicu_custody_hd,
     sheetTable_nicu_custody_jm,
     sheetTable_oxytocin_hl,
+    sheetTable_oxytocin_sdlj,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,

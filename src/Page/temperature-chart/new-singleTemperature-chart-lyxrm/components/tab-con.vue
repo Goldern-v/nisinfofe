@@ -336,7 +336,7 @@
                   >
                     <div class="rowItemText">
                       <!--新生儿的大便次数 叫做粪便-->
-                      <span>{{ index == '大便次数' ?'粪便':index }}</span>
+                      <span>{{ index == '尿量' ?'小便次数':index }}</span>
                     </div>
                     <el-tooltip
                       placement="top"
@@ -943,7 +943,7 @@ export default {
     selectTemRec(val) {
       this.query.entryDate = val;
     },
-            setValid(trage, val) {
+    setValid(trage, val) {
       switch (trage) {
         case "体温":
         case "肛温":
@@ -979,7 +979,7 @@ export default {
           break;
       }
     },
-     validFormFc(vitalSignObj, index) {
+    validFormFc(vitalSignObj, index) {
       let val = vitalSignObj.vitalValue;
       if (
         val !== "" &&
@@ -1079,7 +1079,7 @@ export default {
         const babyDic = []
         let obj = [];
         //去除科室配置的项目 根据vitalCode来显示筛查项目
-      const babyType = ['01','aurigo','funicle','breast','milk','061','033','3'] //婴儿显示项目
+      const babyType = ['01','aurigo','funicle','breast','milk','061','033','3','12'] //婴儿显示项目
       const withOutbabyType = ['aurigo','funicle','breast','milk'] //成年人不显示项目
       if(this.isBaby){
         res.data.data.map((list)=>{
@@ -1135,7 +1135,6 @@ export default {
         this.init();
       });
     },
-    //右键删除记录
     async rightMouseDown(e, dateTime, recordPerson) {
       if (!this.isDisable()) {
         if (!this.isUpdate) {
@@ -1296,7 +1295,7 @@ export default {
             type: "error",
           })
       } else {
-              if (this.isUpdate) await this.removeRecord();
+        if (this.isUpdate) await this.removeRecord();
         await saveAll(data).then((res) => {
           if(this.isUpdate){
           this.$message.success("更新成功,双击记录返回录入界面！");
@@ -1306,7 +1305,7 @@ export default {
 
           }
         });
-       await this.getList();
+        await this.getList();
         this.bus.$emit("refreshImg");
         setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);

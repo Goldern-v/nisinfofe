@@ -21,7 +21,8 @@
         </el-row>
         <div class="body" :style="{height: height}">
          <!-- <el-radio-group v-model="radio"> -->
-          <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)" :class="{active: item.testNo == rightData.testNo}">
+          <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)" 
+          :class="{active: (!['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == rightData.testNo) || (['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == list[radio].testNo) }">
             <!-- <el-checkbox :label="(index)" class="fscheckBox" ><br/></el-checkbox> -->
             <el-radio :label="index" class="fscheckBox" v-model="radio"><br/></el-radio>
             <div class="title">{{item.subject}}</div>
@@ -198,31 +199,60 @@
     created() {
       testList(this.infoData.patientId, this.infoData.visitId).then((res) => {
         this.list = res.data.data
-        this.toRight(this.list[0],0,this.list.length)
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+          this.rightData = this.list.map(item=>{
+            return item.testResultList
+          })
+          this.toRight(this.rightData[0],0,this.list.length)
+        }else{
+          this.toRight(this.list[0],0,this.list.length)
+        }
       })
     },
     methods: {
       async writeDescription(){
         this.isSaving=true
         let str=''
-        const res= await testItems(this.listByFilter[this.radio].testNo)
         // 当前按钮的数组
         const activeCheckList=this.$refs.testForm.checkList[this.$refs.testForm.activeIndex]
-        if(activeCheckList.length>0){
-          for(var i=0;i<activeCheckList.length;i++){
-            // 当前按钮的数组的项
-            const nowItem=activeCheckList[i]
-            if(i==0){
-               const strDate= moment(this.listByFilter[this.radio].resultDate).format("YYYY-MM-DD")
-               str += `${this.listByFilter[this.radio].subject},`
-               str +=`${strDate},`
-               str += `${res.data.data[nowItem].itemName},`
-               str += `${res.data.data[nowItem].result}`
-               str += `${res.data.data[nowItem].units},`
-            }else{
-               str += `${res.data.data[nowItem].itemName},`
-               str += `${res.data.data[nowItem].result}` 
-               str += `${res.data.data[nowItem].units},`
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){ 
+          if(activeCheckList.length>0){
+            for(var i=0;i<activeCheckList.length;i++){
+              // 当前按钮的数组的项
+              const nowItem=activeCheckList[i]
+              if(i==0){
+                // const strDate= moment(this.listByFilter[this.radio].resultDate).format("YYYY-MM-DD")
+                str += `${this.listByFilter[this.radio].subject},`
+                // str +=`${strDate},`
+                str += `${this.rightData[this.radio][nowItem].itemName},`
+                str += `${this.rightData[this.radio][nowItem].result}`
+                str += `${this.rightData[this.radio][nowItem].units},`
+              }else{
+                str += `${this.rightData[this.radio][nowItem].itemName},`
+                str += `${this.rightData[this.radio][nowItem].result}` 
+                str += `${this.rightData[this.radio][nowItem].units}${i==activeCheckList.length-1?',':'。'}`
+              }
+            }
+          }
+          console.log(this.rightData[this.$refs.testForm.activeIndex],"writeDescription")
+        }else{
+          if(activeCheckList.length>0){
+            const res= await testItems(this.listByFilter[this.radio].testNo)
+            for(var i=0;i<activeCheckList.length;i++){
+              // 当前按钮的数组的项
+              const nowItem=activeCheckList[i]
+              if(i==0){
+                const strDate= moment(this.listByFilter[this.radio].resultDate).format("YYYY-MM-DD")
+                str += `${this.listByFilter[this.radio].subject},`
+                str +=`${strDate},`
+                str += `${res.data.data[nowItem].itemName},`
+                str += `${res.data.data[nowItem].result}`
+                str += `${res.data.data[nowItem].units},`
+              }else{
+                str += `${res.data.data[nowItem].itemName},`
+                str += `${res.data.data[nowItem].result}` 
+                str += `${res.data.data[nowItem].units},`
+              }
             }
           }
         }
@@ -233,8 +263,11 @@
       },
       toRight(data,index,clLength) {
         this.radio=index
-        // console.log('data', data)s
-        this.rightData = data
+        if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+          this.rightData = data
+        }else{
+          data = this.rightData[index]
+        }
         this.$nextTick(() => {
           this.$refs.testForm && this.$refs.testForm.open(data,index,clLength)
         })

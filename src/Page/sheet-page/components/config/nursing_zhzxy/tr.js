@@ -30,7 +30,8 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-
+let 入量内容 = [];
+let 出量内容 = [];
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -42,9 +43,15 @@ export default [
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SpO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 150 }, },
+  { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', autoComplete: {
+    data:入量内容
+    //  ['静脉输液','静脉注射','鼻饲','全血','红细胞','血小板','白蛋白','血浆','白细胞','TPN', '水','饮料','牛奶','母乳','代乳品','粉/面条','粥','云吞','水果','米饭','菜','经口入','口服','微泵']
+  }, textarea: { width: 150 }, },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 150 },  },
+  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容',  autoComplete: {
+    data: 出量内容
+    // ['尿','大便','血','呕吐物','痰','伤口引流液','腹腔引流液','盆腔引流液','胸腔引流液','脑室引流液','T管引流量','胆汁','胃液','腹水','阴道出血','尿管引流','左肾造瘘管引流液','右肾造瘘管引流液','肾周引流管引流液','肾窝引流管引流液','汗液']
+  },textarea: { width: 150 },  },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'colorProperties', event: keyf1, value: '', next: '', name: '颜色/性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'value1', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -83,6 +90,29 @@ export default [
   { hidden:true, key:'multiSign', value:''}
   
 ]
+
+export function getListData4() { 
+ 
+  let list = [
+    '珠海中西医:护理记录单:入量内容',
+    '珠海中西医:护理记录单:出量内容' 
+  ];
+ 
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(入量内容, "珠海中西医:护理记录单:入量内容", data);
+    setList(出量内容, "珠海中西医:护理记录单:出量内容", data);
+    console.log(入量内容,出量内容)
+  });
+}
+
+getListData4();
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}
 // export default [
 //   { hidden: true, key: 'recordDate', value: '' },
 //   { key: "recordMonth", event: event_date, click: click_date, value: ''},

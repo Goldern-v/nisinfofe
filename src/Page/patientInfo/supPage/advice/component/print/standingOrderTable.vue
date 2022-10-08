@@ -9,14 +9,58 @@
       border
       class="advice-table"
     >
-      <el-table-column label="开嘱" min-width="200px" align="center">
-        <el-table-column label="起始时间" min-width="80px" align="center">
+      <el-table-column label="开始医嘱" min-width="200px" align="center">
+        <el-table-column label="日期" min-width="50px" align="center">
           <template slot-scope="scope">
             <span
               :class="type(scope.row.orderStatusName)"
-              v-show="Number(scope.row.orderSubNo) <= 1"
+              v-show="showDate(scope)"
+              >{{ scope.row.startDate | formatDate('MM-DD') }}</span
+            >
+          </template>
+        </el-table-column>
+        <el-table-column label="时间" min-width="50px" align="center">
+          <template slot-scope="scope">
+            <span
+              :class="type(scope.row.orderStatusName)"
+              v-show="showDate(scope, undefined, 'time')"
               >{{ scope.row.startDate | formatDate }}</span
             >
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="医嘱"
+          min-width="340px"
+          prop="orderText"
+          align="center"
+        >
+          <template slot-scope="scope">
+            <div
+              class="orderText"
+              :class="type(scope.row.orderStatusName)"
+              style="text-align: left; padding-left: 10px"
+            >
+              <span :class="type(scope.row.orderStatusName)">{{
+                scope.row.orderText
+              }} <i v-if="scope.row.freqDetail">({{scope.row.freqDetail}})</i> </span>
+              <span
+                :class="[
+                  type(scope.row.orderStatusName),
+                ]" style="margin-right: 15px;"
+                >{{ scope.row.dosage }}{{ scope.row.dosageUnits }}{{scope.row.specialSymbols}}</span
+              >
+              <span
+                :class="type(scope.row.orderStatusName)"
+                >{{ scope.row.rowType === 1 ? scope.row.administration : '' }}</span
+              >
+              <span
+              :class="type(scope.row.orderStatusName)"
+              >{{scope.row.skinResult}}</span>
+              <span
+                :class="type(scope.row.orderStatusName)"
+                >{{ formatFrequency(scope) }}</span
+              >
+            </div>
           </template>
         </el-table-column>
         <el-table-column
@@ -26,11 +70,11 @@
           align="center"
         >
           <template slot-scope="scope">
-            <span
+            <!-- <span
               :class="type(scope.row.orderStatusName)"
               v-show="Number(scope.row.orderSubNo) <= 1&&!scope.row.doctorNo"
               >{{ scope.row.doctor }}</span
-            >
+            > -->
             <div v-show="Number(scope.row.orderSubNo) <= 1">
               {{scope.row.doctorNo || scope.row.doctor}}
             </div>
@@ -49,58 +93,23 @@
           </template>
         </el-table-column>
       </el-table-column>
-      <el-table-column
-        label="医嘱内容"
-        min-width="350px"
-        prop="orderText"
-        align="center"
-      >
+      <el-table-column label="停止医嘱" min-width="200px" align="center">
+        <el-table-column label="日期" min-width="60px" align="center">
         <template slot-scope="scope">
-          <div
-            class="orderText"
+          <span
             :class="type(scope.row.orderStatusName)"
-            style="text-align: left; padding-left: 10px"
+            v-show="showDate(scope, 'stopDate')"
+            >{{ scope.row.stopDate | formatDate('MM-DD') }}</span
           >
-            <span :class="type(scope.row.orderStatusName)">{{
-              scope.row.orderText
-            }} <i v-if="scope.row.freqDetail">({{scope.row.freqDetail}})</i> </span>
-            <span
-              :class="[
-                type(scope.row.orderStatusName),
-                {
-                  rowType1: scope.row.rowType == 1,
-                  rowType2: scope.row.rowType == 2,
-                },
-              ]" style="margin-right: 15px;"
-              >{{ scope.row.dosage }}{{ scope.row.dosageUnits }}</span
-            >
-            <span
-              :class="type(scope.row.orderStatusName)"
-              >{{ scope.row.administration }}</span
-            >
-            <span
-            :class="type(scope.row.orderStatusName)"
-            >{{scope.row.skinResult}}</span>
-            <span
-              :class="type(scope.row.orderStatusName)"
-              >{{ scope.row.frequency }}</span
-            >
-          </div>
         </template>
       </el-table-column>
-      <el-table-column label="停止医嘱" min-width="200px" align="center">
-        <el-table-column
-          label="停止时间"
-          min-width="80px"
-          prop="stopDate"
-          align="center"
-        >
-          <template slot-scope="scope">
-            <span
-              :class="type(scope.row.orderStatusName)"
-              v-show="Number(scope.row.orderSubNo) <= 1"
-              >{{ scope.row.stopDate | formatDate }}</span
-            >
+      <el-table-column label="时间" min-width="50px" align="center">
+        <template slot-scope="scope">
+          <span
+            :class="type(scope.row.orderStatusName)"
+            v-show="showDate(scope, 'stopDate', 'time')"
+            >{{ scope.row.stopDate | formatDate }}</span
+          >
           </template>
         </el-table-column>
         <el-table-column
@@ -110,11 +119,11 @@
           align="center"
         >
           <template slot-scope="scope">
-            <span
+            <!-- <span
               :class="type(scope.row.orderStatusName)"
               v-show="Number(scope.row.orderSubNo) <= 1 && !scope.row.stopDoctorEmpNo"
               >{{ scope.row.stopDoctor }}
-            </span>
+            </span> -->
             <div v-show="Number(scope.row.orderSubNo) <= 1">
               {{scope.row.stopDoctorEmpNo || scope.row.stopDoctor}}
             </div>
@@ -150,6 +159,7 @@
   }
   td {
     height:  30px !important;
+    vertical-align: top;
   }
 
   th,td {
@@ -189,38 +199,43 @@
       }
     }
 
-    .rowType1, .rowType2 {
-      position: relative;
+    // .rowType1, .rowType2, .rowType3 {
+    //   position: relative;
 
-      &::before, &::after {
-        position: absolute;
-        content: '';
-        right: -10px;
-      }
+    //   &::before, &::after {
+    //     position: absolute;
+    //     content: '';
+    //     right: -10px;
+    //   }
 
-      &::before {
-        width: 8px;
-        border-top: 2px solid #000;
-        top: 12px;
-      }
+    //   &::before {
+    //     width: 8px;
+    //     border-top: 2px solid #000;
+    //     top: 12px;
+    //   }
 
-      &::after {
-        height: 8px;
-        border-right: 2px solid #000;
-      }
-    }
+    //   &::after {
+    //     height: 8px;
+    //     border-right: 2px solid #000;
+    //   }
+    // }
 
-    .rowType1 {
-      &::after {
-        top: 12px;
-      }
-    }
+    // .rowType1 {
+    //   &::after {
+    //     top: 12px;
+    //   }
+    // }
 
-    .rowType2 {
-      &::after {
-        top: 4px;
-      }
-    }
+    // .rowType2 {
+    //   &::after {
+    //     top: 4px;
+    //   }
+    // }
+    // .rowType3 {
+    //   &::after {
+    //     top: 8px;
+    //   }
+    // }
   }
 }
 </style>
@@ -273,13 +288,28 @@ export default {
     Number(val) {
       return Number(val);
     },
+    /**判断是否与上一个数据时间相同 */
+    showDate(obj, key='startDate', type = 'date') {
+      const { row, $index } = obj
+      if ($index - 1 < 0) return true
+      if (type == 'date')
+        return this.Number(row.orderSubNo) <= 1 && (row[key].substr(0, 10) != this.tableData[$index - 1][key].substr(0, 10))
+      return this.Number(row.orderSubNo) <= 1 && (row[key] != this.tableData[$index - 1][key])
+    },
+    formatFrequency({ row, $index }) {
+      if (this.tableData.length === 0) return ''
+      if (row.rowType == 1 || !row.frequency || $index <= 0)
+        return row.frequency
+      if (this.tableData[$index - 1].frequency == row.frequency) return ''
+      return row.frequency
+    }
   },
   components: {
    PrintHeader,
   },
   filters: {
-    formatDate(val) {
-      return val ? moment(val).format("MM-DD HH:mm") : "";
+    formatDate(val, formatText = 'HH:mm') {
+      return val ? moment(val).format(formatText) : "";
     },
   },
   watch: {
