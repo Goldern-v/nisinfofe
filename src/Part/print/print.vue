@@ -262,7 +262,7 @@ export default {
    
     if(this.HOSPITAL_ID === 'whfk'){
       const timer =  setInterval(window.onafterprint = (res)=>{
-        var url =window.location.href;
+        var url =decodeURIComponent(window.location.href);
         var fromParams = {};
         var arr = url.split('?').pop().split('#').shift().split('&');
         console.log(arr);
