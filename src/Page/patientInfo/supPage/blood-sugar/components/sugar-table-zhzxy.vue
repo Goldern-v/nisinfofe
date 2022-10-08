@@ -3,10 +3,11 @@
     <table>
       <tr>
         <th style="width: 2%; min-width: 20px">序号</th>
+        <th style="width: 23%; min-width: 75px">日期</th>
         <th style="width: 23%; min-width: 75px">时间</th>
         <th style="width: 20%">项目</th>
         <th style="width: 23%">血糖值<br />(mmol/L)</th>
-        <th style="width: 18%">血酮值<br/>(mmol/L)</th>
+        <!-- <th style="width: 18%">血酮值<br/>(mmol/L)</th> -->
         <th style="width: 14%">执行人</th>
       </tr>
       <tr
@@ -29,6 +30,18 @@
           </div>
           <div class="cell inPrint" :title="item.date">
             {{ item.date }}
+          </div>
+        </td>
+        <td style="padding: 0 4px" @click="setDate(item, index)">
+          <div class="cell noPrint">
+            <!-- <span>{{ item.date }}</span> -->
+            <input type="text" v-model="item.time" :class="{ selected: selected === item }" />
+            <!-- <span>
+              <span>{{ item.time }}</span>
+            </span> -->
+          </div>
+          <div class="cell inPrint" :title="item.time">
+            {{ item.time }}
           </div>
         </td>
         <td>
@@ -60,15 +73,14 @@
             {{ item.sugarValue && item.sugarValue !== "0" ? item.sugarValue : "" }}
           </div>
         </td>
-        <td>
+        <!-- <td>
           <div class="cell noPrint">
-            <!-- {{ item.riValue && item.riValue !== "0" ? item.riValue + " ü" : "" }} -->
             <input :class="{ selected: selected === item }" v-model="item.expand1"/>
           </div>
           <div class="cell inPrint">
             {{ item.expand1 && item.expand1 !== "0" ? item.expand1 : "" }}
           </div>
-        </td>
+        </td> -->
         <!-- <td>
           <div class="cell noPrint sign-cell" @click="sign(item)">{{ item.nurse }}</div>
           <div :class="['cell','inPrint']">
