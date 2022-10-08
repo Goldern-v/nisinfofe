@@ -1691,20 +1691,10 @@ export default {
       width: 4px;
       background: #4bb08d;
     }
-    .sheetSelect-con-sheet-print .el-select-dropdown__item.selected{
-      &:after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 9px;
-      height: 20px;
-      width: 4px;
-      background: #fff;
-    }
-    }
+   
 
   }
-
+ 
   .el-select-dropdown__item.hover {
     background: #fff;
   }
@@ -1717,6 +1707,15 @@ export default {
     width: 80px;
     margin-right:10px;
   }
+.sheetSelect-con-sheet-print .el-select-dropdown__item.selected:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  height: 20px;
+  width: 4px;
+  background: #fff;
+}
 .red-border {
   border: 2px solid red !important;
 }
