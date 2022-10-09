@@ -4,11 +4,11 @@
       <tr>
         <th style="width: 2%; min-width: 20px">序号</th>
         <th style="width: 23%; min-width: 75px">日期</th>
-        <th style="width: 23%; min-width: 75px">时间</th>
+        <th style="width: 18%;">时间</th>
         <th style="width: 20%">项目</th>
         <th style="width: 23%">血糖值<br />(mmol/L)</th>
         <!-- <th style="width: 18%">血酮值<br/>(mmol/L)</th> -->
-        <th style="width: 14%">执行人</th>
+        <th style="width: 19%">执行人</th>
       </tr>
       <tr
         v-for="(item,index) in renderData"
