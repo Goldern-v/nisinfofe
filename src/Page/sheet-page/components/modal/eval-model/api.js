@@ -8,6 +8,17 @@ export function getListAssessment (beginDate,endDate) {
   return axios.get(`${apiPath}record/block/evalList/${sheetInfo.selectBlock.id}?beginDate=${beginDate}&endDate=${endDate}`)
 }
 
+//分页获取评估列表信息
+export const getListAssessmentByPage = (beginDate, endDate,pageIndex,pageSize) => {
+  return axios.post(`${apiPath}record/block/evalListPaging`, {
+    id: sheetInfo.selectBlock.id,
+    beginDate,
+    endDate,
+    pageIndex,
+    pageSize
+  })
+}
+
 // 切换变化护记块签名
 export const signBlock = (password, empNo) => {
   return axios.post(`${apiPath}user/getUser`, {

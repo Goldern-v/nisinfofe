@@ -63,6 +63,7 @@
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <evalModel ref="evalModel"></evalModel>
+    <evalModelPaging ref="evalModelPaging"></evalModelPaging>
     <!-- 电子病例弹窗 -->
     <doctorEmr
       v-if="HOSPITAL_ID === 'huadu' && !$route.path.includes('temperature')"
@@ -240,6 +241,7 @@ import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue
 import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
 import evalModel from "@/Page/sheet-page/components/modal/eval-model/eval-model.vue";
+import evalModelPaging from "@/Page/sheet-page/components/modal/eval-model/eval-model-paging.vue"
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
 import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBottom";
@@ -877,6 +879,9 @@ export default {
     this.bus.$on("openEvalModel", (tr, td) => {
       this.$refs.evalModel.open();
     });
+    this.bus.$on("openEvalModelPaging", (tr, td) => {
+      this.$refs.evalModelPaging.open();
+    });
     this.bus.$on("refrehSheetStartPage", () => {
       this.getHomePage();
     });
@@ -965,6 +970,7 @@ export default {
     pizhuModal,
     sheetTableNeonatology,
     evalModel,
+    evalModelPaging,
     sheetTablePost_partum,
     sheetTablePost_hemodialysis,
     sheetTable_oxytocin,
