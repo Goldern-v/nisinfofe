@@ -543,7 +543,7 @@ async mounted() {
     this.bus.$on("syncInAndOutHospital", (type) => {
       this.syncInAndOutHospital(type);
     });
-         this.bus.$on("getDataFromPage", (dateTime) => {
+        this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate = dateTime.slice(0, 10);
       this.query.entryTime = dateTime.slice(11, 16) + ":00";
       this.dateInp = dateTime.slice(11, 16);
@@ -760,8 +760,7 @@ async mounted() {
           let o = {
             体温: {
               value: val,
-              reg: [34, 42],
-              errorMsg: "体温请填入30~42之间的数值",
+              reg: ['sdlj'].includes(this.HOSPITAL_ID)?[34, 42]:[35,42],
             },
           };
           return o;
@@ -770,7 +769,7 @@ async mounted() {
           let y = {
             脉搏: {
               value: val,
-              reg: [20, 180],
+              reg: [0, 200],
             },
           };
           return y;
