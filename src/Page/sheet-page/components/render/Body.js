@@ -1576,6 +1576,11 @@ function switchSheetType(type) {
       schema = require("../config/critical_new_weihai/tr.js").default;
     }
     break;
+    case "baby_yz": {
+      // 临沂沂州 - 新生儿护理记录单
+      schema = require("../config/baby_yz/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
