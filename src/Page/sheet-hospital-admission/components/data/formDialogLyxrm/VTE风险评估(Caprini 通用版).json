@@ -208,7 +208,7 @@
           "title": "1.年龄41~60岁",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -219,7 +219,7 @@
           "title": "2.计划小手术",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -230,7 +230,7 @@
           "title": "3.近期大手术",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -241,7 +241,7 @@
           "title": "4.BMI>30㎏/㎡",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -252,7 +252,7 @@
           "title": "5.卧床的内科患者",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -263,7 +263,7 @@
           "title": "6.炎症性肠史",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -274,7 +274,7 @@
           "title": "7.下肢水肿",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -285,7 +285,7 @@
           "title": "8.严重的肺部疾病",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -296,7 +296,7 @@
           "title": "9.肺功能异常，COPD",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -307,7 +307,7 @@
           "title": "10.急性心肌梗（1个月内）",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -318,7 +318,7 @@
           "title": "11.充血性心力衰竭(＜1个月)",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -329,7 +329,7 @@
           "title": "12.脓毒症(＜1个月)",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -340,7 +340,7 @@
           "title": "13.充血性心力衰竭(＜1个月)",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -351,7 +351,7 @@
           "title": "14.败血症（1个月内）",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -362,7 +362,7 @@
           "title": "15.输血（1个月内）",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -373,7 +373,7 @@
           "title": "16.下肢石膏或肢具固定",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -384,7 +384,7 @@
           "title": "17.中心静脉置管",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -395,7 +395,7 @@
           "title": "18.其他高危因数",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -406,7 +406,7 @@
           "title": "原因不明的死胎史，复发性自 然流产（≥3次），由于毒血 症或发育受限原因早产",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:520px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -417,7 +417,7 @@
           "title": "口服避孕药或激素替代治疗",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -428,7 +428,7 @@
           "title": "妊娠期或产后（1个月）",
           "code": "1",
           "score": 1,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -464,7 +464,7 @@
           "title": "19.年龄61~74岁",
           "code": "2",
           "score": 2,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -475,7 +475,7 @@
           "title": "20.大手术（>60min）",
           "code": "2",
           "score": 2,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -486,7 +486,7 @@
           "title": "21.关节镜手术(>60min)",
           "code": "2",
           "score": 2,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -497,7 +497,7 @@
           "title": "22.既往恶性肿瘤",
           "code": "2",
           "score": 2,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -508,7 +508,7 @@
           "title": "23.腹腔镜手术(>60min)",
           "code": "2",
           "score": 2,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -519,7 +519,7 @@
           "title": "24.肥胖（BMI>40kg/㎡）",
           "code": "2",
           "score": 2,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -555,7 +555,7 @@
           "title": "25.年龄≥75岁",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -566,7 +566,7 @@
           "title": "26.VTE病史",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -577,7 +577,7 @@
           "title": "27.VTE家族史",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -588,7 +588,7 @@
           "title": "28.凝血因子VLeiden突变",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -599,7 +599,7 @@
           "title": "29.凝血酶原G20210A突变",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -610,7 +610,7 @@
           "title": "30.狼疮抗凝物阳性",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -621,7 +621,7 @@
           "title": "31.抗心磷脂抗体阳性",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -632,7 +632,7 @@
           "title": "32.血清同型半胱氨酸升高",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -643,7 +643,7 @@
           "title": "33.肝素诱发血小板减少症",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -654,7 +654,7 @@
           "title": "34.其他先天或获得性血栓形成倾向",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -665,7 +665,7 @@
           "title": "35.肥胖（BMI>50kg/㎡）",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -676,7 +676,7 @@
           "title": "36.大手术>持续2~3h",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -687,12 +687,12 @@
           "title": "37.现患恶性肿瘤或化疗",
           "code": "3",
           "score": 3,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
         }
-        
+
 
       ]
     },
@@ -725,7 +725,7 @@
           "title": "38.卒中(＜1个月)",
           "code": "5",
           "score": 5,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -736,7 +736,7 @@
           "title": "39.择期关节置换术",
           "code": "5",
           "score": 5,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -747,7 +747,7 @@
           "title": "40.髋、骨盆或下肢骨折",
           "code": "5",
           "score": 5,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -758,7 +758,7 @@
           "title": "41.急性脊髓损伤(＜1个月)",
           "code": "5",
           "score": 5,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -769,7 +769,7 @@
           "title": "42.已确诊VTE",
           "code": "5",
           "score": 5,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null
@@ -780,7 +780,7 @@
           "title": "43.入住ICU",
           "code": "5",
           "score": 5,
-          "style": "width:170px;height:30px",
+          "style": "width:300px;height:30px",
           "class": null,
           "html": null,
           "readOnly": null

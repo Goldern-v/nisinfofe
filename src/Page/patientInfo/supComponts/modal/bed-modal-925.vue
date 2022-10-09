@@ -21,12 +21,12 @@
         <span>{{ query.name }}</span>
         <span>{{ query.sex }}</span>
         <span>{{ query.age }}</span>
-        <span>{{ query.bedLabel }}</span>
+        <span>床号：{{ query.bedLabel }}</span>
       </div>
       <div class="wrist-line2">
         <div>
           <span>手术名称：</span>
-          <span>{{ operationName }}</span>
+          <input type="text" v-model="operationName" />
         </div>
         <div>
           <span>住院号：</span>
@@ -36,7 +36,8 @@
       <div class="wrist-line2">
         <div>
           <span>诊断：</span>
-          <span>{{ query.diagnosis }}</span>
+          <!-- <span>{{ query.diagnosis }}</span> -->
+          <input type="text" v-model="formData.remark" />
         </div>
         <div>
           <span>过敏信息：</span>
@@ -110,8 +111,8 @@
         {{ query.deptName }}
       </div>
       <div class="patient-name">{{ query.name }}</div>
-      <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
       <div class="other-info">
+        <span>床号：{{ query.bedLabel }}</span>
         <span>{{ query.sex }}</span>
         <span>{{ query.age }}</span>
         <span>住院号：{{ query.inpNo }}</span>
@@ -120,7 +121,9 @@
         <span>诊断：</span>
         <textarea class="diagnosis-content" v-model="formData.remark" rows="9" />
       </div>
+
       <div class="dn-title">
+        <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
         <span>管床医生</span>
         <span>责任护士</span>
       </div>
@@ -248,10 +251,12 @@
   }
 
   .dn-title {
+    position: relative;
     display: flex;
     justify-content: space-around;
     border-top: 5px solid #000;
     height: 100px;
+    padding-right: 100px;
     align-items: center;
 
     span {
@@ -264,6 +269,7 @@
 
   .dn-box {
     display: flex;
+    padding-right: 100px;
 
     >div {
       flex: 1;
@@ -301,8 +307,8 @@
 
   .qr-code {
     position: absolute;
-    top: 85px;
-    right: 20px;
+    top: 24px;
+    right: -6px;
     height: 112px;
     width: 112px;
 
@@ -392,6 +398,10 @@
       width: 96px;
       height: 96px;
     }
+  }
+  input {
+    font-size: 19px;
+    line-height: 26px;
   }
 }
 
@@ -517,9 +527,9 @@ export default {
     },
     title() {
       switch (this.printMode) {
-        case "wrist":
-          return "床头卡打印";
         case "h":
+          return "床头卡打印";
+        case "wrist":
           return "腕带打印";
         default:
           return "打印";

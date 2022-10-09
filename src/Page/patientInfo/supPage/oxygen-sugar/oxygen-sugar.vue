@@ -95,6 +95,7 @@
         <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()"
         ></whiteButton>
         <el-select
+          v-if=" HOSPITAL_ID == 'whfk' "
           v-model="printRecordValue"
           value-key="id"
           size="small"

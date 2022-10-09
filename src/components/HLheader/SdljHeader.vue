@@ -174,7 +174,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-              </el-dropdown-menu> 
+              </el-dropdown-menu>
             </el-dropdown>
             <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -441,6 +441,15 @@
                   <router-link to="/noCheckTest" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="noCheckTest"></i>未做检查/检验
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/statisticalQuery' }"
+                >
+                  <router-link to="/statisticalQuery" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="nursingDocumentation"></i> 统计查询
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -1032,7 +1041,7 @@ export default {
         "/bottleLabelByProgram",
         "/implementationList"
       ].includes(this.$route.path)
-      
+
     }
   },
   methods: {

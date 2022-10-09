@@ -93,6 +93,7 @@
     <setPageModal ref="setPageModal"></setPageModal>
     <pizhuModal ref="pizhuModal"></pizhuModal>
     <evalModel ref="evalModel"></evalModel>
+    <evalModelPaging ref="evalModelPaging"></evalModelPaging>
     <syncToIsbarModal ref="syncToIsbarModal"></syncToIsbarModal>
     <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
@@ -256,6 +257,7 @@ import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescu
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
+import evalModelPaging from "./components/modal/eval-model/eval-model-paging.vue"
 import sheetModel, {
   addSheetPage,
   delSheetPage,
@@ -1107,6 +1109,9 @@ export default {
     this.bus.$on("openEvalModel", (tr, td) => {
       this.$refs.evalModel.open();
     });
+    this.bus.$on("openEvalModelPaging", (tr, td) => {
+      this.$refs.evalModelPaging.open();
+    });
     this.bus.$on("refrehSheetStartPage", () => {
       this.getHomePage();
     });
@@ -1224,6 +1229,7 @@ export default {
     sheetTableNeonatology,
     sheetTablePost_partum,
     evalModel,
+    evalModelPaging,
     sheetTablePost_hemodialysis,
     sheetTable_oxytocin,
     sheetTableDressing_count,

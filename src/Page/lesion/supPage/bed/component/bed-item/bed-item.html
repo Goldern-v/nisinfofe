@@ -1,5 +1,5 @@
 <div class="bed-box" @contextmenu.stop="HOSPITAL_ID == 'zhongshanqi' && openContextMenu($event,data)">
-  <div class="like" @click.stop="toLike(data)" v-if="(HOSPITAL_ID == 'zhongshanqi'||HOSPITAL_ID == 'fuyou') && data.name">
+  <div class="like" @click.stop="toLike(data)" v-if="['zhongshanqi', 'fuyou', 'nanfangzhongxiyi'].includes(HOSPITAL_ID) && data.name">
     <img v-if="data.isFollow == '1'" src="../../../../../../common/images/card/like.png" height="18" width="18" />
     <img v-else src="../../../../../../common/images/card/liked.png" height="18" width="18" />
   </div>
