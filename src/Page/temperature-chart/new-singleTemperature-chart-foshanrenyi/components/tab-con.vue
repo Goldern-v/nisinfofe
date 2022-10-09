@@ -46,20 +46,14 @@
             >下一天</el-button
           >
         </el-button-group>
-        <!-- <div class="save-btn-top" v-if="patientInfo.patientId">
-          <el-button
-            :disabled="isDisable()"
-            type="primary"
-            class="save-btn"
-            @click="saveVitalSign(vitalSignObj)"
-            >保存</el-button
-          >
-        </div> -->
+
       </div>
     </div>
     <div class="row-bottom">
+
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
+
         <div class="record-list" :style="{ width: `${35}%` }">
           <div class="record-item">
             <div
@@ -93,7 +87,7 @@
         <div class="inputter-region" :style="contentHeight">
           <el-collapse v-model="activeNames" @change="handleChange">
             <div style="border-radius: 7px; overflow: hidden">
-              <el-collapse-item name="biometric">
+              <el-collapse-item name="biometric" >
                 <template slot="title">
                   <span class="title"> 体征信息 </span>
                   <!-- <i class="header-icon el-icon-info"></i> -->
@@ -110,6 +104,7 @@
                   "
                   v-for="(j, index, i) in baseMultiDictList"
                   :key="index"
+                  class="pathological"
                 >
                   <div class="rowItemText">
                     <span>{{ index }}</span>
@@ -215,6 +210,7 @@
                     "
                     v-for="(j, index, i) in otherMultiDictList"
                     :key="index"
+                    class="otherPathological"
                   >
                     <div class="rowItemText">
                       <span>{{ index }}</span>
@@ -331,7 +327,7 @@
                     </div>
 
                     <input
-                      :id="h + 100"
+                      :id="h + 1000"
                       type="text"
                       class="fieldClass"
                       @keydown.enter="changeNext"
@@ -479,6 +475,7 @@ import {
   deleteRecord,
   getViSigsByReDate,
 } from "../../api/api";
+import mock_dic from '../components/dic_test.json'
 export default {
   props: { patientInfo: Object },
   data() {
@@ -653,25 +650,32 @@ export default {
     },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
-        let inputListLength = document.getElementsByClassName("rowBox").length;
-        if (Number(e.target.id) < inputListLength) {
-          switch (Number(e.target.id)) {
-            case 6:
-              document.getElementById("12").focus();
-            case 12:
-              document.getElementById("16").focus();
-            default:
-              document.getElementById(Number(e.target.id) + 1).focus();
-          }
-        } else if (Number(e.target.id) === inputListLength) {
+        let baseLength = document.getElementsByClassName("pathological").length;
+        let otherLength =
+          document.getElementsByClassName("otherPathological").length;
+        this.otherDicListLength = otherLength;
+        console.log(e.target.id,baseLength)
+        if (Number(e.target.id) < baseLength) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (Number(e.target.id) === baseLength) {
           document.getElementById("100").focus();
+        } else if (
+          Number(e.target.id) > baseLength &&
+          Number(e.target.id) < otherLength + 100 - 1
+        ) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+
+        }
+        if (Number(e.target.id) >= 100 + otherLength - 1) {
+
+          document.getElementById("1000").focus();
         }
       } else {
         let inputListLength =
           document.getElementsByClassName("fieldClass").length;
-        if (Number(e.target.id) < inputListLength + 100 - 1) {
+        if (Number(e.target.id) < inputListLength + 1000 - 1) {
           document.getElementById(Number(e.target.id) + 1).focus();
-        } else if (Number(e.target.id) === inputListLength + 100 - 1) {
+        } else if (Number(e.target.id) === inputListLength + 1000 - 1) {
           document.getElementById("1").focus();
         }
       }
@@ -880,9 +884,11 @@ export default {
           data[item.vitalSign] = item.vitalCode;
           switch (item.signType) {
             case "base":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
               break;
             case "other":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               otherDic[item.vitalSign] = item.vitalCode;
               break;
             default:
@@ -1193,11 +1199,10 @@ export default {
   .rowItem_noShow {
     display: none;
   }
-
   .rowBox {
     width: 45%;
     float: left;
-    over-flow:hidden;
+    height: 40px;
 
     input {
       width: 95%;
@@ -1224,8 +1229,8 @@ export default {
   .rowBoxRight {
     width: 45%;
     float: left;
+    height: 40px;
     margin-left: 10%;
-    over-flow:hidden;
 
     input {
       width: 95%;

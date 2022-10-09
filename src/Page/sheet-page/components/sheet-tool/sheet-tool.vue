@@ -292,39 +292,40 @@
       </div>
       <div flex-box="1"></div>
       <el-select
-          v-model="printRecordValue"
-          value-key="id"
-          size="small"
-          placeholder=""
-          class="select-con"
-          @visible-change="getPrintRecordData()"
-        >
-          <div class="sheetSelect-con-sheet sheetSelect-con-sheet-print">
-            <div class="head-con" flex="cross:stretch" >
-              <div class="col-1">打印人</div>
-              <div class="col-2" style="border-right:none">打印时间</div>
-            
-            </div>
-            <el-option
-              v-for="item in printRecord"
-              :key="item.id"
-              :label="item.printName+' '+item.printTime"
-              :value="item"
-            >
-              <div class="list-con list-con-print" flex="cross:stretch" v-if="!item.nodData">
-                <div class="col-1" :title="item.printName">
-                  {{ item.printName }}
-                </div>
-                <div class="col-2" :title="item.printTime" style="border-right:none">
-                  {{ item.printTime }}
-                </div>
-              </div>
-              <div v-if="item.nodData" style="text-align: center;width: 562px;height: 100px;padding-top: 50px;background:#fff;background: rgb(255, 255, 255);color: #000">
-                  暂无打印记录
-                </div>
-            </el-option>
+        v-if=" HOSPITAL_ID == 'whfk' "
+        v-model="printRecordValue"
+        value-key="id"
+        size="small"
+        placeholder=""
+        class="select-con"
+        @visible-change="getPrintRecordData()"
+      >
+        <div class="sheetSelect-con-sheet sheetSelect-con-sheet-print">
+          <div class="head-con" flex="cross:stretch" >
+            <div class="col-1">打印人</div>
+            <div class="col-2" style="border-right:none">打印时间</div>
+          
           </div>
-        </el-select>
+          <el-option
+            v-for="item in printRecord"
+            :key="item.id"
+            :label="item.printName+' '+item.printTime"
+            :value="item"
+          >
+            <div class="list-con list-con-print" flex="cross:stretch" v-if="!item.nodData">
+              <div class="col-1" :title="item.printName">
+                {{ item.printName }}
+              </div>
+              <div class="col-2" :title="item.printTime" style="border-right:none">
+                {{ item.printTime }}
+              </div>
+            </div>
+            <div v-if="item.nodData" style="text-align: center;width: 562px;height: 100px;padding-top: 50px;background:#fff;background: rgb(255, 255, 255);color: #000">
+                暂无打印记录
+              </div>
+          </el-option>
+        </div>
+      </el-select>
       <el-select
         v-if="!isDeputy"
         v-model="sheetInfo.selectBlock"
@@ -645,6 +646,9 @@ export default {
           formType:'record',
           formCode:this.sheetInfo.selectBlock.recordCode,
           formName:this.sheetInfo.selectBlock.recordName,
+      }
+      if(!this.sheetInfo.selectBlock.patientId){
+        return;
       }
       getPrintRecord(fromParams)
       .then(res => {
@@ -1607,7 +1611,7 @@ export default {
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-   >>> .el-input__inner {
+   >>>.select-con .el-input__inner {
     width: 85px !important;
   }
 .sheetSelect-con-sheet {
@@ -1687,8 +1691,10 @@ export default {
       width: 4px;
       background: #4bb08d;
     }
-  }
+   
 
+  }
+ 
   .el-select-dropdown__item.hover {
     background: #fff;
   }
@@ -1701,6 +1707,15 @@ export default {
     width: 80px;
     margin-right:10px;
   }
+.sheetSelect-con-sheet-print .el-select-dropdown__item.selected:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  height: 20px;
+  width: 4px;
+  background: #fff;
+}
 .red-border {
   border: 2px solid red !important;
 }

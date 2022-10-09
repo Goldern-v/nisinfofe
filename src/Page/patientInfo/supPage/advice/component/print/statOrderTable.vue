@@ -46,7 +46,7 @@
               :class="[
                 type(scope.row.orderStatusName),
               ]" style="margin-right: 15px;"
-              >{{scope.row.specialSymbols}}{{ scope.row.dosage }}{{ scope.row.dosageUnits }}</span
+              >{{ scope.row.dosage }}{{ scope.row.dosageUnits }}{{scope.row.specialSymbols}}</span
             >
             <span
               :class="type(scope.row.orderStatusName)"
@@ -80,6 +80,18 @@
           </template>
       </el-table-column>
       <el-table-column
+        label="校对护士"
+        min-width="60px"
+        prop="nurse"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <div v-show="Number(scope.row.orderSubNo) <= 1">
+            {{scope.row.nurseEmpNo || scope.row.nurse}}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="执行时间"
         min-width="80px"
         align="center"
@@ -94,14 +106,14 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="护士"
+        label="执行护士"
         min-width="60px"
-        prop="nurse"
+        prop="nurseExecute"
         align="center"
       >
         <template slot-scope="scope">
           <div v-show="Number(scope.row.orderSubNo) <= 1">
-            {{scope.row.nurseEmpNo || scope.row.nurse}}
+            {{scope.row.nurseExecute}}
           </div>
         </template>
       </el-table-column>
@@ -123,6 +135,9 @@
   td {
     height:  30px !important;
     vertical-align: top;
+  }
+  th,td {
+    font-size: 16px;
   }
 
   img {
