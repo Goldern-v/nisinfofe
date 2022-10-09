@@ -135,10 +135,10 @@ export default [
     },
     value: ""
   },
-  {
-    key: "audit", //审核签名
-    value: ""
-  },
+  // {
+  //   key: "audit", //审核签名
+  //   value: ""
+  // },
   {
     hidden: true,
     key: "id",

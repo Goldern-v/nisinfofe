@@ -49,6 +49,13 @@ export default {
       },
       {
         name: `
+        SPO<sub>2</sub><br/>(%)
+        `,
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
         意识
         `,
         colspan: "1",
@@ -67,13 +74,6 @@ export default {
         `,
         colspan: "2",
         rowspan: "1"
-      },
-      {
-        name: `
-        SPO<sub>2</sub><br/>(%)
-        `,
-        colspan: "1",
-        rowspan: "3"
       },
       {
         name: `标题1`,
@@ -177,7 +177,7 @@ export default {
           minWidth: "105px",
           maxWidth: "105px"
         },
-        
+
       },
       {
         name: `
