@@ -221,7 +221,6 @@ export default {
       return this.$route.query;
     },
     listByFilter() {
-      console.log(this.list);
       if (this.isGuizhou) return this.list
       return this.list.filter((item) => {
         if (this.value == "全部") return true;
