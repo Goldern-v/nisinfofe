@@ -864,6 +864,76 @@ export default {
         }
       }
     });
+    this.bus.$on("toSheetPrintPagewhfk", (obj) => {
+      const newWid = obj.newWid,fromParams=obj.fromParams;
+      if ($(".sign-text").length) {
+        // 判断是否存在标记
+        if ($(".mark-mark-mark").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".mark-mark-mark").eq(0).addClass("red-border").offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150,
+          });
+          return this.$message.warning("打印前必须去除所有标记");
+        }
+        // 判断是否存在未签名
+        if ($(".noSignRow").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".noSignRow").eq(0).addClass("red-border").offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150,
+          });
+          return this.$message.warning("存在未签名的记录，请全部签名后再打印");
+        }
+        if ($(".multiSign").length) {
+          $(this.$refs.scrollCon).animate({
+            scrollTop:
+              $(".multiSign").eq(0).addClass("red-border").offset().top +
+              this.$refs.scrollCon.scrollTop -
+              150,
+          });
+          return this.$message.warning("记录存在多个签名，或者忘记填写时间");
+        }
+      }
+      if ($(".isNoSign") && $(".isNoSign").length) {
+        $(".signTd").eq(0).addClass("red-border");
+        $(this.$refs.scrollCon).animate({
+          scrollTop:
+            $(".isNoSign").eq(0).offset().top +
+            this.$refs.scrollCon.scrollTop -
+            150,
+        });
+        return this.$message.warning("存在未签名的记录，请全部签名后再打印");
+      }
+
+      // 对存储空间不够做处理
+      try {
+        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+      } catch (err) {
+        // 可能要预留下来的 暂时不移除
+        let keys = [
+          "selectDeptValue",
+          "rememberAccount",
+          "ppp",
+          "user",
+          "adminNurse",
+        ];
+        for (let key in localStorage) {
+          if (!keys.includes(key)) {
+            localStorage.removeItem(key);
+          }
+        }
+        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+      }
+     
+      // if (process.env.NODE_ENV === "production") {
+        newWid.location.href = `/crNursing/print/sheetPage?&patientId=${fromParams.patientId}&visitId=${fromParams.visitId}&formId=${fromParams.formId}&formType=${'record'}&formCode=${fromParams.formCode}&formName=${fromParams.formName}`;
+      // } else {
+      //   this.$router.push(`/print/sheetPage`);
+      // }
+    });
     this.bus.$on("openHJModal", () => {
       this.$refs.HjModal.open();
     });

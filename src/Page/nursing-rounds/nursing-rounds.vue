@@ -33,7 +33,8 @@
           placeholder="输入床号进行搜索"
           v-model="query.bedLabel"
         ></el-input>
-        <el-button size="small" type="primary" @click="search">查询</el-button>
+          <el-button size="small" type="primary" @click="search">查询</el-button>
+          <el-button size="small" @click="handlePrint" v-if="showPrint">打印</el-button>
       </div>
       <component :is="tableCon" :tableData="tableData" :pageLoadng="pageLoadng" :getData="onLoad" ref="plTable"></component>
       <div class="pagination-con" flex="main:justify cross:center">
@@ -45,6 +46,8 @@
           @currentChange="handleCurrentChange"
         ></pagination>
       </div>
+      <printTable v-if="showPrint" ref="printRef" :tableData="allTableData" />
+
     </div>
     <authorityModal ref="authorityModal"></authorityModal>
   </div>
@@ -52,10 +55,13 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .main-contain {
   margin: 10px 10px 0px 10px;
+  position: relative;
+  overflow: hidden;
 
   .pagination-con {
     height: 41px;
     position: relative;
+    background: #f2f2f2;
 
     .pagination {
       position: absolute;
@@ -177,12 +183,14 @@
 import dTable from "./components/table/d-table";
 import dTableLyxrm from "./components/table/d-table-lyxrm";
 import pagination from "./components/common/pagination";
-import { patEmrList } from "@/api/document";
+import printTable from "./components/print-table-sdlj";
 import { getNursingVisitLc } from "./api/index";
 import { multiDictInfo } from "@/api/common";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import authorityModal from "./components/modal/authorityModal";
+import print from 'printing'
+import formatter from './utils/print-formatter'
 
 const pageSize = ['lyxrm', 'whsl', 'whhk'].includes(process.env.HOSPITAL_ID) ? 1000 : 20
 export default {
@@ -201,7 +209,9 @@ export default {
         pageSize
       },
       total: 0,
-      allNursingClass: []
+      allNursingClass: [],
+      allTableData: [],
+      showPrint: this.HOSPITAL_ID === 'sdlj',
     };
   },
   methods: {
@@ -298,6 +308,7 @@ export default {
     search() {
       this.query.pageIndex = 1;
       this.onLoad();
+      this.onLoadAll();
     },
     getNursingClass() {
       let list = ["nurse_nursing_class"];
@@ -309,10 +320,106 @@ export default {
     },
     openViewModal() {
       this.$refs.authorityModal.open(this.deptCode);
-    }
+    },
+    onLoadAll() {
+      if (!this.deptCode) return;
+      this.pageLoadng = true;
+      this.query.deptCode = this.deptCode;
+      (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
+        getNursingVisitLc({...this.query, pageSize: 9999}).then(res => {
+          if (['lyxrm', 'whsl', 'whhk'].includes(this.HOSPITAL_ID)) {
+            let child = [],
+              tableData = [];
+            res.data.data.list.map((item, index, array) => {
+              let prevRowId, nextRowId, currentRowId;
+
+              prevRowId =
+                array[index - 1] &&
+                array[index - 1].patientId;
+              nextRowId =
+                array[index + 1] &&
+                array[index + 1].patientId;
+              currentRowId =
+                array[index] && array[index].patientId;
+
+              item.id = index;
+
+              /** 判断是此记录是多条记录 */
+              if (currentRowId == prevRowId || currentRowId == nextRowId) {
+
+                child.push(item);
+                if (currentRowId != prevRowId) {
+                  /** 第一条 */
+                  item.rowType = 1;
+                  child.pop();
+                  tableData.push(item);
+                } else if (currentRowId != nextRowId) {
+                  /** 最后条 */
+                  item.rowType = 3;
+
+                  tableData[tableData.length - 1].children = JSON.parse(
+                    JSON.stringify(child)
+                  );
+                  child = [];
+                } else {
+                  /** 中间条 */
+                  item.rowType = 2;
+                }
+              } else {
+                tableData.push(item);
+              }
+            });
+
+            this.allTableData = [...tableData];
+
+          } else {
+            this.allTableData = res.data.data.list.map((item, index, array) => {
+              let prevRowId = array[index - 1] && array[index - 1].patientId;
+              let nextRowId = array[index + 1] && array[index + 1].patientId;
+              let currentRowId = array[index] && array[index].patientId;
+              /** 判断是此记录是多条记录 */
+              if (currentRowId == prevRowId || currentRowId == nextRowId) {
+                if (currentRowId != prevRowId) {
+                  /** 第一条 */
+                  item.rowType = 1;
+                } else {
+                  /** 最后条 */
+                  item.rowType = 2;
+                }
+              }
+              return item;
+            });
+          }
+          this.pageLoadng = false;
+        });
+    },
+    handlePrint() {
+      this.$nextTick(() => {
+        const printEle = this.$refs.printRef.$el
+        print(printEle, {
+          beforePrint: formatter,
+          direction: "horizontal",
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+          @page {
+            margin: 0 5mm;
+          }
+          .print-table {
+            top: 0px !important;
+          }
+
+          pre {
+            white-space: pre-wrap;
+          }
+          `,
+        });
+      })
+    },
   },
   created() {
     this.onLoad();
+    this.onLoadAll();
     this.getNursingClass();
   },
   watch: {
@@ -341,7 +448,8 @@ export default {
     dTable,
     dTableLyxrm,
     pagination,
-    authorityModal
+    authorityModal,
+    printTable,
   }
 };
 </script>

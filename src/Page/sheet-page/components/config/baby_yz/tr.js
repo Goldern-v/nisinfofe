@@ -39,7 +39,7 @@ export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: '' },
   { key: "recordHour", event: event_time, click: click_time, value: '' },
-  { key: 'classtime', event: keyf1, value: '', next: '', name: '班次', textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: bcList } },
+  { key: 'classTime', event: keyf1, value: '', next: '', name: '班次', textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: bcList } },
   { key: 'faceRed', event: keyf1, value: '', next: '', name: '红润', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'faceWhite', event: keyf1, value: '', next: '', name: '苍白', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'faceYellow', event: keyf1, value: '', next: '', name: '黄染', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
