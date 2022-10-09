@@ -2037,6 +2037,13 @@ export default function Title(
     );
   }
   break;
+  case "baby_yz": {
+    // 临沂沂州 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_yz/th").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(

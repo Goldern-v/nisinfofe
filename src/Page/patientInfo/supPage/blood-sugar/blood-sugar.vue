@@ -220,6 +220,7 @@
           @click="()=>{}"
         ></whiteButton>
         <el-select
+         v-if=" HOSPITAL_ID == 'whfk' "
           v-model="printRecordValue"
           value-key="id"
           size="small"

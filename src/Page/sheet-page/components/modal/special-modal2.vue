@@ -1861,7 +1861,8 @@ export default {
               this.sheetInfo.sheetType === "icu_qz" ||
               this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
               this.sheetInfo.sheetType === "common_gzry" ||
-              this.sheetInfo.sheetType === "hydrochloricacid_fs"
+              this.sheetInfo.sheetType === "hydrochloricacid_fs" ||
+              this.sheetInfo.sheetType === "baby_yz"
             ) {
               // 特殊情况长度截取，前端控制部分(长度计算：输入的字数*2-2)
               if (GetLength(text) > 46) {

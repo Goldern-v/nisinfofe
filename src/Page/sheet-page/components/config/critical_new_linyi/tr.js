@@ -67,10 +67,10 @@ export default [{
     next: "℃"
   },
   {
-    key: "pulse", //心率脉搏
+    key: "pulse", //脉搏/心率
     value: "",
     event: keyf1,
-    name: "心率/脉搏",
+    name: "脉搏/心率",
     next: "次/分"
   },
   {
