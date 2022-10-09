@@ -129,7 +129,7 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9878" // 公司-山南市人民医院测试-内网
     /** 武警广东省总队医院 */
     case "wujing":
-      return 'http://14.18.101.182:9094' // crph3675 crph
+      // return 'http://14.18.101.182:9094' // crph3675 crph
       // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
       return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.20.187:8080" // 杨鑫本地
@@ -210,8 +210,8 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9894'
     // 临沂沂州
     case 'lyyz':
-      // return 'http://192.168.1.54:9895'
-      return 'http://192.168.137.164:8080'
+      return 'http://192.168.1.54:9895'
+      // return 'http://192.168.137.164:8080'
       // return 'http://192.168.1.54:9895'
     // 广东同江
     case 'gdtj':
@@ -241,7 +241,7 @@ module.exports = {
         // Before setting to `true`, make sure to:
         // npm install --save-dev compression-webpack-plugin
         productionGzip: false,
-      
+
         productionGzipExtensions: ["js", "css"],
         // Run the build command with an extra argument to
         // View the bundle analyzer report after build finishes:
