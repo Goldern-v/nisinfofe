@@ -431,17 +431,32 @@
       <div class="line" v-if="!isSingleTem_LCEY && !isDeputy"></div>
       <div style="width: 5px"></div>
       <template  v-if="!isLock">
-        <div
+        <template v-if=" HOSPITAL_ID == 'wujing'">
+           <!-- 分页获取评估同步 -->
+          <div
           class="right-btn"
           flex="cross:center main:center"
-          @click="emit('openEvalModel')"
-          v-if="!isSingleTem_LCEY && !isDeputy && HOSPITAL_ID != 'foshanrenyi'"
+          @click="emit('openEvalModelPaging')"
         >
           <div class="text-con">
             <img src="./images/评估.png" alt />
             评估同步
           </div>
         </div>
+        </template>
+        <template v-else>
+          <div
+            class="right-btn"
+            flex="cross:center main:center"
+            @click="emit('openEvalModel')"
+            v-if="!isSingleTem_LCEY && !isDeputy && HOSPITAL_ID != 'foshanrenyi'"
+          >
+          <div class="text-con">
+            <img src="./images/评估.png" alt />
+            评估同步
+          </div>
+          </div>
+        </template>
       </template>
       <div class="line" v-if="!isSingleTem_LCEY && !isDeputy"></div>
       <template  v-if="!isLock">
