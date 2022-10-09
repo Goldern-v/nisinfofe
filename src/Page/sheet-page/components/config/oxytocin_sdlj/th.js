@@ -129,17 +129,18 @@ export default {
         },
         colspan: '1',
         rowspan: '3'
-      },{
-        name: `
-        审核签名
-        `,
-        style: {
-          minWidth: '46px',
-          // maxWidth: '72px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      }
+      },
+      // {
+      //   name: `
+      //   审核签名
+      //   `,
+      //   style: {
+      //     minWidth: '46px',
+      //     // maxWidth: '72px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // }
     ],
     mid: [
       {

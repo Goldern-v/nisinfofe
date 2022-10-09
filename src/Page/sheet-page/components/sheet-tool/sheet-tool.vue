@@ -297,7 +297,7 @@
         value-key="id"
         size="small"
         placeholder=""
-        class="select-con"
+        class="select-con whfk-select-con"
         @visible-change="getPrintRecordData()"
       >
         <div class="sheetSelect-con-sheet sheetSelect-con-sheet-print">
@@ -327,7 +327,46 @@
         </div>
       </el-select>
       <el-select
-        v-if="!isDeputy"
+        v-if="!isDeputy && HOSPITAL_ID == 'whfk'"
+        v-model="sheetInfo.selectBlock"
+        @change="changeSelectBlock"
+        value-key="id"
+        placeholder="请选择护理记录单"
+        class="select-con whfk-select-con"
+      >
+        <div class="sheetSelect-con-sheet">
+          <div class="head-con" flex="cross:stretch">
+            <div class="col-1">记录单标题</div>
+            <div class="col-2">科室</div>
+            <div class="col-3">开始时间</div>
+            <div class="col-4">页码</div>
+          </div>
+          <el-option
+            v-for="item in sheetBlockList"
+            :key="item.id"
+            :label="blockLabel(item, sheetBlockList.length)"
+            :value="item"
+          >
+            <div class="list-con" flex="cross:stretch">
+              <div class="col-1" :title="item.recordName">
+                {{ item.recordName }}
+              </div>
+              <div class="col-2" :title="item.deptName">
+                {{ item.deptName }}
+              </div>
+              <div class="col-3" :title="item.createTime">
+                {{ item.createTime }}
+              </div>
+              <div class="col-4" :title="item.completeName">
+                {{ item.pageIndex }} - {{ item.endPageIndex }}
+              </div>
+              <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
+            </div>
+          </el-option>
+        </div>
+      </el-select>
+      <el-select
+        v-if="!isDeputy  && HOSPITAL_ID != 'whfk'"
         v-model="sheetInfo.selectBlock"
         @change="changeSelectBlock"
         value-key="id"
@@ -1626,9 +1665,6 @@ export default {
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-   >>>.select-con .el-input__inner {
-    width: 85px !important;
-  }
 .sheetSelect-con-sheet {
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
@@ -1718,10 +1754,13 @@ export default {
     background: #E5F1F0;
   }
 }
-.select-con {
-    width: 80px;
-    margin-right:10px;
-  }
+.whfk-select-con {
+  width: 80px;
+  margin-right:10px;
+}
+>>>.whfk-select-con .el-input__inner {
+  width: 85px !important;
+}
 .sheetSelect-con-sheet-print .el-select-dropdown__item.selected:after {
   content: '';
   position: absolute;
