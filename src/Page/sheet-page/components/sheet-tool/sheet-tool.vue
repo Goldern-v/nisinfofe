@@ -845,7 +845,7 @@ export default {
       ) {
         this.bus.$emit("toSheetPrintPage");
       } else {
-        // if (process.env.NODE_ENV == "production") {
+        if (process.env.NODE_ENV == "production") {
         let newWid;
         if( this.HOSPITAL_ID === 'whfk'){
           newWid = window.open();
@@ -865,10 +865,10 @@ export default {
           this.bus.$emit("toSheetPrintPage",newWid);
         }
 
-        // } else {
-        //
-        //   this.bus.$emit("toSheetPrintPage");
-        // }
+        } else {
+        
+          this.bus.$emit("toSheetPrintPage");
+        }
       }
     },
     toAllPrint() {
