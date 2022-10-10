@@ -119,6 +119,10 @@
     </div>
     <signModal ref="signModal"></signModal>
     <newFormModal ref="newFormModal"></newFormModal>
+     <!-- 电子病例弹窗 -->
+    <doctorEmr
+      v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
+    />
   </div>
 </template>
 
@@ -248,6 +252,7 @@ import { blockList, blockDelete } from "../../api/index.js";
 import signModal from "@/components/modal/sign.vue";
 import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
+import doctorEmr from "@/components/doctorEmr";
 import dayjs from "dayjs";
 export default {
   mixins: [commom],
@@ -539,10 +544,10 @@ export default {
               this.getNOBlockList(false);
             })
           }
-          
+
         });
       }
-      
+
 
       // this.$parent.$parent.$refs.signModal.open((password, empNo) => {
       //             delRow({list:[{id:id}], password:password, empNo:empNo}).then(res => {
@@ -707,6 +712,7 @@ export default {
     setPageModal,
     newFormModal,
     signModal,
+    doctorEmr
   },
 };
 </script>

@@ -66,7 +66,7 @@
     <evalModelPaging ref="evalModelPaging"></evalModelPaging>
     <!-- 电子病例弹窗 -->
     <doctorEmr
-      v-if="HOSPITAL_ID === 'huadu' && !$route.path.includes('temperature')"
+      v-if="['foshanrenyi','huadu'].includes(HOSPITAL_ID) && !$route.path.includes('temperature')"
     />
   </div>
 </template>
@@ -927,7 +927,7 @@ export default {
         }
         window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       }
-     
+
       // if (process.env.NODE_ENV === "production") {
         newWid.location.href = `/crNursing/print/sheetPage?&patientId=${fromParams.patientId}&visitId=${fromParams.visitId}&formId=${fromParams.formId}&formType=${'record'}&formCode=${fromParams.formCode}&formName=${fromParams.formName}`;
       // } else {

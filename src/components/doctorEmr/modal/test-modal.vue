@@ -1,6 +1,7 @@
 <template>
   <sweet-modal ref="modalName" title="检验报告" class="modal-con">
-    <test></test>
+    <testFSRY v-if="HOSPITAL_ID == 'foshanrenyi'"></testFSRY>
+    <test v-else></test>
     <!-- <div slot="button">
       <el-button class="modal-btn" @click="$refs.modalName.close()"
         >取消</el-button
@@ -23,6 +24,7 @@
 </style>
 <script>
 import test from "@/Page/patientInfo/supPage/test/test";
+import testFSRY from "@/Page/patientInfo/supPage/test/testFSRY";
 export default {
   props: {},
   data() {
@@ -35,7 +37,8 @@ export default {
     post() {}
   },
   components: {
-    test
+    test,
+    testFSRY
   }
 };
 </script>

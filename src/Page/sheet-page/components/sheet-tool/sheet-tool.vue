@@ -297,14 +297,14 @@
         value-key="id"
         size="small"
         placeholder=""
-        class="select-con"
+        class="select-con whfk-select-con"
         @visible-change="getPrintRecordData()"
       >
         <div class="sheetSelect-con-sheet sheetSelect-con-sheet-print">
           <div class="head-con" flex="cross:stretch" >
             <div class="col-1">打印人</div>
             <div class="col-2" style="border-right:none">打印时间</div>
-          
+
           </div>
           <el-option
             v-for="item in printRecord"
@@ -327,7 +327,46 @@
         </div>
       </el-select>
       <el-select
-        v-if="!isDeputy"
+        v-if="!isDeputy && HOSPITAL_ID == 'whfk'"
+        v-model="sheetInfo.selectBlock"
+        @change="changeSelectBlock"
+        value-key="id"
+        placeholder="请选择护理记录单"
+        class="select-con whfk-select-con"
+      >
+        <div class="sheetSelect-con-sheet">
+          <div class="head-con" flex="cross:stretch">
+            <div class="col-1">记录单标题</div>
+            <div class="col-2">科室</div>
+            <div class="col-3">开始时间</div>
+            <div class="col-4">页码</div>
+          </div>
+          <el-option
+            v-for="item in sheetBlockList"
+            :key="item.id"
+            :label="blockLabel(item, sheetBlockList.length)"
+            :value="item"
+          >
+            <div class="list-con" flex="cross:stretch">
+              <div class="col-1" :title="item.recordName">
+                {{ item.recordName }}
+              </div>
+              <div class="col-2" :title="item.deptName">
+                {{ item.deptName }}
+              </div>
+              <div class="col-3" :title="item.createTime">
+                {{ item.createTime }}
+              </div>
+              <div class="col-4" :title="item.completeName">
+                {{ item.pageIndex }} - {{ item.endPageIndex }}
+              </div>
+              <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
+            </div>
+          </el-option>
+        </div>
+      </el-select>
+      <el-select
+        v-if="!isDeputy  && HOSPITAL_ID != 'whfk'"
         v-model="sheetInfo.selectBlock"
         @change="changeSelectBlock"
         value-key="id"
@@ -518,7 +557,7 @@
         patientInfo.patientId &&
         !$route.path.includes('temperature') &&
         !$route.path.includes('Baby_sheetPage') &&
-        HOSPITAL_ID != 'huadu'
+        !['foshanrenyi','huadu'].includes(HOSPITAL_ID)
       "
     ></patientInfo>
     <!-- <demonstarationLevca v-if="HOSPITAL_ID == 'hj' && patientInfo.patientId &&
@@ -806,7 +845,7 @@ export default {
       ) {
         this.bus.$emit("toSheetPrintPage");
       } else {
-        // if (process.env.NODE_ENV == "production") {
+        if (process.env.NODE_ENV == "production") {
         let newWid;
         if( this.HOSPITAL_ID === 'whfk'){
           newWid = window.open();
@@ -825,11 +864,11 @@ export default {
           }
           this.bus.$emit("toSheetPrintPage",newWid);
         }
+
+        } else {
         
-        // } else {
-        //   
-        //   this.bus.$emit("toSheetPrintPage");
-        // }
+          this.bus.$emit("toSheetPrintPage");
+        }
       }
     },
     toAllPrint() {
@@ -1099,7 +1138,7 @@ export default {
         this.patientInfo.visitId &&
         this.deptCode
       ) {
-       
+
         blockList(
           this.patientInfo.patientId,
           this.patientInfo.visitId,
@@ -1246,7 +1285,7 @@ export default {
     /** pdf打印 */
     toPdfPrint() {
       if (sheetInfo.selectBlock.id) {
-       
+
         if( this.HOSPITAL_ID === 'whfk'){
           const params = {
             patientId:sheetInfo.selectBlock.patientId,
@@ -1410,7 +1449,7 @@ export default {
     showRltbN() {
       return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
     },
-  
+
   },
   created() {
     this.bus.$on("initSheetPageSize", () => {
@@ -1496,7 +1535,7 @@ export default {
     this.bus.$on("getBlockList", () => {
       this.getBlockList();
     });
-    
+
     document.onkeydown = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = true;
@@ -1626,9 +1665,6 @@ export default {
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-   >>>.select-con .el-input__inner {
-    width: 85px !important;
-  }
 .sheetSelect-con-sheet {
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
@@ -1646,7 +1682,7 @@ export default {
     max-height: 500px;
   }
 
-  
+
  .head-con {
    height: 37px;
    background: #F7FAFA;
@@ -1706,10 +1742,10 @@ export default {
       width: 4px;
       background: #4bb08d;
     }
-   
+
 
   }
- 
+
   .el-select-dropdown__item.hover {
     background: #fff;
   }
@@ -1718,10 +1754,13 @@ export default {
     background: #E5F1F0;
   }
 }
-.select-con {
-    width: 80px;
-    margin-right:10px;
-  }
+.whfk-select-con {
+  width: 80px;
+  margin-right:10px;
+}
+>>>.whfk-select-con .el-input__inner {
+  width: 85px !important;
+}
 .sheetSelect-con-sheet-print .el-select-dropdown__item.selected:after {
   content: '';
   position: absolute;
