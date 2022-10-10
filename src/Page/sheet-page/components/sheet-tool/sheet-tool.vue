@@ -304,7 +304,7 @@
           <div class="head-con" flex="cross:stretch" >
             <div class="col-1">打印人</div>
             <div class="col-2" style="border-right:none">打印时间</div>
-          
+
           </div>
           <el-option
             v-for="item in printRecord"
@@ -557,7 +557,7 @@
         patientInfo.patientId &&
         !$route.path.includes('temperature') &&
         !$route.path.includes('Baby_sheetPage') &&
-        HOSPITAL_ID != 'huadu'
+        !['foshanrenyi','huadu'].includes(HOSPITAL_ID)
       "
     ></patientInfo>
     <!-- <demonstarationLevca v-if="HOSPITAL_ID == 'hj' && patientInfo.patientId &&
@@ -846,7 +846,7 @@ export default {
       ) {
         this.bus.$emit("toSheetPrintPage");
       } else {
-        // if (process.env.NODE_ENV == "production") {
+        if (process.env.NODE_ENV == "production") {
         let newWid;
         if( this.HOSPITAL_ID === 'whfk'){
           newWid = window.open();
@@ -865,11 +865,11 @@ export default {
           }
           this.bus.$emit("toSheetPrintPage",newWid);
         }
+
+        } else {
         
-        // } else {
-        //   
-        //   this.bus.$emit("toSheetPrintPage");
-        // }
+          this.bus.$emit("toSheetPrintPage");
+        }
       }
     },
     toAllPrint() {
@@ -1139,7 +1139,7 @@ export default {
         this.patientInfo.visitId &&
         this.deptCode
       ) {
-       
+
         blockList(
           this.patientInfo.patientId,
           this.patientInfo.visitId,
@@ -1317,7 +1317,7 @@ export default {
     /** pdf打印 */
     toPdfPrint() {
       if (sheetInfo.selectBlock.id) {
-       
+
         if( this.HOSPITAL_ID === 'whfk'){
           const params = {
             patientId:sheetInfo.selectBlock.patientId,
@@ -1481,7 +1481,7 @@ export default {
     showRltbN() {
       return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
     },
-  
+
   },
   created() {
     this.bus.$on("initSheetPageSize", () => {
@@ -1567,7 +1567,7 @@ export default {
     this.bus.$on("getBlockList", () => {
       this.getBlockList();
     });
-    
+
     document.onkeydown = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = true;
@@ -1743,7 +1743,7 @@ export default {
     max-height: 500px;
   }
 
-  
+
  .head-con {
    height: 37px;
    background: #F7FAFA;
@@ -1803,10 +1803,10 @@ export default {
       width: 4px;
       background: #4bb08d;
     }
-   
+
 
   }
- 
+
   .el-select-dropdown__item.hover {
     background: #fff;
   }

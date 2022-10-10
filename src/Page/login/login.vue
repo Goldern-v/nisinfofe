@@ -123,6 +123,8 @@
         <span>关于智慧护理</span>
         <span>|</span>
         <span>联系客服</span>
+        <span v-if="HOSPITAL_ID === 'foshanrenyi'">|</span>
+        <span style="color:blue" v-if="HOSPITAL_ID === 'foshanrenyi'">此电脑ip：{{ip}}</span>
       </p>
     </div>
   </div>
@@ -392,7 +394,7 @@ a {
 </style>
 
 <script>
-import { login, hisLogin } from "@/api/login";
+import { login, hisLogin,ipAddress } from "@/api/login";
 import { GetUserList,caLoginBefore,caLoginLater,verifyUser,SOF_SignData,SOF_VerifySignedData,SOF_Login,SOF_ExportUserCert,genRandom,GetAllUkeyList } from "@/api/caCardApi";
 import Cookies from "js-cookie";
 // import {caLoginobj} from './caLoign';
@@ -423,6 +425,7 @@ export default {
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
       md5HisList: ["foshanrenyi","hengli",'sdlj', 'zhzxy'], //需要md5加密医院
+      ip:'',
     };
   },
   methods: {
@@ -631,7 +634,9 @@ export default {
     },
   },
   created() {
-
+    ipAddress().then((res)=>{
+      this.ip =res.data.data;
+    })
     if (localStorage["rememberAccount"]) {
       this.account = localStorage["rememberAccount"];
     }
