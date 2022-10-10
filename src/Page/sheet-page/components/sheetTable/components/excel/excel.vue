@@ -553,7 +553,6 @@
             sheetInfo.sheetType == 'critical_lc' ||
             sheetInfo.sheetType == 'neonatology_hl' ||
             sheetInfo.sheetType == 'critical_new_linyi' ||
-            sheetInfo.sheetType == 'critical_new_weihai' ||
             sheetInfo.sheetType == 'ultrasound_fs' ||
             sheetInfo.sheetType == 'generalnursing_tj' ||
             sheetInfo.sheetType == 'magnesiumsulf_fs' ||
@@ -567,6 +566,9 @@
         >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
+        >
+        <span v-else-if=" sheetInfo.sheetType == 'critical_new_weihai'"
+          ></span
         >
         <span
           v-else-if="
