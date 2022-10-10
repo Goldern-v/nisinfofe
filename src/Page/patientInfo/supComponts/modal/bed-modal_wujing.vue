@@ -14,15 +14,24 @@
           :class="{ remarkCon: formData.remarkPrint }"
         >
           <img
-            class="qr-code"
-            :class="{ hasRemark: hasRemark }"
-            :src="qrCode"
+              v-if="HOSPITAL_ID ==='wujing' "
+              alt=""
+              class="qr-code"
+              :class="{ hasRemark: hasRemark }"
+              src='../../../../common/images/logo_wujing.png'
+          />
+          <img
+              v-if="HOSPITAL_ID !== 'wujing' "
+              alt=""
+              class="qr-code"
+              :class="{ hasRemark: hasRemark }"
+              :src="qrCode"
           />
           <div
-            class="qr-code-num"
-            :class="{ hasRemark: hasRemark, }"
-            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
-          >
+              v-if=" HOSPITAL_ID !== 'wujing' "
+              class="qr-code-num"
+              :class="{ hasRemark: hasRemark, }"
+              :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''">
             {{ qrCodeNum }}
           </div>
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
@@ -37,7 +46,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 42px;padding-left: 0px;font-weight: 900;"
+                style="font-size: 42px;padding-left: 0;font-weight: 900;"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name"
@@ -45,7 +54,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 30px;padding-left: 0px;width:31%;height: 100%;box-sizing: border-box;"
+                style="font-size: 30px;padding-left: 0;width:31%;height: 100%;box-sizing: border-box;"
                 class="bottom-line"
                 :value="query.sex + ' ' + query.age"
               />
@@ -84,7 +93,7 @@
               <input
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 30px; padding-left: 2px;"
+                style="width: 0;font-size: 30px; padding-left: 2px;"
                 nowidth
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
@@ -137,12 +146,13 @@
                   "
                   @blur="onBlurToAutoComplete"
                 />
-              </div>  
+              </div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">病情等级:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
+                    alt=""
                   class="dj-box"
                   @click="selectRegistCare('重')"
                   :class="{ active: formData.registCare.includes('重') }"
@@ -153,6 +163,7 @@
                   "
                 />
                 <img
+                    alt=""
                   class="dj-box"
                   @click="selectRegistCare('危')"
                   :class="{ active: formData.registCare.includes('危') }"
@@ -163,6 +174,7 @@
                   "
                 />
                 <img
+                    alt=""
                   class="dj-box"
                   @click="selectRegistCare('普')"
                   :class="{ active: formData.registCare.includes('普') }"
@@ -178,6 +190,7 @@
               <span class="label">护理级别:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
+                    alt=""
                   class="dj-box"
                   @click="selectRegistCare('特')"
                   :class="{ active: formData.registCare.includes('特') }"
@@ -188,6 +201,7 @@
                   "
                 />
                 <img
+                    alt=""
                   class="dj-box"
                   @click="selectRegistCare('一')"
                   :class="{ active: formData.registCare.includes('一') }"
@@ -198,6 +212,7 @@
                   "
                 />
                 <img
+                    alt=""
                   class="dj-box"
                   @click="selectRegistCare('二')"
                   :class="{ active: formData.registCare.includes('二') }"
@@ -208,6 +223,7 @@
                   "
                 />
                 <img
+                    alt=""
                   class="dj-box"
                   @click="selectRegistCare('三')"
                   :class="{ active: formData.registCare.includes('三') }"
@@ -326,7 +342,7 @@
 
 .bed-card-warpper {
   background: #fff;
-  box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
   font-size: 16px;
 
@@ -364,7 +380,7 @@
   .qr-code-num {
     position: absolute;
     top: 92px;
-    left: 0px;
+    left: 0;
     width: 96px;
     text-align: center;
     z-index: 2;
@@ -372,7 +388,7 @@
 
     &.hasRemark {
       top: 78px;
-      left: 0px;
+      left: 0;
       width: 84px;
       font-size: 14px;
     }
@@ -414,12 +430,10 @@
 
   .input-item-left {
     display: inline-block;
-
-    width 75px {
+    width 75px;
       .input-item-left-label {
         margin-right: 2px;
       }
-    }
   }
 }
 
@@ -718,18 +732,17 @@ export default {
           qr_png_value = this.query.patientId;
           break;
       }
-      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      const qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
-        var binary = "";
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i < len; i++) {
+        let binary = "";
+        const bytes = new Uint8Array(buffer);
+        const len = bytes.byteLength;
+        for (let i = 0; i < len; i++) {
           binary += String.fromCharCode(bytes[i]);
         }
         return "data:image/png;base64," + window.btoa(binary);
       }
-      let base64 = arrayBufferToBase64(qr_png);
-      this.qrCode = base64;
+      this.qrCode= arrayBufferToBase64(qr_png);
       this.qrCodeNum = qr_png_value;
     },
     close() {
@@ -755,7 +768,7 @@ export default {
       data.remarkPrint = this.formData.remarkPrint;
       data.remark = this.formData.remark.slice(0, 24);
 
-      saveBed(data).then(res => {
+      saveBed(data).then(() => {
         this.$message.success("保存成功");
         this.close();
       });
@@ -823,7 +836,7 @@ export default {
         });
       });
     },
-    onBlurToAutoComplete(e, bind) {
+    onBlurToAutoComplete() {
       setTimeout(() => {
         window.closeAutoComplete(`bedModal`);
       }, 400);

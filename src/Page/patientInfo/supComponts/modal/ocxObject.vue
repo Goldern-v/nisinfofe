@@ -1,15 +1,15 @@
 <template>
  <div style="width: 100vw;height: 100vh;background-color: red">
    <div id="patView" style="display:none">
-     <OBJECT
-         id="patocx"
-         classid="clsid:89753773-7CF3-4C4C-3646-DA9F6A154260"
-         width=860
-         height=500
-         align=center
-         hspace=0
-         space=0
-         name="patocx">
+     <OBJECT id="ActiveX1"
+             classid="clsid:8975B773-7CF3-4C4C-B646-DA9F6A154260"
+             codebase="LCPProject.ocx#version=6,0,0,1"
+             width="1000px"
+             height="500px"
+             align=center
+             hspace=0
+             vspace=0
+             name="ActiveX123">
      </OBJECT>
    </div>
  </div>
@@ -29,18 +29,53 @@ export default {
       return this.$route.query;
     }
   },
-  created() {
-    console.log("this.$route.query===",this.$route.query);
+  mounted() {
     const {visitId,patientNo,cpIncludeDeptCode}=this.info
-    // const hospitalId = '45607379-3'
-    var str="<?xml version=\"1.0\" encoding=\"gb2312\"?>"+
-"<INPUTPARA><HOSPITALID>"+'45607379-3'+"</HOSPITALID><PATIENTNO>"+`${patientNo}_${visitId}`+"</PATIENTNO>"+
-"<USERTD>99999</USERID><USERNAME>XYZ</USERNAME><USERTYPE>1</USERTYPE>"+
-"‹DEPTCODE>"+cpIncludeDeptCode+"</DEPTCODE><CLIENTTYPE>O</CLIENTTYPE>"+
-    "<MANUALTRIGGER>O</MANUALTRIGGER><MANUSHOW>1</MANUSHOW><GETSTATE>O</GETSTATE>"+
-    "<GETDEPTPATH>0</GETDEPTPATH><READONLY>0</READONLY></INPUTPARA>"
-    var active = document.getElementById("patocx");
-    active.LCP_GetCPState(str);
+    // const str = '<?xml version=\"1.0\" encoding=\"gb2312\"?>'
+    //     + '<INPUTPARA>'
+    //     + `<PATIENTNO>${patientNo}_${visitId}</PATIENTNO>`
+    //     + '<USERID>1966</USERID>'
+    //     + '<USERNAME>张医生</USERNAME>'
+    //     + '<USERTYPE>1</USERTYPE>'
+    //     + '<CLIENTTYPE>0</CLIENTTYPE>'
+    //     + '<MANUALTRIGGER>0</MANUALTRIGGER>'
+    //     + '<MANUSHOW>0</MANUSHOW>'
+    //     + '<GETSTATE>0</GETSTATE>'
+    //     + `<DEPTCODE>${cpIncludeDeptCode}</DEPTCODE>`
+    //     + '<HOSPITALID>45607379-3</HOSPITALID>'
+    //     + '<READLONLY>0</READLONLY>'
+    //     + '<CURWARDCODE>A802</CURWARDCODE>'
+    //     + '<BEDNO>1502</BEDNO>'
+    //     + '<BEDLABLE>1502</BEDLABLE>'
+    //     + '<DISCHARGEDDATE></DISCHARGEDDATE>'
+    //     + '</INPUTPARA>';
+    // const active = document.getElementById("ActiveX1");
+    // console.log('visitId:::',visitId, 'patientNo:::',patientNo ,'cpIncludeDeptCode:::',cpIncludeDeptCode);
+    // console.log("OCX返回的患者路径状态为:" + active.LCP_GetCPState(str))
+    // active.LCP_GetCPState(str);
+
+
+    const str = '<?xml version=\"1.0\" encoding=\"gb2312\"?>'
+        + '<INPUTPARA>'
+        + '<PATIENTNO>600589558_1</PATIENTNO>'
+        + '<USERID>1966</USERID>'
+        + '<USERNAME>张医生</USERNAME>'
+        + '<USERTYPE>1</USERTYPE>'
+        + '<CLIENTTYPE>0</CLIENTTYPE>'
+        + '<MANUALTRIGGER>0</MANUALTRIGGER>'
+        + '<MANUSHOW>0</MANUSHOW>'
+        + '<GETSTATE>0</GETSTATE>'
+        + '<DEPTCODE>2400</DEPTCODE>'
+        + '<HOSPITALID>76150479-9</HOSPITALID>'
+        + '<READLONLY>0</READLONLY>'
+        + '<CURDEPTCODE>2400</CURDEPTCODE>'
+        + '<CURWARDCODE>A802</CURWARDCODE>'
+        + '<BEDNO>1502</BEDNO>'
+        + '<BEDLABLE>1502</BEDLABLE>'
+        + '<DISCHARGEDDATE></DISCHARGEDDATE>'
+        + '</INPUTPARA>';
+    const active = document.getElementById("ActiveX1");
+    active.LCP_GetCPState(str);//lcp_setOrder 方法
   }
 }
 </script>

@@ -634,9 +634,11 @@ export default {
     },
   },
   created() {
-    ipAddress().then((res)=>{
-      this.ip =res.data.data;
-    })
+    if(this.HOSPITAL_ID == "foshanrenyi"){
+      ipAddress().then((res)=>{
+        this.ip =res.data.data;
+      })
+    }
     if (localStorage["rememberAccount"]) {
       this.account = localStorage["rememberAccount"];
     }

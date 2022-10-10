@@ -205,7 +205,7 @@
     width: 1000px;
     padding: 20px;
     min-height: 1000px;
-    box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.5);
+    // box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.5);
     position: relative;
   }
 
@@ -260,12 +260,23 @@
   .page-con {
     font-size: 13px;
     text-align: center;
-    bottom: 20px;
+    bottom: 0px;
     position: absolute;
     // width 100%
     left: 0;
     right: 0;
   }
+  >>> .blood-sugar-table.table-box td {
+    height: 46px;
+    font-size: 12px;
+    padding: 0 1px;
+}
+>>> .blood-sugar-table.table-box th {
+    height: 60px;
+    font-size: 13px;
+    font-weight: bold;
+    background: #f4f2f5;
+}
 
   .addBtn {
     margin-top: 20px;
