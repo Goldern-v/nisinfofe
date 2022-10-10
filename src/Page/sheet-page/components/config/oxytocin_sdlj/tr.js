@@ -53,7 +53,7 @@ export default [
     event: keyf1,
     name: "胎方位",
     autoComplete: {
-      data: []
+      data: ['LOA', 'ROA', '其它']
     }
   }, {
     key: "fieldSix", //胎心
