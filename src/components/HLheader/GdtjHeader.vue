@@ -300,6 +300,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 工作量统计
               </el-row>
             </router-link>
+            <router-link to="/statisticalQuery" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 统计查询
+              </el-row>
+            </router-link>
 
             <!-- <router-link to="/badEvent" tag="span" v-if="HOSPITAL_ID == 'hj'">
               <el-row class="nav-item" type="flex" align="middle"

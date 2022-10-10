@@ -1,16 +1,33 @@
 <template lang="pug">
-  div
-    .main-contain
-      changeMaJorTable(v-if="hospitalTransfer && isChangeMajor" :tableData="tableData" :pageLoadng="pageLoadng")
-      wjDisTable(v-else-if="isNewDischarged" :tableData="tableData" :pageLoadng="pageLoadng")
-      wjDTable(v-else-if="isNewDcharged" :tableData="tableData" :pageLoadng="pageLoadng")
-      dTable( v-else :tableData="tableData" :pageLoadng="pageLoadng")
-      .head-con(flex="main:justify cross:center")
-        pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
-        @currentChange="handleCurrentChange")
+div
+  .main-contain
+    changeMaJorTable(
+      v-if="hospitalTransfer && isChangeMajor",
+      :tableData="tableData",
+      :pageLoadng="pageLoadng"
+    )
+    wjDisTable(
+      v-else-if="isNewDischarged",
+      :tableData="tableData",
+      :pageLoadng="pageLoadng"
+    )
+    wjDTable(
+      v-else-if="isNewDcharged",
+      :tableData="tableData",
+      :pageLoadng="pageLoadng"
+    )
+    dTable(v-else, :tableData="tableData", :pageLoadng="pageLoadng")
+    .head-con(flex="main:justify cross:center")
+      pagination(
+        :pageIndex="page.pageIndex",
+        :size="page.pageNum",
+        :total="page.total",
+        @sizeChange="handleSizeChange",
+        @currentChange="handleCurrentChange"
+      )
 
-    .search-con
-      searchCon(ref="searchCon")
+  .search-con
+    searchCon(ref="searchCon")
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .main-contain {
@@ -77,12 +94,18 @@
 <script>
 import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
-import changeMaJorTable from  "./components/table/change-major-table";
+import changeMaJorTable from "./components/table/change-major-table";
 import wjDTable from "./components/table/wj-d-table";
-import wjDisTable from  "./components/table/wj-dis-table";
+import wjDisTable from "./components/table/wj-dis-table";
 import pagination from "./components/common/pagination";
-import { patEmrList,patEmrListZSQm,listNurseAdtHd,listNurseAdtFuYou, handleExport } from "@/api/document";
-import { del } from '@/api/record';
+import {
+  patEmrList,
+  patEmrListZSQm,
+  listNurseAdtHd,
+  listNurseAdtFuYou,
+  handleExport,
+} from "@/api/document";
+import { del } from "@/api/record";
 export default {
   data() {
     return {
@@ -92,11 +115,11 @@ export default {
       page: {
         pageIndex: 1,
         pageNum: 20,
-        total: 0
+        total: 0,
       },
-      isChangeMajor:false,//是否显示转科
-      fatherStatus:1,//状态
-        // hospitalTransfer:['huadu','fuyou']//转科医院名字
+      isChangeMajor: false, //是否显示转科
+      fatherStatus: 1, //状态
+      // hospitalTransfer:['huadu','fuyou']//转科医院名字
     };
   },
   methods: {
@@ -128,33 +151,33 @@ export default {
       if (data.bedLabel) {
         obj.bedLabel = data.bedLabel;
       }
-      if(['wujing'].includes(this.HOSPITAL_ID)){
+      if (["wujing"].includes(this.HOSPITAL_ID)) {
         if (data.companyAddress) {
           obj.companyAddress = data.companyAddress;
         }
       }
-      if(!['beihairenyi'].includes(this.HOSPITAL_ID)){
-          if (data.admissionDate[0]) {
-        obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(
-          "yyyy-MM-dd"
-        );
-      }
-      if (data.admissionDate[1]) {
-        obj.admissionDateEnd = new Date(data.admissionDate[1]).Format(
-          "yyyy-MM-dd"
-        );
-      }
-      if (data.dischargeDate[0]) {
-        obj.dischargeDateBegin = new Date(data.dischargeDate[0]).Format(
-          "yyyy-MM-dd"
-        );
-      }
-      if (data.dischargeDate[1]) {
-        obj.dischargeDateEnd = new Date(data.dischargeDate[1]).Format(
-          "yyyy-MM-dd"
-        );
-      }
-      }else{
+      if (!["beihairenyi"].includes(this.HOSPITAL_ID)) {
+        if (data.admissionDate[0]) {
+          obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(
+            "yyyy-MM-dd"
+          );
+        }
+        if (data.admissionDate[1]) {
+          obj.admissionDateEnd = new Date(data.admissionDate[1]).Format(
+            "yyyy-MM-dd"
+          );
+        }
+        if (data.dischargeDate[0]) {
+          obj.dischargeDateBegin = new Date(data.dischargeDate[0]).Format(
+            "yyyy-MM-dd"
+          );
+        }
+        if (data.dischargeDate[1]) {
+          obj.dischargeDateEnd = new Date(data.dischargeDate[1]).Format(
+            "yyyy-MM-dd"
+          );
+        }
+      } else {
         if (data.admissionDate[0]) {
           obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(
             "yyyy-MM-dd hh:mm"
@@ -177,113 +200,124 @@ export default {
         }
       }
 
-
       if (data.status == 1) {
         obj.dischargeDateBegin = "";
         obj.dischargeDateEnd = "";
-        this.isChangeMajor=false;
+        this.isChangeMajor = false;
       }
       if (data.status == 2) {
         obj.admissionDateBegin = "";
         obj.admissionDateEnd = "";
-        this.isChangeMajor=false;
+        this.isChangeMajor = false;
       }
       if (data.status == 3) {
-        this.isChangeMajor=true;
+        this.isChangeMajor = true;
         // this.query.startDate = this.query.startDate ? moment(this.query.startDate).format("YYYY-MM-DD") + " 00:00:00": moment(new Date()).format("YYYY-MM-DD") + " 00:00:00";
         // this.query.endDate =  this.query.endDate ? moment(this.query.endDate).format("YYYY-MM-DD") + " 23:59:59" : moment(new Date()).format("YYYY-MM-DD") + " 23:59:59";
-        obj.startDate = new Date(data.dateTime[0]).Format(
-          "yyyy-MM-dd"
-        )+ " 00:00:00";
-        obj.endDate = new Date(data.dateTime[1]).Format(
-          "yyyy-MM-dd"
-        )+ " 23:59:59";
+        obj.startDate =
+          new Date(data.dateTime[0]).Format("yyyy-MM-dd") + " 00:00:00";
+        obj.endDate =
+          new Date(data.dateTime[1]).Format("yyyy-MM-dd") + " 23:59:59";
         obj.admissionDateBegin = "";
         obj.admissionDateEnd = "";
         obj.dischargeDateBegin = "";
         obj.dischargeDateEnd = "";
       }
-      return obj
+      return obj;
     },
     getData() {
       let data = this.$refs.searchCon.data;
 
-      let obj = this.handleParams()
+      let obj = this.handleParams();
 
       obj.pageIndex = this.page.pageIndex;
       obj.pageNum = this.page.pageNum;
       this.pageLoadng = true;
-      let patEmrListApi =  patEmrList;
+      let patEmrListApi = patEmrList;
       //(data.status == 3) && (patEmrListApi=listNurseAdtHd);
-      if(this.HOSPITAL_ID == 'zhongshanqi'){
+      if (this.HOSPITAL_ID == "zhongshanqi") {
         obj.diagnosis = data.diagnosis;
         patEmrListApi = patEmrListZSQ;
       }
       //花都转院查询（江门妇幼为新增）
-      if(data.status == 3 && this.hospitalTransfer){
-        let newObj=JSON.parse(JSON.stringify(obj));
+      if (data.status == 3 && this.hospitalTransfer) {
+        let newObj = JSON.parse(JSON.stringify(obj));
         delete newObj.admissionDateBegin;
         delete newObj.admissionDateEnd;
         delete newObj.dischargeDateBegin;
         delete newObj.dischargeDateEnd;
-        newObj.pageSize=newObj.pageNum;
+        newObj.pageSize = newObj.pageNum;
         // console.log(obj)
-        listNurseAdtHd(newObj,this.HOSPITAL_ID).then(res => {
+        listNurseAdtHd(newObj, this.HOSPITAL_ID).then((res) => {
           this.tableData = res.data.data.list;
-          this.page.total = res.data.data.totalCount ? parseInt(res.data.data.totalCount): 0;
+          this.page.total = res.data.data.totalCount
+            ? parseInt(res.data.data.totalCount)
+            : 0;
           this.pageLoadng = false;
         });
-      }else{
-        patEmrListApi(obj).then(res => {
+      } else {
+        patEmrListApi(obj).then((res) => {
           this.tableData = res.data.data.list;
-          this.page.total = res.data.data.page ? parseInt(res.data.data.page)*this.page.pageNum : 0;
+          this.page.total = res.data.data.page
+            ? parseInt(res.data.data.page) * this.page.pageNum
+            : 0;
           this.pageLoadng = false;
         });
       }
-
     },
     async handleExport() {
-      let params = this.handleParams()
+      let params = this.handleParams();
       try {
         this.pageLoadng = true;
-        let res = await handleExport(params)
+        let res = await handleExport(params);
         let fileName = res.headers["content-disposition"]
           ? decodeURIComponent(
-            res.headers["content-disposition"].replace("attachment;filename=", "")
-          ) : '统计.xls';
+              res.headers["content-disposition"].replace(
+                "attachment;filename=",
+                ""
+              )
+            )
+          : "统计.xls";
         let blob = new Blob([res.data], {
-          type: res.data.type
+          type: res.data.type,
         });
-        let a = document.createElement('a')
-        let href = window.URL.createObjectURL(blob) // 创建链接对象
-        a.href = href
-        a.download = fileName // 自定义文件名
-        document.body.appendChild(a)
-        a.click()
-        window.URL.revokeObjectURL(href)
-        document.body.removeChild(a) // 移除a元素
+        let a = document.createElement("a");
+        let href = window.URL.createObjectURL(blob); // 创建链接对象
+        a.href = href;
+        a.download = fileName; // 自定义文件名
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(href);
+        document.body.removeChild(a); // 移除a元素
         this.pageLoadng = false;
-      } catch(e) {
+      } catch (e) {
         this.pageLoadng = false;
       }
-    }
+    },
   },
-  computed:{
-    searchConData(){
-      return this.$refs.searchCon?this.$refs.searchCon.data:null
+  computed: {
+    searchConData() {
+      return this.$refs.searchCon ? this.$refs.searchCon.data : null;
     },
     // 具备转科查询的医院（查询条件包括病人ID等）
-    hospitalTransfer(){
-      return ['huadu','fuyou','beihairenyi', 'sdlj', 'nanfangzhongxiyi','foshanrenyi'].includes(this.HOSPITAL_ID)
+    hospitalTransfer() {
+      return [
+        "huadu",
+        "fuyou",
+        "beihairenyi",
+        "sdlj",
+        "nanfangzhongxiyi",
+        "foshanrenyi",
+      ].includes(this.HOSPITAL_ID);
     },
     //是否为新出院数据
-    isNewDischarged(){
-      return ['wujing'].includes(this.HOSPITAL_ID) &&  this.fatherStatus == 2;
+    isNewDischarged() {
+      return ["wujing"].includes(this.HOSPITAL_ID) && this.fatherStatus == 2;
     },
     //是否为新在院数据
-    isNewDcharged(){
-      return ['wujing'].includes(this.HOSPITAL_ID) &&  this.fatherStatus == 1;
-    }
+    isNewDcharged() {
+      return ["wujing"].includes(this.HOSPITAL_ID) && this.fatherStatus == 1;
+    },
   },
   components: {
     searchCon,
