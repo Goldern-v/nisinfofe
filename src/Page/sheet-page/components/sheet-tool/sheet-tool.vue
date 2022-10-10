@@ -370,8 +370,8 @@
         v-model="sheetInfo.selectBlock"
         @change="changeSelectBlock"
         value-key="id"
-        placeholder="请选择护理记录单"
-        class="select-con"
+        :placeholder="['foshanrenyi'].includes(HOSPITAL_ID)?'':'请选择护理记录单'"
+        class="select-con otherType"
       >
         <div class="sheetSelect-con-sheet">
           <div class="head-con" flex="cross:stretch">
@@ -680,6 +680,7 @@ export default {
       pageNum: "",
       firstPage: 1,
       printRecord:[],
+      babelFirst:true,
       printRecordValue:''
     };
   },
@@ -1268,10 +1269,41 @@ export default {
     },
     blockLabel(item, length) {
       // return `${item.recordName} ${dayjs(item.createTime).format("MM-DD")}`;
-      return `${item.deptName} ${dayjs(item.createTime).format(
-        "MM-DD"
-      )}建 共${length}张
-      `;
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        if(!this.babelFirst) return 
+        const parent = document.querySelector('.otherType').childNodes[1];
+        console.log(parent,"parent")
+        const isDiv = parent.childNodes[1].nodeName;
+        console.log(isDiv,"isDiv")
+        let dom,dom1,dom2
+        if (isDiv !== 'div') {
+          dom = document.createElement('div');
+          dom.className = 'adddiv';
+          dom1 = document.createElement('span');
+          dom1.className = 'addspan1';
+          dom2 = document.createElement('span');
+          dom2.className = 'addspan2';
+          dom.appendChild(dom1)
+          dom.appendChild(dom2)
+          parent.insertBefore(dom, parent.childNodes[1]);
+        }
+        else {
+          dom = parent.childNodes[1];
+        }
+        dom1.setAttribute('data-content1', `${item.deptName} ${dayjs(item.createTime).format(
+          "MM-DD")}建 `);
+        dom2.setAttribute('data-content2', `共${length}张`);
+        // return `${item.deptName} ${dayjs(item.createTime).format(
+        //   "MM-DD"
+        // )}建 
+        // `;
+        this.babelFirst = false
+      }else{
+        return `${item.deptName} ${dayjs(item.createTime).format(
+          "MM-DD"
+        )}建 共${length}张
+        `;
+      }
     },
     changeSelectBlock(item) {
       if (item) {
@@ -1559,6 +1591,12 @@ export default {
     this.bus.$emit("sheetToolLoaded");
   },
   watch: {
+    "sheetInfo.selectBlock":{
+      handler(val) {
+        console.log(val,"sheetInfo.selectBlock")
+      },
+      
+    },
     //更换选择患者，更新vuex的患者信息，重新在eventbug队列调用事件
     patientInfo(val) {
       if (this.$route.path.includes("singleTemperatureChart")) {
@@ -1665,6 +1703,29 @@ export default {
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.otherType {
+  /deep/ .adddiv {
+    position: absolute;
+    top: 7px;
+    left:10px;
+    .font{
+      font-weight:700;
+    }
+    .addspan1{
+      font-size: 14px;
+      &::before {
+        content: attr(data-content1);
+      }
+    }
+    .addspan2{
+      font-size: 15px;
+      &::before {
+        content: attr(data-content2);
+        color:red;
+      }
+    }
+  }
+}
 .sheetSelect-con-sheet {
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
