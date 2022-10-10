@@ -407,9 +407,11 @@ export default {
     this.tablesHeight();
   },
   created() {
-    ipAddress().then((res)=>{
-      this.ip =res.data.data;
-    })
+    if(this.HOSPITAL_ID == "foshanrenyi"){
+      ipAddress().then((res)=>{
+        this.ip =res.data.data;
+      })
+    }
     moment.locale("Zh-cn"); //使用中文
     this.user.today = moment().format("LL"); //2018-07-11
     this.user.week = moment().format("dddd"); //星期一
