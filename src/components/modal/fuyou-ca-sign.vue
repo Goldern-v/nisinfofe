@@ -269,25 +269,32 @@ export default {
           //授权成功
           console.log(res)
           //code
-          if(res.data && res.data && res.data.data.status=='0'){
-            this.$message({
-              type: "success",
-              message: res.data.data.message
-            });
-            //local保存
-            let {data} = res.data.data
-            console.log(data);
-            window.localStorage.setItem("fuyouCaData",JSON.stringify(data));
-            this.bus.$emit("updateFuyouCaData")
-            //清除轮询定时器
-            clearInterval(this.setIntervalApi)
-            this.setIntervalApi=null;
-            setTimeout(() => {
-              clearInterval(this.setIntervalItem)
-              this.setIntervalItem=null;
-              this.authoState='0'
-              this.close(true)
-            }, 1000);
+          if(res.data && res.data.data.status=='0'){
+            if(res.data.data.data.employeeNumber!==localStorage.rememberAccount){
+              this.$message({
+                type: "error",
+                message: "扫码失败，非当前登录账号！"
+              });
+            }else{
+              this.$message({
+                type: "success",
+                message: res.data.data.message
+              });
+              //local保存
+              let {data} = res.data.data
+              console.log(data);
+              window.localStorage.setItem("fuyouCaData",JSON.stringify(data));
+              this.bus.$emit("updateFuyouCaData")
+              //清除轮询定时器
+              clearInterval(this.setIntervalApi)
+              this.setIntervalApi=null;
+              setTimeout(() => {
+                clearInterval(this.setIntervalItem)
+                this.setIntervalItem=null;
+                this.authoState='0'
+                this.close(true)
+              }, 1000);
+            }
           }
       }).catch(error=>{
         console.log(error);

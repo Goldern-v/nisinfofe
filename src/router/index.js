@@ -335,7 +335,6 @@ import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_f
 import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_foshanrenyi.vue"; // 佛医
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
-import ocxObject from "@/Page/patientInfo/supComponts/modal/ocxObject.vue";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
@@ -353,6 +352,7 @@ import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
 // 导管监测单
 import catheterPage from "@/Page/catheter-page/catheter-page.vue";
+import ocxObject from "@/Page/patientInfo/supComponts/modal/ocxObject";
 
 //患者360视图，目前只有花都在用
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
