@@ -9,11 +9,6 @@ import info from "../sheetInfo";
 let ysList = [];
 let chuList = [];
 let ruList = [];
-let 宫底 = [];
-let 子宫收缩 = [];
-let 膀胱情况 = [];
-let 入量项目 = [];
-let 出量项目 = [];
 export default [
   {
     key: "recordMonth", //日期
@@ -26,85 +21,72 @@ export default [
     value: "",
     event: event_time
   }, {
-    key: "pulse", //脉搏
+    key: "fieldOne", //催产素浓度
     value: "",
+    name: "催产素浓度",
     event: keyf1
   }, {
-    key: "breath", //呼吸
+    key: "fieldTwo", //滴速
     value: "",
+    name: "滴速",
     event: keyf1
   }, {
-    key: "bloodPressure", //血压
+    key: "fieldThree", //宫缩
     value: "",
+    name: "宫缩",
     event: keyf1,
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    }
+    // event: function (e, td) {
+    //   if (e.keyCode == 32) {
+    //     e.target.value += "/";
+    //     e.preventDefault();
+    //   }
+    //   keyf1(e, td);
+    // }
   }, {
-    key: "spo2", //血氧饱和度 缺失
+    key: "fieldFour", //宫缩强度
     value: "",
+    name: "宫缩强度",
     event: keyf1
   }, {
-    key: "fieldOne", //宫底U-Fb
+    key: "fieldFive", //胎方位
     value: "",
     event: keyf1,
-    name: "宫底",
+    name: "胎方位",
     autoComplete: {
-      data: 宫底
+      data: []
     }
   }, {
-    key: "fieldTwo", //子宫收缩
+    key: "fieldSix", //胎心
     value: "",
     event: keyf1,
-    name: "子宫收缩",
+    name: "胎心",
     autoComplete: {
-      data: 子宫收缩
+      data: []
     }
   }, {
-    key: "fieldThree", //出血量
+    key: "fieldSeven", //宫口扩张
     value: "",
     event: keyf1,
-    name: "出血量"
+    name: "宫口扩张"
   }, {
-    key: "fieldFour", //膀胱情况
+    key: "fieldEight", //先露高低
     value: "",
     event: keyf1,
-    name: "膀胱情况",
+    name: "先露高低",
     autoComplete: {
-      data: 膀胱情况
+      data: []
     }
   }, {
-    key: "food", //入 项
+    key: "bloodPressure", //血压mmHg
     value: "",
     event: keyf1,
+    name: "血压mmHg",
     autoComplete: {
-      data: 入量项目
+      data: []
     },
     textarea: {
       width: 36
     }
-  }, {
-    key: "foodSize", // 入 量
-    value: "",
-    event: keyf1
-  }, {
-    key: "discharge", //出 项
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: 出量项目
-    },
-    textarea: {
-      width: 36
-    }
-  }, {
-    key: "dischargeSize", //出 量
-    value: "",
-    event: keyf1
   }, {
     key: "description", //特殊情况记录
     value: "",
