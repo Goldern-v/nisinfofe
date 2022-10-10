@@ -5,7 +5,7 @@
       <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
-        <el-button type="primary" @click="openDetailChat()">曲线详情</el-button>
+        <!-- <el-button type="primary" @click="openDetailChat()">曲线详情</el-button> -->
       </el-button-group>
       <!-- <div class="newBorn">
         <div @click="nomalModel()" class="nomal">默认体温单</div>
@@ -36,43 +36,6 @@
           尾周
         </button>
       </div>
-      <moveContext
-        :id="'detailChatBox'"
-        :titlex="'曲详情线'"
-        class="detailChatBox"
-      >
-        <div class="button-context">
-          <el-button
-            type="primary"
-            @click="changeDetailChatUrl((type = 1))"
-            class="detail-button"
-          >体温</el-button
-          >
-          <el-button
-            type="primary"
-            @click="changeDetailChatUrl((type = 2))"
-            class="detail-button"
-          >脉搏</el-button
-          >
-          <el-button
-            type="primary"
-            @click="changeDetailChatUrl((type = 3))"
-            class="detail-button"
-          >心率</el-button
-          >
-        </div>
-        <div>
-          <null-bg v-show="!filePath" :image-size="100"></null-bg>
-          <iframe
-            id="detailChat"
-            v-if="detailChatFlag && filePath"
-            :src="detailChatUrl"
-            frameborder="0"
-            ref="detailChat"
-            class="detailChat"
-          ></iframe>
-        </div>
-      </moveContext>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
         <iframe
@@ -131,9 +94,9 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         // "http://localhost:8080/#/" /* 本地自测环境 导致跨域 */,
-      "http://10.101.1.141:9091/temperature" /* 医院正式环境内网 导致跨域 */,
+      "http://10.101.1.141:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://10.101.1.141:9091/temperature/printAll" /* 医院正式环境内网 */,
+        "http://10.101.1.141:9091/temperature/#/printAll" /* 医院正式环境内网 */,
     };
   },
   methods: {

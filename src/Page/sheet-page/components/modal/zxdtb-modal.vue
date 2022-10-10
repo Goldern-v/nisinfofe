@@ -11,6 +11,7 @@
               'whfk',
               'lyxrm',
               'whhk',
+              '925'
             ].includes(HOSPITAL_ID)
           "
         >
@@ -24,7 +25,7 @@
           </el-date-picker>
         </div>
         <div v-else>
-          <span class="label">{{HOSPITAL_ID == 'guizhou' ? '输血日期：' : '执行单日期：' }}</span
+          <span class="label">{{["guizhou"].includes(this.HOSPITAL_ID) ? '输血日期：' : '执行单日期：' }}</span
           >
           <masked-input
             type="text"
@@ -38,6 +39,27 @@
             placeholderChar=" "
           ></masked-input>
         </div>
+
+        <div
+          v-if="showAdvice"
+          style="margin-left: 20px"
+        >
+          <span class="label">医嘱类型：</span>
+          <el-select
+            v-model="yizhuTypeItem"
+            placeholder="请选择"
+            size="small"
+            style="width: 150px"
+          >
+            <el-option
+              :label="typeItem.name"
+              :value="typeItem.id"
+              v-for="typeItem in yizhuTyoe"
+              :key="typeItem.id"
+            ></el-option>
+          </el-select>
+        </div>
+
         <div
           v-if="
             [
@@ -48,6 +70,7 @@
               'whfk',
               'lyxrm',
               'whhk',
+              '925'
             ].includes(HOSPITAL_ID)
           "
           style="margin-left: 20px"
@@ -108,7 +131,7 @@
       <div class="table-con">
         <el-table
           ref="zxdtb-table"
-          :data="tableData"
+          :data="tableDatalist"
           border
           height="350"
           @selection-change="handleSelectionChange"
@@ -217,6 +240,7 @@
                 'whfk',
                 'lyxrm',
                 'whhk',
+                '925'
               ].includes(HOSPITAL_ID)
             "
           >
@@ -240,7 +264,7 @@
             ></el-table-column>
           </template>
           <el-table-column
-            v-if="HOSPITAL_ID == 'guizhou'"
+            v-if="['guizhou'].includes(HOSPITAL_ID)"
             prop="desc"
             label="病情、护理措施及效果"
             min-width="110px"
@@ -337,6 +361,7 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist: {},
+      yizhuTypeItem:"临时",
       executeType: ["liaocheng", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)
         ? "输液"
         : "",
@@ -356,6 +381,8 @@ export default {
           name: "临时",
         },
       ],
+      // 是否显示医嘱类型
+      showAdvice: ['foshanrenyi'].includes(this.HOSPITAL_ID),
     };
   },
   methods: {
@@ -395,6 +422,7 @@ export default {
           "whfk",
           "lyxrm",
           "whhk",
+          '925'
         ].includes(this.HOSPITAL_ID)
       ) {
         this.multipleSelection.map((item, index) => {
@@ -431,7 +459,7 @@ export default {
           return item;
         });
       }
-      if (["foshanrenyi", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)) {
+      if (["foshanrenyi", "lyxrm", "whhk", '925'].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.foodSize = item.dosage;
           return item;
@@ -493,7 +521,7 @@ export default {
             return obj;
           });
         });
-      } else if (this.HOSPITAL_ID == "guizhou") {
+      } else if (['guizhou'].includes(this.HOSPITAL_ID)) {
         nurseBloodList({
           patientId: this.patientInfo.patientId || this.formlist.patientId,
           visitId: this.patientInfo.visitId || this.formlist.visitId,
@@ -533,7 +561,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", "lyxrm", "whhk", '925'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
@@ -615,7 +643,7 @@ export default {
     },
     // 一行选中
     handleRowClick(row, column, event) {
-      if (!["foshanrenyi"].includes(this.HOSPITAL_ID)) return;
+      if (!["foshanrenyi", '925'].includes(this.HOSPITAL_ID)) return;
       this.$refs["zxdtb-table"].toggleRowSelection(row);
     },
     changeRecordDate(row, type, newVal) {
@@ -639,6 +667,17 @@ export default {
     ...mapState({
       openModalFromSpecial: state => state.sheet.openModalFromSpecial
     }),
+    tableDatalist(){
+      let tableDatalist = []
+      if(this.yizhuTypeItem==="" || !this.showAdvice){
+        return this.tableData
+      }else{
+        this.tableData.map(item=>{
+          if(item.repeatIndicator===this.yizhuTypeItem) tableDatalist.push(item)
+        })
+        return tableDatalist
+      }
+    },
     patientInfo() {
       if (this.sheetInfo.selectBlock) {
         return this.sheetInfo.selectBlock;
@@ -647,6 +686,13 @@ export default {
       if (this.formlist != undefined) {
         return this.formlist;
       }
+    },
+    yizhuTyoe(){
+      return [
+        {name:"全部",id:""},
+        {name:"长期",id:"长期"},
+        {name:"临时",id:"临时"},
+      ]
     },
     allType() {
       if (["liaocheng", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)) {
@@ -719,7 +765,7 @@ export default {
             name: "其他",
           },
         ];
-      } else if (this.HOSPITAL_ID === "foshanrenyi") {
+      } else if (["foshanrenyi", '925'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",

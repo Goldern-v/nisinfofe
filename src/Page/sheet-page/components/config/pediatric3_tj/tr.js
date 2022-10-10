@@ -52,7 +52,7 @@ export default [
   { key: 'cryingLoud', event: keyf1, value: '', next: '', name: '哭声',autoComplete: { data: crylist }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 1) },
   { key: 'suckinglExcellent', event: keyf1, value: '', next: '', name: '吸引力',autoComplete: { data: Suckingforce }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 1) },
   { key: 'breastMilk', event: keyf1, value: '', next: '', name: '喂养种类',autoComplete: { data: category }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 1) },
-  { key: 'suckinglExcellent', event: keyf1, value: '', next: '', name: '喂养方式',autoComplete: { data: modeList }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 1) },
+  { key: 'sinceSucking', event: keyf1, value: '', next: '', name: '喂养方式',autoComplete: { data: modeList }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 1) },
   { key: 'dryClean', event: keyf1, value: '', next: '', name: '脐部情况',autoComplete: { data: regionlist }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 1) },
   { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, ) },
   { key: 'customItem2', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },

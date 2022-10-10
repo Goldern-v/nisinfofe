@@ -11,7 +11,7 @@
               type="flex"
               justify="center"
               align="middle">
-              <img src="../../common/images/qhwy_logo.png" />
+              <img src="../../common/images/logo_qhwy.png" />
               <div>
                 <p>青海省第五人民医院</p>
                 <p>智慧护理信息系统</p>

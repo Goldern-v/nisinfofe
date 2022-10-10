@@ -115,7 +115,7 @@ export default {
     this.$store.commit("upPatientInfo", {});
     //初始化，进入页面就设置为空
     localStorage.setItem('lockForm','')
-    // 初始化  
+    // 初始化
     // 优化后bedList由组件自己维护。不需要发请求
     // if (this.deptCode) {
     //   this.getDate();
@@ -156,7 +156,7 @@ export default {
           this.$message({
             type: 'info',
             message: '已取消'
-          }); 
+          });
           return next(false)
         });
         // console.log(comfirm,'ddd');
@@ -186,7 +186,7 @@ export default {
           this.$message({
             type: 'info',
             message: '已取消'
-          }); 
+          });
           return next(false)
         });
         // console.log(comfirm,'ddd');

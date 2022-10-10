@@ -48,7 +48,7 @@ export function getRowNum(index) {
     //   // console.log("222",sheetInfo.sheetStartPage +index,sheetInfo.endPage)
     //   return 9;
     // }
-  } else if (sheetInfo.sheetType == "critical_lc" || sheetInfo.sheetType == "critical_new_linyi" || sheetInfo.sheetType == "critical_new_lc") {
+  } else if (sheetInfo.sheetType == "critical_lc" || sheetInfo.sheetType == "critical_new_linyi" || sheetInfo.sheetType == 'critical_new_weihai' || sheetInfo.sheetType == "critical_new_lc" ||sheetInfo.sheetType === 'babyarea_fs') {
     return 20;
   } else if (sheetInfo.sheetType == "cardiology_lcey") {
     return 15;
@@ -57,7 +57,7 @@ export function getRowNum(index) {
   } else if (process.env.HOSPITAL_ID === 'hengli' && sheetInfo.sheetType !== 'oxytocin_hl' && sheetInfo.sheetType !== 'blood_circulation_hl') {
     /* 横沥所有普通护记都返回20行 */
     return 20;
-  } else if (sheetInfo.sheetType === 'oxytocin_hl') {
+  } else if (sheetInfo.sheetType === 'oxytocin_hl' || sheetInfo.sheetType === 'oxytocin_sdlj') {
     if (index === 0) {
       return 20;
     } else {
@@ -73,9 +73,11 @@ export function getRowNum(index) {
     return 33
   } else if ( sheetInfo.sheetType === 'magnesium_lcey') {
     return 24
-  }else if ( sheetInfo.sheetType === 'record_children_serious2_lc') {
+  }else if ( sheetInfo.sheetType === 'prenataldelivery2_tj' || sheetInfo.sheetType === 'postpartum2_tj' || sheetInfo.sheetType === 'pediatric3_tj') {
+    return 22
+  }else if ( sheetInfo.sheetType === 'record_children_serious2_lc'||sheetInfo.sheetType === sheetInfo.sheetType === 'generalnursing_tj') {
     return 19
-  }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt') {
+  }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz'  ) {
     return 21
   }else if (sheetInfo.sheetType === 'neonate_sdlj') {
     return 18

@@ -2,16 +2,16 @@
 <!-- 6.7 -->
   <div
     :style="{
-      width: `${newModalSize == '70*80' ? '7' : '14'}cm`,
-      height: `${newModalSize == '70*80' ? '8' : '5.3'}cm`
+      width: `${newModalSize == '70*80' || newModalSize == '7*7' ? '7' : '14'}cm`,
+      height: `${newModalSize == '70*80' ? '8' : newModalSize == '7*7' ? '7' : '5.3'}cm`
     }"
   >
     <!-- 小瓶签一张纸需要打印3条数据数据间要留白 -->
     <div v-if="newModalSize == '3*7'" class="blank--small"></div>
     <div
-      v-if="newModalSize == '70*80'"
+      v-if="['70*80','7*7'].includes(newModalSize)"
       class="new-print-modal new-print-modal--large"
-      style="width:7cm;height:8cm"
+      :style="{width: '7cm',height: `${newModalSize == '7*7' ? 7 : 8}cm`}"
     >
       <div class="new-print-modal__title">
         <span>{{currentBottle.printFlag ? '补' : ''}}</span>
@@ -28,7 +28,8 @@
           </div>
         </div>
         <div class="flex">
-          <div>{{ `ID号:${currentBottle.patientId || ""}` }}</div>
+          <div v-if="this.HOSPITAL_ID === 'zhzxy'">{{ `住院号:${currentBottle.inpNo || ""}` }}</div>
+          <div v-else>{{ `ID号:${currentBottle.patientId || ""}` }}</div>
           <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
         </div>
         <div class="flex">
@@ -37,7 +38,7 @@
         </div>
       </div>
 
-      <div class="new-print-modal__content">
+      <div class="new-print-modal__content" :class="{is925}">
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
@@ -62,9 +63,9 @@
             频率:{{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
           </span>
           <span>执行时间:{{ currentBottle.executeDate.substr(0, 16) }}</span>
-          <span>配液者</span>
-          <span>配置时间</span>
-          <span>核对者</span>
+          <span v-if="!is925">配液者</span>
+          <span v-if="!is925">配置时间</span>
+          <span v-if="!is925">核对者</span>
         </div>
         <div class="qc-box">
           <img :src="currentBottle.qcSrc || ''" />
@@ -164,6 +165,7 @@
       height: 18px;
       div {
         flex: 3;
+        white-space: nowrap;
       }
       div:last-child {
         flex: 2;
@@ -224,6 +226,11 @@
       padding: 0px 4px;
       line-height: 20px;
       text-align: left;
+    }
+    &.is925 {
+      * {
+        font-size: 16px;
+      }
     }
   }
   .new-print-modal__tip {
@@ -381,7 +388,9 @@ export default {
     newModalSize: { type: String, default: "6*8" }
   },
   data() {
-    return {};
+    return {
+      is925: this.HOSPITAL_ID === '925'
+    };
   },
   methods: {
     // 返回避光或者重症图片路径

@@ -116,7 +116,7 @@
 }
 </style>
 <script>
-import {createCathter} from '@/page/allCatheter/api/catheter'
+import {createCathter} from '@/Page/allCatheter/api/catheter'
 import moment from 'moment';
 export default {
 props: {

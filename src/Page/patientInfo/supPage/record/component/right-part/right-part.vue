@@ -62,7 +62,7 @@
       <!-- 关联表单弹窗 -->
       <RelationFormModal/>
       <!-- 电子病例弹窗 -->
-      <doctorEmr v-if="HOSPITAL_ID === 'huadu'"/>
+      <doctorEmr v-if="['foshanrenyi','huadu'].includes(HOSPITAL_ID)" />
 
     </div>
   </div>

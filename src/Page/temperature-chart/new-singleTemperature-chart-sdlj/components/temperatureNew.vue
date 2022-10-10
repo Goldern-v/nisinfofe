@@ -1,16 +1,11 @@
 <template>
   <div>
     <div class="contain">
-      <el-button-group>
+      <div class="top_contain">
+        <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
       </el-button-group>
-      <!-- <div class="newBorn">
-        <div @click="nomalModel()" class="nomal">默认体温单</div>
-        /
-        <div @click="changeModel()" class="painNomal">疼痛版本</div>
-      </div> -->
-
       <div :class="rightSheet === true ? 'pagination' : 'paginationRight'">
         <button
           :disabled="currentPage === 1"
@@ -42,7 +37,8 @@
         >
           尾周
         </button>
-        <el-button-group :style="rightButton()">
+      </div>
+      <el-button-group>
           <el-button type="primary" @click="syncInAndOutHospital((type = '0'))"
             >同步入院</el-button
           >
@@ -86,6 +82,17 @@ export default {
     queryTem: Object,
   },
   data() {
+    //跟925医院共用录入界面 ，判断ip地址
+    const baseUrl=(()=>{
+  switch (process.env.HOSPITAL_ID) {
+    case 'sdlj':
+      return "http://192.168.168.82:9091"
+    case '925':
+      return "http://192.168.1.37:9091"
+    default:
+      break;
+  }
+ })()
     return {
       bus: bus(this),
       date: "",
@@ -103,9 +110,9 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         // "http://192.168.1.72:8080/#/" /* 医院正式环境内网 导致跨域 */,
-      "http://192.168.168.82:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://192.168.168.82:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+        `${baseUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
     };
   },
   methods: {
@@ -161,12 +168,6 @@ export default {
     //将体温单上的时间传过来，再监听到录入组件，获取录入记录
     getDataFromPage(dateTime) {
       this.bus.$emit("getDataFromPage", dateTime);
-    },
-    rightButton() {
-      return {
-        position: "relative",
-        left: this.rightSheet === false ? "18%" : "4%",
-      };
     },
         syncInAndOutHospital(type) {
       this.bus.$emit("syncInAndOutHospital", type);
@@ -306,39 +307,28 @@ export default {
       height: 100%;
     }
   }
+  .top_contain {
+    display: flex;
+    justify-content: space-between;
+  }
 }
-
 .pageInput {
   width: 50px;
   border: 0px;
 }
-
 .pagination {
   display: inline;
-  position: relative;
-  left: 13%;
   font-weight: normal;
 }
-
-.paginationRight {
-  display: inline;
-  position: relative;
-  left: 23%;
-  font-weight: normal;
-}
-
 .page {
   margin: 0 10px;
 }
-
 button {
   cursor: pointer;
 }
-
 button[disabled=disabled] {
   cursor: not-allowed;
 }
-
 .tool-btn {
   width: 82px;
   height: 32px;
@@ -365,26 +355,11 @@ button[disabled=disabled] {
   }
 }
 
-.newBorn {
-  position: relative;
-  top: 2px;
-  left: 55%;
-  display: inline-flex !important;
-}
-
 .nomal {
   color: red;
   margin-right: 5px;
 }
-
 .painNomal {
   margin-left: 5px;
-}
-
-.print-btn {
-  position: relative;
-  left: 5%;
-  top: 0;
-  display: inline-flex !important;
 }
 </style>

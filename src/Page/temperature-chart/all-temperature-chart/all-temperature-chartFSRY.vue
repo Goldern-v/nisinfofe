@@ -16,7 +16,7 @@
       <div class="times">
         <label
           :for="`time${item.id}`"
-          v-for="item in timesquZhou"
+          v-for="item in timesPoint"
           :key="item.id"
         >
           <input
@@ -203,7 +203,13 @@
                 placement="right"
                 width="100px"
                 trigger="focus"
-                :disabled="!(shitOption && shitOption.length > 0&&!isReadonly(scope.row.recordDate))"
+                :disabled="
+                  !(
+                    shitOption &&
+                    shitOption.length > 0 &&
+                    !isReadonly(scope.row.recordDate)
+                  )
+                "
               >
                 <div
                   class="selection-dict-item"
@@ -332,6 +338,24 @@
               />
             </template>
           </el-table-column>
+          <el-table-column
+            prop="painScore"
+            label="疼痛"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.painScore"
+                :class="className"
+                class="painScore"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -345,7 +369,7 @@
           <el-table-column
             prop="name"
             label="姓名"
-            min-width="100"
+            min-width="80"
             align="center"
           ></el-table-column>
           <el-table-column
@@ -357,7 +381,7 @@
           <el-table-column
             prop="admissionDate"
             label="入院日期"
-            min-width="180"
+            min-width="150"
             align="center"
           >
             <template slot-scope="scope">
@@ -471,7 +495,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
             prop="painScore"
             label="疼痛"
             min-width="60"
@@ -686,7 +709,7 @@ import common from "@/common/mixin/common.mixin.js";
 import {
   getPatientsInfo,
   saveOverAllTemperture,
-  getmultiDict,
+  getmultiDict
 } from "../api/api";
 import moment from "moment";
 import print from "printing";
@@ -721,12 +744,12 @@ export default {
         "1 2/E",
         "*/E",
         "☆/E",
-        "3/2E",
+        "3/2E"
       ],
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now() - 8.64e6;
-        },
+        }
       },
       nursingList: [],
       query: {
@@ -734,56 +757,113 @@ export default {
         startFiltering: false,
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
-          if (this.getHours() >= 0 && this.getHours() <= 2) {
-            return "02";
-          }
-          if (this.getHours() > 2 && this.getHours() <= 6) {
-            return "06";
-          }
-          if (this.getHours() > 6 && this.getHours() <= 10) {
-            return "10";
-          }
-          if (this.getHours() > 10 && this.getHours() <= 14) {
-            return "14";
-          }
-          if (this.getHours() > 14 && this.getHours() <= 18) {
-            return "18";
-          }
-          if (this.getHours() > 18 && this.getHours() <= 23) {
-            return "22";
+          switch (this.HOSPITAL_ID) {
+            case "zhzxy":
+              if (this.getHours() >= 1 && this.getHours() <= 3) {
+                return "03";
+              }
+              if (this.getHours() > 3 && this.getHours() <= 7) {
+                return "07";
+              }
+              if (this.getHours() > 7 && this.getHours() <=11 ) {
+                return "11";
+              }
+              if (this.getHours() > 11 && this.getHours() <= 17) {
+                return "15";
+              }
+              if (this.getHours() > 17 && this.getHours() <= 21) {
+                return "19";
+              }
+              if (
+                (this.getHours() > 21 && this.getHours() <= 23) ||
+                this.getHours() === 0
+              ) {
+                return "23";
+              }
+            default:
+            if (this.getHours() >= 0 && this.getHours() <= 4) {
+                return "02";
+              }
+              if (this.getHours() > 4 && this.getHours() <= 8) {
+                return "06";
+              }
+              if (this.getHours() > 8 && this.getHours() <= 12) {
+                return "10";
+              }
+              if (this.getHours() > 12 && this.getHours() <= 16) {
+                return "14";
+              }
+              if (this.getHours() > 16 && this.getHours() <= 20) {
+                return "18";
+              }
+              if (this.getHours() > 20 && this.getHours() <= 23) {
+                return "22";
+              }
           }
         })(), //录入时间
       },
-      timesquZhou: [
-        {
-          id: 0,
-          value: "02",
-        },
-        {
-          id: 1,
-          value: "06",
-        },
-        {
-          id: 2,
-          value: "10",
-        },
-        {
-          id: 3,
-          value: "14",
-        },
-        {
-          id: 4,
-          value: "18",
-        },
-        {
-          id: 5,
-          value: "22",
-        },
-      ],
+      timesPoint: (() => {
+        switch (this.HOSPITAL_ID) {
+          case "zhzxy":
+            return [
+              {
+                id: 0,
+                value: "03"
+              },
+              {
+                id: 1,
+                value: "07"
+              },
+              {
+                id: 2,
+                value: "11"
+              },
+              {
+                id: 3,
+                value: "15"
+              },
+              {
+                id: 4,
+                value: "19"
+              },
+              {
+                id: 5,
+                value: "23"
+              }
+            ];
+            default:
+            return [
+              {
+                id: 0,
+                value: "02"
+              },
+              {
+                id: 1,
+                value: "06"
+              },
+              {
+                id: 2,
+                value: "10"
+              },
+              {
+                id: 3,
+                value: "14"
+              },
+              {
+                id: 4,
+                value: "18"
+              },
+              {
+                id: 5,
+                value: "22"
+              }
+            ];
+        }
+      })(),
       patientsInfoData: [],
       searchWord: "",
       pageLoadng: true,
-      admitted: "所有患者",
+      admitted: "所有患者"
     };
   },
   computed: {
@@ -792,33 +872,32 @@ export default {
     },
     tableData: {
       get() {
-        return this.patientsInfoData
-          .filter((item) => {
-            return this.admitted === "所有患者"
-              ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                  item.name.indexOf(this.searchWord) > -1) &&
-                  item.patientId
-              : this.admitted === "一周体重"
-              ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                  item.name.indexOf(this.searchWord) > -1) &&
-                item.patientId &&
-                item.noWeightFlag == 1
-              : (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                  item.name.indexOf(this.searchWord) > -1) &&
-                item.patientId &&
-                item.notDefecateFlag == 1;
-          });
+        return this.patientsInfoData.filter(item => {
+          return this.admitted === "所有患者"
+            ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+                item.patientId
+            : this.admitted === "一周体重"
+            ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId &&
+              item.noWeightFlag == 1
+            : (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                item.name.indexOf(this.searchWord) > -1) &&
+              item.patientId &&
+              item.notDefecateFlag == 1;
+        });
       },
-      set(value) {},
-    },
+      set(value) {}
+    }
   },
   mounted() {
     this.query.wardCode = this.deptCode;
-    getmultiDict(this.query.wardCode).then((res) => {
+    getmultiDict(this.query.wardCode).then(res => {
       res.data.data.map((item, index) => {
         this.totalDictInfo[item.vitalSign] = {
           ...item,
-          options: item.selectType ? item.selectType.split(",") : [],
+          options: item.selectType ? item.selectType.split(",") : []
         };
       });
     });
@@ -836,27 +915,30 @@ export default {
         case "wujing":
           return {
             backgroundColor: this.getBaColor(row),
-            color: "white",
+            color: "white"
           };
         default:
           return {
             backgroundColor: this.getBaColor(row),
-            color: "white",
+            color: "white"
           };
       }
     },
     //费整点的患者数据只允许查看不许修改
     isReadonly(recordDate) {
-      recordDate=moment(recordDate).format('YYYY-MM-DD HH:mm:ss')
+      recordDate = moment(recordDate).format("YYYY-MM-DD HH:mm:ss");
       return (
-        recordDate !== `${moment(this.query.entryDate).format('YYYY-MM-DD')} ${this.query.entryTime}:00:00`
+        recordDate !==
+        `${moment(this.query.entryDate).format("YYYY-MM-DD")} ${
+          this.query.entryTime
+        }:00:00`
       );
     },
     //获取对应护理等级背景颜色
     getBaColor(row) {
       if (this.levelColor && row && row.nursingClass) {
-        return this.levelColor.find((item) => item.code == row.nursingClass)
-          ? this.levelColor.find((item) => item.code == row.nursingClass).name
+        return this.levelColor.find(item => item.code == row.nursingClass)
+          ? this.levelColor.find(item => item.code == row.nursingClass).name
           : null;
       } else {
         return "";
@@ -880,12 +962,12 @@ export default {
         : moment(new Date()).format("YYYY/MM/DD");
       this.pageLoadng = true;
       data.startFiltering = data.startFiltering ? "1" : "0";
-      getPatientsInfo(data).then(async (res) => {
+      getPatientsInfo(data).then(async res => {
         this.patientsInfoData = res.data.data;
         this.pageLoadng = false;
         try {
           const {
-            data: { data: levelColor },
+            data: { data: levelColor }
           } = await listItem("nursing_level");
           this.levelColor = levelColor;
         } catch (error) {
@@ -961,9 +1043,9 @@ export default {
         painScore: "",
         stoolNum: "",
         nursingEvent: "",
-        height: "",
+        height: ""
       };
-      let list = this.tableData.map((item) => {
+      let list = this.tableData.map(item => {
         let obj = {};
         for (let key in data) {
           obj[key] = item[key] || data[key];
@@ -973,12 +1055,12 @@ export default {
 
       let tempertureData = {
         ...this.query,
-        list,
+        list
       };
       tempertureData.entryDate = tempertureData.entryDate
         ? moment(tempertureData.entryDate).format("YYYY-MM-DD")
         : moment(new Date()).format("YYYY-MM-DD");
-      saveOverAllTemperture(tempertureData).then((res) => {
+      saveOverAllTemperture(tempertureData).then(res => {
         if (res.data.code === "200" && res.data.desc === "操作成功") {
           this.$message.success("保存成功");
         } else {
@@ -1100,15 +1182,15 @@ export default {
         table {
           width: 95% !important;
         }
-        `,
+        `
         });
       });
       this.pageLoadng = false;
-    },
+    }
   },
 
   components: {
-    CustomInput,
+    CustomInput
   },
   watch: {
     deptCode(val) {
@@ -1120,8 +1202,8 @@ export default {
       handler(val) {
         this.getData();
       },
-      deep: true,
-    },
-  },
+      deep: true
+    }
+  }
 };
 </script>

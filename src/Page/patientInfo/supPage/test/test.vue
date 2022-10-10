@@ -10,7 +10,8 @@
           </el-select>
         </el-row>
         <div class="body" :style="{height: height}">
-          <div class="item" v-for="item in listByFilter" :key="item.examNo" @click="toRight(item)" :class="{active: item.testNo == rightData.testNo}">
+          <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)"
+           :class="{active: (!['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == rightData.testNo) || (['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == list[foshanRenyiChoseIndex].testNo) }">
             <div class="title">{{item.subject}}</div>
             <div class="aside">{{item.reqDate}}</div>
             <div class="result">
@@ -32,7 +33,12 @@
         </div>
       </div>
       <div class="right-part">
-        <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm>
+        <template v-if="['foshanrenyi'].includes(this.HOSPITAL_ID)">
+          <testForm v-if="list[foshanRenyiChoseIndex].testNo" ref="testForm"></testForm>
+        </template>
+        <template v-else>
+          <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm>
+        </template>
         <!--右边的检验报告单部分，花都的testFormHD组件，因为事件与其他医院不一样-->
         <testFormHD v-if="rightData.testNo&&['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testFormHD>
       </div>
@@ -134,6 +140,7 @@
       return {
         list: [],
         rightData: '',
+        foshanRenyiChoseIndex:0,
         options: [{
           label: '全部'
         }, {
@@ -168,13 +175,24 @@
     created() {
       testList(this.infoData.patientId, this.infoData.visitId).then((res) => {
         this.list = res.data.data
-        this.toRight(this.list[0])
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+          this.rightData = this.list.map(item=>{
+            return item.testResultList
+          })
+          this.toRight(this.rightData[this.foshanRenyiChoseIndex])
+        }else{
+          this.toRight(this.list[0])
+        }
       })
     },
     methods: {
-      toRight(data) {
-        console.log('data', data)
-        this.rightData = data
+      toRight(data,index) {
+        if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+          this.rightData = data
+        }else{
+          this.foshanRenyiChoseIndex = index?index:0
+          data = this.rightData[this.foshanRenyiChoseIndex]
+        }
         this.$nextTick(() => {
           this.$refs.testForm && this.$refs.testForm.open(data)
         })

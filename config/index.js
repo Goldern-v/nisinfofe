@@ -51,7 +51,8 @@ const currentTargetUrl = (() => {
     case "weixian":
       // return "http://211.143.127.136:9093" //威县正式
       // return "http://wxzf.hbwxrmyy.com:9093" //威县正式 admin  ad123456
-      return "http://192.168.1.54:9865" // 公司-威县测试-内网
+      // return "http://192.168.1.54:9865" // 公司-威县测试-内网
+      return "http://wxzf.hbwxrmyy.com:9093"
 
     /** 陵城正式 */
     case "lingcheng":
@@ -128,7 +129,7 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9878" // 公司-山南市人民医院测试-内网
     /** 武警广东省总队医院 */
     case "wujing":
-      return 'http://14.18.101.182:9094' // crph3675 crph
+      // return 'http://14.18.101.182:9094' // crph3675 crph
       // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
       return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.20.187:8080" // 杨鑫本地
@@ -155,11 +156,13 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       //  return "http://192.168.20.93:8080"
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
-      return "https://cr.fsyyy.com:9094"  // 正式地址
+      // return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.20.147:9091"  // 双艳
-      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" // 初升测试本地内网
       // return "http://192.168.20.102:8080" //宪锋本地地址
+      // return "http://127.0.0.1:8080" //
+      // return "http://120.24.240.231:19097" //
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -194,21 +197,33 @@ const currentTargetUrl = (() => {
     // 广东同江医院
     case 'gdtj':
       // return 'http://192.168.1.54:9866'
-      return 'http://192.168.1.54:9892' // 同江测试
+      // return 'http://192.168.1.54:9892' // 同江测试
+      return 'http://218.204.204.90:9095' // 同江正式
     // 烟台玲珑
     case 'ytll':
       return "http://221.214.210.170:39094"  // 正式
-      return 'http://192.168.1.54:9866'
+      // return 'http://192.168.1.54:9866'
+    case 'zhzxy':
+      return "http://192.168.1.54:9883"
     // 青海五院
     case 'qhwy':
       return 'http://192.168.1.54:9894'
     // 临沂沂州
     case 'lyyz':
       return 'http://192.168.1.54:9895'
+      // return 'http://192.168.137.164:8080'
+      // return 'http://192.168.1.54:9895'
+    // 广东同江
+    case 'gdtj':
+      return 'http://192.168.1.54:9892'
+    // 中国人民解放军联勤保障部队第九二五医院
+    case '925':
+      // return 'http://192.168.1.54:9866'
+      return 'http://120.24.240.231:19097'
     /** 默认公司本地内网厚街测试环境 */
     default:
-      // return "http://192.168.1.54:9866",
-      return "http://222.133.53.230:9091"
+      return "http://192.168.1.54:9866"
+      // return "http://222.133.53.230:9091"
   }
 })();
 
@@ -226,6 +241,7 @@ module.exports = {
         // Before setting to `true`, make sure to:
         // npm install --save-dev compression-webpack-plugin
         productionGzip: false,
+
         productionGzipExtensions: ["js", "css"],
         // Run the build command with an extra argument to
         // View the bundle analyzer report after build finishes:

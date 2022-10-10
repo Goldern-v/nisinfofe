@@ -140,7 +140,7 @@ export default {
       this.bus.$emit("updateFuyouCaData");
       (isStart) && (this.getAuthorizeApi());//执行ca验证
     },
-    close(fuyouIfclose) {
+    close(fuyouIfclose = false) {
       console.log("test--1")
       if(fuyouIfclose ===true || JSON.parse(localStorage.user).empNo=="admin"){
         this.clearIntervalItem();

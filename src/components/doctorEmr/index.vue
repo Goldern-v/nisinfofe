@@ -256,7 +256,6 @@ export default {
   methods: {
     onToggle() {
       this.open = !this.open;
-      console.log('patientInfo', this.patientInfo, this.$route.query);
 
       if (!this.patientInfo.patientId) {
         this.$store.commit("upPatientInfo", this.$route.query);
@@ -264,8 +263,6 @@ export default {
       if (this.open) {
         this.$route.query.patientId = this.patientInfo.patientId;
         this.$route.query.visitId = this.patientInfo.visitId;
-        console.log(this.$route.query.name,'22222');
-
         this.$refs.patientInfoSlide.open();
       } else {
         this.$refs.patientInfoSlide.close();

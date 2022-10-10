@@ -18,7 +18,7 @@
       </span>
       <span>
         科室：
-        <div v-if="sheetInfo.sheetType == 'critical_new_linyi'" class="bottom-line" style="min-width: 120px">{{patientInfo.realDeptName}}</div>
+        <div v-if="sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_weihai'" class="bottom-line" style="min-width: 120px">{{patientInfo.realDeptName}}</div>
         <div v-else class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
@@ -29,12 +29,12 @@
         住院号/ID号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
-       <span v-if="sheetInfo.sheetType == 'critical_new_linyi'">入院日期：<div class="bottom-line" style="min-width: 50px">{{patientInfo.admissionDate | toymd}}</div></span>
+       <span v-if="sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_weihai'">入院日期：<div class="bottom-line" style="min-width: 50px">{{patientInfo.admissionDate | toymd}}</div></span>
     </div>
     <div class="info-con" flex="main:justify">
       <span
         @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
-        v-if="sheetInfo.sheetType == 'critical_new_linyi'"
+        v-if="sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_weihai'"
       >
         诊断：
         <div
@@ -44,7 +44,7 @@
       </span>
       <span
         @click="updateOperation('operation', '手术', patientInfo.operation)"
-        v-if="sheetInfo.sheetType == 'critical_new_linyi'"
+        v-if="sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_weihai'"
       >
         手术：
         <div

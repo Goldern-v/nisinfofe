@@ -48,7 +48,7 @@
         >病历(新)</a>
       </span> -->
       <router-link
-        v-if="HOSPITAL_ID !== 'zhzxy'"
+        v-if="(HOSPITAL_ID !== 'zhzxy'&&HOSPITAL_ID !== 'whsl')"
         :to="{
           path: '/sheetNursingOrder',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -157,6 +157,8 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
+      <span class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toYst')">医膳通</span>
+
     </div>
     <div style="height: 50px"></div>
   </div>

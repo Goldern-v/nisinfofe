@@ -127,10 +127,13 @@
 
       <u-table-column
         prop="startNurse"
-        label="执行人"
-        min-width="100px"
+        label="执行人/实际执行时间"
+        min-width="190px"
         align="center"
       >
+        <template slot-scope="scope">
+          {{ scope.row.startNurse }} {{ scope.row.realExecuteDateTime | ymdhm2 }}
+        </template>
       </u-table-column>
 
       <u-table-column
@@ -144,7 +147,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column
+      <!-- <u-table-column
         prop="realExecuteDateTime"
         label="实际执行时间"
         min-width="160px"
@@ -153,7 +156,7 @@
         <template slot-scope="scope">
           {{ scope.row.realExecuteDateTime | ymdhm2 }}
         </template>
-      </u-table-column>
+      </u-table-column> -->
 
       <u-table-column prop="speed" label="滴速" min-width="70px" align="center">
       </u-table-column>
@@ -170,7 +173,7 @@
         prop="baiNurse"
         label="摆药人/摆药时间"
         min-width="170px"
-        v-if="currentType == '输液'"
+        v-if="isInfusion"
       >
         <template slot-scope="scope">
           {{ scope.row.baiNurse }} {{ scope.row.baiTime | ymdhm2 }}
@@ -181,7 +184,7 @@
         prop="peiNurse"
         label="配药人/配药时间"
         min-width="170px"
-        v-if="currentType == '输液'"
+        v-if="isInfusion"
       >
         <template slot-scope="scope">
           {{ scope.row.peiNurse }} {{ scope.row.peiTime | ymdhm2 }}
@@ -192,7 +195,7 @@
         prop="heNurse"
         label="核对人/核对时间"
         min-width="170px"
-        v-if="currentType == '输液'"
+        v-if="isInfusion"
       >
         <template slot-scope="scope">
           <span v-show="scope.row.child"
@@ -413,9 +416,7 @@
 }
 </style>
 <script>
-import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
-import qs from "qs";
 import moment from "moment";
 import {
   addRecord,
@@ -429,7 +430,10 @@ export default {
     tableData: Array,
     pageLoading: Boolean,
     tableH: Number,
-    currentType: String,
+    currentType: {
+      type: Array,
+      default: () => ([])
+    },
   },
   mixins: [commonMixin],
   data() {
@@ -489,6 +493,12 @@ export default {
         ? allStatus[status + 1] && allStatus[status + 1].name
         : val;
     },
+  },
+  computed: {
+    // 是否输液
+    isInfusion() {
+      return this.currentType.includes('输液') || this.currentType.includes('全部')
+    }
   },
   components: {
     editModal,

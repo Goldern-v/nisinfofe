@@ -59,7 +59,7 @@
         </div>
       </span> -->
     </div>
-    <div class="info-con" flex="main:justify" v-else-if="sheetInfo.sheetType === 'hydrochloricacid_fs' || sheetInfo.sheetType === 'magnesiumsulf_fs'">
+    <div class="info-con" flex="main:justify" v-else-if="sheetInfo.sheetType === 'hydrochloricacid_fs' || sheetInfo.sheetType === 'magnesiumsulf_fs' || sheetInfo.sheetType === 'laborobservation_fs'">
        <span>
         姓名：
         <div class="bottom-line" style="min-width: 70px">
@@ -102,11 +102,17 @@
           {{ patientInfo.realDeptName }}
         </div>
       </span>
-  
+
       <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
           {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType === 'laborobservation_fs'">
+        第几次住院：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.visitId }}
         </div>
       </span>
       <span>
@@ -116,6 +122,7 @@
         </div>
       </span>
     </div>
+
      <div class="info-con" flex="main:justify" v-else>
        <span>
         姓名：
@@ -168,8 +175,70 @@
         </div>
       </span> -->
     </div>
+    <div class="info-con"  v-if="sheetInfo.sheetType == 'laborobservation_fs'">
+      <span>
+        临产时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+      </span>
+      <span>
+        宫口全开时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+      </span>
+      <span>
+        娩出时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.deliveryTime1"
+            v-model="sheetInfo.relObj.deliveryTime1"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />/
+          <crDatePicker
+            :data-value="sheetInfo.relObj.deliveryTime2"
+            v-model="sheetInfo.relObj.deliveryTime2"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />/
+          <crDatePicker
+            :data-value="sheetInfo.relObj.deliveryTime3"
+            v-model="sheetInfo.relObj.deliveryTime3"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+      </span>
+
+    </div>
+    <div class="info-con info-con_select"  v-if="sheetInfo.sheetType == 'laborobservation_fs'">
+      <span style="display:flex;">
+        娩出方式：
+        <customSelectCanRepeat
+          :options="options"
+          multiple
+          @onSelect="(val) => setRelValue('deliveryMOde', val)"
+        >
+          <input type="text" v-model="sheetInfo.relObj.deliveryMOde" style="width:250px;">
+        </customSelectCanRepeat>
+        <!-- <el-select v-model="sheetInfo.relObj.deliveryMOde" multiple placeholder="">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+  </el-select> -->
+      </span>
+    </div>
     <div class="info-con">
-      <span v-if="sheetInfo.sheetType != 'iabp_fs' && sheetInfo.sheetType != 'hydrochloricacid_fs' && sheetInfo.sheetType != 'magnesiumsulf_fs'"
+      <span v-if="sheetInfo.sheetType != 'iabp_fs' && sheetInfo.sheetType != 'hydrochloricacid_fs' && sheetInfo.sheetType != 'magnesiumsulf_fs' && sheetInfo.sheetType != 'laborobservation_fs'"
         @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
       >
         入院诊断：
@@ -226,6 +295,8 @@ import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
 import bedRecordModal from "../../../modal/bedRecord-modal";
+import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
+import customSelectCanRepeat from '@/components/customSelectCanRepeat/CustomSelectCanRepeat.vue'
 
 export default {
   props: {
@@ -237,6 +308,25 @@ export default {
     return {
       bus: bus(this),
       sheetInfo,
+      options: [{
+          value: '顺产',
+          name: '顺产'
+        }, {
+          value: '吸引产',
+          name: '吸引产'
+        }, {
+          value: '剖宫产',
+          name: '剖宫产'
+        }, {
+          value: '钳产',
+          name: '钳产'
+        }, {
+          value: '臀助产',
+          name: '臀助产'
+        }, {
+          value: '臀牵引',
+          name: '臀牵引'
+        }],
     };
   },
   mounted() {},
@@ -284,6 +374,9 @@ export default {
     },
   },
   methods: {
+    setRelValue(code, val) {
+      this.$set(this.sheetInfo.relObj, code, val)
+    },
     openBedRecordModal(){
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
@@ -348,7 +441,9 @@ export default {
   },
   watch: {},
   components: {
-    bedRecordModal
+    bedRecordModal,
+    crDatePicker,
+    customSelectCanRepeat
   },
 };
 </script>
@@ -374,4 +469,20 @@ input {
   outline: none;
   text-align: center;
 }
+.info-con_select /deep/.el-input__inner {
+  border: none;
+  border-bottom: 1px solid #000;
+  width: 520px;
+}
+.info-con_select /deep/.el-input__icon{
+  display: none;
+}
+.info-con_select /deep/.el-tag{
+  background: #fff;
+  border: none;
+}
+.info-con_select /deep/.el-tag__close{
+  display: none;
+}
+
 </style>

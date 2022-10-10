@@ -1,5 +1,5 @@
 <div class="bed-box" @contextmenu.stop="HOSPITAL_ID == 'zhongshanqi' && openContextMenu($event,data)">
-  <div class="like" @click.stop="toLike(data)" v-if="(HOSPITAL_ID == 'zhongshanqi'||HOSPITAL_ID == 'fuyou') && data.name">
+  <div class="like" @click.stop="toLike(data)" v-if="['zhongshanqi', 'fuyou', 'nanfangzhongxiyi'].includes(HOSPITAL_ID) && data.name">
     <img v-if="data.isFollow == '1'" src="../../../../../../common/images/card/like.png" height="18" width="18" />
     <img v-else src="../../../../../../common/images/card/liked.png" height="18" width="18" />
   </div>
@@ -9,8 +9,8 @@
       <div class="part-1">
         <div class="bed-label">
           <img src="../../images/婴儿2.png" alt="" class="ye" v-show="data.bedLabel.includes('_')"/>
-          {{ data.bedLabel }}<span class="point-box" v-show="data.formLowestStatus != '2' && HOSPITAL_ID !== 'weixian'"
-                                   :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"></span>
+            {{ data.bedLabel }}<span class="point-box" v-show="data.formLowestStatus != '2' && HOSPITAL_ID !== 'weixian'"
+            :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"></span>
         </div>
       </div>
       <div class="part-2">
@@ -150,29 +150,20 @@
           <div class="value">{{ data.chargeType }}</div>
         </div>
 
-        <div flex="" class="table-line" v-if="!['guizhou'].includes(HOSPITAL_ID)">
+        <div flex="" class="table-line" v-if="!['guizhou', '925'].includes(HOSPITAL_ID)">
           <div class="key">预 交 金：</div>
           <div class="value">{{ data.prepayments }}</div>
         </div>
 
-        <div flex="" class="table-line" v-if="!['guizhou'].includes(HOSPITAL_ID)">
+        <div flex="" class="table-line" v-if="!['guizhou', '925'].includes(HOSPITAL_ID)">
           <div class="key">费用合计：</div>
           <div class="value">{{ data.totalCosts }}</div>
         </div>
 
-        <!-- <div flex="" class="table-line">
-          <div class="key">预交金：</div>
-          <div class="value">{{data.prepayments}</div>
-        </div> -->
       </div>
-      <!-- :class="{
-        'type-1': data.nursingClass == '一级护理',
-        'type-2': data.nursingClass == '二级护理',
-        'type-3': data.nursingClass == '三级护理',
-        'type-4': data.nursingClass == '特级护理'
-      }" -->
+
       <div class="xinru" :style="{borderColor: `${data.nursingClassColor} transparent`}"></div>
-      <!-- <div class="gl" v-if="data.glFlag">隔离</div> -->
+
       <div class="deptLend" v-if="data.deptLend && HOSPITAL_ID == 'fuyou'"></div>
       <div class="deptLend" v-else-if="data.deptLend">借</div>
     </span>

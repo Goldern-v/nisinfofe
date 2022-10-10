@@ -8,7 +8,6 @@
         /
         <div @click="changeModel()" class="newBornNomal">新生儿版本</div>
       </div>
-      <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
       <div :class="rightSheet === true ? 'pagination' : 'paginationRight'">
         <button
           :disabled="currentPage === 1"

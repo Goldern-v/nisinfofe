@@ -260,7 +260,7 @@ export default {
                 );
               }
 
-              if(['lyxrm'].includes(this.HOSPITAL_ID)) {
+              if(['lyxrm','huadu'].includes(this.HOSPITAL_ID)) {
                 addCSS(
                   window,
                   `

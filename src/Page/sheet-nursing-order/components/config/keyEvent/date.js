@@ -72,6 +72,7 @@ export function click_date(e, td) {
 }
 
 export function click_time(e, td) {
+  console.log('dddddddddddddddddddd',td)
   if (td.value == "") {
     td.value = moment().format("HH:mm");
   }

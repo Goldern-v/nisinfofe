@@ -180,7 +180,7 @@
       </div>
 
       <!-- Buttons -->
-      <div class="sweet-buttons djw" v-if="$slots.button">
+      <div class="sweet-buttons" v-if="$slots.button">
         <slot name="button"></slot>
       </div>
     </div>
@@ -368,7 +368,7 @@ export default {
      * Close the dialog
      * Emits an event 'close'
      */
-    close(fuyouIfclose) {
+    close(fuyouIfclose = false) {
       console.log(this.ifNoguan,fuyouIfclose,JSON.parse(localStorage.user).empNo,"fuyouIfclose")
       if(this.HOSPITAL_ID=="fuyou"){
         if(this.ifNoguan || fuyouIfclose===true){

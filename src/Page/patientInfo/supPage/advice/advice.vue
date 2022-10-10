@@ -60,6 +60,7 @@
         >
           <el-button class="select-btn" type="primary">打印执行单</el-button>
         </a>
+        <el-button v-if="showPrint" @click="onPrint">打印</el-button>
       </div>
       <component
         :tableData="tableDataSelect"
@@ -68,6 +69,12 @@
         @handleCheckbox="(e) => { $emit('handleCheckbox', e)}"
         :is="currentAdviceTable"
       ></component>
+      <component
+        v-if="showPrint"
+        class="print-advice-table"
+        :tableData="printTableDataSelect"
+        ref="printRef"
+        :is="printTable"/>
     </div>
   </div>
 </template>
@@ -75,6 +82,104 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .content {
   margin: 10px 15px 0;
+  position: relative;
+  overflow: hidden;
+
+  .print-advice-table {
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    top: 52px;
+    width: 900px;
+  }
+}
+
+@media print {
+  .print-advice-table {
+    >>>.page-box {
+      padding-top: 70px !important;
+      box-sizing: border-box;
+
+      .el-table {
+        border: none !important;
+
+        &::before, &::after {
+          height: 0;
+        }
+
+        table {
+          width: 100% !important;
+        }
+
+        th {
+          border: none !important;
+          border-top: 1px solid #000 !important;
+          border-left: 1px solid #000 !important;
+          border-bottom: 1px solid #000 !important;
+          background-color: transparent !important;
+
+          &:first-of-type {
+            border-left: none !important;
+          }
+        }
+
+        td {
+          height: 30px !important;
+          border: none !important;
+          border-left: 1px solid #000 !important;
+          padding: 0 !important;
+
+          &:first-of-type {
+            border-left: none !important;
+          }
+        }
+
+        .cell {
+          padding: 0 !important;
+          * {
+            color: #000 !important;
+          }
+        }
+
+        .gutter {
+          border: none !important;
+        }
+
+        img {
+          width: auto;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .img {
+          height: 30px;
+        }
+
+        .el-table__body-wrapper {
+          tr {
+            &:last-of-type {
+              td {
+                border-bottom: 1px solid #000 !important;
+              }
+            }
+          }
+        }
+
+        .el-table__header-wrapper, .el-table__body-wrapper {
+          // margin-top: -1px;
+          margin-left: 0;
+        }
+
+        .el-table__body-wrapper {
+          height: auto !important;
+        }
+      }
+    }
+  }
+}
+
+@page {
+  margin: 0 10mm;
 }
 </style>
 
@@ -180,6 +285,7 @@
 </style>
 
 <script>
+
 import adviceTable from "./component/adviceTable";
 import adviceTableYc from "./component/adviceTable_yangchun";
 import adviceTableWx from "./component/adviceTable_wx";
@@ -193,10 +299,15 @@ import adviceTableXiegang from "./component/adviceTable_xiegang.vue";
 import adviceTableBeihairenyi from "./component/adviceTable_beihairenyi.vue";
 import adviceTableWHFK from "./component/adviceTable_whfk.vue";
 import adviceTableSDLJ from "./component/adviceTable_sdlj.vue";
+import standingOrderTable from "./component/print/standingOrderTable";
+import statOrderTable from "./component/print/statOrderTable";
 import { orders, newOrders } from "@/api/patientInfo";
 import {getProcedureData} from '@/api/common'
 import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
 import { hisMatch } from '@/utils/tool';
+import print from "printing";
+import formatter from "./print-formatter";
+
 export default {
   data() {
     return {
@@ -209,8 +320,9 @@ export default {
       data2Res:[],
       orderText:"",//模糊查询值
       searchHisList:["beihairenyi"],//有模糊查询方法医院
-      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk','ytll'], // 需要添加rowType(同一医嘱内第几条记录)的医院
-      specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi'] // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
+      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk','ytll', '925'], // 需要添加rowType(同一医嘱内第几条记录)的医院
+      specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi', '925'], // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
+      showPrint: ['925'].includes(this.HOSPITAL_ID),
     };
   },
   props: {
@@ -300,7 +412,7 @@ export default {
           beihairenyi:"adviceTableBeihairenyi",
           whfk:'adviceTableWHFK',
           yangchunzhongyi:"adviceTableYc",
-          'sdlj,ytll,whsl,qhwy,zhzxy':"adviceTableSDLJ",
+          'sdlj,ytll,whsl,qhwy,zhzxy,925':"adviceTableSDLJ",
           default:"adviceTable",
         }
       })
@@ -316,6 +428,26 @@ export default {
       // }else{
       //   return idToCom.default
       // }
+    },
+    // 打印数据
+    printTableDataSelect() {
+      let data = this.tableData;
+      data = data.filter((item) => {
+        let select1 = item.repeatIndicator === this.btn.toString();
+        let select2 =
+          (item.orderStatusName.includes(this.radio.toString()) ||
+            this.radio === "全部") &&
+          !item.orderStatusName.includes("作废");
+        return select1 && select2;
+      });
+      return data;
+    },
+    // 打印组件
+    printTable() {
+      if (this.btn === 1) {
+        return 'standingOrderTable'
+      }
+      return 'statOrderTable'
     },
   },
   created() {
@@ -354,8 +486,6 @@ export default {
           this.tableLoading = false;
         });
       }
-
-
     },
     syncGetPatientOrders() {
       this.$message.info("正在同步数据...");
@@ -382,6 +512,34 @@ export default {
         this.statusList = ["新开", "提交", "执行", "停止", "作废"];
       }
     },
+    // 打印
+    async onPrint() {
+      // let printEle =
+      //   this.btn == "1"
+      //     ? this.$refs.standingOrderTable.$el
+      //     : this.$refs.statOrderTable.$el;
+      this.$nextTick(async () => {
+        const printEle = this.$refs.printRef.$el
+        await print(printEle, {
+          beforePrint: formatter,
+          direction: "vertical",
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+          .fixedTh {
+            display: none !important;
+            height: auto;
+          }
+          pre {
+            white-space: pre-wrap;
+          }
+          table {
+            width: 100% !important;
+          }
+          `,
+        });
+      });
+    },
   },
   components: {
     adviceTable,
@@ -396,7 +554,9 @@ export default {
     adviceTableWHFK,
     adviceTableFy,
     adviceTableYc,
-    adviceTableSDLJ
+    adviceTableSDLJ,
+    standingOrderTable,
+    statOrderTable,
   },
 };
 </script>

@@ -241,7 +241,7 @@
       </p>
     </div>
     <!-- 陵 城 病重（病危）患者护理记录单 -->
-    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'||sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_lc'">
+    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'||sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_lc' || sheetInfo.sheetType == 'critical_new_weihai'">
       <table>
         <colgroup>
           <col width="46px" />
@@ -261,7 +261,7 @@
           </tr>
         </tbody>
       </table>
-      <div style="padding-top: 10px;" v-if="sheetInfo.sheetType == 'critical_lc' || sheetInfo.sheetType == 'critical_new_linyi'">
+      <div style="padding-top: 10px;" v-if="sheetInfo.sheetType == 'critical_lc' || sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_weihai'">
         <p>注：瞳孔对光反应：灵敏（+）、迟钝（S）、消失（-）表示。</p>
       </div>
     </div>
@@ -595,8 +595,12 @@
     </div>
     <!--佛山市一 -  麻醉科IPACU护理记录单-->
     <!-- <div v-if="sheetInfo.sheetType == 'ipacu_fs'">
-       注：1.神志：麻醉未醒“①”，清醒“②”，谵妄“③”，嗜睡“④”，昏睡“⑤”，浅昏迷“⑥”，中度昏迷“⑦”，深昏迷“⑧”。镇静状态“⑨”。 
+       注：1.神志：麻醉未醒“①”，清醒“②”，谵妄“③”，嗜睡“④”，昏睡“⑤”，浅昏迷“⑥”，中度昏迷“⑦”，深昏迷“⑧”。镇静状态“⑨”。
     </div> -->
+    <!--925医院 -  患者护理记录单-->
+    <div v-if="sheetInfo.sheetType == 'nurse_jew'||sheetInfo.sheetType == 'danger_nurse_jew'">
+      备注：意识/神志清醒√、嗜睡/意识模糊+、昏睡++、浅昏迷+++、深昏迷++++；瞳孔对光反射：灵敏√、迟钝+、消失++；护理记录单横线上填一般或者危重。
+    </div>
   </div>
 </template>
 

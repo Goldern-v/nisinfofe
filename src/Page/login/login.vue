@@ -123,6 +123,8 @@
         <span>关于智慧护理</span>
         <span>|</span>
         <span>联系客服</span>
+        <span v-if="HOSPITAL_ID === 'foshanrenyi'">|</span>
+        <span style="color:blue" v-if="HOSPITAL_ID === 'foshanrenyi'">此电脑ip：{{ip}}</span>
       </p>
     </div>
   </div>
@@ -341,7 +343,6 @@ a {
     top: 4px;
     font-size: 20px;
     letter-spacing: 1px;
-    // font-family '微软雅黑' !important
     left: 130px;
   }
 
@@ -352,7 +353,6 @@ a {
     right: 25px;
     font-size: 22px;
     letter-spacing: 2px;
-    // font-family '微软雅黑' !important
   }
 
   .sys-version {
@@ -394,7 +394,7 @@ a {
 </style>
 
 <script>
-import { login, hisLogin } from "@/api/login";
+import { login, hisLogin,ipAddress } from "@/api/login";
 import { GetUserList,caLoginBefore,caLoginLater,verifyUser,SOF_SignData,SOF_VerifySignedData,SOF_Login,SOF_ExportUserCert,genRandom,GetAllUkeyList } from "@/api/caCardApi";
 import Cookies from "js-cookie";
 // import {caLoginobj} from './caLoign';
@@ -425,6 +425,7 @@ export default {
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
       md5HisList: ["foshanrenyi","hengli",'sdlj', 'zhzxy'], //需要md5加密医院
+      ip:'',
     };
   },
   methods: {
@@ -601,7 +602,7 @@ export default {
         this.$router.push("/badEvent");
       } else {
         this.$store.commit("common/upRelogin", false);
-        this.$router.push("/index");
+        this.$router.push('/');
         if (["weixian"].includes(this.HOSPITAL_ID)) {
           /** 验证证书 */
           window.openCaSignModal();
@@ -633,7 +634,11 @@ export default {
     },
   },
   created() {
-
+    if(this.HOSPITAL_ID == "foshanrenyi"){
+      ipAddress().then((res)=>{
+        this.ip =res.data.data;
+      })
+    }
     if (localStorage["rememberAccount"]) {
       this.account = localStorage["rememberAccount"];
     }
@@ -715,22 +720,24 @@ export default {
           return require("../../common/images/login_liaocheng.png");
         case "wujing":
           return require("../../common/images/logo_wujing.png");
-        case "liaocheng":
-          return require("../../common/images/logoBack.png");
         case "foshanrenyi":
-          return require("../../common/images/foshan_logo.png");
+          return require("../../common/images/logo_foshanrenyi.png");
         case "lyxrm":
-          return require("../../common/images/lyxrm_logo.png");
+          return require("../../common/images/logo_lyxrm.png");
         case "fsxt":
-          return require("../../common/images/fsxt_logo.png");
-        case "whsl":
-          return require("../../common/images/whsl_logo.png")
-        case 'zhzxy':
-          return require("../../common/images/zhzxy_logo.png")
+          return require("../../common/images/logo_fsxt.png");
         case 'whhk':
           return require("../../common/images/logo_whhk.png")
         case 'qhwy':
-          return require("../../common/images/qhwy_logo.png")
+          return require("../../common/images/logo_qhwy.png")
+        case '925':
+          return require("../../common/images/logo_925.png")
+        case "liaocheng":
+          return require("../../common/images/logoBack.png");
+        case "whsl":
+          return require("../../common/images/logo_whsl_login.png")
+        case 'zhzxy':
+          return require("../../common/images/logo_zhzxy_login.png")
         default:
           return require("../../common/images/logo.png");
       }

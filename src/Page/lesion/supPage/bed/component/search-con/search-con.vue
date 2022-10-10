@@ -98,13 +98,7 @@
       >
         同步医嘱
       </button>
-      <!-- <a
-        :href="`crprintorder://${infoData.patientId}/${infoData.visitId}`"
-        v-if="HOSPITAL_ID == 'weixian'"
-        style="margin-left: 10px"
-      >
-        <el-button class="select-btn" type="primary">打印执行单</el-button>
-      </a>-->
+
       <div class="progress" v-if="showProgress">
         <el-progress
           :percentage="progressNum"
@@ -532,26 +526,7 @@ export default {
           num: "",
           type: "line",
         },
-        // {
-        //   name: "特级护理",
-        //   num: this.type4.length,
-        //   type: "type-4"
-        // },
-        // {
-        //   name: "一级护理",
-        //   num: this.type1.length,
-        //   type: "type-1"
-        // },
-        // {
-        //   name: "二级护理",
-        //   num: this.type2.length,
-        //   type: "type-2"
-        // },
-        // {
-        //   name: "三级护理",
-        //   num: this.type3.length,
-        //   type: "type-3"
-        // },
+
         ...this.levelColor.map((item) => {
           return {
             name: item.code,
@@ -624,7 +599,7 @@ export default {
           [
             "zhongshanqi", "liaocheng",  "beihairenyi",'ytll',
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
-            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','qhwy'
+            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','qhwy','zhzxy', 'nanfangzhongxiyi'
           ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
@@ -660,6 +635,7 @@ export default {
       })
       return list;
     },
+    // 新医院注意
     // 同步床位数据
     showSyncBedBtn() {
       return [
@@ -684,15 +660,17 @@ export default {
         'whsl',
         'whhk',
         'zhzxy',
-        'nfyksdyy'
+        'nfyksdyy',
+        '925',
         ].includes(
         this.HOSPITAL_ID
       );
     },
+    // 新医院注意
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy'
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -884,26 +862,7 @@ export default {
             this.$parent.bedList = this.inBed;
           }
           break;
-        // case "特级护理":
-        //   {
-        //     this.$parent.bedList = this.type4;
-        //   }
-        //   break;
-        // case "一级护理":
-        //   {
-        //     this.$parent.bedList = this.type1;
-        //   }
-        //   break;
-        // case "二级护理":
-        //   {
-        //     this.$parent.bedList = this.type2;
-        //   }
-        //   break;
-        // case "三级护理":
-        //   {
-        //     this.$parent.bedList = this.type3;
-        //   }
-        //   break;
+
         case "病危":
           {
             this.$parent.bedList = this.bw;

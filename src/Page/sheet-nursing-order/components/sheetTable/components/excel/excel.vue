@@ -108,6 +108,38 @@
             :guide="true"
             :data-value="td.value"
             placeholderChar=" "
+            @click="td.click($event,td)"
+            @keydown="onKeyDown($event, { x, y, z: index, td });"
+            @focus="
+              td.autoComplete &&
+                onFocus($event, {
+                  autoComplete: getCompleteArr(tr, td),
+                  x,
+                  y,
+                  z: index,
+                  td,
+                  tr,
+                  splice: td.splice,
+                })
+            "
+            @blur="
+              !HOSPITAL_ID === 'huadu' &&
+                !td.splice &&
+                onBlur($event, { x, y, z: index }, tr )
+            "
+          ></masked-input>
+          <masked-input
+            v-else-if="['huadu'].includes(HOSPITAL_ID) && (td.key == 'stopDate' || td.key == 'startDate')  "
+            :position="`${x},${y},${index}`"
+            type="text"
+            class="mask-input"
+            :showMask="false"
+            v-model="td.value"
+            :mask="() => [ /\d/, /\d/, '-', /\d/, /\d/]"
+            :guide="true"
+            :data-value="td.value"
+            placeholderChar=" "
+            @click="td.click($event,td)"
             @keydown="onKeyDown($event, { x, y, z: index, td });"
             @focus="
               td.autoComplete &&

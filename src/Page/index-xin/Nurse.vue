@@ -7,7 +7,12 @@
           user.week
         }}，祝您工作顺利，天天都有好心情。</span
       >
+      <span v-if="HOSPITAL_ID === 'foshanrenyi'">
+        <el-button type="primary" @click.native="goUrl('http://192.168.99.81:9091/')">操作手册</el-button>
+         </span>
+         <span style="color:blue" v-if="HOSPITAL_ID === 'foshanrenyi'">此电脑ip：{{ip}}</span>
     </div>
+
     <div class="main-content" flex="main:justify">
       <div class="content-left" flex-box="1">
         <table cellspacing="0" border="1" class="tables">
@@ -208,6 +213,7 @@
 var moment = require("moment"); //使用时间插件
 import Cookie from "js-cookie";
 import { nurseTast, bodyTast, recordJob } from "./api/index-xin";
+import { ipAddress } from "@/api/login";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
 import nullText from "@/components/null/null-text.vue";
@@ -267,7 +273,8 @@ export default {
       table3: false, //是否table3内容出现滚动条
       page1Loading: false,
       page2Loading: false,
-      page3Loading: false
+      page3Loading: false,
+      ip:''
     };
   },
   methods: {
@@ -294,6 +301,9 @@ export default {
       this.centerDialogVisible = false;
       this.$router.push("/sheetPage");
     },
+    goUrl(src) {
+    window.open(src,"_blank")
+    },
     // 体征任务
     initBodyTast() {
       let time = moment().format("L");
@@ -304,6 +314,7 @@ export default {
           this.$set(this.body, "content", data);
           this.page1Loading = false;
         });
+        
     },
     init() {
       if (!this.deptCode) return;
@@ -396,6 +407,11 @@ export default {
     this.tablesHeight();
   },
   created() {
+    if(this.HOSPITAL_ID == "foshanrenyi"){
+      ipAddress().then((res)=>{
+        this.ip =res.data.data;
+      })
+    }
     moment.locale("Zh-cn"); //使用中文
     this.user.today = moment().format("LL"); //2018-07-11
     this.user.week = moment().format("dddd"); //星期一

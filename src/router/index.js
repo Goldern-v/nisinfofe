@@ -136,7 +136,7 @@ const nursingRules = () => import("@/Page/nursing-rules/nursing-rules"); //护�
 const noCheckTest = () => import("@/Page/no-check-test/no-check-test"); //未做检查/检验菜单
 const toPdfPrint = () => import("@/Page/sheet-page/pdfPrintPage/toPdfPrint"); //护记pdf打印
 const scheduling = () => import("@/Page/scheduling/scheduling"); //血透患者排班
-const healthEdu = () => import("@/Page/healthEdu/healthEdu.vue"); //健康宣教
+const healthEdu = () => import("@/Page/healthEdu/healthEdu.vue"); //健康宣教 
 const handlingPage = () => import("@/Page/handling-page/handling-page"); //住院病人处理单
 const oxygenPage = () => import("@/Page/oxygen-page/oxygen-page"); //血氧单
 const departmentSharedFile = () =>
@@ -272,6 +272,7 @@ const newSingleTemperatureChartSDLJ = () =>
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
+const nursingPreviewlyxrm = () => import("@/Page/NursingPreviewlyxrm/NursingPreviewlyxrm.vue"); //查看所有的评估单、记录单、体温单
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue"); //做跳转登录去 /nursingPreview /nursingDoc
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
@@ -400,6 +401,8 @@ const getImplementation = () => {
     case 'lyxrm':
     case 'whsl':
     case 'whhk':
+    case '925':
+    case 'zhzxy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -412,7 +415,6 @@ const getImplementation = () => {
     case 'fsxt':
       return implementationListFsxt
     case 'foshanrenyi':
-    case 'zhzxy':
     case 'nfyksdyy':
       return implementationListFSSY
     case 'quzhou':
@@ -436,7 +438,7 @@ const router = new Router({
   base: "/crNursing/",
   routes: [{
     path: "/",
-    redirect: "/index",
+    redirect: HOSPITAL_ID === 'lyxrm' ? '/bed' : "/index",
     alias: "主页"
   },
   {
@@ -540,6 +542,7 @@ const router = new Router({
           case 'whsl':
               return temperatureWHSL
           case 'sdlj':
+          case '925':
             return temperatureSDLJ
           case 'fsxt':
             return temperatureFSXT
@@ -570,6 +573,10 @@ const router = new Router({
   {
     path: "/nursingPreview",
     component: nursingPreview
+  },
+  {
+    path: "/nursingPreviewlyxrm",
+    component: nursingPreviewlyxrm
   },
   {
     path:"/admissionHisView/:patientId?/:visitId?/:formId?",
@@ -773,8 +780,6 @@ const router = new Router({
               return shiftWorkWhfk
             case 'nanfangzhongxiyi':
               return shiftWorkNFZXY
-            // case 'guizhou':
-            //   return shiftWorkGuizhou
             default:
               return shiftWork
           }
@@ -799,8 +804,6 @@ const router = new Router({
               // case 'gdtj':
               // case 'ytll':
                 return shiftWorkDetailLiaocheng
-              // case 'guizhou':
-              //   return shiftWorkDetailGuizhou
               case 'nanfangzhongxiyi':
                 return shiftWorkDetailNFZXY
               case 'beihairenyi':
@@ -865,10 +868,10 @@ const router = new Router({
         path: "/badEvent",
         name: "badEvents",
         alias: "不良事件",
-        //component: HOSPITAL_ID == "guizhou" ? badEventGz : badEvent,
         component: (() => {
           switch (HOSPITAL_ID) {
             case 'guizhou':
+            case '925':
               return badEventGz
             case 'hj':
               return badEvent
@@ -880,10 +883,10 @@ const router = new Router({
         children: [{
           name: "badEventEdit",
           path: "/badEvent/:code?/:operation?/:id?/:type?/:name?",
-          //component: HOSPITAL_ID == "guizhou" ? badEventEditPageGz : badEventEditPageGz
           component: (() => {
             switch (HOSPITAL_ID) {
               case 'guizhou':
+              case '925':
                 return badEventEditPageGz
               case 'hj':
                 return badEventEditPage
@@ -895,10 +898,10 @@ const router = new Router({
         {
           name: "badEventView",
           path: "/badEvent/:code?/:operation?/:id?/:status?/:type?/:name?",
-          //component: HOSPITAL_ID == "guizhou" ? badEventViewPageGz : badEventViewPage
           component: (() => {
             switch (HOSPITAL_ID) {
               case 'guizhou':
+              case '925':
                 return badEventViewPageGz
               case 'hj':
                 return badEventViewPage
@@ -951,6 +954,15 @@ const router = new Router({
         {
           path: "/advice",
           component: advice
+
+          // component: (() => {
+          //   switch(HOSPITAL_ID) {
+          //     case '925':
+          //       return () => import('@/Page/patientInfo/supPage/advice_925/advice')
+          //     default:
+          //       return advice
+          //   }
+          // })()
         },
         {
           path: "/inspect",
@@ -962,6 +974,7 @@ const router = new Router({
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
+              case '925':
                 return testGuizhou
               default:
                 return test
@@ -1058,6 +1071,7 @@ const router = new Router({
               case 'whsl':
                 return temperatureWHSL
               case 'sdlj':
+              case '925':
                 return temperatureSDLJ
               case 'whfk':
                 return temperatureWHFK
@@ -1154,6 +1168,7 @@ const router = new Router({
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
+              case '925':
                 return healthEducationGuizhou
               case 'beihairenyi':
                 return healthEducationBerhairenyi
@@ -1411,13 +1426,14 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
             case 'zhzxy':
+            case '925':
               return nursingMakeListGuizhou
             default:
               return nursingRounds
           }
         })(),
         name: "护理巡视",
-        children:['guizhou', 'zhzxy'].includes(HOSPITAL_ID)?[
+        children:['guizhou', 'zhzxy', '925'].includes(HOSPITAL_ID)?[
           {
             path: "/nursingMakeItem",
             name: "nursingMakeItem",
@@ -1505,6 +1521,7 @@ const router = new Router({
             case "whsl":
               return newSingleTemperatureChartWHSL;
             case "sdlj":
+            case '925':
               return newSingleTemperatureChartSDLJ;
             case "whyx":
               return newSingleTemperatureChartWHYX;
@@ -1689,6 +1706,7 @@ const router = new Router({
     component: (() => {
       switch (HOSPITAL_ID) {
         case 'guizhou':
+        case '925':
           return autoLoginGuizhou
         default:
           return autoLogin
@@ -1749,8 +1767,9 @@ router.beforeEach((to, from, next) => {
   //   router.push('/login')
   // }
   if (to.meta.title) {
-
     document.title = to.meta.title
+  } else {
+    document.title = process.env.title || '百辰源智慧护理信息系统'
   }
   next();
 });

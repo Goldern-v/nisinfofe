@@ -74,10 +74,10 @@ export default {
   },
   computed: {
     isEmpty() {
-      return this.batchAuditForms.children.filter(item => item.status == '1').length == 0
+      return this.batchAuditForms.children && this.batchAuditForms.children.filter(item => item.status == '1').length == 0
     },
     canAudit() {
-      return this.batchAuditForms.children.filter(item => item.status == '1')
+      return this.batchAuditForms.children && this.batchAuditForms.children.filter(item => item.status == '1')
     }
   },
   methods: {

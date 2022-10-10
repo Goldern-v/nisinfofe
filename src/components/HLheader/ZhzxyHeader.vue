@@ -12,7 +12,7 @@
               justify="center"
               align="middle"
             >
-              <img src="../../common/images/zhzxy_logo_white.png" />
+              <img src="../../common/images/logo_zhzxy.png" />
               <!-- <span>{{ HOSPITAL_NAME }}<br />智慧护理信息系统</span> -->
             </el-row>
             <!-- <router-link to="/index"
@@ -126,6 +126,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
             </router-link> -->
+            <router-link to="/shiftWork" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> 交班志
+              </el-row>
+            </router-link>
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
@@ -137,6 +142,7 @@
                 <div class="before"></div>
                 <i class="iconfont icon-hulijiludan"></i>执行单
               </el-row>
+              
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
@@ -152,7 +158,7 @@
                 >
                   <router-link to="/implementationList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="catheterPage"></i>执行单
+                      <i class="catheterPage"></i>执行记录
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -786,6 +792,9 @@
 
     &.allTemperatureChart {
       background-image: url('../../common/images/index/批量录入体温单.png');
+    }
+    &.catheterPage {
+      background-image: url('../../common/images/index/导管.png');
     }
   }
 }

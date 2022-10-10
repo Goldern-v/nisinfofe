@@ -12,7 +12,7 @@
               justify="center"
               align="middle"
             >
-              <img src="../../common/images/whsl_logo_white.png" />
+              <img src="../../common/images/logo_whsl.png" />
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -468,7 +468,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item>
+                <!-- <el-dropdown-item>
                   <router-link to="/healthEducationList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>健康宣教查询
@@ -488,7 +488,7 @@
                       <i class="birthCertificate"></i>患者流转统计
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
 
                 <!-- <el-dropdown-item>
                   <router-link to="/dcList" tag="span">

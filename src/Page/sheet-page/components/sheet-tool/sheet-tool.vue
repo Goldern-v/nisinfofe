@@ -32,8 +32,8 @@
         flex="cross:center main:center"
         @click="toPrint"
         v-if="
-          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
-          HOSPITAL_ID == 'guizhou'
+          (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
+          ['guizhou', '925'].includes(HOSPITAL_ID)
         "
       >
         <div class="text-con">打印预览</div>
@@ -113,8 +113,8 @@
         flex="cross:center main:center"
         @click="toPrint"
         v-if="
-          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
-          HOSPITAL_ID == 'guizhou'
+          (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
+          ['guizhou', '925'].includes(HOSPITAL_ID)
         "
       >
         <div class="text-con">打印预览</div>
@@ -184,8 +184,8 @@
         flex="cross:center main:center"
         @click="toPrint"
         v-if="
-          (HOSPITAL_ID != 'guizhou' && !isDeputy && isShow()) ||
-          HOSPITAL_ID == 'guizhou'
+          (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
+          ['guizhou', '925'].includes(HOSPITAL_ID)
         "
       >
         <div class="text-con">打印预览</div>
@@ -228,7 +228,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="openStaticModal"
-        v-if="HOSPITAL_ID == 'guizhou' && isDeputy"
+        v-if="['guizhou', '925'].includes(HOSPITAL_ID) && isDeputy"
       >
         <div class="text-con">出入量统计</div>
       </div>
@@ -236,7 +236,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click.stop="syncVisitWithData"
-        v-if="HOSPITAL_ID == 'guizhou'"
+        v-if="['guizhou', '925'].includes(HOSPITAL_ID)"
       >
         <div class="text-con">同步护理巡视</div>
       </div>
@@ -250,7 +250,7 @@
         v-if="isDeputy && isLoad"
       >
         <div class="text-con">
-          {{ HOSPITAL_ID == "guizhou" ? "护理记录单" : "切换主页" }}
+          {{['guizhou', '925'].includes(HOSPITAL_ID)  ? "护理记录单" : "切换主页" }}
         </div>
       </div>
       <div
@@ -262,7 +262,7 @@
         v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalCode"
       >
         <div class="text-con">
-          {{ HOSPITAL_ID == "guizhou" ? "出入量记录单" : "切换副页" }}
+          {{ ['guizhou', '925'].includes(HOSPITAL_ID) ? "出入量记录单" : "切换副页" }}
         </div>
       </div>
       <div
@@ -292,12 +292,86 @@
       </div>
       <div flex-box="1"></div>
       <el-select
-        v-if="!isDeputy"
+        v-if=" HOSPITAL_ID == 'whfk' "
+        v-model="printRecordValue"
+        value-key="id"
+        size="small"
+        placeholder=""
+        class="select-con whfk-select-con"
+        @visible-change="getPrintRecordData()"
+      >
+        <div class="sheetSelect-con-sheet sheetSelect-con-sheet-print">
+          <div class="head-con" flex="cross:stretch" >
+            <div class="col-1">打印人</div>
+            <div class="col-2" style="border-right:none">打印时间</div>
+
+          </div>
+          <el-option
+            v-for="item in printRecord"
+            :key="item.id"
+            :label="item.printName+' '+item.printTime"
+            :value="item"
+          >
+            <div class="list-con list-con-print" flex="cross:stretch" v-if="!item.nodData">
+              <div class="col-1" :title="item.printName">
+                {{ item.printName }}
+              </div>
+              <div class="col-2" :title="item.printTime" style="border-right:none">
+                {{ item.printTime }}
+              </div>
+            </div>
+            <div v-if="item.nodData" style="text-align: center;width: 562px;height: 100px;padding-top: 50px;background:#fff;background: rgb(255, 255, 255);color: #000">
+                暂无打印记录
+              </div>
+          </el-option>
+        </div>
+      </el-select>
+      <el-select
+        v-if="!isDeputy && HOSPITAL_ID == 'whfk'"
         v-model="sheetInfo.selectBlock"
         @change="changeSelectBlock"
         value-key="id"
         placeholder="请选择护理记录单"
-        class="select-con"
+        class="select-con whfk-select-con"
+      >
+        <div class="sheetSelect-con-sheet">
+          <div class="head-con" flex="cross:stretch">
+            <div class="col-1">记录单标题</div>
+            <div class="col-2">科室</div>
+            <div class="col-3">开始时间</div>
+            <div class="col-4">页码</div>
+          </div>
+          <el-option
+            v-for="item in sheetBlockList"
+            :key="item.id"
+            :label="blockLabel(item, sheetBlockList.length)"
+            :value="item"
+          >
+            <div class="list-con" flex="cross:stretch">
+              <div class="col-1" :title="item.recordName">
+                {{ item.recordName }}
+              </div>
+              <div class="col-2" :title="item.deptName">
+                {{ item.deptName }}
+              </div>
+              <div class="col-3" :title="item.createTime">
+                {{ item.createTime }}
+              </div>
+              <div class="col-4" :title="item.completeName">
+                {{ item.pageIndex }} - {{ item.endPageIndex }}
+              </div>
+              <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
+            </div>
+          </el-option>
+        </div>
+      </el-select>
+      <el-select
+        v-if="!isDeputy  && HOSPITAL_ID != 'whfk'"
+        v-model="sheetInfo.selectBlock"
+        @change="changeSelectBlock"
+        value-key="id"
+        :placeholder="['foshanrenyi'].includes(HOSPITAL_ID)?'':'请选择护理记录单'"
+        class="select-con otherType"
       >
         <div class="sheetSelect-con-sheet">
           <div class="head-con" flex="cross:stretch">
@@ -335,7 +409,7 @@
         class="item-box"
         style="width: 85px"
         flex="cross:center main:center"
-        v-if="!isDeputy || HOSPITAL_ID == 'guizhou'||HOSPITAL_ID == 'huadu'"
+        v-if="!isDeputy || ['guizhou', 'huadu', '925'].includes(HOSPITAL_ID)"
       >
         <el-autocomplete
           class="pegeSelect"
@@ -375,7 +449,7 @@
         class="right-btn"
         flex="cross:center main:center"
         @click="openRltbModal"
-        v-if="['guizhou'].includes(HOSPITAL_ID)  && isDeputy"
+        v-if="['guizhou', '925'].includes(HOSPITAL_ID)  && isDeputy"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
@@ -396,17 +470,32 @@
       <div class="line" v-if="!isSingleTem_LCEY && !isDeputy"></div>
       <div style="width: 5px"></div>
       <template  v-if="!isLock">
-        <div
+        <template v-if=" HOSPITAL_ID == 'wujing'">
+           <!-- 分页获取评估同步 -->
+          <div
           class="right-btn"
           flex="cross:center main:center"
-          @click="emit('openEvalModel')"
-          v-if="!isSingleTem_LCEY && !isDeputy && HOSPITAL_ID != 'foshanrenyi'"
+          @click="emit('openEvalModelPaging')"
         >
           <div class="text-con">
             <img src="./images/评估.png" alt />
             评估同步
           </div>
         </div>
+        </template>
+        <template v-else>
+          <div
+            class="right-btn"
+            flex="cross:center main:center"
+            @click="emit('openEvalModel')"
+            v-if="!isSingleTem_LCEY && !isDeputy && HOSPITAL_ID != 'foshanrenyi'"
+          >
+          <div class="text-con">
+            <img src="./images/评估.png" alt />
+            评估同步
+          </div>
+          </div>
+        </template>
       </template>
       <div class="line" v-if="!isSingleTem_LCEY && !isDeputy"></div>
       <template  v-if="!isLock">
@@ -428,7 +517,7 @@
       ></div>
       <div
         class="line"
-        v-if="HOSPITAL_ID == 'guizhou' && sheetInfo.sheetType === 'common_gzry'"
+        v-if="['guizhou', '925'].includes(HOSPITAL_ID) && sheetInfo.sheetType === 'common_gzry'"
       ></div>
       <div style="width: 5px"></div>
       <div
@@ -454,7 +543,7 @@
         class="right-btn"
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
-        v-if="HOSPITAL_ID == 'guizhou' && sheetInfo.sheetType === 'common_gzry'"
+        v-if="['guizhou', '925'].includes(HOSPITAL_ID) && sheetInfo.sheetType === 'common_gzry'"
       >
         <div class="text-con">
           <img src="./images/评估.png" alt />
@@ -468,7 +557,7 @@
         patientInfo.patientId &&
         !$route.path.includes('temperature') &&
         !$route.path.includes('Baby_sheetPage') &&
-        HOSPITAL_ID != 'huadu'
+        !['foshanrenyi','huadu'].includes(HOSPITAL_ID)
       "
     ></patientInfo>
     <!-- <demonstarationLevca v-if="HOSPITAL_ID == 'hj' && patientInfo.patientId &&
@@ -523,6 +612,7 @@ import {
   // blockSave,
   switchAdditionalBlock,
   setSheetTemplate,
+  getPrintRecord
 } from "../../api/index.js";
 import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
@@ -589,6 +679,9 @@ export default {
       modalWidth: 720,
       pageNum: "",
       firstPage: 1,
+      printRecord:[],
+      babelFirst:true,
+      printRecordValue:''
     };
   },
   methods: {
@@ -599,6 +692,26 @@ export default {
       }
       let url = `http://192.168.37.203:8086?hospital_no=498784278&patient_id=${this.patientInfo.patientId}&visit_id=${this.patientInfo.visitId}&FILE_VISIT_TYPE=2`
       window.open(url, '_blank');
+    },
+    getPrintRecordData(){
+      const fromParams = {
+          patientId:this.sheetInfo.selectBlock.patientId,
+          visitId:this.sheetInfo.selectBlock.visitId,
+          formId:this.sheetInfo.selectBlock.id,
+          formType:'record',
+          formCode:this.sheetInfo.selectBlock.recordCode,
+          formName:this.sheetInfo.selectBlock.recordName,
+      }
+      if(!this.sheetInfo.selectBlock.patientId){
+        return;
+      }
+      getPrintRecord(fromParams)
+      .then(res => {
+        this.printRecord = res.data.data&&res.data.data.length>0?res.data.data:[{printName:'',printTime:'',nodData:true}];
+        this.printRecordValue = this.printRecord[0]? this.printRecord[0]['printName']+' '+this.printRecord[0]['printTime']:'';
+      }, err => {
+
+      });
     },
     pageNumKeyDown(e) {
       if (e.keyCode == 13) {
@@ -630,7 +743,7 @@ export default {
       }
     },
     showSetCreatePage() {
-      return !this.isDeputy || this.HOSPITAL_ID == "guizhou";
+      return !this.isDeputy || ['guizhou', '925'].includes(this.HOSPITAL_ID);
     },
     //是否显示
     isShow() {
@@ -710,6 +823,14 @@ export default {
     toPrint() {
       // 正式环境打印会打开窗口,个别医院双签名打印设置为不打开新窗口（打开窗口样式有bug）
       // 不打开窗口，打印完返回会有Bug（下拉不显示和表头不能修改）,只能重新加载页面
+      const fromParams = {
+          patientId:this.sheetInfo.selectBlock.patientId,
+          visitId:this.sheetInfo.selectBlock.visitId,
+          formId:this.sheetInfo.selectBlock.id,
+          formType:'record',
+          formCode:this.sheetInfo.selectBlock.recordCode,
+          formName:this.sheetInfo.selectBlock.recordName,
+      }
       if(['liaocheng','huadu','foshanrenyi','xiegang'].includes(this.HOSPITAL_ID)){
          this.$store.commit('upPreRouter',location.href)
       }
@@ -726,7 +847,11 @@ export default {
         this.bus.$emit("toSheetPrintPage");
       } else {
         if (process.env.NODE_ENV == "production") {
-          let newWid;
+        let newWid;
+        if( this.HOSPITAL_ID === 'whfk'){
+          newWid = window.open();
+          return this.bus.$emit("toSheetPrintPagewhfk", {newWid,fromParams});
+        }else{
           if (!$(".sign-text").length) {
             newWid = window.open();
             return this.bus.$emit("toSheetPrintPage", newWid);
@@ -738,8 +863,11 @@ export default {
           ) {
             newWid = window.open();
           }
-          this.bus.$emit("toSheetPrintPage", newWid);
+          this.bus.$emit("toSheetPrintPage",newWid);
+        }
+
         } else {
+        
           this.bus.$emit("toSheetPrintPage");
         }
       }
@@ -1011,6 +1139,7 @@ export default {
         this.patientInfo.visitId &&
         this.deptCode
       ) {
+
         blockList(
           this.patientInfo.patientId,
           this.patientInfo.visitId,
@@ -1073,6 +1202,9 @@ export default {
             }
           }
           this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+          if( this.HOSPITAL_ID === 'whfk'&& this.sheetInfo.selectBlock.patientId){
+            this.getPrintRecordData();
+          }
           // this.bus.$emit('refreshSheetPage', true)
         });
       }
@@ -1137,10 +1269,41 @@ export default {
     },
     blockLabel(item, length) {
       // return `${item.recordName} ${dayjs(item.createTime).format("MM-DD")}`;
-      return `${item.deptName} ${dayjs(item.createTime).format(
-        "MM-DD"
-      )}建 共${length}张
-      `;
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        if(!this.babelFirst) return 
+        const parent = document.querySelector('.otherType').childNodes[1];
+        console.log(parent,"parent")
+        const isDiv = parent.childNodes[1].nodeName;
+        console.log(isDiv,"isDiv")
+        let dom,dom1,dom2
+        if (isDiv !== 'div') {
+          dom = document.createElement('div');
+          dom.className = 'adddiv';
+          dom1 = document.createElement('span');
+          dom1.className = 'addspan1';
+          dom2 = document.createElement('span');
+          dom2.className = 'addspan2';
+          dom.appendChild(dom1)
+          dom.appendChild(dom2)
+          parent.insertBefore(dom, parent.childNodes[1]);
+        }
+        else {
+          dom = parent.childNodes[1];
+        }
+        dom1.setAttribute('data-content1', `${item.deptName} ${dayjs(item.createTime).format(
+          "MM-DD")}建 `);
+        dom2.setAttribute('data-content2', `共${length}张`);
+        // return `${item.deptName} ${dayjs(item.createTime).format(
+        //   "MM-DD"
+        // )}建 
+        // `;
+        this.babelFirst = false
+      }else{
+        return `${item.deptName} ${dayjs(item.createTime).format(
+          "MM-DD"
+        )}建 共${length}张
+        `;
+      }
     },
     changeSelectBlock(item) {
       if (item) {
@@ -1154,9 +1317,24 @@ export default {
     /** pdf打印 */
     toPdfPrint() {
       if (sheetInfo.selectBlock.id) {
-        window.open(
-          `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}`
-        );
+
+        if( this.HOSPITAL_ID === 'whfk'){
+          const params = {
+            patientId:sheetInfo.selectBlock.patientId,
+            visitId:sheetInfo.selectBlock.visitId,
+            formId:sheetInfo.selectBlock.id,
+            formType:'record',
+            formCode:sheetInfo.selectBlock.recordCode,
+            formName:sheetInfo.selectBlock.recordName,
+          }
+          window.open(
+            `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}&patientId=${sheetInfo.selectBlock.patientId}&visitId=${sheetInfo.selectBlock.visitId}&formId=${sheetInfo.selectBlock.id}&formType=${'record'}&formCode=${sheetInfo.selectBlock.recordCode}&formName=${sheetInfo.selectBlock.recordName}`
+          )
+          }else{
+            window.open(
+              `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}`
+            );
+        }
       } else {
         this.$message.warning("没有可以打印的护理记录单");
       }
@@ -1174,7 +1352,7 @@ export default {
       if (this.HOSPITAL_ID == "wujing") {
         this.modalWidth = 850;
       }
-      if (this.HOSPITAL_ID == "guizhou") {
+      if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
         this.titleName = "输血同步";
       } else {
         this.titleName = "执行单同步";
@@ -1215,13 +1393,13 @@ export default {
       switch (type) {
         case "deputy":
           return (
-            this.HOSPITAL_ID == "guizhou" &&
+            ['guizhou', '925'].includes(this.HOSPITAL_ID) &&
             !this.isDeputy &&
             this.$route.path.includes("nursingPreview")
           );
         case "main":
           return (
-            this.HOSPITAL_ID == "guizhou" &&
+            ['guizhou', '925'].includes(this.HOSPITAL_ID) &&
             this.isDeputy &&
             this.$route.path.includes("nursingPreview")
           );
@@ -1282,7 +1460,7 @@ export default {
     },
     /* 贵州人医“出入量统计”移入出入量记录单 */
     isSingleTem_GZRY() {
-      return this.HOSPITAL_ID === "guizhou";
+      return ['guizhou', '925'].includes(this.HOSPITAL_ID);
     },
     /* 是否是副页 */
     isDeputy() {
@@ -1302,7 +1480,8 @@ export default {
     // 显示入量同步
     showRltbN() {
       return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
-    }
+    },
+
   },
   created() {
     this.bus.$on("initSheetPageSize", () => {
@@ -1388,6 +1567,7 @@ export default {
     this.bus.$on("getBlockList", () => {
       this.getBlockList();
     });
+
     document.onkeydown = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = true;
@@ -1400,6 +1580,9 @@ export default {
     };
   },
   mounted() {
+    if( this.HOSPITAL_ID === 'whfk' && this.sheetInfo.selectBlock.patientId){
+      this.getPrintRecordData();
+    }
     document.querySelector("#sheet_body_con").addEventListener("click", () => {
       if (!this.sheetInfo.downControl) {
         this.sheetInfo.selectRow.splice(0, this.sheetInfo.selectRow.length);
@@ -1408,6 +1591,12 @@ export default {
     this.bus.$emit("sheetToolLoaded");
   },
   watch: {
+    "sheetInfo.selectBlock":{
+      handler(val) {
+        console.log(val,"sheetInfo.selectBlock")
+      },
+      
+    },
     //更换选择患者，更新vuex的患者信息，重新在eventbug队列调用事件
     patientInfo(val) {
       if (this.$route.path.includes("singleTemperatureChart")) {
@@ -1500,6 +1689,7 @@ export default {
 <style lang="stylus" scoped>
 .pegeSelect {
   >>> .el-input__inner {
+    width: 85px;
     border: 0 !important;
     font-size: 12px;
     color: #333333;
@@ -1513,6 +1703,29 @@ export default {
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.otherType {
+  /deep/ .adddiv {
+    position: absolute;
+    top: 7px;
+    left:10px;
+    .font{
+      font-weight:700;
+    }
+    .addspan1{
+      font-size: 14px;
+      &::before {
+        content: attr(data-content1);
+      }
+    }
+    .addspan2{
+      font-size: 15px;
+      &::before {
+        content: attr(data-content2);
+        color:red;
+      }
+    }
+  }
+}
 .sheetSelect-con-sheet {
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
@@ -1530,14 +1743,17 @@ export default {
     max-height: 500px;
   }
 
-  .head-con {
-    height: 37px;
-    background: #F7FAFA;
-    border-bottom: 1px solid #EAEEF1;
-    font-size: 13px;
-    color: #333333;
-    font-weight: bold;
-  }
+
+ .head-con {
+   height: 37px;
+   background: #F7FAFA;
+   border-bottom: 1px solid #EAEEF1;
+   font-size: 13px;
+   color: #333333;
+   font-weight: bold;
+ }
+
+
 
   .col-1, .col-2, .col-3, .col-4 {
     display: flex;
@@ -1587,6 +1803,8 @@ export default {
       width: 4px;
       background: #4bb08d;
     }
+
+
   }
 
   .el-select-dropdown__item.hover {
@@ -1597,7 +1815,22 @@ export default {
     background: #E5F1F0;
   }
 }
-
+.whfk-select-con {
+  width: 80px;
+  margin-right:10px;
+}
+>>>.whfk-select-con .el-input__inner {
+  width: 85px !important;
+}
+.sheetSelect-con-sheet-print .el-select-dropdown__item.selected:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  height: 20px;
+  width: 4px;
+  background: #fff;
+}
 .red-border {
   border: 2px solid red !important;
 }

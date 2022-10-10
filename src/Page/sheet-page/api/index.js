@@ -272,7 +272,7 @@ export const nurseBloodList = (obj = {}) => {
 
 // 保存his患者体征
 export const saveVitalSign = (data,hospitalId) => {
-  if(['wujing','quzhou','liaocheng','guizhou','weixian','foshanrenyi','whfk','lyxrm','whhk'].includes(hospitalId)) {
+  if(['wujing','quzhou','liaocheng','guizhou','weixian','foshanrenyi','whfk','lyxrm','whhk', '925'].includes(hospitalId)) {
     return axios.post(
       `${apiPath}record/block/ordersExecute/save`,
       data
@@ -319,4 +319,8 @@ export const  getDeliveryInfo= ( patientId ) => {
 // 设置模板
 export const setSheetTemplate = (params) => {
   return axios.post(`${apiPath}/record/setting/fieldTemplate/save`, params)
+}
+/**获取打印记录 */
+export function getPrintRecord(params, formType, formCode) {
+  return axios.post(`${apiPath}form/common/getPrintRecord`, params)
 }

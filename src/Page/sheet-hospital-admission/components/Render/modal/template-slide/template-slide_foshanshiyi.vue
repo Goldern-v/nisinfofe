@@ -29,9 +29,6 @@
                 <div flex>
                 <div flex class="select-box" v-if="selectedClasss=== '科室'">
                   <p class='lable'>科室：</p>
-                  <!-- <el-select v-model="selectedClasss" filterable placeholder="请选择">
-                    <el-option v-for="item in ['全部', '公共', '科室']" :key="item" :label="item" :value="item"></el-option>
-                  </el-select> -->
                   <el-select
                     v-model="deptValue"
                     filterable
@@ -40,10 +37,10 @@
                     @change="selectChange"
                   >
                     <el-option
-                      v-for="item in typeList.dept"
-                      :key="item.deptCode"
-                      :label="item.deptName"
-                      :value="item.deptCode"
+                      v-for="item in deptList"
+                      :key="item.code"
+                      :label="item.name"
+                      :value="item.code"
                     ></el-option>
                   </el-select>
                 </div>
@@ -51,19 +48,19 @@
                   <p class='lable'>类别：</p>
                   <el-select  v-model="selectedType" @change="selectChangeType"  filterable placeholder="请选择">
                     <!-- <el-option v-for="item in typeList" :key="item" :label="item" :value="item"></el-option> -->
-                    <el-option v-if="selectedClasss === '全部'" value="全部" label="全部"></el-option>
+                    <el-option value="all" label="全部"></el-option>
                     <div>
                       <el-option-group
-                        v-for="group in (selectedClasss === '全部' ? allSelectedTypeList : (selectedClasss === '公共' ? typeList.common : typeList.dept.filter(item => item.deptCode === deptValue )) )"
-                        :key="group.deptCode"
-                        :class="{'optionGroup': selectedClasss === '公共'}"
-                        :label="selectedClasss === '公共' || selectedClasss === '科室' ? '' : group.deptName"
+                        v-for="group in groupNameList"
+                        :key="group.wardCode"
+                        :class="{'optionGroup': selectedClasss === '公共' || selectedClasss === '科室'}"
+                        :label="selectedClasss === '公共' || selectedClasss === '科室' ? '' : group.wardName"
                         >
                         <el-option
-                          v-for="item in group.groupName"
-                          :key="item.index"
-                          :label="item.name"
-                          :value="item.index">
+                          v-for="item in group.list"
+                          :key="item.id"
+                          :label="item.groupName"
+                          :value="item.groupName">
                         </el-option>
                       </el-option-group>
                     </div>
@@ -84,6 +81,23 @@
                     </div> -->
                   </el-select>
                 </div>
+                </div>
+                <div flex class="select-box"  v-if="selectedClasss !== '公共'">
+                  <p class='lable'>表单：</p>
+                  <el-select
+                    v-model="formCode"
+                    filterable
+                    placeholder="请选择科室"
+                    autocomplete="off"
+                    @change="formCodeChange"
+                  >
+                    <el-option
+                      v-for="item in selectedClasss === '科室' ? formCodeList.filter(item => item.code !== '000000' ) : formCodeList "
+                      :key="item.code"
+                      :label="item.name"
+                      :value="item.code"
+                    ></el-option>
+                  </el-select>
                 </div>
               </div>
             </div>
@@ -110,7 +124,7 @@
         </div>
       </div>
     </transition>
-    <addTemplateModal ref="addTemplateModal"></addTemplateModal>
+    <addTemplateModal :formCodeList="formCodeList" ref="addTemplateModal"></addTemplateModal>
   </div>
 </template>
 
@@ -244,19 +258,20 @@
   >>> .el-select-group__title{
     display: none
   }
-  >>> .el-select-dropdown__empty{
-    display: none
-  }
+/deep/.el-select-dropdown__empty{
+  display: none
+}
 </style>
 
 <script>
 import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./template-item.vue";
-import { typeList_foshanshiyi, list_foshanshiyi } from "../../api/template";
+import { typeList_foshanshiyi, list_foshanshiyi, getGroupName, getlist, getModuleCode } from "../../api/template";
 import addTemplateModal from "./add-template-modal_foshanshiyi.vue";
 import bus from "vue-happy-bus";
 import { keyNameMap, keyCodeMap } from "./deptMapList";
 import commom from "@/common/mixin/common.mixin.js";
+import { nursingUnit } from "@/api/lesion";
 
 export default {
   mixins: [commom],
@@ -269,18 +284,37 @@ export default {
       selectedTab: "1",
       listMap: [],
       typeList: {},
-      selectedType: "全部", // 类别
+      selectedType: "all", // 类别
       selectedClasss: "全部",
       selectWidth: 100,
       refName: "",
       deptENName: keyNameMap[this.deptName] || "neurology",
-      deptValue: '',
+      deptValue: localStorage.user && JSON.parse(localStorage.user).deptCode,
       user: localStorage.user && JSON.parse(localStorage.user),
       filterDatas: [],
-      allSelectedTypeList: []
+      allSelectedTypeList: [],
+      groupNameList: [], //组名/类别
+      deptList: [], // 科室
+      formCodeList: [], // 表单数组
+      formCode: 'all', // 表单code
     };
   },
   methods: {
+    getDeptLists() {
+      nursingUnit().then(res => {
+        if (res.data.code === '200')
+          this.deptList = res.data.data.deptList;
+      });
+    },
+    geFromCode() {
+      getModuleCode().then(res => {
+        if (res.data.code === '200')
+          this.formCodeList = res.data.data;
+          this.formCodeList = [{name: '全部', code: 'all'}, {name: '通用', code: "000000"}, ...this.formCodeList]
+          this.formCode = this.formCodeList[0].code
+      });
+    },
+
     filterData() {
       let listMap = this.listMap;
       let filterData = listMap.filter(item => {
@@ -293,25 +327,42 @@ export default {
     },
     radioChange(value) {
       if (value === '科室') {
-        let initDept = this.typeList.dept.filter(item => item.deptCode === this.user.deptCode)
-        this.deptValue = initDept.length > 0 ?  this.user.deptCode : this.typeList.dept.length > 0 && this.typeList.dept[0].deptCode
-        this.selectedType = initDept.length > 0 ? initDept[0].groupName[0].index : this.typeList.dept.length > 0 && this.typeList.dept[0].groupName[0].index;
+        // let initDept = this.deptList.filter(item => item.deptCode === this.user.deptCode)
+        // this.deptValue = initDept.length > 0 ?  this.user.deptCode : 
+        this.deptValue = this.deptValue ? this.deptValue : this.user.deptCode
+        this.getData(this.deptValue)
       } else if(value === '全部') {
         // this.deptValue = ''
-        this.selectedType = '全部'  
+        // this.selectedType = 'all'
+        this.getData()
       } else {
-        this.selectedType = this.typeList.common.length > 0 ? this.typeList.common[0].groupName[0].index : '';
+        this.getData('000000')
       }
     },
     selectChange(value) {
-      let newArr = this.typeList.dept.filter(item => item.deptCode === value)
-      this.selectedType = newArr.length > 0 ? newArr[0].groupName[0].index : ''
+      this.getData(value)
+    },
+    formCodeChange(code) {
+      this.switch()
     },
     selectChangeType(value) {
-      if(this.show)
-        this.listType()
+      this.switch()
+      // if(this.show)
+      //   this.listType()
+    },
+    switch() {
+      if (this.selectedClasss === '科室') {
+        this.listType(this.deptValue, this.selectedType, this.formCode)
+      } else if(this.selectedClasss === '全部') {
+        this.listType('all', this.selectedType, this.formCode)
+      } else {
+        this.listType('000000', this.selectedType, '000000')
+      }
     },
     open(refName) {
+      this.geFromCode()
+      this.getDeptLists()
+      this.listType()
       this.getData();
       if (this.show) {
         if (this.refName == refName) {
@@ -334,71 +385,43 @@ export default {
     close() {
       this.show = false;
       this.deptValue = ''
-      this.selectedType = "全部"
+      this.selectedType = "all"
       this.selectedClasss = "全部"
     },
     changeTab(tab) {
       this.selectedTab = tab;
     },
     // 查询标题内容
-    listType() {
-      let wardCode = ''
-      let groupName = ''
-      if (this.selectedClasss === '全部') {
-        // 点击类别的全部
-        if (this.selectedType !== '全部') {
-          let code = this.selectedType.split('_')[0]
-          if (code === '000000' ) {
-            wardCode = '000000'
-            groupName = this.typeList.common.length > 0 && this.typeList.common[0].groupName.filter(item => item.index === this.selectedType)[0].name;
-          } else {
-            wardCode = code
-            let newGroupName = this.typeList.dept.filter(item => item.deptCode === code)
-            let groupNames = newGroupName.length > 0 ? newGroupName[0].groupName.filter(item => item.index === this.selectedType) : []
-            groupName = groupNames.length > 0 ? groupNames[0].name : ''
-          }
-        } else {
-          wardCode = '000000'
-          groupName = '全部'
-        }
-      } else if (this.selectedClasss === '科室') {
-        wardCode = this.deptValue
-        let newGroupName = this.typeList.dept.filter(item => item.deptCode === this.deptValue)
-        let groupNames = newGroupName.length > 0 ?  newGroupName[0].groupName.filter(item => item.index === this.selectedType) : []
-        groupName = groupNames.length > 0 ? groupNames[0].name : ''
-      } else {
-        wardCode = '000000'
-        groupName = this.typeList.common.length > 0 && this.typeList.common[0].groupName.filter(item => item.index === this.selectedType)[0].name;
-      }
-      list_foshanshiyi(groupName, wardCode).then(res => {
+    listType(wardCode = 'all', groupName = 'all', moduleCode = 'all') {
+      getlist(wardCode, groupName, moduleCode).then(res => {
         if (res.data.code === '200') {
           this.listMap = res.data.data
           this.filterDatas = res.data.data
+
         }
       });
     },
-    getData() {
-      this.deptENName = keyNameMap[this.deptName] || "neurology";
-      typeList_foshanshiyi().then(res => {
+    getData(wardCode = 'all') {
+      getGroupName(wardCode).then(res => {
         if (res.data.code === '200') {
-          this.typeList = res.data.data;
-          this.allSelectedTypeList = [...this.typeList.common, ...this.typeList.dept]
-          // if (this.typeList.common.length > 0 || this.typeList.dept.length > 0) {
-          //   if (this.selectedClasss === '科室' && this.typeList.dept.length > 0) {
-          //     groupName = this.typeList.dept[0].groupName[0]..name;
-          //   } else {
-
-          //   }
-          // }
-            this.listType()
-
+          this.groupNameList = res.data.data; 
+          if (this.groupNameList.length > 0) {
+            if (wardCode === 'all') {
+              this.selectedType = 'all'
+              // this.listType()
+            }
+            else {
+              this.selectedType =  this.groupNameList[0].list[0].groupName
+              // this.listType(this.groupNameList[0].list[0].wardCode, this.groupNameList[0].list[0].groupName, this.groupNameList[0].list[0].moduleCode)
+            }
+          } else this.selectedType = ''
         }
       });
     },
     openAddModal() {
       if (this.isRoleManage || this.isNewAdminOrNursingDepartment){
         this.$refs.addTemplateModal.open();
-        this.$refs.addTemplateModal.getDeptLists();
+        // this.$refs.addTemplateModal.getDeptLists();
       }
       else 
         this.$message.warning('普通没有权限新建模板！')
@@ -413,10 +436,24 @@ export default {
       this.filterDatas = data
 
     });
-    this.bus.$on("refreshTemplateAdd", this.getData)
+    this.bus.$on("refreshTemplateAdd", async(obj) => {
+      // if (!obj.id){
+        let { data: { data} } = await getGroupName(obj.selectedType === '公共' ? '000000' : obj.deptCode)
+        this.groupNameList = data;
+      // }
+      this.formCode = obj.formCode
+      this.deptValue = obj.deptCode
+      this.selectedType = obj.groupName
+      this.selectedClasss = obj.selectedType
+      this.switch()
+    })
   },
   mounted() {
-    //  this.show = false
+    // this.show = true
+    // this.geFromCode()
+    // this.getData()
+    // this.getDeptLists()
+    // this.listType()
   },
   watch: {
   },

@@ -52,7 +52,7 @@
                     <!-- <el-input type="text" v-model="scope.row.recordHour" @focus="initDT('time',scope.row)"></el-input> -->
                 </template>
             </el-table-column>
-            <el-table-column 
+            <el-table-column
                 v-for="(item,index) in config"
                 :key='index'
                 :prop="item.name"
@@ -224,7 +224,7 @@
     display: block;
     height: 40px;
 }
-    
+
 </style>
 <style lang='scss'>
 .el-autocomplete-suggestion{
@@ -244,9 +244,9 @@ import {
     delAllApi,
     updateInfo,
     extubationApi
-} from '@/page/allCatheter/api/catheter'
-import delModal from '@/page/allCatheter/components/del-row-modal/del-row-modal.vue'
-import repModal from '@/page/allCatheter/components/replace-modal/replace-modal.vue'
+} from '@/Page/allCatheter/api/catheter'
+import delModal from '@/Page/allCatheter/components/del-row-modal/del-row-modal.vue'
+import repModal from '@/Page/allCatheter/components/replace-modal/replace-modal.vue'
 export default {
 props: {
     tabelConfig:{
@@ -289,7 +289,7 @@ methods: {
                 // console.log(item);
                 return {value:item.code}
             })
-            cb(tem) 
+            cb(tem)
         }else{
             cb([])
         }
@@ -365,7 +365,7 @@ methods: {
         this.delType = 'row'
         this.isDel = true
     },
-    delRow(empNo,password,extubationTime){    
+    delRow(empNo,password,extubationTime){
         let {code,type,id,patientId,visitId} = this.tableInfo
         if(this.delType==='row'){
             delRowApi({
@@ -484,7 +484,7 @@ watch:{
     tableHtml(val){
         let fixHeader = document.getElementsByTagName('thead')[0]
         if(val){
-            this.contentWidth = `${this.tableHtml.offsetWidth+40}px` 
+            this.contentWidth = `${this.tableHtml.offsetWidth+40}px`
         }else{
             this.contentWidth = "auto"
         }
