@@ -174,6 +174,8 @@ const implementationListLingcheng = () =>
   import("@/Page/implementation-list/implementation-list-lingcheng.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
   import("@/Page/implementation-list/implementation-list-liaocheng.vue"); //聊城执行单
+const implementationListQHWY = () =>
+  import("@/Page/implementation-list/implementation-list-qhwy.vue"); //青海五院执行单
 const implementationListShannan = () =>
   import("@/Page/implementation-list/implementation-list-shannan.vue"); //山南执行单
 const implementationListZhongshanqi = () =>
@@ -393,8 +395,9 @@ const getImplementation = () => {
       return implementationListLingcheng
     case 'liaocheng':
     case 'lyyz':
-    case 'qhwy':
       return implementationListLiaocheng
+    case 'qhwy':
+      return implementationListQHWY
     case 'shannan':
       return implementationListShannan
     case 'zhongshanqi':

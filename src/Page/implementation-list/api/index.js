@@ -46,7 +46,7 @@ export function getExecuteWithWardcode(obj) {
       `${apiPath}procedure/webExecute/webGetWardExecuteWithTime`,
       obj
     );
-  }else if(HOSPITAL_ID == "liaocheng" || HOSPITAL_ID == "guizhou"){
+  }else if(HOSPITAL_ID == "liaocheng" || HOSPITAL_ID == "guizhou" || HOSPITAL_ID == "qhwy"){
     // 聊城新版执行单通过执行时间段获取（）
     return axios.post(
       `${apiPath}hisLiaoChengExecute/getOrdersExecuteWithWardCodeNew`,

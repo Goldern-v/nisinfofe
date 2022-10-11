@@ -6,7 +6,7 @@
       </div>
       <div class="right-part">
         <component :is="otherComponent" v-if="otherComponent"></component>
-        <!-- <rightPart v-show="!otherComponent"></rightPart> -->
+        <rightPart v-show="!otherComponent"></rightPart>
       </div>
     </div>
   </div>
