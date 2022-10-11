@@ -2555,7 +2555,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (this.HOSPITAL_ID == 'lyxrm') {
+      if (this.HOSPITAL_ID == 'lyxrm' || this.HOSPITAL_ID == 'foshanrenyi') {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }
