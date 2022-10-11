@@ -123,6 +123,8 @@
         <span>关于智慧护理</span>
         <span>|</span>
         <span>联系客服</span>
+        <span v-if="HOSPITAL_ID === 'foshanrenyi'">|</span>
+        <span style="color:blue" v-if="HOSPITAL_ID === 'foshanrenyi'">此电脑ip：{{ip}}</span>
       </p>
     </div>
   </div>
@@ -392,13 +394,14 @@ a {
 </style>
 
 <script>
-import { login, hisLogin } from "@/api/login";
+import { login, hisLogin,ipAddress } from "@/api/login";
 import { GetUserList,caLoginBefore,caLoginLater,verifyUser,SOF_SignData,SOF_VerifySignedData,SOF_Login,SOF_ExportUserCert,genRandom,GetAllUkeyList } from "@/api/caCardApi";
 import Cookies from "js-cookie";
 // import {caLoginobj} from './caLoign';
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
 import { mapMutations } from "vuex";
+import { passwordRule } from '@/api';
 const CryptoJS = require("crypto-js");
 const SecretKey = "chenrui2020";
 
@@ -423,6 +426,8 @@ export default {
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
       md5HisList: ["foshanrenyi","hengli",'sdlj', 'zhzxy'], //需要md5加密医院
+      ip:'',
+      reg: {},
     };
   },
   methods: {
@@ -541,6 +546,13 @@ export default {
               });
               this.$router.push('/resetpassword')
               return
+            } else if (this.reg.flag) {
+              const regExp = new RegExp(this.reg.rule)
+              if (!regExp.test(this.password)) return this.$message({
+                showClose: true,
+                message: this.reg.ruleMsg,
+                type: 'warning'
+              })
             }
             this.loginSucceed(res,type)
           })
@@ -629,9 +641,27 @@ export default {
     uncompileStr(code) {
       return CryptoJS.AES.decrypt(code, SecretKey).toString(CryptoJS.enc.Utf8);
     },
+    // 获取校验规则
+    getPasswordRule() {
+      passwordRule().then((res) => {
+        if (res.data.code == 200) {
+          this.reg = res.data.data;
+        }
+      });
+    },
+    // 设置正则规则
+    setHospitalReg() {
+      if (this.HOSPITAL_ID === 'guizhou') {
+        this.getPasswordRule()
+      }
+    }
   },
   created() {
-
+    if(this.HOSPITAL_ID == "foshanrenyi"){
+      ipAddress().then((res)=>{
+        this.ip =res.data.data;
+      })
+    }
     if (localStorage["rememberAccount"]) {
       this.account = localStorage["rememberAccount"];
     }
@@ -678,6 +708,7 @@ export default {
     }
   },
   mounted() {
+    this.setHospitalReg()
     /**清除锁屏的本地存储相关 */
     if (localStorage.screenLock) localStorage.removeItem("screenLock");
     let elList = document.querySelectorAll(".input-con input");

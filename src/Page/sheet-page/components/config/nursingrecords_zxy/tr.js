@@ -89,6 +89,17 @@ export default [
     },
   },
   {
+    key: "spo2", //SPO₂(%)
+    value: "",
+    event: keyf1,
+    name: "SPO₂",
+    next: "%",
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 45
+    },
+  },
+  {
     key: "consciousness", //意识
     value: "",
     event: keyf1,
@@ -147,17 +158,6 @@ export default [
     next: "ml",
     textarea: {
       width: 35
-    },
-  },
-  {
-    key: "spo2", //SPO₂(%)
-    value: "",
-    event: keyf1,
-    name: "SPO₂",
-    next: "%",
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 45
     },
   },
   {

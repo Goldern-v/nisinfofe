@@ -205,7 +205,7 @@ export default {
   created() {
     if(sheetInfo.sheetType=='nurse_jew' || sheetInfo.sheetType== 'danger_nurse_jew' && !sheetInfo.relObj['nurseLevel']){
       info(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
-        this.$set(sheetInfo.relObj,'  ',res.data.data.nursingClass)
+        this.$set(sheetInfo.relObj,'nurseLevel',res.data.data.nursingClass)
       })
     }
     if (!sheetInfo.relObj.age) {

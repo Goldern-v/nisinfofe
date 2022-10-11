@@ -25,7 +25,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `脉<br/>搏<br/>（次/<br/>min）`,
+        name: `催产<br>素浓<br>度<br>（u/500ml）`,
         style: {
           minWidth: '40px',
           maxWidth: '40px'
@@ -33,7 +33,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `呼<br/>吸<br/>（次/<br/>min）`,
+        name: `滴数<br>滴/分）`,
         style: {
           minWidth: '40px',
           maxWidth: '40px'
@@ -41,7 +41,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `血<br/>压<br/>（mm/<br/>Hg）`,
+        name: `宫缩<br>min`,
         style: {
           minWidth: '40px',
           maxWidth: '40px'
@@ -49,7 +49,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `血氧<br/>饱<br/>和度/<br/>（%）`,
+        name: `宫缩<br>强度<br>s`,
         style: {
           minWidth: '44px',
           maxWidth: '44px'
@@ -57,7 +57,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `宫底<br/>U-Fb`,
+        name: `胎<br>方位`,
         style: {
           minWidth: '36px',
           maxWidth: '36px'
@@ -65,7 +65,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `子宫<br/>收缩`,
+        name: `胎心<br>次/分`,
         style: {
           minWidth: '36px',
           maxWidth: '36px'
@@ -73,7 +73,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `出血<br/>量<br/>(mL)`,
+        name: `宫口<br>扩张<br>cm`,
         style: {
           minWidth: '36px',
           maxWidth: '36px'
@@ -81,7 +81,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `膀胱<br/>情况`,
+        name: `先露<br>高低`,
         style: {
           minWidth: '36px',
           maxWidth: '36px'
@@ -90,29 +90,17 @@ export default {
         rowspan: '3'
       },{
         name: `
-        入
+        血压<br>mmHg
         `,
         style: {
           minWidth: '72px',
           maxWidth: '72px'
         },
-        colspan: '2',
-        rowspan: '1',
-        canSet: false,
-      },
-      {
-        name: `
-        出
-        `,
-        style: {
-          minWidth: '72px',
-          maxWidth: '72px'
-        },
-        colspan: '2',
-        rowspan: '1',
+        colspan: '1',
+        rowspan: '3',
         canSet: false,
       },{
-        name: `附注`,
+        name: `特殊情况记录`,
         style: {
           minWidth: '153px',
           maxWidth: '153px',
@@ -129,56 +117,20 @@ export default {
         },
         colspan: '1',
         rowspan: '3'
-      },{
-        name: `
-        审核签名
-        `,
-        style: {
-          minWidth: '46px',
-          // maxWidth: '72px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      }
+      },
+      // {
+      //   name: `
+      //   审核签名
+      //   `,
+      //   style: {
+      //     minWidth: '46px',
+      //     // maxWidth: '72px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // }
     ],
     mid: [
-      {
-        name: `
-        项目
-        `,
-        style: {
-          minWidth: '36px',
-        },
-        colspan: '1',
-        rowspan: '2'
-      }, {
-          name: `
-          量<br/>(ml)
-          `,
-          colspan: '1',
-          rowspan: '2',
-          style: {
-            minWidth: '36px',
-          },
-      }, {
-          name: `
-          项目
-          `,
-          style: {
-            minWidth: '36px',
-          },
-          colspan: '1',
-          rowspan: '2'
-      }, {
-          name: `
-          量<br/>(ml)
-          `,
-          colspan: '1',
-          rowspan: '2',
-          style: {
-            minWidth: '36px',
-          },
-        },
     ],
     bottom: [
     ]

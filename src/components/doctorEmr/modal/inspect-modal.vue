@@ -1,6 +1,7 @@
 <template>
   <sweet-modal ref="modalName" title="检查报告" class="modal-con">
-    <inspect></inspect>
+    <inspectFSRY v-if="HOSPITAL_ID == 'foshanrenyi'"></inspectFSRY>
+    <inspect v-else></inspect>
     <!-- <div slot="button">
       <el-button class="modal-btn" @click="$refs.modalName.close()"
         >取消</el-button
@@ -21,6 +22,7 @@
 </style>
 <script>
 import inspect from "@/Page/patientInfo/supPage/inspect/inspect";
+import inspectFSRY from "@/Page/patientInfo/supPage/inspect/inspectFSRY";
 export default {
   props: {},
   data() {
@@ -33,7 +35,8 @@ export default {
     post() {}
   },
   components: {
-    inspect
+    inspect,
+    inspectFSRY
   }
 };
 </script>

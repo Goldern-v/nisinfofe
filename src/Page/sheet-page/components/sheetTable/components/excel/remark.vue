@@ -241,7 +241,7 @@
       </p>
     </div>
     <!-- 陵 城 病重（病危）患者护理记录单 -->
-    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'||sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_lc' || sheetInfo.sheetType == 'critical_new_weihai'">
+    <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'||sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_lc' ">
       <table>
         <colgroup>
           <col width="46px" />
@@ -261,7 +261,7 @@
           </tr>
         </tbody>
       </table>
-      <div style="padding-top: 10px;" v-if="sheetInfo.sheetType == 'critical_lc' || sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_weihai'">
+      <div style="padding-top: 10px;" v-if="sheetInfo.sheetType == 'critical_lc' || sheetInfo.sheetType == 'critical_new_linyi'">
         <p>注：瞳孔对光反应：灵敏（+）、迟钝（S）、消失（-）表示。</p>
       </div>
     </div>
@@ -600,6 +600,11 @@
     <!--925医院 -  患者护理记录单-->
     <div v-if="sheetInfo.sheetType == 'nurse_jew'||sheetInfo.sheetType == 'danger_nurse_jew'">
       备注：意识/神志清醒√、嗜睡/意识模糊+、昏睡++、浅昏迷+++、深昏迷++++；瞳孔对光反射：灵敏√、迟钝+、消失++；护理记录单横线上填一般或者危重。
+    </div>
+    <!-- 广东同江 - 新生儿护理记录单 -->
+    <div v-if="sheetInfo.sheetType == 'baby_tj'">
+      注：1、意识选择：清醒	嗜睡+ 浅昏迷++ 深昏迷+++；&nbsp;2、体位：左侧：L，右侧：R，平卧：S；&nbsp;3、反应：以“好”、“激惹”、“一般”、“差”表示；&nbsp;4、哭声：以“响亮”、“微弱”表示；<br/>
+      5、吸吮力：以“好”、“一般”、“差”表示；&nbsp;6、护理措施项目可填于空白项目栏：如病危、病重、吸痰，吸氧、雾化，膀胱冲洗，臀部护理、口腔护理，兰光治疗、留置针、心电监护、叩背排痰等。
     </div>
   </div>
 </template>

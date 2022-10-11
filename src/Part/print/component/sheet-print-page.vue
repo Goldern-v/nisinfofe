@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou', 'lingcheng'].includes(HOSPITAL_ID)?'fontInputW':'']">
+  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':'']">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div

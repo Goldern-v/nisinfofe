@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { hisMatch } from '@/utils/tool'
 export default {
   data() {
     return {
@@ -43,55 +44,62 @@ export default {
             img: require("../images/lv.png"),
           },
         },
-        {
-          name: "statisticalVTE",
-          meta: {
-            title: 'VTE统计',
-            img: require("../images/VTE.png"),
-          },
-        },
-        {
-          name: "statisticalPressure",
-          meta: {
-            title: '压力性损伤统计',
-            img: require("../images/pressure.png"),
-          },
-        },
-        {
-          name: "statisticalTemperature",
-          meta: {
-            title: '体温统计',
-            img: require("../images/temp.png"),
-          },
-        },
-        {
-          name: "statisticalPulseHeartRate",
-          meta: {
-            title: '脉搏统计',
-            img: require("../images/pulse.png"),
-          },
-        },
-        {
-          name: "statisticalHeartRate",
-          meta: {
-            title: '心率统计',
-            img: require("../images/heart-rate.png"),
-          },
-        },
-        {
-          name: "statisticalBreath",
-          meta: {
-            title: '呼吸统计',
-            img: require("../images/breath.png"),
-          },
-        },
-        {
-          name: "statisticalBloodPressure",
-          meta: {
-            title: '血压统计',
-            img: require("../images/blood-pressure.png"),
-          },
-        },
+        ...hisMatch({
+          map: {
+            gdtj: [],
+            other: [
+              {
+                name: "statisticalVTE",
+                meta: {
+                  title: 'VTE统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
+              {
+                name: "statisticalPressure",
+                meta: {
+                  title: '压力性损伤统计',
+                  img: require("../images/pressure.png"),
+                },
+              },
+              {
+                name: "statisticalTemperature",
+                meta: {
+                  title: '体温统计',
+                  img: require("../images/temp.png"),
+                },
+              },
+              {
+                name: "statisticalPulseHeartRate",
+                meta: {
+                  title: '脉搏统计',
+                  img: require("../images/pulse.png"),
+                },
+              },
+              {
+                name: "statisticalHeartRate",
+                meta: {
+                  title: '心率统计',
+                  img: require("../images/heart-rate.png"),
+                },
+              },
+              {
+                name: "statisticalBreath",
+                meta: {
+                  title: '呼吸统计',
+                  img: require("../images/breath.png"),
+                },
+              },
+              {
+                name: "statisticalBloodPressure",
+                meta: {
+                  title: '血压统计',
+                  img: require("../images/blood-pressure.png"),
+                },
+              },
+            ]
+          }
+        })
       ]
     }
   },

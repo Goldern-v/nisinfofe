@@ -174,6 +174,8 @@ const implementationListLingcheng = () =>
   import("@/Page/implementation-list/implementation-list-lingcheng.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
   import("@/Page/implementation-list/implementation-list-liaocheng.vue"); //聊城执行单
+const implementationListQHWY = () =>
+  import("@/Page/implementation-list/implementation-list-qhwy.vue"); //青海五院执行单
 const implementationListShannan = () =>
   import("@/Page/implementation-list/implementation-list-shannan.vue"); //山南执行单
 const implementationListZhongshanqi = () =>
@@ -272,6 +274,8 @@ const newSingleTemperatureChartSDLJ = () =>
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
+const nursingPreviewlyxrm = () => import("@/Page/NursingPreviewlyxrm/NursingPreviewlyxrm.vue"); //江门妇幼体温单
+const nursingTemperaturejmfy = () => import("@/Page/NursingTemperatureJMFY/NursingTemperature.vue"); //查看所有的评估单、记录单、体温单
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue"); //做跳转登录去 /nursingPreview /nursingDoc
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
@@ -334,7 +338,6 @@ import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_f
 import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_foshanrenyi.vue"; // 佛医
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
-import ocxObject from "@/Page/patientInfo/supComponts/modal/ocxObject.vue";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
 import catheter from "@/Page/patientInfo/supPage/catheter/catheter.vue";
 import deep from "@/Page/patientInfo/supPage/deep/deep.vue";
@@ -352,6 +355,7 @@ import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
 // 导管监测单
 import catheterPage from "@/Page/catheter-page/catheter-page.vue";
+import ocxObject from "@/Page/patientInfo/supComponts/modal/ocxObject";
 
 //患者360视图，目前只有花都在用
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
@@ -391,8 +395,9 @@ const getImplementation = () => {
       return implementationListLingcheng
     case 'liaocheng':
     case 'lyyz':
-    case 'qhwy':
       return implementationListLiaocheng
+    case 'qhwy':
+      return implementationListQHWY
     case 'shannan':
       return implementationListShannan
     case 'zhongshanqi':
@@ -467,6 +472,7 @@ const router = new Router({
         case 'hengli':
         case 'fuyou':
         case 'beihairenyi':
+        case 'guizhou':
           // 新版修改密码
           return newResetPassword
         default:
@@ -572,6 +578,14 @@ const router = new Router({
   {
     path: "/nursingPreview",
     component: nursingPreview
+  },
+  {
+    path: "/nursingPreviewlyxrm",
+    component: nursingPreviewlyxrm
+  },
+  {
+    path: "/nursingTemperature",
+    component: nursingTemperaturejmfy
   },
   {
     path:"/admissionHisView/:patientId?/:visitId?/:formId?",
