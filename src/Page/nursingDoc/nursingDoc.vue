@@ -105,6 +105,7 @@ export default {
     },
     //UrlDecode解码
     UrlDecode(zipStr){
+      console.log(zipStr);
       var uzipStr = '';
       for (var i = 0; i < zipStr.length; i += 1) {
         var chr = zipStr.charAt(i);
@@ -277,7 +278,7 @@ export default {
       switch (url.viewType) {
         case "nursingPreview":
           {
-            type = "nursingPreview";
+            type = "temperature";
           }
           break;
         case "doc":
@@ -320,9 +321,16 @@ export default {
       let timeId = setTimeout(() => {
         clearTimeout(timeId);
         let src = ''
-        if (type == "nursingPreview") {
+        if (type == "nursingPreview" && this.HOSPITAL_ID == 'foyou') {
           src = `/nursingPreview?patientId=${patientId}&visitId=${visitId}&nursingPreviewIsShow=1`
-        } else if (type == "implementationList") {
+        }else if (type == "temperature") {
+          src = `/nursingTemperature?patientId=${patientId}&visitId=${visitId}&nursingType=${type}`
+        }else if (type == "sheet") {
+          src = `/nursingTemperature?patientId=${patientId}&visitId=${visitId}&nursingType=${type}`
+        }else if (type == "record") {
+          src = `/nursingTemperature?patientId=${patientId}&visitId=${visitId}&nursingType=${type}`
+        }
+         else if (type == "implementationList") {
           src = `/showPatientDetails/${type}?patientName=${url.patientName || ''}`
         } else {
           src = `/showPatientDetails/${type}?patientId=` +

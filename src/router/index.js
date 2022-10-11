@@ -136,7 +136,7 @@ const nursingRules = () => import("@/Page/nursing-rules/nursing-rules"); //护�
 const noCheckTest = () => import("@/Page/no-check-test/no-check-test"); //未做检查/检验菜单
 const toPdfPrint = () => import("@/Page/sheet-page/pdfPrintPage/toPdfPrint"); //护记pdf打印
 const scheduling = () => import("@/Page/scheduling/scheduling"); //血透患者排班
-const healthEdu = () => import("@/Page/healthEdu/healthEdu.vue"); //健康宣教 
+const healthEdu = () => import("@/Page/healthEdu/healthEdu.vue"); //健康宣教
 const handlingPage = () => import("@/Page/handling-page/handling-page"); //住院病人处理单
 const oxygenPage = () => import("@/Page/oxygen-page/oxygen-page"); //血氧单
 const departmentSharedFile = () =>
@@ -272,7 +272,8 @@ const newSingleTemperatureChartSDLJ = () =>
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
-const nursingPreviewlyxrm = () => import("@/Page/NursingPreviewlyxrm/NursingPreviewlyxrm.vue"); //查看所有的评估单、记录单、体温单
+const nursingPreviewlyxrm = () => import("@/Page/NursingPreviewlyxrm/NursingPreviewlyxrm.vue"); //江门妇幼体温单
+const nursingTemperaturejmfy = () => import("@/Page/NursingTemperatureJMFY/NursingTemperature.vue"); //查看所有的评估单、记录单、体温单
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue"); //做跳转登录去 /nursingPreview /nursingDoc
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
@@ -577,6 +578,10 @@ const router = new Router({
   {
     path: "/nursingPreviewlyxrm",
     component: nursingPreviewlyxrm
+  },
+  {
+    path: "/nursingTemperature",
+    component: nursingTemperaturejmfy
   },
   {
     path:"/admissionHisView/:patientId?/:visitId?/:formId?",
