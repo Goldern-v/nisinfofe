@@ -37,7 +37,7 @@ export function getRowNum(index) {
     return 33;
   } else if (sheetInfo.sheetType == "icu_lc") {
     return 22;
-  } else if (sheetInfo.sheetType == "special") {
+  } else if (sheetInfo.sheetType == "special" || sheetInfo.sheetType == "baby_tj") {
     return 23;
   } else if (sheetInfo.sheetType == "neonatology_picc") {
     return 9;

@@ -227,7 +227,8 @@ export default {
       diagnosisList: [
         'postpartum2_tj',
         'prenataldelivery2_tj',
-        'pediatric3_tj'
+        'pediatric3_tj',
+        'baby_tj'
       ],
     };
   },

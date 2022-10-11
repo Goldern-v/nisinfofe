@@ -1953,6 +1953,13 @@ export default function Title(
     );
   }
   break;
+  case "baby_tj": {
+    // 广东同江 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_tj/th").default)
+    );
+  }
+  break;
   case "surgical_qhwy": {
     // 青海五院 - 外科护理记录单
     Th = JSON.parse(

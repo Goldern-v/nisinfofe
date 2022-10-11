@@ -2020,7 +2020,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "ultrasound_fs") {
+            } else if (this.sheetInfo.sheetType === "ultrasound_fs" || this.sheetInfo.sheetType === "baby_tj") {
               if (GetLength(text) > 30) {
                 result.push(text);
                 text = allDoc[i];

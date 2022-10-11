@@ -1516,6 +1516,11 @@ function switchSheetType(type) {
         schema = require("../config/generalnursing_tj/tr.js").default;
       }
       break;
+    case "baby_tj": {
+      // 广东同江 - 新生儿护理记录单
+      schema = require("../config/baby_tj/tr.js").default;
+    }
+      break;
     case "surgical_qhwy": {
         // 青海五院 - 外科护理记录单
         schema = require("../config/surgical_qhwy/tr.js").default;
