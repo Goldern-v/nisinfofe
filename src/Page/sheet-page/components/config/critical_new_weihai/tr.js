@@ -29,36 +29,36 @@ export default [{
     },
     name: "意识"
   },
-  {
-    key: "pupilLeft", //瞳孔-左-直径(mm）
-    value: "",
-    event: keyf1,
-    name: "瞳孔-左-直径(mm）"
-  },
-  {
-    key: "pupilReflectLeft", //瞳孔-左-对光反应
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["+", "S", "-"]
-    },
-    name: "瞳孔-左-对光反应"
-  },
-  {
-    key: "pupilRight", //瞳孔-右-直径(mm）
-    value: "",
-    event: keyf1,
-    name: "瞳孔-右-直径(mm）"
-  },
-  {
-    key: "pupilReflectRight", //瞳孔-右-对光反应
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ["+", "S", "-"]
-    },
-    name: "瞳孔-右-对光反应"
-  },
+  // {
+  //   key: "pupilLeft", //瞳孔-左-直径(mm）
+  //   value: "",
+  //   event: keyf1,
+  //   name: "瞳孔-左-直径(mm）"
+  // },
+  // {
+  //   key: "pupilReflectLeft", //瞳孔-左-对光反应
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ["+", "S", "-"]
+  //   },
+  //   name: "瞳孔-左-对光反应"
+  // },
+  // {
+  //   key: "pupilRight", //瞳孔-右-直径(mm）
+  //   value: "",
+  //   event: keyf1,
+  //   name: "瞳孔-右-直径(mm）"
+  // },
+  // {
+  //   key: "pupilReflectRight", //瞳孔-右-对光反应
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ["+", "S", "-"]
+  //   },
+  //   name: "瞳孔-右-对光反应"
+  // },
   {
     key: "temperature", //体温
     value: "",
@@ -115,15 +115,15 @@ export default [{
     event: keyf1,
     name: "氧疗（L/min)-面罩"
   },
-  {
-    key: "fieldThree", //氧疗（L/min)-自定义
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 52
-    },
-    name: "氧疗（L/min)-自定义"
-  },
+  // {
+  //   key: "fieldThree", //氧疗（L/min)-自定义
+  //   value: "",
+  //   event: keyf1,
+  //   textarea: {
+  //     width: 52
+  //   },
+  //   name: "氧疗（L/min)-自定义"
+  // },
   {
     key: "food", //入量-名称
     value: "",
@@ -161,22 +161,22 @@ export default [{
     event: keyf1,
     name: "出量-颜色性状"
   },
-  {
-    key: "rassScore", //标题1
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 52
-    },
-  },
-  {
-    key: "fieldFive", //标题2
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 52
-    },
-  },
+  // {
+  //   key: "rassScore", //标题1
+  //   value: "",
+  //   event: keyf1,
+  //   textarea: {
+  //     width: 52
+  //   },
+  // },
+  // {
+  //   key: "fieldFive", //标题2
+  //   value: "",
+  //   event: keyf1,
+  //   textarea: {
+  //     width: 52
+  //   },
+  // },
   {
     key: "description", //特殊处理及病情观察
     value: "",

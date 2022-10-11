@@ -41,7 +41,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `宫缩`,
+        name: `宫缩<br>min`,
         style: {
           minWidth: '40px',
           maxWidth: '40px'
@@ -49,7 +49,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `宫缩<br>强度`,
+        name: `宫缩<br>强度<br>s`,
         style: {
           minWidth: '44px',
           maxWidth: '44px'
@@ -65,7 +65,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `胎心`,
+        name: `胎心<br>次/分`,
         style: {
           minWidth: '36px',
           maxWidth: '36px'
@@ -73,7 +73,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `宫口<br>扩张`,
+        name: `宫口<br>扩张<br>cm`,
         style: {
           minWidth: '36px',
           maxWidth: '36px'
