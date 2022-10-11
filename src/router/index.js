@@ -1512,6 +1512,7 @@ const router = new Router({
             case "fuyou":
               return newSingleTemperatureChartJmfy;
             case "foshanrenyi":
+            case 'nfyksdyy':
               return newSingleTemperatureChartFSSY;
             case "nanfangzhongxiyi":
               return newSingleTemperatureChartZhongXiYi;

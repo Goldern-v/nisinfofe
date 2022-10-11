@@ -48,7 +48,7 @@
         >病历(新)</a>
       </span> -->
       <router-link
-        v-if="(HOSPITAL_ID !== 'zhzxy'&&HOSPITAL_ID !== 'whsl')"
+        v-if="(HOSPITAL_ID !== 'zhzxy'&&HOSPITAL_ID !== 'whsl'&&HOSPITAL_ID !== 'gdtj')"
         :to="{
           path: '/sheetNursingOrder',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -76,7 +76,7 @@
         <div class="nav-item">体温单</div>
       </router-link>
       <router-link
-        v-if="HOSPITAL_ID !== 'zhzxy'"
+        v-if="HOSPITAL_ID !== 'zhzxy'&&HOSPITAL_ID !== 'gdtj'"
         :to="{
           path: '/hospitalEval',
           query: { patientId: query.patientId, visitId: query.visitId }

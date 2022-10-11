@@ -544,6 +544,7 @@
           HOSPITAL_ID == 'liaocheng'||
           HOSPITAL_ID == 'whfk' ||
           HOSPITAL_ID == 'whhk' ||
+          HOSPITAL_ID == 'gdtj' ||
           HOSPITAL_ID == 'lyxrm'
         "
       >
