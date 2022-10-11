@@ -469,6 +469,7 @@ const router = new Router({
         case 'hengli':
         case 'fuyou':
         case 'beihairenyi':
+        case 'guizhou':
           // 新版修改密码
           return newResetPassword
         default:

@@ -14,7 +14,7 @@
         style="position: absolute; width: 100%; height: 100%"
       ></vue-particles>
       <div style="height: 25%"></div>
-      <div class="login-warpper">
+      <div class="login-wrapper">
         <div class="login-img">
           <img src="../../common/images/login-img.png" alt />
           <span class="his-name">{{ HOSPITAL_NAME_SPACE }}</span>
@@ -50,11 +50,11 @@
             </el-form-item>
             <el-form-item
               label="原 密 码:"
-              prop="oldPswd"
+              prop="oldPwd"
               :show-message="false"
             >
               <el-input
-                v-model="form.oldPswd"
+                v-model="form.oldPwd"
                 placeholder="请输入原密码"
                 type="password"
                 size="mini"
@@ -62,13 +62,13 @@
             </el-form-item>
             <el-form-item
               label="新 密 码:"
-              prop="newPswd"
+              prop="newPwd"
               :show-message="false"
             >
               <el-input
-                v-model="form.newPswd"
+                v-model="form.newPwd"
                 placeholder="请输入新密码"
-                id="newkey"
+                id="newKey"
                 type="password"
                 size="mini"
               ></el-input>
@@ -92,11 +92,11 @@
                 />
               </el-tooltip>
             </el-form-item>
-            <el-form-item label="重复新密码:" prop="rePswd">
+            <el-form-item label="重复新密码:" prop="rePwd">
               <el-input
-                v-model="form.rePswd"
+                v-model="form.rePwd"
                 placeholder="请再次输入新密码"
-                id="newkey1"
+                id="newKey1"
                 type="password"
                 size="mini"
                 :show-message="false"
@@ -108,7 +108,7 @@
                 placement="top-start"
               >
                 <img
-                  v-if="!form.rePswd"
+                  v-if="!form.rePwd"
                   src="@/common/images/password/psd.png"
                   alt
                   class="icon"
@@ -205,7 +205,7 @@
   background-size: 100% 1px;
 }
 
-.login-warpper {
+.login-wrapper {
   width: 838px;
   margin: 0 auto 0;
   position: relative;
@@ -420,7 +420,7 @@ export default {
       var validatePass2 = (rule, value, callback) => {
         if (value == "") {
           callback(new Error("请再次输入密码"));
-        } else if (value !== this.form.newPswd) {
+        } else if (value !== this.form.newPwd) {
           callback(new Error("两次密码不一致!"));
         } else {
           callback();
@@ -430,19 +430,19 @@ export default {
     return {
       form: {
         empNo: "",
-        oldPswd: "",
-        newPswd: "",
-        rePswd: ""
+        oldPwd: "",
+        newPwd: "",
+        rePwd: ""
       },
       rules: {
         empNo: [{ validator: account, message: "请输入账号", trigger: "blur" }],
-        oldPswd: [
+        oldPwd: [
           { validator: account, message: "请输入密码", trigger: "blur" }
         ],
-        newPswd: [
+        newPwd: [
           { validator: validatePass1, message: "请输入新密码", trigger: "blur" }
         ],
-        rePswd: [{ validator: validatePass2, trigger: "blur" }]
+        rePwd: [{ validator: validatePass2, trigger: "blur" }]
       },
       securityLevelStatusList: [
         { level: 1, statusColor: "red" },
@@ -486,7 +486,7 @@ export default {
       return logoName;
     },
     securityLevel() {
-      let newPsw = this.newPswd.trim();
+      let newPsw = this.newPwd.trim();
       let level = 0;
 
       if (/[0-9]/.test(newPsw)) level++;
@@ -503,18 +503,18 @@ export default {
       handler(newVal, oldVal) {
         // console.log(newVal);
         const patt = eval(`/${this.reg.rule}/`);
-        if (newVal.newPswd) {
+        if (newVal.newPwd) {
           const flag = this.reg.flag
-            ? patt.test(newVal.newPswd)
+            ? patt.test(newVal.newPwd)
             : !this.reg.flag;
           this.isNewPsd = flag;
-          this.isRePsd = newVal.rePswd.trim() == newVal.newPswd.trim() && flag;
+          this.isRePsd = newVal.rePwd.trim() == newVal.newPswd.trim() && flag;
         }
-        if (newVal.rePswd) {
+        if (newVal.rePwd) {
           const flag = this.reg.flag
-            ? patt.test(newVal.rePswd)
+            ? patt.test(newVal.rePwd)
             : !this.reg.flag;
-          this.isRePsd = newVal.rePswd.trim() == newVal.newPswd.trim() && flag;
+          this.isRePsd = newVal.rePwd.trim() == newVal.newPswd.trim() && flag;
         }
       },
       deep: true
