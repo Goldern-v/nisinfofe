@@ -560,6 +560,7 @@
             sheetInfo.sheetType === 'pediatric3_tj'||
             sheetInfo.sheetType === 'prenataldelivery2_tj'||
             sheetInfo.sheetType === 'postpartum2_tj'||
+            sheetInfo.sheetType === 'baby_tj'||
             HOSPITAL_ID == 'fsxt'
           "
           >质控护士：</span
@@ -756,7 +757,8 @@ export default {
         "prenataldelivery2_tj",
         "postpartum2_tj",
         'nurse_jew',
-        'danger_nurse_jew'
+        'danger_nurse_jew',
+        'baby_tj'
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -2386,7 +2388,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj']
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =
@@ -2553,7 +2555,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (this.HOSPITAL_ID == 'lyxrm') {
+      if (this.HOSPITAL_ID == 'lyxrm' || this.HOSPITAL_ID == 'foshanrenyi') {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }
