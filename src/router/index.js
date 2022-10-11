@@ -3,7 +3,7 @@ import Router from "vue-router";
 import main from "@/Part/main";
 
 // import lesion from "@/Page/lesion/lesion";
-// import consultation from "@/Page/patientInfo/supPage/consultation/consultation";
+import consultation from "@/Page/patientInfo/supPage/consultation/consultation";
 // import diganosisDetails from "@/Page/patientInfo/supPage/diagnosis/diganosis-details/diganosisDetails";
 // import task from "@/Page/lesion/supPage/task/task";
 // import shift from "@/Page/lesion/supPage/shift/shift";
@@ -1033,12 +1033,12 @@ const router = new Router({
         //   path: "/diganosisDetails/:id",
         //   component: diganosisDetails
         // },
-        // {
-        //   path: "/consultation",
-        //   component: consultation,
-        //   name: "会诊",
-        //   alias: "会诊"
-        // },
+        {
+          path: "/consultation",
+          component: consultation,
+          name: "会诊",
+          alias: "会诊"
+        },
         {
           path: "/temperature",
           //床位一览卡进入体温单

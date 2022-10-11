@@ -128,7 +128,8 @@ export default {
           ? this.getTemplate()
           : data.component == "bloodSugar"
           ? this.getBloodSugar()
-          : data.component;
+          : this.getSheet();
+        console.log('1111', data, this.otherComponent,  this.getTemplate())
     });
     this.bus.$on("openAssessmentBox", data => {
       this.otherComponent = null;
@@ -150,6 +151,9 @@ export default {
           this.isBloodSugarSdlj = true;
         }
       });
+    },
+    getSheet () {
+      return sheet
     },
     // 获取各医院的血糖单
     getBloodSugar() {
@@ -227,6 +231,7 @@ export default {
         patientInfo.admissionDate = data.admissionDate;
         patientInfo.wardCode = data.wardCode;
         this.$store.commit("upPatientInfo", patientInfo);
+        this.$store.commit("upDeptCode", patientInfo.deptCode);
       });
     }
   },

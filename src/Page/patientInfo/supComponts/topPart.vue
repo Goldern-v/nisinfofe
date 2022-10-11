@@ -157,6 +157,9 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
+        <router-link :to="{path:'/consultation', query:$route.query}" tag="span" v-if="['zhzxy'].includes(HOSPITAL_ID)">
+        <div class="nav-item">会诊</div>
+      </router-link>
       <span class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toYst')">医膳通</span>
       <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('onEmrWeb')">病历</div>
     </div>
