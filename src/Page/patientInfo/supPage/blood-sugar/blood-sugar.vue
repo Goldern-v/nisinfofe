@@ -99,6 +99,9 @@
             <span v-if="HOSPITAL_ID == 'liaocheng'"
               >病案号：{{ patientInfo.inpNo }}</span
             >
+            <span v-else-if="HOSPITAL_ID == 'huadu'"
+              >住院号：{{ patientInfo.patientId }}</span
+            >
             <span v-else>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
@@ -511,6 +514,7 @@ export default {
   },
   computed: {
     patientInfo() {
+      console.log('this.$route.query', this.$route.query)
       return this.$route.query;
     },
     containHeight() {

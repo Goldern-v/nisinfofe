@@ -365,45 +365,58 @@
           </el-option>
         </div>
       </el-select>
-      <el-select
-        v-if="!isDeputy  && HOSPITAL_ID != 'whfk'"
-        v-model="sheetInfo.selectBlock"
-        @change="changeSelectBlock"
-        value-key="id"
-        :placeholder="['foshanrenyi'].includes(HOSPITAL_ID)?'':'请选择护理记录单'"
-        class="select-con otherType"
-      >
-        <div class="sheetSelect-con-sheet">
-          <div class="head-con" flex="cross:stretch">
-            <div class="col-1">记录单标题</div>
-            <div class="col-2">科室</div>
-            <div class="col-3">开始时间</div>
-            <div class="col-4">页码</div>
-          </div>
-          <el-option
-            v-for="item in sheetBlockList"
-            :key="item.id"
-            :label="blockLabel(item, sheetBlockList.length)"
-            :value="item"
-          >
-            <div class="list-con" flex="cross:stretch">
-              <div class="col-1" :title="item.recordName">
-                {{ item.recordName }}
-              </div>
-              <div class="col-2" :title="item.deptName">
-                {{ item.deptName }}
-              </div>
-              <div class="col-3" :title="item.createTime">
-                {{ item.createTime }}
-              </div>
-              <div class="col-4" :title="item.completeName">
-                {{ item.pageIndex }} - {{ item.endPageIndex }}
-              </div>
-              <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
+      <div style="position:relative">
+        <el-select
+          v-if="!isDeputy  && HOSPITAL_ID != 'whfk'"
+          v-model="sheetInfo.selectBlock"
+          @change="changeSelectBlock"
+          @visible-change="(val)=>changesCrollOptionFlag(val,1)"
+          value-key="id"
+          :placeholder="['foshanrenyi'].includes(HOSPITAL_ID)?'':'请选择护理记录单'"
+          class="select-con otherType"
+        >
+          <div class="sheetSelect-con-sheet">
+            <div class="head-con" flex="cross:stretch">
+              <div class="col-1">记录单标题</div>
+              <div class="col-2">科室</div>
+              <div class="col-3">开始时间</div>
+              <div class="col-4">页码</div>
             </div>
-          </el-option>
-        </div>
-      </el-select>
+            <el-option
+              v-for="item in sheetBlockList"
+              :key="item.id"
+              :label="blockLabel(item, sheetBlockList.length)"
+              :value="item"
+            >
+              <div class="list-con" flex="cross:stretch">
+                <div class="col-1" :title="item.recordName">
+                  {{ item.recordName }}
+                </div>
+                <div class="col-2" :title="item.deptName">
+                  {{ item.deptName }}
+                </div>
+                <div class="col-3" :title="item.createTime">
+                  {{ item.createTime }}
+                </div>
+                <div class="col-4" :title="item.completeName">
+                  {{ item.pageIndex }} - {{ item.endPageIndex }}
+                </div>
+                <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
+              </div>
+            </el-option>
+          </div>
+        </el-select>
+        <div style="
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        curson:
+        left: 0;" 
+        v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
+        @click="scrollOption"></div>
+      </div>
       <!-- <span class="label">页码范围:</span> -->
       <div
         class="item-box"
@@ -557,7 +570,7 @@
         patientInfo.patientId &&
         !$route.path.includes('temperature') &&
         !$route.path.includes('Baby_sheetPage') &&
-        !['foshanrenyi','huadu'].includes(HOSPITAL_ID)
+        !['huadu'].includes(HOSPITAL_ID)
       "
     ></patientInfo>
     <!-- <demonstarationLevca v-if="HOSPITAL_ID == 'hj' && patientInfo.patientId &&
@@ -681,10 +694,24 @@ export default {
       firstPage: 1,
       printRecord:[],
       babelFirst:true,
+      scrollOptionFlag:false,
+      scrollOptionNum:1,
       printRecordValue:''
     };
   },
   methods: {
+    changesCrollOptionFlag(val,type){
+      if(type==1){
+        this.scrollOptionFlag = val?false:true
+        this.scrollOptionNum = val?1:2
+      }else this.scrollOptionFlag =!val
+    },
+    scrollOption(){
+      this.changesCrollOptionFlag(this.scrollOptionFlag)
+      console.log(this.scrollOptionFlag,this.scrollOptionNum,"this.scrollOptionFlag")
+      let inputScroll = document.querySelector(".otherType .el-input__inner")
+      this.scrollOptionFlag || this.scrollOptionNum==2 ? inputScroll.focus() : inputScroll.blur()
+    },
     openEMR() {
       // patient_id  患者id  visit_id  住院次数
       if (!this.patientInfo.patientId) {
