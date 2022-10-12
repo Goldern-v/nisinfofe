@@ -2051,6 +2051,13 @@ export default function Title(
     );
   }
   break;
+  case "inout_ytll": {
+    // 烟台玲珑 - 出入量记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/inout_ytll/th").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
