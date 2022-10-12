@@ -275,10 +275,11 @@ export default {
       let type,
         patientId = url.patientId,
         visitId = url.visitId || "all";
+        console.log(patientId,visitId);
       switch (url.viewType) {
         case "nursingPreview":
           {
-            type = "temperature";
+            type = "nursingPreview";
           }
           break;
         case "doc":
@@ -321,7 +322,7 @@ export default {
       let timeId = setTimeout(() => {
         clearTimeout(timeId);
         let src = ''
-        if (type == "nursingPreview" && this.HOSPITAL_ID == 'foyou') {
+        if (type == "nursingPreview") {
           src = `/nursingPreview?patientId=${patientId}&visitId=${visitId}&nursingPreviewIsShow=1`
         }else if (type == "temperature") {
           src = `/nursingTemperature?patientId=${patientId}&visitId=${visitId}&nursingType=${type}`

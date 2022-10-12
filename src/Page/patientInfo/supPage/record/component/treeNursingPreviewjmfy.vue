@@ -410,7 +410,7 @@ export default {
     if (isOk && isOk == "1") {
       this.nursingPreviewIsShow = false
     }
-   await this.bus.$emit("openOtherForm", { component: 'temperature'});//默认打开体温单界面
+   await this.bus.$emit("openOtherForm", { component: this.$route.query.nursingType});//默认打开体温单界面
     this.timer=setTimeout(()=>{
      this.bus.$emit("refreshImg");
      },1000)

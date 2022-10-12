@@ -6,7 +6,7 @@
       </div>
       <div class="right-part">
         <component :is="otherComponent" v-if="otherComponent"></component>
-        <!-- <rightPart v-show="!otherComponent"></rightPart> -->
+        <rightPart v-show="!otherComponent"></rightPart>
       </div>
     </div>
   </div>
@@ -150,6 +150,9 @@ export default {
           this.isBloodSugarSdlj = true;
         }
       });
+    },
+    getSheet () {
+      return sheet
     },
     // 获取各医院的血糖单
     getBloodSugar() {

@@ -3,7 +3,7 @@ import Router from "vue-router";
 import main from "@/Part/main";
 
 // import lesion from "@/Page/lesion/lesion";
-// import consultation from "@/Page/patientInfo/supPage/consultation/consultation";
+import consultation from "@/Page/patientInfo/supPage/consultation/consultation";
 // import diganosisDetails from "@/Page/patientInfo/supPage/diagnosis/diganosis-details/diganosisDetails";
 // import task from "@/Page/lesion/supPage/task/task";
 // import shift from "@/Page/lesion/supPage/shift/shift";
@@ -174,6 +174,8 @@ const implementationListLingcheng = () =>
   import("@/Page/implementation-list/implementation-list-lingcheng.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
   import("@/Page/implementation-list/implementation-list-liaocheng.vue"); //聊城执行单
+const implementationListQHWY = () =>
+  import("@/Page/implementation-list/implementation-list-qhwy.vue"); //青海五院执行单
 const implementationListShannan = () =>
   import("@/Page/implementation-list/implementation-list-shannan.vue"); //山南执行单
 const implementationListZhongshanqi = () =>
@@ -393,8 +395,9 @@ const getImplementation = () => {
       return implementationListLingcheng
     case 'liaocheng':
     case 'lyyz':
-    case 'qhwy':
       return implementationListLiaocheng
+    case 'qhwy':
+      return implementationListQHWY
     case 'shannan':
       return implementationListShannan
     case 'zhongshanqi':
@@ -404,6 +407,7 @@ const getImplementation = () => {
     case 'whhk':
     case '925':
     case 'zhzxy':
+    case 'beihairenyi':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -1030,12 +1034,12 @@ const router = new Router({
         //   path: "/diganosisDetails/:id",
         //   component: diganosisDetails
         // },
-        // {
-        //   path: "/consultation",
-        //   component: consultation,
-        //   name: "会诊",
-        //   alias: "会诊"
-        // },
+        {
+          path: "/consultation",
+          component: consultation,
+          name: "会诊",
+          alias: "会诊"
+        },
         {
           path: "/temperature",
           //床位一览卡进入体温单
@@ -1509,6 +1513,7 @@ const router = new Router({
             case "fuyou":
               return newSingleTemperatureChartJmfy;
             case "foshanrenyi":
+            case 'nfyksdyy':
               return newSingleTemperatureChartFSSY;
             case "nanfangzhongxiyi":
               return newSingleTemperatureChartZhongXiYi;
