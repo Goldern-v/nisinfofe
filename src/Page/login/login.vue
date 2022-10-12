@@ -117,7 +117,7 @@
                 </button>
               </div>
               <div class="nanfangCa-Boxx" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">
-                <img src="../../common/images/qrcode_zsq.png" alt="" />
+                <img alt="" :src="'data:text/html;base64,'+qrCodeBase64"  />
               </div>
             </div>
           </div>
@@ -219,6 +219,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   .nanfangCa-Boxx{
     width:50%;
     flex:1;
+    min-height:302px;
     >img{
       width :100%;
       height:100%;
@@ -458,9 +459,10 @@ a {
 
 <script>
 import { login, hisLogin } from "@/api/login";
-import { GetUserList,caLoginBefore,caLoginLater,verifyUser,SOF_SignData,SOF_VerifySignedData,SOF_Login,SOF_ExportUserCert,genRandom,GetAllUkeyList } from "@/api/caCardApi";
+import { GetUserList,caLoginBefore,caLoginLater,verifyUser,
+  SOF_SignData,SOF_VerifySignedData,SOF_Login,SOF_ExportUserCert,
+  genRandom,GetAllUkeyList,getRandomQrCode,getQrCodeStatus } from "@/api/caCardApi";
 import Cookies from "js-cookie";
-import {caLoginobj} from './caLoign';
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
 import { mapMutations } from "vuex";
@@ -469,6 +471,7 @@ const SecretKey = "chenrui2020";
 
 let logintimer = null;
 let uselogin =null
+let nanfanImgtimer= null
 export default {
   data() {
     return {
@@ -489,7 +492,10 @@ export default {
       md5HisList: ["foshanrenyi","hengli",'sdlj'], //需要md5加密医院
       BeiHaiCaloginType:false, //false 密码登录 true ca扫码登录
       translate300:'translateX(0px)',
-      translateType:"translateX(0)"
+      translateType:"translateX(0)",
+      qrCodeBase64:"",
+      qrCodeIdentity:"",
+      nanfangTime:0
     };
   },
   methods: {
@@ -635,6 +641,7 @@ export default {
           });
     },
     loginSucceed(res,type) {
+      clearInterval(nanfanImgtimer);
       // 存下token 和用户信息 Auth-Token-Nursing
       let user = res.data.data.user;
       user.token = res.data.data.authToken;
@@ -699,7 +706,6 @@ export default {
     },
   },
   created() {
-    
     if (localStorage["rememberAccount"]) {
       this.account = localStorage["rememberAccount"];
     }
@@ -728,6 +734,23 @@ export default {
         console.error(e);
       }
     } 
+    if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+        clearInterval(nanfanImgtimer);
+        nanfanImgtimer = setInterval(() => {
+          this.nanfangTime = ++this.nanfangTime
+          getQrCodeStatus(this.qrCodeIdentity,"0").then(getQrCodeStatusRes=>{
+            console.log(getQrCodeStatusRes,"getQrCodeStatusRes")
+            if(getQrCodeStatusRes.data.data.user){
+              localStorage.setItem("nanFangcaToken",getQrCodeStatusRes.data.data.caToken)
+              localStorage.setItem("nanFangcaLogin",true)
+              this.$message.success("CA扫码登陆成功")
+              this.loginSucceed(getQrCodeStatusRes)
+            }
+          },()=>{
+            console.log("111111111111")
+          })
+        },1000)
+    }
     if(this.useCaList.includes(this.HOSPITAL_ID)){
       clearInterval(logintimer);
        logintimer = setInterval(() => {
@@ -740,7 +763,6 @@ export default {
               this.checkCa = false
             }
           })
-
       }, 1500);
     }
   },
@@ -849,6 +871,21 @@ export default {
           this.password = ""
         }
         },
+      immediate: true
+    },
+    nanfangTime:{
+      handler(newVal) {
+        if(newVal){
+          console.log("nanfangTime",newVal)
+          if(newVal==1 || newVal%120==0){
+            getRandomQrCode().then(getRandomQrCodeRes=>{
+              this.qrCodeBase64 = getRandomQrCodeRes.data.data.qrCodeBase64
+              this.qrCodeIdentity = getRandomQrCodeRes.data.data.qrCodeIdentity
+              console.log(getRandomQrCodeRes,"getRandomQrCodeRes")
+            })
+          }
+        }
+      },
       immediate: true
     },
     password() {

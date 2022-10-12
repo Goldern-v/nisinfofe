@@ -1150,32 +1150,7 @@ export default {
                     signData:JSON.stringify(strSignData),
                   }
             this.$refs.signModal.open((password,empNo) => {
-              
-              // SOF_SignData(
-              //   data
-              // ).then((res) => {
-                // console.log("SOF_SignData",res)
-                // if(res.data){
-                //   let signPic = ""
-                    // Promise.all([getPic(strCertId),getSOF_ExportUserCert(strCertId)]).then(result=>{
-                      // if(!localStorage.user.signPic){
-                      //   signPic=result[0]
-                      // } 
-                  // verifySign({
-                  //   patientId:this.patientInfo.patientId,
-                  //   visitId:this.patientInfo.visitId,
-                  //   formName:this.$parent.patientInfo.recordName,
-                  //   formCode:sheetInfo.sheetType,
-                  //   instanceId:this.$parent.patientInfo.id,
-                  //   recordId:strSignData.id,
-                  //   userCert:result[1],
-                  //   signedValue:res.data,
-                  //   signData:JSON.stringify(strSignData),
-                  //   signPic
-                  // }).then(verifySignRes=>{
-                // let {password,empNo} = verifySignRes.data.data
-
-                    let trObj = {};
+              let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
               }
@@ -1200,9 +1175,6 @@ export default {
                     ? this.signType
                     : "",
               };
-
-
-                    // console.log(verifySignRes,"verifySignRes")
                      sign(
                 this.patientInfo.patientId,
                 this.patientInfo.visitId,
@@ -1246,6 +1218,7 @@ export default {
             },'',null,false,'',{},undefined,undefined,undefined,SigndataObj,verifySignObj);
           }else{
             let p7SignObj = {}
+            console.log("12321312313123 ")
             if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {

@@ -467,29 +467,50 @@ export default {
           return this.btnLoading = false
         }
          if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
-          nanfnagCaSign(9981,this.password,this.verifySignObj).then(res1=>{
+          const nanFangcaToken = localStorage["nanFangcaToken"] || ""
+          const nanFangcaLogin = localStorage["nanFangcaLogin"] || ""
+          nanfnagCaSign(this.username,this.password,this.verifySignObj,nanFangcaToken,nanFangcaLogin).then(res1=>{
             console.log("nanfnagCaSign",res1)
+            this.$refs.modalName.close();
+              console.log(this.aduitDate,"nanfmgaaduitDate");
+              let password = res1.data.data.password
+              if(this.isDoctor){
+                console.log(!this.isDoctor);
+                return this.callback(password,this.username);
+              }
+              // 执行这个逻辑
+              // if(this.aduitDate!=''&&this.aduitDateSheet.includes(this.activeSheetType)){
+              //     this.showAduit=false 
+              //     this.activeSheetType=""
+              //     return this.callback(this.password, this.username, this.aduitDate);
+              // }
+              if (this.signDate) {
+                return this.callback(password, this.username, this.signDate);
+              }else {
+                  return this.callback(password, this.username);
+              }
           },err=>{this.$message.error(err)})
-        }
-        this.$refs.modalName.close();
-        console.log(this.aduitDate,'-------------------------------------');
-        if(this.aduitDate != '' && this.HOSPITAL_ID == 'hengli'){
-          return this.callback(this.password, this.username,this.signDate='', this.aduitDate);
-        } 
-        if(this.isDoctor){
-          console.log(!this.isDoctor);
-          return this.callback(this.password,this.username);
-        }
-        // 执行这个逻辑
-        if(this.aduitDate!=''&&this.aduitDateSheet.includes(this.activeSheetType)){
-            this.showAduit=false 
-            this.activeSheetType=""
-            return this.callback(this.password, this.username, this.aduitDate);
-        }
-        if (this.signDate) {
-          return this.callback(this.password, this.username, this.signDate);
-        }else {
-            return this.callback(this.password, this.username);
+        }else{
+          this.$refs.modalName.close();
+          console.log(this.aduitDate,'-------------------------------------');
+          if(this.aduitDate != '' && this.HOSPITAL_ID == 'hengli'){
+            return this.callback(this.password, this.username,this.signDate='', this.aduitDate);
+          } 
+          if(this.isDoctor){
+            console.log(!this.isDoctor);
+            return this.callback(this.password,this.username);
+          }
+          // 执行这个逻辑
+          if(this.aduitDate!=''&&this.aduitDateSheet.includes(this.activeSheetType)){
+              this.showAduit=false 
+              this.activeSheetType=""
+              return this.callback(this.password, this.username, this.aduitDate);
+          }
+          if (this.signDate) {
+            return this.callback(this.password, this.username, this.signDate);
+          }else {
+              return this.callback(this.password, this.username);
+          }
         }
       }
     },
