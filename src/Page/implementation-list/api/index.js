@@ -84,9 +84,9 @@ export function getExecuteWithWardcode(obj) {
 // 获取执行单 by临邑
 export function getExecuteWithWardCodeLyxrm(obj) {
   if (
-    this.HOSPITAL_ID === 'beihairenyi'
+    HOSPITAL_ID === 'beihairenyi'
   ) {
-    return axios.post(`${apiPath}/${hospitalExecute}/getOrdersExecuteWithWardCodeNew`), obj
+    return axios.post(`${apiPath}/${hospitalExecute}/getOrdersExecuteWithWardCodeNew`, obj)
   }
   // 通过执行时间段获取
   return axios.post(
