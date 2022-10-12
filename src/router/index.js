@@ -407,6 +407,7 @@ const getImplementation = () => {
     case 'whhk':
     case '925':
     case 'zhzxy':
+    case 'beihairenyi':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
