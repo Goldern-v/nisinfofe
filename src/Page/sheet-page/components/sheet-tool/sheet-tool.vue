@@ -413,7 +413,7 @@
         height: 100%;
         top: 0;
         curson:
-        left: 0;" 
+        left: 0;"
         v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
         @click="scrollOption"></div>
       </div>
@@ -895,7 +895,7 @@ export default {
         }
 
         } else {
-        
+
           this.bus.$emit("toSheetPrintPage");
         }
       }
@@ -1155,7 +1155,7 @@ export default {
       }
     },
     async getBlockList() {
-      if (this.$route.path.includes("nursingPreview")) {
+      if (this.$route.path.includes("nursingPreview") || this.$route.path.includes("nursingTemperature")) {
         let { data } = await getPatientInfo(
           this.$route.query.patientId,
           this.$route.query.visitId
@@ -1298,7 +1298,7 @@ export default {
     blockLabel(item, length) {
       // return `${item.recordName} ${dayjs(item.createTime).format("MM-DD")}`;
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
-        if(!this.babelFirst) return 
+        if(!this.babelFirst) return
         const parent = document.querySelector('.otherType').childNodes[1];
         console.log(parent,"parent")
         const isDiv = parent.childNodes[1].nodeName;
@@ -1323,7 +1323,7 @@ export default {
         dom2.setAttribute('data-content2', `共${length}张`);
         // return `${item.deptName} ${dayjs(item.createTime).format(
         //   "MM-DD"
-        // )}建 
+        // )}建
         // `;
         this.babelFirst = false
       }else{
@@ -1623,7 +1623,7 @@ export default {
       handler(val) {
         console.log(val,"sheetInfo.selectBlock")
       },
-      
+
     },
     //更换选择患者，更新vuex的患者信息，重新在eventbug队列调用事件
     patientInfo(val) {

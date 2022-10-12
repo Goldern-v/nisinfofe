@@ -129,7 +129,6 @@ export default {
           : data.component == "bloodSugar"
           ? this.getBloodSugar()
           : data.component;
-        console.log('1111', data.component, this.otherComponent,  this.getTemplate())
     });
     this.bus.$on("openAssessmentBox", data => {
       this.otherComponent = null;
@@ -231,7 +230,6 @@ export default {
         patientInfo.admissionDate = data.admissionDate;
         patientInfo.wardCode = data.wardCode;
         this.$store.commit("upPatientInfo", patientInfo);
-        this.$store.commit("upDeptCode", patientInfo.deptCode);
       });
     }
   },
