@@ -128,8 +128,8 @@ export default {
           ? this.getTemplate()
           : data.component == "bloodSugar"
           ? this.getBloodSugar()
-          : this.getSheet();
-        console.log('1111', data, this.otherComponent,  this.getTemplate())
+          : data.component;
+        console.log('1111', data.component, this.otherComponent,  this.getTemplate())
     });
     this.bus.$on("openAssessmentBox", data => {
       this.otherComponent = null;
