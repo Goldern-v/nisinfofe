@@ -432,6 +432,7 @@ export default {
     },
     clear() {
       let count = 0
+      console.log('localStorage-start',localStorage,count)
       for (let key in localStorage) {
         if (key.includes("firtPainFormID") || key.includes("patientInfo")) {
           localStorage.removeItem(key);
@@ -442,6 +443,7 @@ export default {
           count += 1
         }
       }
+      console.log('localStorage-end',localStorage,count)
       if (count > 0) {
         this.$message('清除成功')
       } else {
