@@ -684,7 +684,7 @@ import decode from "../../../../components/render/decode.js";
 import moment from "moment";
 import { getUser } from "@/api/common.js";
 import bottomRemark from "./remark";
-import { SOF_SignData,verifySign,getPic,getSOF_ExportUserCert,GetUserList} from "@/api/caCardApi";
+import { GetUserList} from "@/api/caCardApi";
 
 // console.dir(sheetInfo);
 export default {
@@ -1193,32 +1193,7 @@ export default {
                     signData:JSON.stringify(strSignData),
                   }
             this.$refs.signModal.open((password,empNo) => {
-
-              // SOF_SignData(
-              //   data
-              // ).then((res) => {
-                // console.log("SOF_SignData",res)
-                // if(res.data){
-                //   let signPic = ""
-                    // Promise.all([getPic(strCertId),getSOF_ExportUserCert(strCertId)]).then(result=>{
-                      // if(!localStorage.user.signPic){
-                      //   signPic=result[0]
-                      // }
-                  // verifySign({
-                  //   patientId:this.patientInfo.patientId,
-                  //   visitId:this.patientInfo.visitId,
-                  //   formName:this.$parent.patientInfo.recordName,
-                  //   formCode:sheetInfo.sheetType,
-                  //   instanceId:this.$parent.patientInfo.id,
-                  //   recordId:strSignData.id,
-                  //   userCert:result[1],
-                  //   signedValue:res.data,
-                  //   signData:JSON.stringify(strSignData),
-                  //   signPic
-                  // }).then(verifySignRes=>{
-                // let {password,empNo} = verifySignRes.data.data
-
-                    let trObj = {};
+              let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
               }
@@ -1243,9 +1218,6 @@ export default {
                     ? this.signType
                     : "",
               };
-
-
-                    // console.log(verifySignRes,"verifySignRes")
                      sign(
                 this.patientInfo.patientId,
                 this.patientInfo.visitId,
@@ -1288,6 +1260,37 @@ export default {
               // });
             },'',null,false,'',{},undefined,undefined,undefined,SigndataObj,verifySignObj);
           }else{
+            let p7SignObj = {}
+            console.log("12321312313123 ")
+            if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+              let trObj = {};
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
+              }
+              let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+               let strSignDataOBJ = Object.assign({}, trObj, {
+                    recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                    recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                    recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                    patientId: this.patientInfo.patientId,
+                    visitId: this.patientInfo.visitId,
+                    pageIndex: this.index,
+                  })
+                 let strSignData ={}
+                  for(let key in strSignDataOBJ){
+                  if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+                }
+               p7SignObj = {
+                formId:this.$parent.patientInfo.id,
+                patientId:this.patientInfo.patientId,
+                visitId:this.patientInfo.visitId,
+                formName:this.$parent.patientInfo.recordName,
+                formCode:sheetInfo.sheetType,
+                instanceId:this.$parent.patientInfo.id,
+                recordId:strSignData.id,
+                signData:JSON.stringify(strSignData)
+                }
+            }
             this.$refs.signModal.open((password, empNo) => {
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
@@ -1348,7 +1351,7 @@ export default {
                 });
                 this.bus.$emit("saveSheetPage", true);
               });
-            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:null,undefined ,undefined ,undefined);
+            },'',null,false,'',['guizhou','925'].includes(this.HOSPITAL_ID)?{}:null,undefined ,undefined ,undefined,undefined,['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)?p7SignObj:undefined);
           }
         };
         let reverseList = [...decode().list].reverse();
@@ -1659,7 +1662,7 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        if (this.HOSPITAL_ID == "weixian" || this.HOSPITAL_ID == "foshanrenyi") {
+        if (["weixian","foshanrenyi","nanfangzhongxiyi"].includes(this.HOSPITAL_ID)) {
           return trArr.find((item) => item.key == "signerNo").value
             ? `<img
               width="50"
