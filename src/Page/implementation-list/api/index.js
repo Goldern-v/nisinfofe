@@ -41,6 +41,7 @@ export function getExecuteWithWardcode(obj) {
       "foshanrenyi",
       "hengli",
       "sdlj",
+      'gdtj',
     ].includes(HOSPITAL_ID)
   ) {
     // 新版执行单（武警）
