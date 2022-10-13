@@ -234,24 +234,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="drainage"
-            label="引流量"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.drainage"
-                :class="className"
-                class="drainage"
-                type="text"
-                @keyup="handleKeyUp"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column
             prop="fieldThree"
             label="尿量"
             min-width="80"
@@ -272,7 +254,7 @@
           </el-table-column>
           <el-table-column
             prop="foodSize"
-            label="入量"
+            label="总入量"
             min-width="80"
             align="center"
           >
@@ -290,9 +272,8 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID !== 'quzhou'"
             prop="dischargeSize"
-            label="出量"
+            label="总出量"
             min-width="80"
             align="center"
           >
@@ -439,7 +420,7 @@
           </el-table-column>
           <el-table-column
             prop="foodSize"
-            label="入量"
+            label="总入量"
             min-width="60"
             align="center"
           >
@@ -449,7 +430,7 @@
           </el-table-column>
           <el-table-column
             prop="dischargeSize"
-            label="出量"
+            label="总出量"
             min-width="60"
             align="center"
           >

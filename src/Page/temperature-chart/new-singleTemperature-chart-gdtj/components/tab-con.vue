@@ -285,7 +285,7 @@
                     </div>
 
                     <input
-                      :id="h + 100"
+                      :id="h + 1000"
                       type="text"
                       class="fieldClass"
                       @keydown.enter="changeNext"
@@ -554,8 +554,7 @@ export default {
         let otherLength =
           document.getElementsByClassName("otherPathological").length;
         this.otherDicListLength = otherLength;
-        let inputListLength = baseLength + otherLength;
-
+        console.log(e.target.id,baseLength)
         if (Number(e.target.id) < baseLength) {
           document.getElementById(Number(e.target.id) + 1).focus();
         } else if (Number(e.target.id) === baseLength) {
@@ -565,10 +564,20 @@ export default {
           Number(e.target.id) < otherLength + 100 - 1
         ) {
           document.getElementById(Number(e.target.id) + 1).focus();
+
         }
-      }
-      if (Number(e.target.id) === 107) {
-        document.getElementById("1").focus();
+        if (Number(e.target.id) >= 100 + otherLength - 1) {
+
+          document.getElementById("1000").focus();
+        }
+      } else {
+        let inputListLength =
+          document.getElementsByClassName("fieldClass").length;
+        if (Number(e.target.id) < inputListLength + 1000 - 1) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (Number(e.target.id) === inputListLength + 1000 - 1) {
+          document.getElementById("1").focus();
+        }
       }
     },
     handleChange(val) {
@@ -763,7 +772,7 @@ export default {
             default:
               break;
           }
-          if (item.vitalSign.includes("自定义")) {
+          if (item.vitalSign.includes("自定义")||item.signType=='custom') {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
               patientId: this.patientInfo.patientId,
@@ -960,13 +969,13 @@ export default {
 
     .showRecord {
       height: 100%;
+      display:flex;
 
       .record-list {
         height: 100%;
         background-color: #fff;
         border-radius: 0px 7px 7px 0px;
         margin: 5px 3px 0px 0px;
-        float: left;
         overflow: auto;
       }
       .record-list::-webkit-scrollbar{
@@ -993,10 +1002,8 @@ export default {
       height: 1000px;
       margin-top: 5px;
     }
-
     .inputter-region {
       width: 63%;
-      float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;
       overflow: scroll;
