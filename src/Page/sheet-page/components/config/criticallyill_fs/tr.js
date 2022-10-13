@@ -30,12 +30,13 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
+let Output = ['大便','尿量','引流量']
+let Input = ['输入液量','进食量']
 
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time,  click: click_time, value: ''},
-
   { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏/心率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率次/分', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -47,11 +48,12 @@ export default [
   { key: 'rightPupilDiametern', event: keyf1, value: '', next: 'mm', name: '直径(右)', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'leftPupillaryReflex', event: keyf1, value: '', next: '', name: '对光反射(左)', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'rightPupillaryReflex', event: keyf1, value: '', next: '', name: '对光反射(右)', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'food', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'food', event: keyf1, value: '', next: '', name: '入量', autoComplete: { data: Input }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', autoComplete: { data: Output }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6)  },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'turnBack', event: keyf1, value: '', next: '', name: '翻身拍背', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√","无","有"]} },
+  { key: 'character', event: keyf1, value: '', next: '', name: '颜色/性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'turnBack', event: keyf1, value: '', next: '', name: '翻身/拍背', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:['√/×','√/√','×/√']} },
   { key: 'theXygenRate', event: keyf1, value: '', next: 'L/min', name: '氧流量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6)},
   { key: 'armValue1', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["中","低","高","禁食","轻","中","重"]}},
   { key: 'armValue2', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["中","低","高","禁食","轻","中","重"]}},
