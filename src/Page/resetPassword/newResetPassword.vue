@@ -50,11 +50,11 @@
             </el-form-item>
             <el-form-item
               label="原 密 码:"
-              prop="oldPwd"
+              prop="oldPswd"
               :show-message="false"
             >
               <el-input
-                v-model="form.oldPwd"
+                v-model="form.oldPswd"
                 placeholder="请输入原密码"
                 type="password"
                 size="mini"
@@ -62,11 +62,11 @@
             </el-form-item>
             <el-form-item
               label="新 密 码:"
-              prop="newPwd"
+              prop="newPswd"
               :show-message="false"
             >
               <el-input
-                v-model="form.newPwd"
+                v-model="form.newPswd"
                 placeholder="请输入新密码"
                 id="newKey"
                 type="password"
@@ -92,9 +92,9 @@
                 />
               </el-tooltip>
             </el-form-item>
-            <el-form-item label="重复新密码:" prop="rePwd">
+            <el-form-item label="重复新密码:" prop="rePswd">
               <el-input
-                v-model="form.rePwd"
+                v-model="form.rePswd"
                 placeholder="请再次输入新密码"
                 id="newKey1"
                 type="password"
@@ -108,7 +108,7 @@
                 placement="top-start"
               >
                 <img
-                  v-if="!form.rePwd"
+                  v-if="!form.rePswd"
                   src="@/common/images/password/psd.png"
                   alt
                   class="icon"
@@ -420,7 +420,7 @@ export default {
       var validatePass2 = (rule, value, callback) => {
         if (value == "") {
           callback(new Error("请再次输入密码"));
-        } else if (value !== this.form.newPwd) {
+        } else if (value !== this.form.newPswd) {
           callback(new Error("两次密码不一致!"));
         } else {
           callback();
@@ -430,19 +430,19 @@ export default {
     return {
       form: {
         empNo: "",
-        oldPwd: "",
-        newPwd: "",
-        rePwd: ""
+        oldPswd: "",
+        newPswd: "",
+        rePswd: ""
       },
       rules: {
         empNo: [{ validator: account, message: "请输入账号", trigger: "blur" }],
-        oldPwd: [
+        oldPswd: [
           { validator: account, message: "请输入密码", trigger: "blur" }
         ],
-        newPwd: [
+        newPswd: [
           { validator: validatePass1, message: "请输入新密码", trigger: "blur" }
         ],
-        rePwd: [{ validator: validatePass2, trigger: "blur" }]
+        rePswd: [{ validator: validatePass2, trigger: "blur" }]
       },
       securityLevelStatusList: [
         { level: 1, statusColor: "red" },
@@ -486,7 +486,7 @@ export default {
       return logoName;
     },
     securityLevel() {
-      let newPsw = this.newPwd.trim();
+      let newPsw = this.newPswd.trim();
       let level = 0;
 
       if (/[0-9]/.test(newPsw)) level++;
@@ -503,18 +503,18 @@ export default {
       handler(newVal, oldVal) {
         // console.log(newVal);
         const patt = eval(`/${this.reg.rule}/`);
-        if (newVal.newPwd) {
+        if (newVal.newPswd) {
           const flag = this.reg.flag
-            ? patt.test(newVal.newPwd)
+            ? patt.test(newVal.newPswd)
             : !this.reg.flag;
           this.isNewPsd = flag;
-          this.isRePsd = newVal.rePwd.trim() == newVal.newPswd.trim() && flag;
+          this.isRePsd = newVal.rePswd.trim() == newVal.newPswd.trim() && flag;
         }
-        if (newVal.rePwd) {
+        if (newVal.rePswd) {
           const flag = this.reg.flag
-            ? patt.test(newVal.rePwd)
+            ? patt.test(newVal.rePswd)
             : !this.reg.flag;
-          this.isRePsd = newVal.rePwd.trim() == newVal.newPswd.trim() && flag;
+          this.isRePsd = newVal.rePswd.trim() == newVal.newPswd.trim() && flag;
         }
       },
       deep: true
