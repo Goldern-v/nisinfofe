@@ -1488,7 +1488,7 @@ export default {
     },
     /* 贵州人医“出入量统计”移入出入量记录单 */
     isSingleTem_GZRY() {
-      return ['guizhou', '925'].includes(this.HOSPITAL_ID);
+      return ['guizhou'].includes(this.HOSPITAL_ID);
     },
     /* 是否是副页 */
     isDeputy() {
