@@ -758,7 +758,8 @@ export default {
         "postpartum2_tj",
         'nurse_jew',
         'danger_nurse_jew',
-        'baby_tj'
+        'baby_tj',
+        'magnesiumsulphate_tj',//广东同江 - 硫酸镁注射液静脉滴注观察记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [

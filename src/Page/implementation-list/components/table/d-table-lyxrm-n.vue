@@ -256,7 +256,7 @@
               "
               >补执行</el-button
             >
-            <el-button type="text" @click="handleRemarks(scope.row)"
+            <el-button type="text" v-if="HOSPITAL_ID !== 'beihairenyi'" @click="handleRemarks(scope.row)"
               >备注</el-button
             >
             <!-- <el-button
@@ -547,7 +547,18 @@ export default {
             type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
             typeReason: value, //补执行的原因填写
           };
-          updateOrderExecutePc(data).then((res) => {
+          let fn = updateOrderExecutePc
+          if (this.HOSPITAL_ID = 'beihairenyi') {
+            fn = addRecord
+            data = {
+              ...data,
+              expand3: item.expand3,   // --患者住院流水号
+              patientId: item.patientId,  // --患者id
+              executeType: item.executeType,  // --执行单类型
+              executeDateTime: item.executeDateTime
+            }
+          }
+          fn(data).then((res) => {
             this.$message.success("补录成功");
             this.bus.$emit("loadImplementationList");
           });

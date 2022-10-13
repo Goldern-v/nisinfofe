@@ -151,6 +151,9 @@ export default {
         }
       });
     },
+    getSheet () {
+      return sheet
+    },
     // 获取各医院的血糖单
     getBloodSugar() {
       switch (process.env.HOSPITAL_ID) {

@@ -53,6 +53,7 @@ export default {
       let user = res.data.data.user;
       user.token = res.data.data.authToken;
       localStorage["user"] = JSON.stringify(res.data.data.user);
+      // localStorage.setItem("fuyouCaData",JSON.stringify(data));
       Cookies.remove("NURSING_USER");
       Cookies.set(
         "NURSING_USER",

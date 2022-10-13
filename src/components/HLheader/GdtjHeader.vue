@@ -399,13 +399,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-								<el-dropdown-item>
+								<!-- <el-dropdown-item>
                   <router-link to="/badEvent" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="badEvent"></i>不良事件
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
                   <router-link to="/badEvent" tag="span" >
 
@@ -432,7 +432,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/noCheckTest' }"
                 >
                   <router-link to="/noCheckTest" tag="span">
@@ -440,7 +440,7 @@
                       <i class="noCheckTest"></i>未做检查/检验
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item
                     :class="{ active: $route.path == '/flatManagement' }"
                 >

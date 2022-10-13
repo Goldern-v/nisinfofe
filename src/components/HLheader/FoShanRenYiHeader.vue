@@ -1097,7 +1097,7 @@ export default {
         localStorage.selectDeptValue ||
         this.$store.state.lesion.deptCode ||
         res.data.data.defaultDept ||
-        res.data.data.deptList[0].code;
+        res.data.data.deptList[0].name;
       this.$store.commit("upDeptList", this.deptList);
       this.$store.commit("upDeptCode", this.deptValue);
       localStorage.selectDeptValue = this.deptValue;

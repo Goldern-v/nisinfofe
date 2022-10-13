@@ -239,6 +239,23 @@ export function delSheetPage(index, callback) {
       return flag;
     }
     if (
+      ( process.env.HOSPITAL_ID == "gdtj" &&
+       tr.find((item) => item.key == "status").value === "1")
+       ||sheetInfo.sheetType === "generalnursing_tj"
+       ||sheetInfo.sheetType === "prenataldelivery2_tj"
+       ||sheetInfo.sheetType === "pediatric3_tj"
+       ||sheetInfo.sheetType === "postpartum2_tj"
+     ) {
+      let flag =
+      tr.find(item => item.key == "status").value === "1" && // 是否已签名
+      listData && 
+      listData[x] &&
+      !listData[x].canModify&&(td.key === "recordMonth" || td.key === "recordHour");; // 是否有权限
+      //td存在才判断
+      console.log('flag', flag)
+      return flag;
+     }
+    if (
       process.env.HOSPITAL_ID != "weixian" ||
       (td && td.key == "description") ||
       tr.find(item => item.key == "recordSource").value == 5
