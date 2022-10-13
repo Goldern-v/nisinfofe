@@ -174,7 +174,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-              </el-dropdown-menu> 
+              </el-dropdown-menu>
             </el-dropdown>
             <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -298,12 +298,16 @@
                 <i class="iconfont icon-zhihuishuye"></i> 智慧输液
               </el-row>
             </router-link>
-            <router-link to="/workloadSatistics" tag="span">
+            <!-- <router-link to="/workloadSatistics" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 工作量统计
               </el-row>
+            </router-link> -->
+            <router-link to="/statisticalQuery" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 统计查询
+              </el-row>
             </router-link>
-
             <!-- <router-link to="/badEvent" tag="span" v-if="HOSPITAL_ID == 'hj'">
               <el-row class="nav-item" type="flex" align="middle"
               >不良事件
@@ -1032,7 +1036,7 @@ export default {
         "/bottleLabelByProgram",
         "/implementationList"
       ].includes(this.$route.path)
-      
+
     }
   },
   methods: {

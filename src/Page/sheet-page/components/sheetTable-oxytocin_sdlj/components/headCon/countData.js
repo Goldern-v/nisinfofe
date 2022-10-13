@@ -72,7 +72,7 @@ export let countData = {
     ],
     [{
         type: "text",
-        value: "宫颈缩（%）"
+        value: "宫颈退缩（%）"
       },
       {
         type: "text",
@@ -249,17 +249,17 @@ export let countData = {
     [{
         type: "text",
         value: "将检查结果在相应栏内划“√”累计宫颈评分。",
-        colspan: 10,
+        colspan: 6,
         style: "border-right: none"
       },
-      // {
-      //   type: "text",
-      //   prev: "医生签名:",
-      //   value: "",
-      //   colspan: 4,
-      //   class: "sign",
-      //   sign: true
-      // },
+      {
+        type: "text",
+        prev: "医生签名:",
+        value: "",
+        colspan: 4,
+        class: "sign",
+        sign: true
+      },
     ]
   ]
 }

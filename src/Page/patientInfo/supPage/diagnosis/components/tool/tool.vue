@@ -78,6 +78,10 @@
     </div>
     <newDiagnosisModal ref="newDiagnosisModal"></newDiagnosisModal>
     <stopDiagnosisModal ref="stopDiagnosisModal"></stopDiagnosisModal>
+    <!-- 电子病例弹窗 -->
+    <doctorEmr
+      v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
+    />
   </div>
 </template>
 
@@ -186,6 +190,7 @@ import $ from "jquery";
 import dayjs from "dayjs";
 import newDiagnosisModal from "../../modal/newDiagnosisModal";
 import stopDiagnosisModal from "../../modal/stopDiagnosisModal";
+import doctorEmr from "@/components/doctorEmr";
 import { model } from "../../diagnosisViewModel";
 import { nursingDiagsDelAll, savePlanForm } from "../../api/index";
 import common from "@/common/mixin/common.mixin";
@@ -271,7 +276,8 @@ export default {
   },
   components: {
     newDiagnosisModal,
-    stopDiagnosisModal
+    stopDiagnosisModal,
+    doctorEmr
   }
 };
 </script>

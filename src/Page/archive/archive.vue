@@ -218,17 +218,21 @@
                 v-if="scope.row.canCancelArchive"
                 >取消归档</el-button
               >
+<!--           花都医院需要 ----归档按钮判断与重转pdf按钮一致 -->
               <el-button
                 type="text"
                 @click="uploadFileArchive(scope.row)"
                 v-if="
-                  (isArchive && scope.row.uploadStatus != 2) ||
-                  (scope.row.resultStatus == 1 &&
-                    scope.row.uploadStatus != 1 &&
-                    scope.row.uploadStatus != 2)
-                "
-                >归档</el-button
-              >
+                  HOSPITAL_ID == 'huadu' && scope.row.printStatus != 0 &&
+                  scope.row.printStatus != 1 &&
+                  scope.row.uploadStatus != 1 &&
+                  scope.row.uploadStatus != 2 &&
+                  !isArchive ">归档</el-button >
+              <el-button
+                  type="text"
+                  @click="uploadFileArchive(scope.row)"
+                  v-if=" (HOSPITAL_ID !== 'huadu' &&isArchive && scope.row.uploadStatus != 2) ||(HOSPITAL_ID !== 'huadu' &&scope.row.resultStatus == 1
+                  &&scope.row.uploadStatus != 1 &&scope.row.uploadStatus != 2)">归档</el-button>
             </div>
             <div class="justify" v-if="HOSPITAL_ID == 'guizhou'">
               <el-button

@@ -98,7 +98,7 @@
     <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
     <!-- 电子病例弹窗 -->
-    <doctorEmr v-if="HOSPITAL_ID === 'huadu'" />
+    <doctorEmr v-if="['foshanrenyi','huadu'].includes(HOSPITAL_ID)" />
   </div>
 </template>
 
@@ -1084,7 +1084,7 @@ export default {
         }
         window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       }
-     
+
       // if (process.env.NODE_ENV === "production") {
         newWid.location.href = `/crNursing/print/sheetPage?&patientId=${fromParams.patientId}&visitId=${fromParams.visitId}&formId=${fromParams.formId}&formType=${'record'}&formCode=${fromParams.formCode}&formName=${fromParams.formName}`;
       // } else {

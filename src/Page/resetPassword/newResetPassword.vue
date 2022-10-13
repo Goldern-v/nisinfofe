@@ -14,7 +14,7 @@
         style="position: absolute; width: 100%; height: 100%"
       ></vue-particles>
       <div style="height: 25%"></div>
-      <div class="login-warpper">
+      <div class="login-wrapper">
         <div class="login-img">
           <img src="../../common/images/login-img.png" alt />
           <span class="his-name">{{ HOSPITAL_NAME_SPACE }}</span>
@@ -68,7 +68,7 @@
               <el-input
                 v-model="form.newPswd"
                 placeholder="请输入新密码"
-                id="newkey"
+                id="newKey"
                 type="password"
                 size="mini"
               ></el-input>
@@ -96,7 +96,7 @@
               <el-input
                 v-model="form.rePswd"
                 placeholder="请再次输入新密码"
-                id="newkey1"
+                id="newKey1"
                 type="password"
                 size="mini"
                 :show-message="false"
@@ -205,7 +205,7 @@
   background-size: 100% 1px;
 }
 
-.login-warpper {
+.login-wrapper {
   width: 838px;
   margin: 0 auto 0;
   position: relative;

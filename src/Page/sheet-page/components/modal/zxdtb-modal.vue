@@ -90,7 +90,7 @@
             ></el-option>
           </el-select>
         </div>
-        <div v-if="HOSPITAL_ID == 'wujing'" style="margin-left: 20px">
+        <div v-if="HOSPITAL_ID == 'wujing'||HOSPITAL_ID == 'gdtj'" style="margin-left: 20px">
           <span class="label">医嘱分类：</span>
           <el-select
             v-model="executeType"
@@ -106,7 +106,7 @@
             ></el-option>
           </el-select>
         </div>
-        <div v-if="HOSPITAL_ID == 'wujing'" style="margin-left: 20px">
+        <div v-if="HOSPITAL_ID == 'wujing'||HOSPITAL_ID == 'gdtj'" style="margin-left: 20px">
           <span class="label">医嘱类型：</span>
           <el-select
             v-model="repeatIndicator"
@@ -216,14 +216,14 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID == 'wujing'"
+            v-if="HOSPITAL_ID == 'wujing'||HOSPITAL_ID == 'gdtj'"
             prop="food"
             label="入量名称"
             min-width="110px"
             align="center"
           ></el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID == 'wujing'"
+            v-if="HOSPITAL_ID == 'wujing'||HOSPITAL_ID == 'gdtj'"
             prop="foodSize"
             label="入量"
             min-width="110px"
@@ -366,7 +366,7 @@ export default {
         ? "输液"
         : "",
       repeatIndicator: "",
-      identicalGroupSelect: ["wujing"],
+      identicalGroupSelect: ["wujing", 'gdtj'],
       repeatIndicatorList: [
         {
           id: "",
@@ -415,6 +415,7 @@ export default {
         [
           "fuyou",
           "wujing",
+          'gdtj',
           "quzhou",
           "weixian",
           "liaocheng",
@@ -453,7 +454,7 @@ export default {
         });
       }
       /**【武警】保存前将入量内容food中'\b'后的数据进行删除*/
-      if (["wujing"].includes(this.HOSPITAL_ID)) {
+      if (["wujing",'gdtj'].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.food = item.food.split("\b")[0];
           return item;
@@ -714,7 +715,7 @@ export default {
             name: "口服药",
           },
         ];
-      } else if (this.HOSPITAL_ID === "wujing") {
+      } else if (this.HOSPITAL_ID === "wujing"&&HOSPITAL_ID == 'gdtj') {
         return [
           {
             id: "",

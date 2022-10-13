@@ -933,7 +933,7 @@ export default {
     return {
       bus: bus(this),
       show: "hello vue",
-      user: JSON.parse(localStorage.user),
+      user: JSON.parse(localStorage.user||""),
       deptValue: "",
       deptList: [],
       isTip: false, //是否mews高亮
@@ -1032,7 +1032,6 @@ export default {
     },
     quit(ifRelogin) {
       logout(Cookies.get("NURSING_USER"));
-      console.log(ifRelogin,"ifRelogin")
       Cookies.remove("password");
       Cookies.remove("deptId");
       Cookies.remove("access");
@@ -1098,7 +1097,7 @@ export default {
         localStorage.selectDeptValue ||
         this.$store.state.lesion.deptCode ||
         res.data.data.defaultDept ||
-        res.data.data.deptList[0].code;
+        res.data.data.deptList[0].name;
       this.$store.commit("upDeptList", this.deptList);
       this.$store.commit("upDeptCode", this.deptValue);
       localStorage.selectDeptValue = this.deptValue;
@@ -1110,7 +1109,6 @@ export default {
     "$store.state.common.user":{
       handler(newVal, oldVal) {
         this.user = newVal
-        console.log(newVal,oldVal,"localStorage.userwatch")
       },
       immediate:true,
       deep:true

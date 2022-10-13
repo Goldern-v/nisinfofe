@@ -338,6 +338,24 @@
               />
             </template>
           </el-table-column>
+          <el-table-column
+            prop="painScore"
+            label="疼痛"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.painScore"
+                :class="className"
+                class="painScore"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -351,7 +369,7 @@
           <el-table-column
             prop="name"
             label="姓名"
-            min-width="100"
+            min-width="80"
             align="center"
           ></el-table-column>
           <el-table-column
@@ -363,7 +381,7 @@
           <el-table-column
             prop="admissionDate"
             label="入院日期"
-            min-width="180"
+            min-width="150"
             align="center"
           >
             <template slot-scope="scope">
@@ -477,7 +495,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'guizhou'"
             prop="painScore"
             label="疼痛"
             min-width="60"

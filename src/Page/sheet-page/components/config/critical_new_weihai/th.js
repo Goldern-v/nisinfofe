@@ -33,15 +33,15 @@ export default {
         colspan: '1',
         rowspan: '3'
       },
-      {
-        name: '瞳孔',
-        style: {
-          minWidth: '40px',
-          maxWidth: '40px',
-        },
-        colspan: '4',
-        rowspan: '1'
-      },
+      // {
+      //   name: '瞳孔',
+      //   style: {
+      //     minWidth: '40px',
+      //     maxWidth: '40px',
+      //   },
+      //   colspan: '4',
+      //   rowspan: '1'
+      // },
       {
         name: '体温',
         style: {
@@ -93,7 +93,7 @@ export default {
           minWidth: '40px',
           maxWidth: '40px',
         },
-        colspan: '3',
+        colspan: '2',
         rowspan: '2'
       },
       {
@@ -116,26 +116,26 @@ export default {
           minWidth: '120px',
         },
       },
-      {
-        name: `标题1`,
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: '53px',
-        },
-        canSet: true,
-        key: "rassScore",
-      },
-      {
-        name: `标题2`,
-        style: {
-          minWidth: '53px',
-        },
-        colspan: "1",
-        rowspan: "3",
-        canSet: true,
-        key: "fieldFive",
-      },
+      // {
+      //   name: `标题1`,
+      //   colspan: '1',
+      //   rowspan: '3',
+      //   style: {
+      //     minWidth: '53px',
+      //   },
+      //   canSet: true,
+      //   key: "rassScore",
+      // },
+      // {
+      //   name: `标题2`,
+      //   style: {
+      //     minWidth: '53px',
+      //   },
+      //   colspan: "1",
+      //   rowspan: "3",
+      //   canSet: true,
+      //   key: "fieldFive",
+      // },
       {
         name: `
         病情观察及护理措施
@@ -158,67 +158,69 @@ export default {
         rowspan: '3'
       }
     ],
-    mid: [{
-      name: `
-      左
-      `,
-      colspan: '2',
-      rowspan: '1',
-      style: {
-        minWidth: '32px',
-      },
-    },
-    {
-      name: `
-      右
-      `,
-      colspan: '2',
-      rowspan: '1',
-      style: {
-        minWidth: '32px',
-      },
-    },
+    mid: [
+    //   {
+    //   name: `
+    //   左
+    //   `,
+    //   colspan: '2',
+    //   rowspan: '1',
+    //   style: {
+    //     minWidth: '32px',
+    //   },
+    // },
+    // {
+    //   name: `
+    //   右
+    //   `,
+    //   colspan: '2',
+    //   rowspan: '1',
+    //   style: {
+    //     minWidth: '32px',
+    //   },
+    // },
     ],
-    bottom: [{
-        name: `
-        直径<br/>(mm）
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        对光<br/>反应
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        直径<br/>(mm）
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        对光<br/>反应
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
+    bottom: [
+      // {
+      //   name: `
+      //   直径<br/>(mm）
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px',
+      //   },
+      // },
+      // {
+      //   name: `
+      //   对光<br/>反应
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px',
+      //   },
+      // },
+      // {
+      //   name: `
+      //   直径<br/>(mm）
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px',
+      //   },
+      // },
+      // {
+      //   name: `
+      //   对光<br/>反应
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '1',
+      //   style: {
+      //     minWidth: '32px',
+      //   },
+      // },
       {
         name: `
         ℃
@@ -289,16 +291,16 @@ export default {
           minWidth: '32px',
         },
       },
-      {
-        name: ``,
-        style: {
-          minWidth: '53px',
-        },
-        colspan: "1",
-        rowspan: "1",
-        canSet: true,
-        key: "fieldThree",
-      },
+      // {
+      //   name: ``,
+      //   style: {
+      //     minWidth: '53px',
+      //   },
+      //   colspan: "1",
+      //   rowspan: "1",
+      //   canSet: true,
+      //   key: "fieldThree",
+      // },
       {
         name: `
         项<br/>目

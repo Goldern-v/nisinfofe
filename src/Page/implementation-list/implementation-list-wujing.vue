@@ -92,9 +92,11 @@
             :disabled="status == '已执行'"
             >执行</el-button
           >
+          <el-button size="small" @click="handlePrint" v-if="showPrint">打印</el-button>
         </div>
       </div>
       <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
+      <printTable v-if="showPrint" ref="printRef" :tableData="tableData" />
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -105,26 +107,29 @@
         ></pagination>
       </div> -->
       <el-dialog title="执行时间" :visible.sync="isExecutionTime">
-  <el-form :model="form">
-    <el-form-item label="执行时间">
-      <el-date-picker
-      v-model="form.date"
-      type="datetime"
-      placeholder="选择执行时间">
-    </el-date-picker>
-    </el-form-item>
-  </el-form>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="isExecutionTime = false">取 消</el-button>
-    <el-button type="primary" @click="confirm">确 定</el-button>
-  </div>
-</el-dialog>
+        <el-form :model="form">
+          <el-form-item label="执行时间">
+            <el-date-picker
+              v-model="form.date"
+              type="datetime"
+              placeholder="选择执行时间"
+            >
+            </el-date-picker>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="isExecutionTime = false">取 消</el-button>
+          <el-button type="primary" @click="confirm">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .main-contain {
   margin: 10px 10px 0px 10px;
+  position: relative;
+  overflow: hidden;
 }
 
 .head-con {
@@ -167,11 +172,13 @@
 </style>
 <script>
 import dTable from "./components/table/d-table-wujing";
+import printTable from "./components/table/print-table-sdlj";
 // import pagination from "./components/common/pagination";
-import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode, handleWebExecuteBatch } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
+import formatter from './utils/print-formatter'
+import print from 'printing'
 export default {
   mixins: [common],
   data() {
@@ -197,10 +204,12 @@ export default {
         repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
         executeFlag: "全部", //0未执行，2已执行
       },
-      isExecutionTime:false,
-      form:{
-        date:moment().format("YYYY-MM-DD HH:mm:ss"),
-      }
+      isExecutionTime: false,
+      form: {
+        date: moment().format("YYYY-MM-DD HH:mm:ss"),
+      },
+      tableData: [],
+      showPrint: this.HOSPITAL_ID === 'sdlj',
     };
   },
   methods: {
@@ -254,6 +263,7 @@ export default {
           }
           return item;
         });
+        this.tableData = tableData
         // 设置表格数据
         if (
           this.$refs.plTable.$children &&
@@ -281,23 +291,23 @@ export default {
       }
     },
     confirm() {
-      this.handleExecuteBatch()
-      this.isExecutionTime=false;
+      this.handleExecuteBatch();
+      this.isExecutionTime = false;
     },
     middleware() {
       let selectedData = this.$refs.plTable.selectedData;
       if (selectedData.length <= 0) return;
-      if(['wujing'].includes(this.HOSPITAL_ID)) {
-        this.isExecutionTime = true
-      }else {
-        this.handleExecuteBatch()
+      if (["wujing"].includes(this.HOSPITAL_ID)) {
+        this.isExecutionTime = true;
+      } else {
+        this.handleExecuteBatch();
       }
     },
     // 批量处理执行单
     handleExecuteBatch() {
       let selectedData = this.$refs.plTable.selectedData,
         data = [];
-      this.isExecutionTime = true
+      // this.isExecutionTime = true;
       if (selectedData.length <= 0) return;
 
       selectedData.map((item) => {
@@ -309,19 +319,42 @@ export default {
           executeNurse: this.empNo, // 执行护士工号
           verifyNurse: this.empNo, // 核对护士工号
         };
-        if(['wujing'].includes(this.HOSPITAL_ID)){
-          obj.startDate = moment(this.form.date).format("YYYY-MM-DD HH:mm:ss")
+        if (["wujing"].includes(this.HOSPITAL_ID)) {
+          obj.startDate = moment(this.form.date).format("YYYY-MM-DD HH:mm:ss");
         }
         // 相同barcode只需要发送一条记录
-        let isHas = data.every(e=>{
-          return e.barcode != obj.barcode
-        })
-        isHas?data.push(obj):''
+        let isHas = data.every((e) => {
+          return e.barcode != obj.barcode;
+        });
+        isHas ? data.push(obj) : "";
       });
       handleWebExecuteBatch({ lists: data }).then((res) => {
         this.$message.success(res.data.desc);
         this.onLoad();
       });
+    },
+    handlePrint() {
+      this.$nextTick(() => {
+        const printEle = this.$refs.printRef.$el
+        print(printEle, {
+          beforePrint: formatter,
+          direction: "horizontal",
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+          @page {
+            margin: 0 5mm;
+          }
+          .print-table {
+            top: 0px !important;
+          }
+
+          pre {
+            white-space: pre-wrap;
+          }
+          `,
+        });
+      })
     },
   },
   created() {
@@ -343,6 +376,7 @@ export default {
   },
   components: {
     dTable,
+    printTable,
     // pagination
   },
 };

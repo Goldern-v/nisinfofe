@@ -110,10 +110,6 @@
 import nullBg from "../../../../components/null/null-bg";
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 
-// import {
-//   getNurseExchangeInfo,
-//   getNurseExchangeInfoByTime,
-// } from "../../../sheet-page/api/index";
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
@@ -121,6 +117,17 @@ export default {
     queryTem: Object,
   },
   data() {
+        //佛一跟顺德医院共用录入界面 ，判断ip地址
+        const baseUrl=(()=>{
+  switch (process.env.HOSPITAL_ID) {
+    case 'foshanrenyi':
+      return "http://192.168.103.17:9091"
+    case 'nfyksdyy':
+      return "http://192.168.0.200:9091"
+    default:
+      break;
+  }
+ })()
     return {
       bus: bus(this),
       date: "",
@@ -139,10 +146,9 @@ export default {
       visibled: false,
       printAllPath: "",
       intranetUrl:
-        // "http://192.168.1.75:8080/#/" /* 医院正式环境内网 导致跨域 */,
-        "http://192.168.103.17:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://192.168.103.17:9091/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
+        `${baseUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
     };
   },
   methods: {
@@ -331,7 +337,7 @@ export default {
   },
   computed: {
     detailChatUrl() {
-      let path = "http://192.168.103.17:9091/temperature/#/detailed";
+      let path = `${this.intranetUrl}detailed`;
       return `${path}?showVitalSign=${this.showVitalSign}`; /* 外网 */
     },
     rightSheet() {

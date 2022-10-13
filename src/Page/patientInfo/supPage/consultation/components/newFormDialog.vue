@@ -29,7 +29,7 @@
             </el-date-picker>
 				</el-form-item>
 				<el-form-item label="邀请会诊科室" :label-width="formLabelWidth">
-					<!-- <multiselect v-model="form.applyDepartment" placeholder="选择或输入关键词搜索" label="name" track-by="code" :options="applyDepartmentOptions" :multiple="true" :taggable="false"></multiselect> -->
+					<multiselect v-model="form.applyDepartment" placeholder="选择或输入关键词搜索" label="name" track-by="code" :options="applyDepartmentOptions" :multiple="true" :taggable="false"></multiselect>
 				</el-form-item>
 				<el-form-item label="申请会诊目的" :label-width="formLabelWidth">
 					<el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="form.applyPurpose">
@@ -60,13 +60,13 @@
 		getAllDept,
 		patDiag
 	} from '@/api/consultation'
-	// import multiselect from '@/plugin/vue-multiselect/src/index'
+	import multiselect from '@/plugin/vue-multiselect/src/index'
 	import BusFactory from 'vue-happy-bus'
 	export default {
 		name: "newFormDialog",
 		// props: ['dialogFormVisible'],
 		components: {
-			// multiselect
+			multiselect
 		},
 		data() {
 			return {

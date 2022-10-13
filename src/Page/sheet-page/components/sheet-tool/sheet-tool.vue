@@ -297,14 +297,14 @@
         value-key="id"
         size="small"
         placeholder=""
-        class="select-con"
+        class="select-con whfk-select-con"
         @visible-change="getPrintRecordData()"
       >
         <div class="sheetSelect-con-sheet sheetSelect-con-sheet-print">
           <div class="head-con" flex="cross:stretch" >
             <div class="col-1">打印人</div>
             <div class="col-2" style="border-right:none">打印时间</div>
-          
+
           </div>
           <el-option
             v-for="item in printRecord"
@@ -327,12 +327,12 @@
         </div>
       </el-select>
       <el-select
-        v-if="!isDeputy"
+        v-if="!isDeputy && HOSPITAL_ID == 'whfk'"
         v-model="sheetInfo.selectBlock"
         @change="changeSelectBlock"
         value-key="id"
         placeholder="请选择护理记录单"
-        class="select-con"
+        class="select-con whfk-select-con"
       >
         <div class="sheetSelect-con-sheet">
           <div class="head-con" flex="cross:stretch">
@@ -365,6 +365,58 @@
           </el-option>
         </div>
       </el-select>
+      <div style="position:relative">
+        <el-select
+          v-if="!isDeputy  && HOSPITAL_ID != 'whfk'"
+          v-model="sheetInfo.selectBlock"
+          @change="changeSelectBlock"
+          @visible-change="(val)=>changesCrollOptionFlag(val,1)"
+          value-key="id"
+          :placeholder="['foshanrenyi'].includes(HOSPITAL_ID)?'':'请选择护理记录单'"
+          class="select-con otherType"
+        >
+          <div class="sheetSelect-con-sheet">
+            <div class="head-con" flex="cross:stretch">
+              <div class="col-1">记录单标题</div>
+              <div class="col-2">科室</div>
+              <div class="col-3">开始时间</div>
+              <div class="col-4">页码</div>
+            </div>
+            <el-option
+              v-for="item in sheetBlockList"
+              :key="item.id"
+              :label="blockLabel(item, sheetBlockList.length)"
+              :value="item"
+            >
+              <div class="list-con" flex="cross:stretch">
+                <div class="col-1" :title="item.recordName">
+                  {{ item.recordName }}
+                </div>
+                <div class="col-2" :title="item.deptName">
+                  {{ item.deptName }}
+                </div>
+                <div class="col-3" :title="item.createTime">
+                  {{ item.createTime }}
+                </div>
+                <div class="col-4" :title="item.completeName">
+                  {{ item.pageIndex }} - {{ item.endPageIndex }}
+                </div>
+                <!-- <div class="col-3" :title="item.completeName">{{item.completeName}}</div> -->
+              </div>
+            </el-option>
+          </div>
+        </el-select>
+        <div style="
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        curson:
+        left: 0;"
+        v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
+        @click="scrollOption"></div>
+      </div>
       <!-- <span class="label">页码范围:</span> -->
       <div
         class="item-box"
@@ -492,6 +544,7 @@
           HOSPITAL_ID == 'liaocheng'||
           HOSPITAL_ID == 'whfk' ||
           HOSPITAL_ID == 'whhk' ||
+          HOSPITAL_ID == 'gdtj' ||
           HOSPITAL_ID == 'lyxrm'
         "
       >
@@ -518,7 +571,7 @@
         patientInfo.patientId &&
         !$route.path.includes('temperature') &&
         !$route.path.includes('Baby_sheetPage') &&
-        HOSPITAL_ID != 'huadu'
+        !['huadu'].includes(HOSPITAL_ID)
       "
     ></patientInfo>
     <!-- <demonstarationLevca v-if="HOSPITAL_ID == 'hj' && patientInfo.patientId &&
@@ -641,10 +694,25 @@ export default {
       pageNum: "",
       firstPage: 1,
       printRecord:[],
+      babelFirst:true,
+      scrollOptionFlag:false,
+      scrollOptionNum:1,
       printRecordValue:''
     };
   },
   methods: {
+    changesCrollOptionFlag(val,type){
+      if(type==1){
+        this.scrollOptionFlag = val?false:true
+        this.scrollOptionNum = val?1:2
+      }else this.scrollOptionFlag =!val
+    },
+    scrollOption(){
+      this.changesCrollOptionFlag(this.scrollOptionFlag)
+      console.log(this.scrollOptionFlag,this.scrollOptionNum,"this.scrollOptionFlag")
+      let inputScroll = document.querySelector(".otherType .el-input__inner")
+      this.scrollOptionFlag || this.scrollOptionNum==2 ? inputScroll.focus() : inputScroll.blur()
+    },
     openEMR() {
       // patient_id  患者id  visit_id  住院次数
       if (!this.patientInfo.patientId) {
@@ -806,7 +874,7 @@ export default {
       ) {
         this.bus.$emit("toSheetPrintPage");
       } else {
-        // if (process.env.NODE_ENV == "production") {
+        if (process.env.NODE_ENV == "production") {
         let newWid;
         if( this.HOSPITAL_ID === 'whfk'){
           newWid = window.open();
@@ -825,11 +893,11 @@ export default {
           }
           this.bus.$emit("toSheetPrintPage",newWid);
         }
-        
-        // } else {
-        //   
-        //   this.bus.$emit("toSheetPrintPage");
-        // }
+
+        } else {
+
+          this.bus.$emit("toSheetPrintPage");
+        }
       }
     },
     toAllPrint() {
@@ -1087,7 +1155,7 @@ export default {
       }
     },
     async getBlockList() {
-      if (this.$route.path.includes("nursingPreview")) {
+      if (this.$route.path.includes("nursingPreview") || this.$route.path.includes("nursingTemperature")) {
         let { data } = await getPatientInfo(
           this.$route.query.patientId,
           this.$route.query.visitId
@@ -1099,7 +1167,7 @@ export default {
         this.patientInfo.visitId &&
         this.deptCode
       ) {
-       
+
         blockList(
           this.patientInfo.patientId,
           this.patientInfo.visitId,
@@ -1229,10 +1297,41 @@ export default {
     },
     blockLabel(item, length) {
       // return `${item.recordName} ${dayjs(item.createTime).format("MM-DD")}`;
-      return `${item.deptName} ${dayjs(item.createTime).format(
-        "MM-DD"
-      )}建 共${length}张
-      `;
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        if(!this.babelFirst) return
+        const parent = document.querySelector('.otherType').childNodes[1];
+        console.log(parent,"parent")
+        const isDiv = parent.childNodes[1].nodeName;
+        console.log(isDiv,"isDiv")
+        let dom,dom1,dom2
+        if (isDiv !== 'div') {
+          dom = document.createElement('div');
+          dom.className = 'adddiv';
+          dom1 = document.createElement('span');
+          dom1.className = 'addspan1';
+          dom2 = document.createElement('span');
+          dom2.className = 'addspan2';
+          dom.appendChild(dom1)
+          dom.appendChild(dom2)
+          parent.insertBefore(dom, parent.childNodes[1]);
+        }
+        else {
+          dom = parent.childNodes[1];
+        }
+        dom1.setAttribute('data-content1', `${item.deptName} ${dayjs(item.createTime).format(
+          "MM-DD")}建 `);
+        dom2.setAttribute('data-content2', `共${length}张`);
+        // return `${item.deptName} ${dayjs(item.createTime).format(
+        //   "MM-DD"
+        // )}建
+        // `;
+        this.babelFirst = false
+      }else{
+        return `${item.deptName} ${dayjs(item.createTime).format(
+          "MM-DD"
+        )}建 共${length}张
+        `;
+      }
     },
     changeSelectBlock(item) {
       if (item) {
@@ -1246,7 +1345,7 @@ export default {
     /** pdf打印 */
     toPdfPrint() {
       if (sheetInfo.selectBlock.id) {
-       
+
         if( this.HOSPITAL_ID === 'whfk'){
           const params = {
             patientId:sheetInfo.selectBlock.patientId,
@@ -1278,7 +1377,7 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      if (this.HOSPITAL_ID == "wujing") {
+      if (this.HOSPITAL_ID == "wujing"|| this.HOSPITAL_ID == "gdtj") {
         this.modalWidth = 850;
       }
       if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
@@ -1410,7 +1509,7 @@ export default {
     showRltbN() {
       return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
     },
-  
+
   },
   created() {
     this.bus.$on("initSheetPageSize", () => {
@@ -1496,7 +1595,7 @@ export default {
     this.bus.$on("getBlockList", () => {
       this.getBlockList();
     });
-    
+
     document.onkeydown = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = true;
@@ -1520,6 +1619,12 @@ export default {
     this.bus.$emit("sheetToolLoaded");
   },
   watch: {
+    "sheetInfo.selectBlock":{
+      handler(val) {
+        console.log(val,"sheetInfo.selectBlock")
+      },
+
+    },
     //更换选择患者，更新vuex的患者信息，重新在eventbug队列调用事件
     patientInfo(val) {
       if (this.$route.path.includes("singleTemperatureChart")) {
@@ -1626,9 +1731,29 @@ export default {
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-   >>>.select-con .el-input__inner {
-    width: 85px !important;
+.otherType {
+  /deep/ .adddiv {
+    position: absolute;
+    top: 7px;
+    left:10px;
+    .font{
+      font-weight:700;
+    }
+    .addspan1{
+      font-size: 14px;
+      &::before {
+        content: attr(data-content1);
+      }
+    }
+    .addspan2{
+      font-size: 15px;
+      &::before {
+        content: attr(data-content2);
+        color:red;
+      }
+    }
   }
+}
 .sheetSelect-con-sheet {
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
@@ -1646,7 +1771,7 @@ export default {
     max-height: 500px;
   }
 
-  
+
  .head-con {
    height: 37px;
    background: #F7FAFA;
@@ -1706,10 +1831,10 @@ export default {
       width: 4px;
       background: #4bb08d;
     }
-   
+
 
   }
- 
+
   .el-select-dropdown__item.hover {
     background: #fff;
   }
@@ -1718,10 +1843,13 @@ export default {
     background: #E5F1F0;
   }
 }
-.select-con {
-    width: 80px;
-    margin-right:10px;
-  }
+.whfk-select-con {
+  width: 80px;
+  margin-right:10px;
+}
+>>>.whfk-select-con .el-input__inner {
+  width: 85px !important;
+}
 .sheetSelect-con-sheet-print .el-select-dropdown__item.selected:after {
   content: '';
   position: absolute;

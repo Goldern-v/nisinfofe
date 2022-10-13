@@ -1953,6 +1953,13 @@ export default function Title(
     );
   }
   break;
+  case "baby_tj": {
+    // 广东同江 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_tj/th").default)
+    );
+  }
+  break;
   case "magnesiumsulphate_tj": {
     // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
     Th = JSON.parse(
@@ -2048,6 +2055,13 @@ export default function Title(
     // 临沂沂州 - 新生儿护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/baby_yz/th").default)
+    );
+  }
+  break;
+  case "inout_ytll": {
+    // 烟台玲珑 - 出入量记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/inout_ytll/th").default)
     );
   }
   break;

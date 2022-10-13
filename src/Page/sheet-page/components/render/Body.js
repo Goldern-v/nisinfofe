@@ -1516,6 +1516,11 @@ function switchSheetType(type) {
         schema = require("../config/generalnursing_tj/tr.js").default;
       }
       break;
+    case "baby_tj": {
+      // 广东同江 - 新生儿护理记录单
+      schema = require("../config/baby_tj/tr.js").default;
+    }
+      break;
     case "magnesiumsulphate_tj": {
       // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
         schema = require("../config/magnesiumsulphate_tj/tr.js").default;
@@ -1584,6 +1589,11 @@ function switchSheetType(type) {
     case "baby_yz": {
       // 临沂沂州 - 新生儿护理记录单
       schema = require("../config/baby_yz/tr.js").default;
+    }
+      break;
+    case "inout_ytll": {
+      // 烟台玲珑 - 出入量记录单
+      schema = require("../config/inout_ytll/tr.js").default;
     }
       break;
     default: {

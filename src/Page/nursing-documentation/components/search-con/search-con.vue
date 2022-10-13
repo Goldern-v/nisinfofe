@@ -521,8 +521,11 @@ export default {
           dischargeDateBegin: moment(this.data.dischargeDate[0]).format('YYYY-MM-DD'),
           dischargeDateEnd: moment(this.data.dischargeDate[1]).format('YYYY-MM-DD'),
         });
-        if (res.data.code === '200')
-          return this.$message.success("出院患者同步成功");
+        if (res.data.code === '200') {
+          this.$message.success("出院患者同步成功");
+          this.search()
+          return
+        }
         this.$message.error(res.data.desc || "出院患者同步失败");
       } catch (error) {
       }
