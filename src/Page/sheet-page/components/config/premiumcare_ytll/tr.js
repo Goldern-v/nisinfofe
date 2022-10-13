@@ -8,7 +8,8 @@ import {
   import {
     event_date,
     event_time,
-    click_date
+    click_date,
+    click_time
   } from "../keyEvent/date";
   // let 静脉性质 = [];
   // let 饮食性质 = [];
@@ -41,16 +42,16 @@ import {
       //   data: 疼痛部位
       // },
       textarea: {
-        width: 32
+        width: 60
       },
       name: "入量-名称"
     },
     {
-      key: "field2", //入量- 途径
+      key: "expand3", //入量- 途径
       value: "",
       event: keyf1,
       textarea: {
-        width: 32
+        width: 60
       },
       name: "入量-途径"
     },
@@ -59,7 +60,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 32
+        width: 40
       },
       // autoComplete: {
       //   data: 疼痛评分
@@ -74,7 +75,7 @@ import {
       //   data: 静脉性质
       // },
       textarea: {
-        width: 32
+        width: 60
       },
       name: "出量-名称 "
     },
@@ -84,7 +85,7 @@ import {
       event: keyf1,
       name: "出量ml",
       textarea: {
-        width: 32
+        width: 40
       },
       // autoComplete: {
       //   data: 静脉量
@@ -95,7 +96,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 32
+        width: 40
       },
       // autoComplete: {
       //   data: 饮食性质
@@ -110,6 +111,9 @@ import {
       autoComplete: {
         data: 意识
       },
+      textarea: {
+        width: 60
+      },
     },
   
     {
@@ -118,7 +122,7 @@ import {
       event: keyf1,
       name: "瞳孔mm/对光反应-左1",
       textarea: {
-        width: 25
+        width: 40
       },
     },
     {
@@ -129,7 +133,7 @@ import {
         data: ['+', '±', '－']
       },
       textarea: {
-        width: 25
+        width: 20
       },
       name: "瞳孔mm/对光反应 左2",
     },
@@ -139,19 +143,19 @@ import {
       event: keyf1,
       name: "出量",
       textarea: {
-        width: 25
+        width: 40
       },
       name: "瞳孔mm/对光反应 右1",
     },
     {
-      key: "consciousness", //瞳孔mm/对光反应 右2
+      key: "expand2", //瞳孔mm/对光反应 右2
       value: "",
       event: keyf1,
       autoComplete: {
         data: ['+', '±', '－']
       },
       textarea: {
-        width: 25
+        width: 20
       },
       name: "意识",
       name: "瞳孔mm/对光反应 右2",
@@ -161,6 +165,9 @@ import {
       value: "",
       event: keyf1,
       name: "RA",
+      textarea: {
+        width: 20
+      },
       autoComplete: {
         data: ['Ⅰ', 'Ⅱ', 'Ⅲ', 'Ⅳ', 'Ⅴ']
       }
@@ -171,7 +178,7 @@ import {
       event: keyf1,
       name: "LA",
       textarea: {
-        width: 25
+        width: 20
       },
       autoComplete: {
         data: ['Ⅰ', 'Ⅱ', 'Ⅲ', 'Ⅳ', 'Ⅴ']
@@ -183,7 +190,7 @@ import {
       event: keyf1,
       name: "RL",
       textarea: {
-        width: 36
+        width: 20
       },
       autoComplete: {
         data: ['Ⅰ', 'Ⅱ', 'Ⅲ', 'Ⅳ', 'Ⅴ']
@@ -195,7 +202,7 @@ import {
       event: keyf1,
       name: "LL",
       textarea: {
-        width: 36
+        width: 20
       },
       autoComplete: {
         data: ['Ⅰ', 'Ⅱ', 'Ⅲ', 'Ⅳ', 'Ⅴ']
@@ -207,7 +214,7 @@ import {
       event: keyf1,
       name: "体温",
       textarea: {
-        width: 36
+        width: 30
       }
     },
     {
@@ -216,7 +223,7 @@ import {
       event: keyf1,
       name: "心率脉搏",
       textarea: {
-        width: 36
+        width: 35
       }
     },
     {
@@ -225,7 +232,7 @@ import {
       event: keyf1,
       name: "呼吸",
       textarea: {
-        width: 36
+        width: 35
       }
     },
     {
@@ -234,7 +241,7 @@ import {
       event: keyf1,
       name: "血压",
       textarea: {
-        width: 36
+        width: 35
       }
     },
     {
@@ -243,7 +250,7 @@ import {
       event: keyf1,
       name: "血氧",
       textarea: {
-        width: 36
+        width: 35
       }
     },
     {
@@ -253,7 +260,7 @@ import {
       name: "疼痛评分",
       next:"次/分",
       textarea: {
-        width: 36
+        width: 30
       }
     },
     {
@@ -262,7 +269,7 @@ import {
       event: keyf1,
       name: "鼻导管",
       textarea: {
-        width: 36
+        width: 40
       }
     },
     {
@@ -270,7 +277,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 36
+        width: 40
       },
       name: "面罩",
     },
@@ -279,7 +286,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 36
+        width: 40
       }
     },
     {
@@ -288,7 +295,7 @@ import {
       event: keyf1,
       name: "多重耐药",
       textarea: {
-        width: 36
+        width: 40
       }
     },
     {
@@ -296,7 +303,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 36
+        width: 40
       },
       name: '护理措施'
     },
@@ -305,7 +312,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 36
+        width: 30
       },
       name: '体位',
       autoComplete: {
@@ -317,7 +324,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 36
+        width: 30
       },
       name: '约束',
       autoComplete: {
@@ -329,7 +336,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 36
+        width: 35
       },
       name: '皮肤',
       autoComplete: {
@@ -341,7 +348,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 36
+        width: 45
       },
       name: '心理状态',
       autoComplete: {
@@ -353,7 +360,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 36
+        width: 35
       },
       name: '营养状况',
       autoComplete: {
@@ -361,7 +368,7 @@ import {
       }
     },
     {
-      key: "observation", //特殊处理及病区观察
+      key: "description", //特殊处理及病区观察
       value: "",
       style: {
         textAlign: "left",

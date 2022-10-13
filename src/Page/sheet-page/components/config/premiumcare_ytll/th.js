@@ -3,7 +3,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1700px"
+    width: "1550px"
   },
   th: {
     top: [
@@ -28,7 +28,7 @@ export default {
         name: `
         病情评估
         `,
-        colspan: "26",
+        colspan: "25",
         rowspan: "1",
         canSet: false
       },
@@ -49,7 +49,11 @@ export default {
         `,
         style: {},
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: "60px",
+          maxWidth: "60px"
+        },
       }
       // {
       //   name: `
@@ -158,7 +162,7 @@ export default {
         rowspan: "2"
       },
       {
-        name: `呼吸次/分`,
+        name: `呼吸<br />次/分`,
         style: {
           minWidth: "35px",
           whiteSpace: "nowrap"
