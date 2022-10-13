@@ -2057,6 +2057,12 @@ export default function Title(
       JSON.stringify(require("../config/inout_ytll/th").default)
     );
   }
+  case "premiumcare_ytll": {
+    // 烟台玲珑 - 病重（危）/特级护理患者评估与护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/premiumcare_ytll/th").default)
+    );
+  }
   break;
   case "test_common": {
     // 护理记录单（测试用）
