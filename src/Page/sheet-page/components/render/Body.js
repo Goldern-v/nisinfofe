@@ -1591,6 +1591,11 @@ function switchSheetType(type) {
       schema = require("../config/inout_ytll/tr.js").default;
     }
       break;
+    case "seriousnursing_ytll": {
+      // 烟台玲珑-病重（病危）患者评估与护理记录单
+      schema = require("../config/seriousnursing_ytll/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

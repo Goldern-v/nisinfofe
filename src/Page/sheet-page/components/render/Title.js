@@ -2058,6 +2058,13 @@ export default function Title(
     );
   }
   break;
+  case "seriousnursing_ytll": {
+    // 烟台玲珑-病重（病危）患者评估与护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/seriousnursing_ytll/th").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(

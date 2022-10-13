@@ -63,7 +63,7 @@ export function getRowNum(index) {
     } else {
       return 30;
     }
-  } else if (sheetInfo.sheetType === 'blood_circulation_hl') {
+  } else if (sheetInfo.sheetType === 'blood_circulation_hl' || sheetInfo.sheetType == "inout_ytll") {
     return 35
   } else if (sheetInfo.sheetType === 'intravenous_sdlj'|| sheetInfo.sheetType === 'criticaldisease_xt' || sheetInfo.sheetType === 'cardiovascular_xt' ) {
     return 20
@@ -71,7 +71,7 @@ export function getRowNum(index) {
     return 28
   } else if (sheetInfo.sheetType === 'mechanical_sdlj') {
     return 33
-  } else if ( sheetInfo.sheetType === 'magnesium_lcey') {
+  } else if ( sheetInfo.sheetType === 'magnesium_lcey' || sheetInfo.sheetType == "seriousnursing_ytll") {
     return 24
   }else if ( sheetInfo.sheetType === 'prenataldelivery2_tj' || sheetInfo.sheetType === 'postpartum2_tj' || sheetInfo.sheetType === 'pediatric3_tj') {
     return 22
