@@ -217,7 +217,7 @@ export const updateSheetHeadInfo = (obj = {}) => {
 
 // 获取his患者体征
 export const getVitalSign = (patientId, visitId, recordDate,itemType,repeatIndicator,id,hospitalId) => {
-  if(hospitalId=="wujing"){
+  if(hospitalId=="wujing"||hospitalId=="gdtj"){
     return axios.post(
       `${apiPath}record/block/nurseExecute/list/${id}`,{
         patientId,
@@ -272,7 +272,7 @@ export const nurseBloodList = (obj = {}) => {
 
 // 保存his患者体征
 export const saveVitalSign = (data,hospitalId) => {
-  if(['wujing','quzhou','liaocheng','guizhou','weixian','foshanrenyi','whfk','lyxrm','whhk', '925'].includes(hospitalId)) {
+  if(['wujing','quzhou','liaocheng','guizhou','weixian','foshanrenyi','whfk','lyxrm','whhk', '925','gdtj'].includes(hospitalId)) {
     return axios.post(
       `${apiPath}record/block/ordersExecute/save`,
       data

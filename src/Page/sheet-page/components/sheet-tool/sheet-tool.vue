@@ -1377,7 +1377,7 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      if (this.HOSPITAL_ID == "wujing") {
+      if (this.HOSPITAL_ID == "wujing"|| this.HOSPITAL_ID == "gdtj") {
         this.modalWidth = 850;
       }
       if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {

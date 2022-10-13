@@ -201,8 +201,8 @@ const currentTargetUrl = (() => {
       return 'http://218.204.204.90:9095' // 同江正式
     // 烟台玲珑
     case 'ytll':
-      return "http://221.214.210.170:39094"  // 正式
-      // return 'http://192.168.1.54:9866'
+      // return "http://221.214.210.170:39094"  // 正式
+      return 'http://192.168.1.54:9866'
     case 'zhzxy':
       return "http://192.168.1.54:9883"
     // 青海五院
@@ -215,6 +215,7 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.1.54:9895'
     // 广东同江
     case 'gdtj':
+      return 'http://218.204.204.90:9095' // 正式
       return 'http://192.168.1.54:9892'
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':

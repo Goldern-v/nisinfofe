@@ -1960,6 +1960,13 @@ export default function Title(
     );
   }
   break;
+  case "magnesiumsulphate_tj": {
+    // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/magnesiumsulphate_tj/th.js").default)
+    );
+  }
+  break;
   case "surgical_qhwy": {
     // 青海五院 - 外科护理记录单
     Th = JSON.parse(
@@ -2055,6 +2062,12 @@ export default function Title(
     // 烟台玲珑 - 出入量记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/inout_ytll/th").default)
+    );
+  }
+  case "premiumcare_ytll": {
+    // 烟台玲珑 - 病重（危）/特级护理患者评估与护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/premiumcare_ytll/th").default)
     );
   }
   break;

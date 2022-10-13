@@ -412,7 +412,7 @@ export default {
           beihairenyi:"adviceTableBeihairenyi",
           whfk:'adviceTableWHFK',
           yangchunzhongyi:"adviceTableYc",
-          'sdlj,ytll,whsl,qhwy,zhzxy,925':"adviceTableSDLJ",
+          'sdlj,ytll,whsl,qhwy,zhzxy,925,gdtj':"adviceTableSDLJ",
           default:"adviceTable",
         }
       })

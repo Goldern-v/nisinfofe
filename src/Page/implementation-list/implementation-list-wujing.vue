@@ -307,7 +307,7 @@ export default {
     handleExecuteBatch() {
       let selectedData = this.$refs.plTable.selectedData,
         data = [];
-      this.isExecutionTime = true;
+      // this.isExecutionTime = true;
       if (selectedData.length <= 0) return;
 
       selectedData.map((item) => {
