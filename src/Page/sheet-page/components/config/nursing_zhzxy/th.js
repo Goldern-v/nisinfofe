@@ -19,10 +19,10 @@ export default {
     th: {
         top: 
             [
-                {"name":"日期","colspan":"1","rowspan":"2","style":{"minWidth":"45px","maxWidth":"45px"}},
-                {"name":"时间","colspan":"1","rowspan":"2","style":{"minWidth":"45px","maxWidth":"45px"}},
+                {"name":"日期","colspan":"1","rowspan":"2","style":{"minWidth":"40px","maxWidth":"40px"}},
+                {"name":"时间","colspan":"1","rowspan":"2","style":{"minWidth":"40px","maxWidth":"40px"}},
                 {"name":"T<br>℃","colspan":"1","rowspan":"2"},
-                {"name":"P/HR<br>次/分","colspan":"1","rowspan":"2"},
+                {"name":"P/HR<br>次/分","colspan":"1","rowspan":"2","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"R<br>次/分","colspan":"1","rowspan":"2"},
                 {"name":"BP<br>mmHg","colspan":"1","rowspan":"2","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"SpO2<br>％","colspan":"1","rowspan":"2"},
