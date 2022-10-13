@@ -308,7 +308,7 @@ export default {
       makePatient:'',// 贵州护理巡视表的点击患者
       lockHospitalList:['huadu'],//有锁定功能的医院
       // 进入页面是否自动选择第一个患者
-      isAutoSelect: this.HOSPITAL_ID === 'lyxrm'
+      isAutoSelect: ['lyxrm', 'foshanrenyi'].includes(this.HOSPITAL_ID)
     };
   },
   methods: {
