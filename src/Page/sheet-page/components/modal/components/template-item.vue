@@ -1,6 +1,18 @@
 <template>
   <div>
-    <div class="item-con" @click="addTemplateAtDoc">
+    <div class="item-con" @dblclick="addTemplateAtDoc" v-if="HOSPITAL_ID === 'foshanrenyi'">
+      <div class="title" v-if="data.title">{{data.title}}</div>
+      <div class="desc" v-html="data.content"></div>
+      <div class="tool-box" flex="cross:center">
+        <el-tooltip content="编辑" placement="bottom" effect="dark">
+          <i class="iconfont icon-hulijiludan" @click.stop="toEdit"></i>
+        </el-tooltip>
+        <el-tooltip content="删除" placement="bottom" effect="dark">
+          <i class="iconfont icon-shanchuzhenghang" @click.stop="toDel"></i>
+        </el-tooltip>
+      </div>
+    </div>
+    <div v-else class="item-con" @click="addTemplateAtDoc">
       <div class="title" v-if="data.title">{{data.title}}</div>
       <div class="desc" v-html="data.content"></div>
       <div class="tool-box" flex="cross:center">
