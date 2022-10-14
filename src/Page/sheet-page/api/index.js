@@ -217,7 +217,7 @@ export const updateSheetHeadInfo = (obj = {}) => {
 
 // 获取his患者体征
 export const getVitalSign = (patientId, visitId, recordDate,itemType,repeatIndicator,id,hospitalId) => {
-  if(hospitalId=="wujing"||hospitalId=="gdtj"){
+  if(hospitalId=="wujing"){
     return axios.post(
       `${apiPath}record/block/nurseExecute/list/${id}`,{
         patientId,
