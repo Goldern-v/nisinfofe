@@ -381,6 +381,16 @@
                 <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
                 >
+                <router-link to="/nursingRounds" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+              <i class="nursingDocumentation"></i> 护理巡视
+
+              </el-row>
+            </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
+                >
                   <router-link to="/wardReport" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="wardReport"></i>病房日报
