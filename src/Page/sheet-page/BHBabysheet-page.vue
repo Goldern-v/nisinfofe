@@ -260,7 +260,7 @@ import moveContext from "../temperature-chart/commonCompen/removableBox.vue";
 // import sheetTable_mild_hypothermia_hd from "./components/sheetTable-mild_hypothermia_hd/sheetTable";
 // import sheetTable_neonatology_picc from "./components/sheetTable-neonatology_picc/sheetTable";
 // import sheetTable_newborn_qzx from "./components/sheetTable-newborn_qzx/sheetTable";
-// // import sheetTable_internal_eval_lcey from "./components/sheetTable-internal_eval_lcey/sheetTable";
+// import sheetTable_internal_eval_lcey from "./components/sheetTable-internal_eval_lcey/sheetTable";
 // import sheetTable_surgical_eval2_lcey from "./components/sheetTable-surgical_eval2_lcey/sheetTable";
 // import sheetTable_intervention_cure_lcey from "./components/sheetTable-intervention_cure_lcey/sheetTable";
 // import sheetTable_picu_hemodialysis_jm from "./components/sheetTable-picu_hemodialysis_jm/sheetTable";

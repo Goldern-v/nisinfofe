@@ -1,6 +1,6 @@
 
 /**
-  临沂沂州 - 新生儿护理记录单
+  烟台玲珑 - 出入量记录单
 */
 
 /**
@@ -31,52 +31,40 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let bcList = ['A', 'P', 'N']
-let dbsList = ['0/黑', '1/黑', '2/黑', '3/黑', '0/绿', '1/绿', '2/绿', '3/绿', '0/黄', '1/黄', '2/黄', '3/黄']
-let xbList = ['0', '1', '2', '3', '4']
-
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: '' },
   { key: "recordHour", event: event_time, click: click_time, value: '' },
-  { key: 'classTime', event: keyf1, value: '', next: '', name: '班次', textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: bcList } },
-  { key: 'faceRed', event: keyf1, value: '', next: '', name: '红润', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'faceWhite', event: keyf1, value: '', next: '', name: '苍白', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'faceYellow', event: keyf1, value: '', next: '', name: '黄染', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'reactionNormal', event: keyf1, value: '', next: '', name: '正常', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'reactionLate', event: keyf1, value: '', next: '', name: '迟钝', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'crylound', event: keyf1, value: '', next: '', name: '响亮', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'cryLow', event: keyf1, value: '', next: '', name: '低弱', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'suckStrong', event: keyf1, value: '', next: '', name: '强', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'suckWeak', event: keyf1, value: '', next: '', name: '弱', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'feedBreast', event: keyf1, value: '', next: '', name: '母乳', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'feedMilk', event: keyf1, value: '', next: '', name: '代乳品', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'umbilicalDry', event: keyf1, value: '', next: '', name: '干燥', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'umbilicalOoze', event: keyf1, value: '', next: '', name: '渗出', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'defecate', event: keyf1, value: '', next: '', name: '大便', textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: dbsList } },
-  { key: 'urine', event: keyf1, value: '', next: '', name: '小便', textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: xbList } },
-  {
-    key: "description", //病情观察及护理措施
-    value: "",
-    style: {
-      textAlign: "left",
-      position: "absolute",
-      top: "1px",
-      bottom: "1px",
-      left: "1px",
-      width: "300px",
-      background: "transparent"
-    },
-    event: function (e, td) {
-      console.log(e.keyCode);
-      if (e.keyCode == 9) {
-        td.value = "    " + td.value;
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    }
-  },
-  { key: "sign", value: "" },
+  { key: 'incomingItems', event: keyf1, value: '', next: '', name: '项目', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'actualInput', event: keyf1, value: '', next: '', name: '实入量', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'urine', event: keyf1, value: '', next: '', name: '尿', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'stool', event: keyf1, value: '', next: '', name: '大便(g)', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'vomiting', event: keyf1, value: '', next: '', name: '呕吐', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'drainage', event: keyf1, value: '', next: '', name: '引流', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'otherOutput', event: keyf1, value: '', next: '', name: '其他', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'totalOutput', event: keyf1, value: '', next: '', name: '总出量', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
+  // {
+  //   key: "description", //病情观察及护理措施
+  //   value: "",
+  //   style: {
+  //     textAlign: "left",
+  //     position: "absolute",
+  //     top: "1px",
+  //     bottom: "1px",
+  //     left: "1px",
+  //     width: "300px",
+  //     background: "transparent"
+  //   },
+  //   event: function (e, td) {
+  //     console.log(e.keyCode);
+  //     if (e.keyCode == 9) {
+  //       td.value = "    " + td.value;
+  //       e.preventDefault();
+  //     }
+  //     keyf1(e, td);
+  //   }
+  // },
+  // { key: "sign", value: "" },
   // { key: "sign2", value: "" },
   // { key: "audit", value: "" },
   { hidden:true, key:'id', value:''},
@@ -88,7 +76,7 @@ export default [
   { hidden:true, key:'dataHash', value:''},
   { hidden:true, key:'recordDate', value:''},
   { hidden:true, key:'monthHour', value:''},
-  { hidden:false, key:'signerNo', value:''},
+  { hidden:true, key:'signerNo', value:''},
   { hidden:true, key:'signerNo2', value:''},
   { hidden:true, key:'auditorNo', value:''},
   { hidden:true, key:'auditorName', value:''},

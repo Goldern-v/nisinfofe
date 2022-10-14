@@ -193,7 +193,7 @@
               ></textarea>
 			  <p class="bottom-line remark allergy-textarea print-page__ptext" flex-box="1" style="whiteSpace: pre-wrap;">{{allergy_gdtj}}</p>
             </div> -->
-			<div class="allergy" v-else>
+			<div class="allergy" v-else-if="!['zhzxy'].includes(HOSPITAL_ID)">
 				<p :class="[allergy1||drugGms||allergy2?'gm':'']">
 					过敏信息：
 					<span v-if="allergy1">{{ allergy1 }};</span>
