@@ -28,9 +28,10 @@
           </div>
         </div>
         <div class="flex">
-          <div v-if="this.HOSPITAL_ID === 'zhzxy'">{{ `住院号:${currentBottle.inpNo || ""}` }}</div>
+          <div v-if="this.HOSPITAL_ID === 'zhzxy'">{{ `住院号:${currentBottle.patientId || ""}` }}</div>
           <div v-else>{{ `ID号:${currentBottle.patientId || ""}` }}</div>
-          <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
+          <div v-if="this.HOSPITAL_ID === 'zhzxy'">{{ `性别:${currentBottle.sex || ""}` }}</div>
+          <div v-else>{{ `性别:${currentBottle.sex || ""}` }}</div>
         </div>
         <div class="flex">
           <div>{{ `科室:${currentBottle.deptName}` }}</div>
