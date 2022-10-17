@@ -76,7 +76,8 @@
             'wujing',
             'nanfangzhongxiyi',
             'foshanrenyi',
-            '925'
+            '925',
+            'nfyksdyy'
           ].includes(HOSPITAL_ID)
         "
       >
@@ -1118,6 +1119,7 @@ export default {
             case "quzhou":
             case "guizhou":
             case '925':
+            case 'nfyksdyy':
             case "wujing":
               if (this.getHours() >= 0 && this.getHours() <= 4) {
                 return "02";

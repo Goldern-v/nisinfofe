@@ -1516,6 +1516,16 @@ function switchSheetType(type) {
         schema = require("../config/generalnursing_tj/tr.js").default;
       }
       break;
+    case "baby_tj": {
+      // 广东同江 - 新生儿护理记录单
+      schema = require("../config/baby_tj/tr.js").default;
+    }
+      break;
+    case "magnesiumsulphate_tj": {
+      // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
+        schema = require("../config/magnesiumsulphate_tj/tr.js").default;
+      }
+      break;
     case "surgical_qhwy": {
         // 青海五院 - 外科护理记录单
         schema = require("../config/surgical_qhwy/tr.js").default;
@@ -1545,17 +1555,17 @@ function switchSheetType(type) {
         // 青海五院 - 骨科护理记录单
       schema = require("../config/orthopedics_qhwy/tr.js").default;
     }
-      break;  
+      break;
     case "chemotherapy_qhwy": {
         // 青海五院 - 化疗观察记录单
       schema = require("../config/chemotherapy_qhwy/tr.js").default;
     }
-      break; 
+      break;
     case "neurosurgery_qhwy": {
         // 青海五院 - 神经外科护理记录单
       schema = require("../config/neurosurgery_qhwy/tr.js").default;
     }
-      break; 
+      break;
     case "nurse_jew": {
         // 925医院 - 一般患者护理记录单
       schema = require("../config/nurse_jew/tr.js").default;
@@ -1579,6 +1589,21 @@ function switchSheetType(type) {
     case "baby_yz": {
       // 临沂沂州 - 新生儿护理记录单
       schema = require("../config/baby_yz/tr.js").default;
+    }
+      break;
+    case "inout_ytll": {
+      // 烟台玲珑 - 出入量记录单
+      schema = require("../config/inout_ytll/tr.js").default;
+    }
+      break;
+    case "seriousnursing_ytll": {
+      // 烟台玲珑-病重（病危）患者评估与护理记录单
+      schema = require("../config/seriousnursing_ytll/tr.js").default;
+    }
+      break;
+    case "premiumcare_ytll": {
+      // 烟台玲珑 - 病重（危）/特级护理患者评估与护理记录单
+      schema = require("../config/premiumcare_ytll/tr.js").default;
     }
       break;
     default: {

@@ -365,7 +365,7 @@
           </el-option>
         </div>
       </el-select>
-      <div style="position:relative">
+      <div class="select-box" style="position:relative">
         <el-select
           v-if="!isDeputy  && HOSPITAL_ID != 'whfk'"
           v-model="sheetInfo.selectBlock"
@@ -406,16 +406,9 @@
             </el-option>
           </div>
         </el-select>
-        <div style="
-        position: absolute;
-        z-index: 10;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        curson:
-        left: 0;" 
+        <div class="float-text"
         v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
-        @click="scrollOption"></div>
+        @click="scrollOption" v-html="selectText"></div>
       </div>
       <!-- <span class="label">页码范围:</span> -->
       <div
@@ -544,6 +537,7 @@
           HOSPITAL_ID == 'liaocheng'||
           HOSPITAL_ID == 'whfk' ||
           HOSPITAL_ID == 'whhk' ||
+          HOSPITAL_ID == 'gdtj' ||
           HOSPITAL_ID == 'lyxrm'
         "
       >
@@ -745,16 +739,16 @@ export default {
         let startPage = Number(this.pageNum);
         let endPage = Number(this.pageNum);
         let tempPage = startPage;
-        let currentPageArr = this.selectList.forEach((item) => {
-          if (item.value) {
-            let fromPage = item.value.split("-")[0];
-            let toPage = item.value.split("-")[1];
-            if (fromPage <= startPage) {
-              tempPage = fromPage;
-              endPage = toPage;
-            }
-          }
-        });
+        // let currentPageArr = this.selectList.forEach((item) => {
+        //   if (item.value) {
+        //     let fromPage = item.value.split("-")[0];
+        //     let toPage = item.value.split("-")[1];
+        //     if (fromPage <= startPage) {
+        //       tempPage = fromPage;
+        //       endPage = toPage;
+        //     }
+        //   }
+        // });
         let count = startPage - tempPage;
         let scrollTop = 0;
         if (count != 0) {
@@ -894,7 +888,7 @@ export default {
         }
 
         } else {
-        
+
           this.bus.$emit("toSheetPrintPage");
         }
       }
@@ -1154,7 +1148,7 @@ export default {
       }
     },
     async getBlockList() {
-      if (this.$route.path.includes("nursingPreview")) {
+      if (this.$route.path.includes("nursingPreview") || this.$route.path.includes("nursingTemperature")) {
         let { data } = await getPatientInfo(
           this.$route.query.patientId,
           this.$route.query.visitId
@@ -1295,42 +1289,41 @@ export default {
       });
     },
     blockLabel(item, length) {
-      // return `${item.recordName} ${dayjs(item.createTime).format("MM-DD")}`;
-      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
-        if(!this.babelFirst) return 
-        const parent = document.querySelector('.otherType').childNodes[1];
-        console.log(parent,"parent")
-        const isDiv = parent.childNodes[1].nodeName;
-        console.log(isDiv,"isDiv")
-        let dom,dom1,dom2
-        if (isDiv !== 'div') {
-          dom = document.createElement('div');
-          dom.className = 'adddiv';
-          dom1 = document.createElement('span');
-          dom1.className = 'addspan1';
-          dom2 = document.createElement('span');
-          dom2.className = 'addspan2';
-          dom.appendChild(dom1)
-          dom.appendChild(dom2)
-          parent.insertBefore(dom, parent.childNodes[1]);
-        }
-        else {
-          dom = parent.childNodes[1];
-        }
-        dom1.setAttribute('data-content1', `${item.deptName} ${dayjs(item.createTime).format(
-          "MM-DD")}建 `);
-        dom2.setAttribute('data-content2', `共${length}张`);
-        // return `${item.deptName} ${dayjs(item.createTime).format(
-        //   "MM-DD"
-        // )}建 
-        // `;
-        this.babelFirst = false
-      }else{
-        return `${item.deptName} ${dayjs(item.createTime).format(
-          "MM-DD"
-        )}建 共${length}张
-        `;
-      }
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)) return ''
+      //   if(!this.babelFirst) return
+      //   const parent = document.querySelector('.otherType').childNodes[1];
+      //   console.log(parent,"parent")
+      //   const isDiv = parent.childNodes[1].nodeName;
+      //   console.log(isDiv,"isDiv")
+      //   let dom,dom1,dom2
+      //   if (isDiv !== 'div') {
+      //     dom = document.createElement('div');
+      //     dom.className = 'adddiv';
+      //     dom1 = document.createElement('span');
+      //     dom1.className = 'addspan1';
+      //     dom2 = document.createElement('span');
+      //     dom2.className = 'addspan2';
+      //     dom.appendChild(dom1)
+      //     dom.appendChild(dom2)
+      //     parent.insertBefore(dom, parent.childNodes[1]);
+      //   }
+      //   else {
+      //     dom = parent.childNodes[1];
+      //   }
+      //   dom1.setAttribute('data-content1', `${item.deptName} ${dayjs(item.createTime).format(
+      //     "MM-DD")}建 `);
+      //   dom2.setAttribute('data-content2', `共${length}张`);
+      //   // return `${item.deptName} ${dayjs(item.createTime).format(
+      //   //   "MM-DD"
+      //   // )}建
+      //   // `;
+      //   this.babelFirst = false
+      // }else{
+      return `${item.deptName} ${dayjs(item.createTime).format(
+        "MM-DD"
+      )}建 共${length}张
+      `;
+      // }
     },
     changeSelectBlock(item) {
       if (item) {
@@ -1346,14 +1339,14 @@ export default {
       if (sheetInfo.selectBlock.id) {
 
         if( this.HOSPITAL_ID === 'whfk'){
-          const params = {
-            patientId:sheetInfo.selectBlock.patientId,
-            visitId:sheetInfo.selectBlock.visitId,
-            formId:sheetInfo.selectBlock.id,
-            formType:'record',
-            formCode:sheetInfo.selectBlock.recordCode,
-            formName:sheetInfo.selectBlock.recordName,
-          }
+          // const params = {
+          //   patientId:sheetInfo.selectBlock.patientId,
+          //   visitId:sheetInfo.selectBlock.visitId,
+          //   formId:sheetInfo.selectBlock.id,
+          //   formType:'record',
+          //   formCode:sheetInfo.selectBlock.recordCode,
+          //   formName:sheetInfo.selectBlock.recordName,
+          // }
           window.open(
             `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}&patientId=${sheetInfo.selectBlock.patientId}&visitId=${sheetInfo.selectBlock.visitId}&formId=${sheetInfo.selectBlock.id}&formType=${'record'}&formCode=${sheetInfo.selectBlock.recordCode}&formName=${sheetInfo.selectBlock.recordName}`
           )
@@ -1376,7 +1369,7 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      if (this.HOSPITAL_ID == "wujing") {
+      if (this.HOSPITAL_ID == "wujing"|| this.HOSPITAL_ID == "gdtj") {
         this.modalWidth = 850;
       }
       if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
@@ -1487,7 +1480,7 @@ export default {
     },
     /* 贵州人医“出入量统计”移入出入量记录单 */
     isSingleTem_GZRY() {
-      return ['guizhou', '925'].includes(this.HOSPITAL_ID);
+      return ['guizhou'].includes(this.HOSPITAL_ID);
     },
     /* 是否是副页 */
     isDeputy() {
@@ -1508,7 +1501,15 @@ export default {
     showRltbN() {
       return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
     },
-
+    // 选择表单下拉框的输入框所显示的文字
+    selectText() {
+      if (this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.deptName) {
+        const item = this.sheetInfo.selectBlock
+        return `<span>${item.deptName} ${dayjs(item.createTime).format(
+          "MM-DD")}建 </span><span style="color:red">共${this.sheetBlockList.length}张</span>`
+      }
+      return ''
+    }
   },
   created() {
     this.bus.$on("initSheetPageSize", () => {
@@ -1622,7 +1623,7 @@ export default {
       handler(val) {
         console.log(val,"sheetInfo.selectBlock")
       },
-      
+
     },
     //更换选择患者，更新vuex的患者信息，重新在eventbug队列调用事件
     patientInfo(val) {
@@ -1730,27 +1731,38 @@ export default {
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.otherType {
-  /deep/ .adddiv {
+.select-box {
+  // /deep/ .adddiv {
+  //   position: absolute;
+  //   top: 7px;
+  //   left:10px;
+  //   .font{
+  //     font-weight:700;
+  //   }
+  //   .addspan1{
+  //     font-size: 14px;
+  //     &::before {
+  //       content: attr(data-content1);
+  //     }
+  //   }
+  //   .addspan2{
+  //     font-size: 15px;
+  //     &::before {
+  //       content: attr(data-content2);
+  //       color:red;
+  //     }
+  //   }
+  // }
+  .float-text {
     position: absolute;
-    top: 7px;
-    left:10px;
-    .font{
-      font-weight:700;
-    }
-    .addspan1{
-      font-size: 14px;
-      &::before {
-        content: attr(data-content1);
-      }
-    }
-    .addspan2{
-      font-size: 15px;
-      &::before {
-        content: attr(data-content2);
-        color:red;
-      }
-    }
+    z-index: 10;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding-left: 2px;
+    font-size: 14px;
   }
 }
 .sheetSelect-con-sheet {
@@ -1770,7 +1782,6 @@ export default {
     max-height: 500px;
   }
 
-
  .head-con {
    height: 37px;
    background: #F7FAFA;
@@ -1779,8 +1790,6 @@ export default {
    color: #333333;
    font-weight: bold;
  }
-
-
 
   .col-1, .col-2, .col-3, .col-4 {
     display: flex;
@@ -1830,8 +1839,6 @@ export default {
       width: 4px;
       background: #4bb08d;
     }
-
-
   }
 
   .el-select-dropdown__item.hover {

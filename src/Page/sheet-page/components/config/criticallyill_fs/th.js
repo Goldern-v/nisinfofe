@@ -19,7 +19,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1310px"
+      width: "1370px"
     },
     th: {
         top:
@@ -28,8 +28,8 @@ export default {
             { "name": "生命体征", "colspan": "7", "rowspan": "1"},
             { "name": "瞳孔", "colspan": "4", "rowspan": "1"},
             { "name": "入量", "colspan": "2", "rowspan": "1"},
-            { "name": "出量", "colspan": "2", "rowspan": "1"},
-            { "name": "翻身<br/>拍背", "colspan": "1", "rowspan": "3"},
+            { "name": "出量", "colspan": "3", "rowspan": "1"},
+            { "name": "翻身<br/>/拍背", "colspan": "1", "rowspan": "3"},
             { "name": "氧流<br/>量L<br/>/分<br/>", "colspan": "1", "rowspan": "3"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue1"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue2"},
@@ -58,7 +58,9 @@ export default {
                 {"name": "内容", "colspan": "1", "rowspan": "2"},
                 {"name": "量ml", "colspan": "1", "rowspan": "2"},
                 {"name": "内容", "colspan": "1", "rowspan": "2"},
-                {"name": "量ml", "colspan": "1", "rowspan": "2"}
+                {"name": "量ml", "colspan": "1", "rowspan": "2"},
+                {"name": "颜色/性状", "colspan": "1", "rowspan": "2"}
+
             ]
         ,
         bottom:

@@ -1862,7 +1862,8 @@ export default {
               this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
               this.sheetInfo.sheetType === "common_gzry" ||
               this.sheetInfo.sheetType === "hydrochloricacid_fs" ||
-              this.sheetInfo.sheetType === "baby_yz"
+              this.sheetInfo.sheetType === "baby_yz" ||
+              this.sheetInfo.sheetType === "seriousnursing_ytll"
             ) {
               // 特殊情况长度截取，前端控制部分(长度计算：输入的字数*2-2)
               if (GetLength(text) > 46) {
@@ -2020,7 +2021,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "ultrasound_fs") {
+            } else if (this.sheetInfo.sheetType === "ultrasound_fs" || this.sheetInfo.sheetType === "baby_tj") {
               if (GetLength(text) > 30) {
                 result.push(text);
                 text = allDoc[i];

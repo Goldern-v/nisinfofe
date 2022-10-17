@@ -14,7 +14,7 @@
         style="position: absolute; width: 100%; height: 100%"
       ></vue-particles>
       <div style="height: 25%"></div>
-      <div class="login-warpper">
+      <div class="login-wrapper">
         <div class="login-img">
           <img src="../../common/images/login-img.png" alt />
           <span class="his-name">{{ HOSPITAL_NAME_SPACE }}</span>
@@ -179,7 +179,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   background-size: 100% 1px;
 }
 
-.login-warpper {
+.login-wrapper {
   width: 838px;
   margin: 0 auto 0;
   position: relative;
@@ -401,6 +401,7 @@ import Cookies from "js-cookie";
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
 import { mapMutations } from "vuex";
+import { passwordRule } from '@/api';
 const CryptoJS = require("crypto-js");
 const SecretKey = "chenrui2020";
 
@@ -426,6 +427,7 @@ export default {
       verificationImg: "", //验证码图片base64
       md5HisList: ["foshanrenyi","hengli",'sdlj', 'zhzxy'], //需要md5加密医院
       ip:'',
+      reg: {},
     };
   },
   methods: {
@@ -526,6 +528,7 @@ export default {
             }
             this.ajax = false;
             // let regexp = new RegExp("^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$")
+            // 校验
             let regexp = new RegExp("^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$")
             let regOnlyLetterNum = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,}$/  //大于8位必须包含大写、小写和数字-北海人医
             if (['sdlj','hengli'].includes(this.HOSPITAL_ID) && !regexp.test(this.password)) {
@@ -544,6 +547,18 @@ export default {
               });
               this.$router.push('/resetpassword')
               return
+            } else if (this.reg.flag) {
+              const regExp = new RegExp(this.reg.rule)
+              if (!regExp.test(this.password)) {
+                this.$message({
+                  showClose: true,
+                  message: this.reg.ruleMsg,
+                  // 提示样式 修改全局搜索
+                  customClass: 'check-pwd-box',
+                  type: 'error',
+                })
+                return this.$router.push('/resetpassword')
+              }
             }
             this.loginSucceed(res,type)
           })
@@ -632,6 +647,20 @@ export default {
     uncompileStr(code) {
       return CryptoJS.AES.decrypt(code, SecretKey).toString(CryptoJS.enc.Utf8);
     },
+    // 获取校验规则
+    getPasswordRule() {
+      passwordRule().then((res) => {
+        if (res.data.code == 200) {
+          this.reg = res.data.data;
+        }
+      });
+    },
+    // 设置正则规则
+    setHospitalReg() {
+      if (this.HOSPITAL_ID === 'guizhou') {
+        this.getPasswordRule()
+      }
+    }
   },
   created() {
     if(this.HOSPITAL_ID == "foshanrenyi"){
@@ -685,6 +714,7 @@ export default {
     }
   },
   mounted() {
+    this.setHospitalReg()
     /**清除锁屏的本地存储相关 */
     if (localStorage.screenLock) localStorage.removeItem("screenLock");
     let elList = document.querySelectorAll(".input-con input");

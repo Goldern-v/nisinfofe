@@ -110,7 +110,11 @@
           {{ patientInfo.patientName }}
         </div>
       </span>
-      <span>
+      <span
+        v-if="[
+          'magnesiumsulphate_tj',
+        ].indexOf(sheetInfo.sheetType) === -1"
+      >
         性别：
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.sex }}
@@ -122,7 +126,27 @@
           {{ patientInfo.age }}
         </div>
       </span>
-
+        <!--孕/产： + 孕周：-->
+        <span
+        v-if="[
+          'magnesiumsulphate_tj',
+        ].indexOf(sheetInfo.sheetType) !== -1"
+      >
+        孕/产：
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['pregnantOrBirth']"
+          v-model="sheetInfo.relObj['pregnantOrBirth']"
+        />
+        孕周：
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['pregnantWeeks']"
+          v-model="sheetInfo.relObj['pregnantWeeks']"
+        />
+      </span>
       <span>
         科室：
         <div class="bottom-line" style="min-width: 100px">
@@ -227,7 +251,8 @@ export default {
       diagnosisList: [
         'postpartum2_tj',
         'prenataldelivery2_tj',
-        'pediatric3_tj'
+        'pediatric3_tj',
+        'baby_tj'
       ],
     };
   },

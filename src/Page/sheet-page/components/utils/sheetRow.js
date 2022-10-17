@@ -31,13 +31,13 @@ export function getRowNum(index) {
     return 22;
   } else if (sheetInfo.sheetType == "intervention_cure"||sheetInfo.sheetType == "icu_cpr_xg") {
     return 15;
-  } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc" || sheetInfo.sheetType == "ops_linyi") {
+  } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc" || sheetInfo.sheetType == "ops_linyi" || sheetInfo.sheetType == "premiumcare_ytll") {
     return 26;
   } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj" || sheetInfo.sheetType == "iabp_fs") {
     return 33;
   } else if (sheetInfo.sheetType == "icu_lc") {
     return 22;
-  } else if (sheetInfo.sheetType == "special") {
+  } else if (sheetInfo.sheetType == "special" || sheetInfo.sheetType == "baby_tj") {
     return 23;
   } else if (sheetInfo.sheetType == "neonatology_picc") {
     return 9;
@@ -63,7 +63,7 @@ export function getRowNum(index) {
     } else {
       return 30;
     }
-  } else if (sheetInfo.sheetType === 'blood_circulation_hl') {
+  } else if (sheetInfo.sheetType === 'blood_circulation_hl' || sheetInfo.sheetType == "inout_ytll") {
     return 35
   } else if (sheetInfo.sheetType === 'intravenous_sdlj'|| sheetInfo.sheetType === 'criticaldisease_xt' || sheetInfo.sheetType === 'cardiovascular_xt' ) {
     return 20
@@ -71,7 +71,7 @@ export function getRowNum(index) {
     return 28
   } else if (sheetInfo.sheetType === 'mechanical_sdlj') {
     return 33
-  } else if ( sheetInfo.sheetType === 'magnesium_lcey') {
+  } else if ( sheetInfo.sheetType === 'magnesium_lcey' || sheetInfo.sheetType == "seriousnursing_ytll") {
     return 24
   }else if ( sheetInfo.sheetType === 'prenataldelivery2_tj' || sheetInfo.sheetType === 'postpartum2_tj' || sheetInfo.sheetType === 'pediatric3_tj') {
     return 22

@@ -9,7 +9,7 @@
     3、splice: '' 为下拉框多选功能，搭配autoComplete使用, (''内容可自定义,splice: '/'为用“/”分隔)。
     4、name、next 为双击弹窗的内容，name为标题，next是单位。
     5、自定义项目，在th里要写 canSet: true , key: '' , key值为th对应tr的key值。
-    6、{ key: "sign", value: "" } { hidden: false, key: 'signerNo', value: ''} 单签
+    6、{ key: "sign", value: "" } { hidden: false, key: 'signerNo', value: ''} 单签 
         { key: "sign2", value: "" } { hidden: false, key: 'signerNo2', value: ''} 双签
         { key: "audit", value: "" } { hidden: false, key: 'auditorNo', value: ''} 审核签名
         当开启多个签名功能时，记得将hidden变为false，如果是true, 就会被隐藏,根据需要使用。
@@ -333,7 +333,7 @@ export default [
       width: "210px",
       background: "transparent"
     },
-    textarea: { width: 150 },
+    textarea: { width: 210 },
     event: function(e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

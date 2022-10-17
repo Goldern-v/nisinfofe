@@ -3,7 +3,7 @@ import Router from "vue-router";
 import main from "@/Part/main";
 
 // import lesion from "@/Page/lesion/lesion";
-// import consultation from "@/Page/patientInfo/supPage/consultation/consultation";
+import consultation from "@/Page/patientInfo/supPage/consultation/consultation";
 // import diganosisDetails from "@/Page/patientInfo/supPage/diagnosis/diganosis-details/diganosisDetails";
 // import task from "@/Page/lesion/supPage/task/task";
 // import shift from "@/Page/lesion/supPage/shift/shift";
@@ -136,7 +136,7 @@ const nursingRules = () => import("@/Page/nursing-rules/nursing-rules"); //护�
 const noCheckTest = () => import("@/Page/no-check-test/no-check-test"); //未做检查/检验菜单
 const toPdfPrint = () => import("@/Page/sheet-page/pdfPrintPage/toPdfPrint"); //护记pdf打印
 const scheduling = () => import("@/Page/scheduling/scheduling"); //血透患者排班
-const healthEdu = () => import("@/Page/healthEdu/healthEdu.vue"); //健康宣教 
+const healthEdu = () => import("@/Page/healthEdu/healthEdu.vue"); //健康宣教
 const handlingPage = () => import("@/Page/handling-page/handling-page"); //住院病人处理单
 const oxygenPage = () => import("@/Page/oxygen-page/oxygen-page"); //血氧单
 const departmentSharedFile = () =>
@@ -174,6 +174,8 @@ const implementationListLingcheng = () =>
   import("@/Page/implementation-list/implementation-list-lingcheng.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
   import("@/Page/implementation-list/implementation-list-liaocheng.vue"); //聊城执行单
+const implementationListQHWY = () =>
+  import("@/Page/implementation-list/implementation-list-qhwy.vue"); //青海五院执行单
 const implementationListShannan = () =>
   import("@/Page/implementation-list/implementation-list-shannan.vue"); //山南执行单
 const implementationListZhongshanqi = () =>
@@ -272,7 +274,8 @@ const newSingleTemperatureChartSDLJ = () =>
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
-const nursingPreviewlyxrm = () => import("@/Page/NursingPreviewlyxrm/NursingPreviewlyxrm.vue"); //查看所有的评估单、记录单、体温单
+const nursingPreviewlyxrm = () => import("@/Page/NursingPreviewlyxrm/NursingPreviewlyxrm.vue"); //江门妇幼体温单
+const nursingTemperaturejmfy = () => import("@/Page/NursingTemperatureJMFY/NursingTemperature.vue"); //查看所有的评估单、记录单、体温单
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue"); //做跳转登录去 /nursingPreview /nursingDoc
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
@@ -392,8 +395,9 @@ const getImplementation = () => {
       return implementationListLingcheng
     case 'liaocheng':
     case 'lyyz':
-    case 'qhwy':
       return implementationListLiaocheng
+    case 'qhwy':
+      return implementationListQHWY
     case 'shannan':
       return implementationListShannan
     case 'zhongshanqi':
@@ -403,6 +407,7 @@ const getImplementation = () => {
     case 'whhk':
     case '925':
     case 'zhzxy':
+    case 'beihairenyi':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -468,6 +473,7 @@ const router = new Router({
         case 'hengli':
         case 'fuyou':
         case 'beihairenyi':
+        case 'guizhou':
           // 新版修改密码
           return newResetPassword
         default:
@@ -577,6 +583,10 @@ const router = new Router({
   {
     path: "/nursingPreviewlyxrm",
     component: nursingPreviewlyxrm
+  },
+  {
+    path: "/nursingTemperature",
+    component: nursingTemperaturejmfy
   },
   {
     path:"/admissionHisView/:patientId?/:visitId?/:formId?",
@@ -1024,12 +1034,12 @@ const router = new Router({
         //   path: "/diganosisDetails/:id",
         //   component: diganosisDetails
         // },
-        // {
-        //   path: "/consultation",
-        //   component: consultation,
-        //   name: "会诊",
-        //   alias: "会诊"
-        // },
+        {
+          path: "/consultation",
+          component: consultation,
+          name: "会诊",
+          alias: "会诊"
+        },
         {
           path: "/temperature",
           //床位一览卡进入体温单
@@ -1427,13 +1437,14 @@ const router = new Router({
             case 'guizhou':
             case 'zhzxy':
             case '925':
+            case 'gdtj':
               return nursingMakeListGuizhou
             default:
               return nursingRounds
           }
         })(),
         name: "护理巡视",
-        children:['guizhou', 'zhzxy', '925'].includes(HOSPITAL_ID)?[
+        children:['guizhou', 'zhzxy', '925','gdtj'].includes(HOSPITAL_ID)?[
           {
             path: "/nursingMakeItem",
             name: "nursingMakeItem",
@@ -1503,6 +1514,7 @@ const router = new Router({
             case "fuyou":
               return newSingleTemperatureChartJmfy;
             case "foshanrenyi":
+            case 'nfyksdyy':
               return newSingleTemperatureChartFSSY;
             case "nanfangzhongxiyi":
               return newSingleTemperatureChartZhongXiYi;

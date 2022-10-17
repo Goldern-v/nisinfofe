@@ -54,7 +54,7 @@ export default {
                     "colspan": '1',
                     "rowspan": '3',
                     "canSet": true,
-                    "key": 'fieldOne',
+                    "key": 'fieldTwo',
                     "style": {
                       "minWidth": '37px',
                       "maxWidth": '37px',
@@ -65,7 +65,7 @@ export default {
                     "colspan": '1',
                     "rowspan": '3',
                     "canSet": true,
-                    "key": 'fieldOne',
+                    "key": 'fieldThree',
                     "style": {
                       "minWidth": '37px',
                       "maxWidth": '37px',
