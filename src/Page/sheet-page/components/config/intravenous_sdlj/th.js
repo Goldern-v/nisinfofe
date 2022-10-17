@@ -24,15 +24,15 @@ export default {
                 {"name":"硫酸镁<br/>/g","colspan":"1","rowspan":"3"},
                 {"name":"安宝<br/>/mg","colspan":"1","rowspan":"3"},
                 {"name":"滴速<br/>(滴/分)","colspan":"1","rowspan":"3"},
-                {"name":"宫缩<br/>(s/min)","colspan":"1","rowspan":"3"},
+                {"name":"体温<br/>(℃)","colspan":"1","rowspan":"3"},
+                {"name":"脉搏<br/>(次/分)","colspan":"1","rowspan":"3"},
                 {"name":"心率<br/>(次/分)","colspan":"1","rowspan":"3"},
                 {"name":"呼吸<br/>(次/分)","colspan":"1","rowspan":"3"},
                 {"name":"血压<br/>(mmHg)","colspan":"1","rowspan":"3"},
                 {"name":"胎心音<br/>(次/分)","colspan":"1","rowspan":"3"},
+                {"name":"宫缩<br/>(s/min)","colspan":"1","rowspan":"3"},
                 {"name":"胎动<br/>(次/时)","colspan":"1","rowspan":"3"},
                 {"name":"阴道出血量/颜色<br/>(ml)","colspan":"1","rowspan":"3","style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"体温<br/>(℃)","colspan":"1","rowspan":"3"},
-                {"name":"脉搏<br/>(次/分)","colspan":"1","rowspan":"3"},
 
                 {"name":"尿量<br/>(ml)","colspan":"1","rowspan":"3"},
                 {"name":"膝反射","colspan":"2","rowspan":"1"},
@@ -57,7 +57,7 @@ export default {
                 {"name":"","colspan":"1","rowspan":"3",canSet: true, key: "armValue3","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"55px","maxWidth":"55px"}},
-                {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"55px","maxWidth":"55px"}}
+                // {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"55px","maxWidth":"55px"}}
             ]
         ,
         mid:

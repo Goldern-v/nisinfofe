@@ -28,9 +28,14 @@ import {
   event_date,
   event_time,
   click_date,
-  click_time
+  click_time,
+  click_date_time,
+  event_date_time
 } from "../keyEvent/date";
-
+const xj = ['已', '未', '部分']
+const qd = ['无', '偶有', '不规则', '弱', '中', '强']
+const tm = ['已', '未']
+const ys = ['清', 'I°混浊', 'II°混浊', 'III°混浊']
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -39,23 +44,25 @@ export default [
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 5) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 5) },
   { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 5) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'position', event: keyf1, value: '', next: '', name: '胎位', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'cardiac', event: keyf1, value: '', next: '次/min', name: '胎心', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'cohesion', event: keyf1, value: '', next: '', name: '衔接', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'intensity', event: keyf1, value: '', next: '', name: '强度', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'continuous', event: keyf1, value: '', next: 's', name: '持续', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'intermittent', event: keyf1, value: '', next: 'min', name: '间歇', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'dilation', event: keyf1, value: '', next: 'cm', name: '宫颈扩张', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'presentation', event: keyf1, value: '', next: 'cm', name: '先露高低', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'membranes', event: keyf1, value: '', next: '', name: '胎膜', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'amniotic', event: keyf1, value: '', next: '', name: '羊水性状', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'bleeding', event: keyf1, value: '', next: 'ml', name: '阴道流血', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'quickening', event: keyf1, value: '', next: '次/h', name: '胎动次数', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue3', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'armValue4', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'position', event: keyf1, value: '', next: '', name: '胎位', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'cardiac', event: keyf1, value: '', next: '次/min', name: '胎心', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'cohesion', event: keyf1, value: '', next: '', name: '衔接', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6), autoComplete: { data: xj }, },
+  { key: 'intensity', event: keyf1, value: '', next: '', name: '强度', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6), autoComplete: { data: qd }, },
+  { key: 'continuous', event: keyf1, value: '', next: 's', name: '持续', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'intermittent', event: keyf1, value: '', next: 'min', name: '间歇', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'dilation', event: keyf1, value: '', next: 'cm', name: '宫颈扩张', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'presentation', event: keyf1, value: '', next: 'cm', name: '先露高低', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'membranes', event: keyf1, value: '', next: '', name: '胎膜', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6), autoComplete: { data: tm }, },
+  { key: 'amniotic', event: keyf1, value: '', next: '', name: '羊水性状', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete: { data: ys } },
+  { key: 'bleeding', event: keyf1, value: '', next: 'ml', name: '阴道流血', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'quickening', event: keyf1, value: '', next: '次/h', name: '胎动次数', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'armValue5', event: event_date_time, value: '', next: '', name: '临产时间', click: click_date_time,
+  name: "临产时间", textarea: { width: 70 } },
+  { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'armValue3', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'armValue4', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
   {
     key: "description", //特殊情况记录
     value: "",
