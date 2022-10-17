@@ -1,4 +1,3 @@
-import { unread } from '@/api/inBox'
 export default {
   state: {
     patientInfo: {},
