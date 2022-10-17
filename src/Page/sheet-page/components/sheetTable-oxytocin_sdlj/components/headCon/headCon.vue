@@ -32,6 +32,11 @@
             @click="td.isChecked && isChecked(tr, td, tdIndex)"
           >
             <label v-if="td.prev">{{ td.prev }}</label>
+           
+          <div class="sign-img-con" v-if="td.sign">
+           <input type="text" v-model="sheetInfo.relObj.signerName2"  :data-value="sheetInfo.relObj.signerName2">
+          </div>
+           <!-- 
             <div class="sign-img-con" @click="sign2" v-if="td.sign">
               <span v-if="!isPrint" class="head-sign-text">
                 {{
@@ -46,7 +51,7 @@
                 "
                 alt
               />
-            </div>
+            </div> -->
             <span v-else>{{ td.value }}</span>
           </td>
         </tr>
@@ -214,14 +219,21 @@ export default {
     }
   }
 }
+
 .sign-img-con {
   display: inline-block;
   width: 100px;
-  height: 30px;
+  height: 21px;
   font-size: 12px;
   margin-right: 14px;
-  cursor: pointer;
+  // cursor: pointer;
   border-bottom: 1px solid #444;
+  input{
+    display: inline-block;
+    width: 100%;
+    border: none;
+    outline: none;
+  }
   .head-sign-text {
     height: 28px;
     line-height: 28px;
