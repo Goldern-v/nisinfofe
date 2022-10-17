@@ -1154,8 +1154,8 @@ export default {
       if (val) {
         // this.getDate();
         this.breforeQuit(() => {
-          cleanData();房贷首付舒服的
-          // this.getDate();d
+          cleanData();
+          this.getDate();
         });
         // 解锁
         this.destroyUnlock()
