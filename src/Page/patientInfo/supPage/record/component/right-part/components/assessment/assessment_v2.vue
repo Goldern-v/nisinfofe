@@ -27,6 +27,9 @@
     <message-modal ref="messageModal"></message-modal>
     <!-- 打开新建弹框 -->
     <openForm-modal ref="openFormModal"></openForm-modal>
+    <!-- 执行单同步 -->
+    <yztbModal ref="yztbModal"></yztbModal>
+
   </div>
 </template>
 
@@ -91,6 +94,7 @@ import signModal from "@/components/modal/sign.vue";
 import openFormModal from "@/Page/patientInfo/supPage/record/modal/open-form.vue";
 import scoreChart from "../../../../modal/score-chart.vue";
 import messageModal from "../../../../../../supComponts/message-modal/message-modal.vue";
+import yztbModal from "@/Page/sheet-page/components/modal/yztb-modal";
 import pizhuModal from "@/Page/patientInfo/supPage/record/component/right-part/components/comment/pizhu-modal.vue";
 import { del } from "@/api/mutilRecord.js";
 import {
@@ -216,6 +220,7 @@ export default {
         setloadingSVGHidden: this.setloadingSVGHidden,
         openSignModal: window.openSignModal,
         opentztbModal: this.opentztbModal,
+        openyztbModal:this.openyztbModal,
         confirmfrom:this.$confirm
       };
     };
@@ -226,6 +231,7 @@ export default {
     this.$refs["iframeLoadingV2"]["setloadingSVGHidden"] =
       this.setloadingSVGHidden;
     this.$refs["iframeLoadingV2"]["opentztbModal"] = this.opentztbModal;
+    // this.$refs["iframeLoadingV2"]["openyztbModal"] = this.openyztbModal;
     this.$root.$refs["iframeLoadingV2"] = this.$refs["iframeLoadingV2"];
   },
   methods: {
@@ -1412,6 +1418,9 @@ export default {
     opentztbModal(baseParams) {
       this.$refs.tztbModal.open(baseParams);
     },
+    openyztbModal(cb,patientInfo){
+      this.$refs.yztbModal.open(cb,patientInfo);
+    },
     onContextMenu(event) {
       console.log("onContextMenu", event);
       if (this.eventTarget) {
@@ -1832,6 +1841,7 @@ export default {
     messageModal,
     openFormModal,
     tztbModal,
+    yztbModal
   },
 };
 </script>

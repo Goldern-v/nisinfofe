@@ -20,7 +20,7 @@
           />
           <div
             class="qr-code-num"
-            :class="{ hasRemark: hasRemark, }"
+            :class="{ hasRemark: hasRemark,zhzxyStyle:['zhzxy'].includes(HOSPITAL_ID) }"
             :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
           >
             {{ qrCodeNum }}
@@ -126,7 +126,7 @@
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  style="font-size: 24px"
+                  :style="{'font-size': '24px','text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
                   v-model="formData.diet"
                   @focus="
                     onFocusToAutoComplete($event, {
@@ -230,7 +230,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 24px"
+                :style="{'font-size': '24px','text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
                 flex-box="1"
                 class="bottom-line"
                 v-model="formData.mainDoctors"
@@ -249,7 +249,7 @@
                 nowidth
                 flex-box="1"
                 class="bottom-line"
-                style="font-size: 24px"
+                :style="{'font-size': '24px','text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
                 v-model="formData.dutyNurses"
               />
             </div>
@@ -369,7 +369,10 @@
     text-align: center;
     z-index: 2;
     font-size: 16px;
-
+    &.zhzxyStyle{
+      font-size: 14px;
+      width: 110px;
+    }
     &.hasRemark {
       top: 78px;
       left: 0px;
