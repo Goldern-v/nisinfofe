@@ -34,26 +34,17 @@
                 <i class="iconfont icon-chuangweiyilanqia"></i> 床位一览卡
               </el-row>
             </router-link>
-                        <el-dropdown
+            <el-dropdown
               menu-align="start"
               :hide-on-click="false"
-              :class="{ 'router-link-active': $route.path == '/implementationList' }"
+              :class="{ 'router-link-active': isImplementationList }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
                 <i class="iconfont icon-hulijiludan"></i>执行单
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                 <el-dropdown-item
-                  :class="{ active: $route.path == '/implementationList' }"
-                >
-                  <router-link to="/implementationList" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="catheterPage"></i>执行单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
                 >
                   <router-link to="/bottleLabelByProgram" tag="span">
@@ -61,9 +52,19 @@
                       <i class="wardReport"></i>执行瓶签打印
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/implementationList' }"
+                >
+                  <router-link to="/implementationList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="catheterPage"></i>执行记录
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
+                      
             <!-- <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
@@ -160,6 +161,26 @@
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
+              </el-row>
+            </router-link>
+            <router-link to="/board" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="board"></i>白板
+              </el-row>
+            </router-link>
+            <router-link to="/healthEdu" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="healthEdu"></i>健康教育单
+              </el-row>
+            </router-link>
+            <router-link to="/nursingRounds" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingRounds"></i>护理巡视
+              </el-row>
+            </router-link>
+            <router-link to="/allCatheter" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="allCatheter"></i>导管
               </el-row>
             </router-link>
             <!-- <router-link to="/MEWS" tag="span">
@@ -301,6 +322,7 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
+            
             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActivePage }"
@@ -319,15 +341,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/board' }"
-                >
-                  <router-link to="/board" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="board"></i>白板
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
+               
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/infuse' }"
                 >
@@ -337,34 +351,6 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/healthEdu' }"
-                >
-                  <router-link to="/healthEdu" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="healthEdu"></i>健康教育单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/nursingRounds' }"
-                >
-                  <router-link to="/nursingRounds" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingRounds"></i>护理巡视
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/allCatheter' }"
-                >
-                  <router-link to="/allCatheter" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="allCatheter"></i>导管
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/badEvent' }"
                 >
@@ -528,8 +514,9 @@
                 </el-dropdown-item>-->
               </el-dropdown-menu>
             </el-dropdown>
+            
           </el-row>
-
+         
           <el-row class="right-part" type="flex" align="middle">
             <span class="big-1250-con">
               <el-popover
