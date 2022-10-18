@@ -13,8 +13,9 @@
           end-placeholder="结束日期"
           :default-time="['12:00:00', '08:00:00']">
         </el-date-picker> -->
+        <!-- :disabled="workClassList.length>0?true:false" -->
         <el-date-picker
-          :disabled="workClassList.length>0?true:false"
+         
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择入院起始时间"
@@ -23,8 +24,9 @@
           style="width:180px"
         ></el-date-picker>
         &nbsp;--&nbsp;
+
+        <!-- :disabled="workClassList.length>0?true:false" -->
         <el-date-picker
-          :disabled="workClassList.length>0?true:false"
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择终止时间"
@@ -390,7 +392,7 @@ export default {
           typeof this.type == "number"
             ? this.allType[this.type + 1].name
             : this.type, //执行单类型:输液,口服、治疗、雾化、注射
-        bedLabel: this.bedLabel, //床号
+        bedLabel: this.bedLabel,//床号
         patientName: this.patientName, //患者姓名
         administration: this.administration // //途径
       };

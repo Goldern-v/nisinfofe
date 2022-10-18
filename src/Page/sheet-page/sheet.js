@@ -208,8 +208,7 @@ export function delSheetPage(index, callback) {
       (process.env.HOSPITAL_ID == "xiegang" && listData && listData[nowX]) ||
       (process.env.HOSPITAL_ID == "nanfangzhongxiyi" &&
         listData &&
-        listData[nowX]) ||
-      (process.env.HOSPITAL_ID == "sdlj" && listData && listData[nowX])
+        listData[nowX])
     ) {
       return !listData[nowX].canModify;
     }
@@ -256,7 +255,7 @@ export function delSheetPage(index, callback) {
       return flag;
      }
     if (
-      process.env.HOSPITAL_ID != "weixian" ||
+      !(process.env.HOSPITAL_ID == "weixian" || process.env.HOSPITAL_ID == "sdlj")||
       (td && td.key == "description") ||
       tr.find(item => item.key == "recordSource").value == 5
     ) {
