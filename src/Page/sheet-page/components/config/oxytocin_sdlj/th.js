@@ -81,7 +81,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `先露<br>高低`,
+        name: `先露<br>高低<br>cm`,
         style: {
           minWidth: '36px',
           maxWidth: '36px'

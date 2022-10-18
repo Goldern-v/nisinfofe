@@ -279,7 +279,8 @@ import {getPatientInfo} from "@/api/common"
 import bus from "vue-happy-bus";
 import FollowList from "../follow/index";
 //解锁
-import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
+// import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
+import { mapState } from 'vuex';
 export default {
   props: {
     data: Array,
@@ -303,16 +304,18 @@ export default {
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
       imageWomen: require("./images/女.png"),
-      noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
+      noClearCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
       isGroup:false ,// 是否选中管床
       makePatient:'',// 贵州护理巡视表的点击患者
       lockHospitalList:['huadu'],//有锁定功能的医院
       // 进入页面是否自动选择第一个患者
-      isAutoSelect: ['lyxrm', 'foshanrenyi'].includes(this.HOSPITAL_ID)
+      isAutoSelect: ['lyxrm', 'foshanrenyi'].includes(this.HOSPITAL_ID),
+      // 切换模块回来时能拿到之前的数据
+      isAutoSelected: this.HOSPITAL_ID === 'foshanrenyi'
     };
   },
   methods: {
-   async toUnlock(value){
+    async toUnlock(value){
       // 双选是同一患者时置空当前患者，并跳转值父级路由。
       if(this.HOSPITAL_ID == 'guizhou' && value.bedLabel == this.makePatient && this.$route.path=='/nursingMakeItem'){
         this.$router.push('/nursingRounds')
@@ -390,6 +393,9 @@ export default {
       let currentPatient = ''
       if(this.HOSPITAL_ID == 'whfk'){
         currentPatient = ''
+      }else if (this.HOSPITAL_ID === 'foshanrenyi' && this.$route.path.includes('/sheetPage')) {
+        // 返回模块时还是原来的患者
+        currentPatient = this.curSheetPatient;
       }else{
         currentPatient = this.$store.getters.getCurrentPatient();
       }
@@ -421,9 +427,15 @@ export default {
     },
     /**初始自动选择第一个患者 by临邑 */
     selectFirstPatient() {
-      if(!this.isAutoSelect) return
-      if (this.sortList.length === 0) return this.$router.push('/sheetPage')
-      const item = this.sortList[0]
+      if (!this.isAutoSelect) return
+      // if (this.sortList.length === 0) return this.$router.push('/sheetPage')
+      let item = this.sortList[0]
+      if (this.isAutoSelected && this.curSheetPatient.patientId) {
+        item = this.curSheetPatient
+        this.selectPatient(item)
+        this.bus.$emit('refreshSheetPage', true)
+        this.bus.$emit('getBlockList')
+      }
       this.$router.replace({
         name: this.toName,
         params: {
@@ -436,6 +448,9 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      curSheetPatient: state => state.sheet.curSheetPatient
+    }),
     isAdmissionHisView(){
       return this.$route.path.includes('admissionHisView')
     },
@@ -529,7 +544,7 @@ export default {
   watch: {
     deptCode(nowData) {
       // 清空当前选中病人
-      if(!this.noClearnCurrentPatient.includes(this.HOSPITAL_ID))this.$store.commit("upCurrentPatientObj", new Object());
+      if(!this.noClearCurrentPatient.includes(this.HOSPITAL_ID))this.$store.commit("upCurrentPatientObj", new Object());
 
       if (nowData == "051102") {
         this.img1Show = false;
@@ -540,13 +555,13 @@ export default {
       }
       this.getDate();
       if (this.isAutoSelect && this.$route.path.indexOf('/sheetPage') > -1) {
+        this.$store.commit('upCurSheetPatient', {})
         this.$router.push('/sheetPage')
-        this.$nextTick(() => {
-          console.log('test-only-next')
-          this.selectFirstPatient()
-        })
+        // this.$nextTick(() => {
+        //   console.log('test-only-next')
+        //   this.selectFirstPatient()
+        // })
       }
-      //
     },
     "$route.params.patientId": "fetchData",
     isGroup(val){

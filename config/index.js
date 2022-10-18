@@ -145,7 +145,6 @@ const currentTargetUrl = (() => {
       // return "http://183.234.1.124:9093" // 谢岗正式
       return "http://192.168.1.54:9882" // 测试地址-内网地址
       // return "http://192.168.20.223:8080" // 初升本地
-      // return "http://192.168.20.147:8080" // 树鹏本地
     // 北海人医
     case 'beihairenyi':
       return "http://219.159.198.37:9094"  // 正式地址 bhrmyy 123456
@@ -155,14 +154,10 @@ const currentTargetUrl = (() => {
 
     // 佛山市医
      case 'foshanrenyi':
-      //  return "http://192.168.20.93:8080"
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
-      // return "https://cr.fsyyy.com:9094"  // 正式地址
       // return "http://192.168.20.147:9091"  // 双艳
       return "http://192.168.1.54:9883" // 默认公司本地内网厚街
-      // return "http://192.168.20.102:8080" // 初升测试本地内网
       // return "http://192.168.20.102:8080" //宪锋本地地址
-      // return "http://127.0.0.1:8080" //
       // return "http://120.24.240.231:19097" //
 
     // 福清妇幼保健院
@@ -205,9 +200,9 @@ const currentTargetUrl = (() => {
       // return "http://221.214.210.170:39094"  // 正式
       return 'http://192.168.1.54:9866'
     case 'zhzxy':
-      // return "http://192.168.20.77:8080" 
-      // return "http://192.168.1.54:9883" 
-      return "http://183.234.20.149:19094" 
+      // return "http://192.168.20.77:8080"
+      // return "http://192.168.1.54:9883"
+      return "http://183.234.20.149:19094"
     // 青海五院
     case 'qhwy':
       return 'http://192.168.1.54:9894'

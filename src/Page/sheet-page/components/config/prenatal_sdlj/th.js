@@ -20,7 +20,7 @@ export default {
         top:
             [
                 {"name":"","colspan":"2","rowspan":"1","key":"recordYear"},
-                {"name":"观察项目","colspan":"21","rowspan":"1"},
+                {"name":"观察项目","colspan":"22","rowspan":"1"},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}},
                 {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"60px","maxWidth":"60px"}}
@@ -45,6 +45,7 @@ export default {
                 {"name":"羊水<br/>性状","colspan":"1","rowspan":"2"},
                 {"name":"阴道<br/>流血<br/>(ml)","colspan":"1","rowspan":"2"},
                 {"name":"数<br/>胎动<br/>(次/h)","colspan":"1","rowspan":"2"},
+                {"name":"临产<br/>时间","colspan":"1","rowspan":"2"},
                 {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "armValue","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "armValue2","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "armValue3","style":{"minWidth":"45px","maxWidth":"45px"}},

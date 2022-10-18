@@ -685,6 +685,7 @@ export default {
     },
     isSelectPatient(item) {
       this.$store.commit("upPatientInfo", item);
+      this.$store.commit("upCurSheetPatient", item);
       this.bus.$emit("refreshImg");
     },
     onModalChange(e,tr,x,y,index){
@@ -720,7 +721,7 @@ export default {
       this.sheetModelData=[]
     })
     // 针对贵州体温单如果选中病人，切换到护记。不显示病人护记问题
-    if(["guizhou", '925'].includes(this.HOSPITAL_ID)){
+    if(["guizhou", '925','zhzxy', 'foshanrenyi'].includes(this.HOSPITAL_ID)){
       /* 不知道贵州切换副页的问题是不是这个影响的，以后有机会可以删除 侦听watch $route.path这个试试*/
       this.$store.commit("upPatientInfo", {});
     }

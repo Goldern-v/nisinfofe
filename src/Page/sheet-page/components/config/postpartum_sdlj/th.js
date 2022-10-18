@@ -131,7 +131,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldEleven",
+        key: "fieldEleven1",
         style: {
           minWidth: "30px",
           maxWidth: "30px"
@@ -143,7 +143,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldEleven",
+        key: "fieldEleven2",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
@@ -155,7 +155,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldEleven",
+        key: "fieldEleven3",
         style: {
           minWidth: "50px",
           maxWidth: "50px"
@@ -195,7 +195,19 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldTwelve2",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        }
+      },
+      {
+        name: '',
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "field13",
         style: {
           minWidth: "30px",
           maxWidth: "30px"
@@ -225,7 +237,7 @@ export default {
       },
       {
         name: `
-        质控护士签名
+        上级护士签名
         `,
         colspan: "1",
         rowspan: "3"

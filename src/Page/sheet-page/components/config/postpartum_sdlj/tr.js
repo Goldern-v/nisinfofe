@@ -186,7 +186,9 @@ export default [
     textarea: {
       width: 48
     },
-
+    autoComplete: {
+      data: ['干洁', '渗液']
+    },
   },
   {
     key: "perineal", //会阴伤口
@@ -196,7 +198,9 @@ export default [
     textarea: {
       width: 48
     },
-
+    autoComplete: {
+      data: ['（—）', '红肿', '水肿']
+    },
   },
   {
     key: "exhaust", //肛门排气/肠鸣音<br /> (次/分)
@@ -289,6 +293,15 @@ export default [
   },
   {
     key: "expand", //空白
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "armValue", //空白
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
