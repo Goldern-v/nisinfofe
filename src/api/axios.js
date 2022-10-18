@@ -34,10 +34,10 @@ axios.interceptors.request.use((config) => {
     // 遍历白名单
     const whiteList = [
     'login', 'autoLogin', 'ssoLogin', 'logout',
-    'changePasswordByEmpNo', 'sysPasswordSet/findList', 
+    'changePasswordByEmpNo', 'sysPasswordSet/findList',
     'identityCheck', 'getPasswordRule','updatePassword',
     'AllUkeyList','SOF_ExportUserCert','genRandom','SOF_ValidateCert_Text',
-    'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser","SOF_GetRetryCount"
+    'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser","SOF_GetRetryCount", 'getDictItem'
 ]
 
     for (let i = 0; i < whiteList.length; i++) {
@@ -50,7 +50,7 @@ axios.interceptors.request.use((config) => {
                     let configDataARR = configData.split("&")
                     configDataARR.map(item=>{
                     let arr = item.split("=")
-                    verifyUserObj[arr[0]] = arr[1] 
+                    verifyUserObj[arr[0]] = arr[1]
                     })
                 }
             }else CaSignurl = ""
@@ -123,7 +123,7 @@ axios.interceptors.response.use((res) => {
     }
     // 如果token没有通过
     if (data.code === '300') {
-        
+
         /** 评估单页面特殊处理，突出提示效果 */
         if (window.app && window.app.$message) {
             let path = app.$route.path
