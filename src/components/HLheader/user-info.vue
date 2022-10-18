@@ -58,7 +58,7 @@
         <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
-    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', '925'].includes(HOSPITAL_ID)">
+    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', '925' ,'gdtj'].includes(HOSPITAL_ID)">
       <div class="boxShadow" @click="onPrint">
         <div class="qrcode" ref="qrcodeContainer"></div>
       </div>
@@ -262,7 +262,7 @@ import QRCode from "qrcodejs2"
 import printQrCode from "./modal/printQrCode.vue";
 import whiteButton from "../../components/button/white-button.vue";
 import uploadImgModal from "./modal/uploadImg.vue";
-const SysPasswordManage = () => import("./SysPasswordManage.vue");
+const SysPasswordManage = () => import("./SysPasswordManage.vue"); 
 import bus from "vue-happy-bus";
 import { imageView } from "@/api/common.js";
 import common from "@/common/mixin/common.mixin.js";
