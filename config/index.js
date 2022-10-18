@@ -205,8 +205,10 @@ const currentTargetUrl = (() => {
       // return "http://221.214.210.170:39094"  // 正式
       return 'http://192.168.1.54:9866'
     case 'zhzxy':
-      return "http://192.168.20.77:8080" 
+      // return "http://192.168.20.77:8080" 
       // return "http://192.168.1.54:9883" 
+      return "http://10.95.6.97:9091" 
+
     // 青海五院
     case 'qhwy':
       return 'http://192.168.1.54:9894'
