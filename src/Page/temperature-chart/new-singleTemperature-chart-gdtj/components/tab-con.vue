@@ -97,7 +97,7 @@
                   >
                     <input
                       :id="i + 1"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       type="text"
                       :title="vitalSignObj[j].vitalValue"
                       @mousewheel="
@@ -194,7 +194,7 @@
                     >
                       <input
                         :id="i + 100"
-                        @keydown.enter="changeNext"
+                        @keydown.enter.prevent="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
                             ? 'number'
@@ -280,7 +280,7 @@
                             index
                           )
                         "
-                        >{{ i.fieldCn==='自定义1'?'其他':i.fieldCn }}</span
+                        >{{ i.fieldCn==='自定义1'?'排出量其他':i.fieldCn }}</span
                       >
                     </div>
 
@@ -288,7 +288,7 @@
                       :id="h + 1000"
                       type="text"
                       class="fieldClass"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @mousewheel="
                         (e) => {

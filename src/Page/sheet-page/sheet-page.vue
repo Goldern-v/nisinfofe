@@ -171,6 +171,7 @@
   height: 100%;
   background: #DFDFDF;
   overflow: auto;
+  z-index: 3;
   padding: 15px 5px 15px;
   box-sizing: border-box;
   margin: 0 auto 20px;
