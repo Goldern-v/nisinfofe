@@ -393,6 +393,9 @@ export default {
       let currentPatient = ''
       if(this.HOSPITAL_ID == 'whfk'){
         currentPatient = ''
+      }else if (this.HOSPITAL_ID === 'foshanrenyi' && this.$route.path.includes('/sheetPage')) {
+        // 返回模块时还是原来的患者
+        currentPatient = this.curSheetPatient;
       }else{
         currentPatient = this.$store.getters.getCurrentPatient();
       }
@@ -425,12 +428,12 @@ export default {
     /**初始自动选择第一个患者 by临邑 */
     selectFirstPatient() {
       if (!this.isAutoSelect) return
-      if (this.sortList.length === 0) return this.$router.push('/sheetPage')
+      // if (this.sortList.length === 0) return this.$router.push('/sheetPage')
       let item = this.sortList[0]
-      if (this.isAutoSelected && this.patientInfo.patientId) {
-        item = this.patientInfo
+      if (this.isAutoSelected && this.curSheetPatient.patientId) {
+        item = this.curSheetPatient
         this.selectPatient(item)
-        this.bus.$emit('refreshSheetPage')
+        this.bus.$emit('refreshSheetPage', true)
         this.bus.$emit('getBlockList')
       }
       this.$router.replace({
@@ -446,7 +449,7 @@ export default {
   },
   computed: {
     ...mapState({
-      patientInfo: state => state.sheet.patientInfo
+      curSheetPatient: state => state.sheet.curSheetPatient
     }),
     isAdmissionHisView(){
       return this.$route.path.includes('admissionHisView')
@@ -552,14 +555,13 @@ export default {
       }
       this.getDate();
       if (this.isAutoSelect && this.$route.path.indexOf('/sheetPage') > -1) {
-        this.$store.commit('upPatientInfo', {})
+        this.$store.commit('upCurSheetPatient', {})
         this.$router.push('/sheetPage')
-        this.$nextTick(() => {
-          console.log('test-only-next')
-          this.selectFirstPatient()
-        })
+        // this.$nextTick(() => {
+        //   console.log('test-only-next')
+        //   this.selectFirstPatient()
+        // })
       }
-      //
     },
     "$route.params.patientId": "fetchData",
     isGroup(val){

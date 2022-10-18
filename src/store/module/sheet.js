@@ -10,6 +10,8 @@ export default {
     openModalFromSpecial: false,
     // 评估/执行单同步确认返回的数据
     evalData: '',
+    // 选中的患者
+    curSheetPatient: {}
   },
   mutations: {
     upPatientInfo(state, val) {
@@ -38,6 +40,9 @@ export default {
     },
     upEvalData(state,val) {
       state.evalData = val
+    },
+    upCurSheetPatient(state,val) {
+      state.curSheetPatient = val
     },
   }
 }
