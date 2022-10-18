@@ -134,7 +134,7 @@
                   >
                     <input
                       :id="i + 1"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       v-on:input="validFormFc(vitalSignObj[j], i + 1)"
                       :type="
                         totalDictInfo[index].inputType === '2'
@@ -237,7 +237,7 @@
                     >
                       <input
                         :id="i + 100"
-                        @keydown.enter="changeNext"
+                        @keydown.enter.prevent="changeNext"
                         v-on:input="validFormFc(vitalSignObj[j], i + 100)"
                         :type="
                           totalDictInfo[index].inputType === '2'
@@ -423,7 +423,7 @@
                       :id="h + 1000"
                       type="text"
                       class="fieldClass"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
                       @mousewheel="

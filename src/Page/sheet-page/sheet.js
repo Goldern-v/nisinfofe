@@ -247,11 +247,10 @@ export function delSheetPage(index, callback) {
      ) {
       let flag =
       tr.find(item => item.key == "status").value === "1" && // 是否已签名
-      listData && 
+      listData &&
       listData[x] &&
       !listData[x].canModify&&(td.key === "recordMonth" || td.key === "recordHour");; // 是否有权限
       //td存在才判断
-      console.log('flag', flag)
       return flag;
      }
     if (

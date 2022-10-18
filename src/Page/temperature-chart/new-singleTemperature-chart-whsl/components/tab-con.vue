@@ -133,7 +133,7 @@
                   >
                     <input
                       :id="i + 1"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :type="
                         totalDictInfo[index].inputType === '2'
                           ? 'number'
@@ -235,7 +235,7 @@
                     >
                       <input
                         :id="i + 100"
-                        @keydown.enter="changeNext"
+                        @keydown.enter.prevent="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
                             ? 'number'
@@ -336,7 +336,7 @@
                       type="text"
                       class="fieldClass"
                       :id="h + 1000"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
                       @click="
