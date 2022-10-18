@@ -109,7 +109,7 @@ const currentTargetUrl = (() => {
 
     /** 南方中西医 */
     case "nanfangzhongxiyi":
-      // return "http://218.107.37.134:9091" // 南方中西医正式
+      return "http://218.107.37.134:9091" // 南方中西医正式
       // return "http://192.168.1.54:9876" // 公司-南方中西医测试-内网
       return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
       // return 'http://192.168.20.62:8080'
@@ -200,9 +200,9 @@ const currentTargetUrl = (() => {
       // return "http://221.214.210.170:39094"  // 正式
       return 'http://192.168.1.54:9866'
     case 'zhzxy':
-      // return "http://192.168.20.77:8080" 
-      // return "http://192.168.1.54:9883" 
-      return "http://10.95.6.97:9091" 
+      // return "http://192.168.20.77:8080"
+      // return "http://192.168.1.54:9883"
+      return "http://10.95.6.97:9091"
 
     // 青海五院
     case 'qhwy':
