@@ -1,8 +1,14 @@
-import moment from "moment";
 
-function currYear() {
-  return moment().format('YYYY')
-}
+/*
+  广东同江 - 硫酸镁注射液静脉滴注观察记录单
+*/
+
+/**
+ * @description: 开发注意事项:
+ 1、自定义表头 canSet: true, key: "armValue4"
+
+ */
+
 export default {
   // 科室的名称
   deptType: '',
@@ -77,7 +83,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         canSet: true,
-        key: 'fieldFour',
+        key: 'fieldSix',
         style: {
           minWidth: '80px',
           maxWidth: '80px',

@@ -48,6 +48,7 @@ export default [
   {
     key: "pulse", //脉搏
     value: "",
+    name:'脉搏',
     event: keyf1,
     textarea: {
       width: 80
@@ -57,6 +58,7 @@ export default [
   {
     key: "breath", //呼吸
     value: "",
+    name:'呼吸',
     event: keyf1,
     textarea: {
       width: 80
@@ -66,6 +68,7 @@ export default [
   {
     key: "bloodPressure", //血压
     value: "",
+    name:'血压',
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -79,8 +82,9 @@ export default [
     change: (e, td) => limitChange(e, td, 12),
   },
   {
-    key: "fieldOne", //宫缩间歇
+    key: "titleOne", //宫缩间歇
     value: "",
+    name:'宫缩间歇',
     event: keyf1,
     textarea: {
       width: 65
@@ -88,8 +92,9 @@ export default [
     change: (e, td) => limitChange(e, td, 10),
   },
   {
-    key: "fieldTwo", // 宫缩持续
+    key: "titleTwo", // 宫缩持续
     value: "",
+    name:'宫缩持续',
     event: keyf1,
     autoComplete: {
       data: cxList
@@ -100,8 +105,9 @@ export default [
     change: (e, td) => limitChange(e, td, 10),
   },
   {
-    key: "fieldThree", // 尿量
+    key: "titleThree", // 尿量
     value: "",
+    name:'尿量',
     event: keyf1,
     textarea: {
       width: 65
@@ -109,8 +115,9 @@ export default [
     change: (e, td) => limitChange(e, td, 10),
   },
   {
-    key: "fieldFour", // 膝反射
+    key: "titleFour", // 膝反射
     value: "",
+    name:'膝反射',
     event: keyf1,
     autoComplete: {
       data: xfsList
@@ -121,8 +128,9 @@ export default [
     change: (e, td) => limitChange(e, td, 10),
   },
   {
-    key: "fieldFive", // 胎心音
+    key: "titleFive", // 胎心音
     value: "",
+    name:'胎心音',
     event: keyf1,
     autoComplete: {},
     textarea: {
@@ -262,15 +270,15 @@ export function getListData4() {
     }
     chuList.push("阴道出血")
   });
-  let list = ["花都:硫酸镁注射液静脉滴注观察记录单:膝反射"];
+  let list = ["同江:硫酸镁注射液静脉滴注观察记录单:膝反射"];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(xfsList, "花都:硫酸镁注射液静脉滴注观察记录单:膝反射", data);
   });
-  let list2 = ["花都:硫酸镁注射液静脉滴注观察记录单:持续"];
+  let list2 = ["同江:硫酸镁注射液静脉滴注观察记录单:持续"];
   multiDictInfo(list2).then(res => {
     let data = res.data.data;
-    setList(cxList, "花都:硫酸镁注射液静脉滴注观察记录单:持续", data);
+    setList(cxList, "同江:硫酸镁注射液静脉滴注观察记录单:持续", data);
     console.log('1111', cxList)
   });
 }

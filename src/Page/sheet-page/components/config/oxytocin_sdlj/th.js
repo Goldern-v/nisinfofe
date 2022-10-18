@@ -33,7 +33,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `滴数<br>滴/分）`,
+        name: `滴数<br>滴/分`,
         style: {
           minWidth: '40px',
           maxWidth: '40px'
@@ -81,7 +81,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `先露<br>高低`,
+        name: `先露<br>高低<br>cm`,
         style: {
           minWidth: '36px',
           maxWidth: '36px'

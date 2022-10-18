@@ -119,9 +119,9 @@
         ref="printCon2"
         v-show="printMode == 'v'"
       >
-        <div 
-          class="bed-card-vert-con" 
-          v-for="(item,index) in list" 
+        <div
+          class="bed-card-vert-con"
+          v-for="(item,index) in list"
           :key="item.patientId"
           :class="[(index+1)%10==0?'nextpage':'',[1,2,3,4,5].includes((index+1)%10)?'firstpage':'']"
         >
