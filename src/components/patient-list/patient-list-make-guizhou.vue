@@ -305,6 +305,10 @@ export default {
           this.bedList = bedData;
           this.hasGroupHos && this.groupBedList.length && (this.isGroup = true)
           this.patientListLoading = false;
+          this.$store.commit("upCurrentPatientObj", bedData[0]);
+          this.$store.commit("upWardCode", bedData[0].wardCode || "");
+          this.$store.commit("upWardName", bedData[0].wardName || "");
+
         });
       }
     },

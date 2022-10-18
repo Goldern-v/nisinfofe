@@ -183,12 +183,12 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <router-link to="/badEvent" tag="span">
+            <router-link  v-if="HOSPITAL_ID !== '925'" to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >不良事件
               </el-row>
             </router-link>
-            <router-link to="/nursingRounds" tag="span">
+            <router-link  v-if="HOSPITAL_ID !== '925'" to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理巡视
               </el-row>
@@ -351,11 +351,8 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <router-link v-if="HOSPITAL_ID == '925'" to="/statisticalQuery" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-allCatheter"></i> 统计查询
-              </el-row>
-            </router-link>
+           
+            
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
@@ -386,6 +383,37 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item
+                  v-if="HOSPITAL_ID == '925'"
+                  :class="{ active: $route.path == '/badEvent' }"
+                >
+                  <router-link  to="/badEvent" tag="span">
+                  <el-row class="menu-item" type="flex" align="middle"
+                    >
+                    <i class="badEvent"></i>不良事件
+                  </el-row>
+                </router-link>
+              </el-dropdown-item>
+              <el-dropdown-item
+                  v-if="HOSPITAL_ID == '925'"
+                :class="{ active: $route.path == '/nursingRounds' }"
+              >
+                <router-link  to="/nursingRounds" tag="span">
+                  <el-row class="menu-item" type="flex" align="middle"
+                    ><i class="nursingDocumentation"></i> 护理巡视
+                  </el-row>
+                </router-link>
+              </el-dropdown-item>
+              <el-dropdown-item
+                v-if="HOSPITAL_ID == '925'"
+                :class="{ active: $route.path == '/statisticalQuery' }"
+              >
+                <router-link to="/statisticalQuery" tag="span">
+                  <el-row class="menu-item" type="flex" align="middle">
+                    <i class="birthCertificate"></i>统计查询
+                  </el-row>
+                </router-link>
+              </el-dropdown-item>
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/vaccineManagement' }"
                   v-if="deptName.includes('产科')"
