@@ -778,15 +778,22 @@ export default {
         !!this.record.autographNameN
       );
     },
-    onPatientsModalShow(d) {
+    onPatientsModalShow(d,isSelected=true) {
+      /* 
+      d:日期
+      isSelected:已有病人是否不给选择。
+      这个函数有三个地方使用。①已经有交班志的时候 ②创建交班志的时候（不复制前一天病人） ③创建交班志的时候（复制前一天病人）
+      ①③执行selectedKeys代码
+      */
       const id = this.$route.params.id;
       const deptCode = this.$route.params.code;
       const date = d || this.record.changeShiftDate;
-
-      const selectedKeys = this.patients
-        .filter(p => p.patientId && p.visitId)
-        .map(p => p.patientId + "//" + p.visitId);
-
+      let selectedKeys=[]
+      if(isSelected){
+         selectedKeys = this.patients
+          .filter(p => p.patientId && p.visitId)
+          .map(p => p.patientId + "//" + p.visitId);
+      }
       this.$refs.patientsModal.open({ deptCode, date, id, selectedKeys });
     },
     onPatientsModalConfirm(patients) {
