@@ -134,3 +134,12 @@ export const getSysPasswordSet = () => {
 export const saveSysPasswordSet = (params) => {
   return axios.post(`${apiPath}sysPasswordSet/update`, params)
 }
+
+/**
+ * 获取配置项字典
+ * @param params DictItemIn
+ * @returns
+ */
+export const getDictItem = (params) => {
+  return axios.get(`${apiPath}dict/common/getDictItem?${qs.stringify(params)}`)
+}

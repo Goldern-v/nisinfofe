@@ -2205,6 +2205,7 @@ export default {
       window.openContextMenu({ style, data });
     },
     openEditModal(tr, data, e) {
+      console.log("jinlai111")
       // 花都副页关闭编辑框
       if(this.sheetInfo.sheetType=='additional_count_hd'){
         return

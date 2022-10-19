@@ -273,6 +273,24 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="height"
+            label="身高"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.height"
+                :class="className"
+                class="height"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="curWeight"
             label="体重"
             min-width="80"
@@ -423,6 +441,16 @@
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.dischargeSize"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="height"
+            label="身高"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.height"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -1027,7 +1055,6 @@ export default {
       let data = {
         blockId: "",
         drainage: "", //引流量
-        heigh: "",
         patientId: "",
         visitId: "",
         audit: "",
