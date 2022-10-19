@@ -54,7 +54,7 @@
         <span>{{ fuyouCaData ? "已登录" : "未登录" }}</span>
       </p>
       <div class="button-con">
-        <el-button size="mini" @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()">证书登录</el-button>
+        <el-button size="mini" @click="()=>['fuyou','zhzxy'].includes(HOSPITAL_ID)? openFuyouCaSignModal() : openHjCaSignModal()">证书登录</el-button>
         <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
@@ -291,7 +291,7 @@ export default {
       fuyouCaData:null,//江门妇幼ca签名认证数据
       isUpdateFuyouCaData:true,
       // hasQrCaSignHos:['fuyou','hj'],
-      hasQrCaSignHos:['fuyou','hj','guizhou'],
+      hasQrCaSignHos:['fuyou','hj','guizhou','zhzxy'],
       userNum:0,
       foshanshiyiIFca:false
     };

@@ -46,6 +46,8 @@ export const getAuthorize=(data)=>{
     case 'hj':
     case 'guizhou':
       return axios.get(`${apiPath}caSignHoujie/getAccessToken`)
+    case 'zhzxy':
+      return axios.get(`${apiPath}caSignZhzxy/authorizeCaZhzxy`)
     default:
       return axios.get(`${apiPath}caSignJmfy/authorizeCaJmfy`)
   }
@@ -60,6 +62,8 @@ export const getTrustUserInfo=(data)=>{
         accessToken:data.accessToken,
         transactionId:data.transactionId,
       })
+    case 'zhzxy':
+      return axios.get(`${apiPath}caSignZhzxy/tokeninfoCaZhzxy/${data.requestId}`)
     default:
       return axios.get(`${apiPath}caSignJmfy/tokeninfoCaJmfy/${data.requestId}`)
   }
@@ -82,6 +86,8 @@ export function getCaSignJmfy(data) {
     case 'guizhou':
       console.log(data);
       return axios.post(`${apiPath}caSignHoujie/sign/signdata`,data)
+    case "zhzxy":
+      return axios.post(`${apiPath}caSignZhzxy/pushCaSign`,data);
     default:
       return axios.post(`${apiPath}caSignJmfy/pushCaSign`,data);
   }

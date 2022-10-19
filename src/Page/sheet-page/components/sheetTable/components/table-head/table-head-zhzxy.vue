@@ -23,7 +23,7 @@
 
       <span>
         科室：
-        <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+        <div class="bottom-line" style="min-width: 120px">{{patientInfo.realDeptName}}</div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号：
@@ -213,7 +213,9 @@ export default {
     toymd(val) {
       if (process.env.HOSPITAL_ID == "weixian") {
         return moment(val).format("YYYY-MM-DD");
-      } else {
+      }else if(process.env.HOSPITAL_ID == "zhzxy" && sheetInfo.sheetType=="nursing_zhzxy"){
+        return moment(val).format("YYYY年MM月DD日");
+      }else {
         return moment(val).format("YYYY年MM月");
       }
     }

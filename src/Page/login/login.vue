@@ -672,8 +672,8 @@ export default {
         if (["weixian"].includes(this.HOSPITAL_ID)) {
           /** 验证证书 */
           window.openCaSignModal();
-        } else if (["fuyou"].includes(this.HOSPITAL_ID)) {
-          // window.openFuyouCaSignModal(true);
+        } else if (["zhzxy"].includes(this.HOSPITAL_ID)) {
+          window.openFuyouCaSignModal(true);
         } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
           window.openHjCaSignModal();
         }

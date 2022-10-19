@@ -244,7 +244,7 @@ export default {
       return `${this.wih - 255}px`;
     },
     paddingLeft(){
-      if(this.HOSPITAL_ID === 'foshanrenyi'){
+      if(['foshanrenyi','zhzxy'].includes(this.HOSPITAL_ID)){
         return '40px'
       }else{
         return '20px'
