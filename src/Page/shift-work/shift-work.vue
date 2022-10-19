@@ -162,7 +162,7 @@
         this.load()
 
         if (this.$refs.child) {
-          this.$refs.child.onPatientsModalShow(d)
+          this.$refs.child.onPatientsModalShow(d,copy)
         }
       },
       onToggleFullPage () {

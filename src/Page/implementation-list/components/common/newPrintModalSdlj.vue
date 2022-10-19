@@ -4,6 +4,7 @@
       width: `${newModalSize.split('*')[1] == '8' ? '8' : '10'}cm`,
       height: `${newModalSize == '6*8' ? '5.9' : '5.7'}cm`
     }"
+    :class="{ 'p-top-3mm': ['gdtj'].includes(HOSPITAL_ID) }"
   >
     <div
       v-if="newModalSize == '6*8'"
@@ -97,6 +98,9 @@
   </div>
 </template>
 <style lang="scss" scoped>
+.p-top-3mm {
+  padding-top: 3mm;
+}
 .new-print-modal {
   page-break-after: always;
   >>> * {

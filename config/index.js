@@ -109,7 +109,7 @@ const currentTargetUrl = (() => {
 
     /** 南方中西医 */
     case "nanfangzhongxiyi":
-      // return "http://218.107.37.134:9091" // 南方中西医正式
+      return "http://218.107.37.134:9091" // 南方中西医正式
       // return "http://192.168.1.54:9876" // 公司-南方中西医测试-内网
       return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
       // return 'http://192.168.20.62:8080'

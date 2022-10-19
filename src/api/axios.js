@@ -24,8 +24,7 @@ axios.interceptors.request.use((config) => {
     // 判断如果是登录 则无需验证token
     config.headers.common['App-Token-Nursing'] = $params.appToken || '51e827c9-d80e-40a1-a95a-1edc257596e7'
 
-    var token = (window.app && window.app.$getCookie('NURSING_USER').split('##')[1]) || $params.token || (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).token)
-
+    var token = (window.app && window.app.$getCookie('NURSING_USER').split('##')[1]) || (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).token) || $params.token
     if (config.url.indexOf("identityCheck") > -1 || config.url.indexOf('sysPasswordSet/findList') > -1 ) {
         config.headers.common["Auth-Token-Nursing"] = token || '';
     }else if(config.url.indexOf('dsvsFssyNew/verifyUser') > -1 && window.app.$route.fullPath.indexOf("/login")==-1){
@@ -34,10 +33,10 @@ axios.interceptors.request.use((config) => {
     // 遍历白名单
     const whiteList = [
     'login', 'autoLogin', 'ssoLogin', 'logout',
-    'changePasswordByEmpNo', 'sysPasswordSet/findList', 
+    'changePasswordByEmpNo', 'sysPasswordSet/findList',
     'identityCheck', 'getPasswordRule','updatePassword',
     'AllUkeyList','SOF_ExportUserCert','genRandom','SOF_ValidateCert_Text',
-    'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser","SOF_GetRetryCount"
+    'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser","SOF_GetRetryCount", 'getDictItem'
 ]
 
     for (let i = 0; i < whiteList.length; i++) {
@@ -50,17 +49,15 @@ axios.interceptors.request.use((config) => {
                     let configDataARR = configData.split("&")
                     configDataARR.map(item=>{
                     let arr = item.split("=")
-                    verifyUserObj[arr[0]] = arr[1] 
+                    verifyUserObj[arr[0]] = arr[1]
                     })
                 }
             }else CaSignurl = ""
             if(config.url.indexOf("SOF_Login")>-1){
-                console.log("SOF_Login",config.data);
                 strCertId = config.data.strCertId
                 strPassword= config.data.strPassword
                 username = config.data.username || ""
             }else if(config.url.indexOf("SOF_SignData")>-1){
-                console.log("SOF_SignData",config.data);
                 strRandom = config.data.strSignData
             }
             // CaSignurl = config.url.indexOf("GetUserList")>-1 && "GetUserList"
@@ -123,7 +120,7 @@ axios.interceptors.response.use((res) => {
     }
     // 如果token没有通过
     if (data.code === '300') {
-        
+
         /** 评估单页面特殊处理，突出提示效果 */
         if (window.app && window.app.$message) {
             let path = app.$route.path
@@ -158,7 +155,6 @@ axios.interceptors.response.use((res) => {
                 window.closeCaSignModal()
               });
         }
-        console.log('data.errorCode', data)
         return Promise.reject(res);
     } else if (data.code === '301') {
         window.app && window.app.$message({
@@ -180,7 +176,6 @@ axios.interceptors.response.use((res) => {
     }
 }, (err) => {
     if (err && err.message == 'Network Error') {
-        console.log(CaSignurl,"CaSignurl");
         window.app && window.app.$message({
             showClose: true,
             message: CaSignurl == "GetUserList"?'未能识别到U盾':'网络错误，请检查你的网络',
