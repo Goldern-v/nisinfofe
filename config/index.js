@@ -156,9 +156,10 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://192.168.20.147:9091"  // 双艳
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
       // return "http://120.24.240.231:19097" //
+      return "http://192.168.1.27:9092" //
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -202,7 +203,9 @@ const currentTargetUrl = (() => {
     case 'zhzxy':
       // return "http://192.168.20.77:8080" 
       // return "http://192.168.1.54:9883" 
-      return "http://10.95.6.97:9091" 
+      return "http://192.168.125.103:9092" 
+      // return "http://192.168.1.27:9092" 
+      // return "http://10.95.6.97:9091" 
 
     // 青海五院
     case 'qhwy':

@@ -50,10 +50,11 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
-          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925'].includes(HOSPITAL_ID)">
+          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925','zhzxy'].includes(HOSPITAL_ID)">
             <el-button
               type="primary"
               size="mini"
+              v-if="!['zhzxy'].includes(HOSPITAL_ID)"
               @click="emitFn('openEvalModel')"
             >
               评估同步

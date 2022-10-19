@@ -562,7 +562,7 @@
                   ></el-option>
                 </el-select>
               </span>
-              <span class="option-item" v-popover:popover1>{{
+              <span class="option-item" v-popover:popover1 @click="bus.$emit('updateFuyouCaData')">{{
                 user.empName
               }}</span>
             </span>
@@ -1037,6 +1037,7 @@ export default {
       Cookies.remove("token");
       Cookies.remove("user");
       Cookies.remove("NURSING_USER", { path: "/" });
+      localStorage.removeItem("fuyouCaData");
       if (ifRelogin != "relogin") this.$router.push("/login");
       this.$store.commit("upDeptCode", "");
     },
@@ -1087,6 +1088,9 @@ export default {
   },
   created() {
     // this.$store.dispatch("getMailUnread");
+    if(["zhzxy"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
+      window.openFuyouCaSignModal(true);
+    }
     this.bus.$on("quit", relogin => this.quit(relogin));
     nursingUnit().then(res => {
       this.deptList = [];

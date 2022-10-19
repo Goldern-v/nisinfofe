@@ -28,30 +28,31 @@ import {
   event_date,
   event_time,
   click_date,
-  click_time
+  click_time,
+  click_date_year
 } from "../keyEvent/date";
 let 入量内容 = [];
 let 出量内容 = [];
 export default [
   { hidden: true, key: 'recordDate', value: '' },
-  { key: "recordMonth", event: event_date, click: click_date, value: ''},
-  { key: "recordHour", event: event_time, value: ''},
+  { key: "recordMonth", event: event_date, click: click_date_year, value: ''},
+  { key: "recordHour", event: event_time, value: '',click:click_time},
 
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: 'T', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: 'P/HR', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SpO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', autoComplete: {
     data:入量内容
     //  ['静脉输液','静脉注射','鼻饲','全血','红细胞','血小板','白蛋白','血浆','白细胞','TPN', '水','饮料','牛奶','母乳','代乳品','粉/面条','粥','云吞','水果','米饭','菜','经口入','口服','微泵']
-  }, textarea: { width: 150 }, },
+  }, textarea: { width: 50 }, },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容',  autoComplete: {
     data: 出量内容
     // ['尿','大便','血','呕吐物','痰','伤口引流液','腹腔引流液','盆腔引流液','胸腔引流液','脑室引流液','T管引流量','胆汁','胃液','腹水','阴道出血','尿管引流','左肾造瘘管引流液','右肾造瘘管引流液','肾周引流管引流液','肾窝引流管引流液','汗液']
-  },textarea: { width: 150 },  },
+  },textarea: { width: 100 },  },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'colorProperties', event: keyf1, value: '', next: '', name: '颜色/性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   // { key: 'value1', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -113,58 +114,3 @@ function setList(list, key, data) {
     list.push(item.name);
   }
 }
-// export default [
-//   { hidden: true, key: 'recordDate', value: '' },
-//   { key: "recordMonth", event: event_date, click: click_date, value: ''},
-//   { key: "recordHour", event: event_time, value: ''},
-  // { key: 'temperature1', event: keyf1, value: '', next: '℃', name: '产妇T', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'pulse1', event: keyf1, value: '', next: '次/min', name: '产妇P', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'breath1', event: keyf1, value: '', next: '次/min', name: '产妇R', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'bloodPressure1', event: keyf1, value: '', next: 'mmHg', name: '产妇BP', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-//   { key: 'consciousness1', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'cervical', event: keyf1, value: '', next: '', name: '宫颈高度', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'uterine', event: keyf1, value: '', next: '', name: '子宫收缩', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'postpartum', event: keyf1, value: '', next: 'ml', name: '产后出血量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'wound', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'breast', event: keyf1, value: '', next: '', name: '乳房情况', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'lactation', event: keyf1, value: '', next: '', name: '泌乳情况', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  // { key: 'armValue', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  // { key: 'armValue2', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  // { key: 'armValue3', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  // { key: 'armValue4', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'temperature2', event: keyf1, value: '', next: '℃', name: '新生儿T', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'breath2', event: keyf1, value: '', next: '次/min', name: '新生儿R', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'reaction', event: keyf1, value: '', next: '', name: '反应', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'crying', event: keyf1, value: '', next: '', name: '哭声', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'sucking', event: keyf1, value: '', next: '', name: '吸吮力', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'since', event: keyf1, value: '', next: '', name: '自吮种类', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'skinColor', event: keyf1, value: '', next: '', name: '皮肤颜色', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'navel', event: keyf1, value: '', next: '', name: '脐部情况', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-//   { key: 'suction', event: keyf1, value: '', next: '', name: '早早接吮触吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  // {
-  //   key: "description", //特殊情况记录
-  //   value: "",
-  //   style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "150px", background: "transparent" },
-  //   textarea: { width: 150 },
-  //   event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
-  // },
-//   { key: "sign", value: "" },//单签
-//   // { key: "sign2", value: "" },//双签
-//   { key: "audit", value: "" },//审核签名
-//   { hidden:true, key:'id', value:''},
-//   { hidden:true, key:'signerName', value:''},
-//   { hidden:true, key:'signerName2', value:''},
-//   { hidden:true, key:'status', value:''},
-//   { hidden:true, key:'recordSource', value:''},
-//   { hidden:true, key:'recordYear', value:''},
-//   { hidden:true, key:'dataHash', value:''},
-//   { hidden:true, key:'recordDate', value:''},
-//   { hidden:true, key:'monthHour', value:''},
-//   { hidden:false, key:'signerNo', value:''},//单签
-//   { hidden:true, key:'signerNo2', value:''},//双签
-//   { hidden:true, key:'auditorNo', value:''},//审核签名
-//   { hidden:true, key:'auditorName', value:''},
-//   { hidden:true, key:'empNo', value:''},
-//   { hidden:true, key:'multiSign', value:''}
-  
-// ]
