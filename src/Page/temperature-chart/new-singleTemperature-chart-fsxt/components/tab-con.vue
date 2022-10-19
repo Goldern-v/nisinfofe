@@ -97,7 +97,7 @@
                   >
                     <input
                       :id="i + 1"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       type="text"
                       :title="vitalSignObj[j].vitalValue"
                       @mousewheel="
@@ -194,7 +194,7 @@
                     >
                       <input
                         :id="i + 100"
-                        @keydown.enter="changeNext"
+                        @keydown.enter.prevent="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
                             ? 'number'
@@ -286,7 +286,7 @@
 
                     <input
                       :id="i + 100"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :type="
                         totalDictInfo[index].inputType === '2'
                           ? 'number'

@@ -393,9 +393,9 @@ export default {
       let currentPatient = ''
       if(this.HOSPITAL_ID == 'whfk'){
         currentPatient = ''
-      }else if (this.HOSPITAL_ID === 'foshanrenyi' && this.$route.path.includes('/sheetPage')) {
-        // 返回模块时还是原来的患者
-        currentPatient = this.curSheetPatient;
+      // }else if (this.HOSPITAL_ID === 'foshanrenyi' && this.$route.path.includes('/sheetPage')) {
+      //   // 返回模块时还是原来的患者
+      //   currentPatient = this.curSheetPatient;
       }else{
         currentPatient = this.$store.getters.getCurrentPatient();
       }

@@ -716,8 +716,22 @@
               <span
                 style="color: #284fc2; cursor: pointer"
                 @click="openTemplateSlider"
+                v-if="sheetInfo.sheetType!='nursing_zhzxy'"
                 >+模板</span
               >
+              <div v-if="sheetInfo.sheetType=='nursing_zhzxy'">
+                <span
+                  style="color: #284fc2; cursor: pointer;margin-right: 10px;"
+                  @click="openZkModal"
+                 v-if="sheetInfo.sheetType=='nursing_zhzxy'">
+                 专科模板
+                </span>
+                <span
+                  style="color: #284fc2; cursor: pointer"
+                  @click="openTemplateSlider"
+                  >+普通模板</span
+                >
+              </div>
             </div>
             <!-- 陵城特殊情况特殊记录富文本（上下标） -->
             <!-- 武警护理记录单特殊特殊情况富文本（加粗）  -->
@@ -766,6 +780,7 @@
       </div>
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
+    <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
       v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
@@ -975,6 +990,7 @@ import moment from "moment";
 import { nullRow } from "@/Page/sheet-page/components/render/Body.js";
 import sheetModel from "@/Page/sheet-page/sheet.js";
 import templateSlide from "./template-slide.vue";
+import zkModalZhzxy from "./zkModal-zhzxy.vue";
 import sheetInfo from "../config/sheetInfo";
 import { decoder_title, decoder_record2 } from "./render/decode.js";
 import { mergeTr } from "./render/render.js";
@@ -1068,6 +1084,7 @@ export default {
       isRead: false,
       fixedList: {},
       dictionary: {},
+      zkModalZhzxyShow:false,
       check: [
         false,
         false,
@@ -1328,6 +1345,16 @@ export default {
         this.multiDictList = res.data.data;
       });
     },
+    // 珠海中西医新模板添加
+    addZkmodalDoc(val){
+      console.log(val,"addZkmodalDoc","this.doc",this.doc)
+      const regP = /(<\/?p.*?>)/gi;
+      let doc = this.doc.replace(regP, "");
+      let valRegP = val.replace(regP, "");
+      let index = this.blurIndex;
+      this.doc = doc.slice(0, index) + valRegP + doc.slice(index);
+      this.$refs.zkModalZhzxy.close();
+    },  
     open(config) {
       setTimeout(() => {
         window.closeAutoCompleteNoId();
@@ -2211,11 +2238,15 @@ export default {
       }, 1000);
       this.close();
     },
+    openZkModal(){
+      this.$refs.zkModalZhzxy.open(this.doc);
+    },
     openTemplateSlider() {
       // this.$message.warning('正在开发中')
       this.$refs.templateSlide.open();
     },
     beforeClose() {
+      if(sheetInfo.sheetType=='nursing_zhzxy') this.$refs.zkModalZhzxy.close();
       this.$refs.templateSlide.close();
     },
     dateKey,
@@ -2238,6 +2269,7 @@ export default {
     },
     //失去焦点
     handleInputBlur(e) {
+      console.log(this.blurIndex,"handleInputBlur")
       this.blurIndex = e.srcElement.selectionStart;
     },
     /**打开弹窗 */
@@ -2362,6 +2394,7 @@ export default {
     DiagnosisModal,
     AdviceModal,
     zxdtbModal,
+    zkModalZhzxy
   },
 };
 </script>

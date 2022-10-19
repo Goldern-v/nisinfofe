@@ -302,6 +302,7 @@ import {
   syncGetNurseBedRecBeiHaiExecute,
   syncGetNurseBedRecSDLJExecute,
   syncGetNurseBedRecDGXGExecute,
+  syncGetNurseBedRecWHHKExecute,
   syncGetNursePatientWHFKRecData
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
@@ -764,7 +765,6 @@ export default {
           syncData = syncGetNurseBedRecJiangMenFSSY;
           break;
         case 'lyxrm':
-        case 'whhk':
           syncData = syncGetNurseBedRecJiangMenFSSY;
           break;
         case "beihairenyi":
@@ -775,6 +775,9 @@ export default {
           break;
         case "xiegang":
           syncData = syncGetNurseBedRecDGXGExecute;
+          break;
+        case 'whhk':
+          syncData = syncGetNurseBedRecWHHKExecute;
           break;
         default:
           syncData = syncGetNurseBedRec;

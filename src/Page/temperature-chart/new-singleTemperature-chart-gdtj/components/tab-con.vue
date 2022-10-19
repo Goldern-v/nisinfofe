@@ -97,7 +97,7 @@
                   >
                     <input
                       :id="i + 1"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       type="text"
                       :title="vitalSignObj[j].vitalValue"
                       @mousewheel="
@@ -194,7 +194,7 @@
                     >
                       <input
                         :id="i + 100"
-                        @keydown.enter="changeNext"
+                        @keydown.enter.prevent="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
                             ? 'number'
@@ -280,7 +280,7 @@
                             index
                           )
                         "
-                        >{{ i.fieldCn }}</span
+                        >{{ i.fieldCn==='自定义1'?'排出量其他':i.fieldCn }}</span
                       >
                     </div>
 
@@ -288,7 +288,7 @@
                       :id="h + 1000"
                       type="text"
                       class="fieldClass"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @mousewheel="
                         (e) => {
@@ -554,7 +554,6 @@ export default {
         let otherLength =
           document.getElementsByClassName("otherPathological").length;
         this.otherDicListLength = otherLength;
-        console.log(e.target.id,baseLength)
         if (Number(e.target.id) < baseLength) {
           document.getElementById(Number(e.target.id) + 1).focus();
         } else if (Number(e.target.id) === baseLength) {
@@ -761,12 +760,17 @@ export default {
             ...item,
             options: item.selectType ? item.selectType.split(",") : [],
           };
+          //跟PDA护理事件共用一个字典表  PDA会保存这些字典 所以这里要区分一下
+          if(!['转入','死亡','手术','分娩','出生','请假','外出','出院'].includes(item.vitalSign)){
           data[item.vitalSign] = item.vitalCode;
+          }
           switch (item.signType) {
             case "base":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
               break;
             case "other":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               otherDic[item.vitalSign] = item.vitalCode;
               break;
             default:
@@ -788,7 +792,6 @@ export default {
         this.multiDictList = { ...data };
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
-        console.log(this.totalDictInfo,9)
         this.init();
       });
     },

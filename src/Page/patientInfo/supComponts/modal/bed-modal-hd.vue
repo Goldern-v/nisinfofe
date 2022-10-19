@@ -166,7 +166,7 @@
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
 
-			<div flex="cross:center" class="input-item" style="width:76%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
+			<div flex="cross:center" class="input-item" style="width:73%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
               <span class="label" style="margin-right:0;">过敏信息：</span>
               <input
                 type="text"
@@ -395,7 +395,7 @@
      }
     .qr-code {
       position: absolute;
-      right: 0;
+      right: 25px;
       top: 50%;
       margin-top: -56px;
       height: 112px;
