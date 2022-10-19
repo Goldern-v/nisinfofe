@@ -134,5 +134,6 @@ export {
   syncGetNurseBedRecSDLJExecute,
   syncGetNurseBedRecDGXGExecute,
   syncGetNurseBedRecBeiHaiExecute,
-  syncGetNursePatientWHFKRecData
+  syncGetNursePatientWHFKRecData,
+  syncGetNurseBedRecWHHKExecute
 }
