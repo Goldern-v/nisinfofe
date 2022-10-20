@@ -27,6 +27,7 @@
           <temperatureNew
             class="contain-center"
             :queryTem="patientInfo"
+            ref="temperatureNew"
           ></temperatureNew>
           <div
             class="flag-con"
@@ -187,7 +188,9 @@ export default {
       }
     },
     openRight() {
-      this.$store.commit("showRightPart", !this.rightSheet);
+      // this.$store.commit("showRightPart", !this.rightSheet);
+      if(this.$refs.temperatureNew)
+      this.$refs.temperatureNew.openRight()
     },
     async isSelectPatient(item) {
       await this.$store.commit("upPatientInfo", item);
