@@ -117,7 +117,7 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openWristPrint('wrist-children')"
-            v-if="HOSPITAL_ID == 'beihairenyi'"
+            v-if="['beihairenyi','zhzxy'].includes(HOSPITAL_ID)"
           >
             儿童腕带打印
           </div>

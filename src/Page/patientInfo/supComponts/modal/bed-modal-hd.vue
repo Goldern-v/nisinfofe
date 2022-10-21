@@ -135,13 +135,14 @@
       </div>
       <div
         class="bed-card-warpper wrist-strap-print"
+        :class="{'zhzxyStyle':['zhzxy'].includes(HOSPITAL_ID)}"
         ref="printCon3"
         v-show="printMode == 'wrist'"
       >
-        <div class="bed-card-vert-con">
+        <div class="bed-card-vert-con" >
           <div class="top">
             <span>科室：{{ query.wardName }}</span>
-            <span style="margin:4px;">床位：{{ query.bedLabel }}</span>
+            <span :style="{'margin':'4px','margin-left':['zhzxy'].includes(HOSPITAL_ID)?'20px':''}">床位：{{ query.bedLabel }}</span>
           </div>
           <div>
             <div v-if="['fsxt'].includes(HOSPITAL_ID)">
@@ -298,6 +299,9 @@
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
   font-size: 16px;
+  &.zhzxyStyle{
+      font-size: 20px;
+    }
   .bed-card-con{
     width:9cm;
     height:5.7cm;
@@ -310,6 +314,7 @@
 
 .bed-card-vertical {
   // display: none;
+  
   .bed-card-vert-con {
     margin: 5px;
     width: 2.5cm;
@@ -319,6 +324,7 @@
     position: relative;
     border: 3px solid #000;
     text-align: left;
+    
     span {
       display:block;
       width:100%;

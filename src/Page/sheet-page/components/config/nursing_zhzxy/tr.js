@@ -35,8 +35,8 @@ let 入量内容 = [];
 let 出量内容 = [];
 export default [
   { hidden: true, key: 'recordDate', value: '' },
-  { key: "recordMonth", event: event_date, click: click_date_year, value: ''},
-  { key: "recordHour", event: event_time, value: '',click:click_time},
+  { key: "recordMonth", event: event_date, click: click_date, value: ''},
+  { key: "recordHour", event: event_time, value: ''},
 
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: 'T', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: 'P/HR', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
