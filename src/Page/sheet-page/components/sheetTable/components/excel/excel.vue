@@ -1304,7 +1304,7 @@ export default {
               //     patientCard:"",// -- 患者证件号
               //     templateId:"hash", //-- 模板id
               //     formId:`${this.formData.id}`,// -- 表单ID
-              //   }; 
+              //   };
               // }
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
@@ -2571,7 +2571,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (this.HOSPITAL_ID == 'lyxrm' || this.HOSPITAL_ID == 'foshanrenyi') {
+      if (['lyxrm', 'foshanrenyi', 'gdtj'].includes(this.HOSPITAL_ID)) {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }
