@@ -700,6 +700,7 @@ export default {
       //同江登录判断推车
       if(['gdtj'].includes(this.HOSPITAL_ID)){
       this.$store.commit("updateIsMobile",this.isMobile)
+      localStorage.setItem("isMobile",this.isMobile)
       }
     },
     toReset() {

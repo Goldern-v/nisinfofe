@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     getUrl() {
-      return this.$store.state.temperature.isMobile?'http://218.204.204.90:9095':'http://192.168.10.98:9091'
+      return this.$store.state.temperature.isMobile||localStorage.getItem('isMobile')?'http://218.204.204.90:9095':'http://192.168.10.98:9091'
     },
     onPrint() {
       this.isPrintAll = false;

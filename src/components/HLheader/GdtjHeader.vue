@@ -1070,6 +1070,7 @@ export default {
       //同江清除推车登录
       if(['gdtj'].includes(this.HOSPITAL_ID)){
       this.$store.commit("updateIsMobile",false)
+      localStorage.removeItem("isMobile")
       }
     },
     setPassword() {
