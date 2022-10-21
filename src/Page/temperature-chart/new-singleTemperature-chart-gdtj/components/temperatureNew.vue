@@ -1,13 +1,16 @@
 <template>
   <div>
     <div class="contain">
-      <el-button-group>
+      <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
+      <div  class="contain_top">
+        <div>
+          <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
       </el-button-group>
-      <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div :class="rightSheet === true ? 'pagination' : 'paginationRight'">
-        <button :disabled="currentPage === 1" @click="toPre">首周</button>
+        </div>
+        <div v-show="!isPrintAll">
+          <button :disabled="currentPage === 1" @click="toPre">首周</button>
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
@@ -29,6 +32,7 @@
         >
           尾周
         </button>
+        </div>
       </div>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
@@ -99,7 +103,6 @@ export default {
         this.$refs.pdfCon.contentWindow.postMessage(
           { type: "printing" },
           this.intranetUrl /* 内网 */
-          // this.outNetUrl /* 外网 */
         );
       }, 1500);
     },
@@ -107,10 +110,6 @@ export default {
     getDataFromPage(dateTime){
       this.bus.$emit('getDataFromPage',dateTime)
     },
-    //关闭婴儿版本体温曲线
-    // closeChat() {
-    //   this.$store.commit("showBabyChat", false);
-    // },
     printAll() {
       this.isPrintAll = true; //隐藏页码控制区域
       setTimeout(() => {
@@ -167,10 +166,16 @@ export default {
       }, 0);
     },
     getHeight() {
-      this.contentHeight.height = window.innerHeight - 50 + "px";
+      this.contentHeight.height = window.innerHeight - 100 + "px";
     },
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
+      let changeFlag = this.rightSheet
+      this.$refs.pdfCon.contentWindow.postMessage(
+                  { type: "rightSheetChange", value:changeFlag },
+                  "*"
+                );
+
     },
     messageHandle(e) {
       if (e && e.data) {
@@ -359,6 +364,11 @@ button[disabled=disabled] {
 .pageInput {
   width: 30px;
   border: 0px;
+}
+.contain_top {
+  display: flex;
+    align-items: baseline;
+    justify-content: space-evenly;
 }
 
 .print-btn {
