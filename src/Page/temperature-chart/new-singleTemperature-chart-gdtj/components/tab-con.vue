@@ -324,11 +324,6 @@
 
                     <input
                       :id="h + 1000"
-                      :type="
-                        totalDictInfo[index].inputType === '2'
-                          ? 'number'
-                          : 'text'
-                      "
                       class="fieldClass"
                       @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
@@ -920,7 +915,6 @@ export default {
               this.updateData.entryDate = dateTime.slice(0, 10);
               this.updateData.entryTime = dateTime.slice(12,20);
               this.updateData.updatePerson = recordPerson;
-              console.log(this.updateData)
             })
             .catch(() => {});
         } else {
@@ -930,7 +924,6 @@ export default {
     },
         /* 删除记录 */
         async removeRecord(targetName, index) {
-          console.log(targetName,9876767)
       if (!this.isDisable()) {
         if (this.isUpdate) {
           deleteRecord({

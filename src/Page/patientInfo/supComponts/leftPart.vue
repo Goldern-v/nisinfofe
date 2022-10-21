@@ -180,6 +180,7 @@
     <bedModalXiegang ref="bedModalXiegang" />
     <bedModalHj ref="bedModalHj"></bedModalHj>
     <bedModal925 ref="bedModal925" />
+    <bedModalGDTJ ref="bedModalGDTJ" />
     <printModal ref="printModal"></printModal>
     <archiveModal
       ref="archiveModal"
@@ -327,6 +328,7 @@ import bedModalLc from "./modal/bed-modal_lc.vue";
 import bedModalLiaocheng from "./modal/bed-modal_liaocheng.vue";
 // import bedModalNfzxy from "./modal/bed-modal-Nfzxy.vue";
 import bedModalHd from "./modal/bed-modal-hd.vue";
+import bedModalGDTJ from "./modal/bed-modal-gdtj.vue";
 import bedModalZsq from "./modal/bed-modal-zsq.vue";
 import bedModalBh from "./modal/bed-modal-bh.vue";
 import bedModalQz from "./modal/bed-modal-qz.vue";
@@ -397,7 +399,7 @@ export default {
     },
     // 腕带打印
     openWristPrint(printMode) {
-      if (["huadu", "liaocheng", "gdtj", 'zhzxy'].includes(this.HOSPITAL_ID)) {
+      if (["huadu", "liaocheng", 'zhzxy'].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);
@@ -407,6 +409,8 @@ export default {
         this.$refs.bedModalXiegang.open(printMode);
       } else if (['925'].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModal925.open(printMode);
+      }else if (['gdtj'].includes(this.HOSPITAL_ID)) {
+        this.$refs.bedModalGDTJ.open(printMode);
       }
     },
     // 住院补登记
@@ -462,7 +466,6 @@ export default {
     bedModalLc,
     bedModalSDLJ,
     bedModalLiaocheng,
-    // bedModalNfzxy,
     archiveModal,
     bedModalHd,
     InpatientRegis,
@@ -474,6 +477,7 @@ export default {
     bedModalHj,
     bedModalYtLL,
     bedModal925,
+    bedModalGDTJ
   }
 };
 </script>

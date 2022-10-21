@@ -201,9 +201,9 @@
         >
           <!-- 收藏的评估单标记 -->
          <span class="likePng"  v-if="HOSPITAL_ID=='foshanrenyi'">
-                <img 
+                <img
                  v-if="e.collectionDept && (e.collectionUser.indexOf(activeUser)!=-1)"
-                 src="@/common/images/card/like.png" 
+                 src="@/common/images/card/like.png"
                  style="height:13px"
                  alt
                  >
@@ -227,15 +227,15 @@
       <div slot="button" @click="newRecordClose">
         <!--    应该selectData.collectionDep也判断的。但是后端逻辑有问题。取消收藏不清空。所以先用收藏者判断. -->
         <!--   !! 为了转Boolean-->
-        <el-button 
-          class="modal-btn" 
+        <el-button
+          class="modal-btn"
           :disabled="!selectData || !!!(selectData.collectionUser.indexOf(activeUser)!=-1)"
           @click.stop="cancelCollectAssessment"
           v-if="HOSPITAL_ID=='foshanrenyi'"
          >取消收藏
         </el-button>
-        <el-button 
-          class="modal-btn" 
+        <el-button
+          class="modal-btn"
           type="primary"
           :disabled="!selectData || !!(selectData.collectionUser.indexOf(activeUser)!=-1)"
           @click.stop="collectAssessment"
@@ -621,6 +621,7 @@ export default {
       this.$refs.modal.close();
     },
     openUrl(item) {
+      console.log(item,9999)
       if (item == this.selectData) {
         this.selectData = "";
       } else {
@@ -790,7 +791,7 @@ export default {
           //   this.templates = res.data.data.filter(
           //     (item) => item.name === this.filterObj.formName
           //   );
-          
+
           // } else {
             // formCode  E1346  //佛山人医 选中出院评估后单独把出院评估及指导筛选出来
             this.templates = res.data.data.filter(item=> item.formCode =='E1346');

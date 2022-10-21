@@ -1067,6 +1067,10 @@ export default {
       this.$store.commit("upDeptCode", "");
       //清除江门妇幼ca登录
       localStorage.removeItem("fuyouCaData");
+      //同江清除推车登录
+      if(['gdtj'].includes(this.HOSPITAL_ID)){
+      this.$store.commit("updateIsMobile",false)
+      }
     },
     setPassword() {
       this.$nextTick(()=>{
