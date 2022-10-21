@@ -607,6 +607,9 @@ async mounted() {
     handleChange(val) {
       // console.log(val);
     },
+    formatCenterExpandDate(val) {
+      this.centerExpandDate = val;
+    },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 40 + "px";
     },
