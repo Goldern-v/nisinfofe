@@ -126,7 +126,11 @@
                     <input
                       :id="i + 1"
                       @keydown.enter.prevent="changeNext"
-                      type="text"
+                      :type="
+                        totalDictInfo[index].inputType === '2'
+                          ? 'number'
+                          : 'text'
+                      "
                       :title="vitalSignObj[j].vitalValue"
                       @mousewheel="
                         (e) => {
@@ -137,7 +141,6 @@
                         handlePopRefresh(vitalSignObj[j])
                         validFormFc(vitalSignObj[j], i + 1)
                       }"
-
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
@@ -238,7 +241,7 @@
                             e.preventDefault();
                           }
                         "
-                         @input="()=>{
+                        @input="()=>{
                         handlePopRefresh(vitalSignObj[j])
                         validFormFc(vitalSignObj[j], i + 100)
                       }"
@@ -321,7 +324,11 @@
 
                     <input
                       :id="h + 1000"
-                      type="text"
+                      :type="
+                        totalDictInfo[index].inputType === '2'
+                          ? 'number'
+                          : 'text'
+                      "
                       class="fieldClass"
                       @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
