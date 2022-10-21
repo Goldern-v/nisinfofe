@@ -55,7 +55,7 @@
         </div>
       </div>
 
-      <div class="new-print-modal__b">
+      <div :class="{isZhzxy:isZhzxy}" class="new-print-modal__b">
         <div class="new-print-modal__b__l">
           <span>
             途径:{{ currentBottle.administration }}
@@ -64,9 +64,9 @@
             频率:{{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
           </span>
           <span>执行时间:{{ currentBottle.executeDate.substr(0, 16) }}</span>
-          <span v-if="!is925">配液者</span>
-          <span v-if="!is925">配置时间</span>
-          <span v-if="!is925">核对者</span>
+          <span v-if="!is925 && !isZhzxy">配液者</span>
+          <span v-if="!is925 && !isZhzxy">配置时间</span>
+          <span v-if="!is925 && !isZhzxy">核对者</span>
         </div>
         <div class="qc-box">
           <img :src="currentBottle.qcSrc || ''" />
@@ -251,6 +251,9 @@
   .new-print-modal__b {
     display: flex;
     padding-bottom: 6px;
+    &.isZhzxy{
+      min-height:72px;
+    }
   }
   .new-print-modal__b__l {
     display: flex;
@@ -390,7 +393,8 @@ export default {
   },
   data() {
     return {
-      is925: this.HOSPITAL_ID === '925'
+      is925: this.HOSPITAL_ID === '925',
+      isZhzxy: this.HOSPITAL_ID === 'zhzxy',
     };
   },
   methods: {

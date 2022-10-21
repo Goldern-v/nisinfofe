@@ -121,6 +121,11 @@
             <router-link to="/sugarPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
             </router-link>
+          </router-link>
+          <router-link to="/healthEdu" tag="span">
+            <el-row class="nav-item" type="flex" align="middle">健康教育单</el-row>
+            <!-- <div class="nav-item">健康教育单</div> -->
+          </router-link>
             <!-- <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
