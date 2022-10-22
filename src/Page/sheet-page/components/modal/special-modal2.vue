@@ -1900,7 +1900,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.HOSPITAL_ID == "hengli") {
+            } else if (this.HOSPITAL_ID == "hengli"||this.sheetInfo.sheetType == "custody_yz") {
               if (GetLength(text) > 40) {
                 result.push(text);
                 text = allDoc[i];

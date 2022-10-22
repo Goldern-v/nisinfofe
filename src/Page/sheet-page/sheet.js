@@ -209,7 +209,8 @@ export function delSheetPage(index, callback) {
       (process.env.HOSPITAL_ID == "nanfangzhongxiyi" &&
         listData &&
         listData[nowX])||
-      (process.env.HOSPITAL_ID == "sdlj" && listData && listData[nowX])
+      (process.env.HOSPITAL_ID == "sdlj" && listData && listData[nowX])||
+      (process.env.HOSPITAL_ID == "qhwy" && listData && listData[nowX])
     ) {
       return !listData[nowX].canModify;
     }
