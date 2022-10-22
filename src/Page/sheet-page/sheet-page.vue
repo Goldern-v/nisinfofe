@@ -134,7 +134,7 @@
       left: 0;
       top: -40px;
       bottom: 0;
-      z-index: 2;
+      z-index: 5;
     }
 
     .right-part {

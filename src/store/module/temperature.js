@@ -5,6 +5,7 @@ export default {
     showBabyChat: false,
     dialogVisible: false,
     patientInfo: {},
+    isMobile:false,//同江医院是否是移动设备（没有内网）  不是的话 体温单切换内网地址 是切换外网
   },
   mutations: {
     //改变体温单的显示版本，false默认不带疼痛版本，true疼痛版本
@@ -30,6 +31,10 @@ export default {
     //存储患者信息
     updatePatientInfo(state, val) {
       state.patientInfo = val
+    },
+    //存是否是移动设备标识信息
+    updateIsMobile(state, val) {
+      state.isMobile = val
     },
   }
 }

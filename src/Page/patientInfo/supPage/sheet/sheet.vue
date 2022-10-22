@@ -33,6 +33,7 @@
               :length="item.length"
               :isFirst="index === 0"
               :scrollY="scrollY"
+              :scrollX="scrollX"
               :isInPatientDetails="true"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
@@ -265,6 +266,7 @@ export default {
       sheetInfo,
       scrollTop: 0,
       scrollY: 0,
+      scrollX: 0,
       bedAndDeptChange: {},
       listData: [],
       lockHospitalList:[
@@ -540,6 +542,7 @@ export default {
       if (sheetInfo.sheetType && sheetInfo.sheetType.indexOf("_wx") > -1) {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
+        this.scrollX = parseInt(e.target.scrollLeft)
       }
     },
     getDate() {

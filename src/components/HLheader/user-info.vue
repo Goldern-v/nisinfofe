@@ -262,7 +262,7 @@ import QRCode from "qrcodejs2"
 import printQrCode from "./modal/printQrCode.vue";
 import whiteButton from "../../components/button/white-button.vue";
 import uploadImgModal from "./modal/uploadImg.vue";
-const SysPasswordManage = () => import("./SysPasswordManage.vue"); 
+const SysPasswordManage = () => import("./SysPasswordManage.vue");
 import bus from "vue-happy-bus";
 import { imageView } from "@/api/common.js";
 import common from "@/common/mixin/common.mixin.js";
@@ -432,7 +432,6 @@ export default {
     },
     clear() {
       let count = 0
-      console.log('localStorage-start',localStorage,count)
       for (let key in localStorage) {
         if (key.includes("firtPainFormID") || key.includes("patientInfo")) {
           localStorage.removeItem(key);
@@ -443,7 +442,6 @@ export default {
           count += 1
         }
       }
-      console.log('localStorage-end',localStorage,count)
       if (count > 0) {
         this.$message('清除成功')
       } else {
@@ -523,8 +521,6 @@ export default {
       if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk', '925'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
       ['foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
-      //console.log(this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})))
-      console.log(titleObject);
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
@@ -596,7 +592,6 @@ export default {
       handler(newVal, oldVal) {
         this.user = newVal
         this.getSignImg()
-        console.log(newVal,oldVal,"localStorage.userwatch")
       },
       immediate:true,
       deep:true

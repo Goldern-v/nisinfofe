@@ -106,6 +106,12 @@
               重置密码
             </button>
           </div>
+          <div class="checkCar-con" v-if="['gdtj'].includes(HOSPITAL_ID)">
+            <el-checkbox v-model="isMobile">
+              <span style="font-size: 13px; color: #687179">是否推车设备</span>
+            </el-checkbox>
+            <span style="color: red;">{{"推车登录请勾选!"}}</span>
+          </div>
           <button
             v-if="!caLoginFlag"
             v-touch-ripple
@@ -322,6 +328,14 @@ a {
     cursor: pointer;
   }
 }
+.checkCar-con {
+  width: 260px;
+  margin: 5px auto 26px;
+
+  button {
+    cursor: pointer;
+  }
+}
 
 .login-btn {
   width: 260px;
@@ -442,6 +456,7 @@ export default {
       password: "",
       verificationCode: "", //验证码
       remember: true,
+      isMobile:false,//同江查房推车电脑没有内网 所以需要判断  处理体温单url
       ajax: false,
       showPwdType: true, //显示的登录方式，默认是密码
       loginLoading: false,
@@ -682,6 +697,11 @@ export default {
       this.$store.commit("upDeptCode", "");
       localStorage.selectDeptValue = "";
       this.$store.commit("upDeptName", "");
+      //同江登录判断推车
+      if(['gdtj'].includes(this.HOSPITAL_ID)){
+      this.$store.commit("updateIsMobile",this.isMobile)
+      localStorage.setItem("isMobile",this.isMobile)
+      }
     },
     toReset() {
       this.$router.push("/resetPassword");
@@ -724,6 +744,7 @@ export default {
         console.log('test-err', err)
       })
     },
+
   },
   created() {
     if (this.HOSPITAL_ID == "foshanrenyi") {
