@@ -45,7 +45,7 @@
         <el-input
           size="small"
           type="text"
-          :disabled="['nanfangzhongxiyi'].includes(HOSPITAL_ID)"
+          :disabled="['nanfangzhongxiyi'].includes(HOSPITAL_ID) && nanfangCa"
           placeholder="输入用户名或者工号"
           v-model="username"
           :readonly="['foshanrenyi','weixian'].includes(HOSPITAL_ID)"
@@ -288,7 +288,7 @@ export default {
           this.ca_isLogin = !!this.ca_name;
       })
     }
-
+    console.log("localStorage",localStorage["nanFangcaLogin"],this.nanfangCa)
     console.log("aaaaaaaa",callback,title,showDate,isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj)
   
    this.btnLoading = false

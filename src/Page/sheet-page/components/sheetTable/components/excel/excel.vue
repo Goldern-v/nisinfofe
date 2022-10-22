@@ -1428,6 +1428,35 @@ export default {
                     signData:JSON.stringify(strSignData),
                   }
         }
+        if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+              let trObj = {};
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
+              }
+              let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+               let strSignDataOBJ = Object.assign({}, trObj, {
+                    recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                    recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                    recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                    patientId: this.patientInfo.patientId,
+                    visitId: this.patientInfo.visitId,
+                    pageIndex: this.index,
+                  })
+                 let strSignData ={}
+                  for(let key in strSignDataOBJ){
+                  if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+                }
+                verifySignObj = {
+                formId:this.$parent.patientInfo.id,
+                patientId:this.patientInfo.patientId,
+                visitId:this.patientInfo.visitId,
+                formName:this.$parent.patientInfo.recordName,
+                formCode:sheetInfo.sheetType,
+                instanceId:this.$parent.patientInfo.id,
+                recordId:strSignData.id,
+                signData:JSON.stringify(strSignData)
+                }
+            }
           this.$refs.delsignModal.open((password, empNo) => {
             let id = trArr.find((item) => {
               return item.key == "id";
