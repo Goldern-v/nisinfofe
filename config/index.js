@@ -212,13 +212,14 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9894'
     // 临沂沂州
     case 'lyyz':
-      return 'http://192.168.1.54:9895'
+      // return 'http://192.168.1.54:9895'
       // return 'http://192.168.137.164:8080'
       // return 'http://192.168.1.54:9895'
+      return "http://192.168.1.54:9866"
     // 广东同江
     case 'gdtj':
       return 'http://218.204.204.90:9095' // 正式
-      return 'http://192.168.1.54:9892'
+      // return 'http://192.168.1.54:9892'
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
       // return 'http://192.168.1.54:9866'

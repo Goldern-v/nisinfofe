@@ -1591,6 +1591,11 @@ function switchSheetType(type) {
       schema = require("../config/baby_yz/tr.js").default;
     }
       break;
+    case "custody_yz": {
+        // 临沂沂州 - 监护记录单
+        schema = require("../config/custody_yz/tr.js").default;
+    }
+      break;
     case "inout_ytll": {
       // 烟台玲珑 - 出入量记录单
       schema = require("../config/inout_ytll/tr.js").default;
