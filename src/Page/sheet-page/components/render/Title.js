@@ -2058,6 +2058,13 @@ export default function Title(
     );
   }
   break;
+  case "custody_yz": {
+    // 临沂沂州 - 监护记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/custody_yz/th").default)
+    );
+  }
+  break;
   case "inout_ytll": {
     // 烟台玲珑 - 出入量记录单
     Th = JSON.parse(
