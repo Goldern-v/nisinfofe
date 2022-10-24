@@ -372,7 +372,7 @@ export default {
       console.log("11111")
       // console.log(this.ifNoguan,fuyouIfclose,JSON.parse(localStorage.user).empNo,"fuyouIfclose")
       if(["fuyou",'zhzxy'].includes(this.HOSPITAL_ID)){
-        if(this.ifNoguan || fuyouIfclose===true){
+        if(this.ifNoguan || fuyouIfclose===true || ['zhzxy'].includes(this.HOSPITAL_ID)){
           if (this.closeCallback) {
               this.closeCallback();
             }

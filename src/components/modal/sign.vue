@@ -286,7 +286,7 @@ export default {
           this.ca_isLogin = !!this.ca_name;
       })
     }
-    console.log(formData,"formData")
+    console.log(formData,"formData",verifySignObj)
     console.log("aaaaaaaa",callback,title,showDate,isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj)
    this.btnLoading = false
     if(doctorTure){
@@ -524,6 +524,11 @@ export default {
             "fileName":`${this.formData.name}_${this.formData.code}`
         }
       }
+      // if(['zhzxy'].includes(this.HOSPITAL_ID) && this.verifySignObj.patientName){
+      //   parmas=this.verifySignObj
+      //   console.log("替换了 djw",this.verifySignObj)
+      // }
+      console.log(parmas,"getCaSignJmfypost")
       getCaSignJmfy(parmas).then(async res=>{
         let aduitDate = 'isCaSign'
         let pwd = ''

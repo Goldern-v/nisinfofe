@@ -1291,21 +1291,41 @@ export default {
               // });
             },'',null,false,'',{},undefined,undefined,undefined,SigndataObj,verifySignObj);
           }else{
+            console.log("this.patientInfo",this.patientInfo,sheetInfo)
+            let parmas={},trObj = {};
+            if(this.HOSPITAL_ID=="zhzxy"){
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
+            }
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            let strSignDataOBJ =
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index,
+                })
+                let strSignData ={}
+              for(let key in strSignDataOBJ){
+                if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+              }
+            console.log(trObj,"trObj",strSignData)
+              parmas={
+                  signType:"",
+                  patientName:this.patientInfo.name,//-- 患者名称
+                  patientSex:this.patientInfo.sex,// -- 患者性别
+                  patientCardType:"QT",//-- 患者证件类型
+                  openId:"3186b382310f07d8qcb64we7b0y710a779f",// -- 当前用户唯一标识
+                  patientAge:this.patientInfo.age,//-- 患者年龄
+                  patientCard:"",// -- 患者证件号
+                  templateId:"hash", //-- 模板id
+                  formId:sheetInfo.sheetType,// -- 表单ID
+                };
+              }
             this.$refs.signModal.open((password, empNo) => {
-              console.log("this.patientInfo",this.patientInfo)
-              // if(this.HOSPITAL_ID=="zhzxy"){
-              //   let parmas={
-              //     signType:"",
-              //     patientName:this.formData.patientName,//-- 患者名称
-              //     patientSex:this.formData.sex,// -- 患者性别
-              //     patientCardType:"QT",//-- 患者证件类型
-              //     openId:this.fuyouCaData.openId,// -- 当前用户唯一标识
-              //     patientAge:this.formData.age,//-- 患者年龄
-              //     patientCard:"",// -- 患者证件号
-              //     templateId:"hash", //-- 模板id
-              //     formId:`${this.formData.id}`,// -- 表单ID
-              //   };
-              // }
+              
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1365,7 +1385,7 @@ export default {
                 });
                 this.bus.$emit("saveSheetPage", true);
               });
-            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:null,undefined ,undefined ,undefined);
+            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:this.HOSPITAL_ID=="zhzxy"?trObj:null,undefined,undefined,undefined ,undefined ,parmas);
           }
         };
         let reverseList = [...decode().list].reverse();
