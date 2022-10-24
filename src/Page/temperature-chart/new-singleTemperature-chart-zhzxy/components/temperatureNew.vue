@@ -103,7 +103,7 @@ export default {
         // "http://192.168.1.72:8080/#/" /* 医院正式环境内网 导致跨域 */,
       `${baseUrl}/temperature` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        `${baseUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
+        `${baseUrl}/temperature/printAll` /* 医院正式环境内网 */,
     };
   },
   methods: {
@@ -122,9 +122,7 @@ export default {
       setTimeout(() => {
         this.$refs.pdfConAll.contentWindow.postMessage(
           { type: "printingAll" },
-          this.showTemp === true
-            ? this.printAllUrl
-            : this.withoutPainAll /* 内网 */
+          this.printAllUrl/* 内网 */
           // this.outNetUrl /* 外网 */
         );
       }, 1500);

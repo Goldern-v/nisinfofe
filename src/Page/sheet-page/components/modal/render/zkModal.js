@@ -202,6 +202,62 @@ export const option41=[
     {value: '无',id: '无'},
     {value: '麻痹',id: '麻痹'},
 ]
+export const option43=[
+    {value: '黄染',id: '黄染'},
+    {value: '苍白',id: '苍白'},
+    {value: '红',id: '红'},
+    {value: '紫绀',id: '紫绀'},
+    {value: '花斑',id: '花斑'},
+    {value: '发黑',id: '发黑'},
+]
+export const option44=[
+    {value: '点状',id: '点状'},
+    {value: '片状',id: '片状'},
+    {value: '无',id: '无'},
+]
+export const option45=[
+    {value: '一期',id: '一期'},
+    {value: '二期',id: '二期'},
+    {value: '三期',id: '三期'},
+    {value: '四期',id: '四期'},
+    {value: '无法分期',id: '无法分期'},
+]
+export const option46=[
+    {value: '正常',id: '正常'},
+    {value: '暖',id: '暖'},
+    {value: '冰冷',id: '冰冷'},
+]
+export const option47=[
+    {value: '正常',id: '正常'},
+    {value: '红',id: '红'},
+    {value: '肿',id: '肿'},
+    {value: '紫绀',id: '紫绀'},
+    {value: '发黑',id: '发黑'},
+]
+export const option48=[
+    {value: '正常',id: '正常'},
+    {value: '轻',id: '轻'},
+    {value: '中',id: '中'},
+    {value: '重',id: '重'},
+]
+export const option49=[
+    {value: '正常',id: '正常'},
+    {value: '增高',id: '增高'},
+    {value: '降低',id: '降低'},
+]
+export const option50=[
+    {value: '0级',id: '0级'},
+    {value: 'I级',id: 'I级'},
+    {value: 'II级',id: 'II级'},
+    {value: 'III级',id: 'III级'},
+    {value: 'IV级',id: 'IV级'},
+    {value: 'V级',id: 'V级'},
+]
+export const option51=[
+    {value: '正常',id: '正常'},
+    {value: '动脉供血不足',id: '动脉供血不足'},
+    {value: '静脉回流故障',id: '静脉回流故障'},
+]
 
 export const option31=['口人工','口禁食','口鼻饲','口混合']
 export const option4=["备皮",'禁饮6小时','禁食12小时','术前宣教']

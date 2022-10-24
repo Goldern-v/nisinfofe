@@ -9,6 +9,7 @@
               'liaocheng',
               'foshanrenyi',
               'whfk',
+              'zhzxy',
               'lyxrm',
               'whhk',
               '925',
@@ -70,6 +71,7 @@
               'foshanrenyi',
               'whfk',
               'lyxrm',
+              'zhzxy',
               'whhk',
               '925',
               'gdtj'
@@ -239,6 +241,7 @@
                 'weixian',
                 'liaocheng',
                 'foshanrenyi',
+                'zhzxy',
                 'whfk',
                 'lyxrm',
                 'whhk',
@@ -385,7 +388,7 @@ export default {
         },
       ],
       // 是否显示医嘱类型
-      showAdvice: ['foshanrenyi'].includes(this.HOSPITAL_ID),
+      showAdvice: ['foshanrenyi','zhzxy'].includes(this.HOSPITAL_ID),
     };
   },
   methods: {
@@ -423,6 +426,7 @@ export default {
           "weixian",
           "liaocheng",
           "foshanrenyi",
+          'zhzxy',
           "whfk",
           "lyxrm",
           "whhk",
@@ -463,7 +467,7 @@ export default {
           return item;
         });
       }
-      if (["foshanrenyi", "lyxrm", "whhk", '925','gdtj'].includes(this.HOSPITAL_ID)) {
+      if (["foshanrenyi",'zhzxy', "lyxrm", "whhk", '925','gdtj'].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.foodSize = item.dosage;
           return item;
@@ -565,7 +569,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", "lyxrm", "whhk", '925','gdtj'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
@@ -648,7 +652,7 @@ export default {
     },
     // 一行选中
     handleRowClick(row, column, event) {
-      if (!["foshanrenyi", '925'].includes(this.HOSPITAL_ID)) return;
+      if (!["foshanrenyi",'zhzxy', '925'].includes(this.HOSPITAL_ID)) return;
       this.$refs["zxdtb-table"].toggleRowSelection(row);
     },
     changeRecordDate(row, type, newVal) {
@@ -770,7 +774,7 @@ export default {
             name: "其他",
           },
         ];
-      } else if (["foshanrenyi", '925'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", '925','zhzxy'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",

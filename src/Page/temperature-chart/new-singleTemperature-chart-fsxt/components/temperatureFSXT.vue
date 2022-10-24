@@ -169,7 +169,7 @@ export default {
       }, 0);
     },
     getHeight() {
-      this.contentHeight.height = window.innerHeight - 50 + "px";
+      this.contentHeight.height = window.innerHeight - 100 + "px";
     },
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
@@ -184,7 +184,7 @@ export default {
           case "dblclick" /* 双击查阅体温单子 */:
             this.openRight();
             break;
-              case "currentPage":
+            case "currentPage":
             this.currentPage = e.data.value;
             break;
             case "clickDateTime":
@@ -231,7 +231,7 @@ export default {
       this.authTokenNursing = val;
     },
     currentPage(value) {
-      this.totoCurrentPage = value;
+      this.toCurrentPage = value;
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */

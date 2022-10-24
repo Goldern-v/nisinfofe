@@ -69,7 +69,7 @@ export function getRowNum(index) {
     return 20
   } else if ( sheetInfo.sheetType === 'access_fk'||sheetInfo.sheetType === 'cardiac_lcey') {
     return 28
-  } else if (sheetInfo.sheetType === 'mechanical_sdlj') {
+  } else if (sheetInfo.sheetType === 'mechanical_sdlj'||sheetInfo.sheetType === 'custody_yz') {
     return 33
   } else if ( sheetInfo.sheetType === 'magnesium_lcey' || sheetInfo.sheetType == "seriousnursing_ytll") {
     return 24

@@ -194,7 +194,16 @@ export default {
     return {
       list: [],
       rightData: {},
-      options: [
+      
+      value: "全部",
+      visitList: [],
+      visitId: "",
+    };
+  },
+  computed: {
+    options(){
+      if(["zhzxy"].includes(this.HOSPITAL_ID)){
+        return [
         {
           label: "全部",
         },
@@ -210,13 +219,30 @@ export default {
         {
           label: "心电图",
         },
-      ],
-      value: "全部",
-      visitList: [],
-      visitId: "",
-    };
-  },
-  computed: {
+        {
+          label: "B超",
+        },
+      ]
+      }else{
+        return [
+          {
+            label: "全部",
+          },
+          {
+            label: "CT",
+          },
+          {
+            label: "MR",
+          },
+          {
+            label: "磁共振",
+          },
+          {
+            label: "心电图",
+          },
+        ]
+      }
+    },
     infoData() {
       return this.$route.query;
     },

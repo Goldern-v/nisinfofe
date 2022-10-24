@@ -19,12 +19,12 @@ export default {
     th: {
         top: 
             [
-                {"name":"日期","colspan":"1","rowspan":"2","style":{"minWidth":"40px","maxWidth":"40px"}},
+                {"name":"日期","colspan":"1","rowspan":"2","style":{"minWidth":"55px","maxWidth":"55px"}},
                 {"name":"时间","colspan":"1","rowspan":"2","style":{"minWidth":"40px","maxWidth":"40px"}},
                 {"name":"T<br>℃","colspan":"1","rowspan":"2"},
                 {"name":"P/HR<br>次/分","colspan":"1","rowspan":"2","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"R<br>次/分","colspan":"1","rowspan":"2"},
-                {"name":"BP<br>mmHg","colspan":"1","rowspan":"2","style":{"minWidth":"45px","maxWidth":"45px"}},
+                {"name":"BP<br>mmHg","colspan":"1","rowspan":"2","style":{"minWidth":"55px","maxWidth":"55px"}},
                 {"name":"SpO2<br>％","colspan":"1","rowspan":"2"},
                 {"name":"吸氧<br>L/min","colspan":"1","rowspan":"2"},
                 {"name":"入量","colspan":"2","rowspan":"1"},
@@ -43,9 +43,9 @@ export default {
         ,
         mid: 
             [
-                {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"150px","maxWidth":"150px"}},
+                {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"50px","maxWidth":"50px"}},
                 {"name":"ml","colspan":"1","rowspan":"1"},
-                {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"150px","maxWidth":"150px"}},
+                {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"100px","maxWidth":"100px"}},
                 {"name":"ml","colspan":"1","rowspan":"1"},
                 {"name":"颜色/性状","colspan":"1","rowspan":"1","style":{"minWidth":"55px","maxWidth":"55px"}},
             ]
