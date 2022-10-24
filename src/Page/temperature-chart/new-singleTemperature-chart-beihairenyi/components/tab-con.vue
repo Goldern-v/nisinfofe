@@ -121,7 +121,7 @@
                   >
                     <input
                       :id="i + 1"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       type="text"
                       :title="vitalSignObj[j].vitalValue"
                       @mousewheel="
@@ -229,7 +229,7 @@
                     >
                       <input
                         :id="i + 100"
-                        @keydown.enter="changeNext"
+                        @keydown.enter.prevent="changeNext"
                         type="text"
                         :title="vitalSignObj[j].vitalValue"
                         @input="()=>{
@@ -326,7 +326,7 @@
                       :id="h + 100"
                       type="text"
                       class="fieldClass"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
                       @click="

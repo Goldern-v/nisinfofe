@@ -36,7 +36,7 @@ let ysList = ['√','+','±','++','+++','谵妄']
 let tyList = ["（-）","红肿", "渗液","水肿"]
 let safeList=[{name:"A协助翻身",value:"A"},{name:"B指导床上翻身活动",value:"B"},{name:"C指导下床活动",value:"C"},{name:"D去枕平卧",value:"D"},{name:"E指导患者口腔护理",value:"E"},{name:"F膀胱功能训练",value:"F"},{name:"G指导会阴护理",value:"G"},{name:"H指导更换新生儿尿布",value:"H"},{name:"I指导新生儿脐部护理",value:"I"},{name:"J留置针护理",value:"J"},{name:"K出院指导",value:"K"},{name:"L其他",value:"L"}]
 let measureList=[{name:"A留陪人",value:"A"},{name:"B防压疮",value:"B"},{name:"C防跌倒，防坠床",value:"C"},{name:"D挂标识、防药物外渗",value:"D"},{name:"E挂标识、防脱管",value:"E"},{name:"F防烫伤",value:"F"},{name:"G其他",value:"G"},]
-
+const jkxjList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩']
 
 
 export default [
@@ -59,13 +59,13 @@ export default [
   { key: 'contractionsHard', event: keyf1, value: '', next: '', name: '硬', style: { width: '25px' }, click: (e, td) => click_cancel(e, td, 1)  },
   { key: 'abdomen', event: keyf1, value: '', next: '', name: '腹部', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) ,autoComplete: { data: tyList },  },
   { key: 'perineum', event: keyf1, value: '', next: '', name: '会阴', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) ,autoComplete: { data: tyList },  },
+  { key: 'customItem7', event: keyf1, value: '', next: '', name: '', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 6), autoComplete: { data: jkxjList }, splice: "," },
   { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
   { key: 'customItem2', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
   { key: 'customItem3', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
   { key: 'customItem4', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
   { key: 'customItem5', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
   { key: 'customItem6', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 3) },
-  { key: 'customItem7', event: keyf1, value: '', next: '', name: '', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'customItem8', event: keyf1, value: '', next: '', name: '', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 6) },
   {
     key: "description", //特殊情况记录

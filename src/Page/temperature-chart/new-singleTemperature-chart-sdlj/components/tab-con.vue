@@ -114,6 +114,7 @@
                   "
                   v-for="(j, index, i) in baseMultiDictList"
                   :key="index"
+                  class="pathological"
                 >
                   <div class="rowItemText">
                     <span>{{ index }}</span>
@@ -133,7 +134,7 @@
                   >
                     <input
                       :id="i + 1"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :type="
                         totalDictInfo[index].inputType === '2'
                           ? 'number'
@@ -212,6 +213,7 @@
                     "
                     v-for="(j, index, i) in otherMultiDictList"
                     :key="index"
+                    class="otherPathological"
                   >
                     <div class="rowItemText">
                       <span>{{ index }}</span>
@@ -231,7 +233,7 @@
                     >
                       <input
                         :id="i + 100"
-                        @keydown.enter="changeNext"
+                        @keydown.enter.prevent="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
                             ? 'number'
@@ -324,10 +326,10 @@
                     </div>
 
                     <input
-                      :id="h + 100"
+                      :id="h + 1000"
                       type="text"
                       class="fieldClass"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
                       @click="
@@ -370,15 +372,6 @@
                     >
                     </el-option>
                   </el-select>
-                  <el-time-picker
-                    size="mini"
-                    :readonly="isDisable()"
-                    v-model="timeVal"
-                    placeholder="选择表顶时间"
-                    style="width: 100%"
-                    @change="formatTopExpandDate"
-                  >
-                  </el-time-picker>
                 </div>
                 <!--目前武警是没有用的中间注释的--->
                 <div class="rowBox" v-if="multiDictList['中间注释']">
@@ -596,25 +589,31 @@ async mounted() {
     },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
-        let inputListLength = document.getElementsByClassName("rowBox").length;
-        if (Number(e.target.id) < inputListLength) {
-          switch (Number(e.target.id)) {
-            case 6:
-              document.getElementById("12").focus();
-            case 12:
-              document.getElementById("16").focus();
-            default:
-              document.getElementById(Number(e.target.id) + 1).focus();
-          }
-        } else if (Number(e.target.id) === inputListLength) {
+        let baseLength = document.getElementsByClassName("pathological").length;
+        let otherLength =
+          document.getElementsByClassName("otherPathological").length;
+        this.otherDicListLength = otherLength;
+        console.log(e.target.id,baseLength)
+        if (Number(e.target.id) < baseLength) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (Number(e.target.id) === baseLength) {
           document.getElementById("100").focus();
+        } else if (
+          Number(e.target.id) > baseLength &&
+          Number(e.target.id) < otherLength + 100 - 1
+        ) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+
+        }
+        if (Number(e.target.id) >= 100 + otherLength - 1) {
+          document.getElementById("1000").focus();
         }
       } else {
         let inputListLength =
           document.getElementsByClassName("fieldClass").length;
-        if (Number(e.target.id) < inputListLength + 100 - 1) {
+        if (Number(e.target.id) < inputListLength + 1000 - 1) {
           document.getElementById(Number(e.target.id) + 1).focus();
-        } else if (Number(e.target.id) === inputListLength + 100 - 1) {
+        } else if (Number(e.target.id) === inputListLength + 1000 - 1) {
           document.getElementById("1").focus();
         }
       }
@@ -900,9 +899,11 @@ async mounted() {
           data[item.vitalSign] = item.vitalCode;
           switch (item.signType) {
             case "base":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
               break;
             case "other":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               otherDic[item.vitalSign] = item.vitalCode;
               break;
             default:

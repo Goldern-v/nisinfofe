@@ -121,6 +121,11 @@
             <router-link to="/sugarPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
             </router-link>
+          </router-link>
+          <router-link to="/healthEdu" tag="span">
+            <el-row class="nav-item" type="flex" align="middle">健康教育单</el-row>
+            <!-- <div class="nav-item">健康教育单</div> -->
+          </router-link>
             <!-- <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
@@ -562,7 +567,7 @@
                   ></el-option>
                 </el-select>
               </span>
-              <span class="option-item" v-popover:popover1>{{
+              <span class="option-item" v-popover:popover1 @click="bus.$emit('updateFuyouCaData')">{{
                 user.empName
               }}</span>
             </span>
@@ -1037,6 +1042,7 @@ export default {
       Cookies.remove("token");
       Cookies.remove("user");
       Cookies.remove("NURSING_USER", { path: "/" });
+      localStorage.removeItem("fuyouCaData");
       if (ifRelogin != "relogin") this.$router.push("/login");
       this.$store.commit("upDeptCode", "");
     },
@@ -1087,6 +1093,9 @@ export default {
   },
   created() {
     // this.$store.dispatch("getMailUnread");
+    if(["zhzxy"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
+      window.openFuyouCaSignModal(true);
+    }
     this.bus.$on("quit", relogin => this.quit(relogin));
     nursingUnit().then(res => {
       this.deptList = [];

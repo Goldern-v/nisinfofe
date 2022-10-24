@@ -244,7 +244,7 @@ export default {
       aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi', 'internal_eval_weihai'],
       activeSheetType:"",
       // hasQrCaSignHos:['fuyou','hj'],
-      hasQrCaSignHos:['fuyou','hj','guizhou'],
+      hasQrCaSignHos:['fuyou','hj','guizhou','zhzxy'],
       // caSignHasNoSignType:['hj'],
       caSignHasNoSignType:['hj','guizhou'],
       btnLoading:false,
@@ -286,7 +286,7 @@ export default {
           this.ca_isLogin = !!this.ca_name;
       })
     }
-
+    console.log(formData,"formData")
     console.log("aaaaaaaa",callback,title,showDate,isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj)
    this.btnLoading = false
     if(doctorTure){

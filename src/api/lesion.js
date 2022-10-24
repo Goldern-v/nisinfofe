@@ -94,6 +94,10 @@ function syncGetNurseBedRecSDLJExecute(deptCode){
 function syncGetNurseBedRecDGXGExecute(deptCode){
   return axios.get(`${apiPath}HisLinYiBedRec/syncGetNurseBedRec/${deptCode}`)
 }
+//武汉汉口 --更新床位一览卡信息
+function syncGetNurseBedRecWHHKExecute(deptCode){
+  return axios.get(`${apiPath}hisDispenseExecute/syncGetNurseBedRec/${deptCode}`)
+}
 
 // 威县 --同步医嘱
 function syncGetMedicalAdvice(deptCode) {
@@ -130,5 +134,6 @@ export {
   syncGetNurseBedRecSDLJExecute,
   syncGetNurseBedRecDGXGExecute,
   syncGetNurseBedRecBeiHaiExecute,
-  syncGetNursePatientWHFKRecData
+  syncGetNursePatientWHFKRecData,
+  syncGetNurseBedRecWHHKExecute
 }

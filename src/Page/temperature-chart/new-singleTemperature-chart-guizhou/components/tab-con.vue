@@ -115,7 +115,7 @@
                   >
                     <input
                       :id="i + 1"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :type="
                         totalDictInfo[index].inputType === '2'
                           ? 'number'
@@ -217,7 +217,7 @@
                     >
                       <input
                         :id="i + 100"
-                        @keydown.enter="changeNext"
+                        @keydown.enter.prevent="changeNext"
                         :type="
                         totalDictInfo[index].inputType === '2'
                           ? 'number'
@@ -297,7 +297,7 @@
                       <input
                         type="text"
                         :id="100+otherDicListLength-1"
-                        @keydown.enter="changeNext"
+                        @keydown.enter.prevent="changeNext"
 
                         :title="vitalSignObj['guomingyaowu'].vitalValue"
                         @input="handlePopRefresh(vitalSignObj['guomingyaowu'])"
@@ -408,7 +408,7 @@
                       :id="h + 1000"
                       type="text"
                       class="fieldClass"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
                       @click="

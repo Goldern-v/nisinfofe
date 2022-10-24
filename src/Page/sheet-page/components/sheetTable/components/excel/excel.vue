@@ -1292,6 +1292,20 @@ export default {
             },'',null,false,'',{},undefined,undefined,undefined,SigndataObj,verifySignObj);
           }else{
             this.$refs.signModal.open((password, empNo) => {
+              console.log("this.patientInfo",this.patientInfo)
+              // if(this.HOSPITAL_ID=="zhzxy"){
+              //   let parmas={
+              //     signType:"",
+              //     patientName:this.formData.patientName,//-- 患者名称
+              //     patientSex:this.formData.sex,// -- 患者性别
+              //     patientCardType:"QT",//-- 患者证件类型
+              //     openId:this.fuyouCaData.openId,// -- 当前用户唯一标识
+              //     patientAge:this.formData.age,//-- 患者年龄
+              //     patientCard:"",// -- 患者证件号
+              //     templateId:"hash", //-- 模板id
+              //     formId:`${this.formData.id}`,// -- 表单ID
+              //   };
+              // }
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1662,7 +1676,7 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        if (this.HOSPITAL_ID == "weixian" || this.HOSPITAL_ID == "foshanrenyi") {
+        if (this.HOSPITAL_ID == "weixian" || this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zhzxy") {
           return trArr.find((item) => item.key == "signerNo").value
             ? `<img
               width="50"
@@ -2205,6 +2219,7 @@ export default {
       window.openContextMenu({ style, data });
     },
     openEditModal(tr, data, e) {
+      console.log("jinlai111")
       // 花都副页关闭编辑框
       if(this.sheetInfo.sheetType=='additional_count_hd'){
         return
@@ -2556,7 +2571,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (this.HOSPITAL_ID == 'lyxrm' || this.HOSPITAL_ID == 'foshanrenyi') {
+      if (['lyxrm', 'foshanrenyi', 'gdtj'].includes(this.HOSPITAL_ID)) {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }

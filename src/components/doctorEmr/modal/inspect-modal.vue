@@ -1,6 +1,6 @@
 <template>
   <sweet-modal ref="modalName" title="检查报告" class="modal-con">
-    <inspectFSRY v-if="HOSPITAL_ID == 'foshanrenyi'"></inspectFSRY>
+    <inspectFSRY v-if="['foshanrenyi'].includes(HOSPITAL_ID)"></inspectFSRY>
     <inspect v-else></inspect>
     <!-- <div slot="button">
       <el-button class="modal-btn" @click="$refs.modalName.close()"

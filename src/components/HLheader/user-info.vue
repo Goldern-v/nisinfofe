@@ -54,11 +54,11 @@
         <span>{{ fuyouCaData ? "已登录" : "未登录" }}</span>
       </p>
       <div class="button-con">
-        <el-button size="mini" @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()">证书登录</el-button>
+        <el-button size="mini" @click="()=>['fuyou','zhzxy'].includes(HOSPITAL_ID)? openFuyouCaSignModal() : openHjCaSignModal()">证书登录</el-button>
         <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
-    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', '925'].includes(HOSPITAL_ID)">
+    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', '925' ,'gdtj'].includes(HOSPITAL_ID)">
       <div class="boxShadow" @click="onPrint">
         <div class="qrcode" ref="qrcodeContainer"></div>
       </div>
@@ -291,7 +291,7 @@ export default {
       fuyouCaData:null,//江门妇幼ca签名认证数据
       isUpdateFuyouCaData:true,
       // hasQrCaSignHos:['fuyou','hj'],
-      hasQrCaSignHos:['fuyou','hj','guizhou'],
+      hasQrCaSignHos:['fuyou','hj','guizhou','zhzxy'],
       userNum:0,
       foshanshiyiIFca:false
     };
@@ -432,7 +432,6 @@ export default {
     },
     clear() {
       let count = 0
-      console.log('localStorage-start',localStorage,count)
       for (let key in localStorage) {
         if (key.includes("firtPainFormID") || key.includes("patientInfo")) {
           localStorage.removeItem(key);
@@ -443,7 +442,6 @@ export default {
           count += 1
         }
       }
-      console.log('localStorage-end',localStorage,count)
       if (count > 0) {
         this.$message('清除成功')
       } else {
@@ -523,8 +521,6 @@ export default {
       if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk', '925'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
       ['foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
-      //console.log(this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})))
-      console.log(titleObject);
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
@@ -596,7 +592,6 @@ export default {
       handler(newVal, oldVal) {
         this.user = newVal
         this.getSignImg()
-        console.log(newVal,oldVal,"localStorage.userwatch")
       },
       immediate:true,
       deep:true

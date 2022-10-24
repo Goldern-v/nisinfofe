@@ -28,6 +28,7 @@ export default {
                 {"name":"瞳孔","colspan":"4","rowspan":"1"},
                 {"name":"入量","colspan":"2","rowspan":"1"},
                 {"name":"出量","colspan":"3","rowspan":"1"},
+                {"name":"健康宣教","colspan":"1","rowspan":"3"},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem1","style":{"minWidth":"30px","maxWidth":"30px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem2","style":{"minWidth":"30px","maxWidth":"30px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem3","style":{"minWidth":"30px","maxWidth":"30px"}},

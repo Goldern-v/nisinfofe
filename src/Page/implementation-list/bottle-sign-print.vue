@@ -823,7 +823,6 @@ export default {
       // let barcode = this.selectedData.map(item=>item.barcode).join('|')
       let printObj = {};
       let res = "";
-      console.log("test-barCodeList", barCodeList);
       if (
         ["sdlj", "gdtj", "fsxt", "lyxrm", "whfk", "ytll", "whhk", 'zhzxy', '925'].includes(
           this.HOSPITAL_ID

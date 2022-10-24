@@ -173,7 +173,7 @@
         :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId,inpNo:query.inpNo}}"
         tag="span"
       > -->
-        <div class="nav-item" @click="openOtherPage">患者360</div>
+        <div class="nav-item"  v-if="HOSPITAL_ID !== '925'" @click="openOtherPage">患者360</div>
       <!-- </router-link> -->
     </div>
     <div style="height: 50px"></div>

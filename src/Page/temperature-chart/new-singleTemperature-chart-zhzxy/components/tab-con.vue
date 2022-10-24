@@ -149,7 +149,7 @@
                   >
                     <input
                       :id="i + 1"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :type="
                         totalDictInfo[index].inputType === '2'
                           ? 'number'
@@ -247,7 +247,7 @@
                     >
                       <input
                         :id="i + 100"
-                        @keydown.enter="changeNext"
+                        @keydown.enter.prevent="changeNext"
                         :type="
                           totalDictInfo[index].inputType === '2'
                             ? 'number'
@@ -340,10 +340,10 @@
                     </div>
 
                     <input
-                      :id="h + 100"
+                      :id="h + 1000"
                       type="text"
                       class="fieldClass"
-                      @keydown.enter="changeNext"
+                      @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
                       @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
                       @click="
@@ -606,6 +606,9 @@ async mounted() {
   methods: {
     handleChange(val) {
       // console.log(val);
+    },
+    formatCenterExpandDate(val) {
+      this.centerExpandDate = val;
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 40 + "px";
@@ -1176,13 +1179,12 @@ async mounted() {
 
     .showRecord {
       height: 100%;
-
+      display:flex;
       .record-list {
         height: 100%;
         background-color: #fff;
         border-radius: 0px 7px 7px 0px;
         margin: 5px 3px 0px 0px;
-        float: left;
          overflow: auto;
       }
             .record-list::-webkit-scrollbar{
@@ -1203,22 +1205,18 @@ async mounted() {
         }
       }
     }
-
     .null-bg {
       background-color: #fff;
       height: 1000px;
       margin-top: 5px;
     }
-
     .inputter-region {
       width: 58%;
-      float: left;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;
       overflow: scroll;
       overflow-x: hidden;
       overflow-y: scroll;
-
       .title {
         color: black;
         font-weight: bold;
@@ -1248,18 +1246,18 @@ async mounted() {
 
   .times {
     display: inline-block;
-    width: 100px;
+    width: 80px;
     margin: 7px 0px 0px 7px;
 
     .new-time-select {
       height: 29px;
-      width: 100px;
+      width: 80px;
       display: inline-block;
 
       >>>.el-input__inner {
         height: 32px !important;
         display: inline-block;
-        width: 100px;
+        width: 80px;
         border-radius: 6px;
       }
     }

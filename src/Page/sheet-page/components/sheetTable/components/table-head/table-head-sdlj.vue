@@ -215,6 +215,9 @@ export default {
         "microsurgical_sdlj",//护理记录单（显微外科）
         'neurology_sdlj',//护理记录单（神经内科）
         'intervent_sdlj',//护理记录单（综合介入科）
+        'postpartum_sdlj', // 产后护理记录单
+        'intravenous_sdlj', // 硫酸镁、安宝静脉点滴观察记录表
+        'prenatal_sdlj', // 产前待产记录单
       ]
     };
   },

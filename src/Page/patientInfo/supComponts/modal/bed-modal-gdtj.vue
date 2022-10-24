@@ -11,19 +11,16 @@
         class="bed-card-warpper"
         v-loading="modalLoading"
         ref="printCon"
-        v-show="printMode == 'h'"
+        v-if="printMode == 'h'"
       >
         <div
-          v-for="(item,index) in list"
-          :key="item.patientId + '|' + item.visitId"
           class="bed-card-con"
-          :class="[(index+1)%9==0?'nextpage':'',(index+1)%9==1||(index+1)%9==2||(index+1)%9==3?'firstpage':'']"
           flex
+          :class="{ remarkCon: formData.remarkPrint }"
         >
           <img
             class="qr-code"
-            :class="{ hasRemark: hasRemark }"
-            :src="qrCode[index]"
+            :src="qrCode"
           />
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div
@@ -38,12 +35,12 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-              >{{item.wardName}}</div>
+              >{{query.wardName}}</div>
             </div>
             <div
               flex="cross:center"
               class="input-item"
-              :style="{overflow:item.name&&item.name.length>7?'unset':'',minHeight:'43px'}"
+              :style="{overflow:query.name.length>7?'unset':'',minHeight:'43px'}"
             >
               <span class="label">床号:</span>
               <div
@@ -52,7 +49,7 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0"
                 flex-box="1"
                 class="bottom-line"
-              >{{item.bedLabel}}</div>
+              >{{query.bedLabel}}</div>
               <span class="label">姓名:</span>
               <div
                 type="text"
@@ -60,8 +57,8 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="3"
                 class="bottom-line"
-                :class="[item.name&&item.name.length>7?'huadu-bigname':'']"
-              >{{item.name}}</div>
+                :class="[query.name.length>7?'huadu-bigname':'']"
+              >{{query.name}}</div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">性别:</span>
@@ -71,7 +68,7 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-              >{{item.sex}}</div>
+              >{{query.sex}}</div>
               <span class="label">年龄:</span>
               <div
                 type="text"
@@ -79,7 +76,7 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="3"
                 class="bottom-line"
-              >{{item.age}}</div>
+              >{{query.age}}</div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">住院号:</span>
@@ -89,8 +86,8 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-              >{{item.patientId}}</div>
-              </div>
+              >{{query.patientId}}</div>
+            </div>
             <div flex="cross:center" class="input-item">
               <span class="label">主管医生:</span>
               <div
@@ -99,7 +96,7 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-              >{{item.mainDoctors}}</div>
+              >{{mainDoctors}}</div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">入院日期:</span>
@@ -109,7 +106,7 @@
                 style="width: 0px;font-size: 22px; padding-left: 2px;;margin-right:80px;border-bottom:0;"
                 nowidth
                 class="bottom-line"
-              >{{moment(item.admissionDate).format('YYYY-MM-DD')}}</div>
+              >{{moment(query.admissionDate).format('YYYY-MM-DD')}}</div>
             </div>
           </div>
         </div>
@@ -119,63 +116,118 @@
         ref="printCon2"
         v-show="printMode == 'v'"
       >
-        <div
-          class="bed-card-vert-con"
-          v-for="(item,index) in list"
-          :key="item.patientId"
-          :class="[(index+1)%10==0?'nextpage':'',[1,2,3,4,5].includes((index+1)%10)?'firstpage':'']"
-        >
+        <div class="bed-card-vert-con">
           <span>床号：</span>
-          <p>{{ item.bedLabel + "床" }}</p>
+          <p>{{ query.bedLabel + "床" }}</p>
           <span>姓名：</span>
-          <p>{{ item.name }}</p>
-          <span><span style="display:inline-block;width:54px;">性别：</span><span style="font-size:20px;display:inline-block;width:30px;">{{ item.sex }}</span></span>
+          <p>{{ query.name }}</p>
+          <span><span style="display:inline-block;width:54px;">性别：</span><span style="font-size:20px;display:inline-block;width:30px;">{{ query.sex }}</span></span>
           <span>年龄：</span>
-          <p>{{ item.age }}</p>
+          <p>{{ query.age }}</p>
           <span>住院号：</span>
-          <p class="patientId">{{ item.patientId }}</p>
+          <p>{{ query.patientId }}</p>
           <img
             class="qr-code  wrist-qrcode"
             :class="{ hasRemark: hasRemark }"
-            :src="qrCode[index]"
+            :src="qrCode"
           />
         </div>
       </div>
       <div
         class="bed-card-warpper wrist-strap-print"
         ref="printCon3"
-        v-for="(item,index) in list"
-        :key="item.patientId+item.visitId"
         v-show="printMode == 'wrist'"
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span>科室：{{ item.wardName }}</span>
-            <span style="margin:4px;">床位：{{ item.bedLabel }}</span>
+            <div>
+              <span>姓名：{{ query.name }}</span>
+              <span>床位：{{ query.bedLabel }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+            </div>
+            <span>科室：{{ query.wardName }}</span>
+            <span style="margin:4px;">住院号：{{ query.patientId }}</span>
           </div>
           <div>
             <div>
-              <span>{{ item.name }}</span>
-              <span>{{ item.sex }}</span>
-              <span>{{ item.age }}</span>
-              <span>住院号：{{ item.patientId }}</span>
+              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
-            <div>
-              <span>入院日期：{{ item.admissionDate | ymdhm }}</span>
+                <div flex="cross:center" class="input-item" style="width:73%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
+              <span class="label" style="margin-right:0;">过敏信息：</span>
+              <input
+                type="text"
+                nowidth
+                style="font-size: 20px;padding-left:0;"
+                flex-box="1"
+                class="bottom-line is_input_print"
+				:maxlength="13"
+                v-model="allergy_gdtj"
+              />
             </div>
-            <div class="allergy" :class="[item.allergy1||item.drugGms||item.allergy2?'gm':'']">
-                过敏信息：
-                <span v-if="item.allergy1">{{ item.allergy1 }};</span>
-                <span v-if="item.drugGms">{{ item.drugGms }};</span>
-                <span v-if="item.allergy2">{{ item.allergy2 }}</span>
-                <span v-if="!(item.allergy1||item.drugGms||item.allergy2)">无</span>
-            </div>
+			<!-- <div flex="cross:top"
+              class="input-item"
+				v-if="['gdtj'].includes(HOSPITAL_ID)" style="width:350px;height: 60px;">
+              <span class="label">过敏信息：</span>
+			  <textarea
+                type="text"
+                nowidth
+                flex-box="1"
+				placeholder="20个字以内"
+                class="bottom-line remark allergy-textarea is_hide_textarea"
+                v-model="allergy_gdtj"
+                :maxlength="20"
+              ></textarea>
+			  <p class="bottom-line remark allergy-textarea print-page__ptext" flex-box="1" style="whiteSpace: pre-wrap;">{{allergy_gdtj}}</p>
+            </div> -->
+			<div class="allergy" v-else-if="!['zhzxy'].includes(HOSPITAL_ID)">
+				<p :class="[allergy1||drugGms||allergy2?'gm':'']">
+					过敏信息：
+					<span v-if="allergy1">{{ allergy1 }};</span>
+					<span v-if="drugGms">{{ drugGms }};</span>
+					<span v-if="allergy2">{{ allergy2 }}</span>
+					<span v-if="!(allergy1||drugGms||allergy2)">无</span>
+				</p>
+			</div>
+
             <!-- <svg id="barcode"></svg> -->
           </div>
           <img
             class="qr-code"
             :class="{ hasRemark: hasRemark }"
-            :src="qrCode[index]"
+            :src="qrCode"
+          />
+        </div>
+      </div>
+      <div
+        class="bed-card-warpper wrist-strap-print children-wrist"
+        ref="printCon4"
+        v-show="printMode == 'wrist-children'"
+      >
+        <div class="bed-card-vert-con">
+          <div class="top">
+            <span>科室：{{ query.wardName }}</span>
+          </div>
+          <div>
+            <div>
+              <span>床位：{{ query.bedLabel }}</span>
+              <span>住院号：{{ query.patientId}}</span>
+            </div>
+            <div>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+            </div>
+          </div>
+          <div>
+            <div>
+              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+            </div>
+          </div>
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
           />
         </div>
       </div>
@@ -188,7 +240,7 @@
           <el-switch
             on-text="是"
             off-text="否"
-            v-model="remarkPrint"
+            v-model="formData.remarkPrint"
           ></el-switch>
         </span> -->
 
@@ -215,6 +267,17 @@
     padding-bottom: 20px;
     text-align: center;
   }
+}
+.remark {
+  height: 60px;
+  resize: none;
+  overflow: hidden;
+  border-bottom: 1px solid #000;
+  margin-top: 1px;
+  font-size: 22px;
+  line-height: 30px;
+  border: 0;
+  padding: 0;
 }
 
 .bed-card-warpper {
@@ -266,20 +329,10 @@
       width: 100%;
       // height: 70px !important;
     }
-    .qr-code {
-      position: absolute;
-      right: 22%;
-      top: 100%;
-      margin-top: -56px;
-      height: 112px;
-      width: 112px;
-
-      &.hasRemark {
-        width: 55px;
-        height: 55px;
-      }
-    }
   }
+}
+.print-page__ptext{
+	display: none;
 }
 
 .wrist-strap-print {
@@ -298,21 +351,23 @@
       border: none;
      .top {
         span {
-          // margin-left: 10px;
-          // &:first-of-type {
-          //   margin-left: 45px;
-          // }
+          margin-left: 10px;
+          &:first-of-type {
+            margin-left: 10px;
+          }
         }
      }
-
       >>>.allergy{
         width :80%;
-        font-size: 20px;
-        height 25px;
-        overflow hidden
+        p{
+          height 25px;
+          overflow hidden
+          margin-left:10px;
+          font-size: 20px;
+        }
         span{
           margin-left:0px;
-          font-size:20px !important;
+          font-size: 20px;
         }
         p.gm{
           span{
@@ -323,21 +378,11 @@
      span {
         font-size: 20px;
         line-height: 24px;
-        // margin-left: 45px;
-        &.bhzd{
-            display:inline-block;
-            width:175px
-            // /* 1. 文字显示不开，是否开启换行   nowrap：不换行*/
-            // white-space: nowrap;
-            // /* 2. 超出的隐藏 */
-            // overflow: hidden;
-            // /* 3. 文字溢出的时候，用省略号显示 */
-            // text-overflow: ellipsis;
-          }
+        margin-left: 10px;
      }
     .qr-code {
       position: absolute;
-      right: 0;
+      right: 38px;
       top: 50%;
       margin-top: -56px;
       height: 112px;
@@ -353,11 +398,27 @@
       margin-left: 15px;
     }
    }
+   &.children-wrist{
+      width:10cm;
+      height:3cm;
+      // border:1px solid #000;
+      box-sizing:border-box;
+      .bed-card-vert-con{
+        transform:scale(0.8) translateX(-2.1cm) translateY(-0.7cm)
+      }
+      .qr-code{
+        position: absolute;
+        right: 75px !important;
+        top: 55% !important;
+        margin-top: -56px;
+        height: 112px;
+        width: 112px;
+      }
+  }
 }
 
 .bed-card-con {
   margin: 20px;
-  margin-bottom 40px
   width: 511px;
   height: 335px;
   padding: 5px 8px;
@@ -372,8 +433,8 @@
     position: absolute;
     bottom: 10px;
     right: 10px;
-    height: 125px;
-    width: 125px;
+    height: 100px;
+    width: 100px;
 
     &.hasRemark {
       width: 96px;
@@ -416,13 +477,23 @@
   height: 60px;
   resize: none;
   overflow: hidden;
-  border-bottom: 1px solid #000;
   margin-top: 1px;
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 20px;
   border: 0;
   padding: 0;
 }
+  .allergy-textarea{
+	overflow:hidden;
+	width: 235px;
+	padding-left 4px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	height: 58px;
+	border-radius:4px;
+	line-height: 1.1;
+    padding-top: 4px;
+	font-size: 19px;
+  }
 
 .input-item {
   height: 40px;
@@ -582,20 +653,27 @@ label {
     font-size: 17px;
   }
 }
-  .nextpage{
-    margin-bottom:281px;
-  }
+.wrist-qrcode{
+  width:55px;
+  position:relative;
+  top:-12px;
+  left:13px;
+}
+
 </style>
 
 <script>
 import {
   getEntity,
+  saveOrUpdate,
+  findByKeyword,
+  findByKeywordNur,
   saveBed
-} from "@/Page/patientInfo/supComponts/modal/api/index.js";
+} from "./api/index.js";
 import print from "./tool/print";
 import printing from "printing";
 var qr = require("qr-image");
-// var JsBarcode = require("jsbarcode");
+var JsBarcode = require("jsbarcode");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
@@ -603,8 +681,8 @@ export default {
   data() {
     return {
       moment,
-      qrCode: [] /** 二维码 */,
-      qrCodeNum: [] /** 二维码 */,
+      qrCode: "" /** 二维码 */,
+      qrCodeNum: "" /** 二维码 */,
       tipList: [
         {
           label: "小心跌倒",
@@ -624,177 +702,232 @@ export default {
         }
       ],
       modalLoading: false,
+      formData: {
+        diet: "",
+        registCare: [],
+        mainDoctors: "",
+        dutyNurses: "",
+        remark: "",
+        remarkPrint: true
+      },
+      mainDoctors:'',
       ysList: [],
       printMode: "h", //打印模式
       title: "编辑床头卡",
-      list:[
-        {
-          formData: {
-            diet: "",
-            registCare: [],
-            mainDoctors: "",
-            dutyNurses: "",
-            remark: "",
-          },
-          allergy1: "",
-          allergy2: "",
-          drugGms: "",
-        }
-      ],
-      remarkPrint: true
+      allergy1: "",
+      allergy2: "",
+      drugGms: "",
+	  allergy_gdtj:"",//自定义过敏信息
     };
   },
   computed: {
-    // query() {
-    //   return this.$route.query;
-    // },
+    query() {
+      return this.$route.query;
+    },
     hasRemark() {
-      return this.remarkPrint
+      return this.formData.remarkPrint;
     }
   },
   methods: {
-     init() {
-      this.list.map(async (item,index)=>{
-        item.formData = {
-          diet: "",
-          registCare: [],
-          mainDoctors: "",
-          dutyNurses: "",
-          remark: ""
-        };
-        await this.$set(this.list,index,item)
-        let res = await getEntity(item.patientId, item.visitId);
-        let resData = res.data.data
-        let diagnosis = await textOver(item.diagnosis, 52);
-        item.formData = {
+    init() {
+      this.formData = {
+        diet: "",
+        registCare: [],
+        mainDoctors: "",
+        dutyNurses: "",
+        remark: ""
+      };
+      getEntity(this.query.patientId, this.query.visitId).then(res => {
+        let resData = res.data.data;
+        let diagnosis = textOver(this.query.diagnosis, 52);
+        this.formData = {
           diet: resData.diet || "",
           registCare: resData.registCare
             ? (resData.registCare || "").split(",")
-            : this.getRegistCare(item),
+            : this.getRegistCare(),
           mainDoctors: resData.mainDoctors || "",
           dutyNurses: resData.dutyNurses || "",
           remark: diagnosis,
           remarkPrint: resData.remarkPrint
         };
-        item.mainDoctors = resData.mainDoctors || ""
-        item.allergy1 = resData.allergy1;
-        item.allergy2 = resData.allergy2;
-        item.drugGms = resData.drugGms;
+        this.mainDoctors = resData.mainDoctors
+        this.allergy1 = resData.allergy1;
+        this.allergy2 = resData.allergy2;
+        this.drugGms = resData.drugGms;
         this.modalLoading = false;
-        await this.$set(this.list,index,item)
       });
       multiDictInfo(["床头卡饮食"]).then(res => {
         this.ysList = res.data.data.床头卡饮食.map(item => item.name);
       });
     },
-    getRegistCare(item) {
+    getRegistCare() {
       let data = [];
-      if (item.nursingClass == "特级护理") {
+      if (this.query.nursingClass == "特级护理") {
         data.push("特");
       }
-      if (item.nursingClass == "一级护理") {
+      if (this.query.nursingClass == "一级护理") {
         data.push("一");
       }
-      if (item.nursingClass == "二级护理") {
+      if (this.query.nursingClass == "二级护理") {
         data.push("二");
       }
-      if (item.nursingClass == "三级护理") {
+      if (this.query.nursingClass == "三级护理") {
         data.push("三");
       }
-      if (item.patientCondition == "普通") {
+      if (this.query.patientCondition == "普通") {
         data.push("普");
       }
-      if (item.patientCondition == "病危") {
+      if (this.query.patientCondition == "病危") {
         data.push("危");
       }
-      if (item.patientCondition == "病重") {
+      if (this.query.patientCondition == "病重") {
         data.push("重");
       }
       return data;
     },
-    open(printMode = "h",list) {
-      this.list = list;
+    open(printMode = "h") {
       this.init();
       this.printMode = printMode;
-      this.list.forEach(async(item,index)=>{
-        let qr_png_value = item.patientId + "|" + item.visitId;
-        let qr_png = qr.imageSync(qr_png_value, { type: "png" });
-        // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
-        function arrayBufferToBase64(buffer) {
-          let binary = "";
-          let bytes = new Uint8Array(buffer);
-          let len = bytes.byteLength;
-          for (let i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-          }
-          return "data:image/png;base64," + window.btoa(binary);
+      let qr_png_value;
+      switch(this.HOSPITAL_ID){
+        case 'fsxt':
+          qr_png_value = `1001|${this.query.patientId}|${this.query.visitId}|${this.query.name}`;
+          break
+        case "zhzxy":
+          qr_png_value ='ZY' + this.query.patientId +"||"+ this.query.visitId;
+          break;
+        default:
+          qr_png_value = this.query.patientId + "|" + this.query.visitId;
+          break
+      }
+      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
+      function arrayBufferToBase64(buffer) {
+        var binary = "";
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+          binary += String.fromCharCode(bytes[i]);
         }
-        let base64 = arrayBufferToBase64(qr_png);
-        await this.$set(this.qrCode,index,base64)
-        await this.$set(this.qrCodeNum,index,item.patientId)
-      })
+        return "data:image/png;base64," + window.btoa(binary);
+      }
+      let base64 = arrayBufferToBase64(qr_png);
+      this.qrCode = base64;
+      this.qrCodeNum = this.query.patientId;
       if (this.printMode == "wrist") {
-        this.title = "腕带打印";
+        this.title = "成人腕带打印";
+        // JsBarcode("#barcode", this.query.patientId, {
+        //   lineColor: "#000",
+        //   width: 4,
+        //   height: 50,
+        //   fontSize: 50
+        // });
+      }else if (this.printMode == "wrist-children") {
+        this.title = "儿童腕带打印";
+        // JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
+        //   displayValue:false,
+        //   lineColor: "#000",
+        //   width: 4,
+        //   height: 50,
+        //   fontSize: 50
+        // });
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
       } else {
         this.title = "编辑床头卡";
       }
-      setTimeout(()=>{
-        this.$refs.modal.open();
-      },1)
+      this.$refs.modal.open();
     },
     close() {
       this.$refs.modal.close();
     },
-    selectRegistCare(item,index) {
-      if (this.list[index].formData.registCare.includes(item)) {
-        this.list[index].formData.registCare.remove(item);
-        this.$set(this.list,index,this.list[index])
+    selectRegistCare(item) {
+      if (this.formData.registCare.includes(item)) {
+        this.formData.registCare.remove(item);
       } else {
-        this.list[index].formData.registCare.push(item);
-        this.$set(this.list,index,this.list[index])
+        this.formData.registCare.push(item);
       }
     },
     post() {
-      this.list.map(item=>{
-        let data = {};
-        data.name = item.name;
-        data.sex = item.sex;
-        data.patientId = item.patientId;
-        data.visitId = item.visitId;
-        data.diet = item.formData.diet;
-        data.registCare = item.formData.registCare.join(",");
-        data.mainDoctors = item.formData.mainDoctors;
-        data.dutyNurses = item.formData.dutyNurses;
-        data.remarkPrint = item.formData.remarkPrint;
-        data.remark = item.formData.remark.slice(0, 24);
+      let data = {};
+      data.name = this.query.name;
+      data.sex = this.query.sex;
+      data.patientId = this.query.patientId;
+      data.visitId = this.query.visitId;
+      data.diet = this.formData.diet;
+      data.registCare = this.formData.registCare.join(",");
+      data.mainDoctors = this.formData.mainDoctors;
+      data.dutyNurses = this.formData.dutyNurses;
+      data.remarkPrint = this.formData.remarkPrint;
+      data.remark = this.formData.remark.slice(0, 24);
 
-        saveBed(data).then(res => {
-          this.$message.success("保存成功");
-          this.close();
-        });
-      })
+      saveBed(data).then(res => {
+        this.$message.success("保存成功");
+        this.close();
+      });
     },
     onPrint() {
       this.$nextTick(() => {
         this.post();
         if (this.printMode == "wrist") {
-          printing(this.$refs.printCon3, {
-            direction: "vertical",
-            injectGlobalCss: true,
-            scanStyles: false,
-            css: `
+          let styleSheet = {
+            default:`
           .bed-card-warpper {
             box-shadow: none !important;
-            transform: rotate(90deg) translateY(-120%) translateX(15%);
+            transform: rotate(90deg) translateY(-120%) translateX(25%);
             transform-origin: 0 0;
           }
           .bed-card-vert-con {
           }
+		  .is_input_print{
+			font-size:20px !important;
+		  }
+		  .is_hide_textarea{
+			display:none;
+		  }
+		  .print-page__ptext{
+			display:block !important;
+			border:none !important;
+			padding:0 !important;
+			height:auto !important;
+		  }
           @page {
             margin: 0;
           }
+          `,
+            fsxt:`
+            .bed-card-warpper {
+              box-shadow: none !important;
+              transform: rotate(90deg) translateY(-130%) translateX(15%);
+              transform-origin: 0 0;
+            }
+            .bed-card-vert-con {
+            }
+            @page {
+              margin: 0;
+            }
+            `
+          }
+          printing(this.$refs.printCon3, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: styleSheet[this.HOSPITAL_ID] || styleSheet.default
+          });
+        }else if (this.printMode == "wrist-children") {
+          printing(this.$refs.printCon4, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+            .bed-card-warpper {
+            box-shadow: none !important;
+            transform: rotate(90deg) translateY(-3.5cm) translateX(3cm);
+            transform-origin: 0 0;
+            }
+            @page {
+              margin: 0;
+            }
           `
           });
         } else if (this.printMode == "v") {
@@ -804,22 +937,10 @@ export default {
             css: `
           .bed-card-warpper {
             box-shadow: none !important;
-            transform:scaleX(1) scaleY(1) translateY(0%) translateX(20%);
-            width:560px;
-            display:flex!important;
-            flex-wrap:wrap;
-          }
-          .bed-card-vert-con{
-            margin:0px!important;
-          }
-          .bed-card-vert-con.nextpage{
-            margin-bottom:100px!important;
-          }
-          .bed-card-vert-con.firstpage{
-            margin-top:100px!important;
+            transform:translateY(3%) translateX(12%);
           }
           @page {
-            margin: 100px 40px;
+            margin: 0;
           }
           `
           });
@@ -831,26 +952,9 @@ export default {
             css: `
             .bed-card-warpper {
               box-shadow: none !important;
-              transform:translate(50px,0);
-              display:flex!important;
-              flex-wrap:wrap;
-              width:29cm;
-            }
-            .bed-card-con{
-              margin:0!important;
-            }
-            .bed-card-con.firstpage{
-              margin-top:105px!important;
-            }
-            .bed-card-con.nextpage{
-              margin-bottom:105px!important;
-            }
-            .huadu-bigname{
-              position:relative!important;
-              top:15px!important;
             }
             @page {
-              margin: 1px 30px 0;
+              margin: 0;
             }
             `
           });
@@ -888,7 +992,7 @@ export default {
           top: top
         };
       }
-      let { autoComplete, obj, key} = bind;
+      let { autoComplete, obj, key } = bind;
       let xy = offset(e.target);
 
       console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
@@ -917,7 +1021,6 @@ export default {
     onBlurToAutoComplete(e, bind) {
       setTimeout(() => {
         window.closeAutoComplete(`bedModal`);
-        this.list=JSON.parse(JSON.stringify(this.list))
       }, 400);
     }
   },

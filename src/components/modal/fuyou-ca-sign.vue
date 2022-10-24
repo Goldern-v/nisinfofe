@@ -141,7 +141,7 @@ export default {
       (isStart) && (this.getAuthorizeApi());//执行ca验证
     },
     close(fuyouIfclose = false) {
-      console.log("test--1")
+      console.log("test--1",fuyouIfclose)
       if(fuyouIfclose ===true || JSON.parse(localStorage.user).empNo=="admin"){
         this.clearIntervalItem();
         this.$refs.modal.close(fuyouIfclose)

@@ -9,9 +9,11 @@
               'liaocheng',
               'foshanrenyi',
               'whfk',
+              'zhzxy',
               'lyxrm',
               'whhk',
-              '925'
+              '925',
+              'gdtj'
             ].includes(HOSPITAL_ID)
           "
         >
@@ -69,8 +71,10 @@
               'foshanrenyi',
               'whfk',
               'lyxrm',
+              'zhzxy',
               'whhk',
-              '925'
+              '925',
+              'gdtj'
             ].includes(HOSPITAL_ID)
           "
           style="margin-left: 20px"
@@ -90,7 +94,7 @@
             ></el-option>
           </el-select>
         </div>
-        <div v-if="HOSPITAL_ID == 'wujing'||HOSPITAL_ID == 'gdtj'" style="margin-left: 20px">
+        <div v-if="HOSPITAL_ID == 'wujing'" style="margin-left: 20px">
           <span class="label">医嘱分类：</span>
           <el-select
             v-model="executeType"
@@ -106,7 +110,7 @@
             ></el-option>
           </el-select>
         </div>
-        <div v-if="HOSPITAL_ID == 'wujing'||HOSPITAL_ID == 'gdtj'" style="margin-left: 20px">
+        <div v-if="HOSPITAL_ID == 'wujing'" style="margin-left: 20px">
           <span class="label">医嘱类型：</span>
           <el-select
             v-model="repeatIndicator"
@@ -216,14 +220,14 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID == 'wujing'||HOSPITAL_ID == 'gdtj'"
+            v-if="HOSPITAL_ID == 'wujing'"
             prop="food"
             label="入量名称"
             min-width="110px"
             align="center"
           ></el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID == 'wujing'||HOSPITAL_ID == 'gdtj'"
+            v-if="HOSPITAL_ID == 'wujing'"
             prop="foodSize"
             label="入量"
             min-width="110px"
@@ -237,10 +241,12 @@
                 'weixian',
                 'liaocheng',
                 'foshanrenyi',
+                'zhzxy',
                 'whfk',
                 'lyxrm',
                 'whhk',
-                '925'
+                '925',
+                'gdtj'
               ].includes(HOSPITAL_ID)
             "
           >
@@ -366,7 +372,7 @@ export default {
         ? "输液"
         : "",
       repeatIndicator: "",
-      identicalGroupSelect: ["wujing", 'gdtj'],
+      identicalGroupSelect: ["wujing"],
       repeatIndicatorList: [
         {
           id: "",
@@ -382,7 +388,7 @@ export default {
         },
       ],
       // 是否显示医嘱类型
-      showAdvice: ['foshanrenyi'].includes(this.HOSPITAL_ID),
+      showAdvice: ['foshanrenyi','zhzxy'].includes(this.HOSPITAL_ID),
     };
   },
   methods: {
@@ -420,6 +426,7 @@ export default {
           "weixian",
           "liaocheng",
           "foshanrenyi",
+          'zhzxy',
           "whfk",
           "lyxrm",
           "whhk",
@@ -454,13 +461,13 @@ export default {
         });
       }
       /**【武警】保存前将入量内容food中'\b'后的数据进行删除*/
-      if (["wujing",'gdtj'].includes(this.HOSPITAL_ID)) {
+      if (["wujing"].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.food = item.food.split("\b")[0];
           return item;
         });
       }
-      if (["foshanrenyi", "lyxrm", "whhk", '925'].includes(this.HOSPITAL_ID)) {
+      if (["foshanrenyi",'zhzxy', "lyxrm", "whhk", '925','gdtj'].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.foodSize = item.dosage;
           return item;
@@ -562,13 +569,14 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", "lyxrm", "whhk", '925'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
         let endDate = this.longDate[1]
           ? moment(this.longDate[1]).format("YYYY-MM-DD")
           : "";
+
         getOrdersExecuteFsry({
           patientId: this.patientInfo.patientId || this.formlist.patientId,
           visitId: this.patientInfo.visitId || this.formlist.visitId,
@@ -644,7 +652,7 @@ export default {
     },
     // 一行选中
     handleRowClick(row, column, event) {
-      if (!["foshanrenyi", '925'].includes(this.HOSPITAL_ID)) return;
+      if (!["foshanrenyi",'zhzxy', '925'].includes(this.HOSPITAL_ID)) return;
       this.$refs["zxdtb-table"].toggleRowSelection(row);
     },
     changeRecordDate(row, type, newVal) {
@@ -766,7 +774,7 @@ export default {
             name: "其他",
           },
         ];
-      } else if (["foshanrenyi", '925'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", '925','zhzxy'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",

@@ -98,7 +98,7 @@
                 :id="i + 1"
                 type="text"
                 v-on:input="validFormFc(vitalSignObj[j], i + 1)"
-                @keydown.enter="changeNext"
+                @keydown.enter.prevent="changeNext"
                 :title="vitalSignObj[j].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[j])"
                 @click="() => (vitalSignObj[j].popVisible = true)"
@@ -167,7 +167,7 @@
               <input
                 :id="j + 100"
                 class="fieldClass"
-                @keydown.enter="changeNext"
+                @keydown.enter.prevent="changeNext"
                 type="text"
                 :title="vitalSignObj[i.vitalCode].vitalValue"
                 @input="handlePopRefresh(vitalSignObj[i.vitalCode])"

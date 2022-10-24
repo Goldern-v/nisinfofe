@@ -3,40 +3,24 @@
     <div class="search-topbar">
       <span class="filterItem date">
         <span class="type-label">日期:</span>
-        <ElDatePicker
-          class="date-picker"
-          type="date"
-          size="small"
-          format="yyyy-MM-dd"
-          placeholder="开始日期"
-          v-model="query.entryDate"
-          clearable
-        />
+        <ElDatePicker class="date-picker" type="date" size="small" format="yyyy-MM-dd" placeholder="开始日期"
+          v-model="query.entryDate" clearable />
       </span>
       <div class="times">
-        <label
-          :for="`time${item.id}`"
-          v-for="item in timesquZhou"
-          :key="item.id"
-        >
-          <input
-            type="radio"
-            name="time"
-            v-model="query.entryTime"
-            :id="`time${item.id}`"
-            :value="item.value"
-          />
+        <label :for="`time${item.id}`" v-for="item in timesquZhou" :key="item.id">
+          <input type="radio" name="time" v-model="query.entryTime" :id="`time${item.id}`" :value="item.value" />
           {{ item.value }}
         </label>
       </div>
       <div class="search-box">
-        <el-input
-          placeholder="床号/姓名/多选用空格隔开"
-          icon="search"
-          v-model="searchWord"
-        ></el-input>
+        <el-input placeholder="床号/姓名/多选用空格隔开" icon="search" v-model="searchWord"></el-input>
       </div>
-
+      <div style="margin: 0px 10px 0px 10px">
+        <el-checkbox-group v-model="admitted" size="small">
+          <el-checkbox-button v-for="option in checkOptions" :label="option" :key="option">{{ option }}
+          </el-checkbox-button>
+        </el-checkbox-group>
+      </div>
       <el-button @click="debounceSave">保存</el-button>
       <el-button @click="onPrint">打印</el-button>
     </div>
@@ -111,7 +95,6 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
             </template>
@@ -130,10 +113,8 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
-              <!-- <el-input v-model="scope.row.pulse"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -149,7 +130,6 @@
                 class="breath"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -158,7 +138,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID !== 'quzhou'"
             prop="bloodPressure"
             label="血压"
             min-width="100"
@@ -172,14 +151,12 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @click="toRow"
               />
               <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
-
           <el-table-column
             prop="stoolNum"
             label="大便次数"
@@ -187,18 +164,28 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-popover placement="right" width="100px" trigger="focus">
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="
+                  !(
+                    shitOption &&
+                    shitOption.length > 0
+                  )
+                "
+              >
                 <div
                   class="selection-dict-item"
-                  v-for="(option, index) in gridData"
+                  v-for="(option, index) in shitOption"
                   :key="index"
                   @click.prevent="
                     () => {
-                      scope.row.stoolNum = option.value;
+                      scope.row.stoolNum = option;
                     }
                   "
                 >
-                  {{ option.value }}
+                  {{ option }}
                 </div>
                 <input
                   slot="reference"
@@ -208,7 +195,6 @@
                   type="text"
                   @keydown="handleKeyDown"
                   @keyup="handleKeyUp"
-                  v-on:input="validFormFc"
                   @click="toRow"
                 />
               </el-popover>
@@ -225,25 +211,6 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
-                type="text"
-                @keyup="handleKeyUp"
-                v-on:input="validFormFc"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="drainage"
-            label="引流量"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.drainage"
-                :class="className"
-                class="drainage"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
@@ -264,7 +231,6 @@
                 class="fieldThree"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
@@ -272,7 +238,7 @@
           </el-table-column>
           <el-table-column
             prop="foodSize"
-            label="入量"
+            label="总入量"
             min-width="80"
             align="center"
           >
@@ -283,16 +249,14 @@
                 class="foodSize"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
             </template>
           </el-table-column>
           <el-table-column
-            v-if="HOSPITAL_ID !== 'quzhou'"
             prop="dischargeSize"
-            label="出量"
+            label="总出量"
             min-width="80"
             align="center"
           >
@@ -303,13 +267,29 @@
                 class="dischargeSize"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
             </template>
           </el-table-column>
-
+          <el-table-column
+            prop="height"
+            label="身高"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.height"
+                :class="className"
+                class="height"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
           <el-table-column
             prop="curWeight"
             label="体重"
@@ -323,12 +303,29 @@
                 class="curWeight"
                 type="text"
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
             </template>
           </el-table-column>
+          <!-- <el-table-column
+            prop="painScore"
+            label="疼痛"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.painScore"
+                :class="className"
+                class="painScore"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column> -->
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -342,19 +339,13 @@
           <el-table-column
             prop="name"
             label="姓名"
-            min-width="100"
-            align="center"
-          ></el-table-column>
-          <el-table-column
-            prop="age"
-            label="年龄"
-            min-width="60"
+            min-width="80"
             align="center"
           ></el-table-column>
           <el-table-column
             prop="admissionDate"
             label="入院日期"
-            min-width="180"
+            min-width="150"
             align="center"
           >
             <template slot-scope="scope">
@@ -362,15 +353,9 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="entryDay"
-            label="周/日"
-            min-width="60"
-            align="center"
-          ></el-table-column>
-          <el-table-column
             prop="temperature"
             label="体温"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -381,7 +366,7 @@
             prop="pulse"
             label="脉搏"
             align="center"
-            min-width="60"
+            min-width="100"
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.pulse"></el-input>
@@ -390,7 +375,7 @@
           <el-table-column
             prop="breath"
             label="呼吸"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -400,17 +385,18 @@
           <el-table-column
             prop="bloodPressure"
             label="血压"
-            min-width="80"
+            min-width="100"
             align="center"
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.bloodPressure"></el-input>
             </template>
           </el-table-column>
-           <el-table-column
+
+          <el-table-column
             prop="stoolNum"
             label="大便次数"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -420,7 +406,7 @@
           <el-table-column
             prop="heartRate"
             label="心率"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -430,7 +416,7 @@
           <el-table-column
             prop="fieldThree"
             label="尿量"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -439,8 +425,8 @@
           </el-table-column>
           <el-table-column
             prop="foodSize"
-            label="入量"
-            min-width="60"
+            label="总入量"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -449,8 +435,8 @@
           </el-table-column>
           <el-table-column
             prop="dischargeSize"
-            label="出量"
-            min-width="60"
+            label="总出量"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -458,9 +444,19 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="height"
+            label="身高"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.height"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="curWeight"
             label="体重"
-            min-width="60"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
@@ -663,7 +659,10 @@
 }
 
 @page {
-  margin: 0 10mm;
+  margin: 8mm 5mm 8mm 5mm;
+  .all-temperature-chart-print {
+    transform: scaleX(0.8)
+  }
 }
 </style>
 <style lang="scss">
@@ -671,6 +670,7 @@
   background: #fff !important;
   color: #000 !important;
   border: 1px solid #ddd;
+
   .container {
     min-width: 100px;
     min-height: 26px;
@@ -678,6 +678,7 @@
     overflow-x: hidden;
     overflow-y: auto;
   }
+
   .null-item {
     line-height: 24px;
     text-align: center;
@@ -692,7 +693,6 @@ import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
 import CustomInput from "./components/CustomInput.vue";
-import { validForm } from "../validForm/validForm";
 import { listItem } from "@/api/common.js";
 import { _debounce } from "../save-formatter";
 
@@ -726,6 +726,34 @@ export default {
       ],
       levelColor: null, //等级颜色
       levelColorHis: ["wujing"], //显示护理等级及颜色医院his列表
+      checkOptions: [
+        "当天入院",
+        "入院三天",
+        "转  科",
+        "手术三天",
+        "危重患者",
+        "体温37.5",
+        "高温38.5",
+        "周体重",
+      ],
+      shitOption: [
+        "灌肠",
+        "失禁",
+        "人工肛门",
+        "腹泻",
+        "※",
+        "☆",
+        "*",
+        "E",
+        "1/E",
+        "2/E",
+        "0/E",
+        "1 2/E",
+        "*/E",
+        "☆/E",
+        "3/2E"
+      ],
+      admitted: [],
       isSelectedPatient: "",
       patientList: [],
       isSelectedNurs: "",
@@ -806,22 +834,119 @@ export default {
     },
     tableData: {
       get() {
-        let data=[]
+        let data = []
         if (this.searchWord.includes(" ")) {
-          let searchWordArray=this.searchWord.split(' ').filter((s)=>s!=='')
-            searchWordArray.forEach((x)=>{
-             let reg=new RegExp(x,"i"); //忽略大小写
-              this.patientsInfoData.forEach((obj)=>{
-                if(obj.patientId&&(obj.bedLabel.match(reg) ||obj.name.match(reg))){
-                  data.push(obj)
-                }
-              })
-              })
+          let searchWordArray = this.searchWord.split(' ').filter((s) => s !== '')
+          searchWordArray.forEach((x) => {
+            let reg = new RegExp(x, "i"); //忽略大小写
+            this.patientsInfoData.forEach((obj) => {
+              if (obj.patientId && (obj.bedLabel.match(reg) || obj.name.match(reg))) {
+                data.push(obj)
+              }
+            })
+          })
         } else {
-          let searchWord=new RegExp(this.searchWord,'i')
-          data =this.patientsInfoData.filter((item) => {
-              return (
-              (item.bedLabel.match(searchWord)||
+          let searchWord = new RegExp(this.searchWord, 'i')
+          data = this.patientsInfoData.filter((item) => {
+            return (
+              (item.bedLabel.match(searchWord) ||
+                item.name.match(searchWord)) &&
+              item.patientId
+            );
+
+          });
+        }
+        const filterArray = [
+          { key: "危重患者", arr: 'data1' },
+          { key: "周体重", arr: 'data2' },
+          { key: "体温37.5", arr: 'data3' },
+          { key: "高温38.5", arr: 'data4' },
+          { key: "入院三天", arr: 'data5' },
+          { key: "当天入院", arr: 'data6' },
+          { key: "转  科", arr: 'data7' },
+          { key: "手术三天", arr: 'data8' },
+        ]
+        const PatientArray = []
+        if (this.admitted.length != 0) {
+          let obj = { data1: [], data2: [], data3: [], data4: [], data5: [], data6: [], data7: [], data8: [] }
+          obj.data1 = data.filter((item) => {
+            return (item.patient_condition == 1);
+          });
+          obj.data2 = data.filter((item) => {
+            return (
+              item.no_weight_flag == 1
+            );
+          });
+          obj.data3 = data.filter((item) => {
+            return (
+              item.temperature_flag == 1
+            );
+          });
+          obj.data4 = data.filter((item) => {
+            return (
+              item.high_fever_flag == 1
+            );
+          });
+          obj.data5 = data.filter((item) => {
+            return (
+              moment(item.admissionDate.slice(0, 10)).isAfter(
+                moment().subtract(3, "days").format("YYYY-MM-DD")
+              )
+            );
+          });
+          obj.data6 = data.filter((item) => {
+            return (
+              item.admissionDate.slice(0, 10) ==
+              moment().format("YYYY-MM-DD")
+
+            );
+          });
+          obj.data7 = data.filter((item) => {
+            return (
+              item.transfer_flag == 1
+            );
+          });
+          obj.data8 = data.filter((item) => {
+            return (
+              item.operation_flag == 1
+            );
+          });
+
+          for (let k of filterArray) {
+            if (this.admitted.includes(k.key)) {
+              PatientArray.push(obj[k.arr])
+            }
+          }
+          data = PatientArray.reduce((a, b) => {
+            return [...Array.from(new Set([...a, ...b]))]
+          })
+
+        }
+        //因为输入框有条件重叠 预防有条件重叠去重
+        return Array.from(new Set([...data]));
+      },
+      set(value) {
+        // this.tableData = value;
+      },
+    },
+    tableData2: {
+      get() {
+        let data = []
+        if (this.searchWord.includes(" ")) {
+          let searchWordArray = this.searchWord.split(' ').filter((s) => s !== '')
+          searchWordArray.forEach((x) => {
+            let reg = new RegExp(x, "i"); //忽略大小写
+            this.patientsInfoData.forEach((obj) => {
+              if (obj.patientId && (obj.bedLabel.match(reg) || obj.name.match(reg))) {
+                data.push(obj)
+              }
+            })
+          })
+        } else {
+          let searchWord = new RegExp(this.searchWord, 'i')
+          data = this.patientsInfoData.filter((item) => {
+            return (
+              (item.bedLabel.match(searchWord) ||
                 item.name.match(searchWord)) &&
               item.patientId
             );
@@ -829,7 +954,7 @@ export default {
           });
         }
         var reg = /[a-zA-Z]+/;  //[a-zA-Z]表示匹配字母，g表示全局匹配
-        if(this.HOSPITAL_ID=='fsxt') data.sort((a, b) => Number(a.bedLabel.replace(reg,'')) - Number(b.bedLabel.replace(reg,'')));
+        if (this.HOSPITAL_ID == 'fsxt') data.sort((a, b) => Number(a.bedLabel.replace(reg, '')) - Number(b.bedLabel.replace(reg, '')));
         return Array.from(new Set([...data]))
       },
       set(value) {
@@ -872,8 +997,8 @@ export default {
         return "";
       }
     },
-    handlePatientChange() {},
-    selectedNurs() {},
+    handlePatientChange() { },
+    selectedNurs() { },
     getHours() {
       let date = new Date();
       let b = date.getHours();
@@ -930,7 +1055,6 @@ export default {
       let data = {
         blockId: "",
         drainage: "", //引流量
-        heigh: "",
         patientId: "",
         visitId: "",
         audit: "",
@@ -1087,108 +1211,6 @@ export default {
         }
       }
     },
-    // setValid(trage, val) {
-    //   switch (trage) {
-    //     case "temperature":
-    //       let o = {
-    //         体温: {
-    //           value: val,
-    //           reg: [30, 50],
-    //           errorMsg: "体温请填入30~50之间的数值",
-    //         },
-    //       };
-    //       return o;
-    //     case "heartRate":
-    //       let h = {
-    //         心率: {
-    //           value: val,
-    //           reg: [0, 300],
-    //           errorMsg: "体温请填入0~300之间的数值",
-    //         },
-    //       };
-    //       return h;
-    //     case "bloodPressure":
-    //       let x = {
-    //         血压: {
-    //           value: val,
-    //           reg: [0, 300],
-    //           errorMsg: "体温请填入0~300之间的数值",
-    //         },
-    //       };
-    //       return x;
-    //     case "pulse":
-    //       let y = {
-    //         脉搏: {
-    //           value: val,
-    //           reg: [0, 300],
-    //           errorMsg: "体温请填入0~300之间的数值",
-    //         },
-    //       };
-    //       return y;
-    //     case "breath":
-    //       let g = {
-    //         呼吸: {
-    //           value: val,
-    //           reg: [0, 120],
-    //           errorMsg: "体温请填入0~120之间的数值或者R/r",
-    //         },
-    //       };
-    //       return g;
-    //     default:
-    //       break;
-    //   }
-    // },
-    //validForm验证表单
-    // validFormFc(e) {
-    //   if (["liaocheng"].includes(this.HOSPITAL_ID)) {
-    //     let checkItem = e.path[0].classList[1];
-    //     let val = e.target.value;
-    //     let checksStr = [
-    //       "breath",
-    //       "pulse",
-    //       "bloodPressure",
-    //       "heartRate",
-    //       "temperature",
-    //     ];
-    //     var trs = e.path[3];
-    //     if (checksStr.includes(checkItem) && val !== "") {
-    //       if (validForm.valid(this.setValid(checkItem, val))) {
-    //         // console.log(trs.getElementsByClassName(checkItem)[0].style)
-    //         trs.getElementsByClassName(checkItem)[0].style.border = "";
-    //       } else {
-    //         trs.getElementsByClassName(checkItem)[0].style.border =
-    //           "thick solid red";
-    //       }
-    //     } else {
-    //       trs.getElementsByClassName(checkItem)[0].style.border = "";
-    //     }
-    //   }
-
-    //   let val = vitalSignObj.vitalValue;
-    //   if (
-    //     vitalSignObj.popVisible === true &&
-    //     val !== "" &&
-    //     ["体温", "脉搏", "心率", "呼吸", "血压"].includes(
-    //       vitalSignObj.vitalSigns
-    //     )
-    //   ) {
-    //     //验证表单
-    //     if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
-    //       document.getElementById(index).style.border = "";
-    //       vitalSignObj.isCorrect = true;
-    //     } else {
-    //       document.getElementById(index).style.border = "thick solid red";
-    //       vitalSignObj.isCorrect = false;
-    //       // this.$message({
-    //       //   message: this.setValid(vitalSignObj.vitalSigns)[vitalSignObj.vitalSigns].errorMsg,
-    //       //   type: 'warning'
-    //       // });
-    //     }
-    //   } else {
-    //     document.getElementById(index).style.border = "";
-    //     vitalSignObj.isCorrect = true;
-    //   }
-    // },
     async onPrint() {
       this.pageLoadng = true;
       this.$nextTick(async () => {
@@ -1197,118 +1219,18 @@ export default {
           direction: "horizontal",
           injectGlobalCss: true,
           scanStyles: false,
+          size:'a4',
           css: `
-        .fixedTh {
-          display: none !important;
-          height: auto;
+        tr {
+          page-break-inside: avoid;
         }
-        pre {
-          white-space: pre-wrap;
-        }
-        table {
-          width: 95% !important;
+        td {
+          page-break-inside: avoid;
         }
         `,
         });
       });
       this.pageLoadng = false;
-    },
-    setValid(trage, val) {
-      switch (trage) {
-        case "temperature":
-          let o = {
-            体温: {
-              value: val,
-              reg: [30, 50],
-              errorMsg: "体温请填入30~50之间的数值",
-            },
-          };
-          return o;
-        case "heartRate":
-          let h = {
-            心率: {
-              value: val,
-              reg: [0, 300],
-              errorMsg: "体温请填入0~300之间的数值",
-            },
-          };
-          return h;
-        case "bloodPressure":
-          let x = {
-            血压: {
-              value: val,
-              reg: [0, 300],
-              errorMsg: "体温请填入0~300之间的数值",
-            },
-          };
-          return x;
-        case "pulse":
-          let y = {
-            脉搏: {
-              value: val,
-              reg: [0, 300],
-              errorMsg: "体温请填入0~300之间的数值",
-            },
-          };
-          return y;
-        case "breath":
-          let g = {
-            呼吸: {
-              value: val,
-              reg: [0, 120],
-              errorMsg: "体温请填入0~120之间的数值或者R/r",
-            },
-          };
-          return g;
-        default:
-          break;
-      }
-    },
-    //validForm验证表单
-    validFormFc(e) {
-      if (["liaocheng"].includes(this.HOSPITAL_ID)) {
-        let checkItem = e.path[0].classList[0];
-        let val = e.target.value;
-        let checksStr = [
-          "breath",
-          "pulse",
-          "bloodPressure",
-          "heartRate",
-          "temperature",
-        ];
-        var trs = e.path[3];
-        if (checksStr.includes(checkItem) && val !== "") {
-          if (validForm.valid(this.setValid(checkItem, val))) {
-            // console.log(trs.getElementsByClassName(checkItem)[0].style)
-            trs.getElementsByClassName(checkItem)[0].style.border = "";
-          } else {
-            trs.getElementsByClassName(checkItem)[0].style.border =
-              "thick solid red";
-          }
-        } else {
-          trs.getElementsByClassName(checkItem)[0].style.border = "";
-        }
-      }
-
-      //     let val=vitalSignObj.vitalValue
-      //   if(vitalSignObj.popVisible===true&&val!==""&&['体温','脉搏','心率','呼吸','血压'].includes(vitalSignObj.vitalSigns)){
-      //  //验证表单
-      //   if (validForm.valid(this.setValid(vitalSignObj.vitalSigns,val))) {
-      //     document.getElementById(index).style.border=""
-      //   vitalSignObj.isCorrect=true
-      //   }else{
-      //     document.getElementById(index).style.border="thick solid red"
-      //     vitalSignObj.isCorrect=false
-      //     // this.$message({
-      //     //   message: this.setValid(vitalSignObj.vitalSigns)[vitalSignObj.vitalSigns].errorMsg,
-      //     //   type: 'warning'
-      //     // });
-
-      //   }
-      //   }else{
-      //      document.getElementById(index).style.border=""
-      //      vitalSignObj.isCorrect=true
-      //   }
     },
   },
 

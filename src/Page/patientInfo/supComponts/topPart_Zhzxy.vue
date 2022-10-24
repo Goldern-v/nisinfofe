@@ -33,7 +33,7 @@
         <div class="nav-item" v-else>护理文书</div>
       </router-link>
       <router-link
-        v-if="['hj','fuyou','liaocheng','sdlj'].includes(HOSPITAL_ID) "
+        v-if="['hj','fuyou','liaocheng','sdlj','zhzxy'].includes(HOSPITAL_ID) "
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -48,7 +48,7 @@
           :href="`openIE:http://10.35.0.135:9080/htweb/ShowInpatientInfo.jsp?ipid=${query.patientId}~${query.visitId}`"
         >病历(新)</a>
       </span> -->
-      <router-link
+      <!-- <router-link
         :to="{
           path: '/sheetNursingOrder',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -56,7 +56,7 @@
         tag="span"
       >
         <div class="nav-item">护嘱单</div>
-      </router-link>
+      </router-link> -->
       <router-link
         :to="{
           path: '/sheet',
@@ -66,14 +66,14 @@
       >
         <div class="nav-item">护理记录单</div>
       </router-link>
-      <router-link
+      <!-- <router-link
         v-if="HOSPITAL_ID == 'sdlj'"
         to=""
         @click.native="openNewPage('toHandNumbness')"
       >
         <div class="nav-item-shouma" >手麻记录单</div>
-      </router-link>
-      <router-link
+      </router-link> -->
+      <!-- <router-link
         v-if="!['beihairenyi'].includes(this.HOSPITAL_ID)"
         :to="{
           path: '/hospitalEval',
@@ -82,7 +82,7 @@
         tag="span"
       >
         <div class="nav-item">住院日常评估</div>
-      </router-link>
+      </router-link> -->
       <!-- <router-link
         :to="{
           path: '/catheter',
@@ -92,6 +92,15 @@
       >
         <div class="nav-item">导管</div>
       </router-link> -->
+      <router-link
+        :to="{
+          path: '/temperature',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">体温单</div>
+      </router-link>
       <router-link
         :to="{
           path: '/diagnosis',
@@ -167,22 +176,12 @@
       <!-- <router-link to="/dev" tag="span">
         <div class="nav-item">手术</div>
       </router-link>-->
-      <!-- <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
+      <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
         <div class="nav-item">会诊</div>
-      </router-link>-->
+      </router-link>
       <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>-->
-      <router-link
-        :to="{
-          path: '/temperature',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">体温单</div>
-      </router-link>
-
       <span class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toYst')">医膳通</span>
     </div>
     <div style="height: 50px"></div>
