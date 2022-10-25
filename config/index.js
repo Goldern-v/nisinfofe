@@ -203,9 +203,9 @@ const currentTargetUrl = (() => {
     case 'zhzxy':
       // return "http://192.168.20.77:8080" 
       // return "http://192.168.1.54:9883" 
+      return "http://192.168.125.115:9092" 
       // return "http://192.168.1.27:9092" 
-      // return "http://192.168.1.27:9092" 
-      return "http://10.95.6.97:9091" 
+      // return "http://10.95.6.97:9091" 
       // return "http://218.13.87.27:9094" 
 
     // 青海五院
