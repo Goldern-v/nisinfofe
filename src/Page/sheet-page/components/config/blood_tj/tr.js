@@ -48,9 +48,9 @@ export default [
   { key: 'filedOne', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: check } },
   { key: 'filedTwo', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: check } },
   { key: 'normalOne', event: keyf1, value: '', next: '', name: '正常1-2s', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: check } },
-  { key: 'overHeated', event: keyf1, value: '', next: 'ml', name: '偏快<1s', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: check } },
+  { key: 'overHeated', event: keyf1, value: '', next: '', name: '偏快<1s', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: check } },
   { key: 'slow', event: keyf1, value: '', next: '', name: '偏慢>2s', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: check } },
-  { key: 'disappear', event: keyf1, value: '', next: 'ml', name: '消失', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: check } },
+  { key: 'disappear', event: keyf1, value: '', next: '', name: '消失', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: check } },
   { key: 'moderate', event: keyf1, value: '', next: '', name: '适中', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: check } },
   { key: 'tensionHigh', event: keyf1, value: '', next: '', name: '偏高', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4),  autoComplete: { data: check } },
   { key: 'tensionLow', event: keyf1, value: '', next: '', name: '偏低', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: check } },
@@ -79,7 +79,7 @@ export default [
   { hidden:true, key:'dataHash', value:''},
   { hidden:true, key:'recordDate', value:''},
   { hidden:true, key:'monthHour', value:''},
-  { hidden:true, key:'signerNo', value:''},//单签
+  { hidden:false, key:'signerNo', value:''},//单签
   { hidden:true, key:'signerNo2', value:''},//双签
   { hidden:true, key:'auditorNo', value:''},//审核签名
   { hidden:true, key:'auditorName', value:''},

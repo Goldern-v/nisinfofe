@@ -27,7 +27,7 @@ export default {
                 {"name":"组织张力","colspan":"4","rowspan":"1"},
                 {"name":"小切口放血","colspan":"5","rowspan":"1"},
                 {"name":"护理措施","colspan":"1","rowspan":"3","style":{"minWidth":"200px","maxWidth":"200px"}},
-                {"name":"签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"签 名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
             ]
         ,
         mid:
