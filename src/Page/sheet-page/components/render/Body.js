@@ -1536,6 +1536,11 @@ function switchSheetType(type) {
         schema = require("../config/magnesiumsulphate_tj/tr.js").default;
       }
       break;
+    case "blood_tj": {
+      // 广东同江 - 血运观察单
+        schema = require("../config/blood_tj/tr.js").default;
+      }
+      break;
     case "surgical_qhwy": {
         // 青海五院 - 外科护理记录单
         schema = require("../config/surgical_qhwy/tr.js").default;

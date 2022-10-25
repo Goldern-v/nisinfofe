@@ -1981,6 +1981,13 @@ export default function Title(
     );
   }
   break;
+  case "blood_tj": {
+    // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/blood_tj/th.js").default)
+    );
+  }
+  break;
   case "surgical_qhwy": {
     // 青海五院 - 外科护理记录单
     Th = JSON.parse(
