@@ -1221,7 +1221,6 @@ export default {
     // 新医院注意 新增时需要在对应弹窗匹配
     // 检验 src/Page/sheet-page/components/sheet-tool/modal/test-modal.vue
     openPISlide(type) {
-      console.log("jinlail ")
       // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
       this.bus.$emit("openclosePatientInfo", type, false, true);
     },

@@ -502,6 +502,7 @@ export default {
     //江门妇幼ca签名
     caPost(){
       if(!this.formData) return false
+      console.log(this.message,"formData")
       let parmas={
         signType:this.signType,
         patientName:this.formData.patientName,//-- 患者名称
@@ -512,6 +513,7 @@ export default {
         patientCard:"",// -- 患者证件号
         templateId:"hash", //-- 模板id
         formId:`${this.formData.id}`,// -- 表单ID
+        subject :`${this.message.formTitle}`,// -- 表单名称
       };
       if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){
         console.log(this.formData);

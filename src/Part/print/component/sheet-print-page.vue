@@ -301,6 +301,7 @@ export default {
        ||this.HOSPITAL_ID==="gdtj"
        ||this.HOSPITAL_ID==="whfk"
        ||this.HOSPITAL_ID==="foshanrenyi"
+       ||this.HOSPITAL_ID==="zhzxy"
        ||this.HOSPITAL_ID==="lyxrm"
        ||this.HOSPITAL_ID==="huadu"){
       printDir("h");
@@ -315,6 +316,7 @@ export default {
           `
             );
     }
+    
     $("#app").css({
       minWidth: sheetTableWidth + "px"
     });
@@ -859,7 +861,20 @@ export default {
     $("textarea").each((index, el) => {
       $(el).html($(el).attr("value"));
     });
-
+    if(['nursing_zhzxy'].includes(this.sheetInfo.sheetType)){
+      printDir("h");
+            addCSS(
+              window,
+              `
+          @media print {
+            .iframe > div:nth-of-type(n) {
+              transform: rotateZ(0deg) scaleY(1.25) translateY(-30px) !important;
+              transform-origin: top !important;
+            }
+          }
+          `
+            );
+    }
     if (this.$route.query.toPrint == "true") {
       setTimeout(() => {
         this.print();
