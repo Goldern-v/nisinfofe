@@ -221,6 +221,29 @@
         </div>
       </span>
     </div>
+    <div class="info-con" v-if="sheetInfo.sheetType === 'blood_tj'">
+      <span>观察部位：</span>
+      <input
+        v-model="sheetInfo.relObj.stationA"
+        style="border-bottom: 1px solid #000; width: 100px"
+      />&nbsp;
+      <input
+        v-model="sheetInfo.relObj.stationB"
+        style="border-bottom: 1px solid #000; width: 100px"
+      />&nbsp;
+      <input
+        v-model="sheetInfo.relObj.stationC"
+        style="border-bottom: 1px solid #000; width: 100px"
+      />&nbsp;
+      <input
+        v-model="sheetInfo.relObj.stationD"
+        style="border-bottom: 1px solid #000; width: 100px"
+      />&nbsp;
+      <input
+        v-model="sheetInfo.relObj.stationE"
+        style="border-bottom: 1px solid #000; width: 100px"
+      />
+    </div>
     <bedRecordModal ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
@@ -246,13 +269,15 @@ export default {
       sheetInfo,
       //不需要入院日期的表单
       admissionDateList: [
+        'blood_tj'
       ],
       //不需要诊断的表单
       diagnosisList: [
         'postpartum2_tj',
         'prenataldelivery2_tj',
         'pediatric3_tj',
-        'baby_tj'
+        'baby_tj',
+        'blood_tj'
       ],
     };
   },
