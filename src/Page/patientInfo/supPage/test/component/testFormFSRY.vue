@@ -37,7 +37,7 @@
           style="width: 100%; margin-top: 20px;"
           class="test-table"
           @row-click="openChart"
-        >  
+        >
           <el-table-column
             label="同步"
             min-width="60px"
@@ -83,6 +83,19 @@
               </span>
             </template>
           </el-table-column>
+
+
+
+          <el-table-column label="危机值提示" min-width="82px">
+            <template slot-scope="scope">
+              <span :class="{ redText: compare(scope.row) }">{{
+                  scope.row.expand3
+                }}</span>
+            </template>
+          </el-table-column>
+
+
+
           <el-table-column label="单位" min-width="82px">
             <template slot-scope="scope">
               <span :class="{ redText: compare(scope.row) }">{{
