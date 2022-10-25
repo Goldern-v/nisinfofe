@@ -50,7 +50,7 @@ export default {
                 {"name": "脉搏<br/>次/<br/>分", "colspan": "1", "rowspan": "2"},
                 {"name": "心率<br/>次/<br/>分", "colspan": "1", "rowspan": "2"},
                 {"name": "呼吸<br/>次/<br/>分", "colspan": "1", "rowspan": "2"},
-                {"name": "SOP2<br/>(%)", "colspan": "1", "rowspan": "2",},
+                {"name": "SPO2<br/>(%)", "colspan": "1", "rowspan": "2",},
                 {"name": "血压<br/>mmHg", "colspan": "1", "rowspan": "2"},
                 {"name": "神志", "colspan": "1", "rowspan": "2"},
                 {"name": "直径mm", "colspan": "2", "rowspan": "1"},
