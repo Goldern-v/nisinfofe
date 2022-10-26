@@ -164,7 +164,6 @@
     display: none !important;
     width: 0 !important;
   }
-
   body {
     background: #fff !important;
   }
@@ -222,6 +221,7 @@ export default {
   methods: {
 
     print() {
+      console.log('22222')
       if (!this.canPrint) return;
       if (this.$route.params.type == "assessment") {
         this.bus.$emit("printAssessment");

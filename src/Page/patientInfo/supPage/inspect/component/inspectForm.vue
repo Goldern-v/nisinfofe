@@ -300,7 +300,6 @@ export default {
           examResult(this.data.examNo)
             .then((res) => {
               this.data1 = res.data.data;
-              console.log(this.data1);
               this.loading = false;
               // picNum(this.data.examNo, this.data.name).then(res => {
               //     this.picNum = res.data.data.picNum

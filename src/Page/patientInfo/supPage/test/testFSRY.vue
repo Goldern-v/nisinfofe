@@ -5,7 +5,7 @@
       <div class="left-part">
         <el-row class="header" type="flex" align="middle">
           <div>
-             <span class="title">检验列表</span> 
+             <span class="title">检验列表</span>
              <el-select v-model="value" placeholder="请选择" class="select">
               <el-option v-for="item in options" :key="item.value" :value="item.label">
               </el-option>
@@ -21,7 +21,7 @@
         </el-row>
         <div class="body" :style="{height: height}">
          <!-- <el-radio-group v-model="radio"> -->
-          <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)" 
+          <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)"
           :class="{active: (!['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == rightData.testNo) || (['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == list[radio].testNo) }">
             <!-- <el-checkbox :label="(index)" class="fscheckBox" ><br/></el-checkbox> -->
             <el-radio :label="index" class="fscheckBox" v-model="radio"><br/></el-radio>
@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="right-part">
-        <testFormFSRY ref="testForm" :checkNum='radio'></testFormFSRY>
+        <testFormFSRY ref="testForm" :tableHeaderInfo="tableHeaderInfo" :checkNum='radio'></testFormFSRY>
         <!-- <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm> -->
         <!--右边的检验报告单部分，花都的testFormHD组件，因为事件与其他医院不一样-->
         <!-- <testFormHD v-if="rightData.testNo&&['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testFormHD> -->
@@ -162,6 +162,7 @@
       return {
         list: [],
         rightData: '',
+        tableHeaderInfo:{},
         options: [{
           label: '全部'
         }, {
@@ -201,6 +202,17 @@
         this.list = res.data.data
         if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
           this.rightData = this.list.map(item=>{
+            Object.keys(item).filter(reqList=>!['testResultList'].includes(reqList)).forEach((keys)=>{
+              //返回testResultList数组  把上级的属性合并起来  前端需要用到
+              if(!this.tableHeaderInfo[`${keys}`]){
+                this.tableHeaderInfo[`${keys}`] = item[`${keys}`]
+              }
+              item.testResultList.map((reqList)=>{
+                if(!reqList[`${keys}`]){
+                reqList[`${keys}`] = item[`${keys}`]
+                }
+              })
+            })
             return item.testResultList
           })
           this.toRight(this.rightData[0],0,this.list.length)
@@ -215,26 +227,21 @@
         let str=''
         // 当前按钮的数组
         const activeCheckList=this.$refs.testForm.checkList[this.$refs.testForm.activeIndex]
-        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){ 
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
           if(activeCheckList.length>0){
             for(var i=0;i<activeCheckList.length;i++){
               // 当前按钮的数组的项
               const nowItem=activeCheckList[i]
-              if(i==0){
-                // const strDate= moment(this.listByFilter[this.radio].resultDate).format("YYYY-MM-DD")
-                str += `${this.listByFilter[this.radio].subject},`
-                // str +=`${strDate},`
-                str += `${this.rightData[this.radio][nowItem].itemName},`
+                str += `${this.rightData[this.radio][nowItem].reqDate}  `
+                str += `${this.listByFilter[this.radio].subject}：`
+                str += `${this.rightData[this.radio][nowItem].itemName} ：`
                 str += `${this.rightData[this.radio][nowItem].result}`
-                str += `${this.rightData[this.radio][nowItem].units},`
-              }else{
-                str += `${this.rightData[this.radio][nowItem].itemName},`
-                str += `${this.rightData[this.radio][nowItem].result}` 
-                str += `${this.rightData[this.radio][nowItem].units}${i==activeCheckList.length-1?',':'。'}`
-              }
+                if(!isNaN(`${this.rightData[this.radio][nowItem].result}`)){
+                str += `${this.rightData[this.radio][nowItem].units}  `
+                }
+                str += `${this.rightData[this.radio][nowItem].expand3}。`
             }
           }
-          console.log(this.rightData[this.$refs.testForm.activeIndex],"writeDescription")
         }else{
           if(activeCheckList.length>0){
             const res= await testItems(this.listByFilter[this.radio].testNo)
@@ -250,7 +257,7 @@
                 str += `${res.data.data[nowItem].units},`
               }else{
                 str += `${res.data.data[nowItem].itemName},`
-                str += `${res.data.data[nowItem].result}` 
+                str += `${res.data.data[nowItem].result}`
                 str += `${res.data.data[nowItem].units},`
               }
             }
@@ -274,8 +281,6 @@
       }
     },
     components: {
-      // testForm,
-      // testFormHD,
       testFormFSRY
     }
   }

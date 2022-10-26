@@ -47,7 +47,7 @@ export const getAuthorize=(data)=>{
     case 'guizhou':
       return axios.get(`${apiPath}caSignHoujie/getAccessToken`)
     case 'zhzxy':
-      return axios.get(`${apiPath}caSignZhzxy/authorizeCaZhzxy`)
+      return axios.get(`${apiPath}caSignZhzxy/authorizeCaZhzxy`,{params:{selfSign:true}})
     default:
       return axios.get(`${apiPath}caSignJmfy/authorizeCaJmfy`)
   }

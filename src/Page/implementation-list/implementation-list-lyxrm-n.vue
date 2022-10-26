@@ -61,8 +61,9 @@
             :key="typeItem.id"
           ></el-option>
         </el-select>
-        <span class="label">核对状态:</span>
+        <span class="label" v-if="HOSPITAL_ID !== 'beihairenyi'">核对状态:</span>
         <el-select
+          v-if="HOSPITAL_ID !== 'beihairenyi'"
           v-model="dispenseFlag"
           placeholder="请选择"
           size="small"

@@ -44,6 +44,7 @@
         this.yValueMap = {};
       },
       open(chartData) {
+        console.log(chartData,999)
         this.render(chartData);
       },
       render(chartData) {

@@ -1491,6 +1491,20 @@ export default function Title(
       );
     }
   break;
+  case "postpartum_fs": {
+    // 佛山市一 - 护理记录单(危重患者护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_fs/th.js").default)
+      );
+    }
+  break;
+  case "prenatal_fs": {
+    // 佛山市一 - 护理记录单(危重患者护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_fs/th.js").default)
+      );
+    }
+  break;
   case "kneedisease_fs": {
     // 佛山市一 - 护理记录单(膝关节疾患)
     Th = JSON.parse(
