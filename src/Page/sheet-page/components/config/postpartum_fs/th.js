@@ -41,7 +41,7 @@ export default {
             
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue2"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue3"},
-            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "163px",  maxWidth: "163px"}, },
+            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "300px",  maxWidth: "300px"}, },
             { "name": "签名", "colspan": "1", "rowspan": "3"},
          ]
         ,

@@ -4,8 +4,17 @@ import { apiPath } from "@/api/apiConfig";
 
 // 获取数据
 export function getNursingVisitLc(obj) {
-  return axios.post(`${apiPath}nursingVisitLc/listLingChenPc`, obj);
+  return axios.post(`${apiPath}nursingVisitLc/listLingChenPc`, obj); 
 }
+export function exportExcel(obj) {
+  return axios.post(
+      `${apiPath}nursingVisitLc/exportNursingVisitList`,
+      obj, {
+      responseType: "blob"
+  }
+  );
+}
+
 
 // 删除
 export function deleteOperateDateLingChen(obj) {
