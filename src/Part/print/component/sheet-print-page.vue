@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':'']">
+  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':'']">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -144,6 +144,11 @@
 
   [datakey='description'] {
     text-align: left;
+  }
+   &.zhzxyInputW{
+      table td,th textarea,input,span{
+        font-size:14px !important;
+      }
   }
 }
 //字体变黑体，解决打印模糊问题
@@ -321,13 +326,17 @@ export default {
       minWidth: sheetTableWidth + "px"
     });
     if(['zhzxy'].includes(process.env.HOSPITAL_ID)){
+      printDir("h");
             addCSS(
               window,
               `
           @media print {
             .iframe > div:nth-of-type(n) {
-              transform: rotateZ(0deg) scaleY(2) translateY(-30px) !important;
+              transform: rotateZ(0deg) scaleY(1.25) translateY(-30px) !important;
               transform-origin: top !important;
+            }
+            .iframe > div:nth-of-type(n) table td,th{
+              border:1px solid rgba(27%, 27%, 27%,0.5) !important;
             }
           }
           `

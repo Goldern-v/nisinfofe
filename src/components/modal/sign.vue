@@ -339,6 +339,8 @@ export default {
         if(this.HOSPITAL_ID=="foshanrenyi"){
           this.verifySignObj = verifySignObj
           this.SigndataObj = SigndataObj
+        }else if(this.HOSPITAL_ID=="zhzxy"){
+          this.verifySignObj = verifySignObj
         }
       this.showDate = showDate;
       // this.showMessage = showMessage;
@@ -513,7 +515,7 @@ export default {
         patientCard:"",// -- 患者证件号
         templateId:"hash", //-- 模板id
         formId:`${this.formData.id}`,// -- 表单ID
-        subject :`${this.message.formTitle}`,// -- 表单名称
+        subject :`${this.formData.formTitle}`,// -- 表单名称
       };
       if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){
         console.log(this.formData);
@@ -526,13 +528,14 @@ export default {
             "fileName":`${this.formData.name}_${this.formData.code}`
         }
       }
-      // if(['zhzxy'].includes(this.HOSPITAL_ID) && this.verifySignObj.patientName){
-      //   parmas=this.verifySignObj
-      //   console.log("替换了 djw",this.verifySignObj)
-      // }
+      if(['zhzxy'].includes(this.HOSPITAL_ID) && this.verifySignObj.openId){
+        parmas=this.verifySignObj
+        console.log("替换了 djw",this.verifySignObj)
+      }
       console.log(parmas,"getCaSignJmfypost")
+
       getCaSignJmfy(parmas).then(async res=>{
-        let aduitDate = 'isCaSign'
+        let aduitDate = ''
         let pwd = ''
         let username = ''
         if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){

@@ -1,6 +1,6 @@
 
 /**
-  佛山市一 - 护理记录单(危重患者护理记录单)
+  佛山市一 - 产后护理记录单
 */
 
 /**
@@ -30,8 +30,10 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let Output = ['大便','尿量','引流量']
-let Input = ['输入液量','进食量']
+let yingOrruan = ['硬','软']
+let shaoOrzhDuo = ['少','中等','多']
+let shangkou = ['(-)','红肿','渗液','水肿']
+let gongjin = ['u=0','u=1','u=2','u=3','u=4','u+0','u+1','u+2','u+3','u+4','u-0','u-1','u-2','u-3','u-4']
 
 export default [
   { hidden: true, key: 'recordDate', value: '' },
@@ -47,13 +49,13 @@ export default [
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6)  },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
 
-  { key: 'breastCondition', event: keyf1, value: '', next: '', name: '乳房情况', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'lactation', event: keyf1, value: '', next: '', name: '泌乳情况', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'fundusHeight', event: keyf1, value: '', next: '', name: '宫底高度', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'uterine', event: keyf1, value: '', next: '', name: '子宫收缩', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'breastCondition', event: keyf1, value: '', next: '', name: '乳房情况',autoComplete: { data: yingOrruan },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'lactation', event: keyf1, value: '', next: '', name: '泌乳情况',autoComplete: { data: shaoOrzhDuo }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'fundusHeight', event: keyf1, value: '', next: '', name: '宫底高度', autoComplete: { data: gongjin },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'uterine', event: keyf1, value: '', next: '', name: '子宫收缩',autoComplete: { data: yingOrruan }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'customValue4', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
-  { key: 'abdominalWound', event: keyf1, value: '', next: '', name: '伤口腹部', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'perinealWound', event: keyf1, value: '', next: '', name: '伤口会阴', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'abdominalWound', event: keyf1, value: '', next: '', name: '伤口腹部',autoComplete: { data: shangkou }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'perinealWound', event: keyf1, value: '', next: '', name: '伤口会阴',autoComplete: { data: shangkou }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'guideMilking', event: keyf1, value: '', next: '', name: '指导挤奶', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'recover', event: keyf1, value: '', next: '', name: '产后康复', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breastFeed', event: keyf1, value: '', next: '', name: '母乳喂养', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
