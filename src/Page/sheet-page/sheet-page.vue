@@ -464,6 +464,63 @@ export default {
       }
       return flag;
     },
+    /**把计算页面滚动的复制出来方便其他模块调用*/
+    /**这里如果调用  就回到当前修改的页码*/
+    /**isInitSheetPageSize 是否初始化页码计算，添加数据删除数据都要传true*/
+    /**scrollValue页码定位的值，保存直接拿refscrollCon的scrollTop，其他需要传值进来(有些操作 在获取数据后页码生成滚动定位之前，所以用入参的方式)*/
+    scrollFun(isInitSheetPageSize,scrollValue){
+      isInitSheetPageSize &&
+                  setTimeout(() => {
+                    this.bus.$emit("initSheetPageSize");
+                  }, 100);
+                this.$nextTick(() => {
+                  //不传入参滚动值 默认选择refscrollCon的scrollTop
+                  this.$refs.scrollCon.scrollTop = scrollValue?scrollValue:this.scrollTop;
+                  $(".red-border").removeClass("red-border");
+                });
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 100);
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 200);
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 300);
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 400);
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                }, 500);
+                $(".red-border").removeClass("red-border");
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 600);
+                setTimeout(() => {
+                  if (this.$refs.scrollCon.scrollTop == 0) {
+                    this.$refs.scrollCon.scrollTop = this.scrollTop;
+                  }
+                  $(".red-border").removeClass("red-border");
+                }, 1000);
+    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
@@ -682,6 +739,7 @@ export default {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
         this.scrollX = parseInt(e.target.scrollLeft)
+        localStorage.setItem('sheetPageScrollValue',e.target.scrollTop)
       }
     },
     isSelectPatient(item) {
@@ -767,6 +825,15 @@ export default {
         });
       });
     });
+    //eventBug监听，页码定位跳转的值和是否初始化
+    this.bus.$on("scrollCurrentPage", (isInitSheetPageSize,sheetPageScrollValue) => {
+      let timer = setInterval(()=>{
+        if(this.done&&sheetPageScrollValue){
+      this.scrollFun(isInitSheetPageSize,sheetPageScrollValue)
+          clearInterval(timer)
+        }
+      },200)
+    });
     this.bus.$on(
       "saveSheetPage",
       (isInitSheetPageSize = true, ayncVisitedData) => {
@@ -785,7 +852,6 @@ export default {
           }
           isInitSheetPageSize =
             isInitSheetPageSize == "noSaveSign" ? false : isInitSheetPageSize;
-
           this.pageLoading = true;
           this.scrollTop = this.$refs.scrollCon.scrollTop;
           saveBody(
@@ -800,56 +866,7 @@ export default {
                 duration: 1000,
               });
               this.getSheetData().then((res) => {
-                isInitSheetPageSize &&
-                  setTimeout(() => {
-                    this.bus.$emit("initSheetPageSize");
-                  }, 100);
-                this.$nextTick(() => {
-                  this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  $(".red-border").removeClass("red-border");
-                });
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 100);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 200);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 300);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 400);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                }, 500);
-                $(".red-border").removeClass("red-border");
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 600);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 1000);
+                this.scrollFun(isInitSheetPageSize,this.scrollTop)
               });
               this.pageLoading = false;
             })
@@ -900,7 +917,7 @@ export default {
       }
     );
     this.bus.$on("refreshSheetPage", (isFirst) => {
-      this.getSheetData(isFirst);
+      this.getSheetData(isFirst)
     });
     //保存前做签名校验
     this.bus.$on("toSheetSaveNoSign", (newWid) => {
