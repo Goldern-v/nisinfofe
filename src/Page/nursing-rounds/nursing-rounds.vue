@@ -34,6 +34,7 @@
           v-model="query.bedLabel"
         ></el-input>
           <el-button size="small" type="primary" @click="search">查询</el-button>
+          <el-button size="small" type="primary"   v-if="HOSPITAL_ID == 'beihairenyi'"  @click="exportExcel">导出</el-button>
           <el-button size="small" @click="handlePrint" v-if="showPrint">打印</el-button>
       </div>
       <component :is="tableCon" :tableData="tableData" :pageLoadng="pageLoadng" :getData="onLoad" ref="plTable"></component>
@@ -178,19 +179,22 @@
     top: 2px;
   }
 }
+
 </style>
 <script>
 import dTable from "./components/table/d-table";
 import dTableLyxrm from "./components/table/d-table-lyxrm";
 import pagination from "./components/common/pagination";
 import printTable from "./components/print-table-sdlj";
-import { getNursingVisitLc } from "./api/index";
+import { getNursingVisitLc, exportExcel } from "./api/index";
 import { multiDictInfo } from "@/api/common";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import authorityModal from "./components/modal/authorityModal";
 import print from 'printing'
 import formatter from './utils/print-formatter'
+
+import { fileDownload } from "@/utils/fileExport.js";
 
 const pageSize = ['lyxrm', 'whsl', 'whhk'].includes(process.env.HOSPITAL_ID) ? 1000 : 20
 export default {
@@ -402,7 +406,7 @@ export default {
           injectGlobalCss: true,
           scanStyles: false,
           css: `
-          @page {
+          @page { 
             margin: 0 5mm;
           }
           .print-table {
@@ -416,6 +420,11 @@ export default {
         });
       })
     },
+    exportExcel() {
+      exportExcel({...this.query, pageSize: 9999}).then(res => {
+        fileDownload(res);
+      });
+    }
   },
   created() {
     this.onLoad();

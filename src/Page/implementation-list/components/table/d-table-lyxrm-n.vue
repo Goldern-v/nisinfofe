@@ -11,6 +11,7 @@
       use-virtual
       row-id="id"
       border
+      ref="uTable"
     >
       <u-table-column
         prop="bedLabel"
@@ -141,6 +142,7 @@
         label="核对人/核对时间"
         min-width="190px"
         align="center"
+        v-if="HOSPITAL_ID !== 'beihairenyi'"
       >
         <template slot-scope="scope">
           {{ scope.row.heNurse }} {{ scope.row.heTime | ymdhm2 }}
@@ -497,7 +499,17 @@ export default {
   computed: {
     // 是否输液
     isInfusion() {
+      
       return this.currentType.includes('输液') || this.currentType.includes('全部')
+    }
+  },
+  watch: {
+    isInfusion(val) {
+       if (val) {
+        this.$nextTick(() => {
+          this.$refs.uTable.doLayout();
+        })
+      }
     }
   },
   components: {

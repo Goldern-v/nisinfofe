@@ -34,7 +34,7 @@
       </div>
       <div class="right-part">
         <template v-if="['foshanrenyi'].includes(this.HOSPITAL_ID)">
-          <testForm v-if="list[foshanRenyiChoseIndex].testNo" ref="testForm"></testForm>
+          <testForm  ref="testForm" :tableHeaderInfo="tableHeaderInfo"></testForm>
         </template>
         <template v-else>
           <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm>
@@ -140,6 +140,7 @@
       return {
         list: [],
         rightData: '',
+        tableHeaderInfo:{},
         foshanRenyiChoseIndex:0,
         options: [{
           label: '全部'
@@ -177,6 +178,11 @@
         this.list = res.data.data
         if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
           this.rightData = this.list.map(item=>{
+            Object.keys(item).filter(str=>!['testResultList'].includes(str)).forEach((keys)=>{
+              //返回testResultList数组  把上级的属性合并起来  前端需要用到
+
+              this.tableHeaderInfo[`${keys}`] = item[`${keys}`]
+            })
             return item.testResultList
           })
           this.toRight(this.rightData[this.foshanRenyiChoseIndex])
