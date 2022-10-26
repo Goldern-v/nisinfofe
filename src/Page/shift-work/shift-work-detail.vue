@@ -31,57 +31,63 @@
             <h2 class="sub-title">ISBAR交班记录卡</h2>
             <div class="details">
               <span>
-                病区情况：原有：
+                病区情况：原有:
                 <input type="text" v-model="record.patientTotal" />
                 人，
               </span>
               <span>
-                新收：
+                新收:
                 <input type="text" v-model="record.inHospitalTotal" />
                 人，
               </span>
               <span>
-                转入：
+                转入:
                 <input type="text" v-model="record.transInTotal" />
                 人，
               </span>
               <span>
-                出院：
+                出院:
                 <input type="text" v-model="record.outHospitalTotal" />
                 人，
               </span>
               <span>
-                转出：
+                转出:
                 <input type="text" v-model="record.transOutTotal" />
                 人，
               </span>
               <span>
-                现有：
-                <b>{{record.nowHospitalTotal || 0}}</b>人，
+                现有:
+                <input type="text" v-model="record.nowHospitalTotal" />
+                人，
               </span>
               <span>
-                病危：
-                <b>{{record.dangerTotal || 0}}</b>人，
+                病危:
+                <input type="text" v-model="record.dangerTotal" />
+                人，
               </span>
               <span>
-                病重：
-                <b>{{record.seriousTotal || 0}}</b>人，
-              </span>
-              <span v-if="HOSPITAL_ID != 'xiegang'">
-                手术：
-                <b>{{record.operationTotal || 0}}</b>人
-              </span>
-              <span v-if="HOSPITAL_ID == 'zhzxy'">
-                死亡：
-                <b>{{record.patientDead || 0}}</b>人
-              </span>
-              <span v-if="HOSPITAL_ID == 'zhzxy'">
-                分娩：
-                <b>{{record.patientNewBorn || 0}}</b>人
+                病重:
+                <input type="text" v-model="record.seriousTotal" />
+               人，
               </span>
               <span>
-                交班日期：
-                <b>{{record.changeShiftDate}}</b>
+                手术:
+                <input type="text" v-model="record.operationTotal" />
+                人
+              </span>
+              <span>
+                死亡:
+                <input type="text" v-model="record.patientDead" />
+                人
+              </span>
+              <span>
+                分娩:
+                <input type="text" v-model="record.patientNewBorn" />
+                人
+              </span>
+              <span>
+                交班日期:
+                <input type="text" v-model="record.changeShiftDate" />
               </span>
             </div>
 
@@ -1424,7 +1430,7 @@ export default {
 
 .top-detail,.details {
   input {
-    width: 30px;
+    width: 15px;
     border: none;
     outline: none;
     text-align: center;

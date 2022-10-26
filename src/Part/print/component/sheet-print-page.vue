@@ -320,7 +320,19 @@ export default {
     $("#app").css({
       minWidth: sheetTableWidth + "px"
     });
-
+    if(['zhzxy'].includes(process.env.HOSPITAL_ID)){
+            addCSS(
+              window,
+              `
+          @media print {
+            .iframe > div:nth-of-type(n) {
+              transform: rotateZ(0deg) scaleY(2) translateY(-30px) !important;
+              transform-origin: top !important;
+            }
+          }
+          `
+            );
+    }
     if (sheetTableWidth > 1000 && this.sheetInfo.sheetType != 'ops_linyi' && this.sheetInfo.sheetType != 'nicu_custody_hd') {
       printDir("h");
       addCSS(
@@ -861,20 +873,7 @@ export default {
     $("textarea").each((index, el) => {
       $(el).html($(el).attr("value"));
     });
-    if(['nursing_zhzxy'].includes(this.sheetInfo.sheetType)){
-      printDir("h");
-            addCSS(
-              window,
-              `
-          @media print {
-            .iframe > div:nth-of-type(n) {
-              transform: rotateZ(0deg) scaleY(1.25) translateY(-30px) !important;
-              transform-origin: top !important;
-            }
-          }
-          `
-            );
-    }
+    
     if (this.$route.query.toPrint == "true") {
       setTimeout(() => {
         this.print();
