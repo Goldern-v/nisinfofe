@@ -232,7 +232,7 @@
             for(var i=0;i<activeCheckList.length;i++){
               // 当前按钮的数组的项
               const nowItem=activeCheckList[i]
-                str += `${this.rightData[this.radio][nowItem].reqDate}  `
+                str += `${this.rightData[this.radio][nowItem].resultDate}  `
                 str += `${this.listByFilter[this.radio].subject}：`
                 str += `${this.rightData[this.radio][nowItem].itemName} ：`
                 str += `${this.rightData[this.radio][nowItem].result}`
@@ -263,7 +263,6 @@
             }
           }
         }
-        this.isSaving=false
         this.$emit('closeSweet')
         this.bus.$emit("openclosePatientInfo",'',true)
         this.bus.$emit('syncReportFSSY',str)

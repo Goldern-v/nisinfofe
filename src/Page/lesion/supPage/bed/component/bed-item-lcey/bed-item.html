@@ -3,7 +3,7 @@
   <span @click="toInfo(data)" class="nod">
     <div class="card-box" @click="prevent(data, $event)">
       <!--佛一顶部特殊调整-->
-        <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)" class="top_icon" :style="{ backgroundColor: data.nursingClassColor }"></div>
+        <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)&&data.patientId" class="top_icon" :style="{ backgroundColor: data.nursingClassColor }"></div>
       <div class="like" @click.stop="toLike(data)">
         <img v-if="data.isFollow == '1'" src="../../../../../../common/images/card/like.png" height="18" width="18" />
         <img v-else src="../../../../../../common/images/card/liked.png" height="18" width="18" />

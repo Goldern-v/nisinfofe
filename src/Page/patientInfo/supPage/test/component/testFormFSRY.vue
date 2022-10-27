@@ -85,7 +85,7 @@
 
 
 
-          <el-table-column label="危机值提示" min-width="82px">
+          <el-table-column label="提示" min-width="82px">
             <template slot-scope="scope">
               <span :class="{ redText: compare(scope.row) }">{{
                   scope.row.expand3
