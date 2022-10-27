@@ -687,22 +687,22 @@ if(this.selected.expand2!==undefined){
         const fromParams = {
           patientId:this.patientInfo.patientId,
           visitId:this.patientInfo.visitId,
-          formId:this.patientInfo.formId,
+          // formId:this.patientInfo.formId,
           formType: "sugar",
           formCode: "procedure",
           formName:'血糖监测单',
         }
         window.localStorage.sugarModel = $(this.$refs.Contain).html();
-        if (process.env.NODE_ENV === "production") {
+        // if (process.env.NODE_ENV === "production") {
           let newWid = window.open();
           if(this.HOSPITAL_ID === 'whfk'){
-            newWid.location.href = `/crNursing/print/sugar?patientId=${this.patientInfo.patientId}&visitId=${this.patientInfo.visitId}&formId=${this.patientInfo.formId}&formType=${"sugar"}&formCode=${"procedure"}&formName=${'血糖监测单'}`; 
+            newWid.location.href = `/crNursing/print/sugar?patientId=${this.patientInfo.patientId}&visitId=${this.patientInfo.visitId}&formType=${"sugar"}&formCode=${"procedure"}&formName=${'血糖监测单'}`; 
           }else{
             newWid.location.href = "/crNursing/print/sugar";
           }
-        } else {
-          this.$router.push(`/print/sugar`);
-        }
+        // } else {
+        //   this.$router.push(`/print/sugar`);
+        // }
       }
     },
 

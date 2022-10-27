@@ -509,13 +509,14 @@ export default {
           this.baseParams.formCode = this.fkOxygenCode
         }
         const resList = await getForm(this.baseParams.id, this.baseParams.formType, this.baseParams.formCode)
-        if( this.HOSPITAL_ID === 'whfk'){
-          this.getPrintRecordData();
-        }
+        
         this.baseParams.id ='',
         this.hisPatSugarList = resList.data.data.list;
         this.saveParams = resList.data.data
         this.sugarUserInfo= resList.data.data
+        if( this.HOSPITAL_ID === 'whfk'&&this.saveParams.patientId){
+          this.getPrintRecordData();
+        }
         /** 时间排序 */
         let list = resList.data.data.list
         let listMap = [];
@@ -638,6 +639,7 @@ export default {
       }
     },
     getPrintRecordData(){
+      console.log('this.saveParams',this.saveParams);
       const fromParams = {
         patientId:this.saveParams.patientId,
         visitId:this.saveParams.visitId,
@@ -661,6 +663,7 @@ export default {
     }
   },
   created() {
+    console.log('this.$route.query',this.$route.query)
     if (this.$route.query.patientId) {
       this.load();
     }
