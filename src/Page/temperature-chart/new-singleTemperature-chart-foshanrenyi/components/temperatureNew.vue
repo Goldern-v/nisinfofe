@@ -121,6 +121,7 @@ export default {
         const baseUrl=(()=>{
   switch (process.env.HOSPITAL_ID) {
     case 'foshanrenyi':
+      // return "http://localhost:8080"
       return "http://192.168.103.17:9091"
     case 'nfyksdyy':
       return "http://192.168.0.200:9091"
@@ -147,6 +148,7 @@ export default {
       printAllPath: "",
       intranetUrl:
       `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
+      // `${baseUrl}/#/` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         `${baseUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
     };
@@ -255,6 +257,11 @@ export default {
     },
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
+      let changeFlag = this.rightSheet
+      this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "rightSheetChange", value: changeFlag },
+        "*"
+      );
     },
     messageHandle(e) {
       if (e && e.data) {

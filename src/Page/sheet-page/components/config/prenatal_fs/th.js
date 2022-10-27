@@ -1,6 +1,6 @@
 
 /*
-  佛山市一 - 护理记录单(危重患者护理记录单)
+  佛山市一 - 产前待产记录单
 */
 
 /**
@@ -25,21 +25,16 @@ export default {
         top:
          [
             { "name": '',"colspan": "2","rowspan": "1", "key":'recordYear'},
-            { "name": "生命体征", "colspan": "7", "rowspan": "1"},
-            { "name": "瞳孔", "colspan": "4", "rowspan": "1"},
+            { "name": "生命体征", "colspan": "5", "rowspan": "1"},
+            { "name": "观 察 内 容", "colspan": "7", "rowspan": "1"},
             { "name": "入量", "colspan": "2", "rowspan": "1"},
-            { "name": "出量", "colspan": "3", "rowspan": "1"},
-            { "name": "翻身<br/>/拍背", "colspan": "1", "rowspan": "3"},
-            { "name": "氧流<br/>量L<br/>/分<br/>", "colspan": "1", "rowspan": "3"},
+            { "name": "出量", "colspan": "2", "rowspan": "1"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue1"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue2"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue3"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue4"},
-            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue5"},
-            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue6"},
-            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "163px",  maxWidth: "163px"}, },
-            { "name": "护士签名", "colspan": "1", "rowspan": "3"},
-            { "name": "质控护士", "colspan": "1", "rowspan": "3"}
+            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "400px",  maxWidth: "400px"}, },
+            { "name": "签名", "colspan": "1", "rowspan": "3"},
          ]
         ,
         mid:
@@ -47,28 +42,26 @@ export default {
                 {"name": "日期", "colspan": "1", "rowspan": "2", style: { minWidth: "50px",  maxWidth: "50px"},},
                 {"name": "时间", "colspan": "1", "rowspan": "2", style: { minWidth: "50px",  maxWidth: "50spx"},},
                 {"name": "体温<br/>℃", "colspan": "1", "rowspan": "2"},
-                {"name": "脉搏<br/>次/<br/>分", "colspan": "1", "rowspan": "2"},
-                {"name": "心率<br/>次/<br/>分", "colspan": "1", "rowspan": "2"},
+                { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"armValue5"},
                 {"name": "呼吸<br/>次/<br/>分", "colspan": "1", "rowspan": "2"},
-                {"name": "SPO2<br/>(%)", "colspan": "1", "rowspan": "2",},
                 {"name": "血压<br/>mmHg", "colspan": "1", "rowspan": "2"},
-                {"name": "神志", "colspan": "1", "rowspan": "2"},
-                {"name": "直径mm", "colspan": "2", "rowspan": "1"},
-                {"name": "对光<br/>反射", "colspan": "2", "rowspan": "1"},
+                {"name": "SOP2<br/>(%)", "colspan": "1", "rowspan": "2",},
+                {"name": "胎心<br/>次/<br/>分", "colspan": "1", "rowspan": "2"},
+                {"name": "胎动<br/>次/<br/>小时", "colspan": "1", "rowspan": "2"},
+                {"name": "宫缩", "colspan": "3", "rowspan": "1"},
+                {"name": "宫颈<br/>扩张<br/>cm", "colspan": "1", "rowspan": "2"},
+                {"name": "先<br/>露<br/>高<br/>低", "colspan": "1", "rowspan": "2"},
                 {"name": "内容", "colspan": "1", "rowspan": "2"},
                 {"name": "量ml", "colspan": "1", "rowspan": "2"},
                 {"name": "内容", "colspan": "1", "rowspan": "2"},
                 {"name": "量ml", "colspan": "1", "rowspan": "2"},
-                {"name": "颜色/性状", "colspan": "1", "rowspan": "2"}
-
             ]
         ,
         bottom:
             [
-              {"name": "左", "colspan": "1", "rowspan": "1"},
-              {"name": "右", "colspan": "1", "rowspan": "1"},
-              {"name": "左", "colspan": "1", "rowspan": "1"},
-              {"name": "右", "colspan": "1", "rowspan": "1"},
+              {"name": "强度", "colspan": "1", "rowspan": "1"},
+              {"name": "持<br/>续<br/>s", "colspan": "1", "rowspan": "1"},
+              {"name": "间<br/>歇<br/>min", "colspan": "1", "rowspan": "1"},
             ]
         ,
     }

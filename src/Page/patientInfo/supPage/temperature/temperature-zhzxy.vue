@@ -29,8 +29,10 @@
           </div>
         <tabCon class="contain-right" :patientInfo="patientInfo" v-show="rightSheet"> </tabCon>
       </div>
-
     </div>
+    <doctorEmr
+      v-if="['zhzxy'].includes(HOSPITAL_ID)"
+    />
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -77,6 +79,7 @@
 </style>
 
 <script>
+import doctorEmr from "@/components/doctorEmr";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 import temperatureLY from "@/Page/temperature-chart/new-singleTemperature-chart-zhzxy/components/temperatureNew";
@@ -136,7 +139,7 @@ export default {
       this.$store.commit("showRightPart", !this.rightSheet);
     },
   },
-  components: { temperatureLY, tabCon },
+  components: { temperatureLY, tabCon,doctorEmr },
   watch: {
     deptCode(val) {
       if (val) {

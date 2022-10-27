@@ -113,9 +113,15 @@
           align="center"
           label="病人ID"
           prop="patientId"
-          min-width="160px"
+          min-width="120px"
         ></el-table-column>
-
+        <el-table-column
+          header-align="center"
+          align="center"
+          label="管床医生"
+          prop="doctor"
+          min-width="100px"
+        ></el-table-column>
         <el-table-column
           prop="dischargeDate"
           header-align="center"
@@ -151,7 +157,7 @@
         <el-table-column
           prop="printStatus"
           header-align="center"
-          align="left"
+          align="center"
           label="状态"
           min-width="150px"
         >

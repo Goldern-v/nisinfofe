@@ -17,13 +17,29 @@
         <div class="title"  v-if="HOSPITAL_ID=='sdlj'">广东医科大学附属第三医院佛山市顺德区龙江医院</div>
         <div class="title" v-else>{{ HOSPITAL_NAME }}</div>
         <div class="name">{{ data.subject }}报告单</div>
+        <div v-if="['foshanrenyi'].includes(this.HOSPITAL_ID)">
+          <el-row class="info-class" type="flex" justify="space-between">
+          <span>申请单号：{{ tableHeaderInfo.testNo }}</span>
+          <span>姓名：{{ $route.query.name }}</span>
+          <span>性别：{{ $route.query.sex }}</span>
+          <span>年龄：{{ $route.query.age }}</span>
+          <span>病人ID：{{ tableHeaderInfo.patientId }}</span>
+        </el-row>
+        <el-row class="info-class" type="flex" justify="space-between">
+          <span>标本：{{ tableHeaderInfo.specimen }}</span>
+          <span>申请日期：{{ tableHeaderInfo.reqDate | dataForm }}</span>
+          <span>申请医生：{{ tableHeaderInfo.reqDoctor }}</span>
+          <span>报告日期：{{ tableHeaderInfo.resultDate | dataForm }}</span>
+        </el-row>
+        </div>
+       <div v-else>
         <el-row class="info-class" type="flex" justify="space-between">
           <span>申请单号：{{ data.testNo }}</span>
           <span>姓名：{{ $route.query.name }}</span>
           <span>性别：{{ $route.query.sex }}</span>
           <span>年龄：{{ $route.query.age }}</span>
           <span v-if="HOSPITAL_ID=='fuyou'">住院号：{{ $route.query.inpNo }}</span>
-          <span v-else>病人ID：{{ data.patientId }}</span>
+          <span v-else>病人ID：{{ data[1].patientId }}</span>
         </el-row>
         <el-row class="info-class" type="flex" justify="space-between">
           <span>标本：{{ data.specimen }}</span>
@@ -31,6 +47,7 @@
           <span>申请医生：{{ data.reqDoctor }}</span>
           <span>报告日期：{{ data.resultDate | dataForm }}</span>
         </el-row>
+       </div>
         <el-table
           :data="data1"
           :height="height1"
@@ -39,10 +56,11 @@
           @row-click="openChart"
         >
           <el-table-column
-            prop="itemNo"
+          prop="itemNo"
             label="序号"
             min-width="60px"
-          ></el-table-column>
+          >
+        </el-table-column>
           <el-table-column label="项目" min-width="180px">
             <template slot-scope="scope">
               <span :class="{ redText: compare(scope.row) }">{{
@@ -71,6 +89,13 @@
                   v-show="compare(scope.row) == 'down'"
                 />
               </span>
+            </template>
+          </el-table-column>
+          <el-table-column label="危机值提示" min-width="82px">
+            <template slot-scope="scope">
+              <span :class="{ redText: compare(scope.row) }">{{
+                  scope.row.expand3
+                }}</span>
             </template>
           </el-table-column>
           <el-table-column label="单位" min-width="82px">
@@ -208,6 +233,12 @@ th {
 import { testItems, getExamTestUrl } from "@/api/patientInfo";
 import lineChart from "./lineChart";
 export default {
+  props:{
+    tableHeaderInfo:{
+      type:Object,
+      default:{}
+    }
+  },
   data() {
     return {
       data: {},
@@ -247,7 +278,9 @@ export default {
     openChart(data) {
       this.chartData = data;
       this.dialogVisible = true;
+      // if(['foshanrenyi'].includes(this.HOSPITAL_ID)) return
       this.$nextTick(() => {
+        // 佛一去除弹框
         this.$refs.lineChart.open(data);
       });
     },
@@ -255,8 +288,9 @@ export default {
       this.dialogVisible = false;
     },
     open(data) {
-      console.log("testFormdata,",data)
-      this.data = data;
+      this.data = data.map((itemList,index)=>{
+        itemList.itemNo = index + 1
+      });
       this.loading = ['foshanrenyi'].includes(this.HOSPITAL_ID)?false:true;
       this.data1 = [];
       this.closeChart();
@@ -284,6 +318,7 @@ export default {
           });
       }else{
         this.data1 = data
+
       }
     },
   },
@@ -299,7 +334,7 @@ export default {
     },
   },
   components: {
-    lineChart,
+    lineChart
   },
 };
 </script>

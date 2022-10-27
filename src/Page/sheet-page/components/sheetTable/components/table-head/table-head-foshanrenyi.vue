@@ -175,7 +175,7 @@
         </div>
       </span> -->
     </div>
-    <div class="info-con"  v-if="sheetInfo.sheetType == 'laborobservation_fs'">
+    <!-- <div class="info-con"  v-if="sheetInfo.sheetType == 'laborobservation_fs'">
       <span>
         临产时间：
           <crDatePicker
@@ -227,16 +227,8 @@
         >
           <input type="text" v-model="sheetInfo.relObj.deliveryMOde" style="width:250px;">
         </customSelectCanRepeat>
-        <!-- <el-select v-model="sheetInfo.relObj.deliveryMOde" multiple placeholder="">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-  </el-select> -->
       </span>
-    </div>
+    </div> -->
     <div class="info-con">
       <span v-if="sheetInfo.sheetType != 'iabp_fs' && sheetInfo.sheetType != 'hydrochloricacid_fs' && sheetInfo.sheetType != 'magnesiumsulf_fs' && sheetInfo.sheetType != 'laborobservation_fs'"
         @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"

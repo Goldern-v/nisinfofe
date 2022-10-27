@@ -1212,6 +1212,11 @@ function switchSheetType(type) {
       schema = require("../config/operationlumbar_fs/tr.js").default;
     }
       break;
+    case "prenatal_fs": {
+      // 佛山市一 - 护理记录单(腰椎疾病手术治疗)
+      schema = require("../config/prenatal_fs/tr.js").default;
+    }
+      break;
     case "general_fs": {
       // 佛山市一 - 护理记录单(新生儿科通用)
       schema = require("../config/general_fs/tr.js").default;
@@ -1254,6 +1259,11 @@ function switchSheetType(type) {
     case "laborobservation_fs": {
       // 佛山市一 - 产程观察记录单(含静滴催产素记录单)
       schema = require("../config/laborobservation_fs/tr.js").default;
+    }
+      break;
+    case "postpartum_fs": {
+      // 佛山市一 - 产程观察记录单(含静滴催产素记录单)
+      schema = require("../config/postpartum_fs/tr.js").default;
     }
       break;
     case "babyarea_fs": {
@@ -1531,6 +1541,11 @@ function switchSheetType(type) {
         schema = require("../config/magnesiumsulphate_tj/tr.js").default;
       }
       break;
+    case "blood_tj": {
+      // 广东同江 - 血运观察单
+        schema = require("../config/blood_tj/tr.js").default;
+      }
+      break;
     case "surgical_qhwy": {
         // 青海五院 - 外科护理记录单
         schema = require("../config/surgical_qhwy/tr.js").default;
@@ -1600,6 +1615,11 @@ function switchSheetType(type) {
         // 临沂沂州 - 监护记录单
         schema = require("../config/custody_yz/tr.js").default;
     }
+      break;
+    case "internal_eval_yz": {
+        //  临沂沂州 - 一般患者护理评估记录单
+        schema = require("../config/internal_eval_yz/tr.js").default;
+      }
       break;
     case "inout_ytll": {
       // 烟台玲珑 - 出入量记录单

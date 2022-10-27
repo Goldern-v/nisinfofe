@@ -359,20 +359,17 @@ export default {
       this.$refs.dragBox.style.top = "50%";
       setTimeout(() => (this.visible = true), 30);
       this.$emit("open");
-      console.log(this.ifNoguan,ifNoguan,"this.ifNoguan111")
       if(ifNoguan===false) this.ifNoguan = false
       // this.ifNoguan = !ifNoguan && ifNoguan
-      console.log(this.ifNoguan,ifNoguan,"this.ifNoguan222")
     },
     /**
      * Close the dialog
      * Emits an event 'close'
      */
     close(fuyouIfclose = false) {
-      console.log("11111")
       // console.log(this.ifNoguan,fuyouIfclose,JSON.parse(localStorage.user).empNo,"fuyouIfclose")
       if(["fuyou",'zhzxy'].includes(this.HOSPITAL_ID)){
-        if(this.ifNoguan || fuyouIfclose===true){
+        if(this.ifNoguan || fuyouIfclose===true || ['zhzxy'].includes(this.HOSPITAL_ID)){
           if (this.closeCallback) {
               this.closeCallback();
             }

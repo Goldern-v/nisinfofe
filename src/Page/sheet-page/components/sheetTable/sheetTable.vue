@@ -191,7 +191,8 @@ export default {
     /** 只读模式 */
     readOnly() {
       if (
-        this.HOSPITAL_ID == "huadu"
+        this.HOSPITAL_ID == "huadu" || 
+        this.HOSPITAL_ID == "zhzxy"
       ) {
         return false;
       }

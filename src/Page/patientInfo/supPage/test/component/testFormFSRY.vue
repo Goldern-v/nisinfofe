@@ -17,18 +17,18 @@
         <div class="title">{{ HOSPITAL_NAME }}</div>
         <div class="name">{{ data.subject }}报告单</div>
         <el-row class="info-class" type="flex" justify="space-between">
-          <span>申请单号：{{ data.testNo }}</span>
-          <span>姓名：{{ $route.query.name }}</span>
-          <span>性别：{{ $route.query.sex }}</span>
-          <span>年龄：{{ $route.query.age }}</span>
+          <span>申请单号：{{ tableHeaderInfo.testNo }}</span>
+          <span>姓名：{{ $route.query.name||patientInfo.name }}</span>
+          <span>性别：{{ $route.query.sex||patientInfo.sex }}</span>
+          <span>年龄：{{ $route.query.age ||patientInfo.age}}</span>
           <span v-if="HOSPITAL_ID=='fuyou'">住院号：{{ $route.query.inpNo }}</span>
-          <span v-else>病人ID：{{ data.patientId }}</span>
+          <span v-else>病人ID：{{ tableHeaderInfo.patientId }}</span>
         </el-row>
         <el-row class="info-class" type="flex" justify="space-between">
-          <span>标本：{{ data.specimen }}</span>
-          <span>申请日期：{{ data.reqDate | dataForm }}</span>
-          <span>申请医生：{{ data.reqDoctor }}</span>
-          <span>报告日期：{{ data.resultDate | dataForm }}</span>
+          <span>标本：{{ tableHeaderInfo.specimen }}</span>
+          <span>申请日期：{{ tableHeaderInfo.reqDate | dataForm }}</span>
+          <span>申请医生：{{ tableHeaderInfo.reqDoctor }}</span>
+          <span>报告日期：{{ tableHeaderInfo.resultDate | dataForm }}</span>
         </el-row>
         <el-checkbox-group v-model="checkList[activeIndex]">
         <el-table
@@ -36,8 +36,7 @@
           :height="height1"
           style="width: 100%; margin-top: 20px;"
           class="test-table"
-          @row-click="openChart"
-        >  
+        >
           <el-table-column
             label="同步"
             min-width="60px"
@@ -83,6 +82,19 @@
               </span>
             </template>
           </el-table-column>
+
+
+
+          <el-table-column label="提示" min-width="82px">
+            <template slot-scope="scope">
+              <span :class="{ redText: compare(scope.row) }">{{
+                  scope.row.expand3
+                }}</span>
+            </template>
+          </el-table-column>
+
+
+
           <el-table-column label="单位" min-width="82px">
             <template slot-scope="scope">
               <span :class="{ redText: compare(scope.row) }">{{
@@ -227,7 +239,12 @@ export default {
     checkNum:{
       type:Number,
       default:0
+    },
+    tableHeaderInfo:{
+      type:Object,
+      default:{}
     }
+
   },
   data() {
     return {
@@ -252,6 +269,9 @@ export default {
     height1() {
       return this.wih - 310;
     },
+    patientInfo(){
+      return this.$store.state.sheet.patientInfo;
+    }
   },
   methods: {
     compare(row) {
@@ -282,16 +302,15 @@ export default {
       this.dialogVisible = false;
     },
     open(data,index,clLength) {
-      console.log('data',data)
-      console.log('index',index)
-      console.log('clLength',clLength)
       if(clLength>0&&clLength){
         //如果选项多于1个，那么改造checkList为二维数组
         for (let index = 0; index < clLength ; index++) {
-           this.checkList.push([])
+          this.checkList.push([])
         }
       }
-      this.data = data;
+      this.data = data.map((itemList,index)=>{
+        itemList.itemNo = index + 1
+      });
       this.activeIndex=index
       this.loading = ['foshanrenyi'].includes(this.HOSPITAL_ID)?false:true;;
       this.data1 = [];
@@ -315,11 +334,12 @@ export default {
             this.loading = false;
           })
           .catch(() => {
-            this.data1 = false;
+            this.data1 = [];
             this.loading = false;
           });
       }else{
         this.data1 = data
+
       }
     },
   },

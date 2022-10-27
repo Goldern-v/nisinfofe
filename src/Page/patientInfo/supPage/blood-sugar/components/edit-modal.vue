@@ -133,14 +133,8 @@
         label="RI剂量："
         required
         v-if="
-          HOSPITAL_ID != 'gy' &&
-          HOSPITAL_ID != 'huadu' &&
-          HOSPITAL_ID != 'liaocheng' &&
-          HOSPITAL_ID != 'hengli' &&
-          HOSPITAL_ID != 'guizhou'&&
-          HOSPITAL_ID != 'sdlj'&&
-          HOSPITAL_ID != 'whfk'&&
-          HOSPITAL_ID != 'foshanrenyi'
+          !['zhzxy','gy','huadu','liaocheng','hengli',
+          'guizhou','sdlj','whfk','foshanrenyi'].includes(HOSPITAL_ID)
         "
       >
         <ElInput v-model="form.riValue" />

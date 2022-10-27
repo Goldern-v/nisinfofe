@@ -1491,6 +1491,20 @@ export default function Title(
       );
     }
   break;
+  case "postpartum_fs": {
+    // 佛山市一 - 护理记录单(危重患者护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_fs/th.js").default)
+      );
+    }
+  break;
+  case "prenatal_fs": {
+    // 佛山市一 - 护理记录单(危重患者护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_fs/th.js").default)
+      );
+    }
+  break;
   case "kneedisease_fs": {
     // 佛山市一 - 护理记录单(膝关节疾患)
     Th = JSON.parse(
@@ -1974,6 +1988,13 @@ export default function Title(
     );
   }
   break;
+  case "blood_tj": {
+    // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/blood_tj/th.js").default)
+    );
+  }
+  break;
   case "surgical_qhwy": {
     // 青海五院 - 外科护理记录单
     Th = JSON.parse(
@@ -2069,6 +2090,13 @@ export default function Title(
     // 临沂沂州 - 监护记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/custody_yz/th").default)
+    );
+  }
+  break;
+  case "internal_eval_yz": {
+    // 聊城二院 - (内科)一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_eval_yz/th.js").default)
     );
   }
   break;

@@ -13,8 +13,8 @@
               justify="center"
               align="middle"
             >
-              <img src="../../common/images/logo-white-60.png" />
-              <span>智慧护理信息系统</span>
+              <img src="../../common/images/logo_whfk.png" /> 
+              <span>武汉市肺科医院</span>
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">

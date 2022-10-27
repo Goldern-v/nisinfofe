@@ -129,7 +129,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column v-if="showInfusion" prop="stopDateTime" label="结束输液时间" min-width="160px" align="center">
+      <!-- <u-table-column v-if="showInfusion" prop="stopDateTime" label="结束输液时间" min-width="160px" align="center">
         <template slot-scope="scope">
           <span :title="scope.row.endInfusionTime | ymdhms">{{scope.row.endInfusionTime | ymdhms}}</span>
         </template>
@@ -138,7 +138,7 @@
         <template slot-scope="scope">
           <span :title="scope.row.executeEndNurseName">{{scope.row.executeEndNurseName}}</span>
         </template>
-      </u-table-column>
+      </u-table-column> -->
 
       <u-table-column prop="supplementaryRes" label="补录原因" min-width="120px" align="center">
       <template slot-scope="scope">
