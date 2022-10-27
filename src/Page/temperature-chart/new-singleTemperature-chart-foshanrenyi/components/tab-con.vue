@@ -38,24 +38,6 @@
             @click="saveVitalSign(vitalSignObj)"
             >{{ isUpdate ? "更新" : "保存" }}</el-button>
         </div>
-        <!-- <el-button-group>
-          <el-button
-            style="height: 33px; margin-top: -4px"
-            type="primary"
-            size="mini"
-            @click="() => preDate()"
-            >上一天</el-button
-          >
-          <el-button
-            style="height: 33px; margin-top: -4px"
-            type="primary"
-            size="mini"
-            @click="() => nextDate()"
-            >下一天</el-button
-          >
-        </el-button-group> -->
-
-
       </div>
     </div>
     <div class="row-bottom">
@@ -796,6 +778,7 @@ export default {
           if (this.vitalSignObj[item.vitalCode])
             this.fieldList[item.vitalCode] = item;
         });
+        console.log(this.fieldList,9877)
       });
       let input = document.getElementsByTagName("input");
       for (let i = 0; i < input.length; i++) {
@@ -935,7 +918,7 @@ export default {
             default:
               break;
           }
-          if (item.vitalSign.includes("自定义")) {
+          if (item.vitalSign.includes("自定义")||item.signType=='custom') {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
               patientId: this.patientInfo.patientId,

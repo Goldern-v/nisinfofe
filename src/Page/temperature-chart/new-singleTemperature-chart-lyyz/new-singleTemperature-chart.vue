@@ -105,7 +105,7 @@ import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
 import temperatureNew from "./components/temperatureNew";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-lyxrm/components/tab-con";
+import tabCon from "./components/tab-con.vue";
 import Button from "@/Page/badEvent/components/button.vue";
 
 export default {

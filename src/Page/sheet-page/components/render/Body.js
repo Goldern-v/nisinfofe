@@ -1271,6 +1271,11 @@ function switchSheetType(type) {
       schema = require("../config/babyarea_fs/tr.js").default;
     }
       break;
+    case "NICU_fs": {
+      // 佛山市一 - 新生儿NICU护理记录单
+      schema = require("../config/NICU_fs/tr.js").default;
+    }
+      break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;
@@ -1611,6 +1616,21 @@ function switchSheetType(type) {
         schema = require("../config/custody_yz/tr.js").default;
     }
       break;
+    case "internal_eval_yz": {
+        //  临沂沂州 - 一般患者护理评估记录单
+        schema = require("../config/internal_eval_yz/tr.js").default;
+      }
+      break;
+    case "critical_new_yz": {
+        // 临沂沂州- 病重（病危）患者护理记录单（带瞳孔)
+        schema = require("../config/critical_new_yz/tr.js").default;
+      }
+      break; 
+    case "icu_yz": {
+        // 临沂沂州--内科重症医学科
+        schema = require("../config/icu_yz/tr.js").default;
+    }
+        break; 
     case "inout_ytll": {
       // 烟台玲珑 - 出入量记录单
       schema = require("../config/inout_ytll/tr.js").default;

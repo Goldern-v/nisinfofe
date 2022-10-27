@@ -1927,7 +1927,8 @@ export default {
             } else if (
               this.sheetInfo.sheetType === "internal_eval_lcey" ||
               this.sheetInfo.sheetType === "internal_eval_linyi" ||
-              this.sheetInfo.sheetType === "internal_eval_weihai"
+              this.sheetInfo.sheetType === "internal_eval_weihai"||
+              this.sheetInfo.sheetType === "internal_eval_yz"
             ) {
               if (GetLength(text) > 98) {
                 result.push(text);
