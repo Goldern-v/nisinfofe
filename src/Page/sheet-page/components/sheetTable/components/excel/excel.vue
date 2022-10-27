@@ -564,6 +564,7 @@
             sheetInfo.sheetType === 'prenataldelivery2_tj'||
             sheetInfo.sheetType === 'postpartum2_tj'||
             sheetInfo.sheetType === 'baby_tj'||
+            sheetInfo.sheetType === 'NICU_fs'||
             HOSPITAL_ID == 'fsxt'
           "
           >质控护士：</span
@@ -766,6 +767,7 @@ export default {
         'danger_nurse_jew',
         'baby_tj',
         'magnesiumsulphate_tj',//广东同江 - 硫酸镁注射液静脉滴注观察记录单
+        'NICU_fs', // 佛一 新生儿NICU护理记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [

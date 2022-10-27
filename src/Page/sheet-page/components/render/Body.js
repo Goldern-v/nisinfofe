@@ -1271,6 +1271,11 @@ function switchSheetType(type) {
       schema = require("../config/babyarea_fs/tr.js").default;
     }
       break;
+    case "NICU_fs": {
+      // 佛山市一 - 新生儿NICU护理记录单
+      schema = require("../config/NICU_fs/tr.js").default;
+    }
+      break;
     case "nonsurgicalcare_fk": {
       // 武汉肺科 - 非手术科室护理记录单
       schema = require("../config/nonsurgicalcare_fk/tr.js").default;

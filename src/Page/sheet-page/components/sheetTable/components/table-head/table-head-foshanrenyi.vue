@@ -248,6 +248,67 @@
       </span>
 
     </div>
+    <div class="boxLine"  v-if="sheetInfo.sheetType=='NICU_fs'">
+        管道：(
+        <input
+          type="checkbox"
+          value="w"
+          :ischecked="sheetInfo.relObj['w']"
+          v-model="checkedw"
+        />无
+        <input
+          type="checkbox"
+          value="wg"
+          :ischecked="sheetInfo.relObj['wg']"
+          v-model="checkedwg"
+        />胃管
+        <input
+          type="checkbox"
+          value="PICC"
+          :ischecked="sheetInfo.relObj['PICC']"
+          v-model="checkedPICC"
+        />PICC管
+        <input
+          type="checkbox"
+          value="qjmdg"
+          :ischecked="sheetInfo.relObj['qjmdg']"
+          v-model="checkedqjmdg"
+        />脐静脉导管
+        <input
+          type="checkbox"
+          value="ng"
+          :ischecked="sheetInfo.relObj['ng']"
+          v-model="checkedng"
+        />尿管
+        <input
+          type="checkbox"
+          value="qt"
+          :ischecked="sheetInfo.relObj['qt']"
+          v-model="checkedqt"
+        />其他:
+        <input
+          style="width: 180px;border-bottom: 1px solid #000"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['dgqt']"
+          v-model="sheetInfo.relObj['dgqt']"
+        />)
+        用氧方式：(
+        <customSelectCanRepeat
+          :options="oxygenWays"
+          @onSelect="(val) => setRelValue('oxygenWay', val)"
+        >
+          <input type="text" :data-value="sheetInfo.relObj['oxygenWay']" v-model="sheetInfo.relObj.oxygenWay" style="width:160px;">
+        </customSelectCanRepeat>
+        )
+        (
+          <customSelectCanRepeat
+            :options="oxygenUnits"
+            @onSelect="(val) => setRelValue('oxygenUnit', val)"
+          >
+            <input type="text"  :data-value="sheetInfo.relObj['oxygenUnit']" v-model="sheetInfo.relObj.oxygenUnit" style="width:50px;">
+          </customSelectCanRepeat>
+        )
+    </div>
     <div class="info-con">
       <span v-if="sheetInfo.sheetType == 'ipacu_fs'"
         @click="updateDiagops('ops', '手术', patientInfo.relObj.ops)"
@@ -289,7 +350,7 @@ import bus from "vue-happy-bus";
 import bedRecordModal from "../../../modal/bedRecord-modal";
 import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
 import customSelectCanRepeat from '@/components/customSelectCanRepeat/CustomSelectCanRepeat.vue'
-
+// le y = ''
 export default {
   props: {
     patientInfo: Object,
@@ -319,6 +380,33 @@ export default {
           value: '臀牵引',
           name: '臀牵引'
         }],
+        oxygenWays: [
+          {
+          value: '无',
+          name: '无'
+        }, {
+          value: '中心吸氧',
+          name: '中心吸氧'
+        }, {
+          value: '箱内吸氧',
+          name: '箱内吸氧'
+        }, {
+          value: '呼吸机辅助呼吸',
+          name: '呼吸机辅助呼吸'
+        }, {
+          value: '无创辅助通气餐时吸氧',
+          name: '无创辅助通气餐时吸氧'
+        }, {
+          value: '高流量',
+          name: '高流量'
+        }],
+        oxygenUnits: [{
+          value: '%',
+          name: '%'
+        }, {
+          value: '升/分',
+          name: '升/分'
+        }]
     };
   },
   mounted() {},
@@ -364,6 +452,56 @@ export default {
         this.patientInfo.delivery
       );
     },
+    ...{
+      'checkedw':{
+        get(){
+          return this.sheetInfo.relObj[`w`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`w`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedwg':{
+        get(){
+          return this.sheetInfo.relObj[`wg`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`wg`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedPICC':{
+        get(){
+          return this.sheetInfo.relObj[`PICC`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`PICC`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedqjmdg':{
+        get(){
+          return this.sheetInfo.relObj[`qjmdg`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`qjmdg`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedng':{
+        get(){
+          return this.sheetInfo.relObj[`ng`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`ng`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedqt':{
+        get(){
+          return this.sheetInfo.relObj[`qt`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`qt`] = nVal ? "true" : "false"
+        }
+      },
+    }
   },
   methods: {
     setRelValue(code, val) {
@@ -475,6 +613,13 @@ input {
 }
 .info-con_select /deep/.el-tag__close{
   display: none;
+}
+.boxLine {
+  height: 18px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size:14px;
 }
 
 </style>
