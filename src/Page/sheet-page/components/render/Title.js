@@ -2094,9 +2094,23 @@ export default function Title(
   }
   break;
   case "internal_eval_yz": {
-    // 聊城二院 - (内科)一般患者护理评估记录单
+    // 临沂沂州 - 一般患者护理评估记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/internal_eval_yz/th.js").default)
+    );
+  }
+  break;
+  case "critical_new_yz": {
+    // 临沂沂州 - 病重（病危）患者护理记录单（带瞳孔）(新)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_new_yz/th").default)
+    );
+  }
+  break;
+  case "icu_yz": {
+    // 内科重症医学科
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_yz/th").default)
     );
   }
   break;
