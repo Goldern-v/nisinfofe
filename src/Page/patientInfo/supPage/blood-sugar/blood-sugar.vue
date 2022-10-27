@@ -514,7 +514,6 @@ export default {
   },
   computed: {
     patientInfo() {
-      console.log('this.$route.query', this.$route.query)
       return this.$route.query;
     },
     containHeight() {
@@ -693,16 +692,16 @@ if(this.selected.expand2!==undefined){
           formName:'血糖监测单',
         }
         window.localStorage.sugarModel = $(this.$refs.Contain).html();
-        // if (process.env.NODE_ENV === "production") {
+        if (process.env.NODE_ENV === "production") {
           let newWid = window.open();
           if(this.HOSPITAL_ID === 'whfk'){
             newWid.location.href = `/crNursing/print/sugar?patientId=${this.patientInfo.patientId}&visitId=${this.patientInfo.visitId}&formType=${"sugar"}&formCode=${"procedure"}&formName=${'血糖监测单'}`; 
           }else{
             newWid.location.href = "/crNursing/print/sugar";
           }
-        // } else {
-        //   this.$router.push(`/print/sugar`);
-        // }
+        } else {
+          this.$router.push(`/print/sugar`);
+        }
       }
     },
 
@@ -775,7 +774,6 @@ if(this.selected.expand2!==undefined){
       item.bedLabel = this.patientInfo.bedLabel;
       item.wardCode = this.patientInfo.wardCode;
       (item.nurseEmpNo = this.empNo || ""), //护士工号
-        console.log(item, "xiaog");
       await saveSugarList([item])
       this.load();
       this.$refs.editModal.close();
@@ -785,7 +783,6 @@ if(this.selected.expand2!==undefined){
     async onSaveAge(item) {
       item.patientId = this.patientInfo.patientId;
       item.visitId = this.patientInfo.visitId;
-      console.log("item", item.age);
       let itemValue = item.age;
       let itemMap = [
         {

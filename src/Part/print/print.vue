@@ -219,9 +219,7 @@ export default {
     };
   },
   methods: {
-
     print() {
-      console.log('22222')
       if (!this.canPrint) return;
       if (this.$route.params.type == "assessment") {
         this.bus.$emit("printAssessment");
@@ -270,8 +268,7 @@ export default {
         var val = arr[i].split("=")[1];
         fromParams[k] = val;
       }
-      console.log(fromParams);
-      if (fromParams.patientId ) {
+       if (fromParams.patientId ) {
         const timer = setInterval(
           (window.onafterprint = (res) => {
            

@@ -639,7 +639,6 @@ export default {
       }
     },
     getPrintRecordData(){
-      console.log('this.saveParams',this.saveParams);
       const fromParams = {
         patientId:this.saveParams.patientId,
         visitId:this.saveParams.visitId,
@@ -663,7 +662,6 @@ export default {
     }
   },
   created() {
-    console.log('this.$route.query',this.$route.query)
     if (this.$route.query.patientId) {
       this.load();
     }
