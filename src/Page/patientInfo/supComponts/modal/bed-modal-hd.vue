@@ -216,6 +216,7 @@
       <div
         class="bed-card-warpper wrist-strap-print children-wrist"
         ref="printCon4"
+        :class="{'zhzxyStyle':['zhzxy'].includes(HOSPITAL_ID)}"
         v-show="printMode == 'wrist-children'"
       >
         <div class="bed-card-vert-con">

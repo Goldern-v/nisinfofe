@@ -1491,6 +1491,20 @@ export default function Title(
       );
     }
   break;
+  case "postpartum_fs": {
+    // 佛山市一 - 护理记录单(危重患者护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_fs/th.js").default)
+      );
+    }
+  break;
+  case "prenatal_fs": {
+    // 佛山市一 - 护理记录单(危重患者护理记录单)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_fs/th.js").default)
+      );
+    }
+  break;
   case "kneedisease_fs": {
     // 佛山市一 - 护理记录单(膝关节疾患)
     Th = JSON.parse(
@@ -1964,6 +1978,13 @@ export default function Title(
     // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/magnesiumsulphate_tj/th.js").default)
+    );
+  }
+  break;
+  case "blood_tj": {
+    // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/blood_tj/th.js").default)
     );
   }
   break;

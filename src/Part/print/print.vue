@@ -164,7 +164,6 @@
     display: none !important;
     width: 0 !important;
   }
-
   body {
     background: #fff !important;
   }
@@ -220,7 +219,6 @@ export default {
     };
   },
   methods: {
-
     print() {
       if (!this.canPrint) return;
       if (this.$route.params.type == "assessment") {
@@ -260,22 +258,30 @@ export default {
     }, 1000);
     window.document.body.style.background = "#dfdfdf";
    
-    if(this.HOSPITAL_ID === 'whfk'){
-      const timer =  setInterval(window.onafterprint = (res)=>{
-        var url =decodeURIComponent(window.location.href);
-        var fromParams = {};
-        var arr = url.split('?').pop().split('#').shift().split('&');
-        console.log(arr);
-        for(var i = arr.length-1;i>=0;i--){
-            var k = arr[i].split('=')[0];
-            var val = arr[i].split('=')[1];
-            fromParams[k] = val;
-        } 
-          savePrint(fromParams)
-          .then(res => {
-            window.clearInterval(timer);
-          }, err => {})
-        },2000)
+    if (this.HOSPITAL_ID === "whfk") {
+      var fromParams = {};
+      var url = decodeURIComponent(window.location.href);
+      var arr = url.split("?").pop().split("#").shift().split("&");
+     
+      for (var i = arr.length - 1; i >= 0; i--) {
+        var k = arr[i].split("=")[0];
+        var val = arr[i].split("=")[1];
+        fromParams[k] = val;
+      }
+       if (fromParams.patientId ) {
+        const timer = setInterval(
+          (window.onafterprint = (res) => {
+           
+            savePrint(fromParams).then(
+              (res) => {
+                window.clearInterval(timer);
+              },
+              (err) => {}
+            );
+          }),
+          2000
+        );
+      }
     }
   },
   components: {

@@ -33,11 +33,20 @@
           </div>
           <div class="list-con" v-if="selectedType=='特殊符号'" :style="listconHeight">
             <ul class="specific_symbol">
-              <li
-                v-for="item in specificSymbol"
-                :key="item"
-                @click="addTemplateAtDoc(item)"
-              >{{item}}</li>
+              <template v-if="['zhzxy'].includes(HOSPITAL_ID)">
+                <li
+                  v-for="item in specificSymbol"
+                  :key="item"
+                  @dblclick="addTemplateAtDoc(item)"
+                >{{item}}</li>
+              </template>
+              <template v-else>
+                <li
+                  v-for="item in specificSymbol"
+                  :key="item"
+                  @click="addTemplateAtDoc(item)"
+                >{{item}}</li>
+              </template>
             </ul>
           </div>
           <div class="list-con" v-else :style="listconHeight">

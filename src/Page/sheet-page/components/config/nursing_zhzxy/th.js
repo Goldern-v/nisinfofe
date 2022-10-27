@@ -19,8 +19,14 @@ export default {
     th: {
         top: 
             [
-                {"name":"日期","colspan":"1","rowspan":"2","style":{"minWidth":"55px","maxWidth":"55px"}},
-                {"name":"时间","colspan":"1","rowspan":"2","style":{"minWidth":"40px","maxWidth":"40px"}},
+                {
+                    name: '',
+                    style: {},
+                    colspan: "2",
+                    rowspan: "1",
+                    key:'recordYear'
+                  },
+                
                 {"name":"T<br>℃","colspan":"1","rowspan":"2"},
                 {"name":"P/HR<br>次/分","colspan":"1","rowspan":"2","style":{"minWidth":"45px","maxWidth":"45px"}},
                 {"name":"R<br>次/分","colspan":"1","rowspan":"2"},
@@ -37,17 +43,19 @@ export default {
                 // {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value6", "style":{"minWidth":"35px","maxWidth":"35px"}},
                 // {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value7", "style":{"minWidth":"35px","maxWidth":"35px"}},
                 // {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value8", "style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"病情观察及护理措施","colspan":"1","rowspan":"2","style":{"minWidth":"425px","maxWidth":"425px"}},
+                {"name":"病情观察及护理措施","colspan":"1","rowspan":"2","style":{"minWidth":"450px","maxWidth":"450px"}},
                 {"name":"签名","colspan":"1","rowspan":"2","style":{"minWidth":"60px","maxWidth":"60px"}},
             ]
         ,
         mid: 
             [
-                {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"日期","colspan":"1","rowspan":"1","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"时间","colspan":"1","rowspan":"1","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"100px","maxWidth":"100px"}},
                 {"name":"ml","colspan":"1","rowspan":"1"},
                 {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"100px","maxWidth":"100px"}},
                 {"name":"ml","colspan":"1","rowspan":"1"},
-                {"name":"颜色/性状","colspan":"1","rowspan":"1","style":{"minWidth":"55px","maxWidth":"55px"}},
+                {"name":"颜色/性状","colspan":"1","rowspan":"1","style":{"minWidth":"100px","maxWidth":"100px"}},
             ]
         ,
         bottom: 

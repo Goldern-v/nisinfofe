@@ -723,7 +723,7 @@ export default {
             name: "口服药",
           },
         ];
-      } else if (this.HOSPITAL_ID === "wujing"&&HOSPITAL_ID == 'gdtj') {
+      } else if (this.HOSPITAL_ID === "wujing"&&this.HOSPITAL_ID == 'gdtj') {
         return [
           {
             id: "",

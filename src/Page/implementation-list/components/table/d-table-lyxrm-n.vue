@@ -11,6 +11,7 @@
       use-virtual
       row-id="id"
       border
+      ref="uTable"
     >
       <u-table-column
         prop="bedLabel"
@@ -141,6 +142,7 @@
         label="核对人/核对时间"
         min-width="190px"
         align="center"
+        v-if="HOSPITAL_ID !== 'beihairenyi'"
       >
         <template slot-scope="scope">
           {{ scope.row.heNurse }} {{ scope.row.heTime | ymdhm2 }}
@@ -255,6 +257,15 @@
                 scope.row.executeFlag != 4
               "
               >补执行</el-button
+            >
+            <el-button
+              type="text"
+              @click="editTime(scope.row)"
+              v-if="
+                isTimeSelect &&
+                scope.row.executeFlag === 4
+              "
+              >时间选择</el-button
             >
             <el-button type="text" v-if="HOSPITAL_ID !== 'beihairenyi'" @click="handleRemarks(scope.row)"
               >备注</el-button
@@ -441,6 +452,8 @@ export default {
       msg: "hello vue",
       bus: bus(this),
       isEdit: false,
+      // 时间选择权限：护长
+      isTimeSelect: this.HOSPITAL_ID === 'beihairenyi' && this.isRoleManage,
       typeReason: "", //补执行的原因填写
     };
   },
@@ -498,6 +511,15 @@ export default {
     // 是否输液
     isInfusion() {
       return this.currentType.includes('输液') || this.currentType.includes('全部')
+    }
+  },
+  watch: {
+    isInfusion(val) {
+       if (val) {
+        this.$nextTick(() => {
+          this.$refs.uTable.doLayout();
+        })
+      }
     }
   },
   components: {

@@ -30,23 +30,14 @@
           >
           </el-time-select>
         </div>
-        <el-button-group>
+        <div class="save-btn-top" v-if="patientInfo.patientId">
           <el-button
-            style="height: 33px; margin-top: -4px"
-            type="primary"
-            size="mini"
-            @click="() => preDate()"
-            >上一天</el-button
-          >
-          <el-button
-            style="height: 33px; margin-top: -4px"
-            type="primary"
-            size="mini"
-            @click="() => nextDate()"
-            >下一天</el-button
-          >
-        </el-button-group>
-
+            :disabled="isDisable()"
+            :type="isUpdate ? 'warning' : 'primary'"
+            class="save-top"
+            @click="saveVitalSign(vitalSignObj)"
+            >{{ isUpdate ? "更新" : "保存" }}</el-button>
+        </div>
       </div>
     </div>
     <div class="row-bottom">
@@ -55,7 +46,7 @@
       <div v-else class="showRecord">
 
         <div class="record-list" :style="{ width: `${35}%` }">
-          <div class="record-item">
+          <div class="record-item" v-if="!isUpdate">
             <div
               :class="
                 [
@@ -70,10 +61,11 @@
               style="margin: 0px"
               v-for="(item, tabIndex) in tabsData"
               :key="tabIndex"
-              @contextmenu.stop.prevent="
-                (e) => rightMouseDown(e, item.recordDate, tabIndex)
+              @dblclick="
+                (e) => rightMouseDown(e, item.recordDate, item.recordPerson)
               "
               @click="changeQuery(item.recordDate)"
+              slot="reference"
             >
               {{ item.recordDate.slice(5, 17) }}
               {{ item.recordPerson }}
@@ -81,6 +73,24 @@
                 @click="removeRecord(item.recordDate, tabIndex)"
                 class="el-icon-delete"
               ></i>
+            </div>
+          </div>
+          <div class="record-item" v-else>
+            <span style="color: red"> 此次更新的录入记录: </span>
+            <div
+              :class="['recordList', 'active'].join(' ')"
+              style="margin: 0px"
+              @dblclick="(e) => rightMouseDown()"
+              slot="reference_2"
+            >
+              {{
+                `${updateData.entryDate.slice(
+                  5,
+                  17
+                )} ${updateData.entryTime.slice(0, 5)}`
+              }}
+              {{ updateData.updatePerson }}
+              <i class="el-icon-edit"></i>
             </div>
           </div>
         </div>
@@ -450,7 +460,7 @@
               type="primary"
               class="save-btn"
               @click="saveVitalSign(vitalSignObj)"
-              >保存</el-button
+              >{{ isUpdate ? "更新" : "保存" }}</el-button
             >
             <div class="clear" style="height: 30px"></div>
             <!--占位符-->
@@ -510,6 +520,11 @@ export default {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: moment().format("HH:mm") + ":00", //录入时间
       },
+      updateData: {
+        entryDate: "", //更新录入日期
+        entryTime: "", //更新时间
+        updatePerson: "", //原来的记录人
+      },
       recordDate: "",
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
       checkItem: [
@@ -537,6 +552,7 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
+      isUpdate: false,
     };
   },
   async mounted() {
@@ -562,14 +578,16 @@ export default {
   watch: {
     query: {
       handler(newName, oldName) {
-        if (this.query.entryTime && this.query.entryDate) {
-          this.getList();
-          this.bus.$emit("dateChangePage", this.query.entryDate);
+        if (this.query.entryTime && this.query.entryDate && !this.isUpdate) {
+        this.getList();
+        this.bus.$emit("dateChangePage", this.query.entryDate);
         }
       },
       deep: true,
     },
-    rightSheet(value) {},
+    patientInfo() {
+      this.isUpdate = false;
+    },
   },
   methods: {
     handleChange(val) {
@@ -760,6 +778,7 @@ export default {
           if (this.vitalSignObj[item.vitalCode])
             this.fieldList[item.vitalCode] = item;
         });
+        console.log(this.fieldList,9877)
       });
       let input = document.getElementsByTagName("input");
       for (let i = 0; i < input.length; i++) {
@@ -831,6 +850,11 @@ export default {
       //this.query.entryTime = value.slice(12, 20);
       //赋值初始值
       this.dateInp = value.slice(12, 17);
+       //更新模式，把日期+时间更新到updateData
+      if (this.isUpdate) {
+        this.updateData.entryDate = temp.slice(0, 10);
+        this.updateData.entryTime = value.slice(12, 20);
+      }
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
@@ -894,7 +918,7 @@ export default {
             default:
               break;
           }
-          if (item.vitalSign.includes("自定义")) {
+          if (item.vitalSign.includes("自定义")||item.signType=='custom') {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
               patientId: this.patientInfo.patientId,
@@ -912,33 +936,64 @@ export default {
         this.init();
       });
     },
-    //右键删除记录
-    rightMouseDown(e, dateTime, tabIndex) {
+    async rightMouseDown(e, dateTime, recordPerson) {
       if (!this.isDisable()) {
-        this.removeRecord(dateTime, tabIndex);
+        if (!this.isUpdate) {
+          this.$confirm("进入更新此条记录,此记录会被替换", "更新记录", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+            .then(() => {
+              this.isUpdate = !this.isUpdate;
+              this.updateData.entryDate = dateTime.slice(0, 10);
+              this.updateData.entryTime = dateTime.slice(12, 20);
+              this.updateData.updatePerson = recordPerson;
+            })
+            .catch(() => {});
+        } else {
+          this.isUpdate = !this.isUpdate;
+        }
       }
     },
     /* 删除记录 */
     async removeRecord(targetName, index) {
       if (!this.isDisable()) {
-        await this.$confirm("是否确删除该记录?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "info",
-        }).then(() => {
+        if (this.isUpdate) {
           deleteRecord({
             patientId: this.patientInfo.patientId,
-            recordDate: targetName,
+            recordDate:
+              moment(new Date(this.updateData.entryDate)).format("YYYY-MM-DD") +
+              "  " +
+              this.updateData.entryTime,
             visitId: this.patientInfo.visitId,
             wardCode: this.patientInfo.wardCode,
           }).then((res) => {
-            this.getList();
             this.bus.$emit("refreshImg");
             setTimeout(() => {
-        this.bus.$emit("dateChangePage", this.query.entryDate);
-      }, 1000);
+              this.bus.$emit("dateChangePage", this.query.entryDate);
+            }, 1000);
           });
-        });
+        } else {
+          await this.$confirm("是否确删除该记录?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "info",
+          }).then(() => {
+            deleteRecord({
+              patientId: this.patientInfo.patientId,
+              recordDate: targetName,
+              visitId: this.patientInfo.visitId,
+              wardCode: this.patientInfo.wardCode,
+            }).then((res) => {
+              this.getList();
+              this.bus.$emit("refreshImg");
+              setTimeout(() => {
+                this.bus.$emit("dateChangePage", this.query.entryDate);
+              }, 1000);
+            });
+          });
+        }
       }
     },
     /* 同步入院、同步出院 */
@@ -959,7 +1014,7 @@ export default {
     updateTextInfo(key, label, autotext, index) {
       let checkValue = Object.values(this.fieldList) || [];
       let checkValueStr = checkValue.map((item) => item.fieldCn);
-      if (!this.isDisable()) {
+      if (!this.isDisable()&& !this.isUpdate) {
         //护理文书不允许修改
         window.openSetTextModalNew(
           (text) => {
@@ -989,6 +1044,7 @@ export default {
                 this.$message.success(`修改${label}成功`);
               });
             }
+            // this.getList();
           },
           autotext,
           `修改${label}`
@@ -1037,6 +1093,7 @@ export default {
       if (saveFlagArr.includes(false)) {
         this.$message.error("存在数值错误,请耐心检查!");
       } else {
+        if (this.isUpdate) await this.removeRecord();
         await saveAll(data).then((res) => {
           this.$message.success("保存成功");
         });
@@ -1047,17 +1104,6 @@ export default {
       }, 1000);
       }
     },
-
-    // formatTopExpandDate(val) {
-    //   this.topExpandDate = val;
-    // },
-    // formatBtmExpandDate(val) {
-    //   this.bottomExpandDate = val;
-    // },
-    // formatCenterExpandDate(val) {
-    //   this.centerExpandDate = val;
-    // },
-    //设置体温单是否可编辑
   },
   components: { nullBg },
 };
@@ -1079,23 +1125,19 @@ export default {
   }
 
   .column-right {
-    display: inline-block;
-    margin-left: 10px;
+    display: flex;
+    align-items:baseline;
+    justify-content:flex-start;
+    margin-left: 15px;
     height: 50px;
-    width: 100%;
+    width:100%;
     overflow: auto;
   }
 
   .row-top {
     background-color: #fff;
     height: 47px;
-    width: 100%;
 
-    .column-left {
-      margin: 10px 45px 0px 0px;
-      flex-direction: column;
-      width: 100%;
-    }
   }
 
   .row-bottom {
@@ -1179,18 +1221,18 @@ export default {
   }
   .times {
     display: inline-block;
-    width: 100px;
+    width: 85px;
     margin: 7px 0px 0px 7px;
 
     .new-time-select {
       height: 29px;
-      width: 100px;
+      width: 85px;
       display: inline-block;
 
       >>>.el-input__inner {
         height: 32px !important;
         display: inline-block;
-        width: 100px;
+        width: 85px;
         border-radius: 6px;
       }
     }
@@ -1254,6 +1296,10 @@ export default {
     left: 30%;
     margin-top: 10px;
     width: 100px;
+  }
+  .save-top {
+    width: 70px;
+    margin-left:5px;
   }
 
   .inputter-region::-webkit-scrollbar {

@@ -92,7 +92,8 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist:{},
-      splitPulseHospital:['nanfangzhongxiyi'] // 脉搏/心率的值仅有一个的时候不显示斜杠
+      splitPulseHospital:['nanfangzhongxiyi'], // 脉搏/心率的值仅有一个的时候不显示斜杠
+      sheetPageScrollValue:0,//护记滚动到上次滚动的位置
     };
   },
   methods: {
@@ -105,6 +106,9 @@ export default {
       this.searchDate = moment().format("YYYY-MM-DD");
       this.getData();
       this.$refs.modal.open();
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+      this.sheetPageScrollValue = localStorage.getItem('sheetPageScrollValue')
+      }
     },
     close() {
       this.$refs.modal.close();
@@ -130,8 +134,11 @@ export default {
           this.bus.$emit("refreshSheetPage",true);
         }else{
           this.bus.$emit("refreshSheetPage");
+
         }
       });
+      /**护记的同步的滚动位置*/
+      this.bus.$emit("scrollCurrentPage",false,this.sheetPageScrollValue);
       this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
     },
     getData() {

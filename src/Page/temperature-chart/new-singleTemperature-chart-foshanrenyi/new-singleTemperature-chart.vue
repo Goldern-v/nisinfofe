@@ -24,10 +24,11 @@
         :class="openLeft ? 'isLeft' : 'isRight'"
       >
         <div class="sheetTable-contain">
-          <temperatureHD
+          <temperatureNew
             class="contain-center"
             :queryTem="patientInfo"
-          ></temperatureHD>
+            ref="temperatureNew"
+          ></temperatureNew>
           <div
             class="flag-con"
             :style="{ top: flagTop }"
@@ -122,7 +123,7 @@ import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
 import patientList from "@/components/patient-list/patient-list.vue";
-import temperatureHD from "@/Page/temperature-chart/new-singleTemperature-chart-foshanrenyi/components/temperatureNew";
+import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart-foshanrenyi/components/temperatureNew";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-foshanrenyi/components/tab-con";
 export default {
   mixins: [common],
@@ -172,7 +173,8 @@ export default {
   methods: {
     //关闭录入界面
     openRight() {
-      this.$store.commit("showRightPart", !this.rightSheet);
+      if(this.$refs.temperatureNew)
+      this.$refs.temperatureNew.openRight()
     },
     getDate() {
       if (this.deptCode) {
@@ -192,7 +194,7 @@ export default {
       this.bus.$emit("refreshVitalSignList");
     },
   },
-  components: { patientList, temperatureHD, tabCon },
+  components: { patientList, temperatureNew, tabCon },
   watch: {
     deptCode(val) {
       if (val) {

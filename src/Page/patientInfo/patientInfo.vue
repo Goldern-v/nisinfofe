@@ -110,7 +110,6 @@ export default {
         this.inited = true;
         this.query = res.data.data;
         Object.assign(this.$route.query, this.query);
-        console.log('获取患者信息接口===========>',this.query)
         // getPatientInfo
         window.app.$store.commit(
           "upCurrentPatientObj",

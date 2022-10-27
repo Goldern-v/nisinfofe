@@ -97,11 +97,11 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" src="./tool.styl" scoped>
 </style>
 
-<style lang="stylus"> 
+<style lang="stylus">
 .sheetSelect-con-sheet
   background: #FFFFFF;
   box-shadow: 0 2px 6px 0 rgba(0,0,0,0.50);
-  border-radius: 4px;     
+  border-radius: 4px;
   width 562px !important
   left auto !important
   right 120px
@@ -109,7 +109,7 @@
     padding 0
     height auto
   .el-select-dropdown__wrap
-    max-height 500px  
+    max-height 500px
   .head-con
     height 37px
     background: #F7FAFA;
@@ -118,8 +118,8 @@
     color: #333333;
     font-weight bold
   .col-1,.col-2,.col-3,.col-4
-    display flex 
-    align-items center  
+    display flex
+    align-items center
   .col-1
     width 192px
     padding 0 24px
@@ -137,7 +137,7 @@
     padding 0 14px
   .list-con
     font-size: 13px;
-    color: #333333;  
+    color: #333333;
     height 37px
     border-bottom: 1px solid #EAEEF1
   .el-select-dropdown__item.selected
@@ -152,9 +152,9 @@
       width 4px
       background #4bb08d
   .el-select-dropdown__item.hover
-    background #fff;  
+    background #fff;
   .el-select-dropdown__item:hover
-    background #E5F1F0;  
+    background #E5F1F0;
 .red-border
   border 2px solid red !important
 </style>
@@ -418,6 +418,8 @@ export default {
       try {
         let index;
         if (this.patientInfo.recordId) {
+          alert(888,'定位')
+
           for (let i = 0; i < this.sheetModel.length; i++) {
             for (let j = 0; j < this.sheetModel[i].bodyModel.length; j++) {
               if (
