@@ -1603,6 +1603,13 @@ export default function Title(
     );
   }
   break;
+  case "NICU_fs": {
+    // 佛山市一 - 新生儿NICU护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/NICU_fs/th").default)
+    );
+  }
+  break;
   case "nonsurgicalcare_fk": {
     // 武汉肺科 - 非手术科室护理记录单
     Th = JSON.parse(
