@@ -1756,7 +1756,7 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
-      console.log("jinlai", this.fixedList);
+      console.log("jinlai", this.fixedList,this.isSaving);
       if (this.isSaving) {
         return;
       }
@@ -2119,7 +2119,7 @@ export default {
 
       for (let i = 0; i < this.record.length; i++) {
         this.record[i].find(
-          (item) => item.key == "description" || item.key == "specialRecord"
+          (item) => item.key == "description" || item.key == "specialRecord" 
         ).value = "";
       }
       if (

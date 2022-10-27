@@ -535,7 +535,7 @@ export default {
       console.log(parmas,"getCaSignJmfypost")
 
       getCaSignJmfy(parmas).then(async res=>{
-        let aduitDate = ''
+        let aduitDate = ['zhzxy'].includes(this.HOSPITAL_ID)?"":'isCaSign'
         let pwd = ''
         let username = ''
         if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){

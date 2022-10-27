@@ -1322,6 +1322,7 @@ export default {
                   patientCard:"",// -- 患者证件号
                   templateId:"hash", //-- 模板id
                   formId:sheetInfo.sheetType,// -- 表单ID
+                  formCode:sheetInfo.sheetType,// -- 表单ID
                 };
               }
             this.$refs.signModal.open((password, empNo) => {
