@@ -284,7 +284,8 @@
                   sheetInfo.sheetType === 'internal_eval_lcey' ||
                   sheetInfo.sheetType === 'critical_new_lcey'||
                   sheetInfo.sheetType === 'critical2_lcey'||
-                  sheetInfo.sheetType === 'critical_lcey')&&
+                  sheetInfo.sheetType === 'critical_lcey'||
+                  sheetInfo.sheetType === 'internal_eval_yz')&&
                 tr.find((item) => item.key == 'signerNo2').value
               "
               >/</span
@@ -464,7 +465,8 @@
         sheetInfo.sheetType === 'critical_new_linyi' ||
         sheetInfo.sheetType === 'critical_new_weihai' ||
         sheetInfo.sheetType === 'ultrasound_fs' ||
-        sheetInfo.sheetType === 'postpartum_nurse_wj'
+        sheetInfo.sheetType === 'postpartum_nurse_wj'||
+        sheetInfo.sheetType === 'internal_eval_yz'
       "
     ></slot>
     <!-- 谢岗 -->
@@ -518,7 +520,8 @@
             sheetInfo.sheetType === 'internal_eval_linyi' ||
             sheetInfo.sheetType === 'internal_eval_weihai' ||
             sheetInfo.sheetType === 'critical_linyi' ||
-            sheetInfo.sheetType === 'baby_lcey',
+            sheetInfo.sheetType === 'baby_lcey'||
+            sheetInfo.sheetType === 'internal_eval_yz',
         }"
 
       >
@@ -580,7 +583,8 @@
             sheetInfo.sheetType == 'internal_eval_linyi' ||
             sheetInfo.sheetType == 'internal_eval_weihai' ||
             sheetInfo.sheetType == 'critical_linyi' ||
-            sheetInfo.sheetType == 'baby_lcey'
+            sheetInfo.sheetType == 'baby_lcey'||
+            sheetInfo.sheetType == 'internal_eval_yz'
           "
           ><strong>护士长审核：</strong></span
         >
@@ -621,7 +625,8 @@
             sheetInfo.sheetType == 'internal_eval_linyi' ||
             sheetInfo.sheetType == 'internal_eval_weihai' ||
             sheetInfo.sheetType == 'critical_linyi' ||
-            sheetInfo.sheetType == 'baby_lcey'"
+            sheetInfo.sheetType == 'baby_lcey'||
+            sheetInfo.sheetType == 'internal_eval_yz'"
             style="margin-right:50px"
           >
           <span> <strong>审核时间：</strong> </span>
@@ -744,6 +749,7 @@ export default {
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
         "critical_new_lcey",
         "critical2_lcey",
+        "internal_eval_yz",
         "baby_lcey",
         "internal_eval_linyi", //临邑人医_一般或者护理记录单
         "critical_linyi", //临邑人医_病重（病危）患者护理记录单（带瞳孔）
@@ -2404,7 +2410,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj']
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','internal_eval_yz']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =

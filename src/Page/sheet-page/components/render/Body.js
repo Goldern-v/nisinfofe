@@ -1596,6 +1596,11 @@ function switchSheetType(type) {
         schema = require("../config/custody_yz/tr.js").default;
     }
       break;
+    case "internal_eval_yz": {
+        //  临沂沂州 - 一般患者护理评估记录单
+        schema = require("../config/internal_eval_yz/tr.js").default;
+      }
+      break;
     case "inout_ytll": {
       // 烟台玲珑 - 出入量记录单
       schema = require("../config/inout_ytll/tr.js").default;

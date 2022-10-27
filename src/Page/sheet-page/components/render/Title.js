@@ -2065,6 +2065,13 @@ export default function Title(
     );
   }
   break;
+  case "internal_eval_yz": {
+    // 聊城二院 - (内科)一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_eval_yz/th.js").default)
+    );
+  }
+  break;
   case "inout_ytll": {
     // 烟台玲珑 - 出入量记录单
     Th = JSON.parse(

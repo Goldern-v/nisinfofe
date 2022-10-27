@@ -2,7 +2,42 @@
   <div class="header-con">
     <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
     <div class="title">{{patientInfo.recordName}}</div>
-    <div class="info-con" flex="main:justify">
+    <template  v-if="sheetInfo.sheetType=='internal_eval_yz'">
+      <div>
+        <div class="info-con" flex="main:justify">
+          <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
+            病人姓名：
+           <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
+          </span>
+          <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
+            性别：
+           <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
+          </span>
+          <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" >
+            年龄：
+           <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
+          </span>
+         <span>
+           科室：
+            <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+          </span>
+          <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+            床号：
+            <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+          </span>
+         <span>
+            住院号/ID号：
+            <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+         </span>
+         <span>
+           入院日期：
+            {{patientInfo.admissionDate | toymd}}
+         </span>
+       </div>
+      </div>
+    </template>
+    <template v-else>
+       <div class="info-con" flex="main:justify">
       <span @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)">
         姓名：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
@@ -46,6 +81,8 @@
         {{patientInfo.admissionDate | toymd}}
       </span> -->
     </div>
+    </template>
+ 
     <div class="info-con" v-if="sheetInfo.sheetType === 'baby_yz'">
       <span>
         母亲姓名：
