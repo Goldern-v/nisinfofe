@@ -10,7 +10,21 @@
     >
       <div id="specialForm">
         <div flex="cross:center" class="special-date-con">
-          <div class="date" v-if="tr && tr.length && isShowItem()">
+          <!--佛一的时间 点击特殊记录有时间就不允许修改  要是没有时间，也就是新录入  就允许修改时间  默认为当前时间-->
+          <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)" style="display: inherit">
+            <div class="date" v-if="tr && tr.length && isShowItem()">
+              <label class="label">日期：</label>
+              <input type="text" :disabled="recordDate!=''" v-model="staticObj.recordMonth"
+                @keyup="dateKey($event, staticObj, 'recordMonth')" />
+            </div>
+            <div class="time">
+              <label class="label">时间：</label>
+              <input type="text" :disabled="recordDate!=''" v-model="staticObj.recordHour"
+                @keyup="timeKey($event, staticObj, 'recordHour')" />
+            </div>
+          </div>
+          <div v-else>
+            <div class="date" v-if="tr && tr.length && isShowItem()">
             <label class="label">日期：</label>
             <input
               type="text"
@@ -19,7 +33,6 @@
                 HOSPITAL_ID != 'huadu' &&
                 HOSPITAL_ID != 'wujing'
               "
-              :placeholder="autoDate"
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
             />
@@ -37,6 +50,9 @@
               @keyup="timeKey($event, staticObj, 'recordHour')"
             />
           </div>
+          </div>
+
+
           <div
             style="margin-left: 10px"
             v-if="
@@ -780,7 +796,7 @@
         >
       </div>
     </sweet-modal>
-    <templateSlide ref="templateSlide"></templateSlide>
+    <templateSlide ref="templateSlide" :selectedSheetType="sheetInfo.sheetType"></templateSlide>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
       v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925'].includes(HOSPITAL_ID)"
@@ -1146,13 +1162,6 @@ export default {
         return "新建护理记录";
       }
     },
-    autoDate() {
-      if (this.recordDate) {
-        return new Date(this.recordDate).Format("MM-dd");
-      } else {
-        return "";
-      }
-    },
     // 神经内科
     isNeurology() {
       return this.sheetInfo.sheetType == "neurology";
@@ -1355,7 +1364,7 @@ export default {
       let index = this.blurIndex;
       this.doc = doc.slice(0, index) + valRegP + doc.slice(index);
       this.$refs.zkModalZhzxy.close();
-    },  
+    },
     open(config) {
       setTimeout(() => {
         window.closeAutoCompleteNoId();
@@ -1431,11 +1440,20 @@ export default {
         }
       }
       this.foodVal = foodStr;
-      // console.log("this.fixedList.food.value",this.fixedList.food.value)
-      this.recordDate =
+      //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        if(!this.staticObj.recordHour){
+          this.staticObj.recordHour = moment().format('HH:mm');
+        }
+        if(!this.staticObj.recordMonth){
+          this.staticObj.recordMonth = moment().format('MM-DD');
+        }
+      }
+        this.recordDate =
         config.recordDate ||
-        record[0].find((item) => item.key == "recordDate").value ||
-        "";
+        record[0].find((item) => item.key == "recordDate").value || ''
+
+
 
       //肺科特别需求。补记时间另起一行
       if (this.HOSPITAL_ID == "whfk" && doc.split("补记时间").length == 2) {
@@ -1756,7 +1774,7 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
-      console.log("jinlai", this.fixedList,this.isSaving);
+      console.log("jinlai", this.fixedList);
       if (this.isSaving) {
         return;
       }
@@ -1927,8 +1945,7 @@ export default {
             } else if (
               this.sheetInfo.sheetType === "internal_eval_lcey" ||
               this.sheetInfo.sheetType === "internal_eval_linyi" ||
-              this.sheetInfo.sheetType === "internal_eval_weihai"||
-              this.sheetInfo.sheetType === "internal_eval_yz"
+              this.sheetInfo.sheetType === "internal_eval_weihai"
             ) {
               if (GetLength(text) > 98) {
                 result.push(text);
@@ -2120,7 +2137,7 @@ export default {
 
       for (let i = 0; i < this.record.length; i++) {
         this.record[i].find(
-          (item) => item.key == "description" || item.key == "specialRecord" 
+          (item) => item.key == "description" || item.key == "specialRecord"
         ).value = "";
       }
       if (
@@ -2244,7 +2261,6 @@ export default {
       this.$refs.zkModalZhzxy.open(this.doc);
     },
     openTemplateSlider() {
-      // this.$message.warning('正在开发中')
       this.$refs.templateSlide.open();
     },
     beforeClose() {
