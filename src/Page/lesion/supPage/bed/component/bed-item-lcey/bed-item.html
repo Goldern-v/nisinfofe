@@ -1,7 +1,9 @@
-<el-col :xs="8" :sm="6" :md="6" :lg="6" class="w-20 bed-box">
+<el-col :xs="8" :sm="6" :md="6" :lg="6" class="w-20 bedbed-modal-box">
   <!-- <router-link target="_blank" :to="{ path: '/home', query: data}" tag="span" class="nod"> -->
   <span @click="toInfo(data)" class="nod">
-    <div class="card-box" @click="prevent(data, $event)">
+    <div class="card-box">
+      <!--佛一顶部特殊调整-->
+        <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)&&data.patientId" class="top_icon" :style="{ backgroundColor: data.nursingClassColor }"></div>
       <div class="like" @click.stop="toLike(data)">
         <img v-if="data.isFollow == '1'" src="../../../../../../common/images/card/like.png" height="18" width="18" />
         <img v-else src="../../../../../../common/images/card/liked.png" height="18" width="18" />
@@ -68,7 +70,18 @@
           </div>
           <div class="right-icon"></div>
         </el-row>
-        <div class="user-img" :style="{ backgroundColor: data.nursingClassColor }">
+        <!--佛一处理床位一览卡的数据-->
+        <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)" class="user-img-foshanrenyi">
+          <img v-if="data.sex==='女'" src="./images/女.png" height="46" width="46" />
+          <img v-if="data.sex==='男'" src="./images/男.png" height="46" width="46" />
+          <p>
+            <!-- {{data.nursingClass.substring(0, 2)}} -->
+            <span style="font-size: 18px;font-weight: bold;"
+              :style="!data.nursingClass && {color: '#444'}">{{data.bedLabel}}</span><br />
+            <span style="font-size: 12px" :style="!data.nursingClass && {color: '#444'}">（床）</span>
+          </p>
+        </div>
+        <div v-else class="user-img" :style="{ backgroundColor: data.nursingClassColor }">
           <img v-if="data.sex==='女'" src="./images/女.png" height="46" width="46" />
           <img v-if="data.sex==='男'" src="./images/男.png" height="46" width="46" />
           <p>

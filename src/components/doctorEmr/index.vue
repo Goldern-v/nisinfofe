@@ -1,7 +1,7 @@
 <template>
   <div class="doctor-emr-wrapper" v-if="routeQuery.patientId">
     <div
-      v-if="show"
+      v-if="show && !['zhzxy'].includes(HOSPITAL_ID)"
       v-loading="pageLoading"
       class="doctor-emr-content dragNode2"
     >
@@ -24,12 +24,20 @@
       </div>
     </el-tooltip>
 
-    <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left" :enterable="true">
-      <div @click="onload" class="doctor-emr-icon">
-        <img src="./img.png" alt/>
-      </div>
-    </el-tooltip>
-
+    <template v-if="!['zhzxy'].includes(HOSPITAL_ID)">
+      <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left" :enterable="true">
+        <div @click="onload" class="doctor-emr-icon">
+          <img src="./img.png" alt/>
+        </div>
+      </el-tooltip>
+    </template>
+    <template v-else>
+      <el-tooltip effect="dark" content="电子病历" placement="left" :enterable="true">
+        <div @click="onload" class="doctor-emr-icon">
+          <img src="./img.png" alt/>
+        </div>
+      </el-tooltip>
+    </template>
     <patientInfoSlide
       ref="patientInfoSlide"
       @onClose="onClose"
@@ -43,12 +51,15 @@
      >
        电子病历
      </div>-->
+     <doctorEmrModal ref="doctorEmrModal" ></doctorEmrModal>
   </div>
 </template>
 
 <script>
 // import {getDoctorEmr} from "../../../../../doctorEmr/api";
 import patientInfoSlide from "./modal/patient-info-slide";
+import doctorEmrModal from "./modal/doctor-emr-modal";
+
 export default {
   directives: {
     // 添加窗口移动指令
@@ -247,6 +258,7 @@ export default {
   },
   components: {
     patientInfoSlide,
+    doctorEmrModal
   },
   watch: {
     routeQuery() {
@@ -276,7 +288,14 @@ export default {
     },
     async onload() {
       this.show = true;
-      await this.getTreeData();
+      if(['zhzxy'].includes(this.HOSPITAL_ID)){
+        console.log("111111")
+        this.openModal('doctorEmrModal')
+      }else await this.getTreeData();
+    },
+    openModal(name,feature) {
+      console.log("name",name,this.show)
+      this.$refs[name].open(feature);
     },
     async getTreeData() {
       this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`;

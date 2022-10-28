@@ -899,6 +899,8 @@
 @media screen and (max-width: 930px) {
   .small-1250-con {
     display: block;
+    display: flex;
+    align-content: space-between;
   }
 
   .big-1250-con {
@@ -913,6 +915,8 @@
 
   .big-1250-con {
     display: block;
+    display: flex;
+    align-content: space-between;
   }
 }
 </style>

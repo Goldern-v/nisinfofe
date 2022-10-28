@@ -54,6 +54,9 @@
         </div>
       </div>
     </div>
+    <doctorEmr
+      v-if="['zhzxy'].includes(HOSPITAL_ID) && !$route.path.includes('temperature')"
+    />
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -118,6 +121,7 @@
 </style>
 
 <script>
+import doctorEmr from "@/components/doctorEmr";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
@@ -192,7 +196,7 @@ export default {
       this.bus.$emit("refreshVitalSignList");
     },
   },
-  components: { patientList, Temperature, tabCon },
+  components: { patientList, Temperature, tabCon,doctorEmr },
   watch: {
     deptCode(val) {
       if (val) {

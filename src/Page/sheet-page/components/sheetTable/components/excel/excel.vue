@@ -284,7 +284,8 @@
                   sheetInfo.sheetType === 'internal_eval_lcey' ||
                   sheetInfo.sheetType === 'critical_new_lcey'||
                   sheetInfo.sheetType === 'critical2_lcey'||
-                  sheetInfo.sheetType === 'critical_lcey')&&
+                  sheetInfo.sheetType === 'critical_lcey'||
+                  sheetInfo.sheetType === 'internal_eval_yz')&&
                 tr.find((item) => item.key == 'signerNo2').value
               "
               >/</span
@@ -464,7 +465,8 @@
         sheetInfo.sheetType === 'critical_new_linyi' ||
         sheetInfo.sheetType === 'critical_new_weihai' ||
         sheetInfo.sheetType === 'ultrasound_fs' ||
-        sheetInfo.sheetType === 'postpartum_nurse_wj'
+        sheetInfo.sheetType === 'postpartum_nurse_wj'||
+        sheetInfo.sheetType === 'internal_eval_yz'
       "
     ></slot>
     <!-- 谢岗 -->
@@ -518,7 +520,8 @@
             sheetInfo.sheetType === 'internal_eval_linyi' ||
             sheetInfo.sheetType === 'internal_eval_weihai' ||
             sheetInfo.sheetType === 'critical_linyi' ||
-            sheetInfo.sheetType === 'baby_lcey',
+            sheetInfo.sheetType === 'baby_lcey'||
+            sheetInfo.sheetType === 'internal_eval_yz',
         }"
 
       >
@@ -561,6 +564,7 @@
             sheetInfo.sheetType === 'prenataldelivery2_tj'||
             sheetInfo.sheetType === 'postpartum2_tj'||
             sheetInfo.sheetType === 'baby_tj'||
+            sheetInfo.sheetType === 'NICU_fs'||
             HOSPITAL_ID == 'fsxt'
           "
           >质控护士：</span
@@ -580,7 +584,8 @@
             sheetInfo.sheetType == 'internal_eval_linyi' ||
             sheetInfo.sheetType == 'internal_eval_weihai' ||
             sheetInfo.sheetType == 'critical_linyi' ||
-            sheetInfo.sheetType == 'baby_lcey'
+            sheetInfo.sheetType == 'baby_lcey'||
+            sheetInfo.sheetType == 'internal_eval_yz'
           "
           ><strong>护士长审核：</strong></span
         >
@@ -621,7 +626,8 @@
             sheetInfo.sheetType == 'internal_eval_linyi' ||
             sheetInfo.sheetType == 'internal_eval_weihai' ||
             sheetInfo.sheetType == 'critical_linyi' ||
-            sheetInfo.sheetType == 'baby_lcey'"
+            sheetInfo.sheetType == 'baby_lcey'||
+            sheetInfo.sheetType == 'internal_eval_yz'"
             style="margin-right:50px"
           >
           <span> <strong>审核时间：</strong> </span>
@@ -744,6 +750,7 @@ export default {
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
         "critical_new_lcey",
         "critical2_lcey",
+        "internal_eval_yz",
         "baby_lcey",
         "internal_eval_linyi", //临邑人医_一般或者护理记录单
         "critical_linyi", //临邑人医_病重（病危）患者护理记录单（带瞳孔）
@@ -760,6 +767,7 @@ export default {
         'danger_nurse_jew',
         'baby_tj',
         'magnesiumsulphate_tj',//广东同江 - 硫酸镁注射液静脉滴注观察记录单
+        'NICU_fs', // 佛一 新生儿NICU护理记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -1291,21 +1299,42 @@ export default {
               // });
             },'',null,false,'',{},undefined,undefined,undefined,SigndataObj,verifySignObj);
           }else{
+            console.log("this.patientInfo",this.patientInfo,sheetInfo)
+            let parmas={},trObj = {};
+            if(this.HOSPITAL_ID=="zhzxy"){
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
+            }
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            let strSignDataOBJ =
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index,
+                })
+                let strSignData ={}
+              for(let key in strSignDataOBJ){
+                if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+              }
+            console.log(trObj,"trObj",strSignData)
+              parmas={
+                  signType:"",
+                  patientName:this.patientInfo.name,//-- 患者名称
+                  patientSex:this.patientInfo.sex,// -- 患者性别
+                  patientCardType:"QT",//-- 患者证件类型
+                  openId:"3186b382310f07d8qcb64we7b0y710a779f",// -- 当前用户唯一标识
+                  patientAge:this.patientInfo.age,//-- 患者年龄
+                  patientCard:"",// -- 患者证件号
+                  templateId:"hash", //-- 模板id
+                  formId:sheetInfo.sheetType,// -- 表单ID
+                  formCode:sheetInfo.sheetType,// -- 表单ID
+                };
+              }
             this.$refs.signModal.open((password, empNo) => {
-              console.log("this.patientInfo",this.patientInfo)
-              // if(this.HOSPITAL_ID=="zhzxy"){
-              //   let parmas={
-              //     signType:"",
-              //     patientName:this.formData.patientName,//-- 患者名称
-              //     patientSex:this.formData.sex,// -- 患者性别
-              //     patientCardType:"QT",//-- 患者证件类型
-              //     openId:this.fuyouCaData.openId,// -- 当前用户唯一标识
-              //     patientAge:this.formData.age,//-- 患者年龄
-              //     patientCard:"",// -- 患者证件号
-              //     templateId:"hash", //-- 模板id
-              //     formId:`${this.formData.id}`,// -- 表单ID
-              //   };
-              // }
+              
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1365,7 +1394,7 @@ export default {
                 });
                 this.bus.$emit("saveSheetPage", true);
               });
-            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:null,undefined ,undefined ,undefined);
+            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:this.HOSPITAL_ID=="zhzxy"?trObj:null,undefined,undefined,undefined ,undefined ,parmas);
           }
         };
         let reverseList = [...decode().list].reverse();
@@ -2404,7 +2433,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj']
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','internal_eval_yz']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =

@@ -558,7 +558,7 @@ export default {
       bedList: [],
       bedLabels: [],
       // 是否显示途径
-      showAdministration: ['sdlj', 'lyxrm', 'ytll', 'whhk', 'zhzxy', '925'].includes(this.HOSPITAL_ID),
+      showAdministration: ['sdlj', 'lyxrm', 'ytll', 'zhzxy', '925'].includes(this.HOSPITAL_ID),
     };
   },
   mounted() {

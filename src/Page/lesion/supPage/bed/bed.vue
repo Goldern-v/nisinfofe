@@ -293,6 +293,9 @@ export default {
       return `${value} 第(${day})天`;
     },
   },
+  beforeCreate() {
+      document.querySelector('body').setAttribute('style', 'overflow: auto;')
+  },
   mounted() {
     // 中山七-医嘱提醒
     if (this.HOSPITAL_ID == "zhongshanqi") {

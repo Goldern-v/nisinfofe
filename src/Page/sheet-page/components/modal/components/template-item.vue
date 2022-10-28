@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="item-con" @dblclick="addTemplateAtDoc" v-if="HOSPITAL_ID === 'foshanrenyi'">
+    <div class="item-con" @dblclick="addTemplateAtDoc" v-if="['foshanrenyi','zhzxy'].includes(HOSPITAL_ID)">
       <div class="title" v-if="data.title">{{data.title}}</div>
       <div class="desc" v-html="data.content"></div>
       <div class="tool-box" flex="cross:center">

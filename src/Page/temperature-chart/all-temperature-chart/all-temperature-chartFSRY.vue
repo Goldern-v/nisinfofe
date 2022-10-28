@@ -121,7 +121,10 @@
                 class="temperature"
                 :readonly="isReadonly(scope.row.recordDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
-                type="text"
+                type="number"
+                @input="(e)=>{
+                  voidValue(scope.row)
+                }"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
@@ -141,7 +144,12 @@
                 :readonly="isReadonly(scope.row.recordDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 :class="className"
-                type="text"
+                type="number"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
@@ -249,9 +257,14 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
+                type="number"
                 :readonly="isReadonly(scope.row.recordDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
-                type="text"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -349,7 +362,12 @@
                 v-model="scope.row.painScore"
                 :class="className"
                 class="painScore"
-                type="text"
+                type="number"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -510,6 +528,9 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 .all-temperature-chart-input {
   width: 100%;
   padding: 2px 5px;
@@ -805,33 +826,6 @@ export default {
       },
       timesPoint: (() => {
         switch (this.HOSPITAL_ID) {
-          case "zhzxy":
-            return [
-              {
-                id: 0,
-                value: "03"
-              },
-              {
-                id: 1,
-                value: "07"
-              },
-              {
-                id: 2,
-                value: "11"
-              },
-              {
-                id: 3,
-                value: "15"
-              },
-              {
-                id: 4,
-                value: "19"
-              },
-              {
-                id: 5,
-                value: "23"
-              }
-            ];
             default:
             return [
               {
@@ -1074,34 +1068,37 @@ export default {
       if (this.handleKeyCode.includes(e.keyCode)) {
         this.colClass = e.target.className;
         let rowIndex = e.path[3].rowIndex;
+        //回车保存
+        if (e.keyCode === 13) {
+          this.debounceSave();
+        }
         if (e.keyCode === 37) {
           //处理左按键
-          if (e.target.selectionStart === 0) {
-            // 如果光标在开头，跳转前一个输入框
-            let inputEls = document.getElementsByClassName(
-              "all-temperature-chart-input"
-            );
-            let currentIdx = 0;
-            for (var i = 0; i < inputEls.length; ++i) {
-              if (e.target === inputEls[i]) currentIdx = i;
-            }
-            let prevIdx = currentIdx - 1;
-            inputEls[prevIdx] && inputEls[prevIdx].focus();
+
+          let inputEls = document.getElementsByClassName(
+            "all-temperature-chart-input"
+          );
+          let currentIdx = 0;
+          for (var i = 0; i < inputEls.length; ++i) {
+            if (e.target === inputEls[i]) currentIdx = i;
           }
+          let prevIdx = currentIdx - 1;
+          inputEls[prevIdx] && inputEls[prevIdx].focus();
         } else if (e.keyCode === 39) {
           //处理右按键
-          if (e.target.selectionEnd === e.target.value.length) {
-            // 如果光标在末尾，跳转后一个输入框
-            let inputEls = document.getElementsByClassName(
-              "all-temperature-chart-input"
-            );
-            let currentIdx = 0;
-            for (var i = 0; i < inputEls.length; ++i) {
-              if (e.target === inputEls[i]) currentIdx = i;
-            }
-            let nextIdx = currentIdx + 1;
-            inputEls[nextIdx] && inputEls[nextIdx].focus();
+
+          // if (e.target.selectionEnd === e.target.value.length) {
+          // 如果光标在末尾，跳转后一个输入框
+          let inputEls = document.getElementsByClassName(
+            "all-temperature-chart-input"
+          );
+          let currentIdx = 0;
+          for (var i = 0; i < inputEls.length; ++i) {
+            if (e.target === inputEls[i]) currentIdx = i;
           }
+          let nextIdx = currentIdx + 1;
+          inputEls[nextIdx] && inputEls[nextIdx].focus();
+          // }
         } else {
           //处理上下按键，跳转相同类名的输入框
           let inputEls = document.getElementsByClassName(e.target.className);
@@ -1111,12 +1108,10 @@ export default {
             if (e.target === inputEls[i]) currentIdx = i;
           }
           if (e.keyCode === 38) {
+            e.preventDefault();
             currentIdx--;
-          } else if (
-            e.keyCode === 40 ||
-            (e.keyCode === 13 && ["guizhou"].includes(this.HOSPITAL_ID))
-            //当贵州的时候，回车不调用保存事件，执行跳转到下一个患者的聚集性事件
-          ) {
+          } else if (e.keyCode === 40) {
+            e.preventDefault();
             currentIdx++;
           }
           inputEls[currentIdx] && inputEls[currentIdx].focus();
@@ -1143,6 +1138,13 @@ export default {
           trs[i].style.backgroundColor = "";
         }
       }
+    },
+    voidValue(row){
+      //体温单批量录入体温格式化数据为 只能保留一个小数
+        if(row.temperature.includes('.')){
+          const afterArr =  row.temperature.split('.')
+          row.temperature = Number(`${afterArr[0]}.${afterArr[1].substring(0, 1)}`)
+        }
     },
     handleKeyUp(e) {
       let rowIndex =

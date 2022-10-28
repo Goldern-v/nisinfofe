@@ -38,8 +38,9 @@ return axios.get(`${apiPath}record/desc/get/${id}`)
 }
 
 //  列表
-export function list(groupName,wardCode,hospitalId) {
-  let recordCode = sheetInfo.sheetType
+export function list(groupName,wardCode,sheetType) {
+  //不传值就默认选择当前的护记类型 sheetInfo.sheetType
+  let recordCode = sheetType ? sheetType : sheetInfo.sheetType;
   // if(hospitalId=="huadu"){
     return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode})
   // }
@@ -82,3 +83,7 @@ export function getUser(password, empNo) {
   let recordCode = sheetInfo.sheetType
   return axios.post(`${apiPath}record/desc/deleteListByType`, {recordCode,groupName,wardCode,empNo})
  }
+
+ //护记获取编码
+ export const listRecord = deptCode =>
+  axios.get(`${apiPath}record/setting/listRecord/${deptCode}`);

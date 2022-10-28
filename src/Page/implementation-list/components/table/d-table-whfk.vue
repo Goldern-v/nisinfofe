@@ -370,6 +370,7 @@ export default {
   computed: {
     showInfusion() {
       switch(this.HOSPITAL_ID) {
+        case 'whfk':
         case 'ytll':
           return ['', '输液'].includes(this.currentType)
         default:

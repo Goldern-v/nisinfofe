@@ -241,7 +241,7 @@ export default {
       signType:0,
       userNum:0,
       isDoctor:false,
-      aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi', 'internal_eval_weihai'],
+      aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi', 'internal_eval_weihai','internal_eval_yz'],
       activeSheetType:"",
       // hasQrCaSignHos:['fuyou','hj'],
       hasQrCaSignHos:['fuyou','hj','guizhou','zhzxy'],
@@ -286,7 +286,7 @@ export default {
           this.ca_isLogin = !!this.ca_name;
       })
     }
-    console.log(formData,"formData")
+    console.log(formData,"formData",verifySignObj)
     console.log("aaaaaaaa",callback,title,showDate,isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj)
    this.btnLoading = false
     if(doctorTure){
@@ -339,6 +339,8 @@ export default {
         if(this.HOSPITAL_ID=="foshanrenyi"){
           this.verifySignObj = verifySignObj
           this.SigndataObj = SigndataObj
+        }else if(this.HOSPITAL_ID=="zhzxy"){
+          this.verifySignObj = verifySignObj
         }
       this.showDate = showDate;
       // this.showMessage = showMessage;
@@ -502,6 +504,7 @@ export default {
     //江门妇幼ca签名
     caPost(){
       if(!this.formData) return false
+      console.log(this.message,"formData")
       let parmas={
         signType:this.signType,
         patientName:this.formData.patientName,//-- 患者名称
@@ -512,6 +515,7 @@ export default {
         patientCard:"",// -- 患者证件号
         templateId:"hash", //-- 模板id
         formId:`${this.formData.id}`,// -- 表单ID
+        subject :`${this.formData.formTitle}`,// -- 表单名称
       };
       if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){
         console.log(this.formData);
@@ -524,8 +528,14 @@ export default {
             "fileName":`${this.formData.name}_${this.formData.code}`
         }
       }
+      if(['zhzxy'].includes(this.HOSPITAL_ID) && this.verifySignObj.openId){
+        parmas=this.verifySignObj
+        console.log("替换了 djw",this.verifySignObj)
+      }
+      console.log(parmas,"getCaSignJmfypost")
+
       getCaSignJmfy(parmas).then(async res=>{
-        let aduitDate = 'isCaSign'
+        let aduitDate = ['zhzxy'].includes(this.HOSPITAL_ID)?"":'isCaSign'
         let pwd = ''
         let username = ''
         if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){

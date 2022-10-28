@@ -411,12 +411,12 @@
         @click="scrollOption" v-html="selectText"></div>
       </div>
       <!-- <span class="label">页码范围:</span> -->
-      <!-- 江门妇幼第三方地址提供需要页码选择显示 -->
+      <!-- 江门妇幼,佛山市一第三方地址提供需要页码选择显示 -->
       <div
         class="item-box"
-        :style="{width:'85px',display: ['fuyou'].includes(HOSPITAL_ID) ? 'flex !important' : ''}"
+        :style="{width:'85px',display: ['fuyou','foshanrenyi'].includes(HOSPITAL_ID) ? 'flex !important' : ''}"
         flex="cross:center main:center"
-        v-if="!isDeputy || ['guizhou', 'huadu', '925','fuyou'].includes(HOSPITAL_ID)"
+        v-if="!isDeputy || ['guizhou', 'huadu', '925','fuyou','foshanrenyi'].includes(HOSPITAL_ID)"
       >
         <el-autocomplete
           class="pegeSelect"
@@ -1584,6 +1584,7 @@ export default {
                 this.selectList[this.selectList.length - 1].value || "";
             }
           }
+
         }
       } catch (error) {}
     });

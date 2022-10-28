@@ -95,6 +95,7 @@
         <div class="nav-item">护理计划</div>
       </router-link>
       <router-link
+        v-if="!['gdtj'].includes(HOSPITAL_ID)"
         :to="{
           path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -103,6 +104,8 @@
       >
         <div class="nav-item">血糖</div>
       </router-link>
+      <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toBloodSugar')">血糖</div>
+
       <router-link
         :to="{
           path: '/healthEducation',
@@ -313,6 +316,11 @@ export default {
       console.log(this.patient);
       const {patientId} = this.patient
       let url = `http://192.168.10.63/EmrWeb/WebForm.aspx?flag=thirdPlat&codePi=${patientId}`
+      window.open(url)
+    },
+    toBloodSugar(){
+      const {patientId} = this.patient
+      let url = `http://192.168.10.29:9089/patientGlu/patient-glu-report.html?userId=${patientId}`
       window.open(url)
     },
     formatValue(value, obj) {

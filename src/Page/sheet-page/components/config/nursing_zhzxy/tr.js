@@ -39,7 +39,7 @@ export default [
   { key: "recordHour", event: event_time, value: ''},
 
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: 'T', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: 'P/HR', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: 'P/HR', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SpO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -47,14 +47,14 @@ export default [
   { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', autoComplete: {
     data:入量内容
     //  ['静脉输液','静脉注射','鼻饲','全血','红细胞','血小板','白蛋白','血浆','白细胞','TPN', '水','饮料','牛奶','母乳','代乳品','粉/面条','粥','云吞','水果','米饭','菜','经口入','口服','微泵']
-  }, textarea: { width: 50 }, },
+  },textarea: { width: 100 }, },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容',  autoComplete: {
     data: 出量内容
     // ['尿','大便','血','呕吐物','痰','伤口引流液','腹腔引流液','盆腔引流液','胸腔引流液','脑室引流液','T管引流量','胆汁','胃液','腹水','阴道出血','尿管引流','左肾造瘘管引流液','右肾造瘘管引流液','肾周引流管引流液','肾窝引流管引流液','汗液']
   },textarea: { width: 100 },  },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'colorProperties', event: keyf1, value: '', next: '', name: '颜色/性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'colorProperties', event: keyf1, value: '', next: '', name: '颜色/性状', textarea: { width: 100 },  },
   // { key: 'value1', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   // { key: 'value2', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   // { key: 'value3', event: keyf1, value: '', next: '', name: '', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -67,7 +67,7 @@ export default [
     key: "description", //特殊情况记录
     value: "",
     style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "425px", background: "transparent" },
-    textarea: { width: 425 },
+    textarea: { width: 450 },
     event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
   },
 
