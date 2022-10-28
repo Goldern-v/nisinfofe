@@ -41,11 +41,11 @@
           </tr>
           <tr style="height: 112px">
             <td class="key">检查所见</td>
-            <td colspan="5">{{ data.description || '暂无' }}</td>
+            <td colspan="5">{{ data.examResult&&data.examResult.description || '暂无' }}</td>
           </tr>
           <tr style="height: 112px">
             <td class="key">印象</td>
-            <td colspan="5">{{ data.impression || '暂无' }}</td>
+            <td colspan="5">{{ data.examResult&&data.examResult.impression || '暂无' }}</td>
           </tr>
         </table>
         <div>

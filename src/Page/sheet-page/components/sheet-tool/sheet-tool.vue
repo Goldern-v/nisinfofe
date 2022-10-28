@@ -909,7 +909,7 @@ export default {
           if (pageIndex < pageLength) {
             getHtml.call(this);
           } else {
-            // lodopPrint(htmlArr);
+            lodopPrint(htmlArr);
           }
         });
       }
@@ -1887,6 +1887,9 @@ export default {
   background: none !important;
   pointer-events: auto !important;
 }
+.tool-contain {
+  z-index: 4 !important;
+  }
 
 .babyChat {
   position: absolute;

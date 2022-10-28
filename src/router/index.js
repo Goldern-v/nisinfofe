@@ -22,6 +22,7 @@ const infuseStat = () => import("@/Page/lesion/supPage/infuse/infuse-stat.vue");
 // import log from "../Page/lesion/supPage/log/log.vue";
 // 收件箱
 // import inBox from "../Page/inBox/inBox.vue";
+// import mailDetails from "../Page/mail-details/mail-details.vue";
 //自动登录
 import autoLogin from "../Part/auto-login";
 import autoLoginGuizhou from "../Part/auto-login-guizhou";
@@ -104,9 +105,9 @@ const badEventGz = () => import("@/Page/badEventGuizhou/badEvent.vue");//贵州�
 const badEventViewPageGz = () => import("@/Page/badEventGuizhou/badEventViewPage.vue");
 const badEventEditPageGz = () => import("@/Page/badEventGuizhou/badEventEditPage.vue");
 
-// const badEventNew = () => import("@/Page/badEventNew/badEvent.vue");//福清
-// const badEventViewPageNew = () => import("@/Page/badEventNew/badEventViewPage.vue");
-// const badEventEditPageNew = () => import("@/Page/badEventNew/badEventEditPage.vue");
+const badEventNew = () => import("@/Page/badEventNew/badEvent.vue");//福清
+const badEventViewPageNew = () => import("@/Page/badEventNew/badEventViewPage.vue");
+const badEventEditPageNew = () => import("@/Page/badEventNew/badEventEditPage.vue");
 
 //阳春中医不良事件
 const badEventComm = () => import("@/Page/badEventComm/badEvent.vue");//阳春
@@ -160,6 +161,9 @@ const birthCertificateForm = () =>
 
 const healthEducationList = () =>
   import("@/Page/healthEducation-list/healthEducation-list.vue");
+
+
+
 
 
 const implementationList = () =>
@@ -920,6 +924,10 @@ const router = new Router({
         }
         ]
       },
+      // {
+      //   path: "/mailDetails/:id",
+      //   component: mailDetails
+      // },
       // {
       //   path: "/lesion",
       //   component: lesion,

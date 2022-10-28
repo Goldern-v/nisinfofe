@@ -82,7 +82,7 @@
       >
         同步床位数据
       </button>
-      <span v-if="showSyncBedBtn && node_env=='development'">(测试环境别点，<br/>会清空患者！！！)</span>
+      <span v-if="showSyncBedBtn && node_env=='development'&&showMessage">(测试环境别点，<br/>会清空患者！！！)</span>
       <button
         class="login-btn"
         @click="syncGetNursePatientRecData"
@@ -666,6 +666,10 @@ export default {
         ].includes(
         this.HOSPITAL_ID
       );
+    },
+    showMessage(){
+      //正式环境去除患者提示
+      return window.location.host.includes('1.54')||window.location.host.includes('localhost')
     },
     // 新医院注意
     // 同步患者数据
