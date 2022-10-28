@@ -272,7 +272,9 @@
         if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
           this.rightData = data
         }else{
+          //初始化的时候合并的，点击之后拿点击的表头
           data = this.rightData[index]
+          this.tableHeaderInfo = data[0]
         }
         this.$nextTick(() => {
           this.$refs.testForm && this.$refs.testForm.open(data,index,clLength)

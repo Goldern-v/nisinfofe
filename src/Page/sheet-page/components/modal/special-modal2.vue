@@ -797,6 +797,7 @@
       </div>
     </sweet-modal>
     <templateSlide ref="templateSlide" :selectedSheetType="sheetInfo.sheetType"></templateSlide>
+    <templateSlideFSRY ref="templateSlideFsry" :selectedSheetType="sheetInfo.sheetType"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
       v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925'].includes(HOSPITAL_ID)"
@@ -1007,6 +1008,8 @@ import moment from "moment";
 import { nullRow } from "@/Page/sheet-page/components/render/Body.js";
 import sheetModel from "@/Page/sheet-page/sheet.js";
 import templateSlide from "./template-slide.vue";
+import templateSlideFSRY from "./template-slide-fsry.vue";
+
 import zkModalZhzxy from "./zkModal-zhzxy.vue";
 import sheetInfo from "../config/sheetInfo";
 import { decoder_title, decoder_record2 } from "./render/decode.js";

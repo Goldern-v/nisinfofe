@@ -209,6 +209,7 @@ import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
 import bedItemBhry from "./component/bed-item-bhry/bed-item.vue";
+import bedItemFsry from "./component/bed-item-fsry/bed-item.vue";
 import searchCon from "./component/search-con/search-con.vue";
 import printHdModal from "./component/prints/modals.vue";
 import common from "@/common/mixin/common.mixin.js";
@@ -242,35 +243,31 @@ export default {
       return this.wih - 93 + "px";
     },
     currentBedItem() {
-      // 床位一览卡版本
-      if (this.HOSPITAL_ID == "huadu") {
+      switch (this.HOSPITAL_ID) {
+        case 'huadu':
         return bedItemHd;
-      } else if (
-        [
-          "liaocheng",
-          "whfk",
-          "shannan",
-          "quzhou",
-          "foshanrenyi",
-          "fsxt",
-          "whyx",
-          "sdlj",
-          "lyxrm",
-          "lyyz",
-          "qhwy",
-          'gdtj',
-          'ytll',
-          'whsl',
-          'zhzxy',
-          'whhk',
-          'nfyksdyy'
-        ].includes(this.HOSPITAL_ID)
-      ) {
+        case "liaocheng":
+        case "whfk":
+        case "shannan":
+        case "quzhou":
+        case "fsxt":
+        case "whyx":
+        case "sdlj":
+        case "lyxrm":
+        case "lyyz":
+        case "qhwy":
+        case "gdtj":
+        case "ytll":
+        case "whsl":
+        case "zhzxy":
+        case "whhk":
+        case "nfyksdyy":
         return bedItemLcey;
-      } else if (this.HOSPITAL_ID == "beihairenyi") {
+        case "beihairenyi":
         return bedItemBhry;
-      }
-      else {
+        case "foshanrenyi":
+        return bedItemFsry;
+        default:
         return bedItem;
       }
     },
@@ -450,6 +447,7 @@ export default {
     bedItemHd,
     bedItemLcey,
     bedItemBhry,
+    bedItemFsry,
     printsModal,
     printView,
     printHdModal,
