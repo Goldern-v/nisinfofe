@@ -37,7 +37,8 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-@import '../../../../../Part/whiteBoard/style/wb.styl';
+@import '../../../../../assets/css/wb.styl';
+
 
 @media screen and (max-width: 1440px) {
   .infuse-box {

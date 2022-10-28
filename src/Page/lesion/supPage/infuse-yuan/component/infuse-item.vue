@@ -35,7 +35,8 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-@import '../../../../../Part/whiteBoard/style/wb.styl'
+@import '../../../../../assets/css/wb.styl';
+
 @media screen and (max-width:1440px){
   .infuse-box{
     width: 20%
@@ -48,14 +49,14 @@
 }
 .infuse-box
   float left
-  padding 10px  
+  padding 10px
   box-sizing border-box
-.invw.infuse-box   
+.invw.infuse-box
   padding tovw(14)
 
 .contain
-  border: 1px solid #EAEEF1;    
-  position relative  
+  border: 1px solid #EAEEF1;
+  position relative
   cursor pointer
   transition: all 0.3s !important;
   top 0
@@ -72,11 +73,11 @@
    background #fff;
    height 174px
 .invw .body
-  height tovw(174)   
+  height tovw(174)
 .footer
   height 34px;
   background: #F7FAFA;
-  border-top: 1px solid #EAEEF1;   
+  border-top: 1px solid #EAEEF1;
   font-size: 13px;
   color: #333333;
 .invw .footer
@@ -87,12 +88,12 @@
   width 60px
   height 22px
   background: #4BB08D;
-  border-radius: 2px;  
+  border-radius: 2px;
   top -10px
   left 10px
   font-size: 13px;
   color: #FFFFFF;
-.invw .bed-label   
+.invw .bed-label
   width tovw(60)
   height tovw(22)
   font-size: tovw(13)
@@ -101,7 +102,7 @@
   height 17px
   background: #FFFFFF;
   border: 1px solid #CBD5DD;
-  border-radius: 2px;  
+  border-radius: 2px;
   margin 0 2px 0 0px
   text-align center
   line-height 17px
@@ -110,16 +111,16 @@
   height tovw(17)
   background: #FFFFFF;
   border: 1px solid #CBD5DD;
-  border-radius: 2px;  
+  border-radius: 2px;
   margin 0 2px 0 0px
   text-align center
   line-height tovw(17)
 .bow-wapper
   width 100px
-  height 116px  
+  height 116px
   border: 1px solid #A09D9D;
   border-radius 5px
-  margin-bottom 18px  
+  margin-bottom 18px
   position relative
   &::before
     content ''
@@ -131,21 +132,21 @@
     border-radius 0 0 3px 3px
     bottom -18px
     margin 0 auto
-    left 0 
+    left 0
     z-index 2
     right 0
 .invw
   .bow-wapper
     width tovw(100)
-    height tovw(116)  
+    height tovw(116)
     border-radius tovw(5)
-    margin-bottom tovw(18) 
+    margin-bottom tovw(18)
     position relative
     &::before
       width tovw(16)
       height tovw(16)
-      bottom tovw(-18) 
-.restDosage-con  
+      bottom tovw(-18)
+.restDosage-con
   position absolute
   top 50px
   font-size: 13px;
@@ -157,18 +158,18 @@
     color: #333333;
     margin-right 4px
 .invw
-  .restDosage-con  
+  .restDosage-con
     top tovw(50)
     font-size: tovw(13)
   .restDosage-label
     font-size: tovw(18)
-    margin-right tovw(4)  
+    margin-right tovw(4)
 .bow-bg
   position absolute
   width 94px
   left 3px
   right 3px
-  top 18px    
+  top 18px
 .invw
   .bow-bg
     width tovw(94)
@@ -190,7 +191,7 @@
     border-radius 0 0 3px 3px
     bottom -17px
     margin 0 auto
-    left 0 
+    left 0
     z-index 2
     right 0
   &.type-1
@@ -202,9 +203,9 @@
     &::before
       background #FFC917
   &.type-3
-    background #EB5562  
+    background #EB5562
     &::before
-      background #EB5562  
+      background #EB5562
   &.stop
     background #CBD5DD !important
     &::before
@@ -233,7 +234,7 @@
 
 .label-type-4 {
     background: rgb(255, 192, 203) !important;
-  }  
+  }
 
 //   &.type-1 {
 //   background:rgb(255,0,0)
@@ -249,7 +250,7 @@
 
 // &.type-4 {
 //   background: rgb(255, 192, 203);
-// }    
+// }
 </style>
 
 <script>
@@ -317,17 +318,17 @@
         // let date3 = new Date(this.data.expectEndTime) - new Date()
         let date3 = Number(this.data.restTime) * 60 * 1000
         var days = Math.floor(date3 / (24 * 3600 * 1000))
-        var leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数  
+        var leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
         var hours = Math.floor(leave1 / (3600 * 1000))
-        //计算相差分钟数  
-        var leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数  
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
         var minutes = Math.floor(leave2 / (60 * 1000))
-        //计算相差秒数  
-        var leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数  
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
         var seconds = Math.round(leave3 / 1000)
-        this.time.hh = hours 
-        this.time.mm = minutes 
-        this.time.ss = seconds 
+        this.time.hh = hours
+        this.time.mm = minutes
+        this.time.ss = seconds
       }
     },
     created() {

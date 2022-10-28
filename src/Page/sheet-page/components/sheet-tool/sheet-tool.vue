@@ -909,7 +909,7 @@ export default {
           if (pageIndex < pageLength) {
             getHtml.call(this);
           } else {
-            lodopPrint(htmlArr);
+            // lodopPrint(htmlArr);
           }
         });
       }

@@ -329,7 +329,7 @@ import bus from "vue-happy-bus";
 import sheetModel from "../../../../sheet.js";
 import common from "@/common/mixin/common.mixin.js";
 import orderModal from "../modal/orderModal.vue"
-import item1Vue from '@/Part/whiteBoard/page2/components/item-1.vue';
+// import item1Vue from '@/Part/whiteBoard/page2/components/item-1.vue';
 export default {
   props: {
     data: Object,
