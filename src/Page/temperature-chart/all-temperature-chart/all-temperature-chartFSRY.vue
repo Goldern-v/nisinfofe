@@ -58,6 +58,7 @@
           :height="wih - 112"
           border
           v-loading="pageLoadng"
+          :row-class-name="'heightLine'"
           cell-mouse-enter
         >
           <el-table-column
@@ -716,6 +717,9 @@
       .el-table__body-wrapper {
         height: auto !important;
       }
+      .heightLine {
+        background: red;
+        }
     }
   }
 }

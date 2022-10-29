@@ -73,7 +73,7 @@ export default {
      getTreeData() {
       this.pageLoading = true;
       Promise.all([
-        getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)
+        // getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)
       ])
         .then(res => {
           let data = res[0].data.data;

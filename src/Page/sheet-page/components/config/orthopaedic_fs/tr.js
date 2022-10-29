@@ -51,7 +51,7 @@ export default [
   { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量',autoComplete: { data: Output }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'character', event: keyf1, value: '', next: '', name: '颜色/性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'character', event: keyf1, value: '', next: '', name: '颜色/性状', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'armValue4', event: keyf1, value: '', next: '', name: '自定义值4', autoComplete: { data: autoComplete1 }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'armValue5', event: keyf1, value: '', next: '', name: '自定义值5', autoComplete: { data: autoComplete1 }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'armValue6', event: keyf1, value: '', next: '', name: '自定义值6', autoComplete: { data: autoComplete1 }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },

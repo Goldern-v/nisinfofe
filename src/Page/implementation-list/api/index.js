@@ -151,6 +151,18 @@ export function getPrintExecuteWithWardcode(obj) {
   //     obj
   // );
 }
+/*威海市力*/
+export function webGetOrdersExecutePrintOld(obj) {
+  // getPatientOrdersWithWardCode
+  return axios.post(
+      `${apiPath}procedure/webExecute/webGetOrdersExecutePrintOld`,
+      obj
+  );
+  // return axios.post(
+  //     `${apiPath}procedure/webExecute/webGetOrdersPrint`,
+  //     obj
+  // );
+}
 // 武汉肺科同步医嘱
 export function getPatientOrder(obj) {
   return axios.get(
@@ -199,7 +211,7 @@ export function getPrintListContent(body) {
 export function webSplitOrder(obj) {
   return axios.post(`${apiPath}procedure/webExecute/webSplitOrder`, obj);
 }
-/**获取瓶签打印参数 by顺德龙江 */
+/**获取瓶签打印参数 by顺德龙江 顺德龙江 */
 export function getPrintListContent2(body) {
   return axios.post(
     `${apiPath}procedure/webExecute/webGetExecuteWithBarcodeList2`,

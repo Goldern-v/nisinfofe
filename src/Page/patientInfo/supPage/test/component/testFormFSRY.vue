@@ -234,6 +234,7 @@ th {
 <script>
 import { testItems, getExamTestUrl } from "@/api/patientInfo";
 import lineChart from "./lineChart";
+import moment from 'moment';
 export default {
   props:{
     checkNum:{
@@ -350,7 +351,7 @@ export default {
   },
   filters: {
     dataForm(value) {
-      let result = new Date(value).Format("yyyy-MM-dd");
+      let result = moment(value).format("YYYY-MM-DD HH:mm:ss");
       return !(result + "").includes("NaN") ? result : value || "没出报告";
     },
   },

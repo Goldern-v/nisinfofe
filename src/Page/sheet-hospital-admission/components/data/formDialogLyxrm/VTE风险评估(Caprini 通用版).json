@@ -401,7 +401,7 @@
           "readOnly": null
         },
         {
-          "name": "I1313027",
+          "name": "I113068",
           "type": "checkbox",
           "title": "原因不明的死胎史，复发性自 然流产（≥3次），由于毒血 症或发育受限原因早产",
           "code": "1",
@@ -412,7 +412,7 @@
           "readOnly": null
         },
         {
-          "name": "I1313027",
+          "name": "I1313066",
           "type": "checkbox",
           "title": "口服避孕药或激素替代治疗",
           "code": "1",
@@ -423,7 +423,7 @@
           "readOnly": null
         },
         {
-          "name": "I1313027",
+          "name": "I1313067",
           "type": "checkbox",
           "title": "妊娠期或产后（1个月）",
           "code": "1",

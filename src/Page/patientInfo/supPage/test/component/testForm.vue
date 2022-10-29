@@ -17,7 +17,7 @@
         <div class="title"  v-if="HOSPITAL_ID=='sdlj'">广东医科大学附属第三医院佛山市顺德区龙江医院</div>
         <div class="title" v-else>{{ HOSPITAL_NAME }}</div>
         <div class="name">{{ data.subject }}报告单</div>
-        <div v-if="['foshanrenyi'].includes(this.HOSPITAL_ID)">
+        <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)">
           <el-row class="info-class" type="flex" justify="space-between">
           <span>申请单号：{{ tableHeaderInfo.testNo }}</span>
           <span>姓名：{{ $route.query.name }}</span>
@@ -231,6 +231,7 @@ th {
 
 <script>
 import { testItems, getExamTestUrl } from "@/api/patientInfo";
+import moment from 'moment'
 import lineChart from "./lineChart";
 export default {
   props:{
@@ -330,6 +331,9 @@ export default {
   filters: {
     dataForm(value) {
       let result = new Date(value).Format("yyyy-MM-dd");
+      if(['foshanrenyi'].includes(process.env.HOSPITAL_ID)){
+        result = moment(value).format("YYYY-MM-DD HH:mm:ss");
+      }
       return !(result + "").includes("NaN") ? result : value || "没出报告";
     },
   },

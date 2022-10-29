@@ -1,0 +1,234 @@
+<el-col :xs="8" :sm="6" :md="6" :lg="6" class="w-20 bed-box">
+  <!-- <router-link target="_blank" :to="{ path: '/home', query: data}" tag="span" class="nod"> -->
+  <span @click="toInfo(data)" class="nod">
+    <div class="card-box" @click="prevent(data, $event)">
+      <!--佛一顶部特殊调整-->
+        <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)&&data.patientId" class="top_icon" :style="{ backgroundColor: data.nursingClassColor }"></div>
+      <div class="like" @click.stop="toLike(data)">
+        <img v-if="data.isFollow == '1'" src="../../../../../../common/images/card/like.png" height="18" width="18" />
+        <img v-else src="../../../../../../common/images/card/liked.png" height="18" width="18" />
+      </div>
+      <img src="./images/借.png" class="deptLend" v-if="data.deptLend" alt="" :title="data.deptLend" />
+      <span v-if="!data.patientId" class="null-bedLabel">{{data.bedLabel}}</span>
+      <div v-if="data.patientId">
+        <div class="card-text">
+          <div class="name" flex="main:justify">
+            <span flex="cross:center">
+              <span>{{data.name}}</span>
+              <span class="point-box" v-show="data.formLowestStatus != '2'"
+                :class="{red: data.formLowestStatus == 0, green: data.formLowestStatus == 1}"></span>
+            </span>
+            <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病重'">病重</span>
+            <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危'">病危</span>
+          </div>
+          <div class="info" v-if="HOSPITAL_ID == 'beihairenyi' || HOSPITAL_ID == 'whfk' ">
+            {{data.sex}} | {{data.age}} | {{data.inpNo}} | {{data.chargeType
+            || '--'}}
+          </div>
+          <div class="info" v-else>
+            {{data.sex}} | {{data.age}} | {{data.patientId}} | {{data.chargeType
+            || '--'}}
+          </div>
+          <div style="border-bottom: 1px dashed #E4E8EB; margin-bottom: 8px"></div>
+          <div class="aside" :style="inToday(data.admissionDate) && {color:'red'}">
+            入院：{{`${FormatData(data.admissionDate)}（第${data.inpDay}天）`}}
+          </div>
+          <div class="aside"><span class="doctor">医生：{{data.doctorInCharge}}</span><span class="nurse" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">责任护士：{{data.dutyNurse}}</span></div>
+          <div class="aside">诊断：{{data.diagnosis}}</div>
+        </div>
+        <el-row class="card-footer" type="flex" justify="space-between" align="middle" flex="cross: center">
+          <div class="left-icon">
+            <span v-if="data.isTodayOperation == '1'">
+              <img src="../../../../../../common/images/card/今日手术.png" height="18" width="60" />
+            </span>
+            <span v-if="data.isTommorowOperation == '1'">
+              <img src="../../../../../../common/images/card/明日手术.png" height="18" width="60" />
+            </span>
+            <span v-if="data.isTodayDischarge == '1'">
+              <img src="../../../../../../common/images/card/今日出院.png" height="18" width="60" />
+            </span>
+            <span v-if="data.isTommorowDischarge == '1'">
+              <img src="../../../../../../common/images/card/明日出院.png" height="18" width="60" />
+            </span>
+            <span v-if="data.operationDay&&data.operationDay!=0">
+              <span style="font-size: 14px;">术后{{data.operationDay}}天</span>
+            </span>
+          </div>
+          <div flex-box="1" flex="dir:right" style="width: 0">
+            <template  v-for="item in (data.conditionIconDtos &&  data.conditionIconDtos.slice(0,6))">
+              <div class="table-name"
+                v-if="!(item.iconText=='病危' && ['lyxrm', 'whhk'].includes(HOSPITAL_ID))"
+                :key="item.iconText" :title="item.iconText" :style="{background: item.iconTextRgb}">
+                <span>{{item.showContent}}</span>
+              </div>
+            </template>
+            <div class="table-name" v-for="item in (data.evalIcons &&  data.evalIcons.slice(0,6))" :key="item.formName"
+              :title="item.description + ' 分数:' + item.evalScore + '分'" :style="{background: item.iconTextRgb}"
+              @click.stop="toFormPage(data, item)">
+              <span>{{item.iconText}}</span>
+            </div>
+          </div>
+          <div class="right-icon"></div>
+        </el-row>
+        <!--佛一处理床位一览卡的数据-->
+        <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)" class="user-img-foshanrenyi">
+          <img v-if="data.sex==='女'" src="./images/女.png" height="46" width="46" />
+          <img v-if="data.sex==='男'" src="./images/男.png" height="46" width="46" />
+          <p>
+            <!-- {{data.nursingClass.substring(0, 2)}} -->
+            <span style="font-size: 18px;font-weight: bold;"
+              :style="!data.nursingClass && {color: '#444'}">{{data.bedLabel}}</span><br />
+            <span style="font-size: 12px" :style="!data.nursingClass && {color: '#444'}">（床）</span>
+          </p>
+        </div>
+        <div v-else class="user-img" :style="{ backgroundColor: data.nursingClassColor }">
+          <img v-if="data.sex==='女'" src="./images/女.png" height="46" width="46" />
+          <img v-if="data.sex==='男'" src="./images/男.png" height="46" width="46" />
+          <p>
+            <!-- {{data.nursingClass.substring(0, 2)}} -->
+            <span style="font-size: 18px;font-weight: bold;"
+              :style="!data.nursingClass && {color: '#444'}">{{data.bedLabel}}</span><br />
+            <span style="font-size: 12px" :style="!data.nursingClass && {color: '#444'}">（床）</span>
+          </p>
+        </div>
+      </div>
+      <el-row v-else class="null-bed" type="flex" justify="center" align="middle">
+        <img src="../../../../../../common/images/card/空床.png" height="100" width="100" />
+      </el-row>
+    </div>
+  </span>
+  <div class="bed-modal">
+    <div flex="" class="table-line" v-if="HOSPITAL_ID == 'beihairenyi'">
+      <div class="key">床号：</div>
+      <div class="value" style="width: 70px;">{{ data.bedLabel }}</div>
+      <div class="key">住院号：</div>
+      <div class="value">{{ data.inpNo }}</div>
+    </div>
+    <div flex="" class="table-line" v-else-if="HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'foshanrenyi'">
+      <div class="key">床号：</div>
+      <div class="value" style="width: 70px;">{{ data.bedLabel }}</div>
+      <div class="key">住院号：</div>
+      <div class="value">{{ data.patientId }}</div>
+    </div>
+    <div flex="" class="table-line" v-else>
+      <div class="key">床号：</div>
+      <div class="value" style="width: 70px;">{{ data.bedLabel }}</div>
+      <div class="key">病案号：</div>
+      <div class="value">{{ data.patientId }}</div>
+    </div>
+    <div flex="" class="table-line">
+      <div class="key">姓名：</div>
+      <div class="value" style="width: 70px;">{{ data.name }}</div>
+      <div class="key">性&nbsp;别：</div>
+      <div class="value">{{ data.sex }}</div>
+    </div>
+    <div flex="" class="table-line" v-if="HOSPITAL_ID == 'huadu'">
+      <div class="key">年龄：</div>
+      <div class="value" style="width: 70px;">{{ data.age }}</div>
+      <div class="key">ID 号：</div>
+      <div class="value">{{ data.inpNo }}</div>
+    </div>
+    <div flex="" class="table-line" v-else-if="HOSPITAL_ID == 'beihairenyi'">
+      <div class="key">年龄：</div>
+      <div class="value" style="width: 70px;">{{ data.age }}</div>
+      <div class="key">ID 号：</div>
+      <div class="value">{{ data.patientId }}</div>
+    </div>
+    <div flex="" class="table-line" v-else-if="HOSPITAL_ID == 'foshanrenyi'">
+      <div class="key">年龄：</div>
+      <div class="value" style="width: 70px;">{{ data.age }}</div>
+      <div class="key">记账号：</div>
+      <div class="value">{{ data.inpNo }}</div>
+    </div>
+    <div flex="" class="table-line" v-else>
+      <div class="key">年龄：</div>
+      <div class="value" style="width: 70px;">{{ data.age }}</div>
+      <div class="key">住院号：</div>
+      <div class="value">{{ data.inpNo }}</div>
+    </div>
+    <div style="height: 5px"></div>
+    <div flex="" class="table-line">
+      <div class="key">入院时间：</div>
+      <div class="value">{{ data.admissionDate }}</div>
+    </div>
+    <div flex="" class="table-line" v-if="data.operationDay">
+      <div class="key">术后天数：</div>
+      <div class="value">{{ data.operationDay }}天</div>
+    </div>
+    <div flex="" class="table-line">
+      <div class="key">诊&nbsp;&nbsp;断：</div>
+      <div class="value" flex-box="1" style="width: 0">
+        {{ data.diagnosis }}
+      </div>
+    </div>
+    <div flex="" class="table-line">
+      <div class="key">临床科室：</div>
+      <div class="value">{{ data.deptName }}</div>
+    </div>
+    <div flex="" class="table-line">
+      <div class="key">主管医生：</div>
+      <div class="value">{{ data.doctorInCharge }}</div>
+    </div>
+    <div flex="" class="table-line" v-if="HOSPITAL_ID == 'zhzxy'">
+      <div class="key">责任护士：</div>
+      <div class="value">{{ data.DutyNurse }}</div>
+    </div>
+    <div flex="" class="table-line" v-if="data.glFlag">
+      <div class="key">隔&nbsp;&nbsp;离：</div>
+      <div class="value">{{ data.glFlag }}</div>
+    </div>
+    <div flex="" class="table-line" v-if="data.deptLend">
+      <div class="key">借&nbsp;&nbsp;床：</div>
+      <div class="value">{{ data.deptLend }}</div>
+    </div>
+
+    <div style="height: 5px"></div>
+
+    <div flex="" class="table-line">
+      <div class="key">饮&nbsp;食：</div>
+      <div class="value" style="width: 50px;">{{ data.foodAnDrink }}</div>
+      <div class="key">护理级别：</div>
+      <div class="value">{{ data.nursingClass }}</div>
+    </div>
+
+    <div flex="" class="table-line">
+      <div class="key">体&nbsp;重：</div>
+      <div class="value" style="width: 50px;">{{ data.weight }}</div>
+      <div class="key">身&nbsp;高：</div>
+      <div class="value">{{ data.height }}</div>
+    </div>
+
+    <div flex="" class="table-line">
+      <div class="key">过敏史：</div>
+      <div class="value" flex-box="1" style="width: 0; color: #FE0000">
+        <span v-if="data.allergy1">{{ data.allergy1 }};</span>
+        <span v-if="data.drugGms">{{ data.drugGms  }};</span>
+        <span v-if="data.allergy2">{{ data.allergy2}}</span>
+        <span v-else>无</span>
+
+      </div>
+    </div>
+
+    <div style="height: 5px"></div>
+
+    <div flex="" class="table-line">
+      <div class="key">医保类型：</div>
+      <div class="value">{{ data.chargeType }}</div>
+    </div>
+
+    <div flex="" class="table-line">
+      <div class="key">预 交 金：</div>
+      <div class="value">{{ data.prepayments }}</div>
+    </div>
+
+    <div flex="" class="table-line">
+      <div class="key">费用合计：</div>
+      <div class="value">{{ data.totalCosts }}</div>
+    </div>
+
+    <!-- <div flex="" class="table-line">
+      <div class="key">预交金：</div>
+      <div class="value">{{data.prepayments}</div>
+    </div> -->
+  </div>
+</el-col>

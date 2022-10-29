@@ -4,7 +4,7 @@
       <tr>
         <th
           v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'"
-          style="width: 2%; min-width: 20px"
+          style="width: 10%; min-width: 20px"
         >
           序号
         </th>
@@ -23,7 +23,7 @@
           <br />(mmol/L)
         </th>
         <th
-          style="width: 16%"
+          style="width: 10%"
           v-if="
             HOSPITAL_ID != 'gy' &&
             HOSPITAL_ID != 'lingcheng' &&
