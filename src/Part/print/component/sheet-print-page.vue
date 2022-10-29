@@ -380,15 +380,15 @@ export default {
         `
       );
     }
-    if(['nursing_zhzxy'].includes(this.sheetInfo.sheetType)){
+    if(['zhzxy'].includes(process.env.HOSPITAL_ID)){
       console.log("nursing_zhzxy  该样式啦")
             addCSS(
               window,
               `
           @media print {
             .iframe > div:nth-of-type(n) {
-              height: ${sheetTableWidth * 0.8}px !important;
-              transform: rotateZ(0deg) scaleY(1.3) translateY(0px) !important;
+              height: ${sheetTableWidth * 0.73}px !important;
+              transform: rotateZ(0deg) scaleY(1.25) translateY(-30px) !important;
               transform-origin: top !important;
             }
             .iframe > div:nth-of-type(n) table td,th{
