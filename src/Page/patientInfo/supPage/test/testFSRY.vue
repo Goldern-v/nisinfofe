@@ -239,7 +239,7 @@
                 if(!isNaN(`${this.rightData[this.radio][nowItem].result}`)){
                 str += `${this.rightData[this.radio][nowItem].units}  `
                 }
-                str += `${this.rightData[this.radio][nowItem].expand3}。`
+                str += `${this.rightData[this.radio][nowItem].expand3}。<br/>`
             }
           }
         }else{

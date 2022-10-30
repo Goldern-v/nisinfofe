@@ -796,7 +796,7 @@ export default {
     syncGetNursePatientRecData(){
       if(!this.ifCanAsyncPatient)  return
       this.ifCanAsyncPatient=false
-      this.$message.info("正在更新");
+      this.$message.info("更新数据中请稍后重新进入....");
        let syncPatientData = syncGetNursePatientWHFKRecData;
       switch (this.HOSPITAL_ID) {
         case "whfk":

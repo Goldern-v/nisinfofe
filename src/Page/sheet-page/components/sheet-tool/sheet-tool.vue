@@ -1664,8 +1664,10 @@ export default {
         if (this.patientInfo.patientId) {
           // console.log(111);
           this.$parent.breforeQuit(() => {
-            this.getBlockList();
             this.bus.$emit("setSheetTableLoading", true);
+            this.getBlockList();
+            if(this.sheetBlockList.length==0)
+            this.bus.$emit("setSheetTableLoading", false);
             // 初始化页面区间列表
             this.selectList = [];
           });

@@ -796,8 +796,8 @@
         >
       </div>
     </sweet-modal>
-    <templateSlide ref="templateSlide" :selectedSheetType="sheetInfo.sheetType"></templateSlide>
-    <templateSlideFSRY ref="templateSlideFsry" :selectedSheetType="sheetInfo.sheetType"></templateSlideFSRY>
+    <templateSlide ref="templateSlide"></templateSlide>
+    <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
       v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925'].includes(HOSPITAL_ID)"
@@ -1155,15 +1155,32 @@ export default {
     title() {
       const recordDate =
         this.HOSPITAL_ID === "huadu" ? "&nbsp" : this.recordDate;
-      if (this.recordDate) {
-        if (this.isRead) {
-          return "已签名&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
-        } else {
-          return "编辑护理记录&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
-        }
+        const { patientName, age, bedLabel } = sheetInfo && sheetInfo.masterInfo || {}
+      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        //编辑记录
+        if (this.recordDate) {
+          if (this.isRead) {
+            return "已签名&nbsp;&nbsp;&nbsp;&nbsp;" + ` 记录：${recordDate}    患者：${patientName}    床号：${bedLabel}    年龄：${age} `;
+          } else {
+            return "编辑护理记录&nbsp;&nbsp;&nbsp;&nbsp;" + ` 记录：${recordDate}    患者：${patientName}   床号：${bedLabel}    年龄：${age} `;
+          }
+        }else {
+          //新建记录
+        return "新建护理记录" + `   患者：${patientName}   床号：${bedLabel}    年龄：${age} `;
+      }
       } else {
+        if (this.recordDate) {
+          if (this.isRead) {
+            return "已签名&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
+          } else {
+            return "编辑护理记录&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
+          }
+        }else {
         return "新建护理记录";
       }
+
+      }
+
     },
     // 神经内科
     isNeurology() {
@@ -1526,6 +1543,8 @@ export default {
     },
     close() {
       this.$refs.modal.close();
+      //关闭特殊记录模板
+      this.$refs.templateSlideFsry.close();
     },
     // 处理特殊字符转换函数
     htmlEscape(str) {
@@ -2264,11 +2283,22 @@ export default {
       this.$refs.zkModalZhzxy.open(this.doc);
     },
     openTemplateSlider() {
-      this.$refs.templateSlide.open();
+      //打开编辑特殊记录的弹框
+      switch(this.HOSPITAL_ID){
+        case "foshanrenyi":
+      this.$refs.templateSlideFsry.open();
+        break;
+        default:
+        this.$refs.templateSlide.open();
+        break;
+      }
     },
     beforeClose() {
       if(sheetInfo.sheetType=='nursing_zhzxy') this.$refs.zkModalZhzxy.close();
       this.$refs.templateSlide.close();
+      //关闭特殊记录录入框
+      this.$refs.templateSlideFsry.close();
+
     },
     dateKey,
     timeKey,
@@ -2415,7 +2445,8 @@ export default {
     DiagnosisModal,
     AdviceModal,
     zxdtbModal,
-    zkModalZhzxy
+    zkModalZhzxy,
+    templateSlideFSRY
   },
 };
 </script>

@@ -1,3 +1,4 @@
+<!--原本是旧版本的 很多问题  改不动 增加 佛一换成 template-slide-fsry-->
 <template>
   <div>
     <!-- <div class="no-do-bg" v-show="show" @click="close"></div> -->
@@ -33,11 +34,20 @@
           </div>
           <div class="list-con" v-if="selectedType=='特殊符号'" :style="listconHeight">
             <ul class="specific_symbol">
-              <li
-                v-for="item in specificSymbol"
-                :key="item"
-                @click="addTemplateAtDoc(item)"
-              >{{item}}</li>
+              <template v-if="['zhzxy'].includes(HOSPITAL_ID)">
+                <li
+                  v-for="item in specificSymbol"
+                  :key="item"
+                  @dblclick="addTemplateAtDoc(item)"
+                >{{item}}</li>
+              </template>
+              <template v-else>
+                <li
+                  v-for="item in specificSymbol"
+                  :key="item"
+                  @click="addTemplateAtDoc(item)"
+                >{{item}}</li>
+              </template>
             </ul>
           </div>
           <div class="list-con" v-else :style="listconHeight">
