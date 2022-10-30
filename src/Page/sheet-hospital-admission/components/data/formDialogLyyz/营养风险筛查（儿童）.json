@@ -1,0 +1,437 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "临沂沂州医院",
+      "formName": "营养风险筛查（儿童）"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0502_1",
+      "formApiCode": "E0502_1",
+      "formName": "营养风险筛查（儿童）",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "已保存"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "疾病风险",
+      "type": "formGroupVerticalBox",
+      "title": "疾病风险",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "疾病风险",
+      "suffixDesc": "",
+      "keys": "I502101",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I502101",
+          "type": "radio",
+          "title": "正常营养需求",
+          "code": "0",
+          "score": "0",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I502101",
+          "type": "radio",
+          "title": "小手术、饮食行为问题、心脏病、糖尿病、神经肌肉病、精神疾病、脑瘫、胃食管反流、唇/腭裂、呼吸道合胞病毒感染、乳糜泻、单一食物过敏/不耐受",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I502101",
+          "type": "radio",
+          "title": "大手术、吞咽困难、肠衰竭/顽固性腹泻、肾病/肾衰竭、克罗恩病、囊性纤维化、烧伤/严重创伤、肝脏疾病、积极治疗中的肿瘤、先天性代谢异常、多种食物过敏/不耐受",
+          "code": "3",
+          "score":"3",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "营养摄入",
+      "type": "formGroupVerticalBox",
+      "title": "营养摄入",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "营养摄入",
+      "suffixDesc": "",
+      "keys": "I502102",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I502102",
+          "type": "radio",
+          "title": "饮食较前无变化,营养摄入良好",
+          "code": "0",
+          "score": "0",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I502102",
+          "type": "radio",
+          "title": "饮食较前进食减少一半及以上",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I502102",
+          "type": "radio",
+          "title": "无营养摄入",
+          "code": "3",
+          "score":"3",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "生长情况",
+      "type": "formGroupVerticalBox",
+      "title": "生长情况",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "生长情况",
+      "suffixDesc": "",
+      "keys": "I502103",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I502103",
+          "type": "radio",
+          "title": "相似的百分位数/栏",
+          "code": "0",
+          "score": "0",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I502103",
+          "type": "radio",
+          "title": ">2个百分位数/栏",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I502103",
+          "type": "radio",
+          "title": ">3个百分位数/栏（或体重<第2个百分位）",
+          "code": "3",
+          "score":"3",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "evalScore",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalScore",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "code": "evalScore",
+          "value": 0,
+          "placeholder": "评估得分",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "titleStyle": "width:90px!important;margin:0;",
+          "value": "",
+          "placeholder": "结果程度",
+          "hiddenTips": true,
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "min": "-1",
+              "max": "2",
+              "equal": "低风险",
+              "style": "color:blue",
+              "display": "低风险"
+            },
+            {
+              "min": "2",
+              "max": "4",
+              "equal": "中等风险",
+              "style": "color:red",
+              "display": "中等风险"
+            },
+            {
+              "min": "4",
+              "max": "99",
+              "equal": "高风险",
+              "style": "color:red",
+              "display": "高风险"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}
