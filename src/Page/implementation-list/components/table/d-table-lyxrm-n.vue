@@ -474,6 +474,14 @@ export default {
       return val ? moment(val).format("YYYY-MM-DD HH:mm") : "";
     },
     handleStatus(val) {
+      if (this.HOSPITAL_ID == 'whsl') {
+        return {
+          '0': '未执行',
+          '1': '执行中',
+          '2': '暂停',
+          '4': '已执行'
+        }[val + ''] || ''
+      }
       let allStatus = [
         {
           id: "",
@@ -570,7 +578,7 @@ export default {
             typeReason: value, //补执行的原因填写
           };
           let fn = updateOrderExecutePc
-          if (this.HOSPITAL_ID = 'beihairenyi') {
+          if (this.HOSPITAL_ID == 'beihairenyi') {
             fn = addRecord
             data = {
               ...data,
