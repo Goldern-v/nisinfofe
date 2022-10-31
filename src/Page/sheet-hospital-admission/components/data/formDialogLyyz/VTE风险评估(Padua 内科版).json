@@ -332,17 +332,6 @@
           "class": null,
           "html": null,
           "readOnly": null
-        },
-        {
-          "name": "I612113",
-          "type": "checkbox",
-          "title": "入住ICU",
-          "code": "5",
-          "score": 5,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
         }
       ]
     },

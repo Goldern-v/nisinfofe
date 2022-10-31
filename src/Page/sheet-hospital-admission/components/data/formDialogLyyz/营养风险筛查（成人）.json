@@ -171,78 +171,7 @@
           ]
         }
       ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "营养状况（单选）",
-      "type": "formGroupVerticalBox",
-      "title": "营养状况（单选）",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "营养状况（单选）",
-      "suffixDesc": "",
-      "keys": "I618004",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I618004",
-          "type": "radio",
-          "title": "BMI<18.5kg/㎡？",
-          "code": "0",
-          "score": "0",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I618005",
-          "type": "radio",
-          "title": "患者过去3个月体重下降吗？",
-          "code": "1",
-          "score": "1",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I618006",
-          "type": "radio",
-          "title": "患者过去一周内有摄食减少吗？",
-          "code": "2",
-          "score":"2",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I618007",
-          "type": "radio",
-          "title": "患者有严重疾病（如ICU接受治疗）？",
-          "code": "3",
-          "score":"3",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        }
-      ]
-    },
+    }, 
     {
       "name": "",
       "type": "formGroupHR",
@@ -282,7 +211,7 @@
         {
           "name": "I618020",
           "type": "radio",
-          "title": "髋骨折、慢性疾病有急性并发症肝硬化、慢性阻塞性肺病长期血液透析、糖尿病、恶性肿瘤",
+          "title": "髋骨折、肝硬化、长期血液透析、糖尿病、慢性阻塞性肺病,慢性疾病伴随着急症并发症，",
           "code": "1",
           "score": "1",
           "style": null,
@@ -291,9 +220,9 @@
           "readOnly": null
         },
         {
-          "name": "I618020",
+          "name": "I618015",
           "type": "radio",
-          "title": "腹部大手术、卒中、重度肺炎、血液系统恶化肿瘤",
+          "title": "的腹部手术、中风、重症肺炎、血液系统的恶性肿瘤",
           "code": "2",
           "score":"2",
           "style": null,
@@ -302,9 +231,80 @@
           "readOnly": null
         },
         {
-          "name": "I618020",
+          "name": "I618016",
           "type": "radio",
-          "title": "头部损伤、骨髓移植、重症监护的患者(APACHE>10分)",
+          "title": "颅脑损伤；骨髓抑制；ICU病人(APACHE>10分,患者在加强病房中靠机械通气支持，蛋白质需要量增加而且不能被肠外或肠内营养支持所弥补，但是通过肠外或肠内营养支持可使蛋白质分解和氮丢失明显减少",
+          "code": "3",
+          "score":"3",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "营养状况（单选）",
+      "type": "formGroupVerticalBox",
+      "title": "营养状况（单选）",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "营养状况（单选）",
+      "suffixDesc": "",
+      "keys": "I618021",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I618010",
+          "type": "radio",
+          "title": "正常营养状态",
+          "code": "0",
+          "score": "0",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I618017",
+          "type": "radio",
+          "title": "1.3个月内，体重丢失>5%,2.在之前的一周中，摄入量为正常的50%~75%",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I618018",
+          "type": "radio",
+          "title": "1.2个月内，体重丢失>5%,2.BMI在18.5~20.5或及一般状况差,3.在之前的一周中，摄入量为正常的25%~50%",
+          "code": "2",
+          "score":"2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I618019",
+          "type": "radio",
+          "title": "1个月内，体重丢失>5%(3个月内丢失>15%),BMI<18.5(或血清白蛋白<35g/L),在之前的一周中，摄入量为正常的0%~25%",
           "code": "3",
           "score":"3",
           "style": null,
@@ -340,7 +340,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I086011",
+          "name": "I618012",
           "type": "radio",
           "title": "年龄＜70岁",
           "code": "0",
@@ -351,7 +351,7 @@
           "readOnly": null
         },
         {
-          "name": "I086011",
+          "name": "I618012",
           "type": "radio",
           "title": "年龄≥70岁",
           "code": "1",
