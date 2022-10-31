@@ -298,11 +298,15 @@ export default {
       this.isDoctor =false;
       this.isCaSign = false;
     }
-    if(['zhzxy'].includes(this.HOSPITAL_ID)){
-      if(this.title.indexOf("删除")==-1 && title.indexOf("取消")==-1){
+    if(['zhzxy','fuyou'].includes(this.HOSPITAL_ID)){
+      let strTitlt = this.title + title, flag = true,arrDelete = ['删除','取消']
+      arrDelete.forEach(item=>{
+        console.log(item,"item")
+        if(strTitlt.indexOf(item)>-1) flag = false
+      })
+      if(flag){
         // this.isDoctor =true
         this.isCaSign = true
-        console.log("this.isCaSign",this.isCaSign)
       }
     } 
     if(type){
