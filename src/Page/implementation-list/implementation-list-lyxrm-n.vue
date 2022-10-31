@@ -362,7 +362,7 @@ export default {
       ],
       whslstatusList: [ 
         {
-          id: "3",
+          id: "",
           name: "全部"
         },
         {

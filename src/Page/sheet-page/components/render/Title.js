@@ -1499,7 +1499,7 @@ export default function Title(
     }
   break;
   case "prenatal_fs": {
-    // 佛山市一 - 护理记录单(危重患者护理记录单)
+    // 佛山市一 - 产前待产记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/prenatal_fs/th.js").default)
       );
