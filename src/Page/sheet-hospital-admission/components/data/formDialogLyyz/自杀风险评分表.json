@@ -1,0 +1,662 @@
+{
+    "pageSetting": {
+        "size": "4A",
+        "rotation": "portrait",
+        "margin": "0",
+        "width": "750px",
+        "height": "auto",
+        "mode": "development_",
+        "style": ""
+    },
+    "formSetting": {
+        "formTitle": {
+            "hospitalName": "聊城市第二人民医院",
+            "formName": "自杀风险评估"
+        },
+        "formHeads": [
+            {
+                "name": "name",
+                "code": null,
+                "title": "姓名",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "sex",
+                "code": null,
+                "title": "性别",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "age",
+                "code": null,
+                "title": "年龄",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "wardName",
+                "code": null,
+                "title": "病区",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "bedLabel",
+                "code": null,
+                "title": "床号",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "inpNo",
+                "code": null,
+                "title": "住院号",
+                "class": "",
+                "style": "",
+                "show": true
+            },
+            {
+                "name": "admissionDate",
+                "code": null,
+                "title": "入院日期",
+                "class": "",
+                "style": "",
+                "show": true
+            }
+        ],
+        "formTail": {
+            "showEvalScore": false,
+            "showSign": true,
+            "showAudit": true
+        },
+        "formInfo": {
+            "formCode": "E0626",
+            "formApiCode": "E0626",
+            "formName": "自杀风险评估",
+            "status": "0",
+            "formType": "eval"
+        }
+    },
+    "dictionary": {},
+    "schemes": {},
+    "model": {},
+    "body": [
+        {
+            "name": "evalDate",
+            "type": "formGroupColBox",
+            "col": 3,
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "evalDate",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "evalDate",
+                    "type": "datePicker",
+                    "title": "评估时间",
+                    "titleStyle": "width:90px!important;text-align: right;",
+                    "inputStyle": "width:270px!important",
+                    "inputWidth": "136px",
+                    "hiddenTips": true,
+                    "value": "",
+                    "placeholder": "评估时间",
+                    "style": "width:145px",
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "signerName",
+                    "type": "input",
+                    "title": "评估人",
+                    "titleStyle": "width:90px!important;text-align: right;",
+                    "inputStyle": "width:270px!important",
+                    "inputWidth": "136px",
+                    "hiddenTips": true,
+                    "value": "",
+                    "placeholder": "评估人",
+                    "style": "width:80px",
+                    "class": null,
+                    "readOnly": true
+                },
+                {
+                    "name": "status",
+                    "type": "input",
+                    "title": "状态",
+                    "titleStyle": "width:90px!important;text-align: right;",
+                    "inputStyle": "width:270px!important",
+                    "inputWidth": "136px",
+                    "hiddenTips": true,
+                    "value": "",
+                    "placeholder": "状态",
+                    "style": "width:80px",
+                    "class": null,
+                    "readOnly": true,
+                    "rule": [
+                        {
+                            "equals": [
+                                "-1",
+                                "未保存"
+                            ],
+                            "style": "color:gray",
+                            "display": "未签名"
+                        },
+                        {
+                            "equals": [
+                                "0",
+                                "已保存 "
+                            ],
+                            "style": "color:blue",
+                            "display": "已保存"
+                        },
+                        {
+                            "equals": [
+                                "1",
+                                "已签名"
+                            ],
+                            "style": "color:red",
+                            "display": "已签名"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "1",
+            "title": "一、评估内容",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "type": "formGroupVerticalBox",
+            "title": "1分项",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "I626001",
+                    "type": "checkbox",
+                    "title": "1、近期负性生活事件（1分）",
+                    "code": "1",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626002",
+                    "type": "checkbox",
+                    "title": "2、被害妄想或有被害内容的幻听（1分）",
+                    "code": "1",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626003",
+                    "type": "checkbox",
+                    "title": "3、人际和社会功能退缩（1分）",
+                    "code": "1",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626004",
+                    "type": "checkbox",
+                    "title": "4、言语流露自杀意图（1分）",
+                    "code": "1",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626005",
+                    "type": "checkbox",
+                    "title": "5、自杀家族史（1分）",
+                    "code": "1",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626006",
+                    "type": "checkbox",
+                    "title": "6、精神病史（1分）",
+                    "code": "1",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626007",
+                    "type": "checkbox",
+                    "title": "7、鳏夫/寡妇（1分）",
+                    "code": "1",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626008",
+                    "type": "checkbox",
+                    "title": "8、社会-经济地位低下（1分）",
+                    "code": "1",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626009",
+                    "type": "checkbox",
+                    "title": "9、饮酒史或酒滥用（1分）",
+                    "code": "1",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626010",
+                    "type": "checkbox",
+                    "title": "10、罹患晚期疾病（1分）",
+                    "code": "1",
+                    "score": 1,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626011",
+                    "type": "checkbox",
+                    "title": "11、绝望感（3分）",
+                    "code": "3",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626012",
+                    "type": "checkbox",
+                    "title": "12、情绪低落/兴趣丧失或愉快感缺乏（3分）",
+                    "code": "3",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626013",
+                    "type": "checkbox",
+                    "title": "13、近亲人死亡或重要的亲密关系丧失（3分）",
+                    "code": "3",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626014",
+                    "type": "checkbox",
+                    "title": "14、计划采取自杀行动（3分）",
+                    "code": "3",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "I626015",
+                    "type": "checkbox",
+                    "title": "15、自杀未遂史（3分）",
+                    "code": "3",
+                    "score": 3,
+                    "style": null,
+                    "class": null,
+                    "html": null,
+                    "readOnly": null
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupColBox",
+            "col": 2,
+            "colWidth": [
+                "40%",
+                "60%"
+            ],
+            "title": "",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "evalScore",
+                    "type": "input",
+                    "title": "评估得分",
+                    "titleStyle": "width:90px!important;margin:0;",
+                    "hiddenTips": true,
+                    "code": "evalScore",
+                    "value": 0,
+                    "placeholder": "评估得分",
+                    "style": "width:80px",
+                    "inputWidth": "136px",
+                    "class": null,
+                    "readOnly": true
+                },
+                {
+                    "name": "evalDesc",
+                    "type": "input",
+                    "title": "结果程度",
+                    "titleStyle": "width:90px!important;margin:0;",
+                    "value": "",
+                    "placeholder": "结果程度",
+                    "hiddenTips": true,
+                    "style": "width:80px",
+                    "inputWidth": "136px",
+                    "class": null,
+                    "readOnly": true,
+                    "rule": [
+                        {
+                            "min": "-1",
+                            "max": "6",
+                            "equal": "低风险",
+                            "style": "color:blue",
+                            "display": "低风险"
+                        },
+                        {
+                            "min": "6",
+                            "max": "9",
+                            "equal": "中风险",
+                            "style": "color:blue",
+                            "display": "中风险"
+                        },
+                        {
+                            "min": "9",
+                            "max": "12",
+                            "equal": "高风险",
+                            "style": "color:blue",
+                            "display": "高风险"
+                        },
+                        {
+                            "min": "12",
+                            "max": "Infinity",
+                            "equal": "极高风险",
+                            "style": "color:red",
+                            "display": "极高风险"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "type": "formGroupHR",
+            "title": "---hr---",
+            "line": "dashed",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupTitle",
+            "level": "1",
+            "title": "二、护理措施：",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": "",
+            "classes": "",
+            "readOnly": ""
+        },
+        {
+            "name": "",
+            "type": "formGroupVerticalBox",
+            "title": "护理措施：",
+            "message": "",
+            "require": "false",
+            "prefixDesc": "",
+            "suffixDesc": "",
+            "keys": "",
+            "style": null,
+            "classes": null,
+            "readOnly": null,
+            "children": [
+                {
+                    "name": "M626001",
+                    "type": "checkbox",
+                    "title": "1、按风险等级，对患者进行自杀风险评估和预警",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626002",
+                    "type": "checkbox",
+                    "title": "2、加强防护措施，确保设施、设备安全",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626003",
+                    "type": "checkbox",
+                    "title": "3、提供安全的住院环境，及时清除病房内的危险物品",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626004",
+                    "type": "checkbox",
+                    "title": "4、加强药物管理，严防藏药，保证药物按时按量服下",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626005",
+                    "type": "checkbox",
+                    "title": "5、在尊重患者及事先通知的前提下，采取安全措施",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626006",
+                    "type": "checkbox",
+                    "title": "6、积极治疗精神疾病或躯体疾病",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626007",
+                    "type": "checkbox",
+                    "title": "7、及时了解患者心理需求，给予针对性心理护理和健康宣教",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626008",
+                    "type": "checkbox",
+                    "title": "8、告知患者家属，须24小时陪伴患者，并签署自杀风险告知书",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626009",
+                    "type": "checkbox",
+                    "title": "9、密切观察患者病情变化，及时发现异常言行及自杀征兆",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626010",
+                    "type": "checkbox",
+                    "title": "10、将患者安置于重点房间，必要时专人看护",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626011",
+                    "type": "checkbox",
+                    "title": "11、患者外出检查、治疗时专人陪同，提高防范意识",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626012",
+                    "type": "checkbox",
+                    "title": "12、加强巡视，尤其是自杀好发时段的查房和有效巡视",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626013",
+                    "type": "checkbox",
+                    "title": "13、受精神症状影响者，分析可能采取的自杀方式，及时防范",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626014",
+                    "type": "checkbox",
+                    "title": "14、建立良好的护患关系，鼓励患者主动寻求帮助",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626015",
+                    "type": "checkbox",
+                    "title": "15、对患者及家属实施心理健康教育与预防自杀的教育",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626016",
+                    "type": "checkbox",
+                    "title": "16、病情不稳定的患者，给予持续生命支持措施及特别护理",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                },
+                {
+                    "name": "M626017",
+                    "type": "checkbox",
+                    "title": "17、严格执行交接班制度，及时做好护理记录",
+                    "code": "√",
+                    "style": null,
+                    "class": null,
+                    "readOnly": null
+                }
+            ]
+        }
+    ],
+    "dialogs": [],
+    "header": [],
+    "footer": []
+}

@@ -10,8 +10,8 @@
   },
   "formSetting": {
     "formTitle": {
-      "hospitalName": "临邑县人民医院",
-      "formName": "跌倒评估单"
+      "hospitalName": "临沂沂州医院",
+      "formName": "跌倒评估单(儿童)"
     },
     "formHeads": [
       {
@@ -77,14 +77,16 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E1316",
-      "formApiCode": "E1316",
-      "formName": "跌倒风险评估单",
+      "formCode": "E1804",
+      "formApiCode": "E1804",
+      "formName": "跌倒评估单(儿童)",
       "status": "0",
       "formType": "eval"
     }
   },
-  "dictionary": {},
+  "dictionary": {
+    "疼痛部位": "A, B, C, D"
+  },
   "schemes": {},
   "model": {},
   "body": [
@@ -149,10 +151,10 @@
             {
               "equals": [
                 "0",
-                ""
+                "已保存 "
               ],
               "style": "color:blue",
-              "display": ""
+              "display": "已保存"
             },
             {
               "equals": [
@@ -191,160 +193,55 @@
       "readOnly": ""
     },
     {
-      "name": "符合自动列入高风险患者（选择序号）",
+      "name": "年龄：",
       "type": "formGroupVerticalBox",
-      "title": "符合自动列入高风险患者（选择序号）",
+      "title": "年龄：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316020",
+      "keys": "I619009",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "入住ICU患者",
-          "code": "(1)",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "入住急诊抢救室",
-          "code": "(2)",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "入住麻醉复苏室",
-          "code": "(3)",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "入住手术室",
-          "code": "(4)",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "入住分娩室",
-          "code": "(5)",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "血液透析室患者",
-          "code": "(6)",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "重度贫血患者",
-          "code": "(7)",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "眩晕患者",
-          "code": "(8)",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "晚期妊娠孕妇",
-          "code": "(9)",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316020",
-          "type": "checkbox",
-          "title": "产后24小时内的产妇",
-          "code": "(10)",
-          "score": 45,
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "1. 近3个月有无跌倒",
-      "type": "formGroupVerticalBox",
-      "title": "1. 近3个月有无跌倒",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "style": null,
-      "classes": "name",
-      "readOnly": null,
-      "keys": "I1316001",
-      "children": [
-        {
-          "name": "I1316001",
+          "name": "I619009",
           "type": "radio",
-          "title": "无（0分）",
-          "code": "0",
-          "score": 0,
+          "title": "＞6月，＜3岁（4分）",
+          "code": "4",
+          "score": 4,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I1316001",
+          "name": "I619009",
           "type": "radio",
-          "title": "有（25分）",
-          "code": "25",
-          "score": 25,
+          "title": "≥3岁，＜7岁 （3分）",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I619009",
+          "type": "radio",
+          "title": "≥7岁，＜13岁 （2分）",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I619009",
+          "type": "radio",
+          "title": "≤6月或≥13岁 （1分）",
+          "code": "1",
+          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -364,34 +261,34 @@
       "readOnly": ""
     },
     {
-      "name": "2. 多于1个医学疾病诊断：",
+      "name": "性别：",
       "type": "formGroupVerticalBox",
-      "title": "2. 多于1个医学疾病诊断：",
+      "title": "性别：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316002",
+      "keys": "I619010",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316002",
+          "name": "I619010",
           "type": "radio",
-          "title": "无（0分）",
-          "code": "0",
-          "score": 0,
+          "title": "男性（2分）",
+          "code": "2",
+          "score": 2,
           "style": null,
           "class": null,
           "readOnly": null
         },
         {
-          "name": "I1316002",
+          "name": "I619010",
           "type": "radio",
-          "title": "有（15分）",
-          "code": "15",
-          "score": 15,
+          "title": "女性（1分）",
+          "code": "1",
+          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -411,44 +308,54 @@
       "readOnly": ""
     },
     {
-      "name": "3. 使用助行用具",
+      "name": "诊断",
       "type": "formGroupVerticalBox",
-      "title": "3. 使用助行用具",
+      "title": "诊断",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316003",
+      "keys": "I619011",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316003",
+          "name": "I619011",
           "type": "radio",
-          "title": "不需要、卧床休息、坐轮椅、护士辅助（0分）",
-          "code": "0",
-          "score": 0,
+          "title": "神经系统诊断（4分）",
+          "code": "4",
+          "score": 4,
           "style": null,
           "class": null,
           "readOnly": null
         },
         {
-          "name": "I1316003",
+          "name": "I619011",
           "type": "radio",
-          "title": "拐杖、助行器、手杖（15分）",
-          "code": "15",
-          "score": 15,
+          "title": "氧合功能改变（3分）",
+          "code": "3",
+          "score": 3,
           "style": null,
           "class": null,
           "readOnly": null
         },
         {
-          "name": "I1316003",
+          "name": "I619011",
           "type": "radio",
-          "title": "依扶家具行走（30分）",
-          "code": "30",
-          "score": 30,
+          "title": "心理/行为疾病（2分）",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I619011",
+          "type": "radio",
+          "title": "其他诊断（1分）",
+          "code": "1",
+          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -468,34 +375,54 @@
       "readOnly": ""
     },
     {
-      "name": "4. 接受药物治疗：",
+      "name": "环境：",
       "type": "formGroupVerticalBox",
-      "title": "4. 接受药物治疗：",
+      "title": "环境：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316038",
+      "keys": "I619012",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316038",
+          "name": "I619012",
           "type": "radio",
-          "title": "否（0分）",
-          "code": "0",
-          "score": 0,
+          "title": "有跌倒史或将婴幼儿放置在成人床上；（4分）",
+          "code": "4",
+          "score": 4,
           "style": null,
           "class": null,
           "readOnly": null
         },
         {
-          "name": "I1316038",
+          "name": "I619012",
           "type": "radio",
-          "title": "是（20分）",
-          "code": "20",
-          "score": 20,
+          "title": "患者使用辅助装置（助行器，拐杖）；（3分）",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I619012",
+          "type": "radio",
+          "title": "患儿睡在有护栏的婴儿床内；",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I619012",
+          "type": "radio",
+          "title": "房间里面有家具或落地的照明设施；",
+          "code": "1",
+          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -515,45 +442,45 @@
       "readOnly": ""
     },
     {
-      "name": "5. 步态/移动",
+      "name": "手术麻醉：",
       "type": "formGroupVerticalBox",
-      "title": "5. 步态/移动",
+      "title": "手术麻醉：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316004",
+      "keys": "I619013",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316004",
+          "name": "I619013",
           "type": "radio",
-          "title": "正常、卧床、轮椅（0分）",
-          "code": "0",
-          "score": 0,
+          "title": "在 24小时内",
+          "code": "3",
+          "score": 3,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I1316004",
+          "name": "I619013",
           "type": "radio",
-          "title": "年龄>65岁、虚弱无力（10分）",
-          "code": "10",
-          "score": 10,
+          "title": "在48小时内",
+          "code": "2",
+          "score": 2,
           "style": null,
           "class": null,
           "readOnly": null
         },
         {
-          "name": "I1316004",
+          "name": "I619013",
           "type": "radio",
-          "title": "严重虚弱/受损（20分）",
-          "code": "20",
-          "score": 20,
+          "title": "超过48小时或没有",
+          "code": "1",
+          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -573,35 +500,45 @@
       "readOnly": ""
     },
     {
-      "name": "6. 精神状态",
+      "name": "药物：",
       "type": "formGroupVerticalBox",
-      "title": "6. 精神状态",
+      "title": "药物：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316005",
+      "keys": "I619014",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316005",
+          "name": "I619014",
           "type": "radio",
-          "title": "正确评估自我能力（0分）",
-          "code": "0",
-          "score": 0,
+          "title": "多次使用：镇静剂（不包括重症监护病房麻醉病人和瘫痪病人）、安眠药、巴比妥酸盐、吩噻嗪类、抗抑郁剂，泻药/利尿剂麻醉剂',",
+          "code": "3",
+          "score": 3,
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I1316005",
+          "name": "I619014",
           "type": "radio",
-          "title": "高估自己能力、忘记自己受限制（15分）",
-          "code": "15",
-          "score": 15,
+          "title": "以上所列药物中的一种",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I619014",
+          "type": "radio",
+          "title": "其他药物或没有",
+          "code": "1",
+          "score": 1,
           "style": null,
           "class": null,
           "readOnly": null
@@ -621,7 +558,103 @@
       "readOnly": ""
     },
     {
-      "name": "evalScore",
+      "name": "认知：",
+      "type": "formGroupVerticalBox",
+      "title": "认知：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I619015",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I619015",
+          "type": "radio",
+          "title": "认知受损，完全无防跌倒意识（3分）",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I619015",
+          "type": "radio",
+          "title": "认知受损，但有防跌倒意识（2分）",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I619015",
+          "type": "radio",
+          "title": "认知能力正常（1分）",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "自动列入高风险",
+      "type": "formGroupVerticalBox",
+      "title": "自动列入高风险:",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I610009",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I610009",
+          "type": "radio",
+          "title": "自动列入高风险（45分）",
+          "code": "12",
+          "score": 12,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I003001",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
@@ -665,25 +698,25 @@
           "readOnly": true,
           "rule": [
             {
-              "min": "-1",
-              "max": "25",
+              "min": "0",
+              "max": "7",
               "equal": "无风险",
-              "style": "color:red",
+              "style": "color:blue",
               "display": "无风险"
             },
             {
-              "min": "25",
-              "max": "45",
+              "min": "7",
+              "max": "12",
               "equal": "低风险",
               "style": "color:red",
               "display": "低风险"
             },
             {
-              "min": "45",
-              "max": "200",
-              "equal": "跌倒高风险",
+              "min": "12",
+              "max": "100",
+              "equal": "高风险",
               "style": "color:red",
-              "display": "跌倒高风险"
+              "display": "高风险"
             }
           ]
         }
@@ -714,9 +747,9 @@
       "readOnly": ""
     },
     {
-      "name": "低风险干预性措施",
+      "name": "患儿跌倒标准预防性干预:",
       "type": "formGroupVerticalBox",
-      "title": "低风险干预性措施",
+      "title": "患儿跌倒标准预防性干预:",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -727,9 +760,9 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I1316006",
+          "name": "M619001",
           "type": "checkbox",
-          "title": "1.一般护理措施",
+          "title": "1.保持病区地面清洁干燥，告知卫生间防滑措施(淋浴时有人陪伴)，鼓励使用卫生间扶手",
           "code": "√",
           "style": null,
           "class": null,
@@ -737,9 +770,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316007",
+          "name": "M619002",
           "type": "checkbox",
-          "title": "2.入院时向患者介绍病区环境及安全设施的使用方法",
+          "title": "2.提供足够的照明，及时清除病房、床旁、通道及卫生间障碍",
           "code": "√",
           "style": null,
           "class": null,
@@ -747,9 +780,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316008",
+          "name": "M619003",
           "type": "checkbox",
-          "title": "3.卫生间等区域设置扶手、紧急呼叫铃等辅助设施，确保性能良好",
+          "title": "3.教会患儿/家属使用床头灯及呼叫器，放于可及处",
           "code": "√",
           "style": null,
           "class": null,
@@ -757,9 +790,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316009",
+          "name": "M619004",
           "type": "checkbox",
-          "title": "4.保持病区地面清洁干燥，浴室、卫生间、配餐室有防滑设施及警 示标识",
+          "title": "4.病床高度合适，使用床栏，将日常物品放于患儿易取处",
           "code": "√",
           "style": null,
           "class": null,
@@ -767,9 +800,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316010",
+          "name": "M619005",
           "type": "checkbox",
-          "title": "5.将水杯、鞋子等常用生活物品放于患者方便取用的位置",
+          "title": "5.专人(家长或监护人)陪住，患儿活动时有人陪伴",
           "code": "√",
           "style": null,
           "class": null,
@@ -777,9 +810,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316011",
+          "name": "M619006",
           "type": "checkbox",
-          "title": "6.嘱患者穿防滑鞋，衣裤大小合适",
+          "title": "6.穿舒适的防滑鞋及衣裤",
           "code": "√",
           "style": null,
           "class": null,
@@ -787,9 +820,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316012",
+          "name": "M619007",
           "type": "checkbox",
-          "title": "7.保持病床、轮椅和平车的安全使用；",
+          "title": "7.应用平车、轮椅时及时锁定轮子，使用护栏及安全带",
           "code": "√",
           "style": null,
           "class": null,
@@ -797,9 +830,29 @@
           "readOnly": null
         },
         {
-          "name": "I1316013",
+          "name": "M619008",
           "type": "checkbox",
-          "title": "8.根据风险评估结果采取相应的预防、护理措施。",
+          "title": "8.锁定病床、轮椅、担架床和坐便椅",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M619009",
+          "type": "checkbox",
+          "title": "9.评估患儿排便排尿需求，必要时提供帮助",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M619017",
+          "type": "checkbox",
+          "title": "10.向患儿和家属提供跌倒坠床预防宣教，评估患儿及家属对宣教的接受情况",
           "code": "√",
           "style": null,
           "class": null,
@@ -821,9 +874,9 @@
       "readOnly": ""
     },
     {
-      "name": "高风险干预性措施",
+      "name": "患儿跌倒高风险预防性干预:",
       "type": "formGroupVerticalBox",
-      "title": "高风险干预性措施",
+      "title": "患儿跌倒高风险预防性干预:",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -834,50 +887,70 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I1316014",
+          "name": "M619010",
           "type": "checkbox",
-          "title": "1.执行基础护理及低风险标准预防性干预措施",
-          "code":"√",
+          "title": "执行患儿跌倒标准预防性干预",
+          "code": "√",
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I1316015",
+          "name": "M619011",
           "type": "checkbox",
-          "title": "2.在床头、病员服明显位置放“防跌倒”标示",
-          "code":"√",
+          "title": "在床头上做明显标记",
+          "code": "√",
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I1316016",
+          "name": "M619012",
           "type": "checkbox",
-          "title": "3.将两侧床栏全部抬起，在患者下床活动需要协助时要求助",
-          "code":"√",
+          "title": "尽量将患儿安置距离护士站较近病房，加强对患儿夜间巡视",
+          "code": "√",
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I1316017",
+          "name": "M619013",
           "type": "checkbox",
-          "title": "4.如患者神志障碍，必要时限制患者活动，适当约束，家属参与照护",
-          "code":"√",
+          "title": "告知医生患儿的高危情况并进行有针对性的治疗",
+          "code": "√",
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
         },
         {
-          "name": "I1316018",
+          "name": "M619014",
           "type": "checkbox",
-          "title": "5.加强营养，协助患者排尿、排便",
-          "code":"√",
+          "title": "将两侧床栏全部抬起，在患儿下床活动时，有家长或监护人照护",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M619015",
+          "type": "checkbox",
+          "title": "必要时，限制患儿活动，适当约束，家长或监护人照护",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M619016",
+          "type": "checkbox",
+          "title": "对遵医行为依从性差者，做好护理记录，严格交接班",
+          "code": "√",
           "style": null,
           "class": null,
           "html": null,
