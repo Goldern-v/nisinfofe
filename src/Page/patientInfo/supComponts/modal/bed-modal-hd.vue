@@ -142,7 +142,7 @@
         <div class="bed-card-vert-con" >
           <div class="top">
             <span>科室：{{ query.wardName }}</span>
-            <span :style="{'margin':'4px','margin-left':['zhzxy'].includes(HOSPITAL_ID)?'20px':''}">床位：{{ query.bedLabel }}</span>
+            <span v-if="!['zhzxy'].includes(HOSPITAL_ID)" :style="{'margin':'4px','margin-left':['zhzxy'].includes(HOSPITAL_ID)?'20px':''}">床位：{{ query.bedLabel }}</span>
           </div>
           <div>
             <div v-if="['fsxt'].includes(HOSPITAL_ID)">
@@ -225,7 +225,7 @@
           </div>
           <div>
             <div>
-              <span>床位：{{ query.bedLabel }}</span>
+              <span v-if="!['zhzxy'].includes(HOSPITAL_ID)">床位：{{ query.bedLabel }}</span>
               <span>住院号：{{ query.patientId}}</span>
             </div>
             <div>

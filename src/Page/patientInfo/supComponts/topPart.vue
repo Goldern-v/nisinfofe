@@ -95,6 +95,7 @@
         <div class="nav-item">护理计划</div>
       </router-link>
       <router-link
+        v-if="!['gdtj'].includes(HOSPITAL_ID)"
         :to="{
           path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -103,6 +104,8 @@
       >
         <div class="nav-item">血糖</div>
       </router-link>
+      <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toBloodSugar')">血糖</div>
+
       <router-link
         :to="{
           path: '/healthEducation',
@@ -157,9 +160,19 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
+      <router-link
+          v-if="HOSPITAL_ID==='whsl'"
+          :to="{
+          path: '/doctorEmr',
+          query: { patientId: query.patientId, visitId: query.visitId }}" tag="span">
+        <div class="nav-item">病历</div>
+      </router-link>
         <router-link :to="{path:'/consultation', query:$route.query}" tag="span" v-if="['zhzxy'].includes(HOSPITAL_ID)">
         <div class="nav-item">会诊</div>
       </router-link>
+      <router-link v-if="HOSPITAL_ID==='whsl'" :to="{path:'/sheetNursingOrder', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
+    <div class="nav-item">护嘱单</div>
+  </router-link>
       <span class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toYst')">医膳通</span>
       <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('onEmrWeb')">病历</div>
     </div>
@@ -303,6 +316,11 @@ export default {
       console.log(this.patient);
       const {patientId} = this.patient
       let url = `http://192.168.10.63/EmrWeb/WebForm.aspx?flag=thirdPlat&codePi=${patientId}`
+      window.open(url)
+    },
+    toBloodSugar(){
+      const {patientId} = this.patient
+      let url = `http://192.168.10.29:9089/patientGlu/patient-glu-report.html?userId=${patientId}`
       window.open(url)
     },
     formatValue(value, obj) {

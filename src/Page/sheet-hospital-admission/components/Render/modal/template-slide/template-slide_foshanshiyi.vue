@@ -195,7 +195,7 @@
     }
   .search-con_select
     margin-top: 10px;
-  .lable 
+  .lable
     width: 50px;
     font-size 12px;
     line-height: 35px;
@@ -254,7 +254,7 @@
     border-radius 2px 0 0 2px;
   >>>  input
       width 100% !important
-.optionGroup 
+.optionGroup
   >>> .el-select-group__title{
     display: none
   }
@@ -328,7 +328,7 @@ export default {
     radioChange(value) {
       if (value === '科室') {
         // let initDept = this.deptList.filter(item => item.deptCode === this.user.deptCode)
-        // this.deptValue = initDept.length > 0 ?  this.user.deptCode : 
+        // this.deptValue = initDept.length > 0 ?  this.user.deptCode :
         this.deptValue = this.deptValue ? this.deptValue : this.user.deptCode
         this.getData(this.deptValue)
       } else if(value === '全部') {
@@ -404,7 +404,7 @@ export default {
     getData(wardCode = 'all') {
       getGroupName(wardCode).then(res => {
         if (res.data.code === '200') {
-          this.groupNameList = res.data.data; 
+          this.groupNameList = res.data.data;
           if (this.groupNameList.length > 0) {
             if (wardCode === 'all') {
               this.selectedType = 'all'
@@ -423,9 +423,9 @@ export default {
         this.$refs.addTemplateModal.open();
         // this.$refs.addTemplateModal.getDeptLists();
       }
-      else 
+      else
         this.$message.warning('普通没有权限新建模板！')
-      
+
     },
     addTemplateAtDoc(item) {
       this.bus.$emit("addTemplateAtDoc", item.content);

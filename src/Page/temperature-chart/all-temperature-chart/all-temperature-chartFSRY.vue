@@ -7,6 +7,7 @@
           class="date-picker"
           type="date"
           size="small"
+          style="width: 120px;"
           format="yyyy-MM-dd"
           placeholder="开始日期"
           v-model="query.entryDate"
@@ -18,6 +19,7 @@
           :for="`time${item.id}`"
           v-for="item in timesPoint"
           :key="item.id"
+          :style="{color:item.value  == query.entryTime?'red':'#000'}"
         >
           <input
             type="radio"
@@ -31,7 +33,7 @@
       </div>
       <div class="search-box">
         <el-input
-          placeholder="床号/姓名"
+        placeholder="床号/姓名/多选用空格隔开"
           icon="search"
           v-model="searchWord"
         ></el-input>
@@ -531,6 +533,9 @@
     input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+>>>.el-table .cell, .el-table th > div {
+  padding 0px 10px 0px 10px !important;
+  }
 .all-temperature-chart-input {
   width: 100%;
   padding: 2px 5px;
@@ -577,7 +582,10 @@
     .type-label {
       vertical-align: middle;
     }
-
+    .filterItem {
+      display: flex;
+      align-items: baseline;
+      }
     .type-content {
       margin-right: 15px;
 
@@ -615,9 +623,10 @@
     display: flex;
 
     label {
+      font-size:18px;
       display: flex;
       align-items: center;
-      margin-right: 10px;
+      margin-right: 5px;
       cursor: pointer;
 
       input {
@@ -716,6 +725,9 @@
       .el-table__body-wrapper {
         height: auto !important;
       }
+      .heightLine {
+        background: red;
+        }
     }
   }
 }
@@ -867,19 +879,36 @@ export default {
     },
     tableData: {
       get() {
-        return this.patientsInfoData.filter(item => {
+        let data = []
+        if (this.searchWord.includes(" ")) {
+          let searchWordArray = this.searchWord.split(' ').filter((s) => s !== '')
+          searchWordArray.forEach((x) => {
+            let reg = new RegExp(x, "i"); //忽略大小写
+            this.patientsInfoData.forEach((obj) => {
+              if (obj.patientId && (obj.bedLabel.match(reg) || obj.name.match(reg))) {
+                data.push(obj)
+              }
+            })
+          })
+        } else {
+          let searchWord = new RegExp(this.searchWord, 'i')
+          data = this.patientsInfoData.filter((item) => {
+            return (
+              (item.bedLabel.match(searchWord) ||
+                item.name.match(searchWord)) &&
+              item.patientId
+            );
+
+          });
+        }
+        console.log(data , 987)
+        return data.filter(item => {
           return this.admitted === "所有患者"
-            ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-                item.patientId
+            ? item.patientId
             : this.admitted === "一周体重"
-            ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId &&
+              ?
               item.noWeightFlag == 1
-            : (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId &&
+              :
               item.notDefecateFlag == 1;
         });
       },

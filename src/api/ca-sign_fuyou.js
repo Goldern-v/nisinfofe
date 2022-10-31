@@ -87,7 +87,7 @@ export function getCaSignJmfy(data) {
       console.log(data);
       return axios.post(`${apiPath}caSignHoujie/sign/signdata`,data)
     case "zhzxy":
-      return axios.post(`${apiPath}caSignZhzxy/pushCaSign`,data);
+      return axios.post(`${apiPath}caSignZhzxy/pushCaSignCommon`,data);
     default:
       return axios.post(`${apiPath}caSignJmfy/pushCaSign`,data);
   }

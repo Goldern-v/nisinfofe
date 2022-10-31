@@ -1,3 +1,4 @@
+<!--原本是旧版本的 很多问题  改不动 增加 佛一换成 template-slide-fsry-->
 <template>
   <div>
     <!-- <div class="no-do-bg" v-show="show" @click="close"></div> -->

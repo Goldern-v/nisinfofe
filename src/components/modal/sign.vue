@@ -287,6 +287,8 @@ export default {
       })
     }
     console.log(formData,"formData",verifySignObj)
+    console.log(type,"type,","title",title,"this.title",this.title  )
+    console.log(doctorTure,"doctorTure")
     console.log("aaaaaaaa",callback,title,showDate,isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj)
    this.btnLoading = false
     if(doctorTure){
@@ -296,6 +298,13 @@ export default {
       this.isDoctor =false;
       this.isCaSign = false;
     }
+    if(['zhzxy'].includes(this.HOSPITAL_ID)){
+      if(this.title.indexOf("删除")==-1 && title.indexOf("取消")==-1){
+        // this.isDoctor =true
+        this.isCaSign = true
+        console.log("this.isCaSign",this.isCaSign)
+      }
+    } 
     if(type){
       let signType = {sign:'1',audit:'2'};
       this.signType = signType[type];
@@ -327,6 +336,7 @@ export default {
       }
       this.title1 = "";
       title && (this.title1 = title);
+      console.log(this.title1 ,'this.title1 ')
       if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
         (this.username =
           localStorage && localStorage.user
@@ -489,6 +499,7 @@ export default {
             this.activeSheetType=""
             return this.callback(this.password, this.username, this.aduitDate);
         }
+        console.log(this.signDate,"this.signDate")
         if (this.signDate) {
           let requestPW = (this.HOSPITAL_ID=='zhzxy' && this.password!='Bcy@22qw') ? md5(this.password) : this.password
           return this.callback(requestPW, this.username, this.signDate);
@@ -533,10 +544,12 @@ export default {
         console.log("替换了 djw",this.verifySignObj)
       }
       console.log(parmas,"getCaSignJmfypost")
-
       getCaSignJmfy(parmas).then(async res=>{
-        let aduitDate = ''
+        let aduitDate = ['zhzxy'].includes(this.HOSPITAL_ID)?"":'isCaSign'
         let pwd = ''
+        if(['zhzxy'].includes(this.HOSPITAL_ID)){
+          pwd = res.data.data.password
+        }
         let username = ''
         if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){
           let fileCode = res.data.data.data.fileCode

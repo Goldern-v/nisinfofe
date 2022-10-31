@@ -119,6 +119,10 @@ export default {
             message: "删除成功!"
           });
           this.bus.$emit("refreshTemplate");
+          //更新佛一的特殊模板Title
+          setTimeout(()=>{
+                this.bus.$emit("reflashTitleItem");
+            },200)
         });
       }else{
         del(this.data.id).then(res => {

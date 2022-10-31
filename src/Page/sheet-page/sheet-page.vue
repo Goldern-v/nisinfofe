@@ -585,7 +585,7 @@ export default {
     getSheetData(isBottom) {
       //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
       this.done=false
-      this.tableLoading = true;
+      // this.tableLoading = true;
       if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
         this.isLoad=false
       }
@@ -671,7 +671,7 @@ export default {
         }
         sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
         this.$nextTick(async () => {
-      await initSheetPage(titleData, bodyData, markData, this.listData);
+        await initSheetPage(titleData, bodyData, markData, this.listData);
       //加载表单
         this.sheetModelData= getData()
           this.done=true
@@ -703,7 +703,11 @@ export default {
             }
           });
         });
-      });
+      }).catch((err) => {
+              if (err.data.code == '300') {
+                this.pageLoading = false;
+              }
+            });;
     },
     breforeQuit(next) {
       if (
@@ -873,6 +877,7 @@ export default {
             .catch((err) => {
               if (err.data.code == '300') {
                 this.getSheetData()
+                this.pageLoading = false;
               }
               this.pageLoading = false;
             });
