@@ -353,29 +353,10 @@ export default {
   },
   watch: {
     "$route.params"() {
-      // this.params = this.$route.params
-      // this.$route.query
-      console.log(
-        "params:",
-        this.$route.params,
-        "query:",
-        this.$route.query,
-        "regions",
-        this.regions
-      );
       if (!this.$route.query.patientId) {
         this.regions = [];
         this.bus.$emit("closeAssessment");
       }
-
-      console.log(
-        "params:",
-        this.$route.params,
-        "query:",
-        this.$route.query,
-        "--regions",
-        this.regions
-      );
     },
   },
   methods: {
@@ -467,16 +448,9 @@ export default {
             });
             return false;
           });
-        console.log(comfirm, "ddd");
         if (!comfirm) return;
       }
-      console.log(
-        "nodeClick",
-        { data, node },
-        node.parent,
-        node.data.formName,
-        data.pageTitle
-      );
+
       // 临邑评估单保存前的滚动定位
       if (node.level === 1 && this.HOSPITAL_ID === 'lyxrm') {
         sessionStorage.removeItem('evalScrollTop')
@@ -495,18 +469,13 @@ export default {
         // }
         window.app.$CRMessageBox.notifyBox.close();
       } catch (error) {
-        console.error("nodeClickError", error);
       }
-      //
-      // console.log("555555555555")
-      // rgb(228, 241, 240)
       if (node.level === 2) {
         // 当点击2级栏目就是这里做操作，不知道是否能进入。所以先清空
         if(this.lockHospitalList.includes(this.HOSPITAL_ID)){
          localStorage.setItem("lockForm",'')
         }
         if (node.parent.label != "记录单") {
-          console.log("---$emit('openAssessment')");
           this.bus.$emit(
             "openAssessmentBox",
             Object.assign({}, getFormConfig(node.data.formName), {
@@ -537,12 +506,6 @@ export default {
       }
     },
     renderContent(h, { node, data, store }) {
-      // console.log(1111111,h, { node, data, store });
-      // let fileicon = fileicon
-      // let filebox = filebox
-      // // 如果存在保存
-      // console.log("111",node.childNodes)
-      // console.log(h,  node, data, store );
       //未签名
       let hasSave =
         node.childNodes.filter((item) => {
@@ -563,7 +526,6 @@ export default {
       let formNoSign = node.data.formTreeRemindType == "0"; // 无签名
       let formSign = node.data.formTreeRemindType == "1"; // 责任（多人签名）
       let formAudit = node.data.formTreeRemindType == "2"; // 责任 + 审核
-      // console.log('(this.HOSPITAL_ID', this.HOSPITAL_ID);
       // 花都特殊处理
       if (
         this.HOSPITAL_ID == "huadu" ||
@@ -658,7 +620,14 @@ export default {
           box = fileboxRed;
         } else if (hasSign) {
           box = fileboxGreen;
-        } else {
+          if(this.HOSPITAL_ID === "hj"&&['E1671','E1670','E0136'].includes(data.formCode)){
+            /*儿童的跌倒单特殊处理，护士签名后不显示绿点*/
+            /*成人的跌倒单特殊处理，护士签名后不显示绿点*/
+            /*躁动-镇静评分（RASS）单特殊处理，护士签名后不显示绿点*/
+            box = filebox;
+          }
+        }
+        else {
           box = filebox;
         }
         // 内容
@@ -666,6 +635,12 @@ export default {
           icon = fileiconRed;
         } else if (fileHasSign) {
           icon = fileiconGreen;
+          if(( data.formName=='东莞厚街 Morse跌倒评估及护理记录'||data.formName=='躁动-镇静评分（RASS）'||data.formName=='东莞厚街儿童跌倒、坠床护理单')&&this.HOSPITAL_ID === "hj"){
+            /*儿童的跌倒单特殊处理，护士签名后不显示绿点*/
+            /*成人的跌倒单特殊处理，护士签名后不显示绿点*/
+            /*躁动-镇静评分（RASS）单特殊处理，护士签名后不显示绿点*/
+            icon = fileicon;
+          }
         } else {
           icon = fileicon;
         }
@@ -709,7 +684,6 @@ export default {
             }
           }
         }
-        // console.log('style', style);
       }
       let viewDom = h();
       if (this.HOSPITAL_ID === "liaocheng" || this.HOSPITAL_ID === "quzhou") {
@@ -788,8 +762,6 @@ export default {
       e.stopPropagation()
       this.batchAuditForms = {...node.data,query}
       this.batchAuditDialog = true
-      console.log('批量审核', node,query);
-
     },
     handleCloseBatchAudit(refresh) {
       this.batchAuditDialog = false
@@ -816,9 +788,7 @@ export default {
         })
       );
     },
-    handlePrintClick(e, node, data) {
-      console.log(e, node, data);
-    },
+
     getBlockByPV() {
       if (this.HOSPITAL_ID == "hj" || this.HOSPITAL_ID == "houjie") {
         getBlockByPV(
@@ -847,11 +817,8 @@ export default {
         this.getBlockByPV(),
       ])
         .then((res) => {
-          console.log("Promise.all", res);
           let index = 0;
-          //
           window.app.$store.commit("cleanFormLastId");
-          //
           let list_1 = res[0].data.data.map((item) => {
             index += 1;
             return {
@@ -887,10 +854,7 @@ export default {
                   // formName: "疼痛护理单"
                   // 查找第一张填写的疼痛评估单
                   if (item.formName && item.formName === "疼痛护理单") {
-                    // console.log("===疼痛护理单",i,option,item.formInstanceDtoList.length)
                     if (item.formInstanceDtoList.length - 1 == i) {
-                      // console.log("--疼痛护理单",i,option,item.formInstanceDtoList.length)
-                      // /crNursing/api/eval/detail/{id}
                       localStorage[
                         "firtPainFormID" + this.$route.query.patientId
                       ] = option.id;
@@ -926,7 +890,6 @@ export default {
           let list_2 = (info) => {
             index += 1;
             info = info.filter((opt) => opt.status != "-1");
-            // console.log("健康教育单info", info);
             return {
               label: "健康教育单",
               index: index,
@@ -937,7 +900,6 @@ export default {
               nooForm: 1,
               pageUrl: "健康教育单.html",
               children: info.map((option) => {
-                // console.log(option, "健康教育单option");
                 return {
                   status: option.status,
                   label:
@@ -956,7 +918,6 @@ export default {
             };
           };
 
-          // console.log(res[1].data.data.length,"res[1].data.data")
           // if (res[1].data.data.length > 0) {
           //   list_1.push(list_2(res[1].data.data));
           // }
@@ -986,7 +947,6 @@ export default {
               //每个科室对应的表单数组
               let dptObj = {}
               item.children.map((childrenItem,childrenIdx)=>{
-                console.log(childrenItem);
                 !dptObj[childrenItem.deptName] ? dptObj[childrenItem.deptName] = [childrenItem] : dptObj[childrenItem.deptName] = [...dptObj[childrenItem.deptName],childrenItem]
               })
               for (let i in dptObj){
@@ -1008,7 +968,6 @@ export default {
           } else {
             this.regions = list_1;
           }
-          // console.log(this.regions);
 
           // if (
           //   this.HOSPITAL_ID == "hj" &&
@@ -1023,7 +982,6 @@ export default {
           if (this.HOSPITAL_ID == "hj") {
             this.isTransferToWard();
           }
-          // console.log(list_1, "list_1list_1list_1");
         })
         .then((res) => {
           this.treeLoading = false;
@@ -1038,7 +996,6 @@ export default {
       this.expandListCopy.remove(curNode.index);
     },
     newRecordOpen() {
-      // console.log(this.regions);
       this.$refs.newForm.open(this.filterObj);
     },
     refreshTree(isAllRefresh = false) {
@@ -1066,16 +1023,12 @@ export default {
     },
     updateTreeData(formcode) {
       this.$route.query["treeData"] = this.regions;
-      // console.table(this.regions)
     },
     toLoadPatientDetial(callback = null, query = this.$route.query) {
-      // console.log("toLoadPatientDetial", query, this.$route.query);
-      // let query = this.$route.query;
       commonData
         .loadPatient(query.patientId, query.visitId)
         .then((res) => {
           try {
-            // console.log("-入院病人资料:", res, res.data.data);
             if (res && res.data && res.data.data["admissionDateTime"]) {
               res.data.data["admissionDateTime"] = moment(
                 res.data.data["admissionDate"]
@@ -1087,9 +1040,7 @@ export default {
               this.$route.query["patientInfo"]
             );
           } catch (error) {
-            console.log("入院病人资料error:", res, error);
           }
-
           if (callback && res) {
             callback(res);
           }
@@ -1097,7 +1048,6 @@ export default {
           return res;
         })
         .catch((err) => {
-          console.log("入院病人资料err:", err);
           if (callback && err) {
             callback(err);
           }
@@ -1125,8 +1075,6 @@ export default {
     },
   },
   created() {
-    console.log(this.$route.name);
-    console.log(1110,this.index)
     if(!this.$route.name){
       this.isPersonage = true;
     }
@@ -1144,8 +1092,6 @@ export default {
       if (callback) {
         callback(this.regions);
       }
-      // console.log("tree:", this.regions);
-      // return this.regions;
     });
   },
   components: {

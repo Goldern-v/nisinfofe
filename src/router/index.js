@@ -355,8 +355,7 @@ import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
 // 导管监测单
 import catheterPage from "@/Page/catheter-page/catheter-page.vue";
-import ocxObject from "@/Page/patientInfo/supComponts/modal/ocxObject";
-
+const ocxObject =()=>import("@/Page/patientInfo/supComponts/modal/ocxObject")
 //患者360视图，目前只有花都在用
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
 
@@ -385,7 +384,6 @@ const statisticalBreath = () => import("@/Page/statistical-query/statistical-bre
 const statisticalExitAdmission = () => import("@/Page/statistical-query/statistical-exitAdmission/index.vue")
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
 const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
-
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 // 执行单路由
@@ -588,6 +586,10 @@ const router = new Router({
     path: "/nursingTemperature",
     component: nursingTemperaturejmfy
   },
+    {
+      path: "/ocxObject",
+      component: ocxObject
+    },
   {
     path:"/admissionHisView/:patientId?/:visitId?/:formId?",
       name: "admissionHisView",
@@ -1018,10 +1020,6 @@ const router = new Router({
           path: "/otherPage",
           component: otherPage
         },
-          {
-            path: "/ocxObject",
-            component: ocxObject
-          },
         // {
         //   path: "/home1",
         //   component: home1

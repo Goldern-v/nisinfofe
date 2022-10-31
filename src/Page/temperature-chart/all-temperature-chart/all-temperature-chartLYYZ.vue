@@ -323,17 +323,22 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="fieldThree"
-            label="尿量"
+            prop="painScore"
+            label="疼痛"
             min-width="70"
             align="center"
           >
             <template slot-scope="scope">
               <input
-                v-model="scope.row.fieldThree"
+                v-model="scope.row.painScore"
                 :class="className"
-                class="fieldThree"
-                type="text"
+                class="painScore"
+                type="number"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -499,13 +504,13 @@
           </el-table-column>
 
           <el-table-column
-            prop="fieldThree"
-            label="尿量"
+            prop="painScore"
+            label="疼痛"
             min-width="60"
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.fieldThree"></el-input>
+              <el-input v-model="scope.row.painScore"></el-input>
             </template>
           </el-table-column>
         </el-table>
@@ -740,7 +745,7 @@ export default {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
-            case "lyxrm":
+            case "lyyz":
               if (this.getHours() >= 0 && this.getHours() <= 4) {
                 return "03";
               }
@@ -913,6 +918,7 @@ export default {
         recordSource: 2,
         heartRate: "",
         stoolNum: "",
+        painScore: "",
         fieldThree: "",
         height: "",
       };

@@ -232,14 +232,14 @@
             for(var i=0;i<activeCheckList.length;i++){
               // 当前按钮的数组的项
               const nowItem=activeCheckList[i]
-                str += `${this.rightData[this.radio][nowItem].reqDate}  `
+                str += `${this.rightData[this.radio][nowItem].resultDate}  `
                 str += `${this.listByFilter[this.radio].subject}：`
                 str += `${this.rightData[this.radio][nowItem].itemName} ：`
                 str += `${this.rightData[this.radio][nowItem].result}`
                 if(!isNaN(`${this.rightData[this.radio][nowItem].result}`)){
                 str += `${this.rightData[this.radio][nowItem].units}  `
                 }
-                str += `${this.rightData[this.radio][nowItem].expand3}。`
+                str += `${this.rightData[this.radio][nowItem].expand3}。<br/>`
             }
           }
         }else{
@@ -263,7 +263,6 @@
             }
           }
         }
-        this.isSaving=false
         this.$emit('closeSweet')
         this.bus.$emit("openclosePatientInfo",'',true)
         this.bus.$emit('syncReportFSSY',str)
@@ -273,7 +272,9 @@
         if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
           this.rightData = data
         }else{
+          //初始化的时候合并的，点击之后拿点击的表头
           data = this.rightData[index]
+          this.tableHeaderInfo = data[0]
         }
         this.$nextTick(() => {
           this.$refs.testForm && this.$refs.testForm.open(data,index,clLength)

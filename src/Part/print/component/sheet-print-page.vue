@@ -325,24 +325,10 @@ export default {
     $("#app").css({
       minWidth: sheetTableWidth + "px"
     });
-    if(['zhzxy'].includes(process.env.HOSPITAL_ID)){
-      printDir("h");
-            addCSS(
-              window,
-              `
-          @media print {
-            .iframe > div:nth-of-type(n) {
-              transform: rotateZ(0deg) scaleY(1.25) translateY(-30px) !important;
-              transform-origin: top !important;
-            }
-            .iframe > div:nth-of-type(n) table td,th{
-              border:1px solid rgba(27%, 27%, 27%,0.5) !important;
-            }
-          }
-          `
-            );
-    }
-    if (sheetTableWidth > 1000 && this.sheetInfo.sheetType != 'ops_linyi' && this.sheetInfo.sheetType != 'nicu_custody_hd') {
+    console.log("this.sheetInfo.sheetType ",this.sheetInfo.sheetType )
+    
+    if (sheetTableWidth > 1000 && !['ops_linyi','nicu_custody_hd'].includes(this.sheetInfo.sheetType) ) {
+      console.log("jinlaidayin")
       printDir("h");
       addCSS(
         window,
@@ -393,6 +379,24 @@ export default {
        }
         `
       );
+    }
+    if(['zhzxy'].includes(process.env.HOSPITAL_ID)){
+      console.log("nursing_zhzxy  该样式啦")
+            addCSS(
+              window,
+              `
+          @media print {
+            .iframe > div:nth-of-type(n) {
+              height: ${sheetTableWidth * 0.73}px !important;
+              transform: rotateZ(0deg) scaleY(1.25) translateY(-30px) !important;
+              transform-origin: top !important;
+            }
+            .iframe > div:nth-of-type(n) table td,th{
+              border:1px solid rgba(27%, 27%, 27%,0.5) !important;
+            }
+          }
+          `
+            );
     }
     if((this.HOSPITAL_ID === "huadu")){
       addCSS(

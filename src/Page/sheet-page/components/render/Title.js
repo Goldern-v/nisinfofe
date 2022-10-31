@@ -1617,6 +1617,13 @@ export default function Title(
     );
   }
   break;
+  case "NICU_fs": {
+    // 佛山市一 - 新生儿NICU护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/NICU_fs/th").default)
+    );
+  }
+  break;
   case "nonsurgicalcare_fk": {
     // 武汉肺科 - 非手术科室护理记录单
     Th = JSON.parse(
@@ -2083,6 +2090,27 @@ export default function Title(
     // 临沂沂州 - 监护记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/custody_yz/th").default)
+    );
+  }
+  break;
+  case "internal_eval_yz": {
+    // 临沂沂州 - 一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_eval_yz/th.js").default)
+    );
+  }
+  break;
+  case "critical_new_yz": {
+    // 临沂沂州 - 病重（病危）患者护理记录单（带瞳孔）(新)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_new_yz/th").default)
+    );
+  }
+  break;
+  case "icu_yz": {
+    // 内科重症医学科
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_yz/th").default)
     );
   }
   break;

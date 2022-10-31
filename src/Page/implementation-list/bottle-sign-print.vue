@@ -144,7 +144,7 @@
               :value="optionItem.value"
             ></el-option>
           </el-select>
-          <template v-if="['whfk'].includes(HOSPITAL_ID)">
+          <template v-if="['whfk','whsl'].includes(HOSPITAL_ID)">
             <el-button size="small" type="primary" @click="search"
               >查询</el-button
             >
@@ -236,7 +236,7 @@
           :class="[
             {
               'break-page':
-                ['lyxrm', 'whhk', 'zhzxy', '925'].includes(HOSPITAL_ID) &&
+                ['lyxrm', 'whhk', 'zhzxy', '925','whsl'].includes(HOSPITAL_ID) &&
                 bottleCardIndex % 3 == 2 &&
                 newModalSize == '3*7',
             },
@@ -377,7 +377,7 @@ import {
   getPatientOrder,
   getSDLJPatientOrder,
   syncNurseOrdersByWardCode,
-  getBedLabelByWardCode,
+  getBedLabelByWardCode, webGetOrdersExecutePrintOld,
 } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
@@ -484,6 +484,7 @@ export default {
         "ytll",
         'zhzxy',
         '925',
+         'whsl'
       ],
       typeOptions: hisMatch({
         map: {
@@ -606,7 +607,7 @@ export default {
       let getOrder;
       if (["sdlj"].includes(this.HOSPITAL_ID)) {
         getOrder = getSDLJPatientOrder;
-      } else if (["lyxrm", "whfk", "ytll", "whhk", 'zhzxy', '925'].includes(this.HOSPITAL_ID)) {
+      } else if (["lyxrm", "whfk", "ytll", "whhk", 'zhzxy', '925','whsl'].includes(this.HOSPITAL_ID)) {
         getOrder = syncNurseOrdersByWardCode;
       } else getOrder = getPatientOrder;
       this.query.wardCode = this.deptCode;
@@ -726,7 +727,8 @@ export default {
       } else {
         this.query.itemType = this.query.itemType;
       }
-      getPrintExecuteWithWardcode(this.query).then((res) => {
+      let api =this.HOSPITAL_ID ==='whsl'?webGetOrdersExecutePrintOld:getPrintExecuteWithWardcode
+      api(this.query).then((res) => {
         let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
@@ -825,7 +827,7 @@ export default {
       let printObj = {};
       let res = "";
       if (
-        ["sdlj", "gdtj", "fsxt", "lyxrm", "whfk", "ytll", "whhk", 'zhzxy', '925'].includes(
+        ["sdlj", "gdtj", "fsxt", "lyxrm", "whfk", "ytll", "whhk", 'zhzxy', '925','whsl'].includes(
           this.HOSPITAL_ID
         )
       ) {
@@ -1025,6 +1027,7 @@ export default {
         case '925':
           return "NewPrintModalLyxrm";
         case "whfk":
+        case 'whsl':
           return "NewPrintModalWhfk";
         case "wujing":
           return "NewPrintModalWujing";
@@ -1043,6 +1046,8 @@ export default {
           return ["70*80", "3*7"];
         case 'zhzxy':
           return ["7*7", "3*7"];
+        case 'whsl':
+          return ["7*8", "3*5"];
         case "wujing":
           return ["5*8", "3*5"];
         case "ytll":

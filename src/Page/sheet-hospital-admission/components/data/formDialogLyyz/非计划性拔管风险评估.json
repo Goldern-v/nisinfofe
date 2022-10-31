@@ -1,0 +1,867 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "_development",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "临沂沂州医院",
+      "formName": "非计划性拔管风险评估"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E1808",
+      "formApiCode": "E1808",
+      "formName": "非计划性拔管风险评估",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "evalDate",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalDate",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "已保存"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "年龄",
+      "type": "formGroupVerticalBox",
+      "title": "年龄",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "年龄",
+      "suffixDesc": "",
+      "keys": "I620001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620001",
+          "type": "checkbox",
+          "title": "①≥70岁②<5岁（1分）",
+          "code": "1",
+          "score": "1",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "非高危导管(Ⅱ类导管)",
+      "type": "formGroupVerticalBox",
+      "title": "非高危导管(Ⅱ类导管)",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "非高危导管(Ⅱ类导管)",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620002",
+          "type": "checkbox",
+          "title": "导尿管(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620003",
+          "type": "checkbox",
+          "title": "鼻肠管(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620004",
+          "type": "checkbox",
+          "title": "盆/腹引流管(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620005",
+          "type": "checkbox",
+          "title": "胃肠减压管(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620006",
+          "type": "checkbox",
+          "title": "深静脉置管(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620007",
+          "type": "checkbox",
+          "title": "PICC(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620008",
+          "type": "checkbox",
+          "title": "造瘘管(2分)",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "suffixDesc": "",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620011",
+          "type": "checkbox",
+          "title": "专科非高危导管(2分)",
+          "code": "2",
+          "score": "2",
+          "class": null,
+          "style": "margin-top:6px",
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620009",
+          "type": "input",
+          "style": "width:100px",
+          "inputWidth": "100px",
+          "class": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "高危导管(Ⅰ类导管)",
+      "type": "formGroupVerticalBox",
+      "title": "高危导管(Ⅰ类导管)",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "高危导管(Ⅰ类导管)",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620013",
+          "type": "checkbox",
+          "title": "气管插管/切开(5分)",
+          "code": "5",
+          "score": "5",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620014",
+          "type": "checkbox",
+          "title": "脑室引流管(5分)",
+          "code": "5",
+          "score": "5",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620015",
+          "type": "checkbox",
+          "title": "心包引流管(5分)",
+          "code": "5",
+          "score": "5",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620016",
+          "type": "checkbox",
+          "title": "胸腔引流管(5分)",
+          "code": "5",
+          "score": "5",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620017",
+          "type": "checkbox",
+          "title": "T管引流管(5分)",
+          "code": "5",
+          "score": "5",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620018",
+          "type": "checkbox",
+          "title": "动静脉插管(5分)",
+          "code": "5",
+          "score": "5",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "suffixDesc": "",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620021",
+          "type": "checkbox",
+          "title": "专科高危导管(5分)",
+          "code": "5",
+          "score": "5",
+          "class": null,
+          "style": "margin-top:6px",
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620019",
+          "type": "input",
+          "style": "width:100px",
+          "inputWidth": "100px",
+          "class": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "意识状态",
+      "type": "formGroupVerticalBox",
+      "title": "意识状态",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "意识状态",
+      "suffixDesc": "",
+      "keys": "I620023",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620023",
+          "type": "checkbox",
+          "title": "烦躁/嗜睡/谵妄/意识模糊/精神障碍（5分）",
+          "code": "5",
+          "score": "5",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "管路刀口",
+      "type": "formGroupVerticalBox",
+      "title": "管路刀口",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "管路刀口",
+      "suffixDesc": "",
+      "keys": "I620023",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620024",
+          "type": "checkbox",
+          "title": "粘贴固定局部多汗、渗血或分泌物多（2分）",
+          "code": "2",
+          "score": "2",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "evalScore",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalScore",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "code": "evalScore",
+          "placeholder": "评估得分",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "code": "",
+          "placeholder": "结果程度",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "min": "1",
+              "max": "4",
+              "equal": "低风险",
+              "style": "color:red",
+              "display": "低风险"
+            },
+            {
+              "min": "4",
+              "max": "7",
+              "equal": "中风险",
+              "style": "color:red",
+              "display": "中风险"
+            },
+            {
+              "min": "7",
+              "max": "100",
+              "equal": "高风险",
+              "style": "color:blue",
+              "display": "高风险"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二.非计划拔罐预防性干预措施",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "低风险",
+      "type": "formGroupVerticalBox",
+      "title": "低风险",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M620001",
+          "type": "checkbox",
+          "title": "基础护理",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "非计划拔管标准预防性干预（中风险）",
+      "type": "formGroupVerticalBox",
+      "title": "非计划拔管标准预防性干预（中风险）",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M620002",
+          "type": "checkbox",
+          "title": "执行基础护理",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620003",
+          "type": "checkbox",
+          "title": "关注患者对留置导管的耐受性及依从性",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620004",
+          "type": "checkbox",
+          "title": "妥善固定导管，并正确做好管道标识及时更换固定材料及标识",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620005",
+          "type": "checkbox",
+          "title": "每班观察导管位置、深度及固定情况保持导管通畅，避免扭曲、打折或堵塞",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620006",
+          "type": "checkbox",
+          "title": "定时观察并记录留置导管引流液的量、色、性质",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620007",
+          "type": "checkbox",
+          "title": "密切观察导管周围皮肤、敷料有无渗血、渗液的情况",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620008",
+          "type": "checkbox",
+          "title": "保持引流装置的压力正常，如常压或负压等",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620009",
+          "type": "checkbox",
+          "title": "选择合适镇静/镇痛方案必要时给予有效约束，并做好记录",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620010",
+          "type": "checkbox",
+          "title": "告知患者/家属非计划拔管的预防措施并评估患者/家属的知晓情况",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "非计划拔管高风险预防性干预（高风险）",
+      "type": "formGroupVerticalBox",
+      "title": "非计划拔管高风险预防性干预（高风险）",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M620011",
+          "type": "checkbox",
+          "title": "执行非计划拔管标准预防性干预",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620012",
+          "type": "checkbox",
+          "title": "床边或其他醒目位置，放置“防拔管”警示标识",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620013",
+          "type": "checkbox",
+          "title": "床头进行交接班",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "M620014",
+          "type": "checkbox",
+          "title": "每小时巡视1次",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

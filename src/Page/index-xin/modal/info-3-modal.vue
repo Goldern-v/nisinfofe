@@ -89,9 +89,15 @@ import qs from 'qs'
             obj[i] = item[i]
           }
         }
+        const patientInfo = {
+        patientId: obj.patientId,
+        visitId: obj.visitId,
+        inpNo:obj.inpNo
+      };
         this.$router.push(`/sheetPage/${obj.patientId}/${obj.visitId}/${obj.inpNo}`)
-        setTimeout(() => { this.$store.commit('upPatientInfo', obj)}, 500)
-        setTimeout(() => { this.$store.commit('upCurrentPatientObj', obj)}, 500)
+        // window.open(`/crNursing/sheet?${qs.stringify(patientInfo)}`);
+        setTimeout(() => { this.$store.commit('upPatientInfo', obj)}, 1000)
+        setTimeout(() => { this.$store.commit('upCurrentPatientObj', obj)}, 1000)
         this.close()
       }
     },

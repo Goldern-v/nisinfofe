@@ -411,12 +411,12 @@
         @click="scrollOption" v-html="selectText"></div>
       </div>
       <!-- <span class="label">页码范围:</span> -->
-      <!-- 江门妇幼第三方地址提供需要页码选择显示 -->
+      <!-- 江门妇幼,佛山市一第三方地址提供需要页码选择显示 -->
       <div
         class="item-box"
-        :style="{width:'85px',display: ['fuyou'].includes(HOSPITAL_ID) ? 'flex !important' : ''}"
+        :style="{width:'85px',display: ['fuyou','foshanrenyi'].includes(HOSPITAL_ID) ? 'flex !important' : ''}"
         flex="cross:center main:center"
-        v-if="!isDeputy || ['guizhou', 'huadu', '925','fuyou'].includes(HOSPITAL_ID)"
+        v-if="!isDeputy || ['guizhou', 'huadu', '925','fuyou','foshanrenyi'].includes(HOSPITAL_ID)"
       >
         <el-autocomplete
           class="pegeSelect"
@@ -1664,8 +1664,10 @@ export default {
         if (this.patientInfo.patientId) {
           // console.log(111);
           this.$parent.breforeQuit(() => {
-            this.getBlockList();
             this.bus.$emit("setSheetTableLoading", true);
+            this.getBlockList();
+            if(this.sheetBlockList.length==0)
+            this.bus.$emit("setSheetTableLoading", false);
             // 初始化页面区间列表
             this.selectList = [];
           });
@@ -1887,6 +1889,9 @@ export default {
   background: none !important;
   pointer-events: auto !important;
 }
+.tool-contain {
+  z-index: 4 !important;
+  }
 
 .babyChat {
   position: absolute;
