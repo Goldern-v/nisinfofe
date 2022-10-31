@@ -82,7 +82,7 @@
       >
         同步床位数据
       </button>
-      <span v-if="showSyncBedBtn && node_env=='development'">(测试环境别点，<br/>会清空患者！！！)</span>
+      <span v-if="showSyncBedBtn && node_env=='development'&&showMessage">(测试环境别点，<br/>会清空患者！！！)</span>
       <button
         class="login-btn"
         @click="syncGetNursePatientRecData"
@@ -667,6 +667,10 @@ export default {
         this.HOSPITAL_ID
       );
     },
+    showMessage(){
+      //正式环境去除患者提示
+      return window.location.host.includes('1.54')||window.location.host.includes('localhost')
+    },
     // 新医院注意
     // 同步患者数据
     showSyncPatientBtn() {
@@ -792,7 +796,7 @@ export default {
     syncGetNursePatientRecData(){
       if(!this.ifCanAsyncPatient)  return
       this.ifCanAsyncPatient=false
-      this.$message.info("正在更新");
+      this.$message.info("更新数据中请稍后重新进入....");
        let syncPatientData = syncGetNursePatientWHFKRecData;
       switch (this.HOSPITAL_ID) {
         case "whfk":

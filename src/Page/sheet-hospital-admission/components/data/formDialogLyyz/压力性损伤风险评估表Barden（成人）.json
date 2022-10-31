@@ -1,0 +1,722 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "_development",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "临沂沂州医院",
+      "formName": "压力性损伤风险评估表Barden（成人）"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E1800",
+      "formApiCode": "E1800",
+      "formName": "压力性损伤风险评估表Barden（成人）",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "已保存"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "1. 感觉",
+      "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
+      "title": "1. 感觉",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "1. 感觉",
+      "suffixDesc": "",
+      "keys": "I005001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005001",
+          "type": "radio",
+          "title": "完全受限（1分）",
+          "code": "1",
+          "score": "1",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "对疼痛刺激没有反应(没有呻吟、退缩或紧握)或者绝大部分机体对疼痛的感觉受限。"
+        },
+        {
+          "name": "I005001",
+          "type": "radio",
+          "title": "大部分受限（2分）",
+          "code": "2",
+          "score": "2",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "只对疼痛刺激有反应，能通过呻吟、烦躁的方式表达机体不适。或者机体一半以上的部位对疼痛或不适感感觉障碍。"
+        },
+        {
+          "name": "I005001",
+          "type": "radio",
+          "title": "轻度受限（3分）",
+          "code": "3",
+          "score": "3",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "对其讲话有反应，但不是所有时间都能用语言表达不适感，或者机体的一到两个肢体对疼痛或不适感感觉障碍。"
+        },
+        {
+          "name": "I005001",
+          "type": "radio",
+          "title": "没有改变（4分）",
+          "code": "4",
+          "score": "4",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "对其讲话有反应，机体没有对疼痛或不适的感觉缺失。"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "2. 潮湿",
+      "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
+      "title": "2. 潮湿",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "2. 潮湿",
+      "suffixDesc": "",
+      "keys": "I005002",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "持久潮湿（1分）",
+          "code": "1",
+          "score": "1",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "由于出汗、小便等原因皮肤一直处于潮湿状态，每当移动患者或给患者翻身时就可发现患者皮肤是湿的。"
+        },
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "经常潮湿（2分）",
+          "code": "2",
+          "score": "2",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "皮肤经常但不总是处于潮湿状态，床单每天至少换一次。"
+        },
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "偶尔潮湿（3分）",
+          "code": "3",
+          "score": "3",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "每天大概需要额外换一次床单。"
+        },
+        {
+          "name": "I005002",
+          "type": "radio",
+          "title": "很少潮湿（4分）",
+          "code": "4",
+          "score": "4",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "皮肤通常是干的，只需按常规换床单即可。"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "3. 活动能力",
+      "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
+      "title": "3. 活动能力",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "3. 活动能力",
+      "suffixDesc": "",
+      "keys": "I005003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "卧床不起（1分）",
+          "code": "1",
+          "score": "1",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "限制在床上"
+        },
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "局限于椅（2分）",
+          "code": "2",
+          "score": "2",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "行动能力严重受限或没有行走能力"
+        },
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "偶尔步行（3分）",
+          "code": "3",
+          "score": "3",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "白天在帮助或无需帮助的情况下偶尔可以走一段路。每天大部分时间在床上或椅子上度过。"
+        },
+        {
+          "name": "I005003",
+          "type": "radio",
+          "title": "经常步行（4分）",
+          "code": "4",
+          "score": "4",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "每天至少2次室外行走，白天醒着的时候至少每2h行走一次"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "4. 移动能力",
+      "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
+      "title": "4. 移动能力",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "4. 移动",
+      "suffixDesc": "",
+      "keys": "I005004",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "完全受限（1分）",
+          "code": "1",
+          "score": "1",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "没有帮助的情况下不能完成轻微的躯体或四肢的位置变动"
+        },
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "严重受限（2分）",
+          "code": "2",
+          "score": "2",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "偶尔能轻微的移动躯体或四肢，但不能独立完成经常的或显著的躯体位置变动"
+        },
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "轻度受限（3分）",
+          "code": "3",
+          "score": "3",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "能经常独立地改变躯体或四肢的位置，但变动幅度不大"
+        },
+        {
+          "name": "I005004",
+          "type": "radio",
+          "title": "不受限（4分）",
+          "code": "4",
+          "score": "4",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "独立完成经常性的大幅度体位改变"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "5. 营养",
+      "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
+      "title": "5. 营养",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "5. 营养",
+      "suffixDesc": "",
+      "keys": "I005005",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "重度营养摄入不足（1分）",
+          "code": "1",
+          "score": "1",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "从来不能吃完一餐饭，很少能摄入所给食物量的1/3，每天能摄入2份或以下的蛋白量(肉或者乳制品)，很少摄入液体，没有摄入流质饮食。或者禁食和/或清流摄入或静脉输入大于5d。"
+        },
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "营养摄入不足（2分）",
+          "code": "2",
+          "score": "2",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "很少吃完一餐饭，通常只能摄入所给食物量的1/2，每天蛋白摄入量是3份肉或乳制品。偶尔能摄入规定食物量。或者可摄入低于理想量的流质或者管饲。"
+        },
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "营养摄入适当（3分）",
+          "code": "3",
+          "score": "3",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "可摄入供给量的一半以上。每天4份蛋白量(肉或者乳制品)，偶尔拒绝肉类，如果供给食物通常会吃掉。或者管饲或TPN能达到绝大部分的营养所需。"
+        },
+        {
+          "name": "I005005",
+          "type": "radio",
+          "title": "营养摄入良好（4分）",
+          "code": "4",
+          "score": "4",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "每餐能摄入绝大部分食物，从来不拒绝食物，通常吃4份或更多的肉和乳制品，两餐间偶尔进食。不需其他补充食物。"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "6. 摩擦力和剪切力",
+      "type": "formGroupHorizontalBox",
+      "titleStyle": "text-align:left",
+      "title": "6. 摩擦力和剪切力",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "6. 摩擦力和剪切力",
+      "suffixDesc": "",
+      "keys": "I005006",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005006",
+          "type": "radio",
+          "title": "有此问题（1分）",
+          "code": "1",
+          "score": "1",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "tips": "移动时需要中到大量的帮助，不可能做到完全抬空而不碰到床单，在床上或椅子上时经常滑落，需要大力帮助下重新摆体位。痉挛、挛缩或躁动不安通常导致摩擦"
+        },
+        {
+          "name": "I005006",
+          "type": "radio",
+          "title": "有潜在问题（2分）",
+          "code": "2",
+          "score": "2",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "躯体移动乏力，或者需要一些帮助，在移动过程中皮肤在一定程度上会碰到床单、椅子、约束带或其他设施。在床上或椅子上可保持相对好的位置，偶尔会滑落下来"
+        },
+        {
+          "name": "I005006",
+          "type": "radio",
+          "title": "无明显问题（3分）",
+          "code": "3",
+          "score": "3",
+          "style": "min-width: 85px!important;",
+          "class": null,
+          "readOnly": null,
+          "tips": "能独立在床上或椅子上移动，并且有足够的肌肉力量在移动时完全抬空躯体。在床上和椅子上总是保持良好的位置"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "evalScore",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalScore",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "code": "evalScore",
+          "value": 0,
+          "placeholder": "评估得分",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "titleStyle": "width:90px!important;margin:0;",
+          "value": "",
+          "placeholder": "结果程度",
+          "hiddenTips": true,
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "min": "-1",
+              "max": "10",
+              "equal": "极高危",
+              "style": "color:red",
+              "display": "极高危"
+            },
+            {
+              "min": "10",
+              "max": "13",
+              "equal": "高危",
+              "style": "color:red",
+              "display": "高危"
+            },
+            {
+              "min": "13",
+              "max": "15",
+              "equal": "中危",
+              "style": "color:blue",
+              "display": "中危"
+            },
+            {
+              "min": "15",
+              "max": "19",
+              "equal": "低危",
+              "style": "color:blue",
+              "display": "低危"
+            },
+            {
+              "min": "19",
+              "max": "999",
+              "equal": "没有风险",
+              "style": "color:black",
+              "display": "没有风险"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

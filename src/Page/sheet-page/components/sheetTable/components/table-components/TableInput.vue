@@ -156,7 +156,7 @@ input {
   }
   li {
     list-style: none;
-    line-height: 36px;
+    line-height: 25px;
     padding: 0 10px;
     margin: 0;
     cursor: pointer;

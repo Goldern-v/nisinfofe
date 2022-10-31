@@ -42,6 +42,16 @@
         >
           尾周
         </button>
+        <button
+        @click="()=>{this.bus.$emit('dateChangeEvent','pre')}"
+        >
+          上一日
+        </button>
+        <button
+          @click="()=>{this.bus.$emit('dateChangeEvent','next')}"
+        >
+          下一日
+        </button>
       </div>
       <moveContext
         :id="'detailChatBox'"
@@ -391,6 +401,7 @@ export default {
   button {
     position: relative;
     top: 10px;
+    width:78px;
   }
 }
 
@@ -415,13 +426,15 @@ export default {
       width: 100%;
       height: 100%;
     }
+    button {
+      width:60px !important;
+    }
   }
 }
 
 .pagination {
   display: inline;
   position: relative;
-  left: 8%;
   font-weight: normal;
 }
 
@@ -481,4 +494,7 @@ button[disabled=disabled] {
   top: 0;
   display: inline-flex !important;
 }
+.el-button {
+  width:77px !important;
+  }
 </style>

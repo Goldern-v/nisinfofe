@@ -909,7 +909,7 @@ export default {
           if (pageIndex < pageLength) {
             getHtml.call(this);
           } else {
-            // lodopPrint(htmlArr);
+            lodopPrint(htmlArr);
           }
         });
       }
@@ -1664,8 +1664,10 @@ export default {
         if (this.patientInfo.patientId) {
           // console.log(111);
           this.$parent.breforeQuit(() => {
-            this.getBlockList();
             this.bus.$emit("setSheetTableLoading", true);
+            this.getBlockList();
+            if(this.sheetBlockList.length==0)
+            this.bus.$emit("setSheetTableLoading", false);
             // 初始化页面区间列表
             this.selectList = [];
           });
@@ -1887,6 +1889,9 @@ export default {
   background: none !important;
   pointer-events: auto !important;
 }
+.tool-contain {
+  z-index: 4 !important;
+  }
 
 .babyChat {
   position: absolute;

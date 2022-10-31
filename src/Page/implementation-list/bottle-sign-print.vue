@@ -452,6 +452,7 @@ export default {
         "gdtj",
         "fsxt",
         "whfk",
+        "whhk",
         "lyxrm",
         "wujing",
         "ytll",

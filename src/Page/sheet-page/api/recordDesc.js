@@ -12,8 +12,6 @@ export function saveOrUpdate(groupName, title, content, id ,wardCode) {
  let recordCode = sheetInfo.sheetType
 //  if(hospitalId=="huadu"){
   return axios.post(`${apiPath}record/desc/saveOrUpdate`, {recordCode, groupName, title, content, id, wardCode})
-  // }
-//  return axios.post(`${apiPath}record/desc/saveOrUpdate`, {recordCode, groupName, title, content, id})
 }
 
 //保存常用短语(需要验证权限)
@@ -38,13 +36,23 @@ return axios.get(`${apiPath}record/desc/get/${id}`)
 }
 
 //  列表
-export function list(groupName,wardCode,sheetType) {
+export function list(groupName,wardCode,hospitalId) {
+  let recordCode = sheetInfo.sheetType
+  if(recordCode&&groupName&&wardCode)
+    return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode})
+ }
+//  列表
+export function listFsry(groupName,wardCode,sheetType) {
   //不传值就默认选择当前的护记类型 sheetInfo.sheetType
   let recordCode = sheetType ? sheetType : sheetInfo.sheetType;
-  // if(hospitalId=="huadu"){
+  // if(recordCode&&groupName&&wardCode)
     return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode})
-  // }
-  // return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName})
+ }
+ //  佛一保存常用短语
+export function saveOrUpdateFsry(groupName, title, content, id ,wardCode,sheetType) {
+  let recordCode = sheetType ? sheetType : sheetInfo.sheetType;
+ //  if(hospitalId=="huadu"){
+   return axios.post(`${apiPath}record/desc/saveOrUpdate`, {recordCode, groupName, title, content, id, wardCode})
  }
 
  // 分类列表
@@ -60,6 +68,7 @@ export function typeList(wardCode,hospitalId) {
  //特殊情况记录模板(按科室分类) 分类列表
  export function typeListByDept(wardCode,hospitalId) {
   let recordCode = sheetInfo.sheetType
+  // if(recordCode&&wardCode)
   return axios.get(`${apiPath}record/desc/typeListByDept/${recordCode}?wardCode=${wardCode}`)
 }
 
