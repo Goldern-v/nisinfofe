@@ -23,7 +23,7 @@
                 @keyup="timeKey($event, staticObj, 'recordHour')" />
             </div>
           </div>
-          <div v-else>
+          <div v-else style="display:flex;">
             <div class="date" v-if="tr && tr.length && isShowItem()">
             <label class="label">日期：</label>
             <input
@@ -31,7 +31,8 @@
               :disabled="
                 recordDate != '' &&
                 HOSPITAL_ID != 'huadu' &&
-                HOSPITAL_ID != 'wujing'
+                HOSPITAL_ID != 'wujing'&&
+                HOSPITAL_ID != 'gdtj'
               "
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
@@ -44,7 +45,8 @@
               :disabled="
                 recordDate != '' &&
                 HOSPITAL_ID != 'huadu' &&
-                HOSPITAL_ID != 'wujing'
+                HOSPITAL_ID != 'wujing'&&
+                HOSPITAL_ID != 'gdtj'
               "
               v-model="staticObj.recordHour"
               @keyup="timeKey($event, staticObj, 'recordHour')"
@@ -1156,7 +1158,7 @@ export default {
       const recordDate =
         this.HOSPITAL_ID === "huadu" ? "&nbsp" : this.recordDate;
         const { patientName, age, bedLabel } = sheetInfo && sheetInfo.masterInfo || {}
-      if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','gdtj'].includes(this.HOSPITAL_ID)) {
         //编辑记录
         if (this.recordDate) {
           if (this.isRead) {
@@ -1461,7 +1463,7 @@ export default {
       }
       this.foodVal = foodStr;
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改
-      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+      if(['foshanrenyi','gdtj'].includes(this.HOSPITAL_ID)){
         if(!this.staticObj.recordHour){
           this.staticObj.recordHour = moment().format('HH:mm');
         }
@@ -1544,7 +1546,9 @@ export default {
     close() {
       this.$refs.modal.close();
       //关闭特殊记录模板
+      if(this.$refs.templateSlideFsry){
       this.$refs.templateSlideFsry.close();
+      }
     },
     // 处理特殊字符转换函数
     htmlEscape(str) {

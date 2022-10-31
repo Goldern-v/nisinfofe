@@ -85,7 +85,7 @@
       <span v-if="showSyncBedBtn && node_env=='development'&&showMessage">(测试环境别点，<br/>会清空患者！！！)</span>
       <button
         class="login-btn"
-        @click="syncGetNursePatientRecData"
+        @click="debounceSyncGetNursePatientRecData"
         v-if="showSyncPatientBtn"
       >
         同步患者数据
@@ -306,6 +306,7 @@ import {
   syncGetNursePatientWHFKRecData
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
+import {_throttle} from '../../../../../temperature-chart/save-formatter'
 import { listItem } from "@/api/common.js";
 export default {
   data() {
@@ -452,9 +453,9 @@ export default {
     hasYachuang() {
       let list = []
       if(this.HOSPITAL_ID=="beihairenyi"){
-         list = this.bedList.filter((item) => item.hasYachuangBh);
+        list = this.bedList.filter((item) => item.hasYachuangBh);
       }else{
-         list = this.bedList.filter((item) => item.hasYachuang);
+        list = this.bedList.filter((item) => item.hasYachuang);
       }
       return list;
     },
@@ -793,10 +794,10 @@ export default {
         this.ifCanTobu = true;
       },()=>{this.ifCanTobu = true;});
     },
+    //防抖函数 60S内只能点击一次
+    debounceSyncGetNursePatientRecData: _throttle('syncGetNursePatientRecData', 60*1000),
     syncGetNursePatientRecData(){
-      if(!this.ifCanAsyncPatient)  return
-      this.ifCanAsyncPatient=false
-      this.$message.info("更新数据中请稍后重新进入....");
+      console.log('您触发了同步患者数据请求')
        let syncPatientData = syncGetNursePatientWHFKRecData;
       switch (this.HOSPITAL_ID) {
         case "whfk":
@@ -807,10 +808,9 @@ export default {
           break;
       }
       syncPatientData(this.deptCode).then((res) => {
-        this.$message.success("更新成功");
+        this.$message.success("更新数据中,请稍后切换进来查看....");
         this.getDate();
-        this.ifCanAsyncPatient = true;
-      },()=>{this.ifCanAsyncPatient = true;});
+      });
     },
     syncGetMedicalAdvice() {
       if (this.showProgress || !this.deptCode) {

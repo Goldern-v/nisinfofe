@@ -4,7 +4,7 @@
       <span class="filterItem date">
         <span class="type-label">日期:</span>
         <ElDatePicker class="date-picker" type="date" size="small" format="yyyy-MM-dd" placeholder="开始日期"
-          v-model="query.entryDate" clearable />
+          v-model="query.entryDate" clearable  style="width:120px"/>
       </span>
       <div class="times">
         <label :for="`time${item.id}`" v-for="item in timesquZhou" :key="item.id">
@@ -890,7 +890,7 @@ export default {
           obj.data5 = data.filter((item) => {
             return (
               moment(item.admissionDate.slice(0, 10)).isAfter(
-                moment().subtract(3, "days").format("YYYY-MM-DD")
+                moment().subtract(4, "days").format("YYYY-MM-DD")
               )
             );
           });
