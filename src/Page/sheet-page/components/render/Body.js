@@ -1213,7 +1213,7 @@ function switchSheetType(type) {
     }
       break;
     case "prenatal_fs": {
-      // 佛山市一 - 护理记录单(腰椎疾病手术治疗)
+      // 佛山市一 - 产前待产记录单
       schema = require("../config/prenatal_fs/tr.js").default;
     }
       break;
@@ -1625,12 +1625,12 @@ function switchSheetType(type) {
         // 临沂沂州- 病重（病危）患者护理记录单（带瞳孔)
         schema = require("../config/critical_new_yz/tr.js").default;
       }
-      break; 
+      break;
     case "icu_yz": {
         // 临沂沂州--内科重症医学科
         schema = require("../config/icu_yz/tr.js").default;
     }
-        break; 
+        break;
     case "inout_ytll": {
       // 烟台玲珑 - 出入量记录单
       schema = require("../config/inout_ytll/tr.js").default;

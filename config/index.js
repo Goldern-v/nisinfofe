@@ -117,13 +117,13 @@ const currentTargetUrl = (() => {
     /** 贵州省人民医院 */
     case "guizhou":
       // return "http://183.63.206.194:9091" // 贵州省人民医院
-      // return "http://192.168.1.54:9875" // 公司-贵州省人民医院-内网
+      return "http://192.168.1.54:9875" // 公司-贵州省人民医院-内网
       // return "https://info.cr-health.com:20203" // 公司-贵州省人民医院-外网
       // return "http://192.168.8.204:9091" // 贵州正式
       // return "http://10.207.40.24:9091" // 贵州测试
       // return "http://info.cr-health.com:20111" // 公司-厚街测试-外网
       // return "http://192.168.1.54:9867"
-      return "http://192.168.20.77:8080"
+      // return "http://192.168.20.77:8080"
     /** 山南市人民医院 */
     case "shannan":
       // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
@@ -159,7 +159,7 @@ const currentTargetUrl = (() => {
       return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
       // return "http://120.24.240.231:19097" //
-      // return "http://192.168.1.27:9092" //
+      // return "http://192.168.103.16:9091" //
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -201,12 +201,12 @@ const currentTargetUrl = (() => {
       // return "http://221.214.210.170:39094"  // 正式
       return 'http://192.168.1.54:9866'
     case 'zhzxy':
-      // return "http://192.168.20.77:8080" 
-      // return "http://192.168.1.54:9883" 
-      return "http://192.168.125.115:9092" 
-      // return "http://192.168.1.27:9092" 
-      // return "http://10.95.6.97:9091" 
-      // return "http://218.13.87.27:9094" 
+      // return "http://192.168.20.77:8080"
+      // return "http://192.168.1.54:9883"
+      // return "http://192.168.125.115:9092"
+      // return "http://192.168.1.27:9092"
+      // return "http://10.95.6.97:9091"
+      return "http://218.13.87.27:9094"
 
     // 青海五院
     case 'qhwy':

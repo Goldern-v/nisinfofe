@@ -14,16 +14,16 @@
           <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)" style="display: inherit">
             <div class="date" v-if="tr && tr.length && isShowItem()">
               <label class="label">日期：</label>
-              <input type="text" :disabled="recordDate!=''" v-model="staticObj.recordMonth"
+              <input type="text" v-model="staticObj.recordMonth"
                 @keyup="dateKey($event, staticObj, 'recordMonth')" />
             </div>
             <div class="time">
               <label class="label">时间：</label>
-              <input type="text" :disabled="recordDate!=''" v-model="staticObj.recordHour"
+              <input type="text"  v-model="staticObj.recordHour"
                 @keyup="timeKey($event, staticObj, 'recordHour')" />
             </div>
           </div>
-          <div v-else>
+          <div v-else style="display:flex;">
             <div class="date" v-if="tr && tr.length && isShowItem()">
             <label class="label">日期：</label>
             <input
@@ -31,7 +31,8 @@
               :disabled="
                 recordDate != '' &&
                 HOSPITAL_ID != 'huadu' &&
-                HOSPITAL_ID != 'wujing'
+                HOSPITAL_ID != 'wujing'&&
+                HOSPITAL_ID != 'gdtj'
               "
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
@@ -44,7 +45,8 @@
               :disabled="
                 recordDate != '' &&
                 HOSPITAL_ID != 'huadu' &&
-                HOSPITAL_ID != 'wujing'
+                HOSPITAL_ID != 'wujing'&&
+                HOSPITAL_ID != 'gdtj'
               "
               v-model="staticObj.recordHour"
               @keyup="timeKey($event, staticObj, 'recordHour')"
@@ -796,7 +798,8 @@
         >
       </div>
     </sweet-modal>
-    <templateSlide ref="templateSlide" :selectedSheetType="sheetInfo.sheetType"></templateSlide>
+    <templateSlide ref="templateSlide"></templateSlide>
+    <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
       v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925'].includes(HOSPITAL_ID)"
@@ -1007,6 +1010,8 @@ import moment from "moment";
 import { nullRow } from "@/Page/sheet-page/components/render/Body.js";
 import sheetModel from "@/Page/sheet-page/sheet.js";
 import templateSlide from "./template-slide.vue";
+import templateSlideFSRY from "./template-slide-fsry.vue";
+
 import zkModalZhzxy from "./zkModal-zhzxy.vue";
 import sheetInfo from "../config/sheetInfo";
 import { decoder_title, decoder_record2 } from "./render/decode.js";
@@ -1152,15 +1157,32 @@ export default {
     title() {
       const recordDate =
         this.HOSPITAL_ID === "huadu" ? "&nbsp" : this.recordDate;
-      if (this.recordDate) {
-        if (this.isRead) {
-          return "已签名&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
-        } else {
-          return "编辑护理记录&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
-        }
+        const { patientName, age, bedLabel } = sheetInfo && sheetInfo.masterInfo || {}
+      if (['foshanrenyi','gdtj'].includes(this.HOSPITAL_ID)) {
+        //编辑记录
+        if (this.recordDate) {
+          if (this.isRead) {
+            return "已签名&nbsp;&nbsp;&nbsp;&nbsp;" + ` 记录：${recordDate}    患者：${patientName}    床号：${bedLabel}    年龄：${age} `;
+          } else {
+            return "编辑护理记录&nbsp;&nbsp;&nbsp;&nbsp;" + ` 记录：${recordDate}    患者：${patientName}   床号：${bedLabel}    年龄：${age} `;
+          }
+        }else {
+          //新建记录
+        return "新建护理记录" + `   患者：${patientName}   床号：${bedLabel}    年龄：${age} `;
+      }
       } else {
+        if (this.recordDate) {
+          if (this.isRead) {
+            return "已签名&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
+          } else {
+            return "编辑护理记录&nbsp;&nbsp;&nbsp;&nbsp;" + recordDate;
+          }
+        }else {
         return "新建护理记录";
       }
+
+      }
+
     },
     // 神经内科
     isNeurology() {
@@ -1441,7 +1463,7 @@ export default {
       }
       this.foodVal = foodStr;
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改
-      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+      if(['foshanrenyi','gdtj'].includes(this.HOSPITAL_ID)){
         if(!this.staticObj.recordHour){
           this.staticObj.recordHour = moment().format('HH:mm');
         }
@@ -1523,6 +1545,10 @@ export default {
     },
     close() {
       this.$refs.modal.close();
+      //关闭特殊记录模板
+      if(this.$refs.templateSlideFsry){
+      this.$refs.templateSlideFsry.close();
+      }
     },
     // 处理特殊字符转换函数
     htmlEscape(str) {
@@ -2261,11 +2287,22 @@ export default {
       this.$refs.zkModalZhzxy.open(this.doc);
     },
     openTemplateSlider() {
-      this.$refs.templateSlide.open();
+      //打开编辑特殊记录的弹框
+      switch(this.HOSPITAL_ID){
+        case "foshanrenyi":
+      this.$refs.templateSlideFsry.open();
+        break;
+        default:
+        this.$refs.templateSlide.open();
+        break;
+      }
     },
     beforeClose() {
       if(sheetInfo.sheetType=='nursing_zhzxy') this.$refs.zkModalZhzxy.close();
       this.$refs.templateSlide.close();
+      //关闭特殊记录录入框
+      this.$refs.templateSlideFsry.close();
+
     },
     dateKey,
     timeKey,
@@ -2412,7 +2449,8 @@ export default {
     DiagnosisModal,
     AdviceModal,
     zxdtbModal,
-    zkModalZhzxy
+    zkModalZhzxy,
+    templateSlideFSRY
   },
 };
 </script>

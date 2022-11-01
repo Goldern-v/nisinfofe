@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="content">
-      <div class="left-part">
+      <div class="left-part" v-loading.body="loading" element-loading-text="拼命加载中">
         <el-row class="header" type="flex" align="middle">
           <span class="title">检验列表</span>
           <el-select v-model="value" placeholder="请选择" class="select">
@@ -26,7 +26,7 @@
                     </span>
             </div>
           </div>
-          <div class="null-con" v-show="listByFilter.length == 0">
+          <div class="null-con" v-show="listByFilter.length == 0&&!loading">
             <img src="../../../../common/images/task/nondata.png" alt="">
             <p>没有相关检验数据～</p>
           </div>
@@ -141,6 +141,7 @@
         list: [],
         rightData: '',
         tableHeaderInfo:{},
+        loading:true,
         foshanRenyiChoseIndex:0,
         options: [{
           label: '全部'
@@ -175,13 +176,18 @@
     },
     created() {
       testList(this.infoData.patientId, this.infoData.visitId).then((res) => {
+        this.loading = false
         this.list = res.data.data
         if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
           this.rightData = this.list.map(item=>{
             Object.keys(item).filter(str=>!['testResultList'].includes(str)).forEach((keys)=>{
               //返回testResultList数组  把上级的属性合并起来  前端需要用到
-
               this.tableHeaderInfo[`${keys}`] = item[`${keys}`]
+              item.testResultList.map((reqList)=>{
+                if(!reqList[`${keys}`]){
+                reqList[`${keys}`] = item[`${keys}`]
+                }
+              })
             })
             return item.testResultList
           })
@@ -198,6 +204,7 @@
         }else{
           this.foshanRenyiChoseIndex = index?index:0
           data = this.rightData[this.foshanRenyiChoseIndex]
+          this.tableHeaderInfo = data[0]
         }
         this.$nextTick(() => {
           this.$refs.testForm && this.$refs.testForm.open(data)

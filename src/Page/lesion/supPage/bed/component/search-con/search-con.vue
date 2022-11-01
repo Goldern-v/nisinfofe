@@ -82,10 +82,10 @@
       >
         同步床位数据
       </button>
-      <span v-if="showSyncBedBtn && node_env=='development'">(测试环境别点，<br/>会清空患者！！！)</span>
+      <span v-if="showSyncBedBtn && node_env=='development'&&showMessage">(测试环境别点，<br/>会清空患者！！！)</span>
       <button
         class="login-btn"
-        @click="syncGetNursePatientRecData"
+        @click="throttleSyncGetNursePatientRecData"
         v-if="showSyncPatientBtn"
       >
         同步患者数据
@@ -288,6 +288,7 @@
 }
 </style>
 <script>
+
 import {
   patients,
   syncGetNurseBedRec,
@@ -306,6 +307,7 @@ import {
   syncGetNursePatientWHFKRecData
 } from "@/api/lesion";
 import footerBar from "../footer-bar/footer-bar.vue";
+import {_throttle} from './throttle'
 import { listItem } from "@/api/common.js";
 export default {
   data() {
@@ -319,7 +321,7 @@ export default {
       endTimer: "",
       showProgress: false,
       ifCanTobu:true,
-      ifCanAsyncPatient:true
+      ifCanAsyncPatient:true,
       // hasGroupHos:['fuyou'] // 需要根据白板进行分组显示的医院
     };
   },
@@ -351,7 +353,6 @@ export default {
     },
     inBedLength() {
       if (this.HOSPITAL_ID === 'hengli' && this.$store.state.lesion.deptCode === '103') {
-        console.log(this.bedList, 88)
         return this.bedList.filter((item) => item.patientId && item.name.indexOf("B") === -1);
       }else if (this.HOSPITAL_ID === 'fuyou' && (this.$store.state.lesion.deptCode === '130'||this.$store.state.lesion.deptCode === '127'||this.$store.state.lesion.deptCode === '436'||this.$store.state.lesion.deptCode === '148')) {
         return this.bedList.filter((item) => item.patientId && item.name.indexOf("婴") === -1);
@@ -452,9 +453,9 @@ export default {
     hasYachuang() {
       let list = []
       if(this.HOSPITAL_ID=="beihairenyi"){
-         list = this.bedList.filter((item) => item.hasYachuangBh);
+        list = this.bedList.filter((item) => item.hasYachuangBh);
       }else{
-         list = this.bedList.filter((item) => item.hasYachuang);
+        list = this.bedList.filter((item) => item.hasYachuang);
       }
       return list;
     },
@@ -667,6 +668,10 @@ export default {
         this.HOSPITAL_ID
       );
     },
+    showMessage(){
+      //正式环境去除患者提示
+      return window.location.host.includes('1.54')||window.location.host.includes('localhost')
+    },
     // 新医院注意
     // 同步患者数据
     showSyncPatientBtn() {
@@ -701,7 +706,7 @@ export default {
     },
   },
   methods: {
-    async getDate() {
+    async getData() {
       if (this.deptCode) {
         this.$parent.loading = true;
         let {
@@ -785,15 +790,16 @@ export default {
       }
       syncData(this.deptCode).then((res) => {
         this.$message.success("更新成功");
-        this.getDate();
+        this.getData();
         this.ifCanTobu = true;
       },()=>{this.ifCanTobu = true;});
     },
+    //防抖函数 30S内只能点击一次
+    throttleSyncGetNursePatientRecData: _throttle('syncGetNursePatientRecData',30*1000),
     syncGetNursePatientRecData(){
-      if(!this.ifCanAsyncPatient)  return
-      this.ifCanAsyncPatient=false
-      this.$message.info("正在更新");
-       let syncPatientData = syncGetNursePatientWHFKRecData;
+      console.log('您触发了同步患者数据请求')
+      this.loading = true
+      let syncPatientData = syncGetNursePatientWHFKRecData;
       switch (this.HOSPITAL_ID) {
         case "whfk":
           syncPatientData = syncGetNursePatientWHFKRecData;
@@ -803,10 +809,9 @@ export default {
           break;
       }
       syncPatientData(this.deptCode).then((res) => {
-        this.$message.success("更新成功");
-        this.getDate();
-        this.ifCanAsyncPatient = true;
-      },()=>{this.ifCanAsyncPatient = true;});
+        this.$message.success("更新患者数据中,请稍后");
+        this.getData();
+      });
     },
     syncGetMedicalAdvice() {
       if (this.showProgress || !this.deptCode) {
@@ -844,10 +849,9 @@ export default {
   },
   watch: {
     deptCode() {
-      this.getDate();
+      this.getData();
     },
     selectName(val) {
-      console.log(val)
       switch (val) {
         case "":
         case "全部床位":
@@ -1031,7 +1035,7 @@ export default {
     },
   },
   created() {
-    this.getDate();
+    this.getData();
   },
   components: { footerBar },
 };

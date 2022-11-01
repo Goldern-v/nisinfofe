@@ -15,9 +15,9 @@ function GetAllUkeyList() {
   return axios.post(`${caSignHOST}/AllUkeyList`)
 }
 /**
- * 
+ *
  * UkeyID可通过GetUserList获取
- * @returns 
+ * @returns
  */
 function SOF_ExportUserCert(UkeyID) {
   return axios.post(`${caSignHOST}/SOF_ExportUserCert`, UkeyID)
@@ -30,10 +30,10 @@ function SOF_ValidateCert_Text(UkeyID) {
 }
 /**
  * genRandome接口获取到random,serverCert,signedValue
- * @param {服务器证书} strServerCert 
- * @param {随机数} strRandom 
- * @param {签名值} strServerSignRan 
- * @returns 
+ * @param {服务器证书} strServerCert
+ * @param {随机数} strRandom
+ * @param {签名值} strServerSignRan
+ * @returns
  */
 function SOF_VerifySignedData(strServerCert, strRandom, strServerSignRan) {
   return axios.post(`${caSignHOST}/SOF_VerifySignedData`, {
@@ -44,9 +44,9 @@ function SOF_VerifySignedData(strServerCert, strRandom, strServerSignRan) {
 }
 /**
  * 验证ca登录ID和密码
- * @param {*} strCertId 
- * @param {*} strPassword 
- * @returns 
+ * @param {*} strCertId
+ * @param {*} strPassword
+ * @returns
  */
 function SOF_Login(strCertId, strPassword,username) {
   return axios.post(`${caSignHOST}/SOF_Login`, {
@@ -90,7 +90,7 @@ function caLoginBefore() {
         } = genRes.data.data
         //SOF_VerifySignedData通过后切换成ca登录操作
         SOF_VerifySignedData(strServerCert, strRandom, strServerSignRan).then(SignedDatares => {
-          //如果通过情况下 
+          //如果通过情况下
           if (SignedDatares.data == "True") {
             resolve({strRandom,strServerCert})
           } else {
@@ -179,6 +179,7 @@ function verifyNewCaSign(SigndataObj,verifySignObj) {
           return reject("ca证书还未登录，请先登录！")
         }
       const strCertId = res.data.substring(res.data.indexOf("||") + 2, res.data.length).replace("&&&", "");
+      console.log('Ca接口信息=======>入参',{...SigndataObj,strCertId})
       SOF_SignData({...SigndataObj,strCertId}).then((SOF_SignDatares) => {
         console.log("SOF_SignDatares",SOF_SignDatares)
         if(SOF_SignDatares.data){
@@ -186,7 +187,8 @@ function verifyNewCaSign(SigndataObj,verifySignObj) {
           Promise.all([getPic(strCertId),getSOF_ExportUserCert(strCertId)]).then(result=>{
             if(!JSON.parse(localStorage.getItem("user")).signPic){
               signPic=result[0]
-            } 
+            }
+            console.log('Ca接口信息=======>出参','result',result,'signPic',signPic)
             verifySign({...verifySignObj,signPic,userCert:result[1],signedValue:SOF_SignDatares.data}).then(verifySignRes=>{
               localStorage["caUser"]= res.data.split("||")[0]
               resolve(verifySignRes.data.data)

@@ -1,6 +1,7 @@
 <template>
   <div class="d-table">
     <u-table
+    :data="tableData"
       v-loading="pageLoading"
       :row-class-name="addRowClass"
       class="d-table-liaocheng"
@@ -229,7 +230,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="typeReason" label="补执行的原因" min-width="200px">
+      <u-table-column prop="typeReason" label="补执行的原因"   v-if="HOSPITAL_ID !== 'whsl'" min-width="200px">
         <template slot-scope="scope">
           <div v-show="scope.row.rowType == 1 || !scope.row.rowType">
             {{ scope.row.typeReason }}
@@ -237,7 +238,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="nurseMemo" label="护士备注" min-width="200px">
+      <u-table-column prop="nurseMemo" label="护士备注" v-if="HOSPITAL_ID !== 'whsl'" min-width="200px">
         <template slot-scope="scope">
           <div v-show="scope.row.rowType == 1 || !scope.row.rowType">
             {{ scope.row.nurseMemo }}
@@ -245,7 +246,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="操作" min-width="100px" align="center">
+      <u-table-column label="操作" min-width="100px" v-if="HOSPITAL_ID !== 'whsl'" align="center">
         <template slot-scope="scope">
           <div v-show="scope.row.executeDateTime">
             <el-button
@@ -474,6 +475,14 @@ export default {
       return val ? moment(val).format("YYYY-MM-DD HH:mm") : "";
     },
     handleStatus(val) {
+      if (process.env.HOSPITAL_ID == 'whsl') {
+        return {
+          '0': '未执行',
+          '1': '执行中',
+          '2': '暂停',
+          '4': '已执行'
+        }[val + ''] || ''
+      }
       let allStatus = [
         {
           id: "",
@@ -570,7 +579,7 @@ export default {
             typeReason: value, //补执行的原因填写
           };
           let fn = updateOrderExecutePc
-          if (this.HOSPITAL_ID = 'beihairenyi') {
+          if (this.HOSPITAL_ID == 'beihairenyi') {
             fn = addRecord
             data = {
               ...data,

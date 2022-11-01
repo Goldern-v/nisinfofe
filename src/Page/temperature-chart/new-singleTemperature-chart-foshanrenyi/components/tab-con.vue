@@ -5,6 +5,7 @@
         <el-date-picker
           id="date-picker"
           type="date"
+          arrow-control
           size="small"
           style="width: 120px"
           format="yyyy-MM-dd"
@@ -569,6 +570,18 @@ export default {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
+    //时间监听
+    this.bus.$on("dateChangeEvent", (type) => {
+      switch (type) {
+        case 'pre':
+          this.preDate()
+          break;
+        case 'next':
+          this.nextDate()
+        default:
+          break;
+      }
+    });
   },
   computed: {
     isPain() {
@@ -633,7 +646,7 @@ export default {
           let y = {
             脉搏: {
               value: val,
-              reg: [20, 180],
+              reg: [0, 180],
             },
           };
           return y;

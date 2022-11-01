@@ -231,7 +231,7 @@
     background-image: linear-gradient(-180deg,#f8f8fa,#ebecf0);
     border-bottom: 1px solid #cbd5dd;
     height: 40px;
-    z-index: 2;
+    z-index: 3;
     position: relative;
     .item-box{
       font-size: 12px;

@@ -305,7 +305,7 @@
         {
           "name": "I1316020",
           "type": "checkbox",
-          "title": "产后24小时的产妇",
+          "title": "产后24小时内的产妇",
           "code": "(10)",
           "score": 45,
           "style": null,
@@ -446,7 +446,7 @@
         {
           "name": "I1316003",
           "type": "radio",
-          "title": "扶家具行走（30分）",
+          "title": "依扶家具行走（30分）",
           "code": "30",
           "score": 30,
           "style": null,

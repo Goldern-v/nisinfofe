@@ -41,6 +41,7 @@
       >
         <div class="nav-item">病历</div>
       </router-link>
+      <div class="nav-item" v-if="['nfyksdyy'].includes(HOSPITAL_ID)" @click="openNewPage('onnfyksdyyEmrWeb')">病历</div>
       <!-- <span v-if="['hj'].includes(HOSPITAL_ID)">
         <a
           class="nav-item no-under-link"
@@ -95,7 +96,6 @@
         <div class="nav-item">护理计划</div>
       </router-link>
       <router-link
-        v-if="!['gdtj'].includes(HOSPITAL_ID)"
         :to="{
           path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -104,7 +104,7 @@
       >
         <div class="nav-item">血糖</div>
       </router-link>
-      <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toBloodSugar')">血糖</div>
+      <!-- <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toBloodSugar')">血糖</div> -->
 
       <router-link
         :to="{
@@ -316,6 +316,12 @@ export default {
       console.log(this.patient);
       const {patientId} = this.patient
       let url = `http://192.168.10.63/EmrWeb/WebForm.aspx?flag=thirdPlat&codePi=${patientId}`
+      window.open(url)
+    },
+     // 南方医科大学顺德医院项目病历
+     onnfyksdyyEmrWeb(){
+      const {patientId,inpNo,visitId} = this.patient
+      let url = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid==${inpNo}_${visitId}`
       window.open(url)
     },
     toBloodSugar(){
