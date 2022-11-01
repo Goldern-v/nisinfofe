@@ -82,9 +82,8 @@ function syncGetNurseBedRecJiangMenFSSY(deptCode){
 }
 //北海 --更新床位一览卡信息
 function syncGetNurseBedRecBeiHaiExecute(deptCode){
-  return axios.get(`${apiPath}HisBeiHaiExecute/syncGetNurseBedRec/${deptCode}`)
+  return axios.get(`${apiPath}hisBeiHaiExecute/syncGetNurseBedRec/${deptCode}`)
 }
-
 //顺德龙江 --更新床位一览卡信息
 function syncGetNurseBedRecSDLJExecute(deptCode){
   return axios.get(`${apiPath}HisLinYiBedRec/syncGetNurseBedRec/${deptCode}`)
