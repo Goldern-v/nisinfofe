@@ -33,7 +33,7 @@
           </div>
           <div
             class="sup-title"
-            v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院'"
+            v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院' || HOSPITAL_ID === 'lyyz'"
           >
             血糖测量记录单
           </div>
@@ -264,6 +264,7 @@
     <setPageModal ref="setPageModal" />
   </div>
 </template>
+
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .blood-sugar-con {
