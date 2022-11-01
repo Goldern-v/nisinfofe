@@ -220,11 +220,16 @@
         &:last-of-type{
           position: relative;
           min-height: 32px;
-          margin-right: 10px;
           span{
             position: absolute;
             left: -15px;
             top: 0;
+          }
+        }
+        &.text--large:last-of-type {
+          min-height: 34px;
+          span{
+            left: -17px;
           }
         }
       }
