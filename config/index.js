@@ -208,6 +208,7 @@ const currentTargetUrl = (() => {
       // return "http://10.95.6.97:9091"
       // return "http://218.13.87.27:9094"
       return "http://192.168.3.153:8080"
+      return "http://183.234.20.149:19094"
 
     // 青海五院
     case 'qhwy':
