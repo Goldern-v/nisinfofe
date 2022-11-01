@@ -34,7 +34,7 @@ import {
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
-  { hidden: true,key: "recordHour", event: event_time,  click: click_time, value: ''},
+  { key: "recordHour", event: event_time,  click: click_time, value: ''},
   { key: 'nameMethod', event: keyf1, value: '', next: '', name: '注射药名及用法',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'input0', event: keyf1, value: '', next: 'ml', name: '注射药物量', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'input1', event: keyf1, value: '', next: '', name: '实入', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4),  },
@@ -85,7 +85,7 @@ export default [
   },
   { key: "sign", value: "" },//单签
   // { key: "sign2", value: "" },//双签
-  { hidden:true, key: "audit", value: "" },//审核签名
+  // { hidden:true, key: "audit", value: "" },//审核签名
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
   { hidden:true, key:'signerName2', value:''},
@@ -97,7 +97,7 @@ export default [
   { hidden:true, key:'monthHour', value:''},
   { hidden:false, key:'signerNo', value:''},//单签
   { hidden:true, key:'signerNo2', value:''},//双签
-  { hidden:false, key:'auditorNo', value:''},//审核签名
+  { hidden:true, key:'auditorNo', value:''},//审核签名
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''}
