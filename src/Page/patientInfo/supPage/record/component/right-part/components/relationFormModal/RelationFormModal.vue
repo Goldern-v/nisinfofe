@@ -149,7 +149,6 @@ export default {
       this.loadingBtnVisible = false;
     },
     handleSaveSuccess(data) {
-      console.log(data,'dddddddddddddddddddddddddddddddddd')
       if (this.useIframe) {
         this.$refs.modal.close();
         this.successCallback && this.successCallback(data);

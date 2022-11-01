@@ -286,10 +286,7 @@ export default {
           this.ca_isLogin = !!this.ca_name;
       })
     }
-    console.log(formData,"formData",verifySignObj)
-    console.log(type,"type,","title",title,"this.title",this.title  )
-    console.log(doctorTure,"doctorTure")
-    console.log("aaaaaaaa",callback,title,showDate,isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj)
+
    this.btnLoading = false
     if(doctorTure){
       this.isDoctor = doctorTure
@@ -308,7 +305,7 @@ export default {
         // this.isDoctor =true
         this.isCaSign = true
       }
-    } 
+    }
     if(type){
       let signType = {sign:'1',audit:'2'};
       this.signType = signType[type];
