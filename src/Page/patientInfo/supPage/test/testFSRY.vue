@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="content">
-      <el-row v-loading="isSaving"  style="height: 100%" >
-      <div class="left-part">
+      <el-row  style="height: 100%" >
+      <div class="left-part"  v-loading="loading"
+      element-loading-text="拼命加载中">
         <el-row class="header" type="flex" align="middle">
           <div>
              <span class="title">检验列表</span>
@@ -40,7 +41,7 @@
             </div>
           </div>
           <!-- </el-radio-group> -->
-          <div class="null-con" v-show="listByFilter.length == 0">
+          <div class="null-con" v-show="listByFilter.length == 0&&!loading">
             <img src="../../../../common/images/task/nondata.png" alt="">
             <p>没有相关检验数据～</p>
           </div>
@@ -162,6 +163,7 @@
       return {
         list: [],
         rightData: '',
+        loading:true,
         tableHeaderInfo:{},
         options: [{
           label: '全部'
@@ -176,7 +178,6 @@
         }],
         value: '全部',
         radio:0,
-        isSaving:false,
         bus: bus(this),
       }
     },
@@ -199,6 +200,7 @@
     },
     created() {
       testList(this.infoData.patientId, this.infoData.visitId).then((res) => {
+        this.loading = false
         this.list = res.data.data
         if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
           this.rightData = this.list.map(item=>{
@@ -223,7 +225,6 @@
     },
     methods: {
       async writeDescription(){
-        this.isSaving=true
         let str=''
         // 当前按钮的数组
         const activeCheckList=this.$refs.testForm.checkList[this.$refs.testForm.activeIndex]

@@ -2,7 +2,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1270px"
+      width: "1420px"
     },
     th: {
       top: [
@@ -89,7 +89,7 @@ export default {
         //SPO2
         {
           name: `
-          SPO2<br/>(%)
+          血氧饱和度<br/>(%)
           `,
           style: {
             minWidth: "40px",
@@ -97,6 +97,14 @@ export default {
           },
           colspan: "1",
           rowspan: "3"
+        },
+        {
+          name: `
+          氧疗
+          `,
+          colspan: "3",
+          rowspan: "1",
+          canSet: false
         },
         //入量
         {
@@ -112,14 +120,53 @@ export default {
           name: `
           出量
           `,
-          colspan: "2",
+          colspan: "3",
           rowspan: "1",
           canSet: false
+        },
+        {
+          name: `
+          自定义
+          `,
+          key: "fieldNine", 
+          style: {
+            minWidth: "45px",
+            maxWidth: "45px"
+          },
+          canSet: true,
+          colspan: "1",
+          rowspan: "3"
+        },
+        {
+          name: `
+          自定义
+          `,
+          key: "fieldTen", 
+          style: {
+            minWidth: "45px",
+            maxWidth: "45px"
+          },
+          canSet: true,
+          colspan: "1",
+          rowspan: "3"
+        },
+        {
+          name: `
+          自定义
+          `,
+          key: "expand2",
+          style: {
+            minWidth: "45px",
+            maxWidth: "45px"
+          },
+          canSet: true,
+          colspan: "1",
+          rowspan: "3"
         },
         //护理记录
         {
           name: `
-          护理记录
+          病情观察及护理措施
           `,
           style: {
             minWidth: "346px",
@@ -139,6 +186,41 @@ export default {
         }
       ],
       mid: [
+        {
+          name: `
+          鼻导管
+          `,
+          style: {
+            minWidth: "45px",
+            maxWidth: "45px"
+          },
+          colspan: "1",
+          rowspan: "2"
+        },
+        {
+          name: `
+          面罩
+          `,
+          style: {
+            minWidth: "45px",
+            maxWidth: "45px"
+          },
+          colspan: "1",
+          rowspan: "2"
+        },
+        {
+          name: `
+          自定义
+          `,
+          key: "fieldSeven",
+          style: {
+            minWidth: "45px",
+            maxWidth: "45px"
+          },
+          canSet: true,
+          colspan: "1",
+          rowspan: "2"
+        },
         {
           name: `
           项目
@@ -175,6 +257,18 @@ export default {
         {
           name: `
           出量<br/>(ml)
+          `,
+          colspan: "1",
+          rowspan: "2",
+          style: {
+            minWidth: "66px",
+            maxWidth: "66px",
+            whiteSpace: "nowrap"
+          }
+        },
+        {
+          name: `
+          颜色<br/>性状
           `,
           colspan: "1",
           rowspan: "2",

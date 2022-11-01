@@ -12,9 +12,8 @@ export function _debounce(fn, delay) {
       timer = setTimeout(function () {
         timer = null;
           //根据函数名执行函数
-        th[fn]();
+        th[`${fn}`]();
       }, delayTime);
-      
   };
 }
 // 节流
@@ -30,12 +29,12 @@ export function _throttle(fn, interval) {
           timer = setTimeout(function () {
               last = now;
               //根据函数名执行函数
-        th[fn]();
+              th[`${fn}`]();
           }, intervalTime);
       } else {
           last = now;
           //根据函数名执行函数
-        th[fn]();
+          th[`${fn}`]();
       }
   }
 }

@@ -2,7 +2,7 @@ export default {
     // 科室的名称
     deptType: '',
     style: {
-      width: "1250px"
+      width: "1420px"
     },
     th: {
       top: [
@@ -44,7 +44,7 @@ export default {
         },
         {
           name: `
-          T
+          体温
           `,
           colspan: '1',
           rowspan: '1',
@@ -55,7 +55,7 @@ export default {
         },
         {
           name: `
-          HR/PR
+          脉搏/心率
           `,
           colspan: '1',
           rowspan: '1',
@@ -66,7 +66,7 @@ export default {
         },
         {
           name: `
-          R
+          呼吸
           `,
           colspan: '1',
           rowspan: '1',
@@ -77,7 +77,7 @@ export default {
         },
         {
           name: `
-          BP
+          血压
           `,
           colspan: '1',
           rowspan: '1',
@@ -88,7 +88,7 @@ export default {
         },
         {
           name: `
-          SPO2
+          血氧饱和度
           `,
           colspan: '1',
           rowspan: '1',
@@ -101,7 +101,7 @@ export default {
           name: `
           氧疗
           `,
-          colspan: '2',
+          colspan: '3',
           rowspan: '1',
           style: {
             minWidth: '100px',
@@ -111,7 +111,7 @@ export default {
           name: `
           出入量
           `,
-          colspan: '4',
+          colspan: '5',
           rowspan: '1',
           style: {
             minWidth: '250px',
@@ -119,10 +119,24 @@ export default {
           },
         },
         {
-          name: `自定义`,
+          name: `自<br/>定<br/>义`,
           colspan: '1',
           rowspan: '3',
           key:"customTitle",
+          canSet:true
+        },
+        {
+          name: `自<br/>定<br/>义`,
+          colspan: '1',
+          rowspan: '3',
+          key:"fieldNine",
+          canSet:true
+        },
+        {
+          name: `自<br/>定<br/>义`,
+          colspan: '1',
+          rowspan: '3',
+          key:"fieldTen",
           canSet:true
         },
         {
@@ -240,7 +254,7 @@ export default {
         },
         {
           name: `
-          方式
+          鼻导管
           `,
           colspan: '1',
           rowspan: '2',
@@ -251,7 +265,7 @@ export default {
         },
         {
           name: `
-          L/min
+          面罩
           `,
           colspan: '1',
           rowspan: '2',
@@ -260,6 +274,14 @@ export default {
             maxWidth: '40px'
           },
         },
+        {
+          name: `自定义`,
+          colspan: '1',
+          rowspan: '2',
+          key:"fieldSeven",
+          canSet:true
+        },
+        
         {
           name: `
           入量
@@ -296,6 +318,17 @@ export default {
         {
           name: `
           量<br/>(ml)
+          `,
+          colspan: '1',
+          rowspan: '2',
+          style: {
+            minWidth: '45px',
+            maxWidth: '45px'
+          },
+        },
+        {
+          name: `
+          颜色<br/>性状
           `,
           colspan: '1',
           rowspan: '2',

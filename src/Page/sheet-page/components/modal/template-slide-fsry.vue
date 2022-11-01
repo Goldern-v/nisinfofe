@@ -72,10 +72,15 @@ export default {
     },
     close() {
       this.show = false;
+      if(this.$refs.addTemplateModal){
       this.$refs.addTemplateModal.close()
+      }
     },
     openAddModal() {
+      if(this.$refs.addTemplateModal){
       this.$refs.addTemplateModal.open();
+
+      }
     },
   },
   created() {

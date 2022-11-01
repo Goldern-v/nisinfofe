@@ -15,9 +15,9 @@
           时间
         </th>
         <th v-else style="width: 22%; min-width: 75px">日期</th>
-        <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng'" style="width: 20%">项目</th>
+        <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng' && HOSPITAL_ID != 'lyyz'" style="width: 20%">项目</th>
         <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
-        <th v-else style="width: 24%">测量时间</th>
+        <th v-else-if="HOSPITAL_ID != 'lyyz'" style="width: 24%">测量时间</th>
         <th :style="HOSPITAL_ID == 'sdlj' ? {width: '20%'} : {width: '23%'}">
           血糖值
           <br />(mmol/L)
@@ -33,7 +33,8 @@
             HOSPITAL_ID != 'fuyou'&&
             HOSPITAL_ID != 'sdlj'&&
             HOSPITAL_ID != 'guizhou'&&
-            HOSPITAL_ID != 'whfk'
+            HOSPITAL_ID != 'whfk' &&
+            HOSPITAL_ID != 'lyyz'
           "
         >
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
@@ -72,10 +73,10 @@
         <td v-else>
           <div class="cell">{{ item.date }}</div>
         </td>
-        <td v-if="HOSPITAL_ID != 'lingcheng'">
+        <td v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'lyyz'">
           <div class="cell" :title="item.sugarItem">{{ item.sugarItem }}</div>
         </td>
-        <td v-else>
+        <td v-else-if="HOSPITAL_ID != 'lyyz'">
           <div class="cell" :title="item.sugarItem">{{ item.time }}</div>
         </td>
         <td>
@@ -95,7 +96,8 @@
             HOSPITAL_ID != 'fuyou'&&
             HOSPITAL_ID != 'sdlj'&&
             HOSPITAL_ID != 'guizhou'&&
-            HOSPITAL_ID != 'whfk'
+            HOSPITAL_ID != 'whfk' && 
+            HOSPITAL_ID != 'lyyz'
           "
         >
           <div class="cell">
@@ -268,7 +270,7 @@ export default {
       let renderData = [];
       let firstDate = "";
       for (let i = 0; i < this.data.length; i++) {
-        if(this.HOSPITAL_ID == 'lingcheng' || this.HOSPITAL_ID == 'whfk'){
+        if(this.HOSPITAL_ID == 'lingcheng' || this.HOSPITAL_ID == 'whfk' || this.HOSPITAL_ID == 'lyyz'){
           this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
         }else{
           this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");

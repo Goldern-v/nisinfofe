@@ -77,6 +77,24 @@ import {
     name: 'SPO2'
   },
   {
+    key: "oxygenWay", //SPO2
+    value: "",
+    event: keyf1,
+    name: '氧疗鼻导管'
+  },
+  {
+    key: "fieldSix", //SPO2
+    value: "",
+    event: keyf1,
+    name: '氧疗面罩'
+  },
+  {
+    key: "fieldSeven", //SPO2
+    value: "",
+    event: keyf1,
+    name: '氧疗自定义'
+  },
+  {
     key: "food", //项目（入）
     value: "",
     event: keyf1,
@@ -113,6 +131,31 @@ import {
     event: keyf1,
     name: '出量:出量',
     statBottomLine: true
+  },
+  {
+    key: "fieldEight", //出量
+    value: "",
+    event: keyf1,
+    name: '颜色形状',
+    statBottomLine: true
+  },
+  {
+    key: "fieldNine", //SPO2
+    value: "",
+    event: keyf1,
+    name: '自定义1'
+  },
+  {
+    key: "fieldTen", //SPO2
+    value: "",
+    event: keyf1,
+    name: '自定义2'
+  },
+  {
+    key: "expand2", //SPO2
+    value: "",
+    event: keyf1,
+    name: '自定义3'
   },
   {
     key: "description", //护理记录

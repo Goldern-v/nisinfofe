@@ -96,7 +96,6 @@
         <div class="nav-item">护理计划</div>
       </router-link>
       <router-link
-        v-if="!['gdtj'].includes(HOSPITAL_ID)"
         :to="{
           path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -105,7 +104,7 @@
       >
         <div class="nav-item">血糖</div>
       </router-link>
-      <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toBloodSugar')">血糖</div>
+      <!-- <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toBloodSugar')">血糖</div> -->
 
       <router-link
         :to="{

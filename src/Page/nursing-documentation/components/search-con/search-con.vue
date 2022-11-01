@@ -259,7 +259,7 @@
     <div
       class="search-btn2"
       v-if="data.status === '2' && ['liaocheng', 'foshanrenyi','gdtj'].includes(HOSPITAL_ID)"
-      @click="syncDischargedPatient"
+      @click="throttleSyncDischargedPatient"
       v-touch-ripple
       >同步出院患者</div
     >
@@ -362,6 +362,7 @@
 </style>
 <script>
 import { nursingUnit, syncGetNurseBedRecJiangMenFSSY } from "@/api/lesion";
+import {_throttle} from './throttle'
 import {
   synchronizeHengLi,
   synchronizeWHFK,
@@ -515,8 +516,11 @@ export default {
     handleExport() {
       this.$parent.handleExport();
     },
+    // 患者出院因为要抽取，耗能很大 所以增加节流
     /**同步出院患者 */
+    throttleSyncDischargedPatient:_throttle('syncDischargedPatient',30*1000),
     async syncDischargedPatient() {
+      console.log('您触发了')
       try {
         const res = await syncDischargedPatient({
           dischargeDateBegin: moment(this.data.dischargeDate[0]).format('YYYY-MM-DD'),

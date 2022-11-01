@@ -676,6 +676,11 @@ function switchSheetType(type) {
       schema = require("../config/internal_eval_linyi/tr.js").default;
     }
       break;
+    case "babymonitor_linyi": {
+      // 临邑人医 - 一般患者护理评估记录单
+      schema = require("../config/babymonitor_linyi/tr.js").default;
+    }
+      break;
     case "critical_linyi": {
       // 临邑人医 - 病重（病危）患者护理记录单
       schema = require("../config/critical_linyi/tr").default;
