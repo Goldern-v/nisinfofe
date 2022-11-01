@@ -779,7 +779,7 @@ const router = new Router({
             // case 'lyxrm':
             // case 'gdtj':
             // case 'ytll':
-            // case 'lyyz':
+            case 'lyyz':
             // case 'qhwy':
               return shiftWorkLiaocheng
             case 'beihairenyi':
@@ -808,6 +808,7 @@ const router = new Router({
               case 'fuyou':
                 return shiftWorkDetailFy
               case 'liaocheng':
+              case 'lyyz':
               // case 'zhongshanqi':
               // case 'foshanrenyi':
               // case 'whyx':

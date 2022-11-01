@@ -111,6 +111,10 @@ function getPatientOrdersWithWardCode(deptCode) {
 function syncGetNursePatientWHFKRecData(deptCode) {
   return axios.get(`${apiPath}bed/syncPatInHospital/${deptCode}`)
 }
+//根据科室床位同步患者
+function synchronizationPatientByBedNo(deptCode,bedNo) {
+  return axios.get(`${apiPath}/bed/syncBedPatInHospital/${deptCode}/${bedNo}`)
+}
 
 
 
@@ -135,5 +139,6 @@ export {
   syncGetNurseBedRecDGXGExecute,
   syncGetNurseBedRecBeiHaiExecute,
   syncGetNursePatientWHFKRecData,
-  syncGetNurseBedRecWHHKExecute
+  syncGetNurseBedRecWHHKExecute,
+  synchronizationPatientByBedNo
 }

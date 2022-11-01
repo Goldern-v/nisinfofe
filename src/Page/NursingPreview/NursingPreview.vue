@@ -100,6 +100,7 @@ import temperatureZHZXY from "@/Page/patientInfo/supPage/temperature/temperature
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue"; //血糖
+import bloodSugarZhzxy from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_zhzxy.vue"; //血糖
 import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; //血糖
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj.vue"; //血糖
 import bloodOxygen from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
@@ -158,6 +159,8 @@ export default {
           return bloodSugarBhry;
         case "fsxt":
           return bloodSugarFsxt;
+        case "zhzxy":
+          return bloodSugarZhzxy;
         case "sdlj":
           if (this.isBloodSugarSdlj) {
             return bloodSugarSdlj;
@@ -238,6 +241,7 @@ export default {
     bloodSugarBhry,
     bloodSugarFsxt,
     bloodSugarSdlj,
+    bloodSugarZhzxy,
     bloodOxygen,
     temperature,
     temperatureHD,

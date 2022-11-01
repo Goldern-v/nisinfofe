@@ -258,8 +258,37 @@
                   :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
                 >
                   <router-link to="/wardReport" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
+                    <el-row class="menu-item" type="flex" align="middle"> 
                       <i class="wardReport"></i>病房日报
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/inpatientReport') > -1,
+                  }"
+                >
+                  <router-link to="/inpatientReport" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="inpatientReport"></i>住院日报
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/infuse' }"
+                >
+                  <router-link to="/infuse" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="infuse"></i> 智慧输液
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/board' }"
+                >
+                  <router-link to="/statisticalQuery" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i> 统计查询
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -594,6 +623,9 @@
 
     &.singleTemperatureChart {
       background-image: url('../../common/images/index/单人录入体温单.png');
+    }
+    &.infuse {
+      background-image: url('../../common/images/index/疫苗管理.png');
     }
 
     &.allTemperatureChart {
