@@ -1,6 +1,7 @@
 <template>
   <div class="d-table">
     <u-table
+    :data="tableData"
       v-loading="pageLoading"
       :row-class-name="addRowClass"
       class="d-table-liaocheng"
@@ -474,7 +475,7 @@ export default {
       return val ? moment(val).format("YYYY-MM-DD HH:mm") : "";
     },
     handleStatus(val) {
-      if (this.HOSPITAL_ID == 'whsl') {
+      if (process.env.HOSPITAL_ID == 'whsl') {
         return {
           '0': '未执行',
           '1': '执行中',
