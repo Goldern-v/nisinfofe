@@ -6,7 +6,7 @@
     <!-- :style="{height: bedHeight}" -->
     <div
       class="left-part"
-      v-loading="loading"
+      v-loading.body="loading"
       :element-loading-text="getLoadingText()"
       :style="'position: relative;height:auto;min-height:' + bedHeight"
     >
@@ -28,6 +28,7 @@
           :toLike="toLike"
           :toInfo="toInfo"
           :prevent="prevent"
+          :synchronizationPatient="synchronizationPatient"
           v-show="filterSearch(item)"
         >
         </component>
@@ -204,7 +205,7 @@
 </style>
 
 <script>
-import { follow, unfollow, getPatientOrdersWithWardCode } from "@/api/lesion";
+import { follow, unfollow, getPatientOrdersWithWardCode,synchronizationPatientByBedNo } from "@/api/lesion";
 import bedItem from "./component/bed-item/bed-item.vue";
 import bedItemHd from "./component/bed-item-hd/bed-item.vue";
 import bedItemLcey from "./component/bed-item-lcey/bed-item.vue";
@@ -309,6 +310,32 @@ export default {
     }
   },
   methods: {
+    //按床位抽患者
+    synchronizationPatient(data){
+      this.$message.success("更新患者数据中,请稍后");
+      this.loading = true
+      synchronizationPatientByBedNo(this.deptCode, data.bedNo).then((res) => {
+        if (res.data.code == 200) {
+
+          if (this.$refs.searchCon) {
+            this.$refs.searchCon.getData()
+          }
+          this.loading = false
+          this.$message({
+            message: "同步成功",
+            type: "success",
+          });
+        }
+
+      }).catch((err) => {
+        this.loading = false
+        this.$message({
+          message: "同步失败",
+          type: "error",
+        });
+      })
+
+    },
     cancelPrints() {
       this.pBtnShow = false;
     },
@@ -394,21 +421,21 @@ export default {
     },
     prevent(item, e) {
       if (!item.name) {
-        this.$message({
-          showClose: true,
-          message: "这是空床位",
-          type: "warning",
-        });
+        // this.$message({
+        //   showClose: true,
+        //   message: "这是空床位",
+        //   type: "warning",
+        // });
         e.preventDefault();
       }
     },
     toInfo(item) {
       if (!item.name) {
-        this.$message({
-          showClose: true,
-          message: "这是空床位",
-          type: "warning",
-        });
+        // this.$message({
+        //   showClose: true,
+        //   message: "这是空床位",
+        //   type: "warning",
+        // });
         return;
       }
       let obj = {};

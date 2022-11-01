@@ -670,7 +670,7 @@
           "name": "M620001",
           "type": "checkbox",
           "title": "基础护理",
-          "code": "true",
+          "code": "√",
           "style": null,
           "class": null,
           "html": null,

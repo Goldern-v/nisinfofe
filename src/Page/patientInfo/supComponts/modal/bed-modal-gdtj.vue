@@ -139,22 +139,22 @@
         v-show="printMode == 'wrist'"
       >
         <div class="bed-card-vert-con">
-          <div class="top">
+          <div class="top" style="margin-left: -20px;">
             <div>
-              <span>姓名：{{ query.name }}</span>
-              <span>床位：{{ query.bedLabel }}</span>
+              <span>姓名:{{ query.name }}</span>
+              <span>床位:{{ query.bedLabel }}</span>
               <span>{{ query.sex }}</span>
               <span>{{ query.age }}</span>
             </div>
-            <span>科室：{{ query.wardName }}</span>
-            <span style="margin:4px;">住院号：{{ query.patientId }}</span>
+            <span>科室:{{ query.wardName }}</span>
+            <span style="margin:4px;">住院号:{{ query.patientId }}</span>
           </div>
-          <div>
+          <div class="bottom" style="margin-left: -20px;">
             <div>
-              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+              <span>入院日期:{{ query.admissionDate | ymdhm }}</span>
             </div>
                 <div flex="cross:center" class="input-item" style="width:73%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
-              <span class="label" style="margin-right:0;">过敏信息：</span>
+              <span class="label" style="margin-right:0;">过敏信息:</span>
               <input
                 type="text"
                 nowidth
@@ -345,7 +345,7 @@
       position: relative;
       border: 3px solid #000;
       text-align: left;
-      width: 500px;
+      width: 528px;
       height: auto;
       padding: 5px 0 0 0 !important;
       border: none;
@@ -382,7 +382,7 @@
      }
     .qr-code {
       position: absolute;
-      right: 38px;
+      right: 29px;
       top: 50%;
       margin-top: -56px;
       height: 112px;
@@ -874,7 +874,7 @@ export default {
             default:`
           .bed-card-warpper {
             box-shadow: none !important;
-            transform: rotate(90deg) translateY(-120%) translateX(25%);
+            transform: rotate(90deg) translateY(-120%) translateX(17%);
             transform-origin: 0 0;
           }
           .bed-card-vert-con {

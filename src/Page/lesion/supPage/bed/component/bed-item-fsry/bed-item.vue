@@ -11,7 +11,8 @@ export default {
     data: Object,
     toLike: Function,
     toInfo: Function,
-    prevent: Function
+    prevent: Function,
+    synchronizationPatient:Function,
   },
   data() {
     return {
