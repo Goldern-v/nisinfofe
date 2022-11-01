@@ -14,12 +14,12 @@
           <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)" style="display: inherit">
             <div class="date" v-if="tr && tr.length && isShowItem()">
               <label class="label">日期：</label>
-              <input type="text" :disabled="recordDate!=''" v-model="staticObj.recordMonth"
+              <input type="text" v-model="staticObj.recordMonth"
                 @keyup="dateKey($event, staticObj, 'recordMonth')" />
             </div>
             <div class="time">
               <label class="label">时间：</label>
-              <input type="text" :disabled="recordDate!=''" v-model="staticObj.recordHour"
+              <input type="text"  v-model="staticObj.recordHour"
                 @keyup="timeKey($event, staticObj, 'recordHour')" />
             </div>
           </div>
