@@ -1069,11 +1069,6 @@
       "pinyin": "y"
     },
     {
-      "code": "新生儿疼痛评估(CRIES)",
-      "name": "新生儿疼痛评估(CRIES)",
-      "pinyin": "CRIES"
-    },
-    {
       "code": "新生儿疼痛评估(NIPS)",
       "name": "新生儿疼痛评估(NIPS)",
       "pinyin": "NIPS"
@@ -1716,11 +1711,6 @@
       "code": "Barden Q（儿童）",
       "name": "Barden Q（儿童）",
       "pinyin": "yr"
-    },
-    {
-      "code": "新生儿皮肤风险评估",
-      "name": "新生儿皮肤风险评估",
-      "pinyin": "yx"
     }
   ],
   "S0613": [

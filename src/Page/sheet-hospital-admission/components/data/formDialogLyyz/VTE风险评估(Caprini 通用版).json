@@ -203,7 +203,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I311007",
+          "name": "I625102",
           "type": "checkbox",
           "title": "1.年龄41~60岁",
           "code": "1",
@@ -753,7 +753,7 @@
           "readOnly": null
         },
         {
-          "name": "M625140",
+          "name": "M625156",
           "type": "checkbox",
           "title": "41.髋关节、骨盆或下肢骨折",
           "code": "5",
