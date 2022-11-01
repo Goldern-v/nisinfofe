@@ -781,6 +781,13 @@ export default function Title(
     );
   }
   break;
+  case "babymonitor_linyi": {
+    // 临邑人医 - 一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/babymonitor_linyi/th.js").default)
+    );
+  }
+  break;
   case "critical_linyi": {
     // 临邑人医 - 病重（病危）患者护理记录单
     Th = JSON.parse(

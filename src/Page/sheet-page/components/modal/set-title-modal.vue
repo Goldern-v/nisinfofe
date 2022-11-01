@@ -214,7 +214,7 @@ export default {
       }
     },
     openTitleTemplateSlide() {
-      if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj','lyyz'].includes(this.HOSPITAL_ID)) {
         this.$refs.titleTemplateSlideFS.open();
         return
       }
