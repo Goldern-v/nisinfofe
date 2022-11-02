@@ -225,3 +225,13 @@ export function getBedLabelByWardCode(wardCode) {
     `${apiPath}procedure/webExecute/getBedLabelByWardCode/${wardCode}`
   );
 }
+/**
+ * 导出执行单
+ * @param {*} params
+ * @returns
+ */
+export function exportWardExecuteList(params) {
+  return axios.post(
+    `${apiPath}procedure/webExecute/exportWardExecuteList`, params, { responseType: "blob" }
+  )
+}
