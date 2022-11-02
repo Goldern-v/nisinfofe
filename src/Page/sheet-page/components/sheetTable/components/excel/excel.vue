@@ -976,7 +976,7 @@ export default {
           ).catch(() => {});
             td.value ='';
         }
-        if((td.key === 'pulse'||td.key === 'heartRate')&&td.value !== ''&&(isNaN(td.value)||td.value<30||td.value>300)){
+        if((td.key === 'pulse'||td.key === 'heartRate'||td.key === 'fetalRate')&&td.value !== ''&&(isNaN(td.value)||td.value<30||td.value>300)){
           confirmRes = await this.$confirm(
             td.name+ "的正常范围是30～300，你的填写超出正常录入范围,是否确定填写?",
             "提示",
