@@ -22,7 +22,7 @@
             <td class="value">{{ routeQuery.age }}</td>
           </tr>
           <tr>
-            <td class="key">科室</td>
+            <td class="key">科室2222</td>
             <td class="value">{{ data.deptName }}</td>
             <td class="key">申请日期</td>
             <td class="value">{{ data.reqDate | dataForm }}</td>
@@ -31,9 +31,9 @@
           </tr>
           <tr>
             <td class="key">报告日期</td>
-            <td class="value">{{ data.reportDate | dataForm }}</td>
+            <td class="value">{{ data.examResult&&data.examResult.reportDateTime ||'未出报告'}}</td>
             <td class="key">报告医生</td>
-            <td class="value" colspan="3">{{ data.reporter }}</td>
+            <td class="value" colspan="3">{{ data.examResult&&data.examResult.reportDoctor||'未出报告'  }}</td>
           </tr>
           <tr>
             <td class="key">临床诊断</td>

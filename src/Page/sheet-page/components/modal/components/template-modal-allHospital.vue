@@ -1,14 +1,21 @@
 <template>
   <div>
-    <div class="search-con" style="line-height:32px" flex>
+    <!-- <div class="search-con" style="line-height:32px" flex>
       <span style="font-size:14px;">模板分类：</span>
       <el-radio v-model="selectedObj.deptType" label="dept">科室</el-radio>
       <el-radio v-model="selectedObj.deptType" label="common" style="margin-right:10px">公共</el-radio>
       <el-button @click="delActiveType" :disabled="canDelete" size="mini">删除当前分类<i class="el-icon-delete"></i>
       </el-button>
-    </div>
+    </div> -->
     <!--佛一要求增加 表单的筛选  可以查找其他护记的模板-->
-    <div class="search-con" v-if="selectedObj.deptType=='dept'">
+    <div class="search-con" >
+      <el-select v-model="selectedObj.deptCode" filterable placeholder="筛选科室" :popper-append-to-body="false"
+        style="width: 320px;">
+        <el-option v-for="(item, key) in deptList" :key="key" :label="item.name" :value="item.code" :value-key="item.recordCode">
+        </el-option>
+      </el-select>
+    </div>
+    <div class="search-con">
       <el-select v-model="selectedObj.templateCode" filterable placeholder="筛选表单模板" :popper-append-to-body="false"
         style="width: 320px;">
         <el-option v-for="(item, key) in formList" :key="key" :label="item.recordName" :value="item.recordCode" :value-key="item.recordCode">
@@ -23,39 +30,24 @@
       </div>
       <input type="text" flex-box="1" class="search-input" placeholder="请输入你要查找的模版…" v-model="searchWord" />
     </div>
-    <div class="list-con" v-if="selectedObj.selectedType == '特殊符号'" :style="listconHeight">
-      <ul class="specific_symbol">
-        <template>
-          <li v-for="item in specificSymbol" :key="item" @click="addTemplateAtDoc(item)">{{ item }}</li>
-        </template>
-      </ul>
-    </div>
-    <div class="list-con" v-else :style="listconHeight">
+    <div class="list-con"  :style="listconHeight">
       <div v-for="(item, key) in filterData" :key="key">
         <templateItem :data="item" :key="item.id"></templateItem>
       </div>
-      <div style="height: 60px;"></div>
+      <div style="height: 30px;"></div>
     </div>
-
   </div>
 
 </template>
 
 <script>
-import templateItem from "./template-item.vue";
+import templateItem from "./template-itemNoEdit.vue";
 import specificSymbolArr from '../eval-model/specificSymbol'
-import { typeListByDept, listFsry, delByType, listRecord } from "@/Page/sheet-page/api/recordDesc.js";
+import { typeListByDept, listFsry, listRecord ,nursingUnit} from "@/Page/sheet-page/api/recordDesc.js";
 import bus from "vue-happy-bus";
-import nullBgVue from "@/components/null/null-bg.vue";
 export default {
   components: {
     templateItem
-  },
-  props: {
-    selectedSheetType: {
-      type: String,
-      default: ''
-    }
   },
   data() {
     return {
@@ -63,10 +55,13 @@ export default {
       searchWord: "",
       selectedTab: "1",
       isShow: false,
+      deptList:false,
+      deptValue:'',
       selectedObj: {
         selectedType: "",
-        templateCode: this.selectedSheetType,
-        deptType: "dept"
+        deptCode:'',
+        templateCode:'',
+        deptType:'dept'
       },
       formList: [],
       listMap: [],
@@ -75,28 +70,23 @@ export default {
     };
   },
   created(){
-    this.initData()
+    nursingUnit().then(res => {
+      this.deptList = res.data.data.deptList;
+      this.selectedObj.deptCode =
+        res.data.data.defaultDept || this.deptCode;
+    });
     this.initTypeData()
-    this.bus.$on('reflashTitleItem',()=>{
-        this.initTypeData()
-        this.initData()
-    })
+    this.initData()
   },
   methods: {
     //把标题添加到护记特殊记录输入框
     addTemplateAtDoc(item) {
       this.bus.$emit("addTemplateAtDoc", item);
     },
-    initialize() {
-      this.formList = []
-      this.listMap = []
-      this.typeList = []
-    },
     //初始化类型数据，每次切换类型的时候执行
     async initTypeData() {
-      await this.initialize()
-      if(localStorage.wardCode)
-      typeListByDept(localStorage.wardCode, this.HOSPITAL_ID).then(res => {
+      if(this.selectedObj.deptCode)
+      typeListByDept(this.selectedObj.deptCode, this.HOSPITAL_ID).then(res => {
         const typeListRes = res.data.data[`${this.selectedObj.deptType}`]
         this.typeList = typeListRes.map((list) => {
           return { label: list, value: list == '全部' ? '' : list }
@@ -104,54 +94,29 @@ export default {
         if(!typeListRes.includes('全部')){
         this.typeList.unshift({ label: "全部", value: '' });
         }
-        this.typeList.push({ label: "特殊符号", value: '特殊符号' });
-
+        if(!this.selectedObj.templateCode) return
+        this.initData()
       });
     },
    async initData() {
-    await this.initialize()
       //初始化列表记录 根据表单编码
-      const wordCode = this.selectedObj.deptType === "dept" ? localStorage.wardCode : ""
-      let code = this.selectedObj.templateCode? this.selectedObj.templateCode : this.selectedSheetType||'orthopaedic_fs'
-      if(this.deptCode){
-        listRecord(this.deptCode).then((res) => {
-        this.formList = Array.from(res.data.data.list)
-      })
-      }
+      let code = this.selectedObj.templateCode
       if(code)
-      listFsry(this.selectedObj.selectedType, wordCode, code).then(res => {
+      listFsry(this.selectedObj.selectedType, this.selectedObj.deptCode, code).then(res => {
         this.listMap = Array.from(res.data.data.list)
       });
     },
-    delActiveType() {
-      this.$confirm(`此操作将永久删除${this.selectedObj.selectedType}该分类, 是否继续?`, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-        title: "提示"
-      }).then(() => {
-        const wardCode = this.selectedObj.deptType === "dept" ? localStorage.wardCode : ""
-        const user = JSON.parse(localStorage.getItem("user"))
-        delByType(this.selectedObj.selectedType, wardCode, user.empNo).then(async (res)=>{
-          this.initTypeData()
-          this.initData()
-          await
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        })
+    initFormList(){
+      //每次初始化表单接口 就初始化当前选择表单为空
+      this.selectedObj.templateCode = ''
+      if(this.selectedObj.deptCode){
+        listRecord(this.selectedObj.deptCode).then((res) => {
+        this.formList = Array.from(res.data.data.list)
       })
-    },
+      }
+    }
   },
   computed: {
-    canDelete() {
-      let flag = false
-      if (this.selectedObj.selectedType === "特殊符号" || this.selectedObj.selectedType === "全部" || this.selectedObj.selectedType === "") {
-        flag = true
-      }
-      return flag
-    },
     specificSymbol(){
       return specificSymbolArr.filter(item => {
         return (
@@ -169,11 +134,7 @@ export default {
       });;
     },
     listconHeight() {
-      let str = ""
-      if (this.HOSPITAL_ID === 'liaocheng' || this.HOSPITAL_ID === 'wujing' || this.HOSPITAL_ID === 'huadu' || this.HOSPITAL_ID === 'foshanrenyi') {
-        str = 'height: calc(100vh - 246px)'
-      }
-      return str
+      return 'height: calc(100vh - 246px)'
     },
     //登录的科室编码
     deptCode() {
@@ -184,16 +145,28 @@ export default {
     }
   },
   watch: {
-    selectedObj: {
+    "selectedObj.deptCode": {
       handler(newName, oldName) {
+        //每次切换科室 选择的表单编码就变为空,选择类型为全部
+        this.selectedObj.templateCode = ''
+        this.selectedObj.selectedType = ''
+        this.typeList = []
+        this.initFormList()
         this.initTypeData()
+      },
+      deep: true,
+    },
+
+    "selectedObj.templateCode": {
+      handler(newName, oldName) {
+        this.selectedObj.selectedType = ''
         this.initData()
       },
       deep: true,
     },
-    'selectedObj.templateCode': {
+    "selectedObj.selectedType": {
       handler(newName, oldName) {
-        this.selectedObj.selectedType = ''
+        this.initData()
       },
       deep: true,
     },

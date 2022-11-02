@@ -209,9 +209,9 @@
                 })
             "
             @blur="
-              !HOSPITAL_ID === 'huadu' &&
+              HOSPITAL_ID !== 'huadu' &&
                 !td.splice &&
-                onBlur($event, { x, y, z: index }, tr )
+                onBlur($event, { x, y, z: index }, tr,td )
             "
           ></masked-input>
           <div
@@ -378,9 +378,9 @@
                 })
             "
             @blur="
-              !HOSPITAL_ID === 'huadu' &&
+              HOSPITAL_ID !== 'huadu' &&
                 !td.splice &&
-                onBlur($event, { x, y, z: index }, tr )
+                onBlur($event, { x, y, z: index }, tr,td )
             "
             @click="
               sheetInfo.sheetType == 'antenatalwaiting_jm' &&
@@ -436,7 +436,7 @@
                   tr,
                 })
             "
-            @blur="onBlur($event, { x, y, z: index }, tr)"
+            @blur="onBlur($event, { x, y, z: index }, tr,td)"
             @click="!tr.isRead && td.click && td.click($event, td, tr)"
             v-else
           />
@@ -960,8 +960,66 @@ export default {
         // onFocusToAutoComplete(e, bind);
       }
     },
-    onBlur(e, bind, tr) {
+    async onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
+        if(this.sheetInfo.sheetType == 'common_gzry'||this.sheetInfo.sheetType == 'waiting_birth_gzry'||this.sheetInfo.sheetType == 'newborn_care_gzry'){
+        let confirmRes = '';
+        if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
+          confirmRes = await this.$confirm(
+            " 体温的正常范围是35～42，你的填写超出正常录入范围,请重新填写",
+            "错误",
+            {
+              confirmButtonText: "确定",
+              showCancelButton: false,
+              type: "error",
+            }
+          ).catch(() => {});
+            td.value ='';
+        }
+        if((td.key === 'pulse'||td.key === 'heartRate'||td.key === 'fetalRate')&&td.value !== ''&&(isNaN(td.value)||td.value<30||td.value>300)){
+          confirmRes = await this.$confirm(
+            td.name+ "的正常范围是30～300，你的填写超出正常录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            td.value ='';
+          }
+        }
+        if((td.key === 'spo2')&&td.value !== ''&&(isNaN(td.value)||td.value<50||td.value>100)){
+          confirmRes = await this.$confirm(
+            td.name+ "的正常范围是50～100，你的填写超出正常录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            td.value ='';
+          }
+        }
+        if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1] ||td.value.split('/')[0]>150||td.value.split('/')[1]>300)){
+          confirmRes = await this.$confirm(
+            td.name+ "的收缩压的正常范围<=300,舒张压的正常范围<=150，你的填写超出正常录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            td.value ='';
+          }
+          
+        }
+      }
       onBlurToAutoComplete(e, bind);
       let recordDate = tr.find(item=>{
         return item.key == "recordDate"
