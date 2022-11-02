@@ -961,14 +961,10 @@ export default {
       }
     },
     async onBlur(e, bind, tr,td){
-      console.log('sheetInfo.model', sheetInfo.model)
       if (sheetInfo.model == "print") return;
-      console.log('this.sheetInfo.sheetType', this.sheetInfo.sheetType)
-       if(this.sheetInfo.sheetType == 'common_gzry'||this.sheetInfo.sheetType == 'waiting_birth_gzry'||this.sheetInfo.sheetType == 'newborn_care_gzry'){
+        if(this.sheetInfo.sheetType == 'common_gzry'||this.sheetInfo.sheetType == 'waiting_birth_gzry'||this.sheetInfo.sheetType == 'newborn_care_gzry'){
         let confirmRes = '';
-        console.log('e, bind, tr,td1', e, bind, tr,td)
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
-          console.log('e, bind, tr,td2', e, bind, tr,td)
           confirmRes = await this.$confirm(
             " 体温的正常范围是35～42，你的填写超出正常录入范围,请重新填写",
             "错误",
