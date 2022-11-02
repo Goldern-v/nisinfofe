@@ -1006,7 +1006,7 @@ export default {
         }
         if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1] ||td.value.split('/')[0]>150||td.value.split('/')[1]>300)){
           confirmRes = await this.$confirm(
-            td.name+ "的收缩压的正常范围>=300,舒张压的正常范围>=150，你的填写超出正常录入范围,是否确定填写?",
+            td.name+ "的收缩压的正常范围<=300,舒张压的正常范围<=150，你的填写超出正常录入范围,是否确定填写?",
             "提示",
             {
               confirmButtonText: "确定",
