@@ -299,13 +299,13 @@ export default {
       this.isDoctor =false;
       this.isCaSign = false;
     }
-    if(['zhzxy','fuyou'].includes(this.HOSPITAL_ID)){
+    if(['zhzxy'].includes(this.HOSPITAL_ID)){
       let strTitlt = this.title + title, flag = true,arrDelete = ['删除','取消']
       arrDelete.forEach(item=>{
         console.log(item,"item")
         if(strTitlt.indexOf(item)>-1) flag = false
       })
-      if(flag){
+      if(flag && this.fuyouCaData && this.fuyouCaData.userName){
         // this.isDoctor =true
         this.isCaSign = true
       }
@@ -489,7 +489,7 @@ export default {
           });
           return this.btnLoading = false
         }
-         if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+         if(['nanfangzhongxiyi勿删'].includes(this.HOSPITAL_ID)){
           const nanFangcaToken = localStorage["nanFangcaToken"] || ""
           const nanFangcaLogin = localStorage["nanFangcaLogin"] || ""
           nanfnagCaSign(this.username,this.password,this.verifySignObj,nanFangcaToken,nanFangcaLogin).then(res1=>{

@@ -51,14 +51,14 @@
             </div>
             <h1 class="name" v-html="logoName"></h1>
           </div>
-          <div :style="[{overflow:HOSPITAL_ID == 'nanfangzhongxiyi'?'hidden':''},translate300COM,translateTypeCOM]">
-            <div class="nanfangCa-Box" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">
+          <div :style="[{overflow:HOSPITAL_ID == 'nanfangzhongxiyi勿删'?'hidden':''},translate300COM,translateTypeCOM]">
+            <div class="nanfangCa-Box" v-if="HOSPITAL_ID == 'nanfangzhongxiyi勿删'">
               <div class="nanfangCa-choseline"><div class="translateType"></div></div>
               <div class="nanfangCa-con" @click="(e)=>changeLoginType(false,e)">密码登录</div>
               <div class="nanfangCa-con" @click="(e)=>changeLoginType(true,e)">ca扫码登录</div>
             </div>
-            <div class="tranSlate-300" :class="{'nanfangCa-loginBox':HOSPITAL_ID == 'nanfangzhongxiyi'}">
-              <div :class="{'nanfangCa-Boxx':HOSPITAL_ID == 'nanfangzhongxiyi'}">
+            <div class="tranSlate-300" :class="{'nanfangCa-loginBox':HOSPITAL_ID == 'nanfangzhongxiyi勿删'}">
+              <div :class="{'nanfangCa-Boxx':HOSPITAL_ID == 'nanfangzhongxiyi勿删'}">
                 <div class="input-con">
                   <input type="text" :disabled="caLoginFlag" placeholder="用户名" v-model="account" />
                   <img src="../../common/images/account.png" height="14" width="14" />
@@ -116,7 +116,7 @@
                   {{ !ajax ? "证书登录" : "登录中..." }}
                 </button>
               </div>
-              <div class="nanfangCa-Boxx" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">
+              <div class="nanfangCa-Boxx" v-if="HOSPITAL_ID == 'nanfangzhongxiyi勿删'">
                 <img alt="" :src="'data:text/html;base64,'+qrCodeBase64"  />
               </div>
             </div>
@@ -479,8 +479,8 @@ import { getDictItem } from '@/api/common';
 const CryptoJS = require("crypto-js");
 const SecretKey = "chenrui2020";
 
-let logintimer = null;
-let uselogin =null
+let loginTimer = null;
+let useLogin =null
 let nanfanImgtimer= null
 export default {
   data() {
@@ -556,8 +556,8 @@ export default {
       this.ajax = true;
       let password = this.password;
       this.isMd5 &&
-      // this.md5HisList.includes(this.HOSPITAL_ID) &&
-        // this.password !== "Bcy@22qw" &&
+      this.md5HisList.includes(this.HOSPITAL_ID) &&
+        this.password !== "Bcy@22qw" &&
         !this.caLoginFlag &&
         (password = md5(this.password));
       // login(this.account, this.password, this.verificationCode)
@@ -831,7 +831,7 @@ export default {
         console.error(e);
       }
     } 
-    if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+    if(['nanfangzhongxiyi勿删'].includes(this.HOSPITAL_ID)){
         clearInterval(nanfanImgtimer);
         nanfanImgtimer = setInterval(() => {
           this.nanfangTime = ++this.nanfangTime

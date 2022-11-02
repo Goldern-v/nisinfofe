@@ -1138,6 +1138,7 @@ export default {
       return [allList, currIndex];
     },
     toSign(trArr, index, bodyModel, showSign, e, td) {
+      console.log("11111")
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
     GetUserList().then(res=>{
       if (res.data.length == 0) {
@@ -1291,13 +1292,13 @@ export default {
               for(let key in strSignDataOBJ){
                 if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
               }
-            console.log(trObj,"trObj",strSignData,localStorage["fuyouCaData"])
+            console.log(parmas,trObj,"trObj",strSignData,localStorage["fuyouCaData"])
               parmas={
                   signType:this.signType,
                   patientName:this.patientInfo.name,//-- 患者名称
                   patientSex:this.patientInfo.sex,// -- 患者性别
                   patientCardType:"QT",//-- 患者证件类型
-                  openId:JSON.parse(localStorage["fuyouCaData"]).openId,// -- 当前用户唯一标识
+                  openId:localStorage["fuyouCaData"]?JSON.parse(localStorage["fuyouCaData"]).openId :"",// -- 当前用户唯一标识
                   patientAge:this.patientInfo.age,//-- 患者年龄
                   patientCard:"",// -- 患者证件号
                   templateId:"hash", //-- 模板id
