@@ -96,3 +96,7 @@ export function getUser(password, empNo) {
  //护记获取编码
  export const listRecord = deptCode =>
   axios.get(`${apiPath}record/setting/listRecord/${deptCode}`);
+  //获取科室的编码
+  export const nursingUnit  = ()=>{
+    return axios.get(`${apiPath}user/nursingUnit`)
+  }

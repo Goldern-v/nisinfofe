@@ -1,6 +1,7 @@
 <template>
   <div v-if="show">
     <!-- <div class="no-do-bg" v-show="show" @click="close"></div> -->
+
     <transition name="el-zoom-in-left">
       <div class="slide-con" >
         <div class="head-con" flex="cross:center main:justify">
@@ -9,14 +10,20 @@
             <i class="el-icon-close"></i>
           </span>
         </div>
-        <TemplateModal :selectedSheetType="sheetInfo.sheetType"/>
-        <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
-            <i class="iconfont icon-tianjia"></i> 新建模板
-          </div>
+        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+          <el-tab-pane label="科室模板" name="first">
+            <TemplateModal :selectedSheetType="sheetInfo.sheetType" />
+            <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
+              <i class="iconfont icon-tianjia"></i> 新建模板
+            </div>
+          </el-tab-pane>
+    <el-tab-pane label="全院模板" name="second">
+      <TemplateModalAllHospital :selectedSheetType="sheetInfo.sheetType" />
+    </el-tab-pane>
+  </el-tabs>
+
       </div>
-
     </transition>
-
     <addTemplateModal :selectedSheetType="sheetInfo.sheetType" ref="addTemplateModal"></addTemplateModal>
   </div>
 </template>
@@ -30,6 +37,7 @@
 
 import addTemplateModal from "./add-template-modal-fsry.vue";
 import TemplateModal from './components/template-modal.vue'
+import TemplateModalAllHospital from './components/template-modal-allHospital.vue'
 import bus from "vue-happy-bus";
 import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo'
 export default {
@@ -44,6 +52,7 @@ export default {
       bus: bus(this),
       data: {},
       sheetInfo,
+      activeName: 'first',
       show: false,
       templateCode:'',//佛一要求筛选表单模板 formCode
 
@@ -53,7 +62,7 @@ export default {
     listconHeight(){
       let str=""
       if(this.HOSPITAL_ID==='liaocheng' || this.HOSPITAL_ID==='wujing'||this.HOSPITAL_ID==='huadu'||this.HOSPITAL_ID==='foshanrenyi'){
-        str='height: calc(100vh - 191px)'
+        str='height: calc(100vh - 250px)'
       }
       return str
     },
@@ -63,6 +72,9 @@ export default {
 
   },
   methods: {
+    handleClick(tab, event) {
+        console.log(tab, event);
+      },
     open() {
       this.show = true;
       this.selectWidth = 100;
@@ -96,7 +108,8 @@ export default {
   },
   components: {
     addTemplateModal,
-    TemplateModal
+    TemplateModal,
+    TemplateModalAllHospital
   }
 };
 </script>
@@ -182,6 +195,7 @@ export default {
   height: 46px;
   background: #4BB08D;
   position: absolute;
+  z-index 9;
   bottom: 0;
   left: 0;
   right: 0;

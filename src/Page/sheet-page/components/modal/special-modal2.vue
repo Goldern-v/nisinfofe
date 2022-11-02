@@ -14,12 +14,12 @@
           <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)" style="display: inherit">
             <div class="date" v-if="tr && tr.length && isShowItem()">
               <label class="label">日期：</label>
-              <input type="text" v-model="staticObj.recordMonth"
+              <input type="text" :disabled="recordDate!=''" v-model="staticObj.recordMonth"
                 @keyup="dateKey($event, staticObj, 'recordMonth')" />
             </div>
             <div class="time">
               <label class="label">时间：</label>
-              <input type="text"  v-model="staticObj.recordHour"
+              <input type="text" :disabled="recordDate!=''" v-model="staticObj.recordHour"
                 @keyup="timeKey($event, staticObj, 'recordHour')" />
             </div>
           </div>
@@ -1462,19 +1462,37 @@ export default {
         }
       }
       this.foodVal = foodStr;
-      //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改
-      if(['foshanrenyi','gdtj'].includes(this.HOSPITAL_ID)){
-        if(!this.staticObj.recordHour){
-          this.staticObj.recordHour = moment().format('HH:mm');
-        }
-        if(!this.staticObj.recordMonth){
-          this.staticObj.recordMonth = moment().format('MM-DD');
-        }
-      }
         this.recordDate =
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ''
+      //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改
+      if (['foshanrenyi', 'gdtj'].includes(this.HOSPITAL_ID)) {
+        const itemListTime = config.recordDate ||
+          record[0].find((item) => item.key == "recordDate").value
+          console.log(!itemListTime,itemListTime)
+        if(!itemListTime){
+          if (!(
+        record[0].find((item) => item.key == "recordMonth").value)) {
+          this.staticObj.recordMonth = moment().format('MM-DD');
+          if (!(
+            record[0].find((item) => item.key == "recordHour").value)) {
+            this.staticObj.recordHour = moment().format('HH:mm');
+          }
+        }
+        } else {
+          if (!(
+            record[0].find((item) => item.key == "recordMonth").value)) {
+            this.staticObj.recordMonth = moment(itemListTime).format('MM-DD');
+          }
+          if (!(
+            record[0].find((item) => item.key == "recordHour").value)) {
+            this.staticObj.recordHour = moment(itemListTime).format('HH:mm');
+          }
 
+        }
+
+
+      }
 
 
       //肺科特别需求。补记时间另起一行
