@@ -479,7 +479,13 @@ export default {
     ...mapMutations("common", ["setUser"]),
     //刷新验证码图片
     refreshImg() {
-      login(this.account, this.password, "", true).then((res) => {
+       let loginOBJ = {
+          empNo: this.account,
+          password:this.password,
+          code: '',
+          repaint:true,
+        };
+      login(loginOBJ).then((res) => {
         this.verificationImg = res.data.data;
       });
     },

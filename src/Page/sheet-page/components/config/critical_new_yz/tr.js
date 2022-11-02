@@ -111,13 +111,10 @@ import {
       },
     },
     {
-      key: "oxygenWay", //氧疗方式
+      key: "oxygenWay", 
       value: "",
       event: keyf1,
-      name:"氧疗方式",
-      autoComplete: {
-        data: ['鼻导管', '雾化面罩', '储氧面罩', '高流湿化吸氧', '无创面罩', '文丘里面罩', '呼吸机']
-      },
+      name:"鼻导管",
       textarea: {
         width: 60
       },
@@ -126,7 +123,15 @@ import {
       key: "fieldSix", //氧疗L/min
       value: "",
       event: keyf1,
-      name:"氧疗L/min",
+      name:"氧疗面罩",
+      textarea: {
+        width: 40
+      },
+    },
+    {
+      key: "fieldSeven", // 自定义标题
+      value: "",
+      event: keyf1,
       textarea: {
         width: 40
       },
@@ -173,7 +178,33 @@ import {
       },
     },
     {
+      key: "fieldEight",
+      value: "",
+      event: keyf1,
+      name:"颜色形状",
+      next:"",
+      textarea: {
+        width: 45
+      },
+    },
+    {
       key: "customTitle", // 自定义标题
+      value: "",
+      event: keyf1,
+      textarea: {
+        width: 60
+      },
+    },
+    {
+      key: "fieldNine", // 自定义标题
+      value: "",
+      event: keyf1,
+      textarea: {
+        width: 60
+      },
+    },
+    {
+      key: "fieldTen", // 自定义标题
       value: "",
       event: keyf1,
       textarea: {

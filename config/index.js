@@ -206,7 +206,9 @@ const currentTargetUrl = (() => {
       // return "http://192.168.125.115:9092"
       // return "http://192.168.1.27:9092"
       // return "http://10.95.6.97:9091"
-      return "http://218.13.87.27:9094"
+      // return "http://218.13.87.27:9094"
+      return "http://192.168.3.153:8080"
+      return "http://183.234.20.149:19094"
 
     // 青海五院
     case 'qhwy':
@@ -217,6 +219,7 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.137.164:8080'
       // return 'http://192.168.1.54:9895'
       // return "http://192.168.1.54:9866"
+      return "http://192.168.20.81:9091"
     // 广东同江
     case 'gdtj':
       return 'http://218.204.204.90:9095' // 正式
