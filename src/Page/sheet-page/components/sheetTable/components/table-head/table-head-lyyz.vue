@@ -76,23 +76,19 @@
           v-model="relObj.wxNo"
         />
       </span>-->
-      <span>
+      <span  v-if="sheetInfo.sheetType!='custody_yz'&& sheetInfo.sheetType!='baby_yz'">
         入院日期：
         <div class="bottom-line" style="min-width: 80px">
         {{patientInfo.admissionDate }}
         </div>
       </span>
-      <span>
+      <span  v-if="sheetInfo.sheetType!='custody_yz'&& sheetInfo.sheetType!='baby_yz'">
          诊断：
           <div  class="bottom-line" style="min-width: 80px">
             {{patientInfo.diagnosis}}
           </div>
           </span>
-    </div>
-    </template>
- 
-    <div class="info-con" v-if="sheetInfo.sheetType === 'baby_yz'">
-      <span>
+        <span v-if="sheetInfo.sheetType === 'baby_yz'">
         母亲姓名：
         <input
           style="width: 80px;font-size:13px;text-align: center;"
@@ -102,6 +98,19 @@
         />
       </span>
     </div>
+    </template>
+ 
+    <!-- <div class="info-con" v-if="sheetInfo.sheetType === 'baby_yz'">
+      <span>
+        母亲姓名：
+        <input
+          style="width: 80px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['motherName']"
+          v-model="sheetInfo.relObj['motherName']"
+        />
+      </span>
+    </div> -->
     <!-- <div class="info-con">
       <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span>
     </div>  
