@@ -1611,6 +1611,16 @@ function switchSheetType(type) {
       schema = require("../config/critical_new_weihai/tr.js").default;
     }
     break;
+    case "post_partum_weihai": {
+      // 威海市立 - 产后（产房）观察记录单
+      schema = require("../config/post_partum_weihai/tr.js").default;
+    }
+    break;
+    case "labor_weihai": {
+      // 威海市立 - 产程记录
+      schema = require("../config/labor_weihai/tr.js").default;
+    }
+    break;
     case "baby_yz": {
       // 临沂沂州 - 新生儿护理记录单
       schema = require("../config/baby_yz/tr.js").default;
