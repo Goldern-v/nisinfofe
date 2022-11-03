@@ -76,10 +76,18 @@
           v-model="relObj.wxNo"
         />
       </span>-->
-      <!-- <span>
+      <span>
         入院日期：
-        {{patientInfo.admissionDate | toymd}}
-      </span> -->
+        <div class="bottom-line" style="min-width: 80px">
+        {{patientInfo.admissionDate }}
+        </div>
+      </span>
+      <span>
+         诊断：
+          <div  class="bottom-line" style="min-width: 80px">
+            {{patientInfo.diagnosis}}
+          </div>
+          </span>
     </div>
     </template>
  
@@ -96,9 +104,9 @@
     </div>
     <!-- <div class="info-con">
       <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span>
-    </div> -->
-    <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
-  </div>
+    </div>  
+      <span>入院日期：{{$route.query.admissionDate}}</span>-->
+  </div>  
 </template>
 
 <script>

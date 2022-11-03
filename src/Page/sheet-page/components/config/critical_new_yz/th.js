@@ -119,21 +119,21 @@ export default {
           },
         },
         {
-          name: `自<br/>定<br/>义`,
+          name: ``,
           colspan: '1',
           rowspan: '3',
           key:"customTitle",
           canSet:true
         },
         {
-          name: `自<br/>定<br/>义`,
+          name: ``,
           colspan: '1',
           rowspan: '3',
           key:"fieldNine",
           canSet:true
         },
         {
-          name: `自<br/>定<br/>义`,
+          name: ``,
           colspan: '1',
           rowspan: '3',
           key:"fieldTen",
