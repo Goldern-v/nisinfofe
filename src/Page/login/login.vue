@@ -257,7 +257,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
       padding-bottom: 20px;
       cursor: pointer;
       position relative;
-      
+
     }
 
   }
@@ -530,12 +530,12 @@ export default {
     },
     changeLoginType(typeFlag,e){
       if(typeFlag){
-        this.translate300='translateX(-300px)' 
+        this.translate300='translateX(-300px)'
         this.translateType ="translateX(100%)"
       }else{
         this.translate300='translateX(0)'
         this.translateType ="translateX(0)"
-      } 
+      }
       console.log(e,this.translate300,typeFlag,"this.translate300")
     },
     async login(type) {
@@ -562,8 +562,8 @@ export default {
       this.ajax = true;
       let password = this.password;
       this.isMd5 &&
-      this.md5HisList.includes(this.HOSPITAL_ID) &&
-        this.password !== "Bcy@22qw" &&
+      // this.md5HisList.includes(this.HOSPITAL_ID) &&
+      //   this.password !== "Bcy@22qw" &&
         !this.caLoginFlag &&
         (password = md5(this.password));
       // login(this.account, this.password, this.verificationCode)
@@ -836,7 +836,7 @@ export default {
         this.$message.error("登录信息错误，已取消自动登录");
         console.error(e);
       }
-    } 
+    }
     if(['nanfangzhongxiyi勿删'].includes(this.HOSPITAL_ID)){
         clearInterval(nanfanImgtimer);
         nanfanImgtimer = setInterval(() => {

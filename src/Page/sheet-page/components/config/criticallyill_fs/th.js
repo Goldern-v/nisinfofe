@@ -44,8 +44,8 @@ export default {
         ,
         mid:
             [
-                {"name": "日期", "colspan": "1", "rowspan": "2", style: { minWidth: "50px",  maxWidth: "50px"},},
-                {"name": "时间", "colspan": "1", "rowspan": "2", style: { minWidth: "50px",  maxWidth: "50spx"},},
+                {"name": "日期", "colspan": "1", "rowspan": "2", style: { minWidth: "35px",  maxWidth: "40px"},},
+                {"name": "时间", "colspan": "1", "rowspan": "2", style: { minWidth: "35px",  maxWidth: "40px"},},
                 {"name": "体温<br/>℃", "colspan": "1", "rowspan": "2"},
                 {"name": "脉搏<br/>次/<br/>分", "colspan": "1", "rowspan": "2"},
                 {"name": "心率<br/>次/<br/>分", "colspan": "1", "rowspan": "2"},

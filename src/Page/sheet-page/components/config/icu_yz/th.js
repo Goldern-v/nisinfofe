@@ -2,7 +2,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1420px"
+      width: "1440px"
     },
     th: {
       top: [
@@ -26,7 +26,7 @@ export default {
         },
         //神志
         {
-          name: "神志",
+          name: "意识",
           style: {
             minWidth: "36px",
             maxWidth: "36px"
@@ -124,22 +124,22 @@ export default {
           rowspan: "1",
           canSet: false
         },
+        // {
+        //   name: `
+        //   自定义
+        //   `,
+        //   key: "fieldNine", 
+        //   style: {
+        //     minWidth: "45px",
+        //     maxWidth: "45px"
+        //   },
+        //   canSet: true,
+        //   colspan: "1",
+        //   rowspan: "3"
+        // },
         {
           name: `
-          自定义
-          `,
-          key: "fieldNine", 
-          style: {
-            minWidth: "45px",
-            maxWidth: "45px"
-          },
-          canSet: true,
-          colspan: "1",
-          rowspan: "3"
-        },
-        {
-          name: `
-          自定义
+           
           `,
           key: "fieldTen", 
           style: {
@@ -152,7 +152,7 @@ export default {
         },
         {
           name: `
-          自定义
+           
           `,
           key: "expand2",
           style: {
@@ -210,7 +210,7 @@ export default {
         },
         {
           name: `
-          自定义
+           
           `,
           key: "fieldSeven",
           style: {
