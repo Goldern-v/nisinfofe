@@ -987,7 +987,6 @@ const router = new Router({
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
-              case '925':
                 return testGuizhou
               default:
                 return test
