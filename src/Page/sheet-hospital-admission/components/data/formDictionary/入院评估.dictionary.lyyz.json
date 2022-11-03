@@ -270,110 +270,37 @@
   ],
   "I001014": [
      
-    {
-      "code": "离休医保",
-      "name": "离休医保",
-      "pinyin": "lxyb"
-    },
-     
-     
-    {
-      "code": "农合",
-      "name": "农合",
-      "pinyin": "nh"
-    },
-    {
-      "code": "工伤医保",
-      "name": "工伤医保",
-      "pinyin": "gsyb"
-    },
-    {
-      "code": "新省平台医保",
-      "name": "新省平台医保",
-      "pinyin": "xsptyb"
-    },
-    {
-      "code": "新国家平台医保",
-      "name": "新国家平台医保",
-      "pinyin": "xgjptyb"
-    },
-    {
-      "code": "特殊医保",
-      "name": "特殊医保",
-      "pinyin": "tsyb"
-    },
-    
-    
-    {
-      "code": "新工伤医保",
-      "name": "新工伤医保",
-      "pinyin": "xgsyb"
-    },
-    {
-      "code": "自费儿童",
-      "name": "自费儿童",
-      "pinyin": "zfrt"
-    },
-    {
-      "code": "非本地农合",
-      "name": "非本地农合",
-      "pinyin": "fbdnh"
-    },
-    
-    {
-      "code": "省平台医保",
-      "name": "省平台医保",
-      "pinyin": "sptyb"
-    },
-     
-    {
-      "code": "城镇居民医保",
-      "name": "城镇居民医保",
-      "pinyin": "czjmyb"
-    },
-     
-     
-    {
-      "code": "新离职医保",
-      "name": "新离职医保",
-      "pinyin": "xlzyb"
-    },
-    {
-      "code": "在职医保",
-      "name": "在职医保",
-      "pinyin": "zzyb"
-    },
-    {
-      "code": "自费",
-      "name": "自费",
-      "pinyin": "zf"
-    },
-    {
-      "code": "退休医保",
-      "name": "退休医保",
-      "pinyin": "txyb"
-    },
-    {
-      "code": "国家平台医保",
-      "name": "国家平台医保",
-      "pinyin": "gjptyb"
-    },
-    {
-      "code": "新聊城职工",
-      "name": "新聊城职工",
-      "pinyin": "xptzg"
-    },
-    {
-      "code": "本地农合",
-      "name": "本地农合",
-      "pinyin": "bdnh"
-    },
-   
-    {
-      "code": "特殊居民",
-      "name": "特殊居民",
-      "pinyin": "tsjm"
-    } 
+      {
+        "code": "城镇职工基本医疗保险",
+        "name": "城镇职工基本医疗保险",
+        "pinyin": "czzgjbylbx"
+      },
+       
+      {
+        "code": "城镇居民基本医疗保险",
+        "name": "城镇居民基本医疗保险",
+        "pinyin": "czjmjbylbx"
+      },
+      {
+        "code": "离休",
+        "name": "离休",
+        "pinyin": "lx"
+      },
+      {
+        "code": "二乙及以上伤残军人",
+        "name": "二乙及以上伤残军人",
+        "pinyin": "eyjysscjr"
+      },
+      {
+        "code": "商业保险",
+        "name": "商业保险",
+        "pinyin": "sybx"
+      },
+      {
+        "code": "自费",
+        "name": "自费",
+        "pinyin": "zf"
+      }
   ],
   "I100075": [
     {
@@ -1069,11 +996,6 @@
       "pinyin": "y"
     },
     {
-      "code": "新生儿疼痛评估(CRIES)",
-      "name": "新生儿疼痛评估(CRIES)",
-      "pinyin": "CRIES"
-    },
-    {
       "code": "新生儿疼痛评估(NIPS)",
       "name": "新生儿疼痛评估(NIPS)",
       "pinyin": "NIPS"
@@ -1716,11 +1638,6 @@
       "code": "Barden Q（儿童）",
       "name": "Barden Q（儿童）",
       "pinyin": "yr"
-    },
-    {
-      "code": "新生儿皮肤风险评估",
-      "name": "新生儿皮肤风险评估",
-      "pinyin": "yx"
     }
   ],
   "S0613": [

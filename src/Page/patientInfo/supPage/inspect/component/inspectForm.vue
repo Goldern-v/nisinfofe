@@ -47,9 +47,12 @@
           </tr>
           <tr>
             <td class="key">报告日期</td>
+            <td class="value" v-if="['foshanrenyi'].includes(HOSPITAL_ID)">{{ data.examResult&&data.examResult.reportDateTime ||'未出报告'}}</td>
+            <td class="value" v-else>{{ data.reportDate | dataForm }}</td>
             <td class="value">{{ data.reportDate | dataForm }}</td>
             <td class="key">报告医生</td>
-            <td class="value" colspan="3">{{ data.reporter }}</td>
+            <td class="value" colspan="3" v-if="['foshanrenyi'].includes(HOSPITAL_ID)">{{ data.examResult&&data.examResult.reportDoctor ||'未出报告'}}</td>
+            <td class="value" colspan="3" v-else>{{ data.reportDoctor }}</td>
           </tr>
           <tr>
             <td class="key">临床诊断</td>
@@ -57,11 +60,11 @@
           </tr>
           <tr style="height: 112px">
             <td class="key">检查所见</td>
-            <td colspan="5">{{ data1.description }}</td>
+            <td colspan="5">{{ data1.description ||'未出报告'}}</td>
           </tr>
           <tr style="height: 112px">
             <td class="key">印象</td>
-            <td colspan="5">{{ data1.impression }}</td>
+            <td colspan="5">{{ data1.impression || '未出报告'}}</td>
           </tr>
         </table>
         <div>
@@ -104,9 +107,11 @@
           </tr>
           <tr>
             <td class="key">报告日期</td>
-            <td class="value">{{ data.reportDate | dataForm }}</td>
+            <td class="value" v-if="['foshanrenyi'].includes(HOSPITAL_ID)">{{ data.examResult&&data.examResult.reportDateTime ||'未出报告'}}</td>
+            <td class="value" v-else>{{ data.examResult&&data.examResult.reportDateTime ||'未出报告'}}</td>
             <td class="key">报告医生</td>
-            <td class="value" colspan="3">{{ data.reporter }}</td>
+           <td class="value" v-if="['foshanrenyi'].includes(HOSPITAL_ID)">{{ data.examResult&&data.examResult.reportDoctor||'未出报告'  }}</td>
+            <td class="value" v-else>{{ reporter ||'未出报告'}}</td>
           </tr>
           <tr>
             <td class="key">临床诊断</td>

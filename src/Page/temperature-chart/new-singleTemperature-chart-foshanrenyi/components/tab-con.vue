@@ -1150,7 +1150,6 @@ export default {
   .row-top {
     background-color: #fff;
     height: 47px;
-
   }
 
   .row-bottom {
@@ -1192,7 +1191,9 @@ export default {
       height: 1000px;
       margin-top: 5px;
     }
-
+    >>>.el-collapse-item__header {
+    height:33px !important;
+    }
     .inputter-region {
       width: 63%;
       float: left;

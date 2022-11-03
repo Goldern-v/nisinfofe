@@ -13,7 +13,7 @@
           <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)"
            :class="{active: (!['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == rightData.testNo) || (['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == list[foshanRenyiChoseIndex].testNo) }">
             <div class="title">{{item.subject}}</div>
-            <div class="aside">{{item.reqDate}}</div>
+            <div class="aside">{{item.resultDate}}</div>
             <div class="result">
               <span v-if="item.isAbnormal == '0' && item.resultStatus == '已出报告'">
                         <img src="../../../../common/images/info/完成@2x.png" alt="">
