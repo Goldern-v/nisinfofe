@@ -230,6 +230,11 @@ const currentTargetUrl = (() => {
     case '925':
       // return 'http://192.168.1.54:9866'
       return 'http://120.24.240.231:19097'
+
+    // 威海市立医院
+    case 'whsl':
+      return 'http://192.168.1.54:9896'
+
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"

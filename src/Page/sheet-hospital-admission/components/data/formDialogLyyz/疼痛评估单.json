@@ -77,8 +77,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0609",
-      "formApiCode": "E0609",
+      "formCode": "E1802",
+      "formApiCode": "E1802",
       "formName": "疼痛评估表",
       "status": "0",
       "formType": "eval"
@@ -291,7 +291,7 @@
             }
           ]
         },
-        
+
         {
           "name": "I609004",
           "type": "input",
