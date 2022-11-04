@@ -5,6 +5,7 @@ import {
 } from './apiConfig'
 import qs from 'qs'
 import base from '../utils/base64'
+import sheetInfo  from '../Page/sheet-page/components/config/sheetInfo/index'
 
 //佛山人医ca签名有关接口
 //获取useKey用户名和UkeyID
@@ -173,6 +174,8 @@ function getPic(strCertId) {
   })
 }
 function verifyNewCaSign(SigndataObj,verifySignObj) {
+  //有时候如果传空值 就把护记的当前信息传给CA保存做凭证
+  if(!SigndataObj) SigndataObj = {...sheetInfo.se}
   return new Promise((resolve, reject) => {
     GetUserList().then(res => {
       if (res.data.length > 0) {
@@ -269,7 +272,7 @@ function nanfnagCaSign(userUid,password,p7SignObj,userToken,nanFangcaLogin) {
         }else reject("获取证书失败！")
       })
     }
-    
+
   })
 }
 export {
