@@ -2086,6 +2086,20 @@ export default function Title(
     );
   }
   break;
+  case "post_partum_weihai": {
+    // // 威海市立 - 产后（产房）观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/post_partum_weihai/th.js").default)
+    );
+  }
+  break;
+  case "labor_weihai": {
+    // // 威海市立 - 产程记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_weihai/th.js").default)
+    );
+  }
+  break;
   case "baby_yz": {
     // 临沂沂州 - 新生儿护理记录单
     Th = JSON.parse(

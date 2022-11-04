@@ -633,9 +633,6 @@ export default {
         this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
       }
 
-      // if(this.$root.$refs.mainPage.checkFormMissingItems){
-      //   this.$root.$refs.mainPage.checkFormMissingItems()
-      // }
       // cancelSignOrAduit formSignOrAudit
       // console.log("this.obj.name ",this.obj.name )
       if (this.obj.name === "signerName") {

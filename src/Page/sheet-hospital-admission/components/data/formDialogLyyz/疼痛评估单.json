@@ -1,0 +1,1208 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "东莞市厚街医院",
+      "formName": "疼痛评估单"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E1802",
+      "formApiCode": "E1802",
+      "formName": "疼痛评估表",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {
+    "疼痛部位": "A, B, C, D"
+  },
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003001",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "已保存"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "疼痛",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I609002",
+          "type": "input",
+          "label": "评分工具",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            "NRS(数字疼痛分级法)",
+            "WONG_BAKER(面部表情评分法)",
+            "成人疼痛行为评估量表",
+            "小儿疼痛行为评估量表",
+            "重症监护患者疼痛观察工具"
+          ],
+          "selectOnly": true
+        },
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "疼痛评分",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "name": "I609017",
+          "type": "formGroupVerticalBox",
+          "suffixDesc": "",
+          "style": "position: relative; top:7px;",
+          "class": null,
+          "readOnly": false,
+          "children": [
+            {
+              "name": "I609017",
+              "type": "select",
+              "label": "部 位",
+              "inputWidth": "196px",
+              "suffixDesc": "",
+              "multiplechoice":true,
+              "style": null,
+              "class": null,
+              "options": [
+                "鼻子",
+                "嘴巴",
+                "左耳",
+                "右耳",
+                "左眼",
+                "右眼",
+                "左脸",
+                "右脸"
+              ]
+            },
+            {
+              "name": "I609017",
+              "type": "bodyBtn",
+              "style": "width:50px!important;position: relative;top: -26px;left: 245px; padding:0px",
+              "class": null
+            }
+          ]
+        },
+
+        {
+          "name": "I609004",
+          "type": "input",
+          "label": "性  质",
+          "inputWidth": "196px",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": [
+            {
+              "name": "钝痛",
+              "code": "钝痛"
+            },
+            {
+              "name": "刺痛",
+              "code": "刺痛"
+            },
+            {
+              "name": "跳痛",
+              "code": "跳痛"
+            },
+            {
+              "name": "胀痛",
+              "code": "胀痛"
+            },
+            {
+              "name": "酸痛",
+              "code": "酸痛"
+            },
+            {
+              "name": "坠痛",
+              "code": "坠痛"
+            },
+            {
+              "name": "绞痛",
+              "code": "绞痛"
+            },
+            {
+              "name": "轻触痛",
+              "code": "轻触痛"
+            },
+            {
+              "name": "痉挛痛",
+              "code": "痉挛痛"
+            },
+            {
+              "name": "痉挛痛",
+              "code": "痉挛痛"
+            },
+            {
+              "name": "麻木样痛",
+              "code": "麻木样痛"
+            },
+            {
+              "name": "牵拉样痛",
+              "code": "牵拉样痛"
+            },
+            {
+              "name": "灼烧样痛",
+              "code": "灼烧样痛"
+            },
+            {
+              "name": "放电样痛",
+              "code": "放电样痛"
+            },
+            {
+              "name": "点击样痛",
+              "code": "点击样痛"
+            },
+            {
+              "name": "其他",
+              "code": "其他"
+            }
+          ]
+        },
+        {
+          "name": "I609005",
+          "type": "input",
+          "label": "特  点",
+          "suffixDesc": "",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": [
+            {
+              "name": "持续min",
+              "code": "持续min"
+            },
+            {
+              "name": "持续h",
+              "code": "持续h"
+            },
+            {
+              "name": "阵发性",
+              "code": "阵发性"
+            },
+            {
+              "name": "间歇性",
+              "code": "间歇性"
+            },
+            {
+              "name": "进行性加重",
+              "code": "进行性加重"
+            },
+            {
+              "name": "其他",
+              "code": "其他"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "影响患者",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I609019",
+          "type": "input",
+          "label": "睡  眠",
+          "inputWidth": "196px",
+          "hiddenTips": true,
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": [
+            {
+              "name": "影响睡眠",
+              "code": "影响睡眠"
+            },
+            {
+              "name": "无法入睡",
+              "code": "无法入睡"
+            },
+            {
+              "name": "无影响",
+              "code": "无影响"
+            }
+          ]
+        },
+        {
+          "name": "I609020",
+          "type": "input",
+          "label": "心理情绪",
+          "suffixDesc": "",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": [
+            {
+              "name": "焦虑",
+              "code": "焦虑"
+            },
+            {
+              "name": "抑郁",
+              "code": "抑郁"
+            },
+            {
+              "name": "怀疑",
+              "code": "怀疑"
+            },
+            {
+              "name": "恐惧",
+              "code": "恐惧"
+            },
+            {
+              "name": "绝望",
+              "code": "绝望"
+            },
+            {
+              "name": "其他",
+              "code": "其他"
+            },
+            {
+              "name": "无",
+              "code": "无"
+            }
+          ]
+        },
+        {
+          "name": "I609021",
+          "type": "input",
+          "label": "饮  食",
+          "suffixDesc": "",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": [
+            {
+              "name": "食欲减退",
+              "code": "食欲减退"
+            },
+            {
+              "name": "张口困难",
+              "code": "张口困难"
+            },
+            {
+              "name": "其他",
+              "code": "其他"
+            },
+            {
+              "name": "无影响",
+              "code": "无影响"
+            }
+          ]
+        },
+        {
+          "name": "I609022",
+          "type": "input",
+          "label": "活动、自理受限",
+          "suffixDesc": "",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "options": [
+            {
+              "name": "是",
+              "code": "是"
+            },
+            {
+              "name": "否",
+              "code": "否"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "长期用药",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I609023",
+          "type": "datePicker",
+          "label": "用药时间",
+          "style": "width:145px",
+          "inputWidth": "145px",
+          "tiem": true,
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true
+        },
+        {
+          "name": "I609008",
+          "type": "input",
+          "label": "药  物",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true,
+          "options": [
+            {
+              "name": "布洛芬缓释胶囊",
+              "code": "布洛芬缓释胶囊"
+            },
+            {
+              "name": "醋氯芬酸胶囊",
+              "code": "醋氯芬酸胶囊"
+            },
+            {
+              "name": "盐酸羟考酮胶囊",
+              "code": "盐酸羟考酮胶囊"
+            },
+            {
+              "name": "塞来昔布片",
+              "code": "塞来昔布片"
+            },
+            {
+              "name": "硫酸吗啡即释片",
+              "code": "硫酸吗啡即释片"
+            },
+            {
+              "name": "硫酸吗啡缓释片",
+              "code": "硫酸吗啡缓释片"
+            },
+            {
+              "name": "盐酸羟考酮缓释片",
+              "code": "盐酸羟考酮缓释片"
+            },
+            {
+              "name": "曲马多注射液",
+              "code": "曲马多注射液"
+            },
+            {
+              "name": "高乌甲素注射液",
+              "code": "高乌甲素注射液"
+            },
+            {
+              "name": "氟比洛芬酯注射液",
+              "code": "氟比洛芬酯注射液"
+            },
+            {
+              "name": "硫酸吗啡注射液",
+              "code": "硫酸吗啡注射液"
+            },
+            {
+              "name": "颅痛定",
+              "code": "颅痛定"
+            },
+            {
+              "name": "镇痛泵",
+              "code": "镇痛泵"
+            },
+            {
+              "name": "芬太尼透皮贴剂",
+              "code": "芬太尼透皮贴剂"
+            },
+            {
+              "name": "其他",
+              "code": "其他"
+            }
+          ]
+        },
+        {
+          "name": "I609009",
+          "type": "input",
+          "label": "剂  量",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true
+        },
+        {
+          "name": "I609010",
+          "type": "input",
+          "label": "用  法",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true,
+          "options": [
+            {
+              "name": "口服",
+              "code": "口服"
+            },
+            {
+              "name": "静脉滴注",
+              "code": "静脉滴注"
+            },
+            {
+              "name": "肌肉注射",
+              "code": "肌肉注射"
+            },
+            {
+              "name": "静脉注射",
+              "code": "静脉注射"
+            },
+            {
+              "name": "皮下注射",
+              "code": "皮下注射"
+            },
+            {
+              "name": "外用贴剂",
+              "code": "外用贴剂"
+            },
+            {
+              "name": "肛塞",
+              "code": "肛塞"
+            },
+            {
+              "name": "其他",
+              "code": "其他"
+            }
+          ]
+        },
+        {
+          "name": "I609007",
+          "type": "input",
+          "label": "频  次",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "临时用药",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I609024",
+          "type": "datePicker",
+          "label": "用药时间",
+          "style": "width:145px",
+          "inputWidth": "145px",
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true
+        },
+        {
+          "name": "I609011",
+          "type": "input",
+          "label": "药  物",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true,
+          "options": [
+            {
+              "name": "布洛芬缓释胶囊",
+              "code": "布洛芬缓释胶囊"
+            },
+            {
+              "name": "醋氯芬酸胶囊",
+              "code": "醋氯芬酸胶囊"
+            },
+            {
+              "name": "盐酸羟考酮胶囊",
+              "code": "盐酸羟考酮胶囊"
+            },
+            {
+              "name": "塞来昔布片",
+              "code": "塞来昔布片"
+            },
+            {
+              "name": "硫酸吗啡即释片",
+              "code": "硫酸吗啡即释片"
+            },
+            {
+              "name": "硫酸吗啡缓释片",
+              "code": "硫酸吗啡缓释片"
+            },
+            {
+              "name": "盐酸羟考酮缓释片",
+              "code": "盐酸羟考酮缓释片"
+            },
+            {
+              "name": "曲马多注射液",
+              "code": "曲马多注射液"
+            },
+            {
+              "name": "高乌甲素注射液",
+              "code": "高乌甲素注射液"
+            },
+            {
+              "name": "氟比洛芬酯注射液",
+              "code": "氟比洛芬酯注射液"
+            },
+            {
+              "name": "硫酸吗啡注射液",
+              "code": "硫酸吗啡注射液"
+            },
+            {
+              "name": "颅痛定",
+              "code": "颅痛定"
+            },
+            {
+              "name": "镇痛泵",
+              "code": "镇痛泵"
+            },
+            {
+              "name": "芬太尼透皮贴剂",
+              "code": "芬太尼透皮贴剂"
+            },
+            {
+              "name": "其他",
+              "code": "其他"
+            }
+          ]
+        },
+        {
+          "name": "I609012",
+          "type": "input",
+          "label": "剂  量",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true
+        },
+        {
+          "name": "I609013",
+          "type": "input",
+          "label": "用  法",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true,
+          "options": [
+            {
+              "name": "口服",
+              "code": "口服"
+            },
+            {
+              "name": "静脉滴注",
+              "code": "静脉滴注"
+            },
+            {
+              "name": "肌肉注射",
+              "code": "肌肉注射"
+            },
+            {
+              "name": "静脉注射",
+              "code": "静脉注射"
+            },
+            {
+              "name": "皮下注射",
+              "code": "皮下注射"
+            },
+            {
+              "name": "外用贴剂",
+              "code": "外用贴剂"
+            },
+            {
+              "name": "肛塞",
+              "code": "肛塞"
+            },
+            {
+              "name": "其他",
+              "code": "其他"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "不良反应",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I609014",
+          "type": "input",
+          "label": "不良反应",
+          "inputWidth": "196px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true,
+          "options": [
+            {
+              "name": "无",
+              "code": "无"
+            },
+            {
+              "name": "恶心",
+              "code": "恶心"
+            },
+            {
+              "name": "呕吐",
+              "code": "呕吐"
+            },
+            {
+              "name": "头晕",
+              "code": "头晕"
+            },
+            {
+              "name": "瘙痒",
+              "code": "瘙痒"
+            },
+            {
+              "name": "尿潴留",
+              "code": "尿潴留"
+            },
+            {
+              "name": "便秘",
+              "code": "便秘"
+            },
+            {
+              "name": "嗜睡",
+              "code": "嗜睡"
+            },
+            {
+              "name": "谵妄",
+              "code": "谵妄"
+            },
+            {
+              "name": "其他",
+              "code": "其他"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、护理措施",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": " ",
+      "type": "formGroupVerticalBox",
+      "colWidth": [
+        "0%",
+        "100%"
+      ],
+      "title": " ",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003003111",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M609008",
+          "type": "input",
+          "label": "实施多学科个性化干预",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "√",
+              "code": "√"
+            },
+            {
+              "name": "×",
+              "code": "×"
+            },
+            {
+              "name": "/",
+              "code": "/"
+            }
+          ]
+        },
+        {
+          "name": "M609009",
+          "type": "input",
+          "label": "遵医嘱用药观察药物效果及不良反应",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "√",
+              "code": "√"
+            },
+            {
+              "name": "×",
+              "code": "×"
+            },
+            {
+              "name": "/",
+              "code": "/"
+            }
+          ]
+        },
+        {
+          "name": "M609010",
+          "type": "input",
+          "label": "联合应用按摩、正念减压放松训练、音乐疗法转移注意力等措施",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "√",
+              "code": "√"
+            },
+            {
+              "name": "×",
+              "code": "×"
+            },
+            {
+              "name": "/",
+              "code": "/"
+            }
+          ]
+        },
+        {
+          "name": "M609011",
+          "type": "input",
+          "label": "指导患者主动报告疼痛",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "√",
+              "code": "√"
+            },
+            {
+              "name": "×",
+              "code": "×"
+            },
+            {
+              "name": "/",
+              "code": "/"
+            }
+          ]
+        },
+        {
+          "name": "M609012",
+          "type": "input",
+          "label": "护士根据病情及时评估疼痛",
+          "code": "true",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "√",
+              "code": "√"
+            },
+            {
+              "name": "×",
+              "code": "×"
+            },
+            {
+              "name": "/",
+              "code": "/"
+            }
+          ]
+        },
+        {
+          "name": "M609007",
+          "type": "input",
+          "label": "其他",
+          "inputWidth": "",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "selectOnly": true,
+          "options": [
+            {
+              "name": "穴位贴敷",
+              "code": "穴位贴敷"
+            },
+            {
+              "name": "耳穴贴压",
+              "code": "耳穴贴压"
+            },
+            {
+              "name": "其他",
+              "code": "其他"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

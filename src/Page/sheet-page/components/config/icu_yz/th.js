@@ -2,7 +2,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1420px"
+      width: "1300px"
     },
     th: {
       top: [
@@ -26,7 +26,7 @@ export default {
         },
         //神志
         {
-          name: "神志",
+          name: "意识",
           style: {
             minWidth: "36px",
             maxWidth: "36px"
@@ -43,8 +43,8 @@ export default {
           colspan: "1",
           rowspan: "3",
           style: {
-            whiteSpace: "nowrap",
-            minWidth: "38px"
+            minWidth: "18px",
+            minWidth: "18px"
           }
         },
         //心率
@@ -82,18 +82,18 @@ export default {
           colspan: "1",
           rowspan: "3",
           style: {
-            whiteSpace: "nowrap",
-            minWidth: "38px"
+            minWidth: "18px",
+            minWidth: "18px"
           }
         },
         //SPO2
         {
           name: `
-          血氧饱和度<br/>(%)
+          血氧<br/>饱和度<br/>(%)
           `,
           style: {
-            minWidth: "40px",
-            maxWidth: "40px"
+            minWidth: "30px",
+            maxWidth: "30px"
           },
           colspan: "1",
           rowspan: "3"
@@ -124,27 +124,27 @@ export default {
           rowspan: "1",
           canSet: false
         },
+        // {
+        //   name: `
+        //   自定义
+        //   `,
+        //   key: "fieldNine", 
+        //   style: {
+        //     minWidth: "45px",
+        //     maxWidth: "45px"
+        //   },
+        //   canSet: true,
+        //   colspan: "1",
+        //   rowspan: "3"
+        // },
         {
           name: `
-          自定义
-          `,
-          key: "fieldNine", 
-          style: {
-            minWidth: "45px",
-            maxWidth: "45px"
-          },
-          canSet: true,
-          colspan: "1",
-          rowspan: "3"
-        },
-        {
-          name: `
-          自定义
+           
           `,
           key: "fieldTen", 
           style: {
-            minWidth: "45px",
-            maxWidth: "45px"
+            minWidth: "35px",
+            maxWidth: "35px"
           },
           canSet: true,
           colspan: "1",
@@ -152,12 +152,12 @@ export default {
         },
         {
           name: `
-          自定义
+           
           `,
           key: "expand2",
           style: {
-            minWidth: "45px",
-            maxWidth: "45px"
+            minWidth: "35px",
+            maxWidth: "35px"
           },
           canSet: true,
           colspan: "1",
@@ -169,8 +169,8 @@ export default {
           病情观察及护理措施
           `,
           style: {
-            minWidth: "346px",
-            maxWidth: "346px"
+            minWidth: "250px",
+            maxWidth: "250px"
           },
           colspan: "1",
           rowspan: "3"
@@ -191,8 +191,8 @@ export default {
           鼻导管
           `,
           style: {
-            minWidth: "45px",
-            maxWidth: "45px"
+            minWidth: "35px",
+            maxWidth: "35px"
           },
           colspan: "1",
           rowspan: "2"
@@ -202,20 +202,20 @@ export default {
           面罩
           `,
           style: {
-            minWidth: "45px",
-            maxWidth: "45px"
+            minWidth: "35px",
+            maxWidth: "35px"
           },
           colspan: "1",
           rowspan: "2"
         },
         {
           name: `
-          自定义
+           
           `,
           key: "fieldSeven",
           style: {
-            minWidth: "45px",
-            maxWidth: "45px"
+            minWidth: "35px",
+            maxWidth: "35px"
           },
           canSet: true,
           colspan: "1",
@@ -226,8 +226,8 @@ export default {
           项目
           `,
           style: {
-            minWidth: "110px",
-            maxWidth: "110px"
+            minWidth: "100px",
+            maxWidth: "100px"
           },
           colspan: "1",
           rowspan: "2"
@@ -239,8 +239,8 @@ export default {
           colspan: "1",
           rowspan: "2",
           style: {
-            minWidth: "66px",
-            maxWidth: "66px"
+            minWidth: "46px",
+            maxWidth: "46px"
           }
         },
         {
@@ -248,8 +248,8 @@ export default {
           项目
           `,
           style: {
-            minWidth: "110px",
-            maxWidth: "110px"
+            minWidth: "100px",
+            maxWidth: "100px"
           },
           colspan: "1",
           rowspan: "2"
@@ -261,8 +261,8 @@ export default {
           colspan: "1",
           rowspan: "2",
           style: {
-            minWidth: "66px",
-            maxWidth: "66px",
+            minWidth: "46px",
+            maxWidth: "46px",
             whiteSpace: "nowrap"
           }
         },
@@ -273,8 +273,8 @@ export default {
           colspan: "1",
           rowspan: "2",
           style: {
-            minWidth: "66px",
-            maxWidth: "66px",
+            minWidth: "56px",
+            maxWidth: "56px",
             whiteSpace: "nowrap"
           }
         }

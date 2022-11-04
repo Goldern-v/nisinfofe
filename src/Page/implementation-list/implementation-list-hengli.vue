@@ -92,9 +92,14 @@
             :disabled="status == '已执行'"
             >执行</el-button
           >
+          <el-button
+            size="small"
+            @click="exportExcel"
+            >导出</el-button
+          >
         </div>
       </div>
-      <dTable :pageLoadng="pageLoadng" ref="plTable"></dTable>
+      <dTable :pageLoadng="pageLoading" ref="plTable"></dTable>
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -153,16 +158,18 @@
 <script>
 import dTable from "./components/table/d-table-wujing";
 // import pagination from "./components/common/pagination";
-import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcode, handleWebExecuteBatch } from "./api/index";
+// import { patEmrList } from "@/api/document";
+import { getExecuteWithWardcode, handleWebExecuteBatch, exportWardExecuteList } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
+import { fileDownload } from '@/utils/fileExport.js'
+
 export default {
   mixins: [common],
   data() {
     return {
       pageInput: "",
-      pageLoadng: false,
+      pageLoading: false,
       page: {
         pageIndex: 1,
         // pageNum: 20,
@@ -192,15 +199,17 @@ export default {
       this.page.pageIndex = newPage;
       this.onLoad();
     },
-
-    onLoad() {
-      if (!this.deptCode) return;
-      this.pageLoadng = true;
+    getQuery() {
       this.query.wardCode = this.deptCode;
       this.query.executeDate = this.query.executeDate
         ? moment(this.query.executeDate).format("YYYY-MM-DD")
         : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : "*";
+    },
+    onLoad() {
+      if (!this.deptCode) return;
+      this.pageLoading = true;
+      this.getQuery()
 
       getExecuteWithWardcode(this.query).then((res) => {
         let tableData = res.data.data.map((item, index, array) => {
@@ -244,7 +253,7 @@ export default {
           this.$refs.plTable.$children[0].reloadData(tableData);
         }
         this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
-        this.pageLoadng = false;
+        this.pageLoading = false;
       });
     },
     search() {
@@ -288,6 +297,12 @@ export default {
         this.onLoad();
       });
     },
+    exportExcel() {
+      this.getQuery()
+      exportWardExecuteList(this.query).then(res => {
+        fileDownload(res)
+      })
+    }
   },
   created() {
     this.onLoad();

@@ -410,7 +410,6 @@ export default {
     //
   },
   created() {
-    console.log("col",this.props)
     this.helpImg = require("./image/question.png");
     this.lightImg = require("./image/light.png");
   },

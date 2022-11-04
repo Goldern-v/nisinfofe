@@ -45,6 +45,7 @@
         <el-input
           size="small"
           type="text"
+          :disabled="['nanfangzhongxiyi'].includes(HOSPITAL_ID) && nanfangCa"
           placeholder="输入用户名或者工号"
           v-model="username"
           :readonly="['foshanrenyi','weixian'].includes(HOSPITAL_ID)"
@@ -64,6 +65,7 @@
         ></el-input>
       </div>
     </span>
+    <span v-else-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID) && nanfangCa"></span>
     <span v-else-if="(!['foshanrenyi','weixian'].includes(HOSPITAL_ID)) || pw ">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
@@ -181,7 +183,7 @@
 </style>
 
 <script>
-import { GetUserList,verifyNewCaSign } from "@/api/caCardApi";
+import { GetUserList,verifyNewCaSign,nanfnagCaSign } from "@/api/caCardApi";
 import dayjs from "dayjs";
 import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
@@ -286,7 +288,9 @@ export default {
           this.ca_isLogin = !!this.ca_name;
       })
     }
-
+    console.log("localStorage",localStorage["nanFangcaLogin"],this.nanfangCa)
+    console.log("aaaaaaaa",callback,title,showDate,isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj)
+  
    this.btnLoading = false
     if(doctorTure){
       this.isDoctor = doctorTure
@@ -295,13 +299,13 @@ export default {
       this.isDoctor =false;
       this.isCaSign = false;
     }
-    if(['zhzxy','fuyou'].includes(this.HOSPITAL_ID)){
+    if(['zhzxy'].includes(this.HOSPITAL_ID)){
       let strTitlt = this.title + title, flag = true,arrDelete = ['删除','取消']
       arrDelete.forEach(item=>{
         console.log(item,"item")
         if(strTitlt.indexOf(item)>-1) flag = false
       })
-      if(flag){
+      if(flag && this.fuyouCaData && this.fuyouCaData.userName){
         // this.isDoctor =true
         this.isCaSign = true
       }
@@ -350,7 +354,7 @@ export default {
         if(this.HOSPITAL_ID=="foshanrenyi"){
           this.verifySignObj = verifySignObj
           this.SigndataObj = SigndataObj
-        }else if(this.HOSPITAL_ID=="zhzxy"){
+        }else if(['nanfangzhongxiyi','zhzxy'].includes(this.HOSPITAL_ID)){
           this.verifySignObj = verifySignObj
         }
       this.showDate = showDate;
@@ -398,11 +402,11 @@ export default {
       this.$refs.modalName.close();
     },
     setCloseCallback(closeCallback) {
-      console.log("Sign----setCloseCallback");
+      console.log(closeCallback,"Sign----setCloseCallback");
       this.$refs.modalName.setCloseCallback(closeCallback);
     },
     post() {
-        // debugger
+      console.log("121231231231")
       this.btnLoading = true
       this.setCloseCallback(null);
       if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
@@ -477,7 +481,7 @@ export default {
           }
         }
       } else {
-        if (this.password == "") {
+        if (this.password == "" && !this.nanfangCa) {
            this.$message({
             message: "请输入密码",
             type: "warning",
@@ -485,27 +489,52 @@ export default {
           });
           return this.btnLoading = false
         }
-        this.$refs.modalName.close();
-        console.log(this.aduitDate,'-------------------------------------');
-        if(this.aduitDate != '' && this.HOSPITAL_ID == 'hengli'){
-          return this.callback(this.password, this.username,this.signDate='', this.aduitDate);
-        }
-        if(this.isDoctor){
-          console.log(!this.isDoctor);
-          return this.callback(this.password,this.username);
-        }
-        // 执行这个逻辑
-        if(this.aduitDate!=''&&this.aduitDateSheet.includes(this.activeSheetType)){
-            this.showAduit=false
-            this.activeSheetType=""
-            return this.callback(this.password, this.username, this.aduitDate);
-        }
-        console.log(this.signDate,"this.signDate")
-        if (this.signDate) {
-          let requestPW = (this.HOSPITAL_ID=='zhzxy' && this.password!='Bcy@22qw') ? md5(this.password) : this.password
-          return this.callback(requestPW, this.username, this.signDate);
-        }else {
-            return this.callback(this.password, this.username);
+         if(['nanfangzhongxiyi勿删'].includes(this.HOSPITAL_ID)){
+          const nanFangcaToken = localStorage["nanFangcaToken"] || ""
+          const nanFangcaLogin = localStorage["nanFangcaLogin"] || ""
+          nanfnagCaSign(this.username,this.password,this.verifySignObj,nanFangcaToken,nanFangcaLogin).then(res1=>{
+            console.log("nanfnagCaSign",res1)
+            this.$refs.modalName.close();
+              console.log(this.aduitDate,"nanfmgaaduitDate");
+              let password = res1.data.data.password
+              if(this.isDoctor){
+                console.log(!this.isDoctor);
+                return this.callback(password,this.username);
+              }
+              // 执行这个逻辑
+              // if(this.aduitDate!=''&&this.aduitDateSheet.includes(this.activeSheetType)){
+              //     this.showAduit=false 
+              //     this.activeSheetType=""
+              //     return this.callback(this.password, this.username, this.aduitDate);
+              // }
+              if (this.signDate) {
+                return this.callback(password, this.username, this.signDate);
+              }else {
+                  return this.callback(password, this.username);
+              }
+          },err=>{this.$message.error(err)})
+        }else{
+          this.$refs.modalName.close();
+          console.log(this.aduitDate,'-------------------------------------');
+          if(this.aduitDate != '' && this.HOSPITAL_ID == 'hengli'){
+            return this.callback(this.password, this.username,this.signDate='', this.aduitDate);
+          } 
+          if(this.isDoctor){
+            console.log(!this.isDoctor);
+            return this.callback(this.password,this.username);
+          }
+          // 执行这个逻辑
+          if(this.aduitDate!=''&&this.aduitDateSheet.includes(this.activeSheetType)){
+              this.showAduit=false 
+              this.activeSheetType=""
+              return this.callback(this.password, this.username, this.aduitDate);
+          }
+          if (this.signDate) {
+            let requestPW = (this.HOSPITAL_ID=='zhzxy' && this.password!='Bcy@22qw') ? md5(this.password) : this.password
+            return this.callback(requestPW, this.username, this.signDate);
+          }else {
+              return this.callback(this.password, this.username);
+          }
         }
       }
     },
@@ -614,6 +643,13 @@ export default {
         console.log('newVal:', newVal)
         },
     },
+  },
+  computed:{
+    nanfangCa:{
+      get(){
+        return localStorage["nanFangcaLogin"] || false
+      }
+    }
   },
   mounted(){
     //初始化江门妇幼签名数据

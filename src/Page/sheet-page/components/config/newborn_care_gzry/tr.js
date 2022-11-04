@@ -25,6 +25,7 @@ export default [
     key: "temperature", //体温℃
     value: "",
     event: keyf1,
+    name:'体温',
     textarea: {
       width: 31
     },
@@ -33,6 +34,7 @@ export default [
     key: "pulse", //心率
     value: "",
     event: keyf1,
+    name:'心率',
     textarea: {
       width: 31
     },
@@ -49,6 +51,7 @@ export default [
     key: "bloodPressure", //血压
     value: "",
     event: keyf1,
+    name:'血压',
     textarea: {
       width: 51
     }
@@ -57,6 +60,7 @@ export default [
     key: "spo2", //SPO2
     value: "",
     event: keyf1,
+    name:'血氧饱和度',
     textarea: {
       width: 51
     }

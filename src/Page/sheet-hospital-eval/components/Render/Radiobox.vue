@@ -115,9 +115,6 @@ export default {
         this.$refs[
           this.refName
           ].$parent.$parent.$parent.$el.style.backgroundColor = "transparent";
-        // if(this.$root.$refs.mainPage.checkFormMissingItems){
-        //   this.$root.$refs.mainPage.checkFormMissingItems()
-        // }
       }
 
       let rootRefs = this.$root.$refs[this.formCode][this.obj.name];
@@ -193,7 +190,7 @@ export default {
           this.formObj.selectedItems = this.formObj.selectedItems.filter(c => {
             return c.name !== this.obj.name;
           });
-          
+
           console.log("取消选中", "index", index, this.formObj.selectedItems);
         }
         this.formObj.model[this.obj.name] = "";
@@ -213,7 +210,7 @@ export default {
           if(typeof item.score == 'undefined') item.score = ''
           if(this.formObj.formSetting.formInfo.formCode == 'E0616'){
               score =  (this.formObj.model["I616001"]?this.formObj.model["I616001"]:"_")+"+"+(this.formObj.model["I616002"]?this.formObj.model["I616002"]:"_")+"+"+(this.formObj.model["I616003"]?this.formObj.model["I616003"]:"_")
-       
+
           return score
           }else{
             score += ~~item.score;
@@ -265,11 +262,6 @@ export default {
         "score",
         score
       );
-
-      // 填写检查
-      // if(this.$root.$refs.mainPage.checkFormMissingItems){
-      //   this.$root.$refs.mainPage.checkFormMissingItems()
-      // }
     },
     setElementValue(key, value) {
       Object.keys(this.$root.$refs[this.formCode][key]).map(elkey => {

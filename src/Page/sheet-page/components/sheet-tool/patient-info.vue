@@ -24,7 +24,7 @@
   background: rgba(255, 255, 255, 0.9);
   box-shadow: -3px 3px 5px 0px rgba(0, 0, 0, 0.05);
   border-radius: 100px 0px 0px 100px;
-  z-index: 2;
+  z-index: 222;
   display: flex;
   align-items: center;
   justify-content: center;
