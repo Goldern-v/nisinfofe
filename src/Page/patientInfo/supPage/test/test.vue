@@ -191,7 +191,7 @@
             })
             return item.testResultList
           })
-          this.toRight(this.rightData[this.foshanRenyiChoseIndex])
+          this.toRight(this.rightData[this.foshanRenyiChoseItoRightndex])
         }else{
           this.toRight(this.list[0])
         }
@@ -200,6 +200,7 @@
     methods: {
       toRight(data,index) {
         if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+            console.log(data,'dddddddddddddddddddddd');
           this.rightData = data
         }else{
           this.foshanRenyiChoseIndex = index?index:0
