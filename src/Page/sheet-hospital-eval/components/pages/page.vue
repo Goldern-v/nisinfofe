@@ -86,18 +86,6 @@ export default {
     this.bus.$on("closeHosptialEvalForm", this.closeForm);
     this.bus.$on("setHosptialEvalPageMessage", this.setMessage);
 
-    // this.bus.$on("updateFormUIData", res => {
-    //   // itemData  master
-    //   let {
-    //     data: {
-    //       data: { itemData: itemData, master: master }
-    //     }
-    //   } = res;
-    //   let model = { ...itemData, ...master };
-    //   window.formObj.model = { ...model };
-    //   this.fillForm();
-    // });
-
     this.bus.$on("setHosptialEvalLoading", config => {
       if (typeof config === "object") {
         if (config.hasOwnProperty("status")) {

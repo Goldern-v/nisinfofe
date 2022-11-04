@@ -102,18 +102,7 @@ export default {
       this.lock = lock;
     });
 
-    // this.bus.$on("updateFormUIData", res => {
-    //   // itemData  master
-    //   let {
-    //     data: {
-    //       data: { itemData: itemData, master: master }
-    //     }
-    //   } = res;
-    //   let model = { ...itemData, ...master };
-    //   window.formObj.model = { ...model };
-    //   this.fillForm();
-    // });
-
+    // 加载loading状态显示
     this.bus.$on("setHosptialAdmissionLoading", config => {
       if (typeof config === "object") {
         if (config.hasOwnProperty("status")) {
@@ -137,6 +126,7 @@ export default {
     this.loading = false;
   },
   methods: {
+    // 初始化话表内容渲染
     initial(patient = null, isDevMode = false) {
       this.loading = true;
       // 主表结构
@@ -266,9 +256,11 @@ export default {
       }
       // window.file = this.fileJSON;
     },
+    // 显示空状态的值
     setMessage(msg) {
       this.message = msg; // "请选择左侧患者~"
     },
+    // 关闭表显示
     closeForm() {
       this.isShow = false;
       this.initial();

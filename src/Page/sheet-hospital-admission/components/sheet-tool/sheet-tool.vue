@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="tool-contain" flex="cross:center">
-      <!-- buttonsLeft -->
+      <!-- buttonsLeft 按钮配置选项-->
       <template v-for="(button, i) in buttonsLeft">
         <div
           :key="button.label + i"
@@ -18,6 +18,7 @@
         </div>
       </template>
       <div flex-box="1"></div>
+      <!-- title右侧栏 -->
       <span class="label">评估记录：</span>
       <el-select
         v-model="selectBlock"
@@ -26,6 +27,7 @@
         placeholder="请选择评估记录"
         class="select-con"
       >
+      <!-- 选项展示 -->
         <div class="sheetSelect-con-sheet">
           <div class="head-con" flex="cross:stretch">
             <div class="col-1">ID</div>
@@ -244,6 +246,7 @@ export default {
       tool: "",
       showCurve: false,
       creator: "",
+      // 是否创建新表
       isNewForm: false,
       user: JSON.parse(localStorage.user),
       selectList: [],
@@ -256,7 +259,9 @@ export default {
         patient: new Object(),
         formObj: new Object(),
       },
+      // 患者最后一条列表数据
       selectBlock: {},
+      // 患者所有入院评估列表数据
       sheetBlockList: [],
       buttonsLeft: [
         {
@@ -522,18 +527,21 @@ export default {
       });
     },
     createNewForm() {
+      // 触发loading状态
       this.bus.$emit("setHosptialAdmissionLoading", {
         status: true,
         msg: "新建表单中...",
       });
+      // 修改创建新表状态值
       this.isNewForm = true;
-      //
       let post = {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
         formType: "eval",
         formCode: this.formCode,
       };
+      // loadPatient：获取入院病人资料接口
+      // createForm：创建表接口
       Promise.all([
         loadPatient(this.patientInfo.patientId, this.patientInfo.visitId),
         createForm(post),
@@ -541,32 +549,8 @@ export default {
         this.formObj.model = new Object();
 
         if (res[0] && res[0].data.data) {
-          console.log("病人HIS数据", res[0], res[0].data.data);
+          // 同步患者his数据
           this.syncHIS(res[0].data.data);
-          // let keyMap={
-          //     'diagnosis':'I001001', // 入院诊断
-          //     'temperature':'I100001', // 体温
-          //     'pulse':'I100002', // 脉博P
-          //     // 'heartRate':'I100002', // 心率HR
-          //     'breathe':'I100003', // 呼吸频率是R
-          //     'bloodPressure':'I100005', // 血压是BP
-          //     'height':'I100009', // 身高
-          //     'weight':'I100010', // 体重
-          //     'bmi':'I100011', // 体征
-          //     'nation':'I001003', // 国籍
-          //     'occupation':'I001002', // 工作
-          //     'religion':'I001004', // 宗教
-          //     // 'admissionDate':'', // 入院日期
-          //   };
-          //   let keys = Object.keys(keyMap)
-          //   console.log('===keyMap',keyMap,keys)
-          //   keys = [...keys]
-          //   keys.map(key=>{
-          //     if(res[0].data.data[key]!=undefined && res[0].data.data[key]!="undefined" && res[0].data.data[key]!='' && res[0].data.data[key]!=null){
-          //       this.formObj.model[keyMap[key]] = res[0].data.data[key] || ''
-          //       console.log('----key',key,res[0].data.data[key])
-          //     }
-          //   })
         }
 
         console.log("--新建评估", res[0], res[1], this.formObj.model);
@@ -575,8 +559,8 @@ export default {
           let pdata = res[1].data.data;
 
           this.formObj.model["id"] = pdata.id;
+          // 重新触发获取患者入院评估列表数据
           this.getHEvalBlockList(pdata);
-          // this.$message.success("新建成功");
           try {
             window.notifyBox.showMessage({
               duration: 20000,
@@ -584,78 +568,59 @@ export default {
               title: "提示：启用自动默认填写",
               message: `已为您默认选填每项评估的第一项，请稍后按病人实际信息增删改。`,
             });
-            // window.app.$notify({
-            //   duration: 20000,
-            //   type: "info",
-            //   title: "提示：启用自动默认填写",
-            //   message: `已为您默认选填每项评估的第一项，请稍后按病人实际信息增删改。`
-            // });
           } catch (error) {}
         }
-        //
-        //
       });
-      // // His data
-      // loadPatient(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
-      //   //
-      // })
-      // // 新建评估
-      // createForm(post).then(res => {
-      //   console.log("新建评估", res);
-      //   if (res && res.data.data) {
-      //     //
-      //     let pdata = res.data.data;
-      //     this.formObj.model = new Object();
-      //     this.formObj.model["id"] = pdata.id;
-      //     this.getHEvalBlockList(pdata);
-      //     // this.$message.success("新建成功");
-      //   }
-      // });
     },
+
+    /**
+     * @patientInfo 患者详情
+     * 获取当前患者的入院评估列表
+     */
     getHEvalBlockList(patientInfo = this.patientInfo) {
       this.selectBlock = "";
-      console.log("getHEvalBlockList:patientInfo", patientInfo);
       let postData = {
         patientId: patientInfo.patientId,
         visitId: patientInfo.visitId,
         formCode: this.formCode,
       };
+      // 获取表单列表数据接口
       list(postData).then((res) => {
-        console.log("---获取表单列表", res, this.formObj.model);
-
         if (res && res.data && res.data.data.list) {
           let listData = res.data.data.list;
+          // 以表id来排序
           listData.sort((a, b) => {
             return a.id - b.id;
           });
-          // sort
           this.sheetBlockList = listData;
-          // this.sheetBlockList.length - 1
           let len = this.sheetBlockList.length;
           if (this.sheetBlockList && len > 0) {
             this.changeSelectBlock(this.sheetBlockList[len - 1]);
+            // 赋值最后一条作为当前渲染
             this.selectBlock = this.sheetBlockList[len - 1];
           }
-          // blockLabel(item)
         }
         console.log("---获取表单列表:sheetBlockList", this.sheetBlockList);
         if (this.sheetBlockList.length === 0) {
-          // this.selectBlock = "无数据"
+          // 关闭表的显示
           this.bus.$emit("closeHosptialAdmissionForm");
-          // this.$message.success("无数据");
+          // 空状态的内容显示
           this.bus.$emit("setHosptialAdmissionPageMessage", "新建评估单");
+          // 加载loading状态显示
           this.bus.$emit("setHosptialAdmissionLoading", false);
         }
       });
     },
+    //获取当前表的填项数据
     changeSelectBlock(item) {
       if (!this.selectBlock.id) return;
+      // window.performance（监控网页与程序性能）
+      // 可以精确计算程序执行时间
       window.performance.mark("mark_blocklist_start_xhr");
-      console.log("changeSelectBlock", item);
+      // 加载loading状态显示
       this.bus.$emit("setHosptialAdmissionLoading", true);
 
       this.removeCheckMark();
-
       if (
         this.$root.$refs.tableOfContent &&
         this.$root.$refs.tableOfContent.updateMissingItems
@@ -892,7 +857,7 @@ export default {
 
               if (skipItems.indexOf(title) > -1) {
                 //  continue
-                console.log("===多选单选组件:title", title, skipItems);
+                // console.log("===多选单选组件:title", title, skipItems);
               }
 
               if (
@@ -1028,7 +993,7 @@ export default {
                   element.$parent.$parent.$parent.$parent.obj.title
                 ) > -1
               ) {
-                console.log("===输入框组件:title", title, skipItems);
+                // console.log("===输入框组件:title", title, skipItems);
                 element.$el.style.outline = "none";
                 element.$el.style.backgroundColor = "transparent";
                 continue;
@@ -1038,16 +1003,16 @@ export default {
                 (skipItems.indexOf(title) == -1 && !value && !parentName) ||
                 (!value && parentName && !window.formObj.model[parentName])
               ) {
-                console.log(
-                  "==输入框组件:title",
-                  title,
-                  parentName,
-                  name,
-                  element,
-                  skipItems,
-                  [window.formObj.model[name]],
-                  [value]
-                );
+                // console.log(
+                //   "==输入框组件:title",
+                //   title,
+                //   parentName,
+                //   name,
+                //   element,
+                //   skipItems,
+                //   [window.formObj.model[name]],
+                //   [value]
+                // );
 
                 let parentTitle = "";
                 let parent = element.$parent;
@@ -1086,13 +1051,13 @@ export default {
                   if (!parentTitle) {
                     if (parent.obj.parentTitle) {
                       parentTitle = parent.obj.parentTitle;
-                      console.log(
-                        "===:itemTitle",
-                        title,
-                        parent,
-                        element,
-                        window.formObj.model[parent.obj.parentKey]
-                      );
+                      // console.log(
+                      //   "===:itemTitle",
+                      //   title,
+                      //   parent,
+                      //   element,
+                      //   window.formObj.model[parent.obj.parentKey]
+                      // );
                     }
                   }
 
@@ -1111,20 +1076,20 @@ export default {
                   element.$el.style.backgroundColor = "yellow";
                 }
                 //
-                console.log(
-                  "漏项",
-                  [element, parent],
-                  [element.$el],
-                  [parent.obj.title ? parent.obj.title : ""],
-                  [
-                    parent.obj.name,
-                    parent.obj.parentKey,
-                    parent.obj,
-                    window.formObj.model[
-                      parent.obj.name || parent.obj.parentKey
-                    ],
-                  ]
-                );
+                // console.log(
+                //   "漏项",
+                //   [element, parent],
+                //   [element.$el],
+                //   [parent.obj.title ? parent.obj.title : ""],
+                //   [
+                //     parent.obj.name,
+                //     parent.obj.parentKey,
+                //     parent.obj,
+                //     window.formObj.model[
+                //       parent.obj.name || parent.obj.parentKey
+                //     ],
+                //   ]
+                // );
 
                 //
                 // element.$el.style.outline = "1px solid red";
@@ -1308,7 +1273,7 @@ export default {
 
             console.log("签名post", post, postData);
 
-            //
+            // 签名调保存接口
             save(postData)
               .then((res) => {
                 this.getHEvalBlockList(this.patientInfo);
@@ -1326,6 +1291,7 @@ export default {
                 if (master.updaterName && master.updateTime) {
                   this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
                 }
+                // 触发填写漏项提醒
                 this.checkFormMissingItems();
               })
               .catch((err) => {
@@ -1437,6 +1403,7 @@ export default {
             if (master.updaterName && master.updateTime) {
               this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
             }
+            // 保存之后检查漏项填写
             this.checkFormMissingItems();
           })
           .catch((err) => {
@@ -1483,7 +1450,6 @@ export default {
       this.dialogTableVisible = true;
     },
     leftTablelist(val) {
-      
       this.thisRowData = this;
       this.thisRowData = val;
       this.dialogTableVisible = false;
@@ -1510,8 +1476,6 @@ export default {
           this.$root.$refs["sheetPage"].fillForm();
           this.bus.$emit("setHosptialAdmissionLoading", false);
         });
-
-      console.log("默认填写");
     },
     getFilterData() {
       this.$emit("getFilterData", this.searchData);
@@ -1532,11 +1496,13 @@ export default {
     },
   },
   created() {
+    // 触发获取患者入院评估列表数据
     this.bus.$on("getHEvalBlockList", (patientInfo) => {
-      console.log("getHEvalBlockList");
       this.getHEvalBlockList(patientInfo);
     });
+    // 接收page.vue新建表的方法
     this.bus.$on("createHEvalForm", this.createNewForm);
+    // 填写检查
     this.bus.$on("checkFormMissingItems", this.checkFormMissingItems);
     this.bus.$on("formSignOrAudit", this.formSignOrAudit);
 
@@ -1562,17 +1528,9 @@ export default {
     window.formTool = tool;
     //
     this.hotkeyForm();
-    // if (window.formObj && !window.formObj.hasOwnProperty("tool")) {
-    //   window.formObj["tool"] = {};
-    //   window.formObj["tool"] = tool;
-    //   this.formObj["tool"] = {};
-    //   this.formObj["tool"] = tool;
-    // }
-    //
-    // this.$root.$refs.mainPage['formSignOrAudit'] = this.formSignOrAudit
-    //
   },
   watch: {
+    // 科室code
     deptCode() {
       this.selectBlock = {};
       this.sheetBlockList = [];

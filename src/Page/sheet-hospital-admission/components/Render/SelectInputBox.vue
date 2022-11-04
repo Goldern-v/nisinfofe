@@ -112,13 +112,12 @@ export default {
       this.checkValueRule(valueNew);
       this.isShowDownList = false;
       // return valueNew;
+    },
+    'formObj.model.id'(newValue){
+      this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
     }
   },
   mounted() {
-    try {
-      this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] || '' : window.formObj.model[this.obj.name] || '' ;
-      console.log(this.inputValue);
-    } catch (error) {}
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     this.readOnly = this.obj.readOnly ? this.obj.readOnly : false;
     if (this.$refs[refName]) {

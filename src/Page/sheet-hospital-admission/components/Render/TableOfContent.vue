@@ -1,4 +1,3 @@
-
 <template>
   <div class="table-of-content">
     <!-- <div class="table-of-content-button" @click="isShow=!isShow"> -->
@@ -6,31 +5,91 @@
         <img :src="contentImgae" alt>
     </el-tooltip>-->
     <!-- </div> -->
-    <div v-if="isShow" class="table-of-content-box" :class="isShow?'':'table-show'" ref="tableOfContent"  :style="{height:(wih-100)+'px'}">
+    <div
+      v-if="isShow"
+      class="table-of-content-box"
+      :class="isShow ? '' : 'table-show'"
+      ref="tableOfContent"
+      :style="{ height: wih - 100 + 'px' }"
+    >
       <!-- formGroupTitle -->
       <div class="title-box">目录</div>
       <div class="list-box">
-      <ul>
-
-        <li
-          v-for="(t,i) in formObj.body"
-          v-if="t.type ==='formGroupTitle'"
-          :key="i"
-          :class="t.level==='2' ?'title-level-two':''"
-          @click="scrollTo($event,t.title)"
-        >
-        <el-tooltip class="item" effect="light" placement="left" v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length>16">
-        <div slot="content">
-          <span>
-            <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{t.title}}{{missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''}}</span>
-          </span>
-        </div>
-          <span :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
-      </el-tooltip>
-          <span v-if="formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:'')).length<=16" :class="{'missing-items':missingItems&&missingItems[t.title]}">{{formatTitle(t.title+(missingItems&&missingItems[t.title]?`(漏${missingItems[t.title].length}项)`:''))}}</span>
-        </li>
-        <!-- <a :href="'#'+t.title">{{t.title}}</a> -->
-      </ul>
+        <ul>
+          <template v-for="(t, i) in formObj.body">
+            <li
+              v-if="t.type === 'formGroupTitle'"
+              :key="i"
+              :class="t.level === '2' ? 'title-level-two' : ''"
+              @click="scrollTo($event, t.title)"
+            >
+              <el-tooltip
+                class="item"
+                effect="light"
+                placement="left"
+                v-if="
+                  formatTitle(
+                    t.title +
+                      (missingItems && missingItems[t.title]
+                        ? `(漏${missingItems[t.title].length}项)`
+                        : '')
+                  ).length > 16
+                "
+              >
+                <div slot="content">
+                  <span>
+                    <span
+                      :class="{
+                        'missing-items': missingItems && missingItems[t.title]
+                      }"
+                      >{{ t.title
+                      }}{{
+                        missingItems && missingItems[t.title]
+                          ? `(漏${missingItems[t.title].length}项)`
+                          : ""
+                      }}</span
+                    >
+                  </span>
+                </div>
+                <span
+                  :class="{
+                    'missing-items': missingItems && missingItems[t.title]
+                  }"
+                  >{{
+                    formatTitle(
+                      t.title +
+                        (missingItems && missingItems[t.title]
+                          ? `(漏${missingItems[t.title].length}项)`
+                          : "")
+                    )
+                  }}</span
+                >
+              </el-tooltip>
+              <span
+                v-if="
+                  formatTitle(
+                    t.title +
+                      (missingItems && missingItems[t.title]
+                        ? `(漏${missingItems[t.title].length}项)`
+                        : '')
+                  ).length <= 16
+                "
+                :class="{
+                  'missing-items': missingItems && missingItems[t.title]
+                }"
+                >{{
+                  formatTitle(
+                    t.title +
+                      (missingItems && missingItems[t.title]
+                        ? `(漏${missingItems[t.title].length}项)`
+                        : "")
+                  )
+                }}</span
+              >
+            </li>
+            <!-- <a :href="'#'+t.title">{{t.title}}</a> -->
+          </template>
+        </ul>
       </div>
     </div>
   </div>
@@ -72,7 +131,6 @@ export default {
     //         } catch (error) {
     //           //
     //         }
-
     //       }
     //       // this.missingItems = window.formObj&&window.formObj.missingItems?window.formObj.missingItems:null
     //     },
@@ -82,8 +140,10 @@ export default {
   mounted() {
     this.contentImgae = require("./image/锚点定位.png");
 
-    if(this.$root.$refs.tableOfContent){
-      this.$root.$refs.tableOfContent['updateMissingItems'] = this.updateMissingItems
+    if (this.$root.$refs.tableOfContent) {
+      this.$root.$refs.tableOfContent[
+        "updateMissingItems"
+      ] = this.updateMissingItems;
     }
 
     // document.querySelector('.sheetTable-contain').scrollTop
@@ -93,9 +153,9 @@ export default {
   },
   created() {},
   methods: {
-    updateMissingItems(missingItems){
-      console.log('updateMissingItems',missingItems)
-      this.missingItems = missingItems
+    updateMissingItems(missingItems) {
+      console.log("updateMissingItems", missingItems);
+      this.missingItems = missingItems;
     },
     scrollTo(e, title) {
       let target = document.querySelector(".sheetTable-contain");
@@ -134,18 +194,19 @@ export default {
       let uuid_ = uuid.v1();
       return uuid_;
     },
-    formatTitle(title,limt=16){
-      if(!title){return ''}
-      let result = title+""
-      if(title && title.length>limt){
-        result = title.substring(0,limt)+'..'
+    formatTitle(title, limt = 16) {
+      if (!title) {
+        return "";
       }
-      return result
+      let result = title + "";
+      if (title && title.length > limt) {
+        result = title.substring(0, limt) + "..";
+      }
+      return result;
     }
   }
 };
 </script>
-
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .el-checkbox, .el-select, .is-bordered, .el-checkbox--small, .el-input, .el-input--small, .el-input-group, .el-input-group--prepend {
@@ -266,6 +327,4 @@ a {
   width: 100%;
   border-radius: 0px;
 }
-
-
 </style>
