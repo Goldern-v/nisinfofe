@@ -11,7 +11,7 @@
         :class="rightSheet === true ? 'pagination' : 'paginationRight'"
         v-show="!isPrintAll"
       >
-        <button :disabled="currentPage === 1" @click="currentPage = 1">
+      <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage = 1;">
           首周
         </button>
         <button :disabled="currentPage === 1" @click="toPre">上一周</button>

@@ -10,7 +10,7 @@
       </el-button-group>
         </div>
         <div v-show="!isPrintAll">
-          <button :disabled="currentPage === 1" @click="toPre">首周</button>
+          <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage = 1">首周</button>
         <button :disabled="currentPage === 1" @click="currentPage--">
           上一周
         </button>
@@ -190,6 +190,7 @@ export default {
             break;
               case "currentPage":
             this.currentPage = e.data.value;
+            console.log(e.data.value)
             break;
             case "clickDateTime":
             this.getDataFromPage(e.data.value)
@@ -235,7 +236,7 @@ export default {
       this.authTokenNursing = val;
     },
     currentPage(value) {
-      this.totoCurrentPage = value;
+      this.toCurrentPage = value;
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */
@@ -258,7 +259,6 @@ export default {
   },
   created() {
     // this.getImg();
-    window.addEventListener("resize", this.getHeight);
     window.addEventListener("message", this.messageHandle, false);
     this.getHeight();
         this.bus.$on('dateChangePage',(value)=>{
