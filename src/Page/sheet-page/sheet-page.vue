@@ -276,6 +276,7 @@ import {
   markList,
   splitRecordBlock,
   findListByBlockId,
+  saveAndSignApi
 } from "@/api/sheet.js";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -297,6 +298,7 @@ import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBotton } from "./components/utils/scrollBottom";
 import { blockSave, getNurseExchageInfo } from "./api/index";
+import {GetUserList,verifyNewCaSign} from '../../api/caCardApi'
 //解锁
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 
@@ -319,6 +321,7 @@ export default {
       scrollY: 0,
       scrollX: 0,
       bedAndDeptChange: {},
+      foshanshiyiIFca:false,//佛山key状态
       listData: [],
       toSingleTempArr: [
         "huadu",
@@ -776,8 +779,160 @@ export default {
       ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
       ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
     },
-  },
+    //去除重复记录
+    deduplication(arr){
+      const newArr = arr
+      let map = {}
+      for (let i = newArr.length - 1; i >= 0; i--) {
+        const key = newArr[i].recordDate
+        if (map[`${key}`]) {
+          arr.splice(i, 1)
+        } else {
+          map[`${key}`] = newArr[i].recordDate
+        }
+      }
+      return newArr
+    },
+    saveAndSign(data,resList){
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        let array = []
+                // 去除重复记录
+                let editList = this.deduplication(data)
+          if(resList.length){
+             //如果保存成功  就签名
+            for (let i = 0; i < resList.length; i++) {
+              const item = resList[i]
+              let obj = {}
+              editList.forEach((list,index)=>{
+                if(list.id){
+                  if(list.id==item.id){
+                    obj = item
+                  }
+                }else{
+                    if(list.recordDate ==item.recordDate){
+                      obj = item
+                    }
+                  }
+                  if (Object.keys(obj).length) {
+                array.push(obj)
+              }
+              })
+            }
+          }
+          array = this.deduplication(array)
+        const saveAndcaSignObj = {
+          Document_ID: this.sheetInfo.selectBlock.recordCode,
+          Document_Title: this.sheetInfo.selectBlock.recordName,
+          Patient_ID: this.patientInfo.patientId,
+          Visit_ID: this.patientInfo.visitId,
+          strSignData: JSON.stringify(array),
+        }
+        const saveAndVerifySignObj = {
+          patientId: this.patientInfo.patientId,
+          visitId: this.patientInfo.visitId,
+          formName: this.sheetInfo.selectBlock.recordName,
+          formCode: this.sheetInfo.selectBlock.sheetType,
+          recordId: this.sheetInfo.selectBlock.recordCode,
+          signData: JSON.stringify(array),
+        }
+        console.log('array===>',array)
+        if(array.length){
+          verifyNewCaSign(saveAndcaSignObj, saveAndVerifySignObj).then((respon) => {
+          const { password, empNo } = respon
+          const { patientId, visitId } = this.patientInfo
+          const blockId = this.sheetInfo.selectBlock.id
+          const saveAndSignObj = {
+            password,
+            empNo,
+            patientId,
+            visitId,
+            blockId,
+            list:array,
+            signType: "",
+            multiSign: false,
+          }
+          /**护士长QCR0004
+           * 普通护士QCR0006
+           * 质控护士FORM0001
+          */
+         //如果没有护长或者质控权限  保存只请求签名责任护士的接口，如果有护长或者质控权限  那就audit:true 签名质控护士
+          const qcAuthority = JSON.parse(localStorage.getItem("user")).roleManageCodeList || []
+          if(qcAuthority.includes('QCR0004')||qcAuthority.includes('FORM0001')){
+            Promise.all([saveAndSignApi(saveAndSignObj),saveAndSignApi({...saveAndSignObj,audit:true})]).then((res)=>{
+              if (res[0].data.code == 200 && res[1].data.code == 200) {
+                this.$notify.success({
+                  title: "提示",
+                  message: "签名和审核成功",
+                  duration: 1000,
+                });
+              } else {
+                if (res[0].data.code !== 200) {
+                  this.$notify.success({
+                    title: "提示",
+                    message: "签名失败",
+                    duration: 1000,
+                  });
+                }
+                if (res[1].data.code !== 200) {
+                  this.$notify.success({
+                    title: "提示",
+                    message: "审核签名失败",
+                    duration: 1000,
+                  });
+                }
+              }
+              //提示后获取数据
+              this.getSheetData().then((res) => {
+                this.pageLoading = false;
+                this.scrollFun(true, this.scrollTop)
+              });
+            })
+          }else{
+            saveAndSignApi(
+            saveAndSignObj
+          ).then((Response) => {
+            if(Response.data.code ==200){
+              this.$notify.success({
+                title: "提示",
+                message: "签名成功",
+                duration: 1000,
+              });
+            }
+            this.getSheetData().then((res) => {
+              this.pageLoading = false;
+                this.scrollFun(true,this.scrollTop)
+              });
+          }).catch((err)=>{
+            this.pageLoading = false;
+          })
+          }
+
+        })
+        }else{
+          this.getSheetData().then((res) => {
+              this.pageLoading = false;
+                this.scrollFun(true,this.scrollTop)
+              });
+        }
+
+      }
+      }
+    },
   created() {
+    //页面生成 先检查是不是有CA
+    if (['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+      GetUserList().then(res => {
+        if (res.data.length == 0) {
+          localStorage.removeItem("caUser");
+          this.foshanshiyiIFca = false
+        } else {
+          if (res.data.split("||")[0] != localStorage["caUser"]) {
+            localStorage.removeItem("caUser");
+            this.foshanshiyiIFca = false
+          } else this.foshanshiyiIFca = true
+        }
+      })
+    }
     // 初始化
     cleanData();
     this.bus.$on('clearSheetModel',()=>{
@@ -858,21 +1013,55 @@ export default {
             isInitSheetPageSize == "noSaveSign" ? false : isInitSheetPageSize;
           this.pageLoading = true;
           this.scrollTop = this.$refs.scrollCon.scrollTop;
+          const ayncVisitedDataList = decode(ayncVisitedData).list||[]
+          if(!decode(ayncVisitedData).length)
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,
             decode(ayncVisitedData)
-          )
-            .then((res) => {
-              this.$notify.success({
-                title: "提示",
-                message: "保存成功",
-                duration: 1000,
-              });
-              this.getSheetData().then((res) => {
-                this.scrollFun(isInitSheetPageSize,this.scrollTop)
-              });
-              this.pageLoading = false;
+          ).then(async (res) => {
+              if(res.data.code == 200){
+                if (['foshanrenyi'].includes(this.HOSPITAL_ID)&&this.foshanshiyiIFca) {
+                  //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
+                  showBody(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
+                    let resList = saveRes.data.data.list.map((item) => {
+                      item.recordMonth = moment(item.recordDate).format('MM-DD')
+                      item.recordHour = moment(item.recordDate).format('HH:mm')
+                      return item
+                    })
+                    let editList = ayncVisitedDataList.map((item) => {
+                      item.recordMonth = moment(item.recordDate).format('MM-DD')
+                      item.recordHour = moment(item.recordDate).format('HH:mm')
+                      return item
+                    })
+                    if (editList.length) {
+                      this.saveAndSign(editList, resList)
+                    } else {
+                      //不走保存签名过程 保存后直接获取数据
+                      this.getSheetData().then((res) => {
+                        this.pageLoading = false;
+                        this.scrollFun(isInitSheetPageSize, this.scrollTop)
+                      });
+                    }
+                    this.$notify.success({
+                    title: "提示",
+                    message: "保存成功",
+                    duration: 1000,
+                  });
+                  })
+                } else {
+                  //除了佛一的医院  正常获取数据
+                  this.getSheetData().then((res) => {
+                    this.pageLoading = false;
+                    this.scrollFun(isInitSheetPageSize, this.scrollTop)
+                  });
+                  this.$notify.success({
+                    title: "提示",
+                    message: "保存成功",
+                    duration: 1000,
+                  });
+                }
+              }
             })
             .catch((err) => {
               if (err.data.code == '300') {
