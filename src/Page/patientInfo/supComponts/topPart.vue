@@ -328,10 +328,11 @@ export default {
         userName:this.empName,
         Hash:md5(patientId+this.empName+'wego2022'),
         patientType:1,
-        userData:{"userCode":this.empNo,"orgCode":deptCode,"key":md5(this.empNo+'@wego2022')},
+        userData:`{"userCode":"${this.empNo}","orgCode":"${deptCode}","key":"${md5(this.empNo+'@wego2022')}"}`,
         isExternal:1
       }
-      let url = `http://172.26.0.178/pdv-ui/medicalLeportList?${qs.stringify(obj)}`
+      // http://10.101.1.159/pdv-ui/medicalLeportList/?ViewType=3&patientId=2022642569&userName=周文强&Hash=6e5e7a5294c128d99adf1598012c02fb&patientType=&userData={"userCode":"199852","orgCode":"10010201","key":"b31e71cfee6e9fba03019b353203545b"}&isExternal=1
+      let url = ` http://10.101.1.159/pdv-ui/medicalLeportList/?ViewType=3&patientId=${patientId}&userName=${this.empName}&Hash=${md5(patientId+this.empName+'wego2022')}&patientType=&userData={"userCode":"${this.empNo}","orgCode":"${deptCode}","key":"${md5(this.empNo+'@wego2022')}"}&isExternal=1`
       window.open(url)
     },
      // 南方医科大学顺德医院项目病历
