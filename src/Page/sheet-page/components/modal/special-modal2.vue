@@ -1465,11 +1465,10 @@ export default {
         this.recordDate =
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ''
-      //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改
+      //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
       if (['foshanrenyi', 'gdtj'].includes(this.HOSPITAL_ID)) {
         const itemListTime = config.recordDate ||
           record[0].find((item) => item.key == "recordDate").value
-          console.log(!itemListTime,itemListTime)
         if(!itemListTime){
           if (!(
         record[0].find((item) => item.key == "recordMonth").value)) {
@@ -1477,6 +1476,10 @@ export default {
           if (!(
             record[0].find((item) => item.key == "recordHour").value)) {
             this.staticObj.recordHour = moment().format('HH:mm');
+          }
+          if (!(
+            record[0].find((item) => item.key == "recordDate").value)) {
+            this.staticObj.recordDate = moment().format('YYYY-MM-DD HH:mm');
           }
         }
         } else {
@@ -1818,7 +1821,6 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
-      console.log("jinlai", this.fixedList);
       if (this.isSaving) {
         return;
       }
@@ -2199,24 +2201,14 @@ export default {
       ) {
         for (let i = 0; i < foodResult.length; i++) {
           if (i == 0) {
-            // 合并数据
-            console.log(
-              "mergeTr",
-              this.record[0],
-              this.staticObj,
-              this.fixedList
-            );
-            console.log(
-              "mergeTr2",
-              mergeTr(this.record[0], this.staticObj, this.fixedList)
-            );
+            //合并数据
             mergeTr(this.record[0], this.staticObj, this.fixedList);
+            console.log(this.staticObj,this.record[0],999999)
           }
           if (this.record[i]) {
             this.record[i].find((item) => item.key == "food").value =
               foodResult[i];
             process.env.splitSave && (this.record[i].isChange = true);
-            console.log("");
           } else {
             let currRow = JSON.parse(JSON.stringify(this.record[0]));
             let nullRowArr = nullRow();

@@ -31,6 +31,9 @@ export const sign = (patientId, visitId, data) => {
   data.blockId = sheetInfo.selectBlock.id;
   return axios.post(`${apiPath}record/${sheetInfo.sheetType}/signAll`, data);
 };
+export const saveAndSignApi = (obj) => {
+  return axios.post(`${apiPath}record/${sheetInfo.sheetType}/signAll`, obj);
+};
 // 护理记录单签名
 export const cancelSign = data => {
   return axios.post(

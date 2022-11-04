@@ -1,6 +1,6 @@
 import moment from "moment";
 export function dateKey(e, obj, key) {
-  console.log(e);
+  console.log(e,888888);
   if (
     e.target.value.length == "2" &&
     e.target.value.indexOf("-") == -1 &&

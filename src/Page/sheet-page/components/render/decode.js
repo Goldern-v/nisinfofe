@@ -33,6 +33,23 @@ function decode(ayncVisitedData) {
         let tr = {};
         for (let option of bodyModel[index]) {
           tr[option.key] = option.value;
+          if(bodyModel[index][0].value){
+          tr[`recordDate`] = bodyModel[index].find((item)=>item.key == "recordDate").value;
+          }else{
+            let itemRecordYear = bodyModel[index].find(
+              item => item.key == "recordYear"
+            ).value
+              ? bodyModel[index].find(item => item.key == "recordYear").value
+              : moment().format("YYYY");
+            bodyModel[index].find(item => item.key == "recordDate").value =
+              itemRecordYear +
+              "-" +
+              bodyModel[index].find(item => item.key == "recordMonth").value +
+              " " +
+              bodyModel[index].find(item => item.key == "recordHour").value;
+            //修改就保存  所以这里初始化签名数据  重新保存签名
+          }
+
         }
         tr.pageIndex = pageIndex;
         result.push(tr)
