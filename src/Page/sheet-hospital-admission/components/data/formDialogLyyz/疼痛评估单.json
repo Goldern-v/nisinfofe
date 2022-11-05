@@ -256,7 +256,7 @@
           ]
         },
         {
-          "name": "I609017",
+          "name": "I609003",
           "type": "formGroupVerticalBox",
           "suffixDesc": "",
           "style": "position: relative; top:7px;",
@@ -264,7 +264,7 @@
           "readOnly": false,
           "children": [
             {
-              "name": "I609017",
+              "name": "I609003",
               "type": "select",
               "label": "部 位",
               "inputWidth": "196px",
@@ -284,7 +284,7 @@
               ]
             },
             {
-              "name": "I609017",
+              "name": "I609003",
               "type": "bodyBtn",
               "style": "width:50px!important;position: relative;top: -26px;left: 245px; padding:0px",
               "class": null
@@ -831,6 +831,10 @@
             {
               "name": "盐酸羟考酮缓释片",
               "code": "盐酸羟考酮缓释片"
+            },
+            {
+              "name": "双氯芬酸钠肠溶释胶囊",
+              "code": "双氯芬酸钠肠溶释胶囊"
             },
             {
               "name": "曲马多注射液",

@@ -336,6 +336,7 @@ import oxygenSugar from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar.vu
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; // 杏坛
 import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_foshanrenyi.vue"; // 佛医
+import bloodSugarGdtj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_gdtj.vue"; // 同江
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
@@ -1152,6 +1153,8 @@ const router = new Router({
                 return bloodSugarBeiHaiRenYi
               case 'fsxt':
                 return bloodSugarFsxt
+                case 'gdtj':
+                return bloodSugarGdtj
               case 'foshanrenyi':
               case 'zhzxy':
                 return bloodSugarFoShanRenYi
