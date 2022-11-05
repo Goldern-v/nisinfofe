@@ -101,6 +101,12 @@
                   <el-checkbox v-model="remember" v-if="!caLoginFlag">
                     <span style="font-size: 13px; color: #687179">记住账号</span>
                   </el-checkbox>
+                  <div class="checkCar-con" v-if="['gdtj'].includes(HOSPITAL_ID)">
+                    <el-checkbox v-model="isMobile">
+                      <span style="font-size: 13px; color: #687179">是否推车设备</span>
+                    </el-checkbox>
+                    <span style="color: red;">{{"推车登录请勾选!"}}</span>
+                  </div>
                   <button
                     v-if="!caLoginFlag"
                     style="background-color: #fff; float: right; border: 0"
