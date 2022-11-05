@@ -28,7 +28,8 @@ export default {
                 { "name": "先露高低<br/>（cm）", "colspan": "1", "rowspan": "3"},
                 { "name": "检查<br/>方法", "colspan": "1", "rowspan": "3"},
                 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "400px",  maxWidth: "400px"}, },
-                { "name": "签 名", "colspan": "1", "rowspan": "3", style: { minWidth: "60px",  maxWidth: "60px"},},
+                { "name": "护士签 名", "colspan": "1", "rowspan": "3", style: { minWidth: "60px",  maxWidth: "60px"},},
+                { "name": "质控护士", "colspan": "1", "rowspan": "3"}
             ]
         ,
         mid:

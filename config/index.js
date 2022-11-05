@@ -154,9 +154,9 @@ const currentTargetUrl = (() => {
 
     // 佛山市医
      case 'foshanrenyi':
-      // return "https://cr.fsyyy.com:9094"  // 正式外网地址
+      return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://192.168.20.147:9091"  // 双艳
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
       // return "http://120.24.240.231:19097" //
       // return "http://192.168.103.16:9091" //
@@ -217,11 +217,11 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9894'
     // 临沂沂州
     case 'lyyz':
-      // return 'http://112.233.241.99:8094' // 外网地址
+      return 'http://112.233.241.99:8094' // 外网地址
       // return 'http://192.168.137.164:8080'
-      return 'http://192.168.1.54:9895'
+      // return 'http://192.168.1.54:9895'
       // return "http://192.168.1.54:9866"
-      // return "http://192.168.20.81:9091"
+      return "http://192.168.20.81:9091"
     // 广东同江
     case 'gdtj':
       return 'http://218.204.204.90:9095' // 正式
@@ -230,11 +230,6 @@ const currentTargetUrl = (() => {
     case '925':
       // return 'http://192.168.1.54:9866'
       return 'http://120.24.240.231:19097'
-
-    // 威海市立医院
-    case 'whsl':
-      return 'http://192.168.1.54:9896'
-
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"

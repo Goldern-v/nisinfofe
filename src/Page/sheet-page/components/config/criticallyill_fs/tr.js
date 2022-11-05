@@ -30,7 +30,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let Output = ['大便','尿量','引流量']
+let Output = ['大便','尿量','引流量','胃管','尿管','伤口引流管','胸腔引流管','腹腔管','鼻胆管','PTBD管','PTGD管','腹腔双套管','盆腔引流管','肛管','引流管']
 let Input = ['输入液量','进食量']
 
 export default [
