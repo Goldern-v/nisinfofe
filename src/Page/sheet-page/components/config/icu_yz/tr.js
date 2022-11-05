@@ -168,7 +168,7 @@ import {
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "400px",
+      width: "250px",
       background: "transparent"
     },
     event: function (e, td) {

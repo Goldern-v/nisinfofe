@@ -67,7 +67,7 @@ export default {
         `,
         style: {
           minWidth: "260px",
-          maxWidth: "260px"
+          // maxWidth: "260px"
         },
         colspan: '1',
         rowspan: '3'

@@ -220,7 +220,7 @@ import {
         top: "1px",
         bottom: "1px",
         left: "1px",
-        width: "250px",
+        width: "200px",
         background: "transparent"
       },
       event: function (e, td) {

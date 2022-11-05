@@ -91,7 +91,7 @@ export default [
       width: "260px",
       background: "transparent",
     },
-    textarea: { width: 260 },
+    // textarea: { width: 260 },
     event: function (e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
