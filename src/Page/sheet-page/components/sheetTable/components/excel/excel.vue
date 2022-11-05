@@ -962,7 +962,7 @@ export default {
     },
     async onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
-        if(this.sheetInfo.sheetType == 'common_gzry'||this.sheetInfo.sheetType == 'waiting_birth_gzry'||this.sheetInfo.sheetType == 'newborn_care_gzry'){
+      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry') {
         let confirmRes = '';
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           confirmRes = await this.$confirm(
@@ -1017,13 +1017,18 @@ export default {
           if (confirmRes !== "confirm") {
             td.value ='';
           }
-          
+
         }
       }
       onBlurToAutoComplete(e, bind);
       let recordDate = tr.find(item=>{
         return item.key == "recordDate"
       })
+      let recordYear = tr.find(item=>{
+        return item.key == "recordYear"
+      })
+      //点击保存年份 有时候为空
+      recordYear.value = moment().format('YYYY')
       if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
         //不允许输入未来时间
         if (bind.x == 0) {
@@ -1330,7 +1335,6 @@ export default {
               // });
             },'',null,false,'',{},undefined,undefined,undefined,SigndataObj,verifySignObj);
           }else{
-            console.log("this.patientInfo",this.patientInfo,sheetInfo)
             let parmas={},trObj = {};
             if(this.HOSPITAL_ID=="zhzxy"){
             for (let i = 0; i < trArr.length; i++) {
@@ -1350,7 +1354,6 @@ export default {
               for(let key in strSignDataOBJ){
                 if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
               }
-            console.log(parmas,trObj,"trObj",strSignData,localStorage["fuyouCaData"])
               parmas={
                   signType:this.signType,
                   patientName:this.patientInfo.name,//-- 患者名称
@@ -1396,7 +1399,7 @@ export default {
                 }
             }
             this.$refs.signModal.open((password, empNo) => {
-              
+
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1696,7 +1699,6 @@ export default {
               for(let key in strSignDataOBJ){
                 if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
               }
-            console.log(trObj,"trObj",strSignData,localStorage["fuyouCaData"])
               parmas={
                   signType:this.signType,
                   patientName:this.patientInfo.name,//-- 患者名称
@@ -1815,9 +1817,16 @@ export default {
             password,
             audit: true,
           }).then((res) => {
+            if(res.data.code==200)
+            this.$notify.success({
+                title: "提示",
+                message: "取消审核成功",
+                duration: 1000,
+              });
             this.bus.$emit("saveSheetPage", true);
           });
-        },'',null,false,'',['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:null);
+        },'',null,false,'',['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{
+        }:null,null,null,null,SigndataObj,verifySignObj);
       }
     },
     // 展示签名状态

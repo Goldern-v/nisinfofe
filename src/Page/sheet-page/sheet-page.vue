@@ -1014,7 +1014,6 @@ export default {
           this.pageLoading = true;
           this.scrollTop = this.$refs.scrollCon.scrollTop;
           const ayncVisitedDataList = decode(ayncVisitedData).list||[]
-          if(!decode(ayncVisitedData).length)
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,
