@@ -56,7 +56,7 @@ export default [
   },
   { key: "sign", value: "" },
   // { key: "sign2", value: "" },
-  // { key: "audit", value: "" },
+  { key: "audit", value: "" },
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
   { hidden:true, key:'signerName2', value:''},
