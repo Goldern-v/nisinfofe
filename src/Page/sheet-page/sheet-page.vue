@@ -796,7 +796,7 @@ export default {
     //双签名 签责任护士 + 质控护士签名  判断条件是 修改的记录 没有任何签名+护士本身是质控护士
     qcDoubleSign(saveAndSignObj,qcArray){
       if (!qcArray.length) return
-        Promise.all([saveAndSignApi({ ...saveAndSignObj, list: qcArray }), saveAndSignApi({ ...saveAndSignObj, list: qcArray, audit: true })]).then((res) => {
+        return Promise.all([saveAndSignApi({ ...saveAndSignObj, list: qcArray }), saveAndSignApi({ ...saveAndSignObj, list: qcArray, audit: true })]).then((res) => {
           if (res[0].data.code == 200 && res[1].data.code == 200) {
             this.$notify.success({
               title: "提示",
@@ -825,13 +825,15 @@ export default {
     onlyQcSign(saveAndSignObj, dutyArray) {
       //如果存在已经签名的记录  审核护士这个流程  只需要签质控签名就行了
       if (!dutyArray.length) return
-    return  saveAndSignApi({ ...saveAndSignObj, list: dutyArray, audit: true }).then((signRes) => {
+    return new Promise((resolve, reject) => {
+      saveAndSignApi({ ...saveAndSignObj, list: dutyArray, audit: true }).then((signRes) => {
         if (signRes.data.code == 200) {
           this.$notify.success({
             title: "提示",
             message: "审核成功",
             duration: 1000,
           });
+          resolve(signRes)
         }
       }).catch((error) => {
         this.$notify.success({
@@ -840,6 +842,7 @@ export default {
           duration: 1000,
         });
       })
+    })
     },
     saveAndSign(data,resList){
         let array = []
