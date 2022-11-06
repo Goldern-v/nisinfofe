@@ -217,7 +217,6 @@ import sheetModel, {
   initSheetPage,
   getData,
   cleanData,
-  saveAndSignApi
 } from "@/Page/sheet-page/sheet.js";
 import decode from "@/Page/sheet-page/components/render/decode.js";
 import {
@@ -227,7 +226,8 @@ import {
   delPage,
   markList,
   splitRecordBlock,
-  findListByBlockId
+  findListByBlockId,
+  saveAndSignApi
 } from "@/api/sheet.js";
 import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -677,8 +677,56 @@ export default {
       }
       return newArr
     },
+        //双签名 签责任护士 + 质控护士签名  判断条件是 修改的记录 没有任何签名+护士本身是质控护士
+        qcDoubleSign(saveAndSignObj,qcArray){
+      if (!qcArray.length) return
+        Promise.all([saveAndSignApi({ ...saveAndSignObj, list: qcArray }), saveAndSignApi({ ...saveAndSignObj, list: qcArray, audit: true })]).then((res) => {
+          if (res[0].data.code == 200 && res[1].data.code == 200) {
+            this.$notify.success({
+              title: "提示",
+              message: "签名和审核成功",
+              duration: 1000,
+            });
+          } else {
+            if (res[0].data.code !== 200) {
+              this.$notify.success({
+                title: "提示",
+                message: "签名失败",
+                duration: 1000,
+              });
+            }
+            if (res[1].data.code !== 200) {
+              this.$notify.success({
+                title: "提示",
+                message: "审核签名失败",
+                duration: 1000,
+              });
+            }
+          }
+        });
+    },
+    //仅仅签质控护士，护士本身是质控护士 责任护士已经有人签名了 就只签质控护士  audit: true
+    onlyQcSign(saveAndSignObj,dutyArray){
+                  //如果存在已经签名的记录  审核护士这个流程  只需要签质控签名就行了
+                  if(!dutyArray.length) return
+              saveAndSignApi({ ...saveAndSignObj, list: dutyArray, audit: true }).then((signRes)=>{
+                if(signRes.data.code ==200){
+                  this.$notify.success({
+                    title: "提示",
+                    message: "审核成功",
+                    duration: 1000,
+                  });
+                }
+              }).catch((error)=>{
+                this.$notify.success({
+                      title: "提示",
+                      message: "审核签名失败",
+                      duration: 1000,
+                    });
+              })
+
+    },
     saveAndSign(data,resList){
-      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
         let array = []
                 // 去除重复记录
                 let editList = this.deduplication(data)
@@ -721,10 +769,14 @@ export default {
         }
         console.log('array===>',array)
         if(array.length){
-          verifyNewCaSign(saveAndcaSignObj, saveAndVerifySignObj).then((respon) => {
+          verifyNewCaSign(saveAndcaSignObj, saveAndVerifySignObj).then(async (respon) => {
           const { password, empNo } = respon
           const { patientId, visitId } = this.patientInfo
           const blockId = this.sheetInfo.selectBlock.id
+          //已经有责任护士签名的记录 这时候不用双签（不用签质控护士的记录）
+          //两个签名都为空的记录
+          const dutyArray = array.filter((list)=>list.signerName)
+          const qcArray = array.filter((list)=>!list.signerName)
           const saveAndSignObj = {
             password,
             empNo,
@@ -742,36 +794,17 @@ export default {
          //如果没有护长或者质控权限  保存只请求签名责任护士的接口，如果有护长或者质控权限  那就audit:true 签名质控护士
           const qcAuthority = JSON.parse(localStorage.getItem("user")).roleManageCodeList || []
           if(qcAuthority.includes('QCR0004')||qcAuthority.includes('FORM0001')){
-            Promise.all([saveAndSignApi(saveAndSignObj),saveAndSignApi({...saveAndSignObj,audit:true})]).then((res)=>{
-              if (res[0].data.code == 200 && res[1].data.code == 200) {
-                this.$notify.success({
-                  title: "提示",
-                  message: "签名和审核成功",
-                  duration: 1000,
-                });
-              } else {
-                if (res[0].data.code !== 200) {
-                  this.$notify.success({
-                    title: "提示",
-                    message: "签名失败",
-                    duration: 1000,
-                  });
-                }
-                if (res[1].data.code !== 200) {
-                  this.$notify.success({
-                    title: "提示",
-                    message: "审核签名失败",
-                    duration: 1000,
-                  });
-                }
-              }
-              //提示后获取数据
-              this.getSheetData().then((res) => {
+            //如果存在修改记录是责任护士未签名 则走双签流程
+            await this.qcDoubleSign(saveAndSignObj,qcArray)
+            //如果已经存在签名 走质控护士单签流程
+          await this.onlyQcSign(saveAndSignObj,dutyArray)
+            //提示后获取数据
+          await this.getSheetData().then((res) => {
                 this.pageLoading = false;
                 this.scrollFun(true, this.scrollTop)
-              });
-            })
+              })
           }else{
+            //责任护士只负责单签 签名责任护士
             saveAndSignApi(
             saveAndSignObj
           ).then((Response) => {
@@ -791,6 +824,8 @@ export default {
           })
           }
 
+        }).catch((error)=>{
+          this.pageLoading = false;
         })
         }else{
           this.getSheetData().then((res) => {
@@ -799,7 +834,6 @@ export default {
               });
         }
 
-      }
       }
 
   },
@@ -876,48 +910,48 @@ export default {
         const ayncVisitedDataList = decode(ayncVisitedData).list||[]
         saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode(ayncVisitedData))
           .then(res => {
-            if(res.data.code == 200){
-                if (['foshanrenyi'].includes(this.HOSPITAL_ID)&&this.foshanshiyiIFca) {
-                  //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
-                  showBody(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
-                    let resList = saveRes.data.data.list.map((item) => {
-                      item.recordMonth = moment(item.recordDate).format('MM-DD')
-                      item.recordHour = moment(item.recordDate).format('HH:mm')
-                      return item
-                    })
-                    let editList = ayncVisitedDataList.map((item) => {
-                      item.recordMonth = moment(item.recordDate).format('MM-DD')
-                      item.recordHour = moment(item.recordDate).format('HH:mm')
-                      return item
-                    })
-                    if (editList.length) {
-                      this.saveAndSign(editList, resList)
-                    } else {
-                      //不走保存签名过程 保存后直接获取数据
-                      this.getSheetData().then((res) => {
-                        this.pageLoading = false;
-                        this.scrollFun(isInitSheetPageSize, this.scrollTop)
-                      });
-                    }
-                    this.$notify.success({
-                    title: "提示",
-                    message: "保存成功",
-                    duration: 1000,
-                  });
+            if (res.data.code == 200) {
+              if (['foshanrenyi'].includes(this.HOSPITAL_ID) && this.foshanshiyiIFca && ayncVisitedDataList.length) {
+                //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
+                showBody(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
+                  let resList = saveRes.data.data.list.map((item) => {
+                    item.recordMonth = moment(item.recordDate).format('MM-DD')
+                    item.recordHour = moment(item.recordDate).format('HH:mm')
+                    return item
                   })
-                } else {
-                  //除了佛一的医院  正常获取数据
-                  this.getSheetData().then((res) => {
-                    this.pageLoading = false;
-                    this.scrollFun(isInitSheetPageSize, this.scrollTop)
-                  });
+                  let editList = ayncVisitedDataList.map((item) => {
+                    item.recordMonth = moment(item.recordDate).format('MM-DD')
+                    item.recordHour = moment(item.recordDate).format('HH:mm')
+                    return item
+                  })
+                  if (editList.length) {
+                    this.saveAndSign(editList, resList)
+                  } else {
+                    //不走保存签名过程 保存后直接获取数据
+                    this.getSheetData().then((res) => {
+                      this.pageLoading = false;
+                      this.scrollFun(isInitSheetPageSize, this.scrollTop)
+                    });
+                  }
                   this.$notify.success({
                     title: "提示",
                     message: "保存成功",
                     duration: 1000,
                   });
-                }
+                })
+              } else {
+                //除了佛一的医院  正常获取数据
+                this.getSheetData().then((res) => {
+                  this.pageLoading = false;
+                  this.scrollFun(isInitSheetPageSize, this.scrollTop)
+                });
+                this.$notify.success({
+                  title: "提示",
+                  message: "保存成功",
+                  duration: 1000,
+                });
               }
+            }
           })
           .catch(() => {
             this.pageLoading = false;

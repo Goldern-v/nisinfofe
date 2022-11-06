@@ -147,10 +147,7 @@
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 :class="className"
                 type="number"
-                @mousewheel="
-                  (e) => {
-                    e.preventDefault();
-                  }
+                @mousewheel="(e) => {e.preventDefault();}
                 "
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"

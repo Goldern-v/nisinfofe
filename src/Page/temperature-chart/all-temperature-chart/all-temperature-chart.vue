@@ -208,10 +208,11 @@
                 v-model="scope.row.temperature"
                 :class="className"
                 class="temperature"
-                type="text"
+                type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
+                @mousewheel="(e) => {e.preventDefault();}"
                 @blur="onBlur($event,'temperature', scope.row.temperature,'体温', scope)"
               />
             </template>
@@ -227,10 +228,11 @@
                 v-model="scope.row.pulse"
                 class="pulse"
                 :class="className"
-                type="text"
+                type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
+                @mousewheel="(e) => {e.preventDefault();}"
                 @blur="onBlur($event,'pulse', scope.row.pulse,'脉搏', scope)"
               />
             </template>
@@ -434,7 +436,7 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
-                type="text"
+                type="number"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -453,7 +455,7 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
-                type="text"
+                type="number"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -848,6 +850,12 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+>>>.el-table .cell, .el-table th > div {
+  padding 0px 10px 0px 10px !important;
+  }
 .all-temperature-chart-input {
   width: 100%;
   padding: 2px 5px;
@@ -1640,10 +1648,10 @@ export default {
             }
           ).catch(() => {});
           if (confirmRes !== "confirm") {
-            this.tableData[scope['$index']][key] =''; 
+            this.tableData[scope['$index']][key] ='';
           }
         }
-        
+
         if((key === 'xybhd')&&value !== ''&&(isNaN(value)||value<50||value>100)){
           confirmRes = await this.$confirm(
             name+ "的正常范围是50～100，你的填写超出正常录入范围,是否确定填写?",
@@ -1655,7 +1663,7 @@ export default {
             }
           ).catch(() => {});
           if (confirmRes !== "confirm") {
-             this.tableData[scope['$index']][key] ='';  
+             this.tableData[scope['$index']][key] ='';
           }
         }
         if((key === 'bloodPressure')&&value !== ''&&(isNaN(value.split('/')[0])||!value.split('/')[1] ||value.split('/')[0]>150||value.split('/')[1]>300)){
@@ -1671,7 +1679,7 @@ export default {
           if (confirmRes !== "confirm") {
             this.tableData[scope['$index']][key] ='';
           }
-          
+
         }
       }
     }
