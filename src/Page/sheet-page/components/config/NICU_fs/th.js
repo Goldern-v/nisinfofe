@@ -42,7 +42,7 @@ export default {
             // { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"armValue"}, 
             { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "163px",  maxWidth: "163px"}, }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3", style: { minWidth: "50px",  maxWidth: "50px"},}, 
-            // { "name": "质控护士", "colspan": "1", "rowspan": "3"}
+            { "name": "质控护士", "colspan": "1", "rowspan": "3"}
          ]
             
         , 
