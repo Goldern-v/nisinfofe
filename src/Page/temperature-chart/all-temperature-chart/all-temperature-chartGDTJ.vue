@@ -829,21 +829,21 @@ export default {
         if (this.admitted.length != 0) {
           let obj = { data1: [], data2: [], data3: [], data4: [], data5: [], data6: [], data7: [], data8: [] }
           obj.data1 = data.filter((item) => {
-            return (item.patient_condition == 1);
+            return (item.patientCondition == 1);
           });
           obj.data2 = data.filter((item) => {
             return (
-              item.no_weight_flag == 1
+              item.noWeightFlag == 1
             );
           });
           obj.data3 = data.filter((item) => {
             return (
-              item.temperature_flag == 1
+              item.temperatureFlag == 1
             );
           });
           obj.data4 = data.filter((item) => {
             return (
-              item.high_fever_flag == 1
+              item.highFeverFlag == 1
             );
           });
           obj.data5 = data.filter((item) => {
@@ -862,12 +862,12 @@ export default {
           });
           obj.data7 = data.filter((item) => {
             return (
-              item.transfer_flag == 1
+              item.transferFlag == 1
             );
           });
           obj.data8 = data.filter((item) => {
             return (
-              item.operation_flag == 1
+              item.operationFlag == 1
             );
           });
 
