@@ -2127,7 +2127,14 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else {
+            } else if (this.sheetInfo.sheetType === "icu_yz" ) {
+              if (GetLength(text) > 38) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            }else {
               if (GetLength(text) > 23) {
                 result.push(text);
                 text = allDoc[i];

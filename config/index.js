@@ -230,6 +230,9 @@ const currentTargetUrl = (() => {
     case '925':
       // return 'http://192.168.1.54:9866'
       return 'http://120.24.240.231:19097'
+    case 'whsl':
+      // return 'http://192.168.1.54:9866'
+      return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"
