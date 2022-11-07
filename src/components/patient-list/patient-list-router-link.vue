@@ -318,9 +318,9 @@ export default {
       makePatient:'',// 贵州护理巡视表的点击患者
       lockHospitalList:['huadu'],//有锁定功能的医院
       // 进入页面是否自动选择第一个患者
-      isAutoSelect: ['lyxrm', 'foshanrenyi','lyyz'].includes(this.HOSPITAL_ID),
+      isAutoSelect: ['lyxrm', 'foshanrenyi','lyyz','fsxt'].includes(this.HOSPITAL_ID),
       // 切换模块回来时能拿到之前的数据
-      isAutoSelected:['lyyz', 'foshanrenyi'].includes(this.HOSPITAL_ID),
+      isAutoSelected:['lyyz', 'foshanrenyi','fsxt'].includes(this.HOSPITAL_ID),
       levelColor:{}
     };
   },
