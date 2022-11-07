@@ -17,7 +17,7 @@
         <th v-else style="width: 22%; min-width: 75px">日期</th>
         <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng' && HOSPITAL_ID != 'lyyz'" style="width: 20%">项目</th>
         <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
-        <th v-els  style="width: 24%">测量时间</th>
+        <th v-else  style="width: 24%">测量时间</th>
         <th :style="HOSPITAL_ID == 'sdlj' ? {width: '20%'} : {width: '23%'}">
           血糖值
           <br />(mmol/L)
