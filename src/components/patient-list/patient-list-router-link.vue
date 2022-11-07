@@ -309,9 +309,9 @@ export default {
       makePatient:'',// 贵州护理巡视表的点击患者
       lockHospitalList:['huadu'],//有锁定功能的医院
       // 进入页面是否自动选择第一个患者
-      isAutoSelect: ['lyxrm', 'foshanrenyi'].includes(this.HOSPITAL_ID),
+      isAutoSelect: ['lyxrm', 'foshanrenyi','lyyz'].includes(this.HOSPITAL_ID),
       // 切换模块回来时能拿到之前的数据
-      isAutoSelected: this.HOSPITAL_ID === 'foshanrenyi'
+      isAutoSelected:['lyyz', 'foshanrenyi'].includes(this.HOSPITAL_ID),
     };
   },
   methods: {
@@ -322,7 +322,7 @@ export default {
         this.$store.commit("upMakePatient", '');
         this.makePatient = ''
       }else{
-         this.makePatient = value.bedLabel
+        this.makePatient = value.bedLabel
         this.$store.commit("upMakePatient", value.bedLabel);
       }
       // 函数在minxin里。src\common\mixin\common.mixin.js
@@ -430,8 +430,10 @@ export default {
       if (!this.isAutoSelect) return
       // if (this.sortList.length === 0) return this.$router.push('/sheetPage')
       let item = this.sortList[0]
+
       if (this.isAutoSelected && this.curSheetPatient.patientId) {
         item = this.curSheetPatient
+        this.makePatient = this.curSheetPatient.bedLabel
         this.selectPatient(item)
         this.bus.$emit('refreshSheetPage', true)
         this.bus.$emit('getBlockList')
