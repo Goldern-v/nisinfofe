@@ -49,7 +49,7 @@
               inpNo: item.inpNo,
             },
           }"
-          :class="{active: makePatient? isActive(item) :false }"
+          :class="{active: makePatient? isActive(item) :false ,lyxrmActive: ['lyxrm'].includes(HOSPITAL_ID)&&makePatient? isActive(item) :false}"
           @click.native="toUnlock(item)"
         >
           <img
@@ -64,7 +64,11 @@
             :class="{ img1: img1Show, img2: img2Show }"
             v-else
           />
-          <div class="name" flex-box="1">{{ item.name }}</div>
+          <div class="name" flex-box="1">{{ item.name }}  <span class="nursingClass" 
+           v-if="['lyxrm'].includes(HOSPITAL_ID)"
+           :style="{ color:levelColor[item.nursingClass],fontSize:'12px' }"
+          >{{item.nursingClass&&item.nursingClass.replace('护理','')}}</span></div>
+         
           <div class="bed">{{ item.bedLabel }} 床</div>
 
           <span
@@ -180,6 +184,9 @@
         color: #333333;
       }
     }
+    &.lyxrmActive{
+      background: #adadaf;
+    }
   }
 }
 
@@ -274,6 +281,8 @@
 </style>
 <script>
 import common from "@/common/mixin/common.mixin.js";
+
+import { listItem } from "@/api/common.js";
 import { patients } from "@/api/lesion";
 import {getPatientInfo} from "@/api/common"
 import bus from "vue-happy-bus";
@@ -312,6 +321,7 @@ export default {
       isAutoSelect: ['lyxrm', 'foshanrenyi','lyyz'].includes(this.HOSPITAL_ID),
       // 切换模块回来时能拿到之前的数据
       isAutoSelected:['lyyz', 'foshanrenyi'].includes(this.HOSPITAL_ID),
+      levelColor:{}
     };
   },
   methods: {
@@ -584,10 +594,18 @@ export default {
       }
     }
   },
-  created() {
+  created(){
     if (this.deptCode) {
       this.getDate();
     }
+    listItem("nursing_level").then((res)=>{
+      const levelColor = res.data?res.data.data:[];
+      this.levelColor= {};
+      levelColor.map(item=>{
+        this.levelColor[item.code]=item.name;
+      })
+    });
+  
   },
   mounted() {
     if (this.deptCode == "051102") {
