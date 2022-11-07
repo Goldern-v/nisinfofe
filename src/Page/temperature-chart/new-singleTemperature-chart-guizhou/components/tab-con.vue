@@ -1032,7 +1032,7 @@ export default {
       console.log('first', key, index, this.vitalSignObj);
       if(['guizhou'].includes(this.HOSPITAL_ID)){
         let confirmRes = '';
-        if((key === 'yeTemperature'||key === 'gangTemperature'||key === 'kouTemperature')&&value !== ''&&(isNaN(value)||value<35||value>42)){
+        if((key === 'yeTemperature'||key === 'gangTemperature'||key === 'kouTemperature'||key === 'downTemperature')&&value !== ''&&(isNaN(value)||value<35||value>42)){
             confirmRes = await this.$confirm(
               " 体温的正常范围是35～42，你的填写超出正常录入范围,请重新填写",
               "错误",
