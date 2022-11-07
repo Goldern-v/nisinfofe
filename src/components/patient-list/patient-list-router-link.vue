@@ -49,7 +49,7 @@
               inpNo: item.inpNo,
             },
           }"
-          :class="{active: makePatient? isActive(item) :false }"
+          :class="{active: makePatient? isActive(item) :false ,lyxrmActive: ['lyxrm'].includes(HOSPITAL_ID)&&makePatient? isActive(item) :false}"
           @click.native="toUnlock(item)"
         >
           <img
@@ -64,7 +64,11 @@
             :class="{ img1: img1Show, img2: img2Show }"
             v-else
           />
-          <div class="name" flex-box="1">{{ item.name }}</div>
+          <div class="name" flex-box="1">{{ item.name }}  <span class="nursingClass" 
+           v-if="['lyxrm'].includes(HOSPITAL_ID)"
+           :style="{ color:levelColor[item.nursingClass],fontSize:'12px' }"
+          >{{item.nursingClass&&item.nursingClass.replace('护理','')}}</span></div>
+         
           <div class="bed">{{ item.bedLabel }} 床</div>
 
           <span
@@ -180,6 +184,9 @@
         color: #333333;
       }
     }
+    &.lyxrmActive{
+      background: #adadaf;
+    }
   }
 }
 
@@ -274,6 +281,8 @@
 </style>
 <script>
 import common from "@/common/mixin/common.mixin.js";
+
+import { listItem } from "@/api/common.js";
 import { patients } from "@/api/lesion";
 import {getPatientInfo} from "@/api/common"
 import bus from "vue-happy-bus";
@@ -309,9 +318,10 @@ export default {
       makePatient:'',// 贵州护理巡视表的点击患者
       lockHospitalList:['huadu'],//有锁定功能的医院
       // 进入页面是否自动选择第一个患者
-      isAutoSelect: ['lyxrm', 'foshanrenyi'].includes(this.HOSPITAL_ID),
+      isAutoSelect: ['lyxrm', 'foshanrenyi','lyyz','fsxt'].includes(this.HOSPITAL_ID),
       // 切换模块回来时能拿到之前的数据
-      isAutoSelected: this.HOSPITAL_ID === 'foshanrenyi'
+      isAutoSelected:['lyyz', 'foshanrenyi','fsxt'].includes(this.HOSPITAL_ID),
+      levelColor:{}
     };
   },
   methods: {
@@ -322,7 +332,7 @@ export default {
         this.$store.commit("upMakePatient", '');
         this.makePatient = ''
       }else{
-         this.makePatient = value.bedLabel
+        this.makePatient = value.bedLabel
         this.$store.commit("upMakePatient", value.bedLabel);
       }
       // 函数在minxin里。src\common\mixin\common.mixin.js
@@ -430,8 +440,10 @@ export default {
       if (!this.isAutoSelect) return
       // if (this.sortList.length === 0) return this.$router.push('/sheetPage')
       let item = this.sortList[0]
+
       if (this.isAutoSelected && this.curSheetPatient.patientId) {
         item = this.curSheetPatient
+        this.makePatient = this.curSheetPatient.bedLabel
         this.selectPatient(item)
         this.bus.$emit('refreshSheetPage', true)
         this.bus.$emit('getBlockList')
@@ -582,10 +594,18 @@ export default {
       }
     }
   },
-  created() {
+  created(){
     if (this.deptCode) {
       this.getDate();
     }
+    listItem("nursing_level").then((res)=>{
+      const levelColor = res.data?res.data.data:[];
+      this.levelColor= {};
+      levelColor.map(item=>{
+        this.levelColor[item.code]=item.name;
+      })
+    });
+  
   },
   mounted() {
     if (this.deptCode == "051102") {

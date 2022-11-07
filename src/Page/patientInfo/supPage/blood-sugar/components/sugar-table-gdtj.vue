@@ -2,12 +2,53 @@
   <div flex-box="1" class="table-box blood-sugar-table">
     <table>
       <tr>
-        <th style="width: 10%; min-width: 20px">序号</th>
-        <th style="width: 22%; min-width: 75px">时间</th>
-        <th style="width: 20%">项目</th>
-        <th style="width: 20%">血糖值<br />(mmol/L)</th>
-        <th style="width: 10%">RI剂量</th>
-        <th style="width: 17%"> 执行人</th>
+        <th
+          v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'"
+          style="width: 10%; min-width: 20px"
+        >
+          序号
+        </th>
+        <th
+          v-if="HOSPITAL_ID != 'lingcheng'"
+          style="width: 22%; min-width: 75px"
+        >
+          时间
+        </th>
+        <th v-else style="width: 22%; min-width: 75px">日期</th>
+        <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng' && HOSPITAL_ID != 'lyyz'" style="width: 20%">项目</th>
+        <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
+        <th v-else-if="HOSPITAL_ID != 'lyyz'" style="width: 24%">>测量时间</th>
+        <th :style="HOSPITAL_ID == 'sdlj' ? {width: '20%'} : {width: '23%'}">
+          血糖值
+          <br />(mmol/L)
+        </th>
+        <th
+          style="width: 10%"
+          v-if="
+            HOSPITAL_ID != 'gy' &&
+            HOSPITAL_ID != 'lingcheng' &&
+            HOSPITAL_ID != 'huadu' &&
+            HOSPITAL_ID != 'liaocheng'&&
+            HOSPITAL_ID != 'hengli'&&
+            HOSPITAL_ID != 'fuyou'&&
+            HOSPITAL_ID != 'sdlj'&&
+            HOSPITAL_ID != 'guizhou'&&
+            HOSPITAL_ID != 'whfk' &&
+            HOSPITAL_ID != 'lyyz'
+          "
+        >
+          {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
+        </th>
+        <th
+          style="width: 23%"
+          v-if="
+            HOSPITAL_ID == 'liaocheng'
+          "
+        >
+          血酮值
+        <br />(mmol/L)
+        </th>
+        <th :style="HOSPITAL_ID == 'sdlj' ? {width: '17%'} : {width: '14%'}">{{HOSPITAL_ID == 'liaocheng' ? '签名' : '执行人'}}</th>
       </tr>
       <tr
         v-for="(item,index) in renderData"
@@ -16,10 +57,10 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td >
+        <td v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'">
           {{index + baseIndex + 1}}
         </td>
-        <td style="padding: 0 4px">
+        <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
           <div flex="main:justify" style="white-space: nowrap">
             <span>
               <span>{{ item.date }}</span>
@@ -29,11 +70,15 @@
             </span>
           </div>
         </td>
- 
-        <td>
+        <td v-else>
+          <div class="cell">{{ item.date }}</div>
+        </td>
+        <td v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'lyyz'">
           <div class="cell" :title="item.sugarItem">{{ item.sugarItem }}</div>
         </td>
- 
+        <td v-else-if="HOSPITAL_ID != 'lyyz'">
+          <div class="cell" :title="item.sugarItem">{{ item.time }}</div>
+        </td>
         <td>
           <div class="cell">
             {{
@@ -41,22 +86,78 @@
             }}
           </div>
         </td>
-        <td>
+        <td
+          v-if="
+            HOSPITAL_ID != 'gy' &&
+            HOSPITAL_ID != 'lingcheng' &&
+            HOSPITAL_ID != 'huadu' &&
+            HOSPITAL_ID != 'liaocheng'&&
+            HOSPITAL_ID != 'hengli'&&
+            HOSPITAL_ID != 'fuyou'&&
+            HOSPITAL_ID != 'sdlj'&&
+            HOSPITAL_ID != 'guizhou'&&
+            HOSPITAL_ID != 'whfk' && 
+            HOSPITAL_ID != 'lyyz'
+          "
+        >
           <div class="cell">
             {{
               item.riValue && item.riValue !== "0" ? item.riValue + " ü" : ""
             }}
           </div>
         </td>
- 
-       <td>
-          <div class="cell noPrint">{{ item.nurse }}</div>
-          <div :class="['cell','inPrint']">
+        <td
+          v-if="HOSPITAL_ID == 'liaocheng'"
+        >
+          <div class="cell">
+            {{
+              item.riValue && item.riValue !== "0" ? item.riValue  : ""
+            }}
+          </div>
+        </td>
+        <td v-if="HOSPITAL_ID == 'liaocheng'">
+          <div class="cell liaocheng-img">
+            <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+            />
+            <!-- <div>{{item.nurseEmpNo}}</div> -->
+          </div>
+        </td>
+        <td v-else>
+          <div class="cell noPrint" v-if="HOSPITAL_ID == 'fuyou'" style="display:block">{{ item.nurse }}</div>
+          <div class="cell noPrint" v-else-if="HOSPITAL_ID == 'whfk'">
+            <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+              style="width:70%;height: 90%;"
+            />
+          </div>
+          <div class="cell noPrint" v-else-if="HOSPITAL_ID == 'foshanrenyi'">
+            <img
+              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
+              :alt="item.nurse"
+              v-if="item.nurseEmpNo"
+            />
+          </div>
+          <div class="cell noPrint" v-else>{{ item.nurse }}</div>
+          <div class="cell inPrint lc" v-if="HOSPITAL_ID == 'lingcheng'">
+            <!-- {{item.nurseEmpNo}} -->
+            <img
+              :src="`/crNursing/api/file/signImage/${item.expand1}?${token}`"
+              :alt="item.nurse"
+              v-if="item.expand1"
+            />
+          </div>
+          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'']" v-else>
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
               :alt="item.nurse"
               v-if="item.nurseEmpNo"
+              :class="HOSPITAL_ID=='sdlj'? 'imgsdlj' : ''"
             />
           </div>
         </td>
