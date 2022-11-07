@@ -316,12 +316,7 @@
         手术：
         <div
           class="bottom-line"
-          style="
-            min-width: 1100px;
-            min-height: 13px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          "
+          :style="shoushuLine()"
         >
           {{ sheetInfo.relObj[`PageIndex_diagops_${index}`] }}
         </div>
@@ -504,6 +499,21 @@ export default {
     }
   },
   methods: {
+    shoushuLine(){
+      if(sheetInfo.sheetType == 'ipacu_fs'){
+        return {
+          'min-width': '1126px',
+          'min-height': '13px',
+          'text-overflow': 'ellipsis',
+          'white-space': 'nowrap'
+        }
+      }else return {
+        'min-width': '1100px',
+        'min-height': '13px',
+        'text-overflow': 'ellipsis',
+        'white-space': 'nowrap'
+      }
+    },
     setRelValue(code, val) {
       this.$set(this.sheetInfo.relObj, code, val)
     },
