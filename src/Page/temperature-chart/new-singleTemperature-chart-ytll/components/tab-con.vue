@@ -2,8 +2,7 @@
   <div class="right-con">
     <div class="row-top">
       <div class="column-right">
-        <div>
-          <ElDatePicker
+        <ElDatePicker
           id="date-picker"
           type="date"
           size="mini"
@@ -21,7 +20,6 @@
               >{{ isUpdate ? "更新" : "保存" }}
               </el-button
             >
-        </div>
         <div class="times">
           <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
@@ -90,8 +88,7 @@
         <div class="inputter-region" :style="contentHeight">
           <el-collapse v-model="activeNames" @change="handleChange">
             <div style="border-radius: 7px; overflow: hidden">
-              <div v-if="!isBaby">
-                <el-collapse-item name="biometric">
+              <el-collapse-item name="biometric">
                 <template slot="title">
                   <span class="title"> 体征信息 </span>
                   <!-- <i class="header-icon el-icon-info"></i> -->
@@ -191,10 +188,9 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-              </div>
               <div
                 class="context-box"
-                v-if="Object.keys(otherMultiDictList).length&&!isBaby"
+                v-if="Object.keys(otherMultiDictList).length"
               >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
@@ -298,114 +294,7 @@
                 </el-collapse-item>
               </div>
             </div>
-            <div
-                class="context-box_first"
-                v-if="Object.keys(babyMultiDictList).length&&isBaby"
-              >
-                <el-collapse-item name="otherBiometric">
-                  <template slot="title">
-                    <span class="title"> 婴儿体征 </span>
-                    <i class="header-icon el-icon-info"></i>
-                  </template>
-                  <div
-                    :class="
-                      index.includes('自定义') ||
-                      index.includes('注释') ||
-                      index.includes('体温复测')
-                        ? 'rowItem_noShow'
-                        : (i - 1) % 2 === 0
-                        ? 'rowBoxRight'
-                        : 'rowBox'
-                    "
-                    class="otherPathological"
-                    v-for="(j, index, i) in babyMultiDictList"
-                    :key="index"
-                  >
-                    <div class="rowItemText">
-                      <!--新生儿的大便次数 叫做粪便-->
-                      <span>{{ index == '尿量' ?'小便次数':index }}</span>
-                    </div>
-                    <el-tooltip
-                      placement="top"
-                      popper-class="custom-temp-dict-select"
-                      :disabled="
-                        !(
-                          totalDictInfo[index].options &&
-                          totalDictInfo[index].options.length > 0
-                        )
-                      "
-                      :visible-arrow="false"
-                      :manual="true"
-                      :value="vitalSignObj[j].popVisible"
-                    >
-                      <input
-                        :id="i + 100"
-                        @keydown.enter.prevent="changeNext"
-                        :type="
-                          totalDictInfo[index].inputType === '2'
-                            ? 'number'
-                            : 'text'
-                        "
-                        :title="vitalSignObj[j].vitalValue"
-                        @input="()=>{
-                          validFormFc(vitalSignObj[j], i + 100)
-                          handlePopRefresh(vitalSignObj[j])
-                        }"
-                        @mousewheel="
-                          (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                          }
-                        "
-                        @click="() => (vitalSignObj[j].popVisible = true)"
-                        @blur="() => (vitalSignObj[j].popVisible = false)"
-                        v-model="vitalSignObj[j].vitalValue"
-                      />
-                      <template v-slot:content>
-                        <div
-                          class="container"
-                          @click.prevent="
-                            () => {
-                              vitalSignObj[j].popVisible = false;
-                            }
-                          "
-                        >
-                          <template
-                            v-if="
-                              totalDictInfo[index].options &&
-                              getFilterSelections(
-                                totalDictInfo[index].options,
-                                vitalSignObj[j].vitalValue
-                              ).length > 0
-                            "
-                          >
-                            <div
-                              :key="selectionDictIdx"
-                              class="selection-dict-item"
-                              v-for="(
-                                option, selectionDictIdx
-                              ) in getFilterSelections(
-                                totalDictInfo[index].options,
-                                vitalSignObj[j].vitalValue
-                              )"
-                              @click.prevent="
-                                () =>
-                                  (vitalSignObj[j].vitalValue =
-                                    vitalSignObj[j].vitalValue + option)
-                              "
-                            >
-                              {{ option}}
-                            </div>
-                          </template>
-                          <div v-else class="null-item">无匹配数据</div>
-                        </div>
-                      </template>
-                    </el-tooltip>
-                  </div>
-                  <div class="bottom-box clear"></div>
-                </el-collapse-item>
-              </div>
-            <!-- <div class="context-box" v-if="Object.keys(fieldList).length">
+            <div class="context-box" v-if="Object.keys(fieldList).length">
               <el-collapse-item name="fieldList">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
@@ -429,7 +318,7 @@
                             index
                           )
                         "
-                        >{{i.fieldCn }}</span
+                        >{{ i.fieldCn==='自定义1'?'其他':i.fieldCn }}</span
                       >
                     </div>
 
@@ -450,7 +339,7 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-            </div> -->
+            </div>
             <div class="context-box">
               <el-collapse-item name="notes">
                 <template slot="title">
@@ -522,7 +411,7 @@
               @click="saveVitalSign(vitalSignObj)"
               >保存</el-button
             >
-            <div class="clear" style="height: 60px"></div>
+            <div class="clear" style="height: 30px"></div>
             <!--占位符-->
           </div>
         </div>
@@ -620,11 +509,10 @@ export default {
       },
       recordDate: "",
       fieldList: {}, // 自定义项目列表
-      activeNames: ["biometric", "otherBiometric","notes"],
+      activeNames: ["biometric", "otherBiometric","notes",'fieldList'],
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
       otherMultiDictList: {}, //其他体征信息
-      babyMultiDictList: {}, //新生儿体征信息
       contentHeight: { height: "" }, //页面高度
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
@@ -637,8 +525,6 @@ export default {
         "口温",
         "肛温",
         "物理降温",
-        "疼痛",
-        "疼痛干预",
       ],
       timesOdd1: [
       {
@@ -690,11 +576,7 @@ export default {
       this.getList();
     });
   },
-  computed: {
-    isBaby(){
-      return this.patientInfo.patientId&&this.patientInfo.patientId.includes('+')
-    }
-  },
+  computed: {},
   watch: {
     query: {
       handler(newName, oldName) {
@@ -767,7 +649,8 @@ export default {
           let o = {
             体温: {
               value: val,
-              reg: [34, 42],
+              reg: [33, 42],
+              errorMsg: "体温请填入30~42之间的数值",
             },
           };
           return o;
@@ -780,15 +663,6 @@ export default {
             },
           };
           return y;
-          case "疼痛":
-        case "疼痛干预":
-          let g = {
-            疼痛: {
-              value: val,
-              reg: [0, 10],
-            },
-          };
-          return g;
         default:
           break;
       }
@@ -985,40 +859,25 @@ export default {
       await getmultiDict(wardCode).then((res) => {
         let baseDic = [];
         let otherDic = [];
-        const babyDic = []
         let data = [];
         let obj = [];
-        const babyType = ['01','aurigo','funicle','breast','milk','033','3'] //婴儿显示项目
-      const withOutbabyType = ['aurigo','funicle','breast','milk'] //成年人不显示项目
-      if(this.isBaby){
-        res.data.data.map((list)=>{
-          if(babyType.includes(list.vitalCode)) babyDic[list.vitalSign] = list.vitalCode
-          this.totalDictInfo[list.vitalSign] = {
-            ...list,
-            options: list.selectType ? list.selectType.split(",") : [],
-          };
-          data[list.vitalSign] = list.vitalCode;
-        })
-
-      }else{
         res.data.data.map((item, index) => {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
             options: item.selectType ? item.selectType.split(",") : [],
           };
+          //跟PDA护理事件共用一个字典表  PDA会保存这些字典 所以这里要区分一下
+          if(!['转入','死亡','手术','分娩','出生','请假','外出','出院'].includes(item.vitalSign)){
           data[item.vitalSign] = item.vitalCode;
+          }
           switch (item.signType) {
             case "base":
-            if(!["表顶注释","表底注释"].includes(item.vitalSign)){
-              //新生儿体温单屏蔽掉成年人录入项目
-              if(this.patientInfo)
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
-            }
               break;
             case "other":
-              if(!["表顶注释","表底注释"].includes(item.vitalSign)){
-            if(!withOutbabyType.includes(item.vitalCode)) otherDic[item.vitalSign] = item.vitalCode;
-              }
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
+              otherDic[item.vitalSign] = item.vitalCode;
               break;
             default:
               break;
@@ -1031,16 +890,14 @@ export default {
               vitalCode: item.vitalCode,
               wardCode: this.patientInfo.wardCode,
               classCode: item.classCode,
+
             };
             this.fieldList = { ...obj };
           }
         });
-      }
         this.multiDictList = { ...data };
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
-        this.babyMultiDictList = {...babyDic}
-
         this.init();
       });
     },
@@ -1274,12 +1131,10 @@ export default {
   }
 
   .column-right {
-    margin: 5px 0px 0px 10px;
+    margin-top: 5px;
     display: inline-block;
     height: 70px;
     overflow: auto;
-    display: flex;
-    flex-direction: column;
   }
 
   .row-top {
