@@ -29,7 +29,7 @@ export default {
             { "name": "观 察 内 容", "colspan": "7", "rowspan": "1"},
             { "name": "入量", "colspan": "2", "rowspan": "1"},
             { "name": "出量", "colspan": "2", "rowspan": "1"},
-            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"custom2"},
+            { "name": "脉<br/>搏<br/>次<br/>/分", "colspan": "1", "rowspan": "3",canSet:true,key:"custom2"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"custom3"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"custom4"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"custom5"},

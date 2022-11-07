@@ -13,7 +13,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1150px"
+      width: "1400px"
     },
     th: {
         top:
@@ -27,6 +27,10 @@ export default {
                 { "name": "胎膜<br/>情况", "colspan": "1", "rowspan": "3"},
                 { "name": "先露高低<br/>（cm）", "colspan": "1", "rowspan": "3"},
                 { "name": "检查<br/>方法", "colspan": "1", "rowspan": "3"},
+                { "name": "催产素浓度<br/>（u/500ml）", "colspan": "1", "rowspan": "3"},
+                { "name": "滴速<br/>（滴/分）", "colspan": "1", "rowspan": "3"},
+                { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue1"},
+                { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue2"},
                 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "400px",  maxWidth: "400px"}, },
                 { "name": "护士签 名", "colspan": "1", "rowspan": "3", style: { minWidth: "60px",  maxWidth: "60px"},},
                 { "name": "质控护士", "colspan": "1", "rowspan": "3"}

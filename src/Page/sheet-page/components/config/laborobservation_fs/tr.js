@@ -47,6 +47,11 @@ export default [
   { key: 'fetalMembrane', event: keyf1, value: '', next: '', name: '胎膜情况', textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: tmqkList } },
   { key: 'showLow', event: keyf1, value: '', next: '（cm）', name: '先露高低', textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: xlgdsList } },
   { key: 'inspectionMethod', event: keyf1, value: '', next: '', name: '检查方法', textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: jcffList } },
+  { key: 'oxytocin', event: keyf1, value: '', next: '', name: '催产浓度', textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: ['2.5'] } },
+  { key: 'speed', event: keyf1, value: '', next: '', name: '滴速', textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8), },
+  { key: 'customValue1', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
+  { key: 'customValue2', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
+
   {
     key: "description", //特殊情况
     value: "",

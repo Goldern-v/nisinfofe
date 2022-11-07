@@ -1838,7 +1838,7 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        if (["weixian","foshanrenyi","nanfangzhongxiyi"].includes(this.HOSPITAL_ID)) {
+        if (["weixian","foshanrenyi","nanfangzhongxiyi",'zhzxy'].includes(this.HOSPITAL_ID)) {
           return trArr.find((item) => item.key == "signerNo").value
             ? `<img
               width="50"

@@ -38,19 +38,19 @@ export default [
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygenBlood', event: keyf1, value: '', next: '%', name: '血氧饱和度',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'customValue1', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
+  { key: 'customValue1', event: keyf1, value: '',textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 6) , },
 
   // { key: 'boxTemp', event: keyf1, value: '', next: '', name: '箱温℃/箱温℃（2选1）', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'meanPressure', event: keyf1, value: '', next: 'mmHg', name: '平均压', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'sugarBlood', event: keyf1, value: '', next: 'mmol/L', name: '血糖', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'meanPressure', event: keyf1, value: '', next: 'mmHg', name: '平均压', textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'sugarBlood', event: keyf1, value: '', next: 'mmol/L', name: '血糖', textarea: { width: 20 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'reaction', event: keyf1, value: '', next: '', name: '反应', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete:{data:["一般","稍差","差"]} },
   { key: 'cry', event: keyf1, value: '', next: '', name: '哭声', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["响亮","一般","弱",'稍弱', '声嘶', '插管']}},
   { key: 'suck', event: keyf1, value: '', next: '', name: '吸吮力', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["好","一般","稍慢", '慢', '差']}},
   { key: 'skinColor', event: keyf1, value: '', next: '', name: '皮肤颜色', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6),autoComplete:{data:["红润","发灰","苍白","花斑" , '黄染']} },
   { key: 'state', event: keyf1, value: '', next: '', name: '意识状态', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete:{data:["清醒","睡眠","烦躁", '激惹', '昏睡', '昏迷']}},
   // { key: 'tripleRestri', event: keyf1, value: '', next: '', name: '三凹征/胸廓隆起//前囟(2选1)', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete:{data:["∨/∨","平坦","凹陷", '饱满', '紧张']}},
-  { key: 'customValue2', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["∨/∨","平坦","凹陷", '饱满', '紧张']}},
+  { key: 'customValue2', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:['√/√','√/无','无/√','无/无',"平坦","凹陷", '饱满', '紧张']}},
   { key: 'crts', event: keyf1, value: '', next: '', name: 'CRT(S)', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete:{data:["1","2","3", "4","5"]}},
   // { key: 'expand', event: keyf1, value: '', next: '', name: '心电监护/肌张力（2选1）', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete:{data:["齐","不齐","减弱", "增高","稍低","正常"]}},
   { key: 'customValue3', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["齐","不齐","减弱", "增高","稍低","正常"]}},
@@ -66,6 +66,8 @@ export default [
   { key: 'customValue5', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["开始","暂停","结束", "未完"]}},
   { key: 'customValue6', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["开始","暂停","结束", "∨"]} },
   { key: 'customValue7', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["S","RL","LL", "P"]} },
+  { key: 'customValue8', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
+  { key: 'customValue9', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
   
   // { key: 'needle', event: keyf1, value: '', next: '', name: '留置针部位', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["头部","左手","右手", "左足","右足", "拔针","正常"]}  },
   // { key: 'infusion', event: keyf1, value: '', next: '', name: '输液', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["开始","暂停","结束", "未完"]}  },
@@ -75,7 +77,7 @@ export default [
   {
     key: "description", //特殊情况记录
     value: "",
-    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "150px", background: "transparent" },
+    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "230px", background: "transparent" },
     textarea: { width: 1150 },
     event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
   },

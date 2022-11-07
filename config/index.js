@@ -208,7 +208,7 @@ const currentTargetUrl = (() => {
       // return "http://10.95.6.97:9091"
       // return "http://218.13.87.27:9094"
       // return "http://192.168.3.153:8080"
-      return "http://218.13.34.230:9094" //正式
+      return "http://183.234.20.149:19094" //正式
 
       // return "http://183.234.20.149:19094"
 
@@ -230,6 +230,8 @@ const currentTargetUrl = (() => {
     case '925':
       // return 'http://192.168.1.54:9866'
       return 'http://120.24.240.231:19097'
+    case 'whhk':
+      return 'https://cr.fsyyy.com:9094'
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"

@@ -171,7 +171,7 @@
     </div>
     <div flex="" class="table-line" v-if="HOSPITAL_ID == 'zhzxy'">
       <div class="key">责任护士：</div>
-      <div class="value">{{ data.DutyNurse }}</div>
+      <div class="value">{{ data.dutyNurse }}</div>
     </div>
     <div flex="" class="table-line" v-if="data.glFlag">
       <div class="key">隔&nbsp;&nbsp;离：</div>
@@ -185,7 +185,8 @@
     <div style="height: 5px"></div>
 
     <div flex="" class="table-line">
-      <div class="key">饮&nbsp;食：</div>
+      <div class="key" v-if="HOSPITAL_ID = 'zhzxy'">饮 食：</div>
+      <div class="key" v-else>饮&nbsp;食：</div>
       <div class="value" style="width: 50px;">{{ data.foodAnDrink }}</div>
       <div class="key">护理级别：</div>
       <div class="value">{{ data.nursingClass }}</div>

@@ -179,6 +179,7 @@
                 v-model="allergy_gdtj"
               />
             </div>
+			
 			<!-- <div flex="cross:top"
               class="input-item"
 				v-if="['gdtj'].includes(HOSPITAL_ID)" style="width:350px;height: 60px;">
@@ -194,7 +195,7 @@
               ></textarea>
 			  <p class="bottom-line remark allergy-textarea print-page__ptext" flex-box="1" style="whiteSpace: pre-wrap;">{{allergy_gdtj}}</p>
             </div> -->
-			<div class="allergy" v-else-if="!['zhzxy'].includes(HOSPITAL_ID)">
+			<div class="allergy" :class="{whhkAllergy:['whhk'].includes(HOSPITAL_ID)}" v-else-if="!['zhzxy'].includes(HOSPITAL_ID)">
 				<p :class="[allergy1||drugGms||allergy2?'gm':'']">
 					过敏信息：
 					<span v-if="allergy1">{{ allergy1 }};</span>
@@ -202,8 +203,20 @@
 					<span v-if="allergy2">{{ allergy2 }}</span>
 					<span v-if="!(allergy1||drugGms||allergy2)">无</span>
 				</p>
+        <div flex="cross:center" class="input-item" v-if="['whhk'].includes(HOSPITAL_ID)">
+          <span class="label" style="margin-right:0;">科室联系电话：</span>
+          <input
+            type="text"
+            nowidth
+            style="padding-left:0;"
+            flex-box="1"
+            class="bottom-line is_input_print"
+            :maxlength="11"
+            v-model="lianxiPhone_whhk"
+          />
+        </div>
 			</div>
-
+      
             <!-- <svg id="barcode"></svg> -->
           </div>
           <img
@@ -379,6 +392,27 @@
      }
       >>>.allergy{
         width :80%;
+        &.whhkAllergy{
+          width:100%;
+          display:flex;
+          align-items: center;
+          >p{
+            display: flex;
+            align-items: center;
+          }
+          >.input-item{
+            height: 25px;
+            font-size: 20px;
+            margin-left: 10px;
+            >span{
+              font-size: 16px;
+            }
+            >input{
+              font-size: 16px;
+              width: 100px;
+            }
+          }
+        }
         p{
           height 25px;
           overflow hidden
@@ -738,6 +772,7 @@ export default {
       allergy2: "",
       drugGms: "",
 	  allergy_gdtj:"",//自定义过敏信息
+    lianxiPhone_whhk:""
     };
   },
   computed: {
@@ -770,6 +805,7 @@ export default {
           remark: diagnosis,
           remarkPrint: resData.remarkPrint
         };
+        this.lianxiPhone_whhk = resData.lianxiPhone_whhk
         this.mainDoctors = resData.mainDoctors
         this.allergy1 = resData.allergy1;
         this.allergy2 = resData.allergy2;
@@ -815,6 +851,9 @@ export default {
           break
         case "zhzxy":
           qr_png_value ='ZY' + this.query.patientId +"||"+ this.query.visitId;
+          break;
+        case "whhk":
+          qr_png_value ='P' + this.query.inpNo;
           break;
         default:
           qr_png_value = this.query.patientId + "|" + this.query.visitId;
@@ -879,8 +918,9 @@ export default {
       data.mainDoctors = this.formData.mainDoctors;
       data.dutyNurses = this.formData.dutyNurses;
       data.remarkPrint = this.formData.remarkPrint;
+      data.lianxiPhone_whhk = this.lianxiPhone_whhk;
       data.remark = this.formData.remark.slice(0, 24);
-
+      console.log("data",data)
       saveBed(data).then(res => {
         this.$message.success("保存成功");
         this.close();
