@@ -88,8 +88,8 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((res) => {
     // if (typeof res.data === 'string') res.data = JSON.parse(res.data)
     var data = res.data
-    console.log('window.location.href',window.location.href)
-    console.log('app.$route.name',app.$route.name)
+    // console.log('window.location.href',window.location.href)
+    // console.log('app.$route.name',app.$route.name)
     // by谢岗
     // const {config} = res
     // const whiteList = ['service1.asmx']

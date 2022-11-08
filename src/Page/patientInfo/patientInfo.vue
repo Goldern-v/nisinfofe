@@ -64,6 +64,7 @@ import leftPartHuadu from "@/Page/patientInfo/supComponts/leftPart_Huadu";
 import leftPartFSXT from "@/Page/patientInfo/supComponts/leftPart_FSXT";
 import { getPatientInfo } from "@/api/common.js";
 
+import { nursingUnit } from "@/api/lesion";
 export default {
   data() {
     return {
@@ -107,6 +108,16 @@ export default {
         this.$route.query.patientId,
         this.$route.query.visitId
       ).then((res) => {
+        if(this.HOSPITAL_ID==='zhzxy'){
+          /* 
+           床位一览卡进入护记。
+           vuex不能跨页面，所以拿接口保存deptList，
+           src\Page\sheet-page\components\sheet-tool\sheet-tool.vue中的readOnly才为false。
+          */
+          nursingUnit().then(res=>{
+            this.$store.commit("upDeptList", res.data.data.deptList);
+          })
+        }
         this.inited = true;
         this.query = res.data.data;
         Object.assign(this.$route.query, this.query);

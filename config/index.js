@@ -152,12 +152,13 @@ const currentTargetUrl = (() => {
 
     // 佛山市医
      case 'foshanrenyi':
-      return "https://cr.fsyyy.com:9094"  // 正式外网地址
+      // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://192.168.20.147:9091"  // 双艳
-      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
       // return "http://120.24.240.231:19097" //
       // return "http://192.168.103.16:9091" //
+      // return "ttp://218.13.87.27:9094" //
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -206,7 +207,7 @@ const currentTargetUrl = (() => {
       // return "http://10.95.6.97:9091"
       // return "http://218.13.87.27:9094"
       // return "http://192.168.3.153:8080"
-      return "http://218.13.34.230:9094" //正式
+      return "http://183.234.20.149:19094" //正式
 
       // return "http://183.234.20.149:19094"
 
@@ -228,6 +229,8 @@ const currentTargetUrl = (() => {
     case '925':
       // return 'http://192.168.1.54:9866'
       return 'http://120.24.240.231:19097'
+    case 'whhk':
+      return 'https://cr.fsyyy.com:9094'
     case 'whsl':
       // return 'http://192.168.1.54:9866'
       return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
