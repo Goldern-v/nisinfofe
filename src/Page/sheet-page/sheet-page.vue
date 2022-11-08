@@ -755,8 +755,8 @@ export default {
       this.bus.$emit("refreshImg");
     },
     onModalChange(e,tr,x,y,index){
-      // 改变当前行状态
-      tr.isChange = true
+      // 改变当前行状态,如果数据变化 就拿到当行的数据
+      tr[`isChange`] = true
       // // 获取recordDate的下标
       let dateIndex = tr.findIndex(item=>item.key == "recordDate")
       // 如果当前行有recordDate(即是保存过)
@@ -805,14 +805,14 @@ export default {
             });
           } else {
             if (res[0].data.code !== 200) {
-              this.$notify.success({
+              this.$notify.error({
                 title: "提示",
                 message: "签名失败",
                 duration: 1000,
               });
             }
             if (res[1].data.code !== 200) {
-              this.$notify.success({
+              this.$notify.error({
                 title: "提示",
                 message: "审核签名失败",
                 duration: 1000,
@@ -837,9 +837,8 @@ export default {
             duration: 1000,
           });
           resolve(signRes)
-        }else{
-          this.pageLoading = false;
         }
+        this.pageLoading = false;
       }).catch((error) => {
         this.$notify.success({
           title: "提示",
@@ -898,15 +897,19 @@ export default {
             const blockId = this.sheetInfo.selectBlock.id
             //已经有责任护士签名的记录 这时候不用双签（不用签质控护士的记录）
             //两个签名都为空的记录
-            const dutyArray = array.filter((list) => list.signerName&&!list.auditorName)
-            const qcArray = array.filter((list) => !list.signerName)
+            /*质控状态 0为没有责任护士跟质控护士
+            1为责任护士已经签名
+            2为双签名
+            **/
+            const dutyArray = array.filter((list) => list.status == 1)
+            const qcArray = array.filter((list) => list.status ==0||!list.status)
+            const onlyDutyArray = array.filter((list) => list.status!=2)
             const saveAndSignObj = {
               password,
               empNo,
               patientId,
               visitId,
               blockId,
-              list: array,
               signType: "",
               multiSign: false,
             }
@@ -929,7 +932,7 @@ export default {
             } else {
               //如果不是责任护士  只负责单签 签名责任护士
               saveAndSignApi(
-                saveAndSignObj
+                {...saveAndSignObj,list:onlyDutyArray}
               ).then((Response) => {
                 if (Response.data.code == 200) {
                   this.$notify.success({

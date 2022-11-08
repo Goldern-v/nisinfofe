@@ -721,9 +721,8 @@ export default {
               duration: 1000,
             });
             resolve(signRes)
-          }else{
-            this.pageLoading = false;
           }
+          this.pageLoading = false;
         }).catch((error)=>{
           this.$notify.success({
             title: "提示",
@@ -783,15 +782,15 @@ export default {
           const blockId = this.sheetInfo.selectBlock.id
           //已经有责任护士签名的记录 这时候不用双签（不用签质控护士的记录）
           //两个签名都为空的记录
-          const dutyArray = array.filter((list)=>list.signerName&&!list.auditorName)
-          const qcArray = array.filter((list)=>!list.signerName)
+          const dutyArray = array.filter((list) => list.status == 1)
+            const qcArray = array.filter((list) => list.status ==0||!list.status)
+            const onlyDutyArray = array.filter((list) => list.status!=2)
           const saveAndSignObj = {
             password,
             empNo,
             patientId,
             visitId,
             blockId,
-            list:array,
             signType: "",
             multiSign: false,
           }
@@ -814,7 +813,7 @@ export default {
           }else{
             //责任护士只负责单签 签名责任护士
             saveAndSignApi(
-            saveAndSignObj
+              {...saveAndSignObj,list:onlyDutyArray}
           ).then((Response) => {
             if(Response.data.code ==200){
               this.$notify.success({
