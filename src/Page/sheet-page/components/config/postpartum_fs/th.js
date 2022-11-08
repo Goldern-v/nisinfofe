@@ -39,7 +39,7 @@ export default {
             { "name": "母<br/>乳<br/>喂<br/>养", "colspan": "1", "rowspan": "2"},
             { "name": "婴<br/>儿<br/>护<br/>理", "colspan": "1", "rowspan": "2"},
 
-            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue3"},
+            { "name": "脉<br/>搏<br/>次<br/>/分", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue3"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue4"},
             { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "300px",  maxWidth: "300px"}, },
             { "name": "护士签名", "colspan": "1", "rowspan": "3"},

@@ -3,13 +3,13 @@
     <table>
       <tr>
         <th
-          v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'&& HOSPITAL_ID != 'lyyz'"
+          v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'"
           style="width: 10%; min-width: 20px"
         >
           序号
         </th>
         <th
-          v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'lyyz'"
+          v-if="HOSPITAL_ID != 'lingcheng'"
           style="width: 22%; min-width: 75px"
         >
           时间
@@ -17,7 +17,7 @@
         <th v-else style="width: 22%; min-width: 75px">日期</th>
         <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng' && HOSPITAL_ID != 'lyyz'" style="width: 20%">项目</th>
         <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
-        <th v-else  style="width: 24%">测量时间</th>
+        <th v-else-if="HOSPITAL_ID != 'lyyz'" style="width: 24%">测量时间</th>
         <th :style="HOSPITAL_ID == 'sdlj' ? {width: '20%'} : {width: '23%'}">
           血糖值
           <br />(mmol/L)
@@ -34,8 +34,7 @@
             HOSPITAL_ID != 'sdlj'&&
             HOSPITAL_ID != 'guizhou'&&
             HOSPITAL_ID != 'whfk' &&
-            HOSPITAL_ID != 'lyyz'&&
-            HOSPITAL_ID != 'gdtj'
+            HOSPITAL_ID != 'lyyz'
           "
         >
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
@@ -58,7 +57,7 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'&& HOSPITAL_ID != 'lyyz'">
+        <td v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'">
           {{index + baseIndex + 1}}
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'" style="padding: 0 4px">
@@ -67,8 +66,7 @@
               <span>{{ item.date }}</span>
             </span>
             <span>
-              <span v-if="HOSPITAL_ID = 'lyyz'"> </span>
-               <span v-else>{{ item.time }}</span>
+               <span>{{ item.time }}</span>
             </span>
           </div>
         </td>
@@ -78,7 +76,7 @@
         <td v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'lyyz'">
           <div class="cell" :title="item.sugarItem">{{ item.sugarItem }}</div>
         </td>
-        <td v-else >
+        <td v-else-if="HOSPITAL_ID != 'lyyz'">
           <div class="cell" :title="item.sugarItem">{{ item.time }}</div>
         </td>
         <td>
@@ -99,8 +97,7 @@
             HOSPITAL_ID != 'sdlj'&&
             HOSPITAL_ID != 'guizhou'&&
             HOSPITAL_ID != 'whfk' && 
-            HOSPITAL_ID != 'lyyz'&&
-            HOSPITAL_ID != 'gdtj'
+            HOSPITAL_ID != 'lyyz'
           "
         >
           <div class="cell">

@@ -64,7 +64,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 27
+      width: 38
     },
     change: (e, td) => limitChange(e, td, 3),
   },
@@ -101,7 +101,7 @@ export default [
       keyf1(e, td);
     },
     textarea: {
-      width: 43
+      width: 50
     },
     change: (e, td) => limitChange(e, td, 4),
     name: "血压",
@@ -203,7 +203,7 @@ export default [
     next: "ml",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 35
     },
   },
   {
@@ -230,7 +230,7 @@ export default [
     next: "ml",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 35
     },
   },
   {

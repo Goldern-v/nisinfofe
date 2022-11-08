@@ -63,7 +63,7 @@ export default [
   { key: 'pulse', event: keyf1, value: '', next: '℃', name: '脉搏/心率', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4),  },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4),  },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4),  },
-  { key: 'SPO2', event: keyf1, value: '', next: '℃', name: '血氧饱和度', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4),  },
+  { key: 'spo2', event: keyf1, value: '', next: '℃', name: '血氧饱和度', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4),  },
   { key: 'traffic', event: keyf1, value: '', next: '℃', name: '流量', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4),  },
   { key: 'spoMethod', event: keyf1, value: '', next: '', name: '方式',textarea: { width: 40 },autoComplete:{data:['①鼻导管','②面罩','③机械通气']} },
   { key: 'model', event: keyf1, value: '', next: '℃', name: '呼吸机模式', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4),  },

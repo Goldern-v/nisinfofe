@@ -76,6 +76,10 @@ export default {
         name: `
         签名
         `,
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
         colspan: '1',
         rowspan: '3'
       }
