@@ -711,6 +711,16 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   box-sizing: border-box;
   text-overflow: ellipsis;
 }
+.selection-dict-item {
+  height: 24px;
+  line-height: 24px;
+  padding: 0 5px;
+
+  &:hover {
+    background: rgb(111, 192, 164) !important;
+    color: #fff !important;
+  }
+}
 
 @page {
   margin: 0 10mm;
@@ -801,6 +811,22 @@ export default {
       searchWord: "",
       admitted: "所有患者",
       pageLoadng: false,
+      shitOption: [
+        "灌肠",
+        "失禁",
+        "人工肛门",
+        "腹泻",
+        "※",
+        "☆",
+        "E",
+        "1/E",
+        "2/E",
+        "0/E",
+        "1 2/E",
+        "*/E",
+        "☆/E",
+        "3/2E",
+      ],
     };
   },
   computed: {
