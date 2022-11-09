@@ -6,6 +6,9 @@ function currYear() {
   return moment().format('YYYY')
 }
 export default {
+  style: {
+    width: "1250px"
+  },
   // 科室的名称 关节骨科
   deptType: "",
   th: {
@@ -26,7 +29,7 @@ export default {
         rowspan: "3",
         style: {
           whiteSpace: "nowrap",
-          minWidth: "34px"
+          minWidth: "55px"
         }
       },
       {
