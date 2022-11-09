@@ -70,10 +70,10 @@
         ID号：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
       </span> -->
-      <!-- <span> -->
-        <!-- 入院日期： -->
-        <!-- {{patientInfo.admissionDate | toymd}} -->
-      <!-- </span> -->
+      <span v-if="sheetInfo.sheetType === 'critical_new_weihai' || sheetInfo.sheetType === 'internal_eval_weihai'">
+        入院日期：
+        {{patientInfo.admissionDate | toymd}}
+      </span>
     </div>
     <!-- <div class="info-con">
       <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span>
@@ -233,11 +233,7 @@ export default {
   },
   filters: {
     toymd(val) {
-      if (process.env.HOSPITAL_ID == "weixian") {
-        return moment(val).format("YYYY-MM-DD");
-      } else {
-        return moment(val).format("YYYY年MM月");
-      }
+      return moment(val).format("YYYY-MM-DD");
     }
   },
   created() {
