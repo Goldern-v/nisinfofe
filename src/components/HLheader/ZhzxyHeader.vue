@@ -13,16 +13,7 @@
               align="middle"
             >
               <img src="../../common/images/logo_zhzxy.png" />
-              <!-- <span>{{ HOSPITAL_NAME }}<br />智慧护理信息系统</span> -->
             </el-row>
-            <!-- <router-link to="/index"
-                         tag="span">
-              <el-row class="nav-item"
-                      type="flex"
-                      align="middle">
-                <i class="iconfont icon-shouye"></i> 首页
-              </el-row>
-            </router-link>-->
             <router-link to="/index" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-shouye"></i> 护理任务
@@ -121,7 +112,6 @@
             <router-link to="/sugarPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
             </router-link>
-          </router-link>
           <router-link to="/healthEdu" tag="span">
             <el-row class="nav-item" type="flex" align="middle">健康教育单</el-row>
             <!-- <div class="nav-item">健康教育单</div> -->
@@ -147,7 +137,7 @@
                 <div class="before"></div>
                 <i class="iconfont icon-hulijiludan"></i>执行单
               </el-row>
-              
+
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"

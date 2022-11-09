@@ -61,3 +61,40 @@ export const deptList = (type, status, pageIndex, pageSize) => {
     return axios.post(`${apiPath}/consultation/dept/deptList`, qs.stringify({type, status, pageIndex, pageSize}))
 }
 
+// 保存会诊记录 by中西医
+export const addConsultation = (data) => {
+    return axios.post(`${apiPath}nursingConsultation/addConsultation`, data)
+}
+/**
+ * 获取会诊护士
+ *  */
+export const listConsultationNurse = (data) => {
+    return axios.get(`${apiPath}nursingConsultation/listConsultationNurse?${qs.stringify(data)}`)
+}
+
+// 获取病人会诊列表
+export const getPatientListNew = (patientId) => {
+    return axios.post(`${apiPath}nursingConsultation/getConsultationListByPatientId`, qs.stringify({patientId}))
+}
+/**
+ * 获取会诊详情
+ * @param {*} conId
+ * @returns
+ */
+export const detailNew = (conId) => {
+    return axios.get(`${apiPath}nursingConsultation/consultationDetail/${conId}`)
+}
+/**
+ * 更新会诊记录
+ * @param {*} data
+ * @returns
+ */
+export const update = (data) => {
+    return axios.post(`${apiPath}nursingConsultation/updateConsultation`, data)
+}
+/**
+ * 删除申请
+ */
+export const delConNew = (id) => {
+    return axios.get(`${apiPath}nursingConsultation/deleteConsultation/${id}`, qs.stringify({id}))
+}

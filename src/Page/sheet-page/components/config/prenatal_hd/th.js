@@ -8,7 +8,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1190px"
+    width: "1280px"
   },
   th: {
     top: [{
