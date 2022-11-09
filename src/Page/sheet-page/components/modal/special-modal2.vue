@@ -1990,8 +1990,7 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType === "internal_eval_lcey" ||
-              this.sheetInfo.sheetType === "internal_eval_linyi" ||
-              this.sheetInfo.sheetType === "internal_eval_weihai"
+              this.sheetInfo.sheetType === "internal_eval_linyi" 
             ) {
               if (GetLength(text) > 98) {
                 result.push(text);
@@ -2034,7 +2033,10 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "nursingrecords_zxy") {
+            } else if (
+              this.sheetInfo.sheetType === "nursingrecords_zxy" ||
+              this.sheetInfo.sheetType === "internal_eval_weihai"
+            ) {
               if (GetLength(text) > 54) {
                 result.push(text);
                 text = allDoc[i];
@@ -2084,7 +2086,7 @@ export default {
               this.sheetInfo.sheetType === "ophthalmology_bh" ||
               this.sheetInfo.sheetType === "observation_bh" ||
               this.sheetInfo.sheetType === "maternal_lcey"||
-              this.sheetInfo.sheetType == "obstetrics_qhwy"
+              this.sheetInfo.sheetType == "obstetrics_qhwy" 
             ) {
               if (GetLength(text) > 26) {
                 result.push(text);
