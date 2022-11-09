@@ -4,8 +4,12 @@ import {
 import {
   event_date,
   event_time,
-  click_date
+  click_date,
+  click_time
 } from "../keyEvent/date";
+
+let ysList = ['深昏迷', '浅昏迷', '中昏迷', '清醒', '嗜睡']
+// le i = ''
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -15,7 +19,8 @@ export default [{
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    click: click_time
   },
   {
     key: "temperature", //体温-数值
@@ -54,20 +59,29 @@ export default [{
     value: "",
     event: keyf1,
   },
+  // {
+  //   key: "fieldSeventeen", //标题1
+  //   value: "",
+  //   event: keyf1,
+  //   textarea: {
+  //     minWidth: 48
+  //   }
+  // },
   {
-    key: "fieldSeventeen", //标题1
+    key: "consciousness", //意识
     value: "",
     event: keyf1,
-    textarea: {
-      minWidth: 48
-    }
+    autoComplete: {
+      data: ysList
+    },
+    name: "意识"
   },
   {
     key: "fieldEighteen", //标题2
     value: "",
     event: keyf1,
     textarea: {
-      minWidth: 48
+      minWidth: 60
     }
   },
   {
@@ -75,7 +89,7 @@ export default [{
     value: "",
     event: keyf1,
     textarea: {
-      minWidth: 36
+      minWidth: 60
     }
   },
   {
