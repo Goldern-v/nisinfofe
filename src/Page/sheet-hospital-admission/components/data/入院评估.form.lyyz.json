@@ -668,9 +668,9 @@
           "type": "select",
           "title": "费用支付方式",
           "style": null,
-          "titleStyle": "width:81px!important",
-          "inputStyle": "width:152px!important",
-          "inputWidth": "100px",
+          "titleStyle": "width:200px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
           "class": null,
           "readOnly": null,
           "rule": [
