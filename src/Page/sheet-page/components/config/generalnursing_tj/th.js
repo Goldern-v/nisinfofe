@@ -24,6 +24,7 @@ export default {
                 {"name":"P/HR<br/>次/分","colspan":"1","rowspan":"3"},
                 {"name":"呼吸<br/>次/分","colspan":"1","rowspan":"3"},
                 {"name":"血压<br/>mmHg","colspan":"1","rowspan":"3"},
+                {"name":"血氧<br/>饱和度<br/>%","colspan":"1","rowspan":"3"},
                 {"name":"意识","colspan":"1","rowspan":"3"},
                 {"name":"瞳孔","colspan":"4","rowspan":"1"},
                 {"name":"入量","colspan":"2","rowspan":"1"},
@@ -35,7 +36,7 @@ export default {
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem4","style":{"minWidth":"30px","maxWidth":"30px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem5","style":{"minWidth":"30px","maxWidth":"30px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem6","style":{"minWidth":"30px","maxWidth":"30px"}},
-                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
+                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"100px","maxWidth":"100px"}},
                 {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
                 {"name":"带教<br/>护士","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
             ]

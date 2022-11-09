@@ -14,11 +14,11 @@ export default function mergeDefaultValue(
             days++;
           }
         });
-        if (days == 1) {
-          console.log(`${key}设置默认值${obj[key]}成功`);
-        } else if (days > 1) {
-          console.error(`设置${key}默认值发现重名！！！`);
-        }
+        // if (days == 1) {
+        //   // console.log(`${key}设置默认值${obj[key]}成功`);
+        // } else if (days > 1) {
+        //   console.error(`设置${key}默认值发现重名！！！`);
+        // }
       }
     }
   }
