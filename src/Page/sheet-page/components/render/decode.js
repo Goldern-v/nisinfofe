@@ -31,10 +31,11 @@ function decode(ayncVisitedData) {
       // 一定要做这个优化速度需求，被逼无奈，轻喷
       if (bodyModel.hasOwnProperty(index) && (!process.env.splitSave || bodyModel[index].isChange || (bodyModel[index][recordDateIndex] && bodyModel[index][recordDateIndex].value && changeArr.includes(bodyModel[index][recordDateIndex].value)))) {
         let tr = {};
+        const recordDate = bodyModel[index].find((item)=>item.key == "recordDate");
         for (let option of bodyModel[index]) {
           tr[option.key] = option.value;
-          if(bodyModel[index][0].value){
-          tr[`recordDate`] = bodyModel[index].find((item)=>item.key == "recordDate").value;
+          if(recordDate && recordDate.value) {
+            tr[`recordDate`] = recordDate.value
           }else{
             let itemRecordYear = bodyModel[index].find(
               item => item.key == "recordYear"
