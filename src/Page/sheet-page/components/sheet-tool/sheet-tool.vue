@@ -539,7 +539,8 @@
           HOSPITAL_ID == 'whfk' ||
           HOSPITAL_ID == 'whhk' ||
           HOSPITAL_ID == 'gdtj' ||
-          HOSPITAL_ID == 'lyxrm'
+          HOSPITAL_ID == 'lyxrm' ||
+           HOSPITAL_ID == 'lyyz'
         "
       >
         <div class="text-con">
@@ -1213,15 +1214,17 @@ export default {
               this.pageArea=''
               this.bus.$emit('clearSheetModel')
             }
-          if (this.patientInfo.blockId) {
-            try {
-              let index = this.sheetBlockList.findIndex(
-                (item) => item.id == this.patientInfo.blockId
-              );
-              this.sheetInfo.selectBlock = this.sheetBlockList[index];
-            } catch (e) {
-              console.log(e);
-            }
+            if (this.patientInfo.blockId) {
+              try {
+                let index = this.sheetBlockList.findIndex(
+                  (item) => item.id == this.patientInfo.blockId
+                );
+                if (index > -1) {
+                  this.sheetInfo.selectBlock = this.sheetBlockList[index]
+                }
+              } catch (e) {
+                console.log(e);
+              }
           }
           this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
           if( this.HOSPITAL_ID === 'whfk'&& this.sheetInfo.selectBlock.patientId){
@@ -1432,7 +1435,7 @@ export default {
   computed: {
     blockId: {
       get() {
-        return this.sheetInfo.selectBlock.id;
+        return this.sheetInfo.selectBlock.id; 
       },
       set() {},
     },

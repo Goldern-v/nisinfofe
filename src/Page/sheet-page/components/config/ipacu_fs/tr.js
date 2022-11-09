@@ -31,6 +31,66 @@ import {
   click_time
 } from "../keyEvent/date";
 
+const RASS = [
+  {name:"4",value:"4"},
+  {name:"3",value:"3"},
+  {name:"2",value:"2"},
+  {name:"1",value:"1"},
+  {name:"0",value:"0"},
+  {name:"-1",value:"-1"},
+  {name:"-2",value:"-2"},
+  {name:"-3",value:"-3"},
+  {name:"-4",value:"-4"},
+  {name:"-5",value:"-5"},
+]
+const xinlu = [
+  {name:"窦性",value:"窦性"},
+  {name:"频发室早",value:"频发室早"},
+  {name:"偶发室早",value:"偶发室早"},
+  {name:"房颤",value:"房颤"},
+  {name:"频发房早",value:"频发房早"},
+  {name:"偶发房早",value:"偶发房早"},
+  {name:"房扑",value:"房扑"},
+  {name:"起搏心律",value:"起搏心律"},
+  {name:"室速",value:"室速"},
+  {name:"Ⅰ度房室传导阻滞",value:"Ⅰ度房室传导阻滞"},
+  {name:"Ⅱ度房室传导阻滞",value:"Ⅱ度房室传导阻滞"},
+  {name:"Ⅲ度房室传导阻滞",value:"Ⅲ度房室传导阻滞"},
+]
+const VAS = [
+  {name:"0",value:"0"},
+  {name:"1",value:"1"},
+  {name:"2",value:"2"},
+  {name:"3",value:"3"},
+  {name:"4",value:"4"},
+  {name:"5",value:"5"},
+  {name:"6",value:"6"},
+  {name:"7",value:"7"},
+  {name:"8",value:"8"},
+  {name:"9",value:"9"},
+  {name:"10",value:"10"},
+]
+const food = [
+  {name:"口服",value:"口服"},
+  {name:"输液",value:"输液"},
+  {name:"术中输液",value:"术中输液"},
+  {name:"术中红细胞",value:"术中红细胞"},
+  {name:"术中血浆",value:"术中血浆"},
+  {name:"术中冷沉淀",value:"术中冷沉淀"},
+  {name:"红细胞",value:"红细胞"},
+  {name:"血浆",value:"血浆"},
+  {name:"冷沉淀",value:"冷沉淀"},
+  {name:"鼻饲",value:"鼻饲"},
+]
+const outputColor = [
+  {name:"淡黄色",value:"淡黄色"},
+  {name:"黄色",value:"黄色"},
+  {name:"红色",value:"红色"},
+  {name:"淡红色",value:"淡红色"},
+  {name:"暗红色",value:"暗红色"},
+  {name:"咖啡色",value:"咖啡色"},
+  {name:"墨绿色",value:"墨绿色"},
+]
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -46,19 +106,17 @@ export default [
      {name:"深昏迷",value:"深昏迷"}
     ] } ,
     textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'rass', event: keyf1, value: '', next: '', name: 'RASS',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'heartRhythm', event: keyf1, value: '', next: '', name: '心律',textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'rass', event: keyf1, value: '', next: '', name: 'RASS',autoComplete: { data: RASS },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'heartRhythm', event: keyf1, value: '', next: '', name: '心律',autoComplete: { data: xinlu },textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'cvp', event: keyf1, value: '', next: '', name: 'CVP',textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'vas', event: keyf1, value: '', next: '', name: '疼痛VAS评分',textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'food', event: keyf1, value: '', next: '', name: '入量项目',autoComplete: { data: 
-    [{name:"口服",value:"口服"},{name:"鼻饲",value:"鼻饲"},{name:"输液",value:"输液"}
-    ] } ,
+  { key: 'vas', event: keyf1, value: '', next: '', name: '疼痛VAS评分',autoComplete: { data: VAS },textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'food', event: keyf1, value: '', next: '', name: '入量项目',autoComplete: { data: food} ,
     textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量项目',textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'outputColor', event: keyf1, value: '', next: '', name: '颜色或性状',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'outputColor', event: keyf1, value: '', next: '', name: '颜色或性状',autoComplete: { data: outputColor },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'outputCm', event: keyf1, value: '', next: 'cm', name: '刻度',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom1', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom2', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -70,8 +128,8 @@ export default [
   {
     key: "specialRecord", //特殊情况记录
     value: "",
-    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "163px", background: "transparent" },
-    textarea: { width: 163 },
+    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "185px", background: "transparent" },
+    textarea: { width: 185 },
     event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
   },
   // { key: "sign", value: "" },//单签

@@ -855,6 +855,11 @@ export default {
 
   },
   methods: {
+    customCallBack(e,tr,x,y,index){
+      if(!this.splitSave) return
+      //这个方法是处理  自定义标题 每次选择 没有自动调用查询是否更改的方法的BUG
+      this.$emit('onModalChange', e,tr,x,y,index)
+    },
     redBottom(tr,y){
       return tr.find((item) => {
                 return item.key == 'recordSource';
@@ -954,7 +959,8 @@ export default {
       if (!this.sheetInfo.downControl) {
         setTimeout(() => {
           if(!this.isOpenEditModal){
-            onFocusToAutoComplete(e, bind); //下拉框延迟
+            //自定义标题没有输入事件  所以当有医院配置 保存按需（修改记录）来传给后端后 需要调用这个事件
+            onFocusToAutoComplete(e, bind, () => this.customCallBack(e, bind.tr, bind.x, bind.y, bind.index)); //下拉框延迟
           }
         }, 300);
         // onFocusToAutoComplete(e, bind);
@@ -1201,7 +1207,6 @@ export default {
       return [allList, currIndex];
     },
     toSign(trArr, index, bodyModel, showSign, e, td) {
-      console.log("11111")
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
     GetUserList().then(res=>{
       if (res.data.length == 0) {
@@ -1368,7 +1373,6 @@ export default {
                 };
               }
             let p7SignObj = {}
-            console.log("12321312313123 ")
             if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
@@ -1838,7 +1842,7 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        if (["weixian","foshanrenyi","nanfangzhongxiyi"].includes(this.HOSPITAL_ID)) {
+        if (["weixian","foshanrenyi","nanfangzhongxiyi",'zhzxy'].includes(this.HOSPITAL_ID)) {
           return trArr.find((item) => item.key == "signerNo").value
             ? `<img
               width="50"

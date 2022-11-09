@@ -1387,12 +1387,10 @@ export default {
           .then((res) => {
             console.log("保存评估", res);
             this.$message.success("保存成功");
-            this.bus.$emit("setHosptialAdmissionLoading", false);
-            if (['lyxrm'].includes(this.HOSPITAL_ID)) {
-              this.selectBlock.status = "1";
-              this.changeSelectBlock(this.selectBlock);
-              this.showMeasureDetailBox(res);
-            }
+            this.selectBlock.status = "1";
+            this.changeSelectBlock(this.selectBlock);
+            this.showMeasureDetailBox(res);
+
             //
             let {
               data: {
@@ -1405,6 +1403,7 @@ export default {
             }
             // 保存之后检查漏项填写
             this.checkFormMissingItems();
+            this.bus.$emit("setHosptialAdmissionLoading", false);
           })
           .catch((err) => {
             console.log("保存评估err", err);

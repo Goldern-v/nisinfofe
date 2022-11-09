@@ -20,52 +20,26 @@
           />
           <div
             class="qr-code-num"
-            :class="{ hasRemark: hasRemark,zhzxyStyle:['zhzxy'].includes(HOSPITAL_ID) }"
-            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
+            :class="{ hasRemark: hasRemark, }"
           >
             {{ qrCodeNum }}
           </div>
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
-            <div
-              flex="cross:center"
-              class="input-item"
-              style="height: 51px"
-              v-if="HOSPITAL_ID == 'hj'"
-            >
-              <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
-                type="text"
-                nowidth
-                style="font-size: 42px;padding-left: 0px;font-weight: 900;"
-                flex-box="1"
-                class="bottom-line"
-                :value="query.name"
-              />
-              <input
-                type="text"
-                nowidth
-                style="font-size: 30px;padding-left: 0px;width:31%;height: 100%;box-sizing: border-box;"
-                class="bottom-line"
-                :value="query.sex + ' ' + query.age"
-              />
-            </div>
-            <div
-              flex="cross:center"
+          <div
+            flex="cross:center"
+            style="height: 43px"
 
-              style="height: 43px"
-              v-else
-            >
-              <!-- <span class="label">患者姓名:</span> -->
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
-              <input
-                type="text"
-                nowidth
-                style="font-size: 32px;padding-left: 5px;"
-                flex-box="1"
-                class="bottom-line"
-                :value="query.name + ' ' + query.sex + ' ' + query.age"
-              />
+          >
+            <!-- <span class="label">患者姓名:</span> -->
+            <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+            <input
+              type="text"
+              nowidth
+              style="font-size: 32px;padding-left: 5px;"
+              flex-box="1"
+              class="bottom-line"
+              :value="query.name + ' ' + query.sex + ' ' + query.age"
+            />
             </div>
             <div flex="cross:center" class="input-item">
               <!-- <span class="label">住院号:</span> -->
@@ -90,30 +64,7 @@
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
               />
             </div>
-            <!-- <div flex="cross:center" class="input-item">
-              <span class="label">饮食:</span>
-              <div nowidth class="check-con" flex-box="1" flex="main:justify cross:center">
-                <label>
-                  <input
-                    type="checkbox"
-                    value="普食"
-                    checked
-                    class="checkBox"
-                    v-model="formData.diet"
-                  >普食
-                </label>
-                <label>
-                  <input type="checkbox" value="半流" class="checkBox" v-model="formData.diet">半流
-                </label>
-                <label>
-                  <input type="checkbox" value="流质" class="checkBox" v-model="formData.diet">流质
-                </label>
-                <label>
-                  <input type="checkbox" value="糖尿病" class="checkBox" v-model="formData.diet">糖尿病
-                </label>
-              </div>
-            </div>-->
-            <div :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}" flex="cross:center" class="input-item">
+            <div flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
               <div
                 nowidth
@@ -126,7 +77,7 @@
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  :style="{'font-size': '24px','text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
+                  :style="{'font-size': '24px'}"
                   v-model="formData.diet"
                   @focus="
                     onFocusToAutoComplete($event, {
@@ -219,40 +170,26 @@
                 />
               </div>
             </div>
-            <div :style="{'display':['zhzxy'].includes(HOSPITAL_ID)?'flex':''}">
-              <div :style="{'width':['zhzxy'].includes(HOSPITAL_ID)?'50%':''}" :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}" flex="cross:center" class="input-item">
+            <div>
+              <div  flex="cross:center" class="input-item">
                 <span class="label">主管医生:</span>
-                <!-- <el-autocomplete v-model="formData.mainDoctors"
-                                 :fetch-suggestions="querySearchAsyncDoc"
-                                 class="auto-input"
-                                 flex-box="1"
-                                 disabled
-                ></el-autocomplete>-->
                 <input
                   type="text"
                   nowidth
-                  :style="{'font-size':['zhzxy'].includes(HOSPITAL_ID)?'18px':'24px',
-                  'text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
+                  style="font-size:24px"
                   flex-box="1"
                   class="bottom-line"
                   v-model="formData.mainDoctors"
                 />
               </div>
-              <div :style="{'width':['zhzxy'].includes(HOSPITAL_ID)?'50%':''}" :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}" flex="cross:center" class="input-item">
+              <div flex="cross:center" class="input-item">
                 <span class="label">责任护士:</span>
-                <!-- <el-autocomplete v-model="formData.dutyNurses"
-                                 :fetch-suggestions="querySearchAsyncNur"
-                                 class="auto-input"
-                                 flex-box="1"
-                                 disabled
-                ></el-autocomplete>-->
                 <input
                   type="text"
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  :style="{'font-size': ['zhzxy'].includes(HOSPITAL_ID)?'18px':'24px',
-                  'text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
+                  style="font-size:24px;"
                   v-model="formData.dutyNurses"
                 />
               </div>
@@ -270,31 +207,12 @@
                 v-model="guominshi"
               />
             </div>
-            <div
-              flex="cross:top"
-              class="input-item"
-              style="height: 58px;margin-top: 4px"
-              v-if="formData.remarkPrint && HOSPITAL_ID === 'hengli'"
-            >
-              <div class="input-item-left">
-                <span class="input-item-left-label">诊断:</span>
-              </div>
-
-              <textarea
-                type="text"
-                nowidth
-                flex-box="1"
-                class="bottom-line remark"
-                :value="formData.remark"
-                :maxlength="35"
-              ></textarea>
-            </div>
           </div>
 
-          <div v-if="!['zhzxy'].includes(HOSPITAL_ID)" :class="{ 'is-xiegang': HOSPITAL_ID == 'xiegang' }" style="width: 131px">
+          <div style="width: 131px">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
-            <div :class="{aliCenter:['lyxrm', 'whhk'].includes(HOSPITAL_ID)}">
+            <div>
               <div
                 class="tip-item-con"
                 flex="cross:center main:justify"
@@ -306,38 +224,12 @@
               </div>
             </div>
           </div>
-          <div v-else class="zhzxyChose" style="width: 131px">
-            <div class="tip">温馨提示</div>
-            <div
-              v-for="(item,index) in wenxintishi"
-              :key="index +'sss'"
-              class="zhzxyChoseItem"
-                flex-box="1"
-                flex="main:justify cross:center"
-                @click="onFocusToAutoComplete2($event, {
-                      autoComplete: item.option,
-                      obj: formData,
-                      key: item.code
-                    })"
-              >
-              <div class="zhzxyChoseItem-label">{{item.label}}</div>
-              <div class="zhzxyChoseItem-box">{{formData[item.code]}}</div>
-                <!-- <input
-                  type="text"
-                  flex-box="1"
-                  class="bottom-line"
-                  :style="{'font-size': '24px','text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
-                  v-model="formData.diet"
-                  @blur="onBlurToAutoComplete"
-                /> -->
-              </div>
-          </div>
+
         </div>
       </div>
       <div slot="button">
         <span
           style="position: absolute; left: 10px; padding-top: 4px"
-          v-if="!['hj','whhk'].includes(HOSPITAL_ID)"
         >
           <span>显示诊断</span>
           <el-switch
@@ -413,10 +305,6 @@
     text-align: center;
     z-index: 2;
     font-size: 16px;
-    &.zhzxyStyle{
-      font-size: 20px;
-      width: 100px;
-    }
     &.hasRemark {
       top: 78px;
       left: 0px;
@@ -732,7 +620,6 @@ export default {
         }
       },
       set(val){
-        console.log(val,"val")
         this.formData.aField5=val
       }
     },
@@ -753,7 +640,6 @@ export default {
         remark: ""
       };
       getEntity(this.query.patientId, this.query.visitId).then(res => {
-        console.log("11111",res.data.data)
         let resData = res.data.data;
         let diagnosis = textOver(this.query.diagnosis, 52);
         this.formData = {
@@ -778,7 +664,6 @@ export default {
               allergy2:resData.allergy2,
           }
         }
-        console.log(this.formData,"this.formData")
         this.modalLoading = false;
         if (
           ['lyxrm'].includes(this.HOSPITAL_ID) &&
@@ -828,7 +713,6 @@ export default {
     open() {
       this.init();
       // const printCare = document.querySelectorAll(".printCare")
-      // console.log(printCare)
       if (
         (['lyxrm', 'whhk'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
@@ -840,35 +724,7 @@ export default {
     },
     isOpen() {
       this.$refs.modal.open();
-      let qr_png_value = "";
-      switch (this.HOSPITAL_ID) {
-        case "liaocheng":
-          qr_png_value = this.query.patientId + "|" + this.query.visitId;
-          break;
-        case "shannan":
-          qr_png_value = this.query.inpNo;
-          break;
-        case "hengli":
-          qr_png_value = this.query.expand1;
-          break;
-        case "foshanrenyi":
-          qr_png_value = '1001|' + this.query.patientId;
-          break;
-        case "nanfangzhongxiyi":
-          qr_png_value = this.query.patientId + '|' + this.query.visitId;
-          break;
-        case "lyxrm":
-          qr_png_value ='P' + this.query.patientId;
-        case 'whhk':
-          qr_png_value ='P' + this.query.inpNo;
-          break;
-        case "zhzxy":
-          qr_png_value ='ZY' + this.query.patientId +"||"+ this.query.visitId;
-          break;
-        default:
-          qr_png_value = this.query.patientId;
-          break;
-      }
+      let qr_png_value = 'P'+"|"+ this.query.patientId +"|"+ this.query.visitId;
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
@@ -879,13 +735,10 @@ export default {
         }
         return "data:image/png;base64," + window.btoa(binary);
       }
+      console.log('qr_png_value',qr_png_value);
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
-      let showqrCodeNum = ""
-      if(["zhzxy"].includes(this.HOSPITAL_ID)){
-        showqrCodeNum = this.query.patientId ;
-      }
-      this.qrCodeNum = ["zhzxy"].includes(this.HOSPITAL_ID)?showqrCodeNum:qr_png_value;
+      this.qrCodeNum = qr_png_value;
     },
     close() {
       this.$refs.modal.close();
@@ -933,44 +786,22 @@ export default {
       this.$nextTick(() => {
         this.post();
         print(this.$refs.printCon, (el) => {
-          if(['zhzxy'].includes(this. HOSPITAL_ID)){
-            el.style.marginTop='10mm'
-            el.style.marginLeft = '50mm'
-          }else{
-            el.style.marginLeft = '194mm'
-          }
-        },['zhzxy'].includes(this. HOSPITAL_ID)?'v':'');
-        
+          el.style.marginLeft = '194mm'
+        });
         for(let i=0;i<printCare.length;i++){
           printCare[i].style.display = "block"
       }
       });
     },
     querySearchAsyncDoc(queryString, cb) {
-      // findByKeyword(queryString).then(res => {
-      //   cb(res.data.data.map(item => {
-      //     return {value: item}
-      //   }));
-      // })
       cb([]);
     },
-    // handleSelectDoc(item) {
-    //     console.log(item);
-    //     return {
-    //       value: item + 123
-    //     }
-    // },
+
     querySearchAsyncNur(queryString, cb) {
-      // findByKeywordNur(queryString).then(res => {
-      //   cb(res.data.data.map(item => {
-      //     return {value: item}
-      //   }));
-      // })
       cb([]);
     },
 
     onFocusToAutoComplete(e, bind) {
-      console.log(e,)
       function offset(ele) {
         let { top, left } = ele.getBoundingClientRect();
         return {
@@ -981,8 +812,6 @@ export default {
       let { autoComplete, obj, key } = bind;
       let xy = offset(e.target);
 
-      console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
-
       setTimeout(() => {
         window.openAutoComplete({
           style: {
@@ -991,7 +820,6 @@ export default {
           },
           data: autoComplete,
           callback: function(data) {
-            console.log(data, "data");
             if (data) {
               if (obj[key]) {
                 obj[key] += "," + data;
@@ -1005,7 +833,6 @@ export default {
       });
     },
     onFocusToAutoComplete2(e, bind) {
-      console.log(e,)
       function offset(ele) {
         let { top, left } = ele.getBoundingClientRect();
         return {
@@ -1016,8 +843,6 @@ export default {
       let { autoComplete, obj, key } = bind;
       let xy = offset(e.target);
 
-      console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
-
       setTimeout(() => {
         window.openAutoComplete({
           style: {
@@ -1026,7 +851,6 @@ export default {
           },
           data: autoComplete,
           callback: function(data) {
-            console.log(data, "data",obj[key]);
             if (data) {
               if (obj[key]) {
                 if(obj[key].indexOf(',')<0){

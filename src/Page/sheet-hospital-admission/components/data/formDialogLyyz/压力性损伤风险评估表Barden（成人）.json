@@ -627,6 +627,164 @@
       "name": "",
       "type": "formGroupHR",
       "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "预防措施",
+      "type": "formGroupVerticalBox",
+      "title": "预防措施",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I005008",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "A.放置警示标识",
+          "code": "A",
+           "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "B.定时改变体位",
+          "code": "B",
+           "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "C.气垫床",
+          "code": "C",
+           "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "D.营养支持",
+          "code": "D",
+           "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "E.软枕支撑",
+          "code": "E",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "F.减压坐垫",
+          "code": "F",
+           "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "G.更换衣裤/被服",
+          "code": "G",
+           "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "H.清洗皮肤",
+          "code": "H",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "H.清洗皮肤",
+          "code": "H",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "j.执行主/被动肢体运动",
+          "code": "J",
+           "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "K.教会正确摆放位置",
+          "code": "K",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "L.使用敷料（如水体、泡沫等）",
+          "code": "L",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "M.其它",
+          "code": "M",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
       "line": "dashed",
       "prefixDesc": "",
       "suffixDesc": "",

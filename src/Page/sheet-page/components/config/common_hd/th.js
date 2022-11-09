@@ -8,7 +8,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1180px"
+    width: "1250px"
   },
   th: {
     top: [{
@@ -21,7 +21,10 @@ export default {
       {
         name: "体温<br/>℃",
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: "40px"
+        }
       },
       {
         name: `
@@ -49,7 +52,10 @@ export default {
         血压<br/>mmHg
         `,
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: "55px"
+        }
       },
       {
         name: `
@@ -70,14 +76,20 @@ export default {
         入量
         `,
         colspan: "2",
-        rowspan: "1"
+        rowspan: "1",
+        style: {
+          minWidth: "27px"
+        }
       },
       {
         name: `
         出量
         `,
         colspan: "3",
-        rowspan: "1"
+        rowspan: "1",
+        style: {
+          minWidth: "27px"
+        }
       },
       {
         name: `
@@ -193,8 +205,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "50px",
-          maxWidth: "50px"
+          minWidth: '36px',
+          maxWidth: '36px',
         },
       },
       {
@@ -204,8 +216,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "50px",
-          maxWidth: "50px"
+          minWidth: '36px',
+          maxWidth: '36px',
         },
       },
       {
@@ -218,7 +230,7 @@ export default {
           minWidth: "65px",
           maxWidth: "65px"
         },
-        
+
       },
       {
         name: `
