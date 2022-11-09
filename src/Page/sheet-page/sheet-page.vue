@@ -640,6 +640,7 @@ export default {
         }
 
         let bodyData = res[1].data.data;
+        console.log(`界面初始化完成,前端获取接口数据========>>>>>>护记数据:`,bodyData&&bodyData.list)
         this.$store.commit('upMasterInfo',bodyData)
         if(this.HOSPITAL_ID=='wujing'){
           let barcodeArr = {}
@@ -795,6 +796,7 @@ export default {
     },
     //双签名 签责任护士 + 质控护士签名  判断条件是 修改的记录 没有任何签名+护士本身是质控护士
     qcDoubleSign(saveAndSignObj,qcArray){
+      console.log(`执行签名中,双签入参========>>>>>>数据:`,qcArray)
       if (!qcArray.length) return
         return Promise.all([saveAndSignApi({ ...saveAndSignObj, list: qcArray }), saveAndSignApi({ ...saveAndSignObj, list: qcArray, audit: true })]).then((res) => {
           if (res[0].data.code == 200 && res[1].data.code == 200) {
@@ -827,6 +829,7 @@ export default {
     //仅仅签质控护士，护士本身是质控护士 责任护士已经有人签名了 就只签质控护士  audit: true
     onlyQcSign(saveAndSignObj, dutyArray) {
       //如果存在已经签名的记录  审核护士这个流程  只需要签质控签名就行了
+      console.log(`执行签名中,单质控签名入参========>>>>>>数据:`,dutyArray)
       if (!dutyArray.length) return
     return new Promise((resolve, reject) => {
       saveAndSignApi({ ...saveAndSignObj, list: dutyArray, audit: true }).then((signRes) => {
@@ -931,6 +934,7 @@ export default {
               })
             } else {
               //如果不是责任护士  只负责单签 签名责任护士
+              console.log(`执行签名中,责任护士入参========>>>>>>数据:`,onlyDutyArray)
               saveAndSignApi(
                 {...saveAndSignObj,list:onlyDutyArray}
               ).then((Response) => {
@@ -1058,6 +1062,7 @@ export default {
           this.pageLoading = true;
           this.scrollTop = this.$refs.scrollCon.scrollTop;
           const ayncVisitedDataList = decode(ayncVisitedData).list||[]
+          console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,
@@ -1066,6 +1071,7 @@ export default {
               if(res.data.code == 200){
                 if (['foshanrenyi'].includes(this.HOSPITAL_ID) && this.foshanshiyiIFca && ayncVisitedDataList.length) {
                   //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
+                  console.log(`开始执行签名接口==============>>>>>>Ca状态${this.foshanshiyiIFca}`)
                   showBody(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
                     let resList = saveRes.data.data.list.map((item) => {
                       item.recordMonth = moment(item.recordDate).format('MM-DD')
@@ -1077,6 +1083,8 @@ export default {
                       item.recordHour = moment(item.recordDate).format('HH:mm')
                       return item
                     })
+                    console.log(`后台返回的签名数据==============>>>>>>数据:`,resList)
+                  console.log(`前端拿到的修改数据============>>>>>>数据:`,editList)
                     if (editList.length) {
                       this.saveAndSign(editList, resList)
                     } else {
