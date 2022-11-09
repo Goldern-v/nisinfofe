@@ -46,7 +46,8 @@
           >
             <el-checkbox :label="(index)" class="fscheckBox" ><br/></el-checkbox>
             <div class="title">{{ item.examItem }}</div>
-            <div class="aside">{{ item.reqDate }}</div>
+            <div class="aside" v-if="['foshanrenyi'].includes(HOSPITAL_ID)">{{ item.examResult&&item.examResult.reportDateTime||'未出报告'  }}</div>
+            <div class="aside" v-else>{{ item.reqDate }}</div>
             <div class="result">
               <span
                 v-if="item.resultStatus.indexOf('申请') == -1"
@@ -276,10 +277,12 @@ export default {
       this.pending=true
       let str=''
       for(var i=0;i<this.checkList.length;i++){
+        let Date = '日期'
         let projectStr='检查项目:'
         let seeStr='检查所见:'
         let impressionStr='印象:'
         let nowItem = this.listByFilter[this.checkList[i]]
+        const projectDate = `${Date}:${(nowItem.examResult&&nowItem.examResult.reportDateTime)||'未出报告'}`
         const clearseeStr = nowItem.examResult.description.replace(/[\n]/g, '')
         seeStr = `${seeStr}${clearseeStr}`
         const clearprojectStr = nowItem.examItem.replace(/[\n]/g, '')
@@ -287,7 +290,7 @@ export default {
         const clearimpressionStr = nowItem.examResult.impression.replace(/[\n]/g, '')
         impressionStr = `${impressionStr}${clearimpressionStr}`
         str += str ? '\n' : ''
-        str += projectStr + '\n' + seeStr + '\n' + impressionStr
+        str +=projectDate + '\n' + projectStr + '\n' + seeStr + '\n' + impressionStr
       }
       this.pending=false
       this.$emit('closeSweet')

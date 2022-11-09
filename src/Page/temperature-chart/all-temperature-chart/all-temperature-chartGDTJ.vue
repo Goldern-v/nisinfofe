@@ -7,7 +7,7 @@
           v-model="query.entryDate" clearable  style="width:120px"/>
       </span>
       <div class="times">
-        <label :for="`time${item.id}`" v-for="item in timesquZhou" :key="item.id">
+        <label :for="`time${item.id}`" v-for="item in timesquZhou" :key="item.id" :style="{color:item.value  == query.entryTime?'red':'#000'}">
           <input type="radio" name="time" v-model="query.entryTime" :id="`time${item.id}`" :value="item.value" />
           {{ item.value }}
         </label>
@@ -92,7 +92,8 @@
                 v-model="scope.row.temperature"
                 :class="className"
                 class="temperature"
-                type="text"
+                type="number"
+                @mousewheel="(e) => {e.preventDefault();}"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
@@ -110,7 +111,8 @@
                 v-model="scope.row.pulse"
                 class="pulse"
                 :class="className"
-                type="text"
+                type="number"
+                @mousewheel="(e) => {e.preventDefault();}"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
@@ -211,7 +213,8 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
-                type="text"
+                type="number"
+                @mousewheel="(e) => {e.preventDefault();}"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -229,42 +232,6 @@
                 v-model="scope.row.fieldThree"
                 :class="className"
                 class="fieldThree"
-                type="text"
-                @keyup="handleKeyUp"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="foodSize"
-            label="总入量"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.foodSize"
-                :class="className"
-                class="foodSize"
-                type="text"
-                @keyup="handleKeyUp"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="dischargeSize"
-            label="总出量"
-            min-width="80"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.dischargeSize"
-                :class="className"
-                class="dischargeSize"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
@@ -308,24 +275,6 @@
               />
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            prop="painScore"
-            label="疼痛"
-            min-width="70"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.painScore"
-                :class="className"
-                class="painScore"
-                type="text"
-                @keyup="handleKeyUp"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column> -->
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -423,7 +372,7 @@
               <el-input v-model="scope.row.fieldThree"></el-input>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="foodSize"
             label="总入量"
             min-width="80"
@@ -442,7 +391,7 @@
             <template slot-scope="scope">
               <el-input v-model="scope.row.dischargeSize"></el-input>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             prop="height"
             label="身高"
@@ -469,6 +418,12 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+>>>.el-table .cell, .el-table th > div {
+  padding 0px 10px 0px 10px !important;
+  }
 .all-temperature-chart-input {
   width: 100%;
   padding: 2px 5px;
@@ -554,8 +509,9 @@
 
     label {
       display: flex;
+      font-size:18px;
       align-items: center;
-      margin-right: 10px;
+      margin-right: 5px;
       cursor: pointer;
 
       input {
@@ -670,7 +626,10 @@
   background: #fff !important;
   color: #000 !important;
   border: 1px solid #ddd;
-
+  .filterItem {
+    display: flex;
+    align-items: baseline;
+  }
   .container {
     min-width: 100px;
     min-height: 26px;
@@ -870,21 +829,21 @@ export default {
         if (this.admitted.length != 0) {
           let obj = { data1: [], data2: [], data3: [], data4: [], data5: [], data6: [], data7: [], data8: [] }
           obj.data1 = data.filter((item) => {
-            return (item.patient_condition == 1);
+            return (item.patientCondition == 1);
           });
           obj.data2 = data.filter((item) => {
             return (
-              item.no_weight_flag == 1
+              item.noWeightFlag == 1
             );
           });
           obj.data3 = data.filter((item) => {
             return (
-              item.temperature_flag == 1
+              item.temperatureFlag == 1
             );
           });
           obj.data4 = data.filter((item) => {
             return (
-              item.high_fever_flag == 1
+              item.highFeverFlag == 1
             );
           });
           obj.data5 = data.filter((item) => {
@@ -903,12 +862,12 @@ export default {
           });
           obj.data7 = data.filter((item) => {
             return (
-              item.transfer_flag == 1
+              item.transferFlag == 1
             );
           });
           obj.data8 = data.filter((item) => {
             return (
-              item.operation_flag == 1
+              item.operationFlag == 1
             );
           });
 
@@ -1130,33 +1089,28 @@ export default {
         this.colClass = e.target.className;
         let rowIndex = e.path[3].rowIndex;
         if (e.keyCode === 37) {
-          //处理左按键
-          if (e.target.selectionStart === 0) {
-            // 如果光标在开头，跳转前一个输入框
-            let inputEls = document.getElementsByClassName(
-              "all-temperature-chart-input"
-            );
-            let currentIdx = 0;
-            for (var i = 0; i < inputEls.length; ++i) {
-              if (e.target === inputEls[i]) currentIdx = i;
-            }
-            let prevIdx = currentIdx - 1;
-            inputEls[prevIdx] && inputEls[prevIdx].focus();
+
+          let inputEls = document.getElementsByClassName(
+            "all-temperature-chart-input"
+          );
+          let currentIdx = 0;
+          for (var i = 0; i < inputEls.length; ++i) {
+            if (e.target === inputEls[i]) currentIdx = i;
           }
+          let prevIdx = currentIdx - 1;
+          inputEls[prevIdx] && inputEls[prevIdx].focus();
         } else if (e.keyCode === 39) {
-          //处理右按键
-          if (e.target.selectionEnd === e.target.value.length) {
-            // 如果光标在末尾，跳转后一个输入框
-            let inputEls = document.getElementsByClassName(
-              "all-temperature-chart-input"
-            );
-            let currentIdx = 0;
-            for (var i = 0; i < inputEls.length; ++i) {
-              if (e.target === inputEls[i]) currentIdx = i;
-            }
-            let nextIdx = currentIdx + 1;
-            inputEls[nextIdx] && inputEls[nextIdx].focus();
+
+          // 如果光标在末尾，跳转后一个输入框
+          let inputEls = document.getElementsByClassName(
+            "all-temperature-chart-input"
+          );
+          let currentIdx = 0;
+          for (var i = 0; i < inputEls.length; ++i) {
+            if (e.target === inputEls[i]) currentIdx = i;
           }
+          let nextIdx = currentIdx + 1;
+          inputEls[nextIdx] && inputEls[nextIdx].focus();
         } else {
           //处理上下按键，跳转相同类名的输入框
           let inputEls = document.getElementsByClassName(e.target.className);
@@ -1166,13 +1120,15 @@ export default {
             if (e.target === inputEls[i]) currentIdx = i;
           }
           if (e.keyCode === 38) {
+            e.preventDefault();
             currentIdx--;
           } else if (
             e.keyCode === 40 ||
-            (e.keyCode === 13 && ["guizhou"].includes(this.HOSPITAL_ID))
+            (e.keyCode === 13)
             //当贵州的时候，回车不调用保存事件，执行跳转到下一个患者的聚集性事件
           ) {
             currentIdx++;
+            e.preventDefault();
           }
           inputEls[currentIdx] && inputEls[currentIdx].focus();
         }

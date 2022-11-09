@@ -411,7 +411,8 @@ export default {
         "sdlj",
         "nanfangzhongxiyi",
         "foshanrenyi",
-        'gdtj'
+        'gdtj',
+        'whsl'
       ].includes(this.HOSPITAL_ID);
     },
   },

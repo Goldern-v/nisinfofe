@@ -27,7 +27,7 @@
             <!-- <el-checkbox :label="(index)" class="fscheckBox" ><br/></el-checkbox> -->
             <el-radio :label="index" class="fscheckBox" v-model="radio"><br/></el-radio>
             <div class="title">{{item.subject}}</div>
-            <div class="aside">{{item.reqDate}}</div>
+            <div class="aside">{{item.resultDate}}</div>
             <div class="result">
               <span v-if="item.isAbnormal == '0' && item.resultStatus == '已出报告'">
                         <img src="../../../../common/images/info/完成@2x.png" alt="">

@@ -130,10 +130,6 @@ export default {
           this.$refs[this.refName].$parent.$parent.$parent.$el.style.outline =
             "none";
         } catch (error) {}
-
-        // if(this.$root.$refs.mainPage.checkFormMissingItems){
-        //   this.$root.$refs.mainPage.checkFormMissingItems()
-        // }
       }
 
       let rootRefs = this.$root.$refs[this.formCode][this.obj.name];
@@ -245,11 +241,6 @@ export default {
           );
         }
       }
-
-      // 填写检查
-      // if(this.$root.$refs.mainPage.checkFormMissingItems){
-      //   this.$root.$refs.mainPage.checkFormMissingItems()
-      // }
 
       //
       // 评估得分：0-20分完全依赖；20-40分严重依赖；40-60分明显依赖；＞60分基本自理

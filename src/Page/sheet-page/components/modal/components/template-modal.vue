@@ -34,8 +34,11 @@
       <div v-for="(item, key) in filterData" :key="key">
         <templateItem :data="item" :key="item.id"></templateItem>
       </div>
+      <div style="height: 60px;"></div>
     </div>
+
   </div>
+
 </template>
 
 <script>
@@ -168,7 +171,7 @@ export default {
     listconHeight() {
       let str = ""
       if (this.HOSPITAL_ID === 'liaocheng' || this.HOSPITAL_ID === 'wujing' || this.HOSPITAL_ID === 'huadu' || this.HOSPITAL_ID === 'foshanrenyi') {
-        str = 'height: calc(100vh - 191px)'
+        str = 'height: calc(100vh - 246px)'
       }
       return str
     },
@@ -185,6 +188,12 @@ export default {
       handler(newName, oldName) {
         this.initTypeData()
         this.initData()
+      },
+      deep: true,
+    },
+    'selectedObj.templateCode': {
+      handler(newName, oldName) {
+        this.selectedObj.selectedType = ''
       },
       deep: true,
     },
@@ -205,6 +214,7 @@ export default {
     padding-left: 10px;
     font-size: 12px;
     color: #687179;
+    border-right: 1px solid #c2cbd2;
   }
 }
 

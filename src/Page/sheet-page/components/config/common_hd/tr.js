@@ -42,11 +42,11 @@ export default [
     key: "temperature", //体温
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 4),
     name: "体温",
     next: "℃",
     textarea: {
-      width: 27
+      width: 40
     },
   },
   {
@@ -85,7 +85,7 @@ export default [
   {
     key: "bloodPressure", //血压
     value: "",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 5),
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -96,7 +96,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 43
+      width: 55
     },
   },
   {
@@ -147,7 +147,7 @@ export default [
     name: "入量大小",
     next: "ml",
     textarea: {
-      width: 25
+      width: 35
     },
   },
   {
@@ -174,7 +174,7 @@ export default [
     name: "出量大小",
     next: "ml",
     textarea: {
-      width: 25
+      width: 35
     },
   },
   {
@@ -277,7 +277,7 @@ export default [
     style: {
       textAlign: "left",
     }
-  }, 
+  },
   {
     key: "description", //特殊情况记录
     value: "",

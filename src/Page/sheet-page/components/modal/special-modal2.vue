@@ -14,12 +14,12 @@
           <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)" style="display: inherit">
             <div class="date" v-if="tr && tr.length && isShowItem()">
               <label class="label">日期：</label>
-              <input type="text" v-model="staticObj.recordMonth"
+              <input type="text" :disabled="recordDate!=''" v-model="staticObj.recordMonth"
                 @keyup="dateKey($event, staticObj, 'recordMonth')" />
             </div>
             <div class="time">
               <label class="label">时间：</label>
-              <input type="text"  v-model="staticObj.recordHour"
+              <input type="text" :disabled="recordDate!=''" v-model="staticObj.recordHour"
                 @keyup="timeKey($event, staticObj, 'recordHour')" />
             </div>
           </div>
@@ -1462,19 +1462,40 @@ export default {
         }
       }
       this.foodVal = foodStr;
-      //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改
-      if(['foshanrenyi','gdtj'].includes(this.HOSPITAL_ID)){
-        if(!this.staticObj.recordHour){
-          this.staticObj.recordHour = moment().format('HH:mm');
-        }
-        if(!this.staticObj.recordMonth){
-          this.staticObj.recordMonth = moment().format('MM-DD');
-        }
-      }
         this.recordDate =
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ''
+      //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
+      if (['foshanrenyi', 'gdtj'].includes(this.HOSPITAL_ID)) {
+        const itemListTime = config.recordDate ||
+          record[0].find((item) => item.key == "recordDate").value
+        if(!itemListTime){
+          if (!(
+        record[0].find((item) => item.key == "recordMonth").value)) {
+          this.staticObj.recordMonth = moment().format('MM-DD');
+          if (!(
+            record[0].find((item) => item.key == "recordHour").value)) {
+            this.staticObj.recordHour = moment().format('HH:mm');
+          }
+          if (!(
+            record[0].find((item) => item.key == "recordDate").value)) {
+            this.staticObj.recordDate = moment().format('YYYY-MM-DD HH:mm');
+          }
+        }
+        } else {
+          if (!(
+            record[0].find((item) => item.key == "recordMonth").value)) {
+            this.staticObj.recordMonth = moment(itemListTime).format('MM-DD');
+          }
+          if (!(
+            record[0].find((item) => item.key == "recordHour").value)) {
+            this.staticObj.recordHour = moment(itemListTime).format('HH:mm');
+          }
 
+        }
+
+
+      }
 
 
       //肺科特别需求。补记时间另起一行
@@ -1800,7 +1821,6 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
-      console.log("jinlai", this.fixedList);
       if (this.isSaving) {
         return;
       }
@@ -2107,7 +2127,14 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else {
+            } else if (this.sheetInfo.sheetType === "icu_yz" ) {
+              if (GetLength(text) > 38) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            }else {
               if (GetLength(text) > 23) {
                 result.push(text);
                 text = allDoc[i];
@@ -2181,24 +2208,14 @@ export default {
       ) {
         for (let i = 0; i < foodResult.length; i++) {
           if (i == 0) {
-            // 合并数据
-            console.log(
-              "mergeTr",
-              this.record[0],
-              this.staticObj,
-              this.fixedList
-            );
-            console.log(
-              "mergeTr2",
-              mergeTr(this.record[0], this.staticObj, this.fixedList)
-            );
+            //合并数据
             mergeTr(this.record[0], this.staticObj, this.fixedList);
+            console.log(this.staticObj,this.record[0],999999)
           }
           if (this.record[i]) {
             this.record[i].find((item) => item.key == "food").value =
               foodResult[i];
             process.env.splitSave && (this.record[i].isChange = true);
-            console.log("");
           } else {
             let currRow = JSON.parse(JSON.stringify(this.record[0]));
             let nullRowArr = nullRow();

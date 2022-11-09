@@ -170,6 +170,7 @@ export default {
   },
   methods: {
     isSelectPatient(item) {
+      console.log('itemitmeitme',item);
       this.bus.$emit("setHosptialAdmissionLoading", true);
       this.bus.$emit("setIsNewForm", false);
       this.bus.$emit("getHEvalBlockList", item);

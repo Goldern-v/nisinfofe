@@ -106,7 +106,7 @@ function leftTopBottomRight(e, bind) {
   }
 }
 
-function onFocusToAutoComplete(e, bind) {
+function onFocusToAutoComplete(e, bind, cb) {
   let { autoComplete, x, y, z, td, tr, splice } = bind;
   let scrollTop = document.querySelector(".sheetTable-contain").scrollTop;
   let scrollLeft = document.querySelector(".sheetTable-contain").scrollLeft;
@@ -147,6 +147,7 @@ function onFocusToAutoComplete(e, bind) {
       },
       data: autoCompleteData,
       callback: function (data) {
+        cb && cb()
         // 威县下拉选项后一个选项依赖于前一个td的选择(威县这个功能已经废除，如果使用了下拉就用不了多选)（如果想要这个功能可参考 威县-重症护理记录单II（EICU））
         // 选择出量名称的时候和上次不一样 则清除出量性质
           if ( ['guizhou', '925'].includes(process.env.HOSPITAL_ID)) {

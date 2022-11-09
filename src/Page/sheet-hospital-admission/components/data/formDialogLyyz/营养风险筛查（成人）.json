@@ -176,6 +176,194 @@
       "name": "",
       "type": "formGroupHR",
       "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "BMI<18.5kg/㎡？",
+      "type": "formGroupVerticalBox",
+      "title": "BMI<18.5kg/㎡？",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I618004",
+          "type": "radio",
+          "title": "是",
+          "code": "是",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I618004",
+          "type": "radio",
+          "title": "否",
+          "code": "否",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }  
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "患者过去3个月体重下降吗？",
+      "type": "formGroupVerticalBox",
+      "title": "患者过去3个月体重下降吗？",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I618005",
+          "type": "radio",
+          "title": "是",
+          "code": "是",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I618005",
+          "type": "radio",
+          "title": "否",
+          "code": "否",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }  
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "患者过去一周内有摄食减少吗？",
+      "type": "formGroupVerticalBox",
+      "title": "患者过去一周内有摄食减少吗？",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I618006",
+          "type": "radio",
+          "title": "是",
+          "code": "是",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I618006",
+          "type": "radio",
+          "title": "否",
+          "code": "否",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }  
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "患者有严重疾病（如ICU接受治疗）？",
+      "type": "formGroupVerticalBox",
+      "title": "患者有严重疾病（如ICU接受治疗）？",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I168007",
+          "type": "radio",
+          "title": "是",
+          "code": "是",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I168007",
+          "type": "radio",
+          "title": "否",
+          "code": "否",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }  
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
       "line": "dashed",
       "prefixDesc": "",
       "suffixDesc": "",

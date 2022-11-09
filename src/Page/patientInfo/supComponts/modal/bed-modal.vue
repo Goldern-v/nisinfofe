@@ -257,8 +257,8 @@
                 />
               </div>
             </div>
-            <div v-if="['zhzxy'].includes(HOSPITAL_ID)" 
-            :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}" 
+            <div v-if="['zhzxy'].includes(HOSPITAL_ID)"
+            :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}"
             flex="cross:center" class="input-item">
               <span class="label">过敏史:</span>
               <input
@@ -290,7 +290,7 @@
               ></textarea>
             </div>
           </div>
-         
+
           <div v-if="!['zhzxy'].includes(HOSPITAL_ID)" :class="{ 'is-xiegang': HOSPITAL_ID == 'xiegang' }" style="width: 131px">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
@@ -337,7 +337,7 @@
       <div slot="button">
         <span
           style="position: absolute; left: 10px; padding-top: 4px"
-          v-if="HOSPITAL_ID != 'hj'"
+          v-if="!['hj','whhk'].includes(HOSPITAL_ID)"
         >
           <span>显示诊断</span>
           <el-switch
@@ -404,7 +404,7 @@
       height: 96px;
     }
   }
-  
+
   .qr-code-num {
     position: absolute;
     top: 92px;
@@ -858,8 +858,9 @@ export default {
           qr_png_value = this.query.patientId + '|' + this.query.visitId;
           break;
         case "lyxrm":
-        case 'whhk':
           qr_png_value ='P' + this.query.patientId;
+        case 'whhk':
+          qr_png_value ='P' + this.query.inpNo;
           break;
         case "zhzxy":
           qr_png_value ='ZY' + this.query.patientId +"||"+ this.query.visitId;
@@ -932,8 +933,14 @@ export default {
       this.$nextTick(() => {
         this.post();
         print(this.$refs.printCon, (el) => {
-          el.style.marginLeft = '194mm'
-        });
+          if(['zhzxy'].includes(this. HOSPITAL_ID)){
+            el.style.marginTop='10mm'
+            el.style.marginLeft = '50mm'
+          }else{
+            el.style.marginLeft = '194mm'
+          }
+        },['zhzxy'].includes(this. HOSPITAL_ID)?'v':'');
+        
         for(let i=0;i<printCare.length;i++){
           printCare[i].style.display = "block"
       }

@@ -115,9 +115,6 @@ export default {
         this.$refs[
           this.refName
           ].$parent.$parent.$parent.$el.style.backgroundColor = "transparent";
-        // if(this.$root.$refs.mainPage.checkFormMissingItems){
-        //   this.$root.$refs.mainPage.checkFormMissingItems()
-        // }
       }
 
       let rootRefs = this.$root.$refs[this.formCode][this.obj.name];
@@ -211,7 +208,7 @@ export default {
           if(this.formObj.formSetting && this.formObj.formSetting.formInfo.formCode == 'E0616'){
             console.log(this.formObj.model["I616001"],"this.formObj")
           score =  (this.formObj.model["I616001"]?this.formObj.model["I616001"]:"_")+"+"+(this.formObj.model["I616002"]?this.formObj.model["I616002"]:"_")+"+"+(this.formObj.model["I616003"]?this.formObj.model["I616003"]:"_")
-       
+
           return score
           }else{
             score += ~~item.score;
@@ -268,10 +265,6 @@ export default {
         score
       );
 
-      // 填写检查
-      // if(this.$root.$refs.mainPage.checkFormMissingItems){
-      //   this.$root.$refs.mainPage.checkFormMissingItems()
-      // }
     },
     runTasks() {
       //
@@ -324,10 +317,8 @@ export default {
         }
       }
       // 隐藏切换
-      console.log(this.$root.$refs, this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.title],this.formCode,this.obj.title, '1111111111111111')
       if (this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.title]) {
         if (this.formObj.model[this.obj.name] === this.obj.title) {
-          console.log(this.formObj.model[this.obj.name], this.obj.name, '222222222')
           this.$root.$refs[this.formCode][
           "formGroupColBox" + this.obj.title
             ].hidden = false;

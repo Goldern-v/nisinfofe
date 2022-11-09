@@ -1,6 +1,6 @@
 
 <template>
-  <span style="margin: 0;" class="input-box">
+  <span style="margin: 0; display:flex; align-items:center;" class="input-box">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
@@ -112,12 +112,12 @@ export default {
       this.checkValueRule(valueNew);
       this.isShowDownList = false;
       // return valueNew;
+    },
+    'formObj.model.id'(newValue){
+      this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
     }
   },
   mounted() {
-    try {
-      this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
-    } catch (error) {}
     let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     this.readOnly = this.obj.readOnly ? this.obj.readOnly : false;
     if (this.$refs[refName]) {
@@ -252,7 +252,7 @@ export default {
               //   (r.dialog.openKey + "").includes(itemClick) &&
               //   (valueNew + "").includes(r.dialog.openKey + "")) ||
               // (itemClick && (itemClick + "").includes(r.dialog.openKey + "")) ||
-              (itemClick && last && (Array.isArray(r.dialog.openKey) ? r.dialog.openKey.includes(last) : last === r.dialog.openKey)) 
+              (itemClick && last && (Array.isArray(r.dialog.openKey) ? r.dialog.openKey.includes(last) : last === r.dialog.openKey))
             ) {
               this.$root.$refs.dialogBox.openBox(
                 r.dialog.dialogList || r.dialog

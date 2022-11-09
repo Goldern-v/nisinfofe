@@ -62,11 +62,9 @@ export default {
   },
   watch: {
     loading(newVal, oldVal) {
-      // console.log("loading", newVal, oldVal, this.isShowLoadingLayout);
       this.isShowLoadingLayout = newVal;
     },
     deptCode(newVal, oldVal) {
-      // console.log("watch:deptCode", [newVal, oldVal]);
       // this.clearAll();
       this.initial();
       this.getOldFormInfo(() => {
@@ -75,7 +73,6 @@ export default {
       });
     },
     wardCode(newVal, oldVal) {
-      // console.log("watch:wardCode", [newVal, oldVal]);
       // this.clearAll();
       this.initial();
       this.getOldFormInfo(() => {
@@ -105,18 +102,7 @@ export default {
       this.lock = lock;
     });
 
-    // this.bus.$on("updateFormUIData", res => {
-    //   // itemData  master
-    //   let {
-    //     data: {
-    //       data: { itemData: itemData, master: master }
-    //     }
-    //   } = res;
-    //   let model = { ...itemData, ...master };
-    //   window.formObj.model = { ...model };
-    //   this.fillForm();
-    // });
-
+    // 加载loading状态显示
     this.bus.$on("setHosptialAdmissionLoading", config => {
       if (typeof config === "object") {
         if (config.hasOwnProperty("status")) {
@@ -140,29 +126,18 @@ export default {
     this.loading = false;
   },
   methods: {
+    // 初始化话表内容渲染
     initial(patient = null, isDevMode = false) {
       this.loading = true;
       // 主表结构
       let file = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || [' '].includes(this.HOSPITAL_ID)) {
+      if (this.HOSPITAL_ID === 'liaocheng') {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.liaoc.json"))
         )
-      } else if (this.HOSPITAL_ID === 'lyxrm') {
+      } else if (['lyxrm', 'qhwy', 'foshanrenyi','lyyz'].includes(this.HOSPITAL_ID)) {
         file = JSON.parse(
-          JSON.stringify(require("../data/入院评估.form.lyxrm.json"))
-        )
-      } else if (this.HOSPITAL_ID === 'qhwy') {
-        file = JSON.parse(
-          JSON.stringify(require('../data/入院评估.form.qhwy.json'))
-        )
-      } else if (this.HOSPITAL_ID === 'lyyz') {
-        file = JSON.parse(
-          JSON.stringify(require('../data/入院评估.form.lyyz.json'))
-        )
-      }else if (this.HOSPITAL_ID === 'foshanrenyi') {
-        file = JSON.parse(
-          JSON.stringify(require('../data/foshanrenyi/入院评估.form.foshanrenyi.json'))
+          JSON.stringify(require(`../data/入院评估.form.${this.HOSPITAL_ID}.json`))
         )
       } else {
         file = JSON.parse(
@@ -180,17 +155,11 @@ export default {
       );
       // 主表下拉框选项字典表
       let dictionary = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || [''].includes(this.HOSPITAL_ID)) {
+      if (this.HOSPITAL_ID === 'liaocheng') {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.liaoc.json")))
-      } else if (this.HOSPITAL_ID === 'lyxrm') {
-        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.lyxrm.json")))
-      } else if (this.HOSPITAL_ID === 'qhwy') {
-        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.qhwy.json")))
-      } else if (this.HOSPITAL_ID === 'foshanrenyi'){
-        dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
-      } else if (this.HOSPITAL_ID === 'lyyz') {
-        dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.lyyz.json")))
-      }else {
+      } else if (['lyxrm', 'qhwy', 'foshanrenyi','lyyz'].includes(this.HOSPITAL_ID)) {
+        dictionary = JSON.parse(JSON.stringify(require(`../data/formDictionary/入院评估.dictionary.${this.HOSPITAL_ID}.json`)))
+      } else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.json")))
       }
       //
@@ -204,7 +173,8 @@ export default {
 
       /** 自动获取弹窗配置 */
       let contexts = null
-      if (this.HOSPITAL_NAME === '聊城市第二人民医院' || [''].includes(this.HOSPITAL_ID)) {
+      // 这里require.context 方法中的路径如果换成变量形式就会报错。读取不到
+      if (this.HOSPITAL_ID === 'liaocheng') {
         contexts = require.context('../data/formDialogLiaoc', true, /\.json$/);
       } else if (this.HOSPITAL_ID === 'lyxrm') {
         contexts = require.context('../data/formDialogLyxrm', true, /\.json$/);
@@ -226,16 +196,15 @@ export default {
 
         if (djson.schemes) {
           let fromName = context.replace("./", "").replace(".json", "");
-
+          let hospitalSchemes = {
+            'liaocheng':'formSchemesLiaoc',
+            'lyxrm':'formSchemesLyxrm',
+            'qhwy':'formSchemesQhwy',
+            'lyyz':'formSchemesLyyz',
+          }
           let schemesJson = null
-          if (this.HOSPITAL_NAME === '聊城市第二人民医院' || [''].includes(this.HOSPITAL_ID)) {
-            schemesJson = require(`../data/formSchemesLiaoc/${fromName}.txt.json`)
-          } else if (this.HOSPITAL_ID === 'lyxrm') {
-            schemesJson = require(`../data/formSchemesLyxrm/${fromName}.txt.json`)
-          } else if (this.HOSPITAL_ID === 'qhwy') {
-            schemesJson = require(`../data/formSchemesQhwy/${fromName}.txt.json`)
-          } else if (this.HOSPITAL_ID === 'lyyz') {
-            schemesJson = require(`../data/formSchemesLyyz/${fromName}.txt.json`)
+          if (['liaocheng', 'lyxrm', 'qhwy', 'lyyz'].includes(this.HOSPITAL_ID)) {
+            schemesJson = require(`../data/${hospitalSchemes[this.HOSPITAL_ID]}/${fromName}.txt.json`)
           } else {
             schemesJson = require(`../data/formSchemes/${fromName}.txt.json`)
           }
@@ -249,7 +218,6 @@ export default {
         }
 
         if (patient) {
-          // console.log(patient, "patientpatientpatientpatient");
           this.setPatientInfo(djson, patient);
         }
         if (djson.constructor === Array) {
@@ -279,7 +247,6 @@ export default {
         this.setPatientInfo(file, patient);
         this.setPatientInfo(window.formObj, patient);
       }
-      console.log("file", file, window.formObj);
       //
       this.fileJSON = file; //JSON.stringify(file,null,4)
 
@@ -287,12 +254,13 @@ export default {
         file.pageSetting.mode = "development";
         this.fileJSON.pageSetting.mode = "development";
       }
-      console.log(this.fileJSON, "fileJSON");
       // window.file = this.fileJSON;
     },
+    // 显示空状态的值
     setMessage(msg) {
       this.message = msg; // "请选择左侧患者~"
     },
+    // 关闭表显示
     closeForm() {
       this.isShow = false;
       this.initial();
@@ -314,7 +282,6 @@ export default {
       // alert(status);
       //
       this.isShow = true;
-      console.log("openForm!!", patient, config);
 
       this.initial(patient, isDevMode);
 
@@ -326,7 +293,6 @@ export default {
 
       // renderForm
       if (isDevMode) {
-        console.log(this.$refs, this.$refs["renderForm"]);
         this.$refs["renderForm"].runDevMode();
       }
 
@@ -342,17 +308,12 @@ export default {
         this.fillForm(formObj.model);
         this.bus.$emit("setHosptialAdmissionLoading", false);
       }, 100);
-      console.log("数据回填表单", this.$root.$refs);
+      // console.log("数据回填表单", this.$root.$refs);
     },
     updateFunc(value) {
       console.log("updateFunc!!", value);
     },
     getOldFormInfo(callback = null) {
-      console.log("formCode,deptCode", [
-        this.formCode,
-        this.deptCode,
-        this.wardCode
-      ]);
       // getOldFormCode
       if (this.formCode && this.wardCode) {
         // let res = await
@@ -377,13 +338,6 @@ export default {
           //     this.formObj.formSetting.formTitle.formName = "入 院 评 估 表";
           //   }
           // } catch (error) {}
-          console.log("getOldFormCode", [
-            res,
-            oldFormInfo,
-            this.formCode,
-            this.deptCode,
-            this.wardCode
-          ]);
           //
           if (callback) {
             callback();
@@ -423,12 +377,6 @@ export default {
                 textResult = this.$root.$refs[this.formCode][
                   key
                   ].checkValueRule(element + "");
-                // console.log(
-                //   "----this.$root.$refs[this.formCode][key]",
-                //   this.$root.$refs[this.formCode][key],
-                //   key,
-                //   textResult
-                // );
                 this.$root.$refs[this.formCode][key].setCurrentValue(
                   textResult + ""
                 );
@@ -438,26 +386,11 @@ export default {
               } else {
                 // 输入框回显数据
                 // if(element){
-                  // console.log(key, element)
                 textResult = this.$root.$refs[this.formCode][
                   key
                   ].checkValueRule(element);
                 this.$root.$refs[this.formCode][key].setCurrentValue(element);
                 // }
-
-                // if(key==='signerName'){
-                //   console.log(
-                //     "-!!-this.$root.$refs[this.formCode][key]",
-                //     this.$root.$refs[this.formCode][key],
-                //     key,
-                //     this.$root.$refs[this.formCode][key].type,
-                //     textResult,
-                //     element,
-                //     formObj[key],
-                //     formObj
-                //   );
-                //  }
-
                 // if (this.$root.$refs[key + "_clone"]) {
                 //   this.$root.$refs[key + "_clone"].setCurrentValue(element);
                 //   this.$root.$refs[key + "_clone"].checkValueRule(element);
@@ -470,12 +403,6 @@ export default {
               this.$root.$refs[this.formCode][key].type === "datetime"
             ) {
               this.$root.$refs[this.formCode][key].currentValue = element || "";
-              console.log(
-                "datetime",
-                this.$root.$refs[this.formCode][key],
-                key,
-                element
-              );
             }
             // 选项回填
             if (
@@ -512,7 +439,6 @@ export default {
               // }
               // this.$root.$refs[this.formCode][key] = element.split(',');
               if (element) {
-                console.log('~~~~~!!',key,formObj,element)
                 let value = element + "";
                 let arr = value.split(",");
                 if (arr) {
@@ -520,7 +446,6 @@ export default {
                   //   if (this.$root.$refs[this.formCode][key].hasOwnProperty(subkey) && arr.indexOf(subkey)>-1 && this.$root.$refs[this.formCode][key][subkey].hasOwnProperty('type')===-1) {
                   //     this.$root.$refs[this.formCode][key][subkey].model=[]
                   //     this.$root.$refs[this.formCode][key][subkey].push(subkey)
-                  //     console.log("--选项回填subkey", subkey, key,this.$root.$refs[this.formCode][key][subkey]);
                   //   }
                   // }
                   arr.map(c => {
@@ -544,8 +469,6 @@ export default {
                           // }
                           this.$root.$refs[this.formCode][key][c].runTasks();
                         }
-                        //
-                        // console.log("--选项回填subkey", c, key,this.$root.$refs[this.formCode][key][c]);
                       }
                     } catch (error) {
                       console.log(
@@ -583,13 +506,7 @@ export default {
                     }
                   });
                 }
-                console.log(
-                  "选项回填",
-                  this.$root.$refs[this.formCode][key],
-                  key,
-                  value,
-                  arr
-                );
+
               }
             }
           }

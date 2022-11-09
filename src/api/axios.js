@@ -36,7 +36,8 @@ axios.interceptors.request.use((config) => {
     'changePasswordByEmpNo', 'sysPasswordSet/findList',
     'identityCheck', 'getPasswordRule','updatePassword',
     'AllUkeyList','SOF_ExportUserCert','genRandom','SOF_ValidateCert_Text',
-    'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser","SOF_GetRetryCount", 'getDictItem'
+    'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser","SOF_GetRetryCount", 'getDictItem',
+    'getQrCodeStatus','getRandomQrCode',
 ]
 
     for (let i = 0; i < whiteList.length; i++) {
@@ -52,6 +53,8 @@ axios.interceptors.request.use((config) => {
                     verifyUserObj[arr[0]] = arr[1]
                     })
                 }
+            }else if(config.url.indexOf("getQrCodeStatus")>-1){
+                CaSignurl = "getQrCodeStatus"
             }else CaSignurl = ""
             if(config.url.indexOf("SOF_Login")>-1){
                 strCertId = config.data.strCertId
@@ -85,6 +88,8 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((res) => {
     // if (typeof res.data === 'string') res.data = JSON.parse(res.data)
     var data = res.data
+    // console.log('window.location.href',window.location.href)
+    // console.log('app.$route.name',app.$route.name)
     // by谢岗
     // const {config} = res
     // const whiteList = ['service1.asmx']
@@ -134,7 +139,9 @@ axios.interceptors.response.use((res) => {
                     confirmButtonText: '确定',
                     type: 'error',
                 });
-            } else {
+            }else if(CaSignurl=="getQrCodeStatus" || data.desc=="qrCodeIdentity不能为空"){
+                console.log("djw-ada")
+            }else{
                 window.app.$message({
                     showClose: true,
                     message: data.desc || '服务器开小差了',

@@ -30,7 +30,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let Output = ['大便','尿量','引流量']
+let Output = ['大便','尿量','引流量','胃管','尿管','伤口引流管','胸腔引流管','腹腔管','鼻胆管','PTBD管','PTGD管','腹腔双套管','盆腔引流管','肛管','引流管']
 let Input = ['输入液量','进食量']
 
 export default [
@@ -42,7 +42,7 @@ export default [
   { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率次/分', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压',textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'consciousness', event: keyf1, value: '', next: '', name: '神志', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'leftPupilDiameter', event: keyf1, value: '', next: 'mm', name: '直径(左)', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'rightPupilDiametern', event: keyf1, value: '', next: 'mm', name: '直径(右)', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },

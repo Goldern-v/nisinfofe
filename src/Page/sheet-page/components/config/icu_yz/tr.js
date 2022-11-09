@@ -10,7 +10,8 @@ import {
   import {
     event_date,
     event_time,
-    click_date
+    click_date,
+    click_time
   } from "../keyEvent/date";
   import info from "../sheetInfo";
   let 神志 = [];
@@ -25,7 +26,8 @@ import {
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    click: click_time
   },
   {
     key: "consciousness", //神志
@@ -34,7 +36,7 @@ import {
     autoComplete: {
       data: 神志
     },
-    name: '神志'
+    name: '意识'
   },
   {
     key: "temperature", //体温
@@ -139,12 +141,12 @@ import {
     name: '颜色形状',
     statBottomLine: true
   },
-  {
-    key: "fieldNine", //SPO2
-    value: "",
-    event: keyf1,
-    name: '自定义1'
-  },
+  // {
+  //   key: "fieldNine", //SPO2
+  //   value: "",
+  //   event: keyf1,
+  //   name: '自定义1'
+  // },
   {
     key: "fieldTen", //SPO2
     value: "",
@@ -166,7 +168,7 @@ import {
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "400px",
+      width: "250px",
       background: "transparent"
     },
     event: function (e, td) {

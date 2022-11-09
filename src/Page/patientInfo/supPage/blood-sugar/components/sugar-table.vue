@@ -66,7 +66,7 @@
               <span>{{ item.date }}</span>
             </span>
             <span>
-              <span>{{ item.time }}</span>
+               <span>{{ item.time }}</span>
             </span>
           </div>
         </td>

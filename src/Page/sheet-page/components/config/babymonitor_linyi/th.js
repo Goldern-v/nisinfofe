@@ -19,12 +19,13 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1680px"
+      width: "1720px"
     },
     th: {
         top:
          [
             {"name": "日期", "colspan": "1", "rowspan": "3"},
+            {"name": "时间", "colspan": "1", "rowspan": "3"},
             {"name": '注射用药物',"colspan": "2","rowspan": "1",},
             {"name": '静脉液体管理（单位：ml）',"colspan": "9","rowspan": "1",},
             {"name": '胃肠道入量',"colspan": "5","rowspan": "1",},

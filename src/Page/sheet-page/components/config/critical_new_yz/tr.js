@@ -77,7 +77,7 @@ import {
       name:"HR/PR",
       next:"次/分",
       textarea: {
-        width: 45
+        width: 35
       },
     },
     {
@@ -87,7 +87,7 @@ import {
       name:"R",
       next:"次/分",
       textarea: {
-        width: 45
+        width: 35
       },
     },
     {
@@ -97,7 +97,7 @@ import {
       name:"BP",
       next:"mmHg",
       textarea: {
-        width: 65
+        width: 55
       },
     },
     {
@@ -107,7 +107,7 @@ import {
       name:"SPO2",
       next:"%",
       textarea: {
-        width: 45
+        width: 35
       },
     },
     {
@@ -116,7 +116,7 @@ import {
       event: keyf1,
       name:"鼻导管",
       textarea: {
-        width: 60
+        width: 50
       },
     },
     {
@@ -142,7 +142,7 @@ import {
       event: keyf1,
       name:"入量",
       textarea: {
-        width: 80
+        width: 70
       },
     },
     {
@@ -152,7 +152,7 @@ import {
       name:"入量（量）",
       next:"(ml)",
       textarea: {
-        width: 45
+        width: 35
       },
     },
     {
@@ -164,7 +164,7 @@ import {
         data: ['尿', '大便', '痰液', '呕吐物', '引流量', '其他']
       },
       textarea: {
-        width: 80
+        width: 70
       },
     },
     {
@@ -174,7 +174,7 @@ import {
       name:"出量（量）",
       next:"(ml)",
       textarea: {
-        width: 45
+        width: 35
       },
     },
     {
@@ -192,7 +192,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 60
+        width: 45
       },
     },
     {
@@ -200,7 +200,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 60
+        width: 45
       },
     },
     {
@@ -208,7 +208,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 60
+        width: 45
       },
     },
     {
@@ -220,7 +220,7 @@ import {
         top: "1px",
         bottom: "1px",
         left: "1px",
-        width: "240px",
+        width: "200px",
         background: "transparent"
       },
       event: function (e, td) {

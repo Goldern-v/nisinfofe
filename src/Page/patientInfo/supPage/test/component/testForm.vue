@@ -39,7 +39,7 @@
           <span>性别：{{ $route.query.sex }}</span>
           <span>年龄：{{ $route.query.age }}</span>
           <span v-if="HOSPITAL_ID=='fuyou'">住院号：{{ $route.query.inpNo }}</span>
-          <span v-else>病人ID：{{data[1] && data[1].patientId }}</span>
+          <span v-else>病人ID：{{ data.patientId }}</span>
         </el-row>
         <el-row class="info-class" type="flex" justify="space-between">
           <span>标本：{{ data.specimen }}</span>
@@ -237,7 +237,7 @@ export default {
   props:{
     tableHeaderInfo:{
       type:Object,
-      default:{}
+      default:()=>{return {}}
     }
   },
   data() {

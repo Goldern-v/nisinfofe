@@ -67,7 +67,7 @@ export default {
         `,
         style: {
           minWidth: "260px",
-          maxWidth: "260px"
+          // maxWidth: "260px"
         },
         colspan: '1',
         rowspan: '3'
@@ -76,6 +76,10 @@ export default {
         name: `
         签名
         `,
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
         colspan: '1',
         rowspan: '3'
       }
