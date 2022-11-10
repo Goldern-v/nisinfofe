@@ -51,14 +51,14 @@
             </div>
             <h1 class="name" v-html="logoName"></h1>
           </div>
-          <div :style="[{overflow:HOSPITAL_ID == 'nanfangzhongxiyi勿删'?'hidden':''},translate300COM,translateTypeCOM]">
-            <div class="nanfangCa-Box" v-if="HOSPITAL_ID == 'nanfangzhongxiyi勿删'">
+          <div :style="[{overflow:['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)?'hidden':''},translate300COM,translateTypeCOM]">
+            <div class="nanfangCa-Box" v-if="['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)">
               <div class="nanfangCa-choseline"><div class="translateType"></div></div>
               <div class="nanfangCa-con" @click="(e)=>changeLoginType(false,e)">密码登录</div>
               <div class="nanfangCa-con" @click="(e)=>changeLoginType(true,e)">ca扫码登录</div>
             </div>
-            <div class="tranSlate-300" :class="{'nanfangCa-loginBox':HOSPITAL_ID == 'nanfangzhongxiyi勿删'}">
-              <div :class="{'nanfangCa-Boxx':HOSPITAL_ID == 'nanfangzhongxiyi勿删'}">
+            <div class="tranSlate-300" :class="{'nanfangCa-loginBox':['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)}">
+              <div :class="{'nanfangCa-Boxx':['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)}">
                 <div class="input-con">
                   <input type="text" :disabled="caLoginFlag" placeholder="用户名" v-model="account" />
                   <img src="../../common/images/account.png" height="14" width="14" />
@@ -122,7 +122,7 @@
                   {{ !ajax ? "证书登录" : "登录中..." }}
                 </button>
               </div>
-              <div class="nanfangCa-Boxx" v-if="HOSPITAL_ID == 'nanfangzhongxiyi勿删'">
+              <div class="nanfangCa-Boxx" v-if="['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)">
                 <img alt="" :src="'data:text/html;base64,'+qrCodeBase64"  />
               </div>
             </div>
@@ -481,6 +481,7 @@ import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
 import { mapMutations } from "vuex";
 import { passwordRule } from "@/api";
+import bus from "vue-happy-bus";
 import { getDictItem } from '@/api/common';
 const CryptoJS = require("crypto-js");
 const SecretKey = "chenrui2020";
@@ -501,6 +502,7 @@ export default {
       loginLoading: false,
       checkCa: false, //判断是否已经插入了ukey
       strRandom: "",
+      bus: bus(this),
       strServerCert: "",
       useCaList: ["foshanrenyi"],
       UkeyObj: {}, //保存ukeys里面的信息
@@ -542,7 +544,6 @@ export default {
         this.translate300='translateX(0)'
         this.translateType ="translateX(0)"
       }
-      console.log(e,this.translate300,typeFlag,"this.translate300")
     },
     async login(type) {
       if (!(this.account && this.password)) {
@@ -596,7 +597,6 @@ export default {
           //   this.$message.error("请重新登录");
           // }
         } catch (e) {
-          console.log("e", e);
           this.$message.error("请重新登录");
           this.ajax = false;
           return;
@@ -605,7 +605,6 @@ export default {
       //是否切换到了ca登录
       if (this.caLoginFlag) {
         if (["foshanrenyi"].includes(this.HOSPITAL_ID)) useLogin = verifyUser;
-        console.log("logincaLoginFlag", this.UkeyObj);
         const strCertId = this.UkeyObj.substring(
           this.UkeyObj.indexOf("||") + 2,
           this.UkeyObj.length
@@ -751,7 +750,9 @@ export default {
           window.openCaSignModal();
         } else if (["zhzxy"].includes(this.HOSPITAL_ID)) {
           window.openFuyouCaSignModal(true);
-        } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
+        } else if (["hj"].includes(this.HOSPITAL_ID)) {
+          window.openHjCaSignModal();
+        }else if(["guizhou"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
           window.openHjCaSignModal();
         }
       }
@@ -843,15 +844,20 @@ export default {
         console.error(e);
       }
     }
-    if(['nanfangzhongxiyi勿删'].includes(this.HOSPITAL_ID)){
+    if(['nanfangzhongxiyi勿删','guizhou'].includes(this.HOSPITAL_ID)){
         clearInterval(nanfanImgtimer);
         nanfanImgtimer = setInterval(() => {
           this.nanfangTime = ++this.nanfangTime
-          getQrCodeStatus(this.qrCodeIdentity,"0").then(getQrCodeStatusRes=>{
-            console.log(getQrCodeStatusRes,"getQrCodeStatusRes")
+          let accessToken = sessionStorage.getItem('accessToken') || ""
+          getQrCodeStatus(this.qrCodeIdentity,"0",accessToken).then(getQrCodeStatusRes=>{
             if(getQrCodeStatusRes.data.data.user){
-              localStorage.setItem("nanFangcaToken",getQrCodeStatusRes.data.data.caToken)
-              localStorage.setItem("nanFangcaLogin",true)
+              if(['guizhou'].includes(this.HOSPITAL_ID)){
+                localStorage.setItem("fuyouCaData",JSON.stringify(getQrCodeStatusRes.data.data.caToken.data));
+                this.bus.$emit("updateFuyouCaData")
+              }else{
+                localStorage.setItem("nanFangcaToken",getQrCodeStatusRes.data.data.caToken)
+                localStorage.setItem("nanFangcaLogin",true)
+              }
               this.$message.success("CA扫码登陆成功")
               this.loginSucceed(getQrCodeStatusRes)
             }
@@ -864,7 +870,6 @@ export default {
       clearInterval(loginTimer);
       loginTimer = setInterval(() => {
         GetUserList().then((res) => {
-          console.log("GetUserListres", res);
           if (res.data.length > 0) {
             this.UkeyObj = res.data;
             this.checkCa = true;
@@ -981,14 +986,12 @@ export default {
         if (newVal) {
           caLoginBefore().then(
             (caLoginFunRes) => {
-              console.log(caLoginFunRes, "caLoginFunRes");
               const { strRandom, strServerCert } = caLoginFunRes;
               this.strRandom = strRandom;
               this.strServerCert = strServerCert;
               this.caLoginFlag = true;
               this.account = this.UkeyObj.split("||")[0];
               this.password = "";
-              console.log(caLoginFunRes, "caLoginFunRes");
             },
             (err) => {
               this.$message.error(err);
@@ -1006,12 +1009,22 @@ export default {
     nanfangTime:{
       handler(newVal) {
         if(newVal){
-          console.log("nanfangTime",newVal)
           if(newVal==1 || newVal%120==0){
             getRandomQrCode().then(getRandomQrCodeRes=>{
-              this.qrCodeBase64 = getRandomQrCodeRes.data.data.qrCodeBase64
-              this.qrCodeIdentity = getRandomQrCodeRes.data.data.qrCodeIdentity
-              console.log(getRandomQrCodeRes,"getRandomQrCodeRes")
+              if(['nanfangzhongxiyi勿删'].includes(this.HOSPITAL_ID)){
+                this.qrCodeBase64 = getRandomQrCodeRes.data.data.qrCodeBase64
+                this.qrCodeIdentity = getRandomQrCodeRes.data.data.qrCodeIdentity
+              }else{
+                if(getRandomQrCodeRes.data.code==200){
+                  this.qrCodeBase64 = getRandomQrCodeRes.data.data.data.oauthMPCode
+                  this.qrCodeIdentity = getRandomQrCodeRes.data.data.data.transactionId
+                }else{
+                  this.$message({
+                    type: "error",
+                    message: getRandomQrCodeRes.data.errorCode
+                  });
+                }
+              }
             })
           }
         }

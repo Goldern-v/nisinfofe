@@ -970,7 +970,7 @@
         data: loginFormData
       })
         .then(res => {
-          authToken = res.data.data.authToken;
+          authToken = res.data.data.authToken? res.data.data.authToken:getQueryVariable("Auth-Token-Nursing");
           userInfo = res.data.data.user;
         })
         .then(res => {
@@ -980,7 +980,7 @@
             url: baseApiURL + "/record/block/list",
             headers: {
               "App-Token-Nursing": appToken,
-              "Auth-Token-Nursing": authToken
+              "Auth-Token-Nursing": authToken?
             },
             data: {
               deptCode,
