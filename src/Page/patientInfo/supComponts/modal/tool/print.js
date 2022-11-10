@@ -79,7 +79,13 @@ function print(source, beforePrint, selfShow) {
 
   const iframeDocument = iframe.contentDocument;
   const iframeWindow = iframe.contentWindow;
-  printDir("h", iframeWindow);
+  if(selfShow=='v'){
+    // 珠海中西医床头卡竖向打印
+    printDir("v", iframeWindow);
+  }else{
+    printDir("h", iframeWindow);
+  }
+  
   addCSS(
     iframeWindow,
     `

@@ -934,8 +934,14 @@ export default {
       this.$nextTick(() => {
         this.post();
         print(this.$refs.printCon, (el) => {
-          el.style.marginLeft = '194mm'
-        });
+          if(['zhzxy'].includes(this. HOSPITAL_ID)){
+            el.style.marginTop='10mm'
+            el.style.marginLeft = '50mm'
+          }else{
+            el.style.marginLeft = '194mm'
+          }
+        },['zhzxy'].includes(this. HOSPITAL_ID)?'v':'');
+        
         for(let i=0;i<printCare.length;i++){
           printCare[i].style.display = "block"
       }

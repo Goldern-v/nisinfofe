@@ -50,7 +50,7 @@ export default [
     next: "℃",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 27
+      width: 38
     },
   },
   {
@@ -100,7 +100,7 @@ export default [
     next: "mmHg",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 43
+      width: 55
     },
   },
   {
@@ -173,7 +173,7 @@ export default [
     next: "ml",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -200,7 +200,7 @@ export default [
     next: "ml",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {

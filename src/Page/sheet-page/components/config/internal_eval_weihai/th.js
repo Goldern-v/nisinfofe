@@ -33,7 +33,10 @@ export default {
       {
         name: "体温<br/>℃",
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: "60px"
+        },
       },
       {
         name: `
@@ -42,7 +45,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "48px"
+          minWidth: "60px"
         },
       },
       {
@@ -51,13 +54,16 @@ export default {
         `,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "60px"
+        },
       },
       {
         name: `
         血压<br/>mmHg
         `,
         style: {
-          minWidth: "48px"
+          minWidth: "60px"
         },
         colspan: "1",
         rowspan: "3"
@@ -70,34 +76,37 @@ export default {
         rowspan: "3"
       },
       {
-        name: `
-        标题1
-        `,
-        key: "fieldSeventeen", //标题1
-        style: {},
+        name: '意识',
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
         colspan: '1',
-        rowspan: '3',
-        canSet: true
+        rowspan: '3'
       },
       {
         key: "fieldEighteen", //标题2
         name: `
-        标题2
+        左侧瞳孔<br/>（mm）
         `,
-        style: {},
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
         colspan: '1',
         rowspan: '3',
-        canSet: true
       },
       {
         key: "fieldNineteen", //标题3
         name: `
-        标题3
+        右侧瞳孔<br/>（mm）
         `,
-        style: {},
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
         colspan: '1',
         rowspan: '3',
-        canSet: true
       },
       {
         name: `
@@ -106,7 +115,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '600px'
+          minWidth: '340px'
         },
       },
       {

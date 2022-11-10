@@ -14,7 +14,7 @@
         />
       </span>
       <div class="times">
-        <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id">
+        <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id"> 
           <input
             type="radio"
             name="time"
@@ -169,6 +169,47 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="heartRate"
+            label="心率"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.heartRate"
+                :class="className"
+                class="heartRate"
+                type="number"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="physicalCooling"
+            label="物理降温"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.physicalCooling"
+                :class="className"
+                class="physicalCooling"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="height"
             label="身高"
             min-width="80"
@@ -186,6 +227,7 @@
               />
             </template>
           </el-table-column>
+
           <el-table-column
             prop="curWeight"
             label="体重"
@@ -223,47 +265,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="heartRate"
-            label="心率"
-            min-width="70"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.heartRate"
-                :class="className"
-                class="heartRate"
-                type="number"
-                @mousewheel="
-                  (e) => {
-                    e.preventDefault();
-                  }
-                "
-                @keyup="handleKeyUp"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="physicalCooling"
-            label="降温处理"
-            min-width="70"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.physicalCooling"
-                :class="className"
-                class="physicalCooling"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column
             prop="foodSize"
             label="入量"
             min-width="70"
@@ -281,8 +282,44 @@
               />
             </template>
           </el-table-column>
-
           <el-table-column
+            prop="painScore"
+            label="疼痛"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.painScore"
+                :class="className"
+                class="painScore"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="painDrop"
+            label="疼痛干预"
+            min-width="80"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.painDrop"
+                :class="className"
+                class="painDrop"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+      
+          <!-- <el-table-column
             prop="dischargeSize"
             label="出量"
             min-width="70"
@@ -317,7 +354,7 @@
                 @click="toRow"
               />
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
       </div>
       <div class="all-temperature-chart-print" ref="printable">
@@ -359,7 +396,7 @@
           <el-table-column
             prop="temperature"
             label="体温"
-            min-width="60"
+            min-width="50"
             align="center"
           >
             <template slot-scope="scope">
@@ -370,7 +407,7 @@
             prop="pulse"
             label="脉搏"
             align="center"
-            min-width="60"
+            min-width="50"
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.pulse"></el-input>
@@ -379,7 +416,7 @@
           <el-table-column
             prop="breath"
             label="呼吸"
-            min-width="60"
+            min-width="50"
             align="center"
           >
             <template slot-scope="scope">
@@ -389,7 +426,7 @@
           <el-table-column
             prop="bloodPressure"
             label="血压"
-            min-width="80"
+            min-width="50"
             align="center"
           >
             <template slot-scope="scope">
@@ -397,9 +434,30 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="heartRate"
+            label="心率"
+            min-width="50"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.heartRate"></el-input>
+            </template>
+          </el-table-column>
+
+          <el-table-column
+            prop="physicalCooling"
+            label="物理降温"
+            min-width="50"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.physicalCooling"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="height"
             label="身高"
-            min-width="60"
+            min-width="50"
             align="center"
           >
             <template slot-scope="scope">
@@ -408,8 +466,8 @@
           </el-table-column>
           <el-table-column
             prop="curWeight"
-            label="体重111"
-            min-width="60"
+            label="体重"
+            min-width="50"
             align="center"
           >
             <template slot-scope="scope">
@@ -420,7 +478,7 @@
           <el-table-column
             prop="stoolNum"
             label="大便次数"
-            min-width="60"
+            min-width="50"
             align="center"
           >
             <template slot-scope="scope">
@@ -428,37 +486,9 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="heartRate"
-            label="心率"
-            min-width="60"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.heartRate"></el-input>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="physicalCooling"
-            label="降温处理"
-            min-width="70"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.physicalCooling"
-                :class="className"
-                class="physicalCooling"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                @click="toRow"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column
             prop="foodSize"
             label="入量"
-            min-width="60"
+            min-width="50"
             align="center"
           >
             <template slot-scope="scope">
@@ -466,26 +496,26 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="dischargeSize"
-            label="出量"
-            min-width="60"
+            prop="painScore"
+            label="疼痛"
+            min-width="50"
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.dischargeSize"></el-input>
+              <el-input v-model="scope.row.painScore"></el-input>
             </template>
           </el-table-column>
-
           <el-table-column
-            prop="fieldThree"
-            label="尿量"
-            min-width="60"
+            prop="painDrop"
+            label="疼痛干预"
+            min-width="50"
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.fieldThree"></el-input>
+              <el-input v-model="scope.row.painDrop"></el-input>
             </template>
           </el-table-column>
+       
         </el-table>
       </div>
     </div>

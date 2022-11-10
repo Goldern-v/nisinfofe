@@ -167,10 +167,10 @@
     font-weight: 800;
     height: 50px;
     div {
-      font-size: 13px;
+      font-size: 14px;
     }
     .new-modal-top-left {
-      width: calc(100% - 50px);
+      /* width: calc(100% - 50px); */
       height: 50px;
       .new-modal-top-left-first {
         display: flex;
@@ -224,6 +224,7 @@
     .new-modal-bottom-first {
       overflow: hidden;
       height: calc(100% - 50px);
+      font-size: 14px;
       div {
         display: flex;
         justify-content: space-between;
