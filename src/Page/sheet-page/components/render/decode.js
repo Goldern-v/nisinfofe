@@ -46,14 +46,14 @@ function decode(ayncVisitedData) {
               : moment().format("YYYY");
             const month = bodyModel[index].find(item => item.key == "recordMonth").value
             const hour = bodyModel[index].find(item => item.key == "recordHour").value
+            if (itemRecordYear && month && hour) {
+              firstRecordDate = itemRecordYear + "-" + month + " " + hour
+            }
             if (firstRecordDate) {
               bodyModel[index].find(item => item.key == "recordDate").value = firstRecordDate
             } else {
               bodyModel[index].find(item => item.key == "recordDate").value =
               itemRecordYear + "-" + month + " " + hour
-            }
-            if (itemRecordYear && month && hour) {
-              firstRecordDate = itemRecordYear + "-" + month + " " + hour
             }
             //修改就保存  所以这里初始化签名数据  重新保存签名
           }
