@@ -919,10 +919,11 @@ export default {
       this.printObj = sortArr;
     },
     // 静默打印
-    onSilentPrint() {
+    async onSilentPrint() {
+      await this.getPrintData()
       document.getElementById("new-print-box").style.display = "block";
       this.$nextTick(() => {
-         const LODOP = getLodop();
+        const LODOP = getLodop();
         const cssblock = this.getCssBlock()
         if (LODOP) {
           var strBodyStyle = `<style>
@@ -930,11 +931,7 @@ export default {
             ${this.printM}
           }
           body{
-            ${
-              this.normalSize || this.HOSPITAL_ID == "whfk"
-                ? ""
-                : "transform: scale(0.5);transform-origin: 0 0 0;"
-            }
+            ${this.printScaleText}
           }
           .break-page {
             page-break-after: always;
@@ -943,12 +940,14 @@ export default {
           </style>`; //设置打印样式
           var strFormHtml =
             strBodyStyle +
-            "<body>" +
+            "<body style='wdith:8cm;'>" +
             document.getElementById("new-print-box").innerHTML +
             "</body>"; //获取打印内容
           LODOP.PRINT_INIT(""); //初始化
-          LODOP.SET_PRINT_PAGESIZE(0, 0, 0, "A4"); //设置横向
-          LODOP.ADD_PRINT_HTM("1%", "1%", "98%", "98%", strFormHtml); //设置打印内容
+          LODOP.SET_PRINT_PAGESIZE(1,600,800,"")
+          // LODOP.SET_PRINT_PAGESIZE(0, 0, 0, "A4"); //设置横向
+          // LODOP.SET_PRINT_PAGESIZE(3, 0, 0, "CreateCustomPage"); //设置横向
+          LODOP.ADD_PRINT_HTM("0%", "0%", "100%", "100%", strFormHtml); //设置打印内容
           LODOP.SET_PREVIEW_WINDOW(2, 0, 0, 800, 600, ""); //设置预览窗口模式和大小
           LODOP.PREVIEW();
         }
@@ -1008,8 +1007,8 @@ export default {
           return ["70*80", "3*7"];
         case 'zhzxy':
           return ["7*7", "2*5"];
-        case 'whsl':
-          return ["7*8", "3*5"];
+        // case 'whsl':
+        //   return ["7*8", "3*5"];
         case "wujing":
           return ["5*8", "3*5"];
         case "ytll":

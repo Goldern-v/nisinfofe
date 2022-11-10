@@ -194,9 +194,9 @@ const currentTargetUrl = (() => {
 
     // 临邑县人民
     case 'lyxrm':
-      return "http://192.168.1.54:9890" // 内网测试
+      // return "http://192.168.1.54:9890" // 内网测试
       // return "http://222.133.53.230:9093" // 临邑正式
-      // return "http://222.133.53.230:9091" // 临邑正式
+      return "http://222.133.53.230:9091" // 临邑正式
       // return "http://120.24.240.231:19097"  // 临邑正式(临邑本地)
 
     // 广东同江医院
@@ -243,7 +243,8 @@ const currentTargetUrl = (() => {
     // 威海市立
     case 'whsl':
       // return 'http://192.168.1.54:9866'
-      return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
+      return "http://222.133.53.230:9091" // 临邑正式
+      // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
 
     /** 默认公司本地内网厚街测试环境 */
     default:

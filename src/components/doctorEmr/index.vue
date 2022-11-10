@@ -289,7 +289,6 @@ export default {
     async onload() {
       this.show = true;
       if(['zhzxy'].includes(this.HOSPITAL_ID)){
-        console.log("111111")
         this.openModal('doctorEmrModal')
       }else await this.getTreeData();
     },

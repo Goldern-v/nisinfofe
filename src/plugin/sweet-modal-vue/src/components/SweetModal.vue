@@ -362,8 +362,8 @@ export default {
       this.is_open = true;
       this._lockBody();
       this._animateIcon();
-      this.$refs.dragBox.style.left = "50%";
-      this.$refs.dragBox.style.top = "50%";
+      this.$refs.dragBox.style.left = ['zhzxy'].includes(this.HOSPITAL_ID) && this.colseShadow ? '1000px' :"50%";
+      this.$refs.dragBox.style.top = ['zhzxy'].includes(this.HOSPITAL_ID) && this.colseShadow ? '125%' : "50%";
       setTimeout(() => (this.visible = true), 30);
       this.$emit("open");
       if(ifNoguan===false) this.ifNoguan = false

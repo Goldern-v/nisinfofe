@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     open() {
-      console.log("jinalias")
       this.$refs.modalName.open();
     },
     post() {}

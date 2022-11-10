@@ -71,6 +71,7 @@
         }
         if (!this.options.cursorCancel) this.elem.style.cursor = 'move';
     }
+    // 定义目标元素。
     proto.setTargetDom = function() {
         this.elem = this.getDom(this.options.elemString);
         this.parentMove = this.getDom(this.options.parentMove);
