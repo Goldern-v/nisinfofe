@@ -3,6 +3,10 @@ import {
   apiPath,
   caSignHOST
 } from './apiConfig'
+import {
+  getAuthorize,
+  getQrCode
+} from './ca-sign_fuyou'
 import qs from 'qs'
 import base from '../utils/base64'
 import sheetInfo  from '../Page/sheet-page/components/config/sheetInfo/index'
@@ -220,18 +224,46 @@ function getAccessToken(params) {
 function p7Sign(params) {
   return axios.post(`${apiPath}caSignNfzxy/p7Sign`,params)
 }
-function getQrCode(params) {
-  return axios.post(`${apiPath}caSignNfzxy/getQrCode`,params)
+function nanfanggetQrCode(params) {
+  return axios.post(`${apiPath}caSignNfzxy/nanfanggetQrCode`,params)
 }
+
 function getRandomQrCode() {
-  return axios.get(`${apiPath}caSignNfzxy/getRandomQrCode`)
+  switch(process.env.HOSPITAL_ID){
+    case 'guizhou':{
+      return new Promise((resolve, reject) => {
+        getAuthorize().then(getAuthorizeRes=>{
+          let accessToken = getAuthorizeRes.data.data.data.accessToken
+          sessionStorage.setItem('accessToken',accessToken)
+          getQrCode(accessToken).then(res=>{
+            resolve(res)
+          })
+        })
+      })
+      break;
+    }
+    default:
+      return axios.get(`${apiPath}caSignNfzxy/getRandomQrCode`)
+  }
 }
-function getQrCodeStatus(qrCodeIdentity,isLogin) {
-  return axios.post(`${apiPath}caSignNfzxy/getQrCodeStatus`,
-  {
-    qrCodeIdentity,
-    isLogin
-  })
+function getQrCodeStatus(qrCodeIdentity,isLogin,accessToken) {
+  switch(process.env.HOSPITAL_ID){
+    case 'guizhou':{
+      return axios.post(`${apiPath}caSignHoujie/auth/caLogin`,
+      {
+        accessToken,
+        transactionId:qrCodeIdentity
+      })
+      break;
+    }
+    default:
+      return axios.post(`${apiPath}caSignNfzxy/getQrCodeStatus`,
+      {
+        qrCodeIdentity,
+        isLogin
+      })
+  }
+  
 }
 
 function nanfnagCaSign(userUid,password,p7SignObj,userToken,nanFangcaLogin) {
@@ -248,7 +280,7 @@ function nanfnagCaSign(userUid,password,p7SignObj,userToken,nanFangcaLogin) {
         if(Certificateres.data.data.signCert.length>0){
           const certContent = Certificateres.data.data.signCert
           console.log("certContent",certContent)
-          getQrCode({certContent}).then(AgetQrCoderes=>{
+          nanfanggetQrCode({certContent}).then(AgetQrCoderes=>{
             if(AgetQrCoderes.data.data.qrCodeBase64) resolve(AgetQrCoderes.data.data.qrCodeBase64)
           })
         }else reject("获取证书失败！")
