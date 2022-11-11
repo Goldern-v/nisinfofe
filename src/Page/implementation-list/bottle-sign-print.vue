@@ -978,9 +978,9 @@ export default {
     newPrintCom() {
       switch (this.HOSPITAL_ID) {
         case "sdlj":
-        case "gdtj":
           return "NewPrintModalSdlj";
         case "fsxt":
+        case "gdtj":
           return "NewPrintModalFsxt";
         case "lyxrm":
         case "whhk":

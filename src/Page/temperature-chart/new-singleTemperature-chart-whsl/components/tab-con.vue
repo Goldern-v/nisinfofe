@@ -1,56 +1,48 @@
 <template>
-  <div class="right-con" :style="contentHeight">
+  <div class="right-con">
     <div class="row-top">
       <div class="column-right">
-        <el-date-picker
+        <ElDatePicker
           id="date-picker"
           type="date"
-          size="small"
-          style="width: 120px"
+          size="mini"
+          style="width: 110px; height: 28px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
           clearable
         />
-        <div class="times" @keydown.stop="(e) => show(e)">
-          <el-time-select
-            v-model="dateInp"
-            value-format="HH:mm"
-            format="HH:mm"
-            ref="timeSelect"
-            @blur="changeDate"
-            @change="changeVal"
-            :picker-options="{
-              start: '03:00',
-              step: '04:00',
-              end: '23:00',
-            }"
-            class="new-time-select"
-            placeholder="选择时间"
-          >
-          </el-time-select>
-        </div>
-        <div class="save-btn-top" v-if="patientInfo.patientId">
-          <el-button
-            :disabled="isDisable()"
-            :type="isUpdate ? 'warning' : 'primary'"
-            class="save-btn"
-            @click="saveVitalSign(vitalSignObj)"
-            >{{ isUpdate ? "更新" : "保存" }}</el-button>
+            <el-button
+              :disabled="isDisable()"
+              class="save-btn-top"
+              :type="isUpdate ? 'warning' : 'primary'"
+              @click="saveVitalSign(vitalSignObj)"
+              >{{ isUpdate ? "更新" : "保存" }}
+              </el-button
+            >
+        <div class="times">
+          <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
+            <el-radio
+              size="mini"
+              v-for="item in timesOdd1"
+              :key="item.id"
+              :label="item.value"
+            ></el-radio>
+          </el-radio-group>
         </div>
       </div>
     </div>
     <div class="row-bottom">
       <null-bg v-if="!patientInfo.patientId"></null-bg>
       <div v-else class="showRecord">
-        <div class="record-list" :style="{ width: `${37}%` }">
+        <div class="record-list" :style="{ width: `${35}%` }">
           <div class="record-item" v-if="!isUpdate">
             <div
               :class="
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${formatDate(query.entryDate)}  ${dateInp}`
+                    `${formatDate(query.entryDate)}  ${query.entryTime}`
                   )
                     ? 'active'
                     : '',
@@ -59,11 +51,10 @@
               style="margin: 0px"
               v-for="(item, tabIndex) in tabsData"
               :key="tabIndex"
-              @dblclick="
+              @contextmenu.stop.prevent="
                 (e) => rightMouseDown(e, item.recordDate, item.recordPerson)
               "
               @click="changeQuery(item.recordDate)"
-              slot="reference"
             >
               {{ item.recordDate.slice(5, 17) }}
               {{ item.recordPerson }}
@@ -76,15 +67,17 @@
           <div class="record-item" v-else>
             <span style="color: red"> 此次更新的录入记录: </span>
             <div
-              :class="['recordList', 'active'].join(' ')"
+              :class="['recordList','active'].join(' ')"
               style="margin: 0px"
-              @dblclick="(e) => rightMouseDown()"
-              slot="reference_2"
+              :key="tabIndex"
+              @contextmenu.stop.prevent="
+                (e) => rightMouseDown()
+              "
             >
-              {{
+            {{
                 `${updateData.entryDate.slice(
                   5,
-                  17
+                  15
                 )} ${updateData.entryTime.slice(0, 5)}`
               }}
               {{ updateData.updatePerson }}
@@ -95,6 +88,7 @@
         <div class="inputter-region" :style="contentHeight">
           <el-collapse v-model="activeNames" @change="handleChange">
             <div style="border-radius: 7px; overflow: hidden">
+              <div v-if="!isBaby">
               <el-collapse-item name="biometric">
                 <template slot="title">
                   <span class="title"> 体征信息 </span>
@@ -104,16 +98,15 @@
                   :class="
                     index.includes('自定义') ||
                     index.includes('注释') ||
-                    index.includes('体温复测') ||
-                    index.includes('术后天数')
+                    index.includes('体温复测')
                       ? 'rowItem_noShow'
                       : (i - 1) % 2 === 0
                       ? 'rowBoxRight'
                       : 'rowBox'
                   "
-                  class="pathological"
                   v-for="(j, index, i) in baseMultiDictList"
                   :key="index"
+                  class="pathological"
                 >
                   <div class="rowItemText">
                     <span>{{ index }}</span>
@@ -145,8 +138,10 @@
                           e.preventDefault();
                         }
                       "
-                      @input="handlePopRefresh(vitalSignObj[j])"
-                      v-on:input="validFormFc(vitalSignObj[j], i + 1)"
+                      @input="()=>{
+                        handlePopRefresh(vitalSignObj[j])
+                        validFormFc(vitalSignObj[j], i + 1)
+                      }"
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
@@ -194,9 +189,10 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
+            </div>
               <div
                 class="context-box"
-                v-if="Object.keys(otherMultiDictList).length"
+                v-if="Object.keys(otherMultiDictList).length&& !isBaby"
               >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
@@ -213,9 +209,9 @@
                         ? 'rowBoxRight'
                         : 'rowBox'
                     "
-                    class="otherPathological"
                     v-for="(j, index, i) in otherMultiDictList"
                     :key="index"
+                    class="otherPathological"
                   >
                     <div class="rowItemText">
                       <span>{{ index }}</span>
@@ -242,16 +238,15 @@
                             : 'text'
                         "
                         :title="vitalSignObj[j].vitalValue"
-                        @input="()=>{
-                          validFormFc(vitalSignObj[j], i + 100)
-                          handlePopRefresh(vitalSignObj[j])
-                        }"
                         @mousewheel="
                           (e) => {
                             e.preventDefault();
-                            e.stopPropagation();
                           }
                         "
+                        @input="()=>{
+                        handlePopRefresh(vitalSignObj[j])
+                        validFormFc(vitalSignObj[j], i + 100)
+                      }"
                         @click="() => (vitalSignObj[j].popVisible = true)"
                         @blur="() => (vitalSignObj[j].popVisible = false)"
                         v-model="vitalSignObj[j].vitalValue"
@@ -301,11 +296,117 @@
                 </el-collapse-item>
               </div>
             </div>
-            <div class="context-box">
-              <el-collapse-item
-                name="fieldList"
-                v-if="Object.keys(fieldList).length"
-              >
+            <div
+              class="context-box_first"
+              v-if="Object.keys(babyMultiDictList).length && isBaby"
+            >
+              <el-collapse-item name="otherBiometric">
+                <template slot="title">
+                  <span class="title"> 婴儿体征 </span>
+                  <i class="header-icon el-icon-info"></i>
+                </template>
+                <div
+                  :class="
+                    index.includes('自定义') ||
+                    index.includes('注释') ||
+                    index.includes('体温复测')
+                      ? 'rowItem_noShow'
+                      : (i - 1) % 2 === 0
+                      ? 'rowBoxRight'
+                      : 'rowBox'
+                  "
+                  class="otherPathological"
+                  v-for="(j, index, i) in babyMultiDictList"
+                  :key="index"
+                >
+                  <div class="rowItemText">
+                    <!--新生儿的大便次数 叫做粪便-->
+                    <span>{{ index == "尿量" ? "小便次数" : index }}</span>
+                  </div>
+                  <el-tooltip
+                    placement="top"
+                    popper-class="custom-temp-dict-select"
+                    :disabled="
+                      !(
+                        totalDictInfo[index].options &&
+                        totalDictInfo[index].options.length > 0
+                      )
+                    "
+                    :visible-arrow="false"
+                    :manual="true"
+                    :value="vitalSignObj[j].popVisible"
+                  >
+                    <input
+                      :id="i + 100"
+                      @keydown.enter.prevent="changeNext"
+                      :type="
+                        totalDictInfo[index].inputType === '2'
+                          ? 'number'
+                          : 'text'
+                      "
+                      :title="vitalSignObj[j].vitalValue"
+                      @input="
+                        () => {
+                          validFormFc(vitalSignObj[j], i + 100);
+                          handlePopRefresh(vitalSignObj[j]);
+                        }
+                      "
+                      @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
+                      @click="() => (vitalSignObj[j].popVisible = true)"
+                      @blur="() => (vitalSignObj[j].popVisible = false)"
+                      v-model="vitalSignObj[j].vitalValue"
+                    />
+                    <template v-slot:content>
+                      <div
+                        class="container"
+                        @click.prevent="
+                          () => {
+                            vitalSignObj[j].popVisible = false;
+                          }
+                        "
+                      >
+                        <template
+                          v-if="
+                            totalDictInfo[index].options &&
+                            getFilterSelections(
+                              totalDictInfo[index].options,
+                              vitalSignObj[j].vitalValue
+                            ).length > 0
+                          "
+                        >
+                          <div
+                            :key="selectionDictIdx"
+                            class="selection-dict-item"
+                            v-for="(
+                              option, selectionDictIdx
+                            ) in getFilterSelections(
+                              totalDictInfo[index].options,
+                              vitalSignObj[j].vitalValue
+                            )"
+                            @click.prevent="
+                              () =>
+                                (vitalSignObj[j].vitalValue =
+                                  vitalSignObj[j].vitalValue + option)
+                            "
+                          >
+                            {{ option }}
+                          </div>
+                        </template>
+                        <div v-else class="null-item">无匹配数据</div>
+                      </div>
+                    </template>
+                  </el-tooltip>
+                </div>
+                <div class="bottom-box clear"></div>
+              </el-collapse-item>
+            </div>
+            <!-- <div class="context-box" v-if="Object.keys(fieldList).length">
+              <el-collapse-item name="fieldList">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
                   <i class="header-icon el-icon-info"></i>
@@ -328,22 +429,20 @@
                             index
                           )
                         "
-                        >{{ i.fieldCn }}</span
+                        >{{ i.fieldCn==='自定义1'?'其他':i.fieldCn }}</span
                       >
                     </div>
 
                     <input
-                      type="text"
-                      class="fieldClass"
                       :id="h + 1000"
+                      class="fieldClass"
                       @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
-                      @input="handlePopRefresh(vitalSignObj[i.vitalCode])"
-                      @click="
-                        () => (vitalSignObj[i.vitalCode].popVisible = true)
-                      "
-                      @blur="
-                        () => (vitalSignObj[i.vitalCode].popVisible = false)
+                      @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
                       "
                       v-model="vitalSignObj[i.vitalCode].vitalValue"
                     />
@@ -351,7 +450,7 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-            </div>
+            </div> -->
             <div class="context-box">
               <el-collapse-item name="notes">
                 <template slot="title">
@@ -361,9 +460,9 @@
                 <div class="rowBox" v-if="multiDictList['表顶注释']">
                   <span class="preText">表顶注释</span>
                   <el-select
+                  clearable
                     :disabled="isDisable()"
                     size="mini"
-                    clearable
                     v-model="vitalSignObj[multiDictList['表顶注释']].expand1"
                   >
                     <el-option
@@ -377,39 +476,15 @@
                     >
                     </el-option>
                   </el-select>
-                </div>
-                <!--目前武警是没有用的中间注释的--->
-                <div class="rowBox" v-if="multiDictList['中间注释']">
-                  <span class="preText">中间注释</span>
-                  <el-select
-                    :disabled="isDisable()"
-                    size="mini"
-                    clearable
-                    v-model="vitalSignObj[multiDictList['中间注释']].expand1"
-                  >
-                    <el-option
-                      v-for="(item, bottomIndex) in getFilterSelections(
-                        totalDictInfo['中间注释'].options,
-                        vitalSignObj[multiDictList['中间注释']].vitalValue
-                      )"
-                      :key="bottomIndex"
-                      :label="item"
-                      :value="item"
-                    >
-                    </el-option>
-                  </el-select>
-                  <el-date-picker
+                  <el-time-picker
                     size="mini"
                     :readonly="isDisable()"
-                    format="yyyy-MM-dd HH:mm:ss"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    v-model="vitalSignObj[multiDictList['表底注释']].expand2"
-                    type="datetime"
-                    placeholder="选择日期时间"
-                    style="margin: 3px 0px 0px 55px; width: 170px"
-                    @change="formatCenterExpandDate"
+                    v-model="timeVal"
+                    placeholder="选择表顶时间"
+                    style="width: 100%"
+                    @change="formatTopExpandDate"
                   >
-                  </el-date-picker>
+                  </el-time-picker>
                 </div>
                 <div
                   class="rowBox"
@@ -418,8 +493,8 @@
                 >
                   <span class="preText">表底注释</span>
                   <el-select
+                  clearable
                     size="mini"
-                    clearable
                     :disabled="isDisable()"
                     v-model="vitalSignObj[multiDictList['表底注释']].expand1"
                   >
@@ -442,10 +517,11 @@
           <div class="save">
             <el-button
               :disabled="isDisable()"
+              class="save-btn"
               :type="isUpdate ? 'warning' : 'primary'"
-            class="save-btn"
-            @click="saveVitalSign(vitalSignObj)"
-            >{{ isUpdate ? "更新" : "保存" }}</el-button>
+              @click="saveVitalSign(vitalSignObj)"
+              >保存</el-button
+            >
             <div class="clear" style="height: 30px"></div>
             <!--占位符-->
           </div>
@@ -460,10 +536,10 @@ import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
 import { validForm } from "../../validForm/validForm";
 import {
-  getVitalSignListByDate,
   getmultiDict,
+  getVitalSignListByDate,
   getfieldList,
-  savefieldTitleNew,
+  savefieldTitle,
   autoVitalSigns,
   saveAll,
   deleteRecord,
@@ -482,7 +558,7 @@ export default {
       ["24"]: ["21:00", "23:59"],
     };
 
-    let entryTime = "02:00:00";
+    let entryTime = "02";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
@@ -499,17 +575,60 @@ export default {
     return {
       bus: bus(this),
       editableTabsValue: "2",
+      timeVal: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      ),
+      nowTimeVal: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      ),
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: moment().format("HH:mm") + ":00", //录入时间
+        entryTime: (() => {
+          if (this.getHours() >= 0 && this.getHours() <= 4) {
+            return "02";
+          }
+          if (this.getHours() > 4 && this.getHours() <= 8) {
+            return "06";
+          }
+          if (this.getHours() > 8 && this.getHours() <= 12) {
+            return "10";
+          }
+          if (this.getHours() > 12 && this.getHours() <= 16) {
+            return "14";
+          }
+          if (this.getHours() > 16 && this.getHours() <= 20) {
+            return "18";
+          }
+          if (this.getHours() > 20 && this.getHours() <= 23) {
+            return "22";
+          }
+          //录入时间
+        })(), //录入时间
       },
-        updateData: {
+      updateData: {
         entryDate: "", //更新录入日期
         entryTime: "", //更新时间
         updatePerson: "", //原来的记录人
       },
       recordDate: "",
-      activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
+      fieldList: {}, // 自定义项目列表
+      activeNames: ["biometric", "otherBiometric","notes",'fieldList'],
+      multiDictList: {}, //全部的字典信息，生成保存的数组用
+      baseMultiDictList: {}, //基本体征信息
+      otherMultiDictList: {}, //其他体征信息
+      contentHeight: { height: "" }, //页面高度
+      tabsData: [], // 日期列表
+      vitalSignObj: {}, // 单个体征对象
+      vitalSignList: [], // 固定项目列表
+      bottomIndex: [],
       checkItem: [
         "体温",
         "脉搏",
@@ -517,43 +636,62 @@ export default {
         "口温",
         "肛温",
         "物理降温",
-        "疼痛",
-        "疼痛干预",
       ],
-      fieldList: {}, // 自定义项目列表
-      multiDictList: {}, //全部的字典信息，生成保存的数组用
-      baseMultiDictList: {}, //基本体征信息
-      otherMultiDictList: {}, //其他体征信息
-      tabsData: [], // 日期列表
-      vitalSignObj: {}, // 单个体征对象
-      vitalSignList: [], // 固定项目列表
-      bottomIndex: [],
-      dateInp: moment().format("HH:mm"),
+      timesOdd1: [
+      {
+          id: 0,
+          value: "03",
+        },
+        {
+          id: 1,
+          value: "07",
+        },
+      {
+          id: 2,
+          value: "11",
+        },
+      {
+          id: 3,
+          value: "15",
+        },
+        {
+          id: 4,
+          value: "19",
+        },
+        {
+          id: 5,
+          value: "23",
+        },
+      ],
       bottomContextList: [""],
-      contentHeight: { height: "" }, //页面高度
       topExpandDate: "",
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
-      isUpdate: false,
+      isUpdate:false,
     };
   },
   async mounted() {
     await this.getVitalList();
-    this.bus.$on("getDataFromPage", (dateTime) => {
-      this.query.entryDate = dateTime.slice(0, 10);
-      this.query.entryTime = dateTime.slice(11, 16) + ":00";
-      this.dateInp = dateTime.slice(11, 16);
+          this.bus.$on("getDataFromPage", (dateTime) => {
+      this.query.entryDate=dateTime.slice(0,10)
+        this.query.entryTime=dateTime.slice(11,13)
     });
+
   },
+
   created() {
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
-    this.bus.$on("refreshVitalSignList", () => {
+     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
   },
-  computed: {},
+  computed: {
+    isBaby(){
+      return this.patientInfo.patientId.includes('_')
+    }
+  },
   watch: {
     query: {
       handler(newName, oldName) {
@@ -564,29 +702,19 @@ export default {
       },
       deep: true,
     },
-        patientInfo() {
+    patientInfo() {
+      //切换患者重新获得时间
+      this.timeVal = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        new Date().getDate(),
+        new Date().getHours(),
+        new Date().getMinutes()
+      );
       this.isUpdate = false;
-    },
-    rightSheet(value) {
-      alert(value);
     },
   },
   methods: {
-    handleChange(val) {
-      // console.log(val);
-    },
-
-    getHeight() {
-      this.contentHeight.height = window.innerHeight - 110 + "px";
-    },
-    show(e) {
-      if (e.keyCode == 13) {
-        this.changeDate(this.$refs.timeSelect);
-      }
-    },
-    formatDate(date) {
-      return moment(new Date(date)).format("YYYY-MM-DD");
-    },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
         let baseLength = document.getElementsByClassName("pathological").length;
@@ -604,7 +732,7 @@ export default {
           document.getElementById(Number(e.target.id) + 1).focus();
 
         }
-        if (Number(e.target.id) >= 100 + otherLength - 2) {
+        if (Number(e.target.id) >= 100 + otherLength - 1) {
 
           document.getElementById("1000").focus();
         }
@@ -616,6 +744,62 @@ export default {
         } else if (Number(e.target.id) === inputListLength + 1000 - 1) {
           document.getElementById("1").focus();
         }
+      }
+    },
+    handleChange(val) {
+      // console.log(val);
+    },
+      formatDate(date){
+      return  moment(new Date(date)).format("YYYY-MM-DD")
+    },
+    getHeight() {
+      this.contentHeight.height = window.innerHeight - 110 + "px";
+    },
+    setValid(trage, val) {
+      switch (trage) {
+        case "体温":
+        case "肛温":
+        case "口温":
+        case "物理降温":
+          let o = {
+            体温: {
+              value: val,
+              reg: [33, 42],
+              errorMsg: "体温请填入30~42之间的数值",
+            },
+          };
+          return o;
+        case "脉搏":
+          case "心率":
+          let y = {
+            脉搏: {
+              value: val,
+              reg: [0, 180],
+            },
+          };
+          return y;
+        default:
+          break;
+      }
+    },
+    validFormFc(vitalSignObj, index) {
+      let val = vitalSignObj.vitalValue;
+      if (
+        val !== "" &&
+        this.checkItem.includes(vitalSignObj.vitalSigns)
+      ) {
+
+        //验证表单
+        if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
+          document.getElementById(index).style.outline = "";
+          vitalSignObj.isCorrect = true;
+        } else {
+          document.getElementById(index).style.outline = "1px solid red";
+          vitalSignObj.isCorrect = false;
+        }
+      } else {
+        document.getElementById(index).style.outline = "";
+        vitalSignObj.isCorrect = true;
       }
     },
     init() {
@@ -631,7 +815,7 @@ export default {
           vitalSigns: key,
           wardCode: this.patientInfo.wardCode,
           vitalValue: "",
-          units: this.totalDictInfo[key].unit,
+          units: "",
           vitalCode: this.multiDictList[key],
           classCode:
             (this.totalDictInfo[key] || { classCode: "" }).classCode || "",
@@ -645,7 +829,6 @@ export default {
           popVisible: false,
         };
       }
-
       this.vitalSignObj = { ...obj };
     },
     async getList() {
@@ -680,7 +863,6 @@ export default {
             recordDate: item.recordDate,
             recordPerson: item.vitalSignList[0].nurseName,
           });
-          this.tabsData = [...new Set(this.tabsData)];
         });
       });
       /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口 */
@@ -693,106 +875,23 @@ export default {
         recordDate:
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
           "  " +
-          this.query.entryTime,
+          this.query.entryTime +
+          ":00:00",
       }).then((res) => {
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
             this.fieldList[item.vitalCode] = item;
         });
       });
-      let input = document.getElementsByTagName("input");
-      for (let i = 0; i < input.length; i++) {
-        input[i].style.outline = "";
-      }
-    },
-    //时间组件失去焦点
-    changeDate(val) {
-      let numberVal = val.$el.children[1].value;
-      if (
-        (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
-        (numberVal.indexOf(":") != -1 && numberVal.length == 5)
-      ) {
-        let time =
-          numberVal.indexOf(":") == -1
-            ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
-            : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
-        let [hours, min] = time.split(":");
-        if (0 <= hours && hours <= 24 && 0 <= min && min <= 59) {
-          this.query.entryTime = time + ":00";
-          this.dateInp = time;
-        } else {
-          this.$message.error("请输入正确时间数值，例如23:25, 2325");
-        }
-      } else {
-        this.query.entryTime = val.$el.children[1].value;
-      }
-    },
-    // 下拉选项触发查询
-    changeVal(newVal, oldVal) {
-      if (newVal && newVal.split(":").length == 2) {
-        this.query.entryTime = newVal + ":00";
-        this.dateInp = newVal;
+            //每次初始化数据 改变原本错误数据的红色输入框
+       let list = document.getElementsByTagName('input')
+      for(let i = 0;i<list.length;i++){
+        list[i].style.outline = ""
       }
     },
     /* 日期搜索功能 */
     selectTemRec(val) {
       this.query.entryDate = val;
-    },
-            setValid(trage, val) {
-      switch (trage) {
-        case "体温":
-        case "肛温":
-        case "口温":
-        case "物理降温":
-          let o = {
-            体温: {
-              value: val,
-              reg: [35, 42],
-              errorMsg: "体温请填入30~42之间的数值",
-            },
-          };
-          return o;
-        case "脉搏":
-          case "心率":
-          let y = {
-            脉搏: {
-              value: val,
-              reg: [40, 180],
-            },
-          };
-          return y;
-        case "疼痛":
-        case "疼痛干预":
-          let g = {
-            疼痛: {
-              value: val,
-              reg: [0, 10],
-            },
-          };
-          return g;
-        default:
-          break;
-      }
-    },
-     validFormFc(vitalSignObj, index) {
-      let val = vitalSignObj.vitalValue;
-      if (
-        val !== "" &&
-        this.checkItem.includes(vitalSignObj.vitalSigns)
-      ) {
-
-        //验证表单
-        if (validForm.valid(this.setValid(vitalSignObj.vitalSigns, val))) {
-          document.getElementById(index).style.outline = "";
-          vitalSignObj.isCorrect = true;
-        } else {
-          document.getElementById(index).style.outline = "1px solid red";
-          vitalSignObj.isCorrect = false;
-        }
-      } else {
-        document.getElementById(index).style.outline = "";
-        vitalSignObj.isCorrect = true;
-      }
     },
     isDisable() {
       if (
@@ -818,13 +917,16 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-      this.query.entryTime = value.slice(12, 20);
-      //this.query.entryTime = value.slice(12, 20);
-      //赋值初始值
-      this.dateInp = value.slice(12, 17);
-       //更新模式，把日期+时间更新到updateData
+
+      // 北海在记录单那边同步数据,时间直接取点击的
+      if (
+        this.$route.path.includes("newSingleTemperatureChart") ||
+        this.$route.path.includes("temperature")
+      ) {
+        this.query.entryTime = temp.slice(12, 14);
+      }
       if (this.isUpdate) {
-        this.updateData.entryDate = temp.slice(0, 10);
+        this.updateData.entryDate = value.slice(0, 10);
         this.updateData.entryTime = value.slice(12, 20);
       }
     },
@@ -847,17 +949,19 @@ export default {
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        timeStr: this.query.entryTime,
+        timeStr: this.query.entryTime + ":00:00",
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
         if (res.data.data.length > 0) {
           /* 如果该时间点有记录 */
           res.data.data.map((v, idx) => {
-            this.vitalSignObj[v.vitalCode] = {
-              ...v,
-              popVisible: false,
-            };
+            this.vitalSignObj[v.vitalCode] = v;
+            if (v.vitalSigns === "表顶注释") {
+              this.timeVal = moment(
+                this.vitalSignObj[v.vitalCode].expand2
+              ).utc()._d;
+            }
           });
         } else {
           this.init();
@@ -872,23 +976,48 @@ export default {
         let otherDic = [];
         let data = [];
         let obj = [];
+        const babyType = [
+          "01",
+          "aurigo",
+          "funicle",
+          "breast",
+          "milk",
+          "033",
+          "3",
+        ]; //婴儿显示项目
+        if (this.isBaby) {
+          res.data.data.map((list) => {
+            if (babyType.includes(list.vitalCode))
+              babyDic[list.vitalSign] = list.vitalCode;
+            this.totalDictInfo[list.vitalSign] = {
+              ...list,
+              options: list.selectType ? list.selectType.split(",") : [],
+            };
+            data[list.vitalSign] = list.vitalCode;
+          });
+        } else {
         res.data.data.map((item, index) => {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
             options: item.selectType ? item.selectType.split(",") : [],
           };
+          //跟PDA护理事件共用一个字典表  PDA会保存这些字典 所以这里要区分一下
+          if(!['转入','死亡','手术','分娩','出生','请假','外出','出院'].includes(item.vitalSign)){
           data[item.vitalSign] = item.vitalCode;
+          }
           switch (item.signType) {
             case "base":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
               break;
             case "other":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               otherDic[item.vitalSign] = item.vitalCode;
               break;
             default:
               break;
           }
-          if (item.vitalSign.includes("自定义")) {
+          if (item.vitalSign.includes("自定义")||item.signType=='custom') {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
               patientId: this.patientInfo.patientId,
@@ -896,17 +1025,19 @@ export default {
               vitalCode: item.vitalCode,
               wardCode: this.patientInfo.wardCode,
               classCode: item.classCode,
+
             };
             this.fieldList = { ...obj };
           }
         });
+      }
         this.multiDictList = { ...data };
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
         this.init();
       });
     },
-    //右键删除记录
+    //右键更新记录
     async rightMouseDown(e, dateTime, recordPerson) {
       if (!this.isDisable()) {
         if (!this.isUpdate) {
@@ -918,7 +1049,7 @@ export default {
             .then(() => {
               this.isUpdate = !this.isUpdate;
               this.updateData.entryDate = dateTime.slice(0, 10);
-              this.updateData.entryTime = dateTime.slice(12, 20);
+              this.updateData.entryTime = dateTime.slice(12,20);
               this.updateData.updatePerson = recordPerson;
             })
             .catch(() => {});
@@ -927,8 +1058,8 @@ export default {
         }
       }
     },
-    /* 删除记录 */
-    async removeRecord(targetName, index) {
+        /* 删除记录 */
+        async removeRecord(targetName, index) {
       if (!this.isDisable()) {
         if (this.isUpdate) {
           deleteRecord({
@@ -985,7 +1116,7 @@ export default {
     updateTextInfo(key, label, autotext, index) {
       let checkValue = Object.values(this.fieldList) || [];
       let checkValueStr = checkValue.map((item) => item.fieldCn);
-      if (!this.isDisable()&& !this.isUpdate) {
+      if (!this.isDisable()) {
         //护理文书不允许修改
         window.openSetTextModalNew(
           (text) => {
@@ -998,25 +1129,20 @@ export default {
               recordDate:
                 moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
                 "  " +
-                this.query.entryTime,
+                this.query.entryTime +
+                ":00:00",
             };
-            let voildStr = text.trim();
             if (checkValueStr.includes(text)) {
               this.$message.error(`修改${label}失败!已存在${text}项目`);
-            } else if (
-              voildStr == null ||
-              voildStr == "" ||
-              voildStr == undefined
-            ) {
-              this.$message.error(`修改${label}失败!请输入自定义内容`);
             } else {
-              savefieldTitleNew(data).then((res) => {
+              savefieldTitle(data).then((res) => {
                 this.fieldList[index].fieldCn = text;
                 this.$message.success(`修改${label}成功`);
               });
             }
             // this.getList();
           },
+
           autotext,
           `修改${label}`
         );
@@ -1025,21 +1151,30 @@ export default {
     /* 录入体温单 */
     async saveVitalSign(value) {
       let obj = Object.values(value);
-      let recordDate =
-        moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-        "  " +
-        this.query.entryTime;
       let saveFlagArr = [];
       obj.map((item) => {
-        item.recordDate = recordDate;
+        item.recordDate =
+          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+          "  " +
+          this.query.entryTime +
+          ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
-            item.expand2 =
-              moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-              " " +
-              this.query.entryTime;
+            if (this.topExpandDate !== undefined) {
+              item.expand2 =
+                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+                " " +
+                this.topExpandDate; //表顶用录入日期+选择的时间来显示
+            } else {
+              item.expand2 =
+                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+                " " +
+                moment(this.nowTimeVal).format("HH:mm:ss"); //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
+            }
             break;
-
+          case "表底注释":
+            item.expand2 = this.bottomExpandDate;
+            break;
           default:
             break;
         }
@@ -1056,34 +1191,61 @@ export default {
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
-        timeStr: this.query.entryTime,
+        timeStr: this.query.entryTime + ":00:00",
         vitalSignList: obj,
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
       };
       if (saveFlagArr.includes(false)) {
-        this.$confirm("存在数值错误,请耐心检查!", "提示", {
-          showCancelButton:false,
+        this.$confirm("存在数值错误,请耐心检查!,点击确定保存", "提示", {
+          showCancelButton:true,
+          cancelButtonText: '取消',
             type: "error",
-          })
-      } else {
-              if (this.isUpdate) await this.removeRecord();
+          }).then(async()=>{
+            //不做保存限制  改为保存提醒
+            if (this.isUpdate) await this.removeRecord();
         await saveAll(data).then((res) => {
           if(this.isUpdate){
           this.$message.success("更新成功,双击记录返回录入界面！");
 
           }else{
           this.$message.success("保存成功");
-
           }
         });
-       await this.getList();
+        await this.getList();
+        this.bus.$emit("refreshImg");
+        setTimeout(() => {
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+        }, 1000);
+          })
+      }else{
+         //不做保存限制 验证通过直接保存
+        if (this.isUpdate) await this.removeRecord();
+        await saveAll(data).then((res) => {
+          if(this.isUpdate){
+          this.$message.success("更新成功,双击记录返回录入界面！");
+
+          }else{
+          this.$message.success("保存成功");
+          }
+        });
+        await this.getList();
         this.bus.$emit("refreshImg");
         setTimeout(() => {
         this.bus.$emit("dateChangePage", this.query.entryDate);
       }, 1000);
       }
     },
+    formatTopExpandDate(val) {
+      this.topExpandDate = val;
+    },
+    formatBtmExpandDate(val) {
+      this.bottomExpandDate = val;
+    },
+    formatCenterExpandDate(val) {
+      this.centerExpandDate = val;
+    },
+    //设置体温单是否可编辑
   },
   components: { nullBg },
 };
@@ -1105,16 +1267,15 @@ export default {
   }
 
   .column-right {
+    margin-top: 5px;
     display: inline-block;
-    margin-left: 15px;
-    height: 50px;
-    width:100%;
+    height: 70px;
     overflow: auto;
   }
 
   .row-top {
     background-color: #fff;
-    height: 47px;
+    height: 70px;
 
     .column-left {
       margin: 10px 45px 0px 0px;
@@ -1127,19 +1288,18 @@ export default {
 
     .showRecord {
       height: 100%;
+      display:flex;
 
       .record-list {
         height: 100%;
         background-color: #fff;
         border-radius: 0px 7px 7px 0px;
         margin: 5px 3px 0px 0px;
-        float: left;
         overflow: auto;
       }
-
-      .record-list::-webkit-scrollbar {
-        display: none;
-      }
+      .record-list::-webkit-scrollbar{
+    display: none;
+          }
 
       >div {
         .recordList {
@@ -1161,10 +1321,8 @@ export default {
       height: 1000px;
       margin-top: 5px;
     }
-
     .inputter-region {
-      width: 61%;
-      float: left;
+      width: 63%;
       border-radius: 5px 0px 0px 5px;
       margin: 5px 0px 0px 3px;
       overflow: scroll;
@@ -1191,21 +1349,20 @@ export default {
     >>>input {
       pointer-events: auto !important;
     }
-
-    >>>.el-input__inner {
+     >>>.el-input__inner {
       border-radius: 6px;
-      margin-left: 5px;
-      height: 28px;
+      margin-left:5px;
+      height:28px;
     }
   }
-    .save-btn-top {
-    width: 50px;
-    display: inline-block;
-  }
+
   .times {
     display: inline-block;
-    width: 100px;
-    margin: 7px 0px 0px 7px;
+    margin: 00px 0px 0px 3px;
+
+    .el-radio {
+      margin-left: 5px !important;
+    }
 
     .new-time-select {
       height: 29px;
@@ -1274,12 +1431,17 @@ export default {
   .fieldList {
     border-radius: 7px 0px 0px 7px;
   }
-
   .save-btn {
     position: relative;
     left: 30%;
     margin-top: 10px;
     width: 100px;
+  }
+  .save-btn-top {
+    position: relative;
+    margin-top: 10px;
+    left:10px;
+    width: 80px;
   }
 
   .inputter-region::-webkit-scrollbar {
@@ -1304,7 +1466,10 @@ export default {
     width: 100%;
     height: 10px;
   }
-
+  >>>.el-radio__inner {
+    height: 16px !important;
+    width: 16px !important;
+  }
   .clear {
     clear: both;
   }
