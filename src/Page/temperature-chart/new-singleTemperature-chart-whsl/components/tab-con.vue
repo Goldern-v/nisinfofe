@@ -88,6 +88,7 @@
         <div class="inputter-region" :style="contentHeight">
           <el-collapse v-model="activeNames" @change="handleChange">
             <div style="border-radius: 7px; overflow: hidden">
+              <div v-if="!isBaby">
               <el-collapse-item name="biometric">
                 <template slot="title">
                   <span class="title"> 体征信息 </span>
@@ -188,9 +189,10 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
+            </div>
               <div
                 class="context-box"
-                v-if="Object.keys(otherMultiDictList).length"
+                v-if="Object.keys(otherMultiDictList).length&& !isBaby"
               >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
@@ -293,6 +295,115 @@
                   <div class="bottom-box clear"></div>
                 </el-collapse-item>
               </div>
+            </div>
+            <div
+              class="context-box_first"
+              v-if="Object.keys(babyMultiDictList).length && isBaby"
+            >
+              <el-collapse-item name="otherBiometric">
+                <template slot="title">
+                  <span class="title"> 婴儿体征 </span>
+                  <i class="header-icon el-icon-info"></i>
+                </template>
+                <div
+                  :class="
+                    index.includes('自定义') ||
+                    index.includes('注释') ||
+                    index.includes('体温复测')
+                      ? 'rowItem_noShow'
+                      : (i - 1) % 2 === 0
+                      ? 'rowBoxRight'
+                      : 'rowBox'
+                  "
+                  class="otherPathological"
+                  v-for="(j, index, i) in babyMultiDictList"
+                  :key="index"
+                >
+                  <div class="rowItemText">
+                    <!--新生儿的大便次数 叫做粪便-->
+                    <span>{{ index == "尿量" ? "小便次数" : index }}</span>
+                  </div>
+                  <el-tooltip
+                    placement="top"
+                    popper-class="custom-temp-dict-select"
+                    :disabled="
+                      !(
+                        totalDictInfo[index].options &&
+                        totalDictInfo[index].options.length > 0
+                      )
+                    "
+                    :visible-arrow="false"
+                    :manual="true"
+                    :value="vitalSignObj[j].popVisible"
+                  >
+                    <input
+                      :id="i + 100"
+                      @keydown.enter.prevent="changeNext"
+                      :type="
+                        totalDictInfo[index].inputType === '2'
+                          ? 'number'
+                          : 'text'
+                      "
+                      :title="vitalSignObj[j].vitalValue"
+                      @input="
+                        () => {
+                          validFormFc(vitalSignObj[j], i + 100);
+                          handlePopRefresh(vitalSignObj[j]);
+                        }
+                      "
+                      @mousewheel="
+                        (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                      "
+                      @click="() => (vitalSignObj[j].popVisible = true)"
+                      @blur="() => (vitalSignObj[j].popVisible = false)"
+                      v-model="vitalSignObj[j].vitalValue"
+                    />
+                    <template v-slot:content>
+                      <div
+                        class="container"
+                        @click.prevent="
+                          () => {
+                            vitalSignObj[j].popVisible = false;
+                          }
+                        "
+                      >
+                        <template
+                          v-if="
+                            totalDictInfo[index].options &&
+                            getFilterSelections(
+                              totalDictInfo[index].options,
+                              vitalSignObj[j].vitalValue
+                            ).length > 0
+                          "
+                        >
+                          <div
+                            :key="selectionDictIdx"
+                            class="selection-dict-item"
+                            v-for="(
+                              option, selectionDictIdx
+                            ) in getFilterSelections(
+                              totalDictInfo[index].options,
+                              vitalSignObj[j].vitalValue
+                            )"
+                            @click.prevent="
+                              () =>
+                                (vitalSignObj[j].vitalValue =
+                                  vitalSignObj[j].vitalValue + option)
+                            "
+                          >
+                            {{ option }}
+                          </div>
+                        </template>
+                        <div v-else class="null-item">无匹配数据</div>
+                      </div>
+                    </template>
+                  </el-tooltip>
+                </div>
+                <div class="bottom-box clear"></div>
+              </el-collapse-item>
             </div>
             <!-- <div class="context-box" v-if="Object.keys(fieldList).length">
               <el-collapse-item name="fieldList">
@@ -576,7 +687,11 @@ export default {
       this.getList();
     });
   },
-  computed: {},
+  computed: {
+    isBaby(){
+      return this.patientInfo.patientId.includes('_')
+    }
+  },
   watch: {
     query: {
       handler(newName, oldName) {
@@ -861,6 +976,26 @@ export default {
         let otherDic = [];
         let data = [];
         let obj = [];
+        const babyType = [
+          "01",
+          "aurigo",
+          "funicle",
+          "breast",
+          "milk",
+          "033",
+          "3",
+        ]; //婴儿显示项目
+        if (this.isBaby) {
+          res.data.data.map((list) => {
+            if (babyType.includes(list.vitalCode))
+              babyDic[list.vitalSign] = list.vitalCode;
+            this.totalDictInfo[list.vitalSign] = {
+              ...list,
+              options: list.selectType ? list.selectType.split(",") : [],
+            };
+            data[list.vitalSign] = list.vitalCode;
+          });
+        } else {
         res.data.data.map((item, index) => {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
@@ -895,6 +1030,7 @@ export default {
             this.fieldList = { ...obj };
           }
         });
+      }
         this.multiDictList = { ...data };
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
