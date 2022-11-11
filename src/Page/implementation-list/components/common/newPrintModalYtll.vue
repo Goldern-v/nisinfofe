@@ -12,25 +12,26 @@
       <div class="new-modal-top">
         <div class="new-modal-top-left">
           <div class="new-modal-top-left-first">
-            <div>{{ currentBottle.name }}</div>
+            <!-- <div>{{ currentBottle.name }}</div> -->
             <div>
               {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
             </div>
+            <div>{{ currentBottle.name }}</div>
           </div>
           <div class="new-modal-top-left-second">
-            <div style="text-indent: 5px">{{ currentBottle.deptName }}</div>
+            <!-- <div style="text-indent: 5px">{{ currentBottle.deptName }}</div> -->
             <div>{{ currentBottle.patientId || "" }}</div>
-            <div>{{ currentBottle.sex || "" }}</div>
-            <div>{{ currentBottle.age }}</div>
+            <!-- <div>{{ currentBottle.sex || "" }}</div> -->
+            <!-- <div>{{ currentBottle.age }}</div> -->
           </div>
-          <div class="new-modal-top-left-second">
+          <!-- <div class="new-modal-top-left-second">
             <div style="text-indent: 5px">
               频次途径:{{ currentBottle.frequency }}
             </div>
             <div>
               {{ currentBottle.repeatIndicator | repeatIndicatorFilter }}
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="new-modal-top-right">
           <div class="new-modal-top-right-top">
@@ -50,9 +51,10 @@
         </div>
 
         <div class="new-modal-bottom-second">
-          {{ currentBottle.executeDate.substr(0, 16) }}
-          <!-- <div style="width: 20%">频次途径</div>
-          <div style="flex: 1">{{ currentBottle.frequency }}</div> -->
+          <span>{{ currentBottle.frequency }} {{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
+          <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
+          <!-- <div style="width: 20%">频次途径</div> -->
+          <!-- <div style="flex: 1">{{ currentBottle.frequency }}</div> -->
         </div>
       </div>
     </div>
@@ -100,6 +102,9 @@
 </template>
 <style lang='scss' scoped>
 .new-print-modal {
+  * {
+    font-family: SimHei !important;
+  }
   page-break-after: always;
   height: 100%;
   >>> * {
@@ -107,8 +112,10 @@
   }
   .new-modal-top {
     font-weight: 600;
+    display: flex;
+    overflow: hidden;
     div {
-      font-size: 13px;
+      font-size: 14px;
     }
     > div:first-child {
       border-right: 1px solid #000;
@@ -116,19 +123,18 @@
     .new-modal-top-left {
       display: inline-block;
       box-sizing: border-box;
-      width: calc(100% - 75px);
+      width: calc(100% - 72px);
       .new-modal-top-left-first {
-        /* display: flex;
-        justify-content: center; */
-        /* box-sizing: border-box; */
-        height: 29px;
+         display: flex;
+        justify-content: center;
+         box-sizing: border-box;
         // background-color: #000;
         border-bottom: 1px solid #000;
         & > div {
           white-space: nowrap;
           text-align: center;
-          line-height: 29px;
-          font-size: 25px;
+          line-height: 40px;
+          font-size: 26px;
           font-weight: 900;
         }
         div + div {
@@ -136,8 +142,8 @@
         }
       }
       .new-modal-top-left-second {
-        height: 19px;
-        line-height: 19px;
+        height: 24px;
+        line-height: 24px;
         /* display: flex; */
         /* justify-content: space-between; */
         border-bottom: 1px solid #000;
@@ -153,6 +159,8 @@
     .new-modal-top-right {
       width: 65px;
       display: inline-block;
+      margin-bottom: 1px;
+      margin-left: 1px;
       .new-modal-top-right-top {
         box-sizing: border-box;
         overflow: hidden;
@@ -180,15 +188,16 @@
       height: calc(100% - 22px);
       div {
         line-height: 18px;
-        font-size: 15px;
+        font-size: 14px;
       }
     }
     .new-modal-bottom-second {
       width: 100%;
-      /* font-size: 17px; */
+      font-size: 14px; 
       padding-right: 10px;
-      /* display: flex; */
-      text-align: right;
+      display: flex; 
+      // text-align: right;
+      justify-content: space-between;
       line-height: 20px;
       border-top: 1px solid #000;
       /* div:first-child {

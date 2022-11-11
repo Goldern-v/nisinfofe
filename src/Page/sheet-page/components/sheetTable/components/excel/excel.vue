@@ -518,6 +518,7 @@
             sheetInfo.sheetType === 'critical_new_lcey'||
             sheetInfo.sheetType === 'critical2_lcey' ||
             sheetInfo.sheetType === 'internal_eval_linyi' ||
+            sheetInfo.sheetType === 'ops_linyi' ||
             sheetInfo.sheetType === 'internal_eval_weihai' ||
             sheetInfo.sheetType === 'critical_linyi' ||
             sheetInfo.sheetType === 'baby_lcey'||
@@ -564,6 +565,8 @@
             sheetInfo.sheetType === 'prenataldelivery2_tj'||
             sheetInfo.sheetType === 'postpartum2_tj'||
             sheetInfo.sheetType === 'baby_tj'||
+            sheetInfo.sheetType == 'internal_eval_linyi' ||
+            sheetInfo.sheetType === 'ops_linyi' ||
             sheetInfo.sheetType === 'NICU_fs'||
             HOSPITAL_ID == 'fsxt'
           "
@@ -581,7 +584,6 @@
             sheetInfo.sheetType == 'critical_lcey'||
             sheetInfo.sheetType == 'critical_new_lcey'||
             sheetInfo.sheetType == 'critical2_lcey' ||
-            sheetInfo.sheetType == 'internal_eval_linyi' ||
             sheetInfo.sheetType == 'internal_eval_weihai' ||
             sheetInfo.sheetType == 'critical_linyi' ||
             sheetInfo.sheetType == 'baby_lcey'||
@@ -623,7 +625,6 @@
             sheetInfo.sheetType == 'critical_lcey'||
             sheetInfo.sheetType == 'critical_new_lcey'||
             sheetInfo.sheetType == 'critical2_lcey' ||
-            sheetInfo.sheetType == 'internal_eval_linyi' ||
             sheetInfo.sheetType == 'internal_eval_weihai' ||
             sheetInfo.sheetType == 'critical_linyi' ||
             sheetInfo.sheetType == 'baby_lcey'||
@@ -767,6 +768,7 @@ export default {
         'danger_nurse_jew',
         'baby_tj',
         'magnesiumsulphate_tj',//广东同江 - 硫酸镁注射液静脉滴注观察记录单
+        'ops_linyi',
         'NICU_fs', // 佛一 新生儿NICU护理记录单
       ],
       // 需要双签名的记录单code
@@ -972,7 +974,7 @@ export default {
         let confirmRes = '';
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           confirmRes = await this.$confirm(
-            " 体温的正常范围是35～42，你的填写超出正常录入范围,请重新填写",
+            " 体温的填写范围是35～42，你的填写超出录入范围,请重新填写",
             "错误",
             {
               confirmButtonText: "确定",
@@ -984,7 +986,7 @@ export default {
         }
         if((td.key === 'pulse'||td.key === 'heartRate'||td.key === 'fetalRate')&&td.value !== ''&&(isNaN(td.value)||td.value<30||td.value>300)){
           confirmRes = await this.$confirm(
-            td.name+ "的正常范围是30～300，你的填写超出正常录入范围,是否确定填写?",
+            td.name+ "的填写范围是30～300，你的填写超出录入范围,是否确定填写?",
             "提示",
             {
               confirmButtonText: "确定",
@@ -998,7 +1000,7 @@ export default {
         }
         if((td.key === 'spo2')&&td.value !== ''&&(isNaN(td.value)||td.value<50||td.value>100)){
           confirmRes = await this.$confirm(
-            td.name+ "的正常范围是50～100，你的填写超出正常录入范围,是否确定填写?",
+            td.name+ "的填写范围是50～100，你的填写超出录入范围,是否确定填写?",
             "提示",
             {
               confirmButtonText: "确定",
@@ -1012,7 +1014,7 @@ export default {
         }
         if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1] ||td.value.split('/')[0]>150||td.value.split('/')[1]>300)){
           confirmRes = await this.$confirm(
-            td.name+ "的收缩压的正常范围<=300,舒张压的正常范围<=150，你的填写超出正常录入范围,是否确定填写?",
+            td.name+ "的收缩压的填写范围<=300,舒张压的填写范围<=150，你的填写超出录入范围,是否确定填写?",
             "提示",
             {
               confirmButtonText: "确定",
@@ -2385,7 +2387,6 @@ export default {
       window.openContextMenu({ style, data });
     },
     openEditModal(tr, data, e) {
-      console.log("jinlai111")
       // 花都副页关闭编辑框
       if(this.sheetInfo.sheetType=='additional_count_hd'){
         return
@@ -2570,7 +2571,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','internal_eval_yz']
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','ops_linyi','internal_eval_yz']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =

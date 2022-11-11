@@ -100,7 +100,6 @@ methods: {
         });
     },
     leftTablelist(val){
-        console.log('1111');
         this.$emit('leftTablelist',val)
     },
     handleClose(){

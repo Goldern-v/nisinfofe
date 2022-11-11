@@ -8,9 +8,9 @@
         <!-- <el-button type="primary" @click="openDetailChat()">曲线详情</el-button> -->
       </el-button-group>
       <!-- <div class="newBorn">
-        <div @click="nomalModel()" class="nomal">默认体温单</div>
+        <div @click="nomalModel()" class="nomal">成人版</div>
         /
-        <div @click="changeModel()" class="painNomal">疼痛版本</div>
+        <div @click="changeModel()" class="painNomal">儿童版</div>
       </div> -->
       <div :class="rightSheet===true?'pagination':'paginationRight'">
         <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">

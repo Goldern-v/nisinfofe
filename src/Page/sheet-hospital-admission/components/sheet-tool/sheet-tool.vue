@@ -1449,7 +1449,6 @@ export default {
       this.dialogTableVisible = true;
     },
     leftTablelist(val) {
-      this.thisRowData = this;
       this.thisRowData = val;
       this.dialogTableVisible = false;
       window.formObj.model.I100001 = val.axillaryTemperature;
@@ -1475,9 +1474,6 @@ export default {
           this.$root.$refs["sheetPage"].fillForm();
           this.bus.$emit("setHosptialAdmissionLoading", false);
         });
-    },
-    getFilterData() {
-      this.$emit("getFilterData", this.searchData);
     },
   },
   computed: {
