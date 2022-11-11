@@ -356,7 +356,7 @@ export default {
 .pagination {
   display: inline;
   position: relative;
-  left: -8%;
+  left: 13%;
   font-weight: normal;
 }
 .paginationRight{

@@ -258,7 +258,7 @@
     </div>
     <div
       class="search-btn2"
-      v-if="data.status === '2' && ['liaocheng', 'foshanrenyi','gdtj'].includes(HOSPITAL_ID)"
+      v-if="data.status === '2' && ['liaocheng', 'foshanrenyi','gdtj', 'lyyz'].includes(HOSPITAL_ID)"
       @click="throttleSyncDischargedPatient"
       v-touch-ripple
       >同步出院患者</div
@@ -412,7 +412,8 @@ export default {
         "nanfangzhongxiyi",
         "foshanrenyi",
         'gdtj',
-        'whsl'
+        'whsl',
+        'lyyz'
       ].includes(this.HOSPITAL_ID);
     },
   },

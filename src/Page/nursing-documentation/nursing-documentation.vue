@@ -309,7 +309,8 @@ export default {
         "nanfangzhongxiyi",
         "foshanrenyi",
         'gdtj',
-        'whsl'
+        'whsl',
+        'lyyz'
       ].includes(this.HOSPITAL_ID);
     },
     //是否为新出院数据
