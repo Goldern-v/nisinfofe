@@ -551,7 +551,7 @@ export default {
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
       bottomIndex: [],
-      dateInp: moment().format("HH:mm"),
+      dateInp: this.getTimeInit(),
       bottomContextList: [""],
       contentHeight: { height: "" }, //页面高度
       topExpandDate: "",
@@ -604,6 +604,27 @@ async mounted() {
     },
   },
   methods: {
+    getTimeInit(){
+      const nowTime = Number(moment().format("HH"))
+      if (nowTime >= 0 && nowTime <= 3) {
+        return "03:00";
+      }
+      if (nowTime > 3 && nowTime <= 7) {
+        return "07:00";
+      }
+      if (nowTime > 7 && nowTime <= 11) {
+        return "11:00";
+      }
+      if (nowTime > 11 && nowTime <= 15) {
+        return "15:00";
+      }
+      if (nowTime > 15 && nowTime <= 19) {
+        return "19:00";
+      }
+      if (nowTime > 19 && nowTime <= 23) {
+        return "23:00";
+      }
+    },
     handleChange(val) {
       // console.log(val);
     },
