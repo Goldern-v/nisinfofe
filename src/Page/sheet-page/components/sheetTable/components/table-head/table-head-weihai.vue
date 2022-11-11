@@ -45,15 +45,19 @@
         性别：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
       </span>
-      <span @click="updateNeonatology2Age" v-if="sheetInfo.sheetType == 'neonatology2'">
-        年龄：
-        <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
-      </span>
-      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-else>
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
         年龄：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
       </span>
-
+      <span v-if="sheetInfo.sheetType === 'post_partum_weihai'">
+        孕周：
+        <input
+          style="width: 60px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj[`yunzhou`]"
+          v-model="sheetInfo.relObj[`yunzhou`]"
+        />
+      </span>
       <span>
         科室：
         <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
