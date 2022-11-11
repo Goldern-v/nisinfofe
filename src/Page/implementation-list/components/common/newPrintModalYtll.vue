@@ -52,7 +52,7 @@
 
         <div class="new-modal-bottom-second">
           <span>{{ currentBottle.frequency }} {{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
-          {{ currentBottle.executeDate.substr(0, 16) }}
+          <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
           <!-- <div style="width: 20%">频次途径</div> -->
           <!-- <div style="flex: 1">{{ currentBottle.frequency }}</div> -->
         </div>
@@ -102,14 +102,18 @@
 </template>
 <style lang='scss' scoped>
 .new-print-modal {
+  * {
+    font-family: SimHei !important;
+  }
   page-break-after: always;
-  font-family: SimHei !important;
   height: 100%;
   >>> * {
     font-size: 12px;
   }
   .new-modal-top {
     font-weight: 600;
+    display: flex;
+    overflow: hidden;
     div {
       font-size: 14px;
     }
@@ -119,18 +123,17 @@
     .new-modal-top-left {
       display: inline-block;
       box-sizing: border-box;
-      width: calc(100% - 75px);
+      width: calc(100% - 72px);
       .new-modal-top-left-first {
          display: flex;
         justify-content: center;
          box-sizing: border-box;
-        height: 29px;
         // background-color: #000;
         border-bottom: 1px solid #000;
         & > div {
           white-space: nowrap;
           text-align: center;
-          line-height: 29px;
+          line-height: 40px;
           font-size: 26px;
           font-weight: 900;
         }
@@ -139,8 +142,8 @@
         }
       }
       .new-modal-top-left-second {
-        height: 22px;
-        line-height: 22px;
+        height: 24px;
+        line-height: 24px;
         /* display: flex; */
         /* justify-content: space-between; */
         border-bottom: 1px solid #000;
@@ -156,6 +159,8 @@
     .new-modal-top-right {
       width: 65px;
       display: inline-block;
+      margin-bottom: 1px;
+      margin-left: 1px;
       .new-modal-top-right-top {
         box-sizing: border-box;
         overflow: hidden;
@@ -183,7 +188,7 @@
       height: calc(100% - 22px);
       div {
         line-height: 18px;
-        font-size: 15px;
+        font-size: 14px;
       }
     }
     .new-modal-bottom-second {
