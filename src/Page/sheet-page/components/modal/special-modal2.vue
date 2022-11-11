@@ -1466,7 +1466,7 @@ export default {
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ''
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'gdtj', 'zhzxy'].includes(this.HOSPITAL_ID)) {
         const itemListTime = config.recordDate ||
           record[0].find((item) => item.key == "recordDate").value
         if(!itemListTime){
@@ -1990,7 +1990,7 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType === "internal_eval_lcey" ||
-              this.sheetInfo.sheetType === "internal_eval_linyi" 
+              this.sheetInfo.sheetType === "internal_eval_linyi"
             ) {
               if (GetLength(text) > 98) {
                 result.push(text);
@@ -2086,7 +2086,7 @@ export default {
               this.sheetInfo.sheetType === "ophthalmology_bh" ||
               this.sheetInfo.sheetType === "observation_bh" ||
               this.sheetInfo.sheetType === "maternal_lcey"||
-              this.sheetInfo.sheetType == "obstetrics_qhwy" 
+              this.sheetInfo.sheetType == "obstetrics_qhwy"
             ) {
               if (GetLength(text) > 26) {
                 result.push(text);

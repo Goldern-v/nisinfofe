@@ -12,25 +12,26 @@
       <div class="new-modal-top">
         <div class="new-modal-top-left">
           <div class="new-modal-top-left-first">
-            <div>{{ currentBottle.name }}</div>
+            <!-- <div>{{ currentBottle.name }}</div> -->
             <div>
               {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
             </div>
+            <div>{{ currentBottle.name }}</div>
           </div>
           <div class="new-modal-top-left-second">
-            <div style="text-indent: 5px">{{ currentBottle.deptName }}</div>
+            <!-- <div style="text-indent: 5px">{{ currentBottle.deptName }}</div> -->
             <div>{{ currentBottle.patientId || "" }}</div>
-            <div>{{ currentBottle.sex || "" }}</div>
-            <div>{{ currentBottle.age }}</div>
+            <!-- <div>{{ currentBottle.sex || "" }}</div> -->
+            <!-- <div>{{ currentBottle.age }}</div> -->
           </div>
-          <div class="new-modal-top-left-second">
+          <!-- <div class="new-modal-top-left-second">
             <div style="text-indent: 5px">
               频次途径:{{ currentBottle.frequency }}
             </div>
             <div>
               {{ currentBottle.repeatIndicator | repeatIndicatorFilter }}
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="new-modal-top-right">
           <div class="new-modal-top-right-top">
@@ -50,9 +51,10 @@
         </div>
 
         <div class="new-modal-bottom-second">
+          <span>{{ currentBottle.frequency }} {{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
           {{ currentBottle.executeDate.substr(0, 16) }}
-          <!-- <div style="width: 20%">频次途径</div>
-          <div style="flex: 1">{{ currentBottle.frequency }}</div> -->
+          <!-- <div style="width: 20%">频次途径</div> -->
+          <!-- <div style="flex: 1">{{ currentBottle.frequency }}</div> -->
         </div>
       </div>
     </div>
@@ -101,6 +103,7 @@
 <style lang='scss' scoped>
 .new-print-modal {
   page-break-after: always;
+  font-family: SimHei !important;
   height: 100%;
   >>> * {
     font-size: 12px;
@@ -108,7 +111,7 @@
   .new-modal-top {
     font-weight: 600;
     div {
-      font-size: 13px;
+      font-size: 14px;
     }
     > div:first-child {
       border-right: 1px solid #000;
@@ -118,9 +121,9 @@
       box-sizing: border-box;
       width: calc(100% - 75px);
       .new-modal-top-left-first {
-        /* display: flex;
-        justify-content: center; */
-        /* box-sizing: border-box; */
+         display: flex;
+        justify-content: center;
+         box-sizing: border-box;
         height: 29px;
         // background-color: #000;
         border-bottom: 1px solid #000;
@@ -128,7 +131,7 @@
           white-space: nowrap;
           text-align: center;
           line-height: 29px;
-          font-size: 25px;
+          font-size: 26px;
           font-weight: 900;
         }
         div + div {
@@ -136,8 +139,8 @@
         }
       }
       .new-modal-top-left-second {
-        height: 19px;
-        line-height: 19px;
+        height: 22px;
+        line-height: 22px;
         /* display: flex; */
         /* justify-content: space-between; */
         border-bottom: 1px solid #000;
@@ -185,10 +188,11 @@
     }
     .new-modal-bottom-second {
       width: 100%;
-      /* font-size: 17px; */
+      font-size: 14px; 
       padding-right: 10px;
-      /* display: flex; */
-      text-align: right;
+      display: flex; 
+      // text-align: right;
+      justify-content: space-between;
       line-height: 20px;
       border-top: 1px solid #000;
       /* div:first-child {

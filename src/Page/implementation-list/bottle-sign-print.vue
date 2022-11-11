@@ -327,8 +327,8 @@
 }
 </style>
 <script>
-import modal from "./modal/modal.vue";
-import dTable from "./components/table/bottle-sign-print-table.vue";
+import modal from "./modal/modal";
+import dTable from "./components/table/bottle-sign-print-table";
 import pagination from "./components/common/pagination";
 import NewPrintModal from "./components/common/newPrintModal";
 import NewPrintModalSdlj from "./components/common/newPrintModalSdlj";
@@ -940,11 +940,14 @@ export default {
           </style>`; //设置打印样式
           var strFormHtml =
             strBodyStyle +
-            "<body style='wdith:8cm;'>" +
+            "<body>" +
             document.getElementById("new-print-box").innerHTML +
             "</body>"; //获取打印内容
           LODOP.PRINT_INIT(""); //初始化
-          LODOP.SET_PRINT_PAGESIZE(1,600,800,"")
+          const [h, w] = this.newModalSize.split('*')
+          LODOP.SET_PRINT_PAGESIZE(1,w*100, h*100,"")
+          // 指定打印机
+          // LODOP.SET_PRINTER_INDEX("Microsoft XPS Document Writer")
           // LODOP.SET_PRINT_PAGESIZE(0, 0, 0, "A4"); //设置横向
           // LODOP.SET_PRINT_PAGESIZE(3, 0, 0, "CreateCustomPage"); //设置横向
           LODOP.ADD_PRINT_HTM("0%", "0%", "100%", "100%", strFormHtml); //设置打印内容

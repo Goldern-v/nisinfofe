@@ -62,14 +62,14 @@ export default {
     },
     getTreeData() {
       this.treeLoading = true;
-      if(this.HOSPITAL_ID != "beihairenyi"){  
+      if(this.HOSPITAL_ID != "beihairenyi"){
         if(this.HOSPITAL_ID == "hj"){
           Promise.all([getDoctorEmr2(this.$route.query.patientId, this.$route.query.visitId)]).then(res2=>{
             let regions = [];
             const data = res2[0].data.data
             console.log("res",data)
             for (let i = 0; i < data.length; i++) {
-              regions.push({ 
+              regions.push({
                 label: data[i].emrName,
                 content:data[i].content
               })
@@ -111,9 +111,9 @@ export default {
                 });
               }
             }
-  
+
             // debugger;
-  
+
             this.regions = regions;
           })
           .then(res => {
@@ -121,7 +121,7 @@ export default {
           });
         }
       }
-      
+
     },
     nodeClick(data, node) {
       console.log(data,node, "node");
@@ -130,6 +130,7 @@ export default {
         let content = data.content
         this.bus.$emit("openContent", content);
       }else if(node.level === 2){
+        console.log(node.data.fileUrl, 'node.data.fileUrl' );
         let fileUrl = node.data.fileUrl;
         this.bus.$emit("openDoctorEmr", fileUrl);
       }
