@@ -624,6 +624,7 @@ export default {
       multiDictList: {}, //全部的字典信息，生成保存的数组用
       baseMultiDictList: {}, //基本体征信息
       otherMultiDictList: {}, //其他体征信息
+      babyMultiDictList: {}, //新生儿体征信息
       contentHeight: { height: "" }, //页面高度
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
@@ -689,7 +690,7 @@ export default {
   },
   computed: {
     isBaby(){
-      return this.patientInfo.patientId.includes('_')
+      return this.patientInfo.patientId &&this.patientInfo.patientId.includes('_')
     }
   },
   watch: {
@@ -974,6 +975,7 @@ export default {
       await getmultiDict(wardCode).then((res) => {
         let baseDic = [];
         let otherDic = [];
+        const babyDic = []
         let data = [];
         let obj = [];
         const babyType = [
@@ -1034,6 +1036,7 @@ export default {
         this.multiDictList = { ...data };
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
+        this.babyMultiDictList = {...babyDic}
         this.init();
       });
     },
