@@ -41,6 +41,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .markTip
+  z-index 99999
   position fixed
   width 240px
   border-top 4px solid #D0C44F

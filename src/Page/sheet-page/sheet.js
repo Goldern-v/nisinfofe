@@ -165,7 +165,7 @@ export function delSheetPage(index, callback) {
       }
     }
     // 佛医护记单除特殊情况以及同一记录的第一条其余填写保存后锁定
-    if (process.env.HOSPITAL_ID === "foshanrenyi") {
+    if (process.env.HOSPITAL_ID === "foshanrenyi") { 
       // 如果审核完，canModify = false 全部禁用
       if (
         listData[nowX] &&
@@ -191,6 +191,15 @@ export function delSheetPage(index, callback) {
       listData &&
       listData[nowX] &&
       listData[nowX].status == 2 &&
+      !listData[nowX].canModify
+    ) {
+      return true;
+    }
+    if (
+      process.env.HOSPITAL_ID === "gdtj" &&
+      listData &&
+      listData[nowX] &&
+      listData[nowX].status == 1 &&
       !listData[nowX].canModify
     ) {
       return true;

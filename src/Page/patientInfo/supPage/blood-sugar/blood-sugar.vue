@@ -33,7 +33,7 @@
           </div>
           <div
             class="sup-title"
-            v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院'"
+            v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院' || HOSPITAL_ID === 'lyyz'"
           >
             血糖测量记录单
           </div>
@@ -264,6 +264,7 @@
     <setPageModal ref="setPageModal" />
   </div>
 </template>
+
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .blood-sugar-con {
@@ -514,7 +515,6 @@ export default {
   },
   computed: {
     patientInfo() {
-      console.log('this.$route.query', this.$route.query)
       return this.$route.query;
     },
     containHeight() {
@@ -687,7 +687,7 @@ if(this.selected.expand2!==undefined){
         const fromParams = {
           patientId:this.patientInfo.patientId,
           visitId:this.patientInfo.visitId,
-          formId:this.patientInfo.formId,
+          // formId:this.patientInfo.formId,
           formType: "sugar",
           formCode: "procedure",
           formName:'血糖监测单',
@@ -696,7 +696,7 @@ if(this.selected.expand2!==undefined){
         if (process.env.NODE_ENV === "production") {
           let newWid = window.open();
           if(this.HOSPITAL_ID === 'whfk'){
-            newWid.location.href = `/crNursing/print/sugar?patientId=${this.patientInfo.patientId}&visitId=${this.patientInfo.visitId}&formId=${this.patientInfo.formId}&formType=${"sugar"}&formCode=${"procedure"}&formName=${'血糖监测单'}`; 
+            newWid.location.href = `/crNursing/print/sugar?patientId=${this.patientInfo.patientId}&visitId=${this.patientInfo.visitId}&formType=${"sugar"}&formCode=${"procedure"}&formName=${'血糖监测单'}`; 
           }else{
             newWid.location.href = "/crNursing/print/sugar";
           }
@@ -775,7 +775,6 @@ if(this.selected.expand2!==undefined){
       item.bedLabel = this.patientInfo.bedLabel;
       item.wardCode = this.patientInfo.wardCode;
       (item.nurseEmpNo = this.empNo || ""), //护士工号
-        console.log(item, "xiaog");
       await saveSugarList([item])
       this.load();
       this.$refs.editModal.close();
@@ -785,7 +784,6 @@ if(this.selected.expand2!==undefined){
     async onSaveAge(item) {
       item.patientId = this.patientInfo.patientId;
       item.visitId = this.patientInfo.visitId;
-      console.log("item", item.age);
       let itemValue = item.age;
       let itemMap = [
         {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="content">
-      <el-row v-loading="isSaving"  style="height: 100%" >
+      <el-row v-loading="pending"  style="height: 100%" >
        <div class="left-part">
         <el-row class="header inspect-header" type="flex" align="middle">
           <div>
@@ -46,7 +46,8 @@
           >
             <el-checkbox :label="(index)" class="fscheckBox" ><br/></el-checkbox>
             <div class="title">{{ item.examItem }}</div>
-            <div class="aside">{{ item.reqDate }}</div>
+            <div class="aside" v-if="['foshanrenyi'].includes(HOSPITAL_ID)">{{ item.examResult&&item.examResult.reportDateTime||'未出报告'  }}</div>
+            <div class="aside" v-else>{{ item.reqDate }}</div>
             <div class="result">
               <span
                 v-if="item.resultStatus.indexOf('申请') == -1"
@@ -69,7 +70,10 @@
       </div>
       <div class="right-part">
         <!-- <inspectFormFuyou v-show="rightData.examNo" ref="inspectForm" v-if="HOSPITAL_ID=='fuyou'"></inspectFormFuyou> -->
-        <inspectForm v-show="rightData.examNo" ref="inspectForm" ></inspectForm>
+        <!--佛一检查报告-->
+        <inspectFormFSRY v-if="['foshanrenyi'].includes(HOSPITAL_ID)" v-show="rightData.examNo" ref="inspectForm" ></inspectFormFSRY>
+        <inspectForm v-else v-show="rightData.examNo" ref="inspectForm" ></inspectForm>
+
       </div>
       </el-row>
       </div>
@@ -193,9 +197,9 @@
 
 <script>
 import inspectForm from "./component/inspectForm";
+import inspectFormFSRY from "./component/inspectFormFSRY";
 // import inspectFormFuyou from "./component/inspectForm_fuyou";
 import { examList, getExamList } from "@/api/patientInfo";
-import { examResult } from "@/api/patientInfo";
 import bus from "vue-happy-bus";
 export default {
   data() {
@@ -223,7 +227,7 @@ export default {
       visitList: [],
       visitId: "",
       checkList:[],
-      isSaving:false,
+      pending:false,
       bus: bus(this),
     };
   },
@@ -270,66 +274,46 @@ export default {
   },
   methods: {
     async writeDescription(){
-      this.isSaving=true
+      this.pending=true
       let str=''
       for(var i=0;i<this.checkList.length;i++){
+        let Date = '日期'
         let projectStr='检查项目:'
         let seeStr='检查所见:'
         let impressionStr='印象:'
-        let nowItem=this.listByFilter[this.checkList[i]]
-        if (nowItem.examNo !== "") {
-            const res=await  examResult(nowItem.examNo)
-            // 如果res.data.data==null跳出
-            if(res.data.data==null){
-              continue
-            }
-            // 接口返回数据回头\n所以都清理
-            const clearseeStr=res.data.data.description.replace(/[\n]/g, '')
-            seeStr=`${seeStr}${clearseeStr}`
-        }
-        const clearprojectStr=this.listByFilter[this.checkList[i]].examItem.replace(/[\n]/g, '')
-        projectStr=`${projectStr}${clearprojectStr}`
-        const clearimpressionStr=this.listByFilter[this.checkList[i]].impression.replace(/[\n]/g, '')
-        impressionStr=`${impressionStr}${clearimpressionStr}`
-        str += str ? '\n' : '' 
-        str += projectStr + '\n' + seeStr + '\n' + impressionStr
+        let nowItem = this.listByFilter[this.checkList[i]]
+        const projectDate = `${Date}:${(nowItem.examResult&&nowItem.examResult.reportDateTime)||'未出报告'}`
+        const clearseeStr = nowItem.examResult.description.replace(/[\n]/g, '')
+        seeStr = `${seeStr}${clearseeStr}`
+        const clearprojectStr = nowItem.examItem.replace(/[\n]/g, '')
+        projectStr = `${projectStr}${clearprojectStr}`
+        const clearimpressionStr = nowItem.examResult.impression.replace(/[\n]/g, '')
+        impressionStr = `${impressionStr}${clearimpressionStr}`
+        str += str ? '\n' : ''
+        str +=projectDate + '\n' + projectStr + '\n' + seeStr + '\n' + impressionStr
       }
-      this.isSaving=false
+      this.pending=false
       this.$emit('closeSweet')
       this.bus.$emit("openclosePatientInfo",'',true)
-      // const str=projectStr+'\n'+seeStr+'\n'+impressionStr
       this.bus.$emit('syncReportFSSY',str)
     },
     toRight(data) {
-      // console.log(data);
       if (!data) return;
       this.rightData = data;
       this.$nextTick(() => {
         this.$refs.inspectForm.open(data);
       })
-      // if (data.resultStatus != "已出报告") {
-      //   return this.$refs.inspectForm.open(null);
-      // } else {
-      //   return this.$refs.inspectForm.open(data);
-      // }
     },
     getData() {
-      // if (['guizhou'].includes(process.env.HOSPITAL_ID)) {
-      //   getExamList(
-      //     this.infoData.patientId,
-      //     this.visitId == "门诊" ? 0 : this.visitId
-      //   ).then(res => {
-      //     this.list = res.data.data;
-      //     // this.toRight(this.list[0]);
-      //   })
-      //   return
-      // }
       examList(
         this.infoData.patientId,
         this.visitId == "门诊" ? 0 : this.visitId
       ).then((res) => {
+        if(res.data){
         this.list = res.data.data;
         this.toRight(this.list[0]);
+        }
+        this.pending=false
       });
     },
   },
@@ -340,7 +324,7 @@ export default {
   },
   components: {
     inspectForm,
-    // inspectFormFuyou
+    inspectFormFSRY
   },
 };
 </script>

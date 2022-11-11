@@ -53,7 +53,7 @@ export default [
     next: "℃",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 27
+      width: 38
     },
   },
   {
@@ -101,7 +101,7 @@ export default [
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 50
+      width: 55
     },
     name: "血压",
     next: "mmHg"

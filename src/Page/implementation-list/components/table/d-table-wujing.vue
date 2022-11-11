@@ -12,7 +12,9 @@
       ref="retest"
       @selection-change="handleSelectionChange"
     >
-      <u-table-column type="selection" width="55"></u-table-column>
+      <u-table-column width="50" v-if="HOSPITAL_ID === 'hengli'" type="index" label="序号" />
+      <u-table-column type="selection" width="55" align="center"></u-table-column>
+
       <u-table-column prop="executeDateTime" label="计划执行时间" min-width="140px" align="center" >
         <template slot-scope="scope" :title="(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm">
           <span :title="(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm">{{(scope.row.rowType == 1 || !scope.row.rowType) ? (scope.row.executeDateTime) : '' | ymdhm}}</span>

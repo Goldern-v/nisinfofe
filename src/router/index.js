@@ -271,6 +271,8 @@ const newSingleTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-gdtj/new-singleTemperature-chart.vue");//同江新版体温单单人录入
   const newSingleTemperatureChartZHZXY = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-zhzxy/new-singleTemperature-chart.vue");//珠海中西医新版体温单单人录入
+  const newSingleTemperatureChartYTLL = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-ytll/new-singleTemperature-chart.vue");//烟台玲珑新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -331,11 +333,13 @@ import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureWHYX from "@/Page/patientInfo/supPage/temperature/temperature-whyx";
 import temperatureGDTJ from "@/Page/patientInfo/supPage/temperature/temperature-gdtj";
 import temperatureZHZYX from "@/Page/patientInfo/supPage/temperature/temperature-zhzxy";
+import temperatureYTLL from "@/Page/patientInfo/supPage/temperature/temperature-ytll";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import oxygenSugar from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar.vue"; // 厚街
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
 import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; // 杏坛
 import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_foshanrenyi.vue"; // 佛医
+import bloodSugarGdtj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_gdtj.vue"; // 同江
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
 import bloodSugarBeiHaiRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue";//北海
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue";
@@ -355,8 +359,7 @@ import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
 // 导管监测单
 import catheterPage from "@/Page/catheter-page/catheter-page.vue";
-import ocxObject from "@/Page/patientInfo/supComponts/modal/ocxObject";
-
+const ocxObject =()=>import("@/Page/patientInfo/supComponts/modal/ocxObject")
 //患者360视图，目前只有花都在用
 const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.vue"); //360视图
 
@@ -385,7 +388,6 @@ const statisticalBreath = () => import("@/Page/statistical-query/statistical-bre
 const statisticalExitAdmission = () => import("@/Page/statistical-query/statistical-exitAdmission/index.vue")
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
 const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
-
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 // 执行单路由
@@ -543,7 +545,6 @@ const router = new Router({
             return temperatureWHFK
           case 'lyxrm':
           case 'whhk':
-          case 'ytll':
             return temperatureLYXRM
           case 'whsl':
               return temperatureWHSL
@@ -560,6 +561,8 @@ const router = new Router({
               return temperatureGDTJ
           case 'zhzxy':
               return temperatureZHZYX
+          case 'ytll':
+              return temperatureYTLL
           default:
             return temperature
         }
@@ -588,6 +591,10 @@ const router = new Router({
     path: "/nursingTemperature",
     component: nursingTemperaturejmfy
   },
+    {
+      path: "/ocxObject",
+      component: ocxObject
+    },
   {
     path:"/admissionHisView/:patientId?/:visitId?/:formId?",
       name: "admissionHisView",
@@ -777,7 +784,7 @@ const router = new Router({
             // case 'lyxrm':
             // case 'gdtj':
             // case 'ytll':
-            // case 'lyyz':
+            case 'lyyz':
             // case 'qhwy':
               return shiftWorkLiaocheng
             case 'beihairenyi':
@@ -806,6 +813,7 @@ const router = new Router({
               case 'fuyou':
                 return shiftWorkDetailFy
               case 'liaocheng':
+              case 'lyyz':
               // case 'zhongshanqi':
               // case 'foshanrenyi':
               // case 'whyx':
@@ -984,7 +992,6 @@ const router = new Router({
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
-              case '925':
                 return testGuizhou
               default:
                 return test
@@ -1018,10 +1025,6 @@ const router = new Router({
           path: "/otherPage",
           component: otherPage
         },
-          {
-            path: "/ocxObject",
-            component: ocxObject
-          },
         // {
         //   path: "/home1",
         //   component: home1
@@ -1075,7 +1078,6 @@ const router = new Router({
               case 'qhwy':
                 return temperatureDGXG
               case 'lyxrm':
-              case 'ytll':
               case 'whhk':
                 return temperatureLYXRM
               case 'whsl':
@@ -1093,6 +1095,8 @@ const router = new Router({
                   return temperatureGDTJ
               case 'zhzxy':
                   return temperatureZHZYX
+              case 'ytll':
+                return temperatureYTLL
               default:
                 return temperature
             }
@@ -1154,6 +1158,8 @@ const router = new Router({
                 return bloodSugarBeiHaiRenYi
               case 'fsxt':
                 return bloodSugarFsxt
+                case 'gdtj':
+                return bloodSugarGdtj
               case 'foshanrenyi':
               case 'zhzxy':
                 return bloodSugarFoShanRenYi
@@ -1526,7 +1532,6 @@ const router = new Router({
             case "whfk":
               return newSingleTemperatureChartWHFK;
             case "lyxrm":
-            case "ytll":
             case "hj":
             case 'whhk':
               return newSingleTemperatureChartLYXRM;
@@ -1545,6 +1550,8 @@ const router = new Router({
               return newSingleTemperatureChartGDTJ
             case "zhzxy":
               return newSingleTemperatureChartZHZXY
+            case "ytll":
+              return newSingleTemperatureChartYTLL
             default:
               return newSingleTemperatureChart;
           }

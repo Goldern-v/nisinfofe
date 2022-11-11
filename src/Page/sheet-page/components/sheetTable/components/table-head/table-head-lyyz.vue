@@ -2,7 +2,42 @@
   <div class="header-con">
     <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
     <div class="title">{{patientInfo.recordName}}</div>
-    <div class="info-con" flex="main:justify">
+    <template  v-if="sheetInfo.sheetType=='internal_eval_yz'">
+      <div>
+        <div class="info-con" flex="main:justify">
+          <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
+            病人姓名：
+           <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
+          </span>
+          <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
+            性别：
+           <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
+          </span>
+          <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" >
+            年龄：
+           <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
+          </span>
+         <span>
+           科室：
+            <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+          </span>
+          <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+            床号：
+            <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+          </span>
+         <span>
+            住院号/ID号：
+            <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+         </span>
+         <span>
+           入院日期：
+            {{patientInfo.admissionDate | toymd}}
+         </span>
+       </div>
+      </div>
+    </template>
+    <template v-else>
+       <div class="info-con" flex="main:justify">
       <span @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)">
         姓名：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
@@ -27,29 +62,15 @@
         住院号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
-      <!-- <span>
-        ID号：
-        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
-      </span> -->
-      <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
-        温箱编号：
-        <input
-          class="bottom-line"
-          style="width: 30px"
-          @focus="onFocusToAutoComplete($event)"
-          @blur="onBlurToAutoComplete"
-          v-model="relObj.wxNo"
-        />
-      </span>-->
-      <!-- <span>
+      <span  v-if="sheetInfo.sheetType!='custody_yz'&& sheetInfo.sheetType!='baby_yz'">
         入院日期：
-        {{patientInfo.admissionDate | toymd}}
-      </span> -->
-    </div>
-    <div class="info-con" v-if="sheetInfo.sheetType === 'baby_yz'">
-      <span>
+        <div class="bottom-line" style="min-width: 80px">
+        {{patientInfo.admissionDate }}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType === 'baby_yz'">
         母亲姓名：
-        <input
+      <input
           style="width: 80px;font-size:13px;text-align: center;"
           class="bottom-line"
           :data-value="sheetInfo.relObj['motherName']"
@@ -57,11 +78,22 @@
         />
       </span>
     </div>
-    <!-- <div class="info-con">
-      <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span>
-    </div> -->
-    <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
-  </div>
+    <!-- 现在这个诊断。是修改病人的信息的，影响所有表单。一改全改 -->
+     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType!='custody_yz'&& sheetInfo.sheetType!='baby_yz'">
+        <span
+          @click="updateDiagnosis('diagnosis', '诊断', diagnosis)"
+        >
+          诊断：
+          <div
+            class="bottom-line"
+            style="min-width: 800px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          >
+            {{ diagnosis }}
+          </div>
+        </span>
+      </div>
+    </template>
+  </div>  
 </template>
 
 <script>
@@ -70,6 +102,7 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
+import bus from "vue-happy-bus";
 export default {
   props: {
     patientInfo: Object,
@@ -77,7 +110,8 @@ export default {
   },
   data() {
     return {
-      sheetInfo
+      sheetInfo,
+      bus: bus(this),
       // relObj: {
       //   wxNo: ""
       // }
@@ -128,7 +162,10 @@ export default {
           return sheetInfo.relObj.age || this.patientInfo.age;
         }
       }
-    }
+    },
+    diagnosis() {
+      return  this.patientInfo.diagnosis ||''
+    },
   },
   methods: {
     updateBirthDay() {
@@ -154,7 +191,18 @@ export default {
         `修改${label}`
       );
     },
-
+    updateDiagnosis(key, label, autoText) {
+      window.openSetTextModal(
+        text => {
+          updateSheetHeadInfo({ [key]: text }).then(res => {
+            this.patientInfo[key] = res.data.data[key];
+            this.$message.success(`修改${label}成功`);
+          });
+        },
+        autoText,
+        `修改${label}`
+      );
+    },
     async onFocusToAutoComplete(e) {
       function offset(ele) {
         let { top, left } = ele.getBoundingClientRect();

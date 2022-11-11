@@ -162,6 +162,7 @@ import tableHead925 from "./components/table-head/table-head-925.vue"
 import tableHeadLyyz from "./components/table-head/table-head-lyyz.vue"
 import tableHeadYtll from "./components/table-head/table-head-ytll.vue"
 import tableHeadZhzxy from "./components/table-head/table-head-zhzxy.vue"
+import tableHeadWeihai from './components/table-head/table-head-weihai.vue'
 export default {
   props: {
     data: Object,
@@ -191,7 +192,7 @@ export default {
     /** 只读模式 */
     readOnly() {
       if (
-        this.HOSPITAL_ID == "huadu" || 
+        this.HOSPITAL_ID == "huadu" ||
         this.HOSPITAL_ID == "zhzxy"
       ) {
         return false;
@@ -265,7 +266,9 @@ export default {
         return tableHeadYtll;
       }else if(this.HOSPITAL_ID == "zhzxy"){
         return tableHeadZhzxy;
-      }else {
+      } else if (this.HOSPITAL_ID == 'whsl') {
+        return tableHeadWeihai
+      } else {
         return tableHead;
       }
     }

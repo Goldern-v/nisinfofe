@@ -15,6 +15,16 @@ export const showBody = (patientId, visitId) => {
   data.blockId = sheetInfo.selectBlock.id;
   return axios.post(`${apiPath}record/${sheetInfo.sheetType}/list`, data);
 };
+export const showBodyByPage = (patientId, visitId,startPageIndex ,endPageIndex) => {
+  let data = {
+    patientId,
+    visitId,
+    blockId: sheetInfo.selectBlock.id,
+    pageIndex: startPageIndex,
+    endPageIndex: endPageIndex,
+  };
+  return axios.post(`${apiPath}record/${sheetInfo.sheetType}/listByPage`, data);
+};
 export const saveTitle = data => {
   data.blockId = sheetInfo.selectBlock.id;
   return axios.post(`${apiPath}record/setting/save`, qs.stringify(data));
@@ -30,6 +40,9 @@ export const sign = (patientId, visitId, data) => {
   data.visitId = visitId;
   data.blockId = sheetInfo.selectBlock.id;
   return axios.post(`${apiPath}record/${sheetInfo.sheetType}/signAll`, data);
+};
+export const saveAndSignApi = (obj) => {
+  return axios.post(`${apiPath}record/${sheetInfo.sheetType}/signAll`, obj);
 };
 // 护理记录单签名
 export const cancelSign = data => {

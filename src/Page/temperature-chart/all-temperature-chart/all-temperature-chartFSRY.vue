@@ -7,6 +7,7 @@
           class="date-picker"
           type="date"
           size="small"
+          style="width: 120px;"
           format="yyyy-MM-dd"
           placeholder="开始日期"
           v-model="query.entryDate"
@@ -18,6 +19,7 @@
           :for="`time${item.id}`"
           v-for="item in timesPoint"
           :key="item.id"
+          :style="{color:item.value  == query.entryTime?'red':'#000'}"
         >
           <input
             type="radio"
@@ -31,7 +33,7 @@
       </div>
       <div class="search-box">
         <el-input
-          placeholder="床号/姓名"
+        placeholder="床号/姓名/多选用空格隔开"
           icon="search"
           v-model="searchWord"
         ></el-input>
@@ -121,7 +123,10 @@
                 class="temperature"
                 :readonly="isReadonly(scope.row.recordDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
-                type="text"
+                type="number"
+                @input="(e)=>{
+                  voidValue(scope.row)
+                }"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
@@ -141,7 +146,9 @@
                 :readonly="isReadonly(scope.row.recordDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 :class="className"
-                type="text"
+                type="number"
+                @mousewheel="(e) => {e.preventDefault();}
+                "
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
@@ -249,9 +256,14 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
+                type="number"
                 :readonly="isReadonly(scope.row.recordDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
-                type="text"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -349,7 +361,12 @@
                 v-model="scope.row.painScore"
                 :class="className"
                 class="painScore"
-                type="text"
+                type="number"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -510,6 +527,12 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+>>>.el-table .cell, .el-table th > div {
+  padding 0px 10px 0px 10px !important;
+  }
 .all-temperature-chart-input {
   width: 100%;
   padding: 2px 5px;
@@ -556,7 +579,10 @@
     .type-label {
       vertical-align: middle;
     }
-
+    .filterItem {
+      display: flex;
+      align-items: baseline;
+      }
     .type-content {
       margin-right: 15px;
 
@@ -594,9 +620,10 @@
     display: flex;
 
     label {
+      font-size:18px;
       display: flex;
       align-items: center;
-      margin-right: 10px;
+      margin-right: 5px;
       cursor: pointer;
 
       input {
@@ -695,6 +722,9 @@
       .el-table__body-wrapper {
         height: auto !important;
       }
+      .heightLine {
+        background: red;
+        }
     }
   }
 }
@@ -805,7 +835,34 @@ export default {
       },
       timesPoint: (() => {
         switch (this.HOSPITAL_ID) {
-          case "zhzxy":
+          case 'foshanrenyi' :
+          return [
+              {
+                id: 0,
+                value: "02"
+              },
+              {
+                id: 1,
+                value: "06"
+              },
+              {
+                id: 2,
+                value: "10"
+              },
+              {
+                id: 3,
+                value: "14"
+              },
+              {
+                id: 4,
+                value: "18"
+              },
+              {
+                id: 5,
+                value: "22"
+              }
+            ];
+            case 'zhzxy':
             return [
               {
                 id: 0,
@@ -833,32 +890,7 @@ export default {
               }
             ];
             default:
-            return [
-              {
-                id: 0,
-                value: "02"
-              },
-              {
-                id: 1,
-                value: "06"
-              },
-              {
-                id: 2,
-                value: "10"
-              },
-              {
-                id: 3,
-                value: "14"
-              },
-              {
-                id: 4,
-                value: "18"
-              },
-              {
-                id: 5,
-                value: "22"
-              }
-            ];
+
         }
       })(),
       patientsInfoData: [],
@@ -873,19 +905,36 @@ export default {
     },
     tableData: {
       get() {
-        return this.patientsInfoData.filter(item => {
+        let data = []
+        if (this.searchWord.includes(" ")) {
+          let searchWordArray = this.searchWord.split(' ').filter((s) => s !== '')
+          searchWordArray.forEach((x) => {
+            let reg = new RegExp(x, "i"); //忽略大小写
+            this.patientsInfoData.forEach((obj) => {
+              if (obj.patientId && (obj.bedLabel.match(reg) || obj.name.match(reg))) {
+                data.push(obj)
+              }
+            })
+          })
+        } else {
+          let searchWord = new RegExp(this.searchWord, 'i')
+          data = this.patientsInfoData.filter((item) => {
+            return (
+              (item.bedLabel.match(searchWord) ||
+                item.name.match(searchWord)) &&
+              item.patientId
+            );
+
+          });
+        }
+        console.log(data , 987)
+        return data.filter(item => {
           return this.admitted === "所有患者"
-            ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-                item.patientId
+            ? item.patientId
             : this.admitted === "一周体重"
-            ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId &&
+              ?
               item.noWeightFlag == 1
-            : (item.bedLabel.indexOf(this.searchWord) > -1 ||
-                item.name.indexOf(this.searchWord) > -1) &&
-              item.patientId &&
+              :
               item.notDefecateFlag == 1;
         });
       },
@@ -1074,34 +1123,37 @@ export default {
       if (this.handleKeyCode.includes(e.keyCode)) {
         this.colClass = e.target.className;
         let rowIndex = e.path[3].rowIndex;
+        //回车保存
+        if (e.keyCode === 13) {
+          this.debounceSave();
+        }
         if (e.keyCode === 37) {
           //处理左按键
-          if (e.target.selectionStart === 0) {
-            // 如果光标在开头，跳转前一个输入框
-            let inputEls = document.getElementsByClassName(
-              "all-temperature-chart-input"
-            );
-            let currentIdx = 0;
-            for (var i = 0; i < inputEls.length; ++i) {
-              if (e.target === inputEls[i]) currentIdx = i;
-            }
-            let prevIdx = currentIdx - 1;
-            inputEls[prevIdx] && inputEls[prevIdx].focus();
+
+          let inputEls = document.getElementsByClassName(
+            "all-temperature-chart-input"
+          );
+          let currentIdx = 0;
+          for (var i = 0; i < inputEls.length; ++i) {
+            if (e.target === inputEls[i]) currentIdx = i;
           }
+          let prevIdx = currentIdx - 1;
+          inputEls[prevIdx] && inputEls[prevIdx].focus();
         } else if (e.keyCode === 39) {
           //处理右按键
-          if (e.target.selectionEnd === e.target.value.length) {
-            // 如果光标在末尾，跳转后一个输入框
-            let inputEls = document.getElementsByClassName(
-              "all-temperature-chart-input"
-            );
-            let currentIdx = 0;
-            for (var i = 0; i < inputEls.length; ++i) {
-              if (e.target === inputEls[i]) currentIdx = i;
-            }
-            let nextIdx = currentIdx + 1;
-            inputEls[nextIdx] && inputEls[nextIdx].focus();
+
+          // if (e.target.selectionEnd === e.target.value.length) {
+          // 如果光标在末尾，跳转后一个输入框
+          let inputEls = document.getElementsByClassName(
+            "all-temperature-chart-input"
+          );
+          let currentIdx = 0;
+          for (var i = 0; i < inputEls.length; ++i) {
+            if (e.target === inputEls[i]) currentIdx = i;
           }
+          let nextIdx = currentIdx + 1;
+          inputEls[nextIdx] && inputEls[nextIdx].focus();
+          // }
         } else {
           //处理上下按键，跳转相同类名的输入框
           let inputEls = document.getElementsByClassName(e.target.className);
@@ -1111,12 +1163,10 @@ export default {
             if (e.target === inputEls[i]) currentIdx = i;
           }
           if (e.keyCode === 38) {
+            e.preventDefault();
             currentIdx--;
-          } else if (
-            e.keyCode === 40 ||
-            (e.keyCode === 13 && ["guizhou"].includes(this.HOSPITAL_ID))
-            //当贵州的时候，回车不调用保存事件，执行跳转到下一个患者的聚集性事件
-          ) {
+          } else if (e.keyCode === 40) {
+            e.preventDefault();
             currentIdx++;
           }
           inputEls[currentIdx] && inputEls[currentIdx].focus();
@@ -1143,6 +1193,13 @@ export default {
           trs[i].style.backgroundColor = "";
         }
       }
+    },
+    voidValue(row){
+      //体温单批量录入体温格式化数据为 只能保留一个小数
+        if(row.temperature.includes('.')){
+          const afterArr =  row.temperature.split('.')
+          row.temperature = Number(`${afterArr[0]}.${afterArr[1].substring(0, 1)}`)
+        }
     },
     handleKeyUp(e) {
       let rowIndex =

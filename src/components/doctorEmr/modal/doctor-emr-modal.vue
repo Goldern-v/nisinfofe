@@ -1,5 +1,5 @@
 <template>
-  <sweet-modal ref="modalName" title="病历" class="modal-con">
+  <sweet-modal ref="modalName" title="病历" class="modal-con" :colseShadow="['zhzxy'].includes(HOSPITAL_ID)"  :modalWidth="['zhzxy'].includes(HOSPITAL_ID) ? 1200 : 0">
     <doctorEmr></doctorEmr>
     <!-- <div slot="button">
       <el-button class="modal-btn" @click="$refs.modalName.close()"
@@ -12,7 +12,7 @@
 <style lang="stylus" scoped>
 .modal-con {
   >>>.sweet-content {
-    max-height: 100vh;
+    max-height: 90vh;
   }
 
   >>>.content {
@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     open() {
-      console.log("jinalias")
       this.$refs.modalName.open();
     },
     post() {}

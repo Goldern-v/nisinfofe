@@ -208,10 +208,12 @@
                 v-model="scope.row.temperature"
                 :class="className"
                 class="temperature"
-                type="text"
+                type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
+                @mousewheel="(e) => {e.preventDefault();}"
+                @blur="onBlur($event,'temperature', scope.row.temperature,'体温', scope)"
               />
             </template>
           </el-table-column>
@@ -226,10 +228,12 @@
                 v-model="scope.row.pulse"
                 class="pulse"
                 :class="className"
-                type="text"
+                type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
+                @mousewheel="(e) => {e.preventDefault();}"
+                @blur="onBlur($event,'pulse', scope.row.pulse,'脉搏', scope)"
               />
             </template>
           </el-table-column>
@@ -267,6 +271,7 @@
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
+                @blur="onBlur($event,'bloodPressure', scope.row.bloodPressure,'血压', scope)"
               />
               <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
@@ -431,7 +436,7 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
-                type="text"
+                type="number"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -450,7 +455,7 @@
                 v-model="scope.row.heartRate"
                 :class="className"
                 class="heartRate"
-                type="text"
+                type="number"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -845,6 +850,12 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+>>>.el-table .cell, .el-table th > div {
+  padding 0px 10px 0px 10px !important;
+  }
 .all-temperature-chart-input {
   width: 100%;
   padding: 2px 5px;
@@ -1446,33 +1457,27 @@ export default {
         this.colClass = e.target.className;
         let rowIndex = e.path[3].rowIndex;
         if (e.keyCode === 37) {
-          //处理左按键
-          if (e.target.selectionStart === 0) {
-            // 如果光标在开头，跳转前一个输入框
-            let inputEls = document.getElementsByClassName(
-              "all-temperature-chart-input"
-            );
-            let currentIdx = 0;
-            for (var i = 0; i < inputEls.length; ++i) {
-              if (e.target === inputEls[i]) currentIdx = i;
-            }
-            let prevIdx = currentIdx - 1;
-            inputEls[prevIdx] && inputEls[prevIdx].focus();
+          let inputEls = document.getElementsByClassName(
+            "all-temperature-chart-input"
+          );
+          let currentIdx = 0;
+          for (var i = 0; i < inputEls.length; ++i) {
+            if (e.target === inputEls[i]) currentIdx = i;
           }
+          let prevIdx = currentIdx - 1;
+          inputEls[prevIdx] && inputEls[prevIdx].focus();
         } else if (e.keyCode === 39) {
-          //处理右按键
-          if (e.target.selectionEnd === e.target.value.length) {
-            // 如果光标在末尾，跳转后一个输入框
-            let inputEls = document.getElementsByClassName(
-              "all-temperature-chart-input"
-            );
-            let currentIdx = 0;
-            for (var i = 0; i < inputEls.length; ++i) {
-              if (e.target === inputEls[i]) currentIdx = i;
-            }
-            let nextIdx = currentIdx + 1;
-            inputEls[nextIdx] && inputEls[nextIdx].focus();
+
+          // 如果光标在末尾，跳转后一个输入框
+          let inputEls = document.getElementsByClassName(
+            "all-temperature-chart-input"
+          );
+          let currentIdx = 0;
+          for (var i = 0; i < inputEls.length; ++i) {
+            if (e.target === inputEls[i]) currentIdx = i;
           }
+          let nextIdx = currentIdx + 1;
+          inputEls[nextIdx] && inputEls[nextIdx].focus();
         } else {
           //处理上下按键，跳转相同类名的输入框
           let inputEls = document.getElementsByClassName(e.target.className);
@@ -1482,12 +1487,14 @@ export default {
             if (e.target === inputEls[i]) currentIdx = i;
           }
           if (e.keyCode === 38) {
+            e.preventDefault();
             currentIdx--;
           } else if (
             e.keyCode === 40 ||
             (e.keyCode === 13 && ["guizhou"].includes(this.HOSPITAL_ID))
             //当贵州的时候，回车不调用保存事件，执行跳转到下一个患者的聚集性事件
           ) {
+            e.preventDefault();
             currentIdx++;
           }
           inputEls[currentIdx] && inputEls[currentIdx].focus();
@@ -1610,6 +1617,68 @@ export default {
           break;
       }
     },
+    async onBlur($event, key, value,name,scope){
+       console.log('first', key, value,name,scope);
+      if(['guizhou'].includes(this.HOSPITAL_ID)){
+        let confirmRes = '';
+        if((key === 'temperature')&&value !== ''&&(isNaN(value)||value<35||value>42)){
+            confirmRes = await this.$confirm(
+              " 体温的填写范围是35～42，你的填写超出录入范围,请重新填写",
+              "错误",
+              {
+                confirmButtonText: "确定",
+                showCancelButton: false,
+                type: "error",
+              }
+            ).catch(() => {});
+            this.tableData[scope['$index']][key] ='';
+          }
+        if((key === 'pulse'||key === 'heartRate'||key === 'fetalRate')&&value !== ''&&(isNaN(value)||value<30||value>300)){
+          confirmRes = await this.$confirm(
+            name+ "的填写范围是30～300，你的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            this.tableData[scope['$index']][key] ='';
+          }
+        }
+
+        if((key === 'xybhd')&&value !== ''&&(isNaN(value)||value<50||value>100)){
+          confirmRes = await this.$confirm(
+            name+ "的填写范围是50～100，你的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+             this.tableData[scope['$index']][key] ='';
+          }
+        }
+        if((key === 'bloodPressure')&&value !== ''&&(isNaN(value.split('/')[0])||!value.split('/')[1] ||value.split('/')[0]>150||value.split('/')[1]>300)){
+          confirmRes = await this.$confirm(
+            name+ "的收缩压的填写范围<=300,舒张压的填写范围<=150，你的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            this.tableData[scope['$index']][key] ='';
+          }
+
+        }
+      }
+    }
   },
 
   components: {

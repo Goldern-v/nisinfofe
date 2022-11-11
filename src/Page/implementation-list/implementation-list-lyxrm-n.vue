@@ -37,11 +37,26 @@
           placeholder="请选择"
           size="small"
           style="width:90px"
+          v-if="HOSPITAL_ID !='whsl'"
         >
           <el-option
             :label="item.name"
             :value="item.id"
             v-for="item in statusList"
+            :key="item.id"
+          ></el-option>
+        </el-select>
+        <el-select
+          v-model="status"
+          placeholder="请选择"
+          size="small"
+          style="width:90px"
+          v-if="HOSPITAL_ID =='whsl'"
+        >
+          <el-option
+            :label="item.name"
+            :value="item.id"
+            v-for="item in whslstatusList"
             :key="item.id"
           ></el-option>
         </el-select>
@@ -327,7 +342,7 @@ export default {
           value: "其他"
         },
       ],
-      statusList: [
+      statusList: [ 
         {
           id: "3",
           name: "全部"
@@ -335,6 +350,24 @@ export default {
         {
           id: 2,
           name: "已执行"
+        },
+        {
+          id: 1,
+          name: "执行中"
+        },
+        {
+          id: 0,
+          name: "未执行"
+        },
+      ],
+      whslstatusList: [ 
+        {
+          id: "",
+          name: "全部"
+        },
+        {
+          id: 2,
+          name: "已完成"
         },
         {
           id: 1,

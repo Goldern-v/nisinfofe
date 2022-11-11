@@ -42,6 +42,16 @@
         >
           尾周
         </button>
+        <button
+        @click="()=>{this.bus.$emit('dateChangeEvent','pre')}"
+        >
+          上一日
+        </button>
+        <button
+          @click="()=>{this.bus.$emit('dateChangeEvent','next')}"
+        >
+          下一日
+        </button>
       </div>
       <moveContext
         :id="'detailChatBox'"
@@ -121,6 +131,7 @@ export default {
         const baseUrl=(()=>{
   switch (process.env.HOSPITAL_ID) {
     case 'foshanrenyi':
+      // return "http://localhost:8080"
       return "http://192.168.103.17:9091"
     case 'nfyksdyy':
       return "http://192.168.0.200:9091"
@@ -147,6 +158,7 @@ export default {
       printAllPath: "",
       intranetUrl:
       `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
+      // `${baseUrl}/#/` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         `${baseUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
     };
@@ -255,6 +267,11 @@ export default {
     },
     openRight() {
       this.$store.commit("showRightPart", !this.rightSheet);
+      let changeFlag = this.rightSheet
+      this.$refs.pdfCon.contentWindow.postMessage(
+        { type: "rightSheetChange", value: changeFlag },
+        "*"
+      );
     },
     messageHandle(e) {
       if (e && e.data) {
@@ -384,6 +401,7 @@ export default {
   button {
     position: relative;
     top: 10px;
+    width:78px;
   }
 }
 
@@ -408,13 +426,15 @@ export default {
       width: 100%;
       height: 100%;
     }
+    button {
+      width:60px !important;
+    }
   }
 }
 
 .pagination {
   display: inline;
   position: relative;
-  left: 8%;
   font-weight: normal;
 }
 
@@ -474,4 +494,7 @@ button[disabled=disabled] {
   top: 0;
   display: inline-flex !important;
 }
+.el-button {
+  width:77px !important;
+  }
 </style>

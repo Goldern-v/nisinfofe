@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="content">
-      <div class="left-part">
+      <div class="left-part" v-loading.body="loading" element-loading-text="拼命加载中">
         <el-row class="header" type="flex" align="middle">
           <span class="title">检验列表</span>
           <el-select v-model="value" placeholder="请选择" class="select">
@@ -13,7 +13,7 @@
           <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)"
            :class="{active: (!['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == rightData.testNo) || (['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == list[foshanRenyiChoseIndex].testNo) }">
             <div class="title">{{item.subject}}</div>
-            <div class="aside">{{item.reqDate}}</div>
+            <div class="aside">{{item.resultDate}}</div>
             <div class="result">
               <span v-if="item.isAbnormal == '0' && item.resultStatus == '已出报告'">
                         <img src="../../../../common/images/info/完成@2x.png" alt="">
@@ -26,7 +26,7 @@
                     </span>
             </div>
           </div>
-          <div class="null-con" v-show="listByFilter.length == 0">
+          <div class="null-con" v-show="listByFilter.length == 0&&!loading">
             <img src="../../../../common/images/task/nondata.png" alt="">
             <p>没有相关检验数据～</p>
           </div>
@@ -34,7 +34,7 @@
       </div>
       <div class="right-part">
         <template v-if="['foshanrenyi'].includes(this.HOSPITAL_ID)">
-          <testForm v-if="list[foshanRenyiChoseIndex].testNo" ref="testForm"></testForm>
+          <testForm  ref="testForm" :tableHeaderInfo="tableHeaderInfo"></testForm>
         </template>
         <template v-else>
           <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm>
@@ -140,6 +140,8 @@
       return {
         list: [],
         rightData: '',
+        tableHeaderInfo:{},
+        loading:true,
         foshanRenyiChoseIndex:0,
         options: [{
           label: '全部'
@@ -174,12 +176,22 @@
     },
     created() {
       testList(this.infoData.patientId, this.infoData.visitId).then((res) => {
+        this.loading = false
         this.list = res.data.data
         if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
           this.rightData = this.list.map(item=>{
+            Object.keys(item).filter(str=>!['testResultList'].includes(str)).forEach((keys)=>{
+              //返回testResultList数组  把上级的属性合并起来  前端需要用到
+              this.tableHeaderInfo[`${keys}`] = item[`${keys}`]
+              item.testResultList.map((reqList)=>{
+                if(!reqList[`${keys}`]){
+                reqList[`${keys}`] = item[`${keys}`]
+                }
+              })
+            })
             return item.testResultList
           })
-          this.toRight(this.rightData[this.foshanRenyiChoseIndex])
+          this.toRight(this.rightData[this.foshanRenyiChoseItoRightndex])
         }else{
           this.toRight(this.list[0])
         }
@@ -188,10 +200,12 @@
     methods: {
       toRight(data,index) {
         if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+            console.log(data,'dddddddddddddddddddddd');
           this.rightData = data
         }else{
           this.foshanRenyiChoseIndex = index?index:0
           data = this.rightData[this.foshanRenyiChoseIndex]
+          this.tableHeaderInfo = data[0]
         }
         this.$nextTick(() => {
           this.$refs.testForm && this.$refs.testForm.open(data)

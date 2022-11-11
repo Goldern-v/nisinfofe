@@ -323,17 +323,22 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="fieldThree"
-            label="尿量"
+            prop="painScore"
+            label="疼痛"
             min-width="70"
             align="center"
           >
             <template slot-scope="scope">
               <input
-                v-model="scope.row.fieldThree"
+                v-model="scope.row.painScore"
                 :class="className"
-                class="fieldThree"
-                type="text"
+                class="painScore"
+                type="number"
+                @mousewheel="
+                  (e) => {
+                    e.preventDefault();
+                  }
+                "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
@@ -499,13 +504,13 @@
           </el-table-column>
 
           <el-table-column
-            prop="fieldThree"
-            label="尿量"
+            prop="painScore"
+            label="疼痛"
             min-width="60"
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.fieldThree"></el-input>
+              <el-input v-model="scope.row.painScore"></el-input>
             </template>
           </el-table-column>
         </el-table>
@@ -706,6 +711,16 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   box-sizing: border-box;
   text-overflow: ellipsis;
 }
+.selection-dict-item {
+  height: 24px;
+  line-height: 24px;
+  padding: 0 5px;
+
+  &:hover {
+    background: rgb(111, 192, 164) !important;
+    color: #fff !important;
+  }
+}
 
 @page {
   margin: 0 10mm;
@@ -740,7 +755,7 @@ export default {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
-            case "lyxrm":
+            case "lyyz":
               if (this.getHours() >= 0 && this.getHours() <= 4) {
                 return "03";
               }
@@ -796,6 +811,22 @@ export default {
       searchWord: "",
       admitted: "所有患者",
       pageLoadng: false,
+      shitOption: [
+        "灌肠",
+        "失禁",
+        "人工肛门",
+        "腹泻",
+        "※",
+        "☆",
+        "E",
+        "1/E",
+        "2/E",
+        "0/E",
+        "1 2/E",
+        "*/E",
+        "☆/E",
+        "3/2E",
+      ],
     };
   },
   computed: {
@@ -913,6 +944,7 @@ export default {
         recordSource: 2,
         heartRate: "",
         stoolNum: "",
+        painScore: "",
         fieldThree: "",
         height: "",
       };

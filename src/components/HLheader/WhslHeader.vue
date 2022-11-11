@@ -48,8 +48,16 @@
               </el-row>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
-                  :class="{ active: $route.path == '/implementationList' }"
+                    :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
                 >
+                  <router-link to="/bottleLabelByProgram" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="wardReport"></i>执行瓶签打印
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/implementationList' }">
                   <router-link to="/implementationList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="catheterPage"></i>执行记录
@@ -58,47 +66,52 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <el-dropdown
-              menu-align="start"
-              :class="{ 'router-link-active': isActiveAssessPage }"
-            >
+            <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="birthCertificate"></i>护理评估
+                <i class="sheetHospitalEval"></i> MEWS
               </el-row>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
-                  :class="{
-                    active: $route.path == '/sheetHospitalAdmission'
-                  }"
-                >
-                  <router-link to="/sheetHospitalAdmission" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalAdmission"></i>入院评估
-                    </el-row>
-                  </router-link> </el-dropdown-item
-                ><el-dropdown-item
-                  :class="{
-                    active: $route.path == '/sheetHospitalEval'
-                  }"
-                >
-                  <router-link to="/sheetHospitalEval" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalEval"></i>住院评估
-                    </el-row>
-                  </router-link> </el-dropdown-item
-                ><el-dropdown-item
-                  :class="{
-                    active: $route.path == '/MEWS'
-                  }"
-                >
-                  <router-link to="/MEWS" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalEval"></i> MEWS
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            </router-link>
+<!--            <el-dropdown-->
+<!--              menu-align="start"-->
+<!--              :class="{ 'router-link-active': isActiveAssessPage }"-->
+<!--            >-->
+<!--              <el-row class="nav-item" type="flex" align="middle">-->
+<!--                <i class="birthCertificate"></i>护理评估-->
+<!--              </el-row>-->
+<!--              <el-dropdown-menu slot="dropdown">-->
+<!--                <el-dropdown-item-->
+<!--                  :class="{-->
+<!--                    active: $route.path == '/sheetHospitalAdmission'-->
+<!--                  }"-->
+<!--                >-->
+<!--                  <router-link to="/sheetHospitalAdmission" tag="span">-->
+<!--                    <el-row class="menu-item" type="flex" align="middle">-->
+<!--                      <i class="sheetHospitalAdmission"></i>入院评估-->
+<!--                    </el-row>-->
+<!--                  </router-link> </el-dropdown-item-->
+<!--                ><el-dropdown-item-->
+<!--                  :class="{-->
+<!--                    active: $route.path == '/sheetHospitalEval'-->
+<!--                  }"-->
+<!--                >-->
+<!--                  <router-link to="/sheetHospitalEval" tag="span">-->
+<!--                    <el-row class="menu-item" type="flex" align="middle">-->
+<!--                      <i class="sheetHospitalEval"></i>住院评估-->
+<!--                    </el-row>-->
+<!--                  </router-link> </el-dropdown-item-->
+<!--                ><el-dropdown-item-->
+<!--                  :class="{-->
+<!--                    active: $route.path == '/MEWS'-->
+<!--                  }"-->
+<!--                >-->
+<!--                  <router-link to="/MEWS" tag="span">-->
+<!--                    <el-row class="menu-item" type="flex" align="middle">-->
+<!--                      <i class="sheetHospitalEval"></i> MEWS-->
+<!--                    </el-row>-->
+<!--                  </router-link>-->
+<!--                </el-dropdown-item>-->
+<!--              </el-dropdown-menu>-->
+<!--            </el-dropdown>-->
             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveRecordPage }"
@@ -252,12 +265,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
               </el-row>
             </router-link> -->
-            <!-- <router-link to="/archive" tag="span">
+           <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
               </el-row>
-            </router-link> -->
-
+            </router-link>
             <!-- <router-link
               to="/deliveryRoomWhiteboard"
               tag="span"
@@ -299,11 +311,11 @@
               </el-row>
             </router-link>-->
 
-            <!-- <router-link to="/infuse" tag="span">
+           <router-link to="/infuse" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-zhihuishuye"></i> 智慧输液
               </el-row>
-            </router-link>-->
+            </router-link>
             <!-- <router-link to="/wardReport" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 病房日报
@@ -347,13 +359,13 @@
                 <i class="iconfont icon-hulijiludan"></i>其他
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>
-                  <router-link to="/badEvent" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="badEvent"></i>不良事件
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
+<!--                <el-dropdown-item>-->
+<!--                  <router-link to="/badEvent" tag="span">-->
+<!--                    <el-row class="menu-item" type="flex" align="middle">-->
+<!--                      <i class="badEvent"></i>不良事件-->
+<!--                    </el-row>-->
+<!--                  </router-link>-->
+<!--                </el-dropdown-item>-->
                 <el-dropdown-item
                   :class="{ active: $route.path == '/nursingDocumentation' }"
                 >
@@ -363,15 +375,15 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <!-- <el-dropdown-item
-                  :class="{ active: $route.path == '/catheterPage' }"
-                >
-                  <router-link to="/catheterPage" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="catheterPage"></i>导管
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
+<!--                <el-dropdown-item-->
+<!--                  :class="{ active: $route.path == '/catheterPage' }"-->
+<!--                >-->
+<!--                  <router-link to="/catheterPage" tag="span">-->
+<!--                    <el-row class="menu-item" type="flex" align="middle">-->
+<!--                      <i class="catheterPage"></i>导管-->
+<!--                    </el-row>-->
+<!--                  </router-link>-->
+<!--                </el-dropdown-item>-->
 
                 <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
@@ -393,7 +405,7 @@
                       <i class="inpatientReport"></i>住院日报
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
                 <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
                   <router-link to="/badEvent" tag="span" >
 
@@ -402,7 +414,7 @@
                     </el-row>
                   </el-dropdown-item>
                 </el-dropdown-item>-->
-                <!-- <el-dropdown-item
+             <el-dropdown-item
                   :class="{ active: $route.path == '/nursingRules' }"
                 >
                   <router-link to="/nursingRules" tag="span">
@@ -411,15 +423,15 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/departmentSharedFile' }"
-                >
-                  <router-link to="/departmentSharedFile" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="departmentSharedFile"></i>病区文件
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item> -->
+<!--                <el-dropdown-item-->
+<!--                  :class="{ active: $route.path == '/departmentSharedFile' }"-->
+<!--                >-->
+<!--                  <router-link to="/departmentSharedFile" tag="span">-->
+<!--                    <el-row class="menu-item" type="flex" align="middle">-->
+<!--                      <i class="departmentSharedFile"></i>病区文件-->
+<!--                    </el-row>-->
+<!--                  </router-link>-->
+<!--                </el-dropdown-item>-->
                 <el-dropdown-item
                   :class="{ active: $route.path == '/noCheckTest' }"
                 >

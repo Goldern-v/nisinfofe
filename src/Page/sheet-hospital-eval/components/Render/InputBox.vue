@@ -214,7 +214,7 @@ export default {
     },
     "formObj.model.I618004"(newVal) {
       console.log(newVal, "formObj.model.I618004");
-      
+
     },
     // inputValue(valueNew, oldvaule) {
     //   console.log("watch:inputValue:", [valueNew], [oldvaule]);
@@ -258,7 +258,7 @@ export default {
     // }
   },
   mounted() {
-    
+
     let refName = this.obj.name + ""; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
     let refNameTitle = this.obj.title || this.obj.label;
     //
@@ -846,9 +846,6 @@ export default {
         this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
       }
 
-      // if(this.$root.$refs.mainPage.checkFormMissingItems){
-      //   this.$root.$refs.mainPage.checkFormMissingItems()
-      // }
       // cancelSignOrAduit formSignOrAudit
 
       if (this.obj.name === "signerName") {

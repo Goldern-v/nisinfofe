@@ -82,9 +82,8 @@ function syncGetNurseBedRecJiangMenFSSY(deptCode){
 }
 //北海 --更新床位一览卡信息
 function syncGetNurseBedRecBeiHaiExecute(deptCode){
-  return axios.get(`${apiPath}HisBeiHaiExecute/syncGetNurseBedRec/${deptCode}`)
+  return axios.get(`${apiPath}hisBeiHaiExecute/syncGetNurseBedRec/${deptCode}`)
 }
-
 //顺德龙江 --更新床位一览卡信息
 function syncGetNurseBedRecSDLJExecute(deptCode){
   return axios.get(`${apiPath}HisLinYiBedRec/syncGetNurseBedRec/${deptCode}`)
@@ -111,6 +110,10 @@ function getPatientOrdersWithWardCode(deptCode) {
 function syncGetNursePatientWHFKRecData(deptCode) {
   return axios.get(`${apiPath}bed/syncPatInHospital/${deptCode}`)
 }
+//根据科室床位同步患者
+function synchronizationPatientByBedNo(deptCode,bedNo) {
+  return axios.get(`${apiPath}/bed/syncBedPatInHospital/${deptCode}/${bedNo}`)
+}
 
 
 
@@ -135,5 +138,6 @@ export {
   syncGetNurseBedRecDGXGExecute,
   syncGetNurseBedRecBeiHaiExecute,
   syncGetNursePatientWHFKRecData,
-  syncGetNurseBedRecWHHKExecute
+  syncGetNurseBedRecWHHKExecute,
+  synchronizationPatientByBedNo
 }

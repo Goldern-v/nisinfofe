@@ -45,7 +45,7 @@
               {{ `${currentBottle.frequency}${groupNo ? `(${groupNo})`: ''}` }}
             </span>
           </p>
-          <div>
+          <div :class="{'text--large': ['gdtj'].includes(HOSPITAL_ID)}">
             <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
           </div>
           <span class="text--large">{{ currentBottle.executeType }}</span>
@@ -220,11 +220,16 @@
         &:last-of-type{
           position: relative;
           min-height: 32px;
-          margin-right: 10px;
           span{
             position: absolute;
             left: -15px;
             top: 0;
+          }
+        }
+        &.text--large:last-of-type {
+          min-height: 34px;
+          span{
+            left: -17px;
           }
         }
       }

@@ -10,10 +10,11 @@
     :class="[overlay_classes,size, {infull: infull}]"
     v-show="is_open"
     v-on:click="_onOverlayClick"
+    :style="colseShadow == true && modalWidth != 0  ? {width:'0vw'}:''"
   >
     <div
       :class="modal_classes"
-      :style="modalWidth && {width: modalWidth + 'px', minWidth: modalWidth + 'px'}"
+      :style="modalWidth != 0 && {width: modalWidth + 'px', minWidth: modalWidth + 'px'}"
       ref="dragBox"
     >
       <div class="sweet-box-actions">
@@ -244,6 +245,12 @@ export default {
     },
     modalWidth: {
       type: Number
+    },
+    // 关闭阴影部分，是弹窗外部内容可以修改
+    colseShadow: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   mounted() {
@@ -355,21 +362,18 @@ export default {
       this.is_open = true;
       this._lockBody();
       this._animateIcon();
-      this.$refs.dragBox.style.left = "50%";
-      this.$refs.dragBox.style.top = "50%";
+      this.$refs.dragBox.style.left = ['zhzxy'].includes(this.HOSPITAL_ID) && this.colseShadow ? '1000px' :"50%";
+      this.$refs.dragBox.style.top = ['zhzxy'].includes(this.HOSPITAL_ID) && this.colseShadow ? '125%' : "50%";
       setTimeout(() => (this.visible = true), 30);
       this.$emit("open");
-      console.log(this.ifNoguan,ifNoguan,"this.ifNoguan111")
       if(ifNoguan===false) this.ifNoguan = false
       // this.ifNoguan = !ifNoguan && ifNoguan
-      console.log(this.ifNoguan,ifNoguan,"this.ifNoguan222")
     },
     /**
      * Close the dialog
      * Emits an event 'close'
      */
     close(fuyouIfclose = false) {
-      console.log("11111")
       // console.log(this.ifNoguan,fuyouIfclose,JSON.parse(localStorage.user).empNo,"fuyouIfclose")
       if(["fuyou",'zhzxy'].includes(this.HOSPITAL_ID)){
         if(this.ifNoguan || fuyouIfclose===true || ['zhzxy'].includes(this.HOSPITAL_ID)){
@@ -436,7 +440,7 @@ export default {
         } else {
           // 不能点击弹窗外的区域来关闭，只通过关闭、取消、保存按钮关闭。
           // 医院名单
-          const blackList=['guizhou','foshanrenyi','wujing','fsxt', 'whfk' , 'gdtj']
+          const blackList=['guizhou','foshanrenyi','wujing','fsxt', 'whfk' , 'gdtj', 'zhzxy']
           if(!blackList.includes(this.HOSPITAL_ID)){
             this.close();
           }

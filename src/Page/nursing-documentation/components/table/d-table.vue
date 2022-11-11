@@ -31,7 +31,12 @@
         prop="name"
         min-width="80px"
       ></el-table-column>
-
+      <el-table-column
+        label="年龄"
+        prop="age"
+        min-width="70px"
+        v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
+      ></el-table-column>
       <el-table-column
         :label="['fuyou'].includes(HOSPITAL_ID)?'责任医生':'管床医生'"
         prop="doctorInCharge"
@@ -70,6 +75,12 @@
         label="次数"
         :min-width="HOSPITAL_ID=='fuyou'?'35px':'70px'"
         v-else
+      ></el-table-column>
+      <el-table-column
+        label="天数"
+        prop="inpDay"
+        min-width="50px"
+        v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
       ></el-table-column>
 
       <el-table-column

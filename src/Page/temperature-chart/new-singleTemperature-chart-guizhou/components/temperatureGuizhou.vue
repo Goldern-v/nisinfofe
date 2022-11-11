@@ -9,10 +9,7 @@
         <div @click="changeModel()" class="newBornNomal">新生儿版本</div>
       </div>
       <div :class="rightSheet === true ? 'pagination' : 'paginationRight'">
-        <button
-          :disabled="currentPage === 1"
-          @click="toPre"
-        >
+        <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage = 1;">
           首周
         </button>
         <button :disabled="currentPage === 1" @click="currentPage--">

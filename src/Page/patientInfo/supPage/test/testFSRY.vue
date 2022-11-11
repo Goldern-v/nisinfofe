@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="content">
-      <el-row v-loading="isSaving"  style="height: 100%" >
-      <div class="left-part">
+      <el-row  style="height: 100%" >
+      <div class="left-part"  v-loading="loading"
+      element-loading-text="拼命加载中">
         <el-row class="header" type="flex" align="middle">
           <div>
-             <span class="title">检验列表</span> 
+             <span class="title">检验列表</span>
              <el-select v-model="value" placeholder="请选择" class="select">
               <el-option v-for="item in options" :key="item.value" :value="item.label">
               </el-option>
@@ -21,12 +22,12 @@
         </el-row>
         <div class="body" :style="{height: height}">
          <!-- <el-radio-group v-model="radio"> -->
-          <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)" 
+          <div class="item" v-for="(item,index) in listByFilter" :key="item.examNo" @click="toRight(item,index)"
           :class="{active: (!['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == rightData.testNo) || (['foshanrenyi'].includes(HOSPITAL_ID) && item.testNo == list[radio].testNo) }">
             <!-- <el-checkbox :label="(index)" class="fscheckBox" ><br/></el-checkbox> -->
             <el-radio :label="index" class="fscheckBox" v-model="radio"><br/></el-radio>
             <div class="title">{{item.subject}}</div>
-            <div class="aside">{{item.reqDate}}</div>
+            <div class="aside">{{item.resultDate}}</div>
             <div class="result">
               <span v-if="item.isAbnormal == '0' && item.resultStatus == '已出报告'">
                         <img src="../../../../common/images/info/完成@2x.png" alt="">
@@ -40,14 +41,14 @@
             </div>
           </div>
           <!-- </el-radio-group> -->
-          <div class="null-con" v-show="listByFilter.length == 0">
+          <div class="null-con" v-show="listByFilter.length == 0&&!loading">
             <img src="../../../../common/images/task/nondata.png" alt="">
             <p>没有相关检验数据～</p>
           </div>
         </div>
       </div>
       <div class="right-part">
-        <testFormFSRY ref="testForm" :checkNum='radio'></testFormFSRY>
+        <testFormFSRY ref="testForm" :tableHeaderInfo="tableHeaderInfo" :checkNum='radio'></testFormFSRY>
         <!-- <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm> -->
         <!--右边的检验报告单部分，花都的testFormHD组件，因为事件与其他医院不一样-->
         <!-- <testFormHD v-if="rightData.testNo&&['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testFormHD> -->
@@ -162,6 +163,8 @@
       return {
         list: [],
         rightData: '',
+        loading:true,
+        tableHeaderInfo:{},
         options: [{
           label: '全部'
         }, {
@@ -175,7 +178,6 @@
         }],
         value: '全部',
         radio:0,
-        isSaving:false,
         bus: bus(this),
       }
     },
@@ -198,9 +200,21 @@
     },
     created() {
       testList(this.infoData.patientId, this.infoData.visitId).then((res) => {
+        this.loading = false
         this.list = res.data.data
         if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
           this.rightData = this.list.map(item=>{
+            Object.keys(item).filter(reqList=>!['testResultList'].includes(reqList)).forEach((keys)=>{
+              //返回testResultList数组  把上级的属性合并起来  前端需要用到
+              if(!this.tableHeaderInfo[`${keys}`]){
+                this.tableHeaderInfo[`${keys}`] = item[`${keys}`]
+              }
+              item.testResultList.map((reqList)=>{
+                if(!reqList[`${keys}`]){
+                reqList[`${keys}`] = item[`${keys}`]
+                }
+              })
+            })
             return item.testResultList
           })
           this.toRight(this.rightData[0],0,this.list.length)
@@ -211,30 +225,24 @@
     },
     methods: {
       async writeDescription(){
-        this.isSaving=true
         let str=''
         // 当前按钮的数组
         const activeCheckList=this.$refs.testForm.checkList[this.$refs.testForm.activeIndex]
-        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){ 
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
           if(activeCheckList.length>0){
             for(var i=0;i<activeCheckList.length;i++){
               // 当前按钮的数组的项
               const nowItem=activeCheckList[i]
-              if(i==0){
-                // const strDate= moment(this.listByFilter[this.radio].resultDate).format("YYYY-MM-DD")
-                str += `${this.listByFilter[this.radio].subject},`
-                // str +=`${strDate},`
-                str += `${this.rightData[this.radio][nowItem].itemName},`
+                str += `${this.rightData[this.radio][nowItem].resultDate}  `
+                str += `${this.listByFilter[this.radio].subject}：`
+                str += `${this.rightData[this.radio][nowItem].itemName} ：`
                 str += `${this.rightData[this.radio][nowItem].result}`
-                str += `${this.rightData[this.radio][nowItem].units},`
-              }else{
-                str += `${this.rightData[this.radio][nowItem].itemName},`
-                str += `${this.rightData[this.radio][nowItem].result}` 
-                str += `${this.rightData[this.radio][nowItem].units}${i==activeCheckList.length-1?',':'。'}`
-              }
+                if(!isNaN(`${this.rightData[this.radio][nowItem].result}`)){
+                str += `${this.rightData[this.radio][nowItem].units}  `
+                }
+                str += `${this.rightData[this.radio][nowItem].expand3}。<br/>`
             }
           }
-          console.log(this.rightData[this.$refs.testForm.activeIndex],"writeDescription")
         }else{
           if(activeCheckList.length>0){
             const res= await testItems(this.listByFilter[this.radio].testNo)
@@ -250,13 +258,12 @@
                 str += `${res.data.data[nowItem].units},`
               }else{
                 str += `${res.data.data[nowItem].itemName},`
-                str += `${res.data.data[nowItem].result}` 
+                str += `${res.data.data[nowItem].result}`
                 str += `${res.data.data[nowItem].units},`
               }
             }
           }
         }
-        this.isSaving=false
         this.$emit('closeSweet')
         this.bus.$emit("openclosePatientInfo",'',true)
         this.bus.$emit('syncReportFSSY',str)
@@ -266,7 +273,9 @@
         if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
           this.rightData = data
         }else{
+          //初始化的时候合并的，点击之后拿点击的表头
           data = this.rightData[index]
+          this.tableHeaderInfo = data[0]
         }
         this.$nextTick(() => {
           this.$refs.testForm && this.$refs.testForm.open(data,index,clLength)
@@ -274,8 +283,6 @@
       }
     },
     components: {
-      // testForm,
-      // testFormHD,
       testFormFSRY
     }
   }

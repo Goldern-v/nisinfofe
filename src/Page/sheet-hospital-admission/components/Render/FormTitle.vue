@@ -4,7 +4,8 @@
     <TipsBox :obj="obj" :formObj="formObj">
       <div class="title-box">
         <h1 class="hospital-title">{{hospitalName}}</h1>
-        <span class="form-title">{{formName}}</span>
+        <span v-if="HOSPITAL_ID == 'lyxrm'||HOSPITAL_ID == 'lyyz'" class="form-title">入 院 评 估</span>
+        <span v-else class="form-title">{{formName}}</span>
         <div class="header-box">
           <span
             v-for="(item, index) in formHeads "

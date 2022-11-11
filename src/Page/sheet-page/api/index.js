@@ -48,8 +48,9 @@ export const saveHomePage = (patientId, visitId, indexNo) => {
   });
 };
 
-// 获取起始页
+// 获取起始页 有时候sheetInfo没有响应  所以加了判断  预防报错
 export const getHomePage = (patientId, visitId) => {
+  if(sheetInfo.selectBlock.id)
   return axios.get(`${apiPath}record/homePage/${sheetInfo.selectBlock.id}/get`);
 };
 

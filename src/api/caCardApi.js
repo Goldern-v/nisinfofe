@@ -3,9 +3,15 @@ import {
   apiPath,
   caSignHOST
 } from './apiConfig'
+import {
+  getAuthorize,
+  getQrCode
+} from './ca-sign_fuyou'
 import qs from 'qs'
+import base from '../utils/base64'
+import sheetInfo  from '../Page/sheet-page/components/config/sheetInfo/index'
 
-
+//佛山人医ca签名有关接口
 //获取useKey用户名和UkeyID
 function GetUserList() {
   return axios.post(`${caSignHOST}/GetUserList`)
@@ -15,9 +21,9 @@ function GetAllUkeyList() {
   return axios.post(`${caSignHOST}/AllUkeyList`)
 }
 /**
- * 
+ *
  * UkeyID可通过GetUserList获取
- * @returns 
+ * @returns
  */
 function SOF_ExportUserCert(UkeyID) {
   return axios.post(`${caSignHOST}/SOF_ExportUserCert`, UkeyID)
@@ -30,10 +36,10 @@ function SOF_ValidateCert_Text(UkeyID) {
 }
 /**
  * genRandome接口获取到random,serverCert,signedValue
- * @param {服务器证书} strServerCert 
- * @param {随机数} strRandom 
- * @param {签名值} strServerSignRan 
- * @returns 
+ * @param {服务器证书} strServerCert
+ * @param {随机数} strRandom
+ * @param {签名值} strServerSignRan
+ * @returns
  */
 function SOF_VerifySignedData(strServerCert, strRandom, strServerSignRan) {
   return axios.post(`${caSignHOST}/SOF_VerifySignedData`, {
@@ -44,9 +50,9 @@ function SOF_VerifySignedData(strServerCert, strRandom, strServerSignRan) {
 }
 /**
  * 验证ca登录ID和密码
- * @param {*} strCertId 
- * @param {*} strPassword 
- * @returns 
+ * @param {*} strCertId
+ * @param {*} strPassword
+ * @returns
  */
 function SOF_Login(strCertId, strPassword,username) {
   return axios.post(`${caSignHOST}/SOF_Login`, {
@@ -90,7 +96,7 @@ function caLoginBefore() {
         } = genRes.data.data
         //SOF_VerifySignedData通过后切换成ca登录操作
         SOF_VerifySignedData(strServerCert, strRandom, strServerSignRan).then(SignedDatares => {
-          //如果通过情况下 
+          //如果通过情况下
           if (SignedDatares.data == "True") {
             resolve({strRandom,strServerCert})
           } else {
@@ -172,6 +178,8 @@ function getPic(strCertId) {
   })
 }
 function verifyNewCaSign(SigndataObj,verifySignObj) {
+  //有时候如果传空值 就把护记的当前信息传给CA保存做凭证
+  if(!SigndataObj) SigndataObj = {...sheetInfo.se}
   return new Promise((resolve, reject) => {
     GetUserList().then(res => {
       if (res.data.length > 0) {
@@ -179,6 +187,7 @@ function verifyNewCaSign(SigndataObj,verifySignObj) {
           return reject("ca证书还未登录，请先登录！")
         }
       const strCertId = res.data.substring(res.data.indexOf("||") + 2, res.data.length).replace("&&&", "");
+      console.log('Ca接口信息=======>入参',{...SigndataObj,strCertId})
       SOF_SignData({...SigndataObj,strCertId}).then((SOF_SignDatares) => {
         console.log("SOF_SignDatares",SOF_SignDatares)
         if(SOF_SignDatares.data){
@@ -186,7 +195,8 @@ function verifyNewCaSign(SigndataObj,verifySignObj) {
           Promise.all([getPic(strCertId),getSOF_ExportUserCert(strCertId)]).then(result=>{
             if(!JSON.parse(localStorage.getItem("user")).signPic){
               signPic=result[0]
-            } 
+            }
+            console.log('Ca接口信息=======>出参','result',result,'signPic',signPic)
             verifySign({...verifySignObj,signPic,userCert:result[1],signedValue:SOF_SignDatares.data}).then(verifySignRes=>{
               localStorage["caUser"]= res.data.split("||")[0]
               resolve(verifySignRes.data.data)
@@ -200,6 +210,102 @@ function verifyNewCaSign(SigndataObj,verifySignObj) {
     }
   })
 })
+}
+
+// 南方中西医ca签名相关接口
+function getCertificate(userUid) {
+  return axios.get(`${apiPath}caSignNfzxy/getCertificate`,{params:{
+    userUid
+  }})
+}
+function getAccessToken(params) {
+  return axios.post(`${apiPath}caSignNfzxy/getAccessToken`,params)
+}
+function p7Sign(params) {
+  return axios.post(`${apiPath}caSignNfzxy/p7Sign`,params)
+}
+function nanfanggetQrCode(params) {
+  return axios.post(`${apiPath}caSignNfzxy/nanfanggetQrCode`,params)
+}
+
+function getRandomQrCode() {
+  switch(process.env.HOSPITAL_ID){
+    case 'guizhou':{
+      return new Promise((resolve, reject) => {
+        getAuthorize().then(getAuthorizeRes=>{
+          let accessToken = getAuthorizeRes.data.data.data.accessToken
+          sessionStorage.setItem('accessToken',accessToken)
+          getQrCode(accessToken).then(res=>{
+            resolve(res)
+          })
+        })
+      })
+      break;
+    }
+    default:
+      return axios.get(`${apiPath}caSignNfzxy/getRandomQrCode`)
+  }
+}
+function getQrCodeStatus(qrCodeIdentity,isLogin,accessToken) {
+  switch(process.env.HOSPITAL_ID){
+    case 'guizhou':{
+      return axios.post(`${apiPath}caSignHoujie/auth/caLogin`,
+      {
+        accessToken,
+        transactionId:qrCodeIdentity
+      })
+      break;
+    }
+    default:
+      return axios.post(`${apiPath}caSignNfzxy/getQrCodeStatus`,
+      {
+        qrCodeIdentity,
+        isLogin
+      })
+  }
+  
+}
+
+function nanfnagCaSign(userUid,password,p7SignObj,userToken,nanFangcaLogin) {
+  console.log("djwdjwdjw")
+  return new Promise((resolve, reject) => {
+    if(nanFangcaLogin && userToken){
+      console.log("jinlaila")
+      p7Sign({signData:{...p7SignObj},userUid ,userToken}).then(p7Signres=>{
+        resolve(p7Signres)
+      })
+    }else if(nanFangcaLogin && !userToken){
+      //南方中西医ca扫码登录但token已过期
+      getCertificate(userUid).then(Certificateres=>{
+        if(Certificateres.data.data.signCert.length>0){
+          const certContent = Certificateres.data.data.signCert
+          console.log("certContent",certContent)
+          nanfanggetQrCode({certContent}).then(AgetQrCoderes=>{
+            if(AgetQrCoderes.data.data.qrCodeBase64) resolve(AgetQrCoderes.data.data.qrCodeBase64)
+          })
+        }else reject("获取证书失败！")
+      })
+    }else{
+      const base64 = new base()
+      const userPin = base64.encode(password)
+      getCertificate(userUid).then(Certificateres=>{
+        if(Certificateres.data.data.signCert.length>0){
+          const certContent = Certificateres.data.data.signCert
+          console.log("certContent",certContent)
+          getAccessToken({certContent,userPin}).then(AccessTokenres=>{
+            if(AccessTokenres.data.data.userToken && AccessTokenres.data.data.userToken.length>0){
+              const userToken = AccessTokenres.data.data.userToken
+              p7Sign({signData:{...p7SignObj},userUid ,userToken}).then(p7Signres=>{
+                console.log("p7Signres",p7Signres)
+                resolve(p7Signres)
+              })
+            }
+          })
+        }else reject("获取证书失败！")
+      })
+    }
+
+  })
 }
 export {
   getSOF_ExportUserCert,
@@ -217,5 +323,8 @@ export {
   verifySign,
   pic_GetPic_Base64,
   verifyNewCaSign,
-  SOF_GetRetryCount
+  SOF_GetRetryCount,
+  nanfnagCaSign,
+  getRandomQrCode,
+  getQrCodeStatus
 }

@@ -32,7 +32,7 @@ import {
 } from "../keyEvent/date";
 
 let autoComplete1 = ['√','无','有','减轻','0分','1分','2分','3分','4分','5分','6分','7分','8分','9分','10分','正常','减退','丧失' ,'0级','I级','II级','III级','IV级','V级','清','浑浊','沉渣淡黄','深黄','茶色','乳白','淡红']
-let Output = ['大便','尿量','引流量']
+let Output = ['大便','尿量','引流量','胃管','尿管','伤口引流管','胸腔引流管','腹腔管','鼻胆管','PTBD管','PTGD管','腹腔双套管','盆腔引流管','肛管','引流管']
 let Input = ['输入液量','进食量']
 
 export default [
@@ -51,7 +51,7 @@ export default [
   { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量',autoComplete: { data: Output }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'character', event: keyf1, value: '', next: '', name: '颜色/性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'character', event: keyf1, value: '', next: '', name: '颜色/性状', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'armValue4', event: keyf1, value: '', next: '', name: '自定义值4', autoComplete: { data: autoComplete1 }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'armValue5', event: keyf1, value: '', next: '', name: '自定义值5', autoComplete: { data: autoComplete1 }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'armValue6', event: keyf1, value: '', next: '', name: '自定义值6', autoComplete: { data: autoComplete1 }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },

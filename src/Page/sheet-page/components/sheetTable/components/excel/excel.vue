@@ -209,9 +209,9 @@
                 })
             "
             @blur="
-              !HOSPITAL_ID === 'huadu' &&
+              HOSPITAL_ID !== 'huadu' &&
                 !td.splice &&
-                onBlur($event, { x, y, z: index }, tr )
+                onBlur($event, { x, y, z: index }, tr,td )
             "
           ></masked-input>
           <div
@@ -284,7 +284,8 @@
                   sheetInfo.sheetType === 'internal_eval_lcey' ||
                   sheetInfo.sheetType === 'critical_new_lcey'||
                   sheetInfo.sheetType === 'critical2_lcey'||
-                  sheetInfo.sheetType === 'critical_lcey')&&
+                  sheetInfo.sheetType === 'critical_lcey'||
+                  sheetInfo.sheetType === 'internal_eval_yz')&&
                 tr.find((item) => item.key == 'signerNo2').value
               "
               >/</span
@@ -377,9 +378,9 @@
                 })
             "
             @blur="
-              !HOSPITAL_ID === 'huadu' &&
+              HOSPITAL_ID !== 'huadu' &&
                 !td.splice &&
-                onBlur($event, { x, y, z: index }, tr )
+                onBlur($event, { x, y, z: index }, tr,td )
             "
             @click="
               sheetInfo.sheetType == 'antenatalwaiting_jm' &&
@@ -435,7 +436,7 @@
                   tr,
                 })
             "
-            @blur="onBlur($event, { x, y, z: index }, tr)"
+            @blur="onBlur($event, { x, y, z: index }, tr,td)"
             @click="!tr.isRead && td.click && td.click($event, td, tr)"
             v-else
           />
@@ -464,7 +465,8 @@
         sheetInfo.sheetType === 'critical_new_linyi' ||
         sheetInfo.sheetType === 'critical_new_weihai' ||
         sheetInfo.sheetType === 'ultrasound_fs' ||
-        sheetInfo.sheetType === 'postpartum_nurse_wj'
+        sheetInfo.sheetType === 'postpartum_nurse_wj'||
+        sheetInfo.sheetType === 'internal_eval_yz'
       "
     ></slot>
     <!-- 谢岗 -->
@@ -519,7 +521,8 @@
             sheetInfo.sheetType === 'ops_linyi' ||
             sheetInfo.sheetType === 'internal_eval_weihai' ||
             sheetInfo.sheetType === 'critical_linyi' ||
-            sheetInfo.sheetType === 'baby_lcey',
+            sheetInfo.sheetType === 'baby_lcey'||
+            sheetInfo.sheetType === 'internal_eval_yz',
         }"
 
       >
@@ -564,6 +567,7 @@
             sheetInfo.sheetType === 'baby_tj'||
             sheetInfo.sheetType == 'internal_eval_linyi' ||
             sheetInfo.sheetType === 'ops_linyi' ||
+            sheetInfo.sheetType === 'NICU_fs'||
             HOSPITAL_ID == 'fsxt'
           "
           >质控护士：</span
@@ -582,7 +586,8 @@
             sheetInfo.sheetType == 'critical2_lcey' ||
             sheetInfo.sheetType == 'internal_eval_weihai' ||
             sheetInfo.sheetType == 'critical_linyi' ||
-            sheetInfo.sheetType == 'baby_lcey'
+            sheetInfo.sheetType == 'baby_lcey'||
+            sheetInfo.sheetType == 'internal_eval_yz'
           "
           ><strong>护士长审核：</strong></span
         >
@@ -622,7 +627,8 @@
             sheetInfo.sheetType == 'critical2_lcey' ||
             sheetInfo.sheetType == 'internal_eval_weihai' ||
             sheetInfo.sheetType == 'critical_linyi' ||
-            sheetInfo.sheetType == 'baby_lcey'"
+            sheetInfo.sheetType == 'baby_lcey'||
+            sheetInfo.sheetType == 'internal_eval_yz'"
             style="margin-right:50px"
           >
           <span> <strong>审核时间：</strong> </span>
@@ -686,7 +692,7 @@ import decode from "../../../../components/render/decode.js";
 import moment from "moment";
 import { getUser } from "@/api/common.js";
 import bottomRemark from "./remark";
-import { SOF_SignData,verifySign,getPic,getSOF_ExportUserCert,GetUserList} from "@/api/caCardApi";
+import { GetUserList} from "@/api/caCardApi";
 
 // console.dir(sheetInfo);
 export default {
@@ -745,6 +751,7 @@ export default {
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
         "critical_new_lcey",
         "critical2_lcey",
+        "internal_eval_yz",
         "baby_lcey",
         "internal_eval_linyi", //临邑人医_一般或者护理记录单
         "critical_linyi", //临邑人医_病重（病危）患者护理记录单（带瞳孔）
@@ -762,6 +769,7 @@ export default {
         'baby_tj',
         'magnesiumsulphate_tj',//广东同江 - 硫酸镁注射液静脉滴注观察记录单
         'ops_linyi',
+        'NICU_fs', // 佛一 新生儿NICU护理记录单
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -849,6 +857,11 @@ export default {
 
   },
   methods: {
+    customCallBack(e,tr,x,y,index){
+      if(!this.splitSave) return
+      //这个方法是处理  自定义标题 每次选择 没有自动调用查询是否更改的方法的BUG
+      this.$emit('onModalChange', e,tr,x,y,index)
+    },
     redBottom(tr,y){
       return tr.find((item) => {
                 return item.key == 'recordSource';
@@ -948,18 +961,82 @@ export default {
       if (!this.sheetInfo.downControl) {
         setTimeout(() => {
           if(!this.isOpenEditModal){
-            onFocusToAutoComplete(e, bind); //下拉框延迟
+            //自定义标题没有输入事件  所以当有医院配置 保存按需（修改记录）来传给后端后 需要调用这个事件
+            onFocusToAutoComplete(e, bind, () => this.customCallBack(e, bind.tr, bind.x, bind.y, bind.index)); //下拉框延迟
           }
         }, 300);
         // onFocusToAutoComplete(e, bind);
       }
     },
-    onBlur(e, bind, tr) {
+    async onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
+      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry') {
+        let confirmRes = '';
+        if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
+          confirmRes = await this.$confirm(
+            " 体温的填写范围是35～42，你的填写超出录入范围,请重新填写",
+            "错误",
+            {
+              confirmButtonText: "确定",
+              showCancelButton: false,
+              type: "error",
+            }
+          ).catch(() => {});
+            td.value ='';
+        }
+        if((td.key === 'pulse'||td.key === 'heartRate'||td.key === 'fetalRate')&&td.value !== ''&&(isNaN(td.value)||td.value<30||td.value>300)){
+          confirmRes = await this.$confirm(
+            td.name+ "的填写范围是30～300，你的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            td.value ='';
+          }
+        }
+        if((td.key === 'spo2')&&td.value !== ''&&(isNaN(td.value)||td.value<50||td.value>100)){
+          confirmRes = await this.$confirm(
+            td.name+ "的填写范围是50～100，你的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            td.value ='';
+          }
+        }
+        if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1] ||td.value.split('/')[0]>150||td.value.split('/')[1]>300)){
+          confirmRes = await this.$confirm(
+            td.name+ "的收缩压的填写范围<=300,舒张压的填写范围<=150，你的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            td.value ='';
+          }
+
+        }
+      }
       onBlurToAutoComplete(e, bind);
       let recordDate = tr.find(item=>{
         return item.key == "recordDate"
       })
+      let recordYear = tr.find(item=>{
+        return item.key == "recordYear"
+      })
+      //点击保存年份 有时候为空
+      recordYear.value = moment().format('YYYY')
       if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
         //不允许输入未来时间
         if (bind.x == 0) {
@@ -1198,32 +1275,7 @@ export default {
                     signData:JSON.stringify(strSignData),
                   }
             this.$refs.signModal.open((password,empNo) => {
-
-              // SOF_SignData(
-              //   data
-              // ).then((res) => {
-                // console.log("SOF_SignData",res)
-                // if(res.data){
-                //   let signPic = ""
-                    // Promise.all([getPic(strCertId),getSOF_ExportUserCert(strCertId)]).then(result=>{
-                      // if(!localStorage.user.signPic){
-                      //   signPic=result[0]
-                      // }
-                  // verifySign({
-                  //   patientId:this.patientInfo.patientId,
-                  //   visitId:this.patientInfo.visitId,
-                  //   formName:this.$parent.patientInfo.recordName,
-                  //   formCode:sheetInfo.sheetType,
-                  //   instanceId:this.$parent.patientInfo.id,
-                  //   recordId:strSignData.id,
-                  //   userCert:result[1],
-                  //   signedValue:res.data,
-                  //   signData:JSON.stringify(strSignData),
-                  //   signPic
-                  // }).then(verifySignRes=>{
-                // let {password,empNo} = verifySignRes.data.data
-
-                    let trObj = {};
+              let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
               }
@@ -1248,9 +1300,6 @@ export default {
                     ? this.signType
                     : "",
               };
-
-
-                    // console.log(verifySignRes,"verifySignRes")
                      sign(
                 this.patientInfo.patientId,
                 this.patientInfo.visitId,
@@ -1293,7 +1342,6 @@ export default {
               // });
             },'',null,false,'',{},undefined,undefined,undefined,SigndataObj,verifySignObj);
           }else{
-            console.log("this.patientInfo",this.patientInfo,sheetInfo)
             let parmas={},trObj = {};
             if(this.HOSPITAL_ID=="zhzxy"){
             for (let i = 0; i < trArr.length; i++) {
@@ -1313,21 +1361,51 @@ export default {
               for(let key in strSignDataOBJ){
                 if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
               }
-            console.log(trObj,"trObj",strSignData)
               parmas={
-                  signType:"",
+                  signType:this.signType,
                   patientName:this.patientInfo.name,//-- 患者名称
                   patientSex:this.patientInfo.sex,// -- 患者性别
                   patientCardType:"QT",//-- 患者证件类型
-                  openId:"3186b382310f07d8qcb64we7b0y710a779f",// -- 当前用户唯一标识
+                  openId:localStorage["fuyouCaData"]?JSON.parse(localStorage["fuyouCaData"]).openId :"",// -- 当前用户唯一标识
                   patientAge:this.patientInfo.age,//-- 患者年龄
                   patientCard:"",// -- 患者证件号
                   templateId:"hash", //-- 模板id
-                  formId:sheetInfo.sheetType,// -- 表单ID
+                  formId:"1",// -- 表单ID
+                  formCode:sheetInfo.sheetType,// -- 表单ID
                 };
               }
+            let p7SignObj = {}
+            if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+              let trObj = {};
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
+              }
+              let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+               let strSignDataOBJ = Object.assign({}, trObj, {
+                    recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                    recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                    recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                    patientId: this.patientInfo.patientId,
+                    visitId: this.patientInfo.visitId,
+                    pageIndex: this.index,
+                  })
+                 let strSignData ={}
+                  for(let key in strSignDataOBJ){
+                  if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+                }
+               p7SignObj = {
+                formId:this.$parent.patientInfo.id,
+                patientId:this.patientInfo.patientId,
+                visitId:this.patientInfo.visitId,
+                formName:this.$parent.patientInfo.recordName,
+                formCode:sheetInfo.sheetType,
+                instanceId:this.$parent.patientInfo.id,
+                recordId:strSignData.id,
+                signData:JSON.stringify(strSignData)
+                }
+            }
             this.$refs.signModal.open((password, empNo) => {
-              
+
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1387,7 +1465,7 @@ export default {
                 });
                 this.bus.$emit("saveSheetPage", true);
               });
-            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:this.HOSPITAL_ID=="zhzxy"?trObj:null,undefined,undefined,undefined ,undefined ,parmas);
+            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:this.HOSPITAL_ID=="zhzxy"?trObj:null,undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
           }
         };
         let reverseList = [...decode().list].reverse();
@@ -1462,6 +1540,35 @@ export default {
                     signData:JSON.stringify(strSignData),
                   }
         }
+        if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+              let trObj = {};
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
+              }
+              let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+               let strSignDataOBJ = Object.assign({}, trObj, {
+                    recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                    recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                    recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                    patientId: this.patientInfo.patientId,
+                    visitId: this.patientInfo.visitId,
+                    pageIndex: this.index,
+                  })
+                 let strSignData ={}
+                  for(let key in strSignDataOBJ){
+                  if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+                }
+                verifySignObj = {
+                formId:this.$parent.patientInfo.id,
+                patientId:this.patientInfo.patientId,
+                visitId:this.patientInfo.visitId,
+                formName:this.$parent.patientInfo.recordName,
+                formCode:sheetInfo.sheetType,
+                instanceId:this.$parent.patientInfo.id,
+                recordId:strSignData.id,
+                signData:JSON.stringify(strSignData)
+                }
+            }
           this.$refs.delsignModal.open((password, empNo) => {
             let id = trArr.find((item) => {
               return item.key == "id";
@@ -1579,6 +1686,38 @@ export default {
 
             },'',undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
         }else{
+          let parmas={},trObj = {};
+            if(this.HOSPITAL_ID=="zhzxy"){
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
+            }
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            let strSignDataOBJ =
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index,
+                })
+                let strSignData ={}
+              for(let key in strSignDataOBJ){
+                if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+              }
+              parmas={
+                  signType:this.signType,
+                  patientName:this.patientInfo.name,//-- 患者名称
+                  patientSex:this.patientInfo.sex,// -- 患者性别
+                  patientCardType:"QT",//-- 患者证件类型
+                  openId:JSON.parse(localStorage["fuyouCaData"]).openId,// -- 当前用户唯一标识
+                  patientAge:this.patientInfo.age,//-- 患者年龄
+                  patientCard:"",// -- 患者证件号
+                  templateId:"hash", //-- 模板id
+                  formId:"1",// -- 表单ID
+                  formCode:sheetInfo.sheetType,// -- 表单ID
+                };
+              }
           this.$refs.signModal.open((password, empNo) => {
             let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
@@ -1631,7 +1770,7 @@ export default {
                 this.bus.$emit("saveSheetPage", true);
               }
             );
-          },['guizhou', '925'].includes(this.HOSPITAL_ID)?"":null,"",undefined,undefined,undefined,undefined,undefined,undefined);
+          },['guizhou', '925'].includes(this.HOSPITAL_ID)?"":null,"",undefined,undefined,this.HOSPITAL_ID=="zhzxy"?trObj:undefined,undefined,undefined,undefined,undefined,parmas);
 
         }
       } else {
@@ -1684,9 +1823,16 @@ export default {
             password,
             audit: true,
           }).then((res) => {
+            if(res.data.code==200)
+            this.$notify.success({
+                title: "提示",
+                message: "取消审核成功",
+                duration: 1000,
+              });
             this.bus.$emit("saveSheetPage", true);
           });
-        },'',null,false,'',['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:null);
+        },'',null,false,'',['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{
+        }:null,null,null,null,SigndataObj,verifySignObj);
       }
     },
     // 展示签名状态
@@ -1698,7 +1844,7 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        if (this.HOSPITAL_ID == "weixian" || this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zhzxy") {
+        if (["weixian","foshanrenyi","nanfangzhongxiyi",'zhzxy'].includes(this.HOSPITAL_ID)) {
           return trArr.find((item) => item.key == "signerNo").value
             ? `<img
               width="50"
@@ -2241,7 +2387,6 @@ export default {
       window.openContextMenu({ style, data });
     },
     openEditModal(tr, data, e) {
-      console.log("jinlai111")
       // 花都副页关闭编辑框
       if(this.sheetInfo.sheetType=='additional_count_hd'){
         return
@@ -2426,7 +2571,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','ops_linyi']
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','ops_linyi','internal_eval_yz']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =

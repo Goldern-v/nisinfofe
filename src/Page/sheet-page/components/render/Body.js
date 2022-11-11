@@ -676,6 +676,11 @@ function switchSheetType(type) {
       schema = require("../config/internal_eval_linyi/tr.js").default;
     }
       break;
+    case "babymonitor_linyi": {
+      // 临邑人医 - 一般患者护理评估记录单
+      schema = require("../config/babymonitor_linyi/tr.js").default;
+    }
+      break;
     case "critical_linyi": {
       // 临邑人医 - 病重（病危）患者护理记录单
       schema = require("../config/critical_linyi/tr").default;
@@ -1213,7 +1218,7 @@ function switchSheetType(type) {
     }
       break;
     case "prenatal_fs": {
-      // 佛山市一 - 护理记录单(腰椎疾病手术治疗)
+      // 佛山市一 - 产前待产记录单
       schema = require("../config/prenatal_fs/tr.js").default;
     }
       break;
@@ -1269,6 +1274,11 @@ function switchSheetType(type) {
     case "babyarea_fs": {
       // 佛山市一 - 爱婴区新生儿护理记录
       schema = require("../config/babyarea_fs/tr.js").default;
+    }
+      break;
+    case "NICU_fs": {
+      // 佛山市一 - 新生儿NICU护理记录单
+      schema = require("../config/NICU_fs/tr.js").default;
     }
       break;
     case "nonsurgicalcare_fk": {
@@ -1601,6 +1611,16 @@ function switchSheetType(type) {
       schema = require("../config/critical_new_weihai/tr.js").default;
     }
     break;
+    case "post_partum_weihai": {
+      // 威海市立 - 产后（产房）观察记录单
+      schema = require("../config/post_partum_weihai/tr.js").default;
+    }
+    break;
+    case "labor_weihai": {
+      // 威海市立 - 产程记录
+      schema = require("../config/labor_weihai/tr.js").default;
+    }
+    break;
     case "baby_yz": {
       // 临沂沂州 - 新生儿护理记录单
       schema = require("../config/baby_yz/tr.js").default;
@@ -1611,6 +1631,21 @@ function switchSheetType(type) {
         schema = require("../config/custody_yz/tr.js").default;
     }
       break;
+    case "internal_eval_yz": {
+        //  临沂沂州 - 一般患者护理评估记录单
+        schema = require("../config/internal_eval_yz/tr.js").default;
+      }
+      break;
+    case "critical_new_yz": {
+        // 临沂沂州- 病重（病危）患者护理记录单（带瞳孔)
+        schema = require("../config/critical_new_yz/tr.js").default;
+      }
+      break;
+    case "icu_yz": {
+        // 临沂沂州--内科重症医学科
+        schema = require("../config/icu_yz/tr.js").default;
+    }
+        break;
     case "inout_ytll": {
       // 烟台玲珑 - 出入量记录单
       schema = require("../config/inout_ytll/tr.js").default;

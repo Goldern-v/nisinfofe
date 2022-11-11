@@ -59,6 +59,7 @@
 // import {getDoctorEmr} from "../../../../../doctorEmr/api";
 import patientInfoSlide from "./modal/patient-info-slide";
 import doctorEmrModal from "./modal/doctor-emr-modal";
+import bus from 'vue-happy-bus'
 
 export default {
   directives: {
@@ -127,7 +128,6 @@ export default {
           let oHeight = dragNode.offsetHeight;
           const [iframeDom] = document.getElementsByClassName("iframeDom");
           iframeDom.style['pointer-events'] = 'none'
-          console.log(iframeDom.style, 'ssssssss')
           if (el.getBoundingClientRect().width !== window.innerWidth) {
             // 非“全屏”下才能拖动
             document.onmousemove = (ev) => {
@@ -242,6 +242,7 @@ export default {
       patientId: "",
       open: false,
       visitId: "",
+      bus: bus(this),
     };
   },
   computed: {
@@ -263,6 +264,7 @@ export default {
   watch: {
     routeQuery() {
       this.close();
+      this.bus.$emit('refreshTree')
     },
   },
   methods: {
@@ -289,12 +291,10 @@ export default {
     async onload() {
       this.show = true;
       if(['zhzxy'].includes(this.HOSPITAL_ID)){
-        console.log("111111")
         this.openModal('doctorEmrModal')
       }else await this.getTreeData();
     },
     openModal(name,feature) {
-      console.log("name",name,this.show)
       this.$refs[name].open(feature);
     },
     async getTreeData() {

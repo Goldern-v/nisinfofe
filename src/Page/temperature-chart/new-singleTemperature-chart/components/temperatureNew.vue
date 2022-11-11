@@ -7,7 +7,7 @@
       </el-button-group>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
       <div :class="rightSheet===true?'pagination':'paginationRight'">
-        <button :disabled="currentPage === 1" @click="toPre">
+        <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage = 1;">
           首周
         </button>
         <button :disabled="currentPage === 1" @click="currentPage--">
@@ -222,7 +222,7 @@ export default {
       this.authTokenNursing = val;
     },
     currentPage(value) {
-      this.totoCurrentPage=value
+      this.toCurrentPage=value
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "currentPage", value },
         this.intranetUrl /* 内网 */

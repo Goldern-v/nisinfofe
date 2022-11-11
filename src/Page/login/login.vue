@@ -28,106 +28,105 @@
           class="login-shaw"
         />
         <div class="login-con">
-          <div class="toggle-login-type" v-if="HOSPITAL_ID == 'zhongshanqi'">
-            <div class="img" @click="toggleLoginType">
-              <img
-                src="../../common/images/login_pwd.png"
-                alt=""
-                v-show="!showPwdType"
-              />
-              <img
-                src="../../common/images/login_qrcode.png"
-                alt=""
-                v-show="showPwdType"
-              />
+            <div class="toggle-login-type" v-if="HOSPITAL_ID == 'zhongshanqi'">
+              <div class="img" @click="toggleLoginType">
+                <img
+                  src="../../common/images/login_pwd.png"
+                  alt=""
+                  v-show="!showPwdType"
+                />
+                <img
+                  src="../../common/images/login_qrcode.png"
+                  alt=""
+                  v-show="showPwdType"
+                />
+              </div>
+              <div class="qrcode" v-show="!showPwdType">
+                <img src="../../common/images/qrcode_zsq.png" alt="" />
+              </div>
             </div>
-            <div class="qrcode" v-show="!showPwdType">
-              <img src="../../common/images/qrcode_zsq.png" alt="" />
-            </div>
-          </div>
           <div>
             <div class="logo-con">
               <img :src="logoUrl" height="63" width="63" />
             </div>
             <h1 class="name" v-html="logoName"></h1>
           </div>
-          <div class="input-con">
-            <input
-              type="text"
-              :disabled="caLoginFlag"
-              placeholder="用户名"
-              v-model="account"
-            />
-            <img src="../../common/images/account.png" height="14" width="14" />
-          </div>
-          <div class="input-con">
-            <input
-              type="password"
-              style="border-top: 0"
-              :placeholder="caLoginFlag ? '证书密码' : '密码'"
-              v-model="password"
-            />
-            <img
-              src="../../common/images/password.png"
-              height="14"
-              width="14"
-            />
-          </div>
-          <div class="input-con" v-if="showVerification && !caLoginFlag">
-            <input
-              type="password"
-              style="border-top: 0; width: 170px"
-              placeholder="验证码，单击图片刷新"
-              v-model="verificationCode"
-            />
-            <img
-              src="../../common/images/verificationCode.png"
-              height="14"
-              width="14"
-            />
-            <div class="verificationImg">
-              <img
-                :src="verificationImg"
-                alt=""
-                @click="refreshImg"
-                style="cursor: pointer"
-              />
+          <div :style="[{overflow:['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)?'hidden':''},translate300COM,translateTypeCOM]">
+            <div class="nanfangCa-Box" v-if="['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)">
+              <div class="nanfangCa-choseline"><div class="translateType"></div></div>
+              <div class="nanfangCa-con" @click="(e)=>changeLoginType(false,e)">密码登录</div>
+              <div class="nanfangCa-con" @click="(e)=>changeLoginType(true,e)">ca扫码登录</div>
+            </div>
+            <div class="tranSlate-300" :class="{'nanfangCa-loginBox':['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)}">
+              <div :class="{'nanfangCa-Boxx':['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)}">
+                <div class="input-con">
+                  <input type="text" :disabled="caLoginFlag" placeholder="用户名" v-model="account" />
+                  <img src="../../common/images/account.png" height="14" width="14" />
+                </div>
+                <div class="input-con">
+                  <input
+                    type="password"
+                    style="border-top: 0"
+                    :placeholder="caLoginFlag?'证书密码':'密码'"
+                    v-model="password"
+                  />
+                  <img
+                    src="../../common/images/password.png"
+                    height="14"
+                    width="14"
+                  />
+                </div>
+                <div class="input-con" v-if="showVerification && !caLoginFlag">
+                  <input
+                    type="password"
+                    style="border-top: 0; width: 170px"
+                    placeholder="验证码，单击图片刷新"
+                    v-model="verificationCode"
+                  />
+                  <img
+                    src="../../common/images/verificationCode.png"
+                    height="14"
+                    width="14"
+                  />
+                  <div class="verificationImg">
+                    <img
+                      :src="verificationImg"
+                      alt=""
+                      @click="refreshImg"
+                      style="cursor: pointer"
+                    />
+                  </div>
+                </div>
+                <div class="remember-con">
+                  <el-checkbox v-model="remember" v-if="!caLoginFlag">
+                    <span style="font-size: 13px; color: #687179">记住账号</span>
+                  </el-checkbox>
+                  <div class="checkCar-con" v-if="['gdtj'].includes(HOSPITAL_ID)">
+                    <el-checkbox v-model="isMobile">
+                      <span style="font-size: 13px; color: #687179">是否推车设备</span>
+                    </el-checkbox>
+                    <span style="color: red;">{{"推车登录请勾选!"}}</span>
+                  </div>
+                  <button
+                    v-if="!caLoginFlag"
+                    style="background-color: #fff; float: right; border: 0"
+                    @click="toReset()"
+                  >
+                    重置密码
+                  </button>
+                </div>
+                <button v-if="!caLoginFlag" v-touch-ripple class="login-btn" @click="login">
+                  {{ !ajax ? "登录系统" : "登录中..." }}
+                </button>
+                <button v-if="caLoginFlag" v-touch-ripple class="login-btn" @click="login">
+                  {{ !ajax ? "证书登录" : "登录中..." }}
+                </button>
+              </div>
+              <div class="nanfangCa-Boxx" v-if="['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)">
+                <img alt="" :src="'data:text/html;base64,'+qrCodeBase64"  />
+              </div>
             </div>
           </div>
-          <div class="remember-con">
-            <el-checkbox v-model="remember" v-if="!caLoginFlag">
-              <span style="font-size: 13px; color: #687179">记住账号</span>
-            </el-checkbox>
-            <button
-              v-if="!caLoginFlag"
-              style="background-color: #fff; float: right; border: 0"
-              @click="toReset()"
-            >
-              重置密码
-            </button>
-          </div>
-          <div class="checkCar-con" v-if="['gdtj'].includes(HOSPITAL_ID)">
-            <el-checkbox v-model="isMobile">
-              <span style="font-size: 13px; color: #687179">是否推车设备</span>
-            </el-checkbox>
-            <span style="color: red;">{{"推车登录请勾选!"}}</span>
-          </div>
-          <button
-            v-if="!caLoginFlag"
-            v-touch-ripple
-            class="login-btn"
-            @click="login"
-          >
-            {{ !ajax ? "登录系统" : "登录中..." }}
-          </button>
-          <button
-            v-if="caLoginFlag"
-            v-touch-ripple
-            class="login-btn"
-            @click="login"
-          >
-            {{ !ajax ? "证书登录" : "登录中..." }}
-          </button>
         </div>
       </div>
       <p class="footer-text">
@@ -218,6 +217,56 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   border-radius: 2px;
   position: relative;
   z-index: 2;
+  .nanfangCa-loginBox{
+    display:flex;
+    width:600px;
+    transition:all 0.4s;
+    &.tranSlate-300{
+      // transform: translateX(-300px);
+      transform:var(--translate300);
+    }
+  }
+  .nanfangCa-Boxx{
+    width:50%;
+    flex:1;
+    min-height:302px;
+    >img{
+      width :100%;
+      height:100%;
+    }
+  }
+  .nanfangCa-Box{
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    position :relative;
+    .nanfangCa-choseline{
+      position :absolute;
+      bottom :5px;
+      width :100%;
+      left :0;
+      height:5px;
+      background :#d0d6db;
+      >div{
+        height: 100%;
+        width: 50%;
+        background:#79c09e;
+        &.translateType{
+          transform:var(--translateType);
+        }
+      }
+    }
+    .nanfangCa-con{
+      flex: 1;
+      width: 50%;
+      padding-bottom: 20px;
+      cursor: pointer;
+      position relative;
+
+    }
+
+  }
 
   .toggle-login-type {
     .img {
@@ -424,31 +473,22 @@ a {
 </style>
 
 <script>
-import { login, hisLogin, ipAddress } from "@/api/login";
-import {
-  GetUserList,
-  caLoginBefore,
-  caLoginLater,
-  verifyUser,
-  // SOF_SignData,
-  // SOF_VerifySignedData,
-  // SOF_Login,
-  // SOF_ExportUserCert,
-  // genRandom,
-  // GetAllUkeyList,
-} from "@/api/caCardApi";
+import { login, hisLogin,ipAddress } from "@/api/login";
+import { GetUserList,caLoginBefore,caLoginLater,verifyUser,
+getRandomQrCode,getQrCodeStatus } from "@/api/caCardApi";
 import Cookies from "js-cookie";
-// import {caLoginobj} from './caLoign';
 import EnterToTab from "@/plugin/tool/EnterToTab.js";
 import md5 from "md5";
 import { mapMutations } from "vuex";
 import { passwordRule } from "@/api";
+import bus from "vue-happy-bus";
 import { getDictItem } from '@/api/common';
 const CryptoJS = require("crypto-js");
 const SecretKey = "chenrui2020";
 
 let loginTimer = null;
-let useLogin = null;
+let useLogin =null
+let nanfanImgtimer= null
 export default {
   data() {
     return {
@@ -462,26 +502,48 @@ export default {
       loginLoading: false,
       checkCa: false, //判断是否已经插入了ukey
       strRandom: "",
+      bus: bus(this),
       strServerCert: "",
       useCaList: ["foshanrenyi"],
       UkeyObj: {}, //保存ukeys里面的信息
       caLoginFlag: false, //拿来区分是不是ukey登录，要区分checkCa
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
-      md5HisList: ["foshanrenyi", "hengli", "sdlj", "zhzxy"], //需要md5加密医院
-      ip: "",
+      md5HisList: ["foshanrenyi","hengli",'sdlj','zhzxy'], //需要md5加密医院
+      BeiHaiCaloginType:false, //false 密码登录 true ca扫码登录
+      translate300:'translateX(0px)',
+      ip:'',
       reg: {},
+      translateType:"translateX(0)",
+      qrCodeBase64:"",
       // 是否需要md5加密
       isMd5: false,
+      qrCodeIdentity:"",
+      nanfangTime:0
     };
   },
   methods: {
     ...mapMutations("common", ["setUser"]),
     //刷新验证码图片
     refreshImg() {
-      login(this.account, this.password, "", true).then((res) => {
+       let loginOBJ = {
+          empNo: this.account,
+          password:this.password,
+          code: '',
+          repaint:true,
+        };
+      login(loginOBJ).then((res) => {
         this.verificationImg = res.data.data;
       });
+    },
+    changeLoginType(typeFlag,e){
+      if(typeFlag){
+        this.translate300='translateX(-300px)'
+        this.translateType ="translateX(100%)"
+      }else{
+        this.translate300='translateX(0)'
+        this.translateType ="translateX(0)"
+      }
     },
     async login(type) {
       if (!(this.account && this.password)) {
@@ -508,7 +570,7 @@ export default {
       let password = this.password;
       this.isMd5 &&
       // this.md5HisList.includes(this.HOSPITAL_ID) &&
-        // this.password !== "Bcy@22qw" &&
+      //   this.password !== "Bcy@22qw" &&
         !this.caLoginFlag &&
         (password = md5(this.password));
       // login(this.account, this.password, this.verificationCode)
@@ -535,7 +597,6 @@ export default {
           //   this.$message.error("请重新登录");
           // }
         } catch (e) {
-          console.log("e", e);
           this.$message.error("请重新登录");
           this.ajax = false;
           return;
@@ -544,7 +605,6 @@ export default {
       //是否切换到了ca登录
       if (this.caLoginFlag) {
         if (["foshanrenyi"].includes(this.HOSPITAL_ID)) useLogin = verifyUser;
-        console.log("logincaLoginFlag", this.UkeyObj);
         const strCertId = this.UkeyObj.substring(
           this.UkeyObj.indexOf("||") + 2,
           this.UkeyObj.length
@@ -650,7 +710,8 @@ export default {
           }
         });
     },
-    loginSucceed(res, type) {
+    loginSucceed(res,type) {
+      clearInterval(nanfanImgtimer);
       // 存下token 和用户信息 Auth-Token-Nursing
       let user = res.data.data.user;
       user.token = res.data.data.authToken;
@@ -689,7 +750,9 @@ export default {
           window.openCaSignModal();
         } else if (["zhzxy"].includes(this.HOSPITAL_ID)) {
           window.openFuyouCaSignModal(true);
-        } else if (["hj", "guizhou"].includes(this.HOSPITAL_ID)) {
+        } else if (["hj"].includes(this.HOSPITAL_ID)) {
+          window.openHjCaSignModal();
+        }else if(["guizhou"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
           window.openHjCaSignModal();
         }
       }
@@ -781,11 +844,32 @@ export default {
         console.error(e);
       }
     }
+    if(['nanfangzhongxiyi勿删','guizhou'].includes(this.HOSPITAL_ID)){
+        clearInterval(nanfanImgtimer);
+        nanfanImgtimer = setInterval(() => {
+          this.nanfangTime = ++this.nanfangTime
+          let accessToken = sessionStorage.getItem('accessToken') || ""
+          getQrCodeStatus(this.qrCodeIdentity,"0",accessToken).then(getQrCodeStatusRes=>{
+            if(getQrCodeStatusRes.data.data.user){
+              if(['guizhou'].includes(this.HOSPITAL_ID)){
+                localStorage.setItem("fuyouCaData",JSON.stringify(getQrCodeStatusRes.data.data.caToken.data));
+                this.bus.$emit("updateFuyouCaData")
+              }else{
+                localStorage.setItem("nanFangcaToken",getQrCodeStatusRes.data.data.caToken)
+                localStorage.setItem("nanFangcaLogin",true)
+              }
+              this.$message.success("CA扫码登陆成功")
+              this.loginSucceed(getQrCodeStatusRes)
+            }
+          },()=>{
+            console.log("111111111111")
+          })
+        },1000)
+    }
     if (this.useCaList.includes(this.HOSPITAL_ID)) {
       clearInterval(loginTimer);
       loginTimer = setInterval(() => {
         GetUserList().then((res) => {
-          console.log("GetUserListres", res);
           if (res.data.length > 0) {
             this.UkeyObj = res.data;
             this.checkCa = true;
@@ -812,6 +896,16 @@ export default {
     );
   },
   computed: {
+    translate300COM(){
+       return {
+        "--translate300": this.translate300
+      };
+    },
+    translateTypeCOM(){
+       return {
+        "--translateType": this.translateType
+      };
+    },
     logoUrl() {
       switch (this.HOSPITAL_ID) {
         case "hj":
@@ -892,14 +986,12 @@ export default {
         if (newVal) {
           caLoginBefore().then(
             (caLoginFunRes) => {
-              console.log(caLoginFunRes, "caLoginFunRes");
               const { strRandom, strServerCert } = caLoginFunRes;
               this.strRandom = strRandom;
               this.strServerCert = strServerCert;
               this.caLoginFlag = true;
               this.account = this.UkeyObj.split("||")[0];
               this.password = "";
-              console.log(caLoginFunRes, "caLoginFunRes");
             },
             (err) => {
               this.$message.error(err);
@@ -913,6 +1005,31 @@ export default {
         }
       },
       immediate: true,
+    },
+    nanfangTime:{
+      handler(newVal) {
+        if(newVal){
+          if(newVal==1 || newVal%120==0){
+            getRandomQrCode().then(getRandomQrCodeRes=>{
+              if(['nanfangzhongxiyi勿删'].includes(this.HOSPITAL_ID)){
+                this.qrCodeBase64 = getRandomQrCodeRes.data.data.qrCodeBase64
+                this.qrCodeIdentity = getRandomQrCodeRes.data.data.qrCodeIdentity
+              }else{
+                if(getRandomQrCodeRes.data.code==200){
+                  this.qrCodeBase64 = getRandomQrCodeRes.data.data.data.oauthMPCode
+                  this.qrCodeIdentity = getRandomQrCodeRes.data.data.data.transactionId
+                }else{
+                  this.$message({
+                    type: "error",
+                    message: getRandomQrCodeRes.data.errorCode
+                  });
+                }
+              }
+            })
+          }
+        }
+      },
+      immediate: true
     },
     password() {
       if (this.HOSPITAL_ID == "zhongshanqi") {

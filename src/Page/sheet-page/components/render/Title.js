@@ -781,6 +781,13 @@ export default function Title(
     );
   }
   break;
+  case "babymonitor_linyi": {
+    // 临邑人医 - 一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/babymonitor_linyi/th.js").default)
+    );
+  }
+  break;
   case "critical_linyi": {
     // 临邑人医 - 病重（病危）患者护理记录单
     Th = JSON.parse(
@@ -1499,7 +1506,7 @@ export default function Title(
     }
   break;
   case "prenatal_fs": {
-    // 佛山市一 - 护理记录单(危重患者护理记录单)
+    // 佛山市一 - 产前待产记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/prenatal_fs/th.js").default)
       );
@@ -1614,6 +1621,13 @@ export default function Title(
     // 佛山市一 - 爱婴区新生儿护理记录
     Th = JSON.parse(
       JSON.stringify(require("../config/babyarea_fs/th").default)
+    );
+  }
+  break;
+  case "NICU_fs": {
+    // 佛山市一 - 新生儿NICU护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/NICU_fs/th").default)
     );
   }
   break;
@@ -2072,6 +2086,20 @@ export default function Title(
     );
   }
   break;
+  case "post_partum_weihai": {
+    // // 威海市立 - 产后（产房）观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/post_partum_weihai/th.js").default)
+    );
+  }
+  break;
+  case "labor_weihai": {
+    // // 威海市立 - 产程记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_weihai/th.js").default)
+    );
+  }
+  break;
   case "baby_yz": {
     // 临沂沂州 - 新生儿护理记录单
     Th = JSON.parse(
@@ -2083,6 +2111,27 @@ export default function Title(
     // 临沂沂州 - 监护记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/custody_yz/th").default)
+    );
+  }
+  break;
+  case "internal_eval_yz": {
+    // 临沂沂州 - 一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_eval_yz/th.js").default)
+    );
+  }
+  break;
+  case "critical_new_yz": {
+    // 临沂沂州 - 病重（病危）患者护理记录单（带瞳孔）(新)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_new_yz/th").default)
+    );
+  }
+  break;
+  case "icu_yz": {
+    // 内科重症医学科
+    Th = JSON.parse(
+      JSON.stringify(require("../config/icu_yz/th").default)
     );
   }
   break;

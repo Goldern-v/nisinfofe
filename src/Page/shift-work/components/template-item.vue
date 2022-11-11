@@ -3,7 +3,7 @@
     <div class="title">{{data.title}}</div>
     <div class="content">{{data.content}}</div>
     <div class="actions" @click.stop>
-      <ElTooltip content="编辑" placement="bottom" effect="dark">
+      <ElTooltip content="编辑111" placement="bottom" effect="dark">
         <i class="iconfont icon-hulijiludan" @click="onEdit"></i>
       </ElTooltip>
       <ElTooltip content="删除" placement="bottom" effect="dark">
@@ -16,15 +16,17 @@
 <script>
 export default {
   props: {
-    data: Object
+    listData: Object
   },
-  data: () => ({}),
+  // data: () => ({}),
   methods: {
     onClick() {
-      this.$emit("click", this.data);
+      // this.$emit("click", this.data);
     },
     onEdit() {
-      this.$emit("edit", this.data);
+      console.log(this.data,99999)
+
+      // this.$emit("edit", this.data);
     },
     onRemove() {
       this.$emit("remove", this.data);

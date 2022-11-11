@@ -1,6 +1,6 @@
 
 /**
-  佛山市一 - 护理记录单(危重患者护理记录单)
+  佛山市一 - 产前待产记录单
 */
 
 /**
@@ -30,8 +30,9 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let Output = ['大便','尿量','引流量']
-let Input = ['输入液量','进食量']
+let gongsuo = ['无','偶有','不规则','弱','中','强']
+let gongjin = ['未开','容一指','1cm','2cm']
+let xianlou = ['S+1','S=0','S-1']
 
 export default [
   { hidden: true, key: 'recordDate', value: '' },
@@ -44,14 +45,14 @@ export default [
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SPO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'heart', event: keyf1, value: '', next: '次/分', name: '胎心', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'fetal', event: keyf1, value: '', next: '次/小时', name: '胎动', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'contractionsStrength', event: keyf1, value: '', next: '', name: '宫缩强度', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'contractionsStrength', event: keyf1, value: '', next: '', name: '宫缩强度', autoComplete: { data: gongsuo },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'contractionsContinued', event: keyf1, value: '', next: '', name: '宫缩有持续', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'contractionsIntermittent', event: keyf1, value: '', next: '', name: '宫缩有间歇', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'cervicalDilation', event: keyf1, value: '', next: '', name: '宫颈扩张', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'reveal', event: keyf1, value: '', next: '', name: '先露高低', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'food', event: keyf1, value: '', next: '', name: '入量', autoComplete: { data: Input }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'cervicalDilation', event: keyf1, value: '', next: '', name: '宫颈扩张',autoComplete: { data: gongjin },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'reveal', event: keyf1, value: '', next: '', name: '先露高低', autoComplete: { data: xianlou },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'food', event: keyf1, value: '', next: '', name: '入量',  textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', autoComplete: { data: Output }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6)  },
+  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量',  textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6)  },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'custom2', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
   { key: 'custom3', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
@@ -66,7 +67,7 @@ export default [
   },
   { key: "sign", value: "" },//单签
   // { key: "sign2", value: "" },//双签
-  // { key: "audit", value: "" },//审核签名
+  { key: "audit", value: "" },//审核签名
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
   { hidden:true, key:'signerName2', value:''},
