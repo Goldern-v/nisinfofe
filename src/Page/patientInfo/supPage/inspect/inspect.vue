@@ -194,7 +194,7 @@ export default {
     return {
       list: [],
       rightData: {},
-      
+
       value: "全部",
       visitList: [],
       visitId: "",
@@ -314,6 +314,7 @@ export default {
         this.visitId == "门诊" ? 0 : this.visitId
       ).then((res) => {
         this.list = res.data.data;
+        console.log(this.list , 'list');
         this.toRight(this.list[0]);
       });
     },
