@@ -62,7 +62,7 @@ import {
       }
       keyf1(e, td);
     },
-    name: '血压',
+    name: '血压脉搏',
     next: 'mmHg'
   },
   {

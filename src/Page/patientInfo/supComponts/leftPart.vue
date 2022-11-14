@@ -109,7 +109,8 @@
               HOSPITAL_ID == 'zhzxy' ||
               HOSPITAL_ID == '925' ||
               HOSPITAL_ID == 'gdtj' ||
-              HOSPITAL_ID == 'whhk' 
+              HOSPITAL_ID == 'whhk' ||
+              HOSPITAL_ID == 'lyyz'
             "
           >
             {{HOSPITAL_ID=='beihairenyi'?'成人腕带打印':'腕带打印'}}
@@ -118,7 +119,7 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openWristPrint('wrist-children')"
-            v-if="['beihairenyi','zhzxy'].includes(HOSPITAL_ID)"
+            v-if="['beihairenyi','zhzxy','lyyz'].includes(HOSPITAL_ID)"
           >
             儿童腕带打印
           </div>
@@ -414,6 +415,8 @@ export default {
       } else if (['925'].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModal925.open(printMode);
       }else if (['gdtj'].includes(this.HOSPITAL_ID)) {
+        this.$refs.bedModalGDTJ.open(printMode);
+      }else if (['lyyz'].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalGDTJ.open(printMode);
       }
     },

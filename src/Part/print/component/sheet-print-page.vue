@@ -308,7 +308,8 @@ export default {
        ||this.HOSPITAL_ID==="foshanrenyi"
        ||this.HOSPITAL_ID==="zhzxy"
        ||this.HOSPITAL_ID==="lyxrm"
-       ||this.HOSPITAL_ID==="huadu"){
+       ||this.HOSPITAL_ID==="huadu"
+       ||this.HOSPITAL_ID==='whsl'){
       printDir("h");
             addCSS(
               window,
@@ -321,12 +322,12 @@ export default {
           `
             );
     }
-    
+
     $("#app").css({
       minWidth: sheetTableWidth + "px"
     });
     console.log("this.sheetInfo.sheetType ",this.sheetInfo.sheetType )
-    
+
     if (sheetTableWidth > 1000 && !['ops_linyi','nicu_custody_hd'].includes(this.sheetInfo.sheetType) ) {
       console.log("jinlaidayin")
       printDir("h");
@@ -886,7 +887,7 @@ export default {
     $("textarea").each((index, el) => {
       $(el).html($(el).attr("value"));
     });
-    
+
     if (this.$route.query.toPrint == "true") {
       setTimeout(() => {
         this.print();

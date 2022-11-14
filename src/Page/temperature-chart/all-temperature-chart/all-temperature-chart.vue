@@ -1623,7 +1623,7 @@ export default {
         let confirmRes = '';
         if((key === 'temperature')&&value !== ''&&(isNaN(value)||value<35||value>42)){
             confirmRes = await this.$confirm(
-              " 体温的正常范围是35～42，你的填写超出正常录入范围,请重新填写",
+              " 体温的填写范围是35～42，你的填写超出录入范围,请重新填写",
               "错误",
               {
                 confirmButtonText: "确定",
@@ -1635,7 +1635,7 @@ export default {
           }
         if((key === 'pulse'||key === 'heartRate'||key === 'fetalRate')&&value !== ''&&(isNaN(value)||value<30||value>300)){
           confirmRes = await this.$confirm(
-            name+ "的正常范围是30～300，你的填写超出正常录入范围,是否确定填写?",
+            name+ "的填写范围是30～300，你的填写超出录入范围,是否确定填写?",
             "提示",
             {
               confirmButtonText: "确定",
@@ -1650,7 +1650,7 @@ export default {
 
         if((key === 'xybhd')&&value !== ''&&(isNaN(value)||value<50||value>100)){
           confirmRes = await this.$confirm(
-            name+ "的正常范围是50～100，你的填写超出正常录入范围,是否确定填写?",
+            name+ "的填写范围是50～100，你的填写超出录入范围,是否确定填写?",
             "提示",
             {
               confirmButtonText: "确定",
@@ -1664,7 +1664,7 @@ export default {
         }
         if((key === 'bloodPressure')&&value !== ''&&(isNaN(value.split('/')[0])||!value.split('/')[1] ||value.split('/')[0]>150||value.split('/')[1]>300)){
           confirmRes = await this.$confirm(
-            name+ "的收缩压的正常范围<=300,舒张压的正常范围<=150，你的填写超出正常录入范围,是否确定填写?",
+            name+ "的收缩压的填写范围<=300,舒张压的填写范围<=150，你的填写超出录入范围,是否确定填写?",
             "提示",
             {
               confirmButtonText: "确定",

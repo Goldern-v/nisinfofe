@@ -200,7 +200,6 @@
     methods: {
       toRight(data,index) {
         if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
-            console.log(data,'dddddddddddddddddddddd');
           this.rightData = data
         }else{
           this.foshanRenyiChoseIndex = index?index:0

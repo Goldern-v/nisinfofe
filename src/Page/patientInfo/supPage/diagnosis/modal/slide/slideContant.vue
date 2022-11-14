@@ -333,13 +333,15 @@ let bindData = {
   beginTime:"",
   showWordLimit: true,
   textInputMaxLength: 100,
-  textInputMaxLength2: 1000
+  textInputMaxLength2: ['whsl'].includes(process.env.HOSPITAL_ID)?600:1000
 };
 let bindDataClone = { ...bindData };
 export default {
   inject: ["openSlideCon"],
   data() {
-    return bindData;
+    return {
+      ...bindData,
+    } ;
   },
   computed: {
     ...mapState({

@@ -43,8 +43,6 @@ export default {
 
     if(this.HOSPITAL_ID == 'huadu'){
       this.show = false;
-      console.log(this.$route.query)
-      console.log("this.$route.query")
       // this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`;
       this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}&visitId=${this.$route.query.visitId}`;
       // this.getTreeData();

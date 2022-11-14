@@ -203,14 +203,14 @@ import {
         width: 45
       },
     },
-    {
-      key: "fieldTen", // 自定义标题
-      value: "",
-      event: keyf1,
-      textarea: {
-        width: 45
-      },
-    },
+    // {
+    //   key: "fieldTen", // 自定义标题
+    //   value: "",
+    //   event: keyf1,
+    //   textarea: {
+    //     width: 45
+    //   },
+    // },
     {
       key: "description", //病情观察及护理措施
       value: "",
@@ -220,7 +220,7 @@ import {
         top: "1px",
         bottom: "1px",
         left: "1px",
-        width: "200px",
+        width: "245px",
         background: "transparent"
       },
       event: function (e, td) {

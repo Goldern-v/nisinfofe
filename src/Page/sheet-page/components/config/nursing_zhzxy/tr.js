@@ -1,5 +1,5 @@
 
-/** 
+/**
   珠海中西医 - 护理记录单
 */
 
@@ -36,7 +36,7 @@ let 出量内容 = [];
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
-  { key: "recordHour", event: event_time, value: ''},
+  { key: "recordHour", event: event_time, click:click_time, value: ''},
 
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: 'T', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: 'P/HR', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -89,16 +89,16 @@ export default [
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''}
-  
+
 ]
 
-export function getListData4() { 
- 
+export function getListData4() {
+
   let list = [
     '珠海中西医:护理记录单:入量内容',
-    '珠海中西医:护理记录单:出量内容' 
+    '珠海中西医:护理记录单:出量内容'
   ];
- 
+
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(入量内容, "珠海中西医:护理记录单:入量内容", data);

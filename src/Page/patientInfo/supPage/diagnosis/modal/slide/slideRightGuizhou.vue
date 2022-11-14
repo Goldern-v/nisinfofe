@@ -279,7 +279,10 @@ export default {
       let factor = this.factorList.filter(item=>{
         return this.resultFactorList.includes(item.id)
       }).map(e=>e.factor).join("")
-
+      if((measure.length > 600 || target.length > 600 || factor.length > 600) && ['whsl'].includes(this.HOSPITAL_ID) ){
+        this.$message.warning('当前字数已超过最大限制字数！');
+        return
+      }
       this.$store.commit("upMeasureGuizhou",{measure,target,factor})
     },
     /** 全选措施 */

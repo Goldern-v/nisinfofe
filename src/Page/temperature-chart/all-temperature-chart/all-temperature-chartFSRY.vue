@@ -835,8 +835,8 @@ export default {
       },
       timesPoint: (() => {
         switch (this.HOSPITAL_ID) {
-            default:
-            return [
+          case 'foshanrenyi' :
+          return [
               {
                 id: 0,
                 value: "02"
@@ -862,6 +862,35 @@ export default {
                 value: "22"
               }
             ];
+            case 'zhzxy':
+            return [
+              {
+                id: 0,
+                value: "03"
+              },
+              {
+                id: 1,
+                value: "07"
+              },
+              {
+                id: 2,
+                value: "11"
+              },
+              {
+                id: 3,
+                value: "15"
+              },
+              {
+                id: 4,
+                value: "19"
+              },
+              {
+                id: 5,
+                value: "23"
+              }
+            ];
+            default:
+
         }
       })(),
       patientsInfoData: [],

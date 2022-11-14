@@ -236,6 +236,7 @@ export default {
     }
 
     .info-con {
+      padding: 1px;
       margin: 8px 0;
       text-align: left;
     }

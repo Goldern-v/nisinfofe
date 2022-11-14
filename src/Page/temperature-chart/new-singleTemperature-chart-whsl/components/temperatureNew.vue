@@ -8,9 +8,9 @@
         <!-- <el-button type="primary" @click="openDetailChat()">曲线详情</el-button> -->
       </el-button-group>
       <!-- <div class="newBorn">
-        <div @click="nomalModel()" class="nomal">默认体温单</div>
+        <div @click="nomalModel()" class="nomal">成人版</div>
         /
-        <div @click="changeModel()" class="painNomal">疼痛版本</div>
+        <div @click="changeModel()" class="painNomal">儿童版</div>
       </div> -->
       <div :class="rightSheet===true?'pagination':'paginationRight'">
         <button :disabled="currentPage === 1" @click="currentPage = 1;toCurrentPage=1">
@@ -94,9 +94,9 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         // "http://localhost:8080/#/" /* 本地自测环境 导致跨域 */,
-      "http://10.101.1.141:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      "http://10.108.4.43:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://10.101.1.141:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+        "http://10.108.4.43:9091/temperature/#/printAll" /* 医院正式环境内网 */,
     };
   },
   methods: {

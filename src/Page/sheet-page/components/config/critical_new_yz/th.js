@@ -133,20 +133,13 @@ export default {
           canSet:true
         },
         {
-          name: ``,
-          colspan: '1',
-          rowspan: '3',
-          key:"fieldTen",
-          canSet:true
-        },
-        {
           name: `
           病情观察及护理措施
           `,
           colspan: '1',
           rowspan: '3',
           style: {
-            minWidth: '200px'
+            minWidth: '245px'
           },
         },
         {
@@ -275,7 +268,7 @@ export default {
           },
         },
         {
-          name: `自定义`,
+          name: ``,
           colspan: '1',
           rowspan: '2',
           key:"fieldSeven",
