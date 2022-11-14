@@ -99,6 +99,7 @@
                 v-model="scope.row.temperature"
                 :class="className"
                 class="temperature"
+                oninput="if(value>100)value=100"
                 type="number"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
@@ -183,7 +184,6 @@
                   }
                 "
                 @keyup="handleKeyUp"
-                v-on:input="validFormFc"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
