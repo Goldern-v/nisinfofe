@@ -63,7 +63,7 @@ export default {
         //血压
         {
           name: `
-          血压<br/>(mmHg)
+          血压<br/>脉搏(mmHg)
           `,
           style: {
             minWidth: "52px",
