@@ -3,7 +3,7 @@
     <sweet-modal ref="modal" :modalWidth="420" title="设置起始页码" :enable-mobile-fullscreen="false">
       <div flex="main:center cross:center" style="margin-bottom: 20px">
         <p style="margin-right: 10px">起始页码修改：</p>
-        <el-input-number size="large" v-model="startPage" :min="1"></el-input-number>
+        <el-input-number size="large" v-model="startPage" @change="handleChange" :min="1"></el-input-number>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -43,8 +43,16 @@ export default {
     close() {
       this.$refs.modal.close();
     },
+    handleChange(value){
+      if(['whsl'].includes(this.HOSPITAL_ID)){
+        if(value>this.pageLength){
+          this.$message.error(`当前页数为${this.pageLength},设置调整已超过范围！`)
+          return
+        }
+        this.startPage = value;
+      }
+    },
     post() {
-      console.log("血糖页码");
       if(this.startPage>this.pageLength){
         this.$message.warning("请输入正确的页数！")
         return
