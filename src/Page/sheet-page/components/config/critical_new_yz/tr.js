@@ -83,7 +83,7 @@ import {
       name:"HR/PR",
       next:"次/分",
       textarea: {
-        width: 35
+        width: 50
       },
     },
     {

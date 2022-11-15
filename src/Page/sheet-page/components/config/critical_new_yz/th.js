@@ -49,8 +49,8 @@ export default {
           colspan: '1',
           rowspan: '1',
           style: {
-            minWidth: '45px',
-            maxWidth: '45px',
+            minWidth: '50px',
+            maxWidth: '50px',
           },
         },
         {
