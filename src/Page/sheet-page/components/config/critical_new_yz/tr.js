@@ -7,7 +7,13 @@ import {
     click_date,
     click_time
   } from "../keyEvent/date";
-  export default [{
+  export default [
+    { 
+    hidden: true, 
+    key: 'recordDate', 
+    value: '' 
+    },
+    {
       key: "recordMonth", //日期
       value: "",
       event: event_date,
@@ -154,6 +160,7 @@ import {
       textarea: {
         width: 35
       },
+      statBottomLine: true
     },
     {
       key: "discharge", // 出量
@@ -176,6 +183,7 @@ import {
       textarea: {
         width: 35
       },
+      statBottomLine: true
     },
     {
       key: "fieldEight",

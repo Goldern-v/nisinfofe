@@ -7,22 +7,11 @@ export default {
     th: {
       top: [
         {
-          name: '日期',
-          style: {
-            minWidth: '25px',
-            maxWidth: '28px',
-          },
-          colspan: '1',
-          rowspan: '3'
-        },
-        {
-          name: '时间',
-          style: {
-            minWidth: '25px',
-            maxWidth: '25px',
-          },
-          colspan: '1',
-          rowspan: '3'
+          name: '',
+          style: {},
+          colspan: "2",
+          rowspan: "1",
+          key:'recordYear'
         },
         {
           name: '意识',
@@ -157,7 +146,25 @@ export default {
         //   rowspan: '3'
         // }
       ],
-      mid: [{
+      mid: [
+        {
+          name: '日期',
+          style: {
+            minWidth: '25px',
+            maxWidth: '28px',
+          },
+          colspan: '1',
+          rowspan: '2'
+        },
+        {
+          name: '时间',
+          style: {
+            minWidth: '25px',
+            maxWidth: '25px',
+          },
+          colspan: '1',
+          rowspan: '2'
+        },{
           name: `
           左<br/>(mm)
           `,
