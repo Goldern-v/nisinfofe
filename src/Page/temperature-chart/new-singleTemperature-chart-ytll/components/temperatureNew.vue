@@ -89,8 +89,8 @@ export default {
       isSave: false,
       visibled: false,
       isPrintAll: false, //是否打印所有
-      intranetUrl: `${this.getUrl()}/temperature/#/`,
-      printAllUrl:`${this.getUrl()}/temperature/#/printAll`
+      intranetUrl: `${this.getUrl()}/temperature/`,
+      printAllUrl:`${this.getUrl()}/temperature/printAll`
     };
   },
   methods: {

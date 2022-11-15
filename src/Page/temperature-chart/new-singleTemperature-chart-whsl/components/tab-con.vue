@@ -593,22 +593,22 @@ export default {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           if (this.getHours() >= 0 && this.getHours() <= 4) {
-            return "02";
+            return "03";
           }
           if (this.getHours() > 4 && this.getHours() <= 8) {
-            return "06";
+            return "07";
           }
           if (this.getHours() > 8 && this.getHours() <= 12) {
-            return "10";
+            return "11";
           }
           if (this.getHours() > 12 && this.getHours() <= 16) {
-            return "14";
+            return "15";
           }
           if (this.getHours() > 16 && this.getHours() <= 20) {
-            return "18";
+            return "19";
           }
           if (this.getHours() > 20 && this.getHours() <= 23) {
-            return "22";
+            return "23";
           }
           //录入时间
         })(), //录入时间

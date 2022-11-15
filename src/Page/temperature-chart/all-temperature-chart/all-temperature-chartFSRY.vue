@@ -927,7 +927,6 @@ export default {
 
           });
         }
-        console.log(data , 987)
         return data.filter(item => {
           return this.admitted === "所有患者"
             ? item.patientId

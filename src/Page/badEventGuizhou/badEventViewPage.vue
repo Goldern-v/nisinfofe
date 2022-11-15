@@ -421,7 +421,8 @@ export default {
       departmentBack: false,
       anonymous: true, //是否匿名上报
       currentNodeCode: "", //当前审核节点
-      itemDataMap:{} //表单数据
+      itemDataMap:{}, //表单数据
+      stepNext: {}, // 下一步
     };
   },
   computed: {
@@ -462,6 +463,11 @@ export default {
           instance.status == "department_back" &&
           this.$route.params.code == "badevent_nys_pressure";
         this.anonymous = instance.anonymous;
+
+        let stepCurrent = [...handlenodeDto].reverse().find((step) => step.nodeCode === instance.currentNodeCode)
+        //下一步的审核状态
+        let nextIdx = handlenodeDto.indexOf(stepCurrent) + 1
+        this.stepNext = handlenodeDto[nextIdx] || {}
       }
       if (this.HOSPITAL_ID == "guizhou") {
         this.updateUI(handlenodeDto);
@@ -719,7 +725,7 @@ export default {
       if (this.HOSPITAL_ID == "guizhou") {
         this.wid.CRForm.controller.aduitForm(
           this.$router,
-          this.currentNodeCode
+          this.stepNext.nodeCode || ''
         );
         return;
       }
