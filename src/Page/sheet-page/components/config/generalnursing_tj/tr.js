@@ -43,7 +43,7 @@ export default [
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'SPO2', event: keyf1, value: '', next: '%', name: '血氧饱和度', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'spo2', event: keyf1, value: '', next: '%', name: '血氧饱和度', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: ysList }, textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pupilSizeLeft', event: keyf1, value: '', next: '', name: '瞳孔大小左', textarea: { width: 33 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pupilSizeRight', event: keyf1, value: '', next: '', name: '瞳孔大小右', textarea: { width: 33 }, change: (e, td) => limitChange(e, td, 4) },
