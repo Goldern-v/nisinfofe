@@ -17,7 +17,13 @@ import {
   let 神志 = [];
   let 出量项目 = [];
   let 入量项目 = [];
-  export default [{
+  export default [
+  { 
+    hidden: true, 
+    key: 'recordDate', 
+    value: '' 
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,

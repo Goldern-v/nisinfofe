@@ -221,9 +221,9 @@ const currentTargetUrl = (() => {
 
     // 临沂沂州
     case 'lyyz':
-      // // return 'http://112.233.241.99:8094' // 外网地址 admin / 123456
+      return 'http://112.233.241.99:8094' // 外网地址 admin / 123456
       // return 'http://192.168.137.164:8080'
-      return 'http://192.168.1.54:9895'
+      // return 'http://192.168.1.54:9895'
       // // return "http://192.168.20.81:9091"
 
     // 广东同江

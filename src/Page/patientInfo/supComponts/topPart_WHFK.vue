@@ -177,6 +177,12 @@
         <div class="nav-item">导管</div>
       </router-link> -->
       <router-link
+        :to="{path:'/patientNursingRound', query: {patientId:query.patientId, visitId: query.visitId}}"
+        tag="span"
+      >
+        <div class="nav-item">护理巡视</div>
+      </router-link>
+      <router-link
         :to="{
           path: '/diagnosis',
           query: { patientId: query.patientId, visitId: query.visitId }
