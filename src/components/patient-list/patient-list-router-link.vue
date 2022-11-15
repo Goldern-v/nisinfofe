@@ -64,11 +64,11 @@
             :class="{ img1: img1Show, img2: img2Show }"
             v-else
           />
-          <div class="name" flex-box="1">{{ item.name }}  <span class="nursingClass" 
+          <div class="name" flex-box="1">{{ item.name }}  <span class="nursingClass"
            v-if="['lyxrm'].includes(HOSPITAL_ID)"
            :style="{ color:levelColor[item.nursingClass],fontSize:'12px' }"
           >{{item.nursingClass&&item.nursingClass.replace('护理','')}}</span></div>
-         
+
           <div class="bed">{{ item.bedLabel }} 床</div>
 
           <span
@@ -372,6 +372,8 @@ export default {
         this.$route.path,
         this.$route
       );
+      //换着信息查询接口，选择后增加  然后通过这个接口的查询触发 同步检查检验和医嘱
+      getPatientInfo(patient.patientId,patient.visitId)
       if (this.callFunction) {
         this.$route.query.patientId = patient.patientId;
         this.$route.query.visitId = patient.visitId;
@@ -605,7 +607,7 @@ export default {
         this.levelColor[item.code]=item.name;
       })
     });
-  
+
   },
   mounted() {
     if (this.deptCode == "051102") {
