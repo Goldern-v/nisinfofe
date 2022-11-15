@@ -699,6 +699,8 @@ export default {
     },
     search() {
       this.page.pageIndex = 1;
+      // 查看打印效果可以注释掉此行
+      this.printObj = []
       this.onLoad();
     },
     // 打印
@@ -761,7 +763,7 @@ export default {
         })
           .then(() => {
             document.getElementById("new-print-box").style.display = "none";
-            this.onLoad();
+            this.search();
           })
           .catch((e) => {});
       });
@@ -1081,7 +1083,7 @@ export default {
     printScaleText() {
       if (
         ["70*80", "6*8", "5*8", "7*7"].includes(this.newModalSize) ||
-        this.HOSPITAL_ID == "whfk"
+        ["whfk", 'whsl'].includes(this.HOSPITAL_ID)
       )
         return "";
       if (this.HOSPITAL_ID === "925" && this.newModalSize === "70*80")
