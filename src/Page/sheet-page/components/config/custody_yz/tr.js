@@ -8,6 +8,11 @@ import {
   click_time
 } from "../keyEvent/date";
 export default [
+  { 
+    hidden: true, 
+    key: 'recordDate', 
+    value: '' 
+  },
   {
     key: "recordMonth", //日期
     value: "",
@@ -88,7 +93,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "260px",
+      width: "240px",
       background: "transparent",
     },
     // textarea: { width: 260 },

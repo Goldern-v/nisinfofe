@@ -207,12 +207,9 @@
         <div
           :class="[
             {
-              'break-page':
-                ['lyxrm', 'whhk', 'zhzxy', '925', 'whsl'].includes(
-                  HOSPITAL_ID
-                ) &&
-                bottleCardIndex % 3 == 2 &&
+              'break-page':bottleCardIndex % 3 == 2 &&
                 newModalSize == '3*7',
+              'small-35': newModalSize === '3*5' && HOSPITAL_ID === 'whsl'
             },
           ]"
           v-for="(itemBottleCard, bottleCardIndex) in printObj"
@@ -318,6 +315,10 @@
 .new-print-box {
   .break-page {
     page-break-after: always;
+  }
+  .small-35 {
+    position: relative;
+    height: 30mm;
   }
 }
 
@@ -699,6 +700,8 @@ export default {
     },
     search() {
       this.page.pageIndex = 1;
+      // 查看打印效果可以注释掉此行
+      this.printObj = []
       this.onLoad();
     },
     // 打印
@@ -761,7 +764,7 @@ export default {
         })
           .then(() => {
             document.getElementById("new-print-box").style.display = "none";
-            this.onLoad();
+            this.search();
           })
           .catch((e) => {});
       });
@@ -1081,7 +1084,7 @@ export default {
     printScaleText() {
       if (
         ["70*80", "6*8", "5*8", "7*7"].includes(this.newModalSize) ||
-        this.HOSPITAL_ID == "whfk"
+        ["whfk", 'whsl'].includes(this.HOSPITAL_ID)
       )
         return "";
       if (this.HOSPITAL_ID === "925" && this.newModalSize === "70*80")
@@ -1089,10 +1092,7 @@ export default {
       return "transform: scale(0.5);transform-origin: 0 0 0;";
     },
     printM() {
-      if (
-        this.newModalSize == "3*7" &&
-        ["lyxrm", "whhk", "zhzxy", "925"].includes(this.HOSPITAL_ID)
-      ) {
+      if (this.newModalSize == "3*7") {
         return "margin: 0 1mm 0 0;";
       }
       if (this.newModalSize == "5*8" && ["wujing"].includes(this.HOSPITAL_ID)) {
@@ -1102,6 +1102,7 @@ export default {
         return "margin: 0 0 0 3mm;";
       }
       return "margin: 0 0;";
+      return "margin: 0 0; size: 50mm 30mm";
     },
     disableSize() {
       return !["wujing"].includes(this.HOSPITAL_ID);

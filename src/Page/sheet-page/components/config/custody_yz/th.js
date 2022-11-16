@@ -7,24 +7,12 @@ export default {
   th: {
     top: [
       {
-        name: '日期',
-        style: {
-          minWidth: '45px',
-          maxWidth: '45px',
-        },
-        colspan: '1',
-        rowspan: '3'
+        name: '',
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+        key:'recordYear'
       },
-      {
-        name: '时间',
-        style: {
-          minWidth: '45px',
-          maxWidth: '45px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
-
       {
         name: '神志',
         colspan: '1',
@@ -66,7 +54,7 @@ export default {
         备注
         `,
         style: {
-          minWidth: "260px",
+          minWidth: "240px",
           // maxWidth: "260px"
         },
         colspan: '1',
@@ -85,6 +73,24 @@ export default {
       }
     ],
     mid: [
+      {
+        name: '日期',
+        style: {
+          minWidth: '45px',
+          maxWidth: '45px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '45px',
+          maxWidth: '45px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
       {
         name: `
         (Kpa)

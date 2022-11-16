@@ -9,10 +9,27 @@
         <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
           <!-- <img class="his-logo"
           src="../../../../common/images/his-logo/厚街医徽.png" />-->
-          <div class="title" v-if="HOSPITAL_ID == 'whfk'">
-             <img class="title-img" src="./image/logo.png" alt="logo" />
+          <div class="header" v-if="HOSPITAL_ID === 'ytll'">
+            <div class="left">
+            <div class="ytll_logo" >
+              <img src="./image/ytll_logo.jpg" alt="logo">
+            </div>
+            </div>
+            <div class="cener">
+              <div class="title" >{{ HOSPITAL_NAME_SPACE }}</div>
+               <div class="sup-title">
+                  血糖谱测量记录单
+                </div>
+            </div>
+            <div class="right">
+              <div>POCT</div>
+            </div>
           </div>
-          <div class="title" v-else>{{ HOSPITAL_NAME_SPACE }}</div>
+          
+          <div class="title" v-if="HOSPITAL_ID == 'whfk'">
+            <img class="title-img" src="./image/logo.png" alt="logo" />
+          </div>
+          <div class="title" v-else-if="HOSPITAL_ID !== 'ytll'">{{ HOSPITAL_NAME_SPACE }}</div>
           <div
             class="sup-title"
             v-if="HOSPITAL_NAME === '广州市花都区人民医院'"
@@ -44,7 +61,7 @@
             血糖监测单
           </div>
 
-          <div class="sup-title" v-else>微量血糖测定登记表</div>
+          <div class="sup-title" v-else-if="HOSPITAL_ID !== 'ytll'">微量血糖测定登记表</div>
           <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div>
           <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
@@ -459,6 +476,48 @@
   }
 }
 
+.ytll_logo img {
+  width: 160px;
+  height: 58px;
+}
+/* @media print {
+  .sugr-page{
+    position: relative;
+  }
+  .ytll_logo img {
+    width: 160px;
+    height: 58px;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+  }
+} */
+.header {
+  display: flex;
+  align-items: center;
+  .left, .right, .center {
+    flex: 1;
+  }
+  .left {
+    text-align: left;
+  }
+  .center {
+    text-align: center;
+  }
+  .right{
+    display: flex;
+    justify-content: center;
+    div{
+      width: 88px;
+      height: 34px;
+      border: 1px solid #000;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 34px;
+      font-weight:700;
+    }
+  }
+}
 </style>
 
 

@@ -77,7 +77,7 @@
         <div class="nav-item">体温单</div>
       </router-link>
       <router-link
-        v-if="HOSPITAL_ID !== 'zhzxy'&&HOSPITAL_ID !== 'gdtj'"
+        v-if="HOSPITAL_ID !== 'zhzxy'&&HOSPITAL_ID !== 'gdtj'&&HOSPITAL_ID !== 'whsl'"
         :to="{
           path: '/hospitalEval',
           query: { patientId: query.patientId, visitId: query.visitId }

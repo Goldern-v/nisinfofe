@@ -7,7 +7,13 @@ import {
     click_date,
     click_time
   } from "../keyEvent/date";
-  export default [{
+  export default [
+    { 
+    hidden: true, 
+    key: 'recordDate', 
+    value: '' 
+    },
+    {
       key: "recordMonth", //日期
       value: "",
       event: event_date,
@@ -77,7 +83,7 @@ import {
       name:"HR/PR",
       next:"次/分",
       textarea: {
-        width: 35
+        width: 50
       },
     },
     {
@@ -154,6 +160,7 @@ import {
       textarea: {
         width: 35
       },
+      statBottomLine: true
     },
     {
       key: "discharge", // 出量
@@ -176,6 +183,7 @@ import {
       textarea: {
         width: 35
       },
+      statBottomLine: true
     },
     {
       key: "fieldEight",
@@ -203,14 +211,14 @@ import {
         width: 45
       },
     },
-    {
-      key: "fieldTen", // 自定义标题
-      value: "",
-      event: keyf1,
-      textarea: {
-        width: 45
-      },
-    },
+    // {
+    //   key: "fieldTen", // 自定义标题
+    //   value: "",
+    //   event: keyf1,
+    //   textarea: {
+    //     width: 45
+    //   },
+    // },
     {
       key: "description", //病情观察及护理措施
       value: "",
@@ -220,7 +228,7 @@ import {
         top: "1px",
         bottom: "1px",
         left: "1px",
-        width: "200px",
+        width: "245px",
         background: "transparent"
       },
       event: function (e, td) {

@@ -134,7 +134,7 @@
         required
         v-if="
           !['zhzxy','gy','huadu','liaocheng','hengli',
-          'guizhou','sdlj','whfk','foshanrenyi', 'lyyz'].includes(HOSPITAL_ID)
+          'guizhou','sdlj','whfk','foshanrenyi', 'lyyz', 'ytll'].includes(HOSPITAL_ID)
         "
       >
         <ElInput v-model="form.riValue" />
@@ -180,7 +180,6 @@ import * as apis from "../api";
 import {getSugarItemDict} from '../api/index'
 import patientInfoVue from "../../../patientInfo.vue";
 const defaultForm = {};
-
 export default {
   mixins: [common],
   data: () => ({

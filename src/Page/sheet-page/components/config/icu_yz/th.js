@@ -7,22 +7,11 @@ export default {
     th: {
       top: [
         {
-          name: "日期",
-          style: {
-            minWidth: "36px",
-            maxWidth: "36px"
-          },
-          colspan: "1",
-          rowspan: "3"
-        },
-        {
-          name: "时间",
-          style: {
-            minWidth: "36px",
-            maxWidth: "36px"
-          },
-          colspan: "1",
-          rowspan: "3"
+          name: '',
+          style: {},
+          colspan: "2",
+          rowspan: "1",
+          key:'recordYear'
         },
         //神志
         {
@@ -63,7 +52,7 @@ export default {
         //血压
         {
           name: `
-          血压<br/>(mmHg)
+          血压<br/>脉搏(mmHg)
           `,
           style: {
             minWidth: "52px",
@@ -186,6 +175,24 @@ export default {
         }
       ],
       mid: [
+        {
+          name: "日期",
+          style: {
+            minWidth: "36px",
+            maxWidth: "36px"
+          },
+          colspan: "1",
+          rowspan: "2"
+        },
+        {
+          name: "时间",
+          style: {
+            minWidth: "36px",
+            maxWidth: "36px"
+          },
+          colspan: "1",
+          rowspan: "2"
+        },
         {
           name: `
           鼻导管

@@ -246,7 +246,7 @@ export default {
       aduitDateSheet:['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi', 'internal_eval_weihai','internal_eval_yz'],
       activeSheetType:"",
       // hasQrCaSignHos:['fuyou','hj'],
-      hasQrCaSignHos:['fuyou','hj','guizhou','zhzxy'],
+      hasQrCaSignHos:['fuyou','hj','guizhou','zhzxy','whsl'],
       // caSignHasNoSignType:['hj'],
       caSignHasNoSignType:['hj','guizhou'],
       btnLoading:false,

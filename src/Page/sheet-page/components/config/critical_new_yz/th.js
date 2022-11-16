@@ -7,22 +7,11 @@ export default {
     th: {
       top: [
         {
-          name: '日期',
-          style: {
-            minWidth: '25px',
-            maxWidth: '28px',
-          },
-          colspan: '1',
-          rowspan: '3'
-        },
-        {
-          name: '时间',
-          style: {
-            minWidth: '25px',
-            maxWidth: '25px',
-          },
-          colspan: '1',
-          rowspan: '3'
+          name: '',
+          style: {},
+          colspan: "2",
+          rowspan: "1",
+          key:'recordYear'
         },
         {
           name: '意识',
@@ -60,8 +49,8 @@ export default {
           colspan: '1',
           rowspan: '1',
           style: {
-            minWidth: '45px',
-            maxWidth: '45px',
+            minWidth: '50px',
+            maxWidth: '50px',
           },
         },
         {
@@ -133,20 +122,13 @@ export default {
           canSet:true
         },
         {
-          name: ``,
-          colspan: '1',
-          rowspan: '3',
-          key:"fieldTen",
-          canSet:true
-        },
-        {
           name: `
           病情观察及护理措施
           `,
           colspan: '1',
           rowspan: '3',
           style: {
-            minWidth: '200px'
+            minWidth: '245px'
           },
         },
         {
@@ -164,7 +146,25 @@ export default {
         //   rowspan: '3'
         // }
       ],
-      mid: [{
+      mid: [
+        {
+          name: '日期',
+          style: {
+            minWidth: '25px',
+            maxWidth: '28px',
+          },
+          colspan: '1',
+          rowspan: '2'
+        },
+        {
+          name: '时间',
+          style: {
+            minWidth: '25px',
+            maxWidth: '25px',
+          },
+          colspan: '1',
+          rowspan: '2'
+        },{
           name: `
           左<br/>(mm)
           `,
@@ -275,7 +275,7 @@ export default {
           },
         },
         {
-          name: `自定义`,
+          name: ``,
           colspan: '1',
           rowspan: '2',
           key:"fieldSeven",
