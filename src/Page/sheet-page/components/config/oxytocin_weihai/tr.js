@@ -11,13 +11,13 @@ import {
 } from "../keyEvent/date";
 let ysList = [],ruList = [];
 export default [{
-    key: "dateStr", //日期
+    key: "recordMonth", //日期
     value: "",
     event: event_date,
     click: click_date
   },
   {
-    key: "timeStr", //时间
+    key: "recordHour", //时间
     value: "",
     event: event_time,
     click: click_time
@@ -34,7 +34,7 @@ export default [{
     },
     next: "mmHg",
     textarea: {
-      width: 48
+      width: 75
     },
     name: "血压"
   },
@@ -99,12 +99,80 @@ export default [{
     event: keyf1,
     name: "其他"
   },
+
   {
-    key: "signerNo",
-    value: "",
-    event: keyf1,
-    name: "护士签名"
+    key: "sign",
+    value: ""
   },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
+  {
+    hidden: true,
+    key: "id",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "status",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordSource",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordYear",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "dataHash",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordDate",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "monthHour",
+    value: ""
+  },
+  {
+    hidden: false,
+    key: "signerNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "auditorNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "auditorName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "empNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "multiSign",
+    value: false
+  }
 ];
 export function getListData() {
   let list = ["意识",`${info.sheetType}入量名称`];

@@ -2,99 +2,99 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1470px"
+    width: "1250px"
   },
   th: {
     top: [{
         name: '日期',
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
         colspan: '1',
-        rowspan: '3'
+        rowspan: '1'
       },
       {
         name: '时间',
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
         colspan: '1',
-        rowspan: '3'
+        rowspan: '1'
       },
       {
-        name: '血<br/>压',
+        name: '血压<br/>mmHg',
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '1'
       },
       {
-        name: '浓度',
+        name: '浓度<br/>%',
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '1'
       },
       {
-        name: '滴数',
+        name: '滴数<br/>d/min',
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '1'
       },
 
       {
-        name: '总量',
+        name: '总量<br/>ml',
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
         colspan: '1',
-        rowspan: '2'
+        rowspan: '1'
       },
       {
-        name: '宫缩',
+        name: '宫缩<br/>持续/间隔',
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '60px',
+          maxWidth: '60px',
         },
-        colspan: '2',
-        rowspan: '2'
+        colspan: '1',
+        rowspan: '1'
       },
       {
-        name: `胎心`,
-        colspan: '2',
-        rowspan: '2',
+        name: `胎心<br/>次/分`,
+        colspan: '1',
+        rowspan: '1',
         style: {
-          minWidth: '80px',
-        },
-      },
-      {
-        name: `
-        先露
-        `,
-        colspan: '3',
-        rowspan: '2',
-        style: {
-          minWidth: '120px',
+          minWidth: '70px',
         },
       },
       {
         name: `
-        宫口
+        先露<br/>下降
         `,
-        colspan: '3',
-        rowspan: '2',
+        colspan: '1',
+        rowspan: '1',
         style: {
-          minWidth: '120px',
+          minWidth: '60px',
+        },
+      },
+      {
+        name: `
+        宫口<br/>cm
+        `,
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: '60px',
         },
       },
       {
@@ -102,10 +102,10 @@ export default {
         胎膜
         `,
         colspan: '1',
-        rowspan: '3',
+        rowspan: '1',
         style: {
-          minWidth: '160px',
-          maxWidth: '160px',
+          minWidth: '60px',
+          maxWidth: '60px',
         }
       },
       {
@@ -113,103 +113,28 @@ export default {
         其他
         `,
         colspan: '1',
-        rowspan: '3',
+        rowspan: '1',
         style: {
-          minWidth: '160px',
-          maxWidth: '160px',
+          minWidth: '250px',
+          maxWidth: '250px',
         }
       },
       {
         name: `
-        护士签名
+        签名
         `,
-
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
         colspan: '1',
-        rowspan: '3'
+        rowspan: '1'
       }
     ],
     mid: [
     ],
     bottom: [
-      {
-        name: `
-        mmHg
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        %
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-       d/min
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        ml
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        持续/间隔
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-        次/分
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `
-       下降
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
-      {
-        name: `cm
-        `,
-        colspan: '1',
-        rowspan: '1',
-        style: {
-          minWidth: '32px',
-        },
-      },
+
     ]
   }
 }
