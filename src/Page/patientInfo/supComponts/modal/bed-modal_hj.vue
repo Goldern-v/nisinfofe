@@ -1,93 +1,93 @@
 <template>
   <div>
     <sweet-modal
-      ref="modal"
-      :modalWidth="600"
-      title="编辑床头卡"
-      :enable-mobile-fullscreen="false"
-      class="modal"
+        ref="modal"
+        :modalWidth="600"
+        title="编辑床头卡"
+        :enable-mobile-fullscreen="false"
+        class="modal"
     >
       <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon">
         <div
-          class="bed-card-con"
-          flex
-          :class="{ remarkCon: formData.remarkPrint }"
+            class="bed-card-con"
+            flex
+            :class="{ remarkCon: formData.remarkPrint }"
         >
           <img
-            class="qr-code"
-            :class="{ hasRemark: hasRemark }"
-            :src="qrCode"
+              class="qr-code"
+              :class="{ hasRemark: hasRemark }"
+              :src="qrCode"
           />
           <div
-            class="qr-code-num"
-            :class="{ hasRemark: hasRemark, }"
-            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
+              class="qr-code-num"
+              :class="{ hasRemark: hasRemark, }"
+              :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
           >
             {{ qrCodeNum }}
           </div>
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div
-              flex="cross:center"
-              class="input-item"
-              style="height: 51px"
-              v-if="HOSPITAL_ID == 'hj'"
+                flex="cross:center"
+                class="input-item"
+                style="height: 51px"
+                v-if="HOSPITAL_ID == 'hj'"
             >
               <!-- <span class="label">患者姓名:</span> -->
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
-                type="text"
-                nowidth
-                style="font-size: 42px;padding-left: 0px;font-weight: 900;"
-                flex-box="1"
-                class="bottom-line"
-                :value="query.name"
+                  type="text"
+                  nowidth
+                  style="font-size: 42px;padding-left: 0px;font-weight: 900;"
+                  flex-box="1"
+                  class="bottom-line"
+                  :value="query.name"
               />
               <input
-                type="text"
-                nowidth
-                style="font-size: 30px;padding-left: 0px;width:31%;height: 100%;box-sizing: border-box;"
-                class="bottom-line"
-                :value="query.sex + ' ' + query.age"
+                  type="text"
+                  nowidth
+                  style="font-size: 30px;padding-left: 0px;width:31%;height: 100%;box-sizing: border-box;"
+                  class="bottom-line"
+                  :value="query.sex + ' ' + query.age"
               />
             </div>
             <div
-              flex="cross:center"
-              class="input-item"
-              style="height: 43px"
-              v-else
+                flex="cross:center"
+                class="input-item"
+                style="height: 43px"
+                v-else
             >
               <!-- <span class="label">患者姓名:</span> -->
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
-                type="text"
-                nowidth
-                style="font-size: 32px;padding-left: 5px;"
-                flex-box="1"
-                class="bottom-line"
-                :value="query.name + ' ' + query.sex + ' ' + query.age"
+                  type="text"
+                  nowidth
+                  style="font-size: 32px;padding-left: 5px;"
+                  flex-box="1"
+                  class="bottom-line"
+                  :value="query.name + ' ' + query.sex + ' ' + query.age"
               />
             </div>
             <div flex="cross:center" class="input-item">
               <!-- <span class="label">住院号:</span> -->
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
-                type="text"
-                :style="{
+                  type="text"
+                  :style="{
                   width: '75px',
                   'font-size': query.bedLabel.length > 3 ? '24px' : '30px',
                   'padding-left': '5px',
                   'line-height': ' 34px'
                 }"
-                class="bottom-line"
-                :value="query.bedLabel + '床'"
+                  class="bottom-line"
+                  :value="query.bedLabel + '床'"
               />
               <input
-                type="text"
-                flex-box="1"
-                style="width: 0px;font-size: 30px; padding-left: 2px;"
-                nowidth
-                class="bottom-line"
-                :value="moment(query.admissionDate).format('YYYY-MM-DD')"
+                  type="text"
+                  flex-box="1"
+                  style="width: 0px;font-size: 30px; padding-left: 2px;"
+                  nowidth
+                  class="bottom-line"
+                  :value="moment(query.admissionDate).format('YYYY-MM-DD')"
               />
             </div>
             <!-- <div flex="cross:center" class="input-item">
@@ -116,26 +116,26 @@
             <div flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
               <div
-                nowidth
-                class="check-con"
-                flex-box="1"
-                flex="main:justify cross:center"
+                  nowidth
+                  class="check-con"
+                  flex-box="1"
+                  flex="main:justify cross:center"
               >
                 <input
-                  type="text"
-                  nowidth
-                  flex-box="1"
-                  class="bottom-line"
-                  style="font-size: 26px"
-                  v-model="formData.diet"
-                  @focus="
+                    type="text"
+                    nowidth
+                    flex-box="1"
+                    class="bottom-line"
+                    style="font-size: 26px"
+                    v-model="formData.diet"
+                    @focus="
                     onFocusToAutoComplete($event, {
                       autoComplete: ysList,
                       obj: formData,
                       key: 'diet'
                     })
                   "
-                  @blur="onBlurToAutoComplete"
+                    @blur="onBlurToAutoComplete"
                 />
               </div>
             </div>
@@ -143,43 +143,49 @@
               <span class="label">病情等级:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('重')"
-                  :class="{ active: formData.registCare.includes('重') }"
-                  :src="
+                    class="dj-box printCare"
+                    @click="selectRegistCare('重')"
+                    :class="{ active: formData.registCare.includes('重') }"
+                    :src="
                     formData.registCare.includes('重')
                       ? require('./images/重选.png')
                       : require('./images/重.png')
                   "
                 />
                 <img
-                  class="dj-box  printCare"
-                  @click="selectRegistCare('危')"
-                  :class="{ active: formData.registCare.includes('危') }"
-                  :src="
+                    class="dj-box  printCare"
+                    @click="selectRegistCare('危')"
+                    :class="{ active: formData.registCare.includes('危') }"
+                    :src="
                     formData.registCare.includes('危')
                       ? require('./images/危选.png')
                       : require('./images/危.png')
                   "
                 />
                 <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('普')"
-                  :class="{ active: formData.registCare.includes('普') }"
-                  :src="
+                    class="dj-box printCare"
+                    @click="selectRegistCare('普')"
+                    :class="{ active: formData.registCare.includes('普') }"
+                    :src="
                     formData.registCare.includes('普')
                       ? require('./images/普选.png')
                       : require('./images/普.png')
                   "
                 />
-                <span class="illnessLevel" style="background-color: #c824b3;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('重')">
-                  {{formData.registCare.includes('重')?'病重':''}}
+                <span class="illnessLevel"
+                      style="background-color: #c824b3;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px"
+                      v-if="formData.registCare.includes('重')">
+                  {{ formData.registCare.includes('重') ? '病重' : '' }}
                 </span>
-                <span class="illnessLevel" style="background-color: #e41616;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('危')">
-                  {{formData.registCare.includes('危')?'病危':''}}
+                <span class="illnessLevel"
+                      style="background-color: #e41616;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px"
+                      v-if="formData.registCare.includes('危')">
+                  {{ formData.registCare.includes('危') ? '病危' : '' }}
                 </span>
-                <span class="illnessLevel" style="background-color: #6394e6;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('普')">
-                  {{formData.registCare.includes('普')?'普通':''}}
+                <span class="illnessLevel"
+                      style="background-color: #6394e6;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px"
+                      v-if="formData.registCare.includes('普')">
+                  {{ formData.registCare.includes('普') ? '普通' : '' }}
                 </span>
               </div>
             </div>
@@ -187,56 +193,64 @@
               <span class="label">护理级别:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('特')"
-                  :class="{ active: formData.registCare.includes('特') }"
-                  :src="
+                    class="dj-box printCare"
+                    @click="selectRegistCare('特')"
+                    :class="{ active: formData.registCare.includes('特') }"
+                    :src="
                     formData.registCare.includes('特')
                       ? require('./images/特级厚街选.png')
                       : require('./images/特.png')
                   "
                 />
                 <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('一')"
-                  :class="{ active: formData.registCare.includes('一') }"
-                  :src="
+                    class="dj-box printCare"
+                    @click="selectRegistCare('一')"
+                    :class="{ active: formData.registCare.includes('一') }"
+                    :src="
                     formData.registCare.includes('一')
                       ? require('./images/一级护理厚街选.png')
                       : require('./images/一.png')
                   "
                 />
                 <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('二')"
-                  :class="{ active: formData.registCare.includes('二') }"
-                  :src="
+                    class="dj-box printCare"
+                    @click="selectRegistCare('二')"
+                    :class="{ active: formData.registCare.includes('二') }"
+                    :src="
                     formData.registCare.includes('二')
                       ? require('./images/二级护理选厚街选.png')
                       : require('./images/二.png')
                   "
                 />
                 <img
-                  class="dj-box printCare"
-                  @click="selectRegistCare('三')"
-                  :class="{ active: formData.registCare.includes('三') }"
-                  :src="
+                    class="dj-box printCare"
+                    @click="selectRegistCare('三')"
+                    :class="{ active: formData.registCare.includes('三') }"
+                    :src="
                     formData.registCare.includes('三')
                       ? require('./images/三级护理厚街选.png')
                       : require('./images/三.png')
                   "
                 />
-                <span class="nurseLevel" style="background-color: #FF0000;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('特')">
-                  {{formData.registCare.includes('特')?'特级护理':''}}
+                <span class="nurseLevel"
+                      style="background-color: #FF0000;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px"
+                      v-if="formData.registCare.includes('特')">
+                  {{ formData.registCare.includes('特') ? '特级护理' : '' }}
                 </span>
-                <span class="nurseLevel" style="background-color: #F988F5;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('一')">
-                  {{formData.registCare.includes('一')?'一级护理':''}}
+                <span class="nurseLevel"
+                      style="background-color: #F988F5;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px"
+                      v-if="formData.registCare.includes('一')">
+                  {{ formData.registCare.includes('一') ? '一级护理' : '' }}
                 </span>
-                <span class="nurseLevel" style="background-color: #87CEEB;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('二')">
-                  {{formData.registCare.includes('二')?'二级护理':''}}
+                <span class="nurseLevel"
+                      style="background-color: #87CEEB;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px"
+                      v-if="formData.registCare.includes('二')">
+                  {{ formData.registCare.includes('二') ? '二级护理' : '' }}
                 </span>
-                <span class="nurseLevel" style="background-color: #008000;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px" v-if="formData.registCare.includes('三')">
-                  {{formData.registCare.includes('三')?'三级护理':''}}
+                <span class="nurseLevel"
+                      style="background-color: #008000;display:none;margin-right:10px;padding-top:3px;padding-bottom:3px"
+                      v-if="formData.registCare.includes('三')">
+                  {{ formData.registCare.includes('三') ? '三级护理' : '' }}
                 </span>
               </div>
             </div>
@@ -249,12 +263,12 @@
                                disabled
               ></el-autocomplete>-->
               <input
-                type="text"
-                nowidth
-                style="font-size: 26px"
-                flex-box="1"
-                class="bottom-line"
-                v-model="formData.mainDoctors"
+                  type="text"
+                  nowidth
+                  style="font-size: 26px"
+                  flex-box="1"
+                  class="bottom-line"
+                  v-model="formData.mainDoctors"
               />
             </div>
             <div flex="cross:center" class="input-item">
@@ -266,82 +280,84 @@
                                disabled
               ></el-autocomplete>-->
               <input
-                type="text"
-                nowidth
-                flex-box="1"
-                class="bottom-line"
-                style="font-size: 26px"
-                v-model="formData.dutyNurses"
+                  type="text"
+                  nowidth
+                  flex-box="1"
+                  class="bottom-line"
+                  style="font-size: 26px"
+                  v-model="formData.dutyNurses"
               />
             </div>
             <div
-              flex="cross:top"
-              class="input-item"
-              style="height: 58px;margin-top: 4px"
-              v-if="formData.remarkPrint && HOSPITAL_ID === 'hengli'"
+                flex="cross:top"
+                class="input-item"
+                style="height: 58px;margin-top: 4px"
+                v-if="formData.remarkPrint && HOSPITAL_ID === 'hengli'"
             >
               <div class="input-item-left">
                 <span class="input-item-left-label">诊断:</span>
               </div>
 
               <textarea
-                type="text"
-                nowidth
-                flex-box="1"
-                class="bottom-line remark"
-                :value="formData.remark"
-                :maxlength="35"
+                  type="text"
+                  nowidth
+                  flex-box="1"
+                  class="bottom-line remark"
+                  :value="formData.remark"
+                  :maxlength="35"
               ></textarea>
             </div>
           </div>
-          <div style="width: 131px">
+          <div style="width: 131px" :class="{'tip--hj': HOSPITAL_ID === 'hj'}">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
             <div :class="{aliCenter:HOSPITAL_ID == 'lyxrm'}">
               <div
-                class="tip-item-con"
-                flex="cross:center main:justify"
-                v-for="item in tipList"
-                :key="item.label"
+                  class="tip-item-con"
+                  flex="cross:center main:justify"
+                  v-for="item in tipList"
+                  :key="item.label"
               >
-                <img :src="item.img" alt />
+                <img :src="item.img" alt/>
                 <span>{{ item.label }}</span>
               </div>
             </div>
             <!-- 过敏史 -->
-             <div
+            <div
                 :class="['tip-allergy',formData.glFlag?'hasGLtip-allergy':'']"
                 flex="cross:center main:justify"
                 style="margin-top:10px;"
                 v-if="formData.drugGms"
-              >
-                <img src="./images/drugGms.png" alt />
-                <span>{{formData.drugGms}}</span>
-              </div>
-              <!-- 隔离 -->
-              <img src="./images/quarantine.png" alt="" class="tip-quarantine" v-if="formData.glFlag">
+            >
+              <img src="./images/drugGms.png" alt/>
+              <span>{{ formData.drugGms }}</span>
+            </div>
+            <!-- 隔离 -->
+            <img src="./images/quarantine.png" alt="" class="tip-quarantine" v-if="formData.glFlag">
           </div>
         </div>
       </div>
       <div slot="button">
         <span
-          style="position: absolute; left: 10px; padding-top: 4px"
-          v-if="HOSPITAL_ID != 'hj'"
+            style="position: absolute; left: 10px; padding-top: 4px"
+            v-if="HOSPITAL_ID != 'hj'"
         >
           <span>显示诊断</span>
           <el-switch
-            on-text="是"
-            off-text="否"
-            v-model="formData.remarkPrint"
+              on-text="是"
+              off-text="否"
+              v-model="formData.remarkPrint"
           ></el-switch>
         </span>
 
         <el-button class="modal-btn" @click="close">取消</el-button>
         <el-button class="modal-btn" type="primary" @click="post"
-          >保存</el-button
+        >保存
+        </el-button
         >
         <el-button class="modal-btn" type="info" @click="onPrint"
-          >打印</el-button
+        >打印
+        </el-button
         >
       </div>
     </sweet-modal>
@@ -350,7 +366,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .modal {
-  >>>.sweet-content {
+  >>> .sweet-content {
     background: #dfdfdf;
     padding-bottom: 20px;
     text-align: center;
@@ -381,6 +397,7 @@
   height: 370px;
 
   // &.remarkCon
+
   .qr-code {
     position: absolute;
     top: -5px;
@@ -448,12 +465,13 @@
   .input-item-left {
     display: inline-block;
 
-    width 75px {
-      .input-item-left-label {
-        margin-right: 2px;
-      }
-    }
+    width: 75px;
   }
+
+  .input-item-left-label {
+    margin-right: 2px;
+  }
+
 }
 
 input[type='checkbox'] {
@@ -560,17 +578,21 @@ input[type='checkbox']:checked:after {
   line-height: 32px;
   white-space: nowrap;
 }
-.aliCenter{
-    display: flex;
-    flex-direction: column;
-    height: 299px;
-    .tip-item-con{
-      margin-bottom: 0;
-      &:first-of-type{
+
+.aliCenter {
+  display: flex;
+  flex-direction: column;
+  height: 299px;
+
+  .tip-item-con {
+    margin-bottom: 0;
+
+    &:first-of-type {
       margin: 35px 0 105px;
-      }
     }
+  }
 }
+
 .tip-item-con {
   border: 1px solid #000;
   border-radius: 8px;
@@ -588,20 +610,21 @@ input[type='checkbox']:checked:after {
 
 /* 右侧样式 */
 /* 没有隔离的样式 */
-.tip-allergy{
+.tip-allergy {
   border: 1px solid #000;
   border-radius: 8px;
   width: 100%;
   padding: 5px;
   box-sizing: border-box;
-  margin-bottom:10px;
+  margin-bottom: 10px;
   font-size: 12px;
-  max-height :102px
+  max-height: 102px
 
-  img{
+  img {
     width 46px
   }
-  span{
+
+  span {
     width 68px
     display: -webkit-box;
     text-align left
@@ -613,15 +636,17 @@ input[type='checkbox']:checked:after {
     -webkit-box-orient: vertical;
   }
 }
+
 /* 有隔离的样式 */
-.hasGLtip-allergy{
+.hasGLtip-allergy {
   max-height: 66px
-  span{
+
+  span {
     -webkit-line-clamp: 3;
   }
 }
 
-.tip-quarantine{
+.tip-quarantine {
   position absolute
   right: 10px;
   bottom: 10px;
@@ -634,7 +659,7 @@ label {
 .auto-input {
   width: 0;
 
-  >>>input {
+  >>> input {
     @extend .bottom-line;
     height: 21px;
     color: #000;
@@ -647,25 +672,33 @@ label {
     font-size: 17px;
   }
 }
+
 /* 左侧样式 */
-.illnessLevel{
+.illnessLevel {
   color white
+}
+
+.tip--hj {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  z-index: 3;
 }
 </style>
 
 <script>
-import {
-  getEntity,
-  saveOrUpdate,
-  findByKeyword,
-  findByKeywordNur,
-  saveBed
-} from "./api/index.js";
+import {getEntity, saveBed} from "./api/index.js";
 import print from "./tool/print";
-var qr = require("qr-image");
 import moment from "moment";
-import { textOver } from "@/utils/text-over";
-import { multiDictInfo } from "@/api/common";
+import {textOver} from "@/utils/text-over";
+import {multiDictInfo} from "@/api/common";
+
+var qr = require("qr-image");
+
 export default {
   data() {
     return {
@@ -726,8 +759,8 @@ export default {
         mainDoctors: "",
         dutyNurses: "",
         remark: "",
-        drugGms:'',//过敏史
-        glFlag:''//隔离
+        drugGms: '',//过敏史
+        glFlag: ''//隔离
       };
       getEntity(this.query.patientId, this.query.visitId).then(res => {
         let resData = res.data.data;
@@ -735,21 +768,21 @@ export default {
         this.formData = {
           diet: resData.diet || "",
           registCare: resData.registCare
-            ? (resData.registCare || "").split(",")
-            : this.getRegistCare(),
+              ? (resData.registCare || "").split(",")
+              : this.getRegistCare(),
           mainDoctors: resData.mainDoctors || "",
           dutyNurses: resData.dutyNurses || "",
           remark: diagnosis,
           remarkPrint: resData.remarkPrint,
-          drugGms:resData.drugGms,
-          glFlag:resData.glFlag
+          drugGms: resData.drugGms,
+          glFlag: resData.glFlag
         };
-         /* 这里操作右侧图标 */
+        /* 这里操作右侧图标 */
         this.modalLoading = false;
         if (
-          ['lyxrm'].includes(this.HOSPITAL_ID) &&
-          JSON.parse(localStorage.user) &&
-          JSON.parse(localStorage.user).post != "护长"
+            ['lyxrm'].includes(this.HOSPITAL_ID) &&
+            JSON.parse(localStorage.user) &&
+            JSON.parse(localStorage.user).post != "护长"
         ) {
           if (resData.isPrint == 1) {
             this.$message({
@@ -796,10 +829,10 @@ export default {
       // const printCare = document.querySelectorAll(".printCare")
       // console.log(printCare)
       if (
-        (['lyxrm'].includes(this.HOSPITAL_ID) &&
-          JSON.parse(localStorage.user) &&
-          JSON.parse(localStorage.user).post == "护长") ||
-        !['lyxrm'].includes(this.HOSPITAL_ID)
+          (['lyxrm'].includes(this.HOSPITAL_ID) &&
+              JSON.parse(localStorage.user) &&
+              JSON.parse(localStorage.user).post == "护长") ||
+          !['lyxrm'].includes(this.HOSPITAL_ID)
       ) {
         this.isOpen();
       }
@@ -824,13 +857,14 @@ export default {
           qr_png_value = this.query.patientId + '|' + this.query.visitId;
           break;
         case "lyxrm":
-          qr_png_value ='P' + this.query.patientId;
+          qr_png_value = 'P' + this.query.patientId;
           break;
         default:
           qr_png_value = this.query.patientId;
           break;
       }
-      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      var qr_png = qr.imageSync(qr_png_value, {type: "png"});
+
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);
@@ -840,6 +874,7 @@ export default {
         }
         return "data:image/png;base64," + window.btoa(binary);
       }
+
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
       this.qrCodeNum = qr_png_value;
@@ -875,37 +910,37 @@ export default {
     onPrint() {
       // this.formData.registCare.includes('特')
       const printCare = document.querySelectorAll(".printCare")
-      let  illnessLevel= document.querySelectorAll(".illnessLevel")
-      let  nurseLevel=document.querySelectorAll(".nurseLevel")
+      let illnessLevel = document.querySelectorAll(".illnessLevel")
+      let nurseLevel = document.querySelectorAll(".nurseLevel")
       let arr = []
-      for(let i=0;i<printCare.length;i++){
-          arr=  printCare[i].className.split(" ")
-          printCare[i].style.display = "none"
+      for (let i = 0; i < printCare.length; i++) {
+        arr = printCare[i].className.split(" ")
+        printCare[i].style.display = "none"
       }
-       // 病情等级显示
-      for(let i=0;i<illnessLevel.length;i++){
+      // 病情等级显示
+      for (let i = 0; i < illnessLevel.length; i++) {
         illnessLevel[i].style.display = "flex"
         illnessLevel[i].style.color = "#fff"
         console.log(illnessLevel[i])
       }
-       // 护理级别显示
-      for(let i=0;i<nurseLevel.length;i++){
+      // 护理级别显示
+      for (let i = 0; i < nurseLevel.length; i++) {
         nurseLevel[i].style.display = "flex"
       }
       this.$nextTick(() => {
         this.post();
         print(this.$refs.printCon);
-        for(let i=0;i<printCare.length;i++){
+        for (let i = 0; i < printCare.length; i++) {
           printCare[i].style.display = "block"
         }
         // 病情等级隐藏
-          for(let i=0;i<illnessLevel.length;i++){
-            illnessLevel[i].style.display = "none"
-          }
+        for (let i = 0; i < illnessLevel.length; i++) {
+          illnessLevel[i].style.display = "none"
+        }
         // 护理级别隐藏
-          for(let i=0;i<nurseLevel.length;i++){
-            nurseLevel[i].style.display = "none"
-          }
+        for (let i = 0; i < nurseLevel.length; i++) {
+          nurseLevel[i].style.display = "none"
+        }
       });
     },
     querySearchAsyncDoc(queryString, cb) {
@@ -933,13 +968,14 @@ export default {
 
     onFocusToAutoComplete(e, bind) {
       function offset(ele) {
-        let { top, left } = ele.getBoundingClientRect();
+        let {top, left} = ele.getBoundingClientRect();
         return {
           left: left,
           top: top
         };
       }
-      let { autoComplete, obj, key } = bind;
+
+      let {autoComplete, obj, key} = bind;
       let xy = offset(e.target);
 
       console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
@@ -951,7 +987,7 @@ export default {
             left: `${xy.left}px`
           },
           data: autoComplete,
-          callback: function(data) {
+          callback: function (data) {
             console.log(data, "data");
             if (data) {
               if (obj[key]) {
@@ -971,7 +1007,8 @@ export default {
       }, 400);
     }
   },
-  mounted() {},
+  mounted() {
+  },
   components: {}
 };
 </script>

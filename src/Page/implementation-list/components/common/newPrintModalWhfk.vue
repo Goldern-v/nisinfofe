@@ -148,6 +148,9 @@
   }
   &.new-print-modal--s {
     display: block;
+    position: absolute;
+    transform: scale(.5);
+    transform-origin: 0 0 0;
 		>>> * {
 			font-size: 12px;
 			font-weight: 700;
@@ -265,7 +268,7 @@ export default {
     },
     modalBStyle() {
       if (this.newModalSize === '3*5') {
-        return { height: '115px' }
+        return { height: '100px' }
       }
       return {}
     }
