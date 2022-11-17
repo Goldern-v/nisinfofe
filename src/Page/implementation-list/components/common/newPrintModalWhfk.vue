@@ -1,10 +1,7 @@
 <template>
   <div
-    :style="{
-      width: `${isLargeType ? '8' : '7'}cm`,
-      height: `${isLargeType ? '5.8' : '4.5'}cm`,
-    }"
-    class="new-print-modal" 
+    :style="sizeStyle"
+    class="new-print-modal"
 		:class="{'new-print-modal--s': !isLargeType,'pageBreak':isLargeType}"
   >
     <div class="new-modal-top">
@@ -36,7 +33,7 @@
         </div>
       </div>
     </div>
-    <div class="new-modal-bottom">
+    <div class="new-modal-bottom" :style="modalBStyle">
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
@@ -95,6 +92,7 @@
         border-bottom: 1px solid #000;
         box-sizing: border-box;
         white-space: nowrap;
+        padding-right: 8px;
         &:last-child {
           border-bottom: 0;
         }
@@ -150,6 +148,9 @@
   }
   &.new-print-modal--s {
     display: block;
+    position: absolute;
+    transform: scale(.5);
+    transform-origin: 0 0 0;
 		>>> * {
 			font-size: 12px;
 			font-weight: 700;
@@ -168,15 +169,15 @@
           >div:first-of-type{
             height:29px;
           }
-          div{
+          /* div{
             height:21px;
-          }
+          } */
         }
         div {
         font-size: 13px;
 			  line-height: 21px;
       }
-    } 
+    }
 		.new-modal-top-left{
         .new-modal-top-left-first{
             display: block;
@@ -184,7 +185,7 @@
             display: inline-block;
 			      font-size: 22px;
 			      padding-top: 3px;
-        }  
+        }
 		  }
       .new-modal-top-left-second{
         display:block;
@@ -192,7 +193,7 @@
           display: inline-block;
         }
       }
-    } 
+    }
 		.new-modal-bottom{
       // height: 64.2px;
       height: 72px;
@@ -201,7 +202,7 @@
 			font-size: 14px;
 			line-height: 22px;
 		  }
-    } 
+    }
   }
 }
 </style>
@@ -253,6 +254,24 @@ export default {
     isLargeType() {
       return this.newModalSize == "6*8";
     },
+    // 宽高样式
+    sizeStyle() {
+      switch(this.newModalSize) {
+        case '6*8':
+          return { width: '8cm', height: '5.8cm'}
+        case '3.5*5':
+          return { width: '7cm', height: '4.5cm'}
+        default:
+        // case '3*5':
+          return { width: '10cm', height: '5.9cm'}
+      }
+    },
+    modalBStyle() {
+      if (this.newModalSize === '3*5') {
+        return { height: '100px' }
+      }
+      return {}
+    }
   },
   filters: {
     repeatIndicatorFilter(val) {
