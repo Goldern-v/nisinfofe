@@ -187,8 +187,8 @@ const currentTargetUrl = (() => {
 
     //顺德龙江
     case 'sdlj':
-    //   return "http://192.168.1.54:9887" // 顺德龙江内网测试
-      return "http://218.13.34.230:9094" //正式
+      return "http://192.168.1.54:9887" // 顺德龙江内网测试
+      // return "http://218.13.34.230:9094" //正式
       // return "https://cr.fsyyy.com:9094" //佛山人医正式
       // return "http://218.13.87.27:9094"
 
@@ -242,10 +242,10 @@ const currentTargetUrl = (() => {
 
     // 威海市立
     case 'whsl':
-      // return 'http://192.168.1.54:9896'
+      return 'http://192.168.1.54:9896'
       // return "http://222.133.53.230:9091" // 临邑正式
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
-      return 'http://221.2.154.22:19094' //威海市立正式环境  admin / Bcy@23nr
+      // return 'http://221.2.154.22:19094' //威海市立正式环境  admin / Bcy@23nr
 
     /** 默认公司本地内网厚街测试环境 */
     default:

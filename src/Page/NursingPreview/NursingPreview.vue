@@ -101,6 +101,7 @@ import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录�
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue"; //血糖
 import bloodSugarZhzxy from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_zhzxy.vue"; //血糖
+import bloodSugarGdtj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_gdtj"; // 广东同江
 import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; //血糖
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj.vue"; //血糖
 import bloodOxygen from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
@@ -161,6 +162,8 @@ export default {
           return bloodSugarFsxt;
         case "zhzxy":
           return bloodSugarZhzxy;
+          case "gdtj":
+          return bloodSugarGdtj;
         case "sdlj":
           if (this.isBloodSugarSdlj) {
             return bloodSugarSdlj;
@@ -240,6 +243,7 @@ export default {
     bloodSugar,
     bloodSugarBhry,
     bloodSugarFsxt,
+    bloodSugarGdtj,
     bloodSugarSdlj,
     bloodSugarZhzxy,
     bloodOxygen,

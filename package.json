@@ -41,6 +41,7 @@
     "dev:whhk": "npm run dev --whhk",
     "dev:nfyksdyy": "npm run dev --nfyksdyy",
     "dev:925": "npm run dev --925",
+    "dev:dglb": "npm run dev --dglb",
     "buildNew": "node build-new/build.js",
     "buildNew:": "npm run buildNew",
     "buildNew:hj": "npm run buildNew: houjie",
@@ -75,6 +76,7 @@
     "buildNew:whhk": "npm run buildNew: whhk",
     "buildNew:nfyksdyy": "npm run buildNew: nfyksdyy",
     "buildNew:925": "npm run buildNew: 925",
+    "buildNew:dglb": "npm run buildNew: dglb",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"

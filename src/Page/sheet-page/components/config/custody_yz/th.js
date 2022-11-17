@@ -54,7 +54,7 @@ export default {
         备注
         `,
         style: {
-          minWidth: "260px",
+          minWidth: "240px",
           // maxWidth: "260px"
         },
         colspan: '1',
