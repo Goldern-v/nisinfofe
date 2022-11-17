@@ -442,6 +442,15 @@
                   </router-link>
                 </el-dropdown-item>
                 <!-- <el-dropdown-item
+                  :class="{ active: $route.path == '/severe-indicators' }"
+                >
+                  <router-link to="/severe-indicators" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="noCheckTest"></i>重症质量指标
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item> -->
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/flatManagement' }"
                 >
                   <router-link to="/flatManagement" tag="span">
