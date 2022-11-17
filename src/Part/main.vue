@@ -10,7 +10,7 @@ import HLheader from "@/components/HLheader/HLheader"; // 东莞市厚街医院
 import WeiXianHeader from "@/components/HLheader/WeiXianHeader"; // 威县人民医院
 import LingChengHeader from "@/components/HLheader/LingChengHeader"; // 威县人民医院
 import HuaDuHeader from "@/components/HLheader/HuaDuHeader"; // 广州市花都区人民医院
-import WuJingHeader from "@/components/HLheader/WuJingHeader"; // 广州市花都区人民医院
+import WuJingHeader from "@/components/HLheader/WuJingHeader"; // 武警总队医院
 import FuYouHLheader from "@/components/HLheader/FuYouHLheader"; // 江门市妇幼保健院
 import LiaoChengHeader from "@/components/HLheader/LiaoChengHeader"; // 聊城市第二人民医院
 import ZhongShanQiHeader from "@/components/HLheader/ZhongShanQiHeader"; // 中山大学附属第七医院
@@ -35,8 +35,9 @@ import LyyzHeader from "@/components/HLheader/LyyzHeader";//广东同江
 import QhwyHeader from "@/components/HLheader/QhwyHeader";//广东同江
 import WhslHeader from "@/components/HLheader/WhslHeader";//威海市立
 import ZhzxyHeader from "@/components/HLheader/ZhzxyHeader";//珠海中西医
-import WhhkHeader from "@/components/HLheader/WhhkHeader";
-import nfyksdyyHeader from "@/components/HLheader/nfyksdyyHeader";
+import WhhkHeader from "@/components/HLheader/WhhkHeader"; //武汉汉口医院
+import nfyksdyyHeader from "@/components/HLheader/nfyksdyyHeader"; //南方医科大学顺德医院
+import dglbHeader from "@/components/HLheader/LiaoBuHeader.vue"; //东莞寮步医院
 
 export default {
   data() {
@@ -80,7 +81,8 @@ export default {
         珠海市中西医结合医院: 'ZhzxyHeader',
         武汉汉口医院: 'WhhkHeader',
         南方医科大学顺德医院: 'nfyksdyyHeader',
-        中国人民解放军联勤保障部队第九二五医院: 'GuiZhouShengRenMingHeader'
+        中国人民解放军联勤保障部队第九二五医院: 'GuiZhouShengRenMingHeader',
+        东莞市寮步医院: 'dglbHeader'
       };
       return hisList[HisName] || "HLheader";
     },
@@ -116,7 +118,8 @@ export default {
     WhslHeader,
     ZhzxyHeader,
     WhhkHeader,
-    nfyksdyyHeader
+    nfyksdyyHeader,
+    dglbHeader
   },
 };
 </script>
