@@ -1610,6 +1610,10 @@ function switchSheetType(type) {
       // 威海市立 - 病重（病危）患者护理记录单（新）
       schema = require("../config/critical_new_weihai/tr.js").default;
     }
+    case "oxytocin_weihai": {
+      // 威海市立 -静脉点滴催产素引产观察表
+      schema = require("../config/oxytocin_weihai/tr.js").default
+    }
     break;
     case "post_partum_weihai": {
       // 威海市立 - 产后（产房）观察记录单

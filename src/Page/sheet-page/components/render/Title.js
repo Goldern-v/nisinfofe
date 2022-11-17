@@ -2085,6 +2085,13 @@ export default function Title(
       JSON.stringify(require("../config/critical_new_weihai/th.js").default)
     );
   }
+    break;
+    case "oxytocin_weihai": {
+      // // 威海市立 -静脉点滴催产素引产观察表
+      Th = JSON.parse(
+          JSON.stringify(require("../config/oxytocin_weihai/th.js").default)
+      );
+    }
   break;
   case "post_partum_weihai": {
     // // 威海市立 - 产后（产房）观察记录单
