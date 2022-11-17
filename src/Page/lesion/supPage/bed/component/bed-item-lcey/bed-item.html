@@ -1,5 +1,4 @@
 <el-col :xs="8" :sm="6" :md="6" :lg="6" class="w-20 bed-box">
-  <!-- <router-link target="_blank" :to="{ path: '/home', query: data}" tag="span" class="nod"> -->
   <span @click="toInfo(data)" class="nod">
     <div class="card-box" @click="prevent(data, $event)">
       <!--佛一顶部特殊调整-->
@@ -55,9 +54,8 @@
             </span>
           </div>
           <div flex-box="1" flex="dir:right" style="width: 0">
-            <template  v-for="item in (data.conditionIconDtos &&  data.conditionIconDtos.slice(0,6))">
+            <template  v-for="item in squareList">
               <div class="table-name"
-                v-if="!(item.iconText=='病危' && ['lyxrm', 'whhk'].includes(HOSPITAL_ID))"
                 :key="item.iconText" :title="item.iconText" :style="{background: item.iconTextRgb}">
                 <span>{{item.showContent}}</span>
               </div>
@@ -97,6 +95,7 @@
       </el-row>
     </div>
   </span>
+
   <div class="bed-modal">
     <div flex="" class="table-line" v-if="HOSPITAL_ID == 'beihairenyi'">
       <div class="key">床号：</div>
