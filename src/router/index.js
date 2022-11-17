@@ -59,6 +59,8 @@ const inpatientReport = () =>
   import("@/Page/inpatient-report/inpatient-report.vue");
 const inpatientReportDetail = () =>
   import("@/Page/inpatient-report/inpatient-report-detail.vue");
+const SevereIndicators = () => import("@/Page/severe-indicators/index.vue")
+const IndicatorDetails = () => import("@/Page/severe-indicators/IndicatorDetails.vue")
 const nursingGradeStatistics = () =>
   import("@/Page/nursingGradeStatistics/nursingGrade-statistics.vue"); // 护理等级统计查询
 const nursingGradeStatisticsDetail = () =>
@@ -748,6 +750,16 @@ const router = new Router({
           name: "inpatientReport",
           path: "/inpatientReport/:date?",
           component: inpatientReportDetail
+        }]
+      },
+      {
+        path: "/severe-indicators",
+        name: "severe-indicators",
+        component: SevereIndicators,
+        children: [{
+          name: "severe-indicators",
+          path: "/severe-indicators/:code?",
+          component: IndicatorDetails
         }]
       },
       {
