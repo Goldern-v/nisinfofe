@@ -355,6 +355,7 @@
             label="疼痛"
             min-width="70"
             align="center"
+            v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
           >
             <template slot-scope="scope">
               <input
@@ -514,6 +515,7 @@
           <el-table-column
             prop="painScore"
             label="疼痛"
+            v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
             min-width="60"
             align="center"
           >
