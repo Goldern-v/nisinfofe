@@ -1238,6 +1238,12 @@ const router = new Router({
             component: patientNursingRound,
             name: "护理巡视",
             alias: "护理巡视"
+          },
+          {
+            path: "/patientImplementationList",
+            component: getImplementation(),
+            name: "执行单",
+            alias: "执行单"
           }
         ]
       },
