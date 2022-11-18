@@ -51,8 +51,8 @@
       </div>
 
       <div class="new-modal-bottom-second">
-        <span>{{ currentBottle.frequency }} {{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
-        <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
+        <div>{{ currentBottle.frequency }} {{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</div>
+        <div style="text-align: right">{{ currentBottle.executeDate.substr(0, 16) }}</div>
         <!-- <div style="width: 20%">频次途径</div> -->
         <!-- <div style="flex: 1">{{ currentBottle.frequency }}</div> -->
       </div>
@@ -216,7 +216,7 @@
       width: 100%;
       font-size: 18px;
       padding-right: 10px;
-      display: flex;
+      display: block;
       // text-align: right;
       justify-content: space-between;
       line-height: 20px;
@@ -231,6 +231,7 @@
         text-indent: 5px;
       } */
     }
+
   }
 
   .new-modal-small-left {

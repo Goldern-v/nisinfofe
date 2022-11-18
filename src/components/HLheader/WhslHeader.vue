@@ -446,7 +446,7 @@
                 >
                   <router-link to="/severe-indicators" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="noCheckTest"></i>重症质量指标
+                      <i class="icuSummary"></i>重症质量指标
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
@@ -796,6 +796,10 @@
 
     &.noCheckTest {
       background-image: url('../../common/images/index/未做检查／检验.png');
+    }
+
+    &.icuSummary {
+      background-image: url('../../common/images/index/工作量统计.png');
     }
 
     &.departmentSharedFile {
