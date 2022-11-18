@@ -374,7 +374,7 @@ export default {
     },
     openOcx(){
       const {patientId,visitId,wardCode}=this.info
-      window.open(`/ocxObject?patientId=${patientId}&visitId=${visitId}&cpIncludeDeptCode=${wardCode}`)
+      window.open(`http://192.168.103.16:9091/ocxObject?patientId=${patientId}&visitId=${visitId}&cpIncludeDeptCode=${wardCode}`)
     },
     // 床头卡打印
     openBedPrint(printMode) {
