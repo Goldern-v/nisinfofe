@@ -20,13 +20,39 @@
       <tbody>
         <tr v-for="(item, index) in tableData" :key="index + item.summaryCode">
           <td>{{ item.itemName }}</td>
-          <td>{{ item.numerator }}</td>
-          <td>{{ item.denominator }}</td>
-          <td>{{ item.ratio }}</td>
-          <td>{{ item.lastMonthRatio }}</td>
-          <td>{{ item.m2m }}</td>
-          <td>{{ item.lastYearRatio }}</td>
-          <td>{{ item.y2y }}</td>
+          <td :class="{ 'red-border': item[`numerator_wrong`] }">
+            <input
+              v-model="item.numerator"
+              @focus="getOldValue(item, 'numerator')"
+              @change="editItem(item, 'numerator', 'denominator')"
+            />
+          </td>
+          <td :class="{ 'red-border': item[`denominator_wrong`] }">
+            <input
+              v-model="item.denominator"
+              @focus="getOldValue(item, 'denominator')"
+              @change="editItem(item, 'denominator', 'numerator')"
+            />
+          </td>
+          <td>{{ item.ratio | rateFormat }}</td>
+          <td>{{ item.lastMonthRatio | rateFormat }}</td>
+          <!-- 环比 -->
+          <td>
+            <div class="td-item">
+              <span class="arrow-green" v-if="showDownArrow(item.ratio, item.lastMonthRatio)">↓</span>
+              <span class="arrow-red" v-if="showUpArrow(item.ratio, item.lastMonthRatio)">↑</span>
+              <span>{{ item.m2m | compareFormat }}</span>
+            </div>
+          </td>
+          <td>{{ item.lastYearRatio | rateFormat }}</td>
+          <!-- 同比 -->
+          <td>
+            <div class="td-item">
+              <span class="arrow-green" v-if="showDownArrow(item.ratio, item.lastYearRatio)">↓</span>
+              <span class="arrow-red" v-if="showUpArrow(item.ratio, item.lastYearRatio)">↑</span>
+              <span>{{ item.y2y | compareFormat }}</span>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -53,6 +79,14 @@ export default {
 
     }
   },
+  filters: {
+    rateFormat(val) {
+      return isNaN(val) || !val ? val : `${(val * 100).toFixed(1)}%`
+    },
+    compareFormat(val) {
+      return val === 0 ? '持平' : (val ? `${(val * 100).toFixed(1)}%` : val)
+    }
+  },
   computed: {
     monthList() {
       return [
@@ -63,7 +97,36 @@ export default {
     }
   },
   methods: {
-
+    // 显示上箭头
+    showUpArrow(r1, r2) {
+      return (r1 || r1 === 0) && (r2 || r2 === 0) && r1 > r2
+    },
+    // 显示下箭头
+    showDownArrow(r1, r2) {
+      return (r1 || r1 === 0) && (r2 || r2 === 0) && r1 < r2
+    },
+    // 获取原始值
+    getOldValue(row, key) {
+      if (!row[`old_${key}`] && row[`old_${key}`] === undefined) {
+        this.$set(row, `old_${key}`, row[key])
+      }
+    },
+    // 编辑
+    editItem(row, key, otherKey) {
+      this.$set(row, `${key}_wrong`, isNaN(+row[key]))
+      if (isNaN(+row[key]) || isNaN(row[otherKey])) {
+        return this.$message.warning("请输入合法数字");
+      }
+      const data = {
+        itemCode: row.itemCode,
+        old_numerator: row.old_numerator,
+        old_denominator: row.old_denominator,
+        numerator: row.numerator ? +row.numerator : row.numerator,
+        denominator: row.denominator ? +row.denominator : row.denominator,
+        [key]: row[key] ? +row[key] : row[key]
+      }
+      this.$emit('onEditData', data)
+    }
   },
 };
 </script>
@@ -91,6 +154,34 @@ export default {
           height: 24px;
           font-size: 14px;
           vertical-align: middle;
+          .td-item {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .arrow-green {
+              color: green;
+              font-size: 22px;
+            }
+            .arrow-red {
+              color: red;
+              font-size: 22px;
+            }
+          }
+          input {
+            height: 20px;
+            width: 100%;
+            padding: 1px;
+            box-sizing: border-box;
+            margin: 0;
+            border: 0;
+            outline: none;
+            text-align: center;
+          }
+          &.red-border {
+            border: 2px solid red;
+          }
         }
       }
     }
