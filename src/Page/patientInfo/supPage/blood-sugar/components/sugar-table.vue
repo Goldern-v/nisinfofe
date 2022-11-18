@@ -34,7 +34,7 @@
             HOSPITAL_ID != 'sdlj'&&
             HOSPITAL_ID != 'guizhou'&&
             HOSPITAL_ID != 'whfk' &&
-            HOSPITAL_ID != 'lyyz' && 
+            HOSPITAL_ID != 'lyyz' &&
             HOSPITAL_ID != 'ytll'
           "
         >
@@ -67,7 +67,7 @@
               <span>{{ item.date }}</span>
             </span>
             <span>
-              <span v-if="HOSPITAL_ID = 'lyyz'"> </span>
+              <span v-if="HOSPITAL_ID == 'lyyz'"> </span>
                <span v-else>{{ item.time }}</span>
             </span>
           </div>
@@ -98,8 +98,8 @@
             HOSPITAL_ID != 'fuyou'&&
             HOSPITAL_ID != 'sdlj'&&
             HOSPITAL_ID != 'guizhou'&&
-            HOSPITAL_ID != 'whfk' && 
-            HOSPITAL_ID != 'lyyz' && 
+            HOSPITAL_ID != 'whfk' &&
+            HOSPITAL_ID != 'lyyz' &&
             HOSPITAL_ID != 'ytll'
           "
         >
