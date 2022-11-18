@@ -2,7 +2,7 @@
   <div
     :style="sizeStyle"
     class="new-print-modal"
-		:class="{'new-print-modal--s': !isLargeType,'pageBreak':isLargeType}"
+		:class="{'new-print-modal--s': !isLargeType,'pageBreak':isLargeType, 'new-print-modal--s1': !isLargeType && 'whsl' === HOSPITAL_ID}"
   >
     <div class="new-modal-top">
       <div class="new-modal-top-right">
@@ -24,7 +24,10 @@
           <div>{{ currentBottle.age }}</div>
         </div>
         <div class="new-modal-top-left-second">
-          <div style="text-indent: 5px">
+          <div v-if="HOSPITAL_ID = 'whsl'" style="text-indent: 5px">
+            {{ currentBottle.executeDate.substr(0, 16) }}
+          </div>
+          <div v-else style="text-indent: 5px">
             执行日期:{{ currentBottle.executeDate.substr(0, 16) }}
           </div>
           <div>
@@ -203,6 +206,49 @@
 			line-height: 22px;
 		  }
     }
+  }
+  &.new-print-modal--s1 {
+    * {
+      font-family: 'SimHei' !important;
+    }
+    >>> * {
+       font-size: 18px;
+      }
+    .new-modal-top-left {
+      width: calc(100% - 86px);
+      .new-modal-top-left-first {
+        padding-left: 4px;
+        height: 35px !important;
+      }
+      .new-modal-top-left-second {
+        div {
+          font-size: 21px;
+          line-height: 23px;
+        }
+      }
+    }
+    .new-modal-top-right {
+      width: 85px !important;
+
+      .new-modal-top-right-top {
+        width: 85px !important;
+        img {
+           margin-top: 4px;
+          height: auto;
+        }
+      }
+    }
+    .new-modal-bottom {
+    border-top: 1px solid #000;
+    font-weight: 700;
+    width: 100%;
+		flex: 1;
+      div {
+        line-height: 18px;
+        font-size: 21px;
+      }
+  }
+  
   }
 }
 </style>
