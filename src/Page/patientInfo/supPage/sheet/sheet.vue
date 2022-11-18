@@ -923,40 +923,51 @@ export default {
         saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode(ayncVisitedData))
           .then(res => {
             if (res.data.code == 200) {
-              if (['foshanrenyi'].includes(this.HOSPITAL_ID) && this.foshanshiyiIFca && ayncVisitedDataList.length) {
-                //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
-                console.log(`开始执行签名接口==============>>>>>>Ca状态${this.foshanshiyiIFca}`)
-                showBody(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
-                  let resList = saveRes.data.data.list.map((item) => {
-                    item.recordMonth = moment(item.recordDate).format('MM-DD')
-                    item.recordHour = moment(item.recordDate).format('HH:mm')
-                    return item
-                  })
-                  let editList = ayncVisitedDataList.map((item) => {
-                    item.recordMonth = moment(item.recordDate).format('MM-DD')
-                    item.recordHour = moment(item.recordDate).format('HH:mm')
-                    return item
-                  })
-                  console.log(`后台返回的签名数据==============>>>>>>数据:`,resList)
-                  console.log(`前端拿到的修改数据============>>>>>>数据:`,editList)
+              // if (['foshanrenyi'].includes(this.HOSPITAL_ID) && this.foshanshiyiIFca && ayncVisitedDataList.length) {
+              //   //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
+              //   console.log(`开始执行签名接口==============>>>>>>Ca状态${this.foshanshiyiIFca}`)
+              //   showBody(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
+              //     let resList = saveRes.data.data.list.map((item) => {
+              //       item.recordMonth = moment(item.recordDate).format('MM-DD')
+              //       item.recordHour = moment(item.recordDate).format('HH:mm')
+              //       return item
+              //     })
+              //     let editList = ayncVisitedDataList.map((item) => {
+              //       item.recordMonth = moment(item.recordDate).format('MM-DD')
+              //       item.recordHour = moment(item.recordDate).format('HH:mm')
+              //       return item
+              //     })
+              //     console.log(`后台返回的签名数据==============>>>>>>数据:`,resList)
+              //     console.log(`前端拿到的修改数据============>>>>>>数据:`,editList)
 
-                  if (editList.length) {
-                    this.saveAndSign(editList, resList)
-                  } else {
-                    //不走保存签名过程 保存后直接获取数据
-                    this.getSheetData().then((res) => {
-                      this.pageLoading = false;
-                      this.scrollFun(isInitSheetPageSize, this.scrollTop)
-                    });
-                  }
-                  this.$notify.success({
-                    title: "提示",
-                    message: "保存成功",
-                    duration: 1000,
-                  });
-                })
-              } else {
-                //除了佛一的医院  正常获取数据
+              //     if (editList.length) {
+              //       this.saveAndSign(editList, resList)
+              //     } else {
+              //       //不走保存签名过程 保存后直接获取数据
+              //       this.getSheetData().then((res) => {
+              //         this.pageLoading = false;
+              //         this.scrollFun(isInitSheetPageSize, this.scrollTop)
+              //       });
+              //     }
+              //     this.$notify.success({
+              //       title: "提示",
+              //       message: "保存成功",
+              //       duration: 1000,
+              //     });
+              //   })
+              // } else {
+              //   //除了佛一的医院  正常获取数据
+              //   this.getSheetData().then((res) => {
+              //     this.pageLoading = false;
+              //     this.scrollFun(isInitSheetPageSize, this.scrollTop)
+              //   });
+              //   this.$notify.success({
+              //     title: "提示",
+              //     message: "保存成功",
+              //     duration: 1000,
+              //   });
+              // }
+              //除了佛一的医院  正常获取数据
                 this.getSheetData().then((res) => {
                   this.pageLoading = false;
                   this.scrollFun(isInitSheetPageSize, this.scrollTop)
@@ -966,7 +977,6 @@ export default {
                   message: "保存成功",
                   duration: 1000,
                 });
-              }
             }
           })
           .catch(() => {
