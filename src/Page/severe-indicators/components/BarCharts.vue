@@ -63,17 +63,21 @@ export default {
           {
             name: this.months[0],
             type: "bar",
-            data: this.chartData.map(v => v.ratio),
+            data: this.chartData.map(v => v.ratio || v.ratio === 0 ? v.ratio * 100 : v.ratio),
           },
           {
             name: this.months[1],
             type: "bar",
-            data: this.chartData.map(v => v.lastMonthRatio),
+            data: this.chartData.map(
+              v => v.lastMonthRatio || v.lastMonthRatio === 0 ? v.lastMonthRatio * 100: v.lastMonthRatio
+            ),
           },
           {
             name: this.months[2],
             type: "bar",
-            data: this.chartData.map(v => v.lastYearRatio),
+            data: this.chartData.map(
+              v => v.lastYearRatio || v.lastYearRatio === 0 ? v.lastYearRatio * 100 : v.lastYearRatio
+            ),
           },
         ],
       }
