@@ -231,6 +231,8 @@ const allTemperatureChartFSRY = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSRY.vue"); //佛山人医量录入体温单
 const allTemperatureChartGDTJ= () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartGDTJ.vue"); //广东同江医院量录入体温单
+const allTemperatureChartFSXT= () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSXT.vue"); //广东同江医院量录入体温单
 const allTemperatureChartLYYZ = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartLYYZ.vue"); //临邑沂州量录入体温单
 const newSingleTemperatureChart = () =>
@@ -1238,6 +1240,12 @@ const router = new Router({
             component: patientNursingRound,
             name: "护理巡视",
             alias: "护理巡视"
+          },
+          {
+            path: "/patientImplementationList",
+            component: getImplementation(),
+            name: "执行单",
+            alias: "执行单"
           }
         ]
       },
@@ -1509,6 +1517,8 @@ const router = new Router({
               return allTemperatureChartLYYZ
             case 'gdtj':
             return allTemperatureChartGDTJ
+            case 'fsxt':
+            return allTemperatureChartFSXT
             default:
               return allTemperatureChart
           }

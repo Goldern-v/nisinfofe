@@ -30,23 +30,35 @@
       </div>
     </div>
     <div class="container">
-      <NullBg v-if="!records.length" text="暂无数据" />
+      <!-- <NullBg v-if="!records.length" text="暂无数据" /> -->
+      <div
+        v-if="!records.length"
+        class="null-btn"
+        @click="openCreateModal"
+      >
+        <i class="el-icon-plus"></i>创建
+      </div>
       <router-view
         v-else
         @refreshSummaryList="getSummaryList"
       ></router-view>
     </div>
+    <CreateModal
+      ref="createRef"
+      @confirm="createSummary"
+    />
   </div>
 </template>
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
-import { getIcuQcSummaryList } from './api'
+import { getIcuQcSummaryList, icuQcSummaryCreate } from './api'
 import NullBg from "@/components/null/null-bg.vue";
+import CreateModal from './components/CreateModal.vue'
 export default {
   mixins: [common],
-  components: { NullBg },
+  components: { NullBg, CreateModal },
   data() {
     return {
       year: `${moment().year()}`,
@@ -96,14 +108,32 @@ export default {
             text: `${item.createName}于${item.createTime}分创建`
           }
         })
-        this.selectItem = this.records[0]
+        this.selectItem = this.selectItem ? this.selectItem : this.records[0]
       } catch (error) {
 
       }
     },
     onDateSelect(data) {
       this.selectItem = data
-    }
+    },
+    // 打开
+    openCreateModal() {
+      this.$refs.createRef.open()
+    },
+    // 创建
+    async createSummary(data) {
+      try {
+        const params = {
+          ...data,
+          wardCode: this.deptCode
+        }
+        await icuQcSummaryCreate(params)
+        this.$message.success('创建成功')
+        this.getSummaryList()
+      } catch (error) {
+        throw new Error('创建失败')
+      }
+    },
   }
 };
 </script>
@@ -176,4 +206,32 @@ export default {
     .container
       height 100%
       overflow auto
+      position relative
+
+    .null-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 17px;
+      color: #687179;
+      width: 195px;
+      height: 50px;
+      background: #FFFFFF;
+      border: 1px solid #ADB4BA;
+      box-shadow: 0 1px 2px 0 rgba(200, 200, 200, 0.5);
+      border-radius: 2px;
+      cursor: pointer;
+
+      &:hover {
+        background: #fafafa;
+      }
+
+      i {
+        margin-right: 4px;
+      }
+    }
 </style>

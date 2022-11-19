@@ -1,6 +1,6 @@
 import axios from '@/api/axios'
 import { apiPath } from '@/api/apiConfig'
-import qs from 'qs'
+// import qs from 'qs'
 
 // 获取汇总表列表
 export const getIcuQcSummaryList = (params) => {
@@ -17,8 +17,8 @@ export const getIcuQcSummaryItem = (summaryCode) => {
 }
 
 // 保存
-export const icuQcSummarySave = () => {
-
+export const icuQcSummarySave = (params) => {
+  return axios.post(`${apiPath}icu/qc/summary/save`, params)
 }
 /**
  * 同步数据
@@ -33,4 +33,9 @@ export const icuQcSummarySync = (summaryCode) => {
  */
 export const icuQcSummaryCreate = (params) => {
   return axios.post(`${apiPath}icu/qc/summary/create`, params)
+}
+
+// 导出
+export const icuQcSummaryExport = (summaryCode) => {
+  return axios.get(`${apiPath}icu/qc/summary/export`, { params: { summaryCode }, responseType: 'blob' })
 }
