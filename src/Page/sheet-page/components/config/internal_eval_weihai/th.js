@@ -85,8 +85,7 @@ export default {
         rowspan: '3'
       },
       {
-        key: "fieldEighteen", //标题2
-        name: `
+         name: `
         左侧瞳孔<br/>（mm）
         `,
         style: {
@@ -97,8 +96,7 @@ export default {
         rowspan: '3',
       },
       {
-        key: "fieldNineteen", //标题3
-        name: `
+         name: `
         右侧瞳孔<br/>（mm）
         `,
         style: {

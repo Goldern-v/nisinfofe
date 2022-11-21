@@ -25,17 +25,20 @@ export default [{
   {
     key: "temperature", //体温-数值
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "体温"
   },
   {
     key: "pulse", //脉搏/心率
     value: "",
-    event: keyf1
+    event: keyf1,
+    name:"脉搏/心率"
   },
   {
     key: "breath", //呼吸 次/min
     value: "",
-    event: keyf1
+    event: keyf1,
+    name: "呼吸 次/分"
   },
   {
     key: "bloodPressure", //血压(mmHg)
@@ -52,12 +55,14 @@ export default [{
     },
     style: {
       'line-height': '30px'
-    }
+    },
+    name: "血压(mmHg)"
   },
   {
     key: "spo2", // SPO2（%）
     value: "",
     event: keyf1,
+    name: "SPO2（%）"
   },
   // {
   //   key: "fieldSeventeen", //标题1
@@ -80,17 +85,13 @@ export default [{
     key: "fieldEighteen", //标题2
     value: "",
     event: keyf1,
-    textarea: {
-      minWidth: 60
-    }
+    name: "左侧瞳孔（mm）"
   },
   {
     key: "fieldNineteen", //标题3
     value: "",
     event: keyf1,
-    textarea: {
-      minWidth: 60
-    }
+    name: "右侧瞳孔（mm）"
   },
   {
     key: "description", //护理记录
