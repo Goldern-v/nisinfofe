@@ -99,7 +99,28 @@ export default [{
     event: keyf1,
     name: "其他"
   },
-
+  {
+    key: "description", //护理记录
+    value: "",
+    hidden: true,
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      minWidth: "598px",
+      background: "transparent"
+    },
+    event: function (e, td) {
+      console.log(e.keyCode);
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+  },
   {
     key: "sign",
     value: ""
