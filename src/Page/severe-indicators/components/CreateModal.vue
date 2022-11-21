@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     title="创建质量指标报表"
-    :visible="qcIndicatorShow"
+    :visible.sync="qcIndicatorShow"
     custom-class="custom-dialog"
     width="30%"
     :close-on-click-modal="false"

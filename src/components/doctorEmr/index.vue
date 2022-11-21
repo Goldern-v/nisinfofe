@@ -1,7 +1,7 @@
 <template>
   <div class="doctor-emr-wrapper" v-if="routeQuery.patientId">
     <div
-      v-if="show && !['zhzxy'].includes(HOSPITAL_ID)"
+      v-if="show && !['zhzxy', 'fsxt'].includes(HOSPITAL_ID)"
       v-loading="pageLoading"
       class="doctor-emr-content dragNode2"
     >
@@ -290,7 +290,7 @@ export default {
     },
     async onload() {
       this.show = true;
-      if(['zhzxy'].includes(this.HOSPITAL_ID)){
+      if(['zhzxy','fsxt'].includes(this.HOSPITAL_ID)){
         this.openModal('doctorEmrModal')
       }else await this.getTreeData();
     },
@@ -298,7 +298,11 @@ export default {
       this.$refs[name].open(feature);
     },
     async getTreeData() {
-      this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`;
+      if(this.HOSPITAL_ID === 'foshanrenyi'){
+        this.fileUrl = `http://192.168.99.72:8099/?hospital_no=45607379-3&patient_id=${this.$route.query.patientId}&visit_id=${this.$route.query.visitId}`;
+      }else{
+        this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`;
+      }
       // if ((this.patientId === this.routeQuery.patientId) && (this.visitId === this.routeQuery.visitId)) return
       // this.pageLoading = true
       // this.patientId = this.routeQuery.patientId

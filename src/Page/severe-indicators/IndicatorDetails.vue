@@ -5,10 +5,27 @@
         <h4>重症质量指标</h4>
       </div>
       <div class="toolbar-right">
-        <el-button size="mini" class="skyblue-btn">同步数据</el-button>
-        <el-button size="mini" type="primary">保存</el-button>
+        <el-button
+          size="mini"
+          class="skyblue-btn"
+          @click="onDataSync"
+          :disabled="!tableData.length || loading"
+        >同步数据
+        </el-button>
+        <el-button
+          size="mini"
+          type="primary"
+          @click="onSave"
+          :disabled="!editList.length || loading"
+        >保存
+        </el-button>
         <el-button size="mini" @click="openCreateModal">创建</el-button>
-        <el-button size="mini">导出</el-button>
+        <el-button
+          size="mini"
+          @click="onExport"
+          :disabled="!tableData.length"
+        >导出
+        </el-button>
       </div>
     </div>
     <div class="container">
@@ -20,7 +37,7 @@
         <i class="el-icon-plus"></i>创建
       </div> -->
       <div class="data-area" v-else ref="area">
-        <Pager :tableData="tableData"/>
+        <Pager :tableData="tableData" @onEditData="setEditData"/>
       </div>
     </div>
     <CreateModal
@@ -31,12 +48,18 @@
 </template>
 
 <script>
-import moment from "moment";
+// import moment from "moment";
 import NullBg from "@/components/null/null-bg.vue";
 import common from "@/common/mixin/common.mixin.js";
 import Pager from './components/Pager.vue'
 import CreateModal from './components/CreateModal.vue'
-import { icuQcSummaryCreate, getIcuQcSummaryItem } from './api'
+import {
+  icuQcSummaryCreate,
+  getIcuQcSummaryItem,
+  icuQcSummarySave,
+  icuQcSummarySync,
+  icuQcSummaryExport,
+} from './api'
 export default {
   mixins: [common],
   components: { NullBg, Pager, CreateModal },
@@ -47,6 +70,8 @@ export default {
     return {
       loading: false,
       tableData: [],
+      editList: [],
+      timer: null
     };
   },
   computed: {},
@@ -59,9 +84,14 @@ export default {
     this.load()
   },
   methods: {
+    // 加载数据
     async load() {
+      this.editList = []
       const code = this.$route.params.code
-      if (!code) return
+      if (!code) {
+        this.tableData = []
+        return
+      }
       try {
         this.loading = true
         const res = await getIcuQcSummaryItem(code)
@@ -69,6 +99,85 @@ export default {
         this.loading = false
       } catch (error) {
         throw new Error('获取数据失败')
+      }
+    },
+    // 数据同步
+    async onDataSync() {
+      try {
+        this.loading = true
+        const code = this.$route.params.code
+        const res = await icuQcSummarySync(code)
+        if (res.data.code == '200') {
+          this.loading = false
+          this.$message.success('同步成功')
+          this.load()
+        }
+      } catch (error) {
+        throw this.$message.error('数据同步失败')
+      }
+    },
+    // 添加编辑项
+    setEditData(data) {
+      const index = this.editList.findIndex(v => v.itemCode === data.itemCode)
+      // 存在
+      if (index > -1) {
+        // 没有改变，1.值相等，2.都为空
+        if (
+          (
+            data.old_numerator === data.numerator ||
+            (typeof data.old_numerator !== 'number' && typeof data.numerator !== 'number') ||
+            data.old_numerator === undefined
+          )
+          &&
+          (
+            data.old_denominator === data.denominator ||
+            (typeof data.old_denominator !== 'number' && typeof data.denominator !== 'number') ||
+            data.old_denominator === undefined
+          )
+        ) {
+          this.editList.splice(index, 1)
+        } else {
+          this.editList[index] = data
+        }
+      } else {
+        // 值不相等 || 都不为空
+        if (
+          !(
+            data.old_numerator === data.numerator ||
+            (typeof data.old_numerator !== 'number' && typeof data.numerator !== 'number')
+          )
+          ||
+          !(
+            data.old_denominator === data.denominator ||
+            (typeof data.old_denominator !== 'number' && typeof data.denominator !== 'number')
+          )
+        ) {
+          this.editList.push(data)
+        }
+      }
+    },
+    // 保存
+    async onSave() {
+      const params = {
+        summaryCode: this.$route.params.code,
+        items: this.editList.map(item => {
+          return {
+            itemCode: item.itemCode,
+            numerator: item.numerator,
+            denominator: item.denominator
+          }
+        })
+      }
+      try {
+        this.loading = true
+        const res = await icuQcSummarySave(params)
+        if (res.data.code == '200') {
+          this.loading = false
+          this.$message.success('保存成功')
+          this.load()
+        }
+      } catch (error) {
+        throw this.$message.error('保存失败')
       }
     },
     // 打开
@@ -86,10 +195,39 @@ export default {
         await icuQcSummaryCreate(params)
         this.$emit('refreshSummaryList')
         this.loading = false
+        this.$message.success('创建成功')
       } catch (error) {
         throw new Error('创建失败')
       }
+    },
+    // 导出
+    async onExport() {
+      try {
+        const code = this.$route.params.code
+        const res = await icuQcSummaryExport(code)
+        const blob = new Blob([res.data])
+        const contentDisposition = res.headers['content-disposition']
+        const pattern = new RegExp('filename=([^;]+\\.[^\\.;]+);*')
+        const result = pattern.exec(contentDisposition)
+        // 使用decodeURI对名字解码
+        const filename = decodeURI(result[1])
+        const tag = document.createElement('a')
+        const href = window.URL.createObjectURL(blob)
+        tag.href = href
+        tag.download = filename
+        document.body.appendChild(tag)
+        tag.click()
+        // 下载完成移除元素
+        document.body.removeChild(tag)
+        // 释放掉blob对象
+        window.URL.revokeObjectURL(href)
+      } catch (error) {
+        throw new Error('导出失败')
+      }
     }
+  },
+  beforeDestroy() {
+    clearTimeout(this.timer)
   }
 };
 </script>
