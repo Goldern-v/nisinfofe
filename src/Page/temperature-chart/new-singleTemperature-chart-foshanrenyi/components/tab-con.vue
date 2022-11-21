@@ -685,7 +685,6 @@ export default {
         let otherLength =
           document.getElementsByClassName("otherPathological").length;
         this.otherDicListLength = otherLength;
-        console.log(e.target.id,baseLength)
         if (Number(e.target.id) < baseLength) {
           document.getElementById(Number(e.target.id) + 1).focus();
         } else if (Number(e.target.id) === baseLength) {
@@ -791,7 +790,6 @@ export default {
           if (this.vitalSignObj[item.vitalCode])
             this.fieldList[item.vitalCode] = item;
         });
-        console.log(this.fieldList,9877)
       });
       let input = document.getElementsByTagName("input");
       for (let i = 0; i < input.length; i++) {
@@ -800,7 +798,13 @@ export default {
     },
     //时间组件失去焦点
     changeDate(val) {
-      let numberVal = val.$el.children[1].value;
+      let numberVal
+      if (val.$el.children[1].value.includes('：') || val.$el.children[1].value.includes('；') || val.$el.children[1].value.includes(';')) {
+        numberVal = val.$el.children[1].value.replace('：', ':').replace('；', ':').replace(';', ':');
+        this.dateInp = numberVal
+      } else {
+        numberVal = val.$el.children[1].value
+      }
       if (
         (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
         (numberVal.indexOf(":") != -1 && numberVal.length == 5)
@@ -809,19 +813,22 @@ export default {
           numberVal.indexOf(":") == -1
             ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
             : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
-        // if(!moment(numberVal,"HH:mm",true).isValid()) {
-        //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
-        //   return false;
-        // }
         let [hours, min] = time.split(":");
-        if (0 <= hours && hours <= 24 && 0 <= min && min <= 59) {
+        if (0 < hours && hours < 24 && 0 <= min && min <= 59) {
           this.query.entryTime = time + ":00";
           this.dateInp = time;
         } else {
           this.$message.error("请输入正确时间数值，例如23:25, 2325");
         }
+      } else if (numberVal.indexOf(":") != -1 && numberVal.length <= 4) {
+        let [hours, min] = numberVal.split(":");
+        if (hours < 10 && hours.toString().length < 2) hours = `0${hours}`
+        if (min < 10 && min.toString().length < 2) min = `0${min}`
+        this.query.entryTime = `${hours}:${min}:00`
+        this.dateInp = `${hours}:${min}`;
       } else {
         this.query.entryTime = val.$el.children[1].value;
+        this.dateInp = val.$el.children[1].value;;
       }
     },
     // 下拉选项触发查询
