@@ -1101,6 +1101,9 @@ export default {
       if (this.newModalSize == "7*7" && ["ytll"].includes(this.HOSPITAL_ID)) {
         return "margin: 0 0 0 3mm;";
       }
+      if (this.newModalSize == "2*5" && ["zhzxy"].includes(this.HOSPITAL_ID)) {
+        return "margin: 3mm 1.5mm 0 1.5mm;";
+      }
       return "margin: 0 0;";
       return "margin: 0 0; size: 50mm 30mm";
     },
