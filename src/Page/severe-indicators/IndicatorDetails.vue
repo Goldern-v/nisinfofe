@@ -125,12 +125,14 @@ export default {
         if (
           (
             data.old_numerator === data.numerator ||
-            (typeof data.old_numerator !== 'number' && typeof data.numerator !== 'number')
+            (typeof data.old_numerator !== 'number' && typeof data.numerator !== 'number') ||
+            data.old_numerator === undefined
           )
           &&
           (
             data.old_denominator === data.denominator ||
-            (typeof data.old_denominator !== 'number' && typeof data.denominator !== 'number')
+            (typeof data.old_denominator !== 'number' && typeof data.denominator !== 'number') ||
+            data.old_denominator === undefined
           )
         ) {
           this.editList.splice(index, 1)
@@ -200,17 +202,28 @@ export default {
     },
     // 导出
     async onExport() {
-      if (this.timer) {
-        clearTimeout(this.timer)
+      try {
+        const code = this.$route.params.code
+        const res = await icuQcSummaryExport(code)
+        const blob = new Blob([res.data])
+        const contentDisposition = res.headers['content-disposition']
+        const pattern = new RegExp('filename=([^;]+\\.[^\\.;]+);*')
+        const result = pattern.exec(contentDisposition)
+        // 使用decodeURI对名字解码
+        const filename = decodeURI(result[1])
+        const tag = document.createElement('a')
+        const href = window.URL.createObjectURL(blob)
+        tag.href = href
+        tag.download = filename
+        document.body.appendChild(tag)
+        tag.click()
+        // 下载完成移除元素
+        document.body.removeChild(tag)
+        // 释放掉blob对象
+        window.URL.revokeObjectURL(href)
+      } catch (error) {
+        throw new Error('导出失败')
       }
-      this.timer = setTimeout(async () => {
-        try {
-          const code = this.$route.params.code
-          await icuQcSummaryExport(code)
-        } catch (error) {
-          throw new Error('导出失败')
-        }
-      }, 500)
     }
   },
   beforeDestroy() {
