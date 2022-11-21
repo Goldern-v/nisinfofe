@@ -280,6 +280,8 @@ const newSingleTemperatureChartSDLJ = () =>
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
+const nursingDocView = () => import("@/Page/nursingDocView/nursingDocView.vue"); //江门妇幼体温单
+
 const nursingPreviewlyxrm = () => import("@/Page/NursingPreviewlyxrm/NursingPreviewlyxrm.vue"); //江门妇幼体温单
 const nursingTemperaturejmfy = () => import("@/Page/NursingTemperatureJMFY/NursingTemperature.vue"); //查看所有的评估单、记录单、体温单
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue"); //做跳转登录去 /nursingPreview /nursingDoc
@@ -590,6 +592,10 @@ const router = new Router({
   {
     path: "/nursingPreviewlyxrm",
     component: nursingPreviewlyxrm
+  },
+   {
+    path: "/nursingDocView",
+    component: nursingDocView
   },
   {
     path: "/nursingTemperature",

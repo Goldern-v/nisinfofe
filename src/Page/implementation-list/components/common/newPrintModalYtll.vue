@@ -204,7 +204,7 @@
     .new-modal-bottom-first {
       line-height: 16px;
       overflow: hidden;
-      height: calc(100% - 22px);
+      height: calc(100% - 36px);
 
       div {
         line-height: 18px;
