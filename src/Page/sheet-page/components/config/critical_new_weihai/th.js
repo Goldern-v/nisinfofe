@@ -93,7 +93,7 @@ export default {
           minWidth: '40px',
           maxWidth: '40px',
         },
-        colspan: '2',
+        colspan: '3',
         rowspan: '2'
       },
       {
@@ -291,16 +291,16 @@ export default {
           minWidth: '32px',
         },
       },
-      // {
-      //   name: ``,
-      //   style: {
-      //     minWidth: '53px',
-      //   },
-      //   colspan: "1",
-      //   rowspan: "1",
-      //   canSet: true,
-      //   key: "fieldThree",
-      // },
+      {
+        name: ``,
+        style: {
+          minWidth: '53px',
+        },
+        colspan: "1",
+        rowspan: "1",
+        canSet: true,
+        key: "fieldThree",
+      },
       {
         name: `
         项<br/>目
