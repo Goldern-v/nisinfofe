@@ -177,15 +177,14 @@
             <el-button size="small" @click="createImplement"
               >生成执行</el-button
             >
-            <el-button
-              size="small"
-              @click="
-                ['sdlj', 'lyxrm', 'ytll', 'zhzxy', '925'].includes(HOSPITAL_ID)
-                  ? syncData
-                  : search
-              "
-              >同步医嘱</el-button
-            >
+            <el-button v-if="['sdlj', 'lyxrm', 'ytll', 'zhzxy', '925'].includes(HOSPITAL_ID)"
+                       size="small"
+                       @click="syncData">同步医嘱
+            </el-button>
+            <el-button v-else
+                       size="small"
+                       @click="search">同步医嘱
+            </el-button>
           </template>
         </div>
       </div>
