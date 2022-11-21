@@ -361,6 +361,9 @@ export default {
     openLeft() {
       return this.$store.state.common.openLeft;
     },
+    getUser() {
+      return JSON.parse(localStorage.user);
+    },
     wih() {
       return this.$store.state.common.wih;
     },
@@ -374,7 +377,10 @@ export default {
     },
     openOcx(){
       const {patientId,visitId,wardCode}=this.info
-      window.open(`http://192.168.103.16:9091/ocxObject?patientId=${patientId}&visitId=${visitId}&cpIncludeDeptCode=${wardCode}`)
+      const {empNo:userId,empName:userName}=this.getUser
+      console.log(userId,userName,'this.info');
+
+      window.open(`http://192.168.99.72:8080/jhlcprun/main?patientNo=${patientId}&deptCode=${wardCode}&hospitalId=45607379-3&userId=${userId}&userName=${userName}&userType=2`)
     },
     // 床头卡打印
     openBedPrint(printMode) {
