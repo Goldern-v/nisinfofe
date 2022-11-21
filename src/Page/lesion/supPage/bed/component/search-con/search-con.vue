@@ -306,12 +306,7 @@ import {
   syncGetNurseBedRecWHHKExecute,
   syncGetNursePatientWHFKRecData
 } from "@/api/lesion";
-import footerBar from "../footer-bar/footer-bar.vue";
-import {_throttle} from './throttle'
-import { listItem } from "@/api/common.js";
-export default {
-  data() {
-    const getThrottleTime = (()=>{
+const getThrottleTime = (()=>{
       switch (process.env.HOSPITAL_ID) {
         case 'foshanrenyi':
           return 60*1000
@@ -319,6 +314,12 @@ export default {
           return 30*1000
       }
     })()
+import footerBar from "../footer-bar/footer-bar.vue";
+import {_throttle} from './throttle'
+import { listItem } from "@/api/common.js";
+export default {
+  data() {
+
     return {
       selectName: "全部床位",
       searchText: "",
@@ -804,7 +805,7 @@ export default {
       },()=>{this.ifCanTobu = true;});
     },
     //防抖函数 60S内只能点击一次
-    throttleSyncGetNursePatientRecData: _throttle('syncGetNursePatientRecData',60*1000),
+    throttleSyncGetNursePatientRecData: _throttle('syncGetNursePatientRecData',getThrottleTime),
     syncGetNursePatientRecData(){
       console.log('您触发了同步患者数据请求')
       this.loading = true
@@ -821,7 +822,7 @@ export default {
         this.$message.success("更新患者数据中,请稍候。。。。");
         setTimeout(()=>{
         this.getData();
-        },60*1000)
+        },this.getThrottleTime)
       });
     },
     syncGetMedicalAdvice() {
