@@ -788,7 +788,7 @@ export default {
       this.$nextTick(() => {
         this.post();
         print(this.$refs.printCon, (el) => {
-          el.style.marginLeft = '194mm'
+          // el.style.marginLeft = '194mm'
         });
         for(let i=0;i<printCare.length;i++){
           printCare[i].style.display = "block"
