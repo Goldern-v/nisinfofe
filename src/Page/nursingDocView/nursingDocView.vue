@@ -18,7 +18,10 @@
 }
 
 >>>.body {
-  height: calc(100vh - 60px) !important;
+  height: calc(100vh - 20px) !important;
+}
+>>>.assessmentv2-iframe{
+  height: calc(100vh - 20px) !important;
 }
 
 >>>.form-contain {
@@ -28,6 +31,9 @@
 // >>>.new-btn, >>>.null-btn, >>>.tool-bar, >>>.fixed-icon, >>>.table-fixed-th {
 //   display: none !important;
 // }
+>>>.null-btn{
+  display: none !important;
+}
 
 >>>.tool-contain {
   .item-box {
@@ -125,17 +131,17 @@ export default {
     //判断顺德龙江血糖单类型
     this.getPatientForm();
     this.$store.commit("closeFullPageRecord");
-    // this.bus.$on("openOtherForm", data => {
-    //   this.otherComponent =
-    //     data.component == "temperature"
-    //       ? this.getTemplate()
-    //       : data.component == "bloodSugar"
-    //       ? this.getBloodSugar()
-    //       : data.component;
-    // });
-    // this.bus.$on("openAssessmentBox", data => {
-    //   this.otherComponent = null;
-    // });
+    this.bus.$on("openOtherForm", data => {
+      this.otherComponent =
+        data.component == "temperature"
+          ? this.getTemplate()
+          : data.component == "bloodSugar"
+          ? this.getBloodSugar()
+          : data.component;
+    });
+    this.bus.$on("openAssessmentBox", data => {
+      this.otherComponent = null;
+    });
   },
   methods: {
     getPatientForm() {
