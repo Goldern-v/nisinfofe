@@ -444,7 +444,7 @@ export default {
       this.isShowObj[type] = !this.isShowObj[type]
     },
   },
-  created() 11{
+  created() {
     if (this.$route.query.nursingType == 'doc') {
       this.isDoc = true
       this.isRecord = false
