@@ -52,9 +52,9 @@
         "140px",
         "80px",
         "80px",
-        "210px",
+        "100px",
         "80px",
-        "100px"
+        "180px"
       ],
       "title": "一、一般资料",
       "message": "",
@@ -117,7 +117,7 @@
           "suffixDesc": "",
           "placeholder": "",
           "titleStyle": "width:40px!important",
-          "inputStyle": "width:90%!important",
+          "inputStyle": "width:100px!important",
           "elementStyle": "width:99%;",
           "style": "color:red!important",
           "class": null,
@@ -147,7 +147,7 @@
           "suffixDesc": "",
           "placeholder": "",
           "titleStyle": "width:75px!important",
-          "inputStyle": "width:90%!important",
+          "inputStyle": "width:180px!important",
           "style": null,
           "class": null,
           "readOnly": true,
@@ -187,7 +187,7 @@
           "labelLeft": true,
           "hiddenTips": true,
           "tdProps": {
-            "colspan": "4"
+            "colspan": "2"
           }
         }
       ]
@@ -389,6 +389,7 @@
         "32%",
         "35%",
         "33%"
+
       ],
       "title": "一、一般资料",
       "message": "",

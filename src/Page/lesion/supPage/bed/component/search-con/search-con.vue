@@ -306,11 +306,20 @@ import {
   syncGetNurseBedRecWHHKExecute,
   syncGetNursePatientWHFKRecData
 } from "@/api/lesion";
+const getThrottleTime = (()=>{
+      switch (process.env.HOSPITAL_ID) {
+        case 'foshanrenyi':
+          return 60*1000
+        default:
+          return 30*1000
+      }
+    })()
 import footerBar from "../footer-bar/footer-bar.vue";
 import {_throttle} from './throttle'
 import { listItem } from "@/api/common.js";
 export default {
   data() {
+
     return {
       selectName: "全部床位",
       searchText: "",
@@ -322,6 +331,7 @@ export default {
       showProgress: false,
       ifCanTobu:true,
       ifCanAsyncPatient:true,
+      getThrottleTime,
       // hasGroupHos:['fuyou'] // 需要根据白板进行分组显示的医院
     };
   },
@@ -794,8 +804,8 @@ export default {
         this.ifCanTobu = true;
       },()=>{this.ifCanTobu = true;});
     },
-    //防抖函数 30S内只能点击一次
-    throttleSyncGetNursePatientRecData: _throttle('syncGetNursePatientRecData',30*1000),
+    //防抖函数 60S内只能点击一次
+    throttleSyncGetNursePatientRecData: _throttle('syncGetNursePatientRecData',getThrottleTime),
     syncGetNursePatientRecData(){
       console.log('您触发了同步患者数据请求')
       this.loading = true
@@ -809,8 +819,10 @@ export default {
           break;
       }
       syncPatientData(this.deptCode).then((res) => {
-        this.$message.success("更新患者数据中,请稍后");
+        this.$message.success("更新患者数据中,请稍候。。。。");
+        setTimeout(()=>{
         this.getData();
+        },this.getThrottleTime)
       });
     },
     syncGetMedicalAdvice() {

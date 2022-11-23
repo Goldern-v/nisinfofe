@@ -98,7 +98,7 @@
     <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
     <!-- 电子病例弹窗 -->
-    <doctorEmr v-if="['foshanrenyi','huadu','zhzxy'].includes(HOSPITAL_ID)" />
+    <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt'].includes(HOSPITAL_ID)" />
   </div>
 </template>
 
@@ -1062,56 +1062,83 @@ export default {
           this.pageLoading = true;
           this.scrollTop = this.$refs.scrollCon.scrollTop;
           const ayncVisitedDataList = decode(ayncVisitedData).list||[]
-          console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
+          // console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
+          if(this.HOSPITAL_ID == 'wujing'){
+            let trueRecordTimes = []
+            ayncVisitedDataList.map(item=>{
+              if(item.recordMonth!=='' && item.recordHour!==''){
+                trueRecordTimes.push(item.recordMonth+item.recordHour)
+              }
+            })
+            let newLen = new Set(trueRecordTimes).size
+            if(trueRecordTimes.length>newLen){
+              this.$notify.warning({
+                title: "提示",
+                message: "当前时间已有记录，请检查并调整时间",
+              });
+              this.pageLoading = false;
+              return false
+            }
+          }
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,
             decode(ayncVisitedData)
           ).then(async (res) => {
               if(res.data.code == 200){
-                if (['foshanrenyi'].includes(this.HOSPITAL_ID) && this.foshanshiyiIFca && ayncVisitedDataList.length) {
-                  //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
-                  console.log(`开始执行签名接口==============>>>>>>Ca状态${this.foshanshiyiIFca}`)
-                  showBody(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
-                    let resList = saveRes.data.data.list.map((item) => {
-                      item.recordMonth = moment(item.recordDate).format('MM-DD')
-                      item.recordHour = moment(item.recordDate).format('HH:mm')
-                      return item
-                    })
-                    let editList = ayncVisitedDataList.map((item) => {
-                      item.recordMonth = moment(item.recordDate).format('MM-DD')
-                      item.recordHour = moment(item.recordDate).format('HH:mm')
-                      return item
-                    })
-                    console.log(`后台返回的签名数据==============>>>>>>数据:`,resList)
-                  console.log(`前端拿到的修改数据============>>>>>>数据:`,editList)
-                    if (editList.length) {
-                      this.saveAndSign(editList, resList)
-                    } else {
-                      //不走保存签名过程 保存后直接获取数据
-                      this.getSheetData().then((res) => {
-                        this.pageLoading = false;
-                        this.scrollFun(isInitSheetPageSize, this.scrollTop)
-                      });
-                    }
-                    this.$notify.success({
-                    title: "提示",
-                    message: "保存成功",
-                    duration: 1000,
-                  });
-                  })
-                } else {
-                  //除了佛一的医院  正常获取数据
-                  this.getSheetData().then((res) => {
-                    this.pageLoading = false;
-                    this.scrollFun(isInitSheetPageSize, this.scrollTop)
-                  });
-                  this.$notify.success({
-                    title: "提示",
-                    message: "保存成功",
-                    duration: 1000,
-                  });
-                }
+                // if (['foshanrenyi'].includes(this.HOSPITAL_ID) && this.foshanshiyiIFca && ayncVisitedDataList.length) {
+                //   //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
+                //   console.log(`开始执行签名接口==============>>>>>>Ca状态${this.foshanshiyiIFca}`)
+                //   showBody(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
+                //     let resList = saveRes.data.data.list.map((item) => {
+                //       item.recordMonth = moment(item.recordDate).format('MM-DD')
+                //       item.recordHour = moment(item.recordDate).format('HH:mm')
+                //       return item
+                //     })
+                //     let editList = ayncVisitedDataList.map((item) => {
+                //       item.recordMonth = moment(item.recordDate).format('MM-DD')
+                //       item.recordHour = moment(item.recordDate).format('HH:mm')
+                //       return item
+                //     })
+                //     console.log(`后台返回的签名数据==============>>>>>>数据:`,resList)
+                //   console.log(`前端拿到的修改数据============>>>>>>数据:`,editList)
+                //     if (editList.length) {
+                //       this.saveAndSign(editList, resList)
+                //     } else {
+                //       //不走保存签名过程 保存后直接获取数据
+                //       this.getSheetData().then((res) => {
+                //         this.pageLoading = false;
+                //         this.scrollFun(isInitSheetPageSize, this.scrollTop)
+                //       });
+                //     }
+                //     this.$notify.success({
+                //     title: "提示",
+                //     message: "保存成功",
+                //     duration: 1000,
+                //   });
+                //   })
+                // } else {
+                //   //除了佛一的医院  正常获取数据
+                //   this.getSheetData().then((res) => {
+                //     this.pageLoading = false;
+                //     this.scrollFun(isInitSheetPageSize, this.scrollTop)
+                //   });
+                //   this.$notify.success({
+                //     title: "提示",
+                //     message: "保存成功",
+                //     duration: 1000,
+                //   });
+                // }
+              //除了佛一的医院  正常获取数据
+                this.getSheetData().then((res) => {
+                  this.pageLoading = false;
+                  this.scrollFun(isInitSheetPageSize, this.scrollTop)
+                });
+                this.$notify.success({
+                  title: "提示",
+                  message: "保存成功",
+                  duration: 1000,
+                });
               }
             })
             .catch((err) => {

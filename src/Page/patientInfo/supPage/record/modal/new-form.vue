@@ -200,7 +200,7 @@
           :key="e.id || e.label"
         >
           <!-- 收藏的评估单标记 -->
-         <span class="likePng"  v-if="HOSPITAL_ID=='foshanrenyi'">
+         <span class="likePng"  v-if="['foshanrenyi', 'whsl'].includes(HOSPITAL_ID)">
                 <img
                  v-if="e.collectionDept && (e.collectionUser.indexOf(activeUser)!=-1)"
                  src="@/common/images/card/like.png"
@@ -231,7 +231,7 @@
           class="modal-btn"
           :disabled="!selectData || !!!(selectData.collectionUser.indexOf(activeUser)!=-1)"
           @click.stop="cancelCollectAssessment"
-          v-if="HOSPITAL_ID=='foshanrenyi'"
+          v-if="['foshanrenyi', 'whsl'].includes(HOSPITAL_ID)"
          >取消收藏
         </el-button>
         <el-button
@@ -239,7 +239,7 @@
           type="primary"
           :disabled="!selectData || !!(selectData.collectionUser.indexOf(activeUser)!=-1)"
           @click.stop="collectAssessment"
-          v-if="HOSPITAL_ID=='foshanrenyi'"
+          v-if="['foshanrenyi', 'whsl'].includes(HOSPITAL_ID)"
         >
         收藏
         </el-button>

@@ -46,10 +46,10 @@
               </div>
             </div>
           <div>
-            <div class="logo-con">
-              <img :src="logoUrl" height="63" width="63" />
+            <div :class="['dglb'].includes(this.HOSPITAL_ID) ? 'dglb-logo-con' : 'logo-con'">
+              <img :src="logoUrl" height="63" width="63"/>
             </div>
-            <h1 class="name" v-html="logoName"></h1>
+            <h1 class="name" v-html="logoName" v-if="!['dglb'].includes(this.HOSPITAL_ID)"></h1>
           </div>
           <div :style="[{overflow:['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)?'hidden':''},translate300COM,translateTypeCOM]">
             <div class="nanfangCa-Box" v-if="['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)">
@@ -304,6 +304,19 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .logo-con {
   height: 63px;
+  margin: 24px auto 19px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    -webkit-object-fit: contain;
+    -moz-object-fit: contain;
+    -ms-object-fit: contain;
+  }
+}
+.dglb-logo-con {
+  height: 132px;
   margin: 24px auto 19px;
 
   img {
@@ -946,6 +959,8 @@ export default {
           return require("../../common/images/logo_whsl_login.png");
         case "zhzxy":
           return require("../../common/images/logo_zhzxy_login.png");
+        case "dglb":
+          return require("../../common/images/logo_dglb_login.png");
         default:
           return require("../../common/images/logo.png");
       }

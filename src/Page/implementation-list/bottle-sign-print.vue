@@ -177,15 +177,14 @@
             <el-button size="small" @click="createImplement"
               >生成执行</el-button
             >
-            <el-button
-              size="small"
-              @click="
-                ['sdlj', 'lyxrm', 'ytll', 'zhzxy', '925'].includes(HOSPITAL_ID)
-                  ? syncData
-                  : search
-              "
-              >同步医嘱</el-button
-            >
+            <el-button v-if="['sdlj', 'lyxrm', 'ytll', 'zhzxy', '925'].includes(HOSPITAL_ID)"
+                       size="small"
+                       @click="syncData">同步医嘱
+            </el-button>
+            <el-button v-else
+                       size="small"
+                       @click="search">同步医嘱
+            </el-button>
           </template>
         </div>
       </div>
@@ -207,12 +206,9 @@
         <div
           :class="[
             {
-              'break-page':
-                ['lyxrm', 'whhk', 'zhzxy', '925', 'whsl'].includes(
-                  HOSPITAL_ID
-                ) &&
-                bottleCardIndex % 3 == 2 &&
+              'break-page':bottleCardIndex % 3 == 2 &&
                 newModalSize == '3*7',
+              'small-35': newModalSize === '3*5' && HOSPITAL_ID === 'whsl'
             },
           ]"
           v-for="(itemBottleCard, bottleCardIndex) in printObj"
@@ -318,6 +314,10 @@
 .new-print-box {
   .break-page {
     page-break-after: always;
+  }
+  .small-35 {
+    position: relative;
+    height: 30mm;
   }
 }
 
@@ -514,6 +514,20 @@ export default {
             { label: "标本" },
             { label: "其他" },
           ],
+          whsl: [
+            { label: "全部" },
+            { label: "输液" },
+            { label: "注射" },
+            { label: "口服" },
+            { label: "雾化" },
+            { label: "皮试" },
+            { label: "治疗" },
+            { label: "理疗" },
+            { label: "护理" },
+            { label: "外用" },
+            { label: "化验" },
+            { label: "其他" },
+          ],   
           default: [
             { label: "输液" },
             { label: "注射" },
@@ -699,6 +713,8 @@ export default {
     },
     search() {
       this.page.pageIndex = 1;
+      // 查看打印效果可以注释掉此行
+      // this.printObj = []
       this.onLoad();
     },
     // 打印
@@ -761,7 +777,7 @@ export default {
         })
           .then(() => {
             document.getElementById("new-print-box").style.display = "none";
-            this.onLoad();
+            this.search();
           })
           .catch((e) => {});
       });
@@ -1081,7 +1097,7 @@ export default {
     printScaleText() {
       if (
         ["70*80", "6*8", "5*8", "7*7"].includes(this.newModalSize) ||
-        this.HOSPITAL_ID == "whfk"
+        ["whfk", 'whsl'].includes(this.HOSPITAL_ID)
       )
         return "";
       if (this.HOSPITAL_ID === "925" && this.newModalSize === "70*80")
@@ -1089,10 +1105,7 @@ export default {
       return "transform: scale(0.5);transform-origin: 0 0 0;";
     },
     printM() {
-      if (
-        this.newModalSize == "3*7" &&
-        ["lyxrm", "whhk", "zhzxy", "925"].includes(this.HOSPITAL_ID)
-      ) {
+      if (this.newModalSize == "3*7") {
         return "margin: 0 1mm 0 0;";
       }
       if (this.newModalSize == "5*8" && ["wujing"].includes(this.HOSPITAL_ID)) {
@@ -1101,7 +1114,11 @@ export default {
       if (this.newModalSize == "7*7" && ["ytll"].includes(this.HOSPITAL_ID)) {
         return "margin: 0 0 0 3mm;";
       }
+      if (this.newModalSize == "2*5" && ["zhzxy"].includes(this.HOSPITAL_ID)) {
+        return "margin: 3mm 1.5mm 0 1.5mm;";
+      }
       return "margin: 0 0;";
+      return "margin: 0 0; size: 50mm 30mm";
     },
     disableSize() {
       return !["wujing"].includes(this.HOSPITAL_ID);

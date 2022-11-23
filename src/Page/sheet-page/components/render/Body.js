@@ -470,6 +470,11 @@ function switchSheetType(type) {
       schema = require("../config/nicu_custody_hd/tr.js").default;
     }
       break;
+    case "transshipment_hd": {
+      // 花都-方舱医院护理记录单
+      schema = require("../config/transshipment_hd/tr.js").default;
+    }
+      break;
     case "intervention_cure": {
       // 厚街-介入治疗术护理记录单
       schema = require("../config/intervention_cure/tr.js").default;
@@ -1609,6 +1614,11 @@ function switchSheetType(type) {
     case "critical_new_weihai": {
       // 威海市立 - 病重（病危）患者护理记录单（新）
       schema = require("../config/critical_new_weihai/tr.js").default;
+    }
+    break;
+    case "oxytocin_weihai": {
+      // 威海市立 -静脉点滴催产素引产观察表
+      schema = require("../config/oxytocin_weihai/tr.js").default
     }
     break;
     case "post_partum_weihai": {

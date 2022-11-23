@@ -117,15 +117,15 @@ export default [{
     event: keyf1,
     name: "氧疗（L/min)-面罩"
   },
-  // {
-  //   key: "fieldThree", //氧疗（L/min)-自定义
-  //   value: "",
-  //   event: keyf1,
-  //   textarea: {
-  //     width: 52
-  //   },
-  //   name: "氧疗（L/min)-自定义"
-  // },
+  {
+    key: "fieldThree", //氧疗（L/min)-自定义
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 52
+    },
+    name: "氧疗（L/min)-自定义"
+  },
   {
     key: "food", //入量-名称
     value: "",

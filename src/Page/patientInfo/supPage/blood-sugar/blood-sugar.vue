@@ -62,7 +62,7 @@
           </div>
 
           <div class="sup-title" v-else-if="HOSPITAL_ID !== 'ytll'">微量血糖测定登记表</div>
-          <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div>
+          <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'whsl'">POCT</div>
           <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
             <span style="width:180px" v-else-if="HOSPITAL_ID == 'liaocheng'" >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span>
@@ -89,7 +89,7 @@
           <p flex="main:justify" class="info" v-else-if="isPreviewUserInfo">
             <span>病人姓名：{{ sugarUserInfo.name || tableHeaderInfo.name}}</span>
             <span>性别：{{ sugarUserInfo.gender }}</span>
-            <span >年龄：{{sugarUserInfo.age }}</span>
+            <span>年龄：{{sugarUserInfo.age }}</span>
             <span>科室：{{ sugarUserInfo.deptName }}</span>
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
             <span>床号：{{sugarUserInfo.bedNo }}</span>
@@ -101,24 +101,16 @@
           <p flex="main:justify" class="info" :style="{'marginTop':Toppx}" v-else>
             <span>病人姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
             <span>性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
-            <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge"
-              >年龄：{{ formAge ? formAge : patientInfo.age }}</span
-            >
+            <span v-if="HOSPITAL_ID == 'lingcheng'" @dblclick="onEditAge">年龄：{{ formAge ? formAge : patientInfo.age }}</span>
             <span v-else>年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
             <span v-else-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
-            <span v-else
-              >科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span
-            >
+            <span v-else>科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span>
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
             <span>床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
-            <span v-if="HOSPITAL_ID == 'liaocheng'"
-              >病案号：{{ patientInfo.inpNo }}</span
-            >
-            <span v-else-if="HOSPITAL_ID == 'huadu'"
-              >住院号：{{ patientInfo.patientId }}</span
-            >
+            <span v-if="HOSPITAL_ID == 'liaocheng'">病案号：{{ patientInfo.inpNo }}</span>
+            <span v-else-if="HOSPITAL_ID == 'huadu'">住院号：{{ patientInfo.patientId }}</span>
             <span v-else>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>

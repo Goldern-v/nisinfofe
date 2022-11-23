@@ -7,7 +7,7 @@
       :enable-mobile-fullscreen="false"
       class="modal"
     >
-      <div class="bed-card-wrapper" v-loading="modalLoading" ref="printCon">
+      <div class="bed-card-wrapper" v-loading="modalLoading" ref="printCon" >
         <div
           class="bed-card-con"
           flex
@@ -35,7 +35,7 @@
             <input
               type="text"
               nowidth
-              style="font-size: 32px;padding-left: 5px;"
+              style="font-size: 14px;padding-left: 5px;"
               flex-box="1"
               class="bottom-line"
               :value="query.name + ' ' + query.sex + ' ' + query.age"
@@ -48,9 +48,9 @@
                 type="text"
                 :style="{
                   width: '94px',
-                  'font-size':'24px',
+                  'font-size':'14px',
                   'padding-left': '5px',
-                  'line-height': ' 24px'
+                  'line-height': ' 14px'
                 }"
                 class="bottom-line"
                 :value="query.bedLabel + '床'"
@@ -58,7 +58,7 @@
               <input
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 24px; padding-left: 2px;"
+                style="width: 0px;font-size: 14px; padding-left: 2px;"
                 nowidth
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
@@ -77,7 +77,7 @@
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  :style="{'font-size': '24px'}"
+                  :style="{'font-size': '14px'}"
                   v-model="formData.diet"
                   @focus="
                     onFocusToAutoComplete($event, {
@@ -176,7 +176,7 @@
                 <input
                   type="text"
                   nowidth
-                  style="font-size:24px"
+                  style="font-size:14px"
                   flex-box="1"
                   class="bottom-line"
                   v-model="formData.mainDoctors"
@@ -189,7 +189,7 @@
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  style="font-size:24px;"
+                  style="font-size:14px;"
                   v-model="formData.dutyNurses"
                 />
               </div>
@@ -203,13 +203,13 @@
                 nowidth
                 flex-box="1"
                 class="bottom-line"
-                :style="{'font-size': '24px','text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
+                :style="{'font-size': '14px','text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
                 v-model="guominshi"
               />
             </div>
           </div>
 
-          <div style="width: 131px">
+          <!-- <div style="width: 131px">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
             <div>
@@ -223,7 +223,7 @@
                 <span>{{ item.label }}</span>
               </div>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </div>
@@ -274,23 +274,24 @@
 
 .bed-card-con {
   margin: 20px;
-  width: 511px;
-  height: 335px;
+  // width: 511px;
+  // height: 335px;
+  width: 6cm;
+  height: 8cm;
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
   border: 1px solid #000;
-  height: 370px;
+  // height: 370px;
 
   // &.remarkCon
   .qr-code {
     position: absolute;
-    top: -5px;
-    left: -5px;
-    height: 112px;
-    width: 112px;
-
+    top: 2px;
+    left: 2px;
+    height: 86px;
+    width: 86px;
     &.hasRemark {
       width: 96px;
       height: 96px;
@@ -299,12 +300,12 @@
 
   .qr-code-num {
     position: absolute;
-    top: 92px;
+    top: 77px;
     left: 0px;
     width: 96px;
     text-align: center;
     z-index: 2;
-    font-size: 16px;
+    font-size: 12px;
     &.hasRemark {
       top: 78px;
       left: 0px;
@@ -365,7 +366,8 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
-  width:350px
+  // width:350px
+  font-size: 14px;
   &.zhzxyItem{
     font-size: 18px;
   }
@@ -417,8 +419,8 @@ input[type='checkbox']:checked:after {
 }
 
 .dj-box {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   margin-right: 12px;
 
@@ -547,7 +549,8 @@ import {
   findByKeywordNur,
   saveBed
 } from "./api/index.js";
-import print from "./tool/print";
+// import print from "./tool/print";
+import printing from "printing";
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
@@ -785,12 +788,17 @@ export default {
       }
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon, (el) => {
-          el.style.marginLeft = '194mm'
-        });
-        for(let i=0;i<printCare.length;i++){
-          printCare[i].style.display = "block"
-      }
+        printing(this.$refs.printCon, {
+          injectGlobalCss: true,
+          scanStyles: false,
+          // margin: 0 0;
+        }).then(() => {
+          for(let i=0;i<printCare.length;i++){
+            printCare[i].style.display = "block"
+          } 
+        })
+          .catch((e) => {});
+       
       });
     },
     querySearchAsyncDoc(queryString, cb) {

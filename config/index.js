@@ -66,9 +66,10 @@ const currentTargetUrl = (() => {
 
     /** 花都 */
     case "huadu":
-      return "http://120.238.239.27:9094" //花都正式
+      // return "http://120.238.239.27:9094" //花都正式
       // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
-      // return "http://192.168.1.54:9868" //公司-花都测试-内网
+      return "http://192.168.1.54:9868" //公司-花都测试-内网
+      // return "http://192.168.20.112:8080" //公司-花都测试-内网
 
     /** 贵州医科大正式 */
     case "gy":
@@ -187,8 +188,8 @@ const currentTargetUrl = (() => {
 
     //顺德龙江
     case 'sdlj':
-    //   return "http://192.168.1.54:9887" // 顺德龙江内网测试
-      return "http://218.13.34.230:9094" //正式
+      return "http://192.168.1.54:9887" // 顺德龙江内网测试
+      // return "http://218.13.34.230:9094" //正式
       // return "https://cr.fsyyy.com:9094" //佛山人医正式
       // return "http://218.13.87.27:9094"
 
@@ -221,9 +222,9 @@ const currentTargetUrl = (() => {
 
     // 临沂沂州
     case 'lyyz':
-      // // return 'http://112.233.241.99:8094' // 外网地址 admin / 123456
+      return 'http://112.233.241.99:8094' // 外网地址 admin / 123456
       // return 'http://192.168.137.164:8080'
-      return 'http://192.168.1.54:9895'
+      // return 'http://192.168.1.54:9895'
       // // return "http://192.168.20.81:9091"
 
     // 广东同江
@@ -245,7 +246,7 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.1.54:9896'
       // return "http://222.133.53.230:9091" // 临邑正式
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
-      return 'http://221.2.154.22:19094' //威海市立正式环境  admin / Bcy@23nr
+      return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
 
     /** 默认公司本地内网厚街测试环境 */
     default:

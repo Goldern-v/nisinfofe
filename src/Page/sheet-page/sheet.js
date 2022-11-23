@@ -128,7 +128,7 @@ export function delSheetPage(index, callback) {
     ) {
       // 当审核完，status=2&&canModify=false,
       return true;
-    }
+    }   
   };
   // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
   let isDisabed = function(tr, td, x, y, bodyModel, nowX, sheetType) {

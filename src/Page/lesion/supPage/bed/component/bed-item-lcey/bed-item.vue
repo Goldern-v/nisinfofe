@@ -18,15 +18,28 @@ export default {
       bus: bus(this)
     };
   },
-  filters: {
-    showfirst(val) {
-      for (let i in val) {
-        if (val.charCodeAt(i) >= 255) {
-          return val[i];
-        }
+  computed: {
+    // 右下角的提示
+    squareList() {
+      if (this.data.conditionIconDtos) {
+        return this.data.conditionIconDtos.slice(0,6).filter((v) => {
+          if (v.iconText=='病危' && ['lyxrm', 'whhk'].includes(this.HOSPITAL_ID)) return false
+          if (['病危', '病重'].includes(v.iconText) && ['whfk'].includes(this.HOSPITAL_ID)) return false
+          return true
+        })
       }
-      return "";
+      return []
     }
+  },
+  filters: {
+    // showfirst(val) {
+    //   for (let i in val) {
+    //     if (val.charCodeAt(i) >= 255) {
+    //       return val[i];
+    //     }
+    //   }
+    //   return "";
+    // }
   },
   methods: {
     inToday(date) {
@@ -38,7 +51,6 @@ export default {
       return new Date(date).Format("yyyy-MM-dd");
     },
     toFormPage(data, item) {
-      // let query = qs.stringify(data);
       let query = qs.stringify({
         patientId: data.patientId,
         visitId: data.visitId
@@ -61,32 +73,6 @@ export default {
           );
         }, 500);
       };
-      return;
-      this.$router.push(
-        {
-          path: "/record",
-          query: data
-        },
-        () => {
-          this.$nextTick(() => {
-            if (item.id) {
-              this.bus.$emit(
-                "openAssessmentBox",
-                Object.assign({}, getFormConfig(item.formName), {
-                  id: item.id,
-                  formCode: item.formCode,
-                  type: item.formType,
-                  showCurve: item.showCurve,
-                  creator: item.creator,
-                  listPrint: item.listPrint,
-                  nooForm: item.nooForm,
-                  pageUrl: item.pageUrl
-                })
-              );
-            }
-          });
-        }
-      );
     }
   },
   components: {}

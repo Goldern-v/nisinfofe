@@ -64,11 +64,11 @@
             :class="{ img1: img1Show, img2: img2Show }"
             v-else
           />
-          <div class="name" flex-box="1">{{ item.name }}  <span class="nursingClass" 
+          <div class="name" flex-box="1">{{ item.name }}  <span class="nursingClass"
            v-if="['lyxrm'].includes(HOSPITAL_ID)"
            :style="{ color:levelColor[item.nursingClass],fontSize:'12px' }"
           >{{item.nursingClass&&item.nursingClass.replace('护理','')}}</span></div>
-         
+
           <div class="bed">{{ item.bedLabel }} 床</div>
 
           <span
@@ -373,6 +373,7 @@ export default {
         this.$route
       );
       if (this.callFunction) {
+        console.log('改变参数=====》',patient.patientId,patient.visitId)
         this.$route.query.patientId = patient.patientId;
         this.$route.query.visitId = patient.visitId;
         this.$route.query.inpNo = patient.inpNo;
@@ -605,7 +606,7 @@ export default {
         this.levelColor[item.code]=item.name;
       })
     });
-  
+
   },
   mounted() {
     if (this.deptCode == "051102") {

@@ -12,6 +12,8 @@
           v-model="query.entryDate"
           clearable
         />
+        <el-button style="margin-left: 20px;width:100px" :disabled="isDisable()" class="save-btn-top" @click="saveVitalSign(vitalSignObj)" type="primary">{{"保存"}}
+        </el-button>
         <div class="times">
           <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
@@ -310,17 +312,12 @@
                             index
                           )
                         "
-                        >{{ i.fieldCn==='自定义1'?'其他':i.fieldCn }}</span
+                        >{{i.fieldCn }}</span
                       >
                     </div>
 
                     <input
                       :id="h + 1000"
-                      :type="
-                        totalDictInfo[index].inputType === '2'
-                          ? 'number'
-                          : 'text'
-                      "
                       class="fieldClass"
                       @keydown.enter.prevent="changeNext"
                       :title="vitalSignObj[i.vitalCode].vitalValue"
@@ -642,7 +639,7 @@ export default {
         case "体温":
         case "肛温":
         case "口温":
-        case "物理降温":
+        case "降温":
           let o = {
             体温: {
               value: val,
@@ -890,6 +887,7 @@ export default {
 
             };
             this.fieldList = { ...obj };
+            console.log(this.fieldList,9999)
           }
         });
         this.multiDictList = { ...data };
@@ -1132,13 +1130,13 @@ export default {
   .column-right {
     margin-top: 5px;
     display: inline-block;
-    height: 36px;
+    height: 70px;
     overflow: auto;
   }
 
   .row-top {
     background-color: #fff;
-    height: 36px;
+    height: 70px;
 
     .column-left {
       margin: 10px 45px 0px 0px;
@@ -1299,12 +1297,6 @@ export default {
     left: 30%;
     margin-top: 10px;
     width: 100px;
-  }
-  .save-btn-top {
-    position: relative;
-    margin-top: 10px;
-    left:10px;
-    width: 80px;
   }
 
   .inputter-region::-webkit-scrollbar {

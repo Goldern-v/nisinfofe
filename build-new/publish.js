@@ -46,6 +46,7 @@ let sshUpload = (
     武汉汉口医院: "wuhanhankou",
     南方医科大学顺德医院: "nanfangyikeshundeyiyuan",
     中国人民解放军联勤保障部队第九二五医院: '925',
+    东莞市寮步医院: 'dglb',
   };
   let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {
