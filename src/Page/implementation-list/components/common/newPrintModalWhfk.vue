@@ -221,6 +221,7 @@
         height: 35px !important;
       }
       .new-modal-top-left-second {
+        height: 31px !important;
         div {
           font-size: 21px;
           line-height: 23px;
@@ -248,7 +249,6 @@
         font-size: 21px;
       }
   }
-  
   }
 }
 </style>
