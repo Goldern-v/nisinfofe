@@ -441,7 +441,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{ active: $route.path == '/severe-indicators' }"
                 >
                   <router-link to="/severe-indicators" tag="span">
@@ -449,7 +449,7 @@
                       <i class="icuSummary"></i>重症质量指标
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/flatManagement' }"
                 >
