@@ -501,6 +501,13 @@ export default function Title(
     );
   }
   break;
+  case "transshipment_hd": {
+    // 花都-方舱医院护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/transshipment_hd/th").default)
+    );
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     Th = JSON.parse(
@@ -2085,6 +2092,13 @@ export default function Title(
       JSON.stringify(require("../config/critical_new_weihai/th.js").default)
     );
   }
+    break;
+    case "oxytocin_weihai": {
+      // // 威海市立 -静脉点滴催产素引产观察表
+      Th = JSON.parse(
+          JSON.stringify(require("../config/oxytocin_weihai/th.js").default)
+      );
+    }
   break;
   case "post_partum_weihai": {
     // // 威海市立 - 产后（产房）观察记录单

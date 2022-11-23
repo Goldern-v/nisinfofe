@@ -10,8 +10,6 @@ export function _throttle(fn,interval) {
           this.$message.info(`您操作过于频繁，请您等候${interval/1000}秒后再试`)
           timer = setTimeout(function () {
               last = now;
-              //根据函数名执行函数
-              th[`${fn}`]();
           }, intervalTime);
       } else {
           last = now;

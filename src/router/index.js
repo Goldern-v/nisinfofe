@@ -59,6 +59,8 @@ const inpatientReport = () =>
   import("@/Page/inpatient-report/inpatient-report.vue");
 const inpatientReportDetail = () =>
   import("@/Page/inpatient-report/inpatient-report-detail.vue");
+const SevereIndicators = () => import("@/Page/severe-indicators/index.vue")
+const IndicatorDetails = () => import("@/Page/severe-indicators/IndicatorDetails.vue")
 const nursingGradeStatistics = () =>
   import("@/Page/nursingGradeStatistics/nursingGrade-statistics.vue"); // 护理等级统计查询
 const nursingGradeStatisticsDetail = () =>
@@ -229,6 +231,8 @@ const allTemperatureChartFSRY = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSRY.vue"); //佛山人医量录入体温单
 const allTemperatureChartGDTJ= () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartGDTJ.vue"); //广东同江医院量录入体温单
+const allTemperatureChartFSXT= () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSXT.vue"); //广东同江医院量录入体温单
 const allTemperatureChartLYYZ = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartLYYZ.vue"); //临邑沂州量录入体温单
 const newSingleTemperatureChart = () =>
@@ -276,6 +280,8 @@ const newSingleTemperatureChartSDLJ = () =>
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
+const nursingDocView = () => import("@/Page/nursingDocView/nursingDocView.vue"); //江门妇幼体温单
+
 const nursingPreviewlyxrm = () => import("@/Page/NursingPreviewlyxrm/NursingPreviewlyxrm.vue"); //江门妇幼体温单
 const nursingTemperaturejmfy = () => import("@/Page/NursingTemperatureJMFY/NursingTemperature.vue"); //查看所有的评估单、记录单、体温单
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue"); //做跳转登录去 /nursingPreview /nursingDoc
@@ -587,6 +593,10 @@ const router = new Router({
     path: "/nursingPreviewlyxrm",
     component: nursingPreviewlyxrm
   },
+   {
+    path: "/nursingDocView",
+    component: nursingDocView
+  },
   {
     path: "/nursingTemperature",
     component: nursingTemperaturejmfy
@@ -748,6 +758,16 @@ const router = new Router({
           name: "inpatientReport",
           path: "/inpatientReport/:date?",
           component: inpatientReportDetail
+        }]
+      },
+      {
+        path: "/severe-indicators",
+        name: "severe-indicators",
+        component: SevereIndicators,
+        children: [{
+          name: "severe-indicators",
+          path: "/severe-indicators/:code?",
+          component: IndicatorDetails
         }]
       },
       {
@@ -1226,6 +1246,12 @@ const router = new Router({
             component: patientNursingRound,
             name: "护理巡视",
             alias: "护理巡视"
+          },
+          {
+            path: "/patientImplementationList",
+            component: getImplementation(),
+            name: "执行单",
+            alias: "执行单"
           }
         ]
       },
@@ -1497,6 +1523,8 @@ const router = new Router({
               return allTemperatureChartLYYZ
             case 'gdtj':
             return allTemperatureChartGDTJ
+            case 'fsxt':
+            return allTemperatureChartFSXT
             default:
               return allTemperatureChart
           }

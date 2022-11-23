@@ -63,7 +63,7 @@
                 flex-box="1"
                 v-if="staticObj.consciousness !== undefined"
               >
-                <div class="label">意识：</div>
+                <div class="label">意7识：</div>
                 <input
                   type="text"
                   :readonly="isRead"

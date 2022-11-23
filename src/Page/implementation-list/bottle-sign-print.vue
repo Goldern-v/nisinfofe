@@ -177,15 +177,14 @@
             <el-button size="small" @click="createImplement"
               >生成执行</el-button
             >
-            <el-button
-              size="small"
-              @click="
-                ['sdlj', 'lyxrm', 'ytll', 'zhzxy', '925'].includes(HOSPITAL_ID)
-                  ? syncData
-                  : search
-              "
-              >同步医嘱</el-button
-            >
+            <el-button v-if="['sdlj', 'lyxrm', 'ytll', 'zhzxy', '925'].includes(HOSPITAL_ID)"
+                       size="small"
+                       @click="syncData">同步医嘱
+            </el-button>
+            <el-button v-else
+                       size="small"
+                       @click="search">同步医嘱
+            </el-button>
           </template>
         </div>
       </div>
@@ -701,7 +700,7 @@ export default {
     search() {
       this.page.pageIndex = 1;
       // 查看打印效果可以注释掉此行
-      this.printObj = []
+      // this.printObj = []
       this.onLoad();
     },
     // 打印
@@ -1100,6 +1099,9 @@ export default {
       }
       if (this.newModalSize == "7*7" && ["ytll"].includes(this.HOSPITAL_ID)) {
         return "margin: 0 0 0 3mm;";
+      }
+      if (this.newModalSize == "2*5" && ["zhzxy"].includes(this.HOSPITAL_ID)) {
+        return "margin: 3mm 1.5mm 0 1.5mm;";
       }
       return "margin: 0 0;";
       return "margin: 0 0; size: 50mm 30mm";

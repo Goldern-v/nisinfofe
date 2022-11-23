@@ -170,6 +170,8 @@ import testModal from "./test-modal";
 import adviceModal from "./advice-modal";
 import doctorEmrModal from "./doctor-emr-modal";
 import iframeModal from "./iframe-modal";
+import { mapState } from 'vuex';
+import md5 from "md5";
 export default {
   props:{
     // 解决不是护理记录单样式问题。
@@ -201,10 +203,30 @@ export default {
               url: this.urlRecord()
             }
           ]
+        case 'whsl':
+          return [
+            {
+              name: '360视图',
+              url: this.whslViewUrl()
+            }
+          ]
         default:
           return []
       }
-    }
+    },
+     ...mapState({
+      patient: (state) => state.patient.currentPatient
+    }),
+    empNo() {
+      try {
+        return JSON.parse(localStorage.user).empNo;
+      } catch (error) { }
+    },
+    empName() {
+      try {
+        return JSON.parse(localStorage.user).empName;
+      } catch (error) { }
+    },
   },
   methods: {
     open() {
@@ -232,6 +254,10 @@ export default {
         visitId = params.visitId || ''
       }
       return `http://10.45.0.184/EmrVieww/Index.aspx?hospital_no=45722882244190011A1001&patient_id=${patientId}&visit_id=${visitId}`
+    },
+    whslViewUrl(){
+      const {patientId,deptCode} = this.patient;
+       return `http://10.108.1.33/pdv-ui/medicalLeportList/?ViewType=3&patientId=${patientId}&userName=${this.empName}&Hash=${md5(patientId+this.empName+'wego2022')}&patientType=&userData={"userCode":"${this.empNo}","orgCode":"${deptCode}","key":"${md5(this.empNo+'@wego2022')}"}&isExternal=1`
     },
   },
   mounted() {},

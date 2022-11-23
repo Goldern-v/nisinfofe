@@ -372,9 +372,8 @@ export default {
         this.$route.path,
         this.$route
       );
-      //换着信息查询接口，选择后增加  然后通过这个接口的查询触发 同步检查检验和医嘱
-      getPatientInfo(patient.patientId,patient.visitId)
       if (this.callFunction) {
+        console.log('改变参数=====》',patient.patientId,patient.visitId)
         this.$route.query.patientId = patient.patientId;
         this.$route.query.visitId = patient.visitId;
         this.$route.query.inpNo = patient.inpNo;

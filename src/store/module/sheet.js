@@ -11,7 +11,14 @@ export default {
     // 评估/执行单同步确认返回的数据
     evalData: '',
     // 选中的患者
-    curSheetPatient: {}
+    curSheetPatient: {},
+    isAddPageModal:false,
+    sheetPageArea:{
+      //页面
+      startPageIndex:1,
+      endPageIndex:1
+
+    }
   },
   mutations: {
     upPatientInfo(state, val) {
@@ -43,6 +50,12 @@ export default {
     },
     upCurSheetPatient(state,val) {
       state.curSheetPatient = val
+    },
+    upSheetPageArea(state, val) {
+      state.sheetPageArea = val
+    },
+    upAddPageModal(state, val) {
+      state.isAddPageModal = val
     },
   }
 }

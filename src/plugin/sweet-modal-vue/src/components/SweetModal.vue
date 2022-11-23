@@ -362,8 +362,8 @@ export default {
       this.is_open = true;
       this._lockBody();
       this._animateIcon();
-      this.$refs.dragBox.style.left = ['zhzxy'].includes(this.HOSPITAL_ID) && this.colseShadow ? '1000px' :"50%";
-      this.$refs.dragBox.style.top = ['zhzxy'].includes(this.HOSPITAL_ID) && this.colseShadow ? '125%' : "50%";
+      this.$refs.dragBox.style.left = ['zhzxy','fsxt'].includes(this.HOSPITAL_ID) && this.colseShadow ? '1000px' :"50%";
+      this.$refs.dragBox.style.top = ['zhzxy','fsxt'].includes(this.HOSPITAL_ID) && this.colseShadow ? '125%' : "50%";
       setTimeout(() => (this.visible = true), 30);
       this.$emit("open");
       if(ifNoguan===false) this.ifNoguan = false
@@ -375,8 +375,8 @@ export default {
      */
     close(fuyouIfclose = false) {
       // console.log(this.ifNoguan,fuyouIfclose,JSON.parse(localStorage.user).empNo,"fuyouIfclose")
-      if(["fuyou",'zhzxy'].includes(this.HOSPITAL_ID)){
-        if(this.ifNoguan || fuyouIfclose===true || ['zhzxy'].includes(this.HOSPITAL_ID)){
+      if(["fuyou",'zhzxy','fsxt'].includes(this.HOSPITAL_ID)){
+        if(this.ifNoguan || fuyouIfclose===true || ['zhzxy','fsxt'].includes(this.HOSPITAL_ID)){
           if (this.closeCallback) {
               this.closeCallback();
             }
@@ -440,7 +440,7 @@ export default {
         } else {
           // 不能点击弹窗外的区域来关闭，只通过关闭、取消、保存按钮关闭。
           // 医院名单
-          const blackList=['guizhou','foshanrenyi','wujing','fsxt', 'whfk' , 'gdtj', 'zhzxy']
+          const blackList=['guizhou','foshanrenyi','wujing','fsxt', 'whfk' , 'gdtj', 'zhzxy','fsxt']
           if(!blackList.includes(this.HOSPITAL_ID)){
             this.close();
           }

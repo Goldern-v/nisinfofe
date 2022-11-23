@@ -8,9 +8,9 @@
         <img v-if="data.isFollow == '1'" src="../../../../../../common/images/card/like.png" height="18" width="18" />
         <img v-else src="../../../../../../common/images/card/liked.png" height="18" width="18" />
       </div>
-      <div class="syncBedPatInHospital" style="color: #67ae8f" @click="synchronizationPatient(data)">
+      <!-- <div class="syncBedPatInHospital" style="color: #67ae8f" @click="synchronizationPatient(data)">
         同步此床患者
-      </div>
+      </div> -->
       <img src="./images/借.png" class="deptLend" v-if="data.deptLend" alt="" :title="data.deptLend" />
       <span v-if="!data.patientId" class="null-bedLabel">{{data.bedLabel}}</span>
       <div v-if="data.patientId" @click="toInfo(data)">

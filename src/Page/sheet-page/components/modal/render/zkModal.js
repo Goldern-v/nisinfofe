@@ -273,11 +273,21 @@ export const option42=["入院宣教","出院宣教","鼻饲饮食宣教","输�
 "解释病情，安慰患者","卧床休息","摆放舒适体位","分散注意力","遵医嘱用药",
 "遵医嘱用止痛药/PCA治疗","翻身防压疮","翻身拍背","压疮换药","预防跌倒",
 "口腔护理","脐部护理","臀部护理","床上擦浴","会阴护理","气管切开护理","气管插管护理",
-"导尿管的护理","霉化","吸痰","热敷","冷敷","光疗12小时","光疗24小时",
+"导尿管的护理","雾化","吸痰","热敷","冷敷","光疗12小时","光疗24小时",
 "石膏固定","皮牵引","骨牵引",'轴线翻身','预防深静脉血栓','预防坠积性肺炎',
 '踝泵运动','股四头肌舒缩运动','腰背肌运动','肢体功能位摆放','患者拒绝配合治疗']
 
-
+export const option52=[
+    {value: '清楚',id: '清楚'},
+    {value: '昏睡',id: '昏睡'},
+    {value: '嗜睡',id: '嗜睡'},
+    {value: '模糊',id: '模糊'},
+    {value: '浅昏迷',id: '浅昏迷'},
+    {value: '中昏迷',id: '中昏迷'},
+    {value: '深昏迷',id: '深昏迷'},
+    {value: '躁动',id: '躁动'},
+    {value: '谵妄',id: '谵妄'},
+]
 export const strARR=[
     {label:"患者感觉",str:"",codeARR:[
         {code:"touyun",name1:"头晕",option:option1,huixianARR:["患者感觉:头晕"]},
@@ -300,12 +310,14 @@ export const strARR=[
         {code:"zhitimamu",name1:"肢体麻木",option:option1,huixianARR:["患者感觉:肢体麻木",'肢体麻木']},
         {code:"tiwei",name1:"体位",option:option2,huixianARR:["患者感觉:体位",'体位']},
         {code:"CVP",name1:"CVP",strOtherType:1,name2:"cmH2O",type:"input",huixianARR:["患者感觉:CVP",'CVP']},
+        {code:"yishi",name1:"意识",option:option52,huixianARR:["患者感觉:意识",'意识']},
     ]},
     {label:"瞳孔",str:"",codeARR:[
         {code:"tongkongdaxiaozuo",type:"input",strOtherType:1,showXiaolei:"大小",xiaolei:"大小",name1:"左",name2:"mm",huixianARR:["瞳孔大小:左"]},
         {code:"tongkongdaxiaoyou",type:"input",strOtherType:1,xiaolei:"大小",name1:"右",name2:"mm",huixianARR:["瞳孔大小:右",'右']},
-        {code:"tongkongfanyingzuo",showXiaolei:"反应",xiaolei:"反应",name1:"左",option:option3,huixianARR:["瞳孔反应:左",'左']},
-        {code:"tongkongfanyingyou",xiaolei:"反应",name1:"右",option:option3,huixianARR:["瞳孔反应:右",'右']},
+        {code:"tongkongfanyingzuo",showXiaolei:"瞳孔反射",xiaolei:"瞳孔反射",name1:"左",option:option3,huixianARR:["瞳孔反应:左",'左']},
+        {code:"tongkongfanyingyou",xiaolei:"瞳孔反射",name1:"右",option:option3,huixianARR:["瞳孔反应:右",'右']},
+        {code:"ICP ",name1:"ICP ",type:"input",name2:"mmHg",huixianARR:["瞳孔",'ICP']},
     ]},
     {label:"术前准备",type:"checkbox",str:"",codeARR:[
         {code:"shuqian",strOtherType:2,type:"checkbox",option:option4,huixianARR:["术前准备"]}
