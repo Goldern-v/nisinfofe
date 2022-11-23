@@ -282,6 +282,24 @@
               />
             </template>
           </el-table-column>
+           <el-table-column
+            prop="dischargeSize"
+            label="出量"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.dischargeSize"
+                :class="className"
+                class="dischargeSize"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
           <el-table-column
             prop="painScore"
             label="疼痛"
