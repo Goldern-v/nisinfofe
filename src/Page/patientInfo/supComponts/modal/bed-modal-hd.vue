@@ -226,6 +226,83 @@
           />
         </div>
       </div>
+        <div
+        class="bed-card-warpper fsxt-wrist-children"
+        :class="{'zhzxyStyle':['zhzxy'].includes(HOSPITAL_ID)}"
+        ref="fsxtPrintCon"
+        v-if="printMode == 'fsxt-wrist-children'"
+      >
+        <div class="bed-card-vert-con" >
+          <div class="top">
+            <span>科室：{{ query.wardName }}</span>
+            <span v-if="!['zhzxy'].includes(HOSPITAL_ID)" :style="{'margin':'4px','margin-left':['zhzxy'].includes(HOSPITAL_ID)?'20px':''}">床位：{{ query.bedLabel }}</span>
+          </div>
+          <div>
+            <div v-if="['fsxt'].includes(HOSPITAL_ID)">
+              <span>住院号：{{ query.patientId }}</span>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+            </div>
+            <div v-else-if="['gdtj'].includes(HOSPITAL_ID)">
+              <span>{{ query.name }}</span>
+              <span>住院号：{{ query.patientId }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+            </div>
+            <div v-else>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+              <span>住院号：{{ query.patientId }}</span>
+            </div>
+            <div>
+              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+            </div>
+
+			<div flex="cross:center" class="input-item" style="width:73%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
+              <span class="label" style="margin-right:0;">过敏信息：</span>
+              <input
+                type="text"
+                nowidth
+                style="font-size: 20px;padding-left:0;"
+                flex-box="1"
+                class="bottom-line is_input_print"
+				:maxlength="13"
+                v-model="allergy_gdtj"
+              />
+            </div>
+			<div class="allergy" :class="{whhkAllergy:['whhk'].includes(HOSPITAL_ID)}" v-else-if="!['zhzxy'].includes(HOSPITAL_ID)">
+				<p :class="[allergy1||drugGms||allergy2?'gm':'']">
+					过敏信息：
+					<span v-if="allergy1">{{ allergy1 }};</span>
+					<span v-if="drugGms">{{ drugGms }};</span>
+					<span v-if="allergy2">{{ allergy2 }}</span>
+					<span v-if="!(allergy1||drugGms||allergy2)">无</span>
+				</p>
+        <div flex="cross:center" class="input-item" v-if="['whhk'].includes(HOSPITAL_ID)">
+          <span class="label" style="margin-right:0;">科室联系电话：</span>
+          <input
+            type="text"
+            nowidth
+            style="padding-left:0;"
+            flex-box="1"
+            class="bottom-line is_input_print"
+            :maxlength="11"
+            v-model="lianxiPhone_whhk"
+          />
+        </div>
+			</div>
+      
+            <!-- <svg id="barcode"></svg> -->
+          </div>
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
+        </div>
+      </div>
       <div
         class="bed-card-warpper wrist-strap-print children-wrist"
         ref="printCon4"
@@ -469,8 +546,24 @@
         width: 112px;
       }
   }
+ 
 }
-
+ .fsxt-wrist-children{
+     width:18cm;
+     height:2cm;
+     font-size:14px;
+      .bed-card-vert-con{
+        transform:scale(0.8) translateX(-2.1cm) translateY(0cm)
+      }
+      .qr-code{
+        position: absolute;
+        right: 75px !important;
+        top: 56% !important;
+        margin-top: -56px;
+        height: 90px;
+        width: 90px;
+      }
+  }
 .bed-card-con {
   margin: 20px;
   width: 511px;
@@ -892,6 +985,8 @@ export default {
         // });
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
+      }else if (this.printMode == "fsxt-wrist-children") {
+        this.title = "新生儿腕带打印";
       } else {
         this.title = "编辑床头卡";
       }
@@ -929,7 +1024,7 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        if (this.printMode == "wrist") {
+        if (this.printMode == "wrist"||this.printMode == "fsxt-wrist-children") {
           let styleSheet = {
             default:`
           .bed-card-warpper {
@@ -968,7 +1063,8 @@ export default {
             }
             `
           }
-          printing(this.$refs.printCon3, {
+         const model =this.printMode == "fsxt-wrist-children"?this.$refs.fsxtPrintCon:this.$refs.printCon3;
+          printing(model, {
             direction: "vertical",
             injectGlobalCss: true,
             scanStyles: false,

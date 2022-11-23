@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="body" :style="{ height: height }" v-loading="treeLoading">
-      <div>
+      <div v-if="isDoc">
         <div style="position: relative;">
           <div
             class="title"
@@ -36,36 +36,49 @@
           :default-expanded-keys="expandList"
           @node-expand="node_expand"
           @node-collapse="node_collapse"
+          :style="{ height: height }"
         ></el-tree>
       </div>
-      <!-- <div>
+      <div v-if="isRecord">
         <div @click="setItemShow('two')" class="title">护理记录单</div>
-        <div v-if="isShowObj.two" @click="showForm('sheet')" class='fromCss'>
-          <img src='@/common/images/record/文件.png' class="img"/>
+        <div v-if="isShowObj.two" @click="showForm('sheet')" class="fromCss">
+          <img src="@/common/images/record/文件.png" class="img" />
           <span class="name">护理记录单</span>
         </div>
       </div>
-      <div>
+      <div v-if="isTemperature">
         <div @click="setItemShow('three')" class="title">体温单</div>
-        <div v-if="isShowObj.three" @click="showForm('temperature')" class='fromCss'>
-          <img src='@/common/images/record/文件.png' class="img"/>
+        <div
+          v-if="isShowObj.three"
+          @click="showForm('temperature')"
+          class="fromCss"
+        >
+          <img src="@/common/images/record/文件.png" class="img" />
           <span class="name">体温单</span>
         </div>
       </div>
       <div v-if="showBloodSugar.includes(HOSPITAL_ID)">
         <div @click="setItemShow('four')" class="title">血糖</div>
-        <div v-if="isShowObj.four" @click="showForm('bloodSugar')" class='fromCss'>
-          <img src='@/common/images/record/文件.png' class="img"/>
+        <div
+          v-if="isShowObj.four"
+          @click="showForm('bloodSugar')"
+          class="fromCss"
+        >
+          <img src="@/common/images/record/文件.png" class="img" />
           <span class="name">血糖</span>
         </div>
       </div>
       <div v-if="showBloodOxygen.includes(HOSPITAL_ID)">
         <div @click="setItemShow('five')" class="title">血氧</div>
-        <div v-if="isShowObj.five" @click="showForm('bloodOxygen')" class='fromCss'>
-          <img src='@/common/images/record/文件.png' class="img"/>
+        <div
+          v-if="isShowObj.five"
+          @click="showForm('bloodOxygen')"
+          class="fromCss"
+        >
+          <img src="@/common/images/record/文件.png" class="img" />
           <span class="name">血氧</span>
         </div>
-      </div> -->
+      </div>
     </div>
     <!-- 弹出框 -->
     <newForm ref="newForm"></newForm>
@@ -184,6 +197,7 @@
 }
 
 .record-tree {
+  overflow:auto;
   .el-tree {
     border: 0 !important;
   }
@@ -226,7 +240,7 @@ export default {
       isShowObj: {
         one: false,
         two: false,
-        three: true, //默认显示体温单模块
+        three: false, //默认显示体温单模块
         four: false,
         five: false,
       }, // 一级菜单开关 (默认关闭)
@@ -247,6 +261,9 @@ export default {
       ], // 是否开放血糖模块
       showBloodOxygen: ['whfk'], // 是否开放血氧模块
       timer: null,
+      isDoc: false,
+      isRecord: false,
+      isTemperature: false,
     }
   },
   computed: {
@@ -261,7 +278,7 @@ export default {
       if (this.$route.path == '/formPage') {
         return `${this.wih - 120}px`
       } else {
-        return `${this.wih - 180}px`
+        return `${this.wih - 40}px`
       }
     },
     allFormList() {
@@ -428,6 +445,26 @@ export default {
     },
   },
   created() {
+    if (this.$route.query.nursingType == 'doc') {
+      this.isDoc = true
+      this.isRecord = false
+      this.isTemperature = false
+      this.setItemShow('one')
+    } else if (this.$route.query.nursingType == 'record') {
+      this.isDoc = false
+      this.isRecord = true
+      this.isTemperature = false
+      this.setItemShow('two')
+    } else if (this.$route.query.nursingType == 'temperature') {
+      this.isDoc = false
+      this.isRecord = false
+      this.isTemperature = true
+      this.setItemShow('three')
+    } else if (this.$route.query.nursingType == 'nursingPreview') {
+      this.isDoc = true
+      this.isRecord = true
+      this.isTemperature = true
+    }
     if (!(this.$route.query.patientId && this.$route.query.visitId)) return
     this.getTreeData(true)
   },
@@ -436,7 +473,7 @@ export default {
     if (isOk && isOk == '1') {
       this.nursingPreviewIsShow = false
     }
-    await this.bus.$emit('openOtherForm', { component: 'temperature' }) //默认打开体温单界面
+    // await this.bus.$emit('openOtherForm', { component: 'temperature' }) //默认打开体温单界面
     this.timer = setTimeout(() => {
       this.bus.$emit('refreshImg')
     }, 1000)

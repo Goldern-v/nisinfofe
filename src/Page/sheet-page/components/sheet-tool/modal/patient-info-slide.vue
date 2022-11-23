@@ -5,7 +5,7 @@
       <!-- 护理记录单页面用原本样式。不是护理记录单页面就往上移30px -->
       <div :class="{'slide-con':true,'otherSlide-con':faultNurseRecordList}" v-show="show">
         <div class="head-con" flex="cross:center main:justify">
-          <span class="title">患者资料111</span>
+          <span class="title">患者资料</span>
           <!-- <span class="close-btn" @click="close">
             <i class="el-icon-close"></i>
           </span>-->

@@ -161,7 +161,7 @@
         <div class="nav-item">检验</div>
       </router-link>
       <router-link
-          v-if="HOSPITAL_ID==='whsl'"
+          v-if="['whsl','fsxt'].includes(HOSPITAL_ID)"
           :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }}" tag="span">

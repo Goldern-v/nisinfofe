@@ -549,7 +549,8 @@ import {
   findByKeywordNur,
   saveBed
 } from "./api/index.js";
-import print from "./tool/print";
+// import print from "./tool/print";
+import printing from "printing";
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
@@ -787,12 +788,17 @@ export default {
       }
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon, (el) => {
-          el.style.marginLeft = '194mm'
-        });
-        for(let i=0;i<printCare.length;i++){
-          printCare[i].style.display = "block"
-      }
+        printing(this.$refs.printCon, {
+          injectGlobalCss: true,
+          scanStyles: false,
+          // margin: 0 0;
+        }).then(() => {
+          for(let i=0;i<printCare.length;i++){
+            printCare[i].style.display = "block"
+          } 
+        })
+          .catch((e) => {});
+       
       });
     },
     querySearchAsyncDoc(queryString, cb) {
