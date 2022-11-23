@@ -229,8 +229,8 @@
         <div
         class="bed-card-warpper fsxt-wrist-children"
         :class="{'zhzxyStyle':['zhzxy'].includes(HOSPITAL_ID)}"
-        ref="printCon3"
-        v-show="printMode == 'fsxt-wrist-children'"
+        ref="fsxtPrintCon"
+        v-if="printMode == 'fsxt-wrist-children'"
       >
         <div class="bed-card-vert-con" >
           <div class="top">
@@ -1024,7 +1024,7 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        if (this.printMode == "wrist") {
+        if (this.printMode == "wrist"||this.printMode == "fsxt-wrist-children") {
           let styleSheet = {
             default:`
           .bed-card-warpper {
@@ -1063,7 +1063,8 @@ export default {
             }
             `
           }
-          printing(this.$refs.printCon3, {
+         const model =this.printMode == "fsxt-wrist-children"?this.$refs.fsxtPrintCon:this.$refs.printCon3;
+          printing(model, {
             direction: "vertical",
             injectGlobalCss: true,
             scanStyles: false,
