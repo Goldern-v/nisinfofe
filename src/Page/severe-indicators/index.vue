@@ -12,21 +12,26 @@
         />
       </div>
       <div class="list">
-        <router-link
-          class="item"
-          active-class="active"
-          v-for="item in records"
-          :to="{
-            name: 'severe-indicators',
-            params: { code: item.summaryCode },
-            query: { month: item.summaryMonth }
-          }"
-          :key="item.id"
-          @click="onDateSelect(item)"
-        >
-          <div class="link-date">{{ item.summaryMonth }}</div>
-          <div class="link-text">{{ item.text }}</div>
-        </router-link>
+        <template v-if="records.length">
+          <router-link
+            class="item"
+            active-class="active"
+            v-for="item in records"
+            :to="{
+              name: 'severe-indicators',
+              params: { code: item.summaryCode },
+              query: { month: item.summaryMonth }
+            }"
+            :key="item.id"
+            @click="onDateSelect(item)"
+          >
+            <div class="link-date">{{ item.summaryMonth }}</div>
+            <div class="link-text">{{ item.text }}</div>
+          </router-link>
+        </template>
+        <template v-else>
+          <div class="empty-text">暂无数据</div>
+        </template>
       </div>
     </div>
     <div class="container">
@@ -198,7 +203,11 @@ export default {
             font-size: 12px
             padding: 3px 0px
           }
-
+        .empty-text {
+          color: #888
+          text-align: center
+          margin-top: 12px
+        }
       .date-picker
         width: 100%
         font-size 12px
