@@ -208,11 +208,16 @@
     }
   }
   &.new-print-modal--s1 {
+    page-break-after: always;
     * {
       font-family: 'SimHei' !important;
     }
     >>> * {
        font-size: 18px;
+      }
+      .new-modal-top {
+        height: 90px;
+
       }
     .new-modal-top-left {
       width: calc(100% - 86px);
