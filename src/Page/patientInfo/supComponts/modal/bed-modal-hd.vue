@@ -551,14 +551,14 @@
  .fsxt-wrist-children{
      width:18cm;
      height:2cm;
-     font-size:12px;
+     font-size:14px;
       .bed-card-vert-con{
         transform:scale(0.8) translateX(-2.1cm) translateY(0cm)
       }
       .qr-code{
         position: absolute;
         right: 75px !important;
-        top: 68% !important;
+        top: 56% !important;
         margin-top: -56px;
         height: 90px;
         width: 90px;
