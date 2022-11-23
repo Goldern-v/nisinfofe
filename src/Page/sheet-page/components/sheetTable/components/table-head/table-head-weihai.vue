@@ -74,7 +74,7 @@
         ID号：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
       </span> -->
-      <span v-if="sheetInfo.sheetType === 'critical_new_weihai' || sheetInfo.sheetType === 'internal_eval_weihai'">
+      <span v-if="['critical_new_weihai', 'internal_eval_weihai', 'inandout_weihai'].includes(sheetInfo.sheetType)">
         入院日期：
         {{patientInfo.admissionDate | toymd}}
       </span>
@@ -85,7 +85,9 @@
   </div>
 </template>
 
+
 <script>
+// le i = ''
 import moment from "moment";
 import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";

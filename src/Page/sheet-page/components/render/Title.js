@@ -2100,6 +2100,13 @@ export default function Title(
     );
   }
   break;
+  case "inandout_weihai": {
+    // // 威海市立 - 出入量记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/inandout_weihai/th.js").default)
+    );
+  }
+  break;
   case "baby_yz": {
     // 临沂沂州 - 新生儿护理记录单
     Th = JSON.parse(
@@ -2257,3 +2264,5 @@ export default function Title(
 
   return Th;
 }
+
+// le y = ''
