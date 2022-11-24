@@ -215,7 +215,7 @@
           :key="bottleCardIndex"
         >
           <component
-            :style="{top: `-${bottleCardIndex*0.35}px`} && HOSPITAL_ID === 'whsl'"
+            :style="{top: `-${bottleCardIndex*0.35}px`}"
             :is="newPrintCom"
             :newModalSize="newModalSize"
             :itemObj="itemBottleCard"
@@ -318,7 +318,7 @@
   }
   .small-35 {
     position: relative;
-    height: 30mm;
+    height: 30.00mm;
   }
 }
 
@@ -760,7 +760,7 @@ export default {
       await this.getPrintData();
       document.getElementById("new-print-box").style.display = "block";
       this.$nextTick(() => {
-        printing.preview(this.$refs.new_print_modal, {
+        printing(this.$refs.new_print_modal, {
           injectGlobalCss: true,
           scanStyles: false,
           // margin: 0 0;
