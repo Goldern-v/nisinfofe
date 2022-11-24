@@ -227,7 +227,7 @@
         </div>
       </div>
         <div
-        class="bed-card-warpper fsxt-wrist-children"
+        class="bed-card-warpper wrist-strap-print fsxt-wrist-children"
         :class="{'zhzxyStyle':['zhzxy'].includes(HOSPITAL_ID)}"
         ref="fsxtPrintCon"
         v-if="printMode == 'fsxt-wrist-children'"
@@ -548,22 +548,31 @@
   }
  
 }
- .fsxt-wrist-children{
-     width:18cm;
-     height:2cm;
-     font-size:14px;
-      .bed-card-vert-con{
-        transform:scale(0.8) translateX(-2.1cm) translateY(0cm)
-      }
-      .qr-code{
-        position: absolute;
-        right: 75px !important;
-        top: 56% !important;
-        margin-top: -56px;
-        height: 90px;
-        width: 90px;
-      }
+//  .fsxt-wrist-children{
+//      width:7.2cm;
+//      height:2.4cm;
+//      font-size:14px;
+//       .bed-card-vert-con{
+//         transform:scale(0.8) translateX(-2.1cm) translateY(0cm)
+//       }
+//       .qr-code{
+//         position: absolute;
+//         right: 75px !important;
+//         top: 56% !important;
+//         margin-top: -56px;
+//         height: 90px;
+//         width: 90px;
+//       }
+//   }
+.fsxt-wrist-children{
+  span{
+    margin-left:0px;
+    font-size:16px !important;
   }
+  p{
+    font-size:16px !important;
+  }
+}
 .bed-card-con {
   margin: 20px;
   width: 511px;
