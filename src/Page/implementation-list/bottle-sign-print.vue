@@ -215,6 +215,7 @@
           :key="bottleCardIndex"
         >
           <component
+            :style="{top: `-${bottleCardIndex*0.35}px`}"
             :is="newPrintCom"
             :newModalSize="newModalSize"
             :itemObj="itemBottleCard"
@@ -317,7 +318,7 @@
   }
   .small-35 {
     position: relative;
-    height: 30mm;
+    height: 30.00mm;
   }
 }
 
@@ -527,7 +528,7 @@ export default {
             { label: "外用" },
             { label: "化验" },
             { label: "其他" },
-          ],   
+          ],
           default: [
             { label: "输液" },
             { label: "注射" },
@@ -714,7 +715,7 @@ export default {
     search() {
       this.page.pageIndex = 1;
       // 查看打印效果可以注释掉此行
-      // this.printObj = []
+      this.printObj = []
       this.onLoad();
     },
     // 打印

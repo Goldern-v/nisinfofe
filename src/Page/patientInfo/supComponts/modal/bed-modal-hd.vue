@@ -227,7 +227,7 @@
         </div>
       </div>
         <div
-        class="bed-card-warpper fsxt-wrist-children"
+        class="bed-card-warpper wrist-strap-print fsxt-wrist-children"
         :class="{'zhzxyStyle':['zhzxy'].includes(HOSPITAL_ID)}"
         ref="fsxtPrintCon"
         v-if="printMode == 'fsxt-wrist-children'"
@@ -294,8 +294,7 @@
         </div>
 			</div>
       
-            <!-- <svg id="barcode"></svg> -->
-          </div>
+             </div>
           <img
             class="qr-code"
             :class="{ hasRemark: hasRemark }"
@@ -548,22 +547,39 @@
   }
  
 }
- .fsxt-wrist-children{
-     width:18cm;
-     height:2cm;
-     font-size:14px;
-      .bed-card-vert-con{
-        transform:scale(0.8) translateX(-2.1cm) translateY(0cm)
-      }
-      .qr-code{
-        position: absolute;
-        right: 75px !important;
-        top: 56% !important;
-        margin-top: -56px;
-        height: 90px;
-        width: 90px;
-      }
+//  .fsxt-wrist-children{
+//      width:7.2cm;
+//      height:2.4cm;
+//      font-size:14px;
+//       .bed-card-vert-con{
+//         transform:scale(0.8) translateX(-2.1cm) translateY(0cm)
+//       }
+//       .qr-code{
+//         position: absolute;
+//         right: 75px !important;
+//         top: 56% !important;
+//         margin-top: -56px;
+//         height: 90px;
+//         width: 90px;
+//       }
+//   }
+.fsxt-wrist-children{
+  width:10cm;
+  height:3cm;
+  // border:1px solid #000;
+  box-sizing:border-box;
+  .bed-card-vert-con{
+    transform:scale(0.8) translateX(-1.1cm) translateY(-0.7cm)
   }
+  .qr-code{
+    position: absolute;
+    right: 75px !important;
+    top: 55% !important;
+    margin-top: -56px;
+    height: 112px;
+    width: 112px;
+  }
+}
 .bed-card-con {
   margin: 20px;
   width: 511px;
@@ -1024,7 +1040,7 @@ export default {
     onPrint() {
       this.$nextTick(() => {
         this.post();
-        if (this.printMode == "wrist"||this.printMode == "fsxt-wrist-children") {
+        if (this.printMode == "wrist") {
           let styleSheet = {
             default:`
           .bed-card-warpper {
@@ -1063,8 +1079,52 @@ export default {
             }
             `
           }
-         const model =this.printMode == "fsxt-wrist-children"?this.$refs.fsxtPrintCon:this.$refs.printCon3;
-          printing(model, {
+          printing(this.$refs.printCon3, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: styleSheet[this.HOSPITAL_ID] || styleSheet.default
+          });
+        }else if (this.printMode == "fsxt-wrist-children") {
+          let styleSheet = {
+            default:`
+          .bed-card-warpper {
+            box-shadow: none !important;
+            transform: rotate(90deg) translateY(-120%) translateX(25%);
+            transform-origin: 0 0;
+          }
+          .bed-card-vert-con {
+          }
+		  .is_input_print{
+			font-size:20px !important;
+		  }
+		  .is_hide_textarea{
+			display:none;
+		  }
+		  .print-page__ptext{
+			display:block !important;
+			border:none !important;
+			padding:0 !important;
+			height:auto !important;
+		  }
+          @page {
+            margin: 0;
+          }
+          `,
+            fsxt:`
+            .bed-card-warpper {
+              box-shadow: none !important;
+              transform: rotate(90deg) translateY(-120%) translateX(25%);
+              transform-origin: 0 0;
+            }
+            .bed-card-vert-con {
+            }
+            @page {
+              margin: 0;
+            }
+            `
+          }
+          printing(this.$refs.fsxtPrintCon, {
             direction: "vertical",
             injectGlobalCss: true,
             scanStyles: false,
