@@ -109,7 +109,7 @@
   page-break-after: always;
   height: 100%;
 
-  > > > * {
+  >>> * {
     font-size: 12px;
   }
 
@@ -235,7 +235,7 @@
   }
 
   .new-modal-small-left {
-    > > > * {
+    >>> * {
       font-size: 16px;
       line-height: 24px;
     }
@@ -265,7 +265,7 @@
   }
 
   .new-modal-small-right {
-    > > > * {
+    >>> * {
       font-size: 16px;
       line-height: 24px;
     }
