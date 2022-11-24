@@ -215,7 +215,6 @@
           :key="bottleCardIndex"
         >
           <component
-            :style="{top: `-${bottleCardIndex*0.35}px`}"
             :is="newPrintCom"
             :newModalSize="newModalSize"
             :itemObj="itemBottleCard"
