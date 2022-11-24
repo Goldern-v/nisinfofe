@@ -325,6 +325,10 @@ export const  getDeliveryInfo= ( patientId ) => {
 export const setSheetTemplate = (params) => {
   return axios.post(`${apiPath}/record/setting/fieldTemplate/save`, params)
 }
+// 新护记的分页是根据起始页码来分页 所以不能根据BlockId来查询页码 需要做根据记录时间来查询所在页码
+export const getPageIndex = (params) => {
+  return axios.post(`${apiPath}record/${sheetInfo.sheetType}/getPageIndex`, params)
+}
 /**获取打印记录 */
 export function getPrintRecord(params, formType, formCode) {
   return axios.post(`${apiPath}form/common/getPrintRecord`, params)
