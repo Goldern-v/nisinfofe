@@ -288,6 +288,10 @@ export const saveVitalSign = (data,hospitalId) => {
     d
   );
 };
+// 保存需要同步的数据
+export const saveSyncRecord = (params) => {
+  return axios.post(`${apiPath}form/common/saveSyncRecord`, params)
+}
 // 获取用户信息
 export function getUser(password, empNo) {
   return axios.post(`${apiPath}user/getUser`, {

@@ -233,6 +233,13 @@
             min-width="110px"
             align="center"
           ></el-table-column>
+          <el-table-column
+            v-if="HOSPITAL_ID == 'wujing'"
+            prop="recordSync"
+            label="状态"
+            min-width="60px"
+            align="center"
+          ></el-table-column>
           <!-- <el-table-column v-if="HOSPITAL_ID == 'quzhou'" prop="desc" label="描述" min-width="110px" align="center"></el-table-column> -->
           <template
             v-if="
@@ -339,6 +346,7 @@ import {
   getOrdersExecuteLc,
   getOrdersExecuteFsry,
   getOrdersExecuteWhfk,
+  saveSyncRecord,
 } from "../../api/index";
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
@@ -405,7 +413,7 @@ export default {
     close() {
       this.$refs.modal.close();
     },
-    post() {
+    async post() {
       let temArr = this.multipleSelection;
       if (this.openModalFromSpecial) {
         if (this.multipleSelection.length == 0) return this.$message.warning("请选择一条数据");
@@ -472,6 +480,15 @@ export default {
           item.foodSize = item.dosage;
           return item;
         });
+      }
+      if (this.HOSPITAL_ID === 'wujing') {
+        const params = {
+          formId: this.blockId,
+          formType: 'record',
+          syncType: '执行单同步',
+          list: this.multipleSelection.map(item => item.barcode)
+        }
+        await saveSyncRecord(params)
       }
       saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
         this.$message.success("保存成功");
