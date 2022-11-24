@@ -215,7 +215,7 @@
           :key="bottleCardIndex"
         >
           <component
-          :style="{top: `-${bottleCardIndex*0.35}px`}"
+            :style="{top: `-${bottleCardIndex*0.35}px`} && HOSPITAL_ID === 'whsl'"
             :is="newPrintCom"
             :newModalSize="newModalSize"
             :itemObj="itemBottleCard"
@@ -715,7 +715,7 @@ export default {
     search() {
       this.page.pageIndex = 1;
       // 查看打印效果可以注释掉此行
-      // this.printObj = []
+      this.printObj = []
       this.onLoad();
     },
     // 打印

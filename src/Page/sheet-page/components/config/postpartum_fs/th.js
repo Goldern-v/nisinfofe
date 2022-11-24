@@ -39,7 +39,7 @@ export default {
             { "name": "母<br/>乳<br/>喂<br/>养", "colspan": "1", "rowspan": "2"},
             { "name": "婴<br/>儿<br/>护<br/>理", "colspan": "1", "rowspan": "2"},
 
-            { "name": "脉<br/>搏<br/>次<br/>/分", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue3"},
+            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue3"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue4"},
             { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "300px",  maxWidth: "300px"}, },
             { "name": "护士签名", "colspan": "1", "rowspan": "3"},
@@ -51,7 +51,7 @@ export default {
                 {"name": "日期", "colspan": "1", "rowspan": "2", style: { minWidth: "50px",  maxWidth: "50px"},},
                 {"name": "时间", "colspan": "1", "rowspan": "2", style: { minWidth: "50px",  maxWidth: "50spx"},},
                 {"name": "体温<br/>℃", "colspan": "1", "rowspan": "2"},
-                { "name": "", "colspan": "1", "rowspan": "2",canSet:true,key:"customValue"},
+                { "name": "脉搏<br/>次<br/>/分", "colspan": "1", "rowspan": "2",},
                 {"name": "呼吸<br/>次/<br/>分", "colspan": "1", "rowspan": "2"},
                 {"name": "血压<br/>mmHg", "colspan": "1", "rowspan": "2"},
                 {"name": "SOP2<br/>(%)", "colspan": "1", "rowspan": "2",},
