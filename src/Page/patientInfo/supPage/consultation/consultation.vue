@@ -43,7 +43,7 @@ export default {
       clickIndex: 0,
       bus: BusFactory(this),
       // 是否新版会诊
-      isNewType: ["zhzxy"].includes(this.HOSPITAL_ID),
+      isNewType: ["beihairenyi", "zhzxy"].includes(this.HOSPITAL_ID),
     };
   },
   computed: {

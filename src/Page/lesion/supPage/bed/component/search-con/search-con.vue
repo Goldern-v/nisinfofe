@@ -311,7 +311,7 @@ const getThrottleTime = (()=>{
         case 'foshanrenyi':
           return 60*1000
         default:
-          return 30*1000
+          return 0
       }
     })()
 import footerBar from "../footer-bar/footer-bar.vue";

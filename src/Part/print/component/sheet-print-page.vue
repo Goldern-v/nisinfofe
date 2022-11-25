@@ -740,7 +740,13 @@ export default {
           #sheetPagePrint#sheetPagePrint th[dataname='上级签名']{
             display:none !important;
           }
-
+          #sheetPagePrint#sheetPagePrint th[dataname='上级护士签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='护士<br>签名']{
+             min-width: 100px !important;
+              max-width: 100px !important;
+          }
           @media print {
             #sheetPagePrint .contant{
               margin-top:-20px;!important;

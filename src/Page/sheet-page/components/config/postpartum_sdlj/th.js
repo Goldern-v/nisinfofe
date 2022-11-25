@@ -8,15 +8,20 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1250px"
+    width: "1230px"
   },
   th: {
-    top: [{
-        name: '',
-        style: {},
-        colspan: "2",
-        rowspan: "1",
-        key:'recordYear'
+    top: [
+      { 
+        name: `日期`, 
+        colspan: "1",
+        rowspan: "3" 
+        
+      },
+      { 
+        name: `时间`,
+        colspan: "1", 
+        rowspan: "3" 
       },
       {
         name: `
@@ -231,8 +236,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "80px",
-          maxWidth: "80px"
+          minWidth: "60px",
+          maxWidth: "60px"
         },
       },
       {
@@ -240,19 +245,11 @@ export default {
         上级护士签名
         `,
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+     
       }
     ],
-    mid: [{
-        name: '日期',
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: '时间',
-        colspan: '1',
-        rowspan: '2'
-      },
+    mid: [
       {
         name: "内容",
         colspan: "1",
@@ -295,4 +292,4 @@ export default {
 
     ]
   }
-};
+}; 
