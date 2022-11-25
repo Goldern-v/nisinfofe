@@ -167,7 +167,7 @@
           query: { patientId: query.patientId, visitId: query.visitId }}" tag="span">
         <div class="nav-item">病历</div>
       </router-link>
-        <router-link :to="{path:'/consultation', query:$route.query}" tag="span" v-if="['zhzxy'].includes(HOSPITAL_ID)">
+        <router-link :to="{path:'/consultation', query:$route.query}" tag="span" v-if="['zhzxy','beihairenyi'].includes(HOSPITAL_ID)">
         <div class="nav-item">会诊</div>
       </router-link>
       <router-link v-if="HOSPITAL_ID==='whsl'" :to="{path:'/sheetNursingOrder', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
