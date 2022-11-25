@@ -151,9 +151,9 @@
   }
   &.new-print-modal--s {
     display: block;
-    position: absolute;
+    /* position: absolute;
     transform: scale(.5);
-    transform-origin: 0 0 0;
+    transform-origin: 0 0 0; */
 		>>> * {
 			font-size: 12px;
 			font-weight: 700;

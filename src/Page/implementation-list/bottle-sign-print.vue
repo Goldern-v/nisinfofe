@@ -203,12 +203,12 @@
 
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
         <!-- :class="{'new-print-box--small': !['6*8', '70*80'].includes(newModalSize)}" -->
+            <!-- printItemClass -->
         <div
           :class="[
             {
               'break-page':bottleCardIndex % 3 == 2 &&
                 newModalSize == '3*7',
-              'small-35': newModalSize === '3*5' && HOSPITAL_ID === 'whsl'
             },
           ]"
           v-for="(itemBottleCard, bottleCardIndex) in printObj"
@@ -312,12 +312,19 @@
 }
 
 .new-print-box {
+  overflow: hidden;
   .break-page {
     page-break-after: always;
   }
   .small-35 {
     position: relative;
     height: 30.00mm;
+    overflow: hidden;
+  }
+  .small-25 {
+    position: relative;
+    height: 19.90mm;
+    overflow: hidden;
   }
 }
 
@@ -340,6 +347,8 @@ import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm";
 import NewPrintModalWhfk from "./components/common/newPrintModalWhfk";
 import NewPrintModalWujing from "./components/common/newPrintModalWujing";
 import NewPrintModalYtll from "./components/common/newPrintModalYtll";
+import NewPrintModalZhzxy from "./components/common/newPrintModalZhzxy";
+
 import printing from "printing";
 import {
   getPrintExecuteWithWardcode,
@@ -714,7 +723,7 @@ export default {
     search() {
       this.page.pageIndex = 1;
       // 查看打印效果可以注释掉此行
-      this.printObj = []
+      // this.printObj = []
       this.onLoad();
     },
     // 打印
@@ -768,6 +777,9 @@ export default {
               ${this.printM}
             }
             body{
+              position: relative;
+            }
+            .new-print-box {
               ${this.printScaleText}
             }
             .break-page {
@@ -1058,7 +1070,7 @@ export default {
           return "NewPrintModalFsxt";
         case "lyxrm":
         case "whhk":
-        case "zhzxy":
+        // case "zhzxy":
         case "925":
           return "NewPrintModalLyxrm";
         case "whfk":
@@ -1068,6 +1080,8 @@ export default {
           return "NewPrintModalWujing";
         case "ytll":
           return "NewPrintModalYtll";
+        case "zhzxy":
+          return "NewPrintModalZhzxy";
         default:
           return "NewPrintModal";
       }
@@ -1100,8 +1114,11 @@ export default {
         ["whfk", 'whsl'].includes(this.HOSPITAL_ID)
       )
         return "";
+
+      // if (this.HOSPITAL_ID === "zhzxy" && this.newModalSize === "2*5")
       if (this.HOSPITAL_ID === "925" && this.newModalSize === "70*80")
         return "transform: scale(0.8);transform-origin: 0 0 0;";
+      return 'zoom: .5;position: absolute;'
       return "transform: scale(0.5);transform-origin: 0 0 0;";
     },
     printM() {
@@ -1114,9 +1131,9 @@ export default {
       if (this.newModalSize == "7*7" && ["ytll"].includes(this.HOSPITAL_ID)) {
         return "margin: 0 0 0 3mm;";
       }
-      if (this.newModalSize == "2*5" && ["zhzxy"].includes(this.HOSPITAL_ID)) {
-        return "margin: 3mm 1.5mm 0 1.5mm;";
-      }
+      // if (this.newModalSize == "2*5" && ["zhzxy"].includes(this.HOSPITAL_ID)) {
+      //   return "margin: 3mm 1.5mm 0 1.5mm;";
+      // }
       return "margin: 0 0;";
       return "margin: 0 0; size: 50mm 30mm";
     },
@@ -1127,6 +1144,14 @@ export default {
     multiBed() {
       return ["lyxrm", "zhzxy", "925"].includes(this.HOSPITAL_ID);
     },
+    // printItemClass() {
+    //   if (this.newModalSize === '3*5' && this.HOSPITAL_ID === 'whsl') {
+    //     return 'small-35'
+    //   // } else if (this.newModalSize === '2*5' && this.HOSPITAL_ID === 'zhzxy') {
+    //   //   return 'small-25'
+    //   }
+    //   return ''
+    // }
   },
   watch: {
     deptCode() {
@@ -1162,6 +1187,7 @@ export default {
     NewPrintModalWhfk,
     NewPrintModalWujing,
     NewPrintModalYtll,
+    NewPrintModalZhzxy,
   },
 };
 </script>
