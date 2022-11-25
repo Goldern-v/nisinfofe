@@ -723,7 +723,7 @@ export default {
     search() {
       this.page.pageIndex = 1;
       // 查看打印效果可以注释掉此行
-      // this.printObj = []
+      this.printObj = []
       this.onLoad();
     },
     // 打印
