@@ -8,7 +8,7 @@
              <span class="title">检查列表</span>
              <el-select v-model="value" placeholder="请选择" class="select">
              <el-option
-              v-for="item in options"
+              v-for="item in optionsFSRY"
               :key="item.value"
               :value="item.label"
               ></el-option>
@@ -206,21 +206,9 @@ export default {
     return {
       list: [],
       rightData: {},
-      options: [
-        {
+      optionsFSRY:[
+      {
           label: "全部",
-        },
-        {
-          label: "CT",
-        },
-        {
-          label: "MR",
-        },
-        {
-          label: "磁共振",
-        },
-        {
-          label: "心电图",
         },
       ],
       value: "全部",
@@ -311,6 +299,12 @@ export default {
       ).then((res) => {
         if(res.data){
         this.list = res.data.data;
+        const fsryOption =  res.data.data.length&&Array.from(new Set(res.data.data.map((listItem)=>{
+          return listItem.examClass
+        })))
+        fsryOption.map((fsryOptionList)=>{
+          this.optionsFSRY.push({label:fsryOptionList})
+        })
         this.toRight(this.list[0]);
         }
         this.pending=false

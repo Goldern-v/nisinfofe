@@ -267,7 +267,10 @@ export default {
     },
     async handleExport() {
       let params = this.handleParams();
-      try {
+      if(this.HOSPITAL_ID === 'wujing'){
+        params.scene="WuJing";
+      }
+       try {
         this.pageLoadng = true;
         let res = await handleExport(params);
         let fileName = res.headers["content-disposition"]

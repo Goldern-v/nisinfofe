@@ -5,6 +5,7 @@ import { apiPath } from './apiConfig'
 // 输液
 export const getExecute = (wardCode,hospitalId) => {
     switch(hospitalId){
+        case 'whsl':
         case 'hengli':
             // return axios.get(`${apiPath}board/getExecute/${wardCode}`)
         case 'wujing':

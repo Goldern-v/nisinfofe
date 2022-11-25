@@ -22,7 +22,7 @@
             <td class="value">{{ routeQuery.age }}</td>
           </tr>
           <tr>
-            <td class="key">科室2222</td>
+            <td class="key">科室</td>
             <td class="value">{{ data.deptName }}</td>
             <td class="key">申请日期</td>
             <td class="value">{{ data.reqDate | dataForm }}</td>
