@@ -974,7 +974,7 @@ export default {
         let confirmRes = '';
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           confirmRes = await this.$confirm(
-            " 体温的填写范围是35～42，你的填写超出录入范围,请重新填写",
+            " 体温的填写范围是35～42，您的填写超出录入范围,请重新填写",
             "错误",
             {
               confirmButtonText: "确定",
@@ -986,7 +986,7 @@ export default {
         }
         if((td.key === 'pulse'||td.key === 'heartRate'||td.key === 'fetalRate')&&td.value !== ''&&(isNaN(td.value)||td.value<30||td.value>300)){
           confirmRes = await this.$confirm(
-            td.name+ "的填写范围是30～300，你的填写超出录入范围,是否确定填写?",
+            td.name+ "的填写范围是30～300，您的填写超出录入范围,是否确定填写?",
             "提示",
             {
               confirmButtonText: "确定",
@@ -1000,7 +1000,7 @@ export default {
         }
         if((td.key === 'spo2')&&td.value !== ''&&(isNaN(td.value)||td.value<50||td.value>100)){
           confirmRes = await this.$confirm(
-            td.name+ "的填写范围是50～100，你的填写超出录入范围,是否确定填写?",
+            td.name+ "的填写范围是50～100，您的填写超出录入范围,是否确定填写?",
             "提示",
             {
               confirmButtonText: "确定",
@@ -1012,9 +1012,13 @@ export default {
             td.value ='';
           }
         }
-        if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1] ||td.value.split('/')[0]>150||td.value.split('/')[1]>300)){
+        if((td.key === 'bloodPressure') && td.value !== ''&&!td.value.split('/')[1]){
+          td.value ='';
+        }
+        if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1] 
+        ||(td.value.split('/')[0]>250||td.value.split('/')[0]<50)||td.value.split('/')[1]>200||td.value.split('/')[1]<0)){
           confirmRes = await this.$confirm(
-            td.name+ "的收缩压的填写范围<=300,舒张压的填写范围<=150，你的填写超出录入范围,是否确定填写?",
+            td.name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",
             "提示",
             {
               confirmButtonText: "确定",

@@ -204,7 +204,7 @@
         <span v-if="data.allergy1">{{ data.allergy1 }};</span>
         <span v-if="data.drugGms">{{ data.drugGms  }};</span>
         <span v-if="data.allergy2">{{ data.allergy2}}</span>
-        <span v-else>无</span>
+        <span v-if="data.allergy1 == '' && data.drugGms == '' && data.allergy2 == ''">无</span>
 
       </div>
     </div>

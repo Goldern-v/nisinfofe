@@ -1062,7 +1062,24 @@ export default {
           this.pageLoading = true;
           this.scrollTop = this.$refs.scrollCon.scrollTop;
           const ayncVisitedDataList = decode(ayncVisitedData).list||[]
-          console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
+          // console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
+          if(this.HOSPITAL_ID == 'wujing'){
+            let trueRecordTimes = []
+            ayncVisitedDataList.map(item=>{
+              if(item.recordMonth!=='' && item.recordHour!==''){
+                trueRecordTimes.push(item.recordMonth+item.recordHour)
+              }
+            })
+            let newLen = new Set(trueRecordTimes).size
+            if(trueRecordTimes.length>newLen){
+              this.$notify.warning({
+                title: "提示",
+                message: "当前时间已有记录，请检查并调整时间",
+              });
+              this.pageLoading = false;
+              return false
+            }
+          }
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,

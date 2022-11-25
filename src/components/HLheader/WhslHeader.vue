@@ -37,7 +37,7 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
               </el-row>
             </router-link> -->
-             
+
             <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="sheetHospitalEval"></i> MEWS
@@ -220,20 +220,20 @@
                 >护理巡视
               </el-row>
             </router-link>
-            
+
             <router-link to="/allCatheter" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-allCatheter"></i> 导管
               </el-row>
-              <router-link to="/board" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-baiban"></i> 白板
-              </el-row>
-            </router-link>
             </router-link>
             <router-link to="/statisticalQuery" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-allCatheter"></i> 统计查询
+              </el-row>
+            </router-link>
+            <router-link to="/board" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
             <!-- <el-dropdown
@@ -273,7 +273,7 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
               </el-row>
             </router-link> -->
-          
+
             <!-- <router-link
               to="/deliveryRoomWhiteboard"
               tag="span"
@@ -315,7 +315,7 @@
               </el-row>
             </router-link>-->
 
-           
+
             <!-- <router-link to="/wardReport" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 病房日报
@@ -441,7 +441,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{ active: $route.path == '/severe-indicators' }"
                 >
                   <router-link to="/severe-indicators" tag="span">
@@ -449,7 +449,7 @@
                       <i class="icuSummary"></i>重症质量指标
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/flatManagement' }"
                 >

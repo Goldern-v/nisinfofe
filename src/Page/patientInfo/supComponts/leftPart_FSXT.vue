@@ -105,6 +105,14 @@
           >
             儿童腕带打印
           </div>
+           <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openWristPrint('fsxt-wrist-children')"
+            v-if="HOSPITAL_ID == 'fsxt'"
+          >
+           新生儿腕带打印
+          </div>
           <div
             class="print-btn"
             flex="cross:center main:center"

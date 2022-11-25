@@ -47,7 +47,7 @@
               <input
                 type="text"
                 :style="{
-                  width: '94px',
+                  width: '63px',
                   'font-size':'14px',
                   'padding-left': '5px',
                   'line-height': ' 14px'
@@ -181,8 +181,6 @@
                   class="bottom-line"
                   v-model="formData.mainDoctors"
                 />
-              </div>
-              <div flex="cross:center" class="input-item">
                 <span class="label">责任护士:</span>
                 <input
                   type="text"
@@ -193,6 +191,17 @@
                   v-model="formData.dutyNurses"
                 />
               </div>
+              <!-- <div flex="cross:center" class="input-item">
+                <span class="label">责任护士:</span>
+                <input
+                  type="text"
+                  nowidth
+                  flex-box="1"
+                  class="bottom-line"
+                  style="font-size:14px;"
+                  v-model="formData.dutyNurses"
+                />
+              </div> -->
             </div>
             <div v-if="['zhzxy'].includes(HOSPITAL_ID)"
             :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}"
@@ -264,6 +273,7 @@
   background: #fff;
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
+  // transform: rotate(90deg);
   font-size: 16px;
 
   >>> * {
@@ -276,8 +286,9 @@
   margin: 20px;
   // width: 511px;
   // height: 335px;
-  width: 6cm;
-  height: 8cm;
+  width: 8cm;
+  height: 6cm;
+  // transform: rotate(90deg);
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
@@ -360,7 +371,7 @@
 }
 
 .input-item {
-  height: 40px;
+  height: 28px;
   padding-right: 12px;
   font-size: 22px;
   font-weight: bold;
@@ -549,7 +560,8 @@ import {
   findByKeywordNur,
   saveBed
 } from "./api/index.js";
-import print from "./tool/print";
+// import print from "./tool/print";
+import printing from "printing";
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
@@ -787,12 +799,17 @@ export default {
       }
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon, (el) => {
-          // el.style.marginLeft = '194mm'
-        });
-        for(let i=0;i<printCare.length;i++){
-          printCare[i].style.display = "block"
-      }
+         printing.preview(this.$refs.printCon, {
+          injectGlobalCss: true,
+          scanStyles: false,
+          // margin: 0 0;
+        }).then(() => {
+          for(let i=0;i<printCare.length;i++){
+            printCare[i].style.display = "block"
+          }
+        })
+          .catch((e) => {});
+
       });
     },
     querySearchAsyncDoc(queryString, cb) {

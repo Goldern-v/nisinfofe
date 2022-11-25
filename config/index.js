@@ -171,8 +171,8 @@ const currentTargetUrl = (() => {
 
       // 佛山杏坛
     case 'fsxt':
-      // return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@23nr
-      return "http://192.168.1.54:9883" // 测试
+      return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@23nr
+      // return "http://192.168.1.54:9883" // 测试
 
     //阳春
     case 'yangchunzhongyi':
@@ -243,10 +243,10 @@ const currentTargetUrl = (() => {
 
     // 威海市立
     case 'whsl':
-      // return 'http://192.168.1.54:9896'
+      return 'http://192.168.1.54:9896'
       // return "http://222.133.53.230:9091" // 临邑正式
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
-      return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
+      // return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
 
     /** 默认公司本地内网厚街测试环境 */
     default:

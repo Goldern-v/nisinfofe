@@ -198,11 +198,17 @@ export default {
       value: "全部",
       visitList: [],
       visitId: "",
+      optionsFSRY:[
+      {
+          label: "全部",
+        },
+      ]
     };
   },
   computed: {
     options(){
-      if(["zhzxy"].includes(this.HOSPITAL_ID)){
+      switch (this.HOSPITAL_ID) {
+        case 'zhzxy':
         return [
         {
           label: "全部",
@@ -223,7 +229,9 @@ export default {
           label: "B超",
         },
       ]
-      }else{
+      case 'foshanrenyi':
+        return this.optionsFSRY
+        default:
         return [
           {
             label: "全部",
@@ -314,7 +322,12 @@ export default {
         this.visitId == "门诊" ? 0 : this.visitId
       ).then((res) => {
         this.list = res.data.data;
-        console.log(this.list , 'list');
+      const fsryOption =  res.data.data.length&&Array.from(new Set(res.data.data.map((listItem)=>{
+          return listItem.examClass
+        })))
+        fsryOption.map((fsryOptionList)=>{
+          this.optionsFSRY.push({label:fsryOptionList})
+        })
         this.toRight(this.list[0]);
       });
     },
