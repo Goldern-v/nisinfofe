@@ -205,9 +205,6 @@
         white-space: nowrap;
         // max-width: 74px;
       }
-      .sign-con {
-        max-width: 52px;
-       }
 
       img {
         width: 100%;

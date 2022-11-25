@@ -217,19 +217,23 @@
       }
       .new-modal-top {
         height: 90px;
-
+        >div {
+          display: inline-block;
+          float:none !important;
+        }
       }
     .new-modal-top-left {
-      width: calc(100% - 86px);
+      width: calc(100% - 96px);
+      vertical-align: top;
       .new-modal-top-left-first {
         padding-left: 4px;
         height: 35px !important;
       }
       .new-modal-top-left-second {
-        height: 31px !important;
+        height: 25px !important;
         div {
-          font-size: 21px;
-          line-height: 23px;
+          font-size: 20px;
+          line-height: 24px;
         }
       }
     }
@@ -248,10 +252,10 @@
     border-top: 1px solid #000;
     font-weight: 700;
     width: 100%;
-		flex: 1;
+      flex: 1;
       div {
-        line-height: 18px;
-        font-size: 21px;
+        line-height: 20px;
+        font-size: 20px;
       }
   }
   }

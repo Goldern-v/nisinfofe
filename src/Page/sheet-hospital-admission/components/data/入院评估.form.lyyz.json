@@ -52,7 +52,7 @@
         "140px",
         "80px",
         "80px",
-        "100px",
+        "130px",
         "80px",
         "180px"
       ],
@@ -117,7 +117,7 @@
           "suffixDesc": "",
           "placeholder": "",
           "titleStyle": "width:40px!important",
-          "inputStyle": "width:100px!important",
+          "inputStyle": "width:130px!important",
           "elementStyle": "width:99%;",
           "style": "color:red!important",
           "class": null,
@@ -1680,7 +1680,7 @@
             "可疑（2级）分2次以上，能不呛咳地咽下",
             "异常（3级）能1次咽下，但有呛咳",
             "异常（4级）分2次以上咽下，但有呛咳",
-            "异常（5级）频繁呛咳，不能全部咽下",	
+            "异常（5级）频繁呛咳，不能全部咽下",
             "不能评定"
           ],
           "rule": [
@@ -3394,7 +3394,7 @@
       "classes": null,
       "readOnly": null,
       "children": [
-        
+
         {
           "name": "I001820",
           "type": "select",
@@ -3574,7 +3574,7 @@
             }
           ]
         },
-        { 
+        {
           "name": "I001841",
           "type": "select",
           "title": "腹痛",
@@ -3620,7 +3620,7 @@
             }
           ]
         },
-        
+
         {
           "name": "I001459",
           "type": "select",
@@ -4096,7 +4096,7 @@
           "class": null,
           "readOnly": null
         },
-        
+
         {
           "name": "I001483",
           "type": "select",
@@ -4132,9 +4132,9 @@
         }
       ]
     },
-     
-     
-    
+
+
+
     {
       "name": "",
       "type": "formGroupHR",

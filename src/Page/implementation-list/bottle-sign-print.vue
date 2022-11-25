@@ -1111,7 +1111,7 @@ export default {
     printScaleText() {
       if (
         ["70*80", "6*8", "5*8", "7*7"].includes(this.newModalSize) ||
-        ["whfk", 'whsl'].includes(this.HOSPITAL_ID)
+        ["whfk"].includes(this.HOSPITAL_ID)
       )
         return "";
 
