@@ -22,12 +22,6 @@
           {{ patientInfo.bedLabel }}
         </div>
       </span>
-      <!-- <span>
-        床号：
-        <div class="bottom-line" style="min-width: 50px">
-          {{ patientInfo.bedLabel }}
-        </div>
-      </span> -->
       <span>
         孕次：
         <input
@@ -88,6 +82,12 @@
         住院号：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.inpNo }}
+        </div>
+      </span>
+      <span >
+        入院日期：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.admissionDate | toymd}}
         </div>
       </span>
     </div>
@@ -218,6 +218,7 @@ export default {
         'postpartum_sdlj', // 产后护理记录单
         'intravenous_sdlj', // 硫酸镁、安宝静脉点滴观察记录表
         'prenatal_sdlj', // 产前待产记录单
+        'intravenous_sdlj',//产前待产记录单
       ]
     };
   },
