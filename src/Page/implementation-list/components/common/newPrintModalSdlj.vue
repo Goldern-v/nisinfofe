@@ -45,7 +45,11 @@
               {{ `${currentBottle.frequency}${groupNo ? `(${groupNo})`: ''}` }}
             </span>
           </p>
-          <div :class="{'text--large': ['gdtj','sdlj'].includes(HOSPITAL_ID)}">
+          <div v-if="['sdlj'].includes(HOSPITAL_ID)">
+            <p>{{ currentBottle.executeDate.substr(0, 10) }}</p>
+            <p>{{ currentBottle.executeDate.substr(11, 16) }}</p>
+          </div>
+          <div v-else :class="{'text--large': ['gdtj'].includes(HOSPITAL_ID)}">
             <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
           </div>
           <span class="text--large">{{ currentBottle.executeType }}</span>
