@@ -54,6 +54,7 @@
 import common from '@/common/mixin/common.mixin.js'
 import mixin from '../mixins/index.js'
 import {info} from '../api/index-xin.js'
+import BusFactory from "vue-happy-bus";
 import qs from 'qs'
   export default {
     mixins: [common, mixin],
@@ -62,6 +63,7 @@ import qs from 'qs'
         data: {},
         details: {},
         iconLoading: false,
+        bus: BusFactory(this),
       }
     },
     methods: {
@@ -95,6 +97,7 @@ import qs from 'qs'
         inpNo:obj.inpNo
       };
         this.$router.push(`/sheetPage/${obj.patientId}/${obj.visitId}/${obj.inpNo}`)
+        this.bus.$emit('refreshSheetPage', true)
         // window.open(`/crNursing/sheet?${qs.stringify(patientInfo)}`);
         setTimeout(() => { this.$store.commit('upPatientInfo', obj)}, 1000)
         setTimeout(() => { this.$store.commit('upCurrentPatientObj', obj)}, 1000)
