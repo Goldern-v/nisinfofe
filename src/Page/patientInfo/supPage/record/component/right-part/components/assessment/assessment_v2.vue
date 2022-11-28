@@ -560,6 +560,10 @@ export default {
             css = `#app input,#app label,#app td,#app .sign-con{
             }`;
           }
+          if(this.HOSPITAL_ID == 'whsl'){
+            css = `#app input,#app label,#app td,#app .sign-con{
+            }`;
+          }
           if (
             this.HOSPITAL_ID == 'hj' &&
             (this.info.formCode == 'J0010' || this.info.formCode == 'operationInstrumentDressing')
