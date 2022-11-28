@@ -3,7 +3,6 @@ import axios from './axios'
 import qs from 'qs'
 import { apiPath } from './apiConfig'
 function login(loginOBJ) {
-  console.log("...loginOBJ",loginOBJ)
   return axios.post(`${apiPath}login`, qs.stringify({ ...loginOBJ }))
 }
 function hisLogin(loginOBJ) {

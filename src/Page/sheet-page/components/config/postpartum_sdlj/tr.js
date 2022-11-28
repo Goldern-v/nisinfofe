@@ -34,7 +34,7 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date,
+    event: event_date, 
     click: click_date
   },
   {
@@ -50,7 +50,7 @@ export default [
     next: "℃",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 27
+      width: 35
     },
   },
   {
@@ -61,7 +61,7 @@ export default [
     next: "次/分",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -72,7 +72,7 @@ export default [
     next: "次/分",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 30
     },
   },
   {
@@ -333,93 +333,24 @@ export default [
       keyf1(e, td);
     },
   },
-  {
-    key: "sign",
-    value: ""
-  },
-  {
-    key: "sign2",
-    value: ""
-  },
-  // {
-  //   key: "audit",
-  //   value: ""
-  // },
-  {
-    hidden: true,
-    key: "id",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerName2",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "status",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordSource",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordYear",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "dataHash",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordDate",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "monthHour",
-    value: ""
-  },
-  {
-    hidden: false,
-    key: "signerNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "signerNo2",
-    value: ""
-  },
-  {
-    hidden: false,
-    key: "auditorNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "auditorName",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "empNo",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "multiSign",
-    value: true
-  }
+  { key: "sign", value: "" },//单签
+  // { key: "sign2", value: "" },//双签
+  { key: "audit", value: "" },//审核签名
+  { hidden:true, key:'id', value:''},
+  { hidden:true, key:'signerName', value:''},
+  { hidden:true, key:'signerName2', value:''},
+  { hidden:true, key:'status', value:''},
+  { hidden:true, key:'recordSource', value:''},
+  { hidden:true, key:'recordYear', value:''},
+  { hidden:true, key:'dataHash', value:''},
+  { hidden:true, key:'recordDate', value:''},
+  { hidden:true, key:'monthHour', value:''},
+  { hidden:false, key:'signerNo', value:''},//单签
+  { hidden:true, key:'signerNo2', value:''},//双签
+  { hidden:false, key:'auditorNo', value:''},//审核签名
+  { hidden:true, key:'auditorName', value:''},
+  { hidden:true, key:'empNo', value:''},
+  { hidden:true, key:'multiSign', value:''}
 ];
 
 export function getListData() {

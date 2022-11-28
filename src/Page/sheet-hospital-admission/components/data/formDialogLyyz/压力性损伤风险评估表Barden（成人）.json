@@ -731,18 +731,8 @@
         {
           "name": "I005008",
           "type": "checkbox",
-          "title": "H.清洗皮肤",
-          "code": "H",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I005008",
-          "type": "checkbox",
-          "title": "j.执行主/被动肢体运动",
-          "code": "J",
+          "title": "I.执行主/被动肢体运动",
+          "code": "I",
            "style": null,
           "class": null,
           "html": null,
@@ -751,8 +741,8 @@
         {
           "name": "I005008",
           "type": "checkbox",
-          "title": "K.教会正确摆放位置",
-          "code": "K",
+          "title": "J.教会正确摆放位置",
+          "code": "J",
           "style": null,
           "class": null,
           "html": null,
@@ -761,18 +751,18 @@
         {
           "name": "I005008",
           "type": "checkbox",
-          "title": "L.使用敷料（如水体、泡沫等）",
+          "title": "K.使用敷料（如水体、泡沫等）",
+          "code": "k",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I005008",
+          "type": "checkbox",
+          "title": "L.其它",
           "code": "L",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I005008",
-          "type": "checkbox",
-          "title": "M.其它",
-          "code": "M",
           "style": null,
           "class": null,
           "html": null,

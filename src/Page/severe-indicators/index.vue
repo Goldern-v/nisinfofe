@@ -101,6 +101,9 @@ export default {
   },
   methods: {
     async getSummaryList() {
+      if (typeof this.year) {
+        this.year = moment(this.year).format('YYYY')
+      }
       try {
         const params = {
           year: this.year,

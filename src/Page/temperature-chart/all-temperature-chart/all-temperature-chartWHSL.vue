@@ -246,22 +246,48 @@
               />
             </template>
           </el-table-column>
-          <el-table-column
+           <el-table-column
             prop="stoolNum"
             label="大便次数"
-            min-width="70"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
-              <input
-                v-model="scope.row.stoolNum"
-                :class="className"
-                class="stoolNum"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                @click="toRow"
-              />
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                v-if="totalDictInfo['大便次数']"
+                :disabled="
+                  !(
+                    totalDictInfo['大便次数'].options &&
+                    totalDictInfo['大便次数'].options.length > 0
+                  )
+                "
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in totalDictInfo['大便次数'].options"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.stoolNum = option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
+                <input
+                  slot="reference"
+                  v-model="scope.row.stoolNum"
+                  :class="className"
+                  class="stoolNum"
+                  type="text"
+                  @keydown="handleKeyDown"
+                  @keyup="handleKeyUp"
+                  @click="toRow"
+                />
+              </el-popover>
             </template>
           </el-table-column>
           <el-table-column
@@ -740,7 +766,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 <script>
 import common from "@/common/mixin/common.mixin.js";
-import { getPatientsInfo, saveOverAllTemperture } from "../api/api";
+import { getPatientsInfo, saveOverAllTemperture,getmultiDict } from "../api/api";
 import moment from "moment";
 import print from "printing";
 import formatter from "../print-formatter";
@@ -761,6 +787,7 @@ export default {
       //   },
       // },
       nursingList: [],
+      totalDictInfo: {},
       query: {
         wardCode: "", //科室编码
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
@@ -860,6 +887,15 @@ export default {
   },
   mounted() {
     this.query.wardCode = this.deptCode;
+    console.log('this.deptCode',this.deptCode)
+     getmultiDict(this.deptCode).then((res) => {
+      res.data.data.map((item, index) => {
+        this.totalDictInfo[item.vitalSign] = {
+          ...item,
+          options: item.selectType ? item.selectType.split(",") : [],
+        };
+      });
+    });
   },
   created() {},
   methods: {
@@ -938,6 +974,8 @@ export default {
         stoolNum: "",
         fieldThree: "",
         height: "",
+        painScore:"",
+        painDrop:""
       };
       let list = this.tableData.map((item) => {
         let obj = {};
