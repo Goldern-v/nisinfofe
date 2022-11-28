@@ -67,7 +67,7 @@
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
       </span>
       <span>
-        住院号：
+        {{sheetInfo.sheetType=='inandout_weihai' ? '病案号：' : '住院号：'}}
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
       <!-- <span>

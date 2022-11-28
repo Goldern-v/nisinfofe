@@ -203,9 +203,7 @@
                 />
               </div> -->
             </div>
-            <div v-if="['zhzxy'].includes(HOSPITAL_ID)"
-            :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}"
-            flex="cross:center" class="input-item">
+            <div flex="cross:center" class="input-item">
               <span class="label">过敏史:</span>
               <input
                 type="text"
@@ -371,7 +369,7 @@
 }
 
 .input-item {
-  height: 28px;
+  height: 20px;
   padding-right: 12px;
   font-size: 22px;
   font-weight: bold;
@@ -799,9 +797,25 @@ export default {
       }
       this.$nextTick(() => {
         this.post();
-         printing.preview(this.$refs.printCon, {
+        let test = printing.preview
+        test(this.$refs.printCon, {
           injectGlobalCss: true,
           scanStyles: false,
+          css: `
+            @page {
+              margin: 2mm 2mm 2mm 3mm ;
+            }
+            .bed-card-wrapper {
+              box-shadow: none !important;
+              transform:translateX(-7%);
+              transform-origin: 0 0;background: red;
+            }
+            .bed-card-con {
+              transform-origin: 0 0;
+              transform: scale(1.2,1.1);
+              background: red;
+            }
+          `
           // margin: 0 0;
         }).then(() => {
           for(let i=0;i<printCare.length;i++){
