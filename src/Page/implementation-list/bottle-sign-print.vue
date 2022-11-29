@@ -1153,7 +1153,7 @@ export default {
       return hisMatch({
         map: {
           'wujing': 5,
-          'zhzxy': 3,
+          'zhzxy': 4,
           other: 0
         }
       })
