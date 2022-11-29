@@ -560,7 +560,6 @@
             sheetInfo.sheetType == 'ultrasound_fs' ||
             sheetInfo.sheetType == 'generalnursing_tj' ||
             sheetInfo.sheetType == 'magnesiumsulf_fs' ||
-            sheetInfo.sheetType == 'laborobservation_fs' ||
             sheetInfo.sheetType === 'pediatric3_tj'||
             sheetInfo.sheetType === 'prenataldelivery2_tj'||
             sheetInfo.sheetType === 'postpartum2_tj'||
@@ -760,7 +759,6 @@ export default {
         "ultrasound_fs",
         "generalnursing_tj",
         "magnesiumsulf_fs",
-        "laborobservation_fs",
         "pediatric3_tj",
         "prenataldelivery2_tj",
         "postpartum2_tj",
@@ -2575,7 +2573,7 @@ export default {
           let { empNo, empName } = res.data.data;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
           sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs','laborobservation_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','ops_linyi','internal_eval_yz']
+          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','ops_linyi','internal_eval_yz']
           if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
             // 审核时间签名时选择的时间
             sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =

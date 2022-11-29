@@ -1094,7 +1094,7 @@ export default {
         case "925":
           return ["70*80", "3*7"];
         case "zhzxy":
-          return ["7*7", "2*5"];
+          return ["7*7", "2*5", '7*5'];
         // case 'whsl':
         //   return ["7*8", "3*5"];
         case "wujing":
