@@ -56,7 +56,7 @@
           />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem v-else-if="HOSPITAL_ID != 'lyyz'" label="项目：" required>
+      <ElFormItem v-else-if="HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl'" label="项目：" required>
         <ElSelect
           v-if="HOSPITAL_ID != 'huadu' && HOSPITAL_ID != 'quzhou' && HOSPITAL_ID != 'beihairenyi'"
           v-model="form.sugarItem"
@@ -134,7 +134,7 @@
         required
         v-if="
           !['zhzxy','gy','huadu','liaocheng','hengli',
-          'guizhou','sdlj','whfk','foshanrenyi', 'lyyz', 'ytll'].includes(HOSPITAL_ID)
+          'guizhou','sdlj','whfk','foshanrenyi', 'lyyz', 'ytll','whsl'].includes(HOSPITAL_ID)
         "
       >
         <ElInput v-model="form.riValue" />

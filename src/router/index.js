@@ -77,6 +77,8 @@ const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
 const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
 const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
+const shiftWorkWhsl = () => import("@/Page/shift-work-whsl/shift-work.vue");
+const shiftWorkDetailWhsl = () => import("@/Page/shift-work-whsl/shift-work-detail.vue");
 const shiftWorkFq = () => import("@/Page/shift-work-fq/shift-work.vue");
 const shiftWorkDetailFq = () => import("@/Page/shift-work-fq/shift-work-detail.vue");
 const shiftWorkWujing = () => import("@/Page/shift-work-wujing/shift-work.vue");
@@ -815,6 +817,8 @@ const router = new Router({
               return shiftWorkWujing
             case 'whfk':
               return shiftWorkWhfk
+            case 'whsl':
+              return shiftWorkWhsl
             case 'nanfangzhongxiyi':
               return shiftWorkNFZXY
             default:
@@ -852,6 +856,8 @@ const router = new Router({
                 return shiftWorkDetailWujing
               case 'whfk':
                 return shiftWorkDetailWhfk
+              case 'whsl':
+                return shiftWorkDetailWhsl
               default:
                 return shiftWorkDetail
             }
