@@ -671,8 +671,8 @@ export default {
             css = `
               .bed-card-wrapper {
                 box-shadow: none !important;
-                transform: rotate(90deg) translateY(-120%) translateX(25%) scale(.8);
-                // transform: scale(.8);
+                width:560px!important;
+                transform: rotate(90deg) translateY(-110%) translateX(5%) scale(0.6);
                 transform-origin: 0 0;
               }
             `;
