@@ -107,7 +107,7 @@
       <span v-show="birthdayList.includes(sheetInfo.sheetType)">
         出生日期：
         <div class="bottom-line" style="min-width: 100px" >
-          {{ patientInfo.birthday }}
+          {{ patientInfo.relObj.detailBirthday ? patientInfo.relObj.detailBirthday : '' }}
         </div>
       </span>
       <span>
@@ -176,7 +176,7 @@
 
 <script>
 import moment from "moment";
-import { updateSheetHeadInfo,getDeliveryInfo } from "../../../../api/index";
+import { updateSheetHeadInfo,getDeliveryInfo ,detailData} from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
@@ -274,6 +274,12 @@ export default {
   components: {
     bedRecordModal,
   },
+  created(){
+    if(!this.patientInfo.relObj.detailBirthday && this.birthdayList.includes(this.sheetInfo.sheetType))
+      detailData(this.patientInfo.patientId).then(res=>{
+       this.$set(this.patientInfo.relObj,'detailBirthday',res.data.data.birthday)
+      })
+    }
 };
 </script>
 

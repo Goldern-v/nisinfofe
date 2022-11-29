@@ -54,6 +54,7 @@
 import common from '@/common/mixin/common.mixin.js'
 import mixin from '../mixins/index.js'
 import {info} from '../api/index-xin.js'
+import sheetInfo from "../../sheet-page/components/config/sheetInfo";
 import qs from 'qs'
   export default {
     mixins: [common, mixin],
@@ -79,9 +80,12 @@ import qs from 'qs'
         this.$refs.modal.close()
       },
       post() {
+        const {blockId,recordId,recordDate,formCode} = this.data
         let obj = {
-          blockId: this.data.blockId,
-          recordId: this.data.recordId,
+          blockId,
+          recordId,
+          recordDate,
+          formCode,
         }
         let item = this.details
         for(let i in item) {
@@ -89,15 +93,11 @@ import qs from 'qs'
             obj[i] = item[i]
           }
         }
-        const patientInfo = {
-        patientId: obj.patientId,
-        visitId: obj.visitId,
-        inpNo:obj.inpNo
-      };
-        this.$router.push(`/sheetPage/${obj.patientId}/${obj.visitId}/${obj.inpNo}`)
-        // window.open(`/crNursing/sheet?${qs.stringify(patientInfo)}`);
-        setTimeout(() => { this.$store.commit('upPatientInfo', obj)}, 1000)
-        setTimeout(() => { this.$store.commit('upCurrentPatientObj', obj)}, 1000)
+        //定位需要用到的数据 传值给sheetInfo对象
+        this.$store.commit('upCurrentPatientObj', obj)
+        this.$store.commit('upPatientInfo', obj)
+        sheetInfo.findBlockContext = { blockId, recordId, recordDate, formCode}
+        this.$router.push({ name: 'sheetPage' })
         this.close()
       }
     },

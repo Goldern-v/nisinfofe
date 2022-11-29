@@ -29,7 +29,7 @@ export default {
                 {"name":"喂养","colspan":"3","rowspan":"1"},
                 {"name":"脐部情况","colspan":"3","rowspan":"1"},
                 {"name":"SpO2<br/>%","colspan":"1","rowspan":"3"},
-                {"name":"皮肤颜色","colspan":"1","rowspan":"3"},
+                {"name":"皮肤颜色","colspan":"1","rowspan":"3","canSet":true,"key":"skinColor"},
                 {"name":"皮肤弹性","colspan":"1","rowspan":"3","canSet":true,"key":"customItem1"},
                 {"name":"皮疹位置","colspan":"1","rowspan":"3","canSet":true,"key":"customItem2"},
                 {"name":"电子血糖mmol/L","colspan":"1","rowspan":"3","canSet":true,"key":"customItem3"},

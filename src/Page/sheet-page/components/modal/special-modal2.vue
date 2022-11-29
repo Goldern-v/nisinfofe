@@ -68,11 +68,11 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
-          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925','zhzxy','whsl'].includes(HOSPITAL_ID)">
+          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925','zhzxy'].includes(HOSPITAL_ID)">
             <el-button
               type="primary"
               size="mini"
-              v-if="!['zhzxy','whsl'].includes(HOSPITAL_ID)"
+              v-if="!['zhzxy'].includes(HOSPITAL_ID)"
               @click="emitFn('openEvalModel')"
             >
               评估同步
@@ -1393,7 +1393,10 @@ export default {
       }, 300);
       let record = config.record;
       this.record = record;
-      this.isLast = config.isLast;
+      /**以前isLast是判断是否是最后一条 时间久了功能好像更改了
+       * 现在每次保存都必须传true更新页码 所以改为true
+      */
+      this.isLast = true
       // 判断是否能编辑
       let tr = record[record.length - 1];
       this.tr = tr || [];
@@ -2212,7 +2215,6 @@ export default {
           if (i == 0) {
             //合并数据
             mergeTr(this.record[0], this.staticObj, this.fixedList);
-            console.log(this.staticObj,this.record[0],999999)
           }
           if (this.record[i]) {
             this.record[i].find((item) => item.key == "food").value =

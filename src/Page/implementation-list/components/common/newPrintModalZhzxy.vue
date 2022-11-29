@@ -1,10 +1,10 @@
 <template>
   <div
-    v-if="['70*80', '7*7'].includes(newModalSize)"
+    v-if="['70*80', '7*7', '7*5'].includes(newModalSize)"
     class="new-print-modal new-print-modal--large"
     :style="sizeStyle"
   >
-    <div class="new-print-modal__title">
+    <div class="new-print-modal__title" :class="{size3: isSize3}">
       <span>{{ currentBottle.printFlag ? "补" : "" }}</span>
       <span class="center">{{ hospitalName }}</span>
       <span>{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="new-print-modal__content">
+    <div class="new-print-modal__content" :class="{size3: isSize3}">
       <div v-for="(item, index) in currentBottle.orderText" :key="index">
         {{ item }}
         <span>{{ currentBottle.dosageDosageUnits[index] }}</span>
@@ -100,9 +100,6 @@
 </template>
 // 临邑浏览器版本有部分为谷歌49，需要考虑兼容
 <style lang="scss" scoped>
-.p-lr {
-  padding: 0 8px;
-}
 .bb {
   border-bottom: 1px solid #000;
 }
@@ -119,7 +116,7 @@
     height: 100%;
     font-size: 14px;
     line-height: 18px;
-    @extend .p-lr;
+    padding: 0 5px;
     box-sizing: border-box;
   }
   .new-print-modal__title {
@@ -128,8 +125,11 @@
     min-height: 20px;
     width: 100%;
     font-size: 18px;
-    margin: 2px 0 4px;
+    margin: 2px 0 2px;
     flex-shrink: 0;
+    &.size3 {
+      font-size: 14px;
+    }
   }
 
   .new-print-modal__second {
@@ -179,12 +179,19 @@
   }
   .new-print-modal__content {
     flex: 1;
+    &.size3 {
+      div {
+        line-height: 16px;
+      }
+    }
     div {
       display: flex;
       justify-content: space-between;
-      padding: 0px 4px;
       line-height: 20px;
       text-align: left;
+    }
+    span {
+      white-space: nowrap;
     }
   }
   .new-print-modal__tip {
@@ -235,12 +242,6 @@
     height: 100%;
     box-sizing: border-box;
     font-weight: 500;
-    /* padding-left: 8px; */
-    /* page-break-after: always; */
-
-    /* position: absolute; */
-    /* transform: scale(0.5);
-    transform-origin: 0 0 0; */
     div,
     p,
     span {
@@ -254,12 +255,8 @@
     box-sizing: border-box;
     .new-modal-small-top__left {
       display: inline-block;
-      width: calc(100% - 80px);
+      width: calc(100% - 85px);
       overflow: hidden;
-      /* div {
-        flex: 62%;
-        height: 22px;
-      }*/
       .flex:first-child {
         line-height: 25px;
         height: 30px;
@@ -373,7 +370,6 @@ export default {
     hospitalName() {
       return this.HOSPITAL_NAME;
     },
-
     // 医生说明
     freqDetail() {
       return (
@@ -385,10 +381,15 @@ export default {
       switch (this.newModalSize) {
         case "2*5":
           return { width: "100mm", height: "39mm" };
+        case "7*5":
+          return { width: "50mm", height: "69mm" };
         default:
           // case '7*7':
           return { width: "70mm", height: "69mm" };
       }
+    },
+    isSize3() {
+      return this.newModalSize === '7*5'
     }
   },
   filters: {
