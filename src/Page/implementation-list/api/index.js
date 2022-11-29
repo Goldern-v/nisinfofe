@@ -29,6 +29,9 @@ switch (HOSPITAL_ID) {
   case "beihairenyi":
     hospitalExecute = "hisBeiHaiExecute";
     break;
+    case "whsl":
+    hospitalExecute = "hisWeiHaiShiLiExecute";
+    break;
 }
 // 获取执行单
 export function getExecuteWithWardcode(obj) {
