@@ -705,7 +705,7 @@ export default {
       //结束的页码
       this.updateSheetPageInfo(pageArea)
     },
-    undateCallBack(startPage,endPage,addPageLength){
+    updateCallBack(startPage,endPage,addPageLength){
       const sheetStartPage = this.sheetInfo.sheetStartPage
       let maxPage = {
         'wujing': 30,
@@ -754,12 +754,12 @@ export default {
           }).then(() => {
             this.pageArea = pageArea
             //如果切页 就清空新增页码的数组
-            this.undateCallBack(startPage,endPage,addPageLength)
+            this.updateCallBack(startPage,endPage,addPageLength)
 
           })
         } else {
           this.pageArea = pageArea
-          this.undateCallBack(startPage,endPage)
+          this.updateCallBack(startPage,endPage)
           //刷新界面的方法里面 如果首页传参this.sheetInfo.findBlockContext.recordId 就调用这个方法
           this.positionPageFromHome()
         }
@@ -925,7 +925,9 @@ export default {
         if (this.sheetInfo.findBlockContext && this.sheetInfo.findBlockContext.recordId) {
           await this.getPageIndexByTime()
         } else {
-          this.pageArea = this.selectList[this.selectList.length - 1].value || "";
+          const pageSelectListValue = this.selectList[this.selectList.length - 1].value || "";
+          this.pageArea = pageSelectListValue
+          this.pageInfoObj.pageArea = pageSelectListValue
         }
         !isAddPageFlag && this.updateSheetPageInfo(this.pageArea)
       } catch (error) { }
