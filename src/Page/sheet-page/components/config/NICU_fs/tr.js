@@ -1,6 +1,6 @@
 
-/** 
-  佛山市一 - 护理记录单(上肢骨折术后)
+/**
+  佛山市一 - 新生儿NICU护理记录单
 */
 
 /**
@@ -35,7 +35,7 @@ export default [
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time,  click: click_time, value: ''},
   { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygenBlood', event: keyf1, value: '', next: '%', name: '血氧饱和度',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'customValue1', event: keyf1, value: '',textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 6) , },
@@ -68,7 +68,7 @@ export default [
   { key: 'customValue7', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["S","RL","LL", "P"]} },
   { key: 'customValue8', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
   { key: 'customValue9', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
-  
+
   // { key: 'needle', event: keyf1, value: '', next: '', name: '留置针部位', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["头部","左手","右手", "左足","右足", "拔针","正常"]}  },
   // { key: 'infusion', event: keyf1, value: '', next: '', name: '输液', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["开始","暂停","结束", "未完"]}  },
   // { key: 'Phototherapy', event: keyf1, value: '', next: '', name: '光疗', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["开始","暂停","结束", "∨"]}  },
@@ -99,5 +99,5 @@ export default [
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''}
-  
+
 ]
