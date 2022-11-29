@@ -107,7 +107,6 @@ export default {
       active:'', // 顶部按钮激活状态(聊城)
       sheetInfo,
       isCounting:false, //计算的时候做节流,
-      sheetPageScrollValue:0
     };
   },
   methods: {
@@ -130,9 +129,6 @@ export default {
       this.date = timeObject[type]
     },
     open() {
-      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
-      this.sheetPageScrollValue = localStorage.getItem('sheetPageScrollValue')
-      }
       this.active = ''
       this.$refs.modal.open();
       this.description = "";
@@ -186,8 +182,8 @@ export default {
           this.description,
           type
         ).then(res => {
-          this.bus.$emit("refreshSheetPage");
-            this.bus.$emit("scrollCurrentPage",false,this.sheetPageScrollValue);
+        //  涉及到数据增加或者修改的，就要初始化页码重新计算获取新值
+          this.bus.$emit("initSheetPageSize");
           this.$message({
             showClose: true,
             message: "计算成功",

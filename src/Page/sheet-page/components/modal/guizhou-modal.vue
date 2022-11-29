@@ -205,7 +205,8 @@ export default {
           this.resultList,
           this.resultList2
         ).then((res) => {
-          this.bus.$emit("refreshSheetPage");
+          // this.bus.$emit("refreshSheetPage");
+          this.bus.$emit("initSheetPageSize");
           this.$message({
             showClose: true,
             message: "保存成功",
@@ -238,11 +239,6 @@ export default {
         startTime,
         endTime
       ).then((res) => {
-        // if (res.data.data.desc) {
-        //   this.description = this.description + res.data.data.desc;
-        // } else {
-        //   this.$message.warning("分类合计为空");
-        // }
         this.inShows = res.data.data.inShows;
         this.outShows = res.data.data.outShows;
         this.resultList = Object.keys(this.inShows)

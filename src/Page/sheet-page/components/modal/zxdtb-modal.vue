@@ -493,7 +493,9 @@ export default {
       saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
         this.$message.success("保存成功");
         this.close();
-        this.bus.$emit("refreshSheetPage");
+         //涉及到数据保存更改的 ，就调取initSheetPageSize初始化页码 然后重新拿值
+         this.bus.$emit("initSheetPageSize");
+        // this.bus.$emit("refreshSheetPage");
       });
       this.bus.$emit("refreshSheetPageOne", this.multipleSelection);
     },

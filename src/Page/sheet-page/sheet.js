@@ -8,12 +8,14 @@ import {
   findListByBlockId
 } from "@/api/sheet.js";
 import Mark from "./components/render/Mark";
-
 let autoTitleDataDisk = [];
 //护记需要转换数据格式
 let sheetData = []
 let listData=[]
-
+let startPage = 0
+let endPage = 0
+let sheetStartPage = 0
+let addPage = []
 // 为了添加新页的时候把上一页的自定义标题（或者下拉选择拷贝到新添加页）
 // let autoOptions_next = []
 // let titleList_next = []
@@ -21,13 +23,15 @@ let listData=[]
  * 自定义标题数据缓存数据
  * @param {*} param0
  * autoOptionsData: 自定义选项
+ * index 为页码
  * @returns
  */
 let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = '', autoOptionsData = []}) {
   return {
     titleModel: Title(titleData, autoTitleData, index),
     bodyModel: Body(bodyData, index, autoOptionsData),
-    // fromAddPage
+    index,
+    blockId:sheetInfo.selectBlock.id
   };
 };
 let data = [];
@@ -42,13 +46,16 @@ export async function addSheetPage(callback) {
       pageIndex: data.length,
       recordCode: sheetInfo.sheetType,
     };
+    //自定义标题分页 需要传页码的开始页码和结束页码  减去护记的起始页码
     // await saveTitleOptions(params)
     await addNewPageTitleOptions(params)
-    let http = await findListByBlockId()
+    let http = await findListByBlockId( + startPage - sheetStartPage, + endPage - sheetStartPage)
     if (http.data.code === '200') {
-      Options = http.data.data.Options.filter(v => v.pageIndex === data.length)
-      FieldTitle = http.data.data.FieldSetting.filter(v => v.pageIndex === data.length)
-      // autoOptions_next = Options
+      Options = http.data.data.Options.filter(v => v.pageIndex === + endPage - sheetStartPage)
+      FieldTitle = http.data.data.FieldSetting.filter(v => v.pageIndex === (+ endPage - sheetStartPage))
+      FieldTitle.map((Fieldlist)=>{
+        Fieldlist.pageIndex  = Fieldlist.pageIndex +1
+      })
     }
   }
   data.push(
@@ -56,16 +63,20 @@ export async function addSheetPage(callback) {
       {
         titleData: [],
         autoTitleData: ['foshanrenyi','fsxt', 'gdtj'].includes(process.env.HOSPITAL_ID) ? FieldTitle : autoTitleDataDisk.map(item => {
-          item.pageIndex = data.length;
+          item.pageIndex =  item.pageIndex + 1;
           return item;
         }),
         bodyData: [],
-        index: data.length,
+        index:+ endPage + 1 - sheetStartPage,
         autoOptionsData: Options,
         // fromAddPage: true
       }
     )
   );
+  //每次拿页码，新增后，页码 +1
+  endPage = + endPage + 1
+  addPage.push(endPage)
+  sheetInfo.addPage = addPage
   callback && callback();
 }
 
@@ -80,6 +91,12 @@ export function delSheetPage(index, callback) {
     autoTitleDataDisk = [];
     sheetData = [];
     listData = [];
+    startPage = 0
+    endPage = 0
+    sheetStartPage = 0
+    addPage = []
+    //保存添加新页码的数组 ，初始化清空
+    sheetInfo.addPage = []
   }
   let isFirst = function(tr, x, y, bodyModel) {
     let recordDate = tr.find(item => item.key == "recordDate").value;
@@ -128,7 +145,7 @@ export function delSheetPage(index, callback) {
     ) {
       // 当审核完，status=2&&canModify=false,
       return true;
-    }   
+    }
   };
   // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
   let isDisabed = function(tr, td, x, y, bodyModel, nowX, sheetType) {
@@ -165,7 +182,7 @@ export function delSheetPage(index, callback) {
       }
     }
     // 佛医护记单除特殊情况以及同一记录的第一条其余填写保存后锁定
-    if (process.env.HOSPITAL_ID === "foshanrenyi") { 
+    if (process.env.HOSPITAL_ID === "foshanrenyi") {
       // 如果审核完，canModify = false 全部禁用
       if (
         listData[nowX] &&
@@ -305,6 +322,9 @@ export function delSheetPage(index, callback) {
     }
 export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
   cleanData();
+  startPage = sheetInfo.startPage
+  endPage = sheetInfo.endPage
+  sheetStartPage = sheetInfo.sheetStartPage
   let titleList = [];
   let bodyList = [];
   let customOptions = []
@@ -317,6 +337,7 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
     } else {
       titleList = titleData.list;
     }
+    //bodyList是后端传回来的接口数据
     bodyList = bodyData.list.map((item, index, arr) => {
       /** 上一条的年份 */
       let prevYear = arr[index - 1] && arr[index - 1].recordYear;
@@ -330,6 +351,11 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
   autoTitleDataDisk = titleList.filter(item => {
     return true;
   });
+  let startSize = Math.min(
+    ...bodyList.map(item => {
+      return item.pageIndex || 0;
+    })
+  );
   let realSize = Math.max(
     ...bodyList.map(item => {
       return item.pageIndex || 0;
@@ -346,7 +372,7 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
   }
 
   sheetInfo.auditorMap = Object.assign({}, bodyData.auditorMap);
-  for (let i = 0; i <= realSize; i++) {
+  for (let i = startSize; i <= realSize; i++) {
     data.push(
       Page({
         titleData: titleList.filter(item => {
@@ -356,7 +382,7 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
         bodyData: bodyList.filter(item => {
           return item.pageIndex == i;
         }),
-        index: i,
+        index:i,
         autoOptionsData: customOptions.filter(v => v.pageIndex == i)
       })
     );
@@ -378,9 +404,10 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
   let forMatData = () => {
       sheetData = data.map((item, index, arr) => {
         let obj = {
-          index,
+          index:item.index,
           data: item,
-          length: arr.length
+          length: arr.length,
+          blockId:item.blockId
         };
         return obj;
       });

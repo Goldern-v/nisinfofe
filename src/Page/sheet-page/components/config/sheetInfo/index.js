@@ -19,5 +19,6 @@
   /** 护记额外信息 */
   bedList: [], //病人列表
   auditorMap: {}, //审核人签名
+  findBlockContext:{}//首页护记定位信息
 };
 export default data

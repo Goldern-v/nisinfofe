@@ -18,7 +18,7 @@ export default {
       startPageIndex:1,
       endPageIndex:1
 
-    }
+    },
   },
   mutations: {
     upPatientInfo(state, val) {

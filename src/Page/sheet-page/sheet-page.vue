@@ -48,7 +48,7 @@
 
           @scroll="(e) => onScroll(e)"
         >
-          <div ref="sheetTableContain" v-if="done">
+          <div ref="sheetTableContain">
             <component
               v-bind:is="sheetTable"
               v-for="(item, index) in filterSheetModel"
@@ -270,7 +270,7 @@ import { patients } from "@/api/lesion";
 import decode from "./components/render/decode.js";
 import {
   saveBody,
-  showBody,
+  showBodyByPage,
   showTitle,
   delPage,
   markList,
@@ -296,7 +296,7 @@ import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test
 import syncExamAmountModal from "@/Page/sheet-page/components/modal/async-exam-amount-modal";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "./components/utils/relObj";
-import { sheetScrollBotton } from "./components/utils/scrollBottom";
+import { sheetScrollBottom } from "./components/utils/scrollBottom";
 import { blockSave, getNurseExchageInfo } from "./api/index";
 import {GetUserList,verifyNewCaSign} from '../../api/caCardApi'
 //解锁
@@ -312,7 +312,6 @@ export default {
       patientListLoading: false,
       pageLoading: false,
       tableLoading: false,
-      done:false,//控制表单加载的开关 等数据完成后打开  加载数据
       bus: bus(this),
       sheetModelData:[],
       sheetInfo,
@@ -347,6 +346,10 @@ export default {
         return this.wih - 104 + "px";
       }
     },
+    findBlockContextModal(){
+      //判断是否是从主页通过任务提醒进来的模式
+      return this.sheetInfo.findBlockContext.recordId
+    },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
@@ -357,24 +360,7 @@ export default {
       return this.$store.state.sheet.openSheetLeft;
     },
     filterSheetModel() {
-      // 根据页码处理后的页面
-      let showSheetPage = (i) => {
-        let startPage = this.sheetInfo.startPage;
-        let endPage = this.sheetInfo.endPage;
-        let index = i + this.sheetInfo.sheetStartPage;
-        if (startPage && endPage) {
-          if (index >= Number(startPage) && index <= Number(endPage)) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      };
-      let resultModel =this.sheetModelData.filter((item,index) => {
-        return showSheetPage(index)
-      });
+      let resultModel =this.sheetModelData
       return resultModel;
     },
     sheetTable() {
@@ -469,60 +455,32 @@ export default {
     },
     /**把计算页面滚动的复制出来方便其他模块调用*/
     /**这里如果调用  就回到当前修改的页码*/
-    /**isInitSheetPageSize 是否初始化页码计算，添加数据删除数据都要传true*/
     /**scrollValue页码定位的值，保存直接拿refscrollCon的scrollTop，其他需要传值进来(有些操作 在获取数据后页码生成滚动定位之前，所以用入参的方式)*/
-    scrollFun(isInitSheetPageSize,scrollValue){
-      isInitSheetPageSize &&
-                  setTimeout(() => {
-                    this.bus.$emit("initSheetPageSize");
-                  }, 100);
-                this.$nextTick(() => {
-                  //不传入参滚动值 默认选择refscrollCon的scrollTop
-                  this.$refs.scrollCon.scrollTop = scrollValue?scrollValue:this.scrollTop;
-                  $(".red-border").removeClass("red-border");
-                });
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 100);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 200);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 300);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 400);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                }, 500);
-                $(".red-border").removeClass("red-border");
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 600);
-                setTimeout(() => {
-                  if (this.$refs.scrollCon.scrollTop == 0) {
-                    this.$refs.scrollCon.scrollTop = this.scrollTop;
-                  }
-                  $(".red-border").removeClass("red-border");
-                }, 1000);
+    scrollFun(scrollValue){
+      this.$nextTick(() => {
+        //不传入参滚动值 默认选择refscrollCon的scrollTop
+        this.$refs.scrollCon.scrollTop = scrollValue;
+        $(".red-border").removeClass("red-border");
+        setTimeout(() => {
+          if (this.$refs.scrollCon.scrollTop == 0) {
+            this.$refs.scrollCon.scrollTop = this.scrollTop;
+          }
+          $(".red-border").removeClass("red-border");
+        }, 200);
+        setTimeout(() => {
+          if (this.$refs.scrollCon.scrollTop == 0) {
+            this.$refs.scrollCon.scrollTop = this.scrollTop;
+          }
+          $(".red-border").removeClass("red-border");
+        }, 400);
+        setTimeout(() => {
+          if (this.$refs.scrollCon.scrollTop == 0) {
+            this.$refs.scrollCon.scrollTop = this.scrollTop;
+          }
+          $(".red-border").removeClass("red-border");
+        }, 600);
+      });
+
     },
     getDate() {
       if (this.deptCode) {
@@ -532,9 +490,9 @@ export default {
             return item.patientId;
           });
 
-          sheetInfo.bedList = this.data.bedList;
+          this.sheetInfo.bedList = this.data.bedList;
           this.patientListLoading = false;
-          sheetInfo.isSave = true;
+          this.sheetInfo.isSave = true;
         });
 
       }
@@ -551,11 +509,6 @@ export default {
           this.HOSPITAL_ID === "wujing") &&
         this.$route.path.includes("singleTemperatureChart")
       ) {
-        // let recordCode = "body_temperature_Hd";
-        // let recordCode =
-        //   this.HOSPITAL_ID === "huadu" || HOSPITAL_ID === "wujing"
-        //     ? "body_temperature_Hd"
-        //     : "body_temperature_lcey";
         let recordCode = (() => {
           switch (this.HOSPITAL_ID) {
             case "huadu":
@@ -585,33 +538,28 @@ export default {
         this.bus.$emit("openNewSheetModal");
       }
     },
-    getSheetData(isBottom) {
-      //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
-      this.done=false
-      // this.tableLoading = true;
+    getSheetData() {
+      const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
+      this.tableLoading = true;
       if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
         this.isLoad=false
       }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
         this.tableLoading = false;
-        setTimeout(() => {
-          sheetInfo.isSave = true;
-        }, 300);
         return;
       }
-
       $(".red-border").removeClass("red-border");
       //  cleanData()
       let fnArr = [
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
-        showBody(this.patientInfo.patientId, this.patientInfo.visitId),
+        showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
       ]
       // 佛山市一 获取自定义标题数据
       if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
         fnArr.shift()
-        fnArr.unshift(findListByBlockId())
+        fnArr.unshift(findListByBlockId(startPageIndex,endPageIndex))
       }
       return Promise.all(fnArr).then((res) => {
         if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
@@ -640,7 +588,6 @@ export default {
         }
 
         let bodyData = res[1].data.data;
-        console.log(`界面初始化完成,前端获取接口数据========>>>>>>护记数据:`,bodyData&&bodyData.list)
         this.$store.commit('upMasterInfo',bodyData)
         if(this.HOSPITAL_ID=='wujing'){
           let barcodeArr = {}
@@ -678,28 +625,34 @@ export default {
         await initSheetPage(titleData, bodyData, markData, this.listData);
       //加载表单
         this.sheetModelData= getData()
-          this.done=true
-          this.tableLoading = false;
           if ((!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) && ["guizhou", '925'].includes(this.HOSPITAL_ID)) {
             return
           }
-          this.getHomePage(isBottom);
-          let timeNum = 5;
+          let timeNum = 10;
+          //页面初始化之后 从本地localStorage拿值 如果是有值 就滚动到当前值回到当前操作页面  如果没有 就滚动到底部
+          this.tableLoading = false;
           function toBottom() {
             timeNum--;
-            setTimeout(() => {
-              this.sheetInfo.isSave = true;
-              if (
-                isBottom &&
-                this.$refs.scrollCon.scrollHeight >
-                this.$refs.scrollCon.offsetHeight
-              ) {
-                sheetScrollBotton.call(this, 0);
-                timeNum > 0 && toBottom.call(this);
-              } else {
-                timeNum > 0 && toBottom.call(this);
-              }
-            }, 200);
+            this.$nextTick(()=>{
+              setTimeout(() => {
+              //初始化护记数据都设置保存状态为已经保存，放这里运行是借用多次执行判断护记加载完成再设置
+                this.sheetInfo.isSave = true;
+                const sheetPageScrollValue = localStorage.getItem('sheetPageScrollValue')
+                const isBottom = sheetPageScrollValue !== "null" ? false : true
+                if (
+                  this.$refs.scrollCon.scrollHeight >
+                  this.$refs.scrollCon.offsetHeight
+                ) {
+                  if (isBottom) {
+                    sheetScrollBottom.call(this, 0);
+                    timeNum > 0 && toBottom.call(this);
+                    localStorage.setItem('sheetPageScrollValue', null)
+                  } else {
+                    this.scrollFun(sheetPageScrollValue)
+                  }
+                }
+              }, 300);
+            })
           }
           this.$nextTick(() => {
             if (!this.patientInfo.recordId) {
@@ -708,18 +661,18 @@ export default {
           });
         });
       }).catch((err) => {
-              if (err.data.code == '300') {
-                this.pageLoading = false;
-              }
+        this.pageLoading = false;
             });;
     },
     breforeQuit(next) {
       if (
-        !sheetInfo.isSave &&
-        !this.$route.path.includes("singleTemperatureChart")
+        this.sheetInfo.selectBlock.id &&
+        !this.sheetInfo.isSave &&
+        !this.$route.path.includes("singleTemperatureChart")&&
+        !this.findBlockContextModal
       ) {
         window.app
-          .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
+          .$confirm("请确认记录单已保存，如未保存离开将会丢失数据", "提示", {
             confirmButtonText: "离开",
             cancelButtonText: "取消",
             type: "warning",
@@ -738,7 +691,7 @@ export default {
             (res.data.data && res.data.data.indexNo) || 1;
           this.sheetInfo.sheetMaxPage =
             (res.data.data && res.data.data.maxIndexNo) || 1;
-          isFirst && this.bus.$emit("initSheetPageSize");
+          isFirst && this.bus.$emit("initSheetPageSize",true);
         }
       );
     },
@@ -747,7 +700,7 @@ export default {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
         this.scrollX = parseInt(e.target.scrollLeft)
-        localStorage.setItem('sheetPageScrollValue',e.target.scrollTop)
+        localStorage.setItem('sheetPageScrollValue',e.target.scrollTop>0?e.target.scrollTop:null)
       }
     },
     isSelectPatient(item) {
@@ -791,6 +744,17 @@ export default {
         } else {
           map[`${key}`] = newArr[i].recordDate
         }
+      }
+      return newArr
+    },
+    deduplicationByKey(arr,item){
+      const newArr = []
+      let map = {}
+      for (let i = 0; i < arr.length; i++) {
+        if (!map[arr[i][item]]) {
+          newArr.push(arr[i]);
+            map[arr[i][item]] = true;
+        };
       }
       return newArr
     },
@@ -930,7 +894,7 @@ export default {
               //提示后获取数据
               this.getSheetData().then((res) => {
                 this.pageLoading = false;
-                this.scrollFun(true, this.scrollTop)
+                this.scrollFun(this.scrollTop)
               })
             } else {
               //如果不是责任护士  只负责单签 签名责任护士
@@ -947,7 +911,7 @@ export default {
                 }
                 this.getSheetData().then((res) => {
                   this.pageLoading = false;
-                  this.scrollFun(true, this.scrollTop)
+                  this.scrollFun(this.scrollTop)
                 });
               }).catch((err) => {
                 this.pageLoading = false;
@@ -960,7 +924,7 @@ export default {
         }else{
           this.getSheetData().then((res) => {
               this.pageLoading = false;
-                this.scrollFun(true,this.scrollTop)
+                this.scrollFun(this.scrollTop)
               });
         }
 
@@ -1003,13 +967,11 @@ export default {
         });
       }
       addSheetPage(() => {
+        this.bus.$emit("initSheetPageSize",true);
+        this.sheetModelData = getData()
         this.$nextTick(() => {
-          this.bus.$emit("initSheetPageSize");
-         /**添加页码重新赋值*/
-         this.sheetModelData=getData()
-          this.$nextTick(() => {
-            sheetScrollBotton.call(this);
-          });
+          /**添加页码重新赋值*/
+            sheetScrollBottom.call(this);
         });
 
       });
@@ -1033,10 +995,10 @@ export default {
       });
     });
     //eventBug监听，页码定位跳转的值和是否初始化
-    this.bus.$on("scrollCurrentPage", (isInitSheetPageSize,sheetPageScrollValue) => {
+    this.bus.$on("scrollCurrentPage", (sheetPageScrollValue) => {
       let timer = setInterval(()=>{
-        if(this.done&&sheetPageScrollValue){
-      this.scrollFun(isInitSheetPageSize,sheetPageScrollValue)
+        if(sheetPageScrollValue){
+      this.scrollFun(sheetPageScrollValue)
           clearInterval(timer)
         }
       },200)
@@ -1062,19 +1024,21 @@ export default {
           this.pageLoading = true;
           this.scrollTop = this.$refs.scrollCon.scrollTop;
           const ayncVisitedDataList = decode(ayncVisitedData).list||[]
-          // console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
+          console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
           if(this.HOSPITAL_ID == 'wujing'){
             let trueRecordTimes = []
-            ayncVisitedDataList.map(item=>{
+            //因为相同记录跨页日期时间会一样，这时候去判断记录会判断为同一条记录 ，所以要先根据记录日期去重
+            const soleRecordList = this.deduplicationByKey(ayncVisitedDataList,'recordDate')
+            soleRecordList.map(item=>{
               if(item.recordMonth!=='' && item.recordHour!==''){
-                trueRecordTimes.push(item.recordMonth+item.recordHour)
+                trueRecordTimes.push(`${item.recordMonth} ${item.recordHour}`)
               }
             })
             let newLen = new Set(trueRecordTimes).size
             if(trueRecordTimes.length>newLen){
               this.$notify.warning({
                 title: "提示",
-                message: "当前时间已有记录，请检查并调整时间",
+                message: "当前时间已存在记录，请检查并调整时间",
               });
               this.pageLoading = false;
               return false
@@ -1089,7 +1053,7 @@ export default {
                 // if (['foshanrenyi'].includes(this.HOSPITAL_ID) && this.foshanshiyiIFca && ayncVisitedDataList.length) {
                 //   //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
                 //   console.log(`开始执行签名接口==============>>>>>>Ca状态${this.foshanshiyiIFca}`)
-                //   showBody(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
+                //   showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
                 //     let resList = saveRes.data.data.list.map((item) => {
                 //       item.recordMonth = moment(item.recordDate).format('MM-DD')
                 //       item.recordHour = moment(item.recordDate).format('HH:mm')
@@ -1101,7 +1065,7 @@ export default {
                 //       return item
                 //     })
                 //     console.log(`后台返回的签名数据==============>>>>>>数据:`,resList)
-                //   console.log(`前端拿到的修改数据============>>>>>>数据:`,editList)
+                //     console.log(`前端拿到的修改数据============>>>>>>数据:`,editList)
                 //     if (editList.length) {
                 //       this.saveAndSign(editList, resList)
                 //     } else {
@@ -1129,24 +1093,25 @@ export default {
                 //     duration: 1000,
                 //   });
                 // }
-              //除了佛一的医院  正常获取数据
-                this.getSheetData().then((res) => {
+                //除了佛一的医院  正常获取数据
+                // console.log('保存',isInitSheetPageSize)
+                this.bus.$emit('initSheetPageSize')
+                this.$nextTick(()=>{
                   this.pageLoading = false;
-                  this.scrollFun(isInitSheetPageSize, this.scrollTop)
-                });
-                this.$notify.success({
+                  this.$notify.success({
                   title: "提示",
                   message: "保存成功",
                   duration: 1000,
                 });
+                })
               }
             })
             .catch((err) => {
+              this.pageLoading = false;
               if (err.data.code == '300') {
-                this.getSheetData()
+                this.bus.$emit('initSheetPageSize')
                 this.pageLoading = false;
               }
-              this.pageLoading = false;
             });
         };
 
@@ -1188,8 +1153,9 @@ export default {
         }
       }
     );
-    this.bus.$on("refreshSheetPage", (isFirst) => {
-      this.getSheetData(isFirst)
+    this.bus.$on("refreshSheetPage", () => {
+
+      this.getSheetData()
     });
     //保存前做签名校验
     this.bus.$on("toSheetSaveNoSign", (newWid) => {
@@ -1231,7 +1197,6 @@ export default {
         this.bus.$emit('saveSheetPage', 'noSaveSign')
       }
     });
-
     this.bus.$on("toSheetPrintPage", (newWid) => {
       if ($(".sign-text").length) {
         // 判断是否存在标记
@@ -1240,7 +1205,7 @@ export default {
             scrollTop:
               $(".mark-mark-mark").eq(0).addClass("red-border").offset().top +
               this.$refs.scrollCon.scrollTop -
-              150,
+              200,
           });
           return this.$message.warning("打印前必须去除所有标记");
         }
@@ -1250,7 +1215,7 @@ export default {
             scrollTop:
               $(".noSignRow").eq(0).addClass("red-border").offset().top +
               this.$refs.scrollCon.scrollTop -
-              150,
+              200,
           });
           return this.$message.warning("存在未签名的记录，请全部签名后再打印");
         }
@@ -1259,7 +1224,7 @@ export default {
             scrollTop:
               $(".multiSign").eq(0).addClass("red-border").offset().top +
               this.$refs.scrollCon.scrollTop -
-              150,
+              200,
           });
           return this.$message.warning("记录存在多个签名，或者忘记填写时间");
         }
@@ -1270,7 +1235,7 @@ export default {
           scrollTop:
             $(".isNoSign").eq(0).offset().top +
             this.$refs.scrollCon.scrollTop -
-            150,
+            200,
         });
         return this.$message.warning("存在未签名的记录，请全部签名后再打印");
       }
@@ -1439,7 +1404,7 @@ export default {
   watch: {
     patientInfo(val) {
       this.bus.$emit("refreshImg");
-      this.$store.commit("upPatientInfo", val);
+      // this.$store.commit("upPatientInfo", val);
     },
     deptCode(val) {
       if (val) {
@@ -1456,10 +1421,22 @@ export default {
       deep: true,
       immediate: true,
       handler(newValue, oldValue) {
-        if (["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)) {
-        } else {
-          if (this.patientInfo.name) {
-            sheetInfo.isSave = false;
+        /*
+        *监听护记的数据，除去不做提醒功能的医院
+        *如果护记切换 新旧数据变化 ，如果护记blockId 相同 说明没有切换患者或者切换护记 这时候就是用户修改了数据 把
+        *保存状态改为 isSave:false
+        *否则是用户切换了患者，或者用户切换了护记 这时候的数据变化 ，不是用户修改的 所以保存状态为isSave:true
+        */
+        if (!["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)) {
+          if (this.patientInfo.patientId) {
+            this.sheetInfo.isSave = true
+            if (newValue.length && oldValue.length) {
+              const newBlockId = newValue[0].blockId
+              const oldBlockId = oldValue[0].blockId
+              if (newBlockId == oldBlockId) {
+                this.sheetInfo.isSave = false
+              }
+            }
           }
         }
       },
@@ -1467,34 +1444,28 @@ export default {
     "$route.path"() {
       // 针对贵州切换出入量记录单数据不刷新，如果有问题可回撤 删除贵州 影响护理记录单打开
       if (['huadu', '925'].includes(this.HOSPITAL_ID)) {
-        this.sheetInfo.selectBlock = {};
+    this.sheetInfo.selectBlock = {}
       }
     },
-    // 切换主页后在点击其他用户不会更新
-    // 'sheetInfo.sheetType': {
-    //   handler(val, prev) {
-    //     if (val != prev) {
-    //       this.bus.$emit('refreshSheetPage', true)
-    //     }
-    //   }
-    // }
   },
-  beforeRouteLeave (to, from, next) {
+  beforeRouteLeave(to, from, next) {
     /* 除了体温单模块和登出页面都触发解锁 */
-    if(this.lockHospitalList.includes(this.HOSPITAL_ID) && from.fullPath.includes("sheetPage") && !to.fullPath.includes("login")){
-       this.destroyUnlock()
+    if (this.lockHospitalList.includes(this.HOSPITAL_ID) && from.fullPath.includes("sheetPage") && !to.fullPath.includes("login")) {
+      this.destroyUnlock()
     }
     if (
-      !sheetInfo.isSave &&
+      !this.sheetInfo.isSave &&
       !from.fullPath.includes("singleTemperatureChart") //去除体温单切换未保存提示
     ) {
       window.app
-        .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
+        .$confirm("护理记录单，离开将会丢失数据", "提示", {
           confirmButtonText: "离开",
           cancelButtonText: "取消",
           type: "warning",
         })
         .then((res) => {
+          this.sheetInfo.selectBlock = {}
+          cleanData();
           next();
         });
     } else {
