@@ -62,10 +62,10 @@
         住院号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
-      <span  v-if="sheetInfo.sheetType!='custody_yz'&& sheetInfo.sheetType!='baby_yz'">
+      <span v-if="sheetInfo.sheetType!='custody_yz'&& sheetInfo.sheetType!='baby_yz'">
         入院日期：
         <div class="bottom-line" style="min-width: 80px">
-        {{patientInfo.admissionDate }}
+        {{patientInfo.admissionDate | toymd }}
         </div>
       </span>
       <span v-if="sheetInfo.sheetType === 'baby_yz'">
@@ -77,9 +77,21 @@
           v-model="sheetInfo.relObj['motherName']"
         />
       </span>
+      <span
+        v-if="['icu_yz', 'critical_new_yz'].includes(sheetInfo.sheetType)"
+        @click="updateDiagnosis('diagnosis', '诊断', diagnosis)"
+      >
+        诊断：
+        <div
+          class="bottom-line"
+          style=""
+        >
+          {{ diagnosis }}
+        </div>
+      </span>
     </div>
     <!-- 现在这个诊断。是修改病人的信息的，影响所有表单。一改全改 -->
-     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType!='custody_yz'&& sheetInfo.sheetType!='baby_yz'">
+     <div class="info-con" flex="main:justify" v-if="!['custody_yz', 'baby_yz', 'icu_yz', 'critical_new_yz'].includes(sheetInfo.sheetType) ">
         <span
           @click="updateDiagnosis('diagnosis', '诊断', diagnosis)"
         >
@@ -264,10 +276,12 @@ export default {
   },
   filters: {
     toymd(val) {
-      if (process.env.HOSPITAL_ID == "weixian") {
+      if (['icu_yz', 'critical_new_yz'].includes(sheetInfo.sheetType)) {
         return moment(val).format("YYYY-MM-DD");
-      } else {
+      } else if(sheetInfo.sheetType === 'internal_eval_yz') {
         return moment(val).format("YYYY年MM月");
+      } else {
+        return moment(val).format("YYYY-MM-DD HH:mm:ss");
       }
     }
   },
