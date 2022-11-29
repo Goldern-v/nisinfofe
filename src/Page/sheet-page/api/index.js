@@ -333,3 +333,8 @@ export const getPageIndex = (params) => {
 export function getPrintRecord(params, formType, formCode) {
   return axios.post(`${apiPath}form/common/getPrintRecord`, params)
 }
+
+// 个人信息（因为某些单子出生日期需要同步到时分秒）
+export function detailData(patientId) {
+  return axios.get(`${apiPath}patient/getPatientInfo/${patientId}`)
+}

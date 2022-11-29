@@ -118,9 +118,10 @@ export const delSelectRow = (params) => {
  * 获取自定义模板 by佛山市一
  * @returns
  */
- export const findListByBlockId = () => {
+ export const findListByBlockId = (startPageIndex,endPageIndex) => {
   return axios.post(`${apiPath}record/titleTempalate/findListByBlockId`, {
     blockId: sheetInfo.selectBlock.id,
+    startPageIndex,endPageIndex
   })
 }
 

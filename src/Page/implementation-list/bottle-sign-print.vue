@@ -202,13 +202,12 @@
       </div>
 
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
-        <!-- :class="{'new-print-box--small': !['6*8', '70*80'].includes(newModalSize)}" -->
-            <!-- printItemClass -->
         <div
           :class="[
             {
               'break-page':bottleCardIndex % 3 == 2 &&
                 newModalSize == '3*7',
+              'sise-75': newModalSize === '7*5'
             },
           ]"
           v-for="(itemBottleCard, bottleCardIndex) in printObj"
@@ -325,6 +324,11 @@
     position: relative;
     height: 19.90mm;
     overflow: hidden;
+  }
+  .sise-75 {
+    width: 69mm;
+    height: 50mm;
+    position: relative;
   }
 }
 
@@ -578,7 +582,7 @@ export default {
         this.HOSPITAL_ID
       ),
       // 能否打印全部
-      showPrintAll: ["sdlj", "gdtj", "fsxt", "ytll"].includes(this.HOSPITAL_ID),
+      showPrintAll: ["sdlj", "gdtj", "fsxt", "ytll", 'zhzxy'].includes(this.HOSPITAL_ID),
     };
   },
   mounted() {
@@ -944,7 +948,7 @@ export default {
         res = await getPrintListContent({ barCode: barCodeList.join("|") });
       }
       // 当超过5条药品，另起新瓶签
-      if (["wujing"].includes(this.HOSPITAL_ID)) {
+      if (!!this.printPagingNo) {
         let curBarCode = "";
         let curIndex = 0;
 
@@ -957,7 +961,7 @@ export default {
           curBarCode = item.barCode;
           console.log("test-key", key, printObj[key]);
           printObj[key] = printObj[key] || [];
-          if (printObj[key].length < 5) {
+          if (printObj[key].length < this.printPagingNo) {
             printObj[key].push(item);
             return;
           }
@@ -970,8 +974,8 @@ export default {
           printObj[item.barCode].push(item);
         });
       }
-      let sortArr = this.HOSPITAL_ID == "wujing" ? Object.values(printObj) : [];
-      if (this.HOSPITAL_ID != "wujing") {
+      let sortArr = !!this.printPagingNo ? Object.values(printObj) : [];
+      if (!this.printPagingNo) {
         barCodeList.map((item) => {
           sortArr.push(printObj[item]);
         });
@@ -1110,7 +1114,7 @@ export default {
     // 打印缩放的尺寸
     printScaleText() {
       if (
-        ["70*80", "6*8", "5*8", "7*7"].includes(this.newModalSize) ||
+        ["70*80", "6*8", "5*8", "7*7", '7*5'].includes(this.newModalSize) ||
         ["whfk"].includes(this.HOSPITAL_ID)
       )
         return "";
@@ -1144,14 +1148,16 @@ export default {
     multiBed() {
       return ["lyxrm", "zhzxy", "925"].includes(this.HOSPITAL_ID);
     },
-    // printItemClass() {
-    //   if (this.newModalSize === '3*5' && this.HOSPITAL_ID === 'whsl') {
-    //     return 'small-35'
-    //   // } else if (this.newModalSize === '2*5' && this.HOSPITAL_ID === 'zhzxy') {
-    //   //   return 'small-25'
-    //   }
-    //   return ''
-    // }
+    // 瓶签是否分页 超过多少条开始分
+    printPagingNo() {
+      return hisMatch({
+        map: {
+          'wujing': 5,
+          'zhzxy': 4,
+          other: 0
+        }
+      })
+    }
   },
   watch: {
     deptCode() {

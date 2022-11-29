@@ -318,9 +318,9 @@ export default {
       makePatient:'',// 贵州护理巡视表的点击患者
       lockHospitalList:['huadu'],//有锁定功能的医院
       // 进入页面是否自动选择第一个患者
-      isAutoSelect: ['lyxrm', 'foshanrenyi','lyyz','fsxt'].includes(this.HOSPITAL_ID),
+      // isAutoSelect: ['lyxrm', 'foshanrenyi','lyyz','fsxt','wujing'].includes(this.HOSPITAL_ID),
       // 切换模块回来时能拿到之前的数据
-      isAutoSelected:['lyyz', 'foshanrenyi','fsxt'].includes(this.HOSPITAL_ID),
+      // isAutoSelected:['lyyz', 'foshanrenyi','fsxt','wujing'].includes(this.HOSPITAL_ID),
       levelColor:{}
     };
   },
@@ -373,7 +373,6 @@ export default {
         this.$route
       );
       if (this.callFunction) {
-        console.log('改变参数=====》',patient.patientId,patient.visitId)
         this.$route.query.patientId = patient.patientId;
         this.$route.query.visitId = patient.visitId;
         this.$route.query.inpNo = patient.inpNo;
@@ -401,17 +400,9 @@ export default {
       });
     },
     async fetchData() {
-      let currentPatient = ''
-      if(this.HOSPITAL_ID == 'whfk'){
-        currentPatient = ''
-      // }else if (this.HOSPITAL_ID === 'foshanrenyi' && this.$route.path.includes('/sheetPage')) {
-      //   // 返回模块时还是原来的患者
-      //   currentPatient = this.curSheetPatient;
-      }else{
-        currentPatient = this.$store.getters.getCurrentPatient();
-      }
-      let patientId =
-        this.$route.params.patientId || currentPatient.patientId || "";
+      // 返回模块时还是原来的患者
+      let currentPatient = this.$store.getters.getCurrentPatient();
+      let patientId =this.$route.params.patientId || currentPatient.patientId || "";
       let visitId = this.$route.params.visitId || currentPatient.visitId || "";
       let p = this.findCurrentPatient({
         patientId,
@@ -438,16 +429,14 @@ export default {
     },
     /**初始自动选择第一个患者 by临邑 */
     selectFirstPatient() {
-      if (!this.isAutoSelect) return
+      // if (!this.isAutoSelect) return
       // if (this.sortList.length === 0) return this.$router.push('/sheetPage')
       let item = this.sortList[0]
-
-      if (this.isAutoSelected && this.curSheetPatient.patientId) {
+      if (this.curSheetPatient.patientId) {
         item = this.curSheetPatient
         this.makePatient = this.curSheetPatient.bedLabel
         this.selectPatient(item)
-        this.bus.$emit('refreshSheetPage', true)
-        this.bus.$emit('getBlockList')
+        // this.bus.$emit('initSheetPageSize')
       }
       this.$router.replace({
         name: this.toName,
@@ -567,7 +556,7 @@ export default {
         this.img2Show = false;
       }
       this.getDate();
-      if (this.isAutoSelect && this.$route.path.indexOf('/sheetPage') > -1) {
+      if (this.$route.path.indexOf('/sheetPage') > -1) {
         this.$store.commit('upCurSheetPatient', {})
         this.$router.push('/sheetPage')
         // this.$nextTick(() => {

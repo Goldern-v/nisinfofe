@@ -23,7 +23,7 @@
     >
       <div class="right-part" v-loading="tableLoading"  element-loading-text="拼命加载中">
         <div class="sheetTable-contain" ref="scrollCon" @scroll="onScroll">
-          <div ref="sheetTableContain" v-if="done">
+          <div ref="sheetTableContain">
             <component
               v-bind:is="sheetTable"
               v-for="(item, index) in filterSheetModel"
@@ -221,7 +221,7 @@ import sheetModel, {
 import decode from "@/Page/sheet-page/components/render/decode.js";
 import {
   saveBody,
-  showBody,
+  showBodyByPage,
   showTitle,
   delPage,
   markList,
@@ -246,7 +246,7 @@ import evalModel from "@/Page/sheet-page/components/modal/eval-model/eval-model.
 import evalModelPaging from "@/Page/sheet-page/components/modal/eval-model/eval-model-paging.vue"
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
-import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBottom";
+import { sheetScrollBottom } from "@/Page/sheet-page/components/utils/scrollBottom";
 import { patients } from "@/api/lesion";
 import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
 import {GetUserList,verifyNewCaSign} from '../../../../api/caCardApi'//护记CA签名的方法
@@ -261,7 +261,6 @@ export default {
       },
       patientListLoading: false,
       tableLoading: false,
-        done:false,//控制表单加载的开关 等数据完成后打开  加载数据
       pageLoading: false,
       bus: bus(this),
       sheetModelData:[],
@@ -295,24 +294,7 @@ export default {
       return this.$store.state.sheet.fullpage;
     },
     filterSheetModel() {
-      // 根据页码处理后的页面
-      let showSheetPage = (i) => {
-        let startPage = this.sheetInfo.startPage;
-        let endPage = this.sheetInfo.endPage;
-        let index = i + this.sheetInfo.sheetStartPage;
-        if (startPage && endPage) {
-          if (index >= Number(startPage) && index <= Number(endPage)) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      };
-      let resultModel =this.sheetModelData.filter((item,index) => {
-        return showSheetPage(index)
-      });
+      let resultModel =this.sheetModelData
       return resultModel;
     },
     sheetTable() {
@@ -396,9 +378,8 @@ export default {
       }
     },
     getSheetData(isBottom) {
+      const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
       this.tableLoading = true;
-          //为了确保每次更新sheetInfo里的数据   先删除掉dom节点  然后重新加载
-    this.done=false
       if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
         this.isLoad=false
       }
@@ -412,13 +393,13 @@ export default {
       }
        let fnArr = [
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
-        showBody(this.patientInfo.patientId, this.patientInfo.visitId),
+        showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
       ]
       // 佛山市一 获取自定义标题数据
       if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
         fnArr.shift()
-        fnArr.unshift(findListByBlockId())
+        fnArr.unshift(findListByBlockId(startPageIndex,endPageIndex))
       }
       $(".red-border").removeClass("red-border");
       return Promise.all(fnArr).then(res => {
@@ -447,8 +428,6 @@ export default {
           localStorage.setItem('lockForm',JSON.stringify(formConfig))
         }
         let bodyData = res[1].data.data;
-      console.log(`界面初始化完成,前端获取接口数据========>>>>>>护记数据:`,bodyData&&bodyData.list)
-
         if(this.HOSPITAL_ID=='wujing'){
           let barcodeArr = {}
           bodyData.list.map((tr,index)=>{
@@ -482,101 +461,74 @@ export default {
         }
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
         this.$nextTick(async() => {
-         await initSheetPage(titleData, bodyData, markData,this.listData);
+        await initSheetPage(titleData, bodyData, markData,this.listData);
           this.sheetModelData = getData();
-          this.done=true
           this.tableLoading = false;
-          this.getHomePage(isBottom);
-          let timeNum = 5;
-
+          let timeNum = 10;
           function toBottom() {
             timeNum--;
-            setTimeout(() => {
-              this.sheetInfo.isSave = true;
-              if (
-                isBottom &&
-                this.$refs.scrollCon.scrollHeight >
+            this.$nextTick(()=>{
+              setTimeout(() => {
+                this.sheetInfo.isSave = true;
+                const sheetPageScrollValue = localStorage.getItem('sheetPageScrollValue')
+                const isBottom = sheetPageScrollValue !== "null" ? false : true
+                if (
+                  this.$refs.scrollCon.scrollHeight >
                   this.$refs.scrollCon.offsetHeight
-              ) {
-                // this.$refs.scrollCon.scrollTop =
-                //   this.$refs.scrollCon.scrollHeight -
-                //   this.$refs.scrollCon.offsetHeight -
-                //   190;
-                sheetScrollBotton.call(this, 0);
-                timeNum > 0 && toBottom.call(this);
-              } else {
-                timeNum > 0 && toBottom.call(this);
-              }
-            }, 200);
+                ) {
+                  if (isBottom) {
+                    sheetScrollBottom.call(this, 0);
+                    timeNum > 0 && toBottom.call(this);
+                    localStorage.setItem('sheetPageScrollValue', null)
+                  } else {
+                    this.scrollFun(sheetPageScrollValue)
+                  }
+                }
+              }, 300);
+            })
           }
-
           this.$nextTick(() => {
             toBottom.call(this);
           });
         });
       });
     },
-        /**把计算页面滚动的复制出来方便其他模块调用*/
+    /**把计算页面滚动的复制出来方便其他模块调用*/
     /**这里如果调用  就回到当前修改的页码*/
-    /**isInitSheetPageSize 是否初始化页码计算，添加数据删除数据都要传true*/
-    /**scrollValue页码定位的值，保存直接拿refscrollCon的scrollTop，其他需要传值进来(有些操作 在获取数据后页码生成滚动定位之前，所以用入参的方式)*/
-    scrollFun(isInitSheetPageSize, scrollValue) {
-      isInitSheetPageSize &&
-        setTimeout(() => {
-          this.bus.$emit("initSheetPageSize");
-        }, 100);
+    /**scrollValue页码定位的值，保存直接拿refscrollCon的scrollTop，
+     * 其他需要传值进来(有些操作 在获取数据后页码生成滚动定位之前，所以用入参的方式)*/
+    scrollFun(scrollValue){
       this.$nextTick(() => {
-        //不传入参滚动值 默认选择refscrollCon的scrollTop
-        this.$refs.scrollCon.scrollTop = scrollValue ? scrollValue : this.scrollTop;
+        this.$refs.scrollCon.scrollTop = scrollValue;
         $(".red-border").removeClass("red-border");
+        setTimeout(() => {
+          if (this.$refs.scrollCon.scrollTop == 0) {
+            this.$refs.scrollCon.scrollTop = this.scrollTop;
+          }
+          $(".red-border").removeClass("red-border");
+        }, 200);
+        setTimeout(() => {
+          if (this.$refs.scrollCon.scrollTop == 0) {
+            this.$refs.scrollCon.scrollTop = this.scrollTop;
+          }
+          $(".red-border").removeClass("red-border");
+        }, 400);
+        setTimeout(() => {
+          if (this.$refs.scrollCon.scrollTop == 0) {
+            this.$refs.scrollCon.scrollTop = this.scrollTop;
+          }
+          $(".red-border").removeClass("red-border");
+        }, 600);
       });
-      setTimeout(() => {
-        if (this.$refs.scrollCon.scrollTop == 0) {
-          this.$refs.scrollCon.scrollTop = this.scrollTop;
-        }
-        $(".red-border").removeClass("red-border");
-      }, 100);
-      setTimeout(() => {
-        if (this.$refs.scrollCon.scrollTop == 0) {
-          this.$refs.scrollCon.scrollTop = this.scrollTop;
-        }
-        $(".red-border").removeClass("red-border");
-      }, 200);
-      setTimeout(() => {
-        if (this.$refs.scrollCon.scrollTop == 0) {
-          this.$refs.scrollCon.scrollTop = this.scrollTop;
-        }
-        $(".red-border").removeClass("red-border");
-      }, 300);
-      setTimeout(() => {
-        if (this.$refs.scrollCon.scrollTop == 0) {
-          this.$refs.scrollCon.scrollTop = this.scrollTop;
-        }
-        $(".red-border").removeClass("red-border");
-      }, 400);
-      setTimeout(() => {
-        if (this.$refs.scrollCon.scrollTop == 0) {
-          this.$refs.scrollCon.scrollTop = this.scrollTop;
-        }
-      }, 500);
-      $(".red-border").removeClass("red-border");
-      setTimeout(() => {
-        if (this.$refs.scrollCon.scrollTop == 0) {
-          this.$refs.scrollCon.scrollTop = this.scrollTop;
-        }
-        $(".red-border").removeClass("red-border");
-      }, 600);
-      setTimeout(() => {
-        if (this.$refs.scrollCon.scrollTop == 0) {
-          this.$refs.scrollCon.scrollTop = this.scrollTop;
-        }
-        $(".red-border").removeClass("red-border");
-      }, 1000);
+
     },
     breforeQuit(next) {
-      if (!sheetInfo.isSave) {
+      if (
+        !this.sheetInfo.isSave&&
+        this.sheetInfo.selectBlock.id
+      ) {
         window.app
-          .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
+          .$confirm("请确认记录单已保存，如未保存离开将会丢失数据", "提示", {
             confirmButtonText: "离开",
             cancelButtonText: "取消",
             type: "warning"
@@ -604,7 +556,7 @@ export default {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
         this.scrollX = parseInt(e.target.scrollLeft)
-        localStorage.setItem('sheetPageScrollValue',e.target.scrollTop)
+        localStorage.setItem('sheetPageScrollValue',e.target.scrollTop>0?e.target.scrollTop:null)
       }
     },
     getDate() {
@@ -675,6 +627,17 @@ export default {
         } else {
           map[`${key}`] = newArr[i].recordDate
         }
+      }
+      return newArr
+    },
+    deduplicationByKey(arr,item){
+      const newArr = []
+      let map = {}
+      for (let i = 0; i < arr.length; i++) {
+        if (!map[arr[i][item]]) {
+          newArr.push(arr[i]);
+            map[arr[i][item]] = true;
+        };
       }
       return newArr
     },
@@ -777,7 +740,6 @@ export default {
           recordId: this.sheetInfo.selectBlock.recordCode,
           signData: JSON.stringify(array),
         }
-        console.log('array===>',array)
         if(array.length){
           verifyNewCaSign(saveAndcaSignObj, saveAndVerifySignObj).then(async (respon) => {
           const { password, empNo } = respon
@@ -811,7 +773,7 @@ export default {
             //提示后获取数据
           await this.getSheetData().then((res) => {
                 this.pageLoading = false;
-                this.scrollFun(true, this.scrollTop)
+                this.scrollFun(this.scrollTop)
               })
           }else{
             //责任护士只负责单签 签名责任护士
@@ -828,7 +790,7 @@ export default {
             }
             this.getSheetData().then((res) => {
               this.pageLoading = false;
-                this.scrollFun(true,this.scrollTop)
+                this.scrollFun(this.scrollTop)
               });
           }).catch((err)=>{
             this.pageLoading = false;
@@ -841,7 +803,7 @@ export default {
         }else{
           this.getSheetData().then((res) => {
               this.pageLoading = false;
-                this.scrollFun(true,this.scrollTop)
+                this.scrollFun(this.scrollTop)
               });
         }
 
@@ -856,13 +818,21 @@ export default {
     setTimeout(() => {
       this.$store.commit("upPatientInfo", this.$route.query);
     }, 100);
-    this.bus.$on("addSheetPage", () => {
-      addSheetPage(() => {
-        this.$nextTick(() => {
-          this.bus.$emit("initSheetPageSize");
-          this.sheetModelData=getData()
-          sheetScrollBotton.call(this);
+        this.bus.$on("addSheetPage", () => {
+      if (!this.sheetInfo.selectBlock.id) {
+        return this.$notify.info({
+          title: "提示",
+          message: "请先创建护理记录单",
         });
+      }
+      addSheetPage(() => {
+        this.bus.$emit("initSheetPageSize",true);
+        this.sheetModelData = getData()
+        this.$nextTick(() => {
+          /**添加页码重新赋值*/
+            sheetScrollBottom.call(this);
+        });
+
       });
     });
     this.bus.$on("delSheetPage", () => {
@@ -900,8 +870,8 @@ export default {
     //eventBug监听，页码定位跳转的值和是否初始化
     this.bus.$on("scrollCurrentPage", (isInitSheetPageSize, sheetPageScrollValue) => {
       let timer = setInterval(() => {
-        if (this.done && sheetPageScrollValue) {
-          this.scrollFun(isInitSheetPageSize, sheetPageScrollValue)
+        if (sheetPageScrollValue) {
+          this.scrollFun(sheetPageScrollValue)
           clearInterval(timer)
         }
       }, 200)
@@ -920,13 +890,32 @@ export default {
         this.scrollTop = this.$refs.scrollCon.scrollTop;
         const ayncVisitedDataList = decode(ayncVisitedData).list||[]
         console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
+        if(this.HOSPITAL_ID == 'wujing'){
+            let trueRecordTimes = []
+              //因为相同记录跨页日期时间会一样，这时候去判断记录会判断为同一条记录 ，所以要先根据记录日期去重
+              const soleRecordList = this.deduplicationByKey(ayncVisitedDataList,'recordDate')
+            soleRecordList.map(item=>{
+              if(item.recordMonth!=='' && item.recordHour!==''){
+                trueRecordTimes.push(`${item.recordMonth} ${item.recordHour}`)
+              }
+            })
+            let newLen = new Set(trueRecordTimes).size
+            if(trueRecordTimes.length>newLen){
+              this.$notify.warning({
+                title: "提示",
+                message: "当前时间已存在记录，请检查并调整时间",
+              });
+              this.pageLoading = false;
+              return false
+            }
+          }
         saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode(ayncVisitedData))
           .then(res => {
             if (res.data.code == 200) {
               // if (['foshanrenyi'].includes(this.HOSPITAL_ID) && this.foshanshiyiIFca && ayncVisitedDataList.length) {
               //   //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
               //   console.log(`开始执行签名接口==============>>>>>>Ca状态${this.foshanshiyiIFca}`)
-              //   showBody(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
+              //   showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
               //     let resList = saveRes.data.data.list.map((item) => {
               //       item.recordMonth = moment(item.recordDate).format('MM-DD')
               //       item.recordHour = moment(item.recordDate).format('HH:mm')
@@ -968,15 +957,15 @@ export default {
               //   });
               // }
               //除了佛一的医院  正常获取数据
-                this.getSheetData().then((res) => {
+              this.bus.$emit('initSheetPageSize')
+                this.$nextTick(()=>{
                   this.pageLoading = false;
-                  this.scrollFun(isInitSheetPageSize, this.scrollTop)
-                });
-                this.$notify.success({
+                  this.$notify.success({
                   title: "提示",
                   message: "保存成功",
                   duration: 1000,
                 });
+                })
             }
           })
           .catch(() => {
@@ -1261,11 +1250,27 @@ export default {
     },
     sheetModelData: {
       deep: true,
-      handler() {
-        if (this.patientInfo.name) {
-          sheetInfo.isSave = false;
+      immediate: true,
+      handler(newValue, oldValue) {
+        /*
+        *监听护记的数据，除去不做提醒功能的医院
+        *如果护记切换 新旧数据变化 ，如果护记blockId 相同 说明没有切换患者或者切换护记 这时候就是用户修改了数据 把
+        *保存状态改为 isSave:false
+        *否则是用户切换了患者，或者用户切换了护记 这时候的数据变化 ，不是用户修改的 所以保存状态为isSave:true
+        */
+        if (!["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)) {
+          if (this.patientInfo.patientId) {
+            this.sheetInfo.isSave = true
+            if (newValue.length && oldValue.length) {
+              const newBlockId = newValue[0].blockId
+              const oldBlockId = oldValue[0].blockId
+              if (newBlockId == oldBlockId) {
+                this.sheetInfo.isSave = false
+              }
+            }
+          }
         }
-      }
+      },
     },
     // 切换主页后在点击其他用户不会更新
     'sheetInfo.sheetType': {
@@ -1279,7 +1284,7 @@ export default {
   beforeRouteLeave (to, from, next) {
     /* 除了体温单模块和登出页面都触发解锁 */
     if(this.lockHospitalList.includes(this.HOSPITAL_ID) && from.fullPath.includes("sheet") && !to.fullPath.includes("login")){
-       this.destroyUnlock()
+      this.destroyUnlock()
     }
     if (!sheetInfo.isSave) {
       window.app

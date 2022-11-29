@@ -93,22 +93,17 @@ export default {
       bus: bus(this),
       formlist:{},
       splitPulseHospital:['nanfangzhongxiyi'], // 脉搏/心率的值仅有一个的时候不显示斜杠
-      sheetPageScrollValue:0,//护记滚动到上次滚动的位置
     };
   },
   methods: {
     open(baseParams) {
       this.formlist = baseParams
-      console.log(this.formlist);
       if (!this.patientInfo.patientId && !baseParams.patientId) {
         return this.$message.info("请选择一名患者");
       }
       this.searchDate = moment().format("YYYY-MM-DD");
       this.getData();
       this.$refs.modal.open();
-      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
-      this.sheetPageScrollValue = localStorage.getItem('sheetPageScrollValue')
-      }
     },
     close() {
       this.$refs.modal.close();
@@ -129,16 +124,9 @@ export default {
       saveVitalSign(temArr).then(res => {
         this.$message.success("保存成功");
         this.close();
-        if(this.HOSPITAL_ID=='fuyou'){
-          // 刷新页面后是否在底部
-          this.bus.$emit("refreshSheetPage",true);
-        }else{
-          this.bus.$emit("refreshSheetPage");
-
-        }
+        //涉及到数据保存更改的 ，就调取initSheetPageSize初始化页码 然后重新拿值
+        this.bus.$emit("initSheetPageSize");
       });
-      /**护记的同步的滚动位置*/
-      this.bus.$emit("scrollCurrentPage",false,this.sheetPageScrollValue);
       this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
     },
     getData() {
@@ -172,7 +160,6 @@ export default {
   },
   computed: {
     patientInfo() {
-      console.log(this.formlist);
       if(this.sheetInfo.selectBlock){
         return this.sheetInfo.selectBlock
       }

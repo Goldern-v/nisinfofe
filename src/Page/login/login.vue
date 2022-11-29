@@ -522,7 +522,8 @@ export default {
       caLoginFlag: false, //拿来区分是不是ukey登录，要区分checkCa
       showVerification: false, //展示验证码
       verificationImg: "", //验证码图片base64
-      md5HisList: ["foshanrenyi","hengli",'sdlj','zhzxy'], //需要md5加密医院
+      // md5HisList: ["foshanrenyi","hengli",'sdlj','zhzxy'], //需要md5加密医院
+      md5HisList: ['sdlj'].includes(this.HOSPITAL_ID), //需要md5加密医院
       BeiHaiCaloginType:false, //false 密码登录 true ca扫码登录
       translate300:'translateX(0px)',
       ip:'',
@@ -581,7 +582,7 @@ export default {
       if (this.ajax === true) return;
       this.ajax = true;
       let password = this.password;
-      this.isMd5 &&
+      (this.isMd5 || this.md5HisList) &&
       // this.md5HisList.includes(this.HOSPITAL_ID) &&
       //   this.password !== "Bcy@22qw" &&
         !this.caLoginFlag &&
@@ -875,7 +876,6 @@ export default {
               this.loginSucceed(getQrCodeStatusRes)
             }
           },()=>{
-            console.log("111111111111")
           })
         },1000)
     }
