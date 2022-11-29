@@ -137,12 +137,20 @@
             >查询</el-button
           >
           <el-button
+            v-if="['zhzxy'].includes(HOSPITAL_ID)"
+            size="small"
+            @click="currentPagePrint"
+            :disabled="status == '已执行'"
+            >打印当前页</el-button
+          >
+          <el-button
+            v-else
             size="small"
             @click="allSelection"
             :disabled="status == '已执行'"
             >全选</el-button
           >
-          <template v-if="['whfk', 'whsl'].includes(HOSPITAL_ID)">
+          <template v-if="['whfk', 'whsl','zhzxy'].includes(HOSPITAL_ID)">
             <el-button size="small" @click="syncData">同步医嘱</el-button>
             <el-button size="small" @click="createImplement"
               >生成执行</el-button
@@ -177,7 +185,7 @@
             <el-button size="small" @click="createImplement"
               >生成执行</el-button
             >
-            <el-button v-if="['sdlj', 'lyxrm', 'ytll', 'zhzxy', '925'].includes(HOSPITAL_ID)"
+            <el-button v-if="['sdlj', 'lyxrm', 'ytll', '925'].includes(HOSPITAL_ID)"
                        size="small"
                        @click="syncData">同步医嘱
             </el-button>
@@ -799,6 +807,11 @@ export default {
       this.selectedData = this.$_.flattenDeep(this.pagedTable);
       await this.newOnPrint();
     },
+    // 打印当前页
+    async currentPagePrint() {
+      this.selectedData = this.$_.flattenDeep(this.pagedTable[this.page.pageIndex-1]);
+      await this.newOnPrint();
+    },
     cleanPrintStatusRoundTime() {
       if (this.printStatusTimer) {
         clearTimeout(this.printStatusTimer);
@@ -819,6 +832,7 @@ export default {
       ) {
         this.$refs.plTable.$children[0].toggleAllSelection();
       }
+
     },
     querySearch(queryString, cb) {
       let list = [{ value: "膀胱冲洗" }, { value: "气滴" }];
@@ -1094,7 +1108,7 @@ export default {
         case "925":
           return ["70*80", "3*7"];
         case "zhzxy":
-          return ["7*7", "2*5", '7*5'];
+          return ["7*7", "2*5"];
         // case 'whsl':
         //   return ["7*8", "3*5"];
         case "wujing":
