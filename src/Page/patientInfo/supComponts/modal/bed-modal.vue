@@ -2,12 +2,13 @@
   <div>
     <sweet-modal
       ref="modal"
-      :modalWidth="600"
+      :modalWidth="isZhzxy ? 630 : 600"
       title="编辑床头卡"
       :enable-mobile-fullscreen="false"
       class="modal"
+
     >
-      <div class="bed-card-wrapper" v-loading="modalLoading" ref="printCon">
+      <div class="bed-card-wrapper" :class="{ 'wrapper--zhzxy': isZhzxy }" v-loading="modalLoading" ref="printCon">
         <div
           class="bed-card-con"
           flex
@@ -20,7 +21,7 @@
           />
           <div
             class="qr-code-num"
-            :class="{ hasRemark: hasRemark,zhzxyStyle:['zhzxy'].includes(HOSPITAL_ID) }"
+            :class="{ hasRemark: hasRemark, zhzxyStyle: isZhzxy}"
             :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
           >
             {{ qrCodeNum }}
@@ -32,7 +33,6 @@
               style="height: 51px"
               v-if="HOSPITAL_ID == 'hj'"
             >
-              <!-- <span class="label">患者姓名:</span> -->
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
@@ -52,11 +52,9 @@
             </div>
             <div
               flex="cross:center"
-
               style="height: 43px"
               v-else
             >
-              <!-- <span class="label">患者姓名:</span> -->
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
@@ -90,30 +88,8 @@
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
               />
             </div>
-            <!-- <div flex="cross:center" class="input-item">
-              <span class="label">饮食:</span>
-              <div nowidth class="check-con" flex-box="1" flex="main:justify cross:center">
-                <label>
-                  <input
-                    type="checkbox"
-                    value="普食"
-                    checked
-                    class="checkBox"
-                    v-model="formData.diet"
-                  >普食
-                </label>
-                <label>
-                  <input type="checkbox" value="半流" class="checkBox" v-model="formData.diet">半流
-                </label>
-                <label>
-                  <input type="checkbox" value="流质" class="checkBox" v-model="formData.diet">流质
-                </label>
-                <label>
-                  <input type="checkbox" value="糖尿病" class="checkBox" v-model="formData.diet">糖尿病
-                </label>
-              </div>
-            </div>-->
-            <div :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}" flex="cross:center" class="input-item">
+
+            <div :class="{zhzxyItem: isZhzxy}" flex="cross:center" class="input-item">
               <span class="label">饮食:</span>
               <div
                 nowidth
@@ -126,7 +102,7 @@
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  :style="{'font-size': '24px','text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
+                  :style="{'font-size': '24px', 'text-align': isZhzxy ? 'center' : ''}"
                   v-model="formData.diet"
                   @focus="
                     onFocusToAutoComplete($event, {
@@ -219,8 +195,8 @@
                 />
               </div>
             </div>
-            <div :style="{'display':['zhzxy'].includes(HOSPITAL_ID)?'flex':''}">
-              <div :style="{'width':['zhzxy'].includes(HOSPITAL_ID)?'50%':''}" :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}" flex="cross:center" class="input-item">
+            <div :style="{'display':isZhzxy?'flex':''}">
+              <div :style="{'width':isZhzxy?'50%':''}" :class="{zhzxyItem: isZhzxy}" flex="cross:center" class="input-item">
                 <span class="label">主管医生:</span>
                 <!-- <el-autocomplete v-model="formData.mainDoctors"
                                  :fetch-suggestions="querySearchAsyncDoc"
@@ -231,14 +207,14 @@
                 <input
                   type="text"
                   nowidth
-                  :style="{'font-size':['zhzxy'].includes(HOSPITAL_ID)?'18px':'24px',
-                  'text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
+                  :style="{'font-size':isZhzxy?'18px':'24px',
+                  'text-align':isZhzxy?'center':''}"
                   flex-box="1"
                   class="bottom-line"
                   v-model="formData.mainDoctors"
                 />
               </div>
-              <div :style="{'width':['zhzxy'].includes(HOSPITAL_ID)?'50%':''}" :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}" flex="cross:center" class="input-item">
+              <div :style="{'width':isZhzxy?'50%':''}" :class="{zhzxyItem:isZhzxy}" flex="cross:center" class="input-item">
                 <span class="label">责任护士:</span>
                 <!-- <el-autocomplete v-model="formData.dutyNurses"
                                  :fetch-suggestions="querySearchAsyncNur"
@@ -251,14 +227,14 @@
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  :style="{'font-size': ['zhzxy'].includes(HOSPITAL_ID)?'18px':'24px',
-                  'text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
+                  :style="{'font-size': isZhzxy?'18px':'24px',
+                  'text-align':isZhzxy?'center':''}"
                   v-model="formData.dutyNurses"
                 />
               </div>
             </div>
-            <div v-if="['zhzxy'].includes(HOSPITAL_ID)"
-            :class="{zhzxyItem:['zhzxy'].includes(HOSPITAL_ID)}"
+            <div v-if="isZhzxy"
+            :class="{zhzxyItem:isZhzxy}"
             flex="cross:center" class="input-item">
               <span class="label">过敏史:</span>
               <input
@@ -266,7 +242,7 @@
                 nowidth
                 flex-box="1"
                 class="bottom-line"
-                :style="{'font-size': '24px','text-align':['zhzxy'].includes(HOSPITAL_ID)?'center':''}"
+                :style="{'font-size': '24px','text-align':isZhzxy?'center':''}"
                 v-model="guominshi"
               />
             </div>
@@ -291,7 +267,7 @@
             </div>
           </div>
 
-          <div v-if="!['zhzxy'].includes(HOSPITAL_ID)" :class="{ 'is-xiegang': HOSPITAL_ID == 'xiegang' }" style="width: 131px">
+          <div v-if="!isZhzxy" :class="{ 'is-xiegang': HOSPITAL_ID == 'xiegang' }" style="width: 131px">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
             <div :class="{aliCenter:['lyxrm', 'whhk'].includes(HOSPITAL_ID)}">
@@ -649,14 +625,41 @@ label {
   z-index: 100;
   background: #fff;
 }
+.bed-card-wrapper.wrapper--zhzxy {
+  .tip {
+    margin-bottom: 0px;
+  }
+  .bed-card-con {
+    width: 145mm !important;
+    height: 90mm !important;
+    .qr-code {
+      top: 0px;
+      left: 0px;
+      height: 98px;
+      width: 98px;
+
+      &.hasRemark {
+        width: 90px;
+        height: 90px;
+      }
+    }
+    .qr-code-num {
+      top: 87px;
+      height: 22px
+    }
+    .input-item {
+      width: auto;
+    }
+    input {
+      background: transparent;
+    }
+  }
+}
 </style>
 
 <script>
 import {
   getEntity,
-  saveOrUpdate,
-  findByKeyword,
-  findByKeywordNur,
   saveBed
 } from "./api/index.js";
 import print from "./tool/print";
@@ -719,7 +722,8 @@ export default {
           code:"aField4",
           option:['药物过敏','监测血糖','绝对卧床','机械通气','血液制品未出库','留陪人','记出入量'],
         },
-      ]
+      ],
+      isZhzxy: ['zhzxy'].includes(this.HOSPITAL_ID),
     };
   },
   computed: {
@@ -753,7 +757,6 @@ export default {
         remark: ""
       };
       getEntity(this.query.patientId, this.query.visitId).then(res => {
-        console.log("11111",res.data.data)
         let resData = res.data.data;
         let diagnosis = textOver(this.query.diagnosis, 52);
         this.formData = {
@@ -766,7 +769,7 @@ export default {
           remark: diagnosis,
           remarkPrint: resData.remarkPrint
         };
-        if(['zhzxy'].includes(this.HOSPITAL_ID)){
+        if(this.isZhzxy){
             this.formData = {
               ...this.formData,
               aField1:resData.aField1,
@@ -873,7 +876,7 @@ export default {
           qr_png_value = this.query.patientId;
           break;
       }
-      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: this.isZhzxy ? 2 : 4 });
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);
@@ -913,7 +916,7 @@ export default {
       data.dutyNurses = this.formData.dutyNurses;
       data.remarkPrint = this.formData.remarkPrint;
       data.remark = this.formData.remark.slice(0, 24);
-      if(['zhzxy'].includes(this.HOSPITAL_ID)){
+      if(this.isZhzxy){
         data.aField1 = this.formData.aField1;
         data.aField2 = this.formData.aField2;
         data.aField3 = this.formData.aField3;
@@ -926,7 +929,6 @@ export default {
       });
     },
     onPrint() {
-      // this.formData.registCare.includes('特')
       const printCare = document.querySelectorAll(".printCare")
       let arr = []
       for(let i=0;i<printCare.length;i++){
@@ -937,39 +939,23 @@ export default {
       this.$nextTick(() => {
         this.post();
         print(this.$refs.printCon, (el) => {
-          if(['zhzxy'].includes(this. HOSPITAL_ID)){
-            el.style.marginTop='10mm'
-            el.style.marginLeft = '50mm'
+          if(this.isZhzxy){
+            el.style.marginTop='17mm'
+            el.style.marginLeft = '0mm'
           }else{
             el.style.marginLeft = '194mm'
           }
-        },['zhzxy'].includes(this. HOSPITAL_ID)?'v':'');
-        
+        },this.isZhzxy?'v':'');
+
         for(let i=0;i<printCare.length;i++){
           printCare[i].style.display = "block"
       }
       });
     },
     querySearchAsyncDoc(queryString, cb) {
-      // findByKeyword(queryString).then(res => {
-      //   cb(res.data.data.map(item => {
-      //     return {value: item}
-      //   }));
-      // })
       cb([]);
     },
-    // handleSelectDoc(item) {
-    //     console.log(item);
-    //     return {
-    //       value: item + 123
-    //     }
-    // },
     querySearchAsyncNur(queryString, cb) {
-      // findByKeywordNur(queryString).then(res => {
-      //   cb(res.data.data.map(item => {
-      //     return {value: item}
-      //   }));
-      // })
       cb([]);
     },
 

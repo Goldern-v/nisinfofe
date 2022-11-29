@@ -84,6 +84,10 @@
 </style>
 
 <script>
+import { login } from "@/api/login";
+import { checkLogin, getPatient } from "./api/";
+import Cookies from "js-cookie";
+import common from "@/common/mixin/common.mixin";
 import treeNursingDocView from "@/Page/patientInfo/supPage/record/component/treeNursingDocView.vue"; //树
 import temperature from "@/Page/patientInfo/supPage/temperature/temperature"; //体温单
 import temperatureHD from "@/Page/patientInfo/supPage/temperature/temperature-huadu";
@@ -118,30 +122,19 @@ import { getPatientForm } from "@/Page/patientInfo/supPage/blood-sugar-sdlj/api/
 
 import bus from "vue-happy-bus";
 export default {
+  mixins: [common],
   data() {
     return {
       bus: bus(this),
       otherComponent: null,
-      isBloodSugarSdlj: false //顺德龙江血糖单类型
+      isBloodSugarSdlj: false, //顺德龙江血糖单类型
+      gotoUrl: ""
     };
   },
   created() {
+    this.gotoUrl = window.location.href;
+    this.initDoc();
     // 获取患者信息
-    this.getPatientInfo();
-    //判断顺德龙江血糖单类型
-    this.getPatientForm();
-    this.$store.commit("closeFullPageRecord");
-    this.bus.$on("openOtherForm", data => {
-      this.otherComponent =
-        data.component == "temperature"
-          ? this.getTemplate()
-          : data.component == "bloodSugar"
-          ? this.getBloodSugar()
-          : data.component;
-    });
-    this.bus.$on("openAssessmentBox", data => {
-      this.otherComponent = null;
-    });
   },
   methods: {
     getPatientForm() {
@@ -169,7 +162,7 @@ export default {
           return bloodSugarFsxt;
         case "zhzxy":
           return bloodSugarZhzxy;
-          case "gdtj":
+        case "gdtj":
           return bloodSugarGdtj;
         case "sdlj":
           if (this.isBloodSugarSdlj) {
@@ -241,6 +234,226 @@ export default {
         patientInfo.wardCode = data.wardCode;
         this.$store.commit("upPatientInfo", patientInfo);
       });
+    },
+    //初始化方法
+    async initDoc() {
+      // 医生查看病人评估单&记录单（陵城） 查看病人病历、检查、检验（厚街合理用药）
+      let url = {};
+      if (this.HOSPITAL_ID == "fuyou") {
+        //江门妇幼解密
+        let decodelUrl = this.UrlDecode(this.$route.query.param);
+        url = JSON.parse(decodelUrl);
+      } else {
+        url = this.$route.query;
+      }
+      var token =
+        (window.app && window.app.$getCookie("NURSING_USER").split("##")[1]) ||
+        url.token;
+      if (!token) {
+        await this.toLogin2();
+      } else {
+        // await this.getPage(url);
+        this.getPatientInfo();
+        //判断顺德龙江血糖单类型
+        this.getPatientForm();
+        this.$store.commit("closeFullPageRecord");
+        this.bus.$on("openOtherForm", data => {
+          this.otherComponent =
+            data.component == "temperature"
+              ? this.getTemplate()
+              : data.component == "bloodSugar"
+              ? this.getBloodSugar()
+              : data.component;
+        });
+        this.bus.$on("openAssessmentBox", data => {
+          this.otherComponent = null;
+        });
+      }
+    },
+    //UrlDecode解码
+    UrlDecode(zipStr) {
+      console.log(zipStr);
+      var uzipStr = "";
+      for (var i = 0; i < zipStr.length; i += 1) {
+        var chr = zipStr.charAt(i);
+        if (chr === "+") {
+          uzipStr += " ";
+        } else if (chr === "%") {
+          var asc = zipStr.substring(i + 1, i + 3);
+          if (parseInt("0x" + asc) > 0x7f) {
+            uzipStr += decodeURI(
+              "%" + asc.toString() + zipStr.substring(i + 3, i + 9).toString()
+            );
+            i += 8;
+          } else {
+            uzipStr += this.AsciiToString(parseInt("0x" + asc));
+            i += 2;
+          }
+        } else {
+          uzipStr += chr;
+        }
+      }
+      return uzipStr;
+    },
+    StringToAscii(str) {
+      return str.charCodeAt(0).toString(16);
+    },
+    AsciiToString(asccode) {
+      return String.fromCharCode(asccode);
+    },
+
+    // 医生查看病人评估单&记录单（陵城） 查看病人病历、检查、检验（厚街合理用药）
+    toLogin() {
+      console.log(this.isDev);
+      let account = "admin",
+        password =
+          this.isDev || window.location.host == "192.168.1.54:9867"
+            ? "Ad123456+"
+            : "ad123456";
+
+      if (this.HOSPITAL_ID == "hj") {
+        password =
+          this.isDev || window.location.host == "192.168.1.54:9866"
+            ? "Ad123456+"
+            : "Bcy@21qw";
+      }
+      login(account, password)
+        .then(res => {
+          // 存下token 和用户信息 Auth-Token-Nursing
+          let user = res.data.data.user;
+          user.token = res.data.data.authToken;
+          window.app.authToken = res.data.data.authToken;
+          localStorage["user"] = JSON.stringify(res.data.data.user);
+          Cookies.remove("NURSING_USER");
+          Cookies.set(
+            "NURSING_USER",
+            `${res.data.data.user.id}##${res.data.data.authToken}`,
+            {
+              path: "/"
+            }
+          );
+          let url = this.$route.query;
+          this.formatRoute(url);
+        })
+        .catch(err => {
+          if (err.data) {
+            this.errorMsg = err.data.desc;
+          }
+        });
+    },
+    // 妇幼医生查看病人评估单&记录单（和南医三那个项目的方式一样，通过Url获取相关登录参数，无须写死账号）
+    // toLogin2() {
+    async toLogin2() {
+      let url = {};
+      if (this.HOSPITAL_ID == "fuyou") {
+        //江门妇幼解密
+        let decodelUrl = this.UrlDecode(this.$route.query.param);
+        url = JSON.parse(decodelUrl);
+      } else {
+        url = this.$route.query;
+      }
+      let data = {
+        userName: url.userName,
+        nonce: url.nonce,
+        timestamp: url.timestamp,
+        sign: url.sign
+      };
+      console.log("data :>> ", data);
+      let isLogin = true; //是否登录成功
+      await checkLogin(data) //登录
+        .then(res => {
+          // 存下token 和用户信息 Auth-Token-Nursing
+          if (res.data.data) {
+            let user = res.data.data.user;
+            user.token = res.data.data.authToken;
+            localStorage["user"] = JSON.stringify(res.data.data.user);
+            localStorage["adminNurse"] = res.data.data.adminNurse;
+            Cookies.remove("NURSING_USER");
+            Cookies.set(
+              "NURSING_USER",
+              `${res.data.data.user.id}##${res.data.data.authToken}`,
+              {
+                path: "/"
+              }
+            );
+            // 清除科室记录
+            this.$store.commit("upDeptCode", "");
+            localStorage.selectDeptValue = "";
+            this.$store.commit("upDeptName", "");
+          } else {
+            this.errorMsg = res.data.desc;
+            isLogin = false;
+          }
+        })
+        .catch(err => {
+          this.errorMsg = err.data.desc;
+          isLogin = false;
+          console.dir(err);
+        });
+      //跳转页面
+      isLogin && (await this.getPage(url));
+    },
+    //跳转路由
+    async getPage(url) {
+      let newUrl = url;
+      let patientId = url.patientId,
+        visitId = url.visitId || "all";
+      let isError = false;
+      if ((!url.patientId || !url.visitId) && url.expand1) {
+        const newData = await this.getPatientIdAndVisitId(url.expand1);
+        // (newData.res) && ({patientId,visitId}=newData.res);
+        if (newData.res) {
+          newUrl.patientId = newData.res.patientId;
+          newUrl.visitId = newData.res.visitId;
+          console.log("newUrl", newUrl);
+        }
+        !newData.res && (isError = true);
+        console.log("newData", newData);
+        // console.log("ssssnewData")
+      }
+      if (isError) return false;
+      console.log("url", newUrl);
+      this.formatRoute(newUrl);
+    },
+    //获取patientId visitId
+    async getPatientIdAndVisitId(expand1) {
+      let params = {
+        res: null, //数据集合
+        error: null //错误提示
+      };
+      await getPatient(expand1)
+        .then(res => {
+          console.log(res);
+          if (res.data.code == 200) {
+            params.res = res.data.data.id;
+          } else {
+            try {
+              params.error = res.data.desc;
+              this.errorMsg = res.data.desc;
+            } catch (error) {
+              params.error = error;
+              this.errorMsg = error;
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          params.error = error;
+          this.errorMsg = error;
+        });
+      return params;
+    },
+    /** 选择路由地址，修改参数 */
+    formatRoute(url) {
+      let type,
+        patientId = url.patientId,
+        visitId = url.visitId || "all";
+      console.log(patientId, visitId);
+
+      let timeId = setTimeout(() => {
+        const src = this.gotoUrl.split("crNursing")[1];
+        this.$router.push(src);
+      }, 500);
     }
   },
   components: {
