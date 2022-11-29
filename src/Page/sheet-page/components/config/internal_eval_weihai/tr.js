@@ -102,7 +102,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      minWidth: "598px",
+      minWidth: "340px",
       background: "transparent"
     },
     event: function (e, td) {
