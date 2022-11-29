@@ -150,6 +150,7 @@
     <template v-else>
       <div
         class="item-box"
+        v-show="limitAddPage"
         flex="cross:center main:center"
         @click="emit('addSheetPage')"
       >
@@ -175,7 +176,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="setPage"
-        style="width: 100px"
+        style="width:90px"
       >
         <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
       </div>
@@ -414,19 +415,20 @@
       <!-- 江门妇幼,佛山市一第三方地址提供需要页码选择显示 -->
       <div
         class="item-box"
-        :style="{width:'85px',display: ['fuyou'].includes(HOSPITAL_ID) ? 'flex !important' : ''}"
+        :style="{width:'80px',display:'flex !important'}"
         flex="cross:center main:center"
-        v-if="!isDeputy || ['guizhou', 'huadu', '925','fuyou'].includes(HOSPITAL_ID)"
+        v-if="!isDeputy || ['guizhou', 'huadu', '925','fuyou','foshanrenyi','zhzxy','beihairenyi'].includes(HOSPITAL_ID)"
       >
         <el-autocomplete
           class="pegeSelect"
           icon="caret-bottom"
           placeholder="请输入页码"
-          v-model="pageArea"
+          v-model="pageInfoObj.pageArea"
+          @input="pageNumberChange"
           :fetch-suggestions="querySearch"
         ></el-autocomplete>
       </div>
-      <div
+      <!-- <div
         class="item-box"
         style="width: 85px"
         flex="cross:center main:center"
@@ -439,7 +441,7 @@
           v-model="pageNum"
           @keydown="pageNumKeyDown"
         />
-      </div>
+      </div> -->
       <div
         class="item-box"
         style="width: 30px"
@@ -617,11 +619,10 @@ import { Tr } from "../render/Body.js";
 import {
   blockList,
   blockDelete,
-  // toPdfPrint,
-  // blockSave,
   switchAdditionalBlock,
   setSheetTemplate,
-  getPrintRecord
+  getPrintRecord,
+  getPageIndex,
 } from "../../api/index.js";
 import commom from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
@@ -641,7 +642,7 @@ import demonstarationLevca from "./demonstaration-levca.vue"
 //体温曲线窗口
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 import { getPatientInfo } from "@/api/common.js";
-
+import { getHomePage } from "@/Page/sheet-page/api/index.js";
 export default {
   mixins: [commom],
   name: "sheetTool",
@@ -679,11 +680,12 @@ export default {
       creator: "",
       user: JSON.parse(localStorage.user),
       selectList: [],
-      pageArea: "",
       sheetModel,
       sheetInfo,
       sheetBlockList: [],
       queryTem: {},
+      pageArea:'',
+      pageBlockId:'',
       titleName: "",
       modalWidth: 720,
       pageNum: "",
@@ -696,6 +698,73 @@ export default {
     };
   },
   methods: {
+    pageNumberChange(){
+      //每次跳转 按键或者选择页码调整 都要清空sheetPageScrollValue，这样子就会跳转到最后一页
+      localStorage.setItem('sheetPageScrollValue',null)
+      const { pageArea } = this.pageInfoObj
+      //结束的页码
+      this.updateSheetPageInfo(pageArea)
+    },
+    undateCallBack(startPage,endPage,addPageLength){
+      const sheetStartPage = this.sheetInfo.sheetStartPage
+      let maxPage = {
+        'wujing': 30,
+        'default': 20
+      }
+      if (
+        Number(endPage) - Number(startPage) >= 0 &&
+        Number(endPage) - Number(startPage) <= (maxPage[this.HOSPITAL_ID] || maxPage.default)
+      ) {
+        /*
+         * 如果是增加页码 切换页码就初始化页码列表
+         * 否则就只是刷新单子
+         * upSheetPageArea 提交页码范围数据到vuex 然后sheet-page界面获取
+        */
+        if (addPageLength) {
+          this.sheetInfo.addPage = []
+          this.initSheetPageSize()
+        }
+        this.$store.commit('upSheetPageArea', { startPageIndex: startPage - sheetStartPage, endPageIndex: endPage - sheetStartPage })
+        this.bus.$emit("refreshSheetPage")
+        this.sheetInfo.startPage = startPage;
+        this.sheetInfo.endPage = endPage;
+      } else {
+        this.$message('输入页码区间过大,请重新调整')
+      }
+    },
+    /**
+     * 为了尽量少获取数据，把原来添加在watch里面的刷新页面和页码方法抽取出来，减少数据获取和页面渲染
+    */
+    updateSheetPageInfo(pageArea) {
+      let page = pageArea.split('-');
+      const reg = /[^\d]/g
+      let startPage = Number(page[0].replace(reg, '')||'0');
+      let endPage = Number(page[1].replace(reg, '')||'0');
+      const addPageLength = this.sheetInfo.addPage.length
+      if (endPage >= startPage) {
+        /**endPage 护记原本从接口拿回来的结束页码
+        * maxPageIndex 目的护记的结束页码 因为有新增 所以会比接口返回的大
+        * addPageLength 是新增页码的长度  如果为0则没有新增 如果有页码  就有新增
+        */
+        if (addPageLength) {
+          this.$confirm('切页前请先保存新增页码数据', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.pageArea = pageArea
+            //如果切页 就清空新增页码的数组
+            this.undateCallBack(startPage,endPage,addPageLength)
+
+          })
+        } else {
+          this.pageArea = pageArea
+          this.undateCallBack(startPage,endPage)
+          //刷新界面的方法里面 如果首页传参this.sheetInfo.findBlockContext.recordId 就调用这个方法
+          this.positionPageFromHome()
+        }
+      }
+    },
     changesCrollOptionFlag(val,type){
       if(type==1){
         this.scrollOptionFlag = val?false:true
@@ -704,7 +773,6 @@ export default {
     },
     scrollOption(){
       this.changesCrollOptionFlag(this.scrollOptionFlag)
-      console.log(this.scrollOptionFlag,this.scrollOptionNum,"this.scrollOptionFlag")
       let inputScroll = document.querySelector(".otherType .el-input__inner")
       this.scrollOptionFlag || this.scrollOptionNum==2 ? inputScroll.focus() : inputScroll.blur()
     },
@@ -741,29 +809,126 @@ export default {
         let startPage = Number(this.pageNum);
         let endPage = Number(this.pageNum);
         let tempPage = startPage;
-        // let currentPageArr = this.selectList.forEach((item) => {
-        //   if (item.value) {
-        //     let fromPage = item.value.split("-")[0];
-        //     let toPage = item.value.split("-")[1];
-        //     if (fromPage <= startPage) {
-        //       tempPage = fromPage;
-        //       endPage = toPage;
-        //     }
-        //   }
-        // });
         let count = startPage - tempPage;
         let scrollTop = 0;
         if (count != 0) {
           scrollTop = 722 * count + 20 * count;
         }
         startPage = tempPage;
-        this.pageArea = `${startPage}-${endPage}`;
+        this.pageInfoObj.pageArea = `${startPage}-${endPage}`;
         setTimeout(() => {
           $(this.$parent.$refs.scrollCon).animate({
             scrollTop: scrollTop,
           });
         });
       }
+    },
+    //通过日期和时间，如果传起始页码 就是走根据时间定位页码的方法，如果无，则是首页任务栏跳转，拿findBlockContext的数据查询户籍记录
+    getPageIndexByTime(blockStartDate,blockendDate){
+      if(blockStartDate&&blockendDate){
+      }else{
+      const findBlockId = this.sheetInfo.findBlockContext&&this.sheetInfo.findBlockContext.blockId||this.blockId
+      const findRecorDate = this.sheetInfo.findBlockContext&&this.sheetInfo.findBlockContext.recordDate
+      if(!findBlockId) return
+      return new Promise((resolve, reject) => {
+        const params = {
+            blockId: findBlockId,
+            startRecordDate: findRecorDate,
+            endRecordDate: findRecorDate
+          }
+          getPageIndex(params).then((res) => {
+            if (res.data.code == 200) {
+              let {startIndex , endIndex} = res.data&&res.data.data
+              startIndex = startIndex + this.sheetInfo.sheetStartPage
+              endIndex = endIndex + this.sheetInfo.sheetStartPage
+              resolve(res.data.data)
+              if (startIndex !== null && endIndex !== null && this.selectList.length) {
+                for (let i = 0; i < this.selectList.length; i++) {
+                  let selectListPage = this.selectList[i].value.split('-')
+                  const ListStart = selectListPage[0]
+                  const ListEnd = selectListPage[1]
+                  if (startIndex >= ListStart && endIndex <= ListEnd){
+                    this.pageArea = this.selectList[i].value
+                  }
+                }
+                /*优先选择符合页码区间的数据，但是有时候 所选日期跨多个区间 所以直接赋值
+                *比如['1-10','11-20'],查询的日期区间是  8-13 这时候没有所属的区间  所以直接pageArea = 8-13
+                */
+                if(!this.pageArea)
+                this.pageArea = `${startIndex}-${endIndex}`
+              }
+
+            }
+          })
+      })
+    }
+    },
+    //从首页进入 是无页码查询的 点击任务栏 只能拿到记录的BlockId和时间
+    async positionPageFromHome() {
+      const findRecordId = this.sheetInfo.findBlockContext&&this.sheetInfo.findBlockContext.recordId
+      if (!findRecordId) return
+      try {
+        let todo = () => {
+          return new Promise((resolve, reject) => {
+            if (this.$parent.$refs.scrollCon && findRecordId) {
+              $(this.$parent.$refs.scrollCon).animate({
+                scrollTop:
+                  $(`[recordId='${findRecordId}']`)
+                    .eq(0)
+                    .offset().top +
+                  this.$parent.$refs.scrollCon.scrollTop -
+                  350,
+              });
+              $(`[recordId='${findRecordId}']`)
+                .eq(0)
+                .addClass("red-border");
+              resolve(true)
+            }else{
+              reject(false)
+            }
+
+          })
+        }
+        this.$nextTick(() => {
+          const timer = setInterval(() => {
+            if (this.sheetModel.length) {
+              todo().then(() => {
+                clearInterval(timer)
+                //执行完成定位后 清空定位对象
+                this.sheetInfo.findBlockContext = {}
+                this.sheetInfo.isSave = true
+              }).catch(()=>{
+                clearInterval(timer)
+              });
+            }
+          },
+            200
+          );
+        });
+      } catch (error) {
+      }
+
+    },
+    //初始化页码方法
+    /*护记的刷新  涉及到数据保存 删除 可能会影响到页码变化的 就调$emit("initSheetPageSize")
+    *单纯需要刷新护记 的 调原来的$emit("refreshSheetPage")
+    */
+    async initSheetPageSize(isAddPageFlag) {
+      !isAddPageFlag && await this.getHomePage()
+      this.initSelectList(isAddPageFlag);
+      // 判断是否存在recodeId
+      // 获取被标记的页数，recordId是某一行的记录ID 如果从首页进来 就携带这个recordId ，否则走正常的页面定位
+      try {
+        /*this.selectList:string[] ['1-10','10-20']
+        *页码会变动 如果页码数组已经变化 则取最新的，也就是this.selectList最后一个*/
+        // 页码定位,如果首页点击任务进入，就是有findBlockContext.recordId
+        if (this.sheetInfo.findBlockContext && this.sheetInfo.findBlockContext.recordId) {
+          await this.getPageIndexByTime()
+        } else {
+          this.pageArea = this.selectList[this.selectList.length - 1].value || "";
+        }
+        !isAddPageFlag && this.updateSheetPageInfo(this.pageArea)
+      } catch (error) { }
     },
     showSetCreatePage() {
       return !this.isDeputy || ['guizhou', '925'].includes(this.HOSPITAL_ID);
@@ -842,6 +1007,7 @@ export default {
       }else{
         this.bus.$emit('saveSheetPage', 'noSaveSign')
       }
+      this.sheetInfo.addPage = []
     },
     toPrint() {
       // 正式环境打印会打开窗口,个别医院双签名打印设置为不打开新窗口（打开窗口样式有bug）
@@ -900,7 +1066,7 @@ export default {
       let pageLength = this.selectList.length;
       let htmlArr = [];
       function getHtml() {
-        this.pageArea = this.selectList[pageIndex].value;
+        this.pageInfoObj.pageArea = this.selectList[pageIndex].value;
         this.$nextTick(() => {
           $(".sheet-page-container").each((index, el) => {
             let htmlText = el.outerHTML;
@@ -926,11 +1092,15 @@ export default {
       }
       this.bus.$emit("openSetPageModal");
     },
-    initSelectList() {
-      let length = this.sheetModel.length + this.sheetInfo.sheetStartPage;
+    initSelectList(isAddPageFlag) {
+      //如果是添加新页  那就再原本的数据长度上加 1
+      if(isAddPageFlag)
+      this.sheetInfo.maxPageIndex = this.sheetInfo.maxPageIndex + 1
+      let length = this.sheetInfo.maxPageIndex + this.sheetInfo.sheetStartPage;
+
       let pagelist = [];
       let rest_num = this.sheetInfo.sheetStartPage % 10;
-      let num = Math.ceil(Math.max(length / 10, 1));
+      let num = Math.max(Math.ceil(length / 10), 1);
       for (let i = 0; i <= num; i++) {
         if (i * 10 + rest_num >= length) {
           pagelist.push(length);
@@ -955,6 +1125,7 @@ export default {
           });
         }
       }
+      //不是添加新页 才刷新界面
       /* 刷新block分页信息 */
       if (
         this.patientInfo.patientId &&
@@ -977,7 +1148,6 @@ export default {
       }
     },
     querySearch(queryString, cb) {
-      this.initSelectList();
       cb(this.selectList);
     },
     getPrev(index, bodyModel, val) {
@@ -1207,11 +1377,11 @@ export default {
               );
             });
           }
-          this.sheetInfo.selectBlock =
-            this.sheetBlockList[this.sheetBlockList.length - 1] || {};
+          //选择接口最后一个护记
+          this.sheetInfo.selectBlock =this.sheetBlockList[this.sheetBlockList.length - 1] || {};
             if(this.sheetBlockList.length==0){
               // 如果该病人没有护记，切换病人时需要清空分页
-              this.pageArea=''
+              this.pageInfoObj.pageArea=''
               this.bus.$emit('clearSheetModel')
             }
             if (this.patientInfo.blockId) {
@@ -1230,7 +1400,6 @@ export default {
           if( this.HOSPITAL_ID === 'whfk'&& this.sheetInfo.selectBlock.patientId){
             this.getPrintRecordData();
           }
-          // this.bus.$emit('refreshSheetPage', true)
         });
       }
     },
@@ -1246,13 +1415,16 @@ export default {
         return this.$message.info("请选择一名患者");
       }
       if (this.sheetTitleData.FieldSetting && this.sheetTitleData.FieldSetting.length) {
-        this.$refs.tmpModal.open(this.maxPage)
+        //设置起始页后  页码要从起始页开始
+        this.$refs.tmpModal.open(this.sheetInfo.maxPageIndex,this.sheetInfo.sheetStartPage)
       } else {
         return this.$message.info("无自定义表头，无法设置为模板");
       }
     },
     // 设为模板
     async setAsTemplate(selectPage) {
+      //设置模板 需要把开头的
+      selectPage = selectPage - this.sheetInfo.sheetStartPage
       const list = this.sheetTitleData.FieldSetting.filter(
         item => item.pageIndex === selectPage
       ).map((item, index) => {
@@ -1294,40 +1466,26 @@ export default {
     },
     blockLabel(item, length) {
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)) return ''
-      //   if(!this.babelFirst) return
-      //   const parent = document.querySelector('.otherType').childNodes[1];
-      //   console.log(parent,"parent")
-      //   const isDiv = parent.childNodes[1].nodeName;
-      //   console.log(isDiv,"isDiv")
-      //   let dom,dom1,dom2
-      //   if (isDiv !== 'div') {
-      //     dom = document.createElement('div');
-      //     dom.className = 'adddiv';
-      //     dom1 = document.createElement('span');
-      //     dom1.className = 'addspan1';
-      //     dom2 = document.createElement('span');
-      //     dom2.className = 'addspan2';
-      //     dom.appendChild(dom1)
-      //     dom.appendChild(dom2)
-      //     parent.insertBefore(dom, parent.childNodes[1]);
-      //   }
-      //   else {
-      //     dom = parent.childNodes[1];
-      //   }
-      //   dom1.setAttribute('data-content1', `${item.deptName} ${dayjs(item.createTime).format(
-      //     "MM-DD")}建 `);
-      //   dom2.setAttribute('data-content2', `共${length}张`);
-      //   // return `${item.deptName} ${dayjs(item.createTime).format(
-      //   //   "MM-DD"
-      //   // )}建
-      //   // `;
-      //   this.babelFirst = false
-      // }else{
       return `${item.deptName} ${dayjs(item.createTime).format(
         "MM-DD"
       )}建 共${length}张
       `;
       // }
+    },
+    getHomePage(){
+      return new Promise((resolve, reject) => {
+        getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
+        (res) => {
+          this.sheetInfo.sheetStartPage =
+            (res.data.data && res.data.data.indexNo) || 1;
+          this.sheetInfo.sheetMaxPage =
+            (res.data.data && res.data.data.maxIndexNo) || 1;
+          this.sheetInfo.maxPageIndex =
+            (res.data.data && res.data.data.maxPageIndex + 1) || 1;
+            resolve(res)
+        }
+      );
+      })
     },
     changeSelectBlock(item) {
       if (item) {
@@ -1335,22 +1493,13 @@ export default {
       }
       this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
       this.blockId = item.id;
-      cleanData();
-      this.bus.$emit("refreshSheetPage", true);//会导致数据渲染两次，和sheetpage里的监听冲突，所以屏蔽
+      this.initSheetPageSize()
     },
     /** pdf打印 */
     toPdfPrint() {
       if (sheetInfo.selectBlock.id) {
 
         if( this.HOSPITAL_ID === 'whfk'){
-          // const params = {
-          //   patientId:sheetInfo.selectBlock.patientId,
-          //   visitId:sheetInfo.selectBlock.visitId,
-          //   formId:sheetInfo.selectBlock.id,
-          //   formType:'record',
-          //   formCode:sheetInfo.selectBlock.recordCode,
-          //   formName:sheetInfo.selectBlock.recordName,
-          // }
           window.open(
             `/crNursing/toPdfPrint?blockId=${sheetInfo.selectBlock.id}&patientId=${sheetInfo.selectBlock.patientId}&visitId=${sheetInfo.selectBlock.visitId}&formId=${sheetInfo.selectBlock.id}&formType=${'record'}&formCode=${sheetInfo.selectBlock.recordCode}&formName=${sheetInfo.selectBlock.recordName}`
           )
@@ -1433,6 +1582,20 @@ export default {
     },
   },
   computed: {
+    limitAddPage(){
+      const lastPage = this.pageArea&&this.pageArea.split('-')[1]
+      return this.selectList.length&&this.selectList[this.selectList.length - 1].value.indexOf(lastPage) != -1
+    },
+    pageInfoObj: {
+      get() {
+        return {
+          pageArea: this.pageArea,
+          blockId: this.pageBlockId
+        }
+      },
+      set(val) {
+      },
+    },
     blockId: {
       get() {
         return this.sheetInfo.selectBlock.id;
@@ -1516,80 +1679,13 @@ export default {
     }
   },
   created() {
-    this.bus.$on("initSheetPageSize", () => {
-      let old_list_length = this.selectList.length;
-      let old_list_index = this.selectList.findIndex(
-        (item) => item.value == this.pageArea
-      );
-      this.initSelectList();
-      let new_list_length = this.selectList.length;
-      // 判断是否存在recodeId
-      // 获取被标记的页数
-      try {
-        let index;
-        if (this.patientInfo.recordId) {
-          for (let i = 0; i < this.sheetModel.length; i++) {
-            for (let j = 0; j < this.sheetModel[i].bodyModel.length; j++) {
-              if (
-                this.patientInfo.recordId ==
-                this.sheetModel[i].bodyModel[j].find((item) => item.key == "id")
-                  .value
-              ) {
-                index = i + this.sheetInfo.sheetStartPage;
-              }
-            }
-          }
-          for (let i = 0; i < this.selectList.length; i++) {
-            let page = this.selectList[i].value.split("-");
-            let startPage = Number(page[0]);
-            let endPage = Number(page[1]);
-            if (index >= startPage && index <= endPage) {
-              this.pageArea = this.selectList[i].value || "";
-              let todo = () => {
-                if(!this.patientInfo.recordId) return
-                $(this.$parent.$refs.scrollCon).animate({
-                  scrollTop:
-                    $(`[recordId='${this.patientInfo.recordId}']`)
-                      .eq(0)
-                      .offset().top +
-                    this.$parent.$refs.scrollCon.scrollTop -
-                    250,
-                });
-                $(`[recordId='${this.patientInfo.recordId}']`)
-                  .eq(0)
-                  .addClass("red-border");
-              };
-              this.$nextTick(() => {
-                setTimeout(() => {
-                  todo();
-                }, 0);
-                setTimeout(() => {
-                  todo();
-                }, 100);
-                setTimeout(() => {
-                  todo();
-                  this.patientInfo.blockId = "";
-                  this.patientInfo.recordId = "";
-                }, 300);
-              });
-            }
-          }
-        } else {
-          // 页码定位
-          if (new_list_length != old_list_length) {
-            this.pageArea =
-              this.selectList[this.selectList.length - 1].value || "";
-          } else {
-            if (old_list_index != undefined) {
-              this.pageArea = this.selectList[old_list_index].value || "";
-            } else {
-              this.pageArea =
-                this.selectList[this.selectList.length - 1].value || "";
-            }
-          }
-
-        }
-      } catch (error) {}
+    this.bus.$on("initSheetPageSize", (isAddPageFlag) => {
+      /**
+       * isAddPageFlag:boolean
+       * 因为现在从接口拿数据渲染界面 不走前端computed计算界面 所以添加新页面得加判断
+       * 比如说 后端接口页面是7页 前端添加新页后为8 这时候页码改动，如果不加判断就会重新请求数据 后端为7 前端为8 页码数值就会对应不上
+      */
+      this.initSheetPageSize(isAddPageFlag)
     });
     this.bus.$on("toSheetMoreSign", () => {
       this.toMoreSign();
@@ -1622,59 +1718,37 @@ export default {
       }
     });
     this.bus.$emit("sheetToolLoaded");
+
   },
   watch: {
     "sheetInfo.selectBlock":{
       handler(val) {
         console.log(val,"sheetInfo.selectBlock")
+        //每次初始化都重新设置滚动值
+        localStorage.setItem('sheetPageScrollValue',null)
       },
-
-    },
-    //更换选择患者，更新vuex的患者信息，重新在eventbug队列调用事件
-    patientInfo(val) {
-      if (this.$route.path.includes("singleTemperatureChart")) {
-        this.$store.commit("upPatientInfo", val);
-        this.bus.$emit("refreshImg");
-        this.bus.$emit("refreshVitalSignList");
-      }
-    },
-    pageArea() {
-      let page = this.pageArea.split("-");
-      let startPage = page[0];
-      let endPage = page[1];
-      let maxPage = {
-        'wujing':30,
-        'default':20
-      }
-      if (startPage && endPage) {
-        if (
-          Number(endPage) - Number(startPage) >= 0 &&
-          Number(endPage) - Number(startPage) <= (maxPage[this.HOSPITAL_ID] || maxPage.default)
-        ) {
-          this.sheetInfo.startPage = startPage;
-          this.sheetInfo.endPage = endPage;
-        }
-      }
     },
     "sheetInfo.startPage"() {
       $(this.$parent.$refs.scrollCon).animate({
         scrollTop: 0,
       });
     },
-    patientId: {
-      // deep: true,
+    patientId:{
+      deep: true,
       handler() {
-        if (this.patientInfo.patientId) {
-          // console.log(111);
+        this.selectList = [];
           this.$parent.breforeQuit(() => {
             this.bus.$emit("setSheetTableLoading", true);
-            this.getBlockList();
-            if(this.sheetBlockList.length==0)
-            this.bus.$emit("setSheetTableLoading", false);
+            this.sheetInfo.addPage = []
             // 初始化页面区间列表
-            this.selectList = [];
+            this.getBlockList()
+            if (this.sheetBlockList.length == 0)
+              this.bus.$emit("setSheetTableLoading", false);
           });
-        }
+          if (this.$route.path.includes("singleTemperatureChart")) {
+            this.bus.$emit("refreshImg");
+            this.bus.$emit("refreshVitalSignList");
+          }
       },
     },
 
@@ -1875,7 +1949,6 @@ export default {
 .red-border {
   border: 2px solid red !important;
 }
-
 .tempSweetModal {
   /deep/ .sweet-modal {
     width: 90% !important;

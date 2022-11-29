@@ -1,7 +1,7 @@
 <template>
   <sweet-modal ref="modalName" title="请选择第几页设置为模板" class="modal-con">
     <el-radio-group v-model="selectPage">
-      <el-radio v-for="(page, index) in maxPage" :key="index + 'page'" :label="index">
+      <el-radio v-for="(page, index) in pageList" :key="index + 'page'" :label="page">
         第{{ page }}页
       </el-radio>
     </el-radio-group>
@@ -49,12 +49,17 @@ export default {
   data() {
     return {
       maxPage: 1,
+      startPage:1,
       selectPage: 0,
     };
   },
   methods: {
-    open(maxPage) {
-      this.maxPage = maxPage
+    open(maxPage,startPage) {
+      /**结束页码 + 开始页码（最小1开始） - 1
+       * 比如  只有一页1  第10页开始  那最大页码就是 1+10-1 也就是10
+       * */
+      this.maxPage = maxPage + startPage - 1
+      this.startPage = startPage
       this.$refs.modalName.open();
     },
     close() {
@@ -62,6 +67,15 @@ export default {
     },
     post() {
       this.$emit('setAsTemplate', this.selectPage)
+    }
+  },
+  computed:{
+    pageList(){
+      const tds = [];
+      for (let i = this.startPage; i <= this.maxPage; i++) {
+        tds.push(i);
+      }
+      return tds;
     }
   },
   components: {

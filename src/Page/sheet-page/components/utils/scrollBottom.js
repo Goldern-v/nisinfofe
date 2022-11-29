@@ -1,6 +1,6 @@
 /** 护记滚到最底部 */
 import $ from "jquery";
-export function sheetScrollBotton(time = 300) {
+export function sheetScrollBottom(time = 300) {
   $(this.$refs.scrollCon).animate(
     {
       scrollTop:
