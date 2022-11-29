@@ -2,9 +2,10 @@
   <div
     v-if="['70*80', '7*7', '7*5'].includes(newModalSize)"
     class="new-print-modal new-print-modal--large"
+    :class="{ size3: isSize3 }"
     :style="sizeStyle"
   >
-    <div class="new-print-modal__title" :class="{size3: isSize3}">
+    <div class="new-print-modal__title">
       <span>{{ currentBottle.printFlag ? "补" : "" }}</span>
       <span class="center">{{ hospitalName }}</span>
       <span>{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
@@ -28,7 +29,7 @@
       </div>
     </div>
 
-    <div class="new-print-modal__content" :class="{size3: isSize3}">
+    <div class="new-print-modal__content">
       <div v-for="(item, index) in currentBottle.orderText" :key="index">
         {{ item }}
         <span>{{ currentBottle.dosageDosageUnits[index] }}</span>
@@ -42,7 +43,7 @@
       </div>
     </div>
 
-    <div class="isZhzxy new-print-modal__b">
+    <div class="new-print-modal__b">
       <div class="new-print-modal__b__l">
         <span> 途径:{{ currentBottle.administration }} </span>
         <span>
@@ -118,6 +119,52 @@
     line-height: 18px;
     padding: 0 5px;
     box-sizing: border-box;
+    &.size3 {
+      transform: rotate(90deg) translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform-origin: top left;
+      line-height: 14px;
+      font-size: 13px;
+      .new-print-modal__title {
+        min-height: 14px;
+        span {
+          font-size: 13px;
+          line-height: 14px;
+        }
+      }
+      .new-print-modal__second {
+        height: 56px;
+        .flex {
+          height: 15px;
+          &:first-child {
+            height: 26px;
+          }
+        }
+      }
+      .new-print-modal__content div {
+        line-height: 14px;
+      }
+      .new-print-modal__tip {
+        min-height: 14px;
+      }
+      .warm-icon {
+        img {
+          width: 14px;
+          height: 14px;
+        }
+      }
+      .new-print-modal__b__l {
+        span {
+          font-size: 12px;
+          // font-weight: 600;
+        }
+      }
+      .qc-box {
+        width: 49px;
+      }
+    }
   }
   .new-print-modal__title {
     display: flex;
@@ -127,13 +174,10 @@
     font-size: 18px;
     margin: 2px 0 2px;
     flex-shrink: 0;
-    &.size3 {
-      font-size: 14px;
-    }
   }
 
   .new-print-modal__second {
-    height: 65px;
+    height: 63px;
     @extend .bb;
     .flex {
       display: flex;
@@ -153,7 +197,7 @@
         white-space: nowrap;
       }
       &:first-child {
-        height: 28px;
+        height: 26px;
       }
     }
     div {
@@ -179,15 +223,10 @@
   }
   .new-print-modal__content {
     flex: 1;
-    &.size3 {
-      div {
-        line-height: 16px;
-      }
-    }
     div {
       display: flex;
       justify-content: space-between;
-      line-height: 20px;
+      line-height: 18px;
       text-align: left;
     }
     span {
@@ -197,12 +236,14 @@
   .new-print-modal__tip {
     display: flex;
     justify-content: space-between;
+    min-height: 18px;
+    overflow: hidden;
     @extend .bb;
   }
   .warm-icon {
     img {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
     img + img {
       margin-left: 4px;
@@ -211,9 +252,6 @@
   .new-print-modal__b {
     display: flex;
     padding-bottom: 6px;
-    &.isZhzxy {
-      min-height: 72px;
-    }
   }
   .new-print-modal__b__l {
     display: flex;
@@ -306,7 +344,7 @@ import { cloneDeep } from "lodash";
 import moment from "moment";
 var qr = require("qr-image");
 
-const arrayBufferToBase64 = buffer => {
+const arrayBufferToBase64 = (buffer) => {
   var binary = "";
   var bytes = new Uint8Array(buffer);
   var len = bytes.byteLength;
@@ -319,11 +357,11 @@ const arrayBufferToBase64 = buffer => {
 export default {
   props: {
     itemObj: { type: Array, default: () => [] },
-    newModalSize: { type: String, default: "6*8" }
+    newModalSize: { type: String, default: "6*8" },
   },
   data() {
     return {
-      isZhzxy: this.HOSPITAL_ID === "zhzxy"
+      isZhzxy: this.HOSPITAL_ID === "zhzxy",
     };
   },
   methods: {
@@ -339,7 +377,7 @@ export default {
           break;
       }
       return url;
-    }
+    },
   },
   watch: {},
   computed: {
@@ -349,9 +387,9 @@ export default {
       // 提示图标
       let tipIcons = [];
       let dosageDosageUnits = [];
-      this.itemObj.map(item => {
+      this.itemObj.map((item) => {
         orderText.push(item.orderText);
-        const val = ["2", "4"].find(v => v == item.printFlag);
+        const val = ["2", "4"].find((v) => v == item.printFlag);
         if (val) {
           tipIcons.push(val);
         }
@@ -373,7 +411,7 @@ export default {
     // 医生说明
     freqDetail() {
       return (
-        this.itemObj && this.itemObj.map(item => item.freqDetail).join("\n")
+        this.itemObj && this.itemObj.map((item) => item.freqDetail).join("\n")
       );
     },
     // 宽高样式
@@ -389,20 +427,20 @@ export default {
       }
     },
     isSize3() {
-      return this.newModalSize === '7*5'
-    }
+      return this.newModalSize === "7*5";
+    },
   },
   filters: {
     repeatIndicatorFilter(val) {
       let obj = {
         0: "临时",
-        1: "长期"
+        1: "长期",
       };
       return obj[val];
     },
     executeDateFilter(val) {
       return moment(val).format("YYYY-MM-DD HH:mm");
-    }
-  }
+    },
+  },
 };
 </script>

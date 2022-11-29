@@ -14,6 +14,8 @@
       <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
+      <!-- 跳转大屏，新医院不需要加入 by龙江 -->
+      <Button :disabled="isEmpty" v-if="'sdlj' === HOSPITAL_ID" @click="onOpenPage">投屏</Button>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
     </div>
@@ -1021,7 +1023,7 @@ export default {
       );
     },
     onPatientsModalShow(d,isSelected=true) {
-      /* 
+      /*
       d:日期
       isSelected:已有病人是否不给选择。
       这个函数有三个地方使用。①已经有交班志的时候 ②创建交班志的时候（不复制前一天病人） ③创建交班志的时候（复制前一天病人）
@@ -1312,6 +1314,11 @@ export default {
 
         textareas[toIndex].focus();
       }
+    },
+    onOpenPage() {
+      const a = document.createElement('a')
+      a.href = `http://192.168.100.182:9091/crNursing/whit/#/shift-work?code=${this.$route.params.code}&date=${this.record.changeShiftDate}`
+      a.click()
     }
   },
   components: {
