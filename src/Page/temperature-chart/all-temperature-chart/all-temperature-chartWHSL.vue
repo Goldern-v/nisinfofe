@@ -38,6 +38,7 @@
           <el-radio-button label="危重患者"></el-radio-button>
           <el-radio-button label="三天超37.5"></el-radio-button>
           <el-radio-button label="入院四天"></el-radio-button>
+          <el-radio-button label= "术后三天"></el-radio-button>
         </el-radio-group>
       </div>
       <el-button @click="debounceSave">保存</el-button>
@@ -872,6 +873,10 @@ export default {
                 ?(item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
                     item.temperatureFlag==1
+                :this.admitted === "术后三天"
+                ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                    item.name.indexOf(this.searchWord) > -1) &&
+                    item.operationFlag==1
                 : (item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
                   item.patientId &&
