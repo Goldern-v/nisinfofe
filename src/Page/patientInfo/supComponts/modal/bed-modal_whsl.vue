@@ -54,7 +54,7 @@
                 }"
                 class="bottom-line"
                 :value="query.bedLabel + '床'"
-              />
+              />&nbsp;&nbsp;
               <input
                 type="text"
                 flex-box="1"
@@ -181,6 +181,7 @@
                   class="bottom-line"
                   v-model="formData.mainDoctors"
                 />
+                &nbsp;&nbsp;
                 <span class="label">责任护士:</span>
                 <input
                   type="text"
