@@ -652,9 +652,13 @@ label {
       top: 87px;
       height: 22px
     }
-    .title-name input{
-      font-weight: 500;
-      text-shadow: 1px 0px #000, -1px 0px #000, 0px 1px #000, 0px -1px #000;
+    .title-name {
+      height: 55px !important;
+      input {
+        font-weight: 500;
+        font-size: 46px;
+        text-shadow: 1px 0px #000, -1px 0px #000, 0px 1px #000, 0px -1px #000;
+      }
     }
     .title-bed {
       .title-bed__1, .title-bed__2 {
