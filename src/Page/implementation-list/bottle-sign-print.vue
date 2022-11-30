@@ -173,7 +173,7 @@
               size="small"
               @click="onPrint"
               :disabled="status == '已执行'"
-              >打印{{ showPrintAll ? "此页" : "" }}</el-button
+              >打印{{ showPrintAll && HOSPITAL_ID !== 'zhzxy' ? "此页" : "" }}</el-button
             >
             <el-button
               size="small"

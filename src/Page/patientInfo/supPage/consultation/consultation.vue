@@ -80,7 +80,10 @@ export default {
       }
     });
     // 刷新会诊列表
-    this.bus.$on("consultationListRefresh", () => {
+    this.bus.$on("consultationListRefresh", (type) => {
+      if (type == 'del') {
+        this.clickIndex = ''
+      }
       this.getData();
     });
   },

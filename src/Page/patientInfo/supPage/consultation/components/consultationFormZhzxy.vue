@@ -1,5 +1,5 @@
 <template>
-  <div ref="print">
+  <div>
     <el-row
       class="consultationForm"
       v-loading="consultation.status == '' || !conId"
@@ -121,6 +121,46 @@
         </div>
       </el-form>
     </el-row>
+
+    <div id="print" class="print" ref="printRef" v-show="isPrint">
+        <div class="title1">{{ hospitalName }}</div>
+        <div class="title2">
+          {{ consultation.consultationName || "护理会诊单" }}
+        </div>
+      <div class="print-header flex flex-1 line--top">
+        <span>姓名：{{ consultation.consultationObject }}</span>
+        <span>性别：{{ consultation.sex }}</span>
+        <span>年龄：{{ consultation.age }}</span>
+        <span>病区：{{ patientInfo.deptName }}</span>
+        <span>床号：{{ consultation.bedNo }}</span>
+        <span>住院号：{{ patientInfo.inpNo }}</span>
+      </div>
+
+      <div class="print-content">
+        <div class="flex">
+          <span>邀请科室：{{ consultation.consultationDeptName }}</span>
+          <span>{{ membersName }}</span>
+          <span>{{ consultation.type + '会诊' }}</span>
+        </div>
+        <div class="print-content__box">临床诊断：{{ consultation.nursingDiagnosis }}</div>
+        <div class="print-content__box">简要病史：{{ consultation.consultationPurposes }}</div>
+        <div class="print-content__box">主要护理问题：{{ consultation.mainNursingMessage }}</div>
+        <div class="print-content__box">申请会诊类别：{{ consultation.consultationType }}</div>
+        <div class="flex flex-2">
+          <span>申请科室：{{ patientInfo.deptName }}</span>
+          <span>申请人：</span>
+          <img class="sign-img" :src="getSignImg(consultation.creatorId)" alt="" />
+          <span>日期: {{ moment(consultation.createTime).format(formatText) }}</span>
+        </div>
+        <div class="line--top print-content__box1">护理会诊意见：{{ results[0].content }}</div>
+        <div class="flex flex-2">
+          <span>申请科室：{{ consultation.consultationDeptName }}</span>
+          <span>会诊护士：</span>
+          <img v-for="v in members" :key="v" class="sign-img" :src="getSignImg(v)" alt="" />
+          <span>日期: {{ results[0] && results[0].createTime ? moment(results[0].createTime).format(formatText) : '无' }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -135,12 +175,15 @@ import {
 import BusFactory from "vue-happy-bus";
 import print from "printing";
 import common from "@/common/mixin/common.mixin.js";
+import moment from 'moment'
 
 export default {
   name: "ConsultationForm",
   mixins: [common],
   data() {
     return {
+      moment,
+      formatText: 'YYYY年MM月DD日HH时mm分',
       bus: BusFactory(this),
       dialogFormVisible: false,
       formLabelWidth: "85px",
@@ -184,6 +227,12 @@ export default {
           .name || ""
       );
     },
+    patientInfo() {
+      return this.$route.query || {}
+    },
+    membersName() {
+      return this.members.map(v => (this.memberLists.find(v1 => v1.empNo === v) || { empName: '' }).empName).join(',')
+    }
   },
   methods: {
     getData(id) {
@@ -270,7 +319,7 @@ export default {
     handlePrint() {
       this.isPrint = true;
       this.$nextTick(() => {
-        print(this.$refs.print, {
+        print(this.$refs.printRef, {
           beforePrint: null,
           // direction: "horizontal",
           injectGlobalCss: true,
@@ -331,6 +380,10 @@ export default {
         })
         .catch((res) => {});
     },
+    // 获取签名图片
+    getSignImg(name) {
+      return `/crNursing/api/file/signImage/${name}?${this.token}`;
+    }
   },
   created() {
     getAllDept(this.$route.query.wardCode)
@@ -384,6 +437,57 @@ export default {
     }
   }
 }
+.print {
+  font-size: 16px;
+  line-height: 20px;
+  .title1, .title2 {
+    text-align: center;
+    font-weight: 900;
+  }
+  .title1 {
+    font-size: 22px;
+    line-height: 26px;
+    margin: 20px 0 10px;
+  }
+  .title2 {
+    font-size: 20px;
+  }
+  .print-header {
+    padding: 5px 0;
+    margin-top: 20px;
+  }
+  .line--top {
+    border-top: 1px solid #000;
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    span + span {
+      padding-left: 15px;
+    }
+  }
+  .flex-1 {
+    justify-content: space-between;
+  }
+  .flex-2 {
+    justify-content: flex-end;
+  }
+  .print-content {
+    border: 1px solid #000;
+    padding-top: 5px;
+    .print-content__box {
+      min-height: 60px;
+    }
+    .print-content__box1 {
+      min-height: 100px;
+    }
+    .sign-img {
+      height: 20px;
+      width: auto;
+    }
+  }
+}
 </style>
 
 <style lang="scss">
@@ -391,7 +495,7 @@ export default {
   .el {
     &-textarea__inner {
       &::placeholder {
-        font-size: 13px; // color: #333333;
+        font-size: 13px;
       }
       border: 1px solid #cbd5dd;
       border-radius: 4px;
