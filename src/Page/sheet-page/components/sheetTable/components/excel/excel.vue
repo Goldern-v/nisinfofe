@@ -692,7 +692,6 @@ import moment from "moment";
 import { getUser } from "@/api/common.js";
 import bottomRemark from "./remark";
 import { GetUserList} from "@/api/caCardApi";
-
 // console.dir(sheetInfo);
 export default {
   props: {
@@ -907,7 +906,7 @@ export default {
     //花都护记年份
     recordYear() {
       let year=this.data.bodyModel[0][0].value.split("-")[0]
-      if((this.HOSPITAL_ID==='fuyou'||this.HOSPITAL_ID==='whfk'||this.HOSPITAL_ID==='fsxt')&&year){
+      if((this.HOSPITAL_ID==='fuyou'||this.HOSPITAL_ID==='whfk')&&year){
         year=`${year}年`
       }
       if(this.HOSPITAL_ID === 'foshanrenyi' && this.sheetInfo.sheetType == 'babyarea_fs'){
@@ -917,6 +916,10 @@ export default {
         let value = this.data.bodyModel[0].find(item=>item.key==="recordYear").value
         year = value || ''
       }
+      if(this.HOSPITAL_ID==='fsxt'){
+        year=`${year || moment().format('YYYY')}年`
+      }
+
       return year;
     },
     show(td) {
