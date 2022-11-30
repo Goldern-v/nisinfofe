@@ -445,22 +445,22 @@ export default {
     },
   },
   created() {
-    if (this.$route.query.nursingType == 'doc') {
+    if (this.$route.query.viewType == 'doc') {
       this.isDoc = true
       this.isRecord = false
       this.isTemperature = false
       this.setItemShow('one')
-    } else if (this.$route.query.nursingType == 'record') {
+    } else if (this.$route.query.viewType == 'record') {
       this.isDoc = false
       this.isRecord = true
       this.isTemperature = false
       this.setItemShow('two')
-    } else if (this.$route.query.nursingType == 'temperature') {
+    } else if (this.$route.query.viewType == 'temperature') {
       this.isDoc = false
       this.isRecord = false
       this.isTemperature = true
       this.setItemShow('three')
-    } else if (this.$route.query.nursingType == 'nursingPreview') {
+    } else if (this.$route.query.viewType == 'nursingPreview') {
       this.isDoc = true
       this.isRecord = true
       this.isTemperature = true

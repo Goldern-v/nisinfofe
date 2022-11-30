@@ -25,7 +25,7 @@
               <div>POCT</div>
             </div>
           </div>
-          
+
           <div class="title" v-if="HOSPITAL_ID == 'whfk'">
             <img class="title-img" src="./image/logo.png" alt="logo" />
           </div>
@@ -50,7 +50,7 @@
           </div>
           <div
             class="sup-title"
-            v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院' || HOSPITAL_ID === 'lyyz'"
+            v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院' || HOSPITAL_ID === 'lyyz'|| HOSPITAL_ID === 'whsl'"
           >
             血糖测量记录单
           </div>
@@ -244,7 +244,7 @@
             <div class="head-con" flex="cross:stretch">
               <div class="col-1">打印人</div>
               <div class="col-2">打印时间</div>
-            
+
             </div>
             <el-option
               v-for="item in printRecord"
@@ -365,7 +365,7 @@
     padding-right: 30px;
     margin-top: 10px;
   }
-} 
+}
 >>> .el-select-dropdown__list, .el-select-dropdown__item {
     padding: 0;
     height: auto;
@@ -649,15 +649,15 @@ if(this.selected.expand2!==undefined){
         const notYearDate=`${formatArr[1]}-${formatArr[2]}`
         const YearDate=`${formatArr[0]}-${formatArr[1]}-${formatArr[2]}`
         if(item.date&&notYearDate!==item.date&&this.HOSPITAL_ID==='liaocheng'){
-            //聊城显示时间是没有年份的（显示月日时分）。 
+            //聊城显示时间是没有年份的（显示月日时分）。
             item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
         }
         if(item.date&&YearDate!==item.date&&this.HOSPITAL_ID==='whfk'){
-            //武汉肺科显示时间（显示年月日时分）。 
+            //武汉肺科显示时间（显示年月日时分）。
             item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
         }
         // if(item.date&&YearDate!==item.date&&this.HOSPITAL_ID==='whfk'){
-        //     //显示时间是有年份的（显示年月日）。 
+        //     //显示时间是有年份的（显示年月日）。
         //     item.recordDate=`${item.date} ${item.time}:00`
         // }
       await saveSugarList([item])
@@ -747,7 +747,7 @@ if(this.selected.expand2!==undefined){
         if (process.env.NODE_ENV === "production") {
           let newWid = window.open();
           if(this.HOSPITAL_ID === 'whfk'){
-            newWid.location.href = `/crNursing/print/sugar?patientId=${this.patientInfo.patientId}&visitId=${this.patientInfo.visitId}&formType=${"sugar"}&formCode=${"procedure"}&formName=${'血糖监测单'}`; 
+            newWid.location.href = `/crNursing/print/sugar?patientId=${this.patientInfo.patientId}&visitId=${this.patientInfo.visitId}&formType=${"sugar"}&formCode=${"procedure"}&formName=${'血糖监测单'}`;
           }else{
             newWid.location.href = "/crNursing/print/sugar";
           }
@@ -897,7 +897,7 @@ if(this.selected.expand2!==undefined){
     if (this.$route.query.patientId) {
       await this.load();
     }
-    
+
     // 为了处理顺德龙江选择儿童单子立马创建表单问题
     if (this.HOSPITAL_ID === "sdlj" && this.listMap.length == 0 && !this.isPreview) {
       this.onAddTable()
@@ -905,7 +905,7 @@ if(this.selected.expand2!==undefined){
     if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
       this.getSugarItemDict();
     }
-    
+
     if (this.HOSPITAL_ID == "lingcheng") {
       this.getFormHead();
     }

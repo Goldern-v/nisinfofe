@@ -35,7 +35,7 @@
     background: #fff !important;
   }
 
-  input {
+  input, textarea {
     color: #000 !important;
     // color: #000000 !important;
     // font-family: "SimHei" !important;
@@ -221,6 +221,7 @@
 </style>
 
 <script>
+// le f = ''
 import $ from "jquery";
 import bus from "vue-happy-bus";
 import { printDir } from "../control/common-print.js";

@@ -14,8 +14,6 @@
       <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
-      <!-- 跳转大屏，新医院不需要加入 by龙江 -->
-      <Button :disabled="isEmpty" v-if="'sdlj' === HOSPITAL_ID" @click="onOpenPage">投屏</Button>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
     </div>
@@ -616,7 +614,7 @@ export default {
               width: "80"
             },
             {
-              label: "主诉及现存主要问题",
+              label: "护理诊断及主要问题",
               prop: "mainComplaint",
               editable: true,
               width: "90"
@@ -627,7 +625,7 @@ export default {
           label: "B（背景）",
           columns: [
             {
-              label: "既往病史、治疗经过、护理评估情况、治疗效果跟踪",
+              label: "既往病史、治疗经过、治疗效果跟踪",
               prop: "background",
               editable: true,
               width: "180"
@@ -638,7 +636,7 @@ export default {
           label: "A（评估）",
           columns: [
             {
-              label: "交班前最后一次护理评估情况",
+              label: "护理评估及护理记录",
               prop: "assessmentSituation",
               editable: true,
               width: "110"
@@ -646,10 +644,10 @@ export default {
           ]
         },
         {
-          label: "R（建议）",
+          label: "R（建议及评价）",
           columns: [
             {
-              label: "交给下一班需注意的",
+              label: "交给下一班观察重点",
               prop: "proposal",
               editable: true,
               width: "100"
@@ -1314,11 +1312,6 @@ export default {
 
         textareas[toIndex].focus();
       }
-    },
-    onOpenPage() {
-      const a = document.createElement('a')
-      a.href = `http://192.168.100.182:9091/crNursing/whit/#/shift-work?code=${this.$route.params.code}&date=${this.record.changeShiftDate}`
-      a.click()
     }
   },
   components: {

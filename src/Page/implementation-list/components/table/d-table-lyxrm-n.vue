@@ -279,6 +279,17 @@
           </div>
         </template>
       </u-table-column>
+       <u-table-column label="操作" min-width="100px" v-if="HOSPITAL_ID == 'whsl'" align="center">
+        <template slot-scope="scope">
+          <el-button type="text" @click="backTracking(scope.row)" v-if="scope.row.executeFlag==0">补录</el-button>
+          <el-button
+            type="text"
+            @click="editTime(scope.row)"
+            v-if="  isTimeSelect &&
+                scope.row.executeFlag === 4||scope.row.executeFlag > 0"
+          >修改</el-button>
+        </template>
+      </u-table-column>
     </u-table>
     <editModal ref="editModal"></editModal>
   </div>
@@ -584,6 +595,16 @@ export default {
             data = {
               ...data,
               expand3: item.expand3,   // --患者住院流水号
+              patientId: item.patientId,  // --患者id
+              executeType: item.executeType,  // --执行单类型
+              executeDateTime: item.executeDateTime
+            }
+          }
+           if (this.HOSPITAL_ID == 'whsl') {
+            fn = addRecord
+            data = {
+              ...data,
+              visitId: item.visitId,   // --患者住院流水号
               patientId: item.patientId,  // --患者id
               executeType: item.executeType,  // --执行单类型
               executeDateTime: item.executeDateTime

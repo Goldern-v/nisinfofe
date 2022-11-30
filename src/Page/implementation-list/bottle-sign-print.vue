@@ -137,12 +137,20 @@
             >查询</el-button
           >
           <el-button
+            v-if="['zhzxy'].includes(HOSPITAL_ID)"
+            size="small"
+            @click="currentPagePrint"
+            :disabled="status == '已执行'"
+            >打印当前页</el-button
+          >
+          <el-button
+            v-else
             size="small"
             @click="allSelection"
             :disabled="status == '已执行'"
             >全选</el-button
           >
-          <template v-if="['whfk', 'whsl'].includes(HOSPITAL_ID)">
+          <template v-if="['whfk', 'whsl','zhzxy'].includes(HOSPITAL_ID)">
             <el-button size="small" @click="syncData">同步医嘱</el-button>
             <el-button size="small" @click="createImplement"
               >生成执行</el-button
@@ -177,7 +185,7 @@
             <el-button size="small" @click="createImplement"
               >生成执行</el-button
             >
-            <el-button v-if="['sdlj', 'lyxrm', 'ytll', 'zhzxy', '925'].includes(HOSPITAL_ID)"
+            <el-button v-if="['sdlj', 'lyxrm', 'ytll', '925'].includes(HOSPITAL_ID)"
                        size="small"
                        @click="syncData">同步医嘱
             </el-button>
@@ -202,13 +210,12 @@
       </div>
 
       <div class="new-print-box" id="new-print-box" ref="new_print_modal">
-        <!-- :class="{'new-print-box--small': !['6*8', '70*80'].includes(newModalSize)}" -->
-            <!-- printItemClass -->
         <div
           :class="[
             {
               'break-page':bottleCardIndex % 3 == 2 &&
                 newModalSize == '3*7',
+              'sise-75': newModalSize === '7*5'
             },
           ]"
           v-for="(itemBottleCard, bottleCardIndex) in printObj"
@@ -325,6 +332,11 @@
     position: relative;
     height: 19.90mm;
     overflow: hidden;
+  }
+  .sise-75 {
+    width: 69mm;
+    height: 50mm;
+    position: relative;
   }
 }
 
@@ -799,6 +811,11 @@ export default {
       this.selectedData = this.$_.flattenDeep(this.pagedTable);
       await this.newOnPrint();
     },
+    // 打印当前页
+    async currentPagePrint() {
+      this.selectedData = this.$_.flattenDeep(this.pagedTable[this.page.pageIndex-1]);
+      await this.newOnPrint();
+    },
     cleanPrintStatusRoundTime() {
       if (this.printStatusTimer) {
         clearTimeout(this.printStatusTimer);
@@ -819,6 +836,7 @@ export default {
       ) {
         this.$refs.plTable.$children[0].toggleAllSelection();
       }
+
     },
     querySearch(queryString, cb) {
       let list = [{ value: "膀胱冲洗" }, { value: "气滴" }];
@@ -944,7 +962,7 @@ export default {
         res = await getPrintListContent({ barCode: barCodeList.join("|") });
       }
       // 当超过5条药品，另起新瓶签
-      if (["wujing"].includes(this.HOSPITAL_ID)) {
+      if (!!this.printPagingNo) {
         let curBarCode = "";
         let curIndex = 0;
 
@@ -957,8 +975,14 @@ export default {
           curBarCode = item.barCode;
           console.log("test-key", key, printObj[key]);
           printObj[key] = printObj[key] || [];
-          if (printObj[key].length < 5) {
+          if (printObj[key].length < this.printPagingNo) {
             printObj[key].push(item);
+          if(item.orderText.length>23){
+             printObj[key].push({orderText:''});
+          } 
+          if(item.orderText.length>46){
+             printObj[key].push({orderText:''});
+          }
             return;
           }
           curIndex += 1;
@@ -970,8 +994,8 @@ export default {
           printObj[item.barCode].push(item);
         });
       }
-      let sortArr = this.HOSPITAL_ID == "wujing" ? Object.values(printObj) : [];
-      if (this.HOSPITAL_ID != "wujing") {
+      let sortArr = !!this.printPagingNo ? Object.values(printObj) : [];
+      if (!this.printPagingNo) {
         barCodeList.map((item) => {
           sortArr.push(printObj[item]);
         });
@@ -1094,7 +1118,7 @@ export default {
         case "925":
           return ["70*80", "3*7"];
         case "zhzxy":
-          return ["7*7", "2*5", '7*5'];
+          return ["7*7", "2*5"];
         // case 'whsl':
         //   return ["7*8", "3*5"];
         case "wujing":
@@ -1110,7 +1134,7 @@ export default {
     // 打印缩放的尺寸
     printScaleText() {
       if (
-        ["70*80", "6*8", "5*8", "7*7"].includes(this.newModalSize) ||
+        ["70*80", "6*8", "5*8", "7*7", '7*5'].includes(this.newModalSize) ||
         ["whfk"].includes(this.HOSPITAL_ID)
       )
         return "";
@@ -1144,14 +1168,16 @@ export default {
     multiBed() {
       return ["lyxrm", "zhzxy", "925"].includes(this.HOSPITAL_ID);
     },
-    // printItemClass() {
-    //   if (this.newModalSize === '3*5' && this.HOSPITAL_ID === 'whsl') {
-    //     return 'small-35'
-    //   // } else if (this.newModalSize === '2*5' && this.HOSPITAL_ID === 'zhzxy') {
-    //   //   return 'small-25'
-    //   }
-    //   return ''
-    // }
+    // 瓶签是否分页 超过多少条开始分
+    printPagingNo() {
+      return hisMatch({
+        map: {
+          'wujing': 5,
+          'zhzxy': 4,
+          other: 0
+        }
+      })
+    }
   },
   watch: {
     deptCode() {
