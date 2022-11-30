@@ -34,7 +34,7 @@ let Output = ['大便','尿量','引流量','胃管','尿管','伤口引流管',
 let Input = ['输入液量','进食量']
 let shengz = ['√','+','*','++','+++']
 let dongk = ['√','+','++']
-let tongy = ['√ ','/√','√/√']
+let tongy = ['√ ','/√','√/√',"中","低","高","禁食","轻","中","重"]
 
 export default [
   { hidden: true, key: 'recordDate', value: '' },
@@ -49,7 +49,7 @@ export default [
   { key: 'consciousness', event: keyf1, value: '', next: '', name: '神志',autoComplete: { data: shengz }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'leftPupilDiameter', event: keyf1, value: '', next: 'mm', name: '直径(左)', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'rightPupilDiametern', event: keyf1, value: '', next: 'mm', name: '直径(右)', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-  { key: 'leftPupillaryReflex', event: keyf1, value: '', next: '', name: '对光反射(左)', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'leftPupillaryReflex', event: keyf1, value: '', next: '', name: '对光反射(左)', autoComplete: { data: dongk }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'rightPupillaryReflex', event: keyf1, value: '', next: '', name: '对光反射(右)',autoComplete: { data: dongk }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量', autoComplete: { data: Input }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -58,12 +58,12 @@ export default [
   { key: 'character', event: keyf1, value: '', next: '', name: '颜色/性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'turnBack', event: keyf1, value: '', next: '', name: '翻身/拍背', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:['√/×','√/√','×/√']} },
   { key: 'theXygenRate', event: keyf1, value: '', next: 'L/min', name: '氧流量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6)},
-  { key: 'armValue1', event: keyf1, value: '',autoComplete: { data: tongy },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["中","低","高","禁食","轻","中","重"]}},
-  { key: 'armValue2', event: keyf1, value: '',autoComplete: { data: tongy },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["中","低","高","禁食","轻","中","重"]}},
-  { key: 'armValue3', event: keyf1, value: '',autoComplete: { data: tongy },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["中","低","高","禁食","轻","中","重"]}},
-  { key: 'armValue4', event: keyf1, value: '',autoComplete: { data: tongy },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["中","低","高","禁食","轻","中","重"]}},
-  { key: 'armValue5', event: keyf1, value: '',autoComplete: { data: tongy },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["中","低","高","禁食","轻","中","重"]}},
-  { key: 'armValue6', event: keyf1, value: '',autoComplete: { data: tongy  },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["中","低","高","禁食","轻","中","重"]}},
+  { key: 'armValue1', event: keyf1, value: '',autoComplete: { data: tongy },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
+  { key: 'armValue2', event: keyf1, value: '',autoComplete: { data: tongy },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
+  { key: 'armValue3', event: keyf1, value: '',autoComplete: { data: tongy },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
+  { key: 'armValue4', event: keyf1, value: '',autoComplete: { data: tongy },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) ,  },
+  { key: 'armValue5', event: keyf1, value: '',autoComplete: { data: tongy },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
+  { key: 'armValue6', event: keyf1, value: '',autoComplete: { data: tongy  },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
   {
     key: "description", //特殊情况记录
     value: "",

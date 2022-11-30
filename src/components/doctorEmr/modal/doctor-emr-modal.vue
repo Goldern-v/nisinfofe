@@ -1,5 +1,5 @@
 <template>
-  <sweet-modal ref="modalName" title="病历" class="modal-con" :colseShadow="['zhzxy','fsxt'].includes(HOSPITAL_ID)"  :modalWidth="['zhzxy','fsxt'].includes(HOSPITAL_ID) ? 1200 : 0">
+  <sweet-modal ref="modalName" title="病历" class="modal-con" :colseShadow="['zhzxy','fsxt'].includes(HOSPITAL_ID)"  :modalWidth="['zhzxy','fsxt'].includes(HOSPITAL_ID) ? 1200 : 0" v-dialogDrag>
     <doctorEmr></doctorEmr>
     <!-- <div slot="button">
       <el-button class="modal-btn" @click="$refs.modalName.close()"
