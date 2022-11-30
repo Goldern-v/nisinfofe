@@ -428,6 +428,7 @@ export default {
           localStorage.setItem('lockForm',JSON.stringify(formConfig))
         }
         let bodyData = res[1].data.data;
+      console.log(`界面初始化完成,前端获取接口数据========>>>>>>护记数据:`,bodyData&&bodyData.list)
         if(this.HOSPITAL_ID=='wujing'){
           let barcodeArr = {}
           bodyData.list.map((tr,index)=>{
@@ -566,7 +567,9 @@ export default {
           let bedList = res.data.data.filter(item => {
             return item.patientId;
           });
+    this.$store.commit("upPatientInfo", this.$route.query);
           sheetInfo.bedList = bedList;
+          sheetInfo.isSave = true;
         });
       }
     },
@@ -810,14 +813,9 @@ export default {
       }
 
   },
-
   created() {
     this.getDate();
     sheetInfo.isSave = true;
-    this.$store.commit("upPatientInfo", {});
-    setTimeout(() => {
-      this.$store.commit("upPatientInfo", this.$route.query);
-    }, 100);
         this.bus.$on("addSheetPage", () => {
       if (!this.sheetInfo.selectBlock.id) {
         return this.$notify.info({
