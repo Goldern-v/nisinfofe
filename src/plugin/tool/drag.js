@@ -217,9 +217,13 @@
         if (!this.options.backToPosition) {
             this.targetDom.style[this.transformProperty] = 'translate3d(' + this.movePoint.x + 'px,' + this.movePoint.y + 'px,' + '0)';
         } else {
-            var cssString = 'left:' + (this.movePoint.x + this.targetPosition.x) + 'px;top:' + (this.movePoint.y + this.targetPosition.y) + 'px;';
-            // cssText会覆盖原样式 所以需要写+ 另外;是为了兼容IE8的cssText不返回; 不加上会出BUG
-            this.targetDom.style.cssText += ';' + cssString;
+            if(this.movePoint.y + this.targetPosition.y <= 300 ) {
+
+            }else{
+                var cssString = 'left:' + (this.movePoint.x + this.targetPosition.x) + 'px;top:' + (this.movePoint.y + this.targetPosition.y) + 'px;';
+                // cssText会覆盖原样式 所以需要写+ 另外;是为了兼容IE8的cssText不返回; 不加上会出BUG
+                this.targetDom.style.cssText += ';' + cssString;
+            }
         }
     }
     proto.dragMove = function() {

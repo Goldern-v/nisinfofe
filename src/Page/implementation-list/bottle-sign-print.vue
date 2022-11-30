@@ -974,7 +974,6 @@ export default {
           let key =
             curIndex == 0 ? item.barCode : `${item.barCode}_${curIndex}`;
           curBarCode = item.barCode;
-          console.log("test-key", key, printObj[key]);
           printObj[key] = printObj[key] || [];
           if (printObj[key].length < this.printPagingNo) {
             printObj[key].push(item);
@@ -995,7 +994,6 @@ export default {
           sortArr.push(printObj[item]);
         });
       }
-      console.log(sortArr);
       this.printObj = sortArr;
     },
     // 静默打印
