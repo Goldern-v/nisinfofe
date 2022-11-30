@@ -813,6 +813,7 @@ export default {
     },
     // 打印当前页
     async currentPagePrint() {
+      console.log(this.pagedTable[this.page.pageIndex-1])
       this.selectedData = this.$_.flattenDeep(this.pagedTable[this.page.pageIndex-1]);
       await this.newOnPrint();
     },
@@ -977,12 +978,6 @@ export default {
           printObj[key] = printObj[key] || [];
           if (printObj[key].length < this.printPagingNo) {
             printObj[key].push(item);
-          if(item.orderText.length>23){
-             printObj[key].push({orderText:''});
-          } 
-          if(item.orderText.length>46){
-             printObj[key].push({orderText:''});
-          }
             return;
           }
           curIndex += 1;
@@ -995,11 +990,12 @@ export default {
         });
       }
       let sortArr = !!this.printPagingNo ? Object.values(printObj) : [];
-      if (!this.printPagingNo) {
+      if (!!this.printPagingNo) {
         barCodeList.map((item) => {
           sortArr.push(printObj[item]);
         });
       }
+      console.log(sortArr);
       this.printObj = sortArr;
     },
     // 静默打印
