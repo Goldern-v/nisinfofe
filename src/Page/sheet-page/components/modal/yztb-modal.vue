@@ -36,10 +36,10 @@
             style="width: 150px"
           >
             <el-option
-              :label="typeItem.name"
-              :value="typeItem.id"
+              :label="typeItem.label"
+              :value="typeItem.label"
               v-for="typeItem in yizhuTyoe"
-              :key="typeItem.id"
+              :key="typeItem.label"
             ></el-option>
           </el-select>
         </div>
@@ -237,7 +237,7 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist: {},
-      yizhuTypeItem:"0",
+      yizhuTypeItem:["输液"],
       executeType: ["liaocheng", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)
         ? "输液"
         : "",
@@ -438,9 +438,17 @@ export default {
     },
     yizhuTyoe(){
       return [
-        {name:"全部",id:""},
-        {name:"长期",id:"1"},
-        {name:"临时",id:"0"},
+        { label: "输液" },
+        { label: "注射" },
+        { label: "口服" },
+        { label: "雾化" },
+        { label: "皮试" },
+        { label: "治疗" },
+        { label: "理疗" },
+        { label: "护理" },
+        { label: "外用" },
+        { label: "化验" },
+        { label: "其他" },
       ]
     },
     allType() {

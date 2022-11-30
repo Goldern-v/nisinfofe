@@ -977,6 +977,12 @@ export default {
           printObj[key] = printObj[key] || [];
           if (printObj[key].length < this.printPagingNo) {
             printObj[key].push(item);
+          if(item.orderText.length>23){
+             printObj[key].push({orderText:''});
+          } 
+          if(item.orderText.length>46){
+             printObj[key].push({orderText:''});
+          }
             return;
           }
           curIndex += 1;

@@ -1,5 +1,5 @@
 
-/** 
+/**
   佛山市一 - 护理记录单(麻醉科IPACU护理记录单)
 */
 
@@ -57,6 +57,7 @@ const xinlu = [
   {name:"Ⅱ度房室传导阻滞",value:"Ⅱ度房室传导阻滞"},
   {name:"Ⅲ度房室传导阻滞",value:"Ⅲ度房室传导阻滞"},
 ]
+
 const VAS = [
   {name:"0",value:"0"},
   {name:"1",value:"1"},
@@ -91,6 +92,26 @@ const outputColor = [
   {name:"咖啡色",value:"咖啡色"},
   {name:"墨绿色",value:"墨绿色"},
 ]
+const outup = [
+  {name:"尿",value:"尿"},
+  {name:"大便",value:"大便"},
+  {name:"术中出血",value:"术中出血"},
+  {name:"术中尿量",value:"术中尿量"},
+  {name:"术中腹腔积液",value:"术中腹腔积液"},
+  {name:"胃液",value:"胃液"},
+  {name:"胃管",value:"胃管"},
+  {name:"胸腔引流",value:"胸腔引流"},
+  {name:"腹腔引流管",value:"腹腔引流管"},
+  {name:"盆腔引流管",value:"盆腔引流管"},
+  {name:"尿管",value:"尿管"},
+  {name:"肛管",value:"肛管"},
+  {name:"皮下引流管",value:"皮下引流管"},
+]
+const ked = [
+  {name:"内置",value:"内置"},
+  {name:"至标",value:"至标"},
+  {name:"外露",value:"外露"},
+]
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -100,7 +121,7 @@ export default [
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spo', event: keyf1, value: '', next: '%', name: 'SPO₂',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'spirit', event: keyf1, value: '', next: '', name: '神志',autoComplete: { data: 
+  { key: 'spirit', event: keyf1, value: '', next: '', name: '神志',autoComplete: { data:
     [{name:"麻醉未醒",value:"麻醉未醒"},{name:"清醒",value:"清醒"},{name:"镇静状态",value:"镇静状态"},{name:"谵妄",value:"谵妄"},
      {name:"嗜睡",value:"嗜睡"},{name:"昏睡",value:"昏睡"},{name:"浅昏迷",value:"浅昏迷"},{name:"中度昏迷",value:"中度昏迷"},
      {name:"深昏迷",value:"深昏迷"}
@@ -113,11 +134,11 @@ export default [
   { key: 'food', event: keyf1, value: '', next: '', name: '入量项目',autoComplete: { data: food} ,
     textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  
-  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量项目',textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+
+  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量项目',autoComplete: { data: outup },textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'outputColor', event: keyf1, value: '', next: '', name: '颜色或性状',autoComplete: { data: outputColor },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'outputCm', event: keyf1, value: '', next: 'cm', name: '刻度',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'outputCm', event: keyf1, value: '', next: 'cm', name: '刻度',autoComplete: { data: ked },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom1', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom2', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'costom3', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -202,5 +223,5 @@ export default [
   // { hidden:true, key:'auditorName', value:''},
   // { hidden:true, key:'empNo', value:''},
   // { hidden:true, key:'multiSign', value:''}
-  
+
 // ]

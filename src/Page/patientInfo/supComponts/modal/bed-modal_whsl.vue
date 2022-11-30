@@ -54,7 +54,7 @@
                 }"
                 class="bottom-line"
                 :value="query.bedLabel + '床'"
-              />
+              />&nbsp;&nbsp;
               <input
                 type="text"
                 flex-box="1"
@@ -181,6 +181,7 @@
                   class="bottom-line"
                   v-model="formData.mainDoctors"
                 />
+                &nbsp;&nbsp;
                 <span class="label">责任护士:</span>
                 <input
                   type="text"
@@ -297,10 +298,10 @@
   // &.remarkCon
   .qr-code {
     position: absolute;
-    top: 2px;
+    top: 1px;
     left: 2px;
-    height: 86px;
-    width: 86px;
+    height: 84px;
+    width: 84px;
     &.hasRemark {
       width: 96px;
       height: 96px;
@@ -309,7 +310,7 @@
 
   .qr-code-num {
     position: absolute;
-    top: 77px;
+    top: 72px;
     left: 0px;
     width: 96px;
     text-align: center;
@@ -797,7 +798,7 @@ export default {
       }
       this.$nextTick(() => {
         this.post();
-        let test = printing.preview
+        let test = printing
         test(this.$refs.printCon, {
           injectGlobalCss: true,
           scanStyles: false,

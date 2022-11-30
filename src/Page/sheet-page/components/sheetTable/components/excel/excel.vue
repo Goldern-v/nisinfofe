@@ -2568,6 +2568,44 @@ export default {
     },
     /** 审核整页 */
     openAduitModal() {
+      let verifySignObj = "",SigndataObj=""
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        let trObj = {};
+            for (let i = 0; i < trArr.length; i++) {
+              trObj[trArr[i].key] = trArr[i].value;
+            }
+            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+            let strSignDataOBJ =
+                Object.assign({}, trObj, {
+                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                  patientId: this.patientInfo.patientId,
+                  visitId: this.patientInfo.visitId,
+                  pageIndex: this.index,
+                })
+                let strSignData ={}
+              for(let key in strSignDataOBJ){
+                if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+              }
+            SigndataObj = {
+              Patient_ID:this.patientInfo.patientId,
+              Visit_ID:this.patientInfo.visitId,
+              Document_Title:this.$parent.patientInfo.recordName,
+              Document_ID:sheetInfo.sheetType,
+              Section_ID:trObj.id,
+              strSignData: JSON.stringify(strSignData),
+            };
+            verifySignObj = {
+              patientId:this.patientInfo.patientId,
+              visitId:this.patientInfo.visitId,
+              formName:this.$parent.patientInfo.recordName,
+              formCode:sheetInfo.sheetType,
+              instanceId:this.$parent.patientInfo.id,
+              recordId:strSignData.id,
+              signData:JSON.stringify(strSignData),
+            }
+      }
       window.openSignModal((password, empNo,auditDate=moment().format("YYYY-MM-DD HH:mm:ss")) => {
         getUser(password, empNo).then((res) => {
           let { empNo, empName } = res.data.data;
@@ -2587,7 +2625,7 @@ export default {
           });
           this.bus.$emit("saveSheetPage", false);
         });
-      }, "审核签名确认","","","","","","",this.sheetInfo.sheetType);
+      }, "审核签名确认","","","","","","",this.sheetInfo.sheetType,SigndataObj,verifySignObj);
     },
     /** 取消审核整页 */
     cancelAduitModal() {
