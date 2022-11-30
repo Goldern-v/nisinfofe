@@ -886,7 +886,6 @@ export default {
             }else{
               reject(false)
             }
-
           })
         }
         this.$nextTick(() => {
@@ -914,7 +913,7 @@ export default {
     *单纯需要刷新护记 的 调原来的$emit("refreshSheetPage")
     */
     async initSheetPageSize(isAddPageFlag) {
-      !isAddPageFlag && await this.getHomePage()
+      !isAddPageFlag && await this.getHomePageInfo()
       this.initSelectList(isAddPageFlag);
       // 判断是否存在recodeId
       // 获取被标记的页数，recordId是某一行的记录ID 如果从首页进来 就携带这个recordId ，否则走正常的页面定位
@@ -1381,10 +1380,13 @@ export default {
           }
           //选择接口最后一个护记
           this.sheetInfo.selectBlock =this.sheetBlockList[this.sheetBlockList.length - 1] || {};
-            if(this.sheetBlockList.length==0){
+          if (!this.sheetBlockList.length) {
+            this.bus.$emit('clearSheetModel')
               // 如果该病人没有护记，切换病人时需要清空分页
-              this.pageInfoObj.pageArea=''
-              this.bus.$emit('clearSheetModel')
+              setTimeout(()=>{
+                this.pageArea = ''
+              this.pageInfoObj.pageArea = ''
+              })
             }
             if (this.patientInfo.blockId) {
               try {
@@ -1474,28 +1476,28 @@ export default {
       `;
       // }
     },
-    getHomePage(){
+    getHomePageInfo() {
+      if(!this.patientInfo.patientId||!this.patientInfo.visitId||!this.sheetInfo.selectBlock.id) return
       return new Promise((resolve, reject) => {
         getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
-        (res) => {
-          this.sheetInfo.sheetStartPage =
-            (res.data.data && res.data.data.indexNo) || 1;
-          this.sheetInfo.sheetMaxPage =
-            (res.data.data && res.data.data.maxIndexNo) || 1;
-          this.sheetInfo.maxPageIndex =
-            (res.data.data && res.data.data.maxPageIndex + 1) || 1;
-            resolve(res)
-        }
-      );
+          (res) => {
+            if (res.data.code == 200) {
+              this.sheetInfo.sheetStartPage =
+                (res.data.data && res.data.data.indexNo) || 1;
+              this.sheetInfo.sheetMaxPage =
+                (res.data.data && res.data.data.maxIndexNo) || 1;
+              this.sheetInfo.maxPageIndex =
+                (res.data.data && res.data.data.maxPageIndex + 1) || 1;
+              resolve(res)
+            } else {
+              reject(false)
+            }
+          });
       })
     },
     changeSelectBlock(item) {
-      if (item) {
-        localStorage.wardCode = item.deptCode;
-      }
-      this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
-      this.blockId = item.id;
-      this.initSheetPageSize()
+      localStorage.setItem('sheetPageScrollValue',null)
+      //原本写在选择器里 现在搬到watch离监听调用
     },
     /** pdf打印 */
     toPdfPrint() {
@@ -1725,9 +1727,12 @@ export default {
   watch: {
     "sheetInfo.selectBlock":{
       handler(val) {
-        console.log(val,"sheetInfo.selectBlock")
-        //每次初始化都重新设置滚动值
-        localStorage.setItem('sheetPageScrollValue',null)
+        if (val) {
+        localStorage.wardCode = val.deptCode;
+      this.pageBlockId = val.id;
+      }
+      this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+      this.initSheetPageSize()
       },
     },
     "sheetInfo.startPage"() {

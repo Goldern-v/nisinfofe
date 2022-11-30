@@ -2,7 +2,7 @@
   <div>
     <sweet-modal
       ref="modal"
-      :modalWidth="isZhzxy ? 630 : 600"
+      :modalWidth="isZhzxy ? 770 : 600"
       title="编辑床头卡"
       :enable-mobile-fullscreen="false"
       class="modal"
@@ -51,6 +51,7 @@
               />
             </div>
             <div
+              class="title-name"
               flex="cross:center"
               style="height: 43px"
               v-else
@@ -65,26 +66,19 @@
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
               />
             </div>
-            <div flex="cross:center" class="input-item">
+            <div flex="cross:center" class="input-item title-bed">
               <!-- <span class="label">住院号:</span> -->
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
-                :style="{
-                  width: '94px',
-                  'font-size':'24px',
-                  'padding-left': '5px',
-                  'line-height': ' 24px'
-                }"
-                class="bottom-line"
+                class="bottom-line title-bed__1"
                 :value="query.bedLabel + '床'"
               />
               <input
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 24px; padding-left: 2px;"
                 nowidth
-                class="bottom-line"
+                class="bottom-line title-bed__2"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
               />
             </div>
@@ -195,7 +189,7 @@
                 />
               </div>
             </div>
-            <div :style="{'display':isZhzxy?'flex':''}">
+            <div class="title-sign">
               <div :style="{'width':isZhzxy?'50%':''}" :class="{zhzxyItem: isZhzxy}" flex="cross:center" class="input-item">
                 <span class="label">主管医生:</span>
                 <!-- <el-autocomplete v-model="formData.mainDoctors"
@@ -207,7 +201,7 @@
                 <input
                   type="text"
                   nowidth
-                  :style="{'font-size':isZhzxy?'18px':'24px',
+                  :style="{'font-size': '24px',
                   'text-align':isZhzxy?'center':''}"
                   flex-box="1"
                   class="bottom-line"
@@ -227,7 +221,7 @@
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  :style="{'font-size': isZhzxy?'18px':'24px',
+                  :style="{'font-size': '24px',
                   'text-align':isZhzxy?'center':''}"
                   v-model="formData.dutyNurses"
                 />
@@ -390,7 +384,7 @@
     z-index: 2;
     font-size: 16px;
     &.zhzxyStyle{
-      font-size: 20px;
+      font-size: 24px;
       width: 100px;
     }
     &.hasRemark {
@@ -416,6 +410,7 @@
       border-bottom: 1px solid rgb(0, 0, 0);
     }
     .zhzxyChoseItem-label{
+      font-size: 20px;
       border-bottom: 1px solid;
       width: 100%;
     }
@@ -455,7 +450,7 @@
   z-index: 2;
   width:350px
   &.zhzxyItem{
-    font-size: 18px;
+    font-size: 20px;
   }
   .input-item-left {
     display: inline-block;
@@ -465,6 +460,19 @@
         margin-right: 2px;
       }
     }
+  }
+}
+.title-bed {
+  .title-bed__1 {
+    width: 94px;
+    font-size:24px;
+    padding-left: 5px;
+    line-height: 24px;
+  }
+  .title-bed__2 {
+    width: 0px;
+    font-size: 24px;
+    padding-left: 2px;
   }
 }
 
@@ -626,12 +634,9 @@ label {
   background: #fff;
 }
 .bed-card-wrapper.wrapper--zhzxy {
-  .tip {
-    margin-bottom: 0px;
-  }
   .bed-card-con {
-    width: 145mm !important;
-    height: 90mm !important;
+    width: 182mm !important;
+    height: 113mm !important;
     .qr-code {
       top: 0px;
       left: 0px;
@@ -647,8 +652,20 @@ label {
       top: 87px;
       height: 22px
     }
+    .title-name input{
+      font-weight: 500;
+      text-shadow: 1px 0px #000, -1px 0px #000, 0px 1px #000, 0px -1px #000;
+    }
+    .title-bed {
+      .title-bed__1, .title-bed__2 {
+        font-size: 28px;
+      }
+    }
     .input-item {
       width: auto;
+    }
+    .title-sign {
+      display: flex;
     }
     input {
       background: transparent;
