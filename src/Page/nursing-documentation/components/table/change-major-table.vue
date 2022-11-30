@@ -16,7 +16,7 @@
       ></el-table-column>
 
       <el-table-column
-         v-if="['huadu'].includes(HOSPITAL_ID)"
+         v-if="['huadu','foshanrenyi'].includes(HOSPITAL_ID)"
          prop="patientId"
          label="住院号"
          min-width="60"
