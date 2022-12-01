@@ -80,6 +80,7 @@ const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.v
 const shiftWorkWhsl = () => import("@/Page/shift-work-whsl/shift-work.vue");
 const shiftWorkDetailWhsl = () => import("@/Page/shift-work-whsl/shift-work-detail.vue");
 const shiftWorkDetailSdlj = () => import("@/Page/shift-work-lj/shift-work-detail.vue");
+const shiftWorkDetailFsxt = () => import("@/Page/shift-work-fsxt/shift-work-detail.vue");
 const shiftWorkFq = () => import("@/Page/shift-work-fq/shift-work.vue");
 const shiftWorkDetailFq = () => import("@/Page/shift-work-fq/shift-work-detail.vue");
 const shiftWorkWujing = () => import("@/Page/shift-work-wujing/shift-work.vue");
@@ -89,6 +90,8 @@ const shiftWorkDetailWhfk = () => import("@/Page/shift-work-whfk/shift-work-deta
 
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
 const shiftWorkNFZXY = () => import("@/Page/shift-work-nfzxy/shift-work.vue");//贵州交班志
+const shiftWorkSdlj = () => import("@/Page/shift-work-lj/shift-work.vue");//龙江交班志
+const shiftWorkFsxt = () => import("@/Page/shift-work-fsxt/shift-work.vue");//佛山杏坛交班志
 
 const ISBARshiftWorkHd = () => import("@/Page/shift-work/shift-work.vue");//花都ISBAR交班志
 
@@ -824,6 +827,10 @@ const router = new Router({
               return shiftWorkWhsl
             case 'nanfangzhongxiyi':
               return shiftWorkNFZXY
+            case 'sdlj':
+              return shiftWorkSdlj
+            case 'fsxt':
+              return shiftWorkFsxt
             default:
               return shiftWork
           }
@@ -863,6 +870,8 @@ const router = new Router({
                 return shiftWorkDetailWhsl
               case 'sdlj':
                 return shiftWorkDetailSdlj
+              case 'fsxt':
+                return shiftWorkDetailFsxt
               default:
                 return shiftWorkDetail
             }
