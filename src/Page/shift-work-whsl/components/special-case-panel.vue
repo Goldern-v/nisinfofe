@@ -14,14 +14,14 @@
             />
           </ElSelect>
           <input class="input" type="text" v-model="title" placeholder="请输入你要查找的模板关键字">
-          <WhiteButton class="button" icon="icon-search"/>
+          <WhiteButton class="button" icon="icon-search" @click="load"/>
         </div>
       </div>
       <div class="list">
         <TemplateItem
           v-for="item of filteredlist"
           :key="item.id"
-          :data="item"
+          :listData="item"
           @click="onItemClick"
           @edit="onItemEdit"
           @remove="onItemRemove"

@@ -754,7 +754,6 @@ export default {
         this.$router.replace({ name: "shiftWorks" });
       }
       this.loading = false;
-      console.log(this.patients);
     },
     getContextMenu() {
       const { selectedRow, selectedCol } = this.$refs.table;

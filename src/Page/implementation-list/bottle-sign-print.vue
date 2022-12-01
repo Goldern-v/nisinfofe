@@ -137,14 +137,6 @@
             >查询</el-button
           >
           <el-button
-            v-if="['zhzxy'].includes(HOSPITAL_ID)"
-            size="small"
-            @click="currentPagePrint"
-            :disabled="status == '已执行'"
-            >打印当前页</el-button
-          >
-          <el-button
-            v-else
             size="small"
             @click="allSelection"
             :disabled="status == '已执行'"
@@ -215,7 +207,7 @@
             {
               'break-page':bottleCardIndex % 3 == 2 &&
                 newModalSize == '3*7',
-              'sise-75': newModalSize === '7*5'
+              'size-75': newModalSize === '7*5'
             },
           ]"
           v-for="(itemBottleCard, bottleCardIndex) in printObj"
@@ -323,30 +315,20 @@
   .break-page {
     page-break-after: always;
   }
-  .small-35 {
-    position: relative;
-    height: 30.00mm;
-    overflow: hidden;
-  }
-  .small-25 {
-    position: relative;
-    height: 19.90mm;
-    overflow: hidden;
-  }
-  .sise-75 {
+  .size-75 {
     width: 69mm;
     height: 50mm;
     position: relative;
   }
 }
 
-@media print {
-  .new-print-box--small {
-    transform: scale(0.5);
-    transform-origin: 0 0 0;
-    overflow: hidden;
-  }
-}
+// @media print {
+//   .new-print-box--small {
+//     transform: scale(0.5);
+//     transform-origin: 0 0 0;
+//     overflow: hidden;
+//   }
+// }
 </style>
 <script>
 import modal from "./modal/modal";
@@ -837,7 +819,6 @@ export default {
       ) {
         this.$refs.plTable.$children[0].toggleAllSelection();
       }
-
     },
     querySearch(queryString, cb) {
       let list = [{ value: "膀胱冲洗" }, { value: "气滴" }];
@@ -989,7 +970,7 @@ export default {
         });
       }
       let sortArr = !!this.printPagingNo ? Object.values(printObj) : [];
-      if (!!this.printPagingNo) {
+      if (!this.printPagingNo) {
         barCodeList.map((item) => {
           sortArr.push(printObj[item]);
         });
@@ -1049,8 +1030,6 @@ export default {
       });
       return styleData.ownerNode.innerText;
     },
-    // 格式化公用query
-    formatCommonQuery() {},
     /**
      * 指定打印机
      */
@@ -1112,7 +1091,7 @@ export default {
         case "925":
           return ["70*80", "3*7"];
         case "zhzxy":
-          return ["7*7", "2*5"];
+          return ["7*7", "2*5", '7*5'];
         // case 'whsl':
         //   return ["7*8", "3*5"];
         case "wujing":
@@ -1132,8 +1111,6 @@ export default {
         ["whfk"].includes(this.HOSPITAL_ID)
       )
         return "";
-
-      // if (this.HOSPITAL_ID === "zhzxy" && this.newModalSize === "2*5")
       if (this.HOSPITAL_ID === "925" && this.newModalSize === "70*80")
         return "transform: scale(0.8);transform-origin: 0 0 0;";
       return 'zoom: .5;position: absolute;'
@@ -1149,11 +1126,7 @@ export default {
       if (this.newModalSize == "7*7" && ["ytll"].includes(this.HOSPITAL_ID)) {
         return "margin: 0 0 0 3mm;";
       }
-      // if (this.newModalSize == "2*5" && ["zhzxy"].includes(this.HOSPITAL_ID)) {
-      //   return "margin: 3mm 1.5mm 0 1.5mm;";
-      // }
       return "margin: 0 0;";
-      return "margin: 0 0; size: 50mm 30mm";
     },
     disableSize() {
       return !["wujing"].includes(this.HOSPITAL_ID);
