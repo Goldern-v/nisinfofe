@@ -690,6 +690,7 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
+       timeStrFormat: "",
       isUpdate:false,
     };
   },
@@ -1222,6 +1223,7 @@ export default {
           this.query.entryTime = newVal + `:${this.timeStrFormat}`;
         }
       }
+      console.log( this.query.entryTime)
     },
     /* 录入体温单 */
     async saveVitalSign(value) {
