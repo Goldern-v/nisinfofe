@@ -472,7 +472,6 @@ export default {
                 this.sheetInfo.isSave = true;
                 const sheetPageScrollValue = localStorage.getItem('sheetPageScrollValue')
                 const isBottom = sheetPageScrollValue !== "null" ? false : true
-                console.log(isBottom)
                 if (
                   this.$refs.scrollCon.scrollHeight >
                   this.$refs.scrollCon.offsetHeight
