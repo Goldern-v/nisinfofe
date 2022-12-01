@@ -1179,7 +1179,7 @@ export default {
         // }
         let [hours, min] = time.split(":");
         if (0 <= hours && hours <= 24 && 0 <= min && min <= 59) {
-          this.query.entryTime = time;
+          this.query.entryTime = time+ ":00";
           this.dateInp = time;
         } else {
           this.$message.error("请输入正确时间数值，例如23:25, 2325");
@@ -1207,6 +1207,9 @@ export default {
     async saveVitalSign(value) {
       let obj = Object.values(value);
       let saveFlagArr = [];
+      if(! this.query.entryTime.includes(":00:00")){
+        this.query.entryTime = this.query.entryTime+':00:00';
+      }
       obj.map((item) => {
         item.recordDate =
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
