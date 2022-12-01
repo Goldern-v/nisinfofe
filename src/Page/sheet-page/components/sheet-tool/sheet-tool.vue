@@ -680,6 +680,7 @@ export default {
       creator: "",
       user: JSON.parse(localStorage.user),
       selectList: [],
+      oldSelectList:[],
       sheetModel,
       sheetInfo,
       sheetBlockList: [],
@@ -924,7 +925,29 @@ export default {
         if (this.sheetInfo.findBlockContext && this.sheetInfo.findBlockContext.recordId) {
           await this.getPageIndexByTime()
         } else {
-          const pageSelectListValue = this.selectList[this.selectList.length - 1].value || "";
+          /**页码定位，每次初始化selectList 之前 都保存数据 selectList 到oldSelectList中
+           * 如果涉及到数据增删需要初始化了页码的先判断selectList长度是否一样 ，如果一样就说明没有selectList新增 然后判断新旧页码是否一样  一样则选旧的
+           * 如果找不到旧的页码了 ，则说明新删除增数据导致页码增减了  不一样则选最新的
+           * */
+          let pageSelectListValue = ''
+          let old_list_length = this.oldSelectList.length;
+          let new_list_length = this.selectList.length;
+          let old_list_index = this.selectList.findIndex((item) => item.value == this.pageArea);
+          if (old_list_length == new_list_length) {
+            if (old_list_index != -1) {
+              pageSelectListValue = this.selectList[old_list_index].value
+            } else {
+                const page = this.selectList.find((list, index) => {
+                  const oldStart = this.pageArea.split('-')[0]
+                  const start = list.value.split('-')[0]
+                  const end = list.value.split('-')[1]
+                  return (oldStart >= start && oldStart <= end)
+                })
+                pageSelectListValue = page.value
+            }
+          }else{
+            pageSelectListValue = this.selectList[this.selectList.length - 1].value || "";
+          }
           this.pageArea = pageSelectListValue
           this.pageInfoObj.pageArea = pageSelectListValue
         }
@@ -1113,6 +1136,7 @@ export default {
       }
       pagelist[0] = this.sheetInfo.sheetStartPage;
       pagelist[pagelist.length - 1] = length;
+      this.oldSelectList = this.selectList
       this.selectList = [];
       for (let i = 0; i < pagelist.length; i++) {
         if (i == pagelist.length - 1) {
@@ -1340,6 +1364,7 @@ export default {
           this.deptCode
         ).then((res) => {
           this.bus.$emit("setSheetTableLoading", false);
+          this.oldSelectList = this.selectList
           this.selectList = [];
           let list = res.data.data.list;
           if (
@@ -1743,6 +1768,7 @@ export default {
     patientId:{
       deep: true,
       handler() {
+        this.oldSelectList = this.selectList
         this.selectList = [];
           this.$parent.breforeQuit(() => {
             this.bus.$emit("setSheetTableLoading", true);
