@@ -815,7 +815,12 @@ export default {
 
   },
   created() {
+    //第三方浏览界面 是路由传的患者信息 所以一开始先清空界面VUEX的信息，再提交路由的
     this.getDate();
+    this.$store.commit("upPatientInfo", {});
+    setTimeout(() => {
+      this.$store.commit("upPatientInfo", this.$route.query);
+    }, 100);
     sheetInfo.isSave = true;
         this.bus.$on("addSheetPage", () => {
       if (!this.sheetInfo.selectBlock.id) {

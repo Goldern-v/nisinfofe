@@ -384,8 +384,8 @@
     z-index: 2;
     font-size: 16px;
     &.zhzxyStyle{
-      font-size: 24px;
-      width: 100px;
+      font-size: 20px;
+      min-width: 100px;
     }
     &.hasRemark {
       top: 78px;
@@ -650,13 +650,13 @@ label {
     }
     .qr-code-num {
       top: 87px;
-      height: 22px
+      height: 22px;
     }
     .title-name {
-      height: 55px !important;
+      height: 68px !important;
       input {
         font-weight: 500;
-        font-size: 46px;
+        font-size: 46px !important;
         text-shadow: 1px 0px #000, -1px 0px #000, 0px 1px #000, 0px -1px #000;
       }
     }
@@ -981,7 +981,6 @@ export default {
     },
 
     onFocusToAutoComplete(e, bind) {
-      console.log(e,)
       function offset(ele) {
         let { top, left } = ele.getBoundingClientRect();
         return {
@@ -1016,7 +1015,6 @@ export default {
       });
     },
     onFocusToAutoComplete2(e, bind) {
-      console.log(e,)
       function offset(ele) {
         let { top, left } = ele.getBoundingClientRect();
         return {
@@ -1026,8 +1024,6 @@ export default {
       }
       let { autoComplete, obj, key } = bind;
       let xy = offset(e.target);
-
-      console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
 
       setTimeout(() => {
         window.openAutoComplete({
