@@ -79,6 +79,7 @@ const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
 const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
 const shiftWorkWhsl = () => import("@/Page/shift-work-whsl/shift-work.vue");
 const shiftWorkDetailWhsl = () => import("@/Page/shift-work-whsl/shift-work-detail.vue");
+const shiftWorkDetailSdlj = () => import("@/Page/shift-work-lj/shift-work-detail.vue");
 const shiftWorkFq = () => import("@/Page/shift-work-fq/shift-work.vue");
 const shiftWorkDetailFq = () => import("@/Page/shift-work-fq/shift-work-detail.vue");
 const shiftWorkWujing = () => import("@/Page/shift-work-wujing/shift-work.vue");
@@ -858,6 +859,8 @@ const router = new Router({
                 return shiftWorkDetailWhfk
               case 'whsl':
                 return shiftWorkDetailWhsl
+              case 'sdlj':
+                return shiftWorkDetailSdlj
               default:
                 return shiftWorkDetail
             }
