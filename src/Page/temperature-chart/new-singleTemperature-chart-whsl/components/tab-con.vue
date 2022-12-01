@@ -611,27 +611,7 @@ export default {
       ),
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: (() => {
-          if (this.getHours() >= 0 && this.getHours() <= 4) {
-            return "03";
-          }
-          if (this.getHours() > 4 && this.getHours() <= 8) {
-            return "07";
-          }
-          if (this.getHours() > 8 && this.getHours() <= 12) {
-            return "11";
-          }
-          if (this.getHours() > 12 && this.getHours() <= 16) {
-            return "15";
-          }
-          if (this.getHours() > 16 && this.getHours() <= 20) {
-            return "19";
-          }
-          if (this.getHours() > 20 && this.getHours() <= 23) {
-            return "23";
-          }
-          //录入时间
-        })(), //录入时间
+        entryTime: moment().format("HH:mm")+':00', //录入时间
       },
        dateInp: moment().format("HH")+':00',
       updateData: {
@@ -696,12 +676,11 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
-          this.bus.$on("getDataFromPage", (dateTime) => {
+    this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate=dateTime.slice(0,10)
        this.query.entryTime = dateTime.slice(11, 16) + ":00";
          this.dateInp = dateTime.slice(11, 16);
     });
-
   },
 
   created() {
@@ -1223,7 +1202,6 @@ export default {
           this.query.entryTime = newVal + `:${this.timeStrFormat}`;
         }
       }
-      console.log( this.query.entryTime)
     },
     /* 录入体温单 */
     async saveVitalSign(value) {
