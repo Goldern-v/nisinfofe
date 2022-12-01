@@ -154,7 +154,7 @@
         </div>
         <div class="line--top print-content__box1">护理会诊意见：{{ results[0].content }}</div>
         <div class="flex flex-2">
-          <span>申请科室：{{ consultation.consultationDeptName }}</span>
+          <span>会诊科室：{{ consultation.consultationDeptName }}</span>
           <span>会诊护士：</span>
           <img v-for="v in members" :key="v" class="sign-img" :src="getSignImg(v)" alt="" />
           <span>日期: {{ results[0] && results[0].createTime ? moment(results[0].createTime).format(formatText) : '无' }}</span>

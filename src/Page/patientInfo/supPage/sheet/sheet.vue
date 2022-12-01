@@ -465,11 +465,10 @@ export default {
         await initSheetPage(titleData, bodyData, markData,this.listData);
           this.sheetModelData = getData();
           this.tableLoading = false;
-          let timeNum = 10;
+          let timeNum = 15;
           function toBottom() {
             timeNum--;
-            this.$nextTick(()=>{
-              setTimeout(() => {
+              //初始化护记数据都设置保存状态为已经保存，放这里运行是借用多次执行判断护记加载完成再设置
                 this.sheetInfo.isSave = true;
                 const sheetPageScrollValue = localStorage.getItem('sheetPageScrollValue')
                 const isBottom = sheetPageScrollValue !== "null" ? false : true
@@ -485,12 +484,14 @@ export default {
                     this.scrollFun(sheetPageScrollValue)
                   }
                 }
-              }, 300);
-            })
           }
-          this.$nextTick(() => {
-            toBottom.call(this);
-          });
+          setTimeout(() => {
+            this.$nextTick(() => {
+              if (!this.patientInfo.recordId) {
+                toBottom.call(this);
+              }
+            });
+          }, 300);
         });
       });
     },

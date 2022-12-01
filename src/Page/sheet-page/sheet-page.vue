@@ -628,13 +628,11 @@ export default {
           if ((!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) && ["guizhou", '925'].includes(this.HOSPITAL_ID)) {
             return
           }
-          let timeNum = 10;
+          let timeNum = 15;
           //页面初始化之后 从本地localStorage拿值 如果是有值 就滚动到当前值回到当前操作页面  如果没有 就滚动到底部
           this.tableLoading = false;
           function toBottom() {
             timeNum--;
-            this.$nextTick(()=>{
-              setTimeout(() => {
               //初始化护记数据都设置保存状态为已经保存，放这里运行是借用多次执行判断护记加载完成再设置
                 this.sheetInfo.isSave = true;
                 const sheetPageScrollValue = localStorage.getItem('sheetPageScrollValue')
@@ -651,14 +649,14 @@ export default {
                     this.scrollFun(sheetPageScrollValue)
                   }
                 }
-              }, 300);
-            })
           }
-          this.$nextTick(() => {
-            if (!this.patientInfo.recordId) {
-              toBottom.call(this);
-            }
-          });
+          setTimeout(() => {
+            this.$nextTick(() => {
+              if (!this.patientInfo.recordId) {
+                toBottom.call(this);
+              }
+            });
+          }, 300);
         });
       }).catch((err) => {
         this.pageLoading = false;
