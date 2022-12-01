@@ -384,8 +384,8 @@
     z-index: 2;
     font-size: 16px;
     &.zhzxyStyle{
-      font-size: 22px;
-      width: 100px;
+      font-size: 20px;
+      min-width: 100px;
     }
     &.hasRemark {
       top: 78px;
@@ -650,7 +650,7 @@ label {
     }
     .qr-code-num {
       top: 87px;
-      height: 25px;
+      height: 22px;
     }
     .title-name {
       height: 68px !important;
