@@ -923,12 +923,6 @@ export default {
       this.timeStrFormat = temp.slice(18, 20);
       this.dateInp = value.slice(12, 17);
       // 北海在记录单那边同步数据,时间直接取点击的
-      if (
-        this.$route.path.includes("newSingleTemperatureChart") ||
-        this.$route.path.includes("temperature")
-      ) {
-        this.query.entryTime = temp.slice(12, 14);
-      }
       if (this.isUpdate) {
         this.updateData.entryDate = value.slice(0, 10);
         this.updateData.entryTime = value.slice(12, 20);
@@ -945,8 +939,10 @@ export default {
     },
     /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口  */
     getViSigs() {
-       if(! this.query.entryTime.includes(":00:00")){
-        this.query.entryTime = this.query.entryTime+':00:00';
+      if( this.query.entryTime.replace(/:00/g,'').length==5){
+        this.query.entryTime = this.query.entryTime.replace(/:00/g,'') + ":00";
+      }else  if( this.query.entryTime.replace(/:00/g,'').length==2){
+        this.query.entryTime = this.query.entryTime.replace(/:00/g,'') + ":00:00";
       }
       let data = {
         patientId: this.patientInfo.patientId,
@@ -1210,8 +1206,10 @@ export default {
     async saveVitalSign(value) {
       let obj = Object.values(value);
       let saveFlagArr = [];
-      if(! this.query.entryTime.includes(":00:00")){
-        this.query.entryTime = this.query.entryTime+':00:00';
+      if( this.query.entryTime.replace(/:00/g,'').length==5){
+        this.query.entryTime = this.query.entryTime.replace(/:00/g,'') + ":00";
+      }else  if( this.query.entryTime.replace(/:00/g,'').length==2){
+        this.query.entryTime = this.query.entryTime.replace(/:00/g,'') + ":00:00";
       }
       obj.map((item) => {
         item.recordDate =
