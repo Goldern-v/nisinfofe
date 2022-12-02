@@ -187,15 +187,15 @@
           <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
             <div data-print-style="width: auto">
               <span>A班签名：</span>
-              <input type="text" v-model="record.autographEmpNoA" data-print-style="display: inline-block; flex:1;  height: auto;" @input="modified =true">
+              <input type="text" v-model="record.autographNameA" data-print-style="display: inline-block; width:200px;  height: auto;" @input="modified =true">
               <!-- <span data-print-style="display: none">
                 <button
                   v-if="record.autographNameA"
                   @click="onDelSignModalOpen('A', record.autographEmpNoA)"
                 >{{record.autographNameA}}</button>
                 <button v-else :disabled="isEmpty" @click="onSignModalOpen('A')">点击签名</button>
-              </span> -->
-              <!-- <FallibleImage
+              </span>
+              <FallibleImage
                 class="img"
                 v-if="record.autographNameA"
                 :src="`/crNursing/api/file/signImage/${record.autographEmpNoA}?${token}`"
@@ -204,9 +204,9 @@
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span> -->
             </div>
-            <div data-print-style="width: auto" v-if="HOSPITAL_ID != 'weixian'">
+            <div data-print-style="width: auto">
               <span>P班签名：</span>
-               <input type="text" v-model="record.autographNameP" data-print-style="display: inline-block; flex:1;  height: auto;"  @input="modified =true">
+               <input type="text" v-model="record.autographNameP" data-print-style="display: inline-block; width:200px;  height: auto;"  @input="modified =true">
               <!-- <span data-print-style="display: none">
                 <button
                   v-if="record.autographNameP"
@@ -225,7 +225,7 @@
             </div>
             <div data-print-style="width: auto">
               <span>N班签名：</span>
-                <input type="text" v-model="record.autographEmpNoN" data-print-style="display: inline-block; flex:1;  height: auto;"  @input="modified =true">
+                <input type="text" v-model="record.autographNameN" data-print-style="display: inline-block; width:200px;  height: auto;"  @input="modified =true">
 
               <!-- <span data-print-style="display: none">
                 <button
@@ -1220,7 +1220,7 @@ export default {
   justify-content: space-between;
 
   div {
-    font-size: 0;
+    font-size: 14px;
     white-space: nowrap;
   }
 
