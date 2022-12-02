@@ -16,6 +16,13 @@ import {
   let 出量性质 = 出量名称;
   let 意识 = [];
   let 吸氧方式 = [];
+  let 精神状态 = [];
+  let 食欲情况 = [];
+  let 咽部情况 = [];
+  let 扁桃体 = [];
+  let 咳嗽类型 = [];
+  let 肺部听诊 = [];
+  let 腹部评估 = [];
   export default [{
       key: "recordMonth", //日期
       value: "",
@@ -200,6 +207,9 @@ import {
       name: "精神状态",
       textarea: {
         width: 36
+      },
+      autoComplete: {
+        data: 精神状态
       }
     },
     {
@@ -209,6 +219,9 @@ import {
       name: "食欲情况",
       textarea: {
         width: 36
+      },
+      autoComplete: {
+        data: 食欲情况
       }
     },
     {
@@ -218,6 +231,9 @@ import {
       name: "咽部情况",
       textarea: {
         width: 36
+      },
+      autoComplete: {
+        data: 咽部情况
       }
     },
     {
@@ -227,6 +243,9 @@ import {
       name: "扁桃体",
       textarea: {
         width: 36
+      },
+      autoComplete: {
+        data: 扁桃体
       }
     },
     {
@@ -236,6 +255,9 @@ import {
       name: "咳嗽类型",
       textarea: {
         width: 36
+      },
+      autoComplete: {
+        data: 咳嗽类型
       }
     },
     {
@@ -245,6 +267,9 @@ import {
       name: "肺部听诊",
       textarea: {
         width: 36
+      },
+      autoComplete: {
+        data: 肺部听诊
       }
     },
     {
@@ -254,6 +279,9 @@ import {
       name: "腹部评估",
       textarea: {
         width: 36
+      },
+      autoComplete: {
+        data: 腹部评估
       }
     },
     {
@@ -424,22 +452,33 @@ import {
       "饮食性质",
       "静脉性质",
       "出量名称",
-      "尿液性质",
-      "呕吐物性质",
-      "引流量性质",
       "吸氧方式",
-      "阴道出血性质"
+      '精神状态',
+      '食欲情况',
+      '咽部情况',
+      '扁桃体',
+      '咳嗽类型',
+      '肺部听诊',
+      '腹部评估',
     ];
     list = list.map(key => {
       return key.includes('出量名称') ? filterKey + filterKey2 + key : filterKey + key;
     });
     multiDictInfo(list).then(res => {
       let data = res.data.data;
+      console.log(1111111111,data)
       setList(意识, "意识", data);
       setList(静脉性质, "静脉性质", data);
       setList(饮食性质, "饮食性质", data);
       setList(出量名称, "出量名称", data, true);
       setList(吸氧方式, "吸氧方式", data);
+      setList(精神状态, "精神状态", data);
+      setList(食欲情况, "食欲情况", data);
+      setList(咽部情况, "咽部情况", data);
+      setList(扁桃体, "扁桃体", data);
+      setList(咳嗽类型, "咳嗽类型", data);
+      setList(肺部听诊, "肺部听诊", data);
+      setList(腹部评估, "腹部评估", data);
     });
   }
   
