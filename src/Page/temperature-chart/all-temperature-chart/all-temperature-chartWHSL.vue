@@ -45,7 +45,7 @@
           <el-radio-button label="所有患者"></el-radio-button>
           <el-radio-button label="危重患者"></el-radio-button>
           <el-radio-button label="三天超37.5"></el-radio-button>
-          <el-radio-button label="入院四天"></el-radio-button>
+          <el-radio-button label="入院七天"></el-radio-button>
           <el-radio-button label= "术后三天"></el-radio-button>
         </el-radio-group>
       </div>
@@ -961,7 +961,7 @@ export default {
                     item.name.indexOf(this.searchWord) > -1) &&
                   item.patientId &&
                   moment(item.admissionDate.slice(0, 10)).isAfter(
-                    moment().subtract(4, "days").format("YYYY-MM-DD")
+                    moment().subtract(7, "days").format("YYYY-MM-DD")
                   )
             })
       },

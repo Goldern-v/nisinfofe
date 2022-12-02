@@ -945,6 +945,9 @@ export default {
     },
     /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口  */
     getViSigs() {
+       if(! this.query.entryTime.includes(":00:00")){
+        this.query.entryTime = this.query.entryTime+':00:00';
+      }
       let data = {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
