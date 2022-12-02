@@ -15,13 +15,16 @@
         />
       </span>
       <div class="times">
-        <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id">
+        <label :for="`time${item.id}`"
+          v-for="item in timesOdd"
+          :key="item.id"
+          :style="{color:item.value  == query.entryTime?'red':'#000'}"
+          >
           <input
             type="radio"
             name="time"
             v-model="query.entryTime"
             :id="`time${item.id}`"
-            :style="{color:item.value  == query.entryTime?'red':'#000'}"
             :value="item.value"
           />
           {{ item.value }}
@@ -43,7 +46,7 @@
         </el-radio-group>
       </div>
       <el-button @click="debounceSave">保存</el-button>
-      <el-button @click="onPrint">打印</el-button>
+      <!-- <el-button @click="onPrint">打印</el-button> -->
     </div>
     <div class="table-content">
       <div class="edit-table">
@@ -227,19 +230,44 @@
           <el-table-column
             prop="stoolNum"
             label="大便次数"
-            min-width="70"
+            min-width="80"
             align="center"
           >
             <template slot-scope="scope">
-              <input
-                v-model="scope.row.stoolNum"
-                :class="className"
-                class="stoolNum"
-                type="text"
-                @keydown="handleKeyDown"
-                @keyup="handleKeyUp"
-                @click="toRow"
-              />
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="
+                  !(
+                    shitOption &&
+                    shitOption.length > 0
+                  )
+                "
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in shitOption"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.stoolNum =scope.row.stoolNum + option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
+                <input
+                  slot="reference"
+                  v-model="scope.row.stoolNum"
+                  :class="className"
+                  class="stoolNum"
+                  type="text"
+                  @keydown="handleKeyDown"
+                  @keyup="handleKeyUp"
+                  @click="toRow"
+                />
+              </el-popover>
             </template>
           </el-table-column>
           <el-table-column
@@ -539,7 +567,16 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   color: red;
   padding: 0;
 }
+    .selection-dict-item {
+      height: 24px;
+      line-height: 24px;
+      padding: 0 5px;
 
+      &:hover {
+        background: rgb(111, 192, 164) !important;
+        color: #fff !important;
+      }
+    }
 .all-temperature-chart {
   position: relative;
 
@@ -758,7 +795,23 @@ export default {
               }
         })(), //录入时间
       },
-
+      shitOption: [
+        "灌肠",
+        "失禁",
+        "人工肛门",
+        "腹泻",
+        "※",
+        "☆",
+        "*",
+        "E",
+        "1/E",
+        "2/E",
+        "0/E",
+        "1 2/E",
+        "*/E",
+        "☆/E",
+        "3/2E"
+      ],
       timesOdd: [
         {
           id: 0,
