@@ -34,7 +34,13 @@
             <div>
               <div class="details">
                 <span>
-                  病区情况：总数：<b><input type="text" v-model="shiftWithWardcodes.allTotal"  style="width:60px"/></b>人，
+                  病区情况：原有：<b><input type="text" v-model="shiftWithWardcodes.original"  style="width:35px"/></b>人，
+                </span>
+                <span>
+                  新收：<b><input type="text" v-model="shiftWithWardcodes.patientNew" /></b>人，
+                </span>
+                <span>
+                  转入：<b><input type="text" v-model="shiftWithWardcodes.patientTransferIn" /></b>人，
                 </span>
                 <span>
                   出院：<b><input type="text" v-model="shiftWithWardcodes.patientOut" /></b>人，
@@ -43,57 +49,18 @@
                   转出：<b><input type="text" v-model="shiftWithWardcodes.patientTransferOut" /></b>人，
                 </span>
                 <span>
-                  死亡：<b><input type="text" v-model="shiftWithWardcodes.patientDead" /></b>人，
+                  现有：<b><input type="text" v-model="shiftWithWardcodes.allTotal" /></b>人，
                 </span>
-                <span>
-                  新入：<b><input type="text" v-model="shiftWithWardcodes.patientNew" /></b>人，
-                </span>
-                <span>
-                  转入：<b><input type="text" v-model="shiftWithWardcodes.patientTransferIn" /></b>人，
-                </span>
-                <span>
-                  手术：<b><input type="text" v-model="shiftWithWardcodes.patientOpration" /></b>人，
-                </span>
-                <!-- <span>
-                  病重：<b><input type="text" v-model="shiftWithWardcodes.patientBz" /></b>人，
-                </span> -->
-                <span>
-                  明日手术：<b><input type="text" v-model="shiftWithWardcodes.patientOprationTommorow" /></b>人
-                </span>
-                <span>
-                分娩：<b><input type="text" v-model="shiftWithWardcodes.patientBirth" /></b>人
-                </span>
-              </div>
-              <div class="details" style="margin-top: 5px;">
                 <span>
                   病危：<b><input type="text" v-model="shiftWithWardcodes.patientBw" /></b>人，
                 </span>
                 <span>
                   病重：<b><input type="text" v-model="shiftWithWardcodes.patientBz" /></b>人，
                 </span>
-                <span>
-                  监护：<b><input type="text" v-model="shiftWithWardcodes.patientCustody" /></b>人，
+                 <span>
+                  手术：<b><input type="text" v-model="shiftWithWardcodes.patientOpration" /></b>人
                 </span>
-                <span>
-                  一级：<b><input type="text" v-model="shiftWithWardcodes.patientYi" /></b>人，
-                </span>
-                <span>
-                  吸氧：<b><input type="text" v-model="shiftWithWardcodes.patientOxygen" /></b>人，
-                </span>
-                <span>
-                  危急值：<b><input type="text" v-model="shiftWithWardcodes.patientCritical" /></b>人，
-                </span>
-                <span>
-                  压疮高危：<b><input type="text" v-model="shiftWithWardcodes.patientPressure" /></b>人，
-                </span>
-                <span>
-                  <!-- 跌倒/坠床高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人， -->
-                  跌倒高危：<b><input type="text" v-model="shiftWithWardcodes.patientFall" /></b>人，
-                </span>
-                <span>
-                  VTE高危：<b><input type="text" v-model="shiftWithWardcodes.patientVte" /></b>人
-                </span>
-                <span>交班日期<b>{{record.changeShiftDate}}</b></span>
+                  <span>交班日期<b>{{record.changeShiftDate}}</b></span>
               </div>
             </div>
           </div>
@@ -1263,7 +1230,7 @@ export default {
 
 .top-detail,.details {
   input {
-    width: 30px;
+    width: 25px;
     border: none;
     outline: none;
     text-align: center;
