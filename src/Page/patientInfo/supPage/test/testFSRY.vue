@@ -233,14 +233,16 @@
             for(var i=0;i<activeCheckList.length;i++){
               // 当前按钮的数组的项
               const nowItem=activeCheckList[i]
+              if(i===0){
                 str += `${this.rightData[this.radio][nowItem].resultDate}  `
                 str += `${this.listByFilter[this.radio].subject}：`
-                str += `${this.rightData[this.radio][nowItem].itemName} ：`
-                str += `${this.rightData[this.radio][nowItem].result}`
-                if(!isNaN(`${this.rightData[this.radio][nowItem].result}`)){
-                str += `${this.rightData[this.radio][nowItem].units}  `
-                }
-                str += `${this.rightData[this.radio][nowItem].expand3}。<br/>`
+              }
+              str += `${this.rightData[this.radio][nowItem].itemName} ：`
+              str += `${this.rightData[this.radio][nowItem].result}`
+              if(!isNaN(`${this.rightData[this.radio][nowItem].result}`)){
+              str += `${this.rightData[this.radio][nowItem].units}  `
+              }
+              str += `${this.rightData[this.radio][nowItem].expand3}。<br/>`
             }
           }
         }else{
