@@ -933,24 +933,26 @@ export default {
           let old_list_length = this.oldSelectList.length;
           let new_list_length = this.selectList.length;
           let old_list_index = this.selectList.findIndex((item) => item.value == this.pageArea);
+          pageSelectListValue = this.selectList[this.selectList.length - 1].value || "";
           if (old_list_length == new_list_length) {
             if (old_list_index != -1) {
               pageSelectListValue = this.selectList[old_list_index].value
             } else {
-                const page = this.selectList.find((list, index) => {
-                  const oldStart = this.pageArea.split('-')[0]
-                  const start = list.value.split('-')[0]
-                  const end = list.value.split('-')[1]
-                  return (oldStart >= start && oldStart <= end)
-                })
-                pageSelectListValue = page.value
+              //1-9 =======》 1-10  1>=1&&1<=10
+              const page = this.selectList.find((list, index) => {
+                const oldStart = this.pageArea.split('-')[0]
+                const start = list.value.split('-')[0]
+                const end = list.value.split('-')[1]
+                return (oldStart >= start && oldStart <= end)
+              })
+              if(page&&page.value)
+              pageSelectListValue = page.value
             }
-          }else{
-            pageSelectListValue = this.selectList[this.selectList.length - 1].value || "";
           }
           this.pageArea = pageSelectListValue
           this.pageInfoObj.pageArea = pageSelectListValue
         }
+
         !isAddPageFlag && this.updateSheetPageInfo(this.pageArea)
       } catch (error) { }
     },
@@ -1611,6 +1613,7 @@ export default {
     },
   },
   computed: {
+
     limitAddPage(){
       const lastPage = this.pageArea&&this.pageArea.split('-')[1]
       return this.selectList.length&&this.selectList[this.selectList.length - 1].value.indexOf(lastPage) != -1
@@ -1751,11 +1754,13 @@ export default {
   },
   watch: {
     "sheetInfo.selectBlock":{
+      deep:true,
       handler(val) {
         if (val) {
         localStorage.wardCode = val.deptCode;
       this.pageBlockId = val.id;
       }
+      cleanData();
       this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
       this.initSheetPageSize()
       },
