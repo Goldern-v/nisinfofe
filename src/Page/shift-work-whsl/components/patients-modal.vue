@@ -60,16 +60,14 @@
     <div class="footer" slot="button">
       <div class="left">
         <ElCheckbox :disabled="!patients" :value="patients.length === selectedItems.length" @change="onCheckAll">全部</ElCheckbox>
-        <ElCheckbox :disabled="!groups['新']" :value="isAllCheck('新')" @change="onCheckStatus($event, '新')">新入</ElCheckbox>
-        <ElCheckbox :disabled="!groups['转入']" :value="isAllCheck('转入')" @change="onCheckStatus($event, '转入')">转入</ElCheckbox>
-        <template v-if="HOSPITAL_ID=='hj'">
-           <ElCheckbox :disabled="!groups['今日手术']" :value="isAllCheck('今日手术')" @change="onCheckStatus($event, '今日手术')">今日手术</ElCheckbox>
-           <ElCheckbox :disabled="!groups['明日手术']" :value="isAllCheck('明日手术')" @change="onCheckStatus($event, '明日手术')">明日手术</ElCheckbox>
-        </template>
-        <template v-else>
-           <ElCheckbox :disabled="!groups['今手']" :value="isAllCheck('今手')" @change="onCheckStatus($event, '今手')">今手</ElCheckbox>
-           <ElCheckbox :disabled="!groups['明手']" :value="isAllCheck('明手')" @change="onCheckStatus($event, '明手')">明手</ElCheckbox>
-        </template>
+        <ElCheckbox :disabled="!groups['白入']" :value="isAllCheck('白入')" @change="onCheckStatus($event, '白入')">白入</ElCheckbox>
+        <ElCheckbox :disabled="!groups['夜入']" :value="isAllCheck('夜入')" @change="onCheckStatus($event, '夜入')">夜入</ElCheckbox>
+        <ElCheckbox :disabled="!groups['白转']" :value="isAllCheck('白转')" @change="onCheckStatus($event, '白转')">白转</ElCheckbox>
+        <ElCheckbox :disabled="!groups['夜转']" :value="isAllCheck('夜转')" @change="onCheckStatus($event, '夜转')">夜转</ElCheckbox>
+        <!-- <ElCheckbox :disabled="!groups['新']" :value="isAllCheck('新')" @change="onCheckStatus($event, '新')">新入</ElCheckbox>
+        <ElCheckbox :disabled="!groups['转入']" :value="isAllCheck('转入')" @change="onCheckStatus($event, '转入')">转入</ElCheckbox> -->
+        <ElCheckbox :disabled="!groups['今手']" :value="isAllCheck('今手')" @change="onCheckStatus($event, '今手')">今手</ElCheckbox>
+        <ElCheckbox :disabled="!groups['明手']" :value="isAllCheck('明手')" @change="onCheckStatus($event, '明手')">明手</ElCheckbox>
         <ElCheckbox :disabled="!groups['明出']" :value="isAllCheck('明出')" @change="onCheckStatus($event, '明出')">明出</ElCheckbox>
         <ElCheckbox :disabled="!groups['病重']" :value="isAllCheck('病重')" @change="onCheckStatus($event, '病重')">病重</ElCheckbox>
         <ElCheckbox :disabled="!groups['病危']" :value="isAllCheck('病危')" @change="onCheckStatus($event, '病危')">病危</ElCheckbox>
@@ -130,7 +128,7 @@
         }))
 
         const groups = groupBy(patients, 'patientType')
-        
+
         let status
         if(this.HOSPITAL_ID=='hj'){
            status= ['新', '转入', '今日手术', '明日手术', '明出', '病重', '病危']
@@ -166,6 +164,7 @@
         return !!this.selectedItems.find((i) => i === item)
       },
       isAllCheck (status) {
+        console.log(this.groups, status, this.selectedItems ,'ddddddddddddd');
         const all = this.groups[status] || []
         const selected = this.selectedItems.filter((p) => p.statusList.includes(status))
 
