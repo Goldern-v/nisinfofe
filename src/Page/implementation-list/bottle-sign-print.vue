@@ -42,11 +42,7 @@
             size="small"
             style="width: 212px"
             multiple
-            @change="
-              () => {
-                search();
-              }
-            "
+           @change="handleChangeType"
           >
             <el-option
               v-for="(optionItem, optionIndex) in typeOptions"
@@ -585,6 +581,13 @@ export default {
     this.cleanPrintStatusRoundTime();
   },
   methods: {
+    handleChangeType(value) {
+      if (this.multiItemType.length === 2 && this.multiItemType.includes('全部')) {
+        this.multiItemType.shift()
+      } else if (this.multiItemType.length > 2 && this.multiItemType[this.multiItemType.length - 1] === '全部') {
+        this.multiItemType = ['全部']
+      }
+    },
     createImplement() {
       if (!this.deptCode) return;
       webSplitOrder({ wardCode: this.deptCode }).then((res) => {

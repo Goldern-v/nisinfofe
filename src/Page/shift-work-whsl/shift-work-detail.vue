@@ -592,7 +592,7 @@ export default {
             {
               label: "姓名、性别、年龄",
               prop: "name",
-              width: "53",
+              width: "12",
               render: row => {
                 const status = row.patientStatus
                   ? `(${row.patientStatus})`

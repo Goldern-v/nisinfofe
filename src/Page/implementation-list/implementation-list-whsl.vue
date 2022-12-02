@@ -22,7 +22,7 @@
           style="width:160px"
         ></el-date-picker>
 
-        <span class="label">长/临:</span>
+        <span class="label">类型:</span>
         <el-row class="select-btn-list" type="flex" align="middle">
           <el-radio-group v-model="repeatIndicator">
             <el-radio class="radio" label>全部</el-radio>
@@ -60,7 +60,7 @@
             :key="item.id"
           ></el-option>
         </el-select>
-        <span class="label">类型:</span>
+        <span class="label">分类:</span>
         <el-select
           v-model="type"
           multiple
@@ -76,7 +76,7 @@
             :key="typeItem.id"
           ></el-option>
         </el-select>
-        <span class="label" v-if="HOSPITAL_ID !== 'beihairenyi'">核对状态:</span>
+        <!-- <span class="label" v-if="HOSPITAL_ID !== 'beihairenyi'">核对状态:</span>
         <el-select
           v-if="HOSPITAL_ID !== 'beihairenyi'"
           v-model="dispenseFlag"
@@ -90,28 +90,29 @@
             v-for="v in dispenseFlagList"
             :key="v.value"
           ></el-option>
-        </el-select>
-        <div style="flex: 1"></div>
+        </el-select> -->
+        <!-- <div style="flex: 1"></div>
         <el-input
           size="small"
           style="width: 100px;margin-right: 15px;"
           placeholder="输入病人姓名进行搜索"
           v-model="patientName"
-        ></el-input>
+        ></el-input> -->
+        <span class="label">床号:</span>
         <el-input
           size="small"
           style="width: 75px;margin-right: 15px;"
-          placeholder="输入床号进行搜索"
+          placeholder=""
           v-model="bedLabel"
         ></el-input>
-        <el-input
+        <!-- <el-input
           type="text"
           auto-complete="off"
           size="small"
           style="width: 75px;margin-right: 15px;"
           placeholder="输入途径进行搜索"
           v-model="administration"
-        ></el-input>
+        ></el-input> -->
         <el-input style="width: 0px; padding: 0px; height: 0px; overflow: hidden;" />
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
@@ -268,7 +269,7 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table-lyxrm-n";
+import dTable from "./components/table/d-table-whsl";
 import pagination from "./components/common/pagination";
 import { getExecuteWithWardCodeLyxrm } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
@@ -288,8 +289,8 @@ export default {
         total: 0
       },
        orderTimeStr: [moment().format("YYYY-MM-DD")+' 07:30:00',moment().format("YYYY-MM-DD")+' 17:30:00'],
-      startDate: moment().format("YYYY-MM-DD")+' 00:00:00',
-      endDate: moment(moment().toDate().getTime() ).format("YYYY-MM-DD")+' 23:59:59',
+      startDate: moment().format("YYYY-MM-DD")+' 07:00:00',
+      endDate: moment(moment().toDate().getTime()+ 86400000).format("YYYY-MM-DD")+' 07:00:00',
       repeatIndicator: "",
       type: ['全部'],
       status: "",
