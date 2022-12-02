@@ -129,12 +129,8 @@
 
         const groups = groupBy(patients, 'patientType')
 
-        let status
-        if(this.HOSPITAL_ID=='hj'){
-           status= ['新', '转入', '今日手术', '明日手术', '明出', '病重', '病危']
-        }else{
-          status= ['新', '转入', '今手', '明手', '明出', '病重', '病危']
-        }
+        let status = ['白入', '夜入','白转','夜转', '今手', '明手', '明出', '病重', '病危']
+
 
         this.patients = patients.filter((p) => !this.selectedKeys.includes(p.key))
 
@@ -164,7 +160,6 @@
         return !!this.selectedItems.find((i) => i === item)
       },
       isAllCheck (status) {
-        console.log(this.groups, status, this.selectedItems ,'ddddddddddddd');
         const all = this.groups[status] || []
         const selected = this.selectedItems.filter((p) => p.statusList.includes(status))
 
