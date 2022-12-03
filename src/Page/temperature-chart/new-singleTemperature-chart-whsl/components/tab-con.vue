@@ -12,7 +12,7 @@
           v-model="query.entryDate"
           clearable
         />
-           
+
         <div class="times" @keydown.stop="(e) => show(e)">
           <el-time-select
             v-model="dateInp"
@@ -25,7 +25,7 @@
             :picker-options="{
               start: '00:00',
               step: '01:00',
-              end: '24:00',
+              end: '23:00',
             }"
             class="new-time-select"
             placeholder="选择时间"
@@ -44,7 +44,7 @@
           <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
-              v-for="item in timesOdd1" 
+              v-for="item in timesOdd1"
               :key="item.id"
               :label="item.value"
             ></el-radio>
@@ -496,7 +496,7 @@
                     >
                     </el-option>
                   </el-select>
-                  <el-time-picker
+                  <!-- <el-time-picker
                     size="mini"
                     :readonly="isDisable()"
                     v-model="timeVal"
@@ -504,7 +504,7 @@
                     style="width: 100%"
                     @change="formatTopExpandDate"
                   >
-                  </el-time-picker>
+                  </el-time-picker> -->
                 </div>
                 <div
                   class="rowBox"
@@ -534,17 +534,17 @@
               </el-collapse-item>
             </div>
           </el-collapse>
-          <div class="save">
-            <el-button
+          <!-- <div class="save"> -->
+            <!-- <el-button
               :disabled="isDisable()"
               class="save-btn"
               :type="isUpdate ? 'warning' : 'primary'"
               @click="saveVitalSign(vitalSignObj)"
               >保存</el-button
-            >
+            > -->
             <div class="clear" style="height: 30px"></div>
             <!--占位符-->
-          </div>
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -613,7 +613,7 @@ export default {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: moment().format("HH:mm")+':00', //录入时间
       },
-       dateInp: moment().format("HH")+':00',
+       dateInp: moment().format("HH:mm"),
       updateData: {
         entryDate: "", //更新录入日期
         entryTime: "", //更新时间
@@ -1218,17 +1218,10 @@ export default {
           this.query.entryTime ;
         switch (item.vitalSigns) {
           case "表顶注释":
-            if (this.topExpandDate !== undefined) {
-              item.expand2 =
-                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-                " " +
-                this.topExpandDate; //表顶用录入日期+选择的时间来显示
-            } else {
-              item.expand2 =
-                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-                " " +
-                moment(this.nowTimeVal).format("HH:mm:ss"); //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
-            }
+          item.expand2 =
+              moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+              " " +
+              this.query.entryTime;
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
@@ -1294,9 +1287,6 @@ export default {
       }, 1000);
       }
     },
-    formatTopExpandDate(val) {
-      this.topExpandDate = val;
-    },
     formatBtmExpandDate(val) {
       this.bottomExpandDate = val;
     },
@@ -1327,13 +1317,14 @@ export default {
   .column-right {
     margin-top: 5px;
     display: inline-block;
-    height: 70px;
+    height: 54px;
+    width:100%;
     overflow: auto;
   }
 
   .row-top {
     background-color: #fff;
-    height: 70px;
+    height: 54px;
 
     .column-left {
       margin: 10px 45px 0px 0px;
@@ -1499,7 +1490,7 @@ export default {
     position: relative;
     margin-top: 10px;
     left:10px;
-    width: 80px;
+    width: 100px;
   }
 
   .inputter-region::-webkit-scrollbar {
