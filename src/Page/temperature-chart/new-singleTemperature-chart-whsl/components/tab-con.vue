@@ -33,6 +33,7 @@
           </el-time-select>
         </div>
           <el-button
+          v-if="patientInfo.patientId"
           :disabled="isDisable()"
           class="save-btn-top"
           :type="isUpdate ? 'warning' : 'primary'"
