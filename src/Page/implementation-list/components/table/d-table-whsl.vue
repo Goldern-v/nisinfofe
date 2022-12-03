@@ -129,7 +129,7 @@
 
       <u-table-column
         prop="startNurse"
-        label="执行人/实际执行时间"
+        label="执行人/执行时间"
         min-width="200px"
         align="center"
       >

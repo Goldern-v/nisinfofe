@@ -359,7 +359,7 @@ import { hisMatch } from "@/utils/tool";
 import getLodop from "@/assets/js/LodopFuncs";
 const initStartDate = () => {
   if (
-    ["whfk", "fsxt", "lyxrm", "whhk", "ytll", "zhzxy", "925"].includes(
+    ["whfk", "fsxt", "lyxrm", "whhk", "ytll", "zhzxy", "925","whsl"].includes(
       process.env.HOSPITAL_ID
     )
   )
@@ -376,7 +376,7 @@ const initEndDate = () => {
     return (
       moment(moment().toDate().getTime()).format("YYYY-MM-DD") + " 23:59:00"
     );
-  if (["lyxrm", "whhk", "zhzxy", "925"].includes(process.env.HOSPITAL_ID))
+  if (["lyxrm", "whhk", "zhzxy", "925","whsl"].includes(process.env.HOSPITAL_ID))
     return (
       moment(moment().toDate().getTime()).format("YYYY-MM-DD") + " 23:59:59"
     );

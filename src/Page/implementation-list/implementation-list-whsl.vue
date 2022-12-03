@@ -289,8 +289,8 @@ export default {
         total: 0
       },
        orderTimeStr: [moment().format("YYYY-MM-DD")+' 07:30:00',moment().format("YYYY-MM-DD")+' 17:30:00'],
-      startDate: moment().format("YYYY-MM-DD")+' 07:00:00',
-      endDate: moment(moment().toDate().getTime()+ 86400000).format("YYYY-MM-DD")+' 07:00:00',
+      startDate: moment().format("YYYY-MM-DD")+' 00:00:00',
+      endDate: moment(moment().toDate().getTime() ).format("YYYY-MM-DD")+' 23:59:59',
       repeatIndicator: "",
       type: ['全部'],
       status: "",
