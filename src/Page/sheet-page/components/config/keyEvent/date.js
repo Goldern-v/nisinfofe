@@ -1,6 +1,8 @@
 import moment from "moment";
+//键盘的数字区间
+const smallKeyCode = [96,105]
+const numberKeyCode = [48,57]
 export function dateKey(e, obj, key) {
-  console.log(e,888888);
   if (
     e.target.value.length == "2" &&
     e.target.value.indexOf("-") == -1 &&
@@ -10,7 +12,6 @@ export function dateKey(e, obj, key) {
   }
 }
 export function timeKey(e, obj, key) {
-  console.log(e);
   if (
     e.target.value.length == "2" &&
     e.target.value.indexOf(":") == -1 &&
@@ -35,8 +36,19 @@ export function event_date(e, td) {
   if (td.value.length >= 4 && e.keyCode != 8 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40 && e.keyCode != 13 && e.keyCode != 108 && e.keyCode != 9 && e.keyCode != 16 && e.keyCode != 17 && e.keyCode != 18 && e.keyCode != 20 && e.keyCode != 27 && e.keyCode != 91) {
     td.value = td.value.substring(0,4);
   }
+  //如果按的是数字，说明在录入时间 录完前面给他定位到后面
+    if((e.keyCode>=smallKeyCode[0]&&e.keyCode<=smallKeyCode[1])||(e.keyCode>=numberKeyCode[0]&&e.keyCode<=numberKeyCode[1])){
+      if (td.value) {
+        const input = e.target;
+        setTimeout(() => {
+          input.focus();
+          if (input.selectionStart == 2) {
+            input.setSelectionRange(3, 6);
+            }
+          });
+          }
+        }
 }
-
 export function event_time(e, td) {
   if (td.value.length >= "2" && td.value.indexOf(":") == -1 && e.keyCode != 8) {
     setTimeout(() => {
@@ -46,6 +58,18 @@ export function event_time(e, td) {
   if (td.value.length >= 4 && e.keyCode != 8 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40 && e.keyCode != 13 && e.keyCode != 108 && e.keyCode != 9 && e.keyCode != 16 && e.keyCode != 17 && e.keyCode != 18 && e.keyCode != 20 && e.keyCode != 27 && e.keyCode != 91) {
     td.value = td.value.substring(0,4);
   }
+    //如果按的是数字，说明在录入时间 录完前面给他定位到后面
+    if((e.keyCode>=smallKeyCode[0]&&e.keyCode<=smallKeyCode[1])||(e.keyCode>=numberKeyCode[0]&&e.keyCode<=numberKeyCode[1])){
+      if (td.value) {
+        const input = e.target;
+        setTimeout(() => {
+          input.focus();
+          if (input.selectionStart == 2) {
+            input.setSelectionRange(3, 6);
+          }
+        });
+      }
+    }
 }
 //时间格式 02-02 20:20
 export function event_date_time(e, td) {
@@ -77,6 +101,12 @@ export function click_date(e, td, tr) {
     td.value = moment().format("MM-DD");
     tr.isChange = true
   }
+  const input = e.target
+  setTimeout(()=>{
+    input.focus()
+    if((input.selectionStart==0&&input.selectionEnd==0)||(input.selectionStart==5&&input.selectionEnd==5))
+    input.setSelectionRange(0, 2)
+    })
 }
 
 export function click_date_year(e, td) {
@@ -96,6 +126,12 @@ export function click_time(e, td, tr) {
     td.value = moment().format("HH:mm");
     tr.isChange = true
   }
+  const input = e.target
+  setTimeout(()=>{
+  input.focus()
+  if((input.selectionStart==0&&input.selectionEnd==0)||(input.selectionStart==5&&input.selectionEnd==5))
+  input.setSelectionRange(0, 2)
+  })
 }
 // 点击自动打勾“√”
 export function click_check(e, td) {
@@ -110,7 +146,6 @@ export function click_cancel(e, td) {
   if (td.value == "") {
     td.value = '√';
   }else{
-    console.log('1111111111111111111111111',td.value);
     td.value = ""
   }
 }

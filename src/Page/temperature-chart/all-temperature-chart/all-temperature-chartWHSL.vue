@@ -14,7 +14,7 @@
         />
       </span>
       <div class="times">
-        <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id"> 
+        <!-- <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id"> 
           <input
             type="radio"
             name="time"
@@ -23,7 +23,15 @@
             :value="item.value"
           />
           {{ item.value }}
-        </label>
+        </label> -->
+        <el-select v-model="query.entryTime" size="small" placeholder="请选择">
+          <el-option
+            v-for="item in timesOdd"
+            :key="item.value"
+            :label="item.value"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </div>
       <div class="search-box">
         <el-input
@@ -37,7 +45,8 @@
           <el-radio-button label="所有患者"></el-radio-button>
           <el-radio-button label="危重患者"></el-radio-button>
           <el-radio-button label="三天超37.5"></el-radio-button>
-          <el-radio-button label="入院四天"></el-radio-button>
+          <el-radio-button label="入院七天"></el-radio-button>
+          <el-radio-button label= "术后三天"></el-radio-button>
         </el-radio-group>
       </div>
       <el-button @click="debounceSave">保存</el-button>
@@ -821,28 +830,100 @@ export default {
       timesOdd: [
         {
           id: 0,
-          value: "03",
+          value: "00",
         },
         {
           id: 1,
-          value: "07",
+          value: "01",
         },
         {
           id: 2,
-          value: "11",
+          value: "02",
         },
         {
           id: 3,
-          value: "15",
+          value: "03",
         },
         {
           id: 4,
-          value: "19",
+          value: "04",
         },
         {
           id: 5,
-          value: "23",
+          value: "05",
         },
+        {
+          id: 6,
+          value: "06",
+        },
+        {
+          id: 7,
+          value: "07",
+        },
+        {
+          id: 8,
+          value: "08",
+        },
+        {
+          id: 9,
+          value: "09",
+        },
+        {
+          id:10,
+          value: "10",
+        },
+        {
+          id:11,
+          value: "11",
+        },
+        {
+          id:12,
+          value: "12",
+        },
+        {
+          id:13,
+          value: "13",
+        },
+        {
+          id:14,
+          value: "14",
+        },
+        {
+          id:15,
+          value: "15",
+        },
+        {
+          id:16,
+          value: "16",
+        },
+        {
+          id:17,
+          value: "17",
+        },
+        {
+          id:18,
+          value: "18",
+        },
+        {
+          id:19,
+          value: "19",
+        },
+        {
+          id:20,
+          value: "20",
+        },
+        {
+          id:21,
+          value: "21",
+        },
+        {
+          id:22,
+          value: "22",
+        },
+        {
+          id:23,
+          value: "23",
+        }
       ],
 
       patientsInfoData: [],
@@ -872,11 +953,15 @@ export default {
                 ?(item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
                     item.temperatureFlag==1
+                :this.admitted === "术后三天"
+                ? (item.bedLabel.indexOf(this.searchWord) > -1 ||
+                    item.name.indexOf(this.searchWord) > -1) &&
+                    item.operationFlag==1
                 : (item.bedLabel.indexOf(this.searchWord) > -1 ||
                     item.name.indexOf(this.searchWord) > -1) &&
                   item.patientId &&
                   moment(item.admissionDate.slice(0, 10)).isAfter(
-                    moment().subtract(4, "days").format("YYYY-MM-DD")
+                    moment().subtract(7, "days").format("YYYY-MM-DD")
                   )
             })
       },

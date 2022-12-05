@@ -602,13 +602,13 @@ export default {
           }
            if (this.HOSPITAL_ID == 'whsl') {
             fn = addRecord
-            data = {
+            data = [{
               ...data,
               visitId: item.visitId,   // --患者住院流水号
               patientId: item.patientId,  // --患者id
               executeType: item.executeType,  // --执行单类型
-              executeDateTime: item.executeDateTime
-            }
+              executeDateTime: moment().format("YYYY-MM-DD HH:mm:ss")
+            }]
           }
           fn(data).then((res) => {
             this.$message.success("补录成功");

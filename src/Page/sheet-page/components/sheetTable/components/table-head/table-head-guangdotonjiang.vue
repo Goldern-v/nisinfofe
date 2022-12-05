@@ -33,7 +33,7 @@
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
           <!-- {{ patientInfo.bedLabel }} -->
-          {{ patientInfo.relObj[`PageIndex_bedLabel_${index}`]}}
+          {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
         </div>
       </span>
       <!-- <span>
@@ -157,7 +157,7 @@
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
           <!-- {{ patientInfo.bedLabel }} -->
-          {{ patientInfo.relObj[`PageIndex_bedLabel_${index}`]}}
+          {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
         </div>
       </span>
       <!-- <span>
@@ -324,6 +324,19 @@ export default {
           this.sheetInfo.relObj[`bzc`] = nVal ? "true" : "false"
         }
       },
+      newPatientInfo() {
+        /*  每页独立床号功能 */
+        let beforeBed = this.patientInfo.bedLabel
+        let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]
+        if (this.index != 0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]) {
+          // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
+          beforeBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]
+        }
+        return {
+          ...this.patientInfo,
+          [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
+        }
+      }
   },
     diagnosis() {
       /** 最接近的index */
@@ -497,21 +510,6 @@ export default {
     }
 
   },
-  watch: {
-    index(newVal,oldVal){
-      if(this.index!=0){
-       this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo.relObj[`${this.index}pregnantWeeks`]?this.sheetInfo.relObj[`${this.index}pregnantWeeks`]: this.sheetInfo.relObj[`${this.index-1}pregnantWeeks`]
-      }
-      /* 处理床位互不影响，写这么复杂是因为医院已经再用了，要兼顾数据 */
-      let beforeBed=this.patientInfo.bedLabel
-      let nowBed=this.sheetInfo.relObj[`PageIndex_bedLabel_${newVal}`]
-      if(this.index!=0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${newVal-1}`]){
-        // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
-      beforeBed=this.sheetInfo.relObj[`PageIndex_bedLabel_${newVal-1}`]
-      }
-      this.sheetInfo.relObj[`PageIndex_bedLabel_${newVal}`]=nowBed ? nowBed : beforeBed
-    }
-  },
   components: {
     bedRecordModal,
   },
@@ -519,14 +517,6 @@ export default {
     if(this.index!=0){
       this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo.relObj[`${this.index}pregnantWeeks`]?this.sheetInfo.relObj[`${this.index}pregnantWeeks`]: this.sheetInfo.relObj[`${this.index-1}pregnantWeeks`]
     }
-    /*  每页独立床号功能 */
-    let beforeBed=this.patientInfo.bedLabel
-    let nowBed=this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]
-    if(this.index!=0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index-1}`]){
-      // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
-      beforeBed=this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index-1}`]
-    }
-    this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]= nowBed ? nowBed : beforeBed
   }
 };
 </script>

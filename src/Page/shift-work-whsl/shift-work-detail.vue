@@ -590,7 +590,7 @@ export default {
               width: this.HOSPITAL_ID=="hengli"?"45":"35"
             },
             {
-              label: "姓名、性别、年龄",
+              label: "姓名、年龄",
               prop: "name",
               width: "53",
               render: row => {
@@ -639,7 +639,7 @@ export default {
               label: "护理评估及护理记录",
               prop: "assessmentSituation",
               editable: true,
-              width: "110"
+              width: "200"
             }
           ]
         },
@@ -650,7 +650,7 @@ export default {
               label: "交给下一班观察重点",
               prop: "proposal",
               editable: true,
-              width: "100"
+              width: "200"
             }
           ]
         }
@@ -754,7 +754,6 @@ export default {
         this.$router.replace({ name: "shiftWorks" });
       }
       this.loading = false;
-      console.log(this.patients);
     },
     getContextMenu() {
       const { selectedRow, selectedCol } = this.$refs.table;

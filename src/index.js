@@ -78,6 +78,10 @@ Vue.use(VueAwesomeSwiper);
 import vImageError from "@/common/directives/v-image-error";
 Vue.directive("image-error", vImageError);
 
+import dialogDrag from "./utils/drog.js";
+Vue.directive("dialogDrag", dialogDrag);
+
+
 import axios from "./api/axios";
 // 字符串拼音首字获取
 import "./plugin/tool/Pinyin";

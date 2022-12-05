@@ -79,6 +79,8 @@ const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
 const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
 const shiftWorkWhsl = () => import("@/Page/shift-work-whsl/shift-work.vue");
 const shiftWorkDetailWhsl = () => import("@/Page/shift-work-whsl/shift-work-detail.vue");
+const shiftWorkDetailSdlj = () => import("@/Page/shift-work-lj/shift-work-detail.vue");
+const shiftWorkDetailFsxt = () => import("@/Page/shift-work-fsxt/shift-work-detail.vue");
 const shiftWorkFq = () => import("@/Page/shift-work-fq/shift-work.vue");
 const shiftWorkDetailFq = () => import("@/Page/shift-work-fq/shift-work-detail.vue");
 const shiftWorkWujing = () => import("@/Page/shift-work-wujing/shift-work.vue");
@@ -88,6 +90,8 @@ const shiftWorkDetailWhfk = () => import("@/Page/shift-work-whfk/shift-work-deta
 
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
 const shiftWorkNFZXY = () => import("@/Page/shift-work-nfzxy/shift-work.vue");//贵州交班志
+const shiftWorkSdlj = () => import("@/Page/shift-work-lj/shift-work.vue");//龙江交班志
+const shiftWorkFsxt = () => import("@/Page/shift-work-fsxt/shift-work.vue");//佛山杏坛交班志
 
 const ISBARshiftWorkHd = () => import("@/Page/shift-work/shift-work.vue");//花都ISBAR交班志
 
@@ -180,6 +184,8 @@ const implementationListLiaocheng = () =>
   import("@/Page/implementation-list/implementation-list-liaocheng.vue"); //聊城执行单
 const implementationListQHWY = () =>
   import("@/Page/implementation-list/implementation-list-qhwy.vue"); //青海五院执行单
+  const implementationListWhsl = () =>
+  import("@/Page/implementation-list/implementation-list-whsl.vue"); //青海五院执行单
 const implementationListShannan = () =>
   import("@/Page/implementation-list/implementation-list-shannan.vue"); //山南执行单
 const implementationListZhongshanqi = () =>
@@ -237,6 +243,8 @@ const allTemperatureChartFSXT= () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSXT.vue"); //广东同江医院量录入体温单
 const allTemperatureChartLYYZ = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartLYYZ.vue"); //临邑沂州量录入体温单
+const allTemperatureChartYTLL = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartYTLL.vue"); //烟台玲珑批量录入体温单
 const newSingleTemperatureChart = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart/new-singleTemperature-chart.vue"); //新版体温单录入页面
 const newSingleTemperatureChartLiaoCheng = () =>
@@ -341,7 +349,7 @@ import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureWHYX from "@/Page/patientInfo/supPage/temperature/temperature-whyx";
 import temperatureGDTJ from "@/Page/patientInfo/supPage/temperature/temperature-gdtj";
 import temperatureZHZYX from "@/Page/patientInfo/supPage/temperature/temperature-zhzxy";
-import temperatureYTLL from "@/Page/patientInfo/supPage/temperature/temperature-ytll";
+import temperatureYTLL from "@/Page/patientInfo/supPage/temperature/temperature-linlong";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import oxygenSugar from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar.vue"; // 厚街
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
@@ -408,12 +416,13 @@ const getImplementation = () => {
       return implementationListLiaocheng
     case 'qhwy':
       return implementationListQHWY
+    case 'whsl':
+      return implementationListWhsl
     case 'shannan':
       return implementationListShannan
     case 'zhongshanqi':
       return implementationListZhongshanqi
     case 'lyxrm':
-    case 'whsl':
     case 'whhk':
     case '925':
     case 'zhzxy':
@@ -821,6 +830,10 @@ const router = new Router({
               return shiftWorkWhsl
             case 'nanfangzhongxiyi':
               return shiftWorkNFZXY
+            case 'sdlj':
+              return shiftWorkSdlj
+            case 'fsxt':
+              return shiftWorkFsxt
             default:
               return shiftWork
           }
@@ -858,6 +871,10 @@ const router = new Router({
                 return shiftWorkDetailWhfk
               case 'whsl':
                 return shiftWorkDetailWhsl
+              case 'sdlj':
+                return shiftWorkDetailSdlj
+              case 'fsxt':
+                return shiftWorkDetailFsxt
               default:
                 return shiftWorkDetail
             }
@@ -1513,7 +1530,6 @@ const router = new Router({
             case 'nanfangzhongxiyi':
               return allTemperatureChartNFZXY
             case 'lyxrm':
-            case 'ytll':
             case 'whhk':
               return allTemperatureChartLYXRM
             case 'whsl':
@@ -1527,6 +1543,8 @@ const router = new Router({
               return allTemperatureChartFSRY
             case 'lyyz':
               return allTemperatureChartLYYZ
+            case 'ytll':
+              return allTemperatureChartYTLL
             case 'gdtj':
             return allTemperatureChartGDTJ
             case 'fsxt':

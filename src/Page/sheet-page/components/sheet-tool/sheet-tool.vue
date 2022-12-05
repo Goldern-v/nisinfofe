@@ -680,6 +680,7 @@ export default {
       creator: "",
       user: JSON.parse(localStorage.user),
       selectList: [],
+      oldSelectList:[],
       sheetModel,
       sheetInfo,
       sheetBlockList: [],
@@ -886,7 +887,6 @@ export default {
             }else{
               reject(false)
             }
-
           })
         }
         this.$nextTick(() => {
@@ -914,7 +914,7 @@ export default {
     *单纯需要刷新护记 的 调原来的$emit("refreshSheetPage")
     */
     async initSheetPageSize(isAddPageFlag) {
-      !isAddPageFlag && await this.getHomePage()
+      !isAddPageFlag && await this.getHomePageInfo()
       this.initSelectList(isAddPageFlag);
       // 判断是否存在recodeId
       // 获取被标记的页数，recordId是某一行的记录ID 如果从首页进来 就携带这个recordId ，否则走正常的页面定位
@@ -925,10 +925,34 @@ export default {
         if (this.sheetInfo.findBlockContext && this.sheetInfo.findBlockContext.recordId) {
           await this.getPageIndexByTime()
         } else {
-          const pageSelectListValue = this.selectList[this.selectList.length - 1].value || "";
+          /**页码定位，每次初始化selectList 之前 都保存数据 selectList 到oldSelectList中
+           * 如果涉及到数据增删需要初始化了页码的先判断selectList长度是否一样 ，如果一样就说明没有selectList新增 然后判断新旧页码是否一样  一样则选旧的
+           * 如果找不到旧的页码了 ，则说明新删除增数据导致页码增减了  不一样则选最新的
+           * */
+          let pageSelectListValue = ''
+          let old_list_length = this.oldSelectList.length;
+          let new_list_length = this.selectList.length;
+          let old_list_index = this.selectList.findIndex((item) => item.value == this.pageArea);
+          pageSelectListValue = this.selectList[this.selectList.length - 1].value || "";
+          if (old_list_length == new_list_length) {
+            if (old_list_index != -1) {
+              pageSelectListValue = this.selectList[old_list_index].value
+            } else {
+              //1-9 =======》 1-10  1>=1&&1<=10
+              const page = this.selectList.find((list, index) => {
+                const oldStart = this.pageArea.split('-')[0]
+                const start = list.value.split('-')[0]
+                const end = list.value.split('-')[1]
+                return (oldStart >= start && oldStart <= end)
+              })
+              if(page&&page.value)
+              pageSelectListValue = page.value
+            }
+          }
           this.pageArea = pageSelectListValue
           this.pageInfoObj.pageArea = pageSelectListValue
         }
+
         !isAddPageFlag && this.updateSheetPageInfo(this.pageArea)
       } catch (error) { }
     },
@@ -1114,6 +1138,7 @@ export default {
       }
       pagelist[0] = this.sheetInfo.sheetStartPage;
       pagelist[pagelist.length - 1] = length;
+      this.oldSelectList = this.selectList
       this.selectList = [];
       for (let i = 0; i < pagelist.length; i++) {
         if (i == pagelist.length - 1) {
@@ -1341,6 +1366,7 @@ export default {
           this.deptCode
         ).then((res) => {
           this.bus.$emit("setSheetTableLoading", false);
+          this.oldSelectList = this.selectList
           this.selectList = [];
           let list = res.data.data.list;
           if (
@@ -1381,10 +1407,13 @@ export default {
           }
           //选择接口最后一个护记
           this.sheetInfo.selectBlock =this.sheetBlockList[this.sheetBlockList.length - 1] || {};
-            if(this.sheetBlockList.length==0){
+          if (!this.sheetBlockList.length) {
+            this.bus.$emit('clearSheetModel')
               // 如果该病人没有护记，切换病人时需要清空分页
-              this.pageInfoObj.pageArea=''
-              this.bus.$emit('clearSheetModel')
+              setTimeout(()=>{
+                this.pageArea = ''
+              this.pageInfoObj.pageArea = ''
+              })
             }
             if (this.patientInfo.blockId) {
               try {
@@ -1474,28 +1503,28 @@ export default {
       `;
       // }
     },
-    getHomePage(){
+    getHomePageInfo() {
+      if(!this.patientInfo.patientId||!this.patientInfo.visitId||!this.sheetInfo.selectBlock.id) return
       return new Promise((resolve, reject) => {
         getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
-        (res) => {
-          this.sheetInfo.sheetStartPage =
-            (res.data.data && res.data.data.indexNo) || 1;
-          this.sheetInfo.sheetMaxPage =
-            (res.data.data && res.data.data.maxIndexNo) || 1;
-          this.sheetInfo.maxPageIndex =
-            (res.data.data && res.data.data.maxPageIndex + 1) || 1;
-            resolve(res)
-        }
-      );
+          (res) => {
+            if (res.data.code == 200) {
+              this.sheetInfo.sheetStartPage =
+                (res.data.data && res.data.data.indexNo) || 1;
+              this.sheetInfo.sheetMaxPage =
+                (res.data.data && res.data.data.maxIndexNo) || 1;
+              this.sheetInfo.maxPageIndex =
+                (res.data.data && res.data.data.maxPageIndex + 1) || 1;
+              resolve(res)
+            } else {
+              reject(false)
+            }
+          });
       })
     },
     changeSelectBlock(item) {
-      if (item) {
-        localStorage.wardCode = item.deptCode;
-      }
-      this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
-      this.blockId = item.id;
-      this.initSheetPageSize()
+      localStorage.setItem('sheetPageScrollValue',null)
+      //原本写在选择器里 现在搬到watch离监听调用
     },
     /** pdf打印 */
     toPdfPrint() {
@@ -1584,6 +1613,7 @@ export default {
     },
   },
   computed: {
+
     limitAddPage(){
       const lastPage = this.pageArea&&this.pageArea.split('-')[1]
       return this.selectList.length&&this.selectList[this.selectList.length - 1].value.indexOf(lastPage) != -1
@@ -1724,10 +1754,15 @@ export default {
   },
   watch: {
     "sheetInfo.selectBlock":{
+      deep:true,
       handler(val) {
-        console.log(val,"sheetInfo.selectBlock")
-        //每次初始化都重新设置滚动值
-        localStorage.setItem('sheetPageScrollValue',null)
+        if (val) {
+        localStorage.wardCode = val.deptCode;
+      this.pageBlockId = val.id;
+      }
+      cleanData();
+      this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+      this.initSheetPageSize()
       },
     },
     "sheetInfo.startPage"() {
@@ -1738,6 +1773,7 @@ export default {
     patientId:{
       deep: true,
       handler() {
+        this.oldSelectList = this.selectList
         this.selectList = [];
           this.$parent.breforeQuit(() => {
             this.bus.$emit("setSheetTableLoading", true);

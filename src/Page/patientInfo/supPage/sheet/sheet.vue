@@ -428,6 +428,7 @@ export default {
           localStorage.setItem('lockForm',JSON.stringify(formConfig))
         }
         let bodyData = res[1].data.data;
+      console.log(`界面初始化完成,前端获取接口数据========>>>>>>护记数据:`,bodyData&&bodyData.list)
         if(this.HOSPITAL_ID=='wujing'){
           let barcodeArr = {}
           bodyData.list.map((tr,index)=>{
@@ -464,11 +465,10 @@ export default {
         await initSheetPage(titleData, bodyData, markData,this.listData);
           this.sheetModelData = getData();
           this.tableLoading = false;
-          let timeNum = 10;
+          let timeNum = 15;
           function toBottom() {
             timeNum--;
-            this.$nextTick(()=>{
-              setTimeout(() => {
+              //初始化护记数据都设置保存状态为已经保存，放这里运行是借用多次执行判断护记加载完成再设置
                 this.sheetInfo.isSave = true;
                 const sheetPageScrollValue = localStorage.getItem('sheetPageScrollValue')
                 const isBottom = sheetPageScrollValue !== "null" ? false : true
@@ -484,12 +484,14 @@ export default {
                     this.scrollFun(sheetPageScrollValue)
                   }
                 }
-              }, 300);
-            })
           }
-          this.$nextTick(() => {
-            toBottom.call(this);
-          });
+          setTimeout(() => {
+            this.$nextTick(() => {
+              if (!this.patientInfo.recordId) {
+                toBottom.call(this);
+              }
+            });
+          }, 300);
         });
       });
     },
@@ -566,7 +568,9 @@ export default {
           let bedList = res.data.data.filter(item => {
             return item.patientId;
           });
+    this.$store.commit("upPatientInfo", this.$route.query);
           sheetInfo.bedList = bedList;
+          sheetInfo.isSave = true;
         });
       }
     },
@@ -810,14 +814,14 @@ export default {
       }
 
   },
-
   created() {
+    //第三方浏览界面 是路由传的患者信息 所以一开始先清空界面VUEX的信息，再提交路由的
     this.getDate();
-    sheetInfo.isSave = true;
     this.$store.commit("upPatientInfo", {});
     setTimeout(() => {
       this.$store.commit("upPatientInfo", this.$route.query);
     }, 100);
+    sheetInfo.isSave = true;
         this.bus.$on("addSheetPage", () => {
       if (!this.sheetInfo.selectBlock.id) {
         return this.$notify.info({

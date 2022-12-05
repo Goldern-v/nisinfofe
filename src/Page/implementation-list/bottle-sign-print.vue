@@ -42,11 +42,7 @@
             size="small"
             style="width: 212px"
             multiple
-            @change="
-              () => {
-                search();
-              }
-            "
+           @change="handleChangeType"
           >
             <el-option
               v-for="(optionItem, optionIndex) in typeOptions"
@@ -137,14 +133,6 @@
             >查询</el-button
           >
           <el-button
-            v-if="['zhzxy'].includes(HOSPITAL_ID)"
-            size="small"
-            @click="currentPagePrint"
-            :disabled="status == '已执行'"
-            >打印当前页</el-button
-          >
-          <el-button
-            v-else
             size="small"
             @click="allSelection"
             :disabled="status == '已执行'"
@@ -173,7 +161,7 @@
               size="small"
               @click="onPrint"
               :disabled="status == '已执行'"
-              >打印{{ showPrintAll ? "此页" : "" }}</el-button
+              >打印{{ showPrintAll && HOSPITAL_ID !== 'zhzxy' ? "此页" : "" }}</el-button
             >
             <el-button
               size="small"
@@ -215,7 +203,7 @@
             {
               'break-page':bottleCardIndex % 3 == 2 &&
                 newModalSize == '3*7',
-              'sise-75': newModalSize === '7*5'
+              'size-75': newModalSize === '7*5'
             },
           ]"
           v-for="(itemBottleCard, bottleCardIndex) in printObj"
@@ -323,30 +311,20 @@
   .break-page {
     page-break-after: always;
   }
-  .small-35 {
-    position: relative;
-    height: 30.00mm;
-    overflow: hidden;
-  }
-  .small-25 {
-    position: relative;
-    height: 19.90mm;
-    overflow: hidden;
-  }
-  .sise-75 {
+  .size-75 {
     width: 69mm;
     height: 50mm;
     position: relative;
   }
 }
 
-@media print {
-  .new-print-box--small {
-    transform: scale(0.5);
-    transform-origin: 0 0 0;
-    overflow: hidden;
-  }
-}
+// @media print {
+//   .new-print-box--small {
+//     transform: scale(0.5);
+//     transform-origin: 0 0 0;
+//     overflow: hidden;
+//   }
+// }
 </style>
 <script>
 import modal from "./modal/modal";
@@ -381,7 +359,7 @@ import { hisMatch } from "@/utils/tool";
 import getLodop from "@/assets/js/LodopFuncs";
 const initStartDate = () => {
   if (
-    ["whfk", "fsxt", "lyxrm", "whhk", "ytll", "zhzxy", "925"].includes(
+    ["whfk", "fsxt", "lyxrm", "whhk", "ytll", "zhzxy", "925","whsl"].includes(
       process.env.HOSPITAL_ID
     )
   )
@@ -398,7 +376,7 @@ const initEndDate = () => {
     return (
       moment(moment().toDate().getTime()).format("YYYY-MM-DD") + " 23:59:00"
     );
-  if (["lyxrm", "whhk", "zhzxy", "925"].includes(process.env.HOSPITAL_ID))
+  if (["lyxrm", "whhk", "zhzxy", "925","whsl"].includes(process.env.HOSPITAL_ID))
     return (
       moment(moment().toDate().getTime()).format("YYYY-MM-DD") + " 23:59:59"
     );
@@ -469,7 +447,7 @@ export default {
       },
       multiItemType: ["输液"],
       // 是否医嘱分类使用多选
-      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925"].includes(
+      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl"].includes(
         this.HOSPITAL_ID
       ),
       selectedData: [], //选中打印执行单条数
@@ -603,6 +581,13 @@ export default {
     this.cleanPrintStatusRoundTime();
   },
   methods: {
+    handleChangeType(value) {
+      if (this.multiItemType.length === 2 && this.multiItemType.includes('全部')) {
+        this.multiItemType.shift()
+      } else if (this.multiItemType.length > 2 && this.multiItemType[this.multiItemType.length - 1] === '全部') {
+        this.multiItemType = ['全部']
+      }
+    },
     createImplement() {
       if (!this.deptCode) return;
       webSplitOrder({ wardCode: this.deptCode }).then((res) => {
@@ -813,6 +798,7 @@ export default {
     },
     // 打印当前页
     async currentPagePrint() {
+      console.log(this.pagedTable[this.page.pageIndex-1])
       this.selectedData = this.$_.flattenDeep(this.pagedTable[this.page.pageIndex-1]);
       await this.newOnPrint();
     },
@@ -836,7 +822,6 @@ export default {
       ) {
         this.$refs.plTable.$children[0].toggleAllSelection();
       }
-
     },
     querySearch(queryString, cb) {
       let list = [{ value: "膀胱冲洗" }, { value: "气滴" }];
@@ -973,16 +958,9 @@ export default {
           let key =
             curIndex == 0 ? item.barCode : `${item.barCode}_${curIndex}`;
           curBarCode = item.barCode;
-          console.log("test-key", key, printObj[key]);
           printObj[key] = printObj[key] || [];
           if (printObj[key].length < this.printPagingNo) {
             printObj[key].push(item);
-          if(item.orderText.length>23){
-             printObj[key].push({orderText:''});
-          } 
-          if(item.orderText.length>46){
-             printObj[key].push({orderText:''});
-          }
             return;
           }
           curIndex += 1;
@@ -1055,8 +1033,6 @@ export default {
       });
       return styleData.ownerNode.innerText;
     },
-    // 格式化公用query
-    formatCommonQuery() {},
     /**
      * 指定打印机
      */
@@ -1118,7 +1094,7 @@ export default {
         case "925":
           return ["70*80", "3*7"];
         case "zhzxy":
-          return ["7*7", "2*5"];
+          return ["7*7", "2*5", '7*5'];
         // case 'whsl':
         //   return ["7*8", "3*5"];
         case "wujing":
@@ -1138,8 +1114,6 @@ export default {
         ["whfk"].includes(this.HOSPITAL_ID)
       )
         return "";
-
-      // if (this.HOSPITAL_ID === "zhzxy" && this.newModalSize === "2*5")
       if (this.HOSPITAL_ID === "925" && this.newModalSize === "70*80")
         return "transform: scale(0.8);transform-origin: 0 0 0;";
       return 'zoom: .5;position: absolute;'
@@ -1155,11 +1129,7 @@ export default {
       if (this.newModalSize == "7*7" && ["ytll"].includes(this.HOSPITAL_ID)) {
         return "margin: 0 0 0 3mm;";
       }
-      // if (this.newModalSize == "2*5" && ["zhzxy"].includes(this.HOSPITAL_ID)) {
-      //   return "margin: 3mm 1.5mm 0 1.5mm;";
-      // }
       return "margin: 0 0;";
-      return "margin: 0 0; size: 50mm 30mm";
     },
     disableSize() {
       return !["wujing"].includes(this.HOSPITAL_ID);

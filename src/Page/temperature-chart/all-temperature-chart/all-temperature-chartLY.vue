@@ -8,6 +8,7 @@
           type="date"
           size="small"
           format="yyyy-MM-dd"
+          style="width: 120px;"
           placeholder="开始日期"
           v-model="query.entryDate"
           clearable
@@ -20,6 +21,7 @@
             name="time"
             v-model="query.entryTime"
             :id="`time${item.id}`"
+            :style="{color:item.value  == query.entryTime?'red':'#000'}"
             :value="item.value"
           />
           {{ item.value }}
@@ -592,9 +594,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     display: flex;
 
     label {
+      font-size:18px;
       display: flex;
       align-items: center;
-      margin-right: 10px;
+      margin-right: 5px;
       cursor: pointer;
 
       input {
@@ -735,8 +738,6 @@ export default {
         wardCode: "", //科室编码
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
-          switch (this.HOSPITAL_ID) {
-            case "lyxrm":
               if (this.getHours() >= 0 && this.getHours() <= 4) {
                 return "03";
               }
@@ -755,9 +756,6 @@ export default {
               if (this.getHours() > 20 && this.getHours() <= 23) {
                 return "23";
               }
-            default:
-              return "08";
-          }
         })(), //录入时间
       },
 

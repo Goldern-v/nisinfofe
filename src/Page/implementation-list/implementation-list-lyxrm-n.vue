@@ -342,7 +342,7 @@ export default {
           value: "其他"
         },
       ],
-      statusList: [ 
+      statusList: [
         {
           id: "3",
           name: "全部"
@@ -360,7 +360,7 @@ export default {
           name: "未执行"
         },
       ],
-      whslstatusList: [ 
+      whslstatusList: [
         {
           id: "",
           name: "全部"

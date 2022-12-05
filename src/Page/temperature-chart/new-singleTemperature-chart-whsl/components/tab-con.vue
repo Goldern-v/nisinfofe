@@ -6,21 +6,42 @@
           id="date-picker"
           type="date"
           size="mini"
-          style="width: 110px; height: 28px"
+          style="width: 110px; height: 32px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
           clearable
         />
-            <el-button
-              :disabled="isDisable()"
-              class="save-btn-top"
-              :type="isUpdate ? 'warning' : 'primary'"
-              @click="saveVitalSign(vitalSignObj)"
-              >{{ isUpdate ? "更新" : "保存" }}
-              </el-button
-            >
-        <div class="times">
+
+        <div class="times" @keydown.stop="(e) => show(e)">
+          <el-time-select
+            v-model="dateInp"
+            value-format="HH:mm"
+            format="HH:mm"
+            ref="timeSelect"
+              size="mini"
+            @blur="changeDate"
+            @change="changeVal"
+            :picker-options="{
+              start: '00:00',
+              step: '01:00',
+              end: '23:00',
+            }"
+            class="new-time-select"
+            placeholder="选择时间"
+          >
+          </el-time-select>
+        </div>
+          <el-button
+          v-if="patientInfo.patientId"
+          :disabled="isDisable()"
+          class="save-btn-top"
+          :type="isUpdate ? 'warning' : 'primary'"
+          @click="saveVitalSign(vitalSignObj)"
+          >{{ isUpdate ? "更新" : "保存" }}
+          </el-button
+        >
+        <!-- <div class="times">
           <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
@@ -29,7 +50,7 @@
               :label="item.value"
             ></el-radio>
           </el-radio-group>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="row-bottom">
@@ -42,7 +63,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${formatDate(query.entryDate)}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${dateInp}`
                   )
                     ? 'active'
                     : '',
@@ -476,7 +497,7 @@
                     >
                     </el-option>
                   </el-select>
-                  <el-time-picker
+                  <!-- <el-time-picker
                     size="mini"
                     :readonly="isDisable()"
                     v-model="timeVal"
@@ -484,7 +505,7 @@
                     style="width: 100%"
                     @change="formatTopExpandDate"
                   >
-                  </el-time-picker>
+                  </el-time-picker> -->
                 </div>
                 <div
                   class="rowBox"
@@ -514,17 +535,17 @@
               </el-collapse-item>
             </div>
           </el-collapse>
-          <div class="save">
-            <el-button
+          <!-- <div class="save"> -->
+            <!-- <el-button
               :disabled="isDisable()"
               class="save-btn"
               :type="isUpdate ? 'warning' : 'primary'"
               @click="saveVitalSign(vitalSignObj)"
               >保存</el-button
-            >
+            > -->
             <div class="clear" style="height: 30px"></div>
             <!--占位符-->
-          </div>
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -558,7 +579,7 @@ export default {
       ["24"]: ["21:00", "23:59"],
     };
 
-    let entryTime = "02";
+    let entryTime = "02:00:00";
     let currentSecond =
       new Date().getHours() * 60 + new Date().getMinutes() * 1;
 
@@ -591,28 +612,9 @@ export default {
       ),
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: (() => {
-          if (this.getHours() >= 0 && this.getHours() <= 4) {
-            return "03";
-          }
-          if (this.getHours() > 4 && this.getHours() <= 8) {
-            return "07";
-          }
-          if (this.getHours() > 8 && this.getHours() <= 12) {
-            return "11";
-          }
-          if (this.getHours() > 12 && this.getHours() <= 16) {
-            return "15";
-          }
-          if (this.getHours() > 16 && this.getHours() <= 20) {
-            return "19";
-          }
-          if (this.getHours() > 20 && this.getHours() <= 23) {
-            return "23";
-          }
-          //录入时间
-        })(), //录入时间
+        entryTime: moment().format("HH:mm")+':00', //录入时间
       },
+       dateInp: moment().format("HH:mm"),
       updateData: {
         entryDate: "", //更新录入日期
         entryTime: "", //更新时间
@@ -669,16 +671,17 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
+       timeStrFormat: "",
       isUpdate:false,
     };
   },
   async mounted() {
     await this.getVitalList();
-          this.bus.$on("getDataFromPage", (dateTime) => {
+    this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate=dateTime.slice(0,10)
-        this.query.entryTime=dateTime.slice(11,13)
+       this.query.entryTime = dateTime.slice(11, 16) + ":00";
+         this.dateInp = dateTime.slice(11, 16);
     });
-
   },
 
   created() {
@@ -874,10 +877,9 @@ export default {
         visitId: this.patientInfo.visitId,
         wardCode: this.patientInfo.wardCode,
         recordDate:
-          moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+            moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
           "  " +
-          this.query.entryTime +
-          ":00:00",
+          this.query.entryTime,
       }).then((res) => {
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
@@ -918,14 +920,10 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
-
+      this.query.entryTime = value.slice(12, 20);
+      this.timeStrFormat = temp.slice(18, 20);
+      this.dateInp = value.slice(12, 17);
       // 北海在记录单那边同步数据,时间直接取点击的
-      if (
-        this.$route.path.includes("newSingleTemperatureChart") ||
-        this.$route.path.includes("temperature")
-      ) {
-        this.query.entryTime = temp.slice(12, 14);
-      }
       if (this.isUpdate) {
         this.updateData.entryDate = value.slice(0, 10);
         this.updateData.entryTime = value.slice(12, 20);
@@ -942,6 +940,11 @@ export default {
     },
     /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口  */
     getViSigs() {
+      if( this.query.entryTime.replace(/:00/g,'').length==5){
+        this.query.entryTime = this.query.entryTime.replace(/:00/g,'') + ":00";
+      }else  if( this.query.entryTime.replace(/:00/g,'').length==2){
+        this.query.entryTime = this.query.entryTime.replace(/:00/g,'') + ":00:00";
+      }
       let data = {
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
@@ -950,7 +953,7 @@ export default {
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime ,
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
@@ -1132,8 +1135,7 @@ export default {
               recordDate:
                 moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
                 "  " +
-                this.query.entryTime +
-                ":00:00",
+                this.query.entryTime ,
             };
             if (checkValueStr.includes(text)) {
               this.$message.error(`修改${label}失败!已存在${text}项目`);
@@ -1151,29 +1153,76 @@ export default {
         );
       }
     },
+    show(e) {
+      if (e.keyCode == 13) {
+        this.changeDate(this.$refs.timeSelect);
+      }
+    },
+     //时间组件失去焦点
+    changeDate(val) {
+      let numberVal = val.$el.children[1].value;
+      // if(!moment(numberVal,"HH:mm",true).isValid()) {
+      //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
+      //     return false;
+      // }
+      if (
+        (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
+        (numberVal.indexOf(":") != -1 && numberVal.length == 5)
+      ) {
+        let time =
+          numberVal.indexOf(":") == -1
+            ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
+            : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
+        // if(!moment(numberVal,"HH:mm",true).isValid()) {
+        //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
+        //   return false;
+        // }
+        let [hours, min] = time.split(":");
+        if (0 <= hours && hours <= 24 && 0 <= min && min <= 59) {
+          this.query.entryTime = time+ ":00";
+          this.dateInp = time;
+        } else {
+          this.$message.error("请输入正确时间数值，例如23:25, 2325");
+        }
+      } else {
+        this.query.entryTime = val.$el.children[1].value;
+      }
+    },
+    // 下拉选项触发查询
+    async changeVal(newVal, oldVal) {
+      //操作时间
+      await this.formatTimeFun(newVal);
+      this.timeStrFormat = "";
+    },
+    formatTimeFun(newVal) {
+      if (newVal.split(":").length == 2) {
+        if (this.timeStrFormat === "00" || this.timeStrFormat === "") {
+          this.query.entryTime = newVal + ":00";
+        } else {
+          this.query.entryTime = newVal + `:${this.timeStrFormat}`;
+        }
+      }
+    },
     /* 录入体温单 */
     async saveVitalSign(value) {
       let obj = Object.values(value);
       let saveFlagArr = [];
+      if( this.query.entryTime.replace(/:00/g,'').length==5){
+        this.query.entryTime = this.query.entryTime.replace(/:00/g,'') + ":00";
+      }else  if( this.query.entryTime.replace(/:00/g,'').length==2){
+        this.query.entryTime = this.query.entryTime.replace(/:00/g,'') + ":00:00";
+      }
       obj.map((item) => {
         item.recordDate =
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
           "  " +
-          this.query.entryTime +
-          ":00:00";
+          this.query.entryTime ;
         switch (item.vitalSigns) {
           case "表顶注释":
-            if (this.topExpandDate !== undefined) {
-              item.expand2 =
-                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-                " " +
-                this.topExpandDate; //表顶用录入日期+选择的时间来显示
-            } else {
-              item.expand2 =
-                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-                " " +
-                moment(this.nowTimeVal).format("HH:mm:ss"); //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
-            }
+          item.expand2 =
+              moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
+              " " +
+              this.query.entryTime;
             break;
           case "表底注释":
             item.expand2 = this.bottomExpandDate;
@@ -1194,7 +1243,7 @@ export default {
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime,
         vitalSignList: obj,
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
@@ -1239,9 +1288,6 @@ export default {
       }, 1000);
       }
     },
-    formatTopExpandDate(val) {
-      this.topExpandDate = val;
-    },
     formatBtmExpandDate(val) {
       this.bottomExpandDate = val;
     },
@@ -1272,13 +1318,14 @@ export default {
   .column-right {
     margin-top: 5px;
     display: inline-block;
-    height: 70px;
+    height: 54px;
+    width:100%;
     overflow: auto;
   }
 
   .row-top {
     background-color: #fff;
-    height: 70px;
+    height: 54px;
 
     .column-left {
       margin: 10px 45px 0px 0px;
@@ -1368,12 +1415,12 @@ export default {
     }
 
     .new-time-select {
-      height: 29px;
+      height: 28px;
       width: 100px;
       display: inline-block;
 
       >>>.el-input__inner {
-        height: 32px !important;
+        height: 28px !important;
         display: inline-block;
         width: 100px;
         border-radius: 6px;
@@ -1444,7 +1491,7 @@ export default {
     position: relative;
     margin-top: 10px;
     left:10px;
-    width: 80px;
+    width: 100px;
   }
 
   .inputter-region::-webkit-scrollbar {

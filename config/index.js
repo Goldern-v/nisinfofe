@@ -158,12 +158,12 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://192.168.20.147:9091"  // 双艳
-      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
       // return "http://120.24.240.231:19097" //
       // return "http://192.168.103.16:9091" //
       // return "http://218.13.87.27:9094" //
-      return "https://info.cr-health.com:20215"
+      // return "https://info.cr-health.com:20215"
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -209,7 +209,7 @@ const currentTargetUrl = (() => {
     //珠海中西医
     case 'zhzxy':
       // return "http://192.168.1.54:9883" //珠海中西医测试
-      return "http://183.234.20.149:19094" 
+      return "http://183.234.20.149:19094"
       // return "http://183.234.20.149:19094" //正式
 
     // 青海五院
@@ -239,11 +239,12 @@ const currentTargetUrl = (() => {
 
     // 威海市立
     case 'whsl':
-      // return 'http://192.168.1.54:9896'
-      return 'https://info.cr-health.com:20217'
+      return 'http://221.2.154.22:19094'
+      // return 'https://info.cr-health.com:20217'
       // return "http://222.133.53.230:9091" // 临邑正式
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
       // return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
+      // return ' http://221.2.154.22:19094/'
 
     /** 默认公司本地内网厚街测试环境 */
     default:

@@ -14,7 +14,7 @@ export default {
     curSheetPatient: {},
     isAddPageModal:false,
     sheetPageArea:{
-      //页面
+      //护记页码起始页,
       startPageIndex:1,
       endPageIndex:1
 
