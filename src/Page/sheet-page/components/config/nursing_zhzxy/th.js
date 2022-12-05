@@ -33,7 +33,7 @@ export default {
                 {"name":"BP<br>mmHg","colspan":"1","rowspan":"2","style":{"minWidth":"55px","maxWidth":"55px"}},
                 {"name":"SpO2<br>％","colspan":"1","rowspan":"2"},
                 {"name":"吸氧<br>L/min","colspan":"1","rowspan":"2"},
-                {"name":"入量","colspan":"2","rowspan":"1"},
+                {"name":"入量","colspan":"3","rowspan":"1"},
                 {"name":"出量","colspan":"3","rowspan":"1"},
                 // {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value1", "style":{"minWidth":"35px","maxWidth":"35px"}},
                 // {"name":"","colspan":"1","rowspan":"2", canSet: true, key: "value2", "style":{"minWidth":"35px","maxWidth":"35px"}},
@@ -51,6 +51,7 @@ export default {
             [
                 {"name":"日期","colspan":"1","rowspan":"1","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"时间","colspan":"1","rowspan":"1","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"意识","colspan":"1","rowspan":"1","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"100px","maxWidth":"100px"}},
                 {"name":"ml","colspan":"1","rowspan":"1"},
                 {"name":"内容","colspan":"1","rowspan":"1","style":{"minWidth":"100px","maxWidth":"100px"}},

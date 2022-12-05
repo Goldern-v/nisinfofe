@@ -96,7 +96,7 @@
       <span class="loginCa" v-else @click="pw = false">证书验证</span>
     </div>
 
-    <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&formData">
+    <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&formData  && HOSPITAL_ID != 'whsl'">
     <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)&&formData"> -->
       <p class="name-title">
         验证方式
@@ -107,7 +107,7 @@
       </p>
     </span>
     <div style="margin-top: 5px">
-      <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&!fuyouCaData&&formData"
+      <span @click="()=>HOSPITAL_ID=='fuyou'? openFuyouCaSignModal() : openHjCaSignModal()" class="loginCa" v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&!fuyouCaData&&formData  && HOSPITAL_ID != 'whsl'"
         >ca登录</span
       >
       <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)&&fuyouCaData&&formData">
