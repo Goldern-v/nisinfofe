@@ -2790,7 +2790,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (['lyxrm', 'foshanrenyi', 'gdtj'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl'].includes(this.HOSPITAL_ID)) {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }
@@ -2799,6 +2799,7 @@ export default {
   mounted() {
   },
   created() {
+    this.scrollX();//切换表单，调整表头
     if(this.HOSPITAL_ID == 'wujing' && sheetInfo.sheetType == 'common_hl'){
       let sUserAgent = navigator.userAgent;
       if(sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1 || sUserAgent.indexOf("Windows NT 5.1") > -1){

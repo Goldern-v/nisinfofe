@@ -2135,6 +2135,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_weihai": {
+    // 危重症护理监护单2
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_weihai/th.js").default)
+    );
+  }
+  break;
   case "baby_yz": {
     // 临沂沂州 - 新生儿护理记录单
     Th = JSON.parse(

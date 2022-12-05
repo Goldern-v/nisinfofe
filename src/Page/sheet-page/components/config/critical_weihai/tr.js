@@ -10,6 +10,8 @@ import {
 } from "../keyEvent/date";
 
 const zdjnList = ['✓'];
+const color= ['鲜红色', '暗红色', '淡红色', '淡黄色', '深黄色', '黄绿色', '黄褐色', '黑色', '无色'];
+const stoolColor= ['鲜红色', '暗红色',  '黄色',  '褐色', '黑色', '黑色'];
 export default [{
   key: "recordMonth", //日期
   value: "",
@@ -30,8 +32,15 @@ export default [{
   textarea: {
     width: 32
   },
-  autoComplete: {
-    data: zdjnList
+},
+{
+  key: "bedBath",
+  value: "",
+  event: keyf1,
+  name: "床上擦浴/洗头",
+  next: "",
+  textarea: {
+    width: 32
   },
 },
 {
@@ -43,21 +52,45 @@ export default [{
   textarea: {
     width: 32
   },
-  autoComplete: {
-    data: zdjnList
-  },
 },
 {
-  key: "skinCare",
+  key: "gasCutting",
   value: "",
   event: keyf1,
-  name: "皮肤护理",
+  name: "气切护理",
   next: "",
   textarea: {
     width: 32
   },
-  autoComplete: {
-    data: zdjnList
+},
+{
+  key: "restraintCare",
+  value: "",
+  event: keyf1,
+  name: "约束护理",
+  next: "",
+  textarea: {
+    width: 32
+  },
+},
+{
+  key: "fieldNineteen",
+  value: "",
+  event: keyf1,
+  name: "动静脉置管护理",
+  next: "",
+  textarea: {
+    width: 32
+  },
+},
+{
+  key: "arteriovenous",
+  value: "",
+  event: keyf1,
+  name: "引流管护理",
+  next: "",
+  textarea: {
+    width: 32
   },
 },
 {
@@ -69,15 +102,12 @@ export default [{
   textarea: {
     width: 32
   },
-  autoComplete: {
-    data: zdjnList
-  },
 },
 {
   key: "sputumColor",
   value: "",
   event: keyf1,
-  name: "颜色",
+  name: "痰液颜色",
   next: "",
   autoComplete: {
     data: ['血色', '白色', '黄色', '绿色']
@@ -90,7 +120,7 @@ export default [{
   key: "sputumCharacter",
   value: "",
   event: keyf1,
-  name: "性状",
+  name: "痰液性状",
   next: "",
   autoComplete: {
     data: ['粘稠', '稀薄']
@@ -103,79 +133,10 @@ export default [{
   key: "sputumNum",
   value: "",
   event: keyf1,
-  name: "量",
+  name: "痰液量",
   next: "",
   autoComplete: {
     data: ['少量', '中量', '大量']
-  },
-  textarea: {
-    width: 32
-  },
-},
-{
-  key: "arteriovenousName",
-  value: "",
-  event: keyf1,
-  name: "动静脉置管名称",
-  next: "",
-  textarea: {
-    width: 32
-  },
-},
-{
-  key: "arteriovenousExtent",
-  value: "",
-  event: keyf1,
-  name: "动静脉置管长度",
-  next: "",
-  textarea: {
-    width: 32
-  },
-},
-{
-  key: "arteriovenousCare",
-  value: "",
-  event: keyf1,
-  name: "动静脉置管护理/通畅",
-  next: "",
-  autoComplete: {
-    data: zdjnList
-  },
-  textarea: {
-    width: 32
-  },
-},
-{
-  key: "drainageTubeName",
-  value: "",
-  event: keyf1,
-  name: "引流管名称",
-  next: "",
-  textarea: {
-    width: 32
-  },
-},
-{
-  key: "drainageTubeColor",
-  value: "",
-  event: keyf1,
-  name: "引流管颜色",
-  next: "",
-  autoComplete: {
-    data: ['鲜红色', '暗红色', '淡红色', '淡黄色', '深黄色', '黄绿色', '黄褐色', '黑色', '无色']
-  },
-  textarea: {
-    width: 32
-  },
-},
-{
-  key: "drainageTubeCare",
-  value: "",
-  event: keyf1,
-  name: "引流管护理/通畅",
-  next: "",
-  autoComplete: {
-    data: zdjnList
   },
   textarea: {
     width: 32
@@ -187,34 +148,107 @@ export default [{
   event: keyf1,
   name: "尿液颜色",
   next: "",
-  autoComplete: {
-    data: ['鲜红色', '暗红色', '淡红色', '淡黄色', '深黄色', '黄绿色', '黄褐色', '黑色', '无色']
+  textarea: {
+    width: 32
   },
+  autoComplete: {
+    data:color
+  },
+},
+{
+  key: "stoolColor",
+  value: "",
+  event: keyf1,
+  name: "大便颜色",
+  next: "",
+  textarea: {
+    width: 32
+  },
+  autoComplete: {
+    data:stoolColor
+  },
+},
+{
+  key: "customTitle1",
+  value: "",
+  event: keyf1,
+  name: "自定义标题1",
+  next: "",
+  textarea: {
+    width: 32
+  },
+  autoComplete: {
+    data:color
+  }
+},
+{
+  key: "customTitle2",
+  value: "",
+  event: keyf1,
+  name: "自定义标题2",
+  next: "",
+  textarea: {
+    width: 32
+  },
+  autoComplete: {
+    data:color
+  }
+},
+{
+  key: "customTitle3",
+  value: "",
+  event: keyf1,
+  name: "自定义标题3",
+  next: "",
+  textarea: {
+    width: 32
+  },
+  autoComplete: {
+    data:color
+  }
+
+},
+{
+  key: "customTitle4",
+  value: "",
+  event: keyf1,
+  name: "自定义标题4",
+  next: "",
+  textarea: {
+    width: 32
+  },
+  autoComplete: {
+    data:color
+  }
+},
+{
+  key: "infusion",
+  value: "",
+  event: keyf1,
+  name: "输液/注射用药",
+  next: "",
+  textarea: {
+    width:82
+  },
+},
+{
+  key: "consumption",
+  value: "",
+  event: keyf1,
+  name: "用量(ml)",
+  next: "",
   textarea: {
     width: 32
   },
 },
 {
-  key: "urineCare",
+  key: "oral",
   value: "",
   event: keyf1,
-  name: "尿管护理/通畅",
-  next: "",
-  autoComplete: {
-    data: zdjnList
-  },
-  textarea: {
-    width: 32
-  },
-},
-{
-  key: "medication",
-  value: "",
-  event: keyf1,
-  name: "用药情况",
+  name: "口服/鼻饲用药",
   next: "",
   textarea: {
-    width: 100
+    width: 82
   },
 },
 
@@ -243,10 +277,7 @@ export default [{
   key: "sign",
   value: ""
 },
-// {
-//   key: "audit",
-//   value: ""
-// },
+
 {
   hidden: true,
   key: "id",
