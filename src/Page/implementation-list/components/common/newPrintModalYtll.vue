@@ -204,7 +204,8 @@
     .new-modal-bottom-first {
       line-height: 16px;
       overflow: hidden;
-      height: calc(100% - 36px);
+      height: calc(100% - 41px);
+      padding-right: 10px;
 
       div {
         line-height: 18px;
@@ -217,24 +218,14 @@
       font-size: 18px;
       padding-right: 10px;
       display: block;
-      // text-align: right;
       justify-content: space-between;
       line-height: 20px;
+      box-sizing: border-box;
       border-top: 1px solid #000;
-      /* div:first-child {
-        border-right: 1px solid #000;
-      }
-      div:nth-of-type(2n + 1) {
-        text-align: center;
-      }
-      div:nth-of-type(2n) {
-        text-indent: 5px;
-      } */
     }
-
   }
 
-  .new-modal-small-left {
+  /* .new-modal-small-left {
     >>> * {
       font-size: 16px;
       line-height: 24px;
@@ -284,7 +275,7 @@
         width: 96%;
       }
     }
-  }
+  } */
 }
 </style>
 <script>
@@ -307,9 +298,9 @@ export default {
   },
   methods: {},
   watch: {
-    itemObj(val) {
-      console.log(val);
-    },
+    // itemObj(val) {
+    //   console.log(val);
+    // },
   },
   computed: {
     currentBottle() {
@@ -325,7 +316,6 @@ export default {
       let qr_png_value = this.itemObj[0].barCode;
       var qr_png = qr.imageSync(qr_png_value, {type: "png", margin: 3});
 
-      // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);
