@@ -237,25 +237,24 @@ export default {
     renderData() {
       if (!this.data) return;
       let renderData = [];
-      // let firstDate = "";
+      let firstDate = "";
       for (let i = 0; i < this.data.length; i++) {
-        this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
+       this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
         let obj = this.data[i];
         let date = this.data[i].md.split(" ")[0];
         let time = this.data[i].md.split(" ")[1];
-        // if (firstDate != date) {
+        if (firstDate != date) {
           obj.date = date;
-        // } else {
-        //   obj.date = "";
-        // }
-        // firstDate = date;
+        } else {
+          obj.date = "";
+        }
+        firstDate = date;
         obj.time = time;
         renderData.push(obj);
       }
       while (renderData.length <= 26) {
         renderData.push({});
       }
-      console.log(renderData,"renderData");
       return renderData;
     },
     patientInfo() {
