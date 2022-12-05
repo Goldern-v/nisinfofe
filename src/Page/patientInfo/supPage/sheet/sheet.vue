@@ -1029,7 +1029,7 @@ export default {
           return this.$message.warning("打印前必须去除所有标记");
         }
         // 判断是否存在未签名
-        if ($(".noSignRow").length) {
+        if ($(".noSignRow").length&&!['foshanrenyi'].includes(this.HOSPITAL_ID)) {
           $(this.$refs.scrollCon).animate({
             scrollTop:
               $(".noSignRow")

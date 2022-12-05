@@ -16,7 +16,6 @@
 .right-part {
   transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
 }
-
 >>>.body {
   height: calc(100vh - 60px) !important;
 }
@@ -44,12 +43,14 @@
     pointer-events: none !important;
   }
 }
-
+>>>.sheetTable-contain {
+  height:calc(100% - 30px)
+}
 .NursingPreview {
   overflow hidden;
   .right-part {
     >>> #sheet_body_con {
-      height: calc(100vh - 0px) !important;
+      height: calc(100vh - 45px) !important;
     }
     >>> .sheetTable-contain {
         input {
@@ -72,7 +73,7 @@
   .right-part {
     margin-left: 240px;
     overflow: auto;
-    height: 100vh !important;
+    height: 100 -10vh !important;
   }
 }
 </style>
@@ -136,6 +137,12 @@ export default {
     this.bus.$on("openAssessmentBox", data => {
       this.otherComponent = null;
     });
+
+  },
+  mounted(){
+    this.$nextTick(()=>{
+      document.body.style.overflowY =  'hidden'
+    })
   },
   methods: {
     getPatientForm() {
