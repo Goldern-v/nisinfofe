@@ -258,5 +258,74 @@ export default [
   {
     key: "sign",
     value: ""
+  },
+  // {
+  //   key: "audit",
+  //   value: ""
+  // },
+  {
+    hidden: true,
+    key: "id",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "signerName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "status",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordSource",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordYear",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "dataHash",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "recordDate",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "monthHour",
+    value: ""
+  },
+  {
+    hidden: false,
+    key: "signerNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "auditorNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "auditorName",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "empNo",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "multiSign",
+    value: false
   }
 ];

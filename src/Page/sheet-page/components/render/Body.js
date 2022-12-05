@@ -1645,6 +1645,7 @@ function switchSheetType(type) {
       // 危重症护理监护单2-麻恢
       schema = require("../config/critical_mahui_weihai/tr.js").default;
     }
+    break;
     case "critical_weihai": {
       // 危重症护理监护单2
       schema = require("../config/critical_weihai/tr.js").default;

@@ -111,7 +111,7 @@ export default {
       },
       {
         name: `
-          性质
+          性状
           `,
         colspan: '1',
         rowspan: '2',
