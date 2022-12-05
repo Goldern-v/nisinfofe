@@ -555,7 +555,6 @@ export default {
       if(['zhzxy'].includes(this.HOSPITAL_ID)){
         parmas.formId=parmas.formId || moment().format('X')
       }
-      console.log(this.verifySignObj.openId,'this.verifySignObj.openId')
       getCaSignJmfy(parmas).then(async res=>{
         let aduitDate = ['zhzxy'].includes(this.HOSPITAL_ID)?"":'isCaSign'
         let pwd = ''
