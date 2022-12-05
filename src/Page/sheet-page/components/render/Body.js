@@ -1636,6 +1636,11 @@ function switchSheetType(type) {
       schema = require("../config/inandout_weihai/tr.js").default;
     }
     break;
+    case "critical_mahui_weihai": {
+      // 危重症护理监护单2-麻恢
+      schema = require("../config/critical_mahui_weihai/tr.js").default;
+    }
+    break;
     case "baby_yz": {
       // 临沂沂州 - 新生儿护理记录单
       schema = require("../config/baby_yz/tr.js").default;
