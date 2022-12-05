@@ -11,7 +11,7 @@ export const PATIENT_STATUS = [
     code: 'all'
   },
   {
-    label: '在院',
+    label:  process.env.HOSPITAL_ID == 'sdlj' ? "入院" :  '在院',
     key: 1,
     code: 'in'
   },
