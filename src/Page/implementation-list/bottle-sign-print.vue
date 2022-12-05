@@ -1021,6 +1021,20 @@ export default {
         document.getElementById("new-print-box").style.display = "none";
         this.onLoad();
       });
+      // let codeList = this.$_.uniqBy(
+      //   this.selectedData.map((item) => `${item.patientId}|${item.visitId}|${item.orderNo}`)
+      // );
+      // this.src = ``;
+
+      // const date = this.startDate
+      //   ? moment(this.startDate).format("YYYY-MM-DD")
+      //   : "";
+
+      // let params = `${new Date().getTime() + parseInt(Math.random() * 10000)};${this.empNo};${date};${this.newModalSize.split('*').reverse().join('x')};${codeList.join(';')}`;
+      // console.log('test-params', params)
+      // let a = document.createElement('a')
+      // a.href = `openPrintExe://${params}`
+      // a.click()
     },
     // 获取打印区域的样式
     getCssBlock() {
@@ -1104,7 +1118,7 @@ export default {
         case "whfk":
           return ["6*8", "3.5*5"];
         default:
-          return ["6*8", "3*5"];
+          return ["3*5","6*8"];
       }
     },
     // 打印缩放的尺寸

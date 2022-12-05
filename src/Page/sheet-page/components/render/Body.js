@@ -1611,6 +1611,11 @@ function switchSheetType(type) {
       schema = require("../config/internal_eval_weihai/tr.js").default;
     }
     break;
+    case "baby_weihai": {
+      // 威海市立 - 一般患者护理记录单
+      schema = require("../config/baby_weihai/tr.js").default;
+    }
+    break;
     case "critical_new_weihai": {
       // 威海市立 - 病重（病危）患者护理记录单（新）
       schema = require("../config/critical_new_weihai/tr.js").default;
@@ -1634,6 +1639,16 @@ function switchSheetType(type) {
     case "inandout_weihai": {
       // 威海市立 - 出入量记录表
       schema = require("../config/inandout_weihai/tr.js").default;
+    }
+    break;
+    case "critical_mahui_weihai": {
+      // 危重症护理监护单2-麻恢
+      schema = require("../config/critical_mahui_weihai/tr.js").default;
+    }
+    break;
+    case "critical_weihai": {
+      // 危重症护理监护单2
+      schema = require("../config/critical_weihai/tr.js").default;
     }
     break;
     case "baby_yz": {

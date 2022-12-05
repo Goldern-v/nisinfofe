@@ -604,7 +604,14 @@
             v-if="!auditorNo"
           ></div>
           <div class="sign-in-box" v-else @click="cancelAduitModal">
-            <div class="audit-text no-print">{{ auditorName }}</div>
+            <div class="no-print" v-if="HOSPITAL_ID === 'foshanrenyi'">
+              <img
+                class="in-print"
+                :src="`/crNursing/api/file/signImage/${auditorNo}?${token}`"
+                alt
+              />
+            </div>
+            <div class="audit-text no-print" v-else>{{ auditorName }}</div>
             <div class="audit-img sign-img">
               <img
                 class="in-print"
@@ -2573,31 +2580,13 @@ export default {
     openAduitModal() {
       let verifySignObj = "",SigndataObj=""
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
-        let trObj = {};
-            for (let i = 0; i < trArr.length; i++) {
-              trObj[trArr[i].key] = trArr[i].value;
-            }
-            let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ =
-                Object.assign({}, trObj, {
-                  recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
-                  recordHour: this.getPrev(currIndex, allList, "recordHour"),
-                  recordYear: this.getPrev(currIndex, allList, "recordYear"),
-                  patientId: this.patientInfo.patientId,
-                  visitId: this.patientInfo.visitId,
-                  pageIndex: this.index,
-                })
-                let strSignData ={}
-              for(let key in strSignDataOBJ){
-                if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
-              }
             SigndataObj = {
               Patient_ID:this.patientInfo.patientId,
               Visit_ID:this.patientInfo.visitId,
               Document_Title:this.$parent.patientInfo.recordName,
               Document_ID:sheetInfo.sheetType,
-              Section_ID:trObj.id,
-              strSignData: JSON.stringify(strSignData),
+              Section_ID:"trObj.id",
+              strSignData: "JSON.stringify(strSignData)",
             };
             verifySignObj = {
               patientId:this.patientInfo.patientId,
@@ -2605,8 +2594,8 @@ export default {
               formName:this.$parent.patientInfo.recordName,
               formCode:sheetInfo.sheetType,
               instanceId:this.$parent.patientInfo.id,
-              recordId:strSignData.id,
-              signData:JSON.stringify(strSignData),
+              recordId:"strSignData.id",
+              signData:"JSON.stringify(strSignData)",
             }
       }
       window.openSignModal((password, empNo,auditDate=moment().format("YYYY-MM-DD HH:mm:ss")) => {
@@ -2632,6 +2621,26 @@ export default {
     },
     /** 取消审核整页 */
     cancelAduitModal() {
+      let verifySignObj = "",SigndataObj=""
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+            SigndataObj = {
+              Patient_ID:this.patientInfo.patientId,
+              Visit_ID:this.patientInfo.visitId,
+              Document_Title:this.$parent.patientInfo.recordName,
+              Document_ID:sheetInfo.sheetType,
+              Section_ID:"trObj.id",
+              strSignData: "JSON.stringify(strSignData)",
+            };
+            verifySignObj = {
+              patientId:this.patientInfo.patientId,
+              visitId:this.patientInfo.visitId,
+              formName:this.$parent.patientInfo.recordName,
+              formCode:sheetInfo.sheetType,
+              instanceId:this.$parent.patientInfo.id,
+              recordId:"strSignData.id",
+              signData:"JSON.stringify(strSignData)",
+            }
+      }
       window.openSignModal((password, empNo) => {
         getUser(password, empNo).then((res) => {
           let { empNo, empName } = res.data.data;
@@ -2650,7 +2659,7 @@ export default {
             this.$message.warning("非审核本人不可取消");
           }
         });
-      }, "取消签名确认");
+      }, "取消签名确认","","","","","","","",SigndataObj,verifySignObj);
     },
     /** 右侧主管护士签名 */
     sign2() {
@@ -2781,7 +2790,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (['lyxrm', 'foshanrenyi', 'gdtj'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl'].includes(this.HOSPITAL_ID)) {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }

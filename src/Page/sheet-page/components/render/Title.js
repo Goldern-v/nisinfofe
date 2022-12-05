@@ -2086,6 +2086,13 @@ export default function Title(
     );
   }
   break;
+  case "baby_weihai": {
+    // // 威海市立 - 新生儿科一般患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_weihai/th.js").default)
+    );
+  }
+  break;
   case "critical_new_weihai": {
     // // 威海市立 - 病重（病危）患者护理记录单（新）
     Th = JSON.parse(
@@ -2118,6 +2125,20 @@ export default function Title(
     // // 威海市立 - 出入量记录表
     Th = JSON.parse(
       JSON.stringify(require("../config/inandout_weihai/th.js").default)
+    );
+  }
+  break;
+  case "critical_mahui_weihai": {
+    // 危重症护理监护单2-麻恢
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_mahui_weihai/th.js").default)
+    );
+  }
+  break;
+  case "critical_weihai": {
+    // 危重症护理监护单2
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_weihai/th.js").default)
     );
   }
   break;
