@@ -1,7 +1,9 @@
 export default {
   // 胎心记录单
   deptType: '',
- 
+  style: {
+    width: "1160px"
+  },
   th: {
     top: [
       {
