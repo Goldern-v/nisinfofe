@@ -2086,6 +2086,13 @@ export default function Title(
     );
   }
   break;
+  case "baby_weihai": {
+    // // 威海市立 - 新生儿科一般患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_weihai/th.js").default)
+    );
+  }
+  break;
   case "critical_new_weihai": {
     // // 威海市立 - 病重（病危）患者护理记录单（新）
     Th = JSON.parse(
