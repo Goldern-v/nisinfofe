@@ -349,21 +349,24 @@ export default {
         time: this.selected.time,
         date: this.selected.date || ""
       };
-      const DateArr = item.recordDate.split(" ");
-      const timeArr = DateArr[1].split(":");
-      const firstTime = `${timeArr[0]}:${timeArr[1]}`;
+      if (moment(this.selected.recordDate).format("YYYY-MM-DD") !== item.date) {
+        item.recordDate = item.date + ' ' + moment(this.selected.recordDate).format("HH:mm:ss")
+      }
+      // const DateArr = item.recordDate.split(" ");
+      // const timeArr = DateArr[1].split(":");
+      // const firstTime = `${timeArr[0]}:${timeArr[1]}`;
 
-      if (this.selected.expand2 !== undefined) {
-        item.expand2 = 2;
-        item.oldRecordDate = item.recordDate;
-        const fulltime = `${DateArr[0]} ${item.time}:00`;
-        await removeSugar(item);
-        item.recordDate = fulltime;
-      }
-      // 判断时间
-      if (firstTime !== item.time) {
-        item.recordDate = `${DateArr[0]} ${item.time}:00`;
-      }
+      // if (this.selected.expand2 !== undefined) {
+      //   item.expand2 = 2;
+      //   item.oldRecordDate = item.recordDate;
+      //   const fulltime = `${DateArr[0]} ${item.time}:00`;
+      //   await removeSugar(item);
+      //   item.recordDate = fulltime;
+      // }
+      // // 判断时间
+      // if (firstTime !== item.time) {
+      //   item.recordDate = `${DateArr[0]} ${item.time}:00`;
+      // }
       await saveSugarList([item]);
       this.$message.success("保存成功");
       this.load();
@@ -413,7 +416,6 @@ export default {
         obj.right = list.slice(i + 27, i + 54);
         listMap.push(obj);
       }
-      console.log(listMap,"listMap")
       this.listMap = listMap;
 
       getPvHomePage(
@@ -504,7 +506,6 @@ export default {
     async onSaveAge(item) {
       item.patientId = this.patientInfo.patientId;
       item.visitId = this.patientInfo.visitId;
-      console.log("item", item.age);
       let itemValue = item.age;
       let itemMap = [
         {
@@ -529,7 +530,8 @@ export default {
         let data = res.data.data;
         this.typeList = data.map(item => {
           return {
-            vitalSign: item.itemName
+            vitalSign: item.itemName,
+            defaultTime: item.defaultTime
           };
         });
       });

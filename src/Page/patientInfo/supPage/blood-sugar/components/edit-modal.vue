@@ -179,6 +179,7 @@ import common from "@/common/mixin/common.mixin.js";
 import * as apis from "../api";
 import {getSugarItemDict} from '../api/index'
 import patientInfoVue from "../../../patientInfo.vue";
+import moment from "moment";
 const defaultForm = {};
 export default {
   mixins: [common],
@@ -363,6 +364,7 @@ export default {
         };
         this.oldRecordDate = form.recordDate;
       } else {
+        
         this.form = {
           recordDate: new Date(),
           recordTime: new Date(),
@@ -391,7 +393,6 @@ export default {
       this.$refs.modal.close();
     },
     openSignModal() {
-      console.log("this.patientInfo",this.patientInfo,this.form)
       window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then((res) => {
           this.curEmpName = res.data.data.empName;
@@ -428,6 +429,7 @@ export default {
       }
     },
     openFoshanRYModal(){
+      
       this.caRucanFun()
       window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then((res) => {
@@ -441,7 +443,6 @@ export default {
         data.nurse = this.curEmpNo;
         }
         delete data.recordTime;
-        console.log("data222",data,this.form,this.oldRecordDate)
         this.$emit("confirm", data);
         });
       },'',null,false,'',{id:`${this.patientInfo.patientId}_${new Date(this.form.recordDate || new Date())}`,code:"form_sugar",name:'微量血糖测定登记表'},undefined,undefined,undefined,this.SigndataObj,this.verifySignObj)
@@ -452,7 +453,6 @@ export default {
       }
       // this.openSignModal()
       const data = { ...this.form, oldRecordDate: this.oldRecordDate };
-      console.log(data,"data111");
       data.recordDate.setHours(data.recordTime.getHours());
       data.recordDate.setMinutes(data.recordTime.getMinutes());
       data.recordDate.setSeconds(data.recordTime.getSeconds());
@@ -496,7 +496,6 @@ export default {
       if (!hasItem.some((el) => el)) {
         this.huaduTypeList.push(newItem);
       }
-      console.log(this.huaduTypeList, "============");
     },
   },
   created() {
@@ -506,7 +505,7 @@ export default {
       });
     }
     if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu" && this.HOSPITAL_ID != "beihairenyi") {
-
+      
       this.typeList = this.sugarItem;
     }
     if (this.HOSPITAL_ID === "quzhou") {
@@ -545,7 +544,6 @@ export default {
     huaduTypeList(newVal, oldVal) {
       if (newVal && this.HOSPITAL_ID == "huadu") {
         this.huaduTypeList = newVal;
-        console.log("this.huaduTypeList", newVal);
       }
     },
     "form.sugarItem"(newVal, oldVal) {
@@ -555,6 +553,10 @@ export default {
         newVal == "自定义"
       ) {
         this.updateTetxInfo("自定义项目");
+      }
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        let newArr = this.sugarItem.filter(item => item.vitalSign === newVal)
+        this.$set(this.form, 'recordTime', new Date(moment().format(newArr.length > 0 ? 'YYYY-MM-DD ' + newArr[0].defaultTime : "YYYY-MM-DD HH:mm")));
       }
     },
   },
