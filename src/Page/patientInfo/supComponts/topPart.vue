@@ -32,7 +32,7 @@
         <div class="nav-item">护理文书</div>
       </router-link>
       <router-link
-        v-if="['hj','fuyou','liaocheng','sdlj'].includes(HOSPITAL_ID) "
+        v-if="['hj', 'fuyou', 'liaocheng', 'sdlj'].includes(HOSPITAL_ID)"
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -41,7 +41,13 @@
       >
         <div class="nav-item">病历</div>
       </router-link>
-      <div class="nav-item" v-if="['nfyksdyy'].includes(HOSPITAL_ID)" @click="openNewPage('onnfyksdyyEmrWeb')">病历</div>
+      <div
+        class="nav-item"
+        v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
+        @click="openNewPage('onnfyksdyyEmrWeb')"
+      >
+        病历
+      </div>
       <!-- <span v-if="['hj'].includes(HOSPITAL_ID)">
         <a
           class="nav-item no-under-link"
@@ -49,7 +55,11 @@
         >病历(新)</a>
       </span> -->
       <router-link
-        v-if="(HOSPITAL_ID !== 'zhzxy'&&HOSPITAL_ID !== 'whsl'&&HOSPITAL_ID !== 'gdtj')"
+        v-if="
+          HOSPITAL_ID !== 'zhzxy' &&
+            HOSPITAL_ID !== 'whsl' &&
+            HOSPITAL_ID !== 'gdtj'
+        "
         :to="{
           path: '/sheetNursingOrder',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -77,7 +87,11 @@
         <div class="nav-item">体温单</div>
       </router-link>
       <router-link
-        v-if="HOSPITAL_ID !== 'zhzxy'&&HOSPITAL_ID !== 'gdtj'&&HOSPITAL_ID !== 'whsl'"
+        v-if="
+          HOSPITAL_ID !== 'zhzxy' &&
+            HOSPITAL_ID !== 'gdtj' &&
+            HOSPITAL_ID !== 'whsl'
+        "
         :to="{
           path: '/hospitalEval',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -161,21 +175,76 @@
         <div class="nav-item">检验</div>
       </router-link>
       <router-link
-          v-if="['fsxt'].includes(HOSPITAL_ID)"
-          :to="{
+        v-if="['fsxt'].includes(HOSPITAL_ID)"
+        :to="{
           path: '/doctorEmr',
-          query: { patientId: query.patientId, visitId: query.visitId }}" tag="span">
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
         <div class="nav-item">病历</div>
       </router-link>
-        <router-link :to="{path:'/consultation', query:$route.query}" tag="span" v-if="['zhzxy','beihairenyi'].includes(HOSPITAL_ID)">
+      <router-link
+        :to="{ path: '/consultation', query: $route.query }"
+        tag="span"
+        v-if="['zhzxy', 'beihairenyi'].includes(HOSPITAL_ID)"
+      >
         <div class="nav-item">会诊</div>
       </router-link>
-      <router-link v-if="HOSPITAL_ID==='whsl'" :to="{path:'/sheetNursingOrder', query: {patientId:query.patientId, visitId: query.visitId}}" tag="span">
-    <div class="nav-item">护嘱单</div>
-  </router-link>
-      <span class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toYst')">医膳通</span>
-      <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('onEmrWeb')">病历</div>
-      <div class="nav-item" v-if="['whsl'].includes(HOSPITAL_ID)" @click="openNewPage('gotoView')">360视图</div>
+      <router-link
+        v-if="HOSPITAL_ID === 'whsl'"
+        :to="{
+          path: '/sheetNursingOrder',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">护嘱单</div>
+      </router-link>
+      <span
+        class="nav-item"
+        v-if="['gdtj'].includes(HOSPITAL_ID)"
+        @click="openNewPage('toYst')"
+        >医膳通</span
+      >
+      <div
+        class="nav-item"
+        v-if="['gdtj'].includes(HOSPITAL_ID)"
+        @click="openNewPage('onEmrWeb')"
+      >
+        病历
+      </div>
+      <div
+        class="nav-item"
+        v-if="['whsl'].includes(HOSPITAL_ID)"
+        @click="openNewPage('gotoView')"
+      >
+        360视图
+      </div>
+      <router-link
+        v-if="HOSPITAL_ID === 'whsl'"
+        :to="{
+          path: '/patientNursingRound',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">护理巡视</div>
+      </router-link>
+      <router-link
+        v-if="HOSPITAL_ID === 'whsl'"
+        :to="{
+          path: '/patientImplementationList',
+          query: {
+            patientId: query.patientId,
+            visitId: query.visitId,
+            bedLabel: query.bedLabel
+          }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">执行记录</div>
+      </router-link>
     </div>
     <div style="height: 50px"></div>
   </div>
@@ -255,8 +324,8 @@
 <script>
 import common from "@/common/mixin/common.mixin";
 import md5 from "md5";
-import qs from "qs"
-import { mapState } from 'vuex';
+import qs from "qs";
+import { mapState } from "vuex";
 export default {
   mixins: [common],
   data() {
@@ -270,19 +339,21 @@ export default {
       return query;
     },
     ...mapState({
-      patient: (state) => state.patient.currentPatient
-      })
+      patient: state => state.patient.currentPatient
+    })
   },
   components: {},
   methods: {
     openNewPage(key) {
       if (key) {
-        this[key]()
+        this[key]();
       }
     },
     // （顺德龙江）手麻记录单（第三方链接）
     toHandNumbness() {
-      window.open(`http://192.168.100.9:8280/trackao/basedata/userLoginForClient.action?id=1668&password=123&resultCode=getTrackaoAnaesRecordPDF&hisId=${this.query.inpNo}`)
+      window.open(
+        `http://192.168.100.9:8280/trackao/basedata/userLoginForClient.action?id=1668&password=123&resultCode=getTrackaoAnaesRecordPDF&hisId=${this.query.inpNo}`
+      );
     },
     // 医膳通
     toYst() {
@@ -294,60 +365,70 @@ export default {
         deptCode: patDeptCode,
         idNo: patCardid,
         patientId: tfHospitalIdentity
-        } = this.patient
+      } = this.patient;
       const obj = {
         userLoginId: this.empNo,
         deptCode,
         userName: this.empName,
         patName,
-        patSex: this.formatValue(patSex, {'男': 'M', '女': 'F', default: 0}),
+        patSex: this.formatValue(patSex, { 男: "M", 女: "F", default: 0 }),
         tfHospNo,
         tfType: 1,
         patCardid,
         patDeptCode,
         doctorRoleType: 2,
         tfHospitalIdentity,
-        routeName: 'NutritionScreening',
+        routeName: "NutritionScreening",
         isUpdateDept: 1
-      }
-      let url = `http://192.168.10.66:20000/#/tranView?${qs.stringify(obj)}`
-      window.open(url)
+      };
+      let url = `http://192.168.10.66:20000/#/tranView?${qs.stringify(obj)}`;
+      window.open(url);
     },
     // 同江病历
-    onEmrWeb(){
+    onEmrWeb() {
       console.log(this.patient);
-      const {patientId} = this.patient
-      let url = `http://192.168.10.63/EmrWeb/WebForm.aspx?flag=thirdPlat&codePi=${patientId}`
-      window.open(url)
+      const { patientId } = this.patient;
+      let url = `http://192.168.10.63/EmrWeb/WebForm.aspx?flag=thirdPlat&codePi=${patientId}`;
+      window.open(url);
     },
-    gotoView(){
-      const {patientId,deptCode} = this.patient;
-      const obj={
-        ViewType:3,
-        patientId:patientId,
-        userName:this.empName,
-        Hash:md5(patientId+this.empName+'wego2022'),
-        patientType:1,
-        userData:`{"userCode":"${this.empNo}","orgCode":"${deptCode}","key":"${md5(this.empNo+'@wego2022')}"}`,
-        isExternal:1
-      }
+    gotoView() {
+      const { patientId, deptCode } = this.patient;
+      const obj = {
+        ViewType: 3,
+        patientId: patientId,
+        userName: this.empName,
+        Hash: md5(patientId + this.empName + "wego2022"),
+        patientType: 1,
+        userData: `{"userCode":"${
+          this.empNo
+        }","orgCode":"${deptCode}","key":"${md5(this.empNo + "@wego2022")}"}`,
+        isExternal: 1
+      };
       // http://10.101.1.159/pdv-ui/medicalLeportList/?ViewType=3&patientId=2022642569&userName=周文强&Hash=6e5e7a5294c128d99adf1598012c02fb&patientType=&userData={"userCode":"199852","orgCode":"10010201","key":"b31e71cfee6e9fba03019b353203545b"}&isExternal=1
-      let url = `http://10.108.1.33/pdv-ui/medicalLeportList/?ViewType=3&patientId=${patientId}&userName=${this.empName}&Hash=${md5(patientId+this.empName+'wego2022')}&patientType=&userData={"userCode":"${this.empNo}","orgCode":"${deptCode}","key":"${md5(this.empNo+'@wego2022')}"}&isExternal=1`
-      window.open(url)
+      let url = `http://10.108.1.33/pdv-ui/medicalLeportList/?ViewType=3&patientId=${patientId}&userName=${
+        this.empName
+      }&Hash=${md5(
+        patientId + this.empName + "wego2022"
+      )}&patientType=&userData={"userCode":"${
+        this.empNo
+      }","orgCode":"${deptCode}","key":"${md5(
+        this.empNo + "@wego2022"
+      )}"}&isExternal=1`;
+      window.open(url);
     },
-     // 南方医科大学顺德医院项目病历
-     onnfyksdyyEmrWeb(){
-      const {patientId,inpNo,visitId} = this.patient
-      let url = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid==${inpNo}_${visitId}`
-      window.open(url)
+    // 南方医科大学顺德医院项目病历
+    onnfyksdyyEmrWeb() {
+      const { patientId, inpNo, visitId } = this.patient;
+      let url = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid==${inpNo}_${visitId}`;
+      window.open(url);
     },
-    toBloodSugar(){
-      const {patientId} = this.patient
-      let url = `http://192.168.10.29:9089/patientGlu/patient-glu-report.html?userId=${patientId}`
-      window.open(url)
+    toBloodSugar() {
+      const { patientId } = this.patient;
+      let url = `http://192.168.10.29:9089/patientGlu/patient-glu-report.html?userId=${patientId}`;
+      window.open(url);
     },
     formatValue(value, obj) {
-      return obj[value] || obj['default']
+      return obj[value] || obj["default"];
     }
   }
 };

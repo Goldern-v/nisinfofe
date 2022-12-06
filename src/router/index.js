@@ -566,6 +566,7 @@ const router = new Router({
           case 'whsl':
               return temperatureWHSL
           case 'sdlj':
+          case 'dglb':
           case '925':
             return temperatureSDLJ
           case 'fsxt':
@@ -1126,6 +1127,7 @@ const router = new Router({
               case 'whsl':
                 return temperatureWHSL
               case 'sdlj':
+              case 'dglb':
               case '925':
                 return temperatureSDLJ
               case 'whfk':
@@ -1590,6 +1592,7 @@ const router = new Router({
             case "whsl":
               return newSingleTemperatureChartWHSL;
             case "sdlj":
+            case "dglb":
             case '925':
               return newSingleTemperatureChartSDLJ;
             case "whyx":

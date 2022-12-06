@@ -89,10 +89,16 @@ export default {
   },
   computed: {
     monthList() {
+      let monthText = this.$route.query.month || ''
+      if (!monthText) {
+        const arr = (this.tableData[0] || { summaryCode : '' }).summaryCode.split('-')
+        arr.shift()
+        monthText = arr.join('-')
+      }
       return [
-        moment(this.$route.query.month).format('YYYY年MM月'),
-        moment(this.$route.query.month).subtract(1, 'months').format('YYYY年MM月'),
-        moment(this.$route.query.month).subtract(1, 'years').format('YYYY年MM月'),
+        moment(monthText).format('YYYY年MM月'),
+        moment(monthText).subtract(1, 'months').format('YYYY年MM月'),
+        moment(monthText).subtract(1, 'years').format('YYYY年MM月'),
       ]
     }
   },
