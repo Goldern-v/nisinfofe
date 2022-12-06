@@ -822,7 +822,7 @@ export default {
         this.$message.success("更新患者数据中,请稍候。。。。");
         setTimeout(()=>{
         this.getData();
-        },this.getThrottleTime)
+        },1000)
       });
     },
     syncGetMedicalAdvice() {
