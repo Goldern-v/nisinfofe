@@ -521,7 +521,6 @@ export default {
           JSON.parse(JSON.stringify(putSortList))
         );
       } catch (error) {}
-      console.log('test-only-sort')
       return putSortList;
     },
     openLeft() {
@@ -559,10 +558,6 @@ export default {
       if (this.$route.path.indexOf('/sheetPage') > -1) {
         this.$store.commit('upCurSheetPatient', {})
         this.$router.push('/sheetPage')
-        // this.$nextTick(() => {
-        //   console.log('test-only-next')
-        //   this.selectFirstPatient()
-        // })
       }
     },
     "$route.params.patientId": "fetchData",

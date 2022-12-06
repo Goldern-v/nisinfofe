@@ -56,5 +56,15 @@
       "</script>"
     ],
     "description": "Import and export"
+  },
+  "logTest": {
+    "scope": "",
+    "prefix": "logTest",
+    "body": "console.log('test-$1', $1$2)"
+  },
+  "logTestOnly": {
+    "scope": "",
+    "prefix": "logTestOnly",
+    "body": "console.log('test-$1')"
   }
 }
