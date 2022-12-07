@@ -42,6 +42,7 @@
     "dev:925": "npm run dev --925",
     "dev:dglb": "npm run dev --dglb",
     "buildNew": "node --max_old_space_size=4096 build-new/build.js",
+    "buildNew:": "npm run buildNew",
     "buildNew:hj": "npm run buildNew: houjie",
     "buildNew:weixian": "npm run buildNew: weixian",
     "buildNew:lingcheng": "npm run buildNew: lingcheng",
