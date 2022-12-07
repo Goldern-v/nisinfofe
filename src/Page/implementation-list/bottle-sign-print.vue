@@ -507,11 +507,11 @@ export default {
             { label: "输液" },
             { label: "注射" },
             { label: "雾化" },
-            { label: "口服" },
-            { label: "治疗" },
             { label: "皮试" },
             { label: "膀胱冲洗" },
             { label: "气道湿化" },
+             { label: "口服" },
+            { label: "治疗" },
             { label: "标本" },
             { label: "其他" },
           ],
@@ -522,7 +522,7 @@ export default {
             { label: "口服" },
             { label: "雾化" },
             { label: "皮试" },
-           
+
             { label: "治疗" },
             { label: "理疗" },
             { label: "护理" },
@@ -1120,8 +1120,10 @@ export default {
           return ["7*7"];
         case "whfk":
           return ["6*8", "3.5*5"];
+        case "whsl":
+          return ["3*5", "6*8"];
         default:
-          return ["3*5","6*8"];
+          return ["6*8","3*5"];
       }
     },
     // 打印缩放的尺寸

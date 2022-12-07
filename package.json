@@ -5,8 +5,7 @@
   "author": "lzj",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js --max_old_space_size=921600000",
-    "dev:": "npm run dev",
+    "dev": "node --max_old_space_size=4096 build/dev-server.js",
     "dev:wuhang": "npm run dev --wuhang",
     "dev:huadu": "npm run dev --huadu",
     "dev:xiegang": "npm run dev --xiegang",
@@ -42,7 +41,7 @@
     "dev:nfyksdyy": "npm run dev --nfyksdyy",
     "dev:925": "npm run dev --925",
     "dev:dglb": "npm run dev --dglb",
-    "buildNew": "node build-new/build.js",
+    "buildNew": "node --max_old_space_size=4096 build-new/build.js",
     "buildNew:": "npm run buildNew",
     "buildNew:hj": "npm run buildNew: houjie",
     "buildNew:weixian": "npm run buildNew: weixian",
