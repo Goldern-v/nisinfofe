@@ -209,8 +209,7 @@ const currentTargetUrl = (() => {
     //珠海中西医
     case 'zhzxy':
       // return "http://192.168.1.54:9883" //珠海中西医测试
-      return "http://183.234.20.149:19094"
-      // return "http://183.234.20.149:19094" //正式
+      return "http://183.234.20.149:19094"//正式
 
     // 青海五院
     case 'qhwy':
