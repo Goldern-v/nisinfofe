@@ -160,7 +160,6 @@ export default {
 
     this.bus.$on("refreshSheetPageOne", (a)=>{
       this.handleMarklist.push(...a)
-      console.log(this.handleMarklist,'gaohaixiong');
     });
     this.bus.$on("delAssessmentV2", this.delAssessment);
     this.bus.$on("setAssessmentLoadingStatusV2", this.setLoadingStatus);
@@ -688,7 +687,6 @@ export default {
       this.marklist = [];
       if (this.info.id) {
         markListById(this.info.id).then((res) => {
-          // console.log("批注：", res);
           if (res) {
             let {
               data: {
@@ -1000,7 +998,6 @@ export default {
       postData["diags"] = all.join(",");
       postData["empNo"] = username;
 
-      // console.log("this.info", this.info);
       if (password && (this.info.status == 0 || this.info.status == 1)) {
         postData["id"] = this.info.id;
         postData["createSign"] = password;
@@ -1025,11 +1022,6 @@ export default {
       // var selectString = `input[name*='${formCode}']`;
       var selectString = `input[name*='${formCode}']:checked,[name*='${formCode}'][type="text"],input[type*='date'],input[type*='time']`;
       var splitMark = ",";
-      // console.log("FormBoxwid.document", formCode, wid, wid.document);
-      // console.log(
-      //   "-jQuery_formCode)",
-      //   jQuery(`input[name*='formCode']`, wid.document)
-      // );
 
       // alert("formCode:"+formCode);
 
@@ -1039,7 +1031,6 @@ export default {
         // let formCode = formCode; //this.formListData.smartForm.formCode;
         tabs.forEach((tab, index) => {
           tab.items.forEach((item, index) => {
-            // console.log("----getDataToPost", formCode, item.result, item);
             if (item.group != undefined && item.name.indexOf(formCode) > -1) {
               if (item.result.length > 0) {
                 postData[item.name] = item.result;
@@ -1050,14 +1041,6 @@ export default {
               item.child.forEach((kid, index) => {
                 if (kid.name.indexOf(formCode) > -1) {
                   if (kid.type === "datetime") {
-                    // console.log(
-                    //   "----datetime",
-                    //   formCode,
-                    //   kid.name,
-                    //   typeof kid.result,
-                    //   moment(kid.result),
-                    //   kid
-                    // );
                     postData[kid.name] = moment(kid.result).format(
                       "YYYY/MM/DD HH:mm"
                     );
@@ -1069,7 +1052,6 @@ export default {
             }
           });
         });
-        // console.log("++++++++getDataToPost", postData);
       } catch (e) {
         //
         console.log("++++Error++++getDataToPost", postData);
@@ -1078,7 +1060,6 @@ export default {
       if (this.url.indexOf("editMode") > -1) {
         var formId = this.$store.state.form.formFilledData.id;
         postData["id"] = formId;
-        // console.log("----id", formId, "url", this.url, postData);
       }
 
       // $(`input[id*='CR']`,wid.document)
@@ -1088,7 +1069,6 @@ export default {
 
       $(selectString, wid.document).each(function () {
         // var item = {[this.name]:this.value};
-        // console.log(this.name);
         if (
           this.id.indexOf("CRS") > -1 ||
           this.name.indexOf("eval_auth") > -1 ||
@@ -1100,7 +1080,6 @@ export default {
           return;
         }
         if (this.type === "text") {
-          // console.log("text:", this.name, ",", this.value);
           postData[this.name] = this.value;
         }
         if (
@@ -1109,11 +1088,9 @@ export default {
           this.type === "time" ||
           this.type === "number"
         ) {
-          // console.log(this.type, this.name, ",", this.value);
           postData[this.name] = this.value;
         }
         if (this.type === "checkbox") {
-          // console.log("checkbox:", this.name, ",", this.value);
           if (!postData[this.name]) {
             postData[this.name] = "";
           }
@@ -1177,13 +1154,6 @@ export default {
       if (window.app.$route.query.formStatus) {
         this.formStatus = window.app.$route.query.formStatus;
       }
-      // console.log(
-      //   "=======formStatus",
-      //   this.formStatus,
-      //   this.info.status,
-      //   JSON.parse(localStorage.user),
-      //   JSON.parse(localStorage.user).title
-      // );
 
       if (this.formStatus === "2" || this.info.status === "2") {
         // this.$refs.signModal.open(this.saveFormbyPw);
@@ -1200,12 +1170,10 @@ export default {
         }
         // this.saveForm()
         // let result = this.$refs.signModal.open(this.saveFormbyPw);
-        // console.log('openEditAssessment-result', result)
         // checkUser
         this.$refs.signModal.open((password, empNo) => {
           console.log("openEditAssessment:", this.$refs, password, empNo);
           checkUser(empNo, password).then((res) => {
-            // console.log("-----checkUser:", res);
             if (
               res &&
               res.data &&
@@ -1284,7 +1252,6 @@ export default {
             );
             del(item.formApiCode, data, item.formType).then((res) => {
               window.messageBox.show("删除记录成功", "success", 5000);
-              // console.log(res,rowData)
               for (const key in rowData) {
                 if (rowData.hasOwnProperty(key)) {
                   rowData[key] = "";
@@ -1324,7 +1291,6 @@ export default {
         input = null;
       sinput = window.document.querySelector("#spin-button");
       if (isShow) {
-        // console.log("spinners", spinners, sinput);
         if (spinners && spinners.length > 0) {
           spin = spinners.find((res) => {
             let className = "";
@@ -1337,7 +1303,6 @@ export default {
             return className == "contantV2";
             // return res.innerText.indexOf(key) > -1;
           });
-          // console.log("spin", spin);
           if (spin) {
             if (!sinput) {
               input = document.createElement("input");
@@ -1372,13 +1337,6 @@ export default {
       let svgs = [];
       svgs = window.document.querySelectorAll(".contantV2 .circular");
       svgs = [...svgs];
-      //
-      // var spinners = window.document.querySelectorAll(".el-loading-spinner");
-      // spinners = [...spinners];
-      // var spin = null,
-      //   sinput = null,
-      //   input = null;
-      // sinput = window.document.querySelector("#spin-button");
       if (bool == true) {
         console.log("setloadingSVGHidden", bool, true, svgs);
         if (svgs && svgs.length > 0) {
@@ -1387,35 +1345,9 @@ export default {
           });
         }
         this.setLoadingButton(true);
-        //
-        // console.log("spinners", spinners, sinput);
-        // if (spinners && spinners.length > 0) {
-        //   spin = spinners.find(res => {
-        //     console.log(res.innerText);
-        //     return res.innerText.indexOf("保存") > -1;
-        //   });
-        //   console.log("spin", spin);
-        //   if (spin) {
-        //     if (!sinput) {
-        //       input = document.createElement("input");
-        //       input.type = "button";
-        //       input.classList.add("mask-loading-button");
-        //       input.id = "spin-button";
-        //       input.value = "知道了";
-        //       input.onclick = () => {
-        //         this.setLoadingStatus(false);
-        //         input.parentNode.removeChild(input);
-        //       };
-        //       spin.appendChild(input);
-        //     }
-        //   }
-        // }
 
-        // .classList.add("hidden-loading");
       } else {
         console.log("setloadingSVGHidden", bool, false, svgs);
-        // console.log("spinners:", spinners);
-        // console.log("sinput:", sinput);
         if (svgs && svgs.length > 0) {
           svgs.forEach((svg) => {
             svg.classList.remove("hidden-loading"); //.setAttribute("visibility", "visible");
