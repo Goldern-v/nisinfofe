@@ -12,7 +12,7 @@
           v-model="startDate"
           style="width:160px"
         ></el-date-picker>
-        &nbsp;--&nbsp;
+        &nbsp;--&nbsp; 
         <el-date-picker
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
@@ -377,13 +377,17 @@ export default {
           name: "治疗",
           value: "治疗"
         },
+        // {
+        //   name: "非摆药机",
+        //   value: "非摆药机"
+        // },
+        // {
+        //   name: "泵入",
+        //   value: "泵入"
+        // },
         {
-          name: "非摆药机",
-          value: "非摆药机"
-        },
-        {
-          name: "泵入",
-          value: "泵入"
+          name: "护理",
+          value: "护理"
         },
         {
           name: "其他",
