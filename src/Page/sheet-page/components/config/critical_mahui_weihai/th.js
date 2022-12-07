@@ -1,7 +1,9 @@
 export default {
   // 胎心记录单
   deptType: '',
- 
+  style: {
+    width: "1160px"
+  },
   th: {
     top: [
       {
@@ -109,7 +111,7 @@ export default {
       },
       {
         name: `
-          性质
+          性状
           `,
         colspan: '1',
         rowspan: '2',

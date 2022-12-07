@@ -510,6 +510,8 @@ export default {
             { label: "口服" },
             { label: "治疗" },
             { label: "皮试" },
+            { label: "膀胱冲洗" },
+            { label: "气道湿化" },
             { label: "标本" },
             { label: "其他" },
           ],
@@ -520,6 +522,7 @@ export default {
             { label: "口服" },
             { label: "雾化" },
             { label: "皮试" },
+           
             { label: "治疗" },
             { label: "理疗" },
             { label: "护理" },

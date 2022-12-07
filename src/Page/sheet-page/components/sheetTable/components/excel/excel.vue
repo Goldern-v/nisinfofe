@@ -2799,7 +2799,6 @@ export default {
   mounted() {
   },
   created() {
-    this.scrollX();//切换表单，调整表头
     if(this.HOSPITAL_ID == 'wujing' && sheetInfo.sheetType == 'common_hl'){
       let sUserAgent = navigator.userAgent;
       if(sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1 || sUserAgent.indexOf("Windows NT 5.1") > -1){

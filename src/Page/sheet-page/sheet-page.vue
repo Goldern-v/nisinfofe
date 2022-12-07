@@ -1207,7 +1207,7 @@ export default {
           return this.$message.warning("打印前必须去除所有标记");
         }
         // 判断是否存在未签名
-        if ($(".noSignRow").length&&!['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        if ($(".noSignRow").length) {
           $(this.$refs.scrollCon).animate({
             scrollTop:
               $(".noSignRow").eq(0).addClass("red-border").offset().top +

@@ -60,6 +60,8 @@ import {
   icuQcSummarySync,
   icuQcSummaryExport,
 } from './api'
+import bus from "vue-happy-bus";
+
 export default {
   mixins: [common],
   components: { NullBg, Pager, CreateModal },
@@ -71,7 +73,9 @@ export default {
       loading: false,
       tableData: [],
       editList: [],
-      timer: null
+      timer: null,
+      bus: bus(this),
+      code: ''
     };
   },
   computed: {},
@@ -81,13 +85,20 @@ export default {
     }
   },
   mounted() {
+    this.bus.$on('loadBIndicatorDet', (code) => {
+      this.code = code || ''
+      this.load()
+    })
     this.load()
+  },
+  beforeDestroy() {
+    this.bus.$off('loadBIndicatorDet')
   },
   methods: {
     // 加载数据
     async load() {
       this.editList = []
-      const code = this.$route.params.code
+      const code = this.$route.params.code || this.code
       if (!code) {
         this.tableData = []
         return
@@ -105,7 +116,7 @@ export default {
     async onDataSync() {
       try {
         this.loading = true
-        const code = this.$route.params.code
+        const code = this.$route.params.code || this.code
         const res = await icuQcSummarySync(code)
         if (res.data.code == '200') {
           this.loading = false
@@ -159,7 +170,7 @@ export default {
     // 保存
     async onSave() {
       const params = {
-        summaryCode: this.$route.params.code,
+        summaryCode: this.$route.params.code || this.code,
         items: this.editList.map(item => {
           return {
             itemCode: item.itemCode,
@@ -203,7 +214,7 @@ export default {
     // 导出
     async onExport() {
       try {
-        const code = this.$route.params.code
+        const code = this.$route.params.code || this.code
         const res = await icuQcSummaryExport(code)
         const blob = new Blob([res.data])
         const contentDisposition = res.headers['content-disposition']

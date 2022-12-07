@@ -60,7 +60,7 @@
                 :class="[query.name.length>7?'huadu-bigname':'']"
               >{{query.name}}</div>
             </div>
-            <div flex="cross:center" class="input-item">
+            <div flex="cross:center" class="input-item"> 
               <span class="label">性别:</span>
               <div
                 type="text"
@@ -140,84 +140,86 @@
         v-show="printMode == 'wrist'"
       >
         <div class="bed-card-vert-con" >
-          <div class="top">
-            <span>科室：{{ query.wardName }}</span>
-            <span v-if="!['zhzxy'].includes(HOSPITAL_ID)" :style="{'margin':'4px','margin-left':['zhzxy'].includes(HOSPITAL_ID)?'20px':''}">床位：{{ query.bedLabel }}</span>
-          </div>
-          <div>
-            <div v-if="['fsxt'].includes(HOSPITAL_ID)">
-              <span>住院号：{{ query.patientId }}</span>
-              <span>{{ query.name }}</span>
-              <span>{{ query.sex }}</span>
-              <span>{{ query.age }}</span>
-            </div>
-            <div v-else-if="['gdtj'].includes(HOSPITAL_ID)">
-              <span>{{ query.name }}</span>
-              <span>住院号：{{ query.patientId }}</span>
-              <span>{{ query.sex }}</span>
-              <span>{{ query.age }}</span>
-            </div>
-            <div v-else>
-              <span>{{ query.name }}</span>
-              <span>{{ query.sex }}</span>
-              <span>{{ query.age }}</span>
-              <span>住院号：{{ query.patientId }}</span>
+          <div :class="{'huaduStyle':['huadu'].includes(HOSPITAL_ID)}">
+            <div class="top">
+              <span>科室：{{ query.wardName }}</span>
+              <span v-if="!['zhzxy'].includes(HOSPITAL_ID)" :style="{'margin':'4px','margin-left':['zhzxy'].includes(HOSPITAL_ID)?'20px':''}">床位：{{ query.bedLabel }}</span>
             </div>
             <div>
-              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
-            </div>
+              <div v-if="['fsxt'].includes(HOSPITAL_ID)">
+                <span>住院号：{{ query.patientId }}</span>
+                <span>{{ query.name }}</span>
+                <span>{{ query.sex }}</span>
+                <span>{{ query.age }}</span>
+              </div>
+              <div v-else-if="['gdtj'].includes(HOSPITAL_ID)">
+                <span>{{ query.name }}</span>
+                <span>住院号：{{ query.patientId }}</span>
+                <span>{{ query.sex }}</span>
+                <span>{{ query.age }}</span>
+              </div>
+              <div v-else>
+                <span>{{ query.name }}</span>
+                <span>{{ query.sex }}</span>
+                <span>{{ query.age }}</span>
+                <span>住院号：{{ query.patientId }}</span>
+              </div>
+              <div>
+                <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+              </div>
 
-			<div flex="cross:center" class="input-item" style="width:73%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
-              <span class="label" style="margin-right:0;">过敏信息：</span>
-              <input
-                type="text"
-                nowidth
-                style="font-size: 20px;padding-left:0;"
-                flex-box="1"
-                class="bottom-line is_input_print"
-				:maxlength="13"
-                v-model="allergy_gdtj"
-              />
-            </div>
-			
-			<!-- <div flex="cross:top"
-              class="input-item"
-				v-if="['gdtj'].includes(HOSPITAL_ID)" style="width:350px;height: 60px;">
-              <span class="label">过敏信息：</span>
-			  <textarea
-                type="text"
-                nowidth
-                flex-box="1"
-				placeholder="20个字以内"
-                class="bottom-line remark allergy-textarea is_hide_textarea"
-                v-model="allergy_gdtj"
-                :maxlength="20"
-              ></textarea>
-			  <p class="bottom-line remark allergy-textarea print-page__ptext" flex-box="1" style="whiteSpace: pre-wrap;">{{allergy_gdtj}}</p>
-            </div> -->
-			<div class="allergy" :class="{whhkAllergy:['whhk'].includes(HOSPITAL_ID)}" v-else-if="!['zhzxy'].includes(HOSPITAL_ID)">
-				<p :class="[allergy1||drugGms||allergy2?'gm':'']">
-					过敏信息：
-					<span v-if="allergy1">{{ allergy1 }};</span>
-					<span v-if="drugGms">{{ drugGms }};</span>
-					<span v-if="allergy2">{{ allergy2 }}</span>
-					<span v-if="!(allergy1||drugGms||allergy2)">无</span>
-				</p>
-        <div flex="cross:center" class="input-item" v-if="['whhk'].includes(HOSPITAL_ID)">
-          <span class="label" style="margin-right:0;">科室联系电话：</span>
-          <input
-            type="text"
-            nowidth
-            style="padding-left:0;"
-            flex-box="1"
-            class="bottom-line is_input_print"
-            :maxlength="11"
-            v-model="lianxiPhone_whhk"
-          />
+        <div flex="cross:center" class="input-item" style="width:73%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
+                <span class="label" style="margin-right:0;">过敏信息：</span>
+                <input
+                  type="text"
+                  nowidth
+                  style="font-size: 20px;padding-left:0;"
+                  flex-box="1"
+                  class="bottom-line is_input_print"
+          :maxlength="13"
+                  v-model="allergy_gdtj"
+                />
+              </div>
+        
+        <!-- <div flex="cross:top"
+                class="input-item"
+          v-if="['gdtj'].includes(HOSPITAL_ID)" style="width:350px;height: 60px;">
+                <span class="label">过敏信息：</span>
+          <textarea
+                  type="text"
+                  nowidth
+                  flex-box="1"
+          placeholder="20个字以内"
+                  class="bottom-line remark allergy-textarea is_hide_textarea"
+                  v-model="allergy_gdtj"
+                  :maxlength="20"
+                ></textarea>
+          <p class="bottom-line remark allergy-textarea print-page__ptext" flex-box="1" style="whiteSpace: pre-wrap;">{{allergy_gdtj}}</p>
+              </div> -->
+        <div class="allergy" :class="{whhkAllergy:['whhk'].includes(HOSPITAL_ID)}" v-else-if="!['zhzxy'].includes(HOSPITAL_ID)">
+          <p :class="[allergy1||drugGms||allergy2?'gm':'']">
+            过敏信息：
+            <span v-if="allergy1">{{ allergy1 }};</span>
+            <span v-if="drugGms">{{ drugGms }};</span>
+            <span v-if="allergy2">{{ allergy2 }}</span>
+            <span v-if="!(allergy1||drugGms||allergy2)">无</span>
+          </p>
+          <div flex="cross:center" class="input-item" v-if="['whhk'].includes(HOSPITAL_ID)">
+            <span class="label" style="margin-right:0;">科室联系电话：</span>
+            <input
+              type="text"
+              nowidth
+              style="padding-left:0;"
+              flex-box="1"
+              class="bottom-line is_input_print"
+              :maxlength="11"
+              v-model="lianxiPhone_whhk"
+            />
+          </div>
         </div>
-			</div>
-      
-            <!-- <svg id="barcode"></svg> -->
+        
+              <!-- <svg id="barcode"></svg> -->
+            </div>
           </div>
           <img
             class="qr-code"
@@ -392,6 +394,7 @@
   &.zhzxyStyle{
       font-size: 20px;
     }
+  
   .bed-card-con{
     width:9cm;
     height:5.7cm;
@@ -401,7 +404,10 @@
     font-weight: bold;
   }
 }
-
+.huaduStyle{
+  position:relative;
+  left:-20px;
+}
 .bed-card-vertical {
   // display: none;
   
