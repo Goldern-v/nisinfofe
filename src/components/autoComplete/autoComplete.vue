@@ -120,7 +120,6 @@ export default {
       this.show = false
     },
     open(config) {
-      console.log(config,"config")
       this.config = config
       this.style = config.style;
       this.callback = config.callback;
@@ -165,9 +164,7 @@ export default {
             this.data = config.data.data || [];
     }else this.data = config.data || [];
   }else this.data = config.data || [];
-      console.log("dadada",this.data,config)
      }
-      console.log()
       if (this.data && this.data.length >= 1) {
         this.show = true;
       }else {
@@ -210,12 +207,10 @@ export default {
       }
     },
     post(item) {
-      console.log("item",item)
       if(process.env.HOSPITAL_ID == 'sdlj'){
         if(sheetInfo.sheetType == "craniocerebral_sdlj"){
           if(["consciousness",'reflectionLeft','reflectionRight'].includes(this.config.td.key)){
             item = this.config.data.dataVal[this.config.data.data.indexOf(item)]
-            console.log(this.config.data.data.indexOf(item),"this.data.data.indexOf(item)")
     }
   }
 }
@@ -231,10 +226,7 @@ export default {
         });
       }
       if(flag){
-
-        console.log("item/",item,this.parentVal,this.splice)
         if(process.env.HOSPITAL_ID == 'sdlj' && sheetInfo.sheetType == "orthopaedic_sdlj" && this.splice == '&'){
-          console.log('111111111111');
           item = item;
         }else{
           item = this.parentVal?item + '(' + this.parentVal + ')': item;

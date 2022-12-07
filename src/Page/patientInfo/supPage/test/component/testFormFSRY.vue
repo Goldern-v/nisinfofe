@@ -309,9 +309,10 @@ export default {
           this.checkList.push([])
         }
       }
-      this.data = data.map((itemList,index)=>{
+       this.data =['foshanrenyi'].includes(this.HOSPITAL_ID)?  data.map((itemList,index)=>{
         itemList.itemNo = index + 1
-      });
+      }): data
+
       this.activeIndex=index
       this.loading = ['foshanrenyi'].includes(this.HOSPITAL_ID)?false:true;;
       this.data1 = [];
@@ -339,6 +340,7 @@ export default {
             this.loading = false;
           });
       }else{
+
         this.data1 = data
 
       }
