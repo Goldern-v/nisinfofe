@@ -60,6 +60,51 @@
         </div>
       </span>
     </div>
+    <div class="info-con" flex="main:justify" v-else-if="['labor_ytll','labor_con_ytll'].includes(sheetInfo.sheetType)">
+       <span>
+        姓名：
+        <div class="bottom-line" style="min-width: 70px">
+          {{ patientInfo.patientName }}
+        </div>
+      </span>
+      <span>
+        年龄：
+        <div class="bottom-line" style="min-width: 50px">
+          {{ patientInfo.age }}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType == 'labor_ytll'">
+       胎次:
+        <input type="text" v-model="sheetInfo.relObj.deliveryMOde" style="width:60px;">
+      </span>
+       <span v-if="sheetInfo.sheetType == 'labor_ytll'">
+        预产期：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+      </span>
+      <span v-if="sheetInfo.sheetType == 'labor_con_ytll'">
+        床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <span>
+        住院号：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.inpNo }}
+        </div>
+      </span>
+      <!-- <span v-if="sheetInfo.sheetType === 'neonatal_care_jm'">
+        入院日期：
+        <div class="bottom-line" style="min-width: 150px">
+          {{ patientInfo.admissionDate }}
+        </div>
+      </span> -->
+    </div>
     <div class="info-con" flex="main:justify" v-else>
       <span>
         科别：
@@ -164,7 +209,7 @@
       </span>
     </div> -->
     <div class="info-con">
-      <span v-if="sheetInfo.sheetType != 'inout_ytll'" @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)">
+      <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)">
         入院诊断：
         <div
           class="bottom-line"

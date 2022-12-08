@@ -2,7 +2,7 @@
   <div
     class="contain"
     v-loading="pageLoading"
-    :style="{ 'min-height': containHeight }"
+    :style="containHeight"
   >
     <div ref="Contain" @mousewheel="e => onScroll(e)">
       <div v-show="!isChart" class="blood-sugar-con">
@@ -289,7 +289,10 @@ export default {
       return this.$route.query;
     },
     containHeight() {
-      return this.wih - 130 + "px";
+      if (this.$route.path.includes("nursingPreview")) {
+        return { height: this.wih - 40 + 'px' }
+      }
+      return { minHeight: this.wih - 130 + "px" };
     },
     //是否为预览状态不可编辑
     isPreview() {
