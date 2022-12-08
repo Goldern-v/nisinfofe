@@ -130,7 +130,7 @@ export default {
                 minWidth: 110,
               },
               {
-                key: 'diagnosis',
+                key: 'ryzd',
                 title: '入院诊断',
                 align: 'center',
                 minWidth: 230,
@@ -187,7 +187,7 @@ export default {
                 minWidth: 110,
               },
               {
-                key: 'bz',
+                key: 'expand',
                 title: '备注',
                 align: 'center',
                 minWidth: 110,
