@@ -1053,6 +1053,8 @@ export default {
                   this.getList();
                   this.$message.success(`修改${label}成功`);
                 });
+              }else{
+                this.$message.warm(`${nurse}非质控和录入人不允许修改`);
               }
             }
             // this.getList();

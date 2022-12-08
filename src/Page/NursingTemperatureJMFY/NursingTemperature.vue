@@ -1,11 +1,12 @@
 <template>
   <div>
+    <input type="password" style="display: none;" />
     <div class="content NursingPreview">
       <div class="left-part">
         <treeNursingPreview ref="treeNursingPreview" ></treeNursingPreview>
       </div>
       <div class="right-part">
-        <component :is="otherComponent" v-if="otherComponent"></component>
+        <component :is="otherComponent" v-if="otherComponent" ref="rightCom"></component>
         <rightPart v-show="!otherComponent"></rightPart>
       </div>
     </div>
@@ -18,11 +19,7 @@
 }
 
 >>>.body {
-  height: calc(100vh - 60px) !important;
-}
-
->>>.form-contain {
-  height: calc(100vh - 21px) !important;
+  height: 100vh !important;
 }
 
 >>>.new-btn, >>>.null-btn, >>>.tool-bar, >>>.fixed-icon, >>>.table-fixed-th {
@@ -67,6 +64,7 @@
     border: 1px solid #CBD5DD;
     border-radius: 2px 2px 0 2px;
     height: 100vh !important;
+    box-sizing: border-box;
   }
 
   .right-part {
@@ -107,6 +105,7 @@ import bloodOxygen from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; 
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
 import { getPatientInfo } from "@/api/common.js";
 import { getPatientForm } from "@/Page/patientInfo/supPage/blood-sugar-sdlj/api/index.js"; //获取患者存在表单id
+import IndicatorDetails from '@/Page/severe-indicators/IndicatorDetails.vue'
 
 import bus from "vue-happy-bus";
 export default {
@@ -264,7 +263,8 @@ export default {
     temperatureDGXG,
     temperatureWHSL,
     temperatureGDTJ,
-    temperatureZHZXY
+    temperatureZHZXY,
+    IndicatorDetails,
   }
 };
 </script>

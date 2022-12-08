@@ -3,7 +3,7 @@
     <table>
       <tr>
         <th style="width: 2%; min-width: 20px">序号</th>
-        <th style="width: 23%; min-width: 75px">时间</th>
+        <th style="width: 23%; min-width: 75px">日期</th>
         <th style="width: 20%">项目</th>
         <th style="width: 23%">血糖值<br />(mmol/L)</th>
         <!-- <th style="width: 18%">尿酮值<br/>(mmol/L)</th> -->
@@ -39,6 +39,7 @@
               placeholder=""
               size="mini"
               :popperClass="selected === item ? 'selected' : ''"
+              @change="sugarItemChanged"
             >
               <ElOption
                 v-for="item in sugarItem"
@@ -233,6 +234,7 @@ export default {
       msg: "hello vue",
     };
   },
+
   computed: {
     renderData() {
       if (!this.data) return;
@@ -269,7 +271,12 @@ export default {
       return new Date(val).Format("hh:mm");
     },
   },
+  
   methods: {
+    sugarItemChanged(val) {
+      let newArr = this.sugarItem.filter(item => item.vitalSign === val)
+      this.$set(this.selected, 'recordDate', moment().format(newArr.length > 0 ? 'YYYY-MM-DD ' + newArr[0].defaultTime : "YYYY-MM-DD HH:mm"))
+    },
     onSelect(item) {
       this.$emit("update:selected", item);
     },

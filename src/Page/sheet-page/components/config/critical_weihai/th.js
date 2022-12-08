@@ -2,7 +2,7 @@ export default {
   // 胎心记录单
   deptType: '',
   style: {
-    width: "1160px"
+    width: "1260px"
   },
   th: {
     top: [
@@ -49,7 +49,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '135px',
+          minWidth: '155px',
         },
       },
       {
@@ -181,8 +181,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: "60px",
-          maxWidth: "60px"
+          minWidth: "32px",
+          maxWidth: "32px"
         },
       },
       {
@@ -192,8 +192,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: "60px",
-          maxWidth: "60px"
+          minWidth: "32px",
+          maxWidth: "32px"
         },
       },
       {
@@ -203,8 +203,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: "60px",
-          maxWidth: "60px"
+          minWidth: "32px",
+          maxWidth: "32px"
         },
       },
       {
@@ -214,8 +214,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: "60px",
-          maxWidth: "60px"
+          minWidth: "32px",
+          maxWidth: "32px"
         },
       },
       {

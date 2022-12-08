@@ -50,6 +50,10 @@
           <span class="name">血氧</span>
         </div>
       </div>
+      <div v-if="showIndicatior">
+        <div @click="setItemShow('six')" class="title">重症质量指标</div>
+        <indicator-tree v-if="isShowObj.six" />
+      </div>
     </div>
     <!-- 弹出框 -->
     <newForm ref="newForm"></newForm>
@@ -60,7 +64,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .body {
-  y-overflow: auto;
+  overflow-y: auto;
   .title {
     cursor: pointer;
     height: 37px;
@@ -196,6 +200,8 @@ import newForm from "../modal/new-form.vue";
 import commonMixin from "@/common/mixin/common.mixin";
 import { getFormConfig } from "../config/form-config.js";
 import templateSide from '@/Page/sheet-page/components/modal/template-slide.vue'
+import { hisMatch } from "@/utils/tool";
+import IndicatorTree from './indicator-tree.vue'
 
 export default {
   mixins: [commonMixin],
@@ -208,11 +214,12 @@ export default {
       expandList: [],
       expandListCopy: [],
       isShowObj: {
-        one: false,
-        two: false,
+        one: true,
+        two: true,
         three: true,//默认显示体温单模块
         four:false,
-        five:false
+        five:false,
+        six: false,
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
@@ -238,6 +245,16 @@ export default {
     },
     allFormList() {
       return [...this.regions, ...this.otherFormList];
+    },
+    // 是否显示重症指标
+    showIndicatior() {
+      return hisMatch({
+        map: {
+          'whsl': this.handelQuery() == 'record',
+          other: false
+        }
+      })
+
     }
   },
   methods: {
@@ -410,7 +427,7 @@ export default {
     if (isOk && isOk == "1") {
       this.nursingPreviewIsShow = false
     }
-   await this.bus.$emit("openOtherForm", { component: this.$route.query.nursingType});//默认打开体温单界面
+  //  await this.bus.$emit("openOtherForm", { component: this.$route.query.nursingType});//默认打开体温单界面
     this.timer=setTimeout(()=>{
      this.bus.$emit("refreshImg");
      },1000)
@@ -434,7 +451,8 @@ export default {
     SweetModal,
     SweetModalTab,
     newForm,
-    templateSide
+    templateSide,
+    IndicatorTree,
   }
 };
 </script>
