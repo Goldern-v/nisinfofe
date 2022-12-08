@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1680px"
+    width: "1400px"
   },
   th: {
     top: [{
@@ -42,8 +42,8 @@ export default {
       {
         name: '反应',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '35px',
+          maxWidth: '35px',
         },
         colspan: '1',
         rowspan: '2'
@@ -51,8 +51,8 @@ export default {
       {
         name: '哭声',
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         colspan: '1',
         rowspan: '2'
@@ -60,8 +60,8 @@ export default {
       {
         name: '肌张力',
         style: {
-          minWidth: '40px',
-          maxWidth: '40px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         colspan: '1',
         rowspan: '2'
@@ -69,8 +69,8 @@ export default {
       {
         name: '皮肤',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
         colspan: '1',
         rowspan: '2'
@@ -87,8 +87,8 @@ export default {
       {
         name: '末梢',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '40px',
+          maxWidth: '40px',
         },
         colspan: '1',
         rowspan: '2'
@@ -154,7 +154,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '180px'
+          minWidth: '150px'
         },
       },
       {
@@ -186,7 +186,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -196,7 +197,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -206,7 +208,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -214,7 +217,8 @@ export default {
         血压（mmHg）
         `,
         style: {
-          minWidth: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         colspan: "1",
         rowspan: "1"
@@ -226,7 +230,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -236,9 +241,9 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "50px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
-        
       },
       {
         name: `
@@ -247,7 +252,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -257,7 +263,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -267,7 +274,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -277,7 +285,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "60px"
+          minWidth: '25px',
+          maxWidth: '25px',
         },
       },
       {
@@ -287,7 +296,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -297,7 +307,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -307,7 +318,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -317,7 +329,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -327,7 +340,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -347,7 +361,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -357,7 +372,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "60px"
+          minWidth: '40px',
+          maxWidth: '40px',
         },
       },
       {
@@ -387,8 +403,8 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "110px",
-          maxWidth: "110px"
+          minWidth: "100px",
+          maxWidth: "100px"
         },
       },
     ],
