@@ -2,7 +2,7 @@ export default {
   // 胎心记录单
   deptType: '',
   style: {
-    width: "1160px"
+    width: "1100px"
   },
   th: {
     top: [
@@ -13,7 +13,7 @@ export default {
           maxWidth: '35px',
         },
         colspan: '1',
-        rowspan: '3'
+        rowspan: '3' 
       },
       {
         name: '时间',
@@ -49,7 +49,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '135px',
+          minWidth: '150px',
         },
       },
       {
