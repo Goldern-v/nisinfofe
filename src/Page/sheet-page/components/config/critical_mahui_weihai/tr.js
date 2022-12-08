@@ -18,7 +18,8 @@ export default [
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    click:click_time
   },
   {
     key: "oralCare",
@@ -118,7 +119,7 @@ export default [
     name: "动静脉置管名称",
     next: "",
     textarea: {
-      width: 32
+      width: 72
     }
   },
   {
@@ -151,7 +152,7 @@ export default [
     name: "引流管名称",
     next: "",
     textarea: {
-      width: 32
+      width: 72
     }
   },
   {
@@ -231,19 +232,25 @@ export default [
     value: "",
     event: keyf1,
     name: "用药情况",
-    next: ""
+    next: "",
+    textarea: {
+      width: 150
+    }
   },
 
   {
     key: "description", //备注
     value: "",
+    textarea: {
+      width: 200
+    },
     style: {
       textAlign: "left",
       position: "absolute",
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "240px",
+      width: "200px",
       background: "transparent"
     },
     event: function(e, td) {

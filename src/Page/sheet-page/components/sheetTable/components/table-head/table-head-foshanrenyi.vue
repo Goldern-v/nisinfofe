@@ -289,23 +289,23 @@
         <input
           style="width: 180px;border-bottom: 1px solid #000"
           class="bottom-line"
-          :data-value="sheetInfo.relObj['dgqt']"
-          v-model="sheetInfo.relObj['dgqt']"
+          :data-value="sheetInfo.relObj[`${index}dgqt`]"
+          v-model="sheetInfo.relObj[`${index}dgqt`]"
         />)
         用氧方式：(
         <customSelectCanRepeat
           :options="oxygenWays"
-          @onSelect="(val) => setRelValue('oxygenWay', val)"
+          @onSelect="(val) => setRelValue(`${index}oxygenWay`, val)"
         >
-          <input type="text" :data-value="sheetInfo.relObj['oxygenWay']" v-model="sheetInfo.relObj.oxygenWay" style="width:160px;">
+          <input type="text" :data-value="sheetInfo.relObj[`${index}oxygenWay`]" v-model="sheetInfo.relObj[`${index}oxygenWay`]" style="width:160px;">
         </customSelectCanRepeat>
         )
         (
           <customSelectCanRepeat
             :options="oxygenUnits"
-            @onSelect="(val) => setRelValue('oxygenUnit', val)"
+            @onSelect="(val) => setRelValue(`${index}oxygenUnit`, val)"
           >
-            <input type="text"  :data-value="sheetInfo.relObj['oxygenUnit']" v-model="sheetInfo.relObj.oxygenUnit" style="width:50px;">
+            <input type="text"  :data-value="sheetInfo.relObj[`${index}oxygenUnit`]" v-model="sheetInfo.relObj[`${index}oxygenUnit`]" style="width:50px;">
           </customSelectCanRepeat>
         )
     </div>
@@ -450,50 +450,50 @@ export default {
     ...{
       'checkedw':{
         get(){
-          return this.sheetInfo.relObj[`w`] === 'true'
+          return this.sheetInfo.relObj[`${this.index}w`] === 'true'
         },
         set(nVal){
-          this.sheetInfo.relObj[`w`] = nVal ? "true" : "false"
+          this.sheetInfo.relObj[`${this.index}w`] = nVal ? "true" : "false"
         }
       },
       'checkedwg':{
         get(){
-          return this.sheetInfo.relObj[`wg`] === 'true'
+          return this.sheetInfo.relObj[`${this.index}wg`] === 'true'
         },
         set(nVal){
-          this.sheetInfo.relObj[`wg`] = nVal ? "true" : "false"
+          this.sheetInfo.relObj[`${this.index}wg`] = nVal ? "true" : "false"
         }
       },
       'checkedPICC':{
         get(){
-          return this.sheetInfo.relObj[`PICC`] === 'true'
+          return this.sheetInfo.relObj[`${this.index}PICC`] === 'true'
         },
         set(nVal){
-          this.sheetInfo.relObj[`PICC`] = nVal ? "true" : "false"
+          this.sheetInfo.relObj[`${this.index}PICC`] = nVal ? "true" : "false"
         }
       },
       'checkedqjmdg':{
         get(){
-          return this.sheetInfo.relObj[`qjmdg`] === 'true'
+          return this.sheetInfo.relObj[`${this.index}qjmdg`] === 'true'
         },
         set(nVal){
-          this.sheetInfo.relObj[`qjmdg`] = nVal ? "true" : "false"
+          this.sheetInfo.relObj[`${this.index}qjmdg`] = nVal ? "true" : "false"
         }
       },
       'checkedng':{
         get(){
-          return this.sheetInfo.relObj[`ng`] === 'true'
+          return this.sheetInfo.relObj[`${this.index}ng`] === 'true'
         },
         set(nVal){
-          this.sheetInfo.relObj[`ng`] = nVal ? "true" : "false"
+          this.sheetInfo.relObj[`${this.index}ng`] = nVal ? "true" : "false"
         }
       },
       'checkedqt':{
         get(){
-          return this.sheetInfo.relObj[`qt`] === 'true'
+          return this.sheetInfo.relObj[`${this.index}qt`] === 'true'
         },
         set(nVal){
-          this.sheetInfo.relObj[`qt`] = nVal ? "true" : "false"
+          this.sheetInfo.relObj[`${this.index}qt`] = nVal ? "true" : "false"
         }
       },
     }

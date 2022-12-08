@@ -11,7 +11,7 @@ import {
 
 const zdjnList = ['✓'];
 const color= ['鲜红色', '暗红色', '淡红色', '淡黄色', '深黄色', '黄绿色', '黄褐色', '黑色', '无色'];
-const stoolColor= ['鲜红色', '暗红色',  '黄色',  '褐色', '黑色', '黑色'];
+const stoolColorOption= ['鲜红色', '暗红色',  '黄色',  '褐色', '黑色','陶土样'];
 export default [{
   key: "recordMonth", //日期
   value: "",
@@ -22,6 +22,7 @@ export default [{
   key: "recordHour", //时间
   value: "",
   event: event_time,
+  click:click_time
 },
 {
   key: "oralCare",
@@ -32,6 +33,9 @@ export default [{
   textarea: {
     width: 32
   },
+  autoComplete: {
+    data: zdjnList
+  }
 },
 {
   key: "bedBath",
@@ -42,6 +46,9 @@ export default [{
   textarea: {
     width: 32
   },
+  autoComplete: {
+    data: zdjnList
+  }
 },
 {
   key: "rollOver",
@@ -52,6 +59,9 @@ export default [{
   textarea: {
     width: 32
   },
+  autoComplete: {
+    data: zdjnList
+  }
 },
 {
   key: "gasCutting",
@@ -62,6 +72,9 @@ export default [{
   textarea: {
     width: 32
   },
+  autoComplete: {
+    data: zdjnList
+  }
 },
 {
   key: "restraintCare",
@@ -72,6 +85,9 @@ export default [{
   textarea: {
     width: 32
   },
+  autoComplete: {
+    data: zdjnList
+  }
 },
 {
   key: "fieldNineteen",
@@ -82,6 +98,9 @@ export default [{
   textarea: {
     width: 32
   },
+  autoComplete: {
+    data: zdjnList
+  }
 },
 {
   key: "arteriovenous",
@@ -92,6 +111,9 @@ export default [{
   textarea: {
     width: 32
   },
+  autoComplete: {
+    data: zdjnList
+  }
 },
 {
   key: "sputum",
@@ -102,6 +124,9 @@ export default [{
   textarea: {
     width: 32
   },
+  autoComplete: {
+    data: zdjnList
+  }
 },
 {
   key: "sputumColor",
@@ -165,7 +190,7 @@ export default [{
     width: 32
   },
   autoComplete: {
-    data:stoolColor
+    data:stoolColorOption
   },
 },
 {
@@ -228,7 +253,7 @@ export default [{
   name: "输液/注射用药",
   next: "",
   textarea: {
-    width:82
+    width:150
   },
 },
 {
@@ -248,7 +273,7 @@ export default [{
   name: "口服/鼻饲用药",
   next: "",
   textarea: {
-    width: 82
+    width: 150
   },
 },
 
@@ -261,8 +286,11 @@ export default [{
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "240px",
+    width: "150px",
     background: "transparent"
+  },
+  textarea: {
+    width: 150
   },
   event: function (e, td) {
     console.log(e.keyCode);
@@ -273,6 +301,7 @@ export default [{
     keyf1(e, td);
   }
 },
+
 {
   key: "sign",
   value: ""
