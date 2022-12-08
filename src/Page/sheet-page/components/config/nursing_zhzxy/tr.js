@@ -45,7 +45,7 @@ export default [
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SpO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 35 }, autoComplete: {data:yishi}},
+  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 50 }, autoComplete: {data:yishi}},
   { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', autoComplete: {
     data:入量内容
     //  ['静脉输液','静脉注射','鼻饲','全血','红细胞','血小板','白蛋白','血浆','白细胞','TPN', '水','饮料','牛奶','母乳','代乳品','粉/面条','粥','云吞','水果','米饭','菜','经口入','口服','微泵']
