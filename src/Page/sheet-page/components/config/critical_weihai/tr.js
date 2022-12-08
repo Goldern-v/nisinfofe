@@ -11,7 +11,7 @@ import {
 
 const zdjnList = ['✓'];
 const color= ['鲜红色', '暗红色', '淡红色', '淡黄色', '深黄色', '黄绿色', '黄褐色', '黑色', '无色'];
-const stoolColorOption= ['鲜红色', '暗红色',  '黄色',  '褐色', '黑色'];
+const stoolColorOption= ['鲜红色', '暗红色',  '黄色',  '褐色', '黑色','陶土样'];
 export default [{
   key: "recordMonth", //日期
   value: "",

@@ -234,7 +234,7 @@ export default [
     name: "用药情况",
     next: "",
     textarea: {
-      width: 200
+      width: 150
     }
   },
 
