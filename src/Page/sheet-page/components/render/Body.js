@@ -1691,6 +1691,16 @@ function switchSheetType(type) {
       schema = require("../config/premiumcare_ytll/tr.js").default;
     }
       break;
+    case "labor_ytll": {
+      // 烟台玲珑 - 产程记录单
+      schema = require("../config/labor_ytll/tr.js").default;
+    }
+      break;
+    case "labor_con_ytll": {
+      // 烟台玲珑-产程记录单(续页)
+      schema = require("../config/labor_con_ytll/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }
