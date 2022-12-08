@@ -19,11 +19,7 @@
 }
 
 >>>.body {
-  height: calc(100vh - 60px) !important;
-}
-
->>>.form-contain {
-  height: calc(100vh - 21px) !important;
+  height: 100vh !important;
 }
 
 >>>.new-btn, >>>.null-btn, >>>.tool-bar, >>>.fixed-icon, >>>.table-fixed-th {
@@ -68,6 +64,7 @@
     border: 1px solid #CBD5DD;
     border-radius: 2px 2px 0 2px;
     height: 100vh !important;
+    box-sizing: border-box;
   }
 
   .right-part {
