@@ -157,7 +157,7 @@
 
       .sign-con {
         max-width: 52px;
-        height: 100%
+        height: 29px;
       }
 
       img {

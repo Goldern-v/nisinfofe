@@ -144,6 +144,7 @@
                       : 'rowBox'
                   "
                   v-for="(j, index, i) in baseMultiDictList"
+                  class="pathological"
                   :key="index"
                 >
                   <div class="rowItemText">
@@ -246,6 +247,7 @@
                         : 'rowBox'
                     "
                     v-for="(j, index, i) in otherMultiDictList"
+                    class="otherPathological"
                     :key="index"
                   >
                     <div class="rowItemText">
@@ -337,6 +339,7 @@
                   <div
                     :class="(h - 1) % 2 === 0 ? 'rowBoxRight' : 'rowBox'"
                     v-for="(i, index, h) in fieldList"
+
                     :key="index"
                   >
                     <div>
@@ -700,25 +703,29 @@ export default {
     },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
-        let inputListLength = document.getElementsByClassName("rowBox").length;
-        if (Number(e.target.id) < inputListLength) {
-          switch (Number(e.target.id)) {
-            case 6:
-              document.getElementById("12").focus();
-            case 12:
-              document.getElementById("16").focus();
-            default:
-              document.getElementById(Number(e.target.id) + 1).focus();
-          }
-        } else if (Number(e.target.id) === inputListLength) {
+        let baseLength = document.getElementsByClassName("pathological").length;
+        let otherLength =
+          document.getElementsByClassName("otherPathological").length;
+        this.otherDicListLength = otherLength;
+        if (Number(e.target.id) < baseLength) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (Number(e.target.id) === baseLength) {
           document.getElementById("100").focus();
+        } else if (
+          Number(e.target.id) > baseLength &&
+          Number(e.target.id) < otherLength + 100 - 1
+        ) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if(Number(e.target.id)==otherLength + 100 - 1){
+          document.getElementById("1000").focus();
         }
+
       } else {
         let inputListLength =
           document.getElementsByClassName("fieldClass").length;
-        if (Number(e.target.id) < inputListLength + 100 - 1) {
+        if (Number(e.target.id) < inputListLength + 1000 - 1) {
           document.getElementById(Number(e.target.id) + 1).focus();
-        } else if (Number(e.target.id) === inputListLength + 100 - 1) {
+        } else if (Number(e.target.id) === inputListLength + 1000 - 1) {
           document.getElementById("1").focus();
         }
       }
@@ -948,9 +955,11 @@ export default {
           data[item.vitalSign] = item.vitalCode;
           switch (item.signType) {
             case "base":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
               break;
             case "other":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               otherDic[item.vitalSign] = item.vitalCode;
               break;
             default:
