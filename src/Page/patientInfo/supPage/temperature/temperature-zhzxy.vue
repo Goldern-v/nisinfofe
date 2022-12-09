@@ -109,6 +109,8 @@ export default {
     containHeight() {
       if (this.fullpage) {
         return this.wih - 44 + "px";
+      } else if (this.$route.path.includes("nursingPreview")) {
+        return this.wih + 'px'
       } else {
         return this.wih - 114 + "px";
       }

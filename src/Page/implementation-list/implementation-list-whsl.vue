@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="main-contain">
+    <div class="main-contain" >
       <div class="head-con">
         <span class="label" style="margin-left: 0">执行日期:</span>
 
@@ -12,7 +12,7 @@
           v-model="startDate"
           style="width:160px"
         ></el-date-picker>
-        &nbsp;--&nbsp;
+        &nbsp;--&nbsp; 
         <el-date-picker
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
@@ -115,6 +115,7 @@
         ></el-input> -->
         <el-input style="width: 0px; padding: 0px; height: 0px; overflow: hidden;" />
         <el-button size="small" type="primary" @click="search">查询</el-button>
+         <el-button size="small"  v-if="HOSPITAL_ID =='whsl'" @click="onPrint">打印</el-button>
       </div>
 
       <dTable
@@ -123,6 +124,7 @@
         :pageLoading="pageLoading"
         ref="plTable"
       ></dTable>
+     
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -133,6 +135,24 @@
         ></pagination>
       </div>-->
     </div>
+      <div class="whslprintable"  v-if="isprint" ref="whslprintable">
+        <div class="header-con">
+          <h2>威海市立医院</h2>
+          <h3>医嘱执行查询单</h3>
+          <div class="filterItem date" style="text-algin:center;margin-left: 32%">
+            <span class="type-label">科室:</span>
+            <span>{{deptCode }}</span>
+            <span style="display:inline-block;width:20px"></span>
+            <span class="type-label">执行日期:</span>
+            <span>{{ nowDate }}</span>
+          </div>
+        </div>
+        <dTablePrint
+          :tableData="tableData"
+          :currentType="type"
+          :pageLoadng="pageLoading"
+        ></dTablePrint>
+      </div>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -267,14 +287,40 @@
     margin-left: 10px;
   }
 }
+.whslprintable {
+    position: absolute;
+    width: 1200px;
+    z-index: 1000;
+    // visibility: hidden;
+  .header-con {
+    h2 {
+      font-size: 24px;
+      text-align: center;
+      padding-top: 10px;
+      padding-bottom: 2px;
+    }
+     h3 {
+      font-size: 20px;
+      text-align: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    padding-bottom: 5px;
+  }
+}
 </style>
 <script>
 import dTable from "./components/table/d-table-whsl";
 import pagination from "./components/common/pagination";
+import dTablePrint from "./components/table/d-table-whsl-print";
 import { getExecuteWithWardCodeLyxrm } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
+
+import print from "printing";
+import formatter from "./print-formatter";
 export default {
   mixins: [common],
   data() {
@@ -297,6 +343,7 @@ export default {
       bedLabel: "",
       patientName: "",
       administration: "", //途径
+      isprint:false,
       allType: [
         {
           name: "全部",
@@ -330,13 +377,17 @@ export default {
           name: "治疗",
           value: "治疗"
         },
+        // {
+        //   name: "非摆药机",
+        //   value: "非摆药机"
+        // },
+        // {
+        //   name: "泵入",
+        //   value: "泵入"
+        // },
         {
-          name: "非摆药机",
-          value: "非摆药机"
-        },
-        {
-          name: "泵入",
-          value: "泵入"
+          name: "护理",
+          value: "护理"
         },
         {
           name: "其他",
@@ -367,7 +418,7 @@ export default {
           name: "全部"
         },
         {
-          id: 2,
+          id: 4,
           name: "已完成"
         },
         {
@@ -396,6 +447,7 @@ export default {
           name: '已核对'
         },
       ],
+      nowDate:moment().format('YYYY-MM-DD HH:mm:ss')
     };
   },
   methods: {
@@ -527,6 +579,45 @@ export default {
         this.type = ['全部']
       }
     },
+    async onPrint() { 
+      this.isprint=true;
+      this.$nextTick(async () => {
+        await print(this.$refs.whslprintable, {
+          beforePrint: formatter,
+          injectGlobalCss: true,
+          scanStyles: false,
+           css: `
+          .el-table {
+            border:none !important;
+          }
+          .el-table__header-wrapper,.el-table__body-wrapper {
+            margin: 0 !important;
+          }
+          .el-table__body-wrapper {
+            border-bottom: 1px solid #000 !important;
+          }
+          table {
+            width: 100%;
+          }
+          .whslprintable  .table th  .cell  {
+            border: 1px solid #000 !important;
+           
+          }
+          td {
+            border: 1px solid #000 !important;
+          }
+          .cell {
+            padding: 0 3px !important;
+          }
+          @page {
+            margin: 10mm;
+            size: landscape;
+          }
+        `
+        });
+        this.isprint=false;
+      });
+    },
   },
   created() {
     this.onLoad();
@@ -588,7 +679,8 @@ export default {
   },
   components: {
     dTable,
-    pagination
+    pagination,
+    dTablePrint
   }
 };
 </script>

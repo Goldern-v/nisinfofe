@@ -25,13 +25,19 @@ export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
-    click: click_date
+    click: click_date,
+    style: {
+      minWidth: "28px"
+    },
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
-    click: click_time
+    click: click_time,
+    style: {
+      minWidth: "28px"
+    },
   },
   {
     key: "temperature", //体温-数值
@@ -90,6 +96,10 @@ export default [{
     autoComplete: {
       data: ysList
     },
+    style: {
+      minWidth: '35px',
+      maxWidth: '35px',
+    },
     name: "反应"
   },
   {
@@ -98,6 +108,10 @@ export default [{
     event: keyf1,
     autoComplete: {
       data: ysList2
+    },
+    style: {
+      minWidth: '25px',
+      maxWidth: '25px',
     },
     name: "哭声"
   },
@@ -108,6 +122,10 @@ export default [{
     autoComplete: {
       data: ysList3
     },
+    style: {
+      minWidth: '25px',
+      maxWidth: '25px',
+    },
     name: "肌张力"
   },
   {
@@ -116,6 +134,10 @@ export default [{
     event: keyf1,
     autoComplete: {
       data: ysList4
+    },
+    style: {
+      minWidth: '50px',
+      maxWidth: '50px',
     },
     name: "皮肤"
   },
@@ -135,6 +157,10 @@ export default [{
     autoComplete: {
       data: ysList6
     },
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
     name: "末梢"
   },
   {
@@ -144,25 +170,41 @@ export default [{
     autoComplete: {
       data: ysList7
     },
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
     name: "方式"
   },
   {
     key: "fieldEight", //意识
     value: "",
     event: keyf1,
-    name: "流量"
+    name: "流量",
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
   },
   {
     key: "fieldNine", //意识
     value: "",
     event: keyf1,
-    name: "痰色"
+    name: "痰色",
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
   },
   {
     key: "fieldTen", //意识
     value: "",
     event: keyf1,
-    name: "量"
+    name: "量",
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
   },
   {
     key: "fieldEleven", //意识
@@ -172,36 +214,60 @@ export default [{
     autoComplete: {
       data: ysList8
     },
+    style: {
+      minWidth: '25px',
+      maxWidth: '25px',
+    },
   },
   {
     key: "fieldTwelve", //意识
     value: "",
     event: keyf1,
-    name: "胃管深度"
+    name: "胃管深度",
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
   },
   {
     key: "fieldThirteen", //意识
     value: "",
     event: keyf1,
-    name: "母乳"
+    name: "母乳",
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
   },
   {
     key: "fieldFourteen", //意识
     value: "",
     event: keyf1,
-    name: "水"
+    name: "水",
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
   },
   {
     key: "fieldFifteen", //意识
     value: "",
     event: keyf1,
-    name: "呕吐"
+    name: "呕吐",
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
   },
   {
     key: "fieldSixteen", //意识
     value: "",
     event: keyf1,
-    name: "量"
+    name: "量",
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
   },
   {
     key: "fieldSeventeen", //意识
@@ -216,7 +282,11 @@ export default [{
     key: "fieldEighteen", //意识
     value: "",
     event: keyf1,
-    name: "量"
+    name: "量",
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
+    },
   },
   {
     key: "fieldNineteen", //意识
@@ -225,6 +295,10 @@ export default [{
     name: "颜色",
     autoComplete: {
       data: ysList10
+    },
+    style: {
+      minWidth: '40px',
+      maxWidth: '40px',
     },
   },
   {
@@ -250,6 +324,10 @@ export default [{
     autoComplete: {
       data: ysList12
     },
+    style: {
+      minWidth: "100px",
+      maxWidth: "100px"
+    },
   },
   {
     key: "description", //护理记录
@@ -260,7 +338,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      minWidth: "180px",
+      minWidth: "150px",
       background: "transparent"
     },
     event: function (e, td) {

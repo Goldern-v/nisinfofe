@@ -6,7 +6,7 @@
           class="date-picker"
           type="date"
           size="small"
-          style="width: 130px"
+          style="width: 110px"
           format="yyyy-MM-dd"
           placeholder="选择日期"
           v-model="query.entryDate"
@@ -18,8 +18,10 @@
             value-format="HH:mm"
             format="HH:mm"
             ref="timeSelect"
-            @blur="changeDate"
             @change="changeVal"
+            @blur="changeDate"
+          @focus="getSelectionStart"
+          @keydown.native="getSelectionStartInput"
             :picker-options="{
               start: '02:00',
               step: '04:00',
@@ -142,6 +144,7 @@
                       : 'rowBox'
                   "
                   v-for="(j, index, i) in baseMultiDictList"
+                  class="pathological"
                   :key="index"
                 >
                   <div class="rowItemText">
@@ -244,6 +247,7 @@
                         : 'rowBox'
                     "
                     v-for="(j, index, i) in otherMultiDictList"
+                    class="otherPathological"
                     :key="index"
                   >
                     <div class="rowItemText">
@@ -335,6 +339,7 @@
                   <div
                     :class="(h - 1) % 2 === 0 ? 'rowBoxRight' : 'rowBox'"
                     v-for="(i, index, h) in fieldList"
+
                     :key="index"
                   >
                     <div>
@@ -595,6 +600,41 @@ export default {
     }
   },
   methods: {
+    getSelectionStartInput(e) {
+      if (e.target.value.length >= "2" && e.target.value.indexOf(":") == -1 && e.keyCode != 8) {
+        setTimeout(() => {
+          e.target.value = this.insert_flg(e.target.value, ":");
+        }, 10);
+      }
+      const smallKeyCode = [96, 105]
+      const numberKeyCode = [48, 57]
+      //如果按的是数字，说明在录入时间 录完前面给他定位到后面
+      if ((e.keyCode >= smallKeyCode[0] && e.keyCode <= smallKeyCode[1]) || (e.keyCode >= numberKeyCode[0] && e.keyCode <= numberKeyCode[1])) {
+        if (e.target.value) {
+          const input = e.target;
+          setTimeout(() => {
+            input.focus();
+            if (input.selectionStart == 2) {
+              input.setSelectionRange(3, 6);
+            }
+          });
+          setTimeout(()=>{
+      e.target.value = e.target.value.substring(0, 5);
+      if(e.target.value.length==5)
+      this.changeDate(this.$refs.timeSelect)
+          }, 100)
+        }
+      }
+    },
+    //聚焦默认聚焦前两个字符串
+    getSelectionStart(e){
+      const input = e.$el.children[1]
+      setTimeout(() => {
+        input.focus()
+        if ((input.selectionStart == 0 && input.selectionEnd == 0) || (input.selectionStart == 5 && input.selectionEnd == 5))
+          input.setSelectionRange(0, 2)
+        })
+    },
     handleChange(val) {
       // console.log(val);
     },
@@ -663,25 +703,29 @@ export default {
     },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
-        let inputListLength = document.getElementsByClassName("rowBox").length;
-        if (Number(e.target.id) < inputListLength) {
-          switch (Number(e.target.id)) {
-            case 6:
-              document.getElementById("12").focus();
-            case 12:
-              document.getElementById("16").focus();
-            default:
-              document.getElementById(Number(e.target.id) + 1).focus();
-          }
-        } else if (Number(e.target.id) === inputListLength) {
+        let baseLength = document.getElementsByClassName("pathological").length;
+        let otherLength =
+          document.getElementsByClassName("otherPathological").length;
+        this.otherDicListLength = otherLength;
+        if (Number(e.target.id) < baseLength) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if (Number(e.target.id) === baseLength) {
           document.getElementById("100").focus();
+        } else if (
+          Number(e.target.id) > baseLength &&
+          Number(e.target.id) < otherLength + 100 - 1
+        ) {
+          document.getElementById(Number(e.target.id) + 1).focus();
+        } else if(Number(e.target.id)==otherLength + 100 - 1){
+          document.getElementById("1000").focus();
         }
+
       } else {
         let inputListLength =
           document.getElementsByClassName("fieldClass").length;
-        if (Number(e.target.id) < inputListLength + 100 - 1) {
+        if (Number(e.target.id) < inputListLength + 1000 - 1) {
           document.getElementById(Number(e.target.id) + 1).focus();
-        } else if (Number(e.target.id) === inputListLength + 100 - 1) {
+        } else if (Number(e.target.id) === inputListLength + 1000 - 1) {
           document.getElementById("1").focus();
         }
       }
@@ -773,13 +817,20 @@ export default {
         input[i].style.outline = "";
       }
     },
+    insert_flg(str, flg) {
+      str = str.replace(flg, "");
+      str = str.replace(/(.{2})/, `$1${flg}`);
+      return str;
+    },
     //时间组件失去焦点
     changeDate(val) {
-      let numberVal = val.$el.children[1].value;
-      // if(!moment(numberVal,"HH:mm",true).isValid()) {
-      //     this.$message.error("请输入正确时间数值，例如23:25, 2325");
-      //     return false;
-      // }
+      let numberVal
+      if (val.$el.children[1].value.includes('：') || val.$el.children[1].value.includes('；') || val.$el.children[1].value.includes(';')) {
+        numberVal = val.$el.children[1].value.replace('：', ':').replace('；', ':').replace(';', ':');
+        this.dateInp = numberVal
+      } else {
+        numberVal = val.$el.children[1].value
+      }
       if (
         (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
         (numberVal.indexOf(":") != -1 && numberVal.length == 5)
@@ -788,19 +839,28 @@ export default {
           numberVal.indexOf(":") == -1
             ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
             : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
-        // if(!moment(numberVal,"HH:mm",true).isValid()) {
-        //   this.$message.error("请输入正确时间数值，例如23:25, 2325");
-        //   return false;
-        // }
         let [hours, min] = time.split(":");
-        if (0 <= hours && hours <= 24 && 0 <= min && min <= 59) {
+        if (0 < hours && hours < 24 && 0 <= min && min <= 59) {
           this.query.entryTime = time + ":00";
           this.dateInp = time;
         } else {
           this.$message.error("请输入正确时间数值，例如23:25, 2325");
+          val.$el.children[1].focus()
+          if(hours >= 24){
+            val.$el.children[1].setSelectionRange(0,2)
+          }else{
+            val.$el.children[1].setSelectionRange(3,6)
+          }
         }
+      } else if (numberVal.indexOf(":") != -1 && numberVal.length <= 4) {
+        let [hours, min] = numberVal.split(":");
+        if (hours < 10 && hours.toString().length < 2) hours = `0${hours}`
+        if (min < 10 && min.toString().length < 2) min = `0${min}`
+        this.query.entryTime = `${hours}:${min}:00`
+        this.dateInp = `${hours}:${min}`;
       } else {
         this.query.entryTime = val.$el.children[1].value;
+        this.dateInp = val.$el.children[1].value;;
       }
     },
     // 下拉选项触发查询
@@ -895,9 +955,11 @@ export default {
           data[item.vitalSign] = item.vitalCode;
           switch (item.signType) {
             case "base":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
               break;
             case "other":
+            if(!["表顶注释","表底注释"].includes(item.vitalSign))
               otherDic[item.vitalSign] = item.vitalCode;
               break;
             default:
