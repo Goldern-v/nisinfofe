@@ -245,6 +245,7 @@ export default {
       !window.location.href.includes("otherPage") &&
       !window.location.href.includes("nursingDoc") &&
       !window.location.href.includes("showPatientDetails") &&
+      !window.location.href.includes("bottleLabelByProgram") &&
       (window.onbeforeunload = function(event) {
         console.log(event, "eventevent");
         return confirm("");
