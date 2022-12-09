@@ -2125,7 +2125,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "nurse_jew"||this.sheetInfo.sheetType === "danger_nurse_jew") {
+            } else if (this.sheetInfo.sheetType === "nurse_jew"||this.sheetInfo.sheetType === "danger_nurse_jew"||this.sheetInfo.sheetType === "NICU_fs") {
               if (GetLength(text) > 34) {
                 result.push(text);
                 text = allDoc[i];
