@@ -215,8 +215,7 @@
             "
           ></masked-input>
           <div
-            v-else-if="
-              (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'||HOSPITAL_ID === 'liaocheng') &&
+            v-else-if="['huadu', 'fuyou', 'liaocheng', 'zhzxy'].includes(HOSPITAL_ID) &&
               td.key == 'sign2'
             "
             class="sign-text"
@@ -267,6 +266,7 @@
                   sheetInfo.sheetType === 'postpartum_hd' ||
                   sheetInfo.sheetType === 'neurosurgery_hd' ||
                   sheetInfo.sheetType === 'wait_delivery_hd' ||
+                  sheetInfo.sheetType === 'wait_delivery_zhzxy' ||
                   sheetInfo.sheetType === 'neonatology_hd' ||
                   sheetInfo.sheetType === 'neonatology2_hd' ||
                   sheetInfo.sheetType === 'prenatal_hd' ||
@@ -730,6 +730,7 @@ export default {
         "common_hd",
         "stress_injury_hd",
         "wait_delivery_hd",
+        "wait_delivery_zhzxy",
         "neurosurgery_hd",
         "neonatology_hd",
         "neonatology2_hd",
@@ -783,6 +784,7 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
+        "wait_delivery_zhzxy", // 珠海中西医_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
@@ -1023,7 +1025,7 @@ export default {
         if((td.key === 'bloodPressure') && td.value !== ''&&!td.value.split('/')[1]){
           td.value ='';
         }
-        if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1] 
+        if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1]
         ||(td.value.split('/')[0]>250||td.value.split('/')[0]<50)||td.value.split('/')[1]>200||td.value.split('/')[1]<0)){
           confirmRes = await this.$confirm(
             td.name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",
