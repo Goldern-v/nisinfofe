@@ -883,10 +883,10 @@ export default {
       // const printCare = document.querySelectorAll(".printCare")
       // console.log(printCare)
       if (
-        (['lyxrm', 'whhk'].includes(this.HOSPITAL_ID) &&
+        (['lyxrm'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post == "护长") ||
-        !['lyxrm', 'whhk'].includes(this.HOSPITAL_ID)
+        !['lyxrm'].includes(this.HOSPITAL_ID)
       ) {
         this.isOpen();
       }
