@@ -807,7 +807,6 @@ export default {
     //防抖函数 60S内只能点击一次
     throttleSyncGetNursePatientRecData: _throttle('syncGetNursePatientRecData',getThrottleTime),
     syncGetNursePatientRecData(){
-      console.log('您触发了同步患者数据请求')
       this.loading = true
       let syncPatientData = syncGetNursePatientWHFKRecData;
       switch (this.HOSPITAL_ID) {

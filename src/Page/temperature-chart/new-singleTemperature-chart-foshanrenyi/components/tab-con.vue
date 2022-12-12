@@ -21,6 +21,8 @@
             ref="timeSelect"
             @blur="changeDate"
             @change="changeVal"
+          @focus="getSelectionStart"
+          @keydown.native="getSelectionStartInput"
             :picker-options="{
               start: '02:00',
               step: '04:00',
@@ -796,6 +798,46 @@ export default {
         input[i].style.outline = "";
       }
     },
+    getSelectionStartInput(e) {
+      if (e.target.value.length >= "2" && e.target.value.indexOf(":") == -1 && e.keyCode != 8) {
+        setTimeout(() => {
+          e.target.value = this.insert_flg(e.target.value, ":");
+        }, 10);
+      }
+      const smallKeyCode = [96, 105]
+      const numberKeyCode = [48, 57]
+      //如果按的是数字，说明在录入时间 录完前面给他定位到后面
+      if ((e.keyCode >= smallKeyCode[0] && e.keyCode <= smallKeyCode[1]) || (e.keyCode >= numberKeyCode[0] && e.keyCode <= numberKeyCode[1])) {
+        if (e.target.value) {
+          const input = e.target;
+          setTimeout(() => {
+            input.focus();
+            if (input.selectionStart == 2) {
+              input.setSelectionRange(3, 6);
+            }
+          });
+          setTimeout(()=>{
+      e.target.value = e.target.value.substring(0, 5);
+      if(e.target.value.length==5)
+      this.changeDate(this.$refs.timeSelect)
+          }, 100)
+        }
+      }
+    },
+    insert_flg(str, flg) {
+      str = str.replace(flg, "");
+      str = str.replace(/(.{2})/, `$1${flg}`);
+      return str;
+    },
+    //聚焦默认聚焦前两个字符串
+    getSelectionStart(e) {
+      const input = e.$el.children[1]
+      setTimeout(() => {
+        input.focus()
+        if ((input.selectionStart == 0 && input.selectionEnd == 0) || (input.selectionStart == 5 && input.selectionEnd == 5))
+          input.setSelectionRange(0, 2)
+      })
+    },
     //时间组件失去焦点
     changeDate(val) {
       let numberVal
@@ -819,6 +861,12 @@ export default {
           this.dateInp = time;
         } else {
           this.$message.error("请输入正确时间数值，例如23:25, 2325");
+          val.$el.children[1].focus()
+          if(hours >= 24){
+            val.$el.children[1].setSelectionRange(0,2)
+          }else{
+            val.$el.children[1].setSelectionRange(3,6)
+          }
         }
       } else if (numberVal.indexOf(":") != -1 && numberVal.length <= 4) {
         let [hours, min] = numberVal.split(":");

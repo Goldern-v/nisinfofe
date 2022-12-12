@@ -406,7 +406,7 @@
 }
 .huaduStyle{
   position:relative;
-  left:-20px;
+  left:-30px;
 }
 .bed-card-vertical {
   // display: none;

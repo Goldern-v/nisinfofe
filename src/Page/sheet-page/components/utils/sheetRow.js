@@ -33,7 +33,7 @@ export function getRowNum(index) {
     return 15;
   } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc" || sheetInfo.sheetType == "ops_linyi" || sheetInfo.sheetType == "premiumcare_ytll") {
     return 26;
-  } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj" || sheetInfo.sheetType == "iabp_fs") {
+  } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj" || sheetInfo.sheetType == "iabp_fs" || sheetInfo.sheetType == "labor_con_ytll"|| sheetInfo.sheetType == "labor_ytll") {
     return 33;
   } else if (sheetInfo.sheetType == "icu_lc") {
     return 22;

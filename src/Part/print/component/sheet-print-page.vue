@@ -311,7 +311,8 @@ export default {
        ||this.HOSPITAL_ID==="zhzxy"
        ||this.HOSPITAL_ID==="lyxrm"
        ||this.HOSPITAL_ID==="huadu"
-       ||this.HOSPITAL_ID==='whsl'){
+       ||this.HOSPITAL_ID==='whsl'
+       ||this.HOSPITAL_ID==='925'){
       printDir("h");
             addCSS(
               window,
@@ -601,21 +602,6 @@ export default {
       );
     }
     if (
-      (this.HOSPITAL_ID === "925")
-    ) {
-      addCSS(
-        window,
-        `
-           @media print {
-             @page{
-                 margin:10px 0 0 10px;
-             }
-        }
-
-        `
-      );
-    }
-    if (
       (this.HOSPITAL_ID === "gdtj")
     ) {
 
@@ -699,6 +685,23 @@ export default {
            #sheetPagePrint#sheetPagePrint th[dataname='核对者']{
             display:none !important;
           }
+        `
+      );
+    }
+     if (
+      (this.HOSPITAL_ID === "925")
+    ) {
+       printDir("h");
+       addCSS(
+        window,
+        `
+           @media print {
+             @page{
+                 padding:10px 0 0 10px;
+
+            }
+        }
+
         `
       );
     }

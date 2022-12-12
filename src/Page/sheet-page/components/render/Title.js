@@ -2204,6 +2204,20 @@ export default function Title(
     );
   }
   break;
+  case "labor_ytll": {
+    // 烟台玲珑-产程记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_ytll/th").default)
+    );
+  }
+  break;
+  case "labor_con_ytll": {
+    // 烟台玲珑-产程记录单(续页)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_con_ytll/th").default)
+    );
+  }
+  break;
   case "test_common": {
     // 护理记录单（测试用）
     Th = JSON.parse(
