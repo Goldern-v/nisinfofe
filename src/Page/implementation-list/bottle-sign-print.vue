@@ -552,7 +552,7 @@ export default {
             { label: "已打印", value: 1 },
             { label: "未打印", value: 0 },
           ],
-          fsxt: [
+          'fsxt,whsl': [
             { label: "全部", value: 9 },
             { label: "是", value: 1 },
             { label: "否", value: 0 },
@@ -1086,10 +1086,11 @@ export default {
         case "gdtj":
           return "NewPrintModalFsxt";
         case "lyxrm":
-        case "whhk":
+       
         // case "zhzxy":
         case "925":
           return "NewPrintModalLyxrm";
+        case "whhk":
         case "whfk":
         case "whsl":
           return "NewPrintModalWhfk";
