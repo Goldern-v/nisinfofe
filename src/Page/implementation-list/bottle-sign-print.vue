@@ -447,7 +447,7 @@ export default {
       },
       multiItemType: ["输液"],
       // 是否医嘱分类使用多选
-      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl"].includes(
+      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl","ytll"].includes(
         this.HOSPITAL_ID
       ),
       selectedData: [], //选中打印执行单条数
@@ -1156,7 +1156,7 @@ export default {
     },
     /**床号多选 */
     multiBed() {
-      return ["lyxrm", "zhzxy", "925"].includes(this.HOSPITAL_ID);
+      return ["lyxrm", "zhzxy", "925", "ytll"].includes(this.HOSPITAL_ID);
     },
     // 瓶签是否分页 超过多少条开始分
     printPagingNo() {
