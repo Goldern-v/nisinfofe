@@ -300,6 +300,28 @@ export default {
       }
     },
     sign(item){
+      let strObj = {
+        recordDate:moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00",
+        sugarItem:item.sugarItem,
+        sugarValue:item.sugarValue
+      }
+      let SigndataObj = {
+        Patient_ID:this.patientInfo.patientId,
+        Visit_ID:this.patientInfo.visitId,
+        Document_Title:"血糖记录单",
+        Document_ID:"sugar",
+        Section_ID:this.patientInfo.wardCode,
+        strSignData: JSON.stringify(strObj),
+      };
+       let verifySignObj = {
+        patientId:this.patientInfo.patientId,
+        visitId:this.patientInfo.visitId,
+        formName:"血糖记录单",
+        formCode:"sugar",
+        instanceId:this.patientInfo.wardCode,
+        recordId:"",
+        signData:JSON.stringify(strObj),
+      }
      window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then(async(res) => {
           this.activeEmpNo=res.data.data.empNo
@@ -365,7 +387,7 @@ export default {
           this.$emit("uploadList")
           this.$message.success("保存成功");
         });
-      });
+      },undefined,false,undefined,'',undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
     },
     async load() {
       this.pageLoading = true;
