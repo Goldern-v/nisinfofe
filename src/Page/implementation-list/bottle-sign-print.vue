@@ -447,7 +447,7 @@ export default {
       },
       multiItemType: ["输液"],
       // 是否医嘱分类使用多选
-      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl"].includes(
+      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl","ytll"].includes(
         this.HOSPITAL_ID
       ),
       selectedData: [], //选中打印执行单条数
@@ -552,7 +552,7 @@ export default {
             { label: "已打印", value: 1 },
             { label: "未打印", value: 0 },
           ],
-          fsxt: [
+          'fsxt,whsl': [
             { label: "全部", value: 9 },
             { label: "是", value: 1 },
             { label: "否", value: 0 },
@@ -1086,10 +1086,11 @@ export default {
         case "gdtj":
           return "NewPrintModalFsxt";
         case "lyxrm":
-        case "whhk":
+       
         // case "zhzxy":
         case "925":
           return "NewPrintModalLyxrm";
+        case "whhk":
         case "whfk":
         case "whsl":
           return "NewPrintModalWhfk";
@@ -1155,7 +1156,7 @@ export default {
     },
     /**床号多选 */
     multiBed() {
-      return ["lyxrm", "zhzxy", "925"].includes(this.HOSPITAL_ID);
+      return ["lyxrm", "zhzxy", "925", "ytll"].includes(this.HOSPITAL_ID);
     },
     // 瓶签是否分页 超过多少条开始分
     printPagingNo() {

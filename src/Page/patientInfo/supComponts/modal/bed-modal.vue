@@ -264,11 +264,22 @@
           <div v-if="!isZhzxy" :class="{ 'is-xiegang': HOSPITAL_ID == 'xiegang' }" style="width: 131px">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
-            <div :class="{aliCenter:['lyxrm', 'whhk'].includes(HOSPITAL_ID)}">
+            <div  v-if="![ 'whhk'].includes(HOSPITAL_ID)" :class="{aliCenter:['lyxrm'].includes(HOSPITAL_ID)}">
               <div
                 class="tip-item-con"
                 flex="cross:center main:justify"
                 v-for="item in tipList"
+                :key="item.label"
+              >
+                <img :src="item.img" alt />
+                <span>{{ item.label }}</span>
+              </div>
+            </div>
+            <div  v-if="[ 'whhk'].includes(HOSPITAL_ID)" :class="{aliCenter:['lyxrm'].includes(HOSPITAL_ID)}">
+              <div
+                class="tip-item-con"
+                flex="cross:center main:justify"
+                v-for="item in whhktipList"
                 :key="item.label"
               >
                 <img :src="item.img" alt />
@@ -707,6 +718,24 @@ export default {
         //   label: "防止压疮",
         //   img: require("./images/Group 9.png")
         // },
+        {
+          label: "防止偷盗",
+          img: require("./images/Group 10.png")
+        }
+      ],
+      whhktipList: [
+        {
+          label: "小心跌倒",
+          img: require("./images/Group 6.png")
+        },
+        {
+          label: "小心烫伤",
+          img: require("./images/Group 7.png")
+        },
+        {
+          label: "防止压疮",
+          img: require("./images/Group 9.png")
+        },
         {
           label: "防止偷盗",
           img: require("./images/Group 10.png")
