@@ -501,7 +501,7 @@ default {
           // 厚街（手术患者交接记录单第三方查阅时可以编辑）
           let listHospital = [
               ()=> this.HOSPITAL_ID == 'hj' && (this.info.formCode == 'J0010' || this.info.formCode == 'operationInstrumentDressing'),
-              ()=> this.HOSPITAL_ID == 'zhzxy' && (this.info.formCode == 'E1928' || this.info.formCode == 'E1931'|| this.info.formCode == 'E1760'),
+              ()=> this.HOSPITAL_ID == 'zhzxy' && (this.info.formCode == 'E2157' || this.info.formCode == 'E2158'|| this.info.formCode == 'E1760'),
           ]
           if (listHospital[0]() || listHospital[1]()) {
             css = `#app input,#app label,#app td,#app .sign-con{

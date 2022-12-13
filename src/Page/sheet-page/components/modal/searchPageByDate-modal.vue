@@ -104,6 +104,8 @@ import {getPageIndex} from '../../api/index.js'
         getPageIndex(params).then((res)=>{
           if(res.data.code == 200){
             const {startIndex,endIndex} = res.data.data
+            if (startIndex == null && endIndex == null)
+            return this.$message({type: "warning",message: "查询日期无数据!",});
             if(startIndex>=0&&endIndex>=0){
               this.$message({
                 type: "success",
@@ -111,11 +113,6 @@ import {getPageIndex} from '../../api/index.js'
               });
               this.$emit('updateCallBack',{startPage:startIndex + this.sheetStartPage,endPage:endIndex + this.sheetStartPage,pageByDateFlag:true})
               this.close()
-            }else{
-              this.$message({
-                type: "warm",
-                message: "查询日期无数据",
-              });
             }
           }
         })

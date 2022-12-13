@@ -429,6 +429,7 @@
         ></el-autocomplete>
       </div>
       <div
+      class="searchPageByDate"
       flex="cross:center main:center"
       @click="searchPageByDateModal"
       >
@@ -2041,5 +2042,9 @@ export default {
   z-index: 999;
   box-shadow: -2px 0 7px -1px black; // 左边阴影;
   background-color: white;
+}
+.searchPageByDate {
+  padding:0 0 0 3px;
+  color:#606467;
 }
 </style>

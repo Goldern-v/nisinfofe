@@ -1701,6 +1701,13 @@ export default function Title(
     );
   }
   break;
+  case "wait_delivery_zhzxy": {
+    // 珠海中西医 - 候产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/wait_delivery_zhzxy/th.js").default)
+    );
+  }
+  break;
   case "pediatric3_sdlj": {
     // 顺德龙江 - 产科新生儿护理记录单
     Th = JSON.parse(

@@ -299,6 +299,7 @@ import adviceTableXiegang from "./component/adviceTable_xiegang.vue";
 import adviceTableBeihairenyi from "./component/adviceTable_beihairenyi.vue";
 import adviceTableWHFK from "./component/adviceTable_whfk.vue";
 import adviceTableSDLJ from "./component/adviceTable_sdlj.vue";
+import adviceTableWHSL from "./component/adviceTable_whsl.vue";
 import standingOrderTable from "./component/print/standingOrderTable";
 import statOrderTable from "./component/print/statOrderTable";
 import { orders, newOrders } from "@/api/patientInfo";
@@ -320,8 +321,8 @@ export default {
       data2Res:[],
       orderText:"",//模糊查询值
       searchHisList:["beihairenyi"],//有模糊查询方法医院
-      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk','ytll', '925'], // 需要添加rowType(同一医嘱内第几条记录)的医院
-      specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi', '925'], // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
+      duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk','ytll', '925', 'whsl'], // 需要添加rowType(同一医嘱内第几条记录)的医院
+      specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi', '925', 'whsl'], // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
       showPrint: ['925'].includes(this.HOSPITAL_ID),
     };
   },
@@ -399,6 +400,7 @@ export default {
     },
     currentAdviceTable() {
       // 新医院注意 可以使用adviceTableSDLJ
+      console.log('111 :>> ', 111);
       return hisMatch({
         map: {
           hengli:"adviceTableCommon",
@@ -412,7 +414,8 @@ export default {
           beihairenyi:"adviceTableBeihairenyi",
           whfk:'adviceTableWHFK',
           yangchunzhongyi:"adviceTableYc",
-          'sdlj,ytll,whsl,qhwy,zhzxy,925,gdtj':"adviceTableSDLJ",
+          'sdlj,ytll,,qhwy,zhzxy,925,gdtj':"adviceTableSDLJ",
+          whsl:"adviceTableWHSL",
           default:"adviceTable",
         }
       })
@@ -555,6 +558,7 @@ export default {
     adviceTableFy,
     adviceTableYc,
     adviceTableSDLJ,
+    adviceTableWHSL,
     standingOrderTable,
     statOrderTable,
   },
