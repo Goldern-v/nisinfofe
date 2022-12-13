@@ -1336,6 +1336,11 @@ function switchSheetType(type) {
       schema = require("../config/nursing_zhzxy/tr.js").default;
     }
     break;
+    case "wait_delivery_zhzxy": {
+      // 珠海中西医 - 候产记录单
+      schema = require("../config/wait_delivery_zhzxy/tr.js").default;
+    }
+    break;
     case "prenatal_sdlj": {
       // 顺德龙江 - 产前待产记录单
       schema = require("../config/prenatal_sdlj/tr.js").default;

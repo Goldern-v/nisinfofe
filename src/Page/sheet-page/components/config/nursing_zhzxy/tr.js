@@ -40,7 +40,7 @@ export default [
   { key: "recordHour", event: event_time, click:click_time, value: ''},
 
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: 'T', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: 'P/HR', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: 'P/HR', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SpO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
@@ -102,6 +102,7 @@ export function getListData4() {
   ];
 
   multiDictInfo(list).then(res => {
+    console.log('res',res)
     let data = res.data.data;
     setList(入量内容, "珠海中西医:护理记录单:入量内容", data);
     setList(出量内容, "珠海中西医:护理记录单:出量内容", data);
