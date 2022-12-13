@@ -400,7 +400,6 @@ export default {
     },
     currentAdviceTable() {
       // 新医院注意 可以使用adviceTableSDLJ
-      console.log('111 :>> ', 111);
       return hisMatch({
         map: {
           hengli:"adviceTableCommon",
