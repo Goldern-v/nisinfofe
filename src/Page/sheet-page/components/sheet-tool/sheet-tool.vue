@@ -260,7 +260,7 @@
         style="background: antiquewhite"
         flex="cross:center main:center"
         @click.stop="addDeputyForm"
-        v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalCode"
+        v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalCode && showDeputy"
       >
         <div class="text-con">
           {{ ['guizhou', '925'].includes(HOSPITAL_ID) ? "出入量记录单" : "切换副页" }}
@@ -1707,6 +1707,10 @@ export default {
       return (
         this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.additionalBlock
       );
+    },
+    /** 是否显示副页 */
+    showDeputy() {
+      return this.sheetInfo.sheetType !== 'wait_delivery_zhzxy'
     },
     /* 监听体温单曲线 */
     temperatureChart() {
