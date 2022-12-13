@@ -1218,7 +1218,7 @@ export default {
             ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
             : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
         let [hours, min] = time.split(":");
-        if (0 < hours && hours < 24 && 0 <= min && min <= 59) {
+        if (0 <= hours && hours < 24 && 0 <= min && min <= 59) {
           this.query.entryTime = time + ":00";
           this.dateInp = time;
         } else {
