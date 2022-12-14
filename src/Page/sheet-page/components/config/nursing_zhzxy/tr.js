@@ -40,12 +40,12 @@ export default [
   { key: "recordHour", event: event_time, click:click_time, value: ''},
 
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: 'T', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: 'P/HR', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: 'P/HR', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP', textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SpO2', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 35 }, autoComplete: {data:yishi}},
+  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', textarea: { width: 50 }, autoComplete: {data:yishi}},
   { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', autoComplete: {
     data:入量内容
     //  ['静脉输液','静脉注射','鼻饲','全血','红细胞','血小板','白蛋白','血浆','白细胞','TPN', '水','饮料','牛奶','母乳','代乳品','粉/面条','粥','云吞','水果','米饭','菜','经口入','口服','微泵']
@@ -102,6 +102,7 @@ export function getListData4() {
   ];
 
   multiDictInfo(list).then(res => {
+    console.log('res',res)
     let data = res.data.data;
     setList(入量内容, "珠海中西医:护理记录单:入量内容", data);
     setList(出量内容, "珠海中西医:护理记录单:出量内容", data);

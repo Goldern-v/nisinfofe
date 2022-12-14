@@ -38,7 +38,7 @@
           >
         </template>
       </el-table-column>
-      <el-table-column label="开始时间" min-width="135px">
+      <el-table-column label="开始时间11" min-width="135px">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
@@ -129,6 +129,21 @@
         min-width="80px"
         prop="doctorNo"
         align="center"
+        v-if="HOSPITAL_ID == 'zzwy'"
+      >
+        <template slot-scope="scope">
+          <span
+            :class="type(scope.row.orderStatusName)"
+            >{{ scope.row.doctorNo }}</span
+          >
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="开始医生"
+        min-width="80px"
+        prop="doctorNo"
+        align="center"
+        v-if="HOSPITAL_ID != 'zzwy'"
       >
         <template slot-scope="scope">
           <span

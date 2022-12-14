@@ -267,6 +267,15 @@
                 class="bottom-line"
                 style="font-size: 26px"
                 v-model="formData.dutyNurses"
+                @focus="
+                    onFocusToAutoComplete($event, {
+                      autoComplete: nurseList,
+                      obj: formData,
+                      key: 'dutyNurses',
+                      onlyOne:true
+                    })
+                  "
+                @blur="onBlurToAutoComplete"
               />
             </div>
             <div
@@ -591,7 +600,7 @@ import print from "./tool/print_wujing";
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
-import { multiDictInfo } from "@/api/common";
+import { multiDictInfo,getAllNurseNamePinyin } from "@/api/common";
 export default {
   data() {
     return {
@@ -625,7 +634,8 @@ export default {
         remark: "",
         remarkPrint: true
       },
-      ysList: []
+      ysList: [],
+      nurseList:[]
     };
   },
   computed: {
@@ -638,6 +648,7 @@ export default {
   },
   methods: {
     init() {
+      console.log(this.query,'this.query')
       this.formData = {
         diet: "",
         registCare: [],
@@ -677,6 +688,9 @@ export default {
       });
       multiDictInfo(["床头卡饮食"]).then(res => {
         this.ysList = res.data.data.床头卡饮食.map(item => item.name);
+      });
+      getAllNurseNamePinyin([this.query.wardCode]).then(res => {
+        this.nurseList = res.data.data
       });
     },
     getRegistCare() {
@@ -810,7 +824,7 @@ export default {
           top: top
         };
       }
-      let { autoComplete, obj, key } = bind;
+      let { autoComplete, obj, key,onlyOne } = bind;
       let xy = offset(e.target);
 
       console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
@@ -823,12 +837,17 @@ export default {
           },
           data: autoComplete,
           callback: function(data) {
-            console.log(data, "data");
             if (data) {
-              if (obj[key]) {
-                obj[key] += "," + data;
-              } else {
-                obj[key] += data;
+              if(onlyOne){
+                // 只能选唯一
+                obj[key] = data
+              }else{
+                //只是拼接
+                if (obj[key]) {
+                  obj[key] += "," + data;
+                } else {
+                  obj[key] += data;
+                }
               }
             }
           },

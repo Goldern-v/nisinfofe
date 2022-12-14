@@ -389,6 +389,13 @@ export default function Title(
     );
   }
   break;
+  case "nursing_dglb": {
+    // 东莞寮步-护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_dglb/th").default)
+    );
+  }
+  break;
   case "picc_maintenance_hd": {
     // 花都-PICC维护记录单
     Th = JSON.parse(
@@ -1701,6 +1708,13 @@ export default function Title(
     );
   }
   break;
+  case "wait_delivery_zhzxy": {
+    // 珠海中西医 - 候产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/wait_delivery_zhzxy/th.js").default)
+    );
+  }
+  break;
   case "pediatric3_sdlj": {
     // 顺德龙江 - 产科新生儿护理记录单
     Th = JSON.parse(
@@ -2194,6 +2208,20 @@ export default function Title(
     // 烟台玲珑-病重（病危）患者评估与护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/seriousnursing_ytll/th").default)
+    );
+  }
+  break;
+  case "labor_ytll": {
+    // 烟台玲珑-产程记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_ytll/th").default)
+    );
+  }
+  break;
+  case "labor_con_ytll": {
+    // 烟台玲珑-产程记录单(续页)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_con_ytll/th").default)
     );
   }
   break;

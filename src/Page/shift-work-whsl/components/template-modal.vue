@@ -96,7 +96,6 @@
           this.$message.error('请输入类型')
           return
         }
-
         this.$emit('confirm', {id, title, content, type, templateType, deptCode: this.deptCode})
       }
     }
