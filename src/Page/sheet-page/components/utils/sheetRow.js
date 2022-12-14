@@ -71,11 +71,11 @@ export function getRowNum(index) {
     return 28
   } else if (sheetInfo.sheetType === 'mechanical_sdlj'||sheetInfo.sheetType === 'custody_yz') {
     return 33
-  } else if ( sheetInfo.sheetType === 'magnesium_lcey' || sheetInfo.sheetType == "seriousnursing_ytll") {
+  } else if ( sheetInfo.sheetType === 'magnesium_lcey') {
     return 24
   }else if ( sheetInfo.sheetType === 'record_children_serious2_lc'||sheetInfo.sheetType === sheetInfo.sheetType === 'generalnursing_tj') {
     return 19
-  }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz'  ) {
+  }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz' || sheetInfo.sheetType == "seriousnursing_ytll" ) {
     return 21
   }else if (sheetInfo.sheetType === 'neonate_sdlj') {
     return 18

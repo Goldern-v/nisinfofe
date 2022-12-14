@@ -126,7 +126,7 @@ import {
       },
     },
     {
-      key: "field9", // 瞳孔mm/对光反应 左2
+      key: "filed4", // 瞳孔mm/对光反应 左2
       value: "",
       event: keyf1,
       autoComplete: {

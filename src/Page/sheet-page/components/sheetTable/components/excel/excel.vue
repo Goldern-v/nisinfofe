@@ -2402,7 +2402,7 @@ export default {
     },
     openEditModal(tr, data, e) {
       // 花都副页关闭编辑框
-      if(this.sheetInfo.sheetType=='additional_count_hd' || this.sheetInfo.sheetType=='inandout_weihai'){
+      if(this.sheetInfo.sheetType=='additional_count_hd' || this.sheetInfo.sheetType=='inandout_weihai' || this.sheetInfo.sheetType=='inout_ytll'){
         return
       }
       this.isOpenEditModal = true;
