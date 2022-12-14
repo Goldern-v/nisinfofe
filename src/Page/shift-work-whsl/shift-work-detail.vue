@@ -1053,6 +1053,7 @@ export default {
       this.$refs.patientModal.open();
     },
     onPatientModalConfirm(data) {
+      console.log(data,'data')
       const selectedRow = this.$refs.table.selectedRow;
       const isExisted = this.patients.find(
         p =>

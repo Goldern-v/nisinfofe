@@ -16,7 +16,7 @@
         <TemplateItem
           v-for="item of filteredlist"
           :key="item.id"
-          :data="item"
+          :listData="item"
           @click="onItemClick"
           @edit="onItemEdit"
           @remove="onItemRemove"
@@ -50,7 +50,7 @@ export default {
   }),
   computed: {
     filteredlist() {
-      const title = this.title.trim();
+      const title = this.title.trim() || '';
       return this.list.filter(item => {
         return item.title.includes(title) || item.content.includes(title);
       });
@@ -65,7 +65,6 @@ export default {
   methods: {
     async load() {
       if (!this.visible) return;
-
       const res = await apis.listTemplate(this.deptCode, "", this.tab, "");
       this.list = res.data.data;
       this.title = "";
@@ -88,6 +87,7 @@ export default {
       this.$refs.templateModal.open();
     },
     async onTemplateModalConfirm(form) {
+      console.log(form);
       await apis.updateTemplate(form);
       this.$refs.templateModal.close();
       this.load();

@@ -9,11 +9,7 @@
       :height="height()"
       class="advice-table"
       v-loading="tableLoading"
-      @selection-change="(e) => $emit('handleCheckbox', e)"
     >
-      <el-table-column
-        v-if="isMulti"
-        type="selection" />
       <el-table-column
         fixed
         label="医嘱号"
@@ -24,7 +20,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.orderNo }}</span
           >
         </template>
@@ -33,16 +29,16 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.orderNo }}</span
           >
         </template>
       </el-table-column>
-      <el-table-column label="开始时间11" min-width="135px">
+      <el-table-column label="开始时间" min-width="135px">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.startDate }}</span
           >
         </template>
@@ -75,7 +71,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.administration }}</span
           >
         </template>
@@ -89,7 +85,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.frequency }}</span
           >
         </template>
@@ -110,7 +106,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.performSchedule }}</span
           >
         </template>
@@ -119,7 +115,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.freqDetail }}</span
           >
         </template>
@@ -129,26 +125,11 @@
         min-width="80px"
         prop="doctorNo"
         align="center"
-        v-if="HOSPITAL_ID == 'zzwy'"
       >
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            >{{ scope.row.doctorNo }}</span
-          >
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="开始医生"
-        min-width="80px"
-        prop="doctorNo"
-        align="center"
-        v-if="HOSPITAL_ID != 'zzwy'"
-      >
-        <template slot-scope="scope">
-          <span
-            :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.doctorNo }}</span
           >
         </template>
@@ -162,7 +143,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.nurse }}</span
           >
         </template>
@@ -176,7 +157,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.orderStatusName }}</span
           >
         </template>
@@ -190,7 +171,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.stopDate }}</span
           >
         </template>
@@ -204,7 +185,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.stopDoctor }}</span
           >
         </template>
@@ -218,7 +199,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.stopNurse }}</span
           >
         </template>
@@ -227,7 +208,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.skinWay }}</span
           >
         </template>
@@ -236,7 +217,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.skinResult }}</span
           >
         </template>
@@ -245,7 +226,7 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
+             v-show="Number(scope.row.rowType)== 1"
             >{{ scope.row.skinDate }}</span
           >
         </template>
@@ -316,14 +297,6 @@ export default {
   props: {
     tableData: Array,
     tableLoading: Boolean,
-    isMulti: {
-      type: Boolean,
-      default: false,
-    },
-    handleCheckbox: {
-      type: Function,
-      default: (e)=> {},
-    },
   },
   data() {
     return {};

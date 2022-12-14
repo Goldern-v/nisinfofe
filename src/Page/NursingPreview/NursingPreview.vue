@@ -73,7 +73,7 @@
   .right-part {
     margin-left: 240px;
     overflow: auto;
-    height: 100 -10vh !important;
+    height: 100vh !important;
   }
 }
 </style>
