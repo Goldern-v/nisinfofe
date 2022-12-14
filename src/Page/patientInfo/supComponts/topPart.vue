@@ -174,8 +174,18 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
+      <!-- <router-link  
+        v-if="['dglb'].includes(HOSPITAL_ID)" 
+        :to="{
+          path: '/dev',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">手术</div>
+      </router-link> -->
       <router-link
-        v-if="['fsxt'].includes(HOSPITAL_ID)"
+        v-if="['fsxt','dglb'].includes(HOSPITAL_ID)"
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }

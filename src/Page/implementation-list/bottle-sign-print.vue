@@ -81,7 +81,7 @@
             v-model="bedLabels"
             placeholder="请选择"
             size="small"
-            style="width: 130px"
+            :style="HOSPITAL_ID == 'ytll' ? 'width:220px' : 'width:130px'"
             multiple
             @change="search"
           >
