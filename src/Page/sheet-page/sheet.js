@@ -184,6 +184,8 @@ export function delSheetPage(index, callback) {
     }
     // 佛医护记单除特殊情况以及同一记录的第一条其余填写保存后锁定
     if (process.env.HOSPITAL_ID === "foshanrenyi") {
+      // 佛山医院表示禁用掉该功能  禅道ID 14369
+      return false
       // 如果审核完，canModify = false 全部禁用
       if (
         listData[nowX] &&
@@ -202,16 +204,6 @@ export function delSheetPage(index, callback) {
           td.key != "description"
         );
       }
-    }
-    // 如果审核完，canModify=false才禁用
-    if (
-      process.env.HOSPITAL_ID === "foshanrenyi" &&
-      listData &&
-      listData[nowX] &&
-      listData[nowX].status == 2 &&
-      !listData[nowX].canModify
-    ) {
-      return true;
     }
     if (
       process.env.HOSPITAL_ID === "gdtj" &&
@@ -311,7 +303,10 @@ export function delSheetPage(index, callback) {
     }
     // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
   let setSignDiabled=function(td, nowX ,listData) {
+
       if (process.env.HOSPITAL_ID == 'foshanrenyi') {
+        // 佛山人医表示取消该功能 禅道ID 14369
+        return false
         const lastIndex = findLastIndex(
           listData,
           item => item && listData[nowX] && item.recordDate == listData[nowX].recordDate

@@ -30,7 +30,7 @@
         >
           <span class="label">医嘱类型：</span>
           <el-select
-            v-model="yizhuTypeItem"
+            v-model="executeType"
             placeholder="请选择"
             size="small"
             style="width: 150px"
@@ -61,7 +61,7 @@
         >
           <span class="label">类型：</span>
           <el-select
-            v-model="executeType"
+            v-model="yizhuTypeItem"
             placeholder="请选择"
             size="small"
             style="width: 150px"
