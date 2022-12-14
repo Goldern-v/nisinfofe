@@ -390,6 +390,11 @@ function switchSheetType(type) {
       schema = require("../config/common_hd/tr.js").default;
     }
       break;
+    case "nursing_dglb": {
+      // 东莞寮步-护理记录单
+      schema = require("../config/nursing_dglb/tr.js").default;
+    }
+      break;
     case "picc_maintenance_hd": {
       // 花都-PICC维护记录单
       schema = require("../config/picc_maintenance_hd/tr.js").default;

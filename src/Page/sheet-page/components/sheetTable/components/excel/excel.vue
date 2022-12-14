@@ -532,6 +532,7 @@
             sheetInfo.sheetType == 'icu_lc' ||
             sheetInfo.sheetType == 'Record_Children_Serious_Lc' ||
             sheetInfo.sheetType == 'common_hd' ||
+            sheetInfo.sheetType == 'nursing_dglb' ||
             sheetInfo.sheetType == 'neurosurgery_hd' ||
             sheetInfo.sheetType == 'stress_injury_hd' ||
             sheetInfo.sheetType == 'common_sn' ||
@@ -728,6 +729,7 @@ export default {
         "com_lc",
         "icu_lc",
         "common_hd",
+        'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
         "wait_delivery_zhzxy",
