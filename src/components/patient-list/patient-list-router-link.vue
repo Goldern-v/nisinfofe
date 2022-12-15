@@ -308,7 +308,7 @@ export default {
       bedList: [],
       baseBedList: [],
       //需要患者列表中增加护理等级显示的医院
-      nursingClassList: ['guizhou'],
+      nursingClassList: ['guizhou','foshanrenyi'],
       imageBoy: require("./images/男婴.png"),
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),

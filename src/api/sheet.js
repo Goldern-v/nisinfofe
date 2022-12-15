@@ -31,8 +31,8 @@ export const saveTitle = data => {
 };
 // 护理记录单标题
 //花都体温单自定义标题的接口
-export const showTitle = (patientId, visitId) => {
-  return axios.get(`${apiPath}record/setting/list/${sheetInfo.selectBlock.id}`);
+export const showTitle = (patientId, visitId,startPageIndex,endPageIndex) => {
+  return axios.get(`${apiPath}record/setting/list/${sheetInfo.selectBlock.id}?startPageIndex=${startPageIndex}&endPageIndex=${endPageIndex}`);
 };
 // 护理记录单签名
 export const sign = (patientId, visitId, data) => {
