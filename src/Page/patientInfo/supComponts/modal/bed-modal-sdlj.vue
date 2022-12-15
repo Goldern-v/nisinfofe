@@ -53,7 +53,7 @@
               <div class="bedNum">{{query.bedLabel + '床'}}</div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label">{{HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')==-1?'出生时间:':'入院日期:'}}</span>
+              <span class="label">{{HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')!=-1?'出生时间:':'入院日期:'}}</span>
               <input
                 type="text"
                 nowidth
