@@ -99,11 +99,28 @@
           v-model="patientName"
         ></el-input>
         <el-input
+          v-if="HOSPITAL_ID != 'lyxrm'"
           size="small"
           style="width: 75px;margin-right: 15px;"
           placeholder="输入床号进行搜索"
           v-model="bedLabel"
         ></el-input>
+        <el-select
+            v-if="HOSPITAL_ID == 'lyxrm'"
+            v-model="bedLabels"
+            placeholder="请选择床号"
+            size="small"
+            style="width:180px"
+            multiple
+            @change="search"
+          >
+            <el-option
+              v-for="(v, i) in bedList"
+              :key="i"
+              :label="v"
+              :value="v"
+            />
+          </el-select>
         <el-input
           type="text"
           auto-complete="off"
@@ -270,7 +287,7 @@
 <script>
 import dTable from "./components/table/d-table-lyxrm-n";
 import pagination from "./components/common/pagination";
-import { getExecuteWithWardCodeLyxrm } from "./api/index";
+import { getExecuteWithWardCodeLyxrm, getBedLabelByWardCode, } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -379,6 +396,8 @@ export default {
         },
       ],
       workClassList:["白班","夜班"],
+      bedList: [],
+      bedLabels: [],
       // 核对状态
       dispenseFlag: '',
       dispenseFlagList: [
@@ -422,6 +441,12 @@ export default {
         administration: this.administration, // //途径
         dispenseFlag: this.dispenseFlag,
       };
+     
+      if (this.HOSPITAL_ID == 'lyxrm') {
+        obj.bedLabel = this.bedLabels.join(",") || "";
+      } else {
+        obj.bedLabel = this.bedLabel ? this.bedLabel : "";
+      }
 
       getExecuteWithWardCodeLyxrm(obj).then(res => {
         // let children = [],
@@ -515,6 +540,15 @@ export default {
         }
       }).catch((err)=> this.pageLoading = false);
     },
+     /**获取当前住院患者 */
+     async getBedList() {
+      try {
+        const res = await getBedLabelByWardCode(this.deptCode);
+        const { data } = res.data;
+        this.bedLabels = [];
+        this.bedList = data || [];
+      } catch (error) {}
+    },
     search() {
       this.page.pageIndex = 1;
       this.onLoad();
@@ -532,9 +566,18 @@ export default {
     this.bus.$on("loadImplementationList", () => {
       this.onLoad();
     });
+    if (this.HOSPITAL_ID == 'lyxrm') {
+      this.getBedList();
+    }
   },
   watch: {
     deptCode() {
+      if (this.HOSPITAL_ID == 'lyxrm') {
+        this.getBedList().then((res) => {
+          this.search();
+        });
+        return;
+      }
       this.search();
     },
     startDate() {

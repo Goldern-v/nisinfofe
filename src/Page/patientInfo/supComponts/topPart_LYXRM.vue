@@ -194,6 +194,20 @@
       >
         <div class="nav-item">护理巡视</div>
       </router-link>
+      <router-link
+        v-if="HOSPITAL_ID === 'lyxrm'"
+        :to="{
+          path: '/patientImplementationList',
+          query: {
+            patientId: query.patientId,
+            visitId: query.visitId,
+            bedLabel: query.bedLabel
+          }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">执行记录</div>
+      </router-link>
     </div>
     <div style="height: 50px"></div>
   </div>
