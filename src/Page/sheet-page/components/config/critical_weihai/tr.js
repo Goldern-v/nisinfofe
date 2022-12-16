@@ -6,7 +6,8 @@ import {
   event_date,
   event_time,
   click_date,
-  click_time
+  click_time,
+  click_double,
 } from "../keyEvent/date";
 
 const zdjnList = ['✓'];
@@ -30,12 +31,10 @@ export default [{
   event: keyf1,
   name: "口腔护理/会阴护理",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '32px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_double
 },
 {
   key: "bedBath",
@@ -43,12 +42,10 @@ export default [{
   event: keyf1,
   name: "床上擦浴/洗头",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '26px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_double
 },
 {
   key: "rollOver",
@@ -56,12 +53,10 @@ export default [{
   event: keyf1,
   name: "翻身/扣背",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '26px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_double
 },
 {
   key: "gasCutting",
@@ -70,7 +65,7 @@ export default [{
   name: "气切护理",
   next: "",
   textarea: {
-    width: 32
+    width: 24
   },
   autoComplete: {
     data: zdjnList
@@ -83,7 +78,7 @@ export default [{
   name: "约束护理",
   next: "",
   textarea: {
-    width: 32
+    width: 24
   },
   autoComplete: {
     data: zdjnList
@@ -122,7 +117,7 @@ export default [{
   name: "吸痰",
   next: "",
   textarea: {
-    width: 32
+    width: 26
   },
   autoComplete: {
     data: zdjnList
@@ -138,7 +133,7 @@ export default [{
     data: ['血色', '白色', '黄色', '绿色']
   },
   textarea: {
-    width: 32
+    width: 26
   },
 },
 {
@@ -151,7 +146,7 @@ export default [{
     data: ['粘稠', '稀薄']
   },
   textarea: {
-    width: 32
+    width: 26
   },
 },
 {
@@ -164,7 +159,7 @@ export default [{
     data: ['少量', '中量', '大量']
   },
   textarea: {
-    width: 32
+    width: 26
   },
 },
 {
@@ -174,7 +169,7 @@ export default [{
   name: "尿液颜色",
   next: "",
   textarea: {
-    width: 32
+    width: 26
   },
   autoComplete: {
     data:color
@@ -187,7 +182,7 @@ export default [{
   name: "大便颜色",
   next: "",
   textarea: {
-    width: 32
+    width: 26
   },
   autoComplete: {
     data:stoolColorOption
@@ -286,7 +281,7 @@ export default [{
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "150px",
+    width: "170px",
     background: "transparent"
   },
   textarea: {

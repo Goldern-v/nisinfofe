@@ -4,11 +4,36 @@ import {
   event_date,
   event_time,
   click_date,
-  click_time
+  click_time,
+  click_double,
 } from "../keyEvent/date";
 
 const zdjnList = ["✓"];
+// 动静脉置管
+const list1 = [
+  '右颈内静脉置管',
+  '右锁骨下静脉置管',
+  '左桡动脉置管',
+  '左肱动脉置管',
+  '右桡动脉置管',
+  '右肱动脉置管',
+  '右前臂静脉留置针',
+  '右手背静脉留置针',
+  '右手腕静脉留置针',
+]
+// 引流管
+const list2 = [
+  '心包/胸骨后引流管',
+  '左胸腔闭式引流管',
+  '右胸腔闭式引流管',
+  '左胸腔引流管',
+  '右胸腔引流管',
+]
 export default [
+  // {
+  //   key: "recordYear",
+  //   value: ""
+  // },
   {
     key: "recordMonth", //日期
     value: "",
@@ -27,12 +52,10 @@ export default [
     event: keyf1,
     name: "口腔护理/会阴护理",
     next: "",
-    textarea: {
-      width: 32
+    style: {
+      width: '32px'
     },
-    autoComplete: {
-      data: zdjnList
-    }
+    click: click_double
   },
   {
     key: "rollOver",
@@ -40,12 +63,10 @@ export default [
     event: keyf1,
     name: "翻身/扣背",
     next: "",
-    textarea: {
-      width: 32
+    style: {
+      width: '26px'
     },
-    autoComplete: {
-      data: zdjnList
-    }
+    click: click_double
   },
   {
     key: "skinCare",
@@ -54,7 +75,7 @@ export default [
     name: "皮肤护理",
     next: "",
     textarea: {
-      width: 32
+      width: 24
     },
     autoComplete: {
       data: zdjnList
@@ -67,7 +88,7 @@ export default [
     name: "吸痰",
     next: "",
     textarea: {
-      width: 32
+      width: 24
     },
     autoComplete: {
       data: zdjnList
@@ -83,7 +104,7 @@ export default [
       data: ["血色", "白色", "黄色", "绿色"]
     },
     textarea: {
-      width: 32
+      width: 24
     }
   },
   {
@@ -96,7 +117,7 @@ export default [
       data: ["粘稠", "稀薄"]
     },
     textarea: {
-      width: 32
+      width: 24
     }
   },
   {
@@ -109,7 +130,7 @@ export default [
       data: ["少量", "中量", "大量"]
     },
     textarea: {
-      width: 32
+      width: 24
     }
   },
   {
@@ -118,6 +139,9 @@ export default [
     event: keyf1,
     name: "动静脉置管名称",
     next: "",
+    autoComplete: {
+      data: list1
+    },
     textarea: {
       width: 72
     }
@@ -138,12 +162,10 @@ export default [
     event: keyf1,
     name: "动静脉置管护理/通畅",
     next: "",
-    autoComplete: {
-      data: zdjnList
+    style: {
+      width: '26px'
     },
-    textarea: {
-      width: 32
-    }
+    click: click_double
   },
   {
     key: "drainageTubeName",
@@ -151,6 +173,9 @@ export default [
     event: keyf1,
     name: "引流管名称",
     next: "",
+    autoComplete: {
+      data: list2
+    },
     textarea: {
       width: 72
     }
@@ -175,7 +200,7 @@ export default [
       ]
     },
     textarea: {
-      width: 32
+      width: 28
     }
   },
   {
@@ -184,12 +209,10 @@ export default [
     event: keyf1,
     name: "引流管护理/通畅",
     next: "",
-    autoComplete: {
-      data: zdjnList
+    style: {
+      width: '32px'
     },
-    textarea: {
-      width: 32
-    }
+    click: click_double
   },
   {
     key: "urineColor",
@@ -211,7 +234,7 @@ export default [
       ]
     },
     textarea: {
-      width: 32
+      width: 28
     }
   },
   {
@@ -220,12 +243,10 @@ export default [
     event: keyf1,
     name: "尿管护理/通畅",
     next: "",
-    autoComplete: {
-      data: zdjnList
+    style: {
+      width: '32px'
     },
-    textarea: {
-      width: 32
-    }
+    click: click_double
   },
   {
     key: "medication",
