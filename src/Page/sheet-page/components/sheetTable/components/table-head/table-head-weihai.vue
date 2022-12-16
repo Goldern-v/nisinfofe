@@ -80,9 +80,12 @@
       </span>
       <span v-if="['critical_mahui_weihai', 'critical_weihai'].includes(sheetInfo.sheetType)">
         体重：
-        <div class="bottom-line" style="min-width: 40px; height: 13px;">
-          {{ patientInfo.weight }}
-        </div>
+        <input
+          style="width: 60px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj[`weight`]"
+          v-model="sheetInfo.relObj[`weight`]"
+        />
         kg
       </span>
     </div>

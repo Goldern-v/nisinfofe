@@ -150,8 +150,8 @@ export function click_cancel(e, td) {
   }
 }
 
-const arr = ['√', '√|√', '|√', '']
-/**点击显示顺序 '√', '√|√', '|√', '' */
+const arr = ['√|', '√|√', '|√', '']
+/**点击显示顺序 '√|', '√|√', '|√', '' */
 export function click_double (e, td) {
   let curIndex = arr.findIndex(v => v === td.value)
   let nextIndex = curIndex >= arr.length - 1 || curIndex == -1 ? 0 : curIndex + 1

@@ -423,7 +423,8 @@ export default {
       };
     },
     async nodeClick(data, node) {
-      if (!this.$store.state.admittingSave.admittingSave) {
+      // if (!this.$store.state.admittingSave.admittingSave) {
+      if (node.level == 2) {
         const comfirm = await this.$confirm(
           "入院评估单还未保存，是否需要离开页面?",
           "提示",
@@ -434,11 +435,11 @@ export default {
           }
         )
           .then(() => {
-            this.$message({
-              type: "success",
-              message: "退出成功!",
-            });
-            this.$store.state.admittingSave.admittingSave = true;
+            // this.$message({
+            //   type: "success",
+            //   message: "退出成功!",
+            // });
+            // this.$store.state.admittingSave.admittingSave = true;
             return true;
           })
           .catch(() => {

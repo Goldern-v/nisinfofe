@@ -6,9 +6,9 @@ import {
   click_date,
   click_time,
   click_double,
+  click_cancel
 } from "../keyEvent/date";
 
-const zdjnList = ["✓"];
 // 动静脉置管
 const list1 = [
   '右颈内静脉置管',
@@ -74,12 +74,10 @@ export default [
     event: keyf1,
     name: "皮肤护理",
     next: "",
-    textarea: {
-      width: 24
+    style: {
+      width: '24px'
     },
-    autoComplete: {
-      data: zdjnList
-    }
+    click: click_cancel
   },
   {
     key: "sputum",
@@ -87,12 +85,10 @@ export default [
     event: keyf1,
     name: "吸痰",
     next: "",
-    textarea: {
-      width: 24
+    style: {
+      width: '24px'
     },
-    autoComplete: {
-      data: zdjnList
-    }
+    click: click_cancel
   },
   {
     key: "sputumColor",
