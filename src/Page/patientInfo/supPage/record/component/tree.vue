@@ -453,21 +453,12 @@ export default {
       }
 
       // 临邑评估单保存前的滚动定位
-      if (node.level === 1 && this.HOSPITAL_ID === 'lyxrm') {
+      if (node.level === 1 && ['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
         sessionStorage.removeItem('evalScrollTop')
       }
-      // window.app.$store.commit('upFormFilledData', data)
-      // wid.setTitle(data.pageTitle+"健康教育单")
-      // this.bus.$emit("disableAllButons");
 
       try {
-        // if (data.formName && data.formName.includes("入院评估表")) {
-        //   this.bus.$emit("disableAllButons");
-        //   // this.bus.$emit("visibleButtons", { name: "", bool: false });
-        // } else {
         this.bus.$emit("activeAllButons");
-        // this.bus.$emit("visibleButtons", { name: "", bool: false });
-        // }
         window.app.$CRMessageBox.notifyBox.close();
       } catch (error) {
       }
@@ -698,7 +689,7 @@ export default {
         );
       }
       if (node.level !== 2) {
-        if (["foshanrenyi","lyxrm", 'whhk'].includes(this.HOSPITAL_ID)) {
+        if (["foshanrenyi","lyxrm", 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
           this.batchAuditForms = node.data
           return (
             <span class="tree-box-node2">

@@ -264,6 +264,7 @@ export default {
         case "zhzxy":
         case "whhk":
         case "nfyksdyy":
+        case "stmz":
         return bedItemLcey;
         case "beihairenyi":
         return bedItemBhry;

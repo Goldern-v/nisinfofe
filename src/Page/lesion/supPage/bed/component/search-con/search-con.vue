@@ -674,7 +674,7 @@ export default {
         'zhzxy',
         'nfyksdyy',
         '925',
-        'dglb'
+        'dglb', 'stmz'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -687,7 +687,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925','dglb'
+        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925','dglb', 'stmz'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -781,6 +781,7 @@ export default {
           syncData = syncGetNurseBedRecJiangMenFSSY;
           break;
         case 'lyxrm':
+        case "stmz":
           syncData = syncGetNurseBedRecJiangMenFSSY;
           break;
         case "beihairenyi":

@@ -10,7 +10,7 @@
       >
         <div class="text-con" flex="cross:center" v-if="HOSPITAL_ID =='guizhou'">添加护理计划</div>
         <div class="text-con" flex="cross:center" v-else-if="HOSPITAL_ID =='huadu'">添加新计划</div>
-        <div class="text-con" flex="cross:center" v-else-if="['lyxrm', 'whhk'].includes(HOSPITAL_ID)"> 添加护理计划</div>
+        <div class="text-con" flex="cross:center" v-else-if="['lyxrm', 'whhk', 'stmz'].includes(HOSPITAL_ID)"> 添加护理计划</div>
         <div class="text-con" flex="cross:center" v-else>添加新诊断</div>
       </div>
       <div

@@ -459,7 +459,7 @@ export default {
           // console.log(valData,'fafas sfasfsf');
             window.formObj.model.I001012 = valData.marriage;
           // 直接赋值，有点问题 临邑不需要
-          if (!['lyxrm'].includes(this.HOSPITAL_ID)) {
+          if (!['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
             window.formObj.model.I001002 = valData.occupation;
             window.formObj.model.I001003 = valData.nation;
           }
@@ -510,7 +510,7 @@ export default {
       keys = [...keys];
       keys.map((key) => {
         // 临邑 不需要同步已存在数据的字段
-        if(['lyxrm'].includes(this.HOSPITAL_ID) && window.formObj.model[keyMap[key]]) return
+        if(['lyxrm', 'stmz'].includes(this.HOSPITAL_ID) && window.formObj.model[keyMap[key]]) return
         if (
           model[key] != undefined &&
           model[key] != "undefined" &&

@@ -220,7 +220,7 @@ export default {
         return tableHeadWx;
       } else if (this.HOSPITAL_ID == "lingcheng") {
         return tableHeadLc;
-      } else if (this.HOSPITAL_ID == "lyxrm") {
+      } else if (['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
         return tableHeadLinyi;
       } else if (this.HOSPITAL_ID == "wujing") {
         return tableHeadWj;

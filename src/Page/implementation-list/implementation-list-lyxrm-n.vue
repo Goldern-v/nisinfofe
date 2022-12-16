@@ -99,14 +99,14 @@
           v-model="patientName"
         ></el-input>
         <el-input
-          v-if="HOSPITAL_ID != 'lyxrm'"
+          v-if="!isMultiBed"
           size="small"
           style="width: 75px;margin-right: 15px;"
           placeholder="输入床号进行搜索"
           v-model="bedLabel"
         ></el-input>
         <el-select
-            v-if="HOSPITAL_ID == 'lyxrm'"
+            v-else
             v-model="bedLabels"
             placeholder="请选择床号"
             size="small"
@@ -414,6 +414,8 @@ export default {
           name: '已核对'
         },
       ],
+      // 是否床号为多选
+      isMultiBed: ['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)
     };
   },
   methods: {
@@ -441,8 +443,8 @@ export default {
         administration: this.administration, // //途径
         dispenseFlag: this.dispenseFlag,
       };
-     
-      if (this.HOSPITAL_ID == 'lyxrm') {
+
+      if (this.isMultiBed) {
         obj.bedLabel = this.bedLabels.join(",") || "";
       } else {
         obj.bedLabel = this.bedLabel ? this.bedLabel : "";
@@ -566,13 +568,13 @@ export default {
     this.bus.$on("loadImplementationList", () => {
       this.onLoad();
     });
-    if (this.HOSPITAL_ID == 'lyxrm') {
+    if (this.isMultiBed) {
       this.getBedList();
     }
   },
   watch: {
     deptCode() {
-      if (this.HOSPITAL_ID == 'lyxrm') {
+      if (this.isMultiBed) {
         this.getBedList().then((res) => {
           this.search();
         });

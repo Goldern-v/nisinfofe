@@ -63,6 +63,7 @@ export default {
           break;
         case "lyxrm":
         case "liaocheng":
+        case "stmz":
           this.getUrl();
           break;
         case "nanfangzhongxiyi":

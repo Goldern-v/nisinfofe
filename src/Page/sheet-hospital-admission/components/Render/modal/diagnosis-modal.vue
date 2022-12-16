@@ -2,7 +2,7 @@
   <div>
     <sweet-modal ref="modal" :modalWidth="700" title="标题" @close="onClose">
       <div>
-        <template v-if="!['lyxrm'].includes(HOSPITAL_ID)">
+        <template v-if="!['lyxrm', 'stmz'].includes(HOSPITAL_ID)">
           <div class="title" style="margin-bottom: 5px">本次评估内容同步至：</div>
           <el-checkbox label="护理记录单" v-model="tongbuzhi"></el-checkbox>
           <el-checkbox label="三测单" v-model="tongbuzhi"></el-checkbox>

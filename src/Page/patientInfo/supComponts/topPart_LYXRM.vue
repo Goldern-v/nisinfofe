@@ -195,7 +195,7 @@
         <div class="nav-item">护理巡视</div>
       </router-link>
       <router-link
-        v-if="HOSPITAL_ID === 'lyxrm'"
+        v-if="['lyxrm', 'stmz'].includes(HOSPITAL_ID)"
         :to="{
           path: '/patientImplementationList',
           query: {
@@ -212,7 +212,7 @@
     <div style="height: 50px"></div>
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped> 
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .logo-con {
   width: 200px;
   min-width: 200px;

@@ -427,6 +427,7 @@ const getImplementation = () => {
     case 'whhk':
     case '925':
     case 'zhzxy':
+    case "stmz":
     case 'beihairenyi':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
@@ -463,7 +464,7 @@ const router = new Router({
   base: "/crNursing/",
   routes: [{
     path: "/",
-    redirect: HOSPITAL_ID === 'lyxrm' ? '/bed' : "/index",
+    redirect: ['lyxrm', 'stmz'].includes(HOSPITAL_ID) ? '/bed' : "/index",
     alias: "主页"
   },
   {
@@ -563,6 +564,7 @@ const router = new Router({
             return temperatureWHFK
           case 'lyxrm':
           case 'whhk':
+          case "stmz":
             return temperatureLYXRM
           case 'whsl':
               return temperatureWHSL
@@ -647,6 +649,7 @@ const router = new Router({
             case 'lyyz':
             case 'qhwy':
             case 'whhk':
+            case "stmz":
               return indexLiaocheng
             case 'wujing':
               return indexWujing
@@ -665,6 +668,7 @@ const router = new Router({
             case 'zhzxy':
             case 'whhk':
             case 'nfyksdyy':
+            case "stmz":
               return archiveFSSY
             default:
               return archive
@@ -810,15 +814,7 @@ const router = new Router({
             case 'fuyou':
               return shiftWorkFy
             case 'liaocheng':
-            // case 'zhongshanqi':
-            // case 'foshanrenyi':
-            // case 'whyx':
-            // case 'sdlj':
-            // case 'lyxrm':
-            // case 'gdtj':
-            // case 'ytll':
             case 'lyyz':
-            // case 'qhwy':
               return shiftWorkLiaocheng
             case 'beihairenyi':
               return shiftWorkBh
@@ -853,13 +849,6 @@ const router = new Router({
                 return shiftWorkDetailFy
               case 'liaocheng':
               case 'lyyz':
-              // case 'zhongshanqi':
-              // case 'foshanrenyi':
-              // case 'whyx':
-              // case 'sdlj':
-              // case 'lyxrm':
-              // case 'gdtj':
-              // case 'ytll':
                 return shiftWorkDetailLiaocheng
               case 'nanfangzhongxiyi':
                 return shiftWorkDetailNFZXY
@@ -1124,6 +1113,7 @@ const router = new Router({
                 return temperatureDGXG
               case 'lyxrm':
               case 'whhk':
+              case "stmz":
                 return temperatureLYXRM
               case 'whsl':
                 return temperatureWHSL
@@ -1176,6 +1166,7 @@ const router = new Router({
               case 'zhzxy':
               case 'whhk':
               case 'nfyksdyy':
+              case "stmz":
                 return allCatheter
               default:
                 return catheter
@@ -1535,6 +1526,7 @@ const router = new Router({
               return allTemperatureChartNFZXY
             case 'lyxrm':
             case 'whhk':
+            case "stmz":
               return allTemperatureChartLYXRM
             case 'whsl':
               return allTemperatureChartWHSL
@@ -1590,6 +1582,7 @@ const router = new Router({
             case "lyxrm":
             case "hj":
             case 'whhk':
+            case "stmz":
               return newSingleTemperatureChartLYXRM;
             case "whsl":
               return newSingleTemperatureChartWHSL;

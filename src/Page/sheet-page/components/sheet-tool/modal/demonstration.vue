@@ -221,6 +221,7 @@ export default {
     extraList() {
       switch(this.HOSPITAL_ID) {
         case 'lyxrm':
+        case "stmz":
           return [
             {
               name: '360视图',

@@ -5,7 +5,7 @@
       <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
-        <el-button type="primary" @click="openDetailChat()" v-if="['lyxrm'].includes(this.HOSPITAL_ID)">曲线详情</el-button>
+        <el-button type="primary" @click="openDetailChat()" v-if="['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)">曲线详情</el-button>
       </el-button-group>
       <!-- <div class="newBorn">
         <div @click="nomalModel()" class="nomal">默认体温单</div>

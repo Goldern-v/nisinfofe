@@ -109,7 +109,7 @@ export default {
         this.$route.query.visitId
       ).then((res) => {
         if(this.HOSPITAL_ID==='zhzxy'){
-          /* 
+          /*
            床位一览卡进入护记。
            vuex不能跨页面，所以拿接口保存deptList，
            src\Page\sheet-page\components\sheet-tool\sheet-tool.vue中的readOnly才为false。
@@ -153,6 +153,7 @@ export default {
         阳春中医院:"topPartYC",
         武汉市肺科医院:"topPartWHFK",
         临邑县人民医院:"topPartLYXRM",
+        松桃苗族自治县人民医院:"topPartLYXRM",
         临沂沂州医院: "topPartLyyz",
         佛山市顺德区龙江医院:"topPartSdlj",
         武汉汉口医院: 'topPartWhhk',

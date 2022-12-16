@@ -4,7 +4,7 @@
     <TipsBox :obj="obj" :formObj="formObj">
       <div class="title-box">
         <h1 class="hospital-title">{{hospitalName}}</h1>
-        <span v-if="HOSPITAL_ID == 'lyxrm'" class="form-title">日 常 评 估</span>
+        <span v-if="['lyxrm', 'stmz'].includes(HOSPITAL_ID)" class="form-title">日 常 评 估</span>
         <span v-else class="form-title">{{formName}}</span>
         <div class="header-box">
           <span
