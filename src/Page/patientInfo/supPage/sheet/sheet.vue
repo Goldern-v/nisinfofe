@@ -391,7 +391,7 @@ export default {
         return;
       }
        let fnArr = [
-        showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
+        showTitle(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
       ]
