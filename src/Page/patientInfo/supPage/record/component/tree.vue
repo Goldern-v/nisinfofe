@@ -423,8 +423,8 @@ export default {
       };
     },
     async nodeClick(data, node) {
-      // if (!this.$store.state.admittingSave.admittingSave) {
-      if (node.level == 2) {
+      if (!this.$store.state.admittingSave.admittingSave) {
+      // if (node.level == 2) {
         const comfirm = await this.$confirm(
           "入院评估单还未保存，是否需要离开页面?",
           "提示",

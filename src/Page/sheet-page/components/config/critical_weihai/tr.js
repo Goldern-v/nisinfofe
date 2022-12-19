@@ -8,6 +8,7 @@ import {
   click_date,
   click_time,
   click_double,
+  click_cancel,
 } from "../keyEvent/date";
 
 const color= ['鲜红色', '暗红色', '淡红色', '淡黄色', '深黄色', '黄绿色', '黄褐色', '黑色', '无色'];
