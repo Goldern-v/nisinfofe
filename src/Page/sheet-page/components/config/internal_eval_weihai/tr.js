@@ -23,6 +23,15 @@ export default [{
     click: click_time
   },
   {
+    key: "consciousness", //意识
+    value: "",
+    event: keyf1,
+    autoComplete: {
+      data: ysList
+    },
+    name: "意识"
+  },
+  {
     key: "temperature", //体温-数值
     value: "",
     event: keyf1,
@@ -72,15 +81,6 @@ export default [{
   //     minWidth: 48
   //   }
   // },
-  {
-    key: "consciousness", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList
-    },
-    name: "意识"
-  },
   {
     key: "fieldEighteen", //标题2
     value: "",

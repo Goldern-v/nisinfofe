@@ -23,7 +23,7 @@ export default {
     squareList() {
       if (this.data.conditionIconDtos) {
         return this.data.conditionIconDtos.slice(0,6).filter((v) => {
-          if (v.iconText=='病危' && ['lyxrm', 'whhk'].includes(this.HOSPITAL_ID)) return false
+          if (v.iconText=='病危' && ['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) return false
           if (['病危', '病重'].includes(v.iconText) && ['whfk'].includes(this.HOSPITAL_ID)) return false
           return true
         })

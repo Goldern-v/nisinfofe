@@ -226,7 +226,7 @@
     </div>
     <div
       class="search-btn2"
-      v-if="data.status === '2' && ['whfk', 'xiegang'].includes(HOSPITAL_ID)"
+      v-if="data.status === '2' && ['whfk', 'xiegang','whsl'].includes(HOSPITAL_ID)"
       @click="synchWhFK"
       v-touch-ripple
     >
@@ -258,7 +258,7 @@
     </div>
     <div
       class="search-btn2"
-      v-if="data.status === '2' && ['liaocheng', 'foshanrenyi','gdtj', 'lyyz','zhzxy'].includes(HOSPITAL_ID)"
+      v-if="data.status === '2' && ['liaocheng', 'foshanrenyi','gdtj', 'lyyz','zhzxy','dglb'].includes(HOSPITAL_ID)"
       @click="throttleSyncDischargedPatient"
       v-touch-ripple
       >同步出院患者</div

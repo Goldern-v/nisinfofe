@@ -884,7 +884,7 @@ export default {
       loginTimer = setInterval(() => {
         GetUserList().then((res) => {
           if (res.data.length > 0) {
-            this.UkeyObj = res.data;
+            this.UkeyObj = res.data.split("&&&")[0];
             this.checkCa = true;
           } else {
             this.checkCa = false;

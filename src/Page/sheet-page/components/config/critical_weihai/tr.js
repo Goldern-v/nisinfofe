@@ -6,10 +6,10 @@ import {
   event_date,
   event_time,
   click_date,
-  click_time
+  click_time,
+  click_double,
 } from "../keyEvent/date";
 
-const zdjnList = ['✓'];
 const color= ['鲜红色', '暗红色', '淡红色', '淡黄色', '深黄色', '黄绿色', '黄褐色', '黑色', '无色'];
 const stoolColorOption= ['鲜红色', '暗红色',  '黄色',  '褐色', '黑色','陶土样'];
 export default [{
@@ -30,12 +30,10 @@ export default [{
   event: keyf1,
   name: "口腔护理/会阴护理",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '32px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_double
 },
 {
   key: "bedBath",
@@ -43,12 +41,10 @@ export default [{
   event: keyf1,
   name: "床上擦浴/洗头",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '26px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_double
 },
 {
   key: "rollOver",
@@ -56,12 +52,10 @@ export default [{
   event: keyf1,
   name: "翻身/扣背",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '26px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_double
 },
 {
   key: "gasCutting",
@@ -69,12 +63,10 @@ export default [{
   event: keyf1,
   name: "气切护理",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '24px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_cancel
 },
 {
   key: "restraintCare",
@@ -82,12 +74,10 @@ export default [{
   event: keyf1,
   name: "约束护理",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '24px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_cancel
 },
 {
   key: "fieldNineteen",
@@ -95,12 +85,10 @@ export default [{
   event: keyf1,
   name: "动静脉置管护理",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '32px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_cancel
 },
 {
   key: "arteriovenous",
@@ -108,12 +96,10 @@ export default [{
   event: keyf1,
   name: "引流管护理",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '32px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_cancel
 },
 {
   key: "sputum",
@@ -121,12 +107,10 @@ export default [{
   event: keyf1,
   name: "吸痰",
   next: "",
-  textarea: {
-    width: 32
+  style: {
+    width: '26px'
   },
-  autoComplete: {
-    data: zdjnList
-  }
+  click: click_cancel
 },
 {
   key: "sputumColor",
@@ -138,7 +122,7 @@ export default [{
     data: ['血色', '白色', '黄色', '绿色']
   },
   textarea: {
-    width: 32
+    width: 26
   },
 },
 {
@@ -151,7 +135,7 @@ export default [{
     data: ['粘稠', '稀薄']
   },
   textarea: {
-    width: 32
+    width: 26
   },
 },
 {
@@ -164,7 +148,7 @@ export default [{
     data: ['少量', '中量', '大量']
   },
   textarea: {
-    width: 32
+    width: 26
   },
 },
 {
@@ -174,7 +158,7 @@ export default [{
   name: "尿液颜色",
   next: "",
   textarea: {
-    width: 32
+    width: 26
   },
   autoComplete: {
     data:color
@@ -187,7 +171,7 @@ export default [{
   name: "大便颜色",
   next: "",
   textarea: {
-    width: 32
+    width: 26
   },
   autoComplete: {
     data:stoolColorOption
@@ -286,7 +270,7 @@ export default [{
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "150px",
+    width: "170px",
     background: "transparent"
   },
   textarea: {

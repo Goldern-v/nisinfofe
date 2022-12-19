@@ -11,7 +11,7 @@
               'whfk',
               'lyxrm',
               'whhk',
-              '925'
+              '925', 'stmz'
             ].includes(HOSPITAL_ID)
           "
         >
@@ -30,7 +30,7 @@
         >
           <span class="label">医嘱类型：</span>
           <el-select
-            v-model="yizhuTypeItem"
+            v-model="executeType"
             placeholder="请选择"
             size="small"
             style="width: 150px"
@@ -54,14 +54,14 @@
               'whfk',
               'lyxrm',
               'whhk',
-              '925'
+              '925', 'stmz'
             ].includes(HOSPITAL_ID)
           "
           style="margin-left: 20px"
         >
           <span class="label">类型：</span>
           <el-select
-            v-model="executeType"
+            v-model="yizhuTypeItem"
             placeholder="请选择"
             size="small"
             style="width: 150px"
@@ -115,7 +115,7 @@
                 'whfk',
                 'lyxrm',
                 'whhk',
-                '925'
+                '925', 'stmz'
               ].includes(HOSPITAL_ID)
             "
           >
@@ -238,7 +238,7 @@ export default {
       bus: bus(this),
       formlist: {},
       yizhuTypeItem:["输液"],
-      executeType: ["liaocheng", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)
+      executeType: ["liaocheng", "lyxrm", "whhk", 'stmz'].includes(this.HOSPITAL_ID)
         ? "输液"
         : "",
       repeatIndicator: "",

@@ -532,6 +532,7 @@
             sheetInfo.sheetType == 'icu_lc' ||
             sheetInfo.sheetType == 'Record_Children_Serious_Lc' ||
             sheetInfo.sheetType == 'common_hd' ||
+            sheetInfo.sheetType == 'nursing_dglb' ||
             sheetInfo.sheetType == 'neurosurgery_hd' ||
             sheetInfo.sheetType == 'stress_injury_hd' ||
             sheetInfo.sheetType == 'common_sn' ||
@@ -728,6 +729,7 @@ export default {
         "com_lc",
         "icu_lc",
         "common_hd",
+        'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
         "wait_delivery_zhzxy",
@@ -2792,7 +2794,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz'].includes(this.HOSPITAL_ID)) {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }

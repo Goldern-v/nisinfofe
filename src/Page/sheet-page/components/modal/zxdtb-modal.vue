@@ -438,7 +438,7 @@ export default {
           "whfk",
           "lyxrm",
           "whhk",
-          '925'
+          '925', 'stmz'
         ].includes(this.HOSPITAL_ID)
       ) {
         this.multipleSelection.map((item, index) => {
@@ -475,7 +475,7 @@ export default {
           return item;
         });
       }
-      if (["foshanrenyi",'zhzxy', "lyxrm", "whhk", '925','gdtj'].includes(this.HOSPITAL_ID)) {
+      if (["foshanrenyi",'zhzxy', "lyxrm", "whhk", '925','gdtj', 'stmz'].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.foodSize = item.dosage;
           return item;
@@ -588,7 +588,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj', 'stmz'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
@@ -723,7 +723,7 @@ export default {
       ]
     },
     allType() {
-      if (["liaocheng", "lyxrm", "whhk"].includes(this.HOSPITAL_ID)) {
+      if (["liaocheng", "lyxrm", "whhk", 'stmz'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",

@@ -259,10 +259,12 @@ export default {
         case "qhwy":
         case "gdtj":
         case "ytll":
+        case "dglb":
         case "whsl":
         case "zhzxy":
         case "whhk":
         case "nfyksdyy":
+        case "stmz":
         return bedItemLcey;
         case "beihairenyi":
         return bedItemBhry;

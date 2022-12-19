@@ -170,17 +170,17 @@ export default {
     }
   },
   beforeRouteLeave(to,from,next){
-     if(!this.$store.state.admittingSave.admittingSave){
-      return this.$confirm('入院评估单还未保存，是否需要离开页面?', '提示', {
+    //  if(!this.$store.state.admittingSave.admittingSave){
+      return this.$confirm('护理文书还未保存，是否需要离开页面?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '退出成功!'
-          });
-           this.$store.state.admittingSave.admittingSave = true
+          // this.$message({
+          //   type: 'success',
+          //   message: '退出成功!'
+          // });
+          //  this.$store.state.admittingSave.admittingSave = true
            return next()
         }).catch(() => {
           this.$message({
@@ -195,9 +195,9 @@ export default {
         // }else{
         //   next(false)
         // }
-    }else{
-      next()
-    }
+    // }else{
+    //   next()
+    // }
   },
   components: {
     patientList,

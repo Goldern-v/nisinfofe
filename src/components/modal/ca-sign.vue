@@ -172,7 +172,7 @@ export default {
       if(["foshanrenyi"].includes(this.HOSPITAL_ID)){
         GetUserList().then(res=>{
           if(res.data.length>0){
-              this.UkeyObj=res.data
+              this.UkeyObj=res.data.split("&&&")[0]
               caLoginBefore().then(caLoginBeforeRes=>{
               const {strRandom,strServerCert} = caLoginBeforeRes
               this.strRandom = strRandom

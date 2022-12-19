@@ -14,7 +14,7 @@
         />
       </span>
       <div class="times">
-        <!-- <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id"> 
+        <!-- <label :for="`time${item.id}`" v-for="item in timesOdd" :key="item.id">
           <input
             type="radio"
             name="time"
@@ -299,7 +299,7 @@
               </el-popover>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             prop="foodSize"
             label="入量"
             min-width="70"
@@ -316,8 +316,8 @@
                 @click="toRow"
               />
             </template>
-          </el-table-column>
-           <el-table-column
+          </el-table-column> -->
+           <!-- <el-table-column
             prop="dischargeSize"
             label="出量"
             min-width="70"
@@ -334,7 +334,7 @@
                 @click="toRow"
               />
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column
             prop="painScore"
             label="疼痛"
@@ -371,7 +371,7 @@
               />
             </template>
           </el-table-column>
-      
+
           <!-- <el-table-column
             prop="dischargeSize"
             label="出量"
@@ -568,7 +568,7 @@
               <el-input v-model="scope.row.painDrop"></el-input>
             </template>
           </el-table-column>
-       
+
         </el-table>
       </div>
     </div>

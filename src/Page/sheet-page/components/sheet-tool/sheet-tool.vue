@@ -541,15 +541,7 @@
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
         v-if="
-          HOSPITAL_ID == 'wujing' ||
-          HOSPITAL_ID == 'quzhou' ||
-          HOSPITAL_ID == 'weixian' ||
-          HOSPITAL_ID == 'liaocheng'||
-          HOSPITAL_ID == 'whfk' ||
-          HOSPITAL_ID == 'whhk' ||
-          HOSPITAL_ID == 'gdtj' ||
-          HOSPITAL_ID == 'lyxrm' ||
-           HOSPITAL_ID == 'lyyz'
+           ['wujing', 'quzhou', 'weixian', 'liaocheng', 'whfk', 'whhk', 'gdtj', 'lyxrm', 'stmz', 'lyyz'].includes(HOSPITAL_ID)
         "
       >
         <div class="text-con">

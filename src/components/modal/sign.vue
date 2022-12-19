@@ -277,7 +277,7 @@ export default {
            localStorage.removeItem("caUser");
                 this.foshanshiyiIFca=false
             }else{
-              if(res.data.split("||")[0] != localStorage["caUser"]){
+              if(res.data.split("&&&")[0].split("||")[0] != localStorage["caUser"]){
                 localStorage.removeItem("caUser");
                 this.foshanshiyiIFca=false
               }else this.foshanshiyiIFca=true

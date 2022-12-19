@@ -10,6 +10,7 @@ import {
 // le event = ''
 
 let xzList = ['棕黄粘稠', '墨绿粘稠', '淡黄澄清', '淡红血性', '鲜红血性', '暗红血性', '白色浑浊', '草绿浑浊']
+let chulian = ['颈前引流量', '胸壁引流量', '腋窝引流量', '左胸壁引流量', '左腋窝引流量', '右胸壁引流量', '右腋窝引流量', '尿量', '切口引流量', '心包积液']
 // le i = ''
 export default [{
     key: "recordMonth", //日期
@@ -40,6 +41,9 @@ export default [{
     key: "discharge", //出量 - 项目
     value: "",
     event: keyf1,
+    autoComplete: {
+      data: chulian
+    },
     textarea: {
       width: 150
     },

@@ -551,7 +551,7 @@ export default {
       $(".red-border").removeClass("red-border");
       //  cleanData()
       let fnArr = [
-        showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
+        showTitle(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
       ]
@@ -935,7 +935,7 @@ export default {
           localStorage.removeItem("caUser");
           this.foshanshiyiIFca = false
         } else {
-          if (res.data.split("||")[0] != localStorage["caUser"]) {
+          if (res.data.split("&&&")[0].split("||")[0] != localStorage["caUser"]) {
             localStorage.removeItem("caUser");
             this.foshanshiyiIFca = false
           } else this.foshanshiyiIFca = true
