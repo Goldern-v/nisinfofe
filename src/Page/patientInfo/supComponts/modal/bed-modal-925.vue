@@ -285,7 +285,7 @@
       outline: none;
       border: none;
       padding: 0;
-      height: 120px;
+      height: 80px;
       resize: none;
     }
   }
@@ -714,7 +714,8 @@ export default {
               .bed-card-wrapper {
                 box-shadow: none !important;
                 width:560px!important;
-                transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.6);
+                // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
+                transform: rotate(-90deg) translateY(30%) translateX(-97%) scale(0.8);
                 transform-origin: 0 0;
               }
             `;
@@ -749,13 +750,13 @@ export default {
               }
               .patient-name {
                 padding: 10px 0 20px !important;
-                font-size: 130px !important;
+                font-size: 160px !important;
               }
               .dn-title {
                 line-height: 150px !important;
               }
               .mb200 {
-                margin-bottom: 200px !important;
+                margin-bottom: 300px !important;
               }
               .input-item pre {
                 font-size: 28px !important;
@@ -765,8 +766,8 @@ export default {
                 position: absolute;
                 top: 2px;
                 right: 8px;
-                height:300px!important;
-                width: 300px!important;
+                height:400px!important;
+                width: 400px!important;
               }
               .input-item .label {
                 font-size: 28px !important;
@@ -778,7 +779,7 @@ export default {
                 white-space: pre-wrap;
                 word-break: break-all;
                 word-wrap: break-word;
-                height: 252px;
+                height: 120px;
               }
               `;
               break
