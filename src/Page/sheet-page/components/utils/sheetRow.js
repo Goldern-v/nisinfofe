@@ -79,7 +79,17 @@ export function getRowNum(index) {
     return 21
   }else if (sheetInfo.sheetType === 'neonate_sdlj') {
     return 18
-  }else {
+  } else if (sheetInfo.sheetType=='babymilk_ytll') {
+    return 34
+  } else if (
+    sheetInfo.sheetType == "prenatal_ytll" 
+  ) {
+    if (index === 0) {
+      return 29;
+    } else {
+      return 34;
+    }
+  } else {
     return 17;
   }
 

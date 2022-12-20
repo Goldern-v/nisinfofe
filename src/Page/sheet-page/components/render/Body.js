@@ -1706,6 +1706,16 @@ function switchSheetType(type) {
       schema = require("../config/labor_con_ytll/tr.js").default;
     }
       break;
+    case "babymilk_ytll": {
+      // 烟台玲珑 - 新生儿加奶记录表
+      schema = require("../config/babymilk_ytll/tr.js").default;
+    }
+      break;
+    case "prenatal_ytll": {
+      // 烟台玲珑 - 住院待产护理记录
+      schema = require("../config/prenatal_ytll/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

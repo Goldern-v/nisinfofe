@@ -2226,6 +2226,20 @@ export default function Title(
     );
   }
   break;
+  case "babymilk_ytll": {
+    // 烟台玲珑 - 新生儿加奶记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/babymilk_ytll/th").default)
+    );
+  }
+  break;
+  case "prenatal_ytll": {
+    // 烟台玲珑 - 住院待产护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_ytll/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

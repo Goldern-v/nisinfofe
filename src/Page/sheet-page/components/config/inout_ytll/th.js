@@ -35,7 +35,7 @@ export default {
                 {"name": "大便(g)", "colspan": "1", "rowspan": "2"},
                 {"name": "呕吐", "colspan": "1", "rowspan": "2"},
                 {"name": "引流", "colspan": "1", "rowspan": "2"},
-                {"name": "其他", "colspan": "1", "rowspan": "2"},
+                {"name": "", "colspan": "1", "rowspan": "2", canSet:true,key:"title1"},
                 {"name": "总出量", "colspan": "1", "rowspan": "2"},
             ]
         ,
