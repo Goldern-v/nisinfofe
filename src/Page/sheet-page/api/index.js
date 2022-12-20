@@ -273,7 +273,7 @@ export const nurseBloodList = (obj = {}) => {
 
 // 保存his患者体征
 export const saveVitalSign = (data,hospitalId) => {
-  if(['wujing','quzhou','liaocheng','guizhou','weixian','foshanrenyi','zhzxy','whfk','lyxrm','whhk', '925','gdtj'].includes(hospitalId)) {
+  if(['wujing','quzhou','liaocheng','guizhou','weixian','foshanrenyi','zhzxy','whfk','lyxrm','whhk', '925','gdtj', 'stmz'].includes(hospitalId)) {
     return axios.post(
       `${apiPath}record/block/ordersExecute/save`,
       data

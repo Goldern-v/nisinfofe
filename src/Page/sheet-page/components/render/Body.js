@@ -390,6 +390,11 @@ function switchSheetType(type) {
       schema = require("../config/common_hd/tr.js").default;
     }
       break;
+    case "nursing_dglb": {
+      // 东莞寮步-护理记录单
+      schema = require("../config/nursing_dglb/tr.js").default;
+    }
+      break;
     case "picc_maintenance_hd": {
       // 花都-PICC维护记录单
       schema = require("../config/picc_maintenance_hd/tr.js").default;
@@ -1704,6 +1709,16 @@ function switchSheetType(type) {
     case "labor_con_ytll": {
       // 烟台玲珑-产程记录单(续页)
       schema = require("../config/labor_con_ytll/tr.js").default;
+    }
+      break;
+    case "babymilk_ytll": {
+      // 烟台玲珑 - 新生儿加奶记录表
+      schema = require("../config/babymilk_ytll/tr.js").default;
+    }
+      break;
+    case "prenatal_ytll": {
+      // 烟台玲珑 - 住院待产护理记录
+      schema = require("../config/prenatal_ytll/tr.js").default;
     }
       break;
     default: {

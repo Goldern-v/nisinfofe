@@ -115,12 +115,13 @@ export default {
     getBloodSugar() {
       switch (process.env.HOSPITAL_ID) {
         case "lyxrm":
+        case "stmz":
         return bloodSugarlyxrm;
         default:
           return bloodSugar;
       }
     },
-   
+
     // 获取患者信息
     getPatientInfo() {
       getPatientInfo(
@@ -138,7 +139,7 @@ export default {
     }
   },
   components: {
-    
+
     bloodSugarlyxrm,
   }
 };

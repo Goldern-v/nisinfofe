@@ -60,7 +60,7 @@
           <div flex-box="1" flex="dir:right" style="width: 0">
             <template  v-for="item in (data.conditionIconDtos &&  data.conditionIconDtos.slice(0,6))">
               <div class="table-name"
-                v-if="!(item.iconText=='病危' && ['lyxrm', 'whhk'].includes(HOSPITAL_ID))"
+                v-if="!(item.iconText=='病危' && ['lyxrm', 'whhk', 'stmz'].includes(HOSPITAL_ID))"
                 :key="item.iconText" :title="item.iconText" :style="{background: item.iconTextRgb}">
                 <span>{{item.showContent}}</span>
               </div>

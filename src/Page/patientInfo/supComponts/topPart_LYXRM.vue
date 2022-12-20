@@ -194,11 +194,25 @@
       >
         <div class="nav-item">护理巡视</div>
       </router-link>
+      <router-link
+        v-if="['lyxrm', 'stmz'].includes(HOSPITAL_ID)"
+        :to="{
+          path: '/patientImplementationList',
+          query: {
+            patientId: query.patientId,
+            visitId: query.visitId,
+            bedLabel: query.bedLabel
+          }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">执行记录</div>
+      </router-link>
     </div>
     <div style="height: 50px"></div>
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped> 
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .logo-con {
   width: 200px;
   min-width: 200px;

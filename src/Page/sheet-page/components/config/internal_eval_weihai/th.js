@@ -31,6 +31,15 @@ export default {
         },
       },
       {
+        name: '意识',
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
         name: "体温<br/>℃",
         colspan: "1",
         rowspan: "3",
@@ -74,15 +83,6 @@ export default {
         `,
         colspan: "1",
         rowspan: "3"
-      },
-      {
-        name: '意识',
-        style: {
-          minWidth: '60px',
-          maxWidth: '60px',
-        },
-        colspan: '1',
-        rowspan: '3'
       },
       {
          name: `
