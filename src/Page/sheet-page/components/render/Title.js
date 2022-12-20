@@ -389,6 +389,13 @@ export default function Title(
     );
   }
   break;
+  case "nursing_dglb": {
+    // 东莞寮步-护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_dglb/th").default)
+    );
+  }
+  break;
   case "picc_maintenance_hd": {
     // 花都-PICC维护记录单
     Th = JSON.parse(

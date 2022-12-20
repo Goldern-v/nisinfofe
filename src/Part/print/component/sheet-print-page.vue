@@ -313,6 +313,7 @@ export default {
        ||this.HOSPITAL_ID==="huadu"
        ||this.HOSPITAL_ID==='whsl'
        ||this.HOSPITAL_ID==='ytll'
+       ||this.HOSPITAL_ID==='stmz'
        ||this.HOSPITAL_ID==='925'){
       printDir("h");
             addCSS(

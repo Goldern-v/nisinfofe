@@ -264,7 +264,7 @@
           <div v-if="!isZhzxy" :class="{ 'is-xiegang': HOSPITAL_ID == 'xiegang' }" style="width: 131px">
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
-            <div  v-if="![ 'whhk'].includes(HOSPITAL_ID)" :class="{aliCenter:['lyxrm'].includes(HOSPITAL_ID)}">
+            <div  v-if="!['whhk'].includes(HOSPITAL_ID)" :class="{aliCenter:['lyxrm', 'stmz'].includes(HOSPITAL_ID)}">
               <div
                 class="tip-item-con"
                 flex="cross:center main:justify"
@@ -275,7 +275,7 @@
                 <span>{{ item.label }}</span>
               </div>
             </div>
-            <div  v-if="[ 'whhk'].includes(HOSPITAL_ID)" :class="{aliCenter:['lyxrm'].includes(HOSPITAL_ID)}">
+            <div  v-if="['whhk'].includes(HOSPITAL_ID)" :class="{aliCenter:['lyxrm', 'stmz'].includes(HOSPITAL_ID)}">
               <div
                 class="tip-item-con"
                 flex="cross:center main:justify"
@@ -834,7 +834,7 @@ export default {
         console.log(this.formData,"this.formData")
         this.modalLoading = false;
         if (
-          ['lyxrm'].includes(this.HOSPITAL_ID) &&
+          ['lyxrm', 'stmz'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post != "护长"
         ) {
@@ -883,10 +883,10 @@ export default {
       // const printCare = document.querySelectorAll(".printCare")
       // console.log(printCare)
       if (
-        (['lyxrm'].includes(this.HOSPITAL_ID) &&
+        (['lyxrm', 'stmz'].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post == "护长") ||
-        !['lyxrm'].includes(this.HOSPITAL_ID)
+        !['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)
       ) {
         this.isOpen();
       }
@@ -911,6 +911,7 @@ export default {
           qr_png_value = this.query.patientId + '|' + this.query.visitId;
           break;
         case "lyxrm":
+        case "stmz":
           qr_png_value ='P' + this.query.patientId;
           break;
         case 'whhk':

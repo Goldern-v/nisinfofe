@@ -37,6 +37,11 @@ export const listItem = (code, recordCode) => {
 export const multiDictInfo = (list, recordCode) => {
   return axios.post(`${apiPath}dept/multiDictInfo`, list);
 };
+//获取护士列表
+export const getAllNurseNamePinyin = (list) => {
+  return axios.post(`${apiPath}user/getAllNurseNamePinyin`,
+  {deptCodeMultiple:list});
+};
 /** 搭配multiDictInfo使用 */
 export function setList(list, key, data) {
   list.splice(0, list.length);

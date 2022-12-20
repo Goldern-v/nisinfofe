@@ -140,7 +140,7 @@ export default {
       bus: bus(this),
       formList: {},
       filterData: [],
-      newType: ['lyxrm','huadu', 'whhk'].includes(this.HOSPITAL_ID)
+      newType: ['lyxrm','huadu', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)
     };
   },
   methods: {
@@ -240,6 +240,7 @@ export default {
         case 'lyxrm':
         case 'huadu':
         case 'whhk':
+        case "stmz":
           return 'diagMeasures'
         default:
           return 'diagName'

@@ -68,6 +68,7 @@ export default {
         曲周县医院: "QuZhouXianHeader",
         南方医科大学中西医结合医院: "NanFangZhongXiYiHeader",
         临邑县人民医院:'LYXRMHeader',
+        松桃苗族自治县人民医院:'LYXRMHeader',
         佛山市第一人民医院:"FoShanRenYiHeader",
         南方医科大学顺德医院附属杏坛医院: 'FSXTHeader',
         阳春中医院: 'YangchunzhongyiHeader',

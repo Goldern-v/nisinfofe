@@ -77,6 +77,7 @@
             'nanfangzhongxiyi',
             'foshanrenyi',
             '925',
+            'dglb',
             'nfyksdyy'
           ].includes(HOSPITAL_ID)
         "
@@ -1130,6 +1131,7 @@ export default {
             case "quzhou":
             case "guizhou":
             case '925':
+            case 'dglb':
             case 'nfyksdyy':
             case "wujing":
               if (this.getHours() >= 0 && this.getHours() <= 4) {
@@ -1665,7 +1667,7 @@ export default {
          if((key === 'bloodPressure') && value !== ''&&!value.split('/')[1]){
           this.tableData[scope['$index']][key] ='';
         }
-        if((key === 'bloodPressure')&&value !== ''&&(isNaN(value.split('/')[0])||!value.split('/')[1] 
+        if((key === 'bloodPressure')&&value !== ''&&(isNaN(value.split('/')[0])||!value.split('/')[1]
         ||(value.split('/')[0]>250||value.split('/')[0]<50)||value.split('/')[1]>200||value.split('/')[1]<0)){
           confirmRes = await this.$confirm(
             name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",

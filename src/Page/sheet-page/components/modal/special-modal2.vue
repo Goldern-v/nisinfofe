@@ -802,13 +802,13 @@
     <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
     />
     <advice-modal
-      v-if="['lyxrm', 'whhk'].includes(HOSPITAL_ID)"
+      v-if="['lyxrm', 'whhk', 'stmz'].includes(HOSPITAL_ID)"
       ref="adviceModalRef"
       @handleOk="handleDiagnosis"
     />
@@ -1217,6 +1217,7 @@ export default {
         case "lyxrm":
         case "huadu":
         case 'whhk':
+        case "stmz":
           return this.activeTab === "3";
         default:
           return false;
@@ -1227,6 +1228,7 @@ export default {
       switch (process.env.HOSPITAL_ID) {
         case "lyxrm":
         case 'whhk':
+        case "stmz":
           return this.activeTab === "3";
         default:
           return false;
@@ -1237,6 +1239,7 @@ export default {
         case "lyxrm":
         case "huadu":
         case 'whhk':
+        case "stmz":
           return 1200;
         default:
           return 720;

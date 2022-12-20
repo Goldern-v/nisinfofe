@@ -323,7 +323,7 @@
                     v-for="(i, index, h) in fieldList"
                     :key="index"
                   >
-                    <div>
+                    <div style="overflow:hidden;width:105px;height:23px;">
                       <span
                         class="preText"
                         style="color: blue"

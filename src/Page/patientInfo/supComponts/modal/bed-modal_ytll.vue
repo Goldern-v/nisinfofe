@@ -480,21 +480,6 @@ export default {
           remarkPrint: resData.remarkPrint
         };
         this.modalLoading = false;
-        // if (
-        //   ['lyxrm'].includes(this.HOSPITAL_ID) &&
-        //   JSON.parse(localStorage.user) &&
-        //   JSON.parse(localStorage.user).post != "护长"
-        // ) {
-        //   if (resData.isPrint == 1) {
-        //     this.$message({
-        //       type: "warning",
-        //       message: "该患者已打印床头卡"
-        //     });
-        //     return;
-        //   } else {
-        //     this.isOpen();
-        //   }
-        // }
       });
       multiDictInfo(["床头卡饮食"]).then(res => {
         this.ysList = res.data.data.床头卡饮食.map(item => item.name);
@@ -557,9 +542,6 @@ export default {
         case "nanfangzhongxiyi":
           qr_png_value = this.query.patientId + '|' + this.query.visitId;
           break;
-        // case "lyxrm":
-        //   qr_png_value ='P' + this.query.patientId;
-        //   break;
         case "ytll":
           qr_png_value ='ZY' + this.query.patientId;
           break;

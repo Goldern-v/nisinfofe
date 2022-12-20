@@ -49,7 +49,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '155px',
+          minWidth: '175px',
         },
       },
       {
@@ -66,6 +66,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
+          maxWidth: '35px',
           minWidth: '35px',
         },
       },
@@ -76,6 +77,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
+          maxWidth: '35px',
           minWidth: '35px',
         },
       },
@@ -86,7 +88,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '35px',
+          maxWidth: '30px',
+          minWidth: '30px',
         },
       },
       {
@@ -96,7 +99,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '35px',
+          maxWidth: '30px',
+          minWidth: '30px',
         },
       },
       {
@@ -106,7 +110,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '35px',
+          maxWidth: '30px',
+          minWidth: '30px',
         },
       },
       {
@@ -116,6 +121,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
+          maxWidth: '35px',
           minWidth: '35px',
         },
       },
@@ -126,6 +132,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
+          maxWidth: '35px',
           minWidth: '35px',
         },
       },
@@ -136,7 +143,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '35px',
+          maxWidth: '30px',
+          minWidth: '30px',
         },
       },
       {
@@ -145,6 +153,10 @@ export default {
           `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          maxWidth: '30px',
+          minWidth: '30px',
+        },
       },
       {
         name: `
@@ -152,6 +164,10 @@ export default {
           `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          maxWidth: '30px',
+          minWidth: '30px',
+        },
       },
       {
         name: `
@@ -159,6 +175,10 @@ export default {
           `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          maxWidth: '30px',
+          minWidth: '30px',
+        },
       },
       {
         name: `
@@ -166,6 +186,10 @@ export default {
           `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          maxWidth: '30px',
+          minWidth: '30px',
+        },
       },
       {
         name: `
@@ -173,9 +197,13 @@ export default {
           `,
         colspan: '1',
         rowspan: '2',
+        style: {
+          maxWidth: '30px',
+          minWidth: '30px',
+        },
       },
       {
-        name: `自定义标题1`, 
+        name: `自定义标题1`,
         canSet:true,
         key:"customTitle1",
         colspan: '1',
@@ -186,7 +214,7 @@ export default {
         },
       },
       {
-        name: `自定义标题2`, 
+        name: `自定义标题2`,
         canSet:true,
         key:"customTitle2",
         colspan: '1',
@@ -197,7 +225,7 @@ export default {
         },
       },
       {
-        name: `自定义标题3`, 
+        name: `自定义标题3`,
         canSet:true,
         key:"customTitle3",
         colspan: '1',
@@ -208,7 +236,7 @@ export default {
         },
       },
       {
-        name: `自定义标题4`, 
+        name: `自定义标题4`,
         canSet:true,
         key:"customTitle4",
         colspan: '1',
@@ -241,7 +269,7 @@ export default {
       },
     ],
     bottom: [
-     
+
     ]
   }
 }

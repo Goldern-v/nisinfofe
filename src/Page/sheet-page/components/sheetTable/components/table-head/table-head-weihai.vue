@@ -78,6 +78,16 @@
         入院日期：
         {{patientInfo.admissionDate | toymd}}
       </span>
+      <span v-if="['critical_mahui_weihai', 'critical_weihai'].includes(sheetInfo.sheetType)">
+        体重：
+        <input
+          style="width: 60px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj[`weight`]"
+          v-model="sheetInfo.relObj[`weight`]"
+        />
+        kg
+      </span>
     </div>
     <!-- <div class="info-con">
       <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span>

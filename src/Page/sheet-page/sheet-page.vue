@@ -554,7 +554,7 @@ export default {
       $(".red-border").removeClass("red-border");
       //  cleanData()
       let fnArr = [
-        showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
+        showTitle(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
       ]
@@ -1024,6 +1024,14 @@ export default {
           this.pageLoading = true;
           this.scrollTop = this.$refs.scrollCon.scrollTop;
           const ayncVisitedDataList = decode(ayncVisitedData).list||[]
+          let decodeAyncVisttedData=decode(ayncVisitedData)
+          if(this.HOSPITAL_ID == 'zhzxy'){
+            //医院要复制粘贴病例会有\n换行符。保存的时候去掉
+            decodeAyncVisttedData.list=decodeAyncVisttedData.list.map(data=>{
+              data.description=data.description.replace(/\n/gi, "");
+              return data
+            })
+          }
           console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
           if(this.HOSPITAL_ID == 'wujing'){
             let trueRecordTimes = []
@@ -1047,7 +1055,7 @@ export default {
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,
-            decode(ayncVisitedData)
+            decodeAyncVisttedData
           ).then(async (res) => {
               if(res.data.code == 200){
                 // if (['foshanrenyi'].includes(this.HOSPITAL_ID) && this.foshanshiyiIFca && ayncVisitedDataList.length) {
