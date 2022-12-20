@@ -838,7 +838,7 @@ export default {
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post != "护长"
         ) {
-          if (resData.isPrint == 1) {
+          if (resData.isPrint == 1 && this.query.wardName==resData.wardCode) {
             this.$message({
               type: "warning",
               message: "该患者已打印床头卡"
