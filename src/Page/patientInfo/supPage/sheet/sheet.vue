@@ -209,6 +209,8 @@ import sheetTable_oxytocin_hl from "@/Page/sheet-page/components/sheetTable-oxyt
 import sheetTable_oxytocin_sdlj from "@/Page/sheet-page/components/sheetTable-oxytocin_sdlj/sheetTable";
 import sheetTable_emergency_rescue from "@/Page/sheet-page/components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "@/Page/sheet-page/components/sheetTable-dressing_count_hl/sheetTable";
+import sheetTable_prenatal_ytll from "@/Page/sheet-page/components/sheetTable-prenatal_ytll/sheetTable";
+
 import common from "@/common/mixin/common.mixin.js";
 import { nursingUnit } from "@/api/lesion";
 import sheetModel, {
@@ -358,6 +360,8 @@ export default {
         return sheetTable_dressing_count_hl;
       } else if (sheetInfo.sheetType == "intersurgerycure_qzx") {
         return sheetTable_intersurgerycure_qzx;
+      } else if (sheetInfo.sheetType == "prenatal_ytll") {
+        return sheetTable_prenatal_ytll;
       } else {
         return sheetTable;
       }
@@ -1357,6 +1361,7 @@ export default {
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,
+    sheetTable_prenatal_ytll
   }
 };
 </script>

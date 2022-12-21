@@ -2197,6 +2197,7 @@ export default function Title(
       JSON.stringify(require("../config/inout_ytll/th").default)
     );
   }
+  break;
   case "premiumcare_ytll": {
     // 烟台玲珑 - 病重（危）/特级护理患者评估与护理记录单
     Th = JSON.parse(
@@ -2229,6 +2230,20 @@ export default function Title(
     // 护理记录单（测试用）
     Th = JSON.parse(
       JSON.stringify(require("../config/general_xt/th.js").default)
+    );
+  }
+  break;
+  case "babymilk_ytll": {
+    // 烟台玲珑 - 新生儿加奶记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/babymilk_ytll/th").default)
+    );
+  }
+  break;
+  case "prenatal_ytll": {
+    // 烟台玲珑 - 住院待产护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_ytll/th").default)
     );
   }
   break;

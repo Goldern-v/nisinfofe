@@ -670,6 +670,7 @@ import {
   markSave,
   markDelete,
   saveTitleOptions,
+  findListByBlockId,
 } from "@/api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
 import { Tr } from "../../../render/Body.js";
@@ -1158,15 +1159,49 @@ export default {
     },
     addNullRow(index, row) {
       let newRow = nullRow();
-      if (row) {
-        let recordSource = row.find((item) => {
-          return item.key == "recordSource";
-        }).value;
-        newRow.find((item) => {
-          return item.key == "recordSource";
-        }).value = recordSource;
+      if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
+        // 发送请求。有自定义标题且含下拉的。放进去
+        const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
+        findListByBlockId(startPageIndex,endPageIndex).then(res=>{
+          const optionArr=res.data.data.Options
+          if(optionArr.length>0){
+             optionArr.forEach(option=>{
+              if(option.pageIndex==this.index){
+                newRow=newRow.map(activeKey=>{
+                  if(activeKey.key==option.fieldEn){
+                    if(activeKey.autoComplete==undefined){
+                      activeKey.autoComplete={}
+                      activeKey.autoComplete.data=[]
+                    }
+                    activeKey.autoComplete.data.unshift(option.options)
+                  }
+                  return activeKey
+                })
+              }
+             })
+           }
+          //防止异步才在数据回来的结果写
+          if (row) {
+            let recordSource = row.find((item) => {
+              return item.key == "recordSource";
+            }).value;
+            newRow.find((item) => {
+               return item.key == "recordSource";
+            }).value = recordSource;
+           }
+           this.data.bodyModel.splice(index + 1, 0, newRow);
+       })
+      }else{
+        if (row) {
+           let recordSource = row.find((item) => {
+              return item.key == "recordSource";
+           }).value;
+           newRow.find((item) => {
+            return item.key == "recordSource";
+           }).value = recordSource;
+        }
+        this.data.bodyModel.splice(index + 1, 0, newRow);
       }
-      this.data.bodyModel.splice(index + 1, 0, newRow);
     },
     toCopyRow(index) {
       let row = JSON.parse(JSON.stringify(this.sheetInfo.copyRow));
@@ -2404,7 +2439,7 @@ export default {
     },
     openEditModal(tr, data, e) {
       // 花都副页关闭编辑框
-      if(this.sheetInfo.sheetType=='additional_count_hd' || this.sheetInfo.sheetType=='inandout_weihai'){
+      if(this.sheetInfo.sheetType=='additional_count_hd' || this.sheetInfo.sheetType=='inandout_weihai' || this.sheetInfo.sheetType=='inout_ytll'){
         return
       }
       this.isOpenEditModal = true;
