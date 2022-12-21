@@ -3,11 +3,17 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1550px"
+    width: "1520px"
   },
   th: {
     top: [
-      {"name": '', style: {}, "colspan": "2", "rowspan": "1", key:'recordYear'},
+      {
+      name: '', 
+      style: {}, 
+      colspan: "2", 
+      rowspan: "1", 
+      key:'recordYear'
+      },
       {
         name: `
         入量
@@ -67,19 +73,13 @@ export default {
     mid: [
       {
         name: "日期",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
+
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "时间",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
+ 
         colspan: "1",
         rowspan: "2"
       },
@@ -148,10 +148,7 @@ export default {
         rowspan: "1"
       },
       {
-        name: `体温℃`,
-        style: {
-          minWidth: "50px",
-        },
+        name: `体温<br/>℃`,
         colspan: "1",
         rowspan: "2"
       },
@@ -173,7 +170,6 @@ export default {
       {
         name: `血压<br />mmHg`,
         style: {
-          minWidth: "35px",
           whiteSpace: "nowrap"
         },
         colspan: "1",
@@ -251,10 +247,6 @@ export default {
         `,
         colspan: "2",
         rowspan: "1",
-        style: {
-          // minWidth: "25px",
-          // whiteSpace: "nowrap"
-        }
       },
       {
         name: `
@@ -262,10 +254,6 @@ export default {
         `,
         colspan: "2",
         rowspan: "1",
-        style: {
-          // minWidth: "25px",
-          // whiteSpace: "nowrap"
-        }
       },
       {
         name: `

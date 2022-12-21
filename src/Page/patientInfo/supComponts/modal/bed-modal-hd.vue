@@ -223,7 +223,7 @@
               flex-box="1"
               class="bottom-line is_input_print"
               :maxlength="11"
-              v-model="lianxiPhone_whhk"
+              v-model="aField1"
             />
           </div>
         </div>
@@ -897,7 +897,8 @@ export default {
       allergy2: "",
       drugGms: "",
 	  allergy_gdtj:"",//自定义过敏信息
-    lianxiPhone_whhk:""
+    lianxiPhone_whhk:"",
+    aField1:""
     };
   },
   computed: {
@@ -931,6 +932,7 @@ export default {
           remarkPrint: resData.remarkPrint
         };
         this.lianxiPhone_whhk = resData.lianxiPhone_whhk
+        this.aField1 = resData.aField1 || ""
         this.mainDoctors = resData.mainDoctors
         this.allergy1 = resData.allergy1;
         this.allergy2 = resData.allergy2;
@@ -1046,6 +1048,7 @@ export default {
       data.dutyNurses = this.formData.dutyNurses;
       data.remarkPrint = this.formData.remarkPrint;
       data.lianxiPhone_whhk = this.lianxiPhone_whhk;
+      data.aField1 = this.aField1;
       data.remark = this.formData.remark.slice(0, 24);
       console.log("data",data)
       saveBed(data).then(res => {

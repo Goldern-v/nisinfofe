@@ -2042,7 +2042,8 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType === "nursingrecords_zxy" ||
-              this.sheetInfo.sheetType === "internal_eval_weihai"
+              this.sheetInfo.sheetType === "internal_eval_weihai" ||
+              this.sheetInfo.sheetType === "babymilk_ytll"
             ) {
               if (GetLength(text) > 54) {
                 result.push(text);
@@ -2136,7 +2137,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "icu_yz" ) {
+            } else if (this.sheetInfo.sheetType === "icu_yz" || this.sheetInfo.sheetType === "prenatal_ytll") {
               if (GetLength(text) > 38) {
                 result.push(text);
                 text = allDoc[i];

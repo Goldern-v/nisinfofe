@@ -105,6 +105,26 @@
         </div>
       </span> -->
     </div>
+    <div class="info-con" flex="main:justify" v-else-if="['babymilk_ytll'].includes(sheetInfo.sheetType)">
+       <span>
+        妈妈姓名：
+        <div class="bottom-line" style="min-width: 70px">
+          {{ patientInfo.patientName }}
+        </div>
+      </span>
+      <span>
+        床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.bedLabel }}
+        </div>
+      </span>
+      <span>
+        住院号：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.inpNo }}
+        </div>
+      </span>
+    </div>
     <div class="info-con" flex="main:justify" v-else>
       <span>
         科别：
@@ -209,7 +229,7 @@
       </span>
     </div> -->
     <div class="info-con">
-      <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)">
+      <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll', 'babymilk_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)">
         入院诊断：
         <div
           class="bottom-line"

@@ -170,7 +170,7 @@ export default {
     }
   },
   beforeRouteLeave(to,from,next){
-    //  if(!this.$store.state.admittingSave.admittingSave){
+     if(!this.$store.state.admittingSave.admittingSave){
       return this.$confirm('护理文书还未保存，是否需要离开页面?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -195,9 +195,9 @@ export default {
         // }else{
         //   next(false)
         // }
-    // }else{
-    //   next()
-    // }
+    }else{
+      next()
+    }
   },
   components: {
     patientList,
