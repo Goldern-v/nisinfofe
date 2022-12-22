@@ -520,7 +520,7 @@ export default {
       //非聊城不执行
       if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk', '925', 'stmz'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', 'stmz'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
+      ['foshanrenyi','fsxt','lyxrm','925','beihairenyi', 'whhk', 'stmz'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高

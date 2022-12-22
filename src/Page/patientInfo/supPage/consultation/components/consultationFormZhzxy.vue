@@ -4,7 +4,7 @@
       class="consultationForm"
       v-loading="consultation.status == '' || !conId"
     >
-      <div class="btn-box" v-show="!isPrint">
+      <div class="btn-box" v-show="!isPrinted">
         <el-button
           size="small"
           type="primary"
@@ -107,12 +107,23 @@
             />
           </el-form-item>
           <el-form-item
+            label="护理会诊情况及意见时间"
+            :label-width="formLabelWidth"
+          >
+            <el-date-picker
+              type="datetime"
+              placeholder="请输入内容"
+              v-model="results[0].createTime"
+              :readonly="!allowSave"
+            />
+          </el-form-item>
+          <el-form-item
             label="护理会诊情况及意见"
             :label-width="formLabelWidth"
           >
             <el-input
               type="textarea"
-              :rows="2"
+              :rows="4"
               placeholder="请输入内容"
               v-model="results[0].content"
               :readonly="!allowSave"
@@ -122,11 +133,11 @@
       </el-form>
     </el-row>
 
-    <div id="print" class="print" ref="printRef" v-show="isPrint">
-        <div class="title1">{{ hospitalName }}</div>
-        <div class="title2">
-          {{ consultation.consultationName || "护理会诊单" }}
-        </div>
+    <div id="print" class="print" ref="printRef" v-show="isPrinted">
+      <div class="title1">{{ hospitalName }}</div>
+      <div class="title2">
+        {{ consultation.consultationName || "护理会诊单" }}
+      </div>
       <div class="print-header flex flex-1 line--top">
         <span>姓名：{{ consultation.consultationObject }}</span>
         <span>性别：{{ consultation.sex }}</span>
@@ -140,24 +151,54 @@
         <div class="flex">
           <span>邀请科室：{{ consultation.consultationDeptName }}</span>
           <span>{{ membersName }}</span>
-          <span>{{ consultation.type + '会诊' }}</span>
+          <span>{{ consultation.type + "会诊" }}</span>
         </div>
-        <div class="print-content__box">临床诊断：{{ consultation.nursingDiagnosis }}</div>
-        <div class="print-content__box">简要病史：{{ consultation.consultationPurposes }}</div>
-        <div class="print-content__box">主要护理问题：{{ consultation.mainNursingMessage }}</div>
-        <div class="print-content__box">申请会诊类别：{{ consultation.consultationType }}</div>
+        <div class="print-content__box">
+          临床诊断：{{ consultation.nursingDiagnosis }}
+        </div>
+        <div class="print-content__box">
+          简要病史：{{ consultation.consultationPurposes }}
+        </div>
+        <div class="print-content__box">
+          主要护理问题：{{ consultation.mainNursingMessage }}
+        </div>
+        <div class="print-content__box">
+          申请会诊类别：{{ consultation.consultationType }}
+        </div>
         <div class="flex flex-2">
           <span>申请科室：{{ patientInfo.deptName }}</span>
           <span>申请人：</span>
-          <img class="sign-img" :src="getSignImg(consultation.creatorId)" alt="" />
-          <span>日期: {{ moment(consultation.createTime).format(formatText) }}</span>
+          <img
+            class="sign-img"
+            :src="getSignImg(consultation.creatorId)"
+            alt=""
+          />
+          <span
+            >日期:
+            {{ moment(consultation.createTime).format(formatText) }}</span
+          >
         </div>
-        <div class="line--top print-content__box1">护理会诊意见：{{ results[0].content }}</div>
+        <div class="line--top print-content__box1">
+          护理会诊意见：{{ results[0].content }}
+        </div>
         <div class="flex flex-2">
           <span>会诊科室：{{ consultation.consultationDeptName }}</span>
           <span>会诊护士：</span>
-          <img v-for="v in members" :key="v" class="sign-img" :src="getSignImg(v)" alt="" />
-          <span>日期: {{ results[0] && results[0].createTime ? moment(results[0].createTime).format(formatText) : '无' }}</span>
+          <img
+            v-for="v in members"
+            :key="v"
+            class="sign-img"
+            :src="getSignImg(v)"
+            alt=""
+          />
+          <span
+            >日期:
+            {{
+              results[0] && results[0].createTime
+                ? moment(results[0].createTime).format(formatText)
+                : "无"
+            }}</span
+          >
         </div>
       </div>
     </div>
@@ -175,7 +216,7 @@ import {
 import BusFactory from "vue-happy-bus";
 import print from "printing";
 import common from "@/common/mixin/common.mixin.js";
-import moment from 'moment'
+import moment from "moment";
 
 export default {
   name: "ConsultationForm",
@@ -183,7 +224,7 @@ export default {
   data() {
     return {
       moment,
-      formatText: 'YYYY年MM月DD日HH时mm分',
+      formatText: "YYYY年MM月DD日HH时mm分",
       bus: BusFactory(this),
       dialogFormVisible: false,
       formLabelWidth: "85px",
@@ -200,7 +241,7 @@ export default {
           content: "",
         },
       ],
-      isPrint: false,
+      isPrinted: false,
       deptList: [],
       applyDepartmentOptions: [],
       pageLoading: false,
@@ -228,11 +269,17 @@ export default {
       );
     },
     patientInfo() {
-      return this.$route.query || {}
+      return this.$route.query || {};
     },
     membersName() {
-      return this.members.map(v => (this.memberLists.find(v1 => v1.empNo === v) || { empName: '' }).empName).join(',')
-    }
+      return this.members
+        .map(
+          (v) =>
+            (this.memberLists.find((v1) => v1.empNo === v) || { empName: "" })
+              .empName
+        )
+        .join(",");
+    },
   },
   methods: {
     getData(id) {
@@ -249,12 +296,17 @@ export default {
           if (this.empNo === this.consultation.creatorId) {
             isMember = true;
           }
-          this.results = res.data.data.results || [];
+          this.results =
+            res.data.data.results.map((v) => ({
+              ...v,
+              createTime: v.createTime ? new Date(v.createTime) : v.createTime,
+            })) || [];
           this.results.length === 0 &&
             this.results.push({
               memberId: isMember ? this.empNo : "",
               content: "",
               consultationId: this.conId,
+              createTime: "",
             });
         })
         .catch((e) => {
@@ -293,7 +345,10 @@ export default {
               (v) => v.code == this.consultation.consultationDeptCode
             ).name || "",
         },
-        results: this.results,
+        results: this.results.map((v) => ({
+              ...v,
+              createTime: v.createTime ? moment(v.createTime).format('YYYY-MM-DD HH:mm:ss') : v.createTime,
+            })),
         members: this.members.map((v) => ({ empNo: v })),
       };
       return data;
@@ -317,7 +372,8 @@ export default {
     },
     // 打印
     handlePrint() {
-      this.isPrint = true;
+      this.isPrinted = true;
+      this.submit()
       this.$nextTick(() => {
         print(this.$refs.printRef, {
           beforePrint: null,
@@ -328,22 +384,16 @@ export default {
 						body {
 							background: #fff !important;
 						}
-						.btn-box {
-							display: none;
-						}
 						@page {
 							margin: 0mm 10mm;
 							size: A4 portrait;
 						}
-						.el-textarea__inner {
-							min-height: 33px;
-						}
-						.select-multi .el-select__input {
-							height: 0px !important;
-						}
+            .print {
+              padding: 0 10px;
+            }
 					`,
         }).then(() => {
-          this.isPrint = false;
+          this.isPrinted = false;
         });
       });
     },
@@ -383,7 +433,7 @@ export default {
     // 获取签名图片
     getSignImg(name) {
       return `/crNursing/api/file/signImage/${name}?${this.token}`;
-    }
+    },
   },
   created() {
     getAllDept(this.$route.query.wardCode)
@@ -440,7 +490,8 @@ export default {
 .print {
   font-size: 16px;
   line-height: 20px;
-  .title1, .title2 {
+  .title1,
+  .title2 {
     text-align: center;
     font-weight: 900;
   }

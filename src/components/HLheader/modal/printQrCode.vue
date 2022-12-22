@@ -133,7 +133,7 @@ export default {
     //二维码
     qrcode() {
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', 'stmz'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
+      ['foshanrenyi','fsxt','925','lyxrm','beihairenyi', 'whhk', 'stmz'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         // width: this.cmpx,// 二维码的宽
         // height: this.cmpx,// 二维码的高

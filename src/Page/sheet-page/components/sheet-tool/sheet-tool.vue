@@ -1066,27 +1066,25 @@ export default {
         this.bus.$emit("toSheetPrintPage");
       } else {
         if (process.env.NODE_ENV == "production") {
-        let newWid;
-        if( this.HOSPITAL_ID === 'whfk'){
-          newWid = window.open();
-          return this.bus.$emit("toSheetPrintPagewhfk", {newWid,fromParams});
-        }else{
-          if (!$(".sign-text").length) {
+          let newWid;
+          if (this.HOSPITAL_ID === 'whfk') {
             newWid = window.open();
-            return this.bus.$emit("toSheetPrintPage", newWid);
+            return this.bus.$emit("toSheetPrintPagewhfk", { newWid, fromParams });
+          } else {
+            if (!$(".sign-text").length) {
+              newWid = window.open();
+              return this.bus.$emit("toSheetPrintPage", newWid);
+            }
+            if (
+              $(".mark-mark-mark").length == 0 &&
+              $(".noSignRow").length == 0 &&
+              $(".multiSign").length == 0
+            ) {
+              newWid = window.open();
+            }
+            this.bus.$emit("toSheetPrintPage", newWid);
           }
-          if (
-            $(".mark-mark-mark").length == 0 &&
-            $(".noSignRow").length == 0 &&
-            $(".multiSign").length == 0
-          ) {
-            newWid = window.open();
-          }
-          this.bus.$emit("toSheetPrintPage",newWid);
-        }
-
         } else {
-
           this.bus.$emit("toSheetPrintPage");
         }
       }
