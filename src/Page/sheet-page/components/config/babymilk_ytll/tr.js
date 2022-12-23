@@ -59,7 +59,7 @@ export default [
       keyf1(e, td);
     }
   },
-  // { key: "sign", value: "" },
+  { key: "sign", value: "" },
   // { key: "sign2", value: "" },
   // { key: "audit", value: "" },
   { hidden:true, key:'id', value:''},
