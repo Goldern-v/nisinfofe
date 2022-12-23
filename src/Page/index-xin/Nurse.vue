@@ -178,7 +178,10 @@
                   ></i>
                 </td>
                 <td>{{ item.bedLabel + "床 " + item.patientName }}</td>
-                <td>{{ item.content }}</td>
+                <td>
+                  {{ item.content }}
+                  <span v-if="HOSPITAL_ID === 'nanfangzhongxiyi'">({{item.creatorName}})</span>
+                </td>
                 <td v-if="HOSPITAL_ID !== 'nanfangzhongxiyi'">
                   <span v-if="item.type == '1'" style="color: red">未签名</span>
                   <span
