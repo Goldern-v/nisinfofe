@@ -396,6 +396,20 @@ export default function Title(
     );
   }
   break;
+  case "postpartum_dglb": {
+    // 东莞寮步-产后护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_dglb/th").default)
+    );
+  }
+  break;
+  case "prenatal_dglb": {
+    // 东莞寮步-产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_dglb/th").default)
+    );
+  }
+  break;
   case "picc_maintenance_hd": {
     // 花都-PICC维护记录单
     Th = JSON.parse(
