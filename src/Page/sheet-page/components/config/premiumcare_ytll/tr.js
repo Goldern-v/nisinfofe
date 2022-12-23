@@ -65,7 +65,8 @@ import {
       // autoComplete: {
       //   data: 疼痛评分
       // },
-      name: "入量-实出量ml"
+      name: "入量-实出量ml",
+      statBottomLine: true
     },
     {
       key: "discharge", //出量 - 名称 
@@ -89,7 +90,8 @@ import {
       },
       // autoComplete: {
       //   data: 静脉量
-      // }
+      // },
+      statBottomLine: true
     },
     {
       key: "colorProperties", //出量 - 颜色性状
