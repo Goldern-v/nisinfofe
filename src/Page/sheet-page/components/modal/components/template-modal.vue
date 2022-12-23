@@ -55,6 +55,10 @@ export default {
     selectedSheetType: {
       type: String,
       default: ''
+    },
+    selectType: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -64,7 +68,7 @@ export default {
       selectedTab: "1",
       isShow: false,
       selectedObj: {
-        selectedType: "",
+        selectedType: this.selectType,
         templateCode: this.selectedSheetType,
         deptType: "dept"
       },

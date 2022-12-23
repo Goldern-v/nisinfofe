@@ -396,6 +396,20 @@ export default function Title(
     );
   }
   break;
+  case "baby_dglb": {
+    // 东莞寮步-护理记录单（新生儿科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_dglb/th").default)
+    );
+  }
+  break;
+  case "baby_obs_dglb": {
+    // 东莞寮步-新生儿护理记录单(产科专用)
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_obs_dglb/th").default)
+    );
+  }
+  break;
   case "picc_maintenance_hd": {
     // 花都-PICC维护记录单
     Th = JSON.parse(
