@@ -779,6 +779,9 @@
             ></el-input>
           </el-tab-pane>
         </el-tabs>
+        <div class="symbols-btn" v-if="['foshanrenyi'].includes(HOSPITAL_ID) && activeTab == '3'">
+          <el-button class="modal-btn" type="primary" @click="openSpecialSymbols">特殊符号</el-button>
+        </div>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -1002,6 +1005,11 @@
   display: flex;
   justify-content: flex-end;
   flex: 1;
+}
+.symbols-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 </style>
 <script>
@@ -2384,6 +2392,9 @@ export default {
       this.upOpenModalFromSpecial(true)
       this.$refs.zxdtbModal.open();
     },
+    openSpecialSymbols() {
+      this.$refs.templateSlideFsry.openSpecialSymbols();
+    }
   },
   mounted() {
     // 打开特殊情况

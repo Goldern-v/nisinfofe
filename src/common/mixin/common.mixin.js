@@ -182,7 +182,7 @@ export default {
     // 护理巡视操作权限
     isNursingRoundsAuthority() {
       try {
-        if(['lyxrm', 'stmz'].includes(process.env.HOSPITAL_ID)) return true
+        if(['lyxrm', 'stmz','ytll'].includes(process.env.HOSPITAL_ID)) return true
         let isOk = JSON.parse(localStorage.user).roleManageCodeList
           ? JSON.parse(localStorage.user).roleManageCodeList.filter(
             item => item == "LC_XS_001"

@@ -405,6 +405,16 @@ function switchSheetType(type) {
       schema = require("../config/prenatal_dglb/tr.js").default;
     }
       break;
+    case "baby_dglb": {
+      // 东莞寮步-护理记录单（新生儿科）
+      schema = require("../config/baby_dglb/tr.js").default;
+    }
+      break;
+    case "baby_obs_dglb": {
+      // 东莞寮步-新生儿护理记录单(产科专用)
+      schema = require("../config/baby_obs_dglb/tr.js").default;
+    }
+      break;
     case "picc_maintenance_hd": {
       // 花都-PICC维护记录单
       schema = require("../config/picc_maintenance_hd/tr.js").default;

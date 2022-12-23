@@ -538,7 +538,9 @@
             sheetInfo.sheetType == 'common_sn' ||
             sheetInfo.sheetType == 'maternity_sn' || 
             sheetInfo.sheetType == 'postpartum_dglb' || 
-            sheetInfo.sheetType == 'prenatal_dglb'
+            sheetInfo.sheetType == 'prenatal_dglb'||
+            sheetInfo.sheetType == 'baby_dglb' ||
+            sheetInfo.sheetType == 'baby_obs_dglb'
           "
           >审核人：</span
         >
@@ -781,7 +783,9 @@ export default {
         'ops_linyi',
         'NICU_fs', // 佛一 新生儿NICU护理记录单
         'postpartum_dglb',
-        'prenatal_dglb'
+        'prenatal_dglb',
+        'baby_dglb',
+        'baby_obs_dglb',
       ],
       // 需要双签名的记录单code
       multiSignArr: [
