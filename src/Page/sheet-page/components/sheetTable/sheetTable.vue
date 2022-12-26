@@ -163,6 +163,7 @@ import tableHeadLyyz from "./components/table-head/table-head-lyyz.vue"
 import tableHeadYtll from "./components/table-head/table-head-ytll.vue"
 import tableHeadZhzxy from "./components/table-head/table-head-zhzxy.vue"
 import tableHeadWeihai from './components/table-head/table-head-weihai.vue'
+import tableHeadDglb from "./components/table-head/table-head-dglb.vue"
 export default {
   props: {
     data: Object,
@@ -268,6 +269,8 @@ export default {
         return tableHeadZhzxy;
       } else if (this.HOSPITAL_ID == 'whsl') {
         return tableHeadWeihai
+      } else if (this.HOSPITAL_ID == 'dglb') {
+        return tableHeadDglb
       } else {
         return tableHead;
       }

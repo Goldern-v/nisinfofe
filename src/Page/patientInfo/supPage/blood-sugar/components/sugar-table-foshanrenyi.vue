@@ -378,7 +378,7 @@ export default {
           (item.nurseEmpNo = this.activeEmpNo||this.empNo || ""), //护士工号
           item.nurse= this.activeEmpNo||this.empNo || ""
           await  saveSugarList([item])
-          this.load();
+          // this.load();
           this.isEdit=false
           // 解决报错
           // this.selected = null;

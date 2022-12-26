@@ -51,6 +51,7 @@
               :selected.sync="selected"
               @dblclick="hisDisabled() && onEdit()"
               :baseIndex="0"
+              @uploadList="load()"
               :sugarItem.sync="typeList"
             ></sugarTableFoShanRenYi>
             <div
@@ -61,6 +62,7 @@
               "
             ></div>
             <sugarTableFoShanRenYi
+              @uploadList="load()"
               :data="item.right"
               :selected.sync="selected"
               @dblclick="hisDisabled() && onEdit()"

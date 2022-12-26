@@ -73,7 +73,11 @@ export function getRowNum(index) {
     return 33
   } else if ( sheetInfo.sheetType === 'magnesium_lcey') {
     return 24
-  }else if ( sheetInfo.sheetType === 'record_children_serious2_lc'||sheetInfo.sheetType === sheetInfo.sheetType === 'generalnursing_tj') {
+  }else if ( 
+    sheetInfo.sheetType === 'record_children_serious2_lc'||
+    sheetInfo.sheetType === 'generalnursing_tj' ||
+    sheetInfo.sheetType === 'postpartum_dglb'
+  ) {
     return 19
   }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz' || sheetInfo.sheetType == "seriousnursing_ytll" ) {
     return 21
@@ -89,6 +93,8 @@ export function getRowNum(index) {
     } else {
       return 34;
     }
+  } else if ( sheetInfo.sheetType === 'prenatal_dglb' ) {
+    return 25
   } else {
     return 17;
   }

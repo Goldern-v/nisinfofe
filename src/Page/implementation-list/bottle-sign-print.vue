@@ -307,7 +307,7 @@
 }
 
 .new-print-box {
-  overflow: hidden;
+  // overflow: hidden;
   .break-page {
     page-break-after: always;
   }
@@ -1130,13 +1130,17 @@ export default {
     },
     // 打印缩放的尺寸
     printScaleText() {
+      // if ((this.HOSPITAL_ID === "925"||this.HOSPITAL_ID === "lyxrm") && this.newModalSize === "70*80"){
+      //   return "transform: scale(0.8);transform-origin: 0 0 0;";
+      // } else if ((this.HOSPITAL_ID === "gdtj") && this.newModalSize === "6*8"){
+      //   // return "transform: scale(0.8);transform-origin: 0 0 0;";
+      // }
       if (
         ["70*80", "6*8", "5*8", "7*7", '7*5'].includes(this.newModalSize) ||
         ["whfk"].includes(this.HOSPITAL_ID)
-      )
+      ){
         return "";
-      if (this.HOSPITAL_ID === "925" && this.newModalSize === "70*80")
-        return "transform: scale(0.8);transform-origin: 0 0 0;";
+      }
       return 'zoom: .5;position: absolute;'
       return "transform: scale(0.5);transform-origin: 0 0 0;";
     },
