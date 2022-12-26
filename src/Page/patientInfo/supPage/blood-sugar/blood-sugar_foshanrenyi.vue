@@ -62,6 +62,7 @@
               "
             ></div>
             <sugarTableFoShanRenYi
+              @uploadList="load()"
               :data="item.right"
               :selected.sync="selected"
               @dblclick="hisDisabled() && onEdit()"
