@@ -12,7 +12,7 @@
         </div>
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
           <el-tab-pane label="科室模板" name="first">
-            <TemplateModal :selectedSheetType="sheetInfo.sheetType" />
+            <TemplateModal :selectedSheetType="sheetInfo.sheetType" :selectType="selectType"/>
             <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
               <i class="iconfont icon-tianjia"></i> 新建模板
             </div>
@@ -55,6 +55,7 @@ export default {
       activeName: 'first',
       show: false,
       templateCode:'',//佛一要求筛选表单模板 formCode
+      selectType: ''
 
     };
   },
@@ -87,6 +88,7 @@ export default {
       if(this.$refs.addTemplateModal){
       this.$refs.addTemplateModal.close()
       }
+       this.selectType = ''
     },
     openAddModal() {
       if(this.$refs.addTemplateModal){
@@ -94,6 +96,10 @@ export default {
 
       }
     },
+    openSpecialSymbols() {
+      this.selectType = '特殊符号'
+      this.open()
+    }
   },
   created() {
     this.bus.$on("refreshTemplate", ()=>{

@@ -10,14 +10,15 @@
       </colgroup>
       <tr>
         <td>入院日期：</td>
-        <td colspan="2">
-          <input
+        <td colspan="2" style="text-align: left;">
+          <!-- <input
             type="text"
             class="bottom-line"
             style="text-align: left; width: 90%"
             :data-value="relObj.ryrq"
             v-model="relObj.ryrq"
-          />
+          /> -->
+          <span style="margin-left: 5px">{{ patientInfo.admissionDate | toymd }}</span>
         </td>
         <td>
           <div flex>
