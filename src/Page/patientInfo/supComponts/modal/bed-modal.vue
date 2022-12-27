@@ -6,9 +6,22 @@
       title="编辑床头卡"
       :enable-mobile-fullscreen="false"
       class="modal"
-
     >
-      <div class="bed-card-wrapper" :class="{ 'wrapper--zhzxy': isZhzxy }" v-loading="modalLoading" ref="printCon">
+      <bed-modal-ctx-dglb
+        :qrCode="qrCode"
+        :guominshi.sync="guominshi"
+        :formData.sync="formData"
+        v-loading="modalLoading"
+        ref="printCon"
+        v-if="HOSPITAL_ID === 'dglb'"
+      />
+      <div
+        class="bed-card-wrapper"
+        :class="{ 'wrapper--zhzxy': isZhzxy }"
+        v-loading="modalLoading"
+        ref="printCon"
+        v-else
+      >
         <div
           class="bed-card-con"
           flex
@@ -21,8 +34,14 @@
           />
           <div
             class="qr-code-num"
-            :class="{ hasRemark: hasRemark, zhzxyStyle: isZhzxy}"
-            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
+            :class="{ hasRemark: hasRemark, zhzxyStyle: isZhzxy }"
+            :style="
+              HOSPITAL_ID == 'liaocheng'
+                ? 'width: 110px'
+                : HOSPITAL_ID == 'hengli'
+                ? 'line-height: 13px;'
+                : ''
+            "
           >
             {{ qrCodeNum }}
           </div>
@@ -37,7 +56,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 42px;padding-left: 0px;font-weight: 900;"
+                style="font-size: 42px; padding-left: 0px; font-weight: 900"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name"
@@ -45,7 +64,13 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 30px;padding-left: 0px;width:31%;height: 100%;box-sizing: border-box;"
+                style="
+                  font-size: 30px;
+                  padding-left: 0px;
+                  width: 31%;
+                  height: 100%;
+                  box-sizing: border-box;
+                "
                 class="bottom-line"
                 :value="query.sex + ' ' + query.age"
               />
@@ -60,7 +85,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 32px;padding-left: 5px;"
+                style="font-size: 32px; padding-left: 5px"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
@@ -83,7 +108,11 @@
               />
             </div>
 
-            <div :class="{zhzxyItem: isZhzxy}" flex="cross:center" class="input-item">
+            <div
+              :class="{ zhzxyItem: isZhzxy }"
+              flex="cross:center"
+              class="input-item"
+            >
               <span class="label">饮食:</span>
               <div
                 nowidth
@@ -96,13 +125,16 @@
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  :style="{'font-size': '24px', 'text-align': isZhzxy ? 'center' : ''}"
+                  :style="{
+                    'font-size': '24px',
+                    'text-align': isZhzxy ? 'center' : '',
+                  }"
                   v-model="formData.diet"
                   @focus="
                     onFocusToAutoComplete($event, {
                       autoComplete: ysList,
                       obj: formData,
-                      key: 'diet'
+                      key: 'diet',
                     })
                   "
                   @blur="onBlurToAutoComplete"
@@ -123,7 +155,7 @@
                   "
                 />
                 <img
-                  class="dj-box  printCare"
+                  class="dj-box printCare"
                   @click="selectRegistCare('危')"
                   :class="{ active: formData.registCare.includes('危') }"
                   :src="
@@ -190,7 +222,12 @@
               </div>
             </div>
             <div class="title-sign">
-              <div :style="{'width':isZhzxy?'50%':''}" :class="{zhzxyItem: isZhzxy}" flex="cross:center" class="input-item">
+              <div
+                :style="{ width: isZhzxy ? '50%' : '' }"
+                :class="{ zhzxyItem: isZhzxy }"
+                flex="cross:center"
+                class="input-item"
+              >
                 <span class="label">主管医生:</span>
                 <!-- <el-autocomplete v-model="formData.mainDoctors"
                                  :fetch-suggestions="querySearchAsyncDoc"
@@ -201,14 +238,21 @@
                 <input
                   type="text"
                   nowidth
-                  :style="{'font-size': '24px',
-                  'text-align':isZhzxy?'center':''}"
+                  :style="{
+                    'font-size': '24px',
+                    'text-align': isZhzxy ? 'center' : '',
+                  }"
                   flex-box="1"
                   class="bottom-line"
                   v-model="formData.mainDoctors"
                 />
               </div>
-              <div :style="{'width':isZhzxy?'50%':''}" :class="{zhzxyItem:isZhzxy}" flex="cross:center" class="input-item">
+              <div
+                :style="{ width: isZhzxy ? '50%' : '' }"
+                :class="{ zhzxyItem: isZhzxy }"
+                flex="cross:center"
+                class="input-item"
+              >
                 <span class="label">责任护士:</span>
                 <!-- <el-autocomplete v-model="formData.dutyNurses"
                                  :fetch-suggestions="querySearchAsyncNur"
@@ -221,29 +265,37 @@
                   nowidth
                   flex-box="1"
                   class="bottom-line"
-                  :style="{'font-size': '24px',
-                  'text-align':isZhzxy?'center':''}"
+                  :style="{
+                    'font-size': '24px',
+                    'text-align': isZhzxy ? 'center' : '',
+                  }"
                   v-model="formData.dutyNurses"
                 />
               </div>
             </div>
-            <div v-if="isZhzxy"
-            :class="{zhzxyItem:isZhzxy}"
-            flex="cross:center" class="input-item">
+            <div
+              v-if="isZhzxy"
+              :class="{ zhzxyItem: isZhzxy }"
+              flex="cross:center"
+              class="input-item"
+            >
               <span class="label">过敏史:</span>
               <input
                 type="text"
                 nowidth
                 flex-box="1"
                 class="bottom-line"
-                :style="{'font-size': '24px','text-align':isZhzxy?'center':''}"
+                :style="{
+                  'font-size': '24px',
+                  'text-align': isZhzxy ? 'center' : '',
+                }"
                 v-model="guominshi"
               />
             </div>
             <div
               flex="cross:top"
               class="input-item"
-              style="height: 58px;margin-top: 4px"
+              style="height: 58px; margin-top: 4px"
               v-if="formData.remarkPrint && HOSPITAL_ID === 'hengli'"
             >
               <div class="input-item-left">
@@ -261,10 +313,17 @@
             </div>
           </div>
 
-          <div v-if="!isZhzxy" :class="{ 'is-xiegang': HOSPITAL_ID == 'xiegang' }" style="width: 131px">
+          <div
+            v-if="!isZhzxy"
+            :class="{ 'is-xiegang': HOSPITAL_ID == 'xiegang' }"
+            style="width: 131px"
+          >
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
-            <div  v-if="!['whhk'].includes(HOSPITAL_ID)" :class="{aliCenter:['lyxrm', 'stmz'].includes(HOSPITAL_ID)}">
+            <div
+              v-if="!['whhk'].includes(HOSPITAL_ID)"
+              :class="{ aliCenter: ['lyxrm', 'stmz'].includes(HOSPITAL_ID) }"
+            >
               <div
                 class="tip-item-con"
                 flex="cross:center main:justify"
@@ -275,7 +334,10 @@
                 <span>{{ item.label }}</span>
               </div>
             </div>
-            <div  v-if="['whhk'].includes(HOSPITAL_ID)" :class="{aliCenter:['lyxrm', 'stmz'].includes(HOSPITAL_ID)}">
+            <div
+              v-if="['whhk'].includes(HOSPITAL_ID)"
+              :class="{ aliCenter: ['lyxrm', 'stmz'].includes(HOSPITAL_ID) }"
+            >
               <div
                 class="tip-item-con"
                 flex="cross:center main:justify"
@@ -290,20 +352,22 @@
           <div v-else class="zhzxyChose" style="width: 131px">
             <div class="tip">温馨提示</div>
             <div
-              v-for="(item,index) in wenxintishi"
-              :key="index +'sss'"
+              v-for="(item, index) in wenxintishi"
+              :key="index + 'sss'"
               class="zhzxyChoseItem"
-                flex-box="1"
-                flex="main:justify cross:center"
-                @click="onFocusToAutoComplete2($event, {
-                      autoComplete: item.option,
-                      obj: formData,
-                      key: item.code
-                    })"
-              >
-              <div class="zhzxyChoseItem-label">{{item.label}}</div>
-              <div class="zhzxyChoseItem-box">{{formData[item.code]}}</div>
-                <!-- <input
+              flex-box="1"
+              flex="main:justify cross:center"
+              @click="
+                onFocusToAutoComplete2($event, {
+                  autoComplete: item.option,
+                  obj: formData,
+                  key: item.code,
+                })
+              "
+            >
+              <div class="zhzxyChoseItem-label">{{ item.label }}</div>
+              <div class="zhzxyChoseItem-box">{{ formData[item.code] }}</div>
+              <!-- <input
                   type="text"
                   flex-box="1"
                   class="bottom-line"
@@ -311,14 +375,14 @@
                   v-model="formData.diet"
                   @blur="onBlurToAutoComplete"
                 /> -->
-              </div>
+            </div>
           </div>
         </div>
       </div>
       <div slot="button">
         <span
           style="position: absolute; left: 10px; padding-top: 4px"
-          v-if="!['hj','whhk'].includes(HOSPITAL_ID)"
+          v-if="!['hj', 'whhk'].includes(HOSPITAL_ID)"
         >
           <span>显示诊断</span>
           <el-switch
@@ -394,10 +458,12 @@
     text-align: center;
     z-index: 2;
     font-size: 16px;
-    &.zhzxyStyle{
+
+    &.zhzxyStyle {
       font-size: 20px;
       min-width: 100px;
     }
+
     &.hasRemark {
       top: 78px;
       left: 0px;
@@ -410,27 +476,32 @@
 [nowidth] {
   width: 0;
 }
-.zhzxyChose{
-  .zhzxyChoseItem{
+
+.zhzxyChose {
+  .zhzxyChoseItem {
     min-height: 70px;
     border: 1px solid rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     border-bottom: 0;
-    &:last-of-type{
+
+    &:last-of-type {
       border-bottom: 1px solid rgb(0, 0, 0);
     }
-    .zhzxyChoseItem-label{
+
+    .zhzxyChoseItem-label {
       font-size: 20px;
       border-bottom: 1px solid;
       width: 100%;
     }
-    .zhzxyChoseItem-box{
+
+    .zhzxyChoseItem-box {
       width: 100%;
       min-height: 45px;
     }
   }
 }
+
 .bottom-line {
   border: 0;
   border-bottom: 1px solid #000;
@@ -459,10 +530,12 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
-  width:350px
-  &.zhzxyItem{
+  width: 350px;
+
+  &.zhzxyItem {
     font-size: 20px;
   }
+
   .input-item-left {
     display: inline-block;
 
@@ -473,13 +546,15 @@
     }
   }
 }
+
 .title-bed {
   .title-bed__1 {
     width: 94px;
-    font-size:24px;
+    font-size: 24px;
     padding-left: 5px;
     line-height: 24px;
   }
+
   .title-bed__2 {
     width: 0px;
     font-size: 24px;
@@ -591,17 +666,21 @@ input[type='checkbox']:checked:after {
   line-height: 32px;
   white-space: nowrap;
 }
-.aliCenter{
-    display: flex;
-    flex-direction: column;
-    height: 299px;
-    .tip-item-con{
-      margin-bottom: 0;
-      &:first-of-type{
+
+.aliCenter {
+  display: flex;
+  flex-direction: column;
+  height: 299px;
+
+  .tip-item-con {
+    margin-bottom: 0;
+
+    &:first-of-type {
       margin: 35px 0 105px;
-      }
     }
+  }
 }
+
 .tip-item-con {
   border: 1px solid #000;
   border-radius: 8px;
@@ -637,6 +716,7 @@ label {
     font-size: 17px;
   }
 }
+
 .is-xiegang {
   position: absolute;
   top: 59px;
@@ -644,10 +724,12 @@ label {
   z-index: 100;
   background: #fff;
 }
+
 .bed-card-wrapper.wrapper--zhzxy {
   .bed-card-con {
     width: 182mm !important;
     height: 113mm !important;
+
     .qr-code {
       top: 0px;
       left: 0px;
@@ -659,29 +741,36 @@ label {
         height: 90px;
       }
     }
+
     .qr-code-num {
       top: 87px;
       height: 22px;
     }
+
     .title-name {
       height: 68px !important;
+
       input {
         font-weight: 500;
         font-size: 46px !important;
         text-shadow: 1px 0px #000, -1px 0px #000, 0px 1px #000, 0px -1px #000;
       }
     }
+
     .title-bed {
       .title-bed__1, .title-bed__2 {
         font-size: 28px;
       }
     }
+
     .input-item {
       width: auto;
     }
+
     .title-sign {
       display: flex;
     }
+
     input {
       background: transparent;
     }
@@ -690,15 +779,15 @@ label {
 </style>
 
 <script>
-import {
-  getEntity,
-  saveBed
-} from "./api/index.js";
+import { getEntity, saveBed } from "./api/index.js";
 import print from "./tool/print";
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
+import bedModalCtxDglb from "./bed-modal-ctx-dglb.vue";
+import { hisMatch } from "@/utils/tool.js";
+
 export default {
   data() {
     return {
@@ -712,7 +801,7 @@ export default {
         // },
         {
           label: "小心烫伤",
-          img: require("./images/Group 7.png")
+          img: require("./images/Group 7.png"),
         },
         // {
         //   label: "防止压疮",
@@ -720,26 +809,26 @@ export default {
         // },
         {
           label: "防止偷盗",
-          img: require("./images/Group 10.png")
-        }
+          img: require("./images/Group 10.png"),
+        },
       ],
       whhktipList: [
         {
           label: "小心跌倒",
-          img: require("./images/Group 6.png")
+          img: require("./images/Group 6.png"),
         },
         {
           label: "小心烫伤",
-          img: require("./images/Group 7.png")
+          img: require("./images/Group 7.png"),
         },
         {
           label: "防止压疮",
-          img: require("./images/Group 9.png")
+          img: require("./images/Group 9.png"),
         },
         {
           label: "防止偷盗",
-          img: require("./images/Group 10.png")
-        }
+          img: require("./images/Group 10.png"),
+        },
       ],
       modalLoading: false,
       formData: {
@@ -748,54 +837,90 @@ export default {
         mainDoctors: "",
         dutyNurses: "",
         remark: "",
-        remarkPrint: true
+        remarkPrint: true,
       },
       ysList: [],
-      wenxintishi:[
+      wenxintishi: [
         {
-          label:"挂牌类",
-          code:"aField1",
-          option:['高危药物卡','膀胱冲洗卡','输液卡','吸氧卡','胃管滴注卡（肠内营养）','鼻饲卡','接触隔离卡','胃肠减压','留置24小时尿标本'],
+          label: "挂牌类",
+          code: "aField1",
+          option: [
+            "高危药物卡",
+            "膀胱冲洗卡",
+            "输液卡",
+            "吸氧卡",
+            "胃管滴注卡（肠内营养）",
+            "鼻饲卡",
+            "接触隔离卡",
+            "胃肠减压",
+            "留置24小时尿标本",
+          ],
         },
         {
-          label:"防类",
-          code:"aField2",
-          option:['防脱管','防返流','防臀红','防压疮','防跌倒','防VAP','防外渗','防窒息','防坠床','防烫伤'],
+          label: "防类",
+          code: "aField2",
+          option: [
+            "防脱管",
+            "防返流",
+            "防臀红",
+            "防压疮",
+            "防跌倒",
+            "防VAP",
+            "防外渗",
+            "防窒息",
+            "防坠床",
+            "防烫伤",
+          ],
         },
         {
-          label:"隔离类",
-          code:"aField3",
-          option:['飞沫隔离','空气隔离','接触隔离','虫媒隔离','保护性隔离','MDRO'],
+          label: "隔离类",
+          code: "aField3",
+          option: [
+            "飞沫隔离",
+            "空气隔离",
+            "接触隔离",
+            "虫媒隔离",
+            "保护性隔离",
+            "MDRO",
+          ],
         },
         {
-          label:"其他",
-          code:"aField4",
-          option:['药物过敏','监测血糖','绝对卧床','机械通气','血液制品未出库','留陪人','记出入量'],
+          label: "其他",
+          code: "aField4",
+          option: [
+            "药物过敏",
+            "监测血糖",
+            "绝对卧床",
+            "机械通气",
+            "血液制品未出库",
+            "留陪人",
+            "记出入量",
+          ],
         },
       ],
-      isZhzxy: ['zhzxy'].includes(this.HOSPITAL_ID),
+      isZhzxy: ["zhzxy"].includes(this.HOSPITAL_ID),
     };
   },
   computed: {
-    guominshi:{
-      get(){
-        if(this.formData.aField5) return this.formData.aField5
-        else{
-          const arr = [this.formData.allergy1,this.formData.allergy2]
-          return arr.join("")
+    guominshi: {
+      get() {
+        if (this.formData.aField5) return this.formData.aField5;
+        else {
+          const arr = [this.formData.allergy1, this.formData.allergy2];
+          return arr.join("");
         }
       },
-      set(val){
-        console.log(val,"val")
-        this.formData.aField5=val
-      }
+      set(val) {
+        console.log(val, "val");
+        this.formData.aField5 = val;
+      },
     },
     query() {
       return this.$route.query;
     },
     hasRemark() {
       return this.formData.remarkPrint;
-    }
+    },
   },
   methods: {
     init() {
@@ -804,9 +929,9 @@ export default {
         registCare: [],
         mainDoctors: "",
         dutyNurses: "",
-        remark: ""
+        remark: "",
       };
-      getEntity(this.query.patientId, this.query.visitId).then(res => {
+      getEntity(this.query.patientId, this.query.visitId).then((res) => {
         let resData = res.data.data;
         let diagnosis = textOver(this.query.diagnosis, 52);
         this.formData = {
@@ -817,31 +942,37 @@ export default {
           mainDoctors: resData.mainDoctors || "",
           dutyNurses: resData.dutyNurses || "",
           remark: diagnosis,
-          remarkPrint: resData.remarkPrint
+          remarkPrint: resData.remarkPrint,
         };
-        if(this.isZhzxy){
-            this.formData = {
-              ...this.formData,
-              aField1:resData.aField1,
-              aField2:resData.aField2,
-              aField3:resData.aField3,
-              aField4:resData.aField4,
-              aField5:resData.aField5,
-              allergy1:resData.allergy1,
-              allergy2:resData.allergy2,
-          }
+        if (this.isZhzxy) {
+          this.formData = {
+            ...this.formData,
+            aField1: resData.aField1,
+            aField2: resData.aField2,
+            aField3: resData.aField3,
+            aField4: resData.aField4,
+            aField5: resData.aField5,
+            allergy1: resData.allergy1,
+            allergy2: resData.allergy2,
+          };
         }
-        console.log(this.formData,"this.formData")
+        if ("dglb" === this.HOSPITAL_ID) {
+          this.formData = {
+            ...this.formData,
+            aField5: resData.aField5,
+          };
+        }
+        console.log(this.formData, "this.formData");
         this.modalLoading = false;
         if (
-          ['lyxrm', 'stmz'].includes(this.HOSPITAL_ID) &&
+          ["lyxrm", "stmz"].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post != "护长"
         ) {
-          if (resData.isPrint == 1 && this.query.wardName==resData.wardCode) {
+          if (resData.isPrint == 1 && this.query.wardName == resData.wardCode) {
             this.$message({
               type: "warning",
-              message: "该患者已打印床头卡"
+              message: "该患者已打印床头卡",
             });
             return;
           } else {
@@ -849,8 +980,8 @@ export default {
           }
         }
       });
-      multiDictInfo(["床头卡饮食"]).then(res => {
-        this.ysList = res.data.data.床头卡饮食.map(item => item.name);
+      multiDictInfo(["床头卡饮食"]).then((res) => {
+        this.ysList = res.data.data.床头卡饮食.map((item) => item.name);
       });
     },
     getRegistCare() {
@@ -880,13 +1011,11 @@ export default {
     },
     open() {
       this.init();
-      // const printCare = document.querySelectorAll(".printCare")
-      // console.log(printCare)
       if (
-        (['lyxrm', 'stmz'].includes(this.HOSPITAL_ID) &&
+        (["lyxrm", "stmz"].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post == "护长") ||
-        !['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)
+        !["lyxrm", "stmz"].includes(this.HOSPITAL_ID)
       ) {
         this.isOpen();
       }
@@ -905,29 +1034,34 @@ export default {
           qr_png_value = this.query.expand1;
           break;
         case "foshanrenyi":
-          qr_png_value = '1001|' + this.query.patientId;
+          qr_png_value = "1001|" + this.query.patientId;
           break;
         case "nanfangzhongxiyi":
-          qr_png_value = this.query.patientId + '|' + this.query.visitId;
+          qr_png_value = this.query.patientId + "|" + this.query.visitId;
           break;
         case "lyxrm":
         case "stmz":
-          qr_png_value ='P' + this.query.patientId;
+          qr_png_value = "P" + this.query.patientId;
           break;
-        case 'whhk':
-          qr_png_value ='P' + this.query.inpNo;
+        case "whhk":
+          qr_png_value = "P" + this.query.inpNo;
           break;
         case "zhzxy":
-          qr_png_value ='ZY' + this.query.patientId +"||"+ this.query.visitId;
+          qr_png_value =
+            "ZY" + this.query.patientId + "||" + this.query.visitId;
           break;
-          case "lyyz":
-          qr_png_value ='P'+"|" + this.query.patientId +"|"+ this.query.visitId;
+        case "lyyz":
+          qr_png_value =
+            "P" + "|" + this.query.patientId + "|" + this.query.visitId;
           break;
         default:
           qr_png_value = this.query.patientId;
           break;
       }
-      var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: this.isZhzxy ? 2 : 4 });
+      var qr_png = qr.imageSync(qr_png_value, {
+        type: "png",
+        margin: this.isZhzxy ? 2 : 4,
+      });
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);
@@ -939,11 +1073,13 @@ export default {
       }
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
-      let showqrCodeNum = ""
-      if(["zhzxy"].includes(this.HOSPITAL_ID)){
-        showqrCodeNum = this.query.patientId ;
+      let showqrCodeNum = "";
+      if (["zhzxy"].includes(this.HOSPITAL_ID)) {
+        showqrCodeNum = this.query.patientId;
       }
-      this.qrCodeNum = ["zhzxy"].includes(this.HOSPITAL_ID)?showqrCodeNum:qr_png_value;
+      this.qrCodeNum = ["zhzxy"].includes(this.HOSPITAL_ID)
+        ? showqrCodeNum
+        : qr_png_value;
     },
     close() {
       this.$refs.modal.close();
@@ -967,40 +1103,53 @@ export default {
       data.dutyNurses = this.formData.dutyNurses;
       data.remarkPrint = this.formData.remarkPrint;
       data.remark = this.formData.remark.slice(0, 24);
-      if(this.isZhzxy){
+      if (this.isZhzxy) {
         data.aField1 = this.formData.aField1;
         data.aField2 = this.formData.aField2;
         data.aField3 = this.formData.aField3;
         data.aField4 = this.formData.aField4;
         data.aField5 = this.formData.aField5;
       }
-      saveBed(data).then(res => {
+      if ("dglb" === this.HOSPITAL_ID) {
+        data.aField5 = this.formData.aField5;
+      }
+      saveBed(data).then((res) => {
         this.$message.success("保存成功");
         this.close();
       });
     },
     onPrint() {
-      const printCare = document.querySelectorAll(".printCare")
-      let arr = []
-      for(let i=0;i<printCare.length;i++){
-        arr=  printCare[i].className.split(" ")
-        if(!arr.includes("active"))
-          printCare[i].style.display = "none"
+      const printCare = document.querySelectorAll(".printCare");
+      let arr = [];
+      for (let i = 0; i < printCare.length; i++) {
+        arr = printCare[i].className.split(" ");
+        if (!arr.includes("active")) printCare[i].style.display = "none";
       }
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon, (el) => {
-          if(this.isZhzxy){
-            el.style.marginTop='17mm'
-            el.style.marginLeft = '0mm'
-          }else{
-            el.style.marginLeft = '194mm'
-          }
-        },this.isZhzxy?'v':'');
+        const ref = hisMatch({
+          map: {
+            dglb: this.$refs.printCon.$el,
+            other: this.$refs.printCon,
+          },
+        });
+        print(
+          ref,
+          (el) => {
+            if (this.isZhzxy) {
+              el.style.marginTop = "17mm";
+              el.style.marginLeft = "0mm";
+            } else if ("dglb" === this.HOSPITAL_ID) {
+            } else {
+              el.style.marginLeft = "194mm";
+            }
+          },
+          this.isZhzxy ? "v" : ""
+        );
 
-        for(let i=0;i<printCare.length;i++){
-          printCare[i].style.display = "block"
-      }
+        for (let i = 0; i < printCare.length; i++) {
+          printCare[i].style.display = "block";
+        }
       });
     },
     querySearchAsyncDoc(queryString, cb) {
@@ -1015,7 +1164,7 @@ export default {
         let { top, left } = ele.getBoundingClientRect();
         return {
           left: left,
-          top: top
+          top: top,
         };
       }
       let { autoComplete, obj, key } = bind;
@@ -1027,11 +1176,10 @@ export default {
         window.openAutoComplete({
           style: {
             top: `${xy.top + 40}px`,
-            left: `${xy.left}px`
+            left: `${xy.left}px`,
           },
           data: autoComplete,
-          callback: function(data) {
-            console.log(data, "data");
+          callback: function (data) {
             if (data) {
               if (obj[key]) {
                 obj[key] += "," + data;
@@ -1040,7 +1188,7 @@ export default {
               }
             }
           },
-          id: `bedModal`
+          id: `bedModal`,
         });
       });
     },
@@ -1049,7 +1197,7 @@ export default {
         let { top, left } = ele.getBoundingClientRect();
         return {
           left: left,
-          top: top
+          top: top,
         };
       }
       let { autoComplete, obj, key } = bind;
@@ -1059,30 +1207,30 @@ export default {
         window.openAutoComplete({
           style: {
             top: `${xy.top + 40}px`,
-            left: `${xy.left}px`
+            left: `${xy.left}px`,
           },
           data: autoComplete,
-          callback: function(data) {
-            console.log(data, "data",obj[key]);
+          callback: function (data) {
+            console.log(data, "data", obj[key]);
             if (data) {
               if (obj[key]) {
-                if(obj[key].indexOf(',')<0){
-                  if(obj[key]==data) obj[key] = ""
+                if (obj[key].indexOf(",") < 0) {
+                  if (obj[key] == data) obj[key] = "";
                   else obj[key] += "," + data;
-                }else{
+                } else {
                   let oldVal = obj[key];
-                  let oldValArr = oldVal.split(',');
-                  let idx = oldValArr.indexOf(data)
+                  let oldValArr = oldVal.split(",");
+                  let idx = oldValArr.indexOf(data);
                   if (idx >= 0) oldValArr.splice(idx, 1);
                   else oldValArr.push(data);
-                  obj[key] = oldValArr.filter(str => str).join(',');
+                  obj[key] = oldValArr.filter((str) => str).join(",");
                 }
               } else {
                 obj[key] += data;
               }
             }
           },
-          id: `bedModal`
+          id: `bedModal`,
         });
       });
     },
@@ -1090,9 +1238,11 @@ export default {
       setTimeout(() => {
         window.closeAutoComplete(`bedModal`);
       }, 400);
-    }
+    },
   },
   mounted() {},
-  components: {}
+  components: {
+    bedModalCtxDglb,
+  },
 };
 </script>

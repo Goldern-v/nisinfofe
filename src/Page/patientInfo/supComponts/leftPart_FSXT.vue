@@ -311,7 +311,6 @@ import bedModalWx from "./modal/bed-modal_wx.vue";
 import bedModalLc from "./modal/bed-modal_lc.vue";
 import bedModalLiaocheng from "./modal/bed-modal_liaocheng.vue";
 import bedModalFSXT from "./modal/bed-modal_fsxt.vue";
-// import bedModalNfzxy from "./modal/bed-modal-Nfzxy.vue";
 import bedModalHd from "./modal/bed-modal-hd.vue";
 import bedModalZsq from "./modal/bed-modal-zsq.vue";
 import bedModalBh from "./modal/bed-modal-bh.vue";
