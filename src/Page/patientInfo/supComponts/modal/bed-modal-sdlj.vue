@@ -31,7 +31,7 @@
             class="input-item input-item-row">
               <div class="fontSize-50">{{query.sex}}</div>
               <div class="fontSize-50" v-if="HOSPITAL_ID!='sdlj'">{{query.age}}</div>
-              <div class="fontSize-50" v-else-if="HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')>=0">{{query.age}}</div>
+              <div class="fontSize-50" v-else-if="HOSPITAL_ID=='sdlj' ">{{query.age}}</div>
               <div>{{wardName}}</div>
             </div>
             <div v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="input-item">
