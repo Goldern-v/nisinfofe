@@ -33,7 +33,7 @@ function examResult(examNo) {
 }
 // 威海市立-检查结果
 function examResultWhsl(examNo) {
-  return axios.post(`${apiPath}patient/examResultNew/${examNo}`, {examNo});
+  return axios.post(`${apiPath}patient/examResultNew`, {examNo});
 }
 // 检查图片
 function pic(examNo, userName) {
