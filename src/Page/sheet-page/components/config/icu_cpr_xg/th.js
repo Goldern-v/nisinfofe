@@ -39,7 +39,7 @@ export default {
             [
                 {"name":"左(mm)","colspan":"1","rowspan":"2"},
                 {"name":"右(mm)","colspan":"1","rowspan":"2"},
-                {"name":"心率","colspan":"1","rowspan":"2"},
+                {"name":"心律","colspan":"1","rowspan":"2"},
                 {"name":"BP<br/>(mmHg)","colspan":"1","rowspan":"2"},
                 {"name":"P/HR<br/>(次/min)","colspan":"1","rowspan":"2"},
                 {"name":"自主R/辅助R<br/>(次/min)","colspan":"1","rowspan":"2"},

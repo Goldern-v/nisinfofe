@@ -311,6 +311,7 @@ export default {
        ||this.HOSPITAL_ID==="zhzxy"
        ||this.HOSPITAL_ID==="lyxrm"
        ||this.HOSPITAL_ID==="huadu"
+       ||this.HOSPITAL_ID==="xiegang"
        ||this.HOSPITAL_ID==='whsl'
        ||this.HOSPITAL_ID==='ytll'
        ||this.HOSPITAL_ID==='stmz'

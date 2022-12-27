@@ -240,7 +240,9 @@ const currentTargetUrl = (() => {
     //武汉汉口
     case 'whhk':
       return 'http://192.168.1.54:9883'
-
+    case 'dglb':
+      return 'http://219.131.126.38:9094'
+    
     // 威海市立
     case 'whsl':
       // return 'http://192.168.1.54:9866'
