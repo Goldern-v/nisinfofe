@@ -230,7 +230,7 @@ th {
 </style>
 
 <script>
-import { testItems, getExamTestUrl } from "@/api/patientInfo";
+import { testItems,testItemsWhsl, getExamTestUrl } from "@/api/patientInfo";
 import moment from 'moment'
 import lineChart from "./lineChart";
 export default {
@@ -312,15 +312,27 @@ export default {
         return;
       }
       if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
-        testItems(this.data.testNo)
-          .then((res) => {
-            this.data1 = res.data.data;
-            this.loading = false;
-          })
-          .catch(() => {
-            this.data1 = false;
-            this.loading = false;
-          });
+        if(['whsl'].includes(this.HOSPITAL_ID)){
+          testItemsWhsl(this.data.testNo)
+            .then((res) => {
+              this.data1 = res.data.data;
+              this.loading = false;
+            })
+            .catch(() => {
+              this.data1 = false;
+              this.loading = false;
+            });
+        }else{
+          testItems(this.data.testNo)
+            .then((res) => {
+              this.data1 = res.data.data;
+              this.loading = false;
+            })
+            .catch(() => {
+              this.data1 = false;
+              this.loading = false;
+            });
+        }
       }else{
         this.data1 = data
 
