@@ -1,4 +1,4 @@
-/** 
+/**
 东莞谢岗 - 护理记录单(内科)
 
 /**
@@ -28,7 +28,10 @@ import {
     click_date,
     click_time
   } from "../keyEvent/date";
-  
+  const ysList = ['清醒', '嗜睡', '模糊', '昏睡', '浅昏迷', '中昏迷', '深昏迷', '谵妄']
+  const dgfsList = ['+/+', '+/-', '+/±', '-/+', '-/-', '-/±', '±/+', '±/-', '±/±']
+  const rlmcList = ['补液', '食物', '水', '奶', '其他']
+  const clmcList = ['阴道出血', '术中出血', '便', '心包', '引流量', '痰', '呕吐物', '其他', '腹腔', '胸液', '胃管', '胆管', '尿', '腋下引流量', '胸壁引流量', '切口引流量', '腹腔引流管', '甲状腺窝引流管', '颈前引流管', '盆腔引流管', '切口引流管', '文氏引流管', '胆囊床引流管', '胆囊窝引流管', '胆总管', 'T管', '无形逝水量']
   export default [
     { key: "recordDate", value: "", hidden:true },
     { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -42,15 +45,15 @@ import {
     { key: 'bloodPressure', event: keyf1,value: '',name: '血压',next: 'mmHg',textarea:{ width:50},change: (e, td) => limitChange(e, td, 6)},
 
     { key: 'spo2', event: keyf1,value: '',name: 'SOP2',next: '%',textarea:{ width:35},change: (e, td) => limitChange(e, td, 4)},
-    { key: 'consciousness', event: keyf1,value: '',name: '意识',next: '',textarea:{ width:35},change: (e, td) => limitChange(e, td, 4)},
+    { key: 'consciousness', event: keyf1,value: '',name: '意识',next: '',textarea:{ width:35},change: (e, td) => limitChange(e, td, 4), autoComplete: { data: ysList } },
     { key: 'pupilMm', event: keyf1,value: '',name: '大小',next: 'mm',textarea:{ width:35},change: (e, td) => limitChange(e, td, 4)},
-    { key: 'pupilLight', event: keyf1,value: '',name: '对光反射',next: '',textarea:{ width:35},change: (e, td) => limitChange(e, td, 4)},
-    { key: "food", event: keyf1, value: '', next: '', name:'入量名称', textarea: { width:60 }, change: (e, td) => limitChange(e, td, 10)},
+    { key: 'pupilLight', event: keyf1,value: '',name: '对光反射',next: '',textarea:{ width:35},change: (e, td) => limitChange(e, td, 4), autoComplete: { data: dgfsList } },
+    { key: "food", event: keyf1, value: '', next: '', name:'入量名称', textarea: { width:60 }, change: (e, td) => limitChange(e, td, 10), autoComplete: { data: rlmcList } },
     { key: "foodSize", event: keyf1, value: '', next: 'ml/g', name:'入量量', textarea: { width:45 }, change: (e, td) => limitChange(e, td, 6)},
-    { key: "discharge", event: keyf1, value: '', next: '', name:'出量名称', textarea: { width:60 }, change: (e, td) => limitChange(e, td, 10)},
+    { key: "discharge", event: keyf1, value: '', next: '', name:'出量名称', textarea: { width:60 }, change: (e, td) => limitChange(e, td, 10), autoComplete: { data: clmcList } },
     { key: "dischargeSize", event: keyf1, value: '', next: 'ml/g', name:'出量量', textarea: { width:45 }, change: (e, td) => limitChange(e, td, 6)},
     { key: 'healthEdu', event: keyf1,value: '',name: '健康宣教',next: '',textarea:{ width:70},change: (e, td) => limitChange(e, td,10),
-    autoComplete: { 
+    autoComplete: {
       data:
        [
         {name:'1.入院宣教',value:'1'},
@@ -65,7 +68,7 @@ import {
         {name:'10.用药指导',value:'10'},
         {name:'11.输血注意事项',value:'11'},
         {name:'12.特殊感染隔离注意事项',value:'12'},
-       ] 
+       ]
     } ,
     splice:true,
     },
@@ -116,4 +119,3 @@ import {
     { hidden:true, key:'auditorName', value:''},
     { hidden:true, key:'empNo', value:''},
     { hidden:true, key:'multiSign', value:''},]
-  
