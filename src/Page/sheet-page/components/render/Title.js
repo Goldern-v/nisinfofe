@@ -396,6 +396,20 @@ export default function Title(
     );
   }
   break;
+  case "postpartum_dglb": {
+    // 东莞寮步-产后护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_dglb/th").default)
+    );
+  }
+  break;
+  case "prenatal_dglb": {
+    // 东莞寮步-产前待产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_dglb/th").default)
+    );
+  }
+  break;
   case "baby_dglb": {
     // 东莞寮步-护理记录单（新生儿科）
     Th = JSON.parse(

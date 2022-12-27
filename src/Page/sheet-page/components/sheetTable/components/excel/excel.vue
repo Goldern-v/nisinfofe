@@ -536,7 +536,9 @@
             sheetInfo.sheetType == 'neurosurgery_hd' ||
             sheetInfo.sheetType == 'stress_injury_hd' ||
             sheetInfo.sheetType == 'common_sn' ||
-            sheetInfo.sheetType == 'maternity_sn'||
+            sheetInfo.sheetType == 'maternity_sn' || 
+            sheetInfo.sheetType == 'postpartum_dglb' || 
+            sheetInfo.sheetType == 'prenatal_dglb'||
             sheetInfo.sheetType == 'baby_dglb' ||
             sheetInfo.sheetType == 'baby_obs_dglb'
           "
@@ -780,6 +782,8 @@ export default {
         'magnesiumsulphate_tj',//广东同江 - 硫酸镁注射液静脉滴注观察记录单
         'ops_linyi',
         'NICU_fs', // 佛一 新生儿NICU护理记录单
+        'postpartum_dglb',
+        'prenatal_dglb',
         'baby_dglb',
         'baby_obs_dglb',
       ],
