@@ -231,7 +231,10 @@ export default [
     value: "",
     event: keyf1,
     name: "用药情况",
-    next: ""
+    next: "",
+    textarea: {
+      width: 132
+    }
   },
 
   {

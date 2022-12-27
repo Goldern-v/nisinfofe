@@ -377,13 +377,17 @@ export default {
           name: "治疗",
           value: "治疗"
         },
-        {
-          name: "非摆药机",
-          value: "非摆药机"
-        },
-        {
-          name: "泵入",
-          value: "泵入"
+        // {
+        //   name: "非摆药机",
+        //   value: "非摆药机"
+        // },
+        // {
+        //   name: "泵入",
+        //   value: "泵入"
+        // },
+         {
+          name: "",
+          value: "其他"
         },
         {
           name: "其他",

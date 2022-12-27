@@ -86,6 +86,16 @@
       >
         <div class="nav-item">体温单</div>
       </router-link>
+
+      
+            
+              <el-row v-if=" HOSPITAL_ID == 'hj' "  class="nav-item" type="flex" align="middle ">
+                <div @click="getPushLink()">
+                  <i class="singleTemperatureChart"></i>临床路径
+                </div>    
+              </el-row>
+       
+
       <router-link
         v-if="
           HOSPITAL_ID !== 'zhzxy' &&
@@ -326,6 +336,8 @@ import common from "@/common/mixin/common.mixin";
 import md5 from "md5";
 import qs from "qs";
 import { mapState } from "vuex";
+import { getLink } from "@/api/lesion";
+
 export default {
   mixins: [common],
   data() {
@@ -349,6 +361,15 @@ export default {
         this[key]();
       }
     },
+    getPushLink(){
+      let {patientId,visitId,wardCode} =this.query
+      console.log(this.query,'kkkkkkkkkkkk')
+      let empNo =JSON.parse(localStorage.user).empNo
+      getLink(patientId,visitId,empNo,wardCode).then(res=>{
+        console.log("res===",res)
+      })
+    },
+
     // （顺德龙江）手麻记录单（第三方链接）
     toHandNumbness() {
       window.open(

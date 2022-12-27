@@ -155,7 +155,7 @@
           "
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="
-            selectedItem(td);
+            selectedItem(tr, data,td,y);
             td.key == 'description' &&
               ['guizhou', '925'].includes(HOSPITAL_ID) &&
               !tr.isRead &&
@@ -653,6 +653,7 @@
       <signModal ref="signModal"></signModal>
       <signModal ref="delsignModal" title="删除签名需签名者确认"></signModal>
     </span>
+    <drugSync ref="drugSync"></drugSync>
   </div>
 </template>
 
@@ -669,8 +670,10 @@ import {
   markSave,
   markDelete,
   saveTitleOptions,
+  getExecuteData
 } from "@/api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
+import drugSync from "@/components/modal/whsldrugSync.vue";
 import { Tr } from "../../../render/Body.js";
 import {
   offset,
@@ -2414,7 +2417,7 @@ export default {
       //   // && tr.find(item => item.key == "status").value === "1"
       // )
       //   return tr.find(item => item.key == "status").value === "1";
-
+     
       if (sheetInfo.model == "print") return;
       // 双击的input key
       let key =
@@ -2422,11 +2425,18 @@ export default {
         $(e.target).parents("td").attr("datakey");
       let name = $(e.target).parents("td").attr("dataName");
       let tab = "1";
+
+      if (this.sheetInfo.sheetType=='critical_mahui_weihai'&&key == "medication") {
+        this.$refs.drugSync.open();
+        return;
+      } 
+      console.log('this.sheetInfo.sheetType',this.sheetInfo.sheetType,key)
+
       if (key == "description") {
         tab = "3";
-      } else if (name || key.indexOf("field") == -1) {
+      }  else if (name || key.indexOf("field") == -1) {
         tab = "1";
-      } else {
+      }  else {
         tab = "2";
       }
       //佛山市一不要双击时间出弹框
@@ -2487,7 +2497,7 @@ export default {
         thead,
         tab,
         isLast,
-        canNotSave
+        canNotSave,
       };
       // if (
       //   this.HOSPITAL_ID == "weixian" ||
@@ -2504,6 +2514,7 @@ export default {
       // }
       // 双击出现记录单编辑弹框
       window.openSpecialModal2(config);
+
     },
     markTip(e, td) {
       if (sheetInfo.model == "print") return;
@@ -2571,9 +2582,62 @@ export default {
         }
       }
     },
-    selectedItem(td) {
+    selectedItem(tr, data,td,y) {
       if (td.isSelected) {
         td.value = "✓";
+      }
+      console.log('td',tr, data,td,y)
+      if(td.key=="medication"){
+       if(!tr[0].value||!tr[1].value){
+        this.$message.warning("请先填写日期和时间");
+        return;
+       } 
+      const query = {
+          patientId: this.patientInfo.patientId,
+          visitId: this.patientInfo.visitId,
+          startDate: moment().format('YYYY')+"-"+tr[0].value+' '+tr[1].value+':00', 
+          endDate: moment().format('YYYY')+"-"+tr[0].value+' '+tr[1].value+':00',
+          executeType: '注射，输液，口服',
+          executeStatus: 4,
+        }
+       getExecuteData(query).then((res)=>{
+        const data =res.data.data.filter(item=>item.recordSync=='未同步');
+        let  index= this.data.bodyModel.findIndex(ele=>{
+            return ele[26].key=="recordDate"&&ele[26].value==''
+          })
+        console.log(index)
+        data.map((item,j)=>{
+          if(!td.value&&j==0){
+            td.value=data[0]['orderText'];
+          }else if(!td.value&&j>0||td.value){
+            if(this.data.bodyModel[index]){
+              this.data.bodyModel[index].map(ele=>{
+                if(ele.key=="recordMonth"){
+                  ele.value=tr[0].value;
+                }
+                if(ele.key=="recordHour"){
+                  ele.value=tr[1].value;
+                }
+                if(ele.key=="recordDate"){
+                  ele.value=moment().format('YYYY')+"-"+tr[0].value+' '+tr[1].value+':00';
+                }
+                if(ele.key=="medication"){
+                  ele.value=item['orderText'];
+                  index+=1;
+                }
+              })
+            }else{
+             this.bus.$emit("addSheetPage", false);
+              const data=JSON.parse(JSON.stringify(tr));
+              data[17].value=item['orderText'];
+              this.data.bodyModel.push(data);
+            }
+          }
+        })
+          let curr_row = this.data.bodyModel;
+          console.log(1111,this.data.bodyModel,res,data);
+       })
+         
       }
     },
     /** 审核整页 */
@@ -2814,6 +2878,7 @@ export default {
   },
   components: {
     signModal,
+    drugSync,
     bottomRemark,
   },
 };

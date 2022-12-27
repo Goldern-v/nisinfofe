@@ -30,7 +30,7 @@ switch (HOSPITAL_ID) {
     hospitalExecute = "hisBeiHaiExecute";
     break;
     case "whsl":
-    hospitalExecute = "hisWeiHaiShiLiExecute";
+    hospitalExecute = "hisWeiHaiShiLiExecute"; 
     break;
 }
 // 获取执行单
