@@ -186,7 +186,7 @@ function verifyNewCaSign(SigndataObj,verifySignObj) {
         if(!localStorage.caUser){
           return reject("ca证书还未登录，请先登录！")
         }
-      const strCertId = res.data.substring(res.data.indexOf("||") + 2, res.data.length).replace("&&&", "");
+      const strCertId = res.data.split("&&&")[0].substring(res.data.indexOf("||") + 2, res.data.length).replace("&&&", "");
       console.log('Ca接口信息=======>入参',{...SigndataObj,strCertId})
       SOF_SignData({...SigndataObj,strCertId}).then((SOF_SignDatares) => {
         console.log("SOF_SignDatares",SOF_SignDatares)

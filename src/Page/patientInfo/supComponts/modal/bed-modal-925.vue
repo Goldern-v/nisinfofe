@@ -105,31 +105,51 @@
       v-else
     >
       <div class="header">
-        {{ HOSPITAL_NAME }}
+        <!-- {{ HOSPITAL_NAME }} -->
+        <div style="border:1px dashed #ccc;margin-bottom: 5px;">
+          <div class="title" style="display:inline-block;border-right:1px dashed #ccc;font-size: 16px;">
+            <div class="left-title" style="border-bottom:1px dashed #ccc;"> 中国人民</div>
+            <div class="left-title" >解 放 军</div>
+          </div >
+          <div style="display:inline-block;font-size: 35px;position: relative;top: -7px" >联勤保障部队第九二五医院</div>
+        </div>
       </div>
       <div class="dept-name">
         {{ query.deptName }}
+        <span style="float:right">床号：{{ query.bedLabel }}</span>
       </div>
       <div class="patient-name">{{ query.name }}</div>
-      <div class="other-info">
-        <span>床号：{{ query.bedLabel }}</span>
+      <div class="other-info ">
+        <span>住院号：{{ query.inpNo }}</span>
         <span>{{ query.sex }}</span>
         <span>{{ query.age }}</span>
-        <span>住院号：{{ query.inpNo }}</span>
+        过敏史： <input
+          type="text"
+          style="
+            font-size: 20px;
+            padding-left: 0px;
+            font-weight: 900;
+            width: 50px;
+          "
+          flex-box="1"
+          class="bottom-line"
+          :value="formData.drugGms"
+        />
+       
       </div>
       <div class="diagnosis">
         <span>诊断：</span>
-        <textarea class="diagnosis-content" v-model="formData.remark" rows="9" />
+        <textarea class="diagnosis-content" v-model="formData.remark" rows="3" />
       </div>
 
       <div class="dn-title">
         <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
-        <span>管床医生</span>
-        <span>责任护士</span>
+        <!-- <span>管床医生</span>
+        <span>责任护士</span> -->
       </div>
-      <div class="dn-box">
-        <div class="input-item">
-          <span class="label">姓名:</span>
+      <div class="dn-box ">
+        <div >
+          <span class="label">管床医生:</span>
           <input
             noWidth
             type="text"
@@ -137,8 +157,10 @@
             v-model="formData.mainDoctors"
           />
         </div>
-        <div class="input-item">
-          <span class="label">姓名:</span>
+      </div>
+      <div class="dn-box mb200">
+        <div >
+          <span class="label">责任护士:</span>
           <input
             noWidth
             type="text"
@@ -210,11 +232,16 @@
   .header {
     font-size: 26px;
     line-height: 42px;
+    .left-title{
+      height: 30px;
+      line-height: 30px;
+      padding: 0 5px;
+    }
   }
 
   .dept-name {
     border-top: 5px solid #000;
-    font-size: 36px;
+    font-size: 20px;
     line-height: 58px;
   }
 
@@ -228,6 +255,19 @@
   .other-info {
     display: flex;
     justify-content: space-between;
+    span {
+      margin-right: 20px;
+    }
+    textarea {
+      width: 100%;
+      font-size: 20px;
+      line-height: 26px;
+      outline: none;
+      border: none;
+      padding: 0;
+      height: 234px;
+      resize: none;
+    }
   }
 
   .diagnosis {
@@ -245,7 +285,7 @@
       outline: none;
       border: none;
       padding: 0;
-      height: 234px;
+      height: 80px;
       resize: none;
     }
   }
@@ -255,7 +295,6 @@
     display: flex;
     justify-content: space-around;
     border-top: 5px solid #000;
-    height: 100px;
     padding-right: 100px;
     align-items: center;
 
@@ -270,7 +309,7 @@
   .dn-box {
     display: flex;
     padding-right: 100px;
-
+    margin-top: 22px;
     >div {
       flex: 1;
       display: flex;
@@ -307,10 +346,10 @@
 
   .qr-code {
     position: absolute;
-    top: 24px;
-    right: -6px;
-    height: 112px;
-    width: 112px;
+    top: 2px;
+    right: 8px;
+    height: 150px;
+    width: 150px;
 
     &.hasRemark {
       width: 96px;
@@ -507,6 +546,7 @@ export default {
         dutyNurses: "",
         remark: "",
         remarkPrint: true,
+        drugGms:''
       },
       ysList: [],
       operationName: "",
@@ -544,6 +584,7 @@ export default {
         mainDoctors: "",
         dutyNurses: "",
         remark: "",
+        drugGms:''
       };
       getEntity(this.query.patientId, this.query.visitId).then((res) => {
         let resData = res.data.data;
@@ -557,6 +598,7 @@ export default {
           dutyNurses: resData.dutyNurses || "",
           remark: diagnosis,
           remarkPrint: resData.remarkPrint,
+          drugGms:resData.drugGms||'无',
         };
         this.modalLoading = false;
         this.isOpen();
@@ -656,7 +698,7 @@ export default {
       data.dutyNurses = this.formData.dutyNurses;
       data.remarkPrint = this.formData.remarkPrint;
       data.remark = this.formData.remark.slice(0, 24);
-
+      data.drugGms = this.formData.drugGms;
       saveBed(data).then((res) => {
         this.$message.success("保存成功");
         this.close();
@@ -672,7 +714,8 @@ export default {
               .bed-card-wrapper {
                 box-shadow: none !important;
                 width:560px!important;
-                transform: rotate(90deg) translateY(-110%) translateX(5%) scale(0.6);
+                // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
+                transform: rotate(-90deg) translateY(30%) translateX(-97%) scale(0.8);
                 transform-origin: 0 0;
               }
             `;
@@ -699,22 +742,32 @@ export default {
               .header {
                 font-size: 36px !important;
               }
+              .title{
+                font-size: 20px !important;
+              }
               .dept-name {
-                font-size: 40px !important;
+                font-size: 28px !important;
               }
               .patient-name {
-                padding: 60px 0 70px !important;
-                font-size: 70px !important;
+                padding: 10px 0 20px !important;
+                font-size: 160px !important;
               }
               .dn-title {
                 line-height: 150px !important;
               }
-              .dn-box {
-                margin-bottom: 50px !important;
+              .mb200 {
+                margin-bottom: 300px !important;
               }
               .input-item pre {
                 font-size: 28px !important;
                 line-height: 36px !important;
+              }
+              .qr-code {
+                position: absolute;
+                top: 2px;
+                right: 8px;
+                height:400px!important;
+                width: 400px!important;
               }
               .input-item .label {
                 font-size: 28px !important;
@@ -726,7 +779,7 @@ export default {
                 white-space: pre-wrap;
                 word-break: break-all;
                 word-wrap: break-word;
-                height: 252px;
+                height: 120px;
               }
               `;
               break

@@ -2,7 +2,13 @@
   <div class="left-part">
     <div class="content" :style="{ left: openLeft ? '0' : '-201px' }">
       <div
-        style="height: 1px;background:#4BB08D;box-shadow: 0px 1px 5px rgba(0,0,0,.2);position: relative;z-index: 0"
+        style="
+          height: 1px;
+          background: #4bb08d;
+          box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+          position: relative;
+          z-index: 0;
+        "
       ></div>
       <div class="user-box">
         <div class="user-head" v-if="HOSPITAL_ID !== 'liaocheng'">
@@ -63,7 +69,7 @@
           <div class="list2-li">科室：{{ info.deptName }}</div>
           <div class="list2-li">
             入院：{{
-            ['huadu','liaocheng', 'wujing'].includes(HOSPITAL_ID)
+              ["huadu", "liaocheng", "wujing"].includes(HOSPITAL_ID)
                 ? info.admissionWardDateTime
                 : info.admissionDate
             }}(第{{ info.inpDay }}天)
@@ -81,20 +87,20 @@
             打印床头卡
           </div>
           <div
-              v-if="HOSPITAL_ID ==='foshanrenyi'"
-              class="print-btn"
-              flex="cross:center main:center"
-              @click="openOcx"
-             >
+            v-if="HOSPITAL_ID === 'foshanrenyi'"
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openOcx"
+          >
             临床路径
           </div>
           <div
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint('v')"
-            v-if="HOSPITAL_ID == 'huadu'|| HOSPITAL_ID == 'beihairenyi'"
+            v-if="HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'beihairenyi'"
           >
-            {{HOSPITAL_ID == 'beihairenyi'?'打印床头卡':'打印床头卡2'}}
+            {{ HOSPITAL_ID == "beihairenyi" ? "打印床头卡" : "打印床头卡2" }}
           </div>
           <div
             class="print-btn"
@@ -110,16 +116,19 @@
               HOSPITAL_ID == '925' ||
               HOSPITAL_ID == 'gdtj' ||
               HOSPITAL_ID == 'whhk' ||
-              HOSPITAL_ID == 'lyyz'
+              HOSPITAL_ID == 'lyyz' ||
+              HOSPITAL_ID == 'dglb'
             "
           >
-            {{HOSPITAL_ID=='beihairenyi'?'成人腕带打印':'腕带打印'}}
+            {{ HOSPITAL_ID == "beihairenyi" ? "成人腕带打印" : "腕带打印" }}
           </div>
           <div
             class="print-btn"
             flex="cross:center main:center"
             @click="openWristPrint('wrist-children')"
-            v-if="['beihairenyi','zhzxy','lyyz'].includes(HOSPITAL_ID)"
+            v-if="
+              ['beihairenyi', 'zhzxy', 'lyyz', 'dglb'].includes(HOSPITAL_ID)
+            "
           >
             儿童腕带打印
           </div>
@@ -329,17 +338,16 @@ import bedModalSDLJ from "./modal/bed-modal-sdlj.vue";
 import bedModalWx from "./modal/bed-modal_wx.vue";
 import bedModalLc from "./modal/bed-modal_lc.vue";
 import bedModalLiaocheng from "./modal/bed-modal_liaocheng.vue";
-// import bedModalNfzxy from "./modal/bed-modal-Nfzxy.vue";
 import bedModalHd from "./modal/bed-modal-hd.vue";
 import bedModalGDTJ from "./modal/bed-modal-gdtj.vue";
 import bedModalZsq from "./modal/bed-modal-zsq.vue";
 import bedModalBh from "./modal/bed-modal-bh.vue";
 import bedModalQz from "./modal/bed-modal-qz.vue";
-import bedModalWhfk from "./modal/bed-modal-whfk.vue"
+import bedModalWhfk from "./modal/bed-modal-whfk.vue";
 import bedModalXiegang from "./modal/bed-modal_xiegang.vue";
-import bedModalHj from "./modal/bed-modal_hj"
-import bedModal925 from "./modal/bed-modal-925"
-import bedModalWhsl from "./modal/bed-modal_whsl"
+import bedModalHj from "./modal/bed-modal_hj";
+import bedModal925 from "./modal/bed-modal-925";
+import bedModalWhsl from "./modal/bed-modal_whsl";
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
 import { previewArchive } from "./modal/api/index";
@@ -351,7 +359,7 @@ export default {
       overflow: "hidden",
       printDetailList: [], //归档详情
       archiveStatus: "",
-      printArchiveMaster: {} //归档、转pdf状态对象
+      printArchiveMaster: {}, //归档、转pdf状态对象
     };
   },
   computed: {
@@ -369,60 +377,64 @@ export default {
     },
     flagTop() {
       return `${this.wih * 0.4}px`;
-    }
+    },
   },
   methods: {
     toOpenLeft() {
       this.$store.commit("common/upOpenLeft", !this.openLeft);
     },
-    openOcx(){
-      const {patientId,visitId,wardCode}=this.info
-      const {empNo:userId,empName:userName}=this.getUser
-      console.log(userId,userName,'this.info');
+    openOcx() {
+      const { patientId, visitId, wardCode } = this.info;
+      const { empNo: userId, empName: userName } = this.getUser;
 
-      window.open(`http://192.168.99.72:8080/jhlcprun/main?patientNo=${patientId}_${visitId}&deptCode=${wardCode}&hospitalId=45607379-3&userId=${userId}&userName=${userName}&userType=2`)
+      window.open(
+        `http://192.168.99.72:8080/jhlcprun/main?patientNo=${patientId}_${visitId}&deptCode=${wardCode}&hospitalId=45607379-3&userId=${userId}&userName=${userName}&userType=2`
+      );
     },
     // 床头卡打印
     openBedPrint(printMode) {
-
       let hospital_left = {
-        wujing:'bedModalWujing',
-        sdlj:'bedModalSDLJ',
-        weixian:'bedModalWx',
-        lingcheng:'bedModalLc',
-        liaocheng:'bedModalLiaocheng',
-        huadu:'bedModalHd',
-        zhongshanqi:'bedModalZsq',
-        beihairenyi:'bedModalBh',
-        quzhou:'bedModalQz',
-        whfk:'bedModalWhfk',
-        hj:'bedModalHj',
-        ytll:'bedModalYtLL',
-        925: 'bedModal925',
-        whsl: 'bedModalWhsl',
+        wujing: "bedModalWujing",
+        sdlj: "bedModalSDLJ",
+        weixian: "bedModalWx",
+        lingcheng: "bedModalLc",
+        liaocheng: "bedModalLiaocheng",
+        huadu: "bedModalHd",
+        zhongshanqi: "bedModalZsq",
+        beihairenyi: "bedModalBh",
+        quzhou: "bedModalQz",
+        whfk: "bedModalWhfk",
+        hj: "bedModalHj",
+        ytll: "bedModalYtLL",
+        925: "bedModal925",
+        whsl: "bedModalWhsl",
         // nanfangzhongxiyi:'bedModalNfzxy',
-      }
-      if(hospital_left[this.HOSPITAL_ID]){
+      };
+      if (hospital_left[this.HOSPITAL_ID]) {
         this.$refs[hospital_left[this.HOSPITAL_ID]].open(printMode);
-      }else{
+      } else {
         this.$refs.bedModal.open();
       }
     },
     // 腕带打印
     openWristPrint(printMode) {
-      if (["huadu", "liaocheng", 'zhzxy','whhk'].includes(this.HOSPITAL_ID)) {
+      if (
+        ["huadu", "liaocheng", "zhzxy", "whhk", "dglb"].includes(
+          this.HOSPITAL_ID
+        )
+      ) {
         this.$refs.bedModalHd.open(printMode);
       } else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);
-      }else if( this.HOSPITAL_ID == "beihairenyi"){
+      } else if (this.HOSPITAL_ID == "beihairenyi") {
         this.$refs.bedModalBh.open(printMode);
       } else if (this.HOSPITAL_ID == "xiegang") {
         this.$refs.bedModalXiegang.open(printMode);
-      } else if (['925'].includes(this.HOSPITAL_ID)) {
+      } else if (["925"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModal925.open(printMode);
-      }else if (['gdtj'].includes(this.HOSPITAL_ID)) {
+      } else if (["gdtj"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalGDTJ.open(printMode);
-      }else if (['lyyz'].includes(this.HOSPITAL_ID)) {
+      } else if (["lyyz"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalGDTJ.open(printMode);
       }
     },
@@ -437,35 +449,35 @@ export default {
       if (this.printArchiveMaster.printStatus == 1) {
         this.$message({
           type: "warning",
-          message: "转pdf中，请稍等"
+          message: "转pdf中，请稍等",
         });
         return;
       }
       if (this.printArchiveMaster.uploadStatus == 1) {
         this.$message({
           type: "warning",
-          message: "归档中，请稍等"
+          message: "归档中，请稍等",
         });
         return;
       }
       let item = {
         patientId: this.info.patientId,
-        visitId: this.info.visitId
+        visitId: this.info.visitId,
       };
       this.$refs.archiveModal.open(item);
       // this.$refs.printModal.open();
     },
     // 获取归档打印详情
     getArchiveStatus() {
-      previewArchive(this.info.patientId, this.info.visitId).then(res => {
+      previewArchive(this.info.patientId, this.info.visitId).then((res) => {
         this.printDetailList = res.data.data.printDetailList;
         this.printArchiveMaster = res.data.data.printArchiveMasters || {};
       });
-    }
+    },
   },
   created() {
-    console.log("P:created");
-    if(['foshanrenyi'].includes(this.HOSPITAL_ID)) this.$store.commit("common/upDefaultOpenLeft", false);
+    if (["foshanrenyi"].includes(this.HOSPITAL_ID))
+      this.$store.commit("common/upDefaultOpenLeft", false);
     window.document.title = `${this.info.bedLabel}-${this.info.name}`;
   },
   mounted() {
@@ -492,6 +504,6 @@ export default {
     bedModal925,
     bedModalGDTJ,
     bedModalWhsl,
-  }
+  },
 };
 </script>

@@ -284,5 +284,23 @@ module.exports = {
     ABOUT_INFO: '"关于宸瑞普惠"',
     title: '"智慧护理信息系统"',
     ENABLE_BLUETOOTH_SIGN: false
-  }
+  },
+  "zzwy": {
+    HOSPITAL_ID: '"zzwy"',
+    HOSPITAL_NAME: '"漳州市第五医院"',
+    HOSPITAL_NAME_SPACE: '"漳 州 市 第 五 医 院"',
+    COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"',
+    ENABLE_BLUETOOTH_SIGN: false
+  },
+  "stmz": {
+    HOSPITAL_ID: '"stmz"',
+    HOSPITAL_NAME: '"松桃苗族自治县人民医院"',
+    HOSPITAL_NAME_SPACE: '"松 桃 苗 族 自 治 县 人 民 医 院"',
+    COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"',
+    ENABLE_BLUETOOTH_SIGN: false
+  },
 }

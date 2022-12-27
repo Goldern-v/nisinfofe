@@ -18,95 +18,113 @@
           flex
           :class="{ remarkCon: formData.remarkPrint }"
         >
-          <img
-            class="qr-code"
-            :src="qrCode"
-          />
+          <img class="qr-code" :src="qrCode" />
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
-            <div
-              flex="cross:center"
-              class="input-item"
-              style="height: 43px"
-            >
+            <div flex="cross:center" class="input-item" style="height: 43px">
               <span class="label">科别:</span>
               <div
                 type="text"
                 nowidth
-                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
                 flex-box="1"
                 class="bottom-line"
-              >{{query.wardName}}</div>
+              >
+                {{ query.wardName }}
+              </div>
             </div>
             <div
               flex="cross:center"
               class="input-item"
-              :style="{overflow:query.name.length>7?'unset':'',minHeight:'43px'}"
+              :style="{
+                overflow: query.name.length > 7 ? 'unset' : '',
+                minHeight: '43px',
+              }"
             >
               <span class="label">床号:</span>
               <div
                 type="text"
                 nowidth
-                style="font-size: 22px;padding-left: 5px;border-bottom:0"
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
                 flex-box="1"
                 class="bottom-line"
-              >{{query.bedLabel}}</div>
+              >
+                {{ query.bedLabel }}
+              </div>
               <span class="label">姓名:</span>
               <div
                 type="text"
                 nowidth
-                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
                 flex-box="3"
                 class="bottom-line"
-                :class="[query.name.length>7?'huadu-bigname':'']"
-              >{{query.name}}</div>
+                :class="[query.name.length > 7 ? 'huadu-bigname' : '']"
+              >
+                {{ query.name }}
+              </div>
             </div>
-            <div flex="cross:center" class="input-item"> 
+            <div flex="cross:center" class="input-item">
               <span class="label">性别:</span>
               <div
                 type="text"
                 nowidth
-                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
                 flex-box="1"
                 class="bottom-line"
-              >{{query.sex}}</div>
+              >
+                {{ query.sex }}
+              </div>
               <span class="label">年龄:</span>
               <div
                 type="text"
                 nowidth
-                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
                 flex-box="3"
                 class="bottom-line"
-              >{{query.age}}</div>
+              >
+                {{ query.age }}
+              </div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">住院号:</span>
               <div
                 type="text"
                 nowidth
-                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
                 flex-box="1"
                 class="bottom-line"
-              >{{query.patientId}}</div>
+              >
+                {{ query.patientId }}
+              </div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">主管医生:</span>
               <div
                 type="text"
                 nowidth
-                style="font-size: 22px;padding-left: 5px;border-bottom:0;"
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
                 flex-box="1"
                 class="bottom-line"
-              >{{mainDoctors}}</div>
+              >
+                {{ mainDoctors }}
+              </div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">入院日期:</span>
               <div
                 type="text"
                 flex-box="1"
-                style="width: 0px;font-size: 22px; padding-left: 2px;;margin-right:80px;border-bottom:0;"
+                style="
+                  width: 0px;
+                  font-size: 22px;
+                  padding-left: 2px;
+                  margin-right: 80px;
+                  border-bottom: 0;
+                "
                 nowidth
                 class="bottom-line"
-              >{{moment(query.admissionDate).format('YYYY-MM-DD')}}</div>
+              >
+                {{ moment(query.admissionDate).format("YYYY-MM-DD") }}
+              </div>
             </div>
           </div>
         </div>
@@ -121,13 +139,19 @@
           <p>{{ query.bedLabel + "床" }}</p>
           <span>姓名：</span>
           <p>{{ query.name }}</p>
-          <span><span style="display:inline-block;width:54px;">性别：</span><span style="font-size:20px;display:inline-block;width:30px;">{{ query.sex }}</span></span>
+          <span
+            ><span style="display: inline-block; width: 54px">性别：</span
+            ><span
+              style="font-size: 20px; display: inline-block; width: 30px"
+              >{{ query.sex }}</span
+            ></span
+          >
           <span>年龄：</span>
           <p>{{ query.age }}</p>
           <span>住院号：</span>
           <p>{{ query.patientId }}</p>
           <img
-            class="qr-code  wrist-qrcode"
+            class="qr-code wrist-qrcode"
             :class="{ hasRemark: hasRemark }"
             :src="qrCode"
           />
@@ -135,15 +159,22 @@
       </div>
       <div
         class="bed-card-warpper wrist-strap-print"
-        :class="{'zhzxyStyle':['zhzxy'].includes(HOSPITAL_ID)}"
+        :class="{ zhzxyStyle: ['zhzxy'].includes(HOSPITAL_ID) }"
         ref="printCon3"
         v-show="printMode == 'wrist'"
       >
-        <div class="bed-card-vert-con" >
-          <div :class="{'huaduStyle':['huadu'].includes(HOSPITAL_ID)}">
+        <div class="bed-card-vert-con">
+          <div :class="{ huaduStyle: ['huadu'].includes(HOSPITAL_ID) }">
             <div class="top">
               <span>科室：{{ query.wardName }}</span>
-              <span v-if="!['zhzxy'].includes(HOSPITAL_ID)" :style="{'margin':'4px','margin-left':['zhzxy'].includes(HOSPITAL_ID)?'20px':''}">床位：{{ query.bedLabel }}</span>
+              <span
+                v-if="!['zhzxy', 'whhk'].includes(HOSPITAL_ID)"
+                :style="{
+                  margin: '4px',
+                  'margin-left': ['zhzxy'].includes(HOSPITAL_ID) ? '20px' : '',
+                }"
+                >床位：{{ query.bedLabel }}</span
+              >
             </div>
             <div>
               <div v-if="['fsxt'].includes(HOSPITAL_ID)">
@@ -158,30 +189,45 @@
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
               </div>
+              <div v-else-if="['whhk'].includes(HOSPITAL_ID)">
+                <div>
+                  <span>姓名：{{ query.name }}</span>
+                  <span>性别：{{ query.sex }}</span>
+                </div>
+                <div>
+                  <span>床号：{{ query.bedLabel }}</span>
+                  <span>住院号：{{ query.patientId }}</span>
+                </div>
+              </div>
               <div v-else>
                 <span>{{ query.name }}</span>
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
                 <span>住院号：{{ query.patientId }}</span>
               </div>
-              <div>
+              <div v-if="!['whhk'].includes(HOSPITAL_ID)">
                 <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
               </div>
 
-        <div flex="cross:center" class="input-item" style="width:73%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
-                <span class="label" style="margin-right:0;">过敏信息：</span>
+              <div
+                flex="cross:center"
+                class="input-item"
+                style="width: 73%; height: 27px"
+                v-if="['gdtj'].includes(HOSPITAL_ID)"
+              >
+                <span class="label" style="margin-right: 0">过敏信息：</span>
                 <input
                   type="text"
                   nowidth
-                  style="font-size: 20px;padding-left:0;"
+                  style="font-size: 20px; padding-left: 0"
                   flex-box="1"
                   class="bottom-line is_input_print"
-          :maxlength="13"
+                  :maxlength="13"
                   v-model="allergy_gdtj"
                 />
               </div>
-        
-        <!-- <div flex="cross:top"
+
+              <!-- <div flex="cross:top"
                 class="input-item"
           v-if="['gdtj'].includes(HOSPITAL_ID)" style="width:350px;height: 60px;">
                 <span class="label">过敏信息：</span>
@@ -196,28 +242,41 @@
                 ></textarea>
           <p class="bottom-line remark allergy-textarea print-page__ptext" flex-box="1" style="whiteSpace: pre-wrap;">{{allergy_gdtj}}</p>
               </div> -->
-        <div class="allergy" :class="{whhkAllergy:['whhk'].includes(HOSPITAL_ID)}" v-else-if="!['zhzxy'].includes(HOSPITAL_ID)">
-          <p :class="[allergy1||drugGms||allergy2?'gm':'']">
-            过敏信息：
-            <span v-if="allergy1">{{ allergy1 }};</span>
-            <span v-if="drugGms">{{ drugGms }};</span>
-            <span v-if="allergy2">{{ allergy2 }}</span>
-            <span v-if="!(allergy1||drugGms||allergy2)">无</span>
-          </p>
-          <div flex="cross:center" class="input-item" v-if="['whhk'].includes(HOSPITAL_ID)">
-            <span class="label" style="margin-right:0;">科室联系电话：</span>
-            <input
-              type="text"
-              nowidth
-              style="padding-left:0;"
-              flex-box="1"
-              class="bottom-line is_input_print"
-              :maxlength="11"
-              v-model="lianxiPhone_whhk"
-            />
-          </div>
-        </div>
-        
+              <div
+                class="allergy"
+                :class="{ whhkAllergy: ['whhk'].includes(HOSPITAL_ID) }"
+                v-else-if="!['zhzxy'].includes(HOSPITAL_ID)"
+              >
+                <p
+                  :class="[allergy1 || drugGms || allergy2 ? 'gm' : '']"
+                  v-if="!['whhk'].includes(HOSPITAL_ID)"
+                >
+                  过敏信息：
+                  <span v-if="allergy1">{{ allergy1 }};</span>
+                  <span v-if="drugGms">{{ drugGms }};</span>
+                  <span v-if="allergy2">{{ allergy2 }}</span>
+                  <span v-if="!(allergy1 || drugGms || allergy2)">无</span>
+                </p>
+                <div
+                  flex="cross:center"
+                  class="input-item"
+                  v-if="['whhk'].includes(HOSPITAL_ID)"
+                >
+                  <span class="label" style="margin-right: 0"
+                    >科室联系电话：</span
+                  >
+                  <input
+                    type="text"
+                    nowidth
+                    style="padding-left: 0"
+                    flex-box="1"
+                    class="bottom-line is_input_print"
+                    :maxlength="11"
+                    v-model="aField1"
+                  />
+                </div>
+              </div>
+
               <!-- <svg id="barcode"></svg> -->
             </div>
           </div>
@@ -228,16 +287,23 @@
           />
         </div>
       </div>
-        <div
+      <div
         class="bed-card-warpper wrist-strap-print fsxt-wrist-children"
-        :class="{'zhzxyStyle':['zhzxy'].includes(HOSPITAL_ID)}"
+        :class="{ zhzxyStyle: ['zhzxy'].includes(HOSPITAL_ID) }"
         ref="fsxtPrintCon"
         v-if="printMode == 'fsxt-wrist-children'"
       >
-        <div class="bed-card-vert-con" >
+        <div class="bed-card-vert-con">
           <div class="top">
             <span>科室：{{ query.wardName }}</span>
-            <span v-if="!['zhzxy'].includes(HOSPITAL_ID)" :style="{'margin':'4px','margin-left':['zhzxy'].includes(HOSPITAL_ID)?'20px':''}">床位：{{ query.bedLabel }}</span>
+            <span
+              v-if="!['zhzxy'].includes(HOSPITAL_ID)"
+              :style="{
+                margin: '4px',
+                'margin-left': ['zhzxy'].includes(HOSPITAL_ID) ? '20px' : '',
+              }"
+              >床位：{{ query.bedLabel }}</span
+            >
           </div>
           <div>
             <div v-if="['fsxt'].includes(HOSPITAL_ID)">
@@ -262,41 +328,55 @@
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
             </div>
 
-			<div flex="cross:center" class="input-item" style="width:73%;height:27px;" v-if="['gdtj'].includes(HOSPITAL_ID)">
-              <span class="label" style="margin-right:0;">过敏信息：</span>
+            <div
+              flex="cross:center"
+              class="input-item"
+              style="width: 73%; height: 27px"
+              v-if="['gdtj'].includes(HOSPITAL_ID)"
+            >
+              <span class="label" style="margin-right: 0">过敏信息：</span>
               <input
                 type="text"
                 nowidth
-                style="font-size: 20px;padding-left:0;"
+                style="font-size: 20px; padding-left: 0"
                 flex-box="1"
                 class="bottom-line is_input_print"
-				:maxlength="13"
+                :maxlength="13"
                 v-model="allergy_gdtj"
               />
             </div>
-			<div class="allergy" :class="{whhkAllergy:['whhk'].includes(HOSPITAL_ID)}" v-else-if="!['zhzxy'].includes(HOSPITAL_ID)">
-				<p :class="[allergy1||drugGms||allergy2?'gm':'']">
-					过敏信息：
-					<span v-if="allergy1">{{ allergy1 }};</span>
-					<span v-if="drugGms">{{ drugGms }};</span>
-					<span v-if="allergy2">{{ allergy2 }}</span>
-					<span v-if="!(allergy1||drugGms||allergy2)">无</span>
-				</p>
-        <div flex="cross:center" class="input-item" v-if="['whhk'].includes(HOSPITAL_ID)">
-          <span class="label" style="margin-right:0;">科室联系电话：</span>
-          <input
-            type="text"
-            nowidth
-            style="padding-left:0;"
-            flex-box="1"
-            class="bottom-line is_input_print"
-            :maxlength="11"
-            v-model="lianxiPhone_whhk"
-          />
-        </div>
-			</div>
-      
-             </div>
+            <div
+              class="allergy"
+              :class="{ whhkAllergy: ['whhk'].includes(HOSPITAL_ID) }"
+              v-else-if="!['zhzxy'].includes(HOSPITAL_ID)"
+            >
+              <p :class="[allergy1 || drugGms || allergy2 ? 'gm' : '']">
+                过敏信息：
+                <span v-if="allergy1">{{ allergy1 }};</span>
+                <span v-if="drugGms">{{ drugGms }};</span>
+                <span v-if="allergy2">{{ allergy2 }}</span>
+                <span v-if="!(allergy1 || drugGms || allergy2)">无</span>
+              </p>
+              <div
+                flex="cross:center"
+                class="input-item"
+                v-if="['whhk'].includes(HOSPITAL_ID)"
+              >
+                <span class="label" style="margin-right: 0"
+                  >科室联系电话：</span
+                >
+                <input
+                  type="text"
+                  nowidth
+                  style="padding-left: 0"
+                  flex-box="1"
+                  class="bottom-line is_input_print"
+                  :maxlength="11"
+                  v-model="lianxiPhone_whhk"
+                />
+              </div>
+            </div>
+          </div>
           <img
             class="qr-code"
             :class="{ hasRemark: hasRemark }"
@@ -307,7 +387,7 @@
       <div
         class="bed-card-warpper wrist-strap-print children-wrist"
         ref="printCon4"
-        :class="{'zhzxyStyle':['zhzxy'].includes(HOSPITAL_ID)}"
+        :class="{ zhzxyStyle: ['zhzxy'].includes(HOSPITAL_ID) }"
         v-show="printMode == 'wrist-children'"
       >
         <div class="bed-card-vert-con">
@@ -316,8 +396,10 @@
           </div>
           <div>
             <div>
-              <span v-if="!['zhzxy'].includes(HOSPITAL_ID)">床位：{{ query.bedLabel }}</span>
-              <span>住院号：{{ query.patientId}}</span>
+              <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
+                >床位：{{ query.bedLabel }}</span
+              >
+              <span>住院号：{{ query.patientId }}</span>
             </div>
             <div>
               <span>{{ query.name }}</span>
@@ -338,26 +420,7 @@
         </div>
       </div>
       <div slot="button">
-        <!-- <span
-          style="position: absolute; left: 10px; padding-top: 4px"
-          v-if="HOSPITAL_ID != 'hj' && printMode == 'h'"
-        >
-          <span>显示诊断</span>
-          <el-switch
-            on-text="是"
-            off-text="否"
-            v-model="formData.remarkPrint"
-          ></el-switch>
-        </span> -->
-
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <!-- <el-button
-          class="modal-btn"
-          type="primary"
-          @click="post"
-          v-if="printMode == 'h'"
-          >保存</el-button
-        > -->
         <el-button class="modal-btn" type="info" @click="onPrint"
           >打印</el-button
         >
@@ -374,6 +437,7 @@
     text-align: center;
   }
 }
+
 .remark {
   height: 60px;
   resize: none;
@@ -391,131 +455,150 @@
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
   font-size: 16px;
-  &.zhzxyStyle{
-      font-size: 20px;
-    }
-  
-  .bed-card-con{
-    width:9cm;
-    height:5.7cm;
+
+  &.zhzxyStyle {
+    font-size: 20px;
   }
+
+  .bed-card-con {
+    width: 9cm;
+    height: 5.7cm;
+  }
+
   >>> * {
     font-family: 'SimHei', 'Microsoft Yahei' !important;
     font-weight: bold;
   }
 }
-.huaduStyle{
-  position:relative;
-  left:-20px;
+
+.huaduStyle {
+  position: relative;
+  left: -30px;
 }
+
 .bed-card-vertical {
-  // display: none;
-  
   .bed-card-vert-con {
     margin: 5px;
     width: 2.5cm;
     height: 360px;
-    padding:5px 0 0 !important;
+    padding: 5px 0 0 !important;
     box-sizing: border-box;
     position: relative;
     border: 3px solid #000;
     text-align: left;
-    
+
     span {
-      display:block;
-      width:100%;
-      text-align center;
+      display: block;
+      width: 100%;
+      text-align: center;
       font-size: 16px;
       line-height: 24px;
     }
+
     p {
       text-align: center;
       font-size: 20px;
       line-height: 28px;
       padding-bottom: 10px;
-      &.patientId{
+
+      &.patientId {
         font-size: 16px;
       }
+
       &:last-of-type {
         padding-bottom: 5px;
       }
     }
+
     svg {
       width: 100%;
-      // height: 70px !important;
     }
   }
 }
-.print-page__ptext{
-	display: none;
+
+.print-page__ptext {
+  display: none;
 }
 
 .wrist-strap-print {
-   .bed-card-vert-con {
-      margin: 20px;
-      width: 119px;
-      height: 498px;
-      padding: 35px 8px 5px !important;
-      box-sizing: border-box;
-      position: relative;
-      border: 3px solid #000;
-      text-align: left;
-      width: 500px;
-      height: auto;
-      padding: 5px 0 0 0 !important;
-      border: none;
-     .top {
-        span {
+  .bed-card-vert-con {
+    margin: 20px;
+    width: 119px;
+    height: 498px;
+    padding: 35px 8px 5px !important;
+    box-sizing: border-box;
+    position: relative;
+    border: 3px solid #000;
+    text-align: left;
+    width: 500px;
+    height: auto;
+    padding: 5px 0 0 0 !important;
+    border: none;
+
+    .top {
+      span {
+        margin-left: 10px;
+
+        &:first-of-type {
           margin-left: 10px;
-          &:first-of-type {
-            margin-left: 10px;
-          }
         }
-     }
-      >>>.allergy{
-        width :80%;
-        &.whhkAllergy{
-          width:100%;
-          display:flex;
+      }
+    }
+
+    >>>.allergy {
+      width: 80%;
+
+      &.whhkAllergy {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        >p {
+          display: flex;
           align-items: center;
-          >p{
-            display: flex;
-            align-items: center;
-          }
-          >.input-item{
-            height: 25px;
-            font-size: 20px;
-            margin-left: 10px;
-            >span{
-              font-size: 16px;
-            }
-            >input{
-              font-size: 16px;
-              width: 100px;
-            }
-          }
         }
-        p{
-          height 25px;
-          overflow hidden
-          margin-left:10px;
+
+        >.input-item {
+          height: 25px;
           font-size: 20px;
-        }
-        span{
-          margin-left:0px;
-          font-size: 20px;
-        }
-        p.gm{
-          span{
-            color:red;
+          margin-left: 10px;
+
+          >span {
+            font-size: 16px;
+          }
+
+          >input {
+            font-size: 16px;
+            width: 100px;
           }
         }
       }
-     span {
-        font-size: 20px;
-        line-height: 24px;
+
+      p {
+        height: 25px;
+        overflow: hidden;
         margin-left: 10px;
-     }
+        font-size: 20px;
+      }
+
+      span {
+        margin-left: 0px;
+        font-size: 20px;
+      }
+
+      p.gm {
+        span {
+          color: red;
+        }
+      }
+    }
+
+    span {
+      font-size: 20px;
+      line-height: 24px;
+      margin-left: 10px;
+    }
+
     .qr-code {
       position: absolute;
       right: 25px;
@@ -529,55 +612,43 @@
         height: 96px;
       }
     }
-     svg {
+
+    svg {
       height: 60px !important;
       margin-left: 15px;
     }
-   }
-   &.children-wrist{
-      width:10cm;
-      height:3cm;
-      // border:1px solid #000;
-      box-sizing:border-box;
-      .bed-card-vert-con{
-        transform:scale(0.8) translateX(-2.1cm) translateY(-0.7cm)
-      }
-      .qr-code{
-        position: absolute;
-        right: 75px !important;
-        top: 55% !important;
-        margin-top: -56px;
-        height: 112px;
-        width: 112px;
-      }
   }
- 
+
+  &.children-wrist {
+    width: 10cm;
+    height: 3cm;
+    box-sizing: border-box;
+
+    .bed-card-vert-con {
+      transform: scale(0.8) translateX(-2.1cm) translateY(-0.7cm);
+    }
+
+    .qr-code {
+      position: absolute;
+      right: 75px !important;
+      top: 55% !important;
+      margin-top: -56px;
+      height: 112px;
+      width: 112px;
+    }
+  }
 }
-//  .fsxt-wrist-children{
-//      width:7.2cm;
-//      height:2.4cm;
-//      font-size:14px;
-//       .bed-card-vert-con{
-//         transform:scale(0.8) translateX(-2.1cm) translateY(0cm)
-//       }
-//       .qr-code{
-//         position: absolute;
-//         right: 75px !important;
-//         top: 56% !important;
-//         margin-top: -56px;
-//         height: 90px;
-//         width: 90px;
-//       }
-//   }
-.fsxt-wrist-children{
-  width:10cm;
-  height:3cm;
+.fsxt-wrist-children {
+  width: 10cm;
+  height: 3cm;
   // border:1px solid #000;
-  box-sizing:border-box;
-  .bed-card-vert-con{
-    transform:scale(0.8) translateX(-1.1cm) translateY(-0.7cm)
+  box-sizing: border-box;
+
+  .bed-card-vert-con {
+    transform: scale(0.8) translateX(-1.1cm) translateY(-0.7cm);
   }
-  .qr-code{
+
+  .qr-code {
     position: absolute;
     right: 75px !important;
     top: 55% !important;
@@ -586,6 +657,7 @@
     width: 112px;
   }
 }
+
 .bed-card-con {
   margin: 20px;
   width: 511px;
@@ -597,7 +669,6 @@
   border: 1px solid #000;
   height: 370px;
 
-  // &.remarkCon
   .qr-code {
     position: absolute;
     bottom: 10px;
@@ -651,18 +722,19 @@
   border: 0;
   padding: 0;
 }
-  .allergy-textarea{
-	overflow:hidden;
-	width: 235px;
-	padding-left 4px;
-	border: 1px solid #ccc;
-	box-sizing: border-box;
-	height: 58px;
-	border-radius:4px;
-	line-height: 1.1;
-    padding-top: 4px;
-	font-size: 19px;
-  }
+
+.allergy-textarea {
+  overflow: hidden;
+  width: 235px;
+  padding-left: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  height: 58px;
+  border-radius: 4px;
+  line-height: 1.1;
+  padding-top: 4px;
+  font-size: 19px;
+}
 
 .input-item {
   height: 40px;
@@ -775,7 +847,6 @@ input[type='checkbox']:checked:after {
   font-weight: bold;
   text-align: center;
   color: #000;
-  // margin-top 15px
   height: 42px;
   line-height: 42px;
   margin-bottom: 15px;
@@ -822,13 +893,13 @@ label {
     font-size: 17px;
   }
 }
-.wrist-qrcode{
-  width:55px;
-  position:relative;
-  top:-12px;
-  left:13px;
-}
 
+.wrist-qrcode {
+  width: 55px;
+  position: relative;
+  top: -12px;
+  left: 13px;
+}
 </style>
 
 <script>
@@ -837,12 +908,10 @@ import {
   saveOrUpdate,
   findByKeyword,
   findByKeywordNur,
-  saveBed
+  saveBed,
 } from "./api/index.js";
-import print from "./tool/print";
 import printing from "printing";
 var qr = require("qr-image");
-var JsBarcode = require("jsbarcode");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
@@ -855,20 +924,20 @@ export default {
       tipList: [
         {
           label: "小心跌倒",
-          img: require("./images/Group 6.png")
+          img: require("./images/Group 6.png"),
         },
         {
           label: "小心烫伤",
-          img: require("./images/Group 7.png")
+          img: require("./images/Group 7.png"),
         },
         {
           label: "防止压疮",
-          img: require("./images/Group 9.png")
+          img: require("./images/Group 9.png"),
         },
         {
           label: "防止偷盗",
-          img: require("./images/Group 10.png")
-        }
+          img: require("./images/Group 10.png"),
+        },
       ],
       modalLoading: false,
       formData: {
@@ -877,17 +946,18 @@ export default {
         mainDoctors: "",
         dutyNurses: "",
         remark: "",
-        remarkPrint: true
+        remarkPrint: true,
       },
-      mainDoctors:'',
+      mainDoctors: "",
       ysList: [],
       printMode: "h", //打印模式
       title: "编辑床头卡",
       allergy1: "",
       allergy2: "",
       drugGms: "",
-	  allergy_gdtj:"",//自定义过敏信息
-    lianxiPhone_whhk:""
+      allergy_gdtj: "", //自定义过敏信息
+      lianxiPhone_whhk: "",
+      aField1: "",
     };
   },
   computed: {
@@ -896,7 +966,7 @@ export default {
     },
     hasRemark() {
       return this.formData.remarkPrint;
-    }
+    },
   },
   methods: {
     init() {
@@ -905,9 +975,9 @@ export default {
         registCare: [],
         mainDoctors: "",
         dutyNurses: "",
-        remark: ""
+        remark: "",
       };
-      getEntity(this.query.patientId, this.query.visitId).then(res => {
+      getEntity(this.query.patientId, this.query.visitId).then((res) => {
         let resData = res.data.data;
         let diagnosis = textOver(this.query.diagnosis, 52);
         this.formData = {
@@ -918,17 +988,18 @@ export default {
           mainDoctors: resData.mainDoctors || "",
           dutyNurses: resData.dutyNurses || "",
           remark: diagnosis,
-          remarkPrint: resData.remarkPrint
+          remarkPrint: resData.remarkPrint,
         };
-        this.lianxiPhone_whhk = resData.lianxiPhone_whhk
-        this.mainDoctors = resData.mainDoctors
+        this.lianxiPhone_whhk = resData.lianxiPhone_whhk;
+        this.aField1 = resData.aField1 || "";
+        this.mainDoctors = resData.mainDoctors;
         this.allergy1 = resData.allergy1;
         this.allergy2 = resData.allergy2;
         this.drugGms = resData.drugGms;
         this.modalLoading = false;
       });
-      multiDictInfo(["床头卡饮食"]).then(res => {
-        this.ysList = res.data.data.床头卡饮食.map(item => item.name);
+      multiDictInfo(["床头卡饮食"]).then((res) => {
+        this.ysList = res.data.data.床头卡饮食.map((item) => item.name);
       });
     },
     getRegistCare() {
@@ -960,22 +1031,25 @@ export default {
       this.init();
       this.printMode = printMode;
       let qr_png_value;
-      switch(this.HOSPITAL_ID){
-        case 'fsxt':
+      switch (this.HOSPITAL_ID) {
+        case "fsxt":
           qr_png_value = `1001|${this.query.patientId}|${this.query.visitId}|${this.query.name}`;
-          break
+          break;
         case "zhzxy":
-          qr_png_value ='ZY' + this.query.patientId +"||"+ this.query.visitId;
+          qr_png_value =
+            "ZY" + this.query.patientId + "||" + this.query.visitId;
           break;
         case "whhk":
-          qr_png_value ='P' + this.query.inpNo;
+          qr_png_value = "P" + this.query.inpNo;
+          break;
+        case "dglb":
+          qr_png_value = this.query.inpNo;
           break;
         default:
           qr_png_value = this.query.patientId + "|" + this.query.visitId;
-          break
+          break;
       }
       var qr_png = qr.imageSync(qr_png_value, { type: "png" });
-      // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);
@@ -990,24 +1064,11 @@ export default {
       this.qrCodeNum = this.query.patientId;
       if (this.printMode == "wrist") {
         this.title = "成人腕带打印";
-        // JsBarcode("#barcode", this.query.patientId, {
-        //   lineColor: "#000",
-        //   width: 4,
-        //   height: 50,
-        //   fontSize: 50
-        // });
-      }else if (this.printMode == "wrist-children") {
+      } else if (this.printMode == "wrist-children") {
         this.title = "儿童腕带打印";
-        // JsBarcode("#barcode", this.query.patientId + "|" + this.query.visitId, {
-        //   displayValue:false,
-        //   lineColor: "#000",
-        //   width: 4,
-        //   height: 50,
-        //   fontSize: 50
-        // });
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
-      }else if (this.printMode == "fsxt-wrist-children") {
+      } else if (this.printMode == "fsxt-wrist-children") {
         this.title = "新生儿腕带打印";
       } else {
         this.title = "编辑床头卡";
@@ -1036,9 +1097,10 @@ export default {
       data.dutyNurses = this.formData.dutyNurses;
       data.remarkPrint = this.formData.remarkPrint;
       data.lianxiPhone_whhk = this.lianxiPhone_whhk;
+      data.aField1 = this.aField1;
       data.remark = this.formData.remark.slice(0, 24);
-      console.log("data",data)
-      saveBed(data).then(res => {
+      console.log("data", data);
+      saveBed(data).then((res) => {
         this.$message.success("保存成功");
         this.close();
       });
@@ -1048,31 +1110,30 @@ export default {
         this.post();
         if (this.printMode == "wrist") {
           let styleSheet = {
-            default:`
-          .bed-card-warpper {
-            box-shadow: none !important;
-            transform: rotate(90deg) translateY(-120%) translateX(25%);
-            transform-origin: 0 0;
-          }
-          .bed-card-vert-con {
-          }
-		  .is_input_print{
-			font-size:20px !important;
-		  }
-		  .is_hide_textarea{
-			display:none;
-		  }
-		  .print-page__ptext{
-			display:block !important;
-			border:none !important;
-			padding:0 !important;
-			height:auto !important;
-		  }
-          @page {
-            margin: 0;
-          }
-          `,
-            fsxt:`
+            default: `
+              .bed-card-warpper {
+                box-shadow: none !important;
+                transform: ${'dglb' === this.HOSPITAL_ID ? 'rotate(90deg) translateY(-105%) translateX(25%);' : 'rotate(90deg) translateY(-120%) translateX(25%);'}
+                transform-origin: 0 0;
+              }
+              .bed-card-vert-con {
+              }
+              .is_input_print{
+              font-size:20px !important;
+              }
+              .is_hide_textarea{
+              display:none;
+              }
+              .print-page__ptext{
+              display:block !important;
+              border:none !important;
+              padding:0 !important;
+              height:auto !important;
+              }
+              @page {
+                margin: 0;
+              }`,
+            fsxt: `
             .bed-card-warpper {
               box-shadow: none !important;
               transform: rotate(90deg) translateY(-130%) translateX(15%);
@@ -1083,88 +1144,86 @@ export default {
             @page {
               margin: 0;
             }
-            `
-          }
+            `,
+          };
           printing(this.$refs.printCon3, {
             direction: "vertical",
             injectGlobalCss: true,
             scanStyles: false,
-            css: styleSheet[this.HOSPITAL_ID] || styleSheet.default
+            css: styleSheet[this.HOSPITAL_ID] || styleSheet.default,
           });
-        }else if (this.printMode == "fsxt-wrist-children") {
+        } else if (this.printMode == "fsxt-wrist-children") {
           let styleSheet = {
-            default:`
-          .bed-card-warpper {
-            box-shadow: none !important;
-            transform: rotate(90deg) translateY(-120%) translateX(25%);
-            transform-origin: 0 0;
-          }
-          .bed-card-vert-con {
-          }
-		  .is_input_print{
-			font-size:20px !important;
-		  }
-		  .is_hide_textarea{
-			display:none;
-		  }
-		  .print-page__ptext{
-			display:block !important;
-			border:none !important;
-			padding:0 !important;
-			height:auto !important;
-		  }
-          @page {
-            margin: 0;
-          }
-          `,
-            fsxt:`
-            .bed-card-warpper {
-              box-shadow: none !important;
-              transform: rotate(90deg) translateY(-120%) translateX(25%);
-              transform-origin: 0 0;
-            }
-            .bed-card-vert-con {
-            }
-            @page {
-              margin: 0;
-            }
-            `
-          }
+            default: `
+              .bed-card-warpper {
+                box-shadow: none !important;
+                transform: rotate(90deg) translateY(-120%) translateX(25%);
+                transform-origin: 0 0;
+              }
+              .bed-card-vert-con {
+              }
+              .is_input_print{
+              font-size:20px !important;
+              }
+              .is_hide_textarea{
+              display:none;
+              }
+              .print-page__ptext{
+              display:block !important;
+              border:none !important;
+              padding:0 !important;
+              height:auto !important;
+              }
+              @page {
+                margin: 0;
+              }`,
+            fsxt: `
+              .bed-card-warpper {
+                box-shadow: none !important;
+                transform: rotate(90deg) translateY(-120%) translateX(25%);
+                transform-origin: 0 0;
+              }
+              .bed-card-vert-con {
+              }
+              @page {
+                margin: 0;
+              }`,
+          };
           printing(this.$refs.fsxtPrintCon, {
             direction: "vertical",
             injectGlobalCss: true,
             scanStyles: false,
-            css: styleSheet[this.HOSPITAL_ID] || styleSheet.default
+            css: styleSheet[this.HOSPITAL_ID] || styleSheet.default,
           });
-        }else if (this.printMode == "wrist-children") {
+        } else if (this.printMode == "wrist-children") {
           printing(this.$refs.printCon4, {
             direction: "vertical",
             injectGlobalCss: true,
             scanStyles: false,
             css: `
-            .bed-card-warpper {
-            box-shadow: none !important;
-            transform: rotate(90deg) translateY(-3.5cm) translateX(3cm);
-            transform-origin: 0 0;
-            }
-            @page {
-              margin: 0;
-            }
-          `
+              .bed-card-warpper {
+              box-shadow: none !important;
+              transform: rotate(90deg) translateY(-3.5cm) translateX(3cm);
+              transform-origin: 0 0;
+              }
+              @page {
+                margin: 0;
+              }
+            `,
           });
         } else if (this.printMode == "v") {
           printing(this.$refs.printCon2, {
             injectGlobalCss: true,
             scanStyles: false,
             css: `
-          .bed-card-warpper {
-            box-shadow: none !important;
-            transform:translateY(3%) translateX(12%);
-          }
-          @page {
-            margin: 0;
-          }
-          `
+              .bed-card-warpper {
+                box-shadow: none !important;
+                transform:translateY(3%) translateX(12%);
+              }
+              @page {
+                margin: 0;
+              }
+            `,
           });
         } else {
           printing(this.$refs.printCon, {
@@ -1172,37 +1231,21 @@ export default {
             injectGlobalCss: true,
             scanStyles: false,
             css: `
-            .bed-card-warpper {
-              box-shadow: none !important;
-            }
-            @page {
-              margin: 0;
-            }
-            `
+              .bed-card-warpper {
+                box-shadow: none !important;
+              }
+              @page {
+                margin: 0;
+              }
+            `,
           });
         }
       });
     },
     querySearchAsyncDoc(queryString, cb) {
-      // findByKeyword(queryString).then(res => {
-      //   cb(res.data.data.map(item => {
-      //     return {value: item}
-      //   }));
-      // })
       cb([]);
     },
-    // handleSelectDoc(item) {
-    //     console.log(item);
-    //     return {
-    //       value: item + 123
-    //     }
-    // },
     querySearchAsyncNur(queryString, cb) {
-      // findByKeywordNur(queryString).then(res => {
-      //   cb(res.data.data.map(item => {
-      //     return {value: item}
-      //   }));
-      // })
       cb([]);
     },
 
@@ -1211,22 +1254,20 @@ export default {
         let { top, left } = ele.getBoundingClientRect();
         return {
           left: left,
-          top: top
+          top: top,
         };
       }
       let { autoComplete, obj, key } = bind;
       let xy = offset(e.target);
 
-      console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
-
       setTimeout(() => {
         window.openAutoComplete({
           style: {
             top: `${xy.top + 40}px`,
-            left: `${xy.left}px`
+            left: `${xy.left}px`,
           },
           data: autoComplete,
-          callback: function(data) {
+          callback: function (data) {
             console.log(data, "data");
             if (data) {
               if (obj[key]) {
@@ -1236,7 +1277,7 @@ export default {
               }
             }
           },
-          id: `bedModal`
+          id: `bedModal`,
         });
       });
     },
@@ -1244,14 +1285,14 @@ export default {
       setTimeout(() => {
         window.closeAutoComplete(`bedModal`);
       }, 400);
-    }
+    },
   },
   filters: {
     ymdhm(val) {
       return val ? moment(val).format("YYYY-MM-DD") : "";
-    }
+    },
   },
   mounted() {},
-  components: {}
+  components: {},
 };
 </script>

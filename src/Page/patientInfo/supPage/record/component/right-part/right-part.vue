@@ -1,20 +1,20 @@
 <template>
-  <div :class="{ fullPageRecord }">
+  <div class="right-part-contain" :class="{ fullPageRecord }">
     <div
         class="form-loading-box"
         v-loading="formBoxLoading"
         :element-loading-text="formBoxLoadingText"
         ref="iframeLoadingBox"
     >
-      <div class="null-tool" v-show="showTpye == ''"></div>
+      <!-- <div class="null-tool" v-show="showTpye == ''"></div> -->
       <!-- 护理记录单 -->
       <div v-if="showConToolBar" class="tool-bar">
         <toolBar
             v-if="!hasMeasure"
-            v-show="showTpye"
+            v-show="showType"
             :config="toolBarConfig"
         ></toolBar>
-        <toolCon v-else v-show="showTpye"></toolCon>
+        <toolCon v-else v-show="showType"></toolCon>
       </div>
       <!-- 护理评估表 -->
       <div
@@ -23,16 +23,13 @@
           ref="formContain"
           :style="{ height: height }"
       >
-        <!-- <component :is="componentSwitch" v-show="showTpye"></component> -->
-        <!-- <div v-show="showTpye"> -->
-        <assessment v-show="showConToolBar && showTpye" ref="assessment"/>
+        <assessment v-show="showConToolBar && showType" ref="assessment"/>
         <assessment_v2
-            v-show="!showConToolBar && showTpye"
+            v-show="!showConToolBar && showType"
             ref="assessmentV2"
         />
-        <!-- </div> -->
         <div
-            v-show="showTpye == ''"
+            v-show="showType == ''"
             class="null-btn"
             flex="cross:center main:center"
             @click="newRecordOpen"
@@ -42,7 +39,7 @@
           <span>创建护理评估单</span>
         </div>
         <div
-            v-show="showTpye == ''"
+            v-show="showType == ''"
             class="null-btn"
             flex="cross:center main:center"
             @click="newRecordOpen"
@@ -55,7 +52,7 @@
           <!-- 患者资料 -->
           <patientInfo
             :notNurseRecordList="true"
-            v-if="this.$route.query.patientId && (['lingcheng', 'lyxrm', 'xiegang', 'whhk'].includes(HOSPITAL_ID))"
+            v-if="this.$route.query.patientId && (['lingcheng', 'lyxrm', 'xiegang', 'whhk', 'stmz'].includes(HOSPITAL_ID))"
           ></patientInfo>
         </div>
       </div>
@@ -68,6 +65,12 @@
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.right-part-contain {
+  height: 100%;
+  .form-loading-box {
+    height: 100%;
+  }
+}
 .form-contain {
   padding: 20px;
   overflow: auto;
@@ -169,7 +172,7 @@ export default {
   mixins: [comomMixin],
   data() {
     return {
-      showTpye: "",
+      showType: "",
       showConToolBar: true,
       formVersion: 0,
       bus: bus(this),
@@ -249,7 +252,7 @@ export default {
         console.log("~~~~openAssessment..");
         this.bus.$emit("openAssessment", data);
       }
-      this.showTpye = "assessment";
+      this.showType = "assessment";
       console.log("on:", {
         componentSwitch: this.componentSwitch,
         formVersion: this.formVersion,
@@ -260,7 +263,7 @@ export default {
     });
 
     this.bus.$on("closeAssessment", () => {
-      this.showTpye = "";
+      this.showType = "";
     });
     // 滚动到底部
     this.bus.$on("swiperToBottomRecord", () => {
@@ -287,11 +290,13 @@ export default {
       return this.$store.state.record.fullPageRecord;
     },
     height() {
-      let offset = this.showConToolBar ? 0 : 40;
+      // let offset = this.showConToolBar ? 0 : 40;
       if (this.$route.path == "/formPage" || this.filterObj) {
-        return `${this.wih - 120 + offset}px`;
+        return `${this.wih - 80}px`;
+      } else if (this.$route.path.includes("nursingTemperature")) {
+        return `${this.wih}px`;
       } else {
-        return `${this.wih - 180 + offset}px`;
+        return `${this.wih - 140 }px`;
       }
     },
 

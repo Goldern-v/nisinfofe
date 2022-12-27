@@ -2530,9 +2530,9 @@
         {
           "name": "I001260",
           "type": "select",
-          "title": "压疮风险",
+          "title": "压力性损伤风险",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:90px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "180px",
           "class": null,

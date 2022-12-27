@@ -87,8 +87,6 @@ import BusFactory from "vue-happy-bus";
 import { evalDel } from "@/api/record";
 import { checkUser } from "@/api/login"; //检查用户名密码有效性
 import { host } from "@/api/apiConfig";
-import { initList } from "../../../../../../supComponts/formBox/form.details";
-import { initNooForm } from "../../../../../../supComponts/formBox/form.details.nooForm";
 import tztbModal from "@/Page/sheet-page/components/modal/tztb-modal";
 import signModal from "@/components/modal/sign.vue";
 import openFormModal from "@/Page/patientInfo/supPage/record/modal/open-form.vue";
@@ -106,12 +104,12 @@ import {
 import {
   formUrl,
   devFormUrl,
-  devFormUrl_p80,
 } from "@/common/pathConfig/index.js";
 import common from "@/common/mixin/common.mixin.js";
 import qs from "qs";
 
-export default {
+export
+default {
   name: "assessment_v2",
   mixins: [common],
   data() {
@@ -121,7 +119,6 @@ export default {
       urlForm: "",
       pageLoading: false,
       pageLoadingText: "数据加载中",
-      // iframeHeight: 0,
       info: {},
       formInfo: {},
       wid: {},
@@ -171,9 +168,6 @@ export default {
   mounted() {
     window.cleanAllMark = this.cleanAllMark;
     window.onFormLoaded = this.onFormLoaded;
-    //
-    // this.bus.$emit("disableAllButons");
-    //
     try {
       window.app.$refs.iframeLoadingBox.$methods().setLoadingStatus(false);
     } catch (error) {}
@@ -238,9 +232,7 @@ export default {
       this.$refs.openFormModal.open(box);
     },
     openMessageBox(box) {
-      // this.pageLoading = true
       this.$refs.messageModal.open("", box.content, box.title, "small");
-      // this.pageLoading = true
     },
     // 点击左边栏目录里已经记录好的模版,通过改变iframe URL属性,刷新iframe内容
     openUrl(info) {
@@ -256,11 +248,9 @@ export default {
       } catch (error) {
         console.error("~~~openUrl2", error);
       }
-      // console.log(info, "openUrlV2");
       this.pageLoading = true;
       this.pageLoadingText = "数据加载中";
       this.setloadingSVGHidden(false);
-      // this.iframeHeight = 0;
       let token = window.app.$getCookie("NURSING_USER").split("##")[1];
       // this.$route.query['id'] = info.id
       let query = this.$route.query;
@@ -361,21 +351,6 @@ export default {
       if (this.$refs.iframeV2) {
         this.$refs.iframeV2.contentWindow.location.href = url;
       }
-
-      // this.url = "";
-      // setTimeout(() => {
-      //   this.url = url;
-      //   if (this.$refs.iframeV2) {
-      //     this.$refs.iframeV2.contentWindow.location.href = url;
-      //   }
-      // }, 100);
-
-      // wid.location.href
-      // if (url == this.url) {
-      //   this.refresh();
-      // } else {
-      //   this.url = url;
-      // }
     },
     onFormLoaded(type = "") {
       this.pageLoadingText = "数据加载中";
@@ -448,29 +423,8 @@ export default {
       if (this.info.islink && this.HOSPITAL_ID == "hj") {
         return;
       }
-      // this.pageLoading = true;
-      // this.pageLoadingText = "数据加载中";
-      // this.marklist = [];
-      // let wid = this.$refs.iframeV2.contentWindow;
       this.wid = this.$refs.iframeV2.contentWindow;
       window.wid = this.$refs.iframeV2.contentWindow;
-
-      // console.log("!!!!onload!!!!", this.wid);
-
-      // window.document.addEventListener()
-      // this.wid.document.removeEventListener("click", this.onClick);
-      // window.document.removeEventListener("onScroll", this.onClick);
-      // this.wid.document.removeEventListener("contextmenu", this.onContextMenu);
-
-      // // window.document.addEventListener("click", this.onClick);
-      // this.wid.document.addEventListener("click", this.onClick);
-      // window.document.addEventListener("onScroll", this.onClick);
-      // this.wid.document.addEventListener("contextmenu", this.onContextMenu);
-      // //
-
-      // this.iframeHeight = "auto";
-      // // this.iframeHeight = "100%";
-      // this.iframeHeight = this.wih - this.offsetHeight;
 
       this.isLandscape = false;
       try {
@@ -512,12 +466,6 @@ export default {
           this.refresh();
         });
       }
-      // console.log(
-      //   "this.wid.formInfo",
-      //   this.wid.formInfo,
-      //   "isLandscape",
-      //   this.isLandscape
-      // );
 
       if (
         this.wid.loadTimeData &&
@@ -553,7 +501,7 @@ export default {
           // 厚街（手术患者交接记录单第三方查阅时可以编辑）
           let listHospital = [
               ()=> this.HOSPITAL_ID == 'hj' && (this.info.formCode == 'J0010' || this.info.formCode == 'operationInstrumentDressing'),
-              ()=> this.HOSPITAL_ID == 'zhzxy' && (this.info.formCode == 'E1928' || this.info.formCode == 'E1931'|| this.info.formCode == 'E1760'),
+              ()=> this.HOSPITAL_ID == 'zhzxy' && (this.info.formCode == 'E2157' || this.info.formCode == 'E2158'|| this.info.formCode == 'E1760'),
           ]
           if (listHospital[0]() || listHospital[1]()) {
             css = `#app input,#app label,#app td,#app .sign-con{
@@ -673,17 +621,12 @@ export default {
             }
           }
         });
-        // if (this.wid.updateListTabelUI) {
-        //   this.wid.updateListTabelUI();
-        // }
         if (callback) {
           callback();
         }
       }
     },
     getMarkList(callback = null) {
-      //
-      // this.handleMarklist = [];
       this.marklist = [];
       if (this.info.id) {
         markListById(this.info.id).then((res) => {
@@ -1762,6 +1705,8 @@ export default {
         this.$route.path.includes("nursingPreview")
       ) {
         return this.wih - 0 - this.offsetHeight;
+      } else if (this.$route.path.includes("nursingTemperature")) {
+        return this.wih;
       } else {
         return this.wih - 60 - this.offsetHeight;
       }
@@ -1773,9 +1718,6 @@ export default {
       if (this.info.formCode) {
         this.pageLoading = true;
       }
-      // this.bus.$emit("closeAssessmentV1");
-      // this.iframeHeight = "auto";
-      // this.iframeHeight = this.wih - this.offsetHeight; //100;
     },
   },
   components: {

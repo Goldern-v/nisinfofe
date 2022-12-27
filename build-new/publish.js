@@ -39,7 +39,7 @@ let sshUpload = (
     南方医科大学顺德医院附属杏坛医院: "fsxt",
     福清妇幼保健院:"fuqingfuyou",
     广东同江医院: "tongjiang",
-    玲珑英诚医院: "ytll",
+    玲珑英诚医院: "yantailinglong",
     威海市立医院: "weihai",
     临沂沂州医院: 'yizhou',
     珠海市中西医结合医院: "zhuhaizhongxiyi",

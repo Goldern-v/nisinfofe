@@ -184,8 +184,18 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
+      <!-- <router-link  
+        v-if="['dglb'].includes(HOSPITAL_ID)" 
+        :to="{
+          path: '/dev',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">手术</div>
+      </router-link> -->
       <router-link
-        v-if="['fsxt'].includes(HOSPITAL_ID)"
+        v-if="['fsxt','dglb'].includes(HOSPITAL_ID)"
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -440,7 +450,7 @@ export default {
     // 南方医科大学顺德医院项目病历
     onnfyksdyyEmrWeb() {
       const { patientId, inpNo, visitId } = this.patient;
-      let url = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid==${inpNo}_${visitId}`;
+      let url = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid=${inpNo}_${visitId}`;
       window.open(url);
     },
     toBloodSugar() {

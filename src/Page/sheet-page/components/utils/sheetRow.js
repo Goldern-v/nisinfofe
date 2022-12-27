@@ -33,7 +33,7 @@ export function getRowNum(index) {
     return 15;
   } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc" || sheetInfo.sheetType == "ops_linyi" || sheetInfo.sheetType == "premiumcare_ytll") {
     return 26;
-  } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj" || sheetInfo.sheetType == "iabp_fs") {
+  } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj" || sheetInfo.sheetType == "iabp_fs" || sheetInfo.sheetType == "labor_con_ytll"|| sheetInfo.sheetType == "labor_ytll") {
     return 33;
   } else if (sheetInfo.sheetType == "icu_lc") {
     return 22;
@@ -71,15 +71,31 @@ export function getRowNum(index) {
     return 28
   } else if (sheetInfo.sheetType === 'mechanical_sdlj'||sheetInfo.sheetType === 'custody_yz') {
     return 33
-  } else if ( sheetInfo.sheetType === 'magnesium_lcey' || sheetInfo.sheetType == "seriousnursing_ytll") {
+  } else if ( sheetInfo.sheetType === 'magnesium_lcey') {
     return 24
-  }else if ( sheetInfo.sheetType === 'record_children_serious2_lc'||sheetInfo.sheetType === sheetInfo.sheetType === 'generalnursing_tj') {
+  }else if ( 
+    sheetInfo.sheetType === 'record_children_serious2_lc'||
+    sheetInfo.sheetType === 'generalnursing_tj' ||
+    sheetInfo.sheetType === 'postpartum_dglb'
+  ) {
     return 19
-  }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz'  ) {
+  }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz' || sheetInfo.sheetType == "seriousnursing_ytll" ) {
     return 21
   }else if (sheetInfo.sheetType === 'neonate_sdlj') {
     return 18
-  }else {
+  } else if (sheetInfo.sheetType=='babymilk_ytll') {
+    return 34
+  } else if (
+    sheetInfo.sheetType == "prenatal_ytll" 
+  ) {
+    if (index === 0) {
+      return 29;
+    } else {
+      return 34;
+    }
+  } else if ( sheetInfo.sheetType === 'prenatal_dglb' ) {
+    return 25
+  } else {
     return 17;
   }
 

@@ -196,7 +196,7 @@ import formatter from './utils/print-formatter'
 
 import { fileDownload } from "@/utils/fileExport.js";
 
-const pageSize = ['lyxrm', 'whsl', 'whhk'].includes(process.env.HOSPITAL_ID) ? 1000 : 20
+const pageSize = ['lyxrm', 'whsl', 'whhk', 'stmz'].includes(process.env.HOSPITAL_ID) ? 1000 : 20
 export default {
   mixins: [common],
   data() {
@@ -232,7 +232,7 @@ export default {
       this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
         getNursingVisitLc(this.query).then(res => {
-          if (['lyxrm', 'whsl', 'whhk'].includes(this.HOSPITAL_ID)) {
+          if (['lyxrm', 'whsl', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
             let child = [],
               tableData = [];
             res.data.data.list.map((item, index, array) => {
@@ -318,7 +318,7 @@ export default {
       let list = ["nurse_nursing_class"];
       multiDictInfo(list).then(res => {
         this.allNursingClass = res.data.data.nurse_nursing_class;
-        if (['lyxrm', 'whsl', 'whhk'].includes(this.HOSPITAL_ID)) this.allNursingClass.unshift({name: '全部', code: ''})
+        if (['lyxrm', 'whsl', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) this.allNursingClass.unshift({name: '全部', code: ''})
 
       });
     },
@@ -331,7 +331,7 @@ export default {
       this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
         getNursingVisitLc({...this.query, pageSize: 9999}).then(res => {
-          if (['lyxrm', 'whsl', 'whhk'].includes(this.HOSPITAL_ID)) {
+          if (['lyxrm', 'whsl', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
             let child = [],
               tableData = [];
             res.data.data.list.map((item, index, array) => {
@@ -406,7 +406,7 @@ export default {
           injectGlobalCss: true,
           scanStyles: false,
           css: `
-          @page { 
+          @page {
             margin: 0 5mm;
           }
           .print-table {
@@ -447,6 +447,7 @@ export default {
       switch(this.HOSPITAL_ID) {
         case 'lyxrm':
         case 'whsl':
+        case "stmz":
           return 'dTableLyxrm'
         default:
           return 'dTable'

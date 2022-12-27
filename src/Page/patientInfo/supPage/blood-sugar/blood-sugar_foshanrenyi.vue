@@ -51,6 +51,7 @@
               :selected.sync="selected"
               @dblclick="hisDisabled() && onEdit()"
               :baseIndex="0"
+              @uploadList="load()"
               :sugarItem.sync="typeList"
             ></sugarTableFoShanRenYi>
             <div
@@ -61,6 +62,7 @@
               "
             ></div>
             <sugarTableFoShanRenYi
+              @uploadList="load()"
               :data="item.right"
               :selected.sync="selected"
               @dblclick="hisDisabled() && onEdit()"
@@ -239,6 +241,7 @@
 </style>
 
 <script>
+import { verifyNewCaSign } from "@/api/caCardApi";
 import sugarTableFoShanRenYi from "./components/sugar-table-foshanrenyi.vue";
 import {
   getSugarListWithPatientId,
@@ -367,10 +370,40 @@ export default {
       // if (firstTime !== item.time) {
       //   item.recordDate = `${DateArr[0]} ${item.time}:00`;
       // }
+
+      if(localStorage.caUser){
+          let strObj = {
+          recordDate:this.selected.recordDate,
+          sugarItem:this.selected.sugarItem,
+          sugarValue:this.selected.sugarValue
+        }
+        let SigndataObj = {
+          Patient_ID:this.patientInfo.patientId,
+          Visit_ID:this.patientInfo.visitId,
+          Document_Title:"血糖记录单",
+          Document_ID:"sugar",
+          Section_ID:this.patientInfo.wardCode,
+          strSignData: JSON.stringify(strObj),
+        };
+        let verifySignObj = {
+          patientId:this.patientInfo.patientId,
+          visitId:this.patientInfo.visitId,
+          formName:"血糖记录单",
+          formCode:"sugar",
+          instanceId:this.patientInfo.wardCode,
+          recordId:"",
+          signData:JSON.stringify(strObj),
+        }
+        await this.caSign(SigndataObj,verifySignObj)
+      }
       await saveSugarList([item]);
       this.$message.success("保存成功");
       this.load();
       this.getSugarItemDict();
+    },
+    async caSign(SigndataObj,verifySignObj){
+      verifyNewCaSign(SigndataObj,verifySignObj).then(verifyNewCaSignRes=>{
+        })
     },
     hisDisabled() {
       return !this.$route.path.includes("nursingPreview");

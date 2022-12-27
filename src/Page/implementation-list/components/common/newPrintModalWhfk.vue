@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="new-modal-top-left">
-        <div class="new-modal-top-left-first">
+        <div class="new-modal-top-left-first"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}">
           <div>{{ currentBottle.name }}</div>
           <div>
             {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
@@ -190,6 +190,9 @@
 			      padding-top: 3px;
         }
 		  }
+      .whhk-new-modal-top-left-first{
+        height: 36px !important;
+      }
       .new-modal-top-left-second{
         display:block;
         div{
@@ -229,6 +232,7 @@
         padding-left: 4px;
         height: 35px !important;
       }
+     
       .new-modal-top-left-second {
         height: 25px !important;
         div {

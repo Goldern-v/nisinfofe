@@ -41,7 +41,7 @@ export default [
   { key: 'stool', event: keyf1, value: '', next: '', name: '大便(g)', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
   { key: 'vomiting', event: keyf1, value: '', next: '', name: '呕吐', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
   { key: 'drainage', event: keyf1, value: '', next: '', name: '引流', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
-  { key: 'otherOutput', event: keyf1, value: '', next: '', name: '其他', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'otherOutput', event: keyf1, value: '', next: '', textarea: { width: 180 }, change: (e, td) => limitChange(e, td, 30) },
   { key: 'totalOutput', event: keyf1, value: '', next: '', name: '总出量', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 12) },
   // {
   //   key: "description", //病情观察及护理措施

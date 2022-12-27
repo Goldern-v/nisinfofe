@@ -31,12 +31,12 @@
             class="input-item input-item-row">
               <div class="fontSize-50">{{query.sex}}</div>
               <div class="fontSize-50" v-if="HOSPITAL_ID!='sdlj'">{{query.age}}</div>
-              <div class="fontSize-50" v-else-if="HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')>=0">{{query.age}}</div>
+              <div class="fontSize-50" v-else-if="HOSPITAL_ID=='sdlj' ">{{query.age}}</div>
               <div>{{wardName}}</div>
             </div>
             <div v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="input-item">
-              <div>身高:</div><div style="width: 120px;">{{query.height}}</div>
-              <div>体重:</div><div style="width: 120px;">{{query.weight}}</div>
+              <div>身高:</div><div style="width: 100px;">{{query.height}}</div>
+              <div>体重:</div><div style="width: 100px;">{{query.weight}}</div>
             </div>
             <div flex="cross:center" class="input-item" style="width:auto;height:50px">
               <div style="display:flex">
@@ -53,7 +53,7 @@
               <div class="bedNum">{{query.bedLabel + '床'}}</div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label">{{HOSPITAL_ID=='sdlj' && query.age.indexOf('岁')==-1?'出生时间:':'入院日期:'}}</span>
+              <span class="label">{{HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')!=-1?'出生时间:':'入院日期:'}}</span>
               <input
                 type="text"
                 nowidth

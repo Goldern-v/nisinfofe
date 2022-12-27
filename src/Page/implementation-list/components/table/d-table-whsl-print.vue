@@ -57,6 +57,7 @@
         label="医嘱内容"
         prop="orderText"
         min-width="210px"
+        align="center"
       >
         <template slot-scope="scope">
           <div
@@ -71,7 +72,7 @@
       <u-table-column prop="dosage" label="剂量" min-width="55px" align="center">
       </u-table-column>
 
-      <u-table-column prop="administration" label="途径" min-width="80px">
+      <u-table-column prop="administration" label="途径" min-width="80px"  align="center">
       </u-table-column>
        <u-table-column prop="speed" label="滴速" min-width="60px" align="center">
       </u-table-column>
@@ -118,7 +119,7 @@
       </u-table-column>
      
 
-      <u-table-column prop="nurseMemo" label="备注" >
+      <u-table-column prop="nurseMemo" label="备注"  align="center">
         <template slot-scope="scope">
           <div v-show="scope.row.rowType == 1 || !scope.row.rowType">
             {{ scope.row.nurseMemo }}

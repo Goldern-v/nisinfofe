@@ -74,9 +74,19 @@
         ID号：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
       </span> -->
-      <span v-if="['critical_new_weihai', 'internal_eval_weihai', 'inandout_weihai'].includes(sheetInfo.sheetType)">
+      <span v-if="['critical_new_weihai', 'internal_eval_weihai', 'inandout_weihai','baby_weihai'].includes(sheetInfo.sheetType)">
         入院日期：
         {{patientInfo.admissionDate | toymd}}
+      </span>
+      <span v-if="['critical_mahui_weihai', 'critical_weihai'].includes(sheetInfo.sheetType)">
+        体重：
+        <input
+          style="width: 60px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj[`weight`]"
+          v-model="sheetInfo.relObj[`weight`]"
+        />
+        kg
       </span>
     </div>
     <!-- <div class="info-con">

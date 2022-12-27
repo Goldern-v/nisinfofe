@@ -152,7 +152,7 @@
 
 .print-box {
   // display table
-  // min-height 100vh   
+  // min-height 100vh
   // padding-left: 60px
   margin-top: 26px;
   margin-right: 60px;
@@ -248,7 +248,11 @@ export default {
         this.$store.commit('upPreRouter',"")
       },2000)
     }else{
-      this.$router.go(-1)
+      if(window.history.length > 1){
+        this.$router.go(-1)
+      }else{
+      window.close();
+    }
     }
     }
   },
@@ -257,12 +261,12 @@ export default {
       this.canPrint = true;
     }, 1000);
     window.document.body.style.background = "#dfdfdf";
-   
+
     if (this.HOSPITAL_ID === "whfk") {
       var fromParams = {};
       var url = decodeURIComponent(window.location.href);
       var arr = url.split("?").pop().split("#").shift().split("&");
-     
+
       for (var i = arr.length - 1; i >= 0; i--) {
         var k = arr[i].split("=")[0];
         var val = arr[i].split("=")[1];
@@ -271,7 +275,7 @@ export default {
        if (fromParams.patientId ) {
         const timer = setInterval(
           (window.onafterprint = (res) => {
-           
+
             savePrint(fromParams).then(
               (res) => {
                 window.clearInterval(timer);

@@ -155,7 +155,7 @@
           "
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="
-            selectedItem(tr, data,td,y);
+            selectedItem(td);
             td.key == 'description' &&
               ['guizhou', '925'].includes(HOSPITAL_ID) &&
               !tr.isRead &&
@@ -215,8 +215,7 @@
             "
           ></masked-input>
           <div
-            v-else-if="
-              (HOSPITAL_ID === 'huadu' || HOSPITAL_ID === 'fuyou'||HOSPITAL_ID === 'liaocheng') &&
+            v-else-if="['huadu', 'fuyou', 'liaocheng', 'zhzxy'].includes(HOSPITAL_ID) &&
               td.key == 'sign2'
             "
             class="sign-text"
@@ -267,6 +266,7 @@
                   sheetInfo.sheetType === 'postpartum_hd' ||
                   sheetInfo.sheetType === 'neurosurgery_hd' ||
                   sheetInfo.sheetType === 'wait_delivery_hd' ||
+                  sheetInfo.sheetType === 'wait_delivery_zhzxy' ||
                   sheetInfo.sheetType === 'neonatology_hd' ||
                   sheetInfo.sheetType === 'neonatology2_hd' ||
                   sheetInfo.sheetType === 'prenatal_hd' ||
@@ -532,10 +532,15 @@
             sheetInfo.sheetType == 'icu_lc' ||
             sheetInfo.sheetType == 'Record_Children_Serious_Lc' ||
             sheetInfo.sheetType == 'common_hd' ||
+            sheetInfo.sheetType == 'nursing_dglb' ||
             sheetInfo.sheetType == 'neurosurgery_hd' ||
             sheetInfo.sheetType == 'stress_injury_hd' ||
             sheetInfo.sheetType == 'common_sn' ||
-            sheetInfo.sheetType == 'maternity_sn'
+            sheetInfo.sheetType == 'maternity_sn' || 
+            sheetInfo.sheetType == 'postpartum_dglb' || 
+            sheetInfo.sheetType == 'prenatal_dglb'||
+            sheetInfo.sheetType == 'baby_dglb' ||
+            sheetInfo.sheetType == 'baby_obs_dglb'
           "
           >审核人：</span
         >
@@ -653,7 +658,6 @@
       <signModal ref="signModal"></signModal>
       <signModal ref="delsignModal" title="删除签名需签名者确认"></signModal>
     </span>
-    <drugSync ref="drugSync"></drugSync>
   </div>
 </template>
 
@@ -670,10 +674,9 @@ import {
   markSave,
   markDelete,
   saveTitleOptions,
-  getExecuteData
+  findListByBlockId,
 } from "@/api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
-import drugSync from "@/components/modal/whsldrugSync.vue";
 import { Tr } from "../../../render/Body.js";
 import {
   offset,
@@ -731,8 +734,10 @@ export default {
         "com_lc",
         "icu_lc",
         "common_hd",
+        'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
+        "wait_delivery_zhzxy",
         "neurosurgery_hd",
         "neonatology_hd",
         "neonatology2_hd",
@@ -777,6 +782,10 @@ export default {
         'magnesiumsulphate_tj',//广东同江 - 硫酸镁注射液静脉滴注观察记录单
         'ops_linyi',
         'NICU_fs', // 佛一 新生儿NICU护理记录单
+        'postpartum_dglb',
+        'prenatal_dglb',
+        'baby_dglb',
+        'baby_obs_dglb',
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -786,6 +795,7 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
+        "wait_delivery_zhzxy", // 珠海中西医_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
@@ -1026,7 +1036,7 @@ export default {
         if((td.key === 'bloodPressure') && td.value !== ''&&!td.value.split('/')[1]){
           td.value ='';
         }
-        if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1] 
+        if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1]
         ||(td.value.split('/')[0]>250||td.value.split('/')[0]<50)||td.value.split('/')[1]>200||td.value.split('/')[1]<0)){
           confirmRes = await this.$confirm(
             td.name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",
@@ -1157,15 +1167,49 @@ export default {
     },
     addNullRow(index, row) {
       let newRow = nullRow();
-      if (row) {
-        let recordSource = row.find((item) => {
-          return item.key == "recordSource";
-        }).value;
-        newRow.find((item) => {
-          return item.key == "recordSource";
-        }).value = recordSource;
+      if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
+        // 发送请求。有自定义标题且含下拉的。放进去
+        const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
+        findListByBlockId(startPageIndex,endPageIndex).then(res=>{
+          const optionArr=res.data.data.Options
+          if(optionArr.length>0){
+             optionArr.forEach(option=>{
+              if(option.pageIndex==this.index){
+                newRow=newRow.map(activeKey=>{
+                  if(activeKey.key==option.fieldEn){
+                    if(activeKey.autoComplete==undefined){
+                      activeKey.autoComplete={}
+                      activeKey.autoComplete.data=[]
+                    }
+                    activeKey.autoComplete.data.unshift(option.options)
+                  }
+                  return activeKey
+                })
+              }
+             })
+           }
+          //防止异步才在数据回来的结果写
+          if (row) {
+            let recordSource = row.find((item) => {
+              return item.key == "recordSource";
+            }).value;
+            newRow.find((item) => {
+               return item.key == "recordSource";
+            }).value = recordSource;
+           }
+           this.data.bodyModel.splice(index + 1, 0, newRow);
+       })
+      }else{
+        if (row) {
+           let recordSource = row.find((item) => {
+              return item.key == "recordSource";
+           }).value;
+           newRow.find((item) => {
+            return item.key == "recordSource";
+           }).value = recordSource;
+        }
+        this.data.bodyModel.splice(index + 1, 0, newRow);
       }
-      this.data.bodyModel.splice(index + 1, 0, newRow);
     },
     toCopyRow(index) {
       let row = JSON.parse(JSON.stringify(this.sheetInfo.copyRow));
@@ -2403,7 +2447,7 @@ export default {
     },
     openEditModal(tr, data, e) {
       // 花都副页关闭编辑框
-      if(this.sheetInfo.sheetType=='additional_count_hd' || this.sheetInfo.sheetType=='inandout_weihai'){
+      if(this.sheetInfo.sheetType=='additional_count_hd' || this.sheetInfo.sheetType=='inandout_weihai' || this.sheetInfo.sheetType=='inout_ytll'){
         return
       }
       this.isOpenEditModal = true;
@@ -2417,7 +2461,7 @@ export default {
       //   // && tr.find(item => item.key == "status").value === "1"
       // )
       //   return tr.find(item => item.key == "status").value === "1";
-     
+
       if (sheetInfo.model == "print") return;
       // 双击的input key
       let key =
@@ -2425,18 +2469,11 @@ export default {
         $(e.target).parents("td").attr("datakey");
       let name = $(e.target).parents("td").attr("dataName");
       let tab = "1";
-
-      if (this.sheetInfo.sheetType=='critical_mahui_weihai'&&key == "medication") {
-        this.$refs.drugSync.open();
-        return;
-      } 
-      console.log('this.sheetInfo.sheetType',this.sheetInfo.sheetType,key)
-
       if (key == "description") {
         tab = "3";
-      }  else if (name || key.indexOf("field") == -1) {
+      } else if (name || key.indexOf("field") == -1) {
         tab = "1";
-      }  else {
+      } else {
         tab = "2";
       }
       //佛山市一不要双击时间出弹框
@@ -2497,7 +2534,7 @@ export default {
         thead,
         tab,
         isLast,
-        canNotSave,
+        canNotSave
       };
       // if (
       //   this.HOSPITAL_ID == "weixian" ||
@@ -2514,7 +2551,6 @@ export default {
       // }
       // 双击出现记录单编辑弹框
       window.openSpecialModal2(config);
-
     },
     markTip(e, td) {
       if (sheetInfo.model == "print") return;
@@ -2582,62 +2618,9 @@ export default {
         }
       }
     },
-    selectedItem(tr, data,td,y) {
+    selectedItem(td) {
       if (td.isSelected) {
         td.value = "✓";
-      }
-      console.log('td',tr, data,td,y)
-      if(td.key=="medication"){
-       if(!tr[0].value||!tr[1].value){
-        this.$message.warning("请先填写日期和时间");
-        return;
-       } 
-      const query = {
-          patientId: this.patientInfo.patientId,
-          visitId: this.patientInfo.visitId,
-          startDate: moment().format('YYYY')+"-"+tr[0].value+' '+tr[1].value+':00', 
-          endDate: moment().format('YYYY')+"-"+tr[0].value+' '+tr[1].value+':00',
-          executeType: '注射，输液，口服',
-          executeStatus: 4,
-        }
-       getExecuteData(query).then((res)=>{
-        const data =res.data.data.filter(item=>item.recordSync=='未同步');
-        let  index= this.data.bodyModel.findIndex(ele=>{
-            return ele[26].key=="recordDate"&&ele[26].value==''
-          })
-        console.log(index)
-        data.map((item,j)=>{
-          if(!td.value&&j==0){
-            td.value=data[0]['orderText'];
-          }else if(!td.value&&j>0||td.value){
-            if(this.data.bodyModel[index]){
-              this.data.bodyModel[index].map(ele=>{
-                if(ele.key=="recordMonth"){
-                  ele.value=tr[0].value;
-                }
-                if(ele.key=="recordHour"){
-                  ele.value=tr[1].value;
-                }
-                if(ele.key=="recordDate"){
-                  ele.value=moment().format('YYYY')+"-"+tr[0].value+' '+tr[1].value+':00';
-                }
-                if(ele.key=="medication"){
-                  ele.value=item['orderText'];
-                  index+=1;
-                }
-              })
-            }else{
-             this.bus.$emit("addSheetPage", false);
-              const data=JSON.parse(JSON.stringify(tr));
-              data[17].value=item['orderText'];
-              this.data.bodyModel.push(data);
-            }
-          }
-        })
-          let curr_row = this.data.bodyModel;
-          console.log(1111,this.data.bodyModel,res,data);
-       })
-         
       }
     },
     /** 审核整页 */
@@ -2854,7 +2837,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz'].includes(this.HOSPITAL_ID)) {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }
@@ -2878,7 +2861,6 @@ export default {
   },
   components: {
     signModal,
-    drugSync,
     bottomRemark,
   },
 };

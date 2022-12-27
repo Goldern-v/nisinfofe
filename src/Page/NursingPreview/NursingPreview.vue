@@ -73,7 +73,7 @@
   .right-part {
     margin-left: 240px;
     overflow: auto;
-    height: 100 -10vh !important;
+    height: 100vh !important;
   }
 }
 </style>
@@ -204,6 +204,7 @@ export default {
           return temperatureWHFK;
         case "lyxrm":
         case "whhk":
+        case "stmz":
           return temperatureLYXRM;
         case "sdlj":
           return temperatureSDLJ;

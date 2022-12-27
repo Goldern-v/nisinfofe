@@ -256,6 +256,7 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
+        "wait_delivery_zhzxy", // 珠海中西医_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
 
         "neonatal_care_jm", //江门妇幼_新生儿监护单
@@ -310,8 +311,12 @@ export default {
        ||this.HOSPITAL_ID==="zhzxy"
        ||this.HOSPITAL_ID==="lyxrm"
        ||this.HOSPITAL_ID==="huadu"
+       ||this.HOSPITAL_ID==="xiegang"
        ||this.HOSPITAL_ID==='whsl'
-       ||this.HOSPITAL_ID==='925'){
+       ||this.HOSPITAL_ID==='ytll'
+       ||this.HOSPITAL_ID==='stmz'
+       ||this.HOSPITAL_ID==='925'
+       ||this.HOSPITAL_ID==='dglb'){
       printDir("h");
             addCSS(
               window,

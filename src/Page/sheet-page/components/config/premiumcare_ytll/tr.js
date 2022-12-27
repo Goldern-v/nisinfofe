@@ -65,7 +65,8 @@ import {
       // autoComplete: {
       //   data: 疼痛评分
       // },
-      name: "入量-实出量ml"
+      name: "入量-实出量ml",
+      statBottomLine: true
     },
     {
       key: "discharge", //出量 - 名称 
@@ -89,7 +90,8 @@ import {
       },
       // autoComplete: {
       //   data: 静脉量
-      // }
+      // },
+      statBottomLine: true
     },
     {
       key: "colorProperties", //出量 - 颜色性状
@@ -126,7 +128,7 @@ import {
       },
     },
     {
-      key: "field9", // 瞳孔mm/对光反应 左2
+      key: "filed1", // 瞳孔mm/对光反应 左2
       value: "",
       event: keyf1,
       autoComplete: {
@@ -148,7 +150,7 @@ import {
       name: "瞳孔mm/对光反应 右1",
     },
     {
-      key: "expand2", //瞳孔mm/对光反应 右2
+      key: "filed2", //瞳孔mm/对光反应 右2
       value: "",
       event: keyf1,
       autoComplete: {
@@ -223,7 +225,7 @@ import {
       event: keyf1,
       name: "心率脉搏",
       textarea: {
-        width: 35
+        width: 45
       }
     },
     {
@@ -241,7 +243,7 @@ import {
       event: keyf1,
       name: "血压",
       textarea: {
-        width: 35
+        width: 45
       }
     },
     {

@@ -117,7 +117,7 @@
         min-width="80px"
         v-if="isNursingRoundsAuthority"
       >
-        <template slot-scope="scope" v-if="['lyxrm', 'whhk'].includes(HOSPITAL_ID)">
+        <template slot-scope="scope" v-if="['lyxrm', 'whhk', 'stmz'].includes(HOSPITAL_ID)">
           <el-button
             @click="openViewModal(scope.row, true)"
             type="text"

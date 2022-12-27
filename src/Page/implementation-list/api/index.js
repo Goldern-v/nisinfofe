@@ -104,7 +104,7 @@ export function addRecord(obj) {
   if (HOSPITAL_ID == "lingcheng") {
     return axios.post(`${apiPath}procedure/his`, obj);
   } else if (
-    ["whfk", "lyxrm", "ytll", "whhk", "925", "zhzxy"].includes(HOSPITAL_ID)
+    ["whfk", "lyxrm", "ytll", "whhk", "925", "zhzxy", 'stmz'].includes(HOSPITAL_ID)
   ) {
     return axios.post(
       `${apiPath}procedure/webExecute/getOrderExecuteSupplementary`,

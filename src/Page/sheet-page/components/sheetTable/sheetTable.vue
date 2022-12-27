@@ -163,6 +163,7 @@ import tableHeadLyyz from "./components/table-head/table-head-lyyz.vue"
 import tableHeadYtll from "./components/table-head/table-head-ytll.vue"
 import tableHeadZhzxy from "./components/table-head/table-head-zhzxy.vue"
 import tableHeadWeihai from './components/table-head/table-head-weihai.vue'
+import tableHeadDglb from "./components/table-head/table-head-dglb.vue"
 export default {
   props: {
     data: Object,
@@ -220,7 +221,7 @@ export default {
         return tableHeadWx;
       } else if (this.HOSPITAL_ID == "lingcheng") {
         return tableHeadLc;
-      } else if (this.HOSPITAL_ID == "lyxrm") {
+      } else if (['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
         return tableHeadLinyi;
       } else if (this.HOSPITAL_ID == "wujing") {
         return tableHeadWj;
@@ -268,6 +269,8 @@ export default {
         return tableHeadZhzxy;
       } else if (this.HOSPITAL_ID == 'whsl') {
         return tableHeadWeihai
+      } else if (this.HOSPITAL_ID == 'dglb') {
+        return tableHeadDglb
       } else {
         return tableHead;
       }

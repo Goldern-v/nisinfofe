@@ -1,8 +1,8 @@
 <template>
-  <div class="modal-con">
+  <div class="modal-con" :class="[['huadu'].includes(HOSPITAL_ID) ? 'modal-con_huadu' : '']">
     <sweet-modal
       ref="modal"
-      :modalWidth="460"
+      :modalWidth="mdWidth"
       :title="modalTitle"
       :enable-mobile-fullscreen="false"
     >
@@ -28,7 +28,12 @@
         <p for class="title" style="margin-right: 10px">内容：</p>
         <!-- 厚街——兼容富文本内容渲染 -->
         <quill-editor v-model="content" :options="editorOption" v-if="HOSPITAL_ID === 'lingcheng'"></quill-editor>
-        <el-input type="textarea" v-model="content" v-else></el-input>
+        <el-input
+          type="textarea"
+          :class="['huadu' === HOSPITAL_ID ? 'text-con' : '']"
+          v-model="content"
+          v-else
+        ></el-input>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -55,6 +60,18 @@
     height: 100px;
     width: 100% !important;
     overflow: visible !important;
+  }
+  .text-con {
+    >>> textarea {
+      height: 225px;
+    }
+  }
+}
+.modal-con_huadu {
+  >>>.sweet-modal {
+    .sweet-content {
+      height: auto !important;
+    }
   }
 }
 </style>
@@ -99,6 +116,9 @@ export default {
     };
   },
   computed: {
+    mdWidth() {
+      return ['huadu'].includes(this.HOSPITAL_ID) ? 720 : 460
+    },
     modalTitle() {
       if (this.id) {
         return "编辑常用语模版";

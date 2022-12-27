@@ -16,8 +16,8 @@ export default {
       {
         name: '意识',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '3'
@@ -274,7 +274,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '32px',
+          minWidth: '45px',
         }
       },
       {

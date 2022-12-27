@@ -779,6 +779,9 @@
             ></el-input>
           </el-tab-pane>
         </el-tabs>
+        <div class="symbols-btn" v-if="['foshanrenyi'].includes(HOSPITAL_ID) && activeTab == '3'">
+          <el-button class="modal-btn" type="primary" @click="openSpecialSymbols">特殊符号</el-button>
+        </div>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -802,13 +805,13 @@
     <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
     />
     <advice-modal
-      v-if="['lyxrm', 'whhk'].includes(HOSPITAL_ID)"
+      v-if="['lyxrm', 'whhk', 'stmz'].includes(HOSPITAL_ID)"
       ref="adviceModalRef"
       @handleOk="handleDiagnosis"
     />
@@ -1002,6 +1005,11 @@
   display: flex;
   justify-content: flex-end;
   flex: 1;
+}
+.symbols-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 </style>
 <script>
@@ -1217,6 +1225,7 @@ export default {
         case "lyxrm":
         case "huadu":
         case 'whhk':
+        case "stmz":
           return this.activeTab === "3";
         default:
           return false;
@@ -1227,6 +1236,7 @@ export default {
       switch (process.env.HOSPITAL_ID) {
         case "lyxrm":
         case 'whhk':
+        case "stmz":
           return this.activeTab === "3";
         default:
           return false;
@@ -1237,6 +1247,7 @@ export default {
         case "lyxrm":
         case "huadu":
         case 'whhk':
+        case "stmz":
           return 1200;
         default:
           return 720;
@@ -1827,8 +1838,9 @@ export default {
       if (this.isSaving) {
         return;
       }
-      if (this.HOSPITAL_ID == "foshanrenyi") {
+      if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zhzxy") {
         // 佛山市一，护记弹窗保存有换行\n,所以要全部清理。不然textarea显示有问题
+        // 珠海中西医 弹窗保存会复制病例过来会有换行。所以全部清理
         this.doc = this.doc.replace(/\n/gi, "");
       }
       if (type != "asyncVisitedData" && !this.staticObj.recordHour) {
@@ -2038,7 +2050,8 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType === "nursingrecords_zxy" ||
-              this.sheetInfo.sheetType === "internal_eval_weihai"
+              this.sheetInfo.sheetType === "internal_eval_weihai" ||
+              this.sheetInfo.sheetType === "babymilk_ytll"
             ) {
               if (GetLength(text) > 54) {
                 result.push(text);
@@ -2125,14 +2138,14 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "nurse_jew"||this.sheetInfo.sheetType === "danger_nurse_jew") {
+            } else if (this.sheetInfo.sheetType === "nurse_jew"||this.sheetInfo.sheetType === "danger_nurse_jew"||this.sheetInfo.sheetType === "NICU_fs") {
               if (GetLength(text) > 34) {
                 result.push(text);
                 text = allDoc[i];
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "icu_yz" ) {
+            } else if (this.sheetInfo.sheetType === "icu_yz" || this.sheetInfo.sheetType === "prenatal_ytll") {
               if (GetLength(text) > 38) {
                 result.push(text);
                 text = allDoc[i];
@@ -2379,6 +2392,9 @@ export default {
       this.upOpenModalFromSpecial(true)
       this.$refs.zxdtbModal.open();
     },
+    openSpecialSymbols() {
+      this.$refs.templateSlideFsry.openSpecialSymbols();
+    }
   },
   mounted() {
     // 打开特殊情况

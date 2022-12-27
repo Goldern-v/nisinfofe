@@ -2,10 +2,17 @@ export default {
   // 胎心记录单
   deptType: '',
   style: {
-    width: "1160px"
+    width: "1100px"
   },
   th: {
     top: [
+      // {
+      //   name: '',
+      //   style: {},
+      //   colspan: "1",
+      //   rowspan: "3",
+      //   key:'recordYear'
+      // },
       {
         name: '日期',
         style: {
@@ -49,7 +56,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '135px',
+          minWidth: '200px',
         },
       },
       {
@@ -66,6 +73,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
+          maxWidth: '42px',
           minWidth: '35px',
         },
       },
@@ -76,7 +84,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '35px',
+          maxWidth: '30px',
+          minWidth: '30px',
         },
       },
       {
@@ -86,7 +95,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '35px',
+          maxWidth: '28px',
+          minWidth: '28px',
         },
       },
       {
@@ -96,7 +106,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '35px',
+          maxWidth: '28px',
+          minWidth: '28px',
         },
       },
       {
@@ -106,7 +117,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '35px',
+          maxWidth: '28px',
+          minWidth: '28px',
         },
       },
       {
@@ -116,7 +128,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '35px',
+          maxWidth: '28px',
+          minWidth: '28px',
         },
       },
       {
@@ -126,7 +139,8 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '35px',
+          maxWidth: '28px',
+          minWidth: '28px',
         },
       },
       {
@@ -169,7 +183,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '35px',
+          maxWidth: '28px',
+          minWidth: '28px',
         },
       },
       {
@@ -179,7 +194,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '35px',
+          maxWidth: '30px',
+          minWidth: '30px',
         },
       },
       {
@@ -199,6 +215,7 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
+          maxWidth: '38px',
           minWidth: '35px',
         },
       },
@@ -209,7 +226,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '35px',
+          maxWidth: '30px',
+          minWidth: '30px',
         },
       },
       {
@@ -219,7 +237,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '35px',
+          maxWidth: '30px',
+          minWidth: '30px',
         },
       },
       {
@@ -229,7 +248,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '35px',
+          maxWidth: '30px',
+          minWidth: '30px',
         },
       },
     ]

@@ -428,6 +428,13 @@
           :fetch-suggestions="querySearch"
         ></el-autocomplete>
       </div>
+      <div
+      class="searchPageByDate"
+      flex="cross:center main:center"
+      @click="searchPageByDateModal"
+      >
+      <i class="el-icon-date"></i>日期
+      </div>
       <!-- <div
         class="item-box"
         style="width: 85px"
@@ -534,15 +541,7 @@
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
         v-if="
-          HOSPITAL_ID == 'wujing' ||
-          HOSPITAL_ID == 'quzhou' ||
-          HOSPITAL_ID == 'weixian' ||
-          HOSPITAL_ID == 'liaocheng'||
-          HOSPITAL_ID == 'whfk' ||
-          HOSPITAL_ID == 'whhk' ||
-          HOSPITAL_ID == 'gdtj' ||
-          HOSPITAL_ID == 'lyxrm' ||
-           HOSPITAL_ID == 'lyyz'
+           ['wujing', 'quzhou', 'weixian', 'liaocheng', 'whfk', 'whhk', 'gdtj', 'lyxrm', 'stmz', 'lyyz','ytll'].includes(HOSPITAL_ID)
         "
       >
         <div class="text-con">
@@ -586,6 +585,7 @@
       :modalWidth="modalWidth"
     ></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
+    <searchPageByDateModal ref="searchPageByDateModal" @updateCallBack="updateCallBack" :sheetStartPage="sheetInfo.sheetStartPage" :blockId="blockId"></searchPageByDateModal>
     <rltb-nfzxy-modal v-if="showRltbN" ref="rltbNfzxyModal" :blockId="blockId" />
     <!-- <sweet-modal
       ref="sheet"
@@ -612,6 +612,7 @@
 import bus from "vue-happy-bus";
 import $ from "jquery";
 import setPageModal from "../modal/setPage-modal.vue";
+import searchPageByDateModal from "@/Page/sheet-page/components/modal/searchPageByDate-modal.vue";
 import sheetModel, { cleanData } from "../../sheet.js";
 import sheetInfo from "../config/sheetInfo/index.js";
 import { sign } from "@/api/sheet.js";
@@ -632,6 +633,7 @@ import zxdtbModal from "../modal/zxdtb-modal.vue";
 import rltbModal from "../modal/rltb-modal.vue";
 import RltbNfzxyModal from "../modal/rltb-nfzxy-modal.vue";
 import patientInfoModal from "./modal/patient-info-modal";
+
 import selectPageModal from './modal/selectPageModal.vue'
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
@@ -706,32 +708,36 @@ export default {
       //结束的页码
       this.updateSheetPageInfo(pageArea)
     },
-    updateCallBack(startPage,endPage,addPageLength){
+    updateCallBack({startPage,endPage,addPageLength,pageByDateFlag}){
       const sheetStartPage = this.sheetInfo.sheetStartPage
-      let maxPage = {
+      if(!pageByDateFlag){
+              let maxPage = {
         'wujing': 30,
         'default': 20
       }
-      if (
-        Number(endPage) - Number(startPage) >= 0 &&
-        Number(endPage) - Number(startPage) <= (maxPage[this.HOSPITAL_ID] || maxPage.default)
-      ) {
-        /*
-         * 如果是增加页码 切换页码就初始化页码列表
-         * 否则就只是刷新单子
-         * upSheetPageArea 提交页码范围数据到vuex 然后sheet-page界面获取
-        */
-        if (addPageLength) {
-          this.sheetInfo.addPage = []
-          this.initSheetPageSize()
+        if (
+          Number(endPage) - Number(startPage) >= 0 &&
+          Number(endPage) - Number(startPage) <= (maxPage[this.HOSPITAL_ID] || maxPage.default)
+        ) {
+          /*
+           * 如果是增加页码 切换页码就初始化页码列表
+           * 否则就只是刷新单子
+           * upSheetPageArea 提交页码范围数据到vuex 然后sheet-page界面获取
+          */
+          if (addPageLength) {
+            this.sheetInfo.addPage = []
+            this.initSheetPageSize()
+          }
+        } else {
+          this.$message('输入页码区间过大,请重新调整')
+          return
         }
-        this.$store.commit('upSheetPageArea', { startPageIndex: startPage - sheetStartPage, endPageIndex: endPage - sheetStartPage })
-        this.bus.$emit("refreshSheetPage")
-        this.sheetInfo.startPage = startPage;
-        this.sheetInfo.endPage = endPage;
-      } else {
-        this.$message('输入页码区间过大,请重新调整')
       }
+      this.$store.commit('upSheetPageArea', { startPageIndex: startPage - sheetStartPage, endPageIndex: endPage - sheetStartPage })
+      this.pageArea = `${startPage}-${endPage}`
+      this.bus.$emit("refreshSheetPage")
+      this.sheetInfo.startPage = startPage;
+      this.sheetInfo.endPage = endPage;
     },
     /**
      * 为了尽量少获取数据，把原来添加在watch里面的刷新页面和页码方法抽取出来，减少数据获取和页面渲染
@@ -753,14 +759,12 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            this.pageArea = pageArea
             //如果切页 就清空新增页码的数组
-            this.updateCallBack(startPage,endPage,addPageLength)
+            this.updateCallBack({startPage,endPage,addPageLength})
 
           })
         } else {
-          this.pageArea = pageArea
-          this.updateCallBack(startPage,endPage)
+          this.updateCallBack({startPage,endPage,pageArea})
           //刷新界面的方法里面 如果首页传参this.sheetInfo.findBlockContext.recordId 就调用这个方法
           this.positionPageFromHome()
         }
@@ -1062,27 +1066,25 @@ export default {
         this.bus.$emit("toSheetPrintPage");
       } else {
         if (process.env.NODE_ENV == "production") {
-        let newWid;
-        if( this.HOSPITAL_ID === 'whfk'){
-          newWid = window.open();
-          return this.bus.$emit("toSheetPrintPagewhfk", {newWid,fromParams});
-        }else{
-          if (!$(".sign-text").length) {
+          let newWid;
+          if (this.HOSPITAL_ID === 'whfk') {
             newWid = window.open();
-            return this.bus.$emit("toSheetPrintPage", newWid);
+            return this.bus.$emit("toSheetPrintPagewhfk", { newWid, fromParams });
+          } else {
+            if (!$(".sign-text").length) {
+              newWid = window.open();
+              return this.bus.$emit("toSheetPrintPage", newWid);
+            }
+            if (
+              $(".mark-mark-mark").length == 0 &&
+              $(".noSignRow").length == 0 &&
+              $(".multiSign").length == 0
+            ) {
+              newWid = window.open();
+            }
+            this.bus.$emit("toSheetPrintPage", newWid);
           }
-          if (
-            $(".mark-mark-mark").length == 0 &&
-            $(".noSignRow").length == 0 &&
-            $(".multiSign").length == 0
-          ) {
-            newWid = window.open();
-          }
-          this.bus.$emit("toSheetPrintPage",newWid);
-        }
-
         } else {
-
           this.bus.$emit("toSheetPrintPage");
         }
       }
@@ -1117,6 +1119,15 @@ export default {
         return this.$message.warning("还没有选择护理记录单");
       }
       this.bus.$emit("openSetPageModal");
+    },
+    searchPageByDateModal() {
+      if (!this.patientInfo.patientId) {
+        return this.$message.info("请选择一名患者");
+      }
+      if (!this.sheetInfo.selectBlock.id) {
+        return this.$message.warning("还没有选择护理记录单");
+      }
+      this.bus.$emit("openSearchPageByDateModal");
     },
     initSelectList(isAddPageFlag) {
       //如果是添加新页  那就再原本的数据长度上加 1
@@ -1719,6 +1730,9 @@ export default {
       */
       this.initSheetPageSize(isAddPageFlag)
     });
+    this.bus.$on("openSearchPageByDateModal", () => {
+      this.$refs.searchPageByDateModal.open();
+    });
     this.bus.$on("toSheetMoreSign", () => {
       this.toMoreSign();
     });
@@ -1821,6 +1835,8 @@ export default {
     RltbNfzxyModal,
     demonstarationLevca,
     selectPageModal,
+    searchPageByDateModal,
+
   },
 };
 </script>
@@ -2016,5 +2032,9 @@ export default {
   z-index: 999;
   box-shadow: -2px 0 7px -1px black; // 左边阴影;
   background-color: white;
+}
+.searchPageByDate {
+  padding:0 0 0 3px;
+  color:#606467;
 }
 </style>
