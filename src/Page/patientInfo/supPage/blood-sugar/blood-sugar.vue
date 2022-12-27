@@ -27,7 +27,10 @@
           </div>
 
           <div class="title" v-if="HOSPITAL_ID == 'whfk'">
-            <img class="title-img" src="./image/logo.png" alt="logo" />
+            <img class="title-img"  src="./image/logo.png" alt="logo" />
+          </div>
+           <div class="title" v-if="HOSPITAL_ID == 'nfyksdyy'">
+            <img class="nfsd-img" src="./image/nfyksdyy.png" alt="logo" />
           </div>
           <div class="title" v-else-if="HOSPITAL_ID !== 'ytll'">{{ HOSPITAL_NAME_SPACE }}</div>
           <div
@@ -296,6 +299,10 @@
   .title-img {
     width: 100%;
     height: 100%;
+  }
+  .nfsd-img{
+    width:50%;
+    height:100%
   }
 
   .sup-title {
