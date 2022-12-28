@@ -27,7 +27,10 @@
           </div>
 
           <div class="title" v-if="HOSPITAL_ID == 'whfk'">
-            <img class="title-img" src="./image/logo.png" alt="logo" />
+            <img class="title-img"  src="./image/logo.png" alt="logo" />
+          </div>
+           <div class="title" v-if="HOSPITAL_ID == 'nfyksdyy'">
+            <img class="nfsd-img" src="./image/nfyksdyy.png" alt="logo" />
           </div>
           <div class="title" v-else-if="HOSPITAL_ID !== 'ytll'">{{ HOSPITAL_NAME_SPACE }}</div>
           <div
@@ -60,7 +63,9 @@
           <div class="sup-title" v-else-if="HOSPITAL_ID == 'whfk'">
             血糖监测单
           </div>
-
+          <div class="sup-title" v-else-if="HOSPITAL_ID == 'nfyksdyy'">
+            血糖记录单
+          </div>
           <div class="sup-title" v-else-if="HOSPITAL_ID !== 'ytll'">微量血糖测定登记表</div>
           <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'whsl'">POCT</div>
           <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
@@ -296,6 +301,10 @@
   .title-img {
     width: 100%;
     height: 100%;
+  }
+  .nfsd-img{
+    width:50%;
+    height:100%
   }
 
   .sup-title {

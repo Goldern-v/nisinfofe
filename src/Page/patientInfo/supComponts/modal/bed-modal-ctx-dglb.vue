@@ -14,13 +14,13 @@
         @input="onIptGms"
       />
     </div>
-    <div class="flex">主管医生：
-      <input
+    <div>主管医生：{{ formData.mainDoctors }}
+      <!-- <input
         type="text"
         class="bottom-line"
         :value="formData.mainDoctors"
         @input="onIptFormData($event, 'mainDoctors')"
-      />
+      /> -->
     </div>
     <div>入院日期：{{ query.admissionDate | formatAsStr }}</div>
     <img class="qr-code" :src="qrCode" />
@@ -29,18 +29,18 @@
 <style lang='scss' scoped>
 .bed-modal-ctx {
   position: relative;
-  width: 85mm;
-  height: 130mm;
+  width: 150mm;
+  height: 215mm;
   padding: 15px;
   box-sizing: border-box;
   text-align: left;
 
   * {
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 40px;
+    line-height: 49px;
   }
   >div {
-    padding: 13px 0;
+    padding: 23px 0;
   }
   .bottom-line {
     border: none;
@@ -57,9 +57,10 @@
   }
   .qr-code {
     position: absolute;
-    top: 130px;
-    right: 2px;
-    width: 110px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 5px;
+    width: 150px;
     height: auto;
   }
 }

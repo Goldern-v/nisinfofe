@@ -12,6 +12,15 @@ function nursingUnit() {
 function typeList() {
   return axios.get(`${apiPath}record/setting/typeList`)
 }
+/*临床路径*/
+function getLink(patientId,visitId,empNo,wardCode){
+  return axios.post(`${apiPath}form/common/showNurseCppLevel`,{
+    patientId,
+    visitId,
+    empNo,
+    wardCode
+  })
+}
 // 一览卡
 function patients(deptCode, config, HisName = process.env.HOSPITAL_NAME) {
   let hisList = {
@@ -122,6 +131,7 @@ export {
   patients,
   follow,
   unfollow,
+  getLink,
   // unfollowHd,
   typeList,
   syncGetNurseBedRec,

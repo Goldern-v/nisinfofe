@@ -1140,6 +1140,13 @@ export default {
               el.style.marginTop = "17mm";
               el.style.marginLeft = "0mm";
             } else if ("dglb" === this.HOSPITAL_ID) {
+              el.style.position = "relative";
+              el.style.width = "150mm";
+              el.style.height = "215mm";
+              el.style.padding = "15px";
+              el.style.boxSizing = "border-box";
+              el.style.border = "2px solid #000";
+              el.style.marginLeft = "50mm";
             } else {
               el.style.marginLeft = "194mm";
             }

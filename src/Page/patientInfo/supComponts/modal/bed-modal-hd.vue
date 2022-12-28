@@ -203,7 +203,7 @@
                 <span>{{ query.name }}</span>
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
-                <span>住院号：{{ query.patientId }}</span>
+                <span>住院号：{{ 'dglb' === HOSPITAL_ID ? query.inpNo : query.patientId }}</span>
               </div>
               <div v-if="!['whhk'].includes(HOSPITAL_ID)">
                 <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
@@ -399,7 +399,7 @@
               <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
                 >床位：{{ query.bedLabel }}</span
               >
-              <span>住院号：{{ query.patientId }}</span>
+              <span>住院号：{{ 'dglb' === HOSPITAL_ID ? query.inpNo : query.patientId }}</span>
             </div>
             <div>
               <span>{{ query.name }}</span>
