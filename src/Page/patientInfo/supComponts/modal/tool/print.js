@@ -1,15 +1,15 @@
 function printDir(dir, wid = window) {
-  let dirTetx = "";
+  let dirText = "";
   if (dir == "h") {
-    dirTetx = "landscape";
+    dirText = "landscape";
   } else {
-    dirTetx = "portrait";
+    dirText = "portrait";
   }
   try {
     var child = document.getElementById("printStyle");
     child.parentNode.removeChild(child);
   } catch (e) {}
-  var css = `@page { size: ${dirTetx}; }`,
+  var css = `@page { size: ${dirText}; }`,
     head = wid.document.head || document.getElementsByTagName("head")[0],
     style = wid.document.createElement("style");
   style.type = "text/css";
@@ -47,10 +47,11 @@ function addCSS(wid, cssText) {
     var textNode = wid.document.createTextNode(cssText);
     style.appendChild(textNode);
   }
+
   head.appendChild(style); //把创建的style元素插入到head中
 }
 
-// 打印
+/**打印 默认缩小0.8 */
 function print(source, beforePrint, selfShow) {
   if (!source) return;
   // 克隆
@@ -79,19 +80,19 @@ function print(source, beforePrint, selfShow) {
 
   const iframeDocument = iframe.contentDocument;
   const iframeWindow = iframe.contentWindow;
-  if(selfShow=='v'){
+  if (selfShow == "v") {
     // 珠海中西医床头卡竖向打印
     printDir("v", iframeWindow);
-  }else{
+  } else {
     printDir("h", iframeWindow);
   }
-  
+
   addCSS(
     iframeWindow,
     `
-   * {
-   font-family: 'SimHei','Microsoft Yahei' !important;
-  }
+    * {
+      font-family: 'SimHei','Microsoft Yahei' !important;
+    }
     @page{
       margin: 0mm;
     }
@@ -112,23 +113,23 @@ function print(source, beforePrint, selfShow) {
       left: 1px;
       border-top: 3px solid #000;
     }
-   input[type='checkbox']:checked:after {
-    content: '';
-    width: 14px;
-    transform: rotate(-50deg) translateY(-50%) translateX(50%);
-    position: absolute;
-    border-top: 3px solid #000;
-    top: 14px;
-    left: 2px;
-   }
-   body {
-    transform: scale(0.8);
-    transform-origin: 0 0;
-   }
-   .huadu-bigname{
-    position:relative!important;
-    top:15px!important;
-  }
+    input[type='checkbox']:checked:after {
+      content: '';
+      width: 14px;
+      transform: rotate(-50deg) translateY(-50%) translateX(50%);
+      position: absolute;
+      border-top: 3px solid #000;
+      top: 14px;
+      left: 2px;
+    }
+    body {
+      transform: scale(0.8);
+      transform-origin: 0 0;
+    }
+    .huadu-bigname{
+      position:relative!important;
+      top:15px!important;
+    }
   `
   );
   iframeDocument.body.appendChild(clonedEl);
@@ -160,7 +161,7 @@ function print(source, beforePrint, selfShow) {
     // win.window.document.body.innerHTML = clonedEl.outerHTML;
     iframeWindow.print();
     document.body.removeChild(iframe);
-    selfShow.show = true;
+    // selfShow.show = true;
   });
 }
 
