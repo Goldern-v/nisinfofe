@@ -19,7 +19,7 @@ export default {
                 {"name":"P/HR<br/>次/分","colspan":"1","rowspan":"3"},
                 {"name":"呼吸<br/>次/分","colspan":"1","rowspan":"3"},
                 {"name":"血压<br/>mmHg","colspan":"1","rowspan":"3"},
-                {"name":"SpO2<br/>%<br/>/<br/>血糖<br/>mmol/L","colspan":"1","rowspan":"3"},
+                {"name":"SpO2<br/>%","colspan":"1","rowspan":"3"},
                 {"name":"意<br/>识","colspan":"1","rowspan":"3"},
                 {"name":"入量","colspan":"2","rowspan":"1"},
                 {"name":"出量","colspan":"2","rowspan":"1"},
