@@ -1451,7 +1451,7 @@ export default {
     },
     "$route.path"() {
       // 针对贵州切换出入量记录单数据不刷新，如果有问题可回撤 删除贵州 影响护理记录单打开
-      if (['huadu', '925'].includes(this.HOSPITAL_ID)) {
+      if (['huadu'].includes(this.HOSPITAL_ID)) {
     this.sheetInfo.selectBlock = {}
       }
     },
