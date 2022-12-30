@@ -80,7 +80,7 @@
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 import temperatureNew from "@/Page/temperature-chart/new-singleTemperature-chart-ytll/components/temperatureNew";
-import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-lyyz/components/tab-con";
+import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-ytll/components/tab-con";
 export default {
   mixins: [common],
   props: {},
