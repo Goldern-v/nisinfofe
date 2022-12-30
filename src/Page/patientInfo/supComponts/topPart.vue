@@ -252,7 +252,7 @@
         <div class="nav-item">护理巡视</div>
       </router-link>
       <router-link
-        v-if="HOSPITAL_ID === 'whsl'"
+        v-if="HOSPITAL_ID === 'whsl'||HOSPITAL_ID === 'ytll'"
         :to="{
           path: '/patientImplementationList',
           query: {
