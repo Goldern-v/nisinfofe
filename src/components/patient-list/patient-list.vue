@@ -321,7 +321,6 @@ export default {
           p = {...currentPatient,...p}
         }
         this.selectPatient(p);
-        console.log(this.selectPatientId);
       }
       console.log(
         "路由拦截:$route.params",
@@ -358,7 +357,12 @@ export default {
         // let cacheSign = cacheList[i].name.indexOf("婴");
         let cacheSign;
         if (cacheList[i].name.charAt(cacheList[i].name.length - 1) === "婴") {
-          cacheSign = cacheList[i].name.indexOf("婴");
+           let parentIndex = cacheList.findIndex((item) => {
+            item.name == cacheList[i].name.substring(0, cacheSign);
+          });
+        if (parentIndex != -1) {
+            cacheSign = cacheList[i].name.indexOf("婴");
+          }
         }
         if (cacheSign > -1) {
           cacheList[i].babyName = cacheList[i].name.substring(cacheSign);
@@ -369,7 +373,6 @@ export default {
         }
         cacheList[i].cacheNum = i;
       }
-
       let sortData = [];
       for (let i = 0; i < cacheList.length; i++) {
         let filter1Array = [];
