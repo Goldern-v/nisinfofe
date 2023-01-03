@@ -252,7 +252,21 @@
         <div class="nav-item">护理巡视</div>
       </router-link>
       <router-link
-        v-if="HOSPITAL_ID === 'whsl'||HOSPITAL_ID === 'ytll'"
+        v-if="HOSPITAL_ID === 'ytll'"
+        :to="{
+          path: '/implementationPerson', 
+          query: {
+            patientId: query.patientId,
+            visitId: query.visitId,
+            bedLabel: query.bedLabel
+          }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">执行记录</div>
+      </router-link>
+      <router-link
+        v-if="HOSPITAL_ID === 'whsl'"
         :to="{
           path: '/patientImplementationList',
           query: {
