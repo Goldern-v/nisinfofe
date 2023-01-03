@@ -99,9 +99,9 @@ export default [
     value: "",
     event: keyf1,
     name: "意识",
-    // autoComplete: {
-    //   data: 意识
-    // },
+    autoComplete: {
+      data: ['清醒','浅昏迷','深昏迷','模糊','嗜睡','昏睡','谵妄']
+    },
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 40
@@ -127,9 +127,9 @@ export default [
     textarea: {
       width: 62
     },
-    // autoComplete: {
-    //   data: 入量名称
-    // },
+    autoComplete: {
+      data: ['饮水','输液','静脉泵入','静注','口服','输血','肌注','鼻饲']
+    },
     style: {
       textAlign: "left",
     }
@@ -154,9 +154,9 @@ export default [
     textarea: {
       width: 62
     },
-    // autoComplete: {
-    //   data: 出量名称
-    // },
+    autoComplete: {
+      data: ['盆腔引流','肝下引流','胃管','尿管','膈下引流','脾窝引流','腹腔引流','胸腔引流','尿量','肠造口','呕吐物','大便','伤口皮下引流球','胃造瘘管','空肠造瘘','肛管引流','温氏孔引流管','胸腔闭式引流管','肾造瘘管','膀胱造瘘','肾周引流','输尿管导','伤口引流']
+    },
     style: {
       textAlign: "left",
     }
@@ -336,6 +336,9 @@ export default [
     event: keyf1,
     name: "膀胱充盈度",
     next: "",
+    autoComplete: {
+      data: ['不充盈','充盈','空虚']
+    },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 43
