@@ -125,7 +125,7 @@ const currentTargetUrl = (() => {
       // return "http://192.168.1.54:9867"
       // return "http://192.168.20.77:8080"
       // return "http://192.168.3.153:8080"
-      return "http://ydys.gz5055.com:9093"
+      return "http://ydys.gz5055.com:9093" //GZsr@bcy!2021#.
     /** 山南市人民医院 */
     case "shannan":
       // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
@@ -213,9 +213,10 @@ const currentTargetUrl = (() => {
 
     //珠海中西医
     case 'zhzxy':
-      // return "http://192.168.1.54:9883" //珠海中西医测试
+      return "http://192.168.1.54:9883" //珠海中西医测试
       // return "http://183.234.20.149:19094"//正式
-      return "https://info.cr-health.com:20217"
+      // return "http://192.168.20.20:9092"//正式
+      // return "https://info.cr-health.com:20217"
 
     // 青海五院
     case 'qhwy':
