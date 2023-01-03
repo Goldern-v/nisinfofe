@@ -16,7 +16,7 @@
         <el-input placeholder="床号/姓名/多选用空格隔开" icon="search" v-model="searchWord"></el-input>
       </div>
       <div style="margin: 0px 10px 0px 10px">
-        <el-checkbox-group v-model="admitted" size="small">
+        <el-checkbox-group v-model="admitted" size="small"> 
           <el-checkbox-button v-for="option in checkOptions" :label="option" :key="option">{{ option }}
           </el-checkbox-button>
         </el-checkbox-group>

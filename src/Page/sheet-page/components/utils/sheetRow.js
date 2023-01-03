@@ -75,7 +75,6 @@ export function getRowNum(index) {
     return 24
   }else if (
     sheetInfo.sheetType === 'record_children_serious2_lc'||
-    sheetInfo.sheetType === 'generalnursing_tj' ||
     sheetInfo.sheetType === 'postpartum_dglb'
   ) {
     return 19

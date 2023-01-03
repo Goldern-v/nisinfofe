@@ -15,7 +15,7 @@
         <patientList
           :data="data.bedList"
           v-loading="patientListLoading"
-          :isSelectPatient="isSelectPatient"
+          :callFunction="isSelectPatient"
         ></patientList>
       </div>
       <div
@@ -82,7 +82,7 @@ import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
-import patientList from "@/components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import print from "printing";
 import formatter from "@/Page/temperature-chart/print-formatter";
 import temperatureNew from "./components/temperatureNew";

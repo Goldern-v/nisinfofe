@@ -207,6 +207,7 @@ export default {
         case "stmz":
           return temperatureLYXRM;
         case "sdlj":
+        case "dglb":
           return temperatureSDLJ;
         case "fsxt":
           return temperatureFSXT;

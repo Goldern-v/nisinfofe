@@ -41,7 +41,7 @@ const currentTargetUrl = (() => {
   switch (HOSPITAL_ID) {
     /** 厚街 */
     case "hj":
-      return "http://120.197.141.41:9091" //厚街正式
+      // return "http://120.197.141.41:9091" //厚街正式
       // return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
     // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
@@ -124,7 +124,8 @@ const currentTargetUrl = (() => {
       // return "http://info.cr-health.com:20111" // 公司-厚街测试-外网
       // return "http://192.168.1.54:9867"
       // return "http://192.168.20.77:8080"
-      return "http://192.168.3.153:8080"
+      // return "http://192.168.3.153:8080"
+      return "http://ydys.gz5055.com:9093" //GZsr@bcy!2021#.
     /** 山南市人民医院 */
     case "shannan":
       // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
@@ -204,17 +205,18 @@ const currentTargetUrl = (() => {
 
     // 烟台玲珑
     case 'ytll':
-      // return "http://221.214.210.170:39094"  // 正式
+      return "http://221.214.210.170:39094"  // 正式
       // return 'http://192.168.1.54:9866'
-      return 'http://192.168.1.54:9893' // 烟台玲珑测试环境
+      // return 'http://192.168.1.54:9893' // 烟台玲珑测试环境
       // return "http://218.13.87.27:9094" //
 
 
     //珠海中西医
     case 'zhzxy':
-      // return "http://192.168.1.54:9883" //珠海中西医测试
+      return "http://192.168.1.54:9883" //珠海中西医测试
       // return "http://183.234.20.149:19094"//正式
-      return "https://info.cr-health.com:20217"
+      // return "http://192.168.20.20:9092"//正式
+      // return "https://info.cr-health.com:20217"
 
     // 青海五院
     case 'qhwy':
@@ -242,7 +244,7 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9883'
     case 'dglb':
       return 'http://219.131.126.38:9094'
-    
+
     // 威海市立
     case 'whsl':
       // return 'http://192.168.1.54:9866'

@@ -179,7 +179,7 @@
       </router-link>
       <router-link
         :to="{
-          path: '/implementationPerson',
+          path: '/implementationPerson', 
           query: { patientId: query.patientId, visitId: query.visitId },
         }"
         tag="span"
@@ -187,7 +187,7 @@
         <div class="nav-item">执行单</div>
       </router-link>
       <router-link
-        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
+        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}" 
         tag="span"
       >
         <div class="nav-item">患者360</div>

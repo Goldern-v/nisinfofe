@@ -31,6 +31,10 @@ function examList(patientId, visitId) {
 function examResult(examNo) {
   return axios.get(`${apiPath}patient/examResult/${examNo}`);
 }
+// 威海市立-检查结果
+function examResultWhsl(examNo) {
+  return axios.post(`${apiPath}patient/examResultNew`, {examNo});
+}
 // 检查图片
 function pic(examNo, userName) {
   return axios.get(`${apiPath}patient/pic/${examNo}/${userName}`);
@@ -47,6 +51,10 @@ function testList(patientId, visitId) {
 // 检验结果
 function testItems(testNo) {
   return axios.get(`${apiPath}patient/testItems/${testNo}`);
+}
+//威海市立- 检验结果
+function testItemsWhsl(testNo) {
+  return axios.post(`${apiPath}patient/testItemsNew`,{testNo});
 }
 
 // 检验结果图表
@@ -225,8 +233,10 @@ export {
   orders,
   examList,
   examResult,
+  examResultWhsl,
   testList,
   testItems,
+  testItemsWhsl,
   inpRecordResults,
   emrList,
   templates,

@@ -3,13 +3,13 @@
     <table>
       <tr>
         <th
-          v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl' "
+          v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl' && HOSPITAL_ID != 'ytll'"
           style="width: 10%; min-width: 20px"
         >
           序号
         </th>
         <th
-          v-if="HOSPITAL_ID != 'lingcheng'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl'"
+          v-if="HOSPITAL_ID != 'lingcheng'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl' && HOSPITAL_ID != 'ytll'"
           style="width: 22%; min-width: 75px"
         >
           时间
@@ -36,7 +36,7 @@
             HOSPITAL_ID != 'whfk' &&
             HOSPITAL_ID != 'lyyz' &&
             HOSPITAL_ID != 'ytll' &&
-            HOSPITAL_ID != 'whsl'
+            HOSPITAL_ID != 'whsl'&&HOSPITAL_ID != 'nfyksdyy'
           "
         >
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
@@ -59,7 +59,7 @@
         @click="onSelect(item)"
         @dblclick="onDblClick(item)"
       >
-        <td v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl'">
+        <td v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl' && HOSPITAL_ID != 'ytll'">
           {{index + baseIndex + 1}}
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl'" style="padding: 0 4px">
@@ -273,7 +273,7 @@ export default {
       let renderData = [];
       let firstDate = "";
       for (let i = 0; i < this.data.length; i++) {
-        if(this.HOSPITAL_ID == 'lingcheng' || this.HOSPITAL_ID == 'whfk' || this.HOSPITAL_ID == 'lyyz'|| this.HOSPITAL_ID == 'whsl'){
+        if(this.HOSPITAL_ID == 'lingcheng' || this.HOSPITAL_ID == 'whfk' || this.HOSPITAL_ID == 'lyyz'|| this.HOSPITAL_ID == 'whsl' || this.HOSPITAL_ID == 'ytll'){
           this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
         }else{
           this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");

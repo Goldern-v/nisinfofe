@@ -173,7 +173,7 @@ td {
 </style>
 
 <script>
-import { examResult, pic, picNum, getExamTestUrl } from "@/api/patientInfo";
+import { examResult,examResultWhsl, pic, picNum, getExamTestUrl } from "@/api/patientInfo";
 // import imgModal from '../modal/imgModal.vue'
 export default {
   data() {
@@ -242,18 +242,30 @@ export default {
           return;
         }
         if (this.data.examNo !== "") {
-          examResult(this.data.examNo)
+          if(['whsl'].includes(this.HOSPITAL_ID)){
+            examResultWhsl(this.data.examNo)
             .then((res) => {
               this.data1 = res.data.data;
               this.loading = false;
-              // picNum(this.data.examNo, this.data.name).then(res => {
-              //     this.picNum = res.data.data.picNum
-              // })
             })
             .catch(() => {
               this.data1 = {};
               this.loading = false;
             });
+          }else{
+            examResult(this.data.examNo)
+              .then((res) => {
+                this.data1 = res.data.data;
+                this.loading = false;
+                // picNum(this.data.examNo, this.data.name).then(res => {
+                //     this.picNum = res.data.data.picNum
+                // })
+              })
+              .catch(() => {
+                this.data1 = {};
+                this.loading = false;
+              });
+          }
         }else{
           this.data1 = {};
           this.dataGz = {}

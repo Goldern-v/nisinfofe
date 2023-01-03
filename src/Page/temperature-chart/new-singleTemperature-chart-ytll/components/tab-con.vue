@@ -318,7 +318,7 @@
                             index
                           )
                         "
-                        >{{ i.fieldCn==='自定义1'?'其他':i.fieldCn }}</span
+                        >{{ i.fieldCn }}</span
                       >
                     </div>
 

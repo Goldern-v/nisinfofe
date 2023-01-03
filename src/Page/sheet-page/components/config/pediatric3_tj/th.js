@@ -23,7 +23,7 @@ export default {
                 {"name":"体温<br/>℃","colspan":"1","rowspan":"3"},
                 {"name":"心率<br/>次/分","colspan":"1","rowspan":"3"},
                 {"name":"呼吸<br/>次/分","colspan":"1","rowspan":"3"},
-                {"name":"SpO2<br/>%<br/>/<br/>血糖<br/>mmol/L","colspan":"1","rowspan":"3"},
+                {"name":"SpO2<br/>%","colspan":"1","rowspan":"3"},
                 {"name":"大<br/>便<br/>次<br/>数","colspan":"1","rowspan":"3"},
                 {"name":"小<br/>便<br/>次<br/>数","colspan":"1","rowspan":"3"},
                 {"name":"反应","colspan":"1","rowspan":"3"},

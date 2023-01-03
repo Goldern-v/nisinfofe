@@ -15,7 +15,7 @@
         <patientList
           :data="data.bedList"
           v-loading="patientListLoading"
-          :isSelectPatient="isSelectPatient"
+          :callFunction="isSelectPatient"
         ></patientList>
       </div>
       <div
@@ -125,9 +125,7 @@ import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
-import patientList from "@/components/patient-list/patient-list.vue";
-// import print from "printing";
-// import formatter from "@/Page/temperature-chart/print-formatter";
+import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import temperatureFSXT from "@/Page/temperature-chart/new-singleTemperature-chart-fsxt/components/temperatureFSXT";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-fsxt/components/tab-con";
 export default {

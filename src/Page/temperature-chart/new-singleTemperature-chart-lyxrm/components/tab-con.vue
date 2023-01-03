@@ -717,7 +717,7 @@ export default {
   },
   computed:{
     isBaby(){
-      return this.patientInfo.patientId.includes('_')
+      return this.patientInfo.patientId&&this.patientInfo.patientId.includes('_')
     }
   },
   watch: {

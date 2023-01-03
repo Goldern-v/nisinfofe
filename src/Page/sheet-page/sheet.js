@@ -131,21 +131,32 @@ export function delSheetPage(index, callback) {
     ) {
       return true;
     }
-    if (listData && listData[x] && listData[x].canModify) {
-      return false;
-    }
+    // if (listData && listData[x] && listData[x].canModify) {
+    //   return false;
+    // }
     // 当审核完，就出现问题，下拉还是会出现。 用this.isDisabed解决
     // 这里主要是给弹窗做判断isRead
     if (
-      process.env.HOSPITAL_ID === "foshanrenyi" &&
-      listData &&
-      listData[nowX] &&
-      listData[nowX].status == 2 &&
-      !listData[nowX].canModify
+      process.env.HOSPITAL_ID === "foshanrenyi"
     ) {
-      // 当审核完，status=2&&canModify=false,
-      return true;
-    }
+        // 佛山医院表示禁用掉该功能  禅道ID 14369
+        const user = JSON.parse(localStorage.getItem("user"));
+        const userEmpNo = user.empNo;
+        const qcAuthority = user.roleManageCodeList || [];
+        if (
+          qcAuthority.includes("QCR0004") ||
+          qcAuthority.includes("FORM0001")
+        ) {
+          return false;
+        } else {
+          if (listData[nowX] && listData[nowX].status == 2) return true;
+          if (listData[nowX] && listData[nowX].empNo) {
+            return listData[nowX].empNo !== userEmpNo;
+          } else {
+            return false;
+          }
+        }
+      }
   };
   // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
   let isDisabed = function(tr, td, x, y, bodyModel, nowX, sheetType) {
@@ -185,25 +196,22 @@ export function delSheetPage(index, callback) {
     // 佛医护记单除特殊情况以及同一记录的第一条其余填写保存后锁定
     if (process.env.HOSPITAL_ID === "foshanrenyi") {
       // 佛山医院表示禁用掉该功能  禅道ID 14369
-      return false
-      // 如果审核完，canModify = false 全部禁用
-      if (
-        listData[nowX] &&
-        listData[nowX].status == 2 &&
-        !listData[nowX].canModify
-      ) {
-        return true;
-      } else {
-        // 否则按照锁定规则
-        const firstEqualIndex = listData.findIndex(
-          item => listData[nowX] && item.recordDate == listData[nowX].recordDate
-        );
-        return (
-          firstEqualIndex != -1 &&
-          firstEqualIndex !== nowX &&
-          td.key != "description"
-        );
-      }
+      const user = JSON.parse(localStorage.getItem("user"))
+      const userEmpNo = user.empNo
+      const qcAuthority = user.roleManageCodeList || []
+        if (
+          qcAuthority.includes("QCR0004") ||
+          qcAuthority.includes("FORM0001")
+        ) {
+          return false;
+        } else {
+          if(listData[nowX]&&listData[nowX].status == 2) return true
+          if (listData[nowX] && listData[nowX].empNo) {
+            return listData[nowX].empNo !== userEmpNo;
+          } else {
+            return false;
+          }
+        }
     }
     if (
       process.env.HOSPITAL_ID === "gdtj" &&

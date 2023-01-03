@@ -20,12 +20,32 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time
-  }, {
+  }, 
+  {
+    key: "temperature", //催产素浓度
+    value: "",
+    name: "体温",
+    event: keyf1
+  }, 
+  {
+    key: "sph", //催产素浓度
+    value: "",
+    name: "脉搏",
+    event: keyf1
+  }, 
+  {
+    key: "breath", //催产素浓度
+    value: "",
+    name: "呼吸",
+    event: keyf1
+  }, 
+  {
     key: "fieldOne", //催产素浓度
     value: "",
     name: "催产素浓度",
     event: keyf1
-  }, {
+  }, 
+  {
     key: "fieldTwo", //滴速
     value: "",
     name: "滴速",
