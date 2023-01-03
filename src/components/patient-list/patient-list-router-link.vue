@@ -50,7 +50,9 @@
             },
           }"
           :class="{active: makePatient? isActive(item) :false ,lyxrmActive: ['lyxrm', 'stmz'].includes(HOSPITAL_ID)&&makePatient? isActive(item) :false}"
-          @click.native="toUnlock(item)"
+          @click.native="()=>{
+            toUnlock(item)
+            selectPatient(item)}"
         >
           <img
             :src="item.bedLabel.includes('_') ? imageBoy : imageMan"
