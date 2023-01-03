@@ -24,7 +24,35 @@ export default {
         },
         colspan: '1',
         rowspan: '3'
-      },{
+      },
+      {
+        name: '体温<br/>（℃）',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px'
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: '脉搏<br/>（次/分）',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px'
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: '呼吸<br/>（次/分）',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px'
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
         name: `催产<br>素浓<br>度<br>（u/500ml）`,
         style: {
           minWidth: '40px',

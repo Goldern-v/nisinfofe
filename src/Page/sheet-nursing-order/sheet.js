@@ -12,7 +12,7 @@ let Page = function(titleData, autoTitleData, bodyData, index) {
       titleModel: Title_Hj(titleData, autoTitleData, index),
       bodyModel: Body_Hj(bodyData)
     }
-  }else if (process.env.HOSPITAL_ID === 'huadu') {
+  }else if (['huadu','dglb'].includes(process.env.HOSPITAL_ID)) {
     return {
       titleModel: Title_Hd(titleData, autoTitleData, index),
       bodyModel: Body_Hd(bodyData)
