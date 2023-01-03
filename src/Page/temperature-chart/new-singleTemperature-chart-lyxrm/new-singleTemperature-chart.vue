@@ -16,7 +16,7 @@
           :data="data.bedList"
           ref="patientList"
           v-loading="patientListLoading"
-          :isSelectPatient="isSelectPatient"
+          :callFunction="isSelectPatient"
         ></patientList>
       </div>
       <div class="right-part" v-loading="tableLoading"  :class="openLeft ? 'isLeft' : 'isRight'">
@@ -103,7 +103,7 @@ import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
 import { patients } from "@/api/lesion";
-import patientList from "@/components/patient-list/patient-list.vue";
+import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import temperatureNew from "./components/temperatureNew";
 import tabCon from "@/Page/temperature-chart/new-singleTemperature-chart-lyxrm/components/tab-con";
 import Button from "@/Page/badEvent/components/button.vue";
