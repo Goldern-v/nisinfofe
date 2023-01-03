@@ -429,6 +429,7 @@ const getImplementation = () => {
     case 'zhzxy':
     case "stmz":
     case 'beihairenyi':
+    case 'nfyksdyy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -441,7 +442,7 @@ const getImplementation = () => {
     case 'fsxt':
       return implementationListFsxt
     case 'foshanrenyi':
-    case 'nfyksdyy':
+   
       return implementationListFSSY
     case 'quzhou':
       return implementationListQuzhou
