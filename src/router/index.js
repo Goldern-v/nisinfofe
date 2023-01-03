@@ -817,6 +817,7 @@ const router = new Router({
             case 'lyyz':
               return shiftWorkLiaocheng
             case 'beihairenyi':
+            case 'zhzxy':
               return shiftWorkBh
             case 'fqfybjy':
               return shiftWorkFq
@@ -853,6 +854,7 @@ const router = new Router({
               case 'nanfangzhongxiyi':
                 return shiftWorkDetailNFZXY
               case 'beihairenyi':
+              case 'zhzxy':
                 return shiftWorkDetailBh
               case 'fqfybjy':
                 return shiftWorkDetailFq

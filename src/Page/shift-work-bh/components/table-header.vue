@@ -3,16 +3,29 @@
         <thead>
             <tr>
                 <th @click="log()">病区动态</th>
-                <th v-for="(col,key) of keys" :key="key">{{keys[key]}}</th>
+                 <template v-if="['beihairenyi'].includes(HOSPITAL_ID) ">
+                  <th v-for="(col,key) of keys" :key="key">{{keys[key]}}</th>
+                 </template>
+                <template v-else>
+                  <th v-for="(col,key) of keysZHZXY" :key="key">{{keysZHZXY[key]}}</th>
+                </template>
             </tr>
             <tr v-for="(shift,index) in columns" :key="index">
-                <td>{{columnsKey[index]}}</td>
-                <td v-for="(col,key) of keys" :key="key">
-                    <!-- 不可编辑 -->
-                    <!-- <div v-text="shift[key]"  style="outline:none;" @blur="(e)=>change(e,index,key)"></div> -->
-                    <!-- 可编辑 -->
-                    <div v-html="shift[key]" contenteditable="true" style="outline:none;" @blur="(e)=>change(e,index,key)"></div>
-                </td>
+                <td v-if="['beihairenyi'].includes(HOSPITAL_ID) ">{{columnsKey[index]}}</td>
+                <td v-else>{{columnsKeyZHZXY[index]}}</td>
+                <template v-if="['beihairenyi'].includes(HOSPITAL_ID) ">
+                  <td v-for="(col,key) of keys" :key="key">
+                      <!-- 不可编辑 -->
+                      <!-- <div v-text="shift[key]"  style="outline:none;" @blur="(e)=>change(e,index,key)"></div> -->
+                      <!-- 可编辑 -->
+                      <div v-html="shift[key]" contenteditable="true" style="outline:none;" @blur="(e)=>change(e,index,key)"></div>
+                  </td>
+                 </template>
+                <template v-else>
+                  <td v-for="(col,key) of keysZHZXY" :key="key">
+                      <div v-html="shift[key]" contenteditable="true" style="outline:none;" @blur="(e)=>change(e,index,key)"></div>
+                  </td>
+                 </template>
             </tr>
         </thead>
     </table>
@@ -97,6 +110,7 @@ props: {
 data() {
 return {
     columnsKey:['白班','中班','夜班'],
+    columnsKeyZHZXY:['A班','P班','N班'],
     keys:{
         // bedEmpty:'空床',
         patientTotal:'原有',
@@ -117,6 +131,26 @@ return {
         specialCare:'特护',
         patientYi:'一级护理',
         companions:'陪人数'
+    },
+    keysZHZXY:{
+        patientNumber:'患者总人数',
+        hospitalized:'入院',
+        changeIn:'转入',
+        leaveHospital:'出院',
+        changeOut:'转出',
+        todaySurgery:'今天手术',
+        tomSurgery:'明日手术',
+        childbirth:'分娩',
+        ill:'病重',
+        criticallyIll:'病危',
+        death:'死亡',
+        falls:'跌倒高危',
+        pressure:'压疮高危',
+        thrombus:'血栓高危',
+        nutrition:'营养高危',
+        aspiration:'误吸高危',
+        unplanned:'非计划性拔管高危',
+        leave:'外出请假',
     }
 };
 },
