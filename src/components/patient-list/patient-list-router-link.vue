@@ -575,7 +575,7 @@ export default {
     },
     'sortList.length': {
       handler(n, o) {
-        if (n && (n != o || this.$route.path == '/sheetPage')) {
+        if (n && (n != o)) {
           this.selectFirstPatient()
         }
       }
