@@ -64,7 +64,7 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-                      
+
             <!-- <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
@@ -290,11 +290,11 @@
                 <i class="iconfont icon-dongtairizhi"></i> 病房日报
               </el-row>
             </router-link> -->
-            <!-- <router-link to="/nursingDocumentation" tag="span">
+            <router-link to="/nursingDocumentation" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-huliwenshu"></i> 患者查询
               </el-row>
-            </router-link> -->
+            </router-link>
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
             </router-link> -->
@@ -322,7 +322,7 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
-            
+
             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActivePage }"
@@ -341,7 +341,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-               
+
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/infuse' }"
                 >
@@ -360,7 +360,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/nursingDocumentation' }"
                 >
                   <router-link to="/nursingDocumentation" tag="span">
@@ -368,7 +368,7 @@
                       <i class="nursingDocumentation"></i>患者查询
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/workloadSatistics' }"
                 >
@@ -514,9 +514,9 @@
                 </el-dropdown-item>-->
               </el-dropdown-menu>
             </el-dropdown>
-            
+
           </el-row>
-         
+
           <el-row class="right-part" type="flex" align="middle">
             <span class="big-1250-con">
               <el-popover
