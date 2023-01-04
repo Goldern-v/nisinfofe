@@ -444,7 +444,7 @@ const getImplementation = () => {
     case 'fsxt':
       return implementationListFsxt
     case 'foshanrenyi':
-   
+
       return implementationListFSSY
     case 'quzhou':
       return implementationListQuzhou
@@ -672,6 +672,7 @@ const router = new Router({
             case 'whhk':
             case 'nfyksdyy':
             case "stmz":
+            case "nfyksdyy":
               return archiveFSSY
             default:
               return archive
@@ -1256,7 +1257,7 @@ const router = new Router({
               default:
                 return implementationPersonLiaocheng
             }
-          })(), 
+          })(),
           name: "执行单",
           alias: "执行单"
         },
