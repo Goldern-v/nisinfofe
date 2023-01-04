@@ -1741,6 +1741,11 @@ function switchSheetType(type) {
       schema = require("../config/prenatal_ytll/tr.js").default;
     }
       break;
+    case "one_whhk": {
+      // 武汉汉口 - 护理记录单（一）
+      schema = require("../config/one_whhk/tr.js").default;
+    }
+      break;
     default: {
       schema = require("../config/default/tr.js").default;
     }

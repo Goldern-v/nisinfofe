@@ -73,8 +73,7 @@ export default [
     event: function (e, td) { if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault() } keyf1(e, td) }
   },
   { key: "sign", value: "" },
-  // { key: "sign2", value: "" },
-  // { key: "audit", value: "" },
+  { key: "audit", value: "" },
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
   { hidden:true, key:'signerName2', value:''},
@@ -90,4 +89,5 @@ export default [
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''},
+  // { hidden:true, key:'multiSign', value:''},
 ]
