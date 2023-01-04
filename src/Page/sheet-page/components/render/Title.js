@@ -2275,6 +2275,13 @@ export default function Title(
     );
   }
   break;
+  case "one_whhk": {
+    // 武汉汉口 - 护理记录单（一）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/one_whhk/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
