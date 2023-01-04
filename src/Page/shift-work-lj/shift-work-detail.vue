@@ -64,15 +64,15 @@
                 病重：
                 <b>{{record.seriousTotal || 0}}</b>人，
               </span>
-              <span v-if="HOSPITAL_ID != 'xiegang'">
+              <span>
                 手术：
                 <b>{{record.operationTotal || 0}}</b>人
               </span>
-              <span v-if="HOSPITAL_ID == 'zhzxy'">
+              <span>
                 死亡：
                 <b>{{record.patientDead || 0}}</b>人
               </span>
-              <span v-if="HOSPITAL_ID == 'zhzxy'">
+              <span>
                 分娩：
                 <b>{{record.patientNewBorn || 0}}</b>人
               </span>
