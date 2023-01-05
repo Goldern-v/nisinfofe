@@ -45,10 +45,10 @@
         ></el-pagination>
         <div style="flex:1;"></div>
         <div class="import-btn">
-          <el-button 
-            type="primary" 
-            v-if="isImportModuleDevSuccess && hasImport.includes(HOSPITAL_ID)" 
-            v-touch-ripple 
+          <el-button
+            type="primary"
+            v-if="isImportModuleDevSuccess && hasImport.includes(HOSPITAL_ID)"
+            v-touch-ripple
             @click="openImportModal"
           >导入</el-button>
         </div>
@@ -135,7 +135,7 @@
 }
 .confirm-box{
   position: fixed;
-  z-index:100021; 
+  z-index:100021;
   top:0;
   left: 0;
   width: 100vw;
@@ -163,7 +163,7 @@
     .confirm-split-line{
       width: 600px;
       height: 1px;
-      border-bottom:1px dashed #ccc; 
+      border-bottom:1px dashed #ccc;
     }
     .confirm-text{
       height: 108px;

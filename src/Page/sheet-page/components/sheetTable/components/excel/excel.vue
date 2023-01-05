@@ -88,7 +88,7 @@
         class="body-con"
         @dblclick="openEditModal(tr, data, $event)"
         v-for="(tr, y) in data.bodyModel"
-        :id ="`row_${y}`"
+        :id ="`row_${y}`" 
         :class="[
           {
             inPreview:
@@ -2837,7 +2837,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz','ytll'].includes(this.HOSPITAL_ID)) {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }
