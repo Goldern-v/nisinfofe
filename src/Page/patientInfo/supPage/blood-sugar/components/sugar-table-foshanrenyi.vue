@@ -31,7 +31,7 @@
             {{ item.date }}
           </div>
         </td>
-        <td>
+        <td @click="setDate(item, index)">
           <div class="cell noPrint" :title="item.sugarItem">
             <!-- {{ item.sugarItem }} -->
             <ElSelect
@@ -271,7 +271,7 @@ export default {
       return new Date(val).Format("hh:mm");
     },
   },
-  
+
   methods: {
     sugarItemChanged(val) {
       let newArr = this.sugarItem.filter(item => item.vitalSign === val)
