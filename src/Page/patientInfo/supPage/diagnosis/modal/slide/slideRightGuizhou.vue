@@ -244,6 +244,7 @@ export default {
       this.beginTime = moment().format("YYYY-MM-DD HH:mm");
       this.show = true;
       this.data = item;
+      this.status = '0';
       measure(item.code).then(res => {
         this.measures = res.data.data.measures;
         this.targetList = res.data.data.targetList;
@@ -272,13 +273,13 @@ export default {
     save() {
       let measure = this.measures.filter(item=>{
           return this.resultMeasuresList.includes(item.serialNo)
-      }).map(e=>e.measureDetail).join("")
+      }).map(e=>e.measureDetail).join("\r\n")
       let target = this.targetList.filter(item=>{
         return this.resultTargetList.includes(item.serialNo)
-      }).map(e=>e.parameter).join("")
+      }).map(e=>e.parameter).join("\r\n")
       let factor = this.factorList.filter(item=>{
         return this.resultFactorList.includes(item.id)
-      }).map(e=>e.factor).join("")
+      }).map(e=>e.factor).join("\r\n")
       if((measure.length > 600 || target.length > 600 || factor.length > 600) && ['whsl'].includes(this.HOSPITAL_ID) ){
         this.$message.warning('当前字数已超过最大限制字数！');
         return
