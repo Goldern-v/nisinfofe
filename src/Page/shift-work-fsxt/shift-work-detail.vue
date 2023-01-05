@@ -518,7 +518,7 @@ export default {
         if(data.errorCode=='3001'){
            window.app && window.app.$message({
             showClose: true,
-            message: `${data.data.myNurseName}+${data.data.ip}+${data.desc}`,
+            message: `${data.data.myNurseNo}+${data.data.myNurseName}+${data.data.ip}+${data.desc}`,
             type: 'error',
             duration:5000
           })

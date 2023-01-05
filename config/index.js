@@ -255,7 +255,15 @@ const currentTargetUrl = (() => {
       // return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
       // return ' http://221.2.154.22:19094/'
       return 'http://192.168.1.54:9896/'
+    //
+    case 'nfyksdyy':
+      return ' http://59.38.110.189:9092'
 
+    case 'dglb':
+      return 'http://http://10.51.7.22:9094'
+
+    case 'xiegang':
+      return 'http://183.234.1.124:9093'
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"
