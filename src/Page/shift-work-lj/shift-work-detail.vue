@@ -66,18 +66,18 @@
               </span>
               <span>
                 手术：
-                <b>{{record.operationTotal || 0}}</b>人
+                <b>{{record.operationTotal || 0}}</b>人，
               </span>
               <span>
                 死亡：
-                <b>{{record.patientDead || 0}}</b>人
+                <b>{{record.patientDead || 0}}</b>人，
               </span>
               <span>
                 分娩：
-                <b>{{record.patientNewBorn || 0}}</b>人
+                <b>{{record.patientNewBorn || 0}}</b>人，
               </span>
               <span>
-                交班日期：
+                日期：
                 <b>{{record.changeShiftDate}}</b>
               </span>
             </div>
@@ -1119,7 +1119,7 @@ export default {
 .paper {
   margin: 0 auto 20px;
   padding: 20px;
-  width: 1080px;
+  width: 1100px;
   min-height: 700px;
   border-radius: 2px;
   background: #fff;
