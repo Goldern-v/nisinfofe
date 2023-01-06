@@ -23,7 +23,6 @@
           v-for="record of records"
           :to="{name: 'shiftWork', params: {code: record.deptCode, id: record.id}}"
           :key="record.id"
-          @click.native="closeInterval"
         >
           <div class="text">{{record.changeShiftDate}}</div>
           <div :class="['state', {success: isAllSigned(record)}]"></div>
@@ -97,19 +96,19 @@
       }
     },
     watch: {
-      async deptCode (value, oldValue) {
-         // 关闭定时器
-        if(this.$store.state.shiftRecords.lockTimeId){
-          clearTimeout(this.$store.state.shiftRecords.lockTimeId)
-          this.$store.commit("changeLockTimeId",'')
-         }
-         // 关闭倒计时定时器
-        if(this.$store.state.shiftRecords.countDownId){
-           clearInterval(this.$store.state.shiftRecords.countDownId)
-          this.$store.commit("changeCountDownId",'')
-         }
-        /* 切换科室的时候解锁 */
-        await this.toUnLock()
+      deptCode (value, oldValue) {
+        //  // 关闭定时器
+        // if(this.$store.state.shiftRecords.lockTimeId){
+        //   clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+        //   this.$store.commit("changeLockTimeId",'')
+        //  }
+        //  // 关闭倒计时定时器
+        // if(this.$store.state.shiftRecords.countDownId){
+        //    clearInterval(this.$store.state.shiftRecords.countDownId)
+        //   this.$store.commit("changeCountDownId",'')
+        //  }
+        // /* 切换科室的时候解锁 */
+        // await this.toUnLock()
         this.$router.push({path: '/shiftWork'})
       },
       '$route.params.code' () {
@@ -187,53 +186,53 @@
       onToggleFullPage () {
         this.fullPage = !this.fullPage
       },
-      async toUnLock(){
-        // 判断是否超时了。超时就清空信息。不用发请求
-        if(this.$store.state.shiftRecords.enterTime){
-          if(!this.$store.state.shiftRecords.setupTime){
-              let min=10
-              const {data:{data}}=await apis.unLockTime()
-              if(data!=='his_form_data_lock_timeout'){
-              min=+data
-              this.$store.commit("changeSetupTime",min)
-             }
-           }
-          /* 进入的时间 乘以多少分钟 1分钟=60000  有效的锁定时间*/
-          const enterTime=+this.$store.state.shiftRecords.enterTime + 60000 * this.$store.state.shiftRecords.setupTime
-          const nowTime=Date.now()
-          if(nowTime>enterTime){
-            // ID号清空
-            this.$store.commit("changeShiftRecordID",'')
-            // 进入时间清空
-            this.$store.commit("changeEnterTime",'')
-            return
-          }
-        }
-        // 有ID就解锁
-        if(this.$store.state.shiftRecords.shiftRecordID){
-          // 解锁
-          const res= await apis.unLockShiftRecord(this.$store.state.shiftRecords.shiftRecordID)
-          // ID号清空
-          this.$store.commit("changeShiftRecordID",'')
-          // 进入时间清空
-          this.$store.commit("changeEnterTime",'')
-        }
-      }
+      // async toUnLock(){
+      //   // 判断是否超时了。超时就清空信息。不用发请求
+      //   if(this.$store.state.shiftRecords.enterTime){
+      //     if(!this.$store.state.shiftRecords.setupTime){
+      //         let min=10
+      //         const {data:{data}}=await apis.unLockTime()
+      //         if(data!=='his_form_data_lock_timeout'){
+      //         min=+data
+      //         this.$store.commit("changeSetupTime",min)
+      //        }
+      //      }
+      //     /* 进入的时间 乘以多少分钟 1分钟=60000  有效的锁定时间*/
+      //     const enterTime=+this.$store.state.shiftRecords.enterTime + 60000 * this.$store.state.shiftRecords.setupTime
+      //     const nowTime=Date.now()
+      //     if(nowTime>enterTime){
+      //       // ID号清空
+      //       this.$store.commit("changeShiftRecordID",'')
+      //       // 进入时间清空
+      //       this.$store.commit("changeEnterTime",'')
+      //       return
+      //     }
+      //   }
+      //   // 有ID就解锁
+      //   if(this.$store.state.shiftRecords.shiftRecordID){
+      //     // 解锁
+      //     const res= await apis.unLockShiftRecord(this.$store.state.shiftRecords.shiftRecordID)
+      //     // ID号清空
+      //     this.$store.commit("changeShiftRecordID",'')
+      //     // 进入时间清空
+      //     this.$store.commit("changeEnterTime",'')
+      //   }
+      // }
     },
-    async destroyed(){
-      // 关闭定时器
-      if(this.$store.state.shiftRecords.lockTimeId){
-        clearTimeout(this.$store.state.shiftRecords.lockTimeId)
-        this.$store.commit("changeLockTimeId",'')
-      }
-      // 关闭倒计时定时器
-      if(this.$store.state.shiftRecords.countDownId){
-        clearInterval(this.$store.state.shiftRecords.countDownId)
-        this.$store.commit("changeCountDownId",'')
-      }
-      /* 切换模块的时候解锁 */
-      await this.toUnLock()
-    },
+    // async destroyed(){
+    //   // 关闭定时器
+    //   if(this.$store.state.shiftRecords.lockTimeId){
+    //     clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+    //     this.$store.commit("changeLockTimeId",'')
+    //   }
+    //   // 关闭倒计时定时器
+    //   if(this.$store.state.shiftRecords.countDownId){
+    //     clearInterval(this.$store.state.shiftRecords.countDownId)
+    //     this.$store.commit("changeCountDownId",'')
+    //   }
+    //   /* 切换模块的时候解锁 */
+    //   await this.toUnLock()
+    // },
     components: {
       CreateShiftWorkModal,
       PrimaryButton
