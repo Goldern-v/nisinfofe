@@ -40,7 +40,10 @@
         class="times"
         v-if="['huadu', 'fuyou', 'fsxt'].includes(HOSPITAL_ID)"
       >
-        <label :for="`time${item.id}`" v-for="item in timesEven" :key="item.id">
+        <label :for="`time${item.id}`"
+        v-for="item in timesEven"
+        :style="{color:item.value  == query.entryTime?'red':'#000'}"
+        :key="item.id">
           <input
             type="radio"
             name="time"
@@ -56,6 +59,7 @@
           :for="`time${item.id}`"
           v-for="item in timeshengli"
           :key="item.id"
+          :style="{color:item.value  == query.entryTime?'red':'#000'}"
         >
           <input
             type="radio"
@@ -67,7 +71,6 @@
           {{ item.value }}
         </label>
       </div>
-      <!-- <div class="times" v-if="HOSPITAL_ID === 'quzhou'||HOSPITAL_ID === 'wujing'"> -->
       <div
         class="times"
         v-if="
@@ -85,6 +88,7 @@
         <label
           :for="`time${item.id}`"
           v-for="item in timesEven2"
+          :style="{color:item.value  == query.entryTime?'red':'#000'}"
           :key="item.id"
         >
           <input
@@ -104,6 +108,7 @@
         <label
           :for="`time${item.id}`"
           v-for="item in timesEven2"
+          :style="{color:item.value  == query.entryTime?'red':'#000'}"
           :key="item.id"
         >
           <input
@@ -120,12 +125,16 @@
         class="times"
         v-if="HOSPITAL_ID === 'liaocheng' || HOSPITAL_ID === 'beihairenyi'"
       >
-        <label :for="`time${item.id}`" v-for="item in timeshengli" :key="item.id">
+        <label :for="`time${item.id}`"
+        v-for="item in timeshengli"
+        :style="{color:item.value  == query.entryTime?'red':'#000'}"
+        :key="item.id">
           <input
             type="radio"
             name="time"
             v-model="query.entryTime"
             :id="`time${item.id}`"
+            :style="{color:item.value  == query.entryTime?'red':'#000'}"
             :value="item.value"
           />
           {{ item.value }}
@@ -945,7 +954,7 @@
       align-items: center;
       margin-right: 10px;
       cursor: pointer;
-
+      font-size:18px;
       input {
         margin-top: 0;
       }

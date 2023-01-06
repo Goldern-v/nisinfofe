@@ -450,6 +450,8 @@ export default {
       this.data.dateTime = [new Date(), new Date()];
     } else if (["sdlj", "whfk"].includes(this.HOSPITAL_ID)) {
       this.data.dischargeDate = [new Date(), new Date()];
+    } else if (['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      this.data.dischargeDate = [new Date(), new Date()];
     }
   },
   methods: {

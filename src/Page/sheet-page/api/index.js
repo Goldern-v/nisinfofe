@@ -155,7 +155,7 @@ export const multiDictInfo = (list, recordCode) => {
 
 // 获取二级字典全部
 export const getSecondDictSheet = (type) => {
-  return axios.get(`${apiPath}/dictTable/getSecondDict/${type}`);
+  return axios.get(`${apiPath}dictTable/getSecondDict/${type}`);
 };
 
 // pdf 打印
@@ -245,24 +245,24 @@ export const ordersExecuteList = (obj = {}) => {
 // 威县获取his患者体征
 export const getOrdersExecuteWx = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;
-  return axios.post(`${apiPath}/record/block/getOrdersExecuteWx/list/${id}`, obj);
+  return axios.post(`${apiPath}record/block/getOrdersExecuteWx/list/${id}`, obj);
 };
 
 // 聊城获取his患者体征
 export const getOrdersExecuteLc = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;
-  return axios.post(`${apiPath}/record/block/getOrdersExecuteLc/list/${id}`, obj);
+  return axios.post(`${apiPath}record/block/getOrdersExecuteLc/list/${id}`, obj);
 };
 // 佛山人医获取his患者体征
 export const getOrdersExecuteFsry = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;
-  return axios.post(`${apiPath}/record/block/getOrdersExecuteFssy/list/${id}`, obj);
+  return axios.post(`${apiPath}record/block/getOrdersExecuteFssy/list/${id}`, obj);
 };
 
 // 武汉肺科获取his患者体征
 export const getOrdersExecuteWhfk = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;
-  return axios.post(`${apiPath}/record/block//getOrdersExecuteWhfk/list/${id}`, obj);
+  return axios.post(`${apiPath}record/block//getOrdersExecuteWhfk/list/${id}`, obj);
 };
 
 // 贵州获取his患者输血同步

@@ -459,7 +459,7 @@ export default {
           // console.log(valData,'fafas sfasfsf');
             window.formObj.model.I001012 = valData.marriage;
           // 直接赋值，有点问题 临邑不需要
-          if (!['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
+          if (!['lyxrm', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
             window.formObj.model.I001002 = valData.occupation;
             window.formObj.model.I001003 = valData.nation;
           }
@@ -499,18 +499,11 @@ export default {
         // 'admissionDate':'', // 入院日期
       };
       let keys = Object.keys(keyMap);
-      // console.log(
-      //   "===keyMap",
-      //   keyMap,
-      //   keys,
-      //   keyMap["diagnosis"],
-      //   window.formObj.model["I001001"]
-      // );
 
       keys = [...keys];
       keys.map((key) => {
         // 临邑 不需要同步已存在数据的字段
-        if(['lyxrm', 'stmz'].includes(this.HOSPITAL_ID) && window.formObj.model[keyMap[key]]) return
+        if(['lyxrm', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID) && window.formObj.model[keyMap[key]]) return
         if (
           model[key] != undefined &&
           model[key] != "undefined" &&
@@ -757,21 +750,12 @@ export default {
       }
     },
     removeCheckMark(isXRadiobox = true) {
-      let object = this.$root.$refs;
+      let object = this.$root.$refs[this.formCode];
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
           let element = object[key];
           if (element && element.constructor === Array) {
             let keys = Object.keys(element);
-            console.log(
-              "Array:element",
-              typeof element,
-              element.constructor,
-              element,
-              element[keys[0]],
-              [...element].length,
-              Object.keys(element)
-            );
             // name = '',value=''
             try {
               element[keys[0]].$parent.$parent.$parent.$el.style.outline =
@@ -780,6 +764,7 @@ export default {
                 keys[0]
               ].$parent.$parent.$parent.$el.style.backgroundColor =
                 "transparent";
+                console.log(element[keys[0]].$parent.$parent.$parent.$el.style.outline,key);
             } catch (error) {
               console.log("----error", error, key, element);
             }
@@ -838,7 +823,6 @@ export default {
             value = "",
             parentName = "",
             title = "";
-
           // 多选单选组件
           if (element && element.constructor === Array) {
             // console.log('Array:element',typeof(element),element.constructor,element,element[0],element.length,Object.keys(element));
@@ -949,8 +933,6 @@ export default {
               console.log("error", title, error, element);
             }
           }
-          //
-
           // 输入框组件
           if (
             element &&
@@ -960,6 +942,7 @@ export default {
             element.$parent.obj &&
             element.$parent.obj.hasOwnProperty("name") > -1
           ) {
+            console.log(element,'element',key);
             (name = ""), (value = "");
             if (element.constructor !== Array) {
               try {
@@ -975,7 +958,6 @@ export default {
                 }
                 name = element.$parent.obj.name;
                 title = element.$parent.obj.title;
-                // element.$parent.$parent.$parent.$parent.obj.title;
                 parentName = element.$parent.obj.parentName
                   ? element.$parent.obj.parentName
                   : "";
@@ -993,7 +975,6 @@ export default {
                   element.$parent.$parent.$parent.$parent.obj.title
                 ) > -1
               ) {
-                // console.log("===输入框组件:title", title, skipItems);
                 element.$el.style.outline = "none";
                 element.$el.style.backgroundColor = "transparent";
                 continue;
@@ -1003,17 +984,6 @@ export default {
                 (skipItems.indexOf(title) == -1 && !value && !parentName) ||
                 (!value && parentName && !window.formObj.model[parentName])
               ) {
-                // console.log(
-                //   "==输入框组件:title",
-                //   title,
-                //   parentName,
-                //   name,
-                //   element,
-                //   skipItems,
-                //   [window.formObj.model[name]],
-                //   [value]
-                // );
-
                 let parentTitle = "";
                 let parent = element.$parent;
                 while (parent) {
@@ -1027,15 +997,6 @@ export default {
                   }
                   parent = parent.$parent;
                 }
-                //
-                if (
-                  parent.obj.hasOwnProperty("parentKey") > -1 &&
-                  parent.obj.parentKey
-                ) {
-                  // parent.obj.title == window.formObj.model[parent.obj.parentKey]
-                }
-
-                //
                 if (
                   (!value && !parent.obj.title) ||
                   (parent.obj.title &&
@@ -1051,13 +1012,6 @@ export default {
                   if (!parentTitle) {
                     if (parent.obj.parentTitle) {
                       parentTitle = parent.obj.parentTitle;
-                      // console.log(
-                      //   "===:itemTitle",
-                      //   title,
-                      //   parent,
-                      //   element,
-                      //   window.formObj.model[parent.obj.parentKey]
-                      // );
                     }
                   }
 
@@ -1075,29 +1029,9 @@ export default {
                   element.$el.style.outline = "1px solid red";
                   element.$el.style.backgroundColor = "yellow";
                 }
-                //
-                // console.log(
-                //   "漏项",
-                //   [element, parent],
-                //   [element.$el],
-                //   [parent.obj.title ? parent.obj.title : ""],
-                //   [
-                //     parent.obj.name,
-                //     parent.obj.parentKey,
-                //     parent.obj,
-                //     window.formObj.model[
-                //       parent.obj.name || parent.obj.parentKey
-                //     ],
-                //   ]
-                // );
-
-                //
-                // element.$el.style.outline = "1px solid red";
-                // element.$el.style.border = "1px solid red"
               } else {
                 element.$el.style.outline = "none";
                 element.$el.style.backgroundColor = "transparent";
-                // element.$el.style.border = "1px solid #eee"
               }
             }
           }
@@ -1132,16 +1066,7 @@ export default {
       //
       window.formObj.missingItems = JSON.parse(JSON.stringify(missingObj));
       console.log("漏项统计", missingObj);
-      // $el
-      // window.notifyBox().setMissObj()   totalItems  missItems  missArray
-      // window.notifyBox.setMissObj({
-      //   missingObj,
-      //   totalItems,
-      //   missItems,
-      //   missingObjArrayList,
-      //   removeCheckMark: this.removeCheckMark
-      // });
-      // window.notifyBox.show(5000);
+
       try {
         window.notifyBox.showMessage({
           duration: 20000,

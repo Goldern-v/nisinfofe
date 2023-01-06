@@ -131,7 +131,9 @@ export default {
         }
         //
       }
-    );
+    ).catch(()=>{
+      this.pageLoading = false;
+    });
   },
   methods: {
     status(data) {
@@ -145,7 +147,7 @@ export default {
         }else{
           return moment(beginTime).calendar() + "评估";
         }
-        
+
       }
       //聊城状态只有复评的才会显示
       if(["liaocheng"].includes(this.HOSPITAL_ID)){

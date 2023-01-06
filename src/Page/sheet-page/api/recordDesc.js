@@ -42,11 +42,11 @@ export function list(groupName,wardCode,hospitalId) {
     return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode})
  }
 //  列表
-export function listFsry(groupName,wardCode,sheetType) {
+export function listFsry(groupName,wardCode,sheetType,version=2) {
   //不传值就默认选择当前的护记类型 sheetInfo.sheetType
   let recordCode = sheetType ? sheetType : sheetInfo.sheetType;
   // if(recordCode&&groupName&&wardCode)
-    return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode})
+    return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode,version})
  }
  //  佛一保存常用短语
 export function saveOrUpdateFsry(groupName, title, content, id ,wardCode,sheetType) {

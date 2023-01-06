@@ -1,7 +1,7 @@
 <template>
   <div
     class="patient-list-part"
-    :style="{ left: openLeft ? '0' : '-201px' }"
+   
     v-loading="patientListLoading"
   >
     <div class="search-box">

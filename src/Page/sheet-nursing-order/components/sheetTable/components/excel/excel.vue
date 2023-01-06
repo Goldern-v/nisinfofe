@@ -756,8 +756,8 @@ export default {
     isRead(tr) {
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;
-      let stopSign = tr.find((item) => item.key == "signerName2").value;
-      if(stopSign) return true
+      // let stopSign = tr.find((item) => item.key == "signerName2").value;
+      // if(stopSign&&!['']) return true
       if (status >= 1) {
         if (empNo == this.empNo) {
           return false;
@@ -887,85 +887,6 @@ export default {
             }
           },
         },
-        //  {
-        //   name: '添加格批注',
-        //   icon: 'pizhu',
-        //   click: () => {
-        //     this.bus.$emit('openPizhuModal', row, cell)
-        //   }
-        // },
-        // {
-        //   name: '添加行批注',
-        //   icon: 'pizhu',
-        //   click: () => {
-        //     this.bus.$emit('openPizhuModal', row, 'all')
-        //   }
-        // }
-        // {
-        //   name: '标记为出入量合计',
-        //   icon: 'charuxinhang',
-        //   click: () => {
-        //     row.find((item) => {
-        //       return item.key == 'recordSource'
-        //     }).value = '5'
-        //   }
-        // },
-        // {
-        //   name: '标记为普通行',
-        //   icon: 'charuxinhang',
-        //   click: () => {
-        //     row.find((item) => {
-        //       return item.key == 'recordSource'
-        //     }).value = '1'
-        //   }
-        // },
-        // {
-        //   type: 'mark',
-        //   initValue: {
-        //     rowValue: row.find((item) => { return item.key == 'markType' }).value,
-        //     cellValue: cell.markType
-        //   },
-        //   click: (color, type) => {
-        //     let id = row.find((item) => {
-        //       return item.key == 'id'
-        //     }).value
-        //     let status = row.find((item) => {
-        //       return item.key == 'status'
-        //     }).value
-        //     if (!id) {
-        //       return this.$notify.warning({ title: '提示', message: '只能标记已签名的行' })
-        //     }
-        //     if (type == 'cell' && !cell.key) {
-        //       return this.$notify.warning({ title: '提示', message: '请选中需要标记的单元格' })
-        //     }
-        //     let data = {
-        //       recordId: id,
-        //       fieldEn: type == 'cell' ? cell.key : 'all',
-        //       signType: color.key
-        //     }
-        //     if (color.key == 0) {
-        //       return this.$parent.$parent.$refs.signModal.open((password, empNo) => {
-        //         Object.assign(data, { password, empNo })
-        //         markDelete(data).then(res => {
-        //           if (type == 'cell') {
-        //             cell.markType = ''
-        //           } else if (type == 'row') {
-        //             row.find((item) => { return item.key == 'markType' }).value = ''
-        //           }
-        //         })
-        //       })
-        //     } else {
-        //       markSave(data).then(res => {
-        //         if (type == 'cell') {
-        //           cell.markType = color.key
-        //         } else if (type == 'row') {
-        //           row.find((item) => { return item.key == 'markType' }).value = color.key
-        //         }
-        //       })
-        //     }
-        //     console.log(color, type)
-        //   }
-        // }
       ];
       e.preventDefault();
       window.openContextMenu({ style, data });

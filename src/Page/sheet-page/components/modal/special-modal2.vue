@@ -805,13 +805,13 @@
     <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
     />
     <advice-modal
-      v-if="['lyxrm', 'whhk', 'stmz'].includes(HOSPITAL_ID)"
+      v-if="['lyxrm', 'whhk', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)"
       ref="adviceModalRef"
       @handleOk="handleDiagnosis"
     />
@@ -1226,6 +1226,7 @@ export default {
         case "huadu":
         case 'whhk':
         case "stmz":
+        case "nfyksdyy":
           return this.activeTab === "3";
         default:
           return false;
@@ -1237,6 +1238,7 @@ export default {
         case "lyxrm":
         case 'whhk':
         case "stmz":
+        case "nfyksdyy":
           return this.activeTab === "3";
         default:
           return false;
@@ -1248,6 +1250,7 @@ export default {
         case "huadu":
         case 'whhk':
         case "stmz":
+        case "nfyksdyy":
           return 1200;
         default:
           return 720;
@@ -1835,6 +1838,7 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
+      console.log('武警=====》',type)
       if (this.isSaving) {
         return;
       }
@@ -2147,6 +2151,13 @@ export default {
               }
             } else if (this.sheetInfo.sheetType === "icu_yz" || this.sheetInfo.sheetType === "prenatal_ytll") {
               if (GetLength(text) > 38) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if ( this.sheetInfo.sheetType === "premiumcare_ytll") {
+              if (GetLength(text) > 36) {
                 result.push(text);
                 text = allDoc[i];
               } else {

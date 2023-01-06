@@ -1,0 +1,689 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "临邑县人民医院",
+      "formName": "VTE风险评估(Padua 内科版)"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "code": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "code": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "code": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "code": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "code": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "code": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "code": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E1312",
+      "formApiCode": "E1312",
+      "formName": "VTE风险评估(Padua 内科版)",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "code": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;margin:0;",
+          "code": "0",
+          "hiddenTips": true,
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;margin:0;",
+          "code": "0",
+          "hiddenTips": true,
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                ""
+              ],
+              "style": "color:blue",
+              "display": ""
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "评估内容",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1312002",
+          "type": "checkbox",
+          "title": "年龄≥70岁",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312003",
+          "type": "checkbox",
+          "title": "肥胖(BMI≥30kg/㎡)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312004",
+          "type": "checkbox",
+          "title": "心力衰竭和(或)呼吸衰竭",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312005",
+          "type": "checkbox",
+          "title": "急性感染和(或)风湿性疾病",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312006",
+          "type": "checkbox",
+          "title": "急性心肌梗死和(或)缺血性脑卒中",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312007",
+          "type": "checkbox",
+          "title": "正在进行激素替代治疗",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312008",
+          "type": "checkbox",
+          "title": "近期(≤1个月)创伤和(或)外科手术",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312009",
+          "type": "checkbox",
+          "title": "既往静脉血栓栓塞症",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312010",
+          "type": "checkbox",
+          "title": "制动，患者身体原因或医嘱需要卧床至少3天",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312011",
+          "type": "checkbox",
+          "title": "活动性恶性肿瘤(先前有局部或远端转移)和(或)6个月内接受过化疗和放疗",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312012",
+          "type": "checkbox",
+          "title": "已有血栓形成倾向，V因子Leiden突变，抗凝血酶Ⅲ缺乏，蛋白C和S缺乏，20210A凝血酶原突变、磷脂抗体综合征",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312013",
+          "type": "checkbox",
+          "title": "已确诊VTE",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312014",
+          "type": "checkbox",
+          "title": "入住ICU",
+          "code": "5",
+          "score": 5,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "inputWidth": "136px",
+          "value": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "inputWidth": "136px",
+          "value": "",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "min": "-1",
+              "max": "4",
+              "equal": "低危",
+              "style": "color:blue",
+              "display": "低危"
+            },
+            {
+              "min": "4",
+              "max": "100",
+              "equal": "高危",
+              "style": "color:blue",
+              "display": "高危"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、护理措施：",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "title": "1. 健康宣教：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "M1312015",
+          "type": "checkbox",
+          "title": "一般护理：嘱患者进食低脂清淡、富含纤维素的食物，多饮水，保持大便通畅，并戒烟",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312016",
+          "type": "checkbox",
+          "title": "活动指导：指导患者进行踝泵运动及膝关节屈伸运动，无法自主活动给予被动运动",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312017",
+          "type": "checkbox",
+          "title": "用药指导：抗凝治疗期间，嘱患者观察皮肤、黏膜、消化道、泌尿道、牙龈及全身有无出血发生，如有出血倾向，应立即告知医务人员，避免碰撞及跌倒，用软毛刷刷牙，避免进食坚硬、刺激食物等",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312018",
+          "type": "checkbox",
+          "title": "出院指导：告知患者出院后定期门诊复查，遵医嘱按时服药。保持良好情绪，减轻心理压力，若出现下肢肿胀、疼痛或出血等现象，请尽快就医",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "title": "2. 基础预防：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1312021",
+          "type": "checkbox",
+          "title": "术中和术后适度补液、饮水、避免脱水",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312022",
+          "type": "checkbox",
+          "title": "抬高患肢：抬高下肢20～30°(略高于心脏水平)，禁止腘窝及小腿下单独垫枕",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312023",
+          "type": "checkbox",
+          "title": "改善生活方式，嘱患者戒烟戒酒，控制血糖、血脂",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312024",
+          "type": "checkbox",
+          "title": "规范静脉穿刺技术，尽量避免深静脉穿刺和下肢静脉穿刺输液",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312025",
+          "type": "checkbox",
+          "title": "早期活动，尽早下床(被动活动/踝泵运动)",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "title": "3. 物理预防：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I003003",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1312026",
+          "type": "checkbox",
+          "title": "使用梯度压力袜",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312027",
+          "type": "checkbox",
+          "title": "使用间歇性充气加压装置",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312028",
+          "type": "checkbox",
+          "title": "使用足底静脉泵",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupVerticalBox",
+      "title": "4. 药物预防：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I004007",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1312029",
+          "type": "checkbox",
+          "title": "遵医嘱给予抗凝药物",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312030",
+          "type": "checkbox",
+          "title": "用药前了解患者有无出血性疾病",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312031",
+          "type": "checkbox",
+          "title": "注意患者有无出血倾向，观察患者皮肤、黏膜、消化道、泌尿道、牙龈及全身有无出血发生，如有出血倾向，应立即通知医生及时处理",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1312032",
+          "type": "checkbox",
+          "title": "避免碰撞及跌倒，用软毛刷刷牙，避免进食坚硬、刺激食物等",
+          "code": "√",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

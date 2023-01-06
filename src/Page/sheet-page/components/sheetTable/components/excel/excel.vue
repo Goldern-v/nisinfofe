@@ -88,7 +88,7 @@
         class="body-con"
         @dblclick="openEditModal(tr, data, $event)"
         v-for="(tr, y) in data.bodyModel"
-        :id ="`row_${y}`"
+        :id ="`row_${y}`" 
         :class="[
           {
             inPreview:
@@ -1172,15 +1172,36 @@ export default {
         const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
         findListByBlockId(startPageIndex,endPageIndex).then(res=>{
           const optionArr=res.data.data.Options
+          let fieldEnArr=[]
           if(optionArr.length>0){
+             // 先去重fieldEn。看看有没有当前的newRow有没有下拉。有就清空
+             optionArr.map(option=>{
+               if(option.pageIndex==this.index){
+                  fieldEnArr.push(option.fieldEn)
+               }
+               return option
+             })
+             const set =new Set(fieldEnArr) 
+             const newFieldEnArr=[...set]
+             //去重完。清空下拉数据。不然会重复
+             newRow.map(row=>{
+               if(newFieldEnArr.includes(row.key)){
+                  if(row.autoComplete==undefined){
+                    // 没有下拉数据
+                    row.autoComplete={}
+                    row.autoComplete.data=[]
+                  }else{
+                    //有数据,清空
+                    row.autoComplete.data=[]
+                  }
+               }
+               return row
+             })
+             //添加下拉数据  
              optionArr.forEach(option=>{
               if(option.pageIndex==this.index){
                 newRow=newRow.map(activeKey=>{
                   if(activeKey.key==option.fieldEn){
-                    if(activeKey.autoComplete==undefined){
-                      activeKey.autoComplete={}
-                      activeKey.autoComplete.data=[]
-                    }
                     activeKey.autoComplete.data.unshift(option.options)
                   }
                   return activeKey
@@ -2837,7 +2858,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz','ytll'].includes(this.HOSPITAL_ID)) {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }

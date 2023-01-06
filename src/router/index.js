@@ -26,6 +26,7 @@ const infuseStat = () => import("@/Page/lesion/supPage/infuse/infuse-stat.vue");
 //自动登录
 import autoLogin from "../Part/auto-login";
 import autoLoginGuizhou from "../Part/auto-login-guizhou";
+import autoLoginToHomePage from "../Part/auto-login-homePage";
 // import whiteBoard from '@/Part/whiteBoard/whiteBoard'
 // import home1 from "@/Page/catheter-page/home1/home";
 
@@ -444,7 +445,7 @@ const getImplementation = () => {
     case 'fsxt':
       return implementationListFsxt
     case 'foshanrenyi':
-   
+
       return implementationListFSSY
     case 'quzhou':
       return implementationListQuzhou
@@ -672,6 +673,7 @@ const router = new Router({
             case 'whhk':
             case 'nfyksdyy':
             case "stmz":
+            case "nfyksdyy":
               return archiveFSSY
             default:
               return archive
@@ -1256,7 +1258,7 @@ const router = new Router({
               default:
                 return implementationPersonLiaocheng
             }
-          })(), 
+          })(),
           name: "执行单",
           alias: "执行单"
         },
@@ -1796,6 +1798,10 @@ const router = new Router({
           return autoLogin
       }
     })(),
+  },
+  {
+    path: "/autoLoginToHomePage",
+    component:autoLoginToHomePage,
   },
   {
     path: "/print/:type",
