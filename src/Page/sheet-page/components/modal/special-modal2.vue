@@ -1838,6 +1838,7 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
+      console.log('武警=====》',type)
       if (this.isSaving) {
         return;
       }
@@ -2070,7 +2071,8 @@ export default {
                 text += allDoc[i];
               }
             } else if (this.sheetInfo.sheetType === "common_wj") {
-              if (GetLength(text) > 27) {
+              //富文本出错 如果走普通的  就是这个长度
+              if (GetLength(text) > 40) {
                 result.push(text);
                 text = allDoc[i];
               } else {
@@ -2163,7 +2165,7 @@ export default {
                 text += allDoc[i];
               }
             }else {
-              if (GetLength(text) > 23) { 
+              if (GetLength(text) > 23) {
                 result.push(text);
                 text = allDoc[i];
               } else {
