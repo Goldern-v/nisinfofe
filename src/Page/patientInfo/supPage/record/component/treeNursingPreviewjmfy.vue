@@ -263,6 +263,7 @@ export default {
         "sdlj",
         "foshanrenyi",
         "fsxt",
+        'lyxrm'
       ], // 是否开放血糖模块
       showBloodOxygen: ["whfk"], // 是否开放血氧模块
       timer: null,

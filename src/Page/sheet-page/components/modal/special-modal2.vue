@@ -2155,8 +2155,15 @@ export default {
               } else {
                 text += allDoc[i];
               }
+            } else if ( this.sheetInfo.sheetType === "premiumcare_ytll") {
+              if (GetLength(text) > 36) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
             }else {
-              if (GetLength(text) > 23) {
+              if (GetLength(text) > 23) { 
                 result.push(text);
                 text = allDoc[i];
               } else {

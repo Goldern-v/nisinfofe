@@ -528,6 +528,7 @@ export default {
           num: this.inBedLength.length,
           type: "bed",
         },
+        
         //  {
         //   name: "我的关注",
         //   num: this.heart.length,
@@ -620,6 +621,15 @@ export default {
           type: "heart",
         });
       }
+      if (
+          ["nfyksdyy"].includes(this.HOSPITAL_ID)
+      ) {
+        list.splice(3, 0, {
+          name: "我的管床",
+          num: this.heart.length,
+          type: "heart",
+        });
+      }
       if(this.HOSPITAL_ID == "huadu"){
           list.push({
             name: "今结明出",
@@ -674,7 +684,9 @@ export default {
         'zhzxy',
         'nfyksdyy',
         '925',
-        'dglb', 'stmz'
+        'dglb', 
+        'stmz',
+        'guizhou'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -900,6 +912,7 @@ export default {
           }
           break;
         case "我的关注":
+        case "我的管床":
           {
             this.$parent.bedList = this.heart;
           }
