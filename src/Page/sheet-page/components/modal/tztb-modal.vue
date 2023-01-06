@@ -148,17 +148,17 @@ export default {
     },
     getData() {
       if (this.HOSPITAL_ID == "whsl") {
-        let startDate = this.date[0]
+        let beginTime = this.date[0]
           ? moment(this.date[0]).format("YYYY-MM-DD HH:mm:ss")
           : "";
-        let endDate = this.date[1]
+        let endTime = this.date[1]
           ? moment(this.date[1]).format("YYYY-MM-DD HH:mm:ss")
           : "";
         weihaiVitalSignPost({
           patientId: this.patientInfo.patientId || this.formlist.patientId,
           visitId: this.patientInfo.visitId || this.formlist.visitId,
-          startDate,
-          endDate,
+          beginTime,
+          endTime,
         }).then((res) => {
           let tableList = res.data.data.list
           this.splitPulseHospital.includes(this.HOSPITAL_ID) && tableList.map(item=>{
