@@ -14,7 +14,8 @@
               'whhk',
               '925',
               'gdtj',
-              'ytll'
+              'ytll',
+              'whsl'
             ].includes(HOSPITAL_ID)
           "
         >
@@ -25,20 +26,6 @@
             size="small"
             placeholder="选择日期范围"
           >
-          </el-date-picker>
-        </div>
-        <div
-          v-if="['whsl'].includes(HOSPITAL_ID)"
-        >
-          <span class="label">执行单日期：</span>
-          <el-date-picker
-            v-model="date"
-            size="small"
-            style="width:290px"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="请选择"
-            end-placeholder="请选择">
           </el-date-picker>
         </div>
         <div v-else>
@@ -101,7 +88,7 @@
             v-model="executeType"
             placeholder="请选择"
             size="small"
-            style="width: 120px"
+            style="width: 150px"
           >
             <el-option
               :label="typeItem.name"
@@ -367,7 +354,6 @@ import {
   getOrdersExecuteWhfk,
   saveSyncRecord,
 } from "../../api/index";
-import { weihaiVitalSignPost } from "./api/index";
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
 import { mapMutations, mapState } from "vuex";
@@ -417,12 +403,6 @@ export default {
       ],
       // 是否显示医嘱类型
       showAdvice: ['foshanrenyi','zhzxy'].includes(this.HOSPITAL_ID),
-      date:(()=>{
-          const dateStart = new Date()
-          const dateEnd = new Date()
-          dateStart.setTime(dateStart.getTime() - 3600 * 1000 * 24);
-          return [dateStart,dateEnd]
-        })(),
     };
   },
   methods: {
@@ -617,23 +597,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (this.HOSPITAL_ID == "whsl") {
-        let startDate = this.longDate[0]
-          ? moment(this.longDate[0]).format("YYYY-MM-DD HH:mm:ss")
-          : "";
-        let endDate = this.longDate[1]
-          ? moment(this.longDate[1]).format("YYYY-MM-DD HH:mm:ss")
-          : "";
-        weihaiVitalSignPost({
-          patientId: this.patientInfo.patientId || this.formlist.patientId,
-          visitId: this.patientInfo.visitId || this.formlist.visitId,
-          startDate,
-          endDate,
-          executeType: this.executeType,
-        }).then((res) => {
-          this.tableData = res.data.data.list;
-        });
-      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj', 'stmz','ytll'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";

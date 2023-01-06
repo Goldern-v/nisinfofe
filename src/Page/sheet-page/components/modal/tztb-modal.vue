@@ -5,6 +5,7 @@
         <span class="label">体征日期：</span>
         <masked-input
           type="text"
+          v-if="!['whsl'].includes(HOSPITAL_ID)"
           class="mask-input"
           :showMask="false"
           v-model="searchDate"
@@ -12,6 +13,15 @@
           :guide="true"
           placeholderChar=" "
         ></masked-input>
+        <el-date-picker
+            v-else
+            v-model="date"
+            style="width:320px;margin-right: 40px;"
+            type="datetimerange"
+            range-separator="至"
+            start-placeholder="请选择"
+            end-placeholder="请选择">
+          </el-date-picker>
         <whiteButton text="查询" @click="getData"></whiteButton>
       </div>
       <div class="table-con">
@@ -83,6 +93,7 @@ import moment from "moment";
 import { getVitalSign, saveVitalSign } from "../../api/index";
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
+import { weihaiVitalSignPost } from "./api/index";
 export default {
   data() {
     return {
@@ -93,6 +104,12 @@ export default {
       bus: bus(this),
       formlist:{},
       splitPulseHospital:['nanfangzhongxiyi'], // 脉搏/心率的值仅有一个的时候不显示斜杠
+      date:(()=>{
+        const dateStart = new Date()
+        const dateEnd = new Date()
+        dateStart.setTime(dateStart.getTime() - 3600 * 1000 * 24);
+        return [dateStart,dateEnd]
+      })(),
     };
   },
   methods: {
@@ -130,17 +147,38 @@ export default {
       this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
     },
     getData() {
-      getVitalSign(
-        this.patientInfo.patientId || this.formlist.patientId,
-        this.patientInfo.visitId || this.formlist.visitId,
-        this.searchDate
-      ).then(res => {
-        let tableList = res.data.data.list
-        this.splitPulseHospital.includes(this.HOSPITAL_ID) && tableList.map(item=>{
-          item.pulse = this.getShowPluse(item.pulse)
-        })
-        this.tableData = tableList;
-      });
+      if (this.HOSPITAL_ID == "whsl") {
+        let startDate = this.date[0]
+          ? moment(this.date[0]).format("YYYY-MM-DD HH:mm:ss")
+          : "";
+        let endDate = this.date[1]
+          ? moment(this.date[1]).format("YYYY-MM-DD HH:mm:ss")
+          : "";
+        weihaiVitalSignPost({
+          patientId: this.patientInfo.patientId || this.formlist.patientId,
+          visitId: this.patientInfo.visitId || this.formlist.visitId,
+          startDate,
+          endDate,
+        }).then((res) => {
+          let tableList = res.data.data.list
+          this.splitPulseHospital.includes(this.HOSPITAL_ID) && tableList.map(item=>{
+            item.pulse = this.getShowPluse(item.pulse)
+          })
+          this.tableData = tableList;
+        });
+      } else{
+        getVitalSign(
+          this.patientInfo.patientId || this.formlist.patientId,
+          this.patientInfo.visitId || this.formlist.visitId,
+          this.searchDate
+        ).then(res => {
+          let tableList = res.data.data.list
+          this.splitPulseHospital.includes(this.HOSPITAL_ID) && tableList.map(item=>{
+            item.pulse = this.getShowPluse(item.pulse)
+          })
+          this.tableData = tableList;
+        });
+      }
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
