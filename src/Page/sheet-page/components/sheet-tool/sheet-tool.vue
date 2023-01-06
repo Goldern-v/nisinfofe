@@ -675,7 +675,7 @@ export default {
     return {
       bus: bus(this),
       readOnlyList: [
-        "fuyou","huadu"
+        "fuyou","huadu","zhzxy"
       ],
       tool: "",
       showCurve: false,
