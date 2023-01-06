@@ -943,7 +943,9 @@ export default {
           "whhk",
           "zhzxy",
           "925",
-          "whsl", 'stmz'
+          "whsl", 
+          'stmz',
+          'wujing'
         ].includes(this.HOSPITAL_ID)
       ) {
         res = await getPrintListContent2({ barcodeList: barCodeList });
