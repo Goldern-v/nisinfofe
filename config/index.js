@@ -41,7 +41,7 @@ const currentTargetUrl = (() => {
   switch (HOSPITAL_ID) {
     /** 厚街 */
     case "hj":
-      // return "http://120.197.141.41:9091" //厚街正式
+      return "http://120.197.141.41:9091" //厚街正式
       // return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
     // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
@@ -205,9 +205,9 @@ const currentTargetUrl = (() => {
 
     // 烟台玲珑
     case 'ytll':
-      return "http://221.214.210.170:39094"  // 正式
+      // return "http://221.214.210.170:39094"  // 正式
       // return 'http://192.168.1.54:9866'
-      // return 'http://192.168.1.54:9893' // 烟台玲珑测试环境
+      return 'http://192.168.1.54:9893' // 烟台玲珑测试环境
       // return "http://218.13.87.27:9094" //
 
 

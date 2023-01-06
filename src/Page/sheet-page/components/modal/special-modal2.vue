@@ -2066,7 +2066,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "common_wj") {
+            } else if (this.sheetInfo.sheetType === "common_wj" || this.sheetInfo.sheetType === "babyarea_fs") {
               if (GetLength(text) > 27) {
                 result.push(text);
                 text = allDoc[i];
