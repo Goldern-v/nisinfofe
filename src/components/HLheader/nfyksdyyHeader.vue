@@ -310,11 +310,11 @@
                 <i class="iconfont icon-dongtairizhi"></i> 病房日报
               </el-row>
             </router-link> -->
-            <router-link to="/nursingDocumentation" tag="span">
+            <!-- <router-link to="/nursingDocumentation" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-huliwenshu"></i> 患者查询
               </el-row>
-            </router-link>
+            </router-link> -->
             <!-- <router-link to="/badEvent" tag="span">
               <el-row class="nav-item" type="flex" align="middle">不良事件</el-row>
             </router-link> -->

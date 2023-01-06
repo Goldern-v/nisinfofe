@@ -109,7 +109,6 @@ export default {
   },
   watch: {
     inputValue(valueNew, oldvaule) {
-      console.log("inputValue:", valueNew, oldvaule);
       if (this.model === "normal") {
         this.formObj.model[this.obj.name] = valueNew;
         this.checkValueRule(valueNew);
@@ -147,7 +146,6 @@ export default {
     },
     obj: {
       handler(curVal, oldVal) {
-        // console.log("handler", curVal, oldVal);
         if (
           this.obj &&
           this.obj.hasOwnProperty("value") > -1 &&

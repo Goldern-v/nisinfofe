@@ -268,8 +268,8 @@ export default {
        return `http://10.108.1.33/pdv-ui/medicalLeportList/?ViewType=3&patientId=${patientId}&userName=${this.empName}&Hash=${md5(patientId+this.empName+'wego2022')}&patientType=&userData={"userCode":"${this.empNo}","orgCode":"${deptCode}","key":"${md5(this.empNo+'@wego2022')}"}&isExternal=1`
     },
     patientRecord() {
-      const { patientId = '' } = this.$route.query
-      return `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid=${patientId}`;
+      const { inpNo ='' } = this.$route.query
+      return `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid=${inpNo}`;
     },
   },
   mounted() {},
