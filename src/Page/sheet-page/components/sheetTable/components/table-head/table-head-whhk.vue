@@ -6,7 +6,29 @@
     </div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{sheetInfo.relObj}} -->
-    <div class="info-con" flex="main:justify">
+    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'baby_whhk'">
+      <span>
+        科室：
+        <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+      </span>
+      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+        母亲床号：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+      </span>
+      <span @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)">
+        母亲姓名：
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
+      </span>
+      <span>
+        母亲住院号：
+        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+      </span>
+      <span>
+        新生儿性别：
+        <input type="text" v-model="sheetInfo.relObj.xsexb" style="border-bottom: 1px solid #000; width: 70px"/>
+      </span>
+    </div>
+    <div class="info-con" flex="main:justify" v-else>
       <span>
         科室：
         <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
@@ -23,7 +45,7 @@
         性别：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
       </span> -->
-      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-if="sheetInfo.sheetType !== 'one_whhk'">
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-if="showAge.includes(sheetInfo.sheetType)">
         年龄：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
       </span>
@@ -31,12 +53,49 @@
         住院号：
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
-      <!-- <span>
-        入院日期：
-        {{patientInfo.admissionDate | toymd}}
-      </span> -->
+      <div class="item-base" v-if="sheetInfo.sheetType === 'intravenous_whhk'">
+        导管类型：
+        <div class="item-base">
+          <label v-for="item in ['PVC', 'CVC', 'PICC', '其他']" :key="item">
+            <input
+              type="checkbox"
+              :value="item"
+              :ischecked="sheetInfo.relObj[item]"
+              v-model="sheetInfo.relObj[item]"
+            />{{ item }}
+          </label>
+          <input type="text" v-model="sheetInfo.relObj.other" style="border-bottom: 1px solid #000"/>
+        </div>
+      </div>
+      <template v-if="sheetInfo.sheetType === 'insulin_whhk'">
+        <span>
+          置管日期：
+          <input type="text" v-model="sheetInfo.relObj.zgrq" style="border-bottom: 1px solid #000; width: 110px"/>
+        </span>
+        <span>
+          置管部位：
+          <input type="text" v-model="sheetInfo.relObj.zgbw" style="border-bottom: 1px solid #000; width: 120px"/>
+        </span>
+      </template>
     </div>
-
+    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'intravenous_whhk'">
+      <span>
+        置管日期：
+        <input type="text" v-model="sheetInfo.relObj.zgrq" style="border-bottom: 1px solid #000; width: 110px"/>
+      </span>
+      <span>
+        置管部位：
+        <input type="text" v-model="sheetInfo.relObj.zgbw" style="border-bottom: 1px solid #000; width: 120px"/>
+      </span>
+      <span>
+        导管置入长度(厘米)：
+        <input type="text" v-model="sheetInfo.relObj.dgzrcd" style="border-bottom: 1px solid #000; width: 80px"/>
+      </span>
+      <span>
+        导管外露长度(厘米)：
+        <input type="text" v-model="sheetInfo.relObj.dgwlcd" style="border-bottom: 1px solid #000; width: 80px"/>
+      </span>
+    </div>
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
   </div>
 </template>
@@ -54,10 +113,8 @@ export default {
   },
   data() {
     return {
-      sheetInfo
-      // relObj: {
-      //   wxNo: ""
-      // }
+      sheetInfo,
+      showAge: ['labor_whhk'], // 显示年龄
     };
   },
   computed: {
@@ -105,7 +162,8 @@ export default {
           return sheetInfo.relObj.age || this.patientInfo.age;
         }
       }
-    }
+    },
+
   },
   methods: {
     updateBirthDay() {
@@ -236,5 +294,22 @@ input.bottom-line {
     width: 50px;
     height: 50px;
   }
+}
+.item-base {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  flex-wrap: wrap;
+  label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+input[type='text'] {
+  border: none;
+  outline: none;
+  margin: 0;
+  text-align: center;
 }
 </style>

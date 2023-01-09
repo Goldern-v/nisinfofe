@@ -12,9 +12,14 @@ import {
   click_time
 } from "../keyEvent/date";
 
-const jkjyList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧']
-const hlcsList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩']
+const check = ['√']
+const dbxzList = ['胎便', '混合便', '母乳便', '人工喂养便']
 export default [
+  // {
+  //   key: "recordDate", //年份
+  //   value: "",
+  //   hidden:true
+  // },
   {
     key: "recordMonth", //日期
     value: "",
@@ -28,291 +33,257 @@ export default [
     click: click_time
   },
   {
-    key: "consciousness", //意识
+    key: "temperature", // 体温℃
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "意识",
-    next: "",
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "temperature", //T
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "T",
+    change: (e, td) => limitChange(e, td, 4),
+    name: "体温",
     next: "℃",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
-    key: "pulse", //P
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "P",
-    next: "次/分",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "breath", //R
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "R",
-    next: "次/分",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "bloodPressure", //Bp
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
-    name: "Bp",
-    next: "mmHg",
-    textarea: {
-      width: 50
-    },
-  },
-  {
-    key: "eyeLeft", //左
+    key: "spo2", // 氧饱和度
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
-    name: "左",
-    next: "mm",
+    name: "氧饱和度",
+    next: "",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
-    key: "eyeRight", //右
+    key: "pulse", // 心率
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
-    name: "右",
-    next: "mm",
+    name: "心率",
+    next: "",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
-    key: "reflection", //对光反射
+    key: "feeding", // 母乳
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "母乳",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "feedingTwo", // 混合
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "混合",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "feedingThree", // 人工
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "人工",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "skin", // 正常
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "正常",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "skinTwo", // 黄疸
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "黄疸",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "skinThree", // 湿疹
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "湿疹",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "skinFour", // 红臀
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "红臀",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "bellyButton", // 正常
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "正常",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "bellyButtonTwo", // 发炎
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "发炎",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "bellyButtonThree", // 出血
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "出血",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "eye", // 正常
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "正常",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "eyeTwo", // 分泌物多
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    name: "对光反射",
+    autoComplete: { data: check },
+    name: "分泌物多",
     next: "",
     textarea: {
       width: 40
     },
   },
   {
-    key: "spo2", //SPO₂
+    key: "eyeThree", // 红肿
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "SPO₂",
-    next: "%",
+    change: (e, td) => limitChange(e, td, 4),
+    autoComplete: { data: check },
+    name: "红肿",
+    next: "",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
-    key: "skin", //受压皮肤
+    key: "stools", // 大便次数
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "大便次数",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "stoolsType", // 大便性状
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    name: "受压皮肤",
+    autoComplete: { data: dbxzList },
+    name: "大便性状",
     next: "",
     textarea: {
       width: 40
     },
   },
   {
-    key: "position", //卧位
+    key: "urinate", // 小便
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "小便",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "forehead", // 额
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    name: "卧位",
+    name: "额",
     next: "",
     textarea: {
       width: 40
     },
   },
   {
-    key: "intravenous", // 静脉置管自定义一
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
-    name: "",
-    next: "",
-    textarea: {
-      width: 60
-    },
-  },
-  {
-    key: "tube1", //自定义二
+    key: "chest", // 胸
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    name: "",
+    name: "胸",
     next: "",
     textarea: {
       width: 40
     },
   },
   {
-    key: "tube2", //自定义三
+    key: "abdominal", // 腹
     value: "",
+    event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    name: "",
+    name: "腹",
     next: "",
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "food", //项目
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "项目",
-    next: '',
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "foodSize", //量
-    value: "",
-    event: keyf1,
-    name: "入量",
-    next: 'ml',
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "discharge", //项目
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "项目",
-    next: '',
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "dischargeSize", //量
-    value: "",
-    event: keyf1,
-    name: "出量",
-    next: 'ml',
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "color", //颜色
-    value: "",
-    event: keyf1,
-    name: "颜色",
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30,
-    },
-  },
-  {
-    key: "outType", //性状
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "性状",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "measures", // 护理措施
-    value: "",
-    event: keyf1,
-    name: "护理措施",
-    autoComplete: { data: hlcsList },
-    splice: true,
-    change: (e, td) => limitChange(e, td, 8),
-    textarea: {
-      width: 50
-    },
-  },
-  {
-    key: "education", // 健康教育
-    value: "",
-    event: keyf1,
-    name: "健康教育",
-    next: '',
-    autoComplete: { data: jkjyList },
-    splice: true,
-    change: (e, td) => limitChange(e, td, 8),
-    textarea: {
-      width: 50
-    },
-  },
-  {
-    key: "other1", // 其他1
-    value: "",
-    event: keyf1,
-    name: "",
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "other2", //其他2
-    value: "",
-    event: keyf1,
-    name: "",
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "other3", // 其他3
-    value: "",
-    event: keyf1,
-    name: "",
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "other4", // 其他4
-    value: "",
-    event: keyf1,
-    name: "",
-    next: '',
-    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 40
     },
@@ -326,11 +297,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      width: "200px",
       background: "transparent",
     },
     textarea: {
-      width: 150
+      width: 200
     },
     event: function (e, td) {
       console.log(e.keyCode);

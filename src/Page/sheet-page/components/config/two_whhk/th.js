@@ -35,7 +35,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "40px"
+          minWidth: "35px"
         }
       },
       {
@@ -43,23 +43,23 @@ export default {
         colspan: "4",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: "35px"
         }
       },
       {
-        name: "瞳孔",
-        colspan: "3",
-        rowspan: "1",
-        style: {
-          minWidth: "40px"
-        }
-      },
-      {
-        name: "SPO₂%",
+        name: "SpO₂<br/>%",
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "40px"
+          minWidth: "35px"
+        }
+      },
+      {
+        name: `切<br/>口<br/>敷<br/>料`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "35px"
         }
       },
       {
@@ -67,15 +67,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "40px"
-        }
-      },
-      {
-        name: `卧位`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "40px"
+          minWidth: "35px"
         }
       },
       {
@@ -83,15 +75,15 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: "60px"
         }
       },
       {
-        name: `导管及<br/>引流管`,
-        colspan: "2",
+        name: `导管及引流管`,
+        colspan: "4",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: "35px"
         }
       },
       {
@@ -99,7 +91,7 @@ export default {
         colspan: "2",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: "35px"
         }
       },
       {
@@ -107,7 +99,7 @@ export default {
         colspan: "4",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: "35px"
         }
       },
       {
@@ -131,7 +123,7 @@ export default {
         colspan: "5",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: "35px"
         }
       },
       {
@@ -149,8 +141,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
@@ -158,8 +150,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
@@ -167,8 +159,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
@@ -181,36 +173,9 @@ export default {
         },
       },
       {
-        name: `左<br/>mm`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: `右<br/>mm`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: `对光<br/>反射`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
-      },
-      {
         name: ``,
         canSet: true,
-        key: 'intravenous',
+        key: 'fieldFive',
         colspan: "1",
         rowspan: "2",
         style: {
@@ -221,23 +186,45 @@ export default {
       {
         name: ``,
         canSet: true,
-        key: 'tube1',
+        key: 'fieldFifteen',
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
         name: ``,
         canSet: true,
-        key: 'tube2',
+        key: 'fieldSixteen',
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "35px",
+          maxWidth: "35px"
+        },
+      },
+      {
+        name: ``,
+        canSet: true,
+        key: 'fieldSeventeen',
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "35px",
+          maxWidth: "35px"
+        },
+      },
+      {
+        name: ``,
+        canSet: true,
+        key: 'fieldEighteen',
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
@@ -245,8 +232,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
@@ -263,8 +250,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
@@ -297,51 +284,51 @@ export default {
       {
         name: ``,
         canSet: true,
-        key: 'other1',
+        key: 'fieldEleven',
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
         name: ``,
         canSet: true,
-        key: 'other2',
+        key: 'fieldTwelve',
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
         name: ``,
         canSet: true,
-        key: 'other3',
+        key: 'fieldThirteen',
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
         name: ``,
         canSet: true,
-        key: '',
+        key: 'fieldFourteen',
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
         name: ``,
         canSet: true,
-        key: 'other4',
+        key: 'description',
         colspan: "1",
         rowspan: "2",
         style: {

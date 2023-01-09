@@ -48,7 +48,15 @@ export function getRowNum(index) {
     //   // console.log("222",sheetInfo.sheetStartPage +index,sheetInfo.endPage)
     //   return 9;
     // }
-  } else if (sheetInfo.sheetType == "critical_lc" || sheetInfo.sheetType == "critical_new_linyi" || sheetInfo.sheetType == 'critical_new_weihai' || sheetInfo.sheetType == "critical_new_lc" ||sheetInfo.sheetType === 'babyarea_fs'||sheetInfo.sheetType == "icu_yz") {
+  } else if (
+    sheetInfo.sheetType == "critical_lc" ||
+    sheetInfo.sheetType == "critical_new_linyi" ||
+    sheetInfo.sheetType == 'critical_new_weihai' ||
+    sheetInfo.sheetType == "critical_new_lc" ||
+    sheetInfo.sheetType === 'babyarea_fs'||
+    sheetInfo.sheetType == "icu_yz" ||
+    sheetInfo.sheetType === 'intravenous_whhk'
+  ) {
     return 20;
   } else if (sheetInfo.sheetType == "cardiology_lcey") {
     return 15;
@@ -75,12 +83,18 @@ export function getRowNum(index) {
     return 24
   }else if (
     sheetInfo.sheetType === 'record_children_serious2_lc'||
-    sheetInfo.sheetType === 'postpartum_dglb'
+    sheetInfo.sheetType === 'postpartum_dglb' ||
+    sheetInfo.sheetType === 'neonatology_whhk' ||
+    sheetInfo.sheetType === 'insulin_whhk'
   ) {
     return 19
   }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz' || sheetInfo.sheetType == "seriousnursing_ytll" ) {
     return 21
-  }else if (sheetInfo.sheetType === 'neonate_sdlj' || sheetInfo.sheetType === 'one_whhk') {
+  }else if (
+    sheetInfo.sheetType === 'neonate_sdlj' ||
+    sheetInfo.sheetType === 'one_whhk' ||
+    sheetInfo.sheetType === 'two_whhk'
+  ) {
     return 18
   } else if (sheetInfo.sheetType=='babymilk_ytll') {
     return 34

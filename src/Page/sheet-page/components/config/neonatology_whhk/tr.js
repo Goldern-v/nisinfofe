@@ -12,9 +12,12 @@ import {
   click_time
 } from "../keyEvent/date";
 
-const jkjyList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧']
-const hlcsList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩']
 export default [
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
   {
     key: "recordMonth", //日期
     value: "",
@@ -28,293 +31,278 @@ export default [
     click: click_time
   },
   {
-    key: "consciousness", //意识
+    key: "temperature", // T℃
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "T",
+    next: "℃",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "pulse", // HR
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    name: "意识",
-    next: "",
+    name: "HR",
+    next: "次/分",
     textarea: {
       width: 40
     },
   },
   {
-    key: "temperature", //T
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "T",
-    next: "℃",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "pulse", //P
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "P",
-    next: "次/分",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "breath", //R
+    key: "breath", // R
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     name: "R",
     next: "次/分",
     textarea: {
-      width: 30
+      width: 40
     },
   },
   {
-    key: "bloodPressure", //Bp
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
-    name: "Bp",
-    next: "mmHg",
-    textarea: {
-      width: 50
-    },
-  },
-  {
-    key: "eyeLeft", //左
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "左",
-    next: "mm",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "eyeRight", //右
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "右",
-    next: "mm",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "reflection", //对光反射
+    key: "bloodPressure", // BP
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    name: "对光反射",
-    next: "",
+    name: "BP",
+    next: "mmHg",
     textarea: {
       width: 40
     },
   },
   {
-    key: "spo2", //SPO₂
+    key: "spo2", // SpO₂
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    name: "SPO₂",
+    name: "SpO₂",
     next: "%",
     textarea: {
       width: 40
     },
   },
   {
-    key: "skin", //受压皮肤
+    key: "weight", // 体重
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    name: "受压皮肤",
+    name: "体重",
+    next: "Kg",
+    textarea: {
+      width: 40
+    },
+  },
+  {
+    key: "boxTemperature", // 箱温
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    name: "箱温",
+    next: "℃",
+    textarea: {
+      width: 40
+    },
+  },
+  {
+    key: "complexion", // 面色
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    name: "面色",
     next: "",
     textarea: {
       width: 40
     },
   },
   {
-    key: "position", //卧位
+    key: "ventilatorMode", // 呼吸机模式
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    name: "卧位",
+    name: "呼吸机模式",
+    next: "",
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "time", // f
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "f",
+    next: "次/分",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "fio2", // FiO₂
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "FiO₂",
+    next: "%",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "depth", // 插管深度
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "插管深度",
+    next: "cm",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "cpap", // CPAP
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "CPAP",
+    next: "%",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "boxOxygen", // 氧疗箱
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    name: "氧疗箱",
+    next: "%",
+    textarea: {
+      width: 40
+    },
+  },
+  {
+    key: "mask", // 面罩
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    name: "面罩",
+    next: "l/min",
+    textarea: {
+      width: 40
+    },
+  },
+  {
+    key: "catheter", // 静脉导管-自定义1
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    name: "",
     next: "",
     textarea: {
       width: 40
     },
   },
   {
-    key: "intravenous", // 静脉置管自定义一
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
-    name: "",
-    next: "",
-    textarea: {
-      width: 60
-    },
-  },
-  {
-    key: "tube1", //自定义二
+    key: "order", // 自定义2
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    name: "",
+    name: "次数",
     next: "",
     textarea: {
       width: 40
     },
   },
   {
-    key: "tube2", //自定义三
+    key: "intravenousItem", // 静默给药项目
     value: "",
+    event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
-    name: "",
+    name: "静默给药项目",
     next: "",
     textarea: {
       width: 40
     },
   },
   {
-    key: "food", //项目
+    key: "intravenousDose", // 静默给药量
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
-    name: "项目",
-    next: '',
+    name: "静默给药量",
+    next: "",
     textarea: {
       width: 30
     },
   },
   {
-    key: "foodSize", //量
+    key: "dietaryItem", // 饮食项目
     value: "",
     event: keyf1,
-    name: "入量",
-    next: 'ml',
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "discharge", //项目
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "项目",
-    next: '',
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "dischargeSize", //量
-    value: "",
-    event: keyf1,
-    name: "出量",
-    next: 'ml',
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "color", //颜色
-    value: "",
-    event: keyf1,
-    name: "颜色",
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30,
-    },
-  },
-  {
-    key: "outType", //性状
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "性状",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "measures", // 护理措施
-    value: "",
-    event: keyf1,
-    name: "护理措施",
-    autoComplete: { data: hlcsList },
-    splice: true,
-    change: (e, td) => limitChange(e, td, 8),
-    textarea: {
-      width: 50
-    },
-  },
-  {
-    key: "education", // 健康教育
-    value: "",
-    event: keyf1,
-    name: "健康教育",
-    next: '',
-    autoComplete: { data: jkjyList },
-    splice: true,
-    change: (e, td) => limitChange(e, td, 8),
-    textarea: {
-      width: 50
-    },
-  },
-  {
-    key: "other1", // 其他1
-    value: "",
-    event: keyf1,
-    name: "",
     change: (e, td) => limitChange(e, td, 6),
+    name: "饮食项目",
+    next: "",
     textarea: {
       width: 40
     },
   },
   {
-    key: "other2", //其他2
+    key: "dietaryDose", // 饮食量
     value: "",
     event: keyf1,
-    name: "",
+    change: (e, td) => limitChange(e, td, 4),
+    name: "胸",
+    next: "",
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "urination", // 小便
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "小便",
+    next: "次",
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "stools", // 大便
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "大便",
+    next: "次",
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "otherItem", // 出量其他项目
+    value: "",
+    event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
+    name: "出量其他项目",
+    next: "",
     textarea: {
       width: 40
     },
   },
   {
-    key: "other3", // 其他3
+    key: "otherDose", // 出量其他量
     value: "",
     event: keyf1,
-    name: "",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
+    name: "出量其他量",
+    next: "",
     textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "other4", // 其他4
-    value: "",
-    event: keyf1,
-    name: "",
-    next: '',
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 40
+      width: 30
     },
   },
   {
@@ -326,11 +314,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      width: "180px",
       background: "transparent",
     },
     textarea: {
-      width: 150
+      width: 180
     },
     event: function (e, td) {
       console.log(e.keyCode);
