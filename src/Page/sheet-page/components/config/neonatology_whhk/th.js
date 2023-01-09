@@ -8,35 +8,16 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1320px"
   },
   th: {
     top: [
       {
-        name: `日期`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-      },
-      {
-        name: `时间`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-      },
-      {
-        name: "意识",
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "40px"
-        }
+        name: '',
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+        key:'recordYear'
       },
       {
         name: "生命体征",
@@ -47,15 +28,7 @@ export default {
         }
       },
       {
-        name: "瞳孔",
-        colspan: "3",
-        rowspan: "1",
-        style: {
-          minWidth: "40px"
-        }
-      },
-      {
-        name: "SPO₂%",
+        name: "SpO₂<br/>%",
         colspan: "1",
         rowspan: "3",
         style: {
@@ -63,7 +36,7 @@ export default {
         }
       },
       {
-        name: `受<br/>压<br/>皮<br/>肤`,
+        name: "体重<br/>Kg",
         colspan: "1",
         rowspan: "3",
         style: {
@@ -71,7 +44,7 @@ export default {
         }
       },
       {
-        name: `卧位`,
+        name: "箱温<br/>℃",
         colspan: "1",
         rowspan: "3",
         style: {
@@ -79,7 +52,23 @@ export default {
         }
       },
       {
-        name: `静脉置管`,
+        name: `面色`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "40px"
+        }
+      },
+      {
+        name: `呼吸支持及氧疗`,
+        colspan: "7",
+        rowspan: "1",
+        style: {
+          minWidth: "60px"
+        }
+      },
+      {
+        name: `静脉<br/>导管`,
         colspan: "1",
         rowspan: "1",
         style: {
@@ -87,52 +76,39 @@ export default {
         }
       },
       {
-        name: `导管及<br/>引流管`,
-        colspan: "2",
-        rowspan: "1",
+        name: ``,
+        canSet: true,
+        key: 'order',
+        colspan: "1",
+        rowspan: "3",
         style: {
           minWidth: "40px"
         }
       },
       {
-        name: `入量`,
-        colspan: "2",
-        rowspan: "1",
-        style: {
-          minWidth: "40px"
-        }
-      },
-      {
-        name: `出量`,
+        name: `入量ml`,
         colspan: "4",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: "60px"
         }
       },
       {
-        name: `护<br/>理<br/>措<br/>施`,
-        colspan: "1",
-        rowspan: "3",
+        name: "出量",
+        colspan: "4",
+        rowspan: "1",
         style: {
-          minWidth: "50px"
-        }
-      },
-      {
-        name: `健<br/>康<br/>教<br/>育`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "50px"
+          minWidth: "60px"
         }
       },
       {
         name: `其他`,
-        colspan: "5",
-        rowspan: "1",
         style: {
-          minWidth: "40px"
-        }
+          minWidth: "180px",
+          maxWidth: "180px"
+        },
+        colspan: "1",
+        rowspan: "3"
       },
       {
         name: `签 名`,
@@ -144,22 +120,41 @@ export default {
         rowspan: "3",
       },
     ],
-    mid: [{
+    mid: [
+      {
+        name: `日期`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+      },
+      {
+        name: `时间`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+      },
+      {
         name: `T<br/>℃`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
-        name: `P<br/>次/分`,
+        name: `HR<br/>次/分`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "40px",
+          maxWidth: "40px"
         },
       },
       {
@@ -167,39 +162,75 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "40px",
+          maxWidth: "40px"
         },
       },
       {
-        name: `Bp<br/>mmHg`,
+        name: `BP<br/>mmHg`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "50px",
-          maxWidth: "50px"
+          minWidth: "40px",
+          maxWidth: "40px"
         },
       },
       {
-        name: `左<br/>mm`,
+        name: `呼吸机<br/>模式`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "45px",
+          maxWidth: "45px"
         },
       },
       {
-        name: `右<br/>mm`,
+        name: `f<br/>次/分`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
-        name: `对光<br/>反射`,
+        name: `FiO₂<br/>%`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "35px",
+          maxWidth: "35px"
+        },
+      },
+      {
+        name: `插管<br/>深度<br/>cm`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "35px",
+          maxWidth: "35px"
+        },
+      },
+      {
+        name: `CPAP<br/>%`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "35px",
+          maxWidth: "35px"
+        },
+      },
+      {
+        name: `氧疗箱<br/>%`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
+      },
+      {
+        name: `面罩<br/>l/min`,
         colspan: "1",
         rowspan: "2",
         style: {
@@ -210,18 +241,7 @@ export default {
       {
         name: ``,
         canSet: true,
-        key: 'intravenous',
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "60px",
-          maxWidth: "60px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: 'tube1',
+        key: 'catheter',
         colspan: "1",
         rowspan: "2",
         style: {
@@ -230,9 +250,34 @@ export default {
         },
       },
       {
-        name: ``,
-        canSet: true,
-        key: 'tube2',
+        name: `静脉给药`,
+        colspan: "2",
+        rowspan: "1",
+        style: {
+          minWidth: "35px",
+          maxWidth: "35px"
+        },
+      },
+      {
+        name: `饮食`,
+        colspan: "2",
+        rowspan: "1",
+        style: {
+          minWidth: "35px",
+          maxWidth: "35px"
+        },
+      },
+      {
+        name: `小便<br/>次`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
+      },
+      {
+        name: `大便<br/>次`,
         colspan: "1",
         rowspan: "2",
         style: {
@@ -241,117 +286,70 @@ export default {
         },
       },
       {
-        name: `项目`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: `量<br/>ml`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: `项目`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: `量<br/>ml`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: `颜色`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: `性状`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: 'other1',
-        colspan: "1",
-        rowspan: "2",
+        name: `其他ml`,
+        colspan: "2",
+        rowspan: "1",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: 'other2',
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: 'other3',
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: '',
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: 'other4',
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "150px",
-          maxWidth: "150px"
         },
       },
     ],
     bottom: [
-
+      {
+        name: `项目`,
+        colspan: "1",
+        rowspan: "1",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
+      },
+      {
+        name: `量`,
+        colspan: "1",
+        rowspan: "1",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
+      },
+      {
+        name: `项目`,
+        colspan: "1",
+        rowspan: "1",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
+      },
+      {
+        name: `量`,
+        colspan: "1",
+        rowspan: "1",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
+      },
+      {
+        name: `项目`,
+        colspan: "1",
+        rowspan: "1",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
+      },
+      {
+        name: `量`,
+        colspan: "1",
+        rowspan: "1",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        },
+      },
     ]
   }
 };

@@ -35,7 +35,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "40px"
+          minWidth: "35px"
         }
       },
       {
@@ -47,51 +47,99 @@ export default {
         }
       },
       {
-        name: "瞳孔",
-        colspan: "3",
+        name: "Spo2<br/>%",
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "40px"
+        }
+      },
+      {
+        name: `胎<br/>心<br/>次<br/>/<br/>分`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "40px"
+        }
+      },
+      {
+        name: `胎<br/>动<br/>次<br/>/h`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "40px"
+        }
+      },
+      {
+        name: `胎膜`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "40px"
+        }
+      },
+      {
+        name: `宫缩`,
+        colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "40px"
+          minWidth: "60px"
         }
       },
       {
-        name: "SPO₂%",
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "40px"
-        }
-      },
-      {
-        name: `受<br/>压<br/>皮<br/>肤`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "40px"
-        }
-      },
-      {
-        name: `卧位`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "40px"
-        }
-      },
-      {
-        name: `静脉置管`,
-        colspan: "1",
-        rowspan: "1",
-        style: {
-          minWidth: "40px"
-        }
-      },
-      {
-        name: `导管及<br/>引流管`,
+        name: `先露`,
         colspan: "2",
         rowspan: "1",
         style: {
           minWidth: "40px"
+        }
+      },
+      {
+        name: `宫颈`,
+        colspan: "2",
+        rowspan: "1",
+        style: {
+          minWidth: "40px"
+        }
+      },
+      {
+        name: `切<br/>口<br/>敷<br/>料`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "35px"
+        }
+      },
+      {
+        name: `阴<br/>道<br/>出<br/>血`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "35px"
+        }
+      },
+      {
+        name: `子<br/>宫<br/>收<br/>缩`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "35px"
+        }
+      },
+      {
+        name: `静<br/>脉<br/>置<br/>管`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "35px"
+        }
+      },
+      {
+        name: `尿<br/>管`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "35px"
         }
       },
       {
@@ -104,18 +152,10 @@ export default {
       },
       {
         name: `出量`,
-        colspan: "4",
+        colspan: "2",
         rowspan: "1",
         style: {
           minWidth: "40px"
-        }
-      },
-      {
-        name: `护<br/>理<br/>措<br/>施`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "50px"
         }
       },
       {
@@ -127,11 +167,19 @@ export default {
         }
       },
       {
-        name: `其他`,
-        colspan: "5",
-        rowspan: "1",
+        name: `护<br/>理<br/>措<br/>施`,
+        colspan: "1",
+        rowspan: "3",
         style: {
-          minWidth: "40px"
+          minWidth: "50px"
+        }
+      },
+      {
+        name: `其他`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "150px"
         }
       },
       {
@@ -149,8 +197,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
@@ -158,8 +206,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
@@ -167,39 +215,12 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
         name: `Bp<br/>mmHg`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "50px",
-          maxWidth: "50px"
-        },
-      },
-      {
-        name: `左<br/>mm`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: `右<br/>mm`,
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: `对光<br/>反射`,
         colspan: "1",
         rowspan: "2",
         style: {
@@ -208,9 +229,7 @@ export default {
         },
       },
       {
-        name: ``,
-        canSet: true,
-        key: 'intravenous',
+        name: `持续/间歇`,
         colspan: "1",
         rowspan: "2",
         style: {
@@ -219,43 +238,39 @@ export default {
         },
       },
       {
-        name: ``,
-        canSet: true,
-        key: 'tube1',
+        name: `方位`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
-        name: ``,
-        canSet: true,
-        key: 'tube2',
+        name: `高低`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "40px",
-          maxWidth: "40px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
-        name: `项目`,
+        name: `大小`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
-        name: `量<br/>ml`,
+        name: `厚薄`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
@@ -263,8 +278,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
@@ -272,81 +287,26 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
-        name: `颜色`,
+        name: `项目`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
       {
-        name: `性状`,
+        name: `量<br/>ml`,
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: 'other1',
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: 'other2',
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: 'other3',
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: '',
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "40px",
-          maxWidth: "40px"
-        },
-      },
-      {
-        name: ``,
-        canSet: true,
-        key: 'other4',
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "150px",
-          maxWidth: "150px"
+          minWidth: "35px",
+          maxWidth: "35px"
         },
       },
     ],
