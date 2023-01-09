@@ -1483,7 +1483,7 @@ export default {
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ''
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj', 'zhzxy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll'].includes(this.HOSPITAL_ID)) {
         const itemListTime = config.recordDate ||
           record[0].find((item) => item.key == "recordDate").value
         if(!itemListTime){

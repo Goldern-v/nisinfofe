@@ -133,7 +133,7 @@
         return [start, end]
       },
       isAllSigned (record) {
-        return !!(record.autographNameA && record.autographNameP && record.autographNameN)
+        return !!(record.autographNameA && record.autographNameP && record.autographNameN  &&  record.autographNameA2 && record.autographNameP2 && record.autographNameN2)
       },
       onCreateModalOpen (code) {
         this.$refs.createModal.open(code)
