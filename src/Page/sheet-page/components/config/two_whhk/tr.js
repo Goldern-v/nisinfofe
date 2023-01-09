@@ -31,44 +31,44 @@ export default [
     key: "consciousness", //意识
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "意识",
     next: "",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
     key: "temperature", //T
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "T",
     next: "℃",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
     key: "pulse", //P
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "P",
     next: "次/分",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
     key: "breath", //R
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "R",
     next: "次/分",
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -83,108 +83,91 @@ export default [
     },
   },
   {
-    key: "eyeLeft", //左
+    key: "fieldTwo", //SpO₂
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
-    name: "左",
-    next: "mm",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "eyeRight", //右
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    name: "右",
-    next: "mm",
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "reflection", //对光反射
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "对光反射",
-    next: "",
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "spo2", //SPO₂
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "SPO₂",
+    name: "SpO₂",
     next: "%",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
-    key: "skin", //受压皮肤
+    key: "fieldThree", //切口敷料
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
+    name: "切口敷料",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "fieldFour", //受压皮肤
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     name: "受压皮肤",
     next: "",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
-    key: "position", //卧位
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    name: "卧位",
-    next: "",
-    textarea: {
-      width: 40
-    },
-  },
-  {
-    key: "intravenous", // 静脉置管自定义一
+    key: "fieldFive", //静脉置管
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 10),
-    name: "",
+    name: "静脉置管",
     next: "",
     textarea: {
       width: 60
     },
   },
   {
-    key: "tube1", //自定义二
+    key: "fieldFifteen", // 导管及引流管自定义1
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     name: "",
     next: "",
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
-    key: "tube2", //自定义三
+    key: "fieldSixteen", //导管及引流管自定义2
     value: "",
-    change: (e, td) => limitChange(e, td, 6),
-    event: function (e, td) {
-      if (e.keyCode == 32) {
-        e.target.value += "/";
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    },
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
     name: "",
     next: "",
     textarea: {
-      width: 40
+      width: 35
+    },
+  },
+  {
+    key: "fieldSeventeen", // 导管及引流管自定义3
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "",
+    next: "",
+    textarea: {
+      width: 35
+    },
+  },
+  {
+    key: "fieldEighteen", //导管及引流管自定义4
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    name: "",
+    next: "",
+    textarea: {
+      width: 35
     },
   },
   {
@@ -195,7 +178,7 @@ export default [
     name: "项目",
     next: '',
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -217,7 +200,7 @@ export default [
     name: "项目",
     next: '',
     textarea: {
-      width: 30
+      width: 35
     },
   },
   {
@@ -232,7 +215,7 @@ export default [
     },
   },
   {
-    key: "color", //颜色
+    key: "fieldSeven", //颜色
     value: "",
     event: keyf1,
     name: "颜色",
@@ -242,7 +225,7 @@ export default [
     },
   },
   {
-    key: "outType", //性状
+    key: "fieldEight", //性状
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -252,7 +235,7 @@ export default [
     },
   },
   {
-    key: "measures", // 护理措施
+    key: "fieldNine", // 护理措施
     value: "",
     event: keyf1,
     name: "护理措施",
@@ -264,7 +247,7 @@ export default [
     },
   },
   {
-    key: "education", // 健康教育
+    key: "fieldTen", // 健康教育
     value: "",
     event: keyf1,
     name: "健康教育",
@@ -277,44 +260,44 @@ export default [
     },
   },
   {
-    key: "other1", // 其他1
+    key: "fieldEleven", // 其他1
     value: "",
     event: keyf1,
     name: "",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
-    key: "other2", //其他2
+    key: "fieldTwelve", //其他2
     value: "",
     event: keyf1,
     name: "",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
-    key: "other3", // 其他3
+    key: "fieldThirteen", // 其他3
     value: "",
     event: keyf1,
     name: "",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
-    key: "other4", // 其他4
+    key: "fieldFourteen", // 其他4
     value: "",
     event: keyf1,
     name: "",
     next: '',
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 40
+      width: 35
     },
   },
   {
@@ -333,7 +316,6 @@ export default [
       width: 150
     },
     event: function (e, td) {
-      console.log(e.keyCode);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
         e.preventDefault();

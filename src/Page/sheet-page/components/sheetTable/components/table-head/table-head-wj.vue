@@ -164,20 +164,20 @@
         诊断：
         <div
           class="bottom-line"
-          style="min-width: 1080px;max-width: 1080px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          style="min-width: 1080px;max-width: 1080px;font-size:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
             >
           {{ processedDiagnosis[0] }}
         </div>
         <div
           class="bottom-line"
-          style="margin-left:53px;min-width: 1080px;max-width: 1080px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          style="margin-left:53px;min-width: 1080px;max-width: 1080px;font-size:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
            v-if="processedDiagnosis[1]"
         >
           {{ processedDiagnosis[1] }}
         </div>
         <div
           class="bottom-line"
-          style="margin-left:53px;min-width: 1080px;max-width: 1080px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          style="margin-left:53px;min-width: 1080px;max-width: 1080px;font-size:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
            v-if="processedDiagnosis[2]"
         >
           {{ processedDiagnosis[2] }}
@@ -230,7 +230,7 @@ export default {
       let arr = []
       let text = ''
       strArr.map(str=>{
-       if(this.GetLength(text + str)>140){
+       if(this.GetLength(text + str)>172){
           arr.push(text)
           text = str
         }else{
