@@ -28,9 +28,9 @@
     <autoComplete ref="autoInput" />
 
     <!-- 模板 -->
-    <templateSlide v-if="HOSPITAL_ID !== 'foshanrenyi'" ref="templateSlide" />
+    <templateSlide ref="templateSlide" />
 
-    <templateSlideFoshanshiyi v-else ref="templateSlideFoshanshiyi" />
+    <!-- <templateSlideFoshanshiyi v-else ref="templateSlideFoshanshiyi" /> -->
     <!-- 页面信息 -->
     <div v-if="formObj && formObj.model" ref="mainPage" class="cover-page">
       <div :style="formObj.pageSetting.style || '' " class="main-page" :class="{lock: lock}">

@@ -22,7 +22,7 @@
       id="sheet_body_con"
       :style="{ height: containHeight }"
     >
-      <div class="left-part">
+      <div class="left-part" :style="{ left: openLeft ? '0' : '-201px' }" >
 
         <patientList
           :toName="

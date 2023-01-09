@@ -1,0 +1,5273 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "820px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "updateInfo": "由{{updaterName}}创建，最后编辑于{{updateTime}}",
+    "formTitle": {
+      "hospitalName": "南 方 医 科 大 学 顺 德 医 院",
+      "formName": "首次护理记录"
+    },
+    "formHeads": [],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0001",
+      "formApiCode": "E0001",
+      "formName": "入院评估",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、一般资料",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 6,
+      "colWidth": [
+        "140px",
+        "80px",
+        "80px",
+        "210px",
+        "80px",
+        "100px"
+      ],
+      "title": "一、一般资料",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "patientName",
+          "type": "input",
+          "title": "姓名",
+          "suffixDesc": "",
+          "placeholder": "",
+          "titleStyle": "width:90px!important",
+          "inputStyle": "width:90%!important",
+          "style": null,
+          "elementStyle": "width:99%;",
+          "class": null,
+          "readOnly": true,
+          "disabled": true
+        },
+        {
+          "name": "age",
+          "type": "input",
+          "labelTitle": "年龄",
+          "suffixDesc": "",
+          "placeholder": "",
+          "titleStyle": "width:40px!important",
+          "inputStyle": "width:60px!important",
+          "style": null,
+          "elementStyle": "width:95%;",
+          "class": null,
+          "readOnly": true,
+          "disabled": true
+        },
+        {
+          "name": "sex",
+          "type": "input",
+          "labelTitle": "性别",
+          "suffixDesc": "",
+          "placeholder": "",
+          "titleStyle": "width:40px!important",
+          "inputStyle": "width:50px!important",
+          "style": "padding:0;",
+          "class": null,
+          "readOnly": true,
+          "disabled": true,
+          "props": {
+            "style": "color:red;"
+          }
+        },
+        {
+          "name": "wardName",
+          "type": "input",
+          "labelTitle": "科室",
+          "suffixDesc": "",
+          "placeholder": "",
+          "titleStyle": "width:40px!important",
+          "inputStyle": "width:90%!important",
+          "elementStyle": "width:99%;",
+          "style": "color:red!important",
+          "class": null,
+          "readOnly": true,
+          "disabled": true,
+          "props": {
+            "style": "color: red!important;"
+          }
+        },
+        {
+          "name": "bedLabel",
+          "type": "input",
+          "labelTitle": "床号",
+          "suffixDesc": "",
+          "placeholder": "",
+          "titleStyle": "width:40px!important",
+          "inputStyle": "width:50px!important",
+          "style": null,
+          "class": null,
+          "readOnly": true,
+          "disabled": true
+        },
+        {
+          "name": "inpNo",
+          "type": "input",
+          "labelTitle": "住院号",
+          "suffixDesc": "",
+          "placeholder": "",
+          "titleStyle": "width:75px!important",
+          "inputStyle": "width:90%!important",
+          "style": null,
+          "class": null,
+          "readOnly": true,
+          "disabled": true
+        },
+        {
+          "name": "admissionDate",
+          "type": "input",
+          "labelTitle": "入院日期",
+          "suffixDesc": "",
+          "placeholder": "",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "style": "width:99%",
+          "elementStyle": "width:192px",
+          "class": null,
+          "readOnly": false,
+          "disabled": false,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "tdProps": {
+            "colspan": "2"
+          }
+        },
+        {
+          "name": "I001001",
+          "type": "input",
+          "title": "入院诊断",
+          "suffixDesc": "",
+          "placeholder": "",
+          "style": "width:100%",
+          "titleStyle": "width:72px!important;padding-left:0px;",
+          "inputStyle": "width:100%!important",
+          "elementStyle": "width:100%",
+          "inputWidth": "100%",
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "tdProps": {
+            "colspan": "4"
+          }
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 3,
+      "colWidth": [
+        "32%",
+        "35%",
+        "33%"
+      ],
+      "title": "一、一般资料",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001002",
+          "type": "input",
+          "title": "职业",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null
+        },
+        {
+          "name": "I001003",
+          "type": "input",
+          "title": "民族",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null
+        },
+        {
+          "name": "I001004",
+          "type": "input",
+          "title": "宗教",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null
+        },
+        {
+          "name": "I100009",
+          "type": "input",
+          "title": "身高",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "suffixDesc": "cm",
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null,
+          "rule": [
+            {
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "weight2": "I1001883",
+              "result": "I100011"
+            }
+          ]
+        },
+        {
+          "name": "I100010",
+          "type": "input",
+          "title": "体重",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "suffixDesc": "kg",
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null,
+          "rule": [
+            {
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "weight2": "I1001883",
+              "result": "I100011"
+            }
+          ]
+        },
+        {
+          "name": "I001883",
+          "type": "input",
+          "title": "孕前体重(产科)",
+          "titleStyle": "width:140px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "60px",
+          "suffixDesc": "kg",
+          "showDeptName": [
+            "产科"
+          ],
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null,
+          "rule": [
+            {
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "weight2": "I001883",
+              "result": "I100011"
+            }
+          ]
+        },
+        {
+          "name": "I100011",
+          "type": "input",
+          "title": "体重指数",
+          "suffixDesc": "kg/m2",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null,
+          "rule": [
+            {
+              "name": "计算BMI",
+              "height": "I100009",
+              "weight": "I100010",
+              "weight2": "I001883",
+              "result": "I100011"
+            }
+          ]
+        },
+        {
+          "name": "I001972",
+          "type": "input",
+          "title": "头围",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "suffixDesc": "cm",
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null
+        },
+        {
+          "name": "I001923",
+          "type": "input",
+          "title": "腹围",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "suffixDesc": "cm",
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 3,
+      "colWidth": [
+        "32%",
+        "35%",
+        "33%"
+      ],
+      "title": "一、一般资料",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001008",
+          "type": "select",
+          "title": "入院类型",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001924",
+          "type": "input",
+          "title": "转出医院",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "90px",
+          "suffixDesc": "",
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null
+        },
+        {
+          "name": "I001009",
+          "type": "select",
+          "title": "入院方式",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他入院方式",
+                "cleanKeyDiff": "其他",
+                "parentName": "I001009",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001925",
+          "type": "select",
+          "title": "陪同者",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他陪同者",
+                "cleanKeyDiff": "其他",
+                "parentName": "I001925",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001927",
+          "type": "select",
+          "title": "居住状态",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他居住状态",
+                "cleanKeyDiff": "其他",
+                "parentName": "I001927",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001929",
+          "type": "select",
+          "title": "监护人",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他监护人",
+                "cleanKeyDiff": "其他",
+                "parentName": "I001929",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001931",
+          "type": "select",
+          "title": "陪护人",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他陪护人",
+                "cleanKeyDiff": "其他",
+                "parentName": "I001931",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001933",
+          "type": "select",
+          "title": "监护人文化程度",
+          "style": null,
+          "titleStyle": "width:138px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "58px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null
+        },
+        {
+          "name": "I001010",
+          "type": "select",
+          "title": "入院带入物品",
+          "style": null,
+          "multiplechoice": true,
+          "titleStyle": "width:123px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "66px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001011",
+          "type": "select",
+          "title": "教育程度",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001012",
+          "type": "select",
+          "title": "婚姻状态",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001013",
+          "type": "select",
+          "title": "资料来源",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:175px!important",
+          "inputWidth": "90px",
+          "elementsStyle": "width:175px!important",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "cleanKeyDiff": "其他",
+                "title": "其他资料来源",
+                "parentName": "I001013",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001014",
+          "type": "select",
+          "title": "费用支付方式",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:152px!important",
+          "inputWidth": "68px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "cleanKeyDiff": "其他",
+                "title": "其他费用支付方式",
+                "parentName": "I001014",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、生命体症",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 5,
+      "colWidth": [
+        "15%",
+        "23%",
+        "22%",
+        "20%",
+        "20%"
+      ],
+      "title": "二、生命体症",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100001",
+          "type": "input",
+          "title": "T",
+          "suffixDesc": "℃",
+          "titleStyle": "width:15px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "55px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true,
+          "rule": [
+            {
+              "min": "-Infinity",
+              "max": "35",
+              "style": "color: red; border-color",
+              "message": "体温过低"
+            },
+            {
+              "min": "37.6",
+              "max": "Infinity",
+              "style": "color: red; border-color",
+              "message": "体温过高"
+            }
+          ]
+        },
+        {
+          "name": "I100002",
+          "type": "input",
+          "title": "P/HR",
+          "suffixDesc": "次/min",
+          "titleStyle": "width:45px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "55px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true,
+          "rule": [
+            {
+              "min": "-Infinity",
+              "max": "60",
+              "style": "color: red; border-color",
+              "message": "脉搏过低"
+            },
+            {
+              "min": "101",
+              "max": "Infinity",
+              "style": "color: red; border-color",
+              "message": "脉搏过高"
+            }
+          ]
+        },
+        {
+          "name": "I100003",
+          "type": "input",
+          "title": "R",
+          "suffixDesc": "次/min",
+          "titleStyle": "width:15px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "55px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true,
+          "rule": [
+            {
+              "min": "-Infinity",
+              "max": "16",
+              "style": "color: red; border-color",
+              "message": "呼吸过低"
+            },
+            {
+              "min": "21",
+              "max": "Infinity",
+              "style": "color: red; border-color",
+              "message": "呼吸过高"
+            }
+          ]
+        },
+        {
+          "name": "I100005",
+          "type": "input",
+          "labelTitle": "BP",
+          "suffixDesc": "mmHg",
+          "titleStyle": "width:30px!important",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "65px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true,
+          "rule": [
+            {
+              "min": "-Infinity/-Infinity",
+              "max": "90/60",
+              "style": "color: red; border-color",
+              "message": "收缩压过低/舒张压过低"
+            },
+            {
+              "min": "140/90",
+              "max": "Infinity/Infinity",
+              "style": "color: red; border-color",
+              "message": "收缩压过高/舒张压过高"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "三、健康史/饮食/认知/语言沟通",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "三、健康史/饮食/认知/语言沟通",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001934",
+          "type": "input",
+          "title": "个人史:第",
+          "suffixDesc": "胎",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001935",
+          "type": "input",
+          "title": "个人史:第",
+          "suffixDesc": "产",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001937",
+          "type": "input",
+          "title": "胎龄",
+          "suffixDesc": "周",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001938",
+          "type": "input",
+          "title": "出生体重",
+          "suffixDesc": "kg",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001939",
+          "type": "select",
+          "title": "出生方式",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001943",
+          "type": "select",
+          "title": "阿氏评分:不详",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:102px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "140px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001940",
+          "type": "input",
+          "title": "阿氏评分:1分钟",
+          "suffixDesc": "分",
+          "style": null,
+          "titleStyle": "width:102px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "140px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001941",
+          "type": "input",
+          "title": "阿氏评分:5分钟",
+          "suffixDesc": "分",
+          "style": null,
+          "titleStyle": "width:102px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "140px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001942",
+          "type": "input",
+          "title": "阿氏评分:10分钟",
+          "suffixDesc": "分",
+          "style": null,
+          "titleStyle": "width:102px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "140px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001944",
+          "type": "select",
+          "title": "羊水",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "混浊",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "羊水混浊程度",
+                "cleanKeyDiff": "混浊",
+                "parentName": "I001944",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001946",
+          "type": "select",
+          "title": "抢救史",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001947",
+          "type": "select",
+          "title": "喂养史",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001948",
+          "type": "select",
+          "title": "妊娠合并症",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:75px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "165px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001902",
+          "type": "select",
+          "title": "预防接种史",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:75px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "165px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001950",
+          "type": "select",
+          "title": "接种疫苗类型",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "multiplechoice": true,
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001951",
+          "type": "select",
+          "title": "新生儿疾病筛查",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001952",
+          "type": "select",
+          "title": "传染病史",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:75px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "165px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "传染病史",
+                "parentName": "I001952",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001101",
+          "type": "select",
+          "title": "心律失常",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001102",
+          "type": "select",
+          "title": "心脏起搏",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "心脏起搏",
+                "parentName": "I001102",
+                "name": "I001102",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001104",
+          "type": "select",
+          "title": "生活习惯:吸烟",
+          "postTitle": "吸烟频率",
+          "postText": "(支/天)",
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "吸烟",
+                "parentName": "I001104",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001106",
+          "type": "select",
+          "title": "生活习惯:饮酒",
+          "postTitle": "饮酒频率",
+          "postText": "(两/斤)",
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "饮酒",
+                "parentName": "I001106",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001108",
+          "type": "select",
+          "title": "药物依赖/吸毒",
+          "postTitle": "药物名称",
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "药物名称（药物依赖/吸毒）",
+                "parentName": "I001108",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001110",
+          "type": "select",
+          "title": "父/母药物依赖/吸毒",
+          "titleSpanStyle": "margin-left:0px!important",
+          "postTitle": "药物名称",
+          "titleStyle": "width:123px!important",
+          "inputStyle": "width:220px!important",
+          "inputWidth": "117px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "药物名称（父/母药物依赖/吸毒）",
+                "parentName": "I001110",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001112",
+          "type": "select",
+          "title": "家族史",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "家族史",
+                "parentName": "I001112",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001114",
+          "type": "select",
+          "title": "健康史",
+          "postTitle": "曾有病史",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "曾有病史",
+                "cleanKey": "既往体健",
+                "title": "健康史",
+                "parentName": "I001114",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "三、健康史/饮食/认知/语言沟通",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100013",
+          "type": "select",
+          "title": "睡眠",
+          "postTitle": "使用辅助药物",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "使用辅助药物",
+                "cleanKey": "无",
+                "title": "睡眠辅助药物",
+                "parentName": "I100013",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001118",
+          "type": "select",
+          "title": "醒后疲劳感",
+          "titleStyle": "width:75px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "165px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I001119",
+          "type": "select",
+          "title": "过敏史",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无",
+                  "不明确"
+                ],
+                "title": "过敏史",
+                "parentName": "I001119",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I100094",
+          "type": "select",
+          "title": "饮食",
+          "multiplechoice": true,
+          "postTitle": "治疗饮食",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I100095",
+          "type": "select",
+          "title": "食欲",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I001126",
+          "type": "select",
+          "title": "治疗饮食",
+          "multiplechoice": true,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I001920",
+          "type": "select",
+          "title": "营养状况",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I001129",
+          "type": "select",
+          "title": "吸吮力",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I001128",
+          "type": "select",
+          "title": "咀嚼困难",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I100096",
+          "type": "select",
+          "title": "恶心",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I100097",
+          "type": "select",
+          "title": "呕吐",
+          "postTitle": "呕吐物",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "呕吐描述",
+                "parentName": "I100097",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001135",
+          "type": "select",
+          "title": "义齿",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "义齿",
+                "parentName": "I001135",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001137",
+          "type": "select",
+          "title": "口腔黏膜",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他口腔黏膜",
+                "parentName": "I001137",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001140",
+          "type": "select",
+          "title": "视力",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I001141",
+          "type": "select",
+          "title": "听力",
+          "postTitle": "",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "异常",
+                "cleanKey": "正常",
+                "title": "听力异常",
+                "parentName": "I001141",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "异常",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001138",
+          "type": "select",
+          "title": "口腔卫生",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "吞咽评估",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": true,
+      "children": [
+        {
+          "name": "I001163",
+          "type": "select",
+          "title": "吞咽困难",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "options": [
+            "无",
+            "有"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001142",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "三、健康史/饮食/认知/语言沟通",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I001142",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001142",
+          "type": "select",
+          "title": "意识状态:呼之",
+          "titleStyle": "width:89px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "152px",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "I001143",
+          "type": "select",
+          "title": "对答",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null
+        },
+        {
+          "name": "I100021",
+          "type": "input",
+          "title": "瞳孔大小:左",
+          "suffixDesc": "mm",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null
+        },
+        {
+          "name": "I100023",
+          "type": "input",
+          "title": "瞳孔大小:右",
+          "suffixDesc": "mm",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null
+        },
+        {
+          "name": "I100022",
+          "type": "select",
+          "title": "对光反射:左",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null
+        },
+        {
+          "name": "I100024",
+          "type": "select",
+          "title": "对光反射:右",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null
+        },
+        {
+          "name": "I001148",
+          "type": "select",
+          "title": "反应",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "能应答",
+                "cleanKey": [
+                  "正常",
+                  "不应答",
+                  "激惹",
+                  "迟钝",
+                  "全无"
+                ],
+                "title": "切题情况",
+                "parentName": "I001148",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001150",
+          "type": "select",
+          "title": "哭声",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001956",
+          "type": "select",
+          "title": "肢体活动:上肢",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "抽搐",
+                "cleanKey": "无",
+                "title": "肢体活动上肢",
+                "parentName": "I001956",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "抽搐",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001958",
+          "type": "select",
+          "title": "肢体活动:下肢",
+          "suffixDesc": "",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "抽搐",
+                "cleanKey": "无",
+                "title": "肢体活动下肢",
+                "parentName": "I001958",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "抽搐",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001960",
+          "type": "select",
+          "title": "关节活动",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001961",
+          "type": "select",
+          "title": "肌张力",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001151",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "三、健康史/饮食/认知/语言沟通",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I001151",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001151",
+          "type": "select",
+          "title": "情绪状态",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001152",
+          "type": "select",
+          "title": "最常用语言",
+          "style": null,
+          "titleStyle": "width:70px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "170px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001153",
+          "type": "select",
+          "title": "语种",
+          "postTitle": "其他语言",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他语言",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他语言",
+                "parentName": "I001153",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001155",
+          "type": "select",
+          "title": "语言表达",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他语言表达",
+                "parentName": "I001155",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "I100132",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "三、健康史/饮食/认知/语言沟通",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100132",
+      "style": null,
+      "classes": null,
+      "readOnly": true,
+      "children": [
+        {
+          "name": "I001156",
+          "type": "select",
+          "title": "疼痛",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null,
+          "options": [
+            "无",
+            "不会诉说",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "疼痛评估单",
+                "default": "疼痛评估单",
+                "name": "I001156",
+                "parentName": "I001156",
+                "type": "independent",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001973",
+          "type": "select",
+          "title": "监护人对疾病认识",
+          "style": null,
+          "titleStyle": "width:110px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "130px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ]
+        },
+        {
+          "name": "I001910",
+          "type": "select",
+          "title": "患儿心理反应",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "148px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科",
+            "儿科"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "四、排泄与管道",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "四、排泄与管道",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100112",
+          "type": "select",
+          "title": "排尿",
+          "multiplechoice": true,
+          "postTitle": "其他",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他排尿说明",
+                "parentName": "I100112",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I100105",
+          "type": "select",
+          "title": "排便",
+          "postTitle": "其他",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他排便说明",
+                "parentName": "I100105",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I100106",
+          "type": "input",
+          "title": "排便次数",
+          "suffixDesc": "次/天",
+          "style": null,
+          "titleStyle": "width:61px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null
+        },
+        {
+          "name": "I001203",
+          "type": "input",
+          "title": "排便频率",
+          "prefixDesc": "1次/",
+          "suffixDesc": "天",
+          "style": null,
+          "titleStyle": "width:61px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null
+        },
+        {
+          "name": "I001206",
+          "type": "select",
+          "title": "造瘘",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "造瘘情况",
+                "parentName": "I001206",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001210",
+          "type": "select",
+          "title": "留置引流管",
+          "postTitle": "留置引流管",
+          "style": null,
+          "titleStyle": "width:70px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "170px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "留置引流管",
+                "parentName": "I001210",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001216",
+          "type": "select",
+          "title": "中心静脉置管",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:266px!important",
+          "inputWidth": "160px",
+          "elementsStyle": "width: 266px;",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "中心静脉置管情况",
+                "parentName": "I001216",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "五、皮肤",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I100066",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "五、皮肤",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100066",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100079",
+          "type": "select",
+          "title": "伤口",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "伤口情况",
+                "parentName": "I100079",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001254",
+          "type": "select",
+          "title": "皮肤情况",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "水肿",
+                "cleanKey": [],
+                "title": "水肿程度情况",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "紫绀",
+                "cleanKey": [],
+                "title": "紫绀情况",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "黄染",
+                "cleanKey": [],
+                "title": "黄染情况",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I100067",
+          "type": "select",
+          "title": "皮肤温度",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null
+        },
+        {
+          "name": "I001964",
+          "type": "select",
+          "title": "皮疹",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他皮疹",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001967",
+          "type": "select",
+          "title": "硬肿",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "options": [
+            "无",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "硬肿部位",
+                "parentName": "I001967",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001969",
+          "type": "select",
+          "title": "皮肤弹性",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "showDeptName": [
+            "新生儿科"
+          ],
+          "options": [
+            "良好",
+            "中等",
+            "松弛",
+            "其他"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他皮肤弹性",
+                "parentName": "I001969",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001258",
+          "type": "select",
+          "title": "臀红",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "臀红程度情况",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001260",
+          "type": "select",
+          "title": "压力性损伤风险",
+          "style": null,
+          "titleStyle": "width:90px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "options": [
+            "无",
+            "有,成人压力性损伤风险因素评估（Braden评分）",
+            "有,儿童压力性损伤风险因素评估（Braden Q 评分）"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有,成人压力性损伤风险因素评估（Braden评分）",
+                "cleanKey": "无",
+                "title": "成人压力性损伤风险因素评估（Braden评分）",
+                "default": "成人压力性损伤风险因素评估（Braden评分）",
+                "type": "independent",
+                "parentName": "I001260",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,儿童压力性损伤风险因素评估（Braden Q 评分）",
+                "cleanKey": "无",
+                "title": "儿童压力性损伤风险因素评估（Braden Q 评分）",
+                "default": "儿童压力性损伤风险因素评估（Braden Q 评分）",
+                "type": "independent",
+                "parentName": "I001260",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有,成人压力性损伤风险因素评估（Braden评分）",
+              "style": "color:red"
+            },
+            {
+              "equal": "有,儿童压力性损伤风险因素评估（Braden Q 评分）",
+              "style": "color:red"
+            }
+          ]
+        }
+      ]
+    },
+
+
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "六、活动及自理程度、跌倒及VTE风险评估",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I100128",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "六、活动及自理程度、跌倒及VTE风险评估",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I100128",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I100128",
+          "type": "select",
+          "title": "四肢活动",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "无力",
+                  "单瘫",
+                  "偏瘫",
+                  "截瘫",
+                  "全瘫"
+                ],
+                "cleanKey": "自如",
+                "title": "四肢活动",
+                "default": "四肢活动",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100129",
+          "type": "select",
+          "title": "日常照顾者",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001306",
+          "type": "select",
+          "title": "活动辅助装置",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "其他活动辅助装置",
+                "parentName": "I001306",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100126",
+          "type": "select",
+          "title": "自理能力评估",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "无",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "openDiffKey": "无",
+                "title": "Barthel指数（BI）评定量表",
+                "default": "Barthel指数（BI）评定量表",
+                "name": "I100126",
+                "type": "independent",
+                "parentName": "I100126",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001308",
+          "type": "select",
+          "title": "跌倒风险",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "options": [
+            "无",
+            "有，跌倒评估单",
+            "有，跌倒坠床风险评估（儿童）"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有，跌倒评估单",
+                "cleanKey": "无",
+                "title": "跌倒评估单",
+                "default": "跌倒评估单",
+                "name": "I001308",
+                "type": "independent",
+                "parentName": "I001308",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有，跌倒坠床风险评估（儿童）",
+                "cleanKey": "无",
+                "title": "跌倒坠床风险评估（儿童）",
+                "default": "跌倒坠床风险评估（儿童）",
+                "name": "I001308",
+                "type": "independent",
+                "parentName": "I001308",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有，跌倒评估单",
+              "style": "color:red"
+            },
+            {
+              "equal": "有，跌倒坠床风险评估（儿童）",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I001309",
+          "type": "select",
+          "title": "VTE风险",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "options": [
+            "无",
+            "有,VTE风险评估(Caprini 通用版)",
+            "有,VTE风险评估(Padua 内科版)"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有,VTE风险评估(Caprini 通用版)",
+                "cleanKey": "无",
+                "title": "VTE风险评估(Caprini 通用版)",
+                "default": "VTE风险评估(Caprini 通用版)",
+                "name": "I001309",
+                "type": "independent",
+                "parentName": "I001309",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有,VTE风险评估(Padua 内科版)",
+                "cleanKey": "无",
+                "title": "VTE风险评估(Padua 内科版)",
+                "default": "VTE风险评估(Padua 内科版)",
+                "name": "I001309",
+                "type": "independent",
+                "parentName": "I001309",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I100396",
+          "type": "select",
+          "title": "非计划性拔管",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:266px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "无",
+            "有"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "非计划性拔管风险评估",
+                "default": "非计划性拔管风险评估",
+                "name": "I100396",
+                "type": "independent",
+                "parentName": "I100396",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "S0613",
+          "type": "select",
+          "title": "窒息误吸风险",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:266px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "无",
+            "有，窒息误吸风险评估",
+            "有，窒息误吸风险评估(儿童)"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有，窒息误吸风险评估",
+                "cleanKey": "无",
+                "title": "窒息误吸风险评估",
+                "default": "窒息误吸风险评估",
+                "name": "S0613",
+                "type": "independent",
+                "parentName": "S0613",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有，窒息误吸风险评估(儿童)",
+                "cleanKey": "无",
+                "title": "窒息误吸风险评估",
+                "default": "窒息误吸风险评估",
+                "name": "S0613",
+                "type": "independent",
+                "parentName": "S0613",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有，窒息误吸风险评估",
+              "style": "color:red"
+            },
+            {
+              "equal": "有，窒息误吸风险评估(儿童)",
+              "style": "color:red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "七、专科护理评估",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "七、专科护理评估",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001351",
+          "type": "",
+          "title": "专科评估",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "children": [
+            {
+              "name": "I001351",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null,
+              "defaultValue": true,
+              "tasks": [
+                {
+                  "clean": [
+                    "妇科",
+                    "儿科",
+                    "产科",
+                    "新生儿科",
+                    "母乳宣教"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "I001351",
+              "type": "radio",
+              "title": "妇科",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "妇科",
+                    "儿科",
+                    "产科",
+                    "新生儿科",
+                    "母乳宣教"
+                  ]
+                },
+                {
+                  "show": "妇科"
+                }
+              ]
+            },
+            {
+              "name": "I001351",
+              "type": "radio",
+              "title": "儿科",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "妇科",
+                    "儿科",
+                    "产科",
+                    "新生儿科",
+                    "母乳宣教"
+                  ]
+                },
+                {
+                  "show": "儿科"
+                }
+              ]
+            },
+            {
+              "name": "I001351",
+              "type": "radio",
+              "title": "产科",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "妇科",
+                    "儿科",
+                    "产科",
+                    "新生儿科"
+                  ]
+                },
+                {
+                  "show": [
+                    "产科",
+                    "母乳宣教"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "I001351",
+              "type": "radio",
+              "title": "新生儿科",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "妇科",
+                    "儿科",
+                    "产科",
+                    "新生儿科",
+                    "母乳宣教"
+                  ]
+                },
+                {
+                  "show": "新生儿科"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "妇科",
+      "parentKey": "I001351",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "hidden": true,
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001352",
+          "type": "select",
+          "title": "月经情况",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "末次月经",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "末次月经情况",
+                "parentName": "I001352",
+                "type": "dependent"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "月经其他情况",
+                "parentName": "I001352",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001355",
+          "type": "select",
+          "title": "月经失调",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "月经失调其他情况",
+                "parentName": "I001355",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001357",
+          "type": "select",
+          "title": "避孕方法",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "避孕方法其他情况",
+                "parentName": "I001357",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100119",
+          "type": "select",
+          "title": "阴道流血",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "阴道流血情况",
+                "parentName": "I100119",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100122",
+          "type": "select",
+          "title": "阴道异常分泌物",
+          "style": null,
+          "titleStyle": "width:100px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "141px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无",
+                  "有"
+                ],
+                "title": "阴道异常分泌物其他情况",
+                "parentName": "I100122",
+                "type": "dependent"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "阴道分泌物情况",
+                "parentName": "I100122",
+                "type": "dependent"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "产科",
+      "parentKey": "I001351",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "hidden": true,
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001819",
+          "type": "input",
+          "title": "孕产史(孕)",
+          "suffixDesc": "次",
+          "style": null,
+          "titleStyle": "width:70px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "172px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001820",
+          "type": "input",
+          "title": "孕产史(产)",
+          "suffixDesc": "次",
+          "style": null,
+          "titleStyle": "width:70px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "172px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001821",
+          "type": "select",
+          "title": "既往分娩方式",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "150px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "既往分娩方式其他情况",
+                "parentName": "I001821",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001823",
+          "type": "datePicker",
+          "title": "末次月经",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001826",
+          "type": "datePicker",
+          "title": "预产期",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001829",
+          "type": "datePicker",
+          "title": "纠正预产期",
+          "style": null,
+          "titleStyle": "width:82px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001832",
+          "type": "input",
+          "title": "孕期检查(院内)",
+          "suffixDesc": "次",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "150px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001833",
+          "type": "input",
+          "title": "孕期检查(院外)",
+          "suffixDesc": "次",
+          "style": null,
+          "titleStyle": "width:92px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "150px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "",
+          "type": "formGroupHR",
+          "title": "",
+          "line": "dashed",
+          "prefixDesc": "",
+          "suffixDesc": "",
+          "keys": "",
+          "elementStyle": "width: 100%;",
+          "classes": "",
+          "readOnly": ""
+        },
+        {
+          "name": "",
+          "type": "formGroupHR",
+          "title": "",
+          "line": "dashed",
+          "prefixDesc": "",
+          "suffixDesc": "",
+          "keys": "",
+          "elementStyle": "width: 100%;",
+          "classes": "",
+          "readOnly": ""
+        },
+        {
+          "name": "I001834",
+          "type": "input",
+          "title": "胎心率",
+          "suffixDesc": "次/min",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001835",
+          "type": "input",
+          "title": "胎方位",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001836",
+          "type": "select",
+          "title": "宫口开张",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "开大",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "宫口开张开大情况",
+                "parentName": "I001836",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001839",
+          "type": "select",
+          "title": "宫缩",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "宫缩情况",
+                "parentName": "I001839",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001841",
+          "type": "select",
+          "title": "腹痛",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "腹痛情况",
+                "parentName": "I001841",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001844",
+          "type": "select",
+          "title": "胎膜",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "已破",
+                "cleanKey": [
+                  "未破"
+                ],
+                "title": "胎膜情况",
+                "parentName": "I001844",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001847",
+          "type": "select",
+          "title": "阴道流血",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "阴道流血情况",
+                "parentName": "I001847",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "",
+          "type": "html",
+          "html": ""
+        },
+        {
+          "name": "",
+          "type": "formGroupHR",
+          "title": "",
+          "line": "dashed",
+          "prefixDesc": "",
+          "suffixDesc": "",
+          "keys": "",
+          "elementStyle": "width: 100%;",
+          "classes": "",
+          "readOnly": ""
+        },
+        {
+          "name": "",
+          "type": "formGroupHR",
+          "title": "",
+          "line": "dashed",
+          "prefixDesc": "",
+          "suffixDesc": "",
+          "keys": "",
+          "elementStyle": "width: 100%;",
+          "classes": "",
+          "readOnly": ""
+        },
+        {
+          "name": "I001849",
+          "type": "input",
+          "title": "宫高",
+          "suffixDesc": "cm",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001850",
+          "type": "input",
+          "title": "腹围",
+          "suffixDesc": "cm",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001851",
+          "type": "input",
+          "title": "髂前上棘",
+          "suffixDesc": "cm",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001852",
+          "type": "input",
+          "title": "髂嵴间经",
+          "suffixDesc": "cm",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001853",
+          "type": "input",
+          "title": "骶耻外径",
+          "suffixDesc": "cm",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001854",
+          "type": "input",
+          "title": "出口横径",
+          "suffixDesc": "cm",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "",
+          "type": "formGroupHR",
+          "title": "",
+          "line": "dashed",
+          "prefixDesc": "",
+          "suffixDesc": "",
+          "keys": "",
+          "elementStyle": "width: 100%;",
+          "classes": "",
+          "readOnly": ""
+        },
+        {
+          "name": "",
+          "type": "formGroupHR",
+          "title": "",
+          "line": "dashed",
+          "prefixDesc": "",
+          "suffixDesc": "",
+          "keys": "",
+          "elementStyle": "width: 100%;",
+          "classes": "",
+          "readOnly": ""
+        },
+        {
+          "name": "I001855",
+          "type": "select",
+          "title": "乳房发育",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001856",
+          "type": "select",
+          "title": "乳头凹陷",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001857",
+          "type": "select",
+          "title": "母乳喂养知识",
+          "style": null,
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "母乳喂养知识其他",
+                "parentName": "I001857",
+                "type": "dependent"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "新生儿科",
+      "parentKey": "I001351",
+      "message": "",
+      "hidden": true,
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001860",
+          "type": "select",
+          "title": "头面部:头颅",
+          "postTitle": "头颅情况",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": [
+                  "包块",
+                  "血肿",
+                  "产瘤",
+                  "部位"
+                ],
+                "cleanKey": [
+                  "正常"
+                ],
+                "title": "头颅部位",
+                "parentName": "I001860",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001865",
+          "type": "select",
+          "title": "头面部:前囟",
+          "postTitle": "前囟情况",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "未闭",
+                "cleanKey": "已闭",
+                "title": "前囟未闭情况",
+                "parentName": "I001865",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001866",
+          "type": "select",
+          "title": "眼部",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001867",
+          "type": "select",
+          "title": "口腔及粘膜",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "口腔及粘膜其他情况",
+                "parentName": "I001867",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001869",
+          "type": "select",
+          "title": "胸部:外观",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "胸部外观其他情况",
+                "parentName": "I001869",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001871",
+          "type": "select",
+          "title": "呼吸运动",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001872",
+          "type": "select",
+          "title": "呼吸道症状",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [
+                  "无"
+                ],
+                "title": "呼吸道症状其他情况",
+                "parentName": "I001872",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001376",
+          "type": "input",
+          "title": "咳痰:性状",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001875",
+          "type": "select",
+          "title": "心脏:心率",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001876",
+          "type": "select",
+          "title": "腹部",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001878",
+          "type": "select",
+          "title": "脐部脐带",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001971",
+          "type": "select",
+          "title": "脐部脐带情况",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001879",
+          "type": "select",
+          "title": "肛门",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001880",
+          "type": "select",
+          "title": "肛周皮肤",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001881",
+          "type": "select",
+          "title": "畸形",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "儿科",
+      "parentKey": "I001351",
+      "message": "",
+      "hidden": true,
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001367",
+          "type": "select",
+          "title": "头面部:头颅",
+          "postTitle": "头颅情况",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": "无",
+                "title": "头颅其他说明",
+                "parentName": "I001367",
+                "type": "dependent",
+                "otherDialog": {
+                  "name": "I001368",
+                  "title": "头颅其他说明"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001369",
+          "type": "select",
+          "title": "头面部:前囟",
+          "postTitle": "前囟情况",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "未闭",
+                "cleanKey": "已闭",
+                "title": "前囟未闭情况",
+                "parentName": "I001369",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I100089",
+          "type": "select",
+          "title": "口腔粘膜",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001373",
+          "type": "select",
+          "title": "呼吸运动",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "呼吸受限",
+                "cleanKey": [
+                  "平顺"
+                ],
+                "title": "呼吸受限情况",
+                "parentName": "I001373",
+                "type": "dependent"
+              }
+            }
+          ]
+        },
+        {
+          "name": "I001372",
+          "type": "select",
+          "title": "胸部外观",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001375",
+          "type": "select",
+          "title": "呼吸道症状",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I001377",
+          "type": "select",
+          "title": "腹部",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100104",
+          "type": "select",
+          "title": "肠鸣音",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I100128",
+          "type": "select",
+          "title": "四肢活动",
+          "style": null,
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "八、其他症状和体征",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "colWidth": [
+        "0",
+        "100%"
+      ],
+      "title": "",
+      "parentTitle": "八、其他症状和体征",
+      "showTitle": true,
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "width:100%",
+      "tdStyle": "width:100%",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001401",
+          "type": "mark",
+          "title": "其他症状和体征",
+          "style": "",
+          "elementStyle": "",
+          "class": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "九、入院宣教",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "九、入院宣教",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001451",
+          "type": "select",
+          "title": "入院宣教",
+          "titleStyle": "width:81px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "style": null,
+          "class": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "母乳宣教",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001884",
+          "type": "",
+          "title": "母乳宣教",
+          "titleStyle": "width:102px!important",
+          "class": null,
+          "children": [
+            {
+              "name": "I001884",
+              "type": "select",
+              "title": "母乳宣教",
+              "titleStyle": "width:81px!important",
+              "inputStyle": "width:270px!important",
+              "inputWidth": "160px",
+              "style": null,
+              "class": null
+            }
+          ]
+        },
+        {
+          "name": "I001885",
+          "type": "",
+          "title": "术前宣教",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "children": [
+            {
+              "name": "I001885",
+              "type": "select",
+              "title": "术前宣教",
+              "titleStyle": "width:81px!important",
+              "inputStyle": "width:270px!important",
+              "inputWidth": "160px",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001452",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "九、入院宣教",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001452",
+          "type": "",
+          "title": "宣教对象",
+          "titleStyle": "width:95px!important",
+          "boxStyle": "height:auto!important",
+          "elementsStyle": "margin-top:8px",
+          "class": null,
+          "children": [
+            {
+              "name": "I001452",
+              "type": "checkbox",
+              "title": "女儿",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001452",
+              "type": "checkbox",
+              "title": "儿子",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001452",
+              "type": "checkbox",
+              "title": "父亲",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001452",
+              "type": "checkbox",
+              "title": "母亲",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001452",
+              "type": "checkbox",
+              "title": "爷爷",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001452",
+              "type": "checkbox",
+              "title": "奶奶",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001452",
+              "type": "checkbox",
+              "title": "配偶",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001452",
+              "type": "checkbox",
+              "title": "亲戚",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001452",
+              "type": "checkbox",
+              "title": "朋友",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001452",
+              "type": "checkbox",
+              "title": "患者",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001453",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "九、入院宣教",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001453",
+          "type": "",
+          "title": "方法",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "elementsStyle": "margin-top:8px",
+          "children": [
+            {
+              "name": "I001453",
+              "type": "checkbox",
+              "title": "讲解",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001453",
+              "type": "checkbox",
+              "title": "示范",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001453",
+              "type": "checkbox",
+              "title": "视频",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001453",
+              "type": "checkbox",
+              "title": "免费资料",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001453",
+              "type": "checkbox",
+              "title": "讨论",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001454",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "九、入院宣教",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I001454",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001454",
+          "type": "",
+          "title": "接受能力",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "children": [
+            {
+              "name": "I001454",
+              "type": "radio",
+              "title": "能接受",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001454",
+              "type": "radio",
+              "title": "不能接受",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001454",
+              "type": "radio",
+              "title": "语言障碍",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001454",
+              "type": "radio",
+              "title": "文化差异",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001454",
+              "type": "radio",
+              "title": "教育水平低",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001454",
+              "type": "radio",
+              "title": "听力障碍",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "十、住院告知",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001501",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "十、住院告知",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 12px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001501",
+          "type": "",
+          "title": "住院告知",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "inputStyle": "margin-top:8px",
+          "children": [
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "住院须知",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "物品管理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "作息",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "探陪",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "订餐",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "介绍主管医生",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "介绍主管护士",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "住院押金管理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "体温计管理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "社保管理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001501",
+              "type": "checkbox",
+              "title": "其他",
+              "elementStyle": "margin: 0px 0px 0px 0px!important;",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001502",
+              "type": "input",
+              "title": "其他",
+              "parentName": "I001501",
+              "elementClass": "",
+              "style": "margin: 0px!important",
+              "class": "text-margin-0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "十一、护理重点",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "十一、护理重点",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 12px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001551",
+          "type": "",
+          "title": "基础护理",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "inputStyle": "margin-top:8px",
+          "children": [
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "协助漱口",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "指导∕协助刷牙",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "口腔护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "面部清洁",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "协助沐浴",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "床上擦浴",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "床上洗头",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "梳头",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "会阴清洁/消毒",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "足部清洁",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "协助更衣",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "协助进食/水",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "协助床上移动",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "留置尿管护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "指/趾甲护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "臀部护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "协助翻身/有效咳嗽",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "帮助/协助使用便器",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001551",
+              "type": "checkbox",
+              "title": "其他",
+              "elementStyle": "margin: 0px 0px 0px 0px!important;",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001552",
+              "type": "input",
+              "title": "其他",
+              "parentName": "I001551",
+              "elementStyle": "width:160px",
+              "elementClass": "",
+              "style": null,
+              "class": "text-margin-0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001553",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "十一、护理重点",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 12px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001553",
+          "type": "",
+          "title": "专科护理",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "inputStyle": "margin-top:8px",
+          "children": [
+            {
+              "name": "I001553",
+              "type": "checkbox",
+              "title": "排痰护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001553",
+              "type": "checkbox",
+              "title": "高热护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001553",
+              "type": "checkbox",
+              "title": "留置针护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001553",
+              "type": "checkbox",
+              "title": "惊厥护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001553",
+              "type": "checkbox",
+              "title": "尿管护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001553",
+              "type": "checkbox",
+              "title": "其他",
+              "elementStyle": "margin: 0px 0px 0px 0px!important;",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001554",
+              "type": "input",
+              "title": "其他",
+              "parentName": "I001553",
+              "elementStyle": "width:300px",
+              "elementClass": "",
+              "style": null,
+              "class": "text-margin-0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001555",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "十一、护理重点",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 12px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001555",
+          "type": "",
+          "title": "患者安全",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "inputStyle": "margin-top:8px",
+          "children": [
+            {
+              "name": "I001555",
+              "type": "checkbox",
+              "title": "安全转运护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001555",
+              "type": "checkbox",
+              "title": "防跌倒/坠床护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001555",
+              "type": "checkbox",
+              "title": "防烫伤护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001555",
+              "type": "checkbox",
+              "title": "防走失护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001555",
+              "type": "checkbox",
+              "title": "安全约束护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001555",
+              "type": "checkbox",
+              "title": "入院护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001555",
+              "type": "checkbox",
+              "title": "出院护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001555",
+              "type": "checkbox",
+              "title": "防呛噎护理",
+              "elementClass": "el-radio-long",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001555",
+              "type": "checkbox",
+              "title": "其他",
+              "elementStyle": "margin-right: 5px!important;",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001556",
+              "parentName": "I001555",
+              "type": "input",
+              "title": "其他",
+              "elementStyle": "width:160px",
+              "elementClass": "",
+              "style": null,
+              "class": "text-margin-0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "十一、护理重点",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "width:100%",
+      "tdStyle": "width:100%",
+      "elementStyle": "width:100%",
+      "titleStyle": "margin-top: 12px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001557",
+          "type": "",
+          "title": "其他",
+          "titleStyle": "width:130px!important",
+          "style": "width:100%",
+          "tdStyle": "width:100%",
+          "elementStyle": "width:100%",
+          "boxStyle": "height:auto!important",
+          "class": null,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I001557",
+              "type": "mark",
+              "title": "其他",
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "签名",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "记录时间",
+          "titleStyle": "width:70px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "hiddenTips": true
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "责任护士签名",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "suffixDesc": "",
+          "style": "cursor: pointer!important",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "auditTime",
+          "type": "datePicker",
+          "title": "审核时间",
+          "titleStyle": "width:70px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "suffixDesc": "",
+          "style": null,
+          "class": null,
+          "readOnly": false,
+          "hiddenTips": true
+        },
+        {
+          "name": "auditorName",
+          "type": "input",
+          "title": "审核人签名",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "suffixDesc": "",
+          "style": "cursor: pointer!important",
+          "class": null,
+          "readOnly": true
+        }
+      ]
+    }
+  ],
+  "dialogs": {},
+  "header": [],
+  "design": {
+    "XRadiobox": {
+      "name": "K0001",
+      "title": "红叉辅助单选框组件",
+      "titleClass": "left"
+    }
+  }
+}

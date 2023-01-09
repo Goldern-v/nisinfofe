@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <div class="no-do-bg" v-show="show" @click="close"></div> -->
     <transition name="el-zoom-in-left">
       <div class="slide-con" v-show="show">
         <div class="head-con" flex="cross:center main:justify">
@@ -194,6 +193,7 @@ export default {
       setTimeout(() => {
         this.selectWidth = 101;
       }, 300);
+      console.log(this.show);
     },
     close() {
       this.show = false;
@@ -223,9 +223,6 @@ export default {
   },
   created() {
     this.bus.$on("refreshTemplate", this.getData);
-  },
-  mounted() {
-    //  this.show = false
   },
   watch: {
     selectedType() {

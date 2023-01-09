@@ -2289,6 +2289,55 @@ export default function Title(
     );
   }
   break;
+  case "intravenous_whhk": {
+    // 武汉汉口 - 静脉治疗使用维护记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intravenous_whhk/th").default)
+    );
+  }
+  break;
+  case "baby_whhk": {
+    // 武汉汉口 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_whhk/th").default)
+    );
+  }
+  break;
+  case "neonatology_whhk": {
+    // 武汉汉口 - 新生儿科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_whhk/th").default)
+    );
+  }
+  break;
+  case "insulin_whhk": {
+    // 武汉汉口 - 胰岛素泵护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/insulin_whhk/th").default)
+    );
+  }
+  break;
+  case "labor_whhk": {
+    // 武汉汉口 - 产程检查记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_whhk/th").default)
+    );
+  }
+  break;
+  case "obstetriccare_whhk": {
+    // 武汉汉口 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/obstetriccare_whhk/th").default)
+    );
+  }
+  break;
+  case "two_whhk": {
+    // 武汉汉口 - 护理记录单（二）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/two_whhk/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

@@ -135,7 +135,9 @@ export default {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.liaoc.json"))
         )
-      } else if (['lyxrm', 'qhwy', 'foshanrenyi','lyyz', 'stmz'].includes(this.HOSPITAL_ID)) {
+      } else if(this.HOSPITAL_ID === 'liaocheng'){
+        JSON.stringify(require("../data/foshanrenyi/入院评估.form.foshanrenyi.json"))
+      } else if (['lyxrm', 'qhwy', 'lyyz', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         file = JSON.parse(
           JSON.stringify(require(`../data/入院评估.form.${this.HOSPITAL_ID}.json`))
         )
@@ -157,7 +159,9 @@ export default {
       let dictionary = null
       if (this.HOSPITAL_ID === 'liaocheng') {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.liaoc.json")))
-      } else if (['lyxrm', 'qhwy', 'foshanrenyi','lyyz', 'stmz'].includes(this.HOSPITAL_ID)) {
+      } else if (this.HOSPITAL_ID === 'foshanrenyi') {
+        dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+      } else if (['lyxrm', 'qhwy','lyyz', 'stmz', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require(`../data/formDictionary/入院评估.dictionary.${this.HOSPITAL_ID}.json`)))
       } else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.json")))
@@ -184,6 +188,8 @@ export default {
         contexts = require.context('../data/foshanrenyi/formDialog', true, /\.json$/);
       } else if (this.HOSPITAL_ID === 'lyyz') {
         contexts = require.context('../data/formDialogLyyz', true, /\.json$/);
+      } else if (this.HOSPITAL_ID === 'nfyksdyy') {
+        contexts = require.context('../data/formDialogNfyksdyy', true, /\.json$/);
       } else {
         contexts = require.context('../data/formDialog', true, /\.json$/);
       }
@@ -202,9 +208,10 @@ export default {
             'stmz':'formSchemesLyxrm',
             'qhwy':'formSchemesQhwy',
             'lyyz':'formSchemesLyyz',
+            'nfyksdyy':'formSchemesNfyksdyy',
           }
           let schemesJson = null
-          if (['liaocheng', 'lyxrm', 'qhwy', 'lyyz', 'stmz'].includes(this.HOSPITAL_ID)) {
+          if (['liaocheng', 'lyxrm', 'qhwy', 'lyyz', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
             schemesJson = require(`../data/${hospitalSchemes[this.HOSPITAL_ID]}/${fromName}.txt.json`)
           } else {
             schemesJson = require(`../data/formSchemes/${fromName}.txt.json`)

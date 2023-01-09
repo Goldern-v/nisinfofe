@@ -41,7 +41,7 @@
             >
             <span
               >住院号：{{
-                resInHosId || patientInfo.inpNo || tableHeaderInfo.bedNo
+                resInHosId || patientInfo.patientId || tableHeaderInfo.bedNo
               }}</span
             >
           </p>

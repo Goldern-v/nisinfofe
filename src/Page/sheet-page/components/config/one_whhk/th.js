@@ -115,7 +115,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "40px"
+          minWidth: "50px"
         }
       },
       {
@@ -123,7 +123,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "40px"
+          minWidth: "50px"
         }
       },
       {
@@ -135,7 +135,7 @@ export default {
         }
       },
       {
-        name: `签名`,
+        name: `签 名`,
         style: {
           minWidth: "70px",
           maxWidth: "70px"

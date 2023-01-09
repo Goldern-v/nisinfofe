@@ -147,11 +147,27 @@ export default [
   { key: 'oxygenMode', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygenL', event: keyf1, value: '', next: '', name: '',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   {
-    key: "specialRecord", //特殊情况记录
+    key: "description", //特殊情况记录
     value: "",
-    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "185px", background: "transparent" },
-    textarea: { width: 185 },
-    event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "185px",
+      background: "transparent",
+    },
+    textarea: {
+      width: 185
+    },
+    event: function (e, td) {
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
   },
   // { key: "sign", value: "" },//单签
   { key: "sign", value: "" },//单签

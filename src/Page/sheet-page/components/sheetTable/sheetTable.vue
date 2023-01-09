@@ -183,7 +183,8 @@ export default {
       sheetInfo,
       //开启后端控制readOnly的医院
       readOnlyList: [
-        "fuyou"
+        "fuyou",
+        "zhzxy"
       ]
     };
   },
@@ -194,8 +195,7 @@ export default {
     /** 只读模式 */
     readOnly() {
       if (
-        this.HOSPITAL_ID == "huadu" ||
-        this.HOSPITAL_ID == "zhzxy"
+        this.HOSPITAL_ID == "huadu"
       ) {
         return false;
       }

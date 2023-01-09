@@ -628,7 +628,7 @@
                     maxlength="10"
                     style="width: 140px"
                     v-else-if="
-                      sheetInfo.sheetType === 'common_hd' &&
+                      (sheetInfo.sheetType === 'common_hd'||sheetInfo.sheetType === 'seriousnursing_ytll') &&
                       (key === 'food' || key === 'discharge')
                     "
                   />
@@ -805,13 +805,13 @@
     <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
     />
     <advice-modal
-      v-if="['lyxrm', 'whhk', 'stmz'].includes(HOSPITAL_ID)"
+      v-if="['lyxrm', 'whhk', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)"
       ref="adviceModalRef"
       @handleOk="handleDiagnosis"
     />
@@ -1226,6 +1226,7 @@ export default {
         case "huadu":
         case 'whhk':
         case "stmz":
+        case "nfyksdyy":
           return this.activeTab === "3";
         default:
           return false;
@@ -1237,6 +1238,7 @@ export default {
         case "lyxrm":
         case 'whhk':
         case "stmz":
+        case "nfyksdyy":
           return this.activeTab === "3";
         default:
           return false;
@@ -1248,6 +1250,7 @@ export default {
         case "huadu":
         case 'whhk':
         case "stmz":
+        case "nfyksdyy":
           return 1200;
         default:
           return 720;
@@ -1480,7 +1483,7 @@ export default {
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ''
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj', 'zhzxy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll'].includes(this.HOSPITAL_ID)) {
         const itemListTime = config.recordDate ||
           record[0].find((item) => item.key == "recordDate").value
         if(!itemListTime){
@@ -1835,6 +1838,7 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
+      console.log('武警=====》',type)
       if (this.isSaving) {
         return;
       }
@@ -2066,7 +2070,10 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "common_wj") {
+            } else if (
+              this.sheetInfo.sheetType === "common_wj" || 
+              this.sheetInfo.sheetType === "babyarea_fs" 
+            ) {
               if (GetLength(text) > 27) {
                 result.push(text);
                 text = allDoc[i];
@@ -2147,6 +2154,13 @@ export default {
               }
             } else if (this.sheetInfo.sheetType === "icu_yz" || this.sheetInfo.sheetType === "prenatal_ytll") {
               if (GetLength(text) > 38) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if ( this.sheetInfo.sheetType === "premiumcare_ytll") {
+              if (GetLength(text) > 36) {
                 result.push(text);
                 text = allDoc[i];
               } else {

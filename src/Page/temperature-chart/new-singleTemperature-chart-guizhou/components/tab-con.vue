@@ -740,7 +740,7 @@ export default {
           vitalSigns: key,
           wardCode: this.patientInfo.wardCode,
           vitalValue: "",
-          units: "",
+          units: this.totalDictInfo[key].unit,
           vitalCode: this.multiDictList[key],
           classCode:
             (this.totalDictInfo[key] || { classCode: "" }).classCode || "",
