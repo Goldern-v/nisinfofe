@@ -628,7 +628,7 @@
                     maxlength="10"
                     style="width: 140px"
                     v-else-if="
-                      sheetInfo.sheetType === 'common_hd' &&
+                      (sheetInfo.sheetType === 'common_hd'||sheetInfo.sheetType === 'seriousnursing_ytll') &&
                       (key === 'food' || key === 'discharge')
                     "
                   />
