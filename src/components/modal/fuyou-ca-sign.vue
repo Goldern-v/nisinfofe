@@ -132,8 +132,7 @@ export default {
   },
   methods: {
     open(callback,isStart) {
-      console.log("isStart",isStart)
-      this.$refs.modal.open(null,JSON.parse(localStorage.user).empNo=="admin"?true:false);
+      this.$refs.modal.open(null,this.fuyouIfCanClose);
       this.callback = callback;
       this.password = "";
       this.clearIntervalItem()
@@ -141,8 +140,10 @@ export default {
       (isStart) && (this.getAuthorizeApi());//执行ca验证
     },
     close(fuyouIfclose = false) {
-      console.log("test--1",fuyouIfclose)
-      if(fuyouIfclose ===true || JSON.parse(localStorage.user).empNo=="admin"){
+      if(this.fuyouIfCanClose){
+        fuyouIfclose = true
+      }
+      if(fuyouIfclose ===true){
         this.clearIntervalItem();
         this.$refs.modal.close(fuyouIfclose)
         this.bus.$emit("updateFuyouCaData")
@@ -327,7 +328,11 @@ export default {
   },
   deactivated(){
     this.clearIntervalItem()
+  },
+  computed:{
+    fuyouIfCanClose(){
+      return JSON.parse(localStorage.user).empNo=="admin" || localStorage['fuyouUseCaSign']
+    }
   }
-
 };
 </script>

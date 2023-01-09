@@ -374,7 +374,7 @@ export default {
      * Emits an event 'close'
      */
     close(fuyouIfclose = false) {
-      // console.log(this.ifNoguan,fuyouIfclose,JSON.parse(localStorage.user).empNo,"fuyouIfclose")
+      // console.log(this.ifNoguan,fuyouIfclose,"fuyouIfclose")
       if(["fuyou",'zhzxy','fsxt'].includes(this.HOSPITAL_ID)){
         if(this.ifNoguan || fuyouIfclose===true || ['zhzxy','fsxt'].includes(this.HOSPITAL_ID)){
           if (this.closeCallback) {
