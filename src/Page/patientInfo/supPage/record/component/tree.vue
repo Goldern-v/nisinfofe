@@ -689,7 +689,7 @@ export default {
         );
       }
       if (node.level !== 2) {
-        if (["foshanrenyi","lyxrm", 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
+        if (["foshanrenyi","lyxrm", 'whhk', 'stmz', 'gdtj'].includes(this.HOSPITAL_ID)) {
           this.batchAuditForms = node.data
           return (
             <span class="tree-box-node2">

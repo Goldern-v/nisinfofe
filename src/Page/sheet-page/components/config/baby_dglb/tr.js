@@ -109,6 +109,9 @@ export default [
     event: keyf1,
     name: "反应",
     change: (e, td) => limitChange(e, td, 6),
+    autoComplete: {
+      data: ['清醒','激惹','嗜睡','迟钝','昏迷']
+    },
     textarea: {
       width: 40
     },
@@ -119,6 +122,9 @@ export default [
     event: keyf1,
     name: "哭声",
     change: (e, td) => limitChange(e, td, 6),
+    autoComplete: {
+      data: ['大','微弱']
+    },
     textarea: {
       width: 40
     },
@@ -129,6 +135,9 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     name: "吸吮力",
+    autoComplete: {
+      data: ['好','一般','差']
+    },
     textarea: {
       width: 40
     },
@@ -139,6 +148,9 @@ export default [
     event: keyf1,
     name: "脐部情况",
     change: (e, td) => limitChange(e, td, 6),
+    autoComplete: {
+      data: ['脱痂','未脱痂','干洁','渗液','渗血','脐瘘','脐疝']
+    },
     textarea: {
       width: 40,
     },
@@ -149,6 +161,9 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     name: "肛周情况",
+    autoComplete: {
+      data: ['潮红','破损','溃疡','皮疹']
+    },
     textarea: {
       width: 40
     },
@@ -159,6 +174,9 @@ export default [
     event: keyf1,
     name: "喂养方式",
     change: (e, td) => limitChange(e, td, 6),
+    autoComplete: {
+      data: ['自吮','鼻饲','口饲']
+    },
     textarea: {
       width: 40
     },
@@ -169,6 +187,9 @@ export default [
     event: keyf1,
     name: "喂养种类",
     change: (e, td) => limitChange(e, td, 6),
+    autoComplete: {
+      data: ['母乳','代乳品','水','禁食']
+    },
     textarea: {
       width: 40
     },
@@ -179,6 +200,9 @@ export default [
     event: keyf1,
     name: "内容",
     change: (e, td) => limitChange(e, td, 6),
+    autoComplete: {
+      data: ['液体','血液','血制品','奶液','水']
+    },
     textarea: {
       width: 40
     },
@@ -200,6 +224,9 @@ export default [
     event: keyf1,
     name: "内容",
     change: (e, td) => limitChange(e, td, 6),
+    autoComplete: {
+      data: ['尿量','大便量','胃液','呕吐物','引流量']
+    },
     textarea: {
       width: 40
     },

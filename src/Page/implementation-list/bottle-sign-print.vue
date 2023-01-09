@@ -943,7 +943,9 @@ export default {
           "whhk",
           "zhzxy",
           "925",
-          "whsl", 'stmz'
+          "whsl", 
+          'stmz',
+          'wujing'
         ].includes(this.HOSPITAL_ID)
       ) {
         res = await getPrintListContent2({ barcodeList: barCodeList });
@@ -1162,7 +1164,7 @@ export default {
     },
     /**床号多选 */
     multiBed() {
-      return ["lyxrm", "zhzxy", "925", "ytll", 'stmz'].includes(this.HOSPITAL_ID);
+      return ["lyxrm", "zhzxy", "925", "ytll", 'stmz','whsl'].includes(this.HOSPITAL_ID);
     },
     // 瓶签是否分页 超过多少条开始分
     printPagingNo() {

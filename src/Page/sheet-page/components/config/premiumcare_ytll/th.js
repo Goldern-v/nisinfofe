@@ -34,7 +34,7 @@ export default {
         name: `
         病情评估
         `,
-        colspan: "25",
+        colspan: "24",
         rowspan: "1",
         canSet: false
       },
@@ -43,8 +43,8 @@ export default {
         特殊处理及病区观察
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          minWidth: "228px",
+          maxWidth: "228px"
         },
         colspan: "1",
         rowspan: "3"
@@ -153,8 +153,10 @@ export default {
         rowspan: "2"
       },
       {
-        name: `心率<br />/<br />脉搏次/分`,
-        style: {},
+        name: `心率/脉搏<br />次/分`,
+        style: {
+          minWidth: "52px",
+        },
         colspan: "1",
         rowspan: "2"
       },
@@ -235,12 +237,7 @@ export default {
         colspan: "1",
         rowspan: "2"
       },
-      {
-        name: `营养<br />状况`,
-        style: {},
-        colspan: "1",
-        rowspan: "2"
-      }
+     
     ],
     bottom: [{
         name: `左

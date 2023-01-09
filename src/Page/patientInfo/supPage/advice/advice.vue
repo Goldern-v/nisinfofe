@@ -46,6 +46,14 @@
           </el-input>
           <el-button class="searchBt" type="primary" @click="getData">查询</el-button>
         </span>
+         <el-button
+          class="sync-btn"
+          type="success"
+          :class="{ active: btn == '1' }"
+          v-if="syncHisList.includes(HOSPITAL_ID)"
+          @click="syncPatientList"
+          >同步患者医嘱</el-button
+        >
         <div style="flex: 1"></div>
         <el-button
           class="select-btn"
@@ -53,6 +61,7 @@
           @click="syncGetPatientOrders"
           >同步数据</el-button
         >
+
         <a
           :href="`crprintorder://${infoData.patientId}/${infoData.visitId}`"
           v-if="HOSPITAL_ID == 'weixian'"
@@ -232,6 +241,11 @@
     position relative;
   }
 }
+.sync-btn{
+  margin-left: 25px;
+  background-color #4bb08d;
+  border: 1px solid #3D8B72;
+}
 
 
 .select-nav {
@@ -304,7 +318,7 @@ import standingOrderTable from "./component/print/standingOrderTable";
 import statOrderTable from "./component/print/statOrderTable";
 import { orders, newOrders } from "@/api/patientInfo";
 import {getProcedureData} from '@/api/common'
-import { syncGetPatientOrders, getNurseOrderStatusDict } from "./api/index";
+import { syncGetPatientOrders, getNurseOrderStatusDict,getOrdersWithSync } from "./api/index";
 import { hisMatch } from '@/utils/tool';
 import print from "printing";
 import formatter from "./print-formatter";
@@ -321,6 +335,7 @@ export default {
       data2Res:[],
       orderText:"",//模糊查询值
       searchHisList:["beihairenyi"],//有模糊查询方法医院
+      syncHisList:["nfyksdyy"],//同步患者医嘱医院
       duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk','ytll', '925', 'whsl'], // 需要添加rowType(同一医嘱内第几条记录)的医院
       specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi', '925', 'whsl'], // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
       showPrint: ['925'].includes(this.HOSPITAL_ID),
@@ -499,6 +514,17 @@ export default {
         }
       );
     },
+    syncPatientList() {
+      this.$message.info("正在同步数据...");
+      this.tableLoading = true;
+      getOrdersWithSync(this.infoData.patientId, this.infoData.visitId).then(
+        (res) => {
+          this.$message.success("同步数据成功");
+          this.getData();
+        }
+      );
+    },
+
     print() {},
     getStatusList() {
       /**顶部状态筛选字典 暂时先上贵州 后面的医院确认后端部署后可上*/

@@ -417,9 +417,7 @@ export default {
                   0;
               }
               let result = '';
-              // console.log(isNaN(Number(height)) && isNaN(Number(weight)))
               if(isNaN(Number(height)) && isNaN(Number(weight)) ){
-                // console.log(this.formObj.model[r.result])
                 result = this.formObj.model[r.result]
                 this.$root.$refs[this.formCode][r.result].setCurrentValue(
                 result
@@ -433,9 +431,6 @@ export default {
                 );
                 this.formObj.model[r.result] = result ? result.toFixed(2) : "";
               }
-              // if(this.obj.name==='I100011'){
-              //   console.log('!!!!计算BMI',this.obj.title,this.obj,r,height,weight,result)
-              // }
 
             }
           }
