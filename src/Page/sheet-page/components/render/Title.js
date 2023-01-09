@@ -1841,6 +1841,13 @@ export default function Title(
     );
   }
   break;
+  case "oxytocin_dglb": {
+    // 东莞寮步-催产素静脉点滴观察单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_dglb/th").default)
+    );
+  }
+  break;
   case "criticaldisease_xt": {
     // 佛山杏坛 - 危重症护理记录单
     Th = JSON.parse(

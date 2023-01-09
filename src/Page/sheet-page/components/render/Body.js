@@ -1426,6 +1426,11 @@ function switchSheetType(type) {
       schema = require("../config/oxytocin_sdlj/tr.js").default;
     }
       break;
+      case "oxytocin_dglb": {
+        // 东莞寮步-催产素静脉点滴观察单
+        schema = require("../config/oxytocin_dglb/tr.js").default;
+      }
+        break;
     case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）
       schema = require("../config/cardiovascular_xt/tr.js").default;
