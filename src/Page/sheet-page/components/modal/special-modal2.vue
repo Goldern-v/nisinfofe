@@ -628,7 +628,7 @@
                     maxlength="10"
                     style="width: 140px"
                     v-else-if="
-                      sheetInfo.sheetType === 'common_hd' &&
+                      (sheetInfo.sheetType === 'common_hd'||sheetInfo.sheetType === 'seriousnursing_ytll') &&
                       (key === 'food' || key === 'discharge')
                     "
                   />
@@ -1043,6 +1043,7 @@ function autoComplete(el, bind) {
     let key = bind.value.key;
     let tr = bind.value.tr;
     let td = bind.value.td;
+    const splice = td && td.splice
     el.onfocus = (e) => {
       let dataList = bind.value.dataList;
       if (el.readOnly) return;
@@ -1068,9 +1069,35 @@ function autoComplete(el, bind) {
             }
             if (data) {
               if (typeof obj[key] == "object") {
-                obj[key].value = data.trim();
+                // 多选
+                if (splice) {
+                  const split = typeof splice === 'string' ? splice : ','
+                  const oldValue =  obj[key].value ? obj[key].value.split(split) : []
+                  const index = oldValue.findIndex(v => v === data)
+                  if (index > -1) {
+                    oldValue.splice(index, 1)
+                  } else {
+                    oldValue.push(data.trim())
+                  }
+                  obj[key].value = oldValue.join()
+                } else { // 单选
+                  obj[key].value = data.trim();
+                }
               } else {
-                obj[key] = data.trim();
+                // 多选
+                if (splice) {
+                  const split = typeof splice === 'string' ? splice : ','
+                  const oldValue =  obj[key] ? obj[key].split(split) : []
+                  const index = oldValue.findIndex(v => v === data)
+                  if (index > -1) {
+                    oldValue.splice(index, 1)
+                  } else {
+                    oldValue.push(data.trim())
+                  }
+                  obj[key] = oldValue.join()
+                } else { // 单选
+                  obj[key] = data.trim();
+                }
               }
             }
           },
@@ -1080,11 +1107,11 @@ function autoComplete(el, bind) {
         });
       });
     };
-    el.onblur = (e) => {
-      setTimeout(() => {
-        window.closeAutoComplete(key);
-      }, 400);
-    };
+    // el.onblur = (e) => {
+    //   setTimeout(() => {
+    //     window.closeAutoComplete(key);
+    //   }, 400);
+    // };
   } else {
     el.onfocus = null;
   }
@@ -1483,7 +1510,7 @@ export default {
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ''
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj', 'zhzxy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll'].includes(this.HOSPITAL_ID)) {
         const itemListTime = config.recordDate ||
           record[0].find((item) => item.key == "recordDate").value
         if(!itemListTime){
@@ -1838,6 +1865,7 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
+      console.log('武警=====》',type)
       if (this.isSaving) {
         return;
       }
@@ -2069,7 +2097,10 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "common_wj") {
+            } else if (
+              this.sheetInfo.sheetType === "common_wj" || 
+              this.sheetInfo.sheetType === "babyarea_fs" 
+            ) {
               if (GetLength(text) > 27) {
                 result.push(text);
                 text = allDoc[i];
@@ -2163,7 +2194,7 @@ export default {
                 text += allDoc[i];
               }
             }else {
-              if (GetLength(text) > 23) { 
+              if (GetLength(text) > 23) {
                 result.push(text);
                 text = allDoc[i];
               } else {

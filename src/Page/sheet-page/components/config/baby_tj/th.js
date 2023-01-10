@@ -41,9 +41,10 @@ export default {
                 { "name": "", "colspan": "1", "rowspan": "3", canSet: true, key: "fieldThree", style: { minWidth: "35px",  maxWidth: "35px"}},
                 { "name": "", "colspan": "1", "rowspan": "3", canSet: true, key: "fieldFour", style: { minWidth: "35px",  maxWidth: "35px"}},
                 { "name": "", "colspan": "1", "rowspan": "3", canSet: true, key: "fieldFive", style: { minWidth: "35px",  maxWidth: "35px"}},
-                { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "100px",  maxWidth: "100px"}, },
+                { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "140px",  maxWidth: "140px"}, },
                 { "name": "签 名", "colspan": "1", "rowspan": "3", style: { minWidth: "60px",  maxWidth: "60px"},},
-                { "name": "带教护士", "colspan": "1", "rowspan": "3", style: { minWidth: "60px",  maxWidth: "60px"},},
+                { "name": "带教<br/>护士", "colspan": "1", "rowspan": "3", style: { minWidth: "60px",  maxWidth: "60px"},},
+
             ]
         ,
         mid:

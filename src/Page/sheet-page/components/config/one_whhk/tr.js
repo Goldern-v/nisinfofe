@@ -12,7 +12,8 @@ import {
   click_time
 } from "../keyEvent/date";
 
-
+const jkjyList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧']
+const hlcsList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩']
 export default [
   {
     key: "recordMonth", //日期
@@ -201,7 +202,8 @@ export default [
     key: "foodSize", //量
     value: "",
     event: keyf1,
-    name: "ml",
+    name: "入量",
+    next: 'ml',
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 30
@@ -222,7 +224,8 @@ export default [
     key: "dischargeSize", //量
     value: "",
     event: keyf1,
-    name: "ml",
+    name: "出量",
+    next: 'ml',
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 30
@@ -253,9 +256,11 @@ export default [
     value: "",
     event: keyf1,
     name: "护理措施",
-    change: (e, td) => limitChange(e, td, 6),
+    autoComplete: { data: hlcsList },
+    splice: true,
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 40
+      width: 50
     },
   },
   {
@@ -264,9 +269,11 @@ export default [
     event: keyf1,
     name: "健康教育",
     next: '',
-    change: (e, td) => limitChange(e, td, 6),
+    autoComplete: { data: jkjyList },
+    splice: true,
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 40
+      width: 50
     },
   },
   {

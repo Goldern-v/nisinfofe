@@ -40,7 +40,7 @@ export default data;
 export async function addSheetPage(callback) {
   let Options = []
   let FieldTitle = []
-  if (['foshanrenyi','fsxt', 'gdtj'].includes(process.env.HOSPITAL_ID)) {
+  if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
     // let formatCustomObj = {}
     let params = {
       pageIndex: data.length,
@@ -62,7 +62,7 @@ export async function addSheetPage(callback) {
     Page(
       {
         titleData: [],
-        autoTitleData: ['foshanrenyi','fsxt', 'gdtj'].includes(process.env.HOSPITAL_ID) ? FieldTitle : autoTitleDataDisk.map(item => {
+        autoTitleData: ['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID) ? FieldTitle : autoTitleDataDisk.map(item => {
           item.pageIndex =  item.pageIndex + 1;
           return item;
         }),
@@ -126,7 +126,9 @@ export function delSheetPage(index, callback) {
     if (
       (process.env.HOSPITAL_ID == "nanfangzhongxiyi" ||
         process.env.HOSPITAL_ID == "xiegang" ||
-        process.env.HOSPITAL_ID == "sdlj") &&
+        process.env.HOSPITAL_ID == "sdlj" ||
+        process.env.HOSPITAL_ID == "dglb")
+        &&
       listData && listData[nowX] && !listData[nowX].canModify
     ) {
       return true;
@@ -237,6 +239,7 @@ export function delSheetPage(index, callback) {
         listData &&
         listData[nowX])||
       (process.env.HOSPITAL_ID == "sdlj" && listData && listData[nowX])||
+      (process.env.HOSPITAL_ID == "dglb" && listData && listData[nowX])||
       (process.env.HOSPITAL_ID == "qhwy" && listData && listData[nowX])
     ) {
       return !listData[nowX].canModify;
@@ -335,7 +338,7 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
   sheetInfo.masterInfo = bodyData;// 主表信息
   listData=listDataList
   try {
-    if (['foshanrenyi','fsxt', 'gdtj'].includes(process.env.HOSPITAL_ID)) {
+    if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
       titleList = titleData.FieldSetting
       customOptions = titleData.Options
     } else {

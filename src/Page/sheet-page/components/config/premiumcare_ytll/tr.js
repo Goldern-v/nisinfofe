@@ -47,7 +47,7 @@ import {
       name: "入量-名称"
     },
     {
-      key: "expand3", //入量- 途径
+      key: "way", //入量- 途径
       value: "",
       event: keyf1,
       textarea: {

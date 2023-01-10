@@ -55,5 +55,5 @@ export const getWardExecuteZXY = ( params ) => {
 // 护记PC体征同步
 export const weihaiVitalSignPost = ( params ) => {
   return axios.post(
-    `${apiPath}/record/internal_eval_weihai/vitalSignPost`, params);
+    `${apiPath}/record/internal_eval_weihai/vitalSignPost`,qs.stringify({...params}) );
 };
