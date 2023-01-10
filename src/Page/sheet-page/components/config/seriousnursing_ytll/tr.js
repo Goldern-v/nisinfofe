@@ -23,7 +23,7 @@ export default [
     value: ""
   },
   {
-    key: "recordMonth", //日期
+    key: "recordMonth", //日期 
     value: "",
     event: event_date,
     click: click_date
@@ -112,6 +112,9 @@ export default [
     key: "food", //入量-名称
     value: "",
     event: keyf1,
+    textarea: {
+      width: 60
+    },
     name: "入量名称"
   },
   {
@@ -126,6 +129,9 @@ export default [
     key: "discharge", //出量-名称
     value: "",
     event: keyf1,
+    textarea: {
+      width: 60
+    },
     name: "出量名称"
   },
   {

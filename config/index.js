@@ -41,7 +41,7 @@ const currentTargetUrl = (() => {
   switch (HOSPITAL_ID) {
     /** 厚街 */
     case "hj":
-      // return "http://120.197.141.41:9091" //厚街正式
+      return "http://120.197.141.41:9091" //厚街正式
       // return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
     // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
@@ -90,7 +90,7 @@ const currentTargetUrl = (() => {
       return "http://218.14.180.38:9094" // 江门妇幼正式
       // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
       // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
-      // return "http://192.168.20.82:8080" // 本地
+      // return "http://192.168.3.152:9091" // 本地
 
 
     /** 中山七 */
@@ -160,12 +160,12 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://192.168.20.147:9091"  // 双艳
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
       // return "http://120.24.240.231:19097" //
       // return "http://192.168.103.16:9091" //
       // return "http://218.13.87.27:9094" //
-      // return "https://info.cr-health.com:20215"
+      return "https://info.cr-health.com:20215"
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -205,9 +205,9 @@ const currentTargetUrl = (() => {
 
     // 烟台玲珑
     case 'ytll':
-      return "http://221.214.210.170:39094"  // 正式
+      // return "http://221.214.210.170:39094"  // 正式
       // return 'http://192.168.1.54:9866'
-      // return 'http://192.168.1.54:9893' // 烟台玲珑测试环境
+      return 'http://192.168.1.54:9893' // 烟台玲珑测试环境
       // return "http://218.13.87.27:9094" //
 
 

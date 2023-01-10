@@ -31,13 +31,13 @@ export function getRowNum(index) {
     return 22;
   } else if (sheetInfo.sheetType == "intervention_cure"||sheetInfo.sheetType == "icu_cpr_xg") {
     return 15;
-  } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc" || sheetInfo.sheetType == "ops_linyi" || sheetInfo.sheetType == "premiumcare_ytll") {
+  } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc" || sheetInfo.sheetType == "ops_linyi" ) {
     return 26;
   } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj" || sheetInfo.sheetType == "iabp_fs" || sheetInfo.sheetType == "labor_con_ytll"|| sheetInfo.sheetType == "labor_ytll") {
     return 33;
   } else if (sheetInfo.sheetType == "icu_lc") {
     return 22;
-  } else if (sheetInfo.sheetType == "special") {
+  } else if (sheetInfo.sheetType == "special"|| sheetInfo.sheetType == "premiumcare_ytll") {
     return 23;
   } else if (sheetInfo.sheetType == "neonatology_picc") {
     return 9;

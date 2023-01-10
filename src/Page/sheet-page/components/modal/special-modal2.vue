@@ -628,7 +628,7 @@
                     maxlength="10"
                     style="width: 140px"
                     v-else-if="
-                      sheetInfo.sheetType === 'common_hd' &&
+                      (sheetInfo.sheetType === 'common_hd'||sheetInfo.sheetType === 'seriousnursing_ytll') &&
                       (key === 'food' || key === 'discharge')
                     "
                   />
@@ -1510,7 +1510,7 @@ export default {
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ''
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj', 'zhzxy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll'].includes(this.HOSPITAL_ID)) {
         const itemListTime = config.recordDate ||
           record[0].find((item) => item.key == "recordDate").value
         if(!itemListTime){
@@ -2097,9 +2097,11 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "common_wj") {
-              //富文本出错 如果走普通的  就是这个长度
-              if (GetLength(text) > 40) {
+            } else if (
+              this.sheetInfo.sheetType === "common_wj" || 
+              this.sheetInfo.sheetType === "babyarea_fs" 
+            ) {
+              if (GetLength(text) > 27) {
                 result.push(text);
                 text = allDoc[i];
               } else {

@@ -126,7 +126,9 @@ export function delSheetPage(index, callback) {
     if (
       (process.env.HOSPITAL_ID == "nanfangzhongxiyi" ||
         process.env.HOSPITAL_ID == "xiegang" ||
-        process.env.HOSPITAL_ID == "sdlj") &&
+        process.env.HOSPITAL_ID == "sdlj" ||
+        process.env.HOSPITAL_ID == "dglb")
+        &&
       listData && listData[nowX] && !listData[nowX].canModify
     ) {
       return true;
@@ -237,6 +239,7 @@ export function delSheetPage(index, callback) {
         listData &&
         listData[nowX])||
       (process.env.HOSPITAL_ID == "sdlj" && listData && listData[nowX])||
+      (process.env.HOSPITAL_ID == "dglb" && listData && listData[nowX])||
       (process.env.HOSPITAL_ID == "qhwy" && listData && listData[nowX])
     ) {
       return !listData[nowX].canModify;
