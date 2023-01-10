@@ -8,7 +8,7 @@
     <!-- {{sheetInfo.relObj}} -->
     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'baby_whhk'">
       <span>
-        科室：
+        科别：
         <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
@@ -30,7 +30,7 @@
     </div>
     <div class="info-con" flex="main:justify" v-else>
       <span>
-        科室：
+        科别：
         <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
@@ -77,6 +77,22 @@
           <input type="text" v-model="sheetInfo.relObj.zgbw" style="border-bottom: 1px solid #000; width: 120px"/>
         </span>
       </template>
+    </div>
+    <div class="info-con">
+      <span v-if="['obstetriccare_whhk'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)">
+        入院诊断：
+        <div
+          class="bottom-line"
+          style="
+            min-width: 1100px;
+            min-height: 13px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          "
+        >
+          {{ diagnosis }}
+        </div>
+      </span>
     </div>
     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'intravenous_whhk'">
       <span>
@@ -163,7 +179,25 @@ export default {
         }
       }
     },
-
+    diagnosis() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        this.patientInfo.diagnosis
+      );
+    },
   },
   methods: {
     updateBirthDay() {
@@ -175,6 +209,17 @@ export default {
         },
         this.patientInfo.birthday,
         "修改出生日期"
+      );
+    },
+    updateDiagnosis(key, label, autoText) {
+      window.openSetTextModal(
+        (text) => {
+          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          this.$message.success(`修改入院诊断成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.diagnosis,
+        `修改入院诊断`
       );
     },
     updateTetxInfo(key, label, autoText) {

@@ -247,7 +247,7 @@ export default [
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
-    name: "入量量",
+    name: "入量",
     next: 'ml',
     textarea: {
       width: 35
@@ -268,7 +268,7 @@ export default [
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
-    name: "出量量",
+    name: "出量",
     next: 'ml',
     textarea: {
       width: 35
@@ -281,7 +281,7 @@ export default [
     name: "健康教育",
     next: '',
     autoComplete: { data: jkjyList },
-    splice: true,
+    splice: ',',
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 50
@@ -293,7 +293,7 @@ export default [
     event: keyf1,
     name: "护理措施",
     autoComplete: { data: hlcsList },
-    splice: true,
+    splice: ',',
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 50

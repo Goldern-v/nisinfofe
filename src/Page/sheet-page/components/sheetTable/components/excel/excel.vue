@@ -88,7 +88,7 @@
         class="body-con"
         @dblclick="openEditModal(tr, data, $event)"
         v-for="(tr, y) in data.bodyModel"
-        :id ="`row_${y}`" 
+        :id ="`row_${y}`"
         :class="[
           {
             inPreview:
@@ -536,8 +536,8 @@
             sheetInfo.sheetType == 'neurosurgery_hd' ||
             sheetInfo.sheetType == 'stress_injury_hd' ||
             sheetInfo.sheetType == 'common_sn' ||
-            sheetInfo.sheetType == 'maternity_sn' || 
-            sheetInfo.sheetType == 'postpartum_dglb' || 
+            sheetInfo.sheetType == 'maternity_sn' ||
+            sheetInfo.sheetType == 'postpartum_dglb' ||
             sheetInfo.sheetType == 'prenatal_dglb'||
             sheetInfo.sheetType == 'baby_dglb' ||
             sheetInfo.sheetType == 'baby_obs_dglb'
@@ -1106,7 +1106,7 @@ export default {
       }
     },
     setTitle(item,item2) {
-      if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
         // if (item2.fromAddPage) {
         //   return
         // }
@@ -1167,7 +1167,7 @@ export default {
     },
     addNullRow(index, row) {
       let newRow = nullRow();
-      if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
         // 发送请求。有自定义标题且含下拉的。放进去
         const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
         findListByBlockId(startPageIndex,endPageIndex).then(res=>{
@@ -1181,7 +1181,7 @@ export default {
                }
                return option
              })
-             const set =new Set(fieldEnArr) 
+             const set =new Set(fieldEnArr)
              const newFieldEnArr=[...set]
              //去重完。清空下拉数据。不然会重复
              newRow.map(row=>{
@@ -1197,7 +1197,7 @@ export default {
                }
                return row
              })
-             //添加下拉数据  
+             //添加下拉数据
              optionArr.forEach(option=>{
               if(option.pageIndex==this.index){
                 newRow=newRow.map(activeKey=>{
