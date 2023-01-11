@@ -25,7 +25,12 @@
       </span>
       <span>
         新生儿性别：
-        <input type="text" v-model="sheetInfo.relObj.xsexb" style="border-bottom: 1px solid #000; width: 70px"/>
+        <input
+          type="text"
+          v-model="sheetInfo.relObj['xsexb']"
+          style="border-bottom: 1px solid #000; width: 70px"
+          :data-value="sheetInfo.relObj.xsexb"
+        />
       </span>
     </div>
     <div class="info-con" flex="main:justify" v-else>
@@ -64,17 +69,32 @@
               v-model="sheetInfo.relObj[item]"
             />{{ item }}
           </label>
-          <input type="text" v-model="sheetInfo.relObj.other" style="border-bottom: 1px solid #000"/>
+          <input
+            type="text"
+            v-model="sheetInfo.relObj.other"
+            style="border-bottom: 1px solid #000"
+            :data-value="sheetInfo.relObj.other"
+          />
         </div>
       </div>
       <template v-if="sheetInfo.sheetType === 'insulin_whhk'">
         <span>
           置管日期：
-          <input type="text" v-model="sheetInfo.relObj.zgrq" style="border-bottom: 1px solid #000; width: 110px"/>
+          <input
+            type="text"
+            v-model="sheetInfo.relObj.zgrq"
+            style="border-bottom: 1px solid #000; width: 110px"
+            :data-value="sheetInfo.relObj.zgrq"
+          />
         </span>
         <span>
           置管部位：
-          <input type="text" v-model="sheetInfo.relObj.zgbw" style="border-bottom: 1px solid #000; width: 120px"/>
+          <input
+            type="text"
+            v-model="sheetInfo.relObj.zgbw"
+            style="border-bottom: 1px solid #000; width: 120px"
+            :data-value="sheetInfo.relObj.zgbw"
+          />
         </span>
       </template>
     </div>
@@ -97,19 +117,39 @@
     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'intravenous_whhk'">
       <span>
         置管日期：
-        <input type="text" v-model="sheetInfo.relObj.zgrq" style="border-bottom: 1px solid #000; width: 110px"/>
+        <input
+          type="text"
+          v-model="sheetInfo.relObj.zgrq"
+          style="border-bottom: 1px solid #000; width: 110px"
+          :data-value="sheetInfo.relObj.zgrq"
+        />
       </span>
       <span>
         置管部位：
-        <input type="text" v-model="sheetInfo.relObj.zgbw" style="border-bottom: 1px solid #000; width: 120px"/>
+        <input
+          type="text"
+          v-model="sheetInfo.relObj.zgbw"
+          style="border-bottom: 1px solid #000; width: 120px"
+          :data-value="sheetInfo.relObj.zgbw"
+        />
       </span>
       <span>
         导管置入长度(厘米)：
-        <input type="text" v-model="sheetInfo.relObj.dgzrcd" style="border-bottom: 1px solid #000; width: 80px"/>
+        <input
+          type="text"
+          v-model="sheetInfo.relObj.dgzrcd"
+          style="border-bottom: 1px solid #000; width: 80px"
+          :data-value="sheetInfo.relObj.dgzrcd"
+        />
       </span>
       <span>
         导管外露长度(厘米)：
-        <input type="text" v-model="sheetInfo.relObj.dgwlcd" style="border-bottom: 1px solid #000; width: 80px"/>
+        <input
+          type="text"
+          v-model="sheetInfo.relObj.dgwlcd"
+          style="border-bottom: 1px solid #000; width: 80px"
+          :data-value="sheetInfo.relObj.dgwlcd"
+        />
       </span>
     </div>
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
@@ -122,6 +162,7 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
+import bus from "vue-happy-bus";
 export default {
   props: {
     patientInfo: Object,
@@ -129,6 +170,7 @@ export default {
   },
   data() {
     return {
+      bus: bus(this),
       sheetInfo,
       showAge: ['labor_whhk'], // 显示年龄
     };
