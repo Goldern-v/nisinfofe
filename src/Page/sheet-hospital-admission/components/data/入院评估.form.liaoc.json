@@ -1679,7 +1679,7 @@
             "可疑（2级）分2次以上，能不呛咳地咽下",
             "异常（3级）能1次咽下，但有呛咳",
             "异常（4级）分2次以上咽下，但有呛咳",
-            "异常（5级）频繁呛咳，不能全部咽下",	
+            "异常（5级）频繁呛咳，不能全部咽下",
             "不能评定"
           ],
           "rule": [
@@ -2958,7 +2958,7 @@
           "type": "select",
           "title": "营养风险筛查评估",
           "style": null,
-          "titleStyle": "width:80px!important",
+          "titleStyle": "width:80px!important; height:30px !important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "class": null,
@@ -2988,6 +2988,63 @@
                 "name": "S0618",
                 "type": "independent",
                 "parentName": "S0618",
+                "showHead": "true"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "S0624",
+          "type": "select",
+          "title": "早期预警评分",
+          "style": null,
+          "titleStyle": "width:80px!important; height:30px !important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "class": null,
+          "options": [
+            "改良早期预警评分（MEWS）",
+            "儿童早期预警评分(PEWS)",
+            "新生儿早期预警评估"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "改良早期预警评分（MEWS）",
+                "cleanKey": "无",
+                "title": "改良早期预警评分（MEWS）",
+                "default": "改良早期预警评分（MEWS）",
+                "name": "S0624",
+                "type": "independent",
+                "parentName": "S0624",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "儿童早期预警评分(PEWS)",
+                "cleanKey": "无",
+                "title": "儿童早期预警评分(PEWS)",
+                "default": "儿童早期预警评分(PEWS)",
+                "name": "S0624",
+                "type": "independent",
+                "parentName": "S0624",
+                "showHead": "true"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "新生儿早期预警评估",
+                "cleanKey": "无",
+                "title": "新生儿早期预警评估",
+                "default": "新生儿早期预警评估",
+                "name": "S0624",
+                "type": "independent",
+                "parentName": "S0624",
                 "showHead": "true"
               }
             },
@@ -3406,7 +3463,7 @@
       "classes": null,
       "readOnly": null,
       "children": [
-        
+
         {
           "name": "I001820",
           "type": "select",
@@ -3586,7 +3643,7 @@
             }
           ]
         },
-        { 
+        {
           "name": "I001841",
           "type": "select",
           "title": "腹痛",
@@ -3632,7 +3689,7 @@
             }
           ]
         },
-        
+
         {
           "name": "I001459",
           "type": "select",
@@ -4108,7 +4165,7 @@
           "class": null,
           "readOnly": null
         },
-        
+
         {
           "name": "I001483",
           "type": "select",

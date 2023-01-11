@@ -1,0 +1,763 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "_development",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "聊城市第二人民医院",
+      "formName": "新生儿早期预警评估"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0624",
+      "formApiCode": "E0624",
+      "formName": "新生儿早期预警评估",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "evalDate",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalDate",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "已保存"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "体温(℃)",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I628001",
+          "type": "radio",
+          "title": "36.5-37.4(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I628001",
+          "type": "radio",
+          "title": "36.0-36.4,37.5-38.0(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I628001",
+          "type": "radio",
+          "title": "<36.0,>38.0(2)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "心率（次/分）",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I630002",
+          "type": "radio",
+          "title": "100-159(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630002",
+          "type": "radio",
+          "title": "80-99,160-179(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630002",
+          "type": "radio",
+          "title": "180-219(2)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630002",
+          "type": "radio",
+          "title": "<80,>220(3)",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "呼吸",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I630003",
+          "type": "radio",
+          "title": "31-50(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630003",
+          "type": "radio",
+          "title": "20-30,51-70(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630003",
+          "type": "radio",
+          "title": ">70(2)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630003",
+          "type": "radio",
+          "title": "<20(3)",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "吸气性 三凹征",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I630004",
+          "type": "radio",
+          "title": "无(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630004",
+          "type": "radio",
+          "title": "轻度(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630004",
+          "type": "radio",
+          "title": "中度(2)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630004",
+          "type": "radio",
+          "title": "重度或呼吸暂停(3)",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "意识状态",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I624005",
+          "type": "radio",
+          "title": "清醒(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I624005",
+          "type": "radio",
+          "title": "嗜睡或激惹(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I624005",
+          "type": "radio",
+          "title": "迟钝或抽搐(2)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I624005",
+          "type": "radio",
+          "title": "松软或昏迷(3)",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "血氧饱和度（100%）",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I630006",
+          "type": "radio",
+          "title": "胎龄＜37周(>88),胎龄≥37周(>90)(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630006",
+          "type": "radio",
+          "title": "胎龄＜37周(80-88),胎龄≥37周(85-90)(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630006",
+          "type": "radio",
+          "title": "胎龄＜37周(70-79),胎龄≥37周(80-84)(1)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630006",
+          "type": "radio",
+          "title": "胎龄＜37周(<70),胎龄≥37周(<80)(1)",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "末梢血糖(mmol/L)",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I630008",
+          "type": "radio",
+          "title": "2.6-7.0(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630008",
+          "type": "radio",
+          "title": "1.7-2.5,7.1-11.1(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630008",
+          "type": "radio",
+          "title": "1.1-1.7,＞11.1(2)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630008",
+          "type": "radio",
+          "title": "<1.1(3)",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "毛细血管充盈时间",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I630009",
+          "type": "radio",
+          "title": "<3(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630009",
+          "type": "radio",
+          "title": "3(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630009",
+          "type": "radio",
+          "title": "4(2)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I630009",
+          "type": "radio",
+          "title": "≥5(3)",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "evalScore",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalScore",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "code": "evalScore",
+          "value": 0,
+          "placeholder": "评估得分",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true
+        }
+      ]
+    }
+
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

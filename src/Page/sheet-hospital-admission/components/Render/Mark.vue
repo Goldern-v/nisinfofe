@@ -181,18 +181,6 @@ export default {
       this.obj &&
       this.obj.hasOwnProperty("value") > -1 &&
       this.obj.value &&
-      this.obj.value.constructor !== Array
-    ) {
-      // console.log(this.obj, this.obj.value, "aaaaaaaaaaa");
-      // setTimeout(() => {
-      //   this.inputValue = this.obj.value;
-      //   this.$refs[refName].setCurrentValue(this.obj.value + "");
-      // }, 1000);
-    }
-    if (
-      this.obj &&
-      this.obj.hasOwnProperty("value") > -1 &&
-      this.obj.value &&
       this.obj.value.constructor === Array
     ) {
       this.inputValue = this.obj.value.toString();
@@ -204,28 +192,9 @@ export default {
       this.$refs[refName].$refs.input.focus();
       console.log("focus", this.$refs[refName]);
     }
-
-    // console.log("inputMounted", this.$refs, this.$root.$refs);
-    // focus()  this.$refs.input.value
-    // try {
-    //   let modelObj = window.formObj.model || this.formObj.model;
-    //   if (modelObj && modelObj[refName]) {
-    //     this.checkValueRule(modelObj[refName]);
-    //     this.$refs[refName].setCurrentValue(modelObj[refName]);
-    //   }
-    // } catch (error) {
-    //   //
-    // }
   },
   created() {
     let refName = this.obj.name + "";
-    console.log(
-      "created:refName",
-      refName,
-      window.formObj,
-      this.formObj,
-      this.formObj.dictionary
-    );
     try {
       let dictionary = {};
       if (window.formObj && window.formObj.hasOwnProperty("dictionary")) {
@@ -238,7 +207,6 @@ export default {
       let options = dictionary[refName]
         ? dictionary[refName]
         : this.obj.options;
-      console.log("created:options", this.obj.title, options);
       if (options && options.length > 0) {
         if (options[0].constructor === Object) {
           this.obj.options = options;
@@ -271,7 +239,6 @@ export default {
         this.obj.rule &&
         this.obj.rule.constructor === Array
       ) {
-        console.log("rule:", this.obj.rule);
         // 遍历规则
         this.obj.rule.map((r) => {
           let [min, max] = [Number(r.min), Number(r.max)];
@@ -299,7 +266,6 @@ export default {
             // return textResult;
           } else if (r.equal && r.equal === valueNew) {
             this.obj.style = r.style;
-            // this.$refs[this.obj.name].$refs.input.style = this.obj.style;
             // 替换显示 r.display
             if (
               r.display &&
@@ -313,7 +279,6 @@ export default {
               );
             }
             textResult = r.display ? r.display : "";
-            // return textResult;
           } else if (r.equals && r.equals.indexOf(valueNew) !== -1) {
             this.obj.style = r.style;
             // 替换显示 r.display
@@ -343,7 +308,6 @@ export default {
             ) {
               this.obj.style = r.style;
             }
-            // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.indexOf) {
             if ((valueNew + "").indexOf(r.indexOf) > -1) {
               this.obj.style = r.style;
@@ -351,7 +315,6 @@ export default {
           } else if (r.split && valueNew && valueNew.indexOf(r.split) > -1) {
             if (r.maxs) {
               let arr = valueNew.split(r.split) || [];
-              console.log(arr, "arr", r.split, "split", valueNew, "valueNew");
               if (r.maxs.length === arr.length) {
                 for (let i = 0; i < arr.length; i++) {
                   if (arr[i] && arr[i] > r.maxs[i]) {
@@ -385,16 +348,6 @@ export default {
     inputFocus(e, child) {
       let self = this;
       let xy = e.target.getBoundingClientRect();
-      console.log(
-        "inputFocus",
-        e,
-        child,
-        this.formObj.model,
-        this.inputValue,
-        xy,
-        this.$refs,
-        this.$root.$refs
-      );
       let delt = xy.height;
 
       if (this.$refs[this.obj.name]) {
