@@ -710,24 +710,6 @@ export default {
       }
       //
       // 评估得分：0-20分完全依赖；20-40分严重依赖；40-60分明显依赖；＞60分基本自理
-      //
-      console.log(
-        "radioClicked",
-        e,
-        "child:",
-        child,
-        "formObj:",
-        this.formObj,
-        "selectedItems",
-        this.formObj.selectedItems,
-        this.formObj.model,
-        e.target.tagName,
-        e.target.checked,
-        "index",
-        index,
-        "score",
-        score
-      );
     },
     helpClick(e, child) {
       console.log("helpClick", e, child, this.formObj.model, e.target.tagName);
@@ -749,30 +731,18 @@ export default {
         list: this.$root.$refs[this.formCode][child.name].currentValue || "",
         mode: 1,
         callback: res => {
-          console.log("人体图结果:", res);
-          // this.$root.$refs[this.formCode][child.name].$refs.input.value = res;
-          // this.$root.$refs[this.formCode][child.name].setCurrentValue(res);
           this.setElementValue(child.name, res);
           this.formObj.model[child.name] = res;
-          // this.$root.$refs[this.formCode][child.name].value = res;
         }
       };
       this.$root.$refs.bodyModal.openBox(config);
     },
     makeRefName(child = null, cindex = -1) {
-      // child.type+child.name+child.title+cindex
       let refName = child.type + child.name + child.title + cindex;
-
-      // let refName = this.element.type + this.element.name + this.element.title+this.childIndex;
-      console.log("---makeRefName", refName);
-      // if (this.$refs[refName]) {
-      //   this.$root.$refs[refName] = this.$refs[refName];
-      // }
       return refName;
     },
     getUUID(child = null, cindex = -1) {
       let uuid_ = uuid.v1();
-      // console.log(uuid_)
       if (child) {
         this.childIndex = cindex;
         this.elementName = child.name;

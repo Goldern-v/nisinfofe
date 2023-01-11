@@ -237,12 +237,9 @@ export default {
             }
           });
         } else {
-          // file.dialogs.push(djson);
-          // file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
           try {
             title = djson.formSetting.formTitle.formName;
             this.setPatientInfo(djson, patient);
-            // file.dialogs.push(djson);
             file.dialogs[title + ""] = JSON.parse(JSON.stringify(djson));
           } catch (error) {
           }
@@ -262,7 +259,6 @@ export default {
         file.pageSetting.mode = "development";
         this.fileJSON.pageSetting.mode = "development";
       }
-      // window.file = this.fileJSON;
     },
     // 显示空状态的值
     setMessage(msg) {
@@ -287,7 +283,6 @@ export default {
         }
         formObj.I001003 = data.nation // 名族
       }
-      // alert(status);
       //
       this.isShow = true;
 
@@ -304,7 +299,6 @@ export default {
         this.$refs["renderForm"].runDevMode();
       }
 
-      // this.loading = false;
 
       // 滚动到顶端
       document.querySelector(".sheetTable-contain").scrollTop = 0;
@@ -316,15 +310,12 @@ export default {
         this.fillForm(formObj.model);
         this.bus.$emit("setHosptialAdmissionLoading", false);
       }, 100);
-      // console.log("数据回填表单", this.$root.$refs);
     },
     updateFunc(value) {
       console.log("updateFunc!!", value);
     },
     getOldFormInfo(callback = null) {
-      // getOldFormCode
       if (this.formCode && this.wardCode) {
-        // let res = await
         getOldFormCode(this.formCode, this.wardCode).then(res => {
           if (!res) {
             return {};
@@ -333,20 +324,10 @@ export default {
             data: {data: oldFormInfo}
           } = res;
           this.oldFormInfo = oldFormInfo;
-          // this.$store.commit("upOldFormInfo", oldFormInfo);
           this.$store.commit(
             "upOldFormInfo",
             JSON.parse(JSON.stringify(oldFormInfo))
           );
-          // try {
-          //   //
-          //   if (this.oldFormInfo && this.oldFormInfo.name) {
-          //     this.formObj.formSetting.formTitle.formName = this.oldFormInfo.name;
-          //   } else {
-          //     this.formObj.formSetting.formTitle.formName = "入 院 评 估 表";
-          //   }
-          // } catch (error) {}
-          //
           if (callback) {
             callback();
           }
@@ -371,7 +352,6 @@ export default {
           if (formObj.hasOwnProperty(key)) {
             let element = formObj[key];
             let textResult = "";
-            // let refObj = this.$root.$refs[this.formCode][key];
             // 文本回填
             if (
               this.$root.$refs[this.formCode][key] &&
@@ -379,7 +359,6 @@ export default {
                 this.$root.$refs[this.formCode][key].type
               ) > -1
             ) {
-              // this.$root.$refs[this.formCode][key].setCurrentValue(textResult);
               // 状态框回显数据
               if (key === "status") {
                 textResult = this.$root.$refs[this.formCode][
@@ -393,16 +372,10 @@ export default {
                 );
               } else {
                 // 输入框回显数据
-                // if(element){
                 textResult = this.$root.$refs[this.formCode][
                   key
                   ].checkValueRule(element);
                 this.$root.$refs[this.formCode][key].setCurrentValue(element);
-                // }
-                // if (this.$root.$refs[key + "_clone"]) {
-                //   this.$root.$refs[key + "_clone"].setCurrentValue(element);
-                //   this.$root.$refs[key + "_clone"].checkValueRule(element);
-                // }
               }
             }
             // 日期回填
@@ -443,19 +416,10 @@ export default {
                   }
                 }
               }
-              //   continue
-              // }
-              // this.$root.$refs[this.formCode][key] = element.split(',');
               if (element) {
                 let value = element + "";
                 let arr = value.split(",");
                 if (arr) {
-                  // for (const subkey in this.$root.$refs[this.formCode][key]) {
-                  //   if (this.$root.$refs[this.formCode][key].hasOwnProperty(subkey) && arr.indexOf(subkey)>-1 && this.$root.$refs[this.formCode][key][subkey].hasOwnProperty('type')===-1) {
-                  //     this.$root.$refs[this.formCode][key][subkey].model=[]
-                  //     this.$root.$refs[this.formCode][key][subkey].push(subkey)
-                  //   }
-                  // }
                   arr.map(c => {
                     try {
                       if (
@@ -472,9 +436,6 @@ export default {
                           ].$parent.checkboxValue = [c];
                         //
                         if (value === c) {
-                          // if(this.$root.$refs['formGroupColBox'+this.obj.title]){
-                          //  this.$root.$refs['formGroupColBox'+this.obj.title].hidden = true
-                          // }
                           this.$root.$refs[this.formCode][key][c].runTasks();
                         }
                       }
@@ -496,11 +457,7 @@ export default {
                       ) {
                         this.$root.$refs[this.formCode][key][c].checked = true;
                       }
-                      // else{
-                      //   this.$root.$refs[this.formCode][key][c].checked = false;
-                      // }
-                      //
-                      //
+
                       if (
                         this.$root.$refs[this.formCode][key][c].$parent &&
                         this.$root.$refs[this.formCode][key][

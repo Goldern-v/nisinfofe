@@ -1,0 +1,440 @@
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "_development",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "聊城市第二人民医院",
+      "formName": "儿童早期预警评分(PEWS)"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "value": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "value": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "value": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "value": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "value": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "value": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "value": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E0509_2",
+      "formApiCode": "E0509_2",
+      "formName": "儿童早期预警评分(PEWS)",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "evalDate",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalDate",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;text-align: right;",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "136px",
+          "hiddenTips": true,
+          "value": "",
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                "已保存 "
+              ],
+              "style": "color:blue",
+              "display": "已保存"
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "意识状态",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I509002",
+          "type": "radio",
+          "title": "正常(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I509002",
+          "type": "radio",
+          "title": "嗜睡(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I509002",
+          "type": "radio",
+          "title": "激惹(2)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I509002",
+          "type": "radio",
+          "title": "昏睡/昏迷，对疼痛反应下降",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "心血管系统",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I509003",
+          "type": "radio",
+          "title": "肤色粉红，CRT 1-2s(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I509003",
+          "type": "radio",
+          "title": "肤色苍白，CRT 3s(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I509003",
+          "type": "radio",
+          "title": "肤色发灰，CRT 4s，心率较正常升高20次/分(2)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I509003",
+          "type": "radio",
+          "title": "肤色灰，皮肤湿冷，CRT≥5s，心率较正常升高30次/分，或心动过缓(3)",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupVerticalBox",
+      "title": "呼吸系统",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I509004",
+          "type": "radio",
+          "title": "正常范围，无吸气性凹陷(0)",
+          "code": "0",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I509004",
+          "type": "radio",
+          "title": "呼吸频率较正常升高10次/分氧浓度30%或吸氧流量 3L/min(1)",
+          "code": "1",
+          "score": 1,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I509004",
+          "type": "radio",
+          "title": "呼吸频率较正常升高20次/分有吸气性凹陷氧浓度40%或吸氧流量6L/min(2)",
+          "code": "2",
+          "score": 2,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I509004",
+          "type": "radio",
+          "title": "呼吸频率较正常减少5次/分伴胸骨吸气性凹陷呻吟氧浓度50%或吸氧流量8L/min(3)",
+          "code": "3",
+          "score": 3,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "evalScore",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "evalScore",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "code": "evalScore",
+          "value": 0,
+          "placeholder": "评估得分",
+          "style": "width:80px",
+          "inputWidth": "136px",
+          "class": null,
+          "readOnly": true
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}

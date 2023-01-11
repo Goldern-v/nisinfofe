@@ -314,6 +314,7 @@ export default {
         'gdtj',
         'whsl',
         'lyyz',
+        'ytll',
         'nfyksdyy'
       ].includes(this.HOSPITAL_ID);
     },
