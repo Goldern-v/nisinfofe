@@ -257,7 +257,7 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9896/'
     //
     case 'nfyksdyy':
-      return ' http://59.38.110.189:9092'
+      return 'http://59.38.110.189:9092'
 
     case 'dglb':
       return 'http://http://10.51.7.22:9094'
