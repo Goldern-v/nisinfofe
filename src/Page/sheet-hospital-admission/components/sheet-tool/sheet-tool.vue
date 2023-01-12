@@ -693,8 +693,6 @@ export default {
 
         });
       }
-      // this.bus.$emit("openHosptialAdmissionForm", item);
-      // this.bus.$emit('refreshNursingOrderSheetPage', true,e)
     },
     reloadForm() {
       this.currentFormConfig.isDevMode = true;
@@ -1292,6 +1290,7 @@ export default {
     },
     hotkeyForm() {
       window.document.onkeydown = (e) => {
+        console.log('gao');
         var currKey = 0;
         e = e || event || window.event;
         currKey = e.keyCode || e.which || e.charCode;
