@@ -234,10 +234,11 @@
           text-align: left;
         }
         span:first-child {
-          flex: 1
+          flex: 1;
+          white-space: nowrap;
         }
         span:nth-child(2) {
-          width: 50px;
+          /* width: 50px; */
         }
       }
     }
