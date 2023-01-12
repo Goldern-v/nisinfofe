@@ -101,7 +101,7 @@
             HOSPITAL_ID != 'whfk' &&
             HOSPITAL_ID != 'lyyz' &&
             HOSPITAL_ID != 'ytll' &&
-            HOSPITAL_ID != 'whsl'
+            HOSPITAL_ID != 'whsl'&&HOSPITAL_ID !='nfyksdyy'
           "
         >
           <div class="cell">
