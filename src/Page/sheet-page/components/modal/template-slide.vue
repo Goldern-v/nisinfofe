@@ -58,10 +58,10 @@
           </div>
           <div class="list-con" v-else :style="listconHeight">
             <div v-for="(item, key) in filterData" :key="key">
-              <templateItem :data="item" :key="item.id"></templateItem>
+              <templateItem :data="item" :key="item.id" @openAddModal="openAddModal"></templateItem>
             </div>
           </div>
-          <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
+          <div class="footer-con" flex="main:center cross:center" @click="openAddModal()">
             <i class="iconfont icon-tianjia"></i> 新建模板
           </div>
         </div>
@@ -464,8 +464,8 @@ export default {
       });
      }
     },
-    openAddModal() {
-      this.$refs.addTemplateModal.open();
+    openAddModal(data) {
+      this.$refs.addTemplateModal.open(data);
     },
     addTemplateAtDoc(item) {
       this.bus.$emit("addTemplateAtDoc", item);
@@ -522,8 +522,9 @@ export default {
   created() {
     this.bus.$on("refreshTemplate", ()=>{
       this.typeList=[]
-      this.getData()
-      });
+      // this.getData()
+      this.onClassChange(this.class_4_zhzyx)
+    });
     if(this.HOSPITAL_ID==='whfk'){
       const arr=['cmH₂O','ml/h','EPAP','IPAP','IU','U']
       for (let index = 0; index < arr.length; index++) {
