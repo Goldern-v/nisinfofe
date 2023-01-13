@@ -101,7 +101,7 @@
             HOSPITAL_ID != 'whfk' &&
             HOSPITAL_ID != 'lyyz' &&
             HOSPITAL_ID != 'ytll' &&
-            HOSPITAL_ID != 'whsl'
+            HOSPITAL_ID != 'whsl'&&HOSPITAL_ID !='nfyksdyy'
           "
         >
           <div class="cell">
@@ -155,7 +155,7 @@
               v-if="item.expand1"
             />
           </div>
-          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'']" v-else>
+          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'', HOSPITAL_ID=='ytll'?'ytll-img':'']" v-else>
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
@@ -249,6 +249,9 @@
   .whfk-img img{
     width: 45px !important;
     height: 25px !important;
+  }
+  .ytll-img img{
+    height: 24px !important;
   }
 }
 </style>

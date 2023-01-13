@@ -232,12 +232,14 @@
 
         span {
           text-align: left;
+          white-space: nowrap;
         }
         span:first-child {
-          flex: 1
+          flex: 1;
+          overflow: hidden;
         }
         span:nth-child(2) {
-          width: 50px;
+          /* width: 50px; */
         }
       }
     }
