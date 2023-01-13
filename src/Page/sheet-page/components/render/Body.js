@@ -149,6 +149,11 @@ function switchSheetType(type) {
       schema = require("../config/neurology/tr.js").default;
     }
       break;
+    case "critical_medicine_two_hj": {
+        // 重症医学病区二区
+        schema = require("../config/critical_medicine_two_hj/tr.js").default;
+      }
+      break;
     case "obstetrics": {
       // 产科
       schema = require("../config/obstetrics/tr.js").default;

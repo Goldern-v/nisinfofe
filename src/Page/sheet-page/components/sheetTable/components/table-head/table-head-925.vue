@@ -2,7 +2,9 @@
   <div class="header-con">
     <div class="his-name" style="font-size:26px;margin-bottom:10px">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title" style="font-size:0px" v-if="sheetInfo.sheetType=='nurse_jew' || sheetInfo.sheetType== 'danger_nurse_jew'">
-      <div class="nurse_title" style="border-bottom: 1px solid #000;padding:0 5px">{{ "" | filtertitle(newPatientInfo[`nurseLevel_${this.sheetInfo.selectBlock.id}`])}}</div>
+      <div class="nurse_title" style="border-bottom: 1px solid #000;padding:0 5px">
+        {{ newPatientInfo[`nurseLevel_${this.sheetInfo.selectBlock.id}`] | filtertitle }}
+      </div>
       <div class="nurse_title">患者护理记录单</div>
     </div>
     <!-- <div class="title" style="font-size:0px" v-else-if="sheetInfo.sheetType=='danger_nurse_jew'">
@@ -154,11 +156,12 @@ export default {
     },
     newPatientInfo(){
       let nowNurseLevel=sheetInfo.relObj['nurseLevel']
-      if(sheetInfo.sheetType=='nurse_jew' || sheetInfo.sheetType== 'danger_nurse_jew' && !nowNurseLevel){
-          info(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
-            this.$set(sheetInfo.relObj,'nurseLevel',res.data.data.nursingClass)
-          })
-      }
+      // if(sheetInfo.sheetType=='nurse_jew' || sheetInfo.sheetType== 'danger_nurse_jew' && !nowNurseLevel){
+      //     info(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
+      //       this.$set(sheetInfo.relObj,'nurseLevel',res.data.data.nursingClass)
+      //     })
+      // }
+      console.log('computed', nowNurseLevel)
       return {
         ...this.patientInfo,
         [`nurseLevel_${this.sheetInfo.selectBlock.id}`] : nowNurseLevel
@@ -199,6 +202,7 @@ export default {
         (text) => {
           sheetInfo.relObj['nurseLevel'] = text;
           this.$message.success(`修改护理等级成功`);
+          console.log('sheetInfo', text, sheetInfo.relObj)
           this.bus.$emit("saveSheetPage", false);
         },
         this.nurseLevel,
@@ -210,24 +214,37 @@ export default {
     toymd(val) {
       return moment(val).format("YYYY年MM月DD日");
     },
-    filtertitle(val,nurseLevel){
-      if(!nurseLevel){
-        nurseLevel=''
-      }
-      return (nurseLevel.indexOf("特级")>-1 || nurseLevel.indexOf("一级")>-1)?"危重":"一般"
+    filtertitle(val, nurseLevel){
+      // if(!nurseLevel){
+      //   nurseLevel=''
+      // }
+      return val && (val.indexOf("特级") > -1 || val.indexOf("一级") > -1) ? "危重" : "一般"
     }
   },
   created() {
-    // if(sheetInfo.sheetType=='nurse_jew' || sheetInfo.sheetType== 'danger_nurse_jew' && !sheetInfo.relObj['nurseLevel']){
-    //   info(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
-    //     this.$set(sheetInfo.relObj,'nurseLevel',res.data.data.nursingClass)
-    //   })
-    // }
+    if(
+      sheetInfo.sheetType=='nurse_jew' ||
+      sheetInfo.sheetType== 'danger_nurse_jew' &&
+      !sheetInfo.relObj['nurseLevel']
+    ){
+      info(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
+        this.$set(sheetInfo.relObj,'nurseLevel',res.data.data.nursingClass)
+      })
+    }
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
   },
-  watch: {},
+  watch: {
+    'patientInfo.patientId'(val) {
+      console.log('watch', this.newPatientInfo, this.sheetInfo.selectBlock.id)
+      if (!this.newPatientInfo[`nurseLevel_${this.sheetInfo.selectBlock.id}`]) {
+        info(this.patientInfo.patientId, this.patientInfo.visitId).then(res => {
+          this.$set(sheetInfo.relObj, 'nurseLevel', res.data.data.nursingClass)
+        })
+      }
+    },
+  },
   components: {
     bedRecordModal
   },
