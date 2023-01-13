@@ -32,7 +32,7 @@ export default {
             { "name": "管道护理", "colspan": "1", "rowspan": "3"}, 
             { "name": "吸氧<br/>L/min", "colspan": "1", "rowspan": "3"}, 
             { "name": "体温<br/>°C", "colspan": "1", "rowspan": "3"}, 
-            { "name": "脉搏<br/>次/分", "colspan": "1", "rowspan": "3"}, 
+            { "name": "心率<br/>次/分", "colspan": "1", "rowspan": "3"}, 
             { "name": "呼吸<br/>次/分", "colspan": "1", "rowspan": "3"}, 
             { "name": "血压<br/>mmHg", "colspan": "1", "rowspan": "3"}, 
             { "name": "动脉压<br/>mmHg", "colspan": "1", "rowspan": "3"}, 

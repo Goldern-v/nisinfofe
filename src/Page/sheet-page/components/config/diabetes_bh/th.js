@@ -27,7 +27,7 @@ export default {
             { "name": "体重<br/>(kg)", "colspan": "1", "rowspan": "3"}, 
             { "name": "口服降糖药", "colspan": "4", "rowspan": "1"}, 
             { "name": "胰岛素用量", "colspan": "5", "rowspan": "1"}, 
-            { "name": "毛细血管血糖(mol/L)", "colspan": "7", "rowspan": "1"}, 
+            { "name": "毛细血管血糖(mmol/L)", "colspan": "7", "rowspan": "1"}, 
             { "name": "开单医生", "colspan": "1", "rowspan": "3"}, 
             { "name": "备注", "colspan": "1", "rowspan": "3", style: { minWidth: "180px",  maxWidth: "180px"}, }, 
             { "name": "护士签名", "colspan": "1", "rowspan": "3"}
