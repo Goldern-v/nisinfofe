@@ -107,8 +107,10 @@ export default [
     name: "阴查"
   },
   {
-    key: "note", //附注
+    key: "description", //附注
     value: "",
+    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "150px", background: "transparent" },
+    textarea: { width: 150 },
     event: keyf1,
     name: "附注",
   },

@@ -188,6 +188,7 @@ export default {
         }
         if (this.class_4_zhzyx === '1') {
           params.empNo = user.empNo
+          delete params.wardCode
         }
         saveOrUpdate(params).then(res => {
           if (this.id) {
