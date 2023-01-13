@@ -506,7 +506,7 @@
           />
         </span>
       </span>
-      <span  :class="{'common_wj':sheetInfo.sheetType == 'common_wj'}">第 {{ index + sheetStartPage }} 页</span> 
+      <span  :class="{'common_wj':sheetInfo.sheetType == 'common_wj'}">第 {{ index + sheetStartPage }} 页</span>
       <!-- 表单底部开启审核签名时需要在src\Page\sheet-page\components\render\decode.js文件中添加对应医院 -->
       <span
         class="sh-name"
@@ -605,7 +605,7 @@
         <span class="sh-name-box">
           <div
             class="sign-null-box"
-            @click="openAduitModal"
+            @click="openAduitModal(index)"
             v-if="!auditorNo"
           ></div>
           <div class="sign-in-box" v-else @click="cancelAduitModal">
@@ -2645,7 +2645,9 @@ export default {
       }
     },
     /** 审核整页 */
-    openAduitModal() {
+    openAduitModal(pageIndexs) {
+      // 需要批量审核签名
+      this.$store.commit('upPageIndexs', pageIndexs)
       let verifySignObj = "",SigndataObj=""
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
             SigndataObj = {

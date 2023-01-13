@@ -894,6 +894,8 @@ export default {
               })
             }
           decodeAyncVisttedData.uShield = this.foshanshiyiIFca ? '1' : '0'
+          const pageIndexs = this.$store.state.sheet.pageIndexs
+          decodeAyncVisttedData.pageIndex = pageIndexs
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,
