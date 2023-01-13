@@ -313,7 +313,9 @@ export default {
         "foshanrenyi",
         'gdtj',
         'whsl',
-        'lyyz'
+        'lyyz',
+        'ytll',
+        'nfyksdyy'
       ].includes(this.HOSPITAL_ID);
     },
     //是否为新出院数据

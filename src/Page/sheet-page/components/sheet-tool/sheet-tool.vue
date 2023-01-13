@@ -541,7 +541,7 @@
         flex="cross:center main:center"
         @click.stop="openZxdtbModal"
         v-if="
-           ['wujing', 'quzhou', 'weixian', 'liaocheng', 'whfk', 'whhk', 'gdtj', 'lyxrm', 'stmz', 'lyyz','ytll'].includes(HOSPITAL_ID)
+           ['wujing', 'quzhou', 'weixian', 'liaocheng', 'whfk', 'whhk', 'gdtj', 'lyxrm', 'stmz', 'lyyz','ytll','whsl', 'nfyksdyy'].includes(HOSPITAL_ID)
         "
       >
         <div class="text-con">
@@ -675,7 +675,7 @@ export default {
     return {
       bus: bus(this),
       readOnlyList: [
-        "fuyou","huadu"
+        "fuyou","huadu","zhzxy"
       ],
       tool: "",
       showCurve: false,

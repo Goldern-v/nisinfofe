@@ -52,3 +52,8 @@ export const getWardExecuteZXY = ( params ) => {
   return axios.post(
     `${apiPath}execute/getWardExecuteZXY`, params);
 };
+// 护记PC体征同步
+export const weihaiVitalSignPost = ( params ) => {
+  return axios.post(
+    `${apiPath}/record/internal_eval_weihai/vitalSignPost`,qs.stringify({...params}) );
+};

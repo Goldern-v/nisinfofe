@@ -14,7 +14,9 @@
               'whhk',
               '925',
               'gdtj',
-              'ytll'
+              'ytll',
+              'whsl',
+              'nfyksdyy'
             ].includes(HOSPITAL_ID)
           "
         >
@@ -76,7 +78,9 @@
               'whhk',
               '925',
               'gdtj',
-              'ytll'
+              'ytll',
+              'whsl',
+              'nfyksdyy'
             ].includes(HOSPITAL_ID)
           "
           style="margin-left: 20px"
@@ -256,7 +260,9 @@
                 'whhk',
                 '925',
                 'gdtj',
-                'ytll'
+                'ytll',
+                'whsl',
+                'nfyksdyy'
               ].includes(HOSPITAL_ID)
             "
           >
@@ -379,7 +385,7 @@ export default {
       bus: bus(this),
       formlist: {},
       yizhuTypeItem:"临时",
-      executeType: ["liaocheng", "lyxrm", "whhk",'ytll'].includes(this.HOSPITAL_ID)
+      executeType: ["liaocheng", "lyxrm", "whhk",'ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)
         ? "输液"
         : "",
       repeatIndicator: "",
@@ -441,9 +447,11 @@ export default {
           "whfk",
           "lyxrm",
           "whhk",
-          '925', 
+          '925',
           'stmz',
-          'ytll'
+          'ytll',
+          'whsl',
+          'nfyksdyy'
         ].includes(this.HOSPITAL_ID)
       ) {
         this.multipleSelection.map((item, index) => {
@@ -480,7 +488,7 @@ export default {
           return item;
         });
       }
-      if (["foshanrenyi",'zhzxy', "lyxrm", "whhk", '925','gdtj', 'stmz','ytll'].includes(this.HOSPITAL_ID)) {
+      if (["foshanrenyi",'zhzxy', "lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.foodSize = item.dosage;
           return item;
@@ -593,7 +601,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj', 'stmz','ytll'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
@@ -728,7 +736,7 @@ export default {
       ]
     },
     allType() {
-      if (["liaocheng", "lyxrm", "whhk", 'stmz','ytll'].includes(this.HOSPITAL_ID)) {
+      if (["liaocheng", "lyxrm", "whhk", 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",

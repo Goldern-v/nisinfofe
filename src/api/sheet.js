@@ -34,6 +34,10 @@ export const saveTitle = data => {
 export const showTitle = (patientId, visitId,startPageIndex,endPageIndex) => {
   return axios.get(`${apiPath}record/setting/list/${sheetInfo.selectBlock.id}?startPageIndex=${startPageIndex}&endPageIndex=${endPageIndex}`);
 };
+// 威海重症单药品同步-获取执行单数据
+export const getExecuteData = (params) => {
+  return axios.post(`${apiPath}form/common/ordersExecute`, params)
+}
 // 护理记录单签名
 export const sign = (patientId, visitId, data) => {
   data.patientId = patientId;

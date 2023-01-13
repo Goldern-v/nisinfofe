@@ -56,7 +56,7 @@
       </ElTabs>
     </div>
     <ElButton slot="button" @click="onClose">取消</ElButton>
-    <ElButton slot="button" type="primary" @click="onConfirm" v-if="!$store.state.shiftRecords.isLock">保存</ElButton>
+    <ElButton slot="button" type="primary" @click="onConfirm">保存</ElButton>
   </SweetModal>
 </template>
 

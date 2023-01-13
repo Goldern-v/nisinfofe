@@ -665,6 +665,16 @@ export default {
             "^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$"
           );
           let regOnlyLetterNum = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,}$/; //大于8位必须包含大写、小写和数字-北海人医
+          if(['fuyou'].includes(this.HOSPITAL_ID)){
+            getDictItem({
+              dictCode: 'propertiesConfig',
+              itemCode: 'isCaSign',
+            }).then(res=>{
+              if (res.data.code === '200') {
+                localStorage["fuyouUseCaSign"] = (res.data.data === 'true')
+              }
+            })
+          }
           if (
             ["sdlj", "hengli"].includes(this.HOSPITAL_ID) &&
             !regexp.test(this.password)

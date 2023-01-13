@@ -22,7 +22,7 @@
       id="sheet_body_con"
       :style="{ height: containHeight }"
     >
-      <div class="left-part">
+      <div class="left-part" :style="{ left: openLeft ? '0' : '-201px' }" >
 
         <patientList
           :toName="
@@ -253,6 +253,7 @@ import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/
 import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_oxytocin_sdlj from "./components/sheetTable-oxytocin_sdlj/sheetTable";
+import sheetTable_oxytocin_dglb from "./components/sheetTable-oxytocin_dglb/sheetTable";
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
 import sheetTable_prenatal_ytll from "./components/sheetTable-prenatal_ytll/sheetTable";
@@ -276,7 +277,6 @@ import {
   markList,
   splitRecordBlock,
   findListByBlockId,
-  saveAndSignApi
 } from "@/api/sheet.js";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -424,6 +424,8 @@ export default {
         return sheetTable_oxytocin_hl;
       } else if (sheetInfo.sheetType == "oxytocin_sdlj") {
         return sheetTable_oxytocin_sdlj;
+      } else if (sheetInfo.sheetType == "oxytocin_dglb") {
+        return sheetTable_oxytocin_dglb;
       } else if (sheetInfo.sheetType == "dressing_count_hl") {
         return sheetTable_dressing_count_hl;
       } else if (sheetInfo.sheetType == "intersurgerycure_qzx") {
@@ -559,7 +561,7 @@ export default {
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
       ]
       // 佛山市一 获取自定义标题数据
-      if (['foshanrenyi','fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
         fnArr.shift()
         fnArr.unshift(findListByBlockId(startPageIndex,endPageIndex))
       }
@@ -758,177 +760,6 @@ export default {
       }
       return newArr
     },
-    //双签名 签责任护士 + 质控护士签名  判断条件是 修改的记录 没有任何签名+护士本身是质控护士
-    qcDoubleSign(saveAndSignObj,qcArray){
-      console.log(`执行签名中,双签入参========>>>>>>数据:`,qcArray)
-      if (!qcArray.length) return
-        return Promise.all([saveAndSignApi({ ...saveAndSignObj, list: qcArray }), saveAndSignApi({ ...saveAndSignObj, list: qcArray, audit: true })]).then((res) => {
-          if (res[0].data.code == 200 && res[1].data.code == 200) {
-            this.$notify.success({
-              title: "提示",
-              message: "签名和审核成功",
-              duration: 1000,
-            });
-          } else {
-            if (res[0].data.code !== 200) {
-              this.$notify.error({
-                title: "提示",
-                message: "签名失败",
-                duration: 1000,
-              });
-            }
-            if (res[1].data.code !== 200) {
-              this.$notify.error({
-                title: "提示",
-                message: "审核签名失败",
-                duration: 1000,
-              });
-            }
-            this.pageLoading = false;
-          }
-        }).catch((err) => {
-          this.pageLoading = false;
-        });
-    },
-    //仅仅签质控护士，护士本身是质控护士 责任护士已经有人签名了 就只签质控护士  audit: true
-    onlyQcSign(saveAndSignObj, dutyArray) {
-      //如果存在已经签名的记录  审核护士这个流程  只需要签质控签名就行了
-      console.log(`执行签名中,单质控签名入参========>>>>>>数据:`,dutyArray)
-      if (!dutyArray.length) return
-    return new Promise((resolve, reject) => {
-      saveAndSignApi({ ...saveAndSignObj, list: dutyArray, audit: true }).then((signRes) => {
-        if (signRes.data.code == 200) {
-          this.$notify.success({
-            title: "提示",
-            message: "审核成功",
-            duration: 1000,
-          });
-          resolve(signRes)
-        }
-        this.pageLoading = false;
-      }).catch((error) => {
-        this.$notify.success({
-          title: "提示",
-          message: "审核签名失败",
-          duration: 1000,
-        });
-        this.pageLoading = false;
-      })
-    })
-    },
-    saveAndSign(data,resList){
-        let array = []
-                // 去除重复记录
-                let editList = this.deduplication(data)
-          if(resList.length){
-             //如果保存成功  就签名
-            for (let i = 0; i < resList.length; i++) {
-              const item = resList[i]
-              let obj = {}
-              editList.forEach((list,index)=>{
-                if(list.id){
-                  if(list.id==item.id){
-                    obj = item
-                  }
-                }else{
-                    if(list.recordDate ==item.recordDate){
-                      obj = item
-                    }
-                  }
-                  if (Object.keys(obj).length) {
-                array.push(obj)
-              }
-              })
-            }
-          }
-          array = this.deduplication(array)
-        const saveAndcaSignObj = {
-          Document_ID: this.sheetInfo.selectBlock.recordCode,
-          Document_Title: this.sheetInfo.selectBlock.recordName,
-          Patient_ID: this.patientInfo.patientId,
-          Visit_ID: this.patientInfo.visitId,
-          strSignData: JSON.stringify(array),
-        }
-        const saveAndVerifySignObj = {
-          patientId: this.patientInfo.patientId,
-          visitId: this.patientInfo.visitId,
-          formName: this.sheetInfo.selectBlock.recordName,
-          formCode: this.sheetInfo.selectBlock.sheetType,
-          recordId: this.sheetInfo.selectBlock.recordCode,
-          signData: JSON.stringify(array),
-        }
-        if(array.length){
-          verifyNewCaSign(saveAndcaSignObj, saveAndVerifySignObj).then(async (respon) => {
-            const { password, empNo } = respon
-            const { patientId, visitId } = this.patientInfo
-            const blockId = this.sheetInfo.selectBlock.id
-            //已经有责任护士签名的记录 这时候不用双签（不用签质控护士的记录）
-            //两个签名都为空的记录
-            /*质控状态 0为没有责任护士跟质控护士
-            1为责任护士已经签名
-            2为双签名
-            **/
-            const dutyArray = array.filter((list) => list.status == 1)
-            const qcArray = array.filter((list) => list.status ==0||!list.status)
-            const onlyDutyArray = array.filter((list) => list.status!=2)
-            const saveAndSignObj = {
-              password,
-              empNo,
-              patientId,
-              visitId,
-              blockId,
-              signType: "",
-              multiSign: false,
-            }
-            /**护士长QCR0004
-             * 普通护士QCR0006
-             * 质控护士FORM0001
-            */
-            //如果没有护长或者质控权限  保存只请求签名责任护士的接口，如果有护长或者质控权限  那就audit:true 签名质控护士
-            const qcAuthority = JSON.parse(localStorage.getItem("user")).roleManageCodeList || []
-            if (qcAuthority.includes('QCR0004') || qcAuthority.includes('FORM0001')) {
-              //如果存在修改记录是责任护士未签名 则走双签流程
-              await this.qcDoubleSign(saveAndSignObj, qcArray)
-              //如果已经存在签名 走质控护士单签流程
-              await this.onlyQcSign(saveAndSignObj, dutyArray)
-              //提示后获取数据
-              this.getSheetData().then((res) => {
-                this.pageLoading = false;
-                this.scrollFun(this.scrollTop)
-              })
-            } else {
-              //如果不是责任护士  只负责单签 签名责任护士
-              console.log(`执行签名中,责任护士入参========>>>>>>数据:`,onlyDutyArray)
-              saveAndSignApi(
-                {...saveAndSignObj,list:onlyDutyArray}
-              ).then((Response) => {
-                if (Response.data.code == 200) {
-                  this.$notify.success({
-                    title: "提示",
-                    message: "签名成功",
-                    duration: 1000,
-                  });
-                }
-                this.getSheetData().then((res) => {
-                  this.pageLoading = false;
-                  this.scrollFun(this.scrollTop)
-                });
-              }).catch((err) => {
-                this.pageLoading = false;
-              })
-            }
-
-          }).catch((err) => {
-            this.pageLoading = false;
-          })
-        }else{
-          this.getSheetData().then((res) => {
-              this.pageLoading = false;
-                this.scrollFun(this.scrollTop)
-              });
-        }
-
-      }
     },
   created() {
     //页面生成 先检查是不是有CA
@@ -1052,57 +883,23 @@ export default {
               return false
             }
           }
+          const user = JSON.parse(localStorage.getItem("user"))
+          const qcAuthority = user.roleManageCodeList || []
+            if (qcAuthority.includes('QCR0004') || qcAuthority.includes('FORM0001')) {
+              decodeAyncVisttedData.list.map((list)=>{
+                if(list.status&&list.status!=='0'){
+                  list.auditorNo = user.empNo
+                list.auditorName = user.empName
+                }
+              })
+            }
+          decodeAyncVisttedData.uShield = this.foshanshiyiIFca ? '1' : '0'
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,
             decodeAyncVisttedData
           ).then(async (res) => {
               if(res.data.code == 200){
-                // if (['foshanrenyi'].includes(this.HOSPITAL_ID) && this.foshanshiyiIFca && ayncVisitedDataList.length) {
-                //   //保存数据后  获取数据 然后审核数据是否是当前修改的数据 如果是 则调用签名
-                //   console.log(`开始执行签名接口==============>>>>>>Ca状态${this.foshanshiyiIFca}`)
-                //   showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId).then((saveRes) => {
-                //     let resList = saveRes.data.data.list.map((item) => {
-                //       item.recordMonth = moment(item.recordDate).format('MM-DD')
-                //       item.recordHour = moment(item.recordDate).format('HH:mm')
-                //       return item
-                //     })
-                //     let editList = ayncVisitedDataList.map((item) => {
-                //       item.recordMonth = moment(item.recordDate).format('MM-DD')
-                //       item.recordHour = moment(item.recordDate).format('HH:mm')
-                //       return item
-                //     })
-                //     console.log(`后台返回的签名数据==============>>>>>>数据:`,resList)
-                //     console.log(`前端拿到的修改数据============>>>>>>数据:`,editList)
-                //     if (editList.length) {
-                //       this.saveAndSign(editList, resList)
-                //     } else {
-                //       //不走保存签名过程 保存后直接获取数据
-                //       this.getSheetData().then((res) => {
-                //         this.pageLoading = false;
-                //         this.scrollFun(isInitSheetPageSize, this.scrollTop)
-                //       });
-                //     }
-                //     this.$notify.success({
-                //     title: "提示",
-                //     message: "保存成功",
-                //     duration: 1000,
-                //   });
-                //   })
-                // } else {
-                //   //除了佛一的医院  正常获取数据
-                //   this.getSheetData().then((res) => {
-                //     this.pageLoading = false;
-                //     this.scrollFun(isInitSheetPageSize, this.scrollTop)
-                //   });
-                //   this.$notify.success({
-                //     title: "提示",
-                //     message: "保存成功",
-                //     duration: 1000,
-                //   });
-                // }
-                //除了佛一的医院  正常获取数据
-                // console.log('保存',isInitSheetPageSize)
                 this.bus.$emit('initSheetPageSize')
                 this.$nextTick(()=>{
                   this.pageLoading = false;
@@ -1451,7 +1248,7 @@ export default {
     },
     "$route.path"() {
       // 针对贵州切换出入量记录单数据不刷新，如果有问题可回撤 删除贵州 影响护理记录单打开
-      if (['huadu', '925'].includes(this.HOSPITAL_ID)) {
+      if (['huadu'].includes(this.HOSPITAL_ID)) {
     this.sheetInfo.selectBlock = {}
       }
     },
@@ -1525,6 +1322,7 @@ export default {
     doctorEmr,
     sheetTable_oxytocin_hl,
     sheetTable_oxytocin_sdlj,
+    sheetTable_oxytocin_dglb,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,

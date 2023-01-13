@@ -134,7 +134,7 @@
         required
         v-if="
           !['zhzxy','gy','huadu','liaocheng','hengli',
-          'guizhou','sdlj','whfk','foshanrenyi', 'lyyz', 'ytll','whsl'].includes(HOSPITAL_ID)
+          'guizhou','sdlj','whfk','foshanrenyi', 'lyyz', 'ytll','whsl','nfyksdyy'].includes(HOSPITAL_ID)
         "
       >
         <ElInput v-model="form.riValue" />
@@ -364,7 +364,7 @@ export default {
         };
         this.oldRecordDate = form.recordDate;
       } else {
-        
+
         this.form = {
           recordDate: new Date(),
           recordTime: new Date(),
@@ -429,7 +429,7 @@ export default {
       }
     },
     openFoshanRYModal(){
-      
+
       this.caRucanFun()
       window.openSignModal((password, empNo) => {
         apis.getUser(password, empNo).then((res) => {
@@ -505,7 +505,7 @@ export default {
       });
     }
     if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu" && this.HOSPITAL_ID != "beihairenyi") {
-      
+
       this.typeList = this.sugarItem;
     }
     if (this.HOSPITAL_ID === "quzhou") {

@@ -23,9 +23,9 @@
         <div>{{ `住院号:${currentBottle.patientId || ""}` }}</div>
         <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
       </div>
-      <div class="flex">
+      <div class="flex" :style="'7*5' === newModalSize ? 'font-size: 12px' : ''">
         <div>{{ `科室:${currentBottle.deptName}` }}</div>
-        <div>{{ `年龄:${currentBottle.age}` }}</div>
+        <div>{{ `${'7*5' === newModalSize ? '' : '年龄:'}${currentBottle.age}` }}</div>
       </div>
     </div>
 

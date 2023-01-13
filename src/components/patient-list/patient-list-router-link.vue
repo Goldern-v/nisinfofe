@@ -1,7 +1,7 @@
 <template>
   <div
     class="patient-list-part"
-    :style="{ left: openLeft ? '0' : '-201px' }"
+   
     v-loading="patientListLoading"
   >
     <div class="search-box">
@@ -50,7 +50,9 @@
             },
           }"
           :class="{active: makePatient? isActive(item) :false ,lyxrmActive: ['lyxrm', 'stmz'].includes(HOSPITAL_ID)&&makePatient? isActive(item) :false}"
-          @click.native="toUnlock(item)"
+          @click.native="()=>{
+            toUnlock(item)
+            selectPatient(item)}"
         >
           <img
             :src="item.bedLabel.includes('_') ? imageBoy : imageMan"
@@ -573,7 +575,7 @@ export default {
     },
     'sortList.length': {
       handler(n, o) {
-        if (n && (n != o || this.$route.path == '/sheetPage')) {
+        if (n && (n != o)) {
           this.selectFirstPatient()
         }
       }

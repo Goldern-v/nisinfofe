@@ -86,11 +86,22 @@
       >
         <div class="nav-item">体温单</div>
       </router-link>
+
+
+
+              <el-row v-if=" HOSPITAL_ID == 'hj' "  class="nav-item" type="flex" align="middle ">
+                <div @click="getPushLink()">
+                  <i class="singleTemperatureChart"></i>临床路径
+                </div>
+              </el-row>
+
+
       <router-link
         v-if="
           HOSPITAL_ID !== 'zhzxy' &&
             HOSPITAL_ID !== 'gdtj' &&
-            HOSPITAL_ID !== 'whsl'
+            HOSPITAL_ID !== 'whsl'&&
+            HOSPITAL_ID !== 'dglb'
         "
         :to="{
           path: '/hospitalEval',
@@ -157,6 +168,16 @@
         <div class="nav-item">医嘱</div>
       </router-link>
       <router-link
+        v-if="['dglb'].includes(HOSPITAL_ID)"
+        :to="{
+          path: '/dev',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">手术</div>
+      </router-link>
+      <router-link
         :to="{
           path: '/inspect',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -174,8 +195,8 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
-      <!-- <router-link  
-        v-if="['dglb'].includes(HOSPITAL_ID)" 
+      <!-- <router-link
+        v-if="['dglb'].includes(HOSPITAL_ID)"
         :to="{
           path: '/dev',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -240,6 +261,20 @@
         tag="span"
       >
         <div class="nav-item">护理巡视</div>
+      </router-link>
+      <router-link
+        v-if="HOSPITAL_ID === 'ytll'"
+        :to="{
+          path: '/implementationPerson',
+          query: {
+            patientId: query.patientId,
+            visitId: query.visitId,
+            bedLabel: query.bedLabel
+          }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">执行记录</div>
       </router-link>
       <router-link
         v-if="HOSPITAL_ID === 'whsl'"
@@ -336,6 +371,8 @@ import common from "@/common/mixin/common.mixin";
 import md5 from "md5";
 import qs from "qs";
 import { mapState } from "vuex";
+import { getLink } from "@/api/lesion";
+
 export default {
   mixins: [common],
   data() {
@@ -359,6 +396,15 @@ export default {
         this[key]();
       }
     },
+    getPushLink(){
+      let {patientId,visitId,wardCode} =this.query
+      console.log(this.query,'kkkkkkkkkkkk')
+      let empNo =JSON.parse(localStorage.user).empNo
+      getLink(patientId,visitId,empNo,wardCode).then(res=>{
+        console.log("res===",res)
+      })
+    },
+
     // （顺德龙江）手麻记录单（第三方链接）
     toHandNumbness() {
       window.open(
@@ -429,7 +475,7 @@ export default {
     // 南方医科大学顺德医院项目病历
     onnfyksdyyEmrWeb() {
       const { patientId, inpNo, visitId } = this.patient;
-      let url = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid=${inpNo}_${visitId}`;
+      let url = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid=${inpNo}`;
       window.open(url);
     },
     toBloodSugar() {

@@ -20,7 +20,7 @@
             <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病重'">病重</span>
             <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危'">病危</span>
           </div>
-          <div class="info" v-if="HOSPITAL_ID == 'beihairenyi' || HOSPITAL_ID == 'whfk' ">
+          <div class="info" v-if="HOSPITAL_ID == 'beihairenyi' || HOSPITAL_ID == 'whfk' ||HOSPITAL_ID == 'nfyksdyy'">
             {{data.sex}} | {{data.age}} | {{data.inpNo}} | {{data.chargeType
             || '--'}}
           </div>
@@ -202,9 +202,9 @@
       <div class="key">过敏史：</div>
       <div class="value" flex-box="1" style="width: 0; color: #FE0000">
         <span v-if="data.allergy1">{{ data.allergy1 }};</span>
-        <span v-if="data.drugGms">{{ data.drugGms  }};</span>
+        <span v-if="data.drugGms">{{ data.drugGms }};</span>
         <span v-if="data.allergy2">{{ data.allergy2}}</span>
-        <span v-if="data.allergy1 == '' && data.drugGms == '' && data.allergy2 == ''">无</span>
+        <span v-if="!data.allergy1  && !data.drugGms && !data.allergy2 ">无</span>
 
       </div>
     </div>

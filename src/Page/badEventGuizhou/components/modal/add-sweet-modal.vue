@@ -58,48 +58,6 @@ export default {
                   break;
             }
 
-          // console.log(this.selectedPatientData);
-          // let data = this.selectedPatientData[0];
-          // //inp_no 住院号
-          // if(wid.app.$root.$refs['B0002002'] && wid.app.$root.$refs['B0002002'].setCurrentValue){
-          //   wid.app.$root.$refs['B0002002'].setCurrentValue(data.inpNo);
-          // }
-          // //床位号
-          // if(wid.app.$root.$refs['B0002001'] && wid.app.$root.$refs['B0002001'].setCurrentValue){
-          //   wid.app.$root.$refs['B0002001'].setCurrentValue(data.bedLabel);
-          // }
-          // //姓名
-          // if(wid.app.$root.$refs['B0002003'] && wid.app.$root.$refs['B0002003'].setCurrentValue){
-          //   wid.app.$root.$refs['B0002003'].setCurrentValue(data.name);
-          // }
-          // //性别
-          // // if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'].setCurrentValue){
-          // //   wid.app.$root.$refs['B0002006'].setCurrentValue(data.sex);
-          // // }
-          // //年龄
-          // if(wid.app.$root.$refs['B0002004'] && wid.app.$root.$refs['B0002004'].setCurrentValue){
-          //   wid.app.$root.$refs['B0002004'].setCurrentValue(data.age);
-          // }
-          // //诊断
-          // if(wid.app.$root.$refs['B0002009'] && wid.app.$root.$refs['B0002009'].setCurrentValue){
-          //   wid.app.$root.$refs['B0002009'].setCurrentValue(data.diagnosis);
-          // }
-          // //职业
-          // if(wid.app.$root.$refs['B0002007'] && wid.app.$root.$refs['B0002007'].setCurrentValue){
-          //   wid.app.$root.$refs['B0002007'].setCurrentValue(data.occupation);
-          // }
-          // //护理级别
-          // (!data.nursingClass || data.nursingClass=='') && (data.nursingClass='无');
-          // if(wid.app.$root.$refs['B0002005'] && wid.app.$root.$refs['B0002005'][data.nursingClass]){
-          //   wid.app.$root.$refs['B0002005'][data.nursingClass].$parent.checkboxValue=true
-          // }
-          // //性别
-          // (!data.sex || data.sex=='') && (data.sex='无');
-          // if(wid.app.$root.$refs['B0002006'] && wid.app.$root.$refs['B0002006'][data.sex]){
-          //  wid.app.$root.$refs['B0002006'][data.sex].$parent.checkboxValue=true
-          // }
-          //wid.app.$root.$refs['B0002006']['无'].$parent.checkboxValue=true
-
           this.close();
         },
         //旧版压力性损伤等一批不良事件 带入患者基本信息

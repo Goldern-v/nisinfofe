@@ -19,7 +19,7 @@ export default function Body(data = [], index, customList = []) {
   let bodyModel = [];
     // 重新设置自定义选项
     let formatCustomObj = {}
-    if(['foshanrenyi','fsxt', 'gdtj'].includes(process.env.HOSPITAL_ID) && customList.length > 0) {
+    if(['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID) && customList.length > 0) {
       customList.reduce((total, cur) => {
         if (!cur.fieldEn) return total
         if (total[cur.fieldEn]) {
@@ -1426,6 +1426,11 @@ function switchSheetType(type) {
       schema = require("../config/oxytocin_sdlj/tr.js").default;
     }
       break;
+      case "oxytocin_dglb": {
+        // 东莞寮步-催产素静脉点滴观察单
+        schema = require("../config/oxytocin_dglb/tr.js").default;
+      }
+        break;
     case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）
       schema = require("../config/cardiovascular_xt/tr.js").default;
@@ -1739,6 +1744,46 @@ function switchSheetType(type) {
     case "prenatal_ytll": {
       // 烟台玲珑 - 住院待产护理记录
       schema = require("../config/prenatal_ytll/tr.js").default;
+    }
+      break;
+    case "one_whhk": {
+      // 武汉汉口 - 护理记录单（一）
+      schema = require("../config/one_whhk/tr.js").default;
+    }
+      break;
+    case "intravenous_whhk": {
+      // 武汉汉口 - 静脉治疗使用维护记录单
+      schema = require("../config/intravenous_whhk/tr.js").default;
+    }
+      break;
+    case "baby_whhk": {
+      // 武汉汉口 - 新生儿护理记录单
+      schema = require("../config/baby_whhk/tr.js").default;
+    }
+      break;
+    case "neonatology_whhk": {
+      // 武汉汉口 - 新生儿科护理记录单
+      schema = require("../config/neonatology_whhk/tr.js").default;
+    }
+      break;
+    case "insulin_whhk": {
+      // 武汉汉口 - 胰岛素泵护理记录单
+      schema = require("../config/insulin_whhk/tr.js").default;
+    }
+      break;
+    case "labor_whhk": {
+      // 武汉汉口 - 产程检查记录
+      schema = require("../config/labor_whhk/tr.js").default;
+    }
+      break;
+    case "obstetriccare_whhk": {
+      // 武汉汉口 - 产科护理记录单
+      schema = require("../config/obstetriccare_whhk/tr.js").default;
+    }
+      break;
+    case "two_whhk": {
+      // 武汉汉口 - 护理记录单（二）
+      schema = require("../config/two_whhk/tr.js").default;
     }
       break;
     default: {

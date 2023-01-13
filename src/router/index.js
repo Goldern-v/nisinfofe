@@ -26,6 +26,7 @@ const infuseStat = () => import("@/Page/lesion/supPage/infuse/infuse-stat.vue");
 //自动登录
 import autoLogin from "../Part/auto-login";
 import autoLoginGuizhou from "../Part/auto-login-guizhou";
+import autoLoginToHomePage from "../Part/auto-login-homePage";
 // import whiteBoard from '@/Part/whiteBoard/whiteBoard'
 // import home1 from "@/Page/catheter-page/home1/home";
 
@@ -367,6 +368,8 @@ import healthEducationGuizhou from "@/Page/patientInfo/supPage/healthEducationGu
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
+import implementationPersonytll
+  from "@/Page/patientInfo/supPage/implementation-list/implementation-list-ytll";
 const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-form/index.vue")
 const medicalCheck = () => import("@/Page/patientInfo/supPage/medical-check/index.vue")
 // 患者个人护理巡视
@@ -429,6 +432,7 @@ const getImplementation = () => {
     case 'zhzxy':
     case "stmz":
     case 'beihairenyi':
+    case 'nfyksdyy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -441,7 +445,7 @@ const getImplementation = () => {
     case 'fsxt':
       return implementationListFsxt
     case 'foshanrenyi':
-    case 'nfyksdyy':
+
       return implementationListFSSY
     case 'quzhou':
       return implementationListQuzhou
@@ -669,6 +673,7 @@ const router = new Router({
             case 'whhk':
             case 'nfyksdyy':
             case "stmz":
+            case "nfyksdyy":
               return archiveFSSY
             default:
               return archive
@@ -817,6 +822,8 @@ const router = new Router({
             case 'lyyz':
               return shiftWorkLiaocheng
             case 'beihairenyi':
+            case 'zhzxy':
+            case 'nfyksdyy':
               return shiftWorkBh
             case 'fqfybjy':
               return shiftWorkFq
@@ -853,6 +860,8 @@ const router = new Router({
               case 'nanfangzhongxiyi':
                 return shiftWorkDetailNFZXY
               case 'beihairenyi':
+              case 'zhzxy':
+              case 'nfyksdyy':
                 return shiftWorkDetailBh
               case 'fqfybjy':
                 return shiftWorkDetailFq
@@ -1241,7 +1250,17 @@ const router = new Router({
         },
         {
           path: "/implementationPerson",
-          component: implementationPersonLiaocheng,
+          component:
+          (() => {
+            switch (process.env.HOSPITAL_ID) {
+              case 'liaocheng':
+                return implementationPersonLiaocheng
+                case 'ytll':
+                return implementationPersonytll
+              default:
+                return implementationPersonLiaocheng
+            }
+          })(),
           name: "执行单",
           alias: "执行单"
         },
@@ -1781,6 +1800,10 @@ const router = new Router({
           return autoLogin
       }
     })(),
+  },
+  {
+    path: "/autoLoginToHomePage",
+    component:autoLoginToHomePage,
   },
   {
     path: "/print/:type",

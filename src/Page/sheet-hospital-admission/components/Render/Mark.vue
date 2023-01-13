@@ -109,7 +109,6 @@ export default {
   },
   watch: {
     inputValue(valueNew, oldvaule) {
-      console.log("inputValue:", valueNew, oldvaule);
       if (this.model === "normal") {
         this.formObj.model[this.obj.name] = valueNew;
         this.checkValueRule(valueNew);
@@ -147,7 +146,6 @@ export default {
     },
     obj: {
       handler(curVal, oldVal) {
-        // console.log("handler", curVal, oldVal);
         if (
           this.obj &&
           this.obj.hasOwnProperty("value") > -1 &&
@@ -183,18 +181,6 @@ export default {
       this.obj &&
       this.obj.hasOwnProperty("value") > -1 &&
       this.obj.value &&
-      this.obj.value.constructor !== Array
-    ) {
-      // console.log(this.obj, this.obj.value, "aaaaaaaaaaa");
-      // setTimeout(() => {
-      //   this.inputValue = this.obj.value;
-      //   this.$refs[refName].setCurrentValue(this.obj.value + "");
-      // }, 1000);
-    }
-    if (
-      this.obj &&
-      this.obj.hasOwnProperty("value") > -1 &&
-      this.obj.value &&
       this.obj.value.constructor === Array
     ) {
       this.inputValue = this.obj.value.toString();
@@ -206,28 +192,9 @@ export default {
       this.$refs[refName].$refs.input.focus();
       console.log("focus", this.$refs[refName]);
     }
-
-    // console.log("inputMounted", this.$refs, this.$root.$refs);
-    // focus()  this.$refs.input.value
-    // try {
-    //   let modelObj = window.formObj.model || this.formObj.model;
-    //   if (modelObj && modelObj[refName]) {
-    //     this.checkValueRule(modelObj[refName]);
-    //     this.$refs[refName].setCurrentValue(modelObj[refName]);
-    //   }
-    // } catch (error) {
-    //   //
-    // }
   },
   created() {
     let refName = this.obj.name + "";
-    console.log(
-      "created:refName",
-      refName,
-      window.formObj,
-      this.formObj,
-      this.formObj.dictionary
-    );
     try {
       let dictionary = {};
       if (window.formObj && window.formObj.hasOwnProperty("dictionary")) {
@@ -240,7 +207,6 @@ export default {
       let options = dictionary[refName]
         ? dictionary[refName]
         : this.obj.options;
-      console.log("created:options", this.obj.title, options);
       if (options && options.length > 0) {
         if (options[0].constructor === Object) {
           this.obj.options = options;
@@ -273,7 +239,6 @@ export default {
         this.obj.rule &&
         this.obj.rule.constructor === Array
       ) {
-        console.log("rule:", this.obj.rule);
         // 遍历规则
         this.obj.rule.map((r) => {
           let [min, max] = [Number(r.min), Number(r.max)];
@@ -301,7 +266,6 @@ export default {
             // return textResult;
           } else if (r.equal && r.equal === valueNew) {
             this.obj.style = r.style;
-            // this.$refs[this.obj.name].$refs.input.style = this.obj.style;
             // 替换显示 r.display
             if (
               r.display &&
@@ -315,7 +279,6 @@ export default {
               );
             }
             textResult = r.display ? r.display : "";
-            // return textResult;
           } else if (r.equals && r.equals.indexOf(valueNew) !== -1) {
             this.obj.style = r.style;
             // 替换显示 r.display
@@ -345,7 +308,6 @@ export default {
             ) {
               this.obj.style = r.style;
             }
-            // this.obj.style = Object.assign({}, this.obj.style, r.style);
           } else if (r.indexOf) {
             if ((valueNew + "").indexOf(r.indexOf) > -1) {
               this.obj.style = r.style;
@@ -353,7 +315,6 @@ export default {
           } else if (r.split && valueNew && valueNew.indexOf(r.split) > -1) {
             if (r.maxs) {
               let arr = valueNew.split(r.split) || [];
-              console.log(arr, "arr", r.split, "split", valueNew, "valueNew");
               if (r.maxs.length === arr.length) {
                 for (let i = 0; i < arr.length; i++) {
                   if (arr[i] && arr[i] > r.maxs[i]) {
@@ -375,52 +336,24 @@ export default {
           }
         });
       }
-      // if (this.$refs && this.$refs[this.obj.name]) {
       try {
         this.$refs[this.obj.name].$refs.input.style = this.obj.style;
       } catch (error) {}
 
-      // this.$root.$refs[this.formCode][this.obj.name].$refs.input.style = this.obj.style;
-      // }
       return textResult;
     },
     inputBlur(e) {
-      console.log("inputBlur", e);
-      // setTimeout(() => {
-      //   if(this.$root.$refs.autoInput){
       this.$root.$refs.autoInput.close();
-      //   }
-      // }, 3000);
-      // this.isShow = false
     },
     inputFocus(e, child) {
-      // this.isShow = true
       let self = this;
       let xy = e.target.getBoundingClientRect();
-      console.log(
-        "inputFocus",
-        e,
-        child,
-        this.formObj.model,
-        this.inputValue,
-        xy,
-        this.$refs,
-        this.$root.$refs
-      );
       let delt = xy.height;
 
       if (this.$refs[this.obj.name]) {
         this.$refs[this.obj.name].$el.style.outline = "none";
         this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
       }
-
-      //
-      // let autoBox = this.$root.$refs.autoBox.getBoundingClientRect()
-      // //
-      // if (window.innerHeight - autoBox.bottom < delt) {
-      //   delt = autoBox.height - 40
-      // }
-      //
       if (this.$root.$refs.autoInput) {
         this.$root.$refs.autoInput.close();
       }
@@ -441,9 +374,7 @@ export default {
             },
             data: dataList,
             callback: function (data) {
-              // console.log('callback',obj,data,e)
               if (data) {
-                // console.log('==callback',obj,data)
                 obj[key] = data.code;
                 self.inputValue = data.name;
                 self.checkValueRule(data.name);
@@ -463,10 +394,6 @@ export default {
       }
     },
     inputChange(e, child) {
-      console.log("inputChange", e, child, this.formObj.model, this.inputValue);
-      // this.$store.commit("upFormObj", JSON.parse(JSON.stringify(this.formObj)));
-      // property
-      // model  development-model this.model === "development"
       if (
         this.model === "development" &&
         this.property &&
@@ -477,14 +404,8 @@ export default {
       }
     },
     inputClick(e, child) {
-      console.log("inputClick", e, child, this.formObj.model, e.target.tagName);
       if (child.dialog) {
-        console.log("child.dialog", child.dialog, this.$refs, this.$root.$refs);
         try {
-          // this.$root.$refs.dialogBox.$el.draggable = true
-          child.dialog["callback"] = (res) => {
-            console.log("表单填写结果", res);
-          };
           this.$root.$refs.dialogBox.openBox(child.dialog, this.inputValue); //$el draggable
         } catch (error) {
           console.log("error", error);
@@ -492,19 +413,7 @@ export default {
       }
     },
     inputKeyDown(e, child) {
-      console.log(
-        "inputKeyDown",
-        e,
-        child,
-        e.target.tagName,
-        e.keyCode,
-        e.key,
-        e.target.selectionStart,
-        e.target.selectionEnd
-      );
-
       if (e.keyCode === 37 && e.target.selectionStart === 0) {
-        // ArrowLeft
         let leftNode = e.target.$leftNode;
         while (leftNode && leftNode.disabled === true) {
           leftNode = leftNode.$leftNode;
@@ -512,12 +421,10 @@ export default {
         if (leftNode) {
           leftNode.focus();
         }
-        console.log("ArrowLeft", e, e.target, leftNode, leftNode.disabled);
       } else if (
         e.keyCode === 39 &&
         e.target.selectionEnd === e.target.value.length
       ) {
-        // ArrowRight
         let rightNode = e.target.$rightNode;
         while (rightNode && rightNode.disabled === true) {
           rightNode = rightNode.$rightNode;
@@ -525,25 +432,12 @@ export default {
         if (rightNode) {
           rightNode.focus();
         }
-        // e.target.$rightNode.focus()
-        console.log(
-          "ArrowRight",
-          e,
-          e.target,
-          e.target.$rightNode,
-          e.target.$rightNode.disabled
-        );
       } else if (e.keyCode === 13) {
-        // 13 Enter
-        console.log("Enter", e.target, this.$root.$refs.autoInput.getStatus());
         if (!this.$root.$refs.autoInput.getStatus()) {
           e.target.$rightNode.focus();
         }
-        // this.$root.$refs.autoInput.close()
       } else if (e.keyCode === 38) {
-        // 38 ArrowUp
         try {
-          // let upNode = e.target.$leftNode.$leftNode
           let upNode = e.target;
           for (let i = 0; i < this.col; i++) {
             upNode = upNode.$leftNode;
@@ -552,20 +446,15 @@ export default {
             for (let i = 0; i < this.col; i++) {
               upNode = upNode.$leftNode;
             }
-            // upNode = upNode.$leftNode.$leftNode
           }
           if (upNode) {
             upNode.focus();
           }
-          // e.target.$leftNode.$leftNode.focus()
-          console.log("ArrowUp", e, e.target, upNode, this.col);
         } catch (error) {
           //
         }
       } else if (e.keyCode === 40) {
-        // 40 ArrowDown
         try {
-          // let downNode = e.target.$rightNode.$rightNode
           let downNode = e.target;
           for (let i = 0; i < this.col; i++) {
             downNode = downNode.$rightNode;
@@ -574,21 +463,14 @@ export default {
             for (let i = 0; i < this.col; i++) {
               downNode = downNode.$rightNode;
             }
-            // downNode = downNode.$rightNode.$rightNode
           }
           if (downNode) {
             downNode.focus();
           }
-          // e.target.$rightNode.$rightNode.focus()
-          console.log("ArrowUp", e, e.target, downNode, this.col);
         } catch (error) {
           //
         }
       }
-
-      // else if([38,40].indexOf(e.keyCode)===-1){
-      //   this.inputFocus(e, child)
-      // }
     },
     getUUID(child = null) {
       let uuid_ = uuid.v1();
@@ -596,9 +478,11 @@ export default {
     },
     openTemplateModal() {
       if (this.HOSPITAL_ID === 'foshanrenyi')
+      {
         this.$root.$refs.templateSlideFoshanshiyi.open(this.obj.name);
-      else
+      } else {
         this.$root.$refs.templateSlide.open(this.obj.name);
+      }
     },
   },
 };

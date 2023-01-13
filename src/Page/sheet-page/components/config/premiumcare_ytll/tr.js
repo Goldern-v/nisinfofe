@@ -47,7 +47,7 @@ import {
       name: "入量-名称"
     },
     {
-      key: "expand3", //入量- 途径
+      key: "way", //入量- 途径
       value: "",
       event: keyf1,
       textarea: {
@@ -124,7 +124,7 @@ import {
       event: keyf1,
       name: "瞳孔mm/对光反应-左1",
       textarea: {
-        width: 40
+        width: 20
       },
     },
     {
@@ -145,7 +145,7 @@ import {
       event: keyf1,
       name: "出量",
       textarea: {
-        width: 40
+        width: 20
       },
       name: "瞳孔mm/对光反应 右1",
     },
@@ -284,7 +284,7 @@ import {
       name: "面罩",
     },
     {
-      key: "expand", //标题1
+      key: "customize", //标题1
       value: "",
       event: keyf1,
       textarea: {
@@ -342,7 +342,7 @@ import {
       },
       name: '皮肤',
       autoComplete: {
-        data: ['完', '好', '异常']
+        data: ['完好', '异常']
       }
     },
     {
@@ -357,18 +357,18 @@ import {
         data: ['好', '差', '无法评估']
       }
     },
-    {
-      key: "nutritional", //营养状况
-      value: "",
-      event: keyf1,
-      textarea: {
-        width: 35
-      },
-      name: '营养状况',
-      autoComplete: {
-        data: ['良好', '一般', '差']
-      }
-    },
+    // {
+    //   key: "nutritional", //营养状况
+    //   value: "",
+    //   event: keyf1,
+    //   textarea: {
+    //     width: 35
+    //   },
+    //   name: '营养状况',
+    //   autoComplete: {
+    //     data: ['良好', '一般', '差']
+    //   }
+    // },
     {
       key: "description", //特殊处理及病区观察
       value: "",
@@ -378,7 +378,7 @@ import {
         top: "1px",
         bottom: "1px",
         left: "1px",
-        width: "180px",
+        width: "220px",
         background: "transparent"
       },
       event: function (e, td) {

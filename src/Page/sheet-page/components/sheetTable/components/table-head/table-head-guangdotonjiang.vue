@@ -537,7 +537,7 @@ input.bottom-line {
   justify-content: center;
 }
 .boxLine {
-  height: 18px;
+  height: 30px;
   display: flex;
   justify-content: start;
   align-items: center;

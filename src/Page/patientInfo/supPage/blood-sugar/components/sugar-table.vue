@@ -36,7 +36,7 @@
             HOSPITAL_ID != 'whfk' &&
             HOSPITAL_ID != 'lyyz' &&
             HOSPITAL_ID != 'ytll' &&
-            HOSPITAL_ID != 'whsl'
+            HOSPITAL_ID != 'whsl'&&HOSPITAL_ID != 'nfyksdyy'
           "
         >
           {{HOSPITAL_ID=="quzhou"?'胰岛素剂量':'RI剂量'}}
@@ -101,7 +101,7 @@
             HOSPITAL_ID != 'whfk' &&
             HOSPITAL_ID != 'lyyz' &&
             HOSPITAL_ID != 'ytll' &&
-            HOSPITAL_ID != 'whsl'
+            HOSPITAL_ID != 'whsl'&&HOSPITAL_ID !='nfyksdyy'
           "
         >
           <div class="cell">

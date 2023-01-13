@@ -8,10 +8,10 @@ export const listItem = (code, recordCode, deptCode) => {
 }
 
 //  保存常用短语
-export function saveOrUpdate(groupName, title, content, id ,wardCode) {
+export function saveOrUpdate(params) {
  let recordCode = sheetInfo.sheetType
 //  if(hospitalId=="huadu"){
-  return axios.post(`${apiPath}record/desc/saveOrUpdate`, {recordCode, groupName, title, content, id, wardCode})
+  return axios.post(`${apiPath}record/desc/saveOrUpdate`, { recordCode, ...params })
 }
 
 //保存常用短语(需要验证权限)
@@ -42,11 +42,11 @@ export function list(groupName,wardCode,hospitalId) {
     return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode})
  }
 //  列表
-export function listFsry(groupName,wardCode,sheetType) {
+export function listFsry(groupName,wardCode,sheetType,version=2) {
   //不传值就默认选择当前的护记类型 sheetInfo.sheetType
   let recordCode = sheetType ? sheetType : sheetInfo.sheetType;
   // if(recordCode&&groupName&&wardCode)
-    return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode})
+    return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode,version})
  }
  //  佛一保存常用短语
 export function saveOrUpdateFsry(groupName, title, content, id ,wardCode,sheetType) {
@@ -100,3 +100,14 @@ export function getUser(password, empNo) {
   export const nursingUnit  = ()=>{
     return axios.get(`${apiPath}user/nursingUnit`)
   }
+// 护记特殊情况模板-获取个人分组
+export const getPersonalTypeList = (empNo) => {
+  const recordCode = sheetInfo.sheetType
+  return axios.get(`${apiPath}record/desc/typeListByEmp/${recordCode}?empNo=${empNo}`)
+}
+
+// 护记特殊情况模块-查询个人模板
+export const getPersonalTemplate = (params) => {
+  const recordCode = sheetInfo.sheetType
+  return axios.post(`${apiPath}record/desc/listForEmp`, { recordCode, ...params })
+}

@@ -164,6 +164,7 @@ import tableHeadYtll from "./components/table-head/table-head-ytll.vue"
 import tableHeadZhzxy from "./components/table-head/table-head-zhzxy.vue"
 import tableHeadWeihai from './components/table-head/table-head-weihai.vue'
 import tableHeadDglb from "./components/table-head/table-head-dglb.vue"
+import tableHeadWhhk from './components/table-head/table-head-whhk.vue'
 export default {
   props: {
     data: Object,
@@ -182,7 +183,8 @@ export default {
       sheetInfo,
       //开启后端控制readOnly的医院
       readOnlyList: [
-        "fuyou"
+        "fuyou",
+        "zhzxy"
       ]
     };
   },
@@ -193,8 +195,7 @@ export default {
     /** 只读模式 */
     readOnly() {
       if (
-        this.HOSPITAL_ID == "huadu" ||
-        this.HOSPITAL_ID == "zhzxy"
+        this.HOSPITAL_ID == "huadu"
       ) {
         return false;
       }
@@ -271,6 +272,8 @@ export default {
         return tableHeadWeihai
       } else if (this.HOSPITAL_ID == 'dglb') {
         return tableHeadDglb
+      } else if (this.HOSPITAL_ID == 'whhk') {
+        return tableHeadWhhk
       } else {
         return tableHead;
       }

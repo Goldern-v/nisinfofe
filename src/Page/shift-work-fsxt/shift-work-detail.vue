@@ -6,17 +6,16 @@
       <ElSelect size="small" :value="$route.params.code" @input="onCodeChange">
         <ElOption v-for="d of depts" :key="d.deptCode" :label="d.deptName" :value="d.deptCode" />
       </ElSelect>
-      <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()"  v-if="!$store.state.shiftRecords.isLock">添加患者</Button>
+      <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()">添加患者</Button>
       <Button
         :disabled="isEmpty || allSigned || !$refs.table || !$refs.table.selectedRow"
         @click="onRowRemove"
-        v-if="!$store.state.shiftRecords.isLock"
       >删除行</Button>
       <!-- <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button> -->
-      <Button :disabled="isEmpty || allSigned"  @click="onSave(true)" v-if="!$store.state.shiftRecords.isLock">保存</Button>
+      <Button :disabled="isEmpty || allSigned"  @click="onSave(true)" >保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
-      <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove" v-if="!$store.state.shiftRecords.isLock">删除交班志</Button>
+      <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
     </div>
     <div class="container" ref="container">
@@ -423,37 +422,37 @@ export default {
     });
   },
   methods: {
-    async toUnLock(){
-       // 判断是否超时了。超时就清空信息。不用发请求
-        if(this.$store.state.shiftRecords.enterTime){
-          if(!this.$store.state.shiftRecords.setupTime){
-              let min=10
-              const {data:{data}}=await apis.unLockTime()
-              if(data!=='his_form_data_lock_timeout'){
-              min=+data
-              this.$store.commit("changeSetupTime",min)
-             }
-           }
-          /* 进入的时间 乘以多少分钟 1分钟=60000  有效的锁定时间*/
-          const enterTime=+this.$store.state.shiftRecords.enterTime + 60000 * this.$store.state.shiftRecords.setupTime
-          const nowTime=Date.now()
-          if(nowTime>enterTime){
-            // ID号清空
-            this.$store.commit("changeShiftRecordID",'')
-            // 进入时间清空
-            this.$store.commit("changeEnterTime",'')
-            return
-          }
-        }
-        // 有ID就解锁
-        if(this.$store.state.shiftRecords.shiftRecordID){
-          // 解锁
-          const res= await apis.unLockShiftRecord(this.$store.state.shiftRecords.shiftRecordID)
-          // 清空
-          this.$store.commit("changeShiftRecordID",'')
-          this.$store.commit("changeEnterTime",'')
-        }
-    },
+    // async toUnLock(){
+    //    // 判断是否超时了。超时就清空信息。不用发请求
+    //     if(this.$store.state.shiftRecords.enterTime){
+    //       if(!this.$store.state.shiftRecords.setupTime){
+    //           let min=10
+    //           const {data:{data}}=await apis.unLockTime()
+    //           if(data!=='his_form_data_lock_timeout'){
+    //           min=+data
+    //           this.$store.commit("changeSetupTime",min)
+    //          }
+    //        }
+    //       /* 进入的时间 乘以多少分钟 1分钟=60000  有效的锁定时间*/
+    //       const enterTime=+this.$store.state.shiftRecords.enterTime + 60000 * this.$store.state.shiftRecords.setupTime
+    //       const nowTime=Date.now()
+    //       if(nowTime>enterTime){
+    //         // ID号清空
+    //         this.$store.commit("changeShiftRecordID",'')
+    //         // 进入时间清空
+    //         this.$store.commit("changeEnterTime",'')
+    //         return
+    //       }
+    //     }
+    //     // 有ID就解锁
+    //     if(this.$store.state.shiftRecords.shiftRecordID){
+    //       // 解锁
+    //       const res= await apis.unLockShiftRecord(this.$store.state.shiftRecords.shiftRecordID)
+    //       // 清空
+    //       this.$store.commit("changeShiftRecordID",'')
+    //       this.$store.commit("changeEnterTime",'')
+    //     }
+    // },
     async loadDepts() {
       const parentCode = this.deptCode;
       const res1 = await apis.listDepartment(parentCode);
@@ -483,69 +482,69 @@ export default {
       const id = this.$route.params.id;
       if (!id) return;
       /* 每次加载数据都设为没有锁定 */
-      this.$store.commit("changeLockState",false)
+      // this.$store.commit("changeLockState",false)
       // 有延时器就取消
-      if(this.$store.state.shiftRecords.lockTimeId){
-         clearTimeout(this.$store.state.shiftRecords.lockTimeId)
-         this.$store.commit("changeLockTimeId",'')
-      }
-      // 有倒计时定时器就关闭
-      if(this.$store.state.shiftRecords.countDownId){
-        clearInterval(this.$store.state.shiftRecords.countDownId)
-        this.$store.commit("changeCountDownId",'')
-      }
-      /* 发送请求，获取后台时间 */
-      if(!this.$store.state.shiftRecords.setupTime){
-          let min=10
-          const {data:{data}}=await apis.unLockTime()
-          if(data!=='his_form_data_lock_timeout'){
-            min=+data
-            this.$store.commit("changeSetupTime",min)
-       }
-      }
-      /* 设置延时器 */
-      let timeID=setTimeout(async()=>{
-        this.$message.warning(`${this.$store.state.shiftRecords.setupTime}分钟交班报告没有进行编辑，页面将自动刷新`)
-        await this.load()
-      },this.$store.state.shiftRecords.setupTime * 60000)
-      this.$store.commit("changeLockTimeId",timeID)
+      // if(this.$store.state.shiftRecords.lockTimeId){
+      //    clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+      //    this.$store.commit("changeLockTimeId",'')
+      // }
+      // // 有倒计时定时器就关闭
+      // if(this.$store.state.shiftRecords.countDownId){
+      //   clearInterval(this.$store.state.shiftRecords.countDownId)
+      //   this.$store.commit("changeCountDownId",'')
+      // }
+      // /* 发送请求，获取后台时间 */
+      // if(!this.$store.state.shiftRecords.setupTime){
+      //     let min=10
+      //     const {data:{data}}=await apis.unLockTime()
+      //     if(data!=='his_form_data_lock_timeout'){
+      //       min=+data
+      //       this.$store.commit("changeSetupTime",min)
+      //  }
+      // }
+      // /* 设置延时器 */
+      // let timeID=setTimeout(async()=>{
+      //   this.$message.warning(`${this.$store.state.shiftRecords.setupTime}分钟交班报告没有进行编辑，页面将自动刷新`)
+      //   await this.load()
+      // },this.$store.state.shiftRecords.setupTime * 60000)
+      // this.$store.commit("changeLockTimeId",timeID)
       this.loading = true;
       try {
         const {
           data
         } = await apis.getShiftRecord(id);
         /* 提示正在操作。然后操作按钮隐藏 */
-        if(data.errorCode=='3001'){
-           window.app && window.app.$message({
-            showClose: true,
-            message: `其他护士${data.desc}`,
-            type: 'error',
-            duration:5000
-          })
-          this.$store.commit("changeLockState",true)
-          /* 如果切换其他加班日志，已经把锁定。那么之前自己有的交班日志，解锁 */
-          await this.toUnLock()
-        }else{
-          if(!this.$store.state.shiftRecords.countDownId){
-           // 右上角10分钟倒计时
-          // 这里不是600000是因为上面延时器在请求之前设置的，发送请求需要时间
-             this.countDown=this.$store.state.shiftRecords.setupTime * 60000 - 3000
-             let countDownTimeId=setInterval(()=>{
-               if(this.countDown==0){
-                  clearInterval(this.$store.state.shiftRecords.countDownId)
-                  this.$store.commit("changeCountDownId",'')
-               }
-              // console.log('交班报告打印剩余时间，方便查找bug。一段时间没问题，可以删除',this.countDown)
-              this.countDown=this.countDown-1000
-            },1000)
-            this.$store.commit("changeCountDownId",countDownTimeId)
-          }
+        // if(data.errorCode=='3001'){
+        //    window.app && window.app.$message({
+        //     showClose: true,
+        //     message: `${data.data.myNurseNo}+${data.data.myNurseName}+${data.data.ip}+${data.desc}`,
+        //     type: 'error',
+        //     duration:5000
+        //   })
+        //   this.$store.commit("changeLockState",true)
+        //   /* 如果切换其他加班日志，已经把锁定。那么之前自己有的交班日志，解锁 */
+        //   await this.toUnLock()
+        // }else{
+          // if(!this.$store.state.shiftRecords.countDownId){
+          //  // 右上角10分钟倒计时
+          // // 这里不是600000是因为上面延时器在请求之前设置的，发送请求需要时间
+          //    this.countDown=this.$store.state.shiftRecords.setupTime * 60000 - 3000
+          //    let countDownTimeId=setInterval(()=>{
+          //      if(this.countDown==0){
+          //         clearInterval(this.$store.state.shiftRecords.countDownId)
+          //         this.$store.commit("changeCountDownId",'')
+          //      }
+          //     // console.log('交班报告打印剩余时间，方便查找bug。一段时间没问题，可以删除',this.countDown)
+          //     this.countDown=this.countDown-1000
+          //   },1000)
+          //   this.$store.commit("changeCountDownId",countDownTimeId)
+          // }
 
-          // 没有锁定成功进入。把ID存入VUEX解锁用
-          this.$store.commit("changeShiftRecordID",id)
-          // 存入进入的时间
-          this.$store.commit("changeEnterTime",Date.now())
-        }
+          // // 没有锁定成功进入。把ID存入VUEX解锁用
+          // this.$store.commit("changeShiftRecordID",id)
+          // // 存入进入的时间
+          // this.$store.commit("changeEnterTime",Date.now())
+        // }
         const { changeShiftTimes: record, changeShiftPatients: patients,shiftWithWardcodes: shiftWithWardcodes } = data.data;
         record.specialCase = record.specialCase || "";
         this.record = record;
@@ -898,27 +897,7 @@ export default {
         return this.$message.warning("请先保存后再签名");
       }
 
-      // if (type === "P" && !this.record.autographNameA) {
-      //   return this.$message.warning("需要A班先签名");
-      // }
 
-      // if (type === "N" && !this.record.autographNameP) {
-      //   return this.$message.warning("需要P班先签名");
-      // }
-
-      // this.$refs.signModal.open({
-      //   callback: async ({ username, password }) => {
-      //     await apis.signShiftRecord(this.record.id, type, username, password);
-
-      //     this.load();
-      //     this.$refs.signModal.close();
-      //     this.$message.success("签名成功");
-
-      //     if (type === "N") {
-      //       this.reloadSideList();
-      //     }
-      //   }
-      // });
 
       window.openSignModal(async (password, username) => {
         await apis.signShiftRecord(this.record.id, type, username, password);
@@ -984,19 +963,19 @@ export default {
       // });
       window.openSignModal(async (password, username) => {
         const res=  await apis.removeShiftRecord(this.record.id, username, password);
-        if(res.data.code==200 && res.data.desc=='操作成功'){
-           await this.toUnLock()
-           // 关闭定时器
-           if(this.$store.state.shiftRecords.lockTimeId){
-             clearTimeout(this.$store.state.shiftRecords.lockTimeId)
-             this.$store.commit("changeLockTimeId",'')
-           }
-           // 关闭倒计时定时器
-           if(this.$store.state.shiftRecords.countDownId){
-             clearInterval(this.$store.state.shiftRecords.countDownId)
-             this.$store.commit("changeCountDownId",'')
-           }
-        }
+        // if(res.data.code==200 && res.data.desc=='操作成功'){
+        //    await this.toUnLock()
+        //    // 关闭定时器
+        //    if(this.$store.state.shiftRecords.lockTimeId){
+        //      clearTimeout(this.$store.state.shiftRecords.lockTimeId)
+        //      this.$store.commit("changeLockTimeId",'')
+        //    }
+        //    // 关闭倒计时定时器
+        //    if(this.$store.state.shiftRecords.countDownId){
+        //      clearInterval(this.$store.state.shiftRecords.countDownId)
+        //      this.$store.commit("changeCountDownId",'')
+        //    }
+        // }
         const code = this.$route.params.code;
 
         this.$message.success("删除成功");

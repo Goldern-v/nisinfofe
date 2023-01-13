@@ -201,11 +201,12 @@
         <div
           :class="[
             {
-              'break-page':bottleCardIndex % 3 == 2 &&
+              'break-page':bottleCardIndex % 2 == 1 &&
                 newModalSize == '3*7',
               'size-75': newModalSize === '7*5'
             },
           ]"
+          :style="newModalSize == '3*7'&&'margin-bottom:1cm'"
           v-for="(itemBottleCard, bottleCardIndex) in printObj"
           :key="bottleCardIndex"
         >
@@ -942,7 +943,9 @@ export default {
           "whhk",
           "zhzxy",
           "925",
-          "whsl", 'stmz'
+          "whsl", 
+          'stmz',
+          'wujing'
         ].includes(this.HOSPITAL_ID)
       ) {
         res = await getPrintListContent2({ barcodeList: barCodeList });
@@ -1161,7 +1164,7 @@ export default {
     },
     /**床号多选 */
     multiBed() {
-      return ["lyxrm", "zhzxy", "925", "ytll", 'stmz'].includes(this.HOSPITAL_ID);
+      return ["lyxrm", "zhzxy", "925", "ytll", 'stmz','whsl'].includes(this.HOSPITAL_ID);
     },
     // 瓶签是否分页 超过多少条开始分
     printPagingNo() {
