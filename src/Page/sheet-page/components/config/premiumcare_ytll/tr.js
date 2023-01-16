@@ -284,7 +284,7 @@ import {
       name: "面罩",
     },
     {
-      key: "expand", //标题1
+      key: "customize", //标题1
       value: "",
       event: keyf1,
       textarea: {

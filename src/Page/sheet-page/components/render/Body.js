@@ -19,7 +19,7 @@ export default function Body(data = [], index, customList = []) {
   let bodyModel = [];
     // 重新设置自定义选项
     let formatCustomObj = {}
-    if(['foshanrenyi','fsxt', 'gdtj'].includes(process.env.HOSPITAL_ID) && customList.length > 0) {
+    if(['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID) && customList.length > 0) {
       customList.reduce((total, cur) => {
         if (!cur.fieldEn) return total
         if (total[cur.fieldEn]) {
@@ -148,6 +148,11 @@ function switchSheetType(type) {
       // 神经内科
       schema = require("../config/neurology/tr.js").default;
     }
+      break;
+    case "critical_medicine_two_hj": {
+        // 重症医学病区二区
+        schema = require("../config/critical_medicine_two_hj/tr.js").default;
+      }
       break;
     case "obstetrics": {
       // 产科
@@ -1426,6 +1431,11 @@ function switchSheetType(type) {
       schema = require("../config/oxytocin_sdlj/tr.js").default;
     }
       break;
+      case "oxytocin_dglb": {
+        // 东莞寮步-催产素静脉点滴观察单
+        schema = require("../config/oxytocin_dglb/tr.js").default;
+      }
+        break;
     case "cardiovascular_xt": {
       // 佛山杏坛 - 护理记录单（心血管呼吸专科）
       schema = require("../config/cardiovascular_xt/tr.js").default;

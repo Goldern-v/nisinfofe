@@ -8,7 +8,7 @@
     <!-- {{sheetInfo.relObj}} -->
     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'baby_whhk'">
       <span>
-        科室：
+        科别：
         <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
@@ -25,12 +25,17 @@
       </span>
       <span>
         新生儿性别：
-        <input type="text" v-model="sheetInfo.relObj.xsexb" style="border-bottom: 1px solid #000; width: 70px"/>
+        <input
+          type="text"
+          v-model="sheetInfo.relObj['xsexb']"
+          style="border-bottom: 1px solid #000; width: 70px"
+          :data-value="sheetInfo.relObj.xsexb"
+        />
       </span>
     </div>
     <div class="info-con" flex="main:justify" v-else>
       <span>
-        科室：
+        科别：
         <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
@@ -64,36 +69,87 @@
               v-model="sheetInfo.relObj[item]"
             />{{ item }}
           </label>
-          <input type="text" v-model="sheetInfo.relObj.other" style="border-bottom: 1px solid #000"/>
+          <input
+            type="text"
+            v-model="sheetInfo.relObj.other"
+            style="border-bottom: 1px solid #000"
+            :data-value="sheetInfo.relObj.other"
+          />
         </div>
       </div>
       <template v-if="sheetInfo.sheetType === 'insulin_whhk'">
         <span>
           置管日期：
-          <input type="text" v-model="sheetInfo.relObj.zgrq" style="border-bottom: 1px solid #000; width: 110px"/>
+          <input
+            type="text"
+            v-model="sheetInfo.relObj.zgrq"
+            style="border-bottom: 1px solid #000; width: 110px"
+            :data-value="sheetInfo.relObj.zgrq"
+          />
         </span>
         <span>
           置管部位：
-          <input type="text" v-model="sheetInfo.relObj.zgbw" style="border-bottom: 1px solid #000; width: 120px"/>
+          <input
+            type="text"
+            v-model="sheetInfo.relObj.zgbw"
+            style="border-bottom: 1px solid #000; width: 120px"
+            :data-value="sheetInfo.relObj.zgbw"
+          />
         </span>
       </template>
+    </div>
+    <div class="info-con">
+      <span v-if="['obstetriccare_whhk'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)">
+        入院诊断：
+        <div
+          class="bottom-line"
+          style="
+            min-width: 1100px;
+            min-height: 13px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          "
+        >
+          {{ diagnosis }}
+        </div>
+      </span>
     </div>
     <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'intravenous_whhk'">
       <span>
         置管日期：
-        <input type="text" v-model="sheetInfo.relObj.zgrq" style="border-bottom: 1px solid #000; width: 110px"/>
+        <input
+          type="text"
+          v-model="sheetInfo.relObj.zgrq"
+          style="border-bottom: 1px solid #000; width: 110px"
+          :data-value="sheetInfo.relObj.zgrq"
+        />
       </span>
       <span>
         置管部位：
-        <input type="text" v-model="sheetInfo.relObj.zgbw" style="border-bottom: 1px solid #000; width: 120px"/>
+        <input
+          type="text"
+          v-model="sheetInfo.relObj.zgbw"
+          style="border-bottom: 1px solid #000; width: 120px"
+          :data-value="sheetInfo.relObj.zgbw"
+        />
       </span>
       <span>
         导管置入长度(厘米)：
-        <input type="text" v-model="sheetInfo.relObj.dgzrcd" style="border-bottom: 1px solid #000; width: 80px"/>
+        <input
+          type="text"
+          v-model="sheetInfo.relObj.dgzrcd"
+          style="border-bottom: 1px solid #000; width: 80px"
+          :data-value="sheetInfo.relObj.dgzrcd"
+        />
       </span>
       <span>
         导管外露长度(厘米)：
-        <input type="text" v-model="sheetInfo.relObj.dgwlcd" style="border-bottom: 1px solid #000; width: 80px"/>
+        <input
+          type="text"
+          v-model="sheetInfo.relObj.dgwlcd"
+          style="border-bottom: 1px solid #000; width: 80px"
+          :data-value="sheetInfo.relObj.dgwlcd"
+        />
       </span>
     </div>
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
@@ -106,6 +162,7 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
+import bus from "vue-happy-bus";
 export default {
   props: {
     patientInfo: Object,
@@ -113,6 +170,7 @@ export default {
   },
   data() {
     return {
+      bus: bus(this),
       sheetInfo,
       showAge: ['labor_whhk'], // 显示年龄
     };
@@ -163,7 +221,25 @@ export default {
         }
       }
     },
-
+    diagnosis() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        this.patientInfo.diagnosis
+      );
+    },
   },
   methods: {
     updateBirthDay() {
@@ -175,6 +251,17 @@ export default {
         },
         this.patientInfo.birthday,
         "修改出生日期"
+      );
+    },
+    updateDiagnosis(key, label, autoText) {
+      window.openSetTextModal(
+        (text) => {
+          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          this.$message.success(`修改入院诊断成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.diagnosis,
+        `修改入院诊断`
       );
     },
     updateTetxInfo(key, label, autoText) {

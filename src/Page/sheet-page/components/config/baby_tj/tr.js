@@ -66,11 +66,11 @@ export default [
   { key: 'fieldFour', event: keyf1, value: '', next: '', name: '自定义值4', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'fieldFive', event: keyf1, value: '', next: '', name: '自定义值5', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8) },
   {
-    key: "description", //特殊情况
+    key: "description", //特殊情况记录
     value: "",
-    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "200px", background: "transparent" },
-    textarea: { width: 200 },
-    event: function (e, td) { if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault() } keyf1(e, td) }
+    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "120px", background: "transparent" },
+    textarea: { width: 160 },
+    event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
   },
   { key: "sign", value: "" },
   { key: "audit", value: "" },
@@ -89,5 +89,4 @@ export default [
   { hidden:true, key:'auditorName', value:''},
   { hidden:true, key:'empNo', value:''},
   { hidden:true, key:'multiSign', value:''},
-  // { hidden:true, key:'multiSign', value:''},
 ]

@@ -17,6 +17,12 @@
             <el-radio v-model="templateType" label="common" style="margin-right:10px">公共</el-radio>
             <el-button  @click="delActiveType" :disabled="canDelete" size="mini" >删除当前分类<i class="el-icon-delete"></i></el-button>
           </div>
+          <div class="search-con" style="line-height:32px" flex v-if="HOSPITAL_ID === 'zhzxy'">
+            <el-radio-group v-model="class_4_zhzyx" @change="onClassChange">
+              <el-radio label="0">全科</el-radio>
+              <el-radio label="1">个人</el-radio>
+            </el-radio-group>
+          </div>
           <div class="search-con" flex>
             <div class="select-box" :style="{width: selectWidth + 'px'}">
               <el-select v-model="selectedType" filterable placeholder="请选择" :popper-append-to-body="false"  >
@@ -52,10 +58,10 @@
           </div>
           <div class="list-con" v-else :style="listconHeight">
             <div v-for="(item, key) in filterData" :key="key">
-              <templateItem :data="item" :key="item.id"></templateItem>
+              <templateItem :data="item" :key="item.id" @openAddModal="openAddModal"></templateItem>
             </div>
           </div>
-          <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
+          <div class="footer-con" flex="main:center cross:center" @click="openAddModal()">
             <i class="iconfont icon-tianjia"></i> 新建模板
           </div>
         </div>
@@ -213,7 +219,14 @@
 <script>
 import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./components/template-item.vue";
-import { typeList, list ,typeListByDept,delByType} from "@/Page/sheet-page/api/recordDesc.js";
+import {
+  typeList,
+  list,
+  typeListByDept,
+  delByType,
+  getPersonalTemplate,
+  getPersonalTypeList
+} from "@/Page/sheet-page/api/recordDesc.js";
 import addTemplateModal from "./add-template-modal.vue";
 import bus from "vue-happy-bus";
 export default {
@@ -368,7 +381,8 @@ export default {
         "ug/kg/h",
         "%"
       ],
-      templateType:"dept"
+      templateType:"dept",
+      class_4_zhzyx: '0', // 珠海中西医模板分类
     };
   },
   computed: {
@@ -391,7 +405,7 @@ export default {
     },
     listconHeight(){
       let str=""
-      if(this.HOSPITAL_ID==='liaocheng' || this.HOSPITAL_ID==='wujing'||this.HOSPITAL_ID==='huadu'||this.HOSPITAL_ID==='foshanrenyi'){
+      if(['liaocheng', 'wujing', 'huadu', 'foshanrenyi', 'zhzxy'].includes(this.HOSPITAL_ID)){
          str='height: calc(100vh - 191px)'
       }
       return str
@@ -450,8 +464,8 @@ export default {
       });
      }
     },
-    openAddModal() {
-      this.$refs.addTemplateModal.open();
+    openAddModal(data) {
+      this.$refs.addTemplateModal.open(data);
     },
     addTemplateAtDoc(item) {
       this.bus.$emit("addTemplateAtDoc", item);
@@ -478,13 +492,39 @@ export default {
        this.selectedType=""
        this.typeList=[]
        this.getData()
+    },
+    // 获取个人模板数据
+    async getPersonalData() {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"))
+        const res = await getPersonalTypeList(user.empNo)
+        this.typeList = res.data.data.emp
+        this.typeList.push("特殊符号")
+        const params = {
+          groupName: this.selectedType,
+          empNo: user ? user.empNo : '',
+        }
+        const resData = await getPersonalTemplate(params)
+        this.listMap = resData.data.data.list
+      } catch (error) {
+        console.error(error.message)
+      }
+    },
+    // 分类切换
+    onClassChange(value) {
+      if (value === '1') {
+        this.getPersonalData()
+      } else {
+        this.getData()
+      }
     }
   },
   created() {
     this.bus.$on("refreshTemplate", ()=>{
       this.typeList=[]
-      this.getData()
-      });
+      // this.getData()
+      this.onClassChange(this.class_4_zhzyx)
+    });
     if(this.HOSPITAL_ID==='whfk'){
       const arr=['cmH₂O','ml/h','EPAP','IPAP','IU','U']
       for (let index = 0; index < arr.length; index++) {
@@ -501,10 +541,14 @@ export default {
         return;
       }
       if (this.selectedType) {
-        const wardCode=this.templateType==="dept"? localStorage.wardCode:""
-        list(this.selectedType,wardCode,this.HOSPITAL_ID).then(res => {
-          this.listMap = res.data.data.list;
-        });
+        if (this.class_4_zhzyx === '1') {
+          this.getPersonalData()
+        } else {
+          const wardCode = this.templateType === "dept" ? localStorage.wardCode : ""
+          list(this.selectedType, wardCode, this.HOSPITAL_ID).then(res => {
+            this.listMap = res.data.data.list;
+          });
+        }
       }
     },
     templateType(){

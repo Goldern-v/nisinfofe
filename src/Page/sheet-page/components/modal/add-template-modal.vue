@@ -11,6 +11,12 @@
         <el-radio v-model="templateType" label="dept">科室</el-radio>
         <el-radio v-model="templateType" label="common">公共</el-radio>
       </div>
+      <div style="margin-bottom: 18px" v-if="HOSPITAL_ID === 'zhzxy'">
+        <el-radio-group v-model="class_4_zhzyx">
+          <el-radio label="0">全科</el-radio>
+          <el-radio label="1">个人</el-radio>
+        </el-radio-group>
+      </div>
       <div flex="main:justify cross:center" style="margin-bottom: 20px">
         <p for class="title" style="margin-right: 10px">类别：</p>
         <el-autocomplete
@@ -112,7 +118,8 @@ export default {
       },
       templateType:"dept",
       isPosting:false,
-      beforeEmpNo:""
+      beforeEmpNo:"",
+      class_4_zhzyx: '0', // 模板类型
     };
   },
   computed: {
@@ -149,8 +156,8 @@ export default {
     post() {
       //特殊情况,保存开启权限分类医院名
       const isDeptList=["liaocheng","wujing","huadu","foshanrenyi"]
+      const user=JSON.parse(localStorage.getItem("user"))
       if(isDeptList.includes(this.HOSPITAL_ID)){
-        const user=JSON.parse(localStorage.getItem("user"))
         const wardCode=this.templateType==='dept'?localStorage.wardCode:""
         let changeEmpNo=user.empNo
         if(this.id){
@@ -172,8 +179,18 @@ export default {
         );
        }
       }else{
-        saveOrUpdate(this.groupName, this.title, this.content, this.id ,localStorage.wardCode,this.HOSPITAL_ID).then(
-        res => {
+        const params = {
+          groupName: this.groupName,
+          title: this.title,
+          content: this.content,
+          id: this.id,
+          wardCode: localStorage.wardCode,
+        }
+        if (this.class_4_zhzyx === '1') {
+          params.empNo = user.empNo
+          delete params.wardCode
+        }
+        saveOrUpdate(params).then(res => {
           if (this.id) {
             this.$message.success("更新常用语模版成功");
           } else {
@@ -214,7 +231,7 @@ export default {
         });
       });
       }
-    }
+    },
   },
   created() {
     this.bus.$on("openAddTemplateModal", item => {

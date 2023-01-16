@@ -12,7 +12,7 @@
         </el-tooltip>
       </div>
     </div>
-    <div v-else class="item-con" @click="addTemplateAtDoc">
+    <div v-else class="item-con" @click="addTemplateAtDoc" >
       <div class="title" v-if="data.title">{{data.title}}</div>
       <div class="desc" v-html="data.content"></div>
       <div class="tool-box" flex="cross:center">
@@ -101,7 +101,9 @@ export default {
       this.bus.$emit("addTemplateAtDoc", this.data.content);
     },
     toEdit() {
-      this.bus.$emit("openAddTemplateModal", this.data);
+      // console.log('edit')
+      // this.bus.$emit("openAddTemplateModal", this.data);
+      this.$emit("openAddModal", this.data);
     },
     toDel() {
       this.$confirm("此操作将永久删除该常用语模版, 是否继续?", "提示", {

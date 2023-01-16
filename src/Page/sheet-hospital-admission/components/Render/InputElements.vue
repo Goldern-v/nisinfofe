@@ -20,12 +20,8 @@
       class="input-element"
     >
       <!-- html -->
-      <!-- <FormGroupTitle :obj="child" :formObj="formObj"/> -->
       <FormGroupHR :obj="child" :formObj="formObj" />
       <FormGroupHTML :obj="child" :formObj="formObj" />
-      <!-- <FormGroupVerticalBox :obj="child" :formObj="formObj"/> -->
-      <!-- <FormGroupHorizontalBox :obj="child" :formObj="formObj"/> -->
-      <!-- <FormGroupColBox :obj="child" :formObj="formObj"/> -->
 
       <!-- 文字显示 -->
       <span
@@ -92,19 +88,6 @@
         class="radio-input"
       />
 
-      <!-- <el-checkbox
-        v-if="child.type==='radio' && !child.tips"
-        v-model="radioValue"
-        border
-        :size="child.size ||'small'"
-        :label="child.code ||child.title"
-        :class="child.class||''"
-        :style="child.style||''"
-        class="radio-input"
-        :ref="makeRefName(child,cindex)"
-        @click.native.stop="radioClicked($event,child)"
-      >{{child.title}}</el-checkbox>-->
-
       <el-tooltip
         class="item itemlist"
         effect="light"
@@ -127,17 +110,6 @@
           :formObj="formObj"
           class="radio-input"
         />
-        <!-- <el-checkbox
-          v-if="child.type==='radio' && child.tips"
-          v-model="radioValue"
-          :ref="makeRefName(child,cindex)"
-          border
-          :size="child.size||'small'"
-          :label="child.code||child.title"
-          :class="child.class||''"
-          :style="child.style||''"
-          @click.native.stop="radioClicked($event,child)"
-        >{{child.title}}</el-checkbox>-->
       </el-tooltip>
 
       <!-- 单选box -->
@@ -189,8 +161,6 @@
         :col="col"
       />
 
-      <!-- <el-input v-if="child.type==='input'"  placeholder="" v-model="formObj.model[child.name]" :class="child.class||''" :style="child.style||''" size="small" @click.native.stop="inputClick($event, child)" ><template v-if="child.title" slot="prepend">{{child.title}}</template></el-input>{{child.name}} -->
-
       <!-- 日期 -->
       <DatePicker
         v-if="['datePicker', 'dateTime'].indexOf(child.type) > -1"
@@ -223,39 +193,6 @@
           :col="col"
         />
       </span>
-      <!-- <span>{{child.dialog && child.dialog.title}}</span> -->
-      <!-- <span class="tip" v-if="getOtherText(child)">{{ getOtherText(child)}}</span> -->
-      <!-- <span
-        class="tip"
-        :style="child.name === 'I100001' && {position: 'absolute', left: '74px',top: '258px'}"
-        v-if="getOtherText(child) && getOtherText(child)!='null'  && formObj.model[child.name]"
-        @click="openTip(child)"
-      >{{child.postTitle||child.title}}:{{getOtherText(child)}}{{child.postText}}</span>-->
-      <!-- <el-tooltip
-        class="item"
-        effect="light"
-        placement="left"
-        v-if="dialogResult(child).isShow"
-      >
-        <div slot="content" style="max-width: 200px">
-          <span v-html="dialogResult(child, true).html"></span>
-        </div>
-        <span
-          class="tip"
-          style="
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            width: 100px;
-            height: 20px;
-            line-height: 25px;
-            display: inline-block;
-          "
-          v-html="dialogResult(child).html"
-          @click="openTip(child)"
-        ></span>
-      </el-tooltip> -->
-      <!-- <span>{{dialogResult(child).isShow}}</span> -->
     </span>
   </span>
 </template>
@@ -263,14 +200,8 @@
 <script>
 import vue from "vue";
 import uuid from "node-uuid";
-
 import FormGroupHTML from "./FormGroupHTML";
-// import FormGroupTitle from "./FormGroupTitle";
 import FormGroupHR from "./FormGroupHR";
-// import FormGroupHorizontalBox from "./FormGroupHorizontalBox";
-// import FormGroupVerticalBox from "./FormGroupVerticalBox";
-// import FormGroupColBox from "./FormGroupColBox";
-
 import Radiobox from "./Radiobox";
 import Checkbox from "./Checkbox";
 import InputBox from "./InputBox";
@@ -368,10 +299,6 @@ export default {
     if (this.$refs) {
       let object = this.$refs;
       if (this.element.type === "radio") {
-        // if(!this.$root.$refs[this.formCode][this.elementName]){
-        //   this.$root.$refs[this.formCode][this.elementName] = new Array()
-        // }
-
         return;
         for (const key in object) {
           if (object.hasOwnProperty(key)) {
@@ -401,7 +328,6 @@ export default {
         }
       } else {
         if (this.$refs[refName]) {
-          // console.log(this.childIndex,'this.$refs:',this.$refs[refName])
           this.$refs[refName]["childObject"] = this.element;
           this.$root.$refs[this.formCode][refName] = this.$refs[refName];
         }
@@ -447,15 +373,9 @@ export default {
         }
       }
       if (isShow) {
-        // console.log('!!!dialogs',dialog[0].dialog.title,dialog)
         dialog.map((d) => {
           if (d) {
             let title = d.title || d.dialog.title || "";
-            // console.log("!!!==!!!", title, d, d.parentName, child);
-            // let obj = this.formObj.dialogs.find(
-            //   item =>
-            //     (item.title || item.formSetting.formTitle.formName) === title
-            // );
 
             let obj = this.formObj.dialogs[title];
 
@@ -469,24 +389,11 @@ export default {
                   this.formObj.model[child.name] &&
                   this.formObj.model[child.name].indexOf(title) > -1
                 ) {
-                  // console.log( 'cmd'
-                  //   "!!!=vet=!!!",
-                  //   title,
-                  //   d,
-                  //   d.dialog.parentName,
-                  //   obj,
-                  //   child,
-                  //   child.title,
-                  //   child.name,
-                  //   this.formObj.model[child.name]
-                  // );
                   html += `<span><span style='${obj.style}'>${
                     this.formObj.model[d.dialog.parentName] || ""
                   }${obj.suffixDesc || ""}</span></span>`;
                   hasNewLine ? (html += newLine) : (html = html);
                 }
-                //
-                // console.log('d.cleanKey',d,d.dialog.cleanKey,'child.title',child.title,this.formObj.model[child.name])
                 let cleanKeyCheck = () => {
                   // console.log('===d.cleanKey',d.cleanKey,'child.title',child.title)
                   if (d.dialog && d.dialog.hasOwnProperty("cleanKey") > -1) {
@@ -523,7 +430,6 @@ export default {
                 title = child.postTitle || obj.aliasTitle || obj.title;
               }
               let objChildren = obj.body ? obj.body : obj.children;
-              // console.log('!!title!!',obj.title,obj,objChildren)
               try {
                 // 单组或多组选项结果分行显示
                 if (
@@ -546,17 +452,7 @@ export default {
                     hasNewLine ? (html += newLine) : (html = html);
                   }
                 }
-                //
 
-                //
-                // if(d.parentName && this.formObj.model && this.formObj.model[d.parentName]){
-                //     title = d.title || d.dialog.title || ""
-                //     let value = this.formObj.model[d.parentName]
-                //     console.log('!!parentName!!',title,obj,d.parentName,value)
-                //     // if(value){
-                //       html += `<p>表单${title}:<span style='${d.style}'>${value||""}${d.suffixDesc||""}??</span></p>`
-                //     // }
-                //   }
               } catch (e) {
                 //
                 console.log("error", e);
@@ -570,7 +466,6 @@ export default {
                       child.aliasTitle ||
                       child.label ||
                       child.title;
-                    // console.log('!!child!!',title, child)
                     if (
                       !title ||
                       (child.type && child.type === "formGroupHR")
@@ -588,10 +483,6 @@ export default {
                           ? (html += newLine)
                           : (html += children.length != cindex + 1 ? "," : "");
                       }
-                      // else{
-                      //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
-                      // }
-                      // console.log('!!children!!',child,title,child.label, child.children)
                       handleChild(child.children);
                       return;
                     }
@@ -614,9 +505,6 @@ export default {
                           ? (html += newLine)
                           : (html += children.length != cindex + 1 ? "," : "");
                       }
-                      // else{
-                      //   html += `<p style="color:red">${ title }:${this.formObj.model[child.name]||""}</p>`
-                      // }
                     }
                     //
                   });
@@ -625,18 +513,10 @@ export default {
 
               handleChild(objChildren);
             }
-            // else{
-            // if(d.parentName){
-            //   title = d.title || d.dialog.title || ""
-            //   console.log('!!parentName!!',title,obj,d.parentName,this.formObj.model[d.parentName])
-            //   html += `<p>表单${title}:<span style='${d.style}'>${this.formObj.model[d.parentName]||""}${d.suffixDesc||""}??</span></p>`
-            // }
-            // }
           } else {
             // console.log('!!!!!!',d)
           }
         });
-        // html
       }
       let result = {
         isShow: isShow,
@@ -645,97 +525,7 @@ export default {
 
       return result;
     },
-    // getOtherText(child) {
-    //   if (child.dialog || child.rule) {
-    //     try {
-    //       let dialog = [];
-    //       let text = [];
-    //       let code = [];
-    //       let codeObj = {};
-    //       if (child.dialog) {
-    //         dialog.push(child.dialog);
-    //       }
-    //       if (child.rule) {
-    //         child.rule.forEach(item => {
-    //           if (item.dialog) {
-    //             dialog.push(item.dialog);
-    //           }
-    //           if (item.dialog && item.dialog.hasOwnProperty('otherDialog')) {
-    //             dialog.push(item.dialog.otherDialog);
-    //           }
-    //         });
-    //       }
 
-    //       dialog.forEach(d => {
-    //         let obj = this.formObj.dialogs.find(item => item.title === d.title);
-    //         // let obj = otherDialog.find(item => item.title === d.title);
-    //         if (obj) {
-
-    //           let codeList = obj.children
-    //             ? Array.from(new Set(obj.children.map(item => {
-    //               let name = item.name
-    //               if(item.name.indexOf('CLONE_')>-1){
-    //                 name = item.name.replace('CLONE_','')
-    //               }
-    //               if(this.formObj.model[name]&&name){
-    //                 // codeObj[item.name] = item.title
-    //                 return name
-    //               }
-    //               //  return name
-    //               })))
-    //             : [];
-
-    //           if(obj.hasOwnProperty('body') && obj.body  && obj.body.constructor === Array ){
-    //             // console.log('---body',obj.title,obj,obj.body);
-
-    //             obj.body.map(b=>{
-    //               if(b.children){
-    //                 // if(this.formObj.model[b.name]){
-    //                   codeList = [...codeList, ...Array.from(new Set(b.children.map(item =>
-    //                   {
-    //                     let name = item.name
-    //                     if(item.name.indexOf('CLONE_')>-1){
-    //                       name = item.name.replace('CLONE_','')
-    //                     }
-    //                     if(this.formObj.model[name]&&name){
-    //                       return name
-    //                     }
-    //                   }
-
-    //                   )))]
-    //                   if(this.formObj.model[b.name]&&b.name){
-    //                     codeObj[b.name] = b.title
-    //                   }
-    //                 // }
-    //               }
-    //             })
-    //           }
-
-    //           codeList.forEach(c => {
-    //             if(c){
-    //               code.push(c);
-    //             }
-    //             // text.push(c);
-    //           });
-    //           // console.log(obj.title||'', codeList, obj,codeObj,"codeListcodeListcodeListcodeList");
-    //         }
-    //       });
-    //       let result = Array.from(new Array(code.map(c => {
-
-    //         return (codeObj!={}&&codeObj[c]&&this.formObj.model[c]&&this.formObj.model[c]!='undefined'&&this.formObj.model[c]!='null'?codeObj[c]+ ":":'') + this.formObj.model[c]}
-
-    //       ))).join(
-    //         " "
-    //       );
-    //       // console.log('---result',result)
-    //       return result?result:null
-    //       // return codeList.join(" ");
-    //     } catch (error) {
-    //       console.error(error, "error");
-    //       return null
-    //     }
-    //   }
-    // },
     radioClicked(e, child) {
       if (e.target.tagName !== "INPUT") {
         return;
@@ -770,31 +560,11 @@ export default {
       }
       //
       // 评估得分：0-20分完全依赖；20-40分严重依赖；40-60分明显依赖；＞60分基本自理
-      //
-      console.log(
-        "radioClicked",
-        e,
-        "child:",
-        child,
-        "formObj:",
-        this.formObj,
-        "selectedItems",
-        this.formObj.selectedItems,
-        this.formObj.model,
-        e.target.tagName,
-        e.target.checked,
-        "index",
-        index,
-        "score",
-        score
-      );
+
     },
     helpClick(e, child) {
-      console.log("helpClick", e, child, this.formObj.model, e.target.tagName);
       if (child.dialog) {
-        console.log("child.dialog", child.dialog, this.$refs, this.$root.$refs);
         try {
-          // this.$root.$refs.dialogBox.$el.draggable = true
           child.dialog["callback"] = (res) => {
             console.log("表单填写结果", res);
           };
@@ -809,30 +579,19 @@ export default {
         list: this.$root.$refs[this.formCode][child.name].currentValue || "",
         mode: 1,
         callback: (res) => {
-          console.log("人体图结果:", res);
-          // this.$root.$refs[this.formCode][child.name].$refs.input.value = res;
           this.$root.$refs[this.formCode][child.name].setCurrentValue(res);
           this.formObj.model[child.name] = res;
-          // this.$root.$refs[this.formCode][child.name].value = res;
         },
       };
       this.$root.$refs.bodyModal.openBox(config);
-      console.log(config,'config');
     },
     makeRefName(child = null, cindex = -1) {
-      // child.type+child.name+child.title+cindex
       let refName = child.type + child.name + child.title + cindex;
 
-      // let refName = this.element.type + this.element.name + this.element.title+this.childIndex;
-      console.log("---makeRefName", refName);
-      // if (this.$refs[refName]) {
-      //   this.$root.$refs[this.formCode][refName] = this.$refs[refName];
-      // }
       return refName;
     },
     getUUID(child = null, cindex = -1) {
       let uuid_ = uuid.v1();
-      // console.log(uuid_)
       if (child) {
         this.childIndex = cindex;
         this.elementName = child.name;

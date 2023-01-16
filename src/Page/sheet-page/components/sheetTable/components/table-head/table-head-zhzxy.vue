@@ -47,6 +47,14 @@
           v-model="relObj.wxNo"
         />
       </span>-->
+      <span v-if="sheetInfo.sheetType == 'nursing_zhzxy'">
+        中医方案患者：
+        <input
+          class="bottom-line"
+          style="width: 50px"
+          v-model="sheetInfo.relObj.expand1"
+        />
+      </span>
       <span>
         入院日期：
         {{patientInfo.admissionDate | toymd}}

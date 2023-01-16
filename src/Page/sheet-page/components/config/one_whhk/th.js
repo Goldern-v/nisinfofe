@@ -330,7 +330,7 @@ export default {
       {
         name: ``,
         canSet: true,
-        key: '',
+        key: 'other4',
         colspan: "1",
         rowspan: "2",
         style: {
@@ -341,7 +341,7 @@ export default {
       {
         name: ``,
         canSet: true,
-        key: 'other4',
+        key: 'description',
         colspan: "1",
         rowspan: "2",
         style: {

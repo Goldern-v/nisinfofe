@@ -108,8 +108,10 @@ export default [
   },
 
   {
-    key: "fieldEleven", //备注
+    key: "description", //备注
     value: "",
+    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "150px", background: "transparent" },
+    textarea: { width: 150 },
     event: keyf1,
     name: "备注",
   },

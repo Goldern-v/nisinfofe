@@ -58,6 +58,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_medicine_two_hj": {
+    // 重症医学病区二区
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_medicine_two_hj/th").default)
+    );
+  }
+  break;
   case "obstetrics": {
     // 产科
     Th = JSON.parse(
@@ -1838,6 +1845,13 @@ export default function Title(
     // 顺德龙江-催产素静脉点滴观察单
     Th = JSON.parse(
       JSON.stringify(require("../config/oxytocin_sdlj/th").default)
+    );
+  }
+  break;
+  case "oxytocin_dglb": {
+    // 东莞寮步-催产素静脉点滴观察单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_dglb/th").default)
     );
   }
   break;

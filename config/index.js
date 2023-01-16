@@ -41,11 +41,12 @@ const currentTargetUrl = (() => {
   switch (HOSPITAL_ID) {
     /** 厚街 */
     case "hj":
-      return "http://120.197.141.41:9091" //厚街正式
+      // return "http://120.197.141.41:9091" //厚街正式
       // return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
     // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
       // return "http://192.168.20.83:8080" // 彬哥本地
+      return "http://192.168.3.191:9091"//锦泳本地
 
     /** 威县 */
     case "weixian":
@@ -237,7 +238,9 @@ const currentTargetUrl = (() => {
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
       // return 'http://192.168.1.54:9866'
-      return 'http://120.24.240.231:19097'
+      // return 'http://120.24.240.231:19097'
+      // return 'http://192.168.3.226:8080'
+      return 'http://192.168.3.191:9091'
 
     //武汉汉口
     case 'whhk':
@@ -257,7 +260,7 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9896/'
     //
     case 'nfyksdyy':
-      return ' http://59.38.110.189:9092'
+      return 'http://59.38.110.189:9092'
 
     case 'dglb':
       return 'http://http://10.51.7.22:9094'
@@ -296,8 +299,11 @@ module.exports = {
     dev: {
         env: devEnv,
         port: 4892,
+        // 自动代开浏览器
         autoOpenBrowser: true,
+        // 除了 index.html 之外的静态资源要存放的路径，
         assetsSubDirectory: "static",
+        // 代表打包后，index.html里面引用资源的的相对地址
         assetsPublicPath: "/",
         // proxyTable: {},
         // CSS Sourcemaps off by default because relative paths are "buggy"
@@ -305,7 +311,7 @@ module.exports = {
         // (https://github.com/webpack/css-loader#sourcemaps)
         // In our experience, they generally work as expected,
         // just be aware of this issue when enabling this option.
-        cssSourceMap: false,
+        cssSourceMap: false, //是否开启 cssSourceMap默认为false
         proxyTable: {
             "/crNursing/api": {
                 target: currentTargetUrl,

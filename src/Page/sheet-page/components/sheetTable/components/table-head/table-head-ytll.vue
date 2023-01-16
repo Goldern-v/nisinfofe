@@ -44,7 +44,8 @@
       <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ patientInfo.bedLabel }}
+          <!-- {{ patientInfo.bedLabel }} -->
+          {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
         </div>
       </span>
       <span>
@@ -89,7 +90,8 @@
       <span v-if="sheetInfo.sheetType == 'labor_con_ytll'">
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ patientInfo.bedLabel }}
+          <!-- {{ patientInfo.bedLabel }} -->
+          {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
         </div>
       </span>
       <span>
@@ -115,7 +117,8 @@
       <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ patientInfo.bedLabel }}
+          <!-- {{ patientInfo.bedLabel }} -->
+          {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
         </div>
       </span>
       <span>
@@ -135,7 +138,8 @@
       <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ patientInfo.bedLabel }}
+          <!-- {{ patientInfo.bedLabel }} -->
+          {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
         </div>
       </span>
        <span>
@@ -272,7 +276,7 @@
         <input v-model="sheetInfo.relObj.zlsj"/>
       </span>
     </div> -->
-    <!-- <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal> -->
+    <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 
@@ -361,6 +365,20 @@ export default {
         this.patientInfo.delivery
       );
     },
+    newPatientInfo() {
+      /*  每页独立床号功能 */
+      this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] ? this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] : this.patientInfo.bedLabel
+      let beforeBed = this.patientInfo.bedLabel
+      let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]
+      if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]){
+        // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
+        beforeBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index-1}`]
+      }
+      return {
+        ...this.patientInfo,
+        [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
+      }
+    }
   },
   methods: {
     setRelValue(code, val) {
@@ -370,7 +388,9 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      this.$refs.bedRecordModal.open();
+      // 把当前页护记的页码存入,用于每一页床号的自定义
+      this.$refs.bedRecordModal.open('', this.index);
+      // this.$refs.bedRecordModal.open();
     },
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
@@ -423,12 +443,17 @@ export default {
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
+    if (!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]) {
+      this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] = this.patientInfo.bedLabel
+    }
     // 江门市妇幼院新生儿监护单  需要修改日期，只要日期，不要时间
     if(sheetInfo.sheetType === 'neonatal_care_jm'){
       this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
   },
-  watch: {},
+  watch: {
+
+  },
   components: {
     bedRecordModal,
     crDatePicker,

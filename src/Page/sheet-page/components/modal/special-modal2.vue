@@ -1043,6 +1043,7 @@ function autoComplete(el, bind) {
     let key = bind.value.key;
     let tr = bind.value.tr;
     let td = bind.value.td;
+    const splice = td && td.splice
     el.onfocus = (e) => {
       let dataList = bind.value.dataList;
       if (el.readOnly) return;
@@ -1068,9 +1069,35 @@ function autoComplete(el, bind) {
             }
             if (data) {
               if (typeof obj[key] == "object") {
-                obj[key].value = data.trim();
+                // 多选
+                if (splice) {
+                  const split = typeof splice === 'string' ? splice : ','
+                  const oldValue =  obj[key].value ? obj[key].value.split(split) : []
+                  const index = oldValue.findIndex(v => v === data)
+                  if (index > -1) {
+                    oldValue.splice(index, 1)
+                  } else {
+                    oldValue.push(data.trim())
+                  }
+                  obj[key].value = oldValue.join()
+                } else { // 单选
+                  obj[key].value = data.trim();
+                }
               } else {
-                obj[key] = data.trim();
+                // 多选
+                if (splice) {
+                  const split = typeof splice === 'string' ? splice : ','
+                  const oldValue =  obj[key] ? obj[key].split(split) : []
+                  const index = oldValue.findIndex(v => v === data)
+                  if (index > -1) {
+                    oldValue.splice(index, 1)
+                  } else {
+                    oldValue.push(data.trim())
+                  }
+                  obj[key] = oldValue.join()
+                } else { // 单选
+                  obj[key] = data.trim();
+                }
               }
             }
           },
@@ -1080,11 +1107,11 @@ function autoComplete(el, bind) {
         });
       });
     };
-    el.onblur = (e) => {
-      setTimeout(() => {
-        window.closeAutoComplete(key);
-      }, 400);
-    };
+    // el.onblur = (e) => {
+    //   setTimeout(() => {
+    //     window.closeAutoComplete(key);
+    //   }, 400);
+    // };
   } else {
     el.onfocus = null;
   }

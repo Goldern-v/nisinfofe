@@ -74,7 +74,9 @@
   th[dataname='签名'] {
     width: 60px !important;
   }
-
+  th[dataname='检查者'] {
+    width: 60px !important;
+  }
   th[dataname='审核签名'] {
     display: none !important;
   }
@@ -767,11 +769,25 @@ export default {
     if (
       (sheetInfo.sheetType == "generalnursing_tj")
     ) {
-
       addCSS(
+        
         window,
         `
             #sheetPagePrint th[dataname="护士<br/>签名"] {
+              min-width: 100px !important;
+              max-width: 100px !important;
+           }
+        `
+      );
+    }
+    if (
+      (sheetInfo.sheetType == "baby_tj")
+    ) {
+      addCSS(
+        
+        window,
+        `
+            #sheetPagePrint th[dataname="签 名"] {
               min-width: 100px !important;
               max-width: 100px !important;
            }
