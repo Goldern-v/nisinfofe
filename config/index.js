@@ -160,12 +160,12 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://192.168.20.147:9091"  // 双艳
-      // return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
       // return "http://120.24.240.231:19097" //
       // return "http://192.168.103.16:9091" //
       // return "http://218.13.87.27:9094" //
-      return "https://info.cr-health.com:20215"
+      // return "https://info.cr-health.com:20215"
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -200,8 +200,8 @@ const currentTargetUrl = (() => {
     case 'lyxrm':
       // return "http://192.168.1.54:9890" // 内网测试
       // return "http://222.133.53.230:9093" // 临邑正式
-      return "http://222.133.53.230:9091" // 临邑正式
-      // return "http://120.24.240.231:19097"  // 临邑正式(临邑本地)
+      // return "http://222.133.53.230:9091" // 临邑正式
+      return "http://120.24.240.231:19097"  // 临邑正式(临邑本地)
 
     // 烟台玲珑
     case 'ytll':
