@@ -17,8 +17,8 @@ export default {
       //护记页码起始页,
       startPageIndex:1,
       endPageIndex:1
-
     },
+    pageIndexs:1,
   },
   mutations: {
     upPatientInfo(state, val) {
@@ -56,6 +56,9 @@ export default {
     },
     upAddPageModal(state, val) {
       state.isAddPageModal = val
+    },
+    upPageIndexs(state, val) {
+      state.pageIndexs = val
     },
   }
 }

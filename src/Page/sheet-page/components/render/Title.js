@@ -58,6 +58,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_medicine_two_hj": {
+    // 重症医学病区二区
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_medicine_two_hj/th").default)
+    );
+  }
+  break;
   case "obstetrics": {
     // 产科
     Th = JSON.parse(
