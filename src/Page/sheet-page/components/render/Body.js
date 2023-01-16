@@ -499,6 +499,11 @@ function switchSheetType(type) {
       // 花都-方舱医院护理记录单
       schema = require("../config/transshipment_hd/tr.js").default;
     }
+    break;
+    case "transshipment_new_hd": {
+      // 花都-方舱医院护理记录单
+      schema = require("../config/transshipment_new_hd/tr.js").default;
+    }
       break;
     case "intervention_cure": {
       // 厚街-介入治疗术护理记录单
