@@ -172,7 +172,7 @@ export function delSheetPage(index, callback) {
     }
 
     // 临邑日期时间禁用符号，识别该行已经被占用
-    if (['lyxrm', 'whhk', 'stmz'].includes(process.env.HOSPITAL_ID)) {
+    if (['lyxrm', 'whhk', 'stmz','foshanrenyi'].includes(process.env.HOSPITAL_ID)) {
       if (listData[nowX]) {
         // 第一条记录
         const firstEqualIndex = listData.findIndex(

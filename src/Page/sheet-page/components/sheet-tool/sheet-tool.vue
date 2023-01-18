@@ -1785,7 +1785,6 @@ export default {
       });
     },
     patientId:{
-      deep: true,
       handler() {
         this.oldSelectList = this.selectList
         this.selectList = [];
