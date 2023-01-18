@@ -498,7 +498,6 @@ export default {
           this.patientListLoading = false;
           this.sheetInfo.isSave = true;
         });
-
       }
     },
     addSheetPage() {
@@ -545,6 +544,9 @@ export default {
     getSheetData() {
       const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
       this.tableLoading = true;
+      if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+          this.bus.$emit("refreshTitleTemplate", this.getTemplateList); 
+        }
       if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
         this.isLoad=false
       }
