@@ -436,7 +436,7 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
                 1;
             }
             tr.isRead = isRead(tr, x, nowX, listData);
-            tr.map((td, y) => {
+            tr.find((item) => item.key == 'id').value && tr.map((td, y) => {
               td.isDisabed = isDisabed(
                 tr,
                 td,
