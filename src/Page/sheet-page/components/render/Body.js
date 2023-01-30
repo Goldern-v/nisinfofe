@@ -1606,6 +1606,11 @@ function switchSheetType(type) {
         schema = require("../config/surgical_qhwy/tr.js").default;
       }
       break;
+    case "nursing_qhwy": {
+        // 青海五院 - 一般护理记录单
+        schema = require("../config/nursing_qhwy/tr.js").default;
+      }
+      break;
     case "ophthalmology_qhwy": {
         // 青海五院 - 眼科护理记录单
       schema = require("../config/ophthalmology_qhwy/tr.js").default;

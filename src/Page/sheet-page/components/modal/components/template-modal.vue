@@ -32,7 +32,7 @@
     </div>
     <div class="list-con" v-else :style="listconHeight">
       <div v-for="(item, key) in filterData" :key="key">
-        <templateItem :data="item" :key="item.id"></templateItem>
+        <templateItem :data="item" :key="item.id" @openAddModal="(data) => $emit('openAddModal', data)"></templateItem>
       </div>
       <div style="height: 60px;"></div>
     </div>

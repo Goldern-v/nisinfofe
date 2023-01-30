@@ -44,7 +44,7 @@
             血糖监测单
           </div>
 
-          <div class="sup-title" v-else>微量血糖测定登记表</div>
+          <div class="sup-title" v-else>微量血糖测定登记表111</div>
           <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng'">POCT</div>
           <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
