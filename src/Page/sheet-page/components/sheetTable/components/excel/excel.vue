@@ -1036,7 +1036,7 @@ export default {
             td.value ='';
           }
         }
-        if((td.key === 'bloodPressure') && td.value !== ''&&!td.value.split('/')[1]){
+        if((td.key === 'bloodPressure') && td.value !== ''&&!td.value.split('/')[1] && sheetInfo.sheetType !== 'common_gzry'){
           td.value ='';
         }
         if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1]
