@@ -117,6 +117,7 @@ import nullText from "@/components/null/null-text.vue";
 import editBlockModal from "../modal/edit-block-modal";
 import moment from "moment";
 import left1PrintModal from '../modal/left1-print-modal.vue'
+
 export default {
   mixins: [common],
   data() {

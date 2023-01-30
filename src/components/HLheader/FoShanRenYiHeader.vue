@@ -167,8 +167,8 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-              </el-dropdown-menu>
-            </el-dropdown>
+              <!-- </el-dropdown-menu>
+            </el-dropdown> -->
             <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志

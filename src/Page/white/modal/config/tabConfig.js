@@ -11,6 +11,7 @@ class Text {
 class CheckBox extends Text {
   constructor(...p) {
     super(...p);
+    this.ifHoldAll = p[3] || false
     this.type = "checkbox";
   }
 }
@@ -38,6 +39,9 @@ let white_board_sort_content = [];
 let white_board_add_expand = [];
 /** 白板额外内容1 */
 let white_board_orders_add_expand = [];
+
+let ifChoseFlag 
+
 (async function getSelectData() {
   let selectList = [
     "white_board_order_type",
@@ -66,7 +70,12 @@ let white_board_orders_add_expand = [];
     nullSelect,
     ...res.data.data.white_board_orders_add_expand
   );
+  if(process.env.HOSPITAL_ID=='zhzxy') window.ifChoseFlag=true
 })();
+
+function addWidth(){
+  if(process.env.HOSPITAL_ID=='zhzxy') return 20
+}
 export default [
   {
     tabLabel: "患者流转",
@@ -90,10 +99,10 @@ export default [
       new CheckBox("是否显示", "show", 70),
       new Text("项目名称", "configure", 150),
       new Input("大屏顺序", "sortValue", 70),
-      new CheckBox("无数据隐藏", "showOrHide", 80),
-      new CheckBox("患者换行", "verticalShow", 70),
-      new CheckBox("显示床号", "bedLabelShow", 70),
-      new CheckBox("显示姓名", "nameShow", 70),
+      new CheckBox("无数据隐藏", "showOrHide", 80 + addWidth(), window.ifChoseFlag && 'showOrHideAll'),
+      new CheckBox("患者换行", "verticalShow", 70 + addWidth(), window.ifChoseFlag && "verticalShowAll"),
+      new CheckBox("显示床号", "bedLabelShow", 70 + addWidth(), window.ifChoseFlag && "bedLabelShowAll"),
+      new CheckBox("显示姓名", "nameShow", 70 + addWidth(), window.ifChoseFlag && "nameShowAll"),
       new Select("额外显示", "addExpand", 130, white_board_orders_add_expand),
       new Select("医嘱类型", "orderTypeShow", 80, white_board_order_type),
       new Select("内容排序", "sortContent", 100, white_board_sort_content)
@@ -109,3 +118,4 @@ export default [
     ]
   }
 ];
+export const choseAllParams = ['nameShowAll','bedLabelShowAll','verticalShowAll','showOrHideAll']
