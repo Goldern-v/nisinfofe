@@ -805,7 +805,7 @@
     <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
@@ -1254,6 +1254,7 @@ export default {
         case 'whhk':
         case "stmz":
         case "nfyksdyy":
+        case "foshanrenyi":
           return this.activeTab === "3";
         default:
           return false;
@@ -1278,6 +1279,7 @@ export default {
         case 'whhk':
         case "stmz":
         case "nfyksdyy":
+        case "foshanrenyi":
           return 1200;
         default:
           return 720;
