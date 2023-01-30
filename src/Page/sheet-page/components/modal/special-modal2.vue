@@ -2229,6 +2229,13 @@ export default {
               } else {
                 text += allDoc[i];
               }
+            }else if (this.sheetInfo.sheetType == "nursing_qhwy") {
+              if (GetLength(text) > 50) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
             }else {
               if (GetLength(text) > 23) {
                 result.push(text);

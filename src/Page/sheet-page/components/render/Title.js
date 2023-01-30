@@ -2079,6 +2079,13 @@ export default function Title(
     );
   }
   break;
+  case "nursing_qhwy": {
+    // 青海五院 - 外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_qhwy/th").default)
+    );
+  }
+  break;
   case "ophthalmology_qhwy": {
     // 青海五院 - 眼科护理记录单
     Th = JSON.parse(
