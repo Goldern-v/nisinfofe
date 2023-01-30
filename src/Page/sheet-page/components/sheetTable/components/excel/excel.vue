@@ -156,9 +156,12 @@
           @contextmenu.stop="openContextMenu($event, y, tr, td)"
           @click="
             selectedItem(td);
-            td.key == 'description' &&
+            (
+              (td.key == 'description' &&
               ['guizhou', '925'].includes(HOSPITAL_ID) &&
-              !tr.isRead &&
+              !tr.isRead) ||
+              (td.key == 'bloodPressure' && sheetInfo.sheetType == 'common_gzry')
+            ) &&
               openEditModal(tr, data, $event);
           "
         >
@@ -2699,7 +2702,7 @@ export default {
             });
             this.bus.$emit("saveSheetPage", false);
           });
-     
+
       }, "审核签名确认","","","","","","",this.sheetInfo.sheetType,SigndataObj,verifySignObj);
     },
     /** 取消审核整页 */
