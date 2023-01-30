@@ -19,7 +19,12 @@
               <col :width="c.width" v-for="(c, index) of item.itemConfig" :key="index">
             </colgroup>
             <tr>
-              <th center p1 v-for="(c, index) of item.itemConfig" :key="index">{{c.dataLabel}}</th>
+              <th center p1 v-for="(c, index) of item.itemConfig" :key="index">
+                {{c.dataLabel}}
+                <template v-if="c.ifHoldAll">
+                  <el-checkbox :key="index+'checkAll'" :value="choseAllParamsObj[c.ifHoldAll]" @change="changeAll(c.ifHoldAll,item.tabKey)"></el-checkbox>
+                </template>
+              </th>
             </tr>
             <tr
               v-for="b of filterBoardConfigureList(item.tabKey)"
@@ -122,6 +127,8 @@
 <script>
 import { saveBoardConfigure, deleteBoardConfigure } from "../api/index.js";
 import common from "@/common/mixin/common.mixin.js";
+import {choseAllParams} from "../modal/config/tabConfig.js";
+
 export default {
   mixins: [common],
   data() {
@@ -129,7 +136,8 @@ export default {
       activeTab: "0",
       boardConfigureList: [],
       selecRow: {},
-      tabConfig: []
+      tabConfig: [],
+      choseAllParamsObj:{}
     };
   },
   created() {
@@ -145,6 +153,14 @@ export default {
     }
   },
   methods: {
+    changeAll(dataKey,tabKey){
+      this.choseAllParamsObj[dataKey] = !this.choseAllParamsObj[dataKey]
+      this.boardConfigureList.forEach(item=>{
+        if(item.configureType==="1"){
+          item[dataKey.replace("All","")]=this.choseAllParamsObj[dataKey]
+        }
+      })
+    },
     open(boardConfigureList) {
       this.selecRow = {};
       this.boardConfigureList = boardConfigureList || [];
@@ -154,9 +170,18 @@ export default {
       this.$refs.modal.close();
     },
     filterBoardConfigureList(configureType) {
-      return this.boardConfigureList.filter(
+      let filterArr =  this.boardConfigureList.filter(
         item => item.configureType == configureType
       );
+      if(configureType==="1"){
+        choseAllParams.forEach(params=>{
+          let flag = filterArr.some((item)=>{
+            return item[params.replace("All",'')]===true
+          })
+          this.choseAllParamsObj[params]=flag
+        })
+      }
+      return filterArr
     },
     addRow() {
       this.activeTab = "2";
