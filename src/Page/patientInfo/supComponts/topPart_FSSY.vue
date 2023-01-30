@@ -140,14 +140,13 @@
       >
         <div class="nav-item">护嘱单</div>
       </router-link>
-      <router-link
+      <!-- <router-link
         :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
-        <div class="nav-item">360视图</div>
-      </router-link>
-
-         <div class="nav-item" @click="openOtherPage">新嘉和</div>
+      </router-link> -->
+        <div class="nav-item"  @click="openOtherPage('360')">360视图</div>
+         <div class="nav-item" @click="openOtherPage('新嘉和')">新嘉和</div>
 
       <!-- <router-link
         :to="{
@@ -176,7 +175,7 @@
       <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>-->
-     
+
     </div>
     <div style="height: 50px"></div>
   </div>
@@ -261,10 +260,15 @@ export default {
   },
   components: {},
   methods:{
-    openOtherPage() {
+    openOtherPage(data) {
       // console.log("query",this.query);
-      window.open(`http://192.168.99.72:8099/?hospital_no=45607379-3&patient_id=${this.query.patientId}&visit_id=${this.query.visitId}`)
-      
+      if(data == '360'){
+         window.open(`http://hz360.fsyyy.com:8081/cdr/personal/?patientId=${this.query.patientId}&visitNumber=1&systemcode=HLXT&doctorcode=${JSON.parse(localStorage.user).empNo}&oporIp=IP`)
+      }else{
+        window.open(`http://192.168.99.72:8099/?hospital_no=45607379-3&patient_id=${this.query.patientId}&visit_id=${this.query.visitId}`)
+      }
+
+
     }
   }
 };
