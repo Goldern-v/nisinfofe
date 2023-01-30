@@ -1520,8 +1520,7 @@ export default {
           const [systolicPressure, diastolicPressure] = bloodPressure.value.split('/')
           this.fixedList.systolicPressure.value = systolicPressure
           this.fixedList.diastolicPressure.value = diastolicPressure
-        }
-        if (bloodPressure.value && !isNaN(bloodPressure.value)) {
+        } else {
           this.fixedList.systolicPressure.value = bloodPressure.value
         }
         delete this.fixedList.bloodPressure
@@ -2369,6 +2368,7 @@ export default {
               name: '血压',
               value: bloodPressure
             }
+            console.log('bloodPressure', bloodPressure)
           }
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
