@@ -702,7 +702,7 @@ import {
 } from "../../../../api/index.js";
 import decode from "../../../../components/render/decode.js";
 import moment from "moment";
-import { getUser } from "@/api/common.js";
+import { getUser,saveRecordAllSign } from "@/api/common.js";
 import bottomRemark from "./remark";
 import { GetUserList} from "@/api/caCardApi";
 // console.dir(sheetInfo);
@@ -2468,7 +2468,7 @@ export default {
     },
     openEditModal(tr, data, e) {
       // 花都副页关闭编辑框
-      if(this.sheetInfo.sheetType=='additional_count_hd' || this.sheetInfo.sheetType=='inandout_weihai' || this.sheetInfo.sheetType=='inout_ytll'){
+      if(this.sheetInfo.sheetType=='additional_count_hd'  || this.sheetInfo.sheetType=='inout_ytll'){
         return
       }
       this.isOpenEditModal = true;
@@ -2669,24 +2669,37 @@ export default {
             }
       }
       window.openSignModal((password, empNo,auditDate=moment().format("YYYY-MM-DD HH:mm:ss")) => {
-        getUser(password, empNo).then((res) => {
-          let { empNo, empName } = res.data.data;
-          sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
-          sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
-          const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','ops_linyi','internal_eval_yz']
-          if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
-            // 审核时间签名时选择的时间
-            sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =
-            moment(auditDate).format("YYYY-MM-DD HH:mm");
-          }
-          sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
-          this.$notify.success({
-            title: "提示",
-            message: "审核成功",
-            duration: 2000,
+          getUser(password, empNo).then((res) => {
+            console.log(res.data.data)
+            let { empNo, empName } = res.data.data;
+            if(this.sheetInfo.sheetType=="nurse_jew" ||this.sheetInfo.sheetType == 'danger_nurse_jew'){
+              saveRecordAllSign( {
+                auditorNo:empNo,
+                auditorName:empName,
+                pageIndex:this.index,
+                formId:this.$parent.patientInfo.id
+              }).then((res) => {
+
+              })
+            }else{
+              sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
+              sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
+              const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','ops_linyi','internal_eval_yz']
+              if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
+                // 审核时间签名时选择的时间
+                sheetInfo.auditorMap[`PageIndex_${this.index}_auditorTime`] =
+                moment(auditDate).format("YYYY-MM-DD HH:mm");
+              }
+              sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
+            }
+            this.$notify.success({
+              title: "提示",
+              message: "审核成功",
+              duration: 2000,
+            });
+            this.bus.$emit("saveSheetPage", false);
           });
-          this.bus.$emit("saveSheetPage", false);
-        });
+     
       }, "审核签名确认","","","","","","",this.sheetInfo.sheetType,SigndataObj,verifySignObj);
     },
     /** 取消审核整页 */
@@ -2860,7 +2873,7 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz','ytll'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz','ytll','huadu'].includes(this.HOSPITAL_ID)) {
         tableHead && (tableHead.style.left = left + 'px')
       }
     }

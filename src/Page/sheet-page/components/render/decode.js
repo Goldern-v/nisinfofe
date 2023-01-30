@@ -24,9 +24,11 @@ function decode(ayncVisitedData) {
   })
 
   let allData = [];
+  let result = [];
+  const PreviousRecord = sheetInfo.extraData&&sheetInfo.extraData.first || []
+  const NextRecord = sheetInfo.extraData&&sheetInfo.extraData.last || []
   for (let pageIndex = 0; pageIndex < data.length; pageIndex++) {
     let bodyModel = data[pageIndex].bodyModel;
-    let result = [];
     let firstRecordDate = ''
     for (let index in bodyModel) {
       // 一定要做这个优化速度需求，被逼无奈，轻喷
@@ -62,8 +64,10 @@ function decode(ayncVisitedData) {
         result.push(tr)
       }
     }
-    allData = [...allData, ...result];
+
   }
+    //上页的结束记录 + ...allData,...result + 下一页的开始记录  头尾会丢失  顺序不能改  一定要这样子
+    allData = [...PreviousRecord,...allData,...result,...NextRecord];
 
   // 贵州-同步护理巡视内容到特殊情况
   if (['guizhou', '925'].includes(process.env.HOSPITAL_ID) && ayncVisitedData) {

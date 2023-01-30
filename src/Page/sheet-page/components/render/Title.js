@@ -550,6 +550,13 @@ export default function Title(
     );
   }
   break;
+  case "transshipment_new_hd": {
+    // 花都-方舱医院护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/transshipment_new_hd/th").default)
+    );
+  }
+  break;
   case "intervention_cure": {
     // 厚街-介入治疗术护理记录单
     Th = JSON.parse(

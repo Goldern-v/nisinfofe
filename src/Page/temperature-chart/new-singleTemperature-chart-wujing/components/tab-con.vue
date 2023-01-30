@@ -228,7 +228,7 @@
               </el-collapse-item>
               <div
                 class="context-box"
-                v-if="Object.keys(otherMultiDictList).length"
+                v-if="Object.keys(otherMultiDictList).length&&!isBaby"
               >
                 <el-collapse-item name="otherBiometric">
                   <template slot="title">
@@ -584,6 +584,9 @@ export default {
     isPain() {
       return this.$store.state.temperature.isPain;
     },
+    isBaby(){
+      return this.patientInfo.patientId&&this.patientInfo.patientId.includes('_')
+    }
   },
   watch: {
     query: {
@@ -955,8 +958,15 @@ export default {
           data[item.vitalSign] = item.vitalCode;
           switch (item.signType) {
             case "base":
-            if(!["表顶注释","表底注释"].includes(item.vitalSign))
+            if(!["表顶注释","表底注释"].includes(item.vitalSign)){
+              if(this.isBaby){
+                if(!['26','27','7','10','11','9'].includes(item.vitalCode)){
+                  baseDic[item.vitalSign] = item.vitalCode
+                }
+              }else{
               baseDic[item.vitalSign] = item.vitalCode;
+              }
+            }
               break;
             case "other":
             if(!["表顶注释","表底注释"].includes(item.vitalSign))

@@ -32,11 +32,11 @@
             @click="td.isChecked && isChecked(tr, td, tdIndex)"
           >
             <label v-if="td.prev">{{ td.prev }}</label>
-           
+
           <div class="sign-img-con" v-if="td.sign">
            <input type="text" v-model="sheetInfo.relObj.signerName2"  :data-value="sheetInfo.relObj.signerName2">
           </div>
-           <!-- 
+           <!--
             <div class="sign-img-con" @click="sign2" v-if="td.sign">
               <span v-if="!isPrint" class="head-sign-text">
                 {{
@@ -58,7 +58,13 @@
       </tbody>
     </table>
     <div class="info">
-      <div class="group">催产素静脉点滴情况：</div>
+      <div class="group">催产素静脉点滴情况：
+        <input
+          type="text"
+          :data-value="sheetInfo.relObj.oxytocinCondition"
+          v-model="sheetInfo.relObj.oxytocinCondition"
+        />
+      </div>
       <div class="group">
         静滴催产素指症：
         <input
