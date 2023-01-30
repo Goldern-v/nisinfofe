@@ -58,9 +58,9 @@ export default {
         case "fuyou":
           this.fileUrl = `http://192.168.19.198:8282/templates/medicalRecord/medicalRecordViewPreview.html?embedded-view=true&req_no=${currentPatient.patientId}&type=2`;
           break;
-        case "foshanrenyi":
-          this.fileUrl = `http://hz360.fsyyy.com:8081/cdr/personal/?patientId=${currentPatient.patientId}&visitNumber=1&systemcode=HLXT&doctorcode=${JSON.parse(localStorage.user).empNo}&oporIp=IP`;
-          break;
+        // case "foshanrenyi":
+        //   this.fileUrl = `http://hz360.fsyyy.com:8081/cdr/personal/?patientId=${currentPatient.patientId}&visitNumber=1&systemcode=HLXT&doctorcode=${JSON.parse(localStorage.user).empNo}&oporIp=IP`;
+        //   break;
         case "lyxrm":
         case "liaocheng":
         case "stmz":
