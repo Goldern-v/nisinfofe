@@ -71,7 +71,21 @@ export default [{
     },
     name: "血压",
     next: "mmHg",
-  }, 
+  },
+  {
+    hidden: true,
+    key: "systolicPressure", //收缩压
+    value: "",
+    name: "收缩压",
+    next: "mmHg",
+  },
+  {
+    hidden: true,
+    key: "diastolicPressure", //舒张压
+    value: "",
+    name: "舒张压",
+    next: "mmHg",
+  },
   // {
   //   key: "sugar", //血糖
   //   value: "",
@@ -99,7 +113,7 @@ export default [{
     autoComplete: {
       data: ['体位护理', '皮肤护理', '营养护理','导管护理','足背动脉搏动']
     }
-  }, 
+  },
   {
     key: "description", //特殊情况记录
     value: "",

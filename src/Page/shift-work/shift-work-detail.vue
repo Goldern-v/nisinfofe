@@ -517,7 +517,7 @@
                 <button
                   v-if="record.autographNameN2"
                   @click="onDelSignModalOpen('N2', record.autographEmpNoN2)"
-                >{{record.autographNameN}}</button>
+                >{{record.autographNameN2}}</button>
                 <button
                   v-else
                   :disabled="isEmpty"

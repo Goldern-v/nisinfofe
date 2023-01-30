@@ -1513,6 +1513,19 @@ export default {
           this.fixedList[item].maxWidth = width + 10;
         }
       }
+      // 贵州省医common_gzry，血压弹框分开为收缩压和舒张压
+      if (this.sheetInfo.sheetType === 'common_gzry') {
+        const bloodPressure = this.fixedList.bloodPressure
+        if (bloodPressure.value && bloodPressure.value.includes('/')) {
+          const [systolicPressure, diastolicPressure] = bloodPressure.value.split('/')
+          this.fixedList.systolicPressure.value = systolicPressure
+          this.fixedList.diastolicPressure.value = diastolicPressure
+        }
+        if (bloodPressure.value && !isNaN(bloodPressure.value)) {
+          this.fixedList.systolicPressure.value = bloodPressure.value
+        }
+        delete this.fixedList.bloodPressure
+      }
       let tab = config.tab;
       // 特殊记录组合
       let doc = "";
@@ -2333,6 +2346,23 @@ export default {
             "mergeTr2",
             mergeTr(this.record[0], this.staticObj, this.fixedList)
           );
+          // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
+          if (this.sheetInfo.sheetType === 'common_gzry') {
+            const systolicPressure = this.fixedList.systolicPressure
+            const diastolicPressure = this.fixedList.diastolicPressure
+            let bloodPressure = ''
+            if (systolicPressure.value && diastolicPressure.value) {
+              bloodPressure = systolicPressure.value + '/' + diastolicPressure.value
+            } else {
+              bloodPressure = systolicPressure.value || diastolicPressure.value
+            }
+            this.fixedList.bloodPressure = {
+              ...systolicPressure,
+              key: 'bloodPressure',
+              name: '血压',
+              value: bloodPressure
+            }
+          }
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
         if (this.record[i]) {
