@@ -498,7 +498,6 @@ export default {
           this.patientListLoading = false;
           this.sheetInfo.isSave = true;
         });
-
       }
     },
     addSheetPage() {
@@ -545,6 +544,9 @@ export default {
     getSheetData() {
       const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
       this.tableLoading = true;
+      if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+          this.bus.$emit("refreshTitleTemplate", this.getTemplateList);
+        }
       if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
         this.isLoad=false
       }
@@ -592,6 +594,7 @@ export default {
         }
 
         let bodyData = res[1].data.data;
+        sheetInfo.extraData = res[1].data.data.extraData
         this.$store.commit('upMasterInfo',bodyData)
         if(this.HOSPITAL_ID=='wujing'){
           let barcodeArr = {}
@@ -894,6 +897,8 @@ export default {
               })
             }
           decodeAyncVisttedData.uShield = this.foshanshiyiIFca ? '1' : '0'
+          const pageIndexs = this.$store.state.sheet.pageIndexs
+          decodeAyncVisttedData.pageIndex = pageIndexs
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,

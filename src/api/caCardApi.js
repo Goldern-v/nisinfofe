@@ -87,7 +87,6 @@ function verifySign(loginOBJ) {
 function caLoginBefore() {
   return new Promise((resolve, reject) => {
     genRandom().then(genRes => {
-      console.log("genRes", Object.prototype.toString.call(genRes.data))
       if (Object.prototype.toString.call(genRes.data) === "[object Object]") {
         const {
           random: strRandom,
@@ -122,10 +121,8 @@ function caLoginLater(strCertId, strPassword, strRandom,strServerCert,username) 
           strCertId,
           strSignData: strRandom
         }).then(SOF_SignDataRes => {
-          // console.log("SOF_SignData",SOF_SignDataRes)
           if (SOF_SignDataRes.data) {
             SOF_ExportUserCert(strCertId).then(SOF_ExportUserCertRes => {
-              console.log("SOF_ExportUserCertRes", SOF_ExportUserCertRes)
               if (SOF_ExportUserCertRes.data) {
                 resolve({
                   userCert: SOF_ExportUserCertRes.data,
@@ -149,13 +146,11 @@ function caLoginLater(strCertId, strPassword, strRandom,strServerCert,username) 
                 default:
                   return reject(desc)
               }
-              console.log(SOF_ValidateCertRes,"SOF_ValidateCertRes");
             })
             // reject("密码错误，Ukey已锁，请解锁后再试")
           }
         })
       }
-      // console.log(SOF_LoginRes ,"SOF_LoginRes")
     })
   })
 }
@@ -187,16 +182,13 @@ function verifyNewCaSign(SigndataObj,verifySignObj) {
           return reject("ca证书还未登录，请先登录！")
         }
       const strCertId = res.data.split("&&&")[0].substring(res.data.indexOf("||") + 2, res.data.length).replace("&&&", "");
-      console.log('Ca接口信息=======>入参',{...SigndataObj,strCertId})
       SOF_SignData({...SigndataObj,strCertId}).then((SOF_SignDatares) => {
-        console.log("SOF_SignDatares",SOF_SignDatares)
         if(SOF_SignDatares.data){
           let signPic = ""
           Promise.all([getPic(strCertId),getSOF_ExportUserCert(strCertId)]).then(result=>{
             if(!JSON.parse(localStorage.getItem("user")).signPic){
               signPic=result[0]
             }
-            console.log('Ca接口信息=======>出参','result',result,'signPic',signPic)
             verifySign({...verifySignObj,signPic,userCert:result[1],signedValue:SOF_SignDatares.data}).then(verifySignRes=>{
               localStorage["caUser"]= res.data.split("||")[0]
               resolve(verifySignRes.data.data)
@@ -267,10 +259,8 @@ function getQrCodeStatus(qrCodeIdentity,isLogin,accessToken) {
 }
 
 function nanfnagCaSign(userUid,password,p7SignObj,userToken,nanFangcaLogin) {
-  console.log("djwdjwdjw")
   return new Promise((resolve, reject) => {
     if(nanFangcaLogin && userToken){
-      console.log("jinlaila")
       p7Sign({signData:{...p7SignObj},userUid ,userToken}).then(p7Signres=>{
         resolve(p7Signres)
       })
@@ -279,7 +269,6 @@ function nanfnagCaSign(userUid,password,p7SignObj,userToken,nanFangcaLogin) {
       getCertificate(userUid).then(Certificateres=>{
         if(Certificateres.data.data.signCert.length>0){
           const certContent = Certificateres.data.data.signCert
-          console.log("certContent",certContent)
           nanfanggetQrCode({certContent}).then(AgetQrCoderes=>{
             if(AgetQrCoderes.data.data.qrCodeBase64) resolve(AgetQrCoderes.data.data.qrCodeBase64)
           })
@@ -291,12 +280,10 @@ function nanfnagCaSign(userUid,password,p7SignObj,userToken,nanFangcaLogin) {
       getCertificate(userUid).then(Certificateres=>{
         if(Certificateres.data.data.signCert.length>0){
           const certContent = Certificateres.data.data.signCert
-          console.log("certContent",certContent)
           getAccessToken({certContent,userPin}).then(AccessTokenres=>{
             if(AccessTokenres.data.data.userToken && AccessTokenres.data.data.userToken.length>0){
               const userToken = AccessTokenres.data.data.userToken
               p7Sign({signData:{...p7SignObj},userUid ,userToken}).then(p7Signres=>{
-                console.log("p7Signres",p7Signres)
                 resolve(p7Signres)
               })
             }

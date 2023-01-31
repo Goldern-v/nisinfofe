@@ -93,11 +93,14 @@ import qs from 'qs'
             obj[i] = item[i]
           }
         }
-        //定位需要用到的数据 传值给sheetInfo对象
-        this.$store.commit('upCurrentPatientObj', obj)
-        this.$store.commit('upPatientInfo', obj)
+         //定位需要用到的数据 传值给sheetInfo对象
         sheetInfo.findBlockContext = { blockId, recordId, recordDate, formCode}
         this.$router.push({ name: 'sheetPage' })
+        setTimeout(()=>{
+          //更新vuex患者记录，然后触发护记的watcher patientId 重新渲染数据
+        this.$store.commit('upCurrentPatientObj', obj)
+        this.$store.commit('upPatientInfo', obj)
+        })
         this.close()
       }
     },

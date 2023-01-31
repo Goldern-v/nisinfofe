@@ -434,6 +434,7 @@ export default {
           localStorage.setItem('lockForm',JSON.stringify(formConfig))
         }
         let bodyData = res[1].data.data;
+        sheetInfo.extraData = res[1].data.data.extraData
       console.log(`界面初始化完成,前端获取接口数据========>>>>>>护记数据:`,bodyData&&bodyData.list)
         if(this.HOSPITAL_ID=='wujing'){
           let barcodeArr = {}

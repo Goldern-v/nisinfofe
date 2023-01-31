@@ -761,7 +761,6 @@ export default {
           }).then(() => {
             //如果切页 就清空新增页码的数组
             this.updateCallBack({startPage,endPage,addPageLength})
-
           })
         } else {
           this.updateCallBack({startPage,endPage,pageArea})
@@ -1728,6 +1727,7 @@ export default {
        * 因为现在从接口拿数据渲染界面 不走前端computed计算界面 所以添加新页面得加判断
        * 比如说 后端接口页面是7页 前端添加新页后为8 这时候页码改动，如果不加判断就会重新请求数据 后端为7 前端为8 页码数值就会对应不上
       */
+      console.log(this.sheetInfo)
       this.initSheetPageSize(isAddPageFlag)
     });
     this.bus.$on("openSearchPageByDateModal", () => {
@@ -1785,7 +1785,6 @@ export default {
       });
     },
     patientId:{
-      deep: true,
       handler() {
         this.oldSelectList = this.selectList
         this.selectList = [];

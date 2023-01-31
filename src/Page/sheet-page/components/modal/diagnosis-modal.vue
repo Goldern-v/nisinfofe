@@ -140,7 +140,7 @@ export default {
       bus: bus(this),
       formList: {},
       filterData: [],
-      newType: ['lyxrm','huadu', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)
+      newType: ['lyxrm','huadu', 'whhk', 'stmz','foshanrenyi'].includes(this.HOSPITAL_ID)
     };
   },
   methods: {
@@ -217,11 +217,8 @@ export default {
     handleSearch() {
       if (!this.searchDate) return (this.filterData = this.tableData)
       this.filterData = this.tableData.filter(v => {
-        console.log(v);
         return v.beginTime.indexOf(moment(this.searchDate).format('YYYY-MM-DD')) > -1
       })
-
-      console.log(this.filterData);
     }
   },
   computed: {
@@ -241,6 +238,7 @@ export default {
         case 'huadu':
         case 'whhk':
         case "stmz":
+        case "foshanrenyi":
           return 'diagMeasures'
         default:
           return 'diagName'

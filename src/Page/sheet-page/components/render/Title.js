@@ -58,6 +58,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_medicine_two_hj": {
+    // 重症医学病区二区
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_medicine_two_hj/th").default)
+    );
+  }
+  break;
   case "obstetrics": {
     // 产科
     Th = JSON.parse(
@@ -540,6 +547,13 @@ export default function Title(
     // 花都-方舱医院护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/transshipment_hd/th").default)
+    );
+  }
+  break;
+  case "transshipment_new_hd": {
+    // 花都-方舱医院护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/transshipment_new_hd/th").default)
     );
   }
   break;
@@ -2065,6 +2079,13 @@ export default function Title(
     );
   }
   break;
+  case "nursing_qhwy": {
+    // 青海五院 - 外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_qhwy/th").default)
+    );
+  }
+  break;
   case "ophthalmology_qhwy": {
     // 青海五院 - 眼科护理记录单
     Th = JSON.parse(
@@ -2289,6 +2310,13 @@ export default function Title(
     );
   }
   break;
+  case "pediatrics_zzwy": {
+    // 漳州五院 - 护理记录单（儿科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatrics_zzwy/th.js").default)
+      );
+    }
+    break;
   case "intravenous_whhk": {
     // 武汉汉口 - 静脉治疗使用维护记录单
     Th = JSON.parse(

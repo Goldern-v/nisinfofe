@@ -53,7 +53,12 @@
       </tbody>
     </table>
     <div class="info">
-      <div class="group">催产素静脉点滴情况：</div>
+      <div class="group">催产素静脉点滴情况：
+        <input
+          type="text"
+          :data-value="sheetInfo.relObj.oxytocinCondition"
+          v-model="sheetInfo.relObj.oxytocinCondition"
+        /></div>
       <div class="group">
         静滴催产素指症：
         <input

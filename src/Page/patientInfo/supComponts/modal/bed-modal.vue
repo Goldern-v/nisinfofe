@@ -1047,6 +1047,9 @@ export default {
         case "whhk":
           qr_png_value = "P" + this.query.inpNo;
           break;
+        case "xiegang":
+          qr_png_value = this.query.inpNo + '|' + this.query.visitId;
+          break;
         case "zhzxy":
           qr_png_value =
             "ZY" + this.query.patientId + "||" + this.query.visitId;

@@ -76,6 +76,8 @@ const shiftWorkFy = () => import("@/Page/shift-work-fy/shift-work.vue");
 const shiftWorkDetailFy = () => import("@/Page/shift-work-fy/shift-work-detail.vue");
 const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.vue");
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
+const shiftWorkGdtj = () => import("@/Page/shift-work-gdtj/shift-work.vue");
+const shiftWorkDetailGdtj = () => import("@/Page/shift-work-gdtj/shift-work-detail.vue");
 const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
 const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
 const shiftWorkWhsl = () => import("@/Page/shift-work-whsl/shift-work.vue");
@@ -567,7 +569,6 @@ const router = new Router({
           case 'whfk':
             return temperatureWHFK
           case 'lyxrm':
-          case 'whhk':
           case "stmz":
             return temperatureLYXRM
           case 'whsl':
@@ -579,6 +580,7 @@ const router = new Router({
           case 'fsxt':
             return temperatureFSXT
           case 'lyyz':
+          case 'whhk':
             return temperatureLYYZ
           case 'whyx':
             return temperatureWHYX
@@ -821,6 +823,8 @@ const router = new Router({
             case 'liaocheng':
             case 'lyyz':
               return shiftWorkLiaocheng
+            case 'gdtj':
+              return shiftWorkGdtj;
             case 'beihairenyi':
             case 'zhzxy':
             case 'nfyksdyy':
@@ -863,6 +867,8 @@ const router = new Router({
               case 'zhzxy':
               case 'nfyksdyy':
                 return shiftWorkDetailBh
+              case 'gdtj':
+                return  shiftWorkDetailGdtj
               case 'fqfybjy':
                 return shiftWorkDetailFq
               case 'wujing':
@@ -1121,7 +1127,6 @@ const router = new Router({
               case 'qhwy':
                 return temperatureDGXG
               case 'lyxrm':
-              case 'whhk':
               case "stmz":
                 return temperatureLYXRM
               case 'whsl':
@@ -1135,6 +1140,7 @@ const router = new Router({
               case 'whyx':
                 return temperatureWHYX
               case 'lyyz':
+              case 'whhk':
                 return temperatureLYYZ
               case 'gdtj':
                   return temperatureGDTJ
@@ -1544,7 +1550,6 @@ const router = new Router({
             case 'nanfangzhongxiyi':
               return allTemperatureChartNFZXY
             case 'lyxrm':
-            case 'whhk':
             case "stmz":
               return allTemperatureChartLYXRM
             case 'whsl':
@@ -1559,6 +1564,7 @@ const router = new Router({
             case 'lyyz':
               return allTemperatureChartLYYZ
             case 'ytll':
+            case 'whhk':
               return allTemperatureChartYTLL
             case 'gdtj':
             return allTemperatureChartGDTJ
@@ -1600,7 +1606,6 @@ const router = new Router({
               return newSingleTemperatureChartWHFK;
             case "lyxrm":
             case "hj":
-            case 'whhk':
             case "stmz":
               return newSingleTemperatureChartLYXRM;
             case "whsl":
@@ -1614,6 +1619,7 @@ const router = new Router({
             case "liaocheng":
               return newSingleTemperatureChartLiaoCheng;
             case "lyyz":
+            case 'whhk':
               return newSingleTemperatureChartLYYZ;
             case "gdtj":
               return newSingleTemperatureChartGDTJ

@@ -805,7 +805,7 @@
     <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
@@ -1254,6 +1254,7 @@ export default {
         case 'whhk':
         case "stmz":
         case "nfyksdyy":
+        case "foshanrenyi":
           return this.activeTab === "3";
         default:
           return false;
@@ -1278,6 +1279,7 @@ export default {
         case 'whhk':
         case "stmz":
         case "nfyksdyy":
+        case "foshanrenyi":
           return 1200;
         default:
           return 720;
@@ -1433,7 +1435,32 @@ export default {
         window.closeAutoCompleteNoId();
       }, 300);
       let record = config.record;
-      this.record = record;
+      // /**数据分页功能后，存在同一个记录 一个在上一页一个在下一页 没有取到数据的情况
+      //  * 所以后端返回了上下页码最后一条记录 需要补充进来
+      //  * */
+      // const clickRecordDate = (record[0].find((item) => item.key == "recordDate") || {}).value || ""
+      // const PreviousRecord = (sheetInfo.extraData&&sheetInfo.extraData.first || []).filter((list)=>list.recordDate == clickRecordDate)
+      // const NextRecord = (sheetInfo.extraData&&sheetInfo.extraData.last || []).filter((list)=>list.recordDate == clickRecordDate)
+      // let supplementList = []
+      // let arr = []
+      // supplementList = PreviousRecord.length ? PreviousRecord : NextRecord
+      // supplementList.map((tList) => {
+      // let newRecordList = JSON.parse(JSON.stringify(record[0]))
+      //   Object.keys(tList).map((keys) => {
+      //     let index = newRecordList.findIndex((item) => item.key == `${keys}`)
+      //     if (index > -1) {
+      //       let newItem = { ...newRecordList[index], value: tList[keys] }
+      //       newRecordList.splice(index, 1, newItem)
+      //     }
+      //   })
+      //   arr.push(newRecordList)
+      // })
+      // if(PreviousRecord.length){
+      //   record = [...arr,...record];
+      // }else{
+      //   record = [...record,...arr];
+      // }
+      this.record = record
       /**以前isLast是判断是否是最后一条 时间久了功能好像更改了
        * 现在每次保存都必须传true更新页码 所以改为true
       */
@@ -1488,6 +1515,18 @@ export default {
           this.fixedList[item].maxWidth = width + 10;
         }
       }
+      // 贵州省医common_gzry，血压弹框分开为收缩压和舒张压
+      if (this.sheetInfo.sheetType === 'common_gzry') {
+        const bloodPressure = this.fixedList.bloodPressure
+        if (bloodPressure.value && bloodPressure.value.includes('/')) {
+          const [systolicPressure, diastolicPressure] = bloodPressure.value.split('/')
+          this.fixedList.systolicPressure.value = systolicPressure
+          this.fixedList.diastolicPressure.value = diastolicPressure
+        } else {
+          this.fixedList.systolicPressure.value = bloodPressure.value
+        }
+        delete this.fixedList.bloodPressure
+      }
       let tab = config.tab;
       // 特殊记录组合
       let doc = "";
@@ -1540,7 +1579,6 @@ export default {
 
 
       }
-
 
       //肺科特别需求。补记时间另起一行
       if (this.HOSPITAL_ID == "whfk" && doc.split("补记时间").length == 2) {
@@ -1865,7 +1903,6 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
-      console.log('武警=====》',type)
       if (this.isSaving) {
         return;
       }
@@ -2098,8 +2135,8 @@ export default {
                 text += allDoc[i];
               }
             } else if (
-              this.sheetInfo.sheetType === "common_wj" || 
-              this.sheetInfo.sheetType === "babyarea_fs" 
+              this.sheetInfo.sheetType === "common_wj" ||
+              this.sheetInfo.sheetType === "babyarea_fs"
             ) {
               if (GetLength(text) > 27) {
                 result.push(text);
@@ -2188,6 +2225,13 @@ export default {
               }
             } else if ( this.sheetInfo.sheetType === "premiumcare_ytll") {
               if (GetLength(text) > 36) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            }else if (this.sheetInfo.sheetType == "nursing_qhwy") {
+              if (GetLength(text) > 50) {
                 result.push(text);
                 text = allDoc[i];
               } else {
@@ -2310,6 +2354,24 @@ export default {
             "mergeTr2",
             mergeTr(this.record[0], this.staticObj, this.fixedList)
           );
+          // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
+          if (this.sheetInfo.sheetType === 'common_gzry') {
+            const systolicPressure = this.fixedList.systolicPressure
+            const diastolicPressure = this.fixedList.diastolicPressure
+            let bloodPressure = ''
+            if (systolicPressure.value && diastolicPressure.value) {
+              bloodPressure = systolicPressure.value + '/' + diastolicPressure.value
+            } else {
+              bloodPressure = systolicPressure.value || diastolicPressure.value
+            }
+            this.fixedList.bloodPressure = {
+              ...systolicPressure,
+              key: 'bloodPressure',
+              name: '血压',
+              value: bloodPressure
+            }
+            console.log('bloodPressure', bloodPressure)
+          }
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
         if (this.record[i]) {
