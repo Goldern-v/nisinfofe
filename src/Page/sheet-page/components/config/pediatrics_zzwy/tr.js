@@ -40,7 +40,7 @@ export default [{
     event: keyf1
   },
   {
-    key: "pulse", //脉搏次/分
+    key: "One", //脉搏次/分
     value: "",
     event: keyf1
   },
@@ -50,12 +50,12 @@ export default [{
     event: keyf1
   },
   {
-    key: "breath", //心率次/分
+    key: "Two", //心率次/分
     value: "",
     event: keyf1
   },
   {
-    key: "consciousness", //神志
+    key: "Three", //神志
     value: "",
     event: keyf1,
     autoComplete: {
@@ -63,7 +63,7 @@ export default [{
     }
   },
   {
-    key: "complexion", //面色
+    key: "Four", //面色
     value: "",
     event: keyf1,
     autoComplete: {
@@ -71,7 +71,7 @@ export default [{
     }
   },
   {
-    key: "bloodPressure", //血压
+    key: "Five", //血压
     value: "",
     event: function (e, td) {
       if (e.keyCode == 32) {
@@ -87,22 +87,22 @@ export default [{
     event: keyf1
   },
   {
-    key: "bloodglucose", //血糖mol/L
+    key: "Six", //血糖mol/L
     value: "",
     event: keyf1
   },
   {
-    key: "pupilSizeLeft", // 瞳孔大小左
+    key: "Eight", // 瞳孔大小左
     value: "",
     event: keyf1
   },
   {
-    key: "pupilSizeRight", // 瞳孔大小右
+    key: "Nine", // 瞳孔大小右
     value: "",
     event: keyf1
   },
   {
-    key: "pupilReflexLeft", // 瞳孔反应左
+    key: "Ten", // 瞳孔反应左
     value: "",
     event: keyf1,
     autoComplete: {
@@ -110,7 +110,7 @@ export default [{
     }
   },
   {
-    key: "pupilReflexRight", // 瞳孔反应右
+    key: "Eleven", // 瞳孔反应右
     value: "",
     event: keyf1,
     autoComplete: {
@@ -118,12 +118,12 @@ export default [{
     }
   },
   {
-    key: "fioz", //吸氧浓度
+    key: "Twelve", //吸氧浓度
     value: "",
     event: keyf1
   },
   {
-    key: "fiozFs", //吸氧方式
+    key: "Thirteen", //吸氧方式
     value: "",
     event: keyf1,
     autoComplete: {
@@ -166,7 +166,7 @@ export default [{
   },
   // 引流管
   {
-    key: "color", //颜色
+    key: "Fourteen", //颜色
     value: "",
     event: keyf1,
     autoComplete: {
@@ -174,38 +174,38 @@ export default [{
     }
   },
   {
-    key: "free", //通畅
+    key: "Fifteen", //通畅
     value: "",
     event: keyf1,
   },
   {
-    key: "length", //长度
+    key: "Sixteen", //长度
     value: "",
     event: keyf1,
   },
   // 肢端
   {
-    key: "supply", //血运
+    key: "Seventeen", //血运
     value: "",
     event: keyf1,
   },
   {
-    key: "feel", //感觉
+    key: "Eightteen", //感觉
     value: "",
     event: keyf1,
   },
   {
-    key: "myodynamia", //肌力
+    key: "Nineteen", //肌力
     value: "",
     event: keyf1,
   },
   {
-    key: "skincondition", //皮肤情况
+    key: "Twenty", //皮肤情况
     value: "",
     event: keyf1,
   },
   {
-    key: "description", //特殊情况记录
+    key: "Twentyone", //病情与措施
     value: "",
     style: {
       textAlign: "left",
@@ -213,7 +213,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "260px",
+      width: "220px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -309,7 +309,7 @@ export function getListData4() {
     for (let item of res.data.data) {
       chuList.push(item.name);
     }
-    chuList.push("阴道出血")
+    // chuList.push("阴道出血")
   });
   let list = ["意识"];
   multiDictInfo(list).then(res => {

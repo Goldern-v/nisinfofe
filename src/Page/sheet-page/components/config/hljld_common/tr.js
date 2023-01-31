@@ -158,7 +158,7 @@ export default [{
       data: ruList
     },
     textarea: {
-      width: 52
+      width: 50
     }
   },
   {
@@ -180,7 +180,7 @@ export default [{
       data: chuList
     },
     textarea: {
-      width: 52
+      width: 50
     }
   },
   {
@@ -232,7 +232,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "260px",
+      width: "230px",
       background: "transparent"
     },
     event: function (e, td) {

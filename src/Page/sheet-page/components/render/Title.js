@@ -2282,6 +2282,13 @@ export default function Title(
     );
   }
   break;
+  case "pediatrics_zzwy": {
+    // 漳州五院 - 护理记录单（儿科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatrics_zzwy/th.js").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

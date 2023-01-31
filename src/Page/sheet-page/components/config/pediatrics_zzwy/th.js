@@ -31,7 +31,7 @@ export default {
       rowspan: '3',
       style: {
         whiteSpace: 'nowrap',
-        minWidth: '32px',
+        minWidth: '25px',
       }
     },
     {
@@ -75,8 +75,8 @@ export default {
         神<br/>志
         `,
       style: {
-        minWidth: '30px',
-        maxWidth: '30px',
+        minWidth: '22px',
+        maxWidth: '22px',
         whiteSpace: 'nowrap'
       },
       colspan: '1',
@@ -87,8 +87,8 @@ export default {
         面<br/>色
         `,
       style: {
-        minWidth: '30px',
-        maxWidth: '30px'
+        minWidth: '22px',
+        maxWidth: '22px'
       },
       colspan: '1',
       rowspan: '3'
@@ -110,8 +110,8 @@ export default {
         血<br/>氧<br/>饱<br/>和<br/>度
         `,
       style: {
-        minWidth: '31px',
-        maxWidth: '31px',
+        minWidth: '25px',
+        maxWidth: '25px',
         whiteSpace: 'nowrap'
       },
       colspan: '1',
@@ -122,8 +122,8 @@ export default {
         血糖<br/>mol/<br/>L
         `,
       style: {
-        minWidth: '34px',
-        maxWidth: '34px',
+        minWidth: '32px',
+        maxWidth: '32px',
         whiteSpace: 'nowrap'
       },
       colspan: '1',
@@ -222,8 +222,8 @@ export default {
       colspan: '1',
       rowspan: '3',
       style: {
-        minWidth: '70px',
-        maxWidth: '70px'
+        minWidth: '50px',
+        maxWidth: '50px'
       },
     },
     ],
@@ -263,7 +263,7 @@ export default {
       colspan: '1',
       rowspan: '2',
       style: {
-        minWidth: '34px',
+        minWidth: '25px',
         maxWidth: '34px',
       },
     },
@@ -285,8 +285,8 @@ export default {
       colspan: '1',
       rowspan: '2',
       style: {
-        minWidth: '34px',
-        maxWidth: '34px',
+        minWidth: '25px',
+        maxWidth: '25px',
         whiteSpace: 'nowrap'
       },
     },
@@ -297,8 +297,8 @@ export default {
       colspan: '1',
       rowspan: '2',
       style: {
-        minWidth: '32px',
-        maxWidth: '32px',
+        minWidth: '25px',
+        maxWidth: '25px',
         whiteSpace: 'nowrap'
       },
     },
@@ -309,8 +309,8 @@ export default {
       colspan: '1',
       rowspan: '2',
       style: {
-        minWidth: '32px',
-        maxWidth: '32px',
+        minWidth: '25px',
+        maxWidth: '25px',
         whiteSpace: 'nowrap'
       },
     },
@@ -321,8 +321,8 @@ export default {
       colspan: '1',
       rowspan: '2',
       style: {
-        minWidth: '32px',
-        maxWidth: '32px',
+        minWidth: '25px',
+        maxWidth: '25px',
         whiteSpace: 'nowrap'
       },
     },

@@ -213,7 +213,7 @@ export default {
     // 第二行
     mid: [{
       name: `
-        颜色
+        颜<br/>色
         `,
       style: {
         whiteSpace: 'nowrap'
@@ -223,7 +223,21 @@ export default {
     },
     {
       name: `
-        温度
+        温<br/>度
+        `,
+      style: {
+        whiteSpace: 'nowrap'
+      },
+      style: {
+        minWidth: '20px',
+        maxWidth: '20px',
+      },
+      colspan: '1',
+      rowspan: '2'
+    },
+    {
+      name: `
+        方<br/>式
         `,
       style: {
         whiteSpace: 'nowrap'
@@ -233,17 +247,7 @@ export default {
     },
     {
       name: `
-        方式
-        `,
-      style: {
-        whiteSpace: 'nowrap'
-      },
-      colspan: '1',
-      rowspan: '2'
-    },
-    {
-      name: `
-        流量/L
+        流量<br/>L
         `,
       style: {
         whiteSpace: 'nowrap'
@@ -281,7 +285,7 @@ export default {
     },
     {
       name: `
-        量/ml
+        量<br/>ml
         `,
       colspan: '1',
       rowspan: '2',
@@ -292,7 +296,7 @@ export default {
     },
     {
       name: `
-        途径
+        途<br/>径
         `,
       colspan: '1',
       rowspan: '2',
@@ -314,7 +318,7 @@ export default {
     },
     {
       name: `
-        量
+        量<br/>ml
         `,
       colspan: '1',
       rowspan: '2',
@@ -326,7 +330,7 @@ export default {
     },
     {
       name: `
-        名称
+        名<br/>称
         `,
       colspan: '1',
       rowspan: '2',
@@ -350,7 +354,7 @@ export default {
     },
     {
       name: `
-        长度
+        长<br/>度<br/>cm
         `,
       colspan: '1',
       rowspan: '2',
@@ -362,7 +366,7 @@ export default {
     },
     {
       name: `
-        通畅
+        通<br/>畅
         `,
       colspan: '1',
       rowspan: '2',
