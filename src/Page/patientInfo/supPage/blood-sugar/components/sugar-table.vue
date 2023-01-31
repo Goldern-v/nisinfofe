@@ -155,7 +155,7 @@
               v-if="item.expand1"
             />
           </div>
-          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'', HOSPITAL_ID=='ytll'?'ytll-img':'']" v-else>
+          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'', HOSPITAL_ID=='ytll'?'ytll-img':'' , HOSPITAL_ID=='whsl'?'whsl-img':'']" v-else>
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
@@ -209,7 +209,7 @@
 
       img {
         width: 100%;
-        height: 100%;
+        height: 27px;
         //object-fit: cover;
         object-fit: contain !important;
         -webkit-object-fit: contain!important;
@@ -252,6 +252,10 @@
   }
   .ytll-img img{
     height: 24px !important;
+  }
+  .whsl-img img{
+    width: 45px !important;
+    height: 27px !important;
   }
 }
 </style>
