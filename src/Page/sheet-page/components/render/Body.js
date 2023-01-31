@@ -1468,7 +1468,7 @@ function switchSheetType(type) {
       break;
     case "gynaecology2_xt": {
       // 佛山杏坛 - 护理记录单(妇科专科)
-      schema = require("../config/gynaecology2_xt/tr.js").default;
+      schema = require("../config/jkjld/tr.js").default;
     }
       break
     case "pediatric3_xt": {
@@ -1604,6 +1604,11 @@ function switchSheetType(type) {
     case "surgical_qhwy": {
         // 青海五院 - 外科护理记录单
         schema = require("../config/surgical_qhwy/tr.js").default;
+      }
+      break;
+    case "nursing_qhwy": {
+        // 青海五院 - 一般护理记录单
+        schema = require("../config/nursing_qhwy/tr.js").default;
       }
       break;
     case "ophthalmology_qhwy": {
@@ -1798,6 +1803,11 @@ function switchSheetType(type) {
       break;
     default: {
       schema = require("../config/default/tr.js").default;
+    }
+      break;
+    case "pediatrics_zzwy": {
+      // 漳州五院 - 护理记录单（儿科）
+      schema = require("../config/pediatrics_zzwy/tr.js").default;
     }
       break;
   }

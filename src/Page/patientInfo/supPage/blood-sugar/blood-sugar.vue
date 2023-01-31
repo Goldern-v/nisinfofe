@@ -53,7 +53,7 @@
           </div>
           <div
             class="sup-title"
-            v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院' || HOSPITAL_ID === 'lyyz'|| HOSPITAL_ID === 'whsl'"
+            v-else-if="HOSPITAL_NAME === '德州市陵城区人民医院' || HOSPITAL_ID === 'lyyz'|| HOSPITAL_ID === 'whsl'|| HOSPITAL_ID === 'lyxrm'"
           >
             血糖测量记录单
           </div>
@@ -66,8 +66,9 @@
           <div class="sup-title" v-else-if="HOSPITAL_ID == 'nfyksdyy'">
             血糖记录单
           </div>
-          <div class="sup-title" v-else-if="HOSPITAL_ID !== 'ytll'">微量血糖测定登记表</div>
-          <div class="identifying" v-if="HOSPITAL_ID == 'liaocheng' || HOSPITAL_ID == 'whsl'">POCT</div>
+          <div class="sup-title" v-else-if="!['ytll','lyxrm'].includes(HOSPITAL_ID)">微量血糖测定登记表</div>
+     
+          <div class="identifying" v-if="['liaocheng','whsl','lyxrm'].includes(HOSPITAL_ID)">POCT</div>
           <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
             <span style="width:180px" v-else-if="HOSPITAL_ID == 'liaocheng'" >科室：{{ patientInfo.wardName || patientInfo.deptName }}</span>

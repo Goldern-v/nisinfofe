@@ -805,7 +805,7 @@
     <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
@@ -1254,6 +1254,7 @@ export default {
         case 'whhk':
         case "stmz":
         case "nfyksdyy":
+        case "foshanrenyi":
           return this.activeTab === "3";
         default:
           return false;
@@ -1278,6 +1279,7 @@ export default {
         case 'whhk':
         case "stmz":
         case "nfyksdyy":
+        case "foshanrenyi":
           return 1200;
         default:
           return 720;
@@ -1520,8 +1522,7 @@ export default {
           const [systolicPressure, diastolicPressure] = bloodPressure.value.split('/')
           this.fixedList.systolicPressure.value = systolicPressure
           this.fixedList.diastolicPressure.value = diastolicPressure
-        }
-        if (bloodPressure.value && !isNaN(bloodPressure.value)) {
+        } else {
           this.fixedList.systolicPressure.value = bloodPressure.value
         }
         delete this.fixedList.bloodPressure
@@ -2229,6 +2230,13 @@ export default {
               } else {
                 text += allDoc[i];
               }
+            }else if (this.sheetInfo.sheetType == "nursing_qhwy") {
+              if (GetLength(text) > 50) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
             }else {
               if (GetLength(text) > 23) {
                 result.push(text);
@@ -2362,6 +2370,7 @@ export default {
               name: '血压',
               value: bloodPressure
             }
+            console.log('bloodPressure', bloodPressure)
           }
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }

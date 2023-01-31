@@ -89,7 +89,7 @@
 
           <div class="qr-code-img">
             <img class="qr-code" :src="qrCode">
-            <p>{{ query.patientId }}</p>
+            <p>{{ query.inpNo + '|' + query.visitId }}</p>
           </div>
           <div class="info">
             <p>{{ query.name }}</p>
@@ -468,7 +468,7 @@ export default {
       this.$refs.modal.open();
       this.printMode = printMode;
       this.title = this.printMode == 'h' ?"编辑床头卡":"腕带打印";
-      const qrText = `${this.query.patientId}|${this.query.visitId}`
+      const qrText = `${this.query.inpNo}|${this.query.visitId}`
       var qr_png = qr.imageSync(qrText, { type: "png" });
       function arrayBufferToBase64(buffer) {
         var binary = "";
@@ -481,7 +481,7 @@ export default {
       }
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
-      console.log("qr_png", base64);
+      console.log("qr_png", base64,this.query);
       if(this.printMode == 'wrist'){
         JsBarcode("#barcode", this.query.patientId, {
           lineColor: "#000",

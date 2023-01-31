@@ -2079,6 +2079,13 @@ export default function Title(
     );
   }
   break;
+  case "nursing_qhwy": {
+    // 青海五院 - 外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_qhwy/th").default)
+    );
+  }
+  break;
   case "ophthalmology_qhwy": {
     // 青海五院 - 眼科护理记录单
     Th = JSON.parse(
@@ -2303,6 +2310,13 @@ export default function Title(
     );
   }
   break;
+  case "pediatrics_zzwy": {
+    // 漳州五院 - 护理记录单（儿科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/pediatrics_zzwy/th.js").default)
+      );
+    }
+    break;
   case "intravenous_whhk": {
     // 武汉汉口 - 静脉治疗使用维护记录单
     Th = JSON.parse(
