@@ -5,7 +5,8 @@
         class="arrow"
         :class="isShowFollow ? 'follow-arrow-open' : 'follow-arrow-close'"
       ></span>
-      我的关注
+      <span v-if="!['nfyksdyy'].includes(HOSPITAL_ID)"> 我的关注</span>   
+      <span v-else> 我的管床</span>   
     </div>
     <transition name="fold-height">
       <ul class="follow-list" v-show="isShowFollow">

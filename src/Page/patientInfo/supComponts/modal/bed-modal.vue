@@ -1028,6 +1028,7 @@ export default {
           qr_png_value = this.query.patientId + "|" + this.query.visitId;
           break;
         case "shannan":
+        case "nfyksdyy":
           qr_png_value = this.query.inpNo;
           break;
         case "hengli":

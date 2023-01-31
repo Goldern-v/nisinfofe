@@ -58,6 +58,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_medicine_two_hj": {
+    // 重症医学病区二区
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_medicine_two_hj/th").default)
+    );
+  }
+  break;
   case "obstetrics": {
     // 产科
     Th = JSON.parse(
@@ -540,6 +547,13 @@ export default function Title(
     // 花都-方舱医院护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/transshipment_hd/th").default)
+    );
+  }
+  break;
+  case "transshipment_new_hd": {
+    // 花都-方舱医院护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/transshipment_new_hd/th").default)
     );
   }
   break;
@@ -1841,6 +1855,13 @@ export default function Title(
     );
   }
   break;
+  case "oxytocin_dglb": {
+    // 东莞寮步-催产素静脉点滴观察单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_dglb/th").default)
+    );
+  }
+  break;
   case "criticaldisease_xt": {
     // 佛山杏坛 - 危重症护理记录单
     Th = JSON.parse(
@@ -2055,6 +2076,13 @@ export default function Title(
     // 青海五院 - 外科护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/surgical_qhwy/th").default)
+    );
+  }
+  break;
+  case "nursing_qhwy": {
+    // 青海五院 - 外科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/nursing_qhwy/th").default)
     );
   }
   break;
@@ -2286,6 +2314,55 @@ export default function Title(
     // 漳州五院 - 护理记录单（儿科）
     Th = JSON.parse(
       JSON.stringify(require("../config/pediatrics_zzwy/th.js").default)
+      );
+    }
+    break;
+  case "intravenous_whhk": {
+    // 武汉汉口 - 静脉治疗使用维护记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/intravenous_whhk/th").default)
+    );
+  }
+  break;
+  case "baby_whhk": {
+    // 武汉汉口 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_whhk/th").default)
+    );
+  }
+  break;
+  case "neonatology_whhk": {
+    // 武汉汉口 - 新生儿科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_whhk/th").default)
+    );
+  }
+  break;
+  case "insulin_whhk": {
+    // 武汉汉口 - 胰岛素泵护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/insulin_whhk/th").default)
+    );
+  }
+  break;
+  case "labor_whhk": {
+    // 武汉汉口 - 产程检查记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/labor_whhk/th").default)
+    );
+  }
+  break;
+  case "obstetriccare_whhk": {
+    // 武汉汉口 - 产科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/obstetriccare_whhk/th").default)
+    );
+  }
+  break;
+  case "two_whhk": {
+    // 武汉汉口 - 护理记录单（二）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/two_whhk/th").default)
     );
   }
   break;

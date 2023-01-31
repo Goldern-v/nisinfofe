@@ -628,7 +628,7 @@
                     maxlength="10"
                     style="width: 140px"
                     v-else-if="
-                      sheetInfo.sheetType === 'common_hd' &&
+                      (sheetInfo.sheetType === 'common_hd'||sheetInfo.sheetType === 'seriousnursing_ytll') &&
                       (key === 'food' || key === 'discharge')
                     "
                   />
@@ -805,13 +805,13 @@
     <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
     />
     <advice-modal
-      v-if="['lyxrm', 'whhk', 'stmz'].includes(HOSPITAL_ID)"
+      v-if="['lyxrm', 'whhk', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)"
       ref="adviceModalRef"
       @handleOk="handleDiagnosis"
     />
@@ -1043,6 +1043,7 @@ function autoComplete(el, bind) {
     let key = bind.value.key;
     let tr = bind.value.tr;
     let td = bind.value.td;
+    const splice = td && td.splice
     el.onfocus = (e) => {
       let dataList = bind.value.dataList;
       if (el.readOnly) return;
@@ -1068,9 +1069,35 @@ function autoComplete(el, bind) {
             }
             if (data) {
               if (typeof obj[key] == "object") {
-                obj[key].value = data.trim();
+                // 多选
+                if (splice) {
+                  const split = typeof splice === 'string' ? splice : ','
+                  const oldValue =  obj[key].value ? obj[key].value.split(split) : []
+                  const index = oldValue.findIndex(v => v === data)
+                  if (index > -1) {
+                    oldValue.splice(index, 1)
+                  } else {
+                    oldValue.push(data.trim())
+                  }
+                  obj[key].value = oldValue.join()
+                } else { // 单选
+                  obj[key].value = data.trim();
+                }
               } else {
-                obj[key] = data.trim();
+                // 多选
+                if (splice) {
+                  const split = typeof splice === 'string' ? splice : ','
+                  const oldValue =  obj[key] ? obj[key].split(split) : []
+                  const index = oldValue.findIndex(v => v === data)
+                  if (index > -1) {
+                    oldValue.splice(index, 1)
+                  } else {
+                    oldValue.push(data.trim())
+                  }
+                  obj[key] = oldValue.join()
+                } else { // 单选
+                  obj[key] = data.trim();
+                }
               }
             }
           },
@@ -1080,11 +1107,11 @@ function autoComplete(el, bind) {
         });
       });
     };
-    el.onblur = (e) => {
-      setTimeout(() => {
-        window.closeAutoComplete(key);
-      }, 400);
-    };
+    // el.onblur = (e) => {
+    //   setTimeout(() => {
+    //     window.closeAutoComplete(key);
+    //   }, 400);
+    // };
   } else {
     el.onfocus = null;
   }
@@ -1226,6 +1253,8 @@ export default {
         case "huadu":
         case 'whhk':
         case "stmz":
+        case "nfyksdyy":
+        case "foshanrenyi":
           return this.activeTab === "3";
         default:
           return false;
@@ -1237,6 +1266,7 @@ export default {
         case "lyxrm":
         case 'whhk':
         case "stmz":
+        case "nfyksdyy":
           return this.activeTab === "3";
         default:
           return false;
@@ -1248,6 +1278,8 @@ export default {
         case "huadu":
         case 'whhk':
         case "stmz":
+        case "nfyksdyy":
+        case "foshanrenyi":
           return 1200;
         default:
           return 720;
@@ -1403,7 +1435,32 @@ export default {
         window.closeAutoCompleteNoId();
       }, 300);
       let record = config.record;
-      this.record = record;
+      // /**数据分页功能后，存在同一个记录 一个在上一页一个在下一页 没有取到数据的情况
+      //  * 所以后端返回了上下页码最后一条记录 需要补充进来
+      //  * */
+      // const clickRecordDate = (record[0].find((item) => item.key == "recordDate") || {}).value || ""
+      // const PreviousRecord = (sheetInfo.extraData&&sheetInfo.extraData.first || []).filter((list)=>list.recordDate == clickRecordDate)
+      // const NextRecord = (sheetInfo.extraData&&sheetInfo.extraData.last || []).filter((list)=>list.recordDate == clickRecordDate)
+      // let supplementList = []
+      // let arr = []
+      // supplementList = PreviousRecord.length ? PreviousRecord : NextRecord
+      // supplementList.map((tList) => {
+      // let newRecordList = JSON.parse(JSON.stringify(record[0]))
+      //   Object.keys(tList).map((keys) => {
+      //     let index = newRecordList.findIndex((item) => item.key == `${keys}`)
+      //     if (index > -1) {
+      //       let newItem = { ...newRecordList[index], value: tList[keys] }
+      //       newRecordList.splice(index, 1, newItem)
+      //     }
+      //   })
+      //   arr.push(newRecordList)
+      // })
+      // if(PreviousRecord.length){
+      //   record = [...arr,...record];
+      // }else{
+      //   record = [...record,...arr];
+      // }
+      this.record = record
       /**以前isLast是判断是否是最后一条 时间久了功能好像更改了
        * 现在每次保存都必须传true更新页码 所以改为true
       */
@@ -1458,6 +1515,18 @@ export default {
           this.fixedList[item].maxWidth = width + 10;
         }
       }
+      // 贵州省医common_gzry，血压弹框分开为收缩压和舒张压
+      if (this.sheetInfo.sheetType === 'common_gzry') {
+        const bloodPressure = this.fixedList.bloodPressure
+        if (bloodPressure.value && bloodPressure.value.includes('/')) {
+          const [systolicPressure, diastolicPressure] = bloodPressure.value.split('/')
+          this.fixedList.systolicPressure.value = systolicPressure
+          this.fixedList.diastolicPressure.value = diastolicPressure
+        } else {
+          this.fixedList.systolicPressure.value = bloodPressure.value
+        }
+        delete this.fixedList.bloodPressure
+      }
       let tab = config.tab;
       // 特殊记录组合
       let doc = "";
@@ -1480,7 +1549,7 @@ export default {
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ''
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj', 'zhzxy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll'].includes(this.HOSPITAL_ID)) {
         const itemListTime = config.recordDate ||
           record[0].find((item) => item.key == "recordDate").value
         if(!itemListTime){
@@ -1510,7 +1579,6 @@ export default {
 
 
       }
-
 
       //肺科特别需求。补记时间另起一行
       if (this.HOSPITAL_ID == "whfk" && doc.split("补记时间").length == 2) {
@@ -2066,7 +2134,10 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "common_wj") {
+            } else if (
+              this.sheetInfo.sheetType === "common_wj" ||
+              this.sheetInfo.sheetType === "babyarea_fs"
+            ) {
               if (GetLength(text) > 27) {
                 result.push(text);
                 text = allDoc[i];
@@ -2147,6 +2218,20 @@ export default {
               }
             } else if (this.sheetInfo.sheetType === "icu_yz" || this.sheetInfo.sheetType === "prenatal_ytll") {
               if (GetLength(text) > 38) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if ( this.sheetInfo.sheetType === "premiumcare_ytll") {
+              if (GetLength(text) > 36) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            }else if (this.sheetInfo.sheetType == "nursing_qhwy") {
+              if (GetLength(text) > 50) {
                 result.push(text);
                 text = allDoc[i];
               } else {
@@ -2269,6 +2354,24 @@ export default {
             "mergeTr2",
             mergeTr(this.record[0], this.staticObj, this.fixedList)
           );
+          // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
+          if (this.sheetInfo.sheetType === 'common_gzry') {
+            const systolicPressure = this.fixedList.systolicPressure
+            const diastolicPressure = this.fixedList.diastolicPressure
+            let bloodPressure = ''
+            if (systolicPressure.value && diastolicPressure.value) {
+              bloodPressure = systolicPressure.value + '/' + diastolicPressure.value
+            } else {
+              bloodPressure = systolicPressure.value || diastolicPressure.value
+            }
+            this.fixedList.bloodPressure = {
+              ...systolicPressure,
+              key: 'bloodPressure',
+              name: '血压',
+              value: bloodPressure
+            }
+            console.log('bloodPressure', bloodPressure)
+          }
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
         if (this.record[i]) {

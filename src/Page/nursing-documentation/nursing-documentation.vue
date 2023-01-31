@@ -312,8 +312,10 @@ export default {
         "nanfangzhongxiyi",
         "foshanrenyi",
         'gdtj',
+        'zhzxy',
         'whsl',
         'lyyz',
+        'ytll',
         'nfyksdyy'
       ].includes(this.HOSPITAL_ID);
     },

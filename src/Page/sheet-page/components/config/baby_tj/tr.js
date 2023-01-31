@@ -66,15 +66,14 @@ export default [
   { key: 'fieldFour', event: keyf1, value: '', next: '', name: '自定义值4', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'fieldFive', event: keyf1, value: '', next: '', name: '自定义值5', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8) },
   {
-    key: "description", //特殊情况
+    key: "description", //特殊情况记录
     value: "",
-    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "200px", background: "transparent" },
-    textarea: { width: 200 },
-    event: function (e, td) { if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault() } keyf1(e, td) }
+    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "120px", background: "transparent" },
+    textarea: { width: 160 },
+    event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
   },
   { key: "sign", value: "" },
-  // { key: "sign2", value: "" },
-  // { key: "audit", value: "" },
+  { key: "audit", value: "" },
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
   { hidden:true, key:'signerName2', value:''},

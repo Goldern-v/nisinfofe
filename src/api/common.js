@@ -106,7 +106,10 @@ export function getUser(password, empNo) {
     empNo
   });
 }
-
+// 审核签名
+export function saveRecordAllSign(data) {
+  return axios.post(`${apiPath}record/nurse_jew/saveRecordAllSign `,data);
+}
 
 // 获取所有护理单元（没有权限）
 export function nursingUnitAll() {

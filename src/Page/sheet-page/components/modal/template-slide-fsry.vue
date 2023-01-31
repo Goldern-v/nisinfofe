@@ -12,7 +12,7 @@
         </div>
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
           <el-tab-pane label="科室模板" name="first">
-            <TemplateModal :selectedSheetType="sheetInfo.sheetType" :selectType="selectType"/>
+            <TemplateModal :selectedSheetType="sheetInfo.sheetType" :selectType="selectType" @openAddModal="openAddModal"/>
             <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
               <i class="iconfont icon-tianjia"></i> 新建模板
             </div>
@@ -90,9 +90,9 @@ export default {
       }
        this.selectType = ''
     },
-    openAddModal() {
+    openAddModal(data) {
       if(this.$refs.addTemplateModal){
-      this.$refs.addTemplateModal.open();
+      this.$refs.addTemplateModal.open(data);
 
       }
     },

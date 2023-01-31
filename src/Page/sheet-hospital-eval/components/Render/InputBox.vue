@@ -216,46 +216,7 @@ export default {
       console.log(newVal, "formObj.model.I618004");
 
     },
-    // inputValue(valueNew, oldvaule) {
-    //   console.log("watch:inputValue:", [valueNew], [oldvaule]);
-    //   if (this.model === "normal") {
-    //     this.formObj.model[this.obj.name] = valueNew+"";
-    //     this.checkValueRule(valueNew+"");
-    //     this.obj.value = valueNew+"";
-    //     console.log("obj:", this.obj);
-    //   }
-    //   //
-    //   /** 如果存在clone ref */
-    //   // setTimeout(() => {
-    //   //   if (this.isClone) {
-    //   //     this.$root.$refs[this.obj.name].setCurrentValue(valueNew);
-    //   //     this.$root.$refs[this.obj.name].$parent.checkValueRule(valueNew);
-    //   //   } else if (this.$root.$refs[this.obj.name + "_clone"]) {
-    //   //     this.$root.$refs[this.obj.name + "_clone"].setCurrentValue(valueNew);
-    //   //     this.$root.$refs[this.obj.name + "_clone"].$parent.checkValueRule(
-    //   //       valueNew
-    //   //     );
-    //   //   }
-    //   // }, 100);
-    //   return valueNew?valueNew:"";
-    // },
-    // obj: {
-    //   handler(curVal, oldVal) {
-    //     // console.log("handler", curVal, oldVal);
-    //     if (
-    //       this.obj &&
-    //       this.obj.hasOwnProperty("value") > -1
-    //       && curVal &&
-    //       curVal.value != undefined
-    //     ) {
-    //       this.inputValue = curVal.value + "";
-    //     }
-    //     // if(this.obj && this.obj.hasOwnProperty('value')>-1 && curVal.value!=undefined &&curVal.value.constructor === Array){
-    //     //   this.inputValue = curVal.value + ''
-    //     // }
-    //   },
-    //   deep: true
-    // }
+
   },
   mounted() {
 
@@ -278,18 +239,6 @@ export default {
       this.$root.$refs[this.formCode][refName][refNameTitle] =
         this.$refs[refName];
     }
-    // if (1
-    //   this.obj &&
-    //   this.obj.hasOwnProperty("value") > -1 &&
-    //   this.obj.value &&
-    //   this.obj.value.constructor !== Array
-    // ) {
-    //   // console.log(this.obj, this.obj.value, "aaaaaaaaaaa");
-    //   // setTimeout(() => {
-    //   //   this.inputValue = this.obj.value;
-    //   //   this.$refs[refName].setCurrentValue(this.obj.value + "");
-    //   // }, 1000);
-    // }
     if (
       this.obj &&
       this.obj.hasOwnProperty("value") > -1 &&
@@ -301,32 +250,10 @@ export default {
     if (this.model === "development") {
       this.obj.class = "development-model";
     }
-    // if (this.obj.hasOwnProperty("focus") && this.obj.focus === true) {
-    //   this.$refs[refName].$refs.input.focus();
-    //   console.log("focus", this.$refs[refName]);
-    // }
 
-    // console.log("inputMounted", this.$refs, this.$root.$refs);
-    // focus()  this.$refs.input.value
-    // try {
-    //   let modelObj = window.formObj.model || this.formObj.model;
-    //   if (modelObj && modelObj[refName]) {
-    //     this.checkValueRule(modelObj[refName]);
-    //     this.$refs[refName].setCurrentValue(modelObj[refName]);
-    //   }
-    // } catch (error) {
-    //   //
-    // }
   },
   created() {
     let refName = this.obj.name + "";
-    // console.log(
-    //   "created:refName",
-    //   refName,
-    //   window.formObj,
-    //   this.formObj,
-    //   this.formObj.dictionary
-    // );
     try {
       let dictionary = {};
       if (window.formObj && window.formObj.hasOwnProperty("dictionary")) {
@@ -401,45 +328,27 @@ export default {
     scoreListsum(val){
        this.formObj.model["evalScore"] = val;
         this.setElementValue("evalScore", val);
-      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
     },
     scoreListFace(val){
        this.formObj.model["evalScore"] = val;
         this.setElementValue("evalScore", val);
-      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
     },
     scoreListAdult(val){
       this.formObj.model["evalScore"] = val;
       this.setElementValue("evalScore", val);
-      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
     },
     scoreListSever(val){
        this.formObj.model["evalScore"] = val;
         this.setElementValue("evalScore", val);
-      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
     },
     scoreListChild(val){
-      console.log(val);
        this.formObj.model["evalScore"] = val;
         this.setElementValue("evalScore", val);
-      //  this.$root.$refs[this.formCode]["evalScore"].setCurrentValue(val);
     },
     checkValueRule(valueNew, repeat = null) {
-      // let ageLevel = this.$store.getters.getAgeLevel()
-      // console.log('checkValueRule',[valueNew,repeat])
       valueNew = valueNew == "undefined" ? "" : valueNew;
-      // let textResult = checkRule({
-      //   rule:this.obj.rule,
-      //   value:valueNew+"",
-      //   obj:this.obj,
-      //   formObj:this.formObj,
-      //   repeat
-      // })
 
-      // return textResult
-      // if(!repeat){return}
       let textResult = valueNew + "";
-      // textResult = valueNew+"";
       this.obj.style = "";
       this.alertMessage = "";
       this.currentRule = {};
@@ -450,7 +359,6 @@ export default {
         this.obj.rule &&
         this.obj.rule.constructor === Array
       ) {
-        // console.log("rule:", this.obj.rule);
         this.alertActived = false;
         //
         agelevel = this.$store.getters.getAgeLevel();
@@ -518,17 +426,6 @@ export default {
                 let regexp = new RegExp(r.string, "g");
                 let ret = r.string.replace(regexp, r.replacement || "") || "";
                 //
-                console.log(
-                  "输入字符自动转换",
-                  r,
-                  r.source,
-                  r.target,
-                  r.string,
-                  r.replacement,
-                  [ret],
-                  this.getElementValue(r.target)
-                );
-                //
                 this.$nextTick(() => {
                   this.formObj.model[r.target] = ret;
                   this.setElementValue(r.target, ret);
@@ -579,7 +476,6 @@ export default {
                 this.$refs[this.obj.name].type === "text"
               ) {
                 this.$refs[this.obj.name].setCurrentValue(r.display);
-                // this.$root.$refs[this.obj.name][0].setCurrentValue(r.display);
                 this.setElementValue(this.obj.name, r.display);
               }
               textResult = r.display ? r.display : "";
@@ -587,13 +483,10 @@ export default {
             } else if (r.equal && r.equal === valueNew) {
               this.obj.style = r.style;
               if (r.message) {
-                console.log("rule:message", r.message);
                 this.alertMessage = r.message + "";
                 this.alertActived = true;
                 this.currentRule = { ...r };
-                // return;
               }
-              // this.$refs[this.obj.name].$refs.input.style = this.obj.style;
               // 替换显示 r.display
               if (
                 r.display &&
@@ -602,7 +495,6 @@ export default {
                 this.$refs[this.obj.name].type === "text"
               ) {
                 this.$refs[this.obj.name].setCurrentValue(r.display);
-                // this.$root.$refs[this.obj.name][0].setCurrentValue(r.display);
                 this.setElementValue(this.obj.name, r.display);
               }
               textResult = r.display ? r.display : "";
@@ -617,7 +509,6 @@ export default {
                 this.$refs[this.obj.name].type === "text"
               ) {
                 this.$refs[this.obj.name].setCurrentValue(r.display);
-                // this.$root.$refs[this.obj.name][0].setCurrentValue(r.display);
                 this.setElementValue(this.obj.name, r.display);
               }
               textResult = r.display ? r.display : "";
@@ -639,7 +530,6 @@ export default {
               ) {
                 this.obj.style = r.style;
               }
-              // this.obj.style = Object.assign({}, this.obj.style, r.style);
             } else if (r.indexOf) {
               if ((valueNew + "").indexOf(r.indexOf) > -1) {
                 this.obj.style = r.style;

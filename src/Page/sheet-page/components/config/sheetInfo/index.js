@@ -19,6 +19,7 @@
   /** 护记额外信息 */
   bedList: [], //病人列表
   auditorMap: {}, //审核人签名
-  findBlockContext:{}//首页护记定位信息
+  findBlockContext:{},//首页护记定位信息
+  extraData:{},//护记做了根据页码来分割数据，增量保存的时候把上下页码的最后一条记录查询出来传给后端做处理
 };
 export default data

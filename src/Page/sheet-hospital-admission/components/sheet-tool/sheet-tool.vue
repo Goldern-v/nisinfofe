@@ -273,14 +273,12 @@ export default {
             ) {
               this.createNewForm();
             }
-            console.log("新建评估", this.patientInfo);
           },
         },
         {
           label: "保存",
           onClick: (e) => {
             this.formSave();
-            console.log("保存", this.user, this.formObj);
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
@@ -302,7 +300,6 @@ export default {
           style: "width:90px",
           onClick: (e) => {
             this.formSignOrAudit();
-            console.log(e);
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
@@ -346,7 +343,6 @@ export default {
           label: "填写检查",
           onClick: (e) => {
             this.checkFormMissingItems();
-            console.log("填写检查");
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
@@ -443,7 +439,6 @@ export default {
       let url = `${appurl}/${pageUrl}?${qs.stringify(queryObj)}`;
       // 打印模式isPrint
       localStorage["assessment_printUrl"] = url;
-      console.log("printPage", queryObj, localStorage["assessment_printUrl"]);
       let print_wid = window.open(`/crNursing/print/assessmentv1`);
     },
     fillDefaultValue() {
@@ -456,10 +451,9 @@ export default {
       loadPatient(this.patientInfo.patientId, this.patientInfo.visitId)
         .then((res) => {
           let valData = res.data.data
-          // console.log(valData,'fafas sfasfsf');
             window.formObj.model.I001012 = valData.marriage;
           // 直接赋值，有点问题 临邑不需要
-          if (!['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
+          if (!['lyxrm', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
             window.formObj.model.I001002 = valData.occupation;
             window.formObj.model.I001003 = valData.nation;
           }
@@ -479,7 +473,6 @@ export default {
           this.bus.$emit("setHosptialAdmissionLoading", false);
         });
 
-      console.log("默认填写");
     },
     /** 同步his数据 */
     syncHIS(model = window.formObj.model) {
@@ -499,18 +492,11 @@ export default {
         // 'admissionDate':'', // 入院日期
       };
       let keys = Object.keys(keyMap);
-      // console.log(
-      //   "===keyMap",
-      //   keyMap,
-      //   keys,
-      //   keyMap["diagnosis"],
-      //   window.formObj.model["I001001"]
-      // );
 
       keys = [...keys];
       keys.map((key) => {
         // 临邑 不需要同步已存在数据的字段
-        if(['lyxrm', 'stmz'].includes(this.HOSPITAL_ID) && window.formObj.model[keyMap[key]]) return
+        if(['lyxrm', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID) && window.formObj.model[keyMap[key]]) return
         if (
           model[key] != undefined &&
           model[key] != "undefined" &&
@@ -522,7 +508,6 @@ export default {
           } else {
             this.formObj.model[keyMap[key]] = model[key] || "";
           }
-          // console.log("----key", key, model[key]);
         }
       });
     },
@@ -553,7 +538,6 @@ export default {
           this.syncHIS(res[0].data.data);
         }
 
-        console.log("--新建评估", res[0], res[1], this.formObj.model);
         if (res[1] && res[1].data.data) {
           //
           let pdata = res[1].data.data;
@@ -600,7 +584,6 @@ export default {
             this.selectBlock = this.sheetBlockList[len - 1];
           }
         }
-        console.log("---获取表单列表:sheetBlockList", this.sheetBlockList);
         if (this.sheetBlockList.length === 0) {
           // 关闭表的显示
           this.bus.$emit("closeHosptialAdmissionForm");
@@ -619,7 +602,7 @@ export default {
       window.performance.mark("mark_blocklist_start_xhr");
       // 加载loading状态显示
       this.bus.$emit("setHosptialAdmissionLoading", true);
-
+      // 重置提示，填写检查的漏项显示
       this.removeCheckMark();
       if (
         this.$root.$refs.tableOfContent &&
@@ -649,17 +632,6 @@ export default {
             "mark_blocklist_end_xhr"
           );
           var items = window.performance.getEntriesByType("measure");
-          console.log("measure", items);
-          //
-
-          // try {
-          //   window.formObj.header[0].children.map(h => {
-          //     h.value = master[h.name];
-          //   });
-          // } catch (error) {
-          //   //
-          // }
-          // window.formObj.model = { ...itemData, ...master };
 
           window.formObj.missingItems = new Object();
 
@@ -679,9 +651,6 @@ export default {
             setDefaultValue(formObj);
             this.formSave();
           }
-          // window.formObj.model.I100000 = "耳温";
-          // window.formObj.model = Object.assign(window.formObj.model, itemData);
-          // window.formObj.model = Object.assign(window.formObj.model, master);
           console.log(
             "---获取页面数据",
             res,
@@ -706,7 +675,6 @@ export default {
             isDevMode: false,
           };
 
-          // window.formObj.header.children
           // master
           this.bus.$emit("openHosptialAdmissionForm", {
             patient: item,
@@ -723,11 +691,8 @@ export default {
           this.$root.$refs.mainPage["checkFormMissingItems"] =
             this.checkFormMissingItems;
 
-          // window.formObj.model
         });
       }
-      // this.bus.$emit("openHosptialAdmissionForm", item);
-      // this.bus.$emit('refreshNursingOrderSheetPage', true,e)
     },
     reloadForm() {
       this.currentFormConfig.isDevMode = true;
@@ -748,7 +713,6 @@ export default {
           data: { diags: diags },
         },
       } = res;
-      // console.log("显示评估详情", res, diags, window.formObj.dialogs);
       if (diags) {
         let diagsArray = diags.map((d) => {
           return d;
@@ -756,22 +720,14 @@ export default {
         this.$root.$refs.diagnosisModal.open(diagsArray);
       }
     },
+    // 删除提示，填写检查的漏项显示
     removeCheckMark(isXRadiobox = true) {
-      let object = this.$root.$refs;
+      let object = this.$root.$refs[this.formCode];
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
           let element = object[key];
           if (element && element.constructor === Array) {
             let keys = Object.keys(element);
-            console.log(
-              "Array:element",
-              typeof element,
-              element.constructor,
-              element,
-              element[keys[0]],
-              [...element].length,
-              Object.keys(element)
-            );
             // name = '',value=''
             try {
               element[keys[0]].$parent.$parent.$parent.$el.style.outline =
@@ -806,8 +762,6 @@ export default {
     },
     // 检查表单漏填
     checkFormMissingItems() {
-      // todo
-      console.log("检查表单漏填", this.$root.$refs, this.formObj);
       // K0001
       let missingObj = {};
       let missingObjArrayList = [];
@@ -821,7 +775,6 @@ export default {
       skipItems = skipItems.filter((s) => {
         return s !== "";
       });
-      console.log("检查表单漏填skipItems", skipItems);
       //
       let checkSkipItems = (name) => {
         return skipItems.indexOf(name) === -1;
@@ -838,10 +791,8 @@ export default {
             value = "",
             parentName = "",
             title = "";
-
           // 多选单选组件
           if (element && element.constructor === Array) {
-            // console.log('Array:element',typeof(element),element.constructor,element,element[0],element.length,Object.keys(element));
             (name = ""), (value = "");
             let keys = Object.keys(element);
             totalItems += 1;
@@ -855,10 +806,6 @@ export default {
                 value = window.formObj.model[name];
               }
 
-              if (skipItems.indexOf(title) > -1) {
-                //  continue
-                // console.log("===多选单选组件:title", title, skipItems);
-              }
 
               if (
                 (skipItems.indexOf(title) == -1 && !value && !parentName) ||
@@ -876,7 +823,6 @@ export default {
                     keys[0]
                   ].$parent.$parent.$parent.$el.style.backgroundColor =
                     "yellow;";
-                  console.log("!!!!", title, element, missingObj);
 
                   let itemTitle =
                     element[keys[0]].$parent.$parent.$parent.$parent.$parent.obj
@@ -891,7 +837,6 @@ export default {
                     element[keys[0]].$parent.$parent.$parent.$parent.obj.title;
 
                   if (skipItems.indexOf(title) > -1) {
-                    console.log("===多选单选组件:title", title, skipItems);
                     element[keys[0]].$parent.$parent.$parent.$el.style.outline =
                       "none";
                     element[
@@ -949,8 +894,6 @@ export default {
               console.log("error", title, error, element);
             }
           }
-          //
-
           // 输入框组件
           if (
             element &&
@@ -975,7 +918,6 @@ export default {
                 }
                 name = element.$parent.obj.name;
                 title = element.$parent.obj.title;
-                // element.$parent.$parent.$parent.$parent.obj.title;
                 parentName = element.$parent.obj.parentName
                   ? element.$parent.obj.parentName
                   : "";
@@ -993,7 +935,6 @@ export default {
                   element.$parent.$parent.$parent.$parent.obj.title
                 ) > -1
               ) {
-                // console.log("===输入框组件:title", title, skipItems);
                 element.$el.style.outline = "none";
                 element.$el.style.backgroundColor = "transparent";
                 continue;
@@ -1003,17 +944,6 @@ export default {
                 (skipItems.indexOf(title) == -1 && !value && !parentName) ||
                 (!value && parentName && !window.formObj.model[parentName])
               ) {
-                // console.log(
-                //   "==输入框组件:title",
-                //   title,
-                //   parentName,
-                //   name,
-                //   element,
-                //   skipItems,
-                //   [window.formObj.model[name]],
-                //   [value]
-                // );
-
                 let parentTitle = "";
                 let parent = element.$parent;
                 while (parent) {
@@ -1027,15 +957,6 @@ export default {
                   }
                   parent = parent.$parent;
                 }
-                //
-                if (
-                  parent.obj.hasOwnProperty("parentKey") > -1 &&
-                  parent.obj.parentKey
-                ) {
-                  // parent.obj.title == window.formObj.model[parent.obj.parentKey]
-                }
-
-                //
                 if (
                   (!value && !parent.obj.title) ||
                   (parent.obj.title &&
@@ -1051,13 +972,6 @@ export default {
                   if (!parentTitle) {
                     if (parent.obj.parentTitle) {
                       parentTitle = parent.obj.parentTitle;
-                      // console.log(
-                      //   "===:itemTitle",
-                      //   title,
-                      //   parent,
-                      //   element,
-                      //   window.formObj.model[parent.obj.parentKey]
-                      // );
                     }
                   }
 
@@ -1075,29 +989,9 @@ export default {
                   element.$el.style.outline = "1px solid red";
                   element.$el.style.backgroundColor = "yellow";
                 }
-                //
-                // console.log(
-                //   "漏项",
-                //   [element, parent],
-                //   [element.$el],
-                //   [parent.obj.title ? parent.obj.title : ""],
-                //   [
-                //     parent.obj.name,
-                //     parent.obj.parentKey,
-                //     parent.obj,
-                //     window.formObj.model[
-                //       parent.obj.name || parent.obj.parentKey
-                //     ],
-                //   ]
-                // );
-
-                //
-                // element.$el.style.outline = "1px solid red";
-                // element.$el.style.border = "1px solid red"
               } else {
                 element.$el.style.outline = "none";
                 element.$el.style.backgroundColor = "transparent";
-                // element.$el.style.border = "1px solid #eee"
               }
             }
           }
@@ -1131,17 +1025,7 @@ export default {
       //
       //
       window.formObj.missingItems = JSON.parse(JSON.stringify(missingObj));
-      console.log("漏项统计", missingObj);
-      // $el
-      // window.notifyBox().setMissObj()   totalItems  missItems  missArray
-      // window.notifyBox.setMissObj({
-      //   missingObj,
-      //   totalItems,
-      //   missItems,
-      //   missingObjArrayList,
-      //   removeCheckMark: this.removeCheckMark
-      // });
-      // window.notifyBox.show(5000);
+
       try {
         window.notifyBox.showMessage({
           duration: 20000,
@@ -1271,7 +1155,6 @@ export default {
               }
             }
 
-            console.log("签名post", post, postData);
 
             // 签名调保存接口
             save(postData)
@@ -1300,7 +1183,6 @@ export default {
                   status: false,
                 });
               });
-            console.log("表单填写结果", post);
           },
           titleModal,
           true,undefined,  undefined, undefined, undefined ,undefined,undefined,
@@ -1317,7 +1199,6 @@ export default {
           password,
         };
         del(post).then((result) => {
-          console.log("删除", result);
           let {
             data: { desc: message },
           } = result;
@@ -1354,11 +1235,7 @@ export default {
 
         this.formObj.model.formCode = this.formCode;
 
-        console.log("save!!!", this.formObj.model);
-
         post = Object.assign({}, this.formObj.model, post);
-
-        console.log("savePost!!!", this.formObj.model, window.formObj.model);
 
         // post.formCode = this.formCode
 
@@ -1381,11 +1258,9 @@ export default {
           }
         }
 
-        console.log("保存post", post, postData);
 
         save(postData)
           .then((res) => {
-            console.log("保存评估", res);
             this.$message.success("保存成功");
             this.selectBlock.status = "1";
             this.changeSelectBlock(this.selectBlock);
@@ -1415,11 +1290,11 @@ export default {
     },
     hotkeyForm() {
       window.document.onkeydown = (e) => {
+        console.log('gao');
         var currKey = 0;
         e = e || event || window.event;
         currKey = e.keyCode || e.which || e.charCode;
         var currKeyStr = String.fromCharCode(currKey);
-        // console.log('currKeyStr',currKeyStr)
         // Ctrl / Command +
         if (e.ctrlKey || e.metaKey) {
           let text = window.getSelection().toString();
@@ -1432,11 +1307,9 @@ export default {
               break;
             case "G": //Ctrl+N
               this.formSave({ showMeasure: false, showLoading: false });
-              console.log("新建页面");
               // createForm()
               break;
             case "C": //Ctrl+C
-              // console.log("复制", text);
               break;
             default:
               break;

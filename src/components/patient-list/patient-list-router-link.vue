@@ -1,15 +1,24 @@
 <template>
   <div
     class="patient-list-part"
-    :style="{ left: openLeft ? '0' : '-201px' }"
+   
     v-loading="patientListLoading"
   >
-    <div class="search-box">
+    <div class="search-box" v-if="!isRefresh">
       <el-input
         placeholder="床号/姓名"
         icon="search"
         v-model="searchWord"
       ></el-input>
+    </div>
+    <div class="search-box" v-else>
+      <el-input
+        placeholder="床号/姓名"
+        icon="search"
+        style="width:100px"
+        v-model="searchWord"
+      ></el-input>
+      <el-button type="primary" style="padding: 5px 15px;margin-left: 7px;height: 28px;" size="mini" @click="getDate()">刷新</el-button>
     </div>
     <div class="left-wapper">
      <follow-list :data="sortList" @selectPatient="selectPatient" v-if="hasFollowList">
@@ -323,7 +332,8 @@ export default {
       // isAutoSelect: ['lyxrm', 'foshanrenyi','lyyz','fsxt','wujing'].includes(this.HOSPITAL_ID),
       // 切换模块回来时能拿到之前的数据
       // isAutoSelected:['lyyz', 'foshanrenyi','fsxt','wujing'].includes(this.HOSPITAL_ID),
-      levelColor:{}
+      levelColor:{},
+      isRefresh: ['whsl'].includes(this.HOSPITAL_ID)&&location.href.includes('newSingleTemperatureChart'),
     };
   },
   methods: {
@@ -582,6 +592,7 @@ export default {
     }
   },
   created(){
+    console.log(this.isRefresh,['whsl'].includes(this.HOSPITAL_ID),location.href.includes('newSingleTemperatureChart'))
     if (this.deptCode) {
       this.getDate();
     }

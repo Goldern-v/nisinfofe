@@ -26,8 +26,6 @@
         />
       </el-tooltip>
     </div>
-    <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
-    <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
       v-if="obj.label"
       :style="{width: obj.labelWidth, textAlign: 'right', paddingRight: '10px'}"
@@ -35,7 +33,6 @@
       <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
 
-    <!-- v-autoComplete="{dataList: obj.options, obj:formObj.model, key: obj.name}" -->
     <el-input
       v-model="inputValue"
       :id="getUUID()"
@@ -57,20 +54,8 @@
       @blur.stop="inputBlur"
       @keydown.native="inputKeyDown($event, obj)"
     >
-      <!-- <span class="pre-text" v-if="obj.prefixDesc" slot="prepend">{{obj.prefixDesc}}</span> -->
-      <!-- <span slot="append"> -->
-      <!-- <i
-        slot="append"
-        v-if="obj.options&&!obj.suffixDesc"
-        @click.prevent.stop="()=>{}"
-        class="el-input__icon el-icon-caret-top"
-      ></i>-->
       <span slot="append" class="suffixDesc-text" v-if="obj.postText">!!!{{obj.postText}}</span>
-      <!-- </span> -->
-      <!-- <template slot="append" v-if="obj.options"> -->
-      <!-- </template> -->
     </el-input>
-    <!-- <span>{{obj.suffixDesc}}</span> -->
     <openFormSum @scoreListSum="scoreListsum" @changetableSum='changetablesum' @click="tableScoreSum()" :dialogTable='tableScore'></openFormSum>
     <faceForm @scoreListFace="scoreListFace" @changetableFace='changetableface' @click="tableScoreFace()" :dialogTableFace='tableScore1'></faceForm>
     <adultForm @scoreListAdult="scoreListAdult" @changetableAdult='changetableAdult' @click="tableScoreAdult()" :dialogTableAdult='tableScore2'></adultForm>
@@ -147,7 +132,6 @@ export default {
   },
   watch: {
     inputValue(valueNew, oldvaule) {
-      // console.log("inputValue:", valueNew, oldvaule);
       if(valueNew == 'NRS(数字疼痛分级法)'){
         this.tableScoreSum();
       }else if(valueNew == 'WONG_BAKER(面部表情评分法)'){
@@ -164,26 +148,12 @@ export default {
         this.formObj.model[this.obj.name] = valueNew;
         this.checkValueRule(valueNew);
         this.obj.value = valueNew;
-        // console.log("obj:", this.obj);
       }
       /** 如果存在clone ref */
-      // setTimeout(() => {
-      //   if (this.isClone) {
-      //     this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.formCode][this.obj.name].$parent.checkValueRule(valueNew);
-      //   } else if (this.$root.$refs[this.formCode][this.obj.name + "_clone"]) {
-      //     this.$root.$refs[this.formCode][this.obj.name + "_clone"].setCurrentValue(valueNew);
-      //     this.$root.$refs[this.formCode][this.obj.name + "_clone"].$parent.checkValueRule(
-      //       valueNew
-      //     );
-      //   }
-      // }, 100);
-
       return valueNew;
     },
     obj: {
       handler(curVal, oldVal) {
-        // console.log("handler", curVal, oldVal);
         if (
           this.obj &&
           this.obj.hasOwnProperty("value") > -1 &&
@@ -191,15 +161,12 @@ export default {
         ) {
           this.inputValue = curVal.value + "";
         }
-        // if(this.obj && this.obj.hasOwnProperty('value')>-1 && curVal.value!=undefined &&curVal.value.constructor === Array){
-        //   this.inputValue = curVal.value + ''
-        // }
       },
       deep: true
     }
   },
   mounted() {
-    let refName = this.obj.name; //+this.obj.type.toUpperCase()+(this.obj.title||this.obj.label)
+    let refName = this.obj.name;
     if (!this.$root.$refs[this.formCode]) {
       this.$root.$refs[this.formCode] = new Array();
     }
@@ -209,7 +176,6 @@ export default {
     }
 
     if (this.$refs[refName]) {
-      // this.formObj.model[this.obj.name] = this.$refs[refName].currentValue;
       this.$refs[refName]["childObject"] = this.obj;
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       if (this.obj.isClone) {
@@ -225,18 +191,6 @@ export default {
       this.obj &&
       this.obj.hasOwnProperty("value") > -1 &&
       this.obj.value &&
-      this.obj.value.constructor !== Array
-    ) {
-      // console.log(this.obj, this.obj.value, "aaaaaaaaaaa");
-      // setTimeout(() => {
-      //   this.inputValue = this.obj.value;
-      //   this.$refs[refName].setCurrentValue(this.obj.value + "");
-      // }, 1000);
-    }
-    if (
-      this.obj &&
-      this.obj.hasOwnProperty("value") > -1 &&
-      this.obj.value &&
       this.obj.value.constructor === Array
     ) {
       this.inputValue = this.obj.value.toString();
@@ -246,34 +200,13 @@ export default {
     }
     if (this.obj.hasOwnProperty("focus") && this.obj.focus === true) {
       this.$refs[refName].$refs.input.focus();
-      // console.log("focus", this.$refs[refName]);
     }
-
-    // console.log("inputMounted", this.$refs, this.$root.$refs);
-    // focus()  this.$refs.input.value
-    // try {
-    //   let modelObj = window.formObj.model || this.formObj.model;
-    //   if (modelObj && modelObj[refName]) {
-    //     this.checkValueRule(modelObj[refName]);
-    //     this.$refs[refName].setCurrentValue(modelObj[refName]);
-    //   }
-    // } catch (error) {
-    //   //
-    // }
   },
   created() {
-    // console.log("this.$root.$refs.mainPage.",this.$root.$refs.mainPage)
     if(this.obj.name == "I385031" && (this.formObj.model.I385031 == '' || this.formObj.model.I385031 == null)){
       this.formObj.model.I385031 = '_'
     }
     let refName = this.obj.name + "";
-    // console.log(
-    //   "created:refName",
-    //   refName,
-    //   window.formObj,
-    //   this.formObj,
-    //   this.formObj.dictionary
-    // );
     try {
       let dictionary = {};
       if (window.formObj && window.formObj.hasOwnProperty("dictionary")) {
@@ -286,7 +219,6 @@ export default {
       let options = dictionary[refName]
         ? dictionary[refName]
         : this.obj.options;
-      // console.log("created:options", this.obj.title, options);
       if (options && options.length > 0) {
         if (options[0].constructor === Object) {
           this.obj.options = options;
@@ -300,17 +232,6 @@ export default {
     } catch (error) {
       //
       console.log(error);
-    }
-
-    if (
-      this.obj.hasOwnProperty("options") &&
-      this.obj.options &&
-      this.obj.options.length === 0 &&
-      (!this.formObj.dictionary ||
-        !this.formObj.dictionary.hasOwnProperty(refName) ||
-        !this.formObj.dictionary[refName])
-    ) {
-      // this.obj["options"] = [{ name: "未测量", code: "未测量", pinyin: "wcl" }];
     }
   },
   methods: {
@@ -417,9 +338,7 @@ export default {
                   0;
               }
               let result = '';
-              // console.log(isNaN(Number(height)) && isNaN(Number(weight)))
               if(isNaN(Number(height)) && isNaN(Number(weight)) ){
-                // console.log(this.formObj.model[r.result])
                 result = this.formObj.model[r.result]
                 this.$root.$refs[this.formCode][r.result].setCurrentValue(
                 result
@@ -433,9 +352,6 @@ export default {
                 );
                 this.formObj.model[r.result] = result ? result.toFixed(2) : "";
               }
-              // if(this.obj.name==='I100011'){
-              //   console.log('!!!!计算BMI',this.obj.title,this.obj,r,height,weight,result)
-              // }
 
             }
           }
@@ -612,20 +528,8 @@ export default {
       // this.isShow = false
     },
     inputFocus(e, child) {
-      // this.isShow = true
-      // console.log("inputFocus",e,child)
       let self = this;
       let xy = e.target.getBoundingClientRect();
-      // console.log(
-      //   "inputFocus111111",
-      //   e,
-      //   child,
-      //   this.formObj.model,
-      //   this.inputValue,
-      //   xy,
-      //   this.$refs,
-      //   this.$root.$refs
-      // );
       let delt = xy.height;
 
       if (this.$refs[this.obj.name]) {
@@ -633,30 +537,19 @@ export default {
         this.$refs[this.obj.name].$el.style.backgroundColor = "transparent";
       }
 
-      // cancelSignOrAduit formSignOrAudit
-      // console.log("this.obj.name ",this.obj.name )
       if (this.obj.name === "signerName") {
-        // console.log('---',this.obj.name,this.$root.$refs.mainPage)
         if (
           this.$root.$refs.mainPage.formSignOrAudit &&
           this.formObj.model.status == "0"
         ) {
-          // console.log("1111111111")
           this.$root.$refs.mainPage.formSignOrAudit();
         } else if (
           this.$root.$refs.mainPage.cancelSignOrAduit &&
           this.formObj.model.status == "1"
         ) {
-          // console.log("2222222222")
           this.$root.$refs.mainPage.cancelSignOrAduit();
         }
       } else if (this.obj.name === "auditorName") {
-        // console.log(
-        //   "---",
-        //   this.obj.name,
-        //   this.$root.$refs,
-        //   this.$root.$refs.mainPage
-        // );
         if (
           this.$root.$refs.mainPage.formSignOrAudit &&
           this.formObj.model.status == "1"
@@ -669,14 +562,6 @@ export default {
           this.$root.$refs.mainPage.cancelSignOrAduit({ type: "audit" });
         }
       }
-
-      //
-      // let autoBox = this.$root.$refs.autoBox.getBoundingClientRect()
-      // //
-      // if (window.innerHeight - autoBox.bottom < delt) {
-      //   delt = autoBox.height - 40
-      // }
-      //
       if (this.$root.$refs.autoInput) {
         this.$root.$refs.autoInput.close();
       }
@@ -689,7 +574,6 @@ export default {
           ? this.obj.multiplechoice
           : false;
         if (this.$root.$refs.autoInput) {
-          // console.log("this.$root.$refs.autoInput",this.$root.$refs.autoInput)
           this.$root.$refs.autoInput.open({
             obj: obj,
             multiplechoice: multiplechoice,
@@ -703,9 +587,7 @@ export default {
             },
             data: dataList,
             callback: function(data) {
-              // console.log('callback',obj,data,e)
               if (data) {
-                // console.log('==callback',obj,data)
                 // 单选
                 if (!multiplechoice || multiplechoice == false) {
                   obj[key] = data.code;
@@ -716,7 +598,6 @@ export default {
                 // 多选
                 if (multiplechoice === true) {
                   let values = obj[key] ? obj[key].split(",") : [];
-                  // console.log("==多选=callback", values, obj, key, e.target);
                   // 新增选项
                   if (!obj[key] || obj[key].indexOf(data.code) === -1) {
                     // values.push(data.code);
@@ -748,10 +629,6 @@ export default {
       }
     },
     inputChange(e, child) {
-      // console.log("inputChange", e, child, this.formObj.model, this.inputValue);
-      // this.$store.commit("upFormObj", JSON.parse(JSON.stringify(this.formObj)));
-      // property
-      // model  development-model this.model === "development"
       if (
         this.model === "development" &&
         this.property &&
@@ -762,13 +639,9 @@ export default {
       }
     },
     inputClick(e, child) {
-      // console.log("inputClick", e, child, this.formObj.model, e.target.tagName);
       if (child.dialog) {
-        // console.log("child.dialog", child.dialog, this.$refs, this.$root.$refs);
         try {
-          // this.$root.$refs.dialogBox.$el.draggable = true
           child.dialog["callback"] = res => {
-            // console.log("表单填写结果", res);
           };
           this.$root.$refs.dialogBox.openBox(child.dialog, this.inputValue); //$el draggable
         } catch (error) {
@@ -777,16 +650,6 @@ export default {
       }
     },
     inputKeyDown(e, child) {
-      // console.log(
-      //   "inputKeyDown",
-      //   e,
-      //   child,
-      //   e.target.tagName,
-      //   e.keyCode,
-      //   e.key,
-      //   e.target.selectionStart,
-      //   e.target.selectionEnd
-      // );
 
       if (
         e.keyCode == 37 &&
@@ -801,7 +664,6 @@ export default {
         if (leftNode) {
           leftNode.focus();
         }
-        // console.log("ArrowLeft", e, e.target, leftNode, leftNode.disabled);
       } else if (
         e.keyCode == 39 &&
         (e.target.selectionEnd === e.target.value.length ||
@@ -815,25 +677,13 @@ export default {
         if (rightNode) {
           rightNode.focus();
         }
-        // e.target.$rightNode.focus()
-        // console.log(
-        //   "ArrowRight",
-        //   e,
-        //   e.target,
-        //   e.target.$rightNode,
-        //   e.target.$rightNode.disabled
-        // );
       } else if (e.keyCode === 13 && e.target.$rightNode) {
-        // 13 Enter
-        // console.log("Enter", e.target, this.$root.$refs.autoInput.getStatus());
         if (!this.$root.$refs.autoInput.getStatus()) {
           e.target.$rightNode.focus();
         }
-        // this.$root.$refs.autoInput.close()
       } else if (e.keyCode === 38) {
         // 38 ArrowUp
         try {
-          // let upNode = e.target.$leftNode.$leftNode
           let upNode = e.target;
           for (let i = 0; i < this.col; i++) {
             upNode = upNode.$leftNode;
@@ -842,20 +692,16 @@ export default {
             for (let i = 0; i < this.col; i++) {
               upNode = upNode.$leftNode;
             }
-            // upNode = upNode.$leftNode.$leftNode
           }
           if (upNode) {
             upNode.focus();
           }
-          // e.target.$leftNode.$leftNode.focus()
-          // console.log("ArrowUp", e, e.target, upNode, this.col);
         } catch (error) {
           //
         }
       } else if (e.keyCode === 40) {
         // 40 ArrowDown
         try {
-          // let downNode = e.target.$rightNode.$rightNode
           let downNode = e.target;
           for (let i = 0; i < this.col; i++) {
             downNode = downNode.$rightNode;
@@ -864,21 +710,15 @@ export default {
             for (let i = 0; i < this.col; i++) {
               downNode = downNode.$rightNode;
             }
-            // downNode = downNode.$rightNode.$rightNode
           }
           if (downNode) {
             downNode.focus();
           }
-          // e.target.$rightNode.$rightNode.focus()
-          // console.log("ArrowUp", e, e.target, downNode, this.col);
         } catch (error) {
           //
         }
       }
 
-      // else if([38,40].indexOf(e.keyCode)===-1){
-      //   this.inputFocus(e, child)
-      // }
     },
 
     getUUID(child = null) {
@@ -911,7 +751,6 @@ export default {
           }
           //当 绑定值(this.formObj.model[rule.key])不在valList内 [!valist.includes(this.formObj.model[rule.key])]时禁用
           else if(rule.type === 'notEqual') {
-            // console.log(this.formObj, obj, rule, !this.formObj.model[rule.key], '1111112222222222')
             //不存在值，默认禁用
             if(!this.formObj.model[rule.key]) return true
             //有’非‘禁用白名单，优先先判断

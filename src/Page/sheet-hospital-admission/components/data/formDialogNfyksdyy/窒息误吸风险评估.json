@@ -1,0 +1,604 @@
+
+{
+  "pageSetting": {
+    "size": "4A",
+    "rotation": "portrait",
+    "margin": "0",
+    "width": "750px",
+    "height": "auto",
+    "mode": "development_",
+    "style": ""
+  },
+  "formSetting": {
+    "formTitle": {
+      "hospitalName": "临邑县人民医院",
+      "formName": "窒息误吸风险评估"
+    },
+    "formHeads": [
+      {
+        "name": "name",
+        "code": null,
+        "title": "姓名",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "sex",
+        "code": null,
+        "title": "性别",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "age",
+        "code": null,
+        "title": "年龄",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "wardName",
+        "code": null,
+        "title": "病区",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "bedLabel",
+        "code": null,
+        "title": "床号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "inpNo",
+        "code": null,
+        "title": "住院号",
+        "class": "",
+        "style": "",
+        "show": true
+      },
+      {
+        "name": "admissionDate",
+        "code": null,
+        "title": "入院日期",
+        "class": "",
+        "style": "",
+        "show": true
+      }
+    ],
+    "formTail": {
+      "showEvalScore": false,
+      "showSign": true,
+      "showAudit": true
+    },
+    "formInfo": {
+      "formCode": "E1311",
+      "formApiCode": "E1311",
+      "formName": "窒息误吸风险评估",
+      "status": "0",
+      "formType": "eval"
+    }
+  },
+  "dictionary": {},
+  "schemes": {},
+  "model": {},
+  "body": [
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 3,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalDate",
+          "type": "datePicker",
+          "title": "评估时间",
+          "code": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "signerName",
+          "type": "input",
+          "title": "评估人",
+          "titleStyle": "width:90px!important;margin:0;",
+          "code": "0",
+          "hiddenTips": true,
+          "placeholder": "评估人",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true
+        },
+        {
+          "name": "status",
+          "type": "input",
+          "title": "状态",
+          "titleStyle": "width:90px!important;margin:0;",
+          "code": "0",
+          "hiddenTips": true,
+          "placeholder": "状态",
+          "style": "width:80px",
+          "class": null,
+          "readOnly": true,
+          "rule": [
+            {
+              "equals": [
+                "-1",
+                "未保存"
+              ],
+              "style": "color:gray",
+              "display": "未签名"
+            },
+            {
+              "equals": [
+                "0",
+                ""
+              ],
+              "style": "color:blue",
+              "display": ""
+            },
+            {
+              "equals": [
+                "1",
+                "已签名"
+              ],
+              "style": "color:red",
+              "display": "已签名"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "一、评估内容",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "神经损伤",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1311002",
+          "type": "checkbox",
+          "title": "昏迷/吞咽障碍/咳嗽反射明显减弱或消失（符合任意一项）",
+          "code": "3",
+          "score": 3,
+          "style": "width:370px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "疾病因素",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1311003",
+          "type": "checkbox",
+          "title": "呕吐或反流（胃内容物或血液）",
+          "code": "2",
+          "score": 2,
+          "style": "width:270px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311004",
+          "type": "checkbox",
+          "title": "咯血",
+          "code": "5",
+          "score": 5,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311005",
+          "type": "checkbox",
+          "title": "痰液量多",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311006",
+          "type": "checkbox",
+          "title": "肥胖",
+          "code": "1",
+          "score": 1,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311007",
+          "type": "checkbox",
+          "title": "颌面、口腔或颈部手术后",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311008",
+          "type": "checkbox",
+          "title": "麻醉未醒",
+          "code": "5",
+          "score": 5,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311009",
+          "type": "checkbox",
+          "title": "人工气道",
+          "code": "5",
+          "score": 5,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311010",
+          "type": "checkbox",
+          "title": "强制性体位—仰卧",
+          "code": "2",
+          "score": 2,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "type": "formGroupHorizontalBox",
+      "title": "用药",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1311011",
+          "type": "checkbox",
+          "title": "镇静催眠药",
+          "code": "3",
+          "score": 3,
+          "style": "width:170px;height:30px",
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "二、预防护理措施：",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I001019",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I1311013",
+          "type": "checkbox",
+          "title": "保持呼吸道通畅，及时清理口腔及呼吸道分泌物",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311014",
+          "type": "checkbox",
+          "title": "给予正确的进食方法（环境、体位、食物选择、进食方式、吞咽确认等）",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311015",
+          "type": "checkbox",
+          "title": "进食后勿频繁更换体位",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311016",
+          "type": "checkbox",
+          "title": "神志不清者，采取平卧位头偏向一侧或侧卧位",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311017",
+          "type": "checkbox",
+          "title": "呕吐频繁者及时通知医师，并给予侧卧位，及时处理呕吐物",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311018",
+          "type": "checkbox",
+          "title": "雾化吸入、吸痰、胸部理疗等，需在进餐1小时后进行",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311019",
+          "type": "checkbox",
+          "title": "意识障得者遵医嘱给予鼻饲",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311020",
+          "type": "checkbox",
+          "title": "鼻饲患者进食前，确保胃管在胃内，抽吸胃液查看是否胃潴留，合理控制鼻饲量及间隔时间",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311021",
+          "type": "checkbox",
+          "title": "吞咽困难者勿强行进食，必要时鼻饲",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311022",
+          "type": "checkbox",
+          "title": "高度风险患者给予备用吸痰装置",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311023",
+          "type": "checkbox",
+          "title": "对依从性低的患者，加强宣教，指导正确进食方法",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311024",
+          "type": "checkbox",
+          "title": "加强巡视，每班交接",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "I1311025",
+          "type": "checkbox",
+          "title": "其他",
+          "code": "√",
+          "style": "",
+          "class": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "40%",
+        "60%"
+      ],
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "evalScore",
+          "type": "input",
+          "title": "评估得分",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "inputWidth": "136px",
+          "value": "",
+          "class": null,
+          "readOnly": null
+        },
+        {
+          "name": "evalDesc",
+          "type": "input",
+          "title": "结果程度",
+          "titleStyle": "width:90px!important;margin:0;",
+          "hiddenTips": true,
+          "inputWidth": "136px",
+          "value": "",
+          "class": null,
+          "readOnly": null,
+          "rule": [
+            {
+              "min": "-1",
+              "max": "3",
+              "equal": "低危",
+              "style": "color:blue",
+              "display": "低危"
+            },
+            {
+              "min": "3",
+              "max": "5",
+              "equal": "中危",
+              "style": "color:blue",
+              "display": "中危"
+            },
+            {
+              "min": "5",
+              "max": "200",
+              "equal": "高危",
+              "style": "color:blue",
+              "display": "高危"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dialogs": [],
+  "header": [],
+  "footer": []
+}
