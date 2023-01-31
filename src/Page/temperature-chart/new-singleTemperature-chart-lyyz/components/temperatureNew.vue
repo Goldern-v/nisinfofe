@@ -111,6 +111,16 @@ export default {
     queryTem: Object,
   },
   data() {
+    const baseUrl=(()=>{
+      switch (process.env.HOSPITAL_ID) {
+        case 'lyyz':
+          return 'http://10.66.3.23:9091/temperature/'
+        case 'whhk':
+          return 'http://10.1.50.245:9091/temperature/'
+        default:
+          break;
+      }
+    })()
     return {
       bus: bus(this),
       date: "",
@@ -129,11 +139,15 @@ export default {
       showTemp: true, //默认选择标准的体温单曲线
       visibled: false,
       isPrintAll: false, //是否打印所有
+      // intranetUrl:
+      //   // "http://localhost:8080/#/" /* 本地自测环境 导致跨域 */,
+      // "http://10.66.3.23:9091/temperature" /* 医院正式环境内网 导致跨域 */,
+      // printAllUrl:
+      //   "http://10.66.3.23:9091/temperature/printAll" /* 医院正式环境内网 */,
       intranetUrl:
-        // "http://localhost:8080/#/" /* 本地自测环境 导致跨域 */,
-      "http://10.66.3.23:9091/temperature" /* 医院正式环境内网 导致跨域 */,
+      `${baseUrl}` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://10.66.3.23:9091/temperature/printAll" /* 医院正式环境内网 */,
+        `${baseUrl}printAll` /* 医院正式环境内网 */,
     };
   },
   methods: {
