@@ -27,11 +27,18 @@ let addPage = []
  * @returns
  */
 let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = '', autoOptionsData = []}) {
+  const supplementLast = sheetInfo.extraData&&sheetInfo.extraData.first || []
+  const supplementNext = sheetInfo.extraData&&sheetInfo.extraData.last || []
+  const supplementLastList = Body(supplementLast, index - 1, autoOptionsData).slice(0,supplementLast.length)
+  const supplementNextList = Body(supplementNext, index + 1, autoOptionsData).slice(0,supplementNext.length)
   return {
     titleModel: Title(titleData, autoTitleData, index),
     bodyModel: Body(bodyData, index, autoOptionsData),
     index,
-    blockId:sheetInfo.selectBlock.id
+    blockId:sheetInfo.selectBlock.id,
+    supplementLastList,
+    supplementNextList
+    // supplement:sheetInfo
   };
 };
 let data = [];

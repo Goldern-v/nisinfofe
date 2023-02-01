@@ -2531,6 +2531,17 @@ export default {
         for (let i = 0; i < sheetModel.length; i++) {
           allList = allList.concat(sheetModel[i].bodyModel);
         }
+        /**
+* 在sheet.js里面通过接口拿到上下页码的补充数据 存在sheetInfo里面
+* 如果是第一页的页码存在跨页数据 则把 supplementLastList（上页数据的跨页数据补上）、
+* 如果是最后一页的页码存在跨页数据  则把supplementNextList（下一页的跨页数据给补上）
+*/
+        if (sheetModel[0].supplementLastList.length) {
+          allList = [...sheetModel[0].supplementLastList, ...allList]
+        }
+        if (sheetModel[0].supplementNextList.length) {
+          allList = [...allList, ...sheetModel[0].supplementNextList]
+        }
         for (let i = 0; i < allList.length; i++) {
           maxId = Math.max(
             maxId,

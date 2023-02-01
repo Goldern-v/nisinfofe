@@ -1435,31 +1435,6 @@ export default {
         window.closeAutoCompleteNoId();
       }, 300);
       let record = config.record;
-      // /**数据分页功能后，存在同一个记录 一个在上一页一个在下一页 没有取到数据的情况
-      //  * 所以后端返回了上下页码最后一条记录 需要补充进来
-      //  * */
-      // const clickRecordDate = (record[0].find((item) => item.key == "recordDate") || {}).value || ""
-      // const PreviousRecord = (sheetInfo.extraData&&sheetInfo.extraData.first || []).filter((list)=>list.recordDate == clickRecordDate)
-      // const NextRecord = (sheetInfo.extraData&&sheetInfo.extraData.last || []).filter((list)=>list.recordDate == clickRecordDate)
-      // let supplementList = []
-      // let arr = []
-      // supplementList = PreviousRecord.length ? PreviousRecord : NextRecord
-      // supplementList.map((tList) => {
-      // let newRecordList = JSON.parse(JSON.stringify(record[0]))
-      //   Object.keys(tList).map((keys) => {
-      //     let index = newRecordList.findIndex((item) => item.key == `${keys}`)
-      //     if (index > -1) {
-      //       let newItem = { ...newRecordList[index], value: tList[keys] }
-      //       newRecordList.splice(index, 1, newItem)
-      //     }
-      //   })
-      //   arr.push(newRecordList)
-      // })
-      // if(PreviousRecord.length){
-      //   record = [...arr,...record];
-      // }else{
-      //   record = [...record,...arr];
-      // }
       this.record = record
       /**以前isLast是判断是否是最后一条 时间久了功能好像更改了
        * 现在每次保存都必须传true更新页码 所以改为true

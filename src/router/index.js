@@ -569,7 +569,6 @@ const router = new Router({
           case 'whfk':
             return temperatureWHFK
           case 'lyxrm':
-          case 'whhk':
           case "stmz":
             return temperatureLYXRM
           case 'whsl':
@@ -581,6 +580,7 @@ const router = new Router({
           case 'fsxt':
             return temperatureFSXT
           case 'lyyz':
+          case 'whhk':
             return temperatureLYYZ
           case 'whyx':
             return temperatureWHYX
@@ -1127,7 +1127,6 @@ const router = new Router({
               case 'qhwy':
                 return temperatureDGXG
               case 'lyxrm':
-              case 'whhk':
               case "stmz":
                 return temperatureLYXRM
               case 'whsl':
@@ -1141,6 +1140,7 @@ const router = new Router({
               case 'whyx':
                 return temperatureWHYX
               case 'lyyz':
+              case 'whhk':
                 return temperatureLYYZ
               case 'gdtj':
                   return temperatureGDTJ
@@ -1550,7 +1550,6 @@ const router = new Router({
             case 'nanfangzhongxiyi':
               return allTemperatureChartNFZXY
             case 'lyxrm':
-            case 'whhk':
             case "stmz":
               return allTemperatureChartLYXRM
             case 'whsl':
@@ -1565,6 +1564,7 @@ const router = new Router({
             case 'lyyz':
               return allTemperatureChartLYYZ
             case 'ytll':
+            case 'whhk':
               return allTemperatureChartYTLL
             case 'gdtj':
             return allTemperatureChartGDTJ
@@ -1606,7 +1606,6 @@ const router = new Router({
               return newSingleTemperatureChartWHFK;
             case "lyxrm":
             case "hj":
-            case 'whhk':
             case "stmz":
               return newSingleTemperatureChartLYXRM;
             case "whsl":
@@ -1620,6 +1619,7 @@ const router = new Router({
             case "liaocheng":
               return newSingleTemperatureChartLiaoCheng;
             case "lyyz":
+            case 'whhk':
               return newSingleTemperatureChartLYYZ;
             case "gdtj":
               return newSingleTemperatureChartGDTJ

@@ -524,7 +524,8 @@ export default {
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "zhongshanqi" ||
         this.HOSPITAL_ID == "foshanrenyi" ||
-        this.HOSPITAL_ID == "weixian"
+        this.HOSPITAL_ID == "weixian" || 
+        this.HOSPITAL_ID == "zzwy"
       ) {
         // 文件夹
         // 责任 + 审核的情况

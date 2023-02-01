@@ -386,6 +386,7 @@ export default {
     getSheetData(isBottom) {
       const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
       this.tableLoading = true;
+      sheetInfo.isDone = false;
       if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
         this.isLoad=false
       }
@@ -472,6 +473,9 @@ export default {
         await initSheetPage(titleData, bodyData, markData,this.listData);
           this.sheetModelData = getData();
           this.tableLoading = false;
+          //页面初始化之后 从本地localStorage拿值 如果是有值 就滚动到当前值回到当前操作页面  如果没有 就滚动到底部
+          //isDone 判断护记执行完所有操作后 加载完成标准
+          sheetInfo.isDone = true;
           let timeNum = 15;
           function toBottom() {
             timeNum--;
