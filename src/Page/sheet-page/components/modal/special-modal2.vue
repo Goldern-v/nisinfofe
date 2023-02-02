@@ -99,6 +99,23 @@
               检查报告
             </el-button>
           </div>
+          <div class="modal-btn-box" v-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID)">
+            <el-button
+              type="primary"
+              size="mini"
+              @click="openPISlide('testModal')"
+            >
+              检验报告
+            </el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              @click="openPISlide('inspectModal')"
+            >
+              检查报告
+            </el-button>
+          </div>
+
         </div>
         <div class="extra-box">
           <div class="extra-box__content">
