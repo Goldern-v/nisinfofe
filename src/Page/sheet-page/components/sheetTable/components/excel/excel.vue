@@ -1168,8 +1168,32 @@ export default {
         item,
       );
     },
-    addNullRow(index, row) {
+    addNullRow(index, row,direction) {
       let newRow = nullRow();
+      const rowRecordDate = row.find((item) => item.key == "recordDate").value
+      const rowRecordMonth = row.find((item) => item.key == "recordMonth").value
+      const allDateList = this.data.bodyModel.map((bodyModelItem)=>{
+        return bodyModelItem.find((item) => item.key == "recordMonth").value
+      })
+      let lastRecordMonth = ''
+      let addRowDate = ''
+      let findIndex = index
+      while(findIndex--){
+        if(allDateList[findIndex]){
+          lastRecordMonth = allDateList[findIndex]
+          break;
+        }
+      }
+      /*如果向上插入 就不能使用当前鼠标的日期 ，要用当前鼠标的下标位置来向上查找日期
+      **/
+      if (direction == 'upward') {
+        addRowDate = lastRecordMonth
+      } else {
+        /*因为插入列数会导致数组长度变化index下标不对应，所以如果本身有recordDate或者recordMonth的就直接使用 否则就向上查询获取
+        **/
+        addRowDate = rowRecordDate ? moment(rowRecordDate).format('MM-DD') : rowRecordMonth ? rowRecordMonth : lastRecordMonth
+      }
+      newRow.addRowDate = addRowDate;
       if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
         // 发送请求。有自定义标题且含下拉的。放进去
         const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
@@ -1178,59 +1202,59 @@ export default {
           let fieldEnArr=[]
           if(optionArr.length>0){
              // 先去重fieldEn。看看有没有当前的newRow有没有下拉。有就清空
-             optionArr.map(option=>{
-               if(option.pageIndex==this.index){
-                  fieldEnArr.push(option.fieldEn)
-               }
-               return option
-             })
-             const set =new Set(fieldEnArr)
-             const newFieldEnArr=[...set]
-             //去重完。清空下拉数据。不然会重复
-             newRow.map(row=>{
-               if(newFieldEnArr.includes(row.key)){
-                  if(row.autoComplete==undefined){
-                    // 没有下拉数据
-                    row.autoComplete={}
-                    row.autoComplete.data=[]
-                  }else{
-                    //有数据,清空
-                    row.autoComplete.data=[]
-                  }
-               }
-               return row
-             })
-             //添加下拉数据
-             optionArr.forEach(option=>{
-              if(option.pageIndex==this.index){
-                newRow=newRow.map(activeKey=>{
-                  if(activeKey.key==option.fieldEn){
+            optionArr.map(option => {
+              if (option.pageIndex == this.index) {
+                fieldEnArr.push(option.fieldEn)
+              }
+              return option
+            })
+            const set = new Set(fieldEnArr)
+            const newFieldEnArr = [...set]
+            //去重完。清空下拉数据。不然会重复
+            newRow.map(row => {
+              if (newFieldEnArr.includes(row.key)) {
+                if (row.autoComplete == undefined) {
+                  // 没有下拉数据
+                  row.autoComplete = {}
+                  row.autoComplete.data = []
+                } else {
+                  //有数据,清空
+                  row.autoComplete.data = []
+                }
+              }
+              return row
+            })
+            //添加下拉数据
+            optionArr.forEach(option => {
+              if (option.pageIndex == this.index) {
+                newRow = newRow.map(activeKey => {
+                  if (activeKey.key == option.fieldEn) {
                     activeKey.autoComplete.data.unshift(option.options)
                   }
                   return activeKey
                 })
               }
-             })
-           }
+            })
+          }
           //防止异步才在数据回来的结果写
           if (row) {
             let recordSource = row.find((item) => {
               return item.key == "recordSource";
             }).value;
             newRow.find((item) => {
-               return item.key == "recordSource";
-            }).value = recordSource;
-           }
-           this.data.bodyModel.splice(index + 1, 0, newRow);
-       })
-      }else{
-        if (row) {
-           let recordSource = row.find((item) => {
               return item.key == "recordSource";
-           }).value;
-           newRow.find((item) => {
+            }).value = recordSource;
+          }
+          this.data.bodyModel.splice(index + 1, 0, newRow);
+        })
+      } else {
+        if (row) {
+          let recordSource = row.find((item) => {
             return item.key == "recordSource";
-           }).value = recordSource;
+          }).value;
+          newRow.find((item) => {
+            return item.key == "recordSource";
+          }).value = recordSource;
         }
         this.data.bodyModel.splice(index + 1, 0, newRow);
       }
@@ -2108,14 +2132,14 @@ export default {
           name: "向上插入新行",
           icon: "charuxinhang",
           click: () => {
-            this.addNullRow(index - 1, row);
+            this.addNullRow(index - 1, row,'upward');
           },
         },
         {
           name: "向下插入新行",
           icon: "xiangxiacharuyihang",
           click: () => {
-            this.addNullRow(index, row);
+            this.addNullRow(index, row,'downward');
           },
         },
         {
