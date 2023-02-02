@@ -775,6 +775,7 @@ export default {
         "critical_new_weihai",
         "ultrasound_fs",
         "generalnursing_tj",
+        "ecgmonitoring_tj",
         "magnesiumsulf_fs",
         "pediatric3_tj",
         "prenataldelivery2_tj",

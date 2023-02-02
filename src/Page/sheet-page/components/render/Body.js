@@ -1586,6 +1586,11 @@ function switchSheetType(type) {
         schema = require("../config/generalnursing_tj/tr.js").default;
       }
       break;
+      case "ecgmonitoring_tj": {
+        // 广东同江 - 护理记录单（全院通用）
+          schema = require("../config/ecgmonitoring_tj/tr.js").default;
+        }
+        break;
     case "baby_tj": {
       // 广东同江 - 新生儿护理记录单
       schema = require("../config/baby_tj/tr.js").default;
