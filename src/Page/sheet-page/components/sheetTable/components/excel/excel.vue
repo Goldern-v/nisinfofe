@@ -1178,18 +1178,26 @@ export default {
       })
       let lastRecordMonth = ''
       let addRowDate = ''
-      let findIndex = index
-      while(findIndex--){
+      /*如果向上插入 就不能使用当前鼠标的日期 ，要用当前鼠标的下标位置来向上查找日期
+      **/
+      if (direction == 'upward') {
+        //以前代码传过来index-1 聚焦上一行  所以我们index+1  才对得上下标
+      let findIndex = index + 1
+        while(findIndex--){
         if(allDateList[findIndex]){
           lastRecordMonth = allDateList[findIndex]
           break;
         }
       }
-      /*如果向上插入 就不能使用当前鼠标的日期 ，要用当前鼠标的下标位置来向上查找日期
-      **/
-      if (direction == 'upward') {
         addRowDate = lastRecordMonth
       } else {
+        let findIndex = index
+        while(findIndex--){
+        if(allDateList[findIndex]){
+          lastRecordMonth = allDateList[findIndex]
+          break;
+        }
+      }
         /*因为插入列数会导致数组长度变化index下标不对应，所以如果本身有recordDate或者recordMonth的就直接使用 否则就向上查询获取
         **/
         addRowDate = rowRecordDate ? moment(rowRecordDate).format('MM-DD') : rowRecordMonth ? rowRecordMonth : lastRecordMonth
