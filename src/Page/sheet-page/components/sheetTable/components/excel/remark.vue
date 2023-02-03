@@ -626,6 +626,9 @@
     <div v-if="sheetInfo.sheetType == 'nurse_jew'||sheetInfo.sheetType == 'danger_nurse_jew'">
       备注：意识/神志清醒√、嗜睡/意识模糊+、昏睡++、浅昏迷+++、深昏迷++++；瞳孔对光反射：灵敏√、迟钝+、消失++；护理记录单横线上填一般或者危重。
     </div>
+    <div v-if="sheetInfo.sheetType == 'orthopaedic_sdry'">
+      注:意识:清醒√ 嗜睡+  浅昏迷++  深昏迷+++; 瞳孔对光反射：灵敏+  迟钝±  消失 - ; 颜色性状:①血性液②淡红色液体③暗红色液④黄色液⑤淡黄色液⑥深黄色液
+    </div>
     <!-- 广东同江 - 新生儿护理记录单 -->
     <div v-if="sheetInfo.sheetType == 'baby_tj'">
       注：1、意识选择：清醒	嗜睡+ 浅昏迷++ 深昏迷+++；&nbsp;2、体位：左侧：L，右侧：R，平卧：S；&nbsp;3、反应：以“好”、“激惹”、“一般”、“差”表示；&nbsp;4、哭声：以“响亮”、“微弱”表示；<br/>
