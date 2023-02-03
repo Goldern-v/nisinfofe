@@ -283,6 +283,7 @@ export function delSheetPage(index, callback) {
        ||sheetInfo.sheetType === "prenataldelivery2_tj"
        ||sheetInfo.sheetType === "pediatric3_tj"
        ||sheetInfo.sheetType === "postpartum2_tj"
+       ||sheetInfo.sheetType === "ecgmonitoring_tj"
      ) {
       let flag =
       tr.find(item => item.key == "status").value === "1" && // 是否已签名
