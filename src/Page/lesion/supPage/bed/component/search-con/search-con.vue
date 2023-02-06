@@ -291,6 +291,7 @@
 
 import {
   patients,
+  getPatLevelAndStatus,//补充患者信息接口
   syncGetNurseBedRec,
   syncGetMedicalAdvice,
   syncGetNurseBedRecLc,
@@ -528,7 +529,7 @@ export default {
           num: this.inBedLength.length,
           type: "bed",
         },
-        
+
         //  {
         //   name: "我的关注",
         //   num: this.heart.length,
@@ -684,7 +685,7 @@ export default {
         'zhzxy',
         'nfyksdyy',
         '925',
-        'dglb', 
+        'dglb',
         'stmz',
         'guizhou'
         ].includes(
@@ -738,7 +739,6 @@ export default {
         this.levelColor = levelColor;
         patients(this.deptCode).then((res) => {
           this.bedList = res.data.data.map((item) => {
-            // console.log(item.name, 978)
             item.nursingClassColor = (
               levelColor.find((o) => o.code == item.nursingClass) || {}
             ).name;
@@ -752,6 +752,37 @@ export default {
           }
           this.$parent.bedList = this.bedList;
           this.$parent.loading = false;
+          if(['huadu'].includes(this.HOSPITAL_ID)){
+            this.$nextTick(()=>{
+            const dataObj = {}
+            dataObj[`patientList`] = this.bedList.filter((filterList)=>filterList.patientId&&filterList.visitId)
+            .map((bedListItem)=>{
+              const { patientId, visitId, bedLabel, glFlag, drugGms } = bedListItem
+              return {patientId, visitId, bedLabel, glFlag, drugGms}
+            })
+            getPatLevelAndStatus(dataObj).then((res)=>{
+              const statusPatientList = res.data.data
+              if (res.data.code == 200 && statusPatientList.length) {
+                const data = this.bedList.map((bedListItem)=>{
+                  statusPatientList.map((newPatientList)=>{
+                    if((bedListItem.patientId==newPatientList.patientId)&&(bedListItem.visitId==newPatientList.visitId)){
+                      // bedListItem = {...bedListItem ,...newPatientList}
+                      for (let key of Object.keys(newPatientList)) {
+                        if(newPatientList[key]){
+                          bedListItem[key] = newPatientList[key]
+                        }
+                      }
+                    }
+                  })
+                  return bedListItem
+                })
+                this.bedList = data
+                console.log('this.bedList', data)
+            }
+          }).catch((err)=>{
+          })
+        })
+          }
         });
       }
     },
