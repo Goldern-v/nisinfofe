@@ -279,7 +279,7 @@
       <router-link
         v-if="HOSPITAL_ID === 'whsl'"
         :to="{
-          path: '/patientImplementationList',
+          path: '/implementationPerson',
           query: {
             patientId: query.patientId,
             visitId: query.visitId,
