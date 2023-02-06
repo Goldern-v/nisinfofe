@@ -751,9 +751,27 @@ export default {
         }
       }
     },
-    batchAudit(e, node,query) {
-      e.stopPropagation()
-      this.batchAuditForms = {...node.data,query}
+    // 表单里面的按钮直接调用。会传formCode过来做处理。拿到当前的表单
+    hangleBatchAudit(e,formCode){
+        const node= this.regions.find(formMsg=>{
+         return formMsg.formCode==formCode
+        })
+        if(node && node.canBatchAudit){
+          this.batchAudit(e,node,this.$route.query,false)
+          return
+        }
+        this.$message.error('你无权批量审核')
+    },
+    /* 
+    isNode el-tree中的节点
+     */
+    batchAudit(e, node,query,isNode=true) {
+      if(isNode){
+        e.stopPropagation()
+        this.batchAuditForms = {...node.data,query}
+      }else{
+        this.batchAuditForms = {...node,query}
+      }
       this.batchAuditDialog = true
     },
     handleCloseBatchAudit(refresh) {

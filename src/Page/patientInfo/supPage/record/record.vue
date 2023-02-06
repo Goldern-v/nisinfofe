@@ -44,6 +44,10 @@ export default {
       lockHospitalList:['huadu']//配置了表单锁定的医院
     };
   },
+  mounted(){
+    //挂载。让嵌套的iframe可以调用
+    window.hangleBatchAudit=(e,formCode)=>this.$refs.tree.hangleBatchAudit(e,formCode)
+  },
   methods:{
     async destroyUnlock(){
      const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
