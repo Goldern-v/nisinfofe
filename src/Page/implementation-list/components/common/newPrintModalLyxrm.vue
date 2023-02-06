@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div class="new-print-modal__content" :class="{is925}">
+      <div class="new-print-modal__content" :class="{is925}" v-if="HOSPITAL_ID != '925'">
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
@@ -47,7 +47,19 @@
           <span>{{currentBottle.dosageDosageUnits[index]}}</span>
         </div>
       </div>
-
+      <div class="new-print-modal__content" :class="{is925}" v-esle>
+        <div
+          v-for="(item, index) in currentBottle.orderText"
+          :key="index"
+          style="
+            display: block;
+            margin-bottom:5px;
+            font-size:22px
+            "
+        >{{item}}
+          <span  style="font-size:22px">{{currentBottle.dosageDosageUnits[index]}}</span>
+        </div>
+      </div>
       <div class="new-print-modal__tip">
         <div>医生说明:{{freqDetail}}</div>
         <div class="warm-icon">
